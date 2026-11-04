@@ -1,67 +1,51 @@
-# Cầu lông Việt Nam: lời đọc và chữ trên hình để soát
+# Cầu lông Việt Nam (vòng 2): lời đọc và chữ trên hình để soát
 
-Branch `cau-long-viet-nam`. Mỗi cảnh: LỜI ĐỌC (máy đọc), PHỤ ĐỀ (chữ chạy dưới), CHỮ TRÊN HÌNH (tiêu đề, thẻ, chú thích).
+Nhánh `cau-long-viet-nam`. Mỗi cảnh: LỜI ĐỌC, PHỤ ĐỀ, CHỮ TRÊN HÌNH. Lời đọc 234 từ; thời lượng ước tính khoảng 50 giây (chưa đo bằng TTS).
 
 ## Cảnh 1 (hook)
 
-**Lời đọc:** Một giải cầu lông thiếu niên ở Hải Phòng có tới sáu trăm ba mươi tay vợt. Vì sao môn thể thao quen thuộc này vẫn thu hút người chơi ở Việt Nam, giữa lúc pickleball được chú ý?
+**Lời đọc:** Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?
 
-**Phụ đề:** Một giải cầu lông thiếu niên ở Hải Phòng có tới 630 tay vợt. Vì sao môn thể thao quen thuộc này vẫn thu hút người chơi ở Việt Nam, giữa lúc pickleball được chú ý?
+**Phụ đề:** Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?
 
-**Chữ trên hình:** CẦU LÔNG | HẢI PHÒNG | 8/2026 | 630
+**Chữ trên hình:** VÌ SAO NGƯỜI VIỆT | MÊ CẦU LÔNG?
 
 ## Cảnh 2 (stat)
 
-**Lời đọc:** Đó là giải thiếu niên, nhi đồng tháng tám năm hai không hai sáu, với tay vợt từ năm mươi chín xã, phường. Sáu trăm ba mươi chỉ là quy mô một giải, chưa phải số người chơi cả thành phố.
+**Lời đọc:** Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng tám năm hai không hai sáu quy tụ sáu trăm ba mươi tay vợt. Đó là một ví dụ về sân chơi địa phương đưa người trẻ đến với cầu lông.
 
-**Phụ đề:** Đó là giải thiếu niên, nhi đồng tháng 8 năm 2026, với tay vợt từ 59 xã, phường. 630 chỉ là quy mô một giải, chưa phải số người chơi cả thành phố.
+**Phụ đề:** Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng 8 năm 2026 quy tụ 630 tay vợt. Đó là một ví dụ về sân chơi địa phương đưa người trẻ đến với cầu lông.
 
-**Chữ trên hình:** Giải thiếu niên, nhi đồng | 630 | tay vợt | Hải Phòng · 8/2026 | Từ 59 xã, phường | Chỉ là quy mô một giải
+**Chữ trên hình:** Sân chơi địa phương | 630 | tay vợt | Hải Phòng · 8/2026 | Giải thiếu niên, nhi đồng | Quy mô một giải
 
-## Cảnh 3 (steps)
+## Cảnh 3 (timeline)
 
-**Lời đọc:** Vậy người ta bước vào cầu lông bằng đường nào? Có thể từ giải trẻ địa phương, như ở Hải Phòng. Có thể bạn bè rủ nhau. Hoặc thuê sân gần nhà, hẹn giờ là có chỗ chơi.
+**Lời đọc:** Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại Thành phố Hồ Chí Minh chia sẻ với báo Thanh Niên rằng, từ mười tám đến hai mươi hai giờ thường đông khách nhất.
 
-**Phụ đề:** Vậy người ta bước vào cầu lông bằng đường nào? Có thể từ giải trẻ địa phương, như ở Hải Phòng. Có thể bạn bè rủ nhau. Hoặc thuê sân gần nhà, hẹn giờ là có chỗ chơi.
+**Phụ đề:** Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại TP.HCM chia sẻ với báo Thanh Niên rằng, từ 18 đến 22 giờ thường đông khách nhất.
 
-**Chữ trên hình:** Mấy đường vào sân | Giải trẻ địa phương | Như giải ở Hải Phòng | Bạn bè rủ nhau | Chơi cùng nhóm quen | Sân thuê gần nhà | Hẹn giờ là có chỗ
+**Chữ trên hình:** Có giờ để đi chơi | Tan làm | Cần giờ chơi thuận tiện | Hẹn nhóm | Nhắn nhau ra sân | 18–22 giờ | Đông khách nhất, theo một HLV kiêm chủ sân ở TP.HCM (Thanh Niên, 22/5/2026)
 
-## Cảnh 4 (timeline)
+## Cảnh 4 (chat)
 
-**Lời đọc:** Sau giờ làm, nhiều người hẹn nhau ra sân. Một huấn luyện viên ở Thành phố Hồ Chí Minh nói với báo Thanh Niên, khung giờ mười tám đến hai mươi hai giờ thường đông nhất. Chị còn kể, sau dịch, nhiều mặt bằng kho được trả lại nên có người mở sân.
+**Lời đọc:** Người chơi còn có thể tìm các nhóm vãng lai để giao lưu. Một người chơi được phỏng vấn ở Thành phố Hồ Chí Minh hay đến nhóm vãng lai gần nhà. Khi tìm được nhóm hợp nhau, việc ra sân có thêm một lý do.
 
-**Phụ đề:** Sau giờ làm, nhiều người hẹn nhau ra sân. Một huấn luyện viên ở TP.HCM nói với báo Thanh Niên, khung giờ 18 đến 22 giờ thường đông nhất. Chị còn kể, sau dịch, nhiều mặt bằng kho được trả lại nên có người mở sân.
+**Phụ đề:** Người chơi còn có thể tìm các nhóm vãng lai để giao lưu. Một người chơi được phỏng vấn ở TP.HCM hay đến nhóm vãng lai gần nhà. Khi tìm được nhóm hợp nhau, việc ra sân có thêm một lý do.
 
-**Chữ trên hình:** Một buổi tối ở sân | Tan làm | Nhắn nhóm hẹn ra sân | 18–22 giờ | Giờ đông nhất, theo một HLV ở TP.HCM | Sau dịch | Có người mở sân trên mặt bằng kho được trả lại
+**Chữ trên hình:** Minh họa: nhóm bạn rủ nhau | Tối nay đánh không? | Có, hẹn ở sân nhé. | Mình rủ thêm hai người nữa.
 
 ## Cảnh 5 (list)
 
-**Lời đọc:** Còn chuyện quay lại sân? Một người chơi ở Thành phố Hồ Chí Minh hay đến các nhóm vãng lai gần nhà để giao lưu. Môn này cần thể lực, kỹ thuật, chiến thuật, nên nhiều người muốn tập để đánh tốt hơn.
+**Lời đọc:** Rồi đến cảm giác đánh tốt hơn. Một người chơi được phỏng vấn nói môn này đòi hỏi thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân.
 
-**Phụ đề:** Còn chuyện quay lại sân? Một người chơi ở TP.HCM hay đến các nhóm vãng lai gần nhà để giao lưu. Môn này cần thể lực, kỹ thuật, chiến thuật, nên nhiều người muốn tập để đánh tốt hơn.
+**Phụ đề:** Rồi đến cảm giác đánh tốt hơn. Một người chơi được phỏng vấn nói môn này đòi hỏi thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân.
 
-**Chữ trên hình:** Vì sao họ quay lại | Nhóm vãng lai gần nhà | Cần luyện thể lực, kỹ thuật | Muốn đánh tốt hơn mỗi ngày
+**Chữ trên hình:** Vì sao muốn quay lại | Đỡ được cầu | Phối hợp tốt hơn | Muốn tập tiếp
 
-## Cảnh 6 (compare)
+## Cảnh 6 (outro)
 
-**Lời đọc:** Các môn còn cạnh tranh mặt bằng. Năm hai không hai bốn, báo VTC kể một chủ sân tennis đang tính đổi một sân thành ba sân pickleball. Mới là dự tính của một người, không nói lên tennis cả nước.
+**Lời đọc:** Tóm lại là, những ghi nhận trong nước gợi ra ba yếu tố: có nơi chơi, có nhóm bạn và có động lực tiến bộ. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?
 
-**Phụ đề:** Các môn còn cạnh tranh mặt bằng. Năm 2024, báo VTC kể một chủ sân tennis đang tính đổi một sân thành 3 sân pickleball. Mới là dự tính của một người, không nói lên tennis cả nước.
+**Phụ đề:** Tóm lại là, những ghi nhận trong nước gợi ra 3 yếu tố: có nơi chơi, có nhóm bạn và có động lực tiến bộ. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?
 
-**Chữ trên hình:** Cạnh tranh mặt bằng | Sân tennis trong nhà | 1 sân | hiện có | Dự tính của một chủ sân, 2024 | Sân pickleball | 3 sân | chủ sân đang tính đổi | Mới là dự tính, chưa phải đã làm | VTC News, 15/11/2024. Một trường hợp, không đại diện cả nước.
-
-## Cảnh 7 (myth)
-
-**Lời đọc:** Có ba chỗ dễ nhầm. Giải đông chỉ cho biết quy mô một giải, chưa nói người chơi cả nước tăng bao nhiêu. Pickleball hút đầu tư, chưa chứng minh cầu lông bị thay thế. Và sân đông buổi tối, chưa chắc kín cả ngày.
-
-**Phụ đề:** Có 3 chỗ dễ nhầm. Giải đông chỉ cho biết quy mô một giải, chưa nói người chơi cả nước tăng bao nhiêu. Pickleball hút đầu tư, chưa chứng minh cầu lông bị thay thế. Và sân đông buổi tối, chưa chắc kín cả ngày.
-
-**Chữ trên hình:** Đừng hiểu nhầm | Giải đông = người chơi tăng | Chỉ cho biết quy mô một giải | Pickleball hút vốn = cầu lông thua | Chưa đủ số liệu cả nước | Sân đông buổi tối = kín cả ngày | Đông ở giờ thuận tiện
-
-## Cảnh 8 (outro)
-
-**Lời đọc:** Tóm lại là, nơi chơi gần nhà cùng một nhóm người quen có thể giúp cầu lông giữ chân người chơi. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn? Kể mình nghe nhé!
-
-**Phụ đề:** Tóm lại là, nơi chơi gần nhà cùng một nhóm người quen có thể giúp cầu lông giữ chân người chơi. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn? Kể mình nghe nhé!
-
-**Chữ trên hình:** TÓM LẠI LÀ | Sân gần, nhóm quen | có thể giữ người chơi! | Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?
+**Chữ trên hình:** TÓM LẠI LÀ | Có nơi chơi, có nhóm, | muốn tiến bộ | Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?
