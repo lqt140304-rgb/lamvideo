@@ -52,8 +52,13 @@ console.log("Chuẩn hóa âm lượng về -14 LUFS…");
 const probe = ffmpeg(["-hide_banner", "-i", raw, "-af", `loudnorm=${TARGET}:print_format=json`, "-f", "null", "-"], true);
 const m = (probe.stderr || "").match(/\{[^{}]*"input_i"[^{}]*\}/);
 if (!m) {
-  console.warn("\x1b[33mKhông đo được âm lượng, giữ nguyên bản gốc.\x1b[0m");
-  fs.copyFileSync(raw, final);
+  // Không đọc được kết quả đo (hay gặp trên Windows): chuẩn hóa 1 lượt, không cần số đo.
+  console.warn("\x1b[33mKhông đo được âm lượng, chuẩn hóa 1 lượt.\x1b[0m");
+  const n = ffmpeg(["-hide_banner", "-loglevel", "error", "-y", "-i", raw, "-c:v", "copy", "-af", `loudnorm=${TARGET}`, "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", final]);
+  if (n.status !== 0) {
+    console.warn("\x1b[33mChuẩn hóa âm lượng lỗi, giữ nguyên bản gốc.\x1b[0m");
+    fs.copyFileSync(raw, final);
+  } else console.log("Âm lượng: đã chuẩn hóa về -14 LUFS (1 lượt)");
 } else {
   const s = JSON.parse(m[0]);
   const af = `loudnorm=${TARGET}:measured_I=${s.input_i}:measured_TP=${s.input_tp}:measured_LRA=${s.input_lra}:measured_thresh=${s.input_thresh}:offset=${s.target_offset}:linear=true`;

@@ -25,10 +25,11 @@
         "file": "giao-thong-ha-noi.jpg",
         "say": "Nghe tin Hà Nội cấm xe máy xăng",
         "hold": 2.0,
-        "query": "Hanoi motorbike traffic",
+        "query": "Hanoi traffic",
         "must": [
           "hanoi",
-          "ha noi"
+          "ha noi",
+          "hà nội"
         ],
         "caption": "Hà Nội sắp cấm xe máy xăng?"
       },
@@ -108,7 +109,7 @@
         "file": "cay-xang-bom.jpg",
         "say": "Giá xăng hiện hơn hai mươi ba nghìn một lít",
         "hold": 2.2,
-        "query": "Petrolimex gas station Vietnam",
+        "query": "Petrolimex",
         "must": [
           "petrolimex",
           "petrol",

@@ -318,6 +318,12 @@ for (const it of items) {
     if (!list.length) throw new Error(`không tìm thấy ảnh hợp lệ cho "${it.query}"`);
     let done = false;
     for (let k = it.pick ?? 0; k < list.length && !done; k++) {
+      if (it.since && it.pick === undefined && list[k].match === false) {
+        // có mốc ngày mà không còn ảnh đạt: thà bỏ ảnh còn hơn dùng ảnh cũ / sai chủ đề
+        console.warn(`\x1b[33m${tag}: không có ảnh nào từ ${it.since} đạt yêu cầu → bỏ ảnh này (video vẫn render bình thường). Đổi "query" hoặc chọn tay trong chon-anh.html.\x1b[0m`);
+        done = true;
+        break;
+      }
       try {
         const size = await download(list[k].url, dest);
         credits[it.file] = creditOf(list[k], it, k);
