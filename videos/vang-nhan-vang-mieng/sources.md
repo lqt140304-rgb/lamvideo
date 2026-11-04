@@ -8,3 +8,6 @@
 - Kết luận "miếng giá cao hơn, nhẫn chênh mua bán cao hơn" đúng ngày 29/10/2026, KHÔNG phải lúc nào cũng vậy (đầu 10/2026 nhẫn có lúc cao hơn miếng). Cân nhắc thêm "thời điểm này".
 - Ý "nhẫn tiệm này bán tiệm khác" là lời nhắc chung (nguồn chỉ nói mỗi nơi một giá, đối chiếu đúng sản phẩm).
 - Video chỉ giải thích, không khuyên mua bán.
+
+## Góp ý 5/11/2026
+- Giữ rõ ngày giá 29/10/2026 trên hình; nhận xét chênh lệch chỉ đúng với bảng giá ngày đó, đổi theo ngày. Phải làm mới số liệu trước khi đăng.

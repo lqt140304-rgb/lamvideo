@@ -14,3 +14,6 @@ Kiểm tra lại trước khi đăng, vì chính sách và giá xăng thay đổ
 
 ## Ý kiến (không phải số liệu)
 - "Sạc mất nhiều giờ", "chung cư, nhà trọ khó chỗ sạc", "bán xe xăng cũ dễ bị ép giá", và phần "ai nên đổi" là nhận định chung của kênh, không trích từ nguồn.
+
+## Đã đối chiếu 5/11/2026 (sau góp ý)
+- Đề án vùng phát thải thấp https://xaydungchinhsach.chinhphu.vn/cong-bo-de-an-vung-phat-thai-thap-trong-vanh-dai-1-thanh-pho-ha-noi-119260703145217105.htm : khung 19–24h thứ Sáu–Chủ nhật tại Khu vực 1 áp dụng cho TOÀN BỘ phương tiện đường bộ (giai đoạn 1/7–31/12/2026). Năm 2027 mở rộng Khu vực 1,2,3 Hoàn Kiếm và Cửa Nam: xe máy dùng nhiên liệu hóa thạch kinh doanh trên ứng dụng không được hoạt động; xe máy không đạt khí thải mức 3 không được lưu thông. 2028–2029: toàn Vành đai 1.

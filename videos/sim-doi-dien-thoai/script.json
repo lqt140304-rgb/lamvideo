@@ -41,12 +41,12 @@
         },
         {
           "from": "bot",
-          "text": "Có 30 ngày để xác thực khuôn mặt",
+          "text": "Từ lúc bị khóa chiều đi: 30 ngày để xác thực",
           "at": 0.72
         }
       ],
-      "voice": "Từ ngày mười lăm tháng sáu năm hai không hai sáu, quy định mới bắt đầu áp dụng. Khi bạn đổi máy, trong hai giờ nhà mạng có thể tạm khóa chiều gọi đi và nhắn tin. Bạn có ba mươi ngày để xác thực khuôn mặt.",
-      "sub": "Từ 15/6/2026, quy định mới bắt đầu áp dụng. Khi bạn đổi máy, trong 2 giờ nhà mạng có thể tạm khóa chiều gọi đi và nhắn tin. Bạn có 30 ngày để xác thực khuôn mặt."
+      "voice": "Từ ngày mười lăm tháng sáu năm hai không hai sáu, quy định mới bắt đầu áp dụng. Khi bạn đổi máy, trong hai giờ nhà mạng có thể tạm khóa chiều gọi đi và nhắn tin. Tính từ lúc đó, bạn có ba mươi ngày để xác thực khuôn mặt.",
+      "sub": "Từ ngày 15/6/2026, quy định mới bắt đầu áp dụng. Khi bạn đổi máy, trong 2 giờ nhà mạng có thể tạm khóa chiều gọi đi và nhắn tin. Tính từ lúc đó, bạn có 30 ngày để xác thực khuôn mặt."
     },
     {
       "type": "list",
@@ -97,14 +97,15 @@
           "art": "lockphone",
           "tint": "red",
           "amountText": "Khóa 2 chiều",
-          "unit": "rồi chấm dứt sau 5 ngày",
+          "unit": "5 ngày sau có thể chấm dứt",
           "note": "theo Thông tư 08/2026",
           "at": 0.55
         }
       ],
       "footnote": "Theo Thông tư 08/2026/TT-BKHCN, có hiệu lực từ 15/6/2026",
-      "voice": "Nếu xác thực kịp, bạn dùng như cũ. Nếu để quá hạn, nhà mạng khóa cả hai chiều, và có thể chấm dứt dịch vụ sau năm ngày.",
-      "layout": "slider"
+      "voice": "Nếu xác thực kịp, bạn dùng như cũ. Nếu quá ba mươi ngày mà chưa xác thực, nhà mạng khóa cả hai chiều, và năm ngày sau có thể chấm dứt dịch vụ.",
+      "layout": "slider",
+      "sub": "Nếu xác thực kịp, bạn dùng như cũ. Nếu quá 30 ngày mà chưa xác thực, nhà mạng khóa cả hai chiều, và 5 ngày sau có thể chấm dứt dịch vụ."
     },
     {
       "type": "list",

@@ -17,8 +17,9 @@
       ],
       "stamp": "15,5 TRIỆU",
       "art": "taxform",
-      "voice": "Luật thuế thu nhập cá nhân mới đã có hiệu lực từ tháng bảy. Vậy lương bao nhiêu thì bắt đầu phải nộp thuế?",
-      "layout": "question"
+      "voice": "Luật thuế thu nhập cá nhân mới áp dụng cho kỳ tính thuế năm hai không hai sáu. Vậy lương bao nhiêu thì bắt đầu phải nộp thuế?",
+      "layout": "question",
+      "sub": "Luật thuế thu nhập cá nhân mới áp dụng cho kỳ tính thuế năm 2026. Vậy lương bao nhiêu thì bắt đầu phải nộp thuế?"
     },
     {
       "type": "stat",
@@ -29,7 +30,7 @@
       "pose": "excited",
       "chips": [
         {
-          "text": "Từ 1/7/2026",
+          "text": "Kỳ tính thuế 2026",
           "at": 0.04
         },
         {
@@ -41,8 +42,8 @@
           "at": 0.7
         }
       ],
-      "voice": "Từ ngày một tháng bảy năm hai không hai sáu, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là mười lăm phẩy năm triệu mỗi tháng, trước là mười một triệu. Mỗi người phụ thuộc được trừ sáu phẩy hai triệu, trước là bốn phẩy bốn triệu.",
-      "sub": "Từ ngày 1/7/2026, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là 15,5 triệu mỗi tháng, trước là 11 triệu. Mỗi người phụ thuộc được trừ 6,2 triệu, trước là 4,4 triệu."
+      "voice": "Luật Thuế thu nhập cá nhân mới có hiệu lực từ ngày một tháng một năm hai không hai sáu, áp dụng cho kỳ tính thuế năm hai không hai sáu. Mức giảm trừ cho bản thân là mười lăm phẩy năm triệu mỗi tháng, trước là mười một triệu. Mỗi người phụ thuộc được trừ sáu phẩy hai triệu, trước là bốn phẩy bốn triệu.",
+      "sub": "Luật Thuế thu nhập cá nhân mới có hiệu lực từ ngày 1/1/2026, áp dụng cho kỳ tính thuế năm 2026. Mức giảm trừ cho bản thân là 15,5 triệu mỗi tháng, trước là 11 triệu. Mỗi người phụ thuộc được trừ 6,2 triệu, trước là 4,4 triệu."
     },
     {
       "type": "ladder",
@@ -98,15 +99,15 @@
           "kind": "generic",
           "art": "piggy",
           "tint": "green",
-          "amountText": "~0,48tr",
+          "amountText": "~475 nghìn",
           "unit": "thuế / tháng",
           "note": "trừ 15,5 triệu, biểu 5 bậc",
           "at": 0.55
         }
       ],
-      "footnote": "Mình tự tính: độc thân, chưa trừ bảo hiểm bắt buộc, không khoản miễn khác",
-      "voice": "Thử tính với lương hai mươi lăm triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng một phẩy ba lăm triệu mỗi tháng. Cách mới chỉ khoảng bốn trăm tám mươi nghìn.",
-      "sub": "Thử tính với lương 25 triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng 1,35 triệu mỗi tháng. Cách mới chỉ khoảng 480 nghìn.",
+      "footnote": "Mình tự tính: độc thân, không người phụ thuộc, coi cả lương là thu nhập chịu thuế, chưa trừ bảo hiểm bắt buộc",
+      "voice": "Thử tính với lương hai mươi lăm triệu, độc thân, không người phụ thuộc, coi cả lương là thu nhập chịu thuế, chưa trừ bảo hiểm. Cách cũ nộp khoảng một phẩy ba lăm triệu mỗi tháng. Cách mới chỉ khoảng bốn trăm bảy mươi lăm nghìn.",
+      "sub": "Thử tính với lương 25 triệu, độc thân, không người phụ thuộc, coi cả lương là thu nhập chịu thuế, chưa trừ bảo hiểm. Cách cũ nộp khoảng 1,35 triệu mỗi tháng. Cách mới chỉ khoảng 475 nghìn.",
       "layout": "slider"
     },
     {
@@ -146,21 +147,21 @@
           "Có thu nhập khác"
         ]
       },
-      "voice": "Còn ai chưa phải nộp thuế? Độc thân, thu nhập dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
-      "sub": "Còn ai chưa phải nộp thuế? Độc thân, thu nhập dưới 15,5 triệu. Có 1 người phụ thuộc, dưới 21,7 triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
+      "voice": "Còn ai chưa phải nộp thuế? Độc thân, thu nhập chịu thuế dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
+      "sub": "Còn ai chưa phải nộp thuế? Độc thân, thu nhập chịu thuế dưới 15,5 triệu. Có 1 người phụ thuộc, dưới 21,7 triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
       "layout": "scale"
     },
     {
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Dưới 15,5 triệu/tháng",
+        "Độc thân dưới 15,5 triệu",
         "chưa phải nộp thuế!"
       ],
       "cta": "Lương thực nhận của bạn nhích lên chưa?",
       "pad": 0.6,
-      "voice": "Tóm lại là, thu nhập dưới mười lăm phẩy năm triệu một tháng thì chưa phải nộp thuế. Lương thực nhận của bạn đã nhích lên chưa? Kể mình nghe nhé!",
-      "sub": "Tóm lại là, thu nhập dưới 15,5 triệu một tháng thì chưa phải nộp thuế. Lương thực nhận của bạn đã nhích lên chưa? Kể mình nghe nhé!"
+      "voice": "Tóm lại là, người độc thân có thu nhập chịu thuế dưới mười lăm phẩy năm triệu một tháng thì chưa phải nộp thuế. Lương thực nhận của bạn đã nhích lên chưa? Kể mình nghe nhé!",
+      "sub": "Tóm lại là, người độc thân có thu nhập chịu thuế dưới 15,5 triệu một tháng thì chưa phải nộp thuế. Lương thực nhận của bạn đã nhích lên chưa? Kể mình nghe nhé!"
     }
   ],
   "id": "thue-tncn-moi"

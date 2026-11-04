@@ -17,8 +17,8 @@
       ],
       "stamp": "12,5%",
       "art": "ship",
-      "voice": "Mỹ áp thuế mười hai phẩy năm phần trăm với hàng Việt Nam. Con số này cao hay thấp, và ai chịu ảnh hưởng?",
-      "sub": "Mỹ áp thuế 12,5% với hàng Việt Nam. Con số này cao hay thấp, và ai chịu ảnh hưởng?",
+      "voice": "Mỹ áp thuế bổ sung mười hai phẩy năm phần trăm với hàng Việt Nam. Con số này cao hay thấp, và ai chịu ảnh hưởng?",
+      "sub": "Mỹ áp thuế bổ sung 12,5% với hàng Việt Nam. Con số này cao hay thấp, và ai chịu ảnh hưởng?",
       "layout": "news"
     },
     {
@@ -32,7 +32,7 @@
         },
         {
           "title": "24/7/2026",
-          "detail": "Mức thuế bổ sung 12,5% có hiệu lực",
+          "detail": "Thuế bổ sung 12,5% theo Mục 301 có hiệu lực",
           "at": 0.36
         },
         {
@@ -41,8 +41,8 @@
           "at": 0.68
         }
       ],
-      "voice": "Tháng hai năm hai không hai sáu, Tòa án Tối cao Mỹ bác mức thuế hai mươi phần trăm cũ. Từ ngày hai mươi tư tháng bảy, Mỹ áp mức thuế bổ sung mười hai phẩy năm phần trăm. Mức này không cộng dồn với hai mươi phần trăm, và tự hết hạn sau bốn năm nếu không gia hạn.",
-      "sub": "Tháng 2/2026, Tòa án Tối cao Mỹ bác mức thuế 20% cũ. Từ ngày 24/7, Mỹ áp mức thuế bổ sung 12,5%. Mức này không cộng dồn với 20%, và tự hết hạn sau 4 năm nếu không gia hạn."
+      "voice": "Tháng hai năm hai không hai sáu, Tòa án Tối cao Mỹ bác mức thuế hai mươi phần trăm cũ. Từ ngày hai mươi tư tháng bảy, Mỹ áp thuế bổ sung mười hai phẩy năm phần trăm theo Mục ba trăm linh một, một số nhóm hàng được miễn. Đây chỉ là phần thuế bổ sung, chưa phải tổng mọi loại thuế. Theo thông tin đã công bố, mức này tự hết hạn sau bốn năm nếu không gia hạn.",
+      "sub": "Tháng 2/2026, Tòa án Tối cao Mỹ bác mức thuế 20% cũ. Từ ngày 24/7, Mỹ áp thuế bổ sung 12,5% theo Mục 301, một số nhóm hàng được miễn. Đây chỉ là phần thuế bổ sung, chưa phải tổng mọi loại thuế. Theo thông tin đã công bố, mức này tự hết hạn sau 4 năm nếu không gia hạn."
     },
     {
       "type": "compare",
@@ -129,7 +129,7 @@
         "title": "Tin tốt",
         "items": [
           "Thấp hơn 20% cũ",
-          "Không cộng dồn"
+          "Một số nhóm được miễn"
         ]
       },
       "right": {
@@ -139,8 +139,8 @@
           "Còn 2 cuộc điều tra"
         ]
       },
-      "voice": "Gộp lại thì đây là tin tốt hay tin xấu? Tin tốt là thấp hơn mức hai mươi phần trăm cũ, và không cộng dồn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn hai cuộc điều tra khác của Mỹ đang diễn ra.",
-      "sub": "Gộp lại thì đây là tin tốt hay tin xấu? Tin tốt là thấp hơn mức 20% cũ, và không cộng dồn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn 2 cuộc điều tra khác của Mỹ đang diễn ra.",
+      "voice": "Gộp lại thì đây là tin tốt hay tin xấu? Tin tốt là thấp hơn mức hai mươi phần trăm cũ, và một số nhóm hàng được miễn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn hai cuộc điều tra khác của Mỹ đang diễn ra.",
+      "sub": "Gộp lại thì đây là tin tốt hay tin xấu? Tin tốt là thấp hơn mức 20% cũ, và một số nhóm hàng được miễn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn 2 cuộc điều tra khác của Mỹ đang diễn ra.",
       "layout": "scale",
       "heavier": "even"
     },
@@ -148,13 +148,13 @@
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Thuế giảm còn 12,5%",
+        "Thuế bổ sung 12,5%",
         "nhưng rủi ro chưa hết!"
       ],
       "cta": "Công ty bạn có xuất hàng sang Mỹ không?",
       "pad": 0.6,
-      "voice": "Tóm lại là, thuế giảm còn mười hai phẩy năm phần trăm, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Chia sẻ ở bình luận nhé!",
-      "sub": "Tóm lại là, thuế giảm còn 12,5%, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Chia sẻ ở bình luận nhé!"
+      "voice": "Tóm lại là, thuế bổ sung còn mười hai phẩy năm phần trăm, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Chia sẻ ở bình luận nhé!",
+      "sub": "Tóm lại là, thuế bổ sung còn 12,5%, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Chia sẻ ở bình luận nhé!"
     }
   ],
   "id": "my-thue-12-5"

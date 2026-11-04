@@ -7,3 +7,7 @@
 - Danh sách nhóm 10% khác nhau giữa 2 bài (một bài có Ấn Độ, Malaysia, Campuchia…; bài kia chỉ 6 đối tác). Script chỉ nêu Indonesia, Mexico (có ở cả hai).
 - Ngày giờ: 0h01 24/7 giờ Mỹ ≈ 12h 24/7 giờ Việt Nam.
 - Chủ đề chính sách thương mại: giữ trung lập, không bình luận chính trị.
+
+## Đã đối chiếu 5/11/2026 (sau góp ý)
+- Hải quan Mỹ (CSMS) https://content.govdelivery.com/accounts/USDHSCBP/bulletins/421d887 : thuế bổ sung 12,5% theo Section 301 (HTSUS 9903.05.84), hiệu lực 24/7/2026; miễn cho các mã 9903.05.85–.92 (máy bay dân dụng, dược phẩm, thép/nhôm/đồng, xe và phụ tùng, gỗ, bán dẫn...). Văn bản không nói rõ cộng dồn hay không với thuế khác: video bỏ câu "không cộng dồn", chỉ nói đây là thuế bổ sung.
+- "Tự hết hạn sau 4 năm": lấy từ nguồn trước, chưa thấy trong bản CSMS này.

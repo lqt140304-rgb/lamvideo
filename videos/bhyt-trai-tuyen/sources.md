@@ -7,3 +7,6 @@
 - Chưa nêu được số hiệu luật/nghị định gốc (các bài nhắc Luật BHYT sửa đổi, Nghị định 188/2025/NĐ-CP) – đối chiếu.
 - "Trước đây bảo hiểm không trả": đúng với bệnh ngoài danh mục Thông tư 01/2025; bệnh trong danh mục vẫn được 100%. Cân nhắc nói rõ hơn.
 - Ví dụ 1 triệu là tự tính, giả định toàn bộ chi phí trong phạm vi hưởng.
+
+## Góp ý 5/11/2026 (CHƯA mở được nguồn: baohiemxahoi.gov.vn chặn truy cập tự động)
+- Đã sửa lời theo góp ý: 50% **mức hưởng**, trong phạm vi được thanh toán, tùy nhóm cơ sở; ví dụ 400.000 đồng chỉ đúng khi cả 1 triệu thuộc phạm vi; không nói mọi bệnh viện chuyên sâu/trung ương đều áp dụng. Cần đối chiếu văn bản gốc trước khi đăng.

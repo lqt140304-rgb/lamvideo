@@ -15,34 +15,34 @@
         "KHI NÀO PHẢI",
         "NỘP THUẾ?"
       ],
-      "stamp": "500 TRIỆU",
+      "stamp": "1 TỶ",
       "art": "rentsign",
-      "voice": "Cho thuê nhà thu bao nhiêu thì phải nộp thuế? Mốc quan trọng là năm trăm triệu một năm.",
+      "voice": "Cho thuê nhà thu bao nhiêu thì phải nộp thuế? Mốc này vừa được nâng lên một tỷ đồng một năm.",
       "layout": "number",
-      "sub": "Cho thuê nhà thu bao nhiêu thì phải nộp thuế? Mốc quan trọng là 500 triệu một năm."
+      "sub": "Cho thuê nhà thu bao nhiêu thì phải nộp thuế? Mốc này vừa được nâng lên 1 tỷ đồng một năm."
     },
     {
       "type": "stat",
-      "headline": "Mốc 500 triệu một năm",
-      "value": "500",
-      "unit": "triệu đồng / năm",
-      "ring": 0.85,
+      "headline": "Mốc 1 tỷ một năm",
+      "value": "1",
+      "unit": "tỷ đồng / năm",
+      "ring": 0.9,
       "chips": [
         {
-          "text": "Nghị định 68/2026",
+          "text": "Nghị định 141/2026",
           "at": 0.04
         },
         {
-          "text": "Mốc tính từ 1/1/2026",
+          "text": "Áp dụng từ 1/1/2026",
           "at": 0.38
         },
         {
-          "text": "Dưới mốc: không nộp thuế",
+          "text": "Đến 1 tỷ: không nộp GTGT, TNCN",
           "at": 0.68
         }
       ],
-      "voice": "Nghị định sáu mươi tám năm hai không hai sáu ban hành ngày năm tháng ba. Mốc tính áp dụng từ ngày một tháng một năm hai không hai sáu. Cá nhân cho thuê nhà có doanh thu từ năm trăm triệu đồng một năm trở xuống thì không phải nộp thuế.",
-      "sub": "Nghị định 68/2026 ban hành ngày 5/3. Mốc tính áp dụng từ ngày 1/1/2026. Cá nhân cho thuê nhà có doanh thu từ 500 triệu đồng một năm trở xuống thì không phải nộp thuế."
+      "voice": "Nghị định một trăm bốn mươi mốt năm hai không hai sáu, ban hành ngày hai mươi chín tháng tư, nâng mốc từ năm trăm triệu lên một tỷ đồng một năm. Mốc này áp dụng từ ngày một tháng một năm hai không hai sáu. Cá nhân cho thuê nhà có doanh thu từ một tỷ đồng một năm trở xuống thì không phải nộp thuế giá trị gia tăng và thuế thu nhập cá nhân.",
+      "sub": "Nghị định 141/2026, ban hành ngày 29/4, nâng mốc từ 500 triệu lên 1 tỷ đồng một năm. Mốc này áp dụng từ ngày 1/1/2026. Cá nhân cho thuê nhà có doanh thu từ 1 tỷ đồng một năm trở xuống thì không phải nộp thuế giá trị gia tăng và thuế thu nhập cá nhân."
     },
     {
       "type": "compare",
@@ -50,29 +50,29 @@
       "bars": false,
       "cards": [
         {
-          "label": "Từ 500 triệu trở xuống",
+          "label": "Từ 1 tỷ trở xuống",
           "kind": "generic",
           "art": "rentsign",
           "tint": "green",
           "amountText": "Không thuế",
-          "unit": "thuế thu nhập, thuế GTGT",
+          "unit": "thuế GTGT, thuế TNCN",
           "note": "doanh thu một năm",
           "at": 0.1
         },
         {
-          "label": "Trên 500 triệu",
+          "label": "Trên 1 tỷ",
           "kind": "generic",
           "art": "taxform",
           "tint": "red",
           "amountText": "Có thuế",
-          "unit": "GTGT 5%, TNCN 5%",
-          "note": "TNCN tính trên phần vượt 500 triệu",
+          "unit": "GTGT và TNCN",
+          "note": "tính theo hướng dẫn hiện hành",
           "at": 0.55
         }
       ],
-      "footnote": "Theo Thuế & Hải quan Online, 11/3/2026; đối chiếu văn bản gốc",
-      "voice": "Từ năm trăm triệu trở xuống thì không nộp thuế. Còn trên ngưỡng, thuế giá trị gia tăng năm phần trăm, và thuế thu nhập cá nhân năm phần trăm trên phần vượt năm trăm triệu.",
-      "sub": "Từ 500 triệu trở xuống thì không nộp thuế. Còn trên ngưỡng, thuế giá trị gia tăng 5%, và thuế thu nhập cá nhân 5% trên phần vượt 500 triệu.",
+      "footnote": "Theo Báo Chính phủ, 28/10/2026 (Nghị định 141/2026/NĐ-CP)",
+      "voice": "Từ một tỷ đồng trở xuống thì không nộp hai loại thuế này. Còn trên ngưỡng, chủ nhà có nghĩa vụ nộp thuế giá trị gia tăng và thuế thu nhập cá nhân, theo cách tính trong hướng dẫn hiện hành.",
+      "sub": "Từ 1 tỷ đồng trở xuống thì không nộp hai loại thuế này. Còn trên ngưỡng, chủ nhà có nghĩa vụ nộp thuế giá trị gia tăng và thuế thu nhập cá nhân, theo cách tính trong hướng dẫn hiện hành.",
       "layout": "slider"
     },
     {
@@ -81,17 +81,17 @@
       "headline": "Chủ nhà cần nhớ",
       "pose": "think",
       "items": [
-        "Cá nhân tự khai thuế",
-        "Khai 1 hoặc 2 lần mỗi năm",
-        "Hạn khai: 31/1 năm sau"
+        "Hợp đồng ký trước 2026: xem lại cách khai",
+        "Đã khai theo cách cũ: không khai lại",
+        "Chưa khai: làm theo mới, không bị phạt"
       ],
       "at": [
         0.1,
         0.45,
         0.75
       ],
-      "voice": "Chủ nhà cần nhớ ba điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai hai lần hoặc một lần mỗi năm. Và hạn khai muộn nhất là ngày ba mươi mốt tháng một năm sau.",
-      "sub": "Chủ nhà cần nhớ 3 điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai 2 lần hoặc 1 lần mỗi năm. Và hạn khai muộn nhất là ngày 31/1 năm sau.",
+      "voice": "Chủ nhà cần nhớ ba điều. Hợp đồng ký trước năm hai không hai sáu, còn hơn sáu tháng, thì phải xem lại cách khai. Nếu đã khai theo cách cũ thì không phải khai lại. Còn chưa khai thì làm theo hướng dẫn mới và không bị xử phạt.",
+      "sub": "Chủ nhà cần nhớ 3 điều. Hợp đồng ký trước năm 2026, còn hơn 6 tháng, thì phải xem lại cách khai. Nếu đã khai theo cách cũ thì không phải khai lại. Còn chưa khai thì làm theo hướng dẫn mới và không bị xử phạt.",
       "layout": "notes",
       "broll": {
         "file": "nha-cho-thue.jpg",
@@ -114,18 +114,18 @@
           "at": 0.04
         },
         {
-          "myth": "Mỗi hợp đồng được trừ 500 triệu",
-          "fact": "Tổng mức trừ cả năm chỉ 500 triệu",
+          "myth": "Mỗi hợp đồng được trừ 1 tỷ",
+          "fact": "Tổng mức cả năm chỉ 1 tỷ",
           "at": 0.36
         },
         {
-          "myth": "Thu dưới mốc thì khỏi cần biết",
-          "fact": "Vẫn nên kiểm tra nghĩa vụ khai thuế",
+          "myth": "Dưới mốc thì không có thủ tục gì",
+          "fact": "Vẫn có thể phải khai, tùy trường hợp",
           "at": 0.68
         }
       ],
-      "voice": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức trừ cả năm vẫn chỉ năm trăm triệu. Và dù thu dưới ngưỡng, vẫn nên kiểm tra nghĩa vụ khai thuế của mình.",
-      "sub": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức trừ cả năm vẫn chỉ 500 triệu. Và dù thu dưới ngưỡng, vẫn nên kiểm tra nghĩa vụ khai thuế của mình."
+      "voice": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức cả năm vẫn chỉ một tỷ đồng. Và dù thu dưới ngưỡng, vẫn có thể có thủ tục khai, nên kiểm tra theo trường hợp của mình.",
+      "sub": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức cả năm vẫn chỉ 1 tỷ đồng. Và dù thu dưới ngưỡng, vẫn có thể có thủ tục khai, nên kiểm tra theo trường hợp của mình."
     },
     {
       "type": "verdict",
@@ -134,31 +134,31 @@
       "left": {
         "title": "Cần chú ý",
         "items": [
-          "Thu trên 500 triệu/năm",
+          "Thu trên 1 tỷ/năm",
           "Có nhiều hợp đồng"
         ]
       },
       "right": {
         "title": "Nhẹ nhàng",
         "items": [
-          "Thu dưới 500 triệu/năm",
+          "Thu dưới 1 tỷ/năm",
           "Một hợp đồng"
         ]
       },
-      "voice": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên năm trăm triệu một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, một hợp đồng, thì nhẹ nhàng hơn.",
-      "sub": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên 500 triệu một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, 1 hợp đồng, thì nhẹ nhàng hơn."
+      "voice": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên một tỷ đồng một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, một hợp đồng, thì nhẹ nhàng hơn.",
+      "sub": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên 1 tỷ đồng một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, 1 hợp đồng, thì nhẹ nhàng hơn."
     },
     {
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Thu dưới 500 triệu/năm",
-        "thì không phải nộp thuế!"
+        "Thu đến 1 tỷ/năm",
+        "chưa phải nộp thuế!"
       ],
       "cta": "Gửi cho người quen đang cho thuê nhà nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, cho thuê nhà thu dưới năm trăm triệu một năm thì không phải nộp thuế. Gửi cho người quen đang cho thuê nhà nhé!",
-      "sub": "Tóm lại là, cho thuê nhà thu dưới 500 triệu một năm thì không phải nộp thuế. Gửi cho người quen đang cho thuê nhà nhé!"
+      "voice": "Tóm lại là, cho thuê nhà thu đến một tỷ đồng một năm thì không phải nộp thuế, nhưng vẫn nên xem thủ tục khai. Gửi cho người quen đang cho thuê nhà nhé!",
+      "sub": "Tóm lại là, cho thuê nhà thu đến 1 tỷ đồng một năm thì không phải nộp thuế, nhưng vẫn nên xem thủ tục khai. Gửi cho người quen đang cho thuê nhà nhé!"
     }
   ],
   "id": "thue-cho-thue-nha",

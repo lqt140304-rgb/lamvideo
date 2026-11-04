@@ -40,3 +40,11 @@ Cập nhật sau mỗi lượt làm. Chạy `npm run lint` trước khi `npm run
 - Ảnh phải khớp đúng điều lời đọc đang nói (đồ vật, địa điểm, bối cảnh). Không khớp thì bỏ ảnh, đừng lấy "gần giống".
 - Đã thử Unsplash (tìm "vietnam bank/gold/id card/hospital/garment…"): hầu hết ra cờ, đường phố, xe máy đậu ven đường, không khớp chủ đề tài chính/giấy tờ/bệnh viện; kết quả "Getty Images" trên Unsplash là Unsplash+ (trả phí), không dùng. Ảnh xe máy đậu ngoài đường không đúng với "hầm xe" nên đã bỏ.
 - Cách chắc nhất cho giấy tờ, ứng dụng, biên lai: ảnh tự chụp hoặc chụp màn hình (che thông tin cá nhân), đặt vào `public/<slug>/img/` và ghi `credit`.
+
+## Kiểm chứng số liệu (bài học 5/11/2026)
+- Số liệu pháp lý đổi nhanh (ngưỡng thuế cho thuê nhà từ 500 triệu lên 1 tỷ; giấy xác nhận cư trú từ 30 ngày/6 tháng lên 1 năm; giảm trừ TNCN hiệu lực 1/1/2026 chứ không phải 1/7). Luôn mở văn bản/bài của cơ quan nhà nước mới nhất, không lấy từ bài báo cũ hoặc trí nhớ.
+- Tìm nguồn trong 30 ngày gần đây cho mọi con số trước khi viết; ghi link và ngày đọc vào `sources.md`.
+- Phân biệt: mức hưởng vs hóa đơn, thuế bổ sung vs tổng thuế, thu nhập chịu thuế vs lương, tính từ mốc nào (30 ngày tính từ lúc khóa chiều đi, không phải từ lúc đổi máy), "không phải nộp thuế" vs "không có thủ tục khai".
+- Mốc tương lai dùng "sẽ có hiệu lực". Giá, lãi suất, giá vàng luôn ghi ngày lấy số liệu trên hình.
+- Hai con số trên bảng và phụ đề phải khớp nhau (đặt `amount` bằng đúng số làm tròn trong `amountText`).
+- Trước khi giao: nhờ một bên khác (người hoặc công cụ) soát lại nội dung từng video như file góp ý ngày 5/11.

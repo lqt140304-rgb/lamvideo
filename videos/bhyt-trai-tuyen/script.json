@@ -26,12 +26,12 @@
       "pairs": [
         {
           "myth": "Tự đi khám trái tuyến là bảo hiểm không trả",
-          "fact": "Từ 1/7/2026, quỹ trả 50% mức hưởng ở một số bệnh viện",
+          "fact": "Từ 1/7/2026, quỹ trả 50% mức hưởng, trong phạm vi được thanh toán",
           "at": 0.08
         }
       ],
-      "voice": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày một tháng bảy năm hai không hai sáu, quy định này được áp dụng. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, nhưng chỉ ở một số bệnh viện.",
-      "sub": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày 1/7/2026, quy định này được áp dụng. Quỹ bảo hiểm trả 50% mức hưởng, nhưng chỉ ở một số bệnh viện."
+      "voice": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày một tháng bảy năm hai không hai sáu, quy định này được áp dụng. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, trong phạm vi được thanh toán, và chỉ ở một số cơ sở.",
+      "sub": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày 1/7/2026, quy định này được áp dụng. Quỹ bảo hiểm trả 50% mức hưởng, trong phạm vi được thanh toán, và chỉ ở một số cơ sở."
     },
     {
       "type": "compare",
@@ -55,36 +55,36 @@
           "tint": "yellow",
           "amountText": "400 nghìn",
           "unit": "bảo hiểm trả",
-          "note": "80% × 50% = 40% chi phí",
+          "note": "80% × 50% = 40% chi phí trong phạm vi",
           "at": 0.55
         }
       ],
-      "footnote": "Ví dụ mình tự tính, chỉ chi phí trong phạm vi hưởng BHYT",
-      "voice": "Ví dụ hóa đơn một triệu, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức bốn trăm nghìn.",
-      "sub": "Ví dụ hóa đơn 1 triệu, thẻ mức hưởng 80%. Đúng tuyến, bảo hiểm trả 800 nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức 400 nghìn.",
+      "footnote": "Ví dụ mình tự tính: giả sử toàn bộ 1 triệu nằm trong phạm vi BHYT thanh toán",
+      "voice": "Ví dụ hóa đơn một triệu, giả sử toàn bộ nằm trong phạm vi bảo hiểm thanh toán, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú, chỉ còn một nửa mức hưởng, tức bốn trăm nghìn.",
+      "sub": "Ví dụ hóa đơn 1 triệu, giả sử toàn bộ nằm trong phạm vi bảo hiểm thanh toán, thẻ mức hưởng 80%. Đúng tuyến, bảo hiểm trả 800 nghìn. Trái tuyến ngoại trú, chỉ còn một nửa mức hưởng, tức 400 nghìn.",
       "layout": "slider"
     },
     {
       "type": "list",
       "tone": "good",
-      "headline": "Được trả 50% khi",
+      "headline": "Có thể được 50% khi",
       "pose": "think",
       "items": [
-        "Bệnh viện từng là tuyến tỉnh",
-        "Bệnh viện cấp chuyên sâu",
-        "Cơ sở cấp cơ bản đủ điểm"
+        "Nhóm tuyến tỉnh, trung ương cũ",
+        "Nhóm cấp chuyên sâu",
+        "Cấp cơ bản đủ điểm"
       ],
       "at": [
         0.1,
         0.42,
         0.72
       ],
-      "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
-      "sub": "Được trả 50% khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
+      "voice": "Mức năm mươi phần trăm áp dụng với một số nhóm cơ sở, tùy trường hợp. Có thể là bệnh viện thuộc nhóm tuyến tỉnh hoặc trung ương trước đây. Cơ sở cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá. Nên hỏi bệnh viện xem có thuộc nhóm đó không.",
+      "sub": "Mức 50% áp dụng với một số nhóm cơ sở, tùy trường hợp. Có thể là bệnh viện thuộc nhóm tuyến tỉnh hoặc trung ương trước đây. Cơ sở cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá. Nên hỏi bệnh viện xem có thuộc nhóm đó không.",
       "layout": "tiles",
       "broll": {
         "file": "benh-vien.jpg",
-        "say": "Bệnh viện cấp chuyên sâu",
+        "say": "Cơ sở cấp chuyên sâu",
         "hold": 2.0,
         "caption": "Bệnh viện",
         "style": "card",

@@ -14,3 +14,6 @@ Chốt ngày 4/11/2026. Kiểm tra lại toàn văn thông tư trước khi đă
 - Lý do an toàn (hầm đông, thoát khói khó, pin cháy khó dập, sạc qua đêm) là nhận định chung về an toàn cháy nổ; nên dẫn thêm nguồn chữa cháy nếu muốn nêu số liệu.
 - Phần "Đừng làm", "Cách xoay xở" và "Ai nên mua" là lời khuyên chung, kiểm tra nội quy từng tòa nhà.
 - Chưa tìm số trạm đổi pin hiện có; không nêu trong video.
+
+## Góp ý 5/11/2026 (chưa mở được moc.gov.vn do chặn truy cập tự động)
+- Mốc 15/12/2026 là tương lai: dùng "sẽ có hiệu lực". Giá đổi pin 9.000đ gắn điều kiện: xe VinFast Evo, bảng giá niêm yết 27/2/2026, tùy mẫu xe và trạm. Cần đối chiếu quy chuẩn gốc trước khi đăng.

@@ -26,7 +26,7 @@
       "steps": [
         {
           "title": "15/12/2026",
-          "detail": "Quy chuẩn mới về nhà chung cư có hiệu lực",
+          "detail": "Quy chuẩn mới về nhà chung cư sẽ có hiệu lực",
           "at": 0.02
         },
         {
@@ -40,8 +40,8 @@
           "at": 0.68
         }
       ],
-      "voice": "Từ ngày mười lăm tháng mười hai năm hai không hai sáu, quy chuẩn mới về nhà chung cư có hiệu lực. Chung cư cũ có sáu tháng để rà soát khu đỗ và sạc xe điện. Khu sạc phải tách riêng, có báo cháy, chữa cháy tự động và camera hai mươi bốn giờ.",
-      "sub": "Từ 15/12/2026, quy chuẩn mới về nhà chung cư có hiệu lực. Chung cư cũ có 6 tháng để rà soát khu đỗ và sạc xe điện. Khu sạc phải tách riêng, có báo cháy, chữa cháy tự động và camera 24/24."
+      "voice": "Từ ngày mười lăm tháng mười hai năm hai không hai sáu, quy chuẩn mới về nhà chung cư sẽ có hiệu lực. Theo quy chuẩn này, chung cư cũ có sáu tháng để rà soát khu đỗ và sạc xe điện. Khu sạc phải tách riêng, có báo cháy, chữa cháy tự động và camera hai mươi bốn giờ.",
+      "sub": "Từ ngày 15/12/2026, quy chuẩn mới về nhà chung cư sẽ có hiệu lực. Theo quy chuẩn này, chung cư cũ có 6 tháng để rà soát khu đỗ và sạc xe điện. Khu sạc phải tách riêng, có báo cháy, chữa cháy tự động và camera 24 giờ."
     },
     {
       "type": "list",
@@ -83,13 +83,13 @@
           "tint": "green",
           "amountText": "9.000đ",
           "unit": "/ lần đổi 1 pin",
-          "note": "VinFast Evo, giá niêm yết",
+          "note": "VinFast Evo, tùy mẫu xe và trạm",
           "at": 0.55
         }
       ],
-      "footnote": "Theo bảng giá VinFast Evo đổi pin, đăng ngày 27/2/2026",
-      "voice": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Mỗi lần đổi một viên pin, trạm niêm yết chín nghìn đồng, không cần ổ điện ở nhà.",
-      "sub": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Mỗi lần đổi một viên pin, trạm niêm yết 9 nghìn đồng, không cần ổ điện ở nhà.",
+      "footnote": "Theo bảng giá VinFast Evo đổi pin đăng ngày 27/2/2026; giá có thể đổi",
+      "voice": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Theo bảng giá niêm yết cho xe VinFast Evo, mỗi lần đổi một viên pin chín nghìn đồng, tùy mẫu xe và trạm. Không cần ổ điện ở nhà.",
+      "sub": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Theo bảng giá niêm yết cho xe VinFast Evo, mỗi lần đổi một viên pin 9.000 đồng, tùy mẫu xe và trạm. Không cần ổ điện ở nhà.",
       "layout": "duel"
     },
     {

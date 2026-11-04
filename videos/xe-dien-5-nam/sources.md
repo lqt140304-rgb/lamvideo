@@ -15,3 +15,6 @@ Chốt ngày 4/11/2026. Kiểm tra lại giá xe và giá xăng trước khi đ�
 ## Chưa tính (đã nêu trong video)
 - Bảo dưỡng, thay nhớt, thay pin xe điện sau nhiều năm, giá bán lại, giá xe xăng thực tế cao hơn giá đề xuất, phí gửi xe, bảo hiểm.
 - Cần số liệu bảo hành pin của mẫu xe cụ thể trước khi khẳng định thời gian thay pin.
+
+## Góp ý 5/11/2026
+- Thống nhất 26 triệu (22 triệu xe + ~4 triệu điện) giữa bảng và phụ đề; gọi đây là giá mua + nhiên liệu, chưa tính pin, bảo dưỡng, giá bán lại.

@@ -88,7 +88,7 @@
         {
           "label": "Xe xăng",
           "kind": "petrol",
-          "amount": 27600,
+          "amount": 28000,
           "amountText": "~28 triệu",
           "unit": "60.000 km",
           "note": "46.000đ / 100 km",
@@ -97,7 +97,7 @@
         {
           "label": "Xe điện",
           "kind": "electric",
-          "amount": 3900,
+          "amount": 4000,
           "amountText": "~4 triệu",
           "unit": "60.000 km",
           "note": "~6.500đ / 100 km",
@@ -121,12 +121,12 @@
     },
     {
       "type": "compare",
-      "headline": "Tổng sau 5 năm",
+      "headline": "Giá mua + nhiên liệu",
       "cards": [
         {
           "label": "Xe xăng",
           "kind": "petrol",
-          "amount": 58600,
+          "amount": 59000,
           "amountText": "~59 triệu",
           "unit": "sau 5 năm",
           "note": "giá xe + xăng",
@@ -135,7 +135,7 @@
         {
           "label": "Xe điện",
           "kind": "electric",
-          "amount": 25900,
+          "amount": 26000,
           "amountText": "~26 triệu",
           "unit": "sau 5 năm",
           "note": "giá xe + tiền điện",
@@ -143,8 +143,8 @@
         }
       ],
       "footnote": "Chưa tính bảo dưỡng, thay pin, giá bán lại",
-      "voice": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Rẻ hơn một nửa.",
-      "sub": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng 59 triệu. Xe điện khoảng 26 triệu. Rẻ hơn một nửa.",
+      "voice": "Cộng giá mua xe và tiền năng lượng, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Rẻ hơn một nửa, nhưng chưa tính các khoản khác.",
+      "sub": "Cộng giá mua xe và tiền năng lượng, xe xăng khoảng 59 triệu. Xe điện khoảng 26 triệu. Rẻ hơn một nửa, nhưng chưa tính các khoản khác.",
       "layout": "duel"
     },
     {

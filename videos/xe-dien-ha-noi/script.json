@@ -61,25 +61,25 @@
       "steps": [
         {
           "when": "7/2026",
-          "what": "Lõi Hoàn Kiếm: cấm mọi xe từ 19h đến nửa đêm, thứ Sáu đến Chủ nhật",
+          "what": "Lõi Hoàn Kiếm: cấm mọi phương tiện đường bộ 19h–24h, thứ Sáu đến Chủ nhật",
           "at": 0,
           "level": 1
         },
         {
           "when": "2027",
-          "what": "Thêm Cửa Nam: cấm xe ôm công nghệ chạy xăng, xe xăng dưới chuẩn khí thải mức 3",
+          "what": "Thêm Cửa Nam: xe công nghệ chạy xăng không được hoạt động; xe máy xăng dưới chuẩn mức 3 không được lưu thông",
           "at": 0.3,
           "level": 2
         },
         {
           "when": "2028",
-          "what": "Toàn bộ Vành đai 1 (9 phường)",
+          "what": "Toàn bộ Vành đai 1",
           "at": 0.8,
           "level": 3
         }
       ],
-      "voice": "Ở khu lõi, mọi phương tiện bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức ba cũng bị cấm. Năm hai không hai tám, áp dụng cho cả Vành đai một.",
-      "sub": "Ở khu lõi, mọi phương tiện bị cấm từ 19h đến nửa đêm, thứ Sáu tới Chủ nhật. Sang năm 2027, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức 3 cũng bị cấm. Năm 2028, áp dụng cho cả Vành đai 1."
+      "voice": "Ở khu lõi, mọi phương tiện đường bộ bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam. Xe công nghệ chạy xăng không được hoạt động, và xe máy xăng không đạt chuẩn khí thải mức ba không được lưu thông trong vùng. Năm hai không hai tám, áp dụng cho cả Vành đai một.",
+      "sub": "Ở khu lõi, mọi phương tiện đường bộ bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam. Xe công nghệ chạy xăng không được hoạt động, và xe máy xăng không đạt chuẩn khí thải mức ba không được lưu thông trong vùng. Năm hai không hai tám, áp dụng cho cả Vành đai một."
     },
     {
       "type": "compare",
@@ -171,8 +171,8 @@
         ]
       },
       "rightAt": 0.6,
-      "voice": "Vậy ai nên đổi sớm? Người sống hoặc làm việc trong Vành đai một, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội.",
-      "sub": "Vậy ai nên đổi sớm? Người sống hoặc làm việc trong Vành đai 1, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội."
+      "voice": "Còn ai nên tính đổi sớm? Người sống hoặc làm việc trong Vành đai một, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội.",
+      "sub": "Còn ai nên tính đổi sớm? Người sống hoặc làm việc trong Vành đai 1, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội."
     },
     {
       "type": "outro",

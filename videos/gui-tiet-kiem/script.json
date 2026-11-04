@@ -36,8 +36,8 @@
           "at": 0.5
         }
       ],
-      "voice": "Trước đây, bảo hiểm tiền gửi trả tối đa một trăm hai mươi lăm triệu đồng mỗi người, tại mỗi ngân hàng. Từ ngày mười ba tháng bảy năm hai không hai sáu, thông tư bắt đầu được áp dụng. Mức trả tối đa nâng lên ba trăm năm mươi triệu, tính cả gốc lẫn lãi.",
-      "sub": "Trước đây, bảo hiểm tiền gửi trả tối đa 125 triệu đồng mỗi người, tại mỗi ngân hàng. Từ ngày 13/7/2026, thông tư bắt đầu được áp dụng. Mức trả tối đa nâng lên 350 triệu, tính cả gốc lẫn lãi."
+      "voice": "Trước đây, bảo hiểm tiền gửi trả tối đa một trăm hai mươi lăm triệu đồng cho mỗi người tại mỗi tổ chức tham gia bảo hiểm tiền gửi. Từ ngày mười ba tháng bảy năm hai không hai sáu, thông tư bắt đầu được áp dụng. Mức trả tối đa nâng lên ba trăm năm mươi triệu, gồm cả gốc lẫn lãi của các khoản được bảo hiểm.",
+      "sub": "Trước đây, bảo hiểm tiền gửi trả tối đa 125 triệu đồng cho mỗi người tại mỗi tổ chức tham gia bảo hiểm tiền gửi. Từ ngày 13/7/2026, thông tư bắt đầu được áp dụng. Mức trả tối đa nâng lên 350 triệu, gồm cả gốc lẫn lãi của các khoản được bảo hiểm."
     },
     {
       "type": "compare",
@@ -45,7 +45,7 @@
       "bars": false,
       "cards": [
         {
-          "label": "Ngân hàng Nhà nước",
+          "label": "Nhà nước, 6 tháng",
           "kind": "generic",
           "art": "bank",
           "tint": "blue",
@@ -55,19 +55,19 @@
           "at": 0.1
         },
         {
-          "label": "Mức cao nhất",
+          "label": "Cao nhất, 12 tháng",
           "kind": "generic",
           "art": "chart",
           "tint": "green",
           "amountText": "6,9%",
           "unit": "/năm, kỳ hạn 12 tháng",
-          "note": "niêm yết, chưa kể ưu đãi ngắn hạn",
+          "note": "niêm yết; kỳ hạn khác nên không so trực tiếp",
           "at": 0.55
         }
       ],
       "footnote": "Theo Thời báo Tài chính Việt Nam, số liệu ngày 20/10/2026, có thể đã đổi",
-      "voice": "Lãi suất thì chênh nhau khá nhiều. Nhóm ngân hàng Nhà nước, kỳ hạn sáu tháng, khoảng ba đến ba phẩy năm phần trăm một năm. Mức niêm yết cao nhất, kỳ hạn mười hai tháng, khoảng sáu phẩy chín phần trăm.",
-      "sub": "Lãi suất thì chênh nhau khá nhiều. Nhóm ngân hàng Nhà nước, kỳ hạn 6 tháng, khoảng 3 đến 3,5% một năm. Mức niêm yết cao nhất, kỳ hạn 12 tháng, khoảng 6,9%.",
+      "voice": "Lãi suất thì chênh nhau khá nhiều. Nhóm ngân hàng Nhà nước, kỳ hạn sáu tháng, khoảng ba đến ba phẩy năm phần trăm một năm. Mức niêm yết cao nhất, kỳ hạn mười hai tháng, khoảng sáu phẩy chín phần trăm. Hai mức này khác kỳ hạn, nên không so trực tiếp được.",
+      "sub": "Lãi suất thì chênh nhau khá nhiều. Nhóm ngân hàng Nhà nước, kỳ hạn 6 tháng, khoảng 3 đến 3,5% một năm. Mức niêm yết cao nhất, kỳ hạn 12 tháng, khoảng 6,9%. Hai mức này khác kỳ hạn, nên không so trực tiếp được.",
       "layout": "duel"
     },
     {
@@ -132,7 +132,7 @@
         "title": "Cân nhắc",
         "items": [
           "Có thể cần rút gấp",
-          "Gửi một chỗ quá 350 triệu"
+          "Gửi một nơi quá 350 triệu"
         ]
       },
       "voice": "Gửi tiết kiệm có hợp với bạn không? Nếu bạn cần giữ tiền an toàn, và giữ đủ kỳ hạn, thì hợp. Còn nếu có thể phải rút gấp, hoặc gửi một chỗ quá ba trăm năm mươi triệu, thì nên cân nhắc.",
@@ -148,8 +148,8 @@
       ],
       "cta": "Bạn gửi kỳ hạn mấy tháng? Cho mình biết nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa ba trăm năm mươi triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Cho mình biết ở bình luận!",
-      "sub": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa 350 triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Cho mình biết ở bình luận!"
+      "voice": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa ba trăm năm mươi triệu cho mỗi người tại mỗi tổ chức tham gia, gồm cả gốc và lãi. Bạn đang gửi kỳ hạn mấy tháng? Cho mình biết ở bình luận!",
+      "sub": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa 350 triệu cho mỗi người tại mỗi tổ chức tham gia, gồm cả gốc và lãi. Bạn đang gửi kỳ hạn mấy tháng? Cho mình biết ở bình luận!"
     }
   ],
   "id": "gui-tiet-kiem"
