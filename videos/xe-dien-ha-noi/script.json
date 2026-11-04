@@ -26,7 +26,7 @@
       "type": "timeline",
       "headline": "Lộ trình 3 bước",
       "steps": [
-        { "when": "7/2026", "what": "Lõi Hoàn Kiếm: cấm mọi xe 19h–24h, thứ Sáu đến Chủ nhật", "at": 0, "level": 1 },
+        { "when": "7/2026", "what": "Lõi Hoàn Kiếm: cấm mọi xe từ 19h đến nửa đêm, thứ Sáu đến Chủ nhật", "at": 0, "level": 1 },
         { "when": "2027", "what": "Thêm Cửa Nam: cấm xe ôm công nghệ chạy xăng, xe xăng dưới chuẩn khí thải mức 3", "at": 0.3, "level": 2 },
         { "when": "2028", "what": "Toàn bộ Vành đai 1 (9 phường)", "at": 0.8, "level": 3 }
       ],

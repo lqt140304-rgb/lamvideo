@@ -57,7 +57,7 @@ export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = 
               >
                 {s.when}
               </div>
-              <div style={{ fontFamily: font.body, fontWeight: 600, fontSize: 34, lineHeight: 1.16, color: color.ink }}>
+              <div style={{ fontFamily: font.body, fontWeight: 600, fontSize: 34, lineHeight: 1.16, color: color.ink, textWrap: "balance" }}>
                 {s.what}
               </div>
             </div>
