@@ -21,45 +21,17 @@
         "KHỎI PHỐ?"
       ],
       "stamp": "CẤM?",
-      "broll": [
-        {
-          "file": "giao-thong-ha-noi.jpg",
-          "say": "Nghe tin Hà Nội cấm xe máy xăng",
-          "hold": 2.0,
-          "query": "Hanoi motorbike traffic",
-          "must": [
-            "hanoi",
-            "ha noi"
-          ],
-          "caption": "Hà Nội sắp cấm xe máy xăng?"
-        },
-        {
-          "file": "xe-may-cu.jpg",
-          "say": "bán ngay con xe đang đi",
-          "hold": 1.4,
-          "query": "used motorbikes for sale Vietnam",
-          "must": [
-            "motorbike",
-            "motorcycle",
-            "scooter",
-            "xe may"
-          ],
-          "caption": "Bán xe cũ?"
-        },
-        {
-          "file": "xe-dien-vinfast.jpg",
-          "say": "lên đời xe điện",
-          "hold": 1.2,
-          "query": "VinFast electric scooter",
-          "must": [
-            "vinfast",
-            "electric scooter",
-            "e-scooter",
-            "electric motorcycle"
-          ],
-          "caption": "Lên đời xe điện?"
-        }
-      ],
+      "broll": {
+        "file": "giao-thong-ha-noi.jpg",
+        "say": "Nghe tin Hà Nội cấm xe máy xăng",
+        "hold": 2.0,
+        "query": "Hanoi motorbike traffic",
+        "must": [
+          "hanoi",
+          "ha noi"
+        ],
+        "caption": "Hà Nội sắp cấm xe máy xăng?"
+      },
       "voice": "Nghe tin Hà Nội cấm xe máy xăng, nhiều người tính bán ngay con xe đang đi để lên đời xe điện. Khoan đã! Tóm lại là thế này."
     },
     {
@@ -109,42 +81,6 @@
           "level": 3
         }
       ],
-      "broll": [
-        {
-          "file": "pho-co-dem.jpg",
-          "say": "mọi phương tiện bị cấm từ bảy giờ tối đến nửa đêm",
-          "hold": 2.6,
-          "query": "Hanoi walking street night",
-          "must": [
-            "hanoi",
-            "ha noi"
-          ],
-          "caption": "19h–24h, thứ Sáu đến Chủ nhật"
-        },
-        {
-          "file": "xe-om-cong-nghe.jpg",
-          "say": "xe ôm công nghệ chạy xăng",
-          "hold": 2.0,
-          "query": "Grab motorbike driver Vietnam",
-          "must": [
-            "grab"
-          ],
-          "caption": "Xe ôm công nghệ"
-        },
-        {
-          "file": "khi-thai-xe-may.jpg",
-          "say": "chuẩn khí thải mức ba",
-          "hold": 1.8,
-          "query": "motorcycle exhaust smoke",
-          "must": [
-            "exhaust",
-            "smoke"
-          ],
-          "caption": "Khí thải xe máy",
-          "since": null,
-          "prefer": "relevant"
-        }
-      ],
       "voice": "Ở khu lõi, mọi phương tiện bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức ba cũng bị cấm. Năm hai không hai tám, áp dụng cho cả Vành đai một.",
       "sub": "Ở khu lõi, mọi phương tiện bị cấm từ 19h đến nửa đêm, thứ Sáu tới Chủ nhật. Sang năm 2027, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức 3 cũng bị cấm. Năm 2028, áp dụng cho cả Vành đai 1."
     },
@@ -170,34 +106,20 @@
         }
       ],
       "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
-      "broll": [
-        {
-          "file": "cay-xang-bom.jpg",
-          "say": "Giá xăng hiện hơn hai mươi ba nghìn một lít",
-          "hold": 2.2,
-          "query": "Petrolimex gas station Vietnam",
-          "must": [
-            "petrolimex",
-            "petrol",
-            "gas station",
-            "fuel",
-            "filling station"
-          ],
-          "caption": "Xăng ~23.000đ/lít"
-        },
-        {
-          "file": "sac-xe-dien.jpg",
-          "say": "tiền điện cho một trăm cây",
-          "hold": 2.0,
-          "query": "electric scooter charging station",
-          "must": [
-            "charging",
-            "charger",
-            "charge"
-          ],
-          "caption": "Tiền sạc rẻ hơn"
-        }
-      ],
+      "broll": {
+        "file": "cay-xang-bom.jpg",
+        "say": "Giá xăng hiện hơn hai mươi ba nghìn một lít",
+        "hold": 2.2,
+        "query": "Petrolimex gas station Vietnam",
+        "must": [
+          "petrolimex",
+          "petrol",
+          "gas station",
+          "fuel",
+          "filling station"
+        ],
+        "caption": "Xăng ~23.000đ/lít"
+      },
       "voice": "Giờ tính tiền. Xe tay ga chạy xăng ăn khoảng hai lít một trăm cây số. Giá xăng hiện hơn hai mươi ba nghìn một lít, tức khoảng bốn mươi sáu nghìn. Còn xe điện phổ thông, tiền điện cho một trăm cây chỉ tầm sáu, bảy nghìn.",
       "sub": "Giờ tính tiền. Xe tay ga chạy xăng ăn khoảng 2 lít/100 km. Giá xăng hiện hơn 23.000đ/lít, tức khoảng 46.000đ. Còn xe điện phổ thông, tiền điện cho 100 km chỉ tầm 6–7 nghìn."
     },
@@ -240,19 +162,6 @@
         0.48,
         0.74
       ],
-      "broll": {
-        "file": "ham-xe-chung-cu.jpg",
-        "say": "ở chung cư hay nhà trọ",
-        "hold": 2.0,
-        "query": "motorbike parking apartment basement Vietnam",
-        "must": [
-          "parking",
-          "parked"
-        ],
-        "caption": "Chỗ sạc ở chung cư?",
-        "since": null,
-        "prefer": "relevant"
-      },
       "voice": "Điểm trừ: mua xe mới tốn từ hơn hai mươi triệu, sạc mất nhiều giờ, ở chung cư hay nhà trọ thì chưa chắc có chỗ sạc, còn bán xe xăng cũ thì dễ bị ép giá.",
       "sub": "Điểm trừ: mua xe mới tốn từ hơn 20 triệu, sạc mất nhiều giờ, ở chung cư hay nhà trọ thì chưa chắc có chỗ sạc, còn bán xe xăng cũ thì dễ bị ép giá."
     },
@@ -274,18 +183,6 @@
         ]
       },
       "rightAt": 0.6,
-      "broll": {
-        "file": "xe-om-cong-nghe.jpg",
-        "say": "anh em chạy xe ôm công nghệ",
-        "hold": 2.0,
-        "caption": "Xe ôm công nghệ",
-        "style": "card",
-        "y": 520,
-        "query": "Grab motorbike driver Vietnam",
-        "must": [
-          "grab"
-        ]
-      },
       "voice": "Vậy ai nên đổi sớm? Người sống hoặc làm việc trong Vành đai một, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội.",
       "sub": "Vậy ai nên đổi sớm? Người sống hoặc làm việc trong Vành đai 1, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội."
     },

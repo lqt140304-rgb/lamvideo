@@ -90,6 +90,8 @@ Tất cả đều miễn phí và dùng thương mại được.
 
 ### Ảnh thật (B-roll)
 
+Ảnh thật chỉ để mở bối cảnh chung (nơi chốn, sự vật chính), không minh họa từng câu: nên **tối đa 1 ảnh mỗi cảnh, 3–5 ảnh mỗi video**. Phần giải thích để hoạt hình lo. Các ảnh trong cùng cảnh tự xếp để không chồng lên nhau (ảnh sau chờ ảnh trước tắt hẳn rồi nghỉ ~0,8 giây; ảnh còn quá ngắn thì bỏ).
+
 Mỗi ảnh gắn với một cụm từ trong lời đọc và hiện đúng lúc giọng đọc tới cụm đó:
 
 ```json

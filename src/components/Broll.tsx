@@ -39,17 +39,34 @@ export const brollWindow = (item: BrollData, scene: Scene, frames: number): { st
   return { start: atFrame(item.from ?? 0, frames), end: atFrame(item.to ?? 0.4, frames) };
 };
 
-/** Khung hình kết thúc của ảnh cuối cùng bắt đầu từ đầu cảnh (để hoạt hình bắt đầu sau ảnh). */
-export const introEnd = (scene: Scene, frames: number) => {
-  let end = 0;
-  for (const b of brollsOf(scene.broll)) {
-    const w = brollWindow(b, scene, frames);
-    if (w.start <= end + 2) end = Math.max(end, w.end);
+/** Khoảng nghỉ tối thiểu giữa hai ảnh trong cùng cảnh, và thời gian hiện ngắn nhất của một ảnh. */
+const GAP = 24;
+const MIN_SHOW = 30;
+
+/**
+ * Thời điểm hiện của mọi ảnh trong cảnh, đã xếp để KHÔNG chồng lên nhau:
+ * ảnh sau chỉ hiện khi ảnh trước tắt hẳn + nghỉ GAP khung; ảnh còn quá ngắn thì bỏ.
+ */
+export const sceneWindows = (scene: Scene, frames: number): ({ start: number; end: number } | null)[] => {
+  const list = brollsOf(scene.broll).map((b, i) => ({ i, ...brollWindow(b, scene, frames) }));
+  const out: ({ start: number; end: number } | null)[] = list.map(() => null);
+  let lastEnd = -GAP;
+  for (const w of [...list].sort((a, b) => a.start - b.start)) {
+    const start = Math.max(w.start, lastEnd + GAP);
+    if (w.end - start < MIN_SHOW) continue;
+    out[w.i] = { start, end: w.end };
+    lastEnd = w.end;
   }
-  return end;
+  return out;
 };
 
-type Props = { item: BrollData; slug: string; frames: number; credits: ImageCredits; scene: Scene };
+/** Khung hình kết thúc của ảnh mở đầu cảnh (để phần hoạt hình bắt đầu sau ảnh). */
+export const introEnd = (scene: Scene, frames: number) => {
+  const first = sceneWindows(scene, frames).find((w) => w && w.start <= 2);
+  return first ? first.end : 0;
+};
+
+type Props = { item: BrollData; index: number; slug: string; frames: number; credits: ImageCredits; scene: Scene };
 
 /**
  * Chèn ảnh thật vào giữa cảnh hoạt hình.
@@ -57,11 +74,13 @@ type Props = { item: BrollData; slug: string; frames: number; credits: ImageCred
  * - style "card": ảnh trong khung polaroid dán băng keo, bật lên giữa cảnh.
  * Ảnh chưa tải (chưa có trong credits.json) thì bỏ qua, video vẫn render bình thường.
  */
-export const Broll: React.FC<Props> = ({ item, slug, frames, credits, scene }) => {
+export const Broll: React.FC<Props> = ({ item, index, slug, frames, credits, scene }) => {
   const frame = useCurrentFrame();
   const info = credits[item.file];
   if (!info) return null;
-  const { start, end } = brollWindow(item, scene, frames);
+  const w = sceneWindows(scene, frames)[index];
+  if (!w) return null;
+  const { start, end } = w;
   if (end - start < 6) return null;
   const src = staticFile(`${slug}/img/${item.file}`);
   const credit = item.credit ?? info.short;
