@@ -1,0 +1,142 @@
+{
+  "title": "Sổ hộ khẩu giấy hết giá trị: giờ dùng gì?",
+  "topic": "Thay thế sổ hộ khẩu giấy",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "SỔ HỘ KHẨU",
+        "GIẤY HẾT HẠN",
+        "DÙNG GÌ?"
+      ],
+      "stamp": "HẾT HẠN",
+      "art": "doc",
+      "voice": "Còn giữ cuốn sổ hộ khẩu giấy, đi làm thủ tục thì dùng gì thay? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Sổ giấy hết giá trị",
+      "art": "doc",
+      "steps": [
+        {
+          "when": "Luật 2020",
+          "what": "Luật Cư trú cho sổ cũ dùng thêm một thời gian",
+          "at": 0.02
+        },
+        {
+          "when": "31/12/2022",
+          "what": "Ngày cuối sổ hộ khẩu, sổ tạm trú giấy còn giá trị",
+          "at": 0.36
+        },
+        {
+          "when": "1/1/2023",
+          "what": "Sổ giấy hết giá trị, thông tin cư trú lưu trên dữ liệu quốc gia",
+          "at": 0.68
+        }
+      ],
+      "voice": "Luật Cư trú hai nghìn không trăm hai mươi cho sổ cũ dùng thêm một thời gian. Hết ngày ba mươi mốt tháng mười hai năm hai không hai hai là hết hạn. Từ ngày một tháng một năm hai không hai ba, sổ giấy hết giá trị, thông tin cư trú nằm trong cơ sở dữ liệu quốc gia.",
+      "sub": "Theo khoản 3 Điều 38 Luật Cư trú 2020, sổ hộ khẩu, sổ tạm trú giấy có giá trị đến hết 31/12/2022."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Chứng minh cư trú",
+      "pose": "ok",
+      "items": [
+        "Thẻ căn cước gắn chip",
+        "Ứng dụng VNeID",
+        "Giấy xác nhận cư trú"
+      ],
+      "at": [
+        0.1,
+        0.45,
+        0.75
+      ],
+      "voice": "Giờ chứng minh nơi cư trú bằng thẻ căn cước gắn chip. Hoặc ứng dụng VNeID. Hoặc xin giấy xác nhận thông tin về cư trú."
+    },
+    {
+      "type": "compare",
+      "headline": "Hai giấy xác nhận",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Thông thường",
+          "kind": "generic",
+          "art": "doc",
+          "tint": "blue",
+          "amountText": "30 ngày",
+          "unit": "giá trị sử dụng",
+          "note": "nộp tại cơ quan đăng ký cư trú",
+          "at": 0.1
+        },
+        {
+          "label": "Khai báo",
+          "kind": "generic",
+          "art": "house",
+          "tint": "green",
+          "amountText": "6 tháng",
+          "unit": "giá trị sử dụng",
+          "note": "trường hợp khai báo cư trú",
+          "at": 0.55
+        }
+      ],
+      "footnote": "Theo Báo Sài Gòn Giải Phóng, ngày 1/1/2023",
+      "voice": "Giấy xác nhận thông tin về cư trú thông thường có giá trị ba mươi ngày. Riêng trường hợp xác nhận khai báo cư trú thì có giá trị sáu tháng."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Đừng làm",
+      "pose": "confused",
+      "items": [
+        "Đòi bản sao sổ photo",
+        "Quên cập nhật VNeID",
+        "Vứt sổ cũ vội vàng"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Còn những việc không nên làm. Đừng đòi bản sao sổ photo. Đừng quên cập nhật VNeID. Và chưa cần vứt sổ cũ vội vàng."
+    },
+    {
+      "type": "verdict",
+      "headline": "Ai cần làm gì?",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Cần làm",
+        "items": [
+          "Chưa có VNeID",
+          "Chưa có căn cước chip"
+        ]
+      },
+      "right": {
+        "title": "Chưa cần",
+        "items": [
+          "Đã có VNeID",
+          "Đã có căn cước chip"
+        ]
+      },
+      "voice": "Vậy ai cần làm gì? Nếu bạn chưa có VNeID, hoặc chưa có căn cước gắn chip, thì nên làm sớm. Còn đã có rồi thì chưa cần."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Giờ nơi cư trú nằm trên",
+        "căn cước và VNeID!"
+      ],
+      "cta": "Bạn đã dùng VNeID chưa? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, giờ nơi cư trú nằm trên căn cước và VNeID. Bạn đã dùng VNeID chưa? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "ho-khau-giay"
+}
