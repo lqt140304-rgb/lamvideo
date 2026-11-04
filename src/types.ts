@@ -55,10 +55,14 @@ type SceneBase = {
   pad?: number;
 };
 
+export type ArtName = "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank";
+
 export type HookScene = SceneBase & {
   type: "hook";
   headline: string[];
   stamp?: string;
+  /** Hình lớn ở cảnh mở đầu. Bỏ trống = xe máy chạy trên phố (video xe cộ). */
+  art?: ArtName | "scooter";
 };
 
 export type ZonesScene = SceneBase & {
@@ -74,18 +78,25 @@ export type TimelineStep = {
   what: string;
   /** Lúc bước này hiện ra, tính theo phần của cảnh (0..1). */
   at: number;
-  level: 1 | 2 | 3;
+  /** Chỉ dùng khi cảnh vẽ bản đồ Vành đai 1 (art = "zone"). */
+  level?: 1 | 2 | 3;
 };
 
 export type TimelineScene = SceneBase & {
   type: "timeline";
   headline: string;
   steps: TimelineStep[];
+  /** Hình bên trên các bước. Bỏ trống = bản đồ Vành đai 1 (video Hà Nội). */
+  art?: ArtName | "zone" | "none";
 };
 
 export type CompareCard = {
   label: string;
-  kind: "petrol" | "electric";
+  kind: "petrol" | "electric" | "generic";
+  /** Hình trong thẻ khi kind = "generic". */
+  art?: ArtName;
+  /** Màu nhấn của thẻ generic: "red" | "green" | "blue" | "yellow". */
+  tint?: "red" | "green" | "blue" | "yellow";
   /** Số để chạy đếm, ví dụ 46000 */
   amount?: number;
   /** Chữ hiển thị thay cho số (nếu có), ví dụ "6–7.000đ" */
@@ -100,6 +111,10 @@ export type CompareScene = SceneBase & {
   headline: string;
   cards: [CompareCard, CompareCard];
   footnote?: string;
+  /** Nhãn trên biểu đồ cột, ví dụ "Tiết kiệm ~85%". Bỏ trống thì tự tính cho xe xăng/xe điện. */
+  badge?: string;
+  /** false = không vẽ biểu đồ cột dưới các thẻ. */
+  bars?: boolean;
 };
 
 export type ListScene = SceneBase & {

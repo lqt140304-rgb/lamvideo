@@ -1,0 +1,176 @@
+{
+  "title": "Xe điện rẻ hơn xe xăng bao nhiêu sau 5 năm?",
+  "topic": "Xe xăng và xe điện",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "XE ĐIỆN",
+        "RẺ HƠN XE XĂNG",
+        "BAO NHIÊU?"
+      ],
+      "stamp": "5 NĂM",
+      "art": "scooter",
+      "voice": "Nghe nói xe điện rẻ hơn xe xăng. Nhưng rẻ hơn bao nhiêu sau năm năm? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Mình tính thế này",
+      "art": "money",
+      "steps": [
+        {
+          "when": "Quãng đường",
+          "what": "1.000 km mỗi tháng, 5 năm là 60.000 km",
+          "at": 0.02
+        },
+        {
+          "when": "Xe xăng",
+          "what": "2 lít mỗi 100 km, xăng 23.231đ một lít",
+          "at": 0.38
+        },
+        {
+          "when": "Xe điện",
+          "what": "Khoảng 6–7 nghìn đồng mỗi 100 km",
+          "at": 0.7
+        }
+      ],
+      "voice": "Mình tính thế này. Đi một nghìn ki lô mét mỗi tháng, năm năm là sáu mươi nghìn ki lô mét. Xe xăng tốn hai lít mỗi một trăm ki lô mét, xăng hai mươi ba nghìn hai trăm ba mươi mốt đồng một lít. Xe điện chỉ khoảng sáu đến bảy nghìn đồng.",
+      "sub": "Mình tính thế này. Đi 1.000 km mỗi tháng, 5 năm là 60.000 km. Xe xăng tốn 2 lít mỗi 100 km, xăng 23.231đ một lít. Xe điện chỉ khoảng 6 đến 7 nghìn đồng."
+    },
+    {
+      "type": "compare",
+      "headline": "Giá mua xe",
+      "cards": [
+        {
+          "label": "Xe xăng",
+          "kind": "petrol",
+          "amount": 31000,
+          "amountText": "từ 31 triệu",
+          "unit": "Honda Vision 2026",
+          "note": "giá đề xuất của hãng",
+          "at": 0.1
+        },
+        {
+          "label": "Xe điện",
+          "kind": "electric",
+          "amount": 22000,
+          "amountText": "~22 triệu",
+          "unit": "VinFast Evo200",
+          "note": "gồm VAT và bộ sạc",
+          "at": 0.58
+        }
+      ],
+      "footnote": "Giá niêm yết, giá thực tế có thể khác theo đại lý",
+      "voice": "Về giá mua, xe xăng phổ thông như Honda Vision từ ba mươi mốt triệu. Xe điện như VinFast Evo hai trăm khoảng hai mươi hai triệu."
+    },
+    {
+      "type": "compare",
+      "headline": "Xăng, điện trong 5 năm",
+      "cards": [
+        {
+          "label": "Xe xăng",
+          "kind": "petrol",
+          "amount": 27600,
+          "amountText": "~28 triệu",
+          "unit": "60.000 km",
+          "note": "46.000đ / 100 km",
+          "at": 0.1
+        },
+        {
+          "label": "Xe điện",
+          "kind": "electric",
+          "amount": 3900,
+          "amountText": "~4 triệu",
+          "unit": "60.000 km",
+          "note": "~6.500đ / 100 km",
+          "at": 0.58
+        }
+      ],
+      "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
+      "voice": "Còn tiền nhiên liệu năm năm, xe xăng tốn khoảng hai mươi tám triệu. Xe điện chỉ khoảng bốn triệu."
+    },
+    {
+      "type": "compare",
+      "headline": "Tổng sau 5 năm",
+      "cards": [
+        {
+          "label": "Xe xăng",
+          "kind": "petrol",
+          "amount": 58600,
+          "amountText": "~59 triệu",
+          "unit": "sau 5 năm",
+          "note": "giá xe + xăng",
+          "at": 0.12
+        },
+        {
+          "label": "Xe điện",
+          "kind": "electric",
+          "amount": 25900,
+          "amountText": "~26 triệu",
+          "unit": "sau 5 năm",
+          "note": "giá xe + tiền điện",
+          "at": 0.6
+        }
+      ],
+      "footnote": "Chưa tính bảo dưỡng, thay pin, giá bán lại",
+      "voice": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Rẻ hơn hơn một nửa."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Chưa tính vào",
+      "pose": "think",
+      "items": [
+        "Bảo dưỡng, thay nhớt",
+        "Thay pin sau nhiều năm",
+        "Giá bán lại xe cũ",
+        "Giá xe xăng thực tế cao hơn"
+      ],
+      "at": [
+        0.08,
+        0.3,
+        0.52,
+        0.74
+      ],
+      "voice": "Nhưng có mấy khoản chưa tính vào. Bảo dưỡng, thay nhớt. Thay pin sau nhiều năm. Giá bán lại xe cũ. Và giá xe xăng thực tế thường cao hơn giá đề xuất."
+    },
+    {
+      "type": "verdict",
+      "headline": "Ai hợp xe điện?",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Hợp",
+        "items": [
+          "Đi nhiều mỗi ngày",
+          "Có chỗ sạc"
+        ]
+      },
+      "right": {
+        "title": "Cân nhắc",
+        "items": [
+          "Ít đi, hay đi xa",
+          "Chưa có chỗ sạc"
+        ]
+      },
+      "voice": "Vậy ai hợp xe điện? Người đi nhiều mỗi ngày, lại có chỗ sạc. Còn ít đi, hay đi xa, hoặc chưa có chỗ sạc thì nên cân nhắc."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Đi nhiều thì xe điện",
+        "rẻ hơn rõ rệt!"
+      ],
+      "cta": "Bạn đi mỗi tháng bao nhiêu ki lô mét? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, đi nhiều thì xe điện rẻ hơn rõ rệt. Bạn đi mỗi tháng bao nhiêu ki lô mét? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "xe-dien-5-nam"
+}

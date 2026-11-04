@@ -1,0 +1,159 @@
+{
+  "title": "Xe điện ở chung cư: sạc ở đâu?",
+  "topic": "Xe điện ở chung cư",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "MUA XE ĐIỆN",
+        "Ở CHUNG CƯ",
+        "SẠC Ở ĐÂU?"
+      ],
+      "stamp": "KHÓ?",
+      "art": "house",
+      "voice": "Mua xe điện rồi, về chung cư lại không biết sạc ở đâu? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Quy định mới cho khu sạc",
+      "art": "doc",
+      "steps": [
+        {
+          "when": "15/12/2026",
+          "what": "Quy chuẩn mới về nhà chung cư có hiệu lực",
+          "at": 0.02
+        },
+        {
+          "when": "6 tháng",
+          "what": "Chung cư cũ phải rà soát khu đỗ và sạc xe điện",
+          "at": 0.36
+        },
+        {
+          "when": "Khu sạc",
+          "what": "Tách riêng, có báo cháy, chữa cháy tự động, camera 24/24",
+          "at": 0.68
+        }
+      ],
+      "voice": "Từ ngày mười lăm tháng mười hai năm hai không hai sáu, quy chuẩn mới về nhà chung cư có hiệu lực. Chung cư cũ có sáu tháng để rà soát khu đỗ và sạc xe điện. Khu sạc phải tách riêng, có báo cháy, chữa cháy tự động và camera hai mươi bốn giờ.",
+      "sub": "Từ 15/12/2026, quy chuẩn mới về nhà chung cư có hiệu lực. Chung cư cũ có 6 tháng để rà soát khu đỗ và sạc xe điện. Khu sạc phải tách riêng, có báo cháy, chữa cháy tự động và camera 24/24."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Vì sao siết chặt",
+      "pose": "think",
+      "items": [
+        "Hầm xe đông, thoát khói khó",
+        "Pin cháy rất khó dập",
+        "Sạc qua đêm ít người trông"
+      ],
+      "at": [
+        0.1,
+        0.45,
+        0.75
+      ],
+      "voice": "Lý do là an toàn. Hầm xe đông đúc, thoát khói khó. Pin cháy rất khó dập. Còn sạc qua đêm thì ít người trông."
+    },
+    {
+      "type": "compare",
+      "headline": "Sạc ở nhà hay đổi pin",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Sạc ở nhà",
+          "kind": "generic",
+          "art": "house",
+          "tint": "blue",
+          "amountText": "Cần ổ sạc",
+          "unit": "hỏi ban quản lý",
+          "note": "tùy khu có cho không",
+          "at": 0.1
+        },
+        {
+          "label": "Đổi pin",
+          "kind": "generic",
+          "art": "money",
+          "tint": "green",
+          "amountText": "9.000đ",
+          "unit": "/ lần đổi 1 pin",
+          "note": "VinFast Evo, giá niêm yết",
+          "at": 0.55
+        }
+      ],
+      "footnote": "Theo bảng giá VinFast Evo đổi pin, đăng ngày 27/2/2026",
+      "voice": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Mỗi lần đổi một viên pin, trạm niêm yết chín nghìn đồng, không cần ổ điện ở nhà."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Cách xoay xở",
+      "pose": "ok",
+      "items": [
+        "Hỏi ban quản lý có khu sạc",
+        "Chọn xe đổi pin",
+        "Sạc ở cơ quan, trạm công cộng"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Cách xoay xở. Trước hết hỏi ban quản lý có khu sạc không. Hoặc chọn xe đổi pin. Hoặc sạc ở cơ quan, trạm công cộng."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Đừng làm",
+      "pose": "confused",
+      "items": [
+        "Kéo dây sạc từ nhà xuống hầm",
+        "Dùng ổ cắm nối dài",
+        "Sạc khi không có người"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Còn những việc không nên làm. Đừng kéo dây sạc từ nhà xuống hầm. Đừng dùng ổ cắm nối dài. Và đừng sạc khi không có người trông."
+    },
+    {
+      "type": "verdict",
+      "headline": "Ai nên mua xe điện?",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Nên mua",
+        "items": [
+          "Khu có chỗ sạc",
+          "Chọn xe đổi pin"
+        ]
+      },
+      "right": {
+        "title": "Chưa vội",
+        "items": [
+          "Chưa có chỗ sạc",
+          "Chưa hỏi ban quản lý"
+        ]
+      },
+      "voice": "Vậy ai nên mua? Nếu khu nhà có chỗ sạc, hoặc bạn chọn xe đổi pin, thì mua được. Còn chưa có chỗ sạc, chưa hỏi ban quản lý, thì chưa vội."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Chưa có chỗ sạc",
+        "thì chưa nên mua vội!"
+      ],
+      "cta": "Nhà bạn có chỗ sạc xe điện chưa? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, chưa có chỗ sạc thì chưa nên mua vội. Nhà bạn có chỗ sạc xe điện chưa? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "xe-dien-chung-cu"
+}

@@ -413,3 +413,131 @@ export const Icon: React.FC<{ name: IconName; size?: number; fg?: string }> = ({
     </svg>
   );
 };
+
+/* ------------------------------------------------------------------ Hình lớn dùng chung cho nhiều đề tài */
+
+export type ArtName = "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank";
+
+/** Hình vẽ lớn (khoảng 400×400, gốc ở giữa). `t` là thời gian hoạt họa theo khung hình. */
+export const BigArt: React.FC<{ name: ArtName; x: number; y: number; scale?: number; tint?: string }> = ({
+  name,
+  x,
+  y,
+  scale = 1,
+  tint,
+}) => {
+  const frame = useCurrentFrame();
+  const bob = Math.sin(frame / 9) * 4;
+  const A = tint ?? color.yellow;
+  return (
+    <g transform={`translate(${x} ${y + bob}) scale(${scale})`} filter="url(#boil)" {...SW}>
+      <ellipse cx="0" cy="206" rx="150" ry="14" fill="rgba(29,27,25,0.14)" />
+      {name === "phone" && (
+        <g>
+          <rect x="-96" y="-190" width="192" height="388" rx="30" fill="#2B2724" stroke={ink} strokeWidth="9" />
+          <rect x="-80" y="-168" width="160" height="344" rx="16" fill="#DCEFFB" />
+          <rect x="-24" y="-182" width="48" height="10" rx="5" fill="#4A453F" />
+          {/* thẻ SIM */}
+          <g transform="translate(0 -88)">
+            <path d="M-46 -34 L22 -34 L46 -10 L46 42 L-46 42 Z" fill={A} stroke={ink} strokeWidth="6" />
+            <rect x="-24" y="-8" width="48" height="36" rx="5" fill="#E8B923" stroke={ink} strokeWidth="4" />
+            <path d="M-24 6 H24 M-24 14 H24 M0 -8 V28" stroke={ink} strokeWidth="3" />
+          </g>
+          {/* khung quét khuôn mặt */}
+          <g transform="translate(0 52)">
+            <circle r="48" fill={color.white} stroke={ink} strokeWidth="6" />
+            <circle cx="-16" cy="-8" r="5" fill={ink} />
+            <circle cx="16" cy="-8" r="5" fill={ink} />
+            <path d="M-16 16 Q0 30 16 16" fill="none" stroke={ink} strokeWidth="5" />
+            {[[-62, -62, 1, 1], [62, -62, -1, 1], [-62, 62, 1, -1], [62, 62, -1, -1]].map(([cx, cy, sx, sy], k) => (
+              <path key={k} d={`M${cx} ${cy + sy * -18} V${cy} H${cx + sx * 18}`} fill="none" stroke={color.green} strokeWidth="7" transform={`translate(${-sx * 0} 0)`} />
+            ))}
+            <rect x="-60" y={-52 + ((frame * 3) % 104)} width="120" height="6" rx="3" fill={color.green} opacity="0.8" />
+          </g>
+        </g>
+      )}
+      {name === "house" && (
+        <g>
+          <path d="M-170 -10 L0 -170 L170 -10 Z" fill={color.red} stroke={ink} strokeWidth="9" />
+          <rect x="-132" y="-10" width="264" height="206" fill="#F2D6A2" stroke={ink} strokeWidth="9" />
+          <rect x="-104" y="50" width="76" height="146" rx="6" fill="#7A5B3A" stroke={ink} strokeWidth="7" />
+          <circle cx="-44" cy="124" r="7" fill={A} stroke={ink} strokeWidth="3" />
+          <rect x="22" y="22" width="86" height="76" rx="6" fill="#CFE6F2" stroke={ink} strokeWidth="7" />
+          <path d="M65 22 V98 M22 60 H108" stroke={ink} strokeWidth="5" />
+          <rect x="-46" y="-96" width="48" height="48" rx="6" fill="#CFE6F2" stroke={ink} strokeWidth="6" />
+          <rect x="70" y="-130" width="30" height="60" fill="#E9B9A6" stroke={ink} strokeWidth="6" />
+          {/* chìa khóa */}
+          <g transform="translate(120 150) rotate(-20)">
+            <circle r="22" fill={A} stroke={ink} strokeWidth="6" />
+            <circle r="8" fill="#F2D6A2" stroke={ink} strokeWidth="4" />
+            <path d="M20 0 H78 M60 0 V18 M74 0 V14" stroke={ink} strokeWidth="9" />
+          </g>
+        </g>
+      )}
+      {name === "money" && (
+        <g>
+          {[0, 1, 2].map((k) => (
+            <g key={k} transform={`translate(${-20 + k * 12} ${-90 + k * 62}) rotate(${-6 + k * 5})`}>
+              <rect x="-150" y="-46" width="300" height="104" rx="12" fill={k === 1 ? "#BFE3C7" : "#A7D8B5"} stroke={ink} strokeWidth="7" />
+              <circle r="30" fill="#E8F5EA" stroke={ink} strokeWidth="5" />
+              <text x="0" y="12" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="34" fill={ink}>đ</text>
+              <circle cx="-114" cy="0" r="10" fill="none" stroke={ink} strokeWidth="4" />
+              <circle cx="114" cy="0" r="10" fill="none" stroke={ink} strokeWidth="4" />
+            </g>
+          ))}
+          <g transform="translate(120 140)">
+            <ellipse cx="0" cy="22" rx="52" ry="16" fill="#D9A21B" stroke={ink} strokeWidth="6" />
+            <ellipse cx="0" cy="4" rx="52" ry="16" fill={A} stroke={ink} strokeWidth="6" />
+            <ellipse cx="0" cy="-14" rx="52" ry="16" fill="#FFD76A" stroke={ink} strokeWidth="6" />
+          </g>
+        </g>
+      )}
+      {name === "doc" && (
+        <g>
+          <path d="M-120 -190 H60 L130 -120 V196 H-120 Z" fill={color.white} stroke={ink} strokeWidth="9" />
+          <path d="M60 -190 V-120 H130" fill="#E9DFC8" stroke={ink} strokeWidth="8" />
+          {[-96, -52, -8, 36].map((yy, k) => (
+            <path key={k} d={`M-84 ${yy} H${k % 2 ? 70 : 96}`} stroke="#8E8A84" strokeWidth="9" />
+          ))}
+          <g transform="translate(40 120) rotate(-14)">
+            <circle r="58" fill="none" stroke={color.red} strokeWidth="10" />
+            <text x="0" y="14" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="40" fill={color.red}>
+              ĐÃ DUYỆT
+            </text>
+          </g>
+        </g>
+      )}
+      {name === "gold" && (
+        <g>
+          {[[-80, 90], [80, 90], [0, 0]].map(([gx, gy], k) => (
+            <g key={k} transform={`translate(${gx} ${gy})`}>
+              <path d="M-84 40 L-60 -40 H60 L84 40 Z" fill={k === 2 ? "#FFE08A" : A} stroke={ink} strokeWidth="8" />
+              <path d="M-52 -30 H52" stroke={color.white} strokeWidth="7" opacity="0.7" />
+              <rect x="-84" y="40" width="168" height="20" rx="4" fill="#C98F0F" stroke={ink} strokeWidth="7" />
+            </g>
+          ))}
+          <path d="M-150 -150 L-130 -120 M150 -140 L128 -112 M0 -190 V-156" stroke={A} strokeWidth="9" />
+        </g>
+      )}
+      {name === "shield" && (
+        <g>
+          <path d="M0 -190 L140 -140 V10 Q140 120 0 196 Q-140 120 -140 10 V-140 Z" fill={color.blue} stroke={ink} strokeWidth="10" />
+          <path d="M0 -150 L108 -112 V10 Q108 98 0 158 Z" fill="#6FA3F0" />
+          <path d="M-62 4 L-14 54 L66 -42" fill="none" stroke={color.white} strokeWidth="24" />
+        </g>
+      )}
+      {name === "bank" && (
+        <g>
+          <path d="M-170 -60 L0 -170 L170 -60 Z" fill="#E9DFC8" stroke={ink} strokeWidth="9" />
+          <circle cx="0" cy="-92" r="22" fill={A} stroke={ink} strokeWidth="6" />
+          <text x="0" y="-83" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="26" fill={ink}>%</text>
+          {[-110, -36, 36, 110].map((cx) => (
+            <rect key={cx} x={cx - 18} y="-46" width="36" height="170" fill="#F4ECD6" stroke={ink} strokeWidth="7" />
+          ))}
+          <rect x="-170" y="124" width="340" height="30" fill="#E9DFC8" stroke={ink} strokeWidth="8" />
+          <rect x="-188" y="154" width="376" height="34" fill="#CFC6B2" stroke={ink} strokeWidth="8" />
+        </g>
+      )}
+    </g>
+  );
+};

@@ -5,7 +5,8 @@ import { color, font } from "../brand";
 import { Mascot } from "../components/Mascot";
 import { Stage } from "../components/Headline";
 import { Stamp } from "../components/Props";
-import { HAS_VEHICLE_PHOTOS, Scooter, Street, Traffic } from "../components/Art";
+import { BigArt, HAS_VEHICLE_PHOTOS, Scooter, Street, Traffic } from "../components/Art";
+import { pop as popAnim } from "../anim";
 import { Burst, ShockLines, Sfx } from "../components/Fx";
 import { introEnd, phraseAt } from "../components/Broll";
 import { FPS } from "../brand";
@@ -15,6 +16,7 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
   // Có ảnh thật ở đầu cảnh thì phần hoạt hình bắt đầu sau ảnh.
   const intro = introEnd(scene, frames);
   const frame = useCurrentFrame() - intro;
+  const art = scene.art ?? "scooter";
   const drive = interpolate(frame, [0, 28], [-260, 380], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -65,14 +67,27 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
       ))}
       {scene.stamp ? <Sfx name="stamp" at={intro + stampAt} volume={0.75} /> : null}
       <Stage>
-        <g opacity={Math.min(1, frame / 10)}>
-          <Street baseY={1090} roadH={250} />
-          <Traffic y={1245} count={3} speed={6} scale={0.4} fromRight />
-        </g>
-        <ShockLines x={850} y={930} at={intro + stampAt} r={430} />
-        <Scooter kind="petrol" x={drive} y={1190} scale={1.05} moving={frame < 34 || frame > stampAt + 8} rider={!HAS_VEHICLE_PHOTOS} />
-        <Stamp text={scene.stamp ?? ""} x={330} y={900} progress={stamp} />
-        {scene.stamp ? <Burst x={330} y={900} at={intro + stampAt + 2} r={190} tint={color.red} rays={12} /> : null}
+        {art === "scooter" ? (
+          <>
+            <g opacity={Math.min(1, frame / 10)}>
+              <Street baseY={1090} roadH={250} />
+              <Traffic y={1245} count={3} speed={6} scale={0.4} fromRight />
+            </g>
+            <ShockLines x={850} y={930} at={intro + stampAt} r={430} />
+            <Scooter kind="petrol" x={drive} y={1190} scale={1.05} moving={frame < 34 || frame > stampAt + 8} rider={!HAS_VEHICLE_PHOTOS} />
+            <Stamp text={scene.stamp ?? ""} x={330} y={900} progress={stamp} />
+            {scene.stamp ? <Burst x={330} y={900} at={intro + stampAt + 2} r={190} tint={color.red} rays={12} /> : null}
+          </>
+        ) : (
+          <>
+            <ShockLines x={850} y={930} at={intro + stampAt} r={430} />
+            <g opacity={Math.min(1, popAnim(frame, 6) * 1.5)}>
+              <BigArt name={art} x={330} y={980} scale={0.62 + 0.38 * Math.min(1, popAnim(frame, 6))} />
+            </g>
+            <Stamp text={scene.stamp ?? ""} x={340} y={1180} progress={stamp} />
+            {scene.stamp ? <Burst x={340} y={1180} at={intro + stampAt + 2} r={190} tint={color.red} rays={12} /> : null}
+          </>
+        )}
         <Mascot pose={frame > stampAt ? "shocked" : "surprised"} changedAt={intro + stampAt} x={850} y={1185} scale={0.98} enter={intro + 8} />
       </Stage>
     </AbsoluteFill>

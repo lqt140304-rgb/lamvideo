@@ -5,7 +5,7 @@ import { color, font } from "../brand";
 import { Headline, Stage } from "../components/Headline";
 import { ZoneMap } from "../components/Props";
 import { Sfx } from "../components/Fx";
-import { Icon, iconFor } from "../components/Art";
+import { BigArt, Icon, iconFor } from "../components/Art";
 import type { TimelineScene as TimelineData } from "../types";
 
 export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = ({ scene, frames }) => {
@@ -16,12 +16,17 @@ export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = 
     if (frame >= st) active = i;
   });
   const step = scene.steps[active];
-  void iconFor;
   return (
     <AbsoluteFill>
       <Headline text={scene.headline} size={76} top={316} />
       <Stage>
-        <ZoneMap x={540} y={660} size={400} level={step.level} reveal={ease(frame, starts[active], 14)} />
+        {(scene.art ?? "zone") === "zone" ? (
+          <ZoneMap x={540} y={660} size={400} level={step.level ?? 1} reveal={ease(frame, starts[active], 14)} />
+        ) : scene.art === "none" ? null : (
+          <g transform={`translate(0 ${-(1 - pop(frame, starts[active], 260)) * 14})`}>
+            <BigArt name={scene.art as never} x={540} y={640} scale={0.5 + 0.04 * Math.min(1, pop(frame, starts[active], 260))} />
+          </g>
+        )}
       </Stage>
       {/* trục thời gian */}
       <div style={{ position: "absolute", top: 960, left: 94, width: 8, height: 400, background: color.paperDark, border: `3px solid ${color.ink}`, borderRadius: 6 }}>
@@ -49,7 +54,7 @@ export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = 
               }}
             >
               <div style={{ flex: "none", width: 64, height: 64, borderRadius: 32, background: isActive ? color.yellow : color.paperDark, border: `5px solid ${color.ink}`, display: "flex", alignItems: "center", justifyContent: "center", marginLeft: -18 }}>
-                <Icon name={i === 0 ? "calendar" : i === 1 ? "scooter" : "pin"} size={38} />
+                <Icon name={i === 0 ? "calendar" : iconFor(s.when + " " + s.what)} size={38} />
               </div>
               <div
                 style={{
