@@ -5,6 +5,7 @@ import { color, font } from "../brand";
 import { Mascot } from "../components/Mascot";
 import { Headline, Stage } from "../components/Headline";
 import { CheckIcon } from "../components/Props";
+import { Icon, iconFor } from "../components/Art";
 import { Burst, Sfx } from "../components/Fx";
 import type { ListScene as ListData } from "../types";
 
@@ -31,7 +32,14 @@ export const ListScene: React.FC<{ scene: ListData; frames: number }> = ({ scene
                 transform: `translateX(${(1 - p) * -160}px)`,
               }}
             >
-              <CheckIcon good={good} />
+              <div style={{ position: "relative", flex: "none", width: 90, height: 90 }}>
+                <div style={{ width: 90, height: 90, borderRadius: 45, background: good ? "#CDEFD9" : "#F9D2CD", border: `5px solid ${color.ink}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Icon name={iconFor(item)} size={52} />
+                </div>
+                <div style={{ position: "absolute", right: -14, bottom: -14 }}>
+                  <CheckIcon good={good} size={44} />
+                </div>
+              </div>
               <div
                 style={{
                   fontFamily: font.display,

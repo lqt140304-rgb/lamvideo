@@ -3,6 +3,7 @@ import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { atFrame, pop } from "../anim";
 import { color, font } from "../brand";
 import { Sfx } from "../components/Fx";
+import { Icon, iconFor } from "../components/Art";
 import { Mascot } from "../components/Mascot";
 import { Headline, Stage } from "../components/Headline";
 import type { VerdictScene as VerdictData } from "../types";
@@ -61,7 +62,7 @@ const Column: React.FC<{ title: string; items: string[]; tint: string; start: nu
               gap: 12,
             }}
           >
-            <span style={{ color: tint === color.yellow ? color.inkSoft : tint }}>●</span>
+            <span style={{ flex: "none", marginTop: 2 }}><Icon name={iconFor(it)} size={38} /></span>
             <span>{it}</span>
           </div>
         );

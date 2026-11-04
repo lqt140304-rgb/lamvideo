@@ -4,75 +4,7 @@ import { color, font } from "../brand";
 
 const ink = color.ink;
 
-/** Xe tay ga vẽ tay. Xe xăng có ống xả nhả khói, xe điện có tia sét. */
-export const Scooter: React.FC<{
-  kind: "petrol" | "electric";
-  x: number;
-  y: number;
-  scale?: number;
-  moving?: boolean;
-}> = ({ kind, x, y, scale = 1, moving = false }) => {
-  const frame = useCurrentFrame();
-  const body = kind === "electric" ? color.green : color.red;
-  const shake = moving ? Math.sin(frame * 1.7) * 1.5 : 0;
-  const spin = moving ? frame * 18 : 0;
-  return (
-    <g transform={`translate(${x} ${y + shake}) scale(${scale})`} filter="url(#boil)" strokeLinejoin="round" strokeLinecap="round">
-      {kind === "petrol" ? <Smoke x={-150} y={20} active={moving} /> : null}
-      {/* thân xe */}
-      <path
-        d="M-130 10 Q-140 -40 -90 -50 L10 -50 Q30 -50 40 -30 L70 20 L-130 20 Z"
-        fill={body}
-        stroke={ink}
-        strokeWidth="8"
-      />
-      {/* yên */}
-      <path d="M-110 -52 Q-100 -78 -40 -76 Q-10 -76 -6 -52 Z" fill={ink} />
-      {/* cổ xe + tay lái */}
-      <path d="M60 10 L100 -110" stroke={ink} strokeWidth="10" />
-      <path d="M80 -112 L130 -118" stroke={ink} strokeWidth="10" />
-      <path d="M70 -20 Q120 -40 120 20 L80 24 Z" fill={body} stroke={ink} strokeWidth="8" />
-      {kind === "petrol" ? <path d="M-150 18 L-110 18" stroke={ink} strokeWidth="10" /> : null}
-      {kind === "electric" ? (
-        <path d="M-58 -40 L-80 -6 L-60 -6 L-74 18 L-36 -18 L-56 -18 L-40 -40 Z" fill={color.yellow} stroke={ink} strokeWidth="5" />
-      ) : null}
-      {/* bánh xe */}
-      {[-96, 96].map((cx) => (
-        <g key={cx} transform={`translate(${cx} 40) rotate(${spin})`}>
-          <circle r="38" fill={ink} />
-          <circle r="16" fill={color.paper} />
-          <line x1="-16" x2="16" y1="0" y2="0" stroke={ink} strokeWidth="5" />
-        </g>
-      ))}
-    </g>
-  );
-};
-
-/** Khói xám bay ra sau ống xả. */
-export const Smoke: React.FC<{ x: number; y: number; active?: boolean }> = ({ x, y, active = true }) => {
-  const frame = useCurrentFrame();
-  if (!active) return null;
-  return (
-    <g>
-      {[0, 1, 2, 3].map((i) => {
-        const t = ((frame + i * 9) % 36) / 36;
-        return (
-          <circle
-            key={i}
-            cx={x - t * 120}
-            cy={y - t * 50 + Math.sin(t * 6 + i) * 6}
-            r={14 + t * 30}
-            fill="#8E8A84"
-            opacity={(1 - t) * 0.55}
-            stroke={ink}
-            strokeWidth={2}
-            strokeOpacity={(1 - t) * 0.6}
-          />
-        );
-      })}
-    </g>
-  );
-};
+export { Scooter, Smoke } from "./Art";
 
 /** Sơ đồ Vành đai 1 vẽ tay: vùng lõi Hoàn Kiếm, thêm Cửa Nam, rồi cả Vành đai 1. */
 export const ZoneMap: React.FC<{
@@ -92,6 +24,14 @@ export const ZoneMap: React.FC<{
   const op = (l: number) => (l === level ? 0.25 + 0.45 * reveal : on(l) ? 0.55 : 0);
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`} filter="url(#boil)">
+      {/* mạng đường phố mờ */}
+      <g stroke={ink} strokeOpacity="0.16" strokeWidth="6" fill="none" strokeLinecap="round">
+        <path d="M-250 60 Q-100 40 20 70 T270 30" />
+        <path d="M-200 -120 Q-60 -80 40 -20 T120 240" />
+        <path d="M-60 -250 Q-20 -100 -50 40 T-90 250" />
+        <path d="M110 -260 Q90 -100 130 20 T210 200" />
+        <path d="M-260 -10 Q-100 -30 50 -40 T270 -90" />
+      </g>
       {/* Vành đai 1 */}
       <path
         d="M-270 -40 Q-250 -250 -20 -270 Q230 -270 270 -60 Q290 170 60 260 Q-180 290 -260 120 Z"
@@ -122,6 +62,27 @@ export const ZoneMap: React.FC<{
       </g>
       {/* Hồ Gươm */}
       <ellipse cx="44" cy="-6" rx="18" ry="34" fill={color.sky} stroke={ink} strokeWidth="5" transform="rotate(-8 44 -6)" />
+      {/* Tháp Rùa trên đảo nhỏ */}
+      <g transform="translate(44 -6)">
+        <rect x="-6" y="-22" width="12" height="22" fill="#E9DFC8" stroke={ink} strokeWidth="3" />
+        <path d="M-9 -22 L0 -34 L9 -22 Z" fill={color.red} stroke={ink} strokeWidth="3" />
+      </g>
+      {/* cây quanh hồ */}
+      {[[8, -44], [86, -40], [80, 36], [4, 40], [126, 4]].map(([cx, cy], k) => (
+        <circle key={k} cx={cx} cy={cy} r="9" fill="#4FA66B" stroke={ink} strokeWidth="3" />
+      ))}
+      {/* vòng sóng lan ra từ vùng đang áp dụng */}
+      {(() => {
+        const t = (frame % 40) / 40;
+        const r = level === 1 ? 100 : level === 2 ? 190 : 300;
+        return <ellipse cx="45" cy="0" rx={r * (0.7 + 0.5 * t)} ry={r * (0.6 + 0.5 * t)} fill="none" stroke={color.red} strokeWidth="6" opacity={(1 - t) * 0.5 * reveal} />;
+      })()}
+      {/* biển cấm */}
+      <g transform={`translate(${level === 1 ? 140 : level === 2 ? 190 : 285} ${level === 1 ? -100 : level === 2 ? -150 : -250}) scale(${0.6 + 0.4 * reveal})`}>
+        <circle r="34" fill={color.white} stroke={color.red} strokeWidth="9" />
+        <path d="M-14 8 L-4 8 L2 -8 L10 -8 M-10 14 a3 3 0 1 0 .1 0 M14 14 a3 3 0 1 0 .1 0" fill="none" stroke={ink} strokeWidth="4" />
+        <path d="M-24 24 L24 -24" stroke={color.red} strokeWidth="9" strokeLinecap="round" />
+      </g>
       {/* nhãn */}
       <g fontFamily={font.display} fontWeight={800} fill={ink} textAnchor="middle">
         <text x="0" y="-292" fontSize="38">VÀNH ĐAI 1</text>

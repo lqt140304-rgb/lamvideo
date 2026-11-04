@@ -5,6 +5,7 @@ import { color, font } from "../brand";
 import { Headline, Stage } from "../components/Headline";
 import { ZoneMap } from "../components/Props";
 import { Sfx } from "../components/Fx";
+import { Icon, iconFor } from "../components/Art";
 import type { TimelineScene as TimelineData } from "../types";
 
 export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = ({ scene, frames }) => {
@@ -15,12 +16,17 @@ export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = 
     if (frame >= st) active = i;
   });
   const step = scene.steps[active];
+  void iconFor;
   return (
     <AbsoluteFill>
       <Headline text={scene.headline} size={76} top={316} />
       <Stage>
         <ZoneMap x={540} y={660} size={400} level={step.level} reveal={ease(frame, starts[active], 14)} />
       </Stage>
+      {/* trục thời gian */}
+      <div style={{ position: "absolute", top: 960, left: 94, width: 8, height: 400, background: color.paperDark, border: `3px solid ${color.ink}`, borderRadius: 6 }}>
+        <div style={{ width: "100%", height: `${Math.min(100, ((active + ease(frame, starts[active], 14)) / scene.steps.length) * 100)}%`, background: color.red, borderRadius: 6 }} />
+      </div>
       <div style={{ position: "absolute", top: 900, left: 60, right: 60, display: "flex", flexDirection: "column", gap: 14 }}>
         {scene.steps.map((s, i) => {
           const p = pop(frame, starts[i]);
@@ -31,7 +37,7 @@ export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = 
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 22,
+                gap: 18,
                 minHeight: 112,
                 padding: "10px 22px",
                 borderRadius: 22,
@@ -42,14 +48,17 @@ export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = 
                 transform: `translateX(${(1 - p) * 120}px)`,
               }}
             >
+              <div style={{ flex: "none", width: 64, height: 64, borderRadius: 32, background: isActive ? color.yellow : color.paperDark, border: `5px solid ${color.ink}`, display: "flex", alignItems: "center", justifyContent: "center", marginLeft: -18 }}>
+                <Icon name={i === 0 ? "calendar" : i === 1 ? "scooter" : "pin"} size={38} />
+              </div>
               <div
                 style={{
                   flex: "none",
-                  minWidth: 210,
+                  minWidth: 170,
                   textAlign: "center",
                   fontFamily: font.display,
                   fontWeight: 900,
-                  fontSize: 46,
+                  fontSize: 42,
                   color: color.white,
                   background: isActive ? color.red : color.inkSoft,
                   borderRadius: 14,

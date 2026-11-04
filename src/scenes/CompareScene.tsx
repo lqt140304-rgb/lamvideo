@@ -3,7 +3,7 @@ import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { atFrame, formatVnd, pop } from "../anim";
 import { color, font } from "../brand";
 import { Headline } from "../components/Headline";
-import { Scooter } from "../components/Props";
+import { Charger, GasPump, Scooter } from "../components/Art";
 import { Sfx } from "../components/Fx";
 import type { CompareCard, CompareScene as CompareData } from "../types";
 
@@ -45,8 +45,9 @@ const Card: React.FC<{ card: CompareCard; start: number }> = ({ card, start }) =
       >
         {card.label}
       </div>
-      <svg width="400" height="250" viewBox="-200 -150 400 250" style={{ overflow: "hidden", marginTop: 10 }}>
-        <Scooter kind={card.kind} x={20} y={0} scale={1.05} moving />
+      <svg width="400" height="270" viewBox="-200 -170 400 270" style={{ overflow: "hidden", marginTop: 10 }}>
+        {card.kind === "electric" ? <Charger x={150} y={86} scale={0.62} /> : <GasPump x={150} y={86} scale={0.62} />}
+        <Scooter kind={card.kind} x={-46} y={8} scale={0.7} moving rider />
       </svg>
       <div style={{ fontFamily: font.display, fontWeight: 900, fontSize: 82, color: tint, lineHeight: 1, marginTop: 6 }}>
         {card.amountText ?? `${formatVnd(count)}đ`}
@@ -102,17 +103,48 @@ export const CompareScene: React.FC<{ scene: CompareData; frames: number }> = ({
       >
         VS
       </div>
+
+      {(() => {
+        const [a, b] = scene.cards;
+        const pa = a.amount ?? 0;
+        const pb = b.amount ?? 6700;
+        const grow = (start: number) => Math.min(1, Math.max(0, (frame - start - 10) / 22));
+        const rows = [
+          { c: a, v: pa, w: 1, g: grow(atFrame(a.at, frames) + 20), tint: color.red },
+          { c: b, v: pb, w: pb / (pa || 1), g: grow(vsAt + 10), tint: color.green },
+        ];
+        const save = pa ? Math.round((1 - pb / pa) * 100) : 0;
+        return (
+          <div style={{ position: "absolute", top: 1166, left: 70, right: 70, opacity: frame > atFrame(a.at, frames) + 18 ? 1 : 0 }}>
+            {rows.map((r, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 8 }}>
+                <div style={{ width: 150, fontFamily: font.display, fontWeight: 900, fontSize: 28, color: color.ink }}>{r.c.label}</div>
+                <div style={{ flex: 1, height: 34, background: color.paperDark, border: `4px solid ${color.ink}`, borderRadius: 14, overflow: "hidden" }}>
+                  <div style={{ width: `${Math.max(7, r.w * 100) * r.g}%`, height: "100%", background: r.tint }} />
+                </div>
+              </div>
+            ))}
+            {save > 0 ? (
+              <div style={{ textAlign: "center", opacity: grow(vsAt + 20) }}>
+                <span style={{ display: "inline-block", fontFamily: font.display, fontWeight: 900, fontSize: 34, color: color.white, background: color.green, border: `4px solid ${color.ink}`, borderRadius: 14, padding: "0 20px", transform: `rotate(-2deg) scale(${0.8 + 0.2 * grow(vsAt + 20)})` }}>
+                  Tiết kiệm ~{save}%
+                </span>
+              </div>
+            ) : null}
+          </div>
+        );
+      })()}
       {scene.footnote ? (
         <div
           style={{
             position: "absolute",
-            top: 1250,
+            top: 1338,
             left: 70,
             right: 70,
             textAlign: "center",
             fontFamily: font.body,
             fontWeight: 600,
-            fontSize: 28,
+            fontSize: 21,
             color: color.inkSoft,
             opacity: frame > vsAt ? 1 : 0,
           }}
