@@ -48,7 +48,8 @@ const MIN_SHOW = 30;
  * ảnh sau chỉ hiện khi ảnh trước tắt hẳn + nghỉ GAP khung; ảnh còn quá ngắn thì bỏ.
  */
 export const sceneWindows = (scene: Scene, frames: number): ({ start: number; end: number } | null)[] => {
-  const list = brollsOf(scene.broll).map((b, i) => ({ i, ...brollWindow(b, scene, frames) }));
+  // mỗi cảnh chỉ dùng 1 ảnh tổng quan (ảnh đầu tiên)
+  const list = brollsOf(scene.broll).slice(0, 1).map((b, i) => ({ i, ...brollWindow(b, scene, frames) }));
   const out: ({ start: number; end: number } | null)[] = list.map(() => null);
   let lastEnd = -GAP;
   for (const w of [...list].sort((a, b) => a.start - b.start)) {

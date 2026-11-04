@@ -171,7 +171,9 @@ const rank = (results, query, must, since, prefer) => {
       const ageYears = (Date.now() - Date.parse(r.date)) / (365.25 * 864e5);
       fresh = 2.5 * Math.max(0, 1 - ageYears / 6); // ảnh trong 6 năm gần đây được cộng điểm, càng mới càng cao
     }
-    return { r, ok: ok && !old, old, score: hit + tall + fresh - (unknown ? 0.8 : 0) - i * 0.01 };
+    // có `since` thì BẮT BUỘC biết ngày chụp và ngày đó phải từ mốc trở đi (Openverse không có ngày nên bị loại)
+    const undated = !!since && !r.date;
+    return { r, ok: ok && !old && !undated, old: old || undated, score: hit + tall + fresh - (unknown ? 0.8 : 0) - i * 0.01 };
   });
   const good = scored.filter((s) => s.ok).sort((a, b) => b.score - a.score);
   const rest = scored.filter((s) => !s.ok).sort((a, b) => b.score - a.score);
@@ -271,8 +273,12 @@ for (const it of items) {
       (prev.commons ?? null) !== (it.commons ?? null) ||
       (prev.since ?? null) !== (it.since ?? null) ||
       (it.pick !== undefined && (prev.pick ?? null) !== it.pick));
-  if (fs.existsSync(dest) && changed) {
-    console.log(`${tag}: đổi từ khóa / lựa chọn, tải lại.`);
+  // ảnh đã tải từ trước nhưng không rõ ngày / quá cũ so với mốc `since` thì tải lại
+  const stale =
+    !!prev?.landing && !!it.since && it.pick === undefined && !it.commons && (!prev.date || prev.date < it.since);
+  if (fs.existsSync(dest) && (changed || stale)) {
+    if (stale && !changed) console.log(`${tag}: ảnh cũ hoặc không rõ ngày chụp (trước ${it.since}), tìm ảnh mới hơn.`);
+    if (changed) console.log(`${tag}: đổi từ khóa / lựa chọn, tải lại.`);
     fs.rmSync(dest);
     delete credits[it.file];
   }

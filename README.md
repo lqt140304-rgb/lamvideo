@@ -90,7 +90,7 @@ Tất cả đều miễn phí và dùng thương mại được.
 
 ### Ảnh thật (B-roll)
 
-Ảnh thật chỉ để mở bối cảnh chung (nơi chốn, sự vật chính), không minh họa từng câu: nên **tối đa 1 ảnh mỗi cảnh, 3–5 ảnh mỗi video**. Phần giải thích để hoạt hình lo. Các ảnh trong cùng cảnh tự xếp để không chồng lên nhau (ảnh sau chờ ảnh trước tắt hẳn rồi nghỉ ~0,8 giây; ảnh còn quá ngắn thì bỏ).
+Ảnh thật chỉ để mở bối cảnh chung (nơi chốn, sự vật chính), không minh họa từng câu: nên **tối đa 1 ảnh mỗi cảnh (code chỉ dùng ảnh đầu tiên), 3–5 ảnh mỗi video**. Phần giải thích để hoạt hình lo. Các ảnh trong cùng cảnh tự xếp để không chồng lên nhau (ảnh sau chờ ảnh trước tắt hẳn rồi nghỉ ~0,8 giây; ảnh còn quá ngắn thì bỏ).
 
 Mỗi ảnh gắn với một cụm từ trong lời đọc và hiện đúng lúc giọng đọc tới cụm đó:
 
@@ -170,3 +170,5 @@ Thêm hoặc thay tư thế: đặt ảnh gốc theo cấu trúc thư mục củ
 `python tools/mascot_cutout.py <thư mục ảnh gốc> public/mascot 65800` (cần numpy, scipy, pillow), sau đó cập nhật `src/mascot.ts` từ `public/mascot/mascot.json`.
 Ảnh nào bị cắt sát mép (mất tóc, mặt, tay) sẽ bị bỏ qua và được báo tên. Hiện còn thiếu vì lý do này:
 chống hông, vẫy tay, chỉ tay, giới thiệu, nháy mắt, vui mừng, tự tin, tạo tim, uống nước, ăn, selfie, đeo balo.
+
+> **Ảnh phải mới:** khi script có `images.since`, chỉ nhận ảnh có ngày chụp (EXIF) từ mốc đó. Ảnh Openverse không có ngày nên bị loại; ảnh đã tải từ trước mà cũ/không rõ ngày sẽ tự được tìm lại khi chạy `npm run images`.
