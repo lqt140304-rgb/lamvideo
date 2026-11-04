@@ -8,6 +8,8 @@ export type { MascotPose };
 export type Broll = {
   /** Tên file trong public/<slug>/img/, ví dụ "giao-thong.jpg". */
   file: string;
+  /** Link trực tiếp tới file ảnh (.jpg/.png) do bạn hoặc ChatGPT tìm; kèm `credit`. Có `url` thì công cụ không tự tìm nữa. */
+  url?: string;
   /** Từ khóa (tiếng Anh cho kết quả tốt hơn) để công cụ tự tìm ảnh giấy phép mở trên Openverse. */
   query?: string;
   /** Chọn kết quả thứ mấy trong danh sách tìm được (0 = đầu tiên). */

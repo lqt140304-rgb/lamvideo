@@ -271,6 +271,7 @@ for (const it of items) {
     !!prev?.landing &&
     ((prev.query ?? null) !== (it.query ?? null) ||
       (prev.commons ?? null) !== (it.commons ?? null) ||
+      (it.url && prev.landing !== it.url) ||
       (prev.since ?? null) !== (it.since ?? null) ||
       (it.pick !== undefined && (prev.pick ?? null) !== it.pick));
   // ảnh đã tải từ trước nhưng không rõ ngày / quá cũ so với mốc `since` thì tải lại
@@ -306,6 +307,20 @@ for (const it of items) {
   }
 
   try {
+    if (it.url) {
+      // ảnh do bạn / ChatGPT chọn: tải thẳng từ link, ghi nguồn theo "credit" trong script
+      const size = await download(it.url, dest);
+      const host = new URL(it.url).hostname.replace(/^www\./, "");
+      const short = it.credit ?? `Ảnh: ${host}`;
+      credits[it.file] = { short, full: `${short} – ${it.url}`, license: null, landing: it.url, date: null, query: null, commons: null, since: null, pick: null };
+      console.log(`${tag}: tải từ link (${Math.round(size / 1024)} KB) — ${short}`);
+      if (!it.credit) console.warn(`\x1b[33m${tag}: thiếu "credit" (tên tác giả + giấy phép) trong script, đang ghi tạm tên trang.\x1b[0m`);
+      continue;
+    }
+    if (!it.query && !it.commons) {
+      console.warn(`\x1b[33m${tag}: đang chờ ảnh. Dán link ảnh vào script.json ("url" + "credit") hoặc bỏ file vào public/${slug}/img/. Cảnh này tạm không có ảnh.\x1b[0m`);
+      continue;
+    }
     if (it.commons) {
       const r = await fetchCommonsFile(it.commons);
       const size = await download(r.url, dest);

@@ -22,15 +22,9 @@
       ],
       "stamp": "CẤM?",
       "broll": {
-        "file": "giao-thong-ha-noi.jpg",
+        "file": "anh-mo-dau.jpg",
         "say": "Nghe tin Hà Nội cấm xe máy xăng",
         "hold": 2.0,
-        "query": "Hanoi traffic",
-        "must": [
-          "hanoi",
-          "ha noi",
-          "hà nội"
-        ],
         "caption": "Hà Nội sắp cấm xe máy xăng?"
       },
       "voice": "Nghe tin Hà Nội cấm xe máy xăng, nhiều người tính bán ngay con xe đang đi để lên đời xe điện. Khoan đã! Tóm lại là thế này."
@@ -106,17 +100,9 @@
       ],
       "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
       "broll": {
-        "file": "cay-xang-bom.jpg",
+        "file": "anh-cay-xang.jpg",
         "say": "Giá xăng hiện hơn hai mươi ba nghìn một lít",
         "hold": 2.2,
-        "query": "Petrolimex",
-        "must": [
-          "petrolimex",
-          "petrol",
-          "gas station",
-          "fuel",
-          "filling station"
-        ],
         "caption": "Xăng ~23.000đ/lít"
       },
       "voice": "Giờ tính tiền. Xe tay ga chạy xăng ăn khoảng hai lít một trăm cây số. Giá xăng hiện hơn hai mươi ba nghìn một lít, tức khoảng bốn mươi sáu nghìn. Còn xe điện phổ thông, tiền điện cho một trăm cây chỉ tầm sáu, bảy nghìn.",
@@ -137,10 +123,9 @@
         0.66
       ],
       "broll": {
-        "file": "xe-may-dien.jpg",
+        "file": "anh-xe-dien.jpg",
         "say": "Điểm cộng của xe điện",
         "hold": 1.4,
-        "query": "electric scooter charging",
         "caption": "Xe máy điện"
       },
       "voice": "Điểm cộng của xe điện: tiền đi lại rẻ hơn hẳn, chạy êm, không khói, và không lo bị chặn ở vùng phát thải thấp."

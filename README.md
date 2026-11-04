@@ -172,3 +172,5 @@ Thêm hoặc thay tư thế: đặt ảnh gốc theo cấu trúc thư mục củ
 chống hông, vẫy tay, chỉ tay, giới thiệu, nháy mắt, vui mừng, tự tin, tạo tim, uống nước, ăn, selfie, đeo balo.
 
 > **Ảnh phải mới:** khi script có `images.since`, chỉ nhận ảnh có ngày chụp (EXIF) từ mốc đó. Ảnh Openverse không có ngày nên bị loại; ảnh đã tải từ trước mà cũ/không rõ ngày sẽ tự được tìm lại khi chạy `npm run images`.
+
+> **Nhờ ChatGPT tìm ảnh:** xem `docs/chatgpt-tim-anh.md`. Trong `broll` dùng `url` (link trực tiếp tới ảnh) và `credit`; có `url` thì công cụ không tự tìm nữa.
