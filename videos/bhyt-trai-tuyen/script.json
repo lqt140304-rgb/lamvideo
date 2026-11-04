@@ -1,0 +1,142 @@
+{
+  "title": "Khám trái tuyến ngoại trú: BHYT trả bao nhiêu?",
+  "topic": "BHYT khám trái tuyến 2026",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "TỰ KHÁM",
+        "TRÁI TUYẾN",
+        "CÓ ĐƯỢC TRẢ?"
+      ],
+      "stamp": "50%",
+      "art": "medcard",
+      "voice": "Tự lên bệnh viện lớn khám, không có giấy chuyển, bảo hiểm y tế có trả không? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Thay đổi từ tháng 7",
+      "art": "medcard",
+      "steps": [
+        {
+          "when": "Trước đây",
+          "what": "Khám ngoại trú trái tuyến: bảo hiểm không trả",
+          "at": 0.02
+        },
+        {
+          "when": "1/7/2026",
+          "what": "Quy định mới về bảo hiểm y tế có hiệu lực",
+          "at": 0.36
+        },
+        {
+          "when": "50%",
+          "what": "Quỹ trả 50% mức hưởng ở một số bệnh viện",
+          "at": 0.68
+        }
+      ],
+      "voice": "Trước đây, tự đi khám ngoại trú trái tuyến thì bảo hiểm không trả. Từ ngày một tháng bảy năm hai không hai sáu, quy định mới có hiệu lực. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, nhưng chỉ ở một số bệnh viện.",
+      "sub": "Trước đây, tự đi khám ngoại trú trái tuyến thì bảo hiểm không trả. Từ ngày 1/7/2026, quy định mới có hiệu lực. Quỹ bảo hiểm trả 50% mức hưởng, nhưng chỉ ở một số bệnh viện."
+    },
+    {
+      "type": "compare",
+      "headline": "Hóa đơn 1 triệu",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Đúng tuyến",
+          "kind": "generic",
+          "art": "medcard",
+          "tint": "green",
+          "amountText": "800 nghìn",
+          "unit": "bảo hiểm trả",
+          "note": "ví dụ thẻ mức hưởng 80%",
+          "at": 0.1
+        },
+        {
+          "label": "Trái tuyến",
+          "kind": "generic",
+          "art": "doc",
+          "tint": "yellow",
+          "amountText": "400 nghìn",
+          "unit": "bảo hiểm trả",
+          "note": "80% × 50% = 40% chi phí",
+          "at": 0.55
+        }
+      ],
+      "footnote": "Ví dụ mình tự tính, chỉ chi phí trong phạm vi hưởng BHYT",
+      "voice": "Ví dụ hóa đơn một triệu, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức bốn trăm nghìn."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Được trả 50% khi",
+      "pose": "think",
+      "items": [
+        "Bệnh viện từng là tuyến tỉnh",
+        "Bệnh viện cấp chuyên sâu",
+        "Cơ sở cấp cơ bản đủ điểm"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Dễ nhầm",
+      "pose": "confused",
+      "items": [
+        "Tưởng nơi nào cũng 50%",
+        "Tưởng trả nửa hóa đơn",
+        "Quên dịch vụ theo yêu cầu"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được năm mươi phần trăm. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả."
+    },
+    {
+      "type": "verdict",
+      "headline": "Nên làm gì?",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Nên",
+        "items": [
+          "Khám nơi đăng ký",
+          "Hỏi bệnh viện trước"
+        ]
+      },
+      "right": {
+        "title": "Lưu ý",
+        "items": [
+          "Trái tuyến: một nửa",
+          "Không phải nơi nào cũng trả"
+        ]
+      },
+      "voice": "Vậy nên làm gì? Ưu tiên khám ở nơi đăng ký ban đầu, hoặc hỏi bệnh viện trước khi khám. Nhớ là trái tuyến chỉ được một nửa, và không phải nơi nào cũng trả."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Trái tuyến ngoại trú",
+        "giờ được trả một nửa!"
+      ],
+      "cta": "Bạn hay khám ở đâu? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, khám ngoại trú trái tuyến giờ được bảo hiểm trả một nửa mức hưởng, ở một số bệnh viện. Bạn hay khám ở đâu? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "bhyt-trai-tuyen"
+}

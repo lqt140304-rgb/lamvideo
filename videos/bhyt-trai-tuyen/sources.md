@@ -1,0 +1,9 @@
+# Nguồn – BHYT khám ngoại trú trái tuyến
+
+- Báo Luật sư Việt Nam (lsvn.vn), 6/7/2026, "Không phải mọi trường hợp khám chữa bệnh ngoại trú đều được BHYT thanh toán 50%": hiệu lực 1/7/2026; 3 nhóm cơ sở; bệnh ngoài danh mục Thông tư 01/2025/TT-BYT trước đây không được thanh toán; ví dụ mức hưởng 80% → 40% chi phí.
+- Báo Văn hóa, "Từ 1.7.2026: Khám ngoại trú trái tuyến được BHYT thanh toán 50%": công thức chi phí × mức hưởng × 50%.
+
+## Cần kiểm tra trước khi đăng
+- Chưa nêu được số hiệu luật/nghị định gốc (các bài nhắc Luật BHYT sửa đổi, Nghị định 188/2025/NĐ-CP) – đối chiếu.
+- "Trước đây bảo hiểm không trả": đúng với bệnh ngoài danh mục Thông tư 01/2025; bệnh trong danh mục vẫn được 100%. Cân nhắc nói rõ hơn.
+- Ví dụ 1 triệu là tự tính, giả định toàn bộ chi phí trong phạm vi hưởng.

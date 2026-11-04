@@ -41,7 +41,7 @@
         }
       ],
       "voice": "Mỗi lượng vàng có hai giá. Giá cửa hàng bán cho bạn, ví dụ vàng miếng ngày hai mươi chín tháng mười là một trăm bốn mươi hai phẩy bảy triệu. Giá cửa hàng mua lại của bạn là một trăm ba mươi chín phẩy bảy triệu. Mua xong bán ngay là mất khoảng ba triệu.",
-      "sub": "Ví dụ vàng miếng ngày 29/10/2026: cửa hàng bán ra 142,7 triệu, mua lại 139,7 triệu mỗi lượng. Mua xong bán ngay là mất khoảng 3 triệu."
+      "sub": "Mỗi lượng vàng có hai giá. Giá cửa hàng bán cho bạn, ví dụ vàng miếng ngày 29/10 là 142,7 triệu. Giá cửa hàng mua lại của bạn là 139,7 triệu. Mua xong bán ngay là mất khoảng 3 triệu."
     },
     {
       "type": "compare",
