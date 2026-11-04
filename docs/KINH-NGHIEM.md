@@ -35,3 +35,8 @@ Cập nhật sau mỗi lượt làm. Chạy `npm run lint` trước khi `npm run
 - Wikimedia Commons: vào commons.wikimedia.org rồi gọi API bằng `fetch` trong trang, lọc giấy phép (CC0/PD/CC BY/CC BY-SA) và ngày chụp ≥ 2023. Link dùng: `https://commons.wikimedia.org/wiki/Special:FilePath/<tên file>?width=1600`.
 - Pexels: tìm bằng `/search/<từ khóa>/?order_by=latest`, ID ảnh ≥ ~14.000.000 là ảnh tải lên từ 2023; đọc JSON-LD trang ảnh để lấy tác giả và ngày. Link dùng: `https://images.pexels.com/photos/<id>/pexels-photo-<id>.jpeg?auto=compress&cs=tinysrgb&w=1600`. Caption không nêu địa danh nếu ảnh không phải chụp ở Việt Nam.
 - Cảnh nào không có ảnh đạt thì bỏ ảnh (ví dụ thẻ căn cước Việt Nam, thuế TNCN): không dùng ảnh nước khác gây hiểu nhầm.
+
+## Quy tắc chọn ảnh: đúng mô tả hoặc không thêm
+- Ảnh phải khớp đúng điều lời đọc đang nói (đồ vật, địa điểm, bối cảnh). Không khớp thì bỏ ảnh, đừng lấy "gần giống".
+- Đã thử Unsplash (tìm "vietnam bank/gold/id card/hospital/garment…"): hầu hết ra cờ, đường phố, xe máy đậu ven đường, không khớp chủ đề tài chính/giấy tờ/bệnh viện; kết quả "Getty Images" trên Unsplash là Unsplash+ (trả phí), không dùng. Ảnh xe máy đậu ngoài đường không đúng với "hầm xe" nên đã bỏ.
+- Cách chắc nhất cho giấy tờ, ứng dụng, biên lai: ảnh tự chụp hoặc chụp màn hình (che thông tin cá nhân), đặt vào `public/<slug>/img/` và ghi `credit`.

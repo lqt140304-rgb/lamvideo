@@ -59,17 +59,7 @@
         0.75
       ],
       "voice": "Lý do là an toàn. Hầm xe đông đúc, thoát khói khó. Pin cháy rất khó dập. Còn sạc qua đêm thì ít người trông.",
-      "layout": "tiles",
-      "broll": {
-        "file": "ham-xe.jpg",
-        "say": "Hầm xe đông đúc",
-        "hold": 2.0,
-        "caption": "Xe máy đậu san sát",
-        "style": "card",
-        "y": 560,
-        "url": "https://images.pexels.com/photos/16142574/pexels-photo-16142574.jpeg?auto=compress&cs=tinysrgb&w=1600",
-        "credit": "Ảnh: Elina Volkova · Pexels License / Pexels"
-      }
+      "layout": "tiles"
     },
     {
       "type": "compare",
