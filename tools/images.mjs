@@ -1,7 +1,8 @@
 // npm run images -- <slug>
 //
 // Tải ảnh thật cho các trường `broll` trong videos/<slug>/script.json.
-// Tìm trên Openverse (kho ảnh giấy phép mở: Wikimedia Commons, Flickr…), chỉ lấy ảnh được phép
+// Tìm trên Openverse (kho ảnh giấy phép mở: Wikimedia Commons, Flickr…), Openverse lỗi thì tìm thẳng
+// trên Wikimedia Commons. Chỉ lấy ảnh được phép
 // dùng thương mại (CC0, Public Domain, CC BY, CC BY-SA), lưu vào public/<slug>/img/ và ghi
 // nguồn vào public/<slug>/img/credits.json. Video tự hiện dòng ghi nguồn trên ảnh.
 //
@@ -34,21 +35,118 @@ const licenseName = (r) => {
   return `CC ${l.toUpperCase()} ${r.license_version ?? ""}`.trim();
 };
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const getJson = async (url) => {
+  const res = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/json" }, signal: AbortSignal.timeout(25000) });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+};
+
+/** Openverse: thử vài kiểu tham số (máy chủ đôi khi trả lỗi 500), mỗi kiểu thử lại 2 lần. */
+const searchOpenverse = async (query) => {
+  const q = encodeURIComponent(query);
+  const variants = [
+    `${API}?q=${q}&license_type=commercial&page_size=20`,
+    `${API}?q=${q}&page_size=20`,
+    `${API}?q=${q}`,
+  ];
+  let last;
+  for (const url of variants) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const data = await getJson(url);
+        return (data.results ?? [])
+          .filter(
+            (r) =>
+              OK_LICENSES.has(String(r.license).toLowerCase()) &&
+              (!r.width || r.width >= 900) &&
+              (!r.filetype || ["jpg", "jpeg", "png", "webp"].includes(String(r.filetype).toLowerCase())),
+          )
+          .map((r) => ({
+            title: r.title,
+            url: r.url,
+            width: r.width,
+            height: r.height,
+            creator: r.creator,
+            license: licenseName(r),
+            licenseUrl: r.license_url,
+            landing: r.foreign_landing_url ?? r.url,
+            source: r.source,
+          }));
+      } catch (e) {
+        last = e;
+        await sleep(1500 * (attempt + 1));
+      }
+    }
+  }
+  throw new Error(`Openverse lỗi (${last?.message})`);
+};
+
+const stripHtml = (s) => String(s ?? "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+
+/** Wikimedia Commons: kho ảnh tự do, không cần tài khoản. Chỉ giữ CC0, Public domain, CC BY, CC BY-SA. */
+const searchCommons = async (query) => {
+  const params = new URLSearchParams({
+    action: "query",
+    format: "json",
+    generator: "search",
+    gsrsearch: `${query} filetype:bitmap`,
+    gsrnamespace: "6",
+    gsrlimit: "30",
+    prop: "imageinfo",
+    iiprop: "url|size|mime|extmetadata",
+    iiurlwidth: "1920",
+  });
+  const data = await getJson(`https://commons.wikimedia.org/w/api.php?${params}`);
+  const pages = Object.values(data.query?.pages ?? {}).sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
+  return pages
+    .map((p) => {
+      const ii = p.imageinfo?.[0];
+      if (!ii) return null;
+      const m = ii.extmetadata ?? {};
+      const lic = stripHtml(m.LicenseShortName?.value);
+      return {
+        title: stripHtml(m.ObjectName?.value) || String(p.title).replace(/^File:/, "").replace(/\.\w+$/, ""),
+        url: ii.thumburl || ii.url,
+        width: ii.width,
+        height: ii.height,
+        mime: ii.mime,
+        creator: stripHtml(m.Artist?.value).slice(0, 80) || "không rõ tác giả",
+        license: lic,
+        licenseUrl: stripHtml(m.LicenseUrl?.value),
+        landing: ii.descriptionurl,
+        source: "wikimedia commons",
+      };
+    })
+    .filter(
+      (r) =>
+        r &&
+        /^image\/(jpeg|png|webp)$/.test(r.mime) &&
+        r.width >= 900 &&
+        /^(cc0|public domain|pd\b|cc by(-sa)? [\d.]+)/i.test(r.license) &&
+        !/\b(nc|nd)\b/i.test(r.license),
+    );
+};
+
 const search = async (query) => {
-  const url = `${API}?q=${encodeURIComponent(query)}&license_type=commercial&mature=false&page_size=20`;
-  const res = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/json" } });
-  if (!res.ok) throw new Error(`Openverse trả lỗi ${res.status} cho "${query}"`);
-  const data = await res.json();
-  return (data.results ?? []).filter(
-    (r) =>
-      OK_LICENSES.has(String(r.license).toLowerCase()) &&
-      (!r.width || r.width >= 900) &&
-      (!r.filetype || ["jpg", "jpeg", "png", "webp"].includes(String(r.filetype).toLowerCase())),
-  );
+  let results = [];
+  try {
+    results = await searchOpenverse(query);
+  } catch (e) {
+    console.warn(`  ${e.message}, chuyển sang Wikimedia Commons…`);
+  }
+  if (!results.length) {
+    try {
+      results = await searchCommons(query);
+    } catch (e) {
+      console.warn(`  Wikimedia Commons lỗi (${e.message})`);
+    }
+  }
+  return results;
 };
 
 const download = async (url, dest) => {
-  const res = await fetch(url, { headers: { "User-Agent": UA }, redirect: "follow" });
+  const res = await fetch(url, { headers: { "User-Agent": UA }, redirect: "follow", signal: AbortSignal.timeout(60000) });
   const type = res.headers.get("content-type") || "";
   if (!res.ok || !type.startsWith("image/")) throw new Error(`không tải được (${res.status} ${type})`);
   const buf = Buffer.from(await res.arrayBuffer());
@@ -86,7 +184,7 @@ for (const it of items) {
   try {
     const results = await search(it.query);
     const list = results
-      .map((r, i) => `${i}\t${licenseName(r)}\t${r.width ?? "?"}x${r.height ?? "?"}\t${r.title ?? ""} — ${r.creator ?? "?"}\t${r.foreign_landing_url ?? r.url}`)
+      .map((r, i) => `${i}\t${r.license}\t${r.width ?? "?"}x${r.height ?? "?"}\t${r.title ?? ""} — ${r.creator ?? "?"}\t${r.landing}`)
       .join("\n");
     fs.writeFileSync(path.join(imgDir, `${it.file}.candidates.txt`), `Từ khóa: ${it.query}\n${list}\n`);
     if (!results.length) throw new Error(`không tìm thấy ảnh hợp lệ cho "${it.query}" (thử từ khóa tiếng Anh khác)`);
@@ -98,10 +196,10 @@ for (const it of items) {
         const creator = r.creator || "không rõ tác giả";
         const source = r.source ? ` / ${r.source}` : "";
         credits[it.file] = {
-          short: `Ảnh: ${creator} · ${licenseName(r)}${source}`,
-          full: `"${r.title ?? it.file}" – ${creator}, ${licenseName(r)} (${r.license_url ?? ""}), ${r.foreign_landing_url ?? r.url}`,
-          license: licenseName(r),
-          landing: r.foreign_landing_url ?? r.url,
+          short: `Ảnh: ${creator} · ${r.license}${source}`,
+          full: `"${r.title ?? it.file}" – ${creator}, ${r.license}${r.licenseUrl ? ` (${r.licenseUrl})` : ""}, ${r.landing}`,
+          license: r.license,
+          landing: r.landing,
         };
         console.log(`${tag}: tải lựa chọn #${k} (${Math.round(size / 1024)} KB) — ${credits[it.file].short}`);
         done = true;
