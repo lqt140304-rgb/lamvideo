@@ -1,0 +1,142 @@
+{
+  "title": "Mỹ áp thuế 12,5% với hàng Việt Nam nghĩa là gì?",
+  "topic": "Thuế 12,5% của Mỹ",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "HÀNG VIỆT",
+        "SANG MỸ",
+        "THUẾ MẤY %?"
+      ],
+      "stamp": "12,5%",
+      "art": "ship",
+      "voice": "Nghe nói Mỹ áp thuế mười hai phẩy năm phần trăm với hàng Việt Nam, vậy là cao hay thấp? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Từ 20% đến 12,5%",
+      "art": "ship",
+      "steps": [
+        {
+          "when": "2/2026",
+          "what": "Tòa án Tối cao Mỹ bác mức thuế 20% cũ",
+          "at": 0.02
+        },
+        {
+          "when": "24/7/2026",
+          "what": "Mức thuế bổ sung 12,5% có hiệu lực",
+          "at": 0.36
+        },
+        {
+          "when": "4 năm",
+          "what": "Tự hết hạn nếu Mỹ không gia hạn",
+          "at": 0.68
+        }
+      ],
+      "voice": "Tháng hai năm hai không hai sáu, Tòa án Tối cao Mỹ bác mức thuế hai mươi phần trăm cũ. Từ ngày hai mươi tư tháng bảy, Mỹ áp mức thuế bổ sung mười hai phẩy năm phần trăm. Mức này không cộng dồn với hai mươi phần trăm, và tự hết hạn sau bốn năm nếu không gia hạn.",
+      "sub": "Theo Trung tâm WTO (VCCI): thuế bổ sung 12,5% theo Mục 301, hiệu lực 24/7/2026, không cộng dồn với mức 20% đã bị bác."
+    },
+    {
+      "type": "compare",
+      "headline": "So với nước khác",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Việt Nam",
+          "kind": "generic",
+          "art": "ship",
+          "tint": "red",
+          "amountText": "12,5%",
+          "unit": "thuế bổ sung",
+          "note": "cùng nhóm với nhiều nền kinh tế",
+          "at": 0.1
+        },
+        {
+          "label": "Indonesia, Mexico",
+          "kind": "generic",
+          "art": "chart",
+          "tint": "green",
+          "amountText": "10%",
+          "unit": "thuế bổ sung",
+          "note": "nhóm mức thấp hơn",
+          "at": 0.55
+        }
+      ],
+      "footnote": "Theo Trung tâm WTO và Hội nhập (VCCI), tháng 7/2026",
+      "voice": "So với nước khác, Việt Nam chịu mười hai phẩy năm phần trăm. Trong khi một số đối thủ như Indonesia, Mexico chỉ chịu mười phần trăm."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Ngành chịu tác động",
+      "pose": "think",
+      "items": [
+        "Giày dép",
+        "Dệt may",
+        "Có thể: điện thoại, linh kiện"
+      ],
+      "at": [
+        0.1,
+        0.4,
+        0.7
+      ],
+      "voice": "Ngành chịu tác động rõ nhất là giày dép và dệt may. Điện thoại và linh kiện cũng có thể bị ảnh hưởng."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Ít ảnh hưởng hơn",
+      "pose": "ok",
+      "items": [
+        "Thép, nhôm, ô tô: được miễn",
+        "Cà phê, đồ gỗ, thủy sản",
+        "Điện tử, bán dẫn"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Ngược lại, thép, nhôm, ô tô được miễn mức này vì đang chịu thuế khác. Cà phê, đồ gỗ, thủy sản, điện tử và bán dẫn được đánh giá ít bị ảnh hưởng hơn."
+    },
+    {
+      "type": "verdict",
+      "headline": "Nghĩa là gì?",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Tin tốt",
+        "items": [
+          "Thấp hơn 20% cũ",
+          "Không cộng dồn"
+        ]
+      },
+      "right": {
+        "title": "Còn rủi ro",
+        "items": [
+          "Cao hơn vài nước",
+          "Còn 2 cuộc điều tra"
+        ]
+      },
+      "voice": "Vậy nghĩa là gì? Tin tốt là thấp hơn mức hai mươi phần trăm cũ, và không cộng dồn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn hai cuộc điều tra khác của Mỹ đang diễn ra."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Thuế giảm còn 12,5%",
+        "nhưng rủi ro chưa hết!"
+      ],
+      "cta": "Công ty bạn có xuất hàng sang Mỹ không? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, thuế giảm còn mười hai phẩy năm phần trăm, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "my-thue-12-5"
+}
