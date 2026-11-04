@@ -250,3 +250,4 @@ Mỗi video nên dùng bộ bố cục khác nhau. Có hai cách:
 - `npm run lint` — bắt câu lặp giữa các video, `say`/`cue` sai, hook quá dài, quá nhiều ảnh thật.
 - Đọc [docs/KINH-NGHIEM.md](docs/KINH-NGHIEM.md) trước khi làm video mới.
 - Trường mới trong cảnh: `cue` (cụm từ chốt ý của hook), `cam` (in/out/drift/punch/none), `transition` (wipe/iris/bar/flash/none).
+- Cách phối hợp ChatGPT (nghiên cứu, tìm ảnh, soát nội dung) và Claude (dựng video): [docs/CHATGPT-GOI-NGHIEN-CUU.md](docs/CHATGPT-GOI-NGHIEN-CUU.md).
