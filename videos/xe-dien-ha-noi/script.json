@@ -27,7 +27,8 @@
         "hold": 2.0,
         "caption": "Hà Nội sắp cấm xe máy xăng?",
         "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2024-11-03_Hanoi%27s_Old_Quarter_1.jpg",
-        "credit": "Ảnh: Alexkom000 · CC BY 4.0 / Wikimedia Commons"
+        "credit": "Ảnh: Alexkom000 · CC BY 4.0 / Wikimedia Commons",
+        "focus": "22% 50%"
       },
       "voice": "Nghe tin Hà Nội cấm xe máy xăng, nhiều người tính bán ngay con xe đang đi để lên đời xe điện. Khoan đã! Tóm lại là thế này."
     },
@@ -107,7 +108,10 @@
         "hold": 2.2,
         "caption": "Xăng ~23.000đ/lít",
         "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Petrolimex,_Ho_Chi_Minh_(LRM_20230826_195001-RR).jpg",
-        "credit": "Ảnh: Matti Blume · CC BY-SA 4.0 / Wikimedia Commons"
+        "credit": "Ảnh: Matti Blume · CC BY-SA 4.0 / Wikimedia Commons",
+        "style": "card",
+        "y": 520,
+        "focus": "50% 50%"
       },
       "voice": "Giờ tính tiền. Xe tay ga chạy xăng ăn khoảng hai lít một trăm cây số. Giá xăng hiện hơn hai mươi ba nghìn một lít, tức khoảng bốn mươi sáu nghìn. Còn xe điện phổ thông, tiền điện cho một trăm cây chỉ tầm sáu, bảy nghìn.",
       "sub": "Giờ tính tiền. Xe tay ga chạy xăng ăn khoảng 2 lít/100 km. Giá xăng hiện hơn 23.000đ/lít, tức khoảng 46.000đ. Còn xe điện phổ thông, tiền điện cho 100 km chỉ tầm 6–7 nghìn."
@@ -133,7 +137,9 @@
         "caption": "Xe máy điện",
         "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Newone_-_olive_green_VinFast_Evo_Grand_01.jpg",
         "credit": "Ảnh: Newone · CC BY-SA 4.0 / Wikimedia Commons",
-        "focus": "50% 60%"
+        "focus": "50% 50%",
+        "style": "card",
+        "y": 520
       },
       "voice": "Điểm cộng của xe điện: tiền đi lại rẻ hơn hẳn, chạy êm, không khói, và không lo bị chặn ở vùng phát thải thấp."
     },
