@@ -31,8 +31,39 @@ if (!fs.existsSync(manifestPath)) {
     console.log(`Giọng đọc: ${manifest.scenes.length} câu, giọng ${manifest.speaker}.`);
   }
 }
-const r = spawnSync("npx", ["remotion", "render", "src/index.ts", slug, `out/${slug}.mp4`, ...extra], {
+const raw = `out/${slug}.raw.mp4`;
+const final = `out/${slug}.mp4`;
+const r = spawnSync("npx", ["remotion", "render", "src/index.ts", slug, raw, ...extra], {
   stdio: "inherit",
   shell: process.platform === "win32",
 });
-process.exit(r.status ?? 1);
+if (r.status !== 0) process.exit(r.status ?? 1);
+
+// Chuẩn hóa độ to về -14 LUFS (mức TikTok / Reels / YouTube hay dùng), đo 2 lượt cho chính xác.
+// Hình giữ nguyên (copy), chỉ xử lý tiếng. Dùng ffmpeg đi kèm Remotion nên không cần cài thêm.
+const ffmpeg = (args, capture = false) =>
+  spawnSync("npx", ["remotion", "ffmpeg", ...args], {
+    encoding: "utf8",
+    stdio: capture ? ["ignore", "pipe", "pipe"] : "inherit",
+    shell: process.platform === "win32",
+  });
+const TARGET = "I=-14:TP=-1.5:LRA=11";
+console.log("Chuẩn hóa âm lượng về -14 LUFS…");
+const probe = ffmpeg(["-hide_banner", "-i", raw, "-af", `loudnorm=${TARGET}:print_format=json`, "-f", "null", "-"], true);
+const m = (probe.stderr || "").match(/\{[^{}]*"input_i"[^{}]*\}/);
+if (!m) {
+  console.warn("\x1b[33mKhông đo được âm lượng, giữ nguyên bản gốc.\x1b[0m");
+  fs.copyFileSync(raw, final);
+} else {
+  const s = JSON.parse(m[0]);
+  const af = `loudnorm=${TARGET}:measured_I=${s.input_i}:measured_TP=${s.input_tp}:measured_LRA=${s.input_lra}:measured_thresh=${s.input_thresh}:offset=${s.target_offset}:linear=true`;
+  const n = ffmpeg(["-hide_banner", "-loglevel", "error", "-y", "-i", raw, "-c:v", "copy", "-af", af, "-ar", "48000", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", final]);
+  if (n.status !== 0) {
+    console.warn("\x1b[33mChuẩn hóa âm lượng lỗi, giữ nguyên bản gốc.\x1b[0m");
+    fs.copyFileSync(raw, final);
+  } else {
+    console.log(`Âm lượng: ${s.input_i} LUFS → -14 LUFS`);
+  }
+}
+fs.rmSync(raw, { force: true });
+console.log(`\nXong: ${final}`);

@@ -7,7 +7,7 @@
     "speaker": "Hải Đăng"
   },
   "music": "audio/music/giay-nhap.wav",
-  "musicVolume": 0.22,
+  "musicVolume": 0.3,
   "scenes": [
     {
       "type": "hook",
@@ -65,6 +65,13 @@
           "level": 3
         }
       ],
+      "broll": {
+        "file": "pho-co-dem.jpg",
+        "query": "Hanoi Old Quarter night street",
+        "caption": "Phố cổ, 19h–24h cuối tuần",
+        "from": 0.02,
+        "to": 0.16
+      },
       "voice": "Ở khu lõi, mọi phương tiện bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức ba cũng bị cấm. Năm hai không hai tám, áp dụng cho cả Vành đai một.",
       "sub": "Ở khu lõi, mọi phương tiện bị cấm từ 19h đến nửa đêm, thứ Sáu tới Chủ nhật. Sang năm 2027, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức 3 cũng bị cấm. Năm 2028, áp dụng cho cả Vành đai 1."
     },
@@ -91,8 +98,8 @@
       ],
       "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
       "broll": {
-        "file": "cay-xang.jpg",
-        "query": "gas station motorbike Vietnam",
+        "file": "cay-xang-bom.jpg",
+        "query": "gasoline pump nozzle",
         "caption": "Giá xăng ~23.000đ/lít",
         "from": 0,
         "to": 0.28

@@ -168,6 +168,12 @@ let failed = 0;
 for (const it of items) {
   const dest = path.join(imgDir, it.file);
   const tag = `[cảnh ${it.scene}] ${it.file}`;
+  // đổi từ khóa trong script thì tự tải lại ảnh (chỉ với ảnh do công cụ tải)
+  if (fs.existsSync(dest) && credits[it.file]?.query && it.query && credits[it.file].query !== it.query) {
+    console.log(`${tag}: từ khóa đã đổi ("${credits[it.file].query}" → "${it.query}"), tải lại.`);
+    fs.rmSync(dest);
+    delete credits[it.file];
+  }
   if (fs.existsSync(dest)) {
     if (!credits[it.file]) {
       credits[it.file] = { short: it.credit ?? "Ảnh: (chưa ghi nguồn)" };
@@ -200,6 +206,8 @@ for (const it of items) {
           full: `"${r.title ?? it.file}" – ${creator}, ${r.license}${r.licenseUrl ? ` (${r.licenseUrl})` : ""}, ${r.landing}`,
           license: r.license,
           landing: r.landing,
+          query: it.query,
+          pick: k,
         };
         console.log(`${tag}: tải lựa chọn #${k} (${Math.round(size / 1024)} KB) — ${credits[it.file].short}`);
         done = true;
