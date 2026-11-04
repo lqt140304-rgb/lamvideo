@@ -1,0 +1,69 @@
+import React from "react";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { atFrame, ease, pop } from "../anim";
+import { color, font } from "../brand";
+import { Headline, Stage } from "../components/Headline";
+import { ZoneMap } from "../components/Props";
+import type { TimelineScene as TimelineData } from "../types";
+
+export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = ({ scene, frames }) => {
+  const frame = useCurrentFrame();
+  const starts = scene.steps.map((s) => atFrame(s.at, frames));
+  let active = 0;
+  starts.forEach((st, i) => {
+    if (frame >= st) active = i;
+  });
+  const step = scene.steps[active];
+  return (
+    <AbsoluteFill>
+      <Headline text={scene.headline} size={76} top={316} />
+      <Stage>
+        <ZoneMap x={540} y={660} size={400} level={step.level} reveal={ease(frame, starts[active], 14)} />
+      </Stage>
+      <div style={{ position: "absolute", top: 900, left: 60, right: 60, display: "flex", flexDirection: "column", gap: 14 }}>
+        {scene.steps.map((s, i) => {
+          const p = pop(frame, starts[i]);
+          const isActive = i === active;
+          return (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 22,
+                minHeight: 112,
+                padding: "10px 22px",
+                borderRadius: 22,
+                border: `5px solid ${color.ink}`,
+                background: isActive ? color.white : color.paper,
+                boxShadow: isActive ? `8px 8px 0 ${color.ink}` : "none",
+                opacity: frame < starts[i] ? 0 : (isActive ? 1 : 0.55) * Math.min(1, p * 1.4),
+                transform: `translateX(${(1 - p) * 120}px)`,
+              }}
+            >
+              <div
+                style={{
+                  flex: "none",
+                  minWidth: 210,
+                  textAlign: "center",
+                  fontFamily: font.display,
+                  fontWeight: 900,
+                  fontSize: 46,
+                  color: color.white,
+                  background: isActive ? color.red : color.inkSoft,
+                  borderRadius: 14,
+                  padding: "6px 10px",
+                }}
+              >
+                {s.when}
+              </div>
+              <div style={{ fontFamily: font.body, fontWeight: 600, fontSize: 34, lineHeight: 1.16, color: color.ink }}>
+                {s.what}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};

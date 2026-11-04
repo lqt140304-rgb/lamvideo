@@ -1,0 +1,68 @@
+import React from "react";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
+import { atFrame, pop } from "../anim";
+import { color, font } from "../brand";
+import { Character } from "../components/Character";
+import { Headline, Stage } from "../components/Headline";
+import { CheckIcon } from "../components/Props";
+import type { ListScene as ListData } from "../types";
+
+export const ListScene: React.FC<{ scene: ListData; frames: number }> = ({ scene, frames }) => {
+  const frame = useCurrentFrame();
+  const good = scene.tone === "good";
+  const n = scene.items.length;
+  const at = scene.at ?? scene.items.map((_, i) => 0.08 + (i * 0.8) / n);
+  return (
+    <AbsoluteFill>
+      <Headline text={scene.headline} highlight={good} size={92} />
+      <div style={{ position: "absolute", top: 500, left: 70, right: 70, display: "flex", flexDirection: "column", gap: 26 }}>
+        {scene.items.map((item, i) => {
+          const start = atFrame(at[i], frames);
+          const p = pop(frame, start);
+          return (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 24,
+                opacity: frame < start ? 0 : Math.min(1, p * 1.5),
+                transform: `translateX(${(1 - p) * -160}px)`,
+              }}
+            >
+              <CheckIcon good={good} />
+              <div
+                style={{
+                  fontFamily: font.display,
+                  fontWeight: 800,
+                  fontSize: 54,
+                  lineHeight: 1.12,
+                  color: color.ink,
+                  background: color.white,
+                  border: `5px solid ${color.ink}`,
+                  borderRadius: 20,
+                  padding: "14px 24px",
+                  boxShadow: `7px 7px 0 ${good ? color.green : color.red}`,
+                }}
+              >
+                {item}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <Stage>
+        <Character
+          mood={scene.mood ?? (good ? "happy" : "sad")}
+          pose={scene.pose ?? (good ? "cheer" : "shrug")}
+          talking
+          x={900}
+          y={1175}
+          scale={0.6}
+          enter={2}
+          flip
+        />
+      </Stage>
+    </AbsoluteFill>
+  );
+};

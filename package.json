@@ -1,0 +1,25 @@
+{
+  "name": "lamvideo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Video animation 9:16 phân tích, review sự vật sự việc đời sống (TikTok, Reels, Shorts) dựng bằng Remotion",
+  "type": "module",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "voice": "node tools/voice.mjs",
+    "render": "node tools/render.mjs",
+    "make": "node tools/make.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/fonts": "^4.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}
