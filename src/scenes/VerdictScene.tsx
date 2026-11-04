@@ -80,7 +80,7 @@ export const VerdictScene: React.FC<{ scene: VerdictData; frames: number }> = ({
         <Column title={scene.right.title} items={scene.right.items} tint={color.yellow} start={rightAt} tilt={1.5} />
       </div>
       <Stage>
-        <Mascot pose={frame < rightAt ? "present" : "ok"} x={540} y={1130} scale={0.62} enter={0} />
+        <Mascot pose={frame < rightAt ? "thumbs" : "think"} changedAt={rightAt} x={540} y={1338} scale={0.56} enter={0} />
       </Stage>
     </AbsoluteFill>
   );

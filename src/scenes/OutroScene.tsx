@@ -51,7 +51,7 @@ export const OutroScene: React.FC<{ scene: OutroData; frames: number }> = ({ sce
         })}
       </div>
       <Stage>
-        <Mascot pose="wave" x={300} y={1130} scale={0.7} enter={4} />
+        <Mascot pose="happy" x={290} y={1190} scale={0.8} enter={4} />
       </Stage>
       <div
         style={{

@@ -86,7 +86,18 @@ tools/                 voice.py (VieNeu), render, make
 
 ## Mascot
 
-Ảnh nằm ở `public/mascot/` (PNG nền trong suốt): `arms`, `hips`, `wave`, `bow`, `ok`, `thumbs`, `point`, `present`.
+Cậu bé tóc nâu đen, hoodie xanh, giày thể thao. Ảnh PNG nền trong suốt ở `public/mascot/`, mọi tư thế cùng tỉ lệ và cùng đường mặt đất (số đo trong `src/mascot.ts`).
+
+Tư thế có sẵn:
+
+- Đứng: `stand`, `arms` (khoanh tay), `ok`, `thumbs`, `neutral`
+- Vui: `smile`, `happy`, `excited`
+- Cảm xúc: `think`, `confused`, `surprised`, `shocked`, `sad`, `angry`, `tired`, `shy`, `cry`
+- Hành động: `walk`, `run`, `jump`, `bow`, `lift`, `clipboard`
+
 Trong `script.json`, cảnh `zones` và `list` có thể đặt `"pose": "<tên>"` để đổi tư thế.
-Mặt mascot luôn lạnh tanh nên cảm xúc được thể hiện bằng tư thế và biểu tượng nhỏ (`?!`, giọt mồ hôi) trong `src/components/Mascot.tsx`.
-Các tư thế `ok`, `thumbs`, `point`, `present` bị mất một mảng tóc bên trái ngay từ ảnh gốc; khi có bản đầy đủ chỉ cần thay file PNG cùng tên.
+
+Thêm hoặc thay tư thế: đặt ảnh gốc theo cấu trúc thư mục của bộ mascot rồi chạy
+`python tools/mascot_cutout.py <thư mục ảnh gốc> public/mascot 65800` (cần numpy, scipy, pillow), sau đó cập nhật `src/mascot.ts` từ `public/mascot/mascot.json`.
+Ảnh nào bị cắt sát mép (mất tóc, mặt, tay) sẽ bị bỏ qua và được báo tên. Hiện còn thiếu vì lý do này:
+chống hông, vẫy tay, chỉ tay, giới thiệu, nháy mắt, vui mừng, tự tin, tạo tim, uống nước, ăn, selfie, đeo balo.

@@ -1,7 +1,8 @@
 // Kịch bản video: một file JSON trong videos/<slug>/script.json.
 // Mỗi cảnh có `voice` (câu để máy đọc, số viết bằng chữ) và `sub` (phụ đề hiện trên màn hình, số viết bằng số).
 
-export type MascotPose = "arms" | "hips" | "wave" | "bow" | "ok" | "thumbs" | "point" | "present";
+import type { MascotPose } from "./mascot";
+export type { MascotPose };
 
 type SceneBase = {
   voice: string;

@@ -53,7 +53,7 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
       <Stage>
         <Scooter kind="petrol" x={drive} y={1110} scale={1.3} moving={frame < 34 || frame > stampAt + 8} />
         <Stamp text={scene.stamp ?? ""} x={380} y={1010} progress={stamp} />
-        <Mascot pose={frame > stampAt ? "point" : "hips"} emote="alert" emoteAt={stampAt} x={840} y={1120} scale={1.0} enter={8} flip />
+        <Mascot pose={frame > stampAt ? "shocked" : "surprised"} changedAt={stampAt} x={850} y={1185} scale={0.98} enter={8} />
       </Stage>
     </AbsoluteFill>
   );

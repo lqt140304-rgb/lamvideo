@@ -1,64 +1,42 @@
 import React from "react";
 import { useCurrentFrame, staticFile } from "remotion";
-import { color } from "../brand";
 import { pop } from "../anim";
-import type { MascotPose } from "../types";
+import { MASCOT, type MascotPose } from "../mascot";
 
-// Mascot của kênh: cậu bé tóc đen, áo hoodie xám, chân que. Ảnh PNG nền trong suốt trong public/mascot/.
-// Mặt luôn "lạnh tanh" nên cảm xúc thể hiện bằng tư thế + biểu tượng nhỏ (emote) bên cạnh.
+// Mascot của kênh: cậu bé tóc nâu đen, hoodie xanh, giày thể thao.
+// Ảnh PNG nền trong suốt ở public/mascot/<tư thế>.png, cắt bằng tools/mascot_cutout.py.
+// Mọi tư thế cùng tỉ lệ và cùng đường mặt đất, nên đổi tư thế giữa cảnh không bị nhảy hình.
 
-const W = 520;
-const H = 720;
-/** `scale` = 1 tương đương mascot cao ~520px. */
-const BASE = 520 / H;
-
-export type Emote = "alert" | "sweat" | "none";
+/** `scale` = 1 tương đương mascot đứng cao ~520px. */
+const BASE = 520 / 1040;
 
 type Props = {
   pose?: MascotPose;
-  emote?: Emote;
-  /** Bắt đầu hiện emote ở khung hình này (mặc định hiện ngay). */
-  emoteAt?: number;
-  /** Tọa độ giữa hai bàn chân. */
+  /** Tọa độ điểm giữa hai bàn chân. */
   x: number;
   y: number;
   scale?: number;
+  /** Lật ngang. Tránh dùng với tư thế có chữ (dấu "?" sẽ bị ngược). */
   flip?: boolean;
   /** Khung hình bắt đầu xuất hiện (hiệu ứng bật lên). */
   enter?: number;
+  /** Khung hình đổi tư thế gần nhất, để nảy nhẹ khi đổi. */
+  changedAt?: number;
 };
 
-export const Mascot: React.FC<Props> = ({ pose = "arms", emote = "none", emoteAt = 0, x, y, scale = 1, flip, enter = 0 }) => {
+export const Mascot: React.FC<Props> = ({ pose = "stand", x, y, scale = 1, flip, enter = 0, changedAt }) => {
   const frame = useCurrentFrame();
+  const info = (MASCOT as Record<string, { w: number; h: number; footX: number; footY: number }>)[pose] ?? MASCOT.stand;
   const p = pop(frame, enter);
+  const bounce = changedAt !== undefined && frame >= changedAt ? 1 + 0.06 * Math.max(0, 1 - (frame - changedAt) / 6) : 1;
   const s = scale * BASE * (0.6 + 0.4 * Math.min(p, 1.08));
-  const bob = Math.sin(frame / 8) * 3;
-  const side = flip ? -1 : 1;
-  const e = pop(frame, emoteAt + 2, 220);
-  const shake = emote === "alert" && frame >= emoteAt ? Math.sin(frame * 1.7) * 3 * Math.max(0, 1 - (frame - emoteAt) / 24) : 0;
+  // nhún nhẹ: co giãn theo chiều dọc quanh bàn chân, không làm chân rời mặt đất
+  const breathe = 1 + Math.sin(frame / 9) * 0.008;
   return (
-    <g transform={`translate(${x + shake} ${y}) scale(${s * side} ${s})`} opacity={Math.min(1, p * 2)}>
-      <g transform={`translate(0 ${bob / s})`}>
-        <image href={staticFile(`mascot/${pose}.png`)} x={-W / 2} y={-H} width={W} height={H} />
-        {emote === "alert" && frame >= emoteAt && (
-          <g transform={`translate(-170 -620) scale(${e * 1.25 * side} ${e * 1.25})`}>
-            <path
-              d="M0 -70 L18 -30 L62 -48 L40 -6 L84 14 L36 28 L50 70 L8 44 L-22 80 L-26 36 L-76 40 L-44 6 L-80 -26 L-34 -24 Z"
-              fill={color.yellow}
-              stroke={color.ink}
-              strokeWidth={8}
-              strokeLinejoin="round"
-            />
-            <text x={2} y={22} textAnchor="middle" fontSize={78} fontWeight={900} fill={color.ink} style={{ fontFamily: "Inter Display, Inter, sans-serif" }}>
-              ?!
-            </text>
-          </g>
-        )}
-        {emote === "sweat" && frame >= emoteAt && (
-          <g transform={`translate(${-150} ${-540 + (1 - e) * -30}) scale(${e * side} ${e})`}>
-            <path d="M0 -44 C20 -12 34 6 34 24 A34 34 0 0 1 -34 24 C-34 6 -20 -12 0 -44 Z" fill="#8FD3F4" stroke={color.ink} strokeWidth={7} strokeLinejoin="round" />
-          </g>
-        )}
+    <g transform={`translate(${x} ${y})`} opacity={Math.min(1, p * 2)}>
+      <ellipse cx={0} cy={0} rx={150 * s * 1.0} ry={18 * s} fill="rgba(29,27,25,0.13)" />
+      <g transform={`scale(${s * (flip ? -1 : 1) * bounce} ${s * breathe * bounce})`}>
+        <image href={staticFile(`mascot/${pose}.png`)} x={-info.footX} y={-info.footY} width={info.w} height={info.h} />
       </g>
     </g>
   );

@@ -52,15 +52,7 @@ export const ListScene: React.FC<{ scene: ListData; frames: number }> = ({ scene
         })}
       </div>
       <Stage>
-        <Mascot
-          pose={scene.pose ?? (good ? "thumbs" : "arms")}
-          emote={good ? "none" : "sweat"}
-          x={925}
-          y={1335}
-          scale={0.46}
-          enter={2}
-          flip
-        />
+        <Mascot pose={scene.pose ?? (good ? "excited" : "confused")} x={n <= 3 ? 880 : 925} y={1345} scale={n <= 3 ? 0.78 : 0.5} enter={2} />
       </Stage>
     </AbsoluteFill>
   );
