@@ -22,6 +22,10 @@ export type Broll = {
   hold?: number;
   /** Lấy đích danh một file trên Wikimedia Commons, ví dụ "File:Hoan Kiem Lake.jpg". */
   commons?: string;
+  /** Chỉ lấy ảnh chụp từ ngày này, ví dụ "2024-01-01" (null = không giới hạn). Ghi đè cài đặt chung. */
+  since?: string | null;
+  /** "newest" = ưu tiên ảnh mới, "relevant" = ưu tiên ảnh khớp từ khóa. */
+  prefer?: "newest" | "relevant";
   /** Ảnh phải chứa ít nhất một từ này trong tên/mô tả (lọc kết quả tìm kiếm). */
   must?: string[];
   /** Hiện từ … đến … (phần của cảnh, 0..1). */
@@ -140,6 +144,8 @@ export type VideoScript = {
   voice: { engine: "vieneu"; speaker: string };
   /** Đường dẫn nhạc nền trong public/, ví dụ "music/nhac-nen.mp3". */
   music?: string | null;
+  /** Cài đặt tìm ảnh chung cho cả video, ví dụ { "since": "2024-01-01", "prefer": "newest" } cho video tin tức. */
+  images?: { since?: string | null; prefer?: "newest" | "relevant" };
   musicVolume?: number;
   scenes: Scene[];
 };

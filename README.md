@@ -124,6 +124,14 @@ npm run images -- xe-dien-ha-noi --pick cay-xang-bom.jpg=3   # lệnh này hiệ
 npm run images -- xe-dien-ha-noi --review   # tìm lại gợi ý cho mọi ảnh
 ```
 
+**Video tin tức: ưu tiên ảnh mới.** Thêm vào `script.json` (cấp video):
+
+```json
+"images": { "since": "2023-01-01", "prefer": "newest" }
+```
+
+`since` bỏ ảnh chụp trước ngày đó, `prefer: "newest"` xếp ảnh mới lên trước (ảnh trong 6 năm gần đây được cộng điểm, càng mới càng cao). Ảnh không cần mới (phong cảnh, công trình như hồ Gươm) thì ghi đè riêng: `"since": null, "prefer": "relevant"`. Ngày lấy từ EXIF ngày chụp trên Wikimedia Commons, không có thì lấy ngày tải lên; Openverse không có ngày nên ảnh từ đó xếp sau. Trang chọn ảnh hiện ngày của từng ảnh (📅), ảnh cũ ghi "CŨ".
+
 Nguồn: Openverse và Wikimedia Commons, chỉ ảnh CC0, Public Domain, CC BY, CC BY-SA. Video tự hiện dòng ghi nguồn trên ảnh; lệnh in sẵn dòng ghi nguồn đầy đủ để dán vào mô tả video. Tự có ảnh (tự chụp, Pexels, Unsplash…): đặt vào `public/<slug>/img/<file>` và ghi `"credit"`. Chưa có ảnh thì video vẫn render, chỉ bỏ qua ảnh đó.
 
 ### Nhạc nền

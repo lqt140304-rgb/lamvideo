@@ -8,6 +8,10 @@
   },
   "music": "audio/music/giay-nhap.wav",
   "musicVolume": 0.3,
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "newest"
+  },
   "scenes": [
     {
       "type": "hook",
@@ -75,7 +79,9 @@
         ],
         "caption": "Khu lõi Hoàn Kiếm",
         "style": "card",
-        "y": 560
+        "y": 560,
+        "since": null,
+        "prefer": "relevant"
       },
       "voice": "Hà Nội chưa cấm xe xăng trên toàn thành phố. Từ tháng bảy năm nay, mới thí điểm vùng phát thải thấp ở khu lõi Hoàn Kiếm.",
       "sub": "Hà Nội chưa cấm xe xăng trên toàn thành phố. Từ 1/7/2026, mới thí điểm vùng phát thải thấp ở khu lõi Hoàn Kiếm."
@@ -134,7 +140,9 @@
             "exhaust",
             "smoke"
           ],
-          "caption": "Khí thải xe máy"
+          "caption": "Khí thải xe máy",
+          "since": null,
+          "prefer": "relevant"
         }
       ],
       "voice": "Ở khu lõi, mọi phương tiện bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức ba cũng bị cấm. Năm hai không hai tám, áp dụng cho cả Vành đai một.",
@@ -241,7 +249,9 @@
           "parking",
           "parked"
         ],
-        "caption": "Chỗ sạc ở chung cư?"
+        "caption": "Chỗ sạc ở chung cư?",
+        "since": null,
+        "prefer": "relevant"
       },
       "voice": "Điểm trừ: mua xe mới tốn từ hơn hai mươi triệu, sạc mất nhiều giờ, ở chung cư hay nhà trọ thì chưa chắc có chỗ sạc, còn bán xe xăng cũ thì dễ bị ép giá.",
       "sub": "Điểm trừ: mua xe mới tốn từ hơn 20 triệu, sạc mất nhiều giờ, ở chung cư hay nhà trọ thì chưa chắc có chỗ sạc, còn bán xe xăng cũ thì dễ bị ép giá."

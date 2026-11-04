@@ -48,6 +48,17 @@ const norm = (s) =>
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/đ/g, "d");
 
+/** Đọc ngày từ chuỗi kiểu "2024-05-12 10:22", "2024:05:12", "May 2024"… → "2024-05-12" (thiếu thì lấy 01). */
+const parseDate = (raw) => {
+  const attr = String(raw ?? "").match(/datetime="([^"]+)"/); // Commons hay bọc ngày trong <time datetime="…">
+  const s = attr ? attr[1] : stripHtml(raw);
+  const m = s.match(/((?:19|20)\d{2})(?:[-:/.](\d{1,2}))?(?:[-:/.](\d{1,2}))?/);
+  if (!m) return null;
+  const mo = Math.min(12, Math.max(1, Number(m[2] ?? 1)));
+  const d = Math.min(31, Math.max(1, Number(m[3] ?? 1)));
+  return `${m[1]}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+};
+
 const ovLicense = (r) => {
   const l = String(r.license || "").toLowerCase();
   if (l === "cc0") return "CC0";
@@ -80,6 +91,7 @@ const searchOpenverse = async (query) => {
             licenseUrl: r.license_url,
             landing: r.foreign_landing_url ?? r.url,
             source: r.source ?? "openverse",
+            date: null, // Openverse không cho biết ngày chụp
           }));
       } catch (e) {
         last = e;
@@ -109,6 +121,8 @@ const commonsItem = (p) => {
     landing: ii.descriptionurl,
     source: "wikimedia commons",
     file: p.title,
+    // ngày chụp (EXIF) nếu có, không thì ngày tải lên
+    date: parseDate(m.DateTimeOriginal?.value) ?? parseDate(m.DateTime?.value),
   };
 };
 const commonsOk = (r) =>
@@ -121,8 +135,9 @@ const commonsOk = (r) =>
 const COMMONS = "https://commons.wikimedia.org/w/api.php";
 const commonsParams = { action: "query", format: "json", prop: "imageinfo", iiprop: "url|size|mime|extmetadata", iiurlwidth: "1920" };
 
-const searchCommons = async (query) => {
+const searchCommons = async (query, newest = false) => {
   const params = new URLSearchParams({ ...commonsParams, generator: "search", gsrsearch: `${query} filetype:bitmap`, gsrnamespace: "6", gsrlimit: "40" });
+  if (newest) params.set("gsrsort", "create_timestamp_desc"); // ảnh tải lên gần đây nhất trước
   const data = await getJson(`${COMMONS}?${params}`);
   const pages = Object.values(data.query?.pages ?? {}).sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
   return pages.map(commonsItem).filter(commonsOk);
@@ -140,7 +155,7 @@ const fetchCommonsFile = async (name) => {
 };
 
 /** Xếp hạng theo độ khớp với từ khóa; có `must` thì ảnh phải chứa ít nhất một từ trong đó mới được ưu tiên. */
-const rank = (results, query, must) => {
+const rank = (results, query, must, since, prefer) => {
   const words = norm(query).split(/\s+/).filter((w) => w.length > 2);
   const mustN = (must ?? []).map(norm);
   const scored = results.map((r, i) => {
@@ -148,11 +163,19 @@ const rank = (results, query, must) => {
     const hit = words.filter((w) => text.includes(w)).length;
     const ok = !mustN.length || mustN.some((m) => text.includes(m));
     const tall = r.width && r.height && r.height >= r.width ? 0.3 : 0; // ảnh dọc hợp khung 9:16 hơn
-    return { r, ok, score: hit + tall - i * 0.01 };
+    // ảnh cũ hơn mốc `since` thì không dùng; không rõ ngày thì vẫn giữ nhưng xếp sau
+    const old = since && r.date ? r.date < since : false;
+    const unknown = (since || prefer === "newest") && !r.date;
+    let fresh = 0;
+    if (prefer === "newest" && r.date) {
+      const ageYears = (Date.now() - Date.parse(r.date)) / (365.25 * 864e5);
+      fresh = 2.5 * Math.max(0, 1 - ageYears / 6); // ảnh trong 6 năm gần đây được cộng điểm, càng mới càng cao
+    }
+    return { r, ok: ok && !old, old, score: hit + tall + fresh - (unknown ? 0.8 : 0) - i * 0.01 };
   });
   const good = scored.filter((s) => s.ok).sort((a, b) => b.score - a.score);
   const rest = scored.filter((s) => !s.ok).sort((a, b) => b.score - a.score);
-  return { list: [...good, ...rest].map((s) => ({ ...s.r, match: s.ok })), matched: good.length };
+  return { list: [...good, ...rest].map((s) => ({ ...s.r, match: s.ok, old: s.old })), matched: good.length };
 };
 
 const search = async (it) => {
@@ -162,14 +185,17 @@ const search = async (it) => {
   } catch (e) {
     console.warn(`  ${e.message}, dùng Wikimedia Commons…`);
   }
-  try {
-    const more = await searchCommons(it.query);
-    const seen = new Set(results.map((r) => r.landing));
-    results = [...results, ...more.filter((r) => !seen.has(r.landing))];
-  } catch (e) {
-    if (!results.length) console.warn(`  Wikimedia Commons lỗi (${e.message})`);
+  const wantNew = !!it.since || it.prefer === "newest";
+  for (const newest of wantNew ? [false, true] : [false]) {
+    try {
+      const more = await searchCommons(it.query, newest);
+      const seen = new Set(results.map((r) => r.landing));
+      results = [...results, ...more.filter((r) => !seen.has(r.landing))];
+    } catch (e) {
+      if (!results.length) console.warn(`  Wikimedia Commons lỗi (${e.message})`);
+    }
   }
-  return rank(results, it.query, it.must);
+  return rank(results, it.query, it.must, it.since, it.prefer);
 };
 
 const download = async (url, dest) => {
@@ -184,18 +210,31 @@ const download = async (url, dest) => {
 
 const creditOf = (r, it, k) => ({
   short: `Ảnh: ${r.creator} · ${r.license}${r.source ? ` / ${r.source}` : ""}`,
-  full: `"${r.title || it.file}" – ${r.creator}, ${r.license}${r.licenseUrl ? ` (${r.licenseUrl})` : ""}, ${r.landing}`,
+  date: r.date ?? null,
+  full: `"${r.title || it.file}" – ${r.creator}${r.date ? ` (${r.date.slice(0, 4)})` : ""}, ${r.license}${r.licenseUrl ? ` (${r.licenseUrl})` : ""}, ${r.landing}`,
   license: r.license,
   landing: r.landing,
   query: it.query ?? null,
   commons: it.commons ?? null,
+  since: it.since ?? null,
   pick: k ?? null,
 });
 
 // ---- Chạy ------------------------------------------------------------------------------------
 
 const brollsOf = (s) => (s.broll ? (Array.isArray(s.broll) ? s.broll : [s.broll]) : []);
-const items = script.scenes.flatMap((s, i) => brollsOf(s).map((x) => ({ ...x, scene: i + 1, voice: s.voice })));
+// Cài đặt chung cho cả video (script.json → "images": { "since": "2024-01-01", "prefer": "newest" }),
+// từng ảnh có thể ghi đè; đặt "since": null cho ảnh không cần mới (phong cảnh, công trình).
+const defaults = script.images ?? {};
+const items = script.scenes.flatMap((s, i) =>
+  brollsOf(s).map((x) => ({
+    ...x,
+    since: x.since !== undefined ? x.since : defaults.since ?? null,
+    prefer: x.prefer ?? defaults.prefer ?? "relevant",
+    scene: i + 1,
+    voice: s.voice,
+  })),
+);
 if (!items.length) {
   console.log('Kịch bản chưa có ảnh nào (trường "broll").');
   process.exit(0);
@@ -230,6 +269,7 @@ for (const it of items) {
     !!prev?.landing &&
     ((prev.query ?? null) !== (it.query ?? null) ||
       (prev.commons ?? null) !== (it.commons ?? null) ||
+      (prev.since ?? null) !== (it.since ?? null) ||
       (it.pick !== undefined && (prev.pick ?? null) !== it.pick));
   if (fs.existsSync(dest) && changed) {
     console.log(`${tag}: đổi từ khóa / lựa chọn, tải lại.`);
@@ -243,7 +283,8 @@ for (const it of items) {
     try {
       ranked = await search(it);
       fs.writeFileSync(candPath, JSON.stringify({ query: it.query, list: ranked.list.slice(0, 16) }, null, 1));
-      if (it.must && !ranked.matched) console.warn(`  ${tag}: không ảnh nào chứa từ bắt buộc ${JSON.stringify(it.must)}, nên đổi "query".`);
+      if (!ranked.matched)
+        console.warn(`  ${tag}: không có ảnh nào đạt yêu cầu${it.must ? ` (từ bắt buộc ${JSON.stringify(it.must)})` : ""}${it.since ? ` (từ ${it.since})` : ""}, nên đổi "query" hoặc nới "since".`);
     } catch (e) {
       console.warn(`  ${tag}: tìm gợi ý lỗi (${e.message})`);
     }
@@ -274,7 +315,9 @@ for (const it of items) {
       try {
         const size = await download(list[k].url, dest);
         credits[it.file] = creditOf(list[k], it, k);
-        console.log(`${tag}: ảnh #${k}${list[k].match === false ? " (KHÔNG chứa từ bắt buộc, nên chọn lại)" : ""} (${Math.round(size / 1024)} KB) — ${list[k].title}`);
+        console.log(
+          `${tag}: ảnh #${k}${list[k].date ? ` (${list[k].date})` : ""}${list[k].match === false ? (list[k].old ? " (ẢNH CŨ, nên chọn lại)" : " (không đạt yêu cầu, nên chọn lại)") : ""} — ${list[k].title}`,
+        );
         done = true;
       } catch (e) {
         console.warn(`  #${k}: ${e.message}`);
@@ -303,12 +346,12 @@ const sections = items
     const cards = c.list
       .map(
         (r, k) => `<button class="card${k === chosen ? " on" : ""}${r.match === false ? " off" : ""}" data-cmd="npm run images -- ${esc(slug)} --pick ${esc(it.file)}=${k}">
-  <img loading="lazy" src="${esc(r.thumb)}" alt=""><b>#${k}${k === chosen ? " · đang dùng" : ""}</b><span>${esc(r.title).slice(0, 90)}</span><small>${esc(r.license)} · ${esc(r.source)}</small></button>`,
+  <img loading="lazy" src="${esc(r.thumb)}" alt=""><b>#${k}${k === chosen ? " · đang dùng" : ""}</b><span>${esc(r.title).slice(0, 90)}</span><small>${r.date ? `📅 ${esc(r.date)}` : "📅 không rõ ngày"}${r.old ? " · CŨ" : ""} · ${esc(r.license)} · ${esc(r.source)}</small></button>`,
       )
       .join("\n");
     return `<section><h2>Cảnh ${it.scene} · <code>${esc(it.file)}</code></h2><p class="say">${say}</p><p class="q">Từ khóa: ${esc(c.query)}${
       it.must ? ` · bắt buộc có: ${esc(it.must.join(", "))}` : ""
-    }</p><div class="grid">${cards}</div></section>`;
+    }${it.since ? ` · chỉ lấy ảnh từ ${esc(it.since)}` : ""}${it.prefer === "newest" ? " · ưu tiên ảnh mới" : ""}</p><div class="grid">${cards}</div></section>`;
   })
   .join("\n");
 const html = `<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
