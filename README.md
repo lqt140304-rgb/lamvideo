@@ -2,7 +2,7 @@
 
 Mỗi video là một file kịch bản JSON. Chạy một lệnh, máy bạn đọc giọng bằng **VieNeu-TTS (giọng Hải Đăng)** rồi dựng thành MP4 1080×1920, 30 fps, dưới 90 giây, đăng thẳng lên TikTok, Facebook Reels và YouTube Shorts.
 
-Phong cách: người que "Tèo" đội mũ bảo hiểm vàng dẫn chuyện, nét vẽ tay rung nhẹ, nền giấy, chữ đậm, phụ đề vàng chạy theo lời đọc, kết bằng "Tóm lại là…".
+Phong cách: mascot của kênh (cậu bé tóc đen, áo hoodie xám, chân que) dẫn chuyện, nét vẽ tay rung nhẹ, nền giấy, chữ đậm, phụ đề vàng chạy theo lời đọc, kết bằng "Tóm lại là…".
 
 ## Cài đặt (một lần)
 
@@ -69,7 +69,7 @@ Sửa `src/brand.ts`. Tên kênh "TÓM GỌN" hiện là tên tạm.
 src/
   Short.tsx            ghép các cảnh, phụ đề, giọng, nhạc nền
   scenes/              7 loại cảnh
-  components/          nhân vật Tèo, xe, bản đồ, phụ đề, nền giấy
+  components/          mascot, xe, bản đồ, phụ đề, nền giấy
   brand.ts             tên kênh, màu, font
   timing.ts            độ dài cảnh theo file giọng (hoặc ước tính nếu chưa đọc)
 videos/<slug>/         kịch bản + nguồn
@@ -83,3 +83,10 @@ tools/                 voice.py (VieNeu), render, make
 - **Remotion**: miễn phí cho cá nhân và công ty tối đa 3 nhân viên; lớn hơn cần Company License ([remotion.dev/license](https://www.remotion.dev/docs/license)).
 - **VieNeu-TTS**: repo ghi Apache-2.0 cho bản v3 Turbo; bản 0.3B cũ là CC BY-NC (không dùng thương mại). Nếu kênh bật kiếm tiền, kiểm tra giấy phép trên trang model đang dùng.
 - **Font Inter**: SIL Open Font License 1.1.
+
+## Mascot
+
+Ảnh nằm ở `public/mascot/` (PNG nền trong suốt): `arms`, `hips`, `wave`, `bow`, `ok`, `thumbs`, `point`, `present`.
+Trong `script.json`, cảnh `zones` và `list` có thể đặt `"pose": "<tên>"` để đổi tư thế.
+Mặt mascot luôn lạnh tanh nên cảm xúc được thể hiện bằng tư thế và biểu tượng nhỏ (`?!`, giọt mồ hôi) trong `src/components/Mascot.tsx`.
+Các tư thế `ok`, `thumbs`, `point`, `present` bị mất một mảng tóc bên trái ngay từ ảnh gốc; khi có bản đầy đủ chỉ cần thay file PNG cùng tên.

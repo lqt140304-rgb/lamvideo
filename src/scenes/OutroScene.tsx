@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { ease, pop } from "../anim";
 import { color, font } from "../brand";
-import { Character } from "../components/Character";
+import { Mascot } from "../components/Mascot";
 import { Stage } from "../components/Headline";
 import { Scribble } from "../components/Props";
 import type { OutroScene as OutroData } from "../types";
@@ -51,7 +51,7 @@ export const OutroScene: React.FC<{ scene: OutroData; frames: number }> = ({ sce
         })}
       </div>
       <Stage>
-        <Character mood="happy" pose="wave" talking x={300} y={1120} scale={0.62} enter={4} />
+        <Mascot pose="wave" x={300} y={1130} scale={0.7} enter={4} />
       </Stage>
       <div
         style={{

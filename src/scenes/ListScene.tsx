@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { atFrame, pop } from "../anim";
 import { color, font } from "../brand";
-import { Character } from "../components/Character";
+import { Mascot } from "../components/Mascot";
 import { Headline, Stage } from "../components/Headline";
 import { CheckIcon } from "../components/Props";
 import type { ListScene as ListData } from "../types";
@@ -52,13 +52,12 @@ export const ListScene: React.FC<{ scene: ListData; frames: number }> = ({ scene
         })}
       </div>
       <Stage>
-        <Character
-          mood={scene.mood ?? (good ? "happy" : "sad")}
-          pose={scene.pose ?? (good ? "cheer" : "shrug")}
-          talking
-          x={900}
-          y={1175}
-          scale={0.6}
+        <Mascot
+          pose={scene.pose ?? (good ? "thumbs" : "arms")}
+          emote={good ? "none" : "sweat"}
+          x={925}
+          y={1335}
+          scale={0.46}
           enter={2}
           flip
         />

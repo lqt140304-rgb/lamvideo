@@ -10,15 +10,12 @@
       "type": "hook",
       "headline": ["XE MÁY XĂNG", "SẮP BỊ ĐUỔI", "KHỎI PHỐ?"],
       "stamp": "CẤM?",
-      "mood": "shocked",
       "voice": "Nghe tin Hà Nội cấm xe máy xăng, nhiều người tính bán ngay con xe đang đi để lên đời xe điện. Khoan đã! Tóm lại là thế này."
     },
     {
       "type": "zones",
       "headline": "Chưa cấm toàn Hà Nội!",
       "level": 1,
-      "mood": "calm",
-      "pose": "calm",
       "voice": "Hà Nội chưa cấm xe xăng trên toàn thành phố. Từ tháng bảy năm nay, mới thí điểm vùng phát thải thấp ở khu lõi Hoàn Kiếm.",
       "sub": "Hà Nội chưa cấm xe xăng trên toàn thành phố. Từ 1/7/2026, mới thí điểm vùng phát thải thấp ở khu lõi Hoàn Kiếm."
     },

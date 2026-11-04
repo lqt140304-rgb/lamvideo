@@ -1,8 +1,7 @@
 // Kịch bản video: một file JSON trong videos/<slug>/script.json.
 // Mỗi cảnh có `voice` (câu để máy đọc, số viết bằng chữ) và `sub` (phụ đề hiện trên màn hình, số viết bằng số).
 
-export type Mood = "happy" | "shocked" | "calm" | "smug" | "sad" | "neutral";
-export type Pose = "idle" | "point" | "shrug" | "calm" | "cheer" | "wave";
+export type MascotPose = "arms" | "hips" | "wave" | "bow" | "ok" | "thumbs" | "point" | "present";
 
 type SceneBase = {
   voice: string;
@@ -15,7 +14,6 @@ export type HookScene = SceneBase & {
   type: "hook";
   headline: string[];
   stamp?: string;
-  mood?: Mood;
 };
 
 export type ZonesScene = SceneBase & {
@@ -23,8 +21,7 @@ export type ZonesScene = SceneBase & {
   headline: string;
   /** 1 = lõi Hoàn Kiếm, 2 = + Cửa Nam, 3 = cả Vành đai 1 */
   level: 1 | 2 | 3;
-  mood?: Mood;
-  pose?: Pose;
+  pose?: MascotPose;
 };
 
 export type TimelineStep = {
@@ -67,8 +64,7 @@ export type ListScene = SceneBase & {
   items: string[];
   /** Lúc từng dòng hiện ra (0..1). Bỏ trống thì chia đều. */
   at?: number[];
-  pose?: Pose;
-  mood?: Mood;
+  pose?: MascotPose;
 };
 
 export type VerdictScene = SceneBase & {

@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { atFrame, pop } from "../anim";
 import { color, font } from "../brand";
-import { Character } from "../components/Character";
+import { Mascot } from "../components/Mascot";
 import { Headline, Stage } from "../components/Headline";
 import type { VerdictScene as VerdictData } from "../types";
 
@@ -80,7 +80,7 @@ export const VerdictScene: React.FC<{ scene: VerdictData; frames: number }> = ({
         <Column title={scene.right.title} items={scene.right.items} tint={color.yellow} start={rightAt} tilt={1.5} />
       </div>
       <Stage>
-        <Character mood={frame < rightAt ? "happy" : "smug"} pose="point" talking x={540} y={1120} scale={0.58} enter={0} />
+        <Mascot pose={frame < rightAt ? "present" : "ok"} x={540} y={1130} scale={0.62} enter={0} />
       </Stage>
     </AbsoluteFill>
   );

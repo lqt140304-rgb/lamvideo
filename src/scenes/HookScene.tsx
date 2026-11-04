@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, interpolate, Easing, useCurrentFrame } from "remotion";
 import { pop } from "../anim";
 import { color, font } from "../brand";
-import { Character } from "../components/Character";
+import { Mascot } from "../components/Mascot";
 import { Stage } from "../components/Headline";
 import { Scooter, Stamp } from "../components/Props";
 import type { HookScene as HookData } from "../types";
@@ -53,7 +53,7 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
       <Stage>
         <Scooter kind="petrol" x={drive} y={1110} scale={1.3} moving={frame < 34 || frame > stampAt + 8} />
         <Stamp text={scene.stamp ?? ""} x={380} y={1010} progress={stamp} />
-        <Character mood={scene.mood ?? "shocked"} pose={frame > stampAt ? "shrug" : "idle"} talking x={845} y={1095} scale={0.82} enter={8} flip />
+        <Mascot pose={frame > stampAt ? "point" : "hips"} emote="alert" emoteAt={stampAt} x={840} y={1120} scale={1.0} enter={8} flip />
       </Stage>
     </AbsoluteFill>
   );
