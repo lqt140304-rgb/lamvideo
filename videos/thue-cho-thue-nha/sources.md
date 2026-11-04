@@ -13,3 +13,8 @@
 - Báo Chính phủ 28/10/2026 https://baochinhphu.vn/thu-tuc-xu-ly-thue-nop-thua-khi-cho-thue-nha-102261028143739274.htm : Nghị định 141/2026/NĐ-CP (29/4/2026) sửa Nghị định 68/2026, nâng ngưỡng 500 triệu lên **1 tỷ đồng/năm** cho GTGT và TNCN, áp dụng từ 1/1/2026. Video đã đổi sang 1 tỷ.
 - Khai thuế (Thông tư 18/2026/TT-BTC Điều 8): hợp đồng ký trước 1/1/2026 còn hơn 6 tháng khai điều chỉnh (mẫu 01/TTS, 01/BĐS); đã khai theo TT 40/2021 thì không khai lại; chưa khai thì làm theo mới, không bị phạt.
 - Mức GTGT 5% / TNCN 5% bên trên ngưỡng: CHƯA đối chiếu lại với nghị định sửa đổi nên video không nêu tỷ lệ.
+
+## Rà soát lần 2 (5/11/2026)
+- Báo Chính phủ https://baochinhphu.vn/doanh-thu-cho-thue-nha-duoi-1-ty-dong-van-phai-khai-bao-thue-10226061216052641.htm : dưới ngưỡng 1 tỷ không nộp GTGT, TNCN nhưng **vẫn phải thông báo doanh thu** (1 lần trước 31/1 năm sau, hoặc 2 lần 31/7 và 31/1) và **thông báo tài khoản/ví nhận tiền thuê** (mẫu 01/BĐS, Thông tư 50/2026/TT-BTC).
+- Đã đổi "vẫn có thể phải khai" thành nghĩa vụ thông báo doanh thu và tài khoản; lời kết thêm "vẫn phải thông báo".
+- Ý "chưa khai thì không bị phạt" chỉ còn ở cảnh "Hợp đồng trước 2026" (trường hợp chuyển tiếp Thông tư 18/2026 Điều 8), không còn là khẳng định chung.

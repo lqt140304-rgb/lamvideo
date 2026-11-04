@@ -56,7 +56,7 @@
           "tint": "green",
           "amountText": "Không thuế",
           "unit": "thuế GTGT, thuế TNCN",
-          "note": "doanh thu một năm",
+          "note": "vẫn thông báo doanh thu",
           "at": 0.1
         },
         {
@@ -71,31 +71,31 @@
         }
       ],
       "footnote": "Theo Báo Chính phủ, 28/10/2026 (Nghị định 141/2026/NĐ-CP)",
-      "voice": "Từ một tỷ đồng trở xuống thì không nộp hai loại thuế này. Còn trên ngưỡng, chủ nhà có nghĩa vụ nộp thuế giá trị gia tăng và thuế thu nhập cá nhân, theo cách tính trong hướng dẫn hiện hành.",
-      "sub": "Từ 1 tỷ đồng trở xuống thì không nộp hai loại thuế này. Còn trên ngưỡng, chủ nhà có nghĩa vụ nộp thuế giá trị gia tăng và thuế thu nhập cá nhân, theo cách tính trong hướng dẫn hiện hành.",
+      "voice": "Từ một tỷ đồng trở xuống thì không nộp hai loại thuế này, nhưng vẫn phải thông báo doanh thu. Còn trên ngưỡng, chủ nhà có nghĩa vụ nộp thuế giá trị gia tăng và thuế thu nhập cá nhân, theo cách tính trong hướng dẫn hiện hành.",
+      "sub": "Từ 1 tỷ đồng trở xuống thì không nộp hai loại thuế này, nhưng vẫn phải thông báo doanh thu. Còn trên ngưỡng, chủ nhà có nghĩa vụ nộp thuế giá trị gia tăng và thuế thu nhập cá nhân, theo cách tính trong hướng dẫn hiện hành.",
       "layout": "slider"
     },
     {
       "type": "list",
       "tone": "good",
-      "headline": "Chủ nhà cần nhớ",
+      "headline": "Hợp đồng trước 2026",
       "pose": "think",
       "items": [
-        "Hợp đồng ký trước 2026: xem lại cách khai",
+        "Còn hơn 6 tháng: xem lại cách khai",
         "Đã khai theo cách cũ: không khai lại",
-        "Chưa khai: làm theo mới, không bị phạt"
+        "Chưa khai: khai theo mẫu mới"
       ],
       "at": [
         0.1,
         0.45,
         0.75
       ],
-      "voice": "Chủ nhà cần nhớ ba điều. Hợp đồng ký trước năm hai không hai sáu, còn hơn sáu tháng, thì phải xem lại cách khai. Nếu đã khai theo cách cũ thì không phải khai lại. Còn chưa khai thì làm theo hướng dẫn mới và không bị xử phạt.",
-      "sub": "Chủ nhà cần nhớ 3 điều. Hợp đồng ký trước năm 2026, còn hơn 6 tháng, thì phải xem lại cách khai. Nếu đã khai theo cách cũ thì không phải khai lại. Còn chưa khai thì làm theo hướng dẫn mới và không bị xử phạt.",
+      "voice": "Riêng hợp đồng ký trước năm hai không hai sáu, còn hơn sáu tháng, thì phải xem lại cách khai. Nếu đã khai theo cách cũ thì không phải khai lại. Còn chưa khai thì khai theo hướng dẫn mới, và với trường hợp chuyển tiếp này thì không bị xử phạt.",
+      "sub": "Riêng hợp đồng ký trước năm 2026, còn hơn 6 tháng, thì phải xem lại cách khai. Nếu đã khai theo cách cũ thì không phải khai lại. Còn chưa khai thì khai theo hướng dẫn mới, và với trường hợp chuyển tiếp này thì không bị xử phạt.",
       "layout": "notes",
       "broll": {
         "file": "nha-cho-thue.jpg",
-        "say": "Chủ nhà cần nhớ",
+        "say": "Riêng hợp đồng ký trước",
         "hold": 2.0,
         "caption": "Nhà cho thuê",
         "style": "card",
@@ -120,12 +120,12 @@
         },
         {
           "myth": "Dưới mốc thì không có thủ tục gì",
-          "fact": "Vẫn có thể phải khai, tùy trường hợp",
-          "at": 0.68
+          "fact": "Vẫn phải thông báo doanh thu và tài khoản nhận tiền thuê",
+          "at": 0.62
         }
       ],
-      "voice": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức cả năm vẫn chỉ một tỷ đồng. Và dù thu dưới ngưỡng, vẫn có thể có thủ tục khai, nên kiểm tra theo trường hợp của mình.",
-      "sub": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức cả năm vẫn chỉ 1 tỷ đồng. Và dù thu dưới ngưỡng, vẫn có thể có thủ tục khai, nên kiểm tra theo trường hợp của mình."
+      "voice": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức cả năm vẫn chỉ một tỷ đồng. Và dù thu dưới ngưỡng, chủ nhà vẫn phải thông báo doanh thu và tài khoản nhận tiền thuê với cơ quan thuế.",
+      "sub": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức cả năm vẫn chỉ 1 tỷ đồng. Và dù thu dưới ngưỡng, chủ nhà vẫn phải thông báo doanh thu và tài khoản nhận tiền thuê với cơ quan thuế."
     },
     {
       "type": "verdict",
@@ -139,26 +139,26 @@
         ]
       },
       "right": {
-        "title": "Nhẹ nhàng",
+        "title": "Nhẹ hơn",
         "items": [
           "Thu dưới 1 tỷ/năm",
-          "Một hợp đồng"
+          "Vẫn thông báo doanh thu"
         ]
       },
-      "voice": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên một tỷ đồng một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, một hợp đồng, thì nhẹ nhàng hơn.",
-      "sub": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên 1 tỷ đồng một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, 1 hợp đồng, thì nhẹ nhàng hơn."
+      "voice": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên một tỷ đồng một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng thì không nộp thuế, chỉ cần thông báo doanh thu đúng hạn.",
+      "sub": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên 1 tỷ đồng một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng thì không nộp thuế, chỉ cần thông báo doanh thu đúng hạn."
     },
     {
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Thu đến 1 tỷ/năm",
-        "chưa phải nộp thuế!"
+        "Đến 1 tỷ/năm: miễn thuế",
+        "vẫn phải thông báo!"
       ],
       "cta": "Gửi cho người quen đang cho thuê nhà nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, cho thuê nhà thu đến một tỷ đồng một năm thì không phải nộp thuế, nhưng vẫn nên xem thủ tục khai. Gửi cho người quen đang cho thuê nhà nhé!",
-      "sub": "Tóm lại là, cho thuê nhà thu đến 1 tỷ đồng một năm thì không phải nộp thuế, nhưng vẫn nên xem thủ tục khai. Gửi cho người quen đang cho thuê nhà nhé!"
+      "voice": "Tóm lại là, cho thuê nhà thu đến một tỷ đồng một năm thì không phải nộp thuế, nhưng vẫn phải thông báo doanh thu với cơ quan thuế. Gửi cho người quen đang cho thuê nhà nhé!",
+      "sub": "Tóm lại là, cho thuê nhà thu đến 1 tỷ đồng một năm thì không phải nộp thuế, nhưng vẫn phải thông báo doanh thu với cơ quan thuế. Gửi cho người quen đang cho thuê nhà nhé!"
     }
   ],
   "id": "thue-cho-thue-nha",

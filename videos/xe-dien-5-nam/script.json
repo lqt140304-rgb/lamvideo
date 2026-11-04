@@ -143,8 +143,8 @@
         }
       ],
       "footnote": "Chưa tính bảo dưỡng, thay pin, giá bán lại",
-      "voice": "Cộng giá mua xe và tiền năng lượng, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Rẻ hơn một nửa, nhưng chưa tính các khoản khác.",
-      "sub": "Cộng giá mua xe và tiền năng lượng, xe xăng khoảng 59 triệu. Xe điện khoảng 26 triệu. Rẻ hơn một nửa, nhưng chưa tính các khoản khác.",
+      "voice": "Cộng giá mua xe và tiền năng lượng, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Trong ví dụ này, giá mua xe cộng tiền năng lượng của xe điện thấp hơn một nửa, nhưng đó chưa phải tổng chi phí sở hữu.",
+      "sub": "Cộng giá mua xe và tiền năng lượng, xe xăng khoảng 59 triệu. Xe điện khoảng 26 triệu. Trong ví dụ này, giá mua xe cộng tiền năng lượng của xe điện thấp hơn một nửa, nhưng đó chưa phải tổng chi phí sở hữu.",
       "layout": "duel"
     },
     {
@@ -191,12 +191,12 @@
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Đi nhiều thì xe điện",
-        "rẻ hơn rõ rệt!"
+        "Đi nhiều thì tiền điện",
+        "rẻ hơn tiền xăng rõ rệt!"
       ],
       "cta": "Một tháng bạn đi bao nhiêu km? Ghi vào bình luận nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, đi nhiều thì xe điện rẻ hơn rõ rệt. Một tháng bạn đi bao nhiêu ki lô mét? Ghi vào bình luận để mọi người cùng so nhé!"
+      "voice": "Tóm lại là, đi nhiều thì tiền điện rẻ hơn tiền xăng rõ rệt, còn tổng chi phí thì phải tính thêm pin, bảo dưỡng và giá bán lại. Một tháng bạn đi bao nhiêu ki lô mét? Ghi vào bình luận để mọi người cùng so nhé!"
     }
   ],
   "id": "xe-dien-5-nam",

@@ -28,10 +28,15 @@
           "myth": "Tự đi khám trái tuyến là bảo hiểm không trả",
           "fact": "Từ 1/7/2026, quỹ trả 50% mức hưởng, trong phạm vi được thanh toán",
           "at": 0.08
+        },
+        {
+          "myth": "Trái tuyến bệnh nào cũng chỉ 50%",
+          "fact": "Một số bệnh trong danh mục của Bộ Y tế vẫn được 100% mức hưởng",
+          "at": 0.72
         }
       ],
-      "voice": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày một tháng bảy năm hai không hai sáu, quy định này được áp dụng. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, trong phạm vi được thanh toán, và chỉ ở một số cơ sở.",
-      "sub": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày 1/7/2026, quy định này được áp dụng. Quỹ bảo hiểm trả 50% mức hưởng, trong phạm vi được thanh toán, và chỉ ở một số cơ sở."
+      "voice": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày một tháng bảy năm hai không hai sáu, quy định này được áp dụng. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, trong phạm vi được thanh toán, và chỉ ở một số cơ sở. Riêng một số bệnh trong danh mục của Bộ Y tế, mức hưởng vẫn là một trăm phần trăm.",
+      "sub": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày 1/7/2026, quy định này được áp dụng. Quỹ bảo hiểm trả 50% mức hưởng, trong phạm vi được thanh toán, và chỉ ở một số cơ sở. Riêng một số bệnh trong danh mục của Bộ Y tế, mức hưởng vẫn là 100%."
     },
     {
       "type": "compare",
@@ -60,8 +65,8 @@
         }
       ],
       "footnote": "Ví dụ mình tự tính: giả sử toàn bộ 1 triệu nằm trong phạm vi BHYT thanh toán",
-      "voice": "Ví dụ hóa đơn một triệu, giả sử toàn bộ nằm trong phạm vi bảo hiểm thanh toán, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú, chỉ còn một nửa mức hưởng, tức bốn trăm nghìn.",
-      "sub": "Ví dụ hóa đơn 1 triệu, giả sử toàn bộ nằm trong phạm vi bảo hiểm thanh toán, thẻ mức hưởng 80%. Đúng tuyến, bảo hiểm trả 800 nghìn. Trái tuyến ngoại trú, chỉ còn một nửa mức hưởng, tức 400 nghìn.",
+      "voice": "Ví dụ hóa đơn một triệu, giả sử toàn bộ nằm trong phạm vi bảo hiểm thanh toán, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú ở cơ sở thuộc nhóm được năm mươi phần trăm mức hưởng, bảo hiểm trả bốn trăm nghìn.",
+      "sub": "Ví dụ hóa đơn 1 triệu, giả sử toàn bộ nằm trong phạm vi bảo hiểm thanh toán, thẻ mức hưởng 80%. Đúng tuyến, bảo hiểm trả 800 nghìn. Trái tuyến ngoại trú ở cơ sở thuộc nhóm được 50% mức hưởng, bảo hiểm trả 400 nghìn.",
       "layout": "slider"
     },
     {
@@ -126,22 +131,24 @@
       "right": {
         "title": "Lưu ý",
         "items": [
-          "Trái tuyến: một nửa",
+          "50% mức hưởng, tùy nơi",
           "Không phải nơi nào cũng trả"
         ]
       },
-      "voice": "Rốt cuộc, nên làm gì khi cần đi khám? Ưu tiên khám ở nơi đăng ký ban đầu, hoặc hỏi bệnh viện trước khi khám. Nhớ là trái tuyến chỉ được một nửa, và không phải nơi nào cũng trả."
+      "voice": "Rốt cuộc, nên làm gì khi cần đi khám? Ưu tiên khám ở nơi đăng ký ban đầu, hoặc hỏi bệnh viện trước khi khám. Nhớ là trái tuyến ngoại trú thường chỉ được năm mươi phần trăm mức hưởng, tại một số cơ sở và tùy trường hợp, và không phải nơi nào cũng trả.",
+      "sub": "Rốt cuộc, nên làm gì khi cần đi khám? Ưu tiên khám ở nơi đăng ký ban đầu, hoặc hỏi bệnh viện trước khi khám. Nhớ là trái tuyến ngoại trú thường chỉ được 50% mức hưởng, tại một số cơ sở và tùy trường hợp, và không phải nơi nào cũng trả."
     },
     {
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Trái tuyến ngoại trú",
-        "giờ được trả một nửa!"
+        "Trái tuyến: 50%",
+        "mức hưởng, tùy nơi!"
       ],
       "cta": "Lưu lại để lần khám sau còn nhớ!",
       "pad": 0.6,
-      "voice": "Tóm lại là, khám ngoại trú trái tuyến giờ được bảo hiểm trả một nửa mức hưởng, ở một số bệnh viện. Lưu lại để lần khám sau còn nhớ. Bạn hay khám ở đâu?"
+      "voice": "Tóm lại là, khám ngoại trú trái tuyến được bảo hiểm trả năm mươi phần trăm mức hưởng, tại một số cơ sở và tùy trường hợp. Lưu lại để lần khám sau còn nhớ. Bạn hay khám ở đâu?",
+      "sub": "Tóm lại là, khám ngoại trú trái tuyến được bảo hiểm trả 50% mức hưởng, tại một số cơ sở và tùy trường hợp. Lưu lại để lần khám sau còn nhớ. Bạn hay khám ở đâu?"
     }
   ],
   "id": "bhyt-trai-tuyen"

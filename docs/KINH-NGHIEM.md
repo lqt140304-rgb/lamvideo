@@ -48,3 +48,14 @@ Cập nhật sau mỗi lượt làm. Chạy `npm run lint` trước khi `npm run
 - Mốc tương lai dùng "sẽ có hiệu lực". Giá, lãi suất, giá vàng luôn ghi ngày lấy số liệu trên hình.
 - Hai con số trên bảng và phụ đề phải khớp nhau (đặt `amount` bằng đúng số làm tròn trong `amountText`).
 - Trước khi giao: nhờ một bên khác (người hoặc công cụ) soát lại nội dung từng video như file góp ý ngày 5/11.
+
+## Rà soát lần 2 (5/11/2026)
+- Phân biệt **ngày luật có hiệu lực** và **ngày một phần được áp dụng**: Luật Thuế TNCN 109/2025 hiệu lực 1/7/2026 nhưng phần tiền lương áp dụng từ kỳ tính thuế 2026; Thông tư 08/2026/TT-BKHCN hiệu lực 15/4/2026, còn quy định đổi thiết bị từ 15/6/2026. Ghi đúng cả hai, đừng gộp thành một ngày.
+- Mốc thời gian phải ghi **tính từ sự kiện nào** ("kể từ khi nhà mạng phát hiện", không phải "2 giờ sau").
+- Chữ trên hình ở cảnh kết và ô lưu ý không được rộng hơn lời đọc: "50% mức hưởng, tùy nơi", không viết "trả một nửa". Có ngoại lệ (bệnh vẫn 100%) thì nêu ra.
+- Điểm cộng không được hứa quá: xe điện vẫn bị cấm giờ ở khu lõi. Phép tính ví dụ chỉ kết luận trong phạm vi ví dụ ("trong ví dụ này…"), không suy ra tổng chi phí sở hữu.
+- "Dưới ngưỡng không nộp thuế" ≠ "không có thủ tục": nêu luôn nghĩa vụ thông báo. Câu "không bị phạt" chỉ dùng kèm đúng trường hợp chuyển tiếp.
+- Giá/phí của sản phẩm: nêu đủ các khoản đi kèm (thuê pin, ưu đãi, hạn ưu đãi) hoặc không nêu.
+- Số liệu chưa làm mới thì đưa ngày lên tiêu đề cảnh, ngay khi số xuất hiện lần đầu.
+- Khẳng định cần nguồn thứ hai (thời hạn thuế, ngành bị ảnh hưởng): ghi rõ ai nói ("theo Hải quan Mỹ", "theo Trung tâm WTO"), tìm văn bản luật gốc khi có thể.
+- Góp ý của bên soát cũng có thể sai: mở lại chính nguồn được dẫn trước khi sửa (vùng phát thải thấp: nguồn ghi hạn chế mức 3 từ 2027, giữ nguyên và ghi lý do vào `sources.md`).

@@ -22,7 +22,7 @@
     },
     {
       "type": "receipt",
-      "headline": "Hai giá cho một lượng",
+      "headline": "SJC ngày 29/10/2026",
       "rows": [
         {
           "label": "Giá bán ra",
@@ -45,7 +45,7 @@
     },
     {
       "type": "compare",
-      "headline": "Miếng và nhẫn",
+      "headline": "Miếng và nhẫn, 29/10",
       "bars": false,
       "cards": [
         {
@@ -131,7 +131,7 @@
     },
     {
       "type": "verdict",
-      "headline": "Giá ngày 29/10/2026",
+      "headline": "Riêng ngày 29/10",
       "rightAt": 0.55,
       "left": {
         "title": "Vàng miếng",
@@ -147,8 +147,8 @@
           "Chênh mua bán cao hơn"
         ]
       },
-      "voice": "Theo giá ngày hai mươi chín tháng mười thì thế này. Vàng miếng giá cao hơn, nhưng chênh mua bán thấp hơn. Vàng nhẫn giá thấp hơn, nhưng chênh mua bán cao hơn. Chênh lệch này đổi theo ngày, và đây là thông tin, không phải lời khuyên mua bán.",
-      "sub": "Theo giá ngày 29/10 thì thế này. Vàng miếng giá cao hơn, nhưng chênh mua bán thấp hơn. Vàng nhẫn giá thấp hơn, nhưng chênh mua bán cao hơn. Chênh lệch này đổi theo ngày, và đây là thông tin, không phải lời khuyên mua bán."
+      "voice": "Theo giá ngày hai mươi chín tháng mười thì thế này. Vàng miếng giá cao hơn, nhưng chênh mua bán thấp hơn. Vàng nhẫn giá thấp hơn, nhưng chênh mua bán cao hơn. Có ngày thì ngược lại, nên đừng coi đây là quy luật. Đây là thông tin, không phải lời khuyên mua bán.",
+      "sub": "Theo giá ngày 29/10 thì thế này. Vàng miếng giá cao hơn, nhưng chênh mua bán thấp hơn. Vàng nhẫn giá thấp hơn, nhưng chênh mua bán cao hơn. Có ngày thì ngược lại, nên đừng coi đây là quy luật. Đây là thông tin, không phải lời khuyên mua bán."
     },
     {
       "type": "outro",

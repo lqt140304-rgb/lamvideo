@@ -72,14 +72,14 @@
           "level": 2
         },
         {
-          "when": "2028",
-          "what": "Toàn bộ Vành đai 1",
+          "when": "2028–2029",
+          "what": "Cả Vành đai 1, giữ các hạn chế như năm 2027",
           "at": 0.8,
           "level": 3
         }
       ],
-      "voice": "Ở khu lõi, mọi phương tiện đường bộ bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam. Xe công nghệ chạy xăng không được hoạt động, và xe máy xăng không đạt chuẩn khí thải mức ba không được lưu thông trong vùng. Năm hai không hai tám, áp dụng cho cả Vành đai một.",
-      "sub": "Ở khu lõi, mọi phương tiện đường bộ bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam. Xe công nghệ chạy xăng không được hoạt động, và xe máy xăng không đạt chuẩn khí thải mức ba không được lưu thông trong vùng. Năm hai không hai tám, áp dụng cho cả Vành đai một."
+      "voice": "Ở khu lõi, mọi phương tiện đường bộ, kể cả xe điện, bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam. Xe công nghệ chạy xăng không được hoạt động, và xe máy xăng không đạt chuẩn khí thải mức ba không được lưu thông trong vùng. Từ năm hai không hai tám đến hai không hai chín, các hạn chế này áp dụng cho cả Vành đai một.",
+      "sub": "Ở khu lõi, mọi phương tiện đường bộ, kể cả xe điện, bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm 2027, mở rộng sang Cửa Nam. Xe công nghệ chạy xăng không được hoạt động, và xe máy xăng không đạt chuẩn khí thải mức 3 không được lưu thông trong vùng. Từ năm 2028 đến 2029, các hạn chế này áp dụng cho cả Vành đai 1."
     },
     {
       "type": "compare",
@@ -113,7 +113,7 @@
       "items": [
         "Tiền đi lại rẻ hơn hẳn",
         "Chạy êm, không khói",
-        "Không lo vùng phát thải thấp"
+        "Không vướng chuẩn khí thải"
       ],
       "at": [
         0.22,
@@ -131,7 +131,7 @@
         "style": "card",
         "y": 520
       },
-      "voice": "Điểm cộng của xe điện: tiền đi lại rẻ hơn hẳn, chạy êm, không khói, và không lo bị chặn ở vùng phát thải thấp."
+      "voice": "Điểm cộng của xe điện: tiền đi lại rẻ hơn hẳn, chạy êm, không khói, và không vướng quy định chuẩn khí thải. Nhưng giờ cấm toàn bộ phương tiện ở khu lõi thì xe điện vẫn phải tránh."
     },
     {
       "type": "list",

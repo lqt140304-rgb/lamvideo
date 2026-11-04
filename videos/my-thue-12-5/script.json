@@ -37,12 +37,12 @@
         },
         {
           "title": "4 năm",
-          "detail": "Tự hết hạn nếu Mỹ không gia hạn",
+          "detail": "Luật Mỹ: biện pháp Mục 301 tự chấm dứt sau 4 năm nếu không có đề nghị gia hạn",
           "at": 0.68
         }
       ],
-      "voice": "Tháng hai năm hai không hai sáu, Tòa án Tối cao Mỹ bác mức thuế hai mươi phần trăm cũ. Từ ngày hai mươi tư tháng bảy, Mỹ áp thuế bổ sung mười hai phẩy năm phần trăm theo Mục ba trăm linh một, một số nhóm hàng được miễn. Đây chỉ là phần thuế bổ sung, chưa phải tổng mọi loại thuế. Theo thông tin đã công bố, mức này tự hết hạn sau bốn năm nếu không gia hạn.",
-      "sub": "Tháng 2/2026, Tòa án Tối cao Mỹ bác mức thuế 20% cũ. Từ ngày 24/7, Mỹ áp thuế bổ sung 12,5% theo Mục 301, một số nhóm hàng được miễn. Đây chỉ là phần thuế bổ sung, chưa phải tổng mọi loại thuế. Theo thông tin đã công bố, mức này tự hết hạn sau 4 năm nếu không gia hạn."
+      "voice": "Tháng hai năm hai không hai sáu, Tòa án Tối cao Mỹ bác mức thuế hai mươi phần trăm cũ. Từ ngày hai mươi tư tháng bảy, Mỹ áp thuế bổ sung mười hai phẩy năm phần trăm theo Mục ba trăm linh một, một số nhóm hàng được miễn. Đây chỉ là phần thuế bổ sung, chưa phải tổng mọi loại thuế. Theo luật thương mại Mỹ, biện pháp theo Mục ba trăm linh một tự chấm dứt sau bốn năm, trừ khi có đề nghị gia hạn.",
+      "sub": "Tháng 2/2026, Tòa án Tối cao Mỹ bác mức thuế 20% cũ. Từ ngày 24/7, Mỹ áp thuế bổ sung 12,5% theo Mục 301, một số nhóm hàng được miễn. Đây chỉ là phần thuế bổ sung, chưa phải tổng mọi loại thuế. Theo luật thương mại Mỹ, biện pháp theo Mục 301 tự chấm dứt sau 4 năm, trừ khi có đề nghị gia hạn."
     },
     {
       "type": "compare",
@@ -90,7 +90,7 @@
         0.4,
         0.7
       ],
-      "voice": "Ngành chịu tác động rõ nhất là giày dép và dệt may. Điện thoại và linh kiện cũng có thể bị ảnh hưởng.",
+      "voice": "Theo đánh giá của Trung tâm WTO thuộc VCCI, giày dép và dệt may chịu tác động rõ nhất. Điện thoại và linh kiện cũng có thể bị ảnh hưởng.",
       "layout": "tiles",
       "broll": {
         "file": "det-may.jpg",
@@ -109,16 +109,16 @@
       "headline": "Ít ảnh hưởng hơn",
       "pose": "ok",
       "items": [
-        "Thép, nhôm, ô tô: được miễn",
-        "Cà phê, đồ gỗ, thủy sản",
-        "Điện tử, bán dẫn"
+        "Một số thép, nhôm, đồng, ô tô: miễn",
+        "Gỗ, bán dẫn, dược phẩm: miễn",
+        "Cà phê, thủy sản: ít hơn"
       ],
       "at": [
         0.1,
         0.42,
         0.72
       ],
-      "voice": "Ngược lại, thép, nhôm, ô tô được miễn mức này vì đang chịu thuế khác. Cà phê, đồ gỗ, thủy sản, điện tử và bán dẫn được đánh giá ít bị ảnh hưởng hơn.",
+      "voice": "Ngược lại, theo hướng dẫn của Hải quan Mỹ, một số mặt hàng thép, nhôm, đồng, ô tô, sản phẩm gỗ, bán dẫn và hàng dùng cho dược phẩm được miễn mức này. Cà phê và thủy sản được Trung tâm WTO đánh giá ít bị ảnh hưởng hơn.",
       "layout": "clipboard"
     },
     {

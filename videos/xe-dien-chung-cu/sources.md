@@ -17,3 +17,7 @@ Chốt ngày 4/11/2026. Kiểm tra lại toàn văn thông tư trước khi đă
 
 ## Góp ý 5/11/2026 (chưa mở được moc.gov.vn do chặn truy cập tự động)
 - Mốc 15/12/2026 là tương lai: dùng "sẽ có hiệu lực". Giá đổi pin 9.000đ gắn điều kiện: xe VinFast Evo, bảng giá niêm yết 27/2/2026, tùy mẫu xe và trạm. Cần đối chiếu quy chuẩn gốc trước khi đăng.
+
+## Rà soát lần 2 (5/11/2026)
+- Đối chiếu lại bài Báo Hà Tĩnh 27/2/2026: đổi pin 9.000đ/pin/lần; thuê pin 175.000đ/tháng (1 pin) hoặc 300.000đ/tháng (2 pin); miễn phí 20 lần đổi/tháng (≈800 km) đến 30/6/2028. Video thêm phí thuê pin và ưu đãi vào lời đọc, ghi chú thẻ và chú thích.
+- Mốc 15/12/2026 vẫn "sẽ có hiệu lực". Còn cần đối chiếu quy chuẩn gốc trên trang Bộ Xây dựng (chưa mở được).

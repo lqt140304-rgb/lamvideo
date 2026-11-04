@@ -17,3 +17,7 @@ Kiểm tra lại trước khi đăng, vì chính sách và giá xăng thay đổ
 
 ## Đã đối chiếu 5/11/2026 (sau góp ý)
 - Đề án vùng phát thải thấp https://xaydungchinhsach.chinhphu.vn/cong-bo-de-an-vung-phat-thai-thap-trong-vanh-dai-1-thanh-pho-ha-noi-119260703145217105.htm : khung 19–24h thứ Sáu–Chủ nhật tại Khu vực 1 áp dụng cho TOÀN BỘ phương tiện đường bộ (giai đoạn 1/7–31/12/2026). Năm 2027 mở rộng Khu vực 1,2,3 Hoàn Kiếm và Cửa Nam: xe máy dùng nhiên liệu hóa thạch kinh doanh trên ứng dụng không được hoạt động; xe máy không đạt khí thải mức 3 không được lưu thông. 2028–2029: toàn Vành đai 1.
+
+## Rà soát lần 2 (5/11/2026)
+- Bỏ "không lo bị chặn ở vùng phát thải thấp": khu lõi cấm toàn bộ phương tiện 19h–24h thứ Sáu–Chủ nhật, kể cả xe điện. Điểm cộng đổi thành "không vướng chuẩn khí thải"; lời đọc nói rõ xe điện vẫn phải tránh giờ cấm ở khu lõi.
+- Góp ý nói hạn chế xe máy dưới chuẩn khí thải mức 3 thuộc 2028–2029. Đã mở lại chính nguồn được dẫn (xaydungchinhsach.chinhphu.vn, Đề án vùng phát thải thấp, 3/7/2026): **giai đoạn 01/01/2027–31/12/2027** (Hoàn Kiếm + Cửa Nam) đã ghi "Không cho phép xe mô tô, xe gắn máy không đạt quy chuẩn khí thải mức 3 theo QCVN 99:2025/BNNMT lưu thông"; giai đoạn 2028–2029 áp dụng lại cho cả Vành đai 1. Vì vậy giữ mốc 2027 và sửa bước 3 thành "2028–2029: cả Vành đai 1, giữ các hạn chế như năm 2027". Nếu bên soát có văn bản khác (quyết định sau đề án) thì gửi link để đối chiếu.

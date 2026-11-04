@@ -83,13 +83,13 @@
           "tint": "green",
           "amountText": "9.000đ",
           "unit": "/ lần đổi 1 pin",
-          "note": "VinFast Evo, tùy mẫu xe và trạm",
+          "note": "+ thuê pin 175.000đ/tháng",
           "at": 0.55
         }
       ],
-      "footnote": "Theo bảng giá VinFast Evo đổi pin đăng ngày 27/2/2026; giá có thể đổi",
-      "voice": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Theo bảng giá niêm yết cho xe VinFast Evo, mỗi lần đổi một viên pin chín nghìn đồng, tùy mẫu xe và trạm. Không cần ổ điện ở nhà.",
-      "sub": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Theo bảng giá niêm yết cho xe VinFast Evo, mỗi lần đổi một viên pin 9.000 đồng, tùy mẫu xe và trạm. Không cần ổ điện ở nhà.",
+      "footnote": "Bảng giá VinFast Evo đăng 27/2/2026: thuê 1 pin 175.000đ/tháng, miễn phí 20 lần đổi/tháng đến 30/6/2028; giá có thể đổi",
+      "voice": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Theo bảng giá công bố hồi tháng hai cho xe VinFast Evo, mỗi lần đổi một viên pin chín nghìn đồng, cộng tiền thuê pin một trăm bảy mươi lăm nghìn một tháng. Hãng đang miễn phí hai mươi lần đổi mỗi tháng đến hết tháng sáu năm hai không hai tám. Không cần ổ điện ở nhà.",
+      "sub": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Theo bảng giá công bố hồi tháng 2 cho xe VinFast Evo, mỗi lần đổi một viên pin 9.000 đồng, cộng tiền thuê pin 175.000 đồng một tháng. Hãng đang miễn phí 20 lần đổi mỗi tháng đến hết tháng 6/2028. Không cần ổ điện ở nhà.",
       "layout": "duel"
     },
     {

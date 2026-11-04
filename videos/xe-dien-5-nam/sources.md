@@ -18,3 +18,7 @@ Chốt ngày 4/11/2026. Kiểm tra lại giá xe và giá xăng trước khi đ�
 
 ## Góp ý 5/11/2026
 - Thống nhất 26 triệu (22 triệu xe + ~4 triệu điện) giữa bảng và phụ đề; gọi đây là giá mua + nhiên liệu, chưa tính pin, bảo dưỡng, giá bán lại.
+
+## Rà soát lần 2 (5/11/2026)
+- Lời đọc cảnh tổng: "Trong ví dụ này, giá mua xe cộng tiền năng lượng của xe điện thấp hơn một nửa, nhưng đó chưa phải tổng chi phí sở hữu".
+- Lời kết đổi "xe điện rẻ hơn rõ rệt" → "tiền điện rẻ hơn tiền xăng rõ rệt", nhắc phải tính thêm pin, bảo dưỡng, giá bán lại.

@@ -12,3 +12,6 @@
 ## Đã đối chiếu 5/11/2026 (sau góp ý)
 - Bảo hiểm tiền gửi VN https://div.gov.vn/tu-ngay-13-7-2026-han-muc-chi-tra-tien-bao-hiem-cua-bao-hiem-tien-gui-viet-nam-la-350-trieu-dong : 350 triệu là tổng tiền gửi được bảo hiểm của một người tại một tổ chức tham gia, gồm gốc và lãi; Thông tư 05/2026/TT-NHNN hiệu lực 13/7/2026.
 - Lãi suất 6 tháng (nhóm Nhà nước) và 12 tháng (mức cao nhất) khác kỳ hạn: video đã ghi rõ không so trực tiếp.
+
+## Rà soát lần 2 (5/11/2026)
+- Bảng lãi suất chưa làm mới: đổi tiêu đề cảnh thành "Lãi suất ngày 20/10", lời đọc nói "số liệu ngày 20/10", chú thích ghi "không phải lãi suất hôm nay". Nếu có số mới thì thay cả tiêu đề, thẻ và lời đọc.

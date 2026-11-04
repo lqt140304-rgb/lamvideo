@@ -11,3 +11,7 @@
 
 ## Góp ý 5/11/2026
 - Giữ rõ ngày giá 29/10/2026 trên hình; nhận xét chênh lệch chỉ đúng với bảng giá ngày đó, đổi theo ngày. Phải làm mới số liệu trước khi đăng.
+
+## Rà soát lần 2 (5/11/2026)
+- Ngày 29/10/2026 đưa lên tiêu đề ngay ở cảnh đầu tiên có số ("SJC ngày 29/10/2026") và cảnh so sánh ("Miếng và nhẫn, 29/10").
+- Cảnh kết luận: thêm "có ngày thì ngược lại, đừng coi là quy luật".

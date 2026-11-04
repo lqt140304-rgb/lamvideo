@@ -135,12 +135,12 @@
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Giờ nơi cư trú nằm trên",
-        "căn cước và VNeID!"
+        "Thông tin cư trú",
+        "tra qua VNeID!"
       ],
       "cta": "Lưu lại để lúc làm thủ tục có cái mà xem!",
       "pad": 0.6,
-      "voice": "Tóm lại là, giờ nơi cư trú nằm trên căn cước và VNeID. Lưu video này lại, lúc làm thủ tục sẽ cần. Bạn đã dùng VNeID chưa?"
+      "voice": "Tóm lại là, giờ thông tin cư trú được tra cứu qua dữ liệu dân cư và VNeID. Lưu video này lại, lúc làm thủ tục sẽ cần. Bạn đã dùng VNeID chưa?"
     }
   ],
   "id": "ho-khau-giay"

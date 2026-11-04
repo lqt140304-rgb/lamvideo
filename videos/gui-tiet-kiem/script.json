@@ -41,7 +41,7 @@
     },
     {
       "type": "compare",
-      "headline": "Lãi suất chênh nhau",
+      "headline": "Lãi suất ngày 20/10",
       "bars": false,
       "cards": [
         {
@@ -65,9 +65,9 @@
           "at": 0.55
         }
       ],
-      "footnote": "Theo Thời báo Tài chính Việt Nam, số liệu ngày 20/10/2026, có thể đã đổi",
-      "voice": "Lãi suất thì chênh nhau khá nhiều. Nhóm ngân hàng Nhà nước, kỳ hạn sáu tháng, khoảng ba đến ba phẩy năm phần trăm một năm. Mức niêm yết cao nhất, kỳ hạn mười hai tháng, khoảng sáu phẩy chín phần trăm. Hai mức này khác kỳ hạn, nên không so trực tiếp được.",
-      "sub": "Lãi suất thì chênh nhau khá nhiều. Nhóm ngân hàng Nhà nước, kỳ hạn 6 tháng, khoảng 3 đến 3,5% một năm. Mức niêm yết cao nhất, kỳ hạn 12 tháng, khoảng 6,9%. Hai mức này khác kỳ hạn, nên không so trực tiếp được.",
+      "footnote": "Số liệu ngày 20/10/2026 (Thời báo Tài chính Việt Nam), không phải lãi suất hôm nay",
+      "voice": "Lãi suất thì chênh nhau khá nhiều. Số liệu ngày hai mươi tháng mười cho thấy nhóm ngân hàng Nhà nước, kỳ hạn sáu tháng, khoảng ba đến ba phẩy năm phần trăm một năm. Mức niêm yết cao nhất, kỳ hạn mười hai tháng, khoảng sáu phẩy chín phần trăm. Hai mức này khác kỳ hạn, nên không so trực tiếp được, và lãi suất đổi thường xuyên.",
+      "sub": "Lãi suất thì chênh nhau khá nhiều. Số liệu ngày 20/10 cho thấy nhóm ngân hàng Nhà nước, kỳ hạn 6 tháng, khoảng 3 đến 3,5% một năm. Mức niêm yết cao nhất, kỳ hạn 12 tháng, khoảng 6,9%. Hai mức này khác kỳ hạn, nên không so trực tiếp được, và lãi suất đổi thường xuyên.",
       "layout": "duel"
     },
     {
