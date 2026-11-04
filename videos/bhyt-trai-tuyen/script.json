@@ -70,7 +70,8 @@
         }
       ],
       "footnote": "Ví dụ mình tự tính, chỉ chi phí trong phạm vi hưởng BHYT",
-      "voice": "Ví dụ hóa đơn một triệu, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức bốn trăm nghìn."
+      "voice": "Ví dụ hóa đơn một triệu, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức bốn trăm nghìn.",
+      "sub": "Ví dụ hóa đơn 1 triệu, thẻ mức hưởng 80%. Đúng tuyến, bảo hiểm trả 800 nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức 400 nghìn."
     },
     {
       "type": "list",
@@ -87,7 +88,8 @@
         0.42,
         0.72
       ],
-      "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá."
+      "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
+      "sub": "Được trả 50% khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá."
     },
     {
       "type": "list",
@@ -104,7 +106,8 @@
         0.42,
         0.72
       ],
-      "voice": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được năm mươi phần trăm. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả."
+      "voice": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được năm mươi phần trăm. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả.",
+      "sub": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được 50%. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả."
     },
     {
       "type": "verdict",

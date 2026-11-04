@@ -67,7 +67,8 @@
         }
       ],
       "footnote": "Giá niêm yết, giá thực tế có thể khác theo đại lý",
-      "voice": "Về giá mua, xe xăng phổ thông như Honda Vision từ ba mươi mốt triệu. Xe điện như VinFast Evo hai trăm khoảng hai mươi hai triệu."
+      "voice": "Về giá mua, xe xăng phổ thông như Honda Vision từ ba mươi mốt triệu. Xe điện như VinFast Evo hai trăm khoảng hai mươi hai triệu.",
+      "sub": "Về giá mua, xe xăng phổ thông như Honda Vision từ 31 triệu. Xe điện như VinFast Evo 200 khoảng 22 triệu."
     },
     {
       "type": "compare",
@@ -93,7 +94,8 @@
         }
       ],
       "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
-      "voice": "Còn tiền nhiên liệu năm năm, xe xăng tốn khoảng hai mươi tám triệu. Xe điện chỉ khoảng bốn triệu."
+      "voice": "Còn tiền nhiên liệu năm năm, xe xăng tốn khoảng hai mươi tám triệu. Xe điện chỉ khoảng bốn triệu.",
+      "sub": "Còn tiền nhiên liệu 5 năm, xe xăng tốn khoảng 28 triệu. Xe điện chỉ khoảng 4 triệu."
     },
     {
       "type": "compare",
@@ -119,7 +121,8 @@
         }
       ],
       "footnote": "Chưa tính bảo dưỡng, thay pin, giá bán lại",
-      "voice": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Rẻ hơn hơn một nửa."
+      "voice": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Rẻ hơn một nửa.",
+      "sub": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng 59 triệu. Xe điện khoảng 26 triệu. Rẻ hơn một nửa."
     },
     {
       "type": "list",

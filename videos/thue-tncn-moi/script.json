@@ -62,7 +62,8 @@
         0.62,
         0.8
       ],
-      "voice": "Biểu thuế cũng gọn lại, còn năm bậc. Phần đến mười triệu chịu năm phần trăm. Mười đến ba mươi triệu, mười phần trăm. Ba mươi đến sáu mươi triệu, hai mươi phần trăm. Sáu mươi đến một trăm triệu, ba mươi phần trăm. Trên một trăm triệu, ba mươi lăm phần trăm."
+      "voice": "Biểu thuế cũng gọn lại, còn năm bậc. Phần đến mười triệu chịu năm phần trăm. Mười đến ba mươi triệu, mười phần trăm. Ba mươi đến sáu mươi triệu, hai mươi phần trăm. Sáu mươi đến một trăm triệu, ba mươi phần trăm. Trên một trăm triệu, ba mươi lăm phần trăm.",
+      "sub": "Biểu thuế cũng gọn lại, còn 5 bậc. Phần đến 10 triệu chịu 5%. 10 đến 30 triệu, 10%. 30 đến 60 triệu, 20%. 60 đến 100 triệu, 30%. Trên 100 triệu, 35%."
     },
     {
       "type": "compare",
@@ -91,7 +92,8 @@
         }
       ],
       "footnote": "Mình tự tính: độc thân, chưa trừ bảo hiểm bắt buộc, không khoản miễn khác",
-      "voice": "Thử tính với lương hai mươi lăm triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng một phẩy ba lăm triệu mỗi tháng. Cách mới chỉ khoảng bốn trăm tám mươi nghìn."
+      "voice": "Thử tính với lương hai mươi lăm triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng một phẩy ba lăm triệu mỗi tháng. Cách mới chỉ khoảng bốn trăm tám mươi nghìn.",
+      "sub": "Thử tính với lương 25 triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng 1,35 triệu mỗi tháng. Cách mới chỉ khoảng 480 nghìn."
     },
     {
       "type": "list",
@@ -108,7 +110,8 @@
         0.42,
         0.72
       ],
-      "voice": "Những chỗ dễ nhầm. Lấy năm phần trăm nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc."
+      "voice": "Những chỗ dễ nhầm. Lấy năm phần trăm nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc.",
+      "sub": "Những chỗ dễ nhầm. Lấy 5% nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc."
     },
     {
       "type": "verdict",
@@ -128,7 +131,8 @@
           "Có thu nhập khác"
         ]
       },
-      "voice": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước."
+      "voice": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
+      "sub": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới 15,5 triệu. Có 1 người phụ thuộc, dưới 21,7 triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước."
     },
     {
       "type": "outro",
@@ -139,7 +143,8 @@
       ],
       "cta": "Bạn có thấy lương thực nhận tăng chưa? Bình luận nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, thu nhập dưới mười lăm phẩy năm triệu một tháng thì chưa phải nộp thuế. Bạn có thấy lương thực nhận tăng chưa? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, thu nhập dưới mười lăm phẩy năm triệu một tháng thì chưa phải nộp thuế. Bạn có thấy lương thực nhận tăng chưa? Bình luận cho mình biết nhé!",
+      "sub": "Tóm lại là, thu nhập dưới 15,5 triệu một tháng thì chưa phải nộp thuế. Bạn có thấy lương thực nhận tăng chưa? Bình luận cho mình biết nhé!"
     }
   ],
   "id": "thue-tncn-moi"

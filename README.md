@@ -189,3 +189,32 @@ Xe vẽ SVG là phương án dự phòng. Có ảnh xe chi tiết thì code tự
 3. Render lại. Chưa có ảnh thì video vẫn dùng hình vẽ.
 
 Ảnh do AI tạo: nên bật mục "nội dung do AI tạo" của nền tảng khi đăng.
+
+## Hình vẽ minh họa (`art`)
+
+Các cảnh `hook`, `timeline` và thẻ `compare` (kind `generic`) nhận trường `art`, tên hình trong `src/components/Art.tsx` (`BigArt`):
+
+| Tên | Hình | Gợi ý dùng cho |
+|---|---|---|
+| `phone` | điện thoại, SIM, quét mặt | viễn thông |
+| `lockphone` | điện thoại bị khóa | khóa SIM, mất dịch vụ |
+| `idcard` | thẻ căn cước gắn chip, QR | giấy tờ, cư trú |
+| `doc` | văn bản có dấu duyệt | luật, thông tư |
+| `house` | ngôi nhà, chìa khóa | nhà ở |
+| `rentsign` | dãy trọ, biển CHO THUÊ | thuê nhà |
+| `money` | xấp tiền, xu | chi phí |
+| `piggy` | heo đất, xu rơi | tiết kiệm |
+| `bank` | ngân hàng | lãi suất |
+| `chart` | biểu đồ cột, mũi tên tăng | số liệu |
+| `gold` | thỏi vàng | vàng miếng |
+| `ring` | nhẫn vàng 9999 | vàng nhẫn |
+| `taxform` | tờ khai thuế, máy tính | thuế |
+| `ship` | tàu container, nhãn THUẾ | xuất nhập khẩu |
+| `shield` | khiên | bảo vệ, bảo hiểm tiền gửi |
+| `medcard` | thẻ bảo hiểm, chữ thập, nhịp tim | y tế |
+
+Mỗi video mới nên vẽ thêm ít nhất một hình riêng cho chủ đề, tránh lặp lại hình của video khác.
+
+Thẻ `compare` loại `generic` còn có `tint` (`red|green|blue|yellow`); cảnh `compare` có `bars: false` để tắt biểu đồ, `badge` để tự đặt nhãn.
+
+Cảnh nào lời đọc có số viết bằng chữ thì thêm `sub` (phụ đề viết bằng số, cùng nội dung).
