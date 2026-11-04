@@ -1,6 +1,8 @@
-# Cầu lông Việt Nam (bản dài, vòng 4): lời đọc và chữ trên hình để soát
+# Cầu lông Việt Nam (bản dài, sau vòng 4): lời đọc và chữ trên hình để soát
 
-Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 523 từ; thời lượng ước tính khoảng 105–110 giây (CHƯA đo bằng TTS, chưa có MP4 có tiếng). Nhãn nguồn là ô riêng dưới phụ đề.
+Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 543 từ; thời lượng ước tính khoảng 110–115 giây (CHƯA đo bằng TTS, chưa có MP4 có tiếng).
+
+**Đã sửa theo vòng 4:** cảnh 8 bỏ câu "chưa gồm tiền cầu, vợt hay đi lại" và nhắc hỏi người tổ chức; cảnh 9 ghi 60–90 nghìn là của cả nhóm; cảnh 10 thẻ "Có người thấy đỡ tốn"; cảnh 6 ghi "buổi chơi ngày 5/11" (không nói ngày đăng).
 
 ## Cảnh 1 (hook)
 
@@ -44,9 +46,9 @@ Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 523 từ; thời lượng ư
 
 ## Cảnh 6 (steps)
 
-**Lời đọc:** Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi đăng ngày năm tháng mười một ở Hà Nội: tối thứ năm, từ mười tám đến hai mươi giờ, phí tám mươi nghìn. Người chơi tự mang vợt, đi giày sạch, đến trước mười lăm phút, và buổi này mở cho mọi trình độ.
+**Lời đọc:** Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi chơi ngày năm tháng mười một ở Hà Nội: tối thứ năm, từ mười tám đến hai mươi giờ, phí tám mươi nghìn. Người chơi tự mang vợt, đi giày sạch, đến trước mười lăm phút, và buổi này mở cho mọi trình độ.
 
-**Phụ đề:** Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi đăng ngày 5/11 ở Hà Nội: tối thứ năm, từ 18 đến 20 giờ, phí 80K. Người chơi tự mang vợt, đi giày sạch, đến trước 15 phút, và buổi này mở cho mọi trình độ.
+**Phụ đề:** Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi chơi ngày 5/11 ở Hà Nội: tối thứ năm, từ 18 đến 20 giờ, phí 80K. Người chơi tự mang vợt, đi giày sạch, đến trước 15 phút, và buổi này mở cho mọi trình độ.
 
 **Chữ trên hình:** Một buổi chơi công khai | Giờ và phí | Tối thứ năm, 18–20h, 80K | Chuẩn bị | Vợt riêng, giày sạch, đến sớm 15 phút | Trình độ | Mở cho mọi trình độ | [Nhãn nguồn] Pickcourt · buổi 5/11/2026 · chưa rõ phí gồm gì
 
@@ -60,19 +62,19 @@ Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 523 từ; thời lượng ư
 
 ## Cảnh 8 (receipt)
 
-**Lời đọc:** Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả tám mươi nghìn một buổi, chơi tám buổi một tháng, riêng khoản phí đó là sáu trăm bốn mươi nghìn đồng. Đây chỉ là phép tính giả định, chưa gồm tiền cầu, vợt hay đi lại.
+**Lời đọc:** Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả tám mươi nghìn một buổi, chơi tám buổi một tháng, riêng khoản phí đó là sáu trăm bốn mươi nghìn đồng. Đây chỉ là phép tính giả định cho khoản phí buổi chơi, không phải giá trung bình hay tổng chi phí mỗi tháng. Các khoản đã bao gồm cần hỏi người tổ chức.
 
-**Phụ đề:** Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả 80.000 đồng một buổi, chơi 8 buổi một tháng, riêng khoản phí đó là 640.000 đồng. Đây chỉ là phép tính giả định, chưa gồm tiền cầu, vợt hay đi lại.
+**Phụ đề:** Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả 80.000 đồng một buổi, chơi 8 buổi một tháng, riêng khoản phí đó là 640.000 đồng. Đây chỉ là phép tính giả định cho khoản phí buổi chơi, không phải giá trung bình hay tổng chi phí mỗi tháng. Các khoản đã bao gồm cần hỏi người tổ chức.
 
-**Chữ trên hình:** Ví dụ giả định | Phí một buổi | 80.000đ | Số buổi mỗi tháng | 8 buổi | Riêng phí buổi chơi | 640.000đ | [Nhãn nguồn] Phép tính giả định, không phải giá trung bình
+**Chữ trên hình:** Ví dụ giả định | Phí một buổi | 80.000đ | Số buổi mỗi tháng | 8 buổi | Riêng phí buổi chơi | 640.000đ | [Nhãn nguồn] Giả định · Không phải giá trung bình hay tổng chi phí
 
 ## Cảnh 9 (list)
 
-**Lời đọc:** Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể tiền cầu riêng mỗi hiệp khoảng sáu mươi đến chín mươi nghìn đồng, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần ba mươi nghìn.
+**Lời đọc:** Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể cả nhóm tốn khoảng sáu mươi đến chín mươi nghìn đồng tiền cầu mỗi hiệp, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần ba mươi nghìn.
 
-**Phụ đề:** Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể tiền cầu riêng mỗi hiệp khoảng 60 đến 90 nghìn đồng, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần 30 nghìn.
+**Phụ đề:** Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể cả nhóm tốn khoảng 60 đến 90 nghìn đồng tiền cầu mỗi hiệp, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần 30 nghìn.
 
-**Chữ trên hình:** Chỗ dễ nản | Tiền cầu riêng 60–90 nghìn/hiệp | Một quả hỏng gần 30 nghìn | [Nhãn nguồn] Lời kể người chơi · Dân trí · 6/1/2026
+**Chữ trên hình:** Chỗ dễ nản | Một nhóm kể: tiền cầu 60–90 nghìn/hiệp | Một người kể: đánh lỗi hỏng quả cầu gần 30 nghìn | [Nhãn nguồn] Lời kể hai người chơi · Dân trí · 6/1/2026
 
 ## Cảnh 10 (verdict)
 
@@ -80,7 +82,7 @@ Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 523 từ; thời lượng ư
 
 **Phụ đề:** Từ đó, mỗi người chọn một kiểu. Có người thử pickleball vì dụng cụ bền hơn, có người mới cân nhắc khi bạn bè trong câu lạc bộ rủ đi. Vài trường hợp như vậy chưa nói được cả nước đang đổi môn.
 
-**Chữ trên hình:** Ở lại hay đổi môn? | Ở lại | Có nhóm quen | Muốn tiến bộ tiếp | Pickleball | Dụng cụ bền, đỡ tốn | Bạn bè rủ đi thử | [Nhãn nguồn] Lời kể người chơi · Dân trí · 6/1/2026
+**Chữ trên hình:** Ở lại hay đổi môn? | Ở lại | Có nhóm quen | Muốn tiến bộ tiếp | Pickleball | Có người thấy đỡ tốn | Bạn bè rủ đi thử | [Nhãn nguồn] Lời kể người chơi · Dân trí · 6/1/2026
 
 ## Cảnh 11 (outro)
 

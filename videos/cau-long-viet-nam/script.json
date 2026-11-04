@@ -136,8 +136,8 @@
           "at": 0.74
         }
       ],
-      "voice": "Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi đăng ngày năm tháng mười một ở Hà Nội: tối thứ năm, từ mười tám đến hai mươi giờ, phí tám mươi nghìn. Người chơi tự mang vợt, đi giày sạch, đến trước mười lăm phút, và buổi này mở cho mọi trình độ.",
-      "sub": "Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi đăng ngày 5/11 ở Hà Nội: tối thứ năm, từ 18 đến 20 giờ, phí 80K. Người chơi tự mang vợt, đi giày sạch, đến trước 15 phút, và buổi này mở cho mọi trình độ.",
+      "voice": "Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi chơi ngày năm tháng mười một ở Hà Nội: tối thứ năm, từ mười tám đến hai mươi giờ, phí tám mươi nghìn. Người chơi tự mang vợt, đi giày sạch, đến trước mười lăm phút, và buổi này mở cho mọi trình độ.",
+      "sub": "Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi chơi ngày 5/11 ở Hà Nội: tối thứ năm, từ 18 đến 20 giờ, phí 80K. Người chơi tự mang vợt, đi giày sạch, đến trước 15 phút, và buổi này mở cho mọi trình độ.",
       "source": "Pickcourt · buổi 5/11/2026 · chưa rõ phí gồm gì"
     },
     {
@@ -185,9 +185,9 @@
         "value": "640.000đ",
         "at": 0.72
       },
-      "voice": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả tám mươi nghìn một buổi, chơi tám buổi một tháng, riêng khoản phí đó là sáu trăm bốn mươi nghìn đồng. Đây chỉ là phép tính giả định, chưa gồm tiền cầu, vợt hay đi lại.",
-      "sub": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả 80.000 đồng một buổi, chơi 8 buổi một tháng, riêng khoản phí đó là 640.000 đồng. Đây chỉ là phép tính giả định, chưa gồm tiền cầu, vợt hay đi lại.",
-      "source": "Phép tính giả định, không phải giá trung bình"
+      "voice": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả tám mươi nghìn một buổi, chơi tám buổi một tháng, riêng khoản phí đó là sáu trăm bốn mươi nghìn đồng. Đây chỉ là phép tính giả định cho khoản phí buổi chơi, không phải giá trung bình hay tổng chi phí mỗi tháng. Các khoản đã bao gồm cần hỏi người tổ chức.",
+      "sub": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả 80.000 đồng một buổi, chơi 8 buổi một tháng, riêng khoản phí đó là 640.000 đồng. Đây chỉ là phép tính giả định cho khoản phí buổi chơi, không phải giá trung bình hay tổng chi phí mỗi tháng. Các khoản đã bao gồm cần hỏi người tổ chức.",
+      "source": "Giả định · Không phải giá trung bình hay tổng chi phí"
     },
     {
       "type": "list",
@@ -196,16 +196,16 @@
       "layout": "clipboard",
       "pose": "confused",
       "items": [
-        "Tiền cầu riêng 60–90 nghìn/hiệp",
-        "Một quả hỏng gần 30 nghìn"
+        "Một nhóm kể: tiền cầu 60–90 nghìn/hiệp",
+        "Một người kể: đánh lỗi hỏng quả cầu gần 30 nghìn"
       ],
       "at": [
         0.15,
         0.55
       ],
-      "voice": "Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể tiền cầu riêng mỗi hiệp khoảng sáu mươi đến chín mươi nghìn đồng, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần ba mươi nghìn.",
-      "sub": "Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể tiền cầu riêng mỗi hiệp khoảng 60 đến 90 nghìn đồng, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần 30 nghìn.",
-      "source": "Lời kể người chơi · Dân trí · 6/1/2026"
+      "voice": "Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể cả nhóm tốn khoảng sáu mươi đến chín mươi nghìn đồng tiền cầu mỗi hiệp, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần ba mươi nghìn.",
+      "sub": "Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể cả nhóm tốn khoảng 60 đến 90 nghìn đồng tiền cầu mỗi hiệp, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần 30 nghìn.",
+      "source": "Lời kể hai người chơi · Dân trí · 6/1/2026"
     },
     {
       "type": "verdict",
@@ -223,7 +223,7 @@
       "right": {
         "title": "Pickleball",
         "items": [
-          "Dụng cụ bền, đỡ tốn",
+          "Có người thấy đỡ tốn",
           "Bạn bè rủ đi thử"
         ]
       },

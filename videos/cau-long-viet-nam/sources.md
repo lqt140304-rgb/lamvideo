@@ -11,11 +11,11 @@ Claude đã mở lại từng nguồn dưới đây ngày 05/11/2026 và đối 
 | UEF: giải 27/9/2026 cho sinh viên và cựu sinh viên, 70 VĐV | S5 UEF, 29/9/2026 | Có |
 | 18–22 giờ thường đông khách nhất (HLV kiêm chủ sân, TP.HCM) | S6 Thanh Niên, Thảo Phương, 22/5/2026 | Có (đã đối chiếu từ vòng trước) |
 | Người chơi hay ghé nhóm vãng lai gần nhà; môn cần thể lực, kỹ thuật, chiến thuật nên muốn tập thêm | S6 | Có. Lời kể một người chơi, không phải khảo sát |
-| Một buổi chơi công khai: tối thứ năm 5/11/2026, 18–20h, phí 80K, mang vợt riêng, giày sạch, đến trước 15 phút, mọi trình độ | S8 Pickcourt | Có (trang động, đọc 5/11/2026). Chưa rõ phí 80K bao gồm gì; không đảm bảo buổi đã diễn ra |
-| Tiền cầu riêng khoảng 60–90 nghìn/hiệp (nhóm 8 người tập 3 buổi/tuần, Hà Nội); một quả hỏng gần 30 nghìn; có người thử/cân nhắc pickleball | S10 Dân trí, 6/1/2026 | Có. Lời kể hai người chơi; chị Trang mới cân nhắc, anh Minh đã dùng thử. Bài không nêu số tiền theo tháng |
+| Một buổi chơi công khai: tối thứ năm 5/11/2026, 18–20h, phí 80K, mang vợt riêng, giày sạch, đến trước 15 phút, mọi trình độ | S8 Pickcourt | Claude đã đọc được trang ngày 5/11/2026: Sharkminton T5 18:00–20:00, 80K, "Mang vợt riêng + giày sạch", có mặt trước 15 phút, mọi trình độ, 0/16 đăng ký, người tổ chức có tên (không dùng). 5/11 là ngày buổi chơi, KHÔNG phải ngày đăng thông báo (chưa biết). Chưa rõ phí gồm gì; không đảm bảo buổi đã diễn ra |
+| Một nhóm kể tiền cầu khoảng 60–90 nghìn/hiệp (nhóm 8 người tập 3 buổi/tuần, mỗi hiệp 2–3 quả, Hà Nội), chưa tính sân; một người kể đánh lỗi hỏng quả cầu gần 30 nghìn; có người thử/cân nhắc pickleball | S10 Dân trí, 6/1/2026 (Quyết Thắng) | Có. Khoản 60–90 nghìn là của CẢ NHÓM, không phải mỗi người, không chia đầu người, không phải mức trung bình. Chị Trang mới cân nhắc, anh Minh đã dùng thử. Bài không nêu số tiền theo tháng |
 
 ## Phép tính giả định (có nhãn trên hình)
-80.000 đồng/buổi × 8 buổi/tháng = 640.000 đồng/tháng. Không phải giá trung bình hay tần suất phổ biến; không gồm tiền cầu, vợt, đi lại.
+80.000 đồng/buổi × 8 buổi/tháng = 640.000 đồng/tháng, chỉ cho khoản phí buổi chơi. Không phải giá trung bình hay tổng chi phí; không nói người dự buổi Pickcourt chơi 8 buổi/tháng; không cộng với khoản ở cảnh 9 (hai tình huống khác nhau). Chưa biết phí 80K gồm những gì nên video không khẳng định chưa/đã gồm tiền cầu; người xem được nhắc hỏi người tổ chức.
 
 ## Nhận định biên tập (không phải dữ kiện nguồn)
 - Trục "được rủ đi thử → buổi chơi thuận tiện → tiến bộ → chi phí duy trì" là tổng hợp biên tập, không phải mô hình nhân quả đã kiểm định.
@@ -23,10 +23,12 @@ Claude đã mở lại từng nguồn dưới đây ngày 05/11/2026 và đối 
 - "Có nhóm quen / muốn tiến bộ tiếp" ở cảnh cuối là minh họa quyết định, không phải số liệu.
 
 ## Chênh lệch giữa gói nghiên cứu và nguồn thật (nhờ ChatGPT xác nhận)
-- **S9 ShopVNB (vãng lai):** trang Claude mở được không ghi ngày đăng (chỉ có dấu thời gian ảnh tương ứng khoảng 5/2024, không phải 9/5/2026) và KHÔNG thấy các ý "hỏi trình độ", "xếp lượt", "tránh nhận quá nhiều người". Video không dùng S9.
-- **Chat Reclub S7:** TNV Smash Club ghi "All Levels", bốn hoạt động mỗi tuần; video không nêu tên nhóm.
+- **S9 ShopVNB (vãng lai):** hai lần đọc cho kết quả khác nhau. ChatGPT thấy trang hiển thị 09-05-2026 15:59 và mục 3.1, 3.2 có khuyến nghị hỏi trình độ, sắp lượt, kiểm soát số người. Claude đọc bản rút gọn không có ngày đăng (dấu thời gian ảnh tương ứng khoảng 5/2024) và không thấy các ý đó. Ghi hồ sơ: trang hiển thị 09/05/2026, chưa xác minh ngày xuất bản đầu tiên. S9 là hướng dẫn của nhà bán lẻ, không phải nghiên cứu nguyên nhân nghỉ chơi. Video không dùng S9.
+- **Reclub S7:** TNV Smash Club ghi "All Levels", bốn hoạt động mỗi tuần; video không nêu tên nhóm.
 - **S11 ULAW** và các nguồn mục 8 của gói (Bộ VHTTDL, vjol, Metric): chưa mở, không dùng.
 - Lệch nhỏ: gói D1 ghi 630 và "gần 630"; video thống nhất "gần 630".
+
+- Không ghi rằng toàn bộ nguồn của gói đã được xác minh đầy đủ: ULAW (S11), vjol, Metric chưa mở/thẩm định nên không dùng.
 
 ## Chưa xác minh / không dùng
 - Tổng người chơi, tốc độ tăng, số sân mới; tỷ lệ theo kênh tham gia (bạn bè, trường, mạng xã hội).
