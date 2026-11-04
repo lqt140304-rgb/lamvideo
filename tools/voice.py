@@ -31,6 +31,46 @@ def wav_seconds(path: Path) -> float:
             return w.getnframes() / float(w.getframerate())
 
 
+def flatten_hf_downloads() -> None:
+    """Windows hay lưu model Hugging Face qua symlink, ONNX Runtime báo lỗi
+    "External data path ... escapes both model directory ...". Hàm này bọc bước tải model của
+    VieNeu: copy các file ra thư mục thường (mặc định ~/.cache/vieneu/flat, đổi bằng VIENEU_FLAT_DIR)
+    và dùng thư mục đó. Chỉ copy một lần; lần sau dùng lại. Đặt VIENEU_FLATTEN=0 để tắt."""
+    import shutil
+
+    if os.environ.get("VIENEU_FLATTEN", "1") == "0":
+        return
+    try:
+        from vieneu._v3_turbo_engine import onnx_runtime_lite as mod
+    except Exception:
+        return
+    cls = mod.OnnxV3LiteEngine
+    raw = cls.__dict__.get("_fetch")
+    if raw is None:
+        return
+    is_static = isinstance(raw, staticmethod)
+    orig = raw.__func__ if is_static else raw
+    base = Path(os.environ.get("VIENEU_FLAT_DIR") or (Path.home() / ".cache" / "vieneu" / "flat"))
+
+    def fetch(*args, **kwargs):
+        src = Path(orig(*args, **kwargs))
+        # _fetch(self, repo, files, subfolder): lấy 3 tham số cuối làm tên thư mục đích
+        repo, _files, subfolder = args[-3:] if len(args) >= 3 else (None, None, None)
+        name = (str(repo).replace("/", "--") if repo else src.parent.name) + "__" + str(subfolder or "root")
+        dst = base / name
+        dst.mkdir(parents=True, exist_ok=True)
+        for f in src.iterdir():
+            if not f.is_file():
+                continue  # is_file() đi theo symlink tới file thật
+            target = dst / f.name
+            if not target.exists() or target.stat().st_size != f.stat().st_size:
+                print(f"  copy {f.name} → {dst}")
+                shutil.copy2(f, target)  # copy2 chép nội dung file thật, không chép symlink
+        return dst
+
+    cls._fetch = staticmethod(fetch) if is_static else fetch
+
+
 def text_hash(text: str, speaker: str) -> str:
     return hashlib.sha1(f"{speaker}|{text}".encode("utf-8")).hexdigest()[:12]
 
@@ -81,6 +121,7 @@ def main() -> int:
                 )
                 return 1
             print("Đang nạp VieNeu-TTS...")
+            flatten_hf_downloads()
             kwargs = {}
             # Windows hay lưu model qua symlink làm ONNX Runtime báo lỗi "External data path ... escapes".
             # Đặt VIENEU_ONNX_DIR trỏ tới thư mục onnx_update đã copy thành file thường để tránh lỗi này.
