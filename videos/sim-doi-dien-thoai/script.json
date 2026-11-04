@@ -1,25 +1,44 @@
 {
   "title": "Đổi điện thoại mới: SIM phải xác thực lại",
   "topic": "Xác thực SIM khi đổi điện thoại",
-  "voice": { "engine": "vieneu", "speaker": "Hải Đăng" },
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
   "music": "audio/music/giay-nhap.wav",
   "musicVolume": 0.3,
   "scenes": [
     {
       "type": "hook",
-      "headline": ["ĐỔI ĐIỆN THOẠI", "MÀ KHÔNG LÀM", "BƯỚC NÀY?"],
+      "headline": [
+        "ĐỔI ĐIỆN THOẠI",
+        "MÀ KHÔNG LÀM",
+        "BƯỚC NÀY?"
+      ],
       "stamp": "BỊ KHÓA?",
-      "art": "phone",
+      "art": "lockphone",
       "voice": "Mới mua điện thoại mới, lắp SIM vào, bỗng không gọi được? Khoan đã! Tóm lại là thế này."
     },
     {
       "type": "timeline",
       "headline": "Đổi máy là bị kiểm tra",
-      "art": "phone",
+      "art": "idcard",
       "steps": [
-        { "when": "15/6/2026", "what": "Quy định mới bắt đầu áp dụng", "at": 0.02 },
-        { "when": "2 giờ", "what": "Đổi máy, nhà mạng tạm khóa chiều gọi đi và nhắn tin", "at": 0.36 },
-        { "when": "30 ngày", "what": "Hạn để xác thực khuôn mặt", "at": 0.68 }
+        {
+          "when": "15/6/2026",
+          "what": "Quy định mới bắt đầu áp dụng",
+          "at": 0.02
+        },
+        {
+          "when": "2 giờ",
+          "what": "Đổi máy, nhà mạng tạm khóa chiều gọi đi và nhắn tin",
+          "at": 0.36
+        },
+        {
+          "when": "30 ngày",
+          "what": "Hạn để xác thực khuôn mặt",
+          "at": 0.68
+        }
       ],
       "voice": "Từ ngày mười lăm tháng sáu năm hai không hai sáu, quy định mới bắt đầu áp dụng. Khi bạn đổi máy, trong hai giờ nhà mạng có thể tạm khóa chiều gọi đi và nhắn tin. Bạn có ba mươi ngày để xác thực khuôn mặt.",
       "sub": "Theo Thông tư 08/2026/TT-BKHCN, từ 15/6/2026 thuê bao đổi thiết bị có thể bị tạm dừng chiều đi trong tối đa 2 giờ và có 30 ngày để xác thực."
@@ -29,8 +48,16 @@
       "tone": "good",
       "headline": "Cách xác thực",
       "pose": "ok",
-      "items": ["Ứng dụng VNeID", "Ứng dụng của nhà mạng", "Đến điểm giao dịch nhà mạng"],
-      "at": [0.1, 0.45, 0.75],
+      "items": [
+        "Ứng dụng VNeID",
+        "Ứng dụng của nhà mạng",
+        "Đến điểm giao dịch nhà mạng"
+      ],
+      "at": [
+        0.1,
+        0.45,
+        0.75
+      ],
       "voice": "Có ba cách xác thực. Dùng ứng dụng VNeID. Dùng ứng dụng của nhà mạng. Hoặc đến thẳng điểm giao dịch của nhà mạng."
     },
     {
@@ -38,8 +65,26 @@
       "headline": "Làm kịp hay để quá hạn",
       "bars": false,
       "cards": [
-        { "label": "Xác thực kịp", "kind": "generic", "art": "phone", "tint": "green", "amountText": "Dùng như cũ", "unit": "không gián đoạn", "note": "chụp mặt, đối chiếu dữ liệu dân cư", "at": 0.1 },
-        { "label": "Để quá hạn", "kind": "generic", "art": "shield", "tint": "red", "amountText": "Khóa 2 chiều", "unit": "rồi chấm dứt sau 5 ngày", "note": "theo Thông tư 08/2026", "at": 0.55 }
+        {
+          "label": "Xác thực kịp",
+          "kind": "generic",
+          "art": "phone",
+          "tint": "green",
+          "amountText": "Dùng như cũ",
+          "unit": "không gián đoạn",
+          "note": "chụp mặt, đối chiếu dữ liệu dân cư",
+          "at": 0.1
+        },
+        {
+          "label": "Để quá hạn",
+          "kind": "generic",
+          "art": "lockphone",
+          "tint": "red",
+          "amountText": "Khóa 2 chiều",
+          "unit": "rồi chấm dứt sau 5 ngày",
+          "note": "theo Thông tư 08/2026",
+          "at": 0.55
+        }
       ],
       "footnote": "Theo Thông tư 08/2026/TT-BKHCN, có hiệu lực từ 15/6/2026",
       "voice": "Nếu xác thực kịp, bạn dùng như cũ. Nếu để quá hạn, nhà mạng khóa cả hai chiều, và có thể chấm dứt dịch vụ sau năm ngày."
@@ -49,22 +94,45 @@
       "tone": "bad",
       "headline": "Đừng làm",
       "pose": "confused",
-      "items": ["Bấm link lạ nhắn xác thực", "Gửi ảnh mặt cho người lạ", "Bỏ qua thông báo nhà mạng"],
-      "at": [0.1, 0.42, 0.72],
+      "items": [
+        "Bấm link lạ nhắn xác thực",
+        "Gửi ảnh mặt cho người lạ",
+        "Bỏ qua thông báo nhà mạng"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
       "voice": "Còn những việc không nên làm. Đừng bấm link lạ nhắn xác thực. Đừng gửi ảnh mặt cho người lạ. Và đừng bỏ qua thông báo từ nhà mạng."
     },
     {
       "type": "verdict",
       "headline": "Ai cần làm gấp?",
       "rightAt": 0.55,
-      "left": { "title": "Làm ngay", "items": ["Vừa đổi điện thoại", "Nhận thông báo khóa"] },
-      "right": { "title": "Chưa cần", "items": ["Vẫn dùng máy cũ", "Đã xác thực rồi"] },
+      "left": {
+        "title": "Làm ngay",
+        "items": [
+          "Vừa đổi điện thoại",
+          "Nhận thông báo khóa"
+        ]
+      },
+      "right": {
+        "title": "Chưa cần",
+        "items": [
+          "Vẫn dùng máy cũ",
+          "Đã xác thực rồi"
+        ]
+      },
       "voice": "Vậy ai cần làm gấp? Nếu bạn vừa đổi điện thoại, hoặc nhận thông báo từ nhà mạng, thì làm ngay. Còn vẫn dùng máy cũ, hoặc đã xác thực rồi, thì chưa cần."
     },
     {
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
-      "message": ["Đổi điện thoại mới", "nhớ xác thực lại SIM!"],
+      "message": [
+        "Đổi điện thoại mới",
+        "nhớ xác thực lại SIM!"
+      ],
       "cta": "Bạn đã xác thực SIM chưa? Bình luận nhé!",
       "pad": 0.6,
       "voice": "Tóm lại là, đổi điện thoại mới thì nhớ xác thực lại SIM. Bạn đã xác thực chưa? Bình luận cho mình biết nhé!"

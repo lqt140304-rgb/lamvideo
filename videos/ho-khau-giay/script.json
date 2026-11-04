@@ -16,7 +16,7 @@
         "DÙNG GÌ?"
       ],
       "stamp": "HẾT HẠN",
-      "art": "doc",
+      "art": "idcard",
       "voice": "Còn giữ cuốn sổ hộ khẩu giấy, đi làm thủ tục thì dùng gì thay? Khoan đã! Tóm lại là thế này."
     },
     {
@@ -78,7 +78,7 @@
         {
           "label": "Khai báo",
           "kind": "generic",
-          "art": "house",
+          "art": "idcard",
           "tint": "green",
           "amountText": "6 tháng",
           "unit": "giá trị sử dụng",

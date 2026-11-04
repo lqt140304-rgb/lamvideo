@@ -55,7 +55,9 @@ type SceneBase = {
   pad?: number;
 };
 
-export type ArtName = "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank";
+export type ArtName =
+  | "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank"
+  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart";
 
 export type HookScene = SceneBase & {
   type: "hook";

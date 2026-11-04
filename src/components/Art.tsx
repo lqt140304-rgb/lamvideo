@@ -416,7 +416,9 @@ export const Icon: React.FC<{ name: IconName; size?: number; fg?: string }> = ({
 
 /* ------------------------------------------------------------------ Hình lớn dùng chung cho nhiều đề tài */
 
-export type ArtName = "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank";
+export type ArtName =
+  | "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank"
+  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart";
 
 /** Hình vẽ lớn (khoảng 400×400, gốc ở giữa). `t` là thời gian hoạt họa theo khung hình. */
 export const BigArt: React.FC<{ name: ArtName; x: number; y: number; scale?: number; tint?: string }> = ({
@@ -536,6 +538,212 @@ export const BigArt: React.FC<{ name: ArtName; x: number; y: number; scale?: num
           ))}
           <rect x="-170" y="124" width="340" height="30" fill="#E9DFC8" stroke={ink} strokeWidth="8" />
           <rect x="-188" y="154" width="376" height="34" fill="#CFC6B2" stroke={ink} strokeWidth="8" />
+        </g>
+      )}
+
+      {name === "idcard" && (
+        <g transform="rotate(-6)">
+          <rect x="-180" y="-118" width="360" height="236" rx="22" fill="#E3EEF9" stroke={ink} strokeWidth="9" />
+          <rect x="-180" y="-118" width="360" height="46" rx="22" fill={color.red} stroke={ink} strokeWidth="9" />
+          <circle cx="-150" cy="-95" r="11" fill={A} stroke={ink} strokeWidth="4" />
+          <path d="M-120 -95 H60" stroke={color.white} strokeWidth="9" />
+          {/* ảnh chân dung */}
+          <rect x="-156" y="-50" width="96" height="120" rx="10" fill="#CFE0F0" stroke={ink} strokeWidth="6" />
+          <circle cx="-108" cy="-12" r="22" fill="#F1C9A5" stroke={ink} strokeWidth="5" />
+          <path d="M-140 60 Q-108 18 -76 60" fill={color.blue} stroke={ink} strokeWidth="5" />
+          {/* chip */}
+          <rect x="-40" y="-40" width="64" height="50" rx="8" fill="#E8B923" stroke={ink} strokeWidth="5" />
+          <path d="M-40 -15 H24 M-8 -40 V10 M-40 -28 H-20 M4 -28 H24 M-40 -2 H-20 M4 -2 H24" stroke={ink} strokeWidth="3" />
+          {[24, 48, 72].map((yy, k) => (
+            <path key={k} d={`M-40 ${yy} H${k === 2 ? 40 : 70}`} stroke="#8E8A84" strokeWidth="8" />
+          ))}
+          {/* mã QR */}
+          <g transform="translate(118 10)">
+            <rect x="-46" y="-46" width="92" height="92" rx="6" fill={color.white} stroke={ink} strokeWidth="5" />
+            {[0, 1, 2, 3, 4, 5].flatMap((i) => [0, 1, 2, 3, 4, 5].map((j) => ((i * 7 + j * 5 + i * j) % 3 === 0 ? (
+              <rect key={`${i}-${j}`} x={-36 + i * 12} y={-36 + j * 12} width="11" height="11" fill={ink} />
+            ) : null)))}
+            <rect x="-56" y={-50 + ((frame * 2.5) % 100)} width="112" height="5" rx="2" fill={color.green} opacity="0.85" />
+          </g>
+        </g>
+      )}
+      {name === "lockphone" && (
+        <g>
+          <rect x="-96" y="-190" width="192" height="388" rx="30" fill="#2B2724" stroke={ink} strokeWidth="9" />
+          <rect x="-80" y="-168" width="160" height="344" rx="16" fill="#FBE3DE" />
+          <text x="0" y="-128" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="28" fill={color.red}>KHÔNG</text>
+          <text x="0" y="-98" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="28" fill={color.red}>GỌI ĐƯỢC</text>
+          {/* tay nghe gạch chéo */}
+          <g transform="translate(0 -40) rotate(-30)">
+            <path d="M-46 -10 Q-46 -30 -26 -30 L-14 -30 L-6 -6 L-20 4 Q-8 26 14 34 L26 22 L46 30 L46 44 Q46 60 26 60 Q-46 50 -46 -10 Z" fill="#9C958C" stroke={ink} strokeWidth="5" />
+          </g>
+          <path d="M-56 -90 L56 10" stroke={color.red} strokeWidth="12" />
+          {/* ổ khóa */}
+          <g transform={`translate(0 ${96 + Math.sin(frame / 5) * 3}) rotate(${Math.sin(frame / 4) * 5})`}>
+            <path d="M-34 -10 V-40 Q-34 -76 0 -76 Q34 -76 34 -40 V-10" fill="none" stroke={ink} strokeWidth="14" />
+            <path d="M-34 -10 V-40 Q-34 -76 0 -76 Q34 -76 34 -40 V-10" fill="none" stroke="#B9B2A8" strokeWidth="6" />
+            <rect x="-56" y="-14" width="112" height="86" rx="14" fill={A} stroke={ink} strokeWidth="7" />
+            <circle cy="18" r="11" fill={ink} />
+            <rect x="-4" y="22" width="8" height="26" fill={ink} />
+          </g>
+        </g>
+      )}
+      {name === "rentsign" && (
+        <g>
+          {/* cửa sổ dãy trọ */}
+          <rect x="-170" y="-150" width="340" height="300" rx="10" fill="#F2D6A2" stroke={ink} strokeWidth="9" />
+          {[-110, 0, 110].map((cx) => (
+            <g key={cx}>
+              <rect x={cx - 38} y="-120" width="76" height="90" rx="6" fill="#CFE6F2" stroke={ink} strokeWidth="6" />
+              <path d={`M${cx} -120 V-30`} stroke={ink} strokeWidth="4" />
+            </g>
+          ))}
+          <rect x="-40" y="40" width="80" height="110" rx="6" fill="#7A5B3A" stroke={ink} strokeWidth="7" />
+          {/* biển treo đung đưa */}
+          <g transform={`translate(0 -10) rotate(${Math.sin(frame / 10) * 6})`}>
+            <path d="M-60 -4 L0 -50 L60 -4" fill="none" stroke={ink} strokeWidth="5" />
+            <circle cy="-50" r="7" fill={ink} />
+            <rect x="-120" y="-4" width="240" height="80" rx="10" fill={color.white} stroke={ink} strokeWidth="8" />
+            <text x="0" y="50" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="46" fill={color.red}>CHO THUÊ</text>
+          </g>
+          {/* tiền thuê bay lên */}
+          {[0, 1].map((k) => {
+            const tt = ((frame + k * 30) % 60) / 60;
+            return (
+              <g key={k} transform={`translate(${130 + k * 30} ${150 - tt * 120}) rotate(${-10 + k * 20})`} opacity={1 - tt}>
+                <rect x="-34" y="-18" width="68" height="36" rx="6" fill="#A7D8B5" stroke={ink} strokeWidth="4" />
+                <text x="0" y="9" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="22" fill={ink}>đ</text>
+              </g>
+            );
+          })}
+        </g>
+      )}
+      {name === "piggy" && (
+        <g>
+          {/* đồng xu rơi vào khe */}
+          {(() => {
+            const tt = (frame % 45) / 45;
+            return (
+              <g transform={`translate(10 ${-200 + tt * 110})`} opacity={tt < 0.85 ? 1 : 0}>
+                <ellipse rx="30" ry="30" fill={A} stroke={ink} strokeWidth="6" />
+                <text x="0" y="11" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="30" fill={ink}>đ</text>
+              </g>
+            );
+          })()}
+          <ellipse cx="0" cy="40" rx="170" ry="130" fill="#F7A8B8" stroke={ink} strokeWidth="9" />
+          <path d="M-20 -86 H40" stroke={ink} strokeWidth="10" />
+          <ellipse cx="-168" cy="40" rx="34" ry="40" fill="#F48CA2" stroke={ink} strokeWidth="7" />
+          <circle cx="-176" cy="30" r="6" fill={ink} />
+          <circle cx="-176" cy="52" r="6" fill={ink} />
+          <circle cx="-100" cy="-10" r="10" fill={ink} />
+          <path d="M-90 -86 L-60 -130 L-40 -80" fill="#F48CA2" stroke={ink} strokeWidth="7" />
+          <path d="M60 -88 L90 -128 L110 -78" fill="#F48CA2" stroke={ink} strokeWidth="7" />
+          {[-90, -20, 60, 120].map((lx) => (
+            <rect key={lx} x={lx - 18} y="150" width="36" height="50" rx="8" fill="#F48CA2" stroke={ink} strokeWidth="7" />
+          ))}
+          <path d="M168 30 Q200 10 190 50 Q182 80 210 70" fill="none" stroke={ink} strokeWidth="7" />
+          <text x="40" y="80" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="56" fill={color.white} stroke={ink} strokeWidth="2">%</text>
+        </g>
+      )}
+      {name === "ring" && (
+        <g>
+          <g transform={`rotate(${Math.sin(frame / 14) * 8})`}>
+            <ellipse cx="0" cy="40" rx="150" ry="120" fill="none" stroke={ink} strokeWidth="58" />
+            <ellipse cx="0" cy="40" rx="150" ry="120" fill="none" stroke={A} strokeWidth="44" />
+            <ellipse cx="0" cy="40" rx="150" ry="120" fill="none" stroke="#FFE9A8" strokeWidth="10" strokeDasharray="60 380" strokeDashoffset={-frame * 6} />
+            <text x="0" y="-60" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="34" fill={ink}>9999</text>
+          </g>
+          {[[-150, -130], [160, -110], [130, 180]].map(([sx, sy], k) => {
+            const sc = 0.6 + 0.4 * Math.abs(Math.sin((frame + k * 12) / 10));
+            return <path key={k} transform={`translate(${sx} ${sy}) scale(${sc})`} d="M0 -26 L7 -7 L26 0 L7 7 L0 26 L-7 7 L-26 0 L-7 -7 Z" fill={color.white} stroke={ink} strokeWidth="4" />;
+          })}
+        </g>
+      )}
+      {name === "taxform" && (
+        <g>
+          <g transform="rotate(-4)">
+            <rect x="-150" y="-190" width="260" height="360" rx="10" fill={color.white} stroke={ink} strokeWidth="9" />
+            <text x="-20" y="-140" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="36" fill={ink}>TỜ KHAI</text>
+            {[-96, -52, -8, 36, 80].map((yy, k) => (
+              <g key={k}>
+                <rect x="-124" y={yy - 14} width="26" height="26" rx="4" fill={k < Math.min(5, Math.floor(frame / 12) % 7) ? "#BFE3C7" : color.white} stroke={ink} strokeWidth="4" />
+                {k < Math.min(5, Math.floor(frame / 12) % 7) && <path d={`M-120 ${yy} l8 8 l14 -16`} fill="none" stroke={color.green} strokeWidth="5" />}
+                <path d={`M-84 ${yy} H${k % 2 ? 50 : 80}`} stroke="#8E8A84" strokeWidth="8" />
+              </g>
+            ))}
+          </g>
+          {/* máy tính */}
+          <g transform="translate(110 90) rotate(8)">
+            <rect x="-70" y="-100" width="140" height="190" rx="16" fill="#3E4A5C" stroke={ink} strokeWidth="8" />
+            <rect x="-52" y="-82" width="104" height="40" rx="6" fill="#CFE8C9" stroke={ink} strokeWidth="4" />
+            <text x="44" y="-52" textAnchor="end" fontFamily={font.display} fontWeight={900} fontSize="26" fill={ink}>{Math.floor(frame / 4) % 2 ? "5%" : "10%"}</text>
+            {[0, 1, 2].flatMap((r) => [0, 1, 2].map((c) => (
+              <rect key={`${r}${c}`} x={-50 + c * 36} y={-26 + r * 36} width="28" height="28" rx="5" fill={r === 2 && c === 2 ? A : "#E9DFC8"} stroke={ink} strokeWidth="3" />
+            )))}
+          </g>
+        </g>
+      )}
+      {name === "ship" && (
+        <g>
+          {/* sóng */}
+          <path d={`M-220 ${150} ${Array.from({ length: 9 }, (_, k) => `q 25 ${k % 2 ? 16 : -16} 50 0`).join(" ")}`} transform={`translate(${-(frame * 2) % 100} 0)`} fill="none" stroke={color.blue} strokeWidth="9" />
+          <g transform={`rotate(${Math.sin(frame / 12) * 2})`}>
+            <path d="M-200 60 H200 L160 140 H-170 Z" fill="#3E4A5C" stroke={ink} strokeWidth="9" />
+            <path d="M-190 80 H190" stroke={color.red} strokeWidth="9" />
+            {[[-150, 0, color.red], [-80, 0, color.blue], [-10, 0, A], [60, 0, color.green], [-115, -60, A], [-45, -60, color.red], [25, -60, color.blue]].map(([cx, cy, c], k) => (
+              <g key={k}>
+                <rect x={cx as number} y={(cy as number) - 0} width="68" height="58" fill={c as string} stroke={ink} strokeWidth="6" />
+                <path d={`M${(cx as number) + 17} ${cy} V${(cy as number) + 58} M${(cx as number) + 34} ${cy} V${(cy as number) + 58} M${(cx as number) + 51} ${cy} V${(cy as number) + 58}`} stroke={ink} strokeWidth="3" opacity="0.5" />
+              </g>
+            ))}
+            <rect x="130" y="-70" width="56" height="130" fill={color.white} stroke={ink} strokeWidth="7" />
+            <rect x="140" y="-56" width="36" height="18" fill="#CFE6F2" stroke={ink} strokeWidth="4" />
+          </g>
+          {/* nhãn thuế */}
+          <g transform={`translate(-60 -170) rotate(${-8 + Math.sin(frame / 8) * 4})`}>
+            <rect x="-100" y="-40" width="200" height="80" rx="14" fill={color.white} stroke={ink} strokeWidth="8" />
+            <text x="0" y="16" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="46" fill={color.red}>THUẾ</text>
+            <circle cx="100" cy="0" r="10" fill={ink} />
+          </g>
+        </g>
+      )}
+      {name === "medcard" && (
+        <g>
+          <g transform="rotate(5)">
+            <rect x="-180" y="-110" width="360" height="230" rx="22" fill="#E5F4EC" stroke={ink} strokeWidth="9" />
+            <rect x="-180" y="-110" width="360" height="54" rx="22" fill={color.green} stroke={ink} strokeWidth="9" />
+            <text x="0" y="-70" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="30" fill={color.white}>BẢO HIỂM</text>
+            {[-20, 20, 60].map((yy, k) => (
+              <path key={k} d={`M-150 ${yy} H${k === 1 ? 10 : 50}`} stroke="#8E8A84" strokeWidth="9" />
+            ))}
+          </g>
+          {/* dấu cộng y tế đập nhịp */}
+          {(() => {
+            const sc = 1 + 0.08 * Math.max(0, Math.sin(frame / 5));
+            return (
+              <g transform={`translate(110 30) scale(${sc})`}>
+                <circle r="62" fill={color.white} stroke={ink} strokeWidth="7" />
+                <path d="M-16 -44 H16 V-16 H44 V16 H16 V44 H-16 V16 H-44 V-16 H-16 Z" fill={color.red} stroke={ink} strokeWidth="5" />
+              </g>
+            );
+          })()}
+          {/* đường nhịp tim */}
+          <path d="M-200 170 H-80 L-60 130 L-40 200 L-20 150 L0 170 H200" fill="none" stroke={color.red} strokeWidth="7" strokeDasharray="600" strokeDashoffset={600 - ((frame * 12) % 600)} />
+        </g>
+      )}
+      {name === "chart" && (
+        <g>
+          <path d="M-180 180 H190 M-180 180 V-180" stroke={ink} strokeWidth="9" />
+          {[60, 100, 150, 120, 190].map((h, k) => {
+            const grow = Math.min(1, Math.max(0, (frame - k * 6) / 20));
+            return <rect key={k} x={-150 + k * 66} y={180 - h * grow * 1.6} width="46" height={h * grow * 1.6} rx="6" fill={k === 4 ? A : "#BFD7F5"} stroke={ink} strokeWidth="6" />;
+          })}
+          <path d="M-130 70 L-60 20 L10 -40 L80 -10 L150 -130" fill="none" stroke={color.green} strokeWidth="10" strokeDasharray="420" strokeDashoffset={Math.max(0, 420 - frame * 10)} />
+          <path d="M150 -130 l-34 4 m34 -4 l-6 34" stroke={color.green} strokeWidth="10" />
+          <g transform="translate(-100 -130)">
+            <circle r="44" fill={A} stroke={ink} strokeWidth="7" />
+            <text x="0" y="16" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="44" fill={ink}>%</text>
+          </g>
         </g>
       )}
     </g>
