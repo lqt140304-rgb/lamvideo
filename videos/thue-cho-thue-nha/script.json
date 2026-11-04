@@ -97,16 +97,11 @@
         "file": "nha-cho-thue.jpg",
         "say": "Chủ nhà cần nhớ",
         "hold": 2.0,
-        "query": "apartment building Vietnam",
-        "must": [
-          "apartment",
-          "rent",
-          "nha",
-          "building"
-        ],
         "caption": "Nhà cho thuê",
         "style": "card",
-        "y": 560
+        "y": 560,
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Khu%20chung%20c%C6%B0%20K35%20T%C3%A2n%20Mai.jpg?width=1600",
+        "credit": "Ảnh: Vmosnokia31 · CC BY 4.0 / Wikimedia Commons"
       }
     },
     {

@@ -71,21 +71,7 @@
       ],
       "footnote": "Giá ngày 29/10/2026 theo Báo Văn hóa; giá đổi hằng ngày",
       "voice": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra một trăm bốn mươi hai phẩy bảy triệu, chênh mua bán ba triệu. Nhẫn bán ra một trăm ba mươi chín phẩy hai triệu, nhưng chênh mua bán tới bốn triệu.",
-      "sub": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra 142,7 triệu, chênh mua bán 3 triệu. Nhẫn bán ra 139,2 triệu, nhưng chênh mua bán tới 4 triệu.",
-      "broll": {
-        "file": "sjc.jpg",
-        "say": "Cùng ngày tại SJC",
-        "hold": 2.0,
-        "query": "SJC gold",
-        "must": [
-          "sjc",
-          "gold bar",
-          "gold"
-        ],
-        "caption": "Vàng miếng SJC",
-        "style": "card",
-        "y": 560
-      }
+      "sub": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra 142,7 triệu, chênh mua bán 3 triệu. Nhẫn bán ra 139,2 triệu, nhưng chênh mua bán tới 4 triệu."
     },
     {
       "type": "list",
@@ -126,16 +112,11 @@
         "file": "tiem-vang.jpg",
         "say": "giá tiệm",
         "hold": 2.0,
-        "query": "gold shop Vietnam",
-        "must": [
-          "gold shop",
-          "jewelry",
-          "tiem vang",
-          "gold"
-        ],
         "caption": "Tiệm vàng",
         "style": "card",
-        "y": 560
+        "y": 560,
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Trung%20K%C3%ADnh%20Street%20by%20night%2023-02-2026.%20Trung%20Ki%C3%AAn%20Gold%20Shop.jpg?width=1600",
+        "credit": "Ảnh: Bohdan Phúc Đan · CC BY-SA 4.0 / Wikimedia Commons"
       }
     },
     {

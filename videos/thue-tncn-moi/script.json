@@ -42,20 +42,7 @@
         }
       ],
       "voice": "Từ ngày một tháng bảy năm hai không hai sáu, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là mười lăm phẩy năm triệu mỗi tháng, trước là mười một triệu. Mỗi người phụ thuộc được trừ sáu phẩy hai triệu, trước là bốn phẩy bốn triệu.",
-      "sub": "Từ ngày 1/7/2026, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là 15,5 triệu mỗi tháng, trước là 11 triệu. Mỗi người phụ thuộc được trừ 6,2 triệu, trước là 4,4 triệu.",
-      "broll": {
-        "file": "quoc-hoi.jpg",
-        "say": "Luật Thuế thu nhập cá nhân",
-        "hold": 2.0,
-        "query": "Vietnam National Assembly",
-        "must": [
-          "national assembly",
-          "quoc hoi"
-        ],
-        "caption": "Quốc hội",
-        "style": "card",
-        "y": 560
-      }
+      "sub": "Từ ngày 1/7/2026, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là 15,5 triệu mỗi tháng, trước là 11 triệu. Mỗi người phụ thuộc được trừ 6,2 triệu, trước là 4,4 triệu."
     },
     {
       "type": "ladder",
@@ -176,9 +163,5 @@
       "sub": "Tóm lại là, thu nhập dưới 15,5 triệu một tháng thì chưa phải nộp thuế. Lương thực nhận của bạn đã nhích lên chưa? Kể mình nghe nhé!"
     }
   ],
-  "id": "thue-tncn-moi",
-  "images": {
-    "since": "2023-01-01",
-    "prefer": "relevant"
-  }
+  "id": "thue-tncn-moi"
 }

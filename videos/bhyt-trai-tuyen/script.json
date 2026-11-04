@@ -81,21 +81,7 @@
       ],
       "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
       "sub": "Được trả 50% khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
-      "layout": "tiles",
-      "broll": {
-        "file": "benh-vien.jpg",
-        "say": "Bệnh viện cấp chuyên sâu",
-        "hold": 2.0,
-        "query": "Bach Mai hospital",
-        "must": [
-          "hospital",
-          "benh vien",
-          "bach mai"
-        ],
-        "caption": "Bệnh viện tuyến trên",
-        "style": "card",
-        "y": 560
-      }
+      "layout": "tiles"
     },
     {
       "type": "list",
@@ -148,9 +134,5 @@
       "voice": "Tóm lại là, khám ngoại trú trái tuyến giờ được bảo hiểm trả một nửa mức hưởng, ở một số bệnh viện. Lưu lại để lần khám sau còn nhớ. Bạn hay khám ở đâu?"
     }
   ],
-  "id": "bhyt-trai-tuyen",
-  "images": {
-    "since": "2023-01-01",
-    "prefer": "relevant"
-  }
+  "id": "bhyt-trai-tuyen"
 }

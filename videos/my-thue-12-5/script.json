@@ -91,23 +91,7 @@
         0.7
       ],
       "voice": "Ngành chịu tác động rõ nhất là giày dép và dệt may. Điện thoại và linh kiện cũng có thể bị ảnh hưởng.",
-      "layout": "tiles",
-      "broll": {
-        "file": "xuong-may.jpg",
-        "say": "giày dép và dệt may",
-        "hold": 2.0,
-        "query": "garment factory Vietnam",
-        "must": [
-          "garment",
-          "factory",
-          "textile",
-          "footwear",
-          "shoe"
-        ],
-        "caption": "Xưởng may",
-        "style": "card",
-        "y": 560
-      }
+      "layout": "tiles"
     },
     {
       "type": "list",
@@ -163,9 +147,5 @@
       "sub": "Tóm lại là, thuế giảm còn 12,5%, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Chia sẻ ở bình luận nhé!"
     }
   ],
-  "id": "my-thue-12-5",
-  "images": {
-    "since": "2023-01-01",
-    "prefer": "relevant"
-  }
+  "id": "my-thue-12-5"
 }

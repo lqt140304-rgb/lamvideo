@@ -23,6 +23,7 @@ Cập nhật sau mỗi lượt làm. Chạy `npm run lint` trước khi `npm run
 ## Ảnh thật
 - Chỉ 2–3 cảnh có ảnh mỗi video (tối đa 1 ảnh/cảnh), kiểu `card`, hiện đúng lúc đọc tới `say`.
 - Ảnh chụp từ 2023 trở lên, giấy phép CC0/PD/CC BY/CC BY-SA, giữ dòng ghi nguồn trên màn hình. Không dùng ảnh người nổi tiếng.
+- Công cụ tự tìm ảnh (Openverse/Commons) hay hụt với ảnh đời thường Việt Nam từ 2023 trở lên: Commons có rất ít, Openverse không cho biết ngày chụp. Cách chắc nhất: tìm ảnh trước (bằng trình duyệt hoặc nhờ ChatGPT), kiểm tra giấy phép và ngày chụp, rồi dán `url` + `credit` thẳng vào script (đúng dạng `https://commons.wikimedia.org/wiki/Special:FilePath/<tên file>?width=1600`). Cảnh nào chưa có ảnh đạt thì bỏ ảnh, không để công cụ đoán bừa.
 - Khai báo `query` (tiếng Anh) và `must` (từ bắt buộc) rồi chạy `npm run make`; xem trang `public/<slug>/img/chon-anh.html` nếu muốn đổi ảnh.
 
 ## Quy trình

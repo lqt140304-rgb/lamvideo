@@ -61,22 +61,7 @@
         0.75
       ],
       "voice": "Giờ chứng minh nơi cư trú bằng thẻ căn cước gắn chip. Hoặc ứng dụng VNeID. Hoặc xin giấy xác nhận thông tin về cư trú.",
-      "layout": "tiles",
-      "broll": {
-        "file": "can-cuoc.jpg",
-        "say": "thẻ căn cước gắn chip",
-        "hold": 2.0,
-        "query": "Vietnam identity card",
-        "must": [
-          "can cuoc",
-          "citizen identity",
-          "cccd",
-          "identity card"
-        ],
-        "caption": "Thẻ căn cước gắn chip",
-        "style": "card",
-        "y": 560
-      }
+      "layout": "tiles"
     },
     {
       "type": "compare",
@@ -158,9 +143,5 @@
       "voice": "Tóm lại là, giờ nơi cư trú nằm trên căn cước và VNeID. Lưu video này lại, lúc làm thủ tục sẽ cần. Bạn đã dùng VNeID chưa?"
     }
   ],
-  "id": "ho-khau-giay",
-  "images": {
-    "since": "2023-01-01",
-    "prefer": "relevant"
-  }
+  "id": "ho-khau-giay"
 }

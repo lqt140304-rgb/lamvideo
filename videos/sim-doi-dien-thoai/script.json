@@ -64,23 +64,7 @@
         0.75
       ],
       "voice": "Có ba cách xác thực. Dùng ứng dụng VNeID. Dùng ứng dụng của nhà mạng. Hoặc đến thẳng điểm giao dịch của nhà mạng.",
-      "layout": "tiles",
-      "broll": {
-        "file": "cua-hang-nha-mang.jpg",
-        "say": "điểm giao dịch của nhà mạng",
-        "hold": 2.0,
-        "query": "Viettel store",
-        "must": [
-          "viettel",
-          "vinaphone",
-          "mobifone",
-          "store",
-          "shop"
-        ],
-        "caption": "Điểm giao dịch nhà mạng",
-        "style": "card",
-        "y": 560
-      }
+      "layout": "tiles"
     },
     {
       "type": "compare",
@@ -162,9 +146,5 @@
       "voice": "Tóm lại là, đổi điện thoại mới thì nhớ xác thực lại SIM. Gửi video này cho người thân vừa đổi điện thoại nhé!"
     }
   ],
-  "id": "sim-doi-dien-thoai",
-  "images": {
-    "since": "2023-01-01",
-    "prefer": "relevant"
-  }
+  "id": "sim-doi-dien-thoai"
 }

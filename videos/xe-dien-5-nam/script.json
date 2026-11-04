@@ -112,17 +112,11 @@
         "file": "do-xang.jpg",
         "say": "Còn tiền nhiên liệu",
         "hold": 2.0,
-        "query": "gas station motorbike Vietnam",
-        "must": [
-          "gas station",
-          "petrol",
-          "xang",
-          "fuel",
-          "petrolimex"
-        ],
         "caption": "Đổ xăng",
         "style": "card",
-        "y": 560
+        "y": 560,
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Petrolimex%2C%20Ho%20Chi%20Minh%20%28LRM%2020230825%20123040%29.jpg?width=1600",
+        "credit": "Ảnh: Matti Blume · CC BY-SA 4.0 / Wikimedia Commons"
       }
     },
     {

@@ -87,23 +87,7 @@
       ],
       "voice": "Trước khi gửi, nên so lãi ít nhất ba ngân hàng. Hỏi rõ rút trước hạn thì lãi còn bao nhiêu. Và nếu số tiền lớn hơn ba trăm năm mươi triệu, có thể chia ra nhiều ngân hàng.",
       "sub": "Trước khi gửi, nên so lãi ít nhất 3 ngân hàng. Hỏi rõ rút trước hạn thì lãi còn bao nhiêu. Và nếu số tiền lớn hơn 350 triệu, có thể chia ra nhiều ngân hàng.",
-      "layout": "clipboard",
-      "broll": {
-        "file": "ngan-hang.jpg",
-        "say": "so lãi ít nhất ba ngân hàng",
-        "hold": 2.0,
-        "query": "Vietcombank branch",
-        "must": [
-          "bank",
-          "vietcombank",
-          "ngan hang",
-          "bidv",
-          "agribank"
-        ],
-        "caption": "Chi nhánh ngân hàng",
-        "style": "card",
-        "y": 560
-      }
+      "layout": "clipboard"
     },
     {
       "type": "list",
@@ -158,9 +142,5 @@
       "sub": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa 350 triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Cho mình biết ở bình luận!"
     }
   ],
-  "id": "gui-tiet-kiem",
-  "images": {
-    "since": "2023-01-01",
-    "prefer": "relevant"
-  }
+  "id": "gui-tiet-kiem"
 }

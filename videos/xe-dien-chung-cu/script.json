@@ -59,24 +59,7 @@
         0.75
       ],
       "voice": "Lý do là an toàn. Hầm xe đông đúc, thoát khói khó. Pin cháy rất khó dập. Còn sạc qua đêm thì ít người trông.",
-      "layout": "tiles",
-      "broll": {
-        "file": "ham-xe.jpg",
-        "say": "Hầm xe đông đúc",
-        "hold": 2.0,
-        "query": "apartment parking motorbike",
-        "must": [
-          "basement",
-          "parking",
-          "garage",
-          "ham",
-          "chung cu",
-          "apartment"
-        ],
-        "caption": "Hầm xe chung cư",
-        "style": "card",
-        "y": 560
-      }
+      "layout": "tiles"
     },
     {
       "type": "compare",
@@ -130,15 +113,11 @@
         "file": "tram-sac.jpg",
         "say": "trạm công cộng",
         "hold": 2.0,
-        "query": "electric scooter charging",
-        "must": [
-          "charging",
-          "sac",
-          "vinfast"
-        ],
         "caption": "Trạm sạc công cộng",
         "style": "card",
-        "y": 560
+        "y": 560,
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Newone%20-%20VinFast%20charging%20stations%20at%20Times%20City%20002.jpg?width=1600",
+        "credit": "Ảnh: Newone · CC BY-SA 4.0 / Wikimedia Commons"
       }
     },
     {
