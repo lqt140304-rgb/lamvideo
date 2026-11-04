@@ -61,10 +61,30 @@ try {
 } catch {}
 console.log(`Giọng đọc: dùng ${python}`);
 
-const r = spawnSync(python, [path.join(here, "voice.py"), ...args], {
-  stdio: "inherit",
-  env: { ...process.env, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1" },
-});
+// Nếu thư mục cache mặc định của Hugging Face (~/.cache/huggingface/hub) không tạo/ghi được
+// (hay gặp trên Windows: thư mục hỏng, symlink đứt, OneDrive...), chuyển cache sang trong dự án.
+const env = { ...process.env, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1" };
+function writable(dir) {
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    const t = path.join(dir, ".w" + process.pid);
+    fs.writeFileSync(t, "x");
+    fs.unlinkSync(t);
+    return true;
+  } catch {
+    return false;
+  }
+}
+const hubDefault = env.HF_HUB_CACHE || (env.HF_HOME ? path.join(env.HF_HOME, "hub") : path.join(os.homedir(), ".cache", "huggingface", "hub"));
+if (!writable(hubDefault)) {
+  const alt = path.join(root, ".cache", "hf");
+  fs.mkdirSync(alt, { recursive: true });
+  env.HF_HOME = alt;
+  delete env.HF_HUB_CACHE;
+  env.VIENEU_FLAT_DIR = env.VIENEU_FLAT_DIR || path.join(root, ".cache", "vieneu-flat");
+  console.warn(`Thư mục cache mặc định không ghi được (${hubDefault}); chuyển sang ${alt}. Lần đầu sẽ tải lại model (vài trăm MB).`);
+}
+const r = spawnSync(python, [path.join(here, "voice.py"), ...args], { stdio: "inherit", env });
 if (r.error) {
   console.error(`Không chạy được "${python}": ${r.error.message}`);
   process.exit(1);
