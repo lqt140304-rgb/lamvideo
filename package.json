@@ -9,7 +9,9 @@
     "voice": "node tools/voice.mjs",
     "render": "node tools/render.mjs",
     "make": "node tools/make.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "images": "node tools/images.mjs",
+    "audio": "python tools/make_audio.py"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",

@@ -5,6 +5,7 @@ import { color, font } from "../brand";
 import { Mascot } from "../components/Mascot";
 import { Headline, Stage } from "../components/Headline";
 import { CheckIcon } from "../components/Props";
+import { Burst, Sfx } from "../components/Fx";
 import type { ListScene as ListData } from "../types";
 
 export const ListScene: React.FC<{ scene: ListData; frames: number }> = ({ scene, frames }) => {
@@ -51,7 +52,13 @@ export const ListScene: React.FC<{ scene: ListData; frames: number }> = ({ scene
           );
         })}
       </div>
+      {at.map((a, i) => (
+        <Sfx key={i} name="pop" at={atFrame(a, frames)} volume={0.45} />
+      ))}
       <Stage>
+        {at.map((a, i) => (
+          <Burst key={i} x={107} y={552 + i * 126} at={atFrame(a, frames) + 2} r={52} tint={good ? color.green : color.red} seed={i} />
+        ))}
         <Mascot pose={scene.pose ?? (good ? "excited" : "confused")} x={n <= 3 ? 880 : 925} y={1345} scale={n <= 3 ? 0.78 : 0.5} enter={2} />
       </Stage>
     </AbsoluteFill>

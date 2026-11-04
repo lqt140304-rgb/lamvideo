@@ -4,6 +4,7 @@ import { atFrame, formatVnd, pop } from "../anim";
 import { color, font } from "../brand";
 import { Headline } from "../components/Headline";
 import { Scooter } from "../components/Props";
+import { Sfx } from "../components/Fx";
 import type { CompareCard, CompareScene as CompareData } from "../types";
 
 const Card: React.FC<{ card: CompareCard; start: number }> = ({ card, start }) => {
@@ -72,6 +73,13 @@ export const CompareScene: React.FC<{ scene: CompareData; frames: number }> = ({
           <Card key={i} card={card} start={atFrame(card.at, frames)} />
         ))}
       </div>
+      {scene.cards.map((card, i) => (
+        <React.Fragment key={i}>
+          <Sfx name="pop" at={atFrame(card.at, frames)} volume={0.45} />
+          {card.kind === "electric" ? <Sfx name="ding" at={atFrame(card.at, frames) + 24} volume={0.3} /> : null}
+        </React.Fragment>
+      ))}
+      <Sfx name="stamp" at={vsAt - 4} volume={0.35} />
       <div
         style={{
           position: "absolute",

@@ -2,20 +2,43 @@
   "id": "xe-dien-ha-noi",
   "title": "Có nên đổi sang xe điện ở Hà Nội?",
   "topic": "Xe điện ở Hà Nội",
-  "voice": { "engine": "vieneu", "speaker": "Hải Đăng" },
-  "music": null,
-  "musicVolume": 0.1,
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.22,
   "scenes": [
     {
       "type": "hook",
-      "headline": ["XE MÁY XĂNG", "SẮP BỊ ĐUỔI", "KHỎI PHỐ?"],
+      "headline": [
+        "XE MÁY XĂNG",
+        "SẮP BỊ ĐUỔI",
+        "KHỎI PHỐ?"
+      ],
       "stamp": "CẤM?",
+      "broll": {
+        "file": "giao-thong-ha-noi.jpg",
+        "query": "Hanoi motorbike traffic",
+        "caption": "Hà Nội sắp cấm xe máy xăng?",
+        "from": 0,
+        "to": 0.36
+      },
       "voice": "Nghe tin Hà Nội cấm xe máy xăng, nhiều người tính bán ngay con xe đang đi để lên đời xe điện. Khoan đã! Tóm lại là thế này."
     },
     {
       "type": "zones",
       "headline": "Chưa cấm toàn Hà Nội!",
       "level": 1,
+      "broll": {
+        "file": "ho-hoan-kiem.jpg",
+        "query": "Hoan Kiem Lake Hanoi",
+        "caption": "Khu lõi Hoàn Kiếm",
+        "style": "card",
+        "from": 0.56,
+        "to": 0.98,
+        "y": 560
+      },
       "voice": "Hà Nội chưa cấm xe xăng trên toàn thành phố. Từ tháng bảy năm nay, mới thí điểm vùng phát thải thấp ở khu lõi Hoàn Kiếm.",
       "sub": "Hà Nội chưa cấm xe xăng trên toàn thành phố. Từ 1/7/2026, mới thí điểm vùng phát thải thấp ở khu lõi Hoàn Kiếm."
     },
@@ -23,9 +46,24 @@
       "type": "timeline",
       "headline": "Lộ trình 3 bước",
       "steps": [
-        { "when": "7/2026", "what": "Lõi Hoàn Kiếm: cấm mọi xe từ 19h đến nửa đêm, thứ Sáu đến Chủ nhật", "at": 0, "level": 1 },
-        { "when": "2027", "what": "Thêm Cửa Nam: cấm xe ôm công nghệ chạy xăng, xe xăng dưới chuẩn khí thải mức 3", "at": 0.3, "level": 2 },
-        { "when": "2028", "what": "Toàn bộ Vành đai 1 (9 phường)", "at": 0.8, "level": 3 }
+        {
+          "when": "7/2026",
+          "what": "Lõi Hoàn Kiếm: cấm mọi xe từ 19h đến nửa đêm, thứ Sáu đến Chủ nhật",
+          "at": 0,
+          "level": 1
+        },
+        {
+          "when": "2027",
+          "what": "Thêm Cửa Nam: cấm xe ôm công nghệ chạy xăng, xe xăng dưới chuẩn khí thải mức 3",
+          "at": 0.3,
+          "level": 2
+        },
+        {
+          "when": "2028",
+          "what": "Toàn bộ Vành đai 1 (9 phường)",
+          "at": 0.8,
+          "level": 3
+        }
       ],
       "voice": "Ở khu lõi, mọi phương tiện bị cấm từ bảy giờ tối đến nửa đêm, thứ sáu tới chủ nhật. Sang năm hai không hai bảy, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức ba cũng bị cấm. Năm hai không hai tám, áp dụng cho cả Vành đai một.",
       "sub": "Ở khu lõi, mọi phương tiện bị cấm từ 19h đến nửa đêm, thứ Sáu tới Chủ nhật. Sang năm 2027, mở rộng sang Cửa Nam: xe ôm công nghệ chạy xăng không được vào, xe xăng không đạt chuẩn khí thải mức 3 cũng bị cấm. Năm 2028, áp dụng cho cả Vành đai 1."
@@ -34,10 +72,31 @@
       "type": "compare",
       "headline": "Tính tiền 100 km",
       "cards": [
-        { "label": "Xe xăng", "kind": "petrol", "amount": 46000, "unit": "/ 100 km", "note": "~2 lít × 23.231đ", "at": 0.12 },
-        { "label": "Xe điện", "kind": "electric", "amountText": "6–7.000đ", "unit": "/ 100 km", "note": "tiền điện sạc", "at": 0.68 }
+        {
+          "label": "Xe xăng",
+          "kind": "petrol",
+          "amount": 46000,
+          "unit": "/ 100 km",
+          "note": "~2 lít × 23.231đ",
+          "at": 0.3
+        },
+        {
+          "label": "Xe điện",
+          "kind": "electric",
+          "amountText": "6–7.000đ",
+          "unit": "/ 100 km",
+          "note": "tiền điện sạc",
+          "at": 0.68
+        }
       ],
       "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
+      "broll": {
+        "file": "cay-xang.jpg",
+        "query": "gas station motorbike Vietnam",
+        "caption": "Giá xăng ~23.000đ/lít",
+        "from": 0,
+        "to": 0.28
+      },
       "voice": "Giờ tính tiền. Xe tay ga chạy xăng ăn khoảng hai lít một trăm cây số. Giá xăng hiện hơn hai mươi ba nghìn một lít, tức khoảng bốn mươi sáu nghìn. Còn xe điện phổ thông, tiền điện cho một trăm cây chỉ tầm sáu, bảy nghìn.",
       "sub": "Giờ tính tiền. Xe tay ga chạy xăng ăn khoảng 2 lít/100 km. Giá xăng hiện hơn 23.000đ/lít, tức khoảng 46.000đ. Còn xe điện phổ thông, tiền điện cho 100 km chỉ tầm 6–7 nghìn."
     },
@@ -45,24 +104,61 @@
       "type": "list",
       "tone": "good",
       "headline": "Điểm cộng",
-      "items": ["Tiền đi lại rẻ hơn hẳn", "Chạy êm, không khói", "Không lo vùng phát thải thấp"],
-      "at": [0.22, 0.48, 0.66],
+      "items": [
+        "Tiền đi lại rẻ hơn hẳn",
+        "Chạy êm, không khói",
+        "Không lo vùng phát thải thấp"
+      ],
+      "at": [
+        0.22,
+        0.48,
+        0.66
+      ],
+      "broll": {
+        "file": "xe-may-dien.jpg",
+        "query": "electric scooter charging",
+        "caption": "Xe máy điện",
+        "from": 0,
+        "to": 0.2
+      },
       "voice": "Điểm cộng của xe điện: tiền đi lại rẻ hơn hẳn, chạy êm, không khói, và không lo bị chặn ở vùng phát thải thấp."
     },
     {
       "type": "list",
       "tone": "bad",
       "headline": "Điểm trừ",
-      "items": ["Xe mới từ ~22 triệu", "Sạc mất nhiều giờ", "Chung cư, nhà trọ khó chỗ sạc", "Bán xe xăng cũ dễ bị ép giá"],
-      "at": [0.06, 0.32, 0.48, 0.74],
+      "items": [
+        "Xe mới từ ~22 triệu",
+        "Sạc mất nhiều giờ",
+        "Chung cư, nhà trọ khó chỗ sạc",
+        "Bán xe xăng cũ dễ bị ép giá"
+      ],
+      "at": [
+        0.06,
+        0.32,
+        0.48,
+        0.74
+      ],
       "voice": "Điểm trừ: mua xe mới tốn từ hơn hai mươi triệu, sạc mất nhiều giờ, ở chung cư hay nhà trọ thì chưa chắc có chỗ sạc, còn bán xe xăng cũ thì dễ bị ép giá.",
       "sub": "Điểm trừ: mua xe mới tốn từ hơn 20 triệu, sạc mất nhiều giờ, ở chung cư hay nhà trọ thì chưa chắc có chỗ sạc, còn bán xe xăng cũ thì dễ bị ép giá."
     },
     {
       "type": "verdict",
       "headline": "Ai nên đổi?",
-      "left": { "title": "Nên đổi sớm", "items": ["Sống, làm việc trong Vành đai 1", "Chạy xe ôm công nghệ"] },
-      "right": { "title": "Chưa cần vội", "items": ["Ở ngoại thành", "Đi xa mỗi ngày"] },
+      "left": {
+        "title": "Nên đổi sớm",
+        "items": [
+          "Sống, làm việc trong Vành đai 1",
+          "Chạy xe ôm công nghệ"
+        ]
+      },
+      "right": {
+        "title": "Chưa cần vội",
+        "items": [
+          "Ở ngoại thành",
+          "Đi xa mỗi ngày"
+        ]
+      },
       "rightAt": 0.6,
       "voice": "Vậy ai nên đổi sớm? Người sống hoặc làm việc trong Vành đai một, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội.",
       "sub": "Vậy ai nên đổi sớm? Người sống hoặc làm việc trong Vành đai 1, và anh em chạy xe ôm công nghệ. Còn ở ngoại thành, hay phải đi xa mỗi ngày, thì chưa cần vội."
@@ -70,7 +166,10 @@
     {
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
-      "message": ["Chưa cần hoảng,", "nhưng nên tính trước!"],
+      "message": [
+        "Chưa cần hoảng,",
+        "nhưng nên tính trước!"
+      ],
       "cta": "Bạn đổi xe điện chưa? Bình luận nhé!",
       "pad": 0.8,
       "voice": "Tóm lại là: chưa cần hoảng, nhưng nên tính trước. Còn bạn, đổi xe điện chưa? Bình luận cho mình biết nhé!"

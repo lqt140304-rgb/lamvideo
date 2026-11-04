@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { ease, pop } from "../anim";
 import { color, font } from "../brand";
+import { Confetti, Sfx } from "../components/Fx";
 import { Mascot } from "../components/Mascot";
 import { Stage } from "../components/Headline";
 import { Scribble } from "../components/Props";
@@ -14,6 +15,7 @@ export const OutroScene: React.FC<{ scene: OutroData; frames: number }> = ({ sce
   const cta = pop(frame, ctaAt);
   return (
     <AbsoluteFill>
+      <Confetti at={12} />
       <div style={{ position: "absolute", top: 330, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div
           style={{
@@ -77,6 +79,8 @@ export const OutroScene: React.FC<{ scene: OutroData; frames: number }> = ({ sce
       >
         {scene.cta}
       </div>
+      <Sfx name="ding" at={2} volume={0.45} />
+      <Sfx name="pop" at={ctaAt} volume={0.45} />
     </AbsoluteFill>
   );
 };

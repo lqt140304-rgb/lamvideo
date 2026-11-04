@@ -1,6 +1,6 @@
 import { staticFile } from "remotion";
 import { FPS } from "./brand";
-import type { SceneTiming, VideoScript, VoiceManifest } from "./types";
+import type { ImageCredits, SceneTiming, VideoScript, VoiceManifest } from "./types";
 
 const DEFAULT_PAD = 0.35;
 /** Tốc độ đọc ước tính (âm tiết / giây) khi chưa có file giọng. */
@@ -43,3 +43,14 @@ export const loadManifest = async (script: VideoScript): Promise<VoiceManifest |
 
 export const totalFrames = (timings: SceneTiming[]) =>
   timings.reduce((sum, t) => sum + t.frames, 0);
+
+/** Ảnh thật đã tải về (do `npm run images` ghi). Chưa có thì trả về rỗng: video bỏ qua phần ảnh. */
+export const loadCredits = async (script: VideoScript): Promise<ImageCredits> => {
+  try {
+    const res = await fetch(staticFile(`${script.id}/img/credits.json`));
+    if (!res.ok) return {};
+    return (await res.json()) as ImageCredits;
+  } catch {
+    return {};
+  }
+};

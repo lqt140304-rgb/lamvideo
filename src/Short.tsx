@@ -11,11 +11,15 @@ import { OutroScene } from "./scenes/OutroScene";
 import { TimelineScene } from "./scenes/TimelineScene";
 import { VerdictScene } from "./scenes/VerdictScene";
 import { ZonesScene } from "./scenes/ZonesScene";
-import type { Scene, SceneTiming, VideoScript } from "./types";
+import { Broll, brollsOf } from "./components/Broll";
+import { Sfx, Wipe } from "./components/Fx";
+import type { ImageCredits, Scene, SceneTiming, VideoScript } from "./types";
 
 export type ShortProps = {
   script: VideoScript;
   timings: SceneTiming[];
+  /** Ảnh thật đã tải (public/<slug>/img/credits.json). */
+  credits?: ImageCredits;
 };
 
 const SceneBody: React.FC<{ scene: Scene; frames: number }> = ({ scene, frames }) => {
@@ -49,9 +53,24 @@ const SceneShell: React.FC<{ frames: number; children: React.ReactNode }> = ({ f
   );
 };
 
-export const Short: React.FC<ShortProps> = ({ script, timings }) => {
+/** Âm lượng nhạc nền: nhỏ lại khi có giọng đọc, to lên ở khoảng nghỉ, mở/kết mượt. */
+const musicVolume = (f: number, base: number, timings: SceneTiming[], pads: number[], total: number) => {
+  const RAMP = 8;
+  let duck = 1;
+  timings.forEach((t, i) => {
+    const s = t.from + 2;
+    const e = t.from + t.frames - pads[i];
+    const k = interpolate(f, [s - RAMP, s, e, e + RAMP], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    duck = Math.min(duck, 1 - 0.6 * k);
+  });
+  const fade = interpolate(f, [0, 12, total - 45, total], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return base * duck * fade;
+};
+
+export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) => {
   const frame = useCurrentFrame();
   const total = timings.reduce((s, t) => s + t.frames, 0);
+  const pads = script.scenes.map((s) => Math.round((s.pad ?? 0.35) * FPS));
   return (
     <AbsoluteFill>
       <Paper />
@@ -63,13 +82,29 @@ export const Short: React.FC<ShortProps> = ({ script, timings }) => {
             <SceneShell frames={t.frames}>
               <SceneBody scene={scene} frames={t.frames} />
             </SceneShell>
+            {brollsOf(scene.broll).map((b, j) => (
+              <Broll key={j} item={b} slug={script.id} frames={t.frames} credits={credits} />
+            ))}
             <Captions text={scene.sub ?? scene.voice} speechFrames={Math.max(1, t.frames - pad)} />
             {t.audio ? <Audio src={staticFile(t.audio)} /> : null}
           </Sequence>
         );
       })}
+      {/* chuyển cảnh: dải vàng quét + tiếng vút */}
+      {timings.slice(1).map((t, i) => (
+        <Sequence key={`w${i}`} from={t.from - 4} durationInFrames={10} name="chuyển cảnh">
+          <Wipe />
+          <Sfx name="whoosh" at={0} volume={0.35} />
+        </Sequence>
+      ))}
       <Header topic={script.topic} progress={total ? frame / total : 0} />
-      {script.music ? <Audio src={staticFile(script.music)} volume={script.musicVolume ?? 0.1} loop /> : null}
+      {script.music ? (
+        <Audio
+          src={staticFile(script.music)}
+          volume={(f: number) => musicVolume(f, script.musicVolume ?? 0.22, timings, pads, total)}
+          loop
+        />
+      ) : null}
     </AbsoluteFill>
   );
 };

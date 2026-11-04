@@ -5,3 +5,5 @@ out/
 __pycache__/
 # Giọng đọc sinh ra trên máy bạn (tạo lại bằng: npm run voice -- <slug>)
 public/*/voice/*.wav
+# Danh sách ảnh gợi ý do npm run images tạo
+public/*/img/*.candidates.txt

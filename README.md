@@ -84,6 +84,59 @@ tools/                 voice.py (VieNeu), render, make
 - **VieNeu-TTS**: repo ghi Apache-2.0 cho bản v3 Turbo; bản 0.3B cũ là CC BY-NC (không dùng thương mại). Nếu kênh bật kiếm tiền, kiểm tra giấy phép trên trang model đang dùng.
 - **Font Inter**: SIL Open Font License 1.1.
 
+## Ảnh thật, nhạc nền, hiệu ứng
+
+Tất cả đều miễn phí và dùng thương mại được.
+
+### Ảnh thật (B-roll)
+
+Thêm trường `broll` vào cảnh trong `script.json` (một ảnh hoặc mảng nhiều ảnh):
+
+```json
+"broll": { "file": "giao-thong-ha-noi.jpg", "query": "Hanoi motorbike traffic",
+           "caption": "Hà Nội sắp cấm xe máy xăng?", "from": 0, "to": 0.36 }
+```
+
+| Trường | Ý nghĩa |
+|---|---|
+| `file` | tên file trong `public/<slug>/img/` |
+| `query` | từ khóa tìm ảnh (tiếng Anh cho kết quả tốt hơn) |
+| `pick` | chọn ảnh thứ mấy trong kết quả (0 = đầu tiên) |
+| `caption` | nhãn vàng trên ảnh |
+| `from`, `to` | hiện từ … đến … (phần của cảnh, 0..1) |
+| `style` | `"full"` tràn màn hình (mặc định) hoặc `"card"` khung polaroid |
+| `focus` | điểm giữ khi cắt ảnh, ví dụ `"30% 50%"` |
+| `credit` | ghi nguồn tự viết (khi tự đặt ảnh) |
+
+Tải ảnh:
+
+```powershell
+npm run images -- xe-dien-ha-noi
+```
+
+Công cụ tìm trên [Openverse](https://openverse.org) (Wikimedia Commons, Flickr…), chỉ lấy ảnh CC0, Public Domain, CC BY, CC BY-SA, lưu vào `public/<slug>/img/` và ghi nguồn vào `credits.json`. Video tự hiện dòng ghi nguồn trên ảnh; dòng ghi nguồn đầy đủ được in ra để dán vào mô tả video (giấy phép CC BY và CC BY-SA yêu cầu ghi nguồn).
+
+- Không ưng ảnh: xem danh sách `public/<slug>/img/<file>.candidates.txt`, xóa file ảnh, đặt `"pick": 2` (số thứ tự trong danh sách) rồi chạy lại.
+- Tự có ảnh (tự chụp, Pexels, Unsplash…): đặt vào `public/<slug>/img/<file>`, ghi `"credit": "Ảnh: Tên tác giả / Pexels"`, rồi chạy `npm run images` để đăng ký.
+- Chưa tải ảnh thì video vẫn render, chỉ bỏ qua phần ảnh. `npm run make` tự chạy bước này.
+
+### Nhạc nền
+
+Mặc định dùng `public/audio/music/giay-nhap.wav`: nhạc tự tạo bằng code (`tools/make_audio.py`), không dùng mẫu của ai nên không lo bản quyền hay Content ID. Nhạc tự nhỏ lại khi có giọng đọc, to lên ở khoảng nghỉ, mở và kết mượt.
+
+Đổi nhạc: đặt file vào `public/audio/music/` rồi sửa `"music"` và `"musicVolume"` (mặc định 0.22) trong `script.json`. Nguồn nhạc miễn phí dùng thương mại: YouTube Audio Library, Pixabay Music. Đặt `"music": null` nếu muốn chọn nhạc trong app TikTok/Facebook.
+
+### Hiệu ứng (VFX + SFX)
+
+Vẽ và tạo âm thanh bằng code, không cần tải gì:
+
+- Chuyển cảnh: dải vàng quét chéo + tiếng vút.
+- Mở đầu: tia sốc sau mascot, tia bung và tiếng đóng dấu ở chữ "CẤM?".
+- Danh sách: tiếng "pop" và tia bung ở mỗi ý. Lộ trình: tiếng "tick". So sánh: "pop" + "ding".
+- Ảnh thật: lóe sáng + tiếng màn trập. Cảnh kết: pháo giấy + "ding".
+
+Âm thanh nằm ở `public/audio/sfx/` (`whoosh`, `swoosh`, `pop`, `ding`, `stamp`, `tick`, `shutter`). Dùng trong cảnh: `<Sfx name="pop" at={khung hình} volume={0.5} />`. Chỉnh âm sắc rồi tạo lại: `npm run audio`.
+
 ## Mascot
 
 Cậu bé tóc nâu đen, hoodie xanh, giày thể thao. Ảnh PNG nền trong suốt ở `public/mascot/`, mọi tư thế cùng tỉ lệ và cùng đường mặt đất (số đo trong `src/mascot.ts`).

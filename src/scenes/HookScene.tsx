@@ -5,6 +5,7 @@ import { color, font } from "../brand";
 import { Mascot } from "../components/Mascot";
 import { Stage } from "../components/Headline";
 import { Scooter, Stamp } from "../components/Props";
+import { Burst, ShockLines, Sfx } from "../components/Fx";
 import type { HookScene as HookData } from "../types";
 
 export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene, frames }) => {
@@ -50,9 +51,16 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
           );
         })}
       </div>
+      <Sfx name="swoosh" at={0} volume={0.3} />
+      {scene.headline.map((_, i) => (
+        <Sfx key={i} name="pop" at={4 + i * 7} volume={0.3} />
+      ))}
+      {scene.stamp ? <Sfx name="stamp" at={stampAt} volume={0.75} /> : null}
       <Stage>
+        <ShockLines x={850} y={930} at={stampAt} r={430} />
         <Scooter kind="petrol" x={drive} y={1110} scale={1.3} moving={frame < 34 || frame > stampAt + 8} />
         <Stamp text={scene.stamp ?? ""} x={380} y={1010} progress={stamp} />
+        {scene.stamp ? <Burst x={380} y={1010} at={stampAt + 2} r={190} tint={color.red} rays={12} /> : null}
         <Mascot pose={frame > stampAt ? "shocked" : "surprised"} changedAt={stampAt} x={850} y={1185} scale={0.98} enter={8} />
       </Stage>
     </AbsoluteFill>

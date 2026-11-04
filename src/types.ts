@@ -4,8 +4,38 @@
 import type { MascotPose } from "./mascot";
 export type { MascotPose };
 
+/** Ảnh thật chèn vào cảnh. Tải bằng `npm run images -- <slug>` hoặc tự đặt file vào public/<slug>/img/. */
+export type Broll = {
+  /** Tên file trong public/<slug>/img/, ví dụ "giao-thong.jpg". */
+  file: string;
+  /** Từ khóa (tiếng Anh cho kết quả tốt hơn) để công cụ tự tìm ảnh giấy phép mở trên Openverse. */
+  query?: string;
+  /** Chọn kết quả thứ mấy trong danh sách tìm được (0 = đầu tiên). */
+  pick?: number;
+  /** Ghi nguồn tự viết (khi tự đặt ảnh), mặc định lấy từ credits.json. */
+  credit?: string;
+  /** Nhãn vàng trên ảnh. */
+  caption?: string;
+  /** Hiện từ … đến … (phần của cảnh, 0..1). */
+  from?: number;
+  to?: number;
+  /** "full" tràn màn hình (mặc định) hoặc "card" khung polaroid. */
+  style?: "full" | "card";
+  /** Điểm giữ khi cắt ảnh, kiểu CSS object-position, ví dụ "30% 50%". */
+  focus?: string;
+  /** Hướng lia ảnh: 1 sang phải, -1 sang trái, 0 đứng yên. */
+  pan?: number;
+  /** Riêng "card": vị trí đỉnh khung (px) và độ nghiêng. */
+  y?: number;
+  tilt?: number;
+};
+
+/** Thông tin ảnh đã tải, đọc từ public/<slug>/img/credits.json. */
+export type ImageCredits = Record<string, { short: string; full?: string; license?: string; landing?: string }>;
+
 type SceneBase = {
   voice: string;
+  broll?: Broll | Broll[];
   sub?: string;
   /** Giây đệm thêm sau giọng đọc (mặc định 0.35). */
   pad?: number;

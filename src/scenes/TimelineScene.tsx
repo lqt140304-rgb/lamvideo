@@ -4,6 +4,7 @@ import { atFrame, ease, pop } from "../anim";
 import { color, font } from "../brand";
 import { Headline, Stage } from "../components/Headline";
 import { ZoneMap } from "../components/Props";
+import { Sfx } from "../components/Fx";
 import type { TimelineScene as TimelineData } from "../types";
 
 export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = ({ scene, frames }) => {
@@ -64,6 +65,9 @@ export const TimelineScene: React.FC<{ scene: TimelineData; frames: number }> = 
           );
         })}
       </div>
+      {starts.map((st, i) => (
+        <Sfx key={i} name="tick" at={st} volume={0.6} />
+      ))}
     </AbsoluteFill>
   );
 };
