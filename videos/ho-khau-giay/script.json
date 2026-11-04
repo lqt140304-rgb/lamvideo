@@ -17,7 +17,8 @@
       ],
       "stamp": "HẾT HẠN",
       "art": "idcard",
-      "voice": "Còn giữ cuốn sổ hộ khẩu giấy, đi làm thủ tục thì dùng gì thay? Khoan đã! Tóm lại là thế này."
+      "voice": "Còn giữ cuốn sổ hộ khẩu giấy, đi làm thủ tục thì dùng gì thay? Khoan đã! Tóm lại là thế này.",
+      "layout": "question"
     },
     {
       "type": "timeline",
@@ -58,7 +59,8 @@
         0.45,
         0.75
       ],
-      "voice": "Giờ chứng minh nơi cư trú bằng thẻ căn cước gắn chip. Hoặc ứng dụng VNeID. Hoặc xin giấy xác nhận thông tin về cư trú."
+      "voice": "Giờ chứng minh nơi cư trú bằng thẻ căn cước gắn chip. Hoặc ứng dụng VNeID. Hoặc xin giấy xác nhận thông tin về cư trú.",
+      "layout": "tiles"
     },
     {
       "type": "compare",
@@ -105,7 +107,8 @@
         0.42,
         0.72
       ],
-      "voice": "Còn những việc không nên làm. Đừng đòi bản sao sổ photo. Đừng quên cập nhật VNeID. Và chưa cần vứt sổ cũ vội vàng."
+      "voice": "Còn những việc không nên làm. Đừng đòi bản sao sổ photo. Đừng quên cập nhật VNeID. Và chưa cần vứt sổ cũ vội vàng.",
+      "layout": "notes"
     },
     {
       "type": "verdict",

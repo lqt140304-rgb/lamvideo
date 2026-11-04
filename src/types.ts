@@ -65,6 +65,8 @@ export type HookScene = SceneBase & {
   stamp?: string;
   /** Hình lớn ở cảnh mở đầu. Bỏ trống = xe máy chạy trên phố (video xe cộ). */
   art?: ArtName | "scooter";
+  /** Bố cục: poster (mặc định) | number (con số khổng lồ) | news (khung tin nóng) | question (dấu hỏi lớn). */
+  layout?: "poster" | "number" | "news" | "question";
 };
 
 export type ZonesScene = SceneBase & {
@@ -117,6 +119,8 @@ export type CompareScene = SceneBase & {
   badge?: string;
   /** false = không vẽ biểu đồ cột dưới các thẻ. */
   bars?: boolean;
+  /** Bố cục: cards (mặc định) | slider (một khung chia đôi) | duel (hai thanh ngang xếp chồng). */
+  layout?: "cards" | "slider" | "duel";
 };
 
 export type ListScene = SceneBase & {
@@ -127,6 +131,8 @@ export type ListScene = SceneBase & {
   /** Lúc từng dòng hiện ra (0..1). Bỏ trống thì chia đều. */
   at?: number[];
   pose?: MascotPose;
+  /** Bố cục: rows (mặc định) | tiles (ô vuông) | notes (giấy nhớ) | clipboard (bảng kẹp giấy). */
+  layout?: "rows" | "tiles" | "notes" | "clipboard";
 };
 
 export type VerdictScene = SceneBase & {
@@ -136,6 +142,60 @@ export type VerdictScene = SceneBase & {
   right: { title: string; items: string[] };
   /** Lúc cột phải hiện ra (0..1). */
   rightAt?: number;
+  /** Bố cục: columns (mặc định) | scale (cái cân). */
+  layout?: "columns" | "scale";
+  /** Riêng "scale": bên nào nặng hơn. */
+  heavier?: "left" | "right" | "even";
+};
+
+/** Một con số lớn chạy đếm trong vòng tròn, kèm vài thẻ nhỏ. */
+export type StatScene = SceneBase & {
+  type: "stat";
+  headline: string;
+  /** Giá trị hiển thị, ví dụ "350" hoặc "15,5". Số trong đó sẽ chạy đếm. */
+  value: string;
+  unit?: string;
+  /** Độ đầy của vòng tròn (0..1). */
+  ring?: number;
+  chips?: { text: string; at: number }[];
+  pose?: MascotPose;
+};
+
+/** Các bước làm xếp so le, nối bằng mũi tên. */
+export type StepsScene = SceneBase & {
+  type: "steps";
+  headline: string;
+  steps: { title: string; detail?: string; at: number }[];
+};
+
+/** Hiểu lầm → sự thật, từng cặp một. */
+export type MythScene = SceneBase & {
+  type: "myth";
+  headline: string;
+  pairs: { myth: string; fact: string; at: number }[];
+};
+
+/** Khung chat hỏi đáp. */
+export type ChatScene = SceneBase & {
+  type: "chat";
+  title?: string;
+  messages: { from: "user" | "bot"; text: string; at: number }[];
+};
+
+/** Hóa đơn / phép tính từng dòng. */
+export type ReceiptScene = SceneBase & {
+  type: "receipt";
+  headline: string;
+  rows: { label: string; value: string; at: number }[];
+  total: { label: string; value: string; at: number };
+};
+
+/** Bậc thang tăng dần (biểu thuế, mức phí...). */
+export type LadderScene = SceneBase & {
+  type: "ladder";
+  headline: string;
+  rungs: { label: string; value: string; at: number }[];
+  pose?: MascotPose;
 };
 
 export type OutroScene = SceneBase & {
@@ -152,7 +212,13 @@ export type Scene =
   | CompareScene
   | ListScene
   | VerdictScene
-  | OutroScene;
+  | OutroScene
+  | StatScene
+  | StepsScene
+  | MythScene
+  | ChatScene
+  | ReceiptScene
+  | LadderScene;
 
 export type VideoScript = {
   /** Trùng tên thư mục trong videos/ và public/, chỉ dùng a-z, 0-9, dấu gạch ngang. */

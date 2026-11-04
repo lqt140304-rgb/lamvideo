@@ -17,26 +17,26 @@
       ],
       "stamp": "KHÓ?",
       "art": "house",
-      "voice": "Mua xe điện rồi, về chung cư lại không biết sạc ở đâu? Khoan đã! Tóm lại là thế này."
+      "voice": "Mua xe điện rồi, về chung cư lại không biết sạc ở đâu? Khoan đã! Tóm lại là thế này.",
+      "layout": "news"
     },
     {
-      "type": "timeline",
+      "type": "steps",
       "headline": "Quy định mới cho khu sạc",
-      "art": "doc",
       "steps": [
         {
-          "when": "15/12/2026",
-          "what": "Quy chuẩn mới về nhà chung cư có hiệu lực",
+          "title": "15/12/2026",
+          "detail": "Quy chuẩn mới về nhà chung cư có hiệu lực",
           "at": 0.02
         },
         {
-          "when": "6 tháng",
-          "what": "Chung cư cũ phải rà soát khu đỗ và sạc xe điện",
+          "title": "6 tháng",
+          "detail": "Chung cư cũ phải rà soát khu đỗ và sạc xe điện",
           "at": 0.36
         },
         {
-          "when": "Khu sạc",
-          "what": "Tách riêng, có báo cháy, chữa cháy tự động, camera 24/24",
+          "title": "Khu sạc",
+          "detail": "Tách riêng, có báo cháy, chữa cháy tự động, camera 24/24",
           "at": 0.68
         }
       ],
@@ -58,7 +58,8 @@
         0.45,
         0.75
       ],
-      "voice": "Lý do là an toàn. Hầm xe đông đúc, thoát khói khó. Pin cháy rất khó dập. Còn sạc qua đêm thì ít người trông."
+      "voice": "Lý do là an toàn. Hầm xe đông đúc, thoát khói khó. Pin cháy rất khó dập. Còn sạc qua đêm thì ít người trông.",
+      "layout": "tiles"
     },
     {
       "type": "compare",
@@ -88,7 +89,8 @@
       ],
       "footnote": "Theo bảng giá VinFast Evo đổi pin, đăng ngày 27/2/2026",
       "voice": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Mỗi lần đổi một viên pin, trạm niêm yết chín nghìn đồng, không cần ổ điện ở nhà.",
-      "sub": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Mỗi lần đổi một viên pin, trạm niêm yết 9 nghìn đồng, không cần ổ điện ở nhà."
+      "sub": "Nếu khu nhà chưa có chỗ sạc, một cách là chọn xe đổi pin. Mỗi lần đổi một viên pin, trạm niêm yết 9 nghìn đồng, không cần ổ điện ở nhà.",
+      "layout": "duel"
     },
     {
       "type": "list",
@@ -105,7 +107,8 @@
         0.42,
         0.72
       ],
-      "voice": "Cách xoay xở. Trước hết hỏi ban quản lý có khu sạc không. Hoặc chọn xe đổi pin. Hoặc sạc ở cơ quan, trạm công cộng."
+      "voice": "Cách xoay xở. Trước hết hỏi ban quản lý có khu sạc không. Hoặc chọn xe đổi pin. Hoặc sạc ở cơ quan, trạm công cộng.",
+      "layout": "clipboard"
     },
     {
       "type": "list",
@@ -122,7 +125,8 @@
         0.42,
         0.72
       ],
-      "voice": "Còn những việc không nên làm. Đừng kéo dây sạc từ nhà xuống hầm. Đừng dùng ổ cắm nối dài. Và đừng sạc khi không có người trông."
+      "voice": "Còn những việc không nên làm. Đừng kéo dây sạc từ nhà xuống hầm. Đừng dùng ổ cắm nối dài. Và đừng sạc khi không có người trông.",
+      "layout": "notes"
     },
     {
       "type": "verdict",

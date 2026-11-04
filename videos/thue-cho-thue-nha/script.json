@@ -17,26 +17,26 @@
       ],
       "stamp": "500 TRIỆU",
       "art": "rentsign",
-      "voice": "Cho thuê nhà, thu tiền hàng tháng, vậy có phải nộp thuế không? Khoan đã! Tóm lại là thế này."
+      "voice": "Cho thuê nhà, thu tiền hàng tháng, vậy có phải nộp thuế không? Khoan đã! Tóm lại là thế này.",
+      "layout": "number"
     },
     {
-      "type": "timeline",
+      "type": "stat",
       "headline": "Mốc 500 triệu một năm",
-      "art": "taxform",
-      "steps": [
+      "value": "500",
+      "unit": "triệu đồng / năm",
+      "ring": 0.85,
+      "chips": [
         {
-          "when": "5/3/2026",
-          "what": "Nghị định 68/2026 ban hành",
-          "at": 0.02
+          "text": "Nghị định 68/2026",
+          "at": 0.04
         },
         {
-          "when": "1/1/2026",
-          "what": "Mốc tính cho doanh thu cho thuê nhà của cá nhân",
-          "at": 0.36
+          "text": "Mốc tính từ 1/1/2026",
+          "at": 0.38
         },
         {
-          "when": "500 triệu",
-          "what": "Doanh thu năm từ mức này trở xuống: không nộp thuế",
+          "text": "Dưới mốc: không nộp thuế",
           "at": 0.68
         }
       ],
@@ -71,7 +71,8 @@
       ],
       "footnote": "Theo Thuế & Hải quan Online, 11/3/2026; đối chiếu văn bản gốc",
       "voice": "Từ năm trăm triệu trở xuống thì không nộp thuế. Còn trên ngưỡng, thuế giá trị gia tăng năm phần trăm, và thuế thu nhập cá nhân năm phần trăm trên phần vượt năm trăm triệu.",
-      "sub": "Từ 500 triệu trở xuống thì không nộp thuế. Còn trên ngưỡng, thuế giá trị gia tăng 5%, và thuế thu nhập cá nhân 5% trên phần vượt 500 triệu."
+      "sub": "Từ 500 triệu trở xuống thì không nộp thuế. Còn trên ngưỡng, thuế giá trị gia tăng 5%, và thuế thu nhập cá nhân 5% trên phần vượt 500 triệu.",
+      "layout": "slider"
     },
     {
       "type": "list",
@@ -89,25 +90,31 @@
         0.75
       ],
       "voice": "Chủ nhà cần nhớ ba điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai hai lần hoặc một lần mỗi năm. Và hạn khai muộn nhất là ngày ba mươi mốt tháng một năm sau.",
-      "sub": "Chủ nhà cần nhớ 3 điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai 2 lần hoặc 1 lần mỗi năm. Và hạn khai muộn nhất là ngày 31/1 năm sau."
+      "sub": "Chủ nhà cần nhớ 3 điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai 2 lần hoặc 1 lần mỗi năm. Và hạn khai muộn nhất là ngày 31/1 năm sau.",
+      "layout": "notes"
     },
     {
-      "type": "list",
-      "tone": "bad",
-      "headline": "Dễ nhầm",
-      "pose": "confused",
-      "items": [
-        "Nhầm doanh thu với lợi nhuận",
-        "Quên cộng nhiều hợp đồng",
-        "Không khai vì nghĩ miễn"
+      "type": "myth",
+      "headline": "Hiểu lầm hay gặp",
+      "pairs": [
+        {
+          "myth": "Ngưỡng tính trên lợi nhuận",
+          "fact": "Ngưỡng tính trên doanh thu",
+          "at": 0.04
+        },
+        {
+          "myth": "Mỗi hợp đồng được trừ 500 triệu",
+          "fact": "Tổng mức trừ cả năm chỉ 500 triệu",
+          "at": 0.36
+        },
+        {
+          "myth": "Thu dưới mốc thì khỏi cần biết",
+          "fact": "Vẫn nên kiểm tra nghĩa vụ khai thuế",
+          "at": 0.68
+        }
       ],
-      "at": [
-        0.1,
-        0.42,
-        0.72
-      ],
-      "voice": "Những chỗ dễ nhầm. Ngưỡng tính trên doanh thu, không phải lợi nhuận. Có nhiều hợp đồng thì tổng mức trừ cả năm vẫn chỉ năm trăm triệu. Và đừng quên kiểm tra nghĩa vụ khai thuế của mình.",
-      "sub": "Những chỗ dễ nhầm. Ngưỡng tính trên doanh thu, không phải lợi nhuận. Có nhiều hợp đồng thì tổng mức trừ cả năm vẫn chỉ 500 triệu. Và đừng quên kiểm tra nghĩa vụ khai thuế của mình."
+      "voice": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức trừ cả năm vẫn chỉ năm trăm triệu. Và dù thu dưới ngưỡng, vẫn nên kiểm tra nghĩa vụ khai thuế của mình.",
+      "sub": "Ba hiểu lầm hay gặp. Nhiều người nghĩ ngưỡng tính trên lợi nhuận, thật ra là doanh thu. Nhiều hợp đồng thì tổng mức trừ cả năm vẫn chỉ 500 triệu. Và dù thu dưới ngưỡng, vẫn nên kiểm tra nghĩa vụ khai thuế của mình."
     },
     {
       "type": "verdict",

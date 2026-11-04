@@ -17,31 +17,21 @@
       ],
       "stamp": "50%",
       "art": "medcard",
-      "voice": "Tự lên bệnh viện lớn khám, không có giấy chuyển, bảo hiểm y tế có trả không? Khoan đã! Tóm lại là thế này."
+      "voice": "Tự lên bệnh viện lớn khám, không có giấy chuyển, bảo hiểm y tế có trả không? Khoan đã! Tóm lại là thế này.",
+      "layout": "number"
     },
     {
-      "type": "timeline",
-      "headline": "Thay đổi từ tháng 7",
-      "art": "medcard",
-      "steps": [
+      "type": "myth",
+      "headline": "Hiểu lầm thường gặp",
+      "pairs": [
         {
-          "when": "Trước đây",
-          "what": "Khám ngoại trú trái tuyến: bảo hiểm không trả",
-          "at": 0.02
-        },
-        {
-          "when": "1/7/2026",
-          "what": "Quy định mới về bảo hiểm y tế có hiệu lực",
-          "at": 0.36
-        },
-        {
-          "when": "50%",
-          "what": "Quỹ trả 50% mức hưởng ở một số bệnh viện",
-          "at": 0.68
+          "myth": "Tự đi khám trái tuyến là bảo hiểm không trả",
+          "fact": "Từ 1/7/2026, quỹ trả 50% mức hưởng ở một số bệnh viện",
+          "at": 0.08
         }
       ],
-      "voice": "Trước đây, tự đi khám ngoại trú trái tuyến thì bảo hiểm không trả. Từ ngày một tháng bảy năm hai không hai sáu, quy định mới có hiệu lực. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, nhưng chỉ ở một số bệnh viện.",
-      "sub": "Trước đây, tự đi khám ngoại trú trái tuyến thì bảo hiểm không trả. Từ ngày 1/7/2026, quy định mới có hiệu lực. Quỹ bảo hiểm trả 50% mức hưởng, nhưng chỉ ở một số bệnh viện."
+      "voice": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày một tháng bảy năm hai không hai sáu, quy định mới có hiệu lực. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, nhưng chỉ ở một số bệnh viện.",
+      "sub": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày 1/7/2026, quy định mới có hiệu lực. Quỹ bảo hiểm trả 50% mức hưởng, nhưng chỉ ở một số bệnh viện."
     },
     {
       "type": "compare",
@@ -71,7 +61,8 @@
       ],
       "footnote": "Ví dụ mình tự tính, chỉ chi phí trong phạm vi hưởng BHYT",
       "voice": "Ví dụ hóa đơn một triệu, thẻ mức hưởng tám mươi phần trăm. Đúng tuyến, bảo hiểm trả tám trăm nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức bốn trăm nghìn.",
-      "sub": "Ví dụ hóa đơn 1 triệu, thẻ mức hưởng 80%. Đúng tuyến, bảo hiểm trả 800 nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức 400 nghìn."
+      "sub": "Ví dụ hóa đơn 1 triệu, thẻ mức hưởng 80%. Đúng tuyến, bảo hiểm trả 800 nghìn. Trái tuyến ngoại trú, chỉ còn một nửa, tức 400 nghìn.",
+      "layout": "slider"
     },
     {
       "type": "list",
@@ -89,7 +80,8 @@
         0.72
       ],
       "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
-      "sub": "Được trả 50% khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá."
+      "sub": "Được trả 50% khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
+      "layout": "tiles"
     },
     {
       "type": "list",
@@ -107,7 +99,8 @@
         0.72
       ],
       "voice": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được năm mươi phần trăm. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả.",
-      "sub": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được 50%. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả."
+      "sub": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được 50%. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả.",
+      "layout": "notes"
     },
     {
       "type": "verdict",

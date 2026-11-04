@@ -20,26 +20,35 @@
       "voice": "Nghe nói xe điện rẻ hơn xe xăng. Nhưng rẻ hơn bao nhiêu sau năm năm? Khoan đã! Tóm lại là thế này."
     },
     {
-      "type": "timeline",
+      "type": "receipt",
       "headline": "Mình tính thế này",
-      "art": "money",
-      "steps": [
+      "rows": [
         {
-          "when": "Quãng đường",
-          "what": "1.000 km mỗi tháng, 5 năm là 60.000 km",
-          "at": 0.02
+          "label": "Đi mỗi tháng",
+          "value": "1.000 km",
+          "at": 0.03
         },
         {
-          "when": "Xe xăng",
-          "what": "2 lít mỗi 100 km, xăng 23.231đ một lít",
-          "at": 0.38
+          "label": "Đi 5 năm",
+          "value": "60.000 km",
+          "at": 0.17
         },
         {
-          "when": "Xe điện",
-          "what": "Khoảng 6–7 nghìn đồng mỗi 100 km",
-          "at": 0.7
+          "label": "Xe xăng",
+          "value": "2 lít/100 km",
+          "at": 0.36
+        },
+        {
+          "label": "Giá xăng",
+          "value": "23.231đ/lít",
+          "at": 0.5
         }
       ],
+      "total": {
+        "label": "Xe điện/100 km",
+        "value": "6–7 nghìn",
+        "at": 0.72
+      },
       "voice": "Mình tính thế này. Đi một nghìn ki lô mét mỗi tháng, năm năm là sáu mươi nghìn ki lô mét. Xe xăng tốn hai lít mỗi một trăm ki lô mét, xăng hai mươi ba nghìn hai trăm ba mươi mốt đồng một lít. Xe điện chỉ khoảng sáu đến bảy nghìn đồng.",
       "sub": "Mình tính thế này. Đi 1.000 km mỗi tháng, 5 năm là 60.000 km. Xe xăng tốn 2 lít mỗi 100 km, xăng 23.231đ một lít. Xe điện chỉ khoảng 6 đến 7 nghìn đồng."
     },
@@ -95,7 +104,8 @@
       ],
       "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
       "voice": "Còn tiền nhiên liệu năm năm, xe xăng tốn khoảng hai mươi tám triệu. Xe điện chỉ khoảng bốn triệu.",
-      "sub": "Còn tiền nhiên liệu 5 năm, xe xăng tốn khoảng 28 triệu. Xe điện chỉ khoảng 4 triệu."
+      "sub": "Còn tiền nhiên liệu 5 năm, xe xăng tốn khoảng 28 triệu. Xe điện chỉ khoảng 4 triệu.",
+      "layout": "slider"
     },
     {
       "type": "compare",
@@ -122,7 +132,8 @@
       ],
       "footnote": "Chưa tính bảo dưỡng, thay pin, giá bán lại",
       "voice": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng năm mươi chín triệu. Xe điện khoảng hai mươi sáu triệu. Rẻ hơn một nửa.",
-      "sub": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng 59 triệu. Xe điện khoảng 26 triệu. Rẻ hơn một nửa."
+      "sub": "Cộng cả giá xe và nhiên liệu, xe xăng khoảng 59 triệu. Xe điện khoảng 26 triệu. Rẻ hơn một nửa.",
+      "layout": "duel"
     },
     {
       "type": "list",
@@ -161,7 +172,8 @@
           "Chưa có chỗ sạc"
         ]
       },
-      "voice": "Vậy ai hợp xe điện? Người đi nhiều mỗi ngày, lại có chỗ sạc. Còn ít đi, hay đi xa, hoặc chưa có chỗ sạc thì nên cân nhắc."
+      "voice": "Vậy ai hợp xe điện? Người đi nhiều mỗi ngày, lại có chỗ sạc. Còn ít đi, hay đi xa, hoặc chưa có chỗ sạc thì nên cân nhắc.",
+      "layout": "scale"
     },
     {
       "type": "outro",

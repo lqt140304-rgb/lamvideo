@@ -17,50 +17,63 @@
       ],
       "stamp": "15,5 TRIỆU",
       "art": "taxform",
-      "voice": "Lương tháng bao nhiêu thì bắt đầu phải nộp thuế thu nhập cá nhân? Khoan đã! Tóm lại là thế này."
+      "voice": "Lương tháng bao nhiêu thì bắt đầu phải nộp thuế thu nhập cá nhân? Khoan đã! Tóm lại là thế này.",
+      "layout": "question"
     },
     {
-      "type": "timeline",
+      "type": "stat",
       "headline": "Giảm trừ tăng mạnh",
-      "art": "chart",
-      "steps": [
+      "value": "15,5",
+      "unit": "triệu đồng / tháng",
+      "ring": 0.9,
+      "pose": "excited",
+      "chips": [
         {
-          "when": "1/7/2026",
-          "what": "Luật Thuế thu nhập cá nhân 2025 có hiệu lực",
-          "at": 0.02
+          "text": "Từ 1/7/2026",
+          "at": 0.04
         },
         {
-          "when": "15,5 triệu",
-          "what": "Giảm trừ bản thân mỗi tháng, trước là 11 triệu",
-          "at": 0.36
+          "text": "Trước đây 11 triệu",
+          "at": 0.4
         },
         {
-          "when": "6,2 triệu",
-          "what": "Mỗi người phụ thuộc, trước là 4,4 triệu",
-          "at": 0.68
+          "text": "Người phụ thuộc 6,2 triệu",
+          "at": 0.7
         }
       ],
       "voice": "Từ ngày một tháng bảy năm hai không hai sáu, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là mười lăm phẩy năm triệu mỗi tháng, trước là mười một triệu. Mỗi người phụ thuộc được trừ sáu phẩy hai triệu, trước là bốn phẩy bốn triệu.",
       "sub": "Từ ngày 1/7/2026, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là 15,5 triệu mỗi tháng, trước là 11 triệu. Mỗi người phụ thuộc được trừ 6,2 triệu, trước là 4,4 triệu."
     },
     {
-      "type": "list",
-      "tone": "good",
+      "type": "ladder",
       "headline": "Biểu thuế còn 5 bậc",
       "pose": "think",
-      "items": [
-        "Đến 10 triệu: 5%",
-        "10 đến 30 triệu: 10%",
-        "30 đến 60 triệu: 20%",
-        "60 đến 100 triệu: 30%",
-        "Trên 100 triệu: 35%"
-      ],
-      "at": [
-        0.08,
-        0.26,
-        0.44,
-        0.62,
-        0.8
+      "rungs": [
+        {
+          "label": "Đến 10 tr",
+          "value": "5%",
+          "at": 0.08
+        },
+        {
+          "label": "10–30 tr",
+          "value": "10%",
+          "at": 0.26
+        },
+        {
+          "label": "30–60 tr",
+          "value": "20%",
+          "at": 0.44
+        },
+        {
+          "label": "60–100 tr",
+          "value": "30%",
+          "at": 0.62
+        },
+        {
+          "label": "Trên 100 tr",
+          "value": "35%",
+          "at": 0.8
+        }
       ],
       "voice": "Biểu thuế cũng gọn lại, còn năm bậc. Phần đến mười triệu chịu năm phần trăm. Mười đến ba mươi triệu, mười phần trăm. Ba mươi đến sáu mươi triệu, hai mươi phần trăm. Sáu mươi đến một trăm triệu, ba mươi phần trăm. Trên một trăm triệu, ba mươi lăm phần trăm.",
       "sub": "Biểu thuế cũng gọn lại, còn 5 bậc. Phần đến 10 triệu chịu 5%. 10 đến 30 triệu, 10%. 30 đến 60 triệu, 20%. 60 đến 100 triệu, 30%. Trên 100 triệu, 35%."
@@ -93,7 +106,8 @@
       ],
       "footnote": "Mình tự tính: độc thân, chưa trừ bảo hiểm bắt buộc, không khoản miễn khác",
       "voice": "Thử tính với lương hai mươi lăm triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng một phẩy ba lăm triệu mỗi tháng. Cách mới chỉ khoảng bốn trăm tám mươi nghìn.",
-      "sub": "Thử tính với lương 25 triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng 1,35 triệu mỗi tháng. Cách mới chỉ khoảng 480 nghìn."
+      "sub": "Thử tính với lương 25 triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng 1,35 triệu mỗi tháng. Cách mới chỉ khoảng 480 nghìn.",
+      "layout": "slider"
     },
     {
       "type": "list",
@@ -111,7 +125,8 @@
         0.72
       ],
       "voice": "Những chỗ dễ nhầm. Lấy năm phần trăm nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc.",
-      "sub": "Những chỗ dễ nhầm. Lấy 5% nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc."
+      "sub": "Những chỗ dễ nhầm. Lấy 5% nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc.",
+      "layout": "notes"
     },
     {
       "type": "verdict",
@@ -132,7 +147,8 @@
         ]
       },
       "voice": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
-      "sub": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới 15,5 triệu. Có 1 người phụ thuộc, dưới 21,7 triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước."
+      "sub": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới 15,5 triệu. Có 1 người phụ thuộc, dưới 21,7 triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
+      "layout": "scale"
     },
     {
       "type": "outro",

@@ -20,24 +20,28 @@
       "voice": "Mới mua điện thoại mới, lắp SIM vào, bỗng không gọi được? Khoan đã! Tóm lại là thế này."
     },
     {
-      "type": "timeline",
-      "headline": "Đổi máy là bị kiểm tra",
-      "art": "idcard",
-      "steps": [
+      "type": "chat",
+      "title": "Hỏi nhanh",
+      "messages": [
         {
-          "when": "15/6/2026",
-          "what": "Quy định mới bắt đầu áp dụng",
-          "at": 0.02
+          "from": "user",
+          "text": "Đổi điện thoại thì sao?",
+          "at": 0.0
         },
         {
-          "when": "2 giờ",
-          "what": "Đổi máy, nhà mạng tạm khóa chiều gọi đi và nhắn tin",
-          "at": 0.36
+          "from": "bot",
+          "text": "Từ 15/6/2026 bắt đầu áp dụng",
+          "at": 0.14
         },
         {
-          "when": "30 ngày",
-          "what": "Hạn để xác thực khuôn mặt",
-          "at": 0.68
+          "from": "bot",
+          "text": "Đổi máy: 2 giờ sau nhà mạng tạm khóa chiều gọi đi",
+          "at": 0.4
+        },
+        {
+          "from": "bot",
+          "text": "Có 30 ngày để xác thực khuôn mặt",
+          "at": 0.72
         }
       ],
       "voice": "Từ ngày mười lăm tháng sáu năm hai không hai sáu, quy định mới bắt đầu áp dụng. Khi bạn đổi máy, trong hai giờ nhà mạng có thể tạm khóa chiều gọi đi và nhắn tin. Bạn có ba mươi ngày để xác thực khuôn mặt.",
@@ -58,7 +62,8 @@
         0.45,
         0.75
       ],
-      "voice": "Có ba cách xác thực. Dùng ứng dụng VNeID. Dùng ứng dụng của nhà mạng. Hoặc đến thẳng điểm giao dịch của nhà mạng."
+      "voice": "Có ba cách xác thực. Dùng ứng dụng VNeID. Dùng ứng dụng của nhà mạng. Hoặc đến thẳng điểm giao dịch của nhà mạng.",
+      "layout": "tiles"
     },
     {
       "type": "compare",
@@ -87,7 +92,8 @@
         }
       ],
       "footnote": "Theo Thông tư 08/2026/TT-BKHCN, có hiệu lực từ 15/6/2026",
-      "voice": "Nếu xác thực kịp, bạn dùng như cũ. Nếu để quá hạn, nhà mạng khóa cả hai chiều, và có thể chấm dứt dịch vụ sau năm ngày."
+      "voice": "Nếu xác thực kịp, bạn dùng như cũ. Nếu để quá hạn, nhà mạng khóa cả hai chiều, và có thể chấm dứt dịch vụ sau năm ngày.",
+      "layout": "slider"
     },
     {
       "type": "list",
@@ -104,7 +110,8 @@
         0.42,
         0.72
       ],
-      "voice": "Còn những việc không nên làm. Đừng bấm link lạ nhắn xác thực. Đừng gửi ảnh mặt cho người lạ. Và đừng bỏ qua thông báo từ nhà mạng."
+      "voice": "Còn những việc không nên làm. Đừng bấm link lạ nhắn xác thực. Đừng gửi ảnh mặt cho người lạ. Và đừng bỏ qua thông báo từ nhà mạng.",
+      "layout": "clipboard"
     },
     {
       "type": "verdict",

@@ -11,6 +11,18 @@ import { OutroScene } from "./scenes/OutroScene";
 import { TimelineScene } from "./scenes/TimelineScene";
 import { VerdictScene } from "./scenes/VerdictScene";
 import { ZonesScene } from "./scenes/ZonesScene";
+import {
+  ChatScene,
+  CompareVariant,
+  HookVariant,
+  LadderScene,
+  ListVariant,
+  MythScene,
+  ReceiptScene,
+  ScaleVerdict,
+  StatScene,
+  StepsScene,
+} from "./scenes/Layouts";
 import { Broll, brollsOf } from "./components/Broll";
 import { Sfx, Wipe } from "./components/Fx";
 import type { ImageCredits, Scene, SceneTiming, VideoScript } from "./types";
@@ -25,17 +37,29 @@ export type ShortProps = {
 const SceneBody: React.FC<{ scene: Scene; frames: number }> = ({ scene, frames }) => {
   switch (scene.type) {
     case "hook":
-      return <HookScene scene={scene} frames={frames} />;
+      return scene.layout && scene.layout !== "poster" ? <HookVariant scene={scene} frames={frames} /> : <HookScene scene={scene} frames={frames} />;
     case "zones":
       return <ZonesScene scene={scene} frames={frames} />;
     case "timeline":
       return <TimelineScene scene={scene} frames={frames} />;
     case "compare":
-      return <CompareScene scene={scene} frames={frames} />;
+      return scene.layout && scene.layout !== "cards" ? <CompareVariant scene={scene} frames={frames} /> : <CompareScene scene={scene} frames={frames} />;
     case "list":
-      return <ListScene scene={scene} frames={frames} />;
+      return scene.layout && scene.layout !== "rows" ? <ListVariant scene={scene} frames={frames} /> : <ListScene scene={scene} frames={frames} />;
     case "verdict":
-      return <VerdictScene scene={scene} frames={frames} />;
+      return scene.layout === "scale" ? <ScaleVerdict scene={scene} frames={frames} /> : <VerdictScene scene={scene} frames={frames} />;
+    case "stat":
+      return <StatScene scene={scene} frames={frames} />;
+    case "steps":
+      return <StepsScene scene={scene} frames={frames} />;
+    case "myth":
+      return <MythScene scene={scene} frames={frames} />;
+    case "chat":
+      return <ChatScene scene={scene} frames={frames} />;
+    case "receipt":
+      return <ReceiptScene scene={scene} frames={frames} />;
+    case "ladder":
+      return <LadderScene scene={scene} frames={frames} />;
     case "outro":
       return <OutroScene scene={scene} frames={frames} />;
   }

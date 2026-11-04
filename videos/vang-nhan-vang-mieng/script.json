@@ -17,29 +17,29 @@
       ],
       "stamp": "3 TRIỆU",
       "art": "ring",
-      "voice": "Vừa mua một lượng vàng, quay lại bán ngay thì mất mấy triệu? Khoan đã! Tóm lại là thế này."
+      "voice": "Vừa mua một lượng vàng, quay lại bán ngay thì mất mấy triệu? Khoan đã! Tóm lại là thế này.",
+      "layout": "number"
     },
     {
-      "type": "timeline",
+      "type": "receipt",
       "headline": "Hai giá cho một lượng",
-      "art": "gold",
-      "steps": [
+      "rows": [
         {
-          "when": "Giá bán ra",
-          "what": "Giá cửa hàng bán cho bạn: 142,7 triệu",
-          "at": 0.02
+          "label": "Giá bán ra",
+          "value": "142,7 triệu",
+          "at": 0.06
         },
         {
-          "when": "Giá mua vào",
-          "what": "Giá cửa hàng mua lại của bạn: 139,7 triệu",
-          "at": 0.36
-        },
-        {
-          "when": "Chênh 3 triệu",
-          "what": "Mua xong bán ngay là mất khoảng này",
-          "at": 0.68
+          "label": "Giá mua vào",
+          "value": "139,7 triệu",
+          "at": 0.38
         }
       ],
+      "total": {
+        "label": "Chênh lệch",
+        "value": "~3 triệu",
+        "at": 0.72
+      },
       "voice": "Mỗi lượng vàng có hai giá. Giá cửa hàng bán cho bạn, ví dụ vàng miếng ngày hai mươi chín tháng mười là một trăm bốn mươi hai phẩy bảy triệu. Giá cửa hàng mua lại của bạn là một trăm ba mươi chín phẩy bảy triệu. Mua xong bán ngay là mất khoảng ba triệu.",
       "sub": "Mỗi lượng vàng có hai giá. Giá cửa hàng bán cho bạn, ví dụ vàng miếng ngày 29/10 là 142,7 triệu. Giá cửa hàng mua lại của bạn là 139,7 triệu. Mua xong bán ngay là mất khoảng 3 triệu."
     },
@@ -88,7 +88,8 @@
         0.45,
         0.75
       ],
-      "voice": "Vậy cần xem kỹ gì? Nhìn cả giá mua lại, không chỉ giá bán. Đối chiếu đúng tên sản phẩm, đúng tiệm, vì mỗi nơi một giá. Và giữ hóa đơn khi mua."
+      "voice": "Vậy cần xem kỹ gì? Nhìn cả giá mua lại, không chỉ giá bán. Đối chiếu đúng tên sản phẩm, đúng tiệm, vì mỗi nơi một giá. Và giữ hóa đơn khi mua.",
+      "layout": "clipboard"
     },
     {
       "type": "list",
@@ -105,7 +106,8 @@
         0.42,
         0.72
       ],
-      "voice": "Những chỗ dễ nhầm. Thấy giá thế giới rồi tưởng là giá tiệm. Tưởng tiệm nào cũng mua lại cùng một giá. Và tưởng mua hôm nay, mai bán là có lãi."
+      "voice": "Những chỗ dễ nhầm. Thấy giá thế giới rồi tưởng là giá tiệm. Tưởng tiệm nào cũng mua lại cùng một giá. Và tưởng mua hôm nay, mai bán là có lãi.",
+      "layout": "tiles"
     },
     {
       "type": "verdict",

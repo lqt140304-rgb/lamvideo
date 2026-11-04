@@ -218,3 +218,29 @@ Mỗi video mới nên vẽ thêm ít nhất một hình riêng cho chủ đề,
 Thẻ `compare` loại `generic` còn có `tint` (`red|green|blue|yellow`); cảnh `compare` có `bars: false` để tắt biểu đồ, `badge` để tự đặt nhãn.
 
 Cảnh nào lời đọc có số viết bằng chữ thì thêm `sub` (phụ đề viết bằng số, cùng nội dung).
+
+## Bố cục cảnh (đa dạng giữa các video)
+
+Mỗi video nên dùng bộ bố cục khác nhau. Có hai cách:
+
+**1. Đổi `layout` của cảnh có sẵn**
+
+| Cảnh | `layout` |
+|---|---|
+| `hook` | `poster` (mặc định), `number` (con số khổng lồ từ `stamp`), `news` (khung TIN NÓNG), `question` (dấu hỏi lớn) |
+| `list` | `rows` (mặc định), `tiles` (ô vuông), `notes` (giấy nhớ), `clipboard` (bảng kẹp giấy) |
+| `compare` | `cards` (mặc định), `slider` (một khung chia đôi), `duel` (hai thanh ngang xếp chồng) |
+| `verdict` | `columns` (mặc định), `scale` (cái cân; `heavier`: `left`/`right`/`even`) |
+
+**2. Dùng loại cảnh mới**
+
+| `type` | Dùng khi | Trường chính |
+|---|---|---|
+| `stat` | một con số quan trọng | `value`, `unit`, `ring`, `chips[{text,at}]` |
+| `steps` | các bước/mốc xếp so le | `steps[{title,detail,at}]` |
+| `myth` | hiểu lầm → sự thật | `pairs[{myth,fact,at}]` |
+| `chat` | hỏi đáp | `title`, `messages[{from:"user"|"bot",text,at}]` |
+| `receipt` | phép tính từng dòng | `rows[{label,value,at}]`, `total{label,value,at}` |
+| `ladder` | các bậc tăng dần | `rungs[{label,value,at}]` |
+
+Đổi cảnh nào mà lời đọc (`voice`) đổi thì cần đọc lại giọng (`npm run make` tự làm).
