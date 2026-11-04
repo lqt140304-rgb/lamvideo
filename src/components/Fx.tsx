@@ -145,3 +145,58 @@ export const Flash: React.FC<{ at: number; frames?: number }> = ({ at, frames = 
 
 /** Nảy nhẹ cho phần tử SVG/HTML khi xuất hiện, dùng lại cho các hiệu ứng khác. */
 export const usePop = (at: number) => pop(useCurrentFrame(), at);
+
+/** Các kiểu chuyển cảnh. Mỗi chỗ nối cảnh chọn một kiểu khác nhau (xem `transitionFor`). */
+export type TransitionKind = "wipe" | "iris" | "bar" | "flash" | "none";
+
+const TRANSITIONS: TransitionKind[] = ["wipe", "iris", "flash", "bar", "iris", "wipe", "flash"];
+
+/** Chọn kiểu chuyển cảnh theo vị trí, không để hai chỗ liền nhau giống nhau. */
+export const transitionFor = (index: number, override?: TransitionKind): TransitionKind => override ?? TRANSITIONS[index % TRANSITIONS.length];
+
+/** Mống mắt: một vòng tròn vàng viền mực khép lại rồi mở ra ở cảnh mới. */
+const Iris: React.FC<{ duration: number }> = ({ duration }) => {
+  const frame = useCurrentFrame();
+  const t = frame / duration;
+  if (t < 0 || t > 1) return null;
+  const R = 1250;
+  // 0..0.45 khép (lỗ nhỏ dần), 0.45..1 mở (lỗ to dần)
+  const hole = t < 0.45 ? R * (1 - t / 0.45) : R * ((t - 0.45) / 0.55);
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+      <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{ position: "absolute", inset: 0 }}>
+        <defs>
+          <mask id="irisMask">
+            <rect width={1080} height={1920} fill="#fff" />
+            <circle cx={540} cy={960} r={Math.max(0, hole)} fill="#000" />
+          </mask>
+        </defs>
+        <rect width={1080} height={1920} fill={color.yellow} mask="url(#irisMask)" />
+        <circle cx={540} cy={960} r={Math.max(0, hole)} fill="none" stroke={color.ink} strokeWidth={10} />
+      </svg>
+    </AbsoluteFill>
+  );
+};
+
+/** Thanh mực quét từ dưới lên rồi rút đi (như kéo màn). */
+const Bar: React.FC<{ duration: number }> = ({ duration }) => {
+  const frame = useCurrentFrame();
+  const t = frame / duration;
+  if (t < 0 || t > 1) return null;
+  const cover = t < 0.5 ? ease(frame, 0, duration * 0.5) : 1 - ease(frame, duration * 0.5, duration * 0.5);
+  const fromBottom = t < 0.5;
+  const h = 1920 * cover;
+  return (
+    <AbsoluteFill style={{ pointerEvents: "none" }}>
+      <div style={{ position: "absolute", left: 0, right: 0, [fromBottom ? "bottom" : "top"]: 0, height: h, background: color.ink }} />
+    </AbsoluteFill>
+  );
+};
+
+export const Transition: React.FC<{ kind: TransitionKind; duration?: number }> = ({ kind, duration = 10 }) => {
+  if (kind === "wipe") return <Wipe duration={duration} />;
+  if (kind === "iris") return <Iris duration={duration} />;
+  if (kind === "bar") return <Bar duration={duration} />;
+  if (kind === "flash") return <Flash at={3} frames={7} />;
+  return null;
+};

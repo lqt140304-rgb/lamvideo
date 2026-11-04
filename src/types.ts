@@ -47,8 +47,17 @@ export type Broll = {
 /** Thông tin ảnh đã tải, đọc từ public/<slug>/img/credits.json. */
 export type ImageCredits = Record<string, { short: string; full?: string; license?: string; landing?: string }>;
 
+/** Kiểu máy quay của cảnh: in = zoom vào chậm, out = zoom ra chậm, drift = trôi nhẹ, punch = giật zoom lúc chốt ý, none = đứng yên. Bỏ trống = tự chọn xen kẽ. */
+export type CamMove = "in" | "out" | "drift" | "punch" | "none";
+
 type SceneBase = {
   voice: string;
+  /** Kiểu máy quay (zoom) của cảnh. */
+  cam?: CamMove;
+  /** Kiểu chuyển cảnh ĐI VÀO cảnh này. Bỏ trống = tự chọn xen kẽ. */
+  transition?: "wipe" | "iris" | "bar" | "flash" | "none";
+  /** Cụm từ trong lời đọc làm "điểm chốt": dấu đóng/giật zoom xảy ra đúng lúc đọc tới cụm này. */
+  cue?: string;
   broll?: Broll | Broll[];
   sub?: string;
   /** Giây đệm thêm sau giọng đọc (mặc định 0.35). */

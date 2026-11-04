@@ -17,7 +17,7 @@
       ],
       "stamp": "50%",
       "art": "medcard",
-      "voice": "Tự lên bệnh viện lớn khám, không có giấy chuyển, bảo hiểm y tế có trả không? Khoan đã! Tóm lại là thế này.",
+      "voice": "Tự lên bệnh viện lớn khám, không có giấy chuyển tuyến, bảo hiểm y tế còn trả không? Từ tháng bảy, câu trả lời đã khác.",
       "layout": "number"
     },
     {
@@ -30,8 +30,8 @@
           "at": 0.08
         }
       ],
-      "voice": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày một tháng bảy năm hai không hai sáu, quy định mới có hiệu lực. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, nhưng chỉ ở một số bệnh viện.",
-      "sub": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày 1/7/2026, quy định mới có hiệu lực. Quỹ bảo hiểm trả 50% mức hưởng, nhưng chỉ ở một số bệnh viện."
+      "voice": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày một tháng bảy năm hai không hai sáu, quy định này được áp dụng. Quỹ bảo hiểm trả năm mươi phần trăm mức hưởng, nhưng chỉ ở một số bệnh viện.",
+      "sub": "Nhiều người nghĩ tự đi khám trái tuyến thì bảo hiểm không trả gì. Từ ngày 1/7/2026, quy định này được áp dụng. Quỹ bảo hiểm trả 50% mức hưởng, nhưng chỉ ở một số bệnh viện."
     },
     {
       "type": "compare",
@@ -81,7 +81,21 @@
       ],
       "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
       "sub": "Được trả 50% khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
-      "layout": "tiles"
+      "layout": "tiles",
+      "broll": {
+        "file": "benh-vien.jpg",
+        "say": "Bệnh viện cấp chuyên sâu",
+        "hold": 2.0,
+        "query": "hospital Vietnam Bach Mai",
+        "must": [
+          "hospital",
+          "benh vien",
+          "bach mai"
+        ],
+        "caption": "Bệnh viện tuyến trên",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "list",
@@ -98,8 +112,8 @@
         0.42,
         0.72
       ],
-      "voice": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được năm mươi phần trăm. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả.",
-      "sub": "Những chỗ dễ nhầm. Tưởng bệnh viện nào cũng được 50%. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả.",
+      "voice": "Có mấy cái bẫy ở đây. Tưởng bệnh viện nào cũng được năm mươi phần trăm. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả.",
+      "sub": "Có mấy cái bẫy ở đây. Tưởng bệnh viện nào cũng được 50%. Tưởng bảo hiểm trả nửa hóa đơn, thật ra là nửa mức hưởng. Và dịch vụ theo yêu cầu thì vẫn tự trả.",
       "layout": "notes"
     },
     {
@@ -120,7 +134,7 @@
           "Không phải nơi nào cũng trả"
         ]
       },
-      "voice": "Vậy nên làm gì? Ưu tiên khám ở nơi đăng ký ban đầu, hoặc hỏi bệnh viện trước khi khám. Nhớ là trái tuyến chỉ được một nửa, và không phải nơi nào cũng trả."
+      "voice": "Rốt cuộc, nên làm gì khi cần đi khám? Ưu tiên khám ở nơi đăng ký ban đầu, hoặc hỏi bệnh viện trước khi khám. Nhớ là trái tuyến chỉ được một nửa, và không phải nơi nào cũng trả."
     },
     {
       "type": "outro",
@@ -129,10 +143,14 @@
         "Trái tuyến ngoại trú",
         "giờ được trả một nửa!"
       ],
-      "cta": "Bạn hay khám ở đâu? Bình luận nhé!",
+      "cta": "Lưu lại để lần khám sau còn nhớ!",
       "pad": 0.6,
-      "voice": "Tóm lại là, khám ngoại trú trái tuyến giờ được bảo hiểm trả một nửa mức hưởng, ở một số bệnh viện. Bạn hay khám ở đâu? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, khám ngoại trú trái tuyến giờ được bảo hiểm trả một nửa mức hưởng, ở một số bệnh viện. Lưu lại để lần khám sau còn nhớ. Bạn hay khám ở đâu?"
     }
   ],
-  "id": "bhyt-trai-tuyen"
+  "id": "bhyt-trai-tuyen",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

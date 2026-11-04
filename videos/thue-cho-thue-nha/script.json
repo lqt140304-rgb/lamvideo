@@ -17,8 +17,9 @@
       ],
       "stamp": "500 TRIỆU",
       "art": "rentsign",
-      "voice": "Cho thuê nhà, thu tiền hàng tháng, vậy có phải nộp thuế không? Khoan đã! Tóm lại là thế này.",
-      "layout": "number"
+      "voice": "Cho thuê nhà thu bao nhiêu thì phải nộp thuế? Mốc quan trọng là năm trăm triệu một năm.",
+      "layout": "number",
+      "sub": "Cho thuê nhà thu bao nhiêu thì phải nộp thuế? Mốc quan trọng là 500 triệu một năm."
     },
     {
       "type": "stat",
@@ -91,7 +92,22 @@
       ],
       "voice": "Chủ nhà cần nhớ ba điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai hai lần hoặc một lần mỗi năm. Và hạn khai muộn nhất là ngày ba mươi mốt tháng một năm sau.",
       "sub": "Chủ nhà cần nhớ 3 điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai 2 lần hoặc 1 lần mỗi năm. Và hạn khai muộn nhất là ngày 31/1 năm sau.",
-      "layout": "notes"
+      "layout": "notes",
+      "broll": {
+        "file": "nha-cho-thue.jpg",
+        "say": "Chủ nhà cần nhớ",
+        "hold": 2.0,
+        "query": "apartment building for rent Vietnam",
+        "must": [
+          "apartment",
+          "rent",
+          "nha",
+          "building"
+        ],
+        "caption": "Nhà cho thuê",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "myth",
@@ -134,8 +150,8 @@
           "Một hợp đồng"
         ]
       },
-      "voice": "Vậy ai cần chú ý? Nếu thu trên năm trăm triệu một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, một hợp đồng, thì nhẹ nhàng hơn.",
-      "sub": "Vậy ai cần chú ý? Nếu thu trên 500 triệu một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, 1 hợp đồng, thì nhẹ nhàng hơn."
+      "voice": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên năm trăm triệu một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, một hợp đồng, thì nhẹ nhàng hơn.",
+      "sub": "Chủ nhà nào cần để ý kỹ nhất? Nếu thu trên 500 triệu một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, 1 hợp đồng, thì nhẹ nhàng hơn."
     },
     {
       "type": "outro",
@@ -144,11 +160,15 @@
         "Thu dưới 500 triệu/năm",
         "thì không phải nộp thuế!"
       ],
-      "cta": "Bạn có cho thuê nhà không? Bình luận nhé!",
+      "cta": "Gửi cho người quen đang cho thuê nhà nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, cho thuê nhà thu dưới năm trăm triệu một năm thì không phải nộp thuế. Bạn có cho thuê nhà không? Bình luận cho mình biết nhé!",
-      "sub": "Tóm lại là, cho thuê nhà thu dưới 500 triệu một năm thì không phải nộp thuế. Bạn có cho thuê nhà không? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, cho thuê nhà thu dưới năm trăm triệu một năm thì không phải nộp thuế. Gửi cho người quen đang cho thuê nhà nhé!",
+      "sub": "Tóm lại là, cho thuê nhà thu dưới 500 triệu một năm thì không phải nộp thuế. Gửi cho người quen đang cho thuê nhà nhé!"
     }
   ],
-  "id": "thue-cho-thue-nha"
+  "id": "thue-cho-thue-nha",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

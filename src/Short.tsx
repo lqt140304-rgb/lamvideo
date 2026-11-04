@@ -23,9 +23,9 @@ import {
   StatScene,
   StepsScene,
 } from "./scenes/Layouts";
-import { Broll, brollsOf } from "./components/Broll";
-import { Sfx, Wipe } from "./components/Fx";
-import type { ImageCredits, Scene, SceneTiming, VideoScript } from "./types";
+import { Broll, brollsOf, phraseAt } from "./components/Broll";
+import { Sfx, Transition, transitionFor } from "./components/Fx";
+import type { CamMove, ImageCredits, Scene, SceneTiming, VideoScript } from "./types";
 
 export type ShortProps = {
   script: VideoScript;
@@ -63,6 +63,39 @@ const SceneBody: React.FC<{ scene: Scene; frames: number }> = ({ scene, frames }
     case "outro":
       return <OutroScene scene={scene} frames={frames} />;
   }
+};
+
+const CAM_CYCLE: CamMove[] = ["in", "out", "drift", "in", "out", "drift"];
+
+/**
+ * Máy quay: zoom/lia nhẹ trong suốt cảnh để hình không đứng im.
+ * Cảnh mở đầu giật zoom đúng lúc chốt ý (cue). Các cảnh sau xen kẽ vào / ra / trôi.
+ */
+const Camera: React.FC<{ scene: Scene; index: number; frames: number; children: React.ReactNode }> = ({ scene, index, frames, children }) => {
+  const frame = useCurrentFrame();
+  const move: CamMove = scene.cam ?? (scene.type === "hook" ? "punch" : scene.type === "outro" ? "out" : CAM_CYCLE[index % CAM_CYCLE.length]);
+  const k = frames > 1 ? frame / (frames - 1) : 0;
+  let scale = 1;
+  let tx = 0;
+  let ty = 0;
+  if (move === "in") scale = 1 + 0.06 * k;
+  else if (move === "out") scale = 1.07 - 0.07 * k;
+  else if (move === "drift") {
+    scale = 1.03 + 0.01 * k;
+    tx = (k - 0.5) * -26;
+    ty = Math.sin(k * Math.PI) * -10;
+  } else if (move === "punch") {
+    const speech = frames - Math.round((scene.pad ?? 0.35) * FPS);
+    const fixed = scene.type === "hook" && !!scene.layout && scene.layout !== "poster"; // các hook không phải poster đóng dấu ở khung 16
+    const cue = fixed ? null : phraseAt(scene.voice, scene.cue ?? (scene.type === "hook" ? "Khoan đã" : ""));
+    const hit = fixed ? 16 : cue !== null ? Math.round(cue * speech) : scene.type === "hook" ? Math.round(frames * 0.42) : -1;
+    scale = 1 + 0.03 * k;
+    if (hit >= 0 && frame >= hit) {
+      const u = Math.min(1, (frame - hit) / 12);
+      scale += 0.09 * Math.sin(Math.PI * Math.min(1, u * 1.1)) * (1 - u * 0.5);
+    }
+  }
+  return <AbsoluteFill style={{ transform: `translate(${tx}px ${ty}px) scale(${scale})`, transformOrigin: "50% 48%" }}>{children}</AbsoluteFill>;
 };
 
 /** Chuyển cảnh: cảnh mới phóng nhẹ từ 96% lên, cảnh cũ mờ đi ở 4 khung cuối. */
@@ -104,7 +137,9 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
         return (
           <Sequence key={i} from={t.from} durationInFrames={t.frames} name={`${i + 1}. ${scene.type}`}>
             <SceneShell frames={t.frames}>
-              <SceneBody scene={scene} frames={t.frames} />
+              <Camera scene={scene} index={i} frames={t.frames}>
+                <SceneBody scene={scene} frames={t.frames} />
+              </Camera>
             </SceneShell>
             {brollsOf(scene.broll).map((b, j) => (
               <Broll key={j} index={j} item={b} slug={script.id} frames={t.frames} credits={credits} scene={scene} />
@@ -114,13 +149,17 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
           </Sequence>
         );
       })}
-      {/* chuyển cảnh: dải vàng quét + tiếng vút */}
-      {timings.slice(1).map((t, i) => (
-        <Sequence key={`w${i}`} from={t.from - 4} durationInFrames={10} name="chuyển cảnh">
-          <Wipe />
-          <Sfx name="whoosh" at={0} volume={0.35} />
-        </Sequence>
-      ))}
+      {/* chuyển cảnh: mỗi chỗ nối một kiểu khác nhau (quét vàng, mống mắt, thanh mực, lóe sáng) */}
+      {timings.slice(1).map((t, i) => {
+        const kind = transitionFor(i, script.scenes[i + 1].transition);
+        if (kind === "none") return null;
+        return (
+          <Sequence key={`w${i}`} from={t.from - 4} durationInFrames={10} name={`chuyển cảnh ${kind}`}>
+            <Transition kind={kind} />
+            <Sfx name={kind === "flash" ? "shutter" : "whoosh"} at={0} volume={0.35} />
+          </Sequence>
+        );
+      })}
       <Header topic={script.topic} progress={total ? frame / total : 0} />
       {script.music ? (
         <Audio

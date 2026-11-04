@@ -17,8 +17,8 @@
       ],
       "stamp": "12,5%",
       "art": "ship",
-      "voice": "Nghe nói Mỹ áp thuế mười hai phẩy năm phần trăm với hàng Việt Nam, vậy là cao hay thấp? Khoan đã! Tóm lại là thế này.",
-      "sub": "Nghe nói Mỹ áp thuế 12,5% với hàng Việt Nam, vậy là cao hay thấp? Khoan đã! Tóm lại là thế này.",
+      "voice": "Mỹ áp thuế mười hai phẩy năm phần trăm với hàng Việt Nam. Con số này cao hay thấp, và ai chịu ảnh hưởng?",
+      "sub": "Mỹ áp thuế 12,5% với hàng Việt Nam. Con số này cao hay thấp, và ai chịu ảnh hưởng?",
       "layout": "news"
     },
     {
@@ -91,7 +91,23 @@
         0.7
       ],
       "voice": "Ngành chịu tác động rõ nhất là giày dép và dệt may. Điện thoại và linh kiện cũng có thể bị ảnh hưởng.",
-      "layout": "tiles"
+      "layout": "tiles",
+      "broll": {
+        "file": "xuong-may.jpg",
+        "say": "giày dép và dệt may",
+        "hold": 2.0,
+        "query": "garment factory workers Vietnam",
+        "must": [
+          "garment",
+          "factory",
+          "textile",
+          "footwear",
+          "shoe"
+        ],
+        "caption": "Xưởng may",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "list",
@@ -129,8 +145,8 @@
           "Còn 2 cuộc điều tra"
         ]
       },
-      "voice": "Vậy nghĩa là gì? Tin tốt là thấp hơn mức hai mươi phần trăm cũ, và không cộng dồn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn hai cuộc điều tra khác của Mỹ đang diễn ra.",
-      "sub": "Vậy nghĩa là gì? Tin tốt là thấp hơn mức 20% cũ, và không cộng dồn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn 2 cuộc điều tra khác của Mỹ đang diễn ra.",
+      "voice": "Gộp lại thì đây là tin tốt hay tin xấu? Tin tốt là thấp hơn mức hai mươi phần trăm cũ, và không cộng dồn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn hai cuộc điều tra khác của Mỹ đang diễn ra.",
+      "sub": "Gộp lại thì đây là tin tốt hay tin xấu? Tin tốt là thấp hơn mức 20% cũ, và không cộng dồn. Nhưng vẫn cao hơn vài đối thủ, và Việt Nam còn 2 cuộc điều tra khác của Mỹ đang diễn ra.",
       "layout": "scale",
       "heavier": "even"
     },
@@ -141,11 +157,15 @@
         "Thuế giảm còn 12,5%",
         "nhưng rủi ro chưa hết!"
       ],
-      "cta": "Công ty bạn có xuất hàng sang Mỹ không? Bình luận nhé!",
+      "cta": "Công ty bạn có xuất hàng sang Mỹ không?",
       "pad": 0.6,
-      "voice": "Tóm lại là, thuế giảm còn mười hai phẩy năm phần trăm, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Bình luận cho mình biết nhé!",
-      "sub": "Tóm lại là, thuế giảm còn 12,5%, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, thuế giảm còn mười hai phẩy năm phần trăm, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Chia sẻ ở bình luận nhé!",
+      "sub": "Tóm lại là, thuế giảm còn 12,5%, nhưng rủi ro chưa hết. Công ty bạn có xuất hàng sang Mỹ không? Chia sẻ ở bình luận nhé!"
     }
   ],
-  "id": "my-thue-12-5"
+  "id": "my-thue-12-5",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

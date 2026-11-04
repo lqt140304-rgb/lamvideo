@@ -17,7 +17,7 @@
       ],
       "stamp": "15,5 TRIỆU",
       "art": "taxform",
-      "voice": "Lương tháng bao nhiêu thì bắt đầu phải nộp thuế thu nhập cá nhân? Khoan đã! Tóm lại là thế này.",
+      "voice": "Luật thuế thu nhập cá nhân mới đã có hiệu lực từ tháng bảy. Vậy lương bao nhiêu thì bắt đầu phải nộp thuế?",
       "layout": "question"
     },
     {
@@ -42,7 +42,20 @@
         }
       ],
       "voice": "Từ ngày một tháng bảy năm hai không hai sáu, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là mười lăm phẩy năm triệu mỗi tháng, trước là mười một triệu. Mỗi người phụ thuộc được trừ sáu phẩy hai triệu, trước là bốn phẩy bốn triệu.",
-      "sub": "Từ ngày 1/7/2026, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là 15,5 triệu mỗi tháng, trước là 11 triệu. Mỗi người phụ thuộc được trừ 6,2 triệu, trước là 4,4 triệu."
+      "sub": "Từ ngày 1/7/2026, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là 15,5 triệu mỗi tháng, trước là 11 triệu. Mỗi người phụ thuộc được trừ 6,2 triệu, trước là 4,4 triệu.",
+      "broll": {
+        "file": "quoc-hoi.jpg",
+        "say": "Luật Thuế thu nhập cá nhân",
+        "hold": 2.0,
+        "query": "Vietnam National Assembly building session",
+        "must": [
+          "national assembly",
+          "quoc hoi"
+        ],
+        "caption": "Quốc hội",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "ladder",
@@ -124,8 +137,8 @@
         0.42,
         0.72
       ],
-      "voice": "Những chỗ dễ nhầm. Lấy năm phần trăm nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc.",
-      "sub": "Những chỗ dễ nhầm. Lấy 5% nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc.",
+      "voice": "Đừng tính theo cách này. Lấy năm phần trăm nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc.",
+      "sub": "Đừng tính theo cách này. Lấy 5% nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc.",
       "layout": "notes"
     },
     {
@@ -146,8 +159,8 @@
           "Có thu nhập khác"
         ]
       },
-      "voice": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
-      "sub": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới 15,5 triệu. Có 1 người phụ thuộc, dưới 21,7 triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
+      "voice": "Còn ai chưa phải nộp thuế? Độc thân, thu nhập dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
+      "sub": "Còn ai chưa phải nộp thuế? Độc thân, thu nhập dưới 15,5 triệu. Có 1 người phụ thuộc, dưới 21,7 triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước.",
       "layout": "scale"
     },
     {
@@ -157,11 +170,15 @@
         "Dưới 15,5 triệu/tháng",
         "chưa phải nộp thuế!"
       ],
-      "cta": "Bạn có thấy lương thực nhận tăng chưa? Bình luận nhé!",
+      "cta": "Lương thực nhận của bạn nhích lên chưa?",
       "pad": 0.6,
-      "voice": "Tóm lại là, thu nhập dưới mười lăm phẩy năm triệu một tháng thì chưa phải nộp thuế. Bạn có thấy lương thực nhận tăng chưa? Bình luận cho mình biết nhé!",
-      "sub": "Tóm lại là, thu nhập dưới 15,5 triệu một tháng thì chưa phải nộp thuế. Bạn có thấy lương thực nhận tăng chưa? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, thu nhập dưới mười lăm phẩy năm triệu một tháng thì chưa phải nộp thuế. Lương thực nhận của bạn đã nhích lên chưa? Kể mình nghe nhé!",
+      "sub": "Tóm lại là, thu nhập dưới 15,5 triệu một tháng thì chưa phải nộp thuế. Lương thực nhận của bạn đã nhích lên chưa? Kể mình nghe nhé!"
     }
   ],
-  "id": "thue-tncn-moi"
+  "id": "thue-tncn-moi",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

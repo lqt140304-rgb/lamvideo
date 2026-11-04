@@ -244,3 +244,9 @@ Mỗi video nên dùng bộ bố cục khác nhau. Có hai cách:
 | `ladder` | các bậc tăng dần | `rungs[{label,value,at}]` |
 
 Đổi cảnh nào mà lời đọc (`voice`) đổi thì cần đọc lại giọng (`npm run make` tự làm).
+
+## Kinh nghiệm và kiểm tra kịch bản
+
+- `npm run lint` — bắt câu lặp giữa các video, `say`/`cue` sai, hook quá dài, quá nhiều ảnh thật.
+- Đọc [docs/KINH-NGHIEM.md](docs/KINH-NGHIEM.md) trước khi làm video mới.
+- Trường mới trong cảnh: `cue` (cụm từ chốt ý của hook), `cam` (in/out/drift/punch/none), `transition` (wipe/iris/bar/flash/none).

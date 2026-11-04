@@ -604,7 +604,6 @@ export const HookVariant: React.FC<{ scene: HookData; frames: number }> = ({ sce
   const lines = scene.headline;
 
   if (L === "number") {
-    const rot = frame * 0.6;
     return (
       <AbsoluteFill>
         <div style={{ position: "absolute", top: 300, left: 60, right: 60, textAlign: "center" }}>
@@ -618,11 +617,7 @@ export const HookVariant: React.FC<{ scene: HookData; frames: number }> = ({ sce
           })}
         </div>
         <Stage>
-          <g transform={`translate(540 960) rotate(${rot})`} opacity={Math.min(1, stampP)}>
-            {Array.from({ length: 16 }, (_, i) => (
-              <path key={i} d="M-26 -330 L0 -520 L26 -330 Z" fill={i % 2 ? color.yellow : "#FFE08A"} transform={`rotate(${(i * 360) / 16})`} />
-            ))}
-          </g>
+          <circle cx={558} cy={978} r={300 * Math.min(1.05, stampP)} fill={ink} />
           <circle cx={540} cy={960} r={300 * Math.min(1.05, stampP)} fill={color.white} stroke={ink} strokeWidth={10} filter="url(#boil)" />
           <Mascot pose="shocked" x={900} y={1360} scale={0.6} enter={10} />
         </Stage>

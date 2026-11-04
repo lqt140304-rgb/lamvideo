@@ -17,7 +17,8 @@
       ],
       "stamp": "350 TRIỆU",
       "art": "piggy",
-      "voice": "Gửi tiết kiệm ngân hàng, lỡ có chuyện thì được trả lại bao nhiêu? Khoan đã! Tóm lại là thế này."
+      "voice": "Gửi tiết kiệm ngân hàng, lỡ ngân hàng gặp chuyện thì được trả tối đa bao nhiêu? Con số này vừa tăng gần gấp ba.",
+      "cue": "vừa tăng"
     },
     {
       "type": "ladder",
@@ -35,8 +36,8 @@
           "at": 0.5
         }
       ],
-      "voice": "Trước đây, bảo hiểm tiền gửi trả tối đa một trăm hai mươi lăm triệu đồng mỗi người, tại mỗi ngân hàng. Từ ngày mười ba tháng bảy năm hai không hai sáu, thông tư mới có hiệu lực. Mức trả tối đa nâng lên ba trăm năm mươi triệu, tính cả gốc lẫn lãi.",
-      "sub": "Trước đây, bảo hiểm tiền gửi trả tối đa 125 triệu đồng mỗi người, tại mỗi ngân hàng. Từ ngày 13/7/2026, thông tư mới có hiệu lực. Mức trả tối đa nâng lên 350 triệu, tính cả gốc lẫn lãi."
+      "voice": "Trước đây, bảo hiểm tiền gửi trả tối đa một trăm hai mươi lăm triệu đồng mỗi người, tại mỗi ngân hàng. Từ ngày mười ba tháng bảy năm hai không hai sáu, thông tư bắt đầu được áp dụng. Mức trả tối đa nâng lên ba trăm năm mươi triệu, tính cả gốc lẫn lãi.",
+      "sub": "Trước đây, bảo hiểm tiền gửi trả tối đa 125 triệu đồng mỗi người, tại mỗi ngân hàng. Từ ngày 13/7/2026, thông tư bắt đầu được áp dụng. Mức trả tối đa nâng lên 350 triệu, tính cả gốc lẫn lãi."
     },
     {
       "type": "compare",
@@ -86,7 +87,23 @@
       ],
       "voice": "Trước khi gửi, nên so lãi ít nhất ba ngân hàng. Hỏi rõ rút trước hạn thì lãi còn bao nhiêu. Và nếu số tiền lớn hơn ba trăm năm mươi triệu, có thể chia ra nhiều ngân hàng.",
       "sub": "Trước khi gửi, nên so lãi ít nhất 3 ngân hàng. Hỏi rõ rút trước hạn thì lãi còn bao nhiêu. Và nếu số tiền lớn hơn 350 triệu, có thể chia ra nhiều ngân hàng.",
-      "layout": "clipboard"
+      "layout": "clipboard",
+      "broll": {
+        "file": "ngan-hang.jpg",
+        "say": "so lãi ít nhất ba ngân hàng",
+        "hold": 2.0,
+        "query": "bank branch Vietnam Vietcombank",
+        "must": [
+          "bank",
+          "vietcombank",
+          "ngan hang",
+          "bidv",
+          "agribank"
+        ],
+        "caption": "Chi nhánh ngân hàng",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "list",
@@ -103,7 +120,7 @@
         0.42,
         0.72
       ],
-      "voice": "Còn những chỗ dễ nhầm. Ưu đãi chỉ vài ngày, đừng tưởng là lãi thường xuyên. Ký hợp đồng bảo hiểm mà tưởng là gửi tiết kiệm. Và chỉ nhìn lãi mà quên xem kỳ hạn.",
+      "voice": "Chỗ này nhiều người vấp. Ưu đãi chỉ vài ngày, đừng tưởng là lãi thường xuyên. Ký hợp đồng bảo hiểm mà tưởng là gửi tiết kiệm. Và chỉ nhìn lãi mà quên xem kỳ hạn.",
       "layout": "tiles"
     },
     {
@@ -124,8 +141,8 @@
           "Gửi một chỗ quá 350 triệu"
         ]
       },
-      "voice": "Vậy gửi tiết kiệm hợp với ai? Nếu bạn cần giữ tiền an toàn, và giữ đủ kỳ hạn, thì hợp. Còn nếu có thể phải rút gấp, hoặc gửi một chỗ quá ba trăm năm mươi triệu, thì nên cân nhắc.",
-      "sub": "Vậy gửi tiết kiệm hợp với ai? Nếu bạn cần giữ tiền an toàn, và giữ đủ kỳ hạn, thì hợp. Còn nếu có thể phải rút gấp, hoặc gửi một chỗ quá 350 triệu, thì nên cân nhắc.",
+      "voice": "Gửi tiết kiệm có hợp với bạn không? Nếu bạn cần giữ tiền an toàn, và giữ đủ kỳ hạn, thì hợp. Còn nếu có thể phải rút gấp, hoặc gửi một chỗ quá ba trăm năm mươi triệu, thì nên cân nhắc.",
+      "sub": "Gửi tiết kiệm có hợp với bạn không? Nếu bạn cần giữ tiền an toàn, và giữ đủ kỳ hạn, thì hợp. Còn nếu có thể phải rút gấp, hoặc gửi một chỗ quá 350 triệu, thì nên cân nhắc.",
       "layout": "scale"
     },
     {
@@ -135,11 +152,15 @@
         "Bảo hiểm tiền gửi giờ",
         "tối đa 350 triệu!"
       ],
-      "cta": "Bạn đang gửi kỳ hạn mấy tháng? Bình luận nhé!",
+      "cta": "Bạn gửi kỳ hạn mấy tháng? Cho mình biết nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa ba trăm năm mươi triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Bình luận cho mình biết nhé!",
-      "sub": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa 350 triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa ba trăm năm mươi triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Cho mình biết ở bình luận!",
+      "sub": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa 350 triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Cho mình biết ở bình luận!"
     }
   ],
-  "id": "gui-tiet-kiem"
+  "id": "gui-tiet-kiem",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

@@ -17,8 +17,9 @@
       ],
       "stamp": "HẾT HẠN",
       "art": "idcard",
-      "voice": "Còn giữ cuốn sổ hộ khẩu giấy, đi làm thủ tục thì dùng gì thay? Khoan đã! Tóm lại là thế này.",
-      "layout": "question"
+      "voice": "Nhà bạn còn giữ cuốn sổ hộ khẩu giấy không? Nó đã hết giá trị từ cuối năm hai nghìn không trăm hai mươi hai. Vậy giờ chứng minh nơi ở bằng gì?",
+      "layout": "question",
+      "sub": "Nhà bạn còn giữ cuốn sổ hộ khẩu giấy không? Nó đã hết giá trị từ cuối năm 2022. Vậy giờ chứng minh nơi ở bằng gì?"
     },
     {
       "type": "timeline",
@@ -60,7 +61,22 @@
         0.75
       ],
       "voice": "Giờ chứng minh nơi cư trú bằng thẻ căn cước gắn chip. Hoặc ứng dụng VNeID. Hoặc xin giấy xác nhận thông tin về cư trú.",
-      "layout": "tiles"
+      "layout": "tiles",
+      "broll": {
+        "file": "can-cuoc.jpg",
+        "say": "thẻ căn cước gắn chip",
+        "hold": 2.0,
+        "query": "Vietnam citizen identity card chip CCCD",
+        "must": [
+          "can cuoc",
+          "citizen identity",
+          "cccd",
+          "identity card"
+        ],
+        "caption": "Thẻ căn cước gắn chip",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "compare",
@@ -107,7 +123,7 @@
         0.42,
         0.72
       ],
-      "voice": "Còn những việc không nên làm. Đừng đòi bản sao sổ photo. Đừng quên cập nhật VNeID. Và chưa cần vứt sổ cũ vội vàng.",
+      "voice": "Vài việc nên tránh. Đừng đòi bản sao sổ photo. Đừng quên cập nhật VNeID. Và chưa cần vứt sổ cũ vội vàng.",
       "layout": "notes"
     },
     {
@@ -128,7 +144,7 @@
           "Đã có căn cước chip"
         ]
       },
-      "voice": "Vậy ai cần làm gì? Nếu bạn chưa có VNeID, hoặc chưa có căn cước gắn chip, thì nên làm sớm. Còn đã có rồi thì chưa cần."
+      "voice": "Bạn thuộc nhóm nào dưới đây? Nếu bạn chưa có VNeID, hoặc chưa có căn cước gắn chip, thì nên làm sớm. Còn đã có rồi thì chưa cần."
     },
     {
       "type": "outro",
@@ -137,10 +153,14 @@
         "Giờ nơi cư trú nằm trên",
         "căn cước và VNeID!"
       ],
-      "cta": "Bạn đã dùng VNeID chưa? Bình luận nhé!",
+      "cta": "Lưu lại để lúc làm thủ tục có cái mà xem!",
       "pad": 0.6,
-      "voice": "Tóm lại là, giờ nơi cư trú nằm trên căn cước và VNeID. Bạn đã dùng VNeID chưa? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, giờ nơi cư trú nằm trên căn cước và VNeID. Lưu video này lại, lúc làm thủ tục sẽ cần. Bạn đã dùng VNeID chưa?"
     }
   ],
-  "id": "ho-khau-giay"
+  "id": "ho-khau-giay",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

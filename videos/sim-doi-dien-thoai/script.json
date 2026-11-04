@@ -17,7 +17,8 @@
       ],
       "stamp": "BỊ KHÓA?",
       "art": "lockphone",
-      "voice": "Mới mua điện thoại mới, lắp SIM vào, bỗng không gọi được? Khoan đã! Tóm lại là thế này."
+      "voice": "Đổi sang điện thoại mới, lắp SIM cũ vào, rồi bỗng không gọi được. Lý do nằm ở một bước nhiều người bỏ qua.",
+      "cue": "một bước nhiều người"
     },
     {
       "type": "chat",
@@ -63,7 +64,23 @@
         0.75
       ],
       "voice": "Có ba cách xác thực. Dùng ứng dụng VNeID. Dùng ứng dụng của nhà mạng. Hoặc đến thẳng điểm giao dịch của nhà mạng.",
-      "layout": "tiles"
+      "layout": "tiles",
+      "broll": {
+        "file": "cua-hang-nha-mang.jpg",
+        "say": "điểm giao dịch của nhà mạng",
+        "hold": 2.0,
+        "query": "Viettel store Vietnam mobile phone shop",
+        "must": [
+          "viettel",
+          "vinaphone",
+          "mobifone",
+          "store",
+          "shop"
+        ],
+        "caption": "Điểm giao dịch nhà mạng",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "compare",
@@ -110,7 +127,7 @@
         0.42,
         0.72
       ],
-      "voice": "Còn những việc không nên làm. Đừng bấm link lạ nhắn xác thực. Đừng gửi ảnh mặt cho người lạ. Và đừng bỏ qua thông báo từ nhà mạng.",
+      "voice": "Cẩn thận, chuyện này hay bị lợi dụng. Đừng bấm link lạ nhắn xác thực. Đừng gửi ảnh mặt cho người lạ. Và đừng bỏ qua thông báo từ nhà mạng.",
       "layout": "clipboard"
     },
     {
@@ -131,7 +148,7 @@
           "Đã xác thực rồi"
         ]
       },
-      "voice": "Vậy ai cần làm gấp? Nếu bạn vừa đổi điện thoại, hoặc nhận thông báo từ nhà mạng, thì làm ngay. Còn vẫn dùng máy cũ, hoặc đã xác thực rồi, thì chưa cần."
+      "voice": "Ai nên làm ngay hôm nay? Nếu bạn vừa đổi điện thoại, hoặc nhận thông báo từ nhà mạng, thì làm ngay. Còn vẫn dùng máy cũ, hoặc đã xác thực rồi, thì chưa cần."
     },
     {
       "type": "outro",
@@ -140,10 +157,14 @@
         "Đổi điện thoại mới",
         "nhớ xác thực lại SIM!"
       ],
-      "cta": "Bạn đã xác thực SIM chưa? Bình luận nhé!",
+      "cta": "Gửi cho người vừa đổi điện thoại nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, đổi điện thoại mới thì nhớ xác thực lại SIM. Bạn đã xác thực chưa? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, đổi điện thoại mới thì nhớ xác thực lại SIM. Gửi video này cho người thân vừa đổi điện thoại nhé!"
     }
   ],
-  "id": "sim-doi-dien-thoai"
+  "id": "sim-doi-dien-thoai",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

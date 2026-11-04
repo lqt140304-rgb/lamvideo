@@ -7,7 +7,7 @@ import { Stage } from "../components/Headline";
 import { Stamp } from "../components/Props";
 import { BigArt, HAS_VEHICLE_PHOTOS, Scooter, Street, Traffic } from "../components/Art";
 import { pop as popAnim } from "../anim";
-import { Burst, ShockLines, Sfx } from "../components/Fx";
+import { Sfx } from "../components/Fx";
 import { introEnd, phraseAt } from "../components/Broll";
 import { FPS } from "../brand";
 import type { HookScene as HookData } from "../types";
@@ -24,7 +24,7 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
   });
   // Dấu "CẤM?" đóng đúng lúc đọc "Khoan đã" (nếu có trong lời đọc), không thì ở 42% cảnh.
   const speech = frames - Math.round((scene.pad ?? 0.35) * FPS);
-  const khoan = phraseAt(scene.voice, "Khoan đã");
+  const khoan = phraseAt(scene.voice, scene.cue ?? "Khoan đã");
   const stampAt = Math.max(14, (khoan !== null ? Math.round(khoan * speech) : Math.round(frames * 0.42)) - intro);
   const stamp = scene.stamp ? interpolate(frame, [stampAt, stampAt + 7], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : 0;
   const shake = frame >= stampAt && frame < stampAt + 8 ? Math.sin(frame * 3) * 10 : 0;
@@ -73,19 +73,15 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
               <Street baseY={1090} roadH={250} />
               <Traffic y={1245} count={3} speed={6} scale={0.4} fromRight />
             </g>
-            <ShockLines x={850} y={930} at={intro + stampAt} r={430} />
             <Scooter kind="petrol" x={drive} y={1190} scale={1.05} moving={frame < 34 || frame > stampAt + 8} rider={!HAS_VEHICLE_PHOTOS} />
             <Stamp text={scene.stamp ?? ""} x={330} y={900} progress={stamp} />
-            {scene.stamp ? <Burst x={330} y={900} at={intro + stampAt + 2} r={190} tint={color.red} rays={12} /> : null}
           </>
         ) : (
           <>
-            <ShockLines x={850} y={930} at={intro + stampAt} r={430} />
             <g opacity={Math.min(1, popAnim(frame, 6) * 1.5)}>
               <BigArt name={art} x={330} y={980} scale={0.62 + 0.38 * Math.min(1, popAnim(frame, 6))} />
             </g>
             <Stamp text={scene.stamp ?? ""} x={340} y={1180} progress={stamp} />
-            {scene.stamp ? <Burst x={340} y={1180} at={intro + stampAt + 2} r={190} tint={color.red} rays={12} /> : null}
           </>
         )}
         <Mascot pose={frame > stampAt ? "shocked" : "surprised"} changedAt={intro + stampAt} x={850} y={1185} scale={0.98} enter={intro + 8} />

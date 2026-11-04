@@ -17,7 +17,9 @@
       ],
       "stamp": "5 NĂM",
       "art": "scooter",
-      "voice": "Nghe nói xe điện rẻ hơn xe xăng. Nhưng rẻ hơn bao nhiêu sau năm năm? Khoan đã! Tóm lại là thế này."
+      "voice": "Ai cũng bảo xe điện rẻ hơn xe xăng. Nhưng sau năm năm, rẻ hơn thật sự được bao nhiêu tiền?",
+      "sub": "Ai cũng bảo xe điện rẻ hơn xe xăng. Nhưng sau 5 năm, rẻ hơn thật sự được bao nhiêu tiền?",
+      "cue": "bao nhiêu tiền"
     },
     {
       "type": "receipt",
@@ -105,7 +107,23 @@
       "footnote": "Ước tính · Giá xăng E10 RON95-III ngày 4/11/2026",
       "voice": "Còn tiền nhiên liệu năm năm, xe xăng tốn khoảng hai mươi tám triệu. Xe điện chỉ khoảng bốn triệu.",
       "sub": "Còn tiền nhiên liệu 5 năm, xe xăng tốn khoảng 28 triệu. Xe điện chỉ khoảng 4 triệu.",
-      "layout": "slider"
+      "layout": "slider",
+      "broll": {
+        "file": "do-xang.jpg",
+        "say": "Còn tiền nhiên liệu",
+        "hold": 2.0,
+        "query": "motorbike refueling gas station Vietnam",
+        "must": [
+          "gas station",
+          "petrol",
+          "xang",
+          "fuel",
+          "petrolimex"
+        ],
+        "caption": "Đổ xăng",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "compare",
@@ -172,7 +190,7 @@
           "Chưa có chỗ sạc"
         ]
       },
-      "voice": "Vậy ai hợp xe điện? Người đi nhiều mỗi ngày, lại có chỗ sạc. Còn ít đi, hay đi xa, hoặc chưa có chỗ sạc thì nên cân nhắc.",
+      "voice": "Hợp hay không còn tùy cách bạn đi. Người đi nhiều mỗi ngày, lại có chỗ sạc. Còn ít đi, hay đi xa, hoặc chưa có chỗ sạc thì nên cân nhắc.",
       "layout": "scale"
     },
     {
@@ -182,10 +200,14 @@
         "Đi nhiều thì xe điện",
         "rẻ hơn rõ rệt!"
       ],
-      "cta": "Bạn đi mỗi tháng bao nhiêu ki lô mét? Bình luận nhé!",
+      "cta": "Một tháng bạn đi bao nhiêu km? Ghi vào bình luận nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, đi nhiều thì xe điện rẻ hơn rõ rệt. Bạn đi mỗi tháng bao nhiêu ki lô mét? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, đi nhiều thì xe điện rẻ hơn rõ rệt. Một tháng bạn đi bao nhiêu ki lô mét? Ghi vào bình luận để mọi người cùng so nhé!"
     }
   ],
-  "id": "xe-dien-5-nam"
+  "id": "xe-dien-5-nam",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }

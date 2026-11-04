@@ -15,9 +15,9 @@
         "BÁN NGAY",
         "LỖ LIỀN?"
       ],
-      "stamp": "3 TRIỆU",
+      "stamp": "VÀI TRIỆU",
       "art": "ring",
-      "voice": "Vừa mua một lượng vàng, quay lại bán ngay thì mất mấy triệu? Khoan đã! Tóm lại là thế này.",
+      "voice": "Mua một lượng vàng rồi bán lại ngay, mỗi lượng mất vài triệu đồng. Vì sao lại như vậy?",
       "layout": "number"
     },
     {
@@ -71,7 +71,21 @@
       ],
       "footnote": "Giá ngày 29/10/2026 theo Báo Văn hóa; giá đổi hằng ngày",
       "voice": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra một trăm bốn mươi hai phẩy bảy triệu, chênh mua bán ba triệu. Nhẫn bán ra một trăm ba mươi chín phẩy hai triệu, nhưng chênh mua bán tới bốn triệu.",
-      "sub": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra 142,7 triệu, chênh mua bán 3 triệu. Nhẫn bán ra 139,2 triệu, nhưng chênh mua bán tới 4 triệu."
+      "sub": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra 142,7 triệu, chênh mua bán 3 triệu. Nhẫn bán ra 139,2 triệu, nhưng chênh mua bán tới 4 triệu.",
+      "broll": {
+        "file": "sjc.jpg",
+        "say": "Cùng ngày tại SJC",
+        "hold": 2.0,
+        "query": "SJC gold bar Vietnam",
+        "must": [
+          "sjc",
+          "gold bar",
+          "gold"
+        ],
+        "caption": "Vàng miếng SJC",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "list",
@@ -88,7 +102,7 @@
         0.45,
         0.75
       ],
-      "voice": "Vậy cần xem kỹ gì? Nhìn cả giá mua lại, không chỉ giá bán. Đối chiếu đúng tên sản phẩm, đúng tiệm, vì mỗi nơi một giá. Và giữ hóa đơn khi mua.",
+      "voice": "Mua vàng thì cần nhìn kỹ những gì? Nhìn cả giá mua lại, không chỉ giá bán. Đối chiếu đúng tên sản phẩm, đúng tiệm, vì mỗi nơi một giá. Và giữ hóa đơn khi mua.",
       "layout": "clipboard"
     },
     {
@@ -106,8 +120,23 @@
         0.42,
         0.72
       ],
-      "voice": "Những chỗ dễ nhầm. Thấy giá thế giới rồi tưởng là giá tiệm. Tưởng tiệm nào cũng mua lại cùng một giá. Và tưởng mua hôm nay, mai bán là có lãi.",
-      "layout": "tiles"
+      "voice": "Đọc bảng giá cũng dễ đọc nhầm. Thấy giá thế giới rồi tưởng là giá tiệm. Tưởng tiệm nào cũng mua lại cùng một giá. Và tưởng mua hôm nay, mai bán là có lãi.",
+      "layout": "tiles",
+      "broll": {
+        "file": "tiem-vang.jpg",
+        "say": "giá tiệm",
+        "hold": 2.0,
+        "query": "gold jewelry shop Vietnam",
+        "must": [
+          "gold shop",
+          "jewelry",
+          "tiem vang",
+          "gold"
+        ],
+        "caption": "Tiệm vàng",
+        "style": "card",
+        "y": 560
+      }
     },
     {
       "type": "verdict",
@@ -136,10 +165,14 @@
         "Xem giá mua lại",
         "trước khi mua vàng!"
       ],
-      "cta": "Bạn hay mua vàng nhẫn hay vàng miếng? Bình luận nhé!",
+      "cta": "Vàng nhẫn hay vàng miếng? Chọn một bên nhé!",
       "pad": 0.6,
-      "voice": "Tóm lại là, xem giá mua lại trước khi mua vàng. Bạn hay mua vàng nhẫn hay vàng miếng? Bình luận cho mình biết nhé!"
+      "voice": "Tóm lại là, xem giá mua lại trước khi mua vàng. Bạn hay mua vàng nhẫn hay vàng miếng? Chọn một bên ở bình luận nào!"
     }
   ],
-  "id": "vang-nhan-vang-mieng"
+  "id": "vang-nhan-vang-mieng",
+  "images": {
+    "since": "2023-01-01",
+    "prefer": "relevant"
+  }
 }
