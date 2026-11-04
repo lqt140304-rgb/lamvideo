@@ -418,7 +418,7 @@ export const Icon: React.FC<{ name: IconName; size?: number; fg?: string }> = ({
 
 export type ArtName =
   | "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank"
-  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart";
+  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart" | "racket";
 
 /** Hình vẽ lớn (khoảng 400×400, gốc ở giữa). `t` là thời gian hoạt họa theo khung hình. */
 export const BigArt: React.FC<{ name: ArtName; x: number; y: number; scale?: number; tint?: string }> = ({
@@ -744,6 +744,28 @@ export const BigArt: React.FC<{ name: ArtName; x: number; y: number; scale?: num
             <circle r="44" fill={A} stroke={ink} strokeWidth="7" />
             <text x="0" y="16" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="44" fill={ink}>%</text>
           </g>
+        </g>
+      )}
+      {name === "racket" && (
+        <g>
+          <g transform="rotate(-28 0 40)">
+            <ellipse cx="0" cy="-40" rx="108" ry="136" fill="none" stroke={ink} strokeWidth="26" />
+            <ellipse cx="0" cy="-40" rx="108" ry="136" fill="none" stroke={A} strokeWidth="14" />
+            {[-72, -36, 0, 36, 72].map((xx) => <path key={"v" + xx} d={`M${xx} -150 V70`} stroke="#8E8A84" strokeWidth="4" opacity="0.8" />)}
+            {[-110, -70, -30, 10, 50].map((yy) => <path key={"h" + yy} d={`M-92 ${yy} H92`} stroke="#8E8A84" strokeWidth="4" opacity="0.8" />)}
+            <rect x="-10" y="92" width="20" height="70" fill={ink} />
+            <rect x="-18" y="150" width="36" height="76" rx="12" fill={color.red} stroke={ink} strokeWidth="7" />
+          </g>
+          {(() => {
+            const tt = (frame % 50) / 50;
+            return (
+              <g transform={`translate(${70 + tt * 70} ${-150 - Math.sin(tt * Math.PI) * 60 + tt * 40}) rotate(${-35 + tt * 60})`}>
+                <path d="M-18 -4 L-34 -52 H34 L18 -4 Z" fill={color.white} stroke={ink} strokeWidth="6" />
+                <path d="M-8 -4 L-12 -52 M8 -4 L12 -52" stroke={ink} strokeWidth="3" />
+                <circle cx="0" cy="6" r="18" fill="#F2D6A2" stroke={ink} strokeWidth="6" />
+              </g>
+            );
+          })()}
         </g>
       )}
     </g>

@@ -66,7 +66,7 @@ type SceneBase = {
 
 export type ArtName =
   | "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank"
-  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart";
+  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart" | "racket";
 
 export type HookScene = SceneBase & {
   type: "hook";

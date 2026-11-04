@@ -1,0 +1,182 @@
+{
+  "id": "cau-long-viet-nam",
+  "title": "Vì sao cầu lông ở Việt Nam vẫn hút người chơi?",
+  "topic": "Phong trào cầu lông Việt Nam",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "CẦU LÔNG",
+        "HẢI PHÒNG",
+        "8/2026"
+      ],
+      "stamp": "630",
+      "art": "racket",
+      "cue": "sáu trăm ba mươi tay vợt",
+      "voice": "Một giải cầu lông thiếu niên ở Hải Phòng có tới sáu trăm ba mươi tay vợt. Vì sao môn thể thao quen thuộc này vẫn thu hút người chơi ở Việt Nam, giữa lúc pickleball được chú ý?",
+      "sub": "Một giải cầu lông thiếu niên ở Hải Phòng có tới 630 tay vợt. Vì sao môn thể thao quen thuộc này vẫn thu hút người chơi ở Việt Nam, giữa lúc pickleball được chú ý?"
+    },
+    {
+      "type": "stat",
+      "headline": "Giải thiếu niên, nhi đồng",
+      "value": "630",
+      "unit": "tay vợt",
+      "ring": 0.7,
+      "pose": "think",
+      "chips": [
+        {
+          "text": "Hải Phòng · 8/2026",
+          "at": 0.05
+        },
+        {
+          "text": "Từ 59 xã, phường",
+          "at": 0.32
+        },
+        {
+          "text": "Chỉ là quy mô một giải",
+          "at": 0.62
+        }
+      ],
+      "voice": "Đó là giải thiếu niên, nhi đồng tháng tám năm hai không hai sáu, với tay vợt từ năm mươi chín xã, phường. Sáu trăm ba mươi chỉ là quy mô một giải, chưa phải số người chơi cả thành phố.",
+      "sub": "Đó là giải thiếu niên, nhi đồng tháng 8 năm 2026, với tay vợt từ 59 xã, phường. 630 chỉ là quy mô một giải, chưa phải số người chơi cả thành phố."
+    },
+    {
+      "type": "steps",
+      "headline": "Mấy đường vào sân",
+      "steps": [
+        {
+          "title": "Giải trẻ địa phương",
+          "detail": "Như giải ở Hải Phòng",
+          "at": 0.1
+        },
+        {
+          "title": "Bạn bè rủ nhau",
+          "detail": "Chơi cùng nhóm quen",
+          "at": 0.4
+        },
+        {
+          "title": "Sân thuê gần nhà",
+          "detail": "Hẹn giờ là có chỗ",
+          "at": 0.7
+        }
+      ],
+      "voice": "Vậy người ta bước vào cầu lông bằng đường nào? Có thể từ giải trẻ địa phương, như ở Hải Phòng. Có thể bạn bè rủ nhau. Hoặc thuê sân gần nhà, hẹn giờ là có chỗ chơi.",
+      "sub": "Vậy người ta bước vào cầu lông bằng đường nào? Có thể từ giải trẻ địa phương, như ở Hải Phòng. Có thể bạn bè rủ nhau. Hoặc thuê sân gần nhà, hẹn giờ là có chỗ chơi."
+    },
+    {
+      "type": "timeline",
+      "headline": "Một buổi tối ở sân",
+      "art": "none",
+      "steps": [
+        {
+          "when": "Tan làm",
+          "what": "Nhắn nhóm hẹn ra sân",
+          "at": 0.1
+        },
+        {
+          "when": "18–22 giờ",
+          "what": "Giờ đông nhất, theo một HLV ở TP.HCM",
+          "at": 0.4
+        },
+        {
+          "when": "Sau dịch",
+          "what": "Có người mở sân trên mặt bằng kho được trả lại",
+          "at": 0.72
+        }
+      ],
+      "voice": "Sau giờ làm, nhiều người hẹn nhau ra sân. Một huấn luyện viên ở Thành phố Hồ Chí Minh nói với báo Thanh Niên, khung giờ mười tám đến hai mươi hai giờ thường đông nhất. Chị còn kể, sau dịch, nhiều mặt bằng kho được trả lại nên có người mở sân.",
+      "sub": "Sau giờ làm, nhiều người hẹn nhau ra sân. Một huấn luyện viên ở TP.HCM nói với báo Thanh Niên, khung giờ 18 đến 22 giờ thường đông nhất. Chị còn kể, sau dịch, nhiều mặt bằng kho được trả lại nên có người mở sân."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Vì sao họ quay lại",
+      "layout": "tiles",
+      "pose": "excited",
+      "items": [
+        "Nhóm vãng lai gần nhà",
+        "Cần luyện thể lực, kỹ thuật",
+        "Muốn đánh tốt hơn mỗi ngày"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Còn chuyện quay lại sân? Một người chơi ở Thành phố Hồ Chí Minh hay đến các nhóm vãng lai gần nhà để giao lưu. Môn này cần thể lực, kỹ thuật, chiến thuật, nên nhiều người muốn tập để đánh tốt hơn.",
+      "sub": "Còn chuyện quay lại sân? Một người chơi ở TP.HCM hay đến các nhóm vãng lai gần nhà để giao lưu. Môn này cần thể lực, kỹ thuật, chiến thuật, nên nhiều người muốn tập để đánh tốt hơn."
+    },
+    {
+      "type": "compare",
+      "headline": "Cạnh tranh mặt bằng",
+      "layout": "slider",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Sân tennis trong nhà",
+          "kind": "generic",
+          "art": "house",
+          "tint": "blue",
+          "amountText": "1 sân",
+          "unit": "hiện có",
+          "note": "Dự tính của một chủ sân, 2024",
+          "at": 0.15
+        },
+        {
+          "label": "Sân pickleball",
+          "kind": "generic",
+          "art": "chart",
+          "tint": "yellow",
+          "amountText": "3 sân",
+          "unit": "chủ sân đang tính đổi",
+          "note": "Mới là dự tính, chưa phải đã làm",
+          "at": 0.5
+        }
+      ],
+      "footnote": "VTC News, 15/11/2024. Một trường hợp, không đại diện cả nước.",
+      "voice": "Các môn còn cạnh tranh mặt bằng. Năm hai không hai bốn, báo VTC kể một chủ sân tennis đang tính đổi một sân thành ba sân pickleball. Mới là dự tính của một người, không nói lên tennis cả nước.",
+      "sub": "Các môn còn cạnh tranh mặt bằng. Năm 2024, báo VTC kể một chủ sân tennis đang tính đổi một sân thành 3 sân pickleball. Mới là dự tính của một người, không nói lên tennis cả nước."
+    },
+    {
+      "type": "myth",
+      "headline": "Đừng hiểu nhầm",
+      "pairs": [
+        {
+          "myth": "Giải đông = người chơi tăng",
+          "fact": "Chỉ cho biết quy mô một giải",
+          "at": 0.1
+        },
+        {
+          "myth": "Pickleball hút vốn = cầu lông thua",
+          "fact": "Chưa đủ số liệu cả nước",
+          "at": 0.42
+        },
+        {
+          "myth": "Sân đông buổi tối = kín cả ngày",
+          "fact": "Đông ở giờ thuận tiện",
+          "at": 0.74
+        }
+      ],
+      "voice": "Có ba chỗ dễ nhầm. Giải đông chỉ cho biết quy mô một giải, chưa nói người chơi cả nước tăng bao nhiêu. Pickleball hút đầu tư, chưa chứng minh cầu lông bị thay thế. Và sân đông buổi tối, chưa chắc kín cả ngày.",
+      "sub": "Có 3 chỗ dễ nhầm. Giải đông chỉ cho biết quy mô một giải, chưa nói người chơi cả nước tăng bao nhiêu. Pickleball hút đầu tư, chưa chứng minh cầu lông bị thay thế. Và sân đông buổi tối, chưa chắc kín cả ngày."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Sân gần, nhóm quen",
+        "có thể giữ người chơi!"
+      ],
+      "cta": "Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?",
+      "pad": 0.6,
+      "voice": "Tóm lại là, nơi chơi gần nhà cùng một nhóm người quen có thể giúp cầu lông giữ chân người chơi. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn? Kể mình nghe nhé!",
+      "sub": "Tóm lại là, nơi chơi gần nhà cùng một nhóm người quen có thể giúp cầu lông giữ chân người chơi. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn? Kể mình nghe nhé!"
+    }
+  ]
+}
