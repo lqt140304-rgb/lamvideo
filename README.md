@@ -90,35 +90,41 @@ Tất cả đều miễn phí và dùng thương mại được.
 
 ### Ảnh thật (B-roll)
 
-Thêm trường `broll` vào cảnh trong `script.json` (một ảnh hoặc mảng nhiều ảnh):
+Mỗi ảnh gắn với một cụm từ trong lời đọc và hiện đúng lúc giọng đọc tới cụm đó:
 
 ```json
-"broll": { "file": "giao-thong-ha-noi.jpg", "query": "Hanoi motorbike traffic",
-           "caption": "Hà Nội sắp cấm xe máy xăng?", "from": 0, "to": 0.36 }
+"broll": [
+  { "file": "cay-xang-bom.jpg", "say": "Giá xăng hiện hơn hai mươi ba nghìn một lít", "hold": 2.2,
+    "query": "Petrolimex gas station Vietnam", "must": ["petrol", "fuel", "gas station"],
+    "caption": "Xăng ~23.000đ/lít" }
+]
 ```
 
 | Trường | Ý nghĩa |
 |---|---|
 | `file` | tên file trong `public/<slug>/img/` |
+| `say` | cụm từ chép nguyên văn từ `voice`; ảnh hiện đúng lúc đọc tới |
+| `hold` | giữ ảnh bao nhiêu giây (mặc định 2.2) |
 | `query` | từ khóa tìm ảnh (tiếng Anh cho kết quả tốt hơn) |
-| `pick` | chọn ảnh thứ mấy trong kết quả (0 = đầu tiên) |
+| `must` | ảnh phải có ít nhất một từ này trong tên/mô tả mới được ưu tiên |
+| `commons` | lấy đích danh một file Wikimedia Commons, ví dụ `"File:Hoan Kiem Lake.jpg"` |
+| `pick` | số thứ tự ảnh đã chọn trong trang chọn ảnh |
 | `caption` | nhãn vàng trên ảnh |
-| `from`, `to` | hiện từ … đến … (phần của cảnh, 0..1) |
 | `style` | `"full"` tràn màn hình (mặc định) hoặc `"card"` khung polaroid |
+| `from`, `to` | (thay cho `say`) hiện từ … đến … theo phần của cảnh, 0..1 |
 | `focus` | điểm giữ khi cắt ảnh, ví dụ `"30% 50%"` |
 | `credit` | ghi nguồn tự viết (khi tự đặt ảnh) |
 
-Tải ảnh:
+Tải ảnh và chọn ảnh:
 
 ```powershell
-npm run images -- xe-dien-ha-noi
+npm run images -- xe-dien-ha-noi            # tải ảnh còn thiếu, tạo trang chọn ảnh
+start public\xe-dien-ha-noi\img\chon-anh.html   # mở trang: mỗi câu thoại kèm ~16 ảnh gợi ý
+npm run images -- xe-dien-ha-noi --pick cay-xang-bom.jpg=3   # lệnh này hiện sẵn khi bấm vào ảnh
+npm run images -- xe-dien-ha-noi --review   # tìm lại gợi ý cho mọi ảnh
 ```
 
-Công cụ tìm trên [Openverse](https://openverse.org) (Wikimedia Commons, Flickr…), chỉ lấy ảnh CC0, Public Domain, CC BY, CC BY-SA, lưu vào `public/<slug>/img/` và ghi nguồn vào `credits.json`. Video tự hiện dòng ghi nguồn trên ảnh; dòng ghi nguồn đầy đủ được in ra để dán vào mô tả video (giấy phép CC BY và CC BY-SA yêu cầu ghi nguồn).
-
-- Không ưng ảnh: xem danh sách `public/<slug>/img/<file>.candidates.txt`, xóa file ảnh, đặt `"pick": 2` (số thứ tự trong danh sách) rồi chạy lại.
-- Tự có ảnh (tự chụp, Pexels, Unsplash…): đặt vào `public/<slug>/img/<file>`, ghi `"credit": "Ảnh: Tên tác giả / Pexels"`, rồi chạy `npm run images` để đăng ký.
-- Chưa tải ảnh thì video vẫn render, chỉ bỏ qua phần ảnh. `npm run make` tự chạy bước này.
+Nguồn: Openverse và Wikimedia Commons, chỉ ảnh CC0, Public Domain, CC BY, CC BY-SA. Video tự hiện dòng ghi nguồn trên ảnh; lệnh in sẵn dòng ghi nguồn đầy đủ để dán vào mô tả video. Tự có ảnh (tự chụp, Pexels, Unsplash…): đặt vào `public/<slug>/img/<file>` và ghi `"credit"`. Chưa có ảnh thì video vẫn render, chỉ bỏ qua ảnh đó.
 
 ### Nhạc nền
 

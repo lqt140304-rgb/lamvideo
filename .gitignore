@@ -7,3 +7,5 @@ __pycache__/
 public/*/voice/*.wav
 # Danh sách ảnh gợi ý do npm run images tạo
 public/*/img/*.candidates.txt
+public/*/img/*.candidates.json
+public/*/img/chon-anh.html

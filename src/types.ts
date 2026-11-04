@@ -16,6 +16,14 @@ export type Broll = {
   credit?: string;
   /** Nhãn vàng trên ảnh. */
   caption?: string;
+  /** Hiện đúng lúc giọng đọc tới cụm từ này (chép nguyên văn từ "voice"). Ưu tiên hơn from/to. */
+  say?: string;
+  /** Giữ ảnh bao nhiêu giây khi dùng `say` (mặc định 2.2). */
+  hold?: number;
+  /** Lấy đích danh một file trên Wikimedia Commons, ví dụ "File:Hoan Kiem Lake.jpg". */
+  commons?: string;
+  /** Ảnh phải chứa ít nhất một từ này trong tên/mô tả (lọc kết quả tìm kiếm). */
+  must?: string[];
   /** Hiện từ … đến … (phần của cảnh, 0..1). */
   from?: number;
   to?: number;

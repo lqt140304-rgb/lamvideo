@@ -1,14 +1,55 @@
 import React from "react";
 import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
-import { color, font } from "../brand";
+import { FPS, color, font } from "../brand";
 import { atFrame, pop } from "../anim";
-import type { Broll as BrollData, ImageCredits } from "../types";
+import type { Broll as BrollData, ImageCredits, Scene } from "../types";
 import { Flash, Sfx } from "./Fx";
 
 /** Danh sách ảnh thật của một cảnh (trường `broll` trong script.json có thể là 1 ảnh hoặc mảng). */
 export const brollsOf = (b: BrollData | BrollData[] | undefined): BrollData[] => (!b ? [] : Array.isArray(b) ? b : [b]);
 
-type Props = { item: BrollData; slug: string; frames: number; credits: ImageCredits };
+const tokens = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFC")
+    .replace(/[.,!?:;"“”()]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+
+/** Vị trí (0..1) của cụm từ trong câu đọc, tính theo số chữ. Không thấy thì trả về null. */
+export const phraseAt = (voice: string, phrase: string): number | null => {
+  const v = tokens(voice);
+  const p = tokens(phrase);
+  if (!p.length) return null;
+  for (let i = 0; i + p.length <= v.length; i++) {
+    if (p.every((w, j) => v[i + j] === w)) return i / v.length;
+  }
+  return null;
+};
+
+/** Khung hình bắt đầu/kết thúc của một ảnh trong cảnh. `say` = hiện đúng lúc giọng đọc tới cụm từ đó. */
+export const brollWindow = (item: BrollData, scene: Scene, frames: number): { start: number; end: number } => {
+  const speech = frames - Math.round((scene.pad ?? 0.35) * FPS);
+  const at = item.say ? phraseAt(scene.voice, item.say) : null;
+  if (at !== null) {
+    const start = Math.max(0, Math.round(at * speech) - 4);
+    const end = item.to !== undefined ? atFrame(item.to, frames) : start + Math.round((item.hold ?? 2.2) * FPS);
+    return { start, end: Math.min(end, frames - 2) };
+  }
+  return { start: atFrame(item.from ?? 0, frames), end: atFrame(item.to ?? 0.4, frames) };
+};
+
+/** Khung hình kết thúc của ảnh cuối cùng bắt đầu từ đầu cảnh (để hoạt hình bắt đầu sau ảnh). */
+export const introEnd = (scene: Scene, frames: number) => {
+  let end = 0;
+  for (const b of brollsOf(scene.broll)) {
+    const w = brollWindow(b, scene, frames);
+    if (w.start <= end + 2) end = Math.max(end, w.end);
+  }
+  return end;
+};
+
+type Props = { item: BrollData; slug: string; frames: number; credits: ImageCredits; scene: Scene };
 
 /**
  * Chèn ảnh thật vào giữa cảnh hoạt hình.
@@ -16,12 +57,11 @@ type Props = { item: BrollData; slug: string; frames: number; credits: ImageCred
  * - style "card": ảnh trong khung polaroid dán băng keo, bật lên giữa cảnh.
  * Ảnh chưa tải (chưa có trong credits.json) thì bỏ qua, video vẫn render bình thường.
  */
-export const Broll: React.FC<Props> = ({ item, slug, frames, credits }) => {
+export const Broll: React.FC<Props> = ({ item, slug, frames, credits, scene }) => {
   const frame = useCurrentFrame();
   const info = credits[item.file];
   if (!info) return null;
-  const start = atFrame(item.from ?? 0, frames);
-  const end = atFrame(item.to ?? 0.4, frames);
+  const { start, end } = brollWindow(item, scene, frames);
   if (end - start < 6) return null;
   const src = staticFile(`${slug}/img/${item.file}`);
   const credit = item.credit ?? info.short;

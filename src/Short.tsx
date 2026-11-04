@@ -83,7 +83,7 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
               <SceneBody scene={scene} frames={t.frames} />
             </SceneShell>
             {brollsOf(scene.broll).map((b, j) => (
-              <Broll key={j} item={b} slug={script.id} frames={t.frames} credits={credits} />
+              <Broll key={j} item={b} slug={script.id} frames={t.frames} credits={credits} scene={scene} />
             ))}
             <Captions text={scene.sub ?? scene.voice} speechFrames={Math.max(1, t.frames - pad)} />
             {t.audio ? <Audio src={staticFile(t.audio)} /> : null}
