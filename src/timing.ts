@@ -46,6 +46,8 @@ export const totalFrames = (timings: SceneTiming[]) =>
 
 /** Ảnh thật đã tải về (do `npm run images` ghi). Chưa có thì trả về rỗng: video bỏ qua phần ảnh. */
 export const loadCredits = async (script: VideoScript): Promise<ImageCredits> => {
+  // Video không dùng ảnh thật thì khỏi tải credits.json (tránh báo 404 vô ích trong console).
+  if (!script.scenes.some((s) => s.broll)) return {};
   try {
     const res = await fetch(staticFile(`${script.id}/img/credits.json`));
     if (!res.ok) return {};
