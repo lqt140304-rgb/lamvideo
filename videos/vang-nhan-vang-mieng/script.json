@@ -71,7 +71,17 @@
       ],
       "footnote": "Giá ngày 29/10/2026 theo Báo Văn hóa; giá đổi hằng ngày",
       "voice": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra một trăm bốn mươi hai phẩy bảy triệu, chênh mua bán ba triệu. Nhẫn bán ra một trăm ba mươi chín phẩy hai triệu, nhưng chênh mua bán tới bốn triệu.",
-      "sub": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra 142,7 triệu, chênh mua bán 3 triệu. Nhẫn bán ra 139,2 triệu, nhưng chênh mua bán tới 4 triệu."
+      "sub": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra 142,7 triệu, chênh mua bán 3 triệu. Nhẫn bán ra 139,2 triệu, nhưng chênh mua bán tới 4 triệu.",
+      "broll": {
+        "file": "vang-mieng.jpg",
+        "say": "Cùng ngày tại SJC",
+        "hold": 2.0,
+        "caption": "Vàng miếng",
+        "style": "card",
+        "y": 560,
+        "url": "https://images.pexels.com/photos/29336321/pexels-photo-29336321.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "credit": "Ảnh: Sergei Starostin · Pexels License / Pexels"
+      }
     },
     {
       "type": "list",

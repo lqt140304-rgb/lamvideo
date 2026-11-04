@@ -81,7 +81,17 @@
       ],
       "voice": "Được trả năm mươi phần trăm khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
       "sub": "Được trả 50% khi khám ở bệnh viện trước đây là tuyến tỉnh hoặc trung ương. Bệnh viện cấp chuyên sâu. Hoặc cơ sở cấp cơ bản đạt đủ điểm đánh giá.",
-      "layout": "tiles"
+      "layout": "tiles",
+      "broll": {
+        "file": "benh-vien.jpg",
+        "say": "Bệnh viện cấp chuyên sâu",
+        "hold": 2.0,
+        "caption": "Bệnh viện",
+        "style": "card",
+        "y": 560,
+        "url": "https://images.pexels.com/photos/36595248/pexels-photo-36595248.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "credit": "Ảnh: Juan Moccagatta · Pexels License / Pexels"
+      }
     },
     {
       "type": "list",

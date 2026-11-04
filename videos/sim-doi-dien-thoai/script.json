@@ -64,7 +64,17 @@
         0.75
       ],
       "voice": "Có ba cách xác thực. Dùng ứng dụng VNeID. Dùng ứng dụng của nhà mạng. Hoặc đến thẳng điểm giao dịch của nhà mạng.",
-      "layout": "tiles"
+      "layout": "tiles",
+      "broll": {
+        "file": "xac-thuc-dien-thoai.jpg",
+        "say": "Dùng ứng dụng của nhà mạng",
+        "hold": 2.0,
+        "caption": "Xác thực trên điện thoại",
+        "style": "card",
+        "y": 560,
+        "url": "https://images.pexels.com/photos/20781838/pexels-photo-20781838.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "credit": "Ảnh: Jacob · Pexels License / Pexels"
+      }
     },
     {
       "type": "compare",

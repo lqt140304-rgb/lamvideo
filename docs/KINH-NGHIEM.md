@@ -30,3 +30,8 @@ Cập nhật sau mỗi lượt làm. Chạy `npm run lint` trước khi `npm run
 - Tra nguồn → `script.json` + `sources.md` → `npm run lint` → xem ảnh chụp từng cảnh → `npm run make -- <slug>` → nghe lại cách đọc (VNeID, SJC, tên riêng, số).
 - Cảnh nào đổi lời đọc thì `make` đọc lại giọng; bản render cũ không có thay đổi mới, nhớ `git pull` rồi render lại.
 - Đăng: ghi nhãn nội dung có AI hỗ trợ, hiện nguồn ảnh, làm mới số liệu theo ngày.
+
+## Tìm ảnh bằng trình duyệt (đã chạy ổn)
+- Wikimedia Commons: vào commons.wikimedia.org rồi gọi API bằng `fetch` trong trang, lọc giấy phép (CC0/PD/CC BY/CC BY-SA) và ngày chụp ≥ 2023. Link dùng: `https://commons.wikimedia.org/wiki/Special:FilePath/<tên file>?width=1600`.
+- Pexels: tìm bằng `/search/<từ khóa>/?order_by=latest`, ID ảnh ≥ ~14.000.000 là ảnh tải lên từ 2023; đọc JSON-LD trang ảnh để lấy tác giả và ngày. Link dùng: `https://images.pexels.com/photos/<id>/pexels-photo-<id>.jpeg?auto=compress&cs=tinysrgb&w=1600`. Caption không nêu địa danh nếu ảnh không phải chụp ở Việt Nam.
+- Cảnh nào không có ảnh đạt thì bỏ ảnh (ví dụ thẻ căn cước Việt Nam, thuế TNCN): không dùng ảnh nước khác gây hiểu nhầm.

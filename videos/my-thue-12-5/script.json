@@ -91,7 +91,17 @@
         0.7
       ],
       "voice": "Ngành chịu tác động rõ nhất là giày dép và dệt may. Điện thoại và linh kiện cũng có thể bị ảnh hưởng.",
-      "layout": "tiles"
+      "layout": "tiles",
+      "broll": {
+        "file": "det-may.jpg",
+        "say": "giày dép và dệt may",
+        "hold": 2.0,
+        "caption": "Xưởng dệt may",
+        "style": "card",
+        "y": 560,
+        "url": "https://images.pexels.com/photos/31199588/pexels-photo-31199588.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "credit": "Ảnh: EqualStock IN · Pexels License / Pexels"
+      }
     },
     {
       "type": "list",
