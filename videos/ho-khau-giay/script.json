@@ -66,7 +66,7 @@
         "file": "can-cuoc.jpg",
         "say": "thẻ căn cước gắn chip",
         "hold": 2.0,
-        "query": "Vietnam citizen identity card chip CCCD",
+        "query": "Vietnam identity card",
         "must": [
           "can cuoc",
           "citizen identity",

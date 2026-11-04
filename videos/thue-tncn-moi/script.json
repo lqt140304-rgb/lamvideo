@@ -47,7 +47,7 @@
         "file": "quoc-hoi.jpg",
         "say": "Luật Thuế thu nhập cá nhân",
         "hold": 2.0,
-        "query": "Vietnam National Assembly building session",
+        "query": "Vietnam National Assembly",
         "must": [
           "national assembly",
           "quoc hoi"

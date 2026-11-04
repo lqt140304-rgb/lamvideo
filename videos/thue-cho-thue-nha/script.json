@@ -97,7 +97,7 @@
         "file": "nha-cho-thue.jpg",
         "say": "Chủ nhà cần nhớ",
         "hold": 2.0,
-        "query": "apartment building for rent Vietnam",
+        "query": "apartment building Vietnam",
         "must": [
           "apartment",
           "rent",

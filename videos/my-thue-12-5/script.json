@@ -96,7 +96,7 @@
         "file": "xuong-may.jpg",
         "say": "giày dép và dệt may",
         "hold": 2.0,
-        "query": "garment factory workers Vietnam",
+        "query": "garment factory Vietnam",
         "must": [
           "garment",
           "factory",

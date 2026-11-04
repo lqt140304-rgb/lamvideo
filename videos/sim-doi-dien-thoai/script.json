@@ -69,7 +69,7 @@
         "file": "cua-hang-nha-mang.jpg",
         "say": "điểm giao dịch của nhà mạng",
         "hold": 2.0,
-        "query": "Viettel store Vietnam mobile phone shop",
+        "query": "Viettel store",
         "must": [
           "viettel",
           "vinaphone",

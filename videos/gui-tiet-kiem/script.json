@@ -92,7 +92,7 @@
         "file": "ngan-hang.jpg",
         "say": "so lãi ít nhất ba ngân hàng",
         "hold": 2.0,
-        "query": "bank branch Vietnam Vietcombank",
+        "query": "Vietcombank branch",
         "must": [
           "bank",
           "vietcombank",

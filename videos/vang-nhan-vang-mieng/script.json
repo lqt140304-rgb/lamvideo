@@ -76,7 +76,7 @@
         "file": "sjc.jpg",
         "say": "Cùng ngày tại SJC",
         "hold": 2.0,
-        "query": "SJC gold bar Vietnam",
+        "query": "SJC gold",
         "must": [
           "sjc",
           "gold bar",
@@ -126,7 +126,7 @@
         "file": "tiem-vang.jpg",
         "say": "giá tiệm",
         "hold": 2.0,
-        "query": "gold jewelry shop Vietnam",
+        "query": "gold shop Vietnam",
         "must": [
           "gold shop",
           "jewelry",

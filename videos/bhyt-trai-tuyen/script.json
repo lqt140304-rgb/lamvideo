@@ -86,7 +86,7 @@
         "file": "benh-vien.jpg",
         "say": "Bệnh viện cấp chuyên sâu",
         "hold": 2.0,
-        "query": "hospital Vietnam Bach Mai",
+        "query": "Bach Mai hospital",
         "must": [
           "hospital",
           "benh vien",

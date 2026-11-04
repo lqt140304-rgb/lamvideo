@@ -155,7 +155,7 @@ const fetchCommonsFile = async (name) => {
 };
 
 /** Xếp hạng theo độ khớp với từ khóa; có `must` thì ảnh phải chứa ít nhất một từ trong đó mới được ưu tiên. */
-const rank = (results, query, must, since, prefer) => {
+const rank = (results, query, must, since, prefer, soft = false) => {
   const words = norm(query).split(/\s+/).filter((w) => w.length > 2);
   const mustN = (must ?? []).map(norm);
   const scored = results.map((r, i) => {
@@ -172,32 +172,46 @@ const rank = (results, query, must, since, prefer) => {
       fresh = 2.5 * Math.max(0, 1 - ageYears / 6); // ảnh trong 6 năm gần đây được cộng điểm, càng mới càng cao
     }
     // có `since` thì BẮT BUỘC biết ngày chụp và ngày đó phải từ mốc trở đi (Openverse không có ngày nên bị loại)
-    const undated = !!since && !r.date;
+    const undated = !!since && !r.date && !soft; // soft: chưa biết ngày chụp thì vẫn nhận (kèm cảnh báo), chỉ loại ảnh chắc chắn cũ
     return { r, ok: ok && !old && !undated, old: old || undated, score: hit + tall + fresh - (unknown ? 0.8 : 0) - i * 0.01 };
   });
   const good = scored.filter((s) => s.ok).sort((a, b) => b.score - a.score);
   const rest = scored.filter((s) => !s.ok).sort((a, b) => b.score - a.score);
-  return { list: [...good, ...rest].map((s) => ({ ...s.r, match: s.ok, old: s.old })), matched: good.length };
+  return { list: [...good, ...rest].map((s) => ({ ...s.r, match: s.ok, old: s.old, unverified: soft && !!since && !s.r.date })), matched: good.length };
 };
 
 const search = async (it) => {
   let results = [];
-  try {
-    results = await searchOpenverse(it.query);
-  } catch (e) {
-    console.warn(`  ${e.message}, dùng Wikimedia Commons…`);
-  }
+  const seen = new Set();
+  const add = (list) => list.forEach((r) => !seen.has(r.landing) && (seen.add(r.landing), results.push(r)));
   const wantNew = !!it.since || it.prefer === "newest";
-  for (const newest of wantNew ? [false, true] : [false]) {
+  const run = async (query) => {
     try {
-      const more = await searchCommons(it.query, newest);
-      const seen = new Set(results.map((r) => r.landing));
-      results = [...results, ...more.filter((r) => !seen.has(r.landing))];
+      add(await searchOpenverse(query));
     } catch (e) {
-      if (!results.length) console.warn(`  Wikimedia Commons lỗi (${e.message})`);
+      console.warn(`  ${e.message}, dùng Wikimedia Commons…`);
+    }
+    for (const newest of wantNew ? [false, true] : [false]) {
+      try {
+        add(await searchCommons(query, newest));
+      } catch (e) {
+        if (!results.length) console.warn(`  Wikimedia Commons lỗi (${e.message})`);
+      }
+    }
+  };
+  // Thử lần lượt: từ khóa đầy đủ (chặt) → nới ngày chụp (ảnh chưa rõ ngày vẫn nhận) → rút gọn từ khóa còn 3 rồi 2 từ.
+  const words = it.query.trim().split(/\s+/);
+  const queries = [it.query, ...[3, 2].filter((n) => words.length > n).map((n) => words.slice(0, n).join(" "))];
+  let best = null;
+  for (const q of queries) {
+    await run(q);
+    for (const soft of [false, true]) {
+      const r = rank(results, q, it.must, it.since, it.prefer, soft);
+      if (r.matched) return soft && it.since ? { ...r, softened: true } : r;
+      best ??= r;
     }
   }
-  return rank(results, it.query, it.must, it.since, it.prefer);
+  return best ?? rank(results, it.query, it.must, it.since, it.prefer);
 };
 
 const download = async (url, dest) => {
@@ -343,7 +357,7 @@ for (const it of items) {
         const size = await download(list[k].url, dest);
         credits[it.file] = creditOf(list[k], it, k);
         console.log(
-          `${tag}: ảnh #${k}${list[k].date ? ` (${list[k].date})` : ""}${list[k].match === false ? (list[k].old ? " (ẢNH CŨ, nên chọn lại)" : " (không đạt yêu cầu, nên chọn lại)") : ""} — ${list[k].title}`,
+          `${tag}: ảnh #${k}${list[k].date ? ` (${list[k].date})` : ""}${list[k].unverified ? " (CHƯA RÕ NGÀY CHỤP: hãy mở chon-anh.html kiểm tra ảnh từ 2023 trở lên)" : ""}${list[k].match === false ? (list[k].old ? " (ẢNH CŨ, nên chọn lại)" : " (không đạt yêu cầu, nên chọn lại)") : ""} — ${list[k].title}`,
         );
         done = true;
       } catch (e) {

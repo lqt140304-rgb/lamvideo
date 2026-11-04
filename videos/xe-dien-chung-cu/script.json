@@ -64,7 +64,7 @@
         "file": "ham-xe.jpg",
         "say": "Hầm xe đông đúc",
         "hold": 2.0,
-        "query": "apartment building basement parking motorbikes Vietnam",
+        "query": "apartment parking motorbike",
         "must": [
           "basement",
           "parking",
@@ -130,7 +130,7 @@
         "file": "tram-sac.jpg",
         "say": "trạm công cộng",
         "hold": 2.0,
-        "query": "electric scooter charging station Vietnam VinFast",
+        "query": "electric scooter charging",
         "must": [
           "charging",
           "sac",

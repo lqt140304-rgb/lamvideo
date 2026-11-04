@@ -112,7 +112,7 @@
         "file": "do-xang.jpg",
         "say": "Còn tiền nhiên liệu",
         "hold": 2.0,
-        "query": "motorbike refueling gas station Vietnam",
+        "query": "gas station motorbike Vietnam",
         "must": [
           "gas station",
           "petrol",
