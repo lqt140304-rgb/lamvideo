@@ -1,32 +1,34 @@
-# Nguồn: Cầu lông Việt Nam (vòng 3, 5/11/2026)
+# Nguồn: Cầu lông Việt Nam (bản dài, 5/11/2026)
 
-Ngày truy cập: 05/11/2026. Claude đã mở lại S1, S2 và đối chiếu câu chữ.
+Claude đã mở lại từng nguồn dưới đây ngày 05/11/2026 và đối chiếu câu chữ (bằng công cụ đọc trang; trang động có thể đổi).
 
-## Dữ kiện còn trong video
-| Điều nói trong video | Nguồn | Đối chiếu / phạm vi |
+## Dữ kiện trong video
+| Điều nói / hiện trên hình | Nguồn | Đối chiếu |
 |---|---|---|
-| Giải cầu lông thiếu niên, nhi đồng Hải Phòng, tháng 8/2026, 630 tay vợt | S1 Sở VHTTDL Hải Phòng, 14/08/2026 | Nguyên văn: "Giải năm nay có 630 tay vợt lứa Thiếu niên, Nhi đồng của 59 xã, phường tranh tài". Chỉ là số tay vợt của một giải. Không nói 630 em mới bắt đầu chơi, cũng không nói giải là nguyên nhân khiến các em chơi |
-| Khung 18–22 giờ thường đông khách nhất | S2 Thanh Niên, Thảo Phương, 22/05/2026 | Lời chị Trần Ngọc Tuyết Sang, giáo viên GDTC kiêm HLV cầu lông ở TP.HCM, người cũng mở sân riêng. Là lời một người, không phải khảo sát |
-| Người chơi hay đến nhóm vãng lai gần nhà để giao lưu | S2 | Đỗ Phương Anh, 25 tuổi, TP.HCM. Định tính, một người |
-| Môn cần thể lực, kỹ thuật, chiến thuật nên muốn tập thêm để tiến bộ | S2 | Cùng nhân vật. Không nâng thành nghiên cứu |
+| Giải cầu lông thiếu niên, nhi đồng Hải Phòng, 8/2026, gần 630 VĐV thuộc 59 đoàn | S1 Sở VHTTDL Hải Phòng 14/8 (khai mạc: "630 tay vợt ... của 59 xã, phường") và S2 18/8 (bế mạc: "gần 630 vận động viên thuộc 59 đoàn") | Có. Chỉ là quy mô một giải. Video dùng "gần 630" cho khớp bài bế mạc |
+| Phường phối hợp CLB, giáo viên, HLV để lựa chọn, tập đội dự giải | S3 Phường Lê Thanh Nghị, 18/8/2026 | Có: "đã phối hợp với các câu lạc bộ cầu lông trên địa bàn và đội ngũ giáo viên, huấn luyện viên chuyên môn". Bài không nêu số VĐV của phường |
+| ĐHQGHN: 12 CLB thể thao cho sinh viên, có cầu lông | S4 ĐHQGHN, 10/9/2026 | Có. 12 là tổng CLB nhiều môn, không phải 12 CLB cầu lông. Lịch chủ yếu 17h30–19h00, kế hoạch 1/10/2026–31/5/2027 (không dùng trong lời đọc) |
+| UEF: giải 27/9/2026 cho sinh viên và cựu sinh viên, 70 VĐV | S5 UEF, 29/9/2026 | Có |
+| 18–22 giờ thường đông khách nhất (HLV kiêm chủ sân, TP.HCM) | S6 Thanh Niên, Thảo Phương, 22/5/2026 | Có (đã đối chiếu từ vòng trước) |
+| Người chơi hay ghé nhóm vãng lai gần nhà; môn cần thể lực, kỹ thuật, chiến thuật nên muốn tập thêm | S6 | Có. Lời kể một người chơi, không phải khảo sát |
+| Một buổi chơi công khai: tối thứ năm 5/11/2026, 18–20h, phí 80K, mang vợt riêng, giày sạch, đến trước 15 phút, mọi trình độ | S8 Pickcourt | Có (trang động, đọc 5/11/2026). Chưa rõ phí 80K bao gồm gì; không đảm bảo buổi đã diễn ra |
+| Tiền cầu riêng khoảng 60–90 nghìn/hiệp (nhóm 8 người tập 3 buổi/tuần, Hà Nội); một quả hỏng gần 30 nghìn; có người thử/cân nhắc pickleball | S10 Dân trí, 6/1/2026 | Có. Lời kể hai người chơi; chị Trang mới cân nhắc, anh Minh đã dùng thử. Bài không nêu số tiền theo tháng |
 
-## Lưu ý vòng 3
-- Cảnh 5: file giao việc ghi "Tốc độ, kỹ thuật và chiến thuật", nhưng bài S2 ghi "thể lực, kỹ thuật đến tư duy chiến thuật". Video dùng "Thể lực, kỹ thuật và chiến thuật". ChatGPT xác nhận lại nếu muốn giữ "tốc độ".
-- Người nói giờ 18–22h là HLV kiêm chủ sân; nhãn trên hình ghi "một chủ sân tại TP.HCM" theo giao việc, lời đọc ghi "huấn luyện viên kiêm chủ sân".
+## Phép tính giả định (có nhãn trên hình)
+80.000 đồng/buổi × 8 buổi/tháng = 640.000 đồng/tháng. Không phải giá trung bình hay tần suất phổ biến; không gồm tiền cầu, vợt, đi lại.
 
 ## Nhận định biên tập (không phải dữ kiện nguồn)
-- Mạch "có nơi bắt đầu, có giờ chơi, có nhóm, muốn tiến bộ" là tổng hợp từ các ghi nhận trên, không phải kết quả khảo sát nguyên nhân toàn quốc.
-- Đoạn chat "Tối nay đánh không?" là minh họa, có nhãn "Minh họa" trên hình, không trích lời ai.
-- "Nhóm hợp nhau thì ra sân có thêm lý do" và "đỡ được một pha cầu khó, buổi sau lại muốn ra sân" là diễn giải biên tập, không có trong nguồn.
+- Trục "được rủ đi thử → buổi chơi thuận tiện → tiến bộ → chi phí duy trì" là tổng hợp biên tập, không phải mô hình nhân quả đã kiểm định.
+- Tình huống tiến bộ (hết đánh ra ngoài → giữ pha cầu lâu hơn → đưa cầu chỗ khó đỡ) và đoạn chat "Tối nay đánh không?" là minh họa, có nhãn trên hình.
+- "Có nhóm quen / muốn tiến bộ tiếp" ở cảnh cuối là minh họa quyết định, không phải số liệu.
 
-## Đã bỏ khỏi bản chính (theo giao việc vòng 2)
-- Cảnh mặt bằng/pickleball–tennis (S3 VTC News 15/11/2024). Ghi chú: bài không nêu thành phố của chủ sân (gói giao việc ghi TP.HCM) và là dự tính. Cũng không có cụm "trong nhà" được xác nhận cho kết luận nào. Nếu dùng lại, ghi theo bài.
-- Cảnh "Đừng hiểu nhầm" (giới hạn dữ kiện chuyển vào file này).
-- Chuyện mặt bằng kho được trả lại (lời kể riêng của HLV).
-- Giải Cần Thơ 1.054 VĐV (chưa có ngày đăng, chưa đối chiếu đơn vị tổ chức).
+## Chênh lệch giữa gói nghiên cứu và nguồn thật (nhờ ChatGPT xác nhận)
+- **S9 ShopVNB (vãng lai):** trang Claude mở được không ghi ngày đăng (chỉ có dấu thời gian ảnh tương ứng khoảng 5/2024, không phải 9/5/2026) và KHÔNG thấy các ý "hỏi trình độ", "xếp lượt", "tránh nhận quá nhiều người". Video không dùng S9.
+- **Chat Reclub S7:** TNV Smash Club ghi "All Levels", bốn hoạt động mỗi tuần; video không nêu tên nhóm.
+- **S11 ULAW** và các nguồn mục 8 của gói (Bộ VHTTDL, vjol, Metric): chưa mở, không dùng.
+- Lệch nhỏ: gói D1 ghi 630 và "gần 630"; video thống nhất "gần 630".
 
 ## Chưa xác minh / không dùng
-- Tổng người chơi cầu lông thường xuyên, tốc độ tăng 2024–2026; số sân mới.
-- Tỷ lệ người chơi đến từ bạn bè, trường học, mạng xã hội; không gán TikTok/FOMO.
-- Không dùng "16 triệu người chơi pickleball" (Tuổi Trẻ 27/10/2026 cảnh báo cách ngoại suy), số liệu Metric, giá 40.000 đồng/buổi, hay khẳng định y khoa.
-- Không có ảnh thật; đồ họa do code vẽ.
+- Tổng người chơi, tốc độ tăng, số sân mới; tỷ lệ theo kênh tham gia (bạn bè, trường, mạng xã hội).
+- Chi phí trung bình; so sánh cầu lông–pickleball–tennis về giá, luật, sức khỏe, chấn thương.
+- Không có ảnh thật; đồ họa do code vẽ. Không dùng "16 triệu người chơi pickleball" hay số liệu Metric.

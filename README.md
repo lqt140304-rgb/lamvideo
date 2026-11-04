@@ -1,6 +1,6 @@
 # lamvideo — video hoạt hình 9:16 phân tích, review đời sống
 
-Mỗi video là một file kịch bản JSON. Chạy một lệnh, máy bạn đọc giọng bằng **VieNeu-TTS (giọng Hải Đăng)** rồi dựng thành MP4 1080×1920, 30 fps, dưới 90 giây, đăng thẳng lên TikTok, Facebook Reels và YouTube Shorts.
+Mỗi video là một file kịch bản JSON. Chạy một lệnh, máy bạn đọc giọng bằng **VieNeu-TTS (giọng Hải Đăng)** rồi dựng thành MP4 1080×1920, 30 fps, thường 50–110 giây tùy video (bản dài cầu lông ~100 giây), đăng thẳng lên TikTok, Facebook Reels và YouTube Shorts.
 
 Phong cách: mascot của kênh (cậu bé tóc đen, áo hoodie xám, chân que) dẫn chuyện, nét vẽ tay rung nhẹ, nền giấy, chữ đậm, phụ đề vàng chạy theo lời đọc, kết bằng "Tóm lại là…".
 

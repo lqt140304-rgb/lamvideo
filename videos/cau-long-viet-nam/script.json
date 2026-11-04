@@ -25,7 +25,7 @@
       "type": "stat",
       "headline": "Sân chơi địa phương",
       "value": "630",
-      "unit": "tay vợt",
+      "unit": "vận động viên",
       "ring": 0.7,
       "pose": "think",
       "chips": [
@@ -34,13 +34,37 @@
           "at": 0.1
         },
         {
+          "text": "Gần 630 VĐV · 59 đoàn",
+          "at": 0.4
+        },
+        {
           "text": "Quy mô một giải",
-          "at": 0.55
+          "at": 0.7
         }
       ],
-      "voice": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng tám năm hai không hai sáu quy tụ sáu trăm ba mươi tay vợt. Giải đấu cho thấy một sân chơi cầu lông dành cho người trẻ tại địa phương.",
-      "sub": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng 8 năm 2026 quy tụ 630 tay vợt. Giải đấu cho thấy một sân chơi cầu lông dành cho người trẻ tại địa phương.",
-      "source": "Sở VHTTDL Hải Phòng · 14/8/2026"
+      "voice": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng tám năm hai không hai sáu thu hút gần sáu trăm ba mươi vận động viên thuộc năm mươi chín đoàn. Giải đấu cho thấy một sân chơi cầu lông dành cho người trẻ tại địa phương.",
+      "sub": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng 8 năm 2026 thu hút gần 630 vận động viên thuộc 59 đoàn. Giải đấu cho thấy một sân chơi cầu lông dành cho người trẻ tại địa phương.",
+      "source": "Sở VHTTDL Hải Phòng · 14 và 18/8/2026"
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Lối vào sân",
+      "layout": "notes",
+      "pose": "think",
+      "items": [
+        "Phường phối hợp CLB, giáo viên, HLV",
+        "ĐHQGHN: 12 CLB thể thao, có cầu lông",
+        "UEF: giải cho sinh viên và cựu sinh viên"
+      ],
+      "at": [
+        0.1,
+        0.4,
+        0.72
+      ],
+      "voice": "Vậy bắt đầu từ đâu? Ở Hải Phòng, một phường phối hợp câu lạc bộ, giáo viên và huấn luyện viên để chọn và tập đội dự giải. Đại học Quốc gia Hà Nội công bố mười hai câu lạc bộ thể thao cho sinh viên, trong đó có cầu lông. Còn ở UEF, một giải riêng cho sinh viên và cựu sinh viên có bảy mươi vận động viên.",
+      "sub": "Vậy bắt đầu từ đâu? Ở Hải Phòng, một phường phối hợp câu lạc bộ, giáo viên và huấn luyện viên để chọn và tập đội dự giải. Đại học Quốc gia Hà Nội công bố 12 câu lạc bộ thể thao cho sinh viên, trong đó có cầu lông. Còn ở UEF, một giải riêng cho sinh viên và cựu sinh viên có 70 vận động viên.",
+      "source": "Lê Thanh Nghị · ĐHQGHN · UEF, 8–9/2026"
     },
     {
       "type": "timeline",
@@ -93,41 +117,131 @@
       "source": "Theo lời kể người chơi · Thanh Niên · 22/5/2026"
     },
     {
+      "type": "steps",
+      "headline": "Một buổi chơi công khai",
+      "steps": [
+        {
+          "title": "Giờ và phí",
+          "detail": "Tối thứ năm, 18–20h, 80K",
+          "at": 0.1
+        },
+        {
+          "title": "Chuẩn bị",
+          "detail": "Vợt riêng, giày sạch, đến sớm 15 phút",
+          "at": 0.42
+        },
+        {
+          "title": "Trình độ",
+          "detail": "Mở cho mọi trình độ",
+          "at": 0.74
+        }
+      ],
+      "voice": "Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi đăng ngày năm tháng mười một ở Hà Nội: tối thứ năm, từ mười tám đến hai mươi giờ, phí tám mươi nghìn. Người chơi tự mang vợt, đi giày sạch, đến trước mười lăm phút, và buổi này mở cho mọi trình độ.",
+      "sub": "Một buổi chơi công khai thường có sẵn thông tin. Ví dụ một buổi đăng ngày 5/11 ở Hà Nội: tối thứ năm, từ 18 đến 20 giờ, phí 80K. Người chơi tự mang vợt, đi giày sạch, đến trước 15 phút, và buổi này mở cho mọi trình độ.",
+      "source": "Pickcourt · buổi 5/11/2026 · chưa rõ phí gồm gì"
+    },
+    {
       "type": "list",
       "tone": "good",
       "headline": "Vì sao muốn quay lại",
       "layout": "tiles",
       "pose": "excited",
-      "items": [
-        "Đỡ được cầu",
-        "Phối hợp tốt hơn",
-        "Muốn tập tiếp"
-      ],
-      "at": [
-        0.1,
-        0.42,
-        0.72
-      ],
-      "voice": "Rồi đến cảm giác đánh tốt hơn. Thể lực, kỹ thuật và chiến thuật khiến người chơi muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân.",
-      "sub": "Rồi đến cảm giác đánh tốt hơn. Thể lực, kỹ thuật và chiến thuật khiến người chơi muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân.",
       "arts": [
         "racket",
         "rally",
         "shuttle"
       ],
-      "source": "Từ lời kể người chơi · Thanh Niên · 22/5/2026"
+      "items": [
+        "Hết đánh ra ngoài",
+        "Giữ pha cầu lâu hơn",
+        "Đưa cầu chỗ khó đỡ"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.74
+      ],
+      "voice": "Rồi đến cảm giác đánh tốt hơn. Lúc đầu có thể hay đánh ra ngoài, sau giữ được pha cầu lâu hơn, rồi biết đưa cầu vào chỗ đối thủ khó đỡ. Một người chơi được phỏng vấn nói môn này cần thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ.",
+      "sub": "Rồi đến cảm giác đánh tốt hơn. Lúc đầu có thể hay đánh ra ngoài, sau giữ được pha cầu lâu hơn, rồi biết đưa cầu vào chỗ đối thủ khó đỡ. Một người chơi được phỏng vấn nói môn này cần thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ.",
+      "source": "Minh họa · lời kể người chơi, Thanh Niên 22/5/2026"
+    },
+    {
+      "type": "receipt",
+      "headline": "Ví dụ giả định",
+      "rows": [
+        {
+          "label": "Phí một buổi",
+          "value": "80.000đ",
+          "at": 0.1
+        },
+        {
+          "label": "Số buổi mỗi tháng",
+          "value": "8 buổi",
+          "at": 0.4
+        }
+      ],
+      "total": {
+        "label": "Riêng phí buổi chơi",
+        "value": "640.000đ",
+        "at": 0.72
+      },
+      "voice": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả tám mươi nghìn một buổi, chơi tám buổi một tháng, riêng khoản phí đó là sáu trăm bốn mươi nghìn đồng. Đây chỉ là phép tính giả định, chưa gồm tiền cầu, vợt hay đi lại.",
+      "sub": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả 80.000 đồng một buổi, chơi 8 buổi một tháng, riêng khoản phí đó là 640.000 đồng. Đây chỉ là phép tính giả định, chưa gồm tiền cầu, vợt hay đi lại.",
+      "source": "Phép tính giả định, không phải giá trung bình"
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Chỗ dễ nản",
+      "layout": "clipboard",
+      "pose": "confused",
+      "items": [
+        "Tiền cầu riêng 60–90 nghìn/hiệp",
+        "Một quả hỏng gần 30 nghìn"
+      ],
+      "at": [
+        0.15,
+        0.55
+      ],
+      "voice": "Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể tiền cầu riêng mỗi hiệp khoảng sáu mươi đến chín mươi nghìn đồng, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần ba mươi nghìn.",
+      "sub": "Cũng có người thấy gánh nặng. Một người chơi ở Hà Nội kể tiền cầu riêng mỗi hiệp khoảng 60 đến 90 nghìn đồng, chưa tính tiền sân. Một người khác nói chỉ một cú đánh lỗi cũng có thể làm hỏng quả cầu gần 30 nghìn.",
+      "source": "Lời kể người chơi · Dân trí · 6/1/2026"
+    },
+    {
+      "type": "verdict",
+      "headline": "Ở lại hay đổi môn?",
+      "layout": "scale",
+      "heavier": "even",
+      "rightAt": 0.5,
+      "left": {
+        "title": "Ở lại",
+        "items": [
+          "Có nhóm quen",
+          "Muốn tiến bộ tiếp"
+        ]
+      },
+      "right": {
+        "title": "Pickleball",
+        "items": [
+          "Dụng cụ bền, đỡ tốn",
+          "Bạn bè rủ đi thử"
+        ]
+      },
+      "voice": "Từ đó, mỗi người chọn một kiểu. Có người thử pickleball vì dụng cụ bền hơn, có người mới cân nhắc khi bạn bè trong câu lạc bộ rủ đi. Vài trường hợp như vậy chưa nói được cả nước đang đổi môn.",
+      "sub": "Từ đó, mỗi người chọn một kiểu. Có người thử pickleball vì dụng cụ bền hơn, có người mới cân nhắc khi bạn bè trong câu lạc bộ rủ đi. Vài trường hợp như vậy chưa nói được cả nước đang đổi môn.",
+      "source": "Lời kể người chơi · Dân trí · 6/1/2026"
     },
     {
       "type": "outro",
       "kicker": "TÓM LẠI LÀ",
       "message": [
-        "Có nơi chơi, có nhóm,",
-        "muốn tiến bộ"
+        "Dễ vào, hợp nhóm,",
+        "tiến bộ, đủ chi phí"
       ],
       "cta": "Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?",
       "pad": 0.6,
-      "voice": "Tóm lại là, những ghi nhận trong nước gợi ra ba yếu tố: có nơi chơi, có nhóm bạn và có động lực tiến bộ. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?",
-      "sub": "Tóm lại là, những ghi nhận trong nước gợi ra 3 yếu tố: có nơi chơi, có nhóm bạn và có động lực tiến bộ. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?"
+      "voice": "Tóm lại là, những ghi nhận trong nước gợi ra bốn điều: có lối vào, có buổi chơi thuận tiện, có cảm giác tiến bộ, và chi phí đủ nhẹ để duy trì. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?",
+      "sub": "Tóm lại là, những ghi nhận trong nước gợi ra 4 điều: có lối vào, có buổi chơi thuận tiện, có cảm giác tiến bộ, và chi phí đủ nhẹ để duy trì. Ở chỗ bạn, sân cầu lông hay pickleball đang đông hơn?"
     }
   ]
 }
