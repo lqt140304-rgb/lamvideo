@@ -1,0 +1,142 @@
+{
+  "title": "Gửi tiết kiệm: lãi bao nhiêu, an toàn đến đâu?",
+  "topic": "Gửi tiết kiệm cuối 2026",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "GỬI TIẾT KIỆM",
+        "AN TOÀN",
+        "ĐẾN ĐÂU?"
+      ],
+      "stamp": "350 TRIỆU",
+      "art": "piggy",
+      "voice": "Gửi tiết kiệm ngân hàng, lỡ có chuyện thì được trả lại bao nhiêu? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Bảo hiểm tiền gửi tăng",
+      "art": "shield",
+      "steps": [
+        {
+          "when": "Trước đây",
+          "what": "Tối đa 125 triệu mỗi người, mỗi ngân hàng",
+          "at": 0.02
+        },
+        {
+          "when": "13/7/2026",
+          "what": "Thông tư 05/2026 của Ngân hàng Nhà nước có hiệu lực",
+          "at": 0.36
+        },
+        {
+          "when": "350 triệu",
+          "what": "Mức trả tối đa mới, tính cả gốc lẫn lãi",
+          "at": 0.68
+        }
+      ],
+      "voice": "Trước đây, bảo hiểm tiền gửi trả tối đa một trăm hai mươi lăm triệu đồng mỗi người, tại mỗi ngân hàng. Từ ngày mười ba tháng bảy năm hai không hai sáu, thông tư mới có hiệu lực. Mức trả tối đa nâng lên ba trăm năm mươi triệu, tính cả gốc lẫn lãi.",
+      "sub": "Theo Thông tư 05/2026/TT-NHNN, hiệu lực 13/7/2026: hạn mức chi trả bảo hiểm tiền gửi tăng từ 125 lên 350 triệu đồng/người/tổ chức, gồm gốc và lãi."
+    },
+    {
+      "type": "compare",
+      "headline": "Lãi suất chênh nhau",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Ngân hàng Nhà nước",
+          "kind": "generic",
+          "art": "bank",
+          "tint": "blue",
+          "amountText": "3–3,5%",
+          "unit": "/năm, kỳ hạn 6 tháng",
+          "note": "Vietcombank 3%, Agribank 3,5%",
+          "at": 0.1
+        },
+        {
+          "label": "Mức cao nhất",
+          "kind": "generic",
+          "art": "chart",
+          "tint": "green",
+          "amountText": "6,9%",
+          "unit": "/năm, kỳ hạn 12 tháng",
+          "note": "niêm yết, chưa kể ưu đãi ngắn hạn",
+          "at": 0.55
+        }
+      ],
+      "footnote": "Theo Thời báo Tài chính Việt Nam, số liệu ngày 20/10/2026, có thể đã đổi",
+      "voice": "Lãi suất thì chênh nhau khá nhiều. Nhóm ngân hàng Nhà nước, kỳ hạn sáu tháng, khoảng ba đến ba phẩy năm phần trăm một năm. Mức niêm yết cao nhất, kỳ hạn mười hai tháng, khoảng sáu phẩy chín phần trăm."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Trước khi gửi",
+      "pose": "think",
+      "items": [
+        "So lãi ít nhất 3 ngân hàng",
+        "Hỏi lãi khi rút trước hạn",
+        "Chia tiền nếu vượt 350 triệu"
+      ],
+      "at": [
+        0.1,
+        0.45,
+        0.75
+      ],
+      "voice": "Trước khi gửi, nên so lãi ít nhất ba ngân hàng. Hỏi rõ rút trước hạn thì lãi còn bao nhiêu. Và nếu số tiền lớn hơn ba trăm năm mươi triệu, có thể chia ra nhiều ngân hàng."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Dễ nhầm",
+      "pose": "confused",
+      "items": [
+        "Tưởng ưu đãi là lãi thường",
+        "Mua bảo hiểm tưởng tiết kiệm",
+        "Quên xem kỳ hạn"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Còn những chỗ dễ nhầm. Ưu đãi chỉ vài ngày, đừng tưởng là lãi thường xuyên. Ký hợp đồng bảo hiểm mà tưởng là gửi tiết kiệm. Và chỉ nhìn lãi mà quên xem kỳ hạn."
+    },
+    {
+      "type": "verdict",
+      "headline": "Hợp với ai?",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Hợp",
+        "items": [
+          "Cần tiền an toàn",
+          "Có kế hoạch giữ đủ kỳ hạn"
+        ]
+      },
+      "right": {
+        "title": "Cân nhắc",
+        "items": [
+          "Có thể cần rút gấp",
+          "Gửi một chỗ quá 350 triệu"
+        ]
+      },
+      "voice": "Vậy gửi tiết kiệm hợp với ai? Nếu bạn cần giữ tiền an toàn, và giữ đủ kỳ hạn, thì hợp. Còn nếu có thể phải rút gấp, hoặc gửi một chỗ quá ba trăm năm mươi triệu, thì nên cân nhắc."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Bảo hiểm tiền gửi giờ",
+        "tối đa 350 triệu!"
+      ],
+      "cta": "Bạn đang gửi kỳ hạn mấy tháng? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, bảo hiểm tiền gửi giờ trả tối đa ba trăm năm mươi triệu mỗi người, mỗi ngân hàng. Bạn đang gửi kỳ hạn mấy tháng? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "gui-tiet-kiem"
+}
