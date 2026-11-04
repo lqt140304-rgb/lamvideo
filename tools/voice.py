@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 import wave
 from pathlib import Path
@@ -80,7 +81,14 @@ def main() -> int:
                 )
                 return 1
             print("Đang nạp VieNeu-TTS...")
-            tts = Vieneu()
+            kwargs = {}
+            # Windows hay lưu model qua symlink làm ONNX Runtime báo lỗi "External data path ... escapes".
+            # Đặt VIENEU_ONNX_DIR trỏ tới thư mục onnx_update đã copy thành file thường để tránh lỗi này.
+            onnx_dir = os.environ.get("VIENEU_ONNX_DIR")
+            if onnx_dir:
+                kwargs["onnx_dir"] = onnx_dir
+                print(f"Dùng model ONNX tại: {onnx_dir}")
+            tts = Vieneu(**kwargs)
         print(f"[{i:02d}] đọc: {text[:60]}...")
         audio = tts.infer(text, voice=speaker)
         tts.save(audio, str(path))
