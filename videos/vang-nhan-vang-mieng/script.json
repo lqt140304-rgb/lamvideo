@@ -1,0 +1,142 @@
+{
+  "title": "Vàng nhẫn và vàng miếng khác nhau thế nào?",
+  "topic": "Vàng nhẫn và vàng miếng",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "MUA VÀNG XONG",
+        "BÁN NGAY",
+        "LỖ LIỀN?"
+      ],
+      "stamp": "3 TRIỆU",
+      "art": "ring",
+      "voice": "Vừa mua một lượng vàng, quay lại bán ngay thì mất mấy triệu? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Hai giá cho một lượng",
+      "art": "gold",
+      "steps": [
+        {
+          "when": "Giá bán ra",
+          "what": "Giá cửa hàng bán cho bạn: 142,7 triệu",
+          "at": 0.02
+        },
+        {
+          "when": "Giá mua vào",
+          "what": "Giá cửa hàng mua lại của bạn: 139,7 triệu",
+          "at": 0.36
+        },
+        {
+          "when": "Chênh 3 triệu",
+          "what": "Mua xong bán ngay là mất khoảng này",
+          "at": 0.68
+        }
+      ],
+      "voice": "Mỗi lượng vàng có hai giá. Giá cửa hàng bán cho bạn, ví dụ vàng miếng ngày hai mươi chín tháng mười là một trăm bốn mươi hai phẩy bảy triệu. Giá cửa hàng mua lại của bạn là một trăm ba mươi chín phẩy bảy triệu. Mua xong bán ngay là mất khoảng ba triệu.",
+      "sub": "Ví dụ vàng miếng ngày 29/10/2026: cửa hàng bán ra 142,7 triệu, mua lại 139,7 triệu mỗi lượng. Mua xong bán ngay là mất khoảng 3 triệu."
+    },
+    {
+      "type": "compare",
+      "headline": "Miếng và nhẫn",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Vàng miếng",
+          "kind": "generic",
+          "art": "gold",
+          "tint": "yellow",
+          "amountText": "142,7tr",
+          "unit": "bán ra / lượng",
+          "note": "mua vào 139,7 · chênh 3 triệu",
+          "at": 0.1
+        },
+        {
+          "label": "Vàng nhẫn",
+          "kind": "generic",
+          "art": "ring",
+          "tint": "blue",
+          "amountText": "139,2tr",
+          "unit": "bán ra / lượng",
+          "note": "mua vào 135,2 · chênh 4 triệu",
+          "at": 0.55
+        }
+      ],
+      "footnote": "Giá ngày 29/10/2026 theo Báo Văn hóa; giá đổi hằng ngày",
+      "voice": "Còn vàng miếng và vàng nhẫn thì giá khác nhau. Cùng ngày tại SJC, vàng miếng bán ra một trăm bốn mươi hai phẩy bảy triệu, chênh mua bán ba triệu. Nhẫn bán ra một trăm ba mươi chín phẩy hai triệu, nhưng chênh mua bán tới bốn triệu."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Cần xem kỹ",
+      "pose": "think",
+      "items": [
+        "Xem cả giá mua lại",
+        "Đúng sản phẩm, đúng tiệm",
+        "Giữ hóa đơn khi mua"
+      ],
+      "at": [
+        0.1,
+        0.45,
+        0.75
+      ],
+      "voice": "Vậy cần xem kỹ gì? Nhìn cả giá mua lại, không chỉ giá bán. Đối chiếu đúng tên sản phẩm, đúng tiệm, vì mỗi nơi một giá. Và giữ hóa đơn khi mua."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Dễ nhầm",
+      "pose": "confused",
+      "items": [
+        "Tưởng giá thế giới là giá tiệm",
+        "Tưởng tiệm nào cũng mua lại như nhau",
+        "Tưởng mai bán là có lãi"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Những chỗ dễ nhầm. Thấy giá thế giới rồi tưởng là giá tiệm. Tưởng tiệm nào cũng mua lại cùng một giá. Và tưởng mua hôm nay, mai bán là có lãi."
+    },
+    {
+      "type": "verdict",
+      "headline": "Hiện tại thì",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Vàng miếng",
+        "items": [
+          "Giá cao hơn",
+          "Chênh mua bán thấp hơn"
+        ]
+      },
+      "right": {
+        "title": "Vàng nhẫn",
+        "items": [
+          "Giá thấp hơn",
+          "Chênh mua bán cao hơn"
+        ]
+      },
+      "voice": "Ở thời điểm này thì thế này. Vàng miếng giá cao hơn, nhưng chênh mua bán thấp hơn. Vàng nhẫn giá thấp hơn, nhưng chênh mua bán cao hơn. Đây là thông tin, không phải lời khuyên mua bán."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Xem giá mua lại",
+        "trước khi mua vàng!"
+      ],
+      "cta": "Bạn hay mua vàng nhẫn hay vàng miếng? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, xem giá mua lại trước khi mua vàng. Bạn hay mua vàng nhẫn hay vàng miếng? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "vang-nhan-vang-mieng"
+}
