@@ -1,0 +1,74 @@
+{
+  "title": "Cho thuê nhà: khi nào phải nộp thuế?",
+  "topic": "Thuế cho thuê nhà từ 2026",
+  "voice": { "engine": "vieneu", "speaker": "Hải Đăng" },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": ["CHO THUÊ NHÀ", "KHI NÀO PHẢI", "NỘP THUẾ?"],
+      "stamp": "500 TRIỆU",
+      "art": "house",
+      "voice": "Cho thuê nhà, thu tiền hàng tháng, vậy có phải nộp thuế không? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Mốc 500 triệu một năm",
+      "art": "money",
+      "steps": [
+        { "when": "5/3/2026", "what": "Nghị định 68/2026 ban hành", "at": 0.02 },
+        { "when": "1/1/2026", "what": "Mốc tính cho doanh thu cho thuê nhà của cá nhân", "at": 0.36 },
+        { "when": "500 triệu", "what": "Doanh thu năm từ mức này trở xuống: không nộp thuế", "at": 0.68 }
+      ],
+      "voice": "Nghị định sáu mươi tám năm hai không hai sáu ban hành ngày năm tháng ba. Mốc tính áp dụng từ ngày một tháng một năm hai không hai sáu. Cá nhân cho thuê nhà có doanh thu từ năm trăm triệu đồng một năm trở xuống thì không phải nộp thuế.",
+      "sub": "Theo Thuế & Hải quan Online (11/3/2026): doanh thu từ 500 triệu đồng/năm trở xuống không phải nộp thuế TNCN và không chịu thuế GTGT."
+    },
+    {
+      "type": "compare",
+      "headline": "Dưới và trên ngưỡng",
+      "bars": false,
+      "cards": [
+        { "label": "Từ 500 triệu trở xuống", "kind": "generic", "art": "house", "tint": "green", "amountText": "Không thuế", "unit": "thuế thu nhập, thuế GTGT", "note": "doanh thu một năm", "at": 0.1 },
+        { "label": "Trên 500 triệu", "kind": "generic", "art": "money", "tint": "red", "amountText": "Có thuế", "unit": "GTGT 5%, TNCN 5%", "note": "TNCN tính trên phần vượt 500 triệu", "at": 0.55 }
+      ],
+      "footnote": "Theo Thuế & Hải quan Online, 11/3/2026; đối chiếu văn bản gốc",
+      "voice": "Từ năm trăm triệu trở xuống thì không nộp thuế. Còn trên ngưỡng, thuế giá trị gia tăng năm phần trăm, và thuế thu nhập cá nhân năm phần trăm trên phần vượt năm trăm triệu."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Chủ nhà cần nhớ",
+      "pose": "think",
+      "items": ["Cá nhân tự khai thuế", "Khai 1 hoặc 2 lần mỗi năm", "Hạn khai: 31/1 năm sau"],
+      "at": [0.1, 0.45, 0.75],
+      "voice": "Chủ nhà cần nhớ ba điều. Cá nhân cho cá nhân thuê thì tự khai thuế. Có thể khai hai lần hoặc một lần mỗi năm. Và hạn khai muộn nhất là ngày ba mươi mốt tháng một năm sau."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Dễ nhầm",
+      "pose": "confused",
+      "items": ["Nhầm doanh thu với lợi nhuận", "Quên cộng nhiều hợp đồng", "Không khai vì nghĩ miễn"],
+      "at": [0.1, 0.42, 0.72],
+      "voice": "Những chỗ dễ nhầm. Ngưỡng tính trên doanh thu, không phải lợi nhuận. Có nhiều hợp đồng thì tổng mức trừ cả năm vẫn chỉ năm trăm triệu. Và đừng quên kiểm tra nghĩa vụ khai thuế của mình."
+    },
+    {
+      "type": "verdict",
+      "headline": "Ai cần chú ý?",
+      "rightAt": 0.55,
+      "left": { "title": "Cần chú ý", "items": ["Thu trên 500 triệu/năm", "Có nhiều hợp đồng"] },
+      "right": { "title": "Nhẹ nhàng", "items": ["Thu dưới 500 triệu/năm", "Một hợp đồng"] },
+      "voice": "Vậy ai cần chú ý? Nếu thu trên năm trăm triệu một năm, hoặc có nhiều hợp đồng, thì cần tính kỹ. Còn thu dưới ngưỡng, một hợp đồng, thì nhẹ nhàng hơn."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": ["Thu dưới 500 triệu/năm", "thì không phải nộp thuế!"],
+      "cta": "Bạn có cho thuê nhà không? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, cho thuê nhà thu dưới năm trăm triệu một năm thì không phải nộp thuế. Bạn có cho thuê nhà không? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "thue-cho-thue-nha"
+}
