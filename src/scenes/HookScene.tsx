@@ -5,7 +5,7 @@ import { color, font } from "../brand";
 import { Mascot } from "../components/Mascot";
 import { Stage } from "../components/Headline";
 import { Stamp } from "../components/Props";
-import { Scooter, Street, Traffic } from "../components/Art";
+import { HAS_VEHICLE_PHOTOS, Scooter, Street, Traffic } from "../components/Art";
 import { Burst, ShockLines, Sfx } from "../components/Fx";
 import { introEnd, phraseAt } from "../components/Broll";
 import { FPS } from "../brand";
@@ -70,7 +70,7 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
           <Traffic y={1245} count={3} speed={6} scale={0.4} fromRight />
         </g>
         <ShockLines x={850} y={930} at={intro + stampAt} r={430} />
-        <Scooter kind="petrol" x={drive} y={1190} scale={1.05} moving={frame < 34 || frame > stampAt + 8} rider />
+        <Scooter kind="petrol" x={drive} y={1190} scale={1.05} moving={frame < 34 || frame > stampAt + 8} rider={!HAS_VEHICLE_PHOTOS} />
         <Stamp text={scene.stamp ?? ""} x={330} y={900} progress={stamp} />
         {scene.stamp ? <Burst x={330} y={900} at={intro + stampAt + 2} r={190} tint={color.red} rays={12} /> : null}
         <Mascot pose={frame > stampAt ? "shocked" : "surprised"} changedAt={intro + stampAt} x={850} y={1185} scale={0.98} enter={intro + 8} />

@@ -1,6 +1,8 @@
 import React from "react";
 import { random, useCurrentFrame } from "remotion";
 import { color, font } from "../brand";
+import { staticFile } from "remotion";
+import PROPS from "../props.json";
 
 // Hình vẽ chi tiết dùng chung: xe tay ga có người lái, phố Hà Nội, trụ xăng, trụ sạc, biểu tượng.
 const ink = color.ink;
@@ -14,6 +16,12 @@ const shade = (hex: string, k: number) => {
 };
 
 /* ------------------------------------------------------------------ Xe tay ga + người lái */
+
+type PropPhoto = { file: string; w: number; h: number };
+const photoOf = (kind: "petrol" | "electric"): PropPhoto | undefined =>
+  (PROPS as Record<string, PropPhoto | undefined>)[kind === "electric" ? "xeDien" : "xeXang"];
+/** Đã có ảnh xe tạo sẵn (public/props/xe-xang.png, xe-dien.png) chưa. */
+export const HAS_VEHICLE_PHOTOS = !!photoOf("petrol") && !!photoOf("electric");
 
 export const Rider: React.FC<{ helmet?: string; shirt?: string }> = ({ helmet = color.yellow, shirt = color.blue }) => (
   <g {...SW}>
@@ -54,6 +62,24 @@ export const Scooter: React.FC<{
   const shake = moving ? Math.sin(frame * 1.7) * 1.4 : 0;
   const spin = moving ? frame * 22 : 0;
   const beam = 0.28 + (moving ? Math.sin(frame / 3) * 0.06 : 0);
+  const photo = photoOf(kind);
+  if (photo && !rider) {
+    // ảnh xe thật (tạo bằng AI, đã tách nền): đứng trên cùng đường mặt đất với hình vẽ
+    const W = 372;
+    const H = (W * photo.h) / photo.w;
+    const bob = moving ? Math.sin(frame * 1.7) * 1.6 : 0;
+    const tilt = moving ? Math.sin(frame * 0.9) * 0.5 : 0;
+    return (
+      <g transform={`translate(${x} ${y}) scale(${flip ? -scale : scale} ${scale})`}>
+        <ellipse cx="0" cy="88" rx="170" ry="10" fill="rgba(29,27,25,0.16)" />
+        {kind === "petrol" ? <Smoke x={-176} y={48} active={moving} /> : null}
+        <path d="M150 -30 L290 -70 L290 40 Z" fill={color.yellow} opacity={beam * 0.8} />
+        <g transform={`translate(0 ${bob}) rotate(${tilt} 0 88)`}>
+          <image href={staticFile(photo.file)} x={-W / 2} y={90 - H} width={W} height={H} />
+        </g>
+      </g>
+    );
+  }
   return (
     <g transform={`translate(${x} ${y}) scale(${flip ? -scale : scale} ${scale})`} filter="url(#boil)" {...SW}>
       <ellipse cx="0" cy="88" rx="158" ry="10" fill="rgba(29,27,25,0.16)" />
@@ -251,7 +277,7 @@ export const Traffic: React.FC<{ y: number; count?: number; speed?: number; scal
             y={y}
             scale={scale}
             moving
-            rider
+            rider={!HAS_VEHICLE_PHOTOS}
             flip={fromRight}
             tint={tints[i % tints.length]}
             helmet={tints[(i + 2) % tints.length]}

@@ -3,7 +3,7 @@ import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { atFrame, formatVnd, pop } from "../anim";
 import { color, font } from "../brand";
 import { Headline } from "../components/Headline";
-import { Charger, GasPump, Scooter } from "../components/Art";
+import { Charger, GasPump, HAS_VEHICLE_PHOTOS, Scooter } from "../components/Art";
 import { Sfx } from "../components/Fx";
 import type { CompareCard, CompareScene as CompareData } from "../types";
 
@@ -47,7 +47,7 @@ const Card: React.FC<{ card: CompareCard; start: number }> = ({ card, start }) =
       </div>
       <svg width="400" height="270" viewBox="-200 -170 400 270" style={{ overflow: "hidden", marginTop: 10 }}>
         {card.kind === "electric" ? <Charger x={150} y={86} scale={0.62} /> : <GasPump x={150} y={86} scale={0.62} />}
-        <Scooter kind={card.kind} x={-46} y={8} scale={0.7} moving rider />
+        <Scooter kind={card.kind} x={-30} y={6} scale={0.62} moving rider={!HAS_VEHICLE_PHOTOS} />
       </svg>
       <div style={{ fontFamily: font.display, fontWeight: 900, fontSize: 82, color: tint, lineHeight: 1, marginTop: 6 }}>
         {card.amountText ?? `${formatVnd(count)}đ`}

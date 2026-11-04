@@ -174,3 +174,18 @@ chống hông, vẫy tay, chỉ tay, giới thiệu, nháy mắt, vui mừng, t�
 > **Ảnh phải mới:** khi script có `images.since`, chỉ nhận ảnh có ngày chụp (EXIF) từ mốc đó. Ảnh Openverse không có ngày nên bị loại; ảnh đã tải từ trước mà cũ/không rõ ngày sẽ tự được tìm lại khi chạy `npm run images`.
 
 > **Nhờ ChatGPT tìm ảnh:** xem `docs/chatgpt-tim-anh.md`. Trong `broll` dùng `url` (link trực tiếp tới ảnh) và `credit`; có `url` thì công cụ không tự tìm nữa.
+
+## Ảnh xe tạo bằng AI (xe xăng, xe điện)
+
+Xe vẽ SVG là phương án dự phòng. Có ảnh xe chi tiết thì code tự dùng ảnh thay hình vẽ:
+
+1. Tạo ảnh xe nhìn nghiêng, nền trắng trơn, rộng từ 1200px (Canva, ChatGPT…): một ảnh xe xăng (đỏ, có ống xả), một ảnh xe điện (xanh, có tia sét).
+2. Tách nền và chép vào dự án:
+   ```
+   python tools/cutout_prop.py <ảnh xe xăng> xe-xang
+   python tools/cutout_prop.py <ảnh xe điện> xe-dien
+   ```
+   Lệnh tạo `public/props/xe-xang.png`, `xe-dien.png` và ghi kích thước vào `src/props.json`.
+3. Render lại. Chưa có ảnh thì video vẫn dùng hình vẽ.
+
+Ảnh do AI tạo: nên bật mục "nội dung do AI tạo" của nền tảng khi đăng.
