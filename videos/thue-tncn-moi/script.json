@@ -1,0 +1,146 @@
+{
+  "title": "Thuế thu nhập cá nhân mới: lương bao nhiêu thì nộp?",
+  "topic": "Thuế thu nhập cá nhân 2026",
+  "voice": {
+    "engine": "vieneu",
+    "speaker": "Hải Đăng"
+  },
+  "music": "audio/music/giay-nhap.wav",
+  "musicVolume": 0.3,
+  "scenes": [
+    {
+      "type": "hook",
+      "headline": [
+        "LƯƠNG BAO",
+        "NHIÊU THÌ",
+        "NỘP THUẾ?"
+      ],
+      "stamp": "15,5 TRIỆU",
+      "art": "taxform",
+      "voice": "Lương tháng bao nhiêu thì bắt đầu phải nộp thuế thu nhập cá nhân? Khoan đã! Tóm lại là thế này."
+    },
+    {
+      "type": "timeline",
+      "headline": "Giảm trừ tăng mạnh",
+      "art": "chart",
+      "steps": [
+        {
+          "when": "1/7/2026",
+          "what": "Luật Thuế thu nhập cá nhân 2025 có hiệu lực",
+          "at": 0.02
+        },
+        {
+          "when": "15,5 triệu",
+          "what": "Giảm trừ bản thân mỗi tháng, trước là 11 triệu",
+          "at": 0.36
+        },
+        {
+          "when": "6,2 triệu",
+          "what": "Mỗi người phụ thuộc, trước là 4,4 triệu",
+          "at": 0.68
+        }
+      ],
+      "voice": "Từ ngày một tháng bảy năm hai không hai sáu, Luật Thuế thu nhập cá nhân mới có hiệu lực. Mức giảm trừ cho bản thân là mười lăm phẩy năm triệu mỗi tháng, trước là mười một triệu. Mỗi người phụ thuộc được trừ sáu phẩy hai triệu, trước là bốn phẩy bốn triệu.",
+      "sub": "Luật Thuế TNCN số 109/2025/QH15 có hiệu lực 1/7/2026; phần tiền lương áp dụng từ kỳ tính thuế năm 2026."
+    },
+    {
+      "type": "list",
+      "tone": "good",
+      "headline": "Biểu thuế còn 5 bậc",
+      "pose": "think",
+      "items": [
+        "Đến 10 triệu: 5%",
+        "10 đến 30 triệu: 10%",
+        "30 đến 60 triệu: 20%",
+        "60 đến 100 triệu: 30%",
+        "Trên 100 triệu: 35%"
+      ],
+      "at": [
+        0.08,
+        0.26,
+        0.44,
+        0.62,
+        0.8
+      ],
+      "voice": "Biểu thuế cũng gọn lại, còn năm bậc. Phần đến mười triệu chịu năm phần trăm. Mười đến ba mươi triệu, mười phần trăm. Ba mươi đến sáu mươi triệu, hai mươi phần trăm. Sáu mươi đến một trăm triệu, ba mươi phần trăm. Trên một trăm triệu, ba mươi lăm phần trăm."
+    },
+    {
+      "type": "compare",
+      "headline": "Lương 25 triệu",
+      "bars": false,
+      "cards": [
+        {
+          "label": "Cách tính cũ",
+          "kind": "generic",
+          "art": "taxform",
+          "tint": "red",
+          "amountText": "~1,35tr",
+          "unit": "thuế / tháng",
+          "note": "trừ 11 triệu, biểu 7 bậc",
+          "at": 0.1
+        },
+        {
+          "label": "Cách tính mới",
+          "kind": "generic",
+          "art": "piggy",
+          "tint": "green",
+          "amountText": "~0,48tr",
+          "unit": "thuế / tháng",
+          "note": "trừ 15,5 triệu, biểu 5 bậc",
+          "at": 0.55
+        }
+      ],
+      "footnote": "Mình tự tính: độc thân, chưa trừ bảo hiểm bắt buộc, không khoản miễn khác",
+      "voice": "Thử tính với lương hai mươi lăm triệu, độc thân, chưa trừ bảo hiểm. Cách cũ nộp khoảng một phẩy ba lăm triệu mỗi tháng. Cách mới chỉ khoảng bốn trăm tám mươi nghìn."
+    },
+    {
+      "type": "list",
+      "tone": "bad",
+      "headline": "Dễ nhầm",
+      "pose": "confused",
+      "items": [
+        "Lấy 5% nhân cả lương",
+        "Quên khai người phụ thuộc",
+        "Quên trừ bảo hiểm bắt buộc"
+      ],
+      "at": [
+        0.1,
+        0.42,
+        0.72
+      ],
+      "voice": "Những chỗ dễ nhầm. Lấy năm phần trăm nhân cả lương, sai, vì thuế tính lũy tiến từng phần. Quên đăng ký người phụ thuộc. Và quên trừ tiền bảo hiểm bắt buộc."
+    },
+    {
+      "type": "verdict",
+      "headline": "Ai chưa phải nộp?",
+      "rightAt": 0.55,
+      "left": {
+        "title": "Chưa nộp",
+        "items": [
+          "Độc thân < 15,5 triệu",
+          "1 con < 21,7 triệu"
+        ]
+      },
+      "right": {
+        "title": "Có nộp",
+        "items": [
+          "Vượt mức giảm trừ",
+          "Có thu nhập khác"
+        ]
+      },
+      "voice": "Vậy ai chưa phải nộp? Độc thân, thu nhập dưới mười lăm phẩy năm triệu. Có một người phụ thuộc, dưới hai mươi mốt phẩy bảy triệu. Còn vượt mức giảm trừ thì có nộp, chỉ là ít hơn trước."
+    },
+    {
+      "type": "outro",
+      "kicker": "TÓM LẠI LÀ",
+      "message": [
+        "Dưới 15,5 triệu/tháng",
+        "chưa phải nộp thuế!"
+      ],
+      "cta": "Bạn có thấy lương thực nhận tăng chưa? Bình luận nhé!",
+      "pad": 0.6,
+      "voice": "Tóm lại là, thu nhập dưới mười lăm phẩy năm triệu một tháng thì chưa phải nộp thuế. Bạn có thấy lương thực nhận tăng chưa? Bình luận cho mình biết nhé!"
+    }
+  ],
+  "id": "thue-tncn-moi"
+}
