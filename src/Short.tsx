@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Audio, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
-import { FPS } from "./brand";
+import { FPS, color, font } from "./brand";
 import { Captions } from "./components/Captions";
 import { Header } from "./components/Header";
 import { Paper } from "./components/Paper";
@@ -144,6 +144,13 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
             {brollsOf(scene.broll).map((b, j) => (
               <Broll key={j} index={j} item={b} slug={script.id} frames={t.frames} credits={credits} scene={scene} />
             ))}
+            {scene.source ? (
+              <div style={{ position: "absolute", left: 60, right: 60, top: 1640, textAlign: "center", opacity: Math.min(1, frame < t.from ? 0 : (frame - t.from) / 10) }}>
+                <span style={{ display: "inline-block", fontFamily: font.body, fontWeight: 700, fontSize: 32, color: color.ink, background: color.paperDark, border: `4px solid ${color.ink}`, borderRadius: 16, padding: "8px 22px" }}>
+                  {scene.source}
+                </span>
+              </div>
+            ) : null}
             <Captions text={scene.sub ?? scene.voice} speechFrames={Math.max(1, t.frames - pad)} />
             {t.audio ? <Audio src={staticFile(t.audio)} /> : null}
           </Sequence>

@@ -357,7 +357,7 @@ export const ChatScene: React.FC<{ scene: ChatData; frames: number }> = ({ scene
     return { ...m, h, top };
   });
   const bottom = Math.max(...laid.map((m) => m.top + m.h), 900) + 40;
-  const panelH = Math.min(900, Math.max(620, bottom - 450 + 40));
+  const panelH = scene.pose ? 560 : Math.min(900, Math.max(620, bottom - 450 + 40));
   const typing = (m: (typeof laid)[number]) => {
     const s = atFrame(m.at, frames);
     return m.from === "bot" && frame >= s - 16 && frame < s;
@@ -428,6 +428,11 @@ export const ChatScene: React.FC<{ scene: ChatData; frames: number }> = ({ scene
             ))}
           </div>
         ) : null,
+      )}
+      {scene.pose && (
+        <Stage>
+          <Mascot pose={scene.pose} x={800} y={1330} scale={0.7} enter={6} />
+        </Stage>
       )}
       {laid.map((m, i) => (
         <Sfx key={i} name={m.from === "bot" ? "ding" : "pop"} at={atFrame(m.at, frames)} volume={0.4} />
@@ -762,9 +767,15 @@ export const ListVariant: React.FC<{ scene: ListData; frames: number }> = ({ sce
                 transform: `scale(${0.5 + 0.5 * p}) rotate(${(i % 2 ? 2 : -2) * p}deg)`,
               }}
             >
-              <div style={{ width: 110, height: 110, borderRadius: 55, background: good ? "#CDEFD9" : "#F9D2CD", border: `5px solid ${ink}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Icon name={iconFor(item)} size={66} />
-              </div>
+              {scene.arts?.[i] ? (
+                <div style={{ marginTop: -26, marginBottom: -34 }}>
+                  <ArtBox name={scene.arts[i]} size={200} />
+                </div>
+              ) : (
+                <div style={{ width: 110, height: 110, borderRadius: 55, background: good ? "#CDEFD9" : "#F9D2CD", border: `5px solid ${ink}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Icon name={iconFor(item)} size={66} />
+                </div>
+              )}
               <div style={{ fontFamily: font.display, fontWeight: 900, fontSize: 44, lineHeight: 1.1, textAlign: "center", color: ink }}>{item}</div>
               <div style={{ position: "absolute", top: -22, right: -18 }}>
                 <CheckIcon good={good} size={64} />

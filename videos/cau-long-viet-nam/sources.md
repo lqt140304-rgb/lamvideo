@@ -1,4 +1,4 @@
-# Nguồn: Cầu lông Việt Nam (vòng 2, 5/11/2026)
+# Nguồn: Cầu lông Việt Nam (vòng 3, 5/11/2026)
 
 Ngày truy cập: 05/11/2026. Claude đã mở lại S1, S2 và đối chiếu câu chữ.
 
@@ -9,6 +9,10 @@ Ngày truy cập: 05/11/2026. Claude đã mở lại S1, S2 và đối chiếu c
 | Khung 18–22 giờ thường đông khách nhất | S2 Thanh Niên, Thảo Phương, 22/05/2026 | Lời chị Trần Ngọc Tuyết Sang, giáo viên GDTC kiêm HLV cầu lông ở TP.HCM, người cũng mở sân riêng. Là lời một người, không phải khảo sát |
 | Người chơi hay đến nhóm vãng lai gần nhà để giao lưu | S2 | Đỗ Phương Anh, 25 tuổi, TP.HCM. Định tính, một người |
 | Môn cần thể lực, kỹ thuật, chiến thuật nên muốn tập thêm để tiến bộ | S2 | Cùng nhân vật. Không nâng thành nghiên cứu |
+
+## Lưu ý vòng 3
+- Cảnh 5: file giao việc ghi "Tốc độ, kỹ thuật và chiến thuật", nhưng bài S2 ghi "thể lực, kỹ thuật đến tư duy chiến thuật". Video dùng "Thể lực, kỹ thuật và chiến thuật". ChatGPT xác nhận lại nếu muốn giữ "tốc độ".
+- Người nói giờ 18–22h là HLV kiêm chủ sân; nhãn trên hình ghi "một chủ sân tại TP.HCM" theo giao việc, lời đọc ghi "huấn luyện viên kiêm chủ sân".
 
 ## Nhận định biên tập (không phải dữ kiện nguồn)
 - Mạch "có nơi bắt đầu, có giờ chơi, có nhóm, muốn tiến bộ" là tổng hợp từ các ghi nhận trên, không phải kết quả khảo sát nguyên nhân toàn quốc.

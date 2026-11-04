@@ -59,6 +59,8 @@ type SceneBase = {
   /** Cụm từ trong lời đọc làm "điểm chốt": dấu đóng/giật zoom xảy ra đúng lúc đọc tới cụm này. */
   cue?: string;
   broll?: Broll | Broll[];
+  /** Nhãn nguồn nhỏ nằm dưới phụ đề, không bị camera zoom cắt. */
+  source?: string;
   sub?: string;
   /** Giây đệm thêm sau giọng đọc (mặc định 0.35). */
   pad?: number;
@@ -66,7 +68,7 @@ type SceneBase = {
 
 export type ArtName =
   | "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank"
-  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart" | "racket";
+  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart" | "racket" | "shuttle" | "rally";
 
 export type HookScene = SceneBase & {
   type: "hook";
@@ -100,7 +102,7 @@ export type TimelineScene = SceneBase & {
   headline: string;
   steps: TimelineStep[];
   /** Hình bên trên các bước. Bỏ trống = bản đồ Vành đai 1 (video Hà Nội). */
-  art?: ArtName | "zone" | "none";
+  art?: ArtName | "zone" | "none" | "commute";
 };
 
 export type CompareCard = {
@@ -142,6 +144,8 @@ export type ListScene = SceneBase & {
   pose?: MascotPose;
   /** Bố cục: rows (mặc định) | tiles (ô vuông) | notes (giấy nhớ) | clipboard (bảng kẹp giấy). */
   layout?: "rows" | "tiles" | "notes" | "clipboard";
+  /** Riêng "tiles": hình BigArt thay cho biểu tượng nhỏ ở từng ô. */
+  arts?: ArtName[];
 };
 
 export type VerdictScene = SceneBase & {
@@ -188,6 +192,8 @@ export type MythScene = SceneBase & {
 export type ChatScene = SceneBase & {
   type: "chat";
   title?: string;
+  /** Có thì hiện mascot lớn dưới khung chat (khung chat gọn lại). */
+  pose?: MascotPose;
   messages: { from: "user" | "bot"; text: string; at: number }[];
 };
 

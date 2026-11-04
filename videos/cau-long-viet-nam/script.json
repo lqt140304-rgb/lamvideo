@@ -30,25 +30,22 @@
       "pose": "think",
       "chips": [
         {
-          "text": "Hải Phòng · 8/2026",
+          "text": "Hải Phòng · Giải thiếu niên, nhi đồng · 8/2026",
           "at": 0.1
         },
         {
-          "text": "Giải thiếu niên, nhi đồng",
-          "at": 0.38
-        },
-        {
           "text": "Quy mô một giải",
-          "at": 0.68
+          "at": 0.55
         }
       ],
-      "voice": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng tám năm hai không hai sáu quy tụ sáu trăm ba mươi tay vợt. Đó là một ví dụ về sân chơi địa phương đưa người trẻ đến với cầu lông.",
-      "sub": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng 8 năm 2026 quy tụ 630 tay vợt. Đó là một ví dụ về sân chơi địa phương đưa người trẻ đến với cầu lông."
+      "voice": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng tám năm hai không hai sáu quy tụ sáu trăm ba mươi tay vợt. Giải đấu cho thấy một sân chơi cầu lông dành cho người trẻ tại địa phương.",
+      "sub": "Tại Hải Phòng, một giải cầu lông thiếu niên, nhi đồng tháng 8 năm 2026 quy tụ 630 tay vợt. Giải đấu cho thấy một sân chơi cầu lông dành cho người trẻ tại địa phương.",
+      "source": "Sở VHTTDL Hải Phòng · 14/8/2026"
     },
     {
       "type": "timeline",
       "headline": "Có giờ để đi chơi",
-      "art": "none",
+      "art": "commute",
       "steps": [
         {
           "when": "Tan làm",
@@ -61,13 +58,14 @@
           "at": 0.42
         },
         {
-          "when": "18–22 giờ",
-          "what": "Đông khách nhất, theo một HLV kiêm chủ sân ở TP.HCM (Thanh Niên, 22/5/2026)",
+          "when": "18–22h",
+          "what": "Thường đông khách nhất",
           "at": 0.7
         }
       ],
       "voice": "Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại Thành phố Hồ Chí Minh chia sẻ với báo Thanh Niên rằng, từ mười tám đến hai mươi hai giờ thường đông khách nhất.",
-      "sub": "Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại TP.HCM chia sẻ với báo Thanh Niên rằng, từ 18 đến 22 giờ thường đông khách nhất."
+      "sub": "Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại TP.HCM chia sẻ với báo Thanh Niên rằng, từ 18 đến 22 giờ thường đông khách nhất.",
+      "source": "Theo một chủ sân tại TP.HCM · Thanh Niên · 22/5/2026"
     },
     {
       "type": "chat",
@@ -89,8 +87,10 @@
           "at": 0.7
         }
       ],
-      "voice": "Người chơi còn có thể tìm các nhóm vãng lai để giao lưu. Một người chơi được phỏng vấn ở Thành phố Hồ Chí Minh hay đến nhóm vãng lai gần nhà. Khi tìm được nhóm hợp nhau, việc ra sân có thêm một lý do.",
-      "sub": "Người chơi còn có thể tìm các nhóm vãng lai để giao lưu. Một người chơi được phỏng vấn ở TP.HCM hay đến nhóm vãng lai gần nhà. Khi tìm được nhóm hợp nhau, việc ra sân có thêm một lý do."
+      "voice": "Người chơi còn có thể tìm nhóm vãng lai để giao lưu. Ở Thành phố Hồ Chí Minh, có người thường ghé các nhóm gần nhà. Khi tìm được nhóm hợp nhau, việc ra sân có thêm một lý do.",
+      "sub": "Người chơi còn có thể tìm nhóm vãng lai để giao lưu. Ở TP.HCM, có người thường ghé các nhóm gần nhà. Khi tìm được nhóm hợp nhau, việc ra sân có thêm một lý do.",
+      "pose": "excited",
+      "source": "Theo lời kể người chơi · Thanh Niên · 22/5/2026"
     },
     {
       "type": "list",
@@ -108,8 +108,14 @@
         0.42,
         0.72
       ],
-      "voice": "Rồi đến cảm giác đánh tốt hơn. Một người chơi được phỏng vấn nói môn này đòi hỏi thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân.",
-      "sub": "Rồi đến cảm giác đánh tốt hơn. Một người chơi được phỏng vấn nói môn này đòi hỏi thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân."
+      "voice": "Rồi đến cảm giác đánh tốt hơn. Thể lực, kỹ thuật và chiến thuật khiến người chơi muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân.",
+      "sub": "Rồi đến cảm giác đánh tốt hơn. Thể lực, kỹ thuật và chiến thuật khiến người chơi muốn tập thêm để tiến bộ. Đỡ được một pha cầu khó, buổi sau lại muốn ra sân.",
+      "arts": [
+        "racket",
+        "rally",
+        "shuttle"
+      ],
+      "source": "Từ lời kể người chơi · Thanh Niên · 22/5/2026"
     },
     {
       "type": "outro",

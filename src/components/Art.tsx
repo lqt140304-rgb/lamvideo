@@ -418,7 +418,7 @@ export const Icon: React.FC<{ name: IconName; size?: number; fg?: string }> = ({
 
 export type ArtName =
   | "phone" | "house" | "money" | "doc" | "gold" | "shield" | "bank"
-  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart" | "racket";
+  | "idcard" | "lockphone" | "rentsign" | "piggy" | "ring" | "taxform" | "ship" | "medcard" | "chart" | "racket" | "shuttle" | "rally";
 
 /** Hình vẽ lớn (khoảng 400×400, gốc ở giữa). `t` là thời gian hoạt họa theo khung hình. */
 export const BigArt: React.FC<{ name: ArtName; x: number; y: number; scale?: number; tint?: string }> = ({
@@ -744,6 +744,45 @@ export const BigArt: React.FC<{ name: ArtName; x: number; y: number; scale?: num
             <circle r="44" fill={A} stroke={ink} strokeWidth="7" />
             <text x="0" y="16" textAnchor="middle" fontFamily={font.display} fontWeight={900} fontSize="44" fill={ink}>%</text>
           </g>
+        </g>
+      )}
+      {name === "shuttle" && (
+        <g>
+          {(() => {
+            const tt = (frame % 60) / 60;
+            const a = tt * Math.PI * 2;
+            return (
+              <g transform={`translate(${Math.cos(a) * 40} ${Math.sin(a) * 26}) rotate(${-30 + Math.sin(a) * 14})`}>
+                <path d="M-40 -10 L-92 -150 H92 L40 -10 Z" fill={color.white} stroke={ink} strokeWidth="9" />
+                <path d="M-18 -10 L-34 -150 M0 -10 V-150 M18 -10 L34 -150" stroke={ink} strokeWidth="5" />
+                <path d="M-70 -90 H70" stroke={A} strokeWidth="14" />
+                <circle cx="0" cy="22" r="50" fill="#F2D6A2" stroke={ink} strokeWidth="9" />
+              </g>
+            );
+          })()}
+          <path d="M-170 120 Q-60 40 -20 90 M170 120 Q80 60 40 100" fill="none" stroke={color.blue} strokeWidth="9" strokeLinecap="round" strokeDasharray="4 26" />
+        </g>
+      )}
+      {name === "rally" && (
+        <g>
+          {[-1, 1].map((sd) => (
+            <g key={sd} transform={`translate(${sd * 118} 60) rotate(${sd * 32 + Math.sin(frame / 8 + sd) * 6})`}>
+              <ellipse cx="0" cy="-60" rx="62" ry="82" fill="none" stroke={ink} strokeWidth="18" />
+              <ellipse cx="0" cy="-60" rx="62" ry="82" fill="none" stroke={sd < 0 ? color.blue : A} strokeWidth="9" />
+              <path d="M-38 -90 H38 M-38 -60 H38 M-38 -30 H38 M-20 -130 V10 M20 -130 V10" stroke="#8E8A84" strokeWidth="3" />
+              <rect x="-8" y="22" width="16" height="56" fill={ink} />
+              <rect x="-14" y="72" width="28" height="64" rx="10" fill={color.red} stroke={ink} strokeWidth="6" />
+            </g>
+          ))}
+          {(() => {
+            const tt = (frame % 40) / 40;
+            return (
+              <g transform={`translate(${-60 + tt * 120} ${-130 - Math.sin(tt * Math.PI) * 70}) rotate(${-40 + tt * 80})`}>
+                <path d="M-14 -4 L-26 -42 H26 L14 -4 Z" fill={color.white} stroke={ink} strokeWidth="5" />
+                <circle cx="0" cy="5" r="14" fill="#F2D6A2" stroke={ink} strokeWidth="5" />
+              </g>
+            );
+          })()}
         </g>
       )}
       {name === "racket" && (
