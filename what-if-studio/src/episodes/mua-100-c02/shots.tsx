@@ -159,16 +159,25 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => (
 
 // ---------- S5: medium: Hạnh sets the fan down, the uniform on the chair back ----------
 const S5_S = stand(LIVING, 0.66, 0.5);
+const S5_KEYS = [
+  { f: 0, p: { ...S5_S, x: S5_S.x + 110, yaw: -0.55, look: -0.5, tilt: -6, expr: 'neutral' as const, armL: { a: 54, b: 34 }, armR: { a: -30, b: -30 } } },
+  { f: 28, p: { x: S5_S.x, tilt: -18, armL: { a: 74, b: 14 }, armR: { a: -52, b: -16 } } },
+  { f: 52, p: { tilt: -4, armL: { a: 20, b: 18 }, armR: { a: -8, b: -14 } } },
+];
+const S5_FLOOR = 880;
+/** Where her near hand is at frame f: the fan's pole sits in it while she pushes. */
+const s5Hand = (f: number) => {
+  const q = poseAt(f, S5_KEYS);
+  const h = toWorld(q, joints(q).armL.end);
+  return { x: h.x - 22, y: Math.min(S5_FLOOR, h.y + 92) };
+};
 export const S5: React.FC<ShotProps> = ({ t, len }) => {
-  const pose = poseAt(t, [
-    { f: 0, p: { ...S5_S, x: S5_S.x + 110, yaw: -0.55, look: -0.5, tilt: -6, expr: 'neutral', armL: { a: 54, b: 34 }, armR: { a: -30, b: -30 } } },
-    { f: 28, p: { x: S5_S.x, tilt: -18, armL: { a: 74, b: 14 }, armR: { a: -52, b: -16 } } },
-    { f: 52, p: { tilt: -4, armL: { a: 20, b: 18 }, armR: { a: -8, b: -14 } } },
-  ]);
+  const pose = poseAt(t, S5_KEYS);
+  const fan = s5Hand(Math.min(t, 28)); // held until the set-down at frame 28, then it stands where she left it
   return (
     <g transform={camT(kf(t, [[0, 960], [len, 930]]), 590, kf(t, [[0, 1.5], [len, 1.56]]))}>
       <LivingRoom id="c2s5" t={t} lamp={0.75} day="3" dog={false} />
-      <Fan x={kf(t, [[0, 960], [28, 830]])} y={kf(t, [[0, 800], [28, 880]])} s={1.15} t={t} />
+      <Fan x={fan.x} y={t < 28 ? fan.y : S5_FLOOR} s={1.15} t={t} />
       <SmallChair x={520} y={920} s={1.55} />
       <g transform="translate(520 722) scale(0.82)"><Shirt x={0} y={0} c={3} t={t} drip={false} /></g>
       <Hero look={HANH} pose={live(pose, t, 3)} rimId="filmL" shadow={1} />
