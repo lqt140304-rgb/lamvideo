@@ -19,18 +19,7 @@
       "layout": "question",
       "cue": "lịch hẹn hàng tuần",
       "voice": "Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?",
-      "sub": "Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?",
-      "broll": {
-        "file": "ben-luc-qua-vot-irish83.jpg",
-        "url": "https://images.unsplash.com/photo-1780233689933-c2f805b3ed36?auto=format&fit=max&w=1920&q=85",
-        "credit": "Irish83 / Unsplash License",
-        "caption": "Cầu lông tại Bến Lức · Ảnh minh họa",
-        "say": "Vì sao nhiều người Việt lại mê cầu lông",
-        "hold": 3,
-        "style": "card",
-        "focus": "50% 50%",
-        "y": 540
-      }
+      "sub": "Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?"
     },
     {
       "type": "stat",
@@ -100,18 +89,7 @@
       ],
       "voice": "Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại Thành phố Hồ Chí Minh chia sẻ với báo Thanh Niên rằng, từ mười tám đến hai mươi hai giờ thường đông khách nhất.",
       "sub": "Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại TP.HCM chia sẻ với báo Thanh Niên rằng, từ 18 đến 22 giờ thường đông khách nhất.",
-      "source": "Theo một chủ sân tại TP.HCM · Thanh Niên · 22/5/2026",
-      "broll": {
-        "file": "san-trong-nha-tphcm-qui-nguyen.jpg",
-        "url": "https://images.pexels.com/photos/35300321/pexels-photo-35300321.jpeg?auto=compress&w=1600",
-        "credit": "QUI NGUYEN / Pexels License",
-        "caption": "Sân trong nhà · TP.HCM · Ảnh minh họa",
-        "say": "Còn người đi làm cần giờ chơi thuận tiện",
-        "hold": 3.5,
-        "style": "card",
-        "focus": "50% 80%",
-        "y": 540
-      }
+      "source": "Theo một chủ sân tại TP.HCM · Thanh Niên · 22/5/2026"
     },
     {
       "type": "chat",
@@ -185,18 +163,7 @@
       ],
       "voice": "Rồi đến cảm giác đánh tốt hơn. Lúc đầu có thể hay đánh ra ngoài, sau giữ được pha cầu lâu hơn, rồi biết đưa cầu vào chỗ đối thủ khó đỡ. Một người chơi được phỏng vấn nói môn này cần thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ.",
       "sub": "Rồi đến cảm giác đánh tốt hơn. Lúc đầu có thể hay đánh ra ngoài, sau giữ được pha cầu lâu hơn, rồi biết đưa cầu vào chỗ đối thủ khó đỡ. Một người chơi được phỏng vấn nói môn này cần thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ.",
-      "source": "Minh họa · lời kể người chơi, Thanh Niên 22/5/2026",
-      "broll": {
-        "file": "ben-luc-danh-cau-irish83.jpg",
-        "url": "https://images.unsplash.com/photo-1780233689610-40fe317495c8?auto=format&fit=max&w=1920&q=85",
-        "credit": "Irish83 / Unsplash License",
-        "caption": "Chơi cầu tại Bến Lức · Ảnh minh họa",
-        "say": "nói môn này cần thể lực",
-        "hold": 3.2,
-        "style": "card",
-        "focus": "50% 50%",
-        "y": 540
-      }
+      "source": "Minh họa · lời kể người chơi, Thanh Niên 22/5/2026"
     },
     {
       "type": "receipt",
