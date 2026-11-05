@@ -72,6 +72,31 @@ def flatten_hf_downloads():
     cls._fetch = staticmethod(fetch) if is_static else fetch
 
 
+def ensure_hf_cache():
+    """Same as lamvideo's tools/voice.mjs: when the default Hugging Face cache (~/.cache/huggingface/hub) can't be
+    created or written (broken folder, dead symlink, OneDrive...), keep the cache inside the repo (.cache/hf and
+    .cache/vieneu-flat) - the folders `npm run voice` already uses, so nothing is downloaded twice."""
+    from pathlib import Path
+    hub = os.environ.get('HF_HUB_CACHE') or (os.path.join(os.environ['HF_HOME'], 'hub') if os.environ.get('HF_HOME')
+                                              else str(Path.home() / '.cache' / 'huggingface' / 'hub'))
+    try:
+        os.makedirs(hub, exist_ok=True)
+        t = os.path.join(hub, '.w%d' % os.getpid())
+        open(t, 'w').write('x')
+        os.remove(t)
+        return
+    except OSError:
+        pass
+    here = Path(__file__).resolve()
+    root = next((d for d in here.parents if (d / 'tools' / 'voice.mjs').exists()), Path.cwd().parent)
+    alt = root / '.cache' / 'hf'
+    alt.mkdir(parents=True, exist_ok=True)
+    os.environ['HF_HOME'] = str(alt)
+    os.environ.pop('HF_HUB_CACHE', None)
+    os.environ.setdefault('VIENEU_FLAT_DIR', str(root / '.cache' / 'vieneu-flat'))
+    print(f'Thu muc cache mac dinh khong ghi duoc ({hub}); dung {alt}')
+
+
 def load_vieneu():
     """One VieNeu instance, loaded the way lamvideo's tools/voice.py does (flattened model copies, optional ONNX dir)."""
     global _vn
@@ -81,6 +106,7 @@ def load_vieneu():
         raise SystemExit('Chua import duoc vieneu: chay bang Python da cai VieNeu-TTS (xem .vieneu-python), hoac dat '
                          'VIENEU_PYTHON, hoac dung tools/what-if.bat')
     if _vn is None:
+        ensure_hf_cache()
         flatten_hf_downloads()
         kw = dict(V.get('init', {}))
         if os.environ.get('VIENEU_ONNX_DIR'):
