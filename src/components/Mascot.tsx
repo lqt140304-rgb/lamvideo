@@ -22,9 +22,11 @@ type Props = {
   enter?: number;
   /** Khung hình đổi tư thế gần nhất, để nảy nhẹ khi đổi. */
   changedAt?: number;
+  /** Xoay màu (độ) để phân biệt nhân vật. */
+  hue?: number;
 };
 
-export const Mascot: React.FC<Props> = ({ pose = "stand", x, y, scale = 1, flip, enter = 0, changedAt }) => {
+export const Mascot: React.FC<Props> = ({ pose = "stand", x, y, scale = 1, flip, enter = 0, changedAt, hue }) => {
   const frame = useCurrentFrame();
   const info = (MASCOT as Record<string, { w: number; h: number; footX: number; footY: number }>)[pose] ?? MASCOT.stand;
   const p = pop(frame, enter);
@@ -36,7 +38,7 @@ export const Mascot: React.FC<Props> = ({ pose = "stand", x, y, scale = 1, flip,
     <g transform={`translate(${x} ${y})`} opacity={Math.min(1, p * 2)}>
       <ellipse cx={0} cy={0} rx={150 * s * 1.0} ry={18 * s} fill="rgba(29,27,25,0.13)" />
       <g transform={`scale(${s * (flip ? -1 : 1) * bounce} ${s * breathe * bounce})`}>
-        <image href={staticFile(`mascot/${pose}.png`)} x={-info.footX} y={-info.footY} width={info.w} height={info.h} />
+        <image href={staticFile(`mascot/${pose}.png`)} x={-info.footX} y={-info.footY} width={info.w} height={info.h} style={hue ? { filter: `hue-rotate(${hue}deg)` } : undefined} />
       </g>
     </g>
   );

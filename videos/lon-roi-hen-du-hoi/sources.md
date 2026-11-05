@@ -13,3 +13,5 @@ Không dùng: 06_crossfire_tham_khao.jpg (bản tiếng Anh, chưa xác minh là
 Ảnh 02 bị loại từ trước (không hợp cảnh tiệm net đông người).
 
 Tin nhắn trong video là hư cấu, không dùng thông tin riêng tư thật. Không gán ảnh tư liệu là ảnh thật của nhóm nhân vật.
+
+Nhạc nền `ky-niem.mp3`: tự tạo bằng code (`tools/make_music_ky_niem.py`), không dùng mẫu của ai, không dùng nhạc game.

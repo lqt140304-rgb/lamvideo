@@ -6,23 +6,32 @@
   "engine": "vieneu",
   "speaker": "Hải Đăng"
  },
- "music": "audio/music/giay-nhap.wav",
- "musicVolume": 0.3,
+ "music": "audio/music/ky-niem.mp3",
+ "musicVolume": 0.5,
  "scenes": [
   {
-   "type": "chat",
-   "title": "Nhóm chat bây giờ",
-   "pose": "think",
-   "messages": [
+   "type": "story",
+   "mood": "night",
+   "phone": {
+    "name": "Hội bạn",
+    "msgs": [
+     {
+      "from": "me",
+      "text": "Cuối tuần gặp không chúng mày?",
+      "at": 0.12
+     },
+     {
+      "from": "them",
+      "text": "…",
+      "at": 0.6
+     }
+    ]
+   },
+   "cast": [
     {
-     "from": "user",
-     "text": "Cuối tuần gặp không chúng mày?",
-     "at": 0.15
-    },
-    {
-     "from": "bot",
-     "text": "…",
-     "at": 0.6
+     "x": 0.5,
+     "pose": "think",
+     "scale": 0.8
     }
    ],
    "pad": 0.5,
@@ -30,20 +39,34 @@
    "sub": "Bạn có nhớ… ngày xưa, muốn gặp cả hội, mình đã hẹn thế nào không?"
   },
   {
-   "type": "list",
-   "tone": "good",
-   "headline": "Ngày xưa",
-   "layout": "rows",
-   "items": [
-    "Ê! Đi chơi!"
-   ],
-   "at": [
-    0.15
+   "type": "story",
+   "mood": "warm",
+   "cast": [
+    {
+     "x": 0.2,
+     "pose": "excited",
+     "scale": 0.72
+    },
+    {
+     "x": 0.5,
+     "pose": "jump",
+     "scale": 0.72,
+     "at": 0.15,
+     "hue": -55
+    },
+    {
+     "x": 0.8,
+     "pose": "happy",
+     "scale": 0.72,
+     "at": 0.25,
+     "flip": true,
+     "hue": 60
+    }
    ],
    "broll": {
     "file": "03_nhay_day.jpg",
     "style": "card",
-    "y": 640,
+    "y": 250,
     "from": 0.06,
     "to": 0.97,
     "caption": "Ảnh minh họa",
@@ -54,20 +77,27 @@
    "sub": "Ngoài cổng có đứa gọi: Ê! Đi chơi! Chẳng cần chọn ngày."
   },
   {
-   "type": "list",
-   "tone": "good",
-   "headline": "Một tiếng gọi",
-   "layout": "rows",
-   "items": [
-    "Chẳng cần hỏi lịch"
-   ],
-   "at": [
-    0.1
+   "type": "story",
+   "mood": "warm",
+   "cast": [
+    {
+     "x": 0.28,
+     "pose": "run",
+     "scale": 0.72,
+     "toX": 0.4,
+     "hue": -55
+    },
+    {
+     "x": 0.72,
+     "pose": "smile",
+     "scale": 0.72,
+     "flip": true
+    }
    ],
    "broll": {
     "file": "04_o_an_quan.jpg",
     "style": "card",
-    "y": 640,
+    "y": 250,
     "from": 0.06,
     "to": 0.97,
     "caption": "Ảnh minh họa",
@@ -78,20 +108,27 @@
    "sub": "Chẳng cần hỏi lịch. Nghe tiếng gọi ngoài cửa là biết… chúng nó đến rồi."
   },
   {
-   "type": "list",
-   "tone": "good",
-   "headline": "Chỗ hẹn mới",
-   "layout": "rows",
-   "items": [
-    "Quán net"
-   ],
-   "at": [
-    0.3
+   "type": "story",
+   "mood": "net",
+   "cast": [
+    {
+     "x": 0.3,
+     "pose": "ok",
+     "scale": 0.72
+    },
+    {
+     "x": 0.7,
+     "pose": "happy",
+     "scale": 0.72,
+     "flip": true,
+     "hue": -55,
+     "at": 0.2
+    }
    ],
    "broll": {
     "file": "01_tiem_net.jpg",
     "style": "card",
-    "y": 640,
+    "y": 250,
     "from": 0.06,
     "to": 0.97,
     "caption": "Ảnh minh họa",
@@ -102,22 +139,43 @@
    "sub": "Lớn thêm một chút, cả bọn có một chỗ hẹn khác. Quán net."
   },
   {
-   "type": "chat",
-   "title": "Rủ nhau",
-   "pose": "excited",
-   "messages": [
+   "type": "story",
+   "mood": "net",
+   "cast": [
     {
-     "from": "user",
+     "x": 0.2,
+     "pose": "excited",
+     "scale": 0.9
+    },
+    {
+     "x": 0.5,
+     "pose": "ok",
+     "scale": 0.9,
+     "at": 0.3,
+     "hue": -55
+    },
+    {
+     "x": 0.8,
+     "pose": "jump",
+     "scale": 0.9,
+     "at": 0.5,
+     "flip": true,
+     "hue": 60
+    }
+   ],
+   "bubbles": [
+    {
+     "who": 0,
      "text": "Đột Kích không?",
      "at": 0.12
     },
     {
-     "from": "bot",
+     "who": 1,
      "text": "Phòng nào?",
      "at": 0.4
     },
     {
-     "from": "user",
+     "who": 2,
      "text": "Chừa tao một máy!",
      "at": 0.66
     }
@@ -126,20 +184,34 @@
    "sub": "Đột Kích không? Phòng nào? Chừa tao một máy! Đứa rủ bắn Đột Kích."
   },
   {
-   "type": "list",
-   "tone": "good",
-   "headline": "Cả hội xúm lại",
-   "layout": "rows",
-   "items": [
-    "Trượt một nhịp là bị trêu"
-   ],
-   "at": [
-    0.2
+   "type": "story",
+   "mood": "net",
+   "cast": [
+    {
+     "x": 0.22,
+     "pose": "surprised",
+     "scale": 0.72
+    },
+    {
+     "x": 0.5,
+     "pose": "happy",
+     "scale": 0.72,
+     "at": 0.2,
+     "hue": -55
+    },
+    {
+     "x": 0.78,
+     "pose": "excited",
+     "scale": 0.72,
+     "at": 0.4,
+     "flip": true,
+     "hue": 60
+    }
    ],
    "broll": {
     "file": "05_audition.jpg",
     "style": "card",
-    "y": 640,
+    "y": 250,
     "from": 0.06,
     "to": 0.97,
     "caption": "Ảnh minh họa Audition",
@@ -150,209 +222,371 @@
    "sub": "Đứa ngồi Audition, cả hội đứng sau xem, trượt một nhịp là bị trêu đến hết buổi. Có đứa hết tiền máy vẫn chưa về. Kéo ghế ngồi cạnh, chỉ đạo còn hăng hơn đứa đang chơi."
   },
   {
-   "type": "list",
-   "tone": "good",
-   "headline": "Chật mà vui",
-   "layout": "clipboard",
-   "pose": "happy",
-   "items": [
-    "Quán thì chật",
-    "Ghế chẳng êm",
-    "Ngồi mãi vẫn không chán"
+   "type": "story",
+   "mood": "net",
+   "cast": [
+    {
+     "x": 0.4,
+     "pose": "happy",
+     "scale": 0.95
+    },
+    {
+     "x": 0.58,
+     "pose": "smile",
+     "scale": 0.95,
+     "hue": -55,
+     "at": 0.1
+    },
+    {
+     "x": 0.76,
+     "pose": "thumbs",
+     "scale": 0.95,
+     "hue": 60,
+     "at": 0.2,
+     "flip": true
+    }
    ],
-   "at": [
-    0.15,
-    0.4,
-    0.7
+   "lines": [
+    {
+     "text": "Quán thì chật.",
+     "at": 0.1
+    },
+    {
+     "text": "Ghế chẳng êm.",
+     "at": 0.35
+    },
+    {
+     "text": "Mà ngồi mãi không chán.",
+     "at": 0.62
+    }
    ],
    "voice": "Quán thì chật. Ghế chẳng êm. Vậy mà ngồi mãi… không thấy khó chịu.",
    "sub": "Quán thì chật. Ghế chẳng êm. Vậy mà ngồi mãi… không thấy khó chịu."
   },
   {
-   "type": "chat",
-   "title": "Lúc dắt xe ra cửa",
-   "pose": "smile",
-   "messages": [
+   "type": "story",
+   "mood": "dusk",
+   "cast": [
     {
-     "from": "user",
-     "text": "Mai lại ra nhé?",
-     "at": 0.55
+     "x": 0.3,
+     "pose": "walk",
+     "scale": 0.9,
+     "toX": 0.45
     },
     {
-     "from": "bot",
+     "x": 0.62,
+     "pose": "walk",
+     "scale": 0.9,
+     "hue": -55,
+     "toX": 0.74,
+     "flip": true
+    }
+   ],
+   "bubbles": [
+    {
+     "who": 0,
+     "text": "Mai lại ra nhé?",
+     "at": 0.6
+    },
+    {
+     "who": 1,
      "text": "Ừ.",
-     "at": 0.72
+     "at": 0.78
     }
    ],
    "voice": "Giờ nhớ lại, có khi mình chẳng nhớ hôm ấy thắng hay thua. Chỉ nhớ thằng bên cạnh cứ đập vào vai. Nhớ đứa nào cũng bảo ván cuối, rồi chẳng đứa nào chịu đứng lên. Lúc về, có đứa ngoái lại hỏi: Mai lại ra nhé? Ừ. Hồi ấy, lời hẹn chỉ ngắn thế thôi.",
    "sub": "Giờ nhớ lại, có khi mình chẳng nhớ hôm ấy thắng hay thua. Chỉ nhớ thằng bên cạnh cứ đập vào vai. Nhớ đứa nào cũng bảo ván cuối, rồi chẳng đứa nào chịu đứng lên. Lúc về, có đứa ngoái lại hỏi: Mai lại ra nhé? Ừ. Hồi ấy, lời hẹn chỉ ngắn thế thôi."
   },
   {
-   "type": "timeline",
-   "headline": "Mỗi đứa một nơi",
-   "art": "none",
-   "steps": [
+   "type": "story",
+   "mood": "dusk",
+   "cast": [
     {
-     "when": "Ra trường",
-     "what": "Mỗi đứa một hướng",
-     "at": 0.12
+     "x": 0.5,
+     "pose": "walk",
+     "scale": 0.9,
+     "toX": 0.12
     },
     {
-     "when": "Đi xa, đi làm",
-     "what": "Đổi việc, đổi chỗ ở",
-     "at": 0.45
+     "x": 0.5,
+     "pose": "walk",
+     "scale": 0.9,
+     "hue": -55,
+     "toX": 0.88,
+     "flip": true
     },
     {
-     "when": "Về quê",
-     "what": "Hoặc sang thành phố khác",
-     "at": 0.75
+     "x": 0.5,
+     "pose": "stand",
+     "scale": 0.9,
+     "hue": 60
+    }
+   ],
+   "lines": [
+    {
+     "text": "Ra trường.",
+     "at": 0.1
+    },
+    {
+     "text": "Mỗi đứa một hướng.",
+     "at": 0.5
     }
    ],
    "voice": "Rồi ra trường. Đứa đi học xa. Đứa đi làm. Đứa về quê, đứa chuyển sang một thành phố khác.",
    "sub": "Rồi ra trường. Đứa đi học xa. Đứa đi làm. Đứa về quê, đứa chuyển sang một thành phố khác."
   },
   {
-   "type": "list",
-   "tone": "bad",
-   "headline": "Vẫn nhớ, mà xa",
-   "layout": "notes",
-   "items": [
-    "Vẫn lưu số nhau",
-    "Vẫn biết sinh nhật",
-    "Chưa ghé được lần nào"
+   "type": "story",
+   "mood": "night",
+   "cast": [
+    {
+     "x": 0.5,
+     "pose": "sad",
+     "scale": 0.8
+    }
    ],
-   "at": [
-    0.08,
-    0.2,
-    0.4
+   "lines": [
+    {
+     "text": "Vẫn lưu số nhau.",
+     "at": 0.08
+    },
+    {
+     "text": "Vẫn biết sinh nhật.",
+     "at": 0.2
+    },
+    {
+     "text": "Nhưng chưa ghé được lần nào.",
+     "at": 0.4
+    }
    ],
    "voice": "Vẫn lưu số nhau. Vẫn biết sinh nhật. Nhưng có đứa đổi chỗ ở mấy lần, mình còn chưa ghé được lần nào. Ngày trước, chẳng cần hỏi cũng biết nó đang ở đâu. Bây giờ, đôi khi phải nhìn một tấm ảnh mới biết… à, dạo này nó sống như thế.",
    "sub": "Vẫn lưu số nhau. Vẫn biết sinh nhật. Nhưng có đứa đổi chỗ ở mấy lần, mình còn chưa ghé được lần nào. Ngày trước, chẳng cần hỏi cũng biết nó đang ở đâu. Bây giờ, đôi khi phải nhìn một tấm ảnh mới biết… à, dạo này nó sống như thế."
   },
   {
-   "type": "compare",
-   "headline": "Máy thì nhiều",
-   "bars": false,
-   "cards": [
+   "type": "story",
+   "mood": "net",
+   "cast": [
     {
-     "label": "Ngày xưa",
-     "kind": "generic",
-     "art": "phone",
-     "tint": "yellow",
-     "amountText": "1 máy",
-     "unit": "cả bọn ngồi chung",
-     "at": 0.15
+     "x": 0.2,
+     "pose": "stand",
+     "scale": 0.62,
+     "box": true
     },
     {
-     "label": "Bây giờ",
-     "kind": "generic",
-     "art": "phone",
-     "tint": "blue",
-     "amountText": "mỗi đứa 1 máy",
-     "unit": "khó có tối cùng rảnh",
-     "at": 0.6
+     "x": 0.5,
+     "pose": "stand",
+     "scale": 0.62,
+     "box": true,
+     "hue": -55,
+     "at": 0.35
+    },
+    {
+     "x": 0.8,
+     "pose": "stand",
+     "scale": 0.62,
+     "box": true,
+     "hue": 60,
+     "at": 0.5
+    }
+   ],
+   "lines": [
+    {
+     "text": "Mỗi đứa một máy.",
+     "at": 0.35
     }
    ],
    "voice": "Ngày xưa thiếu máy, cả bọn ngồi chung. Bây giờ mỗi đứa một máy… lại khó có một tối cùng rảnh.",
    "sub": "Ngày xưa thiếu máy, cả bọn ngồi chung. Bây giờ mỗi đứa một máy… lại khó có một tối cùng rảnh."
   },
   {
-   "type": "chat",
-   "title": "Vào làm ván không?",
-   "pose": "tired",
-   "messages": [
+   "type": "story",
+   "mood": "night",
+   "phone": {
+    "name": "Hội bạn",
+    "msgs": [
+     {
+      "from": "me",
+      "text": "Vào làm ván không?",
+      "at": 0.08
+     },
+     {
+      "from": "them",
+      "text": "Tao còn ở công ty.",
+      "at": 0.2
+     },
+     {
+      "from": "them",
+      "text": "Con tao dậy rồi.",
+      "at": 0.36
+     },
+     {
+      "from": "me",
+      "text": "Ừ, lo cho cháu đi.",
+      "at": 0.5
+     }
+    ]
+   },
+   "cast": [
     {
-     "from": "user",
-     "text": "Vào làm ván không?",
-     "at": 0.08
-    },
-    {
-     "from": "bot",
-     "text": "Tao còn ở công ty.",
-     "at": 0.2
-    },
-    {
-     "from": "bot",
-     "text": "Con tao dậy rồi.",
-     "at": 0.36
-    },
-    {
-     "from": "user",
-     "text": "Ừ, lo cho cháu đi.",
-     "at": 0.5
+     "x": 0.5,
+     "pose": "tired",
+     "scale": 0.8
     }
    ],
    "voice": "Có hôm đang chơi thì một đứa phải đi. Con tao dậy rồi. Ừ, lo cho cháu đi. Một đứa khác bảo mai làm sớm. Thế là cả bọn chào nhau. Vẫn vui khi nghe lại giọng chúng nó. Chỉ là lần này… không còn ai nài thêm ván nữa.",
    "sub": "Có hôm đang chơi thì một đứa phải đi. Con tao dậy rồi. Ừ, lo cho cháu đi. Một đứa khác bảo mai làm sớm. Thế là cả bọn chào nhau. Vẫn vui khi nghe lại giọng chúng nó. Chỉ là lần này… không còn ai nài thêm ván nữa."
   },
   {
-   "type": "list",
-   "tone": "good",
-   "headline": "Ảnh cũ trong nhóm",
-   "layout": "notes",
-   "items": [
-    "Tóc mày kìa",
-    "Ai chụp quả này?",
-    "Hồi đấy gầy thế"
-   ],
-   "at": [
-    0.15,
-    0.35,
-    0.55
+   "type": "story",
+   "mood": "dusk",
+   "phone": {
+    "name": "Hội bạn",
+    "msgs": [
+     {
+      "from": "them",
+      "text": "Tóc mày kìa",
+      "at": 0.12
+     },
+     {
+      "from": "me",
+      "text": "Ai chụp quả này?",
+      "at": 0.28
+     },
+     {
+      "from": "them",
+      "text": "Hồi đấy gầy thế",
+      "at": 0.42
+     },
+     {
+      "from": "them",
+      "text": "Lâu rồi chưa gặp. Cuối tuần làm bữa không?",
+      "at": 0.68
+     }
+    ]
+   },
+   "cast": [
+    {
+     "x": 0.5,
+     "pose": "happy",
+     "scale": 0.8
+    }
    ],
    "voice": "Thỉnh thoảng, một đứa gửi lại ảnh cũ. Cả nhóm bỗng nói nhiều như ngày trước. Rồi có đứa hỏi: Lâu rồi chưa gặp. Cuối tuần làm bữa không?",
    "sub": "Thỉnh thoảng, một đứa gửi lại ảnh cũ. Cả nhóm bỗng nói nhiều như ngày trước. Rồi có đứa hỏi: Lâu rồi chưa gặp. Cuối tuần làm bữa không?"
   },
   {
-   "type": "list",
-   "tone": "bad",
-   "headline": "Chọn ngày",
-   "layout": "clipboard",
-   "pose": "sad",
-   "items": [
-    "Tuần này tao trực.",
-    "Tao chưa về được.",
-    "Để tháng sau nhé?"
-   ],
-   "at": [
-    0.08,
-    0.2,
-    0.32
+   "type": "story",
+   "mood": "night",
+   "phone": {
+    "name": "Hội bạn",
+    "msgs": [
+     {
+      "from": "them",
+      "text": "Tuần này tao trực.",
+      "at": 0.08
+     },
+     {
+      "from": "them",
+      "text": "Tao chưa về được.",
+      "at": 0.2
+     },
+     {
+      "from": "them",
+      "text": "Để tháng sau nhé?",
+      "at": 0.32
+     }
+    ]
+   },
+   "cast": [
+    {
+     "x": 0.5,
+     "pose": "sad",
+     "scale": 0.8
+    }
    ],
    "voice": "Tuần này tao trực. Tao chưa về được. Để tháng sau nhé? Mình lướt tìm tấm ảnh gần nhất có đủ cả hội. Lâu hơn mình tưởng. Hôm ấy cũng chỉ là một buổi bình thường. Lúc về, chắc cũng đã nói: hôm nào gặp tiếp. Chẳng ai biết… cuộc hẹn tiếp theo lại khó đến thế.",
    "sub": "Tuần này tao trực. Tao chưa về được. Để tháng sau nhé? Mình lướt tìm tấm ảnh gần nhất có đủ cả hội. Lâu hơn mình tưởng. Hôm ấy cũng chỉ là một buổi bình thường. Lúc về, chắc cũng đã nói: hôm nào gặp tiếp. Chẳng ai biết… cuộc hẹn tiếp theo lại khó đến thế."
   },
   {
-   "type": "chat",
-   "title": "Một đứa chốt luôn",
-   "pose": "excited",
-   "messages": [
+   "type": "story",
+   "mood": "dawn",
+   "lines": [
     {
-     "from": "user",
-     "text": "Thứ Bảy, 7 giờ. Tao đặt sân cầu rồi. Ai tới được thì tới.",
-     "at": 0.08
+     "text": "Thứ Bảy, 7 giờ.",
+     "at": 0.06
     },
     {
-     "from": "bot",
+     "text": "Tao đặt sân cầu rồi.",
+     "at": 0.16
+    },
+    {
+     "text": "Ai tới được thì tới.",
+     "at": 0.26
+    }
+   ],
+   "cast": [
+    {
+     "x": 0.55,
+     "pose": "ok",
+     "scale": 0.9
+    },
+    {
+     "x": 0.82,
+     "pose": "smile",
+     "scale": 0.9,
+     "hue": -55,
+     "flip": true
+    },
+    {
+     "x": 0.1,
+     "pose": "run",
+     "scale": 0.9,
+     "toX": 0.3,
+     "hue": 60,
+     "at": 0.4
+    }
+   ],
+   "bubbles": [
+    {
+     "who": 2,
      "text": "Ê! Chừa tao một chỗ!",
-     "at": 0.6
+     "at": 0.62
     }
    ],
    "voice": "Lần này, một đứa chốt luôn. Không đợi chọn được ngày mà cả hội đều rảnh. Hai người ra sân. Người thứ ba chạy vào: Ê! Chừa tao một chỗ! Vẫn cái giọng ấy. Vẫn đến muộn. Vẫn vừa gặp đã bị cả bọn trêu.",
    "sub": "Lần này, một đứa chốt luôn. Không đợi chọn được ngày mà cả hội đều rảnh. Hai người ra sân. Người thứ ba chạy vào: Ê! Chừa tao một chỗ! Vẫn cái giọng ấy. Vẫn đến muộn. Vẫn vừa gặp đã bị cả bọn trêu."
   },
   {
-   "type": "chat",
-   "title": "Ảnh mới của ba đứa",
-   "pose": "smile",
-   "messages": [
+   "type": "story",
+   "mood": "dawn",
+   "cast": [
     {
-     "from": "user",
+     "x": 0.3,
+     "pose": "happy",
+     "scale": 0.9
+    },
+    {
+     "x": 0.5,
+     "pose": "smile",
+     "scale": 0.9,
+     "hue": -55
+    },
+    {
+     "x": 0.7,
+     "pose": "excited",
+     "scale": 0.9,
+     "hue": 60,
+     "flip": true
+    }
+   ],
+   "bubbles": [
+    {
+     "who": 0,
      "text": "Thiếu chúng mày. Buổi sau nhé.",
      "at": 0.15
     },
     {
-     "from": "bot",
+     "who": 2,
      "text": "Buổi sau tao đi.",
      "at": 0.6
     }

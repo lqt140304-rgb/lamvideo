@@ -220,7 +220,36 @@ export type OutroScene = SceneBase & {
   cta: string;
 };
 
+/** Cảnh kể chuyện: nền theo tâm trạng, nhân vật, bóng thoại, điện thoại, dòng chữ lớn. */
+export type StoryScene = SceneBase & {
+  type: "story";
+  /** Nền: warm (nắng chiều ấm) | dusk (hoàng hôn) | night (đêm) | net (quán net, ánh neon) | dawn (sáng, hy vọng). */
+  mood: "warm" | "dusk" | "night" | "net" | "dawn";
+  cast?: {
+    pose?: MascotPose;
+    /** Vị trí ngang 0..1 (0.5 = giữa khung). */
+    x: number;
+    /** Đi từ x đến `toX` trong cảnh (từ `at` đến `to`, mặc định cả cảnh). */
+    toX?: number;
+    scale?: number;
+    flip?: boolean;
+    /** Xoay màu áo (độ), để phân biệt các bạn. */
+    hue?: number;
+    /** Bật lên lúc nào (0..1). */
+    at?: number;
+    /** Đứng trong khung cửa sổ riêng (cảnh mỗi đứa một máy). */
+    box?: boolean;
+  }[];
+  /** Bóng thoại trên đầu nhân vật `who` (chỉ số trong cast). */
+  bubbles?: { who: number; text: string; at: number; tone?: "say" | "think" }[];
+  /** Điện thoại lớn có tin nhắn. */
+  phone?: { name?: string; msgs: { from: "me" | "them"; text: string; at: number }[] };
+  /** Dòng chữ lớn hiện lần lượt, không khung. */
+  lines?: { text: string; at: number }[];
+};
+
 export type Scene =
+  | StoryScene
   | HookScene
   | ZonesScene
   | TimelineScene

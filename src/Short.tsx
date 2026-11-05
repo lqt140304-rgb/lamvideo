@@ -11,6 +11,7 @@ import { OutroScene } from "./scenes/OutroScene";
 import { TimelineScene } from "./scenes/TimelineScene";
 import { VerdictScene } from "./scenes/VerdictScene";
 import { ZonesScene } from "./scenes/ZonesScene";
+import { StoryScene, isDarkMood } from "./scenes/StoryScene";
 import {
   ChatScene,
   CompareVariant,
@@ -36,6 +37,8 @@ export type ShortProps = {
 
 const SceneBody: React.FC<{ scene: Scene; frames: number }> = ({ scene, frames }) => {
   switch (scene.type) {
+    case "story":
+      return <StoryScene scene={scene} frames={frames} />;
     case "hook":
       return scene.layout && scene.layout !== "poster" ? <HookVariant scene={scene} frames={frames} /> : <HookScene scene={scene} frames={frames} />;
     case "zones":
@@ -167,7 +170,7 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
           </Sequence>
         );
       })}
-      <Header topic={script.topic} progress={total ? frame / total : 0} />
+      <Header topic={script.topic} progress={total ? frame / total : 0} onDark={(() => { const i = timings.findIndex((t) => frame >= t.from && frame < t.from + t.frames); const sc = script.scenes[i]; return !!sc && sc.type === "story" && isDarkMood(sc.mood); })()} />
       {script.music ? (
         <Audio
           src={staticFile(script.music)}
