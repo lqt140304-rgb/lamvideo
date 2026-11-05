@@ -29,9 +29,14 @@ export type Look = {
   shoe: string;
   face: string;
   hair: string;
-  extra?: 'hood' | 'curls' | 'bunches' | 'bob' | 'suit';
+  extra?: 'hood' | 'curls' | 'bunches' | 'bob' | 'suit' | 'short' | 'bun';
+  /** The film cast: fuller limbs, bare forearms and shins in their own colour, and hands with fingers. */
+  limbW?: number;
+  forearm?: string;
+  shin?: string;
+  fingers?: boolean;
 };
-export type CastName = 'pip' | 'pipHood' | 'pipInk' | 'mo' | 'sis' | 'mom' | 'suit';
+export type CastName = 'pip' | 'pipHood' | 'pipInk' | 'mo' | 'sis' | 'mom' | 'suit' | 'an' | 'hanh' | 'linh' | 'baSau' | 'nam';
 export const LOOKS: Record<CastName, Look> = {
   // A: Pip as built
   pip: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: C.jacket, jacketShade: C.jacketShade, accent: C.jacketShade, limb: C.limb, line: C.ink, shoe: C.shoe, face: C.ink, hair: C.ink },
@@ -45,6 +50,12 @@ export const LOOKS: Record<CastName, Look> = {
   // and the man in a suit who notices the power. All three are ours: plain shapes, no famous silhouettes.
   sis: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#3E8C86', jacketShade: '#2F6E69', accent: '#F28C6A', limb: '#3A3446', line: '#14121C', shoe: '#F28C6A', face: C.ink, hair: '#3A2620', extra: 'bunches' },
   mom: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#8A5A6A', jacketShade: '#704858', accent: '#E9C46A', limb: '#3A3446', line: '#14121C', shoe: '#5A4A6A', face: C.ink, hair: '#5A3226', extra: 'bob' },
+  // "Mưa liên tục 100 ngày": An (water-station technician), Hạnh, Linh (8: draw at about 0.62 of An), bà Sáu, Nam (her grandson).
+  an: { skin: '#E6B98F', skinShade: '#CF9F76', hand: '#E6B98F', jacket: '#4F7486', jacketShade: '#3C5A6A', accent: '#2E4654', limb: '#3B3F4C', line: '#16141C', shoe: '#5A4636', face: C.ink, hair: '#1B1718', extra: 'short', limbW: 21, forearm: '#E6B98F', fingers: true },
+  hanh: { skin: '#EBC4A0', skinShade: '#D4A981', hand: '#EBC4A0', jacket: '#B5604F', jacketShade: '#934A3D', accent: '#E8C9A0', limb: '#3D3A4A', line: '#16141C', shoe: '#6B4A3A', face: C.ink, hair: '#1E1718', extra: 'bun', limbW: 18, forearm: '#EBC4A0', fingers: true },
+  linh: { skin: '#F0CCA8', skinShade: '#DAB08C', hand: '#F0CCA8', jacket: '#E9D8B0', jacketShade: '#CDB98C', accent: '#D96C4F', limb: '#55718A', line: '#16141C', shoe: '#D96C4F', face: C.ink, hair: '#1C1516', extra: 'bunches', limbW: 19, forearm: '#F0CCA8', shin: '#F0CCA8', fingers: true },
+  baSau: { skin: '#DDB08A', skinShade: '#C49670', hand: '#DDB08A', jacket: '#6E5B7E', jacketShade: '#574764', accent: '#CDB98C', limb: '#2F2B38', line: '#16141C', shoe: '#4A3E36', face: C.ink, hair: '#B9B4AE', extra: 'bun', limbW: 18, forearm: '#DDB08A', fingers: true },
+  nam: { skin: '#E0B48C', skinShade: '#C89A72', hand: '#E0B48C', jacket: '#3F8A7C', jacketShade: '#2F6C60', accent: '#F2C14E', limb: '#44506A', line: '#16141C', shoe: '#E9E0CC', face: C.ink, hair: '#1A1516', extra: 'short', limbW: 19, forearm: '#E0B48C', shin: '#E0B48C', fingers: true },
   suit: { skin: '#D9C6AE', skinShade: '#C2AE96', hand: '#D9C6AE', jacket: '#2B2F3A', jacketShade: '#20232C', accent: '#A8323E', limb: '#2B2F3A', line: '#0E0F14', shoe: '#14151A', face: C.ink, hair: '#17141A', extra: 'suit' },
 };
 
@@ -102,6 +113,12 @@ export const basePose: Pose = {
 };
 
 type Key = { f: number; p: Partial<Pose>; ease?: (t: number) => number };
+
+/** Blinks that belong to the shot's clock: shut about 3 frames every 2.5 to 4 s, never random. */
+export const blinkAt = (t: number, seed = 0) => {
+  const period = 75 + ((seed * 37) % 45);
+  return (t + seed * 17) % period < 3 ? 1 : 0;
+};
 
 const mixLimb = (a: Limb, b: Limb, t: number): Limb => ({ a: lerp(a.a, b.a, t), b: lerp(a.b, b.b, t) });
 
@@ -313,15 +330,19 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   const j = joints(pose);
   const L = look;
   // limbs are light with a dark outline, so they read on the dark sets (navy limbs vanished on navy walls)
-  const limb = (o: { root: P; mid: P; end: P }, w: number) => {
+  const limb = (o: { root: P; mid: P; end: P }, w0: number, lower?: string) => {
+    const w = L.limbW ?? w0;
     const d = `M ${o.root.x} ${o.root.y} L ${o.mid.x} ${o.mid.y} L ${o.end.x} ${o.end.y}`;
     return (
       <g>
         <path d={d} stroke={L.line} strokeWidth={w + 7} fill="none" strokeLinecap="round" strokeLinejoin="round" />
         <path d={d} stroke={L.limb} strokeWidth={w} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        {lower ? <path d={`M ${o.mid.x} ${o.mid.y} L ${o.end.x} ${o.end.y}`} stroke={lower} strokeWidth={w - 3} fill="none" strokeLinecap="round" /> : null}
       </g>
     );
   };
+  const arm = (o: { root: P; mid: P; end: P }) => limb(o, 11, L.forearm);
+  const leg = (o: { root: P; mid: P; end: P }) => limb(o, 12, L.shin);
   const shoe = (o: { root: P; mid: P; end: P }) => (
     <ellipse cx={o.end.x + pose.facing * 9} cy={o.end.y + 4} rx={22} ry={11} fill={L.shoe} stroke={L.line} strokeWidth={4} />
   );
@@ -330,7 +351,20 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
     const ang = (Math.atan2(o.end.x - o.mid.x, o.end.y - o.mid.y) * 180) / Math.PI;
     return (
       <g transform={`translate(${o.end.x} ${o.end.y}) rotate(${-ang})`}>
-        {kind === 'point' ? (
+        {L.fingers && kind === 'open' ? (
+          // a real hand: the palm, four fingers and a thumb on the body's side
+          <g>
+            {[-9, -3, 3, 9].map((fx, k) => (
+              <path key={k} d={`M ${fx} 12 L ${fx * 1.25} ${k === 0 ? 27 : k === 3 ? 28 : 32}`} stroke={L.line} strokeWidth={8.5} strokeLinecap="round" />
+            ))}
+            <path d={`M ${side * 11} 2 L ${side * 19} 14`} stroke={L.line} strokeWidth={9} strokeLinecap="round" />
+            <ellipse cx={0} cy={6} rx={13} ry={12} fill={L.hand} stroke={L.line} strokeWidth={3.5} />
+            {[-9, -3, 3, 9].map((fx, k) => (
+              <path key={k} d={`M ${fx} 12 L ${fx * 1.25} ${k === 0 ? 27 : k === 3 ? 28 : 32}`} stroke={L.hand} strokeWidth={5} strokeLinecap="round" />
+            ))}
+            <path d={`M ${side * 11} 2 L ${side * 19} 14`} stroke={L.hand} strokeWidth={5.5} strokeLinecap="round" />
+          </g>
+        ) : kind === 'point' ? (
           <g>
             <rect x={-4} y={10} width={8} height={24} rx={4} fill={L.hand} stroke={L.line} strokeWidth={3.5} />
             <path d="M -11 -2 Q -14 14 -6 18 L 7 18 Q 14 14 11 -2 Z" fill={L.hand} stroke={L.line} strokeWidth={4} strokeLinejoin="round" />
@@ -368,7 +402,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
     <g transform={`rotate(${pose.tilt}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
       <circle cx={HEAD.x} cy={HEAD.y} r={HEAD.r} fill={L.skin} stroke={L.line} strokeWidth={4} />
       <path d={`M ${HEAD.x + 14} ${HEAD.y + 58} A ${HEAD.r} ${HEAD.r} 0 0 0 ${HEAD.x + 60} ${HEAD.y + 14} A 70 70 0 0 1 ${HEAD.x + 14} ${HEAD.y + 58} Z`} fill={L.skinShade} />
-      {L.extra === 'bunches' || L.extra === 'bob' || L.extra === 'suit' ? null : (
+      {L.extra === 'bunches' || L.extra === 'bob' || L.extra === 'suit' || L.extra === 'short' || L.extra === 'bun' ? null : (
         <path transform={`translate(${-pose.yaw * 16} 0)`} d={`M -6 ${HEAD.y - 60} q 10 -26 30 -18 q -16 2 -14 16 q -8 -10 -16 2 Z`} fill={L.hair} />
       )}
       {L.extra === 'bunches' ? (
@@ -394,6 +428,13 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           strokeLinejoin="round"
         />
       ) : null}
+      {L.extra === 'short' || L.extra === 'bun' ? (
+        // short hair with a soft fringe; 'bun' adds the knot at the back of the head
+        <g transform={`translate(${-pose.yaw * 14} 0)`}>
+          {L.extra === 'bun' ? <circle cx={-pose.yaw * 38} cy={HEAD.y - 66} r={23} fill={L.hair} stroke={L.line} strokeWidth={4} /> : null}
+          <path d={`M -62 ${HEAD.y - 8} Q -68 ${HEAD.y - 70} 0 ${HEAD.y - 70} Q 68 ${HEAD.y - 70} 62 ${HEAD.y - 8} Q 54 ${HEAD.y - 38} 26 ${HEAD.y - 42} Q -4 ${HEAD.y - 30} -30 ${HEAD.y - 44} Q -54 ${HEAD.y - 36} -62 ${HEAD.y - 8} Z`} fill={L.hair} />
+        </g>
+      ) : null}
       {L.extra === 'suit' ? (
         // short combed-back hair with a hard side parting
         <path transform={`translate(${-pose.yaw * 14} 0)`} d={`M -60 ${HEAD.y - 18} Q -64 ${HEAD.y - 70} 4 ${HEAD.y - 68} Q 64 ${HEAD.y - 64} 60 ${HEAD.y - 18} Q 52 ${HEAD.y - 44} 18 ${HEAD.y - 46} L 12 ${HEAD.y - 54} L 6 ${HEAD.y - 46} Q -44 ${HEAD.y - 46} -60 ${HEAD.y - 18} Z`} fill={L.hair} />
@@ -413,10 +454,10 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
       <g transform={`translate(${pose.x} ${pose.y}) scale(${pose.scale}) rotate(${pose.spin} 0 -90)`} filter={`url(#${rimId})`}>
         <g transform={`translate(0 ${LEG_LEN}) scale(${1 + 0.6 * pose.squash} ${1 - pose.squash}) translate(0 ${-LEG_LEN})`}>
           {/* the far side is drawn first, so a turned body overlaps itself the right way */}
-          {pose.yaw < 0 ? <>{limb(j.legR, 12)}{shoe(j.legR)}{limb(j.legL, 12)}{shoe(j.legL)}</> : <>{limb(j.legL, 12)}{shoe(j.legL)}{limb(j.legR, 12)}{shoe(j.legR)}</>}
-          {pose.yaw < 0 ? <>{limb(j.armR, 11)}{hand(j.armR, -1, pose.handR)}</> : <>{limb(j.armL, 11)}{hand(j.armL, 1, pose.handL)}</>}
+          {pose.yaw < 0 ? <>{leg(j.legR)}{shoe(j.legR)}{leg(j.legL)}{shoe(j.legL)}</> : <>{leg(j.legL)}{shoe(j.legL)}{leg(j.legR)}{shoe(j.legR)}</>}
+          {pose.yaw < 0 ? <>{arm(j.armR)}{hand(j.armR, -1, pose.handR)}</> : <>{arm(j.armL)}{hand(j.armL, 1, pose.handL)}</>}
           {torso}
-          {pose.yaw < 0 ? <>{limb(j.armL, 11)}{hand(j.armL, 1, pose.handL)}</> : <>{limb(j.armR, 11)}{hand(j.armR, -1, pose.handR)}</>}
+          {pose.yaw < 0 ? <>{arm(j.armL)}{hand(j.armL, 1, pose.handL)}</> : <>{arm(j.armR)}{hand(j.armR, -1, pose.handR)}</>}
           {L.extra === 'hood' ? (
             <g transform={`rotate(${pose.tilt}) rotate(${pose.headTilt * 0.5} 0 ${HEAD.y + 40})`}>
               <path d={`M -70 ${HEAD.y + 14} Q -80 ${HEAD.y - 74} 0 ${HEAD.y - 80} Q 80 ${HEAD.y - 74} 70 ${HEAD.y + 14} Q 52 -100 0 -106 Q -52 -100 -70 ${HEAD.y + 14} Z`} fill={L.jacket} stroke={L.line} strokeWidth={4} />

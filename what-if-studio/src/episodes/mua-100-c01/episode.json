@@ -94,5 +94,418 @@
       "text": "Không ai trong nhà biết rồi sẽ có thêm bao nhiêu dấu nữa.",
       "pause": 2
     }
-  ]
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "extreme wide",
+      "set": "alley",
+      "key": 60,
+      "note": "Hẻm trong nắng gắt, tiêu đề và nhãn giả định"
+    },
+    {
+      "id": "S2",
+      "size": "macro low",
+      "set": "road",
+      "key": 20,
+      "note": "Sát mặt đường, hơi nóng bốc"
+    },
+    {
+      "id": "S3",
+      "size": "low angle",
+      "set": "palms",
+      "key": 20,
+      "note": "Ngước lên tàu lá cau rũ"
+    },
+    {
+      "id": "S4",
+      "size": "top-down",
+      "set": "bed",
+      "key": 20,
+      "note": "Từ trên xuống luống rau nứt"
+    },
+    {
+      "id": "S5",
+      "size": "extreme wide",
+      "set": "town",
+      "key": 60,
+      "note": "Mây đen tràn qua núi"
+    },
+    {
+      "id": "S6",
+      "size": "pan L>R",
+      "set": "town",
+      "key": 60,
+      "note": "Lia trái sang phải trên mái nhà"
+    },
+    {
+      "id": "S7",
+      "size": "over shoulder wide",
+      "set": "alley",
+      "key": 80,
+      "note": "Qua vai người ở đầu hẻm, xám tới cuối tầm mắt; giữ qua nhịp nghỉ 2 giây"
+    },
+    {
+      "id": "S8",
+      "size": "ground wide",
+      "set": "alley",
+      "key": 40,
+      "note": "Gió lùa qua hẻm, giấy bay"
+    },
+    {
+      "id": "S9",
+      "size": "low medium",
+      "set": "shop",
+      "key": 40,
+      "note": "Bà Sáu ngẩng nhìn trời"
+    },
+    {
+      "id": "S10",
+      "size": "medium",
+      "set": "kitchen",
+      "key": 28,
+      "note": "Hạnh kéo cửa sau"
+    },
+    {
+      "id": "S11",
+      "size": "top-down insert",
+      "set": "desk",
+      "key": 14,
+      "note": "Tay Linh bỏ bút xuống"
+    },
+    {
+      "id": "S12",
+      "size": "EXTREME close-up",
+      "set": "yard",
+      "key": 24,
+      "note": "Giọt mưa đầu tiên chạm gạch nóng"
+    },
+    {
+      "id": "S13",
+      "size": "high wide",
+      "set": "town",
+      "key": 70,
+      "note": "Mưa khắp mái tôn"
+    },
+    {
+      "id": "S14",
+      "size": "ground close",
+      "set": "garden",
+      "key": 60,
+      "note": "Vườn khô được tưới"
+    },
+    {
+      "id": "S15",
+      "size": "very wide",
+      "set": "reservoir",
+      "key": 40,
+      "note": "Hồ chứa nhận nước"
+    },
+    {
+      "id": "S16",
+      "size": "macro",
+      "set": "sill",
+      "key": 60,
+      "note": "Tách trà bốc khói, mưa sau kính"
+    },
+    {
+      "id": "S17",
+      "size": "behind character",
+      "set": "veranda",
+      "key": 60,
+      "note": "Sau lưng An nhìn mưa"
+    },
+    {
+      "id": "S18",
+      "size": "high angle",
+      "set": "town",
+      "key": 90,
+      "note": "Từ trên cao: hai dãy nhà, sông, bến"
+    },
+    {
+      "id": "S19",
+      "size": "front wide",
+      "set": "house",
+      "key": 60,
+      "note": "Toàn cảnh nhà An, gác nhỏ"
+    },
+    {
+      "id": "S20",
+      "size": "wide interior",
+      "set": "living",
+      "key": 40,
+      "note": "Phòng khách, bóng đèn sáng"
+    },
+    {
+      "id": "S21",
+      "size": "pan L>R medium",
+      "set": "living",
+      "key": 80,
+      "note": "Lia từ bộ bàn ghế tới bàn học"
+    },
+    {
+      "id": "S22",
+      "size": "frame in frame",
+      "set": "kitchen",
+      "key": 50,
+      "note": "Qua cửa bếp ra vườn rau"
+    },
+    {
+      "id": "S23",
+      "size": "medium side",
+      "set": "veranda",
+      "key": 50,
+      "note": "Linh ngồi xổm bên chậu cây"
+    },
+    {
+      "id": "S24",
+      "size": "from object",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Từ trong chậu vo gạo nhìn lên Hạnh"
+    },
+    {
+      "id": "S25",
+      "size": "floor level",
+      "set": "living",
+      "key": 40,
+      "note": "Con chó dưới ghế ngẩng đầu"
+    },
+    {
+      "id": "S26",
+      "size": "over shoulder wide",
+      "set": "shop",
+      "key": 60,
+      "note": "Qua vai An: bà Sáu kéo bạt, gọi sang"
+    },
+    {
+      "id": "S27",
+      "size": "close hands",
+      "set": "veranda",
+      "key": 60,
+      "note": "An đặt chậu hứng dưới máng xối"
+    },
+    {
+      "id": "S28",
+      "size": "FIRST PERSON",
+      "set": "veranda",
+      "key": 40,
+      "note": "FOV Linh: bàn tay chìa ra hứng mưa, có chớp mắt"
+    },
+    {
+      "id": "S29",
+      "size": "over shoulder low",
+      "set": "veranda",
+      "key": 40,
+      "note": "Qua vai Linh nhìn lên An"
+    },
+    {
+      "id": "S30",
+      "size": "high close",
+      "set": "veranda",
+      "key": 40,
+      "note": "Từ tầm An nhìn xuống Linh, tinh nghịch"
+    },
+    {
+      "id": "S31",
+      "size": "two-shot side",
+      "set": "veranda",
+      "key": 60,
+      "note": "An cười, kéo ghế thấp cho con"
+    },
+    {
+      "id": "S32",
+      "size": "deep over shoulder",
+      "set": "living",
+      "key": 40,
+      "note": "Hạnh ở bếp gọi, hai bố con xa ngoài hiên"
+    },
+    {
+      "id": "S33",
+      "size": "close",
+      "set": "veranda",
+      "key": 30,
+      "note": "Linh quay vào đáp"
+    },
+    {
+      "id": "S34",
+      "size": "macro hold",
+      "set": "pot",
+      "key": 30,
+      "note": "Giọt nước chảy khỏi đáy chậu"
+    },
+    {
+      "id": "S35",
+      "size": "from wall",
+      "set": "living",
+      "key": 40,
+      "note": "Từ tờ lịch nhìn lại: Linh chạy vào cầm bút"
+    },
+    {
+      "id": "S36",
+      "size": "close-up",
+      "set": "calendar",
+      "key": 28,
+      "note": "Đánh dấu tờ lịch"
+    },
+    {
+      "id": "S37",
+      "size": "pull back wide",
+      "set": "living",
+      "key": 80,
+      "note": "Kéo lùi, tờ lịch nhỏ dần, trời sập tối"
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "Vào"
+    },
+    {
+      "shot": "S2",
+      "at": "Mặt"
+    },
+    {
+      "shot": "S3",
+      "at": "Những"
+    },
+    {
+      "shot": "S4",
+      "at": "luống"
+    },
+    {
+      "shot": "S5",
+      "at": "Rồi"
+    },
+    {
+      "shot": "S6",
+      "at": "Lớp"
+    },
+    {
+      "shot": "S7",
+      "at": "Đứng"
+    },
+    {
+      "shot": "S8",
+      "at": "Gió"
+    },
+    {
+      "shot": "S9",
+      "at": "Bà"
+    },
+    {
+      "shot": "S10",
+      "at": "Trong"
+    },
+    {
+      "shot": "S11",
+      "at": "Linh"
+    },
+    {
+      "shot": "S12",
+      "at": "Giọt"
+    },
+    {
+      "shot": "S13",
+      "at": "Chỉ"
+    },
+    {
+      "shot": "S14",
+      "at": "Ban"
+    },
+    {
+      "shot": "S15",
+      "at": "Hồ"
+    },
+    {
+      "shot": "S16",
+      "at": "Dù"
+    },
+    {
+      "shot": "S17",
+      "at": "Ở"
+    },
+    {
+      "shot": "S18",
+      "at": "Qua"
+    },
+    {
+      "shot": "S19",
+      "at": "Nhà"
+    },
+    {
+      "shot": "S20",
+      "at": "Tường"
+    },
+    {
+      "shot": "S21",
+      "at": "Bên"
+    },
+    {
+      "shot": "S22",
+      "at": "phía"
+    },
+    {
+      "shot": "S23",
+      "at": "Linh"
+    },
+    {
+      "shot": "S24",
+      "at": "Trong"
+    },
+    {
+      "shot": "S25",
+      "at": "Con"
+    },
+    {
+      "shot": "S26",
+      "at": "Bên"
+    },
+    {
+      "shot": "S27",
+      "at": "An"
+    },
+    {
+      "shot": "S28",
+      "at": "Linh"
+    },
+    {
+      "shot": "S29",
+      "at": "Ừ"
+    },
+    {
+      "shot": "S30",
+      "at": "Vậy"
+    },
+    {
+      "shot": "S31",
+      "at": "An"
+    },
+    {
+      "shot": "S32",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S33",
+      "at": "Linh"
+    },
+    {
+      "shot": "S34",
+      "at": "s:152.9"
+    },
+    {
+      "shot": "S35",
+      "at": "Cô"
+    },
+    {
+      "shot": "S36",
+      "at": "Ngày"
+    },
+    {
+      "shot": "S37",
+      "at": "Không"
+    }
+  ],
+  "lead": 2,
+  "tail": 2.1
 }
