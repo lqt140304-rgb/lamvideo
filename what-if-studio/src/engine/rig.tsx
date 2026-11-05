@@ -343,6 +343,13 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
  * the rim across the side of the head, to just behind the ear in profile. `bottom` is how far down the nape it runs,
  * `flare` pushes the outline out (a bob, curls), `extra` reaches further across the head.
  */
+/** Where a bunch sits as the head turns: both high on the sides face-on; turned, both slide round to the back of the head (the far one goes hidden behind it). */
+const bunchAt = (sd: number, yaw: number) => {
+  const a = Math.min(1, Math.abs(yaw));
+  const back = yaw === 0 ? 0 : -Math.sign(yaw);
+  const far = sd !== back && a > 0;
+  return { x: 58 * sd * (1 - a) + back * 58 * a, band: far ? Math.max(0, 1 - a * 3) : 1 };
+};
 const SideHair: React.FC<{ yaw: number; hair: string; line: string; bottom?: number; flare?: number; extra?: number; stroke?: number }> = ({ yaw, hair, line, bottom = 30, flare = 0, extra = 0, stroke = 3 }) => {
   const a = Math.abs(yaw);
   if (a < 0.12) return null;
@@ -439,6 +446,16 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   );
   const head = (
     <g transform={`rotate(${pose.tilt}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
+      {L.extra === 'bunches'
+        ? [-1, 1].map((sd) => {
+            const b = bunchAt(sd, pose.yaw);
+            return (
+              <g key={sd} transform={`rotate(${pose.sway * 0.5} ${b.x} ${HEAD.y - 52})`}>
+                <circle cx={b.x} cy={HEAD.y - 52} r={27} fill={L.hair} stroke={L.line} strokeWidth={4} />
+              </g>
+            );
+          })
+        : null}
       <circle cx={HEAD.x} cy={HEAD.y} r={HEAD.r} fill={L.skin} stroke={L.line} strokeWidth={4} />
       <path d={`M ${HEAD.x + 14} ${HEAD.y + 58} A ${HEAD.r} ${HEAD.r} 0 0 0 ${HEAD.x + 60} ${HEAD.y + 14} A 70 70 0 0 1 ${HEAD.x + 14} ${HEAD.y + 58} Z`} fill={L.skinShade} />
       {L.extra === 'bunches' || L.extra === 'bob' || L.extra === 'suit' || L.extra === 'crop' || L.extra === 'hardhat' || L.extra === 'bun' ? null : (
@@ -452,13 +469,13 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         return (
           <g>
             {L.extra === 'crop' || L.extra === 'bun' ? (
-              <g transform={`translate(${-pose.yaw * 5} 0)`}>
+              <g>
                 {L.extra === 'bun' ? <circle cx={-pose.yaw * 44} cy={HEAD.y - 68} r={23} fill={L.hair} stroke={L.line} strokeWidth={3} /> : null}
-                <path d={`M -61 ${top} A 62 62 0 0 1 61 ${top} Q 44 ${HEAD.y - 34} 14 ${HEAD.y - 46} Q -16 ${HEAD.y - 40} -61 ${top} Z`} fill={L.hair} stroke={L.line} strokeWidth={3} strokeLinejoin="round" />
+                <path d={`M -64 ${top} A 64 64 0 0 1 64 ${top} Q ${44 + pose.yaw * 10} ${HEAD.y - 34} ${14 + pose.yaw * 10} ${HEAD.y - 46} Q ${-16 + pose.yaw * 10} ${HEAD.y - 40} -64 ${top} Z`} fill={L.hair} stroke={L.line} strokeWidth={2} strokeLinejoin="round" />
                 <path d={`M -20 ${HEAD.y - 46} Q 2 ${HEAD.y - 56} 26 ${HEAD.y - 50}`} stroke={L.line} strokeWidth={3} fill="none" opacity={0.3} strokeLinecap="round" />
               </g>
             ) : null}
-            <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={L.extra === 'hardhat' ? 34 : 30} />
+            <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={L.extra === 'hardhat' ? 34 : 30} stroke={0} />
             {L.extra === 'hardhat' ? (
               <g fill={L.hair} stroke={L.line} strokeWidth={2.5} opacity={1 - a * 0.6}>
                 <path d={`M -60 ${HEAD.y - 34} Q -64 ${HEAD.y - 6} -52 ${HEAD.y + 4} Q -52 ${HEAD.y - 14} -44 ${HEAD.y - 32} Z`} />
@@ -469,15 +486,14 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         );
       })()}
       {L.extra === 'bunches' ? (
-        // a fringe cap and two bunches tied with coral bands; the bunches swing a little with sway
+        // the hair covers the skull like the crop (fringe, then the back of the head as she turns); a coral band ties each bunch where it leaves the head
         <g>
-          {[-1, 1].map((sd) => (
-            <g key={sd} transform={`rotate(${pose.sway * 0.5} ${sd * 58} ${HEAD.y - 30})`}>
-              <circle cx={sd * 72 - pose.yaw * 10} cy={HEAD.y - 24} r={24} fill={L.hair} stroke={L.line} strokeWidth={4} />
-              <circle cx={sd * 55 - pose.yaw * 10} cy={HEAD.y - 30} r={8} fill={L.accent} />
-            </g>
-          ))}
-          <path transform={`translate(${-pose.yaw * 14} 0)`} d={`M -60 ${HEAD.y - 22} Q -62 ${HEAD.y - 66} 0 ${HEAD.y - 66} Q 62 ${HEAD.y - 66} 60 ${HEAD.y - 22} Q 40 ${HEAD.y - 46} 14 ${HEAD.y - 40} Q 0 ${HEAD.y - 50} -14 ${HEAD.y - 40} Q -40 ${HEAD.y - 46} -60 ${HEAD.y - 22} Z`} fill={L.hair} />
+          <path d={`M -64 ${HEAD.y - 6} A 64 64 0 0 1 64 ${HEAD.y - 6} Q ${46 + pose.yaw * 12} ${HEAD.y - 30} ${22 + pose.yaw * 12} ${HEAD.y - 38} Q ${pose.yaw * 12} ${HEAD.y - 32} ${-22 + pose.yaw * 12} ${HEAD.y - 38} Q ${-46 + pose.yaw * 12} ${HEAD.y - 30} -64 ${HEAD.y - 6} Z`} fill={L.hair} stroke={L.line} strokeWidth={2} strokeLinejoin="round" />
+          <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={30} stroke={0} />
+          {[-1, 1].map((sd) => {
+            const b = bunchAt(sd, pose.yaw);
+            return b.band > 0 ? <ellipse key={sd} cx={b.x * 0.74} cy={HEAD.y - 40} rx={7} ry={11} transform={`rotate(${b.x * 0.74 * 0.9} ${b.x * 0.74} ${HEAD.y - 40})`} fill={L.accent} stroke={L.line} strokeWidth={2.5} opacity={b.band} /> : null;
+          })}
         </g>
       ) : null}
       {L.extra === 'bob' ? (

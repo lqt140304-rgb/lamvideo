@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Hero, Pose, basePose, poseAt, kf, rnd, camT, LOOKS, blinkAt,
+  Hero, Pose, basePose, poseAt, kf, rnd, camT, LOOKS, blinkAt, joints, toWorld,
   flick, AnHouse, YARD, Alley, TownView, RoofRow, LivingRoom, AnKitchen, ANKITCHEN, stand, makeRoom, RoomShell, Box, FloorShadow, HEAD,
   Areca, Rain, Splashes, CloudBank, Dog, TearCalendar, TeaCup, Teapot, Foreground, Glow, LightVeil, Dust, FONT, ShotProps, Look,
 } from '../../engine';
@@ -339,7 +339,7 @@ export const S11: React.FC<ShotProps> = ({ t, len }) => {
         <rect x={-120} y={-10} width={240} height={20} fill="#C8322A" />
         <polygon points="120,-10 150,0 120,10" fill="#E8D8B0" />
       </g>
-      <HandTop x={1180} y={ly} rot={98} s={1.2} />
+      <HandTop x={kf(t, [[0, 1180], [16, 1180], [38, 2500]])} y={ly} rot={98} s={1.2} />
       {/* the window's grey, the lamp's warm */}
       <Glow x={1660} y={200} r={760} kind="cool" o={0.45} />
       <rect x={-80} y={-80} width={2080} height={1240} fill="#000" opacity={0.1} />
@@ -348,10 +348,34 @@ export const S11: React.FC<ShotProps> = ({ t, len }) => {
 };
 
 // ---------- S12: THE extreme close-up: one drop on hot brick, its crown and a stain ----------
+const DROPS = [[16, 960, 716, 1], [64, 720, 800, 0.8], [100, 1220, 620, 0.6], [124, 860, 560, 0.5], [136, 1130, 830, 0.7]];
+const BrickDrop: React.FC<{ t: number; at: number; x: number; y: number; k: number; seed: number }> = ({ t, at, x, y, k, seed }) => {
+  const c = t - at;
+  if (c < -16) return null;
+  if (c < 0) {
+    const dy = kf(t, [[at - 16, -220], [at, y - 150]], (q) => q * q);
+    return (
+      <g transform={`translate(${x} ${dy + 130}) scale(${k})`}>
+        <path d="M 0 -130 Q 42 -40 42 0 A 42 42 0 1 1 -42 0 Q -42 -40 0 -130 Z" fill="#CFE4F2" opacity={0.92} />
+        <ellipse cx={-14} cy={-6} rx={9} ry={16} fill="#fff" />
+      </g>
+    );
+  }
+  return (
+    <g>
+      <ellipse cx={x} cy={y} rx={Math.min(210, 60 + c * 17) * k} ry={Math.min(58, 18 + c * 5) * k} fill="#5A2E1A" opacity={0.85} />
+      <ellipse cx={x} cy={y} rx={(30 + c * 16) * k} ry={(8 + c * 4) * k} fill="none" stroke="#E8EEF4" strokeWidth={5} opacity={Math.max(0, 0.9 - c / 18)} />
+      {Array.from({ length: 11 }).map((_, i) => {
+        const a = (-Math.PI * (i + 0.5)) / 11;
+        const r = c * (8 + rnd(9 + seed, i) * 8) * k;
+        const px = x + Math.cos(a) * r * 1.6;
+        const py = y + Math.sin(a) * r * 1.5 + c * c * 0.5 * k;
+        return py < y + 14 ? <circle key={i} cx={px} cy={py} r={(9 - i % 4) * k} fill="#EAF2F8" opacity={0.92} /> : null;
+      })}
+    </g>
+  );
+};
 export const S12: React.FC<ShotProps> = ({ t, len }) => {
-  const hit = 16;
-  const dy = kf(t, [[0, -120], [hit, 560]], (x) => x * x);
-  const c = Math.max(0, t - hit);
   return (
     <g transform={camT(960, 640, kf(t, [[0, 1.9], [len, 2.1]]))}>
       <rect x={-100} y={-100} width={2120} height={500} fill="#3A3B44" />
@@ -364,25 +388,7 @@ export const S12: React.FC<ShotProps> = ({ t, len }) => {
       {[[-480, 560], [-240, 690], [120, 880]].map(([, y], r) => <path key={r} d={`M -480 ${y} L 2400 ${y}`} stroke="#5A2E1A" strokeWidth={8 + r * 7} />)}
       {Array.from({ length: 18 }).map((_, i) => <path key={i} d={`M ${-60 + i * 130} 420 L ${(i - 8.5) * 340 + 960} 1180`} stroke="#5A2E1A" strokeWidth={6} opacity={0.75} />)}
       {Array.from({ length: 90 }).map((_, i) => <circle key={i} cx={rnd(5, i) * 2000} cy={430 + rnd(6, i) * 720} r={1.5 + rnd(7, i) * 5} fill={rnd(8, i) > 0.5 ? '#C27A50' : '#7C4428'} opacity={0.7} />)}
-      {c > 0 ? (
-        <g>
-          <ellipse cx={960} cy={716} rx={Math.min(210, 60 + c * 17)} ry={Math.min(58, 18 + c * 5)} fill="#5A2E1A" opacity={0.85} />
-          <ellipse cx={960} cy={716} rx={30 + c * 16} ry={8 + c * 4} fill="none" stroke="#E8EEF4" strokeWidth={5} opacity={Math.max(0, 0.9 - c / 18)} />
-          {Array.from({ length: 11 }).map((_, i) => {
-            const a = -Math.PI * (i + 0.5) / 11;
-            const r = c * (8 + rnd(9, i) * 8);
-            const px = 960 + Math.cos(a) * r * 1.6;
-            const py = 716 + Math.sin(a) * r * 1.5 + c * c * 0.5;
-            return py < 730 ? <circle key={i} cx={px} cy={py} r={9 - i % 4} fill="#EAF2F8" opacity={0.92} /> : null;
-          })}
-        </g>
-      ) : null}
-      {t < hit ? (
-        <g transform={`translate(960 ${dy + 130})`}>
-          <path d="M 0 -130 Q 42 -40 42 0 A 42 42 0 1 1 -42 0 Q -42 -40 0 -130 Z" fill="#CFE4F2" opacity={0.92} />
-          <ellipse cx={-14} cy={-6} rx={9} ry={16} fill="#fff" />
-        </g>
-      ) : null}
+      {DROPS.map(([at, x, y, k], i) => <BrickDrop key={i} t={t} at={at} x={x} y={y} k={k} seed={i} />)}
     </g>
   );
 };
@@ -665,13 +671,20 @@ export const S27: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
     { f: 0, p: { x: 1450, y: YARD.deck - 112, scale: 0.88, yaw: 0.8, tilt: 6, look: 0.6, expr: 'happy', armR: { a: 40, b: 30 }, armL: { a: -30, b: -30 }, legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
     { f: 34, p: { y: YARD.deck - 40, tilt: 34, armR: { a: 66, b: -6 }, armL: { a: -56, b: -6 }, legL: { a: 28, b: -42 }, legR: { a: -14, b: -24 } } },
+    { f: 84, p: { y: YARD.deck - 40, tilt: 34 } },
+    { f: 112, p: { y: YARD.deck - 123, tilt: 3, yaw: 0.55, look: 0.3, headTilt: -8, expr: 'neutral', armR: { a: 12, b: 14 }, armL: { a: -4, b: 14 }, legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
   ]);
   return (
     <g transform={camT(kf(t, [[0, 1480], [len, 1510]]), 680, kf(t, [[0, 2.2], [len, 2.34]]))}>
-      <AnHouse id="s27" t={t} w={2} rain={1} basin />
+      <AnHouse id="s27" t={t} w={2} rain={1} />
+      <g transform={`translate(${kf(t, [[0, -120], [34, 0]])} ${kf(t, [[0, -150], [34, 0]])})`}>
+        <ellipse cx={1590} cy={790} rx={70} ry={16} fill="#000" opacity={0.3 * kf(t, [[20, 0], [34, 1]])} />
+        <path d="M 1530 750 L 1650 750 L 1636 794 L 1544 794 Z" fill="#5F7E96" />
+        <ellipse cx={1590} cy={750} rx={60} ry={12} fill="#3C5468" />
+      </g>
       <Hero look={AN} pose={live(pose, t, 1)} rimId="filmL" />
       <line x1={1590} y1={700} x2={1590} y2={760} stroke="#DCE8F2" strokeWidth={13} opacity={0.75} />
-      {[0, 1].map((i) => <ellipse key={i} cx={1590} cy={756} rx={22 + ((t * 1.3 + i * 12) % 24)} ry={5 + ((t * 0.4 + i * 3) % 7)} fill="none" stroke="#DCE8F2" strokeWidth={3} opacity={0.8} />)}
+      {t > 34 ? [0, 1].map((i) => <ellipse key={i} cx={1590} cy={756} rx={22 + ((t * 1.3 + i * 12) % 24)} ry={5 + ((t * 0.4 + i * 3) % 7)} fill="none" stroke="#DCE8F2" strokeWidth={3} opacity={0.8} />) : null}
     </g>
   );
 };
@@ -837,13 +850,19 @@ export const S34: React.FC<ShotProps> = ({ t, len }) => {
 export const S35: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
     { f: 0, p: { x: 640, y: 830, scale: 1.1, yaw: 0.76, look: 0.8, tilt: 8, expr: 'happy', armR: { a: 44, b: 48 }, armL: { a: 30, b: 44 }, legL: { a: 26, b: -32 }, legR: { a: -20, b: -8 } } },
-    { f: 40, p: { x: 1000, y: 800, scale: 1.34, tilt: 2, expr: 'neutral', armR: { a: 112, b: 26 }, handR: 'open', legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
+    { f: 40, p: { x: 1000, y: 800, scale: 1.34, tilt: 2, yaw: 0.45, armR: { a: 112, b: 26 }, handR: 'open', legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
   ]);
+  const running: Partial<Pose> = t < 40 ? { legL: { a: 28 * Math.sin(t * 0.6), b: -24 }, legR: { a: -28 * Math.sin(t * 0.6), b: -24 } } : { armR: { a: 112 + 4 * Math.sin(t * 0.5), b: 26 } };
+  const linh = { ...pose, ...running };
+  const pen = toWorld(linh, joints(linh).armR.end);
   return (
     <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.04]]))}>
       {/* the room as seen from the calendar's wall: the veranda door far left, Bulb overhead, the desk's edge */}
       <LivingFront id="s35" t={t + 400} />
-      <Hero look={LINH} pose={live(t < 40 ? { ...pose, legL: { a: 28 * Math.sin(t * 0.6), b: -24 }, legR: { a: -28 * Math.sin(t * 0.6), b: -24 } } : pose, t, 4)} rimId="filmR" />
+      <Hero look={LINH} pose={live(linh, t, 4)} rimId="filmR" />
+      <g transform={`translate(${pen.x} ${pen.y}) rotate(38)`}>
+        <rect x={-6} y={-46} width={12} height={84} fill="#C8322A" stroke="#16141C" strokeWidth={3} />
+      </g>
       {/* the back of the tear-off calendar, huge and soft in the near corner */}
       <Foreground blur={10}>
         <rect x={1360} y={-60} width={640} height={1200} fill="#1A130C" />
@@ -863,13 +882,13 @@ export const S36: React.FC<ShotProps> = ({ t, len }) => {
       {[[500, 300, 70], [1500, 620, 110], [1180, 180, 50]].map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r} fill="#5E4E2A" opacity={0.25} />)}
       <Glow x={480} y={60} r={1200} o={0.55} />
       <TearCalendar x={960} y={560} s={4.2} day="1" mark={m} />
-      <g transform={`translate(${m < 0.5 ? 775 + m * 2 * 353 : 1128 - (m - 0.5) * 2 * 353} ${468 + (m < 0.5 ? m * 2 : (m - 0.5) * 2) * 353 - 34})`}>
+      <g transform={`translate(${kf(t, [[30, 0], [50, 560]])} ${kf(t, [[30, 0], [50, 700]])})`}><g transform={`translate(${m < 0.5 ? 775 + m * 2 * 353 : 1128 - (m - 0.5) * 2 * 353} ${468 + (m < 0.5 ? m * 2 : (m - 0.5) * 2) * 353 - 34})`}>
         <g transform="rotate(38)">
           <rect x={-13} y={-200} width={26} height={196} fill="#C8322A" stroke="#16141C" strokeWidth={4} />
           <polygon points="-13,-4 13,-4 0,34" fill="#E8D8B0" stroke="#16141C" strokeWidth={3} />
         </g>
         <HandTop x={150} y={-150} rot={128} s={0.84} />
-      </g>
+      </g></g>
     </g>
   );
 };
