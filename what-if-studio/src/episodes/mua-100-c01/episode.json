@@ -1,0 +1,98 @@
+{
+  "id": "Mua100C01",
+  "slug": "mua-100-c01",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 1: Ngày 1, khi mây đen kéo tới",
+  "title": [
+    "CHUYỆN GÌ XẢY RA NẾU",
+    "MƯA LIÊN TỤC 100 NGÀY?"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "science": [
+    {
+      "claim": "Giả định hư cấu, không phải dự báo. Xem phần Tiền đề trong kich-ban-mua-lien-tuc-100-ngay-v7-ban-dung.md"
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "[thoughtful] Vào một thời điểm giả định, sau hơn hai mươi ngày nắng nóng gay gắt, thị trấn Bến Lau đón một buổi chiều khác hẳn. Mặt đường vẫn hầm hập hơi nóng. Những tàu lá cau rũ xuống trước sân nhà An; luống rau sau bếp đã khô đến nứt mặt."
+    },
+    {
+      "beat": "p02",
+      "text": "Rồi từ phía xa, từng đợt mây đen kéo tới. Lớp này nối lớp khác, phủ kín khoảng trời trên những mái nhà. Đứng ở đầu hẻm, nhìn về phía bến sông hay quay lại dãy núi sau thị trấn, người ta cũng chỉ thấy một màu xám sẫm kéo dài, không ai nhìn thấy điểm cuối.",
+      "pause": 2
+    },
+    {
+      "beat": "p03",
+      "text": "Gió lùa qua hẻm. Bà Sáu bước ra khỏi quầy tạp hóa, ngẩng đầu nhìn trời. Trong bếp, Hạnh kéo cánh cửa sau đang đập vào tường. Linh bỏ cây bút xuống, chạy tới chỗ bố dưới mái hiên."
+    },
+    {
+      "beat": "p04",
+      "text": "Giọt mưa đầu tiên rơi lên nền sân nóng. Rồi thêm một giọt, một giọt nữa. Chỉ một lúc sau, tiếng mưa đã rào rào khắp những mái tôn trong xóm."
+    },
+    {
+      "beat": "p05",
+      "text": "Ban đầu, nhiều người có thể vui mừng. Những khu vườn khô được tưới. Hồ chứa bắt đầu nhận nước. Dù sao thì ai lại không thích nhâm nhi một tách trà, ngắm mưa và hít hà mùi đất ẩm cơ chứ."
+    },
+    {
+      "beat": "p06",
+      "text": "Ở cuối một con hẻm nhỏ của thị trấn Bến Lau, An đang đứng dưới mái hiên nhà, nhìn mưa phủ mờ hàng cau trước sân. Qua hai dãy nhà thấp là con sông chạy dọc thị trấn. Ngày thường, từ đầu hẻm vẫn nghe tiếng thuyền máy và tiếng người gọi nhau bên bến."
+    },
+    {
+      "beat": "p07",
+      "text": "Nhà An có tầng trệt và một gác nhỏ. Tường vàng đã cũ, nhưng phòng khách luôn được quét sạch. Bên trái cửa là bộ bàn ghế gỗ, trên bàn có ấm trà và chiếc radio. Góc đối diện kê bàn học của Linh; phía sau là gian bếp nhìn ra mảnh vườn rau."
+    },
+    {
+      "beat": "p08",
+      "text": "Linh, con gái tám tuổi của anh, đang ngồi xổm bên mấy chậu cây sát hiên. Trong bếp, Hạnh, mẹ cô bé, vừa vo gạo vừa nhắc con đừng chạy ra ngoài. Con chó nhỏ nằm dưới ghế gỗ, thi thoảng ngẩng đầu khi nước tạt vào sân."
+    },
+    {
+      "beat": "p09",
+      "text": "Bên kia hẻm, bà Sáu kéo tấm bạt trước quầy tạp hóa, gọi với sang: “Có nước rồi nhé, mai khỏi tưới rau!” An cười, cúi đặt chậu hứng dưới máng xối. Anh làm ở trạm nước, đã nghe người trong xóm than thiếu nước suốt mùa khô."
+    },
+    {
+      "beat": "p10",
+      "text": "Linh chìa bàn tay ra ngoài. [curious] “Mưa thế này thì cây nhà mình hết khát rồi bố nhỉ?”"
+    },
+    {
+      "beat": "p11",
+      "text": "[warmly] “Ừ. Mấy hôm nay con cứ lo rau héo, giờ đỡ phải xách bình đi tưới rồi.”"
+    },
+    {
+      "beat": "p12",
+      "text": "[playful] “Vậy chiều bố khỏi nhắc con tưới nữa nhé. Con sợ bố quên, lại gọi con thêm lần nữa.”"
+    },
+    {
+      "beat": "p13",
+      "text": "An bật cười, kéo chiếc ghế thấp vào sát chân mình cho con ngồi. [reassuring] “Bố nhớ mà. Nhưng nước thừa phải có chỗ chảy ra, nên mình đừng bịt lỗ dưới chậu nhé.”"
+    },
+    {
+      "beat": "p14",
+      "text": "Hạnh gọi từ trong bếp: [warmly] “Hai bố con nói chuyện chi mà vui rứa? Vào ăn cơm thôi, để nguội mất.”"
+    },
+    {
+      "beat": "p15",
+      "text": "Linh quay vào: “Dạ, bố con đang cho cây uống nước!”",
+      "pause": 1.5
+    },
+    {
+      "beat": "p16",
+      "text": "Cô bé gật đầu ngoan ngoãn rồi chạy vào bàn học, lấy bút đánh một dấu lên tờ lịch treo cạnh cửa sổ. Ngày đầu tiên của mưa."
+    },
+    {
+      "beat": "p17",
+      "text": "Không ai trong nhà biết rồi sẽ có thêm bao nhiêu dấu nữa.",
+      "pause": 2
+    }
+  ]
+}
