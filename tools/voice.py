@@ -193,10 +193,12 @@ def audition(script, slug, candidates=None) -> int:
     if tts is None:
         return 1
     names = roster(tts)
+    # Danh sách của VieNeu ghi dạng "Hải Đăng — Nam · Bắc · ..."; tên giọng là phần trước dấu "—".
+    short = {n.split("—")[0].replace("⭐", "").strip() for n in names} | set(names)
     if names:
         print("Giọng có sẵn:", ", ".join(names))
         for who, v in voices.items():
-            if v not in names:
+            if v not in short:
                 print(f"  ! {who}: không thấy giọng '{v}' trong danh sách")
     out = ROOT / "public" / slug / "voice" / "audition"
     out.mkdir(parents=True, exist_ok=True)
@@ -206,7 +208,7 @@ def audition(script, slug, candidates=None) -> int:
         text = " ".join(sc["voice"] for sc in script["scenes"] if sc["id"] in sample)
         tries = candidates or list(dict.fromkeys(voices.values())) or [script.get("voice", {}).get("speaker", "Hải Đăng")]
         for v in tries:
-            if names and v not in names:
+            if names and v not in short:
                 print(f"  ! giọng '{v}' không có trong danh sách")
                 continue
             audio = tts.infer(text, voice=v)
