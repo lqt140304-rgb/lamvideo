@@ -61,6 +61,11 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Freesound cần đăng nhập mới tải được; CC0 dùng tự do nhưng không được nhận là tác giả; bản thô có thể bị YouTube Content ID nhận nhầm, khi đó dùng ngày đăng trên Freesound để khiếu nại.
 - Pixabay không bắt ghi nguồn, cấm phân phối lại file nguyên trạng. Bản tóm tắt không có hiệu lực pháp lý, bản đầy đủ mới có.
 
+### Lỗi storyboard cảnh 2 (`mua-100-c02`)
+- Người ngồi phải có ghế thấy được (`Seat`): tư thế `sit` chỉ gập chân, không tự có ghế. Tay đặt lên gối: tay gần `{a:14,b:32}`, tay xa `{a:-4,b:-30}`.
+- Vải lau vẽ bằng elip thì giống cái đĩa: dùng hình méo có nếp gấp.
+- Giọt nước hay vật nhỏ không rơi trước thân áo: đặt lệch khỏi người để đọc rõ.
+
 ### Ổ đĩa
 - Ổ C gần đầy. Remotion ghi bundle (khoảng 120 MB mỗi lần) và file tạm vào %TEMP%, không tự dọn. `wi.py` và `stills.mjs` đã chuyển sang `D:\lamvideo-cache\tmp`. Khi gọi `npx remotion` trực tiếp, đặt `TEMP` và `TMP` trỏ về đó trước. Thư mục này xóa được khi không có render nào chạy.
 

@@ -108,7 +108,7 @@ const LINH_AT = LIVING.P(0.42, 1, 0.5);
 export const S2: React.FC<ShotProps> = ({ t, len }) => {
   const s = SET_AN.scale;
   return (
-    <g transform={camT(kf(t, [[0, 760], [len, 720]]), 520, kf(t, [[0, 1.2], [len, 1.28]]))}>
+    <g transform={camT(kf(t, [[0, 780], [len, 750]]), 600, kf(t, [[0, 1.12], [len, 1.18]]))}>
       <LivingRoom id="c2s2" t={t} lamp={0.75} day="3" dog={false} />
       <Seat x={SET_AN.x - 2 * s} top={AN_HIP + 12 * s} floor={AN_HIP + 88 * s} w={124 * s} back={-1} />
       <Hero look={AN} pose={P({ x: SET_AN.x, y: AN_HIP, scale: s, yaw: 0.6, look: 0.5, ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
@@ -168,7 +168,7 @@ export const S5: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(kf(t, [[0, 960], [len, 930]]), 590, kf(t, [[0, 1.5], [len, 1.56]]))}>
       <LivingRoom id="c2s5" t={t} lamp={0.75} day="3" dog={false} />
-      <Fan x={kf(t, [[0, 900], [28, 760]])} y={kf(t, [[0, 800], [28, 880]])} s={1.15} t={t} />
+      <Fan x={kf(t, [[0, 960], [28, 830]])} y={kf(t, [[0, 800], [28, 880]])} s={1.15} t={t} />
       <SmallChair x={520} y={920} s={1.55} />
       <g transform="translate(520 722) scale(0.82)"><Shirt x={0} y={0} c={3} t={t} drip={false} /></g>
       <Hero look={HANH} pose={live(pose, t, 3)} rimId="filmL" shadow={1} />
@@ -339,7 +339,7 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => (
     <rect x={-300} y={-300} width={2520} height={1700} fill="#8E7A3F" />
     <rect x={700} y={230} width={540} height={560} fill="#8E9CA8" />
     <Rain t={t} seed={13} n={50} o={0.6} x0={700} y0={230} w={540} h={560} />
-    <rect x={700} y={690} width={540} height={100} fill="#56544C" />
+    <rect x={700} y={690} width={540} height={100} fill="#7A766A" />
     {[[770, 280, 0.9, 0], [950, 262, 0.9, 3], [1140, 280, 0.9, 1]].map(([x, y, s, c], i) => <Shirt key={i} x={x} y={y} s={s} c={c} t={t} />)}
     <rect x={700} y={230} width={540} height={560} fill="none" stroke="#3A2616" strokeWidth={18} />
     <polygon points="-300,790 2220,790 2220,1400 -300,1400" fill="#5E4E3E" />
@@ -412,7 +412,7 @@ export const S20: React.FC<ShotProps> = ({ t, len }) => {
     { f: 66, p: { y: s.y, tilt: 4, headTilt: -10, armR: { a: 16, b: 18 }, armL: { a: -6, b: -18 } } },
   ]);
   const p = (t % 24) / 24;
-  const bx = 1150;
+  const bx = 1270;
   const by = 900;
   return (
     <g transform={camT(kf(t, [[0, 1010], [len, 1040]]), 560, kf(t, [[0, 1.3], [len, 1.36]]))}>
@@ -440,7 +440,7 @@ export const S21: React.FC<ShotProps> = ({ t, len }) => {
     <g transform={camT(kf(t, [[0, 880], [len, 920]]), 690, kf(t, [[0, 2.04], [len, 2.1]]))}>
       <AnHouse id="c2s21" t={t} w={2} rain={kf(t, [[0, 0.45], [58, 1.25]])} chair={false} />
       <Hero look={AN} pose={P({ x: 800, y: YARD.deck - 62, scale: s, yaw: 0.72, look: 0.5 + 0.3 * up, headTilt: -12 * up + 8 * (1 - up), tilt: 34 - 28 * up, expr: 'neutral', legL: { a: 86, b: -128 }, legR: { a: 74, b: -128 }, armR: { a: 68 - 44 * up + 10 * wipe, b: 4 + 24 * up }, armL: { a: -40, b: -24 } }, t, 1)} rimId="filmL" shadow={0} />
-      {up < 0.6 ? <ellipse cx={920 + 42 * wipe} cy={752} rx={38} ry={10} fill="#D8D2BE" stroke="#16141C" strokeWidth={3} /> : null}
+      {up < 0.6 ? <path transform={`translate(${920 + 42 * wipe} 750)`} d="M -46 2 Q -30 -12 -6 -7 Q 18 -14 44 -4 Q 50 6 34 10 Q 8 14 -18 10 Q -44 12 -46 2 Z M -22 -4 Q -10 4 2 -2 M 10 -6 Q 20 2 32 0" fill="#7E8C94" stroke="#16141C" strokeWidth={3} strokeLinejoin="round" /> : null}
       <ellipse cx={850} cy={762} rx={100} ry={10} fill="#000" opacity={0.3} />
       <rect x={-300} y={846} width={2520} height={400} fill="#46565F" opacity={0.86} />
       <Rain t={t} n={70} near o={0.34 * kf(t, [[34, 0], [58, 1]])} seed={19} />
@@ -453,13 +453,13 @@ export const S21: React.FC<ShotProps> = ({ t, len }) => {
 export const S22: React.FC<ShotProps> = ({ t, len }) => {
   const k = kf(t, [[0, 0], [len, 1]]);
   const s = 0.86 + k * 0.5;
-  const x = 880 + k * 40;
+  const x = 1040 + k * 40;
   const floor = 850 + k * 130;
   return (
     <g transform={camT(960, kf(t, [[0, 520], [len, 560]]), kf(t, [[0, 1.16], [len, 1.22]]))}>
       <LivingFront id="c2s22" t={t + 90} />
-      <SmallChair x={x + 205 * s} y={floor - 26 * s} s={s * 1.05} />
-      <Back look={LINH} pose={P({ x: x + 20 * Math.sin(t * 0.28), y: floor - 140 * s, scale: s, tilt: 7, armL: { a: 10, b: 14 }, armR: { a: 62, b: 8 }, legL: { a: 14 * Math.sin(t * 0.28), b: -8 }, legR: { a: -14 * Math.sin(t * 0.28), b: -8 } })} />
+      <SmallChair x={x - 225 * s} y={floor - 14 * s} s={s * 1.5} />
+      <Back look={LINH} pose={P({ x: x + 20 * Math.sin(t * 0.28), y: floor - 140 * s, scale: s, tilt: -7, armL: { a: 66, b: 8 }, armR: { a: 10, b: 14 }, legL: { a: 14 * Math.sin(t * 0.28), b: -8 }, legR: { a: -14 * Math.sin(t * 0.28), b: -8 } })} />
       <Dusk o={0.2} />
     </g>
   );
