@@ -197,3 +197,5 @@ Sau khi sửa: `tsc`, render ảnh/lưới cho các cảnh trên, `plan` → `sf
 - Không cho nhân vật đi bằng tọa độ x, y gõ tay: chân dễ giẫm lên bàn, tủ và lơ lửng trên tường. Dùng `stand(room, u, w)` và chọn đường đi qua khoảng sàn trống, đối chiếu với `u`, `w` của đồ đạc trong set.
 - Đồ mang theo phải lấy vị trí từ bàn tay (`joints`, `toWorld`), không cho nó trượt theo người ở sát sàn.
 - Nhân vật nhìn nghiêng mang đồ: hai tay cùng về phía trước, tay gần dùng `a`, `b` dương và tay xa dùng `a`, `b` âm (hoặc ngược lại tùy hướng). Cả hai cùng dương thì tay dang ra hai bên.
+- **Bàn tay chuẩn:** người dùng chọn tay ở S16 và S25 (cảnh 3) làm mẫu. Đã tách ra `what-if-studio/src/engine/hands.tsx` (`OpenHand`, `GripHand`, `GripThumb`, `Digits`). Mọi tay cận cảnh về sau dùng các component này.
+- Rà lại cùng loại lỗi ở các shot khác khi người dùng chỉ ra một shot: S4 (tay dang ra, thùng không chạm tay), S11 (An giẫm lên túi), S36 (An đứng lấn vào bàn, túi rơi xuống sàn, chăn trôi dưới chân Hạnh) đều cùng lỗi với S27.

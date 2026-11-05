@@ -3,6 +3,7 @@ import {
   Hero, Pose, poseAt, kf, rnd, camT, LOOKS, joints, toWorld, makeRoom, RoomShell, Box, FloorShadow, stand,
   AnHouse, YARD, Alley, alleyP, TownView, LivingRoom, LIVING, Rain, Splashes, CloudBank, Foreground, Glow, LightVeil, Dust, FONT, ShotProps,
 } from '../../engine';
+import { OpenHand, GripHand, GripThumb } from '../../engine/hands';
 import { live, P, talkAt, Back, HandTop, ShopFront } from '../mua-100-c01/shots';
 import { Seat } from '../mua-100-c02/shots';
 
@@ -245,8 +246,8 @@ export const S3: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S4: bà Sáu's shop: water over the floor round the foot of the cabinet; she lifts a crate ----------
 export const S4: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
-    { f: 0, p: { x: 1010, y: 560, scale: 1.15, yaw: -0.4, look: -0.4, tilt: 14, expr: 'worried', armL: { a: 36, b: 40 }, armR: { a: 30, b: 44 } } },
-    { f: 34, p: { tilt: -4, armL: { a: 62, b: 50 }, armR: { a: 56, b: 52 } } },
+    { f: 0, p: { x: 1010, y: 560, scale: 1.15, yaw: -0.4, look: -0.4, tilt: 14, expr: 'worried', armL: { a: 16, b: -72 }, armR: { a: 16, b: -72 } } },
+    { f: 34, p: { tilt: -4, armL: { a: 26, b: -96 }, armR: { a: 26, b: -96 } } },
   ]);
   const jh = joints(pose);
   const h1 = toWorld(pose, jh.armL.end);
@@ -414,7 +415,7 @@ export const S10: React.FC<ShotProps> = ({ t, len }) => (
 // ---------- S11: wide: Linh by the window, her father's step on the stair behind her ----------
 export const S11: React.FC<ShotProps> = ({ t, len }) => {
   const s = stand(ATT, 0.7, 0.16);
-  const a = stand(ATT, 0.1, 0.5);
+  const a = stand(ATT, 0.2, 0.68);
   return (
     <g transform={camT(960, 520, kf(t, [[0, 1.05], [len, 1.1]]))}>
       <Attic id="c3s11" t={t + 80} />
@@ -482,13 +483,6 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => (
   </g>
 );
 
-/** Fingers side by side: outlines first, then the fills, so one silhouette with thin dark lines between the fingers. */
-const Digits: React.FC<{ d: string[]; w: number; skin: string }> = ({ d, w, skin }) => (
-  <g fill="none" strokeLinecap="round">
-    {d.map((p) => <path key={p} d={p} stroke="#16141C" strokeWidth={w + 11} />)}
-    {d.map((p) => <path key={p} d={p} stroke={skin} strokeWidth={w} />)}
-  </g>
-);
 /** An's sleeve hanging with his relaxed hand below it, and Linh's small hand closed over the edge of the cloth: four fingers lying on the sleeve, the thumb behind it. open 0 = holding, 1 = let go. */
 const SleeveGrip: React.FC<{ open: number; sway?: number }> = ({ open, sway = 0 }) => {
   const L = '#16141C';
@@ -496,13 +490,10 @@ const SleeveGrip: React.FC<{ open: number; sway?: number }> = ({ open, sway = 0 
   return (
     <g transform={`translate(${sway} 0)`}>
       {/* his hand first: the wrist goes up inside the cuff */}
-      <Digits d={['M 806 740 Q 800 790 804 836', 'M 846 748 Q 844 810 846 868', 'M 886 748 Q 888 806 888 860', 'M 924 738 Q 926 784 924 822']} w={32} skin={AN.skin} />
-      <Digits d={['M 804 650 Q 748 700 762 776']} w={36} skin={AN.skin} />
-      <rect x={790} y={560} width={152} height={190} fill={AN.skin} />
-      <path d="M 790 560 L 790 634 M 790 706 L 790 750 M 942 560 L 942 750" stroke={L} strokeWidth={5.5} fill="none" strokeLinecap="round" />
+      <OpenHand x={870} y={560} skin={AN.skin} />
       {/* her thumb goes behind the cloth */}
       <g transform={off}>
-        <Digits d={['M 610 540 Q 660 560 730 520']} w={38} skin={LINH.skin} />
+        <g transform="translate(720 420)"><GripThumb skin={LINH.skin} /></g>
       </g>
       <path d="M 700 -120 L 700 540 Q 700 576 736 576 L 984 576 Q 1020 576 1020 540 L 1020 -120 Z" fill={AN.jacket} stroke={L} strokeWidth={6} />
       <path d="M 940 -120 L 940 560 L 1020 540 L 1020 -120 Z" fill={AN.jacketShade} opacity={0.55} />
@@ -518,14 +509,7 @@ const SleeveGrip: React.FC<{ open: number; sway?: number }> = ({ open, sway = 0 
         {/* her sleeve, then the wrist and the back of the hand, one shape */}
         <path d="M 150 1240 L 462 690" stroke={L} strokeWidth={128} strokeLinecap="round" />
         <path d="M 150 1240 L 462 690" stroke={LINH.jacket} strokeWidth={116} strokeLinecap="round" />
-        <Digits d={['M 642 362 Q 710 330 776 336', 'M 668 400 Q 744 372 812 382', 'M 692 438 Q 766 414 830 428', 'M 712 476 Q 770 462 818 474']} w={35} skin={LINH.skin} />
-        <path d="M 624 346 L 730 490 L 590 610 L 520 700 L 420 640 L 490 530 Z" fill={LINH.skin} stroke={L} strokeWidth={5.5} strokeLinejoin="round" />
-        <g fill="none" strokeLinecap="round" stroke={LINH.skin} strokeWidth={35}>
-          <path d="M 642 362 Q 710 330 776 336" />
-          <path d="M 668 400 Q 744 372 812 382" />
-          <path d="M 692 438 Q 766 414 830 428" />
-          <path d="M 712 476 Q 770 462 818 474" />
-        </g>
+        <g transform="translate(720 420)"><GripHand skin={LINH.skin} /></g>
         <path d="M 416 642 L 516 700" stroke={L} strokeWidth={30} strokeLinecap="round" />
         <path d="M 416 642 L 516 700" stroke={LINH.jacket} strokeWidth={19} strokeLinecap="round" />
       </g>
@@ -798,24 +782,33 @@ export const S35: React.FC<ShotProps> = ({ t, len }) => (
 export const S36: React.FC<ShotProps> = ({ t, len }) => {
   const pile = ATT.P(0.1, 1, 0.42);
   const k = ATT.s(0.42) * 0.78;
-  const a = stand(ATT, 0.36, 0.5);
-  const h = stand(ATT, 0.66, 0.58);
+  const a = stand(ATT, 0.25, 0.62);
+  const h = stand(ATT, 0.78, 0.62);
   const put = kf(t, [[0, 0], [36, 1]]);
-  const aPose = P({ x: a.x, y: a.y, scale: a.scale, yaw: -0.55, look: -0.4, expr: 'neutral', tilt: -10 * put, armL: { a: 74 - 24 * put, b: 40 }, armR: { a: 12, b: 20 } }, t, 1);
+  const aPose = P({ x: a.x, y: a.y, scale: a.scale, yaw: -0.55, look: -0.4, expr: 'neutral', tilt: -10 * put, armL: { a: 74 - 24 * put - 46 * kf(t, [[38, 0], [54, 1]]), b: 40 - 22 * kf(t, [[38, 0], [54, 1]]) }, armR: { a: 12, b: 20 } }, t, 1);
   const ja = joints(aPose);
   const hl = toWorld(aPose, ja.armL.end);
   const hr = toWorld(aPose, ja.armR.end);
   const hand = { x: hl.x, y: hl.y };
-  const dest = { x: pile.x + 150 * k, y: pile.y - 88 * k };
-  const bag = { x: hand.x + (dest.x - hand.x) * put, y: hand.y + 40 + (dest.y - hand.y) * put };
+  const dest = { x: pile.x - 20 * k, y: pile.y - 66 * k };
+  const set = kf(t, [[28, 0], [36, 1]]);
+  const bag = { x: hand.x + (dest.x - hand.x) * set, y: hand.y + 40 + 60 * a.scale + (dest.y - hand.y - 40 - 60 * a.scale) * set };
   const fold = Math.sin(t * 0.08);
+  const hPose = P({ x: h.x, y: h.y, scale: h.scale, yaw: -0.8, look: -0.4, tilt: 4, headTilt: 6, expr: 'neutral', armL: { a: 30 + 8 * fold, b: 56 }, armR: { a: -30 - 8 * fold, b: -56 } }, t, 3);
+  const jb = joints(hPose);
+  const b1 = toWorld(hPose, jb.armL.end);
+  const b2 = toWorld(hPose, jb.armR.end);
+  const bw = 130 * h.scale;
+  const bx = (b1.x + b2.x) / 2 - bw / 2;
+  const by = Math.min(b1.y, b2.y);
   return (
     <g transform={camT(960, 520, kf(t, [[0, 1.0], [len, 1.08]]))}>
       <Attic id="c3s36" t={t + 400} bags={1} map />
+      {put < 1 ? <Duffel x={bag.x} y={bag.y} s={a.scale * 0.8 + (k * 0.9 - a.scale * 0.8) * set} c="#5E5C44" /> : <Duffel x={dest.x} y={dest.y + 88 * k * 0.0} s={k * 0.9} c="#5E5C44" />}
       <Hero look={AN} pose={aPose} rimId="filmL" shadow={0} />
-      {put < 1 ? <Duffel x={bag.x} y={bag.y + 60 * a.scale} s={a.scale * 0.8} c="#5E5C44" /> : <Duffel x={dest.x} y={dest.y + 88 * k * 0.0} s={k * 0.9} c="#5E5C44" />}
-      <Hero look={HANH} pose={P({ x: h.x, y: h.y, scale: h.scale, yaw: 0.4, look: 0.5, tilt: 24, headTilt: 8, expr: 'neutral', armL: { a: 8, b: 30 }, armR: { a: 40 + 6 * fold, b: 44 - 6 * fold } }, t, 3)} rimId="filmR" shadow={0} />
-      <rect x={h.x - 120 * h.scale} y={h.y + 120 * h.scale} width={220 * h.scale} height={30 * h.scale} rx={8} fill="#B5604F" stroke="#16141C" strokeWidth={3} />
+      <rect x={bx} y={by - 4} width={bw} height={110 * h.scale} rx={6} fill="#B5604F" stroke="#16141C" strokeWidth={3} />
+      <path d={`M ${bx} ${by + 50 * h.scale} h ${bw}`} stroke="#8E4436" strokeWidth={4} />
+      <Hero look={HANH} pose={hPose} rimId="filmR" shadow={0} />
     </g>
   );
 };
