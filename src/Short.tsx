@@ -180,7 +180,9 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
           </Sequence>
         );
       })}
-      <Header channel={script.channel} topic={script.topic} progress={total ? frame / total : 0} onDark={(() => { const i = timings.findIndex((t) => frame >= t.from && frame < t.from + t.frames); const sc = script.scenes[i]; return !!sc && ((sc.type === "story" && isDarkMood(sc.mood)) || sc.type === "dialog" || sc.type === "memory"); })()} />
+      {script.hideHeader ? null : (
+        <Header channel={script.channel} topic={script.topic} progress={total ? frame / total : 0} onDark={(() => { const i = timings.findIndex((t) => frame >= t.from && frame < t.from + t.frames); const sc = script.scenes[i]; return !!sc && ((sc.type === "story" && isDarkMood(sc.mood)) || sc.type === "dialog" || sc.type === "memory"); })()} />
+      )}
       {script.music ? (
         <Audio
           src={staticFile(script.music)}

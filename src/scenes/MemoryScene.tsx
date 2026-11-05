@@ -313,7 +313,7 @@ export const MemoryScene: React.FC<{ scene: MemData; frames: number; slug: strin
           </div>
         </AbsoluteFill>
       ) : null}
-      <div style={{ position: "absolute", left: 0, right: 0, top: 1640, textAlign: "center", fontFamily: font.body, fontWeight: 700, fontSize: 26, color: "rgba(255,255,255,0.78)" }}>{scene.source ?? ""}</div>
+
     </AbsoluteFill>
   );
 };

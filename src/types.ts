@@ -336,6 +336,8 @@ export type VideoScript = {
   voice: { engine: "vieneu"; speaker: string };
   /** Tên kênh hiện ở góc trên (mặc định theo brand). */
   channel?: string;
+  /** Ẩn nhãn kênh, chủ đề và thanh tiến độ ở đầu khung. */
+  hideHeader?: boolean;
   /** Truyện nhiều giọng: mã nhân vật → tên giọng VieNeu. */
   voices?: Record<string, string>;
   /** Đường dẫn nhạc nền trong public/, ví dụ "music/nhac-nen.mp3". */
