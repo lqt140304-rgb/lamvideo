@@ -52,6 +52,8 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - `voice_elevenlabs.py` trước đây không biết `pads`: đổi engine thì phim co lại ~50 s và lệch cảnh. Đã chuyển `pads` thành hàm chung `apply_pads()` trong `wi.py`, cả hai engine dùng.
 - Tìm mã giọng theo tên: `python voice_elevenlabs.py --find "Viết Linh"` (giọng của bạn và thư viện chia sẻ). Ghi mã vào `"voice": {"engine": "elevenlabs", "id": "...", "model": "eleven_multilingual_v2"}`.
 - Khóa API đặt ở `D:\.env` (dòng `ELEVENLABS_API_KEY=...`): `wi.py` tìm `.env` ở mọi thư mục cha của studio, nên mọi worktree đều đọc được, và file nằm NGOÀI repo `D:\lamvideo` (repo này không có `.env` trong `.gitignore`, để trong đó dễ lỡ commit khóa). Không dán khóa vào chat.
+- **Gói Free không dùng được giọng thư viện qua API** (lỗi 402 `paid_plan_required`), kể cả khi giọng đã thêm vào "giọng của bạn". Kiểm tra trước bằng một câu ngắn ("Xin chào.") để khỏi tưởng là lỗi khóa. Cách miễn phí: tạo giọng trên web ElevenLabs với lời trong `public/<slug>/loi-doc.txt`, tải mp3 về `public/<slug>/voice_in.mp3`, dùng engine `file` (whisper tự canh mốc chữ, `gaps` và `pads` vẫn áp dụng).
+- `eleven_multilingual_v2` (mặc định của skill) không có tiếng Việt; giọng Việt dùng `eleven_turbo_v2_5`/`eleven_flash_v2_5` kèm `"language": "vi"`.
 - Đổi giọng thì mốc từng chữ đổi: phải chạy lại `voice` → `plan` → `sfx` → `master`, rồi rà lại các cảnh cắt theo chữ.
 
 ### Cảnh dùng lại với `from` (bài học từ bóng đèn S34)
