@@ -1,8 +1,8 @@
-# Cầu lông Việt Nam (bản dài, sau vòng 4): lời đọc và chữ trên hình để soát
+# Cầu lông Việt Nam (bản dài, có ảnh thật): lời đọc và chữ trên hình để soát
 
-Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 543 từ; thời lượng ước tính khoảng 110–115 giây (CHƯA đo bằng TTS, chưa có MP4 có tiếng).
+Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 543 từ; ước tính khoảng 115 giây. Bản MP4 vòng trước đo 123,5 giây (từ ChatGPT). CHƯA đo lại bản mới.
 
-**Đã sửa theo vòng 4:** cảnh 8 bỏ câu "chưa gồm tiền cầu, vợt hay đi lại" và nhắc hỏi người tổ chức; cảnh 9 ghi 60–90 nghìn là của cả nhóm; cảnh 10 thẻ "Có người thấy đỡ tốn"; cảnh 6 ghi "buổi chơi ngày 5/11" (không nói ngày đăng).
+**Thay đổi vòng này:** thẻ cảnh 7 và dòng bảng cảnh 8 hiện theo vị trí cụm trong lời đọc; nhãn "Ít đánh ra ngoài hơn"; mascot cảnh 9 nâng lên khỏi phụ đề; thêm 3 ảnh thật có credit (cảnh 1, 4, 7).
 
 ## Cảnh 1 (hook)
 
@@ -10,7 +10,7 @@ Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 543 từ; thời lượng ư
 
 **Phụ đề:** Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?
 
-**Chữ trên hình:** VÌ SAO NGƯỜI VIỆT | MÊ CẦU LÔNG?
+**Chữ trên hình:** VÌ SAO NGƯỜI VIỆT | MÊ CẦU LÔNG? | Irish83 / Unsplash License | Cầu lông tại Bến Lức · Ảnh minh họa | [Ảnh] Cầu lông tại Bến Lức · Ảnh minh họa · Irish83 / Unsplash License
 
 ## Cảnh 2 (stat)
 
@@ -34,7 +34,7 @@ Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 543 từ; thời lượng ư
 
 **Phụ đề:** Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại TP.HCM chia sẻ với báo Thanh Niên rằng, từ 18 đến 22 giờ thường đông khách nhất.
 
-**Chữ trên hình:** Có giờ để đi chơi | Tan làm | Cần giờ chơi thuận tiện | Hẹn nhóm | Nhắn nhau ra sân | 18–22h | Thường đông khách nhất | [Nhãn nguồn] Theo một chủ sân tại TP.HCM · Thanh Niên · 22/5/2026
+**Chữ trên hình:** Có giờ để đi chơi | Tan làm | Cần giờ chơi thuận tiện | Hẹn nhóm | Nhắn nhau ra sân | 18–22h | Thường đông khách nhất | QUI NGUYEN / Pexels License | Sân trong nhà · TP.HCM · Ảnh minh họa | [Nhãn nguồn] Theo một chủ sân tại TP.HCM · Thanh Niên · 22/5/2026 | [Ảnh] Sân trong nhà · TP.HCM · Ảnh minh họa · QUI NGUYEN / Pexels License
 
 ## Cảnh 5 (chat)
 
@@ -58,7 +58,7 @@ Nhánh `cau-long-viet-nam`. 11 cảnh, lời đọc 543 từ; thời lượng ư
 
 **Phụ đề:** Rồi đến cảm giác đánh tốt hơn. Lúc đầu có thể hay đánh ra ngoài, sau giữ được pha cầu lâu hơn, rồi biết đưa cầu vào chỗ đối thủ khó đỡ. Một người chơi được phỏng vấn nói môn này cần thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ.
 
-**Chữ trên hình:** Vì sao muốn quay lại | Hết đánh ra ngoài | Giữ pha cầu lâu hơn | Đưa cầu chỗ khó đỡ | [Nhãn nguồn] Minh họa · lời kể người chơi, Thanh Niên 22/5/2026
+**Chữ trên hình:** Vì sao muốn quay lại | Ít đánh ra ngoài hơn | Giữ pha cầu lâu hơn | Đưa cầu chỗ khó đỡ | Irish83 / Unsplash License | Chơi cầu tại Bến Lức · Ảnh minh họa | [Nhãn nguồn] Minh họa · lời kể người chơi, Thanh Niên 22/5/2026 | [Ảnh] Chơi cầu tại Bến Lức · Ảnh minh họa · Irish83 / Unsplash License
 
 ## Cảnh 8 (receipt)
 

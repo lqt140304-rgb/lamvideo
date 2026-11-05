@@ -887,7 +887,7 @@ export const ListVariant: React.FC<{ scene: ListData; frames: number }> = ({ sce
         </div>
       </div>
       <Stage>
-        <Mascot pose={scene.pose ?? (good ? "thumbs" : "sad")} x={940} y={1390} scale={0.34} enter={4} />
+        <Mascot pose={scene.pose ?? (good ? "thumbs" : "sad")} x={940} y={1300} scale={0.4} enter={4} />
       </Stage>
       {sfx}
     </AbsoluteFill>

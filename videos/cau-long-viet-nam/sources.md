@@ -34,3 +34,14 @@ Claude đã mở lại từng nguồn dưới đây ngày 05/11/2026 và đối 
 - Tổng người chơi, tốc độ tăng, số sân mới; tỷ lệ theo kênh tham gia (bạn bè, trường, mạng xã hội).
 - Chi phí trung bình; so sánh cầu lông–pickleball–tennis về giá, luật, sức khỏe, chấn thương.
 - Không có ảnh thật; đồ họa do code vẽ. Không dùng "16 triệu người chơi pickleball" hay số liệu Metric.
+
+## Ảnh thật (cảnh 1, 4, 7) — ChatGPT chọn, Claude đã mở xem 5/11/2026
+| Cảnh | Ảnh | Đã kiểm tra |
+|---|---|---|
+| 1 (hook) | Unsplash MLjj5eVwrvI, Irish83 | Trang ghi "Sân cầu lông An Nguyên, Ben Luc, Tay Ninh, Vietnam", Published 31/5/2026, Unsplash License. Đã xem ảnh: người chơi áo đỏ qua khung vợt, sân trong nhà |
+| 4 (giờ chơi) | Pexels 35300321, QUI NGUYEN | Trang ghi "Indoor Badminton Court in Ho Chi Minh City", upload 20/12/2025, 1972×3506 (dọc), Pexels License. Đã xem ảnh: sân trong nhà đen trắng, nhiều người. KHÔNG nói là buổi tối; caption chỉ ghi "Sân trong nhà · TP.HCM" |
+| 7 (tiến bộ) | Unsplash _T5XxFIntfI (file photo-1780233689610), Irish83 | Trang "Two men playing badminton on an indoor court", cùng sân, 31/5/2026, Unsplash License. Đã xem ảnh file: hai người chơi đôi. Chưa xác nhận bằng cách tải ID file trùng ID trang (cùng tác giả, cùng thời điểm) |
+
+- Ngày đăng, không phải ngày chụp gốc. Người trong ảnh không phải nhân vật được phỏng vấn; ảnh chỉ minh họa, không chứng minh giờ cao điểm, chi phí hay mức tăng người chơi. Không gán ảnh Bến Lức cho TP.HCM hay Hải Phòng.
+- Claude không tải được file ảnh trong môi trường này (mạng 403): chạy `npm run images -- cau-long-viet-nam` trên máy bạn để tải và sinh credits.json; crop "50% 80%" cho ảnh dọc ở cảnh 4 chưa được xem trên khung thật.
+- Credit mô tả: Ảnh minh họa: Irish83 / Unsplash; QUI NGUYEN / Pexels.

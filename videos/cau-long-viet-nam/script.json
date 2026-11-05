@@ -19,7 +19,18 @@
       "layout": "question",
       "cue": "lịch hẹn hàng tuần",
       "voice": "Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?",
-      "sub": "Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?"
+      "sub": "Vì sao nhiều người Việt lại mê cầu lông? Một buổi đi thử có thể biến thành lịch hẹn hàng tuần như thế nào?",
+      "broll": {
+        "file": "ben-luc-qua-vot-irish83.jpg",
+        "url": "https://images.unsplash.com/photo-1780233689933-c2f805b3ed36?auto=format&fit=max&w=1920&q=85",
+        "credit": "Irish83 / Unsplash License",
+        "caption": "Cầu lông tại Bến Lức · Ảnh minh họa",
+        "say": "Vì sao nhiều người Việt lại mê cầu lông",
+        "hold": 3,
+        "style": "card",
+        "focus": "50% 50%",
+        "y": 540
+      }
     },
     {
       "type": "stat",
@@ -89,7 +100,18 @@
       ],
       "voice": "Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại Thành phố Hồ Chí Minh chia sẻ với báo Thanh Niên rằng, từ mười tám đến hai mươi hai giờ thường đông khách nhất.",
       "sub": "Còn người đi làm cần giờ chơi thuận tiện. Một huấn luyện viên kiêm chủ sân tại TP.HCM chia sẻ với báo Thanh Niên rằng, từ 18 đến 22 giờ thường đông khách nhất.",
-      "source": "Theo một chủ sân tại TP.HCM · Thanh Niên · 22/5/2026"
+      "source": "Theo một chủ sân tại TP.HCM · Thanh Niên · 22/5/2026",
+      "broll": {
+        "file": "san-trong-nha-tphcm-qui-nguyen.jpg",
+        "url": "https://images.pexels.com/photos/35300321/pexels-photo-35300321.jpeg?auto=compress&w=1600",
+        "credit": "QUI NGUYEN / Pexels License",
+        "caption": "Sân trong nhà · TP.HCM · Ảnh minh họa",
+        "say": "Còn người đi làm cần giờ chơi thuận tiện",
+        "hold": 3.5,
+        "style": "card",
+        "focus": "50% 80%",
+        "y": 540
+      }
     },
     {
       "type": "chat",
@@ -152,18 +174,29 @@
         "shuttle"
       ],
       "items": [
-        "Hết đánh ra ngoài",
+        "Ít đánh ra ngoài hơn",
         "Giữ pha cầu lâu hơn",
         "Đưa cầu chỗ khó đỡ"
       ],
       "at": [
-        0.1,
-        0.42,
-        0.74
+        0.16,
+        0.25,
+        0.38
       ],
       "voice": "Rồi đến cảm giác đánh tốt hơn. Lúc đầu có thể hay đánh ra ngoài, sau giữ được pha cầu lâu hơn, rồi biết đưa cầu vào chỗ đối thủ khó đỡ. Một người chơi được phỏng vấn nói môn này cần thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ.",
       "sub": "Rồi đến cảm giác đánh tốt hơn. Lúc đầu có thể hay đánh ra ngoài, sau giữ được pha cầu lâu hơn, rồi biết đưa cầu vào chỗ đối thủ khó đỡ. Một người chơi được phỏng vấn nói môn này cần thể lực, kỹ thuật và chiến thuật, nên muốn tập thêm để tiến bộ.",
-      "source": "Minh họa · lời kể người chơi, Thanh Niên 22/5/2026"
+      "source": "Minh họa · lời kể người chơi, Thanh Niên 22/5/2026",
+      "broll": {
+        "file": "ben-luc-danh-cau-irish83.jpg",
+        "url": "https://images.unsplash.com/photo-1780233689610-40fe317495c8?auto=format&fit=max&w=1920&q=85",
+        "credit": "Irish83 / Unsplash License",
+        "caption": "Chơi cầu tại Bến Lức · Ảnh minh họa",
+        "say": "nói môn này cần thể lực",
+        "hold": 3.2,
+        "style": "card",
+        "focus": "50% 50%",
+        "y": 540
+      }
     },
     {
       "type": "receipt",
@@ -172,18 +205,18 @@
         {
           "label": "Phí một buổi",
           "value": "80.000đ",
-          "at": 0.1
+          "at": 0.15
         },
         {
           "label": "Số buổi mỗi tháng",
           "value": "8 buổi",
-          "at": 0.4
+          "at": 0.22
         }
       ],
       "total": {
         "label": "Riêng phí buổi chơi",
         "value": "640.000đ",
-        "at": 0.72
+        "at": 0.38
       },
       "voice": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả tám mươi nghìn một buổi, chơi tám buổi một tháng, riêng khoản phí đó là sáu trăm bốn mươi nghìn đồng. Đây chỉ là phép tính giả định cho khoản phí buổi chơi, không phải giá trung bình hay tổng chi phí mỗi tháng. Các khoản đã bao gồm cần hỏi người tổ chức.",
       "sub": "Nhưng chơi đều thì còn chuyện tiền. Giả sử một người trả 80.000 đồng một buổi, chơi 8 buổi một tháng, riêng khoản phí đó là 640.000 đồng. Đây chỉ là phép tính giả định cho khoản phí buổi chơi, không phải giá trung bình hay tổng chi phí mỗi tháng. Các khoản đã bao gồm cần hỏi người tổ chức.",
