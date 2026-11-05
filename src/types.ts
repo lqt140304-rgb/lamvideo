@@ -250,7 +250,7 @@ export type StoryScene = SceneBase & {
 
 /** Nhân vật trong truyện nhiều giọng. */
 export type Speaker = "MINH" | "BOM" | "NA" | "TEO";
-export type ActorPose = "stand" | "wave" | "point" | "think" | "surprised" | "cheer" | "sad" | "angry" | "walk" | "run" | "sit" | "phone" | "happy";
+export type ActorPose = "stand" | "wave" | "point" | "think" | "surprised" | "cheer" | "sad" | "angry" | "walk" | "run" | "sit" | "phone" | "happy" | "sleep" | "box" | "hold" | "tie" | "bow" | "look" | "sit2" | "sitTalk" | "sitLook";
 
 /** Một lượt thoại: mỗi lượt đọc bằng giọng riêng của nhân vật và xuất thành file riêng theo `id`. */
 export type DialogLine = {

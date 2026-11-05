@@ -9,10 +9,7 @@
   "speaker": "Minh Đức"
  },
  "voices": {
-  "TEO": "Minh Đức",
-  "MINH": "Hải Đăng",
-  "NA": "Trúc Ly",
-  "BOM": "Thanh Bình"
+  "NARR": "Minh Đức"
  },
  "music": "audio/music/giay-nhap.wav",
  "musicVolume": 0.14,
@@ -29,16 +26,22 @@
    "cast": [],
    "lines": [
     {
-     "id": "S01_TEO_01a",
-     "who": "TEO",
+     "id": "S01A_NARR_01",
+     "who": "NARR",
      "text": "Tao cứ tưởng mua đôi giày này…",
-     "gap": 0.0
+     "gap": 0.0,
+     "from": [
+      "S01_TEO_01"
+     ]
     },
     {
-     "id": "S01_TEO_01b",
-     "who": "TEO",
+     "id": "S01A_NARR_02",
+     "who": "NARR",
      "text": "…sáng hôm sau tao sẽ thành một đứa khác.",
-     "gap": 0.3
+     "gap": 0.3,
+     "from": [
+      "S01_TEO_01"
+     ]
     }
    ],
    "voice": "Tao cứ tưởng mua đôi giày này… …sáng hôm sau tao sẽ thành một đứa khác.",
@@ -121,31 +124,14 @@
    "cast": [
     {
      "who": "TEO",
-     "x": 440,
-     "scale": 0.9,
-     "pose": "sad",
-     "fromLine": 0
+     "x": 520,
+     "scale": 1.3,
+     "pose": "sleep"
     }
    ],
    "lines": [],
    "voice": "…",
    "props": [
-    {
-     "name": "bed",
-     "x": 450,
-     "y": 1290,
-     "scale": 0.95,
-     "front": true
-    },
-    {
-     "name": "alarm",
-     "x": 800,
-     "y": 1240,
-     "scale": 0.5,
-     "shake": 4,
-     "at": 0.0,
-     "until": 2.6
-    },
     {
      "name": "shoes",
      "x": 160,
@@ -177,31 +163,32 @@
      "who": "MINH",
      "x": 280,
      "scale": 0.95,
-     "pose": "think"
+     "pose": "sitLook"
     },
     {
      "who": "TEO",
      "x": 760,
      "scale": 0.95,
-     "pose": "sad",
+     "pose": "bow",
      "flip": true
     }
    ],
    "lines": [
     {
-     "id": "S01_MINH_01",
-     "who": "MINH",
-     "text": "Giày mới à?"
-    },
-    {
-     "id": "S01_TEO_02",
-     "who": "TEO",
-     "text": "Ừ. Mới được một tuần rồi.",
-     "gap": 0.6,
-     "pose": "stand"
+     "id": "S01C_NARR_01",
+     "who": "NARR",
+     "text": "Bảy ngày sau, Minh ghé chơi. Nó nhìn đôi giày, rồi hỏi: Giày mới à? Tao cười chữa ngượng: Ừ. Mới được một tuần rồi.",
+     "react": {
+      "MINH": "sitLook",
+      "TEO": "bow"
+     },
+     "from": [
+      "S01_MINH_01",
+      "S01_TEO_02"
+     ]
     }
    ],
-   "voice": "Giày mới à? Ừ. Mới được một tuần rồi.",
+   "voice": "Bảy ngày sau, Minh ghé chơi. Nó nhìn đôi giày, rồi hỏi: Giày mới à? Tao cười chữa ngượng: Ừ. Mới được một tuần rồi.",
    "props": [
     {
      "name": "shoes",
@@ -209,12 +196,6 @@
      "y": 1250,
      "scale": 0.42,
      "front": true
-    },
-    {
-     "name": "chair",
-     "x": 940,
-     "y": 1250,
-     "scale": 0.7
     }
    ],
    "label": "Bảy ngày sau",
@@ -247,67 +228,98 @@
    ],
    "lines": [
     {
-     "id": "S02_NA_01",
-     "who": "NA",
-     "text": "Mày đặt gì mà ba gói thế?",
-     "pose": "stand"
+     "id": "S02_NARR_01",
+     "who": "NARR",
+     "text": "Một tuần trước, Na gọi hỏi tao: Mày đặt gì mà ba gói thế?",
+     "react": {
+      "TEO": "phone"
+     },
+     "from": [
+      "S02_NA_01"
+     ]
     },
     {
-     "id": "S02_TEO_01",
-     "who": "TEO",
-     "text": "Giày. Bình nước. Cái đồng hồ nữa. Lần này tao tập nghiêm túc.",
-     "pose": "wave"
+     "id": "S02_NARR_02",
+     "who": "NARR",
+     "text": "Tao khoe liền: Giày. Bình nước. Cái đồng hồ nữa. Lần này tao tập nghiêm túc.",
+     "react": {
+      "TEO": "wave"
+     },
+     "from": [
+      "S02_TEO_01"
+     ]
     },
     {
-     "id": "S02_NA_02",
-     "who": "NA",
-     "text": "Đặt lịch chạy chưa?",
-     "pose": "think"
+     "id": "S02_NARR_03",
+     "who": "NARR",
+     "text": "Nó trêu: Đặt lịch chạy chưa? Tao khựng một chút, rồi nói tiếp: Mai. Đồ đến là bắt đầu.",
+     "react": {
+      "TEO": "bow"
+     },
+     "gap": 0.4,
+     "from": [
+      "S02_NA_02",
+      "S02_TEO_02"
+     ]
     },
     {
-     "id": "S02_TEO_02",
-     "who": "TEO",
-     "text": "Mai. Đồ đến là bắt đầu.",
-     "pose": "think",
+     "id": "S02_NARR_04",
+     "who": "NARR",
+     "text": "Hộp mở ra, tao ngồi bệt xuống sàn.",
+     "react": {
+      "TEO": "box"
+     },
      "gap": 0.5
     },
     {
-     "id": "S02_TEO_03",
-     "who": "TEO",
-     "text": "Tao thích cái cảm giác sáng dậy đã làm được gì đấy… chứ không phải mở mắt ra đã thấy muộn.",
-     "gap": 1.0,
-     "pose": "stand"
+     "id": "S02_NARR_05",
+     "who": "NARR",
+     "text": "Tao buộc thử dây giày, đeo thử đồng hồ. Ngắm mình qua điện thoại, tự nhiên thấy tự tin hơn một chút.",
+     "react": {
+      "TEO": "hold"
+     },
+     "gap": 0.3
     },
     {
-     "id": "S02_NA_03",
-     "who": "NA",
-     "text": "Ừ. Hôm nào đi rồi kể tao nghe.",
-     "pose": "stand",
-     "gap": 0.5
+     "id": "S02_NARR_06",
+     "who": "NARR",
+     "text": "Tao nói với Na, chậm lại: Tao thích cái cảm giác sáng dậy đã làm được gì đấy… chứ không phải mở mắt ra đã thấy muộn.",
+     "react": {
+      "TEO": "stand"
+     },
+     "gap": 0.8,
+     "from": [
+      "S02_TEO_03"
+     ]
+    },
+    {
+     "id": "S02_NARR_07",
+     "who": "NARR",
+     "text": "Na bớt đùa. Nó bảo: Ừ. Hôm nào đi rồi kể tao nghe.",
+     "react": {
+      "TEO": "stand"
+     },
+     "gap": 0.5,
+     "from": [
+      "S02_NA_03"
+     ]
     }
    ],
-   "voice": "Mày đặt gì mà ba gói thế? Giày. Bình nước. Cái đồng hồ nữa. Lần này tao tập nghiêm túc. Đặt lịch chạy chưa? Mai. Đồ đến là bắt đầu. Tao thích cái cảm giác sáng dậy đã làm được gì đấy… chứ không phải mở mắt ra đã thấy muộn. Ừ. Hôm nào đi rồi kể tao nghe.",
+   "voice": "Một tuần trước, Na gọi hỏi tao: Mày đặt gì mà ba gói thế? Tao khoe liền: Giày. Bình nước. Cái đồng hồ nữa. Lần này tao tập nghiêm túc. Nó trêu: Đặt lịch chạy chưa? Tao khựng một chút, rồi nói tiếp: Mai. Đồ đến là bắt đầu. Hộp mở ra, tao buộc thử dây giày, đeo thử đồng hồ. Ngắm mình qua điện thoại, tự nhiên thấy tự tin hơn một chút. Tao nói với Na, chậm lại: Tao thích cái cảm giác sáng dậy đã làm được gì đấy… chứ không phải mở mắt ra đã thấy muộn. Na bớt đùa. Nó bảo: Ừ. Hôm nào đi rồi kể tao nghe.",
    "props": [
     {
      "name": "parcel",
      "x": 160,
      "y": 1255,
      "scale": 0.5,
-     "toLine": 1
-    },
-    {
-     "name": "shoebox",
-     "x": 190,
-     "y": 1255,
-     "scale": 0.5,
-     "fromLine": 2
+     "toLine": 2
     },
     {
      "name": "bottle",
      "x": 720,
      "y": 1255,
      "scale": 0.4,
-     "fromLine": 2
+     "fromLine": 3
     },
     {
      "name": "watch",
@@ -343,28 +355,26 @@
    "cast": [
     {
      "who": "TEO",
-     "x": 470,
-     "scale": 0.9,
-     "pose": "sad"
+     "x": 520,
+     "scale": 1.3,
+     "pose": "sleep"
     }
    ],
    "lines": [
     {
-     "id": "S03_TEO_01",
-     "who": "TEO",
-     "text": "Năm phút nữa…",
-     "pose": "sad"
+     "id": "S03A_NARR_01",
+     "who": "NARR",
+     "text": "Sáng đầu tiên, báo thức kêu. Tao ngái ngủ: Năm phút nữa…",
+     "react": {
+      "TEO": "sleep"
+     },
+     "from": [
+      "S03_TEO_01"
+     ]
     }
    ],
-   "voice": "Năm phút nữa…",
+   "voice": "Sáng đầu tiên, báo thức kêu. Tao ngái ngủ: Năm phút nữa…",
    "props": [
-    {
-     "name": "bed",
-     "x": 480,
-     "y": 1290,
-     "scale": 0.95,
-     "front": true
-    },
     {
      "name": "alarm",
      "x": 820,
@@ -401,18 +411,23 @@
      "who": "TEO",
      "x": 640,
      "scale": 0.9,
-     "pose": "think"
+     "pose": "bow"
     }
    ],
    "lines": [
     {
-     "id": "S03_TEO_02",
-     "who": "TEO",
-     "text": "Mai ngủ đủ rồi đi.",
-     "pose": "sad"
+     "id": "S03B_NARR_01",
+     "who": "NARR",
+     "text": "Sáng thứ hai, tao vừa làm xong việc muộn hôm trước, nhìn giờ rồi đổi báo thức: Mai ngủ đủ rồi đi.",
+     "react": {
+      "TEO": "bow"
+     },
+     "from": [
+      "S03_TEO_02"
+     ]
     }
    ],
-   "voice": "Mai ngủ đủ rồi đi.",
+   "voice": "Sáng thứ hai, tao vừa làm xong việc muộn hôm trước, nhìn giờ rồi đổi báo thức: Mai ngủ đủ rồi đi.",
    "props": [
     {
      "name": "alarm",
@@ -457,13 +472,18 @@
    ],
    "lines": [
     {
-     "id": "S03_TEO_03",
-     "who": "TEO",
-     "text": "Ra đấy chạy được một tí rồi đứng thở…",
-     "pose": "sad"
+     "id": "S03C_NARR_01",
+     "who": "NARR",
+     "text": "Sáng thứ ba, tao dậy rồi. Nhưng lướt thấy ảnh chạy của người khác, tao nhìn mình trong gương, nghĩ rất nhỏ: Ra đấy chạy được một tí rồi đứng thở… Bờm nhắn: Chiều cà phê không? Tao gõ lại: Để xem đã.",
+     "react": {
+      "TEO": "bow"
+     },
+     "from": [
+      "S03_TEO_03"
+     ]
     }
    ],
-   "voice": "Ra đấy chạy được một tí rồi đứng thở…",
+   "voice": "Sáng thứ ba, tao dậy rồi. Nhưng lướt thấy ảnh chạy của người khác, tao nhìn mình trong gương, nghĩ rất nhỏ: Ra đấy chạy được một tí rồi đứng thở… Bờm nhắn: Chiều cà phê không? Tao gõ lại: Để xem đã.",
    "props": [
     {
      "name": "shoes",
@@ -498,88 +518,111 @@
      "who": "TEO",
      "x": 360,
      "scale": 0.9,
-     "pose": "think"
+     "pose": "stand"
     },
     {
      "who": "MINH",
      "x": 760,
      "scale": 0.9,
-     "pose": "stand",
+     "pose": "sitLook",
      "flip": true
     }
    ],
    "lines": [
     {
-     "id": "S04_MINH_01",
-     "who": "MINH",
-     "text": "Tuần này bận à?"
+     "id": "S04_NARR_01",
+     "who": "NARR",
+     "text": "Hôm Minh ghé, nó hỏi bình thường thôi: Tuần này bận à? Tao né trước: Cũng không đến mức đấy.",
+     "react": {
+      "MINH": "sitLook",
+      "TEO": "stand"
+     },
+     "from": [
+      "S04_MINH_01",
+      "S04_TEO_01"
+     ]
     },
     {
-     "id": "S04_TEO_01",
-     "who": "TEO",
-     "text": "Cũng không đến mức đấy.",
-     "pose": "sad"
-    },
-    {
-     "id": "S04_TEO_02",
-     "who": "TEO",
-     "text": "Có hôm tao dậy rồi. Mặc áo rồi… cuối cùng vẫn ngồi lại.",
+     "id": "S04_NARR_02",
+     "who": "NARR",
+     "text": "Rồi tao nói thật, mắt nhìn xuống: Có hôm tao dậy rồi. Mặc áo rồi… cuối cùng vẫn ngồi lại.",
+     "react": {
+      "MINH": "sitLook",
+      "TEO": "bow"
+     },
      "gap": 0.9,
-     "pose": "sad"
+     "from": [
+      "S04_TEO_02"
+     ]
     },
     {
-     "id": "S04_MINH_02",
-     "who": "MINH",
-     "text": "Vì sao?",
-     "pose": "think"
+     "id": "S04_NARR_03",
+     "who": "NARR",
+     "text": "Nó hỏi: Vì sao? Tao lúng túng: Tao cũng không biết. Cứ nghĩ ra đấy ai cũng chạy ngon lành. Còn tao mới tí đã mệt.",
+     "react": {
+      "MINH": "sitTalk",
+      "TEO": "bow"
+     },
+     "from": [
+      "S04_MINH_02",
+      "S04_TEO_03"
+     ]
     },
     {
-     "id": "S04_TEO_03",
-     "who": "TEO",
-     "text": "Tao cũng không biết. Cứ nghĩ ra đấy ai cũng chạy ngon lành. Còn tao mới tí đã mệt.",
-     "pose": "think"
+     "id": "S04_NARR_04",
+     "who": "NARR",
+     "text": "Minh trêu rất nhẹ: Mày mới mua giày. Có đăng ký thi với ai đâu. Tao cười thoáng, rồi im.",
+     "react": {
+      "MINH": "sitTalk",
+      "TEO": "bow"
+     },
+     "from": [
+      "S04_MINH_03"
+     ]
     },
     {
-     "id": "S04_MINH_03",
-     "who": "MINH",
-     "text": "Mày mới mua giày. Có đăng ký thi với ai đâu.",
-     "pose": "stand"
-    },
-    {
-     "id": "S04_TEO_04",
-     "who": "TEO",
-     "text": "Lúc bấm mua, tao tưởng tượng được hết. Sáng dậy sớm này, chạy xong về này… thấy mình khác hẳn.",
+     "id": "S04_NARR_05",
+     "who": "NARR",
+     "text": "Tao thành thật: Lúc bấm mua, tao tưởng tượng được hết. Sáng dậy sớm này, chạy xong về này… thấy mình khác hẳn.",
+     "react": {
+      "MINH": "sitLook",
+      "TEO": "bow"
+     },
      "gap": 1.1,
-     "pose": "sad"
+     "from": [
+      "S04_TEO_04"
+     ]
     },
     {
-     "id": "S04_TEO_05",
-     "who": "TEO",
+     "id": "S04_NARR_06",
+     "who": "NARR",
      "text": "Xong đồ về rồi… tao vẫn là tao.",
-     "gap": 0.9,
-     "pose": "sad"
+     "react": {
+      "MINH": "sitLook",
+      "TEO": "bow"
+     },
+     "gap": 1.4,
+     "from": [
+      "S04_TEO_05"
+     ]
     },
     {
-     "id": "S04_MINH_04",
-     "who": "MINH",
-     "text": "Tối nay mày có việc gì không?",
-     "gap": 2.2,
-     "pose": "think"
-    },
-    {
-     "id": "S04_TEO_06",
-     "who": "TEO",
-     "text": "Không. Sao?",
-     "pose": "surprised"
-    },
-    {
-     "id": "S04_MINH_05",
-     "who": "MINH",
-     "text": "Đi cùng tao một đoạn. Xuống dưới rồi tính.",
-     "pose": "stand"
+     "id": "S04_NARR_07",
+     "who": "NARR",
+     "text": "Minh không nói ngay. Một lúc sau, nó hỏi: Tối nay mày có việc gì không? Tao ngẩng lên: Không. Sao? Nó thản nhiên: Đi cùng tao một đoạn. Xuống dưới rồi tính.",
+     "react": {
+      "MINH": "sitTalk",
+      "TEO": "stand"
+     },
+     "gap": 2.4,
+     "from": [
+      "S04_MINH_04",
+      "S04_TEO_06",
+      "S04_MINH_05"
+     ]
     }
    ],
-   "voice": "Tuần này bận à? Cũng không đến mức đấy. Có hôm tao dậy rồi. Mặc áo rồi… cuối cùng vẫn ngồi lại. Vì sao? Tao cũng không biết. Cứ nghĩ ra đấy ai cũng chạy ngon lành. Còn tao mới tí đã mệt. Mày mới mua giày. Có đăng ký thi với ai đâu. Lúc bấm mua, tao tưởng tượng được hết. Sáng dậy sớm này, chạy xong về này… thấy mình khác hẳn. Xong đồ về rồi… tao vẫn là tao. Tối nay mày có việc gì không? Không. Sao? Đi cùng tao một đoạn. Xuống dưới rồi tính.",
+   "voice": "Hôm Minh ghé, nó hỏi bình thường thôi: Tuần này bận à? Tao né trước: Cũng không đến mức đấy. Rồi tao nói thật, mắt nhìn xuống: Có hôm tao dậy rồi. Mặc áo rồi… cuối cùng vẫn ngồi lại. Nó hỏi: Vì sao? Tao lúng túng: Tao cũng không biết. Cứ nghĩ ra đấy ai cũng chạy ngon lành. Còn tao mới tí đã mệt. Minh trêu rất nhẹ: Mày mới mua giày. Có đăng ký thi với ai đâu. Tao cười thoáng, rồi im. Tao thành thật: Lúc bấm mua, tao tưởng tượng được hết. Sáng dậy sớm này, chạy xong về này… thấy mình khác hẳn. Xong đồ về rồi… tao vẫn là tao. Minh không nói ngay. Một lúc sau, nó hỏi: Tối nay mày có việc gì không? Tao ngẩng lên: Không. Sao? Nó thản nhiên: Đi cùng tao một đoạn. Xuống dưới rồi tính.",
    "props": [
     {
      "name": "shoes",
@@ -589,17 +632,11 @@
      "front": true
     },
     {
-     "name": "chair",
-     "x": 930,
-     "y": 1250,
-     "scale": 0.7
-    },
-    {
      "name": "phone",
      "x": 200,
      "y": 1255,
      "scale": 0.4,
-     "fromLine": 6,
+     "fromLine": 4,
      "rot": 180
     }
    ],
@@ -646,19 +683,20 @@
    ],
    "lines": [
     {
-     "id": "S05_TEO_01",
-     "who": "TEO",
-     "text": "Tao đi chậm đấy.",
-     "pose": "sad"
-    },
-    {
-     "id": "S05_MINH_01",
-     "who": "MINH",
-     "text": "Ừ. Tao có hẹn ai đuổi đâu.",
-     "pose": "stand"
+     "id": "S05A_NARR_01",
+     "who": "NARR",
+     "text": "Ra công viên, tao đi sau, nói nhỏ: Tao đi chậm đấy. Minh bảo: Ừ. Tao có hẹn ai đuổi đâu.",
+     "react": {
+      "TEO": "walk",
+      "MINH": "walk"
+     },
+     "from": [
+      "S05_TEO_01",
+      "S05_MINH_01"
+     ]
     }
    ],
-   "voice": "Tao đi chậm đấy. Ừ. Tao có hẹn ai đuổi đâu.",
+   "voice": "Ra công viên, tao đi sau, nói nhỏ: Tao đi chậm đấy. Minh bảo: Ừ. Tao có hẹn ai đuổi đâu.",
    "amb": "park",
    "pad": 1.0,
    "sfx": [
@@ -719,20 +757,21 @@
    ],
    "lines": [
     {
-     "id": "S05_TEO_02",
-     "who": "TEO",
-     "text": "Đi bộ một tí nhé.",
-     "pose": "stand",
-     "gap": 2.0
-    },
-    {
-     "id": "S05_MINH_02",
-     "who": "MINH",
-     "text": "Ừ.",
-     "pose": "stand"
+     "id": "S05B_NARR_01",
+     "who": "NARR",
+     "text": "Tụi tao thử chạy rất ngắn. Rồi tao chậm lại, thở nhẹ giữa câu: Đi bộ một tí nhé. Minh chỉ đáp: Ừ.",
+     "react": {
+      "TEO": "run",
+      "MINH": "walk"
+     },
+     "gap": 2.0,
+     "from": [
+      "S05_TEO_02",
+      "S05_MINH_02"
+     ]
     }
    ],
-   "voice": "Đi bộ một tí nhé. Ừ.",
+   "voice": "Tụi tao thử chạy rất ngắn. Rồi tao chậm lại, thở nhẹ giữa câu: Đi bộ một tí nhé. Minh chỉ đáp: Ừ.",
    "amb": "park",
    "pad": 3.2,
    "sfx": [
@@ -838,7 +877,6 @@
      "x": 160,
      "tile": 230,
      "tileY": 440,
-     "fromLine": 0,
      "pose": "wave"
     },
     {
@@ -846,58 +884,54 @@
      "x": 920,
      "tile": 230,
      "tileY": 440,
-     "fromLine": 3,
      "pose": "stand"
     }
    ],
    "lines": [
     {
-     "id": "S05_BOM_01",
-     "who": "BOM",
-     "text": "Hai đứa đi đâu thế?",
-     "pose": "wave",
-     "gap": 0.0
+     "id": "S05C_NARR_01",
+     "who": "NARR",
+     "text": "Điện thoại rung. Bờm gọi nhóm, Na cũng ở trong cuộc gọi. Bờm hỏi: Hai đứa đi đâu thế? Tao ngại cười: Ra công viên. Mà đi bộ là chính.",
+     "react": {
+      "BOM": "wave",
+      "TEO": "phone"
+     },
+     "gap": 0.0,
+     "from": [
+      "S05_BOM_01",
+      "S05_TEO_03"
+     ]
     },
     {
-     "id": "S05_TEO_03",
-     "who": "TEO",
-     "text": "Ra công viên. Mà đi bộ là chính.",
-     "pose": "phone"
+     "id": "S05C_NARR_02",
+     "who": "NARR",
+     "text": "Bờm tỉnh bơ: Thế có ghế không? Lần sau tao ra ngồi đợi. Na trêu lại: Mày vừa đến đã đòi ngồi. Bờm thật thà: Thì đợi chúng nó đi xong rồi đi cùng.",
+     "react": {
+      "BOM": "stand",
+      "NA": "wave"
+     },
+     "from": [
+      "S05_BOM_02",
+      "S05_NA_01",
+      "S05_BOM_03"
+     ]
     },
     {
-     "id": "S05_BOM_02",
-     "who": "BOM",
-     "text": "Thế có ghế không? Lần sau tao ra ngồi đợi.",
-     "pose": "stand"
-    },
-    {
-     "id": "S05_NA_01",
-     "who": "NA",
-     "text": "Mày vừa đến đã đòi ngồi.",
-     "pose": "wave"
-    },
-    {
-     "id": "S05_BOM_03",
-     "who": "BOM",
-     "text": "Thì đợi chúng nó đi xong rồi đi cùng.",
-     "pose": "stand"
-    },
-    {
-     "id": "S05_NA_02",
-     "who": "NA",
-     "text": "Ngoài đấy mát không?",
-     "pose": "stand",
-     "gap": 0.6
-    },
-    {
-     "id": "S05_TEO_04",
-     "who": "TEO",
-     "text": "Ừ. Mát.",
-     "pose": "stand",
-     "gap": 0.6
+     "id": "S05C_NARR_03",
+     "who": "NARR",
+     "text": "Tao cười tự nhiên. Na hỏi tao, giọng ấm: Ngoài đấy mát không? Tao nhìn lên cây, lần đầu thấy thư giãn: Ừ. Mát.",
+     "react": {
+      "NA": "stand",
+      "TEO": "stand"
+     },
+     "gap": 0.7,
+     "from": [
+      "S05_NA_02",
+      "S05_TEO_04"
+     ]
     }
    ],
-   "voice": "Hai đứa đi đâu thế? Ra công viên. Mà đi bộ là chính. Thế có ghế không? Lần sau tao ra ngồi đợi. Mày vừa đến đã đòi ngồi. Thì đợi chúng nó đi xong rồi đi cùng. Ngoài đấy mát không? Ừ. Mát.",
+   "voice": "Điện thoại rung. Bờm gọi nhóm, Na cũng ở trong cuộc gọi. Bờm hỏi: Hai đứa đi đâu thế? Tao ngại cười: Ra công viên. Mà đi bộ là chính. Bờm tỉnh bơ: Thế có ghế không? Lần sau tao ra ngồi đợi. Na trêu lại: Mày vừa đến đã đòi ngồi. Bờm thật thà: Thì đợi chúng nó đi xong rồi đi cùng. Tao cười tự nhiên. Na hỏi tao, giọng ấm: Ngoài đấy mát không? Tao nhìn lên cây, lần đầu thấy thư giãn: Ừ. Mát.",
    "chip": "Cuộc gọi nhóm",
    "amb": "park",
    "pad": 2.0,
@@ -924,7 +958,7 @@
      "who": "TEO",
      "x": 360,
      "scale": 0.85,
-     "pose": "sad",
+     "pose": "bow",
      "variant": "dirty"
     },
     {
@@ -937,43 +971,35 @@
    ],
    "lines": [
     {
-     "id": "S06_TEO_01",
-     "who": "TEO",
-     "text": "Bẩn rồi.",
-     "pose": "sad"
+     "id": "S06_NARR_01",
+     "who": "NARR",
+     "text": "Hai đứa dừng cạnh bồn cây. Tao cúi nhìn đế giày dính đất, hơi tiếc: Bẩn rồi. Minh cười nhẹ: Ừ. Hôm nay dùng rồi mà.",
+     "react": {
+      "TEO": "bow",
+      "MINH": "stand"
+     },
+     "from": [
+      "S06_TEO_01",
+      "S06_MINH_01"
+     ]
     },
     {
-     "id": "S06_MINH_01",
-     "who": "MINH",
-     "text": "Ừ. Hôm nay dùng rồi mà.",
-     "pose": "stand"
-    },
-    {
-     "id": "S06_TEO_02",
-     "who": "TEO",
-     "text": "Tao cứ sợ mua xong lại bỏ đấy.",
-     "pose": "stand",
-     "gap": 1.0
-    },
-    {
-     "id": "S06_MINH_02",
-     "who": "MINH",
-     "text": "Thì hôm nay mày đã mang nó ra đây rồi.",
-     "pose": "stand"
+     "id": "S06_NARR_02",
+     "who": "NARR",
+     "text": "Tao nhẹ nhõm: Tao cứ sợ mua xong lại bỏ đấy. Nó bảo: Thì hôm nay mày đã mang nó ra đây rồi.",
+     "react": {
+      "TEO": "look",
+      "MINH": "stand"
+     },
+     "gap": 1.2,
+     "from": [
+      "S06_TEO_02",
+      "S06_MINH_02"
+     ]
     }
    ],
-   "voice": "Bẩn rồi. Ừ. Hôm nay dùng rồi mà. Tao cứ sợ mua xong lại bỏ đấy. Thì hôm nay mày đã mang nó ra đây rồi.",
-   "props": [
-    {
-     "name": "shoes_dirty",
-     "x": 540,
-     "y": 1255,
-     "scale": 1.0,
-     "toLine": 0,
-     "front": true,
-     "until": 5
-    }
-   ],
+   "voice": "Hai đứa dừng cạnh bồn cây. Tao cúi nhìn đế giày dính đất, hơi tiếc: Bẩn rồi. Minh cười nhẹ: Ừ. Hôm nay dùng rồi mà. Tao nhẹ nhõm: Tao cứ sợ mua xong lại bỏ đấy. Nó bảo: Thì hôm nay mày đã mang nó ra đây rồi.",
+   "props": [],
    "amb": "park",
    "pad": 3.2
   },
@@ -989,28 +1015,26 @@
     {
      "who": "TEO",
      "x": 520,
-     "scale": 0.9,
-     "pose": "sad",
+     "scale": 1.3,
+     "pose": "sleep",
      "variant": "dirty"
     }
    ],
    "lines": [
     {
-     "id": "S07_TEO_01",
-     "who": "TEO",
-     "text": "Đợi tao hai phút.",
-     "pose": "sad"
+     "id": "S07A_NARR_01",
+     "who": "NARR",
+     "text": "Sáng hôm sau, báo thức lại vang. Vẫn khó dậy như cũ. Tin Minh hiện lên: Tao xuống rồi. Mày dậy chưa? Tao nói nhỏ, còn ngái ngủ: Đợi tao hai phút.",
+     "react": {
+      "TEO": "sleep"
+     },
+     "from": [
+      "S07_TEO_01"
+     ]
     }
    ],
-   "voice": "Đợi tao hai phút.",
+   "voice": "Sáng hôm sau, báo thức lại vang. Vẫn khó dậy như cũ. Tin Minh hiện lên: Tao xuống rồi. Mày dậy chưa? Tao nói nhỏ, còn ngái ngủ: Đợi tao hai phút.",
    "props": [
-    {
-     "name": "bed",
-     "x": 530,
-     "y": 1290,
-     "scale": 0.95,
-     "front": true
-    },
     {
      "name": "alarm",
      "x": 850,
@@ -1053,7 +1077,7 @@
      "who": "TEO",
      "x": 440,
      "scale": 0.9,
-     "pose": "stand",
+     "pose": "tie",
      "variant": "dirty"
     },
     {
@@ -1061,27 +1085,39 @@
      "x": 880,
      "tile": 240,
      "tileY": 440,
-     "pose": "stand",
-     "fromLine": 0
+     "pose": "stand"
     }
    ],
    "lines": [
     {
-     "id": "S07_MINH_01",
-     "who": "MINH",
-     "text": "Hôm nay chạy không?",
-     "pose": "wave",
-     "gap": 0.0
+     "id": "S07B_NARR_01",
+     "who": "NARR",
+     "text": "Tao buộc dây đôi giày đã có vết đất. Bờm nhắn: Có ai đợi tao không? Na thả biểu tượng vẫy tay.",
+     "react": {
+      "TEO": "tie"
+     },
+     "gap": 0.0,
+     "from": [
+      "S07_MINH_01",
+      "S07_TEO_02"
+     ]
     },
     {
-     "id": "S07_TEO_02",
-     "who": "TEO",
-     "text": "Cứ đi đã.",
-     "pose": "wave",
-     "gap": 0.5
+     "id": "S07B_NARR_02",
+     "who": "NARR",
+     "text": "Tao mở cửa. Minh đứng đó hỏi: Hôm nay chạy không? Tao cười, vẫn còn ngái ngủ: Cứ đi đã.",
+     "react": {
+      "TEO": "stand",
+      "MINH": "stand"
+     },
+     "gap": 0.6,
+     "from": [
+      "S07_MINH_01",
+      "S07_TEO_02"
+     ]
     }
    ],
-   "voice": "Hôm nay chạy không? Cứ đi đã.",
+   "voice": "Tao buộc dây đôi giày đã có vết đất. Bờm nhắn: Có ai đợi tao không? Na thả biểu tượng vẫy tay. Tao mở cửa. Minh đứng đó hỏi: Hôm nay chạy không? Tao cười, vẫn còn ngái ngủ: Cứ đi đã.",
    "props": [
     {
      "name": "shoes_dirty",

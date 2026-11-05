@@ -22,6 +22,7 @@ const BODY = 520; // chiều cao thân (px) khi scale = 1
 const MINH_POSE: Record<ActorPose, keyof typeof MASCOT> = {
   stand: "neutral", wave: "happy", point: "ok", think: "think", surprised: "surprised", cheer: "excited",
   sad: "sad", angry: "angry", walk: "walk", run: "run", sit: "neutral", phone: "neutral", happy: "smile",
+  sleep: "tired", box: "neutral", hold: "neutral", tie: "neutral", bow: "sad", look: "smile", sit2: "neutral", sitTalk: "neutral", sitLook: "neutral",
 };
 const POSE_FALLBACK: Partial<Record<ActorPose, ActorPose>> = { happy: "cheer" };
 
@@ -34,13 +35,20 @@ const GRADE: Record<NonNullable<DialogData["bg"]["grade"]>, { overlay: string; f
 
 export const Actor: React.FC<{
   slug: string; who: Speaker; pose: ActorPose; x: number; y: number; scale: number; flip?: boolean;
-  speaking: boolean; changedAt?: number; enter: number; dx?: number; tile?: boolean; variant?: string;
-}> = ({ slug, who, pose, x, y, scale, flip, speaking, changedAt, enter, dx = 0, tile, variant }) => {
+  speaking: boolean; nameless?: boolean; changedAt?: number; enter: number; dx?: number; tile?: boolean; variant?: string;
+}> = ({ slug, who, pose, x, y, scale, flip, speaking, nameless, changedAt, enter, dx = 0, tile, variant }) => {
   const frame = useCurrentFrame();
   let src: string;
   let info: Info;
   let f: number;
-  if (who === "MINH") {
+  const minhSet = who === "MINH" ? (castOf(slug).chars as Record<string, Record<string, Info & { ref?: number }>>).minh : undefined;
+  if (minhSet) {
+    const alias: Partial<Record<ActorPose, string>> = { walk: "walk", run: "walk", phone: "phone", sit: "sit", sit2: "sit", sitTalk: "sitTalk", sitLook: "sitLook" };
+    const nm = alias[pose] && minhSet[alias[pose] as string] ? (alias[pose] as string) : "stand";
+    info = minhSet[nm];
+    f = (BODY * scale * REL.MINH) / ((minhSet[nm] as { ref?: number }).ref ?? 1000);
+    src = staticFile(`${slug}/cast/minh/${nm}.png`);
+  } else if (who === "MINH") {
     const p = MINH_POSE[pose] ?? "neutral";
     info = MASCOT[p] as Info;
     f = (BODY * scale * REL.MINH) / 1045;
@@ -50,7 +58,7 @@ export const Actor: React.FC<{
     const set = castOf(slug).chars[dir];
     const p = set[pose] ? pose : POSE_FALLBACK[pose] && set[POSE_FALLBACK[pose] as string] ? (POSE_FALLBACK[pose] as ActorPose) : "stand";
     info = set[p];
-    f = (BODY * scale * REL[who]) / (set.stand.bodyH ?? 336);
+    f = (BODY * scale * REL[who]) / ((set[p] as { ref?: number }).ref ?? set.stand.bodyH ?? 336);
     src = staticFile(`${slug}/cast/${dir}/${p}.png`);
   }
   const p = pop(frame, enter);
@@ -67,7 +75,7 @@ export const Actor: React.FC<{
       <div style={{ position: "absolute", left, top, width: info.w * f, height: info.h * f, transformOrigin: `${info.footX * f}px ${info.footY * f}px`, transform: `scale(${(flip ? -1 : 1) * lift}, ${lift})`, filter: speaking ? "none" : "brightness(0.93)" }}>
         <Img src={src} style={{ width: "100%", height: "100%" }} />
       </div>
-      {speaking && !tile ? (
+      {speaking && !tile && !nameless ? (
         <div style={{ position: "absolute", left: x + dx - 90, top: top - 56, width: 180, textAlign: "center", fontFamily: font.display, fontWeight: 900, fontSize: 38, color: col, textShadow: "0 0 8px #fff, 0 0 8px #fff, 0 2px 0 #fff" }}>
           {NAME[who]}
         </div>
@@ -142,7 +150,7 @@ export const DialogScene: React.FC<{ scene: DialogData; frames: number; slug: st
           dx = (1 - u) * (c.path[0][0] - c.x);
           if (u < 1) useP = Math.abs(c.path[0][0] - c.x) > 400 ? "run" : "walk";
         }
-        const speaking = !!active && active.who === c.who;
+        const speaking = !!active && (active.who === c.who || (active.who === "NARR" && c.who === "TEO" && c.tile === undefined));
         if (c.tile) {
           const S = c.tile;
           const L = c.x - S / 2;
@@ -159,7 +167,7 @@ export const DialogScene: React.FC<{ scene: DialogData; frames: number; slug: st
           );
         }
         return (
-          <Actor key={`${c.who}${i}`} slug={slug} who={c.who} pose={useP} x={c.x} dx={dx} y={FLOOR + (c.path && c.path[0][1] ? 0 : 0)} scale={c.scale ?? 1} flip={c.flip} speaking={speaking} changedAt={changedAt} enter={start} variant={c.variant} />
+          <Actor key={`${c.who}${i}`} slug={slug} who={c.who} pose={useP} x={c.x} dx={dx} y={FLOOR + (c.path && c.path[0][1] ? 0 : 0)} scale={c.scale ?? 1} flip={c.flip} speaking={speaking} nameless={active?.who === "NARR"} changedAt={changedAt} enter={start} variant={c.variant} />
         );
       })}
 
@@ -186,9 +194,9 @@ export const DialogScene: React.FC<{ scene: DialogData; frames: number; slug: st
         if (frame < l.from || frame >= l.from + dur) return null;
         return (
           <div key={ln.id}>
-            <div style={{ position: "absolute", left: 0, right: 0, top: 1470, textAlign: "center" }}>
+            {NAME[ln.who] ? <div style={{ position: "absolute", left: 0, right: 0, top: 1470, textAlign: "center" }}>
               <span style={{ fontFamily: font.body, fontWeight: 800, fontSize: 30, color: "#fff", background: SPEAKER_COLOR[ln.who], padding: "4px 20px", borderRadius: 22 }}>{NAME[ln.who]}</span>
-            </div>
+            </div> : null}
             <Captions text={ln.sub ?? ln.text} speechFrames={Math.max(1, l.frames)} />
           </div>
         );
