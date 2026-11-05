@@ -43,6 +43,9 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Thoại: `talk` trong `Pose` + `talkAt(t, a, b)` chỉ mở miệng trong khoảng lời của nhân vật đó; lấy a, b từ `words.json` và `timeline.json`.
 - Tóc `bunches` cũ: vòm mỏng và hai búi đè lên đầu → lộ da, nhìn như tai chuột. Tóc phải là cung tròn đúng trên sọ, búi vẽ TRƯỚC đầu (nằm sau) và trượt về gáy khi nghiêng (`bunchAt`). Đừng `translate` cả mũ tóc theo `yaw`: hở vệt da trên đỉnh.
 
+- Cue chữ khớp lần xuất hiện ĐẦU TIÊN sau mốc trước, kể cả giữa câu: "Nhà" dính "hai dãy nhà" làm S18 còn 0,6 s, "Con" dính "nhắc con đừng" → dùng `Nhà#2`, `Con#2`. Sau `plan`, in từng đoạn kèm `line` để xem câu có mở đúng chữ không (ảnh tĩnh không bắt được lỗi này).
+- Soi đủ mọi shot: mỗi shot 3 khung (đầu, giữa, cuối). Lần đầu chỉ soi shot có hành động nên bỏ sót lỗi trên.
+
 ### Việc làm trước khi bắt đầu
 - Tìm file kinh nghiệm ở MỌI nhánh (`git for-each-ref`), không chỉ nhánh đang đứng. Lần này tôi tưởng chưa có nên viết lại `pause`, dựng tay, tờ soi riêng, trong khi nhánh `tua-lai-10-giay` đã có `pads`, `sheets.py`, `ModelSheet`.
 

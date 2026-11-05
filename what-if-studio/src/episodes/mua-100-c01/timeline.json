@@ -55,10 +55,18 @@
   {
    "shot": "S7",
    "a": 645,
+   "b": 722,
+   "t0": 0,
+   "t1": 77,
+   "line": "Đứng ở đầu hẻm, nhìn về phía bến sông hay"
+  },
+  {
+   "shot": "S38",
+   "a": 722,
    "b": 979,
    "t0": 0,
-   "t1": 334,
-   "line": "Đứng ở đầu hẻm, nhìn về phía bến sông hay quay lại dãy núi sau thị trấn, người ta cũng chỉ thấy một màu xám sẫm kéo dài, không ai nhìn thấy điểm cuối."
+   "t1": 257,
+   "line": "quay lại dãy núi sau thị trấn, người ta cũng chỉ thấy một màu xám sẫm kéo dài, không ai nhìn thấy điểm cuối."
   },
   {
    "shot": "S8",
@@ -143,18 +151,18 @@
   {
    "shot": "S18",
    "a": 2171,
-   "b": 2188,
+   "b": 2399,
    "t0": 0,
-   "t1": 17,
-   "line": "Qua hai dãy"
+   "t1": 228,
+   "line": "Qua hai dãy nhà thấp là con sông chạy dọc thị trấn. Ngày thường, từ đầu hẻm vẫn nghe tiếng thuyền máy và tiếng người gọi nhau bên bến."
   },
   {
    "shot": "S19",
-   "a": 2188,
+   "a": 2399,
    "b": 2473,
    "t0": 0,
-   "t1": 285,
-   "line": "nhà thấp là con sông chạy dọc thị trấn. Ngày thường, từ đầu hẻm vẫn nghe tiếng thuyền máy và tiếng người gọi nhau bên bến. Nhà An có tầng trệt và một gác nhỏ."
+   "t1": 74,
+   "line": "Nhà An có tầng trệt và một gác nhỏ."
   },
   {
    "shot": "S20",
@@ -191,18 +199,18 @@
   {
    "shot": "S24",
    "a": 2978,
-   "b": 3081,
+   "b": 3122,
    "t0": 0,
-   "t1": 103,
-   "line": "Trong bếp, Hạnh, mẹ cô bé, vừa vo gạo vừa nhắc"
+   "t1": 144,
+   "line": "Trong bếp, Hạnh, mẹ cô bé, vừa vo gạo vừa nhắc con đừng chạy ra ngoài."
   },
   {
    "shot": "S25",
-   "a": 3081,
+   "a": 3122,
    "b": 3249,
    "t0": 0,
-   "t1": 168,
-   "line": "con đừng chạy ra ngoài. Con chó nhỏ nằm dưới ghế gỗ, thi thoảng ngẩng đầu khi nước tạt vào sân."
+   "t1": 127,
+   "line": "Con chó nhỏ nằm dưới ghế gỗ, thi thoảng ngẩng đầu khi nước tạt vào sân."
   },
   {
    "shot": "S26",
@@ -360,10 +368,19 @@
    "id": "S7",
    "size": "over shoulder wide",
    "key": 80,
-   "len": 334,
+   "len": 77,
    "first": 645,
-   "line": "Đứng ở đầu hẻm, nhìn về phía bến sông hay quay lại dãy núi sau thị trấn, người ta cũng chỉ thấy một màu xám sẫm kéo dài, không ai nhìn thấy điểm cuối.",
-   "note": "Qua vai người ở đầu hẻm, xám tới cuối tầm mắt; giữ qua nhịp nghỉ 2 giây"
+   "line": "Đứng ở đầu hẻm, nhìn về phía bến sông hay",
+   "note": "Qua vai người ở đầu hẻm nhìn về bến sông"
+  },
+  {
+   "id": "S38",
+   "size": "tilt up wide",
+   "key": 60,
+   "len": 257,
+   "first": 722,
+   "line": "quay lại dãy núi sau thị trấn, người ta cũng chỉ thấy một màu xám sẫm kéo dài, không ai nhìn thấy điểm cuối.",
+   "note": "Quay sang dãy núi, máy ngước lên trời xám không điểm cuối; giữ qua nhịp nghỉ 2 giây"
   },
   {
    "id": "S8",
@@ -459,18 +476,18 @@
    "id": "S18",
    "size": "high angle",
    "key": 90,
-   "len": 17,
+   "len": 228,
    "first": 2171,
-   "line": "Qua hai dãy",
+   "line": "Qua hai dãy nhà thấp là con sông chạy dọc thị trấn. Ngày thường, từ đầu hẻm vẫn nghe tiếng thuyền máy và tiếng người gọi nhau bên bến.",
    "note": "Từ trên cao: hai dãy nhà, sông, bến"
   },
   {
    "id": "S19",
    "size": "front wide",
    "key": 60,
-   "len": 285,
-   "first": 2188,
-   "line": "nhà thấp là con sông chạy dọc thị trấn. Ngày thường, từ đầu hẻm vẫn nghe tiếng thuyền máy và tiếng người gọi nhau bên bến. Nhà An có tầng trệt và một gác nhỏ.",
+   "len": 74,
+   "first": 2399,
+   "line": "Nhà An có tầng trệt và một gác nhỏ.",
    "note": "Toàn cảnh nhà An, gác nhỏ"
   },
   {
@@ -513,18 +530,18 @@
    "id": "S24",
    "size": "from object",
    "key": 40,
-   "len": 103,
+   "len": 144,
    "first": 2978,
-   "line": "Trong bếp, Hạnh, mẹ cô bé, vừa vo gạo vừa nhắc",
+   "line": "Trong bếp, Hạnh, mẹ cô bé, vừa vo gạo vừa nhắc con đừng chạy ra ngoài.",
    "note": "Từ trong chậu vo gạo nhìn lên Hạnh"
   },
   {
    "id": "S25",
    "size": "floor level",
    "key": 40,
-   "len": 168,
-   "first": 3081,
-   "line": "con đừng chạy ra ngoài. Con chó nhỏ nằm dưới ghế gỗ, thi thoảng ngẩng đầu khi nước tạt vào sân.",
+   "len": 127,
+   "first": 3122,
+   "line": "Con chó nhỏ nằm dưới ghế gỗ, thi thoảng ngẩng đầu khi nước tạt vào sân.",
    "note": "Con chó dưới ghế ngẩng đầu"
   },
   {

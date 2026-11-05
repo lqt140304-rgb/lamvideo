@@ -140,7 +140,14 @@
       "size": "over shoulder wide",
       "set": "alley",
       "key": 80,
-      "note": "Qua vai người ở đầu hẻm, xám tới cuối tầm mắt; giữ qua nhịp nghỉ 2 giây"
+      "note": "Qua vai người ở đầu hẻm nhìn về bến sông"
+    },
+    {
+      "id": "S38",
+      "size": "tilt up wide",
+      "set": "town",
+      "key": 60,
+      "note": "Quay sang dãy núi, máy ngước lên trời xám không điểm cuối; giữ qua nhịp nghỉ 2 giây"
     },
     {
       "id": "S8",
@@ -383,6 +390,10 @@
       "at": "Đứng"
     },
     {
+      "shot": "S38",
+      "at": "quay"
+    },
+    {
       "shot": "S8",
       "at": "Gió"
     },
@@ -428,7 +439,7 @@
     },
     {
       "shot": "S19",
-      "at": "Nhà"
+      "at": "Nhà#2"
     },
     {
       "shot": "S20",
@@ -452,7 +463,7 @@
     },
     {
       "shot": "S25",
-      "at": "Con"
+      "at": "Con#2"
     },
     {
       "shot": "S26",

@@ -31,7 +31,9 @@ const onDeck = (x: number, scale: number) => ({ x, y: YARD.floorHip(scale), scal
 const Back: React.FC<{ look: Look; pose: Pose }> = ({ look, pose }) => (
   <g>
     <Hero look={look} pose={pose} rimId="filmL" shadow={0} />
+    {[-1, 1].map((sd) => <ellipse key={sd} cx={pose.x + sd * (HEAD.r + 2) * pose.scale} cy={pose.y + (HEAD.y + 6) * pose.scale} rx={9 * pose.scale} ry={14 * pose.scale} fill={look.skinShade} stroke={look.line} strokeWidth={3 * pose.scale} />)}
     <circle cx={pose.x} cy={pose.y + HEAD.y * pose.scale} r={(HEAD.r + 3) * pose.scale} fill={look.hair} />
+    <ellipse cx={pose.x} cy={pose.y + (HEAD.y + HEAD.r - 9) * pose.scale} rx={30 * pose.scale} ry={12 * pose.scale} fill={look.skin} />
     <path d={`M ${pose.x - 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale} Q ${pose.x} ${pose.y + (HEAD.y - 50) * pose.scale} ${pose.x + 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale}`} stroke="#fff" strokeWidth={3 * pose.scale} opacity={0.1} fill="none" />
   </g>
 );
@@ -189,8 +191,8 @@ export const S5: React.FC<ShotProps> = ({ t, len }) => {
       </defs>
       <rect x={-100} y={-100} width={2120} height={1300} fill="url(#s5shade)" />
       {/* the storm's wall of cloud, its edge moving right */}
-      <CloudBank x={(front - 1) * 1500} y={330} h={200} w={1900} n={18} color="#1C1F28" lit="#4C525E" seed={21} />
-      <CloudBank x={(front - 1) * 1500 + 60} y={210} h={150} w={1800} n={16} color="#14161E" seed={24} blur={6} />
+      <CloudBank x={(front - 1) * 1500} y={330} h={150} w={1900} n={34} color="#1C1F28" lit="#4C525E" seed={21} blur={16} />
+      <CloudBank x={(front - 1) * 1500 + 60} y={210} h={110} w={1800} n={30} color="#14161E" seed={24} blur={16} />
       <Glow x={1680} y={250} r={420} o={0.55} />
     </g>
   );
@@ -215,6 +217,15 @@ export const S7: React.FC<ShotProps> = ({ t, len }) => (
         <circle cx={0} cy={-14} r={80} fill="#14141A" />
       </g>
     </Foreground>
+  </g>
+);
+
+// ---------- S38: the other way, to the mountains behind town: a slow tilt up a sky with no end to it ----------
+export const S38: React.FC<ShotProps> = ({ t, len }) => (
+  <g transform={camT(kf(t, [[0, 900], [len, 1020]]), kf(t, [[0, 620], [len, 400]]), 1.2)}>
+    <TownView id="s38" t={t + 200} w={1} horizon={560} river={false} />
+    <CloudBank x={t * 0.7} y={320} h={150} color="#20232C" lit="#4C525E" seed={77} blur={10} />
+    <CloudBank x={-t * 0.4} y={150} h={140} color="#191B24" seed={79} blur={16} />
   </g>
 );
 
@@ -291,10 +302,10 @@ export const S9: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S10: medium, the kitchen: Hạnh hauls the banging back door ----------
 export const S10: React.FC<ShotProps> = ({ t, len }) => {
-  const s = stand(ANKITCHEN, 0.56, 0.32);
+  const s = stand(ANKITCHEN, 0.6, 0.32);
   const pose = poseAt(t, [
-    { f: 0, p: { x: s.x, y: s.y, scale: s.scale, yaw: 0.72, tilt: 10, look: 0.6, expr: 'worried', armR: { a: 86, b: -8 }, armL: { a: -78, b: -6 }, legL: { a: 18, b: 0 }, legR: { a: -14, b: 0 } } },
-    { f: 26, p: { tilt: 14, armR: { a: 92, b: -4 }, armL: { a: -84, b: -4 } } },
+    { f: 0, p: { x: s.x, y: s.y, scale: s.scale, yaw: 0.72, tilt: -4, look: 0.6, expr: 'worried', armR: { a: 74, b: 26 }, armL: { a: -66, b: -26 }, legL: { a: 22, b: 0 }, legR: { a: -18, b: 0 } } },
+    { f: 26, p: { tilt: -13, armR: { a: 84, b: 12 }, armL: { a: -76, b: -12 } } },
   ]);
   return (
     <g transform={camT(kf(t, [[0, 1040], [len, 1000]]), 560, kf(t, [[0, 1.4], [len, 1.46]]))}>
@@ -408,10 +419,11 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => (
     <rect x={-100} y={-100} width={2200} height={700} fill="#596069" />
     <g filter="url(#blur10)">
       <rect x={-100} y={320} width={2200} height={240} fill="#3E4A3A" />
-      <rect x={1300} y={80} width={380} height={460} fill="#8E7A3F" />
-      <rect x={1400} y={210} width={140} height={190} fill="#E9A95E" />
+      <rect x={1040} y={120} width={1200} height={460} fill="#5E5436" />
+      <polygon points="980,120 1640,20 2300,120" fill="#333A44" />
+      <rect x={1400} y={250} width={110} height={150} fill="#C88E4C" />
     </g>
-    <Glow x={1470} y={300} r={420} o={0.5} />
+    <Glow x={1455} y={325} r={300} o={0.35} />
     <polygon points="-100,560 2100,520 2100,1180 -100,1180" fill="#4A3224" />
     <clipPath id="s14soil"><polygon points="-100,560 2100,520 2100,1180 -100,1180" /></clipPath>
     <g clipPath="url(#s14soil)" opacity={0.6}><Crack seed={33} /></g>
@@ -471,7 +483,6 @@ export const S16: React.FC<ShotProps> = ({ t, len }) => (
     {/* the lamp's warmth comes from camera left and pools on the wood */}
     <Glow x={480} y={560} r={880} o={0.5} />
     <Glow x={960} y={740} r={420} o={0.5} />
-    <Foreground blur={16}><ellipse cx={120} cy={980} rx={270} ry={190} fill="#1A120C" /></Foreground>
   </g>
 );
 
@@ -598,7 +609,7 @@ export const S24: React.FC<ShotProps> = ({ t, len }) => {
       <circle cx={1600} cy={130} r={26} fill="#FFF0BE" />
       <Glow x={1600} y={130} r={720} o={0.65} />
       <Glow x={1600} y={130} r={190} o={1} />
-      <Hero look={HANH} pose={P({ x: 960, y: y + 110, scale: 2.5, yaw: 0, tilt: 0, headTilt: 0, look: 0.1, expr: 'neutral', armL: { a: -20 + 5 * Math.sin(t * 0.18), b: -8 }, armR: { a: -20 - 5 * Math.sin(t * 0.18), b: -8 } }, t, 3)} rimId="filmR" shadow={0} />
+      <Hero look={HANH} pose={P({ x: 960, y: y + 110, scale: 2.5, yaw: 0, tilt: 0, headTilt: 0, look: 0.1, expr: 'neutral', armL: { a: -10 + 5 * Math.sin(t * 0.18), b: -6 }, armR: { a: -10 - 5 * Math.sin(t * 0.18), b: -6 } }, t, 3)} rimId="filmR" shadow={0} />
       {[0, 1, 2].map((i) => <ellipse key={i} cx={960} cy={900} rx={120 + ((t * 5 + i * 150) % 450)} ry={50 + ((t * 2.5 + i * 70) % 190)} fill="none" stroke="#fff" strokeWidth={3} opacity={0.3} />)}
       {/* the basin's rim all round the frame, rice grains drifting in the water */}
       <path fillRule="evenodd" d="M -20 -20 L 1940 -20 L 1940 1100 L -20 1100 Z M 960 -120 A 1020 700 0 1 0 960 1200 A 1020 700 0 1 0 960 -120 Z" fill="#4E6578" />
@@ -803,7 +814,7 @@ export const S31: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S32: from deep in the house, past Hạnh in the kitchen door: the two small on the bright veranda ----------
 export const S32: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.05]]))}>
-    <g style={{ filter: `blur(${kf(t, [[18, 0], [38, 3.5]])}px)` }}>
+    <g style={{ filter: `blur(${kf(t, [[18, 0], [38, 7]])}px)` }}>
     <LivingFront id="s32" t={t + 300}>
       <Hero look={AN} pose={P({ x: 915, y: 650, scale: 0.72, yaw: 0.7, look: 0.4, armL: { a: 16, b: 12 }, armR: { a: 24, b: 26 } }, t, 1)} rimId="rimBlue" shadow={0} />
       <Hero look={LINH} pose={P({ x: 1020, y: 690, scale: 0.46, yaw: -0.7, armR: { a: 16, b: 14 } }, t, 4)} rimId="rimBlueL" shadow={0} />
@@ -850,7 +861,7 @@ export const S34: React.FC<ShotProps> = ({ t, len }) => {
 export const S35: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
     { f: 0, p: { x: 640, y: 830, scale: 1.1, yaw: 0.76, look: 0.8, tilt: 8, expr: 'happy', armR: { a: 44, b: 48 }, armL: { a: 30, b: 44 }, legL: { a: 26, b: -32 }, legR: { a: -20, b: -8 } } },
-    { f: 40, p: { x: 1130, y: 880, scale: 1.85, tilt: 2, yaw: 0.45, armR: { a: 112, b: 26 }, handR: 'open', legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
+    { f: 40, p: { x: 1050, y: 880, scale: 1.85, tilt: 2, yaw: 0.45, armR: { a: 112, b: 26 }, handR: 'open', legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
   ]);
   const running: Partial<Pose> = t < 40 ? { legL: { a: 28 * Math.sin(t * 0.6), b: -24 }, legR: { a: -28 * Math.sin(t * 0.6), b: -24 } } : { armR: { a: 112 + 4 * Math.sin(t * 0.5), b: 26 } };
   const linh = { ...pose, ...running };
@@ -901,4 +912,4 @@ export const S37: React.FC<ShotProps> = ({ t, len }) => (
   </g>
 );
 
-export const SHOTS = { S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37 };
+export const SHOTS = { S38, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37 };
