@@ -675,7 +675,7 @@ export const S27: React.FC<ShotProps> = ({ t, len }) => {
     { f: 112, p: { y: YARD.deck - 123, tilt: 3, yaw: 0.55, look: 0.3, headTilt: -8, expr: 'neutral', armR: { a: 12, b: 14 }, armL: { a: -4, b: 14 }, legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
   ]);
   return (
-    <g transform={camT(kf(t, [[0, 1480], [len, 1510]]), 680, kf(t, [[0, 2.2], [len, 2.34]]))}>
+    <g transform={camT(kf(t, [[0, 1480], [len, 1510]]), kf(t, [[0, 620], [34, 680], [84, 680], [112, 625]]), kf(t, [[0, 2.2], [len, 2.28]]))}>
       <AnHouse id="s27" t={t} w={2} rain={1} />
       <g transform={`translate(${kf(t, [[0, -120], [34, 0]])} ${kf(t, [[0, -150], [34, 0]])})`}>
         <ellipse cx={1590} cy={790} rx={70} ry={16} fill="#000" opacity={0.3 * kf(t, [[20, 0], [34, 1]])} />
@@ -850,7 +850,7 @@ export const S34: React.FC<ShotProps> = ({ t, len }) => {
 export const S35: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
     { f: 0, p: { x: 640, y: 830, scale: 1.1, yaw: 0.76, look: 0.8, tilt: 8, expr: 'happy', armR: { a: 44, b: 48 }, armL: { a: 30, b: 44 }, legL: { a: 26, b: -32 }, legR: { a: -20, b: -8 } } },
-    { f: 40, p: { x: 1000, y: 800, scale: 1.34, tilt: 2, yaw: 0.45, armR: { a: 112, b: 26 }, handR: 'open', legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
+    { f: 40, p: { x: 1130, y: 880, scale: 1.85, tilt: 2, yaw: 0.45, armR: { a: 112, b: 26 }, handR: 'open', legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
   ]);
   const running: Partial<Pose> = t < 40 ? { legL: { a: 28 * Math.sin(t * 0.6), b: -24 }, legR: { a: -28 * Math.sin(t * 0.6), b: -24 } } : { armR: { a: 112 + 4 * Math.sin(t * 0.5), b: 26 } };
   const linh = { ...pose, ...running };

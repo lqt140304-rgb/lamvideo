@@ -35,6 +35,14 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Tay chèn vào cảnh cận cần khuỷu: `HandTop` vẽ cổ tay áo rồi gập ở khuỷu, giữ bàn tay có ngón (`ArmIn` của tập trước là tay mitten).
 - Mái hiên của ngôi nhà đầu hẻm kéo ra ngoài khung thành dải chéo → mái và cửa bắt đầu từ `dA` trong khung, không từ đầu tường (`Alley`).
 
+### Chuyển động (lưới `motiongrid` bắt được, ảnh tĩnh không thấy)
+- Nhân vật đứng im dưới lời dài → thêm động tác kế tiếp (S27 đặt chậu xong đứng thẳng nhìn mưa). Đứng dậy thì máy phải nâng theo, không đầu ra khỏi khung.
+- Vật trong tay phải đi cùng tay (chậu của S27, bút của S35 dùng `toWorld(pose, joints(pose).armR.end)`), đừng để vật nằm sẵn chỗ đích.
+- Lời có nhiều lần ("thêm một giọt, một giọt nữa") thì hình cũng nhiều lần: S12 có 5 giọt, đừng giữ một vết 4 giây.
+- Tay chèn xong việc phải rời khung (S11, S36), không đứng giữa cảnh.
+- Thoại: `talk` trong `Pose` + `talkAt(t, a, b)` chỉ mở miệng trong khoảng lời của nhân vật đó; lấy a, b từ `words.json` và `timeline.json`.
+- Tóc `bunches` cũ: vòm mỏng và hai búi đè lên đầu → lộ da, nhìn như tai chuột. Tóc phải là cung tròn đúng trên sọ, búi vẽ TRƯỚC đầu (nằm sau) và trượt về gáy khi nghiêng (`bunchAt`). Đừng `translate` cả mũ tóc theo `yaw`: hở vệt da trên đỉnh.
+
 ### Việc làm trước khi bắt đầu
 - Tìm file kinh nghiệm ở MỌI nhánh (`git for-each-ref`), không chỉ nhánh đang đứng. Lần này tôi tưởng chưa có nên viết lại `pause`, dựng tay, tờ soi riêng, trong khi nhánh `tua-lai-10-giay` đã có `pads`, `sheets.py`, `ModelSheet`.
 
