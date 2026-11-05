@@ -184,3 +184,10 @@ Sau khi sửa: `tsc`, render ảnh/lưới cho các cảnh trên, `plan` → `sf
 - `storyboard.jpg` do `board.py` dài ~19000 px, khó xem. Dùng `scripts/sheets.py <slug>`: ghép trang 3×3 (9 cảnh/trang, 1920×1080) vào `out/<slug>/sheets/`, gửi các trang này.
 - Vòng sửa nhanh: sửa mã → `tsc --noEmit` → render lại vài cảnh → ghép một trang kiểm tra → mới render hết.
 - Có mẫu model (bảng biểu cảm + bảng từng nhân vật: bảng màu, 5 góc, 9 biểu cảm) trước khi dựng cảnh: `npx remotion still src/index.ts Model-<id> out/models/<id>.png` và `Expressions`. Người xem duyệt nhân vật xong mới dựng storyboard, đỡ sửa lại.
+
+## Bàn tay cận cảnh (cảnh 3, S16 và S25)
+
+- Vẽ cận tay không ghép từ hình tròn và nét rời: rất dễ thành "tay gãy". Dùng một khối mu bàn tay liền cổ tay, các ngón nằm sát nhau, nét viền vẽ trước, màu da vẽ sau, nên chỉ còn đường mảnh giữa các ngón.
+- Nắm tay áo: bốn ngón đè lên vải, ngón cái khuất sau vải (vẽ trước tay áo), thêm vài nếp vải căng về phía ngón.
+- Tay đứng cạnh nhau phải đúng tỉ lệ: tay trẻ nhỏ hơn tay người lớn. Cổ tay phải chui vào trong cổ áo, không để hở khe.
+- Soi cả khung đầu và khung cuối của shot, không chỉ ảnh storyboard: tay còn phải đúng khi chưa nắm hoặc đã buông.

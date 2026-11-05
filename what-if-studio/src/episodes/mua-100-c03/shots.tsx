@@ -482,41 +482,52 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => (
   </g>
 );
 
-/** An's sleeve hanging with his hand below it, and Linh's small hand pinching a fold of the cloth between thumb and finger, the other fingers curled. open 0 = pinching, 1 = let go. */
+/** Fingers side by side: outlines first, then the fills, so one silhouette with thin dark lines between the fingers. */
+const Digits: React.FC<{ d: string[]; w: number; skin: string }> = ({ d, w, skin }) => (
+  <g fill="none" strokeLinecap="round">
+    {d.map((p) => <path key={p} d={p} stroke="#16141C" strokeWidth={w + 11} />)}
+    {d.map((p) => <path key={p} d={p} stroke={skin} strokeWidth={w} />)}
+  </g>
+);
+/** An's sleeve hanging with his relaxed hand below it, and Linh's small hand closed over the edge of the cloth: four fingers lying on the sleeve, the thumb behind it. open 0 = holding, 1 = let go. */
 const SleeveGrip: React.FC<{ open: number; sway?: number }> = ({ open, sway = 0 }) => {
-  const away = open * 120;
   const L = '#16141C';
-  const stroke = (d: string, w: number, c: string) => <path d={d} stroke={c} strokeWidth={w} strokeLinecap="round" fill="none" />;
-  const finger = (d: string, w: number) => (
-    <g>
-      {stroke(d, w + 12, L)}
-      {stroke(d, w, LINH.skin)}
-    </g>
-  );
+  const off = `translate(${-open * 190} ${open * 150}) rotate(${-open * 10} 560 560) translate(720 420) scale(0.8) translate(-720 -420)`;
   return (
     <g transform={`translate(${sway} 0)`}>
+      {/* his hand first: the wrist goes up inside the cuff */}
+      <Digits d={['M 806 740 Q 800 790 804 836', 'M 846 748 Q 844 810 846 868', 'M 886 748 Q 888 806 888 860', 'M 924 738 Q 926 784 924 822']} w={32} skin={AN.skin} />
+      <Digits d={['M 804 650 Q 748 700 762 776']} w={36} skin={AN.skin} />
+      <rect x={790} y={560} width={152} height={190} fill={AN.skin} />
+      <path d="M 790 560 L 790 634 M 790 706 L 790 750 M 942 560 L 942 750" stroke={L} strokeWidth={5.5} fill="none" strokeLinecap="round" />
+      {/* her thumb goes behind the cloth */}
+      <g transform={off}>
+        <Digits d={['M 610 540 Q 660 560 730 520']} w={38} skin={LINH.skin} />
+      </g>
       <path d="M 700 -120 L 700 540 Q 700 576 736 576 L 984 576 Q 1020 576 1020 540 L 1020 -120 Z" fill={AN.jacket} stroke={L} strokeWidth={6} />
       <path d="M 940 -120 L 940 560 L 1020 540 L 1020 -120 Z" fill={AN.jacketShade} opacity={0.55} />
-      {[0, 1, 2, 3].map((k) => <path key={k} d={`M 706 ${60 + k * 120} q 150 -26 308 -2`} stroke={AN.jacketShade} strokeWidth={7} fill="none" opacity={0.5} />)}
+      {[0, 1, 2].map((k) => <path key={k} d={`M 706 ${40 + k * 110} q 150 -26 308 -2`} stroke={AN.jacketShade} strokeWidth={7} fill="none" opacity={0.5} />)}
       <rect x={690} y={520} width={340} height={64} rx={14} fill={AN.jacketShade} stroke={L} strokeWidth={6} />
-      <g>
-        <ellipse cx={860} cy={690} rx={78} ry={92} fill={AN.skin} stroke={L} strokeWidth={6} />
-        {[-48, -16, 16, 48].map((x, k) => <path key={k} d={`M ${860 + x} 760 l ${x * 0.1} ${70 + (k % 3 === 1 ? 14 : 0)}`} stroke={L} strokeWidth={30} strokeLinecap="round" />)}
-        {[-48, -16, 16, 48].map((x, k) => <path key={k} d={`M ${860 + x} 760 l ${x * 0.1} ${70 + (k % 3 === 1 ? 14 : 0)}`} stroke={AN.skin} strokeWidth={22} strokeLinecap="round" />)}
+      {/* the cloth pulled tight towards her fingers */}
+      <g opacity={1 - open} stroke={AN.jacketShade} strokeWidth={7} fill="none" strokeLinecap="round">
+        <path d="M 800 330 Q 880 270 960 250" />
+        <path d="M 840 390 Q 910 370 985 372" />
+        <path d="M 836 462 Q 900 478 970 500" />
       </g>
-      {/* the fold of cloth she has hold of, standing out from the sleeve's edge */}
-      <path d={`M 702 ${400 + away * 0.3} Q ${676 - away * 0.2} ${418 + away * 0.3} 702 ${444 + away * 0.3}`} stroke={L} strokeWidth={6} fill={AN.jacket} />
-      <g transform={`translate(${-away} ${away * 0.7})`}>
-        {/* her forearm, her wrist, the back of her hand */}
-        <path d="M 140 1240 L 400 700" stroke={L} strokeWidth={132} strokeLinecap="round" />
-        <path d="M 140 1240 L 400 700" stroke={LINH.jacket} strokeWidth={120} strokeLinecap="round" />
-        <path d="M 400 700 L 470 590" stroke={L} strokeWidth={104} strokeLinecap="round" />
-        <path d="M 400 700 L 470 590" stroke={LINH.skin} strokeWidth={92} strokeLinecap="round" />
-        <ellipse cx={496} cy={552} rx={86} ry={66} transform="rotate(-48 496 552)" fill={LINH.skin} stroke={L} strokeWidth={6} />
-        {/* the three curled fingers, then index and thumb meeting on the fold */}
-        {[[420, 520], [450, 468], [498, 430]].map(([x, y], k) => <circle key={k} cx={x} cy={y} r={30} fill={LINH.skin} stroke={L} strokeWidth={5} />)}
-        {finger('M 530 500 Q 620 450 690 428', 30)}
-        {finger('M 520 596 Q 620 546 690 446', 30)}
+      <g transform={off}>
+        {/* her sleeve, then the wrist and the back of the hand, one shape */}
+        <path d="M 150 1240 L 462 690" stroke={L} strokeWidth={128} strokeLinecap="round" />
+        <path d="M 150 1240 L 462 690" stroke={LINH.jacket} strokeWidth={116} strokeLinecap="round" />
+        <Digits d={['M 642 362 Q 710 330 776 336', 'M 668 400 Q 744 372 812 382', 'M 692 438 Q 766 414 830 428', 'M 712 476 Q 770 462 818 474']} w={35} skin={LINH.skin} />
+        <path d="M 624 346 L 730 490 L 590 610 L 520 700 L 420 640 L 490 530 Z" fill={LINH.skin} stroke={L} strokeWidth={5.5} strokeLinejoin="round" />
+        <g fill="none" strokeLinecap="round" stroke={LINH.skin} strokeWidth={35}>
+          <path d="M 642 362 Q 710 330 776 336" />
+          <path d="M 668 400 Q 744 372 812 382" />
+          <path d="M 692 438 Q 766 414 830 428" />
+          <path d="M 712 476 Q 770 462 818 474" />
+        </g>
+        <path d="M 416 642 L 516 700" stroke={L} strokeWidth={30} strokeLinecap="round" />
+        <path d="M 416 642 L 516 700" stroke={LINH.jacket} strokeWidth={19} strokeLinecap="round" />
       </g>
     </g>
   );
