@@ -66,6 +66,11 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Vải lau vẽ bằng elip thì giống cái đĩa: dùng hình méo có nếp gấp.
 - Giọt nước hay vật nhỏ không rơi trước thân áo: đặt lệch khỏi người để đọc rõ.
 
+### Lỗi storyboard cảnh 3 (`mua-100-c03`)
+- Chồng đồ vẽ bằng `Box` phải chạm sàn (`v` kết thúc ở 1), không thì lơ lửng. Người ngồi cần ghế (`ChairFor`): ghế tựa cho người lớn, ghế đẩu cho trẻ.
+- Bàn tay nắm áo: vẽ tay thật (lòng bàn tay, bốn ngón vòng qua vải, ngón cái phía sau) thay vì `HandTop` dán lên.
+- Nhân vật đứng trên hiên: dùng `YARD.floorHip(scale)`, đừng tự đoán `y`.
+
 ### Ổ đĩa
 - Ổ C gần đầy. Remotion ghi bundle (khoảng 120 MB mỗi lần) và file tạm vào %TEMP%, không tự dọn. `wi.py` và `stills.mjs` đã chuyển sang `D:\lamvideo-cache\tmp`. Khi gọi `npx remotion` trực tiếp, đặt `TEMP` và `TMP` trỏ về đó trước. Thư mục này xóa được khi không có render nào chạy.
 
