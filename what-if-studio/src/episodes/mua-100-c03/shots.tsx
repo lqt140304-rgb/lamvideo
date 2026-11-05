@@ -632,7 +632,7 @@ export const S33: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S34: Hạnh answers across the water: she'll keep the bag by her; call when there's a vehicle ----------
 export const S34: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(kf(t, [[0, 930], [len, 900]]), 620, kf(t, [[0, 2.1], [len, 2.25]]))}>
+  <g transform={camT(kf(t, [[0, 930], [len, 900]]), 530, kf(t, [[0, 1.7], [len, 1.85]]))}>
     <AnHouse id="c3s34" t={t} w={2} rain={0.8} chair={false} />
     <Hero look={HANH} pose={P({ x: 900, y: YARD.floorHip(1.05), scale: 1.05, yaw: 0.55, look: 0.6, headTilt: 2, expr: 'neutral', talk: talkAt(t, 2, 150), armR: { a: 40, b: 40 + 8 * Math.sin(t * 0.15) }, armL: { a: 14, b: 20 } }, t, 3)} rimId="filmL" shadow={0} />
   </g>
