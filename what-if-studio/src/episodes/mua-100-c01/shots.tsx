@@ -77,19 +77,26 @@ const LivingFront: React.FC<{ id: string; t: number; children?: React.ReactNode 
   );
 };
 
+/** A title on black: white hand lettering, centred; it fades up, holds, and the black lifts at `until`. */
+const Intertitle: React.FC<{ t: number; until: number; lines: string[]; small?: string }> = ({ t, until, lines, small }) => (
+  <g opacity={kf(t, [[until, 1], [until + 12, 0]])}>
+    <rect width={1920} height={1080} fill="#0B0B0C" />
+    <g opacity={kf(t, [[0, 0], [10, 1]])} textAnchor="middle" fontFamily={FONT.hand} fill="#F4F2EC">
+      {lines.map((l, i) => <text key={i} x={960} y={540 - (lines.length - 1) * 42 + i * 84} fontSize={72}>{l}</text>)}
+      {small ? <text x={960} y={540 + lines.length * 42 + 36} fontSize={34} opacity={0.72}>{small}</text> : null}
+    </g>
+  </g>
+);
+
 // ---------- S1: extreme wide, the alley in the heat, the title over it ----------
 export const S1: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.05]]))}>
-    <Alley id="s1" t={t} w={0} shop />
-    <Glow x={960} y={760} r={640} o={0.18} />
-    <g transform="translate(960 150)">
-      <text textAnchor="middle" fontFamily={FONT.title} fontWeight={600} fontSize={44} letterSpacing={4} fill="#F6EFE3" stroke="#1A1230" strokeWidth={8} style={{ paintOrder: 'stroke' }}>CHUYỆN GÌ XẢY RA NẾU</text>
-      <text y={92} textAnchor="middle" fontFamily={FONT.title} fontWeight={700} fontSize={88} fill="#FF8A3D" stroke="#1A1230" strokeWidth={12} style={{ paintOrder: 'stroke' }}>MƯA LIÊN TỤC 100 NGÀY?</text>
+  <g>
+    <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.05]]))}>
+      <Alley id="s1" t={t} w={0} shop />
+      <Glow x={960} y={760} r={640} o={0.18} />
     </g>
-    <g transform="translate(960 1010)">
-      <rect x={-470} y={-30} width={940} height={46} rx={23} fill="#120F1C" opacity={0.72} />
-      <text textAnchor="middle" fontFamily={FONT.ui} fontSize={24} fill="#F6EFE3">GIẢ ĐỊNH KHOA HỌC — NHÂN VẬT VÀ LỊCH SỰ KIỆN LÀ HƯ CẤU</text>
-    </g>
+    {/* the film's lettering: plain hand-written white on black, sentence case, nothing else on the card */}
+    <Intertitle t={t} until={108} lines={['Chuyện gì xảy ra nếu mưa liên tục 100 ngày?']} small="Giả định khoa học — nhân vật và lịch sự kiện là hư cấu" />
   </g>
 );
 

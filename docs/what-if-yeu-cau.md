@@ -40,4 +40,5 @@ thay cho dòng chủ đề. Chỉ có một dòng chủ đề thì Claude tự v
   (pan/trượt máy); nhìn từ vật thể về phía nhân vật; qua vai; **FOV của nhân vật (góc nhìn thứ nhất)**; tập trung vào nhân vật.
 - **Hiệu ứng giác quan** ở khâu chuyển động: dịch chiều sâu (parallax), lấy nét, quầng sáng đèn nhấp nháy, hạt bụi, rung máy khi nhấn mạnh.
 - **Nhân vật có chớp mắt** (chớp ngẫu nhiên theo hàm thời gian, không dùng Math.random).
+- **Chữ trên hình** (chủ kênh chốt 05/11/2026): chữ tay trắng, viết thường theo câu, căn giữa, trên nền đen, không viền, không màu cam, không in hoa (`Intertitle`, font `FONT.hand` có dấu tiếng Việt).
 - Câu lệnh tự soi của kênh: "Render every shot as an image. Look at each one like a viewer would. List what looks wrong, and fix it before you animate anything."
