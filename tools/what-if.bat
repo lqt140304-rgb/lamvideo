@@ -7,6 +7,9 @@ set "SK=%~dp0..\.claude\skills\what-if-animation\scripts"
 REM Tim Python that (lenh "python" tren Windows co the chi la loi tat mo Microsoft Store)
 set PY=
 if defined VIENEU_PYTHON set PY="%VIENEU_PYTHON%"
+REM Python ma "npm run voice" da tim thay va luu lai (co san VieNeu)
+if not defined PY if exist "%~dp0..\.vieneu-python" (set /p VP=<"%~dp0..\.vieneu-python")
+if not defined PY if defined VP set PY="%VP%"
 if not defined PY (py -3 -c "import sys" >nul 2>nul && set PY=py -3)
 if not defined PY (python -c "import sys" >nul 2>nul && set PY=python)
 if not defined PY (

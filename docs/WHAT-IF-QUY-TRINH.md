@@ -173,7 +173,7 @@ git push
 
 | Thông báo | Cách sửa |
 | --- | --- |
-| `Python was not found` / `Python tìm th...` | Lệnh `python` chỉ là lối tắt mở Store. Cài Python từ python.org (tick "Add python.exe to PATH") hoặc đặt `VIENEU_PYTHON` như bước A.2b |
+| `Python was not found` / `Python tìm th...` | Các file .bat tự dùng Python ghi trong `.vieneu-python` (do `npm run voice` lưu). Chưa có file đó thì chạy `npm run voice -- xe-dien-ha-noi` một lần, hoặc: Lệnh `python` chỉ là lối tắt mở Store. Cài Python từ python.org (tick "Add python.exe to PATH") hoặc đặt `VIENEU_PYTHON` như bước A.2b |
 | `Chua import duoc vieneu` | `py -3 -m pip install vieneu`, hoặc đặt `VIENEU_PYTHON` tới Python đã cài VieNeu |
 | `External data path ... escapes` | Script đã tự copy model ra `%USERPROFILE%\.cache\vieneu\flat`. Nếu vẫn lỗi: `set VIENEU_ONNX_DIR=<thư mục onnx đã copy>` |
 | `Run this from the studio folder` | Chạy qua `tools\what-if.bat`, hoặc `cd what-if-studio` trước |
