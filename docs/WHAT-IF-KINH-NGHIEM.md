@@ -65,6 +65,11 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Chỉ phát hiện nhờ `motiongrid` trên bản nháp nửa kích thước: ảnh tĩnh ở `key` không bắt được. Cảnh nào dùng lại nhiều lần, hoặc đổi trạng thái theo `t`, phải xem lưới chuyển động trước khi render đầy đủ.
 - Sửa mốc thì chạy lại `plan` rồi `sfx` (plan ghi đè `timeline.json`, mất mức âm lượng).
 
+### Lưu file
+- Làm trong worktree thì `what-if-studio/out/` nằm TRONG worktree: dọn worktree là mất video. `master` giờ tự chép thành phẩm sang `D:\lamvideo-xuat\what-if\<slug>\` (ngoài repo, mỗi tập một thư mục).
+- Đừng để file của tập ở thẳng `out/` (lần đầu `out/models`, `out/cast.png`, `out/chk` nằm lẫn ở gốc): luôn `out/<slug>/...`.
+- `.gitignore` gốc chặn `*.mp4`, `*.mov`, `*.mkv`, `.env`.
+
 ### Render
 - Một khung 1920×1080 của tập này ~0,5 s (nhiều bộ lọc làm mờ); tập 172 s (5176 khung) mất 1234 s (~21 phút) trên máy 12 luồng; bản master ra 127 MB, -14,3 LUFS, đỉnh -1,44 dBTP. Bản nháp xem chuyển động: `remotion render ... --scale=0.5` ra thẳng `out/<slug>/<slug>-raw.mp4` rồi chạy `motiongrid` (nó đọc đúng file `-raw.mp4`), rồi mới render đầy đủ bằng `master`.
 - Chạy render dài bằng chế độ nền, đừng chặn phiên làm việc.

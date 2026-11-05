@@ -10,7 +10,7 @@
 | Giọng | **Viết Linh** (ElevenLabs, tạo trên web, file `public/tua-lai-10-giay/voice_in.mp3`, engine `file`). Bản giọng VieNeu Hải Đăng vẫn chạy được: đổi `voice` thành nội dung của `voice_vieneu` |
 | Hình | 76 cảnh (S1–S77, đã bỏ S31), storyboard đã duyệt, đã rà bản phim và sửa 17 lỗi |
 | Âm thanh | Tiếng động + nhạc lấy từ `library/sfx/` (miễn phí). Nhạc là bản vui nhộn duy nhất của thư viện, đã làm chậm/trầm (`rate`, `soft`, `dips`) |
-| Bản phim | Đã master: 172,3 s, -14,3 LUFS, đỉnh -1,43 dBTP, 26,8 cắt/phút. File MP4 **không có trên GitHub** (quá 100 MB, `out/` bị ignore): dựng lại bằng `tools\what-if.bat master tua-lai-10-giay` (~21 phút) |
+| Bản phim | Đã master: 172,3 s, -14,3 LUFS, đỉnh -1,43 dBTP, 26,8 cắt/phút. Video chỉ lưu trên máy, ở thư mục riêng của tập **`D:\lamvideo-xuat\what-if\tua-lai-10-giay\`**: `-final.mp4` (Viết Linh), `-final-haidang.mp4` (VieNeu), `-preview-720p.mp4` (gửi điện thoại), cùng report, storyboard, shotlist, mẫu nhân vật, trang storyboard. Không có trên GitHub: dựng lại bằng `tools\what-if.bat master tua-lai-10-giay` (~21 phút, tự chép lại sang thư mục đó) |
 
 ## Còn yếu / việc có thể làm tiếp
 - Nhạc nền chưa hợp truyện buồn: thả nhạc CC0 vào `what-if-studio/library/sfx/music-local.mp3`, đổi clip `music` trong `episode.json` → `"lib:music-local"`, chạy `sfx` rồi `master`.

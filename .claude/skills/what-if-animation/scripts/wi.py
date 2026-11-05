@@ -36,6 +36,16 @@ def out_dir(slug):
     return d
 
 
+def export_dir(slug):
+    """Each episode's own folder for the finished files, on this machine and outside the repo (videos never go to
+    git, and out/ inside a worktree disappears when the worktree is cleaned up). WHATIF_EXPORT_DIR overrides the
+    root; the default is <drive>/lamvideo-xuat/what-if, e.g. D:/lamvideo-xuat/what-if/<slug>."""
+    root = os.environ.get('WHATIF_EXPORT_DIR') or str(pathlib.Path(STUDIO.anchor) / 'lamvideo-xuat' / 'what-if')
+    d = pathlib.Path(root) / slug
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
 def stem(slug, name):
     """An audio stem in public/<slug>/: name.wav, or name.mp3 (the shipped examples), or None."""
     for ext in ('wav', 'mp3'):

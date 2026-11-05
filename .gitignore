@@ -14,3 +14,9 @@ public/*/img/chon-anh.html
 # What If studio: file tạm sinh ra trên máy
 what-if-studio/public/*/takes/
 what-if-studio/public/*/voice_raw.wav
+# Video thành phẩm chỉ lưu trên máy (thư mục riêng từng dự án, ví dụ D:\lamvideo-xuat\what-if\<slug>\), không lên git
+*.mp4
+*.mov
+*.mkv
+# Khóa API không bao giờ lên git
+.env

@@ -46,7 +46,15 @@ cách sửa, mẹo) và đọc lại file đó trước khi làm tập mới. M�
 ghi trạng thái, việc còn lại và cách dựng lại.
 
 **Commit/push thường xuyên** lên nhánh đang làm (sau mỗi mốc việc), để hết hạn mức thì phiên sau làm tiếp được.
-Không commit `.env`/khóa. File MP4 không lên GitHub (`out/` bị ignore, quá 100 MB): dựng lại bằng `master`.
+Không commit `.env`/khóa.
+
+**Mỗi tập một thư mục riêng, video chỉ lưu trên máy:**
+- Trong studio: mọi file tạm của tập nằm trong `what-if-studio/out/<slug>/` (ảnh storyboard, lưới chuyển động, trang
+  rà phim, `models/` mẫu nhân vật, `cast.png`). Không để file của tập nào ở thẳng `out/`.
+- Thành phẩm: `master` tự chép video, bản xem thử 720p, `report.json`, `storyboard.jpg`, `shotlist.md` sang
+  **`D:\lamvideo-xuat\what-if\<slug>\`** (ngoài repo; đổi gốc bằng biến `WHATIF_EXPORT_DIR`). Thư mục `out/` trong
+  một worktree sẽ mất khi worktree bị dọn, nên luôn lấy video ở thư mục xuất này.
+- `.gitignore` chặn `*.mp4`, `*.mov`, `*.mkv` và `.env` trên toàn repo: video và khóa không bao giờ lên GitHub.
 
 ### Tập dài (vài phút) và giọng ngoài
 - Skill gốc làm tập 15–25 s; tập dài hơn (ví dụ `tua-lai-10-giay`, ~3 phút, 76 cảnh) dùng thêm `"pads"` trong
@@ -57,7 +65,8 @@ Không commit `.env`/khóa. File MP4 không lên GitHub (`out/` bị ignore, qu�
   `python .claude/skills/what-if-animation/scripts/voice_elevenlabs.py --find "<tên giọng>"` (chạy trong `what-if-studio`).
 - Khóa ElevenLabs: file `D:\.env` (ngoài repo), dòng `ELEVENLABS_API_KEY=...`; khóa cần quyền Text to Speech,
   Voices Read, User Read, History Read.
-- Mẫu nhân vật trước storyboard: `npx remotion still src/index.ts Model-<id> out/models/<id>.png` và `Expressions`.
+- Mẫu nhân vật trước storyboard: `npx remotion still src/index.ts Model-<id> out/<slug>/models/<id>.png` và
+  `Expressions` (lưu trong thư mục của tập).
 
 ## Quy trình 8 bước và thông số đo được (từ skill)
 
