@@ -34,38 +34,8 @@ from wi import SR, decode, ep_dir, load_episode, load_json, log_cost, norm, out_
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-if '--voices' in sys.argv:
-    from vieneu import Vieneu
-    for label, vid in Vieneu().list_preset_voices():
-        print(f'  {label}  ({vid})')
-    sys.exit(0)
-
-slug = sys.argv[1]
-force = '--force' in sys.argv
-ep = load_episode(slug)
-V = {'engine': 'vieneu', 'voice': 'Hải Đăng', 'rate': '+0%', 'speed': 1.0, 'align': 'auto', 'whisper_model': 'small', 'lang': 'vi'}
-V.update(ep.get('voice', {}))
-if V['engine'] == 'elevenlabs':
-    sys.exit(subprocess.call([sys.executable, os.path.join(HERE, 'voice_elevenlabs.py'), *sys.argv[1:]]))
-
-WORD = re.compile(r"[\w'’]+")
-
-
-def tokens(text):
-    """Words with the punctuation that follows each one (it decides the pause after it)."""
-    out = []
-    for m in re.finditer(r"([\w'’]+)([^\w'’]*)", text):
-        out.append({'w': m.group(1), 'p': m.group(2).strip()})
-    return out
-
-
-def sentences(text):
-    return [s.strip() for s in re.findall(r'[^.!?…]+[.!?…]*', text) if WORD.search(s)]
-
-
-# ---------------------------------------------------------------- engines
 _vn = None
-
+V = {'engine': 'vieneu', 'voice': 'Hải Đăng', 'rate': '+0%', 'speed': 1.0, 'align': 'auto', 'whisper_model': 'small', 'lang': 'vi'}
 
 def flatten_hf_downloads():
     """Windows: Hugging Face stores VieNeu's model through symlinks and ONNX Runtime refuses them ("External data
@@ -102,21 +72,57 @@ def flatten_hf_downloads():
     cls._fetch = staticmethod(fetch) if is_static else fetch
 
 
-def synth_vieneu(text, path):
+def load_vieneu():
+    """One VieNeu instance, loaded the way lamvideo's tools/voice.py does (flattened model copies, optional ONNX dir)."""
     global _vn
     try:
         from vieneu import Vieneu
     except ImportError:
-        raise SystemExit('Chua import duoc vieneu: chay bang Python da cai VieNeu-TTS (pip install vieneu), hoac dat '
-                         'bien VIENEU_PYTHON roi dung tools/what-if.bat')
+        raise SystemExit('Chua import duoc vieneu: chay bang Python da cai VieNeu-TTS (xem .vieneu-python), hoac dat '
+                         'VIENEU_PYTHON, hoac dung tools/what-if.bat')
     if _vn is None:
         flatten_hf_downloads()
         kw = dict(V.get('init', {}))
         if os.environ.get('VIENEU_ONNX_DIR'):
             kw['onnx_dir'] = os.environ['VIENEU_ONNX_DIR']
         _vn = Vieneu(**kw)
-    audio = _vn.infer(text, voice=V['voice']) if V['voice'] else _vn.infer(text)
-    _vn.save(audio, str(path))
+    return _vn
+
+
+if '--voices' in sys.argv:
+    for item in load_vieneu().list_preset_voices():
+        print('  ', *item if isinstance(item, (tuple, list)) else [item])
+    sys.exit(0)
+
+slug = sys.argv[1]
+force = '--force' in sys.argv
+ep = load_episode(slug)
+V.update(ep.get('voice', {}))
+if V['engine'] == 'elevenlabs':
+    sys.exit(subprocess.call([sys.executable, os.path.join(HERE, 'voice_elevenlabs.py'), *sys.argv[1:]]))
+
+WORD = re.compile(r"[\w'’]+")
+
+
+def tokens(text):
+    """Words with the punctuation that follows each one (it decides the pause after it)."""
+    out = []
+    for m in re.finditer(r"([\w'’]+)([^\w'’]*)", text):
+        out.append({'w': m.group(1), 'p': m.group(2).strip()})
+    return out
+
+
+def sentences(text):
+    return [s.strip() for s in re.findall(r'[^.!?…]+[.!?…]*', text) if WORD.search(s)]
+
+
+# ---------------------------------------------------------------- engines
+
+
+def synth_vieneu(text, path):
+    tts = load_vieneu()
+    audio = tts.infer(text, voice=V['voice']) if V['voice'] else tts.infer(text)
+    tts.save(audio, str(path))
 
 
 def synth_edge(text, path):
