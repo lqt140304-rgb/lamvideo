@@ -43,5 +43,7 @@ thay cho dòng chủ đề. Chỉ có một dòng chủ đề thì Claude tự v
   (pan/trượt máy); nhìn từ vật thể về phía nhân vật; qua vai; **FOV của nhân vật (góc nhìn thứ nhất)**; tập trung vào nhân vật.
 - **Hiệu ứng giác quan** ở khâu chuyển động: dịch chiều sâu (parallax), lấy nét, quầng sáng đèn nhấp nháy, hạt bụi, rung máy khi nhấn mạnh.
 - **Nhân vật có chớp mắt** (chớp ngẫu nhiên theo hàm thời gian, không dùng Math.random).
+- **Đèn chớp chớp có âm thanh** (chủ kênh chốt 06/11/2026, phim mưa 100 ngày): đèn trong nhà chập chờn (`lampBlink` và `LampDim` trong `engine/sets/benlau.tsx`), cùng lúc phát tiếng `lamp_flicker_fs`. Mưa còn nhỏ thì ít lần (cảnh 3: 3 lần); mưa càng to thì chớp càng dày. Đặt vào chỗ ngắt hơi của lời đọc.
+- **Bàn tay cận cảnh** theo mẫu S16, S25 cảnh 3 (`engine/hands.tsx`).
 - **Chữ trên hình** (chủ kênh chốt 05/11/2026): font Comic Sans, trắng, viết thường theo câu, đặt ngay trên cảnh (không nền đen). Tiêu đề to, hạ dần từ trên xuống, giữ một lúc rồi bay nhanh ngược lên (`TitleDrop`).
 - Câu lệnh tự soi của kênh: "Render every shot as an image. Look at each one like a viewer would. List what looks wrong, and fix it before you animate anything."

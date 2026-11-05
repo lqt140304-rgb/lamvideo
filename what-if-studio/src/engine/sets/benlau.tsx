@@ -12,6 +12,17 @@ import { RoomShell, FloorShadow } from '../furnish';
 export type Weather = 0 | 1 | 2;
 /** A bulb on a weak rainy-day supply: a slow uneven breathing, never random. */
 export const flick = (t: number) => 0.93 + 0.07 * Math.sin(t * 0.31) * Math.sin(t * 0.13 + 1);
+/** The power stuttering: at each local frame in `at` the lamp drops out and catches a few times over ~18 frames (1 = steady). Few events while the rain is light, more as the storm grows; cue the "lamp_flicker" sound at the same frames. */
+const STUTTER = [1, 0.15, 0.9, 0.1, 0.05, 0.6, 1, 0.3, 1, 1, 0.2, 1];
+export const lampBlink = (t: number, at: number[]) => {
+  for (const e of at) {
+    const d = t - e;
+    if (d >= 0 && d < STUTTER.length * 1.5) return STUTTER[Math.floor(d / 1.5)];
+  }
+  return 1;
+};
+/** Darkens the whole shot while the lamp is out; draw it last, inside the camera group. */
+export const LampDim: React.FC<{ b: number }> = ({ b }) => (b < 1 ? <rect x={-3000} y={-3000} width={8000} height={8000} fill="#05040A" opacity={(1 - b) * 0.55} /> : null);
 const SKY = [
   { top: '#D98A3E', mid: '#F2B765', low: '#FBE2A6', cloud: '#E8B97C', dark: '#00000000' },
   { top: '#23252F', mid: '#3D4150', low: '#7A7464', cloud: '#2B2E3A', dark: '#10121A' },

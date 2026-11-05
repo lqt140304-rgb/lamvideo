@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Hero, Pose, poseAt, kf, rnd, camT, LOOKS, joints, toWorld, makeRoom, RoomShell, Box, FloorShadow, stand,
-  AnHouse, YARD, Alley, alleyP, TownView, LivingRoom, LIVING, Rain, Splashes, CloudBank, Foreground, Glow, LightVeil, Dust, FONT, ShotProps,
+  AnHouse, YARD, Alley, alleyP, TownView, LivingRoom, LIVING, lampBlink, LampDim, Rain, Splashes, CloudBank, Foreground, Glow, LightVeil, Dust, FONT, ShotProps,
 } from '../../engine';
 import { OpenHand, GripHand, GripThumb } from '../../engine/hands';
 import { live, P, talkAt, Back, HandTop, ShopFront } from '../mua-100-c01/shots';
@@ -110,7 +110,7 @@ const MapSheet: React.FC<{ flow?: number; trace?: number; big?: boolean }> = ({ 
   );
 };
 
-const Attic: React.FC<{ id: string; t: number; veil?: number; map?: boolean; flow?: number; bags?: number }> = ({ id, t, veil = 0.52, map = false, flow = 0, bags = 0 }) => {
+const Attic: React.FC<{ id: string; t: number; veil?: number; map?: boolean; flow?: number; bags?: number; lamp?: number }> = ({ id, t, veil = 0.52, map = false, flow = 0, bags = 0, lamp = 1 }) => {
   const r = ATT;
   const { P, Q } = r;
   const mat = Q([[0.16, 1, 0.34], [0.84, 1, 0.34], [0.9, 1, 0.86], [0.1, 1, 0.86]]);
@@ -142,10 +142,10 @@ const Attic: React.FC<{ id: string; t: number; veil?: number; map?: boolean; flo
       {map ? <polygon points={Q([[0.42, 0.818, 0.5], [0.58, 0.818, 0.5], [0.58, 0.818, 0.69], [0.42, 0.818, 0.69]])} fill="#EBE0C4" stroke="#8A7A58" strokeWidth={3} /> : null}
       <Pile r={r} n={bags} />
       <path d={`M ${BULB.x} ${P(0.5, 0, 0.46).y} L ${BULB.x} ${BULB.y - 16}`} stroke="#1E1A16" strokeWidth={3} />
-      <circle cx={BULB.x} cy={BULB.y} r={17} fill="#FFF0BE" />
+      <circle cx={BULB.x} cy={BULB.y} r={17} fill={lamp > 0.5 ? '#FFF0BE' : '#6A6A60'} />
       <LightVeil id={`${id}v`} lights={[[BULB.x, BULB.y + 70, 640], [(WIN.x0 + WIN.x1) / 2, 450, 300]]} o={veil} />
-      <Glow x={BULB.x} y={BULB.y} r={520} o={0.55} />
-      <Glow x={BULB.x} y={BULB.y} r={130} o={1} />
+      <Glow x={BULB.x} y={BULB.y} r={520} o={0.55 * lamp} />
+      <Glow x={BULB.x} y={BULB.y} r={130} o={lamp} />
       <Glow x={(WIN.x0 + WIN.x1) / 2} y={450} r={360} kind="cool" o={0.3} />
       <Dust t={t} seed={4} x0={BULB.x - 280} y0={BULB.y} w={560} h={400} n={20} o={0.3} />
     </g>
@@ -420,7 +420,7 @@ export const S11: React.FC<ShotProps> = ({ t, len }) => {
     <g transform={camT(960, 520, kf(t, [[0, 1.05], [len, 1.1]]))}>
       <Attic id="c3s11" t={t + 80} />
       <Hero look={LINH} pose={P({ x: s.x, y: s.y, scale: s.scale * 0.7, yaw: 0.3, look: 0.4, expr: 'worried', talk: talkAt(t, 0, 24), armL: { a: 14, b: 14 }, armR: { a: 14, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
-      <Hero look={AN} pose={P({ x: kf(t, [[0, a.x - 120], [len, a.x + 60]]), y: a.y, scale: a.scale, yaw: -0.5, look: -0.4, expr: 'neutral', legL: { a: 22 * Math.sin(t * 0.5), b: -14 }, legR: { a: -22 * Math.sin(t * 0.5), b: -14 }, armL: { a: 10, b: 20 }, armR: { a: 22, b: 30 } }, t, 1)} rimId="filmR" shadow={1} />
+      <Hero look={AN} pose={P({ x: kf(t, [[0, a.x - 120], [len, a.x + 60]]), y: a.y, scale: a.scale, yaw: 0.5, look: 0.4, expr: 'neutral', legL: { a: 22 * Math.sin(t * 0.5), b: -14 }, legR: { a: -22 * Math.sin(t * 0.5), b: -14 }, armL: { a: 10, b: 20 }, armR: { a: 22, b: 30 } }, t, 1)} rimId="filmR" shadow={1} />
     </g>
   );
 };
@@ -430,14 +430,16 @@ export const S12: React.FC<ShotProps> = ({ t, len }) => {
   const a = sitAt(0.34, 0.54);
   const l = sitAt(0.7, 0.54, 0.72);
   const roll = kf(t, [[26, 0], [60, 1]]);
+  const b = lampBlink(t, [118]);
   return (
     <g transform={camT(960, 560, kf(t, [[0, 1.12], [len, 1.18]]))}>
-      <Attic id="c3s12" t={t + 120} />
+      <Attic id="c3s12" t={t + 120} lamp={b} />
       <polygon points={ATT.Q([[0.42, 0.818, 0.5], [0.42 + 0.16 * roll, 0.818, 0.5], [0.42 + 0.16 * roll, 0.818, 0.69], [0.42, 0.818, 0.69]])} fill="#EBE0C4" stroke="#8A7A58" strokeWidth={3} />
       <ChairFor at={a} />
       <ChairFor at={l} child />
       <Hero look={AN} pose={P({ x: a.x, y: a.y, scale: a.scale, yaw: 0.6, look: 0.5, ...sit(1), armR: { a: 40 + 30 * roll, b: 20 }, armL: { a: -6, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
       <Hero look={LINH} pose={P({ x: l.x, y: l.y, scale: l.scale, yaw: -0.6, look: -0.5, ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
+      <LampDim b={b} />
     </g>
   );
 };
@@ -562,13 +564,15 @@ export const S19: React.FC<ShotProps> = ({ t, len }) => (
 export const S20: React.FC<ShotProps> = ({ t, len }) => {
   const a = sitAt(0.34, 0.54);
   const l = sitAt(0.7, 0.54, 0.72);
+  const b = lampBlink(t, [115]);
   return (
     <g transform={camT(kf(t, [[0, 900], [len, 1000]]), 560, 1.1)}>
-      <Attic id="c3s20" t={t + 300} map bags={1} />
+      <Attic id="c3s20" t={t + 300} map bags={1} lamp={b} />
       <ChairFor at={a} />
       <ChairFor at={l} child />
       <Hero look={AN} pose={P({ x: a.x, y: a.y, scale: a.scale, yaw: 0.3, look: 0.4, expr: 'neutral', talk: talkAt(t, 2, 112), ...sit(1), armR: { a: 20, b: 40 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
       <Hero look={LINH} pose={P({ x: l.x, y: l.y, scale: l.scale, yaw: -0.55, look: -0.4, expr: 'neutral', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
+      <LampDim b={b} />
     </g>
   );
 };
@@ -672,9 +676,10 @@ export const S27: React.FC<ShotProps> = ({ t, len }) => {
   };
   const a = held(aPose);
   const h = held(hPose);
+  const b = 1;
   return (
     <g transform={camT(kf(t, [[0, 1040], [len, 900]]), 540, kf(t, [[0, 1.0], [len, 1.05]]))}>
-      <LivingRoom id="c3s27" t={t + 20} lamp={0.8} day="7" dog />
+      <LivingRoom id="c3s27" t={t + 20} lamp={b < 0.5 ? 0 : 0.8 * b} day="7" dog />
       <Hero look={HANH} pose={hPose} rimId="filmR" shadow={0} />
       <g transform={`translate(${h.x} ${h.y})`}>
         <rect x={-46 * hPose.scale} y={-24 * hPose.scale} width={92 * hPose.scale} height={24 * hPose.scale} rx={3} fill="#E8E0C8" stroke="#16141C" strokeWidth={3} />
@@ -682,6 +687,7 @@ export const S27: React.FC<ShotProps> = ({ t, len }) => {
       </g>
       <Hero look={AN} pose={aPose} rimId="filmL" shadow={0} />
       <Bundle x={a.x} y={a.y} s={aPose.scale * 0.72} c="#B5604F" />
+      <LampDim b={b} />
     </g>
   );
 };
@@ -803,12 +809,13 @@ export const S36: React.FC<ShotProps> = ({ t, len }) => {
   const by = Math.min(b1.y, b2.y);
   return (
     <g transform={camT(960, 520, kf(t, [[0, 1.0], [len, 1.08]]))}>
-      <Attic id="c3s36" t={t + 400} bags={1} map />
+      <Attic id="c3s36" t={t + 400} bags={1} map lamp={lampBlink(t, [98])} />
       {put < 1 ? <Duffel x={bag.x} y={bag.y} s={a.scale * 0.8 + (k * 0.9 - a.scale * 0.8) * set} c="#5E5C44" /> : <Duffel x={dest.x} y={dest.y + 88 * k * 0.0} s={k * 0.9} c="#5E5C44" />}
       <Hero look={AN} pose={aPose} rimId="filmL" shadow={0} />
       <rect x={bx} y={by - 4} width={bw} height={110 * h.scale} rx={6} fill="#B5604F" stroke="#16141C" strokeWidth={3} />
       <path d={`M ${bx} ${by + 50 * h.scale} h ${bw}`} stroke="#8E4436" strokeWidth={4} />
       <Hero look={HANH} pose={hPose} rimId="filmR" shadow={0} />
+      <LampDim b={lampBlink(t, [98])} />
     </g>
   );
 };

@@ -487,5 +487,123 @@
       "shot": "S36",
       "at": "Họ"
     }
-  ]
+  ],
+  "sound": {
+    "clips": {
+      "rain_porch_fs": [
+        "lib:rain_porch_fs",
+        10
+      ],
+      "rain_indoor_fs": [
+        "lib:rain_indoor_fs",
+        10
+      ],
+      "rain_tin_fs": [
+        "lib:rain_tin_fs",
+        10
+      ],
+      "drips_fs": [
+        "lib:drips_fs",
+        10
+      ],
+      "chair_move_fs": [
+        "lib:chair_move_fs",
+        10
+      ],
+      "lamp_flicker_fs": [
+        "lib:lamp_flicker_fs",
+        2
+      ],
+      "music_bed": [
+        "lib:mua_bed3",
+        125
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "rain_porch_fs",
+        0.6,
+        "onset",
+        "S7"
+      ],
+      [
+        "S7",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S8"
+      ],
+      [
+        "S8",
+        "rain_tin_fs",
+        0.5,
+        "onset",
+        "S10"
+      ],
+      [
+        "S10",
+        "rain_tin_fs",
+        0.4,
+        "onset",
+        "S26"
+      ],
+      [
+        "S7",
+        "drips_fs",
+        0.35,
+        "onset",
+        "S8"
+      ],
+      [
+        "S22+8",
+        "chair_move_fs",
+        0.5
+      ],
+      [
+        "S12+118",
+        "lamp_flicker_fs",
+        0.45
+      ],
+      [
+        "S20+115",
+        "lamp_flicker_fs",
+        0.45
+      ],
+      [
+        "S36+98",
+        "lamp_flicker_fs",
+        0.45
+      ],
+      [
+        "S26",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S29"
+      ],
+      [
+        "S29",
+        "rain_porch_fs",
+        0.65,
+        "onset",
+        "S36"
+      ],
+      [
+        "S36",
+        "rain_tin_fs",
+        0.45,
+        "onset",
+        null
+      ]
+    ],
+    "music": {
+      "clip": "music_bed",
+      "from": "S2"
+    },
+    "levels": {
+      "sfx_lu": -13,
+      "music_lu": -15
+    }
+  }
 }
