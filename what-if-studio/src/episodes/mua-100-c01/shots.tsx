@@ -28,15 +28,23 @@ export const talkAt = (t: number, a: number, b: number) => (t < a || t > b ? 0 :
 export const onDeck = (x: number, scale: number) => ({ x, y: YARD.floorHip(scale), scale });
 
 /** A character from behind: the same rig with the face covered by the back of the head. */
-export const Back: React.FC<{ look: Look; pose: Pose; nape?: boolean }> = ({ look, pose, nape = true }) => (
-  <g>
-    <Hero look={look} pose={pose} rimId="filmL" shadow={0} />
-    {[-1, 1].map((sd) => <ellipse key={sd} cx={pose.x + sd * (HEAD.r + 2) * pose.scale} cy={pose.y + (HEAD.y + 6) * pose.scale} rx={9 * pose.scale} ry={14 * pose.scale} fill={look.skinShade} stroke={look.line} strokeWidth={3 * pose.scale} />)}
-    <circle cx={pose.x} cy={pose.y + HEAD.y * pose.scale} r={(HEAD.r + 3) * pose.scale} fill={look.hair} />
-    {nape ? <ellipse cx={pose.x} cy={pose.y + (HEAD.y + HEAD.r - 9) * pose.scale} rx={22 * pose.scale} ry={7 * pose.scale} fill={look.skin} /> : null}
-    <path d={`M ${pose.x - 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale} Q ${pose.x} ${pose.y + (HEAD.y - 50) * pose.scale} ${pose.x + 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale}`} stroke="#fff" strokeWidth={3 * pose.scale} opacity={0.1} fill="none" />
-  </g>
-);
+export const Back: React.FC<{ look: Look; pose: Pose; nape?: boolean }> = ({ look, pose, nape = true }) => {
+  // the head goes where the rig puts it (it leans with the body), so the hair covers it however she moves
+  const h = toWorld(pose, joints(pose).head);
+  const k = pose.scale;
+  const rot = pose.tilt + pose.headTilt;
+  return (
+    <g>
+      <Hero look={look} pose={pose} rimId="filmL" shadow={0} />
+      <g transform={`rotate(${rot} ${h.x} ${h.y})`}>
+        {[-1, 1].map((sd) => <ellipse key={sd} cx={h.x + sd * (HEAD.r + 2) * k} cy={h.y + 6 * k} rx={9 * k} ry={14 * k} fill={look.skinShade} stroke={look.line} strokeWidth={3 * k} />)}
+        <circle cx={h.x} cy={h.y} r={(HEAD.r + 3) * k} fill={look.hair} />
+        {nape ? <ellipse cx={h.x} cy={h.y + (HEAD.r - 9) * k} rx={22 * k} ry={7 * k} fill={look.skin} /> : null}
+        <path d={`M ${h.x - 40 * k} ${h.y - 20 * k} Q ${h.x} ${h.y - 50 * k} ${h.x + 40 * k} ${h.y - 20 * k}`} stroke="#fff" strokeWidth={3 * k} opacity={0.1} fill="none" />
+      </g>
+    </g>
+  );
+};
 
 /** The living room seen from the kitchen end: the front door in the middle onto the rain, the window on its right
  * (left from outside), the wooden set on the right, Linh's desk on the left. Same room as LivingRoom, turned round. */

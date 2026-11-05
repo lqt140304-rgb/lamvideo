@@ -460,7 +460,7 @@ export const S22: React.FC<ShotProps> = ({ t, len }) => {
     <g transform={camT(960, kf(t, [[0, 520], [len, 560]]), kf(t, [[0, 1.16], [len, 1.22]]))}>
       <LivingFront id="c2s22" t={t + 90} />
       <SmallChair x={x - 225 * s} y={floor - 14 * s} s={s * 1.5} />
-      <Back look={LINH} pose={P({ x: x + 20 * Math.sin(t * 0.28), y: floor - 140 * s, scale: s, tilt: -7, armL: { a: 66, b: 8 }, armR: { a: 10, b: 14 }, legL: { a: 14 * Math.sin(t * 0.28), b: -8 }, legR: { a: -14 * Math.sin(t * 0.28), b: -8 } })} />
+      <Back nape={false} look={LINH} pose={P({ x: x + 20 * Math.sin(t * 0.28), y: floor - 140 * s, scale: s, tilt: -7, armL: { a: 66, b: 8 }, armR: { a: 10, b: 14 }, legL: { a: 14 * Math.sin(t * 0.28), b: -8 }, legR: { a: -14 * Math.sin(t * 0.28), b: -8 } })} />
       <Dusk o={0.2} />
     </g>
   );
