@@ -7,6 +7,7 @@ Phong cách: mascot của kênh (cậu bé tóc đen, áo hoodie xám, chân que
 > **Hai mảng nội dung chạy song song** (cập nhật 05/11/2026)
 > 1. **TÓM GỌN**: giải thích tin, chính sách, tiền bạc, kể qua tình huống đời thường (mascot hoodie).
 > 2. **Series hoạt hình tuổi thơ** (tên tạm "Bốn đứa đầu ngõ"): mỗi tập 60–90 giây, một ký ức, bốn nhân vật cố định, mỗi người một giọng. Xem `docs/SERIES-TUOI-THO.md`.
+> 3. **Hoạt hình "What If"** (thêm 05/11/2026): tập 15–25 giây "Nếu bạn có thể…?", dựng theo skill của Baptiste Kelano, bản đã sửa để miễn phí (VieNeu thay ElevenLabs). Skill ở `.claude/skills/what-if-animation/`, studio ở `what-if-studio/`, quy trình + Prompt W ở `docs/WHAT-IF-QUY-TRINH.md`. Cài: `tools\what-if-setup.bat`.
 
 ## Cài đặt (một lần)
 

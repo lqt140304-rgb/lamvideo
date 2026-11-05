@@ -11,3 +11,6 @@ public/*/img/*.candidates.json
 public/*/img/chon-anh.html
 .vieneu-python
 .cache/
+# What If studio: file tạm sinh ra trên máy
+what-if-studio/public/*/takes/
+what-if-studio/public/*/voice_raw.wav
