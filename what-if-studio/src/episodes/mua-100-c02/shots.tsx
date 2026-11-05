@@ -235,7 +235,6 @@ export const S10: React.FC<ShotProps> = ({ t, len }) => {
       <path d="M 1040 412 L 1040 500 M 1780 412 L 1780 500" stroke="#4C3420" strokeWidth={14} />
       <rect x={1400} y={298} width={120} height={80} fill="#B8543E" />
       <rect x={1540} y={278} width={150} height={100} fill="#3F7E8A" />
-      <path d="M 1190 -60 L 1190 96" stroke="#1E1A16" strokeWidth={4} />
       <rect x={300} y={120} width={190} height={250} fill="#3E2A18" />
       <rect x={316} y={136} width={158} height={218} fill="#C8B69A" />
       <rect x={-100} y={880} width={2200} height={130} fill="#6E5A36" />
