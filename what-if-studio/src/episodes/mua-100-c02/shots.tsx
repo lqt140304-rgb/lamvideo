@@ -67,6 +67,21 @@ const Shoes: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) 
   </g>
 );
 
+/** A wooden seat seen side-on. top: seat height, floor: where the legs land, back: -1/1 the side of the chair back, 0 a stool. */
+const Seat: React.FC<{ x: number; top: number; floor: number; w: number; back?: number }> = ({ x, top, floor, w, back = 0 }) => {
+  const u = w / 120;
+  return (
+    <g>
+      <ellipse cx={x} cy={floor + 3} rx={w * 0.62} ry={9 * u} fill="#000" opacity={0.3} />
+      <path d={`M ${x - w * 0.42} ${top + 8 * u} L ${x - w * 0.46} ${floor} M ${x + w * 0.42} ${top + 8 * u} L ${x + w * 0.46} ${floor}`} stroke="#4C3420" strokeWidth={12 * u} strokeLinecap="round" />
+      <path d={`M ${x - w * 0.44} ${(top + floor) / 2 + 12 * u} L ${x + w * 0.44} ${(top + floor) / 2 + 12 * u}`} stroke="#3E2A18" strokeWidth={7 * u} />
+      {back ? <path d={`M ${x + (back * w) / 2} ${top + 6 * u} L ${x + (back * w * 0.58)} ${top - 118 * u}`} stroke="#5E4128" strokeWidth={13 * u} strokeLinecap="round" /> : null}
+      {back ? <path d={`M ${x + (back * w) / 2 - back * 2} ${top - 86 * u} L ${x + (back * w * 0.58) - back * 2} ${top - 86 * u}`} stroke="#5E4128" strokeWidth={13 * u} /> : null}
+      <rect x={x - w / 2} y={top - 2 * u} width={w} height={13 * u} rx={3 * u} fill="#8E6A48" stroke="#2E2014" strokeWidth={2.5 * u} />
+    </g>
+  );
+};
+
 const SmallChair: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <ellipse cx={0} cy={2} rx={60} ry={9} fill="#000" opacity={0.3} />
@@ -88,13 +103,17 @@ export const S1: React.FC<ShotProps> = ({ t, len }) => (
 
 // ---------- S2: wide: the wooden set by the door, morning grey in the window, the two of them still in their places ----------
 const SET_AN = stand(LIVING, 0.08, 0.46);
+const AN_HIP = LIVING.P(0.08, 1, 0.46).y - 88 * SET_AN.scale;
+const LINH_AT = LIVING.P(0.42, 1, 0.5);
 export const S2: React.FC<ShotProps> = ({ t, len }) => {
   const s = SET_AN.scale;
   return (
     <g transform={camT(kf(t, [[0, 760], [len, 720]]), 520, kf(t, [[0, 1.2], [len, 1.28]]))}>
-      <LivingRoom id="c2s2" t={t} lamp={0.75} day="3" dog />
-      <Hero look={AN} pose={P({ x: SET_AN.x, y: LIVING.P(0.08, 0.74, 0.46).y + 18 * s, scale: s, yaw: 0.6, look: 0.5, ...sit(1), armR: { a: 26, b: 50 }, armL: { a: 8, b: 40 } }, t, 1)} rimId="filmR" shadow={0} />
-      <Hero look={LINH} pose={P({ x: LIVING.P(0.42, 1, 0.5).x, y: LIVING.P(0.42, 1, 0.5).y - 58 * s * 0.72, scale: s * 0.72, yaw: -0.6, look: -0.6, ...sit(-1), armL: { a: 30, b: 50 }, armR: { a: 12, b: 26 } }, t, 4)} rimId="filmR" shadow={0} />
+      <LivingRoom id="c2s2" t={t} lamp={0.75} day="3" dog={false} />
+      <Seat x={SET_AN.x - 2 * s} top={AN_HIP + 12 * s} floor={AN_HIP + 88 * s} w={124 * s} back={-1} />
+      <Hero look={AN} pose={P({ x: SET_AN.x, y: AN_HIP, scale: s, yaw: 0.6, look: 0.5, ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
+      <Seat x={LINH_AT.x + 4} top={LINH_AT.y - 58 * s * 0.72 + 10 * s * 0.72} floor={LINH_AT.y + 16 * s * 0.72} w={92 * s * 0.72} />
+      <Hero look={LINH} pose={P({ x: LINH_AT.x, y: LINH_AT.y - 58 * s * 0.72, scale: s * 0.72, yaw: -0.6, look: -0.6, ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
       <Foreground blur={10}><rect x={1370} y={-100} width={300} height={1300} fill="#17110C" /></Foreground>
     </g>
   );
@@ -235,9 +254,18 @@ export const S10: React.FC<ShotProps> = ({ t, len }) => {
       <path d="M 1040 412 L 1040 500 M 1780 412 L 1780 500" stroke="#4C3420" strokeWidth={14} />
       <rect x={1400} y={298} width={120} height={80} fill="#B8543E" />
       <rect x={1540} y={278} width={150} height={100} fill="#3F7E8A" />
-      <rect x={300} y={120} width={190} height={250} fill="#3E2A18" />
-      <rect x={316} y={136} width={158} height={218} fill="#C8B69A" />
-      <rect x={-100} y={880} width={2200} height={130} fill="#6E5A36" />
+      <rect x={-100} y={640} width={2200} height={370} fill="#766437" />
+      <rect x={-100} y={632} width={2200} height={14} fill="#5E4128" />
+      <rect x={110} y={20} width={400} height={410} fill="#8896A0" stroke="#5A4028" strokeWidth={16} />
+      <path d="M 310 20 L 310 430 M 110 225 L 510 225" stroke="#5A4028" strokeWidth={9} />
+      <Rain t={t} seed={5} n={40} o={0.6} x0={120} y0={30} w={380} h={390} />
+      <Glow x={310} y={225} r={420} kind="cool" o={0.3} />
+      <rect x={570} y={90} width={120} height={150} fill="#3E2A18" />
+      <rect x={582} y={102} width={96} height={126} fill="#C8B69A" />
+      <path d="M 1300 520 L 1820 520" stroke="#5E4128" strokeWidth={12} />
+      {[1370, 1520, 1670].map((x) => <path key={x} d={`M ${x} 520 l 0 26`} stroke="#2A2622" strokeWidth={6} />)}
+      <path d="M 1490 546 L 1550 546 L 1566 700 L 1474 700 Z" fill="#3F7E8A" stroke="#16141C" strokeWidth={4} strokeLinejoin="round" />
+      <path d="M 1640 546 C 1616 590 1616 650 1636 720 L 1704 720 C 1724 650 1724 590 1700 546 Z" fill="#B5604F" stroke="#16141C" strokeWidth={4} strokeLinejoin="round" />
       <Hero look={AN} pose={live(pose, t, 1)} rimId="filmL" shadow={0} />
       <Shoes x={hand.x + 6} y={hand.y + (t < 34 ? 60 : -10)} s={1.6} />
       {t < 2 ? null : <path d="M 1300 1010 L 1500 1010" stroke="#3E3226" strokeWidth={0} />}
@@ -274,7 +302,8 @@ export const S13: React.FC<ShotProps> = ({ t, len }) => (
   <g>
     <g transform={camT(kf(t, [[0, 700], [len, 670]]), 500, kf(t, [[0, 2.0], [len, 2.1]]))}>
       <LivingRoom id="c2s13" t={t + 110} lamp={0.75} day="3" dog={false} veil={0.42} />
-      <Hero look={AN} pose={P({ x: 620, y: 640, scale: 1.05, yaw: 0.45, look: 0.5, headTilt: 7, expr: 'neutral', talk: talkAt(t, 2, 165), ...sit(1), armR: { a: 34, b: 44 }, armL: { a: 12, b: 34 } }, t, 1)} rimId="filmR" shadow={0} />
+      <Seat x={610} top={694} floor={790} w={130} back={-1} />
+      <Hero look={AN} pose={P({ x: 620, y: 682, scale: 1.05, yaw: 0.45, look: 0.5, headTilt: 7, expr: 'neutral', talk: talkAt(t, 2, 165), ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
     </g>
     <Foreground blur={3}>
       <Back look={LINH} pose={P({ x: kf(t, [[0, 1500], [len, 1550]]), y: 1300, scale: 2.5, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
@@ -316,8 +345,10 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => (
     <polygon points="-300,790 2220,790 2220,1400 -300,1400" fill="#5E4E3E" />
     <LightVeil id="c2s15v" lights={[[960, 460, 460], [480, 200, 640]]} o={0.38} />
     <Glow x={480} y={110} r={620} o={0.5} />
-    <Hero look={AN} pose={P({ x: 620, y: 720, scale: 1.08, yaw: 0.72, look: 0.5, tilt: 3, expr: t < 60 ? 'happy' : 'neutral', talk: talkAt(t, 2, 82), ...sit(1), armR: { a: 26, b: 52 }, armL: { a: -4, b: 42 } }, t, 1)} rimId="filmL" shadow={0} />
-    <Hero look={LINH} pose={P({ x: 1300, y: 760, scale: 0.78, yaw: -0.72, look: -0.6, expr: 'happy', ...sit(-1), armL: { a: 26, b: 52 }, armR: { a: -4, b: 42 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Seat x={606} top={732} floor={826} w={136} back={-1} />
+    <Hero look={AN} pose={P({ x: 620, y: 720, scale: 1.08, yaw: 0.72, look: 0.5, tilt: 3, expr: t < 60 ? 'happy' : 'neutral', talk: talkAt(t, 2, 82), ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmL" shadow={0} />
+    <Seat x={1312} top={768} floor={830} w={98} />
+    <Hero look={LINH} pose={P({ x: 1300, y: 760, scale: 0.78, yaw: -0.72, look: -0.6, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
     <path d="M 720 800 L 1190 800" stroke="#7E5A3A" strokeWidth={24} />
     <path d="M 760 810 L 760 930 M 1150 810 L 1150 930" stroke="#4C3420" strokeWidth={14} />
     <rect x={850} y={776} width={190} height={12} fill="#F1EADA" />
@@ -338,7 +369,7 @@ export const S16: React.FC<ShotProps> = ({ t, len }) => (
 export const S17: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, kf(t, [[0, 640], [len, 600]]), kf(t, [[0, 1.16], [len, 1.1]]))}>
     <Alley id="c2s17" t={t} w={2} rain={0.8} water={1} />
-    <Dusk o={0.2} />
+    <Dusk o={0.1} />
   </g>
 );
 

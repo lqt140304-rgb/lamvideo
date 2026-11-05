@@ -237,18 +237,18 @@ export const Alley: React.FC<{ id: string; t: number; w: Weather; rain?: number;
       })}
       {water > 0 ? (
         <g opacity={water}>
-          <polygon points={poly([alleyP(-1, 0.99, 0), alleyP(1, 0.99, 0), { x: 2000, y: 1100 }, { x: -80, y: 1100 }])} fill="#4C5C68" />
+          <polygon points={poly([alleyP(-1, 0.99, 0), alleyP(1, 0.99, 0), { x: 2000, y: 1100 }, { x: -80, y: 1100 }])} fill="#667A86" />
           {/* the lit doors doubled in the water, long and broken */}
           {[-1, 1].map((side) => [0.18, 0.5, 0.74].map((d, i) => {
             const a = alleyP(side * 0.98, d, 0);
             const b = alleyP(side * 0.62, d - 0.1, 0);
-            return <polygon key={`${side}${i}`} points={poly([a, { x: a.x + 26 * (1 - d), y: a.y }, { x: b.x + 26, y: b.y }, b])} fill="#FFC470" opacity={0.3} />;
+            return <polygon key={`${side}${i}`} points={poly([a, { x: a.x + 26 * (1 - d), y: a.y }, { x: b.x + 26, y: b.y }, b])} fill="#FFC470" opacity={0.5} />;
           }))}
           {Array.from({ length: 16 }).map((_, i) => {
             const d = i / 18;
             const l = alleyP(-0.6, d, 0);
             const r = alleyP(0.6, d, 0);
-            return <path key={i} d={`M ${l.x} ${l.y} L ${r.x} ${r.y}`} stroke="#AFC2CE" strokeWidth={1.4} opacity={0.22} />;
+            return <path key={i} d={`M ${l.x} ${l.y} L ${r.x} ${r.y}`} stroke="#D4E2EA" strokeWidth={1.6} opacity={0.34} />;
           })}
         </g>
       ) : null}
