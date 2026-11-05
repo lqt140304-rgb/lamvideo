@@ -199,18 +199,18 @@
   {
    "shot": "S24",
    "a": 2978,
-   "b": 3043,
+   "b": 3015,
    "t0": 0,
-   "t1": 65,
-   "line": "Trong bếp, Hạnh, mẹ cô bé,"
+   "t1": 37,
+   "line": "Trong bếp, Hạnh,"
   },
   {
    "shot": "S39",
-   "a": 3043,
+   "a": 3015,
    "b": 3073,
    "t0": 0,
-   "t1": 30,
-   "line": "vừa vo gạo vừa"
+   "t1": 58,
+   "line": "mẹ cô bé, vừa vo gạo vừa"
   },
   {
    "shot": "S24",
@@ -548,16 +548,16 @@
    "key": 40,
    "len": 145,
    "first": 2978,
-   "line": "Trong bếp, Hạnh, mẹ cô bé,",
+   "line": "Trong bếp, Hạnh,",
    "note": "Hạnh ở bàn bếp, hai tay trong chậu gạo"
   },
   {
    "id": "S39",
    "size": "top-down insert",
    "key": 30,
-   "len": 30,
-   "first": 3043,
-   "line": "vừa vo gạo vừa",
+   "len": 58,
+   "first": 3015,
+   "line": "mẹ cô bé, vừa vo gạo vừa",
    "note": "Từ trên xuống: hai tay vo gạo trong nước đục"
   },
   {
@@ -699,6 +699,11 @@
   }
  ],
  "audio": {
-  "voice": "mua-100-c01/voice.wav"
+  "voice": "mua-100-c01/voice.wav",
+  "sfx": "mua-100-c01/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.2056,
+  "music": "mua-100-c01/music.wav",
+  "musicVol": 0.0984
  }
 }
