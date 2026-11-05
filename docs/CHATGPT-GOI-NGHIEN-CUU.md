@@ -1,16 +1,39 @@
-# Phân công: ChatGPT nghiên cứu, Claude dựng video
+# Phân công: ChatGPT nghiên cứu và viết kịch bản, Claude chỉ dựng video
 
 Bạn là người chuyển thông tin qua lại giữa hai bên.
 
-## Vòng làm việc (6 bước)
+- **ChatGPT:** nghiên cứu, tìm ảnh, **viết kịch bản** (lời đọc, chữ trên hình, gợi ý cảnh), soát nội dung.
+- **Claude:** dựng video từ kịch bản đã có (`script.json`, hoạt hình, thời gian, lint, xem thử), sửa lỗi dựng. Claude không tự nghiên cứu, không tự viết lại nội dung. Chỉ sửa chữ khi lỗi hiển thị, lỗi phát âm hoặc theo góp ý bạn chuyển sang.
+
+## Vòng làm việc (7 bước)
 1. Bạn chọn chủ đề, dán **Prompt A** cho ChatGPT (bật tìm kiếm web / Deep research).
 2. ChatGPT trả về **Gói nghiên cứu** đúng mẫu bên dưới.
-3. Bạn dán nguyên gói cho Claude kèm một dòng: "dựng video từ gói này, slug: <tên-video>".
-4. Claude viết `script.json` + `sources.md`, chạy `npm run lint`, xem ảnh chụp từng cảnh, đẩy lên GitHub. Bạn `git pull` và `npm run make -- <slug>`.
-5. Bạn gửi lại **nội dung chữ của video** (lời đọc) cho ChatGPT cùng **Prompt B** để soát lần cuối.
-6. Bạn dán góp ý cho Claude để sửa, rồi render lại.
+3. Bạn dán gói đó vào **Prompt K** để ChatGPT viết **Kịch bản** theo đúng mẫu.
+4. Bạn dán Kịch bản cho Claude kèm một dòng: "dựng video từ kịch bản này, slug: <tên-video>".
+5. Claude chuyển thành `script.json` + `sources.md`, chạy `npm run lint`, xem ảnh chụp từng cảnh, đẩy lên GitHub. Bạn `git pull` và `npm run make -- <slug>`.
+6. Bạn gửi lại **nội dung chữ của video** cho ChatGPT cùng **Prompt B** để soát lần cuối.
+7. Bạn dán góp ý cho Claude để sửa, rồi render lại.
 
-Claude không tìm tài liệu hay ảnh nữa, chỉ dùng những gì có trong gói (đã có link và giấy phép). Thiếu gì Claude sẽ nói rõ và hỏi lại ChatGPT qua bạn.
+Claude chỉ dùng những gì có trong gói và kịch bản (đã có link và giấy phép). Thiếu gì Claude sẽ nói rõ và hỏi lại ChatGPT qua bạn.
+
+## Hướng nội dung: trẻ trung, gần đời sống
+Quan sát của chủ kênh: nội dung trẻ trung, năng động thu hút người xem hơn tin tức thuần. Vì vậy ưu tiên chủ đề người trẻ đang chơi hoặc đang gặp (thể thao, thuê trọ, tiền tiêu vặt, công nghệ, xu hướng). Chủ đề luật hay thuế vẫn làm, nhưng kể qua tình huống đời thường. Giữ nguyên: nguồn chính thống, số liệu đúng, kết bằng "Tóm lại là…".
+
+## Prompt K: nhờ ChatGPT viết kịch bản (dán kèm Gói nghiên cứu)
+```
+Dựa CHỈ vào Gói nghiên cứu dưới đây, hãy viết KỊCH BẢN video dọc 9:16, tiếng Việt, 60–100 giây (khoảng 160–280 từ lời đọc nếu ngắn, tối đa khoảng 520 từ nếu làm bản dài), giọng trẻ trung, nhanh, gần gũi, có câu hỏi hoặc câu đùa nhẹ, không giảng bài. Không thêm số liệu ngoài gói. Số liệu chưa xác minh thì bỏ.
+
+QUY TẮC
+- Lời đọc (voice): viết số bằng chữ như người đọc (ví dụ "hai trăm nghìn đồng"), ngày tháng đọc rõ. Phụ đề (sub): cùng nội dung nhưng viết số bằng chữ số.
+- Câu đầu là tình huống hoặc con số gây tò mò. Không dùng "Khoan đã", "thế này", không lặp câu mẫu của video khác.
+- Câu cuối bắt đầu bằng "Tóm lại là…".
+- Mỗi cảnh 1 ý. Chữ trên hình ngắn (tối đa khoảng 8 từ mỗi dòng).
+- Mốc tương lai ghi "sẽ", giá/lãi suất ghi ngày lấy số liệu.
+
+MẪU TRẢ VỀ: một bảng, mỗi dòng là một cảnh
+số | loại cảnh (hook / stat / steps / timeline / chat / list / compare / verdict / myth / receipt / ladder / outro) | lời đọc (voice) | phụ đề (sub) | chữ trên hình (tiêu đề, nhãn, số) | gợi ý hình hoạt hình (1 dòng) | nguồn trong gói (mục/dòng)
+Cuối: tổng số từ lời đọc, danh sách điều chưa chắc chắn.
+```
 
 ## Prompt A: nhờ ChatGPT nghiên cứu (dán, thay phần trong [ ])
 

@@ -57,7 +57,7 @@ Câu nào không sửa chữ thì giữ file giọng cũ, chỉ đọc lại câ
 
 4. Ghi nguồn số liệu vào `videos/<ten-moi>/sources.md` và kiểm tra lại trước khi đăng.
 
-Muốn Claude viết kịch bản: gửi chủ đề, Claude trả về `script.json` theo đúng mẫu trên.
+Kịch bản (lời đọc, chữ trên hình) do ChatGPT viết theo Prompt K trong `docs/CHATGPT-GOI-NGHIEN-CUU.md`; bạn gửi kịch bản đó, Claude chuyển thành `script.json` theo mẫu trên và dựng video.
 
 ## Đổi tên kênh, màu sắc
 
@@ -250,4 +250,4 @@ Mỗi video nên dùng bộ bố cục khác nhau. Có hai cách:
 - `npm run lint` — bắt câu lặp giữa các video, `say`/`cue` sai, hook quá dài, quá nhiều ảnh thật.
 - Đọc [docs/KINH-NGHIEM.md](docs/KINH-NGHIEM.md) trước khi làm video mới.
 - Trường mới trong cảnh: `cue` (cụm từ chốt ý của hook), `cam` (in/out/drift/punch/none), `transition` (wipe/iris/bar/flash/none).
-- Cách phối hợp ChatGPT (nghiên cứu, tìm ảnh, soát nội dung) và Claude (dựng video): [docs/CHATGPT-GOI-NGHIEN-CUU.md](docs/CHATGPT-GOI-NGHIEN-CUU.md).
+- Cách phối hợp ChatGPT (nghiên cứu, tìm ảnh, viết kịch bản, soát nội dung) và Claude (chỉ dựng video): [docs/CHATGPT-GOI-NGHIEN-CUU.md](docs/CHATGPT-GOI-NGHIEN-CUU.md).
