@@ -83,3 +83,100 @@ MẪU TRẢ VỀ
 - Khoa học: nhận định | cách tính | nguồn
 - Tổng số chữ, điều chưa chắc chắn
 ```
+
+## Lệnh chi tiết (Windows)
+
+Mọi lệnh gõ trong **Command Prompt (cmd)**. Dùng PowerShell thì thêm `.\` trước file .bat (`.\tools\what-if.bat ...`)
+và đặt biến bằng `$env:TEN="..."` thay cho `set TEN=...`. Thay `C:\duong-dan\lamvideo` bằng thư mục repo trên máy bạn,
+`<slug>` bằng tên tập (chữ thường, gạch nối, ví dụ `tua-lai-10-giay`).
+
+### A. Cài đặt (một lần)
+
+```bat
+:: 1. Lấy bản mới nhất của repo
+cd /d C:\duong-dan\lamvideo
+git pull
+
+:: 2. Kiểm tra Python thật (một trong hai lệnh phải in ra "Python 3.x")
+py -3 --version
+python --version
+
+:: 2b. Nếu VieNeu-TTS cài bằng uv (thư mục VieNeu-TTS có .venv), trỏ tới Python của nó.
+::     setx lưu vĩnh viễn; đóng cửa sổ cmd và mở lại sau khi chạy.
+setx VIENEU_PYTHON "C:\duong-dan\VieNeu-TTS\.venv\Scripts\python.exe"
+
+:: 3. Cài tất cả (thư viện studio, numpy, Pillow, faster-whisper, edge-tts, vieneu) và render thử
+tools\what-if-setup.bat
+```
+
+Cài tay, nếu file .bat lỗi:
+
+```bat
+cd /d C:\duong-dan\lamvideo\what-if-studio
+npm install
+py -3 -m pip install numpy Pillow faster-whisper edge-tts vieneu
+py -3 ..\.claude\skills\what-if-animation\scripts\voice.py --voices
+npx remotion still src/index.ts Rewind out/rewind-test.png --frame=60
+```
+
+Xem hai tập mẫu (Rewind, CopyPaste) trong trình duyệt: `cd what-if-studio` rồi `npm run studio`, mở http://localhost:3430.
+
+### B. Làm một tập
+
+Cách nhanh: mở Claude Code trong thư mục repo (`cd /d C:\duong-dan\lamvideo` rồi `claude`), dán kịch bản ChatGPT viết
+theo Prompt W và gõ: `dựng tập What If từ kịch bản này, slug: <slug>`. Claude tự chạy các lệnh dưới đây.
+
+Chạy tay từng bước (đứng ở thư mục repo, `tools\what-if.bat` tự chuyển vào `what-if-studio`):
+
+| Bước | Lệnh | Kết quả |
+| --- | --- | --- |
+| 1. Kịch bản | Tạo `what-if-studio\src\episodes\<slug>\episode.json` (Claude viết từ kịch bản) | |
+| 2. Giọng | `tools\what-if.bat voice <slug>` | `public\<slug>\voice.wav`, `words.json`; in mốc từng chữ |
+| | `tools\what-if.bat voice <slug> --force` | đọc lại tất cả câu |
+| 3. Danh sách cảnh | `tools\what-if.bat plan <slug>` | `out\<slug>\shotlist.md`, in số cắt/phút |
+| 4. Storyboard | `cd what-if-studio` → `npx tsc --noEmit` → `cd ..` | kiểm tra lỗi code |
+| | `tools\what-if.bat stills <slug>` | `out\<slug>\board\S1.png ...` |
+| | `tools\what-if.bat board <slug>` | `out\<slug>\storyboard.jpg` (gửi bạn duyệt) |
+| 5. Sửa vài cảnh | `tools\what-if.bat stills <slug> S3 S7` rồi `tools\what-if.bat board <slug>` | chỉ render lại cảnh đã sửa |
+| 6. Bản nháp chuyển động | `tools\what-if.bat master <slug>` | MP4 nháp |
+| | `tools\what-if.bat motiongrid <slug> S2 S5` | lưới khung hình để soi chuyển động |
+| | `tools\what-if.bat stills <slug> --frames 120 240` | ảnh của khung 120, 240 |
+| 7. Âm thanh | `tools\what-if.bat sfx <slug> --dry` | xem sẽ dùng tiếng nào trong thư viện |
+| | `tools\what-if.bat sfx <slug>` | `public\<slug>\sfx.wav`, `music.wav`, đặt mức âm lượng |
+| | `tools\what-if.bat mixcheck <slug>` | chỗ tiếng động đè lên lời (cần < 3 dB) |
+| 8. Master | `tools\what-if.bat master <slug>` | `out\<slug>\<slug>-final.mp4`, `report.json` |
+
+Đẩy tập lên GitHub (file trong `out\` không lên repo, chỉ mã nguồn tập):
+
+```bat
+git add what-if-studio\src\episodes\<slug> what-if-studio\public\<slug>
+git commit -m "What If: <slug>"
+git push
+```
+
+### C. Tùy chọn giọng trong `episode.json`
+
+```json
+"voice": { "engine": "vieneu", "voice": "Hải Đăng", "speed": 1.1 }
+"voice": { "engine": "edge", "voice": "vi-VN-HoaiMyNeural", "rate": "+10%" }
+"voice": { "engine": "file" }
+"voice": { "engine": "elevenlabs" }
+```
+
+- `vieneu`: miễn phí, offline. Xem tên giọng: `cd what-if-studio` rồi `py -3 ..\.claude\skills\what-if-animation\scripts\voice.py --voices`.
+- `edge`: miễn phí, cần mạng; giọng `vi-VN-NamMinhNeural` (nam) hoặc `vi-VN-HoaiMyNeural` (nữ).
+- `file`: tự thu cả bài, lưu ở `what-if-studio\public\<slug>\voice_in.wav` (cần faster-whisper).
+- `elevenlabs`: bản gốc trả phí; cần file `.env` ở thư mục repo với dòng `ELEVENLABS_API_KEY=...`.
+- `speed`: tăng tốc cả bài, giữ cao độ (1.1 = nhanh hơn 10%). `"gaps": {"sentence": 0.25}` cắt khoảng nghỉ cuối câu ngắn hơn.
+
+### D. Gặp lỗi
+
+| Thông báo | Cách sửa |
+| --- | --- |
+| `Python was not found` / `Python tìm th...` | Lệnh `python` chỉ là lối tắt mở Store. Cài Python từ python.org (tick "Add python.exe to PATH") hoặc đặt `VIENEU_PYTHON` như bước A.2b |
+| `Chua import duoc vieneu` | `py -3 -m pip install vieneu`, hoặc đặt `VIENEU_PYTHON` tới Python đã cài VieNeu |
+| `External data path ... escapes` | Script đã tự copy model ra `%USERPROFILE%\.cache\vieneu\flat`. Nếu vẫn lỗi: `set VIENEU_ONNX_DIR=<thư mục onnx đã copy>` |
+| `Run this from the studio folder` | Chạy qua `tools\what-if.bat`, hoặc `cd what-if-studio` trước |
+| `npm warn install-scripts ... esbuild` | Bỏ qua được. Nếu render báo lỗi esbuild: `cd what-if-studio` rồi `npm rebuild esbuild` |
+| `Cue word "..." not found` | Chữ dùng làm mốc cắt không có trong lời đọc. Chữ lặp lại thì ghi `chữ#2` |
+| Chữ đặt lệch mốc | Cài faster-whisper: `py -3 -m pip install faster-whisper`, rồi `tools\what-if.bat voice <slug> --force` |
