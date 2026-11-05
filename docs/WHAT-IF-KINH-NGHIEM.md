@@ -54,6 +54,10 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Khóa API đặt ở `D:\.env` (dòng `ELEVENLABS_API_KEY=...`): `wi.py` tìm `.env` ở mọi thư mục cha của studio, nên mọi worktree đều đọc được, và file nằm NGOÀI repo `D:\lamvideo` (repo này không có `.env` trong `.gitignore`, để trong đó dễ lỡ commit khóa). Không dán khóa vào chat.
 - **Gói Free không dùng được giọng thư viện qua API** (lỗi 402 `paid_plan_required`), kể cả khi giọng đã thêm vào "giọng của bạn". Kiểm tra trước bằng một câu ngắn ("Xin chào.") để khỏi tưởng là lỗi khóa. Cách miễn phí: tạo giọng trên web ElevenLabs với lời trong `public/<slug>/loi-doc.txt`, tải mp3 về `public/<slug>/voice_in.mp3`, dùng engine `file` (whisper tự canh mốc chữ, `gaps` và `pads` vẫn áp dụng).
 - `eleven_multilingual_v2` (mặc định của skill) không có tiếng Việt; giọng Việt dùng `eleven_turbo_v2_5`/`eleven_flash_v2_5` kèm `"language": "vi"`.
+- Giọng đọc cả bài một lần (engine `file`, ElevenLabs web): whisper khớp 402/417 chữ nhưng ~16 chữ bị đặt LÙI giờ (chữ lặp như "hai", "tháng", "rụt") → cắt cảnh sớm cả giây. Đã thêm `fix_order()` trong `voice.py` đặt lại các chữ đó giữa hai chữ đúng. Sau khi đổi mã căn chỉnh phải chạy `voice --force` (bản cũ được lưu đệm theo nội dung + cấu hình).
+- Bản phim > 30 MB không gửi được ra điện thoại/web: làm thêm bản xem thử 720p ~1 Mbps (`ffmpeg -vf scale=1280:720 -b:v 1000k`), ~23 MB cho 172 s.
+- Rà đồng bộ lời–hình nhanh mà không cần xem ảnh: in từng đoạn của `timeline.json` kèm `line` (chữ được đọc trong đoạn) và đọc xem chữ có khớp nội dung cảnh không.
+- Kiểm tra nhanh mốc chữ: in vài chữ dùng làm cue (`rụt@`, `tháng@`, `hai@`) và xem chúng có tăng dần không.
 - Đổi giọng thì mốc từng chữ đổi: phải chạy lại `voice` → `plan` → `sfx` → `master`, rồi rà lại các cảnh cắt theo chữ.
 
 ### Cảnh dùng lại với `from` (bài học từ bóng đèn S34)
