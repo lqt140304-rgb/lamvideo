@@ -17,7 +17,10 @@ thay cho dòng chủ đề. Chỉ có một dòng chủ đề thì Claude tự v
    mixcheck, motiongrid, master). Bước 3 và 4 (renderer, tsc) chạy trong what-if-studio bằng npx.
 3. Giọng đọc: ElevenLabs gói Creator (engine mặc định). Khóa `ELEVENLABS_API_KEY` nằm trong `.env` ở gốc repo; không in,
    không dán khóa vào chat. giọng dùng là giọng tự tạo trên ElevenLabs tên **"trung lê quốc"** (tra voice_id qua API theo tên, ghi vào `voice.id`); báo số credits dùng sau mỗi lần gọi.
-4. Tiếng động: ưu tiên clip có sẵn trong library/sfx (`lib:<tên>`), thiếu thì tạo mới bằng ElevenLabs và lưu vào thư viện.
+4. Tiếng động và nhạc (chủ kênh chốt 05/11/2026): tìm nguồn miễn phí trước, không tự tạo. Thứ tự: library/sfx có sẵn, rồi Freesound
+   (chỉ CC0; CC BY phải ghi nguồn; không dùng CC BY-NC), Pixabay (nhạc, tiếng động). Ghi tên, tác giả, link, giấy phép vào
+   `src/episodes/<slug>/nguon-am-thanh.md`, lưu file ở `library/sfx/<tên>-local.mp3`, gọi bằng `lib:<tên>`. Chỉ tạo bằng
+   ElevenLabs khi không tìm được và đã hỏi tôi. Giọng đọc vẫn dùng ElevenLabs.
    Tập dài hơn 25 giây: nới độ dài theo kịch bản, vẫn giữ nhịp cắt cảnh của skill.
 5. Chữ trên hình bằng tiếng Việt có dấu (studio.config.ts đã đặt lang: 'vi').
 6. Nhân vật và câu chuyện phải gốc: không dùng nhân vật của kênh khác. Mọi con số khoa học phải có nguồn trong
