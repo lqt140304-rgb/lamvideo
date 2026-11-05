@@ -81,12 +81,12 @@ const LivingFront: React.FC<{ id: string; t: number; children?: React.ReactNode 
  * shortcut: a machine without it falls back to Patrick Hand, install the font before rendering elsewhere).
  * White, sentence case. It sinks slowly in from above, holds, dips a touch, then shoots back up out of frame. */
 const LETTER = `'Comic Sans MS', ${FONT.hand}`;
-const TitleDrop: React.FC<{ t: number; lines: string[]; small?: string; y?: number; hold?: number }> = ({ t, lines, small, y = 170, hold = 150 }) => {
-  const dy = t < hold ? kf(t, [[0, -420], [64, 0]], (q) => 1 - Math.pow(1 - q, 2)) : kf(t, [[hold, 0], [hold + 7, 14]]) + kf(t, [[hold + 7, 0], [hold + 24, -640]], (q) => q * q * q);
+const TitleDrop: React.FC<{ t: number; lines: string[]; small?: string; y?: number; hold?: number }> = ({ t, lines, small, y = 450, hold = 150 }) => {
+  const dy = t < hold ? kf(t, [[0, -800], [64, 0]], (q) => 1 - Math.pow(1 - q, 2)) : kf(t, [[hold, 0], [hold + 7, 14]]) + kf(t, [[hold + 7, 0], [hold + 24, -1000]], (q) => q * q * q);
   return (
-    <g transform={`translate(960 ${y + dy})`} textAnchor="middle" fontFamily={LETTER} fill="#FFFDF6" style={{ filter: 'drop-shadow(0 3px 7px rgba(20,10,0,0.75))' }}>
-      {lines.map((l, i) => <text key={i} y={i * 112} fontSize={100} fontWeight={700}>{l}</text>)}
-      {small ? <text y={lines.length * 112 - 34} fontSize={38}>{small}</text> : null}
+    <g transform={`translate(960 ${y + dy})`} textAnchor="middle" fontFamily={LETTER} fill="#FFFDF6" style={{ filter: 'drop-shadow(0 4px 10px rgba(20,10,0,0.85))' }}>
+      {lines.map((l, i) => <text key={i} y={i * 165} fontSize={146} fontWeight={700}>{l}</text>)}
+      {small ? <text y={lines.length * 165 - 50} fontSize={50}>{small}</text> : null}
     </g>
   );
 };
