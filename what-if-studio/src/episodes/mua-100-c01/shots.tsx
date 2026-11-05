@@ -77,16 +77,19 @@ const LivingFront: React.FC<{ id: string; t: number; children?: React.ReactNode 
   );
 };
 
-/** A title on black: white hand lettering, centred; it fades up, holds, and the black lifts at `until`. */
-const Intertitle: React.FC<{ t: number; until: number; lines: string[]; small?: string }> = ({ t, until, lines, small }) => (
-  <g opacity={kf(t, [[until, 1], [until + 12, 0]])}>
-    <rect width={1920} height={1080} fill="#0B0B0C" />
-    <g opacity={kf(t, [[0, 0], [10, 1]])} textAnchor="middle" fontFamily={FONT.hand} fill="#F4F2EC">
-      {lines.map((l, i) => <text key={i} x={960} y={540 - (lines.length - 1) * 42 + i * 84} fontSize={72}>{l}</text>)}
-      {small ? <text x={960} y={540 + lines.length * 42 + 36} fontSize={34} opacity={0.72}>{small}</text> : null}
+/** The film's lettering, from the reference the channel owner chose: Comic Sans (it carries Vietnamese marks on Windows;
+ * shortcut: a machine without it falls back to Patrick Hand, install the font before rendering elsewhere).
+ * White, sentence case. It sinks slowly in from above, holds, dips a touch, then shoots back up out of frame. */
+const LETTER = `'Comic Sans MS', ${FONT.hand}`;
+const TitleDrop: React.FC<{ t: number; lines: string[]; small?: string; y?: number; hold?: number }> = ({ t, lines, small, y = 170, hold = 150 }) => {
+  const dy = t < hold ? kf(t, [[0, -420], [64, 0]], (q) => 1 - Math.pow(1 - q, 2)) : kf(t, [[hold, 0], [hold + 7, 14]]) + kf(t, [[hold + 7, 0], [hold + 24, -640]], (q) => q * q * q);
+  return (
+    <g transform={`translate(960 ${y + dy})`} textAnchor="middle" fontFamily={LETTER} fill="#FFFDF6" style={{ filter: 'drop-shadow(0 3px 7px rgba(20,10,0,0.75))' }}>
+      {lines.map((l, i) => <text key={i} y={i * 112} fontSize={100} fontWeight={700}>{l}</text>)}
+      {small ? <text y={lines.length * 112 - 34} fontSize={38}>{small}</text> : null}
     </g>
-  </g>
-);
+  );
+};
 
 // ---------- S1: extreme wide, the alley in the heat, the title over it ----------
 export const S1: React.FC<ShotProps> = ({ t, len }) => (
@@ -95,8 +98,7 @@ export const S1: React.FC<ShotProps> = ({ t, len }) => (
       <Alley id="s1" t={t} w={0} shop />
       <Glow x={960} y={760} r={640} o={0.18} />
     </g>
-    {/* the film's lettering: plain hand-written white on black, sentence case, nothing else on the card */}
-    <Intertitle t={t} until={108} lines={['Chuyện gì xảy ra nếu mưa liên tục 100 ngày?']} small="Giả định khoa học — nhân vật và lịch sự kiện là hư cấu" />
+    <TitleDrop t={t} lines={['Chuyện gì xảy ra nếu', 'mưa liên tục 100 ngày?']} small="Giả định khoa học — nhân vật và lịch sự kiện là hư cấu" />
   </g>
 );
 

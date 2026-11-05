@@ -46,6 +46,8 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Cue chữ khớp lần xuất hiện ĐẦU TIÊN sau mốc trước, kể cả giữa câu: "Nhà" dính "hai dãy nhà" làm S18 còn 0,6 s, "Con" dính "nhắc con đừng" → dùng `Nhà#2`, `Con#2`. Sau `plan`, in từng đoạn kèm `line` để xem câu có mở đúng chữ không (ảnh tĩnh không bắt được lỗi này).
 - Soi đủ mọi shot: mỗi shot 3 khung (đầu, giữa, cuối). Lần đầu chỉ soi shot có hành động nên bỏ sót lỗi trên.
 
+- Chủ kênh gửi ảnh mẫu chữ: chỉ lấy FONT, không lấy nền đen của ảnh. Hỏi rõ phần nào của mẫu trước khi đổi cả cảnh.
+
 ### Việc làm trước khi bắt đầu
 - Tìm file kinh nghiệm ở MỌI nhánh (`git for-each-ref`), không chỉ nhánh đang đứng. Lần này tôi tưởng chưa có nên viết lại `pause`, dựng tay, tờ soi riêng, trong khi nhánh `tua-lai-10-giay` đã có `pads`, `sheets.py`, `ModelSheet`.
 
