@@ -4,6 +4,10 @@ Mỗi video là một file kịch bản JSON. Chạy một lệnh, máy bạn đ
 
 Phong cách: mascot của kênh (cậu bé tóc đen, áo hoodie xám, chân que) dẫn chuyện, nét vẽ tay rung nhẹ, nền giấy, chữ đậm, phụ đề vàng chạy theo lời đọc, kết bằng "Tóm lại là…".
 
+> **Hai mảng nội dung chạy song song** (cập nhật 05/11/2026)
+> 1. **TÓM GỌN**: giải thích tin, chính sách, tiền bạc, kể qua tình huống đời thường (mascot hoodie).
+> 2. **Series hoạt hình tuổi thơ** (tên tạm "Bốn đứa đầu ngõ"): mỗi tập 60–90 giây, một ký ức, bốn nhân vật cố định, mỗi người một giọng. Xem `docs/SERIES-TUOI-THO.md`.
+
 ## Cài đặt (một lần)
 
 1. Cài [Node.js 20+](https://nodejs.org).

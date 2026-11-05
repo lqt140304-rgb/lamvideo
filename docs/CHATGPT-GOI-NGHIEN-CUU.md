@@ -35,6 +35,21 @@ số | loại cảnh (hook / stat / steps / timeline / chat / list / compare / v
 Cuối: tổng số từ lời đọc, danh sách điều chưa chắc chắn.
 ```
 
+## Prompt S: nhờ ChatGPT viết một TẬP series tuổi thơ (60–90 giây)
+Dán kèm "Series bible" (`docs/SERIES-TUOI-THO.md`: nhân vật, giọng, quy tắc) và danh sách tập đã làm.
+```
+Viết một TẬP series hoạt hình tuổi thơ, tiếng Việt, 60–90 giây (khoảng 170–260 từ lời thoại), kể bằng ĐỐI THOẠI giữa MINH, BOM, NA, TEO (không có người dẫn chuyện, không MC). Chủ đề tập: [một ký ức cụ thể, ví dụ chơi ô ăn quan, cắm trại, mưa ngập đầu ngõ].
+
+QUY TẮC
+- Một ký ức, một cảm xúc. Mở bằng hành động hoặc câu thoại, không mở bằng triết lý. Kết bằng một hình ảnh/câu ngắn, không có bài học dài.
+- Theo đúng tính cách trong Series bible. Không biến ai thành trò cười (không đùa cân nặng, ngoại hình). Không người chết, không bi kịch hóa.
+- Mỗi lượt thoại 1–2 câu ngắn, có mã Sxx_NHANVAT_nn và ghi chú diễn (một cụm). Số viết bằng chữ trong lời đọc.
+- Chỉ dùng chi tiết hư cấu chung chung. Không nêu địa danh, thương hiệu, giá, số liệu hay lịch sử game chưa kiểm chứng. Không lặp câu/chi tiết của các tập trước.
+- Mỗi tập có 1 "móc nối": một chi tiết nhỏ nhắc lại ở tập sau.
+- Nền: nêu 1–3 nền cần thiết (sân nhà, ngõ, sân trường, quán net, phòng trọ...), nếu cần ảnh thật thì liệt kê nguồn có thể dùng và tình trạng quyền.
+MẪU TRẢ VỀ: các cảnh S01.., mỗi cảnh: nền, ai đứng đâu, danh sách lượt thoại, gợi ý chuyển cảnh. Cuối: tổng số từ, điều chưa chắc chắn.
+```
+
 ## Prompt A: nhờ ChatGPT nghiên cứu (dán, thay phần trong [ ])
 
 ```
