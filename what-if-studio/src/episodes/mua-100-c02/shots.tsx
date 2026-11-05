@@ -68,7 +68,7 @@ const Shoes: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) 
 );
 
 /** A wooden seat seen side-on. top: seat height, floor: where the legs land, back: -1/1 the side of the chair back, 0 a stool. */
-const Seat: React.FC<{ x: number; top: number; floor: number; w: number; back?: number }> = ({ x, top, floor, w, back = 0 }) => {
+export const Seat: React.FC<{ x: number; top: number; floor: number; w: number; back?: number }> = ({ x, top, floor, w, back = 0 }) => {
   const u = w / 120;
   return (
     <g>

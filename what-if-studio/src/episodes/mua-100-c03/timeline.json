@@ -1,0 +1,626 @@
+{
+ "slug": "mua-100-c03",
+ "title": "Ngày 7 Nước chưa kịp tới",
+ "fps": 30,
+ "total": 3456,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 92,
+   "t0": 0,
+   "t1": 92,
+   "line": "Đến ngày thứ bảy, lối xuống bến đã khuất dưới nước."
+  },
+  {
+   "shot": "S2",
+   "a": 92,
+   "b": 144,
+   "t0": 0,
+   "t1": 52,
+   "line": "Đường tới trường bị đóng."
+  },
+  {
+   "shot": "S3",
+   "a": 144,
+   "b": 267,
+   "t0": 0,
+   "t1": 123,
+   "line": "Ở cột điện đối diện nhà, mực nước trong hẻm đã gần ba mươi phân."
+  },
+  {
+   "shot": "S4",
+   "a": 267,
+   "b": 393,
+   "t0": 0,
+   "t1": 126,
+   "line": "Nhà bà Sáu thấp hơn nên nước tràn vào, ngập chân tủ hàng."
+  },
+  {
+   "shot": "S5",
+   "a": 393,
+   "b": 456,
+   "t0": 0,
+   "t1": 63,
+   "line": "Hiên nhà An cao hơn mặt hẻm;"
+  },
+  {
+   "shot": "S6",
+   "a": 456,
+   "b": 504,
+   "t0": 0,
+   "t1": 48,
+   "line": "nước vẫn ở dưới mép hiên,"
+  },
+  {
+   "shot": "S7",
+   "a": 504,
+   "b": 555,
+   "t0": 0,
+   "t1": 51,
+   "line": "nền phòng khách còn khô."
+  },
+  {
+   "shot": "S8",
+   "a": 555,
+   "b": 646,
+   "t0": 0,
+   "t1": 91,
+   "line": "Từ cửa sổ gác nhỏ, Linh nhìn về phía bến."
+  },
+  {
+   "shot": "S9",
+   "a": 646,
+   "b": 789,
+   "t0": 0,
+   "t1": 143,
+   "line": "Mặt nước giờ đã liền với khoảng sân nơi cô thường chơi cùng Nam, cháu bà Sáu.“"
+  },
+  {
+   "shot": "S10",
+   "a": 789,
+   "b": 890,
+   "t0": 0,
+   "t1": 101,
+   "line": "Bố ơi, ở đây mưa nhỏ lại rồi, sao nước vẫn lên?"
+  },
+  {
+   "shot": "S11",
+   "a": 890,
+   "b": 948,
+   "t0": 0,
+   "t1": 58,
+   "line": "Nó có lên tới chỗ mình ngồi không?”"
+  },
+  {
+   "shot": "S12",
+   "a": 948,
+   "b": 1078,
+   "t0": 0,
+   "t1": 130,
+   "line": "An ngồi xuống cạnh con, trải tấm bản đồ công việc lên bàn thấp trên gác."
+  },
+  {
+   "shot": "S13",
+   "a": 1078,
+   "b": 1169,
+   "t0": 0,
+   "t1": 91,
+   "line": "Anh chỉ theo đường sông từ phía núi về thị trấn.“"
+  },
+  {
+   "shot": "S14",
+   "a": 1169,
+   "b": 1274,
+   "t0": 0,
+   "t1": 105,
+   "line": "Tại vì trên núi còn mưa, nước ở đó vẫn chảy xuống đây."
+  },
+  {
+   "shot": "S15",
+   "a": 1274,
+   "b": 1377,
+   "t0": 0,
+   "t1": 103,
+   "line": "Chỗ mình nhẹ mưa rồi, nhưng sông chưa rút ngay được.”"
+  },
+  {
+   "shot": "S16",
+   "a": 1377,
+   "b": 1425,
+   "t0": 0,
+   "t1": 48,
+   "line": "Linh níu tay áo bố.“"
+  },
+  {
+   "shot": "S17",
+   "a": 1425,
+   "b": 1496,
+   "t0": 0,
+   "t1": 71,
+   "line": "Nếu nó lên nữa thì mình làm sao?”"
+  },
+  {
+   "shot": "S18",
+   "a": 1496,
+   "b": 1601,
+   "t0": 0,
+   "t1": 105,
+   "line": "An quay hẳn lại nhìn con, không chỉ vào bản đồ nữa.“"
+  },
+  {
+   "shot": "S19",
+   "a": 1601,
+   "b": 1743,
+   "t0": 0,
+   "t1": 142,
+   "line": "Mình chuẩn bị đồ từ bây giờ. Nếu có thông báo đi, cả nhà sẽ tới chỗ trú."
+  },
+  {
+   "shot": "S20",
+   "a": 1743,
+   "b": 1902,
+   "t0": 0,
+   "t1": 159,
+   "line": "Con không cần tự xuống xem nước; muốn biết gì thì gọi bố hoặc mẹ nhé.”“ Con sợ lúc"
+  },
+  {
+   "shot": "S21",
+   "a": 1902,
+   "b": 1965,
+   "t0": 0,
+   "t1": 63,
+   "line": "con ngủ thì bố mẹ đi mất.”"
+  },
+  {
+   "shot": "S22",
+   "a": 1965,
+   "b": 2032,
+   "t0": 0,
+   "t1": 67,
+   "line": "An ngồi sát lại.“ Không đâu."
+  },
+  {
+   "shot": "S23",
+   "a": 2032,
+   "b": 2202,
+   "t0": 0,
+   "t1": 170,
+   "line": "Bố mẹ sẽ gọi con dậy, rồi đưa con đi cùng. Nếu bố phải sang trạm làm việc, mẹ ở với con."
+  },
+  {
+   "shot": "S24",
+   "a": 2202,
+   "b": 2265,
+   "t0": 0,
+   "t1": 63,
+   "line": "Bố cũng sẽ nói rõ bố đi đâu.”"
+  },
+  {
+   "shot": "S25",
+   "a": 2265,
+   "b": 2407,
+   "t0": 0,
+   "t1": 142,
+   "line": "Linh buông tay áo anh, nhưng vẫn ngồi sát bên."
+  },
+  {
+   "shot": "S26",
+   "a": 2407,
+   "b": 2488,
+   "t0": 0,
+   "t1": 81,
+   "line": "Anh và Hạnh ngắt điện phần nhà có nguy cơ ngập,"
+  },
+  {
+   "shot": "S27",
+   "a": 2488,
+   "b": 2596,
+   "t0": 0,
+   "t1": 108,
+   "line": "rồi chuyển giấy tờ, chăn đệm và đồ điện rời lên gác."
+  },
+  {
+   "shot": "S28",
+   "a": 2596,
+   "b": 2666,
+   "t0": 0,
+   "t1": 70,
+   "line": "Tủ, bàn ghế nặng đành để lại."
+  },
+  {
+   "shot": "S29",
+   "a": 2666,
+   "b": 2716,
+   "t0": 0,
+   "t1": 50,
+   "line": "Hạnh gọi sang quầy đối diện:“"
+  },
+  {
+   "shot": "S30",
+   "a": 2716,
+   "b": 2860,
+   "t0": 0,
+   "t1": 144,
+   "line": "Bà Sáu ơi, thuốc của bà để đâu? Nếu cần, con cất lên gác giúp bà.” Bà Sáu"
+  },
+  {
+   "shot": "S31",
+   "a": 2860,
+   "b": 2911,
+   "t0": 0,
+   "t1": 51,
+   "line": "đứng ở ngưỡng cửa đáp lại:“"
+  },
+  {
+   "shot": "S32",
+   "a": 2911,
+   "b": 3038,
+   "t0": 0,
+   "t1": 127,
+   "line": "Trong túi trên nóc tủ đó con. Nhưng đừng lội qua, nước đang chảy mạnh."
+  },
+  {
+   "shot": "S33",
+   "a": 3038,
+   "b": 3102,
+   "t0": 0,
+   "t1": 64,
+   "line": "Để bà nhờ người có thuyền mang sang.”“"
+  },
+  {
+   "shot": "S34",
+   "a": 3102,
+   "b": 3228,
+   "t0": 0,
+   "t1": 126,
+   "line": "Dạ, vậy bà giữ túi bên mình nhé. Có xe đi, nhà con gọi bà.”"
+  },
+  {
+   "shot": "S35",
+   "a": 3228,
+   "b": 3312,
+   "t0": 0,
+   "t1": 84,
+   "line": "Ngày ấy, chưa ai biết khi nào mưa mới dứt."
+  },
+  {
+   "shot": "S36",
+   "a": 3312,
+   "b": 3456,
+   "t0": 0,
+   "t1": 144,
+   "line": "Họ chỉ cố làm xong những việc cần thiết trước đợt nước tiếp theo."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "low wide",
+   "key": 60,
+   "len": 92,
+   "first": 0,
+   "line": "Đến ngày thứ bảy, lối xuống bến đã khuất dưới nước.",
+   "note": "Bậc xuống bến chìm dưới nước sông"
+  },
+  {
+   "id": "S2",
+   "size": "wide",
+   "key": 30,
+   "len": 52,
+   "first": 92,
+   "line": "Đường tới trường bị đóng.",
+   "note": "Rào chắn, biển cấm, đường dẫn xuống nước"
+  },
+  {
+   "id": "S3",
+   "size": "close tilt",
+   "key": 60,
+   "len": 123,
+   "first": 144,
+   "line": "Ở cột điện đối diện nhà, mực nước trong hẻm đã gần ba mươi phân.",
+   "note": "Cột điện có thước sơn, nước ở mức ba mươi"
+  },
+  {
+   "id": "S4",
+   "size": "medium",
+   "key": 60,
+   "len": 126,
+   "first": 267,
+   "line": "Nhà bà Sáu thấp hơn nên nước tràn vào, ngập chân tủ hàng.",
+   "note": "Nhà bà Sáu, nước quanh chân tủ hàng"
+  },
+  {
+   "id": "S5",
+   "size": "low wide",
+   "key": 30,
+   "len": 63,
+   "first": 393,
+   "line": "Hiên nhà An cao hơn mặt hẻm;",
+   "note": "Hiên nhà An cao hơn mặt nước"
+  },
+  {
+   "id": "S6",
+   "size": "close",
+   "key": 40,
+   "len": 48,
+   "first": 456,
+   "line": "nước vẫn ở dưới mép hiên,",
+   "note": "Nước liếm dưới mép hiên"
+  },
+  {
+   "id": "S7",
+   "size": "macro floor",
+   "key": 40,
+   "len": 51,
+   "first": 504,
+   "line": "nền phòng khách còn khô.",
+   "note": "Nền phòng khách còn khô"
+  },
+  {
+   "id": "S8",
+   "size": "over shoulder",
+   "key": 40,
+   "len": 91,
+   "first": 555,
+   "line": "Từ cửa sổ gác nhỏ, Linh nhìn về phía bến.",
+   "note": "Qua vai Linh nhìn ra cửa sổ gác"
+  },
+  {
+   "id": "S9",
+   "size": "POV window",
+   "key": 60,
+   "len": 143,
+   "first": 646,
+   "line": "Mặt nước giờ đã liền với khoảng sân nơi cô thường chơi cùng Nam, cháu bà Sáu.“",
+   "note": "Cái sân chơi cùng Nam ngập liền nước"
+  },
+  {
+   "id": "S10",
+   "size": "close",
+   "key": 30,
+   "len": 101,
+   "first": 789,
+   "line": "Bố ơi, ở đây mưa nhỏ lại rồi, sao nước vẫn lên?",
+   "note": "Linh quay lại hỏi"
+  },
+  {
+   "id": "S11",
+   "size": "wide",
+   "key": 30,
+   "len": 58,
+   "first": 890,
+   "line": "Nó có lên tới chỗ mình ngồi không?”",
+   "note": "Bố lên gác"
+  },
+  {
+   "id": "S12",
+   "size": "wide",
+   "key": 60,
+   "len": 130,
+   "first": 948,
+   "line": "An ngồi xuống cạnh con, trải tấm bản đồ công việc lên bàn thấp trên gác.",
+   "note": "An ngồi cạnh con, trải bản đồ"
+  },
+  {
+   "id": "S13",
+   "size": "top-down",
+   "key": 50,
+   "len": 91,
+   "first": 1078,
+   "line": "Anh chỉ theo đường sông từ phía núi về thị trấn.“",
+   "note": "Ngón tay chỉ theo đường sông"
+  },
+  {
+   "id": "S14",
+   "size": "over shoulder",
+   "key": 60,
+   "len": 105,
+   "first": 1169,
+   "line": "Tại vì trên núi còn mưa, nước ở đó vẫn chảy xuống đây.",
+   "note": "An giải thích"
+  },
+  {
+   "id": "S15",
+   "size": "macro map",
+   "key": 50,
+   "len": 103,
+   "first": 1274,
+   "line": "Chỗ mình nhẹ mưa rồi, nhưng sông chưa rút ngay được.”",
+   "note": "Nước chảy xuống theo sông trên bản đồ"
+  },
+  {
+   "id": "S16",
+   "size": "extreme close",
+   "key": 30,
+   "len": 48,
+   "first": 1377,
+   "line": "Linh níu tay áo bố.“",
+   "note": "Tay Linh níu tay áo bố"
+  },
+  {
+   "id": "S17",
+   "size": "close",
+   "key": 30,
+   "len": 71,
+   "first": 1425,
+   "line": "Nếu nó lên nữa thì mình làm sao?”",
+   "note": "Mặt Linh lo lắng"
+  },
+  {
+   "id": "S18",
+   "size": "side",
+   "key": 40,
+   "len": 105,
+   "first": 1496,
+   "line": "An quay hẳn lại nhìn con, không chỉ vào bản đồ nữa.“",
+   "note": "An quay hẳn sang con"
+  },
+  {
+   "id": "S19",
+   "size": "close",
+   "key": 60,
+   "len": 142,
+   "first": 1601,
+   "line": "Mình chuẩn bị đồ từ bây giờ. Nếu có thông báo đi, cả nhà sẽ tới chỗ trú.",
+   "note": "An bình tĩnh nói việc sẽ làm"
+  },
+  {
+   "id": "S20",
+   "size": "wide",
+   "key": 60,
+   "len": 159,
+   "first": 1743,
+   "line": "Con không cần tự xuống xem nước; muốn biết gì thì gọi bố hoặc mẹ nhé.”“ Con sợ lúc",
+   "note": "Cả hai, túi đồ cạnh cửa sập"
+  },
+  {
+   "id": "S21",
+   "size": "close",
+   "key": 40,
+   "len": 63,
+   "first": 1902,
+   "line": "con ngủ thì bố mẹ đi mất.”",
+   "note": "Linh nói điều sợ"
+  },
+  {
+   "id": "S22",
+   "size": "wide",
+   "key": 40,
+   "len": 67,
+   "first": 1965,
+   "line": "An ngồi sát lại.“ Không đâu.",
+   "note": "An xích lại sát bên"
+  },
+  {
+   "id": "S23",
+   "size": "over shoulder",
+   "key": 60,
+   "len": 170,
+   "first": 2032,
+   "line": "Bố mẹ sẽ gọi con dậy, rồi đưa con đi cùng. Nếu bố phải sang trạm làm việc, mẹ ở với con.",
+   "note": "An hứa gọi con dậy, đi cùng"
+  },
+  {
+   "id": "S24",
+   "size": "close hand",
+   "key": 40,
+   "len": 63,
+   "first": 2202,
+   "line": "Bố cũng sẽ nói rõ bố đi đâu.”",
+   "note": "Tay bố trên đầu con: bố sẽ nói rõ"
+  },
+  {
+   "id": "S25",
+   "size": "macro hold",
+   "key": 60,
+   "len": 142,
+   "first": 2265,
+   "line": "Linh buông tay áo anh, nhưng vẫn ngồi sát bên.",
+   "note": "Linh buông tay áo, giữ qua nhịp nghỉ"
+  },
+  {
+   "id": "S26",
+   "size": "close",
+   "key": 30,
+   "len": 81,
+   "first": 2407,
+   "line": "Anh và Hạnh ngắt điện phần nhà có nguy cơ ngập,",
+   "note": "Tay An đẩy cầu dao xuống"
+  },
+  {
+   "id": "S27",
+   "size": "wide",
+   "key": 60,
+   "len": 108,
+   "first": 2488,
+   "line": "rồi chuyển giấy tờ, chăn đệm và đồ điện rời lên gác.",
+   "note": "Hai người chuyển chăn đệm lên gác"
+  },
+  {
+   "id": "S28",
+   "size": "wide",
+   "key": 40,
+   "len": 70,
+   "first": 2596,
+   "line": "Tủ, bàn ghế nặng đành để lại.",
+   "note": "Tủ, bàn, ghế nặng ở lại"
+  },
+  {
+   "id": "S29",
+   "size": "medium",
+   "key": 40,
+   "len": 50,
+   "first": 2666,
+   "line": "Hạnh gọi sang quầy đối diện:“",
+   "note": "Hạnh gọi sang quầy đối diện"
+  },
+  {
+   "id": "S30",
+   "size": "over shoulder",
+   "key": 60,
+   "len": 144,
+   "first": 2716,
+   "line": "Bà Sáu ơi, thuốc của bà để đâu? Nếu cần, con cất lên gác giúp bà.” Bà Sáu",
+   "note": "Qua vai Hạnh nhìn sang nhà bà Sáu"
+  },
+  {
+   "id": "S31",
+   "size": "low medium",
+   "key": 40,
+   "len": 51,
+   "first": 2860,
+   "line": "đứng ở ngưỡng cửa đáp lại:“",
+   "note": "Bà Sáu ở ngưỡng cửa, nước quanh chân"
+  },
+  {
+   "id": "S32",
+   "size": "close",
+   "key": 60,
+   "len": 127,
+   "first": 2911,
+   "line": "Trong túi trên nóc tủ đó con. Nhưng đừng lội qua, nước đang chảy mạnh.",
+   "note": "Bà Sáu dặn: đừng lội qua"
+  },
+  {
+   "id": "S33",
+   "size": "wide",
+   "key": 40,
+   "len": 64,
+   "first": 3038,
+   "line": "Để bà nhờ người có thuyền mang sang.”“",
+   "note": "Có thuyền chống vào hẻm"
+  },
+  {
+   "id": "S34",
+   "size": "close",
+   "key": 60,
+   "len": 126,
+   "first": 3102,
+   "line": "Dạ, vậy bà giữ túi bên mình nhé. Có xe đi, nhà con gọi bà.”",
+   "note": "Hạnh đáp lời bà"
+  },
+  {
+   "id": "S35",
+   "size": "high wide",
+   "key": 60,
+   "len": 84,
+   "first": 3228,
+   "line": "Ngày ấy, chưa ai biết khi nào mưa mới dứt.",
+   "note": "Hẻm ngập nước dưới mưa"
+  },
+  {
+   "id": "S36",
+   "size": "wide hold",
+   "key": 60,
+   "len": 144,
+   "first": 3312,
+   "line": "Họ chỉ cố làm xong những việc cần thiết trước đợt nước tiếp theo.",
+   "note": "Túi đồ xếp lên gác, giữ tới hết"
+  }
+ ],
+ "fx": [],
+ "audio": {
+  "voice": "mua-100-c03/voice.wav"
+ }
+}

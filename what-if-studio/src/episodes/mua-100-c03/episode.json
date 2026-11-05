@@ -1,0 +1,491 @@
+{
+  "id": "Mua100C03",
+  "slug": "mua-100-c03",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 3: Ngày 7, nước chưa kịp tới",
+  "title": [
+    "Ngày 7",
+    "Nước chưa kịp tới"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "bên|Anh": 2.1
+  },
+  "tail": 1.6,
+  "science": [
+    {
+      "claim": "Giả định hư cấu. Mốc nước ngày 7: khoảng 0,30 m ở mặt hẻm; nhà bà Sáu (nền +0,20 m) đã vào nước; hiên An (+0,45 m) và nền phòng khách (+0,60 m) còn cao hơn nước."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "Đến ngày thứ bảy, lối xuống bến đã khuất dưới nước. Đường tới trường bị đóng. Ở cột điện đối diện nhà, mực nước trong hẻm đã gần ba mươi phân. Nhà bà Sáu thấp hơn nên nước tràn vào, ngập chân tủ hàng. Hiên nhà An cao hơn mặt hẻm; nước vẫn ở dưới mép hiên, nền phòng khách còn khô."
+    },
+    {
+      "beat": "p02",
+      "text": "Từ cửa sổ gác nhỏ, Linh nhìn về phía bến. Mặt nước giờ đã liền với khoảng sân nơi cô thường chơi cùng Nam, cháu bà Sáu."
+    },
+    {
+      "beat": "p03",
+      "text": "[curious] “Bố ơi, ở đây mưa nhỏ lại rồi, sao nước vẫn lên? Nó có lên tới chỗ mình ngồi không?”"
+    },
+    {
+      "beat": "p04",
+      "text": "An ngồi xuống cạnh con, trải tấm bản đồ công việc lên bàn thấp trên gác. Anh chỉ theo đường sông từ phía núi về thị trấn."
+    },
+    {
+      "beat": "p05",
+      "text": "[reassuring] “Tại vì trên núi còn mưa, nước ở đó vẫn chảy xuống đây. Chỗ mình nhẹ mưa rồi, nhưng sông chưa rút ngay được.”"
+    },
+    {
+      "beat": "p06",
+      "text": "Linh níu tay áo bố. [worried] “Nếu nó lên nữa thì mình làm sao?”"
+    },
+    {
+      "beat": "p07",
+      "text": "An quay hẳn lại nhìn con, không chỉ vào bản đồ nữa. [calm] “Mình chuẩn bị đồ từ bây giờ. Nếu có thông báo đi, cả nhà sẽ tới chỗ trú. Con không cần tự xuống xem nước; muốn biết gì thì gọi bố hoặc mẹ nhé.”"
+    },
+    {
+      "beat": "p08",
+      "text": "[softly] “Con sợ lúc con ngủ thì bố mẹ đi mất.”"
+    },
+    {
+      "beat": "p09",
+      "text": "An ngồi sát lại. [reassuring] “Không đâu. Bố mẹ sẽ gọi con dậy, rồi đưa con đi cùng. Nếu bố phải sang trạm làm việc, mẹ ở với con. Bố cũng sẽ nói rõ bố đi đâu.”"
+    },
+    {
+      "beat": "p10",
+      "text": "Linh buông tay áo anh, nhưng vẫn ngồi sát bên."
+    },
+    {
+      "beat": "p11",
+      "text": "Anh và Hạnh ngắt điện phần nhà có nguy cơ ngập, rồi chuyển giấy tờ, chăn đệm và đồ điện rời lên gác. Tủ, bàn ghế nặng đành để lại."
+    },
+    {
+      "beat": "p12",
+      "text": "Hạnh gọi sang quầy đối diện: [concerned] “Bà Sáu ơi, thuốc của bà để đâu? Nếu cần, con cất lên gác giúp bà.”"
+    },
+    {
+      "beat": "p13",
+      "text": "Bà Sáu đứng ở ngưỡng cửa đáp lại: “Trong túi trên nóc tủ đó con. Nhưng đừng lội qua, nước đang chảy mạnh. Để bà nhờ người có thuyền mang sang.”"
+    },
+    {
+      "beat": "p14",
+      "text": "[thoughtful] “Dạ, vậy bà giữ túi bên mình nhé. Có xe đi, nhà con gọi bà.”"
+    },
+    {
+      "beat": "p15",
+      "text": "Ngày ấy, chưa ai biết khi nào mưa mới dứt. Họ chỉ cố làm xong những việc cần thiết trước đợt nước tiếp theo."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "low wide",
+      "set": "ben",
+      "key": 60,
+      "note": "Bậc xuống bến chìm dưới nước sông"
+    },
+    {
+      "id": "S2",
+      "size": "wide",
+      "set": "road",
+      "key": 30,
+      "note": "Rào chắn, biển cấm, đường dẫn xuống nước"
+    },
+    {
+      "id": "S3",
+      "size": "close tilt",
+      "set": "pole",
+      "key": 60,
+      "note": "Cột điện có thước sơn, nước ở mức ba mươi"
+    },
+    {
+      "id": "S4",
+      "size": "medium",
+      "set": "shop",
+      "key": 60,
+      "note": "Nhà bà Sáu, nước quanh chân tủ hàng"
+    },
+    {
+      "id": "S5",
+      "size": "low wide",
+      "set": "house",
+      "key": 30,
+      "note": "Hiên nhà An cao hơn mặt nước"
+    },
+    {
+      "id": "S6",
+      "size": "close",
+      "set": "veranda",
+      "key": 40,
+      "note": "Nước liếm dưới mép hiên"
+    },
+    {
+      "id": "S7",
+      "size": "macro floor",
+      "set": "living",
+      "key": 40,
+      "note": "Nền phòng khách còn khô"
+    },
+    {
+      "id": "S8",
+      "size": "over shoulder",
+      "set": "attic",
+      "key": 40,
+      "note": "Qua vai Linh nhìn ra cửa sổ gác"
+    },
+    {
+      "id": "S9",
+      "size": "POV window",
+      "set": "yard",
+      "key": 60,
+      "note": "Cái sân chơi cùng Nam ngập liền nước"
+    },
+    {
+      "id": "S10",
+      "size": "close",
+      "set": "attic",
+      "key": 30,
+      "note": "Linh quay lại hỏi"
+    },
+    {
+      "id": "S11",
+      "size": "wide",
+      "set": "attic",
+      "key": 30,
+      "note": "Bố lên gác"
+    },
+    {
+      "id": "S12",
+      "size": "wide",
+      "set": "attic",
+      "key": 60,
+      "note": "An ngồi cạnh con, trải bản đồ"
+    },
+    {
+      "id": "S13",
+      "size": "top-down",
+      "set": "map",
+      "key": 50,
+      "note": "Ngón tay chỉ theo đường sông"
+    },
+    {
+      "id": "S14",
+      "size": "over shoulder",
+      "set": "attic",
+      "key": 60,
+      "note": "An giải thích"
+    },
+    {
+      "id": "S15",
+      "size": "macro map",
+      "set": "map",
+      "key": 50,
+      "note": "Nước chảy xuống theo sông trên bản đồ"
+    },
+    {
+      "id": "S16",
+      "size": "extreme close",
+      "set": "sleeve",
+      "key": 30,
+      "note": "Tay Linh níu tay áo bố"
+    },
+    {
+      "id": "S17",
+      "size": "close",
+      "set": "attic",
+      "key": 30,
+      "note": "Mặt Linh lo lắng"
+    },
+    {
+      "id": "S18",
+      "size": "side",
+      "set": "attic",
+      "key": 40,
+      "note": "An quay hẳn sang con"
+    },
+    {
+      "id": "S19",
+      "size": "close",
+      "set": "attic",
+      "key": 60,
+      "note": "An bình tĩnh nói việc sẽ làm"
+    },
+    {
+      "id": "S20",
+      "size": "wide",
+      "set": "attic",
+      "key": 60,
+      "note": "Cả hai, túi đồ cạnh cửa sập"
+    },
+    {
+      "id": "S21",
+      "size": "close",
+      "set": "attic",
+      "key": 40,
+      "note": "Linh nói điều sợ"
+    },
+    {
+      "id": "S22",
+      "size": "wide",
+      "set": "attic",
+      "key": 40,
+      "note": "An xích lại sát bên"
+    },
+    {
+      "id": "S23",
+      "size": "over shoulder",
+      "set": "attic",
+      "key": 60,
+      "note": "An hứa gọi con dậy, đi cùng"
+    },
+    {
+      "id": "S24",
+      "size": "close hand",
+      "set": "attic",
+      "key": 40,
+      "note": "Tay bố trên đầu con: bố sẽ nói rõ"
+    },
+    {
+      "id": "S25",
+      "size": "macro hold",
+      "set": "sleeve",
+      "key": 60,
+      "note": "Linh buông tay áo, giữ qua nhịp nghỉ"
+    },
+    {
+      "id": "S26",
+      "size": "close",
+      "set": "fuse",
+      "key": 30,
+      "note": "Tay An đẩy cầu dao xuống"
+    },
+    {
+      "id": "S27",
+      "size": "wide",
+      "set": "living",
+      "key": 60,
+      "note": "Hai người chuyển chăn đệm lên gác"
+    },
+    {
+      "id": "S28",
+      "size": "wide",
+      "set": "living",
+      "key": 40,
+      "note": "Tủ, bàn, ghế nặng ở lại"
+    },
+    {
+      "id": "S29",
+      "size": "medium",
+      "set": "house",
+      "key": 40,
+      "note": "Hạnh gọi sang quầy đối diện"
+    },
+    {
+      "id": "S30",
+      "size": "over shoulder",
+      "set": "shop",
+      "key": 60,
+      "note": "Qua vai Hạnh nhìn sang nhà bà Sáu"
+    },
+    {
+      "id": "S31",
+      "size": "low medium",
+      "set": "shop",
+      "key": 40,
+      "note": "Bà Sáu ở ngưỡng cửa, nước quanh chân"
+    },
+    {
+      "id": "S32",
+      "size": "close",
+      "set": "shop",
+      "key": 60,
+      "note": "Bà Sáu dặn: đừng lội qua"
+    },
+    {
+      "id": "S33",
+      "size": "wide",
+      "set": "alley",
+      "key": 40,
+      "note": "Có thuyền chống vào hẻm"
+    },
+    {
+      "id": "S34",
+      "size": "close",
+      "set": "house",
+      "key": 60,
+      "note": "Hạnh đáp lời bà"
+    },
+    {
+      "id": "S35",
+      "size": "high wide",
+      "set": "alley",
+      "key": 60,
+      "note": "Hẻm ngập nước dưới mưa"
+    },
+    {
+      "id": "S36",
+      "size": "wide hold",
+      "set": "attic",
+      "key": 60,
+      "note": "Túi đồ xếp lên gác, giữ tới hết"
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "Đến"
+    },
+    {
+      "shot": "S2",
+      "at": "Đường"
+    },
+    {
+      "shot": "S3",
+      "at": "Ở"
+    },
+    {
+      "shot": "S4",
+      "at": "Nhà#2"
+    },
+    {
+      "shot": "S5",
+      "at": "Hiên"
+    },
+    {
+      "shot": "S6",
+      "at": "nước"
+    },
+    {
+      "shot": "S7",
+      "at": "nền"
+    },
+    {
+      "shot": "S8",
+      "at": "Từ"
+    },
+    {
+      "shot": "S9",
+      "at": "Mặt"
+    },
+    {
+      "shot": "S10",
+      "at": "Bố"
+    },
+    {
+      "shot": "S11",
+      "at": "Nó"
+    },
+    {
+      "shot": "S12",
+      "at": "An"
+    },
+    {
+      "shot": "S13",
+      "at": "Anh"
+    },
+    {
+      "shot": "S14",
+      "at": "Tại"
+    },
+    {
+      "shot": "S15",
+      "at": "Chỗ"
+    },
+    {
+      "shot": "S16",
+      "at": "Linh"
+    },
+    {
+      "shot": "S17",
+      "at": "Nếu"
+    },
+    {
+      "shot": "S18",
+      "at": "An"
+    },
+    {
+      "shot": "S19",
+      "at": "Mình"
+    },
+    {
+      "shot": "S20",
+      "at": "Con"
+    },
+    {
+      "shot": "S21",
+      "at": "Con#2"
+    },
+    {
+      "shot": "S22",
+      "at": "An"
+    },
+    {
+      "shot": "S23",
+      "at": "Bố"
+    },
+    {
+      "shot": "S24",
+      "at": "Bố#2"
+    },
+    {
+      "shot": "S25",
+      "at": "Linh"
+    },
+    {
+      "shot": "S26",
+      "at": "Anh#2"
+    },
+    {
+      "shot": "S27",
+      "at": "rồi"
+    },
+    {
+      "shot": "S28",
+      "at": "Tủ"
+    },
+    {
+      "shot": "S29",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S30",
+      "at": "Bà"
+    },
+    {
+      "shot": "S31",
+      "at": "đứng"
+    },
+    {
+      "shot": "S32",
+      "at": "Trong"
+    },
+    {
+      "shot": "S33",
+      "at": "Để"
+    },
+    {
+      "shot": "S34",
+      "at": "Dạ"
+    },
+    {
+      "shot": "S35",
+      "at": "Ngày"
+    },
+    {
+      "shot": "S36",
+      "at": "Họ"
+    }
+  ]
+}
