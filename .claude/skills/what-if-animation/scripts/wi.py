@@ -14,6 +14,10 @@ import numpy as np
 SR = 44100
 sys.stdout.reconfigure(encoding='utf-8')
 STUDIO = pathlib.Path.cwd()
+# shortcut: this machine's C: is nearly full, so renders' temp files (Remotion bundles, frames) go on D:. Elsewhere it does nothing.
+if os.name == 'nt' and os.path.isdir('D:\\'):
+    os.makedirs(r'D:\lamvideo-cache\tmp', exist_ok=True)
+    os.environ['TEMP'] = os.environ['TMP'] = r'D:\lamvideo-cache\tmp'
 if not (STUDIO / 'src' / 'episodes').exists():
     raise SystemExit('Run this from the studio folder (the one with src/episodes and package.json).')
 LIB = STUDIO / 'library' / 'sfx'

@@ -13,6 +13,11 @@ const require = createRequire(path.resolve('package.json'));
 const { bundle } = require('@remotion/bundler');
 const { renderStill, selectComposition } = require('@remotion/renderer');
 
+// shortcut: this machine's C: is nearly full, so Remotion's temp files go on D: (same as wi.py). Elsewhere it does nothing.
+if (process.platform === 'win32' && fs.existsSync('D:\\')) {
+  fs.mkdirSync('D:\\lamvideo-cache\\tmp', { recursive: true });
+  process.env.TEMP = process.env.TMP = 'D:\\lamvideo-cache\\tmp';
+}
 const args = process.argv.slice(2);
 const slug = args[0];
 const scaleAt = args.indexOf('--scale');

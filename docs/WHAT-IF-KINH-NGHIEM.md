@@ -61,6 +61,9 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Freesound cần đăng nhập mới tải được; CC0 dùng tự do nhưng không được nhận là tác giả; bản thô có thể bị YouTube Content ID nhận nhầm, khi đó dùng ngày đăng trên Freesound để khiếu nại.
 - Pixabay không bắt ghi nguồn, cấm phân phối lại file nguyên trạng. Bản tóm tắt không có hiệu lực pháp lý, bản đầy đủ mới có.
 
+### Ổ đĩa
+- Ổ C gần đầy. Remotion ghi bundle (khoảng 120 MB mỗi lần) và file tạm vào %TEMP%, không tự dọn. `wi.py` và `stills.mjs` đã chuyển sang `D:\lamvideo-cache\tmp`. Khi gọi `npx remotion` trực tiếp, đặt `TEMP` và `TMP` trỏ về đó trước. Thư mục này xóa được khi không có render nào chạy.
+
 ### Việc làm trước khi bắt đầu
 - Tìm file kinh nghiệm ở MỌI nhánh (`git for-each-ref`), không chỉ nhánh đang đứng. Lần này tôi tưởng chưa có nên viết lại `pause`, dựng tay, tờ soi riêng, trong khi nhánh `tua-lai-10-giay` đã có `pads`, `sheets.py`, `ModelSheet`.
 
