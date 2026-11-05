@@ -248,7 +248,51 @@ export type StoryScene = SceneBase & {
   lines?: { text: string; at: number }[];
 };
 
+/** Nhân vật trong truyện nhiều giọng. */
+export type Speaker = "MINH" | "BOM" | "NA" | "TEO";
+export type ActorPose = "stand" | "wave" | "point" | "think" | "surprised" | "cheer" | "sad" | "angry" | "walk" | "run" | "sit" | "phone" | "happy";
+
+/** Một lượt thoại: mỗi lượt đọc bằng giọng riêng của nhân vật và xuất thành file riêng theo `id`. */
+export type DialogLine = {
+  id: string;
+  who: Speaker;
+  /** Lời được đọc (số viết bằng chữ). */
+  text: string;
+  /** Phụ đề (số viết bằng số); bỏ trống thì dùng `text`. */
+  sub?: string;
+  /** Tư thế của người nói từ lượt này. */
+  pose?: ActorPose;
+  /** Phản ứng của người khác từ lượt này, ví dụ { BOM: "surprised" }. */
+  react?: Partial<Record<Speaker, ActorPose>>;
+  /** Khoảng lặng (giây) trước lượt này; mặc định 0,3. */
+  gap?: number;
+  /** Lời nhắc lại từ cảnh trước (lóe ấm một nhịp). */
+  flash?: boolean;
+};
+
+/** Cảnh hội thoại nhiều nhân vật trên nền ảnh thật. */
+export type DialogScene = SceneBase & {
+  type: "dialog";
+  /** Mã cảnh, ví dụ S03. */
+  id: string;
+  bg: { file: string; focus?: string; zoom?: number; pan?: number; grade?: "past" | "present" | "warm" | "night" };
+  /** Dòng mặt đất (px từ trên) nơi nhân vật đứng. */
+  floor?: number;
+  /** Chữ nhỏ đầu cảnh, ví dụ "Hồi còn đi học". */
+  label?: string;
+  cast: { who: Speaker; x: number; scale?: number; pose?: ActorPose; flip?: boolean; fromLine?: number; toLine?: number; path?: [number, number][]; tile?: number; tileY?: number }[];
+  props?: { name: string; x: number; y: number; scale?: number; front?: boolean; flip?: boolean; fromLine?: number; toLine?: number }[];
+  lines: DialogLine[];
+  /** Ảnh tư liệu chèn từ lượt `fromLine` đến hết lượt `toLine`. */
+  inserts?: { file: string; fromLine: number; toLine: number; caption?: string; y?: number }[];
+  /** Thẻ cuối, không đọc. */
+  endCard?: { text: string; small?: string };
+  /** Chữ nhỏ cho điện thoại / nhóm chat hiện ở góc, ví dụ tên nhóm. */
+  chip?: string;
+};
+
 export type Scene =
+  | DialogScene
   | StoryScene
   | HookScene
   | ZonesScene
@@ -271,6 +315,8 @@ export type VideoScript = {
   /** Nhãn chủ đề ở đầu khung hình. */
   topic: string;
   voice: { engine: "vieneu"; speaker: string };
+  /** Truyện nhiều giọng: mã nhân vật → tên giọng VieNeu. */
+  voices?: Record<string, string>;
   /** Đường dẫn nhạc nền trong public/, ví dụ "music/nhac-nen.mp3". */
   music?: string | null;
   /** Cài đặt tìm ảnh chung cho cả video, ví dụ { "since": "2024-01-01", "prefer": "newest" } cho video tin tức. */
@@ -282,11 +328,13 @@ export type VideoScript = {
 /** File public/<slug>/voice/voice.json do tools/voice.py ghi ra. */
 export type VoiceManifest = {
   speaker: string;
-  scenes: { file: string; seconds: number; hash: string }[];
+  scenes: { file: string; seconds: number; hash: string; lines?: { id: string; start: number; seconds: number }[] }[];
 };
 
 export type SceneTiming = {
   from: number;
   frames: number;
   audio: string | null;
+  /** Cảnh hội thoại: mốc bắt đầu và độ dài (khung hình, tính từ đầu cảnh) của từng lượt thoại. */
+  lines?: { from: number; frames: number }[];
 };

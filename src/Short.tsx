@@ -12,6 +12,7 @@ import { TimelineScene } from "./scenes/TimelineScene";
 import { VerdictScene } from "./scenes/VerdictScene";
 import { ZonesScene } from "./scenes/ZonesScene";
 import { StoryScene, isDarkMood } from "./scenes/StoryScene";
+import { DialogScene } from "./scenes/DialogScene";
 import {
   ChatScene,
   CompareVariant,
@@ -35,8 +36,10 @@ export type ShortProps = {
   credits?: ImageCredits;
 };
 
-const SceneBody: React.FC<{ scene: Scene; frames: number }> = ({ scene, frames }) => {
+const SceneBody: React.FC<{ scene: Scene; frames: number; slug: string; lines?: { from: number; frames: number }[] }> = ({ scene, frames, slug, lines }) => {
   switch (scene.type) {
+    case "dialog":
+      return <DialogScene scene={scene} frames={frames} slug={slug} lines={lines ?? []} />;
     case "story":
       return <StoryScene scene={scene} frames={frames} />;
     case "hook":
@@ -140,9 +143,13 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
         return (
           <Sequence key={i} from={t.from} durationInFrames={t.frames} name={`${i + 1}. ${scene.type}`}>
             <SceneShell frames={t.frames}>
-              <Camera scene={scene} index={i} frames={t.frames}>
-                <SceneBody scene={scene} frames={t.frames} />
-              </Camera>
+              {scene.type === "dialog" ? (
+                <SceneBody scene={scene} frames={t.frames} slug={script.id} lines={t.lines} />
+              ) : (
+                <Camera scene={scene} index={i} frames={t.frames}>
+                  <SceneBody scene={scene} frames={t.frames} slug={script.id} lines={t.lines} />
+                </Camera>
+              )}
             </SceneShell>
             {brollsOf(scene.broll).map((b, j) => (
               <Broll key={j} index={j} item={b} slug={script.id} frames={t.frames} credits={credits} scene={scene} />
@@ -154,7 +161,7 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
                 </span>
               </div>
             ) : null}
-            <Captions text={scene.sub ?? scene.voice} speechFrames={Math.max(1, t.frames - pad)} />
+            {scene.type === "dialog" ? null : <Captions text={scene.sub ?? scene.voice} speechFrames={Math.max(1, t.frames - pad)} />}
             {t.audio ? <Audio src={staticFile(t.audio)} /> : null}
           </Sequence>
         );

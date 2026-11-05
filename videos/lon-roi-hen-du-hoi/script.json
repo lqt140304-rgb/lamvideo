@@ -1,611 +1,1205 @@
 {
  "id": "lon-roi-hen-du-hoi",
  "title": "Lớn rồi, sao hẹn đủ hội khó thế?",
- "topic": "Hẹn bạn cũ",
+ "topic": "Bốn đứa đầu ngõ",
  "voice": {
   "engine": "vieneu",
   "speaker": "Hải Đăng"
  },
+ "voices": {
+  "MINH": "Hải Đăng",
+  "BOM": "Thanh Bình",
+  "TEO": "Minh Đức",
+  "NA": "Trúc Ly"
+ },
  "music": "audio/music/ky-niem.mp3",
- "musicVolume": 0.5,
+ "musicVolume": 0.32,
  "scenes": [
   {
-   "type": "story",
-   "mood": "night",
-   "phone": {
-    "name": "Hội bạn",
-    "msgs": [
-     {
-      "from": "me",
-      "text": "Cuối tuần gặp không chúng mày?",
-      "at": 0.12
-     },
-     {
-      "from": "them",
-      "text": "…",
-      "at": 0.6
-     }
-    ]
+   "type": "dialog",
+   "id": "S01",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "present",
+    "zoom": 1.0
    },
    "cast": [
     {
-     "x": 0.5,
-     "pose": "think",
-     "scale": 0.8
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.95,
+     "pose": "think"
+    },
+    {
+     "who": "TEO",
+     "x": 210,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 1,
+     "toLine": 1,
+     "pose": "think"
+    },
+    {
+     "who": "BOM",
+     "x": 540,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 2,
+     "toLine": 2,
+     "pose": "stand"
+    },
+    {
+     "who": "NA",
+     "x": 870,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 3,
+     "toLine": 3,
+     "pose": "sad"
     }
    ],
-   "pad": 0.5,
-   "voice": "Bạn có nhớ… ngày xưa, muốn gặp cả hội, mình đã hẹn thế nào không?",
-   "sub": "Bạn có nhớ… ngày xưa, muốn gặp cả hội, mình đã hẹn thế nào không?"
+   "lines": [
+    {
+     "id": "S01_MINH_01",
+     "who": "MINH",
+     "text": "Cuối tuần này về được không chúng mày? Lâu rồi chưa ngồi đủ bốn đứa.",
+     "pose": "happy"
+    },
+    {
+     "id": "S01_TEO_01",
+     "who": "TEO",
+     "text": "Tao xem lịch ca đã. Tối thứ Bảy có khi phải làm."
+    },
+    {
+     "id": "S01_BOM_01",
+     "who": "BOM",
+     "text": "Đợi tao chút… đang ru con ngủ.",
+     "gap": 0.5
+    },
+    {
+     "id": "S01_NA_01",
+     "who": "NA",
+     "text": "Tuần này tao chưa về được. Thứ Hai phải có mặt sớm.",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Cuối tuần này về được không chúng mày? Lâu rồi chưa ngồi đủ bốn đứa. Tao xem lịch ca đã. Tối thứ Bảy có khi phải làm. Đợi tao chút… đang ru con ngủ. Tuần này tao chưa về được. Thứ Hai phải có mặt sớm.",
+   "chip": "Nhóm: Bốn đứa đầu ngõ",
+   "props": [
+    {
+     "name": "chair",
+     "x": 520,
+     "y": 1250,
+     "scale": 0.8,
+     "front": false
+    }
+   ],
+   "pad": 1.6
   },
   {
-   "type": "story",
-   "mood": "warm",
-   "cast": [
-    {
-     "x": 0.2,
-     "pose": "excited",
-     "scale": 0.72
-    },
-    {
-     "x": 0.5,
-     "pose": "jump",
-     "scale": 0.72,
-     "at": 0.15,
-     "hue": -55
-    },
-    {
-     "x": 0.8,
-     "pose": "happy",
-     "scale": 0.72,
-     "at": 0.25,
-     "flip": true,
-     "hue": 60
-    }
-   ],
-   "broll": {
-    "file": "03_nhay_day.jpg",
-    "style": "card",
-    "y": 250,
-    "from": 0.06,
-    "to": 0.97,
-    "caption": "Ảnh minh họa",
-    "credit": "Dân Việt · chưa xin phép"
+   "type": "dialog",
+   "id": "S02",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "past",
+    "zoom": 1.0,
+    "pan": 0.4
    },
-   "source": "Ảnh minh họa · Dân Việt",
-   "voice": "Ngoài cổng có đứa gọi: Ê! Đi chơi! Chẳng cần chọn ngày.",
-   "sub": "Ngoài cổng có đứa gọi: Ê! Đi chơi! Chẳng cần chọn ngày."
-  },
-  {
-   "type": "story",
-   "mood": "warm",
    "cast": [
     {
-     "x": 0.28,
+     "who": "TEO",
+     "x": 190,
+     "scale": 0.85,
+     "pose": "wave"
+    },
+    {
+     "who": "MINH",
+     "x": 450,
+     "scale": 0.85,
      "pose": "run",
-     "scale": 0.72,
-     "toX": 0.4,
-     "hue": -55
+     "fromLine": 1,
+     "path": [
+      [
+       -150,
+       0
+      ]
+     ]
     },
     {
-     "x": 0.72,
-     "pose": "smile",
-     "scale": 0.72,
+     "who": "BOM",
+     "x": 700,
+     "scale": 0.85,
+     "pose": "stand",
      "flip": true
-    }
-   ],
-   "broll": {
-    "file": "04_o_an_quan.jpg",
-    "style": "card",
-    "y": 250,
-    "from": 0.06,
-    "to": 0.97,
-    "caption": "Ảnh minh họa",
-    "credit": "Dân Việt · chưa xin phép"
-   },
-   "source": "Ảnh minh họa · Dân Việt",
-   "voice": "Chẳng cần hỏi lịch. Nghe tiếng gọi ngoài cửa là biết… chúng nó đến rồi.",
-   "sub": "Chẳng cần hỏi lịch. Nghe tiếng gọi ngoài cửa là biết… chúng nó đến rồi."
-  },
-  {
-   "type": "story",
-   "mood": "net",
-   "cast": [
-    {
-     "x": 0.3,
-     "pose": "ok",
-     "scale": 0.72
     },
     {
-     "x": 0.7,
-     "pose": "happy",
-     "scale": 0.72,
-     "flip": true,
-     "hue": -55,
-     "at": 0.2
-    }
-   ],
-   "broll": {
-    "file": "01_tiem_net.jpg",
-    "style": "card",
-    "y": 250,
-    "from": 0.06,
-    "to": 0.97,
-    "caption": "Ảnh minh họa",
-    "credit": "Kênh14 · chưa xin phép"
-   },
-   "source": "Ảnh minh họa · Kênh14",
-   "voice": "Lớn thêm một chút, cả bọn có một chỗ hẹn khác. Quán net.",
-   "sub": "Lớn thêm một chút, cả bọn có một chỗ hẹn khác. Quán net."
-  },
-  {
-   "type": "story",
-   "mood": "net",
-   "cast": [
-    {
-     "x": 0.2,
-     "pose": "excited",
-     "scale": 0.9
-    },
-    {
-     "x": 0.5,
-     "pose": "ok",
-     "scale": 0.9,
-     "at": 0.3,
-     "hue": -55
-    },
-    {
-     "x": 0.8,
-     "pose": "jump",
-     "scale": 0.9,
-     "at": 0.5,
-     "flip": true,
-     "hue": 60
-    }
-   ],
-   "bubbles": [
-    {
-     "who": 0,
-     "text": "Đột Kích không?",
-     "at": 0.12
-    },
-    {
-     "who": 1,
-     "text": "Phòng nào?",
-     "at": 0.4
-    },
-    {
-     "who": 2,
-     "text": "Chừa tao một máy!",
-     "at": 0.66
-    }
-   ],
-   "voice": "Đột Kích không? Phòng nào? Chừa tao một máy! Đứa rủ bắn Đột Kích.",
-   "sub": "Đột Kích không? Phòng nào? Chừa tao một máy! Đứa rủ bắn Đột Kích."
-  },
-  {
-   "type": "story",
-   "mood": "net",
-   "cast": [
-    {
-     "x": 0.22,
-     "pose": "surprised",
-     "scale": 0.72
-    },
-    {
-     "x": 0.5,
-     "pose": "happy",
-     "scale": 0.72,
-     "at": 0.2,
-     "hue": -55
-    },
-    {
-     "x": 0.78,
-     "pose": "excited",
-     "scale": 0.72,
-     "at": 0.4,
-     "flip": true,
-     "hue": 60
-    }
-   ],
-   "broll": {
-    "file": "05_audition.jpg",
-    "style": "card",
-    "y": 250,
-    "from": 0.06,
-    "to": 0.97,
-    "caption": "Ảnh minh họa Audition",
-    "credit": "Kênh14 (bài 2018) · chưa xin phép"
-   },
-   "source": "Ảnh minh họa · Kênh14",
-   "voice": "Đứa ngồi Audition, cả hội đứng sau xem, trượt một nhịp là bị trêu đến hết buổi. Có đứa hết tiền máy vẫn chưa về. Kéo ghế ngồi cạnh, chỉ đạo còn hăng hơn đứa đang chơi.",
-   "sub": "Đứa ngồi Audition, cả hội đứng sau xem, trượt một nhịp là bị trêu đến hết buổi. Có đứa hết tiền máy vẫn chưa về. Kéo ghế ngồi cạnh, chỉ đạo còn hăng hơn đứa đang chơi."
-  },
-  {
-   "type": "story",
-   "mood": "net",
-   "cast": [
-    {
-     "x": 0.4,
-     "pose": "happy",
-     "scale": 0.95
-    },
-    {
-     "x": 0.58,
-     "pose": "smile",
-     "scale": 0.95,
-     "hue": -55,
-     "at": 0.1
-    },
-    {
-     "x": 0.76,
-     "pose": "thumbs",
-     "scale": 0.95,
-     "hue": 60,
-     "at": 0.2,
+     "who": "NA",
+     "x": 900,
+     "scale": 0.85,
+     "pose": "stand",
      "flip": true
     }
    ],
    "lines": [
     {
-     "text": "Quán thì chật.",
-     "at": 0.1
+     "id": "S02_TEO_01",
+     "who": "TEO",
+     "text": "Minh ơi! Ra chưa? Nắng tắt bây giờ!",
+     "flash": true,
+     "pose": "wave"
     },
     {
-     "text": "Ghế chẳng êm.",
-     "at": 0.35
+     "id": "S02_MINH_01",
+     "who": "MINH",
+     "text": "Đây đây! Tao tìm cái dép.",
+     "pose": "run"
     },
     {
-     "text": "Mà ngồi mãi không chán.",
-     "at": 0.62
+     "id": "S02_BOM_01",
+     "who": "BOM",
+     "text": "Dép mày đi hai chiếc khác nhau kìa.",
+     "react": {
+      "MINH": "surprised"
+     },
+     "pose": "point"
+    },
+    {
+     "id": "S02_MINH_02",
+     "who": "MINH",
+     "text": "Đi được là được. Chơi gì?",
+     "pose": "cheer",
+     "react": {
+      "BOM": "stand"
+     },
+     "gap": 0.7
+    },
+    {
+     "id": "S02_NA_01",
+     "who": "NA",
+     "text": "Ô ăn quan. Tao nhặt đủ sỏi rồi.",
+     "pose": "point"
+    },
+    {
+     "id": "S02_TEO_02",
+     "who": "TEO",
+     "text": "Bờm đếm nhé. Lần này đừng tính cả viên tao đang cầm.",
+     "pose": "cheer",
+     "react": {
+      "MINH": "happy"
+     }
+    },
+    {
+     "id": "S02_BOM_02",
+     "who": "BOM",
+     "text": "Tại mày cứ giấu trong tay chứ!",
+     "pose": "angry",
+     "react": {
+      "TEO": "cheer"
+     }
     }
    ],
-   "voice": "Quán thì chật. Ghế chẳng êm. Vậy mà ngồi mãi… không thấy khó chịu.",
-   "sub": "Quán thì chật. Ghế chẳng êm. Vậy mà ngồi mãi… không thấy khó chịu."
-  },
-  {
-   "type": "story",
-   "mood": "dusk",
-   "cast": [
+   "voice": "Minh ơi! Ra chưa? Nắng tắt bây giờ! Đây đây! Tao tìm cái dép. Dép mày đi hai chiếc khác nhau kìa. Đi được là được. Chơi gì? Ô ăn quan. Tao nhặt đủ sỏi rồi. Bờm đếm nhé. Lần này đừng tính cả viên tao đang cầm. Tại mày cứ giấu trong tay chứ!",
+   "label": "Hồi còn đi học",
+   "inserts": [
     {
-     "x": 0.3,
-     "pose": "walk",
-     "scale": 0.9,
-     "toX": 0.45
+     "file": "PLAY02_o_an_quan.jpg",
+     "fromLine": 4,
+     "toLine": 5,
+     "caption": "Ảnh minh họa · Dân Việt",
+     "y": 300
     },
     {
-     "x": 0.62,
-     "pose": "walk",
-     "scale": 0.9,
-     "hue": -55,
-     "toX": 0.74,
+     "file": "PLAY01_nhay_day.jpg",
+     "fromLine": 6,
+     "toLine": 6,
+     "caption": "Ảnh minh họa · Dân Việt",
+     "y": 300
+    }
+   ],
+   "pad": 1.4
+  },
+  {
+   "type": "dialog",
+   "id": "S03",
+   "bg": {
+    "file": "BG02_san_truong.jpg",
+    "grade": "past",
+    "zoom": 1.0,
+    "pan": 0.6
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 250,
+     "scale": 0.85,
+     "pose": "wave"
+    },
+    {
+     "who": "NA",
+     "x": 470,
+     "scale": 0.85,
+     "pose": "stand"
+    },
+    {
+     "who": "MINH",
+     "x": 690,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    },
+    {
+     "who": "BOM",
+     "x": 880,
+     "scale": 0.85,
+     "pose": "sad",
      "flip": true
     }
    ],
-   "bubbles": [
+   "lines": [
     {
-     "who": 0,
-     "text": "Mai lại ra nhé?",
-     "at": 0.6
+     "id": "S03_TEO_01",
+     "who": "TEO",
+     "text": "Còn sớm. Qua net làm vài ván không?",
+     "pose": "wave"
     },
     {
-     "who": 1,
+     "id": "S03_NA_01",
+     "who": "NA",
+     "text": "Một tiếng thôi nhé. Tao còn về phụ mẹ.",
+     "pose": "point",
+     "react": {
+      "TEO": "stand"
+     }
+    },
+    {
+     "id": "S03_MINH_01",
+     "who": "MINH",
+     "text": "Ừ. Ai bảo ván cuối thì đứng dậy trước.",
+     "pose": "think"
+    },
+    {
+     "id": "S03_BOM_01",
+     "who": "BOM",
+     "text": "Tao còn có ít tiền…",
+     "pose": "sad",
+     "gap": 0.5,
+     "react": {
+      "NA": "stand"
+     }
+    },
+    {
+     "id": "S03_TEO_02",
+     "who": "TEO",
+     "text": "Cứ đi. Thiếu tao bù.",
+     "pose": "point",
+     "gap": 0.5,
+     "react": {
+      "BOM": "happy"
+     }
+    },
+    {
+     "id": "S03_TEO_03",
+     "who": "TEO",
+     "text": "Đột Kích nhé? Minh, vào cùng đội!",
+     "pose": "cheer",
+     "gap": 0.5
+    },
+    {
+     "id": "S03_MINH_02",
+     "who": "MINH",
+     "text": "Ừ. Chừa tao một máy!",
+     "pose": "cheer"
+    },
+    {
+     "id": "S03_BOM_02",
+     "who": "BOM",
+     "text": "Khoan, tao chưa vào phòng!",
+     "pose": "surprised"
+    },
+    {
+     "id": "S03_NA_02",
+     "who": "NA",
+     "text": "Tao chơi Audition. Lát đừng đứng sau chê tao trượt nhịp đấy.",
+     "pose": "point"
+    },
+    {
+     "id": "S03_TEO_04",
+     "who": "TEO",
+     "text": "Không chê. Bọn tao chỉ nhắc hơi to thôi.",
+     "pose": "cheer"
+    }
+   ],
+   "voice": "Còn sớm. Qua net làm vài ván không? Một tiếng thôi nhé. Tao còn về phụ mẹ. Ừ. Ai bảo ván cuối thì đứng dậy trước. Tao còn có ít tiền… Cứ đi. Thiếu tao bù. Đột Kích nhé? Minh, vào cùng đội! Ừ. Chừa tao một máy! Khoan, tao chưa vào phòng! Tao chơi Audition. Lát đừng đứng sau chê tao trượt nhịp đấy. Không chê. Bọn tao chỉ nhắc hơi to thôi.",
+   "inserts": [
+    {
+     "file": "NET01_tiem_net.jpg",
+     "fromLine": 5,
+     "toLine": 6,
+     "caption": "Ảnh minh họa · Kênh14",
+     "y": 300
+    },
+    {
+     "file": "AU01_audition.jpg",
+     "fromLine": 8,
+     "toLine": 8,
+     "caption": "Ảnh minh họa · Kênh14",
+     "y": 300
+    }
+   ],
+   "pad": 1.0
+  },
+  {
+   "type": "dialog",
+   "id": "S04A",
+   "bg": {
+    "file": "NET01_tiem_net.jpg",
+    "grade": "night",
+    "zoom": 1.5,
+    "focus": "78% 55%"
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 280,
+     "scale": 0.85,
+     "pose": "think"
+    },
+    {
+     "who": "TEO",
+     "x": 560,
+     "scale": 0.85,
+     "pose": "cheer"
+    },
+    {
+     "who": "BOM",
+     "x": 820,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S04_MINH_01",
+     "who": "MINH",
+     "text": "Tèo, mày bảo ván cuối hai lần rồi đấy.",
+     "pose": "think"
+    },
+    {
+     "id": "S04_TEO_01",
+     "who": "TEO",
+     "text": "Thì ván vừa rồi chưa tính. Bờm còn chưa kịp chơi.",
+     "pose": "stand"
+    },
+    {
+     "id": "S04_BOM_01",
+     "who": "BOM",
+     "text": "Tao chơi rồi. Tao thua thôi.",
+     "pose": "point"
+    }
+   ],
+   "voice": "Tèo, mày bảo ván cuối hai lần rồi đấy. Thì ván vừa rồi chưa tính. Bờm còn chưa kịp chơi. Tao chơi rồi. Tao thua thôi.",
+   "props": [
+    {
+     "name": "crt",
+     "x": 560,
+     "y": 1120,
+     "scale": 0.7
+    },
+    {
+     "name": "noodles",
+     "x": 800,
+     "y": 1260,
+     "scale": 0.6,
+     "front": true
+    }
+   ],
+   "pad": 0.5
+  },
+  {
+   "type": "dialog",
+   "id": "S04B",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "warm",
+    "zoom": 1.0,
+    "pan": -0.4
+   },
+   "cast": [
+    {
+     "who": "NA",
+     "x": 250,
+     "scale": 0.85,
+     "pose": "point"
+    },
+    {
+     "who": "TEO",
+     "x": 500,
+     "scale": 0.85,
+     "pose": "walk"
+    },
+    {
+     "who": "MINH",
+     "x": 760,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    },
+    {
+     "who": "BOM",
+     "x": 930,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S04_NA_01",
+     "who": "NA",
+     "text": "Thôi về. Mai ra tiếp. Mẹ tao gọi rồi.",
+     "pose": "point"
+    },
+    {
+     "id": "S04_TEO_02",
+     "who": "TEO",
+     "text": "Mai chỗ cũ nhé?",
+     "pose": "wave"
+    },
+    {
+     "id": "S04_NA_02",
+     "who": "NA",
      "text": "Ừ.",
-     "at": 0.78
+     "pose": "stand",
+     "gap": 0.2
+    },
+    {
+     "id": "S04_BOM_02",
+     "who": "BOM",
+     "text": "Minh nhớ đổi lại dép.",
+     "pose": "point"
+    },
+    {
+     "id": "S04_MINH_02",
+     "who": "MINH",
+     "text": "Biết rồi!",
+     "pose": "happy"
     }
    ],
-   "voice": "Giờ nhớ lại, có khi mình chẳng nhớ hôm ấy thắng hay thua. Chỉ nhớ thằng bên cạnh cứ đập vào vai. Nhớ đứa nào cũng bảo ván cuối, rồi chẳng đứa nào chịu đứng lên. Lúc về, có đứa ngoái lại hỏi: Mai lại ra nhé? Ừ. Hồi ấy, lời hẹn chỉ ngắn thế thôi.",
-   "sub": "Giờ nhớ lại, có khi mình chẳng nhớ hôm ấy thắng hay thua. Chỉ nhớ thằng bên cạnh cứ đập vào vai. Nhớ đứa nào cũng bảo ván cuối, rồi chẳng đứa nào chịu đứng lên. Lúc về, có đứa ngoái lại hỏi: Mai lại ra nhé? Ừ. Hồi ấy, lời hẹn chỉ ngắn thế thôi."
+   "voice": "Thôi về. Mai ra tiếp. Mẹ tao gọi rồi. Mai chỗ cũ nhé? Ừ. Minh nhớ đổi lại dép. Biết rồi!",
+   "props": [
+    {
+     "name": "backpack",
+     "x": 120,
+     "y": 1250,
+     "scale": 0.5
+    }
+   ],
+   "pad": 2.0
   },
   {
-   "type": "story",
-   "mood": "dusk",
-   "cast": [
-    {
-     "x": 0.5,
-     "pose": "walk",
-     "scale": 0.9,
-     "toX": 0.12
-    },
-    {
-     "x": 0.5,
-     "pose": "walk",
-     "scale": 0.9,
-     "hue": -55,
-     "toX": 0.88,
-     "flip": true
-    },
-    {
-     "x": 0.5,
-     "pose": "stand",
-     "scale": 0.9,
-     "hue": 60
-    }
-   ],
-   "lines": [
-    {
-     "text": "Ra trường.",
-     "at": 0.1
-    },
-    {
-     "text": "Mỗi đứa một hướng.",
-     "at": 0.5
-    }
-   ],
-   "voice": "Rồi ra trường. Đứa đi học xa. Đứa đi làm. Đứa về quê, đứa chuyển sang một thành phố khác.",
-   "sub": "Rồi ra trường. Đứa đi học xa. Đứa đi làm. Đứa về quê, đứa chuyển sang một thành phố khác."
-  },
-  {
-   "type": "story",
-   "mood": "night",
-   "cast": [
-    {
-     "x": 0.5,
-     "pose": "sad",
-     "scale": 0.8
-    }
-   ],
-   "lines": [
-    {
-     "text": "Vẫn lưu số nhau.",
-     "at": 0.08
-    },
-    {
-     "text": "Vẫn biết sinh nhật.",
-     "at": 0.2
-    },
-    {
-     "text": "Nhưng chưa ghé được lần nào.",
-     "at": 0.4
-    }
-   ],
-   "voice": "Vẫn lưu số nhau. Vẫn biết sinh nhật. Nhưng có đứa đổi chỗ ở mấy lần, mình còn chưa ghé được lần nào. Ngày trước, chẳng cần hỏi cũng biết nó đang ở đâu. Bây giờ, đôi khi phải nhìn một tấm ảnh mới biết… à, dạo này nó sống như thế.",
-   "sub": "Vẫn lưu số nhau. Vẫn biết sinh nhật. Nhưng có đứa đổi chỗ ở mấy lần, mình còn chưa ghé được lần nào. Ngày trước, chẳng cần hỏi cũng biết nó đang ở đâu. Bây giờ, đôi khi phải nhìn một tấm ảnh mới biết… à, dạo này nó sống như thế."
-  },
-  {
-   "type": "story",
-   "mood": "net",
-   "cast": [
-    {
-     "x": 0.2,
-     "pose": "stand",
-     "scale": 0.62,
-     "box": true
-    },
-    {
-     "x": 0.5,
-     "pose": "stand",
-     "scale": 0.62,
-     "box": true,
-     "hue": -55,
-     "at": 0.35
-    },
-    {
-     "x": 0.8,
-     "pose": "stand",
-     "scale": 0.62,
-     "box": true,
-     "hue": 60,
-     "at": 0.5
-    }
-   ],
-   "lines": [
-    {
-     "text": "Mỗi đứa một máy.",
-     "at": 0.35
-    }
-   ],
-   "voice": "Ngày xưa thiếu máy, cả bọn ngồi chung. Bây giờ mỗi đứa một máy… lại khó có một tối cùng rảnh.",
-   "sub": "Ngày xưa thiếu máy, cả bọn ngồi chung. Bây giờ mỗi đứa một máy… lại khó có một tối cùng rảnh."
-  },
-  {
-   "type": "story",
-   "mood": "night",
-   "phone": {
-    "name": "Hội bạn",
-    "msgs": [
-     {
-      "from": "me",
-      "text": "Vào làm ván không?",
-      "at": 0.08
-     },
-     {
-      "from": "them",
-      "text": "Tao còn ở công ty.",
-      "at": 0.2
-     },
-     {
-      "from": "them",
-      "text": "Con tao dậy rồi.",
-      "at": 0.36
-     },
-     {
-      "from": "me",
-      "text": "Ừ, lo cho cháu đi.",
-      "at": 0.5
-     }
-    ]
+   "type": "dialog",
+   "id": "S05",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "present",
+    "zoom": 1.0
    },
    "cast": [
     {
-     "x": 0.5,
-     "pose": "tired",
-     "scale": 0.8
-    }
-   ],
-   "voice": "Có hôm đang chơi thì một đứa phải đi. Con tao dậy rồi. Ừ, lo cho cháu đi. Một đứa khác bảo mai làm sớm. Thế là cả bọn chào nhau. Vẫn vui khi nghe lại giọng chúng nó. Chỉ là lần này… không còn ai nài thêm ván nữa.",
-   "sub": "Có hôm đang chơi thì một đứa phải đi. Con tao dậy rồi. Ừ, lo cho cháu đi. Một đứa khác bảo mai làm sớm. Thế là cả bọn chào nhau. Vẫn vui khi nghe lại giọng chúng nó. Chỉ là lần này… không còn ai nài thêm ván nữa."
-  },
-  {
-   "type": "story",
-   "mood": "dusk",
-   "phone": {
-    "name": "Hội bạn",
-    "msgs": [
-     {
-      "from": "them",
-      "text": "Tóc mày kìa",
-      "at": 0.12
-     },
-     {
-      "from": "me",
-      "text": "Ai chụp quả này?",
-      "at": 0.28
-     },
-     {
-      "from": "them",
-      "text": "Hồi đấy gầy thế",
-      "at": 0.42
-     },
-     {
-      "from": "them",
-      "text": "Lâu rồi chưa gặp. Cuối tuần làm bữa không?",
-      "at": 0.68
-     }
-    ]
-   },
-   "cast": [
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.95,
+     "pose": "think"
+    },
     {
-     "x": 0.5,
-     "pose": "happy",
-     "scale": 0.8
-    }
-   ],
-   "voice": "Thỉnh thoảng, một đứa gửi lại ảnh cũ. Cả nhóm bỗng nói nhiều như ngày trước. Rồi có đứa hỏi: Lâu rồi chưa gặp. Cuối tuần làm bữa không?",
-   "sub": "Thỉnh thoảng, một đứa gửi lại ảnh cũ. Cả nhóm bỗng nói nhiều như ngày trước. Rồi có đứa hỏi: Lâu rồi chưa gặp. Cuối tuần làm bữa không?"
-  },
-  {
-   "type": "story",
-   "mood": "night",
-   "phone": {
-    "name": "Hội bạn",
-    "msgs": [
-     {
-      "from": "them",
-      "text": "Tuần này tao trực.",
-      "at": 0.08
-     },
-     {
-      "from": "them",
-      "text": "Tao chưa về được.",
-      "at": 0.2
-     },
-     {
-      "from": "them",
-      "text": "Để tháng sau nhé?",
-      "at": 0.32
-     }
-    ]
-   },
-   "cast": [
+     "who": "BOM",
+     "x": 210,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 1,
+     "toLine": 1
+    },
     {
-     "x": 0.5,
-     "pose": "sad",
-     "scale": 0.8
+     "who": "TEO",
+     "x": 540,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 2,
+     "toLine": 2,
+     "pose": "think"
+    },
+    {
+     "who": "NA",
+     "x": 870,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 3,
+     "toLine": 3
     }
    ],
-   "voice": "Tuần này tao trực. Tao chưa về được. Để tháng sau nhé? Mình lướt tìm tấm ảnh gần nhất có đủ cả hội. Lâu hơn mình tưởng. Hôm ấy cũng chỉ là một buổi bình thường. Lúc về, chắc cũng đã nói: hôm nào gặp tiếp. Chẳng ai biết… cuộc hẹn tiếp theo lại khó đến thế.",
-   "sub": "Tuần này tao trực. Tao chưa về được. Để tháng sau nhé? Mình lướt tìm tấm ảnh gần nhất có đủ cả hội. Lâu hơn mình tưởng. Hôm ấy cũng chỉ là một buổi bình thường. Lúc về, chắc cũng đã nói: hôm nào gặp tiếp. Chẳng ai biết… cuộc hẹn tiếp theo lại khó đến thế."
-  },
-  {
-   "type": "story",
-   "mood": "dawn",
    "lines": [
     {
-     "text": "Thứ Bảy, 7 giờ.",
-     "at": 0.06
+     "id": "S05_MINH_01",
+     "who": "MINH",
+     "text": "Thế Chủ nhật? Sáng hay chiều đều được."
     },
     {
-     "text": "Tao đặt sân cầu rồi.",
-     "at": 0.16
+     "id": "S05_BOM_01",
+     "who": "BOM",
+     "text": "Sáng tao đưa con đi khám định kỳ. Chiều chắc rảnh, để tao hỏi lại.",
+     "gap": 0.5
     },
     {
-     "text": "Ai tới được thì tới.",
-     "at": 0.26
+     "id": "S05_TEO_01",
+     "who": "TEO",
+     "text": "Chiều Chủ nhật tao đổi ca không được. Nếu thứ Bảy thì sau tám giờ.",
+     "gap": 0.5
+    },
+    {
+     "id": "S05_NA_01",
+     "who": "NA",
+     "text": "Tám giờ thì tao phải ra xe rồi. Chuyến cuối về lại thành phố đấy.",
+     "gap": 0.5
+    },
+    {
+     "id": "S05_MINH_02",
+     "who": "MINH",
+     "text": "Ừ… vậy để dịp khác.",
+     "gap": 1.6,
+     "pose": "sad"
     }
    ],
+   "voice": "Thế Chủ nhật? Sáng hay chiều đều được. Sáng tao đưa con đi khám định kỳ. Chiều chắc rảnh, để tao hỏi lại. Chiều Chủ nhật tao đổi ca không được. Nếu thứ Bảy thì sau tám giờ. Tám giờ thì tao phải ra xe rồi. Chuyến cuối về lại thành phố đấy. Ừ… vậy để dịp khác.",
+   "label": "Vài năm sau",
+   "chip": "Cuộc gọi nhóm",
+   "pad": 2.2
+  },
+  {
+   "type": "dialog",
+   "id": "S06",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "night",
+    "zoom": 1.0
+   },
    "cast": [
     {
-     "x": 0.55,
-     "pose": "ok",
-     "scale": 0.9
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.95,
+     "pose": "stand"
     },
     {
-     "x": 0.82,
-     "pose": "smile",
-     "scale": 0.9,
-     "hue": -55,
-     "flip": true
+     "who": "TEO",
+     "x": 210,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 1,
+     "toLine": 1,
+     "pose": "think"
     },
     {
-     "x": 0.1,
+     "who": "BOM",
+     "x": 540,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 2,
+     "toLine": 7,
+     "pose": "happy"
+    },
+    {
+     "who": "NA",
+     "x": 870,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 3,
+     "toLine": 8
+    }
+   ],
+   "lines": [
+    {
+     "id": "S06_MINH_01",
+     "who": "MINH",
+     "text": "Tèo, tối nay làm một ván không? Bờm vừa online."
+    },
+    {
+     "id": "S06_TEO_01",
+     "who": "TEO",
+     "text": "Tao chưa tan. Chúng mày chơi đi.",
+     "gap": 0.5
+    },
+    {
+     "id": "S06_BOM_01",
+     "who": "BOM",
+     "text": "Tao có nửa tiếng. Chờ tao cắm tai nghe."
+    },
+    {
+     "id": "S06_NA_01",
+     "who": "NA",
+     "text": "Ngày xưa tao bảo về là có đứa giấu cặp tao. Giờ hẹn nửa tiếng cũng phải tranh thủ."
+    },
+    {
+     "id": "S06_MINH_02",
+     "who": "MINH",
+     "text": "Thủ phạm đang làm ca, chưa vào được.",
+     "pose": "happy"
+    },
+    {
+     "id": "S06_BOM_02",
+     "who": "BOM",
+     "text": "Ê… chắc tao phải out. Con tao dậy rồi.",
+     "gap": 0.8,
+     "pose": "surprised"
+    },
+    {
+     "id": "S06_MINH_03",
+     "who": "MINH",
+     "text": "Ừ, lo cho cháu đi. Hôm khác chơi.",
+     "gap": 0.2
+    },
+    {
+     "id": "S06_BOM_03",
+     "who": "BOM",
+     "text": "Tao vừa mới vào…",
+     "pose": "sad"
+    },
+    {
+     "id": "S06_NA_02",
+     "who": "NA",
+     "text": "Có nghe được giọng rồi. Đi đi.",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Tèo, tối nay làm một ván không? Bờm vừa online. Tao chưa tan. Chúng mày chơi đi. Tao có nửa tiếng. Chờ tao cắm tai nghe. Ngày xưa tao bảo về là có đứa giấu cặp tao. Giờ hẹn nửa tiếng cũng phải tranh thủ. Thủ phạm đang làm ca, chưa vào được. Ê… chắc tao phải out. Con tao dậy rồi. Ừ, lo cho cháu đi. Hôm khác chơi. Tao vừa mới vào… Có nghe được giọng rồi. Đi đi.",
+   "chip": "Tối nay · tai nghe",
+   "props": [
+    {
+     "name": "headset",
+     "x": 470,
+     "y": 1180,
+     "scale": 0.4,
+     "front": true
+    }
+   ],
+   "pad": 3.0
+  },
+  {
+   "type": "dialog",
+   "id": "S07",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "night",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "NA",
+     "x": 150,
+     "tile": 200,
+     "tileY": 440,
+     "pose": "wave"
+    },
+    {
+     "who": "TEO",
+     "x": 380,
+     "tile": 200,
+     "tileY": 440,
+     "pose": "cheer"
+    },
+    {
+     "who": "BOM",
+     "x": 610,
+     "tile": 200,
+     "tileY": 440,
+     "pose": "think"
+    },
+    {
+     "who": "MINH",
+     "x": 840,
+     "tile": 200,
+     "tileY": 440,
+     "pose": "stand"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S07_NA_01",
+     "who": "NA",
+     "text": "Ê, tao tìm thấy cái này trong máy cũ."
+    },
+    {
+     "id": "S07_TEO_01",
+     "who": "TEO",
+     "text": "Trời ơi. Tóc tao hồi đấy như cái chổi!",
+     "react": {
+      "BOM": "stand"
+     }
+    },
+    {
+     "id": "S07_BOM_01",
+     "who": "BOM",
+     "text": "Ủa, sao ảnh có mỗi ba đứa? Minh đâu?",
+     "pose": "think"
+    },
+    {
+     "id": "S07_MINH_01",
+     "who": "MINH",
+     "text": "Tao đứng chụp. Chụp xong chúng mày kéo đi luôn."
+    },
+    {
+     "id": "S07_NA_02",
+     "who": "NA",
+     "text": "Ờ đúng rồi. Hôm đấy còn bảo lần sau nhờ người chụp đủ bốn."
+    },
+    {
+     "id": "S07_MINH_02",
+     "who": "MINH",
+     "text": "Mà… lần gần nhất đủ cả bốn đứa là hôm nào nhỉ?",
+     "gap": 1.2
+    },
+    {
+     "id": "S07_TEO_02",
+     "who": "TEO",
+     "text": "Hôm chia tay Na đi làm xa?",
+     "gap": 1.5
+    },
+    {
+     "id": "S07_BOM_02",
+     "who": "BOM",
+     "text": "Hôm đấy tao về sớm…",
+     "gap": 0.6
+    },
+    {
+     "id": "S07_NA_03",
+     "who": "NA",
+     "text": "Để tao tìm.",
+     "gap": 0.8
+    },
+    {
+     "id": "S07_NA_04",
+     "who": "NA",
+     "text": "Hồi ấy cứ tưởng mai lại gặp… chụp lệch cũng chẳng chụp lại.",
+     "gap": 2.0
+    },
+    {
+     "id": "S07_MINH_03",
+     "who": "MINH",
+     "text": "Ừ.",
+     "gap": 0.8
+    }
+   ],
+   "voice": "Ê, tao tìm thấy cái này trong máy cũ. Trời ơi. Tóc tao hồi đấy như cái chổi! Ủa, sao ảnh có mỗi ba đứa? Minh đâu? Tao đứng chụp. Chụp xong chúng mày kéo đi luôn. Ờ đúng rồi. Hôm đấy còn bảo lần sau nhờ người chụp đủ bốn. Mà… lần gần nhất đủ cả bốn đứa là hôm nào nhỉ? Hôm chia tay Na đi làm xa? Hôm đấy tao về sớm… Để tao tìm. Hồi ấy cứ tưởng mai lại gặp… chụp lệch cũng chẳng chụp lại. Ừ.",
+   "inserts": [
+    {
+     "file": "anh-ba-nguoi.jpg",
+     "fromLine": 0,
+     "toLine": 5,
+     "caption": "Ảnh cũ trong máy của Na",
+     "y": 700
+    },
+    {
+     "file": "anh-ba-nguoi.jpg",
+     "fromLine": 8,
+     "toLine": 10,
+     "caption": "Chưa có tấm nào đủ cả bốn",
+     "y": 700
+    }
+   ],
+   "chip": "Nhóm: Bốn đứa đầu ngõ",
+   "pad": 2.6
+  },
+  {
+   "type": "dialog",
+   "id": "S08",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.95,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 210,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 0,
+     "pose": "point"
+    },
+    {
+     "who": "BOM",
+     "x": 540,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 2,
+     "toLine": 3,
+     "pose": "happy"
+    },
+    {
+     "who": "NA",
+     "x": 870,
+     "tile": 250,
+     "tileY": 440,
+     "fromLine": 4,
+     "toLine": 5,
+     "pose": "sad"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S08_TEO_01",
+     "who": "TEO",
+     "text": "Thứ Bảy này tao đổi ca được rồi. Bảy giờ tối, sân cầu gần trường cũ. Tao đặt nhé?",
+     "gap": 0.0,
+     "pose": "point"
+    },
+    {
+     "id": "S08_MINH_01",
+     "who": "MINH",
+     "text": "Tao đi.",
+     "pose": "happy"
+    },
+    {
+     "id": "S08_BOM_01",
+     "who": "BOM",
+     "text": "Tao lâu không cầm vợt. Đánh hụt đừng cười.",
+     "gap": 0.4
+    },
+    {
+     "id": "S08_TEO_02",
+     "who": "TEO",
+     "text": "Cười thì vẫn cười. Nhưng cứ đến.",
+     "pose": "cheer"
+    },
+    {
+     "id": "S08_NA_01",
+     "who": "NA",
+     "text": "Chúng mày đi trước nhé. Tao chưa dám hứa. Có gì tao nhắn.",
+     "gap": 0.6
+    },
+    {
+     "id": "S08_MINH_02",
+     "who": "MINH",
+     "text": "Ừ. Về được thì gọi. Đừng chạy vội.",
+     "pose": "happy"
+    }
+   ],
+   "voice": "Thứ Bảy này tao đổi ca được rồi. Bảy giờ tối, sân cầu gần trường cũ. Tao đặt nhé? Tao đi. Tao lâu không cầm vợt. Đánh hụt đừng cười. Cười thì vẫn cười. Nhưng cứ đến. Chúng mày đi trước nhé. Tao chưa dám hứa. Có gì tao nhắn. Ừ. Về được thì gọi. Đừng chạy vội.",
+   "chip": "Ghim: Sân cầu · Thứ Bảy · 19:00 (minh họa)",
+   "pad": 1.8
+  },
+  {
+   "type": "dialog",
+   "id": "S09",
+   "bg": {
+    "file": "BG04_san_cau.jpg",
+    "grade": "warm",
+    "zoom": 1.0,
+    "pan": 0.3
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 300,
+     "scale": 0.85,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 560,
+     "scale": 0.85,
+     "pose": "stand"
+    },
+    {
+     "who": "BOM",
+     "x": 820,
+     "scale": 0.85,
      "pose": "run",
-     "scale": 0.9,
-     "toX": 0.3,
-     "hue": 60,
-     "at": 0.4
+     "path": [
+      [
+       1250,
+       0
+      ]
+     ]
     }
    ],
-   "bubbles": [
+   "lines": [
     {
-     "who": 2,
+     "id": "S09_BOM_01",
+     "who": "BOM",
      "text": "Ê! Chừa tao một chỗ!",
-     "at": 0.62
+     "flash": true,
+     "pose": "run"
+    },
+    {
+     "id": "S09_TEO_01",
+     "who": "TEO",
+     "text": "Có chỗ rồi. Mày cứ vào.",
+     "pose": "cheer",
+     "react": {
+      "BOM": "stand"
+     }
+    },
+    {
+     "id": "S09_MINH_01",
+     "who": "MINH",
+     "text": "Hôm nay đi đúng hai chiếc dép rồi đấy.",
+     "pose": "point"
+    },
+    {
+     "id": "S09_BOM_02",
+     "who": "BOM",
+     "text": "Giày nhé. Tao chuẩn bị hẳn hoi.",
+     "pose": "cheer"
+    },
+    {
+     "id": "S09_BOM_03",
+     "who": "BOM",
+     "text": "Tao đã dặn là đừng cười!",
+     "gap": 2.0,
+     "pose": "angry",
+     "react": {
+      "TEO": "cheer",
+      "MINH": "cheer"
+     }
+    },
+    {
+     "id": "S09_TEO_02",
+     "who": "TEO",
+     "text": "Thêm quả nữa. Quả vừa rồi chưa tính.",
+     "pose": "cheer"
     }
    ],
-   "voice": "Lần này, một đứa chốt luôn. Không đợi chọn được ngày mà cả hội đều rảnh. Hai người ra sân. Người thứ ba chạy vào: Ê! Chừa tao một chỗ! Vẫn cái giọng ấy. Vẫn đến muộn. Vẫn vừa gặp đã bị cả bọn trêu.",
-   "sub": "Lần này, một đứa chốt luôn. Không đợi chọn được ngày mà cả hội đều rảnh. Hai người ra sân. Người thứ ba chạy vào: Ê! Chừa tao một chỗ! Vẫn cái giọng ấy. Vẫn đến muộn. Vẫn vừa gặp đã bị cả bọn trêu."
+   "voice": "Ê! Chừa tao một chỗ! Có chỗ rồi. Mày cứ vào. Hôm nay đi đúng hai chiếc dép rồi đấy. Giày nhé. Tao chuẩn bị hẳn hoi. Tao đã dặn là đừng cười! Thêm quả nữa. Quả vừa rồi chưa tính.",
+   "props": [
+    {
+     "name": "racket",
+     "x": 400,
+     "y": 1250,
+     "scale": 0.55,
+     "front": true
+    },
+    {
+     "name": "shuttle",
+     "x": 880,
+     "y": 1252,
+     "scale": 0.3,
+     "front": true,
+     "fromLine": 4
+    }
+   ],
+   "pad": 1.8
   },
   {
-   "type": "story",
-   "mood": "dawn",
+   "type": "dialog",
+   "id": "S10",
+   "bg": {
+    "file": "BG04_san_cau.jpg",
+    "grade": "warm",
+    "zoom": 1.25,
+    "focus": "30% 60%",
+    "pan": -0.3
+   },
    "cast": [
     {
-     "x": 0.3,
-     "pose": "happy",
-     "scale": 0.9
+     "who": "NA",
+     "x": 540,
+     "tile": 280,
+     "tileY": 440,
+     "toLine": 0,
+     "pose": "phone"
     },
     {
-     "x": 0.5,
-     "pose": "smile",
-     "scale": 0.9,
-     "hue": -55
+     "who": "MINH",
+     "x": 300,
+     "scale": 0.85,
+     "pose": "surprised",
+     "flip": false
     },
     {
-     "x": 0.7,
-     "pose": "excited",
-     "scale": 0.9,
-     "hue": 60,
+     "who": "TEO",
+     "x": 560,
+     "scale": 0.85,
+     "pose": "wave"
+    },
+    {
+     "who": "BOM",
+     "x": 780,
+     "scale": 0.85,
+     "pose": "surprised",
+     "flip": true
+    },
+    {
+     "who": "NA",
+     "x": 900,
+     "scale": 0.85,
+     "pose": "walk",
+     "fromLine": 1,
+     "path": [
+      [
+       1300,
+       0
+      ]
+     ],
      "flip": true
     }
    ],
-   "bubbles": [
+   "lines": [
     {
-     "who": 0,
-     "text": "Thiếu chúng mày. Buổi sau nhé.",
-     "at": 0.15
+     "id": "S10_NA_01",
+     "who": "NA",
+     "text": "Bọn mày đánh sân nào? Tao đến cửa rồi.",
+     "pose": "phone"
     },
     {
-     "who": 2,
-     "text": "Buổi sau tao đi.",
-     "at": 0.6
+     "id": "S10_TEO_01",
+     "who": "TEO",
+     "text": "Na! Bên này!",
+     "gap": 0.5,
+     "pose": "wave",
+     "react": {
+      "MINH": "surprised",
+      "BOM": "surprised"
+     }
+    },
+    {
+     "id": "S10_BOM_01",
+     "who": "BOM",
+     "text": "Mày bảo chưa về được mà?",
+     "pose": "surprised"
+    },
+    {
+     "id": "S10_NA_02",
+     "who": "NA",
+     "text": "Xong việc sớm. Tao đi chuyến chiều. Điện thoại gần hết pin nên chưa nhắn.",
+     "gap": 0.4,
+     "pose": "wave"
+    },
+    {
+     "id": "S10_MINH_01",
+     "who": "MINH",
+     "text": "Thế đủ rồi. Hai đôi nhé.",
+     "gap": 1.0,
+     "pose": "happy",
+     "react": {
+      "BOM": "cheer",
+      "TEO": "cheer"
+     }
+    },
+    {
+     "id": "S10_NA_03",
+     "who": "NA",
+     "text": "Đợi tao thay giày đã. Vừa gặp đã bắt chạy.",
+     "pose": "cheer"
     }
    ],
-   "pad": 0.8,
-   "voice": "Hôm ấy, cả hội vẫn chưa đủ mặt. Nhưng trong nhóm chat… cuối cùng cũng có thêm một tấm ảnh mới.",
-   "sub": "Hôm ấy, cả hội vẫn chưa đủ mặt. Nhưng trong nhóm chat… cuối cùng cũng có thêm một tấm ảnh mới."
+   "voice": "Bọn mày đánh sân nào? Tao đến cửa rồi. Na! Bên này! Mày bảo chưa về được mà? Xong việc sớm. Tao đi chuyến chiều. Điện thoại gần hết pin nên chưa nhắn. Thế đủ rồi. Hai đôi nhé. Đợi tao thay giày đã. Vừa gặp đã bắt chạy.",
+   "pad": 1.6
   },
   {
-   "type": "outro",
-   "kicker": "BUỔI SAU NHÉ",
-   "message": [
-    "Gửi cho hội bạn",
-    "mà bạn vẫn muốn gặp lại"
+   "type": "dialog",
+   "id": "S11",
+   "bg": {
+    "file": "BG04_san_cau.jpg",
+    "grade": "warm",
+    "zoom": 1.3,
+    "focus": "85% 75%"
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 270,
+     "scale": 0.82,
+     "pose": "stand"
+    },
+    {
+     "who": "MINH",
+     "x": 470,
+     "scale": 0.82,
+     "pose": "happy"
+    },
+    {
+     "who": "BOM",
+     "x": 660,
+     "scale": 0.82,
+     "pose": "stand",
+     "flip": true
+    },
+    {
+     "who": "NA",
+     "x": 850,
+     "scale": 0.82,
+     "pose": "stand",
+     "flip": true
+    }
    ],
-   "cta": "Lần gần nhất cả hội đủ mặt là khi nào?",
-   "pad": 1.2,
-   "voice": "Gửi cho hội bạn mà bạn vẫn muốn gặp lại.",
-   "sub": "Gửi cho hội bạn mà bạn vẫn muốn gặp lại."
+   "lines": [
+    {
+     "id": "S11_MINH_01",
+     "who": "MINH",
+     "text": "Nào, sát vào. Lần này tao cũng ở trong ảnh.",
+     "pose": "happy"
+    },
+    {
+     "id": "S11_BOM_01",
+     "who": "BOM",
+     "text": "Thấy hết chưa?",
+     "pose": "think",
+     "gap": 0.5
+    },
+    {
+     "id": "S11_NA_01",
+     "who": "NA",
+     "text": "Thấy rồi. Đủ bốn.",
+     "pose": "happy"
+    },
+    {
+     "id": "S11_TEO_01",
+     "who": "TEO",
+     "text": "Buổi sau chỗ cũ nhé?",
+     "gap": 1.6,
+     "pose": "stand"
+    },
+    {
+     "id": "S11_BOM_02",
+     "who": "BOM",
+     "text": "Ừ. Để tao xem lịch… nhưng tao muốn đi.",
+     "pose": "cheer"
+    },
+    {
+     "id": "S11_NA_02",
+     "who": "NA",
+     "text": "Biết trước thì nhắn tao sớm.",
+     "pose": "happy"
+    },
+    {
+     "id": "S11_MINH_02",
+     "who": "MINH",
+     "text": "Ừ. Tao nhắn.",
+     "pose": "happy"
+    }
+   ],
+   "voice": "Nào, sát vào. Lần này tao cũng ở trong ảnh. Thấy hết chưa? Thấy rồi. Đủ bốn. Buổi sau chỗ cũ nhé? Ừ. Để tao xem lịch… nhưng tao muốn đi. Biết trước thì nhắn tao sớm. Ừ. Tao nhắn.",
+   "inserts": [
+    {
+     "file": "anh-bon-nguoi.jpg",
+     "fromLine": 2,
+     "toLine": 3,
+     "caption": "Đủ bốn",
+     "y": 300
+    }
+   ],
+   "endCard": {
+    "text": "Lần gần nhất hội bạn của bạn ngồi đủ là khi nào?",
+    "small": "Nhắn cho chúng nó một câu nhé."
+   },
+   "pad": 4.0
   }
  ]
 }

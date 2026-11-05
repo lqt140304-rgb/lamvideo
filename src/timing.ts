@@ -17,12 +17,30 @@ export const buildTimings = (
   let from = 0;
   return script.scenes.map((scene, i) => {
     const voiced = manifest?.scenes[i];
-    const seconds = (voiced ? voiced.seconds : estimateSeconds(scene.voice)) + (scene.pad ?? DEFAULT_PAD);
+    let lines: SceneTiming["lines"];
+    let speech = voiced ? voiced.seconds : estimateSeconds(scene.voice);
+    if (scene.type === "dialog") {
+      // lượt thoại: có file giọng thì dùng mốc thật, chưa có thì ước tính nối tiếp nhau
+      const real = voiced?.lines && voiced.lines.length === scene.lines.length ? voiced.lines : null;
+      let t = 0.1;
+      const est = scene.lines.map((l, k) => {
+        t += k === 0 ? 0 : l.gap ?? 0.3;
+        const start = t;
+        const sec = estimateSeconds(l.text);
+        t += sec;
+        return { start, seconds: sec };
+      });
+      const src = real ?? est;
+      lines = src.map((l) => ({ from: Math.round(l.start * FPS), frames: Math.max(6, Math.round(l.seconds * FPS)) }));
+      speech = real ? (voiced as { seconds: number }).seconds : t;
+    }
+    const seconds = speech + (scene.pad ?? DEFAULT_PAD);
     const frames = Math.max(Math.round(seconds * FPS), FPS);
     const timing: SceneTiming = {
       from,
       frames,
       audio: voiced ? `${script.id}/voice/${voiced.file}` : null,
+      ...(lines ? { lines } : {}),
     };
     from += frames;
     return timing;
