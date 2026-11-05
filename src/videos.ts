@@ -11,6 +11,7 @@ import thueTncnMoi from "../videos/thue-tncn-moi/script.json";
 import myThue125 from "../videos/my-thue-12-5/script.json";
 import bhytTraiTuyen from "../videos/bhyt-trai-tuyen/script.json";
 import cauLongVietNam from "../videos/cau-long-viet-nam/script.json";
+import lonRoiHenDuHoi from "../videos/lon-roi-hen-du-hoi/script.json";
 
 // Thêm video mới: tạo videos/<slug>/script.json rồi import và thêm vào danh sách này.
-export const videos: VideoScript[] = [xeDienHaNoi as VideoScript, xeDienChungCu as VideoScript, xeDien5Nam as VideoScript, simDoiDienThoai as VideoScript, hoKhauGiay as VideoScript, thueChoThueNha as VideoScript, guiTietKiem as VideoScript, vangNhanVangMieng as VideoScript, thueTncnMoi as VideoScript, myThue125 as VideoScript, bhytTraiTuyen as VideoScript, cauLongVietNam as VideoScript];
+export const videos: VideoScript[] = [xeDienHaNoi as VideoScript, xeDienChungCu as VideoScript, xeDien5Nam as VideoScript, simDoiDienThoai as VideoScript, hoKhauGiay as VideoScript, thueChoThueNha as VideoScript, guiTietKiem as VideoScript, vangNhanVangMieng as VideoScript, thueTncnMoi as VideoScript, myThue125 as VideoScript, bhytTraiTuyen as VideoScript, cauLongVietNam as VideoScript, lonRoiHenDuHoi as VideoScript];
