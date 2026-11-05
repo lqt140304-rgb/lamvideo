@@ -263,10 +263,17 @@
     },
     {
       "id": "S24",
-      "size": "from object",
+      "size": "medium",
       "set": "kitchen",
       "key": 40,
-      "note": "Từ trong chậu vo gạo nhìn lên Hạnh"
+      "note": "Hạnh ở bàn bếp, hai tay trong chậu gạo"
+    },
+    {
+      "id": "S39",
+      "size": "top-down insert",
+      "set": "kitchen",
+      "key": 30,
+      "note": "Từ trên xuống: hai tay vo gạo trong nước đục"
     },
     {
       "id": "S25",
@@ -462,6 +469,15 @@
       "at": "Trong"
     },
     {
+      "shot": "S39",
+      "at": "mẹ"
+    },
+    {
+      "shot": "S24",
+      "at": "nhắc",
+      "from": 96
+    },
+    {
       "shot": "S25",
       "at": "Con#2"
     },
@@ -539,5 +555,280 @@
       "len": 6,
       "amp": 7
     }
-  ]
+  ],
+  "sound": {
+    "clips": {
+      "sun_cicadas": [
+        "Vietnamese small town on a very hot still afternoon, cicadas buzzing in the trees, a far away motorbike, dry heat, no voices, no music",
+        20
+      ],
+      "storm_wind": [
+        "Strong wind rising before a storm through a narrow alley, gusts, loose tin rattling faintly, leaves blowing, no rain, no thunder, no voices",
+        20
+      ],
+      "rain_tin": [
+        "Heavy steady rain drumming on many corrugated tin roofs across a town, no thunder, no voices, no music",
+        20
+      ],
+      "rain_yard": [
+        "Steady rain falling on a brick yard and palm leaves, close, water running from a tin roof gutter, under a porch, no thunder, no voices",
+        20
+      ],
+      "rain_indoor": [
+        "Steady rain heard from inside a small quiet house, muffled on the tin roof above, soft room tone, no thunder, no voices",
+        20
+      ],
+      "door_bang": [
+        "A wooden back door banging against a wall in the wind, one hard knock",
+        1
+      ],
+      "pen_drop": [
+        "A plastic pen dropped on an open paper exercise book on a wooden desk, one light tap and small roll",
+        0.8
+      ],
+      "child_run": [
+        "A small child running in rubber sandals on a tiled floor, quick light footsteps",
+        1.5
+      ],
+      "drop_brick": [
+        "One single fat raindrop hitting hot dry brick, a small soft splat, tiny sizzle",
+        0.6
+      ],
+      "drop_plink": [
+        "One water drop falling into shallow water on a concrete floor, a small clear plink",
+        0.6
+      ],
+      "tarp_pull": [
+        "A heavy canvas tarp being hauled up on a rope, rustling and flapping in rain",
+        2.5
+      ],
+      "gutter_basin": [
+        "Water from a roof gutter pouring in a thin stream into an empty plastic basin, hollow and filling",
+        6
+      ],
+      "rice_wash": [
+        "Hands swishing and rubbing rice grains in a metal basin of water, wet gentle swirling",
+        5
+      ],
+      "stool_drag": [
+        "A small low wooden stool dragged across a concrete floor, short scrape",
+        1.2
+      ],
+      "pen_mark": [
+        "A marker pen quickly drawing a cross on a paper wall calendar, two firm strokes",
+        0.9
+      ],
+      "up_whoosh": [
+        "A quick soft airy whoosh rising upward, light, short",
+        0.8
+      ],
+      "music_bed": [
+        "lib:mua_bed",
+        170
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "sun_cicadas",
+        0.5,
+        "onset",
+        "S5"
+      ],
+      [
+        "S5",
+        "storm_wind",
+        0.55,
+        "onset",
+        "S12"
+      ],
+      [
+        "S12",
+        "storm_wind",
+        0.16,
+        "onset",
+        "S13"
+      ],
+      [
+        "S13",
+        "rain_tin",
+        0.8,
+        "onset",
+        "S14"
+      ],
+      [
+        "S14",
+        "rain_yard",
+        0.5,
+        "onset",
+        "S16"
+      ],
+      [
+        "S16",
+        "rain_indoor",
+        0.5,
+        "onset",
+        "S17"
+      ],
+      [
+        "S17",
+        "rain_yard",
+        0.5,
+        "onset",
+        "S20"
+      ],
+      [
+        "S20",
+        "rain_indoor",
+        0.5,
+        "onset",
+        "S23"
+      ],
+      [
+        "S23",
+        "rain_yard",
+        0.5,
+        "onset",
+        "S24"
+      ],
+      [
+        "S24",
+        "rain_indoor",
+        0.5,
+        "onset",
+        "S26"
+      ],
+      [
+        "S26",
+        "rain_yard",
+        0.5,
+        "onset",
+        "S32"
+      ],
+      [
+        "S32",
+        "rain_indoor",
+        0.5,
+        "onset",
+        "S33"
+      ],
+      [
+        "S33",
+        "rain_yard",
+        0.5,
+        "onset",
+        "S35"
+      ],
+      [
+        "S35",
+        "rain_indoor",
+        0.55,
+        "onset",
+        "f:5100"
+      ],
+      [
+        "S1+160",
+        "up_whoosh",
+        0.5,
+        "peak"
+      ],
+      [
+        "S10+8",
+        "door_bang",
+        0.7
+      ],
+      [
+        "S10+24",
+        "door_bang",
+        0.8
+      ],
+      [
+        "S10+62",
+        "door_bang",
+        0.55
+      ],
+      [
+        "S11+13",
+        "pen_drop",
+        0.6
+      ],
+      [
+        "S11+22",
+        "child_run",
+        0.45
+      ],
+      [
+        "S12+16",
+        "drop_brick",
+        0.9
+      ],
+      [
+        "S12+64",
+        "drop_brick",
+        0.75
+      ],
+      [
+        "S12+100",
+        "drop_brick",
+        0.7
+      ],
+      [
+        "S12+124",
+        "drop_brick",
+        0.7
+      ],
+      [
+        "S12+136",
+        "drop_brick",
+        0.75
+      ],
+      [
+        "S24+4",
+        "rice_wash",
+        0.5,
+        "onset",
+        "S25"
+      ],
+      [
+        "S26+6",
+        "tarp_pull",
+        0.5
+      ],
+      [
+        "S27+34",
+        "gutter_basin",
+        0.6,
+        "onset",
+        "S28"
+      ],
+      [
+        "S31+42",
+        "stool_drag",
+        0.6
+      ],
+      [
+        "S34+37",
+        "drop_plink",
+        0.8
+      ],
+      [
+        "S35+0",
+        "child_run",
+        0.55
+      ],
+      [
+        "S36+4",
+        "pen_mark",
+        0.75
+      ]
+    ],
+    "music": {
+      "clip": "music_bed",
+      "until": "S37"
+    },
+    "levels": {
+      "sfx_lu": -9,
+      "music_lu": -15
+    }
+  }
 }

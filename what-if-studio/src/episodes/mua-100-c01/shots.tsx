@@ -607,31 +607,78 @@ export const S23: React.FC<ShotProps> = ({ t, len }) => {
   );
 };
 
-// ---------- S24: looking up from inside the rice basin: Hạnh's hands in the water, her face over them (from the object back at the character) ----------
+// ---------- S24: medium: Hạnh at the kitchen table, both hands in the basin; on her second run she looks up and calls ----------
+const RICE_FLOOD = '#E4E3D6';
 export const S24: React.FC<ShotProps> = ({ t, len }) => {
-  const y = kf(t, [[0, 820], [len, 800]]);
-  const hx = 30 * Math.sin(t * 0.18);
+  const calling = kf(t, [[96, 0], [104, 1]]);
+  const stir = Math.sin(t * 0.26);
+  const pose = P({
+    x: 930, y: 640, scale: 1.25,
+    yaw: -0.35 * calling, look: -0.6 * calling, headTilt: 9 * (1 - calling), tilt: 3 * (1 - calling),
+    expr: calling > 0.5 ? 'neutral' : 'happy',
+    talk: talkAt(t, 98, 145),
+    armL: { a: -14 + 7 * stir, b: -6 }, armR: { a: -14 - 7 * stir, b: -6 },
+  }, t, 3);
   return (
-    <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.04]]))}>
-      <rect width={1920} height={1080} fill="#3A3226" />
-      <path d="M 1600 -20 L 1600 112" stroke="#1E1A16" strokeWidth={4} />
-      <circle cx={1600} cy={130} r={26} fill="#FFF0BE" />
-      <Glow x={1600} y={130} r={720} o={0.65} />
-      <Glow x={1600} y={130} r={190} o={1} />
-      <Hero look={HANH} pose={P({ x: 960, y: y + 110, scale: 2.5, yaw: 0, tilt: 0, headTilt: 0, look: 0.1, expr: 'neutral', armL: { a: -10 + 5 * Math.sin(t * 0.18), b: -6 }, armR: { a: -10 - 5 * Math.sin(t * 0.18), b: -6 } }, t, 3)} rimId="filmR" shadow={0} />
-      {[0, 1, 2].map((i) => <ellipse key={i} cx={960} cy={900} rx={120 + ((t * 5 + i * 150) % 450)} ry={50 + ((t * 2.5 + i * 70) % 190)} fill="none" stroke="#fff" strokeWidth={3} opacity={0.3} />)}
-      {/* the basin's rim all round the frame, rice grains drifting in the water */}
-      <path fillRule="evenodd" d="M -20 -20 L 1940 -20 L 1940 1100 L -20 1100 Z M 960 -120 A 1020 700 0 1 0 960 1200 A 1020 700 0 1 0 960 -120 Z" fill="#4E6578" />
-      <path d="M 960 -120 A 1020 700 0 1 1 959 -120" fill="none" stroke="#2C3C48" strokeWidth={26} />
-      <g opacity={0.3}>
-        {Array.from({ length: 50 }).map((_, i) => <ellipse key={i} cx={rnd(3, i) * 1920 + hx} cy={rnd(4, i) * 1080} rx={13} ry={5} fill="#F4F0E4" transform={`rotate(${rnd(5, i) * 180} ${rnd(3, i) * 1920} ${rnd(4, i) * 1080})`} />)}
-      </g>
-      {Array.from({ length: 130 }).map((_, i) => {
-        const x = 960 + (rnd(7, i) - 0.5) * 900 + hx * 0.4;
-        const y = 1080 - rnd(8, i) * rnd(9, i) * 190;
-        return <ellipse key={`r${i}`} cx={x} cy={y} rx={17} ry={7} fill="#F4F0E4" stroke="#B8B09C" strokeWidth={1.5} transform={`rotate(${rnd(10, i) * 180} ${x} ${y})`} />;
+    <g transform={camT(930, kf(t, [[0, 520], [len, 505]]), kf(t, [[0, 1.42], [len, 1.5]]))}>
+      <AnKitchen id="s24" t={t} w={2} rain={1} />
+      {/* the table: its top, front and legs; a rice sack and the pot beside the basin */}
+      <ellipse cx={930} cy={1020} rx={560} ry={40} fill="#000" opacity={0.3} />
+      <polygon points="470,640 1390,640 1490,770 370,770" fill="#8E6A48" />
+      <polygon points="370,770 1490,770 1490,812 370,812" fill="#5E4128" />
+      <path d="M 410 812 L 410 1040 M 1450 812 L 1450 1040" stroke="#4C3420" strokeWidth={26} />
+      <path d="M 1190 650 Q 1180 560 1240 540 L 1310 540 Q 1370 560 1360 650 Q 1280 670 1190 650 Z" fill="#CDBB94" stroke="#6E5A3C" strokeWidth={4} />
+      <path d="M 1240 540 Q 1275 520 1310 540" stroke="#6E5A3C" strokeWidth={5} fill="none" />
+      <ellipse cx={560} cy={665} rx={70} ry={15} fill="#3A3A3E" />
+      <path d="M 490 665 L 500 610 L 620 610 L 630 665 Z" fill="#4C4C52" />
+      <ellipse cx={560} cy={610} rx={60} ry={12} fill="#2A2A2E" />
+      {/* the basin's back and its cloudy water go behind her arms */}
+      <ellipse cx={930} cy={648} rx={230} ry={58} fill="#3C5468" />
+      <ellipse cx={930} cy={652} rx={208} ry={46} fill={RICE_FLOOD} />
+      {Array.from({ length: 70 }).map((_, i) => {
+        const a = rnd(3, i) * 6.28 + t * 0.012;
+        const r = Math.sqrt(rnd(4, i));
+        return <ellipse key={i} cx={930 + Math.cos(a) * r * 190} cy={652 + Math.sin(a) * r * 38} rx={7} ry={3} fill="#FFFFFF" stroke="#BDB8A2" strokeWidth={1} />;
       })}
-      <rect width={1920} height={1080} fill="#9FC4D6" opacity={0.14} />
+      <clipPath id="s24body"><rect x={300} y={0} width={1300} height={680} /></clipPath>
+      <g clipPath="url(#s24body)">
+        <Hero look={HANH} pose={pose} rimId="filmR" shadow={0} />
+      </g>
+      {/* water over her fingers, rings from her hands, then the basin's near wall */}
+      <ellipse cx={930} cy={672} rx={180} ry={24} fill={RICE_FLOOD} opacity={0.55} />
+      {[0, 1].map((i) => <ellipse key={i} cx={930} cy={656} rx={50 + ((t * 2.4 + i * 60) % 130)} ry={12 + ((t * 0.6 + i * 15) % 32)} fill="none" stroke="#fff" strokeWidth={2.5} opacity={0.75} />)}
+      <path d="M 700 648 Q 716 742 800 760 L 1060 760 Q 1144 742 1160 648 Q 930 730 700 648 Z" fill="#5F7E96" stroke="#2C3C48" strokeWidth={4} />
+      <path d="M 1060 760 Q 1144 742 1160 648 Q 1120 668 1040 684 Z" fill="#000" opacity={0.15} />
+    </g>
+  );
+};
+
+// ---------- S39: top-down insert: two hands turn the rice in the cloudy water ----------
+export const S39: React.FC<ShotProps> = ({ t, len }) => {
+  const a = t * 0.2;
+  return (
+    <g transform={`translate(960 540) rotate(${kf(t, [[0, -3], [len, 2]])}) scale(${kf(t, [[0, 1.0], [len, 1.05]])}) translate(-960 -540)`}>
+      <rect x={-80} y={-80} width={2080} height={1240} fill="#6A5A48" />
+      {Array.from({ length: 9 }).map((_, i) => <path key={i} d={`M ${-80 + i * 260} -80 L ${-80 + i * 260} 1160`} stroke="#4C4034" strokeWidth={5} />)}
+      <ellipse cx={980} cy={586} rx={560} ry={520} fill="#000" opacity={0.35} />
+      <circle cx={960} cy={560} r={540} fill="#5F7E96" />
+      <circle cx={960} cy={560} r={505} fill="#3C5468" />
+      <circle cx={960} cy={560} r={480} fill={RICE_FLOOD} />
+      <clipPath id="s39w"><circle cx={960} cy={560} r={480} /></clipPath>
+      <g clipPath="url(#s39w)">
+        {Array.from({ length: 260 }).map((_, i) => {
+          const ang = rnd(5, i) * 6.28 + t * (0.012 + rnd(6, i) * 0.012);
+          const r = Math.sqrt(rnd(7, i)) * 470;
+          const x = 960 + Math.cos(ang) * r;
+          const y = 560 + Math.sin(ang) * r;
+          return <ellipse key={i} cx={x} cy={y} rx={20} ry={8} fill="#FFFFFF" stroke="#B7B29C" strokeWidth={2} transform={`rotate(${rnd(8, i) * 180 + t * 0.4} ${x} ${y})`} />;
+        })}
+        <HandTop x={720 + 70 * Math.sin(a)} y={480 + 60 * Math.cos(a)} rot={24} s={1.25} skin={HANH.skin} sleeve={HANH.jacket} />
+        <HandTop x={1200 - 70 * Math.sin(a + 1)} y={500 - 60 * Math.cos(a + 1)} rot={-24} s={1.25} skin={HANH.skin} sleeve={HANH.jacket} />
+        <circle cx={960} cy={560} r={480} fill={RICE_FLOOD} opacity={0.28} />
+        {[0, 1, 2].map((i) => <circle key={i} cx={960} cy={560} r={120 + ((t * 7 + i * 120) % 360)} fill="none" stroke="#fff" strokeWidth={4} opacity={0.5} />)}
+      </g>
+      <Glow x={1500} y={120} r={760} o={0.42} />
     </g>
   );
 };
@@ -921,4 +968,4 @@ export const S37: React.FC<ShotProps> = ({ t, len }) => (
   </g>
 );
 
-export const SHOTS = { S38, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37 };
+export const SHOTS = { S39, S38, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28, S29, S30, S31, S32, S33, S34, S35, S36, S37 };
