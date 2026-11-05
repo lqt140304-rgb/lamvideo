@@ -1,11 +1,11 @@
 import React from "react";
-import { AbsoluteFill, interpolate, Easing, useCurrentFrame } from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { pop } from "../anim";
 import { color, font } from "../brand";
 import { Mascot } from "../components/Mascot";
 import { Stage } from "../components/Headline";
 import { Stamp } from "../components/Props";
-import { BigArt, HAS_VEHICLE_PHOTOS, Scooter, Street, Traffic } from "../components/Art";
+import { BigArt, Street, Traffic } from "../components/Art";
 import { pop as popAnim } from "../anim";
 import { Sfx } from "../components/Fx";
 import { introEnd, phraseAt } from "../components/Broll";
@@ -17,11 +17,6 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
   const intro = introEnd(scene, frames);
   const frame = useCurrentFrame() - intro;
   const art = scene.art ?? "scooter";
-  const drive = interpolate(frame, [0, 28], [-260, 380], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.out(Easing.cubic),
-  });
   // Dấu "CẤM?" đóng đúng lúc đọc "Khoan đã" (nếu có trong lời đọc), không thì ở 42% cảnh.
   const speech = frames - Math.round((scene.pad ?? 0.35) * FPS);
   const khoan = phraseAt(scene.voice, scene.cue ?? "Khoan đã");
@@ -73,7 +68,6 @@ export const HookScene: React.FC<{ scene: HookData; frames: number }> = ({ scene
               <Street baseY={1090} roadH={250} />
               <Traffic y={1245} count={3} speed={6} scale={0.4} fromRight />
             </g>
-            <Scooter kind="petrol" x={drive} y={1190} scale={1.05} moving={frame < 34 || frame > stampAt + 8} rider={!HAS_VEHICLE_PHOTOS} />
             <Stamp text={scene.stamp ?? ""} x={330} y={900} progress={stamp} />
           </>
         ) : (
