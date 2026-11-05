@@ -325,5 +325,162 @@
       "at": "Lần"
     }
   ],
-  "fx": []
+  "fx": [],
+  "sound": {
+    "clips": {
+      "rain_indoor_fs": [
+        "lib:rain_indoor_fs",
+        10
+      ],
+      "rain_porch_fs": [
+        "lib:rain_porch_fs",
+        10
+      ],
+      "rain_tin_fs": [
+        "lib:rain_tin_fs",
+        10
+      ],
+      "fan_fs": [
+        "lib:fan_fs",
+        10
+      ],
+      "radio_static_fs": [
+        "lib:radio_static_fs",
+        10
+      ],
+      "drips_fs": [
+        "lib:drips_fs",
+        10
+      ],
+      "chair_move_fs": [
+        "lib:chair_move_fs",
+        10
+      ],
+      "music_bed": [
+        "lib:mua_bed2",
+        77
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S4"
+      ],
+      [
+        "S4",
+        "rain_porch_fs",
+        0.55,
+        "onset",
+        "S5"
+      ],
+      [
+        "S5",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S8"
+      ],
+      [
+        "S8",
+        "rain_tin_fs",
+        0.7,
+        "onset",
+        "S9"
+      ],
+      [
+        "S9",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S17"
+      ],
+      [
+        "S17",
+        "rain_tin_fs",
+        0.55,
+        "onset",
+        "S18"
+      ],
+      [
+        "S18",
+        "rain_porch_fs",
+        0.6,
+        "onset",
+        "S20"
+      ],
+      [
+        "S20",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S21"
+      ],
+      [
+        "S21",
+        "rain_porch_fs",
+        0.75,
+        "onset",
+        "S22"
+      ],
+      [
+        "S22",
+        "rain_indoor_fs",
+        0.55,
+        "onset",
+        null
+      ],
+      [
+        "S5",
+        "fan_fs",
+        0.22,
+        "onset",
+        "S7"
+      ],
+      [
+        "S7",
+        "fan_fs",
+        0.14,
+        "onset",
+        "S17"
+      ],
+      [
+        "S7",
+        "radio_static_fs",
+        0.4,
+        "onset",
+        "S9"
+      ],
+      [
+        "S9",
+        "radio_static_fs",
+        0.25,
+        "onset",
+        "S9+30"
+      ],
+      [
+        "S20",
+        "drips_fs",
+        0.5,
+        "onset",
+        "S21"
+      ],
+      [
+        "S22+26",
+        "chair_move_fs",
+        0.7
+      ]
+    ],
+    "music": {
+      "clip": "music_bed",
+      "from": "S2",
+      "until": "S23"
+    },
+    "levels": {
+      "sfx_lu": -13,
+      "music_lu": -15
+    }
+  }
 }

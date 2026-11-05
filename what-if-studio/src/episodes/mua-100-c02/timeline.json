@@ -400,6 +400,11 @@
  ],
  "fx": [],
  "audio": {
-  "voice": "mua-100-c02/voice.wav"
+  "voice": "mua-100-c02/voice.wav",
+  "sfx": "mua-100-c02/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.1239,
+  "music": "mua-100-c02/music.wav",
+  "musicVol": 0.0898
  }
 }
