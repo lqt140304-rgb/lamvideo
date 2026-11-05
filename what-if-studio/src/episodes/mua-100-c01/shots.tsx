@@ -86,7 +86,7 @@ const TitleDrop: React.FC<{ t: number; lines: [string, string][][]; small?: stri
   return (
     <g transform={`translate(960 ${y + dy})`} textAnchor="middle" fontFamily={LETTER} fill="#FFFDF6" style={{ filter: 'drop-shadow(0 4px 10px rgba(20,10,0,0.85))' }}>
       {lines.map((l, i) => <text key={i} y={i * 165} fontSize={146} fontWeight={700} stroke="#2A1A10" strokeWidth={9} strokeLinejoin="round" style={{ paintOrder: 'stroke' }}>{l.map(([w, c], k) => <tspan key={k} fill={c}>{w}</tspan>)}</text>)}
-      {small ? <text y={lines.length * 165 - 50} fontSize={50} stroke="#2A1A10" strokeWidth={5} strokeLinejoin="round" style={{ paintOrder: 'stroke' }}>{small}</text> : null}
+      {small ? <text y={lines.length * 165 - 50} fontSize={50} fill="#FFC23D" stroke="#2A1A10" strokeWidth={5} strokeLinejoin="round" style={{ paintOrder: 'stroke' }}>{small}</text> : null}
     </g>
   );
 };
@@ -98,7 +98,7 @@ export const S1: React.FC<ShotProps> = ({ t, len }) => (
       <Alley id="s1" t={t} w={0} shop />
       <Glow x={960} y={760} r={640} o={0.18} />
     </g>
-    <TitleDrop t={t} lines={[[['Chuyện gì xảy ra nếu', '#FFF6DC']], [['mưa liên tục ', '#8FDcFF'], ['100 ngày?', '#FFC23D']]]} small="Giả định khoa học — nhân vật và lịch sự kiện là hư cấu" />
+    <TitleDrop t={t} lines={[[['Chuyện gì xảy ra nếu', '#FFF6DC']], [['mưa liên tục 100 ngày?', '#8FDCFF']]]} small="Giả định khoa học — nhân vật và lịch sự kiện là hư cấu" />
   </g>
 );
 
