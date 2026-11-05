@@ -1,0 +1,1110 @@
+{
+ "id": "giay-moi-van-la-minh",
+ "title": "Giày mới. Vẫn là mình.",
+ "topic": "Giày mới. Vẫn là mình.",
+ "channel": "KIẾN THỨC MỖI NGÀY",
+ "hideHeader": true,
+ "voice": {
+  "engine": "vieneu",
+  "speaker": "Minh Đức"
+ },
+ "voices": {
+  "TEO": "Minh Đức",
+  "MINH": "Hải Đăng",
+  "NA": "Trúc Ly",
+  "BOM": "Thanh Bình"
+ },
+ "music": "audio/music/giay-nhap.wav",
+ "musicVolume": 0.14,
+ "scenes": [
+  {
+   "type": "dialog",
+   "id": "S01A",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.9,
+    "focus": "62% 70%"
+   },
+   "cast": [],
+   "lines": [
+    {
+     "id": "S01_TEO_01a",
+     "who": "TEO",
+     "text": "Tao cứ tưởng mua đôi giày này…",
+     "gap": 0.0
+    },
+    {
+     "id": "S01_TEO_01b",
+     "who": "TEO",
+     "text": "…sáng hôm sau tao sẽ thành một đứa khác.",
+     "gap": 0.3
+    }
+   ],
+   "voice": "Tao cứ tưởng mua đôi giày này… …sáng hôm sau tao sẽ thành một đứa khác.",
+   "props": [
+    {
+     "name": "shoebox",
+     "x": 540,
+     "y": 1210,
+     "scale": 1.7,
+     "toLine": 0
+    },
+    {
+     "name": "shoes",
+     "x": 540,
+     "y": 1110,
+     "scale": 1.45,
+     "toLine": 0,
+     "at": 0.4,
+     "until": 2.4,
+     "moveTo": {
+      "x": 540,
+      "y": 880
+     }
+    },
+    {
+     "name": "shirt",
+     "x": 250,
+     "y": 1240,
+     "scale": 0.8,
+     "fromLine": 1
+    },
+    {
+     "name": "bottle",
+     "x": 840,
+     "y": 1240,
+     "scale": 0.8,
+     "fromLine": 1
+    },
+    {
+     "name": "watch",
+     "x": 540,
+     "y": 1240,
+     "scale": 0.7,
+     "fromLine": 1
+    },
+    {
+     "name": "alarm",
+     "x": 540,
+     "y": 900,
+     "scale": 0.85,
+     "fromLine": 1,
+     "front": true
+    }
+   ],
+   "sfx": [
+    {
+     "file": "paper.wav",
+     "at": 0.2,
+     "len": 2
+    },
+    {
+     "file": "paper.wav",
+     "at": 3.5,
+     "len": 2,
+     "volume": 0.3
+    }
+   ],
+   "amb": "room",
+   "pad": 0.2,
+   "cam": "in"
+  },
+  {
+   "type": "dialog",
+   "id": "S01B",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "night",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 440,
+     "scale": 0.9,
+     "pose": "sad",
+     "fromLine": 0
+    }
+   ],
+   "lines": [],
+   "voice": "…",
+   "props": [
+    {
+     "name": "bed",
+     "x": 450,
+     "y": 1290,
+     "scale": 0.95,
+     "front": true
+    },
+    {
+     "name": "alarm",
+     "x": 800,
+     "y": 1240,
+     "scale": 0.5,
+     "shake": 4,
+     "at": 0.0,
+     "until": 2.6
+    },
+    {
+     "name": "shoes",
+     "x": 160,
+     "y": 1255,
+     "scale": 0.4
+    }
+   ],
+   "sfx": [
+    {
+     "file": "alarm.wav",
+     "at": 0.0,
+     "len": 3,
+     "volume": 0.55
+    }
+   ],
+   "amb": "room",
+   "pad": 3.4
+  },
+  {
+   "type": "dialog",
+   "id": "S01C",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 280,
+     "scale": 0.95,
+     "pose": "think"
+    },
+    {
+     "who": "TEO",
+     "x": 760,
+     "scale": 0.95,
+     "pose": "sad",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S01_MINH_01",
+     "who": "MINH",
+     "text": "Giày mới à?"
+    },
+    {
+     "id": "S01_TEO_02",
+     "who": "TEO",
+     "text": "Ừ. Mới được một tuần rồi.",
+     "gap": 0.6,
+     "pose": "stand"
+    }
+   ],
+   "voice": "Giày mới à? Ừ. Mới được một tuần rồi.",
+   "props": [
+    {
+     "name": "shoes",
+     "x": 520,
+     "y": 1250,
+     "scale": 0.42,
+     "front": true
+    },
+    {
+     "name": "chair",
+     "x": 940,
+     "y": 1250,
+     "scale": 0.7
+    }
+   ],
+   "label": "Bảy ngày sau",
+   "amb": "room",
+   "pad": 1.6
+  },
+  {
+   "type": "dialog",
+   "id": "S02",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0,
+    "pan": 0.2
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 420,
+     "scale": 0.9,
+     "pose": "phone"
+    },
+    {
+     "who": "NA",
+     "x": 850,
+     "tile": 250,
+     "tileY": 440,
+     "pose": "stand"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S02_NA_01",
+     "who": "NA",
+     "text": "Mày đặt gì mà ba gói thế?",
+     "pose": "stand"
+    },
+    {
+     "id": "S02_TEO_01",
+     "who": "TEO",
+     "text": "Giày. Bình nước. Cái đồng hồ nữa. Lần này tao tập nghiêm túc.",
+     "pose": "wave"
+    },
+    {
+     "id": "S02_NA_02",
+     "who": "NA",
+     "text": "Đặt lịch chạy chưa?",
+     "pose": "think"
+    },
+    {
+     "id": "S02_TEO_02",
+     "who": "TEO",
+     "text": "Mai. Đồ đến là bắt đầu.",
+     "pose": "think",
+     "gap": 0.5
+    },
+    {
+     "id": "S02_TEO_03",
+     "who": "TEO",
+     "text": "Tao thích cái cảm giác sáng dậy đã làm được gì đấy… chứ không phải mở mắt ra đã thấy muộn.",
+     "gap": 1.0,
+     "pose": "stand"
+    },
+    {
+     "id": "S02_NA_03",
+     "who": "NA",
+     "text": "Ừ. Hôm nào đi rồi kể tao nghe.",
+     "pose": "stand",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Mày đặt gì mà ba gói thế? Giày. Bình nước. Cái đồng hồ nữa. Lần này tao tập nghiêm túc. Đặt lịch chạy chưa? Mai. Đồ đến là bắt đầu. Tao thích cái cảm giác sáng dậy đã làm được gì đấy… chứ không phải mở mắt ra đã thấy muộn. Ừ. Hôm nào đi rồi kể tao nghe.",
+   "props": [
+    {
+     "name": "parcel",
+     "x": 160,
+     "y": 1255,
+     "scale": 0.5,
+     "toLine": 1
+    },
+    {
+     "name": "shoebox",
+     "x": 190,
+     "y": 1255,
+     "scale": 0.5,
+     "fromLine": 2
+    },
+    {
+     "name": "bottle",
+     "x": 720,
+     "y": 1255,
+     "scale": 0.4,
+     "fromLine": 2
+    },
+    {
+     "name": "watch",
+     "x": 640,
+     "y": 1250,
+     "scale": 0.35,
+     "fromLine": 3
+    }
+   ],
+   "inserts": [
+    {
+     "file": "BG02_cong_vien.jpg",
+     "fromLine": 0,
+     "toLine": 0,
+     "caption": "Trên màn hình điện thoại (minh họa)",
+     "y": 330
+    }
+   ],
+   "label": "Một tuần trước",
+   "chip": "Cuộc gọi: Na",
+   "amb": "room",
+   "pad": 1.4
+  },
+  {
+   "type": "dialog",
+   "id": "S03A",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "night",
+    "zoom": 1.15,
+    "focus": "30% 70%"
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 470,
+     "scale": 0.9,
+     "pose": "sad"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S03_TEO_01",
+     "who": "TEO",
+     "text": "Năm phút nữa…",
+     "pose": "sad"
+    }
+   ],
+   "voice": "Năm phút nữa…",
+   "props": [
+    {
+     "name": "bed",
+     "x": 480,
+     "y": 1290,
+     "scale": 0.95,
+     "front": true
+    },
+    {
+     "name": "alarm",
+     "x": 820,
+     "y": 1240,
+     "scale": 0.5,
+     "shake": 3,
+     "until": 2.2,
+     "at": 0.0
+    }
+   ],
+   "label": "Sáng thứ nhất",
+   "sfx": [
+    {
+     "file": "alarm.wav",
+     "at": 0.0,
+     "len": 2.5,
+     "volume": 0.4
+    }
+   ],
+   "amb": "room",
+   "pad": 1.2
+  },
+  {
+   "type": "dialog",
+   "id": "S03B",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "night",
+    "zoom": 1.0,
+    "pan": -0.2
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 640,
+     "scale": 0.9,
+     "pose": "think"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S03_TEO_02",
+     "who": "TEO",
+     "text": "Mai ngủ đủ rồi đi.",
+     "pose": "sad"
+    }
+   ],
+   "voice": "Mai ngủ đủ rồi đi.",
+   "props": [
+    {
+     "name": "alarm",
+     "x": 280,
+     "y": 1250,
+     "scale": 0.5
+    },
+    {
+     "name": "desk",
+     "x": 880,
+     "y": 1255,
+     "scale": 1.1
+    },
+    {
+     "name": "laptop",
+     "x": 880,
+     "y": 1075,
+     "scale": 0.6
+    }
+   ],
+   "label": "Sáng thứ hai",
+   "amb": "room",
+   "pad": 1.2
+  },
+  {
+   "type": "dialog",
+   "id": "S03C",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.1,
+    "focus": "70% 70%",
+    "pan": 0.2
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 440,
+     "scale": 0.9,
+     "pose": "phone"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S03_TEO_03",
+     "who": "TEO",
+     "text": "Ra đấy chạy được một tí rồi đứng thở…",
+     "pose": "sad"
+    }
+   ],
+   "voice": "Ra đấy chạy được một tí rồi đứng thở…",
+   "props": [
+    {
+     "name": "shoes",
+     "x": 760,
+     "y": 1255,
+     "scale": 0.4
+    },
+    {
+     "name": "parcel",
+     "x": 900,
+     "y": 1255,
+     "scale": 0.4
+    }
+   ],
+   "label": "Sáng thứ ba",
+   "chip": "Bờm: Chiều cà phê không?  ·  Tèo: Để xem đã",
+   "amb": "room",
+   "pad": 2.4
+  },
+  {
+   "type": "dialog",
+   "id": "S04",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0,
+    "pan": 0.1,
+    "zoomTo": 1.08
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 360,
+     "scale": 0.9,
+     "pose": "think"
+    },
+    {
+     "who": "MINH",
+     "x": 760,
+     "scale": 0.9,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S04_MINH_01",
+     "who": "MINH",
+     "text": "Tuần này bận à?"
+    },
+    {
+     "id": "S04_TEO_01",
+     "who": "TEO",
+     "text": "Cũng không đến mức đấy.",
+     "pose": "sad"
+    },
+    {
+     "id": "S04_TEO_02",
+     "who": "TEO",
+     "text": "Có hôm tao dậy rồi. Mặc áo rồi… cuối cùng vẫn ngồi lại.",
+     "gap": 0.9,
+     "pose": "sad"
+    },
+    {
+     "id": "S04_MINH_02",
+     "who": "MINH",
+     "text": "Vì sao?",
+     "pose": "think"
+    },
+    {
+     "id": "S04_TEO_03",
+     "who": "TEO",
+     "text": "Tao cũng không biết. Cứ nghĩ ra đấy ai cũng chạy ngon lành. Còn tao mới tí đã mệt.",
+     "pose": "think"
+    },
+    {
+     "id": "S04_MINH_03",
+     "who": "MINH",
+     "text": "Mày mới mua giày. Có đăng ký thi với ai đâu.",
+     "pose": "stand"
+    },
+    {
+     "id": "S04_TEO_04",
+     "who": "TEO",
+     "text": "Lúc bấm mua, tao tưởng tượng được hết. Sáng dậy sớm này, chạy xong về này… thấy mình khác hẳn.",
+     "gap": 1.1,
+     "pose": "sad"
+    },
+    {
+     "id": "S04_TEO_05",
+     "who": "TEO",
+     "text": "Xong đồ về rồi… tao vẫn là tao.",
+     "gap": 0.9,
+     "pose": "sad"
+    },
+    {
+     "id": "S04_MINH_04",
+     "who": "MINH",
+     "text": "Tối nay mày có việc gì không?",
+     "gap": 2.2,
+     "pose": "think"
+    },
+    {
+     "id": "S04_TEO_06",
+     "who": "TEO",
+     "text": "Không. Sao?",
+     "pose": "surprised"
+    },
+    {
+     "id": "S04_MINH_05",
+     "who": "MINH",
+     "text": "Đi cùng tao một đoạn. Xuống dưới rồi tính.",
+     "pose": "stand"
+    }
+   ],
+   "voice": "Tuần này bận à? Cũng không đến mức đấy. Có hôm tao dậy rồi. Mặc áo rồi… cuối cùng vẫn ngồi lại. Vì sao? Tao cũng không biết. Cứ nghĩ ra đấy ai cũng chạy ngon lành. Còn tao mới tí đã mệt. Mày mới mua giày. Có đăng ký thi với ai đâu. Lúc bấm mua, tao tưởng tượng được hết. Sáng dậy sớm này, chạy xong về này… thấy mình khác hẳn. Xong đồ về rồi… tao vẫn là tao. Tối nay mày có việc gì không? Không. Sao? Đi cùng tao một đoạn. Xuống dưới rồi tính.",
+   "props": [
+    {
+     "name": "shoes",
+     "x": 560,
+     "y": 1255,
+     "scale": 0.38,
+     "front": true
+    },
+    {
+     "name": "chair",
+     "x": 930,
+     "y": 1250,
+     "scale": 0.7
+    },
+    {
+     "name": "phone",
+     "x": 200,
+     "y": 1255,
+     "scale": 0.4,
+     "fromLine": 6,
+     "rot": 180
+    }
+   ],
+   "amb": "room",
+   "pad": 2.0
+  },
+  {
+   "type": "dialog",
+   "id": "S05A",
+   "bg": {
+    "file": "BG02_cong_vien.jpg",
+    "grade": "warm",
+    "zoom": 1.25,
+    "zoomTo": 1.1,
+    "focus": "50% 85%",
+    "pan": -0.15,
+    "panTo": 0.1
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 360,
+     "scale": 0.85,
+     "pose": "walk",
+     "path": [
+      [
+       -150,
+       0
+      ]
+     ]
+    },
+    {
+     "who": "MINH",
+     "x": 700,
+     "scale": 0.85,
+     "pose": "walk",
+     "path": [
+      [
+       -50,
+       0
+      ]
+     ]
+    }
+   ],
+   "lines": [
+    {
+     "id": "S05_TEO_01",
+     "who": "TEO",
+     "text": "Tao đi chậm đấy.",
+     "pose": "sad"
+    },
+    {
+     "id": "S05_MINH_01",
+     "who": "MINH",
+     "text": "Ừ. Tao có hẹn ai đuổi đâu.",
+     "pose": "stand"
+    }
+   ],
+   "voice": "Tao đi chậm đấy. Ừ. Tao có hẹn ai đuổi đâu.",
+   "amb": "park",
+   "pad": 1.0,
+   "sfx": [
+    {
+     "file": "step.wav",
+     "at": 0.3,
+     "len": 0.3,
+     "volume": 0.35
+    },
+    {
+     "file": "step.wav",
+     "at": 0.8500000000000001,
+     "len": 0.3,
+     "volume": 0.35
+    },
+    {
+     "file": "step.wav",
+     "at": 1.4000000000000001,
+     "len": 0.3,
+     "volume": 0.35
+    },
+    {
+     "file": "step.wav",
+     "at": 1.9500000000000002,
+     "len": 0.3,
+     "volume": 0.35
+    },
+    {
+     "file": "step.wav",
+     "at": 2.5,
+     "len": 0.3,
+     "volume": 0.35
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S05B",
+   "bg": {
+    "file": "BG02_cong_vien.jpg",
+    "grade": "warm",
+    "zoom": 1.5,
+    "focus": "20% 90%"
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 420,
+     "scale": 0.85,
+     "pose": "run"
+    },
+    {
+     "who": "MINH",
+     "x": 700,
+     "scale": 0.85,
+     "pose": "walk"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S05_TEO_02",
+     "who": "TEO",
+     "text": "Đi bộ một tí nhé.",
+     "pose": "stand",
+     "gap": 2.0
+    },
+    {
+     "id": "S05_MINH_02",
+     "who": "MINH",
+     "text": "Ừ.",
+     "pose": "stand"
+    }
+   ],
+   "voice": "Đi bộ một tí nhé. Ừ.",
+   "amb": "park",
+   "pad": 3.2,
+   "sfx": [
+    {
+     "file": "step.wav",
+     "at": 0.1,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 0.25,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 0.4,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 0.5499999999999999,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 0.7,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 0.85,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 0.9999999999999999,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 1.1500000000000001,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 4.2,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 4.8,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 5.4,
+     "len": 0.3,
+     "volume": 0.3
+    },
+    {
+     "file": "step.wav",
+     "at": 6.0,
+     "len": 0.3,
+     "volume": 0.3
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S05C",
+   "bg": {
+    "file": "BG02_cong_vien.jpg",
+    "grade": "warm",
+    "zoom": 1.15,
+    "focus": "80% 85%"
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 280,
+     "scale": 0.8,
+     "pose": "phone"
+    },
+    {
+     "who": "MINH",
+     "x": 560,
+     "scale": 0.8,
+     "pose": "stand",
+     "flip": true
+    },
+    {
+     "who": "BOM",
+     "x": 160,
+     "tile": 230,
+     "tileY": 440,
+     "fromLine": 0,
+     "pose": "wave"
+    },
+    {
+     "who": "NA",
+     "x": 920,
+     "tile": 230,
+     "tileY": 440,
+     "fromLine": 3,
+     "pose": "stand"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S05_BOM_01",
+     "who": "BOM",
+     "text": "Hai đứa đi đâu thế?",
+     "pose": "wave",
+     "gap": 0.0
+    },
+    {
+     "id": "S05_TEO_03",
+     "who": "TEO",
+     "text": "Ra công viên. Mà đi bộ là chính.",
+     "pose": "phone"
+    },
+    {
+     "id": "S05_BOM_02",
+     "who": "BOM",
+     "text": "Thế có ghế không? Lần sau tao ra ngồi đợi.",
+     "pose": "stand"
+    },
+    {
+     "id": "S05_NA_01",
+     "who": "NA",
+     "text": "Mày vừa đến đã đòi ngồi.",
+     "pose": "wave"
+    },
+    {
+     "id": "S05_BOM_03",
+     "who": "BOM",
+     "text": "Thì đợi chúng nó đi xong rồi đi cùng.",
+     "pose": "stand"
+    },
+    {
+     "id": "S05_NA_02",
+     "who": "NA",
+     "text": "Ngoài đấy mát không?",
+     "pose": "stand",
+     "gap": 0.6
+    },
+    {
+     "id": "S05_TEO_04",
+     "who": "TEO",
+     "text": "Ừ. Mát.",
+     "pose": "stand",
+     "gap": 0.6
+    }
+   ],
+   "voice": "Hai đứa đi đâu thế? Ra công viên. Mà đi bộ là chính. Thế có ghế không? Lần sau tao ra ngồi đợi. Mày vừa đến đã đòi ngồi. Thì đợi chúng nó đi xong rồi đi cùng. Ngoài đấy mát không? Ừ. Mát.",
+   "chip": "Cuộc gọi nhóm",
+   "amb": "park",
+   "pad": 2.0,
+   "sfx": [
+    {
+     "file": "ding.wav",
+     "at": 0.0,
+     "len": 1,
+     "volume": 0.4
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S06",
+   "bg": {
+    "file": "BG02_cong_vien.jpg",
+    "grade": "warm",
+    "zoom": 1.45,
+    "focus": "85% 88%"
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 360,
+     "scale": 0.85,
+     "pose": "sad",
+     "variant": "dirty"
+    },
+    {
+     "who": "MINH",
+     "x": 720,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S06_TEO_01",
+     "who": "TEO",
+     "text": "Bẩn rồi.",
+     "pose": "sad"
+    },
+    {
+     "id": "S06_MINH_01",
+     "who": "MINH",
+     "text": "Ừ. Hôm nay dùng rồi mà.",
+     "pose": "stand"
+    },
+    {
+     "id": "S06_TEO_02",
+     "who": "TEO",
+     "text": "Tao cứ sợ mua xong lại bỏ đấy.",
+     "pose": "stand",
+     "gap": 1.0
+    },
+    {
+     "id": "S06_MINH_02",
+     "who": "MINH",
+     "text": "Thì hôm nay mày đã mang nó ra đây rồi.",
+     "pose": "stand"
+    }
+   ],
+   "voice": "Bẩn rồi. Ừ. Hôm nay dùng rồi mà. Tao cứ sợ mua xong lại bỏ đấy. Thì hôm nay mày đã mang nó ra đây rồi.",
+   "props": [
+    {
+     "name": "shoes_dirty",
+     "x": 540,
+     "y": 1255,
+     "scale": 1.0,
+     "toLine": 0,
+     "front": true,
+     "until": 5
+    }
+   ],
+   "amb": "park",
+   "pad": 3.2
+  },
+  {
+   "type": "dialog",
+   "id": "S07A",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 520,
+     "scale": 0.9,
+     "pose": "sad",
+     "variant": "dirty"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S07_TEO_01",
+     "who": "TEO",
+     "text": "Đợi tao hai phút.",
+     "pose": "sad"
+    }
+   ],
+   "voice": "Đợi tao hai phút.",
+   "props": [
+    {
+     "name": "bed",
+     "x": 530,
+     "y": 1290,
+     "scale": 0.95,
+     "front": true
+    },
+    {
+     "name": "alarm",
+     "x": 850,
+     "y": 1240,
+     "scale": 0.5,
+     "shake": 3,
+     "until": 2.5,
+     "at": 0.0
+    },
+    {
+     "name": "shoes_dirty",
+     "x": 150,
+     "y": 1255,
+     "scale": 0.4
+    }
+   ],
+   "chip": "Minh: Tao xuống rồi. Mày dậy chưa?",
+   "sfx": [
+    {
+     "file": "alarm.wav",
+     "at": 0.0,
+     "len": 2.5,
+     "volume": 0.4
+    }
+   ],
+   "amb": "room",
+   "pad": 1.4
+  },
+  {
+   "type": "dialog",
+   "id": "S07B",
+   "bg": {
+    "file": "BG01_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0,
+    "pan": -0.1
+   },
+   "cast": [
+    {
+     "who": "TEO",
+     "x": 440,
+     "scale": 0.9,
+     "pose": "stand",
+     "variant": "dirty"
+    },
+    {
+     "who": "MINH",
+     "x": 880,
+     "tile": 240,
+     "tileY": 440,
+     "pose": "stand",
+     "fromLine": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "S07_MINH_01",
+     "who": "MINH",
+     "text": "Hôm nay chạy không?",
+     "pose": "wave",
+     "gap": 0.0
+    },
+    {
+     "id": "S07_TEO_02",
+     "who": "TEO",
+     "text": "Cứ đi đã.",
+     "pose": "wave",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Hôm nay chạy không? Cứ đi đã.",
+   "props": [
+    {
+     "name": "shoes_dirty",
+     "x": 180,
+     "y": 1255,
+     "scale": 0.4
+    }
+   ],
+   "chip": "Bờm: Có ai đợi tao không?  ·  Na: 👋",
+   "sfx": [
+    {
+     "file": "door.wav",
+     "at": 3.2,
+     "len": 2,
+     "volume": 0.5
+    }
+   ],
+   "endCard": {
+    "text": "Đôi giày vẫn thế. Hôm nay, Tèo đã bước ra.",
+    "small": "Bạn có món đồ nào đang chờ ngày bắt đầu không?"
+   },
+   "amb": "room",
+   "pad": 4.8
+  }
+ ]
+}

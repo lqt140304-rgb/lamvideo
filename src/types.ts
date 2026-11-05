@@ -285,8 +285,12 @@ export type DialogScene = SceneBase & {
   floor?: number;
   /** Chữ nhỏ đầu cảnh, ví dụ "Hồi còn đi học". */
   label?: string;
-  cast: { who: Speaker; x: number; scale?: number; pose?: ActorPose; flip?: boolean; fromLine?: number; toLine?: number; path?: [number, number][]; tile?: number; tileY?: number }[];
-  props?: { name: string; x: number; y: number; scale?: number; front?: boolean; flip?: boolean; fromLine?: number; toLine?: number }[];
+  cast: { who: Speaker; x: number; scale?: number; pose?: ActorPose; flip?: boolean; fromLine?: number; toLine?: number; path?: [number, number][]; tile?: number; tileY?: number; variant?: string }[];
+  props?: { name: string; x: number; y: number; scale?: number; front?: boolean; flip?: boolean; fromLine?: number; toLine?: number; at?: number; until?: number; shake?: number; rot?: number; moveTo?: { x: number; y: number } }[];
+  /** Hiệu ứng âm (file trong public/audio/sfx/), `at` tính bằng giây từ đầu cảnh. */
+  sfx?: { file: string; at: number; len?: number; volume?: number }[];
+  /** Tiếng nền lặp suốt cảnh (public/audio/sfx/amb-<tên>.wav). */
+  amb?: "room" | "park";
   lines: DialogLine[];
   /** Ảnh tư liệu chèn từ lượt `fromLine` đến hết lượt `toLine`. */
   inserts?: { file: string; fromLine: number; toLine: number; caption?: string; y?: number }[];

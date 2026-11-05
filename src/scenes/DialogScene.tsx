@@ -1,14 +1,17 @@
 import React from "react";
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Img, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { pop } from "../anim";
 import { color, font } from "../brand";
 import { Captions } from "../components/Captions";
 import { MASCOT } from "../mascot";
 import type { ActorPose, DialogScene as DialogData, Speaker } from "../types";
 import castData from "../../public/lon-roi-hen-du-hoi/cast/cast.json";
+import castGiay from "../../public/giay-moi-van-la-minh/cast/cast.json";
 
 type Info = { w: number; h: number; footX: number; footY: number; bodyH?: number };
-const CAST = castData as unknown as { chars: Record<string, Record<string, Info>>; props: Record<string, { w: number; h: number }> };
+type CastData = { chars: Record<string, Record<string, Info>>; props: Record<string, { w: number; h: number }> };
+const CASTS: Record<string, CastData> = { "lon-roi-hen-du-hoi": castData as unknown as CastData, "giay-moi-van-la-minh": castGiay as unknown as CastData };
+const castOf = (slug: string) => CASTS[slug] ?? CASTS["lon-roi-hen-du-hoi"];
 
 /** Màu nhấn theo áo từng nhân vật (chữ tên + viền). */
 export const SPEAKER_COLOR: Record<string, string> = { MINH: "#2F6FE0", BOM: "#17A98A", NA: "#8A55D0", TEO: "#E8761A" };
@@ -31,8 +34,8 @@ const GRADE: Record<NonNullable<DialogData["bg"]["grade"]>, { overlay: string; f
 
 export const Actor: React.FC<{
   slug: string; who: Speaker; pose: ActorPose; x: number; y: number; scale: number; flip?: boolean;
-  speaking: boolean; changedAt?: number; enter: number; dx?: number; tile?: boolean;
-}> = ({ slug, who, pose, x, y, scale, flip, speaking, changedAt, enter, dx = 0, tile }) => {
+  speaking: boolean; changedAt?: number; enter: number; dx?: number; tile?: boolean; variant?: string;
+}> = ({ slug, who, pose, x, y, scale, flip, speaking, changedAt, enter, dx = 0, tile, variant }) => {
   const frame = useCurrentFrame();
   let src: string;
   let info: Info;
@@ -43,11 +46,12 @@ export const Actor: React.FC<{
     f = (BODY * scale * REL.MINH) / 1045;
     src = staticFile(`mascot/${p}.png`);
   } else {
-    const set = CAST.chars[who.toLowerCase()];
+    const dir = who.toLowerCase() + (variant ? `_${variant}` : "");
+    const set = castOf(slug).chars[dir];
     const p = set[pose] ? pose : POSE_FALLBACK[pose] && set[POSE_FALLBACK[pose] as string] ? (POSE_FALLBACK[pose] as ActorPose) : "stand";
     info = set[p];
     f = (BODY * scale * REL[who]) / (set.stand.bodyH ?? 336);
-    src = staticFile(`${slug}/cast/${who.toLowerCase()}/${p}.png`);
+    src = staticFile(`${slug}/cast/${dir}/${p}.png`);
   }
   const p = pop(frame, enter);
   const bob = speaking ? Math.sin(frame / 2.4) * 4 : Math.sin(frame / 14 + x) * 1.2;
@@ -114,7 +118,7 @@ export const DialogScene: React.FC<{ scene: DialogData; frames: number; slug: st
         </div>
       ) : null}
       {scene.chip ? (
-        <div style={{ position: "absolute", left: 0, right: 0, top: 348, textAlign: "center" }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 362, textAlign: "center" }}>
           <span style={{ display: "inline-block", fontFamily: font.body, fontWeight: 800, fontSize: 36, color: color.ink, background: "rgba(255,255,255,0.92)", padding: "8px 26px", borderRadius: 30, border: `4px solid ${color.ink}` }}>{scene.chip}</span>
         </div>
       ) : null}
@@ -148,14 +152,14 @@ export const DialogScene: React.FC<{ scene: DialogData; frames: number; slug: st
           return (
             <div key={`${c.who}${i}`} style={{ position: "absolute", left: L, top: T, width: S, height: S, borderRadius: S * 0.1, overflow: "hidden", border: `${speaking ? 8 : 4}px solid ${col}`, background: `linear-gradient(180deg, ${col}33, ${col}77)`, boxShadow: "0 10px 24px rgba(0,0,0,0.35)", opacity: Math.min(1, e * 2), transform: `scale(${0.85 + 0.15 * Math.min(1, e)})` }}>
               <div style={{ position: "absolute", left: -L, top: -T, width: 1080, height: 1920 }}>
-                <Actor slug={slug} who={c.who} pose={pose} x={L + S / 2} y={T + S - 6} scale={(S / 300) * 0.5} flip={c.flip} speaking={speaking} changedAt={changedAt} enter={start} tile />
+                <Actor slug={slug} who={c.who} pose={pose} x={L + S / 2} y={T + S - 6} scale={(S / 300) * 0.5} flip={c.flip} speaking={speaking} changedAt={changedAt} enter={start} tile variant={c.variant} />
               </div>
               <div style={{ position: "absolute", left: 0, right: 0, bottom: 4, textAlign: "center", fontFamily: font.body, fontWeight: 800, fontSize: Math.max(22, S * 0.1), color: "#fff", textShadow: "0 2px 4px rgba(0,0,0,0.6)" }}>{NAME[c.who]}</div>
             </div>
           );
         }
         return (
-          <Actor key={`${c.who}${i}`} slug={slug} who={c.who} pose={useP} x={c.x} dx={dx} y={FLOOR + (c.path && c.path[0][1] ? 0 : 0)} scale={c.scale ?? 1} flip={c.flip} speaking={speaking} changedAt={changedAt} enter={start} />
+          <Actor key={`${c.who}${i}`} slug={slug} who={c.who} pose={useP} x={c.x} dx={dx} y={FLOOR + (c.path && c.path[0][1] ? 0 : 0)} scale={c.scale ?? 1} flip={c.flip} speaking={speaking} changedAt={changedAt} enter={start} variant={c.variant} />
         );
       })}
 
@@ -190,6 +194,12 @@ export const DialogScene: React.FC<{ scene: DialogData; frames: number; slug: st
         );
       })}
 
+      {scene.amb ? <Audio src={staticFile(`audio/sfx/amb-${scene.amb}.wav`)} volume={0.35} loop /> : null}
+      {(scene.sfx ?? []).map((x, i) => (
+        <Sequence key={`sfx${i}`} from={Math.round(x.at * 30)} durationInFrames={Math.round((x.len ?? 2) * 30)}>
+          <Audio src={staticFile(`audio/sfx/${x.file}`)} volume={x.volume ?? 0.5} />
+        </Sequence>
+      ))}
       {scene.endCard ? <EndCard card={scene.endCard} start={Math.max(0, frames - 120)} /> : null}
       {scene.lines[cur]?.flash && cur >= 0 && frame - lines[cur].from < 8 ? <AbsoluteFill style={{ background: "rgba(255,225,160,0.45)", opacity: 1 - (frame - lines[cur].from) / 8 }} /> : null}
     </AbsoluteFill>
@@ -200,13 +210,27 @@ const Prop: React.FC<{ slug: string; p: NonNullable<DialogData["props"]>[number]
   const frame = useCurrentFrame();
   const from = p.fromLine ?? 0;
   const to = p.toLine ?? 999;
-  if (cur < from && frame < (lines[from]?.from ?? 0)) return null;
-  if (cur > to) return null;
-  const d = CAST.props[p.name];
+  const t0 = p.at !== undefined ? Math.round(p.at * 30) : from === 0 ? 0 : lines[from]?.from ?? 0;
+  if (p.at !== undefined) {
+    if (frame < t0 || (p.until !== undefined && frame > p.until * 30)) return null;
+  } else {
+    if (cur < from && frame < (lines[from]?.from ?? 0)) return null;
+    if (cur > to) return null;
+  }
+  const d = castOf(slug).props[p.name];
   const f = (p.scale ?? 1) * 1.45;
-  const s = pop(frame, from === 0 ? 0 : lines[from]?.from ?? 0);
+  const s = pop(frame, t0);
+  let ox = 0;
+  let oy = 0;
+  if (p.moveTo && p.until !== undefined) {
+    const u = interpolate(frame, [t0, p.until * 30], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    const e = u * u * (3 - 2 * u);
+    ox = (p.moveTo.x - p.x) * e;
+    oy = (p.moveTo.y - p.y) * e;
+  }
+  const sh = p.shake ? Math.sin(frame * 2.6) * p.shake : 0;
   return (
-    <div style={{ position: "absolute", left: p.x - (d.w * f) / 2, top: p.y - d.h * f, width: d.w * f, height: d.h * f, transform: `${p.flip ? "scaleX(-1) " : ""}scale(${0.7 + 0.3 * Math.min(1, s)})`, transformOrigin: "50% 100%", opacity: Math.min(1, s * 2) }}>
+    <div style={{ position: "absolute", left: p.x + ox - (d.w * f) / 2, top: p.y + oy - d.h * f, width: d.w * f, height: d.h * f, transform: `rotate(${(p.rot ?? 0) + sh}deg) ${p.flip ? "scaleX(-1) " : ""}scale(${0.7 + 0.3 * Math.min(1, s)})`, transformOrigin: "50% 100%", opacity: Math.min(1, s * 2) }}>
       <Img src={staticFile(`${slug}/cast/props/${p.name}.png`)} style={{ width: "100%", height: "100%" }} />
     </div>
   );

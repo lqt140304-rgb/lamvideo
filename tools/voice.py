@@ -137,6 +137,9 @@ def dialog_scene(tts, scene, voices, out_dir, name, force, old_entry):
 
     lines_dir = out_dir / "lines"
     lines_dir.mkdir(exist_ok=True)
+    if not scene.get("lines"):
+        sf.write(str(out_dir / name), np.zeros(int(0.1 * 24000), dtype="float32"), 24000)
+        return {"file": name, "seconds": 0.1, "hash": "silent", "lines": []}, False
     sr = None
     pieces = []
     meta = []
