@@ -137,6 +137,9 @@ def dialog_scene(tts, scene, voices, out_dir, name, force, old_entry):
 
     lines_dir = out_dir / "lines"
     lines_dir.mkdir(exist_ok=True)
+    if not scene.get("lines"):
+        sf.write(str(out_dir / name), np.zeros(int(0.1 * 24000), dtype="float32"), 24000)
+        return {"file": name, "seconds": 0.1, "hash": "silent", "lines": []}, False
     sr = None
     pieces = []
     meta = []
@@ -167,6 +170,8 @@ def dialog_scene(tts, scene, voices, out_dir, name, force, old_entry):
         sr = sr or rate
         data = level_to(data)
         gap = 0.0 if k == 0 else float(ln.get("gap", 0.3))
+        if "at" in ln:
+            gap = max(0.0 if k == 0 else 0.1, float(ln["at"]) - t)
         t += gap
         pieces.append(np.zeros(int(gap * sr), dtype="float32"))
         pieces.append(data)
@@ -181,7 +186,7 @@ def dialog_scene(tts, scene, voices, out_dir, name, force, old_entry):
     return {"file": name, "seconds": round(len(full) / sr, 3), "hash": sh, "lines": meta}, reread
 
 
-def audition(script, slug) -> int:
+def audition(script, slug, candidates=None) -> int:
     """Đọc thử 1 câu của mỗi nhân vật + in danh sách giọng có sẵn để chọn lại nếu cần."""
     voices = script.get("voices", {})
     tts = load_tts()
@@ -195,6 +200,21 @@ def audition(script, slug) -> int:
                 print(f"  ! {who}: không thấy giọng '{v}' trong danh sách")
     out = ROOT / "public" / slug / "voice" / "audition"
     out.mkdir(parents=True, exist_ok=True)
+    sample = script.get("audition")
+    if sample:
+        # Độc thoại: đọc thử đúng đoạn cần nghe (ví dụ hook + cảnh 5) bằng mỗi giọng muốn so sánh.
+        text = " ".join(sc["voice"] for sc in script["scenes"] if sc["id"] in sample)
+        tries = candidates or list(dict.fromkeys(voices.values())) or [script.get("voice", {}).get("speaker", "Hải Đăng")]
+        for v in tries:
+            if names and v not in names:
+                print(f"  ! giọng '{v}' không có trong danh sách")
+                continue
+            audio = tts.infer(text, voice=v)
+            path = out / f"doan-thu-{v.replace(' ', '_')}.wav"
+            tts.save(audio, str(path))
+            print(f"  {v:12s} → {path.relative_to(ROOT)}")
+        print("Nghe các file trên, chọn một giọng rồi sửa \"voices\" và \"voice.speaker\" trong script.json.")
+        return 0
     first = {}
     for sc in script["scenes"]:
         for ln in sc.get("lines", []):
@@ -215,6 +235,7 @@ def main() -> int:
     parser.add_argument("--speaker", help="giọng đọc, mặc định lấy trong script.json")
     parser.add_argument("--force", action="store_true", help="đọc lại tất cả các câu")
     parser.add_argument("--audition", action="store_true", help="chỉ đọc thử mỗi nhân vật một câu để nghe giọng")
+    parser.add_argument("--try", dest="candidates", help="danh sách giọng so sánh khi --audition, ví dụ \"Hải Đăng,Minh Đức\"")
     args = parser.parse_args()
 
     script_path = ROOT / "videos" / args.slug / "script.json"
@@ -225,7 +246,7 @@ def main() -> int:
     speaker = args.speaker or script.get("voice", {}).get("speaker", "Hải Đăng")
     voices = script.get("voices", {})
     if args.audition:
-        return audition(script, args.slug)
+        return audition(script, args.slug, [c.strip() for c in args.candidates.split(",")] if args.candidates else None)
 
     out_dir = ROOT / "public" / args.slug / "voice"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -241,7 +262,7 @@ def main() -> int:
         text = scene["voice"].strip()
         name = f"scene-{i:02d}.wav"
         path = out_dir / name
-        if scene.get("type") == "dialog":
+        if scene.get("type") in ("dialog", "memory"):
             cached = old.get(name)
             print(f"[{i:02d}] hội thoại {scene.get('id', '')}")
             entry, _ = dialog_scene(tts, scene, voices, out_dir, name, args.force, cached)

@@ -250,12 +250,17 @@ export type StoryScene = SceneBase & {
 
 /** Nhân vật trong truyện nhiều giọng. */
 export type Speaker = "MINH" | "BOM" | "NA" | "TEO";
-export type ActorPose = "stand" | "wave" | "point" | "think" | "surprised" | "cheer" | "sad" | "angry" | "walk" | "run" | "sit" | "phone" | "happy";
+export type ActorPose = "stand" | "wave" | "point" | "think" | "surprised" | "cheer" | "sad" | "angry" | "walk" | "run" | "sit" | "phone" | "happy" | "sleep" | "box" | "hold" | "tie" | "bow" | "look" | "sit2" | "sitTalk" | "sitLook";
 
 /** Một lượt thoại: mỗi lượt đọc bằng giọng riêng của nhân vật và xuất thành file riêng theo `id`. */
 export type DialogLine = {
   id: string;
-  who: Speaker;
+  /** Nhân vật (MINH/BOM/NA/TEO) hoặc vai trong ký ức: NARR (người kể), BE, BA, ONG. */
+  who: Speaker | "NARR" | "BE" | "BA" | "ONG";
+  /** Bắt đầu đúng giây này (tính từ đầu cảnh) thay vì nối tiếp lượt trước. Dùng cho cảnh ký ức. */
+  at?: number;
+  /** Lời thoại sáng tác minh họa (không phải lời thật của ai). */
+  invented?: boolean;
   /** Lời được đọc (số viết bằng chữ). */
   text: string;
   /** Phụ đề (số viết bằng số); bỏ trống thì dùng `text`. */
@@ -272,6 +277,8 @@ export type DialogLine = {
 
 /** Cảnh hội thoại nhiều nhân vật trên nền ảnh thật. */
 export type DialogScene = SceneBase & {
+  /** Nhân vật đóng vai người kể trong cảnh độc thoại (nhún nhẹ khi đang kể); mặc định TEO. */
+  narrator?: Speaker;
   type: "dialog";
   /** Mã cảnh, ví dụ S03. */
   id: string;
@@ -280,8 +287,12 @@ export type DialogScene = SceneBase & {
   floor?: number;
   /** Chữ nhỏ đầu cảnh, ví dụ "Hồi còn đi học". */
   label?: string;
-  cast: { who: Speaker; x: number; scale?: number; pose?: ActorPose; flip?: boolean; fromLine?: number; toLine?: number; path?: [number, number][]; tile?: number; tileY?: number }[];
-  props?: { name: string; x: number; y: number; scale?: number; front?: boolean; flip?: boolean; fromLine?: number; toLine?: number }[];
+  cast: { who: Speaker; x: number; scale?: number; pose?: ActorPose; flip?: boolean; fromLine?: number; toLine?: number; path?: [number, number][]; tile?: number; tileY?: number; variant?: string }[];
+  props?: { name: string; x: number; y: number; scale?: number; front?: boolean; flip?: boolean; fromLine?: number; toLine?: number; at?: number; until?: number; shake?: number; rot?: number; moveTo?: { x: number; y: number } }[];
+  /** Hiệu ứng âm (file trong public/audio/sfx/), `at` tính bằng giây từ đầu cảnh. */
+  sfx?: { file: string; at: number; len?: number; volume?: number }[];
+  /** Tiếng nền lặp suốt cảnh (public/audio/sfx/amb-<tên>.wav). */
+  amb?: "room" | "park";
   lines: DialogLine[];
   /** Ảnh tư liệu chèn từ lượt `fromLine` đến hết lượt `toLine`. */
   inserts?: { file: string; fromLine: number; toLine: number; caption?: string; y?: number }[];
@@ -291,7 +302,21 @@ export type DialogScene = SceneBase & {
   chip?: string;
 };
 
+/** Cảnh ký ức làng quê: nền ảnh thật + nhân vật/đồ vật hoạt hình chuyển động. */
+export type MemoryScene = SceneBase & {
+  type: "memory";
+  id: string;
+  kind: "grass" | "road" | "kite" | "yard" | "quiet";
+  bg: { file: string; focus?: string; zoom?: number; zoomTo?: number; panFrom?: number; panTo?: number; grade?: "past" | "present" | "warm" | "night" };
+  /** Độ dài tối thiểu của cảnh (giây) kể cả khi lời kể ngắn hơn. */
+  minSeconds: number;
+  label?: string;
+  lines: DialogLine[];
+  endCard?: { text: string; small?: string };
+};
+
 export type Scene =
+  | MemoryScene
   | DialogScene
   | StoryScene
   | HookScene
@@ -315,6 +340,10 @@ export type VideoScript = {
   /** Nhãn chủ đề ở đầu khung hình. */
   topic: string;
   voice: { engine: "vieneu"; speaker: string };
+  /** Tên kênh hiện ở góc trên (mặc định theo brand). */
+  channel?: string;
+  /** Ẩn nhãn kênh, chủ đề và thanh tiến độ ở đầu khung. */
+  hideHeader?: boolean;
   /** Truyện nhiều giọng: mã nhân vật → tên giọng VieNeu. */
   voices?: Record<string, string>;
   /** Đường dẫn nhạc nền trong public/, ví dụ "music/nhac-nen.mp3". */

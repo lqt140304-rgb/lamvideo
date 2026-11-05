@@ -1,0 +1,1139 @@
+{
+ "id": "ngay-xua-mai-nao-cung-gap",
+ "title": "Ngày xưa, mai nào cũng gặp",
+ "topic": "Ngày xưa, mai nào cũng gặp",
+ "channel": "KIẾN THỨC MỖI NGÀY",
+ "hideHeader": true,
+ "voice": {
+  "engine": "vieneu",
+  "speaker": "Hải Đăng"
+ },
+ "voices": {
+  "NARR": "Hải Đăng"
+ },
+ "music": "audio/music/ky-niem.mp3",
+ "musicVolume": 0.12,
+ "scenes": [
+  {
+   "type": "dialog",
+   "id": "S01A",
+   "narrator": "MINH",
+   "bg": {
+    "file": "NET01_tiem_net.jpg",
+    "grade": "past",
+    "zoom": 1.5,
+    "focus": "78% 55%"
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 300,
+     "scale": 0.85,
+     "pose": "think"
+    },
+    {
+     "who": "TEO",
+     "x": 580,
+     "scale": 0.85,
+     "pose": "sit"
+    },
+    {
+     "who": "BOM",
+     "x": 840,
+     "scale": 0.85,
+     "pose": "sit",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S01A_NARR_01",
+     "who": "NARR",
+     "text": "Ngày xưa, cả bọn góp tiền, chỉ để được ngồi chơi thêm một tiếng.",
+     "gap": 0.0
+    },
+    {
+     "id": "S01A_NARR_02",
+     "who": "NARR",
+     "text": "Bây giờ, một tiếng ấy lại khó tìm hơn.",
+     "gap": 0.6
+    }
+   ],
+   "voice": "Ngày xưa, cả bọn góp tiền, chỉ để được ngồi chơi thêm một tiếng. Bây giờ, một tiếng ấy lại khó tìm hơn.",
+   "amb": "room",
+   "pad": 2.0,
+   "props": [
+    {
+     "name": "crt",
+     "x": 560,
+     "y": 1120,
+     "scale": 0.7
+    }
+   ],
+   "chip": "THÊM MỘT TIẾNG",
+   "sfx": [
+    {
+     "file": "tick.wav",
+     "at": 0.3,
+     "len": 0.4,
+     "volume": 0.35
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S01B",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "present",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 540,
+     "scale": 0.95,
+     "pose": "think"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S01B_NARR_01",
+     "who": "NARR",
+     "text": "Anh em có nhớ không?",
+     "gap": 0.0
+    }
+   ],
+   "voice": "Anh em có nhớ không?",
+   "amb": "room",
+   "pad": 0.6,
+   "chip": "HẸN MỘT BUỔI"
+  },
+  {
+   "type": "dialog",
+   "id": "S01C",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "past",
+    "zoom": 1.0,
+    "pan": 0.4
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 260,
+     "scale": 0.85,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 500,
+     "scale": 0.85,
+     "pose": "wave"
+    },
+    {
+     "who": "BOM",
+     "x": 740,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    },
+    {
+     "who": "NA",
+     "x": 930,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S01C_NARR_01",
+     "who": "NARR",
+     "text": "Hồi còn đi học, gần như ngày nào mình cũng gặp nhau.",
+     "gap": 0.2
+    },
+    {
+     "id": "S01C_NARR_02",
+     "who": "NARR",
+     "text": "Vậy mà lúc về, vẫn thấy chưa chơi đủ.",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Hồi còn đi học, gần như ngày nào mình cũng gặp nhau. Vậy mà lúc về, vẫn thấy chưa chơi đủ.",
+   "amb": "room",
+   "pad": 1.6,
+   "label": "Hồi còn đi học"
+  },
+  {
+   "type": "dialog",
+   "id": "S02A",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "past",
+    "zoom": 1.0,
+    "pan": 0.2
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.9,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 780,
+     "scale": 0.9,
+     "pose": "wave",
+     "flip": true,
+     "fromLine": 1
+    }
+   ],
+   "lines": [
+    {
+     "id": "S02A_NARR_01",
+     "who": "NARR",
+     "text": "Có hôm vừa cất cặp xuống, đã nghe tiếng gọi ngoài cửa.",
+     "gap": 0.0
+    },
+    {
+     "id": "S02A_NARR_02",
+     "who": "NARR",
+     "text": "Thế là chạy ra.",
+     "gap": 0.5
+    },
+    {
+     "id": "S02A_NARR_03",
+     "who": "NARR",
+     "text": "Chẳng cần biết hôm nay sẽ làm gì. Cứ gặp nhau đã.",
+     "gap": 0.4
+    }
+   ],
+   "voice": "Có hôm vừa cất cặp xuống, đã nghe tiếng gọi ngoài cửa. Thế là chạy ra. Chẳng cần biết hôm nay sẽ làm gì. Cứ gặp nhau đã.",
+   "amb": "room",
+   "pad": 1.4,
+   "props": [
+    {
+     "name": "backpack",
+     "x": 160,
+     "y": 1255,
+     "scale": 0.45,
+     "toLine": 0
+    }
+   ],
+   "sfx": [
+    {
+     "file": "ding.wav",
+     "at": 3.0,
+     "len": 1,
+     "volume": 0.3
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S02B",
+   "narrator": "MINH",
+   "bg": {
+    "file": "NET01_tiem_net.jpg",
+    "grade": "past",
+    "zoom": 1.5,
+    "focus": "78% 55%"
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 280,
+     "scale": 0.85,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 560,
+     "scale": 0.85,
+     "pose": "cheer"
+    },
+    {
+     "who": "BOM",
+     "x": 830,
+     "scale": 0.85,
+     "pose": "sit",
+     "flip": true
+    },
+    {
+     "who": "NA",
+     "x": 1010,
+     "scale": 0.8,
+     "pose": "sit",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S02B_NARR_01",
+     "who": "NARR",
+     "text": "Đứa rủ đá bóng. Đứa muốn ra quán nét.",
+     "gap": 0.0
+    },
+    {
+     "id": "S02B_NARR_02",
+     "who": "NARR",
+     "text": "Có đứa hết tiền máy, vẫn kéo ghế ngồi cạnh.",
+     "gap": 0.5
+    },
+    {
+     "id": "S02B_NARR_03",
+     "who": "NARR",
+     "text": "Ngồi xem thôi mà cũng cười. Cũng cãi.",
+     "gap": 0.4
+    },
+    {
+     "id": "S02B_NARR_04",
+     "who": "NARR",
+     "text": "Cũng nhất định không chịu về trước.",
+     "gap": 0.4
+    }
+   ],
+   "voice": "Đứa rủ đá bóng. Đứa muốn ra quán nét. Có đứa hết tiền máy, vẫn kéo ghế ngồi cạnh. Ngồi xem thôi mà cũng cười. Cũng cãi. Cũng nhất định không chịu về trước.",
+   "amb": "room",
+   "pad": 1.2,
+   "props": [
+    {
+     "name": "crt",
+     "x": 560,
+     "y": 1120,
+     "scale": 0.7
+    },
+    {
+     "name": "noodles",
+     "x": 800,
+     "y": 1260,
+     "scale": 0.6,
+     "front": true
+    }
+   ],
+   "sfx": [
+    {
+     "file": "tick.wav",
+     "at": 2.0,
+     "len": 0.4,
+     "volume": 0.3
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S02C",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "past",
+    "zoom": 1.0,
+    "pan": 0.5
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 300,
+     "scale": 0.85,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 560,
+     "scale": 0.85,
+     "pose": "walk"
+    },
+    {
+     "who": "BOM",
+     "x": 800,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    },
+    {
+     "who": "NA",
+     "x": 980,
+     "scale": 0.85,
+     "pose": "wave",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S02C_NARR_01",
+     "who": "NARR",
+     "text": "Lúc nào cũng có một ván cuối. Rồi thêm một ván nữa.",
+     "gap": 0.0
+    },
+    {
+     "id": "S02C_NARR_02",
+     "who": "NARR",
+     "text": "Đến khi phải về thật, cả bọn dắt xe ra cửa, vẫn còn đứng nói thêm một lúc.",
+     "gap": 0.7
+    },
+    {
+     "id": "S02C_NARR_03",
+     "who": "NARR",
+     "text": "Trước khi rẽ mỗi đứa một đường, chỉ cần hỏi: mai lại ra nhé?",
+     "gap": 0.6
+    },
+    {
+     "id": "S02C_NARR_04",
+     "who": "NARR",
+     "text": "Và đứa nào cũng gật.",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Lúc nào cũng có một ván cuối. Rồi thêm một ván nữa. Đến khi phải về thật, cả bọn dắt xe ra cửa, vẫn còn đứng nói thêm một lúc. Trước khi rẽ mỗi đứa một đường, chỉ cần hỏi: mai lại ra nhé? Và đứa nào cũng gật.",
+   "amb": "room",
+   "pad": 2.0,
+   "props": [
+    {
+     "name": "bike",
+     "x": 150,
+     "y": 1255,
+     "scale": 0.8
+    },
+    {
+     "name": "clock",
+     "x": 900,
+     "y": 560,
+     "scale": 0.45,
+     "toLine": 1
+    }
+   ],
+   "chip": "VÁN CUỐI",
+   "sfx": [
+    {
+     "file": "ding.wav",
+     "at": 9.0,
+     "len": 1,
+     "volume": 0.35
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S03A",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "present",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 540,
+     "scale": 0.95,
+     "pose": "stand"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S03A_NARR_01",
+     "who": "NARR",
+     "text": "Rồi ra trường.",
+     "gap": 0.0
+    },
+    {
+     "id": "S03A_NARR_02",
+     "who": "NARR",
+     "text": "Có đứa đi học xa. Có đứa đi làm.",
+     "gap": 0.5
+    },
+    {
+     "id": "S03A_NARR_03",
+     "who": "NARR",
+     "text": "Có đứa về quê. Có đứa ở lại thành phố.",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Rồi ra trường. Có đứa đi học xa. Có đứa đi làm. Có đứa về quê. Có đứa ở lại thành phố.",
+   "amb": "room",
+   "pad": 1.0,
+   "props": [
+    {
+     "name": "backpack",
+     "x": 200,
+     "y": 1255,
+     "scale": 0.45
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S03B",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "present",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 520,
+     "scale": 0.95,
+     "pose": "think"
+    },
+    {
+     "who": "TEO",
+     "x": 170,
+     "tile": 230,
+     "tileY": 440,
+     "pose": "stand"
+    },
+    {
+     "who": "BOM",
+     "x": 410,
+     "tile": 230,
+     "tileY": 440,
+     "pose": "stand",
+     "fromLine": 1
+    },
+    {
+     "who": "NA",
+     "x": 650,
+     "tile": 230,
+     "tileY": 440,
+     "pose": "stand",
+     "fromLine": 2
+    }
+   ],
+   "lines": [
+    {
+     "id": "S03B_NARR_01",
+     "who": "NARR",
+     "text": "Ban đầu, vẫn hẹn nhau suốt.",
+     "gap": 0.0
+    },
+    {
+     "id": "S03B_NARR_02",
+     "who": "NARR",
+     "text": "Cuối tuần này nhé. Đợi tao lĩnh lương nhé.",
+     "gap": 0.4
+    },
+    {
+     "id": "S03B_NARR_03",
+     "who": "NARR",
+     "text": "Hôm nào về, nhớ gọi.",
+     "gap": 0.4
+    }
+   ],
+   "voice": "Ban đầu, vẫn hẹn nhau suốt. Cuối tuần này nhé. Đợi tao lĩnh lương nhé. Hôm nào về, nhớ gọi.",
+   "amb": "room",
+   "pad": 1.0,
+   "chip": "Cuối tuần này nhé?  ·  Hôm nào về, nhớ gọi"
+  },
+  {
+   "type": "dialog",
+   "id": "S03C",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "night",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 500,
+     "scale": 0.95,
+     "pose": "phone"
+    },
+    {
+     "who": "TEO",
+     "x": 170,
+     "tile": 230,
+     "tileY": 440,
+     "pose": "sad"
+    },
+    {
+     "who": "BOM",
+     "x": 410,
+     "tile": 230,
+     "tileY": 440,
+     "pose": "stand"
+    },
+    {
+     "who": "NA",
+     "x": 650,
+     "tile": 230,
+     "tileY": 440,
+     "pose": "sad"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S03C_NARR_01",
+     "who": "NARR",
+     "text": "Nhưng rồi, cuối tuần đứa này rảnh, lại đúng hôm đứa kia phải làm.",
+     "gap": 0.0,
+     "react": {
+      "MINH": "think"
+     }
+    },
+    {
+     "id": "S03C_NARR_02",
+     "who": "NARR",
+     "text": "Có đứa chỉ ghé nhà được một buổi.",
+     "gap": 0.5
+    },
+    {
+     "id": "S03C_NARR_03",
+     "who": "NARR",
+     "text": "Có đứa vừa ngồi xuống, đã phải xem giờ về.",
+     "gap": 0.4
+    },
+    {
+     "id": "S03C_NARR_04",
+     "who": "NARR",
+     "text": "Không ai giận ai cả.",
+     "gap": 1.0,
+     "react": {
+      "MINH": "sad"
+     }
+    },
+    {
+     "id": "S03C_NARR_05",
+     "who": "NARR",
+     "text": "Mình cũng hiểu, bạn mình đang bận thật.",
+     "gap": 0.4
+    },
+    {
+     "id": "S03C_NARR_06",
+     "who": "NARR",
+     "text": "Thế nên, mỗi lần chưa hẹn được, lại bảo nhau: thôi, để hôm khác.",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Nhưng rồi, cuối tuần đứa này rảnh, lại đúng hôm đứa kia phải làm. Có đứa chỉ ghé nhà được một buổi. Có đứa vừa ngồi xuống, đã phải xem giờ về. Không ai giận ai cả. Mình cũng hiểu, bạn mình đang bận thật. Thế nên, mỗi lần chưa hẹn được, lại bảo nhau: thôi, để hôm khác.",
+   "amb": "room",
+   "pad": 2.2,
+   "chip": "ĐỂ HÔM KHÁC",
+   "sfx": [
+    {
+     "file": "ding.wav",
+     "at": 0.5,
+     "len": 1,
+     "volume": 0.25
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S04A",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "present",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 540,
+     "scale": 0.95,
+     "pose": "phone"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S04A_NARR_01",
+     "who": "NARR",
+     "text": "Thỉnh thoảng, một đứa tìm thấy ảnh cũ. Gửi vào nhóm.",
+     "gap": 0.0
+    },
+    {
+     "id": "S04A_NARR_02",
+     "who": "NARR",
+     "text": "Thế là cả bọn lại nói nhiều.",
+     "gap": 0.5
+    },
+    {
+     "id": "S04A_NARR_03",
+     "who": "NARR",
+     "text": "Vẫn trêu cái đầu tóc ngày xưa.",
+     "gap": 0.4
+    },
+    {
+     "id": "S04A_NARR_04",
+     "who": "NARR",
+     "text": "Vẫn nhắc một trận thua mà đứa nào cũng nhất quyết bảo không phải lỗi của mình.",
+     "gap": 0.4
+    }
+   ],
+   "voice": "Thỉnh thoảng, một đứa tìm thấy ảnh cũ. Gửi vào nhóm. Thế là cả bọn lại nói nhiều. Vẫn trêu cái đầu tóc ngày xưa. Vẫn nhắc một trận thua mà đứa nào cũng nhất quyết bảo không phải lỗi của mình.",
+   "amb": "room",
+   "pad": 1.2,
+   "inserts": [
+    {
+     "file": "anh-bon-nguoi.jpg",
+     "fromLine": 0,
+     "toLine": 3,
+     "caption": "Ảnh minh họa (ghép từ nhân vật)",
+     "y": 330
+    }
+   ],
+   "chip": "Nhóm: Bốn đứa đầu ngõ"
+  },
+  {
+   "type": "dialog",
+   "id": "S04B",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "present",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 400,
+     "scale": 0.95,
+     "pose": "stand",
+     "fromLine": 0
+    }
+   ],
+   "lines": [
+    {
+     "id": "S04B_NARR_01",
+     "who": "NARR",
+     "text": "Đọc những dòng ấy, có lúc mình bật cười một mình.",
+     "gap": 0.0,
+     "react": {
+      "MINH": "happy"
+     }
+    },
+    {
+     "id": "S04B_NARR_02",
+     "who": "NARR",
+     "text": "Vẫn là chúng nó.",
+     "gap": 0.6,
+     "react": {
+      "MINH": "happy"
+     }
+    },
+    {
+     "id": "S04B_NARR_03",
+     "who": "NARR",
+     "text": "Chỉ có điều, không còn ngồi ngay bên cạnh.",
+     "gap": 0.7,
+     "react": {
+      "MINH": "sad"
+     }
+    }
+   ],
+   "voice": "Đọc những dòng ấy, có lúc mình bật cười một mình. Vẫn là chúng nó. Chỉ có điều, không còn ngồi ngay bên cạnh.",
+   "amb": "room",
+   "pad": 1.4,
+   "props": [
+    {
+     "name": "chair",
+     "x": 760,
+     "y": 1250,
+     "scale": 0.8
+    }
+   ],
+   "chip": "VẪN LÀ CHÚNG NÓ"
+  },
+  {
+   "type": "dialog",
+   "id": "S04C",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "night",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 540,
+     "scale": 0.95,
+     "pose": "phone"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S04C_NARR_01",
+     "who": "NARR",
+     "text": "Rồi mình lướt tìm một tấm ảnh mới hơn.",
+     "gap": 0.0
+    },
+    {
+     "id": "S04C_NARR_02",
+     "who": "NARR",
+     "text": "Một tấm có đủ cả hội.",
+     "gap": 0.5
+    },
+    {
+     "id": "S04C_NARR_03",
+     "who": "NARR",
+     "text": "Tìm một lúc, mới nhận ra đã lâu rồi.",
+     "gap": 0.5,
+     "react": {
+      "MINH": "think"
+     }
+    }
+   ],
+   "voice": "Rồi mình lướt tìm một tấm ảnh mới hơn. Một tấm có đủ cả hội. Tìm một lúc, mới nhận ra đã lâu rồi.",
+   "amb": "room",
+   "pad": 2.0
+  },
+  {
+   "type": "dialog",
+   "id": "S05A",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "past",
+    "zoom": 1.0,
+    "pan": 0.3
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 260,
+     "scale": 0.85,
+     "pose": "think"
+    },
+    {
+     "who": "TEO",
+     "x": 500,
+     "scale": 0.85,
+     "pose": "stand"
+    },
+    {
+     "who": "BOM",
+     "x": 740,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    },
+    {
+     "who": "NA",
+     "x": 930,
+     "scale": 0.85,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S05A_NARR_01",
+     "who": "NARR",
+     "text": "Lần gần nhất gặp đủ nhau, hôm ấy có gì đặc biệt không nhỉ?",
+     "gap": 0.0
+    },
+    {
+     "id": "S05A_NARR_02",
+     "who": "NARR",
+     "text": "Hình như cũng chẳng có gì.",
+     "gap": 0.6
+    },
+    {
+     "id": "S05A_NARR_03",
+     "who": "NARR",
+     "text": "Vẫn ngồi nói mấy chuyện linh tinh.",
+     "gap": 0.4
+    },
+    {
+     "id": "S05A_NARR_04",
+     "who": "NARR",
+     "text": "Vẫn có đứa đến muộn.",
+     "gap": 0.4
+    },
+    {
+     "id": "S05A_NARR_05",
+     "who": "NARR",
+     "text": "Vẫn giục nhau chụp nhanh một tấm rồi về.",
+     "gap": 0.4
+    }
+   ],
+   "voice": "Lần gần nhất gặp đủ nhau, hôm ấy có gì đặc biệt không nhỉ? Hình như cũng chẳng có gì. Vẫn ngồi nói mấy chuyện linh tinh. Vẫn có đứa đến muộn. Vẫn giục nhau chụp nhanh một tấm rồi về.",
+   "amb": "room",
+   "pad": 1.0,
+   "inserts": [
+    {
+     "file": "anh-bon-nguoi.jpg",
+     "fromLine": 4,
+     "toLine": 4,
+     "caption": "Ảnh minh họa (ghép từ nhân vật)",
+     "y": 330
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S05B",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "warm",
+    "zoom": 1.6,
+    "focus": "20% 90%",
+    "pan": 0.2
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 620,
+     "scale": 0.9,
+     "pose": "sad"
+    }
+   ],
+   "lines": [
+    {
+     "id": "S05B_NARR_01",
+     "who": "NARR",
+     "text": "Chẳng ai nghĩ, sau hôm ấy, để ngồi đủ như thế lại khó đến vậy.",
+     "gap": 0.0,
+     "react": {
+      "MINH": "sad"
+     }
+    },
+    {
+     "id": "S05B_NARR_02",
+     "who": "NARR",
+     "text": "Lúc chia tay, mình cũng chỉ nói một câu rất quen: hôm nào gặp tiếp.",
+     "gap": 0.8,
+     "react": {
+      "MINH": "sad"
+     }
+    }
+   ],
+   "voice": "Chẳng ai nghĩ, sau hôm ấy, để ngồi đủ như thế lại khó đến vậy. Lúc chia tay, mình cũng chỉ nói một câu rất quen: hôm nào gặp tiếp.",
+   "amb": "room",
+   "pad": 3.0,
+   "props": [
+    {
+     "name": "bike",
+     "x": 220,
+     "y": 1255,
+     "scale": 0.8
+    },
+    {
+     "name": "backpack",
+     "x": 930,
+     "y": 1255,
+     "scale": 0.45
+    }
+   ],
+   "chip": "HÔM NÀO GẶP TIẾP"
+  },
+  {
+   "type": "dialog",
+   "id": "S06A",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.9,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 640,
+     "scale": 0.9,
+     "pose": "happy"
+    },
+    {
+     "who": "NA",
+     "x": 900,
+     "scale": 0.85,
+     "pose": "sit",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S06A_NARR_01",
+     "who": "NARR",
+     "text": "Dạo này, có những cuộc hẹn không chờ đủ cả hội nữa.",
+     "gap": 0.0
+    },
+    {
+     "id": "S06A_NARR_02",
+     "who": "NARR",
+     "text": "Hai đứa cũng đi. Ba đứa thì ngồi lâu hơn một chút.",
+     "gap": 0.6
+    },
+    {
+     "id": "S06A_NARR_03",
+     "who": "NARR",
+     "text": "Đứa nào chưa về được, gửi cho nó một tấm ảnh.",
+     "gap": 0.5
+    }
+   ],
+   "voice": "Dạo này, có những cuộc hẹn không chờ đủ cả hội nữa. Hai đứa cũng đi. Ba đứa thì ngồi lâu hơn một chút. Đứa nào chưa về được, gửi cho nó một tấm ảnh.",
+   "amb": "room",
+   "pad": 1.0,
+   "props": [
+    {
+     "name": "table",
+     "x": 620,
+     "y": 1260,
+     "scale": 0.7
+    },
+    {
+     "name": "stool",
+     "x": 900,
+     "y": 1260,
+     "scale": 0.5
+    }
+   ],
+   "sfx": [
+    {
+     "file": "shutter.wav",
+     "at": 7.0,
+     "len": 1,
+     "volume": 0.35
+    }
+   ]
+  },
+  {
+   "type": "dialog",
+   "id": "S06B",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.9,
+     "pose": "happy"
+    },
+    {
+     "who": "TEO",
+     "x": 640,
+     "scale": 0.9,
+     "pose": "stand"
+    },
+    {
+     "who": "NA",
+     "x": 900,
+     "scale": 0.9,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S06B_NARR_01",
+     "who": "NARR",
+     "text": "Trong ảnh vẫn có vài chỗ trống.",
+     "gap": 0.0
+    },
+    {
+     "id": "S06B_NARR_02",
+     "who": "NARR",
+     "text": "Nhưng ít nhất, hôm nay, mình đã gặp được nhau.",
+     "gap": 0.7
+    }
+   ],
+   "voice": "Trong ảnh vẫn có vài chỗ trống. Nhưng ít nhất, hôm nay, mình đã gặp được nhau.",
+   "amb": "room",
+   "pad": 1.6,
+   "inserts": [
+    {
+     "file": "anh-ba-nguoi.jpg",
+     "fromLine": 0,
+     "toLine": 1,
+     "caption": "Ảnh minh họa (ghép từ nhân vật)",
+     "y": 330
+    }
+   ],
+   "chip": "Buổi sau gọi tao nhé"
+  },
+  {
+   "type": "dialog",
+   "id": "S06C",
+   "narrator": "MINH",
+   "bg": {
+    "file": "BG05_phong_tro.jpg",
+    "grade": "warm",
+    "zoom": 1.0
+   },
+   "cast": [
+    {
+     "who": "MINH",
+     "x": 330,
+     "scale": 0.9,
+     "pose": "stand"
+    },
+    {
+     "who": "TEO",
+     "x": 640,
+     "scale": 0.9,
+     "pose": "happy"
+    },
+    {
+     "who": "NA",
+     "x": 900,
+     "scale": 0.9,
+     "pose": "stand",
+     "flip": true
+    }
+   ],
+   "lines": [
+    {
+     "id": "S06C_NARR_01",
+     "who": "NARR",
+     "text": "Tóm lại là, nếu đang nhớ hội bạn cũ, có lẽ mình cứ nhắn trước một câu.",
+     "gap": 0.0
+    },
+    {
+     "id": "S06C_NARR_02",
+     "who": "NARR",
+     "text": "Chưa cần hẹn được ngay.",
+     "gap": 0.6
+    },
+    {
+     "id": "S06C_NARR_03",
+     "who": "NARR",
+     "text": "Cũng chưa chắc lần này sẽ đủ mặt.",
+     "gap": 0.5
+    },
+    {
+     "id": "S06C_NARR_04",
+     "who": "NARR",
+     "text": "Chỉ là để chúng nó biết mình vẫn muốn gặp.",
+     "gap": 0.6
+    },
+    {
+     "id": "S06C_NARR_05",
+     "who": "NARR",
+     "text": "Như ngày xưa, đứng ngoài cửa gọi nhau vậy.",
+     "gap": 0.7
+    }
+   ],
+   "voice": "Tóm lại là, nếu đang nhớ hội bạn cũ, có lẽ mình cứ nhắn trước một câu. Chưa cần hẹn được ngay. Cũng chưa chắc lần này sẽ đủ mặt. Chỉ là để chúng nó biết mình vẫn muốn gặp. Như ngày xưa, đứng ngoài cửa gọi nhau vậy.",
+   "amb": "room",
+   "pad": 4.5,
+   "endCard": {
+    "text": "LÂU RỒI… BẠN ĐÃ GỌI CHÚNG NÓ CHƯA?"
+   }
+  }
+ ],
+ "audition": [
+  "S01A",
+  "S05B"
+ ]
+}
