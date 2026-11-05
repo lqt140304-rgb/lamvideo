@@ -37,8 +37,11 @@ Vị trí: skill ở `.claude/skills/what-if-animation/` (Claude Code tự nhậ
    → **gửi bạn xem storyboard** → làm chuyển động → tiếng động → master −14 LUFS.
 5. Bạn xem `what-if-studio/out/<slug>/<slug>-final.mp4`, gửi góp ý; kiểm tra lại nguồn số liệu trước khi đăng.
 
-Chạy tay từng bước (trong repo): `tools\what-if.bat voice <slug>`, `plan`, `stills`, `board`, `sfx`, `mixcheck`,
-`motiongrid`, `master`.
+Chạy tay từng bước (trong repo): `tools\what-if.bat voice <slug>`, `plan`, `stills`, `board`, `sheets` (ghép trang
+3×3 để xem storyboard), `sfx`, `mixcheck`, `motiongrid`, `master`.
+
+**Ghi kinh nghiệm:** sau mỗi lần dựng hoặc sửa tập, Claude ghi bài học vào `docs/WHAT-IF-KINH-NGHIEM.md` (lỗi gặp,
+cách sửa, mẹo) và đọc lại file đó trước khi làm tập mới.
 
 ## Quy trình 8 bước và thông số đo được (từ skill)
 

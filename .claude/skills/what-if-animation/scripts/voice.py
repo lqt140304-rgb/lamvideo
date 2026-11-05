@@ -30,7 +30,7 @@ import asyncio, difflib, hashlib, json, os, re, subprocess, sys
 
 import numpy as np
 
-from wi import SR, decode, ep_dir, load_episode, load_json, log_cost, norm, out_dir, pub_dir, save_json, write_wav
+from wi import SR, apply_pads, decode, ep_dir, load_episode, load_json, log_cost, norm, out_dir, pub_dir, save_json, write_wav
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -139,7 +139,7 @@ def tokens(text):
 
 
 def sentences(text):
-    return [s.strip() for s in re.findall(r'[^.!?…]+[.!?…]*', text) if WORD.search(s)]
+    return [s.strip() for s in re.findall(r'[^.!?…]+[.!?…]*[”’"\']*', text) if WORD.search(s)]
 
 
 # ---------------------------------------------------------------- engines
@@ -217,11 +217,25 @@ def place(toks, x, t_off):
     return [dict(w, s=w['s'] + t_off, e=w['e'] + t_off) for w in out]
 
 
+def load_wav_16k(wav):
+    # decode ourselves: faster-whisper's decoder (PyAV) breaks on some PyAV versions
+    import wave
+    import numpy as np
+    with wave.open(str(wav)) as w:
+        sr, ch, raw = w.getframerate(), w.getnchannels(), w.readframes(w.getnframes())
+    x = np.frombuffer(raw, dtype='<i2').astype('float32') / 32768.0
+    if ch > 1:
+        x = x.reshape(-1, ch).mean(axis=1)
+    n = int(len(x) * 16000 / sr)
+    return np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x).astype('float32')
+
+
 def whisper_align(wav, words):
     """Re-time words from the audio with faster-whisper; words it doesn't match keep their estimate."""
     from faster_whisper import WhisperModel
-    model = WhisperModel(V['whisper_model'], device='auto', compute_type='int8')
-    segs, _ = model.transcribe(str(wav), language=V['lang'], word_timestamps=True, vad_filter=False)
+    ensure_hf_cache()  # when every take was cached, VieNeu never loaded, so the cache fallback hasn't run yet
+    model =WhisperModel(V['whisper_model'], device='cpu', compute_type='int8')  # 'auto' picks CUDA, which fails when cublas is missing
+    segs, _ = model.transcribe(load_wav_16k(wav), language=V['lang'], word_timestamps=True, vad_filter=False)
     hw = []
     for s in segs:
         for w in s.words:
@@ -349,7 +363,6 @@ for i, part in enumerate(parts):
         part[-fade:] *= np.linspace(1, 0, fade)
     parts[i] = part
 y = np.concatenate(parts)
-write_wav(pub / 'voice.wav', y)
 
 
 def shift(t):
@@ -357,6 +370,12 @@ def shift(t):
 
 
 out = [{'w': w['w'], 's': round(shift(w['s']), 3), 'e': round(shift(w['e']), 3), 'p': w.get('p', '')} for w in words]
+
+# "pads": room for the picture to breathe (scene changes, a title card, an opening held on a sound)
+y, padded = apply_pads(y, out, ep.get('pads'))
+write_wav(pub / 'voice.wav', y)
 save_json(ep_dir(slug) / 'words.json', out)
+if padded:
+    print(f'Padded pauses: +{padded:.2f} s')
 print(f'Tightened {len(cuts)} pauses, removed {sum(e - s for s, e in cuts):.2f} s: {len(x) / SR:.2f} s -> {len(y) / SR:.2f} s')
 print(' '.join(f"{w['w']}@{w['s']}" for w in out))

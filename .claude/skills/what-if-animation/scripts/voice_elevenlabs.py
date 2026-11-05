@@ -16,7 +16,20 @@ import base64, hashlib, json, re, sys, time
 
 import numpy as np
 
-from wi import SR, api, spent_since, decode, ep_dir, load_episode, load_json, log_cost, out_dir, pub_dir, save_json, write_wav
+from wi import SR, api, apply_pads, spent_since, decode, ep_dir, load_episode, load_json, log_cost, out_dir, pub_dir, save_json, write_wav
+
+if sys.argv[1] == '--find':
+    # python voice_elevenlabs.py --find "Viết Linh": the voice's id, from your own voices and the shared library
+    import urllib.parse
+    q = sys.argv[2]
+    mine = json.loads(api('/v1/voices'))['voices']
+    for v in mine:
+        if q.lower() in v['name'].lower():
+            print(f"yours   {v['voice_id']}  {v['name']}")
+    shared = json.loads(api('/v1/shared-voices?page_size=20&search=' + urllib.parse.quote(q)))['voices']
+    for v in shared:
+        print(f"library {v['voice_id']}  {v['name']}  ({v.get('language', '')}, {v.get('accent', '')})")
+    sys.exit(0)
 
 slug = sys.argv[1]
 force = '--force' in sys.argv
@@ -102,7 +115,6 @@ for i, part in enumerate(parts):
         part[-fade:] *= np.linspace(1, 0, fade)
     parts[i] = part
 y = np.concatenate(parts)
-write_wav(pub_dir(slug) / 'voice.wav', y)
 
 
 def shift(t):
@@ -110,6 +122,10 @@ def shift(t):
 
 
 out = [{'w': w['w'], 's': round(shift(w['s']), 3), 'e': round(shift(w['e']), 3), 'p': w.get('p', '')} for w in words]
+y, padded = apply_pads(y, out, ep.get('pads'))  # same "pads" as the free engines, so the edit keeps its breathing room
+write_wav(pub_dir(slug) / 'voice.wav', y)
 save_json(ep_dir(slug) / 'words.json', out)
+if padded:
+    print(f'Padded pauses: +{padded:.2f} s')
 print(f'Tightened {len(cuts)} pauses, removed {sum(e - s for s, e in cuts):.2f} s: {len(x) / SR:.2f} s -> {len(y) / SR:.2f} s')
 print(' '.join(f"{w['w']}@{w['s']}" for w in out))

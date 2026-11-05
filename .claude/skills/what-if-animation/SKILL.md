@@ -49,6 +49,9 @@ schematic for the science beat, a cliffhanger blackout). Read the one closest to
   when you hand the episode over. The copy-paste run cost 152 credits (78 for the voice, 74 for 12 new clips).
 - **Storyboard before animation.** No video render until the stills pass the self-check (step 5) and, when the person
   is in the loop, they've seen the board.
+- **Write down what you learn.** Read `docs/WHAT-IF-KINH-NGHIEM.md` (Vietnamese lessons log) before starting, and
+  add to it every time you build or fix an episode: errors met, fixes, shortcuts, newest first. Do it before you
+  report the work as done.
 - **Every fact is real.** A number in the script is worked out and sourced in the episode's `science` field first.
 
 ## Setup (once per machine)

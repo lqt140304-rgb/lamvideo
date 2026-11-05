@@ -29,9 +29,10 @@ export type Look = {
   shoe: string;
   face: string;
   hair: string;
-  extra?: 'hood' | 'curls' | 'bunches' | 'bob' | 'suit';
+  extra?: 'hood' | 'curls' | 'bunches' | 'bob' | 'suit' | 'hardhat' | 'crop';
+  hat?: string; // hard-hat colour (extra 'hardhat')
 };
-export type CastName = 'pip' | 'pipHood' | 'pipInk' | 'mo' | 'sis' | 'mom' | 'suit';
+export type CastName = 'pip' | 'pipHood' | 'pipInk' | 'mo' | 'sis' | 'mom' | 'suit' | 'worker' | 'workerHat' | 'student' | 'tech' | 'chu' | 'bac' | 'moi';
 export const LOOKS: Record<CastName, Look> = {
   // A: Pip as built
   pip: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: C.jacket, jacketShade: C.jacketShade, accent: C.jacketShade, limb: C.limb, line: C.ink, shoe: C.shoe, face: C.ink, hair: C.ink },
@@ -46,6 +47,16 @@ export const LOOKS: Record<CastName, Look> = {
   sis: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#3E8C86', jacketShade: '#2F6E69', accent: '#F28C6A', limb: '#3A3446', line: '#14121C', shoe: '#F28C6A', face: C.ink, hair: '#3A2620', extra: 'bunches' },
   mom: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#8A5A6A', jacketShade: '#704858', accent: '#E9C46A', limb: '#3A3446', line: '#14121C', shoe: '#5A4A6A', face: C.ink, hair: '#5A3226', extra: 'bob' },
   suit: { skin: '#D9C6AE', skinShade: '#C2AE96', hand: '#D9C6AE', jacket: '#2B2F3A', jacketShade: '#20232C', accent: '#A8323E', limb: '#2B2F3A', line: '#0E0F14', shoe: '#14151A', face: C.ink, hair: '#17141A', extra: 'suit' },
+  // "Nếu ngày đó bạn không bỏ học?": one face (Pip's), four costumes. The same head and hair in every one, so he is
+  // recognisably the same person on the site, in uniform, in the workshop and in a technician's shirt.
+  worker: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#B8742E', jacketShade: '#8E5620', accent: '#F0D58A', limb: '#8A6B45', line: '#1A1410', shoe: '#6B5A48', face: C.ink, hair: C.ink, extra: 'crop' },
+  workerHat: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#B8742E', jacketShade: '#8E5620', accent: '#F0D58A', limb: '#8A6B45', line: '#1A1410', shoe: '#6B5A48', face: C.ink, hair: C.ink, extra: 'hardhat', hat: '#F2B33D' },
+  student: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#EDE8DE', jacketShade: '#C9C2B4', accent: '#3E5C8A', limb: '#3A4A70', line: '#14121C', shoe: '#E6E1D6', face: C.ink, hair: C.ink, extra: 'crop' },
+  tech: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#3F7090', jacketShade: '#2E5570', accent: '#F2B33D', limb: '#33465A', line: '#10141C', shoe: '#2B2B30', face: C.ink, hair: C.ink, extra: 'crop' },
+  // the uncle who waits by the truck, the older foreman, and the newcomer who is still learning
+  chu: { skin: '#C99B74', skinShade: '#AE8260', hand: '#C99B74', jacket: '#5C6B4A', jacketShade: '#475438', accent: '#F0D58A', limb: '#4A4F5A', line: '#14110E', shoe: '#4A3A30', face: C.ink, hair: '#2A1C18', extra: 'hardhat', hat: '#F2B33D' },
+  bac: { skin: '#BE8C68', skinShade: '#A27452', hand: '#BE8C68', jacket: '#5E6F80', jacketShade: '#485765', accent: '#F0D58A', limb: '#4A4F5A', line: '#14110E', shoe: '#4A3A30', face: C.ink, hair: '#9A9AA0', extra: 'hardhat', hat: '#F4F1E8' },
+  moi: { skin: '#E8C9A8', skinShade: '#CFAE8C', hand: '#E8C9A8', jacket: '#9A4A3A', jacketShade: '#7A382C', accent: '#F0D58A', limb: '#5A5666', line: '#14110E', shoe: '#7A6A5A', face: C.ink, hair: '#2A1C18', extra: 'hardhat', hat: '#E8763A' },
 };
 
 // ---------- the hero ----------
@@ -309,6 +320,33 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
   );
 };
 
+/**
+ * Hair over the back of a turned head. Face on, nothing shows; as the head turns (|yaw| 0 to 1) the hair spreads from
+ * the rim across the side of the head, to just behind the ear in profile. `bottom` is how far down the nape it runs,
+ * `flare` pushes the outline out (a bob, curls), `extra` reaches further across the head.
+ */
+const SideHair: React.FC<{ yaw: number; hair: string; line: string; bottom?: number; flare?: number; extra?: number; stroke?: number }> = ({ yaw, hair, line, bottom = 30, flare = 0, extra = 0, stroke = 3 }) => {
+  const a = Math.abs(yaw);
+  if (a < 0.12) return null;
+  const s = -Math.sign(yaw);
+  const th = (a <= 0.5 ? 52 * a : 26 + 62 * (a - 0.5)) + extra * Math.min(1, a * 1.4);
+  const x0 = s * Math.min(58, 62 - th);
+  const y = HEAD.y;
+  const R = 62 + flare; // the outline is a true arc of the head, so the hair hugs the skull instead of floating beside it
+  const yT = y - Math.sqrt(Math.max(1, R * R - x0 * x0));
+  const xb = s * Math.sqrt(Math.max(1, R * R - bottom * bottom));
+  return (
+    <path
+      d={`M ${x0} ${yT} A ${R} ${R} 0 0 ${s > 0 ? 1 : 0} ${xb} ${y + bottom} Q ${(xb + x0) / 2} ${y + bottom + 6} ${x0} ${y + bottom - 12} Q ${x0 - s * 8} ${y - 10} ${x0} ${yT} Z`}
+      fill={hair}
+      stroke={line}
+      strokeWidth={stroke}
+      strokeLinejoin="round"
+      opacity={Math.min(1, (a - 0.12) * 5)}
+    />
+  );
+};
+
 export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?: Look }> = ({ pose, shadow = 1, rimId = 'rimR', look = LOOKS.pipHood }) => {
   const j = joints(pose);
   const L = look;
@@ -368,9 +406,32 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
     <g transform={`rotate(${pose.tilt}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
       <circle cx={HEAD.x} cy={HEAD.y} r={HEAD.r} fill={L.skin} stroke={L.line} strokeWidth={4} />
       <path d={`M ${HEAD.x + 14} ${HEAD.y + 58} A ${HEAD.r} ${HEAD.r} 0 0 0 ${HEAD.x + 60} ${HEAD.y + 14} A 70 70 0 0 1 ${HEAD.x + 14} ${HEAD.y + 58} Z`} fill={L.skinShade} />
-      {L.extra === 'bunches' || L.extra === 'bob' || L.extra === 'suit' ? null : (
+      {L.extra === 'bunches' || L.extra === 'bob' || L.extra === 'suit' || L.extra === 'crop' || L.extra === 'hardhat' ? null : (
         <path transform={`translate(${-pose.yaw * 16} 0)`} d={`M -6 ${HEAD.y - 60} q 10 -26 30 -18 q -16 2 -14 16 q -8 -10 -16 2 Z`} fill={L.hair} />
       )}
+      {/* short hair for the grown-up costumes: a cap on top that slides to the back of the head as it turns, a nape patch under a hard hat */}
+      {(L.extra === 'crop' || L.extra === 'hardhat') && (() => {
+        const a = Math.abs(pose.yaw);
+        const s = pose.yaw === 0 ? 0 : -Math.sign(pose.yaw);
+        const top = HEAD.y - 6;
+        return (
+          <g>
+            {L.extra === 'crop' ? (
+              <g transform={`translate(${-pose.yaw * 5} 0)`}>
+                <path d={`M -61 ${top} A 62 62 0 0 1 61 ${top} Q 44 ${HEAD.y - 34} 14 ${HEAD.y - 46} Q -16 ${HEAD.y - 40} -61 ${top} Z`} fill={L.hair} stroke={L.line} strokeWidth={3} strokeLinejoin="round" />
+                <path d={`M -20 ${HEAD.y - 46} Q 2 ${HEAD.y - 56} 26 ${HEAD.y - 50}`} stroke={L.line} strokeWidth={3} fill="none" opacity={0.3} strokeLinecap="round" />
+              </g>
+            ) : null}
+            <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={L.extra === 'hardhat' ? 34 : 30} />
+            {L.extra === 'hardhat' ? (
+              <g fill={L.hair} stroke={L.line} strokeWidth={2.5} opacity={1 - a * 0.6}>
+                <path d={`M -60 ${HEAD.y - 34} Q -64 ${HEAD.y - 6} -52 ${HEAD.y + 4} Q -52 ${HEAD.y - 14} -44 ${HEAD.y - 32} Z`} />
+                <path d={`M 60 ${HEAD.y - 34} Q 64 ${HEAD.y - 6} 52 ${HEAD.y + 4} Q 52 ${HEAD.y - 14} 44 ${HEAD.y - 32} Z`} />
+              </g>
+            ) : null}
+          </g>
+        );
+      })()}
       {L.extra === 'bunches' ? (
         // a fringe cap and two bunches tied with coral bands; the bunches swing a little with sway
         <g>
@@ -384,27 +445,48 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         </g>
       ) : null}
       {L.extra === 'bob' ? (
-        // a chin-length bob framing the face, a side parting
+        // a chin-length bob framing the face, a side parting; turned, it sweeps back and covers the back of the head
+        <g>
+        <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={36} flare={8} extra={6} stroke={0} />
         <path
-          transform={`translate(${-pose.yaw * 12} 0)`}
+          transform={`translate(${-pose.yaw * 14} 0) scale(${1 - 0.22 * Math.abs(pose.yaw)} 1)`}
           d={`M -74 ${HEAD.y + 34} Q -84 ${HEAD.y - 70} 0 ${HEAD.y - 72} Q 84 ${HEAD.y - 70} 74 ${HEAD.y + 34} L 56 ${HEAD.y + 34} Q 60 ${HEAD.y - 20} 40 ${HEAD.y - 40} Q 10 ${HEAD.y - 34} -16 ${HEAD.y - 48} Q -52 ${HEAD.y - 30} -56 ${HEAD.y + 34} Z`}
           fill={L.hair}
           stroke={L.line}
           strokeWidth={4}
           strokeLinejoin="round"
         />
+        </g>
       ) : null}
       {L.extra === 'suit' ? (
         // short combed-back hair with a hard side parting
         <path transform={`translate(${-pose.yaw * 14} 0)`} d={`M -60 ${HEAD.y - 18} Q -64 ${HEAD.y - 70} 4 ${HEAD.y - 68} Q 64 ${HEAD.y - 64} 60 ${HEAD.y - 18} Q 52 ${HEAD.y - 44} 18 ${HEAD.y - 46} L 12 ${HEAD.y - 54} L 6 ${HEAD.y - 46} Q -44 ${HEAD.y - 46} -60 ${HEAD.y - 18} Z`} fill={L.hair} />
       ) : null}
       <Face expr={pose.expr} blink={pose.blink} look={pose.look} glasses={pose.glasses} yaw={pose.yaw} ink={L.face} glint={pose.glint} glintColor={pose.glintColor} />
-      {L.extra === 'curls'
-        ? [-150, -125, -100, -78, -55, -30].map((deg, k) => {
+      {L.extra === 'hardhat' ? (
+        // a hard hat: dome, a ridge, a brim that leans the way the head turns
+        <g transform={`translate(${-pose.yaw * 12} 0)`}>
+          <path d={`M -62 ${HEAD.y - 38} Q -66 ${HEAD.y - 96} 0 ${HEAD.y - 98} Q 66 ${HEAD.y - 96} 62 ${HEAD.y - 38} Z`} fill={L.hat ?? '#F2B33D'} stroke={L.line} strokeWidth={4} strokeLinejoin="round" />
+          <path d={`M -14 ${HEAD.y - 96} L -14 ${HEAD.y - 44} M 14 ${HEAD.y - 96} L 14 ${HEAD.y - 44}`} stroke={L.line} strokeWidth={3} opacity={0.35} />
+          <path d={`M -46 ${HEAD.y - 60} Q -42 ${HEAD.y - 84} -18 ${HEAD.y - 90}`} stroke="#FFFFFF" strokeWidth={5} strokeLinecap="round" fill="none" opacity={0.45} />
+          <rect x={-78 - pose.yaw * 8} y={HEAD.y - 46} width={156} height={13} rx={6} fill={L.hat ?? '#F2B33D'} stroke={L.line} strokeWidth={4} />
+        </g>
+      ) : null}
+      {L.extra === 'curls' ? <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={26} extra={4} stroke={0} /> : null}
+      {L.extra === 'curls' ? (
+        <g transform={`translate(${-pose.yaw * 12} 0)`}>
+          {[-150, -125, -100, -78, -55, -30].map((deg, k) => {
             const a = (deg * Math.PI) / 180;
             return <circle key={k} cx={Math.cos(a) * 54} cy={HEAD.y + Math.sin(a) * 54} r={24} fill={L.hair} />;
-          })
-        : null}
+          })}
+          {/* turned away from the camera, curls wrap round the back of the head */}
+          {Math.abs(pose.yaw) > 0.2
+            ? [[-26, 50, 21], [-2, 58, 20], [22, 50, 17]].map(([dy, dx, r], k) => (
+                <circle key={`bk${k}`} cx={-Math.sign(pose.yaw) * dx * 0.9} cy={HEAD.y + dy} r={r} fill={L.hair} opacity={Math.min(1, (Math.abs(pose.yaw) - 0.2) * 4)} />
+              ))
+            : null}
+        </g>
+      ) : null}
     </g>
   );
   return (
@@ -433,10 +515,11 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
             </g>
           ) : null}
           {L.extra === 'curls' ? (
-            <g transform={`rotate(${pose.tilt})`}>
+            <g transform={`rotate(${pose.tilt}) translate(${pose.yaw * 6} 0) scale(${kw} 1)`}>
+              {/* headphones round the neck: the band follows the body as it turns, the cups come together in profile */}
               <path d="M -46 -110 Q 0 -86 46 -110" stroke="#E06A5A" strokeWidth={8} fill="none" strokeLinecap="round" />
-              <rect x={-60} y={-126} width={20} height={32} rx={8} fill="#E06A5A" stroke={L.line} strokeWidth={4} />
-              <rect x={40} y={-126} width={20} height={32} rx={8} fill="#E06A5A" stroke={L.line} strokeWidth={4} />
+              <rect x={-60} y={-126} width={20 / Math.max(0.6, kw)} height={32} rx={8} fill="#E06A5A" stroke={L.line} strokeWidth={4} />
+              <rect x={40 - (20 / Math.max(0.6, kw) - 20)} y={-126} width={20 / Math.max(0.6, kw)} height={32} rx={8} fill="#E06A5A" stroke={L.line} strokeWidth={4} />
             </g>
           ) : null}
           {head}

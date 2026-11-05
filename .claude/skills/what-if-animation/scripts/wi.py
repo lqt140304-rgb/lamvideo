@@ -183,6 +183,33 @@ def resolve(cue, words, fps, segments=None, shot_ids=()):
 
 
 # ---------------------------------------------------------------- audio
+def apply_pads(y, words, pads):
+    """episode.json "pads": {"last|first": seconds, "^|first": seconds} makes the pause between two words at least that
+    long by inserting silence (the gap tightening only ever shortens a pause). Shared by every voice engine.
+    Shifts `words` in place; returns (audio, seconds added)."""
+    bare = lambda w: re.sub(r'[^\w]', '', w)
+    added = 0.0
+    for key, secs in (pads or {}).items():
+        a_w, _, b_w = key.partition('|')
+        for i in range(-1, len(words) - 1):
+            if (i == -1 and a_w != '^') or (i >= 0 and bare(words[i]['w']) != a_w) or bare(words[i + 1]['w']) != b_w:
+                continue
+            t0 = words[i]['e'] if i >= 0 else 0.0
+            gap = words[i + 1]['s'] - t0
+            need = secs - gap
+            if need <= 0:
+                continue
+            at = t0 + (gap / 2 if i >= 0 else 0.0)
+            k = int(at * SR)
+            y = np.concatenate([y[:k], np.zeros(int(need * SR), dtype=y.dtype), y[k:]])
+            for w in words:
+                if w['s'] >= at - 1e-6:
+                    w['s'] = round(w['s'] + need, 3)
+                    w['e'] = round(w['e'] + need, 3)
+            added += need
+    return y, added
+
+
 def decode(path):
     """Any audio file to mono float64 at 44.1 kHz."""
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(path), '-f', 'f32le', '-ac', '1', '-ar', str(SR), '-'], capture_output=True, check=True).stdout

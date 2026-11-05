@@ -16,3 +16,5 @@ export * from './sets/rooftop';
 export * from './sets/kitchen';
 export * from './sets/schematic';
 export * from './sets/bedroom';
+export * from './sets/life';
+export * from './props_life';

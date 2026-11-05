@@ -25,3 +25,5 @@ thay cho dòng chủ đề. Chỉ có một dòng chủ đề thì Claude tự v
 8. Xong thì báo: độ dài, số cắt cảnh/phút, mức âm lượng (LUFS), đường dẫn file *-final.mp4, và những chỗ còn yếu.
 9. Chỉ commit mã nguồn tập (what-if-studio/src/episodes/<slug>, what-if-studio/public/<slug>) lên nhánh hiện tại
    khi tôi bảo.
+10. Đọc docs/WHAT-IF-KINH-NGHIEM.md trước khi làm. **Mỗi lần dựng hoặc sửa, ghi thêm kinh nghiệm rút ra vào file đó**
+    (lỗi gặp, cách sửa, mẹo) trước khi báo xong.

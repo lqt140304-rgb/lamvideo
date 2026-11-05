@@ -12,12 +12,11 @@ const Label: React.FC<{ x: number; y: number; text: string }> = ({ x, y, text })
   </text>
 );
 const P = (o: Partial<Pose>): Pose => ({ ...basePose, ...o });
-const NAMES: Record<CastName, string> = { pip: 'PIP A', pipHood: 'PIP B (HERO)', pipInk: 'PIP C', mo: 'MO, FRIEND', sis: 'SISTER', mom: 'MUM', suit: 'THE SUIT' };
+const NAMES: Record<CastName, string> = { pip: 'PIP A', pipHood: 'PIP B (HERO)', pipInk: 'PIP C', mo: 'MO, FRIEND', sis: 'SISTER', mom: 'MUM', suit: 'THE SUIT', worker: 'HERO: SITE', workerHat: 'HERO: HARD HAT', student: 'HERO: UNIFORM', tech: 'HERO: TECH', chu: 'CHU (UNCLE)', bac: 'BAC (FOREMAN)', moi: 'NEWCOMER' };
 
 export const CastSheet: React.FC = () => {
   const cast = Object.keys(LOOKS) as CastName[];
-  const row1 = 430;
-  const row2 = 900;
+    const row2 = 960;
   const poses: { name: string; p: Partial<Pose> }[] = [
     { name: 'thinking', p: { armR: { a: 120, b: 110 }, armL: { a: -10, b: -70 }, headTilt: 8, expr: 'worried', yaw: 0.2 } },
     { name: 'shrug', p: { armL: { a: 40, b: 80 }, armR: { a: 40, b: 80 }, headTilt: -10, expr: 'oops' } },
@@ -35,18 +34,19 @@ export const CastSheet: React.FC = () => {
         </g>
         <rect width={1920} height={1080} fill="#0B0816" opacity={0.35} />
         {cast.map((c, i) => {
-          const x = 150 + i * 270;
-          const small = c === 'sis' ? 0.68 : 0.82;
+          const x = 150 + (i % 7) * 270;
+          const rowY = i < 7 ? 260 : 640;
+          const small = c === 'sis' ? 0.5 : 0.6;
           return (
             <g key={c}>
-              <Hero look={LOOKS[c]} pose={P({ x, y: row1 + (0.82 - small) * 340, scale: small, yaw: i % 2 ? -0.35 : 0.35, look: i % 2 ? -0.5 : 0.5, expr: 'happy' })} shadow={0.6} />
-              <Label x={x} y={row1 + 170} text={NAMES[c]} />
+              <Hero look={LOOKS[c]} pose={P({ x, y: rowY + (0.82 - small) * 340, scale: small, yaw: i % 2 ? -0.35 : 0.35, look: i % 2 ? -0.5 : 0.5, expr: 'happy' })} shadow={0.6} />
+              <Label x={x} y={rowY + 150} text={NAMES[c]} />
             </g>
           );
         })}
         {poses.map((q, i) => (
           <g key={q.name}>
-            <Hero look={LOOKS.pipHood} pose={P({ x: 220 + i * 370, y: row2 - 40, scale: 0.72, ...q.p })} shadow={0.6} />
+            <Hero look={LOOKS.tech} pose={P({ x: 220 + i * 370, y: row2 - 40, scale: 0.55, ...q.p })} shadow={0.6} />
             <Label x={220 + i * 370} y={row2 + 110} text={q.name.toUpperCase()} />
           </g>
         ))}
