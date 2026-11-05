@@ -16,14 +16,6 @@ const CHILD = 0.62;
 
 const P = (p: Partial<Pose>, t = 0, seed = 1): Pose => ({ ...basePose, ...p, blink: blinkAt(t, seed) });
 const onDeck = (x: number, scale: number) => ({ x, y: YARD.floorHip(scale), scale });
-/** A big out-of-focus shoulder and head from behind, for over-the-shoulder shots. */
-const BackFigure: React.FC<{ x: number; y: number; s: number; shirt: string; hair: string; bun?: boolean }> = ({ x, y, s, shirt, hair, bun }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`}>
-    <path d="M -210 400 Q -210 110 -90 80 Q 0 60 90 80 Q 210 110 210 400 Z" fill={shirt} />
-    <circle cx={0} cy={-20} r={108} fill={hair} />
-    {bun ? <circle cx={0} cy={-122} r={40} fill={hair} /> : null}
-  </g>
-);
 
 /** A character from behind: the same rig with the face covered by the back of the head. */
 const Back: React.FC<{ look: Look; pose: Pose }> = ({ look, pose }) => (
@@ -305,8 +297,10 @@ export const S10: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S11: top-down over the desk: Linh's hand lets the pen fall on the exercise book ----------
 const HandTop: React.FC<{ x: number; y: number; rot?: number; s?: number; skin?: string; sleeve?: string }> = ({ x, y, rot = 0, s = 1, skin = LINH.skin, sleeve = LINH.jacket }) => (
   <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
-    <path d="M -46 -60 L 46 -60 L 62 -560 L -62 -560 Z" fill={sleeve} stroke="#16141C" strokeWidth={5} />
-    <path d="M -38 -170 L 38 -170 L 46 -60 L -46 -60 Z" fill={skin} stroke="#16141C" strokeWidth={5} />
+    <path d="M 0 -150 L 0 -340 L 170 -640" stroke="#16141C" strokeWidth={112} fill="none" strokeLinejoin="round" />
+    <path d="M 0 -150 L 0 -340 L 170 -640" stroke={sleeve} strokeWidth={102} fill="none" strokeLinejoin="round" />
+    <path d="M -50 -176 L 50 -176" stroke="#16141C" strokeWidth={6} />
+    <path d="M -40 -176 L 40 -176 L 46 -60 L -46 -60 Z" fill={skin} stroke="#16141C" strokeWidth={5} />
     {[-30, -11, 9, 28].map((fx, i) => (
       <g key={i}>
         <path d={`M ${fx} 28 L ${fx * 1.25} ${[86, 104, 104, 86][i]}`} stroke="#16141C" strokeWidth={24} strokeLinecap="round" />
@@ -588,15 +582,20 @@ export const S24: React.FC<ShotProps> = ({ t, len }) => {
       <circle cx={1600} cy={130} r={26} fill="#FFF0BE" />
       <Glow x={1600} y={130} r={720} o={0.65} />
       <Glow x={1600} y={130} r={190} o={1} />
-      <Hero look={HANH} pose={P({ x: 960, y: y + 110, scale: 2.5, yaw: 0, tilt: 0, headTilt: 0, look: 0.1, expr: 'neutral', armL: { a: 4, b: 0 }, armR: { a: 4, b: 0 } }, t, 3)} rimId="filmR" shadow={0} />
-      {[0, 1, 2].map((i) => <ellipse key={i} cx={960} cy={560} rx={260 + ((t * 5 + i * 150) % 450)} ry={150 + ((t * 3 + i * 90) % 260)} fill="none" stroke="#fff" strokeWidth={3} opacity={0.14} />)}
+      <Hero look={HANH} pose={P({ x: 960, y: y + 110, scale: 2.5, yaw: 0, tilt: 0, headTilt: 0, look: 0.1, expr: 'neutral', armL: { a: -20 + 5 * Math.sin(t * 0.18), b: -8 }, armR: { a: -20 - 5 * Math.sin(t * 0.18), b: -8 } }, t, 3)} rimId="filmR" shadow={0} />
+      {[0, 1, 2].map((i) => <ellipse key={i} cx={960} cy={900} rx={120 + ((t * 5 + i * 150) % 450)} ry={50 + ((t * 2.5 + i * 70) % 190)} fill="none" stroke="#fff" strokeWidth={3} opacity={0.3} />)}
       {/* the basin's rim all round the frame, rice grains drifting in the water */}
       <path fillRule="evenodd" d="M -20 -20 L 1940 -20 L 1940 1100 L -20 1100 Z M 960 -120 A 1020 700 0 1 0 960 1200 A 1020 700 0 1 0 960 -120 Z" fill="#4E6578" />
       <path d="M 960 -120 A 1020 700 0 1 1 959 -120" fill="none" stroke="#2C3C48" strokeWidth={26} />
       <g opacity={0.3}>
         {Array.from({ length: 50 }).map((_, i) => <ellipse key={i} cx={rnd(3, i) * 1920 + hx} cy={rnd(4, i) * 1080} rx={13} ry={5} fill="#F4F0E4" transform={`rotate(${rnd(5, i) * 180} ${rnd(3, i) * 1920} ${rnd(4, i) * 1080})`} />)}
       </g>
-      <rect width={1920} height={1080} fill="#BFD0DA" opacity={0.08} />
+      {Array.from({ length: 130 }).map((_, i) => {
+        const x = 960 + (rnd(7, i) - 0.5) * 900 + hx * 0.4;
+        const y = 1080 - rnd(8, i) * rnd(9, i) * 190;
+        return <ellipse key={`r${i}`} cx={x} cy={y} rx={17} ry={7} fill="#F4F0E4" stroke="#B8B09C" strokeWidth={1.5} transform={`rotate(${rnd(10, i) * 180} ${x} ${y})`} />;
+      })}
+      <rect width={1920} height={1080} fill="#9FC4D6" opacity={0.14} />
     </g>
   );
 };
@@ -645,7 +644,7 @@ export const S26: React.FC<ShotProps> = ({ t, len }) => {
       <ShopFront id="s26" t={t} rain={1} tarp={kf(t, [[0, 0.65], [70, 1]])} />
       <Hero look={SAU} pose={{ ...pose, blink: blinkAt(t, 2) }} rimId="filmR" />
       <Foreground blur={6}>
-        <BackFigure x={200} y={780} s={1.5} shirt="#2A3C46" hair="#100E10" />
+        <Back look={AN} pose={P({ x: 300, y: 980, scale: 1.75, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
       </Foreground>
     </g>
   );
@@ -718,13 +717,8 @@ export const S29: React.FC<ShotProps> = ({ t, len }) => (
     <AnHouse id="s29" t={t} w={2} rain={1} chair={false} />
     <Hero look={AN} pose={P({ ...onDeck(960, 0.96), yaw: 0.42, look: 0.5, headTilt: 11, expr: 'happy', armL: { a: 12, b: 16 }, armR: { a: 16, b: 22 } }, t, 1)} rimId="filmL" />
   </g>
-    <Foreground blur={10}>
-      <g transform="translate(1540 880) scale(1.55)">
-        <circle cx={0} cy={-20} r={120} fill="#100C0C" />
-        <circle cx={-118} cy={-44} r={52} fill="#100C0C" />
-        <circle cx={118} cy={-44} r={52} fill="#100C0C" />
-        <path d="M -150 330 Q -130 120 0 100 Q 130 120 150 330 Z" fill="#5C5442" />
-      </g>
+    <Foreground blur={3}>
+      <Back look={LINH} pose={P({ x: 1500, y: 1290, scale: 2.5, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
     </Foreground>
   </g>
 );

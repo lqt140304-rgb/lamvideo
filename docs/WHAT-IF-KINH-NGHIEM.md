@@ -31,6 +31,10 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Đổi hướng máy thì phải vẽ đúng phía đó của phòng (`LivingFront` trong `mua-100-c01/shots.tsx`), không dán cửa lên phòng cũ.
 - Python: dùng `D:\VieNeu-TTS\.venv\Scripts\python.exe`. Lệnh `python` trên máy này là lối tắt Microsoft Store.
 
+- Người ở tiền cảnh (qua vai) vẽ bằng khối đen thì đọc thành "cục đen" → dùng `Back` với đúng nhân vật, giữ màu áo và kiểu tóc (S26, S29).
+- Tay chèn vào cảnh cận cần khuỷu: `HandTop` vẽ cổ tay áo rồi gập ở khuỷu, giữ bàn tay có ngón (`ArmIn` của tập trước là tay mitten).
+- Mái hiên của ngôi nhà đầu hẻm kéo ra ngoài khung thành dải chéo → mái và cửa bắt đầu từ `dA` trong khung, không từ đầu tường (`Alley`).
+
 ### Việc làm trước khi bắt đầu
 - Tìm file kinh nghiệm ở MỌI nhánh (`git for-each-ref`), không chỉ nhánh đang đứng. Lần này tôi tưởng chưa có nên viết lại `pause`, dựng tay, tờ soi riêng, trong khi nhánh `tua-lai-10-giay` đã có `pads`, `sheets.py`, `ModelSheet`.
 

@@ -197,8 +197,11 @@ export const Alley: React.FC<{ id: string; t: number; w: Weather; rain?: number;
     const roofH = 0.62 + rnd(side + 5, i) * 0.16;
     const col = wc[(i + (side > 0 ? 2 : 0)) % 6];
     const onW = w > 0 && lit && (i + (side > 0 ? 1 : 0)) % 2 === 0;
-    const dm = d0 + (d1 - d0) * 0.34;
-    const dn = d0 + (d1 - d0) * 0.62;
+    const dA = Math.max(d0, 0.04); // the first wall runs out of frame: its awning and door start inside it
+    const dm = dA + (d1 - dA) * 0.34;
+    const dn = dA + (d1 - dA) * 0.62;
+    const wm = dA + (d1 - dA) * 0.42;
+    const wn = dA + (d1 - dA) * 0.58;
     return (
       <g key={`${side}${i}`}>
         <polygon points={poly([alleyP(side, d0, 0), alleyP(side, d1, 0), alleyP(side, d1, roofH), alleyP(side, d0, roofH)])} fill={col} />
@@ -206,8 +209,10 @@ export const Alley: React.FC<{ id: string; t: number; w: Weather; rain?: number;
         <polygon points={poly([alleyP(side, d1, 0), alleyP(side * 1.5, d1, 0), alleyP(side * 1.5, d1, roofH), alleyP(side, d1, roofH)])} fill={col} />
         <polygon points={poly([alleyP(side, d1, 0), alleyP(side * 1.5, d1, 0), alleyP(side * 1.5, d1, roofH), alleyP(side, d1, roofH)])} fill="#000" opacity={0.3} />
         {/* the tin awning sticking out over the alley, then a lit or dark door/window */}
-        <polygon points={poly([alleyP(side, d0, 0.5), alleyP(side, d1, 0.5), alleyP(side * 0.78, d1, 0.44), alleyP(side * 0.78, d0, 0.44)])} fill={w === 0 ? '#8F6A4C' : '#343A42'} />
-        <polygon points={poly([alleyP(side, dm, 0.36), alleyP(side, dn, 0.36), alleyP(side, dn, 0.04), alleyP(side, dm, 0.04)])} fill={onW ? '#FFC470' : '#2A2622'} />
+        <polygon points={poly([alleyP(side, d0, roofH - 0.035), alleyP(side, d1, roofH - 0.035), alleyP(side, d1, roofH), alleyP(side, d0, roofH)])} fill="#000" opacity={0.3} />
+        <polygon points={poly([alleyP(side, wm, roofH - 0.08), alleyP(side, wn, roofH - 0.08), alleyP(side, wn, 0.47), alleyP(side, wm, 0.47)])} fill={onW ? '#E8A95C' : '#35302A'} />
+        <polygon points={poly([alleyP(side, dA, 0.42), alleyP(side, d1, 0.42), alleyP(side * 0.87, d1, 0.385), alleyP(side * 0.87, dA, 0.385)])} fill={w === 0 ? '#8F6A4C' : '#343A42'} />
+        <polygon points={poly([alleyP(side, dm, 0.34), alleyP(side, dn, 0.34), alleyP(side, dn, 0.02), alleyP(side, dm, 0.02)])} fill={onW ? '#FFC470' : '#2A2622'} />
         {onW ? <Glow x={alleyP(side, (dm + dn) / 2, 0.2).x} y={alleyP(side, (dm + dn) / 2, 0.2).y} r={260 * Math.pow(1 - d0, 1.3)} o={0.55} /> : null}
         <polygon points={poly([alleyP(side, d0, 0), alleyP(side, d1, 0), alleyP(side, d1, 0.07), alleyP(side, d0, 0.07)])} fill="#000" opacity={0.2} />
       </g>
