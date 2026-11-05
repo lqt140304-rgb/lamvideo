@@ -3,7 +3,8 @@
  "slug": "tua-lai-10-giay",
  "topic": "Nếu ngày đó bạn không bỏ học?",
  "title": ["NẾU NGÀY ĐÓ", "BẠN KHÔNG BỎ HỌC?"],
- "voice": {"engine": "vieneu", "voice": "Hải Đăng", "speed": 1.0},
+ "voice": {"engine": "elevenlabs", "name": "Viết Linh", "id": "QqID1ZB0DTItNxAKGBNW", "model": "eleven_turbo_v2_5", "language": "vi", "settings": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.2, "use_speaker_boost": true}},
+ "voice_vieneu": {"engine": "vieneu", "voice": "Hải Đăng", "speed": 1.0},
  "script": [
   {"beat": "1 đôi giày (6 giờ chiều)", "text": "Sáu giờ chiều. Bạn phủi bụi trên điện thoại. Nhóm lớp lại có tin nhắn. “Chủ nhật này gặp nhé.” Bạn gõ: “Tao…” Rồi xóa."},
   {"beat": "2 câu hỏi", "text": "Bạn nhìn ảnh cũ. Hồi ấy, chỗ cạnh cửa sổ là của bạn. Nếu ngày đó bạn không bỏ học… không lên chuyến xe ra công trường… thì bây giờ, bạn đang ở đâu?"},

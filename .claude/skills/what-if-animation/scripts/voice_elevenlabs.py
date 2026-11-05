@@ -45,7 +45,10 @@ meta = load_json(out_dir(slug) / 'voice_meta.json', {})
 if force or meta.get('sig') != sig or not raw_mp3.exists() or not raw_words.exists():
     print(f'{len(text)} characters to ElevenLabs (voice {V["id"]})')
     t0 = time.time()
-    res = json.loads(api(f'/v1/text-to-speech/{V["id"]}/with-timestamps?output_format=mp3_44100_128', {'text': text, 'model_id': V['model'], 'voice_settings': V['settings']}))
+    body = {'text': text, 'model_id': V['model'], 'voice_settings': V['settings']}
+    if V.get('language'):  # e.g. "vi": the turbo/flash 2.5 models take a language code; multilingual_v2 has no Vietnamese
+        body['language_code'] = V['language']
+    res = json.loads(api(f'/v1/text-to-speech/{V["id"]}/with-timestamps?output_format=mp3_44100_128', body))
     raw_mp3.write_bytes(base64.b64decode(res['audio_base64']))
     al = res['alignment']
     words, cur = [], None
