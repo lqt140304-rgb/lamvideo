@@ -45,6 +45,49 @@ const sitAt = (u: number, w: number, k = 1) => {
 const ChairFor: React.FC<{ at: { x: number; y: number; scale: number }; back?: number; child?: boolean }> = ({ at, back = -1, child = false }) => (
   <Seat x={at.x - 2 * at.scale} top={at.y + 12 * at.scale} floor={at.y + 88 * at.scale} w={(child ? 100 : 130) * at.scale} back={child ? 0 : back} />
 );
+/** Things to carry, drawn standing on the floor at (x, y = the floor under them). */
+const Duffel: React.FC<{ x: number; y: number; s?: number; c?: string }> = ({ x, y, s = 1, c = '#6E5B7E' }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <ellipse cx={0} cy={4} rx={96} ry={13} fill="#000" opacity={0.32} />
+    <path d="M -70 -20 Q -70 -90 0 -92 Q 70 -90 70 -20 Q 70 0 40 0 L -40 0 Q -70 0 -70 -20 Z" fill={c} stroke="#16141C" strokeWidth={4} strokeLinejoin="round" />
+    <path d="M 14 -90 Q 70 -86 70 -20 Q 70 0 40 0 L 20 0 Q 40 -40 14 -90 Z" fill="#000" opacity={0.2} />
+    <path d="M -70 -48 Q 0 -40 70 -48" stroke="#16141C" strokeWidth={4} fill="none" opacity={0.6} />
+    <path d="M -30 -92 Q 0 -128 30 -92" stroke="#16141C" strokeWidth={8} fill="none" strokeLinecap="round" />
+    <rect x={-70} y={-34} width={30} height={36} rx={8} fill="#000" opacity={0.18} />
+  </g>
+);
+/** A folded blanket rolled up and strapped. */
+const Bundle: React.FC<{ x: number; y: number; s?: number; c?: string; lying?: boolean }> = ({ x, y, s = 1, c = '#B5604F', lying = true }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <ellipse cx={0} cy={4} rx={92} ry={12} fill="#000" opacity={0.3} />
+    <rect x={-80} y={-66} width={160} height={66} rx={30} fill={c} stroke="#16141C" strokeWidth={4} />
+    <ellipse cx={-70} cy={-33} rx={14} ry={31} fill="#000" opacity={0.18} />
+    {[-30, 30].map((dx) => <rect key={dx} x={dx - 5} y={-66} width={10} height={66} fill="#D8C8A0" stroke="#16141C" strokeWidth={2} />)}
+    {lying ? null : null}
+  </g>
+);
+const PlasticBag: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <ellipse cx={0} cy={3} rx={44} ry={8} fill="#000" opacity={0.3} />
+    <path d="M -34 0 Q -44 -50 -12 -64 L -8 -80 L 8 -80 L 12 -64 Q 44 -50 34 0 Z" fill="#D8D4C4" stroke="#16141C" strokeWidth={3} strokeLinejoin="round" opacity={0.95} />
+    <path d="M -14 -66 Q 0 -74 14 -66" stroke="#16141C" strokeWidth={3} fill="none" />
+    <path d="M -20 -30 Q -4 -24 8 -34" stroke="#8E8A78" strokeWidth={3} fill="none" />
+  </g>
+);
+/** The pile in the left corner: the bedding at first, then bags as the house is packed. */
+const Pile: React.FC<{ r: typeof ATT; n: number }> = ({ r, n }) => {
+  const f = r.P(0.1, 1, 0.42);
+  const k = r.s(0.42) * 0.78;
+  return (
+    <g>
+      <Bundle x={f.x - 20 * k} y={f.y} s={k} c="#4F7486" />
+      {n >= 1 ? <Duffel x={f.x + 150 * k} y={f.y + 6 * k} s={k} /> : null}
+      {n >= 1 ? <PlasticBag x={f.x + 60 * k} y={f.y + 26 * k} s={k} /> : null}
+      {n >= 2 ? <Bundle x={f.x - 20 * k} y={f.y - 66 * k} s={k * 0.92} c="#B5604F" /> : null}
+      {n >= 2 ? <Duffel x={f.x + 150 * k} y={f.y - 88 * k} s={k * 0.9} c="#5E5C44" /> : null}
+    </g>
+  );
+};
 const TABLE_TOP = (u: number, w: number) => ATT.P(u, 0.855, w);
 
 /** The map on the table, flat: paper, mountains at the top, the river winding down to the town. */
@@ -90,20 +133,13 @@ const Attic: React.FC<{ id: string; t: number; veil?: number; map?: boolean; flo
       {/* floor mat, blankets folded in a stack, the heavy stairs' hatch in the corner */}
       <polygon points={mat} fill="#6E3A34" />
       <polygon points={mat} fill="none" stroke="#3E1E1A" strokeWidth={4} />
-      <FloorShadow r={r} u={[0.02, 0.2]} w={[0.3, 0.52]} o={0.4} />
-      <Box r={r} u={[0.02, 0.2]} v={[0.74, 1]} w={[0.3, 0.5]} front="#B5604F" top="#CC7A68" side="#934A3D" rim />
-      <Box r={r} u={[0.03, 0.19]} v={[0.6, 0.74]} w={[0.31, 0.49]} front="#4F7486" top="#6A90A2" side="#3C5A6A" />
+      
       {/* the low table: a board on short legs */}
       <FloorShadow r={r} u={[0.34, 0.66]} w={[0.46, 0.72]} o={0.4} />
       <Box r={r} u={[0.34, 0.66]} v={[0.82, 0.86]} w={[0.46, 0.72]} front="#7E5A3A" top="#94704E" side="#6A4A2E" rim />
       {[[0.35, 0.47], [0.64, 0.47], [0.35, 0.7], [0.64, 0.7]].map(([u, w], i) => <Box key={i} r={r} u={[u - 0.012, u + 0.012]} v={[0.86, 1]} w={[w - 0.012, w + 0.012]} front="#4C3420" side="#3E2A18" />)}
       {map ? <polygon points={Q([[0.42, 0.818, 0.5], [0.58, 0.818, 0.5], [0.58, 0.818, 0.69], [0.42, 0.818, 0.69]])} fill="#EBE0C4" stroke="#8A7A58" strokeWidth={3} /> : null}
-      {bags > 0 ? (
-        <g opacity={bags}>
-          <Box r={r} u={[0.78, 0.96]} v={[0.78, 1]} w={[0.3, 0.5]} front="#5E5C44" top="#76745A" side="#48462F" rim />
-          <Box r={r} u={[0.8, 0.94]} v={[0.62, 0.78]} w={[0.32, 0.48]} front="#6E5B7E" top="#8470A0" side="#574764" />
-        </g>
-      ) : null}
+      <Pile r={r} n={bags} />
       <path d={`M ${BULB.x} ${P(0.5, 0, 0.46).y} L ${BULB.x} ${BULB.y - 16}`} stroke="#1E1A16" strokeWidth={3} />
       <circle cx={BULB.x} cy={BULB.y} r={17} fill="#FFF0BE" />
       <LightVeil id={`${id}v`} lights={[[BULB.x, BULB.y + 70, 640], [(WIN.x0 + WIN.x1) / 2, 450, 300]]} o={veil} />
@@ -209,16 +245,24 @@ export const S3: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S4: bà Sáu's shop: water over the floor round the foot of the cabinet; she lifts a crate ----------
 export const S4: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
-    { f: 0, p: { x: 1010, y: 560, scale: 1.15, yaw: -0.4, look: -0.4, tilt: 14, expr: 'worried', armL: { a: 66, b: 30 }, armR: { a: 70, b: 24 } } },
-    { f: 34, p: { tilt: -6, armL: { a: 150, b: 18 }, armR: { a: 154, b: 14 } } },
+    { f: 0, p: { x: 1010, y: 560, scale: 1.15, yaw: -0.4, look: -0.4, tilt: 14, expr: 'worried', armL: { a: 36, b: 40 }, armR: { a: 30, b: 44 } } },
+    { f: 34, p: { tilt: -4, armL: { a: 62, b: 50 }, armR: { a: 56, b: 52 } } },
   ]);
+  const jh = joints(pose);
+  const h1 = toWorld(pose, jh.armL.end);
+  const h2 = toWorld(pose, jh.armR.end);
+  const crate = { x: (h1.x + h2.x) / 2, y: (h1.y + h2.y) / 2 };
   return (
     <g transform={camT(kf(t, [[0, 1000], [len, 960]]), 560, kf(t, [[0, 1.3], [len, 1.36]]))}>
       <ShopFront id="c3s4" t={t} tarp={1} rain={0.5} />
       <rect x={380} y={560} width={150} height={220} fill="#3A2C1E" stroke="#6B4A2E" strokeWidth={6} />
       <rect x={1400} y={620} width={190} height={160} fill="#7A5636" stroke="#3E2A18" strokeWidth={5} />
       <Hero look={SAU} pose={live(pose, t, 2)} rimId="filmR" shadow={0} />
-      <rect x={1000} y={540} width={160} height={90} fill="#C8503C" stroke="#2A2018" strokeWidth={4} opacity={t < 34 ? 0 : 1} transform={`translate(${kf(t, [[34, 0], [40, 0]])} ${kf(t, [[34, 0], [60, -30]])})`} />
+      <g transform={`translate(${crate.x - 80} ${crate.y - 56})`}>
+        <rect x={0} y={0} width={160} height={90} fill="#B98A5A" stroke="#2A2018" strokeWidth={4} />
+        {[0, 1, 2].map((i) => <path key={i} d={`M 0 ${22 + i * 26} L 160 ${22 + i * 26}`} stroke="#6E4E2E" strokeWidth={4} />)}
+        <rect x={0} y={0} width={160} height={12} fill="#8A5E3A" />
+      </g>
       <Flood t={t} y={738} x0={-100} x1={2000} o={0.86} h={520} seed={7} />
     </g>
   );
@@ -438,30 +482,45 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => (
   </g>
 );
 
-/** An's sleeve hanging, his hand below it, and Linh's small hand taking hold of the cloth: fingers wrapped round it, the thumb behind. open 1 = just touching, 0 = gripping. */
-const SleeveGrip: React.FC<{ open: number; sway?: number }> = ({ open, sway = 0 }) => (
-  <g transform={`translate(${sway} 0)`}>
-    <path d="M 700 -120 L 700 540 Q 700 576 736 576 L 984 576 Q 1020 576 1020 540 L 1020 -120 Z" fill={AN.jacket} stroke="#16141C" strokeWidth={6} />
-    <path d="M 940 -120 L 940 560 L 1020 540 L 1020 -120 Z" fill={AN.jacketShade} opacity={0.55} />
-    {[0, 1, 2, 3].map((i) => <path key={i} d={`M 706 ${60 + i * 120} q 150 -26 308 -2`} stroke={AN.jacketShade} strokeWidth={7} fill="none" opacity={0.5} />)}
-    <rect x={690} y={520} width={340} height={64} rx={14} fill={AN.jacketShade} stroke="#16141C" strokeWidth={6} />
+/** An's sleeve hanging with his hand below it, and Linh's small hand pinching a fold of the cloth between thumb and finger, the other fingers curled. open 0 = pinching, 1 = let go. */
+const SleeveGrip: React.FC<{ open: number; sway?: number }> = ({ open, sway = 0 }) => {
+  const away = open * 120;
+  const L = '#16141C';
+  const stroke = (d: string, w: number, c: string) => <path d={d} stroke={c} strokeWidth={w} strokeLinecap="round" fill="none" />;
+  const finger = (d: string, w: number) => (
     <g>
-      <ellipse cx={860} cy={690} rx={78} ry={92} fill={AN.skin} stroke="#16141C" strokeWidth={6} />
-      {[-48, -16, 16, 48].map((x, i) => <path key={i} d={`M ${860 + x} 760 l ${x * 0.1} ${70 + (i % 3 === 1 ? 14 : 0)}`} stroke="#16141C" strokeWidth={30} strokeLinecap="round" />)}
-      {[-48, -16, 16, 48].map((x, i) => <path key={i} d={`M ${860 + x} 760 l ${x * 0.1} ${70 + (i % 3 === 1 ? 14 : 0)}`} stroke={AN.skin} strokeWidth={22} strokeLinecap="round" />)}
+      {stroke(d, w + 12, L)}
+      {stroke(d, w, LINH.skin)}
     </g>
-    {/* her sleeve and wrist from the lower left, the palm against the cloth, four fingers over it and the thumb round the back */}
-    <g transform={`translate(${-open * 90} ${open * 80})`}>
-      <path d="M 120 1200 L 330 620 L 520 700 L 330 1200 Z" fill={LINH.jacket} stroke="#16141C" strokeWidth={6} />
-      <path d="M 340 640 L 520 700 L 560 580 L 380 520 Z" fill={LINH.skin} stroke="#16141C" strokeWidth={6} />
-      <ellipse cx={600} cy={500} rx={110} ry={86} transform="rotate(-18 600 500)" fill={LINH.skin} stroke="#16141C" strokeWidth={6} />
-      {[0, 1, 2, 3].map((i) => <path key={i} d={`M 680 ${440 + i * 28} Q 800 ${420 + i * 30} 900 ${458 + i * 28}`} stroke="#16141C" strokeWidth={42} strokeLinecap="round" fill="none" />)}
-      {[0, 1, 2, 3].map((i) => <path key={i} d={`M 680 ${440 + i * 28} Q 800 ${420 + i * 30} 900 ${458 + i * 28}`} stroke={LINH.skin} strokeWidth={32} strokeLinecap="round" fill="none" />)}
-      <path d="M 560 560 Q 640 610 760 600" stroke="#16141C" strokeWidth={36} strokeLinecap="round" fill="none" />
-      <path d="M 560 560 Q 640 610 760 600" stroke={LINH.skin} strokeWidth={27} strokeLinecap="round" fill="none" />
+  );
+  return (
+    <g transform={`translate(${sway} 0)`}>
+      <path d="M 700 -120 L 700 540 Q 700 576 736 576 L 984 576 Q 1020 576 1020 540 L 1020 -120 Z" fill={AN.jacket} stroke={L} strokeWidth={6} />
+      <path d="M 940 -120 L 940 560 L 1020 540 L 1020 -120 Z" fill={AN.jacketShade} opacity={0.55} />
+      {[0, 1, 2, 3].map((k) => <path key={k} d={`M 706 ${60 + k * 120} q 150 -26 308 -2`} stroke={AN.jacketShade} strokeWidth={7} fill="none" opacity={0.5} />)}
+      <rect x={690} y={520} width={340} height={64} rx={14} fill={AN.jacketShade} stroke={L} strokeWidth={6} />
+      <g>
+        <ellipse cx={860} cy={690} rx={78} ry={92} fill={AN.skin} stroke={L} strokeWidth={6} />
+        {[-48, -16, 16, 48].map((x, k) => <path key={k} d={`M ${860 + x} 760 l ${x * 0.1} ${70 + (k % 3 === 1 ? 14 : 0)}`} stroke={L} strokeWidth={30} strokeLinecap="round" />)}
+        {[-48, -16, 16, 48].map((x, k) => <path key={k} d={`M ${860 + x} 760 l ${x * 0.1} ${70 + (k % 3 === 1 ? 14 : 0)}`} stroke={AN.skin} strokeWidth={22} strokeLinecap="round" />)}
+      </g>
+      {/* the fold of cloth she has hold of, standing out from the sleeve's edge */}
+      <path d={`M 702 ${400 + away * 0.3} Q ${676 - away * 0.2} ${418 + away * 0.3} 702 ${444 + away * 0.3}`} stroke={L} strokeWidth={6} fill={AN.jacket} />
+      <g transform={`translate(${-away} ${away * 0.7})`}>
+        {/* her forearm, her wrist, the back of her hand */}
+        <path d="M 140 1240 L 400 700" stroke={L} strokeWidth={132} strokeLinecap="round" />
+        <path d="M 140 1240 L 400 700" stroke={LINH.jacket} strokeWidth={120} strokeLinecap="round" />
+        <path d="M 400 700 L 470 590" stroke={L} strokeWidth={104} strokeLinecap="round" />
+        <path d="M 400 700 L 470 590" stroke={LINH.skin} strokeWidth={92} strokeLinecap="round" />
+        <ellipse cx={496} cy={552} rx={86} ry={66} transform="rotate(-48 496 552)" fill={LINH.skin} stroke={L} strokeWidth={6} />
+        {/* the three curled fingers, then index and thumb meeting on the fold */}
+        {[[420, 520], [450, 468], [498, 430]].map(([x, y], k) => <circle key={k} cx={x} cy={y} r={30} fill={LINH.skin} stroke={L} strokeWidth={5} />)}
+        {finger('M 530 500 Q 620 450 690 428', 30)}
+        {finger('M 520 596 Q 620 546 690 446', 30)}
+      </g>
     </g>
-  </g>
-);
+  );
+};
 
 // ---------- S16: extreme close: Linh's small fingers take hold of his sleeve ----------
 export const S16: React.FC<ShotProps> = ({ t, len }) => (
@@ -558,25 +617,17 @@ export const S23: React.FC<ShotProps> = ({ t, len }) => (
   </g>
 );
 
-// ---------- S24: close on his hand on her hair: "I will say where I am going" ----------
-export const S24: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(960, 520, kf(t, [[0, 1.0], [len, 1.08]]))}>
-    <rect x={-100} y={-100} width={2200} height={1300} fill="#9A8350" />
-    <Glow x={600} y={60} r={900} o={0.5} />
-    <g transform="translate(980 760)">
-      <circle cx={0} cy={0} r={300} fill={LINH.hair} stroke="#16141C" strokeWidth={6} />
-      <path d="M 0 -296 Q 18 -140 0 40 M -150 -250 Q -130 -80 -50 20 M 150 -250 Q 130 -80 50 20" stroke="#3A3238" strokeWidth={9} fill="none" strokeLinecap="round" opacity={0.7} />
-      <path d="M -290 20 Q -240 -120 -150 -230" stroke="#4A4048" strokeWidth={22} fill="none" opacity={0.35} />
-      {[-1, 1].map((sd) => (
-        <g key={sd}>
-          <circle cx={sd * 250} cy={-150} r={108} fill={LINH.hair} stroke="#16141C" strokeWidth={6} />
-          <ellipse cx={sd * 190} cy={-96} rx={22} ry={34} fill="#D96C4F" transform={`rotate(${sd * 30} ${sd * 190} -96)`} />
-        </g>
-      ))}
+// ---------- S24: close: his big hand rests on her head: "I will say where I am going" ----------
+export const S24: React.FC<ShotProps> = ({ t, len }) => {
+  const press = kf(t, [[0, 0], [20, 1]]);
+  return (
+    <g transform={camT(960, 520, kf(t, [[0, 1.0], [len, 1.06]]))}>
+      <Attic id="c3s24" t={t + 380} veil={0.55} />
+      <Hero look={LINH} pose={P({ x: 960, y: 780, scale: 2.1, yaw: 0.5, look: 0.3, headTilt: 5 + 4 * press, expr: 'neutral', armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
+      <HandTop x={1010 + 6 * press} y={140 + 26 * press} rot={0} s={1.05} skin={AN.skin} sleeve={AN.jacket} />
     </g>
-    <HandTop x={kf(t, [[0, 940], [24, 1000]])} y={kf(t, [[0, 420], [24, 470]])} rot={180} s={1.35} skin={AN.skin} sleeve={AN.jacket} />
-  </g>
-);
+  );
+};
 
 // ---------- S25: macro: her fingers let go of his sleeve, slowly; held through the pause ----------
 export const S25: React.FC<ShotProps> = ({ t, len }) => (
@@ -614,9 +665,9 @@ export const S27: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.1]]))}>
       <LivingRoom id="c3s27" t={t + 20} lamp={0.8} day="7" dog />
-      <Hero look={AN} pose={P({ x: 640 + 520 * k, y: 600 - 30 * k, scale: 1.0, yaw: 0.8, facing: 1, look: 0.5, tilt: 5, expr: 'neutral', legL: { a: 28 * Math.sin(t * 0.5), b: -22 }, legR: { a: -28 * Math.sin(t * 0.5), b: -22 }, armL: { a: 60, b: 80 }, armR: { a: 60, b: 80 } }, t, 1)} rimId="filmL" shadow={0} />
-      <rect x={640 + 520 * k} y={500 - 30 * k} width={170} height={110} fill="#B5604F" stroke="#16141C" strokeWidth={4} />
-      <Hero look={HANH} pose={P({ x: 340 + 520 * k, y: 640 - 30 * k, scale: 0.92, yaw: 0.8, facing: 1, look: 0.5, tilt: 4, expr: 'neutral', legL: { a: 28 * Math.sin(t * 0.5 + 2), b: -22 }, legR: { a: -28 * Math.sin(t * 0.5 + 2), b: -22 }, armL: { a: 70, b: 60 }, armR: { a: 70, b: 60 } }, t, 3)} rimId="filmR" shadow={0} />
+      <Hero look={AN} pose={P({ x: 640 + 520 * k, y: 600 - 30 * k, scale: 1.0, yaw: 0.8, facing: 1, look: 0.5, tilt: 5, expr: 'neutral', legL: { a: 22 * Math.sin(t * 0.5), b: -16 }, legR: { a: -22 * Math.sin(t * 0.5), b: -16 }, armL: { a: 26, b: 58 }, armR: { a: 30, b: 56 } }, t, 1)} rimId="filmL" shadow={0} />
+      <Bundle x={640 + 520 * k + 90} y={600 - 30 * k + 130} s={0.7} c="#B5604F" />
+      <Hero look={HANH} pose={P({ x: 340 + 520 * k, y: 640 - 30 * k, scale: 0.92, yaw: 0.8, facing: 1, look: 0.5, tilt: 4, expr: 'neutral', legL: { a: 22 * Math.sin(t * 0.5 + 2), b: -16 }, legR: { a: -22 * Math.sin(t * 0.5 + 2), b: -16 }, armL: { a: 14, b: 34 }, armR: { a: 30, b: 50 } }, t, 3)} rimId="filmR" shadow={0} />
     </g>
   );
 };
@@ -633,7 +684,7 @@ export const S28: React.FC<ShotProps> = ({ t, len }) => (
 export const S29: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
     { f: 0, p: { x: 960, y: YARD.floorHip(0.98), scale: 0.98, yaw: 0.7, look: 0.6, tilt: 3, expr: 'neutral', armR: { a: 20, b: 18 }, armL: { a: 20, b: 18 } } },
-    { f: 22, p: { armR: { a: 148, b: 12 }, tilt: 8 } },
+    { f: 22, p: { armR: { a: 104, b: 52 }, tilt: 6 } },
   ]);
   return (
     <g transform={camT(kf(t, [[0, 900], [len, 940]]), 600, kf(t, [[0, 1.6], [len, 1.7]]))}>
@@ -702,7 +753,7 @@ export const S33: React.FC<ShotProps> = ({ t, len }) => {
 export const S34: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(kf(t, [[0, 930], [len, 900]]), 530, kf(t, [[0, 1.7], [len, 1.85]]))}>
     <AnHouse id="c3s34" t={t} w={2} rain={0.8} chair={false} />
-    <Hero look={HANH} pose={P({ x: 900, y: YARD.floorHip(1.05), scale: 1.05, yaw: 0.55, look: 0.6, headTilt: 2, expr: 'neutral', talk: talkAt(t, 2, 150), armR: { a: 40, b: 40 + 8 * Math.sin(t * 0.15) }, armL: { a: 14, b: 20 } }, t, 3)} rimId="filmL" shadow={0} />
+    <Hero look={HANH} pose={P({ x: 900, y: YARD.floorHip(1.05), scale: 1.05, yaw: 0.55, look: 0.6, headTilt: 2, expr: 'neutral', talk: talkAt(t, 2, 150), armR: { a: 70, b: 40 + 8 * Math.sin(t * 0.15) }, armL: { a: 12, b: 18 } }, t, 3)} rimId="filmL" shadow={0} />
   </g>
 );
 
@@ -713,24 +764,28 @@ export const S35: React.FC<ShotProps> = ({ t, len }) => (
   </g>
 );
 
-// ---------- S36: upstairs again: An lifts the last bag onto the stack, Hạnh folds a blanket on the mat; the rain at the window; hold ----------
+// ---------- S36: upstairs again: An sets the last duffel on the pile in the corner, Hạnh folds a blanket; the rain at the window; hold ----------
 export const S36: React.FC<ShotProps> = ({ t, len }) => {
-  const a = stand(ATT, 0.82, 0.58);
-  const h = stand(ATT, 0.22, 0.6);
-  const up = kf(t, [[0, 0], [40, 1]]);
-  const fold = Math.sin(t * 0.08);
-  const aPose = P({ x: a.x, y: a.y, scale: a.scale, yaw: 0.25, look: 0.3, expr: 'neutral', tilt: 14 - 12 * up, armL: { a: 70 + 28 * up, b: 40 - 10 * up }, armR: { a: 70 + 28 * up, b: 40 - 10 * up } }, t, 1);
+  const pile = ATT.P(0.1, 1, 0.42);
+  const k = ATT.s(0.42) * 0.78;
+  const a = stand(ATT, 0.36, 0.5);
+  const h = stand(ATT, 0.66, 0.58);
+  const put = kf(t, [[0, 0], [36, 1]]);
+  const aPose = P({ x: a.x, y: a.y, scale: a.scale, yaw: -0.55, look: -0.4, expr: 'neutral', tilt: -10 * put, armL: { a: 74 - 24 * put, b: 40 }, armR: { a: 12, b: 20 } }, t, 1);
   const ja = joints(aPose);
   const hl = toWorld(aPose, ja.armL.end);
   const hr = toWorld(aPose, ja.armR.end);
-  const bag = { x: (hl.x + hr.x) / 2, y: (hl.y + hr.y) / 2 };
+  const hand = { x: hl.x, y: hl.y };
+  const dest = { x: pile.x + 150 * k, y: pile.y - 88 * k };
+  const bag = { x: hand.x + (dest.x - hand.x) * put, y: hand.y + 40 + (dest.y - hand.y) * put };
+  const fold = Math.sin(t * 0.08);
   return (
     <g transform={camT(960, 520, kf(t, [[0, 1.0], [len, 1.08]]))}>
       <Attic id="c3s36" t={t + 400} bags={1} map />
-      <rect x={bag.x - 80 * a.scale} y={bag.y - 70 * a.scale} width={160 * a.scale} height={90 * a.scale} rx={12 * a.scale} fill="#6E5B7E" stroke="#16141C" strokeWidth={4} />
       <Hero look={AN} pose={aPose} rimId="filmL" shadow={0} />
-      <Hero look={HANH} pose={P({ x: h.x, y: h.y, scale: h.scale, yaw: -0.4, look: -0.5, tilt: 26, headTilt: 8, expr: 'neutral', armL: { a: 38 + 8 * fold, b: 44 }, armR: { a: 30 - 8 * fold, b: 46 } }, t, 3)} rimId="filmR" shadow={0} />
-      <rect x={h.x - 120 * h.scale} y={h.y + 118 * h.scale} width={220 * h.scale} height={32 * h.scale} rx={8} fill="#4F7486" stroke="#16141C" strokeWidth={3} />
+      {put < 1 ? <Duffel x={bag.x} y={bag.y + 60 * a.scale} s={a.scale * 0.8} c="#5E5C44" /> : <Duffel x={dest.x} y={dest.y + 88 * k * 0.0} s={k * 0.9} c="#5E5C44" />}
+      <Hero look={HANH} pose={P({ x: h.x, y: h.y, scale: h.scale, yaw: 0.4, look: 0.5, tilt: 24, headTilt: 8, expr: 'neutral', armL: { a: 8, b: 30 }, armR: { a: 40 + 6 * fold, b: 44 - 6 * fold } }, t, 3)} rimId="filmR" shadow={0} />
+      <rect x={h.x - 120 * h.scale} y={h.y + 120 * h.scale} width={220 * h.scale} height={30 * h.scale} rx={8} fill="#B5604F" stroke="#16141C" strokeWidth={3} />
     </g>
   );
 };
