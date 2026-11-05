@@ -187,8 +187,18 @@ python <skill>/scripts/master.py <slug>
 ```
 
 Renders, brings the mix to -14 LUFS with peaks under -1 dBTP, and writes `out/<slug>/report.json` (length, loudness,
-pace, credits). Watch the final file once through with sound. Hand over `out/<slug>/<slug>-final.mp4` and
-`out/<slug>/storyboard.jpg`, with the length, the ElevenLabs credits used, and anything you'd still improve.
+pace, credits). Watch the final file once through with sound, then review it frame by frame:
+
+```bash
+python <skill>/scripts/review.py <slug>
+```
+
+It writes `out/<slug>/review/review01.jpg ...` (start, middle and end frame of every segment, with the words spoken
+over it) and prints the words per segment. Read every page: the board stills only show key frames, and the first full
+film of a long episode had 17 faults they hid (early cuts, eyes open in a sleep shot, a phone floating by a head).
+Fix, re-render, review again. Hand over `out/<slug>/<slug>-final.mp4` and `out/<slug>/storyboard.jpg`, with the
+length, the ElevenLabs credits used, and anything you'd still improve; write the episode's state in
+`src/episodes/<slug>/README.md` and the lessons in `docs/WHAT-IF-KINH-NGHIEM.md`, then commit and push.
 
 ## Where an episode lives
 

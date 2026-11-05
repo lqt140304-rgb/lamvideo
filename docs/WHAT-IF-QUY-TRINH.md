@@ -38,10 +38,26 @@ Vị trí: skill ở `.claude/skills/what-if-animation/` (Claude Code tự nhậ
 5. Bạn xem `what-if-studio/out/<slug>/<slug>-final.mp4`, gửi góp ý; kiểm tra lại nguồn số liệu trước khi đăng.
 
 Chạy tay từng bước (trong repo): `tools\what-if.bat voice <slug>`, `plan`, `stills`, `board`, `sheets` (ghép trang
-3×3 để xem storyboard), `sfx`, `mixcheck`, `motiongrid`, `master`.
+3×3 để xem storyboard), `sfx`, `mixcheck`, `motiongrid`, `master`, `review` (rà bản phim: 3 khung mỗi đoạn + chữ
+được đọc trong đoạn).
 
 **Ghi kinh nghiệm:** sau mỗi lần dựng hoặc sửa tập, Claude ghi bài học vào `docs/WHAT-IF-KINH-NGHIEM.md` (lỗi gặp,
-cách sửa, mẹo) và đọc lại file đó trước khi làm tập mới.
+cách sửa, mẹo) và đọc lại file đó trước khi làm tập mới. Mỗi tập có `what-if-studio/src/episodes/<slug>/README.md`
+ghi trạng thái, việc còn lại và cách dựng lại.
+
+**Commit/push thường xuyên** lên nhánh đang làm (sau mỗi mốc việc), để hết hạn mức thì phiên sau làm tiếp được.
+Không commit `.env`/khóa. File MP4 không lên GitHub (`out/` bị ignore, quá 100 MB): dựng lại bằng `master`.
+
+### Tập dài (vài phút) và giọng ngoài
+- Skill gốc làm tập 15–25 s; tập dài hơn (ví dụ `tua-lai-10-giay`, ~3 phút, 76 cảnh) dùng thêm `"pads"` trong
+  `episode.json` để chèn khoảng lặng (giữa cảnh, tiêu đề), vì `gaps` chỉ rút ngắn khoảng lặng.
+- Giọng ElevenLabs bằng gói Free: API không dùng được giọng thư viện (lỗi 402). Tạo trên web với lời ở
+  `public/<slug>/loi-doc.txt`, lưu mp3 thành `public/<slug>/voice_in.mp3`, đặt `"voice": {"engine": "file"}`. Model có
+  tiếng Việt: Turbo/Flash v2.5 hoặc v4 (Multilingual v2 không có tiếng Việt). Tìm mã giọng (khi có khóa):
+  `python .claude/skills/what-if-animation/scripts/voice_elevenlabs.py --find "<tên giọng>"` (chạy trong `what-if-studio`).
+- Khóa ElevenLabs: file `D:\.env` (ngoài repo), dòng `ELEVENLABS_API_KEY=...`; khóa cần quyền Text to Speech,
+  Voices Read, User Read, History Read.
+- Mẫu nhân vật trước storyboard: `npx remotion still src/index.ts Model-<id> out/models/<id>.png` và `Expressions`.
 
 ## Quy trình 8 bước và thông số đo được (từ skill)
 
