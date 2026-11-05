@@ -636,7 +636,26 @@
    "note": "Kéo lùi, tờ lịch nhỏ dần, trời sập tối"
   }
  ],
- "fx": [],
+ "fx": [
+  {
+   "kind": "shake",
+   "len": 10,
+   "amp": 5,
+   "f": 985
+  },
+  {
+   "kind": "shake",
+   "len": 8,
+   "amp": 6,
+   "f": 1158
+  },
+  {
+   "kind": "shake",
+   "len": 6,
+   "amp": 7,
+   "f": 1353
+  }
+ ],
  "audio": {
   "voice": "mua-100-c01/voice.wav"
  }

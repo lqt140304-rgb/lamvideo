@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Hero, Pose, basePose, poseAt, kf, rnd, camT, LOOKS, blinkAt,
-  AnHouse, YARD, Alley, TownView, RoofRow, LivingRoom, AnKitchen, ANKITCHEN, stand, makeRoom, RoomShell, Box, FloorShadow, HEAD,
+  flick, AnHouse, YARD, Alley, TownView, RoofRow, LivingRoom, AnKitchen, ANKITCHEN, stand, makeRoom, RoomShell, Box, FloorShadow, HEAD,
   Areca, Rain, Splashes, CloudBank, Dog, TearCalendar, TeaCup, Teapot, Foreground, Glow, LightVeil, Dust, FONT, ShotProps, Look,
 } from '../../engine';
 
@@ -14,7 +14,17 @@ const LINH = LOOKS.linh;
 const SAU = LOOKS.baSau;
 const CHILD = 0.62;
 
-const P = (p: Partial<Pose>, t = 0, seed = 1): Pose => ({ ...basePose, ...p, blink: blinkAt(t, seed) });
+/** Alive when holding still: a breath, a slight head drift, the blink. */
+const live = (pose: Pose, t: number, seed: number, talk = pose.talk ?? 0): Pose => ({
+  ...pose,
+  blink: blinkAt(t, seed),
+  headTilt: pose.headTilt + 1.4 * Math.sin(t * 0.045 + seed),
+  squash: pose.squash + 0.007 * Math.sin(t * 0.075 + seed),
+  talk,
+});
+const P = (p: Partial<Pose>, t = 0, seed = 1): Pose => live({ ...basePose, ...p }, t, seed);
+/** The mouth while the voice speaks this character's line (a to b on the shot's clock). */
+const talkAt = (t: number, a: number, b: number) => (t < a || t > b ? 0 : Math.abs(Math.sin(t * 0.62)) * (0.5 + 0.5 * Math.abs(Math.sin(t * 0.21))));
 const onDeck = (x: number, scale: number) => ({ x, y: YARD.floorHip(scale), scale });
 
 /** A character from behind: the same rig with the face covered by the back of the head. */
@@ -56,7 +66,7 @@ const LivingFront: React.FC<{ id: string; t: number; children?: React.ReactNode 
       <path d={`M ${bulb.x} ${P(0.5, 0, 0.45).y} L ${bulb.x} ${bulb.y - 16}`} stroke="#1E1A16" strokeWidth={3} />
       <circle cx={bulb.x} cy={bulb.y} r={18} fill="#FFF0BE" />
       <LightVeil id={`${id}v`} lights={[[bulb.x, bulb.y + 60, 720], [960, 520, 300], [1325, 450, 220]]} o={0.56} />
-      <Glow x={bulb.x} y={bulb.y} r={620} o={0.62} />
+      <Glow x={bulb.x} y={bulb.y} r={620} o={0.62 * flick(t)} />
       <Glow x={bulb.x} y={bulb.y} r={150} o={1} />
       <Glow x={960} y={520} r={340} kind="cool" o={0.3} />
       <Dust t={t} seed={8} x0={bulb.x - 300} y0={bulb.y} w={600} h={420} n={22} o={0.35} />
@@ -200,7 +210,7 @@ export const S7: React.FC<ShotProps> = ({ t, len }) => (
     <Alley id="s7" t={t} w={1} wind={0.3} />
     <rect x={-200} y={-200} width={2320} height={700} fill="#000" opacity={0.18} />
     <Foreground blur={6}>
-      <g transform="translate(330 640) scale(1.75)">
+      <g transform={`translate(${kf(t, [[0, 310], [len, 360]])} 640) scale(1.75)`}>
         <path d="M -150 300 Q -150 90 -68 66 Q 0 50 68 66 Q 150 90 150 300 Z" fill="#20222A" />
         <circle cx={0} cy={-14} r={80} fill="#14141A" />
       </g>
@@ -274,7 +284,7 @@ export const S9: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(kf(t, [[0, 980], [len, 1010]]), 480, kf(t, [[0, 1.4], [len, 1.5]]))}>
       <ShopFront id="s9" t={t} wind={0.9} tarp={0.7} />
-      <Hero look={SAU} pose={{ ...pose, blink: blinkAt(t, 2) }} rimId="filmL" shadow={1} />
+      <Hero look={SAU} pose={live(pose, t, 2)} rimId="filmL" shadow={1} />
     </g>
   );
 };
@@ -289,7 +299,7 @@ export const S10: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(kf(t, [[0, 1040], [len, 1000]]), 560, kf(t, [[0, 1.4], [len, 1.46]]))}>
       <AnKitchen id="s10" t={t} w={1} door={kf(t, [[0, 0.55], [24, 0.85], [38, 0.7]])} />
-      <Hero look={HANH} pose={{ ...pose, blink: blinkAt(t, 3) }} rimId="filmL" shadow={1} />
+      <Hero look={HANH} pose={live(pose, t, 3)} rimId="filmL" shadow={1} />
     </g>
   );
 };
@@ -400,7 +410,7 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => (
     <clipPath id="s14soil"><polygon points="-100,560 2100,520 2100,1180 -100,1180" /></clipPath>
     <g clipPath="url(#s14soil)" opacity={0.6}><Crack seed={33} /></g>
     {[300, 760, 1240, 1680].map((x, i) => (
-      <g key={i} transform={`translate(${x} ${680 + (i % 2) * 110}) scale(${1.5 + (i % 2) * 0.6})`}>
+      <g key={i} transform={`translate(${x} ${680 + (i % 2) * 110}) scale(${1.5 + (i % 2) * 0.6}) rotate(${3 * Math.sin(t * 0.21 + i * 2)})`}>
         <ellipse cx={0} cy={6} rx={70} ry={14} fill="#2A1A10" />
         {[-1, -0.5, 0, 0.5, 1].map((dx, k) => (
           <path key={k} d={`M 0 0 Q ${dx * 26} -60 ${dx * 66} ${-96 + Math.abs(dx) * 40}`} stroke={k % 2 ? '#5C8A3A' : '#6E9C44'} strokeWidth={13} fill="none" strokeLinecap="round" />
@@ -525,7 +535,7 @@ export const S18: React.FC<ShotProps> = ({ t, len }) => (
 export const S19: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(kf(t, [[0, 900], [len, 960]]), 480, kf(t, [[0, 0.98], [len, 1.03]]))}>
     <AnHouse id="s19" t={t} w={2} rain={1} palms={0.25} />
-    <Hero look={AN} pose={P({ ...onDeck(1030, 0.82), yaw: 0.2, look: 0.2, armL: { a: 12, b: 10 }, armR: { a: 12, b: 10 } }, t, 1)} rimId="filmL" />
+    <Hero look={AN} pose={P({ ...onDeck(1030, 0.82), yaw: kf(t, [[0, 0.2], [50, 0.5], [120, 0.2]]), look: 0.2, headTilt: kf(t, [[0, 0], [50, -7], [120, 0]]), armL: { a: 12, b: 10 }, armR: { a: 12, b: 10 } }, t, 1)} rimId="filmL" />
     <Foreground blur={16}>
       <path d="M -120 1120 L -80 760 Q 40 650 150 760 Q 210 860 240 1120 Z" fill="#14120E" />
     </Foreground>
@@ -565,7 +575,7 @@ export const S23: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(kf(t, [[0, 1260], [len, 1240]]), 590, kf(t, [[0, 1.98], [len, 2.06]]))}>
       <AnHouse id="s23" t={t} w={2} rain={1} chair={false} />
-      <Hero look={LINH} pose={P({ x: 1072, y: 724, scale: s, yaw: 0.72, look: 0.7, expr: 'happy', tilt: 16, armR: { a: 62, b: 20 }, armL: { a: -54, b: -24 }, legL: { a: 88, b: -130 }, legR: { a: 76, b: -130 } }, t, 4)} rimId="filmL" shadow={0} />
+      <Hero look={LINH} pose={P({ x: 1072, y: 724, scale: s, yaw: 0.72, look: 0.7, expr: 'happy', tilt: 16, armR: { a: 62 + 6 * Math.sin(t * 0.14), b: 20 }, armL: { a: -54 - 5 * Math.sin(t * 0.14 + 1), b: -24 }, legL: { a: 88, b: -130 }, legR: { a: 76, b: -130 } }, t, 4)} rimId="filmL" shadow={0} />
       <ellipse cx={1090} cy={766} rx={62} ry={9} fill="#000" opacity={0.32} />
     </g>
   );
@@ -621,7 +631,7 @@ export const S25: React.FC<ShotProps> = ({ t, len }) => {
       {[830, 960].map((y, i) => <path key={i} d={`M -700 ${y} L 2700 ${y}`} stroke="#3E3226" strokeWidth={3} />)}
       <polygon points="1100,770 1860,770 2280,1200 800,1200" fill="#9AA7B0" opacity={0.2} />
       {/* the underside of the seat, chair legs: a dark frame */}
-      <Dog x={560} y={850} s={2.3} look={1} head={head} />
+      <Dog x={560} y={850} s={2.3} look={1} head={head} t={t} />
       <rect x={-100} y={-100} width={2200} height={200} fill="#17110C" />
       <rect x={120} y={-20} width={70} height={1000} fill="#2A1C12" />
       <rect x={1010} y={-20} width={60} height={930} fill="#2A1C12" />
@@ -642,9 +652,9 @@ export const S26: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(kf(t, [[0, 1000], [len, 960]]), 460, 1.14)}>
       <ShopFront id="s26" t={t} rain={1} tarp={kf(t, [[0, 0.65], [70, 1]])} />
-      <Hero look={SAU} pose={{ ...pose, blink: blinkAt(t, 2) }} rimId="filmR" />
+      <Hero look={SAU} pose={live(pose, t, 2, talkAt(t, 128, 182))} rimId="filmR" />
       <Foreground blur={6}>
-        <Back look={AN} pose={P({ x: 300, y: 980, scale: 1.75, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
+        <Back look={AN} pose={P({ x: kf(t, [[0, 330], [len, 270]]), y: 980, scale: 1.75, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
       </Foreground>
     </g>
   );
@@ -653,12 +663,13 @@ export const S26: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S27: close on the near hands: An sets the basin under the gutter, the first spout rings in it ----------
 export const S27: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
-    { f: 0, p: { x: 1450, y: YARD.deck - 40, scale: 0.88, yaw: 0.8, tilt: 34, look: 0.6, expr: 'happy', armR: { a: 66, b: -6 }, armL: { a: -56, b: -6 }, legL: { a: 28, b: -42 }, legR: { a: -14, b: -24 } } },
+    { f: 0, p: { x: 1450, y: YARD.deck - 112, scale: 0.88, yaw: 0.8, tilt: 6, look: 0.6, expr: 'happy', armR: { a: 40, b: 30 }, armL: { a: -30, b: -30 }, legL: { a: 6, b: 0 }, legR: { a: -4, b: 0 } } },
+    { f: 34, p: { y: YARD.deck - 40, tilt: 34, armR: { a: 66, b: -6 }, armL: { a: -56, b: -6 }, legL: { a: 28, b: -42 }, legR: { a: -14, b: -24 } } },
   ]);
   return (
     <g transform={camT(kf(t, [[0, 1480], [len, 1510]]), 680, kf(t, [[0, 2.2], [len, 2.34]]))}>
       <AnHouse id="s27" t={t} w={2} rain={1} basin />
-      <Hero look={AN} pose={{ ...pose, blink: blinkAt(t, 1) }} rimId="filmL" />
+      <Hero look={AN} pose={live(pose, t, 1)} rimId="filmL" />
       <line x1={1590} y1={700} x2={1590} y2={760} stroke="#DCE8F2" strokeWidth={13} opacity={0.75} />
       {[0, 1].map((i) => <ellipse key={i} cx={1590} cy={756} rx={22 + ((t * 1.3 + i * 12) % 24)} ry={5 + ((t * 0.4 + i * 3) % 7)} fill="none" stroke="#DCE8F2" strokeWidth={3} opacity={0.8} />)}
     </g>
@@ -715,10 +726,10 @@ export const S29: React.FC<ShotProps> = ({ t, len }) => (
   <g>
   <g transform={camT(kf(t, [[0, 870], [len, 830]]), 440, kf(t, [[0, 2.06], [len, 2.16]]))}>
     <AnHouse id="s29" t={t} w={2} rain={1} chair={false} />
-    <Hero look={AN} pose={P({ ...onDeck(960, 0.96), yaw: 0.42, look: 0.5, headTilt: 11, expr: 'happy', armL: { a: 12, b: 16 }, armR: { a: 16, b: 22 } }, t, 1)} rimId="filmL" />
+    <Hero look={AN} pose={P({ ...onDeck(960, 0.96), yaw: 0.42, look: 0.5, headTilt: 11, expr: 'happy', talk: talkAt(t, 2, 124), armL: { a: 12, b: 16 }, armR: { a: 16, b: 22 } }, t, 1)} rimId="filmL" />
   </g>
     <Foreground blur={3}>
-      <Back look={LINH} pose={P({ x: 1500, y: 1290, scale: 2.5, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
+      <Back look={LINH} pose={P({ x: kf(t, [[0, 1470], [len, 1530]]), y: 1290, scale: 2.5, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
     </Foreground>
   </g>
 );
@@ -741,7 +752,7 @@ export const S30: React.FC<ShotProps> = ({ t, len }) => (
       ))}
       <Glow x={380} y={170} r={760} o={0.5} />
       {/* the camera looks down: big head, foreshortened body */}
-      <Hero look={LINH} pose={P({ x: 900 + 10 * Math.sin(t * 0.05), y: kf(t, [[0, 1190], [len, 1170]]), scale: 3.6, yaw: 0.26, look: -0.42, headTilt: -8, expr: 'smug', armL: { a: 10, b: 20 }, armR: { a: 10, b: 20 } }, t, 4)} rimId="filmL" shadow={0} />
+      <Hero look={LINH} pose={P({ x: 900 + 10 * Math.sin(t * 0.05), y: kf(t, [[0, 1190], [len, 1170]]), scale: 3.6, yaw: 0.26, look: -0.42, headTilt: -8, expr: 'smug', talk: talkAt(t, 2, 132), armL: { a: 10, b: 20 }, armR: { a: 10, b: 20 } }, t, 4)} rimId="filmL" shadow={0} />
     </g>
     <Foreground blur={16}><path d="M -20 880 Q 180 740 320 1100 L -20 1100 Z" fill="#141110" /></Foreground>
   </g>
@@ -753,17 +764,25 @@ export const S31: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
     { f: 0, p: { ...onDeck(790, s), yaw: 0.65, look: 0.5, tilt: 8, headTilt: 3, expr: 'happy', armR: { a: 18, b: 22 }, armL: { a: -8, b: 22 } } },
     { f: 45, p: { tilt: 26, armR: { a: 50, b: 8 }, armL: { a: -44, b: -8 } } },
+    { f: 72, p: { tilt: 26, armR: { a: 50, b: 8 }, armL: { a: -44, b: -8 } } },
+    { f: 92, p: { tilt: 6, armR: { a: 20, b: 20 }, armL: { a: -6, b: 20 } } },
+  ]);
+  const linh = poseAt(t, [
+    { f: 0, p: { ...onDeck(1050, CHILD * s), yaw: -0.65, facing: -1, look: -0.7, headTilt: -9, expr: 'happy', armL: { a: 22, b: 34 }, armR: { a: 16, b: 24 } } },
+    { f: 72, p: { x: 1050 } },
+    { f: 98, p: { x: 948, legL: { a: 18, b: -20 }, legR: { a: -14, b: -10 } } },
+    { f: 116, p: { y: YARD.deck - 62, legL: { a: 62, b: -62 }, legR: { a: 56, b: -56 } } },
   ]);
   return (
     <g transform={camT(kf(t, [[0, 900], [len, 950]]), 540, kf(t, [[0, 1.54], [len, 1.6]]))}>
       <AnHouse id="s31" t={t} w={2} rain={1} chair={false} />
-      <Hero look={AN} pose={{ ...pose, blink: blinkAt(t, 1) }} rimId="filmL" />
-      <Hero look={LINH} pose={P({ ...onDeck(1050, CHILD * s), yaw: -0.65, look: -0.7, headTilt: -9, expr: 'happy', armL: { a: 22, b: 34 }, armR: { a: 16, b: 24 } }, t, 4)} rimId="filmR" />
+      <Hero look={AN} pose={live(pose, t, 1, talkAt(t, 108, 252))} rimId="filmL" />
       <g transform={`translate(${kf(t, [[40, 1000], [70, 930]])} ${YARD.deck - 54})`}>
         <ellipse cx={0} cy={66} rx={62} ry={9} fill="#000" opacity={0.3} />
         <rect x={-52} y={0} width={104} height={12} fill="#7A5636" />
         <path d="M -40 12 L -46 64 M 40 12 L 46 64" stroke="#4C3420" strokeWidth={10} />
       </g>
+      <Hero look={LINH} pose={live(linh, t, 4)} rimId="filmR" shadow={t < 100 ? 1 : 0} />
     </g>
   );
 };
@@ -771,11 +790,13 @@ export const S31: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S32: from deep in the house, past Hạnh in the kitchen door: the two small on the bright veranda ----------
 export const S32: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.05]]))}>
+    <g style={{ filter: `blur(${kf(t, [[18, 0], [38, 3.5]])}px)` }}>
     <LivingFront id="s32" t={t + 300}>
       <Hero look={AN} pose={P({ x: 915, y: 650, scale: 0.72, yaw: 0.7, look: 0.4, armL: { a: 16, b: 12 }, armR: { a: 24, b: 26 } }, t, 1)} rimId="rimBlue" shadow={0} />
       <Hero look={LINH} pose={P({ x: 1020, y: 690, scale: 0.46, yaw: -0.7, armR: { a: 16, b: 14 } }, t, 4)} rimId="rimBlueL" shadow={0} />
     </LivingFront>
-    <Hero look={HANH} pose={P({ x: 340, y: 760, scale: 2.32, yaw: 0.58, look: 0.7, headTilt: 2, expr: 'happy', armR: { a: 118, b: 26 }, armL: { a: 12, b: 32 } }, t, 3)} rimId="filmR" shadow={0} />
+    </g>
+    <Hero look={HANH} pose={P({ x: 340, y: 760, scale: 2.32, yaw: 0.58, look: 0.7, headTilt: 2, expr: 'happy', talk: talkAt(t, 41, 152), armR: { a: 118 + 7 * Math.sin(t * 0.22), b: 26 }, armL: { a: 12, b: 32 } }, t, 3)} rimId="filmR" shadow={0} />
     <Foreground blur={16}><rect x={1700} y={-60} width={300} height={1200} fill="#120C08" /></Foreground>
   </g>
 );
@@ -784,7 +805,7 @@ export const S32: React.FC<ShotProps> = ({ t, len }) => (
 export const S33: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(kf(t, [[0, 1020], [len, 990]]), 500, kf(t, [[0, 3.05], [len, 3.16]]))}>
     <AnHouse id="s33" t={t} w={2} rain={1} chair={false} pots={false} />
-    <Hero look={LINH} pose={P({ x: 1000, y: 640, scale: 0.68, yaw: -0.5, look: -0.7, headTilt: -5, expr: 'happy', armR: { a: 70, b: 70 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 1000, y: 640, scale: 0.68, yaw: kf(t, [[0, 0.6], [16, -0.5]]), look: kf(t, [[0, 0.7], [16, -0.7]]), headTilt: -5, expr: 'happy', talk: talkAt(t, 39, 92), armR: { a: kf(t, [[0, 14], [24, 70]]), b: kf(t, [[0, 10], [24, 70]]) } }, t, 4)} rimId="filmR" shadow={0} />
     <Glow x={1000} y={420} r={180} o={0.28} />
   </g>
 );
@@ -822,7 +843,7 @@ export const S35: React.FC<ShotProps> = ({ t, len }) => {
     <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.04]]))}>
       {/* the room as seen from the calendar's wall: the veranda door far left, Bulb overhead, the desk's edge */}
       <LivingFront id="s35" t={t + 400} />
-      <Hero look={LINH} pose={{ ...pose, blink: blinkAt(t, 4) }} rimId="filmR" />
+      <Hero look={LINH} pose={live(t < 40 ? { ...pose, legL: { a: 28 * Math.sin(t * 0.6), b: -24 }, legR: { a: -28 * Math.sin(t * 0.6), b: -24 } } : pose, t, 4)} rimId="filmR" />
       {/* the back of the tear-off calendar, huge and soft in the near corner */}
       <Foreground blur={10}>
         <rect x={1360} y={-60} width={640} height={1200} fill="#1A130C" />

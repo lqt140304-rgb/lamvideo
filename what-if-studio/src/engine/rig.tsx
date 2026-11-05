@@ -98,6 +98,7 @@ export type Pose = {
   sway: number; // secondary motion: how far loose things (the hood's drawstrings) swing, degrees-ish
   glint?: number; // 0..1 the eyes light up in the power's colour (set it after poseAt: it isn't interpolated)
   glintColor?: string;
+  talk?: number; // 0..1 the mouth open while speaking (set it after poseAt: it isn't interpolated)
 };
 
 export const basePose: Pose = {
@@ -247,7 +248,7 @@ export const reachAngle = (pose: Pose, target: P) => {
   return world - pose.tilt;
 };
 
-const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number; yaw?: number; ink?: string; glint?: number; glintColor?: string }> = ({ expr, blink, look, glasses, yaw = 0, ink = C.ink, glint = 0, glintColor = '#8FF0FF' }) => {
+const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number; yaw?: number; ink?: string; glint?: number; glintColor?: string; talk?: number }> = ({ expr, blink, look, glasses, yaw = 0, ink = C.ink, glint = 0, glintColor = '#8FF0FF', talk = 0 }) => {
   const ex = look * 7;
   const ay = Math.min(1, Math.abs(yaw));
   const farHidden = ay > 0.72;
@@ -309,7 +310,7 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
       {eye(-21)}
       {eye(21)}
       {brows[expr] ? <path d={brows[expr]} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" /> : null}
-      {mouth[expr]}
+      {talk > 0.08 ? <ellipse cx={0} cy={mY + 4} rx={13} ry={2.5 + 12 * talk} fill={ink} /> : mouth[expr]}
       {expr === 'shock' || expr === 'oops' ? <path d={`M 52 ${HEAD.y - 30} q 6 10 0 16 q -6 -6 0 -16 Z`} fill="#8FD3FF" /> : null}
       {/* a power lighting the eyes: a soft halo, a bright iris, a white catchlight (none while the lids are shut) */}
       {glint > 0.01 && blink < 0.95
@@ -497,7 +498,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         // short combed-back hair with a hard side parting
         <path transform={`translate(${-pose.yaw * 14} 0)`} d={`M -60 ${HEAD.y - 18} Q -64 ${HEAD.y - 70} 4 ${HEAD.y - 68} Q 64 ${HEAD.y - 64} 60 ${HEAD.y - 18} Q 52 ${HEAD.y - 44} 18 ${HEAD.y - 46} L 12 ${HEAD.y - 54} L 6 ${HEAD.y - 46} Q -44 ${HEAD.y - 46} -60 ${HEAD.y - 18} Z`} fill={L.hair} />
       ) : null}
-      <Face expr={pose.expr} blink={pose.blink} look={pose.look} glasses={pose.glasses} yaw={pose.yaw} ink={L.face} glint={pose.glint} glintColor={pose.glintColor} />
+      <Face expr={pose.expr} blink={pose.blink} look={pose.look} glasses={pose.glasses} yaw={pose.yaw} ink={L.face} glint={pose.glint} glintColor={pose.glintColor} talk={pose.talk} />
       {L.extra === 'hardhat' ? (
         // a hard hat: dome, a ridge, a brim that leans the way the head turns
         <g transform={`translate(${-pose.yaw * 12} 0)`}>

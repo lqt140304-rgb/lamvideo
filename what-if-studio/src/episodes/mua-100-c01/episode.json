@@ -508,5 +508,25 @@
   "pads": {
     "cuối|Gió": 2.6,
     "nước|Cô": 2.1
-  }
+  },
+  "fx": [
+    {
+      "at": "S8+6",
+      "kind": "shake",
+      "len": 10,
+      "amp": 5
+    },
+    {
+      "at": "S10+24",
+      "kind": "shake",
+      "len": 8,
+      "amp": 6
+    },
+    {
+      "at": "S12+16",
+      "kind": "shake",
+      "len": 6,
+      "amp": 7
+    }
+  ]
 }

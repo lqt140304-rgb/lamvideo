@@ -10,6 +10,8 @@ import { RoomShell, FloorShadow } from '../furnish';
 // Weather is a number: 0 the hot dry afternoon, 1 the storm light, 2 steady rain. Every light has a visible source.
 
 export type Weather = 0 | 1 | 2;
+/** A bulb on a weak rainy-day supply: a slow uneven breathing, never random. */
+export const flick = (t: number) => 0.93 + 0.07 * Math.sin(t * 0.31) * Math.sin(t * 0.13 + 1);
 const SKY = [
   { top: '#D98A3E', mid: '#F2B765', low: '#FBE2A6', cloud: '#E8B97C', dark: '#00000000' },
   { top: '#23252F', mid: '#3D4150', low: '#7A7464', cloud: '#2B2E3A', dark: '#10121A' },
@@ -365,7 +367,7 @@ export const AnHouse: React.FC<{ id: string; t: number; w: Weather; rain?: numbe
       {!dim ? <LightVeil id={`${id}v`} lights={[[900, 590, 420], [1215, 480, 480], [560, 520, 260], [910, 256, 150]]} o={0.34} /> : null}
       {!dim && lamp ? (
         <g>
-          <Glow x={1215} y={432} r={340} o={0.85} />
+          <Glow x={1215} y={432} r={340} o={0.85 * flick(t)} />
           <Glow x={1215} y={432} r={90} o={1} />
           <Glow x={900} y={600} r={460} o={0.45 * glow} />
           <Glow x={565} y={525} r={260} o={0.28 * glow} />
@@ -522,7 +524,7 @@ export const LivingRoom: React.FC<{ id: string; t: number; lamp?: number; veil?:
       {[0.16, 0.345].map((u, i) => [0.37, 0.54].map((w, j) => <Box key={`${i}${j}`} r={r} u={[u, u + 0.015]} v={[0.79, 1]} w={[w, w + 0.015]} front="#4C3420" side="#3E2A18" />))}
       <Teapot x={table.x - 48 * k(0.46)} y={table.y + 6} s={k(0.46) * 0.72} />
       <Radio x={table.x + 52 * k(0.46)} y={table.y + 2} s={k(0.46) * 0.72} />
-      {dog ? <Dog x={P(0.1, 1, 0.52).x + 30} y={P(0.1, 1, 0.52).y} s={k(0.52) * 0.62} look={0} /> : null}
+      {dog ? <Dog x={P(0.1, 1, 0.52).x + 30} y={P(0.1, 1, 0.52).y} s={k(0.52) * 0.62} look={0} t={t} /> : null}
       {/* a floor fan and a broom in the corner */}
       <path d={`M ${P(0.99, 1, 0.34).x - 40} ${P(0.99, 1, 0.34).y} L ${P(0.99, 1, 0.34).x - 52} ${P(0.99, 1, 0.34).y - 250}`} stroke="#8A6A3C" strokeWidth={7} />
       <polygon points={`${P(0.99, 1, 0.34).x - 60},${P(0.99, 1, 0.34).y} ${P(0.99, 1, 0.34).x - 22},${P(0.99, 1, 0.34).y} ${P(0.99, 1, 0.34).x - 36},${P(0.99, 1, 0.34).y - 60} ${P(0.99, 1, 0.34).x - 48},${P(0.99, 1, 0.34).y - 60}`} fill="#BFA25C" />
@@ -532,7 +534,7 @@ export const LivingRoom: React.FC<{ id: string; t: number; lamp?: number; veil?:
       <LightVeil id={`${id}v`} lights={[[LIVING_BULB.x, LIVING_BULB.y + 60, 720 * Math.max(0.2, lamp)], [(LIVING_WIN.x0 + LIVING_WIN.x1) / 2, 450, 340], [(kx0 + kx1) / 2, 520, 240]]} o={veil} />
       {lamp ? (
         <g>
-          <Glow x={LIVING_BULB.x} y={LIVING_BULB.y} r={620} o={0.62 * lamp} />
+          <Glow x={LIVING_BULB.x} y={LIVING_BULB.y} r={620} o={0.62 * lamp * flick(t)} />
           <Glow x={LIVING_BULB.x} y={LIVING_BULB.y} r={150} o={1 * lamp} />
         </g>
       ) : null}
@@ -598,7 +600,7 @@ export const AnKitchen: React.FC<{ id: string; t: number; w: Weather; door?: num
       <path d={`M ${KBULB.x} ${P(0.32, 0, 0.35).y} L ${KBULB.x} ${KBULB.y - 16}`} stroke="#1E1A16" strokeWidth={3} />
       <circle cx={KBULB.x} cy={KBULB.y} r={17} fill="#FFF0BE" />
       <LightVeil id={`${id}v`} lights={[[KBULB.x, KBULB.y + 90, 620], [(dx0 + dx1) / 2, 520, 300]]} o={veil} />
-      <Glow x={KBULB.x} y={KBULB.y} r={560} o={0.62} />
+      <Glow x={KBULB.x} y={KBULB.y} r={560} o={0.62 * flick(t)} />
       <Glow x={KBULB.x} y={KBULB.y} r={130} o={1} />
       <Glow x={(dx0 + dx1) / 2} y={500} r={300} kind="cool" o={0.32} />
       <Dust t={t} seed={4} x0={KBULB.x - 260} y0={KBULB.y} w={520} h={380} n={18} o={0.3} />
@@ -607,12 +609,14 @@ export const AnKitchen: React.FC<{ id: string; t: number; w: Weather; door?: num
 };
 
 // ---------- the dog ----------
-export const Dog: React.FC<{ x: number; y: number; s?: number; look?: number; head?: number }> = ({ x, y, s = 1, look = 0, head = 0 }) => (
+export const Dog: React.FC<{ x: number; y: number; s?: number; look?: number; head?: number; t?: number }> = ({ x, y, s = 1, look = 0, head = 0, t = 0 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <ellipse cx={0} cy={8} rx={112} ry={12} fill="#000" opacity={0.35} />
     <path d="M -96 4 Q -112 -22 -86 -30 Q -60 -68 12 -60 Q 62 -58 76 -28 Q 84 -6 70 6 L -88 8 Z" fill="#C49664" stroke="#2A1E14" strokeWidth={4} />
-    <path d="M -86 -30 Q -128 -44 -116 -66" stroke="#2A1E14" strokeWidth={13} fill="none" strokeLinecap="round" />
-    <path d="M -86 -30 Q -126 -42 -116 -66" stroke="#C49664" strokeWidth={7} fill="none" strokeLinecap="round" />
+    <g transform={`rotate(${8 * Math.sin(t * 0.3)} -86 -30)`}>
+      <path d="M -86 -30 Q -128 -44 -116 -66" stroke="#2A1E14" strokeWidth={13} fill="none" strokeLinecap="round" />
+      <path d="M -86 -30 Q -126 -42 -116 -66" stroke="#C49664" strokeWidth={7} fill="none" strokeLinecap="round" />
+    </g>
     <path d="M -40 -6 Q -36 -40 0 -40" stroke="#A67C4E" strokeWidth={5} fill="none" />
     <g transform={`translate(70 ${-22 - head * 26}) rotate(${head * -14})`}>
       <path d="M -24 8 Q -38 -42 2 -50 Q 40 -54 54 -18 Q 66 -4 58 8 Q 30 26 -24 8 Z" fill="#C49664" stroke="#2A1E14" strokeWidth={4} />
