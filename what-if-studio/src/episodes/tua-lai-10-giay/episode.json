@@ -3,7 +3,8 @@
  "slug": "tua-lai-10-giay",
  "topic": "Nếu ngày đó bạn không bỏ học?",
  "title": ["NẾU NGÀY ĐÓ", "BẠN KHÔNG BỎ HỌC?"],
- "voice": {"engine": "vieneu", "voice": "Hải Đăng", "speed": 1.0},
+ "voice": {"engine": "file", "source": "ElevenLabs web, giọng Viết Linh (pvc, stability 50, similarity 75, v4)"},
+ "voice_vieneu": {"engine": "vieneu", "voice": "Hải Đăng", "speed": 1.0},
  "voice_elevenlabs": {"engine": "elevenlabs", "name": "Viết Linh", "id": "QqID1ZB0DTItNxAKGBNW", "model": "eleven_turbo_v2_5", "language": "vi", "settings": {"stability": 0.5, "similarity_boost": 0.8, "style": 0.2, "use_speaker_boost": true}, "note": "Gói Free: API trả 402 (không dùng được giọng thư viện qua API). Cần gói trả phí, hoặc tạo trên web rồi dùng engine file."},
  "voice_file": {"engine": "file", "note": "Đặt file đọc cả bài ở public/tua-lai-10-giay/voice_in.mp3 (lời ở loi-doc.txt), rồi đổi voice thành mục này."},
  "script": [

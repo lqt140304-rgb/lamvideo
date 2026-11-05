@@ -230,6 +230,37 @@ def load_wav_16k(wav):
     return np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x).astype('float32')
 
 
+def fix_order(words):
+    """Whisper sometimes matches a word to the wrong place (a repeated syllable): its time jumps back before its
+    neighbour's. Such words would cut the picture early, so re-place each one between the good words around it."""
+    n = len(words)
+    good = [True] * n
+    for i in range(n):
+        lo = words[i - 1]['s'] if i > 0 else -1e9
+        hi = words[i + 1]['s'] if i + 1 < n else 1e9
+        if not (lo <= words[i]['s'] <= hi) or words[i]['e'] < words[i]['s']:
+            good[i] = False
+    i, fixed = 0, 0
+    while i < n:
+        if good[i]:
+            i += 1
+            continue
+        j = i
+        while j < n and not good[j]:
+            j += 1
+        t0 = words[i - 1]['e'] if i > 0 else 0.0
+        t1 = words[j]['s'] if j < n else t0 + 0.3 * (j - i)
+        step = max(0.0, t1 - t0) / (j - i)
+        for k in range(i, j):
+            words[k]['s'] = round(t0 + step * (k - i), 3)
+            words[k]['e'] = round(t0 + step * (k - i + 1), 3)
+            fixed += 1
+        i = j
+    if fixed:
+        print(f'fixed {fixed} out-of-order word times')
+    return words
+
+
 def whisper_align(wav, words):
     """Re-time words from the audio with faster-whisper; words it doesn't match keep their estimate."""
     from faster_whisper import WhisperModel
@@ -309,7 +340,7 @@ if force or meta.get('sig') != sig or not raw_wav.exists() or not raw_words.exis
     if use_whisper:
         if not have_whisper():
             raise SystemExit('align "whisper" needs faster-whisper: pip install faster-whisper')
-        words = whisper_align(raw_wav, words)
+        words = fix_order(whisper_align(raw_wav, words))
     else:
         print('word timings from the takes and syllables (pip install faster-whisper for timings read from the audio)')
     for w in words:
