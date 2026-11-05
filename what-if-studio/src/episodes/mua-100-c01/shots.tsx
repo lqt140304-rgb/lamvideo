@@ -81,12 +81,12 @@ const LivingFront: React.FC<{ id: string; t: number; children?: React.ReactNode 
  * shortcut: a machine without it falls back to Patrick Hand, install the font before rendering elsewhere).
  * White, sentence case. It sinks slowly in from above, holds, dips a touch, then shoots back up out of frame. */
 const LETTER = `'Comic Sans MS', ${FONT.hand}`;
-const TitleDrop: React.FC<{ t: number; lines: string[]; small?: string; y?: number; hold?: number }> = ({ t, lines, small, y = 450, hold = 150 }) => {
+const TitleDrop: React.FC<{ t: number; lines: [string, string][][]; small?: string; y?: number; hold?: number }> = ({ t, lines, small, y = 450, hold = 150 }) => {
   const dy = t < hold ? kf(t, [[0, -800], [64, 0]], (q) => 1 - Math.pow(1 - q, 2)) : kf(t, [[hold, 0], [hold + 7, 14]]) + kf(t, [[hold + 7, 0], [hold + 24, -1000]], (q) => q * q * q);
   return (
     <g transform={`translate(960 ${y + dy})`} textAnchor="middle" fontFamily={LETTER} fill="#FFFDF6" style={{ filter: 'drop-shadow(0 4px 10px rgba(20,10,0,0.85))' }}>
-      {lines.map((l, i) => <text key={i} y={i * 165} fontSize={146} fontWeight={700}>{l}</text>)}
-      {small ? <text y={lines.length * 165 - 50} fontSize={50}>{small}</text> : null}
+      {lines.map((l, i) => <text key={i} y={i * 165} fontSize={146} fontWeight={700} stroke="#2A1A10" strokeWidth={9} strokeLinejoin="round" style={{ paintOrder: 'stroke' }}>{l.map(([w, c], k) => <tspan key={k} fill={c}>{w}</tspan>)}</text>)}
+      {small ? <text y={lines.length * 165 - 50} fontSize={50} stroke="#2A1A10" strokeWidth={5} strokeLinejoin="round" style={{ paintOrder: 'stroke' }}>{small}</text> : null}
     </g>
   );
 };
@@ -98,7 +98,7 @@ export const S1: React.FC<ShotProps> = ({ t, len }) => (
       <Alley id="s1" t={t} w={0} shop />
       <Glow x={960} y={760} r={640} o={0.18} />
     </g>
-    <TitleDrop t={t} lines={['Chuyện gì xảy ra nếu', 'mưa liên tục 100 ngày?']} small="Giả định khoa học — nhân vật và lịch sự kiện là hư cấu" />
+    <TitleDrop t={t} lines={[[['Chuyện gì xảy ra nếu', '#FFF6DC']], [['mưa liên tục ', '#8FDcFF'], ['100 ngày?', '#FFC23D']]]} small="Giả định khoa học — nhân vật và lịch sự kiện là hư cấu" />
   </g>
 );
 
