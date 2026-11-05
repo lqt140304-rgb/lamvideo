@@ -229,6 +229,29 @@ export type Scene =
   | ReceiptScene
   | LadderScene;
 
+/** Cảnh của định dạng "Đơn giản hóa" (ngang 16:9, nền trắng, nhân vật vẽ tay). Chỉ dùng với `format: "explain"`. */
+export type ExplainScene = {
+  type: "explain";
+  id: string;
+  /** Lời đọc cho máy đọc giọng (số viết thành chữ). */
+  voice: string;
+  /** Phụ đề hiện trên hình, mặc định = voice. */
+  sub?: string;
+  /** Dòng tiêu đề lớn của cảnh. */
+  title?: string;
+  /** Chữ khóa hiện lần lượt trong cảnh (mỗi dòng một ý). */
+  text?: string[];
+  /** Biểu cảm nhân vật: tên file trong public/<slug>/nhan-vat/<expr>.png (vui-nhe, suy-nghi, soc...). */
+  expr: string;
+  /** Nhãn khối: dinh-nghia | vi-du | dua | chot | doi-thuong | ket. */
+  tag?: string;
+  /** Vị trí nhân vật; "center" cho cảnh gag. */
+  pos?: "right" | "center";
+  /** Ảnh minh họa tự vẽ/tự tạo trong public/<slug>/hinh/. */
+  image?: string;
+  pad?: number;
+};
+
 export type VideoScript = {
   /** Trùng tên thư mục trong videos/ và public/, chỉ dùng a-z, 0-9, dấu gạch ngang. */
   id: string;
@@ -241,6 +264,10 @@ export type VideoScript = {
   /** Cài đặt tìm ảnh chung cho cả video, ví dụ { "since": "2024-01-01", "prefer": "newest" } cho video tin tức. */
   images?: { since?: string | null; prefer?: "newest" | "relevant" };
   musicVolume?: number;
+  /** "explain" = định dạng Đơn giản hóa ngang 16:9; bỏ trống = short dọc 9:16. */
+  format?: "short" | "explain";
+  /** Với format explain: true = vẽ nhân vật tạm bằng SVG vì chưa có ảnh nhân vật thật. */
+  placeholderChar?: boolean;
   scenes: Scene[];
 };
 

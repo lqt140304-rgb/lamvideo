@@ -1,0 +1,74 @@
+{
+ "id": "don-gian-hoa-demo",
+ "title": "Đơn giản hóa — bản thử định dạng",
+ "topic": "Bản thử định dạng (nội dung do Claude viết để thử bố cục, không phải kịch bản kênh)",
+ "format": "explain",
+ "placeholderChar": true,
+ "voice": {
+  "engine": "vieneu",
+  "speaker": "Hải Đăng"
+ },
+ "music": null,
+ "scenes": [
+  {
+   "type": "explain",
+   "id": "D01",
+   "voice": "Hôm nay mình thử một kiểu video mới.",
+   "title": "Bản thử định dạng",
+   "expr": "vui-tuoi",
+   "text": [
+    "Nền trắng",
+    "Nhân vật vẽ tay",
+    "Chữ hiện theo lời"
+   ]
+  },
+  {
+   "type": "explain",
+   "id": "D02",
+   "voice": "Mỗi ý được giải thích theo bốn nhịp: định nghĩa, ví dụ, đùa chút, rồi tóm lại.",
+   "title": "Bốn nhịp một ý",
+   "expr": "suy-nghi",
+   "text": [
+    "Định nghĩa một câu",
+    "Ví dụ đời thường",
+    "Đùa chút",
+    "Tóm lại"
+   ],
+   "tag": "dinh-nghia"
+  },
+  {
+   "type": "explain",
+   "id": "D03",
+   "voice": "Ví dụ đời thường nghĩa là kể bằng chuyện anh em ai cũng gặp, như chờ tô phở hay xếp hàng mua bánh mì.",
+   "title": "Ví dụ đời thường",
+   "expr": "vui-nhe",
+   "text": [
+    "Chờ tô phở",
+    "Xếp hàng mua bánh mì"
+   ],
+   "tag": "vi-du"
+  },
+  {
+   "type": "explain",
+   "id": "D04",
+   "voice": "Còn lúc nào cũng cần một câu đùa nhỏ, để người nghe khỏi buồn ngủ.",
+   "title": "Một câu đùa nhỏ",
+   "expr": "cuoi-lan",
+   "tag": "dua",
+   "pos": "center"
+  },
+  {
+   "type": "explain",
+   "id": "D05",
+   "voice": "Tóm lại là: nền trắng, nhân vật diễn cảm xúc, chữ khóa hiện đúng lúc. Anh em muốn đơn giản hóa chủ đề gì tiếp theo?",
+   "title": "Tóm lại là",
+   "expr": "hai-long",
+   "text": [
+    "Đơn giản",
+    "Dễ nhớ",
+    "Dễ xem"
+   ],
+   "tag": "chot"
+  }
+ ]
+}

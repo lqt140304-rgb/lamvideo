@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { FPS, HEIGHT, WIDTH } from "./brand";
 import { loadFonts } from "./fonts";
 import { Short, type ShortProps } from "./Short";
+import { ExplainShort, EXPLAIN_H, EXPLAIN_W } from "./ExplainShort";
 import { buildTimings, loadCredits, loadManifest, totalFrames } from "./timing";
 import { videos } from "./videos";
 
@@ -12,14 +13,15 @@ export const RemotionRoot: React.FC = () => (
   <>
     {videos.map((script) => {
       const fallback = buildTimings(script, null);
+      const explain = script.format === "explain";
       return (
         <Composition
           key={script.id}
           id={script.id}
-          component={Short}
+          component={(explain ? ExplainShort : Short) as React.FC<ShortProps>}
           fps={FPS}
-          width={WIDTH}
-          height={HEIGHT}
+          width={explain ? EXPLAIN_W : WIDTH}
+          height={explain ? EXPLAIN_H : HEIGHT}
           durationInFrames={totalFrames(fallback)}
           defaultProps={{ script, timings: fallback } satisfies ShortProps}
           calculateMetadata={async ({ props }) => {
