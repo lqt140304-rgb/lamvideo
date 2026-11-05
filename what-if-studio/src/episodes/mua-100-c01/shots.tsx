@@ -12,28 +12,28 @@ const AN = LOOKS.an;
 const HANH = LOOKS.hanh;
 const LINH = LOOKS.linh;
 const SAU = LOOKS.baSau;
-const CHILD = 0.62;
+export const CHILD = 0.62;
 
 /** Alive when holding still: a breath, a slight head drift, the blink. */
-const live = (pose: Pose, t: number, seed: number, talk = pose.talk ?? 0): Pose => ({
+export const live = (pose: Pose, t: number, seed: number, talk = pose.talk ?? 0): Pose => ({
   ...pose,
   blink: blinkAt(t, seed),
   headTilt: pose.headTilt + 1.4 * Math.sin(t * 0.045 + seed),
   squash: pose.squash + 0.007 * Math.sin(t * 0.075 + seed),
   talk,
 });
-const P = (p: Partial<Pose>, t = 0, seed = 1): Pose => live({ ...basePose, ...p }, t, seed);
+export const P = (p: Partial<Pose>, t = 0, seed = 1): Pose => live({ ...basePose, ...p }, t, seed);
 /** The mouth while the voice speaks this character's line (a to b on the shot's clock). */
-const talkAt = (t: number, a: number, b: number) => (t < a || t > b ? 0 : Math.abs(Math.sin(t * 0.62)) * (0.5 + 0.5 * Math.abs(Math.sin(t * 0.21))));
-const onDeck = (x: number, scale: number) => ({ x, y: YARD.floorHip(scale), scale });
+export const talkAt = (t: number, a: number, b: number) => (t < a || t > b ? 0 : Math.abs(Math.sin(t * 0.62)) * (0.5 + 0.5 * Math.abs(Math.sin(t * 0.21))));
+export const onDeck = (x: number, scale: number) => ({ x, y: YARD.floorHip(scale), scale });
 
 /** A character from behind: the same rig with the face covered by the back of the head. */
-const Back: React.FC<{ look: Look; pose: Pose }> = ({ look, pose }) => (
+export const Back: React.FC<{ look: Look; pose: Pose }> = ({ look, pose }) => (
   <g>
     <Hero look={look} pose={pose} rimId="filmL" shadow={0} />
     {[-1, 1].map((sd) => <ellipse key={sd} cx={pose.x + sd * (HEAD.r + 2) * pose.scale} cy={pose.y + (HEAD.y + 6) * pose.scale} rx={9 * pose.scale} ry={14 * pose.scale} fill={look.skinShade} stroke={look.line} strokeWidth={3 * pose.scale} />)}
     <circle cx={pose.x} cy={pose.y + HEAD.y * pose.scale} r={(HEAD.r + 3) * pose.scale} fill={look.hair} />
-    <ellipse cx={pose.x} cy={pose.y + (HEAD.y + HEAD.r - 9) * pose.scale} rx={30 * pose.scale} ry={12 * pose.scale} fill={look.skin} />
+    <ellipse cx={pose.x} cy={pose.y + (HEAD.y + HEAD.r - 9) * pose.scale} rx={22 * pose.scale} ry={7 * pose.scale} fill={look.skin} />
     <path d={`M ${pose.x - 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale} Q ${pose.x} ${pose.y + (HEAD.y - 50) * pose.scale} ${pose.x + 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale}`} stroke="#fff" strokeWidth={3 * pose.scale} opacity={0.1} fill="none" />
   </g>
 );
@@ -41,7 +41,7 @@ const Back: React.FC<{ look: Look; pose: Pose }> = ({ look, pose }) => (
 /** The living room seen from the kitchen end: the front door in the middle onto the rain, the window on its right
  * (left from outside), the wooden set on the right, Linh's desk on the left. Same room as LivingRoom, turned round. */
 const FRONT = makeRoom({ x: 960, y: 500 }, { x0: 420, x1: 1500, y0: 210, y1: 770 }, 3.3);
-const LivingFront: React.FC<{ id: string; t: number; children?: React.ReactNode }> = ({ id, t, children }) => {
+export const LivingFront: React.FC<{ id: string; t: number; children?: React.ReactNode }> = ({ id, t, children }) => {
   const r = FRONT;
   const { P } = r;
   const k = r.s(0.46) / r.s(0);
@@ -260,7 +260,7 @@ export const S8: React.FC<ShotProps> = ({ t }) => {
 };
 
 // ---------- S9: low angle, bà Sáu steps out of the shop and looks up ----------
-const ShopFront: React.FC<{ id: string; t: number; tarp?: number; wind?: number; rain?: number }> = ({ id, t, tarp = 1, wind = 0, rain = 0 }) => (
+export const ShopFront: React.FC<{ id: string; t: number; tarp?: number; wind?: number; rain?: number }> = ({ id, t, tarp = 1, wind = 0, rain = 0 }) => (
   <g>
     <rect x={-300} y={-300} width={2520} height={1000} fill="#3C4250" />
     <CloudBank x={t * 0.5} y={110} h={110} color="#272A34" seed={81} />
@@ -325,7 +325,7 @@ export const S10: React.FC<ShotProps> = ({ t, len }) => {
 };
 
 // ---------- S11: top-down over the desk: Linh's hand lets the pen fall on the exercise book ----------
-const HandTop: React.FC<{ x: number; y: number; rot?: number; s?: number; skin?: string; sleeve?: string }> = ({ x, y, rot = 0, s = 1, skin = LINH.skin, sleeve = LINH.jacket }) => (
+export const HandTop: React.FC<{ x: number; y: number; rot?: number; s?: number; skin?: string; sleeve?: string }> = ({ x, y, rot = 0, s = 1, skin = LINH.skin, sleeve = LINH.jacket }) => (
   <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
     <path d="M 0 -150 L 0 -340 L 170 -640" stroke="#16141C" strokeWidth={112} fill="none" strokeLinejoin="round" />
     <path d="M 0 -150 L 0 -340 L 170 -640" stroke={sleeve} strokeWidth={102} fill="none" strokeLinejoin="round" />

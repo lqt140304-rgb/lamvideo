@@ -67,5 +67,262 @@
       "beat": "p10",
       "text": "Linh kéo chiếc ghế nhỏ vào trong. Lần này, cô không chìa tay ra hứng nước nữa."
     }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "close-up",
+      "set": "calendar",
+      "key": 20,
+      "note": "Tờ lịch số 3"
+    },
+    {
+      "id": "S2",
+      "size": "wide interior",
+      "set": "living",
+      "key": 40,
+      "note": "An và Linh vẫn ngồi ở bộ bàn ghế gần cửa"
+    },
+    {
+      "id": "S3",
+      "size": "macro",
+      "set": "living",
+      "key": 30,
+      "note": "Cốc trà còn ấm"
+    },
+    {
+      "id": "S4",
+      "size": "low along the line",
+      "set": "veranda",
+      "key": 40,
+      "note": "Từ dưới dọc dây phơi: áo chưa khô, giọt nước, mưa"
+    },
+    {
+      "id": "S5",
+      "size": "medium",
+      "set": "living",
+      "key": 40,
+      "note": "Hạnh đặt quạt hong đồng phục"
+    },
+    {
+      "id": "S6",
+      "size": "close",
+      "set": "living",
+      "key": 30,
+      "note": "Áo lay trong gió quạt, mùi áo ẩm lẫn mùi trà"
+    },
+    {
+      "id": "S7",
+      "size": "macro pan",
+      "set": "living",
+      "key": 60,
+      "note": "Radio đọc bản tin"
+    },
+    {
+      "id": "S8",
+      "size": "extreme wide pan R>L",
+      "set": "town",
+      "key": 40,
+      "note": "Một dải mưa mới đi qua thị trấn"
+    },
+    {
+      "id": "S9",
+      "size": "extreme close",
+      "set": "living",
+      "key": 26,
+      "note": "Ngón tay An vặn nhỏ radio"
+    },
+    {
+      "id": "S10",
+      "size": "from object, low",
+      "set": "living",
+      "key": 50,
+      "note": "Từ chỗ đôi giày nhìn lên: An nhấc giày lên kệ cao"
+    },
+    {
+      "id": "S11",
+      "size": "medium",
+      "set": "living",
+      "key": 120,
+      "note": "Hạnh cầm áo còn ẩm, dặn con"
+    },
+    {
+      "id": "S12",
+      "size": "close",
+      "set": "living",
+      "key": 30,
+      "note": "Linh quay sang bố"
+    },
+    {
+      "id": "S13",
+      "size": "over shoulder",
+      "set": "living",
+      "key": 60,
+      "note": "Qua vai Linh: An trả lời thật"
+    },
+    {
+      "id": "S14",
+      "size": "table height",
+      "set": "living",
+      "key": 60,
+      "note": "Ngang mặt bàn, qua ấm trà và quyển vở: Linh trêu bố"
+    },
+    {
+      "id": "S15",
+      "size": "side two-shot",
+      "set": "living",
+      "key": 40,
+      "note": "Ngang người hai bố con qua bàn thấp, cửa xám sau lưng"
+    },
+    {
+      "id": "S16",
+      "size": "POV hold",
+      "set": "living",
+      "key": 30,
+      "note": "An nhìn ra: áo vẫn chưa khô. Giữ qua nhịp nghỉ"
+    },
+    {
+      "id": "S17",
+      "size": "high wide dusk",
+      "set": "alley",
+      "key": 50,
+      "note": "Chiều tối, nước đọng khắp hẻm, đèn soi xuống nước"
+    },
+    {
+      "id": "S18",
+      "size": "close water level",
+      "set": "shop",
+      "key": 50,
+      "note": "Ghế thấp của bà Sáu ngập hết chân"
+    },
+    {
+      "id": "S19",
+      "size": "low from yard",
+      "set": "house",
+      "key": 30,
+      "note": "Nước dừng dưới hiên nhà An"
+    },
+    {
+      "id": "S20",
+      "size": "medium",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Giọt dột mới, Hạnh đẩy chậu vào hứng"
+    },
+    {
+      "id": "S21",
+      "size": "low close",
+      "set": "veranda",
+      "key": 30,
+      "note": "An lau bậc cửa, mưa lại nặng hạt, ngẩng lên"
+    },
+    {
+      "id": "S22",
+      "size": "wide from inside",
+      "set": "living",
+      "key": 22,
+      "note": "Từ trong nhà: Linh kéo ghế nhỏ vào"
+    },
+    {
+      "id": "S23",
+      "size": "behind character hold",
+      "set": "living",
+      "key": 60,
+      "note": "Sau lưng Linh ở cửa: mưa rất gần, hai tay buông. Giữ tới hết"
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "Sang"
+    },
+    {
+      "shot": "S2",
+      "at": "An"
+    },
+    {
+      "shot": "S3",
+      "at": "Cốc"
+    },
+    {
+      "shot": "S4",
+      "at": "quần"
+    },
+    {
+      "shot": "S5",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S6",
+      "at": "Mùi"
+    },
+    {
+      "shot": "S7",
+      "at": "Bản"
+    },
+    {
+      "shot": "S8",
+      "at": "Cơn"
+    },
+    {
+      "shot": "S9",
+      "at": "An"
+    },
+    {
+      "shot": "S10",
+      "at": "chuyển"
+    },
+    {
+      "shot": "S11",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S12",
+      "at": "Linh"
+    },
+    {
+      "shot": "S13",
+      "at": "Bố#2"
+    },
+    {
+      "shot": "S14",
+      "at": "Bố#2"
+    },
+    {
+      "shot": "S15",
+      "at": "Ừ"
+    },
+    {
+      "shot": "S16",
+      "at": "s:51.35"
+    },
+    {
+      "shot": "S17",
+      "at": "Tối"
+    },
+    {
+      "shot": "S18",
+      "at": "Trước"
+    },
+    {
+      "shot": "S19",
+      "at": "Nước"
+    },
+    {
+      "shot": "S20",
+      "at": "Trong"
+    },
+    {
+      "shot": "S21",
+      "at": "Anh"
+    },
+    {
+      "shot": "S22",
+      "at": "Linh"
+    },
+    {
+      "shot": "S23",
+      "at": "Lần"
+    }
   ]
 }

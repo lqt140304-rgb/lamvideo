@@ -190,7 +190,7 @@ export const alleyP = (side: number, d: number, h = 0): Pt => {
 };
 const poly = (a: Pt[]) => a.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
 
-export const Alley: React.FC<{ id: string; t: number; w: Weather; rain?: number; wind?: number; water?: number; lit?: boolean; shop?: boolean }> = ({ id, t, w, rain = 0, wind = 0, lit = true, shop = true }) => {
+export const Alley: React.FC<{ id: string; t: number; w: Weather; rain?: number; wind?: number; water?: number; lit?: boolean; shop?: boolean }> = ({ id, t, w, rain = 0, wind = 0, water = 0, lit = true, shop = true }) => {
   const seg = [-0.5, 0.22, 0.42, 0.58, 0.71, 0.81, 0.89];
   const wc = w === 0 ? ['#DCC394', '#CDAE80', '#E2CFA8', '#C4A47C', '#D6BC8A', '#BFA67E'] : ['#6F6E62', '#5F615A', '#777361', '#55595A', '#6A6B60', '#5B5D58'];
   const sideWall = (side: number, i: number) => {
@@ -235,6 +235,23 @@ export const Alley: React.FC<{ id: string; t: number; w: Weather; rain?: number;
         const b = alleyP(1, i / 10, 0);
         return <path key={i} d={`M ${a.x} ${a.y} L ${b.x} ${b.y}`} stroke="#000" strokeWidth={1.6} opacity={0.16} />;
       })}
+      {water > 0 ? (
+        <g opacity={water}>
+          <polygon points={poly([alleyP(-1, 0.99, 0), alleyP(1, 0.99, 0), { x: 2000, y: 1100 }, { x: -80, y: 1100 }])} fill="#4C5C68" />
+          {/* the lit doors doubled in the water, long and broken */}
+          {[-1, 1].map((side) => [0.18, 0.5, 0.74].map((d, i) => {
+            const a = alleyP(side * 0.98, d, 0);
+            const b = alleyP(side * 0.62, d - 0.1, 0);
+            return <polygon key={`${side}${i}`} points={poly([a, { x: a.x + 26 * (1 - d), y: a.y }, { x: b.x + 26, y: b.y }, b])} fill="#FFC470" opacity={0.3} />;
+          }))}
+          {Array.from({ length: 16 }).map((_, i) => {
+            const d = i / 18;
+            const l = alleyP(-0.6, d, 0);
+            const r = alleyP(0.6, d, 0);
+            return <path key={i} d={`M ${l.x} ${l.y} L ${r.x} ${r.y}`} stroke="#AFC2CE" strokeWidth={1.4} opacity={0.22} />;
+          })}
+        </g>
+      ) : null}
       {seg.slice(0, -1).reverse().map((_, k) => sideWall(-1, seg.length - 2 - k))}
       {seg.slice(0, -1).reverse().map((_, k) => sideWall(1, seg.length - 2 - k))}
       {/* the shop in the right foreground: its tarp over the alley, crates */}
@@ -418,7 +435,7 @@ export const TearCalendar: React.FC<{ x: number; y: number; s?: number; day?: st
   </g>
 );
 
-const Radio: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const Radio: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <path d="M 20 -44 L 58 -92" stroke="#2A2A2C" strokeWidth={4} />
     <rect x={-54} y={-46} width={108} height={50} rx={7} fill="#6A4A30" stroke="#2E2014" strokeWidth={3} />
