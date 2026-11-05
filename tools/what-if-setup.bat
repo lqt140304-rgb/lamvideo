@@ -21,8 +21,12 @@ echo Dung Python: %PY%
 call npm install --no-audit --no-fund
 call npm rebuild esbuild >nul 2>nul
 if not exist node_modules\remotion (echo [!] npm install loi & pause & exit /b 1)
-%PY% -m pip install numpy Pillow faster-whisper edge-tts || (echo [!] pip install loi & pause & exit /b 1)
-%PY% -c "import vieneu" 2>nul || %PY% -m pip install vieneu
+REM Moi truong tao bang uv thuong khong co pip: khi do dung "uv pip install --python <python>"
+set "PIPI=%PY% -m pip install"
+%PY% -m pip --version >nul 2>nul || set "PIPI=uv pip install --python %PY%"
+echo Cai thu vien Python bang: %PIPI%
+%PIPI% numpy Pillow faster-whisper edge-tts || (echo [!] Cai thu vien Python loi. Neu bao "uv" khong co: %PY% -m ensurepip roi chay lai & pause & exit /b 1)
+%PY% -c "import vieneu" 2>nul || %PIPI% vieneu
 echo.
 echo Giong VieNeu co san:
 %PY% "%~dp0..\.claude\skills\what-if-animation\scripts\voice.py" --voices
