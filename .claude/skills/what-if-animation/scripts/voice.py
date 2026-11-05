@@ -35,7 +35,7 @@ from wi import SR, decode, ep_dir, load_episode, load_json, log_cost, norm, out_
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 _vn = None
-V = {'engine': 'vieneu', 'voice': 'Hải Đăng', 'rate': '+0%', 'speed': 1.0, 'align': 'auto', 'whisper_model': 'small', 'lang': 'vi'}
+V = {'engine': 'elevenlabs', 'voice': 'Hải Đăng', 'rate': '+0%', 'speed': 1.0, 'align': 'auto', 'whisper_model': 'small', 'lang': 'vi'}
 
 def flatten_hf_downloads():
     """Windows: Hugging Face stores VieNeu's model through symlinks and ONNX Runtime refuses them ("External data

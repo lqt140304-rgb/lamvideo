@@ -7,7 +7,7 @@ Skill gốc: https://github.com/kelano86/what-if-animation (code tự do dùng/s
 
 | Phần | Bản gốc | Bản trong repo |
 | --- | --- | --- |
-| Giọng đọc | ElevenLabs (trả phí) | **VieNeu-TTS giọng Hải Đăng** (miễn phí, offline); hoặc `edge` (giọng Edge, miễn phí, cần mạng); hoặc `file` (tự thu) |
+| Giọng đọc | ElevenLabs (trả phí) | **Từ 05/11/2026: ElevenLabs gói Creator** (khóa trong `.env`). Chế độ miễn phí cũ vẫn có: `"voice": {"engine": "vieneu"}` (hoặc `edge`, `file`) |
 | Mốc thời gian từng chữ | ElevenLabs trả về | mỗi câu đọc riêng rồi nối lại + **faster-whisper** đọc lại audio (không có Whisper thì chia theo âm tiết) |
 | Tiếng động, nhạc nền | ElevenLabs tạo mới | 41 tiếng có sẵn trong `what-if-studio/library/sfx/` (thêm tiếng CC0 từ freesound/pixabay nếu muốn) |
 | Chữ trên hình | font không có dấu tiếng Việt | Bricolage Grotesque (có dấu), JetBrains Mono, Patrick Hand (`lang: 'vi'`) |

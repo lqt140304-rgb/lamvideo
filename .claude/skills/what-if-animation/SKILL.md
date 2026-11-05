@@ -5,7 +5,13 @@ description: Make a "What If" animated episode from one topic line ("What if you
 
 # What If animation
 
-> **Bản miễn phí, tiếng Việt (bản sửa cho kênh lamvideo).** Mặc định không cần ElevenLabs:
+> **Cập nhật 05/11/2026: kênh dùng ElevenLabs gói Creator làm mặc định** (giọng đọc có mốc từng chữ, tiếng động tạo mới),
+> khung ngang 16:9, tập có thể dài hơn 25 giây (nới mục tiêu độ dài theo kịch bản). Khóa `ELEVENLABS_API_KEY` để trong
+> file `.env` ở gốc repo (đã nằm trong .gitignore), không dán vào chat. Chọn giọng bằng `"voice": {"id": "<voice_id>"}`
+> trong `episode.json`; nghe thử giọng tiếng Việt trước khi chốt.
+> Phần dưới mô tả chế độ miễn phí cũ, vẫn dùng được bằng `"voice": {"engine": "vieneu"}`.
+>
+> **Chế độ miễn phí, tiếng Việt (bản sửa cho kênh lamvideo).** Không cần ElevenLabs:
 > giọng đọc = **VieNeu-TTS** (miễn phí, chạy offline trên máy; hoặc `edge` = giọng Microsoft Edge miễn phí, cần mạng,
 > hoặc `file` = tự thu âm), mốc thời gian từng chữ = từng câu tạo riêng + **faster-whisper** đọc lại audio,
 > tiếng động = thư viện `library/sfx/` có sẵn (không tạo mới). Chữ trên hình dùng font có dấu tiếng Việt
