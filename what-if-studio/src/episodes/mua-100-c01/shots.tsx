@@ -28,12 +28,12 @@ export const talkAt = (t: number, a: number, b: number) => (t < a || t > b ? 0 :
 export const onDeck = (x: number, scale: number) => ({ x, y: YARD.floorHip(scale), scale });
 
 /** A character from behind: the same rig with the face covered by the back of the head. */
-export const Back: React.FC<{ look: Look; pose: Pose }> = ({ look, pose }) => (
+export const Back: React.FC<{ look: Look; pose: Pose; nape?: boolean }> = ({ look, pose, nape = true }) => (
   <g>
     <Hero look={look} pose={pose} rimId="filmL" shadow={0} />
     {[-1, 1].map((sd) => <ellipse key={sd} cx={pose.x + sd * (HEAD.r + 2) * pose.scale} cy={pose.y + (HEAD.y + 6) * pose.scale} rx={9 * pose.scale} ry={14 * pose.scale} fill={look.skinShade} stroke={look.line} strokeWidth={3 * pose.scale} />)}
     <circle cx={pose.x} cy={pose.y + HEAD.y * pose.scale} r={(HEAD.r + 3) * pose.scale} fill={look.hair} />
-    <ellipse cx={pose.x} cy={pose.y + (HEAD.y + HEAD.r - 9) * pose.scale} rx={22 * pose.scale} ry={7 * pose.scale} fill={look.skin} />
+    {nape ? <ellipse cx={pose.x} cy={pose.y + (HEAD.y + HEAD.r - 9) * pose.scale} rx={22 * pose.scale} ry={7 * pose.scale} fill={look.skin} /> : null}
     <path d={`M ${pose.x - 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale} Q ${pose.x} ${pose.y + (HEAD.y - 50) * pose.scale} ${pose.x + 40 * pose.scale} ${pose.y + (HEAD.y - 20) * pose.scale}`} stroke="#fff" strokeWidth={3 * pose.scale} opacity={0.1} fill="none" />
   </g>
 );

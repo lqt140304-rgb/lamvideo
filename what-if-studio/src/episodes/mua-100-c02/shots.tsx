@@ -473,7 +473,7 @@ export const S23: React.FC<ShotProps> = ({ t, len }) => (
       <LivingFront id="c2s23" t={t + 120} />
       <Dusk o={0.3} />
     </g>
-    <Back look={LINH} pose={P({ x: 660, y: 1040, scale: 2.2, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
+    <Back nape={false} look={LINH} pose={P({ x: 660, y: 1040, scale: 2.2, armL: { a: 8, b: 6 }, armR: { a: 8, b: 6 } })} />
     <Rain t={t} n={30} near o={0.22} seed={23} x0={700} y0={-60} w={700} h={1160} />
   </g>
 );
