@@ -29,7 +29,7 @@ export type Look = {
   shoe: string;
   face: string;
   hair: string;
-  extra?: 'hood' | 'curls' | 'bunches' | 'bob' | 'suit' | 'hardhat' | 'crop' | 'short' | 'bun';
+  extra?: 'hood' | 'curls' | 'bunches' | 'bob' | 'suit' | 'hardhat' | 'crop' | 'bun';
   hat?: string; // hard-hat colour (extra 'hardhat')
   /** The film cast: fuller limbs, bare forearms and shins in their own colour, and hands with fingers. */
   limbW?: number;
@@ -52,11 +52,11 @@ export const LOOKS: Record<CastName, Look> = {
   sis: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#3E8C86', jacketShade: '#2F6E69', accent: '#F28C6A', limb: '#3A3446', line: '#14121C', shoe: '#F28C6A', face: C.ink, hair: '#3A2620', extra: 'bunches' },
   mom: { skin: C.skin, skinShade: C.skinShade, hand: C.skin, jacket: '#8A5A6A', jacketShade: '#704858', accent: '#E9C46A', limb: '#3A3446', line: '#14121C', shoe: '#5A4A6A', face: C.ink, hair: '#5A3226', extra: 'bob' },
   // "Mưa liên tục 100 ngày": An (water-station technician), Hạnh, Linh (8: draw at about 0.62 of An), bà Sáu, Nam (her grandson).
-  an: { skin: '#E6B98F', skinShade: '#CF9F76', hand: '#E6B98F', jacket: '#4F7486', jacketShade: '#3C5A6A', accent: '#2E4654', limb: '#3B3F4C', line: '#16141C', shoe: '#5A4636', face: C.ink, hair: '#1B1718', extra: 'short', limbW: 21, forearm: '#E6B98F', fingers: true },
+  an: { skin: '#E6B98F', skinShade: '#CF9F76', hand: '#E6B98F', jacket: '#4F7486', jacketShade: '#3C5A6A', accent: '#2E4654', limb: '#3B3F4C', line: '#16141C', shoe: '#5A4636', face: C.ink, hair: '#1B1718', extra: 'crop', limbW: 21, forearm: '#E6B98F', fingers: true },
   hanh: { skin: '#EBC4A0', skinShade: '#D4A981', hand: '#EBC4A0', jacket: '#B5604F', jacketShade: '#934A3D', accent: '#E8C9A0', limb: '#3D3A4A', line: '#16141C', shoe: '#6B4A3A', face: C.ink, hair: '#1E1718', extra: 'bun', limbW: 18, forearm: '#EBC4A0', fingers: true },
   linh: { skin: '#F0CCA8', skinShade: '#DAB08C', hand: '#F0CCA8', jacket: '#E9D8B0', jacketShade: '#CDB98C', accent: '#D96C4F', limb: '#55718A', line: '#16141C', shoe: '#D96C4F', face: C.ink, hair: '#1C1516', extra: 'bunches', limbW: 19, forearm: '#F0CCA8', shin: '#F0CCA8', fingers: true },
   baSau: { skin: '#DDB08A', skinShade: '#C49670', hand: '#DDB08A', jacket: '#6E5B7E', jacketShade: '#574764', accent: '#CDB98C', limb: '#2F2B38', line: '#16141C', shoe: '#4A3E36', face: C.ink, hair: '#B9B4AE', extra: 'bun', limbW: 18, forearm: '#DDB08A', fingers: true },
-  nam: { skin: '#E0B48C', skinShade: '#C89A72', hand: '#E0B48C', jacket: '#3F8A7C', jacketShade: '#2F6C60', accent: '#F2C14E', limb: '#44506A', line: '#16141C', shoe: '#E9E0CC', face: C.ink, hair: '#1A1516', extra: 'short', limbW: 19, forearm: '#E0B48C', shin: '#E0B48C', fingers: true },
+  nam: { skin: '#E0B48C', skinShade: '#C89A72', hand: '#E0B48C', jacket: '#3F8A7C', jacketShade: '#2F6C60', accent: '#F2C14E', limb: '#44506A', line: '#16141C', shoe: '#E9E0CC', face: C.ink, hair: '#1A1516', extra: 'crop', limbW: 19, forearm: '#E0B48C', shin: '#E0B48C', fingers: true },
   suit: { skin: '#D9C6AE', skinShade: '#C2AE96', hand: '#D9C6AE', jacket: '#2B2F3A', jacketShade: '#20232C', accent: '#A8323E', limb: '#2B2F3A', line: '#0E0F14', shoe: '#14151A', face: C.ink, hair: '#17141A', extra: 'suit' },
   // "Nếu ngày đó bạn không bỏ học?": one face (Pip's), four costumes. The same head and hair in every one, so he is
   // recognisably the same person on the site, in uniform, in the workshop and in a technician's shirt.
@@ -440,18 +440,19 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
     <g transform={`rotate(${pose.tilt}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
       <circle cx={HEAD.x} cy={HEAD.y} r={HEAD.r} fill={L.skin} stroke={L.line} strokeWidth={4} />
       <path d={`M ${HEAD.x + 14} ${HEAD.y + 58} A ${HEAD.r} ${HEAD.r} 0 0 0 ${HEAD.x + 60} ${HEAD.y + 14} A 70 70 0 0 1 ${HEAD.x + 14} ${HEAD.y + 58} Z`} fill={L.skinShade} />
-      {L.extra === 'bunches' || L.extra === 'bob' || L.extra === 'suit' || L.extra === 'crop' || L.extra === 'hardhat' || L.extra === 'short' || L.extra === 'bun' ? null : (
+      {L.extra === 'bunches' || L.extra === 'bob' || L.extra === 'suit' || L.extra === 'crop' || L.extra === 'hardhat' || L.extra === 'bun' ? null : (
         <path transform={`translate(${-pose.yaw * 16} 0)`} d={`M -6 ${HEAD.y - 60} q 10 -26 30 -18 q -16 2 -14 16 q -8 -10 -16 2 Z`} fill={L.hair} />
       )}
       {/* short hair for the grown-up costumes: a cap on top that slides to the back of the head as it turns, a nape patch under a hard hat */}
-      {(L.extra === 'crop' || L.extra === 'hardhat') && (() => {
+      {(L.extra === 'crop' || L.extra === 'bun' || L.extra === 'hardhat') && (() => {
         const a = Math.abs(pose.yaw);
         const s = pose.yaw === 0 ? 0 : -Math.sign(pose.yaw);
         const top = HEAD.y - 6;
         return (
           <g>
-            {L.extra === 'crop' ? (
+            {L.extra === 'crop' || L.extra === 'bun' ? (
               <g transform={`translate(${-pose.yaw * 5} 0)`}>
+                {L.extra === 'bun' ? <circle cx={-pose.yaw * 44} cy={HEAD.y - 68} r={23} fill={L.hair} stroke={L.line} strokeWidth={3} /> : null}
                 <path d={`M -61 ${top} A 62 62 0 0 1 61 ${top} Q 44 ${HEAD.y - 34} 14 ${HEAD.y - 46} Q -16 ${HEAD.y - 40} -61 ${top} Z`} fill={L.hair} stroke={L.line} strokeWidth={3} strokeLinejoin="round" />
                 <path d={`M -20 ${HEAD.y - 46} Q 2 ${HEAD.y - 56} 26 ${HEAD.y - 50}`} stroke={L.line} strokeWidth={3} fill="none" opacity={0.3} strokeLinecap="round" />
               </g>
@@ -490,13 +491,6 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           strokeWidth={4}
           strokeLinejoin="round"
         />
-        </g>
-      ) : null}
-      {L.extra === 'short' || L.extra === 'bun' ? (
-        // short hair with a soft fringe; 'bun' adds the knot at the back of the head
-        <g transform={`translate(${-pose.yaw * 14} 0)`}>
-          {L.extra === 'bun' ? <circle cx={-pose.yaw * 38} cy={HEAD.y - 66} r={23} fill={L.hair} stroke={L.line} strokeWidth={4} /> : null}
-          <path d={`M -62 ${HEAD.y - 8} Q -68 ${HEAD.y - 70} 0 ${HEAD.y - 70} Q 68 ${HEAD.y - 70} 62 ${HEAD.y - 8} Q 54 ${HEAD.y - 38} 26 ${HEAD.y - 42} Q -4 ${HEAD.y - 30} -30 ${HEAD.y - 44} Q -54 ${HEAD.y - 36} -62 ${HEAD.y - 8} Z`} fill={L.hair} />
         </g>
       ) : null}
       {L.extra === 'suit' ? (

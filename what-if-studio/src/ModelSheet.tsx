@@ -20,6 +20,11 @@ export const MODEL_CAST: { id: CastName; name: string; note: string; short: stri
   { id: 'chu', name: 'CHÚ ĐỘI MŨ BẢO HỘ', short: 'CHÚ (MŨ VÀNG)', note: 'Da rám, áo xanh rêu, mũ bảo hộ vàng. Người chờ cạnh xe.' },
   { id: 'bac', name: 'BÁC THỢ CẢ', short: 'BÁC THỢ CẢ', note: 'Tóc bạc, mũ bảo hộ trắng, áo xám xanh. Người chỉ việc.' },
   { id: 'moi', name: 'NGƯỜI MỚI', short: 'NGƯỜI MỚI', note: 'Mũ bảo hộ cam, áo đỏ gạch. Dây mũ hay quên cài.' },
+  { id: 'an', name: 'AN · BỐ, KỸ THUẬT VIÊN TRẠM NƯỚC', short: 'AN', note: 'Áo xanh thép, tóc ngắn, tay có ngón. Phim mưa 100 ngày.' },
+  { id: 'hanh', name: 'HẠNH · MẸ', short: 'HẠNH', note: 'Tóc búi, áo đỏ đất.' },
+  { id: 'linh', name: 'LINH · 8 TUỔI', short: 'LINH', note: 'Hai búi tóc dây đỏ, áo kem. Vẽ cỡ 0,62 so với An.' },
+  { id: 'baSau', name: 'BÀ SÁU · TẠP HÓA', short: 'BÀ SÁU', note: 'Tóc bạc búi, áo tím.' },
+  { id: 'nam', name: 'NAM · CHÁU BÀ SÁU', short: 'NAM', note: 'Áo xanh ngọc, tóc ngắn. Xuất hiện từ cảnh 3.' },
 ];
 
 const BG = '#1A1828';
