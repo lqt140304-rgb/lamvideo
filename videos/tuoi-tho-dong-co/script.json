@@ -1,0 +1,176 @@
+{
+ "id": "tuoi-tho-dong-co",
+ "title": "Mùi cỏ ngoài đồng (bản xem thử)",
+ "topic": "Tuổi thơ",
+ "channel": "KIẾN THỨC MỖI NGÀY",
+ "voice": {
+  "engine": "vieneu",
+  "speaker": "Hải Đăng"
+ },
+ "voices": {
+  "NARR": "Hải Đăng",
+  "BE": "Thanh Bình",
+  "BA": "Ngọc Huyền",
+  "ONG": "Phạm Tuyên"
+ },
+ "music": null,
+ "scenes": [
+  {
+   "type": "memory",
+   "id": "M1",
+   "kind": "grass",
+   "bg": {
+    "file": "BG01_cay_da.jpg",
+    "grade": "past",
+    "zoom": 2.6,
+    "zoomTo": 1.15,
+    "focus": "22% 88%"
+   },
+   "lines": [
+    {
+     "id": "M1_NARR_01",
+     "who": "NARR",
+     "text": "Tôi không nhớ chính xác lúc ấy mình bao nhiêu tuổi.",
+     "at": 1.2
+    },
+    {
+     "id": "M1_NARR_02",
+     "who": "NARR",
+     "text": "Chắc khoảng bốn, năm tuổi.",
+     "at": 4.8
+    },
+    {
+     "id": "M1_NARR_03",
+     "who": "NARR",
+     "text": "Có những chuyện hồi đó tôi quên rồi… nhưng mùi cỏ ngoài đồng thì đến giờ vẫn nhớ.",
+     "at": 7.2
+    }
+   ],
+   "minSeconds": 15,
+   "voice": "Tôi không nhớ chính xác lúc ấy mình bao nhiêu tuổi. Chắc khoảng bốn, năm tuổi. Có những chuyện hồi đó tôi quên rồi… nhưng mùi cỏ ngoài đồng thì đến giờ vẫn nhớ.",
+   "pad": 0.5,
+   "label": "Ký ức · khoảng bốn, năm tuổi",
+   "source": "Nền minh họa · Báo Nông thôn mới · chưa xác minh quyền"
+  },
+  {
+   "type": "memory",
+   "id": "M2",
+   "kind": "road",
+   "bg": {
+    "file": "BG01_cay_da.jpg",
+    "grade": "past",
+    "zoom": 1.0,
+    "zoomTo": 1.05,
+    "focus": "50% 70%",
+    "panFrom": 0.1,
+    "panTo": -0.1
+   },
+   "lines": [],
+   "minSeconds": 12,
+   "voice": "…",
+   "pad": 0.5,
+   "source": "Nền minh họa · Báo Nông thôn mới · chưa xác minh quyền"
+  },
+  {
+   "type": "memory",
+   "id": "M3",
+   "kind": "kite",
+   "bg": {
+    "file": "BG01_cay_da.jpg",
+    "grade": "warm",
+    "zoom": 1.15,
+    "zoomTo": 1.05,
+    "focus": "65% 40%",
+    "panFrom": -0.1,
+    "panTo": 0.15
+   },
+   "lines": [
+    {
+     "id": "M3_BE_01",
+     "who": "BE",
+     "text": "Diều! Diều kìa!",
+     "at": 2.4,
+     "invented": true
+    }
+   ],
+   "minSeconds": 11,
+   "voice": "Diều! Diều kìa!",
+   "pad": 0.5,
+   "source": "Nền minh họa · Báo Nông thôn mới · chưa xác minh quyền"
+  },
+  {
+   "type": "memory",
+   "id": "M4",
+   "kind": "yard",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "warm",
+    "zoom": 1.0,
+    "zoomTo": 1.04,
+    "focus": "50% 60%"
+   },
+   "lines": [
+    {
+     "id": "M4_BE_01",
+     "who": "BE",
+     "text": "Bà ơi! Diều bay cao lắm!",
+     "at": 4.2,
+     "invented": true
+    },
+    {
+     "id": "M4_BA_01",
+     "who": "BA",
+     "text": "Ừ, bà thấy rồi. Lại đây, bà quạt cho mát.",
+     "at": 7.2,
+     "invented": true
+    },
+    {
+     "id": "M4_ONG_01",
+     "who": "ONG",
+     "text": "Cháu chạy đâu mà đỏ cả mặt thế?",
+     "at": 11.0,
+     "invented": true
+    },
+    {
+     "id": "M4_BE_02",
+     "who": "BE",
+     "text": "Con chạy theo cái diều!",
+     "at": 14.0,
+     "invented": true
+    },
+    {
+     "id": "M4_BA_02",
+     "who": "BA",
+     "text": "Ngồi xuống đây với ông bà nào.",
+     "at": 16.6,
+     "invented": true
+    }
+   ],
+   "minSeconds": 22,
+   "voice": "Bà ơi! Diều bay cao lắm! Ừ, bà thấy rồi. Lại đây, bà quạt cho mát. Cháu chạy đâu mà đỏ cả mặt thế? Con chạy theo cái diều! Ngồi xuống đây với ông bà nào.",
+   "pad": 0.5,
+   "source": "Nền minh họa · Traveloka · chưa xác minh quyền"
+  },
+  {
+   "type": "memory",
+   "id": "M5",
+   "kind": "quiet",
+   "bg": {
+    "file": "BG03_san_nha.jpg",
+    "grade": "warm",
+    "zoom": 1.0,
+    "zoomTo": 1.1,
+    "focus": "50% 60%"
+   },
+   "lines": [],
+   "minSeconds": 14,
+   "voice": "…",
+   "pad": 0.5,
+   "endCard": {
+    "text": "Ký ức tuổi thơ",
+    "small": "Minh họa · nhân vật và lời thoại do sáng tác"
+   },
+   "source": "Nền minh họa · Traveloka · chưa xác minh quyền"
+  }
+ ]
+}

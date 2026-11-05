@@ -11,8 +11,8 @@ type Info = { w: number; h: number; footX: number; footY: number; bodyH?: number
 const CAST = castData as unknown as { chars: Record<string, Record<string, Info>>; props: Record<string, { w: number; h: number }> };
 
 /** Màu nhấn theo áo từng nhân vật (chữ tên + viền). */
-export const SPEAKER_COLOR: Record<Speaker, string> = { MINH: "#2F6FE0", BOM: "#17A98A", NA: "#8A55D0", TEO: "#E8761A" };
-const NAME: Record<Speaker, string> = { MINH: "Minh", BOM: "Bờm", NA: "Na", TEO: "Tèo" };
+export const SPEAKER_COLOR: Record<string, string> = { MINH: "#2F6FE0", BOM: "#17A98A", NA: "#8A55D0", TEO: "#E8761A" };
+const NAME: Record<string, string> = { MINH: "Minh", BOM: "Bờm", NA: "Na", TEO: "Tèo" };
 /** Chiều cao tương đối để bốn bạn không to nhỏ bất hợp lý. */
 const REL: Record<Speaker, number> = { MINH: 1, BOM: 0.97, NA: 0.96, TEO: 1 };
 const BODY = 520; // chiều cao thân (px) khi scale = 1

@@ -255,7 +255,12 @@ export type ActorPose = "stand" | "wave" | "point" | "think" | "surprised" | "ch
 /** Một lượt thoại: mỗi lượt đọc bằng giọng riêng của nhân vật và xuất thành file riêng theo `id`. */
 export type DialogLine = {
   id: string;
-  who: Speaker;
+  /** Nhân vật (MINH/BOM/NA/TEO) hoặc vai trong ký ức: NARR (người kể), BE, BA, ONG. */
+  who: Speaker | "NARR" | "BE" | "BA" | "ONG";
+  /** Bắt đầu đúng giây này (tính từ đầu cảnh) thay vì nối tiếp lượt trước. Dùng cho cảnh ký ức. */
+  at?: number;
+  /** Lời thoại sáng tác minh họa (không phải lời thật của ai). */
+  invented?: boolean;
   /** Lời được đọc (số viết bằng chữ). */
   text: string;
   /** Phụ đề (số viết bằng số); bỏ trống thì dùng `text`. */
@@ -291,7 +296,21 @@ export type DialogScene = SceneBase & {
   chip?: string;
 };
 
+/** Cảnh ký ức làng quê: nền ảnh thật + nhân vật/đồ vật hoạt hình chuyển động. */
+export type MemoryScene = SceneBase & {
+  type: "memory";
+  id: string;
+  kind: "grass" | "road" | "kite" | "yard" | "quiet";
+  bg: { file: string; focus?: string; zoom?: number; zoomTo?: number; panFrom?: number; panTo?: number; grade?: "past" | "present" | "warm" | "night" };
+  /** Độ dài tối thiểu của cảnh (giây) kể cả khi lời kể ngắn hơn. */
+  minSeconds: number;
+  label?: string;
+  lines: DialogLine[];
+  endCard?: { text: string; small?: string };
+};
+
 export type Scene =
+  | MemoryScene
   | DialogScene
   | StoryScene
   | HookScene
@@ -315,6 +334,8 @@ export type VideoScript = {
   /** Nhãn chủ đề ở đầu khung hình. */
   topic: string;
   voice: { engine: "vieneu"; speaker: string };
+  /** Tên kênh hiện ở góc trên (mặc định theo brand). */
+  channel?: string;
   /** Truyện nhiều giọng: mã nhân vật → tên giọng VieNeu. */
   voices?: Record<string, string>;
   /** Đường dẫn nhạc nền trong public/, ví dụ "music/nhac-nen.mp3". */

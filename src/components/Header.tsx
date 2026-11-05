@@ -2,7 +2,7 @@ import React from "react";
 import { color, font, brand } from "../brand";
 
 /** Nhãn kênh + chủ đề ở đầu khung, thanh tiến độ mỏng bên dưới. */
-export const Header: React.FC<{ topic: string; progress: number; onDark?: boolean }> = ({ topic, progress, onDark }) => (
+export const Header: React.FC<{ topic: string; progress: number; onDark?: boolean; channel?: string }> = ({ topic, progress, onDark, channel }) => (
   <div style={{ position: "absolute", top: 150, left: 70, right: 70 }}>
     <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
       <div
@@ -18,7 +18,7 @@ export const Header: React.FC<{ topic: string; progress: number; onDark?: boolea
           transform: "rotate(-2deg)",
         }}
       >
-        {brand.channel}
+        {channel ?? brand.channel}
       </div>
       <div
         style={{

@@ -167,6 +167,8 @@ def dialog_scene(tts, scene, voices, out_dir, name, force, old_entry):
         sr = sr or rate
         data = level_to(data)
         gap = 0.0 if k == 0 else float(ln.get("gap", 0.3))
+        if "at" in ln:
+            gap = max(0.0 if k == 0 else 0.1, float(ln["at"]) - t)
         t += gap
         pieces.append(np.zeros(int(gap * sr), dtype="float32"))
         pieces.append(data)
@@ -241,7 +243,7 @@ def main() -> int:
         text = scene["voice"].strip()
         name = f"scene-{i:02d}.wav"
         path = out_dir / name
-        if scene.get("type") == "dialog":
+        if scene.get("type") in ("dialog", "memory"):
             cached = old.get(name)
             print(f"[{i:02d}] hội thoại {scene.get('id', '')}")
             entry, _ = dialog_scene(tts, scene, voices, out_dir, name, args.force, cached)

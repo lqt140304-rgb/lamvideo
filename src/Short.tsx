@@ -13,6 +13,7 @@ import { VerdictScene } from "./scenes/VerdictScene";
 import { ZonesScene } from "./scenes/ZonesScene";
 import { StoryScene, isDarkMood } from "./scenes/StoryScene";
 import { DialogScene } from "./scenes/DialogScene";
+import { MemoryScene } from "./scenes/MemoryScene";
 import {
   ChatScene,
   CompareVariant,
@@ -38,6 +39,8 @@ export type ShortProps = {
 
 const SceneBody: React.FC<{ scene: Scene; frames: number; slug: string; lines?: { from: number; frames: number }[] }> = ({ scene, frames, slug, lines }) => {
   switch (scene.type) {
+    case "memory":
+      return <MemoryScene scene={scene} frames={frames} slug={slug} lines={lines ?? []} />;
     case "dialog":
       return <DialogScene scene={scene} frames={frames} slug={slug} lines={lines ?? []} />;
     case "story":
@@ -143,7 +146,7 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
         return (
           <Sequence key={i} from={t.from} durationInFrames={t.frames} name={`${i + 1}. ${scene.type}`}>
             <SceneShell frames={t.frames}>
-              {scene.type === "dialog" ? (
+              {scene.type === "dialog" || scene.type === "memory" ? (
                 <SceneBody scene={scene} frames={t.frames} slug={script.id} lines={t.lines} />
               ) : (
                 <Camera scene={scene} index={i} frames={t.frames}>
@@ -161,7 +164,7 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
                 </span>
               </div>
             ) : null}
-            {scene.type === "dialog" ? null : <Captions text={scene.sub ?? scene.voice} speechFrames={Math.max(1, t.frames - pad)} />}
+            {scene.type === "dialog" || scene.type === "memory" ? null : <Captions text={scene.sub ?? scene.voice} speechFrames={Math.max(1, t.frames - pad)} />}
             {t.audio ? <Audio src={staticFile(t.audio)} /> : null}
           </Sequence>
         );
@@ -177,7 +180,7 @@ export const Short: React.FC<ShortProps> = ({ script, timings, credits = {} }) =
           </Sequence>
         );
       })}
-      <Header topic={script.topic} progress={total ? frame / total : 0} onDark={(() => { const i = timings.findIndex((t) => frame >= t.from && frame < t.from + t.frames); const sc = script.scenes[i]; return !!sc && sc.type === "story" && isDarkMood(sc.mood); })()} />
+      <Header channel={script.channel} topic={script.topic} progress={total ? frame / total : 0} onDark={(() => { const i = timings.findIndex((t) => frame >= t.from && frame < t.from + t.frames); const sc = script.scenes[i]; return !!sc && ((sc.type === "story" && isDarkMood(sc.mood)) || sc.type === "dialog" || sc.type === "memory"); })()} />
       {script.music ? (
         <Audio
           src={staticFile(script.music)}
