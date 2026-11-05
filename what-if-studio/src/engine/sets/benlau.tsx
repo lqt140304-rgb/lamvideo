@@ -582,7 +582,7 @@ const KBULB: Pt = (() => {
 export const AN_KITCHEN_BULB = KBULB;
 
 /** The kitchen: tiled counter and basin on the left, an open back door on the right onto the vegetable beds. */
-export const AnKitchen: React.FC<{ id: string; t: number; w: Weather; door?: number; veil?: number; rain?: number }> = ({ id, t, w, door = 0, veil = 0.5, rain = 0 }) => {
+export const AnKitchen: React.FC<{ id: string; t: number; w: Weather; door?: number; veil?: number; rain?: number; lamp?: number }> = ({ id, t, w, door = 0, veil = 0.5, rain = 0, lamp = 1 }) => {
   const r = ANKITCHEN;
   const { P, Q } = r;
   const dx0 = P(0.6, 0, 0).x;
@@ -626,10 +626,10 @@ export const AnKitchen: React.FC<{ id: string; t: number; w: Weather; door?: num
       })}
       {/* the bulb */}
       <path d={`M ${KBULB.x} ${P(0.32, 0, 0.35).y} L ${KBULB.x} ${KBULB.y - 16}`} stroke="#1E1A16" strokeWidth={3} />
-      <circle cx={KBULB.x} cy={KBULB.y} r={17} fill="#FFF0BE" />
+      <circle cx={KBULB.x} cy={KBULB.y} r={17} fill={lamp > 0.5 ? '#FFF0BE' : '#6A6A60'} />
       <LightVeil id={`${id}v`} lights={[[KBULB.x, KBULB.y + 90, 620], [(dx0 + dx1) / 2, 520, 300]]} o={veil} />
-      <Glow x={KBULB.x} y={KBULB.y} r={560} o={0.62 * flick(t)} />
-      <Glow x={KBULB.x} y={KBULB.y} r={130} o={1} />
+      <Glow x={KBULB.x} y={KBULB.y} r={560} o={0.62 * flick(t) * lamp} />
+      <Glow x={KBULB.x} y={KBULB.y} r={130} o={lamp} />
       <Glow x={(dx0 + dx1) / 2} y={500} r={300} kind="cool" o={0.32} />
       <Dust t={t} seed={4} x0={KBULB.x - 260} y0={KBULB.y} w={520} h={380} n={18} o={0.3} />
     </g>

@@ -199,3 +199,12 @@ Sau khi sửa: `tsc`, render ảnh/lưới cho các cảnh trên, `plan` → `sf
 - Nhân vật nhìn nghiêng mang đồ: hai tay cùng về phía trước, tay gần dùng `a`, `b` dương và tay xa dùng `a`, `b` âm (hoặc ngược lại tùy hướng). Cả hai cùng dương thì tay dang ra hai bên.
 - **Bàn tay chuẩn:** người dùng chọn tay ở S16 và S25 (cảnh 3) làm mẫu. Đã tách ra `what-if-studio/src/engine/hands.tsx` (`OpenHand`, `GripHand`, `GripThumb`, `Digits`). Mọi tay cận cảnh về sau dùng các component này.
 - Rà lại cùng loại lỗi ở các shot khác khi người dùng chỉ ra một shot: S4 (tay dang ra, thùng không chạm tay), S11 (An giẫm lên túi), S36 (An đứng lấn vào bàn, túi rơi xuống sàn, chăn trôi dưới chân Hạnh) đều cùng lỗi với S27.
+
+## Lỗi tự soi storyboard cảnh 4 (`mua-100-c04`)
+
+- Đặt tia chớp (`Flash`) hay đèn chớp trùng khung khóa của ảnh tĩnh thì storyboard trắng xóa: đặt sau khung khóa (khung 40).
+- Người đứng ở khung cửa nhìn từ ngoài vào: phải có sàn trong nhà và chân chạm ngưỡng (`onFloor(floor, scale)` = sàn trừ `LEG_LEN * scale`), không thì lơ lửng giữa ô cửa sáng.
+- Phòng khách: bàn thấp chiếm u 0,16–0,36, w 0,36–0,56; người đứng ở w nhỏ hơn mà cùng u sẽ bị vẽ đè lên bàn. Để người ở u từ 0,5 trở lên, túi đồ ở u 0,45, w 0,13.
+- Gác: bàn thấp u 0,34–0,66, w 0,46–0,72; người đứng phải ở trước bàn (w khoảng 0,82).
+- Cận mặt (scale 1,1–1,2, zoom 2,5): hông ở y khoảng 690–700, không phải 790, không thì đầu nằm sát mép dưới.
+- Người lội nước: cắt phần chân dưới mặt nước bằng `clipPath` và vẽ một vòng sóng, đừng phủ một khối nước chữ nhật.

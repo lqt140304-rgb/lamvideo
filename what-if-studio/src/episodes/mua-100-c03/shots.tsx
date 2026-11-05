@@ -18,7 +18,7 @@ const SAU = LOOKS.baSau;
 
 const WATER = '#6A7A80';
 /** A sheet of standing water: a tinted band with the rain's rings on it. */
-const Flood: React.FC<{ t: number; y: number; x0?: number; x1?: number; o?: number; rain?: number; h?: number; seed?: number }> = ({ t, y, x0 = -300, x1 = 2220, o = 0.9, rain = 1, h = 700, seed = 3 }) => (
+export const Flood: React.FC<{ t: number; y: number; x0?: number; x1?: number; o?: number; rain?: number; h?: number; seed?: number }> = ({ t, y, x0 = -300, x1 = 2220, o = 0.9, rain = 1, h = 700, seed = 3 }) => (
   <g>
     <rect x={x0} y={y} width={x1 - x0} height={h} fill={WATER} opacity={o} />
     <rect x={x0} y={y} width={x1 - x0} height={5} fill="#C9D8DF" opacity={0.55} />
@@ -26,28 +26,28 @@ const Flood: React.FC<{ t: number; y: number; x0?: number; x1?: number; o?: numb
   </g>
 );
 
-const sit = (facing: 1 | -1): Partial<Pose> => ({ facing, legL: { a: 76, b: -76 }, legR: { a: 70, b: -70 } });
+export const sit = (facing: 1 | -1): Partial<Pose> => ({ facing, legL: { a: 76, b: -76 }, legR: { a: 70, b: -70 } });
 
 // ---------------------------------------------------------------- the gác
-const ATT = makeRoom({ x: 960, y: 470 }, { x0: 500, x1: 1420, y0: 250, y1: 700 }, 3.1);
+export const ATT = makeRoom({ x: 960, y: 470 }, { x0: 500, x1: 1420, y0: 250, y1: 700 }, 3.1);
 const WIN = { x0: 840, x1: 1200, y0: 320, y1: 580 };
 const BULB = (() => {
   const p = ATT.P(0.5, 0.1, 0.46);
   return { x: p.x, y: p.y };
 })();
 /** Hip point and scale for someone sitting on the floor mat at (u, w). */
-const sitAt = (u: number, w: number, k = 1) => {
+export const sitAt = (u: number, w: number, k = 1) => {
   const s = stand(ATT, u, w);
   const floor = ATT.P(u, 1, w).y;
   const sc = s.scale * k;
   return { x: s.x, y: floor - 88 * sc, scale: sc, floor };
 };
 /** The chair under an adult (back behind him) and the stool under a child, drawn before the figure. */
-const ChairFor: React.FC<{ at: { x: number; y: number; scale: number }; back?: number; child?: boolean }> = ({ at, back = -1, child = false }) => (
+export const ChairFor: React.FC<{ at: { x: number; y: number; scale: number }; back?: number; child?: boolean }> = ({ at, back = -1, child = false }) => (
   <Seat x={at.x - 2 * at.scale} top={at.y + 12 * at.scale} floor={at.y + 88 * at.scale} w={(child ? 100 : 130) * at.scale} back={child ? 0 : back} />
 );
 /** Things to carry, drawn standing on the floor at (x, y = the floor under them). */
-const Duffel: React.FC<{ x: number; y: number; s?: number; c?: string }> = ({ x, y, s = 1, c = '#6E5B7E' }) => (
+export const Duffel: React.FC<{ x: number; y: number; s?: number; c?: string }> = ({ x, y, s = 1, c = '#6E5B7E' }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <ellipse cx={0} cy={4} rx={96} ry={13} fill="#000" opacity={0.32} />
     <path d="M -70 -20 Q -70 -90 0 -92 Q 70 -90 70 -20 Q 70 0 40 0 L -40 0 Q -70 0 -70 -20 Z" fill={c} stroke="#16141C" strokeWidth={4} strokeLinejoin="round" />
@@ -58,7 +58,7 @@ const Duffel: React.FC<{ x: number; y: number; s?: number; c?: string }> = ({ x,
   </g>
 );
 /** A folded blanket rolled up and strapped. */
-const Bundle: React.FC<{ x: number; y: number; s?: number; c?: string; lying?: boolean }> = ({ x, y, s = 1, c = '#B5604F', lying = true }) => (
+export const Bundle: React.FC<{ x: number; y: number; s?: number; c?: string; lying?: boolean }> = ({ x, y, s = 1, c = '#B5604F', lying = true }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <ellipse cx={0} cy={4} rx={92} ry={12} fill="#000" opacity={0.3} />
     <rect x={-80} y={-66} width={160} height={66} rx={30} fill={c} stroke="#16141C" strokeWidth={4} />
@@ -67,7 +67,7 @@ const Bundle: React.FC<{ x: number; y: number; s?: number; c?: string; lying?: b
     {lying ? null : null}
   </g>
 );
-const PlasticBag: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const PlasticBag: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <ellipse cx={0} cy={3} rx={44} ry={8} fill="#000" opacity={0.3} />
     <path d="M -34 0 Q -44 -50 -12 -64 L -8 -80 L 8 -80 L 12 -64 Q 44 -50 34 0 Z" fill="#D8D4C4" stroke="#16141C" strokeWidth={3} strokeLinejoin="round" opacity={0.95} />
@@ -110,7 +110,7 @@ const MapSheet: React.FC<{ flow?: number; trace?: number; big?: boolean }> = ({ 
   );
 };
 
-const Attic: React.FC<{ id: string; t: number; veil?: number; map?: boolean; flow?: number; bags?: number; lamp?: number }> = ({ id, t, veil = 0.52, map = false, flow = 0, bags = 0, lamp = 1 }) => {
+export const Attic: React.FC<{ id: string; t: number; veil?: number; map?: boolean; flow?: number; bags?: number; lamp?: number }> = ({ id, t, veil = 0.52, map = false, flow = 0, bags = 0, lamp = 1 }) => {
   const r = ATT;
   const { P, Q } = r;
   const mat = Q([[0.16, 1, 0.34], [0.84, 1, 0.34], [0.9, 1, 0.86], [0.1, 1, 0.86]]);
