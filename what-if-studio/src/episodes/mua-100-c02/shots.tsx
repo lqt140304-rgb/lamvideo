@@ -111,7 +111,7 @@ export const S2: React.FC<ShotProps> = ({ t, len }) => {
     <g transform={camT(kf(t, [[0, 780], [len, 750]]), 600, kf(t, [[0, 1.12], [len, 1.18]]))}>
       <LivingRoom id="c2s2" t={t} lamp={0.75} day="3" dog={false} />
       <Seat x={SET_AN.x - 2 * s} top={AN_HIP + 12 * s} floor={AN_HIP + 88 * s} w={124 * s} back={-1} />
-      <Hero look={AN} pose={P({ x: SET_AN.x, y: AN_HIP, scale: s, yaw: 0.6, look: 0.5, ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
+      <Hero look={AN} pose={P({ x: SET_AN.x, y: AN_HIP, scale: s, yaw: 0.6, look: kf(t, [[0, 0.1], [30, 0.1], [40, 0.7]]), headTilt: kf(t, [[30, 0], [40, 4]]), ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
       <Seat x={LINH_AT.x + 4} top={LINH_AT.y - 58 * s * 0.72 + 10 * s * 0.72} floor={LINH_AT.y + 16 * s * 0.72} w={92 * s * 0.72} />
       <Hero look={LINH} pose={P({ x: LINH_AT.x, y: LINH_AT.y - 58 * s * 0.72, scale: s * 0.72, yaw: -0.6, look: -0.6, ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
       <Foreground blur={10}><rect x={1370} y={-100} width={300} height={1300} fill="#17110C" /></Foreground>
@@ -161,8 +161,8 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => (
 const S5_S = stand(LIVING, 0.66, 0.5);
 export const S5: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
-    { f: 0, p: { ...S5_S, yaw: -0.55, look: -0.5, tilt: -6, expr: 'neutral', armL: { a: 54, b: 34 }, armR: { a: -30, b: -30 } } },
-    { f: 28, p: { tilt: -18, armL: { a: 74, b: 14 }, armR: { a: -52, b: -16 } } },
+    { f: 0, p: { ...S5_S, x: S5_S.x + 110, yaw: -0.55, look: -0.5, tilt: -6, expr: 'neutral', armL: { a: 54, b: 34 }, armR: { a: -30, b: -30 } } },
+    { f: 28, p: { x: S5_S.x, tilt: -18, armL: { a: 74, b: 14 }, armR: { a: -52, b: -16 } } },
     { f: 52, p: { tilt: -4, armL: { a: 20, b: 18 }, armR: { a: -8, b: -14 } } },
   ]);
   return (
@@ -276,7 +276,8 @@ export const S10: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S11: medium: Hạnh holds up the still-damp uniform and says so ----------
 export const S11: React.FC<ShotProps> = ({ t, len }) => {
-  const pose = P({ x: 800, y: 620, scale: 1.45, yaw: 0.4, look: 0.5, headTilt: 3, expr: 'worried', talk: talkAt(t, 70, 215), armL: { a: -44, b: -40 }, armR: { a: 66, b: 22 } }, t, 3);
+  const lift = kf(t, [[0, 0], [30, 1]]);
+  const pose = P({ x: 800, y: 620, scale: 1.45, yaw: 0.4, look: 0.5, headTilt: 3 - 5 * (1 - lift), expr: 'worried', talk: talkAt(t, 70, 215), armL: { a: -14 - 30 * lift, b: -16 - 24 * lift }, armR: { a: 22 + 44 * lift, b: 8 + 14 * lift } }, t, 3);
   const hand = toWorld(pose, joints(pose).armR.end);
   return (
     <g transform={camT(kf(t, [[0, 940], [len, 900]]), 460, kf(t, [[0, 1.46], [len, 1.54]]))}>
@@ -322,7 +323,7 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => (
         <rect x={-100} y={60} width={420} height={760} fill="#E2A258" opacity={0.6} />
       </g>
       <Glow x={700} y={-20} r={980} o={0.5} />
-      <Hero look={LINH} pose={P({ x: 960, y: 1000, scale: 2.5, yaw: 0.35, look: 0.5, headTilt: 6, expr: 'smug', talk: talkAt(t, 2, 132), armL: { a: 12, b: 26 }, armR: { a: 100, b: 72 } }, t, 4)} rimId="filmL" shadow={0} />
+      <Hero look={LINH} pose={P({ x: 960, y: 1000, scale: 2.5, yaw: 0.35, look: 0.5, headTilt: 6, expr: 'smug', talk: talkAt(t, 2, 132), armL: { a: 12, b: 26 }, armR: { a: 100 + 7 * Math.sin(t * 0.21), b: 72 - 10 * Math.sin(t * 0.21) } }, t, 4)} rimId="filmL" shadow={0} />
     </g>
     <rect y={880} width={1920} height={200} fill="#7E5A3A" />
     <rect y={880} width={1920} height={12} fill="#A67C50" />
@@ -346,9 +347,9 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => (
     <LightVeil id="c2s15v" lights={[[960, 460, 460], [480, 200, 640]]} o={0.38} />
     <Glow x={480} y={110} r={620} o={0.5} />
     <Seat x={606} top={732} floor={826} w={136} back={-1} />
-    <Hero look={AN} pose={P({ x: 620, y: 720, scale: 1.08, yaw: 0.72, look: 0.5, tilt: 3, expr: t < 60 ? 'happy' : 'neutral', talk: talkAt(t, 2, 82), ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmL" shadow={0} />
+    <Hero look={AN} pose={P({ x: 620, y: 720, scale: 1.08, yaw: 0.72, look: 0.5, tilt: 3 + (t < 40 ? 2.5 * Math.sin(t * 0.8) : 0), expr: t < 60 ? 'happy' : 'neutral', talk: talkAt(t, 2, 82), ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmL" shadow={0} />
     <Seat x={1312} top={768} floor={830} w={98} />
-    <Hero look={LINH} pose={P({ x: 1300, y: 760, scale: 0.78, yaw: -0.72, look: -0.6, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 1300, y: 760, scale: 0.78, yaw: -0.72, look: -0.6, expr: 'happy', ...sit(-1), legL: { a: 76, b: -76 + 12 * Math.sin(t * 0.3) }, legR: { a: 70, b: -70 - 12 * Math.sin(t * 0.3) }, armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
     <path d="M 720 800 L 1190 800" stroke="#7E5A3A" strokeWidth={24} />
     <path d="M 760 810 L 760 930 M 1150 810 L 1150 930" stroke="#4C3420" strokeWidth={14} />
     <rect x={850} y={776} width={190} height={12} fill="#F1EADA" />
@@ -361,7 +362,7 @@ export const S16: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, 500, kf(t, [[0, 1.72], [len, 1.9]]))}>
     <LivingFront id="c2s16" t={t + 40} />
     {[[850, 335, 0.72, 0], [960, 325, 0.72, 3], [1070, 335, 0.72, 1]].map(([x, y, s, c], i) => <Shirt key={i} x={x} y={y} s={s} c={c} t={t + i * 11} />)}
-    <Foreground blur={6}><rect x={480} y={-100} width={120} height={1300} fill="#17110C" /></Foreground>
+    <Foreground blur={6}><rect x={kf(t, [[0, 520], [len, 400]])} y={-100} width={120} height={1300} fill="#17110C" /></Foreground>
   </g>
 );
 
