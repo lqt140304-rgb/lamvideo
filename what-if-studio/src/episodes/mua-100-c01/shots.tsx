@@ -613,42 +613,56 @@ export const S24: React.FC<ShotProps> = ({ t, len }) => {
   const calling = kf(t, [[96, 0], [104, 1]]);
   const stir = Math.sin(t * 0.26);
   const pose = P({
-    x: 930, y: 640, scale: 1.25,
+    x: 930, y: 690, scale: 1.25,
     yaw: -0.35 * calling, look: -0.6 * calling, headTilt: 9 * (1 - calling), tilt: 3 * (1 - calling),
     expr: calling > 0.5 ? 'neutral' : 'happy',
     talk: talkAt(t, 98, 145),
-    armL: { a: -14 + 7 * stir, b: -6 }, armR: { a: -14 - 7 * stir, b: -6 },
+    armL: { a: -8 + 6 * stir, b: -8 }, armR: { a: -8 - 6 * stir, b: -8 },
   }, t, 3);
+  const j = joints(pose);
+  // her forearms are drawn again over the basin's back rim, so only they enter it: her body stays behind table and basin
+  const forearm = (o: { mid: { x: number; y: number }; end: { x: number; y: number } }, k: number) => {
+    const a = toWorld(pose, o.mid);
+    const b = toWorld(pose, o.end);
+    return (
+      <g key={k}>
+        <path d={`M ${a.x} ${a.y} L ${b.x} ${b.y}`} stroke={HANH.line} strokeWidth={31} strokeLinecap="round" />
+        <path d={`M ${a.x} ${a.y} L ${b.x} ${b.y}`} stroke={HANH.skin} strokeWidth={22} strokeLinecap="round" />
+      </g>
+    );
+  };
   return (
-    <g transform={camT(930, kf(t, [[0, 520], [len, 505]]), kf(t, [[0, 1.42], [len, 1.5]]))}>
+    <g transform={camT(930, kf(t, [[0, 575], [len, 560]]), kf(t, [[0, 1.42], [len, 1.5]]))}>
       <AnKitchen id="s24" t={t} w={2} rain={1} />
-      {/* the table: its top, front and legs; a rice sack and the pot beside the basin */}
-      <ellipse cx={930} cy={1020} rx={560} ry={40} fill="#000" opacity={0.3} />
-      <polygon points="470,640 1390,640 1490,770 370,770" fill="#8E6A48" />
-      <polygon points="370,770 1490,770 1490,812 370,812" fill="#5E4128" />
-      <path d="M 410 812 L 410 1040 M 1450 812 L 1450 1040" stroke="#4C3420" strokeWidth={26} />
-      <path d="M 1190 650 Q 1180 560 1240 540 L 1310 540 Q 1370 560 1360 650 Q 1280 670 1190 650 Z" fill="#CDBB94" stroke="#6E5A3C" strokeWidth={4} />
-      <path d="M 1240 540 Q 1275 520 1310 540" stroke="#6E5A3C" strokeWidth={5} fill="none" />
-      <ellipse cx={560} cy={665} rx={70} ry={15} fill="#3A3A3E" />
-      <path d="M 490 665 L 500 610 L 620 610 L 630 665 Z" fill="#4C4C52" />
-      <ellipse cx={560} cy={610} rx={60} ry={12} fill="#2A2A2E" />
-      {/* the basin's back and its cloudy water go behind her arms */}
-      <ellipse cx={930} cy={648} rx={230} ry={58} fill="#3C5468" />
-      <ellipse cx={930} cy={652} rx={208} ry={46} fill={RICE_FLOOD} />
-      {Array.from({ length: 70 }).map((_, i) => {
-        const a = rnd(3, i) * 6.28 + t * 0.012;
-        const r = Math.sqrt(rnd(4, i));
-        return <ellipse key={i} cx={930 + Math.cos(a) * r * 190} cy={652 + Math.sin(a) * r * 38} rx={7} ry={3} fill="#FFFFFF" stroke="#BDB8A2" strokeWidth={1} />;
-      })}
-      <clipPath id="s24body"><rect x={300} y={0} width={1300} height={680} /></clipPath>
+      <clipPath id="s24body"><rect x={300} y={0} width={1300} height={640} /></clipPath>
       <g clipPath="url(#s24body)">
         <Hero look={HANH} pose={pose} rimId="filmR" shadow={0} />
       </g>
-      {/* water over her fingers, rings from her hands, then the basin's near wall */}
-      <ellipse cx={930} cy={672} rx={180} ry={24} fill={RICE_FLOOD} opacity={0.55} />
-      {[0, 1].map((i) => <ellipse key={i} cx={930} cy={656} rx={50 + ((t * 2.4 + i * 60) % 130)} ry={12 + ((t * 0.6 + i * 15) % 32)} fill="none" stroke="#fff" strokeWidth={2.5} opacity={0.75} />)}
-      <path d="M 700 648 Q 716 742 800 760 L 1060 760 Q 1144 742 1160 648 Q 930 730 700 648 Z" fill="#5F7E96" stroke="#2C3C48" strokeWidth={4} />
-      <path d="M 1060 760 Q 1144 742 1160 648 Q 1120 668 1040 684 Z" fill="#000" opacity={0.15} />
+      {/* the table stands in front of her: top, front and legs; a rice sack and the pot beside the basin */}
+      <ellipse cx={930} cy={1020} rx={560} ry={40} fill="#000" opacity={0.3} />
+      <polygon points="470,640 1390,640 1490,800 370,800" fill="#8E6A48" />
+      <polygon points="370,800 1490,800 1490,842 370,842" fill="#5E4128" />
+      <path d="M 410 842 L 410 1060 M 1450 842 L 1450 1060" stroke="#4C3420" strokeWidth={26} />
+      <path d="M 1210 680 Q 1200 590 1260 570 L 1330 570 Q 1390 590 1380 680 Q 1300 700 1210 680 Z" fill="#CDBB94" stroke="#6E5A3C" strokeWidth={4} />
+      <path d="M 1260 570 Q 1295 550 1330 570" stroke="#6E5A3C" strokeWidth={5} fill="none" />
+      <ellipse cx={540} cy={695} rx={70} ry={15} fill="#3A3A3E" />
+      <path d="M 470 695 L 480 640 L 600 640 L 610 695 Z" fill="#4C4C52" />
+      <ellipse cx={540} cy={640} rx={60} ry={12} fill="#2A2A2E" />
+      {/* the whole basin sits on the table in front of her: rim, cloudy water, grains */}
+      <ellipse cx={930} cy={790} rx={210} ry={18} fill="#000" opacity={0.32} />
+      <ellipse cx={930} cy={702} rx={222} ry={50} fill="#3C5468" />
+      <ellipse cx={930} cy={706} rx={200} ry={39} fill={RICE_FLOOD} />
+      {Array.from({ length: 70 }).map((_, i) => {
+        const a = rnd(3, i) * 6.28 + t * 0.012;
+        const r = Math.sqrt(rnd(4, i));
+        return <ellipse key={i} cx={930 + Math.cos(a) * r * 184} cy={706 + Math.sin(a) * r * 32} rx={7} ry={3} fill="#FFFFFF" stroke="#BDB8A2" strokeWidth={1} />;
+      })}
+      {[j.armL, j.armR].map(forearm)}
+      {/* water closes over her hands, rings spread from them, then the basin's near wall */}
+      <ellipse cx={930} cy={722} rx={150} ry={20} fill={RICE_FLOOD} />
+      {[0, 1].map((i) => <ellipse key={i} cx={930} cy={708} rx={46 + ((t * 2.4 + i * 60) % 130)} ry={10 + ((t * 0.6 + i * 15) % 26)} fill="none" stroke="#fff" strokeWidth={2.5} opacity={0.8} />)}
+      <path d="M 708 702 Q 722 780 800 794 L 1060 794 Q 1138 780 1152 702 Q 930 782 708 702 Z" fill="#5F7E96" stroke="#2C3C48" strokeWidth={4} />
+      <path d="M 1060 794 Q 1138 780 1152 702 Q 1110 722 1040 738 Z" fill="#000" opacity={0.15} />
     </g>
   );
 };

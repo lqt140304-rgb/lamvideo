@@ -48,6 +48,14 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 
 - Chủ kênh gửi ảnh mẫu chữ: chỉ lấy FONT, không lấy nền đen của ảnh. Hỏi rõ phần nào của mẫu trước khi đổi cả cảnh.
 
+### Âm thanh và lớp hình (S24, cả cảnh)
+- Người thao tác với vật to: vẽ thân TRƯỚC, rồi bàn và vật che thân, rồi vẽ lại riêng cẳng tay đè lên vật (`joints` + `toWorld`). Vẽ thân đè lên vành chậu thì nhìn như đứng trong chậu.
+- Hành động khó đọc ở góc lạ (từ trong chậu nhìn lên): đổi sang trung cảnh + cận từ trên xuống. Góc lạ chỉ dùng khi một giây là hiểu.
+- Nền âm theo nơi đang đứng, không một tiếng mưa cho cả cảnh: mái tôn, ngoài sân, trong nhà. `["S13", "rain_tin", 0.8, "onset", "S14"]`, clip ngắn tự lặp.
+- Tiếng nền chạy liên tục nên stem dày: `sfx_lu` -9 cho 44 chỗ gần lời ở -11, chỉ 9 chỗ ở -13. Bắt đầu từ -13, nhạc -15.
+- Nhạc tạo bằng `/v1/music` (model `music_v2_5`, `force_instrumental`) thành một bản liền theo độ dài cảnh, lưu `library/sfx/<tên>-local.mp3`, gọi bằng `lib:<tên>`. Bản này không lặp như clip 30 s của `sound-generation`.
+- Tắt nhạc ngay câu cuối (`until: "S37"`) để chỉ còn tiếng mưa.
+
 ### Việc làm trước khi bắt đầu
 - Tìm file kinh nghiệm ở MỌI nhánh (`git for-each-ref`), không chỉ nhánh đang đứng. Lần này tôi tưởng chưa có nên viết lại `pause`, dựng tay, tờ soi riêng, trong khi nhánh `tua-lai-10-giay` đã có `pads`, `sheets.py`, `ModelSheet`.
 
