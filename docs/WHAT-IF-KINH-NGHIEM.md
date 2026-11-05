@@ -57,7 +57,7 @@ Claude đọc file này trước khi bắt đầu tập mới. Ghi ngắn, có n
 - Tắt nhạc ngay câu cuối (`until: "S37"`) để chỉ còn tiếng mưa.
 
 ### Nguồn âm thanh
-- Chủ kênh muốn tiếng động và nhạc lấy từ nguồn miễn phí. Cảnh 1 đã tốn khoảng 3.500 credits để tự tạo: lần sau tìm trước.
+- Chủ kênh muốn tiếng động và nhạc lấy từ nguồn miễn phí, áp dụng TỪ CẢNH 2. Cảnh 1 (`mua-100-c01`) đã duyệt, giữ âm thanh ElevenLabs (khoảng 3.500 credits).
 - Freesound cần đăng nhập mới tải được; CC0 dùng tự do nhưng không được nhận là tác giả; bản thô có thể bị YouTube Content ID nhận nhầm, khi đó dùng ngày đăng trên Freesound để khiếu nại.
 - Pixabay không bắt ghi nguồn, cấm phân phối lại file nguyên trạng. Bản tóm tắt không có hiệu lực pháp lý, bản đầy đủ mới có.
 
