@@ -517,6 +517,34 @@
       "music_bed": [
         "lib:mua_bed3",
         125
+      ],
+      "switch_fs": [
+        "lib:switch_fs",
+        1
+      ],
+      "bag_drop_fs": [
+        "lib:bag_drop_fs",
+        2
+      ],
+      "flood_flow_fs": [
+        "lib:flood_flow_fs",
+        20
+      ],
+      "stairs_fs": [
+        "lib:stairs_fs",
+        11
+      ],
+      "map_unfold_fs": [
+        "lib:map_unfold_fs",
+        2
+      ],
+      "wade_fs": [
+        "lib:wade_fs",
+        20
+      ],
+      "boat_row_fs": [
+        "lib:boat_row_fs",
+        20
       ]
     },
     "events": [
@@ -595,6 +623,63 @@
         0.45,
         "onset",
         null
+      ],
+      [
+        "S1",
+        "flood_flow_fs",
+        0.25,
+        "onset",
+        "S7"
+      ],
+      [
+        "S29",
+        "flood_flow_fs",
+        0.25,
+        "onset",
+        "S36"
+      ],
+      [
+        "S11",
+        "stairs_fs",
+        0.6,
+        "onset",
+        "S12"
+      ],
+      [
+        "S12+26",
+        "map_unfold_fs",
+        0.5
+      ],
+      [
+        "S26+20",
+        "switch_fs",
+        0.4
+      ],
+      [
+        "S27",
+        "stairs_fs",
+        0.6,
+        "onset",
+        "S28"
+      ],
+      [
+        "S31",
+        "wade_fs",
+        0.5,
+        "onset",
+        "S32"
+      ],
+      [
+        "S33",
+        "boat_row_fs",
+        0.6,
+        "onset",
+        "S34"
+      ],
+      [
+        "S36+34",
+        "bag_drop_fs",
+        0.45
       ]
     ],
     "music": {
