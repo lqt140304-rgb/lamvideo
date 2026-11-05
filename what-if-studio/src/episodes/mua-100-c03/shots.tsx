@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Hero, Pose, poseAt, kf, rnd, camT, LOOKS, joints, toWorld, makeRoom, RoomShell, Box, FloorShadow, stand,
-  AnHouse, YARD, Alley, alleyP, TownView, LivingRoom, Rain, Splashes, CloudBank, Foreground, Glow, LightVeil, Dust, FONT, ShotProps,
+  AnHouse, YARD, Alley, alleyP, TownView, LivingRoom, LIVING, Rain, Splashes, CloudBank, Foreground, Glow, LightVeil, Dust, FONT, ShotProps,
 } from '../../engine';
 import { live, P, talkAt, Back, HandTop, ShopFront } from '../mua-100-c01/shots';
 import { Seat } from '../mua-100-c02/shots';
@@ -670,15 +670,34 @@ export const S26: React.FC<ShotProps> = ({ t, len }) => {
   );
 };
 
-// ---------- S27: wide: the two of them carry blankets and papers up to the gác, the stair between ----------
+// ---------- S27: wide: the two of them carry blankets and papers towards the stair, on the clear floor between the cabinet and the low table ----------
 export const S27: React.FC<ShotProps> = ({ t, len }) => {
   const k = kf(t, [[0, 0], [len, 1]]);
+  const walker = (u: number, w: number, phase: number) => {
+    const at = stand(LIVING, u, w);
+    const swing = Math.sin(t * 0.42 + phase);
+    return { ...at, y: at.y - 5 * at.scale * Math.abs(swing), yaw: -0.8, look: -0.5, tilt: 4, expr: 'neutral' as const, legL: { a: 20 * swing, b: -14 }, legR: { a: -20 * swing, b: -14 }, armL: { a: 34, b: 58 }, armR: { a: -34, b: -58 } };
+  };
+  const aPose = P(walker(0.74 - 0.3 * k, 0.2, 0), t, 1);
+  const hPose = P(walker(0.96 - 0.3 * k, 0.26, 2), t, 3);
+  const held = (pose: typeof aPose) => {
+    const ja = joints(pose);
+    const h1 = toWorld(pose, ja.armL.end);
+    const h2 = toWorld(pose, ja.armR.end);
+    return { x: (h1.x + h2.x) / 2, y: Math.min(h1.y, h2.y) + 4 * pose.scale };
+  };
+  const a = held(aPose);
+  const h = held(hPose);
   return (
-    <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.1]]))}>
+    <g transform={camT(kf(t, [[0, 1040], [len, 900]]), 540, kf(t, [[0, 1.0], [len, 1.05]]))}>
       <LivingRoom id="c3s27" t={t + 20} lamp={0.8} day="7" dog />
-      <Hero look={AN} pose={P({ x: 640 + 520 * k, y: 600 - 30 * k, scale: 1.0, yaw: 0.8, facing: 1, look: 0.5, tilt: 5, expr: 'neutral', legL: { a: 22 * Math.sin(t * 0.5), b: -16 }, legR: { a: -22 * Math.sin(t * 0.5), b: -16 }, armL: { a: 26, b: 58 }, armR: { a: 30, b: 56 } }, t, 1)} rimId="filmL" shadow={0} />
-      <Bundle x={640 + 520 * k + 90} y={600 - 30 * k + 130} s={0.7} c="#B5604F" />
-      <Hero look={HANH} pose={P({ x: 340 + 520 * k, y: 640 - 30 * k, scale: 0.92, yaw: 0.8, facing: 1, look: 0.5, tilt: 4, expr: 'neutral', legL: { a: 22 * Math.sin(t * 0.5 + 2), b: -16 }, legR: { a: -22 * Math.sin(t * 0.5 + 2), b: -16 }, armL: { a: 14, b: 34 }, armR: { a: 30, b: 50 } }, t, 3)} rimId="filmR" shadow={0} />
+      <Hero look={HANH} pose={hPose} rimId="filmR" shadow={0} />
+      <g transform={`translate(${h.x} ${h.y})`}>
+        <rect x={-46 * hPose.scale} y={-24 * hPose.scale} width={92 * hPose.scale} height={24 * hPose.scale} rx={3} fill="#E8E0C8" stroke="#16141C" strokeWidth={3} />
+        <path d={`M ${-46 * hPose.scale} ${-12 * hPose.scale} h ${92 * hPose.scale}`} stroke="#9A927A" strokeWidth={3} />
+      </g>
+      <Hero look={AN} pose={aPose} rimId="filmL" shadow={0} />
+      <Bundle x={a.x} y={a.y} s={aPose.scale * 0.72} c="#B5604F" />
     </g>
   );
 };

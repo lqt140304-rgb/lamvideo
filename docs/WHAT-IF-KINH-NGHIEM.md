@@ -191,3 +191,9 @@ Sau khi sửa: `tsc`, render ảnh/lưới cho các cảnh trên, `plan` → `sf
 - Nắm tay áo: bốn ngón đè lên vải, ngón cái khuất sau vải (vẽ trước tay áo), thêm vài nếp vải căng về phía ngón.
 - Tay đứng cạnh nhau phải đúng tỉ lệ: tay trẻ nhỏ hơn tay người lớn. Cổ tay phải chui vào trong cổ áo, không để hở khe.
 - Soi cả khung đầu và khung cuối của shot, không chỉ ảnh storyboard: tay còn phải đúng khi chưa nắm hoặc đã buông.
+
+## Nhân vật đi trong phòng (cảnh 3, S27)
+
+- Không cho nhân vật đi bằng tọa độ x, y gõ tay: chân dễ giẫm lên bàn, tủ và lơ lửng trên tường. Dùng `stand(room, u, w)` và chọn đường đi qua khoảng sàn trống, đối chiếu với `u`, `w` của đồ đạc trong set.
+- Đồ mang theo phải lấy vị trí từ bàn tay (`joints`, `toWorld`), không cho nó trượt theo người ở sát sàn.
+- Nhân vật nhìn nghiêng mang đồ: hai tay cùng về phía trước, tay gần dùng `a`, `b` dương và tay xa dùng `a`, `b` âm (hoặc ngược lại tùy hướng). Cả hai cùng dương thì tay dang ra hai bên.
