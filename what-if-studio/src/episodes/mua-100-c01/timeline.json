@@ -2,7 +2,7 @@
  "slug": "mua-100-c01",
  "title": "CHUYỆN GÌ XẢY RA NẾU MƯA LIÊN TỤC 100 NGÀY?",
  "fps": 30,
- "total": 5047,
+ "total": 5048,
  "segments": [
   {
    "shot": "S1",
@@ -271,33 +271,33 @@
   {
    "shot": "S34",
    "a": 4587,
-   "b": 4642,
+   "b": 4644,
    "t0": 0,
-   "t1": 55,
+   "t1": 57,
    "line": ""
   },
   {
    "shot": "S35",
-   "a": 4642,
-   "b": 4829,
+   "a": 4644,
+   "b": 4830,
    "t0": 0,
-   "t1": 187,
+   "t1": 186,
    "line": "Cô bé gật đầu ngoan ngoãn rồi chạy vào bàn học, lấy bút đánh một dấu lên tờ lịch treo cạnh cửa sổ."
   },
   {
    "shot": "S36",
-   "a": 4829,
-   "b": 4890,
+   "a": 4830,
+   "b": 4892,
    "t0": 0,
-   "t1": 61,
+   "t1": 62,
    "line": "Ngày đầu tiên của mưa."
   },
   {
    "shot": "S37",
-   "a": 4890,
-   "b": 5047,
+   "a": 4892,
+   "b": 5048,
    "t0": 0,
-   "t1": 157,
+   "t1": 156,
    "line": "Không ai trong nhà biết rồi sẽ có thêm bao nhiêu dấu nữa."
   }
  ],
@@ -603,7 +603,7 @@
    "id": "S34",
    "size": "macro hold",
    "key": 30,
-   "len": 55,
+   "len": 57,
    "first": 4587,
    "line": "",
    "note": "Giọt nước chảy khỏi đáy chậu"
@@ -612,8 +612,8 @@
    "id": "S35",
    "size": "from wall",
    "key": 40,
-   "len": 187,
-   "first": 4642,
+   "len": 186,
+   "first": 4644,
    "line": "Cô bé gật đầu ngoan ngoãn rồi chạy vào bàn học, lấy bút đánh một dấu lên tờ lịch treo cạnh cửa sổ.",
    "note": "Từ tờ lịch nhìn lại: Linh chạy vào cầm bút"
   },
@@ -621,8 +621,8 @@
    "id": "S36",
    "size": "close-up",
    "key": 28,
-   "len": 61,
-   "first": 4829,
+   "len": 62,
+   "first": 4830,
    "line": "Ngày đầu tiên của mưa.",
    "note": "Đánh dấu tờ lịch"
   },
@@ -630,8 +630,8 @@
    "id": "S37",
    "size": "pull back wide",
    "key": 80,
-   "len": 157,
-   "first": 4890,
+   "len": 156,
+   "first": 4892,
    "line": "Không ai trong nhà biết rồi sẽ có thêm bao nhiêu dấu nữa.",
    "note": "Kéo lùi, tờ lịch nhỏ dần, trời sập tối"
   }

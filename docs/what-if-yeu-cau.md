@@ -25,6 +25,10 @@ thay cho dòng chủ đề. Chỉ có một dòng chủ đề thì Claude tự v
 7. Trước khi làm chuyển động: render storyboard (out/<slug>/storyboard.jpg), tự soi 11 điểm trong
    references/look.md, sửa lỗi, rồi DỪNG và cho tôi xem. Chờ tôi duyệt mới làm tiếp.
 8. Xong thì báo: độ dài, số cắt cảnh/phút, mức âm lượng (LUFS), đường dẫn file *-final.mp4, và những chỗ còn yếu.
+9. Commit và push lên nhánh hiện tại THƯỜNG XUYÊN, sau mỗi mốc việc (mỗi đợt sửa, trước khi gọi API tốn tiền,
+   trước khi render dài), để nếu hết hạn mức thì phiên sau vẫn làm tiếp được. Không commit `.env`/khóa.
+10. Đọc docs/WHAT-IF-KINH-NGHIEM.md trước khi làm. **Mỗi lần dựng hoặc sửa, ghi thêm kinh nghiệm rút ra vào file đó**
+    (lỗi gặp, cách sửa, mẹo) trước khi báo xong.
 9. Chỉ commit mã nguồn tập (what-if-studio/src/episodes/<slug>, what-if-studio/public/<slug>) lên nhánh hiện tại
    khi tôi bảo.
 

@@ -30,7 +30,7 @@ import asyncio, difflib, hashlib, json, os, re, subprocess, sys
 
 import numpy as np
 
-from wi import SR, decode, ep_dir, load_episode, load_json, log_cost, norm, out_dir, pub_dir, save_json, write_wav
+from wi import SR, apply_pads, decode, ep_dir, load_episode, load_json, log_cost, norm, out_dir, pub_dir, save_json, write_wav
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -139,7 +139,7 @@ def tokens(text):
 
 
 def sentences(text):
-    return [s.strip() for s in re.findall(r'[^.!?…]+[.!?…]*', text) if WORD.search(s)]
+    return [s.strip() for s in re.findall(r'[^.!?…]+[.!?…]*[”’"\']*', text) if WORD.search(s)]
 
 
 # ---------------------------------------------------------------- engines
@@ -217,11 +217,56 @@ def place(toks, x, t_off):
     return [dict(w, s=w['s'] + t_off, e=w['e'] + t_off) for w in out]
 
 
+def load_wav_16k(wav):
+    # decode ourselves: faster-whisper's decoder (PyAV) breaks on some PyAV versions
+    import wave
+    import numpy as np
+    with wave.open(str(wav)) as w:
+        sr, ch, raw = w.getframerate(), w.getnchannels(), w.readframes(w.getnframes())
+    x = np.frombuffer(raw, dtype='<i2').astype('float32') / 32768.0
+    if ch > 1:
+        x = x.reshape(-1, ch).mean(axis=1)
+    n = int(len(x) * 16000 / sr)
+    return np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x).astype('float32')
+
+
+def fix_order(words):
+    """Whisper sometimes matches a word to the wrong place (a repeated syllable): its time jumps back before its
+    neighbour's. Such words would cut the picture early, so re-place each one between the good words around it."""
+    n = len(words)
+    good = [True] * n
+    for i in range(n):
+        lo = words[i - 1]['s'] if i > 0 else -1e9
+        hi = words[i + 1]['s'] if i + 1 < n else 1e9
+        if not (lo <= words[i]['s'] <= hi) or words[i]['e'] < words[i]['s']:
+            good[i] = False
+    i, fixed = 0, 0
+    while i < n:
+        if good[i]:
+            i += 1
+            continue
+        j = i
+        while j < n and not good[j]:
+            j += 1
+        t0 = words[i - 1]['e'] if i > 0 else 0.0
+        t1 = words[j]['s'] if j < n else t0 + 0.3 * (j - i)
+        step = max(0.0, t1 - t0) / (j - i)
+        for k in range(i, j):
+            words[k]['s'] = round(t0 + step * (k - i), 3)
+            words[k]['e'] = round(t0 + step * (k - i + 1), 3)
+            fixed += 1
+        i = j
+    if fixed:
+        print(f'fixed {fixed} out-of-order word times')
+    return words
+
+
 def whisper_align(wav, words):
     """Re-time words from the audio with faster-whisper; words it doesn't match keep their estimate."""
     from faster_whisper import WhisperModel
-    model = WhisperModel(V['whisper_model'], device='auto', compute_type='int8')
-    segs, _ = model.transcribe(str(wav), language=V['lang'], word_timestamps=True, vad_filter=False)
+    ensure_hf_cache()  # when every take was cached, VieNeu never loaded, so the cache fallback hasn't run yet
+    model =WhisperModel(V['whisper_model'], device='cpu', compute_type='int8')  # 'auto' picks CUDA, which fails when cublas is missing
+    segs, _ = model.transcribe(load_wav_16k(wav), language=V['lang'], word_timestamps=True, vad_filter=False)
     hw = []
     for s in segs:
         for w in s.words:
@@ -295,7 +340,7 @@ if force or meta.get('sig') != sig or not raw_wav.exists() or not raw_words.exis
     if use_whisper:
         if not have_whisper():
             raise SystemExit('align "whisper" needs faster-whisper: pip install faster-whisper')
-        words = whisper_align(raw_wav, words)
+        words = fix_order(whisper_align(raw_wav, words))
     else:
         print('word timings from the takes and syllables (pip install faster-whisper for timings read from the audio)')
     for w in words:
@@ -349,7 +394,6 @@ for i, part in enumerate(parts):
         part[-fade:] *= np.linspace(1, 0, fade)
     parts[i] = part
 y = np.concatenate(parts)
-write_wav(pub / 'voice.wav', y)
 
 
 def shift(t):
@@ -357,6 +401,12 @@ def shift(t):
 
 
 out = [{'w': w['w'], 's': round(shift(w['s']), 3), 'e': round(shift(w['e']), 3), 'p': w.get('p', '')} for w in words]
+
+# "pads": room for the picture to breathe (scene changes, a title card, an opening held on a sound)
+y, padded = apply_pads(y, out, ep.get('pads'))
+write_wav(pub / 'voice.wav', y)
 save_json(ep_dir(slug) / 'words.json', out)
+if padded:
+    print(f'Padded pauses: +{padded:.2f} s')
 print(f'Tightened {len(cuts)} pauses, removed {sum(e - s for s, e in cuts):.2f} s: {len(x) / SR:.2f} s -> {len(y) / SR:.2f} s')
 print(' '.join(f"{w['w']}@{w['s']}" for w in out))

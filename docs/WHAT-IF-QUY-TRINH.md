@@ -37,8 +37,36 @@ Vị trí: skill ở `.claude/skills/what-if-animation/` (Claude Code tự nhậ
    → **gửi bạn xem storyboard** → làm chuyển động → tiếng động → master −14 LUFS.
 5. Bạn xem `what-if-studio/out/<slug>/<slug>-final.mp4`, gửi góp ý; kiểm tra lại nguồn số liệu trước khi đăng.
 
-Chạy tay từng bước (trong repo): `tools\what-if.bat voice <slug>`, `plan`, `stills`, `board`, `sfx`, `mixcheck`,
-`motiongrid`, `master`.
+Chạy tay từng bước (trong repo): `tools\what-if.bat voice <slug>`, `plan`, `stills`, `board`, `sheets` (ghép trang
+3×3 để xem storyboard), `sfx`, `mixcheck`, `motiongrid`, `master`, `review` (rà bản phim: 3 khung mỗi đoạn + chữ
+được đọc trong đoạn).
+
+**Ghi kinh nghiệm:** sau mỗi lần dựng hoặc sửa tập, Claude ghi bài học vào `docs/WHAT-IF-KINH-NGHIEM.md` (lỗi gặp,
+cách sửa, mẹo) và đọc lại file đó trước khi làm tập mới. Mỗi tập có `what-if-studio/src/episodes/<slug>/README.md`
+ghi trạng thái, việc còn lại và cách dựng lại.
+
+**Commit/push thường xuyên** lên nhánh đang làm (sau mỗi mốc việc), để hết hạn mức thì phiên sau làm tiếp được.
+Không commit `.env`/khóa.
+
+**Mỗi tập một thư mục riêng, video chỉ lưu trên máy:**
+- Trong studio: mọi file tạm của tập nằm trong `what-if-studio/out/<slug>/` (ảnh storyboard, lưới chuyển động, trang
+  rà phim, `models/` mẫu nhân vật, `cast.png`). Không để file của tập nào ở thẳng `out/`.
+- Thành phẩm: `master` tự chép video, bản xem thử 720p, `report.json`, `storyboard.jpg`, `shotlist.md` sang
+  **`D:\lamvideo-xuat\what-if\<slug>\`** (ngoài repo; đổi gốc bằng biến `WHATIF_EXPORT_DIR`). Thư mục `out/` trong
+  một worktree sẽ mất khi worktree bị dọn, nên luôn lấy video ở thư mục xuất này.
+- `.gitignore` chặn `*.mp4`, `*.mov`, `*.mkv` và `.env` trên toàn repo: video và khóa không bao giờ lên GitHub.
+
+### Tập dài (vài phút) và giọng ngoài
+- Skill gốc làm tập 15–25 s; tập dài hơn (ví dụ `tua-lai-10-giay`, ~3 phút, 76 cảnh) dùng thêm `"pads"` trong
+  `episode.json` để chèn khoảng lặng (giữa cảnh, tiêu đề), vì `gaps` chỉ rút ngắn khoảng lặng.
+- Giọng ElevenLabs bằng gói Free: API không dùng được giọng thư viện (lỗi 402). Tạo trên web với lời ở
+  `public/<slug>/loi-doc.txt`, lưu mp3 thành `public/<slug>/voice_in.mp3`, đặt `"voice": {"engine": "file"}`. Model có
+  tiếng Việt: Turbo/Flash v2.5 hoặc v4 (Multilingual v2 không có tiếng Việt). Tìm mã giọng (khi có khóa):
+  `python .claude/skills/what-if-animation/scripts/voice_elevenlabs.py --find "<tên giọng>"` (chạy trong `what-if-studio`).
+- Khóa ElevenLabs: file `D:\.env` (ngoài repo), dòng `ELEVENLABS_API_KEY=...`; khóa cần quyền Text to Speech,
+  Voices Read, User Read, History Read.
+- Mẫu nhân vật trước storyboard: `npx remotion still src/index.ts Model-<id> out/<slug>/models/<id>.png` và
+  `Expressions` (lưu trong thư mục của tập).
 
 ## Quy trình 8 bước và thông số đo được (từ skill)
 

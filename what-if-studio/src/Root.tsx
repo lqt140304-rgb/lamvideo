@@ -4,6 +4,7 @@ import './engine/fonts';
 import { STUDIO } from './studio.config';
 import { EPISODES } from './episodes';
 import { CastSheet } from './CastSheet';
+import { ModelSheet, Expressions, MODEL_CAST, SHEET_H } from './ModelSheet';
 
 // Every episode gets two compositions: <Id> (the film) and <Id>Board (one frame per shot, at its key frame, for the
 // storyboard). Cast renders the cast sheet.
@@ -20,6 +21,10 @@ export const Root: React.FC = () => {
         </React.Fragment>
       ))}
       <Composition id="Cast" component={CastSheet} durationInFrames={1} {...common} />
+      {MODEL_CAST.map((c) => (
+        <Composition key={c.id} id={`Model-${c.id}`} component={() => <ModelSheet id={c.id} />} durationInFrames={1} {...common} />
+      ))}
+      <Composition id="Expressions" component={Expressions} durationInFrames={1} width={1920} height={SHEET_H} fps={STUDIO.fps} />
     </>
   );
 };

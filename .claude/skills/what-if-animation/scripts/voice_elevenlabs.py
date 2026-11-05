@@ -10,7 +10,6 @@ gaps is free.
 episode.json "voice" (all optional): {"id": "HXqqNj3PDxRdHVH1pXog", "model": "eleven_v4", "lang": "vi", "settings": {}}
   Trung Lê Quốc on Eleven v4 (multilingual_v2 doesn't list Vietnamese). Empty settings use the voice's own; v4 takes only
   stability and similarity_boost. Audio tags like [warmly] go to the model but never become words.
-A script entry can carry "pause": seconds of silence added after its last word (the script's [NGHỈ x giây]).
 episode.json "gaps" (seconds, all optional): {"word": 0.12, "comma": 0.2, "sentence": 0.3, "question": 0.45,
   "pairs": {"anything|One": 0.6}}  -> every pause longer than its limit is cut to the limit, from its middle.
 """
@@ -18,7 +17,20 @@ import base64, hashlib, json, re, sys, time, unicodedata
 
 import numpy as np
 
-from wi import SR, api, spent_since, decode, ep_dir, load_episode, load_json, log_cost, out_dir, pub_dir, save_json, write_wav
+from wi import SR, api, apply_pads, spent_since, decode, ep_dir, load_episode, load_json, log_cost, out_dir, pub_dir, save_json, write_wav
+
+if sys.argv[1] == '--find':
+    # python voice_elevenlabs.py --find "Viết Linh": the voice's id, from your own voices and the shared library
+    import urllib.parse
+    q = sys.argv[2]
+    mine = json.loads(api('/v1/voices'))['voices']
+    for v in mine:
+        if q.lower() in v['name'].lower():
+            print(f"yours   {v['voice_id']}  {v['name']}")
+    shared = json.loads(api('/v1/shared-voices?page_size=20&search=' + urllib.parse.quote(q)))['voices']
+    for v in shared:
+        print(f"library {v['voice_id']}  {v['name']}  ({v.get('language', '')}, {v.get('accent', '')})")
+    sys.exit(0)
 
 slug = sys.argv[1]
 force = '--force' in sys.argv
@@ -34,7 +46,12 @@ meta = load_json(out_dir(slug) / 'voice_meta.json', {})
 if force or meta.get('sig') != sig or not raw_mp3.exists() or not raw_words.exists():
     print(f'{len(text)} characters to ElevenLabs (voice {V["id"]})')
     t0 = time.time()
-    res = json.loads(api(f'/v1/text-to-speech/{V["id"]}/with-timestamps?output_format=mp3_44100_128', {'text': text, 'model_id': V['model'], 'language_code': V['lang'], **({'voice_settings': V['settings']} if V['settings'] else {})}))
+    body = {'text': text, 'model_id': V['model']}
+    if V['settings']:
+        body['voice_settings'] = V['settings']
+    if V.get('lang') or V.get('language'):
+        body['language_code'] = V.get('lang') or V.get('language')
+    res = json.loads(api(f'/v1/text-to-speech/{V["id"]}/with-timestamps?output_format=mp3_44100_128', body))
     raw_mp3.write_bytes(base64.b64decode(res['audio_base64']))
     al = res['alignment']
     words, cur, in_tag = [], None, False
@@ -116,21 +133,10 @@ def shift(t):
 
 
 out = [{'w': w['w'], 's': round(shift(w['s']), 3), 'e': round(shift(w['e']), 3), 'p': w.get('p', '')} for w in words]
-# the script's held silences: each beat's "pause" goes in after its last word, pushing everything later along
-n, pieces, last = 0, [], 0
-for b in ep['script']:
-    n += len(re.findall(r"[\w'’]+", re.sub(r'\[[^\]]*\]', ' ', unicodedata.normalize('NFC', b['text']))))
-    if b.get('pause'):
-        if n > len(out):
-            raise SystemExit(f'Beat ending at word {n} is past the {len(out)} words the model returned')
-        cut = int((out[n - 1]['e'] + 0.15) * SR)
-        pieces += [y[last:cut], np.zeros(int(b['pause'] * SR), dtype=y.dtype)]
-        last = cut
-        for w in out[n:]:
-            w['s'] = round(w['s'] + b['pause'], 3)
-            w['e'] = round(w['e'] + b['pause'], 3)
-y = np.concatenate(pieces + [y[last:]])
+y, padded = apply_pads(y, out, ep.get('pads'))  # same "pads" as the free engines, so the edit keeps its breathing room
 write_wav(pub_dir(slug) / 'voice.wav', y)
 save_json(ep_dir(slug) / 'words.json', out)
+if padded:
+    print(f'Padded pauses: +{padded:.2f} s')
 print(f'Tightened {len(cuts)} pauses, removed {sum(e - s for s, e in cuts):.2f} s: {len(x) / SR:.2f} s -> {len(y) / SR:.2f} s')
 print(' '.join(f"{w['w']}@{w['s']}" for w in out))

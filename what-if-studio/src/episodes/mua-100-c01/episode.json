@@ -29,8 +29,7 @@
     },
     {
       "beat": "p02",
-      "text": "Rồi từ phía xa, từng đợt mây đen kéo tới. Lớp này nối lớp khác, phủ kín khoảng trời trên những mái nhà. Đứng ở đầu hẻm, nhìn về phía bến sông hay quay lại dãy núi sau thị trấn, người ta cũng chỉ thấy một màu xám sẫm kéo dài, không ai nhìn thấy điểm cuối.",
-      "pause": 2
+      "text": "Rồi từ phía xa, từng đợt mây đen kéo tới. Lớp này nối lớp khác, phủ kín khoảng trời trên những mái nhà. Đứng ở đầu hẻm, nhìn về phía bến sông hay quay lại dãy núi sau thị trấn, người ta cũng chỉ thấy một màu xám sẫm kéo dài, không ai nhìn thấy điểm cuối."
     },
     {
       "beat": "p03",
@@ -82,8 +81,7 @@
     },
     {
       "beat": "p15",
-      "text": "Linh quay vào: “Dạ, bố con đang cho cây uống nước!”",
-      "pause": 1.5
+      "text": "Linh quay vào: “Dạ, bố con đang cho cây uống nước!”"
     },
     {
       "beat": "p16",
@@ -91,8 +89,7 @@
     },
     {
       "beat": "p17",
-      "text": "Không ai trong nhà biết rồi sẽ có thêm bao nhiêu dấu nữa.",
-      "pause": 2
+      "text": "Không ai trong nhà biết rồi sẽ có thêm bao nhiêu dấu nữa."
     }
   ],
   "shots": [
@@ -507,5 +504,9 @@
     }
   ],
   "lead": 2,
-  "tail": 2.1
+  "tail": 2.1,
+  "pads": {
+    "cuối|Gió": 2.6,
+    "nước|Cô": 2.1
+  }
 }
