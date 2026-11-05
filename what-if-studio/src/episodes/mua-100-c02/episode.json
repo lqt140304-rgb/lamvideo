@@ -1,0 +1,71 @@
+{
+  "id": "Mua100C02",
+  "slug": "mua-100-c02",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 2: Ngày 3, quần áo chưa kịp khô",
+  "title": [
+    "Ngày 3",
+    "Quần áo chưa kịp khô"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "khác|Tối": 2.1
+  },
+  "tail": 2.1,
+  "science": [
+    {
+      "claim": "Giả định hư cấu, không phải dự báo. Mốc nước ngày 3: khoảng 0,10 m ở mặt hẻm (bảng mực nước trong bản dựng)."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "Sang ngày thứ ba, An và Linh vẫn ngồi ở bộ bàn ghế gần cửa. Cốc trà trên bàn còn ấm, nhưng quần áo phơi dọc mái hiên thì chưa có cái nào khô. Hạnh chuyển chiếc quạt ra hong đồng phục cho con. Mùi áo ẩm bắt đầu lẫn vào mùi trà."
+    },
+    {
+      "beat": "p02",
+      "text": "Bản tin nói những đợt mưa nối tiếp nhau, liên tục đưa hơi ẩm về vùng này. Cơn trước chưa qua, cơn sau đã tới."
+    },
+    {
+      "beat": "p03",
+      "text": "An vặn nhỏ radio, chuyển đôi giày của con lên chiếc kệ cao hơn."
+    },
+    {
+      "beat": "p04",
+      "text": "Hạnh cầm chiếc áo đồng phục còn ẩm. [worried] “Nếu mai vẫn chưa khô thì con mặc áo khác nhé. Mặc áo ẩm ngồi cả buổi khó chịu lắm.”"
+    },
+    {
+      "beat": "p05",
+      "text": "Linh nhìn bố: [curious] “Nhưng mai con có đi học được không?”"
+    },
+    {
+      "beat": "p06",
+      "text": "[thoughtful] “Bố chưa biết. Mình chờ cô báo đường có đi được không đã. Nếu nghỉ, bố giúp con làm nốt bài ở nhà.”"
+    },
+    {
+      "beat": "p07",
+      "text": "[playful] “Bố nhớ đừng giải nhanh quá. Hôm trước con chưa kịp hiểu mà bố đã sang câu khác rồi.”"
+    },
+    {
+      "beat": "p08",
+      "text": "“Ừ, lần này con hiểu rồi bố mới sang câu khác.”"
+    },
+    {
+      "beat": "p09",
+      "text": "Tối ấy, nước trong hẻm đọng sâu chừng một gang tay nhỏ. Trước quầy bà Sáu, nó đã ngập hết chân chiếc ghế thấp bà dùng kê hàng. Nước chưa tới hiên nhà An. Trong bếp, Hạnh đặt một chiếc chậu dưới chỗ mái bắt đầu dột. Anh vừa lau khô bậc cửa thì một đợt mưa mới lại bắt đầu."
+    },
+    {
+      "beat": "p10",
+      "text": "Linh kéo chiếc ghế nhỏ vào trong. Lần này, cô không chìa tay ra hứng nước nữa."
+    }
+  ]
+}
