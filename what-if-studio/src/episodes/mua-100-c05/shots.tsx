@@ -975,7 +975,7 @@ export const S47: React.FC<ShotProps> = ({ t, len }) => {
   const h1 = hand(lPose, 'armL');
   const h2 = hand(lPose, 'armR');
   return (
-    <g transform={camT(kf(t, [[0, 960], [len, 720]]), kf(t, [[0, 560], [len, 500]]), kf(t, [[0, 1.2], [len, 2.1]]))}>
+    <g transform={camT(kf(t, [[0, 900], [len, 760]]), kf(t, [[0, 600], [len, 620]]), kf(t, [[0, 1.2], [len, 1.9]]))}>
       <Shelter t={t} id="c5s47" />
       <polygon points={SH.Q([[0.08, 1, 0.6], [0.3, 1, 0.6], [0.3, 1, 0.86], [0.08, 1, 0.86]])} fill="#B5604F" stroke={L} strokeWidth={3} />
       <Hero look={AN} pose={P({ x: a.x, y: SH.P(0.12, 1, 0.7).y - 70 * a.scale, scale: a.scale, yaw: 0.3, look: 0.3, expr: 'neutral', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />

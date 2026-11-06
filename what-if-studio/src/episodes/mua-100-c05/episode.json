@@ -624,5 +624,277 @@
       "shot": "S47",
       "at": "Linh"
     }
-  ]
+  ],
+  "sound": {
+    "clips": {
+      "rain_porch_fs": [
+        "lib:rain_porch_fs",
+        10
+      ],
+      "rain_indoor_fs": [
+        "lib:rain_indoor_fs",
+        10
+      ],
+      "rain_tin_fs": [
+        "lib:rain_tin_fs",
+        10
+      ],
+      "flood_flow_fs": [
+        "lib:flood_flow_fs",
+        20
+      ],
+      "drips_fs": [
+        "lib:drips_fs",
+        10
+      ],
+      "bubbles_uw": [
+        "underwater bubbles gurgling, muffled blub blub blub, heard from under murky flood water, close hydrophone, no music",
+        12
+      ],
+      "engine_van": [
+        "old minibus engine idling, low steady rumble heard from inside the vehicle, slight vibration, rain on the roof far away, no music",
+        20
+      ],
+      "storm_wind": [
+        "lib:storm_wind",
+        10
+      ],
+      "tarp_pull": [
+        "lib:tarp_pull",
+        3
+      ],
+      "tumble": [
+        "lib:tumble",
+        4
+      ],
+      "thunder_far_fs": [
+        "lib:thunder_far_fs",
+        15
+      ],
+      "radio_static_fs": [
+        "lib:radio_static_fs",
+        10
+      ],
+      "bag_drop_fs": [
+        "lib:bag_drop_fs",
+        2
+      ],
+      "tape_fs": [
+        "lib:tape_fs",
+        5
+      ],
+      "wade_fs": [
+        "lib:wade_fs",
+        20
+      ],
+      "music_bed": [
+        "lib:mua_bed5",
+        160
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S4"
+      ],
+      [
+        "S1",
+        "flood_flow_fs",
+        0.12,
+        "onset",
+        "S4"
+      ],
+      [
+        "S2",
+        "drips_fs",
+        0.3,
+        "onset",
+        "S3"
+      ],
+      [
+        "S4",
+        "rain_porch_fs",
+        0.6,
+        "onset",
+        "S5"
+      ],
+      [
+        "S4",
+        "flood_flow_fs",
+        0.25,
+        "onset",
+        "S5"
+      ],
+      [
+        "S5",
+        "bubbles_uw",
+        1.0,
+        "onset",
+        "S6"
+      ],
+      [
+        "S6",
+        "rain_porch_fs",
+        0.55,
+        "onset",
+        "S22"
+      ],
+      [
+        "S6",
+        "engine_van",
+        0.35,
+        "onset",
+        "S22"
+      ],
+      [
+        "S6",
+        "flood_flow_fs",
+        0.15,
+        "onset",
+        "S22"
+      ],
+      [
+        "S10",
+        "storm_wind",
+        0.55,
+        "onset",
+        "S12"
+      ],
+      [
+        "S11+42",
+        "tarp_pull",
+        0.4
+      ],
+      [
+        "S22",
+        "rain_porch_fs",
+        0.4,
+        "onset",
+        "S25"
+      ],
+      [
+        "S24+4",
+        "tumble",
+        0.7
+      ],
+      [
+        "S24+4",
+        "thunder_far_fs",
+        0.3
+      ],
+      [
+        "S25",
+        "rain_porch_fs",
+        0.5,
+        "onset",
+        "S26"
+      ],
+      [
+        "S25",
+        "engine_van",
+        0.3,
+        "onset",
+        "S26"
+      ],
+      [
+        "S25",
+        "radio_static_fs",
+        0.3,
+        "onset",
+        "S26"
+      ],
+      [
+        "S26",
+        "rain_tin_fs",
+        0.55,
+        "onset",
+        "S29"
+      ],
+      [
+        "S26",
+        "engine_van",
+        0.3,
+        "onset",
+        "S29"
+      ],
+      [
+        "S29",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S30"
+      ],
+      [
+        "S29",
+        "flood_flow_fs",
+        0.15,
+        "onset",
+        "S30"
+      ],
+      [
+        "S29",
+        "drips_fs",
+        0.4,
+        "onset",
+        "S30"
+      ],
+      [
+        "S30",
+        "rain_tin_fs",
+        0.55,
+        "onset",
+        "S43"
+      ],
+      [
+        "S30",
+        "engine_van",
+        0.3,
+        "onset",
+        "S43"
+      ],
+      [
+        "S43",
+        "rain_porch_fs",
+        0.55,
+        "onset",
+        "S45"
+      ],
+      [
+        "S43",
+        "engine_van",
+        0.2,
+        "onset",
+        "S44"
+      ],
+      [
+        "S45",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        null
+      ],
+      [
+        "S46+6",
+        "tarp_pull",
+        0.4
+      ],
+      [
+        "S47+70",
+        "tape_fs",
+        0.4
+      ]
+    ],
+    "music": {
+      "clip": "music_bed",
+      "from": "S2",
+      "until": "S47"
+    },
+    "levels": {
+      "sfx_lu": -13,
+      "music_lu": -14.5
+    }
+  }
 }
