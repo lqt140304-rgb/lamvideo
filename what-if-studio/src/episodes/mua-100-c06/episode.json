@@ -1,0 +1,406 @@
+{
+  "id": "Mua100C06",
+  "slug": "mua-100-c06",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 6: Ngày 40, nước khắp nơi mà thiếu nước sạch",
+  "title": [
+    "Ngày 40",
+    "Nước khắp nơi, thiếu nước sạch"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "bồn|Linh": 1.5
+  },
+  "tail": 1.8,
+  "science": [
+    {
+      "claim": "Giả định hư cấu. Ngày 40: các tuần ở trường có đợt nước lên khoảng 1,05 m ở mốc hẻm, trong nhà An khoảng 0,45 m (vừa quá mặt ghế thấp); sân trường ở +2,0 m vẫn khô. Trạm cấp nước dưới phố ngừng vì ngập; nước uống từ bồn đã xử lý của tổ cấp nước tạm, hàng tiếp tế đến theo đợt, không vô hạn."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "Đến ngày thứ bốn mươi, ba người đã quen với góc lớp sát cửa sổ ở trường tạm trú. Ở phía thị trấn thấp, đội cứu hộ báo nước đã vượt mặt ghế của những nhà cùng dãy với nhà An. Còn sân trường trên nền cao vẫn khô. Túi đồ xếp sát tường, chăn được gấp lại mỗi sáng. Bên kia lối đi là chiếu của bà Sáu và Nam. Ngoài hành lang, con chó nằm trong khu dành cho vật nuôi, nơi Hạnh có thể trông thấy."
+    },
+    {
+      "beat": "p02",
+      "text": "Ai cũng nghe tiếng nước. Vậy mà mỗi lần lấy nước uống, họ vẫn phải xếp hàng ngoài sân. Trạm cấp nước dưới phố đã ngừng hoạt động vì ngập."
+    },
+    {
+      "beat": "p03",
+      "text": "An phụ tổ cấp nước tạm, đánh dấu những bồn đã xử lý. Hàng tiếp tế đến theo từng đợt. Những hôm xe chậm, anh kiểm đi kiểm lại lượng còn trong bồn."
+    },
+    {
+      "beat": "p04",
+      "text": "Linh và Nam phụ đánh dấu những can đã giao. Hạnh cùng mấy người lớn chia phần ăn ở gian bếp tạm cuối dãy. Đến giờ chăm chó, Linh vừa đặt chiếc bát rỗng xuống hành lang thì nó húc bát lăn cả một đoạn."
+    },
+    {
+      "beat": "p05",
+      "text": "[playful] “Chưa đến lượt mày mà!”"
+    },
+    {
+      "beat": "p06",
+      "text": "Nam chặn chiếc bát bằng chân. “Chắc nó tưởng cậu quên phần của nó.”"
+    },
+    {
+      "beat": "p07",
+      "text": "Linh ôm bát trở lại. [playful] “Tớ còn chưa ăn, quên nó thế nào được!”"
+    },
+    {
+      "beat": "p08",
+      "text": "Hạnh từ bếp đưa ra hai phần cơm. [warmly] “Vậy hai đứa ăn đi đã. Rồi mẹ đưa phần của nó, đừng lấy đồ của mình chia lung tung nhé.”"
+    },
+    {
+      "beat": "p09",
+      "text": "Một vài người bật cười. An kê chiếc bát vào góc ít bị đá trúng rồi ngồi xuống cạnh hai đứa."
+    },
+    {
+      "beat": "p10",
+      "text": "[curious] “Sáng nay hai đứa đánh dấu được mấy can rồi?”"
+    },
+    {
+      "beat": "p11",
+      "text": "Nam giơ hai bàn tay, nhìn Linh xin giúp. Cô bé nhắc ngay: “Mười hai. Nhưng Nam đếm trùng một cái, nên tụi con kiểm lại rồi.”"
+    },
+    {
+      "beat": "p12",
+      "text": "[warmly] “Kiểm lại là đúng rồi. Ăn xong bố xem sổ cùng hai đứa.”"
+    },
+    {
+      "beat": "p13",
+      "text": "Rồi anh trở lại bảng ghi. Nước sạch còn bao nhiêu, chuyến hàng sau đã xác nhận hay chưa. Những câu hỏi nhỏ ấy phải được trả lời mỗi ngày, bất kể ngoài trời còn mưa bao lâu."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S2",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S3",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S4",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S5",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S6",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S7",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S8",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S9",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S10",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S11",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S12",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S13",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S14",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S15",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S16",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S17",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S18",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S19",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S20",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S21",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S22",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S23",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S24",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S25",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S26",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S27",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S28",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S29",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "Đến"
+    },
+    {
+      "shot": "S2",
+      "at": "Ở#2"
+    },
+    {
+      "shot": "S3",
+      "at": "Còn"
+    },
+    {
+      "shot": "S4",
+      "at": "Túi"
+    },
+    {
+      "shot": "S5",
+      "at": "Bên"
+    },
+    {
+      "shot": "S6",
+      "at": "Ngoài"
+    },
+    {
+      "shot": "S7",
+      "at": "Ai"
+    },
+    {
+      "shot": "S8",
+      "at": "Vậy"
+    },
+    {
+      "shot": "S9",
+      "at": "Trạm"
+    },
+    {
+      "shot": "S10",
+      "at": "An"
+    },
+    {
+      "shot": "S11",
+      "at": "Hàng"
+    },
+    {
+      "shot": "S12",
+      "at": "Những"
+    },
+    {
+      "shot": "S13",
+      "at": "Linh"
+    },
+    {
+      "shot": "S14",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S15",
+      "at": "Đến"
+    },
+    {
+      "shot": "S16",
+      "at": "Chưa"
+    },
+    {
+      "shot": "S17",
+      "at": "Nam"
+    },
+    {
+      "shot": "S18",
+      "at": "Chắc"
+    },
+    {
+      "shot": "S19",
+      "at": "Linh"
+    },
+    {
+      "shot": "S20",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S21",
+      "at": "Một"
+    },
+    {
+      "shot": "S22",
+      "at": "An"
+    },
+    {
+      "shot": "S23",
+      "at": "Sáng"
+    },
+    {
+      "shot": "S24",
+      "at": "Nam"
+    },
+    {
+      "shot": "S25",
+      "at": "Cô"
+    },
+    {
+      "shot": "S26",
+      "at": "Kiểm#2"
+    },
+    {
+      "shot": "S27",
+      "at": "Rồi#2"
+    },
+    {
+      "shot": "S28",
+      "at": "Nước"
+    },
+    {
+      "shot": "S29",
+      "at": "Những"
+    }
+  ]
+}

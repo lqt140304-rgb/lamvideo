@@ -21,18 +21,18 @@ const RESCUE = { ...LOOKS.workerHat, skin: '#D9A880', skinShade: '#C08E66', hand
 const COORD = LOOKS.chu;
 const L = '#16141C';
 const WATER = '#5E6E70';
-const onFloor = (floor: number, scale: number) => floor - LEG_LEN * scale;
+export const onFloor = (floor: number, scale: number) => floor - LEG_LEN * scale;
 const hand = (pose: ReturnType<typeof P>, side: 'armL' | 'armR') => toWorld(pose, joints(pose)[side].end);
 
 // ================================================================ camera feeling
 /** Handheld: a small irregular drift, `a` pixels; strong only in the tense beats. */
-const shakeT = (t: number, a: number) => `translate(${a * (Math.sin(t * 1.7) + 0.6 * Math.sin(t * 3.1 + 1))} ${a * (Math.cos(t * 1.3) + 0.5 * Math.sin(t * 2.7))})`;
+export const shakeT = (t: number, a: number) => `translate(${a * (Math.sin(t * 1.7) + 0.6 * Math.sin(t * 3.1 + 1))} ${a * (Math.cos(t * 1.3) + 0.5 * Math.sin(t * 2.7))})`;
 /** Wraps a shot: handheld shake `a` px and a Dutch tilt `tilt` degrees about the frame centre. */
-const Tense: React.FC<{ t: number; a?: number; tilt?: number; children: React.ReactNode }> = ({ t, a = 0, tilt = 0, children }) => (
+export const Tense: React.FC<{ t: number; a?: number; tilt?: number; children: React.ReactNode }> = ({ t, a = 0, tilt = 0, children }) => (
   <g transform={`${shakeT(t, a)} rotate(${tilt} 960 540)`}>{children}</g>
 );
 /** Darkens the frame's edges so the eye goes to the middle; `o` 0..1. */
-const Vignette: React.FC<{ o?: number; id: string }> = ({ o = 0.5, id }) => (
+export const Vignette: React.FC<{ o?: number; id: string }> = ({ o = 0.5, id }) => (
   <g>
     <defs>
       <radialGradient id={`${id}vg`} cx="50%" cy="50%" r="70%">
@@ -44,7 +44,7 @@ const Vignette: React.FC<{ o?: number; id: string }> = ({ o = 0.5, id }) => (
   </g>
 );
 /** Rain on the lens: soft drops in front of everything, for depth. */
-const LensRain: React.FC<{ t: number; n?: number; seed?: number }> = ({ t, n = 14, seed = 1 }) => (
+export const LensRain: React.FC<{ t: number; n?: number; seed?: number }> = ({ t, n = 14, seed = 1 }) => (
   <Foreground blur={6}>
     {Array.from({ length: n }).map((_, i) => {
       const y = (rnd(seed, i) * 1300 + t * (0.6 + rnd(seed + 1, i))) % 1300 - 100;
@@ -53,7 +53,7 @@ const LensRain: React.FC<{ t: number; n?: number; seed?: number }> = ({ t, n = 1
   </Foreground>
 );
 /** A soft dark shape at the frame's edge, nearer than anything: a post, a wall end. */
-const NearEdge: React.FC<{ side: 1 | -1; w?: number; c?: string }> = ({ side, w = 260, c = '#1E2024' }) => (
+export const NearEdge: React.FC<{ side: 1 | -1; w?: number; c?: string }> = ({ side, w = 260, c = '#1E2024' }) => (
   <Foreground blur={10}>
     <rect x={side < 0 ? -60 : 1920 - w + 60} y={-100} width={w} height={1300} fill={c} opacity={0.92} />
   </Foreground>
@@ -72,7 +72,7 @@ const Boat: React.FC<{ x: number; y: number; s?: number; children?: React.ReactN
 );
 
 /** The rescue van, side-on, facing right, its wheels on the road at y. */
-const Van: React.FC<{ x: number; y: number; s?: number; t?: number; wipe?: boolean }> = ({ x, y, s = 1, t = 0, wipe = false }) => (
+export const Van: React.FC<{ x: number; y: number; s?: number; t?: number; wipe?: boolean }> = ({ x, y, s = 1, t = 0, wipe = false }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <ellipse cx={0} cy={6} rx={400} ry={20} fill="#000" opacity={0.35} />
     <path d="M -380 -60 L -380 -330 Q -380 -350 -360 -350 L 200 -350 Q 260 -350 300 -280 L 380 -180 L 390 -60 Z" fill="#E8E6DE" stroke={L} strokeWidth={6} strokeLinejoin="round" />
@@ -180,7 +180,7 @@ const VanIn: React.FC<{ t: number; id: string; roofs?: number }> = ({ t, id, roo
 };
 
 /** The school on its open platform: the long single-storey block with its corridor, the yard, the flagpole. */
-const School: React.FC<{ t: number; van?: number }> = ({ t, van = -1 }) => (
+export const School: React.FC<{ t: number; van?: number }> = ({ t, van = -1 }) => (
   <g>
     <rect x={-400} y={-400} width={2720} height={1900} fill="#7E8A94" />
     <CloudBank x={t * 0.3} y={120} h={140} color="#5A6470" lit="#727C88" seed={91} />
@@ -205,8 +205,8 @@ const School: React.FC<{ t: number; van?: number }> = ({ t, van = -1 }) => (
 );
 
 /** A classroom turned shelter: the board, windows on the rain, desks stacked at the right, mats on the floor with bags between families. */
-const SH = makeRoom({ x: 960, y: 480 }, { x0: 420, x1: 1500, y0: 220, y1: 740 }, 3.2);
-const Shelter: React.FC<{ t: number; id: string }> = ({ t, id }) => {
+export const SH = makeRoom({ x: 960, y: 480 }, { x0: 420, x1: 1500, y0: 220, y1: 740 }, 3.2);
+export const Shelter: React.FC<{ t: number; id: string }> = ({ t, id }) => {
   const r = SH;
   const { P, Q } = r;
   const k = r.s(0.5) / r.s(0) * 0.42;
