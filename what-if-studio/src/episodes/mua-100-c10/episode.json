@@ -1542,6 +1542,26 @@
       "calm_bed": [
         "lib:mua_bed2",
         250
+      ],
+      "elephant_fs": [
+        "lib:elephant_fs",
+        1.5
+      ],
+      "knock_wood_fs": [
+        "lib:knock_wood_fs",
+        7
+      ],
+      "bees_buzz_fs": [
+        "lib:bees_buzz_fs",
+        52
+      ],
+      "shovel_fs": [
+        "lib:shovel_fs",
+        0.7
+      ],
+      "zipper_fs": [
+        "lib:zipper_fs",
+        3.1
       ]
     },
     "events": [
@@ -1558,11 +1578,6 @@
         0.2,
         "onset",
         "S23"
-      ],
-      [
-        "S2+30",
-        "tape_fs",
-        0.3
       ],
       [
         "S4",
@@ -1613,11 +1628,6 @@
         0.3,
         "onset",
         "S18"
-      ],
-      [
-        "S20+10",
-        "tape_fs",
-        0.3
       ],
       [
         "S23",
@@ -1711,13 +1721,6 @@
       ],
       [
         "S54",
-        "broom_sweep",
-        0.3,
-        "onset",
-        "S58"
-      ],
-      [
-        "S54",
         "shelter_murmur_fs",
         0.1,
         "onset",
@@ -1760,11 +1763,6 @@
         "S94"
       ],
       [
-        "S84+30",
-        "drop_plink",
-        0.3
-      ],
-      [
         "S85",
         "footsteps_hall_fs",
         0.3,
@@ -1796,13 +1794,6 @@
         "S97"
       ],
       [
-        "S105",
-        "broom_sweep",
-        0.2,
-        "onset",
-        "S110"
-      ],
-      [
         "S110",
         "birds_eave",
         0.35,
@@ -1820,6 +1811,98 @@
         0.4,
         "onset",
         null
+      ],
+      [
+        "S2+4",
+        "zipper_fs",
+        0.5
+      ],
+      [
+        "S20+4",
+        "zipper_fs",
+        0.5
+      ],
+      [
+        "S84+20",
+        "knock_wood_fs",
+        0.3
+      ],
+      [
+        "S97+20",
+        "elephant_fs",
+        0.35
+      ],
+      [
+        "S98",
+        "bees_buzz_fs",
+        0.35,
+        "onset",
+        "S99"
+      ],
+      [
+        "S54+10",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S54+50",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S54+95",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S54+135",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S54+180",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S57+10",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S57+50",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S57+95",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S57+140",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S109+10",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S109+55",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S109+100",
+        "shovel_fs",
+        0.45
+      ],
+      [
+        "S109+150",
+        "shovel_fs",
+        0.45
       ]
     ],
     "music": {
