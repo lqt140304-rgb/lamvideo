@@ -62,7 +62,7 @@ export const NearEdge: React.FC<{ side: 1 | -1; w?: number; c?: string }> = ({ s
 
 // ================================================================ props
 /** The rescue boat, side-on, centred at (x, y = waterline). */
-const Boat: React.FC<{ x: number; y: number; s?: number; children?: React.ReactNode }> = ({ x, y, s = 1, children }) => (
+export const Boat: React.FC<{ x: number; y: number; s?: number; children?: React.ReactNode }> = ({ x, y, s = 1, children }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     {children}
     <ellipse cx={0} cy={20} rx={300} ry={22} fill="#000" opacity={0.25} />
@@ -107,7 +107,7 @@ const Barrier: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }
 );
 
 /** The hillside behind the town: wet grass, a road cut along it; `slide` 0..1 the brown scar of mud across the road. */
-const Hill: React.FC<{ t: number; slide?: number; trickle?: number }> = ({ t, slide = 0, trickle = 0 }) => (
+export const Hill: React.FC<{ t: number; slide?: number; trickle?: number }> = ({ t, slide = 0, trickle = 0 }) => (
   <g>
     <rect x={-400} y={-400} width={2720} height={1900} fill="#7C8993" />
     <CloudBank x={t * 0.4} y={120} h={140} color="#55606C" lit="#6E7884" seed={71} />
@@ -242,7 +242,7 @@ export const Shelter: React.FC<{ t: number; id: string }> = ({ t, id }) => {
 };
 
 /** The family photo, and the clear zip bag it goes into. */
-const Photo: React.FC<{ x: number; y: number; s?: number; r?: number }> = ({ x, y, s = 1, r = 0 }) => (
+export const Photo: React.FC<{ x: number; y: number; s?: number; r?: number }> = ({ x, y, s = 1, r = 0 }) => (
   <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`}>
     <rect x={-150} y={-110} width={300} height={220} fill="#F4F0E4" stroke={L} strokeWidth={4} />
     <rect x={-130} y={-90} width={260} height={160} fill="#8EB0C4" />
@@ -260,7 +260,7 @@ const Photo: React.FC<{ x: number; y: number; s?: number; r?: number }> = ({ x, 
     })}
   </g>
 );
-const ZipBag: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const ZipBag: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <rect x={-190} y={-150} width={380} height={300} rx={12} fill="#DDE8EC" opacity={0.35} stroke="#8EA4AE" strokeWidth={5} />
     <rect x={-190} y={-150} width={380} height={18} fill="#4F86C6" opacity={0.8} />

@@ -23,14 +23,14 @@ const onFloor = (floor: number, scale: number) => floor - LEG_LEN * scale;
 // ================================================================ effects
 /** Lightning: a white flash over the frame (a stutter of two strikes) at each local frame in `at`; cue "thunder" a few frames later. */
 const FLASH = [1, 0.25, 0.85, 0.5, 0.2, 0.08];
-const flashAt = (t: number, at: number[]) => {
+export const flashAt = (t: number, at: number[]) => {
   for (const e of at) {
     const d = t - e;
     if (d >= 0 && d < FLASH.length * 2) return FLASH[Math.floor(d / 2)];
   }
   return 0;
 };
-const Flash: React.FC<{ f: number; bolt?: [number, number] }> = ({ f, bolt }) =>
+export const Flash: React.FC<{ f: number; bolt?: [number, number] }> = ({ f, bolt }) =>
   f > 0 ? (
     <g>
       {bolt && f > 0.5 ? (

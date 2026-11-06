@@ -23,7 +23,7 @@ export const HELPER = { ...LOOKS.worker, skin: '#D9A880', skinShade: '#C08E66', 
 const L = '#16141C';
 const onFloor = (floor: number, scale: number) => floor - LEG_LEN * scale;
 const hand = (pose: ReturnType<typeof P>, side: 'armL' | 'armR') => toWorld(pose, joints(pose)[side].end);
-const FONT = 'Comic Sans MS, Comic Sans, cursive';
+export const FONT = 'Comic Sans MS, Comic Sans, cursive';
 
 // ================================================================ the shelter, with the family's window on the left wall
 /** The classroom shelter, plus the window on the left wall by the family's mat. */
@@ -78,7 +78,7 @@ export const Corridor: React.FC<{ t: number; id: string; children?: React.ReactN
 );
 
 /** The temporary water point in the yard: three blue tanks on a stand, taps, the labels: treated (green) and not yet (red). */
-const Tanks: React.FC<{ t: number; label?: number; level?: number }> = ({ t, label = 1, level = 0.6 }) => (
+export const Tanks: React.FC<{ t: number; label?: number; level?: number }> = ({ t, label = 1, level = 0.6 }) => (
   <g>
     <rect x={560} y={760} width={860} height={40} fill="#6E6A60" stroke={L} strokeWidth={5} />
     {[700, 990, 1280].map((x, i) => (
@@ -96,7 +96,7 @@ const Tanks: React.FC<{ t: number; label?: number; level?: number }> = ({ t, lab
 );
 
 /** A yellow jerrycan; `mark` draws the chalk tick. */
-const Jerry: React.FC<{ x: number; y: number; s?: number; mark?: number; c?: string }> = ({ x, y, s = 1, mark = 0, c = '#E8B03C' }) => (
+export const Jerry: React.FC<{ x: number; y: number; s?: number; mark?: number; c?: string }> = ({ x, y, s = 1, mark = 0, c = '#E8B03C' }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <ellipse cx={0} cy={4} rx={70} ry={10} fill="#000" opacity={0.3} />
     <rect x={-60} y={-170} width={120} height={170} rx={14} fill={c} stroke={L} strokeWidth={5} />
@@ -108,7 +108,7 @@ const Jerry: React.FC<{ x: number; y: number; s?: number; mark?: number; c?: str
 );
 
 /** A shallow tin bowl, side-on, rolling `rot` degrees. */
-const Bowl: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+export const Bowl: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
   <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
     <path d="M -70 -36 L 70 -36 L 50 0 L -50 0 Z" fill="#B8BEC4" stroke={L} strokeWidth={5} strokeLinejoin="round" />
     <ellipse cx={0} cy={-36} rx={70} ry={10} fill="#8E969C" stroke={L} strokeWidth={4} />
@@ -116,7 +116,7 @@ const Bowl: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x,
 );
 
 /** A portion of rice in a foam box. */
-const Rice: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
+export const Rice: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <rect x={-60} y={-40} width={120} height={50} rx={8} fill="#F4F0E4" stroke={L} strokeWidth={4} />
     <ellipse cx={0} cy={-40} rx={56} ry={14} fill="#FFFDF4" stroke="#C8C0A8" strokeWidth={2} />
@@ -494,7 +494,7 @@ export const S26: React.FC<ShotProps> = ({ t, len }) => (
 );
 
 // ---------- S27: over An's shoulder: back at the board, the marker in his hand ----------
-const Board: React.FC<{ t: number; q?: number }> = ({ t, q = 0 }) => (
+export const Board: React.FC<{ t: number; q?: number }> = ({ t, q = 0 }) => (
   <g>
     <rect x={360} y={160} width={1200} height={700} rx={10} fill="#F4F4EE" stroke="#8A8A8A" strokeWidth={12} />
     <text x={420} y={250} fontFamily={FONT} fontSize={52} fill="#2E5E9A">Ngày 40</text>

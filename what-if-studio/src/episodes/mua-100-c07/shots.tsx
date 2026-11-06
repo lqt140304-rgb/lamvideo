@@ -23,7 +23,7 @@ const onFloor = (floor: number, scale: number) => floor - LEG_LEN * scale;
 
 // ================================================================ nature
 /** A small brown bird, side-on, facing right; `flap` 0..1 the wing up; `twig` a stalk in the beak. */
-const Bird: React.FC<{ x: number; y: number; s?: number; flip?: 1 | -1; flap?: number; twig?: number; t?: number }> = ({ x, y, s = 1, flip = 1, flap = 0, twig = 0, t = 0 }) => (
+export const Bird: React.FC<{ x: number; y: number; s?: number; flip?: 1 | -1; flap?: number; twig?: number; t?: number }> = ({ x, y, s = 1, flip = 1, flap = 0, twig = 0, t = 0 }) => (
   <g transform={`translate(${x} ${y}) scale(${flip * s} ${s})`}>
     <path d="M -40 6 L -78 -4 L -74 18 Z" fill="#6A4A2E" stroke={L} strokeWidth={3} strokeLinejoin="round" />
     <ellipse cx={0} cy={0} rx={44} ry={26} fill="#8A6440" stroke={L} strokeWidth={4} />
@@ -56,7 +56,7 @@ const Squirrel: React.FC<{ x: number; y: number; s?: number; t?: number; look?: 
 );
 
 /** The woods past the school fence: trunks standing in water, the path gone under it. */
-const Woods: React.FC<{ t: number; fence?: boolean; nest?: boolean }> = ({ t, fence = true, nest = false }) => (
+export const Woods: React.FC<{ t: number; fence?: boolean; nest?: boolean }> = ({ t, fence = true, nest = false }) => (
   <g>
     <rect x={-400} y={-400} width={2720} height={1900} fill="#8A9A9E" />
     <CloudBank x={t * 0.3} y={60} h={140} color="#6A7A80" lit="#8A969C" seed={7} />
@@ -98,7 +98,7 @@ const Woods: React.FC<{ t: number; fence?: boolean; nest?: boolean }> = ({ t, fe
 );
 
 /** Under the dry eave outside the classroom door: the beam, the corner where the birds build, the doorway at left. */
-const Eave: React.FC<{ t: number; nest?: number }> = ({ t, nest = 0.3 }) => (
+export const Eave: React.FC<{ t: number; nest?: number }> = ({ t, nest = 0.3 }) => (
   <g>
     <rect x={-400} y={-400} width={2720} height={1900} fill="#8E9AA4" />
     <Rain t={t} o={0.5} seed={21} x0={600} y0={300} w={1800} h={900} />
@@ -121,7 +121,7 @@ const Eave: React.FC<{ t: number; nest?: number }> = ({ t, nest = 0.3 }) => (
 );
 
 /** The notebook, open flat: the tally of rainy days on the left, Linh's lines on the right as `lines` (0..3) grows. */
-const Notebook: React.FC<{ lines?: number; tally?: number }> = ({ lines = 0, tally = 60 }) => {
+export const Notebook: React.FC<{ lines?: number; tally?: number }> = ({ lines = 0, tally = 60 }) => {
   const rows = ['Hôm nay giao đủ nước cho phòng bên.', 'Hôm nay một người nhận được tin gia đình.', 'Hôm nay nghe thấy chim.'];
   return (
     <g>
@@ -317,7 +317,7 @@ export const S13: React.FC<ShotProps> = ({ t, len }) => {
 };
 
 // ---------- S14: cleaning time in the corridor: brooms, and Linh's raised hand: keep your distance ----------
-const Broom: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
+export const Broom: React.FC<{ x: number; y: number; s?: number; rot?: number }> = ({ x, y, s = 1, rot = 0 }) => (
   <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
     <path d="M 0 0 L 0 260" stroke="#8A6A3C" strokeWidth={9} />
     <path d="M -36 260 L 36 260 L 50 330 L -50 330 Z" fill="#BFA25C" stroke={L} strokeWidth={3} />

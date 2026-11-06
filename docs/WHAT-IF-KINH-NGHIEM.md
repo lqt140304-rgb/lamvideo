@@ -222,3 +222,20 @@ Sau khi sửa: `tsc`, render ảnh/lưới cho các cảnh trên, `plan` → `sf
 - **Lỗi cảnh 6 người dùng bắt:** người "ngồi trên chiếu" bằng tư thế `sit` trông như ngồi trên không: tư thế `sit` là ngồi ghế, phải có ghế (`ChairFor`, hông ở `sàn - 88 × scale`). Người đứng sát chân tường của hành lang phải đứng dưới đường chân tường (`y sàn = 1100 - (x + 400) × 0,2615` trong `Corridor`), cửa phải chạm đường này, không thì chân không chạm sàn.
 - **Nội thất trường (chủ kênh dặn 06/11/2026):** trường không được trống trơn: tủ sách, kệ giày, chậu cây, bảng tin (`engine/sets/school.tsx`: `Bookcase`, `ShoeRack`, `Plant`, `NoticeBoard`), đặt trong `Shelter`, `School`, `Corridor`, `Eave`. Sửa set dùng chung thì các cảnh đã master có set đó (cảnh 5, 6) phải master lại.
 - **Chim tha cành về tổ:** chim phải đáp lên mép tổ (bay theo cung, đáp đúng vị trí), cành ngắn dần như được nhét vào, tổ to dần; đừng để chim bay tới gần tổ rồi đứng lơ lửng.
+
+## Đêm bão cảnh 8 (`mua-100-c08`): góc máy dữ dội, nghẹt thở (chủ kênh dặn 06/11/2026)
+
+Code mẫu trong `mua-100-c08/shots.tsx`:
+- **Đêm:** `Night` = `LightVeil` đậm (o ≈ 0,85) vẽ SAU nhân vật, chỉ chừa lỗ sáng ở đèn, cửa sổ; nhân vật chìm trong tối trừ chỗ có đèn. `DarkRoom` cho cận mặt ban đêm (có sàn ở `y + LEG_LEN × scale`, đừng để nhân vật đứng giữa khoảng đen).
+- **Chớp liên hồi:** `Flash` + `flashAt` (cảnh 4) ở 2 thời điểm trong shot, tránh khung khóa 40 của ảnh tĩnh.
+- **Mưa quất ngang:** `Storm` (vệt dài, `slant` 0,6–1,6), cộng `LensRain` (giọt trên ống kính).
+- **Máy rung, nghiêng:** `Tense` với `a` 6–16 px lúc va đập, `tilt` đổi chiều trong shot.
+- **Crash zoom:** zoom 1,6 lên 4,2 trong 6 khung đúng lúc hét (S15), rung mạnh rồi dịu.
+- **Whip pan:** camera lao ngang trong 8 khung + vệt nhòe `Whip` (S18).
+- **Góc nhìn nhân vật trong bóng tối:** tay quờ chăn trống, chỉ có ánh chớp (S14).
+- **Luồng đèn pin:** `Beam` (tam giác gradient, `screen`) quét qua lối đi, chiếu thẳng ống kính (S19, S21).
+- **Từ gầm bàn / mặt sàn:** quai túi vướng chân bàn (S23), chó chạy tới ống kính (S26), bát lăn dưới ghế (S27).
+- **Qua ô kính đẫm nước:** khung kính mờ ở tiền cảnh, nước chảy dọc (S30).
+- **Từ trong ra:** khung cửa sổ tối hai bên (`NearEdge`) nhìn ra sân lúc biển rơi (S33).
+- Ngồi dậy từ chăn trên sàn: hông ở sàn (`upAt`), cắt người ở đường sàn bằng `AboveFloor` rồi phủ chăn, không thì lòi chân dưới chăn.
+- Người phụ dùng `LOOKS.mom/student/tech` phải đổi `skin` sang tông da gia đình (mặc định trắng bệch).

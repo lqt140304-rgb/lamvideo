@@ -1,0 +1,922 @@
+{
+  "id": "Mua100C08",
+  "slug": "mua-100-c08",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 8: Những tuần sau, đêm gió đổi giọng",
+  "title": [
+    "Những tuần sau",
+    "Đêm gió đổi giọng"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "rắc|Chốt": 1.2,
+    "cạnh|Qua": 1.5
+  },
+  "tail": 2.0,
+  "science": [
+    {
+      "claim": "Giả định hư cấu. Các tuần ở trường: nước dưới thị trấn có đợt lên khoảng 1,05 m ở mốc hẻm rồi rút và lên lại; sân trường (+2,0 m) khô. Đêm bão: cơn gió mạnh làm bung chốt cửa sổ, nước tạt, biển ở mái che rơi xuống khoảng sân đã khoanh lại; không ai bị thương. Dự báo và lịch ngày cụ thể là hư cấu."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "Qua thêm nhiều tuần, tấm chiếu cạnh cửa sổ đã sờn ở mép. Có đợt nước dưới thị trấn rút bớt, rồi lại dâng. Những ngày ấy không phải lúc nào cũng cuồng phong. Nhưng mỗi khi gió đổi giọng, người ta lại ngừng việc, ngẩng lên nghe mái nhà."
+    },
+    {
+      "beat": "p02",
+      "text": "Trước một đợt bão được báo sẽ đi qua vùng này, tổ phụ trách chuyển đồ khỏi sát cửa sổ, kiểm tra đèn dự phòng và chỗ trú ở dãy phòng phía trong. An cùng đồng nghiệp cất sẵn phần nước uống dự trữ. Tờ hướng dẫn sang nhà sinh hoạt cộng đồng được dán cạnh cửa."
+    },
+    {
+      "beat": "p03",
+      "text": "Đến đêm, tiếng mưa đổi hẳn. Không còn những hạt rơi đều. Gió hất nước vào tường từng đợt, rít qua khe cửa."
+    },
+    {
+      "beat": "p04",
+      "text": "Một tiếng rắc bật lên."
+    },
+    {
+      "beat": "p05",
+      "text": "Chốt một cánh cửa sổ bung khỏi khung. Cánh cửa đập mạnh, nước tạt thẳng lên góc chiếu vừa dọn. Linh choàng dậy. Trong bóng tối, cô quờ trúng khoảng chăn trống bên cạnh."
+    },
+    {
+      "beat": "p06",
+      "text": "[frightened] “Mẹ! Mẹ ơi!”"
+    },
+    {
+      "beat": "p07",
+      "text": "Hạnh đang kéo túi đồ ra khỏi cửa, quay lại ngay. [reassuring] “Mẹ đây. Nắm tay mẹ, mình sang phòng trong.”"
+    },
+    {
+      "beat": "p08",
+      "text": "An vừa bước tới đã bị người phụ trách gọi: [urgent] “Đừng giữ cánh cửa! Đưa mọi người tránh xa ra!”"
+    },
+    {
+      "beat": "p09",
+      "text": "Anh rút tay lại, nhấc chiếc đèn dự phòng soi xuống lối đi. Ánh sáng vừa bật lên, Hạnh đã gọi những gia đình bên cạnh đứng dậy. Không ai còn cố nằm chờ cho gió qua."
+    },
+    {
+      "beat": "p10",
+      "text": "Bà Sáu chống tay đứng lên rồi khựng lại, đầu gối đau không duỗi được ngay. Nam kéo chiếc túi, càng vội quai càng mắc vào chân bàn."
+    },
+    {
+      "beat": "p11",
+      "text": "[urgent] “Nam, để túi đó đã. Qua với cô Hạnh!”"
+    },
+    {
+      "beat": "p12",
+      "text": "An cùng một người trong tổ trực đỡ bà Sáu. Hạnh dắt hai đứa trẻ tới phòng phía trong, giao lại cho người phụ trách rồi đưa con chó từ khu vật nuôi sang chỗ trú đã bố trí. Tiếng móng nó cào trên nền xen giữa tiếng gió. Chiếc bát bị bỏ lại, lăn dưới gầm ghế."
+    },
+    {
+      "beat": "p13",
+      "text": "Linh muốn chạy trở lại. [worried] “Túi ảnh của con…”"
+    },
+    {
+      "beat": "p14",
+      "text": "Hạnh nâng chiếc túi đang đeo trước ngực. “Mẹ mang đây rồi. Con ngồi cạnh Nam, đừng quay ra cửa.”"
+    },
+    {
+      "beat": "p15",
+      "text": "Qua ô kính phía trong, Linh nhìn thấy đèn của bố dừng lại ở cửa phòng. Anh đếm người, cúi hỏi từng gia đình. Đến lượt cô, anh gọi rõ tên con. Linh giơ tay lên thật cao."
+    },
+    {
+      "beat": "p16",
+      "text": "Một tiếng động nặng vang ngoài sân. Tấm biển treo ở mái che đã rơi xuống nền, không trúng ai vì khoảng sân ấy đã được khoanh lại từ chiều. Linh rụt vai. An ngồi xuống chắn bớt tầm nhìn ra ngoài."
+    },
+    {
+      "beat": "p17",
+      "text": "[softly] “Bố cũng giật mình. Nhưng mình đang ở phòng trong, có người trực. Con cứ nắm tay bố.”"
+    },
+    {
+      "beat": "p18",
+      "text": "[worried] “Bố có phải ra nữa không?”"
+    },
+    {
+      "beat": "p19",
+      "text": "“Lúc này bố ở đây với con. Nếu phải đi đâu, bố sẽ nói.”"
+    },
+    {
+      "beat": "p20",
+      "text": "Đợt gió mạnh qua đi gần sáng. Mưa vẫn còn. Góc chiếu cũ ướt sũng; một phần áo quần không kịp chuyển đã nằm trong nước tạt. Hạnh vắt chiếc khăn, nhìn túi đồ nhẹ đi rồi lặng lẽ ngồi xuống. Bà Sáu nhích sang, đưa cho chị một chiếc chăn khô còn gấp đôi."
+    },
+    {
+      "beat": "p21",
+      "text": "“Đắp cho con bé trước đi. Chỗ tui còn một cái.”"
+    },
+    {
+      "beat": "p22",
+      "text": "Hạnh nhận chăn, khẽ nói cảm ơn. Lần này, chính chị cũng phải quay mặt đi một lúc mới nói tiếp được."
+    },
+    {
+      "beat": "p23",
+      "text": "Sau đêm đó, mỗi lần có thông báo mới, trong phòng không còn ai chờ người bên cạnh đứng dậy trước. Túi đồ đặt ngay lối đi. Sổ điểm danh luôn ở cạnh đèn. An và tổ trực kiểm lại tuyến sang khu trú dự phòng trước từng đợt thời tiết xấu."
+    },
+    {
+      "beat": "p24",
+      "text": "[hopeful] Bản tin mới nói mưa có thể sắp dứt. Trong phòng, có người bắt đầu nhắc đến chuyện về nhà. Cạnh cửa, bảng mực sông vẫn được cập nhật mỗi ngày."
+    },
+    {
+      "beat": "p25",
+      "text": "[thoughtful] An kiểm lại túi thuốc, đèn và nước. Anh gấp tờ hướng dẫn đến khu trú dự phòng, nhét vào túi áo."
+    },
+    {
+      "beat": "p26",
+      "text": "Linh nhìn tấm ảnh căn nhà. [hopeful] “Bố ơi, nếu tạnh thật thì mình về luôn được không? Con nhớ cái bàn học cạnh cửa.”"
+    },
+    {
+      "beat": "p27",
+      "text": "[thoughtful] “Bố cũng muốn về. Nhưng mưa tạnh chưa chắc đường đã đi được, nên mình phải chờ kiểm tra.”"
+    },
+    {
+      "beat": "p28",
+      "text": "“Nếu nhà chưa ở được thì mình ở đây tiếp à?”"
+    },
+    {
+      "beat": "p29",
+      "text": "Hạnh ngồi xuống gấp áo cùng con. [reassuring] “Ừ. Hoặc tới chỗ trú khác nếu cần. Mẹ biết con mệt vì chờ, nhưng mình chưa phải tự lo một mình.”"
+    },
+    {
+      "beat": "p30",
+      "text": "Linh nhìn chiếc áo đã giặt giữ mãi. [softly] “Con chỉ muốn có một hôm mặc cái này ở nhà thôi.”"
+    },
+    {
+      "beat": "p31",
+      "text": "An đặt tay lên chiếc túi, chừa chỗ cho cô xếp áo. [warmly] “Vậy con giữ nó ở trên cùng. Khi nào được về, bố gọi con chuẩn bị.”"
+    },
+    {
+      "beat": "p32",
+      "text": "Cô bé gật đầu, nhưng vẫn xếp chiếc áo đẹp nhất lên trên cùng."
+    },
+    {
+      "beat": "p33",
+      "text": "An nhìn thấy. Anh không cất nó xuống. Anh chỉ đặt áo mưa cạnh túi, ở nơi hai bố con có thể lấy ngay."
+    },
+    {
+      "beat": "p34",
+      "text": "[thoughtful] Rồi một buổi sáng, Linh thức dậy vì có điều gì đó khác đi."
+    },
+    {
+      "beat": "p35",
+      "text": "Cô ngồi dậy trên chiếu, lắng nghe. Hạnh vẫn ngủ cạnh cô. Ở cửa lớp, An đang cầm cốc nước. Không còn tiếng hạt mưa gõ trên mái."
+    },
+    {
+      "beat": "p36",
+      "text": "Từ tấm chiếu bên kia lối đi, bà Sáu ngồi dậy, hỏi khẽ: “Tạnh thật rồi à?” Nam chạy ra nhìn sân nhưng dừng lại dưới hiên khi bà gọi. Sau nhiều ngày, họ nghe rõ tiếng bước chân thay cho tiếng mưa."
+    },
+    {
+      "beat": "p37",
+      "text": "Linh cầm chiếc áo đã xếp sẵn. [relieved] “Bố, tạnh rồi. Bố nghe không, không còn tiếng mưa nữa!”"
+    },
+    {
+      "beat": "p38",
+      "text": "An gật đầu. [softly] “Bố nghe rồi.”"
+    },
+    {
+      "beat": "p39",
+      "text": "Cô kéo nhẹ tay anh, định ra hiên. An bước cùng con, rồi tiếng bộ đàm vang lên."
+    },
+    {
+      "beat": "p40",
+      "text": "[thoughtful] An dừng lại nghe, tay vẫn để Linh nắm."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S2",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S3",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S4",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S5",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S6",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S7",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S8",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S9",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S10",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S11",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S12",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S13",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S14",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S15",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S16",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S17",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S18",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S19",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S20",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S21",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S22",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S23",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S24",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S25",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S26",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S27",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S28",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S29",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S30",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S31",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S32",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S33",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S34",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S35",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S36",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S37",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S38",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S39",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S40",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S41",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S42",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S43",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S44",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S45",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S46",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S47",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S48",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S49",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S50",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S51",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S52",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S53",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S54",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S55",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S56",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S57",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S58",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S59",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S60",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S61",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S62",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S63",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S64",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S65",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S66",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "s:0"
+    },
+    {
+      "shot": "S2",
+      "at": "s:3.76"
+    },
+    {
+      "shot": "S3",
+      "at": "s:7.03"
+    },
+    {
+      "shot": "S4",
+      "at": "s:9.91"
+    },
+    {
+      "shot": "S5",
+      "at": "s:14.81"
+    },
+    {
+      "shot": "S6",
+      "at": "s:23.27"
+    },
+    {
+      "shot": "S7",
+      "at": "s:26.23"
+    },
+    {
+      "shot": "S8",
+      "at": "s:29.63"
+    },
+    {
+      "shot": "S9",
+      "at": "s:31.78"
+    },
+    {
+      "shot": "S10",
+      "at": "s:33.62"
+    },
+    {
+      "shot": "S11",
+      "at": "s:37.05"
+    },
+    {
+      "shot": "S12",
+      "at": "s:38.57"
+    },
+    {
+      "shot": "S13",
+      "at": "s:44.12"
+    },
+    {
+      "shot": "S14",
+      "at": "s:45.24"
+    },
+    {
+      "shot": "S15",
+      "at": "s:48.5"
+    },
+    {
+      "shot": "S16",
+      "at": "s:50.19"
+    },
+    {
+      "shot": "S17",
+      "at": "s:53.14"
+    },
+    {
+      "shot": "S18",
+      "at": "s:55.94"
+    },
+    {
+      "shot": "S19",
+      "at": "s:58.31"
+    },
+    {
+      "shot": "S20",
+      "at": "s:60.9"
+    },
+    {
+      "shot": "S21",
+      "at": "s:64.33"
+    },
+    {
+      "shot": "S22",
+      "at": "s:70.52"
+    },
+    {
+      "shot": "S23",
+      "at": "s:74.91"
+    },
+    {
+      "shot": "S24",
+      "at": "s:78.55"
+    },
+    {
+      "shot": "S25",
+      "at": "s:81.07"
+    },
+    {
+      "shot": "S26",
+      "at": "s:90.46"
+    },
+    {
+      "shot": "S27",
+      "at": "s:93.42"
+    },
+    {
+      "shot": "S28",
+      "at": "s:96.14"
+    },
+    {
+      "shot": "S29",
+      "at": "s:98.86"
+    },
+    {
+      "shot": "S30",
+      "at": "s:104.21"
+    },
+    {
+      "shot": "S31",
+      "at": "s:110.59"
+    },
+    {
+      "shot": "S32",
+      "at": "s:113.02"
+    },
+    {
+      "shot": "S33",
+      "at": "s:114.78"
+    },
+    {
+      "shot": "S34",
+      "at": "s:122.65"
+    },
+    {
+      "shot": "S35",
+      "at": "s:126.52"
+    },
+    {
+      "shot": "S36",
+      "at": "s:131.64"
+    },
+    {
+      "shot": "S37",
+      "at": "s:133.17"
+    },
+    {
+      "shot": "S38",
+      "at": "s:137.09"
+    },
+    {
+      "shot": "S39",
+      "at": "s:141.85"
+    },
+    {
+      "shot": "S40",
+      "at": "s:144.69"
+    },
+    {
+      "shot": "S41",
+      "at": "s:149.12"
+    },
+    {
+      "shot": "S42",
+      "at": "s:156.27"
+    },
+    {
+      "shot": "S43",
+      "at": "s:162.97"
+    },
+    {
+      "shot": "S44",
+      "at": "s:170.63"
+    },
+    {
+      "shot": "S45",
+      "at": "s:172.63"
+    },
+    {
+      "shot": "S46",
+      "at": "s:177.51"
+    },
+    {
+      "shot": "S47",
+      "at": "s:183.07"
+    },
+    {
+      "shot": "S48",
+      "at": "s:186.34"
+    },
+    {
+      "shot": "S49",
+      "at": "s:192.77"
+    },
+    {
+      "shot": "S50",
+      "at": "s:194.57"
+    },
+    {
+      "shot": "S51",
+      "at": "s:199.63"
+    },
+    {
+      "shot": "S52",
+      "at": "s:205.08"
+    },
+    {
+      "shot": "S53",
+      "at": "s:207.72"
+    },
+    {
+      "shot": "S54",
+      "at": "s:216.47"
+    },
+    {
+      "shot": "S55",
+      "at": "s:221.91"
+    },
+    {
+      "shot": "S56",
+      "at": "s:233.42"
+    },
+    {
+      "shot": "S57",
+      "at": "s:240.06"
+    },
+    {
+      "shot": "S58",
+      "at": "s:247.69"
+    },
+    {
+      "shot": "S59",
+      "at": "s:249.89"
+    },
+    {
+      "shot": "S60",
+      "at": "s:252.21"
+    },
+    {
+      "shot": "S61",
+      "at": "s:257.23"
+    },
+    {
+      "shot": "S62",
+      "at": "s:260.79"
+    },
+    {
+      "shot": "S63",
+      "at": "s:264.47"
+    },
+    {
+      "shot": "S64",
+      "at": "s:270.14"
+    },
+    {
+      "shot": "S65",
+      "at": "s:272.22"
+    },
+    {
+      "shot": "S66",
+      "at": "s:275.9"
+    }
+  ]
+}
