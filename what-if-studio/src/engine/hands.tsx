@@ -25,6 +25,17 @@ export const OpenHand: React.FC<{ x?: number; y?: number; rot?: number; s?: numb
   </g>
 );
 
+/** An open hand that comes in from outside the frame: the hand plus its forearm and a sleeve, so it is never a hand floating alone. */
+export const ArmHand: React.FC<{ x?: number; y?: number; rot?: number; s?: number; skin: string; sleeve?: string; len?: number }> = ({ x = 0, y = 0, rot = 0, s = 1, skin, sleeve = '#4A5A6A', len = 1500 }) => (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+    <polygon points="-80,0 -70,-260 62,-260 72,0" fill={skin} />
+    <path d="M -80 0 L -70 -260 M 72 0 L 62 -260" stroke={LINE} strokeWidth={5.5} fill="none" />
+    <rect x={-92} y={-len} width={176} height={len - 230} rx={22} fill={sleeve} stroke={LINE} strokeWidth={6} />
+    <rect x={-92} y={-250} width={170} height={26} rx={8} fill="#000" opacity={0.16} />
+    <OpenHand skin={skin} />
+  </g>
+);
+
 /**
  * A hand closed over an edge, seen from the back: four fingers lie over the thing it holds. Draw GripThumb before that thing and GripHand after it.
  * The fingers point +x from the knuckles at about (20, -40); the wrist is at (-260, 220).

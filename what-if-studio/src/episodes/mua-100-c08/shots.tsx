@@ -1,6 +1,6 @@
 import React from 'react';
 import { Hero, kf, rnd, camT, LOOKS, joints, toWorld, stand, Rain, Dog, Glow, LightVeil, Foreground, CloudBank, Splashes, ShotProps, lampBlink, LampDim } from '../../engine';
-import { OpenHand } from '../../engine/hands';
+import { ArmHand } from '../../engine/hands';
 import { LEG_LEN, type Expr } from '../../engine/rig';
 import { Bookcase, ShoeRack, Plant, NoticeBoard } from '../../engine/sets/school';
 import { P, talkAt, Back } from '../mua-100-c01/shots';
@@ -399,7 +399,7 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => {
         <path d="M -200 600 Q 600 520 1200 600 T 2120 560 L 2120 1300 L -200 1300 Z" fill="#2A3442" />
         <path d="M 400 700 Q 900 640 1500 720" stroke="#3A4656" strokeWidth={20} fill="none" />
         <path d="M 600 820 Q 1100 760 1700 840" stroke="#3A4656" strokeWidth={20} fill="none" />
-        <OpenHand x={kf(t, [[0, 500], [len, 1200]])} y={kf(t, [[0, 900], [len, 760]])} rot={-110 + 30 * Math.sin(reach * 6)} s={1.6} skin="#8A7464" />
+        <ArmHand x={kf(t, [[0, 500], [len, 1200]])} y={kf(t, [[0, 900], [len, 760]])} rot={-110 + 30 * Math.sin(reach * 6)} s={1.6} skin="#8A7464" />
         <path d={`M ${kf(t, [[0, 500], [len, 1200]])} ${kf(t, [[0, 900], [len, 760]])} l -600 600`} stroke="#0A0A0E" strokeWidth={230} strokeLinecap="round" />
         <path d={`M ${kf(t, [[0, 500], [len, 1200]])} ${kf(t, [[0, 900], [len, 760]])} l -600 600`} stroke="#5A564C" strokeWidth={214} strokeLinecap="round" />
       </Tense>
@@ -453,10 +453,10 @@ export const S17: React.FC<ShotProps> = ({ t, len }) => {
       <Tense t={t} a={4}>
         <rect x={-200} y={-200} width={2320} height={1500} fill="#10141C" />
         <Glow x={1300} y={300} r={700} o={0.5} />
-        <OpenHand x={kf(t, [[0, 2000], [20, 1240]])} y={360} rot={100} s={1.5} skin={HANH.skin} />
+        <ArmHand x={kf(t, [[0, 2000], [20, 1240]])} y={360} rot={100} s={1.5} skin={HANH.skin} sleeve={HANH.jacket} />
         <path d={`M ${kf(t, [[0, 2000], [20, 1240]])} 360 l 900 -100`} stroke={L} strokeWidth={190} strokeLinecap="round" />
         <path d={`M ${kf(t, [[0, 2000], [20, 1240]])} 360 l 900 -100`} stroke={HANH.jacket} strokeWidth={178} strokeLinecap="round" />
-        <OpenHand x={kf(t, [[0, 300], [20, 640]])} y={560} rot={-80} s={1.2} skin={LINH.skin} />
+        <ArmHand x={kf(t, [[0, 300], [20, 640]])} y={560} rot={-80} s={1.2} skin={LINH.skin} sleeve={LINH.jacket} />
         <path d={`M ${kf(t, [[0, 300], [20, 640]])} 560 l -800 80`} stroke={L} strokeWidth={156} strokeLinecap="round" />
         <path d={`M ${kf(t, [[0, 300], [20, 640]])} 560 l -800 80`} stroke={LINH.jacket} strokeWidth={144} strokeLinecap="round" />
       </Tense>
@@ -580,7 +580,7 @@ export const S23: React.FC<ShotProps> = ({ t, len }) => {
         <Duffel x={kf(t, [[0, 900], [len, 940]]) + 30 * yank} y={900} s={1.5} c="#3F8A7C" />
         <path d={`M ${780 + 30 * yank} 720 Q 640 640 560 560`} stroke="#2A2A2A" strokeWidth={14} fill="none" />
         <path d={`M 1120 760 Q ${1500 + 60 * yank} ${700 - 40 * yank} ${1780 + 80 * yank} ${640 - 60 * yank}`} stroke="#2A2A2A" strokeWidth={14} fill="none" />
-        <OpenHand x={1880 + 80 * yank} y={540 - 60 * yank} rot={60} s={1.2} skin={NAM.skin} />
+        <ArmHand x={1880 + 80 * yank} y={540 - 60 * yank} rot={60} s={1.2} skin={NAM.skin} sleeve={NAM.jacket} />
         <Night id="c8s23" lights={[[1100, 300, 600]]} o={0.75} />
       </Tense>
       <Vignette o={0.6} id="c8s23" />
@@ -924,7 +924,7 @@ export const S46: React.FC<ShotProps> = ({ t, len }) => {
 export const S47: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(1050, 520, kf(t, [[0, 1.1], [len, 1.3]]))}>
     <RiverBoard level={0.72} t={t} marks={6} />
-    <OpenHand x={kf(t, [[0, 1500], [20, 1260]])} y={380} rot={60} s={1.0} skin={AN.skin} />
+    <ArmHand x={kf(t, [[0, 1500], [20, 1260]])} y={380} rot={60} s={1.0} skin={AN.skin} sleeve={AN.jacket} />
   </g>
 );
 
@@ -939,7 +939,7 @@ export const S48: React.FC<ShotProps> = ({ t, len }) => {
       <Lamp x={800} y={620} s={1.2} on={0} />
       {[1150, 1270].map((x, i) => <Jerry key={i} x={x} y={760} s={0.9} />)}
       <rect x={1400 - 200 * fold} y={300 + 100 * fold} width={300 - 200 * fold} height={360 - 220 * fold} fill="#F4F4EE" stroke={L} strokeWidth={4} />
-      <OpenHand x={kf(t, [[0, 400], [len * 0.4, 1000], [len, 1500]])} y={-60} rot={0} s={1.3} skin={AN.skin} />
+      <ArmHand x={kf(t, [[0, 400], [len * 0.4, 1000], [len, 1500]])} y={-60} rot={0} s={1.3} skin={AN.skin} sleeve={AN.jacket} />
       <rect x={kf(t, [[0, 400], [len * 0.4, 1000], [len, 1500]]) - 110} y={-500} width={200} height={460} fill={AN.jacket} stroke={L} strokeWidth={6} />
     </g>
   );
@@ -950,8 +950,8 @@ export const S49: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.12]]))}>
     <rect x={-200} y={-200} width={2320} height={1500} fill="#3F7E8A" />
     <Photo x={960} y={540} s={2.4} r={-3} />
-    <OpenHand x={500} y={980} rot={170} s={1.0} skin={LINH.skin} />
-    <OpenHand x={1420} y={980} rot={190} s={1.0} skin={LINH.skin} />
+    <ArmHand x={500} y={980} rot={170} s={1.0} skin={LINH.skin} sleeve={LINH.jacket} />
+    <ArmHand x={1420} y={980} rot={190} s={1.0} skin={LINH.skin} sleeve={LINH.jacket} />
   </g>
 );
 
@@ -1010,7 +1010,7 @@ export const S55: React.FC<ShotProps> = ({ t, len }) => {
       <rect x={620} y={360} width={680} height={180} rx={14} fill="#C8B488" />
       <rect x={640} y={560} width={300} height={200} rx={14} fill="#8E7AA0" />
       <path d={`M 700 ${600 - 500 * (1 - lay)} L 1220 ${600 - 500 * (1 - lay)} L 1200 ${780 - 500 * (1 - lay)} L 720 ${780 - 500 * (1 - lay)} Z`} fill="#E8C0D0" stroke={L} strokeWidth={5} />
-      <OpenHand x={1500} y={320} rot={60} s={1.0} skin={AN.skin} />
+      <ArmHand x={1500} y={320} rot={60} s={1.0} skin={AN.skin} sleeve={AN.jacket} />
     </g>
   );
 };
@@ -1148,8 +1148,8 @@ export const S66: React.FC<ShotProps> = ({ t, len }) => (
       const ph = (t * 0.05 + i / 3) % 1;
       return <path key={i} d={`M ${1310 + ph * 100} ${520 - ph * 30} q 30 60 0 120`} stroke="#F4E8C0" strokeWidth={6} fill="none" opacity={1 - ph} />;
     })}
-    <OpenHand x={700} y={1300} rot={190} s={1.4} skin={LINH.skin} />
-    <OpenHand x={600} y={500} rot={10} s={1.6} skin={AN.skin} />
+    <ArmHand x={700} y={1300} rot={190} s={1.4} skin={LINH.skin} sleeve={LINH.jacket} />
+    <ArmHand x={600} y={500} rot={10} s={1.6} skin={AN.skin} sleeve={AN.jacket} />
   </g>
 );
 

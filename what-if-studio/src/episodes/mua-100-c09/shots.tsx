@@ -1,6 +1,6 @@
 import React from 'react';
 import { Hero, kf, camT, LOOKS, toWorld, joints, CloudBank, Glow, ShotProps } from '../../engine';
-import { OpenHand } from '../../engine/hands';
+import { ArmHand } from '../../engine/hands';
 import { LEG_LEN } from '../../engine/rig';
 import { Plant } from '../../engine/sets/school';
 import { P, talkAt } from '../mua-100-c01/shots';
@@ -155,8 +155,8 @@ export const S1: React.FC<ShotProps> = ({ t, len }) => (
       const ph = (t * 0.05 + i / 3) % 1;
       return <path key={i} d={`M ${1310 + ph * 100} ${520 - ph * 30} q 30 60 0 120`} stroke="#F4E8C0" strokeWidth={6} fill="none" opacity={1 - ph} />;
     })}
-    <OpenHand x={700} y={1300} rot={190} s={1.4} skin={LINH.skin} />
-    <OpenHand x={600} y={500} rot={10} s={1.6} skin={AN.skin} />
+    <ArmHand x={700} y={1300} rot={190} s={1.4} skin={LINH.skin} sleeve={LINH.jacket} />
+    <ArmHand x={600} y={500} rot={10} s={1.6} skin={AN.skin} sleeve={AN.jacket} />
   </g>
 );
 
@@ -326,13 +326,13 @@ export const S17: React.FC<ShotProps> = ({ t, len }) => (
 export const S18: React.FC<ShotProps> = ({ t, len }) => {
   const sq = kf(t, [[0, 0], [10, 1], [len, 1.03]]);
   return (
-    <g transform={camT(960, 640, kf(t, [[0, 1.0], [len, 1.15]]))}>
-      <rect x={-200} y={-200} width={2320} height={1500} fill="#B8AC88" />
-      <rect x={-200} y={900} width={2320} height={600} fill="#9A8E6E" />
+    <g transform={camT(960, 560, kf(t, [[0, 0.7], [len, 0.82]]))}>
+      <rect x={-600} y={-600} width={3200} height={2400} fill="#B8AC88" />
+      <rect x={-800} y={900} width={3600} height={1000} fill="#9A8E6E" />
       <Glow x={960} y={300} r={900} o={0.35} />
-      <OpenHand x={900} y={140} rot={6} s={2.1} skin={AN.skin} />
+      <ArmHand x={900} y={140} rot={6} s={2.1} skin={AN.skin} sleeve={AN.jacket} />
       <g transform={`translate(0 ${-60 * sq})`}>
-        <OpenHand x={1010} y={1350} rot={186} s={1.7} skin={LINH.skin} />
+        <ArmHand x={1010} y={1350} rot={186} s={1.7} skin={LINH.skin} sleeve={LINH.jacket} />
       </g>
     </g>
   );
@@ -370,7 +370,7 @@ export const S21: React.FC<ShotProps> = ({ t, len }) => {
       <g transform="translate(700 50) scale(1.5)">
         <rect x={6} y={8} width={320} height={600} rx={6} fill="#000" opacity={0.25} />
         <MapSheet flow={t} trace={tr} />
-        <OpenHand x={px + 18} y={py + 70} rot={160} s={1.0} skin={AN.skin} />
+        <ArmHand x={px + 103 * 0.8} y={py + 282 * 0.8} rot={160} s={0.8} skin={AN.skin} sleeve={AN.jacket} />
       </g>
     </g>
   );

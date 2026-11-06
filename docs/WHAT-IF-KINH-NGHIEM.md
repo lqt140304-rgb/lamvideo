@@ -251,3 +251,4 @@ Code mẫu trong `mua-100-c08/shots.tsx`:
 - Ngồi xổm ngang tầm con: `squat(floor, scale)` hông cao hơn sàn 58 × scale, chân gập a 88/76, b −130.
 - Bản đồ cũ trở lại đúng insert cảnh 3 (`MapSheet` đã export), ngón tay An vạch theo sông (`trace`), không thêm bằng chứng mới.
 - Nghỉ 3 s giữ bằng `pads` `ở|Linh`; shot S7 chỉ trời sáng dần.
+- Bàn tay lẻ (insert tay không thuộc người nào) phải dùng `ArmHand` (engine/hands.tsx): bàn tay + cẳng tay + tay áo, không dùng `OpenHand` trơ trọi. Zoom đủ xa để thấy cẳng tay; đầu ngón tay chỉ đúng điểm cần chỉ (cảnh 9 S21), đừng để cả bàn tay che mất bản đồ.
