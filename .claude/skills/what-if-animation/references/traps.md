@@ -1,7 +1,8 @@
 # Traps
 
-Every one of these cost real time on the proof clip or the copy-paste run. Check the list before building a set, a
-shot or a character.
+Inherited technical notes from the proof and copy-paste examples. Timing and cost observations describe those
+upstream runs, not fresh measurements on this machine. Use relevant drawing/audio fixes as needed; short-form
+pace and production-time figures are not targets for every lamvideo narrative episode.
 
 ## Drawing
 

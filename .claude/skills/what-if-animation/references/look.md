@@ -1,9 +1,12 @@
-# The look: what the genre does, and the self-check
+# The look: technical reference from the short examples
 
-Measured on 21 Oct 2026, frame by frame, from the leading channel's most-viewed episode (4.2M views, 24 fps) with
-ffmpeg scene detection. We learn the technique (timing, camera grammar, light); every character, set and story stays
-our own. Nothing confirms how the viral channels make their videos, so never say or imply they're made with Claude
-or any other tool.
+**Scope for lamvideo:** the pace figures and short-hold targets below belong to the inherited 15–25 second
+examples. They are optional references when making that format, not requirements for narrative episodes.
+Emotional pauses and longer reaction shots are allowed when the story needs them. Use the current project
+workflow and script guidance for editorial decisions. The upstream measurements have not been independently
+rechecked in this update; do not present them as current audience research or our own test results.
+
+Keep characters, sets and stories original. Do not infer which tools another channel uses from its visual style.
 
 ## Pace
 

@@ -1,16 +1,26 @@
 node_modules/
 out/
+.cache/
 .DS_Store
 *.log
 __pycache__/
-# Giọng đọc sinh ra trên máy bạn (tạo lại bằng: npm run voice -- <slug>)
-public/*/voice/*.wav
-# Danh sách ảnh gợi ý do npm run images tạo
-public/*/img/*.candidates.txt
-public/*/img/*.candidates.json
-public/*/img/chon-anh.html
 .vieneu-python
-.cache/
-# What If studio: file tạm sinh ra trên máy
+
+# Cau hinh rieng va khoa dich vu
+.env
+.env.*
+!.env.example
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/worktrees/
+
+# Media phat sinh: giu local theo slug tap, khong tu dong day len Git
 what-if-studio/public/*/takes/
-what-if-studio/public/*/voice_raw.wav
+what-if-studio/public/*/voice*.wav
+what-if-studio/public/*/voice*.mp3
+what-if-studio/public/*/sfx.wav
+what-if-studio/public/*/music.wav
+
+# Tep tam trong ho so tap
+episodes/**/tmp/
+episodes/**/renders/

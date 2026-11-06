@@ -1,94 +1,27 @@
-# The script: the seven-beat What If formula
+# Viết một câu chuyện What If
 
-Decoded on 21 Oct 2026 from five scripts across four channels that broke out with this format in October 2026
-(Ifverse, FunNotSoFun, IFinity, Could've Been Tales). The full episodes run 7 to 10 minutes and hit all seven beats;
-the skill makes a 15 to 25 second episode, which is the cold open of one: beats 1 to 4 in full, 5 to 7 folded into
-the last line.
+Đây là hướng biên tập hiện tại của lamvideo. Hai clip mẫu 15–25 giây trong studio chỉ giúp hiểu kỹ thuật, không phải khuôn cốt truyện bắt buộc.
 
-## The seven beats
+## Từ ý tưởng tới lựa chọn
 
-1. **Cold open in the middle of the action.** A flash-forward to the climax, or three or four quick demos of the
-   power.
-2. **The premise and its rules.** What changed overnight, and the rules it comes with.
-3. **The fun part.** Escalating wins in everyday life.
-4. **The not-so-fun part.** The cost, with real science and real numbers woven into the story ("That's real.").
-5. **Someone powerful notices.** A man in a suit, robbers, a government.
-6. **A moral choice with family at stake,** usually a little sister.
-7. **Cliffhanger.** "Part 1 of 2", a question for the comments, sometimes an "is any of this real?" section and
-   sourced science notes in the description.
+Xác định một nhu cầu đời thường, một thay đổi bất thường, luật/giới hạn, cái lợi ban đầu và cái giá. Cái giá có thể là tình cảm, trách nhiệm, niềm tin, quan hệ hay vật chất; không nhất thiết xuất phát từ vật lý. So sánh các ý tưởng theo đồng cảm, tính mới và khả năng sản xuất thay vì chọn đề tài vừa được nhắc gần nhất.
 
-Recurring cast: you (second person), a best friend, a little sister, mum. In our cast: Pip is "you", Mo is the best
-friend, and `sis`, `mom` and `suit` are on the rig for beats 5 and 6.
+Tạo bảng vai: nhân vật muốn gì, sợ mất gì, biết điều gì, giấu điều gì, làm việc gì khiến kết quả thay đổi. Người đối đầu có lý do và giới hạn, không chỉ cản trở vô cớ; nỗi khổ không xóa trách nhiệm. Nhân vật phụ phải thực sự tác động đến lựa chọn hoặc hệ quả.
 
-## The 15 to 25 second shape
+## Mạch truyện có thể dùng
 
-| Beat | Seconds | What it does | Example (rewind) |
-|---|---|---|---|
-| 1. Cold open | 0 to 11 | Three quick demos: a small everyday problem, the power, the win. The power's word is said every time. | "You knock your coffee off the desk. Rewind. You catch it." x3 |
-| 2. Premise | 11 to 15 | The title card says it: "What if you could ...?", plus one rule. | "What if you could rewind ten seconds, any time you want?" |
-| 3. Fun | 1 to 2 s | One line, or one more escalation. | "Sounds amazing." |
-| 4 to 7. The turn | last 2 to 6 s | The cost, ideally one real fact with a number and "That's real.", then a line that leaves a question open. | "It's about to ruin your life." |
+Đưa người xem vào một bất thường đủ cụ thể → cho hiểu điều nhân vật muốn và luật cần biết → thử một cách giải quyết → xuất hiện hệ quả/đối đầu → tiết lộ làm đổi cách hiểu → lựa chọn có giá → hậu quả và một hành động kết. Có thể đổi cấu trúc nếu câu chuyện cần; không bắt buộc bảy cảnh, số liệu khoa học hoặc “phần hai”.
 
-A longer cut (40 to 60 s) adds beat 4 properly (the fact, then its consequence on screen), the suit noticing (5)
-and the sister in danger (6), and ends on "Part 1".
+Twist cần bảng chuẩn bị–lật nghĩa–hậu quả. Người dẫn không nói sai sự thật chỉ để giấu twist; nhân vật có thể nói dối nếu truyện có cơ sở. Không dùng tai nạn ngẫu nhiên hoặc quy tắc mới để giải quyết vấn đề chính ở cuối.
 
-## Writing rules
+## Bản viết để dựng
 
-- **Second person, present tense, short sentences.** Three to eight words. "Copy a cookie. Paste." beats "Imagine if
-  you were able to duplicate a cookie."
-- **Every line is a picture.** Each demo has to read in one shot with no text on screen: a mug, a stair, a quiz, a
-  cookie, a friend. If a line needs a caption to be understood, rewrite the line.
-- **The power has a word, a sound and a look.** "Rewind" plus tape whirr plus a stopwatch counting back; "Copy...
-  Paste" plus a selection box plus a pop. Say the word in every demo, so the viewer learns the grammar by the third.
-- **Escalate the demos.** Small and selfish, then useful, then a little uncanny (a cookie, the homework, your best
-  friend). The third demo should make the viewer slightly uneasy: it sets up the turn.
-- **One real fact in the turn, with a number, checked.** Work the arithmetic, write it in the episode's `science`
-  field with its source, and only then put it in the script. "That's real." goes straight after it. Never invent a
-  number, never round one into a different claim.
-- **End on a question or a threat,** never a resolution: "So where are yours coming from?", "It's about to ruin
-  your life."
-- **Length:** 45 to 65 words lands at 15 to 25 seconds after voice.py tightens the pauses (about 2.7 words a
-  second). Count before you call the voice: every character costs credits.
-- **Tiếng Việt:** mỗi chữ là một âm tiết, đọc nhanh hơn: khoảng 4 đến 4,5 chữ/giây sau khi cắt khoảng lặng, nên
-  15 đến 25 giây là khoảng 65 đến 100 chữ. Câu ngắn 3 đến 8 chữ, ngôi "bạn", thì hiện tại ("Bạn làm rơi cốc cà phê.
-  Tua lại. Bạn chụp được nó."). Thẻ tiêu đề: dòng 1 `NẾU BẠN CÓ THỂ`, dòng 2 năng lực trong 2 đến 4 chữ (`TUA LẠI 10
-  GIÂY?`). Câu chốt sự thật: "Đó là sự thật." Từ khóa năng lực lặp lại phải là một từ dễ cắt cảnh ("Tua lại.",
-  "Bỏ qua."); khi một chữ xuất hiện nhiều lần, cue bằng `chữ#2`.
-- **The title card** is the premise, in capitals: line 1 `WHAT IF YOU COULD`, line 2 the power in four words or
-  fewer with a question mark. One word of line 2 can pulse as the accent (`10`, `ANYTHING`).
+Mỗi cảnh ghi: thời gian/nơi chốn/người có mặt, trạng thái vật dụng và không gian, diễn biến, lời kể/thoại, khoảng nghỉ có mục đích, cỡ/góc quay, lens, chuyển động/rung, focus, tiếng nền/nhạc. Gợi ý lens là ngôn ngữ hình ảnh khi làm hoạt hình.
 
-## Choosing a topic
+Thoại tiếng Việt đủ ý, có lý do và phản ứng; tiếng địa phương hoặc câu đùa phải hợp người nói. Đừng áp ngưỡng 3–8 chữ khiến đối thoại cụt ý. Khoa học rút về nguyên nhân cần thiết; phần kiểm chứng ở nghiên cứu. Đời sống tinh thần và niềm tin là chất liệu sáng tác, không được trình bày như khoa học đã xác minh.
 
-- An everyday power with clear rules and a hidden cost works best: time (rewind, pause, skip), copies, senses (hear
-  thoughts, see an hour ahead), body (never sleep, 10x reaction), money, luck.
-- The cost should come from real science (energy, biology, physics, economics), so beat 4 can teach something true.
-- Don't remake a channel's episode: search YouTube for the premise first, and if a What If channel already has that
-  exact title, pick a different power or a different rule. Most everyday powers have been done somewhere (copy-paste
-  turned up a comedy short and a "Copy Powers" episode); the story, the rule and the turn are what make it ours.
-  The formula is shared; the stories are ours.
-- No real people, no brands, no famous characters, nothing that resembles one.
+Nhịp thay đổi theo thông tin và sức ép. Giữ thời gian để nhìn phản ứng; không lấp mọi khoảng im bằng lời hoặc nhạc. Kết khép được hành động chính, có thể để lại mất mát và câu hỏi; không bắt mọi người tha thứ ngay. Nếu chia tập, mỗi tập vẫn có một bước tiến có ý nghĩa.
 
-## episode.json: the script part
+## Soát trước khi giao
 
-The copy-paste example (`studio/src/episodes/copy-paste/episode.json`), 61 words, 23 s:
-
-```json
-"topic": "What if you could copy and paste anything?",
-"title": ["WHAT IF YOU COULD", "COPY AND PASTE ANYTHING?"],
-"script": [
-  {"beat": "1 cold open, demo 1 (small and selfish)", "text": "Copy a cookie. Paste. Free cookies, forever."},
-  {"beat": "1 cold open, demo 2 (useful)", "text": "Copy your homework. Paste. Done."},
-  {"beat": "1 cold open, demo 3 (a little uncanny)", "text": "Copy your best friend. Paste. Okay, that's weird."},
-  {"beat": "2 the premise (title card)", "text": "What if you could copy and paste anything?"},
-  {"beat": "4 the turn: the cost, one real fact", "text": "One catch: a copy can't come from nothing. One cookie, made from pure energy, needs every power plant on Earth running for over ten minutes. That's real."},
-  {"beat": "5-7 folded into a question", "text": "So where are yours coming from?"}
-],
-"science": [
-  {"claim": "One cookie made from pure energy needs every power plant on Earth running for over ten minutes.",
-   "working": "A 30 g cookie: E = mc^2 = 2.70e15 J. World electricity, 29,925 TWh in 2023 = 3.4e12 W on average. 2.70e15 / 3.4e12 = about 13 minutes. Over ten minutes holds above about 24 g; the schematic states the 30 g.",
-   "source": "mass-energy equivalence; Ember, Global Electricity Review 2024"}
-]
-```
-
-`voice.py` joins the beats' text with spaces and sends it as one take, so the read flows; the beats are for you and
-for the storyboard.
+Kiểm tra chuỗi vì sao → hành động → hệ quả; kiến thức của nhân vật; timeline/vị trí/đồ vật; vai trò từng người; giá đã hứa có thực trả; twist có dấu hiệu; vấn đề chính có xử lý; khoảng nghỉ không bị backend cắt; thời lượng không tăng vô hạn qua các lượt bổ sung. Xuất các bản lời từ một kịch bản nguồn và lưu toàn bộ vào đúng thư mục tập.
