@@ -13,6 +13,15 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 | [Quy trình](docs/WHAT-IF-QUY-TRINH.md) | Nghiên cứu → viết → dựng → kiểm tra |
 | [CLAUDE.md](CLAUDE.md) | Quy tắc làm việc và sắp xếp file cho Claude |
 
+## Nhắc các agent sau khi hoàn thành công việc
+
+Sau mỗi công việc, hãy rà lại xem có rút ra kinh nghiệm giúp nâng chất lượng, tránh lỗi, tiết kiệm thời gian hoặc chi phí hay không. **Nếu có, cập nhật [file kinh nghiệm dùng chung](docs/KINH-NGHIEM.md) trước khi bàn giao kết quả.**
+
+- Đọc phần đã có để bổ sung hoặc sửa đúng mục, tránh ghi trùng.
+- Viết ngắn: **vấn đề → nguyên nhân → cách làm tốt hơn → cách kiểm tra**. Phân biệt điều đã kiểm chứng với giả thuyết cần thử.
+- Chỉ đưa nguyên tắc áp dụng lại được vào file chung. Tên nhân vật, cốt truyện, số shot, thông số và chi phí riêng của một tập phải nằm trong `GHI-CHU.md` hoặc `ASSET.md` của tập đó.
+- Không chép nguyên nhật ký thao tác, áp thông số của một lần thử cho mọi dự án, hoặc tạo bài học chỉ để có mục mới. Nếu không có kinh nghiệm mới thì không cần thêm.
+
 ## Cấu trúc
 
 ```text
