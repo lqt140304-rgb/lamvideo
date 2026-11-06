@@ -1,0 +1,262 @@
+{
+  "id": "Mua100C07",
+  "slug": "mua-100-c07",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 7: Ngày 60, một tiếng chim dưới mái",
+  "title": [
+    "Ngày 60",
+    "Một tiếng chim dưới mái"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "đó|Cô": 2.0
+  },
+  "tail": 2.5,
+  "science": [
+    {
+      "claim": "Giả định hư cấu. Lối mòn vào rừng ngoài hàng rào trường bị nước phủ; động vật tìm chỗ khô (sóc trên cành, chim làm tổ dưới mái khô). Hành vi và loài trong cảnh là hư cấu, không có số liệu quần thể; không kết luận tổ mới thuộc đúng đôi chim ở tổ cũ."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "Ngoài hàng rào trường, nước đã phủ kín lối mòn dẫn vào rừng. Một con sóc đứng trên nhánh cây, nhìn khoảng nước nơi hôm trước còn có thể chạy qua."
+    },
+    {
+      "beat": "p02",
+      "text": "Tổ chim ở gốc cây cũ không còn. Nhưng đến một buổi sáng, Linh nghe tiếng động nhỏ dưới khoảng mái khô ngoài cửa lớp. Có một đôi chim đang tha cành về đó."
+    },
+    {
+      "beat": "p03",
+      "text": "Cô kéo Nam lại xem. Hai đứa nép sau cửa lớp."
+    },
+    {
+      "beat": "p04",
+      "text": "[whispers] “Nhìn kìa. Nó mang cả cọng cỏ dài thế.”"
+    },
+    {
+      "beat": "p05",
+      "text": "Nam nhích tới. “Mình kê cái hộp cho nó được không?”"
+    },
+    {
+      "beat": "p06",
+      "text": "[whispers] “Đừng tới gần. Nó thấy mình thì sợ, lại bỏ đi mất.”"
+    },
+    {
+      "beat": "p07",
+      "text": "An đi ngang, dừng ở phía sau. [softly] “Hai đứa đứng ở đây nhìn là được rồi. Để chúng tự chọn chỗ nhé.”"
+    },
+    {
+      "beat": "p08",
+      "text": "Linh lùi sát vào khung cửa, nhường khoảng trống trước tổ."
+    },
+    {
+      "beat": "p09",
+      "text": "Cô không mang tổ vào phòng. Đến giờ dọn vệ sinh, cô chỉ nhắc mọi người giữ khoảng cách."
+    },
+    {
+      "beat": "p10",
+      "text": "Trong cuốn sổ, bên cạnh những dấu đánh thêm sau mỗi ngày mưa, Linh bắt đầu ghi những điều khác. Hôm nay giao đủ nước cho phòng bên. Hôm nay một người nhận được tin gia đình. Hôm nay nghe thấy chim."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S2",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S3",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S4",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S5",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S6",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S7",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S8",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S9",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S10",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S11",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S12",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S13",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S14",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S15",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S16",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S17",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "Ngoài"
+    },
+    {
+      "shot": "S2",
+      "at": "Một"
+    },
+    {
+      "shot": "S3",
+      "at": "Tổ"
+    },
+    {
+      "shot": "S4",
+      "at": "Nhưng"
+    },
+    {
+      "shot": "S5",
+      "at": "Có"
+    },
+    {
+      "shot": "S6",
+      "at": "Cô"
+    },
+    {
+      "shot": "S7",
+      "at": "Hai"
+    },
+    {
+      "shot": "S8",
+      "at": "Nhìn"
+    },
+    {
+      "shot": "S9",
+      "at": "Nam"
+    },
+    {
+      "shot": "S10",
+      "at": "Đừng"
+    },
+    {
+      "shot": "S11",
+      "at": "An"
+    },
+    {
+      "shot": "S12",
+      "at": "Hai"
+    },
+    {
+      "shot": "S13",
+      "at": "Linh"
+    },
+    {
+      "shot": "S14",
+      "at": "Cô"
+    },
+    {
+      "shot": "S15",
+      "at": "Trong"
+    },
+    {
+      "shot": "S16",
+      "at": "Linh"
+    },
+    {
+      "shot": "S17",
+      "at": "Hôm"
+    }
+  ]
+}

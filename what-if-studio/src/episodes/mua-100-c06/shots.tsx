@@ -18,7 +18,7 @@ const HANH = LOOKS.hanh;
 const LINH = LOOKS.linh;
 const SAU = LOOKS.baSau;
 const NAM = LOOKS.nam;
-const HELPER = { ...LOOKS.worker, skin: '#D9A880', skinShade: '#C08E66', hand: '#D9A880' };
+export const HELPER = { ...LOOKS.worker, skin: '#D9A880', skinShade: '#C08E66', hand: '#D9A880' };
 const L = '#16141C';
 const onFloor = (floor: number, scale: number) => floor - LEG_LEN * scale;
 const hand = (pose: ReturnType<typeof P>, side: 'armL' | 'armR') => toWorld(pose, joints(pose)[side].end);
@@ -26,7 +26,7 @@ const FONT = 'Comic Sans MS, Comic Sans, cursive';
 
 // ================================================================ the shelter, with the family's window on the left wall
 /** The classroom shelter, plus the window on the left wall by the family's mat. */
-const Room: React.FC<{ t: number; id: string }> = ({ t, id }) => {
+export const Room: React.FC<{ t: number; id: string }> = ({ t, id }) => {
   const q = SH.Q([[0, 0.24, 0.32], [0, 0.24, 0.62], [0, 0.62, 0.62], [0, 0.62, 0.32]]);
   const a = SH.P(0, 0.24, 0.32);
   const b = SH.P(0, 0.62, 0.62);
@@ -40,14 +40,14 @@ const Room: React.FC<{ t: number; id: string }> = ({ t, id }) => {
   );
 };
 /** Someone sitting on the floor mat at (u, w), the shelter's room. */
-const onMat = (u: number, w: number, k = 1) => {
+export const onMat = (u: number, w: number, k = 1) => {
   const s = stand(SH, u, w);
   const sc = s.scale * k;
   return { x: s.x, y: SH.P(u, 1, w).y - 88 * sc, scale: sc };
 };
 
 /** The corridor outside the classrooms: columns on the rain side, doors on the wall side, the pet pen at the far end. */
-const Corridor: React.FC<{ t: number; id: string; children?: React.ReactNode }> = ({ t, id, children }) => (
+export const Corridor: React.FC<{ t: number; id: string; children?: React.ReactNode }> = ({ t, id, children }) => (
   <g>
     <rect x={-400} y={-400} width={2720} height={1900} fill="#7E8A94" />
     <CloudBank x={t * 0.3} y={60} h={140} color="#5A6470" lit="#727C88" seed={64} />
