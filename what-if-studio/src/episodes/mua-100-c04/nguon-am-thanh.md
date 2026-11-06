@@ -1,6 +1,6 @@
-# Nguồn âm thanh cảnh 4 (mua-100-c04), chuẩn bị trước
+# Nguồn âm thanh cảnh 4 (mua-100-c04)
 
-File gốc đang ở `D:\lamvideo-cache\fs-c04\`. Khi dựng cảnh 4 sẽ cắt đoạn cần dùng, đổi sang mp3 và đưa vào `library/sfx/` với hậu tố `-local`.
+File gốc ở `D:\lamvideo-cache\fs-c04\`. Đã cắt, chuẩn hóa về −20 LUFS, đổi sang mp3 trong `library/sfx/` (tên ở cột File, hậu tố `-local`).
 
 ## Mình tải (Freesound, CC0, kiểm tra giấy phép trên trang ngày 06/11/2026)
 
