@@ -253,7 +253,7 @@ export const S8: React.FC<ShotProps> = ({ t, len }) => (
 
 // ---------- S9: Nam inches forward and asks if they could set a box for it ----------
 export const S9: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(kf(t, [[0, 900], [len, 980]]), kf(t, [[0, 620], [len, 520]]), kf(t, [[0, 1.5], [len, 2.2]]))}>
+  <g transform={camT(kf(t, [[0, 900], [len, 980]]), kf(t, [[0, 660], [len, 640]]), kf(t, [[0, 1.5], [len, 2.0]]))}>
     <Corridor t={t} id="c7s9" />
     <Hero look={LINH} pose={P({ x: 780, y: onFloor(980, 0.8), scale: 0.8, yaw: 0.5, look: 0.5, expr: 'neutral', armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
     <Hero look={NAM} pose={P({ x: kf(t, [[0, 940], [20, 1010]]), y: onFloor(980, 0.8), scale: 0.8, yaw: 0.5, look: 0.6, headTilt: -8, expr: 'happy', talk: talkAt(t, 8, len - 2), armL: { a: 10, b: 14 }, armR: { a: 40, b: 40 } }, t, 5)} rimId="filmR" shadow={0} />

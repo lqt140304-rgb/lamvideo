@@ -258,5 +258,180 @@
       "shot": "S17",
       "at": "Hôm"
     }
-  ]
+  ],
+  "sound": {
+    "clips": {
+      "rain_porch_fs": [
+        "lib:rain_porch_fs",
+        10
+      ],
+      "rain_indoor_fs": [
+        "lib:rain_indoor_fs",
+        10
+      ],
+      "flood_flow_fs": [
+        "lib:flood_flow_fs",
+        20
+      ],
+      "shelter_murmur_fs": [
+        "lib:shelter_murmur_fs",
+        30
+      ],
+      "footsteps_hall_fs": [
+        "lib:footsteps_hall_fs",
+        14
+      ],
+      "pen_write_fs": [
+        "lib:pen_write_fs",
+        8
+      ],
+      "birds_eave": [
+        "two small sparrows chirping softly and rustling twigs under a roof eave, light rain behind, gentle, no music",
+        10
+      ],
+      "squirrel_chitter": [
+        "a squirrel chittering briefly from a wet tree branch in light rain, quiet, no music",
+        4
+      ],
+      "broom_sweep": [
+        "slow broom sweeping on a concrete corridor floor, a few strokes, quiet room, no music",
+        8
+      ],
+      "music_bed": [
+        "lib:mua_bed2",
+        77
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "rain_porch_fs",
+        0.55,
+        "onset",
+        "S4"
+      ],
+      [
+        "S1",
+        "flood_flow_fs",
+        0.2,
+        "onset",
+        "S4"
+      ],
+      [
+        "S2+20",
+        "squirrel_chitter",
+        0.5
+      ],
+      [
+        "S4",
+        "rain_indoor_fs",
+        0.45,
+        "onset",
+        "S5"
+      ],
+      [
+        "S4",
+        "shelter_murmur_fs",
+        0.15,
+        "onset",
+        "S5"
+      ],
+      [
+        "S4+16",
+        "birds_eave",
+        0.25
+      ],
+      [
+        "S5",
+        "rain_porch_fs",
+        0.5,
+        "onset",
+        "S6"
+      ],
+      [
+        "S5",
+        "birds_eave",
+        0.7,
+        "onset",
+        "S6"
+      ],
+      [
+        "S6",
+        "rain_porch_fs",
+        0.45,
+        "onset",
+        "S15"
+      ],
+      [
+        "S6",
+        "birds_eave",
+        0.35,
+        "onset",
+        "S15"
+      ],
+      [
+        "S6",
+        "footsteps_hall_fs",
+        0.3,
+        "onset",
+        "S7"
+      ],
+      [
+        "S11",
+        "footsteps_hall_fs",
+        0.35,
+        "onset",
+        "S12"
+      ],
+      [
+        "S14",
+        "broom_sweep",
+        0.5,
+        "onset",
+        "S15"
+      ],
+      [
+        "S14",
+        "shelter_murmur_fs",
+        0.15,
+        "onset",
+        "S15"
+      ],
+      [
+        "S15",
+        "rain_indoor_fs",
+        0.45,
+        "onset",
+        null
+      ],
+      [
+        "S15",
+        "shelter_murmur_fs",
+        0.12,
+        "onset",
+        null
+      ],
+      [
+        "S16",
+        "pen_write_fs",
+        0.4,
+        "onset",
+        null
+      ],
+      [
+        "S17+190",
+        "birds_eave",
+        0.3
+      ]
+    ],
+    "music": {
+      "clip": "music_bed",
+      "from": "S2",
+      "until": "S17"
+    },
+    "levels": {
+      "sfx_lu": -13,
+      "music_lu": -15
+    }
+  }
 }
