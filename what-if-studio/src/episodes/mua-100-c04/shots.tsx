@@ -252,7 +252,7 @@ export const S3: React.FC<ShotProps> = ({ t, len }) => (
     <g transform={camT(960, 540, kf(t, [[0, 1.05], [len, 1.15]]))}>
       <GardenTop t={t} />
     </g>
-    <Flash f={flashAt(t, [62])} />
+    <Flash f={flashAt(t, [89])} />
   </g>
 );
 
@@ -265,7 +265,7 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => (
 
 // ---------- S5: the kitchen: its floor dry and lit; through the back door the garden lower down, under water ----------
 export const S5: React.FC<ShotProps> = ({ t, len }) => {
-  const b = lampBlink(t, [44]);
+  const b = lampBlink(t, [66]);
   return (
     <g transform={camT(940, 520, kf(t, [[0, 1.0], [len, 1.05]]))}>
       {kitchen('c4s5', t, b)}
@@ -403,7 +403,7 @@ export const S13: React.FC<ShotProps> = ({ t, len }) => (
 // ---------- S14: close: her fingertips touch a yellow leaf ----------
 export const S14: React.FC<ShotProps> = ({ t, len }) => {
   const reach = kf(t, [[0, 0], [22, 1]]);
-  const wx = 2020 - 300 * reach;
+  const wx = 2060 - 960 * reach;
   return (
     <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.06]]))}>
       <rect x={-200} y={-200} width={2320} height={1500} fill="#4E4A40" />
@@ -415,8 +415,8 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => {
         {[0, 1, 2, 3].map((i) => <path key={i} d={`M 0 ${-80 - i * 90} q ${50 - i * 6} -30 ${90 - i * 14} -70 M 0 ${-80 - i * 90} q ${-50 + i * 6} -30 ${-90 + i * 14} -70`} stroke="#8E7030" strokeWidth={4} fill="none" />)}
         <path d="M -30 -440 Q 0 -480 30 -440" stroke="#6A4A1E" strokeWidth={10} fill="none" />
       </g>
-      <OpenHand x={wx} y={470} rot={96} s={1.2} skin={LINH.skin} />
-      <rect x={wx - 10} y={360} width={900} height={220} rx={40} fill={LINH.jacket} stroke={L} strokeWidth={6} />
+      <OpenHand x={wx} y={540} rot={98} s={1.2} skin={LINH.skin} />
+      <rect x={wx - 10} y={430} width={900} height={220} rx={40} fill={LINH.jacket} stroke={L} strokeWidth={6} />
     </g>
   );
 };
@@ -502,7 +502,7 @@ export const S20: React.FC<ShotProps> = ({ t, len }) => (
     <rect x={850} y={740} width={40} height={36} rx={6} fill="#B08A40" stroke={L} strokeWidth={4} />
     <rect x={1400} y={260} width={240} height={520} fill="#2C2218" />
     <Flood t={t} y={770} x0={-300} x1={2300} o={0.9} h={600} seed={19} />
-    <Flash f={flashAt(t, [30])} />
+    <Flash f={flashAt(t, [50])} />
   </g>
 );
 
@@ -554,8 +554,11 @@ export const S22: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S23: hold on the raised bed: still green in the rain ----------
 export const S23: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(1560, 600, kf(t, [[0, 1.6], [len, 1.7]]))}>
-    <GardenOut t={t} eye={430} rain={0.7} />
+  <g>
+    <g transform={camT(1560, 600, kf(t, [[0, 1.6], [len, 1.7]]))}>
+      <GardenOut t={t} eye={430} rain={0.7} />
+    </g>
+    <Flash f={flashAt(t, [8])} />
   </g>
 );
 
@@ -569,7 +572,7 @@ export const S24: React.FC<ShotProps> = ({ t, len }) => {
   const hand = toWorld(hPose, joints(hPose).armL.end);
   const dest = { x: pile.x + 40 * k, y: pile.y - 60 * k };
   const set = kf(t, [[30, 0], [40, 1]]);
-  const b = lampBlink(t, [70]);
+  const b = lampBlink(t, [96]);
   return (
     <g transform={camT(980, 560, kf(t, [[0, 1.3], [len, 1.36]]))}>
       <LivingRoom id="c4s24" t={t + 40} lamp={b < 0.5 ? 0 : 0.8 * b} day="18" dog />
@@ -699,7 +702,7 @@ export const S30: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S31: his eyes: through the back door, the pots on the step in the rain; the kitchen lamp stutters ----------
 export const S31: React.FC<ShotProps> = ({ t, len }) => {
-  const b = lampBlink(t, [62]);
+  const b = lampBlink(t, [45]);
   return (
     <g transform={camT(1194, 580, kf(t, [[0, 1.9], [len, 2.3]]))}>
       <AnKitchen id="c4s31" t={t} w={2} rain={1} lamp={b} />
@@ -852,7 +855,7 @@ export const S40: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S41: from the garden: the pots left on the step in the rain; lightning ----------
 export const S41: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, 640, kf(t, [[0, 1.5], [len, 1.4]]))}>
-    <HouseBack t={t} can flash={flashAt(t, [30])} />
+    <HouseBack t={t} can flash={flashAt(t, [47])} />
   </g>
 );
 
@@ -864,7 +867,7 @@ export const S42: React.FC<ShotProps> = ({ t, len }) => {
   const cy = Math.min(h.y, 820 - CAN_H * 0.8);
   return (
     <g transform={camT(960, 600, kf(t, [[0, 1.3], [len, 1.2]]))}>
-      <HouseBack t={t}>
+      <HouseBack t={t} flash={flashAt(t, [131])}>
         <Hero look={LINH} pose={pose} rimId="filmR" shadow={0} />
       </HouseBack>
       {down < 1 || t < 40 ? <Can x={h.x} y={cy} s={0.8} /> : <Can x={h.x} y={820 - CAN_H * 0.8} s={0.8} />}
