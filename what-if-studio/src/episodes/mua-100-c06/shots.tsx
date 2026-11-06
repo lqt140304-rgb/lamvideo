@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Hero, kf, rnd, camT, LOOKS, joints, toWorld, stand, LivingRoom, LIVING, RoofRow, Dog, Rain, Splashes, CloudBank, Foreground, Glow, LightVeil, ShotProps,
 } from '../../engine';
+import { Bookcase, ShoeRack, Plant, NoticeBoard } from '../../engine/sets/school';
 import { OpenHand } from '../../engine/hands';
 import { LEG_LEN } from '../../engine/rig';
 import { P, talkAt, Back } from '../mua-100-c01/shots';
@@ -67,6 +68,10 @@ export const Corridor: React.FC<{ t: number; id: string; children?: React.ReactN
     <rect x={1080} y={690} width={300} height={70} fill="#8A6440" opacity={0.5} />
     {Array.from({ length: 8 }).map((_, i) => <rect key={i} x={1080 + i * 40} y={660} width={12} height={100} fill="#6E4C30" />)}
     <rect x={1080} y={680} width={300} height={10} fill="#6E4C30" />
+    <NoticeBoard x={640} y={520} s={0.6} />
+    <ShoeRack x={600} y={838} s={0.55} />
+    <ShoeRack x={60} y={970} s={0.8} seed={5} />
+    {[[1060, 770, 0.42], [1330, 810, 0.5], [1700, 850, 0.6]].map(([x, y, s], i) => <Plant key={i} x={x} y={y} s={s} t={t} seed={i + 4} tall={i === 2} />)}
     {children}
     <Glow x={600} y={300} r={700} o={0.3} />
   </g>

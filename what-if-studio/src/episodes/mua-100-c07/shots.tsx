@@ -1,5 +1,6 @@
 import React from 'react';
 import { Hero, kf, rnd, camT, LOOKS, joints, toWorld, Rain, Splashes, CloudBank, Foreground, Glow, ShotProps } from '../../engine';
+import { Bookcase, ShoeRack, Plant, NoticeBoard } from '../../engine/sets/school';
 import { OpenHand } from '../../engine/hands';
 import { LEG_LEN } from '../../engine/rig';
 import { P, talkAt } from '../mua-100-c01/shots';
@@ -109,6 +110,8 @@ const Eave: React.FC<{ t: number; nest?: number }> = ({ t, nest = 0.3 }) => (
     <rect x={-400} y={1060} width={2720} height={600} fill="#B8AC88" />
     <path d="M -400 1060 L 2320 1060" stroke="#8A7E5E" strokeWidth={6} />
     {Array.from({ length: 10 }).map((_, i) => <path key={i} d={`M ${-300 + i * 300} 1060 L ${-500 + i * 340} 1500`} stroke="#9A8E6E" strokeWidth={4} />)}
+    <ShoeRack x={-120} y={1060} s={0.9} seed={9} />
+    <Plant x={-330} y={1060} s={0.7} t={t} seed={11} tall />
     {/* the nest in the corner of beam and wall */}
     <g transform="translate(560 210)">
       <path d={`M -80 0 Q -60 ${70 * nest} 0 ${80 * nest} Q 60 ${70 * nest} 80 0`} fill="#9A8A50" stroke="#5A4A26" strokeWidth={4} />
@@ -200,13 +203,22 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S5: low, under the dry eave: a pair of birds bring twigs to the corner of the beam; hold ----------
 export const S5: React.FC<ShotProps> = ({ t, len }) => {
-  const a = kf(t, [[0, 0], [40, 1]]);
-  const b = kf(t, [[50, 0], [95, 1]]);
+  // each bird flies in on an arc, lands on the rim of the nest, works its twig in (the twig shrinks, the nest grows), then hops
+  const fly = (t0: number, t1: number, from: [number, number], to: [number, number]) => {
+    const k = kf(t, [[t0, 0], [t1, 1]]);
+    const e = 1 - (1 - k) * (1 - k);
+    return { x: from[0] + (to[0] - from[0]) * e, y: from[1] + (to[1] - from[1]) * e - 140 * Math.sin(k * Math.PI), k };
+  };
+  const A = fly(0, 36, [1700, 160], [632, 196]);
+  const B = fly(46, 84, [1800, 120], [508, 200]);
+  const putA = kf(t, [[38, 0], [52, 1]]);
+  const putB = kf(t, [[86, 0], [100, 1]]);
+  const hop = (k: number, p: number) => (k >= 1 ? -10 * Math.abs(Math.sin(p * Math.PI * 2)) : 0);
   return (
-    <g transform={camT(kf(t, [[0, 900], [len, 700]]), kf(t, [[0, 420], [len, 300]]), kf(t, [[0, 1.4], [len, 2.1]]))}>
-      <Eave t={t} nest={0.3 + 0.2 * kf(t, [[0, 0], [len, 1]])} />
-      <Bird x={1600 - 1000 * a} y={260 + 120 * Math.sin(a * Math.PI) * -1 + 40} s={0.9} flip={-1} flap={a < 1 ? Math.abs(Math.sin(t * 0.8)) : 0} twig={1} t={t} />
-      <Bird x={1800 - 1140 * b} y={300 - 140 * Math.sin(b * Math.PI) + 20} s={0.8} flip={-1} flap={b < 1 ? Math.abs(Math.sin(t * 0.9 + 1)) : 0} twig={1} t={t} />
+    <g transform={camT(kf(t, [[0, 900], [len, 600]]), kf(t, [[0, 420], [len, 240]]), kf(t, [[0, 1.4], [len, 2.4]]))}>
+      <Eave t={t} nest={0.3 + 0.12 * putA + 0.12 * putB} />
+      {B.k > 0 ? <Bird x={B.x} y={B.y + hop(B.k, putB)} s={0.8} flip={B.k < 1 ? -1 : 1} flap={B.k < 1 ? Math.abs(Math.sin(t * 0.9 + 1)) : 0} twig={1 - putB} t={t} /> : null}
+      <Bird x={A.x} y={A.y + hop(A.k, putA)} s={0.9} flip={-1} flap={A.k < 1 ? Math.abs(Math.sin(t * 0.8)) : 0} twig={1 - putA} t={t} />
     </g>
   );
 };

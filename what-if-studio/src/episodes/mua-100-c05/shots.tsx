@@ -3,6 +3,7 @@ import {
   Hero, kf, rnd, camT, LOOKS, joints, toWorld, stand, makeRoom, RoomShell, Box, FloorShadow,
   AnHouse, Alley, alleyP, LivingRoom, LIVING, RoofRow, Areca, Dog, Radio, Rain, Splashes, CloudBank, Foreground, Glow, LightVeil, ShotProps,
 } from '../../engine';
+import { Bookcase, ShoeRack, Plant, NoticeBoard } from '../../engine/sets/school';
 import { OpenHand } from '../../engine/hands';
 import { LEG_LEN } from '../../engine/rig';
 import { P, talkAt, Back, ShopFront } from '../mua-100-c01/shots';
@@ -199,6 +200,7 @@ export const School: React.FC<{ t: number; van?: number }> = ({ t, van = -1 }) =
     <path d="M 1840 660 L 1840 260" stroke="#4A4A4A" strokeWidth={10} />
     <path d={`M 1840 270 l 120 ${20 + 10 * Math.sin(t * 0.3)} l -120 40 Z`} fill="#C8322A" />
     {van >= 0 ? <Van x={-300 + 1200 * van} y={880} s={0.8} t={t} wipe /> : null}
+    {[260, 640, 1020, 1400].map((x, i) => <Plant key={i} x={x} y={662} s={0.38} t={t} seed={i + 2} />)}
     <Glow x={960} y={460} r={700} o={0.35} />
     <Rain t={t} o={0.35} seed={92} />
   </g>
@@ -229,6 +231,10 @@ export const Shelter: React.FC<{ t: number; id: string }> = ({ t, id }) => {
       <Duffel x={P(0.36, 1, 0.5).x} y={P(0.36, 1, 0.5).y} s={k} />
       <Bundle x={P(0.36, 1, 0.75).x} y={P(0.36, 1, 0.75).y} s={k * 1.1} c="#4F7486" />
       <PlasticBag x={P(0.36, 1, 0.3).x} y={P(0.36, 1, 0.3).y} s={k} />
+      <Bookcase x={P(0.1, 1, 0.03).x} y={P(0.1, 1, 0.03).y} s={r.s(0.03) / r.s(0) * 0.62} />
+      <ShoeRack x={P(0.74, 1, 0.03).x} y={P(0.74, 1, 0.03).y} s={r.s(0.03) / r.s(0) * 0.42} />
+      <Plant x={P(0.65, 1, 0.04).x} y={P(0.65, 1, 0.04).y} s={r.s(0.04) / r.s(0) * 0.42} t={t} tall />
+      <Plant x={P(0.97, 1, 0.62).x} y={P(0.97, 1, 0.62).y} s={r.s(0.62) / r.s(0) * 0.38} t={t} seed={7} />
       <Glow x={P(0.5, 0.05, 0.5).x} y={P(0.5, 0.05, 0.5).y} r={700} o={0.45} />
       <LightVeil id={`${id}v`} lights={[[P(0.5, 0.2, 0.5).x, P(0.5, 0.2, 0.5).y, 800], [P(0.82, 0.4, 0).x, P(0.82, 0.4, 0).y, 300]]} o={0.4} />
     </g>
