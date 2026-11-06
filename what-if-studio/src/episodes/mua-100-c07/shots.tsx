@@ -73,7 +73,16 @@ const Woods: React.FC<{ t: number; fence?: boolean; nest?: boolean }> = ({ t, fe
     <rect x={1180} y={-200} width={140} height={980} fill="#5A4A34" stroke={L} strokeWidth={5} />
     <path d="M 1180 700 Q 1120 760 1080 790 M 1320 700 Q 1380 760 1420 790" stroke="#5A4A34" strokeWidth={30} fill="none" />
     {nest ? <path d="M 1120 760 Q 1180 720 1250 760" stroke="#7A6A40" strokeWidth={10} fill="none" opacity={0.5} /> : null}
-    <Flood t={t} y={720} x0={-400} x1={2320} o={0.85} h={800} seed={11} />
+    <Flood t={t} y={500} x0={-400} x1={2320} o={0.88} h={1100} seed={11} />
+    {/* the drowned trunks seen dimly through the water, and the rings where they leave it */}
+    {Array.from({ length: 14 }).map((_, i) => {
+      const x = -300 + i * 190 + 60 * rnd(3, i);
+      const w = 30 + 30 * rnd(4, i);
+      return <g key={i}><rect x={x} y={500} width={w} height={600} fill="#2E3A3A" opacity={0.25} /><ellipse cx={x + w / 2} cy={502} rx={w * 0.9} ry={6} fill="none" stroke="#DDE8EC" strokeWidth={3} opacity={0.6} /></g>;
+    })}
+    <rect x={1180} y={500} width={140} height={600} fill="#2E2A20" opacity={0.3} />
+    <ellipse cx={1250} cy={503} rx={110} ry={9} fill="none" stroke="#DDE8EC" strokeWidth={4} opacity={0.7} />
+    {[[300, 0], [820, 1], [1560, 2]].map(([x, i]) => <g key={i} transform={`translate(${x + 30 * Math.sin(t * 0.03 + i)} ${506 + 3 * Math.sin(t * 0.1 + i)})`}><path d="M -60 0 L 60 -4 M -30 2 l -14 -12 M 20 -2 l 10 -14" stroke="#5A4A34" strokeWidth={7} strokeLinecap="round" /></g>)}
     {/* the old path: a pale strip going under the water */}
     <path d="M 600 1100 Q 760 860 900 720" stroke="#A89A7A" strokeWidth={60} opacity={0.35} fill="none" />
     {fence ? (
@@ -159,7 +168,9 @@ export const S2: React.FC<ShotProps> = ({ t, len }) => (
     <path d="M 900 440 q -60 -60 -120 -70 M 1100 420 q -30 -80 -90 -110" stroke="#4A3A2A" strokeWidth={16} fill="none" />
     {Array.from({ length: 8 }).map((_, i) => <ellipse key={i} cx={820 + i * 80} cy={360 - (i % 3) * 30} rx={50} ry={20} fill="#5E7A44" />)}
     <Squirrel x={1040} y={420} s={1.4} t={t} look={kf(t, [[0, 0], [30, 1]])} />
-    <Flood t={t} y={820} x0={-400} x1={2320} o={0.85} h={800} seed={23} />
+    <Flood t={t} y={600} x0={-400} x1={2320} o={0.88} h={1000} seed={23} />
+    <rect x={1400} y={600} width={160} height={600} fill="#2E2A20" opacity={0.3} />
+    <ellipse cx={1480} cy={603} rx={120} ry={9} fill="none" stroke="#DDE8EC" strokeWidth={4} opacity={0.7} />
     <Rain t={t} o={0.35} seed={24} />
   </g>
 );
@@ -167,9 +178,9 @@ export const S2: React.FC<ShotProps> = ({ t, len }) => (
 // ---------- S3: the foot of the old tree: where the nest was, only water and a few loose straws ----------
 export const S3: React.FC<ShotProps> = ({ t, len }) => (
   <g>
-    <g transform={camT(1250, 740, kf(t, [[0, 1.6], [len, 2.1]]))}>
+    <g transform={camT(1250, 520, kf(t, [[0, 1.6], [len, 2.1]]))}>
       <Woods t={t} fence={false} nest />
-      {Array.from({ length: 5 }).map((_, i) => <path key={i} d={`M ${1100 + i * 50 + 20 * Math.sin(t * 0.05 + i)} ${740 + (i % 2) * 10} l 30 4`} stroke="#9A8A50" strokeWidth={4} />)}
+      {Array.from({ length: 5 }).map((_, i) => <path key={i} d={`M ${1100 + i * 50 + 20 * Math.sin(t * 0.05 + i)} ${505 + (i % 2) * 6} l 30 4`} stroke="#9A8A50" strokeWidth={4} />)}
     </g>
     <Vignette o={0.45} id="c7s3" />
   </g>
