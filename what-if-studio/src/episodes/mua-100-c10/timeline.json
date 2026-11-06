@@ -1930,6 +1930,11 @@
  ],
  "fx": [],
  "audio": {
-  "voice": "mua-100-c10/voice.wav"
+  "voice": "mua-100-c10/voice.wav",
+  "sfx": "mua-100-c10/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.1406,
+  "music": "mua-100-c10/music.wav",
+  "musicVol": 0.0996
  }
 }
