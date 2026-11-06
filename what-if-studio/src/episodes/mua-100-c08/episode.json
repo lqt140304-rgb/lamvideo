@@ -1008,6 +1008,22 @@
       "calm_bed": [
         "lib:mua_bed2",
         100
+      ],
+      "thunder_close_fs": [
+        "lib:thunder_close_fs",
+        14
+      ],
+      "sheet_metal_fs": [
+        "lib:sheet_metal_fs",
+        5
+      ],
+      "window_slam_fs": [
+        "lib:window_slam_fs",
+        1.3
+      ],
+      "wind_howl_fs": [
+        "lib:wind_howl_fs",
+        69
       ]
     },
     "events": [
@@ -1060,11 +1076,6 @@
         "S11+4",
         "crack",
         0.8
-      ],
-      [
-        "S12+14",
-        "door_bang",
-        0.9
       ],
       [
         "S12+18",
@@ -1201,6 +1212,28 @@
         "S66+40",
         "radio_static_fs",
         0.4
+      ],
+      [
+        "S12+14",
+        "window_slam_fs",
+        0.9
+      ],
+      [
+        "S15+2",
+        "thunder_close_fs",
+        0.7
+      ],
+      [
+        "S33+16",
+        "sheet_metal_fs",
+        0.7
+      ],
+      [
+        "S10",
+        "wind_howl_fs",
+        0.4,
+        "onset",
+        "S38"
       ]
     ],
     "music": {
