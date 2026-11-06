@@ -9,6 +9,7 @@ import { Hero, basePose, Pose, LOOKS, CastName, Expr, KitDefs, SetDefs, FONT } f
 export const EXPRS: [Expr, string][] = [
   ['neutral', 'BÌNH THƯỜNG'], ['happy', 'VUI'], ['smug', 'TỰ ĐẮC'], ['shock', 'SỐC'], ['worried', 'LO LẮNG'],
   ['oops', 'TOANG'], ['cool', 'NGẦU'], ['dizzy', 'CHOÁNG'], ['tired', 'MỆT'],
+  ['sad', 'BUỒN'], ['cry', 'KHÓC'], ['smile', 'CƯỜI NHẸ'], ['relieved', 'NHẸ NHÕM'], ['scared', 'SỢ'], ['determined', 'QUYẾT TÂM'],
 ];
 export const MODEL_CAST: { id: CastName; name: string; note: string; short: string }[] = [
   { id: 'worker', name: 'BẠN · BẢN CÔNG TRƯỜNG', short: 'BẠN · CÔNG TRƯỜNG', note: 'Áo lao động màu gạch, quần kaki, giày bảo hộ phủ bụi. Cùng một khuôn mặt ở mọi bản.' },
@@ -82,19 +83,21 @@ export const ModelSheet: React.FC<{ id: CastName }> = ({ id }) => {
 
 export const SHEET_H = 130 + MODEL_CAST.length * 205 + 30;
 
+// the sheet fits nine faces across: the everyday set plus the new feelings
+const SHOWN = EXPRS.filter(([e]) => ['neutral', 'happy', 'smile', 'relieved', 'sad', 'cry', 'worried', 'scared', 'determined'].includes(e));
 export const Expressions: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: BG }}>
     <svg width={1920} height={SHEET_H} viewBox={`0 0 1920 ${SHEET_H}`}>
       <KitDefs />
       <SetDefs />
       <text x={40} y={70} fontFamily={FONT.title} fontWeight={800} fontSize={44} fill="#F6EFE3">BẢNG BIỂU CẢM</text>
-      {EXPRS.map(([, lab], i) => (
+      {SHOWN.map(([, lab], i) => (
         <text key={lab} x={386 + i * 176} y={108} textAnchor="middle" {...MONO} fontSize={17} fill="#8A83B4">{lab}</text>
       ))}
       {MODEL_CAST.map((c, r) => (
         <g key={c.id}>
           <text x={40} y={130 + r * 205 + 100} {...MONO} fontSize={19} fill="#B8B0DC">{c.short}</text>
-          {EXPRS.map(([ex], i) => (
+          {SHOWN.map(([ex], i) => (
             <g key={ex}>
               <rect x={300 + i * 176} y={130 + r * 205} width={172} height={188} rx={14} fill={PANEL} stroke={EDGE} strokeWidth={2} />
               <Bust id={c.id} expr={ex} x={300 + i * 176} y={130 + r * 205} w={172} h={188} />

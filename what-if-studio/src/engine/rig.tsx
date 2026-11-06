@@ -73,7 +73,7 @@ export const LOOKS: Record<CastName, Look> = {
 // ---------- the hero ----------
 /** Mitten hands: open (a palm and a thumb) or pointing (a fist with the index finger out). */
 export type HandKind = 'open' | 'point';
-export type Expr = 'neutral' | 'happy' | 'smug' | 'shock' | 'worried' | 'oops' | 'cool' | 'dizzy' | 'tired';
+export type Expr = 'neutral' | 'happy' | 'smug' | 'shock' | 'worried' | 'oops' | 'cool' | 'dizzy' | 'tired' | 'sad' | 'cry' | 'smile' | 'relieved' | 'scared' | 'determined';
 export type Limb = { a: number; b: number }; // a: upper segment angle, b: bend of the lower segment (degrees)
 export type Pose = {
   x: number;
@@ -262,6 +262,8 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
     if (expr === 'happy') return <path d={`M ${cx - 10} ${eyeY + 3} Q ${cx} ${eyeY - 9} ${cx + 10} ${eyeY + 3}`} stroke={ink} strokeWidth={6} fill="none" strokeLinecap="round" />;
     if (expr === 'oops') return <path d={`M ${cx - 9} ${eyeY - 6} L ${cx + 4} ${eyeY} L ${cx - 9} ${eyeY + 6}`} transform={cx > 0 ? `translate(${2 * cx},0) scale(-1,1)` : undefined} stroke={ink} strokeWidth={6} fill="none" strokeLinecap="round" strokeLinejoin="round" />;
     if (expr === 'dizzy') return <g stroke={ink} strokeWidth={5} strokeLinecap="round"><path d={`M ${cx - 7} ${eyeY - 7} L ${cx + 7} ${eyeY + 7} M ${cx + 7} ${eyeY - 7} L ${cx - 7} ${eyeY + 7}`} /></g>;
+    const sg = cx < 0 ? 1 : -1; // + for the screen-left eye: its inner corner is on the right
+    if (expr === 'relieved') return <path d={`M ${cx - 10} ${eyeY - 1} Q ${cx} ${eyeY + 9} ${cx + 10} ${eyeY - 1}`} stroke={ink} strokeWidth={5.5} fill="none" strokeLinecap="round" />;
     // shut (a blink's middle frame, or asleep): the closed lid's curve, with the tired rings kept
     if (blink >= 0.95)
       return (
@@ -270,13 +272,20 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
           {expr === 'tired' ? <path d={`M ${cx - 12} ${eyeY + 15} Q ${cx} ${eyeY + 22} ${cx + 12} ${eyeY + 15}`} stroke="#8C7AA6" strokeWidth={4.5} fill="none" strokeLinecap="round" opacity={0.85} /> : null}
         </g>
       );
-    const big = expr === 'shock';
-    const rx = big ? 11 : 7;
-    const ry = (big ? 13 : 10) * open;
+    const big = expr === 'shock' || expr === 'scared';
+    const sadEye = expr === 'sad' || expr === 'cry';
+    const rx = expr === 'scared' ? 9 : big ? 11 : 7;
+    const ry = (big ? 13 : sadEye || expr === 'determined' ? 8.5 : expr === 'smile' ? 9 : 10) * open;
     return (
       <g>
         <ellipse cx={cx + ex} cy={eyeY + (lid ? 3 : 0)} rx={rx} ry={ry} fill={ink} />
         {big && open > 0.5 ? <circle cx={cx + ex + 3.5} cy={eyeY - 4} r={3.4} fill="#fff" /> : null}
+        {sadEye && open > 0.5 ? <circle cx={cx + ex + 2.5} cy={eyeY - 1} r={2.6} fill="#fff" opacity={0.9} /> : null}
+        {sadEye ? <path d={`M ${cx - 12 * sg} ${eyeY + 1} Q ${cx} ${eyeY - 4} ${cx + 12 * sg} ${eyeY - 6}`} stroke={ink} strokeWidth={4} strokeLinecap="round" fill="none" /> : null}
+        {expr === 'determined' ? <path d={`M ${cx - 12 * sg} ${eyeY - 7} L ${cx + 12 * sg} ${eyeY - 1}`} stroke={ink} strokeWidth={4} strokeLinecap="round" fill="none" /> : null}
+        {expr === 'smile' ? <path d={`M ${cx - 10} ${eyeY + 13} Q ${cx} ${eyeY + 7} ${cx + 10} ${eyeY + 13}`} stroke={ink} strokeWidth={3.5} strokeLinecap="round" fill="none" opacity={0.7} /> : null}
+        {expr === 'cry' ? <path d={`M ${cx + 2 * sg} ${eyeY + 10} Q ${cx + 8 * sg} ${eyeY + 28} ${cx + 4 * sg} ${eyeY + 46}`} stroke="#8FD3FF" strokeWidth={6} strokeLinecap="round" fill="none" /> : null}
+        {expr === 'sad' ? <path d={`M ${cx - 4 * sg} ${eyeY + 11} q 3 7 0 11 q -3 -4 0 -11 Z`} fill="#8FD3FF" opacity={0.9} /> : null}
         {lid ? <path d={expr === 'tired' ? `M ${cx - 13} ${eyeY - 1} Q ${cx} ${eyeY - 5} ${cx + 13} ${eyeY - 1}` : `M ${cx - 12} ${eyeY - 4} L ${cx + 12} ${eyeY - 2}`} stroke={ink} strokeWidth={4} strokeLinecap="round" fill="none" /> : null}
         {expr === 'tired' ? <path d={`M ${cx - 12} ${eyeY + 14} Q ${cx} ${eyeY + 21} ${cx + 12} ${eyeY + 14}`} stroke="#8C7AA6" strokeWidth={4.5} fill="none" strokeLinecap="round" opacity={0.85} /> : null}
       </g>
@@ -292,6 +301,12 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
     cool: '',
     dizzy: '',
     tired: `M -33 ${eyeY - 17} Q -22 ${eyeY - 21} -11 ${eyeY - 19} M 11 ${eyeY - 19} Q 22 ${eyeY - 21} 33 ${eyeY - 17}`,
+    sad: `M -33 ${eyeY - 14} Q -22 ${eyeY - 19} -11 ${eyeY - 27} M 11 ${eyeY - 27} Q 22 ${eyeY - 19} 33 ${eyeY - 14}`,
+    cry: `M -34 ${eyeY - 12} Q -22 ${eyeY - 18} -10 ${eyeY - 29} M 10 ${eyeY - 29} Q 22 ${eyeY - 18} 34 ${eyeY - 12}`,
+    smile: `M -32 ${eyeY - 23} Q -21 ${eyeY - 29} -10 ${eyeY - 25} M 10 ${eyeY - 25} Q 21 ${eyeY - 29} 32 ${eyeY - 23}`,
+    relieved: `M -32 ${eyeY - 21} Q -21 ${eyeY - 26} -10 ${eyeY - 22} M 10 ${eyeY - 22} Q 21 ${eyeY - 26} 32 ${eyeY - 21}`,
+    scared: `M -32 ${eyeY - 30} L -11 ${eyeY - 38} M 11 ${eyeY - 38} L 32 ${eyeY - 30}`,
+    determined: `M -35 ${eyeY - 29} L -9 ${eyeY - 20} M 9 ${eyeY - 20} L 35 ${eyeY - 29}`,
   };
   const mY = HEAD.y + 28;
   const mouth: Record<Expr, React.ReactNode> = {
@@ -304,6 +319,12 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
     cool: <path d={`M -12 ${mY + 2} Q 4 ${mY + 8} 16 ${mY - 6}`} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" />,
     dizzy: <path d={`M -14 ${mY + 4} Q -7 ${mY - 4} 0 ${mY + 4} Q 7 ${mY + 12} 14 ${mY + 4}`} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" />,
     tired: <path d={`M -11 ${mY + 4} Q 0 ${mY} 11 ${mY + 4}`} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" />,
+    sad: <path d={`M -13 ${mY + 7} Q 0 ${mY - 5} 13 ${mY + 7}`} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" />,
+    cry: <path d={`M -15 ${mY + 11} Q 0 ${mY - 8} 15 ${mY + 11} Q 0 ${mY + 3} -15 ${mY + 11} Z`} fill={ink} stroke={ink} strokeWidth={3} strokeLinejoin="round" />,
+    smile: <path d={`M -15 ${mY - 2} Q 0 ${mY + 13} 15 ${mY - 2}`} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" />,
+    relieved: <path d={`M -11 ${mY} Q 0 ${mY + 9} 11 ${mY}`} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" />,
+    scared: <ellipse cx={0} cy={mY + 5} rx={11} ry={9} fill={ink} />,
+    determined: <path d={`M -12 ${mY + 3} L 12 ${mY + 3}`} stroke={ink} strokeWidth={6} fill="none" strokeLinecap="round" />,
   };
   return (
     <g transform={`translate(${yaw * 30} 0) scale(${1 - 0.28 * ay} 1)`}>
@@ -311,7 +332,7 @@ const Face: React.FC<{ expr: Expr; blink: number; look: number; glasses: number;
       {eye(21)}
       {brows[expr] ? <path d={brows[expr]} stroke={ink} strokeWidth={5} fill="none" strokeLinecap="round" /> : null}
       {talk > 0.08 ? <ellipse cx={0} cy={mY + 4} rx={13} ry={2.5 + 12 * talk} fill={ink} /> : mouth[expr]}
-      {expr === 'shock' || expr === 'oops' ? <path d={`M 52 ${HEAD.y - 30} q 6 10 0 16 q -6 -6 0 -16 Z`} fill="#8FD3FF" /> : null}
+      {expr === 'shock' || expr === 'oops' || expr === 'scared' ? <path d={`M 52 ${HEAD.y - 30} q 6 10 0 16 q -6 -6 0 -16 Z`} fill="#8FD3FF" /> : null}
       {/* a power lighting the eyes: a soft halo, a bright iris, a white catchlight (none while the lids are shut) */}
       {glint > 0.01 && blink < 0.95
         ? [-21, 21].map((cx) =>

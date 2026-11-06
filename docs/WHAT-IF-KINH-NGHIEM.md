@@ -239,3 +239,8 @@ Code mẫu trong `mua-100-c08/shots.tsx`:
 - **Từ trong ra:** khung cửa sổ tối hai bên (`NearEdge`) nhìn ra sân lúc biển rơi (S33).
 - Ngồi dậy từ chăn trên sàn: hông ở sàn (`upAt`), cắt người ở đường sàn bằng `AboveFloor` rồi phủ chăn, không thì lòi chân dưới chăn.
 - Người phụ dùng `LOOKS.mom/student/tech` phải đổi `skin` sang tông da gia đình (mặc định trắng bệch).
+
+## Biểu cảm khuôn mặt (chủ kênh dặn 06/11/2026: buồn, vui làm kỹ hơn)
+- `Expr` (engine/rig.tsx) thêm 6 kiểu: `sad` (lông mày xệ, mí rủ, mắt long lanh, giọt lệ nhỏ, miệng méo xuống), `cry` (thêm dòng nước mắt xanh, miệng mếu há), `smile` (cười nhẹ, mắt cong nhẹ), `relieved` (mắt nhắm cong, thở phào), `scared` (mắt to, mày dựng cao, mồ hôi, miệng há tròn), `determined` (mày hạ vào trong, miệng thẳng).
+- Dùng: `worried` giữ cho lo lắng nhẹ; bão/nguy hiểm dùng `scared`; mất mát, ngồi thất thần dùng `sad`, `cry` chỉ khi cận mặt; sau bão dùng `smile`, `relieved`; `happy` (miệng há cười) để dành cho phấn khích thật sự.
+- Xem bảng: `npx remotion still src/index.ts Expressions out/models/bieu-cam.png` (9 mặt trên mọi nhân vật). Cảnh 1–7 chưa đổi sang bộ mới, khi sửa lại cảnh cũ thì thay `worried`/`tired` ở đoạn buồn.
