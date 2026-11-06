@@ -24,3 +24,8 @@ what-if-studio/public/*/music.wav
 # Tep tam trong ho so tap
 episodes/**/tmp/
 episodes/**/renders/
+
+# Media va cau hinh local cua ban dung cu theo tap
+episodes/**/production/public/
+episodes/**/production/library/
+episodes/**/nguon.local.json

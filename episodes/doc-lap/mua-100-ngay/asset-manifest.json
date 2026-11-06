@@ -1,0 +1,1820 @@
+{
+  "date": "2026-11-07",
+  "episode": "mua-100-ngay",
+  "status": "Migration of existing files; no new media generation or playback verification",
+  "editorial_source": "v7",
+  "scene_records": [
+    {
+      "slug": "mua-100-c01",
+      "composition": "Mua100C01",
+      "seconds_in_old_report": 168.4,
+      "segments_in_old_report": 40,
+      "credits_in_old_report": 4696,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c02",
+      "composition": "Mua100C02",
+      "seconds_in_old_report": 77.1,
+      "segments_in_old_report": 23,
+      "credits_in_old_report": 528,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c03",
+      "composition": "Mua100C03",
+      "seconds_in_old_report": 115.3,
+      "segments_in_old_report": 36,
+      "credits_in_old_report": 806,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c04",
+      "composition": "Mua100C04",
+      "seconds_in_old_report": 118.0,
+      "segments_in_old_report": 42,
+      "credits_in_old_report": 804,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c05",
+      "composition": "Mua100C05",
+      "seconds_in_old_report": 156.6,
+      "segments_in_old_report": 47,
+      "credits_in_old_report": 1475,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c06",
+      "composition": "Mua100C06",
+      "seconds_in_old_report": 104.3,
+      "segments_in_old_report": 29,
+      "credits_in_old_report": 743,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c07",
+      "composition": "Mua100C07",
+      "seconds_in_old_report": 64.2,
+      "segments_in_old_report": 17,
+      "credits_in_old_report": 664,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c08",
+      "composition": "Mua100C08",
+      "seconds_in_old_report": 282.2,
+      "segments_in_old_report": 66,
+      "credits_in_old_report": 2054,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c09",
+      "composition": "Mua100C09",
+      "seconds_in_old_report": 71.0,
+      "segments_in_old_report": 24,
+      "credits_in_old_report": 508,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    },
+    {
+      "slug": "mua-100-c10",
+      "composition": "Mua100C10",
+      "seconds_in_old_report": 408.1,
+      "segments_in_old_report": 113,
+      "credits_in_old_report": 2782,
+      "voice_model_in_old_config": "eleven_v4",
+      "voice_id_in_old_config": "HXqqNj3PDxRdHVH1pXog"
+    }
+  ],
+  "old_report_total_seconds": 1565.2,
+  "old_report_credit_sum": 15060,
+  "credit_note": "Sum of historical report records, not independently verified billing or a new quote",
+  "narration_comparison": {
+    "method": "lowercase word tokens, tags removed",
+    "editorial_tokens": 5369,
+    "render_source_tokens": 5369,
+    "matching_ratio": 1.0,
+    "different_spans": 0
+  },
+  "unresolved_library_prefixes": [],
+  "generated_registry": "production/src/episodes/index.ts",
+  "files": [
+    {
+      "path": "KICH-BAN.md",
+      "source": "workspace/outputs/kich-ban-mua-lien-tuc-100-ngay-v7-ban-dung.md",
+      "bytes": 81383,
+      "sha256": "936e491f8894338b0446af0162ed62ca2e5ebb347e053e097667b8463b60557b",
+      "storage": "git"
+    },
+    {
+      "path": "LOI-DOC.md",
+      "source": "workspace/outputs/kich-ban-mua-lien-tuc-100-ngay-v7-loi-doc-sach.md",
+      "bytes": 33044,
+      "sha256": "ff4b11fbbe23cac7d606b081e34ea799fa3d62cf01b97e1018a03ac0626f83d7",
+      "storage": "git"
+    },
+    {
+      "path": "ELEVENLABS.md",
+      "source": "workspace/outputs/kich-ban-mua-lien-tuc-100-ngay-v7-elevenlabs.md",
+      "bytes": 33875,
+      "sha256": "a75cd6ab494fe26f63954639840cebba22786381f24145bde19be99448902ac2",
+      "storage": "git"
+    },
+    {
+      "path": "production/package.json",
+      "source": "legacy-studio/package.json",
+      "bytes": 713,
+      "sha256": "067f0969b388b2cca9c57c0b8dab4d139e44f3240df6bf1a71353746103c17f3",
+      "storage": "git"
+    },
+    {
+      "path": "production/package-lock.json",
+      "source": "legacy-studio/package-lock.json",
+      "bytes": 149827,
+      "sha256": "b43923239ba9a3f6e5a117228772e841b7557858da113448b17e0eda9ab3ac53",
+      "storage": "git"
+    },
+    {
+      "path": "production/tsconfig.json",
+      "source": "legacy-studio/tsconfig.json",
+      "bytes": 330,
+      "sha256": "1c824378ca394e2f8f8527007478ab20026c19f9e52d68c0483cdb292dc73bf9",
+      "storage": "git"
+    },
+    {
+      "path": "production/remotion.config.ts",
+      "source": "legacy-studio/remotion.config.ts",
+      "bytes": 159,
+      "sha256": "61a97595be7842bcfdf49f2890248201a2afc0a2da0c4936de5c42dbf57610d4",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/Root.tsx",
+      "source": "legacy-studio/src/Root.tsx",
+      "bytes": 1410,
+      "sha256": "37519bda1bf17e7c0167a2f4bc5642ec18480a28b63f5f63762f1b25f0766679",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/index.ts",
+      "source": "legacy-studio/src/index.ts",
+      "bytes": 97,
+      "sha256": "7c7522648eb3464f3b3c46b41dfc370fe451d8be99bd1f00179924b9f3de71f3",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/studio.config.ts",
+      "source": "legacy-studio/src/studio.config.ts",
+      "bytes": 816,
+      "sha256": "708f387bb7130623d20145eba87b80074f1adc1d61aaed953d8fde460fa6531b",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/CastSheet.tsx",
+      "source": "legacy-studio/src/CastSheet.tsx",
+      "bytes": 3053,
+      "sha256": "f7a15ab2a07c019d37480868b0c0ed57612141dc2082c4de22ee7b93821f0802",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/ModelSheet.tsx",
+      "source": "legacy-studio/src/ModelSheet.tsx",
+      "bytes": 7237,
+      "sha256": "b410717151102284d5ddd97727d9e67246d11779d221d6bd90878d73d8c8b88a",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/anim.ts",
+      "source": "legacy-studio/src/engine/anim.ts",
+      "bytes": 2217,
+      "sha256": "e18f7dd567b3596ca4da8f0358683735dc51cc67c9ddfba7c0779bd81187a3dd",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/episode.tsx",
+      "source": "legacy-studio/src/engine/episode.tsx",
+      "bytes": 9227,
+      "sha256": "deb3d40a5f04cc54f4c2e8ba9d1633aaff390414d550b0f628a1a30a9b25db80",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/fonts.ts",
+      "source": "legacy-studio/src/engine/fonts.ts",
+      "bytes": 1749,
+      "sha256": "a65779713fabfc878af2b0ae6621a31f8ae157ae2c96767df0889bf0fd0cc0d9",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/furnish.tsx",
+      "source": "legacy-studio/src/engine/furnish.tsx",
+      "bytes": 15742,
+      "sha256": "bcbe12d106b9e9857fc06dbbf0096e3a4cf06d37058e271e4e37cc15d95d64ba",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/hands.tsx",
+      "source": "legacy-studio/src/engine/hands.tsx",
+      "bytes": 3257,
+      "sha256": "f3ea5b7bb42757c3a9edcd0b18df75ee6173868a72583ee08afbced6488582be",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/index.ts",
+      "source": "legacy-studio/src/engine/index.ts",
+      "bytes": 734,
+      "sha256": "57024814ed1688c17cc0c408c62b68a01b5910dd45a79ea0bd26a610bd96ed97",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/kit.tsx",
+      "source": "legacy-studio/src/engine/kit.tsx",
+      "bytes": 10312,
+      "sha256": "5daa24b147cdd128a178bcad5b2e56ffcad7ebaa6bac2db4fcd842b062e25a27",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/light.tsx",
+      "source": "legacy-studio/src/engine/light.tsx",
+      "bytes": 8581,
+      "sha256": "7957c9e097da1745fd98d23236a82c4a5deedd0bb7968fd63e06c3d0ef9cdb9b",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/props.tsx",
+      "source": "legacy-studio/src/engine/props.tsx",
+      "bytes": 27583,
+      "sha256": "54dcbc5e4665fe5fb1d776863c37e07d03a53a4d7963f41d40fa877dacc1211b",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/props_life.tsx",
+      "source": "legacy-studio/src/engine/props_life.tsx",
+      "bytes": 37895,
+      "sha256": "2d8aa92034da1c887e9f4148160f40ff4331ed81e6383b42ed88029529a28688",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/rig.tsx",
+      "source": "legacy-studio/src/engine/rig.tsx",
+      "bytes": 41260,
+      "sha256": "9212855113a5c6bbbc307df4bcb4373032c9b3a86f931888ad10d73b2a304c29",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/room.tsx",
+      "source": "legacy-studio/src/engine/room.tsx",
+      "bytes": 3079,
+      "sha256": "35ea397f3bce2f8e77a7c60edd41e76c134537e57b252447b7b23d02bb940c7d",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/bedroom.tsx",
+      "source": "legacy-studio/src/engine/sets/bedroom.tsx",
+      "bytes": 18228,
+      "sha256": "9e2ced55e44ac86ac88f7fa98c776391a8db6f6c3c078e79df52b124724f1e78",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/benlau.tsx",
+      "source": "legacy-studio/src/engine/sets/benlau.tsx",
+      "bytes": 44142,
+      "sha256": "b8078e72139a813408754a0e4887c09479ab5fc5c44638537d61f064a8afdea3",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/classroom.tsx",
+      "source": "legacy-studio/src/engine/sets/classroom.tsx",
+      "bytes": 14452,
+      "sha256": "7b510eaf4c195531df2531b8e73e2a0158ba449857120fcfcf3c3d4d995ea361",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/kitchen.tsx",
+      "source": "legacy-studio/src/engine/sets/kitchen.tsx",
+      "bytes": 12645,
+      "sha256": "c958b3e407c4fc76771e69908726b4424cd0ad1cbf2f23741da743da6156d395",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/life.tsx",
+      "source": "legacy-studio/src/engine/sets/life.tsx",
+      "bytes": 40151,
+      "sha256": "807539a5e683a428b875434eac387a19447d15486a9763055a590b2b0499ca4d",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/rooftop.tsx",
+      "source": "legacy-studio/src/engine/sets/rooftop.tsx",
+      "bytes": 11370,
+      "sha256": "ab0dcb482b0da4a707892638d87b8d3d555c51997f8e47b27a7f66d04ee127d4",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/schematic.tsx",
+      "source": "legacy-studio/src/engine/sets/schematic.tsx",
+      "bytes": 6570,
+      "sha256": "a7ddfd3e880ed87fee9a23a817f0616b93ab1447a46f5ff827e32f8a36730050",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/school.tsx",
+      "source": "legacy-studio/src/engine/sets/school.tsx",
+      "bytes": 4507,
+      "sha256": "4734214d76abcb5db03a909246a4bb8f03e9537d095bbe350f3a4b6bd1833a2f",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/stairwell.tsx",
+      "source": "legacy-studio/src/engine/sets/stairwell.tsx",
+      "bytes": 12918,
+      "sha256": "d5e2b629b5dfcb25b3d372715ac8defc4a6413173f5303b24b0621774851c893",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/sets/study.tsx",
+      "source": "legacy-studio/src/engine/sets/study.tsx",
+      "bytes": 18276,
+      "sha256": "d36d30707cef74b47172496a217b8f9cac7503d802a5e1099b1103ddad458bd8",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/engine/ui.tsx",
+      "source": "legacy-studio/src/engine/ui.tsx",
+      "bytes": 13272,
+      "sha256": "987216db1a6aa9730cddebd1bc819a8c884ef374e4a7e5e822c47568bf8d5e08",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c01/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c01/captions.json",
+      "bytes": 735,
+      "sha256": "f8dc284658d2414ec74929c69e64bef27d73c64c4ffd56ce6c1e2dcc723baae1",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c01/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c01/episode.json",
+      "bytes": 19040,
+      "sha256": "ca215b7b5a35fa15a42d8049e6e834df14e437811d15c670458d285fc60d37c2",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c01/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c01/index.tsx",
+      "bytes": 283,
+      "sha256": "9d4f54c4e5caa490d219265896aa296105f0663f1eb47dfd9c154baeef7e8ba2",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c01/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c01/shots.tsx",
+      "bytes": 60864,
+      "sha256": "d848195f823decfd7d0b5f1b2a3935c5f4a0263c62d45c224f33ada3de26ed69",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c01/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c01/timeline.json",
+      "bytes": 18384,
+      "sha256": "01f4da790470a5826ccb71f806cdee9ac5c6dc5b231d3b9447cdd245c8abf01b",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c01/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c01/words.json",
+      "bytes": 39793,
+      "sha256": "a168581ba7e2b31003d7bfd143efc062f7486b039d309b8fd59d0b57525e811e",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c01/music.wav",
+      "source": "legacy-studio/public/mua-100-c01/music.wav",
+      "bytes": 14876444,
+      "sha256": "bab7a2f2c57b4784683c3284bff7e84c52275731ded1d95b9d6f68287b90b4c9",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c01/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c01/sfx.wav",
+      "bytes": 14876444,
+      "sha256": "73881bf659f9604260bf6cf621d38ec66dcbb8808cb8eeb1041937b19f5d0e71",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c01/voice.wav",
+      "source": "legacy-studio/public/mua-100-c01/voice.wav",
+      "bytes": 14669738,
+      "sha256": "c8ec28382f0ddfc7278ca324b2cef8cdd077a5b9894fc02f466e9c279a786c6e",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c01/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c01/voice_raw.mp3",
+      "bytes": 2635275,
+      "sha256": "a12c1813da2f3e6468ae4e71f260290bbaec1784d1573dcc4ca794f6db3213d3",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c01/report.json",
+      "source": "legacy-output/mua-100-c01/report.json",
+      "bytes": 505,
+      "sha256": "391944fcaa47557f9ae5d52094862b31116211dd23eb749632f3e20e9017de6c",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c01/shotlist.md",
+      "source": "legacy-output/mua-100-c01/shotlist.md",
+      "bytes": 6179,
+      "sha256": "0340d18d32d2afa0bdaab41b93f7dfa5a5525051d7d59f6e524f215fd92e25e1",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c02/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c02/captions.json",
+      "bytes": 569,
+      "sha256": "37696159615382ea2ae471bda17b3691d3f2edcc6de5a5bb5e417b4e39b1127a",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c02/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c02/episode.json",
+      "bytes": 10207,
+      "sha256": "955ba528f83f4efecdab12fc62e85eb5764b55588cf5b3bb0a5243ee8364a8ed",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c02/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c02/index.tsx",
+      "bytes": 283,
+      "sha256": "1393180656044302890bbd96000602621e9b2cd86d5080cc58bfec45208ce668",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c02/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c02/nguon-am-thanh.md",
+      "bytes": 1557,
+      "sha256": "1838e65e245a4fa3dad11855863a1fbef4a51f56e3eed14cd74e7987562f92fc",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c02/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c02/shots.tsx",
+      "bytes": 30954,
+      "sha256": "e65f8f1757d1a71be13b85075f8e13f2ca12c893b131785f81ed830c47de5e56",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c02/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c02/timeline.json",
+      "bytes": 9925,
+      "sha256": "54e9702675c1cf687a231acf6aeb65d9bd9ed2d43539365fc3b01155de6f82c6",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c02/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c02/words.json",
+      "bytes": 17406,
+      "sha256": "1dfa31778ba1bee053336ea2e8cc5406304b3f8ac0a076b24a080ca3cd5d96d2",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c02/music.wav",
+      "source": "legacy-studio/public/mua-100-c02/music.wav",
+      "bytes": 6823784,
+      "sha256": "7743da2550e5ead0986dc990d960e810053200df5a6380afaaf3d36894b2afe1",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c02/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c02/sfx.wav",
+      "bytes": 6823784,
+      "sha256": "ddf85cbd5e45e9d2063f818950ec337dec7b2a32a00055c8c5a0ce5968925ea4",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c02/voice.wav",
+      "source": "legacy-studio/public/mua-100-c02/voice.wav",
+      "bytes": 6617692,
+      "sha256": "d70bca282f8d4c0a5853eaed4e1f1addcd7263a2cff554adf44833259425a892",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c02/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c02/voice_raw.mp3",
+      "bytes": 1195406,
+      "sha256": "e5e0d943ab61f5171c36708c22b3d60435e7e63cab4aa17cd582029e4e654d8a",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c02/report.json",
+      "source": "legacy-output/mua-100-c02/report.json",
+      "bytes": 417,
+      "sha256": "bbff465c4f824241e2a1a72b8ff12a4305efb811f22847f75fef19ed28c8620b",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c02/shotlist.md",
+      "source": "legacy-output/mua-100-c02/shotlist.md",
+      "bytes": 3144,
+      "sha256": "dec023f6ae9113669cc058d11e4c2c4180c2212d0f84bf1028e2e4e3c71876ba",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c03/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c03/captions.json",
+      "bytes": 740,
+      "sha256": "822dd2d0a90a45c5d4dbf611134d8a68ce948eef26a2b3cd2fced1d9837939ac",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c03/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c03/episode.json",
+      "bytes": 14335,
+      "sha256": "d5cf993910d183ca305b3acb3d898c5777d16ece4c9753c7d47b87600b7f752f",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c03/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c03/index.tsx",
+      "bytes": 283,
+      "sha256": "8853132d46f004c6792d3cce512892597a820a029d71b7b121606496e7011f17",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c03/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c03/nguon-am-thanh.md",
+      "bytes": 2101,
+      "sha256": "d3542a08c85f965a1ccd5f5569794c1edea2b404e9bd9598a9d64cad003dc6e7",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c03/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c03/shots.tsx",
+      "bytes": 50185,
+      "sha256": "2a16c2ff830d4b127b0f801063a77699e71792b4716bf01c70f7c68f4dc9af97",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c03/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c03/timeline.json",
+      "bytes": 14706,
+      "sha256": "99deb2e9c77197db605e39b83aedba49c9de7575eb84bc9dbb05c56a8efe7864",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c03/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c03/words.json",
+      "bytes": 26567,
+      "sha256": "3f3734c2e8ce219ff3ef4b0969de0dd337f2ab4b4a5e191200930179a4fbc776",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c03/music.wav",
+      "source": "legacy-studio/public/mua-100-c03/music.wav",
+      "bytes": 10195964,
+      "sha256": "e43fc8d158a064a7d30ad7aa3fe622bed6278eaf5385bd409456e1bbf129263b",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c03/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c03/sfx.wav",
+      "bytes": 10195964,
+      "sha256": "76a21a7509590e95843b30c47e15cd5724ced26b44606a14515e8b0d11d95f52",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c03/voice.wav",
+      "source": "legacy-studio/public/mua-100-c03/voice.wav",
+      "bytes": 10034558,
+      "sha256": "a7e5241885d7948d69b4378210d7af3740d3ccb7d6db854a625d75436f265523",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c03/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c03/voice_raw.mp3",
+      "bytes": 1814821,
+      "sha256": "93c905c6f1e32163e41ce63a8f53d30177a566982256ea26512eb3dd7341bac0",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c03/report.json",
+      "source": "legacy-output/mua-100-c03/report.json",
+      "bytes": 418,
+      "sha256": "10296b623cc3b754d0d50d83273e4cf6f6fe6bd2340e71156df3723808f13d1c",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c03/shotlist.md",
+      "source": "legacy-output/mua-100-c03/shotlist.md",
+      "bytes": 4632,
+      "sha256": "70e40bb9033df6f4a9f5e453e24ca862c66a1fd1b2ba14d8e54401b0f0fc9cb0",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c04/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c04/captions.json",
+      "bytes": 601,
+      "sha256": "bfd411780f7dc33c02a54bb2643f600d301e6ec071c97019710cb8abf24ea7bf",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c04/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c04/episode.json",
+      "bytes": 16714,
+      "sha256": "b3799d7a78c922b68c2f64fc721e08796d16c40fcc706aecbb5bd1e6d5b4ee21",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c04/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c04/index.tsx",
+      "bytes": 283,
+      "sha256": "5ba9aa36b561132d0d18dd1650200d192bb5e16a262b9df36a07de07ed01ce81",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c04/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c04/nguon-am-thanh.md",
+      "bytes": 2629,
+      "sha256": "863b9acc492a18cf6a50f5d075f55c70953fb35a6a9e794bfa8a151536d89e96",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c04/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c04/shots.tsx",
+      "bytes": 52460,
+      "sha256": "708c766bac9f4ae56c50cb53c4e15cbabd52ba692b3b1239b3b4f31d1238f304",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c04/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c04/timeline.json",
+      "bytes": 15907,
+      "sha256": "75741c3000a5603046b3d9f87fb2c087ad1ebf87b44e95a7abc0d86a5149bff7",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c04/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c04/words.json",
+      "bytes": 26876,
+      "sha256": "97adc0a22dd367089cd6c94df8b20a989efdc1658c7d640c5d11b48492ab0f73",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c04/music.wav",
+      "source": "legacy-studio/public/mua-100-c04/music.wav",
+      "bytes": 10437044,
+      "sha256": "e239c94a1f0ca1c5ec9dc86f280b52890b39e2bda50e62a3afee1cc5ee0bfa6a",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c04/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c04/sfx.wav",
+      "bytes": 10437044,
+      "sha256": "3d9c4be2760b9d331a64e9c4fe5a82dbfdc31fd0487a0394c00d3a6efcf3cfe1",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c04/voice.wav",
+      "source": "legacy-studio/public/mua-100-c04/voice.wav",
+      "bytes": 10200994,
+      "sha256": "2b8ebccb8adced2e8aa01511016c418625c2acf6dbb693d4b83df15d1e17bcda",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c04/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c04/voice_raw.mp3",
+      "bytes": 1867484,
+      "sha256": "72c34ca1176b3ad0748f5aaeda45b6ccaa70032b3a6dc9882409a805cd2c63f0",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c04/report.json",
+      "source": "legacy-output/mua-100-c04/report.json",
+      "bytes": 418,
+      "sha256": "06e81b22b39afbb08d89b81285f8666af170bfe4b94c97a281218a8afdc5dd1c",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c04/shotlist.md",
+      "source": "legacy-output/mua-100-c04/shotlist.md",
+      "bytes": 4905,
+      "sha256": "285e73b018576942726ebcc30580157f69ef49fdccb8d38afdda1484490596a0",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c05/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c05/captions.json",
+      "bytes": 716,
+      "sha256": "384d8041e1ee0add7b6b85a78f9e4f026cddb3936ebaf152780148c5c0c651df",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c05/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c05/episode.json",
+      "bytes": 16663,
+      "sha256": "ea3674c78520c2108d56eab009bde272542d8c8dd1a803b5f76fabf6a5351dce",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c05/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c05/index.tsx",
+      "bytes": 283,
+      "sha256": "4407d66ec951f5bb51966ff54ad1aa8cf49099806faef928cc88037795f2d222",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c05/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c05/nguon-am-thanh.md",
+      "bytes": 1706,
+      "sha256": "47af1ef8fe0b59cd37cf98bb7f9ff2fbb6aadb2412d812fa5636a7a981eed983",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c05/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c05/shots.tsx",
+      "bytes": 57040,
+      "sha256": "71f35a56c5d5eb5d41f6d6ead76ef1d240e5bc90bab12e571988387d4d236d75",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c05/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c05/timeline.json",
+      "bytes": 17579,
+      "sha256": "e33cdd7776fee42309191660c17cc9d58395375b885575a187932dfcc5ca2888",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c05/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c05/words.json",
+      "bytes": 37362,
+      "sha256": "ecee090b9a2f9e5ab5053a5486fa4090e52e899ea7f087bb25a4feae9553daf9",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c05/music.wav",
+      "source": "legacy-studio/public/mua-100-c05/music.wav",
+      "bytes": 13841564,
+      "sha256": "d26e6e51154a1872b6e72163c89752a732617cecfe7c23f431fd769f20277592",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c05/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c05/sfx.wav",
+      "bytes": 13841564,
+      "sha256": "aef56a5647693e0bac23c89c61365d84f3811839b17da1e8819125a2294c9dfa",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c05/voice.wav",
+      "source": "legacy-studio/public/mua-100-c05/voice.wav",
+      "bytes": 13533452,
+      "sha256": "5a5d946ca967a5e31fcc1fd424b366b96562bef091a54fa48ccfa966354415f2",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c05/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c05/voice_raw.mp3",
+      "bytes": 2465166,
+      "sha256": "a7791c69b828af1d47410662247e113f3de7d0a788600eef9eac95db56171cbc",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c05/report.json",
+      "source": "legacy-output/mua-100-c05/report.json",
+      "bytes": 502,
+      "sha256": "c22624ada327e49aae4c552b1903d9921887ca2436b8e8aec2a0e7732b88bb6b",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c05/shotlist.md",
+      "source": "legacy-output/mua-100-c05/shotlist.md",
+      "bytes": 5910,
+      "sha256": "08d731ad575555e3794a45466fef5cd10bae540c45651d90d4f0c518d6e27195",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c06/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c06/captions.json",
+      "bytes": 733,
+      "sha256": "6eb09a1faa82f62c08b9c415f0fe56f984cfec2f4d7ed128bcd9bfdf58e124f6",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c06/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c06/episode.json",
+      "bytes": 12982,
+      "sha256": "b0e57c69cb7c110ddc738e0280a21cb25bca5e11445634c8d80f25befb5b27c1",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c06/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c06/index.tsx",
+      "bytes": 283,
+      "sha256": "a693425d654210a80086e6067f687ea8c3a551ae6aea893e46c1a23c18fef034",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c06/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c06/nguon-am-thanh.md",
+      "bytes": 2061,
+      "sha256": "7e38f8d18b6313fe90f4da7a6cfcada8485b6db038c9bb854a45d40f0e605ce8",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c06/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c06/shots.tsx",
+      "bytes": 32993,
+      "sha256": "3208404b2464a1a53029c2a224d49f3a9b93882cb27a56cd28fe25bb984c6210",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c06/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c06/timeline.json",
+      "bytes": 11294,
+      "sha256": "58e42168c3a16549a40cec027f9a55a24aa727cf810930a7453dd77b4cb6b550",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c06/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c06/words.json",
+      "bytes": 24541,
+      "sha256": "0ce21ee8082c5bb3cb6935b2c24017551ede1ec10c1b833671b990beea078f88",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c06/music.wav",
+      "source": "legacy-studio/public/mua-100-c06/music.wav",
+      "bytes": 9222824,
+      "sha256": "16b7aed85a9471cbd9dfba692f784995b936d66ff406ce57623084c3474d7d22",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c06/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c06/sfx.wav",
+      "bytes": 9222824,
+      "sha256": "42c54d7e5a3bfba22112bbbcfbf91b09d050da88d6e8250191de4c50c1f32c43",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c06/voice.wav",
+      "source": "legacy-studio/public/mua-100-c06/voice.wav",
+      "bytes": 9051122,
+      "sha256": "895b93e26eab13d235cf26aa24173112d17a245a5e81417e1bc3322ac014c39e",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c06/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c06/voice_raw.mp3",
+      "bytes": 1650981,
+      "sha256": "81160c1e074936479aedd5e113d9923d08cb49a193745f6495762e79ef8a70d4",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c06/report.json",
+      "source": "legacy-output/mua-100-c06/report.json",
+      "bytes": 418,
+      "sha256": "bad6adc31e81abed973e63e75ff954f25574acfb10d2b64dfee5ded4519f45fc",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c06/shotlist.md",
+      "source": "legacy-output/mua-100-c06/shotlist.md",
+      "bytes": 3870,
+      "sha256": "2ac037763af799b9178b1a2682b0ad1ae1dec0585b742a500d729bbed7cd4932",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c07/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c07/captions.json",
+      "bytes": 623,
+      "sha256": "c44b4fb4993f788d624de4d74fa5004445eb7f3f5a6c32a6f434f09ae19a32da",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c07/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c07/episode.json",
+      "bytes": 8203,
+      "sha256": "45e7ffab78e1f2ae0eb8e6497e760d45d3b385015cf103a55263c0c1d1e68c8f",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c07/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c07/index.tsx",
+      "bytes": 283,
+      "sha256": "ab8080e02a106ef3a40c230cb449297b15a4941ed3165f4cbc7fb48ec956c716",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c07/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c07/nguon-am-thanh.md",
+      "bytes": 866,
+      "sha256": "1109b0c7ab6c3c277db188d058e2c8f529e46ca808ab7295ebd61f742ac1adf7",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c07/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c07/shots.tsx",
+      "bytes": 24285,
+      "sha256": "95400ca92dec882d2bd5387f6769b0d7cb034f0e10a002e214ae9191f0c72262",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c07/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c07/timeline.json",
+      "bytes": 6603,
+      "sha256": "5f6f693b4e33258846a849b7cbbe30189392fa09d7d3e39a8fd17c401693fbd3",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c07/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c07/words.json",
+      "bytes": 13462,
+      "sha256": "4ece87991570cb54f81016bc9fb8ea390c835575aa9d6e3daafd2fc2cea755b0",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c07/music.wav",
+      "source": "legacy-studio/public/mua-100-c07/music.wav",
+      "bytes": 5691884,
+      "sha256": "ec5981f53fed1b5d4f37fcf058bd91c5e3788bd589a0dd77e863d64bcf12be2f",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c07/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c07/sfx.wav",
+      "bytes": 5691884,
+      "sha256": "c1c66c7d28406cbe2919e7b33126f266ea6ee1abae20ac08d3d1604ffefbf7bb",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c07/voice.wav",
+      "source": "legacy-studio/public/mua-100-c07/voice.wav",
+      "bytes": 5457858,
+      "sha256": "ae4c5d099c6f1d3c17f0e28034521444c9e3a1ac9fa7d3564340c2254f028ecf",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c07/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c07/voice_raw.mp3",
+      "bytes": 977649,
+      "sha256": "c7ab922b843dce5af47d2748c650f8c5b3497bb81bac429649b2670c8c9ef196",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c07/report.json",
+      "source": "legacy-output/mua-100-c07/report.json",
+      "bytes": 498,
+      "sha256": "5abc2c1b88f9391f7439e49bb7ac105ebc1b368c804ab7379bafc38e3f33e083",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c07/shotlist.md",
+      "source": "legacy-output/mua-100-c07/shotlist.md",
+      "bytes": 2262,
+      "sha256": "a1ffe010568810670bf15636016d20493a1b59b06cc044b5c9de1b55972a61f4",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c08/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c08/captions.json",
+      "bytes": 867,
+      "sha256": "e4c052e68bd44343b56d2fe7efc7d0bf641685ea4b38b64556c95241c1fd5b58",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c08/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c08/episode.json",
+      "bytes": 24679,
+      "sha256": "47696b14d14099e19f7fdf64fe1a048c3e3dd8462bec91ab2a0a3f2540a56024",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c08/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c08/index.tsx",
+      "bytes": 283,
+      "sha256": "e56cfdc5c0cddbe458bd1f383841b7e942deff78ec996b1d65962ea1287863a9",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c08/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c08/nguon-am-thanh.md",
+      "bytes": 809,
+      "sha256": "bef6ad4dfcb4da9d5597dc8acfe170b85072c5b714b1fb253ae2b0049bad3768",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c08/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c08/shots.tsx",
+      "bytes": 65592,
+      "sha256": "ebcd196b8bfdd017949030c5298c46cdb88057eb7c54c0c633ce54c281e8c843",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c08/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c08/timeline.json",
+      "bytes": 27228,
+      "sha256": "59f0044e45304b037323dabc24bf4f8817f432f070a7666b7fbfc739edb40f82",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c08/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c08/words.json",
+      "bytes": 68904,
+      "sha256": "98620d24e3361c1e09bdb30d7dbb9c164d127919545809ac336655d85c088e22",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c08/music.wav",
+      "source": "legacy-studio/public/mua-100-c08/music.wav",
+      "bytes": 24919482,
+      "sha256": "194690ed3a188fc3fd367f13e8e423f07cd53066b94f383d170bf165de33b428",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c08/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c08/sfx.wav",
+      "bytes": 24919482,
+      "sha256": "21fb30ee98a02bf78873f111c0d2c1fc0e10d9d208b4ea810e15d45fd96bad80",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c08/voice.wav",
+      "source": "legacy-studio/public/mua-100-c08/voice.wav",
+      "bytes": 24720566,
+      "sha256": "b150449cb9896700033d914a7bb947a447d0b4acbec861cfa75ac23231490731",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c08/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c08/voice_raw.mp3",
+      "bytes": 4526958,
+      "sha256": "6c150d4f16ded877a9c5dca671513985b11338d03a2e6dec9d775e0c9311dbf4",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c08/report.json",
+      "source": "legacy-output/mua-100-c08/report.json",
+      "bytes": 420,
+      "sha256": "07ee93e354efa1b7ac4d5355ad182b1fd19cf98c7ccea3fc32ce81bf6f743bd7",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c08/shotlist.md",
+      "source": "legacy-output/mua-100-c08/shotlist.md",
+      "bytes": 9575,
+      "sha256": "4e175353a93d093afe0fe0160b8b551a50895de654b081b2c392bc2d562db77b",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c09/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c09/captions.json",
+      "bytes": 476,
+      "sha256": "fd88440beff8c96a8de36d2fc671d86108ee9a26b6166a7f5be013cb4437a187",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c09/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c09/episode.json",
+      "bytes": 8429,
+      "sha256": "893303cb6366efa2123731d000e1eafeaf7918d99ebe9741733a07ebf33e377b",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c09/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c09/index.tsx",
+      "bytes": 283,
+      "sha256": "892e8a14b3a82155b595689031720134160c98325e5fe3555f00e5b899c2cd17",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c09/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c09/shots.tsx",
+      "bytes": 23507,
+      "sha256": "efb3abd7f3207895ec3f7c5e73330f6f4a01f6f11db1b77fe73752f4fcfe8fc2",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c09/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c09/timeline.json",
+      "bytes": 8550,
+      "sha256": "32c2c88de56919dcdcfe99cd08320e6c603cd1abe3d97194fcf957cf0f29e508",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c09/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c09/words.json",
+      "bytes": 16081,
+      "sha256": "adcc13c59da2e9fce1816ec6b04f6028cb62d21aa0d5238d6a28eb82047b89bf",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c09/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c09/sfx.wav",
+      "bytes": 6288704,
+      "sha256": "1432df54907446794980c4ff874911b6982337a5f2ae86e3771356a830022c5f",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c09/voice.wav",
+      "source": "legacy-studio/public/mua-100-c09/voice.wav",
+      "bytes": 6090256,
+      "sha256": "bc38e10170285a9b85ed7435ece699ebd2150c24974a8e7300e74db4c895d2de",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c09/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c09/voice_raw.mp3",
+      "bytes": 1076287,
+      "sha256": "60f5c210cd8e809ab5684739eb20f35eb65396e5753cc0b10880023cae53e485",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c09/report.json",
+      "source": "legacy-output/mua-100-c09/report.json",
+      "bytes": 417,
+      "sha256": "e08f1871d06ac028168edf3eec08930abcf8f2ac3458ff13d6639683f35d1a19",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c09/shotlist.md",
+      "source": "legacy-output/mua-100-c09/shotlist.md",
+      "bytes": 2837,
+      "sha256": "70ef36b715f88e9c5f7eb5256771cb07390c6c14aec0515a136e5199f3d86139",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c10/captions.json",
+      "source": "legacy-studio/src/episodes/mua-100-c10/captions.json",
+      "bytes": 1195,
+      "sha256": "dacb08e9ddca1f9e7ec29d37720cb12bfbe3b9cc8792e8ab233131ff7fbc52cd",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c10/episode.json",
+      "source": "legacy-studio/src/episodes/mua-100-c10/episode.json",
+      "bytes": 36334,
+      "sha256": "0a1fe80e68a395f2f2cae608165926ac35be1e985a90245516a65b2353c0de26",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c10/index.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c10/index.tsx",
+      "bytes": 283,
+      "sha256": "484ee0d20dd094b4a81191a4e8e7ce63e99d09928647d2c53e8bfe17f714c806",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c10/nguon-am-thanh.md",
+      "source": "legacy-studio/src/episodes/mua-100-c10/nguon-am-thanh.md",
+      "bytes": 716,
+      "sha256": "f4ab76dec6d008d17490ba1d451edf47d38d3d6cbfd50ff26b7b1b8e9bf3c948",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c10/shots.tsx",
+      "source": "legacy-studio/src/episodes/mua-100-c10/shots.tsx",
+      "bytes": 99658,
+      "sha256": "edf054834f8ea109a8d44d1d89c2d7d95213dc92eebe2e9d125ad5a82896a723",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c10/timeline.json",
+      "source": "legacy-studio/src/episodes/mua-100-c10/timeline.json",
+      "bytes": 42460,
+      "sha256": "963d36f41daf0f75138caebadb2c53925d7760c220def750bc22af5fd3838cbe",
+      "storage": "git"
+    },
+    {
+      "path": "production/src/episodes/mua-100-c10/words.json",
+      "source": "legacy-studio/src/episodes/mua-100-c10/words.json",
+      "bytes": 96193,
+      "sha256": "bdb5c1668bee1ec04772159a6db649d73740d7c3e4567eea526d4092ab6ba26e",
+      "storage": "git"
+    },
+    {
+      "path": "production/public/mua-100-c10/music.wav",
+      "source": "legacy-studio/public/mua-100-c10/music.wav",
+      "bytes": 36017982,
+      "sha256": "453b96075363ac6f866c1018f827bd52a1e28573da08d983bf59a82c033ce36b",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c10/sfx.wav",
+      "source": "legacy-studio/public/mua-100-c10/sfx.wav",
+      "bytes": 36017982,
+      "sha256": "567126f4682144de170f7a36c5fbc4093ec0b5f71e451443738414ae0a91bf5a",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c10/voice.wav",
+      "source": "legacy-studio/public/mua-100-c10/voice.wav",
+      "bytes": 35452298,
+      "sha256": "c10cfa63202eff4310a8e4e06a6197b39081eedbc7f50b0971b2cd4182633940",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/public/mua-100-c10/voice_raw.mp3",
+      "source": "legacy-studio/public/mua-100-c10/voice_raw.mp3",
+      "bytes": 6374338,
+      "sha256": "42fc22037742edbd562cefb901040143bf129e0ccbf9412ebd3f8560dde23d02",
+      "storage": "local-only"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c10/report.json",
+      "source": "legacy-output/mua-100-c10/report.json",
+      "bytes": 421,
+      "sha256": "1be284a628aa2ab9687da4bfed8a06c3d38b7a6278add6163edaa834b16b5137",
+      "storage": "git"
+    },
+    {
+      "path": "bao-cao-cu/mua-100-c10/shotlist.md",
+      "source": "legacy-output/mua-100-c10/shotlist.md",
+      "bytes": 14315,
+      "sha256": "21a6ef59b0410e037398f137e623a95ee1b30e267cf0064a9fdc09f3e796fe94",
+      "storage": "git"
+    },
+    {
+      "path": "production/library/sfx/bag_drop_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/bag_drop_fs-local.mp3",
+      "bytes": 32643,
+      "sha256": "6a9484d0eea4e5cfb09276e0b8496fd15c5234dbdedb623a3b60bb059320da51",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/bees_buzz_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/bees_buzz_fs-local.mp3",
+      "bytes": 1036060,
+      "sha256": "8adb463bc061020ef256c6b0843fdf67789d67e143e84d17e1dddc87ee5f9c0f",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/birds_eave-08dc71a6.mp3",
+      "source": "legacy-studio/library/sfx/birds_eave-08dc71a6.mp3",
+      "bytes": 160957,
+      "sha256": "01015475f7b841125f27fcf2f238c1c615c4ad1cb357006ceb56b004cae7bec1",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/boat_row_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/boat_row_fs-local.mp3",
+      "bytes": 481709,
+      "sha256": "4d2ec14f4a09d382741622f7b55c5026c1ad680382e0fdb79e18e68bae4ff915",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/broom_sweep-aa02d77d.mp3",
+      "source": "legacy-studio/library/sfx/broom_sweep-aa02d77d.mp3",
+      "bytes": 129192,
+      "sha256": "26b678b1367c60f586d654d4bf496b43c1558fe3912c92cdc635d669a18c13d9",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/bubbles_uw_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/bubbles_uw_fs-local.mp3",
+      "bytes": 136105,
+      "sha256": "5f8794ef6b7c0714eb96714b06dde3ecad55c9d41c64d5b6ffd531fbac393de6",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/chair_move_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/chair_move_fs-local.mp3",
+      "bytes": 133547,
+      "sha256": "053a61da423f564179672012b6fc67149e0ab934cedef8a4c3d7404f80024dbd",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/child_run-074f567c.mp3",
+      "source": "legacy-studio/library/sfx/child_run-074f567c.mp3",
+      "bytes": 24702,
+      "sha256": "97fa8981d6b1aea21efd9f5f5ed5db56c0bcf4442dede82cc710f450aab7d921",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/crack-3cbd3c57.mp3",
+      "source": "legacy-studio/library/sfx/crack-3cbd3c57.mp3",
+      "bytes": 18433,
+      "sha256": "f5b5e37d8c1fbdc4fde2590bc8aa13ea98fad5798691d47ba1e5d3f1d3cdcc80",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/crowd_laugh_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/crowd_laugh_fs-local.mp3",
+      "bytes": 81142,
+      "sha256": "17bb18961e317ff720277d2dc30ff56ea017f66b253af2966ce3ae6ddc02666a",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/dishes_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/dishes_fs-local.mp3",
+      "bytes": 289688,
+      "sha256": "29cde83cb97793dc718b5f0fd3e0455cc8d5975bcc6d32610cb9e405939193ca",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/dog_eat_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/dog_eat_fs-local.mp3",
+      "bytes": 289756,
+      "sha256": "a3503fdef9a660a3026866443a978f105363e1705accf286729a01bd37664bb1",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/door_bang-5f3dba31.mp3",
+      "source": "legacy-studio/library/sfx/door_bang-5f3dba31.mp3",
+      "bytes": 17179,
+      "sha256": "cda95739dc384609c7128d44b5ed8c095ade93062a462bedbbaf3a438bb3706c",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/drips_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/drips_fs-local.mp3",
+      "bytes": 830963,
+      "sha256": "13f3e67dd1dab30520a59c392e282b409d1c190c0ccb5ec82555b29f0392e4b3",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/drop_brick-c4fdcf74.mp3",
+      "source": "legacy-studio/library/sfx/drop_brick-c4fdcf74.mp3",
+      "bytes": 10492,
+      "sha256": "fb42ea54fa79dddc05ed04db530a26638bcdfbabe109b38133647fcbb3473ae4",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/drop_plink-ff3c5623.mp3",
+      "source": "legacy-studio/library/sfx/drop_plink-ff3c5623.mp3",
+      "bytes": 10492,
+      "sha256": "eeac06e562d18725248973fa0134cfb117d59e696055f93b435c2a15709cb5c4",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/elephant_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/elephant_fs-local.mp3",
+      "bytes": 31913,
+      "sha256": "db747217818f1727d775935a8e663cb9f59e6c154dd6055b08fee9fe823cf1a0",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/engine_van_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/engine_van_fs-local.mp3",
+      "bytes": 529806,
+      "sha256": "37ef95ddd3247ce7e235defac2a56fa0edac0f3d14da46027e9373d01480fa58",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/fan_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/fan_fs-local.mp3",
+      "bytes": 790054,
+      "sha256": "cef5d83013b4c5772fc19e6c01c6a9a58f72a66730ad1026d5328e4a06eb687c",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/flood_flow_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/flood_flow_fs-local.mp3",
+      "bytes": 481532,
+      "sha256": "fe62242cff7aafb5b35e51f5145634a340736dcd9720c77d9a7aa3ba16f1b0b2",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/footsteps_hall_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/footsteps_hall_fs-local.mp3",
+      "bytes": 337359,
+      "sha256": "b7a18d32ed4ef11bf525e72c0c08eb0d352768e96d51a51878c119d09d7bfa23",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/garden_flow_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/garden_flow_fs-local.mp3",
+      "bytes": 481633,
+      "sha256": "23c1c36863c4394eedbd06981f3c1e08a383988755f4f1ac511166151680ec0e",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/gasp-372b408b.mp3",
+      "source": "legacy-studio/library/sfx/gasp-372b408b.mp3",
+      "bytes": 13835,
+      "sha256": "e121cf893269e4a7cf70f5ebdc79dfbfad415410cc70684e4e22d1883d51bc13",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/gutter_basin-49a4e64a.mp3",
+      "source": "legacy-studio/library/sfx/gutter_basin-49a4e64a.mp3",
+      "bytes": 97009,
+      "sha256": "be0cb5caca1cfa7f283d85dc6d6535d629d2f5ee4cdc89de32cf23ee7a45fdec",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/kids_laugh_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/kids_laugh_fs-local.mp3",
+      "bytes": 163047,
+      "sha256": "1653daf6cfba67f18c44fa5f98a9878cf1e65bf047cd43f51c15e89549b187b0",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/knock_wood_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/knock_wood_fs-local.mp3",
+      "bytes": 141274,
+      "sha256": "315f9a5cbc7560e744df0109cafa421b8246028278b40af8a9993f7d59153511",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/lamp_flicker_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/lamp_flicker_fs-local.mp3",
+      "bytes": 24493,
+      "sha256": "21b66ba24fb9975cdd84269b88142b08e69f699b436e7679a777ea768a31ba83",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/leaf_touch_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/leaf_touch_fs-local.mp3",
+      "bytes": 141122,
+      "sha256": "2a474b922c42e877c07a35d0b9fcf24b4b784c8b11948832a2506b1257080c4d",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/map_unfold_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/map_unfold_fs-local.mp3",
+      "bytes": 40794,
+      "sha256": "8480456b63e26e8be906e806f20bf0f0b249a21064c4ea67020fc27a286ec858",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/marker_write_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/marker_write_fs-local.mp3",
+      "bytes": 241414,
+      "sha256": "ca20f44eabf4514a98f3b50230acaf022c351f7c4fc20b05ed5f162878baa4de",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/metal_drop_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/metal_drop_fs-local.mp3",
+      "bytes": 27678,
+      "sha256": "f03a6ce8c067be8bd6e98dae2c884fb0eb4f796b63c1c81d3c8ff6613016009c",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/mua_bed-local.mp3",
+      "source": "legacy-studio/library/sfx/mua_bed-local.mp3",
+      "bytes": 2640710,
+      "sha256": "cfb7a2c6dd6ad0b6e535069d24d66b194967a1b786340d8de527c0d1a051d208",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/mua_bed2-local.mp3",
+      "source": "legacy-studio/library/sfx/mua_bed2-local.mp3",
+      "bytes": 1542313,
+      "sha256": "4e691eefcea5cff7c8b907d02d5a41f8207ecf85efc988903ee38279be0191e4",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/mua_bed3-local.mp3",
+      "source": "legacy-studio/library/sfx/mua_bed3-local.mp3",
+      "bytes": 3002452,
+      "sha256": "bbdbe3ea8f3dd5f6eae4be8bb1ed03ffb37d026abfc61af70dc192456de54159",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/mua_bed4-local.mp3",
+      "source": "legacy-studio/library/sfx/mua_bed4-local.mp3",
+      "bytes": 2642590,
+      "sha256": "2bed03260a8c6cfb8bb5f3eddcd506d1db355c5b65082e76a81f2753dfa791de",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/mua_bed6-local.mp3",
+      "source": "legacy-studio/library/sfx/mua_bed6-local.mp3",
+      "bytes": 3745196,
+      "sha256": "529f3929009461c4d25ce21e7dfbd719d8af6318aa0e87acd0fdb9020d787511",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/pen_drop-e2e15bdb.mp3",
+      "source": "legacy-studio/library/sfx/pen_drop-e2e15bdb.mp3",
+      "bytes": 13835,
+      "sha256": "f5fd0f0c61082082b4d001df92cde14f9565989245cf1448eb064c3a01ba83f3",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/pen_mark-b750a811.mp3",
+      "source": "legacy-studio/library/sfx/pen_mark-b750a811.mp3",
+      "bytes": 15089,
+      "sha256": "c6fc839e70d251658dd42745581b779fc46d8a4a6fa2b2ea7846c2139dc7682d",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/pen_write_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/pen_write_fs-local.mp3",
+      "bytes": 193767,
+      "sha256": "8433a5491c9f27ac1d6bcf18a408565a3bc7b4949fcdfdd26c73e0fb9318ec84",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/pour_water_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/pour_water_fs-local.mp3",
+      "bytes": 109757,
+      "sha256": "46d0c86d224a3920cd00d7fc6fafc40176dfe530bb0aead712f46fd9590543b1",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/radio_static_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/radio_static_fs-local.mp3",
+      "bytes": 729511,
+      "sha256": "a614519fa516b07c0a2159c81df015c1c95d38eaa2e317f3686d0b60601049f7",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/rain_indoor-39915c47.mp3",
+      "source": "legacy-studio/library/sfx/rain_indoor-39915c47.mp3",
+      "bytes": 321035,
+      "sha256": "40d46b9a6600380ef74569bf3a6c0e5e3cdf9942645cb31530836a7ea24a1776",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/rain_indoor_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/rain_indoor_fs-local.mp3",
+      "bytes": 209546,
+      "sha256": "cb8c4a76ac8180eacf43de00b24be25146e0dd7381b8cb53a548cf14c922d68c",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/rain_porch_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/rain_porch_fs-local.mp3",
+      "bytes": 890297,
+      "sha256": "f15c8228dbf5fa70668a1c3ddf866167371fd86bca9f773efc159ab1db97858b",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/rain_tin-fa100073.mp3",
+      "source": "legacy-studio/library/sfx/rain_tin-fa100073.mp3",
+      "bytes": 321035,
+      "sha256": "584cb61eb4d2bc59f7fdeed9b1b12014e34a3a39e6858fbec5fed700c51f234f",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/rain_tin_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/rain_tin_fs-local.mp3",
+      "bytes": 3510446,
+      "sha256": "50b35f89293c6439e3535a4ff6a5af2a448333af322f1dd2544e9b02bfe03515",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/rain_yard-c48d7cf3.mp3",
+      "source": "legacy-studio/library/sfx/rain_yard-c48d7cf3.mp3",
+      "bytes": 321035,
+      "sha256": "1df5b3a326e9ab192e0456cc2a8cde421ddbc312eb7a6567f35b13be847eab70",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/rice_wash-bf35fb00.mp3",
+      "source": "legacy-studio/library/sfx/rice_wash-bf35fb00.mp3",
+      "bytes": 81127,
+      "sha256": "76e0a7d5604cfa269eca87d426d3b0ceb30545b6302774b103806a6163548f22",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/seeds_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/seeds_fs-local.mp3",
+      "bytes": 145564,
+      "sha256": "71a9ef9df28ce72a701f0cc9690b46d8164de422a610e0c43f76930edea93775",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/sheet_metal_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/sheet_metal_fs-local.mp3",
+      "bytes": 101324,
+      "sha256": "1d973534f01023b8db727d368d5c8d4e3531ba05f567f08b4b12dbf1a54c2e26",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/shelter_murmur_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/shelter_murmur_fs-local.mp3",
+      "bytes": 721880,
+      "sha256": "09b702fb3d236bde89197475abe5db096ea71e323d0bee278ed2286992892ab5",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/shovel_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/shovel_fs-local.mp3",
+      "bytes": 14170,
+      "sha256": "770e0a9476eabc01fbab38bf10a3354e26c7ee345b07b504b15caf26ec44f0f5",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/squirrel_chitter-a5bc87cc.mp3",
+      "source": "legacy-studio/library/sfx/squirrel_chitter-a5bc87cc.mp3",
+      "bytes": 65244,
+      "sha256": "f99525231d77183a7d44b162f766756c8f211e54a423208c1a29c8768a64fec9",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/stairs_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/stairs_fs-local.mp3",
+      "bytes": 265865,
+      "sha256": "5a40fe83838b430b03277399b90c15bb7d3980af5bddcef97286ebb9e06dd4ab",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/stool_drag-02a26e8a.mp3",
+      "source": "legacy-studio/library/sfx/stool_drag-02a26e8a.mp3",
+      "bytes": 20105,
+      "sha256": "bf98b3f6eb97f488733f1805a472257578bc11502fbcc3a23b5a60ca4fbc2eae",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/storm_wind-f5b89ae3.mp3",
+      "source": "legacy-studio/library/sfx/storm_wind-f5b89ae3.mp3",
+      "bytes": 321035,
+      "sha256": "fe420cc3384242a9d50647107d764e190472e7fe4cad5970a92191fddaf22a1c",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/sun_cicadas-b347ef10.mp3",
+      "source": "legacy-studio/library/sfx/sun_cicadas-b347ef10.mp3",
+      "bytes": 321035,
+      "sha256": "3e66d625c5b6a3fec7ef8e5d99c88d2e0eb23568f5d466b3c80a1bb734645ed4",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/switch_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/switch_fs-local.mp3",
+      "bytes": 21985,
+      "sha256": "d0fde0e95ec5163111dd3272e85c764861f88ac154f4d1be0d243999847f69c1",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/tape_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/tape_fs-local.mp3",
+      "bytes": 116653,
+      "sha256": "64d39aa59c556cc69d36a388106018c26c9c4e66b3e494cdd44fbf4c53b97820",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/tarp_pull-0d8b1393.mp3",
+      "source": "legacy-studio/library/sfx/tarp_pull-0d8b1393.mp3",
+      "bytes": 40585,
+      "sha256": "1283724906b5fea801b278d46ae009c2e5969b2e3b3ce1ce2084343f81537dd6",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/thunder_close_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/thunder_close_fs-local.mp3",
+      "bytes": 281197,
+      "sha256": "19629054ea35e5f599f874ba5f5f0732d8543350da2989a0918bac7c71cd1787",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/thunder_far_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/thunder_far_fs-local.mp3",
+      "bytes": 361837,
+      "sha256": "b16ab22f2d562132a911a7100e2704380edcca7dbe45bfd2d537a84d3d80ad04",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/thunder_near_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/thunder_near_fs-local.mp3",
+      "bytes": 193767,
+      "sha256": "0ec907d578b0612c9d63bf09a134b09cd5eac1fef8537a83070b9858fa286b10",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/tumble-d03ef997.mp3",
+      "source": "legacy-studio/library/sfx/tumble-d03ef997.mp3",
+      "bytes": 21358,
+      "sha256": "868a0df645b26d5ac588c232c9799c5abfe76300066d9b7dffd27029255a7fbd",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/up_whoosh-ec120a67.mp3",
+      "source": "legacy-studio/library/sfx/up_whoosh-ec120a67.mp3",
+      "bytes": 13835,
+      "sha256": "131cac4015a0c9ed110486b6313201b40580e8468366b02afc22b393ea240029",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/wade_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/wade_fs-local.mp3",
+      "bytes": 481532,
+      "sha256": "8882bffe63dbc485d7837a6027eb7092e776d087c47f5d2095984478392ac9d9",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/wind_howl_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/wind_howl_fs-local.mp3",
+      "bytes": 1390124,
+      "sha256": "e051d6fa4219c611d6288913c96ae21b3874896c647b7a9e3247b1fd6b90839e",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/window_slam_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/window_slam_fs-local.mp3",
+      "bytes": 25964,
+      "sha256": "fd7fa9eeecf0c55c28b516c3cc50f38f0eac7746ce4b04be2b0ba921c6caa1d8",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/library/sfx/zipper_fs-local.mp3",
+      "source": "legacy-studio/library/sfx/zipper_fs-local.mp3",
+      "bytes": 63294,
+      "sha256": "8106438ad2f1237c662df7685909dcde88d9188a4e2c856308a0632ca876f76a",
+      "storage": "local-only"
+    },
+    {
+      "path": "production/tools/board.py",
+      "source": "legacy-skill/scripts/board.py",
+      "bytes": 3785,
+      "sha256": "95e24cc5e5b982ef9d173175a5fb0c182c5cad4cca04d8dca3c97bc2010f5fe3",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/master.py",
+      "source": "legacy-skill/scripts/master.py",
+      "bytes": 3862,
+      "sha256": "5a918f6857a366561f5fe0e86c4257e31e0998d839fcc3e8783fba240c9161de",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/mixcheck.py",
+      "source": "legacy-skill/scripts/mixcheck.py",
+      "bytes": 1878,
+      "sha256": "95f18d00c05acd2af03f4cb89fb3b3b3d40211a00673fd17d7702aad2b15bf80",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/motiongrid.py",
+      "source": "legacy-skill/scripts/motiongrid.py",
+      "bytes": 2493,
+      "sha256": "b64b3cf90ed10a489405d25e5e5dde55ea0261144771bdccb88fff3f97b88064",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/plan.py",
+      "source": "legacy-skill/scripts/plan.py",
+      "bytes": 6365,
+      "sha256": "cce51a6d54a21dec0faad4861a57c2e5fa25f49b942df044008db13738885ee9",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/review.py",
+      "source": "legacy-skill/scripts/review.py",
+      "bytes": 2602,
+      "sha256": "cae78992f0e369e306c5b7e8aaeb6ff5f31e36c9d6814d1e66cdc3a02a3d1979",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/sfx.py",
+      "source": "legacy-skill/scripts/sfx.py",
+      "bytes": 10489,
+      "sha256": "3f5586f9ac73f944ac2ad151c692af19274e1217f7904fc2da4c136f2c0b2d9b",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/sheets.py",
+      "source": "legacy-skill/scripts/sheets.py",
+      "bytes": 1380,
+      "sha256": "6ceb7178b4559862731b57c1624e7c87fc5790b790f1f477ec79a9d31d24fb84",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/stills.mjs",
+      "source": "legacy-skill/scripts/stills.mjs",
+      "bytes": 2896,
+      "sha256": "059dba3882fc90ed0a55a9b200f321f807d75f0399a1eb715fa9f4c5b17b00bb",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/voice_elevenlabs.py",
+      "source": "legacy-skill/scripts/voice_elevenlabs.py",
+      "bytes": 6552,
+      "sha256": "f5d4afb1b255f9c4907b6a5d4bfc8f77db35dbcfa0dacfa72e8a86ccfdee7104",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/voice.py",
+      "source": "legacy-skill/scripts/voice.py",
+      "bytes": 17931,
+      "sha256": "c80f84ed413231cdbb31643b1c376506d8d4da117f47f5aaeb437807ed687615",
+      "storage": "git"
+    },
+    {
+      "path": "production/tools/wi.py",
+      "source": "legacy-skill/scripts/wi.py",
+      "bytes": 10666,
+      "sha256": "bf075fc342962d0c5e1a78f2a4b6d993d92ca7fa6abc6f30c4f7d18ad9cd4aef",
+      "storage": "git"
+    },
+    {
+      "path": "production/LICENSE",
+      "source": "legacy-skill/LICENSE",
+      "bytes": 1088,
+      "sha256": "b3e51baf0927fe13431ce5cad405021608ed0e6cc2b2bb1a912cdee7032b0e0f",
+      "storage": "git"
+    }
+  ]
+}

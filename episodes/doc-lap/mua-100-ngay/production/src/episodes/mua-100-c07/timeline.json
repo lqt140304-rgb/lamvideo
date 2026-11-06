@@ -1,0 +1,308 @@
+{
+ "slug": "mua-100-c07",
+ "title": "Ngày 60 Một tiếng chim dưới mái",
+ "fps": 30,
+ "total": 1924,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 125,
+   "t0": 0,
+   "t1": 125,
+   "line": "Ngoài hàng rào trường, nước đã phủ kín lối mòn dẫn vào rừng."
+  },
+  {
+   "shot": "S2",
+   "a": 125,
+   "b": 279,
+   "t0": 0,
+   "t1": 154,
+   "line": "Một con sóc đứng trên nhánh cây, nhìn khoảng nước nơi hôm trước còn có thể chạy qua."
+  },
+  {
+   "shot": "S3",
+   "a": 279,
+   "b": 357,
+   "t0": 0,
+   "t1": 78,
+   "line": "Tổ chim ở gốc cây cũ không còn."
+  },
+  {
+   "shot": "S4",
+   "a": 357,
+   "b": 510,
+   "t0": 0,
+   "t1": 153,
+   "line": "Nhưng đến một buổi sáng, Linh nghe tiếng động nhỏ dưới khoảng mái khô ngoài cửa lớp."
+  },
+  {
+   "shot": "S5",
+   "a": 510,
+   "b": 627,
+   "t0": 0,
+   "t1": 117,
+   "line": "Có một đôi chim đang tha cành về đó."
+  },
+  {
+   "shot": "S6",
+   "a": 627,
+   "b": 675,
+   "t0": 0,
+   "t1": 48,
+   "line": "Cô kéo Nam lại xem."
+  },
+  {
+   "shot": "S7",
+   "a": 675,
+   "b": 730,
+   "t0": 0,
+   "t1": 55,
+   "line": "Hai đứa nép sau cửa lớp.“"
+  },
+  {
+   "shot": "S8",
+   "a": 730,
+   "b": 822,
+   "t0": 0,
+   "t1": 92,
+   "line": "Nhìn kìa. Nó mang cả cọng cỏ dài thế.”"
+  },
+  {
+   "shot": "S9",
+   "a": 822,
+   "b": 917,
+   "t0": 0,
+   "t1": 95,
+   "line": "Nam nhích tới.“ Mình kê cái hộp cho nó được không?”“"
+  },
+  {
+   "shot": "S10",
+   "a": 917,
+   "b": 1023,
+   "t0": 0,
+   "t1": 106,
+   "line": "Đừng tới gần. Nó thấy mình thì sợ, lại bỏ đi mất.”"
+  },
+  {
+   "shot": "S11",
+   "a": 1023,
+   "b": 1092,
+   "t0": 0,
+   "t1": 69,
+   "line": "An đi ngang, dừng ở phía sau.“"
+  },
+  {
+   "shot": "S12",
+   "a": 1092,
+   "b": 1210,
+   "t0": 0,
+   "t1": 118,
+   "line": "Hai đứa đứng ở đây nhìn là được rồi. Để chúng tự chọn chỗ nhé.”"
+  },
+  {
+   "shot": "S13",
+   "a": 1210,
+   "b": 1317,
+   "t0": 0,
+   "t1": 107,
+   "line": "Linh lùi sát vào khung cửa, nhường khoảng trống trước tổ."
+  },
+  {
+   "shot": "S14",
+   "a": 1317,
+   "b": 1481,
+   "t0": 0,
+   "t1": 164,
+   "line": "Cô không mang tổ vào phòng. Đến giờ dọn vệ sinh, cô chỉ nhắc mọi người giữ khoảng cách."
+  },
+  {
+   "shot": "S15",
+   "a": 1481,
+   "b": 1587,
+   "t0": 0,
+   "t1": 106,
+   "line": "Trong cuốn sổ, bên cạnh những dấu đánh thêm sau mỗi ngày mưa,"
+  },
+  {
+   "shot": "S16",
+   "a": 1587,
+   "b": 1650,
+   "t0": 0,
+   "t1": 63,
+   "line": "Linh bắt đầu ghi những điều khác."
+  },
+  {
+   "shot": "S17",
+   "a": 1650,
+   "b": 1924,
+   "t0": 0,
+   "t1": 274,
+   "line": "Hôm nay giao đủ nước cho phòng bên. Hôm nay một người nhận được tin gia đình. Hôm nay nghe thấy chim."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "",
+   "key": 40,
+   "len": 125,
+   "first": 0,
+   "line": "Ngoài hàng rào trường, nước đã phủ kín lối mòn dẫn vào rừng.",
+   "note": ""
+  },
+  {
+   "id": "S2",
+   "size": "",
+   "key": 40,
+   "len": 154,
+   "first": 125,
+   "line": "Một con sóc đứng trên nhánh cây, nhìn khoảng nước nơi hôm trước còn có thể chạy qua.",
+   "note": ""
+  },
+  {
+   "id": "S3",
+   "size": "",
+   "key": 40,
+   "len": 78,
+   "first": 279,
+   "line": "Tổ chim ở gốc cây cũ không còn.",
+   "note": ""
+  },
+  {
+   "id": "S4",
+   "size": "",
+   "key": 40,
+   "len": 153,
+   "first": 357,
+   "line": "Nhưng đến một buổi sáng, Linh nghe tiếng động nhỏ dưới khoảng mái khô ngoài cửa lớp.",
+   "note": ""
+  },
+  {
+   "id": "S5",
+   "size": "",
+   "key": 40,
+   "len": 117,
+   "first": 510,
+   "line": "Có một đôi chim đang tha cành về đó.",
+   "note": ""
+  },
+  {
+   "id": "S6",
+   "size": "",
+   "key": 40,
+   "len": 48,
+   "first": 627,
+   "line": "Cô kéo Nam lại xem.",
+   "note": ""
+  },
+  {
+   "id": "S7",
+   "size": "",
+   "key": 40,
+   "len": 55,
+   "first": 675,
+   "line": "Hai đứa nép sau cửa lớp.“",
+   "note": ""
+  },
+  {
+   "id": "S8",
+   "size": "",
+   "key": 40,
+   "len": 92,
+   "first": 730,
+   "line": "Nhìn kìa. Nó mang cả cọng cỏ dài thế.”",
+   "note": ""
+  },
+  {
+   "id": "S9",
+   "size": "",
+   "key": 40,
+   "len": 95,
+   "first": 822,
+   "line": "Nam nhích tới.“ Mình kê cái hộp cho nó được không?”“",
+   "note": ""
+  },
+  {
+   "id": "S10",
+   "size": "",
+   "key": 40,
+   "len": 106,
+   "first": 917,
+   "line": "Đừng tới gần. Nó thấy mình thì sợ, lại bỏ đi mất.”",
+   "note": ""
+  },
+  {
+   "id": "S11",
+   "size": "",
+   "key": 40,
+   "len": 69,
+   "first": 1023,
+   "line": "An đi ngang, dừng ở phía sau.“",
+   "note": ""
+  },
+  {
+   "id": "S12",
+   "size": "",
+   "key": 40,
+   "len": 118,
+   "first": 1092,
+   "line": "Hai đứa đứng ở đây nhìn là được rồi. Để chúng tự chọn chỗ nhé.”",
+   "note": ""
+  },
+  {
+   "id": "S13",
+   "size": "",
+   "key": 40,
+   "len": 107,
+   "first": 1210,
+   "line": "Linh lùi sát vào khung cửa, nhường khoảng trống trước tổ.",
+   "note": ""
+  },
+  {
+   "id": "S14",
+   "size": "",
+   "key": 40,
+   "len": 164,
+   "first": 1317,
+   "line": "Cô không mang tổ vào phòng. Đến giờ dọn vệ sinh, cô chỉ nhắc mọi người giữ khoảng cách.",
+   "note": ""
+  },
+  {
+   "id": "S15",
+   "size": "",
+   "key": 40,
+   "len": 106,
+   "first": 1481,
+   "line": "Trong cuốn sổ, bên cạnh những dấu đánh thêm sau mỗi ngày mưa,",
+   "note": ""
+  },
+  {
+   "id": "S16",
+   "size": "",
+   "key": 40,
+   "len": 63,
+   "first": 1587,
+   "line": "Linh bắt đầu ghi những điều khác.",
+   "note": ""
+  },
+  {
+   "id": "S17",
+   "size": "",
+   "key": 40,
+   "len": 274,
+   "first": 1650,
+   "line": "Hôm nay giao đủ nước cho phòng bên. Hôm nay một người nhận được tin gia đình. Hôm nay nghe thấy chim.",
+   "note": ""
+  }
+ ],
+ "fx": [],
+ "audio": {
+  "voice": "mua-100-c07/voice.wav",
+  "sfx": "mua-100-c07/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.1211,
+  "music": "mua-100-c07/music.wav",
+  "musicVol": 0.0809
+ }
+}

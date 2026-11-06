@@ -1,0 +1,512 @@
+{
+ "slug": "mua-100-c06",
+ "title": "Ngày 40 Nước khắp nơi, thiếu nước sạch",
+ "fps": 30,
+ "total": 3125,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 150,
+   "t0": 0,
+   "t1": 150,
+   "line": "Đến ngày thứ bốn mươi, ba người đã quen với góc lớp sát cửa sổ ở trường tạm trú."
+  },
+  {
+   "shot": "S2",
+   "a": 150,
+   "b": 318,
+   "t0": 0,
+   "t1": 168,
+   "line": "Ở phía thị trấn thấp, đội cứu hộ báo nước đã vượt mặt ghế của những nhà cùng dãy với nhà An."
+  },
+  {
+   "shot": "S3",
+   "a": 318,
+   "b": 398,
+   "t0": 0,
+   "t1": 80,
+   "line": "Còn sân trường trên nền cao vẫn khô."
+  },
+  {
+   "shot": "S4",
+   "a": 398,
+   "b": 505,
+   "t0": 0,
+   "t1": 107,
+   "line": "Túi đồ xếp sát tường, chăn được gấp lại mỗi sáng."
+  },
+  {
+   "shot": "S5",
+   "a": 505,
+   "b": 601,
+   "t0": 0,
+   "t1": 96,
+   "line": "Bên kia lối đi là chiếu của bà Sáu và Nam."
+  },
+  {
+   "shot": "S6",
+   "a": 601,
+   "b": 754,
+   "t0": 0,
+   "t1": 153,
+   "line": "Ngoài hành lang, con chó nằm trong khu dành cho vật nuôi, nơi Hạnh có thể trông thấy."
+  },
+  {
+   "shot": "S7",
+   "a": 754,
+   "b": 799,
+   "t0": 0,
+   "t1": 45,
+   "line": "Ai cũng nghe tiếng nước."
+  },
+  {
+   "shot": "S8",
+   "a": 799,
+   "b": 911,
+   "t0": 0,
+   "t1": 112,
+   "line": "Vậy mà mỗi lần lấy nước uống, họ vẫn phải xếp hàng ngoài sân."
+  },
+  {
+   "shot": "S9",
+   "a": 911,
+   "b": 1000,
+   "t0": 0,
+   "t1": 89,
+   "line": "Trạm cấp nước dưới phố đã ngừng hoạt động vì ngập."
+  },
+  {
+   "shot": "S10",
+   "a": 1000,
+   "b": 1110,
+   "t0": 0,
+   "t1": 110,
+   "line": "An phụ tổ cấp nước tạm, đánh dấu những bồn đã xử lý."
+  },
+  {
+   "shot": "S11",
+   "a": 1110,
+   "b": 1172,
+   "t0": 0,
+   "t1": 62,
+   "line": "Hàng tiếp tế đến theo từng đợt."
+  },
+  {
+   "shot": "S12",
+   "a": 1172,
+   "b": 1314,
+   "t0": 0,
+   "t1": 142,
+   "line": "Những hôm xe chậm, anh kiểm đi kiểm lại lượng còn trong bồn."
+  },
+  {
+   "shot": "S13",
+   "a": 1314,
+   "b": 1403,
+   "t0": 0,
+   "t1": 89,
+   "line": "Linh và Nam phụ đánh dấu những can đã giao."
+  },
+  {
+   "shot": "S14",
+   "a": 1403,
+   "b": 1517,
+   "t0": 0,
+   "t1": 114,
+   "line": "Hạnh cùng mấy người lớn chia phần ăn ở gian bếp tạm cuối dãy."
+  },
+  {
+   "shot": "S15",
+   "a": 1517,
+   "b": 1676,
+   "t0": 0,
+   "t1": 159,
+   "line": "Đến giờ chăm chó, Linh vừa đặt chiếc bát rỗng xuống hành lang thì nó húc bát lăn cả một đoạn.“"
+  },
+  {
+   "shot": "S16",
+   "a": 1676,
+   "b": 1724,
+   "t0": 0,
+   "t1": 48,
+   "line": "Chưa đến lượt mày mà!”"
+  },
+  {
+   "shot": "S17",
+   "a": 1724,
+   "b": 1778,
+   "t0": 0,
+   "t1": 54,
+   "line": "Nam chặn chiếc bát bằng chân.“"
+  },
+  {
+   "shot": "S18",
+   "a": 1778,
+   "b": 1842,
+   "t0": 0,
+   "t1": 64,
+   "line": "Chắc nó tưởng cậu quên phần của nó.”"
+  },
+  {
+   "shot": "S19",
+   "a": 1842,
+   "b": 1957,
+   "t0": 0,
+   "t1": 115,
+   "line": "Linh ôm bát trở lại.“ Tớ còn chưa ăn, quên nó thế nào được!”"
+  },
+  {
+   "shot": "S20",
+   "a": 1957,
+   "b": 2175,
+   "t0": 0,
+   "t1": 218,
+   "line": "Hạnh từ bếp đưa ra hai phần cơm.“ Vậy hai đứa ăn đi đã. Rồi mẹ đưa phần của nó, đừng lấy đồ của mình chia lung tung nhé.”"
+  },
+  {
+   "shot": "S21",
+   "a": 2175,
+   "b": 2223,
+   "t0": 0,
+   "t1": 48,
+   "line": "Một vài người bật cười."
+  },
+  {
+   "shot": "S22",
+   "a": 2223,
+   "b": 2351,
+   "t0": 0,
+   "t1": 128,
+   "line": "An kê chiếc bát vào góc ít bị đá trúng rồi ngồi xuống cạnh hai đứa.“"
+  },
+  {
+   "shot": "S23",
+   "a": 2351,
+   "b": 2423,
+   "t0": 0,
+   "t1": 72,
+   "line": "Sáng nay hai đứa đánh dấu được mấy can rồi?”"
+  },
+  {
+   "shot": "S24",
+   "a": 2423,
+   "b": 2502,
+   "t0": 0,
+   "t1": 79,
+   "line": "Nam giơ hai bàn tay, nhìn Linh xin giúp."
+  },
+  {
+   "shot": "S25",
+   "a": 2502,
+   "b": 2660,
+   "t0": 0,
+   "t1": 158,
+   "line": "Cô bé nhắc ngay:“ Mười hai. Nhưng Nam đếm trùng một cái, nên tụi con kiểm lại rồi.”“"
+  },
+  {
+   "shot": "S26",
+   "a": 2660,
+   "b": 2770,
+   "t0": 0,
+   "t1": 110,
+   "line": "Kiểm lại là đúng rồi. Ăn xong bố xem sổ cùng hai đứa.”"
+  },
+  {
+   "shot": "S27",
+   "a": 2770,
+   "b": 2828,
+   "t0": 0,
+   "t1": 58,
+   "line": "Rồi anh trở lại bảng ghi."
+  },
+  {
+   "shot": "S28",
+   "a": 2828,
+   "b": 2938,
+   "t0": 0,
+   "t1": 110,
+   "line": "Nước sạch còn bao nhiêu, chuyến hàng sau đã xác nhận hay chưa."
+  },
+  {
+   "shot": "S29",
+   "a": 2938,
+   "b": 3125,
+   "t0": 0,
+   "t1": 187,
+   "line": "Những câu hỏi nhỏ ấy phải được trả lời mỗi ngày, bất kể ngoài trời còn mưa bao lâu."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "",
+   "key": 40,
+   "len": 150,
+   "first": 0,
+   "line": "Đến ngày thứ bốn mươi, ba người đã quen với góc lớp sát cửa sổ ở trường tạm trú.",
+   "note": ""
+  },
+  {
+   "id": "S2",
+   "size": "",
+   "key": 40,
+   "len": 168,
+   "first": 150,
+   "line": "Ở phía thị trấn thấp, đội cứu hộ báo nước đã vượt mặt ghế của những nhà cùng dãy với nhà An.",
+   "note": ""
+  },
+  {
+   "id": "S3",
+   "size": "",
+   "key": 40,
+   "len": 80,
+   "first": 318,
+   "line": "Còn sân trường trên nền cao vẫn khô.",
+   "note": ""
+  },
+  {
+   "id": "S4",
+   "size": "",
+   "key": 40,
+   "len": 107,
+   "first": 398,
+   "line": "Túi đồ xếp sát tường, chăn được gấp lại mỗi sáng.",
+   "note": ""
+  },
+  {
+   "id": "S5",
+   "size": "",
+   "key": 40,
+   "len": 96,
+   "first": 505,
+   "line": "Bên kia lối đi là chiếu của bà Sáu và Nam.",
+   "note": ""
+  },
+  {
+   "id": "S6",
+   "size": "",
+   "key": 40,
+   "len": 153,
+   "first": 601,
+   "line": "Ngoài hành lang, con chó nằm trong khu dành cho vật nuôi, nơi Hạnh có thể trông thấy.",
+   "note": ""
+  },
+  {
+   "id": "S7",
+   "size": "",
+   "key": 40,
+   "len": 45,
+   "first": 754,
+   "line": "Ai cũng nghe tiếng nước.",
+   "note": ""
+  },
+  {
+   "id": "S8",
+   "size": "",
+   "key": 40,
+   "len": 112,
+   "first": 799,
+   "line": "Vậy mà mỗi lần lấy nước uống, họ vẫn phải xếp hàng ngoài sân.",
+   "note": ""
+  },
+  {
+   "id": "S9",
+   "size": "",
+   "key": 40,
+   "len": 89,
+   "first": 911,
+   "line": "Trạm cấp nước dưới phố đã ngừng hoạt động vì ngập.",
+   "note": ""
+  },
+  {
+   "id": "S10",
+   "size": "",
+   "key": 40,
+   "len": 110,
+   "first": 1000,
+   "line": "An phụ tổ cấp nước tạm, đánh dấu những bồn đã xử lý.",
+   "note": ""
+  },
+  {
+   "id": "S11",
+   "size": "",
+   "key": 40,
+   "len": 62,
+   "first": 1110,
+   "line": "Hàng tiếp tế đến theo từng đợt.",
+   "note": ""
+  },
+  {
+   "id": "S12",
+   "size": "",
+   "key": 40,
+   "len": 142,
+   "first": 1172,
+   "line": "Những hôm xe chậm, anh kiểm đi kiểm lại lượng còn trong bồn.",
+   "note": ""
+  },
+  {
+   "id": "S13",
+   "size": "",
+   "key": 40,
+   "len": 89,
+   "first": 1314,
+   "line": "Linh và Nam phụ đánh dấu những can đã giao.",
+   "note": ""
+  },
+  {
+   "id": "S14",
+   "size": "",
+   "key": 40,
+   "len": 114,
+   "first": 1403,
+   "line": "Hạnh cùng mấy người lớn chia phần ăn ở gian bếp tạm cuối dãy.",
+   "note": ""
+  },
+  {
+   "id": "S15",
+   "size": "",
+   "key": 40,
+   "len": 159,
+   "first": 1517,
+   "line": "Đến giờ chăm chó, Linh vừa đặt chiếc bát rỗng xuống hành lang thì nó húc bát lăn cả một đoạn.“",
+   "note": ""
+  },
+  {
+   "id": "S16",
+   "size": "",
+   "key": 40,
+   "len": 48,
+   "first": 1676,
+   "line": "Chưa đến lượt mày mà!”",
+   "note": ""
+  },
+  {
+   "id": "S17",
+   "size": "",
+   "key": 40,
+   "len": 54,
+   "first": 1724,
+   "line": "Nam chặn chiếc bát bằng chân.“",
+   "note": ""
+  },
+  {
+   "id": "S18",
+   "size": "",
+   "key": 40,
+   "len": 64,
+   "first": 1778,
+   "line": "Chắc nó tưởng cậu quên phần của nó.”",
+   "note": ""
+  },
+  {
+   "id": "S19",
+   "size": "",
+   "key": 40,
+   "len": 115,
+   "first": 1842,
+   "line": "Linh ôm bát trở lại.“ Tớ còn chưa ăn, quên nó thế nào được!”",
+   "note": ""
+  },
+  {
+   "id": "S20",
+   "size": "",
+   "key": 40,
+   "len": 218,
+   "first": 1957,
+   "line": "Hạnh từ bếp đưa ra hai phần cơm.“ Vậy hai đứa ăn đi đã. Rồi mẹ đưa phần của nó, đừng lấy đồ của mình chia lung tung nhé.”",
+   "note": ""
+  },
+  {
+   "id": "S21",
+   "size": "",
+   "key": 40,
+   "len": 48,
+   "first": 2175,
+   "line": "Một vài người bật cười.",
+   "note": ""
+  },
+  {
+   "id": "S22",
+   "size": "",
+   "key": 40,
+   "len": 128,
+   "first": 2223,
+   "line": "An kê chiếc bát vào góc ít bị đá trúng rồi ngồi xuống cạnh hai đứa.“",
+   "note": ""
+  },
+  {
+   "id": "S23",
+   "size": "",
+   "key": 40,
+   "len": 72,
+   "first": 2351,
+   "line": "Sáng nay hai đứa đánh dấu được mấy can rồi?”",
+   "note": ""
+  },
+  {
+   "id": "S24",
+   "size": "",
+   "key": 40,
+   "len": 79,
+   "first": 2423,
+   "line": "Nam giơ hai bàn tay, nhìn Linh xin giúp.",
+   "note": ""
+  },
+  {
+   "id": "S25",
+   "size": "",
+   "key": 40,
+   "len": 158,
+   "first": 2502,
+   "line": "Cô bé nhắc ngay:“ Mười hai. Nhưng Nam đếm trùng một cái, nên tụi con kiểm lại rồi.”“",
+   "note": ""
+  },
+  {
+   "id": "S26",
+   "size": "",
+   "key": 40,
+   "len": 110,
+   "first": 2660,
+   "line": "Kiểm lại là đúng rồi. Ăn xong bố xem sổ cùng hai đứa.”",
+   "note": ""
+  },
+  {
+   "id": "S27",
+   "size": "",
+   "key": 40,
+   "len": 58,
+   "first": 2770,
+   "line": "Rồi anh trở lại bảng ghi.",
+   "note": ""
+  },
+  {
+   "id": "S28",
+   "size": "",
+   "key": 40,
+   "len": 110,
+   "first": 2828,
+   "line": "Nước sạch còn bao nhiêu, chuyến hàng sau đã xác nhận hay chưa.",
+   "note": ""
+  },
+  {
+   "id": "S29",
+   "size": "",
+   "key": 40,
+   "len": 187,
+   "first": 2938,
+   "line": "Những câu hỏi nhỏ ấy phải được trả lời mỗi ngày, bất kể ngoài trời còn mưa bao lâu.",
+   "note": ""
+  }
+ ],
+ "fx": [],
+ "audio": {
+  "voice": "mua-100-c06/voice.wav",
+  "sfx": "mua-100-c06/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.2056,
+  "music": "mua-100-c06/music.wav",
+  "musicVol": 0.1007
+ }
+}

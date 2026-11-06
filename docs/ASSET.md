@@ -16,6 +16,7 @@ Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng t�
 | Hồ sơ | Danh mục |
 |---|---|
 | Hẻm Có Chuyện — tập 01 | [ASSET.md của tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/ASSET.md) |
+| Tập độc lập — Mưa liên tục 100 ngày | [ASSET.md của tập](../episodes/doc-lap/mua-100-ngay/ASSET.md); mã dựng cũ và media local nằm cùng hồ sơ tập |
 
 ## Khi thêm hoặc dùng lại tài nguyên
 

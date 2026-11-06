@@ -1,0 +1,12 @@
+import { mua100C01 } from './mua-100-c01';
+import { mua100C02 } from './mua-100-c02';
+import { mua100C03 } from './mua-100-c03';
+import { mua100C04 } from './mua-100-c04';
+import { mua100C05 } from './mua-100-c05';
+import { mua100C06 } from './mua-100-c06';
+import { mua100C07 } from './mua-100-c07';
+import { mua100C08 } from './mua-100-c08';
+import { mua100C09 } from './mua-100-c09';
+import { mua100C10 } from './mua-100-c10';
+
+export const EPISODES = [mua100C01, mua100C02, mua100C03, mua100C04, mua100C05, mua100C06, mua100C07, mua100C08, mua100C09, mua100C10];

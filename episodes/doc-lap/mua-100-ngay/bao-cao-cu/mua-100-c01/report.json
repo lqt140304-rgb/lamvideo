@@ -1,0 +1,22 @@
+{
+ "episode": "Mua100C01",
+ "file": "D:\\lamvideo\\what-if-studio\\.claude\\worktrees\\lamvideo-repo-review-8a9959\\what-if-studio\\out\\mua-100-c01\\mua-100-c01-final.mp4",
+ "seconds": 168.4,
+ "lufs": -14.2,
+ "true_peak_dbtp": -1.45,
+ "segments": 40,
+ "cuts_per_min": 13.9,
+ "elevenlabs_credits": 4696,
+ "cost_lines": [
+  {
+   "step": "voice",
+   "credits": 1182,
+   "note": "2687 characters"
+  },
+  {
+   "step": "sound",
+   "credits": 3514,
+   "note": "16 clips, 120.9 s"
+  }
+ ]
+}

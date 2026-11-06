@@ -37,6 +37,18 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 - Tách token của trợ lý, ký tự lời đọc, credits dịch vụ và thời gian render. Không suy ra chi phí từ một hệ số cũ; ghi model, độ dài và số dùng thực của từng lần tạo trong hồ sơ tập.
 - Đọc đúng file cần sửa, giữ bản nguồn duy nhất và ghi thay đổi ngắn. Kiểm tra phần bị ảnh hưởng trước; không render lại toàn bộ hoặc nghiên cứu lại từ đầu khi không có lý do.
 
+## Kỹ thuật dựng đã được rút thành nguyên tắc
+
+- Trước khi làm lại một chức năng, kiểm tra công cụ và nhánh liên quan đã biết. Chỉ mở rộng tìm kiếm khi có dấu hiệu cần; không bắt mọi nhiệm vụ quét tất cả lịch sử.
+- Mốc chữ cần tăng dần và khớp đúng lần xuất hiện. Thẻ diễn xuất không phải chữ được đọc. Sau thay giọng, căn chỉnh hoặc khoảng nghỉ, cập nhật lại timeline, cue, âm thanh và các phần hình phụ thuộc; không giữ mốc cũ vì nội dung câu giống nhau.
+- Ảnh storyboard ở một khung không chứng minh chuyển động đúng. Xem đầu–giữa–cuối và các mốc đổi trạng thái; cảnh dùng lại phải kiểm tra từng khoảng thời gian sử dụng. Chia bảng soi thành các trang đủ lớn để đọc được chi tiết.
+- Vật được cầm phải bám theo bàn tay; người đứng/ngồi phải tiếp xúc đúng sàn/ghế; lớp trước–sau phải đúng khi đồ được che, cất hoặc kéo ra. Dùng tọa độ không gian và khớp rig thay cho đoán từng vị trí màn hình.
+- Góc tay phụ thuộc rig, hướng mặt và bên gần máy. Thử pose với vật thật trong cảnh; không biến một cặp góc từng dùng thành công thức cho mọi tư thế. Bàn tay cận cần cổ tay/cẳng tay, tỉ lệ và điểm nắm rõ.
+- Thay thành phần chung cần xác định những shot sử dụng nó. Kiểm tra các shot bị ảnh hưởng và dựng lại đầu ra phụ thuộc; chỉ render toàn bộ khi thay đổi lan tới toàn bộ. Tránh cả bỏ sót cảnh cũ lẫn render hết sau mỗi sửa nhỏ.
+- Tiếng nền phải phù hợp vị trí và kéo đủ thời lượng; nếu lặp cần kiểm tra điểm nối. Nhạc đi theo nhịp/tâm trạng nhưng không ép mọi cảnh dùng một bài. Nghe bản trộn cuối: gain của một clip không tự quyết định độ to sau khi chuẩn hóa cả stem.
+- Tiếng va đập cần đọc được giữa âm nền và vẫn giữ rõ lời. Điều chỉnh theo bản mix, kiểm tra peak và chỗ lời bị che; không áp một hệ số gain cố định cho mọi clip. Phụ đề bổ sung là tùy chọn, ngắn và có căn cứ, tránh che hành động hoặc chen vào đoạn cảm xúc.
+- Giữ sản phẩm quan trọng ngoài thư mục có thể bị dọn, đồng thời ghi ánh xạ theo tập. Trước khi bỏ worktree phải xác nhận nguồn, media và đầu ra còn ở đâu; không nhầm báo cáo tồn tại với việc video vẫn còn.
+
 ## Cách bổ sung bài học
 
 Viết theo mẫu: **vấn đề lặp lại → nguyên nhân → nguyên tắc xử lý → cách biết đã đạt**. Bài học phải dùng được cho một tập khác mà không cần biết cốt truyện gốc. Nếu chỉ là sửa một câu, một nhân vật hoặc một asset cụ thể, lưu vào ghi chú riêng của tập.

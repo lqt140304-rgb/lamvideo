@@ -1,0 +1,818 @@
+{
+ "slug": "mua-100-c05",
+ "title": "Ngày 26 Nơi cao chưa chắc an toàn",
+ "fps": 30,
+ "total": 4696,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 161,
+   "t0": 0,
+   "t1": 161,
+   "line": "Ngày thứ hai mươi sáu, nước đã tràn qua ngưỡng cửa nhà An, phủ một lớp mỏng trên nền phòng khách."
+  },
+  {
+   "shot": "S2",
+   "a": 161,
+   "b": 277,
+   "t0": 0,
+   "t1": 116,
+   "line": "Chân ghế gỗ và góc dưới của chiếc tủ bắt đầu ngâm trong nước."
+  },
+  {
+   "shot": "S3",
+   "a": 277,
+   "b": 337,
+   "t0": 0,
+   "t1": 60,
+   "line": "Gia đình nhận thông báo sơ tán."
+  },
+  {
+   "shot": "S4",
+   "a": 337,
+   "b": 403,
+   "t0": 0,
+   "t1": 66,
+   "line": "Đội cứu hộ dùng thuyền đón họ ở hiên,"
+  },
+  {
+   "shot": "S5",
+   "a": 403,
+   "b": 454,
+   "t0": 0,
+   "t1": 51,
+   "line": "đưa ra đoạn đầu hẻm cao hơn,"
+  },
+  {
+   "shot": "S6",
+   "a": 454,
+   "b": 502,
+   "t0": 0,
+   "t1": 48,
+   "line": "nơi xe còn tới được."
+  },
+  {
+   "shot": "S7",
+   "a": 502,
+   "b": 567,
+   "t0": 0,
+   "t1": 65,
+   "line": "Bà Sáu và Nam đã chờ ở đó."
+  },
+  {
+   "shot": "S8",
+   "a": 567,
+   "b": 611,
+   "t0": 0,
+   "t1": 44,
+   "line": "Hạnh giữ dây dắt chó,"
+  },
+  {
+   "shot": "S9",
+   "a": 611,
+   "b": 676,
+   "t0": 0,
+   "t1": 65,
+   "line": "Linh ôm túi ảnh và hạt giống."
+  },
+  {
+   "shot": "S10",
+   "a": 676,
+   "b": 731,
+   "t0": 0,
+   "t1": 55,
+   "line": "Một cơn gió quật qua đầu hẻm."
+  },
+  {
+   "shot": "S11",
+   "a": 731,
+   "b": 838,
+   "t0": 0,
+   "t1": 107,
+   "line": "Tấm bạt trước quầy bà Sáu giật căng rồi rách toạc ở mép."
+  },
+  {
+   "shot": "S12",
+   "a": 838,
+   "b": 905,
+   "t0": 0,
+   "t1": 67,
+   "line": "Nam giật mình, níu lấy tay bà."
+  },
+  {
+   "shot": "S13",
+   "a": 905,
+   "b": 1053,
+   "t0": 0,
+   "t1": 148,
+   "line": "Người cứu hộ đưa cả nhóm vào điểm chờ khuất gió, phía sau bức tường nhà còn chắc chắn.“"
+  },
+  {
+   "shot": "S14",
+   "a": 1053,
+   "b": 1147,
+   "t0": 0,
+   "t1": 94,
+   "line": "Mọi người đứng phía trong. Chờ gọi tới lượt rồi mới lên xe!”"
+  },
+  {
+   "shot": "S15",
+   "a": 1147,
+   "b": 1249,
+   "t0": 0,
+   "t1": 102,
+   "line": "Hạnh kéo mũ áo mưa của Linh xuống, giữ con sát bên."
+  },
+  {
+   "shot": "S16",
+   "a": 1249,
+   "b": 1388,
+   "t0": 0,
+   "t1": 139,
+   "line": "An nhận túi từ tay bà Sáu; tay kia đỡ khuỷu tay bà bước qua bậc khô."
+  },
+  {
+   "shot": "S17",
+   "a": 1388,
+   "b": 1476,
+   "t0": 0,
+   "t1": 88,
+   "line": "Tiếng gọi nhau phải lặp lại mới át được tiếng mưa.“"
+  },
+  {
+   "shot": "S18",
+   "a": 1476,
+   "b": 1529,
+   "t0": 0,
+   "t1": 53,
+   "line": "Mẹ ơi, Nam đâu?”“"
+  },
+  {
+   "shot": "S19",
+   "a": 1529,
+   "b": 1607,
+   "t0": 0,
+   "t1": 78,
+   "line": "Ngay sau bà Sáu đó con. Mẹ thấy bạn rồi."
+  },
+  {
+   "shot": "S20",
+   "a": 1607,
+   "b": 1670,
+   "t0": 0,
+   "t1": 63,
+   "line": "Con nhìn mẹ, đi cùng mẹ nhé.”"
+  },
+  {
+   "shot": "S21",
+   "a": 1670,
+   "b": 1769,
+   "t0": 0,
+   "t1": 99,
+   "line": "Đúng lúc xe chuẩn bị đi, người điều phối giơ tay chặn lại."
+  },
+  {
+   "shot": "S22",
+   "a": 1769,
+   "b": 1831,
+   "t0": 0,
+   "t1": 62,
+   "line": "Tuyến đường ngắn lên đồi vừa bị đóng."
+  },
+  {
+   "shot": "S23",
+   "a": 1831,
+   "b": 1906,
+   "t0": 0,
+   "t1": 75,
+   "line": "Đất trên sườn dốc đã ngấm nước nhiều ngày."
+  },
+  {
+   "shot": "S24",
+   "a": 1906,
+   "b": 2018,
+   "t0": 0,
+   "t1": 112,
+   "line": "Sau một vụ sạt ở đoạn đường phía trước, đoàn xe phải đổi tuyến."
+  },
+  {
+   "shot": "S25",
+   "a": 2018,
+   "b": 2187,
+   "t0": 0,
+   "t1": 169,
+   "line": "Đoàn xe chưa được đi. Người điều phối chờ xác nhận tuyến thay thế, rồi mới ra hiệu cho tài xế."
+  },
+  {
+   "shot": "S26",
+   "a": 2187,
+   "b": 2323,
+   "t0": 0,
+   "t1": 136,
+   "line": "An đếm lại người trong nhóm. Hạnh, Linh, bà Sáu, Nam."
+  },
+  {
+   "shot": "S27",
+   "a": 2323,
+   "b": 2506,
+   "t0": 0,
+   "t1": 183,
+   "line": "Đủ cả. Anh ngồi xuống, thở ra một hơi mà từ nãy tới giờ vẫn nén trong ngực."
+  },
+  {
+   "shot": "S28",
+   "a": 2506,
+   "b": 2611,
+   "t0": 0,
+   "t1": 105,
+   "line": "Trên xe, Linh mở túi nhìn tấm ảnh vừa tháo khỏi khung."
+  },
+  {
+   "shot": "S29",
+   "a": 2611,
+   "b": 2767,
+   "t0": 0,
+   "t1": 156,
+   "line": "Chiếc khung nặng vẫn nằm trên tủ thấp trong phòng khách, cạnh bộ bàn ghế bố chưa chuyển được lên gác."
+  },
+  {
+   "shot": "S30",
+   "a": 2767,
+   "b": 2829,
+   "t0": 0,
+   "t1": 62,
+   "line": "An kiểm tra thuốc và nước mang theo."
+  },
+  {
+   "shot": "S31",
+   "a": 2829,
+   "b": 2927,
+   "t0": 0,
+   "t1": 98,
+   "line": "Con chó cuộn dưới chân Hạnh, cạnh túi thức ăn của nó.“"
+  },
+  {
+   "shot": "S32",
+   "a": 2927,
+   "b": 3056,
+   "t0": 0,
+   "t1": 129,
+   "line": "Bố ơi, mình bỏ khung lại thật à? Cái đó bố đóng cho con mà.”"
+  },
+  {
+   "shot": "S33",
+   "a": 3056,
+   "b": 3183,
+   "t0": 0,
+   "t1": 127,
+   "line": "Qua cửa xe, An nhìn những mái nhà của xóm khuất dần sau màn mưa.“"
+  },
+  {
+   "shot": "S34",
+   "a": 3183,
+   "b": 3312,
+   "t0": 0,
+   "t1": 129,
+   "line": "Bố nhớ. Hôm đóng nó, con cứ đứng cạnh hỏi bao giờ được treo ảnh.”“"
+  },
+  {
+   "shot": "S35",
+   "a": 3312,
+   "b": 3383,
+   "t0": 0,
+   "t1": 71,
+   "line": "Tại vì con muốn treo trước lúc mẹ về.”"
+  },
+  {
+   "shot": "S36",
+   "a": 3383,
+   "b": 3433,
+   "t0": 0,
+   "t1": 50,
+   "line": "An vuốt lại mép túi ảnh.“"
+  },
+  {
+   "shot": "S37",
+   "a": 3433,
+   "b": 3611,
+   "t0": 0,
+   "t1": 178,
+   "line": "Lúc rời nhà, mình phải mang đồ thiết yếu trước, nên cái khung đành để lại. Bố chưa biết lúc nào về được."
+  },
+  {
+   "shot": "S38",
+   "a": 3611,
+   "b": 3702,
+   "t0": 0,
+   "t1": 91,
+   "line": "Nhưng ảnh đang ở đây, cả nhà mình cũng đi cùng nhau.”"
+  },
+  {
+   "shot": "S39",
+   "a": 3702,
+   "b": 3790,
+   "t0": 0,
+   "t1": 88,
+   "line": "Linh nhìn tấm ảnh trong túi.“ Con vẫn tiếc.”“"
+  },
+  {
+   "shot": "S40",
+   "a": 3790,
+   "b": 3916,
+   "t0": 0,
+   "t1": 126,
+   "line": "Bố cũng tiếc. Con cứ ngồi sát bố, muốn xem ảnh thì mình xem cùng.”"
+  },
+  {
+   "shot": "S41",
+   "a": 3916,
+   "b": 4005,
+   "t0": 0,
+   "t1": 89,
+   "line": "Linh đặt tấm ảnh vào túi kín, cạnh hộp hạt giống."
+  },
+  {
+   "shot": "S42",
+   "a": 4005,
+   "b": 4082,
+   "t0": 0,
+   "t1": 77,
+   "line": "Lần này, bố không hứa một ngày cụ thể."
+  },
+  {
+   "shot": "S43",
+   "a": 4082,
+   "b": 4208,
+   "t0": 0,
+   "t1": 126,
+   "line": "Đoàn xe đến trường tiểu học ở rìa cao của thị trấn theo tuyến đã được xác nhận."
+  },
+  {
+   "shot": "S44",
+   "a": 4208,
+   "b": 4316,
+   "t0": 0,
+   "t1": 108,
+   "line": "Trường nằm trên khoảng nền thoáng, cách xa sườn dốc vừa bị sạt."
+  },
+  {
+   "shot": "S45",
+   "a": 4316,
+   "b": 4472,
+   "t0": 0,
+   "t1": 156,
+   "line": "Dãy lớp học đã dọn bàn sang một bên; mỗi gia đình có một khoảng chiếu, ngăn bằng túi đồ."
+  },
+  {
+   "shot": "S46",
+   "a": 4472,
+   "b": 4500,
+   "t0": 0,
+   "t1": 28,
+   "line": "Hạnh trải chăn."
+  },
+  {
+   "shot": "S47",
+   "a": 4500,
+   "b": 4696,
+   "t0": 0,
+   "t1": 196,
+   "line": "Linh ngồi xuống, hai bàn tay vẫn ôm chặt chiếc túi."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "",
+   "key": 40,
+   "len": 161,
+   "first": 0,
+   "line": "Ngày thứ hai mươi sáu, nước đã tràn qua ngưỡng cửa nhà An, phủ một lớp mỏng trên nền phòng khách.",
+   "note": ""
+  },
+  {
+   "id": "S2",
+   "size": "",
+   "key": 40,
+   "len": 116,
+   "first": 161,
+   "line": "Chân ghế gỗ và góc dưới của chiếc tủ bắt đầu ngâm trong nước.",
+   "note": ""
+  },
+  {
+   "id": "S3",
+   "size": "",
+   "key": 40,
+   "len": 60,
+   "first": 277,
+   "line": "Gia đình nhận thông báo sơ tán.",
+   "note": ""
+  },
+  {
+   "id": "S4",
+   "size": "",
+   "key": 40,
+   "len": 66,
+   "first": 337,
+   "line": "Đội cứu hộ dùng thuyền đón họ ở hiên,",
+   "note": ""
+  },
+  {
+   "id": "S5",
+   "size": "",
+   "key": 40,
+   "len": 51,
+   "first": 403,
+   "line": "đưa ra đoạn đầu hẻm cao hơn,",
+   "note": ""
+  },
+  {
+   "id": "S6",
+   "size": "",
+   "key": 40,
+   "len": 48,
+   "first": 454,
+   "line": "nơi xe còn tới được.",
+   "note": ""
+  },
+  {
+   "id": "S7",
+   "size": "",
+   "key": 40,
+   "len": 65,
+   "first": 502,
+   "line": "Bà Sáu và Nam đã chờ ở đó.",
+   "note": ""
+  },
+  {
+   "id": "S8",
+   "size": "",
+   "key": 40,
+   "len": 44,
+   "first": 567,
+   "line": "Hạnh giữ dây dắt chó,",
+   "note": ""
+  },
+  {
+   "id": "S9",
+   "size": "",
+   "key": 40,
+   "len": 65,
+   "first": 611,
+   "line": "Linh ôm túi ảnh và hạt giống.",
+   "note": ""
+  },
+  {
+   "id": "S10",
+   "size": "",
+   "key": 40,
+   "len": 55,
+   "first": 676,
+   "line": "Một cơn gió quật qua đầu hẻm.",
+   "note": ""
+  },
+  {
+   "id": "S11",
+   "size": "",
+   "key": 40,
+   "len": 107,
+   "first": 731,
+   "line": "Tấm bạt trước quầy bà Sáu giật căng rồi rách toạc ở mép.",
+   "note": ""
+  },
+  {
+   "id": "S12",
+   "size": "",
+   "key": 40,
+   "len": 67,
+   "first": 838,
+   "line": "Nam giật mình, níu lấy tay bà.",
+   "note": ""
+  },
+  {
+   "id": "S13",
+   "size": "",
+   "key": 40,
+   "len": 148,
+   "first": 905,
+   "line": "Người cứu hộ đưa cả nhóm vào điểm chờ khuất gió, phía sau bức tường nhà còn chắc chắn.“",
+   "note": ""
+  },
+  {
+   "id": "S14",
+   "size": "",
+   "key": 40,
+   "len": 94,
+   "first": 1053,
+   "line": "Mọi người đứng phía trong. Chờ gọi tới lượt rồi mới lên xe!”",
+   "note": ""
+  },
+  {
+   "id": "S15",
+   "size": "",
+   "key": 40,
+   "len": 102,
+   "first": 1147,
+   "line": "Hạnh kéo mũ áo mưa của Linh xuống, giữ con sát bên.",
+   "note": ""
+  },
+  {
+   "id": "S16",
+   "size": "",
+   "key": 40,
+   "len": 139,
+   "first": 1249,
+   "line": "An nhận túi từ tay bà Sáu; tay kia đỡ khuỷu tay bà bước qua bậc khô.",
+   "note": ""
+  },
+  {
+   "id": "S17",
+   "size": "",
+   "key": 40,
+   "len": 88,
+   "first": 1388,
+   "line": "Tiếng gọi nhau phải lặp lại mới át được tiếng mưa.“",
+   "note": ""
+  },
+  {
+   "id": "S18",
+   "size": "",
+   "key": 40,
+   "len": 53,
+   "first": 1476,
+   "line": "Mẹ ơi, Nam đâu?”“",
+   "note": ""
+  },
+  {
+   "id": "S19",
+   "size": "",
+   "key": 40,
+   "len": 78,
+   "first": 1529,
+   "line": "Ngay sau bà Sáu đó con. Mẹ thấy bạn rồi.",
+   "note": ""
+  },
+  {
+   "id": "S20",
+   "size": "",
+   "key": 40,
+   "len": 63,
+   "first": 1607,
+   "line": "Con nhìn mẹ, đi cùng mẹ nhé.”",
+   "note": ""
+  },
+  {
+   "id": "S21",
+   "size": "",
+   "key": 40,
+   "len": 99,
+   "first": 1670,
+   "line": "Đúng lúc xe chuẩn bị đi, người điều phối giơ tay chặn lại.",
+   "note": ""
+  },
+  {
+   "id": "S22",
+   "size": "",
+   "key": 40,
+   "len": 62,
+   "first": 1769,
+   "line": "Tuyến đường ngắn lên đồi vừa bị đóng.",
+   "note": ""
+  },
+  {
+   "id": "S23",
+   "size": "",
+   "key": 40,
+   "len": 75,
+   "first": 1831,
+   "line": "Đất trên sườn dốc đã ngấm nước nhiều ngày.",
+   "note": ""
+  },
+  {
+   "id": "S24",
+   "size": "",
+   "key": 40,
+   "len": 112,
+   "first": 1906,
+   "line": "Sau một vụ sạt ở đoạn đường phía trước, đoàn xe phải đổi tuyến.",
+   "note": ""
+  },
+  {
+   "id": "S25",
+   "size": "",
+   "key": 40,
+   "len": 169,
+   "first": 2018,
+   "line": "Đoàn xe chưa được đi. Người điều phối chờ xác nhận tuyến thay thế, rồi mới ra hiệu cho tài xế.",
+   "note": ""
+  },
+  {
+   "id": "S26",
+   "size": "",
+   "key": 40,
+   "len": 136,
+   "first": 2187,
+   "line": "An đếm lại người trong nhóm. Hạnh, Linh, bà Sáu, Nam.",
+   "note": ""
+  },
+  {
+   "id": "S27",
+   "size": "",
+   "key": 40,
+   "len": 183,
+   "first": 2323,
+   "line": "Đủ cả. Anh ngồi xuống, thở ra một hơi mà từ nãy tới giờ vẫn nén trong ngực.",
+   "note": ""
+  },
+  {
+   "id": "S28",
+   "size": "",
+   "key": 40,
+   "len": 105,
+   "first": 2506,
+   "line": "Trên xe, Linh mở túi nhìn tấm ảnh vừa tháo khỏi khung.",
+   "note": ""
+  },
+  {
+   "id": "S29",
+   "size": "",
+   "key": 40,
+   "len": 156,
+   "first": 2611,
+   "line": "Chiếc khung nặng vẫn nằm trên tủ thấp trong phòng khách, cạnh bộ bàn ghế bố chưa chuyển được lên gác.",
+   "note": ""
+  },
+  {
+   "id": "S30",
+   "size": "",
+   "key": 40,
+   "len": 62,
+   "first": 2767,
+   "line": "An kiểm tra thuốc và nước mang theo.",
+   "note": ""
+  },
+  {
+   "id": "S31",
+   "size": "",
+   "key": 40,
+   "len": 98,
+   "first": 2829,
+   "line": "Con chó cuộn dưới chân Hạnh, cạnh túi thức ăn của nó.“",
+   "note": ""
+  },
+  {
+   "id": "S32",
+   "size": "",
+   "key": 40,
+   "len": 129,
+   "first": 2927,
+   "line": "Bố ơi, mình bỏ khung lại thật à? Cái đó bố đóng cho con mà.”",
+   "note": ""
+  },
+  {
+   "id": "S33",
+   "size": "",
+   "key": 40,
+   "len": 127,
+   "first": 3056,
+   "line": "Qua cửa xe, An nhìn những mái nhà của xóm khuất dần sau màn mưa.“",
+   "note": ""
+  },
+  {
+   "id": "S34",
+   "size": "",
+   "key": 40,
+   "len": 129,
+   "first": 3183,
+   "line": "Bố nhớ. Hôm đóng nó, con cứ đứng cạnh hỏi bao giờ được treo ảnh.”“",
+   "note": ""
+  },
+  {
+   "id": "S35",
+   "size": "",
+   "key": 40,
+   "len": 71,
+   "first": 3312,
+   "line": "Tại vì con muốn treo trước lúc mẹ về.”",
+   "note": ""
+  },
+  {
+   "id": "S36",
+   "size": "",
+   "key": 40,
+   "len": 50,
+   "first": 3383,
+   "line": "An vuốt lại mép túi ảnh.“",
+   "note": ""
+  },
+  {
+   "id": "S37",
+   "size": "",
+   "key": 40,
+   "len": 178,
+   "first": 3433,
+   "line": "Lúc rời nhà, mình phải mang đồ thiết yếu trước, nên cái khung đành để lại. Bố chưa biết lúc nào về được.",
+   "note": ""
+  },
+  {
+   "id": "S38",
+   "size": "",
+   "key": 40,
+   "len": 91,
+   "first": 3611,
+   "line": "Nhưng ảnh đang ở đây, cả nhà mình cũng đi cùng nhau.”",
+   "note": ""
+  },
+  {
+   "id": "S39",
+   "size": "",
+   "key": 40,
+   "len": 88,
+   "first": 3702,
+   "line": "Linh nhìn tấm ảnh trong túi.“ Con vẫn tiếc.”“",
+   "note": ""
+  },
+  {
+   "id": "S40",
+   "size": "",
+   "key": 40,
+   "len": 126,
+   "first": 3790,
+   "line": "Bố cũng tiếc. Con cứ ngồi sát bố, muốn xem ảnh thì mình xem cùng.”",
+   "note": ""
+  },
+  {
+   "id": "S41",
+   "size": "",
+   "key": 40,
+   "len": 89,
+   "first": 3916,
+   "line": "Linh đặt tấm ảnh vào túi kín, cạnh hộp hạt giống.",
+   "note": ""
+  },
+  {
+   "id": "S42",
+   "size": "",
+   "key": 40,
+   "len": 77,
+   "first": 4005,
+   "line": "Lần này, bố không hứa một ngày cụ thể.",
+   "note": ""
+  },
+  {
+   "id": "S43",
+   "size": "",
+   "key": 40,
+   "len": 126,
+   "first": 4082,
+   "line": "Đoàn xe đến trường tiểu học ở rìa cao của thị trấn theo tuyến đã được xác nhận.",
+   "note": ""
+  },
+  {
+   "id": "S44",
+   "size": "",
+   "key": 40,
+   "len": 108,
+   "first": 4208,
+   "line": "Trường nằm trên khoảng nền thoáng, cách xa sườn dốc vừa bị sạt.",
+   "note": ""
+  },
+  {
+   "id": "S45",
+   "size": "",
+   "key": 40,
+   "len": 156,
+   "first": 4316,
+   "line": "Dãy lớp học đã dọn bàn sang một bên; mỗi gia đình có một khoảng chiếu, ngăn bằng túi đồ.",
+   "note": ""
+  },
+  {
+   "id": "S46",
+   "size": "",
+   "key": 40,
+   "len": 28,
+   "first": 4472,
+   "line": "Hạnh trải chăn.",
+   "note": ""
+  },
+  {
+   "id": "S47",
+   "size": "",
+   "key": 40,
+   "len": 196,
+   "first": 4500,
+   "line": "Linh ngồi xuống, hai bàn tay vẫn ôm chặt chiếc túi.",
+   "note": ""
+  }
+ ],
+ "fx": [],
+ "audio": {
+  "voice": "mua-100-c05/voice.wav",
+  "sfx": "mua-100-c05/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.1456,
+  "music": "mua-100-c05/music.wav",
+  "musicVol": 0.1007
+ }
+}

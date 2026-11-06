@@ -8,6 +8,7 @@ Repo này dành cho nội dung What If. Đọc [mục tiêu](docs/MUC-TIEU.md), 
 - `docs/KINH-NGHIEM.md` chỉ chứa nguyên tắc có thể áp dụng lại để nâng chất lượng, giảm lỗi, giảm thời gian và chi phí. Không ghi cốt truyện, tên nhân vật, tình trạng sửa hay số tiền của một tập vào file này. Những nội dung đó thuộc `GHI-CHU.md` hoặc `ASSET.md` trong thư mục tập.
 - `docs/ASSET.md` là danh mục tài nguyên dùng chung và đường dẫn tới asset từng tập. `docs/KICH-BAN.md` là mục lục. Chỉ đưa asset lên thư viện chung khi thực sự dùng lại được, có nguồn và quyền sử dụng rõ.
 - Nếu dựng bằng studio hiện có: mã riêng ở `what-if-studio/src/episodes/<slug-tap>/`, media chạy ở `what-if-studio/public/<slug-tap>/`, đầu ra ở `what-if-studio/out/<slug-tap>/`. Dùng cùng slug với hồ sơ tập; ghi liên kết trong README của tập. Đây là các đường dẫn kỹ thuật cần cho engine, không phải nơi tạo thêm bản kịch bản độc lập.
+- Khi nhập lại dự án cũ có engine/schema khác, có thể giữ snapshot `production/` trong chính thư mục tập để bảo toàn dữ liệu. Ghi rõ đó là bản dựng cũ; không tự trộn engine cũ lên studio chung hoặc dùng snapshot làm template cho tập mới.
 - Thêm tập chỉ sửa thư mục của tập và mục lục cần thiết. Thay đổi engine, skill hoặc kinh nghiệm chung phải có lý do áp dụng cho nhiều tập. Không dùng `git add .` thiếu kiểm tra; xem từng đường dẫn trong diff trước khi commit/push.
 - Không commit `.env`, API key, cache, `node_modules`, audio thử hay bản render nặng. Khi cần giữ đầu ra local, vẫn chia thư mục theo slug tập và ghi đường dẫn trong hồ sơ tập.
 
