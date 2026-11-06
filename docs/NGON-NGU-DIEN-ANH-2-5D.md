@@ -114,7 +114,9 @@ Một người chị đang dọn bàn. Người em ngồi ở cửa. Trên bàn 
 - Một số quy tắc cũ như luôn có viền sáng, rất nhiều đồ trang trí, luôn có thứ chuyển động chỉ hợp một số mẫu. Đề xuất hiện tại cho phép bố cục thoáng, sáng ban ngày và máy tĩnh khi kể tốt hơn.
 - Chưa kiểm toán toàn bộ engine, chưa sửa code, chưa render mẫu trong studio. Không kết luận thiếu một chức năng trên mọi nhánh chỉ từ một helper.
 
-Lộ trình đề xuất: thử một bối cảnh đã chia lớp → kiểm tra che khuất/tiếp xúc → thêm một chuyển động ngang nhỏ → thử một chuyển nét → chỉ bổ sung góc nhìn mới nếu câu chuyện cần. Dựng preview ngắn không thoại trả phí để so sánh, rồi mới áp dụng cho cả tập. Đây là bước tiếp theo đề xuất, chưa thực hiện.
+**Phương án đã chốt với chủ repo:** ưu tiên ba lớp gần–giữa–xa, chuyển động máy nhỏ và bối cảnh tái sử dụng. Duyệt theo hai bước **storyboard tĩnh → animatic** theo [quy trình sản xuất](WHAT-IF-QUY-TRINH.md). Storyboard duyệt hình/bố cục; animatic cho chạy đường đi máy, tương tác tay–đồ và che khuất để duyệt chuyển động, nhịp và khoảng nghỉ. Bảng ảnh đầu–giữa–cuối chỉ hỗ trợ kiểm tra, không thay animatic.
+
+Animatic tận dụng asset đã duyệt và chất lượng preview vừa đủ; có thể dùng lời/âm thanh tạm khi chưa có bản chính thức. Không cần gọi dịch vụ tạo giọng/hình/video trả phí chỉ để duyệt bước này. Sau thay giọng chính thức phải cập nhật timeline phụ thuộc. Đây là quyết định về cách làm; chưa triển khai hoặc đo chi phí trên một tập mới nên không coi là bằng chứng tiết kiệm một tỷ lệ quota cụ thể.
 
 Nếu cần orbit lớn hoặc đi xuyên phòng, cân nhắc mô hình khối đơn giản với vật liệu giữ chất 2D và nhân vật nhiều góc nhìn. Việc đổi công cụ cần thử pipeline riêng; chưa đủ cơ sở khuyên chuyển cả dự án sang phần mềm khác.
 

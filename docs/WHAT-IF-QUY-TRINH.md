@@ -55,7 +55,20 @@ node ../.claude/skills/what-if-animation/scripts/stills.mjs <slug-tap>
 python ../.claude/skills/what-if-animation/scripts/board.py <slug-tap>
 ```
 
-Xem các still thật, sửa bố cục và tính liên tục trước khi render. Chỉ tạo sound mới khi cần; ưu tiên thư viện đã kiểm tra. Lệnh `sfx.py` không kèm `--free` có thể gọi dịch vụ khi có key, vì vậy xem `--dry` và chọn chế độ rõ ràng. Đọc [sound](../.claude/skills/what-if-animation/references/sound.md). `master.py` render theo episode đã dựng; `mixcheck.py` và `motiongrid.py` hỗ trợ kiểm tra âm thanh/chuyển động, không thay việc xem và nghe.
+### Duyệt hình qua hai bước: storyboard → animatic
+
+Đây là quy trình đã chốt với chủ repo. Không thay bước animatic bằng việc chỉ xem ảnh storyboard hoặc bảng ảnh đầu–giữa–cuối.
+
+1. **Storyboard tĩnh:** xem các still thật của mọi shot để duyệt bố cục, góc máy/lens tương đương, lớp gần–giữa–xa, ánh sáng, vị trí ban đầu và tính liên tục. Sửa hình trước khi dựng bản chuyển động.
+2. **Animatic:** ráp các shot thành bản nháp chuyển động nhẹ để duyệt nhịp, khoảng nghỉ, chuyển cảnh và đường đi máy. Những hành động cầm/nhấc/đặt đồ, tiếp xúc sàn/ghế và thay đổi che khuất phải chạy bằng chuyển động dự kiến; chỉ pan/zoom storyboard tĩnh không đủ để kiểm chứng chúng. Có thể dùng clip ngắn để sửa từng shot, nhưng cần xem lại bản ráp để duyệt mạch kể.
+
+Animatic dùng lại asset đã duyệt, độ phân giải và chất lượng preview vừa đủ đọc mắt, bàn tay và điểm tiếp xúc; có thể dùng lời đọc tạm/âm thanh tạm hoặc mốc lời ước tính. Chưa cần giọng ElevenLabs, nhạc/SFX mới trả phí hay hiệu ứng hoàn thiện chỉ để duyệt hình. Nếu đã có audio được kiểm tra thì dùng lại; không tạo lại. Sau khi có giọng chính thức, cập nhật timing và kiểm tra những phần phụ thuộc, không coi thời lượng tạm là số đo cuối.
+
+Ưu tiên 2.5D với ba lớp gần–giữa–xa, chuyển động máy nhỏ và bối cảnh tái sử dụng; chỉ tăng lớp hoặc đổi góc lớn khi câu chuyện cần. Đồ đang cầm bám tay, khi đặt xuống chuyển sang hệ tọa độ của mặt đỡ; giữ liên tục vị trí lúc chuyển. Kiểm tra vật xuyên nhau, sai lớp, trượt tay, nổi khỏi sàn/bàn, lộ nền thiếu và giật hình khi xem animatic. Bảng ảnh/motion grid hỗ trợ tìm lỗi, không thay việc xem chuyển động.
+
+Chỉ chuyển sang hoàn thiện và render chất lượng cuối khi hai bước trên đạt. Đây là lựa chọn quy trình nhằm giảm sửa muộn, chưa có số đo để cam kết giảm bao nhiêu quota. Trích hình và chạy preview local không cần tạo lại mỗi frame bằng dịch vụ AI; vẫn có thời gian render, tài nguyên máy và quota trợ lý nếu cần viết/sửa mã.
+
+Chỉ tạo sound mới khi cần; ưu tiên thư viện đã kiểm tra. Lệnh `sfx.py` không kèm `--free` có thể gọi dịch vụ khi có key, vì vậy xem `--dry` và chọn chế độ rõ ràng. Đọc [sound](../.claude/skills/what-if-animation/references/sound.md). `master.py` render theo episode đã dựng; `mixcheck.py` và `motiongrid.py` hỗ trợ kiểm tra âm thanh/chuyển động, không thay việc xem và nghe. Các công cụ hiện có không tự bảo đảm tạo được animatic hoàn chỉnh từ Markdown; cần mã shot và timeline phù hợp.
 
 ## 6. Giao và cập nhật repo
 
