@@ -208,3 +208,10 @@ Sau khi sửa: `tsc`, render ảnh/lưới cho các cảnh trên, `plan` → `sf
 - Gác: bàn thấp u 0,34–0,66, w 0,46–0,72; người đứng phải ở trước bàn (w khoảng 0,82).
 - Cận mặt (scale 1,1–1,2, zoom 2,5): hông ở y khoảng 690–700, không phải 790, không thì đầu nằm sát mép dưới.
 - Người lội nước: cắt phần chân dưới mặt nước bằng `clipPath` và vẽ một vòng sóng, đừng phủ một khối nước chữ nhật.
+
+## Dựng cảnh 5 (`mua-100-c05`)
+
+- Người phụ (cứu hộ, điều phối) dùng lại `LOOKS.workerHat`, `LOOKS.chu`, nhưng `workerHat` có da trắng bệch như mặt nạ: ghi đè `skin`, `skinShade`, `hand` cho cùng tông da gia đình.
+- Người đứng trong thuyền: hông ở `mép nước - LEG_LEN`, vẽ người trước thân thuyền để chân khuất trong thuyền.
+- Nhân vật quay trái (yaw âm) giơ tay: tay gần là `armL`; `a` khoảng 100, `b` khoảng 50 là tay giơ ra trước, ngón hướng lên. `a` 160 thì tay vòng ra sau đầu như gãi đầu.
+- Cận mặt đang nói: tay để xuôi (`{a:10,b:14}`), đừng để hai tay chìa ra trước khung hình.

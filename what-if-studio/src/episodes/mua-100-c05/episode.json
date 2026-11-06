@@ -1,0 +1,628 @@
+{
+  "id": "Mua100C05",
+  "slug": "mua-100-c05",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 5: Ngày 26, nơi cao chưa chắc an toàn",
+  "title": [
+    "Ngày 26",
+    "Nơi cao chưa chắc an toàn"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "ngực|Trên": 1.5
+  },
+  "tail": 3.0,
+  "science": [
+    {
+      "claim": "Giả định hư cấu. Lúc sơ tán: khoảng 0,65 m ở mặt hẻm, trong nhà An khoảng 0,05 m; thuyền đón tại hiên, ra đầu hẻm cao còn xe tới. Sườn dốc ngấm nước nhiều ngày có thể sạt; đường bị đóng sau kiểm tra, đoàn xe chờ xác nhận tuyến thay thế rồi mới đi. Trường trú ở nền cao khoảng +2,0 m, cách xa sườn dốc."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "Ngày thứ hai mươi sáu, nước đã tràn qua ngưỡng cửa nhà An, phủ một lớp mỏng trên nền phòng khách. Chân ghế gỗ và góc dưới của chiếc tủ bắt đầu ngâm trong nước. Gia đình nhận thông báo sơ tán. Đội cứu hộ dùng thuyền đón họ ở hiên, đưa ra đoạn đầu hẻm cao hơn, nơi xe còn tới được. Bà Sáu và Nam đã chờ ở đó. Hạnh giữ dây dắt chó, Linh ôm túi ảnh và hạt giống."
+    },
+    {
+      "beat": "p02",
+      "text": "Một cơn gió quật qua đầu hẻm. Tấm bạt trước quầy bà Sáu giật căng rồi rách toạc ở mép. Nam giật mình, níu lấy tay bà. Người cứu hộ đưa cả nhóm vào điểm chờ khuất gió, phía sau bức tường nhà còn chắc chắn."
+    },
+    {
+      "beat": "p03",
+      "text": "[urgent] “Mọi người đứng phía trong. Chờ gọi tới lượt rồi mới lên xe!”"
+    },
+    {
+      "beat": "p04",
+      "text": "Hạnh kéo mũ áo mưa của Linh xuống, giữ con sát bên. An nhận túi từ tay bà Sáu; tay kia đỡ khuỷu tay bà bước qua bậc khô. Tiếng gọi nhau phải lặp lại mới át được tiếng mưa."
+    },
+    {
+      "beat": "p05",
+      "text": "[worried] “Mẹ ơi, Nam đâu?”"
+    },
+    {
+      "beat": "p06",
+      "text": "“Ngay sau bà Sáu đó con. Mẹ thấy bạn rồi. Con nhìn mẹ, đi cùng mẹ nhé.”"
+    },
+    {
+      "beat": "p07",
+      "text": "Đúng lúc xe chuẩn bị đi, người điều phối giơ tay chặn lại. Tuyến đường ngắn lên đồi vừa bị đóng."
+    },
+    {
+      "beat": "p08",
+      "text": "Đất trên sườn dốc đã ngấm nước nhiều ngày. Sau một vụ sạt ở đoạn đường phía trước, đoàn xe phải đổi tuyến."
+    },
+    {
+      "beat": "p09",
+      "text": "Đoàn xe chưa được đi. Người điều phối chờ xác nhận tuyến thay thế, rồi mới ra hiệu cho tài xế. An đếm lại người trong nhóm. Hạnh, Linh, bà Sáu, Nam. Đủ cả. Anh ngồi xuống, thở ra một hơi mà từ nãy tới giờ vẫn nén trong ngực."
+    },
+    {
+      "beat": "p10",
+      "text": "Trên xe, Linh mở túi nhìn tấm ảnh vừa tháo khỏi khung. Chiếc khung nặng vẫn nằm trên tủ thấp trong phòng khách, cạnh bộ bàn ghế bố chưa chuyển được lên gác. An kiểm tra thuốc và nước mang theo. Con chó cuộn dưới chân Hạnh, cạnh túi thức ăn của nó."
+    },
+    {
+      "beat": "p11",
+      "text": "[worried] “Bố ơi, mình bỏ khung lại thật à? Cái đó bố đóng cho con mà.”"
+    },
+    {
+      "beat": "p12",
+      "text": "Qua cửa xe, An nhìn những mái nhà của xóm khuất dần sau màn mưa."
+    },
+    {
+      "beat": "p13",
+      "text": "[softly] “Bố nhớ. Hôm đóng nó, con cứ đứng cạnh hỏi bao giờ được treo ảnh.”"
+    },
+    {
+      "beat": "p14",
+      "text": "“Tại vì con muốn treo trước lúc mẹ về.”"
+    },
+    {
+      "beat": "p15",
+      "text": "An vuốt lại mép túi ảnh. [thoughtful] “Lúc rời nhà, mình phải mang đồ thiết yếu trước, nên cái khung đành để lại. Bố chưa biết lúc nào về được. Nhưng ảnh đang ở đây, cả nhà mình cũng đi cùng nhau.”"
+    },
+    {
+      "beat": "p16",
+      "text": "Linh nhìn tấm ảnh trong túi. [sad] “Con vẫn tiếc.”"
+    },
+    {
+      "beat": "p17",
+      "text": "[warmly] “Bố cũng tiếc. Con cứ ngồi sát bố, muốn xem ảnh thì mình xem cùng.”"
+    },
+    {
+      "beat": "p18",
+      "text": "Linh đặt tấm ảnh vào túi kín, cạnh hộp hạt giống. Lần này, bố không hứa một ngày cụ thể."
+    },
+    {
+      "beat": "p19",
+      "text": "Đoàn xe đến trường tiểu học ở rìa cao của thị trấn theo tuyến đã được xác nhận. Trường nằm trên khoảng nền thoáng, cách xa sườn dốc vừa bị sạt. Dãy lớp học đã dọn bàn sang một bên; mỗi gia đình có một khoảng chiếu, ngăn bằng túi đồ. Hạnh trải chăn. Linh ngồi xuống, hai bàn tay vẫn ôm chặt chiếc túi."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S2",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S3",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S4",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S5",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S6",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S7",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S8",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S9",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S10",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S11",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S12",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S13",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S14",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S15",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S16",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S17",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S18",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S19",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S20",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S21",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S22",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S23",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S24",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S25",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S26",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S27",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S28",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S29",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S30",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S31",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S32",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S33",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S34",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S35",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S36",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S37",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S38",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S39",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S40",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S41",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S42",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S43",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S44",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S45",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S46",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S47",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "Ngày"
+    },
+    {
+      "shot": "S2",
+      "at": "Chân"
+    },
+    {
+      "shot": "S3",
+      "at": "Gia"
+    },
+    {
+      "shot": "S4",
+      "at": "Đội"
+    },
+    {
+      "shot": "S5",
+      "at": "đưa"
+    },
+    {
+      "shot": "S6",
+      "at": "nơi"
+    },
+    {
+      "shot": "S7",
+      "at": "Bà"
+    },
+    {
+      "shot": "S8",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S9",
+      "at": "Linh"
+    },
+    {
+      "shot": "S10",
+      "at": "Một"
+    },
+    {
+      "shot": "S11",
+      "at": "Tấm"
+    },
+    {
+      "shot": "S12",
+      "at": "Nam"
+    },
+    {
+      "shot": "S13",
+      "at": "Người"
+    },
+    {
+      "shot": "S14",
+      "at": "Mọi"
+    },
+    {
+      "shot": "S15",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S16",
+      "at": "An"
+    },
+    {
+      "shot": "S17",
+      "at": "Tiếng"
+    },
+    {
+      "shot": "S18",
+      "at": "Mẹ"
+    },
+    {
+      "shot": "S19",
+      "at": "Ngay"
+    },
+    {
+      "shot": "S20",
+      "at": "Con#2"
+    },
+    {
+      "shot": "S21",
+      "at": "Đúng"
+    },
+    {
+      "shot": "S22",
+      "at": "Tuyến"
+    },
+    {
+      "shot": "S23",
+      "at": "Đất"
+    },
+    {
+      "shot": "S24",
+      "at": "Sau"
+    },
+    {
+      "shot": "S25",
+      "at": "Đoàn#2"
+    },
+    {
+      "shot": "S26",
+      "at": "An"
+    },
+    {
+      "shot": "S27",
+      "at": "Đủ"
+    },
+    {
+      "shot": "S28",
+      "at": "Trên"
+    },
+    {
+      "shot": "S29",
+      "at": "Chiếc"
+    },
+    {
+      "shot": "S30",
+      "at": "An"
+    },
+    {
+      "shot": "S31",
+      "at": "Con"
+    },
+    {
+      "shot": "S32",
+      "at": "Bố"
+    },
+    {
+      "shot": "S33",
+      "at": "Qua"
+    },
+    {
+      "shot": "S34",
+      "at": "Bố"
+    },
+    {
+      "shot": "S35",
+      "at": "Tại"
+    },
+    {
+      "shot": "S36",
+      "at": "An"
+    },
+    {
+      "shot": "S37",
+      "at": "Lúc"
+    },
+    {
+      "shot": "S38",
+      "at": "Nhưng"
+    },
+    {
+      "shot": "S39",
+      "at": "Linh"
+    },
+    {
+      "shot": "S40",
+      "at": "Bố"
+    },
+    {
+      "shot": "S41",
+      "at": "Linh"
+    },
+    {
+      "shot": "S42",
+      "at": "Lần"
+    },
+    {
+      "shot": "S43",
+      "at": "Đoàn"
+    },
+    {
+      "shot": "S44",
+      "at": "Trường#2"
+    },
+    {
+      "shot": "S45",
+      "at": "Dãy"
+    },
+    {
+      "shot": "S46",
+      "at": "Hạnh"
+    },
+    {
+      "shot": "S47",
+      "at": "Linh"
+    }
+  ]
+}
