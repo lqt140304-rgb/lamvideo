@@ -26,7 +26,7 @@ const squat = (floor: number, sc: number) => ({ y: floor - 58 * sc, legL: { a: 8
 
 // ================================================================ pieces
 /** The morning sky once the rain stops: thin, breaking cloud and a pale light that grows with `clear` (0..1). */
-const Sky: React.FC<{ t: number; clear?: number }> = ({ t, clear = 0 }) => (
+export const Sky: React.FC<{ t: number; clear?: number }> = ({ t, clear = 0 }) => (
   <g>
     <rect x={-400} y={-400} width={2720} height={1600} fill="#9AA8B2" />
     <rect x={-400} y={-400} width={2720} height={1600} fill="#F6F0D8" opacity={0.1 + 0.3 * clear} />
@@ -37,7 +37,7 @@ const Sky: React.FC<{ t: number; clear?: number }> = ({ t, clear = 0 }) => (
 );
 
 /** The school seen from the gate: dry raised yard in front of the building, the road below under muddy water. */
-const Outside: React.FC<{ t: number; water?: number; clear?: number }> = ({ t, water = 0.3, clear = 0.4 }) => (
+export const Outside: React.FC<{ t: number; water?: number; clear?: number }> = ({ t, water = 0.3, clear = 0.4 }) => (
   <g>
     <Sky t={t} clear={clear} />
     <path d="M -400 470 Q 300 380 900 450 Q 1500 410 2320 480 L 2320 700 L -400 700 Z" fill="#5E6E54" />
@@ -75,7 +75,7 @@ const AlleyGauge: React.FC<{ level: number; t: number }> = ({ level, t }) => (
 );
 
 /** The flight of steps down from the school gate to the road, side-on. `level` is the water line (y); the lowest steps are under it. */
-const Steps: React.FC<{ level: number; t: number }> = ({ level, t }) => (
+export const Steps: React.FC<{ level: number; t: number }> = ({ level, t }) => (
   <g>
     <Sky t={t} clear={0.4} />
     <rect x={-400} y={500} width={2720} height={200} fill="#6E7A64" />

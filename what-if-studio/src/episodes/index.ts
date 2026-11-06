@@ -11,5 +11,6 @@ import { mua100C06 } from './mua-100-c06';
 import { mua100C07 } from './mua-100-c07';
 import { mua100C08 } from './mua-100-c08';
 import { mua100C09 } from './mua-100-c09';
+import { mua100C10 } from './mua-100-c10';
 
-export const EPISODES = [rewind, copyPaste, tuaLai10Giay, mua100C01, mua100C02, mua100C03, mua100C04, mua100C05, mua100C06, mua100C07, mua100C08, mua100C09];
+export const EPISODES = [rewind, copyPaste, tuaLai10Giay, mua100C01, mua100C02, mua100C03, mua100C04, mua100C05, mua100C06, mua100C07, mua100C08, mua100C09, mua100C10];

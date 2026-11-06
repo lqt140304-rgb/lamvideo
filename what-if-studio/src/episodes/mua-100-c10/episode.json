@@ -1,0 +1,1456 @@
+{
+  "id": "Mua100C10",
+  "slug": "mua-100-c10",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 10: Sau khi mưa tạnh, cơn mưa kết thúc, công việc còn lại",
+  "title": [
+    "Sau khi mưa tạnh",
+    "Công việc còn lại"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "tay|Đêm": 2.0,
+    "ấm|Ngoài": 5.0,
+    "thôi|Họ": 3.0
+  },
+  "tail": 6.0,
+  "science": [
+    {
+      "claim": "Hư cấu dựa trên cơ chế: dòng chảy có độ trễ theo lưu vực, nước còn tới sau khi mưa ngừng [3]; ngập làm hỏng thiết bị nước, điện [4]. Cứu hộ, ngày đạt đỉnh, vệt bùn 0,80 m và khung ảnh đều hư cấu; không khẳng định đã phục hồi hệ sinh thái."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p1",
+      "text": "Thông báo chuyển chỗ trú vang lên. Những chiếc túi vừa mở lại kéo khóa. Người điều phối xác nhận tuyến cao còn đi được, rồi chia nhóm đưa sang nhà sinh hoạt cộng đồng. Lối thấp xuống đường được đóng ngay; không ai phải thử đi qua nước để biết nó sâu bao nhiêu."
+    },
+    {
+      "beat": "p2",
+      "text": "Hạnh đeo túi trước ngực, giữ dây dắt chó. Linh đi sát mẹ, bà Sáu và Nam theo người hỗ trợ phía trước. Phía sau, An cùng tổ kỹ thuật tháo cụm cấp nước tạm đã ngừng chạy để chuyển đi."
+    },
+    {
+      "beat": "p3",
+      "text": "Bánh xe đẩy kẹt ở khe bậc. Họ kéo một lần. Nó không nhúc nhích."
+    },
+    {
+      "beat": "p4",
+      "text": "Bộ đàm gọi: [urgent] “Nhóm cuối chuẩn bị rời điểm. Báo đủ người!”"
+    },
+    {
+      "beat": "p5",
+      "text": "An nhìn chiếc bồn chứa lớn còn lại. Muốn chuyển nó phải tháo thêm một lượt, mà nhóm phụ trách đã ra hiệu kết thúc thu dọn."
+    },
+    {
+      "beat": "p6",
+      "text": "[urgent] “Bỏ bồn lại. Mang bộ phận đã tháo và đồ dự trữ đi trước.”"
+    },
+    {
+      "beat": "p7",
+      "text": "Hai đồng nghiệp nâng kiện thiết bị nhỏ khỏi xe đẩy. An kiểm lại gian phòng cùng người trực, lấy chiếc bát nằm ngay dưới ghế lúc đi qua, rồi rời điểm theo nhóm cuối. Anh nhờ báo sang khu trú mới: cả tổ đã lên đường. Phần nước dự trữ bên đó đủ dùng tạm, nhưng từ giờ phải chờ cấp bổ sung; họ đã mất một phần dụng cụ để giữ người đúng giờ."
+    },
+    {
+      "beat": "p8",
+      "text": "Linh tự kéo khóa túi. Áo đẹp vẫn ở trong. Bên ngoài, cô mặc chiếc áo mưa vàng."
+    },
+    {
+      "beat": "p9",
+      "text": "Tới nhà sinh hoạt, Linh ngồi cạnh mẹ trên băng ghế sát cửa, cứ có tiếng chân lại ngẩng lên. Hạnh giữ dây dắt chó và chiếc túi của con."
+    },
+    {
+      "beat": "p10",
+      "text": "An bước vào, tay cầm chiếc bát từng lăn dưới gầm ghế trong đêm bão. Linh đứng bật dậy. [relieved] “Bố đây rồi! Con cứ tưởng bố không tìm thấy mẹ con mình.”"
+    },
+    {
+      "beat": "p11",
+      "text": "[warmly] “Bố hỏi người ở cửa nên tìm được ngay. Bố có nhờ báo lúc rời trường, nhưng tới đây vẫn chậm hơn con mong. Bố xin lỗi nhé.”"
+    },
+    {
+      "beat": "p12",
+      "text": "Linh ôm ngang người anh. [softly] “Lần sau bố nhờ báo sớm hơn nhé. Con chờ mãi.”"
+    },
+    {
+      "beat": "p13",
+      "text": "An đặt bát xuống, vòng tay đỡ con. [reassuring] “Ừ, bố nhớ. Để con phải chờ mà không biết bố ở đâu thì con lo lắm, đúng không?”"
+    },
+    {
+      "beat": "p14",
+      "text": "Cô gật đầu vào áo bố. An ngồi xuống cạnh hai mẹ con, chờ cô tự buông tay."
+    },
+    {
+      "beat": "p15",
+      "text": "Đêm ấy, nước tràn qua đoạn đường thấp cạnh trường cũ, che khuất những vạch sơn ở chân cổng. Dãy lớp vẫn cao hơn mặt nước, nhưng xe không còn qua được lối thấp ấy. Ở nhà sinh hoạt trên nền cao hơn, các gia đình kê chiếu quanh khoảng giữa phòng. Linh ngủ gục bên Hạnh. An ngồi gần cửa cùng bà Sáu, nghe bản tin cho đến khi xác nhận người trong đoàn đã tới đủ."
+    },
+    {
+      "beat": "p16",
+      "text": "Rồi một buổi chiều, mây mở ra một khoảng sáng. Vệt nắng đầu tiên bò qua bậu cửa nhà sinh hoạt, chạm vào bàn tay Linh đang đặt trên đầu gối. Cô không nói gì, chỉ xoay bàn tay lại, để lòng bàn tay hứng lấy hơi ấm."
+    },
+    {
+      "beat": "p17",
+      "text": "Ngoài xa, ánh sáng soi rõ những gì màn mưa từng che khuất. Hàng rào nghiêng đổ. Mái che rách mắc trên một nhánh cây. Một khoảng sân phủ kín bùn, chiếc xe đạp nằm nghiêng, chỉ còn một bánh nhô lên. Nắng đã trở lại, nhưng không có gì tự nhiên trở về như cũ."
+    },
+    {
+      "beat": "p18",
+      "text": "Vài tuần sau, khi được xác nhận có thể vào nhà lấy đồ, An và Hạnh đưa Linh trở lại con hẻm. Cửa quầy bà Sáu vẫn đóng; vài người hàng xóm đang xúc bùn ở đoạn đã được kiểm tra. Chỗ treo tấm bạt nay trống hoác. Bà Sáu đứng nhìn quầy một lúc rồi nhận chiếc xẻng từ người bên cạnh. Họ cùng dọn phần sân trước, còn bên trong phải chờ xử lý tiếp."
+    },
+    {
+      "beat": "p19",
+      "text": "Qua mái hiên nhà mình, Linh không còn thấy bộ bàn ghế sáng màu như trước. Nước đã rút, để lại một vệt bùn ngang lưng ghế, cao gần tám mươi phân tính từ nền phòng khách. An đặt tay vào vệt ấy, rồi nhìn chiếc tủ thấp đã bị ngập quá mặt. Mấy chiếc bát dồn vào góc bếp. Bàn học của Linh vẫn ở chỗ cũ, nhưng cả ngăn kéo đã ngấm nước."
+    },
+    {
+      "beat": "p20",
+      "text": "Chiếc khung ảnh vẫn còn trên mặt tủ, bị bùn giữ lại. Một góc đã cong. Linh nhấc nó lên, thử đặt tấm ảnh khô cạnh vào."
+    },
+    {
+      "beat": "p21",
+      "text": "[sad] “Nó cong mất rồi bố. Mình còn sửa được không?”"
+    },
+    {
+      "beat": "p22",
+      "text": "An đỡ khung khỏi tay con. [thoughtful] “Bố phải xem phần gỗ khô lại thế nào đã. Nếu còn ghép được thì mình sửa; nếu không, bố con mình đóng một cái khác.”"
+    },
+    {
+      "beat": "p23",
+      "text": "Linh nhìn tấm ảnh vẫn khô trong túi. [softly] “Con muốn giữ cái này, vì hồi đó con có phụ bố.”"
+    },
+    {
+      "beat": "p24",
+      "text": "[warmly] “Bố nhớ con đã giữ thước. Vậy mình mang nó về chỗ trú, lau sạch rồi thử, được không?”"
+    },
+    {
+      "beat": "p25",
+      "text": "“Dạ. Nhưng lần này bố cho con đo lại nhé.”"
+    },
+    {
+      "beat": "p26",
+      "text": "An mỉm cười. “Ừ. Mình làm chậm thôi.”"
+    },
+    {
+      "beat": "p27",
+      "text": "Họ chưa chuyển về ở. Nguồn nước, điện và những phần nhà hư hại còn cần được xử lý."
+    },
+    {
+      "beat": "p28",
+      "text": "Gia đình vẫn ở nhà sinh hoạt cộng đồng. Sau sân, một khoảng đất cao được làm thành luống thử. Linh và Nam cùng người lớn gieo một phần hạt đã giữ khô. Phần còn lại được cất để dự phòng. Có hạt nảy mầm. Có hạt không."
+    },
+    {
+      "beat": "p29",
+      "text": "Cô mở cuốn sổ, lật qua những trang đầy dấu mưa rồi viết thêm một dòng mới."
+    },
+    {
+      "beat": "p30",
+      "text": "[hopeful] Hôm nay bắt đầu sửa lại."
+    },
+    {
+      "beat": "p31",
+      "text": "Ở chiếc bàn cuối phòng sinh hoạt, An gọi cô mang khung ảnh ra. Hạnh giữ góc khung trong khi anh thử miếng gỗ nhỏ để kê lại phần bị cong. Linh gấp sổ, chạy tới."
+    },
+    {
+      "beat": "p32",
+      "text": "[curious] “Bố, để con giữ thước chỗ này đúng không?”"
+    },
+    {
+      "beat": "p33",
+      "text": "[warmly] “Đúng rồi. Con giữ giúp bố, nhưng đừng ép mạnh, gỗ còn yếu.”"
+    },
+    {
+      "beat": "p34",
+      "text": "Linh cúi xuống nhìn vạch đo. “Bố đừng sang bước khác vội nhé. Con chưa nhìn rõ.”"
+    },
+    {
+      "beat": "p35",
+      "text": "An dừng tay, xoay khung về phía con. [softly] “Ừ. Con nhìn rõ rồi mình mới làm tiếp.”"
+    },
+    {
+      "beat": "p36",
+      "text": "Hạnh nhích chiếc ghế lại gần cho Linh. Ngoài sân, áo quần của những gia đình trong xóm đang đung đưa dưới nắng."
+    },
+    {
+      "beat": "p37",
+      "text": "Ở bàn bên cạnh, người trong tổ trú ghi lại những thứ cần thay đổi: nơi cất đồ dự phòng phải cao hơn; gia đình có người khó đi lại cần được hỗ trợ sớm; thông tin chuyển chỗ phải tới được từng người. Có những việc họ đã làm tốt. Có những việc lần sau phải làm khác."
+    },
+    {
+      "beat": "p38",
+      "text": "[thoughtful] Con người không có sức mạnh của voi, cũng chẳng có bộ móng vuốt của gấu. Nhìn một đàn ong miệt mài, đôi khi ta còn thấy mình dễ nản lòng biết bao."
+    },
+    {
+      "beat": "p39",
+      "text": "Vậy điều gì giữ chúng ta bước tiếp, khi những thứ từng dựng lên có thể đổ xuống chỉ sau một đêm?"
+    },
+    {
+      "beat": "p40",
+      "text": "Có lẽ, một phần câu trả lời nằm ở những việc rất nhỏ này. Một người đưa ra chiếc chăn khô. Một người quay lại đếm cho đủ những gương mặt. Một gia đình ngồi xuống, học cách sửa món đồ đã hỏng. Và cả một xóm cùng nhớ lấy điều đã xảy ra, để lần sau biết chuẩn bị tốt hơn."
+    },
+    {
+      "beat": "p41",
+      "text": "Không phải ai cũng còn nguyên vẹn để bắt đầu lại. Có những mất mát chẳng thể bù bằng một lời động viên. Vì thế, đứng lên đôi khi không phải tự mình làm được tất cả. Đó là đưa tay cho người khác đỡ, rồi khi đủ sức, lại đỡ một người bên cạnh."
+    },
+    {
+      "beat": "p42",
+      "text": "Khả năng học từ sai lầm, giữ lại kinh nghiệm và cùng nhau dựng lại cuộc sống là một phần lý do xã hội loài người có thể đi tới hôm nay."
+    },
+    {
+      "beat": "p43",
+      "text": "Ở cuối phòng, chiếc khung vẫn còn lệch một góc. Linh giữ thước, chờ bố chỉnh lại. Ngoài mái hiên, một tiếng chim vang lên."
+    },
+    {
+      "beat": "p44",
+      "text": "[hopeful] Sau cơn mưa, trời lại sáng. Còn phía dưới bầu trời ấy, họ bắt đầu làm lại."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S2",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S3",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S4",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S5",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S6",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S7",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S8",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S9",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S10",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S11",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S12",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S13",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S14",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S15",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S16",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S17",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S18",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S19",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S20",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S21",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S22",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S23",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S24",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S25",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S26",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S27",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S28",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S29",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S30",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S31",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S32",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S33",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S34",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S35",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S36",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S37",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S38",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S39",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S40",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S41",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S42",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S43",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S44",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S45",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S46",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S47",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S48",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S49",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S50",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S51",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S52",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S53",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S54",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S55",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S56",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S57",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S58",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S59",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S60",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S61",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S62",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S63",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S64",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S65",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S66",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S67",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S68",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S69",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S70",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S71",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S72",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S73",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S74",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S75",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S76",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S77",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S78",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S79",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S80",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S81",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S82",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S83",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S84",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S85",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S86",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S87",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S88",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S89",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S90",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S91",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S92",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S93",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S94",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S95",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S96",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S97",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S98",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S99",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S100",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S101",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S102",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S103",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S104",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S105",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S106",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S107",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S108",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S109",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S110",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S111",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S112",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S113",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "s:0.0"
+    },
+    {
+      "shot": "S2",
+      "at": "s:2.2"
+    },
+    {
+      "shot": "S3",
+      "at": "s:4.9"
+    },
+    {
+      "shot": "S4",
+      "at": "s:10.2"
+    },
+    {
+      "shot": "S5",
+      "at": "s:15.6"
+    },
+    {
+      "shot": "S6",
+      "at": "s:18.5"
+    },
+    {
+      "shot": "S7",
+      "at": "s:22.9"
+    },
+    {
+      "shot": "S8",
+      "at": "s:28.1"
+    },
+    {
+      "shot": "S9",
+      "at": "s:30.2"
+    },
+    {
+      "shot": "S10",
+      "at": "s:32.9"
+    },
+    {
+      "shot": "S11",
+      "at": "s:36.8"
+    },
+    {
+      "shot": "S12",
+      "at": "s:39.1"
+    },
+    {
+      "shot": "S13",
+      "at": "s:43.9"
+    },
+    {
+      "shot": "S14",
+      "at": "s:47.4"
+    },
+    {
+      "shot": "S15",
+      "at": "s:50.3"
+    },
+    {
+      "shot": "S16",
+      "at": "s:53.5"
+    },
+    {
+      "shot": "S17",
+      "at": "s:57.0"
+    },
+    {
+      "shot": "S18",
+      "at": "s:60.6"
+    },
+    {
+      "shot": "S19",
+      "at": "s:65.1"
+    },
+    {
+      "shot": "S20",
+      "at": "s:68.1"
+    },
+    {
+      "shot": "S21",
+      "at": "s:69.9"
+    },
+    {
+      "shot": "S22",
+      "at": "s:71.5"
+    },
+    {
+      "shot": "S23",
+      "at": "s:74.2"
+    },
+    {
+      "shot": "S24",
+      "at": "s:77.0"
+    },
+    {
+      "shot": "S25",
+      "at": "s:79.7"
+    },
+    {
+      "shot": "S26",
+      "at": "s:82.6"
+    },
+    {
+      "shot": "S27",
+      "at": "s:87.2"
+    },
+    {
+      "shot": "S28",
+      "at": "s:88.5"
+    },
+    {
+      "shot": "S29",
+      "at": "s:91.9"
+    },
+    {
+      "shot": "S30",
+      "at": "s:98.3"
+    },
+    {
+      "shot": "S31",
+      "at": "s:99.5"
+    },
+    {
+      "shot": "S32",
+      "at": "s:101.3"
+    },
+    {
+      "shot": "S33",
+      "at": "s:104.9"
+    },
+    {
+      "shot": "S34",
+      "at": "s:107.6"
+    },
+    {
+      "shot": "S35",
+      "at": "s:112.8"
+    },
+    {
+      "shot": "S36",
+      "at": "s:114.6"
+    },
+    {
+      "shot": "S37",
+      "at": "s:119.8"
+    },
+    {
+      "shot": "S38",
+      "at": "s:125.3"
+    },
+    {
+      "shot": "S39",
+      "at": "s:129.9"
+    },
+    {
+      "shot": "S40",
+      "at": "s:134.6"
+    },
+    {
+      "shot": "S41",
+      "at": "s:136.3"
+    },
+    {
+      "shot": "S42",
+      "at": "s:142.0"
+    },
+    {
+      "shot": "S43",
+      "at": "s:145.4"
+    },
+    {
+      "shot": "S44",
+      "at": "s:148.8"
+    },
+    {
+      "shot": "S45",
+      "at": "s:151.1"
+    },
+    {
+      "shot": "S46",
+      "at": "s:156.0"
+    },
+    {
+      "shot": "S47",
+      "at": "s:160.5"
+    },
+    {
+      "shot": "S48",
+      "at": "s:164.8"
+    },
+    {
+      "shot": "S49",
+      "at": "s:166.4"
+    },
+    {
+      "shot": "S50",
+      "at": "s:168.8"
+    },
+    {
+      "shot": "S51",
+      "at": "s:173.9"
+    },
+    {
+      "shot": "S52",
+      "at": "s:178.0"
+    },
+    {
+      "shot": "S53",
+      "at": "s:183.8"
+    },
+    {
+      "shot": "S54",
+      "at": "s:185.6"
+    },
+    {
+      "shot": "S55",
+      "at": "s:188.8"
+    },
+    {
+      "shot": "S56",
+      "at": "s:191.0"
+    },
+    {
+      "shot": "S57",
+      "at": "s:194.8"
+    },
+    {
+      "shot": "S58",
+      "at": "s:198.7"
+    },
+    {
+      "shot": "S59",
+      "at": "s:203.0"
+    },
+    {
+      "shot": "S60",
+      "at": "s:208.7"
+    },
+    {
+      "shot": "S61",
+      "at": "s:211.0"
+    },
+    {
+      "shot": "S62",
+      "at": "s:213.0"
+    },
+    {
+      "shot": "S63",
+      "at": "s:214.9"
+    },
+    {
+      "shot": "S64",
+      "at": "s:218.7"
+    },
+    {
+      "shot": "S65",
+      "at": "s:223.4"
+    },
+    {
+      "shot": "S66",
+      "at": "s:226.6"
+    },
+    {
+      "shot": "S67",
+      "at": "s:229.4"
+    },
+    {
+      "shot": "S68",
+      "at": "s:231.2"
+    },
+    {
+      "shot": "S69",
+      "at": "s:238.1"
+    },
+    {
+      "shot": "S70",
+      "at": "s:240.4"
+    },
+    {
+      "shot": "S71",
+      "at": "s:243.7"
+    },
+    {
+      "shot": "S72",
+      "at": "s:249.0"
+    },
+    {
+      "shot": "S73",
+      "at": "s:251.9"
+    },
+    {
+      "shot": "S74",
+      "at": "s:255.5"
+    },
+    {
+      "shot": "S75",
+      "at": "s:257.3"
+    },
+    {
+      "shot": "S76",
+      "at": "s:262.9"
+    },
+    {
+      "shot": "S77",
+      "at": "s:265.2"
+    },
+    {
+      "shot": "S78",
+      "at": "s:268.4"
+    },
+    {
+      "shot": "S79",
+      "at": "s:271.8"
+    },
+    {
+      "shot": "S80",
+      "at": "s:273.9"
+    },
+    {
+      "shot": "S81",
+      "at": "s:276.1"
+    },
+    {
+      "shot": "S82",
+      "at": "s:280.8"
+    },
+    {
+      "shot": "S83",
+      "at": "s:282.5"
+    },
+    {
+      "shot": "S84",
+      "at": "s:286.1"
+    },
+    {
+      "shot": "S85",
+      "at": "s:290.5"
+    },
+    {
+      "shot": "S86",
+      "at": "s:292.3"
+    },
+    {
+      "shot": "S87",
+      "at": "s:294.4"
+    },
+    {
+      "shot": "S88",
+      "at": "s:298.3"
+    },
+    {
+      "shot": "S89",
+      "at": "s:300.1"
+    },
+    {
+      "shot": "S90",
+      "at": "s:302.9"
+    },
+    {
+      "shot": "S91",
+      "at": "s:305.3"
+    },
+    {
+      "shot": "S92",
+      "at": "s:307.7"
+    },
+    {
+      "shot": "S93",
+      "at": "s:309.7"
+    },
+    {
+      "shot": "S94",
+      "at": "s:313.7"
+    },
+    {
+      "shot": "S95",
+      "at": "s:318.0"
+    },
+    {
+      "shot": "S96",
+      "at": "s:326.4"
+    },
+    {
+      "shot": "S97",
+      "at": "s:331.0"
+    },
+    {
+      "shot": "S98",
+      "at": "s:335.6"
+    },
+    {
+      "shot": "S99",
+      "at": "s:340.4"
+    },
+    {
+      "shot": "S100",
+      "at": "s:346.5"
+    },
+    {
+      "shot": "S101",
+      "at": "s:350.8"
+    },
+    {
+      "shot": "S102",
+      "at": "s:353.0"
+    },
+    {
+      "shot": "S103",
+      "at": "s:355.9"
+    },
+    {
+      "shot": "S104",
+      "at": "s:359.4"
+    },
+    {
+      "shot": "S105",
+      "at": "s:364.9"
+    },
+    {
+      "shot": "S106",
+      "at": "s:367.8"
+    },
+    {
+      "shot": "S107",
+      "at": "s:371.0"
+    },
+    {
+      "shot": "S108",
+      "at": "s:375.1"
+    },
+    {
+      "shot": "S109",
+      "at": "s:380.4"
+    },
+    {
+      "shot": "S110",
+      "at": "s:388.8"
+    },
+    {
+      "shot": "S111",
+      "at": "s:394.2"
+    },
+    {
+      "shot": "S112",
+      "at": "s:397.0"
+    },
+    {
+      "shot": "S113",
+      "at": "s:399.2"
+    }
+  ]
+}

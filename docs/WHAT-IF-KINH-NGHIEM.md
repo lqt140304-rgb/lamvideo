@@ -252,3 +252,10 @@ Code mẫu trong `mua-100-c08/shots.tsx`:
 - Bản đồ cũ trở lại đúng insert cảnh 3 (`MapSheet` đã export), ngón tay An vạch theo sông (`trace`), không thêm bằng chứng mới.
 - Nghỉ 3 s giữ bằng `pads` `ở|Linh`; shot S7 chỉ trời sáng dần.
 - Bàn tay lẻ (insert tay không thuộc người nào) phải dùng `ArmHand` (engine/hands.tsx): bàn tay + cẳng tay + tay áo, không dùng `OpenHand` trơ trọi. Zoom đủ xa để thấy cẳng tay; đầu ngón tay chỉ đúng điểm cần chỉ (cảnh 9 S21), đừng để cả bàn tay che mất bản đồ.
+
+## Cảnh 10 (`mua-100-c10`): sau khi mưa tạnh (dựng bằng Opus)
+- 402 s lời, 113 shot. Dùng lại nhiều: hành lang khô, phòng học (c06 `Room`), bồn nước (`Tanks`, `Jerry`), quầy bà Sáu (`ShopFront` tarp 0), hẻm (`Alley` w 0 + lớp bùn), phòng khách (`LivingRoom` rainWindow false + dải bùn 0,80 m vẽ bằng `LIVING.Q` ở v 0,7 trên ba vách), bản đồ, sổ tay, chim, bậc thang và trường cũ (c09). Hai shot hồi tưởng lấy thẳng component cảnh 8 (`S41` chăn khô, `S31` điểm danh).
+- Bối cảnh mới: `Hall` (nhà sinh hoạt: cửa rộng vách trái, băng ghế cạnh cửa, bàn cuối phòng, ban đêm bằng LightVeil, vệt nắng `sun`), `HighRoad`, `Aftermath`, `HallOutside` (dây phơi, luống thử `Beds`), `TableScene` (bàn sửa khung nhìn ngang qua mặt bàn).
+- **Góc tay của rig:** `a` dương = tay đưa ra SAU so với hướng mặt (nhìn trực diện thì hai tay dang ra hai bên). Muốn ôm, đưa tay xuống bàn, cầm trước người: cả hai tay `a` âm, `b` âm (ví dụ ôm `{-30, -70}`, làm việc trên bàn `{-14, -40}`). Kéo xe phía sau lưng khi mặt quay về phía trước: `a` dương.
+- Cận mặt bắt đầu ở zoom 1,9 (không 1,35) để người đang ngồi không lộ cả người đứng; cận cảnh sửa khung dùng nền phòng dời sang (`translate(-420 120)`).
+- Bàn tay lẻ dùng `ArmHand`; tờ danh sách dán tường vẽ bằng khối nhỏ, đừng thu nhỏ cả component có nền to.
