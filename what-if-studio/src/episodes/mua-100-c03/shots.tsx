@@ -246,7 +246,7 @@ export const S3: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S4: bà Sáu's shop: water over the floor round the foot of the cabinet; she lifts a crate ----------
 export const S4: React.FC<ShotProps> = ({ t, len }) => {
   const pose = poseAt(t, [
-    { f: 0, p: { x: 1010, y: 560, scale: 1.15, yaw: -0.4, look: -0.4, tilt: 14, expr: 'worried', armL: { a: 16, b: -72 }, armR: { a: 16, b: -72 } } },
+    { f: 0, p: { x: 1010, y: 560, scale: 1.15, yaw: -0.4, look: -0.4, tilt: 14, expr: 'sad', armL: { a: 16, b: -72 }, armR: { a: 16, b: -72 } } },
     { f: 34, p: { tilt: -4, armL: { a: 26, b: -96 }, armR: { a: 26, b: -96 } } },
   ]);
   const jh = joints(pose);
@@ -532,7 +532,7 @@ export const S16: React.FC<ShotProps> = ({ t, len }) => (
 export const S17: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(980, 470, kf(t, [[0, 2.8], [len, 3.0]]))}>
     <Attic id="c3s17" t={t + 200} veil={0.5} />
-    <Hero look={LINH} pose={P({ x: 980, y: 760, scale: 1.2, yaw: -0.12, look: 0.3, headTilt: -4, expr: 'worried', talk: talkAt(t, 2, 52), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 980, y: 760, scale: 1.2, yaw: -0.12, look: 0.3, headTilt: -4, expr: 'scared', talk: talkAt(t, 2, 52), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
 );
 
@@ -581,7 +581,7 @@ export const S20: React.FC<ShotProps> = ({ t, len }) => {
 export const S21: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(980, 470, kf(t, [[0, 3.0], [len, 3.15]]))}>
     <Attic id="c3s21" t={t + 320} veil={0.55} />
-    <Hero look={LINH} pose={P({ x: 980, y: 760, scale: 1.2, yaw: 0.1, look: -0.5, headTilt: 7, expr: 'worried', talk: talkAt(t, 2, 80), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 980, y: 760, scale: 1.2, yaw: 0.1, look: -0.5, headTilt: 7, expr: 'scared', talk: talkAt(t, 2, 80), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
 );
 

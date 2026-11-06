@@ -303,7 +303,7 @@ export const S12: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(980, kf(t, [[0, 470], [len, 455]]), kf(t, [[0, 2.5], [len, 2.65]]))}>
     <LivingRoom id="c2s12" t={t + 90} lamp={0.75} day="3" dog={false} veil={0.42} />
     <g style={{ filter: 'blur(3px)' }}><rect x={-200} y={-200} width={1} height={1} /></g>
-    <Hero look={LINH} pose={P({ x: 1010, y: 740, scale: 1.2, yaw: kf(t, [[0, 0.5], [16, -0.45]]), look: kf(t, [[0, 0.6], [16, -0.7]]), headTilt: -5, expr: 'worried', talk: talkAt(t, 42, 90), armL: { a: 10, b: 20 }, armR: { a: 12, b: 24 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 1010, y: 740, scale: 1.2, yaw: kf(t, [[0, 0.5], [16, -0.45]]), look: kf(t, [[0, 0.6], [16, -0.7]]), headTilt: -5, expr: 'sad', talk: talkAt(t, 42, 90), armL: { a: 10, b: 20 }, armR: { a: 12, b: 24 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
 );
 
@@ -358,7 +358,7 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => (
     <Seat x={606} top={732} floor={826} w={136} back={-1} />
     <Hero look={AN} pose={P({ x: 620, y: 720, scale: 1.08, yaw: 0.72, look: 0.5, tilt: 3 + (t < 40 ? 2.5 * Math.sin(t * 0.8) : 0), expr: t < 60 ? 'happy' : 'neutral', talk: talkAt(t, 2, 82), ...sit(1), armR: { a: 14, b: 32 }, armL: { a: -4, b: -30 } }, t, 1)} rimId="filmL" shadow={0} />
     <Seat x={1312} top={768} floor={830} w={98} />
-    <Hero look={LINH} pose={P({ x: 1300, y: 760, scale: 0.78, yaw: -0.72, look: -0.6, expr: 'happy', ...sit(-1), legL: { a: 76, b: -76 + 12 * Math.sin(t * 0.3) }, legR: { a: 70, b: -70 - 12 * Math.sin(t * 0.3) }, armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 1300, y: 760, scale: 0.78, yaw: -0.72, look: -0.6, expr: 'smile', ...sit(-1), legL: { a: 76, b: -76 + 12 * Math.sin(t * 0.3) }, legR: { a: 70, b: -70 - 12 * Math.sin(t * 0.3) }, armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
     <path d="M 720 800 L 1190 800" stroke="#7E5A3A" strokeWidth={24} />
     <path d="M 760 810 L 760 930 M 1150 810 L 1150 930" stroke="#4C3420" strokeWidth={14} />
     <rect x={850} y={776} width={190} height={12} fill="#F1EADA" />

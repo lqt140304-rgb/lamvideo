@@ -322,8 +322,8 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(940, 600, kf(t, [[0, 1.3], [len, 1.36]]))}>
       <AnHouse id="c5s4" t={t} w={2} rain={1} chair={false} pots={false} />
-      <Hero look={HANH} pose={P({ x: 860, y: onFloor(748, 0.95), scale: 0.95, yaw: 0.5, look: 0.5, expr: 'worried', armL: { a: 10, b: 14 }, armR: { a: 14, b: 20 } }, t, 3)} rimId="filmR" shadow={0} />
-      <Hero look={LINH} pose={P({ x: 760, y: onFloor(748, 0.7), scale: 0.7, yaw: 0.5, look: 0.5, expr: 'worried', armL: { a: 30, b: 60 }, armR: { a: -30, b: -60 } }, t, 4)} rimId="filmR" shadow={0} />
+      <Hero look={HANH} pose={P({ x: 860, y: onFloor(748, 0.95), scale: 0.95, yaw: 0.5, look: 0.5, expr: 'scared', armL: { a: 10, b: 14 }, armR: { a: 14, b: 20 } }, t, 3)} rimId="filmR" shadow={0} />
+      <Hero look={LINH} pose={P({ x: 760, y: onFloor(748, 0.7), scale: 0.7, yaw: 0.5, look: 0.5, expr: 'scared', armL: { a: 30, b: 60 }, armR: { a: -30, b: -60 } }, t, 4)} rimId="filmR" shadow={0} />
       <Flood t={t} y={728} x0={-400} x1={2300} o={0.9} h={700} seed={9} />
       <Boat x={bx} y={800} s={0.9}>
         <Hero look={RESCUE} pose={P({ x: 120, y: 20 - LEG_LEN, scale: 1.0, yaw: -0.6, look: -0.5, expr: 'neutral', armR: { a: -30, b: -40 }, armL: { a: 70 * kf(t, [[30, 0], [44, 1]]), b: 20 } }, t, 6)} rimId="filmR" shadow={0} />
@@ -420,7 +420,7 @@ export const S7: React.FC<ShotProps> = ({ t, len }) => (
 <Tense t={t} a={0} tilt={0}>
   <g transform={camT(560, 600, kf(t, [[0, 1.5], [len, 1.56]]))}>
     <AlleyHead t={t} id="c5s7" />
-    <Hero look={SAU} pose={P({ x: 400, y: onFloor(860, 1.0), scale: 1.0, yaw: 0.4, look: 0.5, expr: 'worried', armL: { a: 30, b: 60 }, armR: { a: -30, b: -60 } }, t, 2)} rimId="filmR" shadow={0} />
+    <Hero look={SAU} pose={P({ x: 400, y: onFloor(860, 1.0), scale: 1.0, yaw: 0.4, look: 0.5, expr: 'scared', armL: { a: 30, b: 60 }, armR: { a: -30, b: -60 } }, t, 2)} rimId="filmR" shadow={0} />
     <Duffel x={250} y={864} s={0.5} c="#6E5B7E" />
     <Hero look={NAM} pose={P({ x: 560, y: onFloor(866, 0.7), scale: 0.7, yaw: 0.3, look: 0.6, expr: 'neutral', armL: { a: 14, b: 14 }, armR: { a: 14, b: 14 } }, t, 5)} rimId="filmR" shadow={0} />
   </g>
@@ -446,7 +446,7 @@ export const S8: React.FC<ShotProps> = ({ t, len }) => (
 
 // ---------- S9: Linh hugging the bag with the photos and the seeds ----------
 export const S9: React.FC<ShotProps> = ({ t, len }) => {
-  const pose = P({ x: 960, y: 760, scale: 1.4, yaw: 0.2, look: 0.1, headTilt: 8, expr: 'worried', armL: { a: 40, b: 80 }, armR: { a: -40, b: -80 } }, t, 4);
+  const pose = P({ x: 960, y: 760, scale: 1.4, yaw: 0.2, look: 0.1, headTilt: 8, expr: 'scared', armL: { a: 40, b: 80 }, armR: { a: -40, b: -80 } }, t, 4);
   const h1 = hand(pose, 'armL');
   const h2 = hand(pose, 'armR');
   return (
@@ -506,7 +506,7 @@ export const S12: React.FC<ShotProps> = ({ t, len }) => {
 <Tense t={t} a={2 + 8 * kf(t, [[4, 0], [10, 1], [30, 0]])} tilt={2}>
     <g transform={camT(520, 560, 1.7)}>
       <AlleyHead t={t} id="c5s12" wind={0.8} />
-      <Hero look={SAU} pose={P({ x: 400, y: onFloor(860, 1.0), scale: 1.0, yaw: 0.4, look: 0.6, expr: 'worried', armL: { a: 14, b: 14 }, armR: { a: 20 + 10 * grab, b: 20 } }, t, 2)} rimId="filmR" shadow={0} />
+      <Hero look={SAU} pose={P({ x: 400, y: onFloor(860, 1.0), scale: 1.0, yaw: 0.4, look: 0.6, expr: 'scared', armL: { a: 14, b: 14 }, armR: { a: 20 + 10 * grab, b: 20 } }, t, 2)} rimId="filmR" shadow={0} />
       <Hero look={NAM} pose={P({ x: 540 - 30 * grab, y: onFloor(866, 0.7), scale: 0.7, yaw: -0.4, look: -0.5, expr: grab > 0.5 ? 'shock' : 'neutral', armL: { a: 14, b: 14 }, armR: { a: -40 * grab, b: -30 * grab } }, t, 5)} rimId="filmR" shadow={0} />
     </g>
 </Tense>
@@ -538,7 +538,7 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => (
 <Tense t={t} a={4} tilt={-4}>
   <g transform={camT(960, kf(t, [[0, 560], [len, 400]]), kf(t, [[0, 1.3], [len, 2.8]]))}>
     <AlleyHead t={t} id="c5s14" van={false} wind={0.4} />
-    <Hero look={RESCUE} pose={P({ x: 960, y: 700, scale: 1.1, yaw: -0.2, look: -0.1, expr: 'shock', talk: talkAt(t, 2, len - 2) * 1.3, armL: { a: 14, b: 16 }, armR: { a: 120, b: 40 } }, t, 6)} rimId="filmR" shadow={0} />
+    <Hero look={RESCUE} pose={P({ x: 960, y: 700, scale: 1.1, yaw: -0.2, look: -0.1, expr: 'scared', talk: talkAt(t, 2, len - 2) * 1.3, armL: { a: 14, b: 16 }, armR: { a: 120, b: 40 } }, t, 6)} rimId="filmR" shadow={0} />
   </g>
 </Tense>
 <LensRain t={t} seed={7} />
@@ -548,12 +548,12 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => (
 // ---------- S15: behind the wall: Hạnh draws Linh's hood down and holds her close ----------
 export const S15: React.FC<ShotProps> = ({ t, len }) => {
   const pull = kf(t, [[4, 0], [20, 1]]);
-  const lPose = P({ x: 600, y: onFloor(870, 0.72) + 4, scale: 0.72, yaw: 0.3, look: 0.4, headTilt: -6 * pull, expr: 'worried', armL: { a: 30, b: 60 }, armR: { a: -30, b: -60 } }, t, 4);
+  const lPose = P({ x: 600, y: onFloor(870, 0.72) + 4, scale: 0.72, yaw: 0.3, look: 0.4, headTilt: -6 * pull, expr: 'scared', armL: { a: 30, b: 60 }, armR: { a: -30, b: -60 } }, t, 4);
   const hd = toWorld(lPose, joints(lPose).head);
   return (
     <g transform={camT(560, 560, 1.8)}>
       <AlleyHead t={t} id="c5s15" wind={0.5} />
-      <Hero look={HANH} pose={P({ x: 470, y: onFloor(870, 1.0), scale: 1.0, yaw: 0.5, look: 0.5, headTilt: 10, expr: 'worried', armL: { a: 10, b: 14 }, armR: { a: 44 + 8 * pull, b: 64 } }, t, 3)} rimId="filmR" shadow={0} />
+      <Hero look={HANH} pose={P({ x: 470, y: onFloor(870, 1.0), scale: 1.0, yaw: 0.5, look: 0.5, headTilt: 10, expr: 'scared', armL: { a: 10, b: 14 }, armR: { a: 44 + 8 * pull, b: 64 } }, t, 3)} rimId="filmR" shadow={0} />
       <Hero look={LINH} pose={lPose} rimId="filmR" shadow={0} />
       <path d={`M ${hd.x - 62} ${hd.y + 10} Q ${hd.x} ${hd.y - 86 - 20 * (1 - pull)} ${hd.x + 62} ${hd.y + 10} L ${hd.x + 54} ${hd.y + 40} Q ${hd.x} ${hd.y - 50} ${hd.x - 54} ${hd.y + 40} Z`} fill="#D8692E" stroke={L} strokeWidth={4} opacity={0.95} />
     </g>
@@ -563,7 +563,7 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S16: An takes bà Sáu's bag and steadies her elbow over the dry step ----------
 export const S16: React.FC<ShotProps> = ({ t, len }) => {
   const step = kf(t, [[20, 0], [50, 1]]);
-  const sPose = P({ x: 820 + 60 * step, y: onFloor(870 - 30 * step, 0.95), scale: 0.95, yaw: 0.5, look: 0.4, tilt: 6, expr: 'worried', legL: { a: 20 * Math.sin(step * 3), b: -12 }, legR: { a: -10, b: -10 }, armL: { a: 12, b: 16 }, armR: { a: 30, b: 30 } }, t, 2);
+  const sPose = P({ x: 820 + 60 * step, y: onFloor(870 - 30 * step, 0.95), scale: 0.95, yaw: 0.5, look: 0.4, tilt: 6, expr: 'scared', legL: { a: 20 * Math.sin(step * 3), b: -12 }, legR: { a: -10, b: -10 }, armL: { a: 12, b: 16 }, armR: { a: 30, b: 30 } }, t, 2);
   const aPose = P({ x: 1100, y: onFloor(840, 1.0), scale: 1.0, yaw: -0.5, look: -0.4, expr: 'neutral', armR: { a: -40, b: -40 }, armL: { a: 30, b: 50 } }, t, 1);
   const bag = hand(aPose, 'armL');
   return (
@@ -584,7 +584,7 @@ export const S17: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(700, 560, 1.15)}>
     <AlleyHead t={t} id="c5s17" wind={0.4} />
     {[[200, RESCUE, 1.0, 6], [380, SAU, 0.95, 2], [500, NAM, 0.68, 5], [700, HANH, 0.95, 3], [820, LINH, 0.68, 4], [1000, AN, 1.0, 1]].map(([x, lk, s, seed], i) => (
-      <Hero key={i} look={lk as typeof AN} pose={P({ x: x as number, y: onFloor(870, s as number), scale: s as number, yaw: i % 2 ? 0.3 : -0.3, look: i % 2 ? 0.4 : -0.4, expr: 'worried', talk: talkAt(t + i * 7, 0, len) * (i % 2 ? 1 : 0.7), armL: { a: 12, b: 16 }, armR: { a: i === 0 ? 120 : 14, b: 30 } }, t, seed as number)} rimId="filmR" shadow={0} />
+      <Hero key={i} look={lk as typeof AN} pose={P({ x: x as number, y: onFloor(870, s as number), scale: s as number, yaw: i % 2 ? 0.3 : -0.3, look: i % 2 ? 0.4 : -0.4, expr: 'scared', talk: talkAt(t + i * 7, 0, len) * (i % 2 ? 1 : 0.7), armL: { a: 12, b: 16 }, armR: { a: i === 0 ? 120 : 14, b: 30 } }, t, seed as number)} rimId="filmR" shadow={0} />
     ))}
   </g>
 </Tense>
@@ -599,7 +599,7 @@ export const S18: React.FC<ShotProps> = ({ t, len }) => (
 <Tense t={t} a={2} tilt={0}>
   <g transform={camT(960, kf(t, [[0, 600], [len, 480]]), kf(t, [[0, 1.3], [len, 2.9]]))}>
     <AlleyHead t={t} id="c5s18" van={false} />
-    <Hero look={LINH} pose={P({ x: 960, y: 700, scale: 1.2, yaw: kf(t, [[0, 0.5], [16, -0.3]]), look: kf(t, [[0, 0.6], [16, -0.4]]), expr: 'worried', talk: talkAt(t, 8, len - 2), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 960, y: 700, scale: 1.2, yaw: kf(t, [[0, 0.5], [16, -0.3]]), look: kf(t, [[0, 0.6], [16, -0.4]]), expr: 'scared', talk: talkAt(t, 8, len - 2), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
 </Tense>
 <Vignette o={0.35} id="S18" />
@@ -635,7 +635,7 @@ export const S21: React.FC<ShotProps> = ({ t, len }) => {
 <Tense t={t} a={2 + 6 * kf(t, [[18, 0], [28, 1]])} tilt={kf(t, [[18, 0], [30, 5]])}>
     <g transform={camT(1200, 560, 1.15)}>
       <AlleyHead t={t} id="c5s21" />
-      <Hero look={COORD} pose={P({ x: 1820, y: onFloor(840, 1.0), scale: 1.0, yaw: -0.4, look: -0.5, expr: 'worried', armR: { a: 12, b: 16 }, armL: { a: 20 + 84 * stop, b: 20 + 32 * stop } }, t, 7)} rimId="filmR" shadow={0} />
+      <Hero look={COORD} pose={P({ x: 1820, y: onFloor(840, 1.0), scale: 1.0, yaw: -0.4, look: -0.5, expr: 'scared', armR: { a: 12, b: 16 }, armL: { a: 20 + 84 * stop, b: 20 + 32 * stop } }, t, 7)} rimId="filmR" shadow={0} />
     </g>
 </Tense>
 <Vignette o={0.45} id="S21" />
@@ -730,7 +730,7 @@ export const S27: React.FC<ShotProps> = ({ t, len }) => {
 export const S28: React.FC<ShotProps> = ({ t, len }) => {
   const k = kf(t, [[0, 1.0], [len, 1.18]]);
   const peek = kf(t, [[0, 0], [24, 1]]);
-  const pose = P({ x: 960, y: 1010, scale: 3.3, yaw: 0.05, look: 0.0, headTilt: 6 + 5 * peek, tilt: -3, expr: 'worried', armL: { a: 58, b: 34 }, armR: { a: 58, b: 34 } }, t, 4);
+  const pose = P({ x: 960, y: 1010, scale: 3.3, yaw: 0.05, look: 0.0, headTilt: 6 + 5 * peek, tilt: -3, expr: 'scared', armL: { a: 58, b: 34 }, armR: { a: 58, b: 34 } }, t, 4);
   return (
     <g>
       <Tense t={t} a={2.5} tilt={0}>

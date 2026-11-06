@@ -189,7 +189,7 @@ export const S5: React.FC<ShotProps> = ({ t, len }) => {
       <ChairFor at={s1} back={1} />
       <ChairFor at={n} child />
       <Hero look={SAU} pose={P({ ...s1, yaw: -0.3, look: -0.3, expr: 'neutral', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 2)} rimId="filmR" shadow={0} />
-      <Hero look={NAM} pose={P({ ...n, yaw: -0.3, look: -0.4, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 5)} rimId="filmR" shadow={0} />
+      <Hero look={NAM} pose={P({ ...n, yaw: -0.3, look: -0.4, expr: 'smile', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 5)} rimId="filmR" shadow={0} />
     </g>
   );
 };
@@ -199,7 +199,7 @@ export const S6: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(kf(t, [[0, 760], [len, 880]]), 640, kf(t, [[0, 1.15], [len, 1.35]]))}>
     <Corridor t={t} id="c6s6">
       <Dog x={1230} y={740} s={0.7} look={0} head={0.3 * Math.max(0, Math.sin(t * 0.05))} t={t} />
-      <Hero look={HANH} pose={P({ x: 430, y: onFloor(905, 0.9), scale: 0.9, yaw: 0.6, look: 0.6, expr: 'happy', armL: { a: 10, b: 14 }, armR: { a: 14, b: 20 } }, t, 3)} rimId="filmR" shadow={0} />
+      <Hero look={HANH} pose={P({ x: 430, y: onFloor(905, 0.9), scale: 0.9, yaw: 0.6, look: 0.6, expr: 'smile', armL: { a: 10, b: 14 }, armR: { a: 14, b: 20 } }, t, 3)} rimId="filmR" shadow={0} />
     </Corridor>
   </g>
 );
@@ -331,7 +331,7 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => (
     <rect x={390} y={480} width={260} height={80} fill="#6A6A6A" stroke={L} strokeWidth={5} />
     {Array.from({ length: 6 }).map((_, i) => <Rice key={i} x={800 + i * 130} y={598} s={0.8} />)}
     <Hero look={HELPER} pose={P({ x: 520, y: onFloor(940, 1.0), scale: 1.0, yaw: 0.2, look: 0.2, headTilt: 12, expr: 'neutral', armL: { a: 30, b: 60 }, armR: { a: 30, b: 60 } }, t, 6)} rimId="filmR" shadow={0} />
-    <Hero look={HANH} pose={P({ x: 1100, y: onFloor(940, 1.0), scale: 1.0, yaw: -0.2, look: 0.1, headTilt: 10, expr: 'happy', armL: { a: 30 + 10 * Math.sin(t * 0.2), b: 60 }, armR: { a: 30, b: 60 } }, t, 3)} rimId="filmR" shadow={0} />
+    <Hero look={HANH} pose={P({ x: 1100, y: onFloor(940, 1.0), scale: 1.0, yaw: -0.2, look: 0.1, headTilt: 10, expr: 'smile', armL: { a: 30 + 10 * Math.sin(t * 0.2), b: 60 }, armR: { a: 30, b: 60 } }, t, 3)} rimId="filmR" shadow={0} />
     {[[1560, 60], [-200, 0]].map(([x, d], i) => <rect key={i} x={x} y={-400} width={360} height={1900} fill="#3A3226" opacity={0.0 + d * 0} />)}
   </g>
 );
@@ -359,7 +359,7 @@ export const S15: React.FC<ShotProps> = ({ t, len }) => {
 export const S16: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(980, kf(t, [[0, 620], [len, 470]]), kf(t, [[0, 1.4], [len, 2.8]]))}>
     <Corridor t={t} id="c6s16" />
-    <Hero look={LINH} pose={P({ x: 980, y: 700, scale: 1.2, yaw: 0.4, look: 0.5, headTilt: 6, expr: 'happy', talk: talkAt(t, 2, len - 2) * 1.2, armL: { a: 10, b: 14 }, armR: { a: 60, b: 50 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 980, y: 700, scale: 1.2, yaw: 0.4, look: 0.5, headTilt: 6, expr: 'smile', talk: talkAt(t, 2, len - 2) * 1.2, armL: { a: 10, b: 14 }, armR: { a: 60, b: 50 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
 );
 
@@ -392,13 +392,13 @@ export const S17: React.FC<ShotProps> = ({ t, len }) => {
 export const S18: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, kf(t, [[0, 620], [len, 470]]), kf(t, [[0, 1.4], [len, 2.8]]))}>
     <Corridor t={t} id="c6s18" />
-    <Hero look={NAM} pose={P({ x: 960, y: 700, scale: 1.2, yaw: -0.4, look: -0.5, headTilt: -6, expr: 'happy', talk: talkAt(t, 2, len - 2), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 5)} rimId="filmR" shadow={0} />
+    <Hero look={NAM} pose={P({ x: 960, y: 700, scale: 1.2, yaw: -0.4, look: -0.5, headTilt: -6, expr: 'smile', talk: talkAt(t, 2, len - 2), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 5)} rimId="filmR" shadow={0} />
   </g>
 );
 
 // ---------- S19: Linh hugs the bowl back to her and protests ----------
 export const S19: React.FC<ShotProps> = ({ t, len }) => {
-  const pose = P({ x: 960, y: 700, scale: 1.2, yaw: 0.2, look: 0.2, headTilt: 8, expr: 'happy', talk: talkAt(t, 10, len - 2), armL: { a: 40, b: 80 }, armR: { a: -40, b: -80 } }, t, 4);
+  const pose = P({ x: 960, y: 700, scale: 1.2, yaw: 0.2, look: 0.2, headTilt: 8, expr: 'smile', talk: talkAt(t, 10, len - 2), armL: { a: 40, b: 80 }, armR: { a: -40, b: -80 } }, t, 4);
   const h1 = hand(pose, 'armL');
   const h2 = hand(pose, 'armR');
   return (
@@ -413,7 +413,7 @@ export const S19: React.FC<ShotProps> = ({ t, len }) => {
 // ---------- S20: Hạnh comes out from the kitchen with two meals ----------
 export const S20: React.FC<ShotProps> = ({ t, len }) => {
   const walk = kf(t, [[0, 0], [24, 1]]);
-  const pose = P({ x: 1300 - 300 * walk, y: onFloor(880, 1.0), scale: 1.0, yaw: -0.6, look: -0.5, expr: 'happy', talk: talkAt(t, 26, len - 2), legL: { a: 18 * Math.sin(t * 0.45) * (1 - walk), b: -12 }, legR: { a: -18 * Math.sin(t * 0.45) * (1 - walk), b: -12 }, armL: { a: 40, b: 60 }, armR: { a: 40, b: 60 } }, t, 3);
+  const pose = P({ x: 1300 - 300 * walk, y: onFloor(880, 1.0), scale: 1.0, yaw: -0.6, look: -0.5, expr: 'smile', talk: talkAt(t, 26, len - 2), legL: { a: 18 * Math.sin(t * 0.45) * (1 - walk), b: -12 }, legR: { a: -18 * Math.sin(t * 0.45) * (1 - walk), b: -12 }, armL: { a: 40, b: 60 }, armR: { a: 40, b: 60 } }, t, 3);
   const h1 = hand(pose, 'armL');
   const h2 = hand(pose, 'armR');
   return (
@@ -431,7 +431,7 @@ export const S21: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(900, 600, 1.2)}>
     <Corridor t={t} id="c6s21">
       {[[300, SAU, 0.95, 2], [520, HELPER, 1.0, 6], [700, NAM, 0.7, 5], [860, LINH, 0.7, 4], [1020, HANH, 0.95, 3]].map(([x, lk, s, seed], i) => (
-        <Hero key={i} look={lk as typeof AN} pose={P({ x: x as number, y: onFloor(950 + (i % 2) * 20, s as number), scale: s as number, yaw: i % 2 ? -0.3 : 0.3, look: 0, headTilt: 8 * Math.sin(t * 0.3 + i), expr: 'happy', talk: Math.abs(Math.sin(t * 0.5 + i)) * 0.6, armL: { a: 12, b: 16 }, armR: { a: 12, b: 16 } }, t, seed as number)} rimId="filmR" shadow={0} />
+        <Hero key={i} look={lk as typeof AN} pose={P({ x: x as number, y: onFloor(950 + (i % 2) * 20, s as number), scale: s as number, yaw: i % 2 ? -0.3 : 0.3, look: 0, headTilt: 8 * Math.sin(t * 0.3 + i), expr: 'smile', talk: Math.abs(Math.sin(t * 0.5 + i)) * 0.6, armL: { a: 12, b: 16 }, armR: { a: 12, b: 16 } }, t, seed as number)} rimId="filmR" shadow={0} />
       ))}
       <Bowl x={760} y={920} s={0.5} />
     </Corridor>
@@ -459,7 +459,7 @@ export const S22: React.FC<ShotProps> = ({ t, len }) => {
 export const S23: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(940, kf(t, [[0, 620], [len, 470]]), kf(t, [[0, 1.4], [len, 2.7]]))}>
     <Corridor t={t} id="c6s23" />
-    <Hero look={AN} pose={P({ x: 940, y: 700, scale: 1.1, yaw: 0.4, look: 0.5, headTilt: 8, expr: 'happy', talk: talkAt(t, 2, len - 2), armL: { a: 10, b: 16 }, armR: { a: 12, b: 16 } }, t, 1)} rimId="filmR" shadow={0} />
+    <Hero look={AN} pose={P({ x: 940, y: 700, scale: 1.1, yaw: 0.4, look: 0.5, headTilt: 8, expr: 'smile', talk: talkAt(t, 2, len - 2), armL: { a: 10, b: 16 }, armR: { a: 12, b: 16 } }, t, 1)} rimId="filmR" shadow={0} />
   </g>
 );
 
@@ -468,7 +468,7 @@ export const S24: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, 560, kf(t, [[0, 1.6], [len, 1.9]]))}>
     <Corridor t={t} id="c6s24" />
     <Hero look={NAM} pose={P({ x: 860, y: 700, scale: 1.0, yaw: kf(t, [[0, -0.1], [30, 0.5]]), look: kf(t, [[0, 0], [30, 0.6]]), expr: 'oops', armL: { a: 150, b: 20 }, armR: { a: 150, b: 20 } }, t, 5)} rimId="filmR" shadow={0} />
-    <Hero look={LINH} pose={P({ x: 1160, y: 712, scale: 0.98, yaw: -0.4, look: -0.5, expr: 'happy', armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={LINH} pose={P({ x: 1160, y: 712, scale: 0.98, yaw: -0.4, look: -0.5, expr: 'smile', armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
 );
 
