@@ -918,5 +918,299 @@
       "shot": "S66",
       "at": "s:275.9"
     }
-  ]
+  ],
+  "sound": {
+    "clips": {
+      "rain_indoor_fs": [
+        "lib:rain_indoor_fs",
+        10
+      ],
+      "rain_tin_fs": [
+        "lib:rain_tin_fs",
+        10
+      ],
+      "flood_flow_fs": [
+        "lib:flood_flow_fs",
+        20
+      ],
+      "shelter_murmur_fs": [
+        "lib:shelter_murmur_fs",
+        30
+      ],
+      "storm_wind": [
+        "lib:storm_wind",
+        10
+      ],
+      "thunder_far_fs": [
+        "lib:thunder_far_fs",
+        15
+      ],
+      "thunder_near_fs": [
+        "lib:thunder_near_fs",
+        8
+      ],
+      "lamp_flicker_fs": [
+        "lib:lamp_flicker_fs",
+        4
+      ],
+      "crack": [
+        "lib:crack",
+        2
+      ],
+      "door_bang": [
+        "lib:door_bang",
+        2
+      ],
+      "pour_water_fs": [
+        "lib:pour_water_fs",
+        6
+      ],
+      "gasp": [
+        "lib:gasp",
+        2
+      ],
+      "switch_fs": [
+        "lib:switch_fs",
+        2
+      ],
+      "footsteps_hall_fs": [
+        "lib:footsteps_hall_fs",
+        14
+      ],
+      "bag_drop_fs": [
+        "lib:bag_drop_fs",
+        2
+      ],
+      "metal_drop_fs": [
+        "lib:metal_drop_fs",
+        3
+      ],
+      "drop_brick": [
+        "lib:drop_brick",
+        2
+      ],
+      "drips_fs": [
+        "lib:drips_fs",
+        10
+      ],
+      "radio_static_fs": [
+        "lib:radio_static_fs",
+        10
+      ],
+      "birds_eave": [
+        "lib:birds_eave",
+        10
+      ],
+      "music_bed": [
+        "lib:mua_bed6",
+        200
+      ],
+      "calm_bed": [
+        "lib:mua_bed2",
+        100
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "rain_indoor_fs",
+        0.4,
+        "onset",
+        "S8"
+      ],
+      [
+        "S1",
+        "shelter_murmur_fs",
+        0.12,
+        "onset",
+        "S8"
+      ],
+      [
+        "S1",
+        "flood_flow_fs",
+        0.12,
+        "onset",
+        "S8"
+      ],
+      [
+        "S8",
+        "storm_wind",
+        0.55,
+        "onset",
+        "S38"
+      ],
+      [
+        "S8",
+        "rain_tin_fs",
+        0.6,
+        "onset",
+        "S38"
+      ],
+      [
+        "S9+10",
+        "lamp_flicker_fs",
+        0.5
+      ],
+      [
+        "S10+30",
+        "thunder_far_fs",
+        0.4
+      ],
+      [
+        "S11+4",
+        "crack",
+        0.8
+      ],
+      [
+        "S12+14",
+        "door_bang",
+        0.9
+      ],
+      [
+        "S12+18",
+        "pour_water_fs",
+        0.5
+      ],
+      [
+        "S12+26",
+        "thunder_near_fs",
+        0.7
+      ],
+      [
+        "S13+4",
+        "gasp",
+        0.5
+      ],
+      [
+        "S14+10",
+        "lamp_flicker_fs",
+        0.55
+      ],
+      [
+        "S15+6",
+        "thunder_near_fs",
+        0.55
+      ],
+      [
+        "S19+20",
+        "thunder_far_fs",
+        0.45
+      ],
+      [
+        "S20+4",
+        "switch_fs",
+        0.5
+      ],
+      [
+        "S20+14",
+        "lamp_flicker_fs",
+        0.5
+      ],
+      [
+        "S21",
+        "footsteps_hall_fs",
+        0.4,
+        "onset",
+        "S25"
+      ],
+      [
+        "S23+30",
+        "bag_drop_fs",
+        0.5
+      ],
+      [
+        "S27+14",
+        "metal_drop_fs",
+        0.5
+      ],
+      [
+        "S30+10",
+        "lamp_flicker_fs",
+        0.6
+      ],
+      [
+        "S33+16",
+        "drop_brick",
+        0.9
+      ],
+      [
+        "S33+18",
+        "thunder_near_fs",
+        0.5
+      ],
+      [
+        "S34+24",
+        "lamp_flicker_fs",
+        0.5
+      ],
+      [
+        "S38",
+        "rain_indoor_fs",
+        0.45,
+        "onset",
+        "S57"
+      ],
+      [
+        "S38",
+        "drips_fs",
+        0.3,
+        "onset",
+        "S57"
+      ],
+      [
+        "S43",
+        "shelter_murmur_fs",
+        0.15,
+        "onset",
+        "S57"
+      ],
+      [
+        "S38",
+        "calm_bed",
+        0.45,
+        "onset",
+        "S57"
+      ],
+      [
+        "S40+16",
+        "pour_water_fs",
+        0.4
+      ],
+      [
+        "S57",
+        "rain_indoor_fs",
+        0.4,
+        "onset",
+        "S59"
+      ],
+      [
+        "S60",
+        "birds_eave",
+        0.3,
+        "onset",
+        null
+      ],
+      [
+        "S62",
+        "footsteps_hall_fs",
+        0.35,
+        "onset",
+        "S63"
+      ],
+      [
+        "S66+40",
+        "radio_static_fs",
+        0.4
+      ]
+    ],
+    "music": {
+      "clip": "music_bed",
+      "from": "S8",
+      "until": "S38"
+    },
+    "levels": {
+      "sfx_lu": -13.5,
+      "music_lu": -14
+    }
+  }
 }
