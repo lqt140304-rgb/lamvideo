@@ -1,6 +1,6 @@
 # Nguồn âm thanh cảnh 5 (mua-100-c05)
 
-Không tải mới từ Freesound lần này (Freesound cần đăng nhập, người dùng đang ở điện thoại). Dùng lại âm thanh đã có và tạo hai tiếng còn thiếu bằng ElevenLabs.
+Dùng lại âm thanh đã có; hai tiếng mới (nước dưới nước, máy xe) do người dùng tải từ Freesound CC0 và gửi.
 
 | Dùng cho | File trong thư viện | Nguồn |
 |---|---|---|
@@ -9,8 +9,7 @@ Không tải mới từ Freesound lần này (Freesound cần đăng nhập, ng�
 | Sấm rền xa khi đất sạt | thunder_far_fs | Freesound CC0, cảnh 4 |
 | Gió quật, bạt giật, đất đổ | storm_wind, tarp_pull, tumble | Thư viện có sẵn của skill (tạo bằng ElevenLabs trước đây) |
 | Túi đặt xuống, dán/kéo khóa | bag_drop_fs, tape_fs | Freesound CC0, cảnh 3 và 4 |
-| Nước ục ục dưới nước (S5) | bubbles_uw (tên file có hậu tố hash) | ElevenLabs sound-generation, ngày 06/11/2026, 12 giây |
-| Máy xe cứu hộ nổ chậm | engine_van (tên file có hậu tố hash) | ElevenLabs sound-generation, ngày 06/11/2026, 20 giây |
-| Nhạc nền dồn dập, căng, kiểu chạy nạn | mua_bed5-local.mp3 | ElevenLabs `/v1/music` (model music_v2_5, không lời), 160 giây, 06/11/2026; thay bản nhạc dịu của cảnh 1 theo yêu cầu của chủ kênh |
+| Nước ục ục dưới nước (S5) | bubbles_uw_fs | [SFX_UnderWater, Perel](https://freesound.org/people/Perel/sounds/173439/), Freesound CC0, người dùng tải và gửi 06/11/2026 |
+| Máy xe cứu hộ nổ chậm | engine_van_fs | [Idling HandiVan.wav, deleted_user_8803593](https://freesound.org/people/deleted_user_8803593/sounds/444261/), Freesound CC0, người dùng tải và gửi 06/11/2026, lọc cắt tần số cao |
+| Nhạc nền: dồn dập, căng đến hết lúc ra xe (S1–S25), rồi nhẹ (bản guitar dịu của cảnh 1) từ lúc lên xe, tới trường | mua_bed6-local.mp3 (ghép mua_bed5 và mua_bed, chuyển dần 5,5 giây) | ElevenLabs `/v1/music` (model music_v2_5, không lời), 160 giây, 06/11/2026; thay bản nhạc dịu của cảnh 1 theo yêu cầu của chủ kênh |
 
-Người dùng sẽ cung cấp đăng nhập Freesound vào cảnh sau; có thể thay hai tiếng tạo bằng bản thu thật.

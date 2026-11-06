@@ -648,12 +648,12 @@
         10
       ],
       "bubbles_uw": [
-        "underwater bubbles gurgling, muffled blub blub blub, heard from under murky flood water, close hydrophone, no music",
-        12
+        "lib:bubbles_uw_fs",
+        6
       ],
       "engine_van": [
-        "old minibus engine idling, low steady rumble heard from inside the vehicle, slight vibration, rain on the roof far away, no music",
-        20
+        "lib:engine_van_fs",
+        22
       ],
       "storm_wind": [
         "lib:storm_wind",
@@ -688,8 +688,8 @@
         20
       ],
       "music_bed": [
-        "lib:mua_bed5",
-        160
+        "lib:mua_bed6",
+        156
       ]
     },
     "events": [
