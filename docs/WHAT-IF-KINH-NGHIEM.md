@@ -244,3 +244,10 @@ Code mẫu trong `mua-100-c08/shots.tsx`:
 - `Expr` (engine/rig.tsx) thêm 6 kiểu: `sad` (lông mày xệ, mí rủ, mắt long lanh, giọt lệ nhỏ, miệng méo xuống), `cry` (thêm dòng nước mắt xanh, miệng mếu há), `smile` (cười nhẹ, mắt cong nhẹ), `relieved` (mắt nhắm cong, thở phào), `scared` (mắt to, mày dựng cao, mồ hôi, miệng há tròn), `determined` (mày hạ vào trong, miệng thẳng).
 - Dùng: `worried` giữ cho lo lắng nhẹ; bão/nguy hiểm dùng `scared`; mất mát, ngồi thất thần dùng `sad`, `cry` chỉ khi cận mặt; sau bão dùng `smile`, `relieved`; `happy` (miệng há cười) để dành cho phấn khích thật sự.
 - Xem bảng: `npx remotion still src/index.ts Expressions out/models/bieu-cam.png` (9 mặt trên mọi nhân vật). Cảnh 1–7 chưa đổi sang bộ mới, khi sửa lại cảnh cũ thì thay `worried`/`tired` ở đoạn buồn.
+
+## Cảnh 9 (`mua-100-c09`): mưa vừa tạnh
+- Kịch bản gốc ở `D:\New folder\kich-ban-mua-lien-tuc-100-ngay-v7-ban-dung.md`; cảnh 9 bắt đầu sau câu "tiếng bộ đàm vang lên" (phần đầu cảnh 9 trong file đã nằm ở cuối cảnh 8).
+- Mưa tạnh: dùng `Corridor` với `dry` (không vẽ mưa), `Sky` mây mỏng sáng dần; giọt cuối nhỏ khỏi mái tôn (`EaveDrop`); nước đục vẫn dâng ở bảng mực, cột mốc hẻm, bậc thang cổng trường (`Steps` có mực nước).
+- Ngồi xổm ngang tầm con: `squat(floor, scale)` hông cao hơn sàn 58 × scale, chân gập a 88/76, b −130.
+- Bản đồ cũ trở lại đúng insert cảnh 3 (`MapSheet` đã export), ngón tay An vạch theo sông (`trace`), không thêm bằng chứng mới.
+- Nghỉ 3 s giữ bằng `pads` `ở|Linh`; shot S7 chỉ trời sáng dần.

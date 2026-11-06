@@ -48,7 +48,7 @@ export const onMat = (u: number, w: number, k = 1) => {
 };
 
 /** The corridor outside the classrooms: columns on the rain side, doors on the wall side, the pet pen at the far end. */
-export const Corridor: React.FC<{ t: number; id: string; children?: React.ReactNode }> = ({ t, id, children }) => (
+export const Corridor: React.FC<{ t: number; id: string; children?: React.ReactNode; dry?: boolean }> = ({ t, id, children, dry = false }) => (
   <g>
     <rect x={-400} y={-400} width={2720} height={1900} fill="#7E8A94" />
     <CloudBank x={t * 0.3} y={60} h={140} color="#5A6470" lit="#727C88" seed={64} />
@@ -62,7 +62,7 @@ export const Corridor: React.FC<{ t: number; id: string; children?: React.ReactN
     {Array.from({ length: 9 }).map((_, i) => <path key={i} d={`M ${-400 + i * 340} 1500 L ${880 + i * 60} 760`} stroke="#9A8E6E" strokeWidth={3} />)}
     {/* columns on the rain side, the yard beyond in the rain */}
     <rect x={900} y={330} width={1420} height={430} fill="#8E9AA4" />
-    <Rain t={t} n={60} o={0.55} x0={900} y0={300} w={1420} h={460} seed={65} />
+    {dry ? null : <Rain t={t} n={60} o={0.55} x0={900} y0={300} w={1420} h={460} seed={65} />}
     {[1000, 1250, 1600, 2100].map((x, i) => <rect key={i} x={x} y={230 - i * 20} width={40 + i * 18} height={530 + i * 60} fill="#D8CC9E" stroke="#8A7E5E" strokeWidth={4} />)}
     {/* the pet pen: a low wooden fence and a mat, at the far end */}
     <rect x={1080} y={690} width={300} height={70} fill="#8A6440" opacity={0.5} />

@@ -92,7 +92,7 @@ const Pile: React.FC<{ r: typeof ATT; n: number }> = ({ r, n }) => {
 const TABLE_TOP = (u: number, w: number) => ATT.P(u, 0.855, w);
 
 /** The map on the table, flat: paper, mountains at the top, the river winding down to the town. */
-const MapSheet: React.FC<{ flow?: number; trace?: number; big?: boolean }> = ({ flow = 0, trace = 0, big = false }) => {
+export const MapSheet: React.FC<{ flow?: number; trace?: number; big?: boolean }> = ({ flow = 0, trace = 0, big = false }) => {
   const d = 'M 130 40 C 150 130 60 150 100 240 S 220 300 190 400 S 120 470 170 540';
   return (
     <g>

@@ -1,0 +1,422 @@
+{
+ "slug": "mua-100-c09",
+ "title": "Khi mưa vừa tạnh Âm thanh cuối cùng",
+ "fps": 30,
+ "total": 2127,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 75,
+   "t0": 0,
+   "t1": 75,
+   "line": "Trạm thượng nguồn vừa gửi số đo mới."
+  },
+  {
+   "shot": "S2",
+   "a": 75,
+   "b": 132,
+   "t0": 0,
+   "t1": 57,
+   "line": "Nước tại đó vẫn đang dâng."
+  },
+  {
+   "shot": "S3",
+   "a": 132,
+   "b": 225,
+   "t0": 0,
+   "t1": 93,
+   "line": "Dưới thị trấn, vạch đo ở đầu hẻm lại tăng."
+  },
+  {
+   "shot": "S4",
+   "a": 225,
+   "b": 378,
+   "t0": 0,
+   "t1": 153,
+   "line": "Gần trường, bậc thấp nhất của lối xuống đường đã chìm; bậc phía trên bắt đầu ướt."
+  },
+  {
+   "shot": "S5",
+   "a": 378,
+   "b": 471,
+   "t0": 0,
+   "t1": 93,
+   "line": "Sân trường còn khô, nhưng đường ra đang thu hẹp."
+  },
+  {
+   "shot": "S6",
+   "a": 471,
+   "b": 570,
+   "t0": 0,
+   "t1": 99,
+   "line": "Trời đã ngừng mưa. Nhưng phần nước từ xa chưa chảy qua"
+  },
+  {
+   "shot": "S7",
+   "a": 570,
+   "b": 684,
+   "t0": 0,
+   "t1": 114,
+   "line": "hết nơi họ ở."
+  },
+  {
+   "shot": "S8",
+   "a": 684,
+   "b": 765,
+   "t0": 0,
+   "t1": 81,
+   "line": "Linh nhìn chiếc áo trên tay, rồi nhìn bố.“"
+  },
+  {
+   "shot": "S9",
+   "a": 765,
+   "b": 861,
+   "t0": 0,
+   "t1": 96,
+   "line": "Nhưng tạnh rồi mà. Sao mình còn phải đi chỗ khác?”"
+  },
+  {
+   "shot": "S10",
+   "a": 861,
+   "b": 930,
+   "t0": 0,
+   "t1": 69,
+   "line": "An cúi xuống ngang tầm mắt con.“ Tại"
+  },
+  {
+   "shot": "S11",
+   "a": 930,
+   "b": 984,
+   "t0": 0,
+   "t1": 54,
+   "line": "vì nước trên núi vẫn đang về,"
+  },
+  {
+   "shot": "S12",
+   "a": 984,
+   "b": 1044,
+   "t0": 0,
+   "t1": 60,
+   "line": "như hôm bố chỉ trên bản đồ ấy."
+  },
+  {
+   "shot": "S13",
+   "a": 1044,
+   "b": 1134,
+   "t0": 0,
+   "t1": 90,
+   "line": "Sân mình còn khô, nhưng đường thấp có thể bị ngập."
+  },
+  {
+   "shot": "S14",
+   "a": 1134,
+   "b": 1218,
+   "t0": 0,
+   "t1": 84,
+   "line": "Mình đi lúc đường còn dùng được sẽ đỡ nguy hiểm hơn.”“"
+  },
+  {
+   "shot": "S15",
+   "a": 1218,
+   "b": 1260,
+   "t0": 0,
+   "t1": 42,
+   "line": "Bố đi với con chứ?”“"
+  },
+  {
+   "shot": "S16",
+   "a": 1260,
+   "b": 1395,
+   "t0": 0,
+   "t1": 135,
+   "line": "Mẹ đưa con sang trước. Bố phải giúp chuyển máy cấp nước, nên bố đi sau một chút."
+  },
+  {
+   "shot": "S17",
+   "a": 1395,
+   "b": 1536,
+   "t0": 0,
+   "t1": 141,
+   "line": "Tới nơi, con ngồi cùng mẹ ở trong nhà nhé. Xong việc bố sẽ tới chỗ hai mẹ con.”"
+  },
+  {
+   "shot": "S18",
+   "a": 1536,
+   "b": 1578,
+   "t0": 0,
+   "t1": 42,
+   "line": "Linh siết tay anh.“"
+  },
+  {
+   "shot": "S19",
+   "a": 1578,
+   "b": 1659,
+   "t0": 0,
+   "t1": 81,
+   "line": "Bố nhớ nói với mẹ nếu bố phải đổi chỗ.”“"
+  },
+  {
+   "shot": "S20",
+   "a": 1659,
+   "b": 1746,
+   "t0": 0,
+   "t1": 87,
+   "line": "Ừ. Bố mang bộ đàm, bố sẽ nhờ báo cho mẹ.”"
+  },
+  {
+   "shot": "S21",
+   "a": 1746,
+   "b": 1848,
+   "t0": 0,
+   "t1": 102,
+   "line": "Cô nhớ ngón tay anh đã chỉ dọc con sông vào ngày thứ bảy."
+  },
+  {
+   "shot": "S22",
+   "a": 1848,
+   "b": 1962,
+   "t0": 0,
+   "t1": 114,
+   "line": "Suốt những ngày chờ đợi, cô chỉ mong không còn nghe mưa trên mái."
+  },
+  {
+   "shot": "S23",
+   "a": 1962,
+   "b": 2061,
+   "t0": 0,
+   "t1": 99,
+   "line": "Giờ mái nhà đã yên, mà dòng sông vẫn đang mang nước"
+  },
+  {
+   "shot": "S24",
+   "a": 2061,
+   "b": 2127,
+   "t0": 0,
+   "t1": 66,
+   "line": "về."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "",
+   "key": 40,
+   "len": 75,
+   "first": 0,
+   "line": "Trạm thượng nguồn vừa gửi số đo mới.",
+   "note": ""
+  },
+  {
+   "id": "S2",
+   "size": "",
+   "key": 40,
+   "len": 57,
+   "first": 75,
+   "line": "Nước tại đó vẫn đang dâng.",
+   "note": ""
+  },
+  {
+   "id": "S3",
+   "size": "",
+   "key": 40,
+   "len": 93,
+   "first": 132,
+   "line": "Dưới thị trấn, vạch đo ở đầu hẻm lại tăng.",
+   "note": ""
+  },
+  {
+   "id": "S4",
+   "size": "",
+   "key": 40,
+   "len": 153,
+   "first": 225,
+   "line": "Gần trường, bậc thấp nhất của lối xuống đường đã chìm; bậc phía trên bắt đầu ướt.",
+   "note": ""
+  },
+  {
+   "id": "S5",
+   "size": "",
+   "key": 40,
+   "len": 93,
+   "first": 378,
+   "line": "Sân trường còn khô, nhưng đường ra đang thu hẹp.",
+   "note": ""
+  },
+  {
+   "id": "S6",
+   "size": "",
+   "key": 30,
+   "len": 99,
+   "first": 471,
+   "line": "Trời đã ngừng mưa. Nhưng phần nước từ xa chưa chảy qua",
+   "note": ""
+  },
+  {
+   "id": "S7",
+   "size": "",
+   "key": 40,
+   "len": 114,
+   "first": 570,
+   "line": "hết nơi họ ở.",
+   "note": ""
+  },
+  {
+   "id": "S8",
+   "size": "",
+   "key": 40,
+   "len": 81,
+   "first": 684,
+   "line": "Linh nhìn chiếc áo trên tay, rồi nhìn bố.“",
+   "note": ""
+  },
+  {
+   "id": "S9",
+   "size": "",
+   "key": 40,
+   "len": 96,
+   "first": 765,
+   "line": "Nhưng tạnh rồi mà. Sao mình còn phải đi chỗ khác?”",
+   "note": ""
+  },
+  {
+   "id": "S10",
+   "size": "",
+   "key": 40,
+   "len": 69,
+   "first": 861,
+   "line": "An cúi xuống ngang tầm mắt con.“ Tại",
+   "note": ""
+  },
+  {
+   "id": "S11",
+   "size": "",
+   "key": 40,
+   "len": 54,
+   "first": 930,
+   "line": "vì nước trên núi vẫn đang về,",
+   "note": ""
+  },
+  {
+   "id": "S12",
+   "size": "",
+   "key": 40,
+   "len": 60,
+   "first": 984,
+   "line": "như hôm bố chỉ trên bản đồ ấy.",
+   "note": ""
+  },
+  {
+   "id": "S13",
+   "size": "",
+   "key": 40,
+   "len": 90,
+   "first": 1044,
+   "line": "Sân mình còn khô, nhưng đường thấp có thể bị ngập.",
+   "note": ""
+  },
+  {
+   "id": "S14",
+   "size": "",
+   "key": 40,
+   "len": 84,
+   "first": 1134,
+   "line": "Mình đi lúc đường còn dùng được sẽ đỡ nguy hiểm hơn.”“",
+   "note": ""
+  },
+  {
+   "id": "S15",
+   "size": "",
+   "key": 40,
+   "len": 42,
+   "first": 1218,
+   "line": "Bố đi với con chứ?”“",
+   "note": ""
+  },
+  {
+   "id": "S16",
+   "size": "",
+   "key": 40,
+   "len": 135,
+   "first": 1260,
+   "line": "Mẹ đưa con sang trước. Bố phải giúp chuyển máy cấp nước, nên bố đi sau một chút.",
+   "note": ""
+  },
+  {
+   "id": "S17",
+   "size": "",
+   "key": 40,
+   "len": 141,
+   "first": 1395,
+   "line": "Tới nơi, con ngồi cùng mẹ ở trong nhà nhé. Xong việc bố sẽ tới chỗ hai mẹ con.”",
+   "note": ""
+  },
+  {
+   "id": "S18",
+   "size": "",
+   "key": 40,
+   "len": 42,
+   "first": 1536,
+   "line": "Linh siết tay anh.“",
+   "note": ""
+  },
+  {
+   "id": "S19",
+   "size": "",
+   "key": 40,
+   "len": 81,
+   "first": 1578,
+   "line": "Bố nhớ nói với mẹ nếu bố phải đổi chỗ.”“",
+   "note": ""
+  },
+  {
+   "id": "S20",
+   "size": "",
+   "key": 40,
+   "len": 87,
+   "first": 1659,
+   "line": "Ừ. Bố mang bộ đàm, bố sẽ nhờ báo cho mẹ.”",
+   "note": ""
+  },
+  {
+   "id": "S21",
+   "size": "",
+   "key": 40,
+   "len": 102,
+   "first": 1746,
+   "line": "Cô nhớ ngón tay anh đã chỉ dọc con sông vào ngày thứ bảy.",
+   "note": ""
+  },
+  {
+   "id": "S22",
+   "size": "",
+   "key": 40,
+   "len": 114,
+   "first": 1848,
+   "line": "Suốt những ngày chờ đợi, cô chỉ mong không còn nghe mưa trên mái.",
+   "note": ""
+  },
+  {
+   "id": "S23",
+   "size": "",
+   "key": 40,
+   "len": 99,
+   "first": 1962,
+   "line": "Giờ mái nhà đã yên, mà dòng sông vẫn đang mang nước",
+   "note": ""
+  },
+  {
+   "id": "S24",
+   "size": "",
+   "key": 40,
+   "len": 66,
+   "first": 2061,
+   "line": "về.",
+   "note": ""
+  }
+ ],
+ "fx": [],
+ "audio": {
+  "voice": "mua-100-c09/voice.wav"
+ }
+}
