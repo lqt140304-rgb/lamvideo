@@ -24,4 +24,8 @@ Ghi **mã asset, loại, đường dẫn, nguồn/tác giả, quyền sử dụn
 
 Tài nguyên do repo kỹ thuật gốc cung cấp chưa được tái xác minh toàn bộ quyền sử dụng media trong lần cập nhật này. Giữ giấy phép/attribution gốc và kiểm tra từng tài nguyên trước khi phát hành; không áp giấy phép MIT của code cho mọi media. Không thêm API key hoặc thông tin tài khoản vào bảng asset.
 
+Với **nhạc, Foley/tiếng vật thể và ambience**, ưu tiên thư viện có sẵn hoặc nguồn miễn phí phù hợp trước khi tạo trả phí. Ghi thêm URL trang gốc, tác giả, tên/phiên bản giấy phép hoặc bằng chứng quyền dùng, ngày kiểm tra, yêu cầu ghi công và hạn chế sử dụng nếu có. “Tải miễn phí” không tự chứng minh được quyền dùng trong video kiếm tiền; chưa rõ quyền thì đánh dấu chưa duyệt phát hành.
+
+Trong `ASSET.md` hoặc bảng cue của tập, ghi tính chất âm thanh và nơi dùng: nhạc theo nhịp cảm xúc; Foley theo vật liệu/hành động/lực; ambience theo địa điểm/khoảng cách/vật cản. Mỗi cue quan trọng có mốc bắt đầu–kết thúc hoặc điểm đồng bộ, vai trò nổi/nền và diễn biến âm lượng dự kiến. Đây là thông tin riêng của tập, không ghi từng clip/cue vào kinh nghiệm chung.
+
 Asset riêng nằm dưới `episodes/<series>/<slug-tap>/assets/` khi phát sinh. Bản media để Remotion đọc nằm ở `what-if-studio/public/<slug-tap>/` và được liên kết từ hồ sơ tập. Output nặng giữ local hoặc kho lưu trữ được chọn; không đẩy tự động vào Git.

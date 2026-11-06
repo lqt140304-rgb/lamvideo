@@ -70,6 +70,8 @@ Chỉ chuyển sang hoàn thiện và render chất lượng cuối khi hai bư�
 
 Chỉ tạo sound mới khi cần; ưu tiên thư viện đã kiểm tra. Lệnh `sfx.py` không kèm `--free` có thể gọi dịch vụ khi có key, vì vậy xem `--dry` và chọn chế độ rõ ràng. Đọc [sound](../.claude/skills/what-if-animation/references/sound.md). `master.py` render theo episode đã dựng; `mixcheck.py` và `motiongrid.py` hỗ trợ kiểm tra âm thanh/chuyển động, không thay việc xem và nghe. Các công cụ hiện có không tự bảo đảm tạo được animatic hoàn chỉnh từ Markdown; cần mã shot và timeline phù hợp.
 
+Trước khi hoàn thiện âm thanh, lập bảng cue trong hồ sơ tập: nhạc theo diễn biến cảm xúc; Foley theo vật liệu, lực và tiếp xúc; môi trường theo không gian và vai trò. Animatic dùng âm tạm cho các nhịp quan trọng; sau khi chốt timing mới hoàn thiện chi tiết. Ưu tiên nguồn miễn phí đã kiểm tra giấy phép theo [quy tắc asset](ASSET.md). Không coi tiếng sấm, va đập lớn hoặc môi trường sát nguồn luôn là nền phải nhỏ: dành chỗ cho chúng khi câu chuyện cần và phối lại lời/nhạc xung quanh. Nghe bản mix xuất cuối để duyệt mức nhạc, độ rõ tiếng xé/rách/va chạm, không gian, đồng bộ và tương phản âm lượng; không chỉ nhìn gain hay báo cáo đo. Xem [hướng dẫn âm thanh](../.claude/skills/what-if-animation/references/sound.md).
+
 ## 6. Giao và cập nhật repo
 
 Giao đúng bản đã kiểm tra, nêu thời lượng đo được hay ước tính, phạm vi hoàn thành và chi phí thực nếu có. Cập nhật trạng thái ở hồ sơ tập. Chỉ đẩy file đã được yêu cầu/ủy quyền, kiểm tra diff, giới hạn đường dẫn theo tập và các mục lục liên quan. Giữ kinh nghiệm chung ở mức nguyên tắc; giữ lịch sử sửa, chi phí và phản hồi cụ thể bên trong tập.

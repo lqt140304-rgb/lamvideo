@@ -62,6 +62,15 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 - Tiếng va đập cần đọc được giữa âm nền và vẫn giữ rõ lời. Điều chỉnh theo bản mix, kiểm tra peak và chỗ lời bị che; không áp một hệ số gain cố định cho mọi clip. Phụ đề bổ sung là tùy chọn, ngắn và có căn cứ, tránh che hành động hoặc chen vào đoạn cảm xúc.
 - Giữ sản phẩm quan trọng ngoài thư mục có thể bị dọn, đồng thời ghi ánh xạ theo tập. Trước khi bỏ worktree phải xác nhận nguồn, media và đầu ra còn ở đâu; không nhầm báo cáo tồn tại với việc video vẫn còn.
 
+## Âm thanh: cảm xúc, chất liệu và không gian
+
+Đây là yêu cầu phối âm đã chốt, không phải kết quả nghe thử một bản mix mới. Hướng dẫn chi tiết nằm trong [sound.md](../.claude/skills/what-if-animation/references/sound.md).
+
+- **Nhạc không nâng được cảm xúc hoặc lấn cảnh → dùng một mức âm lượng cho cả bài →** lập diễn biến nhạc theo nhịp truyện, cho nhạc vào/rút đúng lúc; ưu tiên nguồn miễn phí phù hợp và kiểm tra quyền dùng. **Kiểm tra:** nhạc nghe thấy đủ rõ ở đoạn cần nâng cảm xúc, lời và chi tiết quan trọng vẫn rõ; không chèn nhạc vào mọi khoảng lặng hoặc áp một tỉ lệ âm lượng cố định.
+- **Va chạm, xé/rách và cử động nghe mờ hoặc sai → chọn clip chung chung, thiếu chất liệu/lực và bị nền che →** mô tả vật liệu, hành động, lực, khoảng cách và thời điểm tiếp xúc; chọn âm đúng và xử lý âm cạnh tranh trước khi chỉ tăng gain. **Kiểm tra:** nghe trong bản mix có nhận được cú chạm, ma sát, tiếng xé kéo dài và đuôi âm tương ứng; không kéo lệch âm khỏi hành động để né lời.
+- **Môi trường mất sức nặng → hạ mọi âm xuống vai trò nền nhỏ →** phân biệt ambience liên tục với biến cố âm thanh nổi bật, xét vị trí gần–xa, trong–ngoài và vật cản. Cho sấm, gió mạnh, máy móc hoặc cửa sập chiếm ưu thế khi tình huống cần; dành nhịp thoại/phản ứng phù hợp. **Kiểm tra:** nghe ra quy mô và vị trí nguồn, có tương phản trước–sau; giữ sức nặng mà không clipping, không làm mọi cảnh đều ồn.
+- **Nghe từng track tốt nhưng bản xuất không rõ → bỏ qua cộng dồn và chuẩn hóa stem →** duyệt mix cuối bằng tai nghe và loa thông thường ở mức nghe ổn định, thoải mái. **Kiểm tra:** lời, nhạc, Foley và môi trường có thứ bậc đúng, tiếng quan trọng không mất, điểm nối không giật; số đo chỉ hỗ trợ việc nghe. Chưa nghe thì không ghi đã đạt.
+
 ## Cách bổ sung bài học
 
 Viết theo mẫu: **vấn đề lặp lại → nguyên nhân → nguyên tắc xử lý → cách biết đã đạt**. Bài học phải dùng được cho một tập khác mà không cần biết cốt truyện gốc. Nếu chỉ là sửa một câu, một nhân vật hoặc một asset cụ thể, lưu vào ghi chú riêng của tập.
