@@ -291,47 +291,174 @@ const TableTop: React.FC<{ t: number; wedge?: number; children?: React.ReactNode
   </g>
 );
 
-/** Simple picture cards for the closing thoughts. */
-const Elephant: React.FC<{ x: number; y: number; s?: number; t: number }> = ({ x, y, s = 1, t }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`}>
-    <ellipse cx={0} cy={-170} rx={220} ry={150} fill="#8E8A8E" stroke={L} strokeWidth={6} />
-    {[-140, -60, 60, 140].map((dx) => <rect key={dx} x={dx - 30} y={-80} width={60} height={110} fill="#8E8A8E" stroke={L} strokeWidth={5} />)}
-    <circle cx={230} cy={-240} r={100} fill="#8E8A8E" stroke={L} strokeWidth={6} />
-    <path d={`M 300 -210 Q 350 -80 ${300 + 20 * Math.sin(t * 0.1)} 20`} stroke="#8E8A8E" strokeWidth={46} fill="none" strokeLinecap="round" />
-    <ellipse cx={180} cy={-240} rx={70} ry={90} fill="#7A767A" stroke={L} strokeWidth={5} />
-    <circle cx={260} cy={-270} r={9} fill={L} />
+/** A savanna: warm sky, low sun, far hills, an acacia, grass tufts, bare ground. */
+const Savanna: React.FC<{ t: number; children?: React.ReactNode }> = ({ t, children }) => (
+  <g>
+    <rect x={-400} y={-400} width={2720} height={1700} fill="#F2D9A0" />
+    <rect x={-400} y={-400} width={2720} height={700} fill="#E8B87A" opacity={0.55} />
+    <circle cx={1500} cy={330} r={120} fill="#FFF0C0" opacity={0.9} />
+    <circle cx={1500} cy={330} r={210} fill="#FFE2A0" opacity={0.3} />
+    <path d="M -400 640 Q 200 500 700 600 Q 1200 480 1800 600 Q 2100 560 2320 620 L 2320 800 L -400 800 Z" fill="#B8935E" opacity={0.7} />
+    <path d="M -400 700 Q 400 640 1000 690 Q 1700 640 2320 700 L 2320 900 L -400 900 Z" fill="#C8A86A" />
+    {/* an acacia */}
+    <g transform="translate(300 700)">
+      <path d="M 0 0 L 10 -190 M 10 -190 Q -60 -230 -150 -210 M 10 -190 Q 90 -250 190 -220" stroke="#4A3320" strokeWidth={16} fill="none" strokeLinecap="round" />
+      <ellipse cx={20} cy={-250} rx={210} ry={44} fill="#6E8A3A" stroke="#44582A" strokeWidth={4} />
+      <ellipse cx={-90} cy={-225} rx={110} ry={26} fill="#7E9A44" />
+    </g>
+    <rect x={-400} y={880} width={2720} height={500} fill="#C09A5C" />
+    {Array.from({ length: 26 }).map((_, i) => {
+      const x = -300 + i * 100 + 40 * Math.sin(i * 2.3);
+      const y = 900 + 90 * Math.abs(Math.sin(i * 1.7));
+      return <path key={i} d={`M ${x} ${y} l -10 -34 M ${x} ${y} l 2 -44 M ${x} ${y} l 12 -32`} stroke="#8E8A42" strokeWidth={4} strokeLinecap="round" transform={`rotate(${3 * Math.sin(t * 0.05 + i)} ${x} ${y})`} />;
+    })}
+    {children}
   </g>
 );
-const BearPaw: React.FC<{ x: number; y: number; s?: number }> = ({ x, y, s = 1 }) => (
-  <g transform={`translate(${x} ${y}) scale(${s})`}>
-    <ellipse cx={0} cy={0} rx={150} ry={130} fill="#6A4A30" stroke={L} strokeWidth={6} />
-    {[-110, -40, 40, 110].map((dx, i) => (
-      <g key={dx}>
-        <ellipse cx={dx} cy={-130 + (i % 3 ? -16 : 0)} rx={42} ry={50} fill="#6A4A30" stroke={L} strokeWidth={5} />
-        <path d={`M ${dx - 12} ${-170 + (i % 3 ? -16 : 0)} L ${dx} ${-250 + (i % 3 ? -16 : 0)} L ${dx + 12} ${-170 + (i % 3 ? -16 : 0)} Z`} fill="#E8E0CC" stroke={L} strokeWidth={4} />
+/** An elephant, side-on, facing right, feet on y = 0 at (x, y). */
+const Elephant: React.FC<{ x: number; y: number; s?: number; t: number }> = ({ x, y, s = 1, t }) => {
+  const step = (ph: number) => 14 * Math.sin(t * 0.09 + ph);
+  const GR = '#8F8B90';
+  const GD = '#767278';
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <ellipse cx={20} cy={8} rx={330} ry={26} fill="#000" opacity={0.22} />
+      {/* far legs */}
+      {[-150, 120].map((dx, i) => <g key={`f${i}`} transform={`translate(${dx - 20} 0) rotate(${step(i * 3.1 + 1.5) * 0.4} ${dx} -150)`}><rect x={-34} y={-170} width={70} height={170} rx={24} fill={GD} stroke="#3A3640" strokeWidth={5} /><path d="M -28 -12 h 56" stroke="#E8E0D0" strokeWidth={8} strokeLinecap="round" /></g>)}
+      <g transform="translate(0 -70)">
+      {/* tail */}
+      <path d="M -270 -250 Q -330 -200 -318 -120" stroke={GR} strokeWidth={14} fill="none" strokeLinecap="round" />
+      <path d="M -318 -124 q -14 26 4 40 q 12 -16 6 -40 Z" fill="#4A4650" />
+      {/* body */}
+      <ellipse cx={-10} cy={-240} rx={290} ry={178} fill={GR} stroke="#3A3640" strokeWidth={6} />
+      <path d="M -180 -330 Q -60 -400 90 -350 M -230 -250 Q -120 -300 -40 -270" stroke={GD} strokeWidth={5} fill="none" opacity={0.55} />
+      {/* near legs */}
+      {[-90, 180].map((dx, i) => <g key={`n${i}`} transform={`translate(${dx - 20} 0) rotate(${step(i * 3.1) * 0.4} ${dx} -150)`}><rect x={-38} y={-180} width={78} height={180} rx={26} fill={GR} stroke="#3A3640" strokeWidth={5} /><path d="M -32 -14 h 64" stroke="#E8E0D0" strokeWidth={9} strokeLinecap="round" /><path d="M -20 -60 q 20 8 40 0 M -20 -100 q 20 8 40 0" stroke={GD} strokeWidth={4} fill="none" /></g>)}
+      {/* head, ear, trunk, tusk */}
+      <g transform={`translate(0 ${3 * Math.sin(t * 0.09)})`}>
+        <ellipse cx={170} cy={-300} rx={96} ry={134} fill={GD} stroke="#3A3640" strokeWidth={5} transform={`rotate(${6 * Math.sin(t * 0.12)} 190 -360)`} />
+        <ellipse cx={176} cy={-300} rx={64} ry={104} fill="#B88E9A" opacity={0.7} transform={`rotate(${6 * Math.sin(t * 0.12)} 190 -360)`} />
+        <ellipse cx={290} cy={-290} rx={118} ry={122} fill={GR} stroke="#3A3640" strokeWidth={6} />
+        <path d={`M 360 -250 Q 430 -230 424 -130 Q 420 -50 ${380 + 16 * Math.sin(t * 0.1)} -20 q -30 -4 -22 -26 q 14 -10 6 -50 Q 360 -170 340 -210`} fill={GR} stroke="#3A3640" strokeWidth={6} />
+        {[-190, -150, -110, -70].map((ty) => <path key={ty} d={`M ${356 + (ty + 190) * 0.12} ${ty} q 36 10 70 0`} stroke={GD} strokeWidth={4} fill="none" />)}
+        <path d="M 340 -218 Q 430 -190 470 -110 Q 446 -150 396 -176 Z" fill="#F4EEDC" stroke="#8A8070" strokeWidth={4} />
+        <circle cx={318} cy={-322} r={11} fill="#16141C" />
+        <circle cx={321} cy={-326} r={3.5} fill="#fff" />
+        <path d="M 296 -352 q 22 -14 42 -4" stroke="#3A3640" strokeWidth={5} fill="none" strokeLinecap="round" />
       </g>
-    ))}
-    <ellipse cx={0} cy={20} rx={80} ry={60} fill="#4A3220" />
+      </g>
+    </g>
+  );
+};
+/** A brown bear on its hind legs, facing the viewer, forepaws up with their claws. */
+const Bear: React.FC<{ x: number; y: number; s?: number; t: number }> = ({ x, y, s = 1, t }) => {
+  const BR = '#6A4A30';
+  const BD = '#4E3522';
+  const sw = 6 * Math.sin(t * 0.1);
+  const paw = (side: number) => (
+    <g transform={`translate(${side * 250} ${-470 + sw * side}) rotate(${side * 26})`}>
+      <path d={`M ${-side * 70} 150 Q ${-side * 40} 30 0 0`} stroke={BR} strokeWidth={96} strokeLinecap="round" fill="none" />
+      <ellipse cx={0} cy={-20} rx={70} ry={62} fill={BR} stroke="#2E2014" strokeWidth={5} />
+      {[-42, -14, 14, 42].map((dx, i) => <g key={dx}><ellipse cx={dx} cy={-70 + (i % 3 ? 0 : -8)} rx={17} ry={22} fill={BR} stroke="#2E2014" strokeWidth={4} /><path d={`M ${dx - 8} ${-86 + (i % 3 ? 0 : -8)} Q ${dx + 2} ${-130 + (i % 3 ? 0 : -8)} ${dx + 12} ${-100 + (i % 3 ? 0 : -8)} L ${dx + 6} ${-86 + (i % 3 ? 0 : -8)} Z`} fill="#F4EEDC" stroke="#8A8070" strokeWidth={2.5} /></g>)}
+      <ellipse cx={0} cy={0} rx={36} ry={30} fill={BD} opacity={0.7} />
+    </g>
+  );
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <ellipse cx={0} cy={6} rx={260} ry={24} fill="#000" opacity={0.28} />
+      <ellipse cx={-90} cy={-50} rx={70} ry={50} fill={BR} stroke="#2E2014" strokeWidth={5} />
+      <ellipse cx={90} cy={-50} rx={70} ry={50} fill={BR} stroke="#2E2014" strokeWidth={5} />
+      <ellipse cx={0} cy={-280} rx={190} ry={260} fill={BR} stroke="#2E2014" strokeWidth={6} />
+      <ellipse cx={0} cy={-230} rx={110} ry={160} fill="#7E5E40" opacity={0.7} />
+      {paw(-1)}
+      {paw(1)}
+      <g transform={`translate(0 ${-600 + 3 * Math.sin(t * 0.1)})`}>
+        <circle cx={-110} cy={-90} r={48} fill={BR} stroke="#2E2014" strokeWidth={5} />
+        <circle cx={110} cy={-90} r={48} fill={BR} stroke="#2E2014" strokeWidth={5} />
+        <circle cx={-110} cy={-90} r={24} fill="#B88E7A" />
+        <circle cx={110} cy={-90} r={24} fill="#B88E7A" />
+        <ellipse cx={0} cy={0} rx={140} ry={120} fill={BR} stroke="#2E2014" strokeWidth={6} />
+        <ellipse cx={0} cy={44} rx={62} ry={46} fill="#B8997A" stroke="#2E2014" strokeWidth={4} />
+        <ellipse cx={0} cy={26} rx={24} ry={16} fill="#16141C" />
+        <path d="M 0 40 L 0 68 M -26 76 Q 0 96 26 76" stroke="#16141C" strokeWidth={5} fill="none" strokeLinecap="round" />
+        <circle cx={-52} cy={-22} r={11} fill="#16141C" />
+        <circle cx={52} cy={-22} r={11} fill="#16141C" />
+        <path d="M -78 -52 L -30 -42 M 78 -52 L 30 -42" stroke="#2E2014" strokeWidth={7} strokeLinecap="round" />
+      </g>
+    </g>
+  );
+};
+/** A forest edge: dark trunks, soft green light, ferns, ground. */
+const ForestBg: React.FC<{ t: number }> = ({ t }) => (
+  <g>
+    <rect x={-400} y={-400} width={2720} height={1700} fill="#3E5A3A" />
+    <rect x={-400} y={-400} width={2720} height={600} fill="#5C7E4A" opacity={0.6} />
+    {[100, 420, 760, 1160, 1520, 1840].map((x, i) => <g key={i}><rect x={x} y={-100} width={70 + 30 * (i % 2)} height={1100} fill={i % 2 ? '#3A2A1C' : '#4A3622'} /><path d={`M ${x + 20} 100 v 700 M ${x + 50} 200 v 600`} stroke="#2A1C12" strokeWidth={4} opacity={0.5} /></g>)}
+    <Glow x={1000} y={120} r={900} o={0.35} />
+    <rect x={-400} y={860} width={2720} height={500} fill="#4A3A24" />
+    {Array.from({ length: 22 }).map((_, i) => {
+      const x = -300 + i * 120 + 30 * Math.sin(i);
+      const y = 880 + 60 * Math.abs(Math.sin(i * 1.3));
+      return <path key={i} d={`M ${x} ${y} q -20 -60 -60 -80 M ${x} ${y} q 6 -80 -6 -110 M ${x} ${y} q 24 -60 62 -76`} stroke="#6E9A4A" strokeWidth={6} fill="none" strokeLinecap="round" transform={`rotate(${2 * Math.sin(t * 0.04 + i)} ${x} ${y})`} />;
+    })}
   </g>
 );
+/** One bee: a striped body and two beating wings; `r` its heading in degrees. */
+const Bee: React.FC<{ x: number; y: number; s?: number; r?: number; t?: number }> = ({ x, y, s = 1, r = 0, t = 0 }) => (
+  <g transform={`translate(${x} ${y}) rotate(${r}) scale(${s})`}>
+    <ellipse cx={-6} cy={-22} rx={20} ry={10 + 5 * Math.sin(t * 1.6)} fill="#EEF4FA" stroke="#9AB0C0" strokeWidth={2} opacity={0.85} transform="rotate(-20 -6 -22)" />
+    <ellipse cx={8} cy={-22} rx={20} ry={10 + 5 * Math.sin(t * 1.6 + 1)} fill="#EEF4FA" stroke="#9AB0C0" strokeWidth={2} opacity={0.85} transform="rotate(20 8 -22)" />
+    <ellipse cx={0} cy={0} rx={32} ry={21} fill="#F2C230" stroke={L} strokeWidth={3} />
+    <path d="M -10 -20 L -10 20 M 6 -21 L 6 21 M 20 -15 L 20 15" stroke={L} strokeWidth={6} />
+    <circle cx={30} cy={-2} r={13} fill="#3A2A1A" stroke={L} strokeWidth={3} />
+    <circle cx={35} cy={-5} r={3} fill="#fff" />
+    <path d="M 36 -12 q 8 -12 18 -8 M 30 -14 q 2 -14 12 -16" stroke={L} strokeWidth={3} fill="none" strokeLinecap="round" />
+    <path d="M -32 0 l -12 3" stroke={L} strokeWidth={4} strokeLinecap="round" />
+  </g>
+);
+/** A hive of honeycomb hanging from a branch among flowers, bees going and coming. */
 const Bees: React.FC<{ t: number }> = ({ t }) => (
   <g>
-    <rect x={-400} y={-400} width={2720} height={1900} fill="#E8D8A0" />
-    <Glow x={960} y={400} r={900} o={0.4} />
-    {Array.from({ length: 5 }).map((_, i) => <ellipse key={i} cx={960} cy={300 + i * 110} rx={260 - Math.abs(i - 2) * 40} ry={70} fill="#D8A040" stroke="#8A5A20" strokeWidth={6} />)}
-    <ellipse cx={960} cy={620} rx={60} ry={34} fill="#3A2A1A" />
-    {Array.from({ length: 9 }).map((_, i) => {
-      const a = t * 0.08 + i * 0.7;
-      const bx = 960 + (360 + 60 * (i % 3)) * Math.cos(a);
-      const by = 520 + (220 + 40 * (i % 2)) * Math.sin(a * 1.3);
+    <rect x={-400} y={-400} width={2720} height={1700} fill="#BFDCEA" />
+    <rect x={-400} y={300} width={2720} height={1100} fill="#9AC06A" />
+    <path d="M -400 520 Q 300 430 900 500 Q 1500 440 2320 520 L 2320 640 L -400 640 Z" fill="#6E9A4E" />
+    {[160, 560, 1380, 1780].map((x, i) => <g key={i}><rect x={x} y={180} width={46} height={420} fill="#5A4128" /><circle cx={x + 23} cy={160} r={140} fill={i % 2 ? '#6E9A4E' : '#5E8A40'} /><circle cx={x - 60} cy={230} r={100} fill="#5E8A40" /><circle cx={x + 100} cy={240} r={100} fill="#7EA858" /></g>)}
+    {/* the branch and the hive */}
+    <path d="M 640 40 Q 960 90 1340 30" stroke="#5A4128" strokeWidth={36} fill="none" strokeLinecap="round" />
+    <path d="M 1000 80 L 1000 110" stroke="#5A4128" strokeWidth={10} />
+    <g transform="translate(1000 110)">
+      <path d="M -150 0 Q -190 150 -140 300 Q -90 400 0 420 Q 90 400 140 300 Q 190 150 150 0 Z" fill="#E0A838" stroke="#8A5A20" strokeWidth={6} />
+      {Array.from({ length: 5 }).map((_, r) => Array.from({ length: 5 - Math.abs(r - 2) }).map((__, c) => {
+        const n = 5 - Math.abs(r - 2);
+        const cx = (c - (n - 1) / 2) * 62;
+        const cy = 60 + r * 64;
+        return <polygon key={`${r}${c}`} points={`${cx},${cy - 34} ${cx + 30},${cy - 17} ${cx + 30},${cy + 17} ${cx},${cy + 34} ${cx - 30},${cy + 17} ${cx - 30},${cy - 17}`} fill="#F2C860" stroke="#B87E24" strokeWidth={3} />;
+      }))}
+      <ellipse cx={0} cy={330} rx={44} ry={26} fill="#4A3220" />
+      <path d="M -40 372 Q -42 420 -38 450 M 30 380 Q 34 430 28 470" stroke="#E8A828" strokeWidth={10} strokeLinecap="round" fill="none" />
+    </g>
+    {/* flowers and bees working them */}
+    {Array.from({ length: 16 }).map((_, i) => {
+      const x = -200 + i * 150 + 30 * Math.sin(i * 2.1);
+      const y = 940 + 90 * Math.abs(Math.sin(i * 1.4));
+      const c = ['#F0A0B8', '#F6E060', '#FFFFFF', '#C8A0E0'][i % 4];
       return (
-        <g key={i} transform={`translate(${bx} ${by}) rotate(${(a * 57) % 360})`}>
-          <ellipse cx={0} cy={0} rx={30} ry={20} fill="#F2C230" stroke={L} strokeWidth={3} />
-          <path d="M -8 -18 L -8 18 M 8 -18 L 8 18" stroke={L} strokeWidth={6} />
-          <ellipse cx={-6} cy={-26} rx={16} ry={10} fill="#EEF4FA" opacity={0.8} />
+        <g key={i} transform={`rotate(${3 * Math.sin(t * 0.05 + i)} ${x} ${y})`}>
+          <path d={`M ${x} ${y} L ${x} ${y - 150 - 30 * (i % 3)}`} stroke="#4E7A34" strokeWidth={8} />
+          {[0, 1, 2, 3, 4].map((k) => <ellipse key={k} cx={x} cy={y - 150 - 30 * (i % 3) - 26} rx={13} ry={27} fill={c} stroke="#8A6A40" strokeWidth={2} transform={`rotate(${k * 72} ${x} ${y - 150 - 30 * (i % 3)})`} />)}
+          <circle cx={x} cy={y - 150 - 30 * (i % 3)} r={13} fill="#E8A828" />
         </g>
       );
     })}
+    <Bee x={560} y={760} s={1.0} r={-10} t={t} />
+    <Bee x={1360} y={800} s={1.0} r={8} t={t + 2} />
+    {Array.from({ length: 9 }).map((_, i) => {
+      const a = t * 0.05 + i * 0.8;
+      const bx = 1000 + (230 + 70 * (i % 3)) * Math.cos(a);
+      const by = 330 + (200 + 40 * (i % 2)) * Math.sin(a * 1.2);
+      return <Bee key={i} x={bx} y={by} s={0.55 + 0.1 * (i % 3)} r={(Math.cos(a) > 0 ? 1 : -1) * 10} t={t + i} />;
+    })}
+    {[[640, 760, 1380, 620], [1500, 840, 1100, 520]].map(([x0, y0, x1, y1], i) => <path key={i} d={`M ${x0} ${y0} Q ${(x0 + x1) / 2} ${y0 - 160} ${x1} ${y1}`} stroke="#6A5A3A" strokeWidth={4} strokeDasharray="4 16" fill="none" strokeLinecap="round" opacity={0.6} />)}
   </g>
 );
 
@@ -1187,15 +1314,24 @@ export const S94: React.FC<ShotProps> = ({ t, len }) => {
 export const S95: React.FC<ShotProps> = ({ t, len }) => <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.08]]))}><ChangeList k={kf(t, [[0, 0.4], [len, 3.2]])} /></g>;
 export const S96: React.FC<ShotProps> = ({ t, len }) => <g transform={camT(960, 640, kf(t, [[0, 1.1], [len, 1.2]]))}><ChangeList k={kf(t, [[0, 3.2], [len, 5]])} /></g>;
 // ---------- S97: not the strength of the elephant, nor the bear's claws ----------
-export const S97: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(960, 540, kf(t, [[0, 1.0], [len, 1.06]]))}>
-    <rect x={-400} y={-400} width={2720} height={1900} fill="#E8DCC0" />
-    <Elephant x={560} y={760} s={1.2} t={t} />
-    <g opacity={kf(t, [[50, 0], [70, 1]])}><BearPaw x={1440} y={620} s={1.4} /></g>
-  </g>
-);
-// ---------- S98: a hive of bees at their work ----------
-export const S98: React.FC<ShotProps> = ({ t, len }) => <g transform={camT(960, 520, kf(t, [[0, 1.0], [len, 1.1]]))}><Bees t={t} /></g>;
+export const S97: React.FC<ShotProps> = ({ t, len }) => {
+  const k = kf(t, [[56, 0], [78, 1]]);
+  return (
+    <g transform={camT(960, 560, kf(t, [[0, 1.0], [len, 1.08]]))}>
+      <g opacity={1 - k}>
+        <Savanna t={t}>
+          <Elephant x={kf(t, [[0, 560], [60, 700]])} y={1000} s={1.05} t={t} />
+        </Savanna>
+      </g>
+      <g opacity={k}>
+        <ForestBg t={t} />
+        <Bear x={960} y={1060} s={1.0} t={t} />
+      </g>
+    </g>
+  );
+};
+// ---------- S98: a hive at its work: bees on the flowers and round the comb ----------
+export const S98: React.FC<ShotProps> = ({ t, len }) => <g transform={camT(1000, 520, kf(t, [[0, 1.0], [len, 1.12]]))}><Bees t={t} /></g>;
 // ---------- S99: the hall at the end of the day, people at their small tasks: what keeps us going? ----------
 export const S99: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(960, 500, kf(t, [[0, 1.15], [len, 1.0]]))}>
@@ -1286,14 +1422,29 @@ export const S109: React.FC<ShotProps> = ({ t, len }) => (
 // ================================================================ K: the end
 // ---------- S110: the frame still crooked at one corner; Linh holds the ruler and waits for her father ----------
 export const S110: React.FC<ShotProps> = ({ t, len }) => <TableScene t={t} id="c10s110" z={kf(t, [[0, 2.4], [len, 2.0]])} />;
-// ---------- S111: under the eave, a bird calls ----------
+// ---------- S111: out under the eave of the hall, a bird calls ----------
 export const S111: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(960, 420, kf(t, [[0, 1.4], [len, 1.6]]))}>
+  <g transform={camT(kf(t, [[0, 900], [len, 1000]]), 460, kf(t, [[0, 1.15], [len, 1.3]]))}>
     <Sky t={t} clear={1} />
-    <rect x={-400} y={-400} width={2720} height={560} fill="#3E6E8A" />
-    <rect x={-400} y={140} width={2720} height={50} fill="#2A4A5E" />
-    <Bird x={980} y={250} s={1.2} flap={Math.max(0, Math.sin(t * 0.3)) * 0.4} t={t} />
-    <path d="M 860 300 L 1100 300" stroke="#5A4128" strokeWidth={12} />
+    <path d="M -400 640 Q 500 560 1200 620 Q 1800 580 2320 640 L 2320 1500 L -400 1500 Z" fill="#6E8A5A" />
+    {/* the hall's tin roof, seen from the yard, its edge (the eave) running across */}
+    <polygon points="-400,-100 2320,-100 2320,330 -400,420" fill="#3E6E8A" stroke="#2A4A5E" strokeWidth={6} />
+    {Array.from({ length: 22 }).map((_, i) => <path key={i} d={`M ${-380 + i * 130} -100 L ${-380 + i * 130} ${420 - i * 4.4}`} stroke="#2E5A74" strokeWidth={8} />)}
+    <polygon points="-400,420 2320,330 2320,372 -400,462" fill="#2A4A5E" stroke="#1E3646" strokeWidth={4} />
+    <rect x={-400} y={462} width={2720} height={20} fill="#D8C49A" opacity={0.0} />
+    {/* the wall below the eave, a post, a branch with leaves coming in at the right */}
+    <rect x={-400} y={440} width={2720} height={500} fill="#E2CFA0" />
+    <rect x={210} y={430} width={34} height={500} fill="#8A6440" stroke={L} strokeWidth={4} />
+    <path d="M 2320 320 Q 1900 300 1640 360" stroke="#5A4128" strokeWidth={24} fill="none" strokeLinecap="round" />
+    {Array.from({ length: 9 }).map((_, i) => <ellipse key={i} cx={1700 + i * 70} cy={330 + 40 * Math.sin(i * 1.7) + 4 * Math.sin(t * 0.08 + i)} rx={46} ry={24} fill={i % 2 ? '#6E9A4E' : '#5E8A40'} transform={`rotate(${-20 + 10 * i} ${1700 + i * 70} 330)`} />)}
+    {/* the bird on the very edge of the roof, calling: beak open, notes drifting up */}
+    <g transform="translate(980 376)">
+      <Bird x={0} y={0} s={1.9} flap={0} t={t} />
+      {[0, 1, 2].map((i) => {
+        const ph = (t * 0.03 + i / 3) % 1;
+        return <text key={i} x={90 + 70 * ph + i * 14} y={-120 - 140 * ph} fontSize={64 + 14 * i} fill="#3A2A1A" opacity={1 - ph}>♪</text>;
+      })}
+    </g>
   </g>
 );
 // ---------- S112: wide: the bright sky over the hall ----------

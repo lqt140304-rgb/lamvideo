@@ -259,3 +259,4 @@ Code mẫu trong `mua-100-c08/shots.tsx`:
 - **Góc tay của rig:** `a` dương = tay đưa ra SAU so với hướng mặt (nhìn trực diện thì hai tay dang ra hai bên). Muốn ôm, đưa tay xuống bàn, cầm trước người: cả hai tay `a` âm, `b` âm (ví dụ ôm `{-30, -70}`, làm việc trên bàn `{-14, -40}`). Kéo xe phía sau lưng khi mặt quay về phía trước: `a` dương.
 - Cận mặt bắt đầu ở zoom 1,9 (không 1,35) để người đang ngồi không lộ cả người đứng; cận cảnh sửa khung dùng nền phòng dời sang (`translate(-420 120)`).
 - Bàn tay lẻ dùng `ArmHand`; tờ danh sách dán tường vẽ bằng khối nhỏ, đừng thu nhỏ cả component có nền to.
+- Hình ví dụ (voi, gấu, ong, chim) không để trơ trên nền trơn: đặt vào cảnh thật (thảo nguyên, rừng, đồng hoa, mái hiên). Con vật phải đủ bộ phận (voi: tai, ngà, vòi, 4 chân có móng; gấu: tai, mõm, móng trắng; ong: cánh vỗ, vằn, quanh tổ có hoa và cây). Chim đậu lên một vật có nghĩa (mép mái), không lơ lửng trên que lạ; tiếng chim vẽ bằng nốt nhạc.
