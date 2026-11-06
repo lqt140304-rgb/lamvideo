@@ -326,22 +326,80 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => {
   );
 };
 
-// ---------- S5: wide down the alley: the boat with the family poled towards the higher end ----------
-export const S5: React.FC<ShotProps> = ({ t, len }) => {
-  const d = kf(t, [[0, 0.2], [len, 0.42]]);
-  const p = alleyP(0, d, 0);
-  const k = Math.pow(1 - d, 1.25) * 1.2;
+// ---------- S5: from UNDER the water, looking up: the boat's belly slides over, the pole stabs down, bubbles rise and fish cross the lens ----------
+const Fish: React.FC<{ x: number; y: number; s?: number; c?: string; flip?: 1 | -1; t?: number }> = ({ x, y, s = 1, c = '#C9D2D6', flip = 1, t = 0 }) => (
+  <g transform={`translate(${x} ${y}) scale(${flip * s} ${s})`}>
+    <g transform={`rotate(${14 * Math.sin(t * 0.6)} -52 0)`}>
+      <path d="M -52 0 L -112 -34 Q -96 0 -112 34 Z" fill={c} stroke="#2A3A40" strokeWidth={4} strokeLinejoin="round" />
+    </g>
+    <ellipse cx={0} cy={0} rx={68} ry={26} fill={c} stroke="#2A3A40" strokeWidth={4} />
+    <path d="M -44 8 Q 0 24 50 8" stroke="#F4F6F4" strokeWidth={10} fill="none" opacity={0.6} />
+    <path d="M -10 -24 L 14 -48 L 34 -22 Z" fill={c} stroke="#2A3A40" strokeWidth={3} strokeLinejoin="round" />
+    <circle cx={40} cy={-6} r={6} fill="#14181C" />
+  </g>
+);
+const UnderWater: React.FC<{ t: number; len: number }> = ({ t, len }) => {
+  const hx = kf(t, [[0, 220], [len, 1480]]);
+  const sway = 5 * Math.sin(t * 0.07);
   return (
-    <g transform={camT(960, 620, 1.1)}>
-      <Alley id="c5s5" t={t} w={2} rain={1} water={1} />
-      <Boat x={p.x} y={p.y + 10 * k} s={k * 0.7}>
-        {[[-160, AN, 1], [-50, HANH, 1], [40, LINH, 0.72], [200, RESCUE, 1]].map(([x, lk, sc], i) => (
-          <Back key={i} look={lk as typeof AN} pose={P({ x: x as number, y: -150, scale: 0.8 * (sc as number), armL: { a: 8, b: 8 }, armR: { a: i === 3 ? 160 : 8, b: 8 } })} />
-        ))}
-      </Boat>
+    <g transform={`translate(0 ${sway})`}>
+      <defs>
+        <linearGradient id="c5uw" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#6E9AA0" />
+          <stop offset="0.35" stopColor="#3E6670" />
+          <stop offset="1" stopColor="#14282F" />
+        </linearGradient>
+      </defs>
+      <rect x={-100} y={-100} width={2120} height={1280} fill="url(#c5uw)" />
+      {/* light shafts from the rippled surface */}
+      {Array.from({ length: 7 }).map((_, i) => (
+        <polygon key={i} points={`${100 + i * 280},0 ${160 + i * 280},0 ${60 + i * 280 + 140 * Math.sin(t * 0.03 + i)},1100 ${-60 + i * 280 + 140 * Math.sin(t * 0.03 + i)},1100`} fill="#CFE8EC" opacity={0.07} />
+      ))}
+      {/* the surface seen from below: a bright wavy ceiling */}
+      <path d={`M -100 -100 L 2020 -100 L 2020 120 ${Array.from({ length: 22 }).map((_, i) => `L ${2020 - i * 100} ${130 + 16 * Math.sin(t * 0.12 + i * 1.3)}`).join(' ')} Z`} fill="#B8D8DC" opacity={0.85} />
+      <path d={`M -100 140 ${Array.from({ length: 22 }).map((_, i) => `L ${-100 + i * 100} ${140 + 16 * Math.sin(t * 0.12 + i * 1.3)}`).join(' ')}`} stroke="#EAF6F8" strokeWidth={8} fill="none" opacity={0.8} />
+      {/* rain dimples on the ceiling */}
+      {Array.from({ length: 10 }).map((_, i) => {
+        const ph = (t * 0.07 + i * 0.31) % 1;
+        return <ellipse key={i} cx={100 + 190 * i + 40 * rnd(2, i)} cy={150 + 20 * rnd(3, i)} rx={14 + 60 * ph} ry={5 + 12 * ph} fill="none" stroke="#EAF6F8" strokeWidth={4} opacity={0.7 * (1 - ph)} />;
+      })}
+      {/* the boat's belly, dark, with its orange rim, sliding across */}
+      <g transform={`translate(${hx} 140)`}>
+        <path d="M -420 0 Q -300 120 -80 130 L 220 130 Q 400 110 480 0 Z" fill="#7A3A1C" stroke="#2A140A" strokeWidth={8} strokeLinejoin="round" />
+        <path d="M -380 20 Q -280 100 -80 108 L 200 108 Q 360 94 440 20" stroke="#A8541E" strokeWidth={10} fill="none" opacity={0.7} />
+        {[-240, -100, 40, 180].map((x, i) => <path key={i} d={`M ${x} 20 L ${x + 14} 118`} stroke="#4A2410" strokeWidth={6} opacity={0.6} />)}
+      </g>
+      {/* the pole: a dark line stabbing down into the murk, a ring of foam where it enters */}
+      <path d={`M ${hx + 330} 150 L ${hx + 470 + 20 * Math.sin(t * 0.1)} 820`} stroke="#2A1C10" strokeWidth={22} strokeLinecap="round" />
+      <ellipse cx={hx + 334} cy={146} rx={50} ry={10} fill="none" stroke="#EAF6F8" strokeWidth={5} opacity={0.8} />
+      {/* bubbles streaming up from the pole and drifting through the frame */}
+      {Array.from({ length: 28 }).map((_, i) => {
+        const ph = (t * (0.012 + 0.01 * rnd(4, i)) + rnd(5, i)) % 1;
+        const x = (i % 2 ? hx + 440 : 160 + rnd(6, i) * 1600) + 28 * Math.sin(t * 0.08 + i);
+        const y = 980 - ph * 860;
+        const r = 5 + 16 * rnd(7, i);
+        return <circle key={i} cx={x} cy={y} r={r} fill="none" stroke="#E8F6F8" strokeWidth={3} opacity={0.75 * (1 - ph * 0.5)} />;
+      })}
+      {/* fish crossing, some far, one big and near */}
+      {[[0.16, 360, 0.5, '#B8C6CA', 1, 11], [0.1, 520, 0.7, '#D8A862', -1, 3], [0.22, 700, 0.55, '#B8C6CA', 1, 17], [0.14, 440, 0.4, '#C8D0D2', -1, 23]].map(([sp, y, sc, c, dir, off], i) => {
+        const x = (dir as number) > 0 ? ((t * (sp as number) * 60 + (off as number) * 90) % 2500) - 300 : 2300 - ((t * (sp as number) * 60 + (off as number) * 90) % 2500);
+        return <Fish key={i} x={x} y={(y as number) + 14 * Math.sin(t * 0.1 + i)} s={sc as number} c={c as string} flip={dir as 1 | -1} t={t + i * 5} />;
+      })}
+      <Foreground blur={8}>
+        <Fish x={kf(t, [[0, -300], [len, 2300]])} y={kf(t, [[0, 700], [len, 640]])} s={2.2} c="#C9D2D6" flip={1} t={t} />
+      </Foreground>
+      <rect x={-100} y={-100} width={2120} height={1280} fill="#0A1418" opacity={0.18} />
     </g>
   );
 };
+export const S5: React.FC<ShotProps> = ({ t, len }) => (
+  <g>
+    <Tense t={t} a={1.5} tilt={kf(t, [[0, 2], [len, -2]])}>
+      <UnderWater t={t} len={len} />
+    </Tense>
+    <Vignette o={0.65} id="S5" />
+  </g>
+);
 
 // ---------- S6: the head of the alley, higher: the road out of the water, the van waiting ----------
 export const S6: React.FC<ShotProps> = ({ t, len }) => (
@@ -388,7 +446,7 @@ export const S9: React.FC<ShotProps> = ({ t, len }) => {
   return (
 <g>
 <Tense t={t} a={0} tilt={0}>
-    <g transform={camT(960, 540, kf(t, [[0, 1.6], [len, 1.66]]))}>
+    <g transform={camT(960, kf(t, [[0, 640], [len, 520]]), kf(t, [[0, 1.15], [len, 2.4]]))}>
       <AlleyHead t={t} id="c5s9" van={false} />
       <Hero look={LINH} pose={pose} rimId="filmR" shadow={0} />
       <rect x={(h1.x + h2.x) / 2 - 90} y={(h1.y + h2.y) / 2 - 80} width={180} height={140} rx={24} fill="#3F7E8A" stroke={L} strokeWidth={5} />
@@ -472,7 +530,7 @@ export const S13: React.FC<ShotProps> = ({ t, len }) => {
 export const S14: React.FC<ShotProps> = ({ t, len }) => (
 <g>
 <Tense t={t} a={4} tilt={-4}>
-  <g transform={camT(960, 400, kf(t, [[0, 2.2], [len, 2.4]]))}>
+  <g transform={camT(960, kf(t, [[0, 560], [len, 400]]), kf(t, [[0, 1.3], [len, 2.8]]))}>
     <AlleyHead t={t} id="c5s14" van={false} wind={0.4} />
     <Hero look={RESCUE} pose={P({ x: 960, y: 700, scale: 1.1, yaw: -0.2, look: -0.1, expr: 'shock', talk: talkAt(t, 2, len - 2) * 1.3, armL: { a: 14, b: 16 }, armR: { a: 120, b: 40 } }, t, 6)} rimId="filmR" shadow={0} />
   </g>
@@ -533,7 +591,7 @@ export const S17: React.FC<ShotProps> = ({ t, len }) => (
 export const S18: React.FC<ShotProps> = ({ t, len }) => (
 <g>
 <Tense t={t} a={2} tilt={0}>
-  <g transform={camT(960, 480, kf(t, [[0, 2.4], [len, 2.9]]))}>
+  <g transform={camT(960, kf(t, [[0, 600], [len, 480]]), kf(t, [[0, 1.3], [len, 2.9]]))}>
     <AlleyHead t={t} id="c5s18" van={false} />
     <Hero look={LINH} pose={P({ x: 960, y: 700, scale: 1.2, yaw: kf(t, [[0, 0.5], [16, -0.3]]), look: kf(t, [[0, 0.6], [16, -0.4]]), expr: 'worried', talk: talkAt(t, 8, len - 2), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
@@ -544,7 +602,7 @@ export const S18: React.FC<ShotProps> = ({ t, len }) => (
 
 // ---------- S19: close: Hạnh answers, pointing behind bà Sáu ----------
 export const S19: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(900, 470, kf(t, [[0, 2.3], [len, 2.4]]))}>
+  <g transform={camT(900, kf(t, [[0, 600], [len, 470]]), kf(t, [[0, 1.3], [len, 2.8]]))}>
     <AlleyHead t={t} id="c5s19" />
     <Hero look={HANH} pose={P({ x: 900, y: 700, scale: 1.1, yaw: 0.3, look: 0.4, headTilt: 8, expr: 'neutral', talk: talkAt(t, 2, len - 2), armL: { a: 10, b: 14 }, armR: { a: 80, b: 10 } }, t, 3)} rimId="filmR" shadow={0} />
   </g>
@@ -662,16 +720,32 @@ export const S27: React.FC<ShotProps> = ({ t, len }) => {
   );
 };
 
-// ---------- S28: in the van: Linh opens her bag and looks at the photo out of its frame ----------
+// ---------- S28: from INSIDE the bag looking up: Linh's face above, her hands on the opening, the photo at the camera's feet ----------
 export const S28: React.FC<ShotProps> = ({ t, len }) => {
-  const pose = P({ x: 900, y: 740 - 70 * 0.9, scale: 0.9, yaw: 0.2, look: 0.2, headTilt: 16, expr: 'neutral', ...sit(1), armL: { a: 40, b: 70 }, armR: { a: -40, b: -70 } }, t, 4);
-  const h1 = hand(pose, 'armL');
-  const h2 = hand(pose, 'armR');
+  const k = kf(t, [[0, 1.0], [len, 1.18]]);
+  const peek = kf(t, [[0, 0], [24, 1]]);
+  const pose = P({ x: 960, y: 1010, scale: 3.3, yaw: 0.05, look: 0.0, headTilt: 6 + 5 * peek, tilt: -3, expr: 'worried', armL: { a: 58, b: 34 }, armR: { a: 58, b: 34 } }, t, 4);
   return (
-    <g transform={camT(920, 520, 2.0)}>
-      <VanIn t={t} id="c5s28" />
-      <Hero look={LINH} pose={pose} rimId="filmR" shadow={0} />
-      <Photo x={(h1.x + h2.x) / 2} y={(h1.y + h2.y) / 2 - 30} s={0.32 * kf(t, [[0, 0.6], [20, 1]])} />
+    <g>
+      <Tense t={t} a={2.5} tilt={0}>
+        <g transform={camT(960, 540, k)}>
+          <rect x={-300} y={-300} width={2520} height={1700} fill="#4A4E58" />
+          <Glow x={960} y={60} r={900} o={0.55} />
+          <Glow x={960} y={60} r={220} o={0.9} />
+          <Hero look={LINH} pose={pose} rimId="filmR" shadow={0} />
+        </g>
+      </Tense>
+      {/* the bag's inside: dark teal fabric all round the opening, the zip's teeth along the rim */}
+      <path fillRule="evenodd" d="M -200 -200 L 2120 -200 L 2120 1280 L -200 1280 Z M 960 40 C 1500 40 1860 300 1860 600 C 1860 900 1560 1080 960 1080 C 360 1080 60 900 60 600 C 60 300 420 40 960 40 Z" fill="#1E5058" />
+      <path d="M 960 40 C 1500 40 1860 300 1860 600 C 1860 900 1560 1080 960 1080 C 360 1080 60 900 60 600 C 60 300 420 40 960 40 Z" fill="none" stroke="#E8E0CC" strokeWidth={14} strokeDasharray="10 8" opacity={0.9} />
+      {[[120, 420, 70], [1800, 500, -70], [260, 900, 40], [1660, 920, -40], [960, 1180, 0]].map(([x, y, r], i) => (
+        <path key={i} d={`M ${x} ${y} q 60 -120 20 -260`} transform={`rotate(${r} ${x} ${y})`} stroke="#0E3238" strokeWidth={26} fill="none" strokeLinecap="round" opacity={0.7} />
+      ))}
+      {/* her hands holding the opening open, one each side */}
+            <Foreground blur={6}>
+        <Photo x={1280} y={1010} s={1.1 * kf(t, [[0, 0.8], [20, 1]])} r={-14} />
+      </Foreground>
+      <Vignette o={0.55} id="S28" />
     </g>
   );
 };
@@ -723,7 +797,7 @@ export const S31: React.FC<ShotProps> = ({ t, len }) => (
 export const S32: React.FC<ShotProps> = ({ t, len }) => (
 <g>
 <Tense t={t} a={0} tilt={0}>
-  <g transform={camT(940, 470, kf(t, [[0, 2.4], [len, 3.0]]))}>
+  <g transform={camT(940, kf(t, [[0, 600], [len, 470]]), kf(t, [[0, 1.3], [len, 3.0]]))}>
     <VanIn t={t} id="c5s32" />
     <Hero look={LINH} pose={P({ x: 940, y: 700, scale: 1.2, yaw: 0.3, look: 0.4, headTilt: -8, expr: 'worried', talk: talkAt(t, 2, len - 3), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
@@ -746,7 +820,7 @@ export const S33: React.FC<ShotProps> = ({ t, len }) => (
 
 // ---------- S34: close: An, softly, remembering ----------
 export const S34: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(980, 450, kf(t, [[0, 2.4], [len, 2.5]]))}>
+  <g transform={camT(980, kf(t, [[0, 600], [len, 450]]), kf(t, [[0, 1.3], [len, 2.8]]))}>
     <VanIn t={t} id="c5s34" />
     <Hero look={AN} pose={P({ x: 980, y: 690, scale: 1.1, yaw: -0.4, look: -0.3, headTilt: 8, expr: 'neutral', talk: talkAt(t, 2, len - 2), armL: { a: 10, b: 16 }, armR: { a: 12, b: 16 } }, t, 1)} rimId="filmR" shadow={0} />
   </g>
@@ -756,7 +830,7 @@ export const S34: React.FC<ShotProps> = ({ t, len }) => (
 export const S35: React.FC<ShotProps> = ({ t, len }) => (
 <g>
 <Tense t={t} a={0} tilt={0}>
-  <g transform={camT(940, 470, kf(t, [[0, 2.4], [len, 3.0]]))}>
+  <g transform={camT(940, kf(t, [[0, 600], [len, 470]]), kf(t, [[0, 1.3], [len, 3.0]]))}>
     <VanIn t={t} id="c5s35" />
     <Hero look={LINH} pose={P({ x: 940, y: 700, scale: 1.2, yaw: 0.35, look: 0.4, headTilt: 6, expr: 'worried', talk: talkAt(t, 2, len - 3), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
@@ -802,7 +876,7 @@ export const S38: React.FC<ShotProps> = ({ t, len }) => (
 export const S39: React.FC<ShotProps> = ({ t, len }) => (
 <g>
 <Tense t={t} a={0} tilt={0}>
-  <g transform={camT(940, 470, kf(t, [[0, 2.4], [len, 3.0]]))}>
+  <g transform={camT(940, kf(t, [[0, 600], [len, 470]]), kf(t, [[0, 1.3], [len, 3.0]]))}>
     <VanIn t={t} id="c5s39" />
     <Hero look={LINH} pose={P({ x: 940, y: 700, scale: 1.2, yaw: 0.1, look: 0, headTilt: 16, expr: 'worried', talk: talkAt(t, 30, len - 2), armL: { a: 10, b: 14 }, armR: { a: 10, b: 14 } }, t, 4)} rimId="filmR" shadow={0} />
   </g>
@@ -841,7 +915,7 @@ export const S41: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S42: An by the window, side-on: this time he names no day ----------
 export const S42: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(900, 440, kf(t, [[0, 2.2], [len, 2.3]]))}>
+  <g transform={camT(900, kf(t, [[0, 580], [len, 440]]), kf(t, [[0, 1.4], [len, 2.5]]))}>
     <VanIn t={t} id="c5s42" roofs={0.2} />
     <Hero look={AN} pose={P({ x: 900, y: 690, scale: 1.1, yaw: 0.85, look: 0.8, headTilt: 4, expr: 'neutral', armL: { a: 10, b: 16 }, armR: { a: 12, b: 16 } }, t, 1)} rimId="filmR" shadow={0} />
   </g>
@@ -901,7 +975,7 @@ export const S47: React.FC<ShotProps> = ({ t, len }) => {
   const h1 = hand(lPose, 'armL');
   const h2 = hand(lPose, 'armR');
   return (
-    <g transform={camT(700, 600, kf(t, [[0, 1.5], [len, 1.6]]))}>
+    <g transform={camT(kf(t, [[0, 960], [len, 720]]), kf(t, [[0, 560], [len, 500]]), kf(t, [[0, 1.2], [len, 2.1]]))}>
       <Shelter t={t} id="c5s47" />
       <polygon points={SH.Q([[0.08, 1, 0.6], [0.3, 1, 0.6], [0.3, 1, 0.86], [0.08, 1, 0.86]])} fill="#B5604F" stroke={L} strokeWidth={3} />
       <Hero look={AN} pose={P({ x: a.x, y: SH.P(0.12, 1, 0.7).y - 70 * a.scale, scale: a.scale, yaw: 0.3, look: 0.3, expr: 'neutral', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />

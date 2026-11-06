@@ -215,3 +215,5 @@ Sau khi sửa: `tsc`, render ảnh/lưới cho các cảnh trên, `plan` → `sf
 - Người đứng trong thuyền: hông ở `mép nước - LEG_LEN`, vẽ người trước thân thuyền để chân khuất trong thuyền.
 - Nhân vật quay trái (yaw âm) giơ tay: tay gần là `armL`; `a` khoảng 100, `b` khoảng 50 là tay giơ ra trước, ngón hướng lên. `a` 160 thì tay vòng ra sau đầu như gãi đầu.
 - Cận mặt đang nói: tay để xuôi (`{a:10,b:14}`), đừng để hai tay chìa ra trước khung hình.
+- **Góc máy cảm xúc (chủ kênh dặn 06/11/2026):** câu thoại xúc động thì máy bắt đầu rộng, giữ nhân vật giữa khung, rồi zoom dần vào mặt (zoom 1,3 lên 2,8–3,0, tâm máy dịch lên đầu). Góc "từ vật thể nhìn tới nhân vật" cho cảm giác thật: cảnh chèo thuyền quay từ DƯỚI NƯỚC nhìn lên (đáy thuyền trượt qua, sào chọc xuống, bọt khí, cá bơi ngang ống kính, tiếng nước ục ục); cảnh mở túi quay từ TRONG TÚI nhìn lên mặt người (miệng túi là vòng vải, răng khóa ở mép). Code mẫu: `UnderWater`, `Fish`, S28 trong `mua-100-c05/shots.tsx`.
+- Tay hai bên đối xứng khi nhìn thẳng: `armL` và `armR` cùng `a` dương; `a` trái dấu thì cả hai tay chỉ về một phía.
