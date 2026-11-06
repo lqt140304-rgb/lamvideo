@@ -8,6 +8,7 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 |---|---|---|
 | [MUC-TIEU.md](docs/MUC-TIEU.md) | Hướng nội dung, khán giả, phạm vi thử và tiêu chí chọn đề tài; dùng để quyết định một ý tưởng có phù hợp kênh hay không | Đọc trước khi chọn đề tài; sửa khi chủ repo thay đổi định hướng |
 | [KINH-NGHIEM.md](docs/KINH-NGHIEM.md) | Những nguyên tắc dùng lại được để nâng chất lượng và tiết kiệm thời gian/chi phí; không chứa cốt truyện hoặc nhật ký riêng của tập | Đọc trước khi làm; bổ sung bài học mới sau công việc theo quy tắc bên dưới |
+| [NGON-NGU-DIEN-ANH-2-5D.md](docs/NGON-NGU-DIEN-ANH-2-5D.md) | Nghiên cứu góc máy, lens, lấy nét, chuyển động và cách tạo chiều sâu cho hình 2D; có mẫu shot, nguồn và giới hạn kỹ thuật | Đọc khi lập storyboard hoặc chọn phong cách; các đề xuất cần dựng thử trước khi coi là khả năng đã có của studio |
 | [ASSET.md](docs/ASSET.md) | Danh mục tài nguyên dùng chung và liên kết tới bảng asset từng tập; giúp tìm thứ đã có trước khi tạo mới | Đọc khi lập kế hoạch hình/âm; cập nhật khi có tài nguyên dùng chung hoặc hồ sơ tập mới |
 | [KICH-BAN.md](docs/KICH-BAN.md) | Mục lục tập, trạng thái và đường dẫn bản nguồn; không chứa toàn bộ lời của các tập | Đọc để tìm đúng hồ sơ; cập nhật khi thêm tập hoặc đổi trạng thái |
 | [WHAT-IF-QUY-TRINH.md](docs/WHAT-IF-QUY-TRINH.md) | Cách đi từ nghiên cứu tới viết, giọng, storyboard, dựng và bàn giao; nêu cả giới hạn công cụ | Đọc khi bắt đầu một công đoạn; sửa khi cách làm chung thay đổi |

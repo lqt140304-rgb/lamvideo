@@ -27,6 +27,18 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 - Ghi góc/cỡ cảnh, lens tương đương, chuyển động, độ rung, focus và âm thanh để dựng được. Với hoạt hình, thông số máy quay là ý đồ hình ảnh, không phải thiết bị đã quay thật.
 - Kiểm tra trục nhìn, hướng cửa, tay cầm đồ, vị trí nhân vật và nguồn sáng giữa các shot. Chữ quan trọng làm lớp đồ họa riêng, tránh phụ thuộc chữ sinh trong ảnh.
 
+## Góc máy điện ảnh và chiều sâu 2.5D
+
+Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và đề xuất áp dụng, **chưa phải kết quả dựng thử trong studio**. Xem [hướng dẫn chi tiết, mẫu shot và nguồn](NGON-NGU-DIEN-ANH-2-5D.md). Giữ ví dụ, bảng tham khảo và ghi chú nghiên cứu ở tài liệu đó; chỉ lưu nguyên tắc dùng lại được tại đây.
+
+- **Hình bị phẳng → các lớp giữ nguyên tương quan →** thiết kế tiền cảnh, lớp hành động và hậu cảnh; cho chúng dịch chuyển theo độ sâu khi máy di chuyển ngang. Phóng to toàn khung không tự tạo parallax. **Kiểm tra:** đầu–giữa–cuối cú máy có thay đổi che khuất hợp lý, không lộ phần nền chưa vẽ hoặc khiến vật tách khỏi tay.
+- **Nhân vật như dán lên nền → phối cảnh, khối sáng hoặc tiếp xúc thiếu nhất quán →** xác định mặt sàn, điểm tụ, hướng sáng và bóng tiếp xúc trước khi thêm hiệu ứng. **Kiểm tra:** người/vật đứng đúng mặt đỡ, bóng và lớp trước–sau khớp chuyển động; hình vẫn đọc được khi bỏ blur hoặc sương trang trí.
+- **Góc lạ nhưng không giúp câu chuyện → chọn hiệu ứng trước mục đích →** ghi điều khán giả cần nhận ra trước khi chọn vị trí máy, cỡ cảnh và chuyển động. Dùng che/lộ, khoảng trống, chuyển nét hoặc phản chiếu để kể quan hệ và thông tin. **Kiểm tra:** chỉ ra được góc quay làm đổi cách hiểu ở đâu; cho phép máy tĩnh và khoảng lặng khi diễn xuất cần.
+- **Thông số lens gây hiểu nhầm → lẫn ý đồ với khả năng engine →** ghi tiêu cự tương đương cùng vị trí/khoảng cách máy và phối cảnh mong muốn. Vị trí máy quyết định tương quan gần–xa; một nhãn lens hoặc scale SVG không tự mô phỏng thấu kính. **Kiểm tra:** người dựng biết phần nào là thông số camera thật, phần nào là bố cục hoặc hiệu ứng giả lập.
+- **Nét/rung làm mất diễn xuất → áp hiệu ứng đồng loạt →** chọn đối tượng nét đầu–cuối, thời điểm chuyển và nhịp giữ; độ rung có đơn vị, hướng và thời gian tắt. Không mặc định mờ mọi hậu cảnh hoặc rung mọi cảnh căng thẳng. **Kiểm tra:** mắt, bàn tay và thông tin quan trọng vẫn đọc được ở kích thước xem thực tế.
+- **Góc quay mới làm phát sinh nhiều asset → máy đi vượt bộ hình hiện có →** khóa đường đi máy và vùng sẽ lộ trước khi vẽ; dùng hình nhiều góc hoặc không gian 3D khi cần đổi hướng nhìn lớn. **Kiểm tra:** preview ngắn các góc cực hạn trước khi dựng dài; không hứa quay vòng bằng một tranh phẳng duy nhất.
+- **Đề xuất bị ghi thành kinh nghiệm đã thành công → thiếu trạng thái kiểm chứng →** phân biệt nguyên lý có nguồn, lựa chọn mỹ thuật cần thử và kết quả đã đo/xem thực tế. **Kiểm tra:** chỉ bổ sung kết luận hiệu quả/chi phí sau thử nghiệm; số đo và lỗi riêng vẫn lưu trong hồ sơ tập, không biến thành định mức chung.
+
 ## Tiết kiệm chi phí và lượt sửa
 
 - Khóa thời lượng, số vai, số bối cảnh và mức chuyển động trước khi làm asset. Khi thêm chi tiết, ưu tiên thay hoặc gộp đoạn cũ; không chỉ nối dài.
