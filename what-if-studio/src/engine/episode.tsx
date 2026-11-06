@@ -2,6 +2,7 @@ import React from 'react';
 import { AbsoluteFill, Audio, staticFile, useCurrentFrame } from 'remotion';
 import { clamp, lerp } from './anim';
 import { KitDefs } from './kit';
+import { FONT } from './fonts';
 import { SetDefs } from './light';
 
 // The episode engine. An episode is a set of shots plus a timeline (written by scripts/plan.py from the voice's word
@@ -108,9 +109,33 @@ export const ShotFrame: React.FC<{ children: React.ReactNode }> = ({ children })
   </svg>
 );
 
-export type EpisodeProps = { timeline: Timeline; shots: ShotMap; looks?: Record<string, LookDef>; grain?: boolean; vignette?: boolean; bg?: string };
+/** An on-screen note: appears at a cue ("S12+14" = 14 frames into shot S12) and stays dur frames. Not tied to the narration. */
+export type Caption = { at: string; dur: number; text: string };
 
-export const Episode: React.FC<EpisodeProps> = ({ timeline: tl, shots, looks = {}, grain = true, vignette = true, bg = '#0E0C1E' }) => {
+const capFrame = (tl: Timeline, cue: string) => {
+  const m = /^(S\d+)(?:\+(\d+))?$/.exec(cue);
+  const sh = m && tl.shots.find((s) => s.id === m[1]);
+  return sh ? sh.first + Number(m![2] ?? 0) : -1;
+};
+
+const Captions: React.FC<{ tl: Timeline; list: Caption[]; f: number }> = ({ tl, list, f }) => {
+  const c = list.find((x) => {
+    const a = capFrame(tl, x.at);
+    return f >= a && f < a + x.dur && a >= 0;
+  });
+  if (!c) return null;
+  const a = capFrame(tl, c.at);
+  const k = Math.min(clamp((f - a) / 9), clamp((a + c.dur - f) / 9));
+  return (
+    <AbsoluteFill style={{ justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 64, pointerEvents: 'none' }}>
+      <div style={{ opacity: k, transform: `translateY(${(1 - k) * 14}px)`, maxWidth: 1500, color: '#FFF6DC', fontFamily: FONT.title, fontWeight: 700, fontSize: 42, lineHeight: 1.25, textAlign: 'center', WebkitTextStroke: '6px rgba(14,12,30,0.85)', paintOrder: 'stroke fill', textShadow: '0 3px 10px rgba(0,0,0,0.6)' }}>{c.text}</div>
+    </AbsoluteFill>
+  );
+};
+
+export type EpisodeProps = { captions?: Caption[]; timeline: Timeline; shots: ShotMap; looks?: Record<string, LookDef>; grain?: boolean; vignette?: boolean; bg?: string };
+
+export const Episode: React.FC<EpisodeProps> = ({ captions = [], timeline: tl, shots, looks = {}, grain = true, vignette = true, bg = '#0E0C1E' }) => {
   const f = useCurrentFrame();
   const seg = segAt(tl, f);
   const Shot = shots[seg.shot];
@@ -132,6 +157,7 @@ export const Episode: React.FC<EpisodeProps> = ({ timeline: tl, shots, looks = {
           <def.Overlay f={f} lv={lv} p={clamp((f - run.a) / (run.b - run.a))} n={run.n} />
         </svg>
       ) : null}
+      <Captions tl={tl} list={captions} f={f} />
       {flash ? <AbsoluteFill style={{ backgroundColor: flash.color, opacity: flash.o }} /> : null}
       {A.voice ? <Audio src={staticFile(A.voice)} volume={A.voiceVol ?? 1} /> : null}
       {A.sfx ? <Audio src={staticFile(A.sfx)} volume={A.sfxVol ?? 1} /> : null}
