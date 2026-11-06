@@ -4,9 +4,9 @@ loudnorm, video copied untouched), measures the result and writes the report.
 python <skill>/scripts/master.py <slug> [--skip-render] [--concurrency 6]
 Writes out/<slug>/<slug>-raw.mp4, out/<slug>/<slug>-final.mp4 and out/<slug>/report.json
 """
-import json, re, subprocess, sys, time
+import json, re, shutil, subprocess, sys, time
 
-from wi import STUDIO, ep_dir, load_episode, load_json, loudness, out_dir, save_json
+from wi import STUDIO, ep_dir, export_dir, load_episode, load_json, loudness, out_dir, save_json
 
 slug = sys.argv[1]
 args = sys.argv[2:]
@@ -49,3 +49,14 @@ save_json(od / 'report.json', report)
 print(json.dumps({k: v for k, v in report.items() if k != 'cost_lines'}, indent=1))
 ok = abs(lufs + 14) <= 0.5 and true_peak <= -1.0
 print('loudness OK' if ok else '! loudness off target: check the report')
+
+# a 720p copy small enough to send to a phone (~1 Mbps), then everything worth keeping goes to the episode's own
+# folder OUTSIDE the repo: videos never go to git, and a worktree that gets cleaned up takes out/ with it.
+preview = od / f'{slug}-preview-720p.mp4'
+subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', str(final), '-vf', 'scale=1280:720', '-c:v', 'libx264', '-preset', 'medium', '-b:v', '1000k',
+                '-maxrate', '1200k', '-bufsize', '2000k', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', str(preview)], check=True)
+dest = export_dir(slug)
+for f in [final, preview, od / 'report.json', od / 'storyboard.jpg', od / 'shotlist.md']:
+    if f.exists():
+        shutil.copy2(f, dest / f.name)
+print(f'kept in {dest}')

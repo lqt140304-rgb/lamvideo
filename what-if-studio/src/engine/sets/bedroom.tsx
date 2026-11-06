@@ -58,8 +58,8 @@ export const BedDuvet: React.FC<{ from?: number; knees?: number; kneeU?: number 
 };
 
 /** The bedroom at night. `clock` is what the bedside clock reads, `lamp` (0..1) how bright the lamp is (flicker it, kill it). */
-export const Bedroom: React.FC<{ t: number; id?: string; veil?: number; duvet?: boolean; clock?: string; lamp?: number; crossed?: number; pillowDent?: boolean }> = ({
-  t, id = 'bed', veil = 0.46, duvet = true, clock = '04:12', lamp = 1, crossed = 9, pillowDent = false,
+export const Bedroom: React.FC<{ t: number; id?: string; veil?: number; duvet?: boolean; clock?: string; lamp?: number; crossed?: number; pillowDent?: boolean; rented?: boolean }> = ({
+  t, id = 'bed', veil = 0.46, duvet = true, clock = '04:12', lamp = 1, crossed = 9, pillowDent = false, rented = false,
 }) => {
   const r = BEDROOM;
   const { P, Q } = r;
@@ -89,15 +89,28 @@ export const Bedroom: React.FC<{ t: number; id?: string; veil?: number; duvet?: 
       <polygon points={Q([[0, 0.3, 0.58], [0, 0.3, 0.73], [0, 0.55, 0.73], [0, 0.55, 0.58]])} fill="none" stroke="#2C2840" strokeWidth={4} />
       <polygon points={Q([[0, 1, 0.52], [0.16, 1, 0.6], [0.2, 1, 0.66], [0, 1, 0.555]])} fill="#FFB46A" opacity={0.16} style={{ mixBlendMode: 'screen' }} />
       {/* posters and fairy lights over the bed */}
-      <WallFrame x={528} y={404} w={108} h={140} art={1} />
-      <WallFrame x={668} y={420} w={92} h={112} art={2} />
-      <rect x={790} y={410} width={70} height={92} fill="#1E1824" />
-      <rect x={796} y={416} width={58} height={80} fill="#C96A5A" />
-      <path d="M 806 480 L 826 430 L 846 480 Z" fill="#F6EFE3" opacity={0.8} />
-      <path d={`M ${fairy.map((p) => `${p.x} ${p.y}`).join(' L ')}`} stroke="#141220" strokeWidth={2} fill="none" />
-      {fairy.map((p, i) => (
-        <circle key={`fl${i}`} cx={p.x} cy={p.y + 6} r={4.5} fill={i % 3 === 1 ? '#FFB4C8' : '#FFE2B0'} opacity={0.75 + 0.25 * Math.sin(t / 6 + i * 1.9)} />
-      ))}
+      {rented ? (
+        <g>
+          {/* a rented room: bare wall, a work shirt on a nail, a pay slip pinned up */}
+          <path d="M 600 410 l 0 10" stroke="#1E1824" strokeWidth={5} />
+          <path d="M 568 424 L 632 424 L 650 520 L 550 520 Z" fill="#3F7090" stroke="#10141C" strokeWidth={4} />
+          <path d="M 590 424 L 600 446 L 610 424" stroke="#10141C" strokeWidth={4} fill="none" />
+          <rect x={700} y={430} width={90} height={64} fill="#E8DCC0" stroke="#1E1824" strokeWidth={3} />
+          <path d="M 712 450 L 778 450 M 712 466 L 770 466 M 712 482 L 760 482" stroke="#8A7A5A" strokeWidth={3} />
+        </g>
+      ) : (
+        <g>
+          <WallFrame x={528} y={404} w={108} h={140} art={1} />
+          <WallFrame x={668} y={420} w={92} h={112} art={2} />
+          <rect x={790} y={410} width={70} height={92} fill="#1E1824" />
+          <rect x={796} y={416} width={58} height={80} fill="#C96A5A" />
+          <path d="M 806 480 L 826 430 L 846 480 Z" fill="#F6EFE3" opacity={0.8} />
+          <path d={`M ${fairy.map((p) => `${p.x} ${p.y}`).join(' L ')}`} stroke="#141220" strokeWidth={2} fill="none" />
+          {fairy.map((p, i) => (
+            <circle key={`fl${i}`} cx={p.x} cy={p.y + 6} r={4.5} fill={i % 3 === 1 ? '#FFB4C8' : '#FFE2B0'} opacity={0.75 + 0.25 * Math.sin(t / 6 + i * 1.9)} />
+          ))}
+        </g>
+      )}
       {/* the calendar between the bed and the window */}
       <WallCalendar x={CAL.x} y={CAL.y} w={CAL.w} crossed={crossed} />
       {/* the window: the moon, stars and the lit city */}
@@ -124,7 +137,7 @@ export const Bedroom: React.FC<{ t: number; id?: string; veil?: number; duvet?: 
             <rect x={b.x - 18} y={b.y - 46} width={36} height={46} rx={8} fill="#1E1C28" />
             <circle cx={b.x} cy={b.y - 30} r={10} fill="#2E2C3A" />
             <circle cx={b.x} cy={b.y - 12} r={5} fill="#2E2C3A" />
-            <path d={`M ${c.x - 10} ${c.y} L ${c.x + 10} ${c.y} L ${c.x + 6} ${c.y - 10} L ${c.x + 4} ${c.y - 26} Q ${c.x + 18} ${c.y - 40} ${c.x + 8} ${c.y - 46} L ${c.x - 8} ${c.y - 46} Q ${c.x - 18} ${c.y - 40} ${c.x - 4} ${c.y - 26} L ${c.x - 6} ${c.y - 10} Z`} fill="#C9A44A" />
+            {rented ? null : <path d={`M ${c.x - 10} ${c.y} L ${c.x + 10} ${c.y} L ${c.x + 6} ${c.y - 10} L ${c.x + 4} ${c.y - 26} Q ${c.x + 18} ${c.y - 40} ${c.x + 8} ${c.y - 46} L ${c.x - 8} ${c.y - 46} Q ${c.x - 18} ${c.y - 40} ${c.x - 4} ${c.y - 26} L ${c.x - 6} ${c.y - 10} Z`} fill="#C9A44A" />}
           </g>
         );
       })()}
@@ -142,6 +155,15 @@ export const Bedroom: React.FC<{ t: number; id?: string; veil?: number; duvet?: 
       {(() => {
         const b = P(0.74, 1, 0.5);
         const s = r.s(0.5);
+        if (rented)
+          return (
+            <g>
+              <ellipse cx={b.x + 6} cy={b.y + 4} rx={90 * s} ry={14 * s} fill="#000" opacity={0.35} />
+              <rect x={b.x - 70 * s} y={b.y - 74 * s} width={140 * s} height={74 * s} fill="#B58A5A" stroke="#1A1410" strokeWidth={4} />
+              <rect x={b.x - 10 * s} y={b.y - 74 * s} width={20 * s} height={74 * s} fill="#D9C9A0" opacity={0.8} />
+              <rect x={b.x - 50 * s} y={b.y - 108 * s} width={100 * s} height={34 * s} fill="#A87A4A" stroke="#1A1410" strokeWidth={4} />
+            </g>
+          );
         return (
           <g>
             <ellipse cx={b.x + 10} cy={b.y + 4} rx={92 * s} ry={18 * s} fill="#000" opacity={0.35} />
@@ -228,7 +250,7 @@ export const Bedroom: React.FC<{ t: number; id?: string; veil?: number; duvet?: 
       <Glow x={LAMP.x} y={LAMP.y + 10} r={120} o={0.5 * lamp} />
       <circle cx={WINDOW.moon.x} cy={WINDOW.moon.y} r={300} fill="url(#kitMoonBloom)" opacity={0.25} />
       <Glow x={door.x} y={door.y} r={160} o={0.3} />
-      {fairy.map((p, i) => (i % 2 ? <Glow key={`fg${i}`} x={p.x} y={p.y + 6} r={34} o={0.6} /> : null))}
+      {rented ? null : fairy.map((p, i) => (i % 2 ? <Glow key={`fg${i}`} x={p.x} y={p.y + 6} r={34} o={0.6} /> : null))}
       <Dust t={t} seed={13} x0={LAMP.x - 200} y0={LAMP.y - 60} w={400} h={260} n={18} o={0.45 * lamp} />
       <Dust t={t} seed={17} x0={WINDOW.x0} y0={WINDOW.y1} w={WINDOW.x1 - WINDOW.x0} h={300} n={14} o={0.3} />
       {/* a scatter of glints to keep the dark corners alive */}

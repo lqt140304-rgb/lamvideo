@@ -1,0 +1,1339 @@
+{
+ "slug": "tua-lai-10-giay",
+ "title": "NẾU NGÀY ĐÓ BẠN KHÔNG BỎ HỌC?",
+ "fps": 30,
+ "total": 5166,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 88,
+   "t0": 0,
+   "t1": 88,
+   "line": ""
+  },
+  {
+   "shot": "S2",
+   "a": 88,
+   "b": 142,
+   "t0": 0,
+   "t1": 54,
+   "line": "Sáu giờ chiều."
+  },
+  {
+   "shot": "S3",
+   "a": 142,
+   "b": 190,
+   "t0": 0,
+   "t1": 48,
+   "line": "Bạn phủi bụi trên điện thoại."
+  },
+  {
+   "shot": "S4",
+   "a": 190,
+   "b": 234,
+   "t0": 0,
+   "t1": 44,
+   "line": "Nhóm lớp lại có tin nhắn. “"
+  },
+  {
+   "shot": "S66",
+   "a": 234,
+   "b": 312,
+   "t0": 0,
+   "t1": 78,
+   "line": "Chủ nhật này gặp nhé.” Bạn"
+  },
+  {
+   "shot": "S5",
+   "a": 312,
+   "b": 423,
+   "t0": 0,
+   "t1": 111,
+   "line": "gõ: “ Tao…” Rồi xóa."
+  },
+  {
+   "shot": "S67",
+   "a": 423,
+   "b": 495,
+   "t0": 0,
+   "t1": 72,
+   "line": ""
+  },
+  {
+   "shot": "S6",
+   "a": 495,
+   "b": 544,
+   "t0": 0,
+   "t1": 49,
+   "line": "Bạn nhìn ảnh cũ."
+  },
+  {
+   "shot": "S7",
+   "a": 544,
+   "b": 568,
+   "t0": 0,
+   "t1": 24,
+   "line": "Hồi ấy,"
+  },
+  {
+   "shot": "S8",
+   "a": 568,
+   "b": 616,
+   "t0": 0,
+   "t1": 48,
+   "line": "chỗ cạnh cửa sổ là của bạn."
+  },
+  {
+   "shot": "S9",
+   "a": 616,
+   "b": 669,
+   "t0": 0,
+   "t1": 53,
+   "line": "Nếu ngày đó bạn không bỏ học…"
+  },
+  {
+   "shot": "S10",
+   "a": 669,
+   "b": 719,
+   "t0": 120,
+   "t1": 0,
+   "line": "không lên chuyến xe ra công trường…",
+   "look": "tua"
+  },
+  {
+   "shot": "S11",
+   "a": 719,
+   "b": 883,
+   "t0": 0,
+   "t1": 164,
+   "line": "thì bây giờ, bạn đang ở đâu?"
+  },
+  {
+   "shot": "S12",
+   "a": 883,
+   "b": 932,
+   "t0": 0,
+   "t1": 49,
+   "line": "Nhưng muốn quay lại… phải quay về"
+  },
+  {
+   "shot": "S13",
+   "a": 932,
+   "b": 967,
+   "t0": 0,
+   "t1": 35,
+   "line": "đúng ngày ấy."
+  },
+  {
+   "shot": "S14",
+   "a": 967,
+   "b": 1015,
+   "t0": 0,
+   "t1": 48,
+   "line": "Bố đang nghỉ vì đau lưng."
+  },
+  {
+   "shot": "S15",
+   "a": 1015,
+   "b": 1065,
+   "t0": 0,
+   "t1": 50,
+   "line": "Mẹ đếm tiền ở bàn ăn. Bạn"
+  },
+  {
+   "shot": "S16",
+   "a": 1065,
+   "b": 1125,
+   "t0": 0,
+   "t1": 60,
+   "line": "gấp tờ thông báo đóng tiền làm tư."
+  },
+  {
+   "shot": "S17",
+   "a": 1125,
+   "b": 1236,
+   "t0": 0,
+   "t1": 111,
+   "line": "Rồi bảo: “ Con đi làm một thời gian.” Bạn vẫn để"
+  },
+  {
+   "shot": "S18",
+   "a": 1236,
+   "b": 1262,
+   "t0": 0,
+   "t1": 26,
+   "line": "sách trong cặp."
+  },
+  {
+   "shot": "S19",
+   "a": 1262,
+   "b": 1315,
+   "t0": 0,
+   "t1": 53,
+   "line": "Vì nghĩ rồi mình sẽ quay lại."
+  },
+  {
+   "shot": "S20",
+   "a": 1315,
+   "b": 1390,
+   "t0": 0,
+   "t1": 75,
+   "line": ""
+  },
+  {
+   "shot": "S21",
+   "a": 1390,
+   "b": 1502,
+   "t0": 0,
+   "t1": 112,
+   "line": "Thử đổi một việc thôi."
+  },
+  {
+   "shot": "S22",
+   "a": 1502,
+   "b": 1565,
+   "t0": 0,
+   "t1": 63,
+   "line": "Sáng hôm ấy, bạn đeo cặp. Bạn vẫn"
+  },
+  {
+   "shot": "S23",
+   "a": 1565,
+   "b": 1591,
+   "t0": 0,
+   "t1": 26,
+   "line": "lo tiền."
+  },
+  {
+   "shot": "S24",
+   "a": 1591,
+   "b": 1626,
+   "t0": 0,
+   "t1": 35,
+   "line": "Chiều vẫn phụ mẹ."
+  },
+  {
+   "shot": "S25",
+   "a": 1626,
+   "b": 1702,
+   "t0": 0,
+   "t1": 76,
+   "line": "Tối vẫn có những bài không hiểu. Có hôm, bạn"
+  },
+  {
+   "shot": "S26",
+   "a": 1702,
+   "b": 1738,
+   "t0": 0,
+   "t1": 36,
+   "line": "ngủ gục trên vở."
+  },
+  {
+   "shot": "S27",
+   "a": 1738,
+   "b": 1776,
+   "t0": 0,
+   "t1": 38,
+   "line": "Nhưng sáng hôm sau…"
+  },
+  {
+   "shot": "S28",
+   "a": 1776,
+   "b": 1818,
+   "t0": 0,
+   "t1": 42,
+   "line": "chiếc ghế cạnh cửa sổ vẫn có"
+  },
+  {
+   "shot": "S68",
+   "a": 1818,
+   "b": 1936,
+   "t0": 0,
+   "t1": 118,
+   "line": "người ngồi."
+  },
+  {
+   "shot": "S29",
+   "a": 1936,
+   "b": 1978,
+   "t0": 0,
+   "t1": 42,
+   "line": "Rồi bạn tốt nghiệp."
+  },
+  {
+   "shot": "S30",
+   "a": 1978,
+   "b": 2013,
+   "t0": 0,
+   "t1": 35,
+   "line": "Bạn chọn học nghề điện."
+  },
+  {
+   "shot": "S32",
+   "a": 2013,
+   "b": 2055,
+   "t0": 0,
+   "t1": 42,
+   "line": "Vừa học, vừa làm thêm."
+  },
+  {
+   "shot": "S33",
+   "a": 2055,
+   "b": 2084,
+   "t0": 0,
+   "t1": 29,
+   "line": "Lần đầu đấu mạch,"
+  },
+  {
+   "shot": "S34",
+   "a": 2084,
+   "b": 2137,
+   "t0": 0,
+   "t1": 53,
+   "line": "đèn không sáng."
+  },
+  {
+   "shot": "S33",
+   "a": 2137,
+   "b": 2218,
+   "t0": 40,
+   "t1": 121,
+   "line": "Lần thứ hai, vẫn không."
+  },
+  {
+   "shot": "S34",
+   "a": 2218,
+   "b": 2255,
+   "t0": 70,
+   "t1": 107,
+   "line": "Đến lần thứ ba…"
+  },
+  {
+   "shot": "S35",
+   "a": 2255,
+   "b": 2325,
+   "t0": 0,
+   "t1": 70,
+   "line": "bạn gọi mẹ: “ Con làm được rồi.”"
+  },
+  {
+   "shot": "S36",
+   "a": 2325,
+   "b": 2395,
+   "t0": 0,
+   "t1": 70,
+   "line": "Đầu dây bên kia, mẹ hỏi: “ Thế ăn cơm chưa?”"
+  },
+  {
+   "shot": "S69",
+   "a": 2395,
+   "b": 2484,
+   "t0": 0,
+   "t1": 89,
+   "line": ""
+  },
+  {
+   "shot": "S37",
+   "a": 2484,
+   "b": 2541,
+   "t0": 0,
+   "t1": 57,
+   "line": "Ở cuộc đời ấy, bạn vẫn"
+  },
+  {
+   "shot": "S38",
+   "a": 2541,
+   "b": 2567,
+   "t0": 0,
+   "t1": 26,
+   "line": "dậy sớm."
+  },
+  {
+   "shot": "S39",
+   "a": 2567,
+   "b": 2632,
+   "t0": 0,
+   "t1": 65,
+   "line": "Vẫn ăn cơm hộp. Vẫn có tháng"
+  },
+  {
+   "shot": "S40",
+   "a": 2632,
+   "b": 2660,
+   "t0": 0,
+   "t1": 28,
+   "line": "nhìn tiền phòng mà"
+  },
+  {
+   "shot": "S41",
+   "a": 2660,
+   "b": 2703,
+   "t0": 0,
+   "t1": 43,
+   "line": "thở dài."
+  },
+  {
+   "shot": "S42",
+   "a": 2703,
+   "b": 2845,
+   "t0": 0,
+   "t1": 142,
+   "line": "Có hôm, bạn cũng tự hỏi: “ Nếu hồi đó chọn nghề khác thì sao?”"
+  },
+  {
+   "shot": "S43",
+   "a": 2845,
+   "b": 2913,
+   "t0": 0,
+   "t1": 68,
+   "line": "Hóa ra… quay lại rồi, bạn vẫn có"
+  },
+  {
+   "shot": "S70",
+   "a": 2913,
+   "b": 3046,
+   "t0": 0,
+   "t1": 133,
+   "line": "điều để tiếc."
+  },
+  {
+   "shot": "S44",
+   "a": 3046,
+   "b": 3128,
+   "t0": 0,
+   "t1": 82,
+   "line": "Còn ở cuộc đời này… bạn nhớ"
+  },
+  {
+   "shot": "S71",
+   "a": 3128,
+   "b": 3193,
+   "t0": 0,
+   "t1": 65,
+   "line": "tháng lương đầu không? Bạn"
+  },
+  {
+   "shot": "S45",
+   "a": 3193,
+   "b": 3236,
+   "t0": 0,
+   "t1": 43,
+   "line": "đếm lại tiền trên xe."
+  },
+  {
+   "shot": "S46",
+   "a": 3236,
+   "b": 3296,
+   "t0": 0,
+   "t1": 60,
+   "line": "Về đến nhà, đưa mẹ gần hết. Mẹ"
+  },
+  {
+   "shot": "S47",
+   "a": 3296,
+   "b": 3404,
+   "t0": 0,
+   "t1": 108,
+   "line": "cầm tay bạn, hỏi: “ Đau không con?” Bạn"
+  },
+  {
+   "shot": "S48",
+   "a": 3404,
+   "b": 3472,
+   "t0": 0,
+   "t1": 68,
+   "line": "rụt tay lại. “ Không."
+  },
+  {
+   "shot": "S72",
+   "a": 3472,
+   "b": 3548,
+   "t0": 0,
+   "t1": 76,
+   "line": "Mai nó khỏi.”"
+  },
+  {
+   "shot": "S49",
+   "a": 3548,
+   "b": 3584,
+   "t0": 0,
+   "t1": 36,
+   "line": "Tối ấy, bạn ăn thêm"
+  },
+  {
+   "shot": "S73",
+   "a": 3584,
+   "b": 3676,
+   "t0": 0,
+   "t1": 92,
+   "line": "hai bát cơm. Bạn"
+  },
+  {
+   "shot": "S50",
+   "a": 3676,
+   "b": 3732,
+   "t0": 0,
+   "t1": 56,
+   "line": "đã học ở đây nhiều thứ."
+  },
+  {
+   "shot": "S51",
+   "a": 3732,
+   "b": 3780,
+   "t0": 0,
+   "t1": 48,
+   "line": "Đo lại trước khi cắt."
+  },
+  {
+   "shot": "S52",
+   "a": 3780,
+   "b": 3815,
+   "t0": 0,
+   "t1": 35,
+   "line": "Chưa rõ thì hỏi."
+  },
+  {
+   "shot": "S53",
+   "a": 3815,
+   "b": 3875,
+   "t0": 0,
+   "t1": 60,
+   "line": "Thấy đồng đội làm thiếu an toàn thì nhắc."
+  },
+  {
+   "shot": "S54",
+   "a": 3875,
+   "b": 3958,
+   "t0": 0,
+   "t1": 83,
+   "line": "Từ người luôn gọi: “ Anh ơi…” đến một hôm, có người"
+  },
+  {
+   "shot": "S55",
+   "a": 3958,
+   "b": 4032,
+   "t0": 0,
+   "t1": 74,
+   "line": "quay sang gọi bạn."
+  },
+  {
+   "shot": "S56",
+   "a": 4032,
+   "b": 4063,
+   "t0": 0,
+   "t1": 31,
+   "line": "Chỉ là… bạn vẫn"
+  },
+  {
+   "shot": "S74",
+   "a": 4063,
+   "b": 4241,
+   "t0": 0,
+   "t1": 178,
+   "line": "muốn biết mình còn học được gì nữa. Bạn"
+  },
+  {
+   "shot": "S57",
+   "a": 4241,
+   "b": 4295,
+   "t0": 0,
+   "t1": 54,
+   "line": "tắt bức ảnh cũ."
+  },
+  {
+   "shot": "S58",
+   "a": 4295,
+   "b": 4395,
+   "t0": 0,
+   "t1": 100,
+   "line": "Nhắn vào nhóm: “ Chủ nhật tao tới.”"
+  },
+  {
+   "shot": "S59",
+   "a": 4395,
+   "b": 4455,
+   "t0": 0,
+   "t1": 60,
+   "line": "Tối ấy, bạn tìm chỗ hỏi chuyện học tiếp."
+  },
+  {
+   "shot": "S60",
+   "a": 4455,
+   "b": 4506,
+   "t0": 0,
+   "t1": 51,
+   "line": "Chưa đăng ký gì cả."
+  },
+  {
+   "shot": "S75",
+   "a": 4506,
+   "b": 4585,
+   "t0": 0,
+   "t1": 79,
+   "line": "Bạn còn phải tính giờ làm, tiền học."
+  },
+  {
+   "shot": "S76",
+   "a": 4585,
+   "b": 4648,
+   "t0": 0,
+   "t1": 63,
+   "line": "Nhưng lần này…"
+  },
+  {
+   "shot": "S61",
+   "a": 4648,
+   "b": 4716,
+   "t0": 0,
+   "t1": 68,
+   "line": "bạn ghi số điện thoại lại."
+  },
+  {
+   "shot": "S77",
+   "a": 4716,
+   "b": 4783,
+   "t0": 0,
+   "t1": 67,
+   "line": ""
+  },
+  {
+   "shot": "S62",
+   "a": 4783,
+   "b": 4891,
+   "t0": 0,
+   "t1": 108,
+   "line": "Nếu ngày đó không bỏ học… bạn sẽ là ai? Bạn"
+  },
+  {
+   "shot": "S63",
+   "a": 4891,
+   "b": 4945,
+   "t0": 0,
+   "t1": 54,
+   "line": "chưa thể biết."
+  },
+  {
+   "shot": "S64",
+   "a": 4945,
+   "b": 4987,
+   "t0": 0,
+   "t1": 42,
+   "line": "Còn ngày mai… bạn đã"
+  },
+  {
+   "shot": "S65",
+   "a": 4987,
+   "b": 5166,
+   "t0": 0,
+   "t1": 179,
+   "line": "để sẵn một cuốn vở."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "extreme close-up, low",
+   "key": 40,
+   "len": 88,
+   "first": 0,
+   "line": "",
+   "note": "đôi giày bảo hộ phủ bụi xi măng; màn hình đen mở dần, tiếng máy cắt"
+  },
+  {
+   "id": "S2",
+   "size": "macro insert",
+   "key": 30,
+   "len": 54,
+   "first": 88,
+   "line": "Sáu giờ chiều.",
+   "note": "bàn tay đeo găng kéo bao xi măng"
+  },
+  {
+   "id": "S3",
+   "size": "medium",
+   "key": 40,
+   "len": 48,
+   "first": 142,
+   "line": "Bạn phủi bụi trên điện thoại.",
+   "note": "điện thoại trong túi rung hai lần, anh tháo một bên găng"
+  },
+  {
+   "id": "S4",
+   "size": "macro, màn hình",
+   "key": 36,
+   "len": 44,
+   "first": 190,
+   "line": "Nhóm lớp lại có tin nhắn. “",
+   "note": "tin nhắn nhóm lớp; ảnh đại diện vẫn là ảnh mặc đồng phục"
+  },
+  {
+   "id": "S66",
+   "size": "macro, ảnh đại diện",
+   "key": 30,
+   "len": 78,
+   "first": 234,
+   "line": "Chủ nhật này gặp nhé.” Bạn",
+   "note": "tin nhắn “Chủ nhật này họp lớp nhé!”, ảnh đại diện mặc đồng phục"
+  },
+  {
+   "id": "S5",
+   "size": "close-up, ngón cái",
+   "key": 24,
+   "len": 111,
+   "first": 312,
+   "line": "gõ: “ Tao…” Rồi xóa.",
+   "note": "gõ “Tao…” rồi xóa"
+  },
+  {
+   "id": "S67",
+   "size": "close-up",
+   "key": 30,
+   "len": 72,
+   "first": 423,
+   "line": "",
+   "note": "mặt anh sáng lên bởi màn hình, thở ra"
+  },
+  {
+   "id": "S6",
+   "size": "medium",
+   "key": 30,
+   "len": 49,
+   "first": 495,
+   "line": "Bạn nhìn ảnh cũ.",
+   "note": "anh lướt ảnh cũ của lớp"
+  },
+  {
+   "id": "S7",
+   "size": "macro, màn hình",
+   "key": 60,
+   "len": 24,
+   "first": 544,
+   "line": "Hồi ấy,",
+   "note": "ảnh lớp, máy quay tiến vào chỗ trống cạnh cửa sổ"
+  },
+  {
+   "id": "S8",
+   "size": "wide",
+   "key": 40,
+   "len": 48,
+   "first": 568,
+   "line": "chỗ cạnh cửa sổ là của bạn.",
+   "note": "chỗ cạnh cửa sổ, nắng chiều"
+  },
+  {
+   "id": "S9",
+   "size": "medium, low",
+   "key": 26,
+   "len": 53,
+   "first": 616,
+   "line": "Nếu ngày đó bạn không bỏ học…",
+   "note": "anh nhìn xuống bộ đồ đang mặc; hạt bụi bay ngược lên"
+  },
+  {
+   "id": "S10",
+   "size": "wide",
+   "key": 60,
+   "len": 120,
+   "first": 669,
+   "line": "không lên chuyến xe ra công trường…",
+   "note": "TUA NGƯỢC: xe rùa lùi, gạch trở lại chồng, áo lao động thành đồng phục"
+  },
+  {
+   "id": "S11",
+   "size": "title, wide",
+   "key": 70,
+   "len": 164,
+   "first": 719,
+   "line": "thì bây giờ, bạn đang ở đâu?",
+   "note": "tiêu đề NẾU NGÀY ĐÓ / BẠN KHÔNG BỎ HỌC?"
+  },
+  {
+   "id": "S12",
+   "size": "wide",
+   "key": 30,
+   "len": 49,
+   "first": 883,
+   "line": "Nhưng muốn quay lại… phải quay về",
+   "note": "căn nhà nhỏ: mẹ đếm tiền, cặp dưới gầm giường"
+  },
+  {
+   "id": "S13",
+   "size": "low insert",
+   "key": 20,
+   "len": 35,
+   "first": 932,
+   "line": "đúng ngày ấy.",
+   "note": "chiếc cặp dưới gầm giường"
+  },
+  {
+   "id": "S14",
+   "size": "macro, high",
+   "key": 24,
+   "len": 48,
+   "first": 967,
+   "line": "Bố đang nghỉ vì đau lưng.",
+   "note": "túi thuốc của bố"
+  },
+  {
+   "id": "S15",
+   "size": "macro, top-down",
+   "key": 30,
+   "len": 50,
+   "first": 1015,
+   "line": "Mẹ đếm tiền ở bàn ăn. Bạn",
+   "note": "mẹ đếm tiền, chia thành những chồng nhỏ"
+  },
+  {
+   "id": "S16",
+   "size": "macro, top-down",
+   "key": 36,
+   "len": 60,
+   "first": 1065,
+   "line": "gấp tờ thông báo đóng tiền làm tư.",
+   "note": "tờ thông báo đóng tiền gấp làm tư"
+  },
+  {
+   "id": "S17",
+   "size": "over the shoulder",
+   "key": 26,
+   "len": 111,
+   "first": 1125,
+   "line": "Rồi bảo: “ Con đi làm một thời gian.” Bạn vẫn để",
+   "note": "anh đứng ở cửa, giấu tờ thông báo sau lưng"
+  },
+  {
+   "id": "S18",
+   "size": "low insert",
+   "key": 36,
+   "len": 26,
+   "first": 1236,
+   "line": "sách trong cặp.",
+   "note": "sách vẫn trong cặp, kéo khóa"
+  },
+  {
+   "id": "S19",
+   "size": "close-up",
+   "key": 20,
+   "len": 53,
+   "first": 1262,
+   "line": "Vì nghĩ rồi mình sẽ quay lại.",
+   "note": "vì nghĩ rồi mình sẽ quay lại"
+  },
+  {
+   "id": "S20",
+   "size": "wide",
+   "key": 30,
+   "len": 75,
+   "first": 1315,
+   "line": "",
+   "note": "sáng hôm sau, chú đội mũ bảo hộ chờ cạnh xe"
+  },
+  {
+   "id": "S21",
+   "size": "macro, low",
+   "key": 40,
+   "len": 112,
+   "first": 1390,
+   "line": "Thử đổi một việc thôi.",
+   "note": "tay chạm đôi giày lao động, rồi hình đứng lại"
+  },
+  {
+   "id": "S22",
+   "size": "macro",
+   "key": 14,
+   "len": 63,
+   "first": 1502,
+   "line": "Sáng hôm ấy, bạn đeo cặp. Bạn vẫn",
+   "note": "bàn tay kéo chiếc cặp ra, dây cặp"
+  },
+  {
+   "id": "S23",
+   "size": "medium",
+   "key": 24,
+   "len": 26,
+   "first": 1565,
+   "line": "lo tiền.",
+   "note": "dây cặp thành quai túi đồ mẹ mang đi làm"
+  },
+  {
+   "id": "S24",
+   "size": "medium",
+   "key": 20,
+   "len": 35,
+   "first": 1591,
+   "line": "Chiều vẫn phụ mẹ.",
+   "note": "chiều phụ mẹ bê đồ"
+  },
+  {
+   "id": "S25",
+   "size": "macro, top-down",
+   "key": 30,
+   "len": 76,
+   "first": 1626,
+   "line": "Tối vẫn có những bài không hiểu. Có hôm, bạn",
+   "note": "tối: những bài không hiểu"
+  },
+  {
+   "id": "S26",
+   "size": "medium",
+   "key": 20,
+   "len": 36,
+   "first": 1702,
+   "line": "ngủ gục trên vở.",
+   "note": "ngủ gục trên vở"
+  },
+  {
+   "id": "S27",
+   "size": "wide",
+   "key": 30,
+   "len": 38,
+   "first": 1738,
+   "line": "Nhưng sáng hôm sau…",
+   "note": "sáng hôm sau, đứng ngoài cửa lớp chậm một nhịp"
+  },
+  {
+   "id": "S28",
+   "size": "medium",
+   "key": 30,
+   "len": 42,
+   "first": 1776,
+   "line": "chiếc ghế cạnh cửa sổ vẫn có",
+   "note": "một người bạn kéo ghế bên cửa sổ ra cho anh"
+  },
+  {
+   "id": "S68",
+   "size": "medium",
+   "key": 36,
+   "len": 118,
+   "first": 1818,
+   "line": "người ngồi.",
+   "note": "chiếc ghế cạnh cửa sổ vẫn có người ngồi: là anh"
+  },
+  {
+   "id": "S29",
+   "size": "wide",
+   "key": 40,
+   "len": 42,
+   "first": 1936,
+   "line": "Rồi bạn tốt nghiệp.",
+   "note": "lễ tốt nghiệp"
+  },
+  {
+   "id": "S30",
+   "size": "macro, top-down",
+   "key": 30,
+   "len": 35,
+   "first": 1978,
+   "line": "Bạn chọn học nghề điện.",
+   "note": "đơn học nghề đặt cạnh bằng tốt nghiệp"
+  },
+  {
+   "id": "S32",
+   "size": "macro",
+   "key": 22,
+   "len": 42,
+   "first": 2013,
+   "line": "Vừa học, vừa làm thêm.",
+   "note": "tối: bê bát ở quán ăn"
+  },
+  {
+   "id": "S33",
+   "size": "wide",
+   "key": 20,
+   "len": 121,
+   "first": 2055,
+   "line": "Lần đầu đấu mạch,",
+   "note": "đấu dây, thử lại"
+  },
+  {
+   "id": "S34",
+   "size": "macro",
+   "key": 20,
+   "len": 107,
+   "first": 2084,
+   "line": "đèn không sáng.",
+   "note": "bóng đèn: không sáng... rồi sáng"
+  },
+  {
+   "id": "S35",
+   "size": "medium",
+   "key": 20,
+   "len": 70,
+   "first": 2255,
+   "line": "bạn gọi mẹ: “ Con làm được rồi.”",
+   "note": "gọi mẹ: Con làm được rồi"
+  },
+  {
+   "id": "S36",
+   "size": "medium",
+   "key": 26,
+   "len": 70,
+   "first": 2325,
+   "line": "Đầu dây bên kia, mẹ hỏi: “ Thế ăn cơm chưa?”",
+   "note": "mẹ nghe điện thoại: Thế ăn cơm chưa?"
+  },
+  {
+   "id": "S69",
+   "size": "close-up",
+   "key": 24,
+   "len": 89,
+   "first": 2395,
+   "line": "",
+   "note": "anh mỉm cười, không nói gì thêm"
+  },
+  {
+   "id": "S37",
+   "size": "macro",
+   "key": 14,
+   "len": 57,
+   "first": 2484,
+   "line": "Ở cuộc đời ấy, bạn vẫn",
+   "note": "tiếng chuông báo thức"
+  },
+  {
+   "id": "S38",
+   "size": "medium",
+   "key": 30,
+   "len": 26,
+   "first": 2541,
+   "line": "dậy sớm.",
+   "note": "bạn vẫn dậy sớm"
+  },
+  {
+   "id": "S39",
+   "size": "macro, top-down",
+   "key": 30,
+   "len": 65,
+   "first": 2567,
+   "line": "Vẫn ăn cơm hộp. Vẫn có tháng",
+   "note": "hộp cơm mở ra, nhìn điện thoại rồi ăn vội"
+  },
+  {
+   "id": "S40",
+   "size": "macro, màn hình",
+   "key": 30,
+   "len": 28,
+   "first": 2632,
+   "line": "nhìn tiền phòng mà",
+   "note": "cuối tháng: tiền phòng và các khoản chi"
+  },
+  {
+   "id": "S41",
+   "size": "medium",
+   "key": 30,
+   "len": 43,
+   "first": 2660,
+   "line": "thở dài.",
+   "note": "thở dài trong tòa nhà đang hoàn thiện"
+  },
+  {
+   "id": "S42",
+   "size": "close-up",
+   "key": 30,
+   "len": 142,
+   "first": 2703,
+   "line": "Có hôm, bạn cũng tự hỏi: “ Nếu hồi đó chọn nghề khác thì sao?”",
+   "note": "tự hỏi: nếu hồi đó chọn nghề khác thì sao?"
+  },
+  {
+   "id": "S43",
+   "size": "wide, pull back",
+   "key": 50,
+   "len": 68,
+   "first": 2845,
+   "line": "Hóa ra… quay lại rồi, bạn vẫn có",
+   "note": "máy quay lùi ra: bên kia tấm kính, một nhóm công nhân"
+  },
+  {
+   "id": "S70",
+   "size": "wide",
+   "key": 60,
+   "len": 133,
+   "first": 2913,
+   "line": "điều để tiếc.",
+   "note": "tấm kính, bên kia một nhóm công nhân"
+  },
+  {
+   "id": "S44",
+   "size": "close-up",
+   "key": 40,
+   "len": 82,
+   "first": 3046,
+   "line": "Còn ở cuộc đời này… bạn nhớ",
+   "note": "một người công nhân quay đầu: chính là bạn ở cuộc đời ban đầu"
+  },
+  {
+   "id": "S71",
+   "size": "macro",
+   "key": 24,
+   "len": 65,
+   "first": 3128,
+   "line": "tháng lương đầu không? Bạn",
+   "note": "phong bì lương trong túi áo"
+  },
+  {
+   "id": "S45",
+   "size": "medium",
+   "key": 24,
+   "len": 43,
+   "first": 3193,
+   "line": "đếm lại tiền trên xe.",
+   "note": "đếm lại tiền trên xe"
+  },
+  {
+   "id": "S46",
+   "size": "medium",
+   "key": 30,
+   "len": 60,
+   "first": 3236,
+   "line": "Về đến nhà, đưa mẹ gần hết. Mẹ",
+   "note": "đưa mẹ gần hết"
+  },
+  {
+   "id": "S47",
+   "size": "macro, top-down",
+   "key": 30,
+   "len": 108,
+   "first": 3296,
+   "line": "cầm tay bạn, hỏi: “ Đau không con?” Bạn",
+   "note": "mẹ kéo bàn tay lại, nhìn vết trầy"
+  },
+  {
+   "id": "S48",
+   "size": "close-up",
+   "key": 26,
+   "len": 68,
+   "first": 3404,
+   "line": "rụt tay lại. “ Không.",
+   "note": "anh rụt tay lại"
+  },
+  {
+   "id": "S72",
+   "size": "medium",
+   "key": 24,
+   "len": 76,
+   "first": 3472,
+   "line": "Mai nó khỏi.”",
+   "note": "giấu bàn tay sau lưng: không, mai nó khỏi"
+  },
+  {
+   "id": "S49",
+   "size": "wide",
+   "key": 30,
+   "len": 36,
+   "first": 3548,
+   "line": "Tối ấy, bạn ăn thêm",
+   "note": "tối ấy ăn thêm hai bát cơm"
+  },
+  {
+   "id": "S73",
+   "size": "macro",
+   "key": 20,
+   "len": 92,
+   "first": 3584,
+   "line": "hai bát cơm. Bạn",
+   "note": "hai cái bát cơm đã sạch"
+  },
+  {
+   "id": "S50",
+   "size": "medium",
+   "key": 26,
+   "len": 56,
+   "first": 3676,
+   "line": "đã học ở đây nhiều thứ.",
+   "note": "ngày đầu loay hoay với thước"
+  },
+  {
+   "id": "S51",
+   "size": "macro",
+   "key": 30,
+   "len": 48,
+   "first": 3732,
+   "line": "Đo lại trước khi cắt.",
+   "note": "đo lại trước khi cắt"
+  },
+  {
+   "id": "S52",
+   "size": "over the shoulder",
+   "key": 26,
+   "len": 35,
+   "first": 3780,
+   "line": "Chưa rõ thì hỏi.",
+   "note": "bác thợ hướng dẫn: chưa rõ thì hỏi"
+  },
+  {
+   "id": "S53",
+   "size": "medium",
+   "key": 26,
+   "len": 60,
+   "first": 3815,
+   "line": "Thấy đồng đội làm thiếu an toàn thì nhắc.",
+   "note": "dây đeo mũ chưa cài, anh ra hiệu"
+  },
+  {
+   "id": "S54",
+   "size": "medium",
+   "key": 24,
+   "len": 83,
+   "first": 3875,
+   "line": "Từ người luôn gọi: “ Anh ơi…” đến một hôm, có người",
+   "note": "“Anh ơi…”"
+  },
+  {
+   "id": "S55",
+   "size": "close-up",
+   "key": 20,
+   "len": 74,
+   "first": 3958,
+   "line": "quay sang gọi bạn.",
+   "note": "có người quay sang gọi anh"
+  },
+  {
+   "id": "S56",
+   "size": "wide",
+   "key": 40,
+   "len": 31,
+   "first": 4032,
+   "line": "Chỉ là… bạn vẫn",
+   "note": "cả nhóm ngồi dưới bóng râm ăn cơm"
+  },
+  {
+   "id": "S74",
+   "size": "close-up",
+   "key": 40,
+   "len": 178,
+   "first": 4063,
+   "line": "muốn biết mình còn học được gì nữa. Bạn",
+   "note": "anh nhìn xa, vẫn muốn biết mình còn học được gì"
+  },
+  {
+   "id": "S57",
+   "size": "macro, màn hình",
+   "key": 30,
+   "len": 54,
+   "first": 4241,
+   "line": "tắt bức ảnh cũ.",
+   "note": "tắt bức ảnh cũ"
+  },
+  {
+   "id": "S58",
+   "size": "macro, màn hình",
+   "key": 70,
+   "len": 100,
+   "first": 4295,
+   "line": "Nhắn vào nhóm: “ Chủ nhật tao tới.”",
+   "note": "nhắn: Chủ nhật tao tới. Nhớ chừa chỗ."
+  },
+  {
+   "id": "S59",
+   "size": "wide",
+   "key": 30,
+   "len": 60,
+   "first": 4395,
+   "line": "Tối ấy, bạn tìm chỗ hỏi chuyện học tiếp.",
+   "note": "buổi tối, tìm thông tin học bổ túc và học nghề"
+  },
+  {
+   "id": "S60",
+   "size": "macro, top-down",
+   "key": 30,
+   "len": 51,
+   "first": 4455,
+   "line": "Chưa đăng ký gì cả.",
+   "note": "giấy ghi địa chỉ, giờ tư vấn, đặt cạnh lịch làm"
+  },
+  {
+   "id": "S75",
+   "size": "macro, top-down",
+   "key": 30,
+   "len": 79,
+   "first": 4506,
+   "line": "Bạn còn phải tính giờ làm, tiền học.",
+   "note": "lịch làm việc kín giờ, tiền học"
+  },
+  {
+   "id": "S76",
+   "size": "macro",
+   "key": 30,
+   "len": 63,
+   "first": 4585,
+   "line": "Nhưng lần này…",
+   "note": "cây bút lơ lửng trên tờ giấy"
+  },
+  {
+   "id": "S61",
+   "size": "macro, top-down",
+   "key": 40,
+   "len": 68,
+   "first": 4648,
+   "line": "bạn ghi số điện thoại lại.",
+   "note": "ghi số điện thoại lại"
+  },
+  {
+   "id": "S77",
+   "size": "top-down, wide",
+   "key": 40,
+   "len": 67,
+   "first": 4716,
+   "line": "",
+   "note": "tờ ghi số điện thoại cạnh lịch làm"
+  },
+  {
+   "id": "S62",
+   "size": "macro, top-down",
+   "key": 20,
+   "len": 108,
+   "first": 4783,
+   "line": "Nếu ngày đó không bỏ học… bạn sẽ là ai? Bạn",
+   "note": "sáng hôm sau: mũ bảo hộ cạnh cuốn vở mới"
+  },
+  {
+   "id": "S63",
+   "size": "low insert",
+   "key": 36,
+   "len": 54,
+   "first": 4891,
+   "line": "chưa thể biết.",
+   "note": "cho cả hai vào ba lô, kéo khóa"
+  },
+  {
+   "id": "S64",
+   "size": "macro, low",
+   "key": 30,
+   "len": 42,
+   "first": 4945,
+   "line": "Còn ngày mai… bạn đã",
+   "note": "đôi giày phủ bụi ở đầu phim, anh xỏ chân vào"
+  },
+  {
+   "id": "S65",
+   "size": "wide",
+   "key": 94,
+   "len": 179,
+   "first": 4987,
+   "line": "để sẵn một cuốn vở.",
+   "note": "bước ra cửa; bàn học được dọn trống; chữ kết"
+  }
+ ],
+ "fx": [
+  {
+   "kind": "flash",
+   "color": "#FFFFFF",
+   "f": 669
+  },
+  {
+   "kind": "flash",
+   "color": "#FFF3DC",
+   "f": 719
+  }
+ ],
+ "audio": {
+  "voiceVol": 0.8,
+  "sfxVol": 0.2501,
+  "musicVol": 0.1312,
+  "voice": "tua-lai-10-giay/voice.wav",
+  "sfx": "tua-lai-10-giay/sfx.wav",
+  "music": "tua-lai-10-giay/music.wav"
+ }
+}

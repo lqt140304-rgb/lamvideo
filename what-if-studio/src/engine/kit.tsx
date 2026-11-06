@@ -38,6 +38,12 @@ export const KitDefs: React.FC = () => (
       <feDropShadow dx={-4} dy={-1} stdDeviation={1.8} floodColor={D.rim} floodOpacity={1} />
       <feDropShadow dx={0} dy={0} stdDeviation={14} floodColor="#FF9A4A" floodOpacity={0.35} />
     </filter>
+    <filter id="filmR" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx={3} dy={-1} stdDeviation={0.8} floodColor="#FFD9A0" floodOpacity={0.75} />
+    </filter>
+    <filter id="filmL" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx={-3} dy={-1} stdDeviation={0.8} floodColor="#FFD9A0" floodOpacity={0.75} />
+    </filter>
     <filter id="rimRed" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx={0} dy={-2} stdDeviation={2} floodColor="#FF4A4A" floodOpacity={1} />
       <feDropShadow dx={0} dy={0} stdDeviation={16} floodColor="#FF2A3A" floodOpacity={0.45} />

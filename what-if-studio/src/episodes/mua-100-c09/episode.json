@@ -1,0 +1,455 @@
+{
+  "id": "Mua100C09",
+  "slug": "mua-100-c09",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 9: Khi mưa vừa tạnh, âm thanh cuối cùng",
+  "title": [
+    "Khi mưa vừa tạnh",
+    "Âm thanh cuối cùng"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "ở|Linh": 3.0
+  },
+  "tail": 2.0,
+  "science": [
+    {
+      "claim": "Giả định hư cấu. Mưa tạnh nhưng nước từ thượng nguồn chưa chảy qua hết: mực nước ở trạm thượng nguồn và ở mốc hẻm vẫn tăng; sân trường (+2,0 m) còn khô, bậc thấp nhất của lối xuống đường đã chìm. Không khẳng định mọi sông đạt đỉnh ngay khi mưa tạnh."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p1",
+      "text": "[thoughtful] Trạm thượng nguồn vừa gửi số đo mới. Nước tại đó vẫn đang dâng. Dưới thị trấn, vạch đo ở đầu hẻm lại tăng. Gần trường, bậc thấp nhất của lối xuống đường đã chìm; bậc phía trên bắt đầu ướt. Sân trường còn khô, nhưng đường ra đang thu hẹp."
+    },
+    {
+      "beat": "p2",
+      "text": "Trời đã ngừng mưa. Nhưng phần nước từ xa chưa chảy qua hết nơi họ ở."
+    },
+    {
+      "beat": "p3",
+      "text": "Linh nhìn chiếc áo trên tay, rồi nhìn bố. [worried] “Nhưng tạnh rồi mà. Sao mình còn phải đi chỗ khác?”"
+    },
+    {
+      "beat": "p4",
+      "text": "An cúi xuống ngang tầm mắt con. [warmly] “Tại vì nước trên núi vẫn đang về, như hôm bố chỉ trên bản đồ ấy. Sân mình còn khô, nhưng đường thấp có thể bị ngập. Mình đi lúc đường còn dùng được sẽ đỡ nguy hiểm hơn.”"
+    },
+    {
+      "beat": "p5",
+      "text": "[worried] “Bố đi với con chứ?”"
+    },
+    {
+      "beat": "p6",
+      "text": "[reassuring] “Mẹ đưa con sang trước. Bố phải giúp chuyển máy cấp nước, nên bố đi sau một chút. Tới nơi, con ngồi cùng mẹ ở trong nhà nhé. Xong việc bố sẽ tới chỗ hai mẹ con.”"
+    },
+    {
+      "beat": "p7",
+      "text": "Linh siết tay anh. [softly] “Bố nhớ nói với mẹ nếu bố phải đổi chỗ.”"
+    },
+    {
+      "beat": "p8",
+      "text": "[warmly] “Ừ. Bố mang bộ đàm, bố sẽ nhờ báo cho mẹ.”"
+    },
+    {
+      "beat": "p9",
+      "text": "[thoughtful] Cô nhớ ngón tay anh đã chỉ dọc con sông vào ngày thứ bảy."
+    },
+    {
+      "beat": "p10",
+      "text": "Suốt những ngày chờ đợi, cô chỉ mong không còn nghe mưa trên mái. Giờ mái nhà đã yên, mà dòng sông vẫn đang mang nước về."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S2",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S3",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S4",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S5",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S6",
+      "size": "",
+      "set": "",
+      "key": 30,
+      "note": ""
+    },
+    {
+      "id": "S7",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S8",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S9",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S10",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S11",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S12",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S13",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S14",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S15",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S16",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S17",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S18",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S19",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S20",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S21",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S22",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S23",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    },
+    {
+      "id": "S24",
+      "size": "",
+      "set": "",
+      "key": 40,
+      "note": ""
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "s:0"
+    },
+    {
+      "shot": "S2",
+      "at": "s:2.5"
+    },
+    {
+      "shot": "S3",
+      "at": "s:4.4"
+    },
+    {
+      "shot": "S4",
+      "at": "s:7.5"
+    },
+    {
+      "shot": "S5",
+      "at": "s:12.6"
+    },
+    {
+      "shot": "S6",
+      "at": "s:15.7"
+    },
+    {
+      "shot": "S7",
+      "at": "s:19.0"
+    },
+    {
+      "shot": "S8",
+      "at": "s:22.8"
+    },
+    {
+      "shot": "S9",
+      "at": "s:25.5"
+    },
+    {
+      "shot": "S10",
+      "at": "s:28.7"
+    },
+    {
+      "shot": "S11",
+      "at": "s:31.0"
+    },
+    {
+      "shot": "S12",
+      "at": "s:32.8"
+    },
+    {
+      "shot": "S13",
+      "at": "s:34.8"
+    },
+    {
+      "shot": "S14",
+      "at": "s:37.8"
+    },
+    {
+      "shot": "S15",
+      "at": "s:40.6"
+    },
+    {
+      "shot": "S16",
+      "at": "s:42.0"
+    },
+    {
+      "shot": "S17",
+      "at": "s:46.5"
+    },
+    {
+      "shot": "S18",
+      "at": "s:51.2"
+    },
+    {
+      "shot": "S19",
+      "at": "s:52.6"
+    },
+    {
+      "shot": "S20",
+      "at": "s:55.3"
+    },
+    {
+      "shot": "S21",
+      "at": "s:58.2"
+    },
+    {
+      "shot": "S22",
+      "at": "s:61.6"
+    },
+    {
+      "shot": "S23",
+      "at": "s:65.4"
+    },
+    {
+      "shot": "S24",
+      "at": "s:68.7"
+    }
+  ],
+  "sound": {
+    "clips": {
+      "radio_static_fs": [
+        "lib:radio_static_fs",
+        10
+      ],
+      "rain_indoor_fs": [
+        "lib:rain_indoor_fs",
+        10
+      ],
+      "drips_fs": [
+        "lib:drips_fs",
+        10
+      ],
+      "flood_flow_fs": [
+        "lib:flood_flow_fs",
+        20
+      ],
+      "drop_plink": [
+        "lib:drop_plink",
+        1
+      ],
+      "map_unfold_fs": [
+        "lib:map_unfold_fs",
+        3
+      ],
+      "birds_eave": [
+        "lib:birds_eave",
+        10
+      ],
+      "calm_bed": [
+        "lib:mua_bed2",
+        100
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "radio_static_fs",
+        0.5,
+        "onset",
+        "S2"
+      ],
+      [
+        "S1",
+        "rain_indoor_fs",
+        0.3,
+        "onset",
+        "S6"
+      ],
+      [
+        "S2",
+        "flood_flow_fs",
+        0.2,
+        "onset",
+        null
+      ],
+      [
+        "S6",
+        "drips_fs",
+        0.35,
+        "onset",
+        "S8"
+      ],
+      [
+        "S6+26",
+        "drop_plink",
+        0.7
+      ],
+      [
+        "S8",
+        "calm_bed",
+        0.4,
+        "onset",
+        null
+      ],
+      [
+        "S12+2",
+        "map_unfold_fs",
+        0.5
+      ],
+      [
+        "S21+2",
+        "map_unfold_fs",
+        0.5
+      ],
+      [
+        "S20+30",
+        "radio_static_fs",
+        0.25
+      ],
+      [
+        "S22",
+        "drips_fs",
+        0.25,
+        "onset",
+        "S23"
+      ],
+      [
+        "S22+40",
+        "birds_eave",
+        0.2
+      ],
+      [
+        "S23",
+        "flood_flow_fs",
+        0.35,
+        "onset",
+        null
+      ]
+    ],
+    "levels": {
+      "sfx_lu": -13.5,
+      "music_lu": -14
+    }
+  }
+}

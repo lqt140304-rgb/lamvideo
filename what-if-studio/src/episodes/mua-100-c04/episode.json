@@ -1,0 +1,853 @@
+{
+  "id": "Mua100C04",
+  "slug": "mua-100-c04",
+  "topic": "Chuyện gì xảy ra nếu mưa liên tục 100 ngày? Cảnh 4: Ngày 18, quá nhiều nước",
+  "title": [
+    "Ngày 18",
+    "Quá nhiều nước"
+  ],
+  "voice": {
+    "id": "HXqqNj3PDxRdHVH1pXog",
+    "model": "eleven_v4",
+    "lang": "vi"
+  },
+  "gaps": {
+    "word": 0.2,
+    "comma": 0.35,
+    "sentence": 0.6,
+    "question": 0.7
+  },
+  "pads": {
+    "gạo|Từ": 1.5
+  },
+  "tail": 2.5,
+  "science": [
+    {
+      "claim": "Giả định hư cấu. Mốc nước ngày 18: khoảng 0,45 m ở mặt hẻm, chạm hiên An; vườn sau (+0,10 m) ngập khoảng 0,35 m; bếp cùng cao độ phòng khách (+0,60 m) còn khô. Cây úng vì rễ thiếu oxy khi đất ngập lâu; không phải mọi cây chết cùng lúc."
+    }
+  ],
+  "script": [
+    {
+      "beat": "p01",
+      "text": "Đến ngày thứ mười tám, nước trong hẻm đã chạm mép hiên. Khoảng vườn thấp sau bếp ngập quá nửa ống chân người lớn, những luống rau không còn nhìn rõ hàng. Nền bếp cao hơn vườn nên vẫn khô. Linh đứng bên trong, nhìn chậu cây còn kê trên bậc cửa sau. Cô cầm bình tưới lên rồi lại đặt xuống. Chậu đã đầy nước."
+    },
+    {
+      "beat": "p02",
+      "text": "[confused] “Sao có nước rồi mà nó vẫn héo hả bố? Hôm trước bố bảo cây đang khát mà.”"
+    },
+    {
+      "beat": "p03",
+      "text": "[thoughtful] “Hôm trước đất khô nên nó cần nước. Nhưng giờ nước đọng lâu quá, rễ không thở được con ạ.”"
+    },
+    {
+      "beat": "p04",
+      "text": "Linh sờ nhẹ chiếc lá vàng. [sad] “Con đã tưới nó suốt. Vậy mà bây giờ con chẳng giúp được gì.”"
+    },
+    {
+      "beat": "p05",
+      "text": "An đỡ chiếc bình khỏi tay con. [reassuring] “Không phải tại con. Mưa ngập cả vườn, một mình con đâu có làm nước rút được. Mình để bình xuống đã, rồi xem còn giữ được gì nhé.”"
+    },
+    {
+      "beat": "p06",
+      "text": "Bó rau cuối cùng mua ở chợ đã hết. Sạp quen đóng cửa mấy hôm nay. An đi thêm một quãng, rồi trở về với ít đồ hộp và một túi gạo."
+    },
+    {
+      "beat": "p07",
+      "text": "Từ hôm đó, Hạnh bắt đầu xếp sẵn túi đồ gần cầu thang. Trong ngăn tủ khô trên gác có mấy gói hạt giống chị đã cất từ trước. Linh xin mang theo. Cô còn muốn mang cả những chậu cây, nhưng túi đã đầy."
+    },
+    {
+      "beat": "p08",
+      "text": "An đưa con chiếc hộp nhỏ. [warmly] “Mình giữ mấy gói hạt này khô trước đã.”"
+    },
+    {
+      "beat": "p09",
+      "text": "[worried] “Nhưng chậu cây thì sao? Mình đi rồi, nó ở lại một mình à?”"
+    },
+    {
+      "beat": "p10",
+      "text": "An nhìn chậu cây ngoài cửa. Anh im một lúc rồi đáp: [softly] “Bố biết con tiếc. Nhưng mình không mang được hết, vì còn phải để chỗ cho nước, thuốc và đồ của cả nhà.”"
+    },
+    {
+      "beat": "p11",
+      "text": "“Nếu mình quay về, con còn trồng được nữa không?”"
+    },
+    {
+      "beat": "p12",
+      "text": "[hopeful] “Nếu hạt còn tốt và có chỗ đất phù hợp, bố sẽ trồng thử cùng con. Mình giữ lại một ít để dành, chứ không gieo hết một lần.”"
+    },
+    {
+      "beat": "p13",
+      "text": "Linh tự dán kín mép hộp. [softly] “Vậy bố nhớ gọi con lúc trồng nhé. Con muốn tự làm.”"
+    },
+    {
+      "beat": "p14",
+      "text": "[warmly] “Ừ, bố nhớ.”"
+    },
+    {
+      "beat": "p15",
+      "text": "Linh ghi tên từng loại hạt. Có những thứ cô phải bỏ lại. Có những thứ vẫn còn cơ hội, nếu sau này họ tìm được đất phù hợp để trồng."
+    }
+  ],
+  "shots": [
+    {
+      "id": "S1",
+      "size": "low wide",
+      "set": "house",
+      "key": 40,
+      "note": "Nước hẻm chạm mép hiên"
+    },
+    {
+      "id": "S2",
+      "size": "close",
+      "set": "veranda",
+      "key": 40,
+      "note": "Nước liếm mép hiên"
+    },
+    {
+      "id": "S3",
+      "size": "top",
+      "set": "garden",
+      "key": 40,
+      "note": "Vườn sau ngập, nhìn thẳng xuống; chớp"
+    },
+    {
+      "id": "S4",
+      "size": "low pan",
+      "set": "garden",
+      "key": 40,
+      "note": "Ngọn rau nhô khỏi mặt nước"
+    },
+    {
+      "id": "S5",
+      "size": "wide",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Bếp khô, cửa sau nhìn ra vườn ngập"
+    },
+    {
+      "id": "S6",
+      "size": "over shoulder",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Qua vai Linh: chậu trên bậc cửa"
+    },
+    {
+      "id": "S7",
+      "size": "low",
+      "set": "step",
+      "key": 40,
+      "note": "Từ cạnh chậu nhìn lên Linh"
+    },
+    {
+      "id": "S8",
+      "size": "medium",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Linh nhấc bình tưới rồi đặt xuống"
+    },
+    {
+      "id": "S9",
+      "size": "macro top",
+      "set": "pot",
+      "key": 40,
+      "note": "Chậu đầy nước tới miệng"
+    },
+    {
+      "id": "S10",
+      "size": "close",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Linh hỏi"
+    },
+    {
+      "id": "S11",
+      "size": "two-shot",
+      "set": "kitchen",
+      "key": 40,
+      "note": "An trả lời"
+    },
+    {
+      "id": "S12",
+      "size": "close",
+      "set": "kitchen",
+      "key": 40,
+      "note": "An"
+    },
+    {
+      "id": "S13",
+      "size": "macro side",
+      "set": "pot",
+      "key": 40,
+      "note": "Nước tràn chậu, bọt khí"
+    },
+    {
+      "id": "S14",
+      "size": "close",
+      "set": "leaf",
+      "key": 40,
+      "note": "Ngón tay chạm lá vàng"
+    },
+    {
+      "id": "S15",
+      "size": "close low",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Linh buồn"
+    },
+    {
+      "id": "S16",
+      "size": "medium",
+      "set": "kitchen",
+      "key": 40,
+      "note": "An đỡ bình tưới khỏi tay con"
+    },
+    {
+      "id": "S17",
+      "size": "medium",
+      "set": "kitchen",
+      "key": 40,
+      "note": "An cúi xuống nói"
+    },
+    {
+      "id": "S18",
+      "size": "reverse wide",
+      "set": "garden",
+      "key": 40,
+      "note": "Từ vườn: hai bố con ở cửa, bình trên bậc"
+    },
+    {
+      "id": "S19",
+      "size": "top",
+      "set": "table",
+      "key": 40,
+      "note": "Rổ rau trống"
+    },
+    {
+      "id": "S20",
+      "size": "wide",
+      "set": "stall",
+      "key": 40,
+      "note": "Sạp đóng cửa; chớp"
+    },
+    {
+      "id": "S21",
+      "size": "wide",
+      "set": "alley",
+      "key": 40,
+      "note": "An lội đi xa"
+    },
+    {
+      "id": "S22",
+      "size": "medium",
+      "set": "veranda",
+      "key": 40,
+      "note": "An về với gạo và đồ hộp"
+    },
+    {
+      "id": "S23",
+      "size": "hold",
+      "set": "garden",
+      "key": 40,
+      "note": "Luống cao còn xanh"
+    },
+    {
+      "id": "S24",
+      "size": "wide",
+      "set": "living",
+      "key": 40,
+      "note": "Hạnh xếp túi cạnh cầu thang; đèn chớp"
+    },
+    {
+      "id": "S25",
+      "size": "top",
+      "set": "drawer",
+      "key": 40,
+      "note": "Ngăn tủ khô: gói hạt giống"
+    },
+    {
+      "id": "S26",
+      "size": "medium",
+      "set": "attic",
+      "key": 40,
+      "note": "Linh xin mang hạt theo"
+    },
+    {
+      "id": "S27",
+      "size": "medium",
+      "set": "living",
+      "key": 40,
+      "note": "Linh ôm chậu nhỏ cạnh túi đầy"
+    },
+    {
+      "id": "S28",
+      "size": "two-shot",
+      "set": "living",
+      "key": 40,
+      "note": "An đưa hộp nhỏ"
+    },
+    {
+      "id": "S29",
+      "size": "close",
+      "set": "living",
+      "key": 40,
+      "note": "An"
+    },
+    {
+      "id": "S30",
+      "size": "over shoulder",
+      "set": "living",
+      "key": 40,
+      "note": "Linh lo cho chậu cây"
+    },
+    {
+      "id": "S31",
+      "size": "pov",
+      "set": "kitchen",
+      "key": 40,
+      "note": "Mắt An: chậu ngoài cửa; đèn chớp"
+    },
+    {
+      "id": "S32",
+      "size": "close side",
+      "set": "living",
+      "key": 40,
+      "note": "An cúi đầu rồi đáp"
+    },
+    {
+      "id": "S33",
+      "size": "insert",
+      "set": "bag",
+      "key": 40,
+      "note": "Túi đầy: nước, thuốc, quần áo"
+    },
+    {
+      "id": "S34",
+      "size": "close",
+      "set": "living",
+      "key": 40,
+      "note": "Linh hỏi"
+    },
+    {
+      "id": "S35",
+      "size": "medium",
+      "set": "living",
+      "key": 40,
+      "note": "An cúi xuống, hy vọng"
+    },
+    {
+      "id": "S36",
+      "size": "top",
+      "set": "floor",
+      "key": 40,
+      "note": "Giữ lại một ít hạt"
+    },
+    {
+      "id": "S37",
+      "size": "macro",
+      "set": "box",
+      "key": 40,
+      "note": "Hai tay dán băng dính"
+    },
+    {
+      "id": "S38",
+      "size": "close",
+      "set": "living",
+      "key": 40,
+      "note": "Linh dặn bố"
+    },
+    {
+      "id": "S39",
+      "size": "two-shot",
+      "set": "living",
+      "key": 40,
+      "note": "An gật đầu"
+    },
+    {
+      "id": "S40",
+      "size": "top",
+      "set": "labels",
+      "key": 40,
+      "note": "Linh viết tên hạt"
+    },
+    {
+      "id": "S41",
+      "size": "wide",
+      "set": "garden",
+      "key": 40,
+      "note": "Chậu bỏ lại ngoài mưa; chớp"
+    },
+    {
+      "id": "S42",
+      "size": "medium",
+      "set": "garden",
+      "key": 40,
+      "note": "Linh đặt bình tưới xuống, chỉ còn mưa"
+    }
+  ],
+  "edit": [
+    {
+      "shot": "S1",
+      "at": "Đến"
+    },
+    {
+      "shot": "S2",
+      "at": "chạm"
+    },
+    {
+      "shot": "S3",
+      "at": "Khoảng"
+    },
+    {
+      "shot": "S4",
+      "at": "những"
+    },
+    {
+      "shot": "S5",
+      "at": "Nền"
+    },
+    {
+      "shot": "S6",
+      "at": "Linh"
+    },
+    {
+      "shot": "S7",
+      "at": "chậu"
+    },
+    {
+      "shot": "S8",
+      "at": "Cô"
+    },
+    {
+      "shot": "S9",
+      "at": "Chậu"
+    },
+    {
+      "shot": "S10",
+      "at": "Sao"
+    },
+    {
+      "shot": "S11",
+      "at": "Hôm#2"
+    },
+    {
+      "shot": "S12",
+      "at": "Nhưng"
+    },
+    {
+      "shot": "S13",
+      "at": "rễ"
+    },
+    {
+      "shot": "S14",
+      "at": "Linh"
+    },
+    {
+      "shot": "S15",
+      "at": "Con"
+    },
+    {
+      "shot": "S16",
+      "at": "An"
+    },
+    {
+      "shot": "S17",
+      "at": "Không"
+    },
+    {
+      "shot": "S18",
+      "at": "Mình#2"
+    },
+    {
+      "shot": "S19",
+      "at": "Bó"
+    },
+    {
+      "shot": "S20",
+      "at": "Sạp"
+    },
+    {
+      "shot": "S21",
+      "at": "An"
+    },
+    {
+      "shot": "S22",
+      "at": "trở"
+    },
+    {
+      "shot": "S23",
+      "at": "gạo"
+    },
+    {
+      "shot": "S24",
+      "at": "Từ"
+    },
+    {
+      "shot": "S25",
+      "at": "Trong"
+    },
+    {
+      "shot": "S26",
+      "at": "Linh"
+    },
+    {
+      "shot": "S27",
+      "at": "Cô"
+    },
+    {
+      "shot": "S28",
+      "at": "An"
+    },
+    {
+      "shot": "S29",
+      "at": "Mình"
+    },
+    {
+      "shot": "S30",
+      "at": "Nhưng"
+    },
+    {
+      "shot": "S31",
+      "at": "An"
+    },
+    {
+      "shot": "S32",
+      "at": "Bố"
+    },
+    {
+      "shot": "S33",
+      "at": "Nhưng"
+    },
+    {
+      "shot": "S34",
+      "at": "Nếu"
+    },
+    {
+      "shot": "S35",
+      "at": "Nếu"
+    },
+    {
+      "shot": "S36",
+      "at": "Mình"
+    },
+    {
+      "shot": "S37",
+      "at": "Linh"
+    },
+    {
+      "shot": "S38",
+      "at": "Vậy"
+    },
+    {
+      "shot": "S39",
+      "at": "Ừ"
+    },
+    {
+      "shot": "S40",
+      "at": "Linh"
+    },
+    {
+      "shot": "S41",
+      "at": "Có"
+    },
+    {
+      "shot": "S42",
+      "at": "Có"
+    }
+  ],
+  "sound": {
+    "clips": {
+      "rain_porch_fs": [
+        "lib:rain_porch_fs",
+        20
+      ],
+      "rain_indoor_fs": [
+        "lib:rain_indoor_fs",
+        20
+      ],
+      "rain_tin_fs": [
+        "lib:rain_tin_fs",
+        20
+      ],
+      "flood_flow_fs": [
+        "lib:flood_flow_fs",
+        20
+      ],
+      "garden_flow_fs": [
+        "lib:garden_flow_fs",
+        20
+      ],
+      "lamp_flicker_fs": [
+        "lib:lamp_flicker_fs",
+        2
+      ],
+      "thunder_near_fs": [
+        "lib:thunder_near_fs",
+        8
+      ],
+      "thunder_far_fs": [
+        "lib:thunder_far_fs",
+        15
+      ],
+      "leaf_touch_fs": [
+        "lib:leaf_touch_fs",
+        6
+      ],
+      "wade_fs": [
+        "lib:wade_fs",
+        20
+      ],
+      "bag_drop_fs": [
+        "lib:bag_drop_fs",
+        2
+      ],
+      "seeds_fs": [
+        "lib:seeds_fs",
+        6
+      ],
+      "tape_fs": [
+        "lib:tape_fs",
+        5
+      ],
+      "pen_write_fs": [
+        "lib:pen_write_fs",
+        8
+      ],
+      "music_bed": [
+        "lib:mua_bed4",
+        110
+      ]
+    },
+    "events": [
+      [
+        "S1",
+        "rain_porch_fs",
+        0.6,
+        "onset",
+        "S5"
+      ],
+      [
+        "S1",
+        "flood_flow_fs",
+        0.25,
+        "onset",
+        "S3"
+      ],
+      [
+        "S3",
+        "garden_flow_fs",
+        0.3,
+        "onset",
+        "S5"
+      ],
+      [
+        "S5",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S18"
+      ],
+      [
+        "S5",
+        "garden_flow_fs",
+        0.12,
+        "onset",
+        "S18"
+      ],
+      [
+        "S18",
+        "rain_porch_fs",
+        0.6,
+        "onset",
+        "S19"
+      ],
+      [
+        "S18",
+        "garden_flow_fs",
+        0.3,
+        "onset",
+        "S19"
+      ],
+      [
+        "S19",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S20"
+      ],
+      [
+        "S20",
+        "rain_porch_fs",
+        0.65,
+        "onset",
+        "S23"
+      ],
+      [
+        "S20",
+        "flood_flow_fs",
+        0.25,
+        "onset",
+        "S23"
+      ],
+      [
+        "S21",
+        "wade_fs",
+        0.5,
+        "onset",
+        "S22"
+      ],
+      [
+        "S23",
+        "rain_porch_fs",
+        0.6,
+        "onset",
+        "S24"
+      ],
+      [
+        "S23",
+        "garden_flow_fs",
+        0.3,
+        "onset",
+        "S24"
+      ],
+      [
+        "S24",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S25"
+      ],
+      [
+        "S25",
+        "rain_tin_fs",
+        0.45,
+        "onset",
+        "S27"
+      ],
+      [
+        "S27",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S31"
+      ],
+      [
+        "S31",
+        "rain_porch_fs",
+        0.45,
+        "onset",
+        "S32"
+      ],
+      [
+        "S31",
+        "garden_flow_fs",
+        0.15,
+        "onset",
+        "S32"
+      ],
+      [
+        "S32",
+        "rain_indoor_fs",
+        0.5,
+        "onset",
+        "S41"
+      ],
+      [
+        "S41",
+        "rain_porch_fs",
+        0.65,
+        "onset",
+        null
+      ],
+      [
+        "S41",
+        "garden_flow_fs",
+        0.3,
+        "onset",
+        null
+      ],
+      [
+        "S40",
+        "pen_write_fs",
+        0.4,
+        "onset",
+        "S41"
+      ],
+      [
+        "S3+95",
+        "thunder_far_fs",
+        0.35
+      ],
+      [
+        "S20+56",
+        "thunder_far_fs",
+        0.3
+      ],
+      [
+        "S23+12",
+        "thunder_near_fs",
+        0.6
+      ],
+      [
+        "S41+53",
+        "thunder_far_fs",
+        0.35
+      ],
+      [
+        "S42+135",
+        "thunder_near_fs",
+        0.55
+      ],
+      [
+        "S5+66",
+        "lamp_flicker_fs",
+        0.45
+      ],
+      [
+        "S24+96",
+        "lamp_flicker_fs",
+        0.45
+      ],
+      [
+        "S31+45",
+        "lamp_flicker_fs",
+        0.28
+      ],
+      [
+        "S14+18",
+        "leaf_touch_fs",
+        1.0
+      ],
+      [
+        "S22",
+        "wade_fs",
+        0.4
+      ],
+      [
+        "S24+36",
+        "bag_drop_fs",
+        0.9
+      ],
+      [
+        "S36+8",
+        "seeds_fs",
+        1.0
+      ],
+      [
+        "S37+6",
+        "tape_fs",
+        1.1,
+        "onset",
+        "S38"
+      ]
+    ],
+    "music": {
+      "clip": "music_bed",
+      "from": "S2",
+      "until": "S42"
+    },
+    "levels": {
+      "sfx_lu": -13,
+      "music_lu": -15
+    }
+  }
+}

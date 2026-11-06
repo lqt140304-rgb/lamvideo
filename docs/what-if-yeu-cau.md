@@ -3,10 +3,10 @@
 Sửa hai mục dưới bằng Notepad (lưu dạng UTF-8) trước khi nhờ Claude Code làm tập mới.
 
 ## SLUG (tên tập, chữ thường không dấu, nối bằng gạch ngang)
-tua-lai-10-giay
+(điền tên tập)
 
 ## CHỦ ĐỀ hoặc KỊCH BẢN
-Nếu bạn có thể tua lại 10 giây thì sao?
+(điền ý tưởng)
 
 (Nếu đã có kịch bản ChatGPT viết theo Prompt W trong docs/WHAT-IF-QUY-TRINH.md thì dán nguyên kịch bản vào đây,
 thay cho dòng chủ đề. Chỉ có một dòng chủ đề thì Claude tự viết kịch bản theo công thức 7 nhịp.)
@@ -15,13 +15,36 @@ thay cho dòng chủ đề. Chỉ có một dòng chủ đề thì Claude tự v
 1. Đọc docs/WHAT-IF-QUY-TRINH.md và .claude/skills/what-if-animation/SKILL.md, rồi làm đúng 8 bước của skill.
 2. Việc làm trong thư mục what-if-studio. Chạy các bước qua tools\what-if.bat (voice, plan, stills, board, sfx,
    mixcheck, motiongrid, master). Bước 3 và 4 (renderer, tsc) chạy trong what-if-studio bằng npx.
-3. Giọng đọc: VieNeu, giọng "Hải Đăng" (engine vieneu). Không dùng ElevenLabs, không cần khóa API.
-4. Tiếng động: lấy từ library/sfx, ghi `lib:<tên>` trong episode.json. Không tạo tiếng mới.
+3. Giọng đọc: ElevenLabs gói Creator (engine mặc định). Khóa `ELEVENLABS_API_KEY` nằm trong `.env` ở gốc repo; không in,
+   không dán khóa vào chat. giọng dùng là giọng tự tạo trên ElevenLabs tên **"trung lê quốc"** (tra voice_id qua API theo tên, ghi vào `voice.id`); báo số credits dùng sau mỗi lần gọi.
+4. Tiếng động và nhạc (chủ kênh chốt 05/11/2026): tìm nguồn miễn phí trước, không tự tạo. Thứ tự: library/sfx có sẵn, rồi Freesound
+   (chỉ CC0; CC BY phải ghi nguồn; không dùng CC BY-NC), Pixabay (nhạc, tiếng động). Ghi tên, tác giả, link, giấy phép vào
+   `src/episodes/<slug>/nguon-am-thanh.md`, lưu file ở `library/sfx/<tên>-local.mp3`, gọi bằng `lib:<tên>`. Chỉ tạo bằng
+   ElevenLabs khi không tìm được và đã hỏi tôi. Giọng đọc vẫn dùng ElevenLabs.
+   Tập dài hơn 25 giây: nới độ dài theo kịch bản, vẫn giữ nhịp cắt cảnh của skill.
 5. Chữ trên hình bằng tiếng Việt có dấu (studio.config.ts đã đặt lang: 'vi').
 6. Nhân vật và câu chuyện phải gốc: không dùng nhân vật của kênh khác. Mọi con số khoa học phải có nguồn trong
    trường science của episode.json.
 7. Trước khi làm chuyển động: render storyboard (out/<slug>/storyboard.jpg), tự soi 11 điểm trong
    references/look.md, sửa lỗi, rồi DỪNG và cho tôi xem. Chờ tôi duyệt mới làm tiếp.
 8. Xong thì báo: độ dài, số cắt cảnh/phút, mức âm lượng (LUFS), đường dẫn file *-final.mp4, và những chỗ còn yếu.
+9. Commit và push lên nhánh hiện tại THƯỜNG XUYÊN, sau mỗi mốc việc (mỗi đợt sửa, trước khi gọi API tốn tiền,
+   trước khi render dài), để nếu hết hạn mức thì phiên sau vẫn làm tiếp được. Không commit `.env`/khóa.
+10. Đọc docs/WHAT-IF-KINH-NGHIEM.md trước khi làm. **Mỗi lần dựng hoặc sửa, ghi thêm kinh nghiệm rút ra vào file đó**
+    (lỗi gặp, cách sửa, mẹo) trước khi báo xong.
 9. Chỉ commit mã nguồn tập (what-if-studio/src/episodes/<slug>, what-if-studio/public/<slug>) lên nhánh hiện tại
    khi tôi bảo.
+
+## YÊU CẦU VỀ HÌNH (chủ kênh chốt 05/11/2026, áp dụng cho mọi tập)
+- **Làm ảnh tĩnh trước** (storyboard từng cảnh), tự soi và sửa lỗi, được duyệt rồi mới làm chuyển động.
+- **Chiều sâu và ánh sáng làm riêng cho từng cảnh**, mỗi cảnh một cách khác nhau: bóng đổ sâu hơn; đèn thật sự phát sáng
+  (có quầng, hắt sáng lên đồ vật và nhân vật); tay có ngón (không phải que); có đúng một cảnh cận cực đại.
+- **Góc máy đa dạng, không để hai cảnh liền nhau cùng góc/cỡ**: toàn cảnh, trung cảnh, cận; nhìn từ trên xuống; quay trái sang phải
+  (pan/trượt máy); nhìn từ vật thể về phía nhân vật; qua vai; **FOV của nhân vật (góc nhìn thứ nhất)**; tập trung vào nhân vật.
+- **Hiệu ứng giác quan** ở khâu chuyển động: dịch chiều sâu (parallax), lấy nét, quầng sáng đèn nhấp nháy, hạt bụi, rung máy khi nhấn mạnh.
+- **Nhân vật có chớp mắt** (chớp ngẫu nhiên theo hàm thời gian, không dùng Math.random).
+- **Đèn chớp chớp có âm thanh** (chủ kênh chốt 06/11/2026, phim mưa 100 ngày): đèn trong nhà chập chờn (`lampBlink` và `LampDim` trong `engine/sets/benlau.tsx`), cùng lúc phát tiếng `lamp_flicker_fs`. Mưa còn nhỏ thì ít lần (cảnh 3: 3 lần); mưa càng to thì chớp càng dày. Đặt vào chỗ ngắt hơi của lời đọc.
+- **Bàn tay cận cảnh** theo mẫu S16, S25 cảnh 3 (`engine/hands.tsx`).
+- **Góc máy tạo chiều sâu và cảm xúc** (chủ kênh chốt 06/11/2026, từ cảnh 5): vật tiền cảnh mờ (cột, mép tường, giọt mưa trên ống kính), máy rung cầm tay và khung nghiêng ở những giây căng thẳng (gió quật, xe bị chặn, đất sạt), tối viền ảnh khi nghẹt thở, máy đẩy chậm vào mặt ở câu thoại xúc động, lùi ra khi nhẹ nhõm. Helper `Tense`, `Vignette`, `LensRain`, `NearEdge` trong `mua-100-c05/shots.tsx`.
+- **Chữ trên hình** (chủ kênh chốt 05/11/2026): font Comic Sans, trắng, viết thường theo câu, đặt ngay trên cảnh (không nền đen). Tiêu đề to, hạ dần từ trên xuống, giữ một lúc rồi bay nhanh ngược lên (`TitleDrop`).
+- Câu lệnh tự soi của kênh: "Render every shot as an image. Look at each one like a viewer would. List what looks wrong, and fix it before you animate anything."

@@ -1,0 +1,733 @@
+{
+ "slug": "mua-100-c04",
+ "title": "Ngày 18 Quá nhiều nước",
+ "fps": 30,
+ "total": 3538,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 64,
+   "t0": 0,
+   "t1": 64,
+   "line": "Đến ngày thứ mười tám, nước trong hẻm đã"
+  },
+  {
+   "shot": "S2",
+   "a": 64,
+   "b": 104,
+   "t0": 0,
+   "t1": 40,
+   "line": "chạm mép hiên."
+  },
+  {
+   "shot": "S3",
+   "a": 104,
+   "b": 201,
+   "t0": 0,
+   "t1": 97,
+   "line": "Khoảng vườn thấp sau bếp ngập quá nửa ống chân người lớn,"
+  },
+  {
+   "shot": "S4",
+   "a": 201,
+   "b": 275,
+   "t0": 0,
+   "t1": 74,
+   "line": "những luống rau không còn nhìn rõ hàng."
+  },
+  {
+   "shot": "S5",
+   "a": 275,
+   "b": 357,
+   "t0": 0,
+   "t1": 82,
+   "line": "Nền bếp cao hơn vườn nên vẫn khô."
+  },
+  {
+   "shot": "S6",
+   "a": 357,
+   "b": 400,
+   "t0": 0,
+   "t1": 43,
+   "line": "Linh đứng bên trong, nhìn"
+  },
+  {
+   "shot": "S7",
+   "a": 400,
+   "b": 475,
+   "t0": 0,
+   "t1": 75,
+   "line": "chậu cây còn kê trên bậc cửa sau."
+  },
+  {
+   "shot": "S8",
+   "a": 475,
+   "b": 560,
+   "t0": 0,
+   "t1": 85,
+   "line": "Cô cầm bình tưới lên rồi lại đặt xuống."
+  },
+  {
+   "shot": "S9",
+   "a": 560,
+   "b": 606,
+   "t0": 0,
+   "t1": 46,
+   "line": "Chậu đã đầy nước.“"
+  },
+  {
+   "shot": "S10",
+   "a": 606,
+   "b": 747,
+   "t0": 0,
+   "t1": 141,
+   "line": "Sao có nước rồi mà nó vẫn héo hả bố? Hôm trước bố bảo cây đang khát mà.”“"
+  },
+  {
+   "shot": "S11",
+   "a": 747,
+   "b": 823,
+   "t0": 0,
+   "t1": 76,
+   "line": "Hôm trước đất khô nên nó cần nước."
+  },
+  {
+   "shot": "S12",
+   "a": 823,
+   "b": 876,
+   "t0": 0,
+   "t1": 53,
+   "line": "Nhưng giờ nước đọng lâu quá,"
+  },
+  {
+   "shot": "S13",
+   "a": 876,
+   "b": 929,
+   "t0": 0,
+   "t1": 53,
+   "line": "rễ không thở được con ạ.”"
+  },
+  {
+   "shot": "S14",
+   "a": 929,
+   "b": 995,
+   "t0": 0,
+   "t1": 66,
+   "line": "Linh sờ nhẹ chiếc lá vàng.“"
+  },
+  {
+   "shot": "S15",
+   "a": 995,
+   "b": 1122,
+   "t0": 0,
+   "t1": 127,
+   "line": "Con đã tưới nó suốt. Vậy mà bây giờ con chẳng giúp được gì.”"
+  },
+  {
+   "shot": "S16",
+   "a": 1122,
+   "b": 1188,
+   "t0": 0,
+   "t1": 66,
+   "line": "An đỡ chiếc bình khỏi tay con.“"
+  },
+  {
+   "shot": "S17",
+   "a": 1188,
+   "b": 1336,
+   "t0": 0,
+   "t1": 148,
+   "line": "Không phải tại con. Mưa ngập cả vườn, một mình con đâu có làm nước rút được."
+  },
+  {
+   "shot": "S18",
+   "a": 1336,
+   "b": 1436,
+   "t0": 0,
+   "t1": 100,
+   "line": "Mình để bình xuống đã, rồi xem còn giữ được gì nhé.”"
+  },
+  {
+   "shot": "S19",
+   "a": 1436,
+   "b": 1511,
+   "t0": 0,
+   "t1": 75,
+   "line": "Bó rau cuối cùng mua ở chợ đã hết."
+  },
+  {
+   "shot": "S20",
+   "a": 1511,
+   "b": 1576,
+   "t0": 0,
+   "t1": 65,
+   "line": "Sạp quen đóng cửa mấy hôm nay."
+  },
+  {
+   "shot": "S21",
+   "a": 1576,
+   "b": 1626,
+   "t0": 0,
+   "t1": 50,
+   "line": "An đi thêm một quãng, rồi"
+  },
+  {
+   "shot": "S22",
+   "a": 1626,
+   "b": 1690,
+   "t0": 0,
+   "t1": 64,
+   "line": "trở về với ít đồ hộp và một túi"
+  },
+  {
+   "shot": "S23",
+   "a": 1690,
+   "b": 1741,
+   "t0": 0,
+   "t1": 51,
+   "line": "gạo."
+  },
+  {
+   "shot": "S24",
+   "a": 1741,
+   "b": 1850,
+   "t0": 0,
+   "t1": 109,
+   "line": "Từ hôm đó, Hạnh bắt đầu xếp sẵn túi đồ gần cầu thang."
+  },
+  {
+   "shot": "S25",
+   "a": 1850,
+   "b": 1972,
+   "t0": 0,
+   "t1": 122,
+   "line": "Trong ngăn tủ khô trên gác có mấy gói hạt giống chị đã cất từ trước."
+  },
+  {
+   "shot": "S26",
+   "a": 1972,
+   "b": 2015,
+   "t0": 0,
+   "t1": 43,
+   "line": "Linh xin mang theo."
+  },
+  {
+   "shot": "S27",
+   "a": 2015,
+   "b": 2122,
+   "t0": 0,
+   "t1": 107,
+   "line": "Cô còn muốn mang cả những chậu cây, nhưng túi đã đầy."
+  },
+  {
+   "shot": "S28",
+   "a": 2122,
+   "b": 2174,
+   "t0": 0,
+   "t1": 52,
+   "line": "An đưa con chiếc hộp nhỏ.“"
+  },
+  {
+   "shot": "S29",
+   "a": 2174,
+   "b": 2244,
+   "t0": 0,
+   "t1": 70,
+   "line": "Mình giữ mấy gói hạt này khô trước đã.”“"
+  },
+  {
+   "shot": "S30",
+   "a": 2244,
+   "b": 2362,
+   "t0": 0,
+   "t1": 118,
+   "line": "Nhưng chậu cây thì sao? Mình đi rồi, nó ở lại một mình à?”"
+  },
+  {
+   "shot": "S31",
+   "a": 2362,
+   "b": 2474,
+   "t0": 0,
+   "t1": 112,
+   "line": "An nhìn chậu cây ngoài cửa. Anh im một lúc rồi đáp:“"
+  },
+  {
+   "shot": "S32",
+   "a": 2474,
+   "b": 2513,
+   "t0": 0,
+   "t1": 39,
+   "line": "Bố biết con tiếc."
+  },
+  {
+   "shot": "S33",
+   "a": 2513,
+   "b": 2687,
+   "t0": 0,
+   "t1": 174,
+   "line": "Nhưng mình không mang được hết, vì còn phải để chỗ cho nước, thuốc và đồ của cả nhà.”“"
+  },
+  {
+   "shot": "S34",
+   "a": 2687,
+   "b": 2768,
+   "t0": 0,
+   "t1": 81,
+   "line": "Nếu mình quay về, con còn trồng được nữa không?”“"
+  },
+  {
+   "shot": "S35",
+   "a": 2768,
+   "b": 2897,
+   "t0": 0,
+   "t1": 129,
+   "line": "Nếu hạt còn tốt và có chỗ đất phù hợp, bố sẽ trồng thử cùng con."
+  },
+  {
+   "shot": "S36",
+   "a": 2897,
+   "b": 3005,
+   "t0": 0,
+   "t1": 108,
+   "line": "Mình giữ lại một ít để dành, chứ không gieo hết một lần.”"
+  },
+  {
+   "shot": "S37",
+   "a": 3005,
+   "b": 3064,
+   "t0": 0,
+   "t1": 59,
+   "line": "Linh tự dán kín mép hộp.“"
+  },
+  {
+   "shot": "S38",
+   "a": 3064,
+   "b": 3178,
+   "t0": 0,
+   "t1": 114,
+   "line": "Vậy bố nhớ gọi con lúc trồng nhé. Con muốn tự làm.”“"
+  },
+  {
+   "shot": "S39",
+   "a": 3178,
+   "b": 3220,
+   "t0": 0,
+   "t1": 42,
+   "line": "Ừ, bố nhớ.”"
+  },
+  {
+   "shot": "S40",
+   "a": 3220,
+   "b": 3275,
+   "t0": 0,
+   "t1": 55,
+   "line": "Linh ghi tên từng loại hạt."
+  },
+  {
+   "shot": "S41",
+   "a": 3275,
+   "b": 3332,
+   "t0": 0,
+   "t1": 57,
+   "line": "Có những thứ cô phải bỏ lại."
+  },
+  {
+   "shot": "S42",
+   "a": 3332,
+   "b": 3538,
+   "t0": 0,
+   "t1": 206,
+   "line": "Có những thứ vẫn còn cơ hội, nếu sau này họ tìm được đất phù hợp để trồng."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "low wide",
+   "key": 40,
+   "len": 64,
+   "first": 0,
+   "line": "Đến ngày thứ mười tám, nước trong hẻm đã",
+   "note": "Nước hẻm chạm mép hiên"
+  },
+  {
+   "id": "S2",
+   "size": "close",
+   "key": 40,
+   "len": 40,
+   "first": 64,
+   "line": "chạm mép hiên.",
+   "note": "Nước liếm mép hiên"
+  },
+  {
+   "id": "S3",
+   "size": "top",
+   "key": 40,
+   "len": 97,
+   "first": 104,
+   "line": "Khoảng vườn thấp sau bếp ngập quá nửa ống chân người lớn,",
+   "note": "Vườn sau ngập, nhìn thẳng xuống; chớp"
+  },
+  {
+   "id": "S4",
+   "size": "low pan",
+   "key": 40,
+   "len": 74,
+   "first": 201,
+   "line": "những luống rau không còn nhìn rõ hàng.",
+   "note": "Ngọn rau nhô khỏi mặt nước"
+  },
+  {
+   "id": "S5",
+   "size": "wide",
+   "key": 40,
+   "len": 82,
+   "first": 275,
+   "line": "Nền bếp cao hơn vườn nên vẫn khô.",
+   "note": "Bếp khô, cửa sau nhìn ra vườn ngập"
+  },
+  {
+   "id": "S6",
+   "size": "over shoulder",
+   "key": 40,
+   "len": 43,
+   "first": 357,
+   "line": "Linh đứng bên trong, nhìn",
+   "note": "Qua vai Linh: chậu trên bậc cửa"
+  },
+  {
+   "id": "S7",
+   "size": "low",
+   "key": 40,
+   "len": 75,
+   "first": 400,
+   "line": "chậu cây còn kê trên bậc cửa sau.",
+   "note": "Từ cạnh chậu nhìn lên Linh"
+  },
+  {
+   "id": "S8",
+   "size": "medium",
+   "key": 40,
+   "len": 85,
+   "first": 475,
+   "line": "Cô cầm bình tưới lên rồi lại đặt xuống.",
+   "note": "Linh nhấc bình tưới rồi đặt xuống"
+  },
+  {
+   "id": "S9",
+   "size": "macro top",
+   "key": 40,
+   "len": 46,
+   "first": 560,
+   "line": "Chậu đã đầy nước.“",
+   "note": "Chậu đầy nước tới miệng"
+  },
+  {
+   "id": "S10",
+   "size": "close",
+   "key": 40,
+   "len": 141,
+   "first": 606,
+   "line": "Sao có nước rồi mà nó vẫn héo hả bố? Hôm trước bố bảo cây đang khát mà.”“",
+   "note": "Linh hỏi"
+  },
+  {
+   "id": "S11",
+   "size": "two-shot",
+   "key": 40,
+   "len": 76,
+   "first": 747,
+   "line": "Hôm trước đất khô nên nó cần nước.",
+   "note": "An trả lời"
+  },
+  {
+   "id": "S12",
+   "size": "close",
+   "key": 40,
+   "len": 53,
+   "first": 823,
+   "line": "Nhưng giờ nước đọng lâu quá,",
+   "note": "An"
+  },
+  {
+   "id": "S13",
+   "size": "macro side",
+   "key": 40,
+   "len": 53,
+   "first": 876,
+   "line": "rễ không thở được con ạ.”",
+   "note": "Nước tràn chậu, bọt khí"
+  },
+  {
+   "id": "S14",
+   "size": "close",
+   "key": 40,
+   "len": 66,
+   "first": 929,
+   "line": "Linh sờ nhẹ chiếc lá vàng.“",
+   "note": "Ngón tay chạm lá vàng"
+  },
+  {
+   "id": "S15",
+   "size": "close low",
+   "key": 40,
+   "len": 127,
+   "first": 995,
+   "line": "Con đã tưới nó suốt. Vậy mà bây giờ con chẳng giúp được gì.”",
+   "note": "Linh buồn"
+  },
+  {
+   "id": "S16",
+   "size": "medium",
+   "key": 40,
+   "len": 66,
+   "first": 1122,
+   "line": "An đỡ chiếc bình khỏi tay con.“",
+   "note": "An đỡ bình tưới khỏi tay con"
+  },
+  {
+   "id": "S17",
+   "size": "medium",
+   "key": 40,
+   "len": 148,
+   "first": 1188,
+   "line": "Không phải tại con. Mưa ngập cả vườn, một mình con đâu có làm nước rút được.",
+   "note": "An cúi xuống nói"
+  },
+  {
+   "id": "S18",
+   "size": "reverse wide",
+   "key": 40,
+   "len": 100,
+   "first": 1336,
+   "line": "Mình để bình xuống đã, rồi xem còn giữ được gì nhé.”",
+   "note": "Từ vườn: hai bố con ở cửa, bình trên bậc"
+  },
+  {
+   "id": "S19",
+   "size": "top",
+   "key": 40,
+   "len": 75,
+   "first": 1436,
+   "line": "Bó rau cuối cùng mua ở chợ đã hết.",
+   "note": "Rổ rau trống"
+  },
+  {
+   "id": "S20",
+   "size": "wide",
+   "key": 40,
+   "len": 65,
+   "first": 1511,
+   "line": "Sạp quen đóng cửa mấy hôm nay.",
+   "note": "Sạp đóng cửa; chớp"
+  },
+  {
+   "id": "S21",
+   "size": "wide",
+   "key": 40,
+   "len": 50,
+   "first": 1576,
+   "line": "An đi thêm một quãng, rồi",
+   "note": "An lội đi xa"
+  },
+  {
+   "id": "S22",
+   "size": "medium",
+   "key": 40,
+   "len": 64,
+   "first": 1626,
+   "line": "trở về với ít đồ hộp và một túi",
+   "note": "An về với gạo và đồ hộp"
+  },
+  {
+   "id": "S23",
+   "size": "hold",
+   "key": 40,
+   "len": 51,
+   "first": 1690,
+   "line": "gạo.",
+   "note": "Luống cao còn xanh"
+  },
+  {
+   "id": "S24",
+   "size": "wide",
+   "key": 40,
+   "len": 109,
+   "first": 1741,
+   "line": "Từ hôm đó, Hạnh bắt đầu xếp sẵn túi đồ gần cầu thang.",
+   "note": "Hạnh xếp túi cạnh cầu thang; đèn chớp"
+  },
+  {
+   "id": "S25",
+   "size": "top",
+   "key": 40,
+   "len": 122,
+   "first": 1850,
+   "line": "Trong ngăn tủ khô trên gác có mấy gói hạt giống chị đã cất từ trước.",
+   "note": "Ngăn tủ khô: gói hạt giống"
+  },
+  {
+   "id": "S26",
+   "size": "medium",
+   "key": 40,
+   "len": 43,
+   "first": 1972,
+   "line": "Linh xin mang theo.",
+   "note": "Linh xin mang hạt theo"
+  },
+  {
+   "id": "S27",
+   "size": "medium",
+   "key": 40,
+   "len": 107,
+   "first": 2015,
+   "line": "Cô còn muốn mang cả những chậu cây, nhưng túi đã đầy.",
+   "note": "Linh ôm chậu nhỏ cạnh túi đầy"
+  },
+  {
+   "id": "S28",
+   "size": "two-shot",
+   "key": 40,
+   "len": 52,
+   "first": 2122,
+   "line": "An đưa con chiếc hộp nhỏ.“",
+   "note": "An đưa hộp nhỏ"
+  },
+  {
+   "id": "S29",
+   "size": "close",
+   "key": 40,
+   "len": 70,
+   "first": 2174,
+   "line": "Mình giữ mấy gói hạt này khô trước đã.”“",
+   "note": "An"
+  },
+  {
+   "id": "S30",
+   "size": "over shoulder",
+   "key": 40,
+   "len": 118,
+   "first": 2244,
+   "line": "Nhưng chậu cây thì sao? Mình đi rồi, nó ở lại một mình à?”",
+   "note": "Linh lo cho chậu cây"
+  },
+  {
+   "id": "S31",
+   "size": "pov",
+   "key": 40,
+   "len": 112,
+   "first": 2362,
+   "line": "An nhìn chậu cây ngoài cửa. Anh im một lúc rồi đáp:“",
+   "note": "Mắt An: chậu ngoài cửa; đèn chớp"
+  },
+  {
+   "id": "S32",
+   "size": "close side",
+   "key": 40,
+   "len": 39,
+   "first": 2474,
+   "line": "Bố biết con tiếc.",
+   "note": "An cúi đầu rồi đáp"
+  },
+  {
+   "id": "S33",
+   "size": "insert",
+   "key": 40,
+   "len": 174,
+   "first": 2513,
+   "line": "Nhưng mình không mang được hết, vì còn phải để chỗ cho nước, thuốc và đồ của cả nhà.”“",
+   "note": "Túi đầy: nước, thuốc, quần áo"
+  },
+  {
+   "id": "S34",
+   "size": "close",
+   "key": 40,
+   "len": 81,
+   "first": 2687,
+   "line": "Nếu mình quay về, con còn trồng được nữa không?”“",
+   "note": "Linh hỏi"
+  },
+  {
+   "id": "S35",
+   "size": "medium",
+   "key": 40,
+   "len": 129,
+   "first": 2768,
+   "line": "Nếu hạt còn tốt và có chỗ đất phù hợp, bố sẽ trồng thử cùng con.",
+   "note": "An cúi xuống, hy vọng"
+  },
+  {
+   "id": "S36",
+   "size": "top",
+   "key": 40,
+   "len": 108,
+   "first": 2897,
+   "line": "Mình giữ lại một ít để dành, chứ không gieo hết một lần.”",
+   "note": "Giữ lại một ít hạt"
+  },
+  {
+   "id": "S37",
+   "size": "macro",
+   "key": 40,
+   "len": 59,
+   "first": 3005,
+   "line": "Linh tự dán kín mép hộp.“",
+   "note": "Hai tay dán băng dính"
+  },
+  {
+   "id": "S38",
+   "size": "close",
+   "key": 40,
+   "len": 114,
+   "first": 3064,
+   "line": "Vậy bố nhớ gọi con lúc trồng nhé. Con muốn tự làm.”“",
+   "note": "Linh dặn bố"
+  },
+  {
+   "id": "S39",
+   "size": "two-shot",
+   "key": 40,
+   "len": 42,
+   "first": 3178,
+   "line": "Ừ, bố nhớ.”",
+   "note": "An gật đầu"
+  },
+  {
+   "id": "S40",
+   "size": "top",
+   "key": 40,
+   "len": 55,
+   "first": 3220,
+   "line": "Linh ghi tên từng loại hạt.",
+   "note": "Linh viết tên hạt"
+  },
+  {
+   "id": "S41",
+   "size": "wide",
+   "key": 40,
+   "len": 57,
+   "first": 3275,
+   "line": "Có những thứ cô phải bỏ lại.",
+   "note": "Chậu bỏ lại ngoài mưa; chớp"
+  },
+  {
+   "id": "S42",
+   "size": "medium",
+   "key": 40,
+   "len": 206,
+   "first": 3332,
+   "line": "Có những thứ vẫn còn cơ hội, nếu sau này họ tìm được đất phù hợp để trồng.",
+   "note": "Linh đặt bình tưới xuống, chỉ còn mưa"
+  }
+ ],
+ "fx": [],
+ "audio": {
+  "voice": "mua-100-c04/voice.wav",
+  "sfx": "mua-100-c04/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.1812,
+  "music": "mua-100-c04/music.wav",
+  "musicVol": 0.0898
+ }
+}

@@ -5,7 +5,13 @@ description: Make a "What If" animated episode from one topic line ("What if you
 
 # What If animation
 
-> **Bản miễn phí, tiếng Việt (bản sửa cho kênh lamvideo).** Mặc định không cần ElevenLabs:
+> **Cập nhật 05/11/2026: kênh dùng ElevenLabs gói Creator làm mặc định** (giọng đọc có mốc từng chữ, tiếng động tạo mới),
+> khung ngang 16:9, tập có thể dài hơn 25 giây (nới mục tiêu độ dài theo kịch bản). Khóa `ELEVENLABS_API_KEY` để trong
+> file `.env` ở gốc repo (đã nằm trong .gitignore), không dán vào chat. Chọn giọng bằng `"voice": {"id": "<voice_id>"}`
+> trong `episode.json`; nghe thử giọng tiếng Việt trước khi chốt.
+> Phần dưới mô tả chế độ miễn phí cũ, vẫn dùng được bằng `"voice": {"engine": "vieneu"}`.
+>
+> **Chế độ miễn phí, tiếng Việt (bản sửa cho kênh lamvideo).** Không cần ElevenLabs:
 > giọng đọc = **VieNeu-TTS** (miễn phí, chạy offline trên máy; hoặc `edge` = giọng Microsoft Edge miễn phí, cần mạng,
 > hoặc `file` = tự thu âm), mốc thời gian từng chữ = từng câu tạo riêng + **faster-whisper** đọc lại audio,
 > tiếng động = thư viện `library/sfx/` có sẵn (không tạo mới). Chữ trên hình dùng font có dấu tiếng Việt
@@ -49,6 +55,9 @@ schematic for the science beat, a cliffhanger blackout). Read the one closest to
   when you hand the episode over. The copy-paste run cost 152 credits (78 for the voice, 74 for 12 new clips).
 - **Storyboard before animation.** No video render until the stills pass the self-check (step 5) and, when the person
   is in the loop, they've seen the board.
+- **Write down what you learn.** Read `docs/WHAT-IF-KINH-NGHIEM.md` (Vietnamese lessons log) before starting, and
+  add to it every time you build or fix an episode: errors met, fixes, shortcuts, newest first. Do it before you
+  report the work as done.
 - **Every fact is real.** A number in the script is worked out and sourced in the episode's `science` field first.
 
 ## Setup (once per machine)
@@ -184,8 +193,18 @@ python <skill>/scripts/master.py <slug>
 ```
 
 Renders, brings the mix to -14 LUFS with peaks under -1 dBTP, and writes `out/<slug>/report.json` (length, loudness,
-pace, credits). Watch the final file once through with sound. Hand over `out/<slug>/<slug>-final.mp4` and
-`out/<slug>/storyboard.jpg`, with the length, the ElevenLabs credits used, and anything you'd still improve.
+pace, credits). Watch the final file once through with sound, then review it frame by frame:
+
+```bash
+python <skill>/scripts/review.py <slug>
+```
+
+It writes `out/<slug>/review/review01.jpg ...` (start, middle and end frame of every segment, with the words spoken
+over it) and prints the words per segment. Read every page: the board stills only show key frames, and the first full
+film of a long episode had 17 faults they hid (early cuts, eyes open in a sleep shot, a phone floating by a head).
+Fix, re-render, review again. Hand over `out/<slug>/<slug>-final.mp4` and `out/<slug>/storyboard.jpg`, with the
+length, the ElevenLabs credits used, and anything you'd still improve; write the episode's state in
+`src/episodes/<slug>/README.md` and the lessons in `docs/WHAT-IF-KINH-NGHIEM.md`, then commit and push.
 
 ## Where an episode lives
 

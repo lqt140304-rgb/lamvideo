@@ -1,0 +1,410 @@
+{
+ "slug": "mua-100-c02",
+ "title": "Ngày 3 Quần áo chưa kịp khô",
+ "fps": 30,
+ "total": 2309,
+ "segments": [
+  {
+   "shot": "S1",
+   "a": 0,
+   "b": 35,
+   "t0": 0,
+   "t1": 35,
+   "line": "Sang ngày thứ ba,"
+  },
+  {
+   "shot": "S2",
+   "a": 35,
+   "b": 126,
+   "t0": 0,
+   "t1": 91,
+   "line": "An và Linh vẫn ngồi ở bộ bàn ghế gần cửa."
+  },
+  {
+   "shot": "S3",
+   "a": 126,
+   "b": 182,
+   "t0": 0,
+   "t1": 56,
+   "line": "Cốc trà trên bàn còn ấm, nhưng"
+  },
+  {
+   "shot": "S4",
+   "a": 182,
+   "b": 285,
+   "t0": 0,
+   "t1": 103,
+   "line": "quần áo phơi dọc mái hiên thì chưa có cái nào khô."
+  },
+  {
+   "shot": "S5",
+   "a": 285,
+   "b": 367,
+   "t0": 0,
+   "t1": 82,
+   "line": "Hạnh chuyển chiếc quạt ra hong đồng phục cho con."
+  },
+  {
+   "shot": "S6",
+   "a": 367,
+   "b": 447,
+   "t0": 0,
+   "t1": 80,
+   "line": "Mùi áo ẩm bắt đầu lẫn vào mùi trà."
+  },
+  {
+   "shot": "S7",
+   "a": 447,
+   "b": 590,
+   "t0": 0,
+   "t1": 143,
+   "line": "Bản tin nói những đợt mưa nối tiếp nhau, liên tục đưa hơi ẩm về vùng này."
+  },
+  {
+   "shot": "S8",
+   "a": 590,
+   "b": 675,
+   "t0": 0,
+   "t1": 85,
+   "line": "Cơn trước chưa qua, cơn sau đã tới."
+  },
+  {
+   "shot": "S9",
+   "a": 675,
+   "b": 722,
+   "t0": 0,
+   "t1": 47,
+   "line": "An vặn nhỏ radio,"
+  },
+  {
+   "shot": "S10",
+   "a": 722,
+   "b": 802,
+   "t0": 0,
+   "t1": 80,
+   "line": "chuyển đôi giày của con lên chiếc kệ cao hơn."
+  },
+  {
+   "shot": "S11",
+   "a": 802,
+   "b": 1031,
+   "t0": 0,
+   "t1": 229,
+   "line": "Hạnh cầm chiếc áo đồng phục còn ẩm.“ Nếu mai vẫn chưa khô thì con mặc áo khác nhé. Mặc áo ẩm ngồi cả buổi khó chịu lắm.”"
+  },
+  {
+   "shot": "S12",
+   "a": 1031,
+   "b": 1133,
+   "t0": 0,
+   "t1": 102,
+   "line": "Linh nhìn bố:“ Nhưng mai con có đi học được không?”“"
+  },
+  {
+   "shot": "S13",
+   "a": 1133,
+   "b": 1310,
+   "t0": 0,
+   "t1": 177,
+   "line": "Bố chưa biết. Mình chờ cô báo đường có đi được không đã. Nếu nghỉ, bố giúp con làm nốt bài ở nhà.”“"
+  },
+  {
+   "shot": "S14",
+   "a": 1310,
+   "b": 1455,
+   "t0": 0,
+   "t1": 145,
+   "line": "Bố nhớ đừng giải nhanh quá. Hôm trước con chưa kịp hiểu mà bố đã sang câu khác rồi.”“"
+  },
+  {
+   "shot": "S15",
+   "a": 1455,
+   "b": 1540,
+   "t0": 0,
+   "t1": 85,
+   "line": "Ừ, lần này con hiểu rồi bố mới sang câu khác.”"
+  },
+  {
+   "shot": "S16",
+   "a": 1540,
+   "b": 1599,
+   "t0": 0,
+   "t1": 59,
+   "line": ""
+  },
+  {
+   "shot": "S17",
+   "a": 1599,
+   "b": 1708,
+   "t0": 0,
+   "t1": 109,
+   "line": "Tối ấy, nước trong hẻm đọng sâu chừng một gang tay nhỏ."
+  },
+  {
+   "shot": "S18",
+   "a": 1708,
+   "b": 1836,
+   "t0": 0,
+   "t1": 128,
+   "line": "Trước quầy bà Sáu, nó đã ngập hết chân chiếc ghế thấp bà dùng kê hàng."
+  },
+  {
+   "shot": "S19",
+   "a": 1836,
+   "b": 1896,
+   "t0": 0,
+   "t1": 60,
+   "line": "Nước chưa tới hiên nhà An."
+  },
+  {
+   "shot": "S20",
+   "a": 1896,
+   "b": 2004,
+   "t0": 0,
+   "t1": 108,
+   "line": "Trong bếp, Hạnh đặt một chiếc chậu dưới chỗ mái bắt đầu dột."
+  },
+  {
+   "shot": "S21",
+   "a": 2004,
+   "b": 2113,
+   "t0": 0,
+   "t1": 109,
+   "line": "Anh vừa lau khô bậc cửa thì một đợt mưa mới lại bắt đầu."
+  },
+  {
+   "shot": "S22",
+   "a": 2113,
+   "b": 2173,
+   "t0": 0,
+   "t1": 60,
+   "line": "Linh kéo chiếc ghế nhỏ vào trong."
+  },
+  {
+   "shot": "S23",
+   "a": 2173,
+   "b": 2309,
+   "t0": 0,
+   "t1": 136,
+   "line": "Lần này, cô không chìa tay ra hứng nước nữa."
+  }
+ ],
+ "shots": [
+  {
+   "id": "S1",
+   "size": "close-up",
+   "key": 20,
+   "len": 35,
+   "first": 0,
+   "line": "Sang ngày thứ ba,",
+   "note": "Tờ lịch số 3"
+  },
+  {
+   "id": "S2",
+   "size": "wide interior",
+   "key": 40,
+   "len": 91,
+   "first": 35,
+   "line": "An và Linh vẫn ngồi ở bộ bàn ghế gần cửa.",
+   "note": "An và Linh vẫn ngồi ở bộ bàn ghế gần cửa"
+  },
+  {
+   "id": "S3",
+   "size": "macro",
+   "key": 30,
+   "len": 56,
+   "first": 126,
+   "line": "Cốc trà trên bàn còn ấm, nhưng",
+   "note": "Cốc trà còn ấm"
+  },
+  {
+   "id": "S4",
+   "size": "low along the line",
+   "key": 40,
+   "len": 103,
+   "first": 182,
+   "line": "quần áo phơi dọc mái hiên thì chưa có cái nào khô.",
+   "note": "Từ dưới dọc dây phơi: áo chưa khô, giọt nước, mưa"
+  },
+  {
+   "id": "S5",
+   "size": "medium",
+   "key": 40,
+   "len": 82,
+   "first": 285,
+   "line": "Hạnh chuyển chiếc quạt ra hong đồng phục cho con.",
+   "note": "Hạnh đặt quạt hong đồng phục"
+  },
+  {
+   "id": "S6",
+   "size": "close",
+   "key": 30,
+   "len": 80,
+   "first": 367,
+   "line": "Mùi áo ẩm bắt đầu lẫn vào mùi trà.",
+   "note": "Áo lay trong gió quạt, mùi áo ẩm lẫn mùi trà"
+  },
+  {
+   "id": "S7",
+   "size": "macro pan",
+   "key": 60,
+   "len": 143,
+   "first": 447,
+   "line": "Bản tin nói những đợt mưa nối tiếp nhau, liên tục đưa hơi ẩm về vùng này.",
+   "note": "Radio đọc bản tin"
+  },
+  {
+   "id": "S8",
+   "size": "extreme wide pan R>L",
+   "key": 40,
+   "len": 85,
+   "first": 590,
+   "line": "Cơn trước chưa qua, cơn sau đã tới.",
+   "note": "Một dải mưa mới đi qua thị trấn"
+  },
+  {
+   "id": "S9",
+   "size": "extreme close",
+   "key": 26,
+   "len": 47,
+   "first": 675,
+   "line": "An vặn nhỏ radio,",
+   "note": "Ngón tay An vặn nhỏ radio"
+  },
+  {
+   "id": "S10",
+   "size": "from object, low",
+   "key": 50,
+   "len": 80,
+   "first": 722,
+   "line": "chuyển đôi giày của con lên chiếc kệ cao hơn.",
+   "note": "Từ chỗ đôi giày nhìn lên: An nhấc giày lên kệ cao"
+  },
+  {
+   "id": "S11",
+   "size": "medium",
+   "key": 120,
+   "len": 229,
+   "first": 802,
+   "line": "Hạnh cầm chiếc áo đồng phục còn ẩm.“ Nếu mai vẫn chưa khô thì con mặc áo khác nhé. Mặc áo ẩm ngồi cả buổi khó chịu lắm.”",
+   "note": "Hạnh cầm áo còn ẩm, dặn con"
+  },
+  {
+   "id": "S12",
+   "size": "close",
+   "key": 30,
+   "len": 102,
+   "first": 1031,
+   "line": "Linh nhìn bố:“ Nhưng mai con có đi học được không?”“",
+   "note": "Linh quay sang bố"
+  },
+  {
+   "id": "S13",
+   "size": "over shoulder",
+   "key": 60,
+   "len": 177,
+   "first": 1133,
+   "line": "Bố chưa biết. Mình chờ cô báo đường có đi được không đã. Nếu nghỉ, bố giúp con làm nốt bài ở nhà.”“",
+   "note": "Qua vai Linh: An trả lời thật"
+  },
+  {
+   "id": "S14",
+   "size": "table height",
+   "key": 60,
+   "len": 145,
+   "first": 1310,
+   "line": "Bố nhớ đừng giải nhanh quá. Hôm trước con chưa kịp hiểu mà bố đã sang câu khác rồi.”“",
+   "note": "Ngang mặt bàn, qua ấm trà và quyển vở: Linh trêu bố"
+  },
+  {
+   "id": "S15",
+   "size": "side two-shot",
+   "key": 40,
+   "len": 85,
+   "first": 1455,
+   "line": "Ừ, lần này con hiểu rồi bố mới sang câu khác.”",
+   "note": "Ngang người hai bố con qua bàn thấp, cửa xám sau lưng"
+  },
+  {
+   "id": "S16",
+   "size": "POV hold",
+   "key": 30,
+   "len": 59,
+   "first": 1540,
+   "line": "",
+   "note": "An nhìn ra: áo vẫn chưa khô. Giữ qua nhịp nghỉ"
+  },
+  {
+   "id": "S17",
+   "size": "high wide dusk",
+   "key": 50,
+   "len": 109,
+   "first": 1599,
+   "line": "Tối ấy, nước trong hẻm đọng sâu chừng một gang tay nhỏ.",
+   "note": "Chiều tối, nước đọng khắp hẻm, đèn soi xuống nước"
+  },
+  {
+   "id": "S18",
+   "size": "close water level",
+   "key": 50,
+   "len": 128,
+   "first": 1708,
+   "line": "Trước quầy bà Sáu, nó đã ngập hết chân chiếc ghế thấp bà dùng kê hàng.",
+   "note": "Ghế thấp của bà Sáu ngập hết chân"
+  },
+  {
+   "id": "S19",
+   "size": "low from yard",
+   "key": 30,
+   "len": 60,
+   "first": 1836,
+   "line": "Nước chưa tới hiên nhà An.",
+   "note": "Nước dừng dưới hiên nhà An"
+  },
+  {
+   "id": "S20",
+   "size": "medium",
+   "key": 40,
+   "len": 108,
+   "first": 1896,
+   "line": "Trong bếp, Hạnh đặt một chiếc chậu dưới chỗ mái bắt đầu dột.",
+   "note": "Giọt dột mới, Hạnh đẩy chậu vào hứng"
+  },
+  {
+   "id": "S21",
+   "size": "low close",
+   "key": 30,
+   "len": 109,
+   "first": 2004,
+   "line": "Anh vừa lau khô bậc cửa thì một đợt mưa mới lại bắt đầu.",
+   "note": "An lau bậc cửa, mưa lại nặng hạt, ngẩng lên"
+  },
+  {
+   "id": "S22",
+   "size": "wide from inside",
+   "key": 22,
+   "len": 60,
+   "first": 2113,
+   "line": "Linh kéo chiếc ghế nhỏ vào trong.",
+   "note": "Từ trong nhà: Linh kéo ghế nhỏ vào"
+  },
+  {
+   "id": "S23",
+   "size": "behind character hold",
+   "key": 60,
+   "len": 136,
+   "first": 2173,
+   "line": "Lần này, cô không chìa tay ra hứng nước nữa.",
+   "note": "Sau lưng Linh ở cửa: mưa rất gần, hai tay buông. Giữ tới hết"
+  }
+ ],
+ "fx": [],
+ "audio": {
+  "voice": "mua-100-c02/voice.wav",
+  "sfx": "mua-100-c02/sfx.wav",
+  "voiceVol": 0.8,
+  "sfxVol": 0.1239,
+  "music": "mua-100-c02/music.wav",
+  "musicVol": 0.0898
+ }
+}

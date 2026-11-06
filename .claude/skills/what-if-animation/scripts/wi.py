@@ -14,6 +14,10 @@ import numpy as np
 SR = 44100
 sys.stdout.reconfigure(encoding='utf-8')
 STUDIO = pathlib.Path.cwd()
+# shortcut: this machine's C: is nearly full, so renders' temp files (Remotion bundles, frames) go on D:. Elsewhere it does nothing.
+if os.name == 'nt' and os.path.isdir('D:\\'):
+    os.makedirs(r'D:\lamvideo-cache\tmp', exist_ok=True)
+    os.environ['TEMP'] = os.environ['TMP'] = r'D:\lamvideo-cache\tmp'
 if not (STUDIO / 'src' / 'episodes').exists():
     raise SystemExit('Run this from the studio folder (the one with src/episodes and package.json).')
 LIB = STUDIO / 'library' / 'sfx'
@@ -32,6 +36,16 @@ def pub_dir(slug):
 
 def out_dir(slug):
     d = STUDIO / 'out' / slug
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def export_dir(slug):
+    """Each episode's own folder for the finished files, on this machine and outside the repo (videos never go to
+    git, and out/ inside a worktree disappears when the worktree is cleaned up). WHATIF_EXPORT_DIR overrides the
+    root; the default is <drive>/lamvideo-xuat/what-if, e.g. D:/lamvideo-xuat/what-if/<slug>."""
+    root = os.environ.get('WHATIF_EXPORT_DIR') or str(pathlib.Path(STUDIO.anchor) / 'lamvideo-xuat' / 'what-if')
+    d = pathlib.Path(root) / slug
     d.mkdir(parents=True, exist_ok=True)
     return d
 
@@ -183,6 +197,33 @@ def resolve(cue, words, fps, segments=None, shot_ids=()):
 
 
 # ---------------------------------------------------------------- audio
+def apply_pads(y, words, pads):
+    """episode.json "pads": {"last|first": seconds, "^|first": seconds} makes the pause between two words at least that
+    long by inserting silence (the gap tightening only ever shortens a pause). Shared by every voice engine.
+    Shifts `words` in place; returns (audio, seconds added)."""
+    bare = lambda w: re.sub(r'[^\w]', '', w)
+    added = 0.0
+    for key, secs in (pads or {}).items():
+        a_w, _, b_w = key.partition('|')
+        for i in range(-1, len(words) - 1):
+            if (i == -1 and a_w != '^') or (i >= 0 and bare(words[i]['w']) != a_w) or bare(words[i + 1]['w']) != b_w:
+                continue
+            t0 = words[i]['e'] if i >= 0 else 0.0
+            gap = words[i + 1]['s'] - t0
+            need = secs - gap
+            if need <= 0:
+                continue
+            at = t0 + (gap / 2 if i >= 0 else 0.0)
+            k = int(at * SR)
+            y = np.concatenate([y[:k], np.zeros(int(need * SR), dtype=y.dtype), y[k:]])
+            for w in words:
+                if w['s'] >= at - 1e-6:
+                    w['s'] = round(w['s'] + need, 3)
+                    w['e'] = round(w['e'] + need, 3)
+            added += need
+    return y, added
+
+
 def decode(path):
     """Any audio file to mono float64 at 44.1 kHz."""
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(path), '-f', 'f32le', '-ac', '1', '-ar', str(SR), '-'], capture_output=True, check=True).stdout

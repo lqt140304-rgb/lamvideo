@@ -110,13 +110,25 @@ def onset(x, mode):
     return int(np.argmax(sm)) if mode == 'peak' else int(np.argmax(sm > 0.2 * sm.max()))
 
 
+def loop_fill(x, n, xf_s=0.4):
+    """Repeat a short clip (an ambience, the music bed) to n samples, cross-fading each join."""
+    xf = int(xf_s * SR)
+    if len(x) >= n or len(x) <= 2 * xf:
+        return x
+    out = x.copy()
+    w = np.linspace(0, 1, xf)
+    while len(out) < n:
+        out = np.concatenate([out[:-xf], out[-xf:] * (1 - w) + x[:xf] * w, x[xf:]])
+    return out
+
+
 def put(buf, frame, x, gain, align='onset', cut=None):
     i = int(frame / FPS * SR) - onset(x, align)
     if i < 0:
         x, i = x[-i:], 0
     if cut is not None:
         n = max(0, int(cut / FPS * SR) - i)
-        x = x[:n].copy()
+        x = loop_fill(x, n)[:n].copy()  # a clip with an "until" that is shorter than the span loops (ambiences)
         f = min(len(x), int(0.08 * SR))
         if f:
             x[-f:] *= np.linspace(1, 0, f)
@@ -147,7 +159,14 @@ music = np.zeros(int(DUR * SR))
 M = S.get('music')
 if M:
     m = clips[M['clip']]
+    if M.get('rate'):  # slower and lower: a playful bed turned into a calm one
+        m = np.interp(np.arange(0, len(m), M['rate']), np.arange(len(m)), m)
+    if M.get('soft'):  # a moving average takes the sparkle off the top
+        m = np.convolve(m, np.ones(M['soft']) / M['soft'], mode='same')
+        m = m / max(1e-9, np.abs(m).max())
     m0 = int(cue(M['from']) / FPS * SR) if M.get('from') else 0
+    m_end = int(cue(M['until']) / FPS * SR) if M.get('until') else len(music)
+    m = loop_fill(m, max(0, min(len(music), m_end) - m0), 0.8)
     n = min(len(music) - m0, len(m))
     music[m0:m0 + n] = m[:n]
     for seg_look in M.get('reverse_looks', []):
@@ -162,6 +181,14 @@ if M:
             i, j = int(a / FPS * SR), int(b / FPS * SR)
             seg = music[max(0, i - 2 * (j - i)): i][::-2][: j - i]  # what just played, backwards at double speed
             music[i: i + len(seg)] = seg * 0.55
+    for a, b in M.get('dips', []):  # [from, to] cues where the bed drops away (a held breath, a mother's question)
+        ia, ib = int(cue(a) / FPS * SR), int(cue(b) / FPS * SR)
+        r = int(0.35 * SR)
+        env = np.ones(len(music))
+        env[ia:ib] = 0.04
+        env[max(0, ia - r):ia] = np.linspace(1, 0.04, min(r, ia))
+        env[ib:ib + r] = np.linspace(0.04, 1, len(env[ib:ib + r]))
+        music *= env
     if M.get('until'):
         end = int(cue(M['until']) / FPS * SR)
         f = int(0.03 * SR)

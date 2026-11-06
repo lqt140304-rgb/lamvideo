@@ -7,23 +7,37 @@ Writes public/<slug>/voice_raw.mp3, public/<slug>/voice.wav (tightened), src/epi
 The API is only called when the text or the voice settings change (cached by a hash), so re-running to retune the
 gaps is free.
 
-episode.json "voice" (all optional): {"id": "TX3LPaxmHKxFdv7VOQHJ", "model": "eleven_multilingual_v2",
-  "settings": {"stability": 0.4, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": true}}
+episode.json "voice" (all optional): {"id": "HXqqNj3PDxRdHVH1pXog", "model": "eleven_v4", "lang": "vi", "settings": {}}
+  Trung Lê Quốc on Eleven v4 (multilingual_v2 doesn't list Vietnamese). Empty settings use the voice's own; v4 takes only
+  stability and similarity_boost. Audio tags like [warmly] go to the model but never become words.
 episode.json "gaps" (seconds, all optional): {"word": 0.12, "comma": 0.2, "sentence": 0.3, "question": 0.45,
   "pairs": {"anything|One": 0.6}}  -> every pause longer than its limit is cut to the limit, from its middle.
 """
-import base64, hashlib, json, re, sys, time
+import base64, hashlib, json, re, sys, time, unicodedata
 
 import numpy as np
 
-from wi import SR, api, spent_since, decode, ep_dir, load_episode, load_json, log_cost, out_dir, pub_dir, save_json, write_wav
+from wi import SR, api, apply_pads, spent_since, decode, ep_dir, load_episode, load_json, log_cost, out_dir, pub_dir, save_json, write_wav
+
+if sys.argv[1] == '--find':
+    # python voice_elevenlabs.py --find "Viết Linh": the voice's id, from your own voices and the shared library
+    import urllib.parse
+    q = sys.argv[2]
+    mine = json.loads(api('/v1/voices'))['voices']
+    for v in mine:
+        if q.lower() in v['name'].lower():
+            print(f"yours   {v['voice_id']}  {v['name']}")
+    shared = json.loads(api('/v1/shared-voices?page_size=20&search=' + urllib.parse.quote(q)))['voices']
+    for v in shared:
+        print(f"library {v['voice_id']}  {v['name']}  ({v.get('language', '')}, {v.get('accent', '')})")
+    sys.exit(0)
 
 slug = sys.argv[1]
 force = '--force' in sys.argv
 ep = load_episode(slug)
-V = {'id': 'TX3LPaxmHKxFdv7VOQHJ', 'model': 'eleven_multilingual_v2', 'settings': {'stability': 0.4, 'similarity_boost': 0.8, 'style': 0.35, 'use_speaker_boost': True}}
+V = {'id': 'HXqqNj3PDxRdHVH1pXog', 'model': 'eleven_v4', 'lang': 'vi', 'settings': {}}
 V.update(ep.get('voice', {}))
-text = ' '.join(b['text'].strip() for b in ep['script'])
+text = unicodedata.normalize('NFC', ' '.join(b['text'].strip() for b in ep['script']))
 sig = hashlib.sha1(json.dumps([text, V], sort_keys=True).encode()).hexdigest()[:12]
 raw_mp3 = pub_dir(slug) / 'voice_raw.mp3'
 raw_words = out_dir(slug) / 'words_raw.json'
@@ -32,11 +46,21 @@ meta = load_json(out_dir(slug) / 'voice_meta.json', {})
 if force or meta.get('sig') != sig or not raw_mp3.exists() or not raw_words.exists():
     print(f'{len(text)} characters to ElevenLabs (voice {V["id"]})')
     t0 = time.time()
-    res = json.loads(api(f'/v1/text-to-speech/{V["id"]}/with-timestamps?output_format=mp3_44100_128', {'text': text, 'model_id': V['model'], 'voice_settings': V['settings']}))
+    body = {'text': text, 'model_id': V['model']}
+    if V['settings']:
+        body['voice_settings'] = V['settings']
+    if V.get('lang') or V.get('language'):
+        body['language_code'] = V.get('lang') or V.get('language')
+    res = json.loads(api(f'/v1/text-to-speech/{V["id"]}/with-timestamps?output_format=mp3_44100_128', body))
     raw_mp3.write_bytes(base64.b64decode(res['audio_base64']))
     al = res['alignment']
-    words, cur = [], None
+    words, cur, in_tag = [], None, False
     for ch, s, e in zip(al['characters'], al['character_start_times_seconds'], al['character_end_times_seconds']):
+        if ch == '[':
+            in_tag = True
+        if in_tag:  # an audio tag is direction for the model, not a word
+            in_tag = ch != ']'
+            continue
         if re.match(r"[\w'’]", ch):
             if cur is None:
                 cur = {'w': '', 's': s, 'e': e, 'p': ''}
@@ -102,7 +126,6 @@ for i, part in enumerate(parts):
         part[-fade:] *= np.linspace(1, 0, fade)
     parts[i] = part
 y = np.concatenate(parts)
-write_wav(pub_dir(slug) / 'voice.wav', y)
 
 
 def shift(t):
@@ -110,6 +133,10 @@ def shift(t):
 
 
 out = [{'w': w['w'], 's': round(shift(w['s']), 3), 'e': round(shift(w['e']), 3), 'p': w.get('p', '')} for w in words]
+y, padded = apply_pads(y, out, ep.get('pads'))  # same "pads" as the free engines, so the edit keeps its breathing room
+write_wav(pub_dir(slug) / 'voice.wav', y)
 save_json(ep_dir(slug) / 'words.json', out)
+if padded:
+    print(f'Padded pauses: +{padded:.2f} s')
 print(f'Tightened {len(cuts)} pauses, removed {sum(e - s for s, e in cuts):.2f} s: {len(x) / SR:.2f} s -> {len(y) / SR:.2f} s')
 print(' '.join(f"{w['w']}@{w['s']}" for w in out))
