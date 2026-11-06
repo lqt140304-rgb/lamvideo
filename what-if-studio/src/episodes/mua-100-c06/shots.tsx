@@ -5,7 +5,7 @@ import {
 import { OpenHand } from '../../engine/hands';
 import { LEG_LEN } from '../../engine/rig';
 import { P, talkAt, Back } from '../mua-100-c01/shots';
-import { Flood, Duffel, Bundle, sit } from '../mua-100-c03/shots';
+import { Flood, Duffel, Bundle, sit, ChairFor } from '../mua-100-c03/shots';
 import { Tense, Vignette, LensRain, NearEdge, Van, School, SH, Shelter } from '../mua-100-c05/shots';
 
 // Cảnh 6 — Ngày 40: Nước khắp nơi, thiếu nước sạch. Weeks at the school on its high ground (+2,0 m, dry yard). Down in
@@ -43,7 +43,7 @@ const Room: React.FC<{ t: number; id: string }> = ({ t, id }) => {
 const onMat = (u: number, w: number, k = 1) => {
   const s = stand(SH, u, w);
   const sc = s.scale * k;
-  return { x: s.x, y: SH.P(u, 1, w).y - 70 * sc, scale: sc };
+  return { x: s.x, y: SH.P(u, 1, w).y - 88 * sc, scale: sc };
 };
 
 /** The corridor outside the classrooms: columns on the rain side, doors on the wall side, the pet pen at the far end. */
@@ -55,7 +55,7 @@ const Corridor: React.FC<{ t: number; id: string; children?: React.ReactNode }> 
     <rect x={-400} y={210} width={2720} height={20} fill="#6A2A20" />
     {/* the wall with classroom doors, at left, receding */}
     <polygon points="-400,230 900,330 900,760 -400,1100" fill="#E2D6A8" />
-    {[[-200, 300, 900], [300, 360, 820]].map(([x, y0, y1], i) => <rect key={i} x={x} y={y0} width={150 - i * 30} height={y1 - y0} fill="#8A6440" stroke="#5A3E26" strokeWidth={6} />)}
+    {[[-200, 300, 150], [300, 380, 120]].map(([x, y0, w], i) => <rect key={i} x={x} y={y0} width={w} height={1100 - (x + w / 2 + 400) * 0.2615 - y0} fill="#8A6440" stroke="#5A3E26" strokeWidth={6} />)}
     {/* the floor */}
     <polygon points="-400,1100 900,760 1400,760 2320,1100 2320,1500 -400,1500" fill="#B8AC88" />
     {Array.from({ length: 9 }).map((_, i) => <path key={i} d={`M ${-400 + i * 340} 1500 L ${880 + i * 60} 760`} stroke="#9A8E6E" strokeWidth={3} />)}
@@ -129,6 +129,9 @@ export const S1: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(kf(t, [[0, 960], [len, 760]]), 580, kf(t, [[0, 1.05], [len, 1.3]]))}>
       <Room t={t} id="c6s1" />
+      <ChairFor at={a} />
+      <ChairFor at={h} back={1} />
+      <ChairFor at={l} child />
       <Hero look={AN} pose={P({ ...a, yaw: 0.4, look: 0.3, expr: 'neutral', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
       <Hero look={HANH} pose={P({ ...h, yaw: -0.3, look: -0.3, expr: 'neutral', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 3)} rimId="filmR" shadow={0} />
       <Hero look={LINH} pose={P({ ...l, yaw: 0.2, look: 0.4, expr: 'neutral', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
@@ -178,6 +181,8 @@ export const S5: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(1080, 600, kf(t, [[0, 1.5], [len, 1.62]]))}>
       <Room t={t} id="c6s5" />
+      <ChairFor at={s1} back={1} />
+      <ChairFor at={n} child />
       <Hero look={SAU} pose={P({ ...s1, yaw: -0.3, look: -0.3, expr: 'neutral', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 2)} rimId="filmR" shadow={0} />
       <Hero look={NAM} pose={P({ ...n, yaw: -0.3, look: -0.4, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 5)} rimId="filmR" shadow={0} />
     </g>
@@ -186,10 +191,10 @@ export const S5: React.FC<ShotProps> = ({ t, len }) => {
 
 // ---------- S6: the corridor: the dog in the pet pen; Hạnh looks out from the classroom door ----------
 export const S6: React.FC<ShotProps> = ({ t, len }) => (
-  <g transform={camT(kf(t, [[0, 900], [len, 1050]]), 640, kf(t, [[0, 1.2], [len, 1.5]]))}>
+  <g transform={camT(kf(t, [[0, 760], [len, 880]]), 640, kf(t, [[0, 1.15], [len, 1.35]]))}>
     <Corridor t={t} id="c6s6">
       <Dog x={1230} y={740} s={0.7} look={0} head={0.3 * Math.max(0, Math.sin(t * 0.05))} t={t} />
-      <Hero look={HANH} pose={P({ x: 420, y: onFloor(840, 0.9), scale: 0.9, yaw: 0.6, look: 0.6, expr: 'happy', armL: { a: 10, b: 14 }, armR: { a: 14, b: 20 } }, t, 3)} rimId="filmR" shadow={0} />
+      <Hero look={HANH} pose={P({ x: 430, y: onFloor(905, 0.9), scale: 0.9, yaw: 0.6, look: 0.6, expr: 'happy', armL: { a: 10, b: 14 }, armR: { a: 14, b: 20 } }, t, 3)} rimId="filmR" shadow={0} />
     </Corridor>
   </g>
 );
@@ -330,15 +335,15 @@ export const S14: React.FC<ShotProps> = ({ t, len }) => (
 export const S15: React.FC<ShotProps> = ({ t, len }) => {
   const put = kf(t, [[0, 0], [20, 1]]);
   const roll = kf(t, [[44, 0], [len, 1]]);
-  const lPose = P({ x: 820, y: onFloor(900, 0.9), scale: 0.9, yaw: 0.6, look: 0.4, headTilt: 10, tilt: 20 * (1 - Math.abs(put - 0.5) * 2) + 6, expr: roll > 0.1 ? 'shock' : 'happy', armR: { a: 40 - 10 * put, b: 40 }, armL: { a: 10, b: 14 } }, t, 4);
+  const lPose = P({ x: 620, y: onFloor(900, 0.9), scale: 0.9, yaw: 0.6, look: 0.4, headTilt: 10, tilt: 20 * (1 - Math.abs(put - 0.5) * 2) + 6, expr: roll > 0.1 ? 'shock' : 'happy', armR: { a: 40 - 10 * put, b: 40 }, armL: { a: 10, b: 14 } }, t, 4);
   const hnd = hand(lPose, 'armR');
-  const bx = put < 1 ? hnd.x : 1000 + 520 * roll;
-  const by = put < 1 ? hnd.y + 20 : 900;
+  const bx = put < 1 ? hnd.x + (780 - hnd.x) * put : 780 + 620 * roll;
+  const by = put < 1 ? hnd.y + 20 + (900 - hnd.y - 20) * put : 900;
   return (
-    <g transform={camT(1000, 700, 1.4)}>
+    <g transform={camT(kf(t, [[0, 820], [len, 1000]]), 700, 1.4)}>
       <Corridor t={t} id="c6s15">
         <Hero look={LINH} pose={lPose} rimId="filmR" shadow={0} />
-        <Dog x={kf(t, [[30, 1260], [46, 1120], [60, 1160]])} y={905} s={0.8} look={1} head={kf(t, [[38, 0], [44, -0.5], [54, 0.2]])} t={t} />
+        <Dog x={kf(t, [[0, 480], [30, 560], [44, 660], [60, 620]])} y={905} s={0.8} look={1} head={kf(t, [[38, 0], [44, -0.5], [54, 0.2]])} t={t} />
         <Bowl x={bx} y={by} s={0.7} rot={720 * roll} />
       </Corridor>
     </g>
@@ -421,7 +426,7 @@ export const S21: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(900, 600, 1.2)}>
     <Corridor t={t} id="c6s21">
       {[[300, SAU, 0.95, 2], [520, HELPER, 1.0, 6], [700, NAM, 0.7, 5], [860, LINH, 0.7, 4], [1020, HANH, 0.95, 3]].map(([x, lk, s, seed], i) => (
-        <Hero key={i} look={lk as typeof AN} pose={P({ x: x as number, y: onFloor(900 + (i % 2) * 20, s as number), scale: s as number, yaw: i % 2 ? -0.3 : 0.3, look: 0, headTilt: 8 * Math.sin(t * 0.3 + i), expr: 'happy', talk: Math.abs(Math.sin(t * 0.5 + i)) * 0.6, armL: { a: 12, b: 16 }, armR: { a: 12, b: 16 } }, t, seed as number)} rimId="filmR" shadow={0} />
+        <Hero key={i} look={lk as typeof AN} pose={P({ x: x as number, y: onFloor(950 + (i % 2) * 20, s as number), scale: s as number, yaw: i % 2 ? -0.3 : 0.3, look: 0, headTilt: 8 * Math.sin(t * 0.3 + i), expr: 'happy', talk: Math.abs(Math.sin(t * 0.5 + i)) * 0.6, armL: { a: 12, b: 16 }, armR: { a: 12, b: 16 } }, t, seed as number)} rimId="filmR" shadow={0} />
       ))}
       <Bowl x={760} y={920} s={0.5} />
     </Corridor>
@@ -434,10 +439,13 @@ export const S22: React.FC<ShotProps> = ({ t, len }) => {
   return (
     <g transform={camT(860, 620, 1.5)}>
       <Corridor t={t} id="c6s22" />
+      <ChairFor at={{ x: 820, y: 900 - 88 * 0.75, scale: 0.75 }} child />
+      <ChairFor at={{ x: 960, y: 900 - 88 * 0.75, scale: 0.75 }} child />
+      <ChairFor at={{ x: 640, y: 900 - 88 * 1.05, scale: 1.05 }} />
       <Bowl x={300} y={905} s={0.6} />
-      <Hero look={LINH} pose={P({ x: 820, y: 900 - 70 * 0.75, scale: 0.75, yaw: 0.3, look: 0.3, expr: 'happy', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
-      <Hero look={NAM} pose={P({ x: 960, y: 900 - 70 * 0.75, scale: 0.75, yaw: -0.3, look: -0.3, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 5)} rimId="filmR" shadow={0} />
-      <Hero look={AN} pose={P({ x: kf(t, [[0, 400], [40, 640]]), y: down > 0.5 ? 900 - 70 * 1.05 : onFloor(900, 1.05) + 60 * down, scale: 1.05, yaw: 0.5, look: 0.3, tilt: 10 * (1 - down), expr: 'happy', ...(down > 0.5 ? sit(1) : {}), armL: { a: 14, b: 32 }, armR: { a: down < 0.1 ? 60 : -4, b: down < 0.1 ? 20 : -30 } }, t, 1)} rimId="filmR" shadow={0} />
+      <Hero look={LINH} pose={P({ x: 820, y: 900 - 88 * 0.75, scale: 0.75, yaw: 0.3, look: 0.3, expr: 'happy', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
+      <Hero look={NAM} pose={P({ x: 960, y: 900 - 88 * 0.75, scale: 0.75, yaw: -0.3, look: -0.3, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 5)} rimId="filmR" shadow={0} />
+      <Hero look={AN} pose={P({ x: kf(t, [[0, 400], [40, 640]]), y: down > 0.5 ? 900 - 88 * 1.05 : onFloor(900, 1.05) + 60 * down, scale: 1.05, yaw: 0.5, look: 0.3, tilt: 10 * (1 - down), expr: 'happy', ...(down > 0.5 ? sit(1) : {}), armL: { a: 14, b: 32 }, armR: { a: down < 0.1 ? 60 : -4, b: down < 0.1 ? 20 : -30 } }, t, 1)} rimId="filmR" shadow={0} />
     </g>
   );
 };
@@ -471,9 +479,12 @@ export const S25: React.FC<ShotProps> = ({ t, len }) => (
 export const S26: React.FC<ShotProps> = ({ t, len }) => (
   <g transform={camT(kf(t, [[0, 860], [len, 780]]), kf(t, [[0, 640], [len, 560]]), kf(t, [[0, 1.5], [len, 2.1]]))}>
     <Corridor t={t} id="c6s26" />
-    <Hero look={LINH} pose={P({ x: 820, y: 900 - 70 * 0.75, scale: 0.75, yaw: 0.3, look: 0.5, expr: 'happy', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
-    <Hero look={NAM} pose={P({ x: 960, y: 900 - 70 * 0.75, scale: 0.75, yaw: -0.3, look: -0.3, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 5)} rimId="filmR" shadow={0} />
-    <Hero look={AN} pose={P({ x: 640, y: 900 - 70 * 1.05, scale: 1.05, yaw: 0.5, look: 0.4, headTilt: 8, expr: 'happy', talk: talkAt(t, 2, len - 2), ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
+      <ChairFor at={{ x: 820, y: 900 - 88 * 0.75, scale: 0.75 }} child />
+      <ChairFor at={{ x: 960, y: 900 - 88 * 0.75, scale: 0.75 }} child />
+      <ChairFor at={{ x: 640, y: 900 - 88 * 1.05, scale: 1.05 }} />
+    <Hero look={LINH} pose={P({ x: 820, y: 900 - 88 * 0.75, scale: 0.75, yaw: 0.3, look: 0.5, expr: 'happy', ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 4)} rimId="filmR" shadow={0} />
+    <Hero look={NAM} pose={P({ x: 960, y: 900 - 88 * 0.75, scale: 0.75, yaw: -0.3, look: -0.3, expr: 'happy', ...sit(-1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 5)} rimId="filmR" shadow={0} />
+    <Hero look={AN} pose={P({ x: 640, y: 900 - 88 * 1.05, scale: 1.05, yaw: 0.5, look: 0.4, headTilt: 8, expr: 'happy', talk: talkAt(t, 2, len - 2), ...sit(1), armL: { a: 14, b: 32 }, armR: { a: -4, b: -30 } }, t, 1)} rimId="filmR" shadow={0} />
   </g>
 );
 
