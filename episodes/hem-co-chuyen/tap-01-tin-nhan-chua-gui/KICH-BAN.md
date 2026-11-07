@@ -7,7 +7,7 @@
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-> Bản 8 — 08/11/2026. Thêm chỉ dẫn khung/máy có chọn lọc: thực tại 16:9, miền cánh đồng C6–C7 2:1; chỉ C5-C có rung/nghiêng ngắn khi Duy kiệt sức. Giữ nguyên lời và ba giao kèo của bản 7, 35 cue, khoảng nghỉ và mở đầu 24 giây. Bối cảnh ngõ theo bản asset mới đã bỏ bóng người qua đường. Các hiệu ứng mới là chỉ dẫn cần thử trên animatic, chưa dựng/render. Toàn bộ truyện là hư cấu.
+> Bản 9 — 08/11/2026. Bổ sung nền môi trường/nhạc không lời theo cảnh và âm chi tiết theo 35 cue: hơi thở, môi, vải, ghế, dụng cụ, giấy. Giữ nguyên lời/ba giao kèo bản 7, thiết kế khung/máy bản 8, khoảng nghỉ và mở đầu 24 giây. Ngõ theo asset mới, không bóng người qua đường. Chỉ dẫn âm và danh sách nguồn miễn phí chưa phải audio đã nghe/ráp/mix; chưa tạo media. Toàn bộ truyện là hư cấu.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
@@ -69,6 +69,14 @@ Lời sạch **1,916 đơn vị tách khoảng trắng**, **8,602 ký tự** g�
 
 Tham khảo nguyên tắc: [ARRI — định trước khung đích](https://www.arri.com/en/learn/camera-systems/pre-postproduction/conforming), [Adobe — Dutch angle](https://www.adobe.com/creativecloud/video/production/cinematography/camera-shots-and-angles/dutch-angle-shot.html), [Epic — biên độ, nhịp và thời gian rung](https://dev.epicgames.com/documentation/en-us/unreal-engine/camera-shakes-in-unreal-engine). Lựa chọn 2:1 và các mức thử của tập là quyết định mỹ thuật ở bản này, không phải định mức lấy từ nguồn.
 
+## Âm thanh theo cảnh — bản 9
+
+**Nền phù hợp cảnh trước, chi tiết sau. Ưu tiên nhạc không lời**, không vocal/giọng ngân/hợp xướng. C0 tò mò → tiệm kín và căng → G2 ấm thoáng rồi nặng → cánh đồng thoáng/đời thường → chia tay lắng → ngưỡng nhà bất an → rời đi có hy vọng dè dặt. Không phủ một bài suốt phim hoặc buộc khoảng nghỉ nào cũng có nhạc.
+
+Mỗi cue dưới có âm chính; xem [DUNG-CANH — mục 5](DUNG-CANH.md#5-thiết-kế-âm-thanh--bản-9) cho nền/nhạc và cách nghe gần–xa, cùng dòng “Âm thanh chi tiết” tại từng cue cho mốc vào/dừng. Môi hé/tách nhẹ, nuốt khan và hơi thở chỉ chọn ở nhịp diễn cần thiết; không ghép tiếng chóp chép vào mọi lần rig nhép miệng. Quầy đứng yên, ghế mới cọ nền khi kéo/dịch. Đồng hồ kệ ngừng chạy, chỉ có tiếng vỏ đặt kệ/dụng cụ nếu có tiếp xúc, không thêm vòng tích tắc.
+
+Nguồn miễn phí được ghi riêng ở [NGUON-AM-THANH.md](NGUON-AM-THANH.md): có tên bản, trang gốc, điều kiện dùng và cảnh đề nghị. Danh sách mới kiểm tra bằng trang nguồn/giấy phép, chưa nghe thử hoặc tải/mix. Lời sạch và bản ElevenLabs giữ nguyên; chỉ dẫn âm không đưa vào TTS và không cộng thêm thời lượng.
+
 ## Cảnh 0. Trời sao — mắt cú — cửa tiệm
 
 **Bối cảnh:** Khoảng 19 giờ, cùng thành phố miền Nam hư cấu của câu chuyện, một đêm trời quang. Phác thảo chủ repo: phần trời sao rộng phía trên để đặt tiêu đề, các tầng nhà phía dưới; tiếp đó có đường/hẻm, nhà hai bên, cú trên cao và tiệm ông Lộc. Hai anh em đã đi tới cửa tiệm trong lúc máy đang ở cao; máy tìm đến hai đứa, không làm nhân vật tự xuất hiện giữa đường.
@@ -77,14 +85,14 @@ Tham khảo nguyên tắc: [ARRI — định trước khung đích](https://www.
 
 **Phần này không có lời kể/TTS.** Tiêu đề dựng chữ riêng đúng “TIN NHẮN CHƯA GỬI”, không đọc thành tiếng. Timeline dưới chỉ tính từ đầu đoạn mở, chưa phải mốc thoại của cả phim; 24 giây đã gồm giữ chữ, mắt cú, chuyển máy và bước vào tiệm, không cộng thêm các động tác đó lần nữa.
 
-| Cue | Mốc tương đối / thời lượng | Góc / cỡ cảnh | Lens / nét / vị trí | Máy, lớp cảnh và diễn | Khung / nghiêng / rung |
-|---|---|---|---|------|---|
-| C0-A | 00:00–00:04 · 4 giây | Toàn thành phố, trời sao và tiêu đề | 24 mm; nhìn từ cao hơn mái nhà; đường chân trời ở nửa dưới | Máy gần tĩnh rồi bắt đầu nghiêng xuống; trời nét đủ đọc sao, thành phố có lớp gần–xa; tiêu đề “TIN NHẮN CHƯA GỬI” nằm trong khoảng trời | 16:9 · roll 0° · rung 0 px |
-| C0-B | 00:04–00:08 · 4 giây | Hạ qua mái nhà tới cú | 35–50 mm cho bố cục trung mái hiên; điểm nhìn hạ về thanh đỡ | Tilt/hạ chậm theo đường cong, kết ở đầu cú; mái nhà lướt tiền cảnh có thể che điểm ghép; tiêu đề mờ hết trước cận mắt | 16:9 · roll 0° · rung 0 px |
-| C0-C | 00:08–00:10 · 2 giây | Cận mắt cú | 85 mm tương đương cận/macro; ngang tầm mắt cú; vùng nét mắt | Chuyển nét vào đồng tử và viền lông trong khoảng 0,6 giây rồi giữ; cú chớp một lần, phản chiếu ánh đèn bình thường, không mắt phát sáng | 16:9 · roll 0° · rung 0 px |
-| C0-D | 00:10–00:16 · 6 giây | Lùi ra từ cú, mở con hẻm | Từ bố cục cận sang rộng 35 mm tương đương; giữ cùng bên nhìn | Dolly-out giả lập nhiều lớp: lộ đầu/thân cú, thanh đỡ, đường, nhà hai bên và tiệm Lộc; cú/mái ở gần trái, tiệm ở giữa-xa phải; không chỉ scale một tranh | 16:9 · roll 0° · rung 0 px |
-| C0-E | 00:16–00:21 · 5 giây | Chuyển từ cú sang hai anh em trước cửa | 35–50 mm bố cục trung rộng; máy hạ về cao 1,2 m ở cuối | Trượt chéo nhẹ sang phải, chuyển nét khỏi cú sang Duy/Thảo, dừng ở cửa; giữ ngõ trống như asset mới, không thêm bóng người; Duy đứng gần cửa hơn, em nép sau anh | 16:9 · roll 0° · rung 0 px |
-| C0-F | 00:21–00:24 · 3 giây | Giữ cửa rồi hai trẻ bước vào | 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước | Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới nối C1: Thảo nhấc đồng hồ nhỏ khỏi kệ rồi mới nghe “Để xuống” | 16:9 · roll 0° · rung 0 px |
+| Cue | Mốc tương đối / thời lượng | Góc / cỡ cảnh | Lens / nét / vị trí | Máy, lớp cảnh và diễn | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|---|------|---|---|
+| C0-A | 00:00–00:04 · 4 giây | Toàn thành phố, trời sao và tiêu đề | 24 mm; nhìn từ cao hơn mái nhà; đường chân trời ở nửa dưới | Máy gần tĩnh rồi bắt đầu nghiêng xuống; trời nét đủ đọc sao, thành phố có lớp gần–xa; tiêu đề “TIN NHẮN CHƯA GỬI” nằm trong khoảng trời | 16:9 · roll 0° · rung 0 px | Thành phố xa; nhạc không lời thưa, gợi tò mò. |
+| C0-B | 00:04–00:08 · 4 giây | Hạ qua mái nhà tới cú | 35–50 mm cho bố cục trung mái hiên; điểm nhìn hạ về thanh đỡ | Tilt/hạ chậm theo đường cong, kết ở đầu cú; mái nhà lướt tiền cảnh có thể che điểm ghép; tiêu đề mờ hết trước cận mắt | 16:9 · roll 0° · rung 0 px | Phố xa chuyển về hẻm; không whoosh theo máy. |
+| C0-C | 00:08–00:10 · 2 giây | Cận mắt cú | 85 mm tương đương cận/macro; ngang tầm mắt cú; vùng nét mắt | Chuyển nét vào đồng tử và viền lông trong khoảng 0,6 giây rồi giữ; cú chớp một lần, phản chiếu ánh đèn bình thường, không mắt phát sáng | 16:9 · roll 0° · rung 0 px | Giữ nền đêm; không âm chớp mắt. |
+| C0-D | 00:10–00:16 · 6 giây | Lùi ra từ cú, mở con hẻm | Từ bố cục cận sang rộng 35 mm tương đương; giữ cùng bên nhìn | Dolly-out giả lập nhiều lớp: lộ đầu/thân cú, thanh đỡ, đường, nhà hai bên và tiệm Lộc; cú/mái ở gần trái, tiệm ở giữa-xa phải; không chỉ scale một tranh | 16:9 · roll 0° · rung 0 px | Hẻm rộng dần; xe xa ngoài ngõ. |
+| C0-E | 00:16–00:21 · 5 giây | Chuyển từ cú sang hai anh em trước cửa | 35–50 mm bố cục trung rộng; máy hạ về cao 1,2 m ở cuối | Trượt chéo nhẹ sang phải, chuyển nét khỏi cú sang Duy/Thảo, dừng ở cửa; giữ ngõ trống như asset mới, không thêm bóng người; Duy đứng gần cửa hơn, em nép sau anh | 16:9 · roll 0° · rung 0 px | Quạt vọng từ cửa; nhạc mở bắt đầu rút. |
+| C0-F | 00:21–00:24 · 3 giây | Giữ cửa rồi hai trẻ bước vào | 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước | Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới nối C1: Thảo nhấc đồng hồ nhỏ khỏi kệ rồi mới nghe “Để xuống” | 16:9 · roll 0° · rung 0 px | Giày Duy/dép Thảo qua ngưỡng; nhạc rút hết. |
 
 **Hình và âm:** 2.5D có trời/skyline xa, mái nhà giữa, cú-thanh đỡ gần, hẻm/tiệm và người thành các lớp theo mặt đỡ. Ánh đèn nhà và tiệm thưa, âm thành phố xa dần thành tiếng chân/xe xa trong hẻm. Một tiếng cú ngắn nếu hợp nhịp, không cần lặp hoặc hù bằng âm hit. Giữ tiếng hẻm làm cầu nối tới quạt trong tiệm. Không dùng ánh trắng/tiếng ù dành riêng cho G3 vào đoạn mở.
 
@@ -94,12 +102,12 @@ Tham khảo nguyên tắc: [ARRI — định trước khung đích](https://www.
 
 **Bối cảnh:** Nối sau C0, khoảng 19 giờ, hai trẻ vừa bước vào vùng khách của tiệm cuối hẻm cách nhà ba căn. Thảo vừa nhấc một chiếc đồng hồ nhỏ trên mặt kệ thấp gần cửa, chưa rời chỗ thì ông Lộc nói “Để xuống”. Em đặt lại rồi mới rụt tay; không buông rơi. Duy 16 đứng trái, Thảo 8 phải gần cửa, nép sau anh; Lộc đầu tiên ở bàn sửa sau rồi bước tới quầy. Cửa mở, kệ trái, bàn sửa/đèn vàng sau, ánh hàng tạp hóa lạnh từ phải.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C1-A | Toàn vừa qua lớp kệ gần | 35 mm; cao 1,15 m; cách quầy 2,7 m | Khóa; Duy che em. Lộc từ bàn sau tới quầy, cuối C1 cầm tua vít quay về làm tiếp chiếc đồng hồ dở; điện thoại trẻ vẫn trên khăn | 16:9 · roll 0° · rung 0 px |
-| C1-B | Cận Lộc qua kính | 70 mm; cao 1,2 m; hướng lên 7°; cách 3,2 m ở bàn sau | Đầu cảnh mắt lạnh, chưa cười; cuối cảnh dùng lại góc bàn sau: ngoái mặt, nhếch miệng nham hiểm sau câu gợi giá khác; giữ thiết kế mặt | 16:9 · roll 0° · rung 0 px |
-| C1-C | Insert máy và tiền | 65 mm; cao 1,35 m; cúi 40°; cách 0,9 m | Máy trên khăn giữa, tiền bên trái; tay hạ rồi thả; không xu nếu hình chỉ tiền giấy | 16:9 · roll 0° · rung 0 px |
-| C1-D | Trung anh em, cửa bên phải | 50 mm; cao 1,2 m; cách 2,1 m | Sau lời mỉa mai, Thảo sợ hãi, mắt rơm rớm, níu áo; Duy đỡ tay và cầm giúp hai tờ tiền, chưa đưa cho Lộc; không nhạc an ủi | 16:9 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C1-A | Toàn vừa qua lớp kệ gần | 35 mm; cao 1,15 m; cách quầy 2,7 m | Khóa; Duy che em. Lộc từ bàn sau tới quầy, cuối C1 cầm tua vít quay về làm tiếp chiếc đồng hồ dở; điện thoại trẻ vẫn trên khăn | 16:9 · roll 0° · rung 0 px | Đồng hồ đặt kệ, tua vít chạm gỗ; nền quạt. |
+| C1-B | Cận Lộc qua kính | 70 mm; cao 1,2 m; hướng lên 7°; cách 3,2 m ở bàn sau | Đầu cảnh mắt lạnh, chưa cười; cuối cảnh dùng lại góc bàn sau: ngoái mặt, nhếch miệng nham hiểm sau câu gợi giá khác; giữ thiết kế mặt | 16:9 · roll 0° · rung 0 px | Dụng cụ nhỏ ở bàn sau; không cười ác thành tiếng. |
+| C1-C | Insert máy và tiền | 65 mm; cao 1,35 m; cúi 40°; cách 0,9 m | Máy trên khăn giữa, tiền bên trái; tay hạ rồi thả; không xu nếu hình chỉ tiền giấy | 16:9 · roll 0° · rung 0 px | Vải, điện thoại trên khăn, tiền giấy khẽ sột. |
+| C1-D | Trung anh em, cửa bên phải | 50 mm; cao 1,2 m; cách 2,1 m | Sau lời mỉa mai, Thảo sợ hãi, mắt rơm rớm, níu áo; Duy đỡ tay và cầm giúp hai tờ tiền, chưa đưa cho Lộc; không nhạc an ủi | 16:9 · roll 0° · rung 0 px | Thảo hụt hơi nhẹ; tay níu vải, tiền chuyển tay. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -157,11 +165,11 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Bối cảnh:** Nối C1: Lộc đặt tua vít ở bàn sửa rồi quay lại quầy nói giá. Duy đưa lại hai tờ tiền cho Thảo, cất tiền mình, gom/cất phong bì và túi vải rồi kéo ghế có bậc chân cho em. Hai trẻ ngồi cùng phía khách, Duy trái, Thảo phải. Điện thoại vẫn trên khăn; sau đó Lộc lấy giấy G1 hai liên và bút, Duy lấy ảnh từ ví. Không sửa máy trước G1.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C2-A | Khung chung ba người | 35 mm; cao 1,15 m; cách quầy 2,7 m | Thấy Lộc quay về quầy; Duy đưa hai tờ cho Thảo, đợi em nắm rồi nhả; cất riêng tiền mình trước khi kéo ghế; cửa vẫn mở | 16:9 · roll 0° · rung 0 px |
-| C2-B | Cận vừa Duy rồi cận em cùng trục | 70 mm; cao 1,2 m với anh/1,05 m với em; cách 1,9 m | Anh siết bút, em nói nỗi sợ cụ thể; không diễn trẻ như người lớn | 16:9 · roll 0° · rung 0 px |
-| C2-C | Insert giấy còn trắng, ảnh và bút | 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m | Ảnh từ ví ra; bút đặt xuống trước Lộc giữ mép giấy, chưa ký | 16:9 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C2-A | Khung chung ba người | 35 mm; cao 1,15 m; cách quầy 2,7 m | Thấy Lộc quay về quầy; Duy đưa hai tờ cho Thảo, đợi em nắm rồi nhả; cất riêng tiền mình trước khi kéo ghế; cửa vẫn mở | 16:9 · roll 0° · rung 0 px | Tiền cất, ghế kéo cọ nền; quầy không di chuyển. |
+| C2-B | Cận vừa Duy rồi cận em cùng trục | 70 mm; cao 1,2 m với anh/1,05 m với em; cách 1,9 m | Anh siết bút, em nói nỗi sợ cụ thể; không diễn trẻ như người lớn | 16:9 · roll 0° · rung 0 px | Vải áo níu, hơi thở nén; nhạc nhường câu em. |
+| C2-C | Insert giấy còn trắng, ảnh và bút | 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m | Ảnh từ ví ra; bút đặt xuống trước Lộc giữ mép giấy, chưa ký | 16:9 · roll 0° · rung 0 px | Ví/ảnh/giấy sột; bút đặt khẽ, chưa ký. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -201,11 +209,11 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Bối cảnh:** Vẫn quầy. Máy còn vỡ trên khăn; Thảo xoay cạnh vỏ sau khi anh nhả tay. Duy dịch ghế về em 10 cm. Sau thú nhận, em níu tay áo phải anh bằng tay trái, anh chạm vai trái em bằng tay phải. Cất ảnh trước ký G1; em buông tay trước anh lấy bút.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C3-A | Tay em gần, mặt anh xa | 65 mm; cao 1 m; cách tay 0,9 m | Chuyển nét 1,2 giây từ vết nứt sang Duy sau thú nhận, không nhấc máy khỏi khăn | 16:9 · roll 0° · rung 0 px |
-| C3-B | Trung đôi cùng vùng nét | 50 mm; cao 1,15 m; cách 2,1 m | Dịch ghế rồi chạm vai; có thể trượt ngang 8 cm/6 giây sau kiểm tra lớp | 16:9 · roll 0° · rung 0 px |
-| C3-C | Insert ghi G1 và ký | 85 mm; cao 1,3 m; cúi 40°; cách 0,9 m | Chữ G1: Duy đổi toàn bộ ký ức buổi tranh xe đồ chơi, làm em ngã, được mẹ dỗ rồi hai anh em làm hòa; đọc rõ trước ký | 16:9 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C3-A | Tay em gần, mặt anh xa | 65 mm; cao 1 m; cách tay 0,9 m | Chuyển nét 1,2 giây từ vết nứt sang Duy sau thú nhận, không nhấc máy khỏi khăn | 16:9 · roll 0° · rung 0 px | Vỏ máy cọ khăn rất nhẹ; nền tiệm liên tục. |
+| C3-B | Trung đôi cùng vùng nét | 50 mm; cao 1,15 m; cách 2,1 m | Dịch ghế rồi chạm vai; có thể trượt ngang 8 cm/6 giây sau kiểm tra lớp | 16:9 · roll 0° · rung 0 px | Ghế Duy dịch 10 cm; tay chạm vai/vải. |
+| C3-C | Insert ghi G1 và ký | 85 mm; cao 1,3 m; cúi 40°; cách 0,9 m | Chữ G1: Duy đổi toàn bộ ký ức buổi tranh xe đồ chơi, làm em ngã, được mẹ dỗ rồi hai anh em làm hòa; đọc rõ trước ký | 16:9 · roll 0° · rung 0 px | Bút ma sát giấy theo nét; dừng khi đọc giá. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -251,12 +259,12 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Bối cảnh:** Lộc sửa ở bàn sau trong tầm nhìn, cut thời gian, trả máy đã sáng lên khăn. Tách G1, một liên mỗi bên; Duy đọc/gấp liên mình vào ví. Duy nhập mật mã và phát ghi âm trên quầy. Sau phát máy không tự chạy lại.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C4-A | Trung bàn sửa và máy trả quầy | 50 mm; cao 1,35 m; cách Lộc 1,8 m | Hạ máy rồi thả, giữ màu vỏ; không hướng dẫn sửa kỹ thuật thật | 16:9 · roll 0° · rung 0 px |
-| C4-B | Trung đôi kiểm tra trí nhớ | 50 mm; cao 1,15 m; cách 2,1 m | Em hỏi buổi mẹ dỗ làm hòa; Duy nhắm mắt tìm ký ức rồi lắc đầu, vẫn hiểu lời vừa kể; insert G1 dùng lại | 16:9 · roll 0° · rung 0 px |
-| C4-C | Insert bấm phát rồi về mặt hai trẻ | 85 mm; cao 1,2 m; cúi 35°; cách máy 0,85 m | Máy trên khăn, trỏ phải bấm rồi nhấc; lời mẹ có nguồn từ loa máy | 16:9 · roll 0° · rung 0 px |
-| C4-D | Cận Lộc ở câu hỏi tò mò | 70 mm; cao 1,2 m; cách 2 m | Nhếch miệng lạnh lần nữa khi em hỏi sửa thứ khác; không đổi thiết kế mặt đã chốt | 16:9 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C4-A | Trung bàn sửa và máy trả quầy | 50 mm; cao 1,35 m; cách Lộc 1,8 m | Hạ máy rồi thả, giữ màu vỏ; không hướng dẫn sửa kỹ thuật thật | 16:9 · roll 0° · rung 0 px | Sửa máy ở bàn sau; trả máy mềm trên khăn. |
+| C4-B | Trung đôi kiểm tra trí nhớ | 50 mm; cao 1,15 m; cách 2,1 m | Em hỏi buổi mẹ dỗ làm hòa; Duy nhắm mắt tìm ký ức rồi lắc đầu, vẫn hiểu lời vừa kể; insert G1 dùng lại | 16:9 · roll 0° · rung 0 px | Quạt, hơi thở Duy chờ ký ức; không chime. |
+| C4-C | Insert bấm phát rồi về mặt hai trẻ | 85 mm; cao 1,2 m; cúi 35°; cách máy 0,85 m | Máy trên khăn, trỏ phải bấm rồi nhấc; lời mẹ có nguồn từ loa máy | 16:9 · roll 0° · rung 0 px | Giấy/ví rồi bản ghi qua loa máy; dừng còn quạt. |
+| C4-D | Cận Lộc ở câu hỏi tò mò | 70 mm; cao 1,2 m; cách 2 m | Nhếch miệng lạnh lần nữa khi em hỏi sửa thứ khác; không đổi thiết kế mặt đã chốt | 16:9 · roll 0° · rung 0 px | Câu hỏi nhỏ, nền quạt; nhạc bí ẩn vào rất muộn. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -294,12 +302,12 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Bối cảnh:** Thảo vẫn ngồi phải, Duy trái. Điện thoại ngừng phát trên khăn. G2 chưa có trước câu hỏi; Lộc rút phiếu sau khi nói giá. Với giao kèo cảm giác, ông nói rõ câu đồng ý là lúc có hiệu lực, giấy ông ghi sau để lưu; khác quy trình sửa máy và phải được báo trước. Duy không ký một điều kiện chưa nghe.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C5-A | Trung ba người, Lộc giữa sâu | 50 mm; cao 1,2 m; cách quầy 2,3 m | Lộc báo giá/hiệu lực bằng lời, hai trẻ nghe; không che câu đồng ý bằng nhạc | 16:9 · roll 0° · rung 0 px |
-| C5-B | Trung đôi trong ánh phòng ấm lên | 50 mm; cao 1,15 m; cách 2,1 m | Cả hai dịu lại: Duy thả vai, Thảo bớt siết tay. Chỉ đổi ánh/âm chủ quan; vẫn trên ghế, chưa thấy/nghe mẹ mới hoặc thêm nhà | 16:9 · roll 0° · rung 0 px |
-| C5-C | Cận Duy kiệt sức, tay em níu | 70 mm; cao 1,1 m; cách 1,8 m | Hơi ấm hết: Thảo nhẹ hơi thở nhưng lo cho anh; Duy sụp vai, bấu ghế, mồ hôi, nói hụt. Anh chịu nỗi buồn mình và phần nhận từ em; chỉ thêm đoạn rung/nghiêng ngắn cuối cue như quy ước, các góc khác vẫn ổn định | 16:9 · roll 0→+2°→0 · rung x≤2/y≤1 px, 1,6 giây |
-| C5-D | Cận em đáp rồi trắng chuyển cảnh | 65 mm; cao 1,05 m; cách 1,7 m | G3 được báo trước; tiếng Duy ngăn đến sau lời nhận; trắng lên một lần, ù vào đúng giao kèo | 16:9 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C5-A | Trung ba người, Lộc giữa sâu | 50 mm; cao 1,2 m; cách quầy 2,3 m | Lộc báo giá/hiệu lực bằng lời, hai trẻ nghe; không che câu đồng ý bằng nhạc | 16:9 · roll 0° · rung 0 px | Nền tiệm trở đủ nghe; giá/lời nhận ở trước. |
+| C5-B | Trung đôi trong ánh phòng ấm lên | 50 mm; cao 1,15 m; cách 2,1 m | Cả hai dịu lại: Duy thả vai, Thảo bớt siết tay. Chỉ đổi ánh/âm chủ quan; vẫn trên ghế, chưa thấy/nghe mẹ mới hoặc thêm nhà | 16:9 · roll 0° · rung 0 px | Hẻm lùi; hai trẻ thở ra, phòng chưa biến mất. |
+| C5-C | Cận Duy kiệt sức, tay em níu | 70 mm; cao 1,1 m; cách 1,8 m | Hơi ấm hết: Thảo nhẹ hơi thở nhưng lo cho anh; Duy sụp vai, bấu ghế, mồ hôi, nói hụt. Anh chịu nỗi buồn mình và phần nhận từ em; chỉ thêm đoạn rung/nghiêng ngắn cuối cue như quy ước, các góc khác vẫn ổn định | 16:9 · roll 0→+2°→0 · rung x≤2/y≤1 px, 1,6 giây | Duy thở đứt nhịp, bấu ghế kẽo kẹt nhẹ. |
+| C5-D | Cận em đáp rồi trắng chuyển cảnh | 65 mm; cao 1,05 m; cách 1,7 m | G3 được báo trước; tiếng Duy ngăn đến sau lời nhận; trắng lên một lần, ù vào đúng giao kèo | 16:9 · roll 0° · rung 0 px | Thảo nhận trọn, Duy ngăn muộn; ù G3 sau lời. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -345,12 +353,12 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Bối cảnh:** Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng hoặc mẹ hồi sinh. Tiệm/body vẫn ở thực tại; chỉ điểm nhìn chủ quan chuyển. Ruộng lúa hư cấu ven làng, lối đất bằng sát bờ, nắng cuối chiều; mẹ đứng giữa trước hai trẻ, gọi rồi nắm tay đi một đoạn ngắn. Mẹ khoảng 38–42, áo vải màu đất sáng, quần tối, tóc buộc thấp; đã có mẫu SVG/khung thử, chờ duyệt theo cảnh.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C6-A | Toàn con đường ven ruộng, mẹ gọi hai trẻ | 35 mm; cao 1,2 m; cách nhóm 4 m | Trắng dịu đi, ù tắt dần trước tiếng mẹ; cỏ gần/nhóm giữa/ruộng trời xa | 2:1 · roll 0° · rung 0 px |
-| C6-B | Trung đi cùng mẹ từ phía trước | 50 mm; cao 1,25 m; cách 2,5 m | Trượt lùi ngắn nếu đủ lớp; mẹ giữa, Duy trái, Thảo phải; tay nắm đúng bên, bước tiếp xúc đất | 2:1 · roll 0° · rung 0 px |
-| C6-C | Trung ba mẹ con ngồi bên bờ | 50 mm; cao 0,85 m; cách 2,4 m | Ngồi thật xuống thảm cỏ thấp khô; mẹ giữa, trẻ hai bên, không đổi trục | 2:1 · roll 0° · rung 0 px |
-| C6-D | Cận phản ứng hai trẻ, mẹ rìa khung | 70 mm; cao 0,85 m; cách 1,8 m | Cười nhỏ theo chuyện đời thường; chưa nhạc dâng bi kịch | 2:1 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C6-A | Toàn con đường ven ruộng, mẹ gọi hai trẻ | 35 mm; cao 1,2 m; cách nhóm 4 m | Trắng dịu đi, ù tắt dần trước tiếng mẹ; cỏ gần/nhóm giữa/ruộng trời xa | 2:1 · roll 0° · rung 0 px | Ù tắt; gió ruộng thoáng, mẹ gọi trực tiếp. |
+| C6-B | Trung đi cùng mẹ từ phía trước | 50 mm; cao 1,25 m; cách 2,5 m | Trượt lùi ngắn nếu đủ lớp; mẹ giữa, Duy trái, Thảo phải; tay nắm đúng bên, bước tiếp xúc đất | 2:1 · roll 0° · rung 0 px | Chân trên đất, lúa xào xạc, vải áo; nhạc ấm. |
+| C6-C | Trung ba mẹ con ngồi bên bờ | 50 mm; cao 0,85 m; cách 2,4 m | Ngồi thật xuống thảm cỏ thấp khô; mẹ giữa, trẻ hai bên, không đổi trục | 2:1 · roll 0° · rung 0 px | Ngồi xuống cỏ khô; vải/cỏ sột đúng điểm tì. |
+| C6-D | Cận phản ứng hai trẻ, mẹ rìa khung | 70 mm; cao 0,85 m; cách 1,8 m | Cười nhỏ theo chuyện đời thường; chưa nhạc dâng bi kịch | 2:1 · roll 0° · rung 0 px | Cười tự nhiên đúng vai; nhạc ấm vừa đủ. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -388,11 +396,11 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Bối cảnh:** Vẫn bờ ruộng và trục đã xác lập. Ánh cuối chiều ấm, không biến cảnh thành thiên đường có hào quang. Mẹ có cảm xúc bình thường, lời gửi gắm là trải nghiệm chủ quan G3, không chép vào dữ liệu chiếc máy hoặc coi là sự kiện lịch sử kiểm chứng. Sau lời cuối, mẹ/áo/bóng cùng tan, hai trẻ vẫn có điểm tựa đất.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C7-A | Trung ba người, tay mẹ trên vai hai con | 50 mm; cao 0,85 m; cách 2,4 m | Lời giản dị, có nhịp nghe; mẹ chạm từng bên đúng pose đã có | 2:1 · roll 0° · rung 0 px |
-| C7-B | Cận vừa mẹ và Duy | 70 mm; cao 0,9 m; cách 1,9 m | Giữ mắt cậu, không quay để giấu khóc; tay mẹ không xuyên cổ | 2:1 · roll 0° · rung 0 px |
-| C7-C | Trung em ôm rồi mẹ tan | 50 mm; cao 0,85 m; cách 2,4 m | Mẹ mờ dần một lần 3–4 giây; bóng/áo cùng giảm; tay trẻ ngừng ở chỗ không còn mẹ có chủ ý | 2:1 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C7-A | Trung ba người, tay mẹ trên vai hai con | 50 mm; cao 0,85 m; cách 2,4 m | Lời giản dị, có nhịp nghe; mẹ chạm từng bên đúng pose đã có | 2:1 · roll 0° · rung 0 px | Gió liền; nhạc thưa dần theo lời gửi gắm. |
+| C7-B | Cận vừa mẹ và Duy | 70 mm; cao 0,9 m; cách 1,9 m | Giữ mắt cậu, không quay để giấu khóc; tay mẹ không xuyên cổ | 2:1 · roll 0° · rung 0 px | Hơi thở nghẹn của Duy, vải khi tựa mẹ. |
+| C7-C | Trung em ôm rồi mẹ tan | 50 mm; cao 0,85 m; cách 2,4 m | Mẹ mờ dần một lần 3–4 giây; bóng/áo cùng giảm; tay trẻ ngừng ở chỗ không còn mẹ có chủ ý | 2:1 · roll 0° · rung 0 px | Áo khi ôm; mẹ tan, gió ở lại 4 giây. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -432,12 +440,12 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Bối cảnh:** Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra đồng. Lộc viết/tách G2 và G3 sau các câu đồng ý đã được báo có hiệu lực bằng lời; đủ ba liên khách, ba liên tiệm. G1 đang ở ví; Duy lấy ra đặt cạnh G2/G3 mới nhận để đối chiếu rồi cất đủ ba. Ảnh đã cất từ C3, không xuất hiện lại trên quầy. Duy lấy máy; rời tiệm. Sau cut tới ngưỡng nhà: bố sau vách qua âm, trẻ không vào; gọi dì bằng máy đã sửa, rồi đi về hướng đèn nhà dì, không dựng nội thất thứ tư.
 
-| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung |
-|---|---|---|------|---|
-| C8-A | Trung đôi trở lại tiệm, mắt mở | 50 mm; cao 1,15 m; cách 2,1 m | Match pose ngồi, còn bàn tay em trong tay anh; Duy mệt còn đó, G2 không được xóa | 16:9 · roll 0° · rung 0 px |
-| C8-B | Insert ba phiếu rồi cất | 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m | Duy lấy G1 từ ví đặt cạnh G2/G3 rồi cất đủ ba; G3 ghi Thảo; mỗi bên một bộ copy | 16:9 · roll 0° · rung 0 px |
-| C8-C | Toàn cửa nhà rồi trung cuộc gọi | 28 mm cao 1,2 m cách 2,5 m → 50 mm cao 1,15 m cách 2 m | Bố ngoài khung, chai lăn/giọng không rõ chữ; Duy chắn em và xin dì giúp | 16:9 · roll 0° · rung 0 px |
-| C8-D | Toàn ngưỡng cửa, hai trẻ rời khung | 35 mm; cao 1,15 m; cách 2,5 m | Cất máy/giấy trước nắm tay đi; giữ đèn đầu hẻm, âm bố xa dần | 16:9 · roll 0° · rung 0 px |
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|------|---|---|
+| C8-A | Trung đôi trở lại tiệm, mắt mở | 50 mm; cao 1,15 m; cách 2,1 m | Match pose ngồi, còn bàn tay em trong tay anh; Duy mệt còn đó, G2 không được xóa | 16:9 · roll 0° · rung 0 px | Cắt về quạt/hẻm tiệm; Duy vẫn mệt. |
+| C8-B | Insert ba phiếu rồi cất | 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m | Duy lấy G1 từ ví đặt cạnh G2/G3 rồi cất đủ ba; G3 ghi Thảo; mỗi bên một bộ copy | 16:9 · roll 0° · rung 0 px | Bút/giấy/ví, ba biên nhận; không tiếng phép. |
+| C8-C | Toàn cửa nhà rồi trung cuộc gọi | 28 mm cao 1,2 m cách 2,5 m → 50 mm cao 1,15 m cách 2 m | Bố ngoài khung, chai lăn/giọng không rõ chữ; Duy chắn em và xin dì giúp | 16:9 · roll 0° · rung 0 px | Chai lăn sau vách; nén thở rồi gọi dì. |
+| C8-D | Toàn ngưỡng cửa, hai trẻ rời khung | 35 mm; cao 1,15 m; cách 2,5 m | Cất máy/giấy trước nắm tay đi; giữ đèn đầu hẻm, âm bố xa dần | 16:9 · roll 0° · rung 0 px | Cất máy/vải, bước rời cửa; âm bố xa dần. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 

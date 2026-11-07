@@ -1,10 +1,14 @@
-# Rà soát kịch bản — bản 8
+# Rà soát kịch bản — bản 9
 
 Ngày 07/11/2026. Đọc theo [kịch bản nguồn](KICH-BAN.md), [dựng cảnh](DUNG-CANH.md), bản lời và lựa chọn giữ người dẫn chuyện. Đây là đánh giá biên tập văn bản; chưa đo nhịp bằng giọng/animatic thật.
 
 ## Kết luận
 
 Nền truyện đủ để sang storyboard: anh giấu nhớ → cố gánh thay → em chủ động trả giá → cuộc gặp không hoàn mất mát → anh biết nhờ người lớn. Ba giao kèo và nơi hai trẻ đến đêm đó được khép lại. Cảnh đời thường ở đồng tạo độ ấm trước chia tay; không nên tăng thêm bi kịch, giao kèo hay nhân vật chỉ để gây sốc.
+
+## Bổ sung âm bản 9 — 08/11/2026
+
+35 cue có âm chính và chi tiết; nền/nhạc theo cảnh được tách khỏi tiếng động. Ưu tiên nhạc không lời, giữ các khoảng chỉ có phòng/gió; chi tiết môi/hơi thở lấy từ diễn xuất đúng vai, tránh layer trùng hoặc ASMR. Giữ sự im của kệ đồng hồ chết, quầy không di chuyển, bản ghi dừng chỉ còn quạt. Không thêm tiếng hồi tưởng bố/đồ chơi, giọng dì, lời mẹ hoặc hiệu ứng G3 ở G2. Nguồn miễn phí đã đọc giấy phép và sơ tuyển, chưa nghe/tải/ráp/mix; chưa xác nhận hiệu quả âm trong bản xuất. Lời bản 7, thẻ cảm xúc, hình bản 8 và thời lượng không đổi.
 
 ## Bổ sung hình bản 8 — 08/11/2026
 

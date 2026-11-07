@@ -5,7 +5,7 @@
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kịch bản bản 8**, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
+Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kịch bản bản 9** (âm thanh), giữ lời bản 7 và khung/máy bản 8, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
 
 ## Phạm vi và điều đã chốt
 
@@ -24,7 +24,7 @@ Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kị
 | 2. Storyboard tĩnh | Bảng ảnh thật theo 35 cue; ghi cue nào dùng chung nền/góc, có khung cho trạng thái thay đổi | Nhìn rõ thành phố–cú–cửa, không gian tiệm, tay/đồ, mẹ và cánh đồng; đủ mạch trước–sau | Dùng hình thô đủ đọc, dùng lại góc phản ứng; chưa hoàn thiện mọi biểu cảm hoặc lớp bị che |
 | 3. Animatic | Ráp toàn tập bằng lời/âm tạm; chạy camera và tương tác dự kiến. Sửa trước các đoạn rủi ro trong bảng dưới | Xem bản chạy và bản ráp: nhịp, khoảng nghỉ, tiếp xúc, che khuất, chuyển cảnh đạt | Preview đủ soi mặt/tay; sửa clip lỗi rồi xem lại phần nối. Không dùng paid TTS chỉ để duyệt hình |
 | 4. Hoàn thiện hình và giọng | Hoàn thiện asset/rig đã duyệt; chọn voice/model ElevenLabs bằng mẫu ngắn trước, rồi tạo lời chính thức | Nghe giọng đúng cảm xúc, đủ vai; audio thực có mốc để cập nhật timing | Giữ các đoạn đã đạt. Muốn nhiều giọng/tái tạo từng đoạn phải có quy trình ráp riêng; backend cũ chỉ một voice/cache cả bài |
-| 5. Phối âm và xuất kiểm tra | Thêm nhạc theo cảm xúc, Foley đúng chất liệu/tiếp xúc, môi trường đúng gần–xa; cập nhật hình theo audio thật | Xem/nghe bản xuất: không vật bay/xuyên/trượt, lời rõ, nhạc đủ nghe, âm quan trọng có sức nặng, khoảng nghỉ đủ | Tìm nguồn miễn phí hoặc thư viện đã có, ghi quyền dùng; hoàn thiện và render lại phần phụ thuộc thay đổi |
+| 5. Phối âm và xuất kiểm tra | Chọn/nghe nhạc không lời và nền theo DUNG-CANH/NGUON-AM-THANH; Foley đúng tiếp xúc, hơi thở đúng vai; cập nhật hình theo audio thật | Xem/nghe bản xuất: không vật bay/xuyên/trượt, lời rõ, nhạc đủ nghe, âm quan trọng có sức nặng, khoảng nghỉ đủ | Tìm nguồn miễn phí hoặc thư viện đã có, ghi quyền dùng; hoàn thiện và render lại phần phụ thuộc thay đổi |
 | 6. Bàn giao | Phim cuối, đường dẫn đầu ra, nguồn media, thời lượng đo, log lượt tạo/credits thực và trạng thái repo | Sản phẩm đã xem/nghe và file nguồn khớp; không báo hoàn tất bằng log render đơn thuần | Giữ mã/asset dùng lại, ghi bài học chung; media nặng lưu đúng chỗ theo slug thay vì đẩy tự động lên Git |
 
 **Hai bước duyệt hình vẫn là storyboard → animatic.** Bước chuẩn bị thiết kế không thay storyboard; ảnh đầu–giữa–cuối chỉ hỗ trợ soi, không thay xem animatic. Dựng animatic cần mã shot/rig/timeline của tập; studio hiện chưa tự chuyển Markdown thành phim.
@@ -38,7 +38,7 @@ Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kị
 | Tiệm | Một sơ đồ cố định, góc chung/cận dùng lại, insert máy/tiền/ảnh/giấy theo trạng thái | Phần lớn C1–C5 và C8 dùng cùng set. Chỉ đổi pose, ánh G2 và trạng thái đạo cụ; giữ cửa đông khớp ngoại cảnh |
 | Cánh đồng | Bờ đất/cỏ gần, nhóm người giữa, ruộng/trời xa; góc đi và ngồi đủ dùng | C6–C7 chung set/trục; chuyển động cần thiết là đi/nắm tay/ngồi/ôm/tan, không thêm quay vòng phức tạp |
 | Ngưỡng nhà | Một khu vực cửa đủ thấy dấu vết đời sống và nghe bố sau vách | Không dựng toàn căn nhà hoặc nhà dì; tái dùng lớp hẻm nếu góc thực sự khớp |
-| Âm thanh | Giọng người kể + Duy/Thảo/Lộc/mẹ; mẹ ghi âm và ở đồng cùng giọng, xử lý nguồn khác. Nhạc/ambience/Foley theo cue | Bố không thoại rõ; dì không voice riêng. Chọn lại trong thư viện trước, không tạo trả phí hàng loạt |
+| Âm thanh | Giọng người kể + Duy/Thảo/Lộc/mẹ; mẹ ghi âm và ở đồng cùng giọng, xử lý nguồn khác. Ưu tiên nhạc không lời; nền đúng cảnh, Foley/hơi thở theo cue; nguồn ở NGUON-AM-THANH | Bố không thoại rõ; dì không voice riêng. Chọn lại trong thư viện trước, không tạo trả phí hàng loạt |
 
 Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống nhất. Đối thoại ưu tiên máy tĩnh/diễn xuất nhỏ; chuyển động mạnh nhất phục vụ dẫn mắt ở mở đầu và hành động cảm xúc. Chưa có dữ liệu để chốt số lượt tạo hoặc phần trăm tiết kiệm quota.
 
@@ -61,11 +61,12 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 
 ## Phạm vi đồng bộ đã rà trong repo
 
-| Nội dung | File hiện hành cần khớp | Kết quả rà văn bản 07/11/2026 |
+| Nội dung | File hiện hành cần khớp | Kết quả rà văn bản đến 08/11/2026 |
 |---|---|---|
 | Tuổi, vai và xưng hô | KICH-BAN, DUNG-CANH, README tập; lời trong LOI-DOC/ELEVENLABS | Duy anh 16, Thảo em 8; trẻ xưng cháu/gọi ông, Lộc xưng tao/gọi mày; đúng người nói |
 | Ba giá, người trả, mẹ, bố/dì | KICH-BAN, DUNG-CANH, ASSET, README và GHI-CHU | G1/G2 Duy, G3 Thảo; mẹ từng che con khỏi bố bạo hành, hiện hình ở G3; bố/dì không thành tuyến dựng riêng; ba biên nhận rõ vai trò |
 | Đoạn mở, cue và thời lượng | KICH-BAN, DUNG-CANH, ASSET, README, mục lục docs/KICH-BAN | C0-A…F 24 giây; C0 + C1–C8, 35 cue; giữ ước tính mới |
+| Âm thanh bản 9 | KICH-BAN, DUNG-CANH, NGUON-AM-THANH, ASSET | 35 cue có âm chính/chi tiết; nền/nhạc không lời theo cảnh; nguồn miễn phí đã đọc điều kiện nhưng chưa nghe/tải/ráp. Không đổi lời, thời lượng hay tạo media |
 | Lời đọc | KICH-BAN → LOI-DOC và ELEVENLABS | Đối chiếu toàn bộ đoạn được đọc; loại thẻ để so nội dung; C0/chỉ dẫn không vào TTS |
 | Nơi tìm kế hoạch và quy tắc cập nhật | README gốc/tập, CLAUDE, skill/SKILL và look, docs/WHAT-IF-QUY-TRINH, docs/KICH-BAN, docs/ASSET | Liên kết về kế hoạch tập; hướng dẫn rà file phụ thuộc sau mỗi đổi |
 | Media đã có / phần cần làm | ASSET, README, kế hoạch này | Có concept, mã SVG/rig/sets và ảnh preview/10 still; mẫu mới chờ duyệt theo cảnh; chưa có giọng, storyboard/animatic toàn tập hoặc phim cuối đã duyệt |

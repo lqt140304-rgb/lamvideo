@@ -44,7 +44,7 @@ what-if-studio/               studio Remotion, engine, thư viện và tập m�
 
 Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tương ứng khi phát sinh. Không tạo hàng loạt file rỗng. Kinh nghiệm chung không chứa cốt truyện riêng của tập.
 
-**Đang làm:** [kế hoạch tối ưu Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) — bản 8 **giữ người dẫn chuyện + thoại**, bổ sung khung/máy có chọn lọc; ngõ theo asset mới; đã nhận thư viện SVG/preview nâng cấp, chuẩn bị storyboard → animatic toàn tập; mã thử chưa phải phim hoàn chỉnh.
+**Đang làm:** [kế hoạch tối ưu Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) — bản 9 **giữ người dẫn chuyện + thoại**, thêm nền/nhạc không lời và âm chi tiết theo cảnh, giữ khung/máy bản 8; ngõ theo asset mới; đã nhận thư viện SVG/preview nâng cấp, chuẩn bị storyboard → animatic toàn tập; mã thử chưa phải phim hoàn chỉnh.
 
 Hồ sơ đã sắp xếp: [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 
@@ -72,6 +72,7 @@ Các tên dưới đây tính từ `episodes/<series>/<slug-tap>/`. Chỉ tạo 
 | `KE-HOACH-SAN-XUAT.md` khi cần | Kế hoạch thực hiện và kiểm soát lượt sửa | Bản nguồn đang áp dụng, thứ tự làm/duyệt, nhóm asset dùng lại, cảnh rủi ro, kiểm tra đồng bộ và phần chưa sản xuất |
 | `KICH-BAN.md` | Nguồn biên tập của câu chuyện và bản dựng | Luật thế giới, vai trò nhân vật, cảnh, hành động, thoại, camera/lens/rung/focus, âm thanh và khoảng nghỉ |
 | `DUNG-CANH.md` khi cần | Triển khai hình/âm chi tiết theo cue của kịch bản nguồn | Sơ đồ phòng, vị trí máy/lens, tư thế, đường đi đạo cụ, lớp gần–xa, âm thanh và điểm cần duyệt ở storyboard/animatic; không tạo bản thoại độc lập |
+| `NGUON-AM-THANH.md` khi cần | Nguồn nhạc/âm môi trường của tập | Tên bản/tác giả, URL, giấy phép/ngày kiểm tra, cảnh đề nghị, trạng thái nghe/tải/dùng; không mặc định file được phép phân phối lại |
 | `LOI-DOC.md` | Lời sạch dùng để đọc thử hoặc chuẩn bị TTS | Chỉ phần được đọc; không có tên shot, chỉ dẫn quay hoặc `[NGHỈ ...]` |
 | `ELEVENLABS.md` | Bản lời có hướng diễn xuất cho giọng/model phù hợp | Thẻ cảm xúc đặt đúng đoạn; phải khớp bản lời nguồn, không coi thẻ là lệnh tự phân vai |
 | `ASSET.md` | Bảng kiểm tài nguyên của tập | Mã asset, nhân vật/bối cảnh/đạo cụ/âm thanh, đường dẫn, nguồn/quyền dùng, phiên bản và trạng thái đã có/chưa tạo |

@@ -1,5 +1,11 @@
 # Ghi chú riêng — tập 01
 
+## Bản 9 — nền đúng cảnh và âm chi tiết — 08/11/2026
+
+Theo yêu cầu chủ repo: nền âm cần hợp cảnh, ưu tiên nhạc không lời; thêm hơi thở/môi/ghế/dụng cụ/giấy nhưng có chọn lọc. Mỗi 35 cue nguồn có âm chính và DUNG-CANH có diễn giải vào/dừng; bảng nền phân biệt thành phố, phòng kín, thoáng G2, ruộng và ngưỡng nhà. Đồng hồ kệ ngừng chạy không ticking; quầy không bị kéo; tiếng môi không gắn mỗi nhịp rig nhép miệng. Bản ghi dừng phải chỉ còn quạt, mẹ tan để gió ở lại; nhạc kết chỉ sau nhịp Duy thở ra. Giữ toàn bộ lời/thẻ/29 giây nghỉ/24 giây mở/35 cue và khung/máy bản 8.
+
+Đã đọc trang/giấy phép các nguồn miễn phí và lập NGUON-AM-THANH: ưu tiên Audio Library cho YouTube; ứng viên Mixkit có tên/tác giả để nghe theo cảnh, không hứa tuyệt đối không claim nhầm. Chưa nghe thử, tải, thu hoặc tạo audio, chưa mix/render hay khởi chạy Claude. Thư viện sfx cũ có các file đặt tên chung nhưng chưa đủ thông tin nguồn/phù hợp để chốt cho tập. Không tải/đẩy các file âm rời có giới hạn tái phân phối vào Git. Các phần lịch sử dưới giữ nguyên.
+
 ## Bản 8 — khung hình, rung và nghiêng có chọn lọc — 08/11/2026
 
 Chủ repo yêu cầu thêm đúng chỗ, tránh làm hỏng cảnh. Quyết định biên tập: thực tại 16:9; toàn miền cánh đồng C6–C7 2:1 để giữ đủ mặt/tay ba người; đổi sau lớp trắng và cắt về 16:9 ở C8-A. Chỉ C5-C có roll tối đa +2°, rung x≤2/y≤1 px trong 1,6 giây thuộc khoảng nghỉ 2 giây sẵn có, về 0 trước C5-D. Máy ở cảnh Lộc gắt, ký giấy, nhận giá và mẹ tan vẫn ổn định; có thể bỏ hiệu ứng nếu animatic không chứng minh giá trị.
