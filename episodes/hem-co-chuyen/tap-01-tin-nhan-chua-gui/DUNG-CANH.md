@@ -2,6 +2,8 @@
 
 07/11/2026. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là ý đồ để làm storyboard/animatic, chưa có render, giọng hoặc chuyển động thực. Mặt Lộc đã chốt, concept trẻ v4 chờ duyệt; mẹ/cánh đồng chưa tạo.
 
+**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
+
 ## 1. Không gian và ánh sáng cố định
 
 **SET-TIEM:** phòng quy ước 4,2×6 m, khách ở phía nam y=0; quầy y≈3,3, cao 0,78 m, sâu 0,6 m, chừa lối phải. Duy trái x≈1,4, Thảo phải x≈2,6, cùng phía khách y≈2,6. Lộc sau giữa x≈2,1/y≈4,1, bàn sửa/đèn vàng y≈5,3. Kệ trái, cửa phải ra hẻm x=4,2/y≈1,4 luôn mở. C1 đứng, C2 mới ngồi; ghế Thảo có bậc chân, điều chỉnh mặt ngồi vừa quầy, không dùng rig người lớn thu nhỏ. Máy ở khăn giữa; ảnh trái, giấy phải. Kệ gần/người-quầy giữa/bàn sửa-tường xa. Đèn bàn cho Lộc nửa mặt sâu bóng nhưng còn đọc được mắt; hắt trần đủ đọc trẻ, cửa lạnh bên phải. Không đèn kính phát sáng.
@@ -22,8 +24,8 @@ Camera tiệm ở phía khách/nam trục hai trẻ. Giữ Duy trái/Thảo ph�
 
 | Người | Tạo hình / diễn |
 |---|---|
-| Duy 16 | Áo thun xanh xám bạc, đường khâu nhỏ, quần xanh than/giày vải mòn; mặt vẫn trẻ. Đầu gồng, che em, giấu nhớ; G1 chọn và mất một kỷ niệm; G2 chủ động nhận gánh rồi kiệt; G3 phản ứng chậm có nguyên nhân, không ngu đi tùy cảnh. Ở đồng có thể cười/khóc thật nhưng mệt vẫn còn khi về |
-| Thảo 8 | Áo vàng kem cũ hơi rộng, khâu gấu gọn, quần lửng xanh vá nhỏ, dép mòn, tóc nửa đầu. Nói/tò mò đúng tuổi; nài vì nhớ mẹ, nhận G3 vì thấy anh không chịu nổi, không bị quy thành ích kỷ. Câu nhận nhanh phải sau giá và trước lời ngăn |
+| Duy — anh trai, 16 tuổi | Áo thun xanh xám bạc, đường khâu nhỏ, quần xanh than/giày vải mòn; mặt vẫn trẻ. Đầu gồng, che em, giấu nhớ; G1 chọn và mất một kỷ niệm; G2 chủ động nhận gánh rồi kiệt; G3 phản ứng chậm có nguyên nhân, không ngu đi tùy cảnh. Ở đồng có thể cười/khóc thật nhưng mệt vẫn còn khi về |
+| Thảo — em gái, 8 tuổi | Áo vàng kem cũ hơi rộng, khâu gấu gọn, quần lửng xanh vá nhỏ, dép mòn, tóc nửa đầu. Nói/tò mò đúng tuổi; nài vì nhớ mẹ, nhận G3 vì thấy anh không chịu nổi, không bị quy thành ích kỷ. Câu nhận nhanh phải sau giá và trước lời ngăn |
 | Lộc khoảng 60 | Giữ thiết kế đã chốt. Lạnh/quyền chủ động; nụ cười nhỏ bắt đầu câu hỏi sau G1. Không mừng chiến thắng lớn, không hóa người hiền dạy bài học; nói rõ hiệu lực lời nhận ở G2 trước G3 |
 | Mẹ khoảng 38–42 | Áo vải màu đất sáng, quần tối, tóc buộc thấp; phụ nữ lao động bình thường, mặt ấm có nét mệt nhẹ, không già như bà, không thiên thần. Cần pose gọi/nắm tay/đi/ngồi/ôm và tan; chưa tạo hoặc duyệt. Từ đùa chuyện nhỏ tới lời gửi gắm, không đọc diễn văn |
 

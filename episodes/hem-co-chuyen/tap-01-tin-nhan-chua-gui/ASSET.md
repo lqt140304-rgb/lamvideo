@@ -16,7 +16,7 @@ Prompt tạo đầu: bảng toàn thân ba nhân vật Việt, 2D điện ảnh 
 
 | ID | Tài nguyên / ràng buộc | Trạng thái |
 |---|---|---|
-| CHAR-DUY / CHAR-THAO | Giữ tuổi 16/8, đồ cũ, dáng che chở; thêm kiệt sức G2 và nét trẻ ở đồng. Không lấy mặt Lộc làm mẫu tuổi cho trẻ | Có concept v4 hai trẻ chờ duyệt; chưa rig/pose |
+| CHAR-DUY / CHAR-THAO | Duy anh trai 16 tuổi, Thảo em gái 8 tuổi; đồ cũ, dáng che chở; thêm kiệt sức G2 và nét trẻ ở đồng. Không lấy mặt Lộc làm mẫu tuổi cho trẻ | Có concept v4 hai trẻ chờ duyệt; chưa rig/pose |
 | CHAR-LOC | Giữ mặt đã chốt, thêm nét cười lạnh nhẹ khi Thảo hỏi sau G1 | Mặt đã chốt, chưa rig/pose |
 | CHAR-ME | Khoảng 38–42, áo vải đất sáng/quần tối/tóc buộc thấp; gọi, đi nắm tay, ngồi/ôm/tan; không hào quang | Chưa tạo/duyệt |
 | SET-TIEM | Quầy/kệ trái/cửa phải mở/bàn sửa sau, ghế em có bậc; G2 chỉ đổi ánh chủ quan | Chưa tạo |

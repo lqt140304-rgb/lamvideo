@@ -2,6 +2,8 @@
 
 ## Bản 4 — 07/11/2026
 
+- Tuổi/quan hệ hiện hành: Duy anh trai 16 tuổi, Thảo em gái 8 tuổi. Hai trẻ gọi Lộc là “ông”, xưng “cháu”; Lộc xưng “ta”. Ghi rõ ở đầu KICH-BAN, DUNG-CANH và README để khi mở file không nhầm với hồ sơ người trưởng thành trong lịch sử.
+
 - Chủ repo yêu cầu từ một lên ba lần đổi; sau sửa máy, Thảo tò mò hỏi có sửa thứ khác không. Lộc mới cười lạnh “Thế muốn sửa gì nữa?”, em xin cảm giác như ngày mẹ còn.
 - Hướng cũ mẹ chỉ qua giọng/không hồi ức được thay bằng mẹ hiện hình trong cuộc gặp G3. Không áp đề xuất trước đó là Duy trả cả ba hoặc bị mắc kẹt trong cảnh ký ức; đây không phải ý chốt của chủ repo.
 - G1 Duy trả một tối sinh nhật được mẹ ôm. G2 do Duy trả bằng nhận thêm phần trống vắng của Thảo, sau thoáng ấm cậu mệt/rối. G3 do Thảo trả, không còn mơ thấy mẹ, để hai anh em được gặp/nói lời còn thiếu. Giá 2/3 là lựa chọn biên tập cụ thể hóa “cảm giác”, cần phản hồi chủ repo nếu muốn thay, không phải chi tiết được người dùng viết nguyên văn.

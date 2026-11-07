@@ -2,6 +2,8 @@
 
 > Bản 4 — 07/11/2026. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
 
+**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
+
 Nguồn lời ở đây. [DUNG-CANH.md](DUNG-CANH.md) triển khai hình/âm, [LOI-DOC.md](LOI-DOC.md) và [ELEVENLABS.md](ELEVENLABS.md) xuất cùng nguồn. Có concept ba nhân vật: mặt Lộc đã chốt, hai trẻ bản mới chờ duyệt; **chưa tạo hình mẹ/cánh đồng, giọng, storyboard, animatic hoặc video**.
 
 ## Cốt truyện và nhân vật
@@ -10,8 +12,8 @@ Mất mẹ, bố say và bỏ bê khiến Duy 16 cố mạnh để bảo vệ Th
 
 | Người | Vai trò và thay đổi |
 |---|---|
-| Duy, anh 16 | Bên ngoài cứng, bên trong nhớ mẹ, hy sinh nhưng có giới hạn. Trả G1/G2, nhận lỗi vì làm em sợ, không kịp ngăn G3 khi mệt; cuối dám nói không tự gánh nổi |
-| Thảo, em 8 | Nhớ mẹ đơn thuần, sợ/níu anh, có lỗi phá máy; tò mò hỏi Lộc, rồi nhanh miệng nhận giá vì không muốn anh mất thêm. Không bị viết thành người tham lam hoặc chuyên gia tâm lý |
+| Duy — anh trai, 16 tuổi | Bên ngoài cứng, bên trong nhớ mẹ, hy sinh nhưng có giới hạn. Trả G1/G2, nhận lỗi vì làm em sợ, không kịp ngăn G3 khi mệt; cuối dám nói không tự gánh nổi |
+| Thảo — em gái, 8 tuổi | Nhớ mẹ đơn thuần, sợ/níu anh, có lỗi phá máy; tò mò hỏi Lộc, rồi nhanh miệng nhận giá vì không muốn anh mất thêm. Không bị viết thành người tham lam hoặc chuyên gia tâm lý |
 | Lộc, khoảng 60 | Kỳ lạ/lạnh/nguy hiểm, lúc đầu đòi tiền; chỉ cười lạnh ở câu hỏi về thứ khác. Báo giá/hiệu lực rõ nhưng khai thác nỗi khao khát của trẻ; chưa giải thích động cơ sâu hoặc mặc định là người tốt |
 | Mẹ, khoảng 38–42 | Bản ghi cũ ở G1; hiện hình và trò chuyện trong G3 ở cánh đồng. Từ chuyện nhỏ tới gửi gắm rồi tan; không trở lại đời thật hoặc sửa dữ liệu chiếc máy |
 | Bố / dì Hạnh | Bố say ngoài khung tạo sức ép, không có tuyến giải cứu riêng. Dì đầu hẻm là người lớn đã có khả năng giúp; cuộc gọi cuối không phải người cứu đột ngột chưa giới thiệu |

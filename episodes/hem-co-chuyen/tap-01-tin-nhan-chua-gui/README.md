@@ -2,6 +2,8 @@
 
 **Bản hiện hành: 4, 07/11/2026.** Đúng 3 giao kèo: G1 Duy đổi ký ức sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
 
+**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
+
 | File | Tác dụng |
 |---|---|
 | [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, 8 cảnh, nhịp nghỉ, hình và thoại |
