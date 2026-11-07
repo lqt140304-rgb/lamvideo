@@ -96,6 +96,12 @@ Các nguyên tắc dưới được chọn lọc từ ghi chép thực hành và
 - **Môi trường mất sức nặng → hạ mọi âm xuống vai trò nền nhỏ →** phân biệt ambience liên tục với biến cố âm thanh nổi bật, xét vị trí gần–xa, trong–ngoài và vật cản. Cho sấm, gió mạnh, máy móc hoặc cửa sập chiếm ưu thế khi tình huống cần; dành nhịp thoại/phản ứng phù hợp. **Kiểm tra:** nghe ra quy mô và vị trí nguồn, có tương phản trước–sau; giữ sức nặng mà không clipping, không làm mọi cảnh đều ồn.
 - **Nghe từng track tốt nhưng bản xuất không rõ → bỏ qua cộng dồn và chuẩn hóa stem →** duyệt mix cuối bằng tai nghe và loa thông thường ở mức nghe ổn định, thoải mái. **Kiểm tra:** lời, nhạc, Foley và môi trường có thứ bậc đúng, tiếng quan trọng không mất, điểm nối không giật; số đo chỉ hỗ trợ việc nghe. Chưa nghe thì không ghi đã đạt.
 
+## Chuyển động nhỏ và sự liên tục của nhân vật
+
+- **Vai và chi như các mảnh lắp ghép → viền khép ở mọi điểm xương, tay áo hình hộp →** giữ chung điểm neo xương, làm đường bao liên tục, bỏ nét nối thừa, tạo nếp theo khuỷu và trọng lực. **Kiểm tra:** vai–tay áo liền ở đứng, với và thu tay, đường bao không gãy hoặc đổi lớp bất ngờ; phong cách cartoon không cần đổi sang tỉ lệ người thật.
+- **Chân như que hoặc hông như mảng treo khi ngồi → đùi quá hẹp và một khối quần cố định cho mọi pose →** tạo khối hông nối hai gốc đùi, độ đầy của đùi/bắp chân/ống quần phù hợp thiết kế; cho hông đáp lại góc đùi. **Kiểm tra:** đứng và ngồi ở các hướng, có khe chân hợp lý, mông chạm mặt đỡ, không sinh mảng quần rời. Không chỉ duyệt hình đứng.
+- **Hiệu ứng bơi, lặp sai hoặc nói liên tục → tách khỏi điểm phát và thời điểm hành động →** gắn khói vào nguồn, bụi va đập/gợn vào điểm chạm, kết thúc sau sự kiện; cue miệng có nhịp khép/nghỉ và căn giọng cuối. Mọi nhiễu dùng seed/thời gian khung hình. **Kiểm tra:** tua đi/lùi cùng mốc cho cùng hình, xem clip để kiểm tra nhịp; kiểm thử hình học và ảnh trích chỉ hỗ trợ, không thay duyệt chuyển động/audio.
+
 ## Cách bổ sung bài học
 
 Viết theo mẫu: **vấn đề lặp lại → nguyên nhân → nguyên tắc xử lý → cách biết đã đạt**. Bài học phải dùng được cho một tập khác mà không cần biết cốt truyện gốc. Nếu chỉ là sửa một câu, một nhân vật hoặc một asset cụ thể, lưu vào ghi chú riêng của tập.

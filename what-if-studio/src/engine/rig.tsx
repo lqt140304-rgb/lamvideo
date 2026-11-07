@@ -1,5 +1,8 @@
 import React from 'react';
-import { lerp, easeInOut } from './anim';
+import { lerp, easeInOut, clamp } from './anim';
+import { ArticulatedMouth, type MouthShape } from './mouth';
+import { SoftLimb, SoftTorso } from './anatomy';
+export type { MouthShape } from './mouth';
 
 // The cast, drawn entirely in code: one rig, and a costume (a Look) per character. Every character is built
 // once here, so they look identical in every shot: that's the "drawn, not guessed" point. Original
@@ -455,6 +458,9 @@ export type Pose = {
   glint?: number; // 0..1 the eyes light up in the power's colour (set it after poseAt: it isn't interpolated)
   glintColor?: string;
   talk?: number; // 0..1 the mouth open while speaking
+  mouthShape?: MouthShape;
+  lipTremble?: number; // signed face-local motion; drive from the shot clock
+  cloth?: number; // small secondary hem/fold movement, -1..1
   shoulderLift?: number; // -1..1 shrug (>0) or slump (<0)
 };
 
@@ -468,8 +474,8 @@ export const basePose: Pose = {
   headTilt: 0,
   armL: { a: 10, b: -8 },
   armR: { a: 10, b: -8 },
-  legL: { a: 5, b: 0 },
-  legR: { a: -5, b: 0 },
+  legL: { a: -5, b: 0 },
+  legR: { a: 5, b: 0 },
   expr: 'neutral',
   blink: 0,
   look: 0,
@@ -484,18 +490,24 @@ export const basePose: Pose = {
 
 type Key = { f: number; p: Partial<Pose>; ease?: (t: number) => number };
 
-/** Blinks that belong to the shot's clock: shut about 3 frames every 2.5 to 4 s, never random. */
+/** Deterministic close–hold–open blink; different seeds keep faces out of sync. */
 export const blinkAt = (t: number, seed = 0) => {
-  const period = 75 + ((seed * 37) % 45);
-  return (t + seed * 17) % period < 3 ? 1 : 0;
+  const period = 75 + ((seed * 37) % 45 + 45) % 45;
+  const phase = ((t + seed * 17) % period + period) % period;
+  if (phase >= 7) return 0;
+  if (phase < 2) return Math.sin(phase * Math.PI / 4);
+  if (phase < 3) return 1;
+  return Math.cos((phase - 3) * Math.PI / 8) ** 2;
 };
 
 /** Subtle breathing motion for holds so standing/sitting characters feel alive without distracting from dialogue. */
 export const breatheAt = (t: number, seed = 0): Partial<Pose> => {
-  const ph = t * 0.08 + seed * 1.7;
+  const ph = t * 0.045 + seed * 1.7;
   return {
-    shoulderLift: Math.sin(ph) * 0.15,
-    headTilt: Math.sin(ph - 0.5) * 0.8,
+    shoulderLift: Math.sin(ph) * 0.12,
+    headTilt: Math.sin(ph - 0.5) * 0.55,
+    cloth: Math.sin(ph - 0.3) * 0.35,
+    blink: blinkAt(t, seed),
   };
 };
 
@@ -538,6 +550,9 @@ export const poseAt = (f: number, keys: Key[], from: Pose = basePose): Pose => {
         sway: lerp(A.p.sway, B.p.sway, t),
         shoulderLift: lerp(A.p.shoulderLift ?? 0, B.p.shoulderLift ?? 0, t),
         talk: A.p.talk !== undefined || B.p.talk !== undefined ? lerp(A.p.talk ?? 0, B.p.talk ?? 0, t) : undefined,
+        mouthShape: f >= B.f ? B.p.mouthShape : A.p.mouthShape,
+        lipTremble: lerp(A.p.lipTremble ?? 0, B.p.lipTremble ?? 0, t),
+        cloth: lerp(A.p.cloth ?? 0, B.p.cloth ?? 0, t),
         glint: A.p.glint !== undefined || B.p.glint !== undefined ? lerp(A.p.glint ?? 0, B.p.glint ?? 0, t) : undefined,
         glintColor: B.p.glintColor ?? A.p.glintColor,
       };
@@ -552,7 +567,7 @@ const FORE_ARM = 46;
 const THIGH = 72;
 const SHIN = 68;
 const SHOULDER = { x: 42, y: -108 };
-const HIP = { x: 17, y: 0 };
+const HIP = { x: 24, y: 0 };
 export const HEAD = { x: 0, y: -176, r: 62 };
 export const LEG_LEN = THIGH + SHIN;
 
@@ -579,7 +594,7 @@ export const joints = (pose: Pose) => {
     let limb = rawLimb;
     // Ensure default/rest standing arms always bend their elbows BACKWARD (forearm forward in faceDir)
     if (!isLeg && rawLimb.a === 10 && rawLimb.b === -8) {
-      limb = ay >= 0.12 ? (s === faceDir ? { a: -7, b: 19 } : { a: 3, b: -16 }) : { a: 5, b: 6 };
+      limb = s === faceDir ? { a: 12, b: -4 } : { a: 16, b: -8 };
     }
     const d1 = { x: dir * Math.sin(rad(limb.a)), y: Math.cos(rad(limb.a)) };
     const mid = { x: root.x + d1.x * l1, y: root.y + d1.y * l1 };
@@ -648,6 +663,8 @@ const Face: React.FC<{
   glint?: number;
   glintColor?: string;
   talk?: number;
+  mouthShape?: MouthShape;
+  lipTremble?: number;
   ageLines?: boolean;
   moustache?: boolean;
   hairColor?: string;
@@ -665,6 +682,8 @@ const Face: React.FC<{
   glint = 0,
   glintColor = '#8FF0FF',
   talk = 0,
+  mouthShape = 'auto',
+  lipTremble = 0,
   ageLines = false,
   moustache = false,
   hairColor = C.ink,
@@ -971,14 +990,10 @@ const Face: React.FC<{
       {moustache ? (
         <path d={`M -18 ${mY - 4} Q 0 ${mY - 11} 18 ${mY - 4} Q 9 ${mY - 2} 0 ${mY - 5} Q -9 ${mY - 2} -18 ${mY - 4} Z`} fill={hairColor} stroke={ink} strokeWidth={1.5} />
       ) : null}
-      {talk > 0.08 ? (
-        <g>
-          <ellipse cx={0} cy={mY + 4} rx={12.5} ry={2.5 + 11.5 * talk} fill={ink} />
-          {talk > 0.28 ? <path d={`M -8 ${mY + 4 - 8 * talk} L 8 ${mY + 4 - 8 * talk}`} stroke="#FFFFFF" strokeWidth={2.8} strokeLinecap="round" /> : null}
-          {talk > 0.35 ? <ellipse cx={0} cy={mY + 6 + 4 * talk} rx={6.5} ry={3.2 * talk} fill="#D96B6B" /> : null}
-        </g>
+      {mouthShape !== 'auto' || talk > 0.08 ? (
+        <ArticulatedMouth shape={mouthShape === 'auto' ? 'a' : mouthShape} open={talk} y={mY} ink={ink} shade={skinShade} tremble={lipTremble} />
       ) : (
-        mouth[expr]
+        <g transform={`translate(${clamp(lipTremble, -1, 1) * 1.2} 0)`}>{mouth[expr]}</g>
       )}
       {expr === 'shock' || expr === 'oops' || expr === 'scared' || expr === 'worried' || expr === 'tired' ? (
         <path d={`M 52 ${HEAD.y - 30} q 6 10 0 16 q -6 -6 0 -16 Z`} fill="#8FD3FF" opacity={expr === 'worried' || expr === 'tired' ? 0.78 : 1} />
@@ -1091,46 +1106,19 @@ const TempleLocks: React.FC<{
   );
 };
 
-export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?: Look; opacity?: number }> = ({
+export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?: Look; opacity?: number; heldProps?: Partial<Record<'L' | 'R', React.ReactNode>> }> = ({
   pose,
   shadow = 1,
   rimId = 'rimR',
   look = LOOKS.pipHood,
   opacity = 1,
+  heldProps,
 }) => {
   const j = joints(pose);
   const L = look;
 
-  // Limbs with upper-segment sleeve / trouser depth, joint rounding, and optional bare forearm/shin
-  const limb = (o: { root: P; mid: P; end: P }, w0: number, lower?: string, isArm = false) => {
-    const w = L.limbW ?? w0;
-    const d = `M ${o.root.x} ${o.root.y} L ${o.mid.x} ${o.mid.y} L ${o.end.x} ${o.end.y}`;
-    return (
-      <g>
-        <path d={d} stroke={L.line} strokeWidth={w + 7} fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        <path d={d} stroke={isArm && lower ? L.jacket : L.limb} strokeWidth={w} fill="none" strokeLinecap="round" strokeLinejoin="round" />
-        {/* subtle shading along one side of the limb */}
-        <path d={d} stroke="#000" strokeWidth={w * 0.28} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={0.14} />
-        {lower ? (
-          <>
-            <path d={`M ${o.mid.x} ${o.mid.y} L ${o.end.x} ${o.end.y}`} stroke={L.line} strokeWidth={w + 4} fill="none" strokeLinecap="round" />
-            <path d={`M ${o.mid.x} ${o.mid.y} L ${o.end.x} ${o.end.y}`} stroke={lower} strokeWidth={w - 3} fill="none" strokeLinecap="round" />
-            {/* rolled sleeve / trouser cuff ring at the joint */}
-            <circle cx={o.mid.x} cy={o.mid.y} r={w * 0.56} fill={isArm ? L.jacketShade : L.limb} stroke={L.line} strokeWidth={2.5} />
-            {isArm && L.tattoo ? (
-              <g opacity={0.75}>
-                <path d={`M ${o.mid.x + (o.end.x - o.mid.x) * 0.2} ${o.mid.y + (o.end.y - o.mid.y) * 0.2} Q ${o.mid.x + (o.end.x - o.mid.x) * 0.5 + 4} ${o.mid.y + (o.end.y - o.mid.y) * 0.5} ${o.end.x} ${o.end.y}`} stroke="#1D2A3A" strokeWidth={2.8} fill="none" strokeLinecap="round" />
-                <path d={`M ${o.mid.x + (o.end.x - o.mid.x) * 0.35} ${o.mid.y + (o.end.y - o.mid.y) * 0.35} Q ${o.mid.x + (o.end.x - o.mid.x) * 0.6 - 4} ${o.mid.y + (o.end.y - o.mid.y) * 0.6} ${o.mid.x + (o.end.x - o.mid.x) * 0.85} ${o.mid.y + (o.end.y - o.mid.y) * 0.85}`} stroke="#1D2A3A" strokeWidth={2.2} fill="none" strokeLinecap="round" />
-                <circle cx={o.mid.x + (o.end.x - o.mid.x) * 0.55} cy={o.mid.y + (o.end.y - o.mid.y) * 0.55} r={2.5} fill="#1D2A3A" />
-              </g>
-            ) : null}
-          </>
-        ) : null}
-      </g>
-    );
-  };
-  const arm = (o: { root: P; mid: P; end: P }) => limb(o, 11, L.forearm, true);
-  const leg = (o: { root: P; mid: P; end: P }) => limb(o, 12, L.shin, false);
+  const arm = (chain: { root: P; mid: P; end: P }) => <SoftLimb chain={chain} width={L.limbW ?? 11} color={L.jacket} shade={L.jacketShade} ink={L.line} bare={L.forearm} arm tattoo={L.tattoo} />;
+  const leg = (chain: { root: P; mid: P; end: P }) => <SoftLimb chain={chain} width={L.limbW ?? 12} color={L.limb} shade={L.line} ink={L.line} bare={L.shin} />;
 
   // Detailed shoe with sole, upper, toe cap, and lace ticks
   const shoe = (o: { root: P; mid: P; end: P }) => {
@@ -1148,7 +1136,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   };
 
   // Multi-pose hand renderer supporting all 8 HandKinds
-  const hand = (o: { mid: P; end: P }, side: 1 | -1, kind: HandKind) => {
+  const hand = (o: { mid: P; end: P }, side: 1 | -1, kind: HandKind, attachment?: React.ReactNode) => {
     const ang = (Math.atan2(o.end.x - o.mid.x, o.end.y - o.mid.y) * 180) / Math.PI;
     return (
       <g transform={`translate(${o.end.x} ${o.end.y}) rotate(${-ang})`}>
@@ -1170,6 +1158,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           <g>
             {/* 1. Palm base */}
             <ellipse cx={0} cy={7} rx={11.5} ry={11.5} fill={L.hand} stroke={L.line} strokeWidth={3.6} />
+            {attachment}
             {/* 2. Opposing thumb gripping from the side */}
             <path d={`M ${side * 9} 2 Q ${side * 15} 10 ${side * 6} 17`} stroke={L.line} strokeWidth={7.5} strokeLinecap="round" fill="none" />
             <path d={`M ${side * 9} 2 Q ${side * 15} 10 ${side * 6} 17`} stroke={L.hand} strokeWidth={4.5} strokeLinecap="round" fill="none" />
@@ -1189,6 +1178,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         ) : kind === 'pinch' ? (
           <g>
             <ellipse cx={0} cy={7} rx={11} ry={11} fill={L.hand} stroke={L.line} strokeWidth={3.5} />
+            {attachment}
             {/* Opposing index and thumb meeting at the pinch point */}
             <path d={`M ${side * 9} 4 Q ${side * 12} 16 ${side * 2} 24`} stroke={L.line} strokeWidth={7} strokeLinecap="round" fill="none" />
             <path d={`M ${-side * 4} 10 Q ${side * 1} 19 ${side * 2} 24`} stroke={L.line} strokeWidth={7} strokeLinecap="round" fill="none" />
@@ -1246,10 +1236,11 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   const kw = turnWidth(pose.yaw);
   const liftY = (pose.shoulderLift ?? 0) * -8;
 
+
   const torso = (
     <g transform={`rotate(${pose.tilt}) translate(${pose.yaw * 6} ${liftY * 0.5}) scale(${kw} 1)`}>
       {/* Neck connecting torso to head with under-chin cast shadow */}
-      <rect x={-13} y={-132} width={26} height={24} rx={8} fill={L.skin} stroke={L.line} strokeWidth={3.5} />
+      <path d="M -12 -134 Q -12 -122 -17 -114 Q 0 -107 17 -114 Q 12 -122 12 -134 Z" fill={L.skin} stroke={L.line} strokeWidth={3} />
       <path d="M -12 -130 Q 0 -116 12 -130 Z" fill={L.skinShade} />
 
       {L.body === 'swaddle' ? (
@@ -1270,13 +1261,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           <path d="M 0 -112 L 0 6" stroke={L.jacketShade} strokeWidth={4} />
         </g>
       ) : (
-        /* Standard jacket / shirt torso */
-        <g>
-          <path d="M -46 -112 Q 0 -124 46 -112 L 40 2 Q 0 12 -40 2 Z" fill={L.jacket} stroke={L.line} strokeWidth={4} strokeLinejoin="round" />
-          <path d="M 10 -116 Q 30 -114 46 -112 L 40 2 Q 26 8 12 9 Z" fill={L.jacketShade} opacity={0.58} />
-          <path d="M -28 -26 Q -10 -20 -4 -24 M 14 -36 Q 26 -30 34 -34" stroke={L.jacketShade} strokeWidth={3} fill="none" strokeLinecap="round" opacity={0.65} />
-          <path d="M 0 -112 L 0 4" stroke={L.jacketShade} strokeWidth={4} />
-        </g>
+        <SoftTorso color={L.jacket} shade={L.jacketShade} ink={L.line} cloth={pose.cloth} bend={pose.tilt / 12} seam={L.collar === 'shirt' || L.extra === 'suit' || L.collar === 'cardigan'} />
       )}
 
       {/* Bottom garments: skirts, pencil skirts, or Áo Dài panels */}
@@ -1915,6 +1900,8 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         glint={pose.glint}
         glintColor={pose.glintColor}
         talk={pose.talk}
+        mouthShape={pose.mouthShape}
+        lipTremble={pose.lipTremble}
         ageLines={L.ageLines}
         moustache={L.moustache}
         hairColor={L.hair}
@@ -2214,25 +2201,30 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           {L.body === 'swaddle' ? null : pose.yaw < 0 ? (
             <>
               {arm(j.armR)}
-              {hand(j.armR, -1, pose.handR)}
+              {hand(j.armR, -1, pose.handR, heldProps?.R)}
             </>
           ) : (
             <>
               {arm(j.armL)}
-              {hand(j.armL, 1, pose.handL)}
+              {hand(j.armL, 1, pose.handL, heldProps?.L)}
             </>
           )}
           {backHair}
+          {/* The pelvis bridges both thigh roots; its crotch curve covers the leg attachment seams. */}
+          {L.body !== 'swaddle' ? <g transform={`rotate(${pose.tilt * 0.25}) scale(${turnWidth(pose.yaw)} ${Math.max(0.15, Math.cos((pose.legL.a + pose.legR.a) * Math.PI / 360))})`}>
+            <path d="M -41 -8 Q 0 -1 41 -8 Q 42 10 36 29 Q 27 37 18 32 Q 8 22 0 22 Q -8 22 -18 32 Q -27 37 -36 29 Q -42 10 -41 -8 Z" fill={L.limb} />
+            <path d="M -40 -4 Q 0 4 40 -4 M 0 9 Q 2 15 0 20" stroke={L.line} strokeWidth="1.5" opacity="0.4" fill="none" />
+          </g> : null}
           {torso}
           {L.body === 'swaddle' ? null : pose.yaw < 0 ? (
             <>
               {arm(j.armL)}
-              {hand(j.armL, 1, pose.handL)}
+              {hand(j.armL, 1, pose.handL, heldProps?.L)}
             </>
           ) : (
             <>
               {arm(j.armR)}
-              {hand(j.armR, -1, pose.handR)}
+              {hand(j.armR, -1, pose.handR, heldProps?.R)}
             </>
           )}
           {L.extra === 'hood' ? (
@@ -2338,7 +2330,7 @@ export const gesturePose = (pose: Pose, gesture: GestureKind, amount = 1): Pose 
       return {
         ...pose,
         [nearArm]: { a: lerp(pose[nearArm].a, -6, k), b: lerp(pose[nearArm].b, 64, k) },
-        [farArm]: { a: lerp(pose[farArm].a, 4, k), b: lerp(pose[farArm].b, -20, k) },
+        [farArm]: { a: lerp(pose[farArm].a, 16, k), b: lerp(pose[farArm].b, -8, k) },
         [nearHand]: 'palmUp',
         [farHand]: 'rest',
         headTilt: lerp(pose.headTilt, 3 * dir, k),
@@ -2347,7 +2339,7 @@ export const gesturePose = (pose: Pose, gesture: GestureKind, amount = 1): Pose 
       return {
         ...pose,
         [nearArm]: { a: lerp(pose[nearArm].a, 34, k), b: lerp(pose[nearArm].b, 48, k) },
-        [farArm]: { a: lerp(pose[farArm].a, 4, k), b: lerp(pose[farArm].b, -18, k) },
+        [farArm]: { a: lerp(pose[farArm].a, 16, k), b: lerp(pose[farArm].b, -8, k) },
         [nearHand]: 'point',
         [farHand]: 'rest',
       };
@@ -2382,8 +2374,8 @@ export const gesturePose = (pose: Pose, gesture: GestureKind, amount = 1): Pose 
     case 'handOnChest':
       return {
         ...pose,
-        [nearArm]: { a: lerp(pose[nearArm].a, 18, k), b: lerp(pose[nearArm].b, 202, k) },
-        [farArm]: { a: lerp(pose[farArm].a, 4, k), b: lerp(pose[farArm].b, -18, k) },
+        [nearArm]: { a: lerp(pose[nearArm].a, -15, k), b: lerp(pose[nearArm].b, -130, k) },
+        [farArm]: { a: lerp(pose[farArm].a, 16, k), b: lerp(pose[farArm].b, -8, k) },
         [nearHand]: 'open',
         [farHand]: 'rest',
         headTilt: lerp(pose.headTilt, -4 * dir, k),
@@ -2395,7 +2387,7 @@ export const gesturePose = (pose: Pose, gesture: GestureKind, amount = 1): Pose 
         headTilt: lerp(pose.headTilt, 12 * dir, k),
         shoulderLift: lerp(pose.shoulderLift ?? 0, -0.8, k),
         [nearArm]: { a: lerp(pose[nearArm].a, -4, k), b: lerp(pose[nearArm].b, 16, k) },
-        [farArm]: { a: lerp(pose[farArm].a, 4, k), b: lerp(pose[farArm].b, -14, k) },
+        [farArm]: { a: lerp(pose[farArm].a, 16, k), b: lerp(pose[farArm].b, -8, k) },
         handL: 'rest',
         handR: 'rest',
       };
@@ -2423,7 +2415,7 @@ export const gesturePose = (pose: Pose, gesture: GestureKind, amount = 1): Pose 
       return {
         ...pose,
         [nearArm]: { a: lerp(pose[nearArm].a, 34, k), b: lerp(pose[nearArm].b, 118, k) },
-        [farArm]: { a: lerp(pose[farArm].a, 4, k), b: lerp(pose[farArm].b, -18, k) },
+        [farArm]: { a: lerp(pose[farArm].a, 16, k), b: lerp(pose[farArm].b, -8, k) },
         [nearHand]: 'wave',
         [farHand]: 'rest',
       };
@@ -2431,7 +2423,7 @@ export const gesturePose = (pose: Pose, gesture: GestureKind, amount = 1): Pose 
       return {
         ...pose,
         [nearArm]: { a: lerp(pose[nearArm].a, -8, k), b: lerp(pose[nearArm].b, 64, k) },
-        [farArm]: { a: lerp(pose[farArm].a, 4, k), b: lerp(pose[farArm].b, -18, k) },
+        [farArm]: { a: lerp(pose[farArm].a, 16, k), b: lerp(pose[farArm].b, -8, k) },
         [nearHand]: 'hold',
       };
     case 'write':
@@ -2464,9 +2456,9 @@ export const standPose = (
   const { t, seed = 0, gesture = 'idle', ...rest } = opts;
   const br = t !== undefined ? breatheAt(t, seed) : {};
   const facing = rest.facing ?? (rest.yaw !== undefined && rest.yaw < 0 ? -1 : 1);
-  // Ensure upper arm angles slightly back and forearm bends forward so elbows ALWAYS point backward
-  const armL = facing === 1 ? { a: 4, b: -16 } : { a: -8, b: 20 };
-  const armR = facing === 1 ? { a: -8, b: 20 } : { a: 4, b: -16 };
+  // Open a little space between the relaxed arms and the shirt silhouette.
+  const armL = facing === 1 ? { a: 16, b: -8 } : { a: 12, b: -4 };
+  const armR = facing === 1 ? { a: 12, b: -4 } : { a: 16, b: -8 };
   const p: Pose = {
     ...basePose,
     x,
@@ -2477,8 +2469,8 @@ export const standPose = (
     look: rest.look ?? 0.35 * facing,
     armL,
     armR,
-    legL: { a: 4, b: 0 },
-    legR: { a: -4, b: 0 },
+    legL: { a: -5 * facing, b: 0 },
+    legR: { a: 5 * facing, b: 0 },
     handL: 'rest',
     handR: 'rest',
     ...br,
@@ -2557,3 +2549,11 @@ export const crouchPose = (
   return gesture !== 'idle' ? gesturePose(p, gesture) : p;
 };
 
+
+/** Ease into a gesture, with a small head lag; exact endpoints and original bone anchors are preserved. */
+export const gestureAt = (base: Pose, gesture: GestureKind, t: number, from = 0, duration = 24): Pose => {
+  const end = gesturePose(base, gesture);
+  const u = clamp((t - from) / Math.max(1, duration));
+  const result = poseAt(u, [{ f: 0, p: base }, { f: 1, p: end }]);
+  return { ...result, headTilt: lerp(base.headTilt, end.headTilt, easeInOut(clamp((u - 0.08) / 0.92))), cloth: (base.cloth ?? 0) + Math.sin(Math.PI * u) * 0.35 };
+};

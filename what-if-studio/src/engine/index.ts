@@ -21,3 +21,7 @@ export * from './sets/schematic';
 export * from './sets/bedroom';
 export * from './sets/tin_nhan_chua_gui';
 
+export * from './vfx';
+
+export { mouthCueAt, ArticulatedMouth } from './mouth';
+export type { MouthCue } from './mouth';

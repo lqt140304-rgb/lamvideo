@@ -137,3 +137,11 @@ Nếu cần orbit lớn hoặc đi xuyên phòng, cân nhắc mô hình khối �
 | TikTok: tìm “cinematography parallax camera 2.5d”, “2.5d animation camera”, “multiplane animation” | Chưa xác minh được video gốc phù hợp | Không có nội dung trực tiếp đủ kiểm chứng | Không rút ra nhận định trend, lượt xem hay kỹ thuật từ kết quả gián tiếp |
 
 Không gán timestamp vì chưa kiểm tra media. Một số trang Blender và tài liệu Harmony cũ không mở được qua công cụ; không dùng chúng làm bằng chứng về tính năng/phiên bản hiện hành. Phạm vi là nguyên lý điện ảnh và khả năng áp dụng vào dự án, không phải khảo sát mọi trường phái hoặc xu hướng khán giả mới nhất.
+
+## Tỉ lệ khung hình theo cảnh — bổ sung 08/11/2026
+
+Tỉ lệ là quan hệ rộng/cao của khung, khác tiêu cự và trường nhìn. Có thể đổi vùng hình giữa các cảnh trong cùng file xuất; không kéo giãn người. [Adobe giải thích frame/pixel aspect ratio](https://helpx.adobe.com/premiere/desktop/edit-projects/intro-to-editing/aspect-ratios.html). Với master 1920×1080 pixel vuông, giữ kích thước xuất, dùng vùng hình và matte: 16:9 toàn khung; 2:1 có vùng 1920×960; 2.39:1 khoảng 1920×803; 4:3 giữ cao 1080 sẽ rộng 1440; 1:1 là 1080×1080.
+
+Đây là **đề xuất mỹ thuật**, không phải quy tắc cảm xúc: 16:9 linh hoạt cho địa lý và hành động; 2:1 hoặc 2.39:1 có thể nhấn quan hệ người–không gian; khung vuông/hẹp có thể tập trung gương mặt. Trong phỏng vấn *Mommy*, Xavier Dolan nói việc chọn 1:1 giúp tập trung vào người và giảm xao nhãng hai bên, đồng thời ông phải chọn lại cỡ cảnh phù hợp. [Phỏng vấn trực tiếp trên ASC](https://theasc.com/post/the-film-book/mommy-interview-xavier-dolan/). Không suy ra khung rộng tự có cảm xúc hoặc khung vuông luôn ngột ngạt.
+
+Với SVG 2.5D, đặt frameline trước khi vẽ/cắt: muốn thấy rộng hơn phải bố trí thêm không gian hoặc đổi máy, không chỉ chèn hai dải đen. Giữ mặt, tay–đồ, chi tiết kể chuyện và phụ đề trong vùng hình hoạt động; kiểm tra cả đường máy. Hạn chế vài tỉ lệ có ý nghĩa xuyên suốt; chuyển tại ngưỡng ký ức, nhận thức hoặc hành động rõ, tránh đổi ở mọi cú cắt. Dựng thử hai cảnh để so trước khi áp toàn tập. Đây là nghiên cứu tài liệu và hướng dựng, chưa triển khai matte động vào engine trong đợt sửa asset này; không nhận đã xem video YouTube/TikTok chỉ từ metadata.

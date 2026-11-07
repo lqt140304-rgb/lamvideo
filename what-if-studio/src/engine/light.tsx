@@ -1,5 +1,5 @@
 import React from 'react';
-import { rnd } from './anim';
+import { rnd, clamp } from './anim';
 import { DuskSky, Sun, NightSky, Stars, Moon } from './kit';
 import { Pt } from './room';
 
@@ -101,18 +101,24 @@ export const LightVeil: React.FC<{ id: string; lights: [number, number, number][
   </g>
 );
 
-/** Dust drifting in a beam of light: specks that catch it and twinkle, slowly. */
-export const Dust: React.FC<{ t: number; seed: number; x0: number; y0: number; w: number; h: number; n?: number; o?: number }> = ({ t, seed, x0, y0, w, h, n = 40, o = 0.6 }) => (
-  <g style={{ mixBlendMode: 'screen' }}>
-    {Array.from({ length: n }).map((_, i) => {
-      const sp = 0.4 + rnd(seed + 2, i);
-      const x = x0 + ((((rnd(seed, i) * w + Math.sin((t / 30) * sp + i) * 26 + t * 0.35 * sp) % w) + w) % w);
-      const y = y0 + ((((rnd(seed + 1, i) * h + Math.cos((t / 40) * sp + i * 2) * 18 - t * 0.25 * sp) % h) + h) % h);
-      const tw = 0.5 + 0.5 * Math.sin(t / 9 + i * 1.7);
-      return <circle key={i} cx={x} cy={y} r={1.4 + rnd(seed + 3, i) * 2.6} fill="#FFE2B0" opacity={o * (0.25 + 0.75 * tw)} />;
-    })}
-  </g>
-);
+/** Layered dust: stable seeds, gentle wind, depth blur and edge fades, never flashing fireflies. */
+export const Dust: React.FC<{ t: number; seed: number; x0: number; y0: number; w: number; h: number; n?: number; o?: number; wind?: number }> = ({ t, seed, x0, y0, w, h, n = 40, o = 0.6, wind = 0.3 }) => {
+  const id = `dust-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
+  const width = Math.max(1, w), height = Math.max(1, h);
+  return <g style={{ mixBlendMode: 'screen' }}>
+    <defs><clipPath id={id}><rect x={x0} y={y0} width={width} height={height} /></clipPath><filter id={`${id}-soft`} x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="0.65" /></filter></defs>
+    <g clipPath={`url(#${id})`}>
+      {Array.from({ length: n }, (_, i) => {
+        const depth = i % 3;
+        const speed = 0.35 + depth * 0.35 + rnd(seed + 2, i) * 0.2;
+        const x = ((rnd(seed, i) * width + Math.sin(t * 0.009 + i) * 7 + t * wind * speed) % width + width) % width;
+        const y = ((rnd(seed + 1, i) * height + Math.cos(t * 0.012 + i) * 5 - t * 0.1 * speed) % height + height) % height;
+        const edge = clamp(Math.min(x / width, 1 - x / width, y / height, 1 - y / height) / 0.09);
+        return <circle key={i} cx={x0 + x} cy={y0 + y} r={0.65 + depth * 0.5 + rnd(seed + 3, i) * 0.7} fill={depth === 0 ? '#bfc9c9' : '#e8d4ad'} opacity={o * edge * (0.18 + depth * 0.18)} filter={depth === 2 ? `url(#${id}-soft)` : undefined} />;
+      })}
+    </g>
+  </g>;
+};
 
 /** A soft cone of light from a lamp, fading downward. */
 export const Cone: React.FC<{ d: string; o?: number }> = ({ d, o = 0.5 }) => <path d={d} fill="url(#g3cone)" opacity={o} style={{ mixBlendMode: 'screen' }} />;

@@ -89,3 +89,11 @@ Bản 7 đổi chữ G1 sang buổi tranh xe đồ chơi rồi được mẹ d�
 Kịch bản bản 8 bổ sung 16:9 cho thực tại, 2:1 cho C6–C7 và đoạn rung/nghiêng ngắn C5-C; chưa triển khai các chỉ dẫn này vào mã thử. Cần bố cục lại trong vùng hình, chừa nền theo góc xoay cực hạn và kiểm tra tiếp xúc. Không cần tạo thêm nhân vật/bối cảnh chỉ để đổi tỉ lệ hoặc rung; không hoàn thiện lại ngõ, tạo giọng hay xuất phim trong lượt sửa tài liệu này.
 
 Nhận tiếp `279dae2` trong lúc bàn giao tài liệu: thu hẹp ngõ, bổ sung thùng rác xanh, ruồi và xe đạp có lớp/khối; cập nhật ba ảnh mở đầu và bản sao public. Giữ bản ngõ này khi ráp C0, không kéo dãn chiều ngang ngõ để khớp tỉ lệ xuất. Việc nhận cập nhật không xác nhận cảnh đã chạy cùng camera/lời bản 8. Các sửa đổi mã/asset khác còn đang làm local thuộc công việc riêng, không nằm trong commit tài liệu này.
+
+## Cập nhật rig/VFX và cánh đồng — 08/11/2026
+
+- Theo phản hồi mới nhất: giữ tỉ lệ cartoon cũ. Rig dùng chung đã sửa đường vai/tay áo, các khớp cong, tư thế tay buông; hông nối đùi, chân và quần đầy hơn, khối hông co theo góc đùi khi ngồi. Xem [bộ thử rig và VFX](../../../docs/ASSET-VFX.md). Chưa coi mọi shot có tương tác đã đạt.
+- `SET-CANHDONG` chuyển phần triển khai sang [sunset_field.tsx](../../../what-if-studio/src/engine/sets/sunset_field.tsx); API `SunsetRiceField(t, whiteout)` và `SunsetMeadowForeground(t, shiftX)` vẫn được export từ file set cũ. Giữ tọa độ bờ đất để tái dùng các shot. Hoàng hôn tím hồng–cam ấm, mặt trời thấp trái, lớp làng xa/mái nhà/cây/cột điện, khói bếp, lúa có bông–hạt, mương phản chiếu/gợn, bờ ngồi có mặt đỡ, đất/cỏ tiền cảnh rõ hơn; gió lệch nhịp từng cụm.
+- [Ảnh preview cánh đồng mới](assets/boi-canh/preview_meadow_vfx.png) được tạo từ `MeadowMotionLab`, frame 128. Đây là bài thử set/rig, không phải một shot phim đã duyệt, không thay các still cũ cùng tên. Ảnh cũ giữ để đối chiếu lịch sử.
+- Clip thử 12 giây, H.264 960×540/30 fps: `what-if-studio/out/tin-nhan-chua-gui/asset-preview/meadow-motion.mp4` (local). Đã xuất và soi khung, chờ duyệt chuyển động; chưa có giọng/mix và khẩu hình khớp lời. Mẫu miệng của mẹ chỉ minh họa kỹ thuật.
+- Nguồn: SVG/React trong repo, sửa ngày 08/11/2026; giữ attribution engine gốc. Không thêm hình/nhạc stock hoặc gọi media trả phí. Tạo asset không đổi kịch bản, luật G1/G2/G3 hoặc định dạng có người dẫn chuyện.

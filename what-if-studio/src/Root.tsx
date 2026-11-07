@@ -3,6 +3,8 @@ import { Composition } from 'remotion';
 import './engine/fonts';
 import { STUDIO } from './studio.config';
 import { EPISODES } from './episodes';
+import { MeadowMotionSheet } from './MeadowMotionSheet';
+import { VfxSheet, VFX_SAMPLES, RigMotionSheet } from './VfxSheet';
 import {
   CastSheet,
   NewCastSheet,
@@ -28,6 +30,10 @@ export const Root: React.FC = () => {
           <Composition id={`${e.id}Board`} component={e.Board} durationInFrames={Math.max(1, e.shotCount)} {...common} />
         </React.Fragment>
       ))}
+      <Composition id="VfxLab" component={VfxSheet} durationInFrames={360} {...common} />
+      {VFX_SAMPLES.map(sample => <Composition key={sample.id} id={`VFX-${sample.id}`} component={VfxSheet} defaultProps={{ effect: sample.id }} durationInFrames={360} {...common} />)}
+      <Composition id="MeadowMotionLab" component={MeadowMotionSheet} durationInFrames={360} {...common} />
+      <Composition id="RigMotionLab" component={RigMotionSheet} durationInFrames={240} {...common} />
       <Composition id="Cast" component={CastSheet} durationInFrames={1} {...common} />
       <Composition id="NewCast" component={NewCastSheet} durationInFrames={1} {...common} />
       <Composition id="FurnitureSheet" component={FurnitureSheet} durationInFrames={1} {...common} />
