@@ -1,19 +1,19 @@
 # Hẻm Có Chuyện — tập 01: Tin nhắn chưa gửi
 
-**Bản hiện hành: 3, 07/11/2026.** Duy anh trai 16 tuổi, Thảo em gái 8 tuổi; Lộc kỳ lạ, lạnh và có phần nguy hiểm, ban đầu đòi tiền rồi sau nài nỉ mới mở cách trả ký ức. Thay các quan hệ/động cơ người lớn của bản 2. Có concept v4: mặt Lộc đã chốt, hai trẻ đồ cũ/dáng che chở chờ duyệt; chưa có giọng, storyboard, animatic, video hoặc episode Remotion riêng.
+**Bản hiện hành: 4, 07/11/2026.** Đúng 3 giao kèo: G1 Duy đổi ký ức sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
 
 | File | Tác dụng |
 |---|---|
-| [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật, vai trò, 7 cảnh, camera/lens, âm và khoảng nghỉ |
-| [DUNG-CANH.md](DUNG-CANH.md) | Sơ đồ, tỷ lệ trẻ/ghế/quầy, 22 cue, lớp cảnh, nét, pose, đạo cụ và hai bước duyệt |
-| [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch xuất từ nguồn |
-| [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời với thẻ diễn xuất gợi ý; không tự phân vai, chưa thử giọng |
-| [ASSET.md](ASSET.md) | File concept thật, nguồn/công cụ và danh sách cần sản xuất |
-| [GHI-CHU.md](GHI-CHU.md) | Quyết định, phản hồi, kiểm tra và lịch sử riêng |
-| [Ảnh concept v4](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Bảng toàn thân; Lộc đã chốt, hai trẻ bản mới chờ duyệt |
+| [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, 8 cảnh, nhịp nghỉ, hình và thoại |
+| [DUNG-CANH.md](DUNG-CANH.md) | Ba không gian, mẹ hiện hình, 29 cue, lens/focus/pose/tiếp xúc, trắng-ù/âm thanh và duyệt |
+| [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch từ nguồn |
+| [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời với thẻ gợi ý, không tự phân vai hoặc bảo đảm thời gian nghỉ |
+| [ASSET.md](ASSET.md) | Concept có thật và phần mới mẹ/ruộng/pose/giọng/phiếu cần tạo |
+| [GHI-CHU.md](GHI-CHU.md) | Quyết định, phản hồi, giới hạn và kiểm tra riêng |
+| [Concept nhân vật v4](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Lộc đã chốt mặt, hai trẻ đồ cũ/dáng che chở chờ duyệt; chưa bao gồm mẹ |
 
-Ba vai hiện hình, mẹ qua ghi âm, bố/dì ngoài khung không cần mặt/voice riêng; hai nội cảnh, cảnh nhà chỉ tới cửa. Duy giấu nhớ mẹ, hy sinh ký ức để em được nghe mẹ và dám xin dì giúp khi bố say. Lời sạch 1,190 đơn vị tách khoảng trắng, 5,413 ký tự gồm xuống dòng; 21 giây nghỉ; ước tính 6:30–7:54 phút theo giả định trong kịch bản, chưa đo audio/credits.
+Lời sạch 1,470 đơn vị tách khoảng trắng, 6,711 ký tự gồm xuống dòng; 29 giây nghỉ riêng đã gồm trắng-ù/đi dạo. Ước tính 8:02–9:45 phút với giả định trong nguồn, chưa đo audio/credits. Không giữ ước tính ngắn của bản 3 khi đã thêm hai giao kèo.
 
-Tiếp theo: duyệt concept và bản 3 → storyboard tĩnh → animatic chạy tương tác với âm tạm → hoàn thiện. Không tự bỏ animatic hoặc tạo giọng trả phí để duyệt hình. Ảnh nhân vật không chứng minh lớp 2.5D đã dựng được.
+Bốn người hiện hình, ba không gian: tiệm/miền cánh đồng/ngưỡng nhà. Chưa tạo mẹ, ruộng, rig, giọng, storyboard, animatic, video hoặc episode Remotion. Duyệt văn/concept → storyboard → animatic có tương tác và âm tạm → hoàn thiện; không bỏ animatic hoặc tự tạo giọng trả phí để duyệt hình.
 
-Khi sản xuất dùng slug `tap-01-tin-nhan-chua-gui`: mã riêng `what-if-studio/src/episodes/tap-01-tin-nhan-chua-gui/`, media `what-if-studio/public/tap-01-tin-nhan-chua-gui/`, đầu ra `what-if-studio/out/tap-01-tin-nhan-chua-gui/`. Chưa có các đầu ra đó. Hồ sơ/asset riêng giữ tại tập; chỉ nguyên tắc dùng lại được vào kinh nghiệm chung.
+Giữ slug `tap-01-tin-nhan-chua-gui`: khi sản xuất mã riêng `what-if-studio/src/episodes/tap-01-tin-nhan-chua-gui/`, media `what-if-studio/public/tap-01-tin-nhan-chua-gui/`, output `what-if-studio/out/tap-01-tin-nhan-chua-gui/`. Chưa có các đầu ra này. Không tự chia cắt lời mẹ thành tập sau để đủ thời lượng.

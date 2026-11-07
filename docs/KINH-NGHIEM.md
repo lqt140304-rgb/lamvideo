@@ -11,6 +11,8 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 - Vấn đề chính cần được xử lý trong phạm vi tập. Kết mở có thể giữ câu hỏi lớn, nhưng phải cho thấy lựa chọn và hệ quả đã xảy ra. Không cố chia tập chỉ để giữ lời giải làm mồi.
 - Nhịp có lên có xuống. Tăng sức ép qua mất mát, thông tin và thời hạn có cơ sở; dành khoảng yên cho phản ứng. Không dùng số lần cắt/phút làm luật cho mọi cảnh.
 
+- **Cảnh lựa chọn nhanh mâu thuẫn luật giao kèo → đổi nhịp nhưng không cập nhật lúc có hiệu lực →** xác định trước ai có quyền nhận giá, giá cụ thể, câu/động tác nào chốt và khi nào hệ quả xảy ra; nếu hai loại giao kèo khác thủ tục, phải báo trước khi nhân vật dùng nó. **Kiểm tra:** lời ngăn đến trước hay sau mốc chốt rõ trên timeline, không thêm điều kiện ở cuối để cứu twist.
+
 ## Cảm xúc và thoại
 
 - Đặt cảm xúc trong hành động, khoảng cách, vật dụng và cách đối đáp. Lời thoại phải đủ ý để hiểu ai đang cần điều gì; không thay cuộc nói chuyện bằng khẩu hiệu.

@@ -1,24 +1,21 @@
 # Ghi chú riêng — tập 01
 
-## Hiện hành: bản 3, cập nhật sau phản hồi gia đình — 07/11/2026
+## Bản 4 — 07/11/2026
 
-- Duy anh trai 16, Thảo em gái 8; bố suốt ngày say, rượu chè/bỏ bê, làm tiền vơi và trẻ sợ. Dì Hạnh ở đầu hẻm có thể giúp, không dọn tới nhà bố. Bỏ toàn bộ chuỗi dì ở bếp/ba bát của bản nháp trước trong cùng lượt sửa.
-- Duy giấu nhớ mẹ vì nghĩ lớn rồi phải vững và muốn bảo vệ em; bên ngoài cứng khiến em sợ. Không viết thành cậu không thương mẹ. Thảo chỉ cần mẹ dỗ/anh ôm, không cần hiểu hoặc giảng về tâm lý của anh.
-- Hy sinh chính: Duy tự trả buổi tối mẹ ôm trước khi chụp ảnh sinh nhật 16 để em được nghe ghi âm; cậu cũng có nhu cầu nghe mẹ, không biến mình thành người không có nhu cầu. Em xin dừng/đề nghị trả thay nhưng không bị lấy ký ức. Cậu giữ lỗi đã làm em sợ.
-- Lộc báo tiền trước (800.000đ), Duy 186.000 và Thảo 20.000 vẫn thiếu. Sau những lần nài khác nhau ông mới hé giá ký ức; trẻ được mang máy về trước bắt đầu. Giữ ranh giới luật không biến giao dịch thành công bằng hay ông thành người hiền; động cơ sâu chưa viết.
-- Kết: bố về say, trẻ dừng tại cửa; Duy gọi dì bằng máy mẹ vừa sửa, nghe dì nhận rồi mới đi tới nhà dì. Đây là chỗ ngủ/giúp đỡ trong đêm, chưa giải quyết nghiện rượu/đổi tính bố. Bố/dì có vị trí/chức năng rõ dù không cần mặt hoặc thoại riêng.
-- Timeline: mẹ mất hơn tháng; có báo dì về ghi âm chưa gửi; Duy biết mật mã. C3 nghe tin cũ trước máy vỡ; sau bố đi, em lấy máy khóa để nghe mẹ, đập vì không mở được. Không lẫn bản tin cũ với ghi âm chưa nghe.
-- Giấy tự in hai liên có đường tách/bìa kê: ghi cùng sự kiện, đọc xác nhận, ký rồi hỏi lại; tách C6, mỗi bên một liên. Tiếng tách giấy có hành động thật. Kể lại ký ức ở cuối chỉ biết sự việc, không phục hồi trải nghiệm.
+- Chủ repo yêu cầu từ một lên ba lần đổi; sau sửa máy, Thảo tò mò hỏi có sửa thứ khác không. Lộc mới cười lạnh “Thế muốn sửa gì nữa?”, em xin cảm giác như ngày mẹ còn.
+- Hướng cũ mẹ chỉ qua giọng/không hồi ức được thay bằng mẹ hiện hình trong cuộc gặp G3. Không áp đề xuất trước đó là Duy trả cả ba hoặc bị mắc kẹt trong cảnh ký ức; đây không phải ý chốt của chủ repo.
+- G1 Duy trả một tối sinh nhật được mẹ ôm. G2 do Duy trả bằng nhận thêm phần trống vắng của Thảo, sau thoáng ấm cậu mệt/rối. G3 do Thảo trả, không còn mơ thấy mẹ, để hai anh em được gặp/nói lời còn thiếu. Giá 2/3 là lựa chọn biên tập cụ thể hóa “cảm giác”, cần phản hồi chủ repo nếu muốn thay, không phải chi tiết được người dùng viết nguyên văn.
+- Thảo nhận G3 vì thấy anh không chịu nổi, muốn ông lấy của mình thay vì anh. Lộc nói đủ giá trước lời em. Hiệu lực lời nhận đã được báo ở G2, không vướng quy trình G1 cần ký rồi hỏi cuối. Duy ngăn muộn có nền mệt sau G2, không câm hoặc bỏ mặc vô cớ.
+- Chuyển G3 theo yêu cầu: trắng + ù → đồng chiều ấm → mẹ gọi/đi dạo/nắm tay → ngồi kể chuyện nhỏ, đùa gắp hành/đường khâu → mẹ gửi gắm → tan. Nhạc/ánh sáng không đổi mất mát thành kết chữa lành mọi thứ.
+- Miền cảm giác hư cấu không xác nhận mẹ hồi sinh/vong về; dữ liệu ghi âm cũ không chứa lời mới. Mẹ đối thoại trong trải nghiệm, không bị buộc lặp máy móc theo đề xuất nháp chưa chốt trước đó.
+- Cả ba giá còn hiệu lực lúc về. G1 không được trả bằng hình mẹ; G2 không hết sau lời an ủi; G3 mất giấc mơ, còn nhớ mẹ khi thức và còn có người anh. Bố vẫn say ngoài khung, dì đầu hẻm cho trẻ chỗ ngủ đêm đó; không giải bệnh/bỏ bê bằng một giấc gặp mẹ.
 
-## Concept hình
+## Hình, trạng thái và chi phí
 
-- Không dùng Gemini nữa. Quyền tải ảnh Gemini từng bị người dùng từ chối, không lấy qua cách khác. Mọi ảnh hiện lưu ở tập do imagegen tích hợp tạo/chỉnh từ hình tự tạo.
-- `assets/nhan-vat/duy-thao-loc-concept-v2.png`: mẫu mặt Lộc đã được chủ repo xác nhận ổn; hai trẻ cũ không còn là mẫu hiện hành.
-- `assets/nhan-vat/duy-thao-loc-concept-v4.png`: Lộc giữ thiết kế, Duy chắn trước em/giấu buồn, em nép giữ áo; vải bạc, khâu sửa/vá nhỏ, giày dép mòn vừa phải. Hai trẻ v4 chưa được duyệt. Concept không phải rig hoặc storyboard.
-- Tổng trong nhánh hình hiện có: tạo bảng đầu, sửa Lộc, sửa tư thế/trẻ, sửa nét khó khăn. Kết quả không trả số tiền/credits; không ghi bằng 0 hoặc suy đoán từ token. Không tự tạo video/giọng/bối cảnh bố.
+Lộc có mẫu mặt đã chốt; trẻ concept v4 đồ cũ/che chở chờ duyệt. Các ảnh có thật ở `assets/nhan-vat/`, nguồn/công cụ trong ASSET; không lấy ảnh Gemini qua cách khác sau quyền tải bị từ chối. Bản 4 chỉ sửa văn, không gọi thêm công cụ ảnh/voice/video. Mẹ, cánh đồng, pose đi/ngồi/ôm/tan và âm thanh chưa tạo. Không có số credits/tiền nhà cung cấp trả về cho các concept cũ, không ghi chi phí bằng 0 hoặc suy đoán theo token.
 
-## Kiểm tra và bước tiếp
+## Kiểm tra / tiếp theo
 
-Đối chiếu nguồn–lời sạch–bản thẻ, 7 cảnh/22 cue, đếm lại lời/nghỉ, link và file thật. Soi storyboard các động tác che em/níu áo, tiền, giấy, máy, gọi dì, ngồi bậc/cất đồ/nắm tay. Animatic chạy tương tác và âm tạm, không chỉ pan ảnh. Chưa có bản phim để nghe/xem, chưa đo audio hoặc chi phí.
+Đếm lại ba giao kèo/đúng người trả và lúc có hiệu lực; đồng bộ source–clean–bản thẻ, cue KICH-BAN/DUNG-CANH, link và số lời/nghỉ. Storyboard kiểm tra nguồn âm/miền cảm giác; animatic phải chạy nhận lời-ngăn muộn, nắm tay đi/ngồi/ôm/tan/trở ghế và cất giấy, không chỉ pan tranh. Chưa có phim để nghe/xem hoặc đo thời lượng thật.
 
-Bản 2 trong lịch sử Git là Duy 26/Thảo 32 và câu chuyện tiền viện/chăm sóc. Không dùng lời/rig/timing đó cho tập hiện tại. Các nháp bản 3 trước phản hồi bố/giấu nhớ mẹ chưa được push, đã được thay đồng bộ trong lượt này.
+Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai người trưởng thành và tiền viện. Không dùng luật/pose/ước tính đó cho bản 4.

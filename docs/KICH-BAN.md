@@ -4,7 +4,7 @@ Kịch bản được lưu theo từng tập, không chép nội dung tập vào
 
 | Series / tập | Hồ sơ | Trạng thái |
 |---|---|---|
-| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Mở thư mục tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | Bản 3: anh 16 che chở em gái 8, bố say và giá ký ức; Lộc đã chốt mặt, hai trẻ concept v4 chờ duyệt; chưa storyboard/animatic/giọng/video |
+| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Mở thư mục tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | Bản 4: ba giao kèo (Duy hai/Thảo một), mẹ hiện hình ở cánh đồng; mẹ/ruộng chưa tạo, chưa storyboard/animatic/giọng/video |
 | Tập độc lập — Mưa liên tục 100 ngày | [Mở thư mục tập](../episodes/doc-lap/mua-100-ngay/README.md) | Nhập bản v7 và dữ liệu dựng 10 cảnh trước đây; chưa xem/nghe lại phim trong lượt nhập |
 
 ## Quy tắc thêm tập
