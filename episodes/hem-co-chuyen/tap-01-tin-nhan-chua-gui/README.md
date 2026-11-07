@@ -17,6 +17,7 @@
 | [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch từ nguồn |
 | [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời với thẻ gợi ý, không tự phân vai hoặc bảo đảm thời gian nghỉ |
 | [ASSET.md](ASSET.md) | Concept có thật và phần mới thành phố/hẻm/cú/chữ, mẹ/ruộng/pose/giọng/phiếu cần tạo |
+| [RA-SOAT-KINH-NGHIEM.md](RA-SOAT-KINH-NGHIEM.md) | Đối chiếu tài liệu Anti: phần mới, phần trùng, phần sửa/loại và mức kiểm chứng |
 | [GHI-CHU.md](GHI-CHU.md) | Quyết định, phản hồi, giới hạn và kiểm tra riêng |
 | [Concept nhân vật v4](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Lộc đã chốt mặt, hai trẻ đồ cũ/dáng che chở chờ duyệt; chưa bao gồm mẹ |
 

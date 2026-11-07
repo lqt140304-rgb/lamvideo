@@ -1,5 +1,9 @@
 # Ghi chú riêng — tập 01
 
+## Chọn lọc kinh nghiệm Anti — 07/11/2026
+
+Đã rà toàn bộ 15 mục của file đúc kết do chủ repo gửi. Thêm 7 bài học dùng lại được và mở rộng 2 mục đã có trong docs/KINH-NGHIEM; giữ số đo/chi tiết riêng, nguồn và lý do không nhập trong [RA-SOAT-KINH-NGHIEM.md](RA-SOAT-KINH-NGHIEM.md). Không đẩy nguyên bản chưa lọc lên file chung; không sửa lời, mã hoặc media. Những kết quả Anti báo chưa được render/đo lại được ghi rõ là báo cáo nguồn, không nhận là kiểm chứng mới.
+
 ## Giữ lời dẫn và nhận bộ asset nâng cấp — 07/11/2026
 
 - Chủ repo chưa muốn chuyển sang chỉ thoại vì cần truyền đạt đủ ý nghĩa. Giữ người dẫn chuyện kết hợp thoại; lời sạch và bản ElevenLabs không bị xóa các đoạn kể. Hình/âm làm rõ hành động, phản ứng, không thay lời bằng giải thích dồn vào miệng nhân vật.
