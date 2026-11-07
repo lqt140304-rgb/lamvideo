@@ -15,10 +15,19 @@
 3. Sự thật máy bị đập có dấu hiệu từ cách Thảo muốn để nó yên; người dẫn không nói dối thay nhân vật.
 4. Ký ức vui được kể trước khi mất. Nghe chị kể lại chỉ biết thêm sự việc, không khôi phục trải nghiệm đã trả.
 5. Tin nhắn cuối giữ sự bình thường và thiên lệch; không sửa thành lời xin lỗi hoàn hảo để giải quyết mọi mâu thuẫn.
-6. Một số mục shot gồm nhiều góc. Không lấy con số 12 thiết lập làm lời hứa chỉ cần 12 ảnh hoặc 12 lần cắt.
+6. Bản 2 có 22 mục thiết lập/cue trong DUNG-CANH, có góc dùng lại. Chốt số lần cắt và thời lượng ở animatic, không coi mỗi mục là một ảnh duy nhất.
 
 ## Việc tiếp theo khi có yêu cầu sản xuất
 
-Chốt cách thể hiện hình và cách phân giọng; nghe một mẫu thoại đại diện; đo thời lượng; tạo các hình chủ chốt, rồi dựng thử những chỗ cần khoảng yên. Ghi lỗi/chi phí và phản hồi tại đây hoặc asset của tập. Chưa dùng backend cũ một giọng/toàn bài để tuyên bố đã phân vai.
+Chốt tạo hình và cách phân giọng; tạo storyboard theo sơ đồ/cue trong DUNG-CANH rồi ráp animatic có tương tác và âm tạm. Khi được yêu cầu làm giọng, nghe mẫu thoại đại diện, đo thời lượng và cập nhật các cue phụ thuộc. Chỉ hoàn thiện sau hai bước duyệt. Ghi lỗi/chi phí và phản hồi tại đây hoặc asset của tập. Chưa dùng backend cũ một giọng/toàn bài để tuyên bố đã phân vai.
 
 Các quy tắc áp dụng được cho tập khác chỉ chuyển sang kinh nghiệm chung sau khi đã bỏ tên nhân vật, cốt truyện và thông số riêng của tập này.
+
+## Thay đổi bản 2 — 07/11/2026
+
+- Giữ luật giao kèo và hai bối cảnh. Thảo nhận trách nhiệm, xin lỗi và nói em không phải trả thay; Duy xác nhận đó là lựa chọn của mình. Không dùng cái giá để mua sự tha thứ.
+- Câu kiểm tra ký ức chỉ nhắm cuộc gọi đã chọn; tránh hiểu rằng Duy quên mọi cuộc gọi video với mẹ.
+- Sửa continuity: ảnh xuất hiện đúng lúc lấy từ ví rồi được cất trước ký; bút rời giấy trước khi Lộc kéo; biên nhận ghi rõ sự kiện trước ký. Máy ở bàn ăn tại nhà, không đổi giữa bàn may và bàn ăn.
+- Duy lấy bát đặt mặt bếp, cất lại khi chị chọn ra ngoài, về ghế rồi mới hỏi ký ức. Cuối cảnh cất máy/giấy trước khi ra cửa. Chỉ đèn bếp tắt, đèn bàn thờ còn sáng.
+- Bổ sung sơ đồ, tư thế, đường đi đạo cụ và 22 mục thiết lập/cue trong DUNG-CANH. Thông số là ý đồ mỹ thuật chờ storyboard/animatic, chưa có render chứng minh.
+- Các bản lời được xuất từ block lời của KICH-BAN và kiểm tra khớp sau khi bỏ thẻ diễn xuất. Chưa nghe TTS; không có chi phí tạo media mới.

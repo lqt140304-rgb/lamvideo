@@ -1,6 +1,8 @@
 # HẺM CÓ CHUYỆN — Tập thử 01: TIN NHẮN CHƯA GỬI
 
-> Hồ sơ sáng tác và bản dựng. Thế giới, nhân vật và cơ chế đổi ký ức đều hư cấu.
+> Hồ sơ sáng tác và bản dựng — bản 2, sửa ngày 07/11/2026. Thế giới, nhân vật và cơ chế đổi ký ức đều hư cấu.
+
+Đọc kèm [DUNG-CANH.md](DUNG-CANH.md): sơ đồ phòng, vị trí máy/lens, tư thế, lớp cảnh, âm thanh và kiểm tra tiếp xúc. KICH-BAN là nguồn lời duy nhất; DUNG-CANH triển khai hình theo cue, không có bản thoại độc lập.
 
 ## Hướng của loạt phim
 
@@ -8,7 +10,7 @@ Những chuyện kỳ lạ xuất hiện giữa đời sống một con hẻm Vi
 
 Tập đầu dùng đối đầu giữa hai chị em có lỗi và có điều đáng thương. Thảo cố ý làm hỏng kỷ vật rồi nói dối; Duy từng kết tội chị, sau đó muốn quên điều mình làm. Không gắn nhãn một người là phản diện hoàn toàn. Ông Lộc là người giữ giao kèo, không tự nhiên thành kẻ sát nhân để tạo cú sốc.
 
-Phạm vi thử: hai bối cảnh, ba người xuất hiện, một giọng người mẹ trong máy, mười hai thiết lập hình chính. Dựng bằng lời kể, các đoạn thoại chọn lọc, hình minh họa có chuyển động nhẹ và thiết kế âm thanh; không mặc định tạo video liên tục cho toàn bộ thời lượng. Nhịp căng đến từ thông tin bị lộ và quyết định, không cần đám đông hoặc đại cảnh. Chưa tạo hình, giọng hay video, chưa tiêu credits của dịch vụ sản xuất.
+Phạm vi thử: hai bối cảnh, ba người xuất hiện, một giọng người mẹ trong máy, 22 mục thiết lập/cue, nhiều góc được dùng lại. Dựng bằng lời kể, các đoạn thoại chọn lọc, hình minh họa có chuyển động nhẹ và thiết kế âm thanh; không mặc định tạo video liên tục cho toàn bộ thời lượng. Nhịp căng đến từ thông tin bị lộ và quyết định, không cần đám đông hoặc đại cảnh. Chưa tạo hình, giọng hay video, chưa tiêu credits của dịch vụ sản xuất.
 
 ## Luật cần giữ
 
@@ -42,18 +44,21 @@ Tiếng Việt phổ thông, khẩu ngữ miền Nam nhẹ, không nhại giọn
 
 Các thẻ tiếng Anh trong file ElevenLabs là hướng diễn xuất để nghe thử trên model hỗ trợ audio tags; không tự phân vai hoặc bảo đảm cảm xúc. File sạch bỏ toàn bộ thẻ. Chỉ dẫn NGHỈ ở đây dùng khi dựng, không dán vào TTS. Đây là bản văn, chưa nghe thử giọng và chưa đo âm thanh.
 
-Tốc độ đầu tập vừa, vào ngay giao kèo. Cảnh 3 tăng nhịp qua lời cãi, cảnh 4 giữ shot cho sự thật ngấm, cảnh 5 có thời gian lựa chọn, cảnh 6 để tin nhắn bình thường rơi vào khoảng yên. Kết không đọc bài học; người xem nhận qua cách Duy hỏi và Thảo dám nói mình muốn gì. Lens là gợi ý tương đương full-frame, không phải dữ liệu máy quay đã dùng. Rung 0/3 = tĩnh, 1/3 = rất nhẹ có kiểm soát.
+Tốc độ đầu tập vừa, vào ngay giao kèo. Cảnh 3 tăng nhịp qua lời cãi, cảnh 4 giữ shot cho sự thật ngấm, cảnh 5 có thời gian lựa chọn, cảnh 6 để tin nhắn bình thường rơi vào khoảng yên. Kết không đọc bài học; người xem nhận qua cách Duy hỏi và Thảo dám nói mình muốn gì. Lens là gợi ý tương đương full-frame, không phải dữ liệu máy quay đã dùng. Toàn tập dùng máy không rung: 0 px dịch, 0° xoay. Vùng nét được thiết kế theo lớp, không coi khẩu độ là thông số vật lý đã có trong engine.
 
-Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm tiết, không phải số từ tiếng Anh), **4,958 ký tự**. Có **24 giây nghỉ dựng** ngoài lời. Ước tính **5:58–7:14 phút** ở giả định đọc thoại chậm 2,7–3,3 đơn vị/giây và 8–12 giây chuyển không lời; chưa đo bằng âm thanh. Đây là lựa chọn diễn xuất cho bản thử, không phải tốc độ chuẩn của mọi giọng Việt. Không cộng thêm lần nữa thời gian hình/nhạc chạy cùng lời. Nếu audio dài hơn mục tiêu, cắt lời dẫn lặp trước khi tăng tốc đối thoại.
+Lời đọc: **1,142 đơn vị tách bằng khoảng trắng** (gần âm tiết, không phải số từ tiếng Anh), **5,242 ký tự** gồm xuống dòng. Có **24 giây nghỉ dựng** ngoài lời. Ước tính **6:19–7:39 phút** với 2,7–3,3 đơn vị/giây và 8–12 giây chuyển không lời, chưa đo bằng audio. Các khoảng thở/cử chỉ chạy cùng lời không cộng thêm; thời gian diễn thực sẽ được kiểm tra ở animatic. Nếu vượt mục tiêu, rút lời lặp trước khi tăng tốc đối thoại.
 
 ## Cảnh 1. Giá sửa
 
-**Bối cảnh:** 20 giờ, tiệm sửa đồ của ông Lộc ở cuối con hẻm hư cấu tại một thành phố miền Nam. Quầy gỗ chắn ngang phòng; bàn sửa phía sau, kệ đồ bên trái, cửa ra hẻm bên phải. Duy và Thảo ngồi cùng phía ngoài quầy. Ánh đèn bàn vàng, ngoài hẻm trắng lạnh. Điện thoại vỡ nằm giữa ba người.
+**Bối cảnh:** 20 giờ, tiệm sửa đồ của ông Lộc ở cuối con hẻm hư cấu tại một thành phố miền Nam. Quầy gỗ thấp chắn ngang phòng; bàn sửa phía sau, kệ đồ bên trái, cửa ra hẻm bên phải. Duy ngồi trái, Thảo ngồi phải gần cửa, cùng phía khách của quầy. Quạt tường chạy; đồng hồ trên kệ đã ngừng nên không có tiếng tích tắc. Sơ đồ và kích thước quy ước ở DUNG-CANH. Ánh đèn bàn vàng, ngoài hẻm trắng lạnh. Điện thoại vỡ nằm giữa ba người.
 
-| Shot và góc quay | Lens / khẩu độ | Chuyển động / độ rung | Focus | Dựng / âm thanh |
-|---|---|---|---|---|
-| 01 — Trung ba người qua mép quầy, ngang tầm mắt | 35 mm, f/5.6 | Máy tĩnh, rung 0/3 | Nét đủ cả ba người, giữ vị trí cửa bên phải hình | Vào thẳng câu hỏi; tiếng quạt cũ, xe máy xa. Giữ 6–8 giây trước cắt. |
-| 02 — Cận máy vỡ và tay Duy, rồi reverse cận ông Lộc | 85 mm, f/4 | Hai máy tĩnh, rung 0/3 | Nét vết nứt ở insert; nét mắt ông Lộc ở reverse | Không nhạc bí hiểm báo trước ông là người xấu; ngắt nền nhạc nếu có ở chữ ký ức. |
+| Cue / thiết lập | Góc và cỡ cảnh | Lens / vị trí / nét | Chuyển động, tư thế và âm thanh |
+|---|---|---|---|
+| C1-A | Toàn vừa ba người; ngang tầm ngồi | 35 mm; cao 1,25 m; nét cả ba | Khóa máy, quạt/xe xa; Duy trái, Thảo phải |
+| C1-B | Insert xoay máy trên khăn | 85 mm; cao 1,25 m; cúi 35° | Máy nằm trên mặt đỡ; thấy vết nứt; trở C1-A cho lời Lộc |
+| C1-C | Trung Thảo đứng, vai Duy tiền cảnh | 50 mm; cao 1,45 m; nét Thảo | Trượt ngang 8 cm rồi dừng; giữ 2 giây nghỉ |
+
+Chi tiết đặt máy, diễn xuất và tiếp xúc: xem các mã tương ứng trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
@@ -61,7 +66,7 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 > Ông Lộc xoay chiếc điện thoại vỡ trên tấm khăn.
 
-> Trong tiệm sửa đồ cuối hẻm, Duy ngồi sát chị gái bên chiếc quầy gỗ. Sau lưng ông chủ tiệm là những hàng đồng hồ đã ngừng chạy.
+> Trong tiệm sửa đồ cuối hẻm, Duy ngồi cùng chị gái bên chiếc quầy gỗ. Sau lưng ông chủ tiệm là những hàng đồng hồ đã ngừng chạy.
 
 > “Một ký ức quan trọng, gắn với cái máy này. Phải là chuyện cháu còn nặng lòng. Sửa xong, chuyện đó mất khỏi trí nhớ của cháu.”
 
@@ -79,18 +84,20 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 ## Cảnh 2. Chuyện không tính bằng tiền
 
-**Bối cảnh:** Cùng tiệm, liên tục. Thảo kéo ghế ngồi xuống ở đầu quầy gần cửa. Một tấm ảnh hai chị em và mẹ đã được Duy lấy từ ví, đặt cạnh điện thoại, không phải ảnh lấy ra từ máy đang hỏng.
+**Bối cảnh:** Cùng tiệm, liên tục. Thảo kéo ghế ngồi xuống ở đầu quầy gần cửa. Đầu cảnh ảnh ba mẹ con còn trong ví. Trong cảnh, Lộc đẩy giấy cùng bút, rồi Duy lấy ảnh đặt trái chiếc máy; ví cất lại túi trái. Ảnh không lấy từ máy đang hỏng.
 
-| Shot và góc quay | Lens / khẩu độ | Chuyển động / độ rung | Focus | Dựng / âm thanh |
-|---|---|---|---|---|
-| 03 — Trung ngang Thảo đứng rồi ngồi, Duy tiền cảnh | 50 mm, f/4 | Pan ngắn theo chị, rung 0/3 | Theo mắt Thảo; giữ Duy mềm ở mép hình | Để tiếng kéo ghế cắt khoảng yên; không cắt sang hồi tưởng minh họa. |
-| 04 — Cận hai bàn tay, ảnh giấy và tờ biên nhận | 85 mm, f/5.6 | Máy khóa, rung 0/3 | Nét ảnh rồi cắt insert sang chữ trên giấy | Chữ và giao diện điện thoại làm lớp đồ họa riêng khi dựng; tránh phụ thuộc chữ sinh trong ảnh AI. |
+| Cue / thiết lập | Góc và cỡ cảnh | Lens / vị trí / nét | Chuyển động, tư thế và âm thanh |
+|---|---|---|---|
+| C2-A | Khung chung, Thảo ngồi lại | 35 mm; cao 1,25 m; nét đủ | Khóa; ghế về đúng chỗ, không thêm người ngoài cửa |
+| C2-B | Insert giấy, bút, ảnh từ ví | 65 mm; cao 1,4 m; cúi 40° | Khóa; giấy/ảnh không đè máy; trở C2-A cho câu đùa |
+
+Chi tiết đặt máy, diễn xuất và tiếp xúc: xem các mã tương ứng trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
 > Ba tiệm trước đều trả máy. Ông Lộc là người đầu tiên nói sửa được.
 
-> Duy hai mươi sáu tuổi, làm xa nhà. Thảo hơn cậu sáu tuổi, sống cùng mẹ, vừa may đồ vừa chăm bà. Tiền viện hai chị em cùng đóng. Những đêm ở viện, phần lớn chỉ có chị.
+> Duy làm xa nhà. Thảo ở cùng mẹ, vừa may đồ vừa chăm bà. Tiền viện hai chị em cùng đóng. Những đêm thức trắng bên giường bệnh, phần lớn chỉ có chị.
 
 > “Chị làm rơi lúc dọn đồ mẹ à?” Duy hỏi.
 
@@ -112,11 +119,15 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 ## Cảnh 3. Một ký ức dễ bỏ
 
-**Bối cảnh:** Quầy sửa; Duy có bút trong tay nhưng chưa ký. Thảo vẫn giữ khoảng cách một ghế. Ông Lộc đứng sau quầy, chưa tháo máy.
+**Bối cảnh:** Quầy sửa; Duy đã lấy bút từ giấy, chưa ký. Thảo giữ vị trí ghế ban đầu; không tự thêm một ghế trống giữa hai người. Ông Lộc đứng sau quầy, chưa tháo máy.
 
-| Shot và góc quay | Lens / khẩu độ | Chuyển động / độ rung | Focus | Dựng / âm thanh |
-|---|---|---|---|---|
-| 05 — Cận Duy rồi cắt đối diện Thảo, ngang mắt | Hai góc 70 mm, f/4 | Máy tĩnh, rung 0/3 | Nét người đang nói; tránh đổi nét theo mọi lượt thoại | Cắt 3–5 giây khi lời buộc tội xuất hiện, giữ nguyên trục giữa hai chị em. |
+| Cue / thiết lập | Góc và cỡ cảnh | Lens / vị trí / nét | Chuyển động, tư thế và âm thanh |
+|---|---|---|---|
+| C3-A | Cận vừa Duy, vai Thảo phải | 70 mm; cao 1,2 m; nét Duy | Khóa, phản ứng phòng thủ rồi khựng |
+| C3-B | Cận vừa Thảo, vai Duy trái | 70 mm; cao 1,2 m; nét Thảo | Giữ trục; nhạc M1 rút trước câu cuối |
+| C3-C | Insert đặt bút rồi kéo giấy | 65 mm; góc C2-B | Khóa; hai âm chạm gỗ và giấy kéo riêng |
+
+Chi tiết đặt máy, diễn xuất và tiếp xúc: xem các mã tương ứng trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
@@ -148,12 +159,14 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 ## Cảnh 4. Vết nứt
 
-**Bối cảnh:** Vẫn ở quầy; ánh đèn và đồ vật giữ nguyên. Thảo chạm ngón tay vào vỏ máy nhưng không nhấc. Bên ngoài một xe máy đi qua rồi tiếng hẻm lắng xuống.
+**Bối cảnh:** Vẫn ở quầy; ánh đèn và đồ vật giữ nguyên. Duy đã nhả cạnh máy; Thảo dùng ngón tay xoay máy trên khăn nhưng không nhấc. Sau thú nhận chị rút tay về túi trên đùi. Bên ngoài một xe máy đi qua rồi tiếng hẻm lắng xuống.
 
-| Shot và góc quay | Lens / khẩu độ | Chuyển động / độ rung | Focus | Dựng / âm thanh |
-|---|---|---|---|---|
-| 06 — Trung hai chị em, ngang mép quầy | 50 mm, f/5.6 | Dolly tiến chậm 20 cm trong cả cảnh, rung 0/3 | Cùng mặt nét; ông Lộc ngoài khung để họ có khoảng riêng | Khi nói sự thật, giữ shot thay vì dựng phản ứng dồn dập. |
-| 07 — Cận bàn tay Thảo dừng trên vết nứt | 85 mm, f/4 | Máy tĩnh, rung 0/3 | Nét ngón tay và vết nứt | Tiếng móng chạm vỏ máy; không dựng hình đập máy hay tiếng đập gây hiểu nhầm hiện tại. |
+| Cue / thiết lập | Góc và cỡ cảnh | Lens / vị trí / nét | Chuyển động, tư thế và âm thanh |
+|---|---|---|---|
+| C4-A | Tay Thảo gần, mặt Duy xa | 65 mm; cao 1,05 m | Chuyển nét từ vết nứt sang mắt Duy sau thú nhận |
+| C4-B | Trung đôi, cả hai cùng vùng nét | 50 mm; cao 1,2 m | Trượt ngang 10 cm trong 7 giây rồi khóa; nghỉ 4 giây |
+
+Chi tiết đặt máy, diễn xuất và tiếp xúc: xem các mã tương ứng trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
@@ -167,7 +180,7 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 > “Chị biết em còn muốn nghe mẹ mà.”
 
-> “Chị biết. Nên chị mới nói dối.”
+> “Chị biết. Chị làm hỏng máy, rồi còn nói dối em. Chị xin lỗi.”
 
 > Chị rút tay khỏi chiếc máy.
 
@@ -187,11 +200,15 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 ## Cảnh 5. Điều đáng giữ
 
-**Bối cảnh:** Tiệm đã vắng tiếng xe. Ảnh giấy vẫn trên quầy. Duy kéo ghế gần chị một chút nhưng không chạm vào chị khi chị chưa đáp lại. Ông Lộc chờ ở phía sau.
+**Bối cảnh:** Tiệm đã vắng tiếng xe. Ảnh giấy còn trên quầy ở đầu cảnh, được Thảo đẩy trả và Duy cất ví trước khi ký. Duy dịch ghế gần chị khoảng 10 cm nhưng không chạm vào chị khi chị chưa đáp lại. Ông Lộc chờ ở phía sau.
 
-| Shot và góc quay | Lens / khẩu độ | Chuyển động / độ rung | Focus | Dựng / âm thanh |
-|---|---|---|---|---|
-| 08 — Cận vừa Duy, Thảo hiện ở cạnh hình | 65 mm, f/4 | Máy tĩnh, rung 0/3 | Nét Duy; cắt phản ứng Thảo khi chị hỏi | Nhịp câu đầy đủ, có thời gian đổi ý; không tăng âm nhạc để ép lựa chọn. |
+| Cue / thiết lập | Góc và cỡ cảnh | Lens / vị trí / nét | Chuyển động, tư thế và âm thanh |
+|---|---|---|---|
+| C5-A | Trung đôi, Duy quay về chị | 50 mm; góc C4-B | Khóa; dịch ghế 10 cm; cười rồi nghiêm lại |
+| C5-B | Insert ảnh/giấy rồi trở hai người | 65 mm; góc C2-B | Nghỉ 3 giây; ảnh trượt trên quầy rồi cất ví |
+| C5-C | Insert ghi sự kiện và ký | 85 mm; cao 1,35 m; cúi 40° | Chữ riêng; xác nhận trước khi sửa, không ký giấy trắng |
+
+Chi tiết đặt máy, diễn xuất và tiếp xúc: xem các mã tương ứng trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
@@ -209,28 +226,32 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 > “Mẹ vui lắm,” Duy nói. “Cháu cũng vậy.”
 
-> “Em muốn mất chuyện đó để nghe một tin nhắn chưa biết nói gì sao?”
+> “Em muốn mất chuyện đó để nghe một tin nhắn chưa biết nói gì sao? Máy là chị làm hỏng. Em không phải trả thay chị.”
 
 > Duy ngồi im khá lâu.
 
 **[NGHỈ 3 giây — Duy nhìn ảnh ba người rồi nhìn tờ giấy, chưa trả lời chị. Chỉ tiếng nền tiệm.]**
 
-> “Em muốn nghe. Nhưng em không muốn quên cái hôm em làm chị khóc.”
+> “Em tự chọn mà. Em muốn nghe mẹ. Nhưng em không muốn quên cái hôm em làm chị khóc.”
 
-> Thảo đưa ảnh lại cho em.
+> Thảo đẩy bức ảnh về phía em. Duy cất nó vào ví.
 
 > “Chị không quyết thay em được.”
 
-> Ông Lộc đọc lại đúng cuộc gọi Duy đã chọn. Cậu ký tên. Đến khi ông hỏi lần cuối, cậu vẫn gật đầu.
+> Ông Lộc đưa lại giấy. Duy ghi cuộc gọi mình chọn. Ông đọc lại, cậu ký tên. Đến khi ông hỏi lần cuối, cậu vẫn gật đầu.
 
 ## Cảnh 6. Máy sáng
 
-**Bối cảnh:** Ông Lộc thao tác ở bàn sửa ngay sau quầy. Hai chị em ngồi chờ, không đổi vị trí. Sửa qua một đoạn chuyển thời gian ngắn, không thể hiện quy trình kỹ thuật có thể làm theo.
+**Bối cảnh:** Ông Lộc thao tác ở bàn sửa ngay sau quầy. Hai chị em ngồi chờ, không đổi vị trí. Sửa qua một đoạn chuyển thời gian ngắn, không thể hiện quy trình kỹ thuật có thể làm theo. Cuối cảnh Duy gấp giấy vào ví và mang máy về; giữ ảnh đã cất ở cảnh 5.
 
-| Shot và góc quay | Lens / khẩu độ | Chuyển động / độ rung | Focus | Dựng / âm thanh |
-|---|---|---|---|---|
-| 09 — Đặc tả tay ông Lộc đặt lại nắp máy; cận Duy | 85 mm, f/5.6 | Máy khóa, rung 0/3 | Nét nắp máy; cắt riêng sang mắt Duy | Match cut cho thời gian sửa trôi; tiếng quạt vẫn liên tục, không ánh sáng phép thuật. |
-| 10 — Trung đôi, điện thoại sáng phía dưới khung | 50 mm, f/4 | Máy tĩnh, rung 0/3 | Nét mặt hai người; màn hình đọc ở insert riêng | Giữ tiếng loa nhỏ có chất điện thoại. Tin nhắn là giọng nữ riêng nếu sản xuất nhiều giọng. |
+| Cue / thiết lập | Góc và cỡ cảnh | Lens / vị trí / nét | Chuyển động, tư thế và âm thanh |
+|---|---|---|---|
+| C6-A | Bàn sửa rồi máy trở lại quầy | 50 mm; cao 1,4 m | Match cut thời gian; thấy động tác mang và đặt máy |
+| C6-B | Trung đôi kiểm tra cái giá | 50 mm; góc C4-B | Khóa; nét cả hai; biên nhận giúp biết sự kiện, không trả ký ức |
+| C6-C | Insert bấm phát ghi âm | 85 mm; cao 1,2 m; cúi 35° | Máy nằm trên khăn; tiếng mẹ có chất loa nhưng rõ |
+| C6-D | Trung đôi nghe và nhìn nhau | 50 mm; dùng lại C6-B | Hai khoảng nghỉ 4 giây có hành động khác nhau; không phát lại |
+
+Chi tiết đặt máy, diễn xuất và tiếp xúc: xem các mã tương ứng trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
@@ -240,7 +261,7 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 > Duy nhìn chị.
 
-> “Mẹ gọi video cho em lúc nào?”
+> “Em vừa kể chuyện đó hả? Em… không nhớ.”
 
 > Chị siết mép ghế. Ông Lộc quay tờ biên nhận cho Duy. Cậu đọc điều chính mình vừa viết, nhưng không tìm lại được buổi tối ấy.
 
@@ -268,20 +289,25 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 ## Cảnh 7. Người còn ở đây
 
-**Bối cảnh:** Khoảng một giờ sau, căn nhà hai chị em: bàn ăn nhỏ ở phòng trước, máy may của Thảo bên trái, cửa bếp phía sau. Bàn thờ mẹ ở tường bên phải, ánh đèn ấm, không hiệu ứng siêu nhiên. Hai bát sạch úp ở kệ; điện thoại đã sửa được Duy mang về.
+**Bối cảnh:** Khoảng một giờ sau, nhà của mẹ và Thảo, nơi Duy đang về ở tạm: bàn ăn nhỏ ở phòng trước, máy may của Thảo bên trái, cửa bếp phía sau. Bàn thờ mẹ ở tường bên phải, ánh đèn ấm, không hiệu ứng siêu nhiên. Hai bát sạch úp trong tủ bếp. Duy đặt máy đã sửa lên bàn ăn, màn hình lên trên, ngồi ghế trái và mở biên nhận từ ví. Thảo treo túi/khóa cạnh cửa, đi bếp rồi trở về ghế phải. Cuối cảnh hai bát được cất lại, máy vào túi Duy; đèn bàn thờ có nguồn riêng vẫn sáng.
 
-| Shot và góc quay | Lens / khẩu độ | Chuyển động / độ rung | Focus | Dựng / âm thanh |
-|---|---|---|---|---|
-| 11 — Toàn nhỏ căn nhà từ cửa vào | 28 mm, f/5.6 | Máy tĩnh, rung 0/3 | Nét sâu để xác định máy may, bàn ăn, bếp và bàn thờ | Đổi từ tiếng quạt tiệm sang tiếng tủ bếp; không có cảnh đi đường cần sản xuất. |
-| 12 — Trung hai chị em ở bàn ăn rồi cận máy úp xuống | 50 mm, f/5.6 và insert 85 mm, f/4 | Máy tĩnh, rung 0/3 | Hai người cùng mặt nét; insert nét chiếc điện thoại | Shot cuối giữ 7–9 giây; kết trong hành động, không chèn bài học đọc thành lời. |
+| Cue / thiết lập | Góc và cỡ cảnh | Lens / vị trí / nét | Chuyển động, tư thế và âm thanh |
+|---|---|---|---|
+| C7-A | Toàn nhà từ cửa vào | 28 mm; cao 1,45 m; nét đủ | Khóa; xác lập bàn may/bàn ăn/bếp/bàn thờ |
+| C7-B | Trung đôi nhận lỗi | 50 mm; cao 1,2 m | Khóa; Thảo ngồi sau câu xin lỗi, Duy nghe hết |
+| C7-C | Cận vừa Duy tại tủ bát | 50 mm; cao 1,25 m; góc 3/4 | Hai bát đặt mặt bếp rồi cất; không xuyên tay |
+| C7-D | Trở bàn nghe chuyện camera | 50 mm; dùng lại C7-B | Duy đã về ngồi; không hiện hồi tưởng |
+| C7-E | Toàn ra cửa rồi giữ bếp | 28 mm khung nhà; 35 mm khung bếp | Khóa; cất đồ, chạm công tắc rồi tắt; nghỉ cuối 4 giây |
+
+Chi tiết đặt máy, diễn xuất và tiếp xúc: xem các mã tương ứng trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
-> Về nhà, Thảo cất túi, đi thẳng vào bếp theo thói quen. Duy đặt điện thoại cạnh bàn may của chị.
+> Về nhà, Thảo treo túi, đi thẳng vào bếp. Bên cửa còn mảnh vải chị may dở. Duy đặt điện thoại lên bàn ăn, ngồi xuống.
 
-> “Mình giữ chung nhé. Em chép lời nhắn ra cho cả hai.”
+> “Máy mình giữ chung nhé. Em sao lại đoạn ghi âm cho chị nữa.”
 
-> Thảo quay lại. “Chuyện chị đập máy…”
+> Thảo quay lại. “Chuyện chị đập máy… chị không biết phải làm sao để bù lại cho em.”
 
 > “Em vẫn buồn. Để em buồn một chút đã.”
 
@@ -295,7 +321,7 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 > “Ừ. Vì có sao thật.”
 
-> Duy mở tủ lấy hai cái bát rồi dừng lại.
+> Duy đứng lên, lấy hai cái bát đặt trên mặt bếp, rồi dừng lại.
 
 > “Tối nay chị muốn ăn gì?”
 
@@ -307,7 +333,7 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 > “Ừ. Mình ra ngoài.”
 
-> Trước khi đứng lên, Duy nhìn lại tờ biên nhận.
+> Duy cất hai cái bát lại. Cậu trở về ghế, nhìn tờ biên nhận đã lấy ra từ ví.
 
 > “Hôm mẹ gọi video, chị có ở cạnh mẹ không?”
 
@@ -315,7 +341,7 @@ Lời đọc: **1,076 đơn vị tách bằng khoảng trắng** (gần âm ti�
 
 > Duy mỉm cười, rồi nhìn chị. Cậu biết thêm một chuyện về mẹ. Ký ức ấy vẫn không trở về.
 
-> Thảo lấy chìa khóa. Duy bỏ tờ giấy vào ví, cạnh bức ảnh ba người.
+> Thảo đứng dậy lấy chìa khóa. Duy cất biên nhận cạnh bức ảnh trong ví, bỏ điện thoại vào túi.
 
 > Lần này, chị ra cửa trước. Cậu theo sau, tắt đèn bếp.
 

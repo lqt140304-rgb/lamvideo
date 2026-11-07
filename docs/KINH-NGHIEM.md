@@ -26,6 +26,7 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 - Giải thích ngắn nguyên nhân chính. Giữ phần kiểm chứng, giả định và giới hạn trong hồ sơ nghiên cứu. Không đưa toàn bộ nghiên cứu vào thoại.
 - Ghi góc/cỡ cảnh, lens tương đương, chuyển động, độ rung, focus và âm thanh để dựng được. Với hoạt hình, thông số máy quay là ý đồ hình ảnh, không phải thiết bị đã quay thật.
 - Kiểm tra trục nhìn, hướng cửa, tay cầm đồ, vị trí nhân vật và nguồn sáng giữa các shot. Chữ quan trọng làm lớp đồ họa riêng, tránh phụ thuộc chữ sinh trong ảnh.
+- **Lời kể đúng nhưng chỉ dẫn dựng mâu thuẫn → theo dõi từng shot mà thiếu chuỗi trạng thái →** ghi vật ở đâu trước/sau hành động, tay nào giữ và thời điểm đặt/nhả/cất; soát đồng thời lời kể, sơ đồ, cue và asset. **Kiểm tra:** trước khi nhân vật “đứng lên” phải biết đang ngồi ở đâu; đồ đã cất không còn trên bàn; giấy chưa đưa lại không xuất hiện trước người ký. Đối chiếu văn bản trước, xác nhận tiếp xúc bằng animatic sau.
 
 ## Góc máy điện ảnh và chiều sâu 2.5D
 

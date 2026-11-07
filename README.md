@@ -67,6 +67,7 @@ Các tên dưới đây tính từ `episodes/<series>/<slug-tap>/`. Chỉ tạo 
 |---|---|---|
 | `README.md` | Điểm bắt đầu của tập: tình trạng hiện tại, phạm vi, bản nguồn và bước còn thiếu | Tập nào, bao nhiêu vai/bối cảnh, đã có văn bản hay media, bản nào đang dùng |
 | `KICH-BAN.md` | Nguồn biên tập của câu chuyện và bản dựng | Luật thế giới, vai trò nhân vật, cảnh, hành động, thoại, camera/lens/rung/focus, âm thanh và khoảng nghỉ |
+| `DUNG-CANH.md` khi cần | Triển khai hình/âm chi tiết theo cue của kịch bản nguồn | Sơ đồ phòng, vị trí máy/lens, tư thế, đường đi đạo cụ, lớp gần–xa, âm thanh và điểm cần duyệt ở storyboard/animatic; không tạo bản thoại độc lập |
 | `LOI-DOC.md` | Lời sạch dùng để đọc thử hoặc chuẩn bị TTS | Chỉ phần được đọc; không có tên shot, chỉ dẫn quay hoặc `[NGHỈ ...]` |
 | `ELEVENLABS.md` | Bản lời có hướng diễn xuất cho giọng/model phù hợp | Thẻ cảm xúc đặt đúng đoạn; phải khớp bản lời nguồn, không coi thẻ là lệnh tự phân vai |
 | `ASSET.md` | Bảng kiểm tài nguyên của tập | Mã asset, nhân vật/bối cảnh/đạo cụ/âm thanh, đường dẫn, nguồn/quyền dùng, phiên bản và trạng thái đã có/chưa tạo |

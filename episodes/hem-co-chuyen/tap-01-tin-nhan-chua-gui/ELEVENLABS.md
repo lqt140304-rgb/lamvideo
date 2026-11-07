@@ -2,7 +2,7 @@
 
 Ông Lộc xoay chiếc điện thoại vỡ trên tấm khăn.
 
-Trong tiệm sửa đồ cuối hẻm, Duy ngồi sát chị gái bên chiếc quầy gỗ. Sau lưng ông chủ tiệm là những hàng đồng hồ đã ngừng chạy.
+Trong tiệm sửa đồ cuối hẻm, Duy ngồi cùng chị gái bên chiếc quầy gỗ. Sau lưng ông chủ tiệm là những hàng đồng hồ đã ngừng chạy.
 
 [calm] “Một ký ức quan trọng, gắn với cái máy này. Phải là chuyện cháu còn nặng lòng. Sửa xong, chuyện đó mất khỏi trí nhớ của cháu.”
 
@@ -18,7 +18,7 @@ Nhưng Duy giữ chiếc máy lại.
 
 Ba tiệm trước đều trả máy. Ông Lộc là người đầu tiên nói sửa được.
 
-Duy hai mươi sáu tuổi, làm xa nhà. Thảo hơn cậu sáu tuổi, sống cùng mẹ, vừa may đồ vừa chăm bà. Tiền viện hai chị em cùng đóng. Những đêm ở viện, phần lớn chỉ có chị.
+Duy làm xa nhà. Thảo ở cùng mẹ, vừa may đồ vừa chăm bà. Tiền viện hai chị em cùng đóng. Những đêm thức trắng bên giường bệnh, phần lớn chỉ có chị.
 
 “Chị làm rơi lúc dọn đồ mẹ à?” Duy hỏi.
 
@@ -70,7 +70,7 @@ Duy ngừng cử động.
 
 “Chị biết em còn muốn nghe mẹ mà.”
 
-“Chị biết. Nên chị mới nói dối.”
+“Chị biết. Chị làm hỏng máy, rồi còn nói dối em. Chị xin lỗi.”
 
 Chị rút tay khỏi chiếc máy.
 
@@ -100,17 +100,17 @@ Thảo nhớ. Chính chị đã đứng cạnh, chỉ mẹ cách gọi.
 
 “Mẹ vui lắm,” Duy nói. “Cháu cũng vậy.”
 
-[worried] “Em muốn mất chuyện đó để nghe một tin nhắn chưa biết nói gì sao?”
+[worried] “Em muốn mất chuyện đó để nghe một tin nhắn chưa biết nói gì sao? Máy là chị làm hỏng. Em không phải trả thay chị.”
 
 Duy ngồi im khá lâu.
 
-“Em muốn nghe. Nhưng em không muốn quên cái hôm em làm chị khóc.”
+“Em tự chọn mà. Em muốn nghe mẹ. Nhưng em không muốn quên cái hôm em làm chị khóc.”
 
-Thảo đưa ảnh lại cho em.
+Thảo đẩy bức ảnh về phía em. Duy cất nó vào ví.
 
 “Chị không quyết thay em được.”
 
-Ông Lộc đọc lại đúng cuộc gọi Duy đã chọn. Cậu ký tên. Đến khi ông hỏi lần cuối, cậu vẫn gật đầu.
+Ông Lộc đưa lại giấy. Duy ghi cuộc gọi mình chọn. Ông đọc lại, cậu ký tên. Đến khi ông hỏi lần cuối, cậu vẫn gật đầu.
 
 Khi ông Lộc đặt lại chiếc máy lên quầy, màn hình đã sáng.
 
@@ -118,7 +118,7 @@ Thảo hỏi khẽ: “Hồi nãy em kể mẹ che camera bằng gì?”
 
 Duy nhìn chị.
 
-[confused] “Mẹ gọi video cho em lúc nào?”
+[confused] “Em vừa kể chuyện đó hả? Em… không nhớ.”
 
 Chị siết mép ghế. Ông Lộc quay tờ biên nhận cho Duy. Cậu đọc điều chính mình vừa viết, nhưng không tìm lại được buổi tối ấy.
 
@@ -140,11 +140,11 @@ Thảo gật đầu.
 
 “Ừ.”
 
-Về nhà, Thảo cất túi, đi thẳng vào bếp theo thói quen. Duy đặt điện thoại cạnh bàn may của chị.
+Về nhà, Thảo treo túi, đi thẳng vào bếp. Bên cửa còn mảnh vải chị may dở. Duy đặt điện thoại lên bàn ăn, ngồi xuống.
 
-“Mình giữ chung nhé. Em chép lời nhắn ra cho cả hai.”
+“Máy mình giữ chung nhé. Em sao lại đoạn ghi âm cho chị nữa.”
 
-Thảo quay lại. “Chuyện chị đập máy…”
+Thảo quay lại. “Chuyện chị đập máy… chị không biết phải làm sao để bù lại cho em.”
 
 “Em vẫn buồn. Để em buồn một chút đã.”
 
@@ -158,7 +158,7 @@ Một lúc sau, Thảo kéo ghế ngồi xuống.
 
 “Ừ. Vì có sao thật.”
 
-Duy mở tủ lấy hai cái bát rồi dừng lại.
+Duy đứng lên, lấy hai cái bát đặt trên mặt bếp, rồi dừng lại.
 
 “Tối nay chị muốn ăn gì?”
 
@@ -170,7 +170,7 @@ Thảo ngập ngừng, nhìn căn bếp.
 
 [softly] “Ừ. Mình ra ngoài.”
 
-Trước khi đứng lên, Duy nhìn lại tờ biên nhận.
+Duy cất hai cái bát lại. Cậu trở về ghế, nhìn tờ biên nhận đã lấy ra từ ví.
 
 “Hôm mẹ gọi video, chị có ở cạnh mẹ không?”
 
@@ -178,6 +178,6 @@ Trước khi đứng lên, Duy nhìn lại tờ biên nhận.
 
 Duy mỉm cười, rồi nhìn chị. Cậu biết thêm một chuyện về mẹ. Ký ức ấy vẫn không trở về.
 
-Thảo lấy chìa khóa. Duy bỏ tờ giấy vào ví, cạnh bức ảnh ba người.
+Thảo đứng dậy lấy chìa khóa. Duy cất biên nhận cạnh bức ảnh trong ví, bỏ điện thoại vào túi.
 
 Lần này, chị ra cửa trước. Cậu theo sau, tắt đèn bếp.
