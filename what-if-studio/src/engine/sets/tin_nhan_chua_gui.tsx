@@ -2457,93 +2457,75 @@ export const AlleyExteriorScene: React.FC<{
     <defs>
       {/* Deep midnight alley sky gradient */}
       <linearGradient id="hemSky" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#040711" />
-        <stop offset="60%" stopColor="#0B1322" />
-        <stop offset="100%" stopColor="#121B2C" />
+        <stop offset="0%" stopColor="#03050C" />
+        <stop offset="60%" stopColor="#080E1A" />
+        <stop offset="100%" stopColor="#0E1624" />
       </linearGradient>
 
-      {/* Damp asphalt pavement with longitudinal perspective tonal transition */}
+      {/* Dark damp nocturnal asphalt pavement */}
       <linearGradient id="hemRoad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#101420" />
-        <stop offset="40%" stopColor="#151C28" />
-        <stop offset="100%" stopColor="#0C0F16" />
+        <stop offset="0%" stopColor="#0D111A" />
+        <stop offset="40%" stopColor="#111622" />
+        <stop offset="100%" stopColor="#080B10" />
       </linearGradient>
 
-      {/* Gentle, non-glaring warm amber radial falloff for shop doorway spill onto the pavement */}
-      <radialGradient id="tiemWarmSpillRadial" cx="82%" cy="26%" r="90%">
-        <stop offset="0%" stopColor="#FFE4A0" stopOpacity={0.52} />
-        <stop offset="25%" stopColor="#F59E0B" stopOpacity={0.34} />
-        <stop offset="55%" stopColor="#D97706" stopOpacity={0.16} />
-        <stop offset="80%" stopColor="#8C3B12" stopOpacity={0.05} />
+      {/* Gentle, atmospheric warm amber radial falloff for shop doorway spill onto the dark pavement */}
+      <radialGradient id="tiemWarmSpillRadial" cx="84%" cy="26%" r="92%">
+        <stop offset="0%" stopColor="#FFE4A0" stopOpacity={0.65} />
+        <stop offset="25%" stopColor="#F59E0B" stopOpacity={0.42} />
+        <stop offset="55%" stopColor="#D97706" stopOpacity={0.2} />
+        <stop offset="80%" stopColor="#8C3B12" stopOpacity={0.06} />
         <stop offset="100%" stopColor="#3E180C" stopOpacity={0} />
       </radialGradient>
 
       {/* Rich warm amber interior room lighting for Ông Lộc's workshop */}
       <radialGradient id="tiemInteriorGlow" cx="42%" cy="48%" r="65%">
-        <stop offset="0%" stopColor="#FFEBB0" stopOpacity={0.78} />
-        <stop offset="35%" stopColor="#E69528" stopOpacity={0.52} />
-        <stop offset="70%" stopColor="#92400E" stopOpacity={0.28} />
-        <stop offset="100%" stopColor="#3E1608" stopOpacity={0.1} />
+        <stop offset="0%" stopColor="#FFEBB0" stopOpacity={0.82} />
+        <stop offset="35%" stopColor="#E69528" stopOpacity={0.55} />
+        <stop offset="70%" stopColor="#92400E" stopOpacity={0.3} />
+        <stop offset="100%" stopColor="#3E1608" stopOpacity={0.12} />
       </radialGradient>
 
       {/* Focused warm cone from jeweler's workbench desk lamp */}
       <radialGradient id="tiemDeskLight" cx="50%" cy="30%" r="60%">
-        <stop offset="0%" stopColor="#FFF4D0" stopOpacity={0.75} />
-        <stop offset="45%" stopColor="#FBBF24" stopOpacity={0.35} />
+        <stop offset="0%" stopColor="#FFF4D0" stopOpacity={0.78} />
+        <stop offset="45%" stopColor="#FBBF24" stopOpacity={0.38} />
         <stop offset="100%" stopColor="#B45309" stopOpacity={0} />
       </radialGradient>
 
       {/* Subtle damp green moss creeping up wall footings */}
       <linearGradient id="mossFade" x1="0" y1="1" x2="0" y2="0">
-        <stop offset="0%" stopColor="#122519" stopOpacity={0.92} />
-        <stop offset="60%" stopColor="#122519" stopOpacity={0.38} />
-        <stop offset="100%" stopColor="#122519" stopOpacity={0} />
+        <stop offset="0%" stopColor="#0E1D13" stopOpacity={0.92} />
+        <stop offset="60%" stopColor="#0E1D13" stopOpacity={0.38} />
+        <stop offset="100%" stopColor="#0E1D13" stopOpacity={0} />
       </linearGradient>
 
-      {/* Soft, hazy, non-glaring streetlamp atmospheric beam (Mie scattering in humid tropical air) */}
-      <linearGradient id="hemStreetlampBeamSoft" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#FFF2B8" stopOpacity={0.28} />
-        <stop offset="20%" stopColor="#FDE68A" stopOpacity={0.18} />
-        <stop offset="55%" stopColor="#F59E0B" stopOpacity={0.08} />
-        <stop offset="85%" stopColor="#D97706" stopOpacity={0.02} />
-        <stop offset="100%" stopColor="#B45309" stopOpacity={0} />
-      </linearGradient>
-
-      {/* Natural wide radial decay for streetlamp pool on wet asphalt */}
-      <radialGradient id="hemStreetlampPoolSmooth" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#FFEBB0" stopOpacity={0.48} />
-        <stop offset="28%" stopColor="#FCD34D" stopOpacity={0.3} />
-        <stop offset="58%" stopColor="#F59E0B" stopOpacity={0.14} />
-        <stop offset="82%" stopColor="#B45309" stopOpacity={0.04} />
-        <stop offset="100%" stopColor="#78350F" stopOpacity={0} />
-      </radialGradient>
-
-      {/* Humid tropical night ground mist hugging the alley pavement */}
+      {/* Humid tropical night ground mist hugging the dark alley pavement */}
       <linearGradient id="hemGroundMist" x1="0" y1="1" x2="0" y2="0">
-        <stop offset="0%" stopColor="#1B273A" stopOpacity={0.38} />
-        <stop offset="50%" stopColor="#152030" stopOpacity={0.16} />
-        <stop offset="100%" stopColor="#0E1624" stopOpacity={0} />
+        <stop offset="0%" stopColor="#151E2D" stopOpacity={0.35} />
+        <stop offset="50%" stopColor="#0F1724" stopOpacity={0.15} />
+        <stop offset="100%" stopColor="#090E18" stopOpacity={0} />
       </linearGradient>
 
-      {/* Subtle chiaroscuro peripheral vignettes */}
+      {/* Deep chiaroscuro peripheral vignettes for the dark nocturnal alley */}
       <radialGradient id="alleyVignetteFalloff" cx="54%" cy="64%" r="68%">
-        <stop offset="0%" stopColor="#020307" stopOpacity={0} />
-        <stop offset="42%" stopColor="#020307" stopOpacity={0} />
-        <stop offset="68%" stopColor="#03050C" stopOpacity={0.38} />
-        <stop offset="86%" stopColor="#020308" stopOpacity={0.68} />
-        <stop offset="100%" stopColor="#010205" stopOpacity={0.88} />
+        <stop offset="0%" stopColor="#010205" stopOpacity={0} />
+        <stop offset="40%" stopColor="#010205" stopOpacity={0} />
+        <stop offset="68%" stopColor="#020409" stopOpacity={0.42} />
+        <stop offset="86%" stopColor="#010206" stopOpacity={0.75} />
+        <stop offset="100%" stopColor="#000103" stopOpacity={0.92} />
       </radialGradient>
       <linearGradient id="alleyDeepShadowTop" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#020307" stopOpacity={0.85} />
-        <stop offset="30%" stopColor="#03050A" stopOpacity={0.45} />
-        <stop offset="70%" stopColor="#03050A" stopOpacity={0.12} />
-        <stop offset="100%" stopColor="#03050A" stopOpacity={0} />
+        <stop offset="0%" stopColor="#010205" stopOpacity={0.9} />
+        <stop offset="30%" stopColor="#020308" stopOpacity={0.5} />
+        <stop offset="70%" stopColor="#020308" stopOpacity={0.15} />
+        <stop offset="100%" stopColor="#020308" stopOpacity={0} />
       </linearGradient>
       <linearGradient id="alleyDeepShadowLeft" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="#020408" stopOpacity={0.8} />
-        <stop offset="35%" stopColor="#030610" stopOpacity={0.48} />
-        <stop offset="75%" stopColor="#030610" stopOpacity={0.12} />
-        <stop offset="100%" stopColor="#030610" stopOpacity={0} />
+        <stop offset="0%" stopColor="#010205" stopOpacity={0.85} />
+        <stop offset="35%" stopColor="#02040B" stopOpacity={0.52} />
+        <stop offset="75%" stopColor="#02040B" stopOpacity={0.14} />
+        <stop offset="100%" stopColor="#02040B" stopOpacity={0} />
       </linearGradient>
 
       {/* Atmospheric Soft-Focus Filters */}
@@ -2551,7 +2533,7 @@ export const AlleyExteriorScene: React.FC<{
         <feGaussianBlur stdDeviation="24" />
       </filter>
       <filter id="hemSpillFeather" x="-40%" y="-40%" width="180%" height="180%">
-        <feGaussianBlur stdDeviation="32" />
+        <feGaussianBlur stdDeviation="34" />
       </filter>
       <filter id="hemFloorFeather" x="-40%" y="-40%" width="180%" height="180%">
         <feGaussianBlur stdDeviation="30" />
@@ -2568,13 +2550,13 @@ export const AlleyExteriorScene: React.FC<{
     </defs>
 
     {/* ===================================================================== */}
-    {/* 1. NARROW NOCTURNAL SKY STRIP (Bầu trời đêm hẹp giữa hai dãy nhà ống) */}
+    {/* 1. NARROW NOCTURNAL SKY STRIP (Bầu trời đêm tĩnh mịch giữa hai mái nhà) */}
     {/* ===================================================================== */}
     <rect x={-300} y={-200} width={2600} height={1700} fill="url(#hemSky)" />
     {[
-      [710, 42, 1.5], [820, 68, 1.3], [910, 32, 1.7], [1010, 76, 1.4], [870, 98, 1.2],
+      [710, 42, 1.4], [820, 68, 1.2], [910, 32, 1.5], [1010, 76, 1.3], [870, 98, 1.1],
     ].map(([sx, sy, sr], i) => (
-      <circle key={i} cx={sx} cy={sy} r={sr} fill="#E2E8F0" opacity={0.65} />
+      <circle key={i} cx={sx} cy={sy} r={sr} fill="#CBD5E1" opacity={0.55} />
     ))}
 
     {/* ===================================================================== */}
@@ -2582,16 +2564,16 @@ export const AlleyExteriorScene: React.FC<{
     {/* ===================================================================== */}
     <g>
       {/* Weathered concrete plaster wall closing off the alley termination */}
-      <rect x={470} y={85} width={715} height={615} fill="#18212F" stroke={INK} strokeWidth={4} />
+      <rect x={470} y={85} width={715} height={615} fill="#141B26" stroke={INK} strokeWidth={4} />
       {/* Heavy concrete coping with drip groove along top of dead-end wall */}
-      <rect x={458} y={76} width={738} height={18} rx={2} fill="#263143" stroke={INK} strokeWidth={3} />
-      {/* Broken glass bottle shards cemented into coping (`mảnh chai cắm trên tường`) */}
+      <rect x={458} y={76} width={738} height={18} rx={2} fill="#1F2836" stroke={INK} strokeWidth={3} />
+      {/* Broken glass bottle shards cemented into coping (`mảnh chai cắm trên tường chống trộm`) */}
       {[480, 525, 575, 630, 685, 735, 790, 845, 900, 955, 1010, 1065, 1120, 1165].map((gx, i) => (
         <polygon
           key={i}
           points={`${gx},76 ${gx + 5},${60 + (i % 3) * 6} ${gx + 9},76`}
-          fill={i % 2 === 0 ? '#3B6846' : '#557288'}
-          stroke="#0D131C"
+          fill={i % 2 === 0 ? '#33583B' : '#455E72'}
+          stroke="#090E16"
           strokeWidth={1.2}
           opacity={0.85}
         />
@@ -2601,9 +2583,9 @@ export const AlleyExteriorScene: React.FC<{
 
       {/* Weathered peeling plaster exposing aged red brick courses beneath */}
       <g transform="translate(755 260)">
-        <polygon points="0,0 145,-10 152,72 118,92 -8,78" fill="#4A261C" stroke="#100B10" strokeWidth={2} />
+        <polygon points="0,0 145,-10 152,72 118,92 -8,78" fill="#3E2017" stroke="#0D090D" strokeWidth={2} />
         {[18, 38, 58].map((by, i) => (
-          <line key={i} x1={-6} y1={by} x2={148} y2={by - 2} stroke="#301811" strokeWidth={2} />
+          <line key={i} x1={-6} y1={by} x2={148} y2={by - 2} stroke="#28140E" strokeWidth={2} />
         ))}
         {[
           [24, 0], [70, 0], [116, 0],
@@ -2611,61 +2593,61 @@ export const AlleyExteriorScene: React.FC<{
           [22, 38], [72, 38], [120, 38],
           [44, 58], [92, 58],
         ].map(([bx, by], i) => (
-          <line key={i} x1={bx} y1={by} x2={bx} y2={by + 18} stroke="#301811" strokeWidth={1.8} />
+          <line key={i} x1={bx} y1={by} x2={bx} y2={by + 18} stroke="#28140E" strokeWidth={1.8} />
         ))}
       </g>
 
       {/* 4 Vietnamese concrete ventilation blocks (`gạch hoa thông gió`) */}
       {[595, 645, 980, 1030].map((gx, i) => (
         <g key={i} transform={`translate(${gx} 160)`}>
-          <rect x={0} y={0} width={40} height={40} rx={3} fill="#131A25" stroke="#0A0E15" strokeWidth={2.5} />
-          <rect x={6} y={6} width={28} height={28} rx={2} fill="#080C12" />
-          <path d="M 20 6 L 20 34 M 6 20 L 34 20" stroke="#1A2330" strokeWidth={3} strokeLinecap="round" />
-          <circle cx={20} cy={20} r={5} fill="#05080D" />
+          <rect x={0} y={0} width={40} height={40} rx={3} fill="#0F141D" stroke="#070A0F" strokeWidth={2.5} />
+          <rect x={6} y={6} width={28} height={28} rx={2} fill="#06090D" />
+          <path d="M 20 6 L 20 34 M 6 20 L 34 20" stroke="#161D27" strokeWidth={3} strokeLinecap="round" />
+          <circle cx={20} cy={20} r={5} fill="#04060A" />
         </g>
       ))}
 
-      {/* Locked rusty iron back gate (`cổng sắt khóa xích ngõ cụt`) */}
+      {/* Locked rusty iron emergency alley gate (`cổng sắt khóa xích ngõ cụt`) */}
       <g transform="translate(525 325)">
-        <rect x={0} y={0} width={138} height={375} fill="#141015" stroke={INK} strokeWidth={3.5} />
+        <rect x={0} y={0} width={138} height={375} fill="#100D12" stroke={INK} strokeWidth={3.5} />
         {Array.from({ length: 7 }).map((_, i) => (
-          <line key={i} x1={12 + i * 19} y1={12} x2={12 + i * 19} y2={363} stroke="#2A2027" strokeWidth={3} />
+          <line key={i} x1={12 + i * 19} y1={12} x2={12 + i * 19} y2={363} stroke="#221A20" strokeWidth={3} />
         ))}
-        <line x1={8} y1={80} x2={130} y2={225} stroke="#3A2A35" strokeWidth={4} />
-        <line x1={8} y1={225} x2={130} y2={80} stroke="#3A2A35" strokeWidth={4} />
-        <rect x={56} y={192} width={26} height={34} rx={4} fill="#4E3424" stroke="#120F10" strokeWidth={2} />
-        <circle cx={69} cy={205} r={3} fill="#0C0B0E" />
+        <line x1={8} y1={80} x2={130} y2={225} stroke="#30222C" strokeWidth={4} />
+        <line x1={8} y1={225} x2={130} y2={80} stroke="#30222C" strokeWidth={4} />
+        <rect x={56} y={192} width={26} height={34} rx={4} fill="#422C1E" stroke="#0E0C0D" strokeWidth={2} />
+        <circle cx={69} cy={205} r={3} fill="#0A090C" />
       </g>
 
       {/* Cluster of 3 glass-dome electric power meters on wooden board */}
       <g transform="translate(715 390)">
-        <rect x={-8} y={-8} width={88} height={58} rx={4} fill="#181B24" stroke={INK} strokeWidth={2} />
+        <rect x={-8} y={-8} width={88} height={58} rx={4} fill="#13161D" stroke={INK} strokeWidth={2} />
         {[11, 36, 61].map((mx, i) => (
           <g key={i}>
-            <circle cx={mx} cy={21} r={11} fill="#C8D4E4" stroke="#0D1118" strokeWidth={2} />
-            <circle cx={mx} cy={21} r={8} fill="#263042" />
-            <line x1={mx} y1={21} x2={mx + 4} y2={17} stroke="#DC2626" strokeWidth={1.5} />
+            <circle cx={mx} cy={21} r={11} fill="#B0BDCE" stroke="#0B0E14" strokeWidth={2} />
+            <circle cx={mx} cy={21} r={8} fill="#1E2634" />
+            <line x1={mx} y1={21} x2={mx + 4} y2={17} stroke="#B91C1C" strokeWidth={1.5} />
           </g>
         ))}
-        <line x1={36} y1={50} x2={36} y2={310} stroke="#171D28" strokeWidth={5} />
+        <line x1={36} y1={50} x2={36} y2={310} stroke="#121720" strokeWidth={5} />
       </g>
 
       {/* Vertical PVC drain pipe running down the dead-end wall */}
-      <line x1={1156} y1={88} x2={1156} y2={700} stroke="#242E3E" strokeWidth={8} />
-      <line x1={1154} y1={88} x2={1154} y2={700} stroke="#364357" strokeWidth={3} />
+      <line x1={1156} y1={88} x2={1156} y2={700} stroke="#1C2430" strokeWidth={8} />
+      <line x1={1154} y1={88} x2={1154} y2={700} stroke="#283344" strokeWidth={3} />
       {[205, 385, 555].map((by, i) => (
-        <rect key={i} x={1148} y={by} width={16} height={6} rx={1} fill="#141822" stroke="#0A0E14" strokeWidth={1.5} />
+        <rect key={i} x={1148} y={by} width={16} height={6} rx={1} fill="#0E121A" stroke="#070A0E" strokeWidth={1.5} />
       ))}
 
       {/* Faded red stencil on dead-end wall: CẤM ĐỔ RÁC (iconic Vietnamese alley feature) */}
       <g transform="translate(850 495)">
-        <rect x={-75} y={-16} width={150} height={25} rx={2} fill="none" stroke="#992A2A" strokeWidth={1.5} opacity={0.55} strokeDasharray="6 3" />
+        <rect x={-75} y={-16} width={150} height={25} rx={2} fill="none" stroke="#882222" strokeWidth={1.5} opacity={0.45} strokeDasharray="6 3" />
         <text
           x={0}
           y={2}
           textAnchor="middle"
-          fill="#992A2A"
-          opacity={0.68}
+          fill="#882222"
+          opacity={0.58}
           fontFamily="sans-serif"
           fontWeight={800}
           fontSize={15}
@@ -2677,200 +2659,196 @@ export const AlleyExteriorScene: React.FC<{
 
       {/* Weathered styrofoam EPS planter boxes with mint & herbs at wall foot */}
       <g transform="translate(685 648)">
-        <rect x={0} y={0} width={76} height={35} rx={3} fill="#2B384A" stroke="#10151E" strokeWidth={2.5} />
-        <rect x={4} y={2} width={68} height={8} fill="#1F2A38" />
-        <rect x={62} y={-18} width={66} height={33} rx={3} fill="#324153" stroke="#10151E" strokeWidth={2.5} />
-        <path d="M 12 0 Q 16 -16 24 -12 M 32 0 Q 36 -20 44 -14 M 52 0 Q 58 -18 64 -10" stroke="#1E4024" strokeWidth={3} fill="none" strokeLinecap="round" />
-        <path d="M 74 -18 Q 80 -32 88 -26 M 98 -18 Q 104 -34 112 -28" stroke="#1E4024" strokeWidth={3} fill="none" strokeLinecap="round" />
+        <rect x={0} y={0} width={76} height={35} rx={3} fill="#243040" stroke="#0C1017" strokeWidth={2.5} />
+        <rect x={4} y={2} width={68} height={8} fill="#1A2330" />
+        <rect x={62} y={-18} width={66} height={33} rx={3} fill="#2A3848" stroke="#0C1017" strokeWidth={2.5} />
+        <path d="M 12 0 Q 16 -16 24 -12 M 32 0 Q 36 -20 44 -14 M 52 0 Q 58 -18 64 -10" stroke="#16301A" strokeWidth={3} fill="none" strokeLinecap="round" />
+        <path d="M 74 -18 Q 80 -32 88 -26 M 98 -18 Q 104 -34 112 -28" stroke="#16301A" strokeWidth={3} fill="none" strokeLinecap="round" />
       </g>
 
-      {/* Vintage bicycle leaning against dead-end wall catching soft streetlamp illumination */}
+      {/* Vintage bicycle leaning against dead-end wall in nocturnal gloom */}
       <g transform="translate(1015 588) scale(0.82)">
-        <circle cx={-50} cy={60} r={44} fill="none" stroke="#222937" strokeWidth={4} />
-        <circle cx={50} cy={60} r={44} fill="none" stroke="#222937" strokeWidth={4} />
+        <circle cx={-50} cy={60} r={44} fill="none" stroke="#1A202C" strokeWidth={4} />
+        <circle cx={50} cy={60} r={44} fill="none" stroke="#1A202C" strokeWidth={4} />
         {[0, 45, 90, 135].map((ang, i) => (
-          <line key={i} x1={-50 - 40 * Math.cos(ang)} y1={60 - 40 * Math.sin(ang)} x2={-50 + 40 * Math.cos(ang)} y2={60 + 40 * Math.sin(ang)} stroke="#121620" strokeWidth={1.5} />
+          <line key={i} x1={-50 - 40 * Math.cos(ang)} y1={60 - 40 * Math.sin(ang)} x2={-50 + 40 * Math.cos(ang)} y2={60 + 40 * Math.sin(ang)} stroke="#0E121A" strokeWidth={1.5} />
         ))}
-        <polygon points="-50,60 0,60 30,12 -20,12" fill="none" stroke="#354254" strokeWidth={4.5} strokeLinejoin="round" />
-        <line x1={0} y1={60} x2={50} y2={60} stroke="#354254" strokeWidth={4} />
-        <line x1={30} y1={12} x2={50} y2={60} stroke="#354254" strokeWidth={4} />
-        <line x1={-20} y1={12} x2={-26} y2={0} stroke="#354254" strokeWidth={4} />
-        <path d="M -38 -4 L -14 -4" stroke="#141720" strokeWidth={5} strokeLinecap="round" />
-        {/* Soft amber highlight rim on top tube from overhead lamp */}
-        <line x1="-20" y1="12" x2="30" y2="12" stroke="#FDE68A" strokeWidth={2} opacity={0.65} />
-        <path d="M 22 2 L 32 -14 L 46 -12" stroke="#46556B" strokeWidth={4} fill="none" strokeLinecap="round" />
+        <polygon points="-50,60 0,60 30,12 -20,12" fill="none" stroke="#2B3646" strokeWidth={4.5} strokeLinejoin="round" />
+        <line x1={0} y1={60} x2={50} y2={60} stroke="#2B3646" strokeWidth={4} />
+        <line x1={30} y1={12} x2={50} y2={60} stroke="#2B3646" strokeWidth={4} />
+        <line x1={-20} y1={12} x2={-26} y2={0} stroke="#2B3646" strokeWidth={4} />
+        <path d="M -38 -4 L -14 -4" stroke="#0E121A" strokeWidth={5} strokeLinecap="round" />
+        <path d="M 22 2 L 32 -14 L 46 -12" stroke="#374558" strokeWidth={4} fill="none" strokeLinecap="round" />
       </g>
     </g>
 
     {/* ===================================================================== */}
-    {/* 3. ALLEY ROAD PAVEMENT (Lòng ngõ cụt chật hẹp, ẩm ướt)                */}
+    {/* 3. ALLEY ROAD PAVEMENT (Lòng ngõ hẻm chật hẹp, ẩm ướt trong bóng tối)  */}
     {/* ===================================================================== */}
     <g>
       {/* Tightly tapered alley perspective: narrow width at back wall to foreground */}
       <polygon points="470,700 1180,700 2200,1400 -120,1400" fill="url(#hemRoad)" stroke={INK} strokeWidth={4} />
       {/* Pavement seam lines & asphalt joins */}
-      <line x1={780} y1={700} x2={620} y2={1400} stroke="#0A0D14" strokeWidth={3} strokeDasharray="16 12" opacity={0.65} />
+      <line x1={780} y1={700} x2={620} y2={1400} stroke="#070A0E" strokeWidth={3} strokeDasharray="16 12" opacity={0.6} />
       {[760, 840, 935, 1035, 1150, 1280].map((ry, i) => (
-        <line key={i} x1={380 - i * 110} y1={ry} x2={1260 + i * 190} y2={ry} stroke="#0E121B" strokeWidth={2.2} opacity={0.55} />
+        <line key={i} x1={380 - i * 110} y1={ry} x2={1260 + i * 190} y2={ry} stroke="#0A0E15" strokeWidth={2.2} opacity={0.5} />
       ))}
 
       {/* Left drainage curb along alley wall (`gờ rãnh thoát nước bên trái`) */}
-      <polygon points="470,700 496,700 50,1400 -10,1400" fill="#0A0E15" stroke={INK} strokeWidth={2} />
-      <line x1={496} y1={700} x2={50} y2={1400} stroke="#1A2230" strokeWidth={2.5} />
+      <polygon points="470,700 496,700 50,1400 -10,1400" fill="#070A0F" stroke={INK} strokeWidth={2} />
+      <line x1={496} y1={700} x2={50} y2={1400} stroke="#141B26" strokeWidth={2.5} />
 
       {/* Right drainage curb along shop front wall (`gờ rãnh thoát nước bên phải`) */}
-      <polygon points="1180,700 1205,700 2060,1400 2035,1400" fill="#0A0E15" stroke={INK} strokeWidth={2} />
-      <line x1={1205} y1={700} x2={2060} y2={1400} stroke="#1A2230" strokeWidth={2.5} />
+      <polygon points="1180,700 1205,700 2060,1400 2035,1400" fill="#070A0F" stroke={INK} strokeWidth={2} />
+      <line x1={1205} y1={700} x2={2060} y2={1400} stroke="#141B26" strokeWidth={2.5} />
 
       {/* Authentic round cast-iron manhole cover with concentric ribs (`nắp cống gang tròn`) */}
       <g transform="translate(760 845)">
-        <ellipse cx={0} cy={0} rx={52} ry={15} fill="#111620" stroke="#080B10" strokeWidth={2.5} />
-        <ellipse cx={0} cy={0} rx={42} ry={12} fill="#18202C" stroke="#0C1016" strokeWidth={1.8} />
-        <line x1={-38} y1={0} x2={38} y2={0} stroke="#0E131A" strokeWidth={1.5} />
-        <line x1={0} y1={-10} x2={0} y2={10} stroke="#0E131A" strokeWidth={1.5} />
-        <circle cx={-18} cy={-2} r={2} fill="#0A0E14" />
-        <circle cx={18} cy={2} r={2} fill="#0A0E14" />
+        <ellipse cx={0} cy={0} rx={52} ry={15} fill="#0D1118" stroke="#05070B" strokeWidth={2.5} />
+        <ellipse cx={0} cy={0} rx={42} ry={12} fill="#131922" stroke="#080C11" strokeWidth={1.8} />
+        <line x1={-38} y1={0} x2={38} y2={0} stroke="#0A0E13" strokeWidth={1.5} />
+        <line x1={0} y1={-10} x2={0} y2={10} stroke="#0A0E13" strokeWidth={1.5} />
+        <circle cx={-18} cy={-2} r={2} fill="#06090D" />
+        <circle cx={18} cy={2} r={2} fill="#06090D" />
       </g>
 
-      {/* Potted plants along alley curbs bringing authentic Vietnamese residential life */}
-      {/* Terracotta planter near shop corner */}
+      {/* Potted plants along alley curbs */}
       <g transform="translate(1225 725) scale(0.65)">
-        <polygon points="-16,0 16,0 12,28 -12,28" fill="#583222" stroke="#160D09" strokeWidth={2.5} />
-        <rect x={-18} y={-4} width={36} height={6} rx={2} fill="#6E3E2A" stroke="#160D09" strokeWidth={2} />
-        {/* Snake plant / foliage leaves (`cây lưỡi hổ / trầu bà`) */}
-        <path d="M -8 -4 Q -14 -32 -6 -48 Q 2 -28 -2 -4" fill="#20422A" stroke="#0C1B10" strokeWidth={1.5} />
-        <path d="M 4 -4 Q 12 -38 2 -52 Q -4 -30 2 -4" fill="#285034" stroke="#0C1B10" strokeWidth={1.5} />
+        <polygon points="-16,0 16,0 12,28 -12,28" fill="#46271A" stroke="#120A07" strokeWidth={2.5} />
+        <rect x={-18} y={-4} width={36} height={6} rx={2} fill="#563020" stroke="#120A07" strokeWidth={2} />
+        <path d="M -8 -4 Q -14 -32 -6 -48 Q 2 -28 -2 -4" fill="#183420" stroke="#08140B" strokeWidth={1.5} />
+        <path d="M 4 -4 Q 12 -38 2 -52 Q -4 -30 2 -4" fill="#20422A" stroke="#08140B" strokeWidth={1.5} />
       </g>
-      {/* Ceramic pot near left wall */}
       <g transform="translate(485 715) scale(0.6)">
-        <polygon points="-15,0 15,0 11,26 -11,26" fill="#26384C" stroke="#0C141E" strokeWidth={2.5} />
-        <rect x={-17} y={-4} width={34} height={6} rx={2} fill="#324962" stroke="#0C141E" strokeWidth={2} />
-        <path d="M -6 -4 Q -12 -26 -4 -38 Q 0 -22 -2 -4" fill="#1C3824" stroke="#08140B" strokeWidth={1.5} />
-        <path d="M 2 -4 Q 10 -30 2 -42 Q -2 -24 0 -4" fill="#244830" stroke="#08140B" strokeWidth={1.5} />
+        <polygon points="-15,0 15,0 11,26 -11,26" fill="#1E2C3D" stroke="#090E16" strokeWidth={2.5} />
+        <rect x={-17} y={-4} width={34} height={6} rx={2} fill="#283A50" stroke="#090E16" strokeWidth={2} />
+        <path d="M -6 -4 Q -12 -26 -4 -38 Q 0 -22 -2 -4" fill="#162E1D" stroke="#060F08" strokeWidth={1.5} />
+        <path d="M 2 -4 Q 10 -30 2 -42 Q -2 -24 0 -4" fill="#1C3824" stroke="#060F08" strokeWidth={1.5} />
       </g>
 
       {/* Humid tropical night ground mist hugging the alley pavement */}
       <ellipse cx={960} cy={920} rx={740} ry={140} fill="url(#hemGroundMist)" filter="url(#hemAlleyMist)" />
-
-      {/* Streetlamp pool of warm light on the asphalt — soft, gentle, feathered falloff */}
-      <ellipse
-        cx={1000}
-        cy={885}
-        rx={380}
-        ry={120}
-        fill="url(#hemStreetlampPoolSmooth)"
-        filter="url(#hemFloorFeather)"
-        style={{ mixBlendMode: 'screen' }}
-      />
-      {/* Subtle wet pavement specular sheen under the lamp */}
-      <ellipse
-        cx={1000}
-        cy={885}
-        rx={170}
-        ry={26}
-        fill="#FDE68A"
-        opacity={0.16}
-        filter="url(#hemFloorWetSheen)"
-        style={{ mixBlendMode: 'screen' }}
-      />
     </g>
 
     {/* ===================================================================== */}
-    {/* 4. LEFT SIDE: MULTI-STORY NARROW TUBE HOUSE (Nhà ống nhiều tầng hẻm)   */}
+    {/* 4. LEFT SIDE: COMPLETE VIETNAMESE TUBE HOUSE (NHÀ 14/8 ĐẦY ĐỦ KIẾN TRÚC) */}
     {/* ===================================================================== */}
     <g>
-      {/* Towering left building facade looming over the alley */}
-      <polygon points="-60,-120 480,-60 480,700 -60,860" fill="#131925" stroke={INK} strokeWidth={4} />
+      {/* Towering 3-story house facade looming over the left alley */}
+      <polygon points="-60,-120 480,-60 480,700 -60,860" fill="#10151F" stroke={INK} strokeWidth={4} />
 
-      {/* Floor horizontal beam lines */}
-      <line x1={-60} y1={230} x2={480} y2={280} stroke="#0A0F17" strokeWidth={3} />
-      <line x1={-60} y1={460} x2={480} y2={500} stroke="#0A0F17" strokeWidth={3} />
+      {/* Floor concrete cantilever slabs */}
+      <line x1={-60} y1={230} x2={480} y2={280} stroke="#070A10" strokeWidth={3} />
+      <line x1={-60} y1={450} x2={480} y2={490} stroke="#070A10" strokeWidth={3} />
 
       {/* 3rd Floor: Weathered green wooden louvered shutters (`cửa sổ gỗ lá sách`) */}
       <g transform="translate(180 80)">
-        <polygon points="0,0 120,15 120,110 0,95" fill="#1A2620" stroke={INK} strokeWidth={2.5} />
-        {/* Louver slats */}
+        <polygon points="0,0 120,15 120,110 0,95" fill="#151E1A" stroke={INK} strokeWidth={2.5} />
         {[20, 38, 56, 74].map((sy, i) => (
-          <line key={i} x1={8} y1={sy} x2={112} y2={sy + 14} stroke="#273C30" strokeWidth={2} />
+          <line key={i} x1={8} y1={sy} x2={112} y2={sy + 14} stroke="#1E2F26" strokeWidth={2} />
         ))}
       </g>
 
       {/* 2nd Floor: Protruding balcony with "chuồng cọp" iron security cage */}
-      <g transform="translate(120 280)">
-        {/* Cantilever balcony concrete slab */}
-        <polygon points="-20,130 180,155 170,175 -25,150" fill="#202A3A" stroke={INK} strokeWidth={2.8} />
+      <g transform="translate(120 250)">
+        <polygon points="-20,140 190,165 180,185 -25,160" fill="#19202C" stroke={INK} strokeWidth={2.8} />
         {/* "Chuồng cọp" iron security cage bars enclosing the balcony */}
         {Array.from({ length: 8 }).map((_, i) => (
-          <line key={i} x1={-15 + i * 24} y1={10 + i * 3} x2={-15 + i * 24} y2={130 + i * 3} stroke="#2C384C" strokeWidth={2.2} />
+          <line key={i} x1={-15 + i * 25} y1={10 + i * 3} x2={-15 + i * 25} y2={140 + i * 3} stroke="#222C3C" strokeWidth={2.2} />
         ))}
-        <line x1={-20} y1={50} x2={165} y2={74} stroke="#2C384C" strokeWidth={2.2} />
-        <line x1={-20} y1={90} x2={165} y2={114} stroke="#2C384C" strokeWidth={2.2} />
+        <line x1={-20} y1={55} x2={175} y2={79} stroke="#222C3C" strokeWidth={2.2} />
+        <line x1={-20} y1={100} x2={175} y2={124} stroke="#222C3C" strokeWidth={2.2} />
         {/* Laundry hanging on a bamboo pole inside the iron cage (`sào phơi quần áo đêm`) */}
-        <line x1={0} y1={30} x2={150} y2={50} stroke="#524438" strokeWidth={2.5} />
-        <path d="M 25 35 L 20 75 L 55 78 L 50 38 Z" fill="#2C3A4D" opacity={0.75} />
-        <path d="M 68 41 L 65 85 L 98 88 L 94 44 Z" fill="#4B3A42" opacity={0.7} />
-        <path d="M 112 46 L 110 72 L 138 75 L 136 49 Z" fill="#3D4A3E" opacity={0.7} />
+        <line x1={0} y1={35} x2={160} y2={55} stroke="#42352B" strokeWidth={2.5} />
+        <path d="M 25 40 L 20 80 L 55 83 L 50 43 Z" fill="#222D3C" opacity={0.7} />
+        <path d="M 68 46 L 65 90 L 98 93 L 94 49 Z" fill="#3A2C34" opacity={0.65} />
+        <path d="M 112 51 L 110 77 L 138 80 L 136 54 Z" fill="#2E3830" opacity={0.65} />
       </g>
 
       {/* Outdoor air conditioner compressor unit (`cục nóng máy lạnh rỉ sét`) */}
-      <g transform="translate(340 500)">
-        <polygon points="15,48 15,70 30,48" fill="#422E24" stroke="#141012" strokeWidth={2} />
-        <polygon points="85,48 85,70 100,48" fill="#422E24" stroke="#141012" strokeWidth={2} />
-        <rect x={0} y={0} width={115} height={52} rx={4} fill="#263040" stroke={INK} strokeWidth={3} />
-        <circle cx={40} cy={26} r={18} fill="#151C26" stroke="#0D1117" strokeWidth={2} />
-        <circle cx={40} cy={26} r={7} fill="#263040" />
-        <path d="M 98 48 L 98 120" stroke="#5A402D" strokeWidth={3} strokeLinecap="round" />
-        <circle cx={98} cy={125} r={2} fill="#6588B4" opacity={0.7} />
+      <g transform="translate(340 370)">
+        <polygon points="15,48 15,70 30,48" fill="#36241C" stroke="#100C0E" strokeWidth={2} />
+        <polygon points="85,48 85,70 100,48" fill="#36241C" stroke="#100C0E" strokeWidth={2} />
+        <rect x={0} y={0} width={115} height={52} rx={4} fill="#1E2734" stroke={INK} strokeWidth={3} />
+        <circle cx={40} cy={26} r={18} fill="#10151E" stroke="#090C12" strokeWidth={2} />
+        <circle cx={40} cy={26} r={7} fill="#1E2734" />
+        <path d="M 98 48 L 98 120" stroke="#483324" strokeWidth={3} strokeLinecap="round" />
+        <circle cx={98} cy={125} r={2} fill="#547298" opacity={0.65} />
       </g>
 
-      {/* Rusted corrugated metal awning over ground wall */}
-      <polygon points="160,545 470,585 460,610 145,570" fill="#36241D" stroke={INK} strokeWidth={3} />
-
-      {/* Solid mossy brick boundary wall with flat concrete coping at y=640 for the cat */}
+      {/* =================================================================== */}
+      {/* GROUND FLOOR OF HOUSE 14/8: CLOSED ROLLING SHUTTER DOOR & ENTRANCE  */}
+      {/* (TẦNG TRỆT NHÀ 14/8 CÓ CỬA CUỐN ĐÓNG KÍN VÀ BIỂN SỐ NHÀ ĐÚNG TẦM MẮT) */}
+      {/* =================================================================== */}
       <g>
-        <polygon points="-40,654 485,654 485,760 -40,820" fill="#37221C" stroke={INK} strokeWidth={3} />
-        {[675, 700, 725, 750].map((by, i) => (
-          <line key={i} x1={-40} y1={by} x2={485} y2={by} stroke="#241512" strokeWidth={2} />
-        ))}
-        {/* Sturdy concrete coping on top: flat surface at y=640 */}
-        <polygon points="-50,640 495,640 490,654 -50,654" fill="#273244" stroke={INK} strokeWidth={3} />
-        <path d="M -40 644 Q 160 638 310 644 Q 410 640 490 645" stroke="#1A2D20" strokeWidth={3} fill="none" opacity={0.85} />
-        <rect x={-40} y={654} width={525} height={8} fill="#000" opacity={0.45} />
+        {/* Slanted corrugated metal awning over ground entrance */}
+        <polygon points="60,455 385,488 375,510 50,477" fill="#2E1E18" stroke={INK} strokeWidth={3} />
+        <line x1={80} y1={475} x2={110} y2={515} stroke="#18100D" strokeWidth={4} />
+        <line x1={360} y1={505} x2={370} y2={545} stroke="#18100D" strokeWidth={4} />
 
-        {/* Vietnamese blue metal house address plate ("14/8") */}
-        <g transform="translate(340 615)">
-          <rect x={-20} y={-12} width={40} height={24} rx={3} fill="#1E3A8A" stroke="#E2E8F0" strokeWidth={1.5} />
+        {/* Entrance doorway masonry opening for House 14/8 */}
+        <rect x={90} y={485} width={275} height={215} fill="#0A0E15" stroke={INK} strokeWidth={3.5} />
+
+        {/* Closed metallic rolling door (`cửa cuốn đóng kín đêm`) */}
+        <rect x={98} y={492} width={258} height={206} fill="#17202B" />
+        {[510, 528, 546, 564, 582, 600, 618, 636, 654, 672, 690].map((ry, i) => (
+          <line key={i} x1={98} y1={ry} x2={356} y2={ry} stroke="#0E141C" strokeWidth={2.2} />
+        ))}
+        {/* Bottom locking bar & floor pull handle */}
+        <rect x={205} y={678} width={42} height={8} rx={2} fill="#303E50" stroke="#0B0E14" strokeWidth={1.5} />
+
+        {/* Raised concrete entrance step in front of rolling door */}
+        <polygon points="75,700 380,700 370,716 65,716" fill="#1C2432" stroke={INK} strokeWidth={2} />
+
+        {/* Right entrance masonry pillar of House 14/8 */}
+        <polygon points="365,485 405,485 405,700 365,700" fill="#171E2A" stroke={INK} strokeWidth={2.5} />
+
+        {/* PROPERLY PLACED HOUSE ADDRESS PLATE "14/8" ON ENTRANCE PILLAR AT EYE LEVEL */}
+        <g transform="translate(385 530)">
+          <rect x={-20} y={-12} width={40} height={24} rx={3} fill="#1E3A8A" stroke="#E2E8F0" strokeWidth={1.6} />
           <text x={0} y={5} textAnchor="middle" fill="#FFFFFF" fontFamily="sans-serif" fontWeight={800} fontSize={12} letterSpacing={0.5}>
             14/8
           </text>
         </g>
       </g>
+
+      {/* Solid mossy brick boundary wall connecting house to dead-end wall */}
+      <g>
+        <polygon points="400,654 485,654 485,760 400,775" fill="#2E1C17" stroke={INK} strokeWidth={3} />
+        {[675, 700, 725, 750].map((by, i) => (
+          <line key={i} x1={400} y1={by} x2={485} y2={by} stroke="#1C100D" strokeWidth={2} />
+        ))}
+        {/* Sturdy flat concrete wall coping at y=640 where the cat sits */}
+        <polygon points="390,640 495,640 490,654 385,654" fill="#202A38" stroke={INK} strokeWidth={3} />
+        <path d="M 390 644 Q 440 640 490 645" stroke="#142419" strokeWidth={3} fill="none" opacity={0.85} />
+        <rect x={390} y={654} width={98} height={8} fill="#000" opacity={0.45} />
+      </g>
     </g>
 
     {/* ===================================================================== */}
-    {/* 5. PERCHED CAT ON WALL COPING (`CON MÈO U TỐI NẰM ĐÚNG VỊ TRÍ BỜ TƯỜNG`) */}
+    {/* 5. PERCHED CAT ON WALL COPING WITH SYMMETRICAL BALANCED EYES          */}
     {/* ===================================================================== */}
     {showCat ? (
-      <g transform="translate(415 640) scale(0.68)">
-        <ellipse cx={0} cy={2} rx={64} ry={8} fill="#060910" opacity={0.72} />
-        <Cat x={0} y={0} mood="peek" f={t} coat="#121017" />
+      <g transform="translate(435 640) scale(0.68)">
+        <ellipse cx={0} cy={2} rx={64} ry={8} fill="#05070D" opacity={0.72} />
+        <Cat x={0} y={0} mood="peek" f={t} coat="#100E14" />
       </g>
     ) : null}
 
     {/* ===================================================================== */}
-    {/* 6. RIGHT SIDE: ÔNG LỘC'S SHOPHOUSE (`TIỆM ÔNG LỘC` — 3D & NỘI THẤT RÕ NÉT)*/}
+    {/* 6. RIGHT SIDE: ÔNG LỘC'S SHOPHOUSE (`TIỆM ÔNG LỘC` — NGUỒN SÁNG DUY NHẤT)*/}
     {/* ===================================================================== */}
     <g>
       {/* 2-Story Vietnamese shophouse facade wall: weathered mustard-yellow ochre plaster */}
-      <polygon points="1180,-60 2040,-120 2040,1060 1180,700" fill="#342820" stroke={INK} strokeWidth={4} />
+      <polygon points="1180,-60 2040,-120 2040,1060 1180,700" fill="#30241C" stroke={INK} strokeWidth={4} />
 
       {/* Vertical rainwater streaking & electrical conduit lines along shophouse wall */}
-      <line x1={1270} y1={-50} x2={1270} y2={680} stroke="#1D1511" strokeWidth={3.5} />
-      <line x1={1920} y1={-100} x2={1920} y2={1020} stroke="#1D1511" strokeWidth={4} />
+      <line x1={1270} y1={-50} x2={1270} y2={680} stroke="#18110E" strokeWidth={3.5} />
+      <line x1={1920} y1={-100} x2={1920} y2={1020} stroke="#18110E" strokeWidth={4} />
 
-      {/* Vietnamese blue metal house address plate ("14/9") next to shop doorway */}
-      <g transform="translate(1310 415) rotate(-10)">
-        <rect x={-20} y={-12} width={40} height={24} rx={3} fill="#1E3A8A" stroke="#E2E8F0" strokeWidth={1.5} />
+      {/* PROPERLY PLACED HOUSE ADDRESS PLATE "14/9" ON SHOP ENTRANCE PILLAR AT EYE LEVEL */}
+      <g transform="translate(1335 490)">
+        <rect x={-20} y={-12} width={40} height={24} rx={3} fill="#1E3A8A" stroke="#E2E8F0" strokeWidth={1.6} />
         <text x={0} y={5} textAnchor="middle" fill="#FFFFFF" fontFamily="sans-serif" fontWeight={800} fontSize={12} letterSpacing={0.5}>
           14/9
         </text>
@@ -2878,51 +2856,46 @@ export const AlleyExteriorScene: React.FC<{
 
       {/* Small copper/blue municipal water meter at wall base (`đồng hồ nước chân tường`) */}
       <g transform="translate(1260 682)">
-        <rect x={-12} y={-10} width={24} height={20} rx={3} fill="#1A384F" stroke="#0E1E2C" strokeWidth={1.8} />
-        <circle cx={0} cy={0} r={6} fill="#CBD5E1" stroke="#0E1E2C" strokeWidth={1.2} />
-        <line x1={-18} y1={0} x2={-12} y2={0} stroke="#4B3A2C" strokeWidth={3} />
-        <line x1={12} y1={0} x2={18} y2={0} stroke="#4B3A2C" strokeWidth={3} />
+        <rect x={-12} y={-10} width={24} height={20} rx={3} fill="#152E42" stroke="#0A1824" strokeWidth={1.8} />
+        <circle cx={0} cy={0} r={6} fill="#B0BDCE" stroke="#0A1824" strokeWidth={1.2} />
+        <line x1={-18} y1={0} x2={-12} y2={0} stroke="#3E3024" strokeWidth={3} />
+        <line x1={12} y1={0} x2={18} y2={0} stroke="#3E3024" strokeWidth={3} />
       </g>
 
       {/* Upper Floor (Floor 2): Classic French-colonial green louvered double window */}
       <g transform="translate(1560 60) rotate(-7)">
-        <rect x={-80} y={-45} width={160} height={135} rx={6} fill="#241B15" stroke={INK} strokeWidth={3} />
-        {/* Arched window opening */}
-        <path d="M -65 80 L -65 15 Q -65 -35 0 -35 Q 65 -35 65 15 L 65 80 Z" fill="#120D0A" stroke={INK} strokeWidth={2.5} />
-        {/* Green louvered window leaves */}
+        <rect x={-80} y={-45} width={160} height={135} rx={6} fill="#1E1611" stroke={INK} strokeWidth={3} />
+        <path d="M -65 80 L -65 15 Q -65 -35 0 -35 Q 65 -35 65 15 L 65 80 Z" fill="#0E0A08" stroke={INK} strokeWidth={2.5} />
         <g opacity={0.88}>
-          <path d="M -62 76 L -62 16 Q -62 -28 -5 -30 L -5 76 Z" fill="#24382E" stroke={INK} strokeWidth={2} />
-          <path d="M 62 76 L 62 16 Q 62 -28 5 -30 L 5 76 Z" fill="#24382E" stroke={INK} strokeWidth={2} />
+          <path d="M -62 76 L -62 16 Q -62 -28 -5 -30 L -5 76 Z" fill="#1E3027" stroke={INK} strokeWidth={2} />
+          <path d="M 62 76 L 62 16 Q 62 -28 5 -30 L 5 76 Z" fill="#1E3027" stroke={INK} strokeWidth={2} />
           {[-12, 6, 24, 42, 60].map((ly, i) => (
-            <line key={i} x1={-56} y1={ly} x2={-11} y2={ly} stroke="#16241D" strokeWidth={2} />
+            <line key={i} x1={-56} y1={ly} x2={-11} y2={ly} stroke="#121D17" strokeWidth={2} />
           ))}
           {[-12, 6, 24, 42, 60].map((ly, i) => (
-            <line key={i} x1={11} y1={ly} x2={56} y2={ly} stroke="#16241D" strokeWidth={2} />
+            <line key={i} x1={11} y1={ly} x2={56} y2={ly} stroke="#121D17" strokeWidth={2} />
           ))}
         </g>
       </g>
 
       {/* Slanted corrugated metal awning over shop doorway (`mái tôn rỉ sét trước cửa tiệm`) */}
-      <polygon points="1120,335 1980,185 2000,245 1090,395" fill="#463125" stroke={INK} strokeWidth={3.5} />
-      {/* Heavy iron angle-iron struts supporting awning (`ke sắt V đỡ mái hiên`) */}
-      <line x1={1160} y1={380} x2={1220} y2={455} stroke="#261914" strokeWidth={5} />
-      <line x1={1620} y1={290} x2={1660} y2={355} stroke="#261914" strokeWidth={5} />
+      <polygon points="1120,335 1980,185 2000,245 1090,395" fill="#402C20" stroke={INK} strokeWidth={3.5} />
+      <line x1={1160} y1={380} x2={1220} y2={455} stroke="#201410" strokeWidth={5} />
+      <line x1={1620} y1={290} x2={1660} y2={355} stroke="#201410" strokeWidth={5} />
 
       {/* Authentic hand-painted wooden signboard (`TIỆM ÔNG LỘC: SỬA ĐỒNG HỒ - ĐIỆN THOẠI CŨ`) */}
       <g transform="translate(1510 260) rotate(-10)">
-        {/* Hanging mounting bracket ears */}
-        <rect x={-140} y={-52} width={10} height={15} fill="#1D1511" />
-        <rect x={130} y={-52} width={10} height={15} fill="#1D1511" />
-        {/* Signboard wooden panel */}
-        <rect x={-185} y={-42} width={370} height={84} rx={4} fill="#EFE2C6" stroke="#462C1D" strokeWidth={5} />
-        <rect x={-176} y={-34} width={352} height={68} fill="none" stroke="#7A281E" strokeWidth={2.5} />
+        <rect x={-140} y={-52} width={10} height={15} fill="#18110D" />
+        <rect x={130} y={-52} width={10} height={15} fill="#18110D" />
+        <rect x={-185} y={-42} width={370} height={84} rx={4} fill="#E8DAC0" stroke="#3E2619" strokeWidth={5} />
+        <rect x={-176} y={-34} width={352} height={68} fill="none" stroke="#6F231A" strokeWidth={2.5} />
         <text
           x={0}
           y={2}
           textAnchor="middle"
           fontSize={23}
           fontWeight={800}
-          fill="#742217"
+          fill="#6A1E14"
           fontFamily="Georgia, serif"
         >
           TIỆM ÔNG LỘC
@@ -2934,7 +2907,7 @@ export const AlleyExteriorScene: React.FC<{
           fontSize={12.5}
           fontWeight={700}
           letterSpacing={1.6}
-          fill="#2B211A"
+          fill="#251C16"
           fontFamily="sans-serif"
         >
           SỬA ĐỒNG HỒ  •  ĐIỆN THOẠI CŨ
@@ -2945,29 +2918,27 @@ export const AlleyExteriorScene: React.FC<{
       {/* 3D RECESSED DOORWAY OPENING & ARCHITECTURAL DEPTH (KHUNG CỬA 3 CHIỀU) */}
       {/* =================================================================== */}
 
-      {/* Raised concrete / terrazzo threshold step (`bậc thềm xi măng mài / bó vỉa gạch`) */}
-      {/* Riser face meeting the alley pavement */}
-      <polygon points="1328,756 1855,968 1855,982 1328,770" fill="#161014" stroke={INK} strokeWidth={2} />
-      {/* Top tread surface catching interior light spill */}
-      <polygon points="1336,738 1860,950 1855,968 1328,756" fill="#3D2B22" stroke={INK} strokeWidth={2.5} />
-      <polygon points="1348,740 1780,920 1775,934 1342,754" fill="#FFE59E" opacity={0.32} />
+      {/* Raised concrete / terrazzo threshold step (`bậc thềm xi măng mài`) */}
+      <polygon points="1328,756 1855,968 1855,982 1328,770" fill="#120D10" stroke={INK} strokeWidth={2} />
+      <polygon points="1336,738 1860,950 1855,968 1328,756" fill="#36251D" stroke={INK} strokeWidth={2.5} />
+      <polygon points="1348,740 1780,920 1775,934 1342,754" fill="#FFE59E" opacity={0.35} />
 
       {/* Outer masonry doorway frame cutout */}
-      <polygon points="1360,375 1835,285 1835,950 1360,738" fill="#1E1412" stroke={INK} strokeWidth={4} />
+      <polygon points="1360,375 1835,285 1835,950 1360,738" fill="#1A110F" stroke={INK} strokeWidth={4} />
 
-      {/* Left door jamb reveal showing 25cm masonry wall thickness receding inwards (`má cửa bên trái`) */}
-      <polygon points="1360,375 1405,382 1405,728 1360,738" fill="#281813" stroke={INK} strokeWidth={2.5} />
+      {/* Left door jamb reveal showing 25cm masonry wall thickness receding inwards */}
+      <polygon points="1360,375 1405,382 1405,728 1360,738" fill="#24140F" stroke={INK} strokeWidth={2.5} />
 
-      {/* Lintel soffit ceiling reveal (`dạ đà ngang phía trên hốc cửa`) */}
-      <polygon points="1360,375 1835,285 1812,298 1405,382" fill="#1C110F" />
+      {/* Lintel soffit ceiling reveal */}
+      <polygon points="1360,375 1835,285 1812,298 1405,382" fill="#180E0C" />
 
-      {/* Overhead roller gate casing box (`máng tôn che ray cửa cuốn / cửa kéo`) */}
-      <polygon points="1345,365 1845,274 1845,292 1345,383" fill="#32221A" stroke={INK} strokeWidth={2.5} />
-      <line x1={1348} y1={374} x2={1842} y2={283} stroke="#543A2C" strokeWidth={2} />
+      {/* Overhead roller gate casing box */}
+      <polygon points="1345,365 1845,274 1845,292 1345,383" fill="#2B1D16" stroke={INK} strokeWidth={2.5} />
+      <line x1={1348} y1={374} x2={1842} y2={283} stroke="#483226" strokeWidth={2} />
 
       {/* =================================================================== */}
       {/* DETAILED WORKSHOP INTERIOR VISIBLE THROUGH THE OPENING              */}
-      {/* (CẢM NHẬN & NHÌN THẤY RÕ BÊN TRONG TIỆM: ĐỒNG HỒ, BÀN THỢ, ÔNG LỘC)  */}
+      {/* (BÊN TRONG TIỆM: ĐỒNG HỒ, BÀN THỢ, ÔNG LỘC CẶM CỤI LÀM VIỆC)         */}
       {/* =================================================================== */}
       <g>
         <clipPath id="tiemDoorwayClip">
@@ -2976,81 +2947,76 @@ export const AlleyExteriorScene: React.FC<{
 
         <g clipPath="url(#tiemDoorwayClip)">
           {/* Interior back wall with rich warm amber tungsten glow */}
-          <rect x={1390} y={280} width={440} height={680} fill="#2A160F" />
+          <rect x={1390} y={280} width={440} height={680} fill="#24130D" />
           <rect x={1390} y={280} width={440} height={680} fill="url(#tiemInteriorGlow)" />
 
           {/* Interior patterned cement tile floor perspective grid (`gạch bông cổ điển`) */}
-          <polygon points="1405,620 1812,490 1812,930 1405,728" fill="#22130E" />
+          <polygon points="1405,620 1812,490 1812,930 1405,728" fill="#1E100C" />
           {[0.2, 0.4, 0.6, 0.8].map((u, i) => {
             const yLeft = 620 + u * 108;
             const yRight = 490 + u * 440;
-            return <line key={i} x1={1405} y1={yLeft} x2={1812} y2={yRight} stroke="#3E2218" strokeWidth={1.8} opacity={0.65} />;
+            return <line key={i} x1={1405} y1={yLeft} x2={1812} y2={yRight} stroke="#361D14" strokeWidth={1.8} opacity={0.65} />;
           })}
           {[1460, 1530, 1610, 1700, 1780].map((xTile, i) => (
-            <line key={i} x1={xTile} y1={520} x2={xTile - 30} y2={880} stroke="#3E2218" strokeWidth={1.5} opacity={0.5} />
+            <line key={i} x1={xTile} y1={520} x2={xTile - 30} y2={880} stroke="#361D14" strokeWidth={1.5} opacity={0.5} />
           ))}
 
           {/* Ceiling warm pendant light hanging from cord */}
-          <line x1={1620} y1={290} x2={1620} y2={390} stroke="#1A120E" strokeWidth={2.5} />
-          {/* Conical metal pendant shade */}
-          <polygon points="1600,390 1640,390 1650,402 1590,402" fill="#3D291F" stroke="#120D0A" strokeWidth={2} />
+          <line x1={1620} y1={290} x2={1620} y2={390} stroke="#160F0C" strokeWidth={2.5} />
+          <polygon points="1600,390 1640,390 1650,402 1590,402" fill="#36241A" stroke="#0E0A08" strokeWidth={2} />
           <ellipse cx={1620} cy={402} rx={22} ry={4} fill="#FFEAA7" />
           <circle cx={1620} cy={406} r={7} fill="#FFFDF0" />
 
           {/* BACK WALL DISPLAY SHELVES & CLOCK COLLECTION */}
-          {/* Wall display shelf planks */}
           {[460, 530, 600].map((sy, i) => (
             <g key={i}>
-              <line x1={1420} y1={sy} x2={1790} y2={sy - 70} stroke="#5A3524" strokeWidth={5} />
-              <line x1={1420} y1={sy + 3} x2={1790} y2={sy - 67} stroke="#2A170F" strokeWidth={2} />
+              <line x1={1420} y1={sy} x2={1790} y2={sy - 70} stroke="#522F20" strokeWidth={5} />
+              <line x1={1420} y1={sy + 3} x2={1790} y2={sy - 67} stroke="#24140D" strokeWidth={2} />
             </g>
           ))}
 
           {/* 1. Tall Grandfather Clock in rear right corner (`đồng hồ tủ đứng`) */}
           <g transform="translate(1730 365) scale(0.7)">
-            <rect x={-22} y={-20} width={44} height={160} rx={4} fill="#4E2B1E" stroke="#180D08" strokeWidth={2.5} />
-            <polygon points="-26,-20 26,-20 0,-42" fill="#5E3524" stroke="#180D08" strokeWidth={2} />
-            {/* Clock face */}
-            <circle cx={0} cy={10} r={16} fill="#F5EFE0" stroke="#180D08" strokeWidth={2} />
-            <circle cx={0} cy={10} r={2} fill="#180D08" />
-            <line x1={0} y1={10} x2={0} y2={0} stroke="#180D08" strokeWidth={1.5} />
-            <line x1={0} y1={10} x2={7} y2={10} stroke="#180D08" strokeWidth={1.5} />
-            {/* Glass door & golden pendulum */}
-            <rect x={-14} y={35} width={28} height={85} rx={3} fill="#1C100B" stroke="#3A2016" strokeWidth={1.5} />
+            <rect x={-22} y={-20} width={44} height={160} rx={4} fill="#46261A" stroke="#140A06" strokeWidth={2.5} />
+            <polygon points="-26,-20 26,-20 0,-42" fill="#542E1E" stroke="#140A06" strokeWidth={2} />
+            <circle cx={0} cy={10} r={16} fill="#F5EFE0" stroke="#140A06" strokeWidth={2} />
+            <circle cx={0} cy={10} r={2} fill="#140A06" />
+            <line x1={0} y1={10} x2={0} y2={0} stroke="#140A06" strokeWidth={1.5} />
+            <line x1={0} y1={10} x2={7} y2={10} stroke="#140A06" strokeWidth={1.5} />
+            <rect x={-14} y={35} width={28} height={85} rx={3} fill="#180D09" stroke="#321A12" strokeWidth={1.5} />
             <line x1={0} y1={38} x2={0} y2={92} stroke="#E2A840" strokeWidth={2} />
             <circle cx={0} cy={95} r={8} fill="#F7CA55" stroke="#9A6516" strokeWidth={1.5} />
           </g>
 
           {/* 2. Wall-mounted pendulum regulator clock (`đồng hồ quả lắc Odo`) */}
           <g transform="translate(1485 415) scale(0.65)">
-            <rect x={-20} y={-25} width={40} height={90} rx={3} fill="#543022" stroke="#180D08" strokeWidth={2} />
-            <circle cx={0} cy={-2} r={15} fill="#F8F2E4" stroke="#180D08" strokeWidth={2} />
-            <circle cx={0} cy={-2} r={2} fill="#180D08" />
-            <line x1={0} y1={-2} x2={-4} y2={-9} stroke="#180D08" strokeWidth={1.5} />
-            <line x1={0} y1={-2} x2={7} y2={2} stroke="#180D08" strokeWidth={1.5} />
-            {/* Swinging pendulum window */}
-            <rect x={-10} y={22} width={20} height={36} rx={2} fill="#20120C" />
+            <rect x={-20} y={-25} width={40} height={90} rx={3} fill="#4C2A1E" stroke="#140A06" strokeWidth={2} />
+            <circle cx={0} cy={-2} r={15} fill="#F8F2E4" stroke="#140A06" strokeWidth={2} />
+            <circle cx={0} cy={-2} r={2} fill="#140A06" />
+            <line x1={0} y1={-2} x2={-4} y2={-9} stroke="#140A06" strokeWidth={1.5} />
+            <line x1={0} y1={-2} x2={7} y2={2} stroke="#140A06" strokeWidth={1.5} />
+            <rect x={-10} y={22} width={20} height={36} rx={2} fill="#1C0F0A" />
             <circle cx={0} cy={42} r={5} fill="#F7CA55" />
           </g>
 
           {/* 3. Octagonal wooden clock & mantle clocks on middle shelf */}
           <g transform="translate(1555 425) scale(0.6)">
-            <polygon points="-16,-6 -6,-16 6,-16 16,-6 16,6 6,16 -6,16 -16,6" fill="#6A3D28" stroke="#180D08" strokeWidth={2} />
-            <circle cx={0} cy={0} r={10} fill="#FFF6DC" stroke="#180D08" strokeWidth={1.5} />
+            <polygon points="-16,-6 -6,-16 6,-16 16,-6 16,6 6,16 -6,16 -16,6" fill="#5E3522" stroke="#140A06" strokeWidth={2} />
+            <circle cx={0} cy={0} r={10} fill="#FFF6DC" stroke="#140A06" strokeWidth={1.5} />
           </g>
           <g transform="translate(1645 405) scale(0.6)">
-            <rect x={-18} y={-14} width={36} height={24} rx={3} fill="#44281B" stroke="#180D08" strokeWidth={1.8} />
-            <circle cx={0} cy={-2} r={9} fill="#EBD8B8" stroke="#180D08" strokeWidth={1.5} />
+            <rect x={-18} y={-14} width={36} height={24} rx={3} fill="#3C2216" stroke="#140A06" strokeWidth={1.8} />
+            <circle cx={0} cy={-2} r={9} fill="#EBD8B8" stroke="#140A06" strokeWidth={1.5} />
           </g>
 
-          {/* Small multi-drawer organizer cabinets for watch gears & screws */}
+          {/* Small multi-drawer organizer cabinets */}
           <g transform="translate(1435 505) scale(0.62)">
-            <rect x={0} y={0} width={64} height={46} fill="#3A2218" stroke="#120A06" strokeWidth={2} />
+            <rect x={0} y={0} width={64} height={46} fill="#321D14" stroke="#100805" strokeWidth={2} />
             {[10, 22, 34].map((dy, i) => (
-              <line key={i} x1={2} y1={dy} x2={62} y2={dy} stroke="#24140D" strokeWidth={1.5} />
+              <line key={i} x1={2} y1={dy} x2={62} y2={dy} stroke="#20110B" strokeWidth={1.5} />
             ))}
             {[16, 32, 48].map((dx, i) => (
-              <line key={i} x1={dx} y1={2} x2={dx} y2={44} stroke="#24140D" strokeWidth={1.5} />
+              <line key={i} x1={dx} y1={2} x2={dx} y2={44} stroke="#20110B" strokeWidth={1.5} />
             ))}
           </g>
 
@@ -3058,63 +3024,48 @@ export const AlleyExteriorScene: React.FC<{
           {/* WATCHMAKER'S WORKBENCH & ÔNG LỘC'S SEATED WORKING SILHOUETTE    */}
           {/* =============================================================== */}
           <g transform="translate(1520 635)">
-            {/* Heavy solid teak workbench */}
-            <polygon points="-90,-30 80,-62 76,-15 -90,15" fill="#583525" stroke="#140C08" strokeWidth={3} />
-            {/* Front workbench face & drawer handles */}
-            <polygon points="-90,15 76,-15 76,45 -90,75" fill="#3D2318" stroke="#140C08" strokeWidth={3} />
-            <line x1="-80" y1={35} x2="65" y2={5} stroke="#24140E" strokeWidth={2} />
+            <polygon points="-90,-30 80,-62 76,-15 -90,15" fill="#4E2E20" stroke="#120A06" strokeWidth={3} />
+            <polygon points="-90,15 76,-15 76,45 -90,75" fill="#361E14" stroke="#120A06" strokeWidth={3} />
+            <line x1="-80" y1={35} x2="65" y2={5} stroke="#20110C" strokeWidth={2} />
             {[-50, 0].map((hx, i) => (
               <rect key={i} x={hx} y={20 - i * 6} width={18} height={4} rx={1} fill="#C89B4B" />
             ))}
-            {/* Workbench sturdy front legs */}
-            <rect x={-86} y={75} width={16} height={65} fill="#2E1A12" stroke="#140C08" strokeWidth={2.5} />
-            <rect x={60} y={45} width={16} height={85} fill="#2E1A12" stroke="#140C08" strokeWidth={2.5} />
+            <rect x={-86} y={75} width={16} height={65} fill="#26150E" stroke="#120A06" strokeWidth={2.5} />
+            <rect x={60} y={45} width={16} height={85} fill="#26150E" stroke="#120A06" strokeWidth={2.5} />
 
             {/* Green rubber repair cutting mat on workbench */}
-            <polygon points="-65,-22 25,-40 28,-22 -62,-5" fill="#1C382A" stroke="#102219" strokeWidth={1.5} />
+            <polygon points="-65,-22 25,-40 28,-22 -62,-5" fill="#183225" stroke="#0E1C15" strokeWidth={1.5} />
 
             {/* Watchmaker's Jeweler Gooseneck Desk Lamp (`đèn bàn thợ kim hoàn`) */}
             <g transform="translate(-60 -18)">
-              {/* Lamp circular base */}
-              <ellipse cx={0} cy={0} rx={10} ry={4} fill="#28382E" stroke="#101914" strokeWidth={1.5} />
-              {/* Curved brass/gooseneck arm */}
-              <path d="M 0 -2 Q 10 -40 28 -34" stroke="#8A6B32" strokeWidth={3.5} fill="none" strokeLinecap="round" />
-              {/* Conical green enamel lamp head angled down toward mat */}
-              <polygon points="26,-40 40,-30 32,-18 20,-28" fill="#1E4432" stroke="#0C1E15" strokeWidth={2} />
-              {/* Glowing bulb inside shade */}
+              <ellipse cx={0} cy={0} rx={10} ry={4} fill="#223026" stroke="#0E1611" strokeWidth={1.5} />
+              <path d="M 0 -2 Q 10 -40 28 -34" stroke="#7E612C" strokeWidth={3.5} fill="none" strokeLinecap="round" />
+              <polygon points="26,-40 40,-30 32,-18 20,-28" fill="#1A3B2A" stroke="#0A1A12" strokeWidth={2} />
               <circle cx={31} cy={-22} r={5} fill="#FFF9DF" />
-              {/* Localized warm light pool on work mat */}
               <ellipse cx={32} cy={-8} rx={42} ry={16} fill="url(#tiemDeskLight)" />
             </g>
 
-            {/* Disassembled watch movement parts & glass dust dome on desk */}
+            {/* Disassembled watch movement parts & glass dust dome */}
             <circle cx={-10} cy={-16} r={5} fill="#D4A24C" />
             <circle cx={-2} cy={-18} r={3.5} fill="#C89B4B" />
-            {/* Glass dust dome protector */}
             <path d="M 6 -15 A 8 8 0 0 1 22 -15 Z" fill="#88B8CE" opacity={0.4} stroke="#486878" strokeWidth={1.2} />
 
-            {/* ============================================================= */}
-            {/* SILHOUETTE OF ÔNG LỘC: ELDERLY WATCHMAKER AT WORK             */}
-            {/* ============================================================= */}
+            {/* SILHOUETTE OF ÔNG LỘC: ELDERLY WATCHMAKER AT WORK */}
             <g transform="translate(10 -22)">
-              {/* Low round wooden stool */}
-              <ellipse cx={8} cy={55} rx={18} ry={6} fill="#281710" stroke="#120A06" strokeWidth={2} />
-              <line x1={0} y1={55} x2={-4} y2={100} stroke="#1E110C" strokeWidth={3} />
-              <line x1={16} y1={55} x2={18} y2={98} stroke="#1E110C" strokeWidth={3} />
+              <ellipse cx={8} cy={55} rx={18} ry={6} fill="#22130D" stroke="#100805" strokeWidth={2} />
+              <line x1={0} y1={55} x2={-4} y2={100} stroke="#180D0A" strokeWidth={3} />
+              <line x1={16} y1={55} x2={18} y2={98} stroke="#180D0A" strokeWidth={3} />
 
-              {/* Seated torso bent slightly forward over the desk */}
               <path
                 d="M -6 45 L 8 48 L 22 20 L 16 -12 L -6 -8 Z"
-                fill="#1C1412"
-                stroke="#0C0806"
+                fill="#18100E"
+                stroke="#0A0605"
                 strokeWidth={2}
               />
-              {/* Shoulders & back rounded in craftsman posture */}
               <path
                 d="M 12 15 Q 26 -2 14 -22 Q -4 -25 -12 -12 L -14 38 Z"
-                fill="#241B18"
+                fill="#201714"
               />
-              {/* Soft warm rim highlight on his shoulder from the desk lamp */}
               <path
                 d="M -12 -12 Q -4 -25 14 -22"
                 stroke="#FFE59E"
@@ -3123,21 +3074,18 @@ export const AlleyExteriorScene: React.FC<{
                 opacity={0.65}
               />
 
-              {/* Head bowed forward, focused on the timepiece */}
-              <ellipse cx={-18} cy={-28} rx={13} ry={11} fill="#201714" />
-              {/* Reading glasses / jeweler's loupe on forehead or eye */}
-              <rect x={-31} y={-29} width={9} height={6} rx={2} fill="#A27838" stroke="#140E0A" strokeWidth={1.2} />
+              <ellipse cx={-18} cy={-28} rx={13} ry={11} fill="#1B1310" />
+              <rect x={-31} y={-29} width={9} height={6} rx={2} fill="#946C30" stroke="#100B08" strokeWidth={1.2} />
               <circle cx={-30} cy={-26} r={2} fill="#FFF9DF" opacity={0.85} />
 
-              {/* Arms reaching forward holding precision tweezers & screwdriver */}
               <path
                 d="M -4 -8 Q -18 -4 -26 -16"
-                stroke="#241B18"
+                stroke="#201714"
                 strokeWidth={5}
                 strokeLinecap="round"
                 fill="none"
               />
-              <line x1="-26" y1="-16" x2="-22" y2="-12" stroke="#A27838" strokeWidth={2} />
+              <line x1="-26" y1="-16" x2="-22" y2="-12" stroke="#946C30" strokeWidth={2} />
             </g>
           </g>
         </g>
@@ -3145,32 +3093,27 @@ export const AlleyExteriorScene: React.FC<{
 
       {/* =================================================================== */}
       {/* HALF-PULLED ACCORDION IRON GATE (`CỬA SẮT KÉO XẾP ĐÀI LOAN / VN`)   */}
-      {/* (Xếp gọn vào góc phải, để mở 3/4 cửa chào đón Duy & Thảo bước vào)  */}
       {/* =================================================================== */}
       <g>
-        {/* Top guide rail channel across the doorway */}
-        <polygon points="1355,370 1835,282 1835,292 1355,380" fill="#202A38" stroke="#0E141E" strokeWidth={2} />
-        {/* Bottom threshold runner groove */}
-        <line x1={1348} y1={744} x2={1850} y2={954} stroke="#1A222E" strokeWidth={3} />
+        <polygon points="1355,370 1835,282 1835,292 1355,380" fill="#1C2430" stroke="#0B1018" strokeWidth={2} />
+        <line x1={1348} y1={744} x2={1850} y2={954} stroke="#161C26" strokeWidth={3} />
 
-        {/* Accordion steel gate bundled/gathered on the right side (`x = 1715 .. 1825`) */}
+        {/* Accordion steel gate bundled on the right side */}
         {Array.from({ length: 6 }).map((_, i) => {
           const gx = 1720 + i * 18;
           const topY = 300 - i * 3.5;
           const botY = 905 + i * 9.5;
           return (
             <g key={i}>
-              {/* Heavy vertical U-channel iron upright (`nan U đứng`) */}
-              <line x1={gx} y1={topY} x2={gx} y2={botY} stroke="#283548" strokeWidth={5} />
-              <line x1={gx} y1={topY} x2={gx} y2={botY} stroke="#465874" strokeWidth={2} />
-              {/* Interlocking diamond scissor lattice braces (`nhíp chéo dập`) */}
+              <line x1={gx} y1={topY} x2={gx} y2={botY} stroke="#222D3E" strokeWidth={5} />
+              <line x1={gx} y1={topY} x2={gx} y2={botY} stroke="#3E4E68" strokeWidth={2} />
               {Array.from({ length: 6 }).map((__, j) => {
                 const gy = topY + 45 + j * 92;
                 return (
                   <path
                     key={j}
                     d={`M ${gx} ${gy} L ${gx + 18} ${gy + 46} L ${gx} ${gy + 92}`}
-                    stroke="#384962"
+                    stroke="#324056"
                     strokeWidth={2.4}
                     fill="none"
                   />
@@ -3179,16 +3122,15 @@ export const AlleyExteriorScene: React.FC<{
             </g>
           );
         })}
-        {/* Heavy brass padlock hanging on gate locking bracket */}
         <g transform="translate(1725 640)">
-          <rect x={-8} y={-4} width={16} height={20} rx={3} fill="#A27838" stroke="#120D08" strokeWidth={1.8} />
-          <path d="M -5 -4 L -5 -11 Q 0 -16 5 -11 L 5 -4" stroke="#483A26" strokeWidth={2.2} fill="none" />
+          <rect x={-8} y={-4} width={16} height={20} rx={3} fill="#946C30" stroke="#0E0A06" strokeWidth={1.8} />
+          <path d="M -5 -4 L -5 -11 Q 0 -16 5 -11 L 5 -4" stroke="#403220" strokeWidth={2.2} fill="none" />
         </g>
       </g>
 
       {/* =================================================================== */}
       {/* WARM GOLDEN LIGHT SPILL ONTO ALLEY THRESHOLD & PAVEMENT             */}
-      {/* (Ánh sáng vàng ấm từ tiệm hắt ra hiên và lòng hẻm tinh tế, mờ ảo)    */}
+      {/* (Ánh sáng vàng ấm từ tiệm là nguồn sáng chính duy nhất của con ngõ) */}
       {/* =================================================================== */}
       <polygon
         points="1340,735 1860,945 1180,1450 740,820"
@@ -3198,87 +3140,30 @@ export const AlleyExteriorScene: React.FC<{
       />
       <polygon
         points="1370,745 1800,935 1360,1260 1100,820"
-        fill="#FBBF24"
-        opacity={0.22}
+        fill="#F59E0B"
+        opacity={0.24}
         filter="url(#hemLightFeather)"
         style={{ mixBlendMode: 'screen' }}
       />
       {/* Drifting warm dust motes floating near shop entrance */}
-      <Dust t={t} seed={115} x0={1340} y0={420} w={450} h={540} n={22} o={0.42} />
+      <Dust t={t} seed={115} x0={1340} y0={420} w={450} h={540} n={24} o={0.45} />
     </g>
 
     {/* ===================================================================== */}
-    {/* 7. STREETLAMP & SUBTLE ATMOSPHERIC LIGHTING (BỐ TRÍ ĐÈN & ÁNH SÁNG)   */}
+    {/* 7. OVERHEAD SPIDERWEB WIRES (MẠNG LƯỚI BÚI DÂY ĐIỆN BÍ BÁCH ĐẶC TRƯNG) */}
     {/* ===================================================================== */}
     <g>
-      {/* Streetlamp volumetric conical light haze with delicate, soft feathering */}
-      {/* Broad, subtle atmospheric cone (NO harsh white spotlight edges!) */}
-      <polygon
-        points="990,195 540,960 1440,960"
-        fill="url(#hemStreetlampBeamSoft)"
-        filter="url(#hemLightFeather)"
-        style={{ mixBlendMode: 'screen' }}
-      />
-
-      {/* Atmospheric dust motes drifting gently through the illuminated conical volume */}
-      <Dust t={t} seed={62} x0={700} y0={195} w={580} h={750} n={32} o={0.46} />
-
-      {/* Authentic Vietnamese alley streetlamp mounting: */}
-      {/* Concrete utility pole / wall bracket mounting arm at dead-end corner */}
-      <g>
-        {/* Tapered octagonal concrete utility pole (`cột điện bê tông hạ thế`) */}
-        <polygon points="1114,80 1134,80 1138,700 1110,700" fill="#202938" stroke={INK} strokeWidth={2.8} />
-        <line x1={1122} y1={80} x2={1124} y2={700} stroke="#324056" strokeWidth={2} />
-        {/* Iron climbing foot-rungs (`bậc trèo sắt trên cột`) */}
-        {[180, 260, 340, 420, 500, 580].map((ry, i) => (
-          <rect key={i} x={i % 2 === 0 ? 1106 : 1132} y={ry} width={8} height={4} rx={1} fill="#0E141D" stroke="#05080C" strokeWidth={1} />
-        ))}
-        {/* Galvanized metal band clamps (`đai sắt xiết cột`) */}
-        {[145, 210].map((by, i) => (
-          <rect key={i} x={1108} y={by} width={28} height={8} rx={1} fill="#3E4C62" stroke="#0C121A" strokeWidth={1.5} />
-        ))}
-        {/* Porcelain white insulator cap on pole */}
-        <ellipse cx={1124} cy={140} rx={5} ry={7} fill="#E2E8F0" stroke="#0E141D" strokeWidth={1.2} />
-
-        {/* Curved iron gooseneck pipe arm extending out toward center alley (`cần đèn sắt uốn`) */}
-        <path d="M 1124 150 Q 1060 135 990 178" stroke="#263143" strokeWidth={6.5} fill="none" strokeLinecap="round" />
-        {/* Triangular iron support strut / stay brace (`thanh giằng chéo sắt V`) */}
-        <line x1={1124} y1={210} x2={1040} y2={155} stroke="#1A2230" strokeWidth={3.5} />
-      </g>
-
-      {/* Gentle, non-glaring optical warm bloom centered below shade */}
-      <ellipse cx={990} cy={206} rx={160} ry={110} fill="#F59E0B" opacity={0.18} filter="url(#hemSoftBloom)" style={{ mixBlendMode: 'screen' }} />
-      <ellipse cx={990} cy={198} rx={48} ry={32} fill="#FDE68A" opacity={0.28} filter="url(#hemSoftBloom)" style={{ mixBlendMode: 'screen' }} />
-
-      {/* Classic conical metal enamel streetlamp shade (`chao đèn hình nón tráng men xanh/đen`) */}
-      <polygon points="966,180 1014,180 1034,198 946,198" fill="#1C242E" stroke={INK} strokeWidth={2.8} strokeLinejoin="round" />
-      <line x1={968} y1={180} x2={1012} y2={180} stroke="#3E4E64" strokeWidth={2} />
-      {/* Underside reflector of lamp shade */}
-      <ellipse cx={990} cy={198} rx={44} ry={6} fill="#FDE68A" opacity={0.85} />
-
-      {/* Frosted warm incandescent bulb glowing underneath (soft, cozy, not blinding!) */}
-      <ellipse cx={990} cy={203} rx={14} ry={9} fill="#FFFBE6" stroke="#D97706" strokeWidth={1.5} />
-      <circle cx={990} cy={203} r={6} fill="#FFFDF0" />
-      <Glow x={990} y={208} r={240} o={0.45} />
+      <path d="M 120 145 Q 520 275 1140 210 Q 1480 190 1920 150" stroke="#05070C" strokeWidth={4.5} fill="none" />
+      <path d="M 160 180 Q 680 330 1260 240 Q 1600 220 1920 190" stroke="#04060A" strokeWidth={3.8} fill="none" />
+      <path d="M 40 115 Q 580 230 1100 180 Q 1520 150 1920 110" stroke="#05080E" strokeWidth={3} fill="none" />
+      <path d="M 260 205 Q 780 385 1360 265" stroke="#04060A" strokeWidth={2.8} fill="none" />
+      <path d="M 720 260 Q 760 350 780 270" stroke="#05070C" strokeWidth={2.5} fill="none" />
+      <path d="M 940 230 Q 980 320 1000 240" stroke="#05070C" strokeWidth={2.2} fill="none" />
+      <rect x={760} y={290} width={28} height={18} rx={2} fill="#070A0F" stroke="#020306" strokeWidth={1.5} />
     </g>
 
     {/* ===================================================================== */}
-    {/* 8. OVERHEAD SPIDERWEB WIRES (MẠNG LƯỚI BÚI DÂY ĐIỆN BÍ BÁCH ĐẶC TRƯNG) */}
-    {/* ===================================================================== */}
-    <g>
-      <path d="M 120 145 Q 520 275 1140 210 Q 1480 190 1920 150" stroke="#060910" strokeWidth={4.5} fill="none" />
-      <path d="M 160 180 Q 680 330 1260 240 Q 1600 220 1920 190" stroke="#05080E" strokeWidth={3.8} fill="none" />
-      <path d="M 40 115 Q 580 230 1100 180 Q 1520 150 1920 110" stroke="#070A12" strokeWidth={3} fill="none" />
-      <path d="M 260 205 Q 780 385 1360 265" stroke="#05080E" strokeWidth={2.8} fill="none" />
-      {/* Hanging tangled cable coils */}
-      <path d="M 720 260 Q 760 350 780 270" stroke="#060910" strokeWidth={2.5} fill="none" />
-      <path d="M 940 230 Q 980 320 1000 240" stroke="#060910" strokeWidth={2.2} fill="none" />
-      {/* Telecom black junction box mounted on overhead wire */}
-      <rect x={760} y={290} width={28} height={18} rx={2} fill="#090D14" stroke="#030508" strokeWidth={1.5} />
-    </g>
-
-    {/* ===================================================================== */}
-    {/* 9. DISTANT PASSERBY SILHOUETTE (EXTRA-BONG) IF REQUESTED              */}
+    {/* 8. DISTANT PASSERBY SILHOUETTE (EXTRA-BONG) IF REQUESTED              */}
     {/* ===================================================================== */}
     {showPassersby ? (
       <g transform="translate(680 620) scale(0.45)">
@@ -3287,7 +3172,7 @@ export const AlleyExteriorScene: React.FC<{
     ) : null}
 
     {/* ===================================================================== */}
-    {/* 10. CHIAROSCURO FALLOFF LAYER (Tối dần những nơi không có đèn chiếu)  */}
+    {/* 9. CHIAROSCURO FALLOFF LAYER (Tối dần những nơi không có đèn chiếu)   */}
     {/* ===================================================================== */}
     <g pointerEvents="none">
       <rect x={-300} y={-200} width={2600} height={1700} fill="url(#alleyVignetteFalloff)" />
@@ -3296,10 +3181,10 @@ export const AlleyExteriorScene: React.FC<{
     </g>
 
     {/* ===================================================================== */}
-    {/* 11. FOREGROUND LEFT: ROOF EAVE & PERCHED OWL WATCHING FROM OVERHEAD   */}
+    {/* 10. FOREGROUND LEFT: ROOF EAVE & PERCHED OWL WATCHING FROM OVERHEAD   */}
     {/* ===================================================================== */}
     <g>
-      <polygon points="-50,-20 440,80 400,142 -50,60" fill="#181F2C" stroke={INK} strokeWidth={4} />
+      <polygon points="-50,-20 440,80 400,142 -50,60" fill="#141B26" stroke={INK} strokeWidth={4} />
       {showOwl ? <PerchingOwl x={315} y={205} s={0.96} headTurn={0.65} showBracket /> : null}
     </g>
   </g>

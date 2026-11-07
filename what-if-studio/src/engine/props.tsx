@@ -71,20 +71,20 @@ export const Cat: React.FC<{ x: number; y: number; mood: 'sleep' | 'alert' | 'pe
           <path d="M -16 2 q 6 5 12 0 M 4 2 q 6 5 12 0" stroke="#52556C" strokeWidth={3.5} fill="none" strokeLinecap="round" />
         ) : mood === 'peek' ? (
           <g>
-            {/* Far eye narrowed in shadow with subtle tapetum glint */}
-            <circle cx={-12} cy={2} r={9} fill="#FF9E00" opacity={0.25} style={{ mixBlendMode: 'screen' }} />
-            <circle cx={-12} cy={2} r={6.5} fill="#FFAA00" stroke="#8A5A00" strokeWidth={1.2} />
-            <ellipse cx={-12} cy={2} rx={1.2} ry={5} fill="#06050A" />
-            <circle cx={-13} cy={0.5} r={1.5} fill="#FFFFFF" />
-
-            {/* Near eye catching direct streetlamp light with brilliant tapetum reflection */}
-            <circle cx={10} cy={0} r={16} fill="#FF9E00" opacity={0.42} style={{ mixBlendMode: 'screen' }} />
-            <circle cx={10} cy={0} r={10} fill="#FFAA00" stroke="#8A5A00" strokeWidth={1.6} />
-            <circle cx={10} cy={0} r={8.2} fill="#FFC837" />
-            <ellipse cx={10} cy={0} rx={1.8} ry={7.5} fill="#06050A" />
-            {/* Pinpoint specular reflections from streetlamp light */}
-            <circle cx={8.5} cy={-2.8} r={2.6} fill="#FFFFFF" />
-            <circle cx={11.5} cy={2.2} r={1.4} fill="#FFEAA7" opacity={0.92} />
+            {/* Both nocturnal amber cat eyes balanced and symmetrical in size */}
+            <circle cx={-11} cy={0} r={12} fill="#FF9E00" opacity={0.32} style={{ mixBlendMode: 'screen' }} />
+            <circle cx={11} cy={0} r={12} fill="#FF9E00" opacity={0.32} style={{ mixBlendMode: 'screen' }} />
+            <circle cx={-11} cy={0} r={9} fill="#FFAA00" stroke="#8A5A00" strokeWidth={1.4} />
+            <circle cx={11} cy={0} r={9} fill="#FFAA00" stroke="#8A5A00" strokeWidth={1.4} />
+            <circle cx={-11} cy={0} r={7.2} fill="#FFC837" />
+            <circle cx={11} cy={0} r={7.2} fill="#FFC837" />
+            <ellipse cx={-11} cy={0} rx={1.8} ry={7} fill="#06050A" />
+            <ellipse cx={11} cy={0} rx={1.8} ry={7} fill="#06050A" />
+            {/* Specular highlights */}
+            <circle cx={-12.5} cy={-2.2} r={2.2} fill="#FFFFFF" />
+            <circle cx={9.5} cy={-2.2} r={2.2} fill="#FFFFFF" />
+            <circle cx={-9.5} cy={2} r={1.2} fill="#FFEAA7" opacity={0.9} />
+            <circle cx={12.5} cy={2} r={1.2} fill="#FFEAA7" opacity={0.9} />
           </g>
         ) : (
           <g>
