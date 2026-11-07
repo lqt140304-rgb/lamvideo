@@ -1,5 +1,13 @@
 # Ghi chú riêng — tập 01
 
+## Giữ lời dẫn và nhận bộ asset nâng cấp — 07/11/2026
+
+- Chủ repo chưa muốn chuyển sang chỉ thoại vì cần truyền đạt đủ ý nghĩa. Giữ người dẫn chuyện kết hợp thoại; lời sạch và bản ElevenLabs không bị xóa các đoạn kể. Hình/âm làm rõ hành động, phản ứng, không thay lời bằng giải thích dồn vào miệng nhân vật.
+- Nhận commit cd7243c của Antigravity. Phạm vi Anti là nâng cấp asset có sẵn; cảnh/timeline 142 giây là bộ thử, không phải nhiệm vụ dựng đủ tập 1. Ghi nhận lại phạm vi để không dùng thời lượng thử làm bằng chứng thiếu nội dung.
+- Đồng bộ trạng thái các tài liệu từng ghi chưa có rig/mẹ/bối cảnh; ghi ánh xạ slug hồ sơ với alias kỹ thuật, phân biệt 35 cue nguồn với 24 đoạn thử. Không sửa mã dựng hoặc tạo thêm hình/audio/video ở lượt này.
+- Các mục bên dưới là lịch sử theo thời điểm, có thể ghi chưa tạo tài nguyên nay đã có. Trạng thái hiện hành xem ASSET/README/kế hoạch.
+
+
 ## Rà đồng bộ và kế hoạch tối ưu — 07/11/2026
 
 - Thêm [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md): giữ bản 5 và 35 cue; nhóm asset dùng lại, storyboard → animatic thật với âm tạm → hoàn thiện/ElevenLabs → mix/xuất. Thử đoạn rủi ro trước, chưa tạo media hoặc gọi dịch vụ trả phí.

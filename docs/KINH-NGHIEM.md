@@ -55,6 +55,7 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 - Tính thời lượng từ audio thực và khoảng không lời trên timeline. Tránh cộng hai lần hình/nhạc chạy đồng thời với lời. Chưa có audio thì ghi rõ là ước tính cùng giả định tốc độ.
 - Tách token của trợ lý, ký tự lời đọc, credits dịch vụ và thời gian render. Không suy ra chi phí từ một hệ số cũ; ghi model, độ dài và số dùng thực của từng lần tạo trong hồ sơ tập.
 - **Quy ước đúng ở phần giới thiệu nhưng thoại còn sót → chỉ rà bảng nhân vật →** tìm cách xưng hô và vai ngay trong toàn bộ lời, đối chiếu bản nguồn–bản sạch–bản có thẻ và cập nhật số liệu sau sửa. **Kiểm tra:** bỏ thẻ diễn xuất rồi so toàn văn; khi báo đồng bộ, phân biệt tài liệu hiện hành, bản lịch sử và media chưa tạo.
+- **Đánh giá bộ thử asset như phim hoàn chỉnh → hiểu sai phạm vi nâng cấp thư viện →** xác định mục tiêu của bản thử trước khi nhận xét; dùng nó kiểm tra hình, rig, tiếp xúc và khả năng tái dùng, còn nhịp/cốt truyện đủ hay chưa phải đối chiếu bản chuyển thể được giao. **Kiểm tra:** trạng thái ghi rõ asset, demo và phim hoàn chỉnh; không dùng thời lượng demo để kết luận thiếu nội dung.
 - Đọc đúng file cần sửa, giữ bản nguồn duy nhất và ghi thay đổi ngắn. Kiểm tra phần bị ảnh hưởng trước; không render lại toàn bộ hoặc nghiên cứu lại từ đầu khi không có lý do.
 
 ## Kỹ thuật dựng đã được rút thành nguyên tắc

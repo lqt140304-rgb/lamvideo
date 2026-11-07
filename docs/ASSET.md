@@ -4,7 +4,7 @@ Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng t�
 
 | Nhóm | Vị trí | Trạng thái / lưu ý |
 |---|---|---|
-| Engine, rig, props, UI | [engine](../what-if-studio/src/engine/) | Có mã nguồn; cần kiểm tra hình khi dùng trong cảnh mới |
+| Engine, rig, props, UI | [engine](../what-if-studio/src/engine/) | Đã nhận nâng cấp cd7243c: thêm biểu cảm/tay/phụ kiện, hands, props_life, vehicles và set thử; có mã/preview, cần kiểm tra trong cảnh mới |
 | Bối cảnh mẫu | [sets](../what-if-studio/src/engine/sets/) | bedroom, classroom, kitchen, rooftop, schematic, stairwell, study; không mặc nhiên là đúng nhà/tiệm của tập mới |
 | Thư viện âm thanh | [library/sfx](../what-if-studio/library/sfx/) | 40 file MP3 tại thời điểm rà 07/11/2026; gồm SFX, ambience và nhạc mẫu; chưa nghe kiểm kê lại từng file |
 | Media hai tập mẫu | [rewind](../what-if-studio/public/rewind/), [copy-paste](../what-if-studio/public/copy-paste/) | Giữ để vận hành ví dụ; không coi giọng mẫu là giọng đã chọn cho nội dung mới |

@@ -1,8 +1,13 @@
 # Tin nhắn chưa gửi — dựng cảnh bản 5
 
+**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; tiếp tục giữ đầy đủ các đoạn kể trong LOI-DOC và ELEVENLABS.
+
+**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+
+
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-07/11/2026. Thêm C0 theo hai phác thảo chủ repo: thành phố/trời sao/tiêu đề → mắt cú → hẻm/tiệm/người dạng bóng → hai trẻ trước cửa. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là ý đồ để làm storyboard/animatic, chưa có render, giọng hoặc chuyển động thực. Mặt Lộc đã chốt, concept trẻ v4 chờ duyệt; mẹ/cánh đồng chưa tạo.
+07/11/2026. Thêm C0 theo hai phác thảo chủ repo: thành phố/trời sao/tiêu đề → mắt cú → hẻm/tiệm/người dạng bóng → hai trẻ trước cửa. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là mục tiêu dựng của bản nguồn; đã có mã thử và still SVG, chưa duyệt chuyển động toàn tập hoặc giọng/mix. Mặt Lộc concept đã chốt; tạo hình SVG mới, mẹ/cánh đồng và tương tác cần đối chiếu với các cue dưới đây.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
 
@@ -37,7 +42,7 @@ Camera tiệm ở phía khách/nam trục hai trẻ. Giữ Duy trái/Thảo ph�
 | Duy — anh trai, 16 tuổi | Áo thun xanh xám bạc, đường khâu nhỏ, quần xanh than/giày vải mòn; mặt vẫn trẻ. Đầu gồng, che em, giấu nhớ; G1 chọn và mất một kỷ niệm; G2 chủ động nhận gánh rồi kiệt; G3 phản ứng chậm có nguyên nhân, không ngu đi tùy cảnh. Ở đồng có thể cười/khóc thật nhưng mệt vẫn còn khi về |
 | Thảo — em gái, 8 tuổi | Áo vàng kem cũ hơi rộng, khâu gấu gọn, quần lửng xanh vá nhỏ, dép mòn, tóc nửa đầu. Nói/tò mò đúng tuổi; nài vì nhớ mẹ, nhận G3 vì thấy anh không chịu nổi, không bị quy thành ích kỷ. Câu nhận nhanh phải sau giá và trước lời ngăn |
 | Lộc khoảng 60 | Giữ thiết kế đã chốt. Lạnh/quyền chủ động; nụ cười nhỏ bắt đầu câu hỏi sau G1. Không mừng chiến thắng lớn, không hóa người hiền dạy bài học; nói rõ hiệu lực lời nhận ở G2 trước G3 |
-| Mẹ khoảng 38–42 | Áo vải màu đất sáng, quần tối, tóc buộc thấp; phụ nữ lao động bình thường, mặt ấm có nét mệt nhẹ, không già như bà, không thiên thần. Cần pose gọi/nắm tay/đi/ngồi/ôm và tan; chưa tạo hoặc duyệt. Từ đùa chuyện nhỏ tới lời gửi gắm, không đọc diễn văn |
+| Mẹ khoảng 38–42 | Áo vải màu đất sáng, quần tối, tóc buộc thấp; phụ nữ lao động bình thường, mặt ấm có nét mệt nhẹ, không già như bà, không thiên thần. Đã có mẫu SVG và khung thử; các pose gọi/nắm tay/đi/ngồi/ôm/tan cần duyệt theo cảnh. Từ đùa chuyện nhỏ tới lời gửi gắm, không đọc diễn văn |
 
 ## 3. Chuỗi đạo cụ / giao kèo
 
@@ -205,7 +210,7 @@ Thảo vẫn ngồi phải, Duy trái. Điện thoại ngừng phát trên khăn
 
 ### Cảnh 6 — Lần thứ ba — cánh đồng có mẹ
 
-Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng hoặc mẹ hồi sinh. Tiệm/body vẫn ở thực tại; chỉ điểm nhìn chủ quan chuyển. Ruộng lúa hư cấu ven làng, lối đất bằng sát bờ, nắng cuối chiều; mẹ đứng giữa trước hai trẻ, gọi rồi nắm tay đi một đoạn ngắn. Mẹ khoảng 38–42, áo vải màu đất sáng, quần tối, tóc buộc thấp; thiết kế chưa tạo/duyệt.
+Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng hoặc mẹ hồi sinh. Tiệm/body vẫn ở thực tại; chỉ điểm nhìn chủ quan chuyển. Ruộng lúa hư cấu ven làng, lối đất bằng sát bờ, nắng cuối chiều; mẹ đứng giữa trước hai trẻ, gọi rồi nắm tay đi một đoạn ngắn. Mẹ khoảng 38–42, áo vải màu đất sáng, quần tối, tóc buộc thấp; đã có mẫu SVG/khung thử, chờ duyệt theo cảnh.
 
 **C6-A · Toàn con đường ven ruộng, mẹ gọi hai trẻ**
 - 35 mm; cao 1,2 m; cách nhóm 4 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
@@ -284,6 +289,6 @@ Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra �
 
 ## 6. Hai bước duyệt và phạm vi mới
 
-Storyboard: ngoài ba giao kèo/đúng người trả, kiểm tra C0 trời/chữ đúng khoảng trống, cùng một cú ở cận/trung/toàn, mái-thanh không nhảy, người nền dạng bóng và trẻ đúng màu, khung cuối trước cửa nối được C1; khung Thảo đáp không bị cắt mất đầu/cuối, Duy chậm có lý do. Xác lập tiệm–miền cảm giác–trở tiệm–ngưỡng nhà rõ, mẹ không hiện như người còn sống trong hiện tại. Thiết kế ruộng và mẹ là asset mới cần duyệt, không tự gọi đã có vì đã viết.
+Storyboard: ngoài ba giao kèo/đúng người trả, kiểm tra C0 trời/chữ đúng khoảng trống, cùng một cú ở cận/trung/toàn, mái-thanh không nhảy, người nền dạng bóng và trẻ đúng màu, khung cuối trước cửa nối được C1; khung Thảo đáp không bị cắt mất đầu/cuối, Duy chậm có lý do. Xác lập tiệm–miền cảm giác–trở tiệm–ngưỡng nhà rõ, mẹ không hiện như người còn sống trong hiện tại. Đã có mã/preview ruộng và mẹ; cần duyệt tạo hình và mức phù hợp với cảnh, không coi file tồn tại là đã duyệt.
 
 Animatic: chạy trọn C0 hạ máy/chuyển nét/lùi/trượt, các mốc ghép đầu–giữa–cuối, bóng người không che trẻ và bước vào cửa, rồi tay/tiền/ảnh/phiếu/máy, G2 cơ thể sụp, em nhận lời/anh ngăn chậm, chuyển trắng-ù, nắm tay đi/ngồi/ôm, mẹ tan cùng bóng và tay trẻ ở khoảng trống, trở đúng ghế/cất đồ/gọi dì. Dùng âm/giọng tạm, không tự gọi dịch vụ trả phí. Chỉ pan tranh không kiểm tra được các tiếp xúc. Sau voice thật cập nhật timeline; không dùng timing bản 3 hoặc giữ định mức 22 cue cũ.

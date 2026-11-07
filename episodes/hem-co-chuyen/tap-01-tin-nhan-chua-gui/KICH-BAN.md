@@ -1,12 +1,17 @@
 # HẺM CÓ CHUYỆN — Tập thử 01: TIN NHẮN CHƯA GỬI
 
+**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; tiếp tục giữ đầy đủ các đoạn kể trong LOI-DOC và ELEVENLABS.
+
+**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+
+
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
 > Bản 5 — 07/11/2026. Thêm mở đầu thành phố/trời sao → cú → hẻm → hai anh em trước cửa tiệm. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
 
-Nguồn lời ở đây. [DUNG-CANH.md](DUNG-CANH.md) triển khai hình/âm, [LOI-DOC.md](LOI-DOC.md) và [ELEVENLABS.md](ELEVENLABS.md) xuất cùng nguồn. Có concept ba nhân vật: mặt Lộc đã chốt, hai trẻ bản mới chờ duyệt; **chưa tạo hình mẹ/cánh đồng, giọng, storyboard, animatic hoặc video**.
+Nguồn lời ở đây. [DUNG-CANH.md](DUNG-CANH.md) triển khai hình/âm, [LOI-DOC.md](LOI-DOC.md) và [ELEVENLABS.md](ELEVENLABS.md) xuất cùng nguồn. Đã có concept và bộ rig/SVG/preview mới gồm cả mẹ, cánh đồng; xem ASSET để biết file thực và trạng thái duyệt. Mặt Lộc concept đã chốt trước đó; việc nhận bản SVG mới không tự duyệt mọi biến thể hoặc chuyển động. **Chưa có giọng, storyboard/animatic toàn tập hoặc phim hoàn chỉnh đã duyệt**.
 
 ## Cốt truyện và nhân vật
 
@@ -46,7 +51,7 @@ Giữ chất đời thường, nén rồi bung cảm xúc; ba lần tăng giá c
 
 Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,713 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:26–10:09 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
 
-9 phần cảnh (C0 và C1–C8), 35 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Bốn nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú và người qua đường dạng bóng, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, roll 0°, rung 0 px / 0°; chưa có camera/blur/rig triển khai. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
+9 phần cảnh (C0 và C1–C8), 35 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Bốn nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú và người qua đường dạng bóng, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, roll 0°, rung 0 px / 0°; đã có rig và camera giả lập trong mã thử, chưa xác nhận chúng đáp ứng đủ mọi cue nguồn. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
 
 ## Cảnh 0. Trời sao — mắt cú — cửa tiệm
 
@@ -298,7 +303,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 ## Cảnh 6. Lần thứ ba — cánh đồng có mẹ
 
-**Bối cảnh:** Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng hoặc mẹ hồi sinh. Tiệm/body vẫn ở thực tại; chỉ điểm nhìn chủ quan chuyển. Ruộng lúa hư cấu ven làng, lối đất bằng sát bờ, nắng cuối chiều; mẹ đứng giữa trước hai trẻ, gọi rồi nắm tay đi một đoạn ngắn. Mẹ khoảng 38–42, áo vải màu đất sáng, quần tối, tóc buộc thấp; thiết kế chưa tạo/duyệt.
+**Bối cảnh:** Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng hoặc mẹ hồi sinh. Tiệm/body vẫn ở thực tại; chỉ điểm nhìn chủ quan chuyển. Ruộng lúa hư cấu ven làng, lối đất bằng sát bờ, nắng cuối chiều; mẹ đứng giữa trước hai trẻ, gọi rồi nắm tay đi một đoạn ngắn. Mẹ khoảng 38–42, áo vải màu đất sáng, quần tối, tóc buộc thấp; đã có mẫu SVG/khung thử, chờ duyệt theo cảnh.
 
 | Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm |
 |---|---|---|---|

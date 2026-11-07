@@ -1,6 +1,11 @@
 # Kế hoạch sản xuất tối ưu — Tin nhắn chưa gửi
 
-Ngày rà soát: **07/11/2026**. Áp dụng **kịch bản bản 5**, sau sửa xưng hô cuối tập; chưa thay cốt truyện hoặc tạo media ở lượt lập kế hoạch này. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
+**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; tiếp tục giữ đầy đủ các đoạn kể trong LOI-DOC và ELEVENLABS.
+
+**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+
+
+Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng **kịch bản bản 5**, giữ nguyên lời dẫn/thoại và ba giao kèo. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
 
 ## Phạm vi và điều đã chốt
 
@@ -15,7 +20,7 @@ Ngày rà soát: **07/11/2026**. Áp dụng **kịch bản bản 5**, sau sửa 
 
 | Bước | Làm gì / đầu ra để xem | Khi nào chuyển bước | Cách giảm lượt làm lại |
 |---|---|---|---|
-| 1. Khóa bản văn và thiết kế | Đối chiếu nguồn–lời sạch–bản ElevenLabs; duyệt hai trẻ, thiết kế mẹ và bố cục bối cảnh còn thiếu | Tuổi, luật, lời và diện mạo rõ; phản hồi được ghi vào GHI-CHU | Giữ mặt Lộc đã chốt; sửa đúng nhân vật/phần bị ảnh hưởng, không tạo lại cả bảng |
+| 1. Khóa bản văn và thiết kế | Đối chiếu nguồn–lời sạch–bản ElevenLabs; duyệt mẫu hai trẻ/mẹ và bố cục bối cảnh từ bộ asset mới, bổ sung đúng phần còn thiếu | Tuổi, luật, lời và diện mạo rõ; phản hồi được ghi vào GHI-CHU | Giữ mặt Lộc đã chốt; sửa đúng nhân vật/phần bị ảnh hưởng, không tạo lại cả bảng |
 | 2. Storyboard tĩnh | Bảng ảnh thật theo 35 cue; ghi cue nào dùng chung nền/góc, có khung cho trạng thái thay đổi | Nhìn rõ thành phố–cú–cửa, không gian tiệm, tay/đồ, mẹ và cánh đồng; đủ mạch trước–sau | Dùng hình thô đủ đọc, dùng lại góc phản ứng; chưa hoàn thiện mọi biểu cảm hoặc lớp bị che |
 | 3. Animatic | Ráp toàn tập bằng lời/âm tạm; chạy camera và tương tác dự kiến. Sửa trước các đoạn rủi ro trong bảng dưới | Xem bản chạy và bản ráp: nhịp, khoảng nghỉ, tiếp xúc, che khuất, chuyển cảnh đạt | Preview đủ soi mặt/tay; sửa clip lỗi rồi xem lại phần nối. Không dùng paid TTS chỉ để duyệt hình |
 | 4. Hoàn thiện hình và giọng | Hoàn thiện asset/rig đã duyệt; chọn voice/model ElevenLabs bằng mẫu ngắn trước, rồi tạo lời chính thức | Nghe giọng đúng cảm xúc, đủ vai; audio thực có mốc để cập nhật timing | Giữ các đoạn đã đạt. Muốn nhiều giọng/tái tạo từng đoạn phải có quy trình ráp riêng; backend cũ chỉ một voice/cache cả bài |
@@ -28,7 +33,7 @@ Ngày rà soát: **07/11/2026**. Áp dụng **kịch bản bản 5**, sau sửa 
 
 | Nhóm | Chuẩn bị vừa đủ | Cách dùng lại / giới hạn |
 |---|---|---|
-| Nhân vật | Lộc giữ mặt chốt; Duy/Thảo dùng concept v4 chờ duyệt; mẹ cần thiết kế mới. Pose theo hành động thay vì một ảnh mỗi câu | Giữ trang phục/tỷ lệ giữa các góc. Không cần mặt bố, dì hoặc người nền chi tiết |
+| Nhân vật | Đã có concept và mẫu SVG Duy/Thảo/Lộc/mẹ; đối chiếu thiết kế đã chốt, duyệt pose theo hành động thay vì một ảnh mỗi câu | Giữ trang phục/tỷ lệ giữa các góc. Không cần mặt bố, dì hoặc người nền chi tiết |
 | Thành phố–hẻm–cú | Toàn trời/skyline; lớp hẻm/cửa/mái-thanh; cú trung/toàn và cận đầu/mắt khớp; 2–3 bóng người; chữ riêng | C0 cần nhiều cỡ hình khớp, không phóng một ảnh toàn thành cận mắt. Dùng mái che điểm ghép; chỉ vẽ vùng máy sẽ lộ |
 | Tiệm | Một sơ đồ cố định, góc chung/cận dùng lại, insert máy/tiền/ảnh/giấy theo trạng thái | Phần lớn C1–C5 và C8 dùng cùng set. Chỉ đổi pose, ánh G2 và trạng thái đạo cụ; giữ cửa đông khớp ngoại cảnh |
 | Cánh đồng | Bờ đất/cỏ gần, nhóm người giữa, ruộng/trời xa; góc đi và ngồi đủ dùng | C6–C7 chung set/trục; chuyển động cần thiết là đi/nắm tay/ngồi/ôm/tan, không thêm quay vòng phức tạp |
@@ -63,8 +68,8 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 | Đoạn mở, cue và thời lượng | KICH-BAN, DUNG-CANH, ASSET, README, mục lục docs/KICH-BAN | C0-A…F 24 giây; C0 + C1–C8, 35 cue; giữ ước tính mới |
 | Lời đọc | KICH-BAN → LOI-DOC và ELEVENLABS | Đối chiếu toàn bộ đoạn được đọc; loại thẻ để so nội dung; C0/chỉ dẫn không vào TTS |
 | Nơi tìm kế hoạch và quy tắc cập nhật | README gốc/tập, CLAUDE, skill/SKILL và look, docs/WHAT-IF-QUY-TRINH, docs/KICH-BAN, docs/ASSET | Liên kết về kế hoạch tập; hướng dẫn rà file phụ thuộc sau mỗi đổi |
-| Media đã có / phần cần làm | ASSET, README, kế hoạch này | Hai concept PNG v2/v4 có file; mặt Lộc đã chốt, trẻ chờ duyệt; mẹ/bối cảnh/cú/rig/giọng/storyboard/animatic/video chưa tạo |
+| Media đã có / phần cần làm | ASSET, README, kế hoạch này | Có concept, mã SVG/rig/sets và ảnh preview/10 still; mẫu mới chờ duyệt theo cảnh; chưa có giọng, storyboard/animatic toàn tập hoặc phim cuối đã duyệt |
 
 Phạm vi rà là tài liệu đang hướng dẫn sản xuất và hồ sơ tập hiện hành. GHI-CHU ghi bản cũ để đối chiếu; tập mưa/snapshot và ví dụ kỹ thuật giữ trạng thái lịch sử, không đổi chúng thành cốt truyện hiện tại. VieNeu trong mô tả backend cũ là thông tin tương thích, không phải lựa chọn giọng mới.
 
-**Bước kế tiếp:** duyệt concept hai trẻ và chuẩn bị mẹ/bố cục bối cảnh để sang storyboard. Đây là kế hoạch công việc sắp làm; chưa có storyboard, animatic hoặc phim để xem/nghe và xác nhận chất lượng chuyển động/âm thanh.
+**Bước kế tiếp:** chọn và duyệt asset từ bộ đã nâng cấp, ráp storyboard theo bản nguồn có người dẫn chuyện, rồi animatic có âm tạm. Có thể tận dụng mã thử sau khi đối chiếu cue; giữ 35 cue nguồn cho đến khi có chỉnh sửa biên tập rõ. Timeline thử 142 giây không được dùng để kết luận thiếu nội dung hoặc thay ước tính thời lượng toàn tập. Chưa có storyboard/animatic toàn tập hoặc phim cuối đã xem/nghe để xác nhận chất lượng chuyển động/âm thanh.

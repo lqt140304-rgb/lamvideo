@@ -44,7 +44,7 @@ what-if-studio/               studio Remotion, engine, thư viện và tập m�
 
 Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tương ứng khi phát sinh. Không tạo hàng loạt file rỗng. Kinh nghiệm chung không chứa cốt truyện riêng của tập.
 
-**Đang làm:** [kế hoạch tối ưu Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) — bản 5, chờ duyệt thiết kế rồi storyboard → animatic; chưa có video.
+**Đang làm:** [kế hoạch tối ưu Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) — bản 5 **giữ người dẫn chuyện + thoại**; đã nhận thư viện SVG/preview nâng cấp, chuẩn bị storyboard → animatic toàn tập; mã thử chưa phải phim hoàn chỉnh.
 
 Hồ sơ đã sắp xếp: [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 
@@ -182,7 +182,7 @@ Các đường dẫn sau tính từ `what-if-studio/`; snapshot `production/` c�
 | `sets/bedroom.tsx` | Phòng ngủ mẫu, giường và trạng thái đèn/lịch |
 | `sets/schematic.tsx` | Nền sơ đồ, ký hiệu và hình giải thích khi câu chuyện cần |
 
-Snapshot mưa còn có `src/ModelSheet.tsx` (bảng nhân vật/biểu cảm), `engine/hands.tsx` (tay cận), `props_life.tsx` (đạo cụ đời sống), `sets/life.tsx`, `sets/benlau.tsx`, `sets/school.tsx` (bối cảnh mở rộng). Các file này vẫn nằm trong hồ sơ tập cũ; không coi chúng là API đã có trong engine chung.
+Snapshot mưa giữ các phiên bản riêng của `src/ModelSheet.tsx`, tay cận, đạo cụ đời sống và các set mở rộng. Studio chung nay cũng có `engine/hands.tsx`, `props_life.tsx`, `vehicles.tsx` và `sets/tin_nhan_chua_gui.tsx` từ đợt nâng cấp asset. Đọc đúng phiên bản/API trong studio trước khi tái dùng; các set life/benlau/school của snapshot không tự được nhập lên engine chung.
 
 ## Cấu hình local và tiện ích Windows
 

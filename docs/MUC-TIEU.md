@@ -14,6 +14,8 @@ Một chuyện giả định gần đời sống, có tò mò, đối đầu và
 - Dùng hình minh họa, chuyển động chọn lọc và âm thanh khi chúng kể chuyện tốt. Không mặc định phải tạo video AI liên tục cho mọi giây.
 - Đo phản hồi thật trước khi tăng độ dài, số tập hay chi phí. Một tập khó hiểu cần sửa nguyên nhân, không mặc định thêm lời dẫn hoặc thêm cảnh.
 
+**Định dạng hiện tại:** giữ người dẫn chuyện kết hợp thoại nhân vật. Lời dẫn làm rõ phần thông tin/cảm giác/hệ quả khó nhìn thấy; hình và âm thanh thể hiện hành động, diễn xuất, bối cảnh. Cân đối để tránh kể lặp hình. Việc cải tiến thư viện asset không tự đổi định dạng sang chỉ thoại.
+
 ## Chọn đề tài phù hợp nhất
 
 So sánh đề tài theo: khả năng đồng cảm; câu hỏi đạo đức/cảm xúc; luật và hệ quả; góc tiếp cận riêng; khả năng kể trọn; số nhân vật/bối cảnh/asset mới phải làm. Đừng lấy chủ đề vừa được nhắc gần nhất làm mặc định. Zombie và tận thế chỉ là những lựa chọn có thể cân nhắc.
