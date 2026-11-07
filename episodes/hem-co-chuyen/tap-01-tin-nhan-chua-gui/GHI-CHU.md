@@ -1,5 +1,13 @@
 # Ghi chú riêng — tập 01
 
+## Bản 8 — khung hình, rung và nghiêng có chọn lọc — 08/11/2026
+
+Chủ repo yêu cầu thêm đúng chỗ, tránh làm hỏng cảnh. Quyết định biên tập: thực tại 16:9; toàn miền cánh đồng C6–C7 2:1 để giữ đủ mặt/tay ba người; đổi sau lớp trắng và cắt về 16:9 ở C8-A. Chỉ C5-C có roll tối đa +2°, rung x≤2/y≤1 px trong 1,6 giây thuộc khoảng nghỉ 2 giây sẵn có, về 0 trước C5-D. Máy ở cảnh Lộc gắt, ký giấy, nhận giá và mẹ tan vẫn ổn định; có thể bỏ hiệu ứng nếu animatic không chứng minh giá trị.
+
+Đã bổ sung vào từng cue nguồn và DUNG-CANH, thay quy ước cũ “tất cả roll/rung 0”; đồng bộ kế hoạch, asset, README/mục lục và bài học dùng chung. Lời đọc/ELEVENLABS giữ nguyên byte; 1.916 đơn vị, 8.602 ký tự, 29 giây nghỉ, mở đầu 24 giây và ước tính 10:42–12:55 không đổi. Không sửa mã dựng, không gọi media hoặc khởi chạy Claude.
+
+Nhận tiếp asset ngõ `85c11af` và `279dae2` trên các bản `0624c64`/`301c816`; giữ mã/ảnh mới, bỏ chỉ dẫn phục hồi người qua đường/đèn đường phía trên. Preview trong assets/stills là bản mở đầu mới; preview cùng tên trong assets/boi-canh là bản cũ. Chưa xem/nghe hoặc duyệt animatic toàn tập hay hiệu ứng bản 8. Các mục dưới là lịch sử.
+
 ## Bản 7 — thoại, gia đình và ba lần đổi — 07/11/2026
 
 Theo chuỗi phản hồi mới: Lộc gắt/mỉa mai, gọi mày/chúng mày và tự xưng tao; quay về làm tiếp đồng hồ trước khi gợi giá khác/cười nham hiểm. Duy cầm giúp hai tờ rồi đưa lại cho em, không thanh toán. Bố say/chửi/từng đánh hai con; mẹ luôn che con dù bị quát, bố vẫn khuất hình. Không chốt mới nguyên nhân mẹ mất.

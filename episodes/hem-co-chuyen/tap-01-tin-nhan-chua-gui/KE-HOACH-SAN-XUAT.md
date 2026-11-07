@@ -5,16 +5,16 @@
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng **kịch bản bản 7**, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
+Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kịch bản bản 8**, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
 
 ## Phạm vi và điều đã chốt
 
 - Một tập kể trọn ba giao kèo và lời từ biệt. **Ước tính 10:42–12:55**, chưa có audio để đo. Mục tiêu 6–8 phút của kênh là mặc định thử nghiệm; tập này dài hơn do mở rộng đã yêu cầu. Không đọc nhanh hoặc tự chia cảnh mẹ sang tập sau chỉ để khớp định mức.
 - **Duy anh trai 16, Thảo em gái 8**; cả hai gọi Lộc là **ông**, xưng **cháu**; Lộc tự xưng **tao**, gọi trẻ **mày/chúng mày**. Anh che chở nhưng cũng nhớ mẹ; em có hành động và lựa chọn riêng. Lộc lạnh, nguy hiểm, không đổi sang ông hiền.
 - G1 Duy mất ký ức buổi tranh đồ chơi, mẹ dỗ rồi hai anh em làm hòa để sửa máy; G2 Duy nhận thêm phần trống vắng của em; G3 Thảo mất những giấc mơ về mẹ để cả hai có một cuộc gặp. Giá được báo trước, không hoàn sau cuộc gặp. Duy chậm vì đã kiệt sức khi em nhận G3.
-- Mở đầu **24 giây không lời**: thành phố/trời sao/chữ → hạ tới cú → nét mắt → lùi lộ hẻm/nhà/bóng người/tiệm → chuyển sang hai trẻ trước cửa → bước vào. Chữ là lớp riêng; cú không tự có vai phép thuật.
+- Mở đầu **24 giây không lời**: thành phố/trời sao/chữ → hạ tới cú → nét mắt → lùi lộ hẻm/nhà/tiệm → chuyển sang hai trẻ trước cửa → bước vào. Chữ là lớp riêng; cú không tự có vai phép thuật.
 - Bốn nhóm không gian: thành phố–hẻm ngoài tiệm, nội tiệm, cánh đồng chủ quan, ngưỡng nhà. Mẹ hiện hình trong G3; bố qua bóng/âm khuất, dì qua lời kể. Chưa cần dựng nội nhà dì hoặc hồi tưởng riêng của bố.
-- **9 phần cảnh, 35 cue thiết lập**; cue không bằng số ảnh mới, lượt gọi dịch vụ hoặc số lần cắt. Giữ lens/focus/pose theo DUNG-CANH, roll 0°, rung 0 px/0°. Thông số lens là ý đồ bố cục, chưa phải camera quang học đã triển khai.
+- **9 phần cảnh, 35 cue thiết lập**; cue không bằng số ảnh mới, lượt gọi dịch vụ hoặc số lần cắt. Giữ lens/focus/pose theo DUNG-CANH; mặc định 16:9, roll 0°, rung 0 px; C5-C có rung/nghiêng ngắn và C6–C7 dùng 2:1 như nguồn bản 8. Thông số lens là ý đồ bố cục, chưa phải camera quang học đã triển khai.
 
 ## Thứ tự thực hiện và điều kiện chuyển bước
 
@@ -34,7 +34,7 @@ Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng *
 | Nhóm | Chuẩn bị vừa đủ | Cách dùng lại / giới hạn |
 |---|---|---|
 | Nhân vật | Đã có concept và mẫu SVG Duy/Thảo/Lộc/mẹ; đối chiếu thiết kế đã chốt, duyệt pose theo hành động thay vì một ảnh mỗi câu | Giữ trang phục/tỷ lệ giữa các góc. Không cần mặt bố, dì hoặc người nền chi tiết |
-| Thành phố–hẻm–cú | Toàn trời/skyline; lớp hẻm/cửa/mái-thanh; cú trung/toàn và cận đầu/mắt khớp; 2–3 bóng người; chữ riêng | C0 cần nhiều cỡ hình khớp, không phóng một ảnh toàn thành cận mắt. Dùng mái che điểm ghép; chỉ vẽ vùng máy sẽ lộ |
+| Thành phố–hẻm–cú | Toàn trời/skyline; lớp hẻm/cửa/mái-thanh; cú trung/toàn và cận đầu/mắt khớp; ngõ mới không có bóng người qua đường; chữ riêng | C0 cần nhiều cỡ hình khớp, không phóng một ảnh toàn thành cận mắt. Dùng mái che điểm ghép; chỉ vẽ vùng máy sẽ lộ |
 | Tiệm | Một sơ đồ cố định, góc chung/cận dùng lại, insert máy/tiền/ảnh/giấy theo trạng thái | Phần lớn C1–C5 và C8 dùng cùng set. Chỉ đổi pose, ánh G2 và trạng thái đạo cụ; giữ cửa đông khớp ngoại cảnh |
 | Cánh đồng | Bờ đất/cỏ gần, nhóm người giữa, ruộng/trời xa; góc đi và ngồi đủ dùng | C6–C7 chung set/trục; chuyển động cần thiết là đi/nắm tay/ngồi/ôm/tan, không thêm quay vòng phức tạp |
 | Ngưỡng nhà | Một khu vực cửa đủ thấy dấu vết đời sống và nghe bố sau vách | Không dựng toàn căn nhà hoặc nhà dì; tái dùng lớp hẻm nếu góc thực sự khớp |
@@ -46,11 +46,11 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 
 | Phần | Điều cần nhìn thấy khi chạy |
 |---|---|
-| C0 → C1 | Đường máy đủ 24 giây, điểm ghép mái/mắt không nhảy; cú bám thanh, bóng người đi đúng đất không chắn trẻ, bước qua cửa nối đúng trục rồi mới với đồng hồ |
+| C0 → C1 | Đường máy đủ 24 giây, điểm ghép mái/mắt không nhảy; cú bám thanh, giữ ngõ trống đúng asset mới, bước qua cửa nối đúng trục rồi mới với đồng hồ |
 | C1–C4 / G1 | Lộc gắt/mỉa mai, Thảo ứa nước mắt; Lộc về bàn sau làm tiếp đồng hồ rồi trở lại quầy; Duy đưa lại tiền em; đặt–thả máy, cất tiền, lấy/cất ảnh, cầm/đặt bút, ký/tách giấy; vỏ máy trước/sau sửa khớp; ký ức mất không phải quên thân phận |
-| C5 / G2 → G3 | Duy nhận sau lời báo giá; hơi ấm qua rồi kiệt rõ; còn thấy anh cố phản ứng trong lúc Lộc báo G3; em nhận trọn trước câu ngăn; trắng/ù đúng một lần |
-| C6–C7 | Nắm tay đúng bên, bước có mặt đất, nhả/chuyển tay khi ngồi và ôm; mẹ/áo/bóng cùng tan; khoảng trống còn lại là dụng ý, không lỗi pose |
-| C8 | Về đúng ghế/tay ở tiệm, đủ ba liên khách, đồ được cất thật; bố khuất, cuộc gọi dì và đi khỏi cửa; các giá còn hiệu lực |
+| C5 / G2 → G3 | Rung/nghiêng C5-C nằm trong nghỉ sẵn có và về 0 trước C5-D; Duy nhận sau lời báo giá; hơi ấm qua rồi kiệt rõ; còn thấy anh cố phản ứng trong lúc Lộc báo G3; em nhận trọn trước câu ngăn; trắng/ù đúng một lần |
+| C6–C7 | Giữ 2:1, roll/rung 0; mặt/tay/điểm tì đủ trong vùng hình; nắm tay đúng bên, bước có mặt đất, nhả/chuyển tay khi ngồi và ôm; mẹ/áo/bóng cùng tan; khoảng trống còn lại là dụng ý, không lỗi pose |
+| C8 | Về 16:9 ngay cú cắt, đúng ghế/tay ở tiệm, đủ ba liên khách, đồ được cất thật; bố khuất, cuộc gọi dì và đi khỏi cửa; các giá còn hiệu lực |
 
 ## Quản lý chi phí và thay đổi
 

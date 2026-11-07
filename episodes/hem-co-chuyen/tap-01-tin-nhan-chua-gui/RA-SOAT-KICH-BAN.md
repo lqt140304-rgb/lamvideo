@@ -1,10 +1,14 @@
-# Rà soát kịch bản — bản 7
+# Rà soát kịch bản — bản 8
 
 Ngày 07/11/2026. Đọc theo [kịch bản nguồn](KICH-BAN.md), [dựng cảnh](DUNG-CANH.md), bản lời và lựa chọn giữ người dẫn chuyện. Đây là đánh giá biên tập văn bản; chưa đo nhịp bằng giọng/animatic thật.
 
 ## Kết luận
 
 Nền truyện đủ để sang storyboard: anh giấu nhớ → cố gánh thay → em chủ động trả giá → cuộc gặp không hoàn mất mát → anh biết nhờ người lớn. Ba giao kèo và nơi hai trẻ đến đêm đó được khép lại. Cảnh đời thường ở đồng tạo độ ấm trước chia tay; không nên tăng thêm bi kịch, giao kèo hay nhân vật chỉ để gây sốc.
+
+## Bổ sung hình bản 8 — 08/11/2026
+
+Giữ toàn bộ lời bản 7. Mỗi cue có tỉ lệ/roll/rung để không suy diễn hiệu ứng chung. Chọn 2:1 vừa đủ cho miền cánh đồng, đổi sau lớp trắng G3 và trở lại 16:9 ở cú cắt về tiệm. Chỉ C5-C được rung/nghiêng ngắn trong khoảng nghỉ có sẵn; các đoạn đe dọa, ký, nhận giá và mẹ tan vẫn ổn định. Loại hiệu ứng nếu nó che tay/mặt hoặc không giúp đọc diễn xuất. Chưa render/duyệt camera mới. Giữ cập nhật ngõ hiện hành, bỏ yêu cầu phục hồi bóng người đã bị xóa trong asset.
 
 ## Biên tập bản 7 theo phản hồi
 

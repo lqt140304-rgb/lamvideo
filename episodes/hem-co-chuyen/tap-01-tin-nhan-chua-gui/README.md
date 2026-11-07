@@ -5,7 +5,7 @@
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-**Bản hiện hành: 7, 07/11/2026.** Mở đầu 24 giây không lời theo phác thảo: thành phố/trời sao và tiêu đề → hạ tới mắt cú → lùi lộ hẻm/người bóng/tiệm → chuyển sang hai trẻ trước cửa và bước vào. Đúng 3 giao kèo: G1 Duy đổi ký ức tranh đồ chơi rồi được mẹ dỗ làm hòa để sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
+**Bản hiện hành: 8, 08/11/2026.** Chỉ dẫn hình mới: 16:9 ở thực tại, 2:1 suốt cánh đồng, rung/nghiêng ngắn chỉ tại C5-C; lời giữ bản 7. Mở đầu 24 giây không lời theo phác thảo: thành phố/trời sao và tiêu đề → hạ tới mắt cú → lùi lộ hẻm/tiệm → chuyển sang hai trẻ trước cửa và bước vào. Đúng 3 giao kèo: G1 Duy đổi ký ức tranh đồ chơi rồi được mẹ dỗ làm hòa để sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
@@ -13,7 +13,7 @@
 |---|---|
 | [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md) | Kế hoạch tối ưu, bước duyệt, nhóm asset dùng lại, đoạn cần thử và bảng đồng bộ |
 | [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, C0 + 8 cảnh chính, nhịp nghỉ, hình và thoại |
-| [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/bóng người và mẹ hiện hình, 35 cue, lens/focus/pose/tiếp xúc, trắng-ù/âm thanh và duyệt |
+| [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/ngõ mới và mẹ hiện hình, 35 cue, khung/nghiêng/rung, lens/focus/pose/tiếp xúc, trắng-ù/âm thanh và duyệt |
 | [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch từ nguồn |
 | [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời với thẻ gợi ý, không tự phân vai hoặc bảo đảm thời gian nghỉ |
 | [ASSET.md](ASSET.md) | Concept có thật và phần mới thành phố/hẻm/cú/chữ, mẹ/ruộng/pose/giọng/phiếu cần tạo |
@@ -24,6 +24,6 @@
 
 Lời sạch 1,916 đơn vị tách khoảng trắng, 8,602 ký tự gồm xuống dòng; 29 giây nghỉ riêng đã gồm trắng-ù/đi dạo, cộng 24 giây mở đầu không lời. Ước tính 10:42–12:55 phút với giả định trong nguồn, chưa đo audio/credits. Không giữ ước tính ngắn của bản 3 khi đã thêm hai giao kèo.
 
-Bốn vai có hình chi tiết, thêm cú và người qua đường dạng bóng; bốn nhóm không gian: thành phố-hẻm/nội tiệm/miền cánh đồng/ngưỡng nhà. Đã có mã SVG/rig, các ảnh preview và 10 still ở commit cd7243c; xem ASSET để đối chiếu nội dung. Chưa có giọng, storyboard/animatic đủ bản nguồn hoặc phim hoàn chỉnh đã duyệt. Duyệt văn/concept → storyboard → animatic có tương tác và âm tạm → hoàn thiện; không bỏ animatic hoặc tự tạo giọng trả phí để duyệt hình.
+Bốn vai có hình chi tiết, thêm cú, ngõ mới không có bóng người qua đường; bốn nhóm không gian: thành phố-hẻm/nội tiệm/miền cánh đồng/ngưỡng nhà. Đã có mã SVG/rig, các ảnh preview và 10 still ở commit cd7243c; xem ASSET để đối chiếu nội dung. Chưa có giọng, storyboard/animatic đủ bản nguồn hoặc phim hoàn chỉnh đã duyệt. Duyệt văn/concept → storyboard → animatic có tương tác và âm tạm → hoàn thiện; không bỏ animatic hoặc tự tạo giọng trả phí để duyệt hình.
 
 Slug hồ sơ giữ `tap-01-tin-nhan-chua-gui`. Bộ thử của Antigravity dùng alias kỹ thuật **`tin-nhan-chua-gui`**: [mã tập](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/), [media](../../../what-if-studio/public/tin-nhan-chua-gui/); output local khi phát sinh ở `what-if-studio/out/tin-nhan-chua-gui/`. Tiếp tục dùng alias này và ghi ánh xạ, tránh tạo tập trùng chỉ vì khác tiền tố. Không tự chia cắt lời mẹ thành tập sau để đủ thời lượng.

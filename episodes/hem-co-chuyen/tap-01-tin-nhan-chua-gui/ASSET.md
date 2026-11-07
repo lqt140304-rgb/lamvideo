@@ -1,4 +1,4 @@
-# Asset — Tin nhắn chưa gửi, bản 7
+# Asset — Tin nhắn chưa gửi, bản 8
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
@@ -26,7 +26,7 @@ Nguồn lời [KICH-BAN.md](KICH-BAN.md); mục tiêu dựng [DUNG-CANH.md](DUNG
 | [stills/film_c0a_title.png](assets/stills/film_c0a_title.png) | Still HD | C0-A: Bầu trời sao thành phố & tựa phim "Tin Nhắn Chưa Gửi" |
 | [stills/film_c0c_owl.png](assets/stills/film_c0c_owl.png) | Still HD | Mã thử C0-C: cận mắt cú phản chiếu đèn; 85mm là ý đồ bố cục |
 | [stills/film_c0d_alley_wide.png](assets/stills/film_c0d_alley_wide.png) | Still HD | C0-D: Toàn cảnh ngõ cụt ban đêm, cú trên mái hiên, mèo trên bờ tường rêu |
-| [stills/film_c0e_alley.png](assets/stills/film_c0e_alley.png) | Still HD | C0-E: Duy & Thảo trước tiệm ông Lộc dưới quầng sáng đèn đường |
+| [stills/film_c0e_alley.png](assets/stills/film_c0e_alley.png) | Still HD | C0-E: Duy & Thảo trước tiệm ông Lộc; ngõ/ánh sáng theo bản cập nhật mới |
 | [stills/film_c1a_shop.png](assets/stills/film_c1a_shop.png) | Still HD | C1-A: Duy & Thảo bước vào tiệm sửa đồng hồ của ông Lộc |
 | [stills/film_c4a_phone.png](assets/stills/film_c4a_phone.png) | Still HD | C4-A: Chiếc điện thoại nứt màn hình & biên nhận ký ức |
 | [stills/film_c5b_exhausted.png](assets/stills/film_c5b_exhausted.png) | Still HD | Mã thử C5-B: Duy kiệt sức sau G2; tên cue của mã thử khác nguồn DUNG-CANH |
@@ -43,8 +43,8 @@ Nguồn lời [KICH-BAN.md](KICH-BAN.md); mục tiêu dựng [DUNG-CANH.md](DUNG
 | CHAR-ME | Khoảng 38–42, áo vải đất sáng, tóc buộc thấp, ấm áp đời thường | Có rig và khung thử; chờ duyệt theo cảnh | [`rig.tsx`](../../../what-if-studio/src/engine/rig.tsx), `assets/stills/film_c6b_walking.png` |
 | CHAR-BO-SHADOW | Người bố chỉ xuất hiện dạng hình bóng sau vách + tiếng chai lăn | Có SVG và khung thử; chờ duyệt theo cảnh | [`FatherSilhouette`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L1318), `preview_mother_house.png` |
 | SET-CITY-SKY | Bầu trời đêm thành phố, skyline nhà ống bồn inox, chữ tựa phim C0-A | Có SVG và khung thử; chờ duyệt theo cảnh | [`StarryCitySkyline`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2210), `film_c0a_title.png` |
-| SET-HEM-EXT | Ngõ cụt bí bách, mảnh chai, rêu, cửa sắt khóa, đèn đường, quầng sáng thể tích | Có SVG và khung thử; chờ duyệt theo cảnh | [`AlleyExteriorScene`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2442), `film_c0e_alley.png` |
-| ANIMAL-CU | Cú đậu mái hiên và cận cảnh mắt cú 85mm phản quang đèn đường | Có SVG và khung thử; chờ duyệt theo cảnh | [`PerchingOwl`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2035), [`OwlEyeMacro`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2140), `film_c0c_owl.png` |
+| SET-HEM-EXT | Ngõ cụt, mặt nhà Việt, cửa tiệm có chiều sâu; ánh sáng theo set mới, không đèn đường phía trên/người qua đường | Có SVG và khung thử; chờ duyệt theo cảnh | [`AlleyExteriorScene`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2442), `film_c0e_alley.png` |
+| ANIMAL-CU | Cú đậu mái hiên và cận cảnh mắt cú 85mm phản chiếu ánh đèn | Có SVG và khung thử; chờ duyệt theo cảnh | [`PerchingOwl`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2035), [`OwlEyeMacro`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2140), `film_c0c_owl.png` |
 | ANIMAL-MEO | Mèo đen than mun nằm trên bờ tường ngõ cụt, mắt hổ phách tapetum | Có SVG và khung thử; chờ duyệt theo cảnh | [`Cat`](../../../what-if-studio/src/engine/props.tsx#L6), `film_c0d_alley_wide.png` |
 | SET-TIEM | Quầy gỗ, kệ đồng hồ, cửa sắt kéo, đèn bàn thợ sửa, ánh vàng hổ phách | Có SVG và khung thử; chờ duyệt theo cảnh | [`OngLocShop`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L905), `preview_ong_loc_shop.png` |
 | SET-CANHDONG | Bờ đất bằng, ruộng lúa chín vàng gió lay, cỏ khô ngồi ngắm hoàng hôn | Có SVG và khung thử; chờ duyệt theo cảnh | [`SunsetRiceField`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2820), `preview_meadow_g3.png` |
@@ -81,3 +81,11 @@ Bản 7 đổi chữ G1 sang buổi tranh xe đồ chơi rồi được mẹ d�
 ## Bản nâng cấp ánh sáng nhận trong lượt đồng bộ bản 7
 
 Đã nhận tiếp commit `8b95931` của Antigravity: sửa ánh sáng/độ chuyển tối/viền sáng/bụi trong mã thử; cập nhật hai still C0-D, C0-E và thêm [bảng mở đầu](assets/stills/preview_opening_c0.png), kèm bản sao public. Bộ thử vẫn có 10 file `film_*.png`; bảng preview mới là ảnh bổ sung. Việc nhận mã/ảnh không đồng nghĩa diễn xuất và lời thoại bản 7 đã được dựng hoặc duyệt. Lượt biên tập này chưa xem/nghe lại bản chuyển động ánh sáng mới.
+
+## Khung/máy bản 8 và ngõ hiện hành — 08/11/2026
+
+Đã nhận các cập nhật ngõ `0624c64`, `301c816` và `85c11af`: mặt nhà/tiệm và ánh sáng mới; bỏ đèn đường phía trên và bóng người qua đường; đổi cụm trang trí cuối ngõ sang chữ cảnh báo/túi rác. Giữ nguyên mã/ảnh các commit này. Bảng mở đầu hiện hành là `assets/stills/preview_opening_c0.png`; bản cùng tên ở `assets/boi-canh/` là preview cũ để đối chiếu, không lấy làm chuẩn ngõ mới.
+
+Kịch bản bản 8 bổ sung 16:9 cho thực tại, 2:1 cho C6–C7 và đoạn rung/nghiêng ngắn C5-C; chưa triển khai các chỉ dẫn này vào mã thử. Cần bố cục lại trong vùng hình, chừa nền theo góc xoay cực hạn và kiểm tra tiếp xúc. Không cần tạo thêm nhân vật/bối cảnh chỉ để đổi tỉ lệ hoặc rung; không hoàn thiện lại ngõ, tạo giọng hay xuất phim trong lượt sửa tài liệu này.
+
+Nhận tiếp `279dae2` trong lúc bàn giao tài liệu: thu hẹp ngõ, bổ sung thùng rác xanh, ruồi và xe đạp có lớp/khối; cập nhật ba ảnh mở đầu và bản sao public. Giữ bản ngõ này khi ráp C0, không kéo dãn chiều ngang ngõ để khớp tỉ lệ xuất. Việc nhận cập nhật không xác nhận cảnh đã chạy cùng camera/lời bản 8. Các sửa đổi mã/asset khác còn đang làm local thuộc công việc riêng, không nằm trong commit tài liệu này.

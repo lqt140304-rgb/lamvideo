@@ -38,6 +38,8 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 
 ## Góc máy điện ảnh và chiều sâu 2.5D
 
+- **Khung và máy gây phân tâm → đổi tỉ lệ/rung/nghiêng theo mọi câu thoại →** chọn một khung nền, ghi rõ ngoại lệ theo bước ngoặt và giữ khung ổn định trong cùng trường đoạn. Mỗi hiệu ứng phải có mục đích, đơn vị, điểm vào/ra; chốt vùng hình trong container xuất cố định, không kéo dãn người hoặc coi thêm dải đen là nới trường nhìn. Chuyển camera/nhóm thế giới đã gắn đúng tiếp xúc, tách chữ/viền khung khỏi rung; chừa nền theo chuyển động cực hạn. **Kiểm tra:** mặt/tay/điểm tì vẫn rõ, không tăng thời lượng trùng khoảng nghỉ; nếu bản chạy không giúp đọc câu chuyện, giảm hoặc bỏ hiệu ứng. Mức thử riêng của tập không thành định mức chung.
+
 Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và đề xuất áp dụng, **chưa phải kết quả dựng thử trong studio**. Xem [hướng dẫn chi tiết, mẫu shot và nguồn](NGON-NGU-DIEN-ANH-2-5D.md). Giữ ví dụ, bảng tham khảo và ghi chú nghiên cứu ở tài liệu đó; chỉ lưu nguyên tắc dùng lại được tại đây.
 
 - **Hình bị phẳng → các lớp giữ nguyên tương quan →** thiết kế tiền cảnh, lớp hành động và hậu cảnh; cho chúng dịch chuyển theo độ sâu khi máy di chuyển ngang. Phóng to toàn khung không tự tạo parallax. **Kiểm tra:** đầu–giữa–cuối cú máy có thay đổi che khuất hợp lý, không lộ phần nền chưa vẽ hoặc khiến vật tách khỏi tay.
