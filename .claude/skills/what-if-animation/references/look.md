@@ -85,6 +85,12 @@ again. Only a board that passes goes to animation.
 
 ## The motion check (step 6)
 
+**Current lamvideo review:** approve still storyboards, then watch a moving animatic with temporary
+audio before final polish. Run the planned hand/prop contacts, support changes and occlusions;
+panning a single still does not test them. Frame grids below are inspection aids, not a replacement
+for watching motion and the assembled sequence. Use preview assets and local renders where possible;
+paid voice generation is not required for visual approval. See the [current workflow](../../../../docs/WHAT-IF-QUY-TRINH.md).
+
 Pull frame grids of every action shot with `motiongrid.py` and read them like a flipbook.
 
 - Anticipation before a big move (a crouch before a step, a wind-up before a grab), a hold of 2 frames on the beat

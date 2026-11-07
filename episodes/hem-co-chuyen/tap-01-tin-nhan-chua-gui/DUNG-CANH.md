@@ -1,5 +1,7 @@
 # Tin nhắn chưa gửi — dựng cảnh bản 5
 
+Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
+
 07/11/2026. Thêm C0 theo hai phác thảo chủ repo: thành phố/trời sao/tiêu đề → mắt cú → hẻm/tiệm/người dạng bóng → hai trẻ trước cửa. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là ý đồ để làm storyboard/animatic, chưa có render, giọng hoặc chuyển động thực. Mặt Lộc đã chốt, concept trẻ v4 chờ duyệt; mẹ/cánh đồng chưa tạo.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.

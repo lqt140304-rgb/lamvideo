@@ -75,3 +75,9 @@ Trước khi hoàn thiện âm thanh, lập bảng cue trong hồ sơ tập: nh�
 ## 6. Giao và cập nhật repo
 
 Giao đúng bản đã kiểm tra, nêu thời lượng đo được hay ước tính, phạm vi hoàn thành và chi phí thực nếu có. Cập nhật trạng thái ở hồ sơ tập. Chỉ đẩy file đã được yêu cầu/ủy quyền, kiểm tra diff, giới hạn đường dẫn theo tập và các mục lục liên quan. Giữ kinh nghiệm chung ở mức nguyên tắc; giữ lịch sử sửa, chi phí và phản hồi cụ thể bên trong tập.
+
+### Kiểm tra đồng bộ trước khi giao
+
+Khi tập có nhiều đầu ra, lưu `KE-HOACH-SAN-XUAT.md` trong hồ sơ tập: bản nguồn, bước thực hiện/điểm duyệt, asset dùng lại, đoạn rủi ro và trạng thái thực. Kế hoạch không tự cho phép gọi dịch vụ hoặc tạo media ngoài nhiệm vụ.
+
+Sau thay đổi, rà chuỗi **KICH-BAN → DUNG-CANH → LOI-DOC/ELEVENLABS → ASSET/README/kế hoạch → mục lục liên quan**. Đối chiếu toàn bộ lời được đọc sau bỏ thẻ diễn xuất; kiểm tra tuổi/vai/xưng hô trong thoại, luật, cue, đường dẫn và số liệu thời lượng. Nếu có mã/audio/timeline thì kiểm tra thêm các đầu ra phụ thuộc; file chưa tồn tại ghi rõ chưa tạo. Đánh dấu bản cũ là lịch sử, không sửa snapshot để giả đồng bộ. Chỉ ghi đã cập nhật GitHub sau khi push và kiểm tra nhánh từ xa khớp commit local.

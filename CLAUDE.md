@@ -21,6 +21,7 @@ Repo này dành cho nội dung What If. Đọc [mục tiêu](docs/MUC-TIEU.md), 
 - Công cụ giọng cũ có cắt ngắn khoảng lặng, ElevenLabs backend cũ tổng hợp cả bài bằng một giọng. Không đưa thẳng kịch bản nhiều vai vào đó rồi báo đã giữ cảm xúc/phân vai.
 - Tái sử dụng phần đã đạt, sửa đúng đoạn bị ảnh hưởng; ghi chi phí thực tế theo từng tập. Không gọi token, ký tự và credits là cùng một đơn vị; không hứa số video từ quota chưa đo.
 - Khi nghiên cứu, đọc quy trình nguồn trong skill What If. Không nhận đã xem video nếu chỉ có transcript hoặc tiêu đề. Phân biệt dữ kiện, suy luận và sáng tác.
+- Trước khi bàn giao, rà chuỗi bản nguồn → dựng cảnh → lời sạch/bản ElevenLabs → asset/README/kế hoạch → mục lục liên quan theo [quy trình đồng bộ](docs/WHAT-IF-QUY-TRINH.md#kiểm-tra-đồng-bộ-trước-khi-giao). Nếu có mã/audio/timeline, kiểm tra thêm đầu ra phụ thuộc; ghi rõ chưa tạo thay vì báo đã đồng bộ media.
 
 ## Môi trường
 

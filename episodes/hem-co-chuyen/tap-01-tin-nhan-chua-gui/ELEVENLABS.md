@@ -204,9 +204,9 @@ Duy nhìn em. “Sao em nhận nhanh vậy?”
 
 Con bé ngập ngừng.
 
-“Vậy là từ nay con ngủ, con không gặp mẹ nữa hả ông?”
+“Vậy là từ nay cháu ngủ, cháu không gặp mẹ nữa hả ông?”
 
-Ông Lộc gật. Không trả giá nào biến mất cùng cánh đồng.
+Ông Lộc gật. Không cái giá nào biến mất cùng cánh đồng.
 
 Duy kéo em gần. Cậu không trách em, cũng không bảo mình hết mệt rồi. Cậu cất ba tờ giấy, cầm máy, đưa em về.
 

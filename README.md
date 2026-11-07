@@ -32,6 +32,7 @@ Sau mỗi công việc, hãy rà lại xem có rút ra kinh nghiệm giúp nâng
 docs/                         mục tiêu, kinh nghiệm, mục lục dùng chung
 episodes/<series>/<slug-tap>/  hồ sơ riêng của từng tập
   README.md                   trạng thái, phạm vi, các bản nguồn
+  KE-HOACH-SAN-XUAT.md        bước làm, điểm duyệt, tái sử dụng và kiểm tra đồng bộ
   KICH-BAN.md                 bản dựng có cảnh, thoại, camera, khoảng nghỉ
   LOI-DOC.md                  lời đọc sạch
   ELEVENLABS.md               lời đọc có hướng diễn xuất để thử
@@ -42,6 +43,8 @@ what-if-studio/               studio Remotion, engine, thư viện và tập m�
 ```
 
 Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tương ứng khi phát sinh. Không tạo hàng loạt file rỗng. Kinh nghiệm chung không chứa cốt truyện riêng của tập.
+
+**Đang làm:** [kế hoạch tối ưu Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) — bản 5, chờ duyệt thiết kế rồi storyboard → animatic; chưa có video.
 
 Hồ sơ đã sắp xếp: [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 
@@ -66,6 +69,7 @@ Các tên dưới đây tính từ `episodes/<series>/<slug-tap>/`. Chỉ tạo 
 | File / thư mục | Tác dụng | Nội dung thuộc riêng tập |
 |---|---|---|
 | `README.md` | Điểm bắt đầu của tập: tình trạng hiện tại, phạm vi, bản nguồn và bước còn thiếu | Tập nào, bao nhiêu vai/bối cảnh, đã có văn bản hay media, bản nào đang dùng |
+| `KE-HOACH-SAN-XUAT.md` khi cần | Kế hoạch thực hiện và kiểm soát lượt sửa | Bản nguồn đang áp dụng, thứ tự làm/duyệt, nhóm asset dùng lại, cảnh rủi ro, kiểm tra đồng bộ và phần chưa sản xuất |
 | `KICH-BAN.md` | Nguồn biên tập của câu chuyện và bản dựng | Luật thế giới, vai trò nhân vật, cảnh, hành động, thoại, camera/lens/rung/focus, âm thanh và khoảng nghỉ |
 | `DUNG-CANH.md` khi cần | Triển khai hình/âm chi tiết theo cue của kịch bản nguồn | Sơ đồ phòng, vị trí máy/lens, tư thế, đường đi đạo cụ, lớp gần–xa, âm thanh và điểm cần duyệt ở storyboard/animatic; không tạo bản thoại độc lập |
 | `LOI-DOC.md` | Lời sạch dùng để đọc thử hoặc chuẩn bị TTS | Chỉ phần được đọc; không có tên shot, chỉ dẫn quay hoặc `[NGHỈ ...]` |

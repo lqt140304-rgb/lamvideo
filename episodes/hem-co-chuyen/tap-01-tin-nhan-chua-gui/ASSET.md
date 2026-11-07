@@ -1,5 +1,7 @@
 # Asset — Tin nhắn chưa gửi, bản 5
 
+Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
+
 07/11/2026. Đã có concept nhân vật hiện hành v4 (v2 giữ để đối chiếu mặt Lộc), mặt Lộc đã được chủ repo chốt, hai trẻ vừa sửa còn chờ duyệt. Chưa có hình hẻm/nội thất, asset tách lớp, rig, audio, storyboard, animatic hoặc video. Nguồn lời [KICH-BAN.md](KICH-BAN.md); sơ đồ và cue [DUNG-CANH.md](DUNG-CANH.md).
 
 ## File đã có

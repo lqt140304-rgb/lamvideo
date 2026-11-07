@@ -1,5 +1,7 @@
 # HẺM CÓ CHUYỆN — Tập thử 01: TIN NHẮN CHƯA GỬI
 
+Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
+
 > Bản 5 — 07/11/2026. Thêm mở đầu thành phố/trời sao → cú → hẻm → hai anh em trước cửa tiệm. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
@@ -42,7 +44,7 @@ Mất mẹ, bố say và bỏ bê khiến Duy 16 cố mạnh để bảo vệ Th
 
 Giữ chất đời thường, nén rồi bung cảm xúc; ba lần tăng giá chứ không ba lần kể lại cùng một cơ chế. Duy suy sụp ở G2 mới chậm phản ứng G3. Trắng/ù chỉ đúng giao kèo cuối, sau đó nhịp nhẹ và ấm ở đồng, có chuyện vui nhỏ trước lời gửi gắm. Mẹ tan phải có dư âm; trở về vẫn cần giải pháp thực tế cho đêm bố say.
 
-Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,711 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:26–10:09 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
+Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,713 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:26–10:09 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
 
 9 phần cảnh (C0 và C1–C8), 35 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Bốn nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú và người qua đường dạng bóng, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, roll 0°, rung 0 px / 0°; chưa có camera/blur/rig triển khai. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
 
@@ -408,9 +410,9 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > Con bé ngập ngừng.
 
-> “Vậy là từ nay con ngủ, con không gặp mẹ nữa hả ông?”
+> “Vậy là từ nay cháu ngủ, cháu không gặp mẹ nữa hả ông?”
 
-> Ông Lộc gật. Không trả giá nào biến mất cùng cánh đồng.
+> Ông Lộc gật. Không cái giá nào biến mất cùng cánh đồng.
 
 > Duy kéo em gần. Cậu không trách em, cũng không bảo mình hết mệt rồi. Cậu cất ba tờ giấy, cầm máy, đưa em về.
 

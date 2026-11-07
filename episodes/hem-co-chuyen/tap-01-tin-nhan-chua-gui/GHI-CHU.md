@@ -1,5 +1,12 @@
 # Ghi chú riêng — tập 01
 
+## Rà đồng bộ và kế hoạch tối ưu — 07/11/2026
+
+- Thêm [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md): giữ bản 5 và 35 cue; nhóm asset dùng lại, storyboard → animatic thật với âm tạm → hoàn thiện/ElevenLabs → mix/xuất. Thử đoạn rủi ro trước, chưa tạo media hoặc gọi dịch vụ trả phí.
+- Phát hiện câu hỏi cuối Thảo còn xưng “con” với Lộc; sửa thành “cháu” trong nguồn và cả hai bản lời. Sửa câu kể “Không trả giá nào” thành “Không cái giá nào”. Lời vẫn 1,470 đơn vị, ký tự tăng từ 6,711 lên 6,713; ước tính thời lượng không đổi.
+- Rà tuổi/vai/xưng hô, ba giá và người trả, mẹ/cánh đồng, bố/dì, đoạn mở 24 giây, cue, lời đọc, đường dẫn và trạng thái asset; liên kết kế hoạch từ các điểm bắt đầu. Nhắc storyboard → animatic và đối chiếu đầu ra trong skill; bổ sung ở look rằng motion grid không thay xem chuyển động. Phân biệt hướng dẫn hiện hành với ghi chú lịch sử và snapshot mưa.
+- Không coi việc đồng bộ tài liệu là hoàn thành sản xuất. Mẹ/bối cảnh/cú/rig/giọng/storyboard/animatic/video vẫn chưa tạo; trẻ concept v4 chưa được chủ repo chốt.
+
 ## Bản 5 — mở đầu theo phác thảo, 07/11/2026
 
 - Thêm C0 24 giây không lời: toàn thành phố/trời sao đặt tiêu đề, hạ tới cú/nét mắt, lùi lộ hẻm-nhà-tiệm và bóng người, chuyển sang hai trẻ trước cửa, nối bước vào tiệm trước câu “Để xuống”.
@@ -27,4 +34,4 @@ Lộc có mẫu mặt đã chốt; trẻ concept v4 đồ cũ/che chở chờ du
 
 Đếm lại ba giao kèo/đúng người trả và lúc có hiệu lực; đồng bộ source–clean–bản thẻ, cue KICH-BAN/DUNG-CANH (hiện 35), link và số lời/nghỉ; 24 giây mở không lời không nhập TTS. Storyboard kiểm tra nguồn âm/miền cảm giác; animatic phải chạy nhận lời-ngăn muộn, nắm tay đi/ngồi/ôm/tan/trở ghế và cất giấy, không chỉ pan tranh. Chưa có phim để nghe/xem hoặc đo thời lượng thật.
 
-Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai người trưởng thành và tiền viện. Không dùng luật/pose/ước tính đó cho bản 4.
+Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai người trưởng thành và tiền viện. Không dùng luật/pose/ước tính đó cho bản 5 hiện hành.

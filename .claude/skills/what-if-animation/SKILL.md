@@ -31,7 +31,9 @@ Xác định việc đang được yêu cầu: nghiên cứu, viết, sửa, d�
 - Bản dựng ghi bối cảnh, cỡ/góc, lens, chuyển động/rung, focus, âm thanh và khoảng nghỉ. Lời đọc sạch không có chỉ dẫn kỹ thuật; bản ElevenLabs có thẻ diễn xuất nếu model đã chọn hỗ trợ.
 - Ưu tiên ElevenLabs cho nội dung mới, nhưng backend còn mặc định VieNeu: cấu hình engine rõ ràng. Backend ElevenLabs cũ một giọng/toàn bài và tự siết khoảng lặng; không coi nó là công cụ nhiều vai đã sẵn sàng hoặc có cache từng câu.
 - Chốt văn bản trước media, tái dùng phần đã đạt, kiểm tra đúng phần thay đổi. Khi tạo giọng, ghi model/voice/độ dài/chi phí thực trong tập. Không dùng chi phí lịch sử làm báo giá hiện tại.
-- Chỉ báo đã xem, nghe, test hay render khi đã thực hiện. Kiểm tra storyboard thật trước chuyển động; kiểm tra tiếng Việt và audio thật trước giao video.
+- Duyệt hình theo storyboard tĩnh → animatic có chuyển động/tương tác thực và âm tạm theo [quy trình](../../../docs/WHAT-IF-QUY-TRINH.md#duyệt-hình-qua-hai-bước-storyboard--animatic). Motion grid không thay việc xem animatic; chưa cần giọng trả phí để duyệt hình.
+- Trước khi bàn giao, đối chiếu nguồn–dựng cảnh–lời sạch/bản thẻ–asset/README/kế hoạch và mục lục theo [kiểm tra đồng bộ](../../../docs/WHAT-IF-QUY-TRINH.md#kiểm-tra-đồng-bộ-trước-khi-giao); phân biệt bản hiện hành, lịch sử và media chưa tạo.
+- Chỉ báo đã xem, nghe, test hay render khi đã thực hiện; kiểm tra tiếng Việt và audio thật trước giao video.
 
 ## Hạ tầng được giữ lại
 

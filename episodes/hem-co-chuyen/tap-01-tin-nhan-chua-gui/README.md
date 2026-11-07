@@ -6,6 +6,7 @@
 
 | File | Tác dụng |
 |---|---|
+| [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md) | Kế hoạch tối ưu, bước duyệt, nhóm asset dùng lại, đoạn cần thử và bảng đồng bộ |
 | [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, C0 + 8 cảnh chính, nhịp nghỉ, hình và thoại |
 | [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/bóng người và mẹ hiện hình, 35 cue, lens/focus/pose/tiếp xúc, trắng-ù/âm thanh và duyệt |
 | [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch từ nguồn |
@@ -14,7 +15,7 @@
 | [GHI-CHU.md](GHI-CHU.md) | Quyết định, phản hồi, giới hạn và kiểm tra riêng |
 | [Concept nhân vật v4](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Lộc đã chốt mặt, hai trẻ đồ cũ/dáng che chở chờ duyệt; chưa bao gồm mẹ |
 
-Lời sạch 1,470 đơn vị tách khoảng trắng, 6,711 ký tự gồm xuống dòng; 29 giây nghỉ riêng đã gồm trắng-ù/đi dạo, cộng 24 giây mở đầu không lời. Ước tính 8:26–10:09 phút với giả định trong nguồn, chưa đo audio/credits. Không giữ ước tính ngắn của bản 3 khi đã thêm hai giao kèo.
+Lời sạch 1,470 đơn vị tách khoảng trắng, 6,713 ký tự gồm xuống dòng; 29 giây nghỉ riêng đã gồm trắng-ù/đi dạo, cộng 24 giây mở đầu không lời. Ước tính 8:26–10:09 phút với giả định trong nguồn, chưa đo audio/credits. Không giữ ước tính ngắn của bản 3 khi đã thêm hai giao kèo.
 
 Bốn vai có hình chi tiết, thêm cú và người qua đường dạng bóng; bốn nhóm không gian: thành phố-hẻm/nội tiệm/miền cánh đồng/ngưỡng nhà. Chưa tạo thành phố-hẻm/cú/bóng người/tiêu đề, mẹ, ruộng, rig, giọng, storyboard, animatic, video hoặc episode Remotion. Duyệt văn/concept → storyboard → animatic có tương tác và âm tạm → hoàn thiện; không bỏ animatic hoặc tự tạo giọng trả phí để duyệt hình.
 
