@@ -408,7 +408,7 @@ export const LOOKS: Record<CastName, Look> = {
 
 // ---------- the hero ----------
 /** Articulated hand poses: open, pointing, clenched fist, holding a prop, waving, palm up (explaining/asking), pinching (pen/card), or relaxed at rest. */
-export type HandKind = 'open' | 'point' | 'fist' | 'hold' | 'wave' | 'palmUp' | 'pinch' | 'rest';
+export type HandKind = 'open' | 'point' | 'fist' | 'hold' | 'wave' | 'palmUp' | 'pinch' | 'rest' | 'tug' | 'clench';
 
 export type Expr =
   | 'neutral'
@@ -431,7 +431,12 @@ export type Expr =
   | 'sigh'
   | 'thinking'
   | 'surprised'
-  | 'pain';
+  | 'pain'
+  | 'tearsHeldBack'
+  | 'exhaustedClinch'
+  | 'vacantSearch'
+  | 'determinedChild'
+  | 'glanceOverGlasses';
 
 export type Limb = { a: number; b: number }; // a: upper segment angle, b: bend of the lower segment (degrees)
 export type Pose = {
@@ -707,7 +712,11 @@ const Face: React.FC<{
           ? 0.48
           : expr === 'tired' || expr === 'sigh'
             ? 0.58
-            : 0;
+            : expr === 'exhaustedClinch'
+              ? 0.68
+              : expr === 'glanceOverGlasses'
+                ? 0.46
+                : 0;
   const open = Math.max(0.08, 1 - Math.max(blink, lid));
 
   const eye = (cx: number) => {
@@ -810,6 +819,27 @@ const Face: React.FC<{
         ) : null}
         {sadEye ? <path d={`M ${cx - 12 * sg} ${eyeY + 1} Q ${cx} ${eyeY - 4} ${cx + 12 * sg} ${eyeY - 6}`} stroke={ink} strokeWidth={4} strokeLinecap="round" fill="none" /> : null}
         {sharpEye ? <path d={`M ${cx - 12 * sg} ${eyeY - 7} L ${cx + 12 * sg} ${eyeY - 1}`} stroke={ink} strokeWidth={4.2} strokeLinecap="round" fill="none" /> : null}
+        {expr === 'tearsHeldBack' ? (
+          <>
+            <ellipse cx={cx + sg * -4} cy={eyeY + 14} rx={8} ry={4} fill="#F28B82" opacity={0.35} />
+            <circle cx={cx - 3 * sg} cy={eyeY + 8} r={3.2} fill="#B8E4FF" opacity={0.88} />
+          </>
+        ) : null}
+        {expr === 'exhaustedClinch' ? (
+          <>
+            <path d={`M ${cx - 12} ${eyeY + 14} Q ${cx} ${eyeY + 22} ${cx + 12} ${eyeY + 14}`} stroke="#7A688E" strokeWidth={4.8} fill="none" strokeLinecap="round" opacity={0.85} />
+            <ellipse cx={cx + sg * 14} cy={eyeY - 10} rx={2.4} ry={3.6} fill="#A8D4FF" opacity={0.85} />
+          </>
+        ) : null}
+        {expr === 'determinedChild' ? (
+          <>
+            <circle cx={cx - 3 * sg} cy={eyeY + 7} r={2.8} fill="#B8E4FF" opacity={0.75} />
+            <path d={`M ${cx - 12 * sg} ${eyeY - 6} L ${cx + 12 * sg} ${eyeY}`} stroke={ink} strokeWidth={4.4} strokeLinecap="round" fill="none" />
+          </>
+        ) : null}
+        {expr === 'glanceOverGlasses' ? (
+          <path d={`M ${cx - 13} ${eyeY - 3} L ${cx + 13} ${eyeY - 1}`} stroke={ink} strokeWidth={4.5} strokeLinecap="round" fill="none" />
+        ) : null}
         {expr === 'smile' ? (
           <>
             <path d={`M ${cx - 10} ${eyeY + 13} Q ${cx} ${eyeY + 7} ${cx + 10} ${eyeY + 13}`} stroke={ink} strokeWidth={3.2} strokeLinecap="round" fill="none" opacity={0.65} />
@@ -825,7 +855,7 @@ const Face: React.FC<{
         {expr === 'sad' ? <path d={`M ${cx - 4 * sg} ${eyeY + 11} q 3 7 0 11 q -3 -4 0 -11 Z`} fill="#8FD3FF" opacity={0.9} /> : null}
         {lid ? (
           <path
-            d={expr === 'tired' || expr === 'guilty' ? `M ${cx - 13} ${eyeY - 1} Q ${cx} ${eyeY - 5} ${cx + 13} ${eyeY - 1}` : `M ${cx - 12} ${eyeY - 4} L ${cx + 12} ${eyeY - 2}`}
+            d={expr === 'tired' || expr === 'guilty' || expr === 'exhaustedClinch' ? `M ${cx - 13} ${eyeY - 1} Q ${cx} ${eyeY - 5} ${cx + 13} ${eyeY - 1}` : `M ${cx - 12} ${eyeY - 4} L ${cx + 12} ${eyeY - 2}`}
             stroke={ink}
             strokeWidth={4}
             strokeLinecap="round"
@@ -873,6 +903,11 @@ const Face: React.FC<{
     sigh: `M -32 ${eyeY - 18} Q -21 ${eyeY - 22} -11 ${eyeY - 20} M 11 ${eyeY - 20} Q 21 ${eyeY - 22} 32 ${eyeY - 18}`,
     thinking: `M -33 ${eyeY - 20} L -11 ${eyeY - 19} M 11 ${eyeY - 26} Q 22 ${eyeY - 32} 33 ${eyeY - 26}`,
     pain: `M -33 ${eyeY - 25} L -10 ${eyeY - 16} M 10 ${eyeY - 16} L 33 ${eyeY - 25}`,
+    tearsHeldBack: `M -33 ${eyeY - 16} Q -22 ${eyeY - 22} -10 ${eyeY - 26} M 10 ${eyeY - 26} Q 22 ${eyeY - 22} 33 ${eyeY - 16}`,
+    exhaustedClinch: `M -34 ${eyeY - 21} L -9 ${eyeY - 25} M 9 ${eyeY - 25} L 34 ${eyeY - 21}`,
+    vacantSearch: `M -32 ${eyeY - 25} Q -21 ${eyeY - 29} -10 ${eyeY - 24} M 10 ${eyeY - 24} Q 21 ${eyeY - 29} 32 ${eyeY - 25}`,
+    determinedChild: `M -34 ${eyeY - 28} L -9 ${eyeY - 19} M 9 ${eyeY - 19} L 34 ${eyeY - 28}`,
+    glanceOverGlasses: `M -34 ${eyeY - 20} L -10 ${eyeY - 17} M 10 ${eyeY - 19} L 34 ${eyeY - 25}`,
   };
 
   const mY = HEAD.y + 28;
@@ -954,6 +989,29 @@ const Face: React.FC<{
         <rect x={-16} y={mY - 4} width={32} height={13} rx={5} fill={ink} />
         <path d={`M -12 ${mY + 2.5} L 12 ${mY + 2.5}`} stroke="#fff" strokeWidth={2.8} />
       </g>
+    ),
+    tearsHeldBack: (
+      <g>
+        <path d={`M -13 ${mY + 5} Q 0 ${mY - 3} 13 ${mY + 5}`} stroke={ink} strokeWidth={4.8} fill="none" strokeLinecap="round" />
+        <rect x={-6} y={mY - 1} width={12} height={4} rx={1.5} fill="#FFFFFF" stroke={ink} strokeWidth={1.5} />
+      </g>
+    ),
+    exhaustedClinch: (
+      <g>
+        <rect x={-14} y={mY - 2} width={28} height={10} rx={3} fill={ink} />
+        <path d={`M -12 ${mY + 3} L 12 ${mY + 3}`} stroke="#FFFFFF" strokeWidth={2.4} strokeLinecap="round" />
+      </g>
+    ),
+    vacantSearch: (
+      <g>
+        <ellipse cx={0} cy={mY + 3} rx={6.5} ry={4.5} fill={ink} />
+      </g>
+    ),
+    determinedChild: (
+      <path d={`M -13 ${mY + 3} L 13 ${mY + 3}`} stroke={ink} strokeWidth={5.2} strokeLinecap="round" fill="none" />
+    ),
+    glanceOverGlasses: (
+      <path d={`M -12 ${mY + 4} Q 2 ${mY + 3} 15 ${mY - 4}`} stroke={ink} strokeWidth={4.8} fill="none" strokeLinecap="round" />
     ),
   };
 
@@ -1221,6 +1279,33 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
               <path key={`f${k}`} d={`M ${fx} 12 L ${fx * (kind === 'rest' ? 1.05 : 1.25)} ${k === 0 ? 26 : k === 3 ? 27 : 31}`} stroke={L.hand} strokeWidth={4.8} strokeLinecap="round" />
             ))}
             <path d={`M ${side * 11} 2 L ${side * 18} 14`} stroke={L.hand} strokeWidth={5.2} strokeLinecap="round" />
+          </g>
+        ) : kind === 'tug' ? (
+          <g>
+            <ellipse cx={0} cy={6} rx={11.5} ry={11.5} fill={L.hand} stroke={L.line} strokeWidth={3.6} />
+            {[-7, -2, 3, 8].map((fx, k) => (
+              <path key={k} d={`M ${fx} 6 Q ${fx * 1.1 + side * 4} 15 ${fx * 0.9 + side * 6} 17`} stroke={L.line} strokeWidth={6.5} strokeLinecap="round" fill="none" />
+            ))}
+            {[-7, -2, 3, 8].map((fx, k) => (
+              <path key={`f${k}`} d={`M ${fx} 6 Q ${fx * 1.1 + side * 4} 15 ${fx * 0.9 + side * 6} 17`} stroke={L.hand} strokeWidth={3.8} strokeLinecap="round" fill="none" />
+            ))}
+            <path d={`M ${side * 9} 1 Q ${side * 14} 9 ${side * 5} 15`} stroke={L.line} strokeWidth={7.5} strokeLinecap="round" fill="none" />
+            <path d={`M ${side * 9} 1 Q ${side * 14} 9 ${side * 5} 15`} stroke={L.hand} strokeWidth={4.5} strokeLinecap="round" fill="none" />
+          </g>
+        ) : kind === 'clench' ? (
+          <g>
+            <ellipse cx={0} cy={7} rx={12} ry={11} fill={L.hand} stroke={L.line} strokeWidth={3.6} />
+            {[-7, -2, 3, 8].map((fx, k) => (
+              <circle key={k} cx={fx} cy={4} r={3.2} fill="#FFFDF8" opacity={0.65} />
+            ))}
+            {[-8, -3, 3, 8].map((fx, k) => (
+              <path key={k} d={`M ${fx} 4 L ${fx * 1.1} 17`} stroke={L.line} strokeWidth={7} strokeLinecap="round" />
+            ))}
+            {[-8, -3, 3, 8].map((fx, k) => (
+              <path key={`f${k}`} d={`M ${fx} 4 L ${fx * 1.1} 17`} stroke={L.hand} strokeWidth={4.2} strokeLinecap="round" />
+            ))}
+            <path d={`M ${side * 10} 2 L ${side * 17} 13`} stroke={L.line} strokeWidth={8} strokeLinecap="round" />
+            <path d={`M ${side * 10} 2 L ${side * 17} 13`} stroke={L.hand} strokeWidth={4.8} strokeLinecap="round" />
           </g>
         ) : (
           <g>

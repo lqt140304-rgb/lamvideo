@@ -233,7 +233,7 @@ export const ShC1_B: React.FC<ShotProps> = ({ t }) => (
         t,
         seed: 3,
         yaw: -0.22,
-        expr: 'neutral',
+        expr: 'glanceOverGlasses',
         look: -0.2,
       })}
     />
@@ -406,7 +406,7 @@ export const ShC4_B: React.FC<ShotProps> = ({ t }) => (
         t,
         seed: 1,
         yaw: 0.35,
-        expr: 'shock',
+        expr: 'vacantSearch',
         look: 0.2,
       })}
     />
@@ -478,7 +478,7 @@ export const ShC5_B: React.FC<ShotProps> = ({ t }) => (
         t,
         seed: 1,
         yaw: 0.28,
-        expr: 'tired',
+        expr: 'exhaustedClinch',
         look: 0.2,
         headTilt: 6,
       })}
@@ -510,7 +510,7 @@ export const ShC5_C: React.FC<ShotProps> = ({ t }) => {
           t,
           seed: 2,
           yaw: 0.45,
-          expr: 'determined',
+          expr: 'determinedChild',
           look: 0.4,
           gesture: 'explain',
         })}
@@ -521,7 +521,7 @@ export const ShC5_C: React.FC<ShotProps> = ({ t }) => {
           t,
           seed: 1,
           yaw: 0.15,
-          expr: 'shock',
+          expr: 'tearsHeldBack',
           look: 0.1,
           headTilt: 5,
         })}
