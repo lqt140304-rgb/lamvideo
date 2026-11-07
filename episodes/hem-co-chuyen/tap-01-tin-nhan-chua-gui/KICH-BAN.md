@@ -1,13 +1,13 @@
 # HẺM CÓ CHUYỆN — Tập thử 01: TIN NHẮN CHƯA GỬI
 
-**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; tiếp tục giữ đầy đủ các đoạn kể trong LOI-DOC và ELEVENLABS.
+**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-> Bản 5 — 07/11/2026. Thêm mở đầu thành phố/trời sao → cú → hẻm → hai anh em trước cửa tiệm. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
+> Bản 6 — 07/11/2026. Rà logic từ bản 5: làm rõ đồng hồ, ảnh hẹn giờ, phạm vi mất ký ức, lời hứa G3 và chuỗi phiếu; cắt nhẹ lời kể lặp. Giữ mở đầu thành phố/trời sao → cú → hẻm → hai anh em trước cửa tiệm. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
 
@@ -29,7 +29,7 @@ Mất mẹ, bố say và bỏ bê khiến Duy 16 cố mạnh để bảo vệ Th
 
 | Mã | Yêu cầu / kết quả | Người trả / cái giá | Lúc hoàn tất và hệ quả |
 |---|---|---|---|
-| G1 | Sửa điện thoại, mở bản ghi cũ của mẹ | Duy: trải nghiệm hồi tưởng tối sinh nhật 16 được mẹ ôm rồi chụp ảnh | Sửa máy xong ở C4; câu hỏi dây nón kiểm chứng mất đúng ký ức, không quên tên/quan hệ |
+| G1 | Sửa điện thoại, mở bản ghi cũ của mẹ | Duy: trải nghiệm hồi tưởng tối sinh nhật 16 được mẹ ôm rồi chụp ảnh | Sửa máy xong ở C4; câu hỏi về vòng tay mẹ kiểm chứng mất trải nghiệm, vẫn nhớ lời vừa nói và tên/quan hệ |
 | G2 | Cho hai trẻ một thoáng yên như ngày mẹ còn | Duy nhận thêm phần trống vắng vì mất mẹ mà Thảo đang chịu; nỗi nhớ riêng cậu vẫn có | Có hiệu lực khi Duy nói đồng ý ở C5; thoáng ấm qua, gánh cảm giác dồn làm cậu mệt/rối, không kịp ngăn em. Thảo vẫn nhớ/thương mẹ, vẫn sợ nguy hiểm thật; không tước hết cảm xúc của em |
 | G3 | Một cuộc gặp có thể nói lời còn thiếu với mẹ, dành cho cả hai | Thảo: từ đó không còn mơ thấy mẹ; trí nhớ lúc thức và khả năng yêu thương không bị lấy | Lời đồng ý của Thảo chốt trước lời ngăn của Duy; trắng/ù → cánh đồng → mẹ từ biệt/tan → về tiệm. Giấc mơ của em là giá đã nhận, không hoàn khi cánh đồng tắt |
 
@@ -49,7 +49,7 @@ Mất mẹ, bố say và bỏ bê khiến Duy 16 cố mạnh để bảo vệ Th
 
 Giữ chất đời thường, nén rồi bung cảm xúc; ba lần tăng giá chứ không ba lần kể lại cùng một cơ chế. Duy suy sụp ở G2 mới chậm phản ứng G3. Trắng/ù chỉ đúng giao kèo cuối, sau đó nhịp nhẹ và ấm ở đồng, có chuyện vui nhỏ trước lời gửi gắm. Mẹ tan phải có dư âm; trở về vẫn cần giải pháp thực tế cho đêm bố say.
 
-Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,713 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:26–10:09 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
+Lời sạch **1,467 đơn vị tách khoảng trắng**, **6,693 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:26–10:09 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
 
 9 phần cảnh (C0 và C1–C8), 35 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Bốn nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú và người qua đường dạng bóng, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, roll 0°, rung 0 px / 0°; đã có rig và camera giả lập trong mã thử, chưa xác nhận chúng đáp ứng đủ mọi cue nguồn. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
 
@@ -68,7 +68,7 @@ Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,713 ký tự** g�
 | C0-C | 00:08–00:10 · 2 giây | Cận mắt cú | 85 mm tương đương cận/macro; ngang tầm mắt cú; vùng nét mắt | Chuyển nét vào đồng tử và viền lông trong khoảng 0,6 giây rồi giữ; cú chớp một lần, phản chiếu ánh đèn bình thường, không mắt phát sáng |
 | C0-D | 00:10–00:16 · 6 giây | Lùi ra từ cú, mở con hẻm | Từ bố cục cận sang rộng 35 mm tương đương; giữ cùng bên nhìn | Dolly-out giả lập nhiều lớp: lộ đầu/thân cú, thanh đỡ, đường, nhà hai bên và tiệm Lộc; cú/mái ở gần trái, tiệm ở giữa-xa phải; không chỉ scale một tranh |
 | C0-E | 00:16–00:21 · 5 giây | Chuyển từ cú sang hai anh em trước cửa | 35–50 mm bố cục trung rộng; máy hạ về cao 1,2 m ở cuối | Trượt chéo nhẹ sang phải, chuyển nét khỏi cú sang Duy/Thảo, dừng ở cửa; bóng người đi lớp giữa, không che mặt trẻ; Duy đứng gần cửa hơn, em nép sau anh |
-| C0-F | 00:21–00:24 · 3 giây | Giữ cửa rồi hai trẻ bước vào | 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước | Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới để Thảo tò mò đưa tay tới đồng hồ, sau đó mới nghe “Để xuống” |
+| C0-F | 00:21–00:24 · 3 giây | Giữ cửa rồi hai trẻ bước vào | 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước | Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới nối C1: Thảo nhấc đồng hồ nhỏ khỏi kệ rồi mới nghe “Để xuống” |
 
 **Hình và âm:** 2.5D có trời/skyline xa, mái nhà giữa, cú-thanh đỡ gần, hẻm/tiệm và người thành các lớp theo mặt đỡ. Đèn đường/hàng quán thưa, âm thành phố xa dần thành tiếng chân/xe xa trong hẻm. Một tiếng cú ngắn nếu hợp nhịp, không cần lặp hoặc hù bằng âm hit. Giữ tiếng hẻm làm cầu nối tới quạt trong tiệm. Không dùng ánh trắng/tiếng ù dành riêng cho G3 vào đoạn mở.
 
@@ -76,7 +76,7 @@ Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,713 ký tự** g�
 
 ## Cảnh 1. Thiếu tiền
 
-**Bối cảnh:** Nối sau C0, khoảng 19 giờ, hai trẻ vừa bước vào vùng khách của tiệm cuối hẻm cách nhà ba căn. Thảo thấy đồng hồ mép kệ trái và vừa đưa tay tới; lúc này ông Lộc mới nói “Để xuống”. Duy 16 đứng trái, Thảo 8 phải gần cửa, nép sau anh; Lộc đầu tiên ở bàn sửa sau rồi bước tới quầy. Cửa mở, kệ trái, bàn sửa/đèn vàng sau, ánh hàng tạp hóa lạnh từ phải.
+**Bối cảnh:** Nối sau C0, khoảng 19 giờ, hai trẻ vừa bước vào vùng khách của tiệm cuối hẻm cách nhà ba căn. Thảo vừa nhấc một chiếc đồng hồ nhỏ trên mặt kệ thấp gần cửa, chưa rời chỗ thì ông Lộc nói “Để xuống”. Em đặt lại rồi mới rụt tay; không buông rơi. Duy 16 đứng trái, Thảo 8 phải gần cửa, nép sau anh; Lộc đầu tiên ở bàn sửa sau rồi bước tới quầy. Cửa mở, kệ trái, bàn sửa/đèn vàng sau, ánh hàng tạp hóa lạnh từ phải.
 
 | Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm |
 |---|---|---|---|
@@ -91,7 +91,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > “Để xuống.”
 
-> Thảo giật tay khỏi chiếc đồng hồ. Duy kéo em sau vai mình.
+> Thảo vội đặt chiếc đồng hồ xuống kệ, rụt tay lại. Duy kéo em sau vai mình.
 
 > Ông Lộc nhìn lên qua cặp kính cũ. Ngọn đèn vàng chỉ soi rõ một nửa mặt ông.
 
@@ -199,7 +199,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > Duy nhìn ảnh trên quầy.
 
-> “Đổi chuyện khác. Tối sinh nhật mười sáu của cháu. Mẹ dùng máy này chụp cả ba.”
+> “Đổi chuyện khác. Tối sinh nhật mười sáu của cháu. Mẹ đặt máy này hẹn giờ chụp cả ba.”
 
 > Thảo ngước lên. “Hôm dây nón vướng kính mẹ hả?”
 
@@ -220,7 +220,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 | Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm |
 |---|---|---|---|
 | C4-A | Trung bàn sửa và máy trả quầy | 50 mm; cao 1,35 m; cách Lộc 1,8 m | Hạ máy rồi thả, giữ màu vỏ; không hướng dẫn sửa kỹ thuật thật |
-| C4-B | Trung đôi kiểm tra trí nhớ | 50 mm; cao 1,15 m; cách 2,1 m | Em hỏi, Duy định trả lời rồi khựng; insert chữ G1 dùng lại |
+| C4-B | Trung đôi kiểm tra trí nhớ | 50 mm; cao 1,15 m; cách 2,1 m | Em hỏi vòng tay mẹ; Duy nhắm mắt tìm lại rồi lắc đầu; insert G1 dùng lại |
 | C4-C | Insert bấm phát rồi về mặt hai trẻ | 85 mm; cao 1,2 m; cúi 35°; cách máy 0,85 m | Máy trên khăn, trỏ phải bấm rồi nhấc; lời mẹ có nguồn từ loa máy |
 | C4-D | Cận Lộc ở câu hỏi tò mò | 70 mm; cao 1,2 m; cách 2 m | Chỉ lúc này cười lạnh rất nhẹ, không đổi thiết kế mặt đã chốt |
 
@@ -228,11 +228,13 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
-> Máy sáng lại. Thảo hỏi: “Hồi nãy anh kể dây nón vướng cái gì của mẹ?”
+> Máy sáng lại. Thảo nhìn anh. “Anh còn nhớ mẹ ôm anh hôm đó không?”
 
-> Duy hé miệng. “Anh vừa kể chuyện đó hả?”
+> Duy nhắm mắt, chờ một lúc rồi lắc đầu.
 
-> Cậu biết đã đồng ý đổi. Nhưng vòng tay trong buổi tối ấy không còn hiện ra.
+> “Anh biết hôm đó mẹ ôm anh. Nhưng anh không nhớ cảm giác ấy nữa.”
+
+> Cậu vẫn nhớ cuộc nói chuyện vừa rồi. Chỉ buổi tối được mẹ ôm không còn hiện ra.
 
 > Ông Lộc tách một liên giấy đưa cậu. “Xong.”
 
@@ -293,7 +295,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > Ông Lộc cúi xuống gần tầm mắt em.
 
-> “Cả hai gặp mẹ một lần, đủ để nói lời còn thiếu. Sau đó, con không bao giờ mơ thấy mẹ nữa. Nhớ vẫn nhớ, nhưng trong mơ thì không. Đồng ý không?”
+> “Cả hai được gặp mẹ một lần. Mẹ không ở lại được. Sau đó, cháu không bao giờ mơ thấy mẹ nữa. Nhớ vẫn nhớ, nhưng trong mơ thì không. Đồng ý không?”
 
 > “Cháu đồng ý!”
 
@@ -344,8 +346,6 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > “Ít hơn chứ chưa hết!” Thảo mách ngay.
 
-> Họ kể những chuyện nhỏ, từ đôi dép tuột quai đến món canh hôm nào bị mặn. Không ai vội đứng lên.
-
 ## Cảnh 7. Những lời để lại
 
 **Bối cảnh:** Vẫn bờ ruộng và trục đã xác lập. Ánh cuối chiều ấm, không biến cảnh thành thiên đường có hào quang. Mẹ có cảm xúc bình thường, lời gửi gắm là trải nghiệm chủ quan G3, không chép vào dữ liệu chiếc máy hoặc coi là sự kiện lịch sử kiểm chứng. Sau lời cuối, mẹ/áo/bóng cùng tan, hai trẻ vẫn có điểm tựa đất.
@@ -392,12 +392,12 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 ## Cảnh 8. Trở về cùng nhau
 
-**Bối cảnh:** Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra đồng. Lộc viết/tách G2 và G3 sau các câu đồng ý đã được báo có hiệu lực bằng lời; đủ ba liên khách, ba liên tiệm. Duy cất giấy, ảnh, lấy máy; rời tiệm. Sau cut tới ngưỡng nhà: bố sau vách qua âm, trẻ không vào; gọi dì bằng máy đã sửa, rồi đi về hướng đèn nhà dì, không dựng nội thất thứ tư.
+**Bối cảnh:** Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra đồng. Lộc viết/tách G2 và G3 sau các câu đồng ý đã được báo có hiệu lực bằng lời; đủ ba liên khách, ba liên tiệm. G1 đang ở ví; Duy lấy ra đặt cạnh G2/G3 mới nhận để đối chiếu rồi cất đủ ba. Ảnh đã cất từ C3, không xuất hiện lại trên quầy. Duy lấy máy; rời tiệm. Sau cut tới ngưỡng nhà: bố sau vách qua âm, trẻ không vào; gọi dì bằng máy đã sửa, rồi đi về hướng đèn nhà dì, không dựng nội thất thứ tư.
 
 | Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm |
 |---|---|---|---|
 | C8-A | Trung đôi trở lại tiệm, mắt mở | 50 mm; cao 1,15 m; cách 2,1 m | Match pose ngồi, còn bàn tay em trong tay anh; Duy mệt còn đó, G2 không được xóa |
-| C8-B | Insert ba phiếu rồi cất | 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m | G1/G2/G3 phân biệt rõ; G3 ghi Thảo, không Duy; chỉ một bộ copy mỗi bên |
+| C8-B | Insert ba phiếu rồi cất | 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m | Duy lấy G1 từ ví đặt cạnh G2/G3 rồi cất đủ ba; G3 ghi Thảo; mỗi bên một bộ copy |
 | C8-C | Toàn cửa nhà rồi trung cuộc gọi | 28 mm cao 1,2 m cách 2,5 m → 50 mm cao 1,15 m cách 2 m | Bố ngoài khung, chai lăn/giọng không rõ chữ; Duy chắn em và xin dì giúp |
 | C8-D | Toàn ngưỡng cửa, hai trẻ rời khung | 35 mm; cao 1,15 m; cách 2,5 m | Cất máy/giấy trước nắm tay đi; giữ đèn đầu hẻm, âm bố xa dần |
 
@@ -407,7 +407,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > Khi Thảo mở mắt, trước mặt lại là chiếc quầy gỗ. Duy vẫn nắm tay em, mặt tái và áo ướt mồ hôi.
 
-> Ông Lộc đặt thêm hai tờ giấy cạnh liên sửa máy. Tờ cuối ghi tên Thảo.
+> Ông Lộc đặt thêm hai tờ giấy. Duy lấy liên sửa máy trong ví ra so cạnh chúng. Tờ cuối ghi tên Thảo.
 
 > Duy nhìn em. “Sao em nhận nhanh vậy?”
 
@@ -417,7 +417,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > “Vậy là từ nay cháu ngủ, cháu không gặp mẹ nữa hả ông?”
 
-> Ông Lộc gật. Không cái giá nào biến mất cùng cánh đồng.
+> Ông Lộc gật.
 
 > Duy kéo em gần. Cậu không trách em, cũng không bảo mình hết mệt rồi. Cậu cất ba tờ giấy, cầm máy, đưa em về.
 

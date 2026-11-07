@@ -1,6 +1,6 @@
-# Tin nhắn chưa gửi — dựng cảnh bản 5
+# Tin nhắn chưa gửi — dựng cảnh bản 6
 
-**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; tiếp tục giữ đầy đủ các đoạn kể trong LOI-DOC và ELEVENLABS.
+**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
@@ -19,7 +19,7 @@ Sơ đồ góc ngoài hẻm: nhà hai bên đường, cú trên thanh đỡ mái
 
 Người qua đường chỉ 2–3 mẫu bóng xám/tối ít chi tiết, dáng đi và chân có mặt đất, có thể dùng lại khác thời điểm/tỷ lệ theo độ sâu. Giữ họ đủ phân biệt với bóng đổ, không thành người ma. Tuyến đi ở lớp đường, tránh mép cửa và mặt hai trẻ. Duy/Thảo có màu áo đã chốt, nét mặt và đường viền sáng dịu do cửa tiệm; người nền giảm tương phản/chi tiết. Không gắn hào quang hoặc tăng sáng toàn thân trẻ độc lập nguồn sáng. Chỉ lúc máy về gần cửa mới cần đọc rõ mặt trẻ, không ép thấy mặt ở toàn thành phố.
 
-**Nối cửa ngoài–trong:** cửa ngoại cảnh là cửa bên đông (x=4,2; y≈1,4) của SET-TIEM. C0-F nhìn từ hẻm vào cửa đó, hai trẻ bước vào vùng khách, sau đó cắt theo bước/khung cửa sang C1-A nhìn từ phía nam của quầy. Đây là thay vị trí máy đã có điểm nối, không xuyên tường hoặc xoay 90° bằng crop một ảnh. Ở C1, Duy trái/Thảo phải theo góc đã chốt; mặt kệ đồng hồ đủ gần em để đưa tay, không cho em với qua quầy.
+**Nối cửa ngoài–trong:** cửa ngoại cảnh là cửa bên đông (x=4,2; y≈1,4) của SET-TIEM. C0-F nhìn từ hẻm vào cửa đó, hai trẻ bước vào vùng khách, sau đó cắt theo bước/khung cửa sang C1-A nhìn từ phía nam của quầy. Đây là thay vị trí máy đã có điểm nối, không xuyên tường hoặc xoay 90° bằng crop một ảnh. Ở C1, Duy trái/Thảo phải theo góc đã chốt; mặt kệ thấp có một đồng hồ nhỏ ở gần cửa, đủ tầm em nhấc/đặt; không cho em với qua quầy. Giữ kệ lớn bên trái của tiệm.
 
 **SET-TIEM:** phòng quy ước 4,2×6 m, khách ở phía nam y=0; quầy y≈3,3, cao 0,78 m, sâu 0,6 m, chừa lối phải. Duy trái x≈1,4, Thảo phải x≈2,6, cùng phía khách y≈2,6. Lộc sau giữa x≈2,1/y≈4,1, bàn sửa/đèn vàng y≈5,3. Kệ trái, cửa phải ra hẻm x=4,2/y≈1,4 luôn mở. C1 đứng, C2 mới ngồi; ghế Thảo có bậc chân, điều chỉnh mặt ngồi vừa quầy, không dùng rig người lớn thu nhỏ. Máy ở khăn giữa; ảnh trái, giấy phải. Kệ gần/người-quầy giữa/bàn sửa-tường xa. Đèn bàn cho Lộc nửa mặt sâu bóng nhưng còn đọc được mắt; hắt trần đủ đọc trẻ, cửa lạnh bên phải. Không đèn kính phát sáng.
 
@@ -53,7 +53,7 @@ Camera tiệm ở phía khách/nam trục hai trẻ. Giữ Duy trái/Thảo ph�
 | G1 | Hai liên giấy tự in cùng sự kiện, bìa kê; Duy ghi/đọc lại/ký trước sửa; tách C4, khách một/tiệm một. Bút đặt xuống trước kéo giấy. Không ghi sự kiện la em chưa chấp nhận |
 | G2 | Lộc báo giá và hiệu lực lời đồng ý, Duy nhận bằng lời C5; ghi phiếu sau, ghi người trả Duy/gánh thêm trống vắng của Thảo. Không biến phiếu thành bằng chứng anh ký trước lời giá |
 | G3 | Lộc nêu một lần gặp đổi không còn mơ thấy mẹ; Thảo đáp trọn trước Duy ngăn. Phiếu ghi người trả Thảo. Không cần Duy ký/cho phép và không lấy thêm từ Duy |
-| Phiếu khi về | Đủ ba liên khách G1/G2/G3, ba liên tương ứng Lộc giữ; Duy cất cùng ví. Không chứng minh giấy là vật nhốt linh hồn. Mỗi phiếu có chữ lớp đồ họa riêng |
+| Phiếu khi về | G1 ở ví từ C4, được Duy lấy ra cạnh hai liên mới nhận rồi cất đủ ba; ba liên tương ứng Lộc giữ. Không chứng minh giấy là vật nhốt linh hồn. Mỗi phiếu có chữ lớp đồ họa riêng |
 | Tay khi đi đồng/ngồi | Mẹ giữa, Duy trái, Thảo phải; xác định từng bàn tay trước rig, đổi hình gần/xa theo máy. Khi ngồi, nắm được nhả/chuyển sang vai ở nhịp rõ, không tay thừa hoặc khóa khớp ngang cổ |
 
 Không có bút/giấy vật lý trong cánh đồng. Chữ giao kèo không lơ lửng bên mẹ. Mẹ không để lại kỷ vật vật lý mới trong tiệm sau tan. Cái giá G1/G2/G3 vẫn hiệu lực, câu từ biệt không trả lại chúng.
@@ -93,8 +93,8 @@ Theo thứ tự hai phác thảo gửi trong chat ngày 07/11/2026. Đây là th
 
 **C0-F · Giữ cửa rồi hai trẻ bước vào**
 - 00:21–00:24 · 3 giây. 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước.
-- Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới để Thảo tò mò đưa tay tới đồng hồ, sau đó mới nghe “Để xuống”.
-- Duy giữ túi máy trong một tay, tay còn lại gần em; em níu áo/nhìn vào trong. Duy dẫn, Thảo theo, cả hai có bước qua ngưỡng rõ. Sau nối C1, Thảo tò mò đưa tay tới đồng hồ; lời đầu được nói ở trong tiệm, không vọng ra trước khi em chạm gần kệ.
+- Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới để Thảo tò mò đưa tay tới đồng hồ, sang C1 mới nhấc đồng hồ nhỏ rồi nghe “Để xuống”.
+- Duy giữ túi máy trong một tay, tay còn lại gần em; em níu áo/nhìn vào trong. Duy dẫn, Thảo theo, cả hai có bước qua ngưỡng rõ. Sau nối C1, Thảo nhấc đồng hồ nhỏ khỏi mặt kệ thấp gần cửa; lời đầu nói trong tiệm. Em đặt lại đúng kệ rồi rút tay, không thả rơi hoặc tự đổi vị trí đồ.
 
 **Nguyên tắc phối cảnh/tiết kiệm:** các lens trên là mục tiêu bố cục khác nhau. Muốn giống đường máy mềm qua cỡ cực rộng–cận–rộng cần nhiều tấm hình khớp và điểm ghép, chưa phải khả năng một camera 3D đã có. Duyệt skyline, mắt cú và khung cuối trước khi hoàn thiện lớp bị che; hạn chế số bóng người, dùng lại mặt ngoài tiệm cho C8 nếu góc phù hợp. Không hứa tiết kiệm quota theo phần trăm khi chưa render thử.
 
@@ -171,7 +171,7 @@ Lộc sửa ở bàn sau trong tầm nhìn, cut thời gian, trả máy đã sá
 
 **C4-B · Trung đôi kiểm tra trí nhớ**
 - 50 mm; cao 1,15 m; cách 2,1 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
-- Em hỏi, Duy định trả lời rồi khựng; insert chữ G1 dùng lại.
+- Em hỏi vòng tay mẹ; Duy nhắm mắt tìm lại rồi lắc đầu; insert G1 dùng lại.
 - Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
 
 **C4-C · Insert bấm phát rồi về mặt hai trẻ**
@@ -253,7 +253,7 @@ Vẫn bờ ruộng và trục đã xác lập. Ánh cuối chiều ấm, không 
 
 ### Cảnh 8 — Trở về cùng nhau
 
-Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra đồng. Lộc viết/tách G2 và G3 sau các câu đồng ý đã được báo có hiệu lực bằng lời; đủ ba liên khách, ba liên tiệm. Duy cất giấy, ảnh, lấy máy; rời tiệm. Sau cut tới ngưỡng nhà: bố sau vách qua âm, trẻ không vào; gọi dì bằng máy đã sửa, rồi đi về hướng đèn nhà dì, không dựng nội thất thứ tư.
+Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra đồng. Lộc viết/tách G2 và G3 sau các câu đồng ý đã được báo có hiệu lực bằng lời; đủ ba liên khách, ba liên tiệm. G1 đang ở ví; Duy lấy ra đặt cạnh G2/G3 mới nhận để đối chiếu rồi cất đủ ba. Ảnh đã cất từ C3, không xuất hiện lại trên quầy. Duy lấy máy; rời tiệm. Sau cut tới ngưỡng nhà: bố sau vách qua âm, trẻ không vào; gọi dì bằng máy đã sửa, rồi đi về hướng đèn nhà dì, không dựng nội thất thứ tư.
 
 **C8-A · Trung đôi trở lại tiệm, mắt mở**
 - 50 mm; cao 1,15 m; cách 2,1 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
@@ -262,7 +262,7 @@ Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra �
 
 **C8-B · Insert ba phiếu rồi cất**
 - 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
-- G1/G2/G3 phân biệt rõ; G3 ghi Thảo, không Duy; chỉ một bộ copy mỗi bên.
+- Duy lấy G1 từ ví đặt cạnh G2/G3 rồi cất đủ ba; G3 ghi Thảo; mỗi bên một bộ copy.
 - Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
 
 **C8-C · Toàn cửa nhà rồi trung cuộc gọi**

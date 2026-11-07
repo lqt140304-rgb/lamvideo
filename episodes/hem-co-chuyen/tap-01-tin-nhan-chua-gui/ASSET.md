@@ -1,8 +1,8 @@
-# Asset — Tin nhắn chưa gửi, bản 5
+# Asset — Tin nhắn chưa gửi, bản 6
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; tiếp tục giữ đầy đủ các đoạn kể trong LOI-DOC và ELEVENLABS.
+**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
@@ -61,6 +61,10 @@ Hai lượt chỉnh trẻ này có trước đợt nâng cấp SVG; không có s
 ## Hai phác thảo mở đầu của chủ repo
 
 Nguồn: hai hình đính kèm trong chat ngày 07/11/2026, lần lượt là trời sao/nhà và cú–đường–tiệm–hai trẻ. Đã chuyển thành C0-A…C0-F trong KICH-BAN/DUNG-CANH. Chưa có đường dẫn file ảnh phác thảo trong repo; không tạo link hoặc nhận đã nhập file gốc. Đã có mã/SVG và still thử mở đầu; chưa có storyboard/animatic toàn tập đã duyệt. Đây là tài liệu bố cục riêng của tập, không đưa lên thư viện chung.
+
+## Lưu ý sau rà kịch bản bản 6
+
+Giữ bộ asset đã nâng cấp; mã thử 142 giây vẫn theo lần thử trước, chưa cập nhật lời/diễn bản 6. Khi ráp nguồn mới, cần đồng hồ nhỏ ở kệ thấp gần cửa để nhấc/đặt, biểu cảm C4 nhớ cuộc nói chuyện nhưng mất trải nghiệm vòng tay mẹ, và động tác lấy G1 từ ví ra đối chiếu C8. Chưa render/duyệt lại các hành động này; không tạo thêm bối cảnh hoặc nhân vật.
 
 ## Phạm vi bộ thử và đường dẫn vận hành
 

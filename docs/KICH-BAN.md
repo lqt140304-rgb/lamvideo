@@ -4,7 +4,7 @@ Kịch bản được lưu theo từng tập, không chép nội dung tập vào
 
 | Series / tập | Hồ sơ | Trạng thái |
 |---|---|---|
-| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Mở thư mục tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | [Kế hoạch tối ưu](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md). Bản 5: mở trời sao–mắt cú–hẻm–hai trẻ 24 giây; ba giao kèo và mẹ ở cánh đồng; giữ người dẫn chuyện + thoại; đã có SVG/preview và mã thử asset; chưa duyệt storyboard/animatic toàn tập, giọng hoặc phim cuối |
+| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Mở thư mục tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | [Kế hoạch tối ưu](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md). Bản 6: rà logic/đạo cụ, giữ mở trời sao–mắt cú–hẻm–hai trẻ 24 giây; ba giao kèo và mẹ ở cánh đồng; giữ người dẫn chuyện + thoại; đã có SVG/preview và mã thử asset; chưa duyệt storyboard/animatic toàn tập, giọng hoặc phim cuối |
 | Tập độc lập — Mưa liên tục 100 ngày | [Mở thư mục tập](../episodes/doc-lap/mua-100-ngay/README.md) | Nhập bản v7 và dữ liệu dựng 10 cảnh trước đây; chưa xem/nghe lại phim trong lượt nhập |
 
 ## Quy tắc thêm tập

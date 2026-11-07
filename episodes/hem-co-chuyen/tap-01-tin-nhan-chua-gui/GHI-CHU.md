@@ -1,5 +1,9 @@
 # Ghi chú riêng — tập 01
 
+## Rà logic kịch bản bản 6 — 07/11/2026
+
+Sửa năm điểm: nhấc/đặt đồng hồ, ảnh hẹn giờ, mất trải nghiệm G1 không quên lời vừa nói, giới hạn lời hứa gặp mẹ G3, lấy G1 khỏi ví trước đối chiếu C8. Cắt hai câu kể lặp ở đồng/cuối. Giữ ba giá, vai/tuổi/xưng hô, giọng dẫn, mở đầu 24 giây và 35 cue. Xem [bản rà soát](RA-SOAT-KICH-BAN.md) để biết phần đã sửa và phần chỉ đề xuất. Lời mới 1,467 đơn vị/6,693 ký tự, ước tính 8:26–10:09, chưa đo audio. Không sửa mã/asset hoặc render demo cũ trong lượt rà văn bản.
+
 ## Chọn lọc kinh nghiệm Anti — 07/11/2026
 
 Đã rà toàn bộ 15 mục của file đúc kết do chủ repo gửi. Thêm 7 bài học dùng lại được và mở rộng 2 mục đã có trong docs/KINH-NGHIEM; giữ số đo/chi tiết riêng, nguồn và lý do không nhập trong [RA-SOAT-KINH-NGHIEM.md](RA-SOAT-KINH-NGHIEM.md). Không đẩy nguyên bản chưa lọc lên file chung; không sửa lời, mã hoặc media. Những kết quả Anti báo chưa được render/đo lại được ghi rõ là báo cáo nguồn, không nhận là kiểm chứng mới.

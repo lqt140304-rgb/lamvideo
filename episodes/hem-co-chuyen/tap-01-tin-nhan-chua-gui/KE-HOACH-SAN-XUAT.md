@@ -1,11 +1,11 @@
 # Kế hoạch sản xuất tối ưu — Tin nhắn chưa gửi
 
-**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; tiếp tục giữ đầy đủ các đoạn kể trong LOI-DOC và ELEVENLABS.
+**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng **kịch bản bản 5**, giữ nguyên lời dẫn/thoại và ba giao kèo. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
+Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng **kịch bản bản 6**, giữ nguyên lời dẫn/thoại và ba giao kèo. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
 
 ## Phạm vi và điều đã chốt
 
@@ -56,7 +56,7 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 
 - Làm theo thứ tự ở trên; chỉ tạo media khi nhiệm vụ tiếp theo bao gồm bước đó. Lập kế hoạch và rà repo không tự chạy các dịch vụ ảnh/giọng/video.
 - Sau khi duyệt một bước, ghi phiên bản và phản hồi cụ thể. Nếu đổi lời thì đồng bộ bản lời, sau đó cập nhật timing/cue/audio/hình thực sự phụ thuộc; không dùng lại mốc cũ một cách máy móc.
-- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,470 đơn vị tách khoảng trắng, 6,713 ký tự** gồm xuống dòng; **29 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
+- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,467 đơn vị tách khoảng trắng, 6,693 ký tự** gồm xuống dòng; **29 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
 - Ghi riêng lượt ảnh, ký tự TTS, credits theo model, quota trợ lý nếu biết và thời gian render. Không đổi token thành credits hoặc hứa số video từ gói chưa đo. Chưa có chi phí media thực cho lượt tối ưu này.
 
 ## Phạm vi đồng bộ đã rà trong repo

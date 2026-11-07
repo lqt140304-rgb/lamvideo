@@ -1,6 +1,6 @@
 [stern] “Để xuống.”
 
-Thảo giật tay khỏi chiếc đồng hồ. Duy kéo em sau vai mình.
+Thảo vội đặt chiếc đồng hồ xuống kệ, rụt tay lại. Duy kéo em sau vai mình.
 
 Ông Lộc nhìn lên qua cặp kính cũ. Ngọn đèn vàng chỉ soi rõ một nửa mặt ông.
 
@@ -76,7 +76,7 @@ Cậu kéo ghế gần em.
 
 Duy nhìn ảnh trên quầy.
 
-“Đổi chuyện khác. Tối sinh nhật mười sáu của cháu. Mẹ dùng máy này chụp cả ba.”
+“Đổi chuyện khác. Tối sinh nhật mười sáu của cháu. Mẹ đặt máy này hẹn giờ chụp cả ba.”
 
 Thảo ngước lên. “Hôm dây nón vướng kính mẹ hả?”
 
@@ -88,11 +88,13 @@ Duy cười khẽ. Trước khi chụp, mẹ đã ôm cậu. Những đêm quay 
 
 Cậu cất ảnh, ghi buổi tối mình chọn. Ông Lộc đọc lại, nhắc không thể đòi về. Duy ký. Đến lần hỏi cuối, cậu vẫn gật.
 
-Máy sáng lại. Thảo hỏi: “Hồi nãy anh kể dây nón vướng cái gì của mẹ?”
+Máy sáng lại. Thảo nhìn anh. “Anh còn nhớ mẹ ôm anh hôm đó không?”
 
-Duy hé miệng. “Anh vừa kể chuyện đó hả?”
+Duy nhắm mắt, chờ một lúc rồi lắc đầu.
 
-Cậu biết đã đồng ý đổi. Nhưng vòng tay trong buổi tối ấy không còn hiện ra.
+[hesitant] “Anh biết hôm đó mẹ ôm anh. Nhưng anh không nhớ cảm giác ấy nữa.”
+
+Cậu vẫn nhớ cuộc nói chuyện vừa rồi. Chỉ buổi tối được mẹ ôm không còn hiện ra.
 
 Ông Lộc tách một liên giấy đưa cậu. “Xong.”
 
@@ -134,7 +136,7 @@ Nhưng hơi ấm qua nhanh. Duy cúi gập, tay bấu mép ghế. Nỗi nhớ c�
 
 Ông Lộc cúi xuống gần tầm mắt em.
 
-“Cả hai gặp mẹ một lần, đủ để nói lời còn thiếu. Sau đó, con không bao giờ mơ thấy mẹ nữa. Nhớ vẫn nhớ, nhưng trong mơ thì không. Đồng ý không?”
+“Cả hai được gặp mẹ một lần. Mẹ không ở lại được. Sau đó, cháu không bao giờ mơ thấy mẹ nữa. Nhớ vẫn nhớ, nhưng trong mơ thì không. Đồng ý không?”
 
 [quickly] “Cháu đồng ý!”
 
@@ -166,8 +168,6 @@ Mẹ vuốt lại tóc cậu. “Còn gắp hành qua chén em không?”
 
 “Ít hơn chứ chưa hết!” Thảo mách ngay.
 
-Họ kể những chuyện nhỏ, từ đôi dép tuột quai đến món canh hôm nào bị mặn. Không ai vội đứng lên.
-
 Một lúc sau, mẹ nhìn Duy lâu hơn.
 
 “Sao con cứ làm như con không được buồn vậy?”
@@ -196,7 +196,7 @@ Mẹ nhìn từng đứa, mỉm cười. Rồi hơi ấm và bóng dáng ấy ta
 
 Khi Thảo mở mắt, trước mặt lại là chiếc quầy gỗ. Duy vẫn nắm tay em, mặt tái và áo ướt mồ hôi.
 
-Ông Lộc đặt thêm hai tờ giấy cạnh liên sửa máy. Tờ cuối ghi tên Thảo.
+Ông Lộc đặt thêm hai tờ giấy. Duy lấy liên sửa máy trong ví ra so cạnh chúng. Tờ cuối ghi tên Thảo.
 
 Duy nhìn em. “Sao em nhận nhanh vậy?”
 
@@ -206,7 +206,7 @@ Con bé ngập ngừng.
 
 “Vậy là từ nay cháu ngủ, cháu không gặp mẹ nữa hả ông?”
 
-Ông Lộc gật. Không cái giá nào biến mất cùng cánh đồng.
+Ông Lộc gật.
 
 Duy kéo em gần. Cậu không trách em, cũng không bảo mình hết mệt rồi. Cậu cất ba tờ giấy, cầm máy, đưa em về.
 
