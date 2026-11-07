@@ -1,4 +1,4 @@
-# Rà soát kịch bản — bản 6
+# Rà soát kịch bản — bản 7
 
 Ngày 07/11/2026. Đọc theo [kịch bản nguồn](KICH-BAN.md), [dựng cảnh](DUNG-CANH.md), bản lời và lựa chọn giữ người dẫn chuyện. Đây là đánh giá biên tập văn bản; chưa đo nhịp bằng giọng/animatic thật.
 
@@ -6,7 +6,19 @@ Ngày 07/11/2026. Đọc theo [kịch bản nguồn](KICH-BAN.md), [dựng cản
 
 Nền truyện đủ để sang storyboard: anh giấu nhớ → cố gánh thay → em chủ động trả giá → cuộc gặp không hoàn mất mát → anh biết nhờ người lớn. Ba giao kèo và nơi hai trẻ đến đêm đó được khép lại. Cảnh đời thường ở đồng tạo độ ấm trước chia tay; không nên tăng thêm bi kịch, giao kèo hay nhân vật chỉ để gây sốc.
 
-## Lỗi/điểm yếu đã sửa trực tiếp
+## Biên tập bản 7 theo phản hồi
+
+- C1: Lộc gắt, mỉa mai; Thảo sợ/ứa nước mắt. Ông quay về làm tiếp đồng hồ rồi gợi cách khác và cười nham hiểm. C2 có bước quay lại quầy, không sửa máy trẻ trước khi nhận giá.
+- Duy cầm giúp tiền em rồi đưa lại; lời không còn bị hiểu thành thanh toán cho em. Lộc gọi mày/chúng mày, xưng tao; trẻ vẫn ông/cháu.
+- Bố say, chửi và từng đánh hai con; mẹ đứng che dù bị quát mắng. Không thêm mặt/cảnh đánh trực diện hoặc gán nguyên nhân mất mẹ. Lời mẹ ở C7 gắn với tìm dì giúp ở kết.
+- Bỏ ký ức chọn thử và ký ức sinh nhật. G1 duy nhất: tranh xe đồ chơi → Thảo ngã/khóc → mẹ dỗ cả hai → Duy đỡ em, xin lỗi → cùng chơi. Ý nghĩa là Duy nhận ra vai trò người anh. G1 lấy ký ức của buổi ấy, không xóa mọi điều cậu đã học hay tình thương em.
+- G1 mở bản ghi, tiếng mẹ dừng làm lộ khoảng trống ở nhà; Thảo xin cảm giác được che chở. G2 chỉ cho thoáng bình yên, Duy nhận thêm phần buồn của em; lời hỏi lại của Duy và phản ứng sau đó giúp hiểu giá. G3 mới là gặp/nói chuyện với mẹ, Thảo trả bằng những giấc mơ.
+- C8 gọi rõ ba biên nhận theo ba lần đổi. Giấy G2/G3 ghi sau lời nhận, không gây thêm hiệu lực hoặc giá mới.
+- Rà thoại theo người nói/người nghe, giảm câu cụt thiếu ý; giữ khoảng lặng và trao–nhận lời. Chưa có audio để xác nhận cách đọc/thẻ cảm xúc.
+
+## Các sửa lỗi ở bản 6, giữ làm lịch sử
+
+G1 sinh nhật/ảnh hẹn giờ trong bảng cũ đã được thay bằng buổi tranh đồ chơi rồi mẹ dỗ làm hòa ở bản 7; áp dụng nội dung mới bên trên và KICH-BAN khi dựng.
 
 | Chỗ | Vấn đề bản 5 | Xử lý bản 6 |
 |---|---|---|
@@ -30,14 +42,14 @@ Nền truyện đủ để sang storyboard: anh giấu nhớ → cố gánh thay
 
 | Ưu tiên | Điểm cần xem/nghe | Quyết định hiện tại |
 |---|---|---|
-| Cao | G2 “nhận phần trống vắng” khá trừu tượng, Thảo vẫn có thể nhớ/thương mẹ; Duy chậm phải có nền trước G3 | Giữ giá đã xây; thử diễn ánh ấm → nhẹ người → anh sụp, em thấy và nhận thay. Nếu bản đọc thử vẫn khó hiểu mới viết lại câu báo giá bằng lời cụ thể hơn; không thêm thuyết minh cơ chế dài |
+| Cao | G2 đã viết rõ giá và lời hỏi lại; vẫn cần xem khán giả đọc được sự khác nhau giữa thoáng ấm và phần buồn Duy phải giữ | Thử cả hai dịu lại → Thảo nhẹ hơn → Duy sụp → em lo và nhận G3; không xóa nỗi sợ thật hoặc tình thương mẹ |
 | Cao | Giá G1 rất lớn so với mục tiêu nghe một đoạn ghi âm; cần cảm được nhu cầu của chính Duy và quyền mang máy về | Giữ lúc em xin dừng, nhịp nghỉ và lời anh thừa nhận nhớ mẹ. Chưa thêm hạn chót hoặc tai nạn để ép quyết định |
 | Vừa | Mở đầu 24 giây đẹp nhưng bắt đầu xung đột sau đó | Giữ đường máy/24 giây theo phác thảo đã chốt; dùng animatic xem thời gian giữ mắt/chữ và nhịp dừng, chưa tự cắt mở đầu dựa trên suy đoán giữ chân |
 | Vừa | C1 dồn tình cảnh mẹ/bố/dì vào một đoạn kể | Đọc thử xem có quá dày; thông tin dì phải còn trước cuộc gọi cuối. Chưa chia thành cảnh nhà/hồi tưởng mới để tiết kiệm phạm vi |
-| Vừa | “Mẹ từng nhờ dì báo” về bản ghi chưa gửi chưa thật tự nhiên | Có thể làm rõ dì biết bản nháp qua việc soạn đồ mẹ; đây là đề xuất, chưa thêm chi tiết đời mẹ/nguồn tin mới vào bản nguồn |
+| Vừa | Nguồn biết bản ghi cần rõ nhưng không lấn câu chuyện | Bản 7 nói mẹ nhờ dì nhắn trước khi vào viện; không tự thêm cảnh soạn đồ hoặc nguyên nhân mẹ mất |
 
 ## Số liệu và đồng bộ
 
-Lời sạch **1,470 đơn vị tách khoảng trắng, 6,705 ký tự** gồm LF/xuống dòng; 29 giây nghỉ riêng, mở đầu không lời 24 giây. Ước tính **8:27–10:10 phút**, cùng giả định 2,7–3,3 đơn vị/giây và thêm 8–12 giây chuyển khác; chưa đo giọng, không phải hạn phải đọc cho đủ. Vẫn 9 phần cảnh/35 cue, hai anh em 16/8, đúng ba giao kèo và người dẫn chuyện.
+Lời sạch **1,916 đơn vị tách khoảng trắng, 8,602 ký tự** gồm LF/xuống dòng; 29 giây nghỉ riêng, mở đầu không lời 24 giây. Ước tính **10:42–12:55 phút**, cùng giả định 2,7–3,3 đơn vị/giây và thêm 8–12 giây chuyển khác; chưa đo giọng, không phải hạn phải đọc cho đủ. Vẫn 9 phần cảnh/35 cue, hai anh em 16/8, đúng ba giao kèo và người dẫn chuyện.
 
-Nguồn, LOI-DOC và ELEVENLABS được đối chiếu toàn văn; giữ thẻ cũ ở đoạn không đổi và thêm gợi ý ngập ngừng ở lời Duy nhận ra G1. Thẻ vẫn cần thử đúng model. Mã asset/demo 24 đoạn/142 giây được giữ nguyên; không nhận đã cập nhật hoặc kiểm tra lại diễn xuất bản 6 trong demo. Không gọi dịch vụ giọng/ảnh/video ở lượt rà này.
+Nguồn, LOI-DOC và ELEVENLABS được đối chiếu toàn văn; giữ thẻ cũ ở đoạn không đổi; gợi giọng gắt/mỉa mai/lạnh cho Lộc, nài nỉ/lo sợ cho trẻ và dịu cho mẹ. Thẻ vẫn cần thử đúng model. Mã asset/demo 24 đoạn/142 giây được giữ nguyên; không nhận đã cập nhật hoặc kiểm tra lại diễn xuất bản 7 trong demo. Không gọi dịch vụ giọng/ảnh/video ở lượt rà này.

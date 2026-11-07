@@ -5,13 +5,13 @@
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng **kịch bản bản 6**, giữ nguyên lời dẫn/thoại và ba giao kèo. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
+Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng **kịch bản bản 7**, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
 
 ## Phạm vi và điều đã chốt
 
-- Một tập kể trọn ba giao kèo và lời từ biệt. **Ước tính 8:27–10:10**, chưa có audio để đo. Mục tiêu 6–8 phút của kênh là mặc định thử nghiệm; tập này dài hơn do mở rộng đã yêu cầu. Không đọc nhanh hoặc tự chia cảnh mẹ sang tập sau chỉ để khớp định mức.
-- **Duy anh trai 16, Thảo em gái 8**; cả hai gọi Lộc là **ông**, xưng **cháu**; Lộc tự xưng **tao**. Anh che chở nhưng cũng nhớ mẹ; em có hành động và lựa chọn riêng. Lộc lạnh, nguy hiểm, không đổi sang ông hiền.
-- G1 Duy mất ký ức sinh nhật để sửa máy; G2 Duy nhận thêm phần trống vắng của em; G3 Thảo mất những giấc mơ về mẹ để cả hai có một cuộc gặp. Giá được báo trước, không hoàn sau cuộc gặp. Duy chậm vì đã kiệt sức khi em nhận G3.
+- Một tập kể trọn ba giao kèo và lời từ biệt. **Ước tính 10:42–12:55**, chưa có audio để đo. Mục tiêu 6–8 phút của kênh là mặc định thử nghiệm; tập này dài hơn do mở rộng đã yêu cầu. Không đọc nhanh hoặc tự chia cảnh mẹ sang tập sau chỉ để khớp định mức.
+- **Duy anh trai 16, Thảo em gái 8**; cả hai gọi Lộc là **ông**, xưng **cháu**; Lộc tự xưng **tao**, gọi trẻ **mày/chúng mày**. Anh che chở nhưng cũng nhớ mẹ; em có hành động và lựa chọn riêng. Lộc lạnh, nguy hiểm, không đổi sang ông hiền.
+- G1 Duy mất ký ức buổi tranh đồ chơi, mẹ dỗ rồi hai anh em làm hòa để sửa máy; G2 Duy nhận thêm phần trống vắng của em; G3 Thảo mất những giấc mơ về mẹ để cả hai có một cuộc gặp. Giá được báo trước, không hoàn sau cuộc gặp. Duy chậm vì đã kiệt sức khi em nhận G3.
 - Mở đầu **24 giây không lời**: thành phố/trời sao/chữ → hạ tới cú → nét mắt → lùi lộ hẻm/nhà/bóng người/tiệm → chuyển sang hai trẻ trước cửa → bước vào. Chữ là lớp riêng; cú không tự có vai phép thuật.
 - Bốn nhóm không gian: thành phố–hẻm ngoài tiệm, nội tiệm, cánh đồng chủ quan, ngưỡng nhà. Mẹ hiện hình trong G3; bố qua bóng/âm khuất, dì qua lời kể. Chưa cần dựng nội nhà dì hoặc hồi tưởng riêng của bố.
 - **9 phần cảnh, 35 cue thiết lập**; cue không bằng số ảnh mới, lượt gọi dịch vụ hoặc số lần cắt. Giữ lens/focus/pose theo DUNG-CANH, roll 0°, rung 0 px/0°. Thông số lens là ý đồ bố cục, chưa phải camera quang học đã triển khai.
@@ -47,7 +47,7 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 | Phần | Điều cần nhìn thấy khi chạy |
 |---|---|
 | C0 → C1 | Đường máy đủ 24 giây, điểm ghép mái/mắt không nhảy; cú bám thanh, bóng người đi đúng đất không chắn trẻ, bước qua cửa nối đúng trục rồi mới với đồng hồ |
-| C1–C4 / G1 | Đặt–thả máy, trả/cất tiền, lấy/cất ảnh, cầm/đặt bút, ký/tách giấy; vỏ máy trước/sau sửa khớp; ký ức mất không phải quên thân phận |
+| C1–C4 / G1 | Lộc gắt/mỉa mai, Thảo ứa nước mắt; Lộc về bàn sau làm tiếp đồng hồ rồi trở lại quầy; Duy đưa lại tiền em; đặt–thả máy, cất tiền, lấy/cất ảnh, cầm/đặt bút, ký/tách giấy; vỏ máy trước/sau sửa khớp; ký ức mất không phải quên thân phận |
 | C5 / G2 → G3 | Duy nhận sau lời báo giá; hơi ấm qua rồi kiệt rõ; còn thấy anh cố phản ứng trong lúc Lộc báo G3; em nhận trọn trước câu ngăn; trắng/ù đúng một lần |
 | C6–C7 | Nắm tay đúng bên, bước có mặt đất, nhả/chuyển tay khi ngồi và ôm; mẹ/áo/bóng cùng tan; khoảng trống còn lại là dụng ý, không lỗi pose |
 | C8 | Về đúng ghế/tay ở tiệm, đủ ba liên khách, đồ được cất thật; bố khuất, cuộc gọi dì và đi khỏi cửa; các giá còn hiệu lực |
@@ -56,15 +56,15 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 
 - Làm theo thứ tự ở trên; chỉ tạo media khi nhiệm vụ tiếp theo bao gồm bước đó. Lập kế hoạch và rà repo không tự chạy các dịch vụ ảnh/giọng/video.
 - Sau khi duyệt một bước, ghi phiên bản và phản hồi cụ thể. Nếu đổi lời thì đồng bộ bản lời, sau đó cập nhật timing/cue/audio/hình thực sự phụ thuộc; không dùng lại mốc cũ một cách máy móc.
-- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,470 đơn vị tách khoảng trắng, 6,705 ký tự** gồm xuống dòng; **29 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
+- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,916 đơn vị tách khoảng trắng, 8,602 ký tự** gồm xuống dòng; **29 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
 - Ghi riêng lượt ảnh, ký tự TTS, credits theo model, quota trợ lý nếu biết và thời gian render. Không đổi token thành credits hoặc hứa số video từ gói chưa đo. Chưa có chi phí media thực cho lượt tối ưu này.
 
 ## Phạm vi đồng bộ đã rà trong repo
 
 | Nội dung | File hiện hành cần khớp | Kết quả rà văn bản 07/11/2026 |
 |---|---|---|
-| Tuổi, vai và xưng hô | KICH-BAN, DUNG-CANH, README tập; lời trong LOI-DOC/ELEVENLABS | Duy anh 16, Thảo em 8; sửa câu hỏi cuối về xưng cháu với ông Lộc |
-| Ba giá, người trả, mẹ, bố/dì | KICH-BAN, DUNG-CANH, ASSET, README và GHI-CHU | G1/G2 Duy, G3 Thảo; mẹ ở miền cảm giác; bố/dì không thành tuyến dựng riêng |
+| Tuổi, vai và xưng hô | KICH-BAN, DUNG-CANH, README tập; lời trong LOI-DOC/ELEVENLABS | Duy anh 16, Thảo em 8; trẻ xưng cháu/gọi ông, Lộc xưng tao/gọi mày; đúng người nói |
+| Ba giá, người trả, mẹ, bố/dì | KICH-BAN, DUNG-CANH, ASSET, README và GHI-CHU | G1/G2 Duy, G3 Thảo; mẹ từng che con khỏi bố bạo hành, hiện hình ở G3; bố/dì không thành tuyến dựng riêng; ba biên nhận rõ vai trò |
 | Đoạn mở, cue và thời lượng | KICH-BAN, DUNG-CANH, ASSET, README, mục lục docs/KICH-BAN | C0-A…F 24 giây; C0 + C1–C8, 35 cue; giữ ước tính mới |
 | Lời đọc | KICH-BAN → LOI-DOC và ELEVENLABS | Đối chiếu toàn bộ đoạn được đọc; loại thẻ để so nội dung; C0/chỉ dẫn không vào TTS |
 | Nơi tìm kế hoạch và quy tắc cập nhật | README gốc/tập, CLAUDE, skill/SKILL và look, docs/WHAT-IF-QUY-TRINH, docs/KICH-BAN, docs/ASSET | Liên kết về kế hoạch tập; hướng dẫn rà file phụ thuộc sau mỗi đổi |

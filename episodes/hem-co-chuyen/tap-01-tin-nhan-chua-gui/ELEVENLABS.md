@@ -4,7 +4,9 @@ Thảo vội đặt chiếc đồng hồ xuống kệ, rụt tay lại. Duy kéo
 
 Ông Lộc nhìn lên qua cặp kính cũ. Ngọn đèn vàng chỉ soi rõ một nửa mặt ông.
 
-Hai anh em ở cách tiệm ba căn. Mẹ mất hơn tháng; bố suốt ngày say, tiền nhà vơi theo những cuộc rượu. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn, nhưng Duy ít chịu kể chuyện nhà.
+Hai anh em ở cách tiệm ba căn. Mẹ mất hơn tháng, tiền nhà cứ vơi theo những cuộc rượu của bố. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn, nhưng Duy ít chịu kể chuyện nhà.
+
+Bố say thì chửi bới, có lần đánh cả hai đứa. Khi mẹ còn, mẹ luôn đứng chắn, ôm con ra sau lưng. Bố có quát mắng thế nào, mẹ cũng không tránh đi. Từ ngày mẹ mất, nghe tiếng cửa đập là Duy lại kéo em ra sau vai mình.
 
 Cậu đặt điện thoại vỡ lên khăn. Thảo bảo đã làm rơi nó.
 
@@ -12,11 +14,11 @@ Cậu đặt điện thoại vỡ lên khăn. Thảo bảo đã làm rơi nó.
 
 Duy đổ tiền ra. Một trăm tám mươi sáu ngàn, tiền phụ quán dì cậu để dành.
 
-“Cháu đưa trước từng này…”
+“Ông sửa giúp cháu trước được không? Phần còn thiếu, cháu làm rồi trả dần.”
 
-“Đủ tiền hãy tới.”
+[coldly] “Có đủ tiền rồi hãy mang tới.”
 
-“Không cần sửa đẹp. Chỉ cần mở được ghi âm của mẹ cháu.”
+“Ông chỉ cần mở được đoạn ghi âm của mẹ cháu thôi. Màn hình xấu cũng được.”
 
 [coldly] “Giá không đổi.”
 
@@ -24,47 +26,55 @@ Thảo níu áo anh. “Mình về đi. Em sợ.”
 
 Duy vẫn đứng. Ba tiệm trước đều trả máy. Thảo nhìn anh, lấy hai tờ tiền gấp nhỏ.
 
-“Cháu còn hai chục. Cháu chỉ muốn nghe mẹ một chút thôi.”
+[pleading] “Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.”
 
 Ông Lộc đặt tua vít thẳng xuống bàn.
 
-[quietly] “Cất đi. Có thứ khác trả được.”
+[angry] “Cất đi.”
 
-[quietly] “Tao lấy một ký ức quan trọng, gắn với cái máy. Sửa xong, cháu quên đúng chuyện đã chọn. Không lấy lại được.”
+[sarcastic] “Mày nghĩ với số tiền đó, mày sửa nổi cái điện thoại cũ rích của mày à?”
 
-“Không đổi thì sao?”
+Thảo giật mình, mắt rơm rớm. Em nép sát Duy, để anh cầm giúp hai tờ tiền.
+
+Ông Lộc nhặt lại tua vít, quay về bàn sửa phía sau, cúi xuống chiếc đồng hồ đang làm dở.
+
+[coldly] “Nhưng có thể có cách khác, không cần trả tiền mà chúng mày vẫn sửa được điện thoại.”
+
+Ông hơi ngoái lại, nở một nụ cười nham hiểm.
+
+Ông Lộc đặt tua vít xuống bàn sửa, quay lại quầy.
+
+[coldly] “Tao sửa máy. Đổi lại, mày đưa tao một ký ức thật quý của mày. Máy chạy lại thì mày quên hẳn chuyện đó. Muốn lấy lại cũng không được.”
+
+“Nếu cháu không đổi thì sao?”
 
 Ông hất cằm về máy. “Mang về.”
 
-Duy trả tiền em, cất phần mình rồi kéo ghế cho Thảo. Mẹ từng nhờ dì báo có ghi âm chưa gửi; Duy biết mật mã, nhưng máy vỡ trước khi cậu mở được.
+Duy đưa lại tiền cho em, cất phần tiền của mình rồi kéo ghế cho Thảo. Trước lúc vào viện, mẹ có nhờ dì nhắn Duy nghe một đoạn ghi âm trong máy. Nhưng cậu chưa kịp mở thì máy đã vỡ.
 
 “Anh có muốn nghe mẹ không?”
 
-“Em nghe được là được. Anh lớn rồi.”
+“Em nghe được là được. Đừng lo cho anh.”
 
 Những tối đợi em ngủ rồi mới lấy ảnh mẹ ra, cậu chưa kể với ai.
 
 Duy đặt ảnh ba mẹ con cạnh máy, cầm bút ông đưa.
 
-“Cháu chọn tối cháu la em. Cháu đang nghe tin nhắn cũ của mẹ. Nó cứ khóc…”
+Duy nhìn chỗ trống trên tờ giấy, chưa viết.
 
-Đêm đó, bố say, đập cửa. Duy kéo em vào phòng, rồi quát: nín ngay, có anh rồi, sao còn khóc?
+Có tối bố say, đập cửa. Duy kéo em vào phòng, rồi quát: nín ngay, có anh rồi, sao còn khóc?
 
-“Anh chỉ muốn em nhỏ tiếng, không thôi bố nổi nóng.”
+“Bữa đó anh sợ bố nghe thấy em khóc rồi lại đánh. Anh cuống quá nên mới quát em.”
 
-“Nhưng lúc anh la, em cũng sợ anh.”
+“Nhưng anh quát như vậy, em cũng sợ mà.”
 
-Duy nhìn em. “Nếu anh quên tối đó, em có hết sợ không?”
+Thảo kéo vạt áo anh. “Lúc đó em chỉ muốn anh ôm em thôi.”
 
-“Không,” ông Lộc đáp.
-
-Thảo kéo vạt áo. “Em chỉ muốn anh ôm em thôi.”
-
-“Máy không phải bị rơi.”
+[hesitant] “Anh ơi… máy không phải bị rơi đâu.”
 
 Thảo xoay vết nứt về mình.
 
-“Lúc bố đi, anh nằm quay vô tường. Em lấy máy mẹ. Em muốn nghe mẹ dỗ. Bấm hoài không mở, em tức, em đập xuống nền.”
+“Hôm đó, đợi bố đi rồi, em lấy máy mẹ. Anh cứ quay mặt vô tường, không nói với em. Em muốn nghe mẹ dỗ… mà bấm hoài không được. Em tức quá nên đập máy xuống nền.”
 
 Duy ngừng tay.
 
@@ -72,71 +82,81 @@ Duy ngừng tay.
 
 Cậu kéo ghế gần em.
 
-“Anh buồn vì máy hư. Nhưng tại anh sợ bố nên cuống lên, rồi lại quát em. Anh xin lỗi.”
+“Anh buồn vì em đập máy. Nhưng anh cũng sai. Anh sợ bố rồi lại quát em. Anh xin lỗi.”
 
-Duy nhìn ảnh trên quầy.
+Duy nhìn tấm ảnh mẹ, rồi quay sang ông Lộc.
 
-“Đổi chuyện khác. Tối sinh nhật mười sáu của cháu. Mẹ đặt máy này hẹn giờ chụp cả ba.”
+[thoughtful] “Cháu chọn lần hai anh em tranh nhau chiếc xe đồ chơi, hồi em còn học mẫu giáo.”
 
-Thảo ngước lên. “Hôm dây nón vướng kính mẹ hả?”
+Thảo ngước lên. “Hôm anh làm em ngã hả?”
 
-Duy cười khẽ. Trước khi chụp, mẹ đã ôm cậu. Những đêm quay mặt vào tường, đó là điều cậu cố nhớ thật rõ.
+Duy gật. “Anh giật xe, em ngã xuống nền rồi khóc. Mẹ chạy tới, dỗ em, rồi kéo cả anh ngồi cạnh.”
+
+“Anh tưởng mẹ sẽ mắng. Nhưng mẹ vuốt tóc anh, bảo có gì thì nói, đừng làm nhau đau.”
+
+“Xong anh xin lỗi, đưa xe lại cho em,” Thảo nói. “Em lại kéo anh xuống chơi cùng.”
+
+Duy cười khẽ, cúi nhìn bàn tay nhỏ đang níu áo mình. Hôm ấy, lần đầu cậu hiểu có một đứa em đang trông cậy vào mình, và làm anh là phải biết đỡ em dậy.
 
 “Em không nghe cũng được,” Thảo níu tay anh. “Anh đừng đổi nữa.”
 
 [sad] “Anh cũng nhớ mẹ. Nhưng anh muốn em được nghe.”
 
-Cậu cất ảnh, ghi buổi tối mình chọn. Ông Lộc đọc lại, nhắc không thể đòi về. Duy ký. Đến lần hỏi cuối, cậu vẫn gật.
+Cậu cất ảnh, ghi rõ buổi tranh đồ chơi rồi được mẹ dỗ làm hòa. Ông Lộc đọc lại: sửa máy xong, cậu sẽ mất toàn bộ ký ức về buổi ấy. Duy ký. Đến lần hỏi cuối, cậu vẫn gật.
 
-Máy sáng lại. Thảo nhìn anh. “Anh còn nhớ mẹ ôm anh hôm đó không?”
+Máy sáng lại. Thảo nhìn anh. “Anh còn nhớ hôm mẹ dỗ hai anh em làm hòa không?”
 
 Duy nhắm mắt, chờ một lúc rồi lắc đầu.
 
-[hesitant] “Anh biết hôm đó mẹ ôm anh. Nhưng anh không nhớ cảm giác ấy nữa.”
+[hesitant] “Anh biết chuyện đó. Nhưng anh không nhớ giọng mẹ hôm ấy, cũng không nhớ lúc mẹ vuốt tóc anh nữa.”
 
-Cậu vẫn nhớ cuộc nói chuyện vừa rồi. Chỉ buổi tối được mẹ ôm không còn hiện ra.
+Cậu vẫn nhớ cuộc nói chuyện vừa rồi, vẫn biết mình là anh của Thảo. Chỉ buổi hai đứa làm hòa bên mẹ không còn hiện ra.
 
-Ông Lộc tách một liên giấy đưa cậu. “Xong.”
+Ông Lộc tách một liên biên nhận sửa điện thoại, đẩy về phía Duy. “Giữ lấy.”
 
-Duy nhập mật mã, mở bản ghi, nghiêng máy về em.
+Duy gấp tờ biên nhận, cất vào ví rồi nhập mật mã, mở bản ghi cho em nghe.
 
 “Duy, mẹ để hai phần bánh trong tủ lạnh. Phần có dâu là của Thảo. Con cắt miếng nhỏ giùm mẹ. Mẹ về mẹ ăn cơm.”
 
 “Mẹ vẫn tưởng mẹ sẽ về,” Thảo nói.
 
-Em nhìn quanh tiệm, rồi hỏi nhỏ:
+Tiếng mẹ dừng, căn tiệm chỉ còn tiếng quạt. Thảo nhìn anh, rồi hỏi nhỏ:
 
 “Ông sửa được thứ khác ngoài điện thoại không?”
 
 Ông Lộc nhếch miệng, nụ cười không làm mắt dịu đi.
 
-[coldly] “Thế muốn tao sửa gì nữa?”
+[coldly] “Thế mày muốn tao sửa gì nữa?”
 
-“Cho hai anh em cháu… cảm thấy như ngày mẹ còn được không?”
+[pleading] “Cháu muốn hai anh em được yên tâm như hồi mẹ còn… Hồi đó bố có say, mẹ cũng đứng che cho tụi cháu.”
 
 Ông Lộc nhìn Duy.
 
-“Một lúc thôi. Không phải mẹ sống lại. Muốn cả hai được yên như ngày ấy, phải có người nhận phần trống vắng của đứa còn lại.”
+[coldly] “Được. Một lát thôi. Mẹ không về thật đâu. Chỉ là hai đứa mày thấy ấm áp, yên tâm như hồi còn mẹ.”
 
-“Cháu nhận,” Duy nói.
+“Thế phải đổi gì?” Duy hỏi.
 
-“Nghĩ kỹ. Cái này đổi bằng lời. Nói đồng ý là xong. Khi hơi ấm qua, cháu chịu cả phần của nó. Không rút lại được.”
+[coldly] “Nỗi buồn của con bé. Tao chuyển nó sang mày. Nó vẫn nhớ mẹ, nhưng sẽ bớt cái cảm giác bị bỏ lại. Còn mày, mày chịu thêm phần ấy.”
+
+“Em cháu sẽ đỡ buồn… còn cháu phải buồn thay em?” Duy hỏi.
+
+[coldly] “Ừ. Hết lúc yên ấm, mày vẫn phải chịu phần buồn của nó. Nghĩ kỹ. Chỉ cần mày nói đồng ý là tao lấy, không đổi lại được.”
 
 Thảo quay sang anh. Duy giữ bàn tay em.
 
 “Cháu đồng ý.”
 
-Trong một thoáng, tiếng hẻm lùi xa. Thảo cảm thấy như mẹ vừa đi chợ về, bếp sắp có cơm, không phải nhìn sắc mặt bố nữa.
+Trong một thoáng, tiếng hẻm lùi xa. Cả hai thấy lòng dịu xuống, như đang ngồi đợi mẹ dọn cơm. Duy thả lỏng vai. Thảo bớt siết tay anh, tựa sát hơn.
 
 Em nhắm mắt, thở ra.
 
-Nhưng hơi ấm qua nhanh. Duy cúi gập, tay bấu mép ghế. Nỗi nhớ của chính mình chưa kịp nguôi, phần chơ vơ của em đã dồn tới. Cậu muốn nói mà không ghép được trọn câu.
+Hơi ấm tan. Thảo thở nhẹ hơn, nhưng Duy lại cúi gập, bấu chặt mép ghế. Cậu vẫn nhớ mẹ như trước; giờ còn phải chịu thêm nỗi chơ vơ mà em vừa bớt được. Cậu muốn nói mà không ghép nổi trọn câu.
 
-“Sửa cho anh cháu được gặp mẹ nữa đi,” Thảo bật nói. “Đừng lấy của anh nữa. Lấy của cháu.”
+[worried] “Anh ơi… anh làm sao vậy?” Thảo níu tay anh, rồi quay phắt sang ông Lộc. “Ông cho anh cháu gặp mẹ đi. Lần này lấy của cháu. Đừng lấy của anh nữa.”
 
 Ông Lộc cúi xuống gần tầm mắt em.
 
-“Cả hai được gặp mẹ một lần. Mẹ không ở lại được. Sau đó, cháu không bao giờ mơ thấy mẹ nữa. Nhớ vẫn nhớ, nhưng trong mơ thì không. Đồng ý không?”
+[coldly] “Tao cho hai đứa mày gặp mẹ, nói chuyện với mẹ một lần. Xong, mẹ phải đi. Giá là từ nay, mày không còn mơ thấy mẹ nữa. Lúc thức vẫn nhớ, nhưng trong mơ thì không. Đồng ý không?”
 
 [quickly] “Cháu đồng ý!”
 
@@ -152,7 +172,7 @@ Thảo chạy tới. Duy đứng sững, rồi mới bước theo. Cậu biết 
 
 Họ ngồi xuống bên bờ ruộng. Thảo ngả vào mẹ, kéo gấu áo có đường khâu nhỏ.
 
-“Chỗ này lại bung rồi. Mẹ may xấu quá.”
+“Mẹ ơi, chỗ này lại bung rồi nè. Mẹ vá cho con nữa nha.”
 
 Mẹ bật cười. “Mẹ mới vá xong, ai chui hàng rào hái ổi?”
 
@@ -176,7 +196,7 @@ Một lúc sau, mẹ nhìn Duy lâu hơn.
 
 Mẹ kéo cậu gần lại.
 
-[softly] “Con là anh của em. Nhưng con vẫn là con của mẹ mà. Mệt thì nói với dì, đừng chờ đến lúc chịu hết nổi.”
+[gentle] “Con là anh của em, nhưng vẫn là con của mẹ mà. Bố say rồi đánh thì hai đứa cứ sang dì, nhờ dì giúp. Con đừng chịu một mình.”
 
 Mẹ quay sang Thảo.
 
@@ -186,7 +206,7 @@ Mẹ quay sang Thảo.
 
 Mẹ vuốt má em, bàn tay đã nhạt trong nắng.
 
-“Mẹ thương hai đứa. Nghe không? Không cần đứa nào phải gồng lên mới được mẹ thương.”
+[tenderly] “Mẹ thương cả hai đứa. Duy cũng được buồn, Thảo cũng được khóc. Đừng giấu nhau nữa, nghe con.”
 
 Thảo ôm chặt hơn. “Con còn nhiều chuyện chưa kể…”
 
@@ -196,19 +216,19 @@ Mẹ nhìn từng đứa, mỉm cười. Rồi hơi ấm và bóng dáng ấy ta
 
 Khi Thảo mở mắt, trước mặt lại là chiếc quầy gỗ. Duy vẫn nắm tay em, mặt tái và áo ướt mồ hôi.
 
-Ông Lộc đặt thêm hai tờ giấy. Duy lấy liên sửa máy trong ví ra so cạnh chúng. Tờ cuối ghi tên Thảo.
+Ông Lộc đẩy ra hai biên nhận mới: Duy nhận nỗi buồn của em, Thảo trả giá cho cuộc gặp mẹ. Duy lấy tờ sửa điện thoại trong ví ra đặt cạnh. Đủ ba lần đổi. Tờ cuối mang tên em gái.
 
-Duy nhìn em. “Sao em nhận nhanh vậy?”
+Duy nhìn em. “Sao em không để anh nói đã?”
 
-“Em không muốn ông lấy của anh nữa.”
+“Em thấy anh mệt lắm rồi. Em không muốn ông lấy thêm của anh nữa.”
 
 Con bé ngập ngừng.
 
-“Vậy là từ nay cháu ngủ, cháu không gặp mẹ nữa hả ông?”
+[hesitant] “Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?”
 
 Ông Lộc gật.
 
-Duy kéo em gần. Cậu không trách em, cũng không bảo mình hết mệt rồi. Cậu cất ba tờ giấy, cầm máy, đưa em về.
+Duy kéo em lại gần. Cậu vẫn còn mệt, chỉ lặng lẽ nắm tay em. Cậu cất cả ba biên nhận, cầm máy, đưa em về.
 
 Đến ngưỡng cửa, tiếng chai lăn khiến Thảo khựng lại. Bố đã say trong phòng sau.
 
@@ -218,4 +238,4 @@ Lần này, Duy không dẫn em vào chịu cùng mình. Cậu gọi dì Hạnh.
 
 Nghe dì bảo cửa vẫn mở, cậu mới thở ra.
 
-Thảo nắm tay anh. Ký ức sinh nhật của Duy không trở lại. Phần nặng cậu nhận vẫn còn; giấc mơ có mẹ của em cũng đã mất. Nhưng đêm ấy, hai đứa biết mình sẽ đi đâu.
+Thảo nắm tay anh. Duy không lấy lại được ký ức buổi làm hòa bên mẹ, cũng chưa nhẹ đi phần buồn đã nhận. Thảo sẽ không còn gặp mẹ trong mơ. Nhưng đêm ấy, hai đứa có một nơi để về, có người lớn đang đợi mở cửa.

@@ -4,6 +4,7 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 
 ## Câu chuyện và nhân quả
 
+- Khi có nhiều lần đánh đổi hoặc giải pháp liên tiếp, mỗi lần cần một mong muốn, kết quả và cái giá phân biệt được. Hệ quả lần trước phải dẫn đến nhu cầu lần sau; cho nhân vật hỏi lại bằng lời đời thường rồi cho thấy giá tác động ra sao. Vật lưu dấu như giấy, ảnh hoặc biên nhận cần được gọi rõ tác dụng khi xuất hiện, tránh khiến người xem tưởng có thêm luật hoặc bí ẩn.
 - Mỗi biến cố cần nguyên nhân, mỗi quyết định cần hệ quả. Nhân vật biết đến đâu thì hành động đến đó; không biết trước thời lượng tai họa hoặc bí mật chưa được tiết lộ.
 - Mỗi nhân vật cần một mong muốn, điều sợ mất, vai trò và hành động tác động đến kết quả. Nếu bỏ họ mà truyện không đổi, hãy gộp vai hoặc cho họ nhiệm vụ thật.
 - Trở ngại phải khiến nhân vật lựa chọn, trả giá hoặc đổi cách nhìn. Các nỗi khổ giải thích hành vi gây hại, không xóa trách nhiệm và không buộc người bị hại tha thứ.
@@ -15,7 +16,7 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 
 ## Cảm xúc và thoại
 
-- Đặt cảm xúc trong hành động, khoảng cách, vật dụng và cách đối đáp. Lời thoại phải đủ ý để hiểu ai đang cần điều gì; không thay cuộc nói chuyện bằng khẩu hiệu.
+- Đặt cảm xúc trong hành động, khoảng cách, vật dụng và cách đối đáp. Lời thoại phải đủ ý để hiểu ai đang cần điều gì; không thay cuộc nói chuyện bằng khẩu hiệu. Khi rà thoại, kiểm tra câu hỏi có được đáp đúng, đại từ đúng người nghe và động từ đúng hành động; đọc thành tiếng để bỏ câu cụt hoặc cách nói giống ghi chú thủ tục.
 - Dùng “vì”, “nếu”, “nhưng”, “nên” khi chúng làm rõ suy nghĩ. Khẩu ngữ và tiếng địa phương dùng vừa phải, thống nhất với nhân vật, không nhại giọng.
 - Hài phát sinh từ tính cách hoặc tình huống; không chèn đùa làm mất trọng lượng của tổn thương. Niềm tin và sinh hoạt tinh thần cần đúng bối cảnh.
 - Kết bằng một hành động cho thấy thay đổi thường hiệu quả hơn đọc một đoạn đạo lý. Hy vọng không xóa sạch thiệt hại hoặc khiến mọi người lập tức hòa thuận.

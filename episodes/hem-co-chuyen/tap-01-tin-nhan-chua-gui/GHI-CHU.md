@@ -1,5 +1,13 @@
 # Ghi chú riêng — tập 01
 
+## Bản 7 — thoại, gia đình và ba lần đổi — 07/11/2026
+
+Theo chuỗi phản hồi mới: Lộc gắt/mỉa mai, gọi mày/chúng mày và tự xưng tao; quay về làm tiếp đồng hồ trước khi gợi giá khác/cười nham hiểm. Duy cầm giúp hai tờ rồi đưa lại cho em, không thanh toán. Bố say/chửi/từng đánh hai con; mẹ luôn che con dù bị quát, bố vẫn khuất hình. Không chốt mới nguyên nhân mẹ mất.
+
+G1 chỉ còn ký ức buổi tranh xe đồ chơi, em ngã, mẹ dỗ cả hai, Duy xin lỗi/đỡ em rồi cùng chơi; ký ức cho thấy lúc cậu hiểu trách nhiệm người anh. Bỏ lựa chọn thử tối la em và ký ức sinh nhật. G1 mở bản ghi mẹ; khoảng hụt hẫng sau tiếng mẹ dẫn đến mong được che chở ở G2. G2 chỉ cho thoáng bình yên, sau đó Duy chịu thêm nỗi buồn của Thảo; Thảo thấy anh kiệt nên tự trả G3 để cả hai gặp/nói chuyện với mẹ. Giá G3 vẫn mất những giấc mơ có mẹ, trí nhớ lúc thức còn. Ba biên nhận lưu đúng ba lần đổi, không phát sinh giá mới.
+
+Đồng bộ nguồn/lời sạch/bản thẻ, chỉ dẫn dựng, asset, kế hoạch và các điểm đọc hiện hành. Bổ sung nguyên tắc chung về chuỗi mong muốn–kết quả–cái giá và rà thoại vào docs/KINH-NGHIEM; không đưa nội dung tập lên file dùng chung. Lời 1,916 đơn vị/8,602 ký tự, 29 giây nghỉ riêng, mở đầu 24 giây; ước tính 10:42–12:55, chưa đo audio. Chưa cập nhật/render mã thử hoặc tạo media. Trong lúc đồng bộ, nhận tiếp commit ánh sáng/preview `8b95931` của Anti bằng fast-forward, giữ nguyên phần mã/ảnh của bản đó; không tự coi mã thử đã dựng lời bản 7. Các mục phía dưới là lịch sử; luật xưng hô, ký ức và số liệu cũ không áp cho bản 7.
+
 ## Cập nhật xưng hô ông Lộc — 07/11/2026
 
 Theo yêu cầu mới, Lộc tự xưng **“tao”**, thay quy ước “ta” trước đó. Đã thể hiện trong lời ra giá G1 (“Tao lấy một ký ức…”) và câu hỏi sau sửa máy (“Thế muốn tao sửa gì nữa?”), đồng bộ nguồn/lời sạch/ElevenLabs cùng chỉ dẫn và kế hoạch. Hai trẻ vẫn gọi ông, xưng cháu; không đổi người nói khác hoặc tự thêm cách gọi mày. Lời hiện hành 1,470 đơn vị/6,705 ký tự, ước tính 8:27–10:10, chưa đo audio. Các mục cũ phía dưới ghi quy ước theo thời điểm lịch sử.

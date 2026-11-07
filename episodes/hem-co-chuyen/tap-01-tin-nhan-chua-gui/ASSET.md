@@ -1,4 +1,4 @@
-# Asset — Tin nhắn chưa gửi, bản 6
+# Asset — Tin nhắn chưa gửi, bản 7
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
@@ -62,9 +62,9 @@ Hai lượt chỉnh trẻ này có trước đợt nâng cấp SVG; không có s
 
 Nguồn: hai hình đính kèm trong chat ngày 07/11/2026, lần lượt là trời sao/nhà và cú–đường–tiệm–hai trẻ. Đã chuyển thành C0-A…C0-F trong KICH-BAN/DUNG-CANH. Chưa có đường dẫn file ảnh phác thảo trong repo; không tạo link hoặc nhận đã nhập file gốc. Đã có mã/SVG và still thử mở đầu; chưa có storyboard/animatic toàn tập đã duyệt. Đây là tài liệu bố cục riêng của tập, không đưa lên thư viện chung.
 
-## Lưu ý sau rà kịch bản bản 6
+## Lưu ý sau rà kịch bản bản 7
 
-Giữ bộ asset đã nâng cấp; mã thử 142 giây vẫn theo lần thử trước, chưa cập nhật lời/diễn bản 6. Khi ráp nguồn mới, cần đồng hồ nhỏ ở kệ thấp gần cửa để nhấc/đặt, biểu cảm C4 nhớ cuộc nói chuyện nhưng mất trải nghiệm vòng tay mẹ, và động tác lấy G1 từ ví ra đối chiếu C8. Chưa render/duyệt lại các hành động này; không tạo thêm bối cảnh hoặc nhân vật.
+Giữ bộ asset đã nâng cấp; mã thử 142 giây vẫn theo lần thử trước, chưa cập nhật lời/diễn bản 7. Khi ráp nguồn mới, cần đồng hồ nhỏ ở kệ thấp gần cửa để nhấc/đặt, diễn C1 gắt/mỉa mai → trẻ sợ/ứa nước mắt → Lộc quay đi làm tiếp rồi cười nham hiểm; tiền Thảo qua tay Duy rồi được đưa lại C2; biểu cảm C4 còn nhớ cuộc nói chuyện nhưng mất ký ức buổi mẹ dỗ làm hòa, và động tác lấy G1 từ ví ra đối chiếu C8. Chưa render/duyệt lại các hành động này; không tạo thêm bối cảnh hoặc nhân vật.
 
 ## Phạm vi bộ thử và đường dẫn vận hành
 
@@ -75,3 +75,9 @@ Antigravity được nhờ cải tiến thư viện asset có sẵn; những c�
 - Bộ thử dùng một số cue gộp/đổi mã: chẳng hạn kiệt sức là ShC5_B, mẹ tan ShC7_B, ngưỡng nhà ShC8_B; nguồn hiện hành lần lượt C5-C, C7-C, C8-C. Cần đối chiếu hành động khi tái dùng, không ghép chỉ theo tên file. Bộ thử không thay nguồn 35 cue.
 - Chưa chọn/tạo giọng chính thức, nhạc/Foley/môi trường và mix cuối; nguồn/quyền dùng của từng audio cần ghi khi chọn. Không có chi phí mới được xác minh trong lượt cập nhật tài liệu này.
 - Đã xem bảng nhân vật mở rộng, biểu cảm/tư thế và một số still; chưa xem/nghe animatic toàn tập. Trạng thái có file không tự chứng minh chuyển động, tiếp xúc, lời dẫn, âm thanh hoặc chất lượng cuối đã đạt.
+
+Bản 7 đổi chữ G1 sang buổi tranh xe đồ chơi rồi được mẹ dỗ làm hòa; nhãn G2/G3 và C8 là biên nhận từng lần đổi, không điều khoản mới. Cần cập nhật các lớp chữ khi dựng. Bố tiếp tục chỉ qua bóng/âm, không thêm asset cảnh đánh đập; ký ức được hai trẻ kể ở quầy, chưa yêu cầu bộ nhân vật nhỏ tuổi. Các thay đổi này mới ở tài liệu, chưa được đưa vào hoặc duyệt bằng mã thử/animatic.
+
+## Bản nâng cấp ánh sáng nhận trong lượt đồng bộ bản 7
+
+Đã nhận tiếp commit `8b95931` của Antigravity: sửa ánh sáng/độ chuyển tối/viền sáng/bụi trong mã thử; cập nhật hai still C0-D, C0-E và thêm [bảng mở đầu](assets/stills/preview_opening_c0.png), kèm bản sao public. Bộ thử vẫn có 10 file `film_*.png`; bảng preview mới là ảnh bổ sung. Việc nhận mã/ảnh không đồng nghĩa diễn xuất và lời thoại bản 7 đã được dựng hoặc duyệt. Lượt biên tập này chưa xem/nghe lại bản chuyển động ánh sáng mới.

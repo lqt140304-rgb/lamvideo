@@ -5,9 +5,9 @@
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-**Bản hiện hành: 6, 07/11/2026.** Mở đầu 24 giây không lời theo phác thảo: thành phố/trời sao và tiêu đề → hạ tới mắt cú → lùi lộ hẻm/người bóng/tiệm → chuyển sang hai trẻ trước cửa và bước vào. Đúng 3 giao kèo: G1 Duy đổi ký ức sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
+**Bản hiện hành: 7, 07/11/2026.** Mở đầu 24 giây không lời theo phác thảo: thành phố/trời sao và tiêu đề → hạ tới mắt cú → lùi lộ hẻm/người bóng/tiệm → chuyển sang hai trẻ trước cửa và bước vào. Đúng 3 giao kèo: G1 Duy đổi ký ức tranh đồ chơi rồi được mẹ dỗ làm hòa để sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
 
-**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
+**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
 | File | Tác dụng |
 |---|---|
@@ -22,7 +22,7 @@
 | [GHI-CHU.md](GHI-CHU.md) | Quyết định, phản hồi, giới hạn và kiểm tra riêng |
 | [Concept nhân vật v4](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Lộc đã chốt mặt, hai trẻ đồ cũ/dáng che chở chờ duyệt; chưa bao gồm mẹ |
 
-Lời sạch 1,470 đơn vị tách khoảng trắng, 6,705 ký tự gồm xuống dòng; 29 giây nghỉ riêng đã gồm trắng-ù/đi dạo, cộng 24 giây mở đầu không lời. Ước tính 8:27–10:10 phút với giả định trong nguồn, chưa đo audio/credits. Không giữ ước tính ngắn của bản 3 khi đã thêm hai giao kèo.
+Lời sạch 1,916 đơn vị tách khoảng trắng, 8,602 ký tự gồm xuống dòng; 29 giây nghỉ riêng đã gồm trắng-ù/đi dạo, cộng 24 giây mở đầu không lời. Ước tính 10:42–12:55 phút với giả định trong nguồn, chưa đo audio/credits. Không giữ ước tính ngắn của bản 3 khi đã thêm hai giao kèo.
 
 Bốn vai có hình chi tiết, thêm cú và người qua đường dạng bóng; bốn nhóm không gian: thành phố-hẻm/nội tiệm/miền cánh đồng/ngưỡng nhà. Đã có mã SVG/rig, các ảnh preview và 10 still ở commit cd7243c; xem ASSET để đối chiếu nội dung. Chưa có giọng, storyboard/animatic đủ bản nguồn hoặc phim hoàn chỉnh đã duyệt. Duyệt văn/concept → storyboard → animatic có tương tác và âm tạm → hoàn thiện; không bỏ animatic hoặc tự tạo giọng trả phí để duyệt hình.
 
