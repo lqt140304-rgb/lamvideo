@@ -1,6 +1,6 @@
 # HẺM CÓ CHUYỆN — Tập thử 01: TIN NHẮN CHƯA GỬI
 
-> Bản 4 — 07/11/2026. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
+> Bản 5 — 07/11/2026. Thêm mở đầu thành phố/trời sao → cú → hẻm → hai anh em trước cửa tiệm. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
 
@@ -42,13 +42,34 @@ Mất mẹ, bố say và bỏ bê khiến Duy 16 cố mạnh để bảo vệ Th
 
 Giữ chất đời thường, nén rồi bung cảm xúc; ba lần tăng giá chứ không ba lần kể lại cùng một cơ chế. Duy suy sụp ở G2 mới chậm phản ứng G3. Trắng/ù chỉ đúng giao kèo cuối, sau đó nhịp nhẹ và ấm ở đồng, có chuyện vui nhỏ trước lời gửi gắm. Mẹ tan phải có dư âm; trở về vẫn cần giải pháp thực tế cho đêm bố say.
 
-Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,711 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:02–9:45 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm 8–12 giây chuyển khác. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
+Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,711 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:26–10:09 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
 
-8 cảnh, 29 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Ba không gian: tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn người có hình kể cả mẹ, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, roll 0°, rung 0 px / 0°; chưa có camera/blur/rig triển khai. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
+9 phần cảnh (C0 và C1–C8), 35 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Bốn nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú và người qua đường dạng bóng, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, roll 0°, rung 0 px / 0°; chưa có camera/blur/rig triển khai. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
+
+## Cảnh 0. Trời sao — mắt cú — cửa tiệm
+
+**Bối cảnh:** Khoảng 19 giờ, cùng thành phố miền Nam hư cấu của câu chuyện, một đêm trời quang. Phác thảo chủ repo: phần trời sao rộng phía trên để đặt tiêu đề, các tầng nhà phía dưới; tiếp đó có đường/hẻm, nhà hai bên, cú trên cao và tiệm ông Lộc. Hai anh em đã đi tới cửa tiệm trong lúc máy đang ở cao; máy tìm đến hai đứa, không làm nhân vật tự xuất hiện giữa đường.
+
+**Đường nhìn:** thành phố/trời → hạ tới cú → nét mắt cú → lùi lộ hẻm/nhà/người → chuyển chú ý sang hai trẻ trước cửa → bước vào C1. Cú đậu trên thanh sắt ngang dưới mái hiên căn nhà ở gần bên trái góc nhìn vào hẻm; cửa bên hông tiệm Lộc ở phía phải-xa, nhìn được qua đường. Người qua đường là bóng người bình thường, không phải ma. Duy áo xanh xám và Thảo áo vàng kem giữ màu/trang phục đã chốt, có nét mặt và ánh hắt dịu từ cửa tiệm nên dễ nhận ra hơn đám nền.
+
+**Phần này không có lời kể/TTS.** Tiêu đề dựng chữ riêng đúng “TIN NHẮN CHƯA GỬI”, không đọc thành tiếng. Timeline dưới chỉ tính từ đầu đoạn mở, chưa phải mốc thoại của cả phim; 24 giây đã gồm giữ chữ, mắt cú, chuyển máy và bước vào tiệm, không cộng thêm các động tác đó lần nữa.
+
+| Cue | Mốc tương đối / thời lượng | Góc / cỡ cảnh | Lens / nét / vị trí | Máy, lớp cảnh và diễn |
+|---|---|---|---|---|
+| C0-A | 00:00–00:04 · 4 giây | Toàn thành phố, trời sao và tiêu đề | 24 mm; nhìn từ cao hơn mái nhà; đường chân trời ở nửa dưới | Máy gần tĩnh rồi bắt đầu nghiêng xuống; trời nét đủ đọc sao, thành phố có lớp gần–xa; tiêu đề “TIN NHẮN CHƯA GỬI” nằm trong khoảng trời |
+| C0-B | 00:04–00:08 · 4 giây | Hạ qua mái nhà tới cú | 35–50 mm cho bố cục trung mái hiên; điểm nhìn hạ về thanh đỡ | Tilt/hạ chậm theo đường cong, kết ở đầu cú; mái nhà lướt tiền cảnh có thể che điểm ghép; tiêu đề mờ hết trước cận mắt |
+| C0-C | 00:08–00:10 · 2 giây | Cận mắt cú | 85 mm tương đương cận/macro; ngang tầm mắt cú; vùng nét mắt | Chuyển nét vào đồng tử và viền lông trong khoảng 0,6 giây rồi giữ; cú chớp một lần, phản chiếu ánh đèn bình thường, không mắt phát sáng |
+| C0-D | 00:10–00:16 · 6 giây | Lùi ra từ cú, mở con hẻm | Từ bố cục cận sang rộng 35 mm tương đương; giữ cùng bên nhìn | Dolly-out giả lập nhiều lớp: lộ đầu/thân cú, thanh đỡ, đường, nhà hai bên và tiệm Lộc; cú/mái ở gần trái, tiệm ở giữa-xa phải; không chỉ scale một tranh |
+| C0-E | 00:16–00:21 · 5 giây | Chuyển từ cú sang hai anh em trước cửa | 35–50 mm bố cục trung rộng; máy hạ về cao 1,2 m ở cuối | Trượt chéo nhẹ sang phải, chuyển nét khỏi cú sang Duy/Thảo, dừng ở cửa; bóng người đi lớp giữa, không che mặt trẻ; Duy đứng gần cửa hơn, em nép sau anh |
+| C0-F | 00:21–00:24 · 3 giây | Giữ cửa rồi hai trẻ bước vào | 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước | Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới để Thảo tò mò đưa tay tới đồng hồ, sau đó mới nghe “Để xuống” |
+
+**Hình và âm:** 2.5D có trời/skyline xa, mái nhà giữa, cú-thanh đỡ gần, hẻm/tiệm và người thành các lớp theo mặt đỡ. Đèn đường/hàng quán thưa, âm thành phố xa dần thành tiếng chân/xe xa trong hẻm. Một tiếng cú ngắn nếu hợp nhịp, không cần lặp hoặc hù bằng âm hit. Giữ tiếng hẻm làm cầu nối tới quạt trong tiệm. Không dùng ánh trắng/tiếng ù dành riêng cho G3 vào đoạn mở.
+
+Ý đồ là chuyển động mềm và dẫn mắt liên tục. Khi làm bằng 2.5D có thể ghép kín ở mái hiên và nhịp chớp mắt để thay góc/cỡ hình; không coi một tranh skyline là đủ cho cả cận mắt và đường phố. Chi tiết lớp, nguồn sáng, tiêu đề và nối trục cửa ở [DUNG-CANH.md](DUNG-CANH.md).
 
 ## Cảnh 1. Thiếu tiền
 
-**Bối cảnh:** 19 giờ, tiệm cuối hẻm cách nhà ba căn. Duy 16 đứng trái, Thảo 8 phải gần cửa, nép sau anh; Lộc đầu tiên ở bàn sửa sau rồi bước tới quầy. Cửa mở, kệ trái, bàn sửa/đèn vàng sau, ánh hàng tạp hóa lạnh từ phải.
+**Bối cảnh:** Nối sau C0, khoảng 19 giờ, hai trẻ vừa bước vào vùng khách của tiệm cuối hẻm cách nhà ba căn. Thảo thấy đồng hồ mép kệ trái và vừa đưa tay tới; lúc này ông Lộc mới nói “Để xuống”. Duy 16 đứng trái, Thảo 8 phải gần cửa, nép sau anh; Lộc đầu tiên ở bàn sửa sau rồi bước tới quầy. Cửa mở, kệ trái, bàn sửa/đèn vàng sau, ánh hàng tạp hóa lạnh từ phải.
 
 | Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm |
 |---|---|---|---|

@@ -1,4 +1,4 @@
-# Asset — Tin nhắn chưa gửi, bản 4
+# Asset — Tin nhắn chưa gửi, bản 5
 
 07/11/2026. Đã có concept nhân vật hiện hành v4 (v2 giữ để đối chiếu mặt Lộc), mặt Lộc đã được chủ repo chốt, hai trẻ vừa sửa còn chờ duyệt. Chưa có hình hẻm/nội thất, asset tách lớp, rig, audio, storyboard, animatic hoặc video. Nguồn lời [KICH-BAN.md](KICH-BAN.md); sơ đồ và cue [DUNG-CANH.md](DUNG-CANH.md).
 
@@ -12,13 +12,19 @@ Prompt tạo đầu: bảng toàn thân ba nhân vật Việt, 2D điện ảnh 
 
 Ảnh đầu hiền hơn là bản thử bị thay, không phải tạo hình đã duyệt. Không cần lưu mọi bản bỏ vào repo. Mặt Lộc từ v2 đã được chủ repo xác nhận ổn. V4 cập nhật riêng hai trẻ; chưa duyệt, không chứng minh đã tách lớp hoặc chuyển động được. Bản v2 trong cùng thư mục chỉ để đối chiếu mẫu mặt Lộc, không là mẫu trẻ hiện hành.
 
-## Cần chuẩn bị theo bản 4
+## Cần chuẩn bị theo bản 5
 
 | ID | Tài nguyên / ràng buộc | Trạng thái |
 |---|---|---|
 | CHAR-DUY / CHAR-THAO | Duy anh trai 16 tuổi, Thảo em gái 8 tuổi; đồ cũ, dáng che chở; thêm kiệt sức G2 và nét trẻ ở đồng. Không lấy mặt Lộc làm mẫu tuổi cho trẻ | Có concept v4 hai trẻ chờ duyệt; chưa rig/pose |
 | CHAR-LOC | Giữ mặt đã chốt, thêm nét cười lạnh nhẹ khi Thảo hỏi sau G1 | Mặt đã chốt, chưa rig/pose |
 | CHAR-ME | Khoảng 38–42, áo vải đất sáng/quần tối/tóc buộc thấp; gọi, đi nắm tay, ngồi/ôm/tan; không hào quang | Chưa tạo/duyệt |
+| SET-CITY-SKY | Toàn thành phố đêm + trời sao trống đặt chữ, skyline/mái gần tách lớp; không suy ra đã có ảnh từ phác thảo | Chưa tạo/duyệt |
+| SET-HEM-EXT | Nhà hai bên đường, mái/thanh đỡ cú gần trái, tiệm phải-xa; cùng cửa đông SET-TIEM, có góc cửa cho hai trẻ bước vào | Chưa tạo/duyệt |
+| ANIMAL-CU | Cú đậu, hình đầu/mắt cận và trung/toàn thân khớp, bám thanh; chớp/ngoảnh nhẹ, không mắt phát sáng | Chưa tạo/duyệt |
+| EXTRA-BONG | 2–3 mẫu người qua đường chỉ dạng bóng ít chi tiết, chân đúng mặt sàn, không che mặt/va vào trẻ | Chưa tạo |
+| TITLE-TAP | Chữ “TIN NHẮN CHƯA GỬI” dựng riêng trong trời C0-A/B, không đọc TTS hoặc vẽ cứng lên nền | Chưa dựng |
+| AUDIO-MO-DAU | Thành phố xa → hẻm gần → quạt tiệm; bước/xe đúng vị trí, cú một tiếng nếu hợp, không ù G3 | Chưa chọn/tạo |
 | SET-TIEM | Quầy/kệ trái/cửa phải mở/bàn sửa sau, ghế em có bậc; G2 chỉ đổi ánh chủ quan | Chưa tạo |
 | SET-CANHDONG | Bờ đất bằng/lúa/thảm cỏ ngồi, nắng chiều; cỏ gần/nhóm giữa/ruộng trời xa; không nhà mới hoặc người qua đường | Chưa tạo/duyệt |
 | SET-NHA | Ngưỡng nhà, bàn may trái/bàn thờ phải, bố sau vách, đường về phía nhà dì | Chưa tạo |
@@ -30,10 +36,14 @@ Prompt tạo đầu: bảng toàn thân ba nhân vật Việt, 2D điện ảnh 
 | AUDIO-DONG / NHAC | Gió lúa/chân đất/vải, nhạc ấm thưa nghe rõ chuyện đời thường, giảm trước tan | Chưa chọn/tạo |
 | AUDIO-BO-DI | Bố chai lăn/càm ràm không rõ chữ sau vách; dì qua lời người kể, không mặt/voice riêng | Chưa chọn/tạo |
 
-Phạm vi tăng thành ba không gian và mẹ hiện hình; không tạo thêm hình/audio ở lượt viết này. Ảnh concept cũ không bao gồm mẹ/ruộng/pose đi-ngồi-ôm. Asset riêng vẫn trong hồ sơ tập; media vận hành studio dùng cùng slug khi được sản xuất. Chưa chọn nguồn âm hoặc xác minh giấy phép cụ thể, chưa đo chi phí. Không suy từ số cue thành số lượt gọi ảnh.
+Phạm vi gồm bốn nhóm không gian: thành phố/hẻm ngoài tiệm, nội tiệm, miền cánh đồng và ngưỡng nhà; mẹ hiện hình, cú và người nền dạng bóng; không tạo thêm hình/audio ở lượt viết này. Ảnh concept cũ không bao gồm mẹ/ruộng/pose đi-ngồi-ôm. Asset riêng vẫn trong hồ sơ tập; media vận hành studio dùng cùng slug khi được sản xuất. Chưa chọn nguồn âm hoặc xác minh giấy phép cụ thể, chưa đo chi phí. Không suy từ số cue thành số lượt gọi ảnh.
 
 ## Prompt sửa gần nhất và trạng thái
 
 Dùng built-in imagegen, không CLI/API/Gemini. Pass sửa trẻ: giữ nguyên Lộc đã chốt; Duy 16 mặt trẻ, giấu buồn/căng vai, đứng chắn trước Thảo 8, em nép sau níu gấu áo; giữ nét 2D có khối và nền giấy. Pass nét khó khăn: chỉ bạc màu vải, cổ/gấu áo mòn, mũi khâu gọn ở áo và quần, vá nhỏ cùng tông quần em, giày/dép cũ vẫn dùng được; giữ mặt/tuổi/tư thế, không thêm bầm tím/dơ mặt/người gầy già hoặc sửa Lộc.
 
 Hai lượt chỉnh trẻ sau mẫu Lộc, không có số credits/tiền trong kết quả công cụ. Không suy ra giá từ lượt gọi/token; chưa tạo asset bố, bối cảnh, rig hay audio. V4 là đề xuất gần nhất, không gọi cả bảng đã duyệt.
+
+## Hai phác thảo mở đầu của chủ repo
+
+Nguồn: hai hình đính kèm trong chat ngày 07/11/2026, lần lượt là trời sao/nhà và cú–đường–tiệm–hai trẻ. Đã chuyển thành C0-A…C0-F trong KICH-BAN/DUNG-CANH. Chưa có đường dẫn file ảnh phác thảo trong repo; không tạo link hoặc nhận đã nhập file gốc. Chưa tạo asset/raster, storyboard, animatic hoặc video theo chúng. Đây là tài liệu bố cục riêng của tập, không đưa lên thư viện chung.

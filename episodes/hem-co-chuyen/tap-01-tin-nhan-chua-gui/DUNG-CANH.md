@@ -1,10 +1,18 @@
-# Tin nhắn chưa gửi — dựng cảnh bản 4
+# Tin nhắn chưa gửi — dựng cảnh bản 5
 
-07/11/2026. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là ý đồ để làm storyboard/animatic, chưa có render, giọng hoặc chuyển động thực. Mặt Lộc đã chốt, concept trẻ v4 chờ duyệt; mẹ/cánh đồng chưa tạo.
+07/11/2026. Thêm C0 theo hai phác thảo chủ repo: thành phố/trời sao/tiêu đề → mắt cú → hẻm/tiệm/người dạng bóng → hai trẻ trước cửa. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là ý đồ để làm storyboard/animatic, chưa có render, giọng hoặc chuyển động thực. Mặt Lộc đã chốt, concept trẻ v4 chờ duyệt; mẹ/cánh đồng chưa tạo.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
 
 ## 1. Không gian và ánh sáng cố định
+
+**SET-CITY-HEM / ngoại mở đầu:** một thành phố miền Nam hư cấu ban đêm. Tấm toàn: trời sao chiếm khoảng nửa trên, skyline thấp hơn, vài mái gần dẫn xuống hẻm. “TIN NHẮN CHƯA GỬI” ở vùng trời, căn giữa theo khoảng trống, chừa khoảng an toàn quanh chữ; dùng lớp chữ riêng, không để AI vẽ chữ lên nền hoặc sao sáng chạy qua nét chữ. Chữ hiện/giữ trong C0-A, rút dần ở C0-B; không còn trên mắt cú/nhân vật.
+
+Sơ đồ góc ngoài hẻm: nhà hai bên đường, cú trên thanh đỡ mái hiên căn nhà gần bên trái, tiệm Lộc ở phải-xa, hai trẻ đứng trước cửa tiệm. Cú và thanh đỡ cùng nhóm không gian, móng bám thanh/bóng tiếp xúc; lùi máy không làm cú trôi khỏi mái. Ánh đèn hẻm/mái hắt vào mắt cú, phản chiếu bình thường; không xác lập cú là vật nuôi, linh hồn hoặc tai mắt phép thuật của Lộc khi truyện chưa nói.
+
+Người qua đường chỉ 2–3 mẫu bóng xám/tối ít chi tiết, dáng đi và chân có mặt đất, có thể dùng lại khác thời điểm/tỷ lệ theo độ sâu. Giữ họ đủ phân biệt với bóng đổ, không thành người ma. Tuyến đi ở lớp đường, tránh mép cửa và mặt hai trẻ. Duy/Thảo có màu áo đã chốt, nét mặt và đường viền sáng dịu do cửa tiệm; người nền giảm tương phản/chi tiết. Không gắn hào quang hoặc tăng sáng toàn thân trẻ độc lập nguồn sáng. Chỉ lúc máy về gần cửa mới cần đọc rõ mặt trẻ, không ép thấy mặt ở toàn thành phố.
+
+**Nối cửa ngoài–trong:** cửa ngoại cảnh là cửa bên đông (x=4,2; y≈1,4) của SET-TIEM. C0-F nhìn từ hẻm vào cửa đó, hai trẻ bước vào vùng khách, sau đó cắt theo bước/khung cửa sang C1-A nhìn từ phía nam của quầy. Đây là thay vị trí máy đã có điểm nối, không xuyên tường hoặc xoay 90° bằng crop một ảnh. Ở C1, Duy trái/Thảo phải theo góc đã chốt; mặt kệ đồng hồ đủ gần em để đưa tay, không cho em với qua quầy.
 
 **SET-TIEM:** phòng quy ước 4,2×6 m, khách ở phía nam y=0; quầy y≈3,3, cao 0,78 m, sâu 0,6 m, chừa lối phải. Duy trái x≈1,4, Thảo phải x≈2,6, cùng phía khách y≈2,6. Lộc sau giữa x≈2,1/y≈4,1, bàn sửa/đèn vàng y≈5,3. Kệ trái, cửa phải ra hẻm x=4,2/y≈1,4 luôn mở. C1 đứng, C2 mới ngồi; ghế Thảo có bậc chân, điều chỉnh mặt ngồi vừa quầy, không dùng rig người lớn thu nhỏ. Máy ở khăn giữa; ảnh trái, giấy phải. Kệ gần/người-quầy giữa/bàn sửa-tường xa. Đèn bàn cho Lộc nửa mặt sâu bóng nhưng còn đọc được mắt; hắt trần đủ đọc trẻ, cửa lạnh bên phải. Không đèn kính phát sáng.
 
@@ -46,6 +54,42 @@ Không có bút/giấy vật lý trong cánh đồng. Chữ giao kèo không lơ
 ## 4. Thiết lập theo cue
 
 Lens tương đương full-frame, cao máy/khoảng cách quy ước là điểm bắt đầu mỹ thuật; chưa có quang học/3D thật. Tất cả roll 0°, rung 0 px / 0°. Khóa máy phần lớn; trượt nhỏ chỉ khi animatic xác nhận lớp/điểm tì. Cảnh dài dùng lại cận/phản ứng cùng trục, không cần thêm một ảnh cho mỗi câu.
+
+### Cảnh 0 — Thành phố, mắt cú và hai trẻ (24 giây)
+
+Theo thứ tự hai phác thảo gửi trong chat ngày 07/11/2026. Đây là thiết kế dựng bằng văn bản, không phải storyboard ảnh/animatic đã tạo. Các mốc dưới là thời lượng dự kiến; giữ tổng 24 giây để tránh cộng chồng tiêu đề/diễn xuất.
+
+**C0-A · Toàn thành phố, trời sao và tiêu đề**
+- 00:00–00:04 · 4 giây. 24 mm; nhìn từ cao hơn mái nhà; đường chân trời ở nửa dưới.
+- Máy gần tĩnh rồi bắt đầu nghiêng xuống; trời nét đủ đọc sao, thành phố có lớp gần–xa; tiêu đề “TIN NHẮN CHƯA GỬI” nằm trong khoảng trời.
+- Trời xa giữ ổn định tương đối, skyline giữa dịch ít, mái gần dịch nhiều hơn; không cho sao trôi cùng tốc độ tiền cảnh. Máy roll 0°, rung 0 px/0°. Tiêu đề đọc được trong khoảng trời, không che nhà quan trọng.
+
+**C0-B · Hạ qua mái nhà tới cú**
+- 00:04–00:08 · 4 giây. 35–50 mm cho bố cục trung mái hiên; điểm nhìn hạ về thanh đỡ.
+- Tilt/hạ chậm theo đường cong, kết ở đầu cú; mái nhà lướt tiền cảnh có thể che điểm ghép; tiêu đề mờ hết trước cận mắt.
+- Dùng mái/lằn tối hiên lướt qua để nối tấm toàn với tấm gần; giữ hướng chuyển xuống và nhịp không giật. Không yêu cầu mô phỏng bay hàng chục mét bằng một tranh hoặc đổi tiêu cự thật trong engine.
+
+**C0-C · Cận mắt cú**
+- 00:08–00:10 · 2 giây. 85 mm tương đương cận/macro; ngang tầm mắt cú; vùng nét mắt.
+- Chuyển nét vào đồng tử và viền lông trong khoảng 0,6 giây rồi giữ; cú chớp một lần, phản chiếu ánh đèn bình thường, không mắt phát sáng.
+- Cần hình cận đầu/mắt riêng đủ độ phân giải và khớp mảng lông của hình trung; không phóng mắt từ ảnh toàn hẻm. Cú đứng yên, chớp/ngoảnh rất nhẹ, móng không rời thanh. Lấy nét có điểm đầu–cuối, không blur cả khung.
+
+**C0-D · Lùi ra từ cú, mở con hẻm**
+- 00:10–00:16 · 6 giây. Từ bố cục cận sang rộng 35 mm tương đương; giữ cùng bên nhìn.
+- Dolly-out giả lập nhiều lớp: lộ đầu/thân cú, thanh đỡ, đường, nhà hai bên và tiệm Lộc; cú/mái ở gần trái, tiệm ở giữa-xa phải; không chỉ scale một tranh.
+- Chuẩn bị cận đầu → trung toàn cú/thanh → lớp hẻm rộng có vùng mái/đường sẽ lộ. Ghép kín tại nhịp chớp hoặc mảng tối nếu cần; dùng chung mốc mắt và thanh để không nhảy tỷ lệ. Người/nhà giữ mặt sàn và điểm tụ, không kéo méo phối cảnh khi mở rộng.
+
+**C0-E · Chuyển từ cú sang hai anh em trước cửa**
+- 00:16–00:21 · 5 giây. 35–50 mm bố cục trung rộng; máy hạ về cao 1,2 m ở cuối.
+- Trượt chéo nhẹ sang phải, chuyển nét khỏi cú sang Duy/Thảo, dừng ở cửa; bóng người đi lớp giữa, không che mặt trẻ; Duy đứng gần cửa hơn, em nép sau anh.
+- Cú ở mép trái mềm dần, trẻ và cửa rõ dần. Bóng người băng qua vùng đường không che mất nhịp Thảo níu áo/Duy che em; đường đi không xuyên hai trẻ. Máy giảm tốc tới điểm dừng, không đảo phía trục hoặc kéo mặt trẻ theo pan.
+
+**C0-F · Giữ cửa rồi hai trẻ bước vào**
+- 00:21–00:24 · 3 giây. 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước.
+- Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới để Thảo tò mò đưa tay tới đồng hồ, sau đó mới nghe “Để xuống”.
+- Duy giữ túi máy trong một tay, tay còn lại gần em; em níu áo/nhìn vào trong. Duy dẫn, Thảo theo, cả hai có bước qua ngưỡng rõ. Sau nối C1, Thảo tò mò đưa tay tới đồng hồ; lời đầu được nói ở trong tiệm, không vọng ra trước khi em chạm gần kệ.
+
+**Nguyên tắc phối cảnh/tiết kiệm:** các lens trên là mục tiêu bố cục khác nhau. Muốn giống đường máy mềm qua cỡ cực rộng–cận–rộng cần nhiều tấm hình khớp và điểm ghép, chưa phải khả năng một camera 3D đã có. Duyệt skyline, mắt cú và khung cuối trước khi hoàn thiện lớp bị che; hạn chế số bóng người, dùng lại mặt ngoài tiệm cho C8 nếu góc phù hợp. Không hứa tiết kiệm quota theo phần trăm khi chưa render thử.
 
 ### Cảnh 1 — Thiếu tiền
 
@@ -226,6 +270,8 @@ Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra �
 
 ## 5. Trắng/ù và âm thanh
 
+- C0: âm thành phố rộng/xa ở trên cao chuyển dần về hẻm; xe và người xa có vị trí, bước người đi gần chỉ rõ lúc vào lớp tương ứng. Có thể một tiếng cú ngắn khi thấy rõ cú, không lặp liên tục hoặc đẩy thành âm hù. Nhạc mở thưa, tò mò, rút trước “Để xuống”; tiếng hẻm làm cầu vào tiếng quạt tiệm. Đây là 24 giây không lời đã tính riêng, âm/tiêu đề chạy dưới hình không cộng thêm thời lượng. Không lấy tiếng ù/trắng của G3 làm hiệu ứng mở.
+
 - G3 sau trọn “Cháu đồng ý!”: trắng lên liên tục khoảng 0,6 giây, giữ ngắn rồi giảm để lộ đồng trong tổng nghỉ 2 giây; tiếng ù hẹp vào cùng nhịp, rút trước mẹ gọi để không che chữ. Một lần chuyển, không chớp lặp hoặc kéo ù suốt trường đoạn ấm.
 - AM-TIEM giữ quạt/hẻm, không tích tắc cho đồng hồ chết. Dụng cụ, tiền/phong bì/vải, ghế/giấy/bút và máy rõ chất liệu và tiếp xúc; tách phiếu có âm giấy ngắn, không tiếng xé trong thao tác kéo giấy.
 - G2 âm hẻm lùi trong thoáng chủ quan rồi trở; không dùng ù/trắng vốn dành G3. Sau ấm là hơi thở/cơ thể Duy và quạt, không tiếng bệnh tim hoặc khẳng định chẩn đoán thật.
@@ -236,6 +282,6 @@ Cắt về đúng ghế ở tiệm, không dịch chuyển cơ thể thật ra �
 
 ## 6. Hai bước duyệt và phạm vi mới
 
-Storyboard: kiểm tra ba giao kèo/đúng người trả; khung Thảo đáp không bị cắt mất đầu/cuối, Duy chậm có lý do. Xác lập tiệm–miền cảm giác–trở tiệm–ngưỡng nhà rõ, mẹ không hiện như người còn sống trong hiện tại. Thiết kế ruộng và mẹ là asset mới cần duyệt, không tự gọi đã có vì đã viết.
+Storyboard: ngoài ba giao kèo/đúng người trả, kiểm tra C0 trời/chữ đúng khoảng trống, cùng một cú ở cận/trung/toàn, mái-thanh không nhảy, người nền dạng bóng và trẻ đúng màu, khung cuối trước cửa nối được C1; khung Thảo đáp không bị cắt mất đầu/cuối, Duy chậm có lý do. Xác lập tiệm–miền cảm giác–trở tiệm–ngưỡng nhà rõ, mẹ không hiện như người còn sống trong hiện tại. Thiết kế ruộng và mẹ là asset mới cần duyệt, không tự gọi đã có vì đã viết.
 
-Animatic: chạy thật tay/tiền/ảnh/phiếu/máy, G2 cơ thể sụp, em nhận lời/anh ngăn chậm, chuyển trắng-ù, nắm tay đi/ngồi/ôm, mẹ tan cùng bóng và tay trẻ ở khoảng trống, trở đúng ghế/cất đồ/gọi dì. Dùng âm/giọng tạm, không tự gọi dịch vụ trả phí. Chỉ pan tranh không kiểm tra được các tiếp xúc. Sau voice thật cập nhật timeline; không dùng timing bản 3 hoặc giữ định mức 22 cue cũ.
+Animatic: chạy trọn C0 hạ máy/chuyển nét/lùi/trượt, các mốc ghép đầu–giữa–cuối, bóng người không che trẻ và bước vào cửa, rồi tay/tiền/ảnh/phiếu/máy, G2 cơ thể sụp, em nhận lời/anh ngăn chậm, chuyển trắng-ù, nắm tay đi/ngồi/ôm, mẹ tan cùng bóng và tay trẻ ở khoảng trống, trở đúng ghế/cất đồ/gọi dì. Dùng âm/giọng tạm, không tự gọi dịch vụ trả phí. Chỉ pan tranh không kiểm tra được các tiếp xúc. Sau voice thật cập nhật timeline; không dùng timing bản 3 hoặc giữ định mức 22 cue cũ.

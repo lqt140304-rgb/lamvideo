@@ -1,5 +1,12 @@
 # Ghi chú riêng — tập 01
 
+## Bản 5 — mở đầu theo phác thảo, 07/11/2026
+
+- Thêm C0 24 giây không lời: toàn thành phố/trời sao đặt tiêu đề, hạ tới cú/nét mắt, lùi lộ hẻm-nhà-tiệm và bóng người, chuyển sang hai trẻ trước cửa, nối bước vào tiệm trước câu “Để xuống”.
+- Duy/Thảo giữ tuổi/trang phục/nét trẻ chốt; người nền chỉ bóng ít chi tiết, trẻ nổi nhờ màu/ánh sáng có nguồn. Cú là động vật dẫn ánh nhìn, chưa xác nhận thuộc về hoặc bị Lộc điều khiển.
+- Ngoại cảnh phải khớp cửa bên đông của sơ đồ nội tiệm; có điểm cắt theo bước/khung cửa để đổi sang máy phía khách, không bay xuyên tường. Cận mắt cú cần hình riêng khớp với trung/toàn, không crop skyline đến vỡ hình.
+- Hai hình phác thảo là ảnh chủ repo gửi trong chat, chưa có file gốc trong repo. Lượt này chỉ thêm chỉ dẫn/asset cần có, không tạo ảnh/giọng/video. 24 giây mở được tính riêng, giữ nguyên lời và ba giao kèo.
+
 ## Bản 4 — 07/11/2026
 
 - Tuổi/quan hệ hiện hành: Duy anh trai 16 tuổi, Thảo em gái 8 tuổi. Hai trẻ gọi Lộc là “ông”, xưng “cháu”; Lộc xưng “ta”. Ghi rõ ở đầu KICH-BAN, DUNG-CANH và README để khi mở file không nhầm với hồ sơ người trưởng thành trong lịch sử.
@@ -18,6 +25,6 @@ Lộc có mẫu mặt đã chốt; trẻ concept v4 đồ cũ/che chở chờ du
 
 ## Kiểm tra / tiếp theo
 
-Đếm lại ba giao kèo/đúng người trả và lúc có hiệu lực; đồng bộ source–clean–bản thẻ, cue KICH-BAN/DUNG-CANH, link và số lời/nghỉ. Storyboard kiểm tra nguồn âm/miền cảm giác; animatic phải chạy nhận lời-ngăn muộn, nắm tay đi/ngồi/ôm/tan/trở ghế và cất giấy, không chỉ pan tranh. Chưa có phim để nghe/xem hoặc đo thời lượng thật.
+Đếm lại ba giao kèo/đúng người trả và lúc có hiệu lực; đồng bộ source–clean–bản thẻ, cue KICH-BAN/DUNG-CANH (hiện 35), link và số lời/nghỉ; 24 giây mở không lời không nhập TTS. Storyboard kiểm tra nguồn âm/miền cảm giác; animatic phải chạy nhận lời-ngăn muộn, nắm tay đi/ngồi/ôm/tan/trở ghế và cất giấy, không chỉ pan tranh. Chưa có phim để nghe/xem hoặc đo thời lượng thật.
 
 Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai người trưởng thành và tiền viện. Không dùng luật/pose/ước tính đó cho bản 4.

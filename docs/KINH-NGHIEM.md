@@ -44,6 +44,8 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 - **Góc quay mới làm phát sinh nhiều asset → máy đi vượt bộ hình hiện có →** khóa đường đi máy và vùng sẽ lộ trước khi vẽ; dùng hình nhiều góc hoặc không gian 3D khi cần đổi hướng nhìn lớn. **Kiểm tra:** preview ngắn các góc cực hạn trước khi dựng dài; không hứa quay vòng bằng một tranh phẳng duy nhất.
 - **Đề xuất bị ghi thành kinh nghiệm đã thành công → thiếu trạng thái kiểm chứng →** phân biệt nguyên lý có nguồn, lựa chọn mỹ thuật cần thử và kết quả đã đo/xem thực tế. **Kiểm tra:** chỉ bổ sung kết luận hiệu quả/chi phí sau thử nghiệm; số đo và lỗi riêng vẫn lưu trong hồ sơ tập, không biến thành định mức chung.
 
+- **Đường máy từ toàn cực rộng tới cận rồi lùi làm vỡ hình → cố dùng một tranh cho mọi cỡ cảnh →** chia các tấm cùng mốc hình, chuẩn bị cận riêng và vùng nền sẽ lộ, đặt điểm ghép kín theo vật che hoặc động tác. **Kiểm tra:** mốc chủ thể/tỷ lệ/điểm tì không nhảy ở nối; chuyển động nhiều lớp không bị thay bằng phóng một ảnh, chỉ hoàn thiện sau animatic.
+
 ## Tiết kiệm chi phí và lượt sửa
 
 - Khóa thời lượng, số vai, số bối cảnh và mức chuyển động trước khi làm asset. Khi thêm chi tiết, ưu tiên thay hoặc gộp đoạn cũ; không chỉ nối dài.
