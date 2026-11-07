@@ -2060,8 +2060,9 @@ export const PerchingOwl: React.FC<{
 
 /**
  * `OwlEyeMacro` (`ANIMAL-CU` — Cận / Đặc tả 85mm đầu & mắt cú ở C0-C):
- * High-detail close-up of the owl's facial feather rings, iris, pupil, single blink (`blink`),
- * and natural warm reflection of the alley streetlamp below (`chỉ có chấm phản chiếu đèn đường vàng trong tròng mắt, không phát sáng`).
+ * High-detail close-up of the horned owl's facial feather discs, raptor beak,
+ * V-shaped brow plumage, layered ear tufts, iris depth, pupil dilation,
+ * and warm golden reflection of the alley shop doorway below.
  */
 export const OwlEyeMacro: React.FC<{
   x?: number;
@@ -2073,137 +2074,265 @@ export const OwlEyeMacro: React.FC<{
   lookY?: number;
 }> = ({ x = 0, y = 0, w = 1920, h = 1080, blink = 0, lookX = 0.2, lookY = 0.25 }) => {
   const s = w / 1920;
-  const eyeScaleY = Math.max(0.05, 1 - blink * 0.95);
+  const eyeScaleY = Math.max(0.04, 1 - blink * 0.96);
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
-      {/* Deep out-of-focus night alley background (`hậu cảnh đêm mờ DOF 85mm`) */}
-      <rect x={0} y={0} width={1920} height={h / s} fill="#070A14" />
-      <Glow x={1540} y={760} r={560} o={0.32} />
-      <Glow x={360} y={240} r={420} kind="cool" o={0.28} />
-      {/* Out-of-focus iron roof bracket & corrugated eave edge */}
-      <rect x={-80} y={880} width={2080} height={240} fill="#111724" stroke={INK} strokeWidth={5} />
-      <line x1={-80} y1={888} x2={2000} y2={888} stroke="#546C88" strokeWidth={4} opacity={0.45} />
+      <defs>
+        {/* Deep cinematic background night gradient */}
+        <radialGradient id="owlMacroBg" cx="50%" cy="40%" r="65%">
+          <stop offset="0%" stopColor="#0B1224" />
+          <stop offset="60%" stopColor="#060A16" />
+          <stop offset="100%" stopColor="#020409" />
+        </radialGradient>
+        {/* Rich multi-layered amber-gold iris gradient */}
+        <radialGradient id="owlIrisGrad" cx="45%" cy="42%" r="58%">
+          <stop offset="0%" stopColor="#FDE68A" />
+          <stop offset="35%" stopColor="#F59E0B" />
+          <stop offset="70%" stopColor="#D97706" />
+          <stop offset="92%" stopColor="#92400E" />
+          <stop offset="100%" stopColor="#1E0B02" />
+        </radialGradient>
+        {/* Soft shadow under brow over top half of eye */}
+        <linearGradient id="owlEyeShadow" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#050308" stopOpacity={0.88} />
+          <stop offset="55%" stopColor="#050308" stopOpacity={0.4} />
+          <stop offset="100%" stopColor="#050308" stopOpacity={0} />
+        </linearGradient>
+      </defs>
 
-      {/* Macro owl head filling the center-left frame (`đầu cú u tối đậm chất đêm bí ẩn`) */}
-      <g transform="translate(940 560)">
-        {/* Outer head plumage silhouette */}
+      {/* Atmospheric out-of-focus background with soft street bokeh */}
+      <rect x={0} y={0} width={1920} height={h / s} fill="url(#owlMacroBg)" />
+      {/* Soft nocturnal bokeh discs */}
+      <circle cx={260} cy={220} r={140} fill="#1E3A8A" opacity={0.12} filter="url(#softShadowBlur)" />
+      <circle cx={1660} cy={340} r={180} fill="#F59E0B" opacity={0.08} filter="url(#softShadowBlur)" />
+      <circle cx={1740} cy={720} r={220} fill="#D97706" opacity={0.14} filter="url(#softShadowBlur)" />
+
+      {/* Out-of-focus iron eave & roof bracket beneath owl perch */}
+      <polygon points="-80,920 2000,900 2000,1180 -80,1180" fill="#0C111D" stroke="#05080F" strokeWidth={5} />
+      <line x1={-80} y1={910} x2={2000} y2={890} stroke="#28354A" strokeWidth={4} opacity={0.6} />
+
+      {/* =================================================================== */}
+      {/* OWL HEAD ANATOMY (Cận cảnh đầu cú sắc nét, chỉn chu, liền khối)       */}
+      {/* =================================================================== */}
+      <g transform="translate(960 540)">
+        {/* Layer 1: Downward neck & breast plumage contour grounding the head */}
         <path
-          d="M -640 420 C -690 120 -640 -210 -460 -390 L -560 -560 L -290 -465 C -110 -530 110 -530 290 -465 L 560 -560 L 460 -390 C 640 -210 690 120 640 420 Z"
-          fill="#151016"
+          d="M -540 380 Q -380 480 0 510 Q 380 480 540 380 L 590 580 L -590 580 Z"
+          fill="#110D14"
+          stroke={INK}
+          strokeWidth={4.5}
+        />
+        {/* Arrowhead breast feather streaks */}
+        {[-320, -220, -110, 0, 110, 220, 320].map((bx, i) => (
+          <g key={i} transform={`translate(${bx} ${420 + (i % 2) * 25}) scale(0.85)`}>
+            <path d="M 0 0 L 14 26 L 0 20 L -14 26 Z" fill="#2E2328" />
+            <path d="M 0 10 L 10 32 L 0 28 L -10 32 Z" fill="#4A383F" opacity={0.7} />
+          </g>
+        ))}
+
+        {/* Layer 2: Main horned skull & ear tufts plumage silhouette */}
+        <path
+          d="M -540 380
+             C -610 160 -580 -120 -440 -340
+             L -540 -530
+             C -490 -510 -400 -430 -330 -390
+             C -170 -470 170 -470 330 -390
+             C 400 -430 490 -510 540 -530
+             L 440 -340
+             C 580 -120 610 160 540 380
+             Z"
+          fill="#16121B"
           stroke={INK}
           strokeWidth={6}
           strokeLinejoin="round"
         />
-        {/* Radial feather texture rings around crown & cheeks */}
-        {Array.from({ length: 24 }).map((_, i) => {
-          const ang = -155 + (i / 23) * 130;
-          const rad = (ang * Math.PI) / 180;
-          const x1 = Math.cos(rad) * 430;
-          const y1 = Math.sin(rad) * 340;
-          const x2 = Math.cos(rad) * 545;
-          const y2 = Math.sin(rad) * 425;
-          return (
-            <line
-              key={i}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke={i % 2 ? '#3E2E38' : '#120D13'}
-              strokeWidth={5}
-              strokeLinecap="round"
-              opacity={0.82}
-            />
-          );
-        })}
 
-        {/* Left & Right facial discs (`đĩa mặt xám than u tối, chiều sâu huyền bí`) */}
-        {[-235, 235].map((dx, side) => (
-          <g key={side} transform={`translate(${dx} -15)`}>
-            <ellipse cx={0} cy={0} rx={225} ry={215} fill="#1E1720" stroke="#120D14" strokeWidth={5} />
-            <ellipse cx={0} cy={0} rx={185} ry={178} fill="#271E28" stroke="#3A2A38" strokeWidth={3} strokeDasharray="10 6" />
-            {Array.from({ length: 28 }).map((_, k) => {
-              const a = (k / 28) * Math.PI * 2;
+        {/* Layer 3: Ear tufts inner feather details (Búi lông sừng có lớp lang) */}
+        {/* Left ear tuft inner layers */}
+        <path d="M -430 -340 L -520 -505 C -475 -480 -400 -420 -345 -385 Z" fill="#2A1E27" />
+        <path d="M -415 -350 L -490 -480 C -450 -460 -395 -415 -355 -385 Z" fill="#3D2D37" />
+        <line x1={-425} y1={-345} x2={-505} y2={-495} stroke="#54404C" strokeWidth={2.5} strokeLinecap="round" />
+
+        {/* Right ear tuft inner layers */}
+        <path d="M 430 -340 L 520 -505 C 475 -480 400 -420 345 -385 Z" fill="#2A1E27" />
+        <path d="M 415 -350 L 490 -480 C 450 -460 395 -415 355 -385 Z" fill="#3D2D37" />
+        <line x1={425} y1={-345} x2={505} y2={-495} stroke="#54404C" strokeWidth={2.5} strokeLinecap="round" />
+
+        {/* Crown feather striations between ear tufts */}
+        {[-220, -160, -100, -40, 20, 80, 140, 200].map((cx, i) => (
+          <path
+            key={i}
+            d={`M ${cx} -410 Q ${cx + 10} -450 ${cx} -475`}
+            stroke="#2F242C"
+            strokeWidth={3.5}
+            strokeLinecap="round"
+            fill="none"
+          />
+        ))}
+
+        {/* Layer 4: Facial Discs Outer Ruff Border (Viền đĩa mặt trái tim) */}
+        <path
+          d="M 0 -110
+             C -90 -220 -280 -255 -380 -185
+             C -490 -105 -490 120 -380 235
+             C -280 340 -110 330 0 240
+             C 110 340 280 340 380 235
+             C 490 120 490 -105 380 -185
+             C 280 -255 90 -220 0 -110 Z"
+          fill="#1C1622"
+          stroke="#0E0A12"
+          strokeWidth={4.5}
+        />
+
+        {/* Layer 5: Left & Right Facial Discs with radiating plumage striations */}
+        {[-210, 210].map((dx, side) => (
+          <g key={side} transform={`translate(${dx} 25)`}>
+            {/* Base disc ring */}
+            <ellipse cx={0} cy={0} rx={195} ry={190} fill="#231A26" stroke="#140E18" strokeWidth={3} />
+            <ellipse cx={0} cy={0} rx={165} ry={160} fill="#2B212E" stroke="#3D2E3D" strokeWidth={2} strokeDasharray="8 5" />
+            <ellipse cx={0} cy={0} rx={135} ry={130} fill="#332736" opacity={0.6} />
+
+            {/* Fine radiating disc feather lines */}
+            {Array.from({ length: 32 }).map((_, k) => {
+              const a = (k / 32) * Math.PI * 2;
+              const r1 = 110;
+              const r2 = 185;
               return (
                 <line
                   key={k}
-                  x1={Math.cos(a) * 118}
-                  y1={Math.sin(a) * 112}
-                  x2={Math.cos(a) * 208}
-                  y2={Math.sin(a) * 198}
-                  stroke={k % 2 ? '#3A2B38' : '#523E4E'}
-                  strokeWidth={2.6}
-                  opacity={0.65}
+                  x1={Math.cos(a) * r1}
+                  y1={Math.sin(a) * r1 * 0.96}
+                  x2={Math.cos(a) * r2}
+                  y2={Math.sin(a) * r2 * 0.96}
+                  stroke={k % 2 ? '#443343' : '#5C4458'}
+                  strokeWidth={2}
+                  opacity={0.7}
                 />
               );
             })}
 
-            {/* Macro Owl Eye (`tròng mắt hổ phách sâu thẳm — phản chiếu tapetum lucidum và đèn đường rực sáng`) */}
+            {/* EYELID & IRIS ASSEMBLY (Blinking supported) */}
             <g transform={`scale(1 ${eyeScaleY})`}>
-              {/* Outer dark eyelid ring */}
-              <circle cx={0} cy={0} r={108} fill="#0E0A0E" stroke={INK} strokeWidth={5} />
-              {/* Tapetum lucidum luminous ambient bloom */}
-              <circle cx={0} cy={0} r={102} fill="#FF9E00" opacity={0.32} style={{ mixBlendMode: 'screen' }} />
-              {/* Rich amber-ochre iris emerging from shadow */}
-              <circle cx={0} cy={0} r={96} fill="#C67D16" />
-              <circle cx={0} cy={0} r={84} fill="#E59E24" />
-              <circle cx={0} cy={0} r={72} fill="#FFC83B" opacity={0.85} />
-              {/* Subtle iris fibers */}
-              {Array.from({ length: 24 }).map((_, f) => {
-                const fa = (f / 24) * Math.PI * 2;
+              {/* Outer black sclerotic eye ring */}
+              <circle cx={0} cy={0} r={105} fill="#0A070D" stroke={INK} strokeWidth={4.5} />
+              {/* Limbal ring */}
+              <circle cx={0} cy={0} r={98} fill="#1E0E04" />
+              {/* Deep amber iris */}
+              <circle cx={0} cy={0} r={94} fill="url(#owlIrisGrad)" />
+
+              {/* Radial iris muscle fibers */}
+              {Array.from({ length: 36 }).map((_, f) => {
+                const fa = (f / 36) * Math.PI * 2;
                 return (
                   <line
                     key={f}
-                    x1={Math.cos(fa) * 44}
-                    y1={Math.sin(fa) * 44}
+                    x1={Math.cos(fa) * 48}
+                    y1={Math.sin(fa) * 48}
                     x2={Math.cos(fa) * 92}
                     y2={Math.sin(fa) * 92}
-                    stroke="#824E0C"
-                    strokeWidth={2.2}
-                    opacity={0.7}
+                    stroke={f % 3 === 0 ? '#78350F' : '#B45309'}
+                    strokeWidth={f % 2 === 0 ? 2.2 : 1.4}
+                    opacity={0.75}
                   />
                 );
               })}
-              {/* Deep black pupil shifted slightly toward the alley below */}
-              <circle cx={lookX * 22} cy={lookY * 22} r={54} fill="#06070B" />
-              {/* Atmospheric upper-eyelid drop shadow over top half of eye */}
+
+              {/* Inner golden ring around pupil */}
+              <circle cx={0} cy={0} r={52} fill="none" stroke="#FDE68A" strokeWidth={2.5} opacity={0.8} />
+
+              {/* Dilated nocturnal raptor pupil shifted toward alley below */}
+              <circle cx={lookX * 24} cy={lookY * 24} r={46} fill="#05060A" stroke="#120A03" strokeWidth={2} />
+
+              {/* Soft shadow cast by upper brow over top third of eye */}
               <path
-                d="M -96 0 Q 0 42 96 0 A 96 96 0 0 0 -96 0 Z"
-                fill="#050308"
-                opacity={0.52}
+                d="M -94 0 C -94 -52 94 -52 94 0 C 94 36 -94 36 -94 0 Z"
+                fill="url(#owlEyeShadow)"
+                transform="translate(0 -22)"
               />
-              {/* Brilliant streetlamp specular reflections in upper-right of iris (`chấm phản chiếu đèn đường vàng rực trong mắt`) */}
-              <circle cx={34 + lookX * 8} cy={-28 + lookY * 6} r={28} fill="#FFE28A" opacity={0.4} style={{ mixBlendMode: 'screen' }} />
+
+              {/* Specular reflections: Warm golden glow from shop doorway below */}
               <ellipse
-                cx={34 + lookX * 8}
-                cy={-28 + lookY * 6}
+                cx={32 + lookX * 8}
+                cy={24 + lookY * 6}
                 rx={18}
-                ry={12}
-                transform="rotate(-24 34 -28)"
-                fill="#FFFFFF"
+                ry={10}
+                fill="#FDE68A"
+                opacity={0.45}
+                filter="url(#neonGlow)"
               />
-              <circle cx={46 + lookX * 8} cy={-12 + lookY * 6} r={6.5} fill="#FFEAA8" opacity={0.92} />
-              {/* Tiny secondary cool night-sky reflection in lower-left */}
-              <circle cx={-32} cy={30} r={7} fill="#B8D4F5" opacity={0.65} />
+              <ellipse
+                cx={32 + lookX * 8}
+                cy={24 + lookY * 6}
+                rx={12}
+                ry={6}
+                fill="#FFFBEB"
+                opacity={0.85}
+              />
+              {/* Crisp pinpoint starlight specular highlight on pupil rim */}
+              <circle cx={-18 + lookX * 6} cy={-22 + lookY * 6} r={5.5} fill="#FFFFFF" />
+              <circle cx={-13 + lookX * 6} cy={-16 + lookY * 6} r={2.5} fill="#E0F2FE" />
             </g>
           </g>
         ))}
 
-        {/* Heavy V-shaped brow bridge & forehead feathers */}
-        <path
-          d="M -420 -155 Q -210 -85 0 -18 Q 210 -85 420 -155 L 350 -245 Q 165 -165 0 -105 Q -165 -165 -350 -245 Z"
-          fill="#1C141B"
-          stroke={INK}
-          strokeWidth={5}
-        />
-        {/* Center beak bridge */}
-        <path
-          d="M -38 25 C -42 95 -18 175 0 210 C 18 175 42 95 38 25 Q 0 -2 -38 25 Z"
-          fill="#151214"
-          stroke={INK}
-          strokeWidth={4.5}
-        />
-        <path d="M -8 45 Q 8 110 2 185" stroke="#483E44" strokeWidth={3} fill="none" opacity={0.65} />
+        {/* Layer 6: V-Shaped Forehead Brow & Feather Crest (Gờ mày vút nhọn uy nghiêm) */}
+        <g>
+          {/* Broad V-brow plumage bridge */}
+          <path
+            d="M -390 -120
+               C -240 -80 -90 10 0 65
+               C 90 10 240 -80 390 -120
+               C 320 -180 160 -150 0 -95
+               C -160 -150 -320 -180 -390 -120 Z"
+            fill="#2A1E29"
+            stroke={INK}
+            strokeWidth={4.5}
+            strokeLinejoin="round"
+          />
+          {/* Layered feathered tufts along the brow line */}
+          {[-310, -220, -130, -50, 50, 130, 220, 310].map((bx, i) => (
+            <path
+              key={i}
+              d={`M ${bx} ${-100 + Math.abs(bx) * 0.15} L ${bx + (bx > 0 ? -18 : 18)} ${-130 + Math.abs(bx) * 0.15} L ${bx} ${-115 + Math.abs(bx) * 0.15} Z`}
+              fill="#42313F"
+              opacity={0.85}
+            />
+          ))}
+          {/* Central forehead chevron lines */}
+          <path d="M -80 -130 L 0 -85 L 80 -130" stroke="#544051" strokeWidth={3} fill="none" />
+          <path d="M -50 -160 L 0 -115 L 50 -160" stroke="#544051" strokeWidth={2.5} fill="none" />
+        </g>
+
+        {/* Layer 7: Hooked Raptor Beak & Nasal Cere (Mỏ khoằm sắc nét, có sống mỏ) */}
+        <g transform="translate(0 75)">
+          {/* Beak base / cere nestled in facial feathers */}
+          <polygon points="-28,-18 28,-18 34,10 -34,10" fill="#241B20" stroke={INK} strokeWidth={2.5} />
+          {/* Main hooked beak body */}
+          <path
+            d="M -26 8
+               C -28 65 -16 135 0 165
+               C 16 135 28 65 26 8
+               Q 0 -6 -26 8 Z"
+            fill="#3B3533"
+            stroke={INK}
+            strokeWidth={4.5}
+            strokeLinejoin="round"
+          />
+          {/* Left shadow plane of beak */}
+          <path d="M -26 8 C -28 65 -16 135 0 165 L 0 0 Z" fill="#231F1E" opacity={0.65} />
+          {/* Sharp dorsal ridge highlight along center of beak */}
+          <path d="M 0 0 L 0 162" stroke="#78706B" strokeWidth={3.5} strokeLinecap="round" />
+          <path d="M 2 12 L 2 145" stroke="#A8A29E" strokeWidth={1.5} opacity={0.7} />
+          {/* Nostril slit on left & right */}
+          <ellipse cx={-12} cy={22} rx={3.5} ry={1.8} fill="#141110" transform="rotate(-15 -12 22)" />
+          <ellipse cx={12} cy={22} rx={3.5} ry={1.8} fill="#141110" transform="rotate(15 12 22)" />
+
+          {/* Rictal bristles (lông cứng xòe quanh khóe mỏ) */}
+          <line x1={-26} y1={12} x2={-52} y2={4} stroke="#1A141A" strokeWidth={2.2} strokeLinecap="round" />
+          <line x1={-26} y1={25} x2={-48} y2={28} stroke="#1A141A" strokeWidth={2} strokeLinecap="round" />
+          <line x1={26} y1={12} x2={52} y2={4} stroke="#1A141A" strokeWidth={2.2} strokeLinecap="round" />
+          <line x1={26} y1={25} x2={48} y2={28} stroke="#1A141A" strokeWidth={2} strokeLinecap="round" />
+        </g>
       </g>
     </g>
   );
@@ -2211,9 +2340,11 @@ export const OwlEyeMacro: React.FC<{
 
 /**
  * `StarryCitySkyline` (`SET-CITY-SKY` — Bầu trời sao & đường chân trời thành phố đêm ở C0-A, C0-B):
- * - Upper half (`y = 0..420`): Deep night sky with a star-sparse safe zone in the upper-center for `EpisodeTitleBanner` (`TITLE-TAP`).
- * - Middle (`y = 420..820`): Multi-layered southern Vietnamese city skyline (water tanks, rooftop antennas, apartment blocks, warm & cool lit windows).
- * - Lower foreground (`y = 740..1080`): Near-left corrugated house eave (`mái hiên tiền cảnh`) & iron bracket where the owl (`PerchingOwl`) sits for the tilt-down in `C0-B`.
+ * Reworked with deep nocturnal cosmic gradient, delicate crescent moon, drifting night clouds,
+ * rich multi-tiered starfield with twinkle & color, and authentic Vietnamese tube-house cityscape:
+ * terracotta tile roofs, rooftop terraces, stainless steel water tanks, fishbone TV antennas,
+ * AC compressor units, lit curtained windows, communication tower with blinking aviation beacon,
+ * and sagging utility power lines.
  */
 export const StarryCitySkyline: React.FC<{
   t?: number;
@@ -2223,151 +2354,407 @@ export const StarryCitySkyline: React.FC<{
   showOwl?: boolean;
 }> = ({ t = 0, tiltY = 0, showTitle = true, titleOpacity = 1, showOwl = true }) => {
   const shiftY = -tiltY * 220;
-  // Deterministic stars avoiding the center-top title safe box (x: 460..1460, y: 95..295)
-  const stars: [number, number, number, number][] = [
-    [110, 75, 2.2, 0.85], [220, 145, 1.6, 0.7], [340, 90, 2.5, 0.9], [410, 210, 1.5, 0.65],
-    [180, 285, 2.0, 0.8], [95, 355, 1.8, 0.75], [310, 340, 2.2, 0.85], [475, 365, 1.5, 0.6],
-    [640, 62, 1.6, 0.65], [960, 52, 1.8, 0.7], [1285, 68, 1.7, 0.65],
-    [1510, 95, 2.4, 0.9], [1645, 155, 1.8, 0.75], [1790, 88, 2.2, 0.85], [1840, 235, 1.6, 0.7],
-    [1560, 280, 2.1, 0.8], [1710, 345, 1.9, 0.75], [1390, 355, 1.6, 0.65], [820, 370, 1.5, 0.6],
-    [1120, 360, 1.7, 0.65],
+
+  // Rich multi-tiered starfield avoiding title safe zone (x: 480..1440, y: 110..290)
+  const stars: [number, number, number, string, boolean][] = [
+    // Left upper quadrant
+    [75, 55, 1.8, '#FFFFFF', true],
+    [140, 95, 1.2, '#E0F2FE', false],
+    [210, 45, 2.4, '#FEF3C7', true],
+    [285, 130, 1.4, '#FFFFFF', false],
+    [95, 175, 1.6, '#E0F2FE', false],
+    [175, 220, 2.0, '#FFFFFF', true],
+    [320, 85, 1.3, '#CBD5E1', false],
+    [380, 160, 2.2, '#FEF9C3', true],
+    [430, 90, 1.5, '#E0F2FE', false],
+    [120, 280, 1.2, '#FFFFFF', false],
+    [240, 310, 1.8, '#E0F2FE', false],
+    [345, 270, 2.0, '#FEF3C7', true],
+    [415, 335, 1.4, '#FFFFFF', false],
+    [465, 360, 1.3, '#CBD5E1', false],
+
+    // Top center edge (above title)
+    [580, 48, 1.5, '#FFFFFF', false],
+    [720, 38, 2.2, '#FEF3C7', true],
+    [880, 42, 1.6, '#E0F2FE', false],
+    [1040, 35, 2.0, '#FFFFFF', true],
+    [1180, 46, 1.4, '#E0F2FE', false],
+    [1320, 52, 1.8, '#FEF3C7', false],
+
+    // Right upper quadrant
+    [1460, 85, 1.6, '#FFFFFF', false],
+    [1535, 45, 2.2, '#FEF3C7', true],
+    [1610, 110, 1.4, '#E0F2FE', false],
+    [1760, 60, 2.4, '#FFFFFF', true],
+    [1830, 125, 1.5, '#E0F2FE', false],
+    [1510, 180, 1.8, '#FFFFFF', false],
+    [1590, 240, 2.0, '#FEF9C3', true],
+    [1745, 215, 1.6, '#E0F2FE', false],
+    [1860, 250, 1.9, '#FFFFFF', false],
+    [1485, 320, 1.4, '#CBD5E1', false],
+    [1580, 350, 1.7, '#FEF3C7', false],
+    [1690, 310, 2.1, '#FFFFFF', true],
+    [1810, 345, 1.5, '#E0F2FE', false],
+    [1875, 365, 1.3, '#FFFFFF', false],
+
+    // Below title band (horizon transition)
+    [520, 385, 1.2, '#E0F2FE', false],
+    [640, 375, 1.5, '#FFFFFF', false],
+    [780, 390, 1.3, '#FEF3C7', false],
+    [930, 380, 1.6, '#FFFFFF', false],
+    [1090, 370, 1.4, '#E0F2FE', false],
+    [1240, 385, 1.5, '#FEF3C7', false],
+    [1370, 375, 1.3, '#FFFFFF', false],
   ];
+
+  const cloudDrift1 = ((t * 0.4) % 1920) - 200;
+  const cloudDrift2 = ((t * 0.25) % 1920) - 300;
 
   return (
     <g>
       <defs>
-        <linearGradient id="c0NightSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#050813" />
-          <stop offset="52%" stopColor="#0B1328" />
-          <stop offset="82%" stopColor="#16223D" />
-          <stop offset="100%" stopColor="#23293E" />
+        {/* Deep cosmic midnight gradient */}
+        <linearGradient id="c0SkyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#02040A" />
+          <stop offset="38%" stopColor="#081024" />
+          <stop offset="70%" stopColor="#111D36" />
+          <stop offset="88%" stopColor="#1E2338" />
+          <stop offset="100%" stopColor="#2E2838" />
         </linearGradient>
+
+        {/* Warm urban sodium vapor horizon glow */}
         <linearGradient id="c0CityHaze" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#E8A856" stopOpacity={0} />
-          <stop offset="100%" stopColor="#E8A856" stopOpacity={0.22} />
+          <stop offset="0%" stopColor="#E2923C" stopOpacity={0} />
+          <stop offset="65%" stopColor="#E2923C" stopOpacity={0.16} />
+          <stop offset="100%" stopColor="#F59E0B" stopOpacity={0.28} />
+        </linearGradient>
+
+        {/* Soft nocturnal cloud gradient */}
+        <linearGradient id="c0CloudGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#0F1A30" stopOpacity={0} />
+          <stop offset="30%" stopColor="#1E2B48" stopOpacity={0.35} />
+          <stop offset="70%" stopColor="#1E2B48" stopOpacity={0.35} />
+          <stop offset="100%" stopColor="#0F1A30" stopOpacity={0} />
         </linearGradient>
       </defs>
 
       {/* Sky backdrop */}
-      <rect x={0} y={0} width={1920} height={1080} fill="url(#c0NightSky)" />
+      <rect x={0} y={0} width={1920} height={1080} fill="url(#c0SkyGrad)" />
 
       <g transform={`translate(0 ${shiftY})`}>
-        {/* Starfield (`bầu trời đêm nhiều sao, chừa vùng ít sao quanh chữ`) */}
-        {stars.map(([sx, sy, sr, so], i) => {
-          const twinkle = i % 5 === 0 ? 0.82 + 0.18 * Math.sin(t / 14 + i) : 1;
-          return <circle key={i} cx={sx} cy={sy} r={sr} fill="#F4F6FF" opacity={so * twinkle} />;
+        {/* ================================================================= */}
+        {/* 1. SOFT NOCTURNAL DRIFTING CLOUDS (`mây đêm bồng bềnh lững lờ`)     */}
+        {/* ================================================================= */}
+        <g opacity={0.75}>
+          {/* Cloud wisp 1 */}
+          <path
+            d={`M ${cloudDrift1 - 300} 210 Q ${cloudDrift1} 175 ${cloudDrift1 + 350} 205 Q ${cloudDrift1 + 650} 225 ${cloudDrift1 + 950} 210 L ${cloudDrift1 + 950} 245 Q ${cloudDrift1 + 450} 265 ${cloudDrift1 - 300} 245 Z`}
+            fill="url(#c0CloudGrad)"
+            filter="url(#softShadowBlur)"
+          />
+          {/* Cloud wisp 2 */}
+          <path
+            d={`M ${cloudDrift2 + 600} 320 Q ${cloudDrift2 + 900} 290 ${cloudDrift2 + 1250} 315 Q ${cloudDrift2 + 1550} 335 ${cloudDrift2 + 1850} 320 L ${cloudDrift2 + 1850} 355 Q ${cloudDrift2 + 1350} 370 ${cloudDrift2 + 600} 355 Z`}
+            fill="url(#c0CloudGrad)"
+            filter="url(#softShadowBlur)"
+          />
+        </g>
+
+        {/* ================================================================= */}
+        {/* 2. CRESCENT MOON & LUNAR HALO (`vầng trăng khuyết & ánh trăng`)   */}
+        {/* ================================================================= */}
+        <g transform="translate(1690 135)">
+          {/* Lunar ambient halo */}
+          <circle cx={0} cy={0} r={65} fill="#FEF3C7" opacity={0.07} filter="url(#softShadowBlur)" />
+          {/* Earthshine faint lunar body disc */}
+          <circle cx={0} cy={0} r={24} fill="#131B2D" opacity={0.35} />
+          {/* Luminous crescent moon */}
+          <path
+            d="M 0 -24 A 24 24 0 0 1 24 0 A 24 24 0 0 1 0 24 A 18 18 0 0 0 0 -24 Z"
+            fill="#FFFBEB"
+          />
+          <path
+            d="M 0 -24 A 24 24 0 0 1 24 0 A 24 24 0 0 1 0 24 A 18 18 0 0 0 0 -24 Z"
+            fill="#FEF08A"
+            opacity={0.4}
+            filter="url(#neonGlow)"
+          />
+        </g>
+
+        {/* ================================================================= */}
+        {/* 3. MULTI-MAGNITUDE TWINKLING STARFIELD (`bầu trời sao đa tầng`)  */}
+        {/* ================================================================= */}
+        {stars.map(([sx, sy, sr, scol, hasSpikes], i) => {
+          const twinkle = 0.78 + 0.22 * Math.sin(t * 0.12 + i * 1.7);
+          return (
+            <g key={i}>
+              <circle cx={sx} cy={sy} r={sr} fill={scol} opacity={twinkle} />
+              {/* Subtle 4-point cross diffraction spikes on bright focal stars */}
+              {hasSpikes ? (
+                <g opacity={twinkle * 0.55}>
+                  <line x1={sx - sr * 2.8} y1={sy} x2={sx + sr * 2.8} y2={sy} stroke={scol} strokeWidth={0.8} />
+                  <line x1={sx} y1={sy - sr * 2.8} x2={sx} y2={sy + sr * 2.8} stroke={scol} strokeWidth={0.8} />
+                </g>
+              ) : null}
+            </g>
+          );
         })}
 
-        {/*Episode title layer (`TITLE-TAP`) in C0-A / C0-B */}
+        {/* Episode title banner (`TITLE-TAP`) in C0-A / C0-B */}
         {showTitle && titleOpacity > 0.01 ? (
           <EpisodeTitleBanner x={960} y={200} opacity={titleOpacity} />
         ) : null}
 
         {/* Warm urban sodium-vapor horizon haze */}
-        <rect x={0} y={420} width={1920} height={360} fill="url(#c0CityHaze)" />
+        <rect x={0} y={400} width={1920} height={380} fill="url(#c0CityHaze)" />
 
-        {/* Layer 1: Distant high-rise skyline (`đường chân trời thành phố lớp xa`) */}
-        <g fill="#0F172B" stroke="#080D1A" strokeWidth={2}>
+        {/* ================================================================= */}
+        {/* 4. LAYER 1: DISTANT HIGH-RISE SKYLINE & TELECOM TOWER (THÀNH PHỐ XA)*/}
+        {/* ================================================================= */}
+        <g fill="#0B1324" stroke="#050914" strokeWidth={2}>
+          {/* Distant skyline silhouettes */}
           {[
-            [40, 520, 130, 320], [190, 465, 115, 375], [330, 535, 150, 305], [510, 485, 125, 355],
-            [665, 445, 140, 395], [830, 515, 165, 325], [1020, 470, 130, 370], [1175, 505, 155, 335],
-            [1355, 440, 145, 400], [1525, 495, 135, 345], [1685, 460, 150, 380], [1845, 525, 95, 315],
+            [30, 515, 120, 335],
+            [175, 460, 110, 390],
+            [310, 525, 140, 325],
+            [480, 475, 120, 375],
+            [630, 440, 135, 410],
+            [795, 505, 150, 345],
+            [975, 465, 125, 385],
+            [1130, 495, 145, 355],
+            [1305, 435, 140, 415],
+            [1475, 490, 130, 360],
+            [1635, 455, 140, 395],
+            [1805, 520, 115, 330],
           ].map(([bx, by, bw, bh], i) => (
             <g key={i}>
               <rect x={bx} y={by} width={bw} height={bh} />
-              {/* Scattered lit windows */}
-              {Array.from({ length: 6 }).map((_, wIdx) => {
-                const wx = bx + 18 + (wIdx % 3) * 34;
-                const wy = by + 24 + Math.floor(wIdx / 3) * 42;
+              {/* Scattered high-rise illuminated windows */}
+              {Array.from({ length: 8 }).map((_, wIdx) => {
+                const wx = bx + 16 + (wIdx % 3) * 32;
+                const wy = by + 22 + Math.floor(wIdx / 3) * 44;
+                const isWarm = (i + wIdx) % 2 === 0;
                 return (
                   <rect
                     key={wIdx}
                     x={wx}
                     y={wy}
-                    width={14}
-                    height={9}
-                    fill={(i + wIdx) % 3 === 0 ? '#9EC5FF' : '#FFD68A'}
-                    opacity={0.55}
+                    width={15}
+                    height={10}
+                    rx={1}
+                    fill={isWarm ? '#FDE68A' : '#7DD3FC'}
+                    opacity={0.52}
                   />
                 );
               })}
             </g>
           ))}
+
+          {/* Tall telecommunication antenna tower with blinking aviation red beacon */}
+          <g transform="translate(1375 355)">
+            {/* Tapering steel truss mast */}
+            <line x1={0} y1={80} x2={0} y2={0} stroke="#1A2840" strokeWidth={3.5} />
+            <line x1={-12} y1={80} x2={0} y2={15} stroke="#1A2840" strokeWidth={2} />
+            <line x1={12} y1={80} x2={0} y2={15} stroke="#1A2840" strokeWidth={2} />
+            <line x1={-8} y1={55} x2={8} y2={55} stroke="#1A2840" strokeWidth={1.8} />
+            <line x1={-5} y1={35} x2={5} y2={35} stroke="#1A2840" strokeWidth={1.8} />
+            {/* Blinking red aviation hazard light at summit */}
+            <circle
+              cx={0}
+              cy={0}
+              r={4}
+              fill="#EF4444"
+              opacity={0.7 + 0.3 * Math.sin(t * 0.2)}
+              filter="url(#neonGlow)"
+            />
+            <circle cx={0} cy={0} r={2} fill="#FECACA" opacity={0.9} />
+          </g>
         </g>
 
-        {/* Layer 2: Midground Vietnamese tube-house rooftops (`mái nhà ống, bồn nước inox, ăng-ten`) */}
+        {/* ================================================================= */}
+        {/* 5. LAYER 2: MIDGROUND VIETNAMESE TUBE HOUSES (NHÀ ỐNG VIỆT NAM)    */}
+        {/* Mái ngói dốc, sân thượng, bồn nước inox Sơn Hà, ăng-ten xương cá   */}
+        {/* ================================================================= */}
         <g>
-          {[
-            [0, 650, 240, 360, '#141E33'],
-            [225, 615, 260, 395, '#18233A'],
-            [470, 665, 230, 345, '#131C30'],
-            [685, 625, 280, 385, '#172238'],
-            [950, 655, 250, 355, '#141D31'],
-            [1185, 610, 270, 400, '#18243B'],
-            [1440, 645, 245, 365, '#141E33'],
-            [1670, 620, 260, 390, '#162036'],
-          ].map(([rx, ry, rw, rh, col], i) => (
-            <g key={i}>
-              <rect
-                x={rx as number}
-                y={ry as number}
-                width={rw as number}
-                height={rh as number}
-                fill={col as string}
-                stroke={INK}
-                strokeWidth={3}
-              />
-              {/* Rooftop stainless steel water tank (`bồn nước Sơn Hà trên sân thượng`) */}
-              {i % 2 === 1 ? (
-                <g transform={`translate(${(rx as number) + 85} ${(ry as number) - 34})`}>
-                  <rect x={0} y={0} width={58} height={34} rx={12} fill="#3B4D6B" stroke={INK} strokeWidth={2.2} />
-                  <line x1={8} y1={34} x2={8} y2={42} stroke={INK} strokeWidth={2.5} />
-                  <line x1={50} y1={34} x2={50} y2={42} stroke={INK} strokeWidth={2.5} />
-                </g>
-              ) : null}
-              {/* Warm & cool glowing neighborhood windows */}
-              <rect
-                x={(rx as number) + 42}
-                y={(ry as number) + 48}
-                width={46}
-                height={58}
-                rx={2}
-                fill={i % 2 === 0 ? '#FFC978' : '#A8CEFF'}
-                opacity={0.72}
-                stroke={INK}
-                strokeWidth={2.5}
-              />
-              <rect
-                x={(rx as number) + 135}
-                y={(ry as number) + 56}
-                width={52}
-                height={48}
-                rx={2}
-                fill={i % 3 === 0 ? '#A8CEFF' : '#FFB866'}
-                opacity={0.62}
-                stroke={INK}
-                strokeWidth={2.5}
-              />
+          {/* House 1 (x: 0..250): Terracotta tile gable roof house (`nhà mái ngói dốc`) */}
+          <g>
+            <polygon points="-20,620 120,560 250,620 250,1050 -20,1050" fill="#141E32" stroke={INK} strokeWidth={3.5} />
+            {/* Slanted terracotta tile roof profile */}
+            <polygon points="-25,622 120,556 255,622 250,634 120,568 -20,634" fill="#3D201A" stroke={INK} strokeWidth={2.5} />
+            {/* Fishbone TV antenna (`ăng-ten xương cá`) */}
+            <g transform="translate(120 520)">
+              <line x1={0} y1={40} x2={0} y2={0} stroke="#4B5E78" strokeWidth={2.8} />
+              <line x1={-26} y1={8} x2={26} y2={8} stroke="#4B5E78" strokeWidth={2.2} />
+              <line x1={-20} y1={18} x2={20} y2={18} stroke="#4B5E78" strokeWidth={2} />
+              <line x1={-15} y1={28} x2={15} y2={28} stroke="#4B5E78" strokeWidth={1.8} />
             </g>
-          ))}
+            {/* Cozy lit double window */}
+            <rect x={45} y={660} width={55} height={68} rx={3} fill="#FDE68A" opacity={0.7} stroke={INK} strokeWidth={2.5} />
+            <line x1={72} y1={660} x2={72} y2={728} stroke="#2D1E16" strokeWidth={2} />
+            <line x1={45} y1={694} x2={100} y2={694} stroke="#2D1E16" strokeWidth={2} />
+            {/* Window curtain silhouette */}
+            <path d="M 45 660 Q 62 680 45 710 L 45 660 Z" fill="#24140D" opacity={0.65} />
+            <path d="M 100 660 Q 83 680 100 710 L 100 660 Z" fill="#24140D" opacity={0.65} />
+          </g>
+
+          {/* House 2 (x: 230..490): Roof terrace with stainless steel water tank (`bồn inox Sơn Hà`) */}
+          <g>
+            <rect x={235} y={595} width={250} height={455} fill="#18243A" stroke={INK} strokeWidth={3.5} />
+            {/* Terrace parapet & balustrade */}
+            <rect x={230} y={588} width={260} height={12} rx={2} fill="#243350" stroke={INK} strokeWidth={2} />
+            {/* Staircase penthouse (`chuồng cu tum thang`) */}
+            <rect x={245} y={545} width={68} height={45} rx={3} fill="#141E32" stroke={INK} strokeWidth={2.5} />
+            <polygon points="240,545 280,530 318,545" fill="#2D1B17" stroke={INK} strokeWidth={2} />
+
+            {/* STAINLESS STEEL HORIZONTAL WATER TANK (`bồn nước inox Sơn Hà`) */}
+            <g transform="translate(370 548)">
+              {/* Steel angle stand (`chân đỡ thép V`) */}
+              <line x1={10} y1={36} x2={6} y2={44} stroke="#4B5E78" strokeWidth={2.8} />
+              <line x1={65} y1={36} x2={69} y2={44} stroke="#4B5E78" strokeWidth={2.8} />
+              <line x1={6} y1={44} x2={69} y2={44} stroke="#4B5E78" strokeWidth={2.2} />
+              {/* Cylindrical tank body */}
+              <rect x={6} y={6} width={64} height={32} rx={14} fill="#4B6082" stroke={INK} strokeWidth={2.5} />
+              {/* Chrome specular highlights on stainless steel */}
+              <line x1={12} y1={12} x2={64} y2={12} stroke="#CBD5E1" strokeWidth={2.5} opacity={0.85} />
+              <line x1={14} y1={16} x2={62} y2={16} stroke="#E2E8F0" strokeWidth={1.5} opacity={0.65} />
+              {/* Circumferential rib rings */}
+              <line x1={26} y1={6} x2={26} y2={38} stroke="#2D3B52" strokeWidth={2} />
+              <line x1={50} y1={6} x2={50} y2={38} stroke="#2D3B52" strokeWidth={2} />
+            </g>
+
+            {/* Lit bedroom window (cool fluorescent blue) */}
+            <rect x={275} y={640} width={62} height={62} rx={3} fill="#7DD3FC" opacity={0.65} stroke={INK} strokeWidth={2.5} />
+            <line x1={306} y1={640} x2={306} y2={702} stroke="#102538" strokeWidth={2} />
+            {/* Outdoor AC unit below window */}
+            <rect x={360} y={655} width={42} height={26} rx={2} fill="#243348" stroke={INK} strokeWidth={2} />
+            <circle cx={374} cy={668} r={8} fill="#141E2C" />
+          </g>
+
+          {/* House 3 (x: 470..710): Balcony with iron security cage ("chuồng cọp") */}
+          <g>
+            <rect x={475} y={635} width={230} height={415} fill="#131C30" stroke={INK} strokeWidth={3.5} />
+            <rect x={470} y={628} width={240} height={10} rx={2} fill="#202D46" stroke={INK} strokeWidth={2} />
+            {/* Balcony iron cage (`chuồng cọp`) */}
+            <g transform="translate(500 660)">
+              <rect x={0} y={0} width={120} height={70} fill="#0E1626" stroke={INK} strokeWidth={2.5} />
+              {Array.from({ length: 7 }).map((_, i) => (
+                <line key={i} x1={15 + i * 16} y1={0} x2={15 + i * 16} y2={70} stroke="#32445E" strokeWidth={2} />
+              ))}
+              <line x1={0} y1={25} x2={120} y2={25} stroke="#32445E" strokeWidth={2} />
+              <line x1={0} y1={48} x2={120} y2={48} stroke="#32445E" strokeWidth={2} />
+              {/* Laundry hanging inside */}
+              <line x1={10} y1={12} x2={110} y2={12} stroke="#5C4535" strokeWidth={2} />
+              <rect x={25} y={14} width={26} height={32} rx={1} fill="#1E3048" opacity={0.7} />
+              <rect x={65} y={14} width={28} height={38} rx={1} fill="#422C38" opacity={0.65} />
+            </g>
+          </g>
+
+          {/* House 4 (x: 690..970): Shophouse rooftop with green window & satellite dish */}
+          <g>
+            <rect x={695} y={605} width={265} height={445} fill="#172238" stroke={INK} strokeWidth={3.5} />
+            <rect x={690} y={598} width={275} height={12} rx={2} fill="#263654" stroke={INK} strokeWidth={2} />
+
+            {/* Satellite dish bowl (`chảo thu vệ tinh`) */}
+            <g transform="translate(735 565)">
+              <line x1={0} y1={36} x2={0} y2={18} stroke="#5A6D88" strokeWidth={3} />
+              <path d="M -18 4 Q 0 24 18 20" fill="none" stroke="#7A90AD" strokeWidth={3.5} strokeLinecap="round" />
+              <line x1={0} y1={14} x2={-10} y2={6} stroke="#CBD5E1" strokeWidth={1.8} />
+              <circle cx={-10} cy={6} r={2.5} fill="#EF4444" />
+            </g>
+
+            {/* French-colonial green louvered window */}
+            <g transform="translate(800 635)">
+              <rect x={0} y={0} width={68} height={82} rx={4} fill="#1A2D23" stroke={INK} strokeWidth={2.5} />
+              <rect x={6} y={6} width={56} height={70} rx={2} fill="#0E1C15" />
+              {[-12, 6, 24, 42, 60].map((ly, i) => (
+                <line key={i} x1={10} y1={ly + 14} x2={58} y2={ly + 14} stroke="#274635" strokeWidth={2} />
+              ))}
+            </g>
+            {/* Adjacent warm lit window */}
+            <rect x={890} y={640} width={48} height={60} rx={2} fill="#FBBF24" opacity={0.7} stroke={INK} strokeWidth={2.2} />
+          </g>
+
+          {/* House 5 (x: 950..1200): Apartment block with lit warm windows */}
+          <g>
+            <rect x={950} y={630} width={240} height={420} fill="#141D31" stroke={INK} strokeWidth={3.5} />
+            <rect x={945} y={622} width={250} height={10} rx={2} fill="#22304C" stroke={INK} strokeWidth={2} />
+            {/* Potted plants on terrace parapet */}
+            <g transform="translate(980 610) scale(0.65)">
+              <polygon points="-12,0 12,0 8,18 -8,18" fill="#3D2017" stroke={INK} strokeWidth={2} />
+              <path d="M -6 -2 Q -12 -18 -4 -28 Q 0 -14 -2 -2" fill="#183622" />
+              <path d="M 4 -2 Q 10 -22 2 -32 Q -2 -16 2 -2" fill="#224A2E" />
+            </g>
+            <g transform="translate(1015 610) scale(0.65)">
+              <polygon points="-12,0 12,0 8,18 -8,18" fill="#3D2017" stroke={INK} strokeWidth={2} />
+              <path d="M -4 -2 Q 4 -22 -2 -30" fill="none" stroke="#224A2E" strokeWidth={3} />
+            </g>
+
+            {/* Lit living room windows */}
+            <rect x={985} y={660} width={60} height={68} rx={3} fill="#FDE68A" opacity={0.72} stroke={INK} strokeWidth={2.5} />
+            <line x1={1015} y1={660} x2={1015} y2={728} stroke="#322216" strokeWidth={2} />
+            <rect x={1080} y={665} width={55} height={62} rx={3} fill="#7DD3FC" opacity={0.58} stroke={INK} strokeWidth={2.5} />
+          </g>
+
+          {/* House 6 (x: 1180..1440): Angled roof terrace & rooftop water tank */}
+          <g>
+            <rect x={1180} y={590} width={255} height={460} fill="#18243B" stroke={INK} strokeWidth={3.5} />
+            <rect x={1175} y={582} width={265} height={12} rx={2} fill="#283A5A" stroke={INK} strokeWidth={2} />
+
+            {/* Stainless steel water tank */}
+            <g transform="translate(1225 540)">
+              <line x1={8} y1={36} x2={5} y2={44} stroke="#4B5E78" strokeWidth={2.8} />
+              <line x1={62} y1={36} x2={65} y2={44} stroke="#4B5E78" strokeWidth={2.8} />
+              <rect x={5} y={6} width={60} height={32} rx={14} fill="#4B6082" stroke={INK} strokeWidth={2.5} />
+              <line x1={10} y1={12} x2={60} y2={12} stroke="#CBD5E1" strokeWidth={2.5} opacity={0.85} />
+            </g>
+
+            {/* TV antenna */}
+            <g transform="translate(1360 520)">
+              <line x1={0} y1={65} x2={0} y2={0} stroke="#4B5E78" strokeWidth={2.5} />
+              <line x1={-20} y1={12} x2={20} y2={12} stroke="#4B5E78" strokeWidth={2} />
+              <line x1={-14} y1={24} x2={14} y2={24} stroke="#4B5E78" strokeWidth={1.8} />
+            </g>
+
+            {/* Warm windows */}
+            <rect x={1230} y={640} width={56} height={64} rx={3} fill="#FBBF24" opacity={0.68} stroke={INK} strokeWidth={2.5} />
+            <rect x={1320} y={645} width={58} height={58} rx={3} fill="#FDE68A" opacity={0.7} stroke={INK} strokeWidth={2.5} />
+          </g>
+
+          {/* House 7 & 8 (x: 1420..1920): High tube houses & rooftop antennas */}
+          <g>
+            <rect x={1430} y={625} width={240} height={425} fill="#141E33" stroke={INK} strokeWidth={3.5} />
+            <rect x={1660} y={600} width={270} height={450} fill="#162036" stroke={INK} strokeWidth={3.5} />
+            <rect x={1655} y={592} width={280} height={12} rx={2} fill="#253552" stroke={INK} strokeWidth={2} />
+
+            {/* Windows */}
+            <rect x={1480} y={665} width={52} height={60} rx={2} fill="#FDE68A" opacity={0.7} stroke={INK} strokeWidth={2.5} />
+            <rect x={1710} y={635} width={58} height={66} rx={3} fill="#7DD3FC" opacity={0.65} stroke={INK} strokeWidth={2.5} />
+            <rect x={1805} y={640} width={55} height={60} rx={3} fill="#FBBF24" opacity={0.68} stroke={INK} strokeWidth={2.5} />
+          </g>
         </g>
 
-        {/* Overhead utility pole & sagging power cables across the lower rooftops */}
+        {/* Overhead utility pole & sagging black power cables across rooftops */}
         <g>
-          <rect x={1520} y={555} width={18} height={520} fill="#1B2230" stroke={INK} strokeWidth={3} />
-          <rect x={1485} y={580} width={88} height={8} fill="#283246" stroke={INK} strokeWidth={2.5} />
-          <path d="M 0 695 Q 760 770 1525 585 Q 1740 640 1920 620" stroke="#090D16" strokeWidth={3} fill="none" />
-          <path d="M 0 718 Q 760 795 1525 602 Q 1740 658 1920 640" stroke="#090D16" strokeWidth={2.2} fill="none" />
+          <rect x={1520} y={545} width={18} height={535} fill="#1B2230" stroke={INK} strokeWidth={3} />
+          <rect x={1480} y={570} width={96} height={10} rx={2} fill="#283246" stroke={INK} strokeWidth={2.5} />
+          {/* Porcelain insulator bells */}
+          {[-38, -12, 14, 38].map((ix, i) => (
+            <ellipse key={i} cx={1528 + ix} cy={567} rx={4.5} ry={6} fill="#CBD5E1" stroke="#0F172A" strokeWidth={1.5} />
+          ))}
+          <path d="M 0 685 Q 760 765 1528 575 Q 1740 635 1920 615" stroke="#090D16" strokeWidth={3.2} fill="none" />
+          <path d="M 0 710 Q 760 790 1528 592 Q 1740 652 1920 635" stroke="#090D16" strokeWidth={2.4} fill="none" />
         </g>
 
-        {/* Layer 3: Foreground near-left corrugated metal eave (`mái hiên nhà đầu hẻm tiền cảnh`) & Perched Owl (`C0-B`) */}
+        {/* ================================================================= */}
+        {/* 6. LAYER 3: FOREGROUND NEAR-LEFT ROOFTOP AWNING & PERCHED OWL (C0-B)*/}
+        {/* ================================================================= */}
         <g transform="translate(0 130)">
-          {/* Left house wall & corrugated iron awning (`mái tôn đầu hẻm`) */}
+          {/* Corrugated tin roof eave of near-left house (`mái tôn đầu hẻm`) */}
           <polygon points="-40,590 540,685 500,745 -40,665" fill="#232B3A" stroke={INK} strokeWidth={4} />
           <polygon points="-40,665 310,715 310,1180 -40,1180" fill="#131824" stroke={INK} strokeWidth={4} />
-          {/* Corrugated roof ribs */}
+          {/* Corrugated roof ribs with edge highlights */}
           {[40, 120, 200, 280, 360, 440].map((lx, i) => (
-            <line key={i} x1={lx} y1={604 + i * 13} x2={lx - 26} y2={658 + i * 13} stroke="#3B4963" strokeWidth={2.5} />
+            <line key={i} x1={lx} y1={604 + i * 13} x2={lx - 26} y2={658 + i * 13} stroke="#3B4963" strokeWidth={2.8} />
           ))}
           {/* Perched Owl on the iron roof bracket (`ANIMAL-CU` at C0-B) */}
           {showOwl ? <PerchingOwl x={435} y={765} s={1.08} headTurn={0.4} showBracket /> : null}
@@ -2376,6 +2763,7 @@ export const StarryCitySkyline: React.FC<{
     </g>
   );
 };
+
 
 /**
  * `PasserbyShadow` (`EXTRA-BONG` — 2–3 bóng người qua đường ít chi tiết ở C0-D, C0-E):
