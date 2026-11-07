@@ -2619,17 +2619,119 @@ export const AlleyExteriorScene: React.FC<{
         <circle cx={69} cy={205} r={3} fill="#0A090C" />
       </g>
 
-      {/* Cluster of 3 glass-dome electric power meters on wooden board */}
-      <g transform="translate(715 390)">
-        <rect x={-8} y={-8} width={88} height={58} rx={4} fill="#13161D" stroke={INK} strokeWidth={2} />
-        {[11, 36, 61].map((mx, i) => (
-          <g key={i}>
-            <circle cx={mx} cy={21} r={11} fill="#B0BDCE" stroke="#0B0E14" strokeWidth={2} />
-            <circle cx={mx} cy={21} r={8} fill="#1E2634" />
-            <line x1={mx} y1={21} x2={mx + 4} y2={17} stroke="#B91C1C" strokeWidth={1.5} />
-          </g>
-        ))}
-        <line x1={36} y1={50} x2={36} y2={310} stroke="#121720" strokeWidth={5} />
+      {/* =================================================================== */}
+      {/* Street graffiti & trash bags next to back gate (Đặc trưng ngõ hẻm VN)*/}
+      {/* =================================================================== */}
+      {/* 1. Street Graffiti: CẤM ĐÁI BẬY with iconic red slashed silhouette */}
+      <g transform="translate(735 435)">
+        {/* Red spray slashed circle icon */}
+        <g transform="translate(-46 0)">
+          <circle cx={0} cy={0} r={19} fill="none" stroke="#D32F2F" strokeWidth={3.5} opacity={0.82} />
+          <line x1={-13} y1={-13} x2={13} y2={13} stroke="#D32F2F" strokeWidth={3.5} opacity={0.82} strokeLinecap="round" />
+          {/* Urinating stick figure silhouette */}
+          <circle cx={-3} cy={-8} r={2.8} fill="#8B1E1E" opacity={0.8} />
+          <line x1={-3} y1={-5} x2={-3} y2={6} stroke="#8B1E1E" strokeWidth={2.2} opacity={0.8} strokeLinecap="round" />
+          <line x1={-3} y1={6} x2={-7} y2={14} stroke="#8B1E1E" strokeWidth={2} opacity={0.8} strokeLinecap="round" />
+          <line x1={-3} y1={6} x2={2} y2={14} stroke="#8B1E1E" strokeWidth={2} opacity={0.8} strokeLinecap="round" />
+          <path d="M -1 5 Q 6 3 8 9" fill="none" stroke="#B8860B" strokeWidth={1.5} opacity={0.7} strokeDasharray="2 2" />
+        </g>
+        {/* Spray text: CẤM ĐÁI BẬY */}
+        <g transform="translate(20 0)">
+          {/* Faint spray haze / overspray glow */}
+          <text
+            x={0}
+            y={2}
+            fill="#EF4444"
+            opacity={0.35}
+            fontFamily="'Impact', 'Arial Black', sans-serif"
+            fontWeight={900}
+            fontSize={20}
+            letterSpacing={2}
+            filter="url(#neonGlow)"
+          >
+            CẤM ĐÁI BẬY!
+          </text>
+          {/* Crisp stencil paint layer */}
+          <text
+            x={0}
+            y={2}
+            fill="#D32F2F"
+            opacity={0.88}
+            fontFamily="'Impact', 'Arial Black', sans-serif"
+            fontWeight={900}
+            fontSize={20}
+            letterSpacing={2}
+          >
+            CẤM ĐÁI BẬY!
+          </text>
+          {/* Spray underline */}
+          <path d="M 0 12 Q 65 14 135 10" fill="none" stroke="#D32F2F" strokeWidth={2.8} strokeLinecap="round" opacity={0.8} />
+          {/* Spray paint drip runs down the wall */}
+          <line x1={25} y1={12} x2={25} y2={26} stroke="#991B1B" strokeWidth={1.8} opacity={0.7} strokeLinecap="round" />
+          <line x1={76} y1={13} x2={76} y2={22} stroke="#991B1B" strokeWidth={1.5} opacity={0.65} strokeLinecap="round" />
+          <line x1={118} y1={11} x2={118} y2={29} stroke="#991B1B" strokeWidth={1.8} opacity={0.7} strokeLinecap="round" />
+        </g>
+      </g>
+
+      {/* 2. Pile of discarded trash bags at the wall base beside the gate */}
+      <g id="trashPile">
+        {/* Dark damp ground stain / leachate seep under bags */}
+        <ellipse cx={724} cy={696} rx={56} ry={10} fill="#06090F" opacity={0.75} />
+
+        {/* Bag 1: Big black heavy-duty trash bag (túi rác đen bóng phồng) */}
+        <g transform="translate(706 672)">
+          {/* Contact shadow */}
+          <ellipse cx={0} cy={22} rx={26} ry={7} fill="#05070C" opacity={0.8} />
+          {/* Main body */}
+          <path
+            d="M -24 14 C -34 4 -30 -14 -16 -22 C -6 -28 14 -26 24 -18 C 34 -8 34 8 24 18 C 14 26 -14 24 -24 14 Z"
+            fill="#12161E"
+            stroke="#07090E"
+            strokeWidth={2.4}
+          />
+          {/* Wrinkle creases & faint sheen reflections */}
+          <path d="M -16 -12 Q -4 -16 8 -10" fill="none" stroke="#263445" strokeWidth={2} strokeLinecap="round" />
+          <path d="M -20 2 Q -4 -4 16 -1" fill="none" stroke="#263445" strokeWidth={2.2} strokeLinecap="round" />
+          <path d="M -10 12 Q 6 14 18 8" fill="none" stroke="#1D2736" strokeWidth={1.8} strokeLinecap="round" />
+          {/* Tied bunny-ear knot on top */}
+          <path d="M -5 -22 C -10 -31 -3 -34 0 -26 C 3 -34 10 -31 5 -22 Z" fill="#0C1017" stroke="#05070C" strokeWidth={2} />
+        </g>
+
+        {/* Bag 2: Medium blue translucent plastic trash bag (túi nilon xanh thắt nút) */}
+        <g transform="translate(746 678)">
+          {/* Contact shadow */}
+          <ellipse cx={0} cy={16} rx={20} ry={6} fill="#05070C" opacity={0.7} />
+          {/* Body */}
+          <path
+            d="M -18 10 C -25 3 -22 -10 -12 -16 C -3 -20 12 -18 18 -11 C 24 -4 23 8 16 14 C 8 20 -10 18 -18 10 Z"
+            fill="#1B334E"
+            stroke="#091422"
+            strokeWidth={2.2}
+          />
+          {/* Wrinkles */}
+          <path d="M -10 -8 Q 0 -12 10 -6" fill="none" stroke="#2D5076" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M -12 2 Q 0 5 12 0" fill="none" stroke="#223E5C" strokeWidth={1.8} strokeLinecap="round" />
+          {/* Tied top handles */}
+          <path d="M -4 -16 Q -6 -24 -2 -22 Q 2 -24 4 -16" fill="none" stroke="#102235" strokeWidth={3} strokeLinecap="round" />
+        </g>
+
+        {/* Bag 3: Small semi-translucent crumpled white grocery bag (túi bóng trắng đựng rác) */}
+        <g transform="translate(684 686)">
+          <path
+            d="M -12 7 C -16 2 -14 -6 -8 -10 C -2 -13 8 -11 13 -6 C 17 -1 16 6 12 10 C 6 14 -6 13 -12 7 Z"
+            fill="#384556"
+            stroke="#131822"
+            strokeWidth={1.8}
+          />
+          <path d="M -6 -4 Q 0 -6 7 -2" fill="none" stroke="#52647C" strokeWidth={1.5} strokeLinecap="round" />
+          <circle cx={1} cy={-11} r={2.5} fill="#273240" />
+        </g>
+
+        {/* Discarded crumpled takeout container / crushed drink can */}
+        <g transform="translate(768 690) rotate(18)">
+          <rect x={-7} y={-9} width={14} height={18} rx={2} fill="#3A281E" stroke="#120D09" strokeWidth={1.6} />
+          <line x1={-5} y1={-2} x2={5} y2={-2} stroke="#7D4E35" strokeWidth={1.4} />
+        </g>
       </g>
 
       {/* Vertical PVC drain pipe running down the dead-end wall */}
@@ -2655,15 +2757,6 @@ export const AlleyExteriorScene: React.FC<{
         >
           CẤM ĐỔ RÁC
         </text>
-      </g>
-
-      {/* Weathered styrofoam EPS planter boxes with mint & herbs at wall foot */}
-      <g transform="translate(685 648)">
-        <rect x={0} y={0} width={76} height={35} rx={3} fill="#243040" stroke="#0C1017" strokeWidth={2.5} />
-        <rect x={4} y={2} width={68} height={8} fill="#1A2330" />
-        <rect x={62} y={-18} width={66} height={33} rx={3} fill="#2A3848" stroke="#0C1017" strokeWidth={2.5} />
-        <path d="M 12 0 Q 16 -16 24 -12 M 32 0 Q 36 -20 44 -14 M 52 0 Q 58 -18 64 -10" stroke="#16301A" strokeWidth={3} fill="none" strokeLinecap="round" />
-        <path d="M 74 -18 Q 80 -32 88 -26 M 98 -18 Q 104 -34 112 -28" stroke="#16301A" strokeWidth={3} fill="none" strokeLinecap="round" />
       </g>
 
       {/* Vintage bicycle leaning against dead-end wall in nocturnal gloom */}
@@ -3162,14 +3255,6 @@ export const AlleyExteriorScene: React.FC<{
       <rect x={760} y={290} width={28} height={18} rx={2} fill="#070A0F" stroke="#020306" strokeWidth={1.5} />
     </g>
 
-    {/* ===================================================================== */}
-    {/* 8. DISTANT PASSERBY SILHOUETTE (EXTRA-BONG) IF REQUESTED              */}
-    {/* ===================================================================== */}
-    {showPassersby ? (
-      <g transform="translate(680 620) scale(0.45)">
-        <PasserbyShadow x={0} y={0} s={1} variant="coat" flip stride={t / 30} />
-      </g>
-    ) : null}
 
     {/* ===================================================================== */}
     {/* 9. CHIAROSCURO FALLOFF LAYER (Tối dần những nơi không có đèn chiếu)   */}
