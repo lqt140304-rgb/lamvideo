@@ -1,0 +1,467 @@
+{
+  "slug": "tin-nhan-chua-gui",
+  "title": "HẺM CÓ CHUYỆN · TẬP 01: TIN NHẮN CHƯA GỬI",
+  "fps": 30,
+  "total": 4260,
+  "segments": [
+    {
+      "shot": "ShC0_A",
+      "a": 0,
+      "b": 120,
+      "t0": 0,
+      "t1": 120,
+      "line": "TIN NHẮN CHƯA GỬI — Hẻm Có Chuyện • Tập 01",
+      "look": "nightAtmosphere"
+    },
+    {
+      "shot": "ShC0_B",
+      "a": 120,
+      "b": 240,
+      "t0": 0,
+      "t1": 120,
+      "line": "Từ bầu trời đêm thành phố, góc máy hạ dần qua các tầng mái nhà...",
+      "look": "nightAtmosphere"
+    },
+    {
+      "shot": "ShC0_C",
+      "a": 240,
+      "b": 300,
+      "t0": 0,
+      "t1": 60,
+      "line": "Con cú đậu trên thanh sắt mái hiên, mắt phản chiếu ánh đèn đường vàng ấm.",
+      "look": "nightAtmosphere"
+    },
+    {
+      "shot": "ShC0_D",
+      "a": 300,
+      "b": 480,
+      "t0": 0,
+      "t1": 180,
+      "line": "Góc máy lùi ra mở rộng con hẻm đêm vắng lặng.",
+      "look": "nightAtmosphere"
+    },
+    {
+      "shot": "ShC0_E",
+      "a": 480,
+      "b": 630,
+      "t0": 0,
+      "t1": 150,
+      "line": "Hai anh em Duy và Thảo dừng lại trước cửa tiệm ông Lộc.",
+      "look": "nightAtmosphere"
+    },
+    {
+      "shot": "ShC0_F",
+      "a": 630,
+      "b": 720,
+      "t0": 0,
+      "t1": 90,
+      "line": "Duy nắm tay em gái bước qua ngưỡng cửa tiệm.",
+      "look": "nightAtmosphere"
+    },
+    {
+      "shot": "ShC1_A",
+      "a": 720,
+      "b": 870,
+      "t0": 0,
+      "t1": 150,
+      "line": "“Để xuống.” Thảo giật tay khỏi đồng hồ. Duy kéo em sau vai mình.",
+      "look": "shopMystery"
+    },
+    {
+      "shot": "ShC1_B",
+      "a": 870,
+      "b": 1020,
+      "t0": 0,
+      "t1": 150,
+      "line": "Ông Lộc nhìn lên qua cặp kính cũ. Ngọn đèn vàng chỉ soi rõ nửa mặt.",
+      "look": "shopMystery"
+    },
+    {
+      "shot": "ShC1_C",
+      "a": 1020,
+      "b": 1170,
+      "t0": 0,
+      "t1": 150,
+      "line": "“Tám trăm ngàn.” Duy gom 186k: “Cháu đưa trước...”. “Đủ tiền hãy tới.”",
+      "look": "shopMystery"
+    },
+    {
+      "shot": "ShC2_A",
+      "a": 1170,
+      "b": 1350,
+      "t0": 0,
+      "t1": 180,
+      "line": "Thảo góp 2 tờ hai chục. Ông Lộc: “Cất đi. Có thứ khác trả được: một ký ức.”",
+      "look": "tension"
+    },
+    {
+      "shot": "ShC2_B",
+      "a": 1350,
+      "b": 1530,
+      "t0": 0,
+      "t1": 180,
+      "line": "Duy kéo ghế có bậc chân cho Thảo: “Em nghe được là được, anh lớn rồi.”",
+      "look": "shopMystery"
+    },
+    {
+      "shot": "ShC3_A",
+      "a": 1530,
+      "b": 1740,
+      "t0": 0,
+      "t1": 210,
+      "line": "Giao kèo 1: Tối sinh nhật 16t mẹ ôm. Duy đặt bút ký nhận.",
+      "look": "shopMystery"
+    },
+    {
+      "shot": "ShC4_A",
+      "a": 1740,
+      "b": 1950,
+      "t0": 0,
+      "t1": 210,
+      "line": "Điện thoại sáng lên. Tiếng ghi âm của mẹ vang lên ấm áp.",
+      "look": "warmMemory"
+    },
+    {
+      "shot": "ShC4_B",
+      "a": 1950,
+      "b": 2130,
+      "t0": 0,
+      "t1": 180,
+      "line": "Duy khựng lại: cậu không còn nhớ tối sinh nhật đó. Ông Lộc nhếch miệng cười lạnh.",
+      "look": "tension"
+    },
+    {
+      "shot": "ShC5_A",
+      "a": 2130,
+      "b": 2340,
+      "t0": 0,
+      "t1": 210,
+      "line": "Giao kèo 2: Duy nhận gánh thêm khoảng trống nhớ mẹ của em.",
+      "look": "tension"
+    },
+    {
+      "shot": "ShC5_B",
+      "a": 2340,
+      "b": 2550,
+      "t0": 0,
+      "t1": 210,
+      "line": "Duy kiệt sức, thái dương rịn mồ hôi. Ông Lộc ra giá Giao kèo 3.",
+      "look": "tension"
+    },
+    {
+      "shot": "ShC5_C",
+      "a": 2550,
+      "b": 2730,
+      "t0": 0,
+      "t1": 180,
+      "line": "Thảo nói trọn: “Cháu đồng ý!” Duy ngăn không kịp. Không gian trắng lóa và ù đi!",
+      "look": "whiteout"
+    },
+    {
+      "shot": "ShC6_A",
+      "a": 2730,
+      "b": 2940,
+      "t0": 0,
+      "t1": 210,
+      "line": "Ánh sáng dịu lại. Cánh đồng lúa nắng chiều hiện ra. Tiếng mẹ gọi: “Duy! Thảo!”",
+      "look": "warmMemory"
+    },
+    {
+      "shot": "ShC6_B",
+      "a": 2940,
+      "b": 3150,
+      "t0": 0,
+      "t1": 210,
+      "line": "Mẹ nắm tay hai anh em đi trên lối đất nhỏ ven ruộng lúa vàng.",
+      "look": "warmMemory"
+    },
+    {
+      "shot": "ShC7_A",
+      "a": 3150,
+      "b": 3390,
+      "t0": 0,
+      "t1": 240,
+      "line": "Ba mẹ con ngồi bên bờ cỏ khô. Lời dặn dò chân thành của mẹ.",
+      "look": "warmMemory"
+    },
+    {
+      "shot": "ShC7_B",
+      "a": 3390,
+      "b": 3630,
+      "t0": 0,
+      "t1": 240,
+      "line": "Thảo ôm mẹ. Mẹ mỉm cười tan dần theo nắng chiều, hai con níu lấy khoảng không.",
+      "look": "warmMemory"
+    },
+    {
+      "shot": "ShC8_A",
+      "a": 3630,
+      "b": 3840,
+      "t0": 0,
+      "t1": 210,
+      "line": "Trở lại tiệm. Ba tờ biên nhận G1, G2, G3 nằm trên quầy. Duy gấp cất vào ví.",
+      "look": "shopMystery"
+    },
+    {
+      "shot": "ShC8_B",
+      "a": 3840,
+      "b": 4050,
+      "t0": 0,
+      "t1": 210,
+      "line": "Trước ngưỡng nhà. Tiếng chai lăn phòng sau. Duy bấm điện thoại gọi dì.",
+      "look": "cozyHome"
+    },
+    {
+      "shot": "ShC8_C",
+      "a": 4050,
+      "b": 4260,
+      "t0": 0,
+      "t1": 210,
+      "line": "Duy nắm tay em gái rời khỏi ngưỡng cửa, bước về phía ánh đèn nhà dì đầu hẻm.",
+      "look": "nightAtmosphere"
+    }
+  ],
+  "shots": [
+    {
+      "id": "ShC0_A",
+      "size": "extreme wide",
+      "key": 60,
+      "len": 120,
+      "first": 0,
+      "line": "TIN NHẮN CHƯA GỬI — Hẻm Có Chuyện • Tập 01",
+      "note": "SET-CITY-SKY: trời sao đêm rộng, tiêu đề nằm ở vùng trời an toàn"
+    },
+    {
+      "id": "ShC0_B",
+      "size": "wide tilt down",
+      "key": 60,
+      "len": 120,
+      "first": 120,
+      "line": "Hạ góc qua các mái nhà tới con cú",
+      "note": "Camera tilt-down mượt mà, tiêu đề mờ dần, lộ thanh sắt mái hiên"
+    },
+    {
+      "id": "ShC0_C",
+      "size": "macro 85mm",
+      "key": 30,
+      "len": 60,
+      "first": 240,
+      "line": "Cận mắt cú chớp, phản chiếu đèn vàng",
+      "note": "ANIMAL-CU: đặc tả đĩa lông mắt, mống mắt phản chiếu đèn đường ấm"
+    },
+    {
+      "id": "ShC0_D",
+      "size": "wide alley",
+      "key": 90,
+      "len": 180,
+      "first": 300,
+      "line": "Lùi máy mở rộng con hẻm đêm",
+      "note": "SET-HEM-EXT: hẻm đêm sâu, bóng người qua đường xám trầm bước qua"
+    },
+    {
+      "id": "ShC0_E",
+      "size": "medium wide",
+      "key": 75,
+      "len": 150,
+      "first": 480,
+      "line": "Duy & Thảo trước cửa tiệm ông Lộc",
+      "note": "Hai anh em đứng trước cửa sắt kéo hé mở, vệt sáng vàng hắt ra đường"
+    },
+    {
+      "id": "ShC0_F",
+      "size": "medium doorway",
+      "key": 45,
+      "len": 90,
+      "first": 630,
+      "line": "Hai anh em bước qua ngưỡng cửa",
+      "note": "Duy dắt tay Thảo bước qua ngưỡng cửa tiệm nối sang cảnh nội"
+    },
+    {
+      "id": "ShC1_A",
+      "size": "wide interior",
+      "key": 75,
+      "len": 150,
+      "first": 720,
+      "line": "“Để xuống.”",
+      "note": "SET-TIEM: Thảo rụt tay khỏi đồng hồ, Duy che cho em"
+    },
+    {
+      "id": "ShC1_B",
+      "size": "medium close-up",
+      "key": 75,
+      "len": 150,
+      "first": 870,
+      "line": "Ông Lộc nhìn lên qua cặp kính cũ",
+      "note": "Đèn bàn soi nửa mặt ông Lộc, ánh mắt lạnh lùng"
+    },
+    {
+      "id": "ShC1_C",
+      "size": "table insert 38°",
+      "key": 75,
+      "len": 150,
+      "first": 1020,
+      "line": "Máy vỡ và 186 ngàn tiền lẻ",
+      "note": "Quầy gỗ: điện thoại nứt màn hình trên khăn, cọc tiền lẻ của Duy"
+    },
+    {
+      "id": "ShC2_A",
+      "size": "medium wide",
+      "key": 90,
+      "len": 180,
+      "first": 1170,
+      "line": "“Có thứ khác trả được: một ký ức.”",
+      "note": "Thảo chìa 2 tờ tiền gấp, ông Lộc ra điều kiện trao đổi ký ức"
+    },
+    {
+      "id": "ShC2_B",
+      "size": "medium two-shot",
+      "key": 90,
+      "len": 180,
+      "first": 1350,
+      "line": "Ghế có bậc chân & ảnh ba mẹ con",
+      "note": "Duy kéo ghế cho Thảo, đặt ảnh gia đình lên mặt quầy"
+    },
+    {
+      "id": "ShC3_A",
+      "size": "close-up & insert",
+      "key": 105,
+      "len": 210,
+      "first": 1530,
+      "line": "Ký Giao kèo 1: Tối sinh nhật 16t",
+      "note": "Biên nhận G1 hai liên, Duy cầm bút ký tên chấp nhận quên"
+    },
+    {
+      "id": "ShC4_A",
+      "size": "insert screen glow",
+      "key": 105,
+      "len": 210,
+      "first": 1740,
+      "line": "Màn hình sáng, tiếng ghi âm vang lên",
+      "note": "Điện thoại lành lặn phát giọng nói dịu dàng của mẹ"
+    },
+    {
+      "id": "ShC4_B",
+      "size": "close-up reaction",
+      "key": 90,
+      "len": 180,
+      "first": 1950,
+      "line": "Duy khựng lại; Lộc nhếch mép cười lạnh",
+      "note": "Duy không còn nhớ kỷ niệm mẹ ôm; nụ cười nhếch mép sắc bén của Lộc"
+    },
+    {
+      "id": "ShC5_A",
+      "size": "medium two-shot",
+      "key": 105,
+      "len": 210,
+      "first": 2130,
+      "line": "Giao kèo 2: Gánh lấy khoảng trống",
+      "note": "Duy nhận thêm phần trống vắng để em không phải chịu đựng"
+    },
+    {
+      "id": "ShC5_B",
+      "size": "close-up exhaustion",
+      "key": 105,
+      "len": 210,
+      "first": 2340,
+      "line": "Duy kiệt sức, mồ hôi thái dương",
+      "note": "Quầng mắt trũng, vai sụp, giọt mồ hôi lạnh rịn ở thái dương"
+    },
+    {
+      "id": "ShC5_C",
+      "size": "close-up & transition",
+      "key": 90,
+      "len": 180,
+      "first": 2550,
+      "line": "“Cháu đồng ý!” — Chuyển trắng và ù",
+      "note": "Thảo nhận G3 đổi lấy giấc mơ; màn hình trắng lóa và âm thanh ù đặc"
+    },
+    {
+      "id": "ShC6_A",
+      "size": "wide landscape",
+      "key": 105,
+      "len": 210,
+      "first": 2730,
+      "line": "Cánh đồng lúa nắng chiều",
+      "note": "SET-CANHDONG: Nắng chiều vàng ấm, mẹ đứng gọi hai con"
+    },
+    {
+      "id": "ShC6_B",
+      "size": "medium moving shot",
+      "key": 105,
+      "len": 210,
+      "first": 2940,
+      "line": "Mẹ nắm tay hai con đi ven ruộng",
+      "note": "Bước chân tiếp xúc mặt đất, tà áo và bông lúa khẽ đung đưa"
+    },
+    {
+      "id": "ShC7_A",
+      "size": "medium three-shot",
+      "key": 120,
+      "len": 240,
+      "first": 3150,
+      "line": "Ba mẹ con ngồi bờ cỏ khô",
+      "note": "Mẹ ngồi giữa ôm hai con, lời dặn dò giản dị yêu thương"
+    },
+    {
+      "id": "ShC7_B",
+      "size": "dissolving shot",
+      "key": 120,
+      "len": 240,
+      "first": 3390,
+      "line": "Mẹ mỉm cười tan dần theo nắng chiều",
+      "note": "Thân thể, áo và bóng của mẹ cùng mờ dần đồng nhất; trẻ níu khoảng trống"
+    },
+    {
+      "id": "ShC8_A",
+      "size": "medium interior return",
+      "key": 105,
+      "len": 210,
+      "first": 3630,
+      "line": "Trở lại tiệm với ba tờ biên nhận",
+      "note": "G1, G2, G3 nằm trên mặt quầy; Duy cất giấy và máy vào túi"
+    },
+    {
+      "id": "ShC8_B",
+      "size": "medium house threshold",
+      "key": 105,
+      "len": 210,
+      "first": 3840,
+      "line": "Ngưỡng nhà ấm cúng & tiếng chai lăn",
+      "note": "SET-NHA: Bóng người bố mờ phía sau vách, Duy bấm điện thoại gọi dì"
+    },
+    {
+      "id": "ShC8_C",
+      "size": "wide ending",
+      "key": 105,
+      "len": 210,
+      "first": 4050,
+      "line": "Hai anh em bước về phía ánh sáng",
+      "note": "Duy dắt tay Thảo rời hẻm tối, hướng về phía ánh đèn ấm áp"
+    }
+  ],
+  "fx": [
+    {
+      "kind": "flash",
+      "color": "#FFFDF8",
+      "o": 0.95,
+      "f": 2725
+    },
+    {
+      "kind": "flash",
+      "color": "#FFFDF8",
+      "o": 0.65,
+      "f": 3625
+    },
+    {
+      "kind": "shake",
+      "len": 8,
+      "amp": 5,
+      "f": 2728
+    }
+  ],
+  "audio": {
+    "voiceVol": 0.85,
+    "sfxVol": 0.5,
+    "musicVol": 0.2
+  }
+}

@@ -1,7 +1,10 @@
 // Everything an episode builds with, in one import: import { Study, Hero, poseAt, Marquee, ... } from '../../engine';
 export * from './anim';
 export * from './rig';
+export * from './hands';
 export * from './props';
+export * from './props_life';
+export * from './vehicles';
 export * from './kit';
 export * from './light';
 export * from './room';
@@ -16,3 +19,5 @@ export * from './sets/rooftop';
 export * from './sets/kitchen';
 export * from './sets/schematic';
 export * from './sets/bedroom';
+export * from './sets/tin_nhan_chua_gui';
+

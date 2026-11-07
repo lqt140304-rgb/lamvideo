@@ -39,52 +39,41 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => {
   REWIND chip and a stopwatch counting back (see `episodes/rewind/index.tsx`).
 - `fx` in `episode.json`: `flash` (one frame, then 35% the next; `color`, `o`) and `shake` (`len`, `amp`).
 
-## The cast (`rig.tsx`)
+## The cast (`rig.tsx` & `hands.tsx`)
 
-One rig, a costume per character (`LOOKS`): `pip` (A, mustard jacket), `pipHood` (B, the hero: dark hoodie, mustard
-drawstrings), `pipInk` (C, dark head), `mo` (the friend: curls, olive jacket, headphones), `sis` (the little sister:
-bunches with coral bands, teal; draw her at about 0.7 of Pip's scale), `mom` (a bob, a rose cardigan), `suit` (the
-man in a suit: combed hair, charcoal suit, red tie). Render the cast sheet with
-`npx remotion still src/index.ts Cast out/cast.png`.
+One rig, 22 costumes (`LOOKS`):
+- Original What-If cast: `pip` (mustard jacket), `pipHood` (hero dark hoodie), `pipInk` (dark head), `mo` (curls, olive jacket, headphones), `sis` (bunches, teal; scale ~0.7), `mom` (bob, rose cardigan), `suit` (combed hair, charcoal suit, red tie).
+- Vietnamese everyday & series cast: `worker`, `workerHat`, `student`, `tech`, `chu`, `bac`, `moi`, `an`, `hanh`, `linh` (child scale ~0.62), `baSau` (silver bun, glasses, shawl/apron), `nam`, `duy` (hero of *Hẻm Có Chuyện*), `thao` (sister in *Hẻm Có Chuyện*), `ongLoc` (elderly repair shop owner with glasses & moustache).
+Render sheets with `npx remotion still src/index.ts Cast out/cast.png`, `FurnitureSheet`, and `VehicleSheet`.
 
 `<Hero look pose rimId shadow />` (alias `Actor`). The **pose**:
 
 | Field | What |
 |---|---|
-| `x, y, scale` | the hip point in world units; feet are `LEG_LEN * scale` below it |
-| `yaw` | -1 profile facing left, 0 front, 1 profile facing right; the body narrows and the face slides |
-| `facing` | 1 or -1: which way legs swing forward |
-| `tilt`, `spin`, `headTilt` | lean at the hips, whole-body rotation about the chest (tumbles), head tilt |
+| `x, y, scale` | the hip point in world units; feet are `LEG_LEN * scale` below it when standing (`standPose` / `sitPose` / `crouchPose` compute `y` from floor/seat automatically) |
+| `yaw` | -1 profile facing left, 0 front, 1 profile facing right; `SideHair` and near-ear automatically render so the head is never bald when turned |
+| `facing` | 1 or -1: which way legs and shoes point |
+| `tilt`, `spin`, `headTilt`, `shoulderLift` | lean at the hips, whole-body rotation about the chest, head tilt, and shoulder shrug/slump (-1..1) |
 | `armL, armR, legL, legR` | `{ a, b }`: upper segment angle from straight down, bend of the lower segment (degrees) |
-| `handL, handR` | `'open'` (mitten with a thumb) or `'point'` |
-| `expr` | neutral, happy, smug, shock, worried, oops, cool, dizzy, tired (heavy lids, dark rings) |
-| `blink, look, glasses` | 0..1 eyelids (1 draws a shut lid's curve: blinks and sleep), -1..1 eye direction, 0..1 shades dropping on |
-| `squash` | + squashes (landing), - stretches (jump), about the feet |
-| `sway` | how far loose things (drawstrings, bunches) swing |
-| `glint`, `glintColor` | 0..1 the eyes light up in the power's colour (default cyan); set it after `poseAt`, it isn't interpolated |
+| `handL, handR` | `'open' \| 'point' \| 'fist' \| 'hold' \| 'wave' \| 'palmUp' \| 'pinch' \| 'rest'` |
+| `expr` | 21 expressions: `neutral`, `happy`, `smug`, `shock`, `worried`, `oops`, `cool`, `dizzy`, `tired`, `sad`, `cry`, `smile`, `relieved`, `scared`, `determined`, `angry`, `guilty`, `sigh`, `thinking`, `surprised`, `pain` |
+| `talk` | 0..1 lip-sync mouth opening with teeth and tongue |
+| `blink, look, glasses` | 0..1 eyelids, -1..1 eye direction, 0..1 glasses (`L.glassesDefault` enables them by default on `baSau` and `ongLoc`) |
+| `squash`, `sway` | + squashes / - stretches about the feet; `sway` swings drawstrings and hair bunches |
+| `glint`, `glintColor` | 0..1 eyes light up in the power's colour |
 
-Helpers: `poseAt(t, keys)` (eased keys, faces hold until their key), `faceAt(t, [[f, expr]...])` (a blink at each
-swap), `walkPose(x, phase, ground, scale, extra, facing)` (phase about 0.6 a frame; `ground` a number or a function
-like `hipGround`), `joints(pose)` and `toWorld(pose, point)` (where a hand is, to attach a prop), `reachAngle(pose,
-target)` (the arm angle that points at a world point).
+Error-free acting & placement helpers (`rig.tsx`):
+- `standPose(x, groundY, scale, opts)`, `sitPose(x, seatY, scale, facing, opts)`, `crouchPose(x, groundY, scale, facing, opts)` place characters directly on floor or seat `y` with accurate contact shadows tracking the lowest foot.
+- `gesturePose(pose, gesture, amount)` applies `'idle' | 'explain' | 'point' | 'think' | 'shrug' | 'crossArms' | 'handOnChest' | 'slump' | 'recoil' | 'determined' | 'wave' | 'holdProp' | 'write'` and automatically picks the **near arm** (`armL` when `yaw < 0`, `armR` when `yaw >= 0`) so gestures never hide behind the body.
+- `breatheAt(t, seed)`, `blinkAt(t, seed)`, `handWorld(pose, side)`, `poseAt(t, keys)`, `faceAt(t, keys)`, `walkPose(...)`, `joints(pose)`, `toWorld(pose, pt)`, `reachAngle(pose, target)`.
+- Close-up insert hands (`hands.tsx`): `Digits`, `OpenHand`, `ArmHand`, `GripThumb`, `GripHand`, `PointHand`, `PinchHand`.
 
-## Props (`props.tsx`)
+## Props (`props.tsx`, `props_life.tsx`), Interior Decor (`furnish.tsx`) & Vehicles (`vehicles.tsx`)
 
-`Cat` (moods sleep, alert, peek; the tail never stops), `Mug` (with steam), `Cookie` (side view, `bite`),
-`CookieTop` (from above), `CookieStack`, `Plate` and `PlateTop`, `Paper` (from above: `done` with ticks and a grade,
-`fill` writes it in, or blank), `PaperStack`. For night episodes: `AlarmClock` (a digital bedside clock, `text` on its
-display), `WallCalendar` (a month, `crossed` days with red crosses, the next one drawing on with `drawing`;
-`calendarDay` gives a day's cell for a hand holding the marker), `OpenBook` (`turn` flips a page), `BookFlat`,
-`BookTower`, `LaptopBack` (a lid from behind, its screen light spilling round it). From the preview run:
-`PizzaSlice` (from above, x y the tip, `bite` eats back from the tip, `drip` hangs cheese; squash it in y for a
-three-quarter view), `PizzaBox` (open and empty, `lid` stands the lid up), `Phone` (dark and glossy, or `on` with an
-incoming call: `caller`, `buzz`), `PaperBall`. Add props here when an episode needs them, drawn in the same style:
-flat fills, a darker shade on the side away from the light, a warm rim line on the lit edge, a contact shadow.
-
-For inserts, `Tabletop` (`furnish.tsx`) fills the frame with a surface seen from high above (wood or stone), its lit
-front edge at `edge` and the floor blurred below; push `edge` past 1080 for a straight top-down shot. Put props on it
-in screen coordinates and bring a character's arm in from the side of frame where they are in the neighbouring shots
-(the dark sleeve and the mitten, scaled up: see `S2` and `S4` in `episodes/copy-paste/shots.tsx`).
+- **Core & Story Props (`props.tsx`)**: `Cat`, `Mug`, `Cookie`, `CookieTop`, `CookieStack`, `Plate`, `PlateTop`, `Paper`, `PaperStack`, `AlarmClock`, `WallCalendar` (`calendarDay`), `OpenBook`, `BookFlat`, `BookTower`, `LaptopBack`, `PizzaSlice`, `PizzaBox`, `Phone` (supports `cracked` spiderweb glass overlay and `voiceMemo` waveform UI), `PaperBall`, `PhotoPrint` (family photo of mother and two children), `ReceiptSlip` (repair claim slip), `TeaSet` (teapot & cups on wooden tray), `PhinCoffee` (Vietnamese drip coffee), `Helmet` (half-face motorbike helmet), `ToolBox`.
+- **Work, School & Family Props (`props_life.tsx`)**: `ArmIn`, `Boot`, `Backpack`, `CementBag`, `Wheelbarrow`, `BrickStack`, `HardHat`, `Notes`, `NoticeSheet`, `Envelope`, `Lunchbox`, `TapeMeasure`, `BulbBoard`, `Diploma`, `FormSheet`, `Notebook`, `MedBag`, `Tote`, `Bowl`, `ClassPhoto`, `ChatScreen`, `Strap`.
+- **Vietnamese Interior Furniture & Home Decor (`furnish.tsx`)**: `AncestralAltar` (bàn thờ gia đình), `WoodenSofa` (bộ bàn ghế salon gỗ + bàn trà), `SewingTable` (bàn máy may cổ điển Bà Sáu), `RepairBench` (quầy gỗ tiệm sửa đồ Ông Lộc + kệ đồng hồ cổ), `StandingFan` (quạt cây quay theo `t`), `CeilingFan` (quạt trần quay theo `t`), `WallAC` (điều hòa), `TVStand` (kệ tivi), `CalendarBlock` (lịch bloc đỏ vàng), `FoldingIronDoor` (cửa xếp sắt), plus `RoomShell`, `BackWindow`, `Pendant`, `WallLight`, `FloorPlant`, `WallFrame`, `WallClock`, `FloorShadow`, `Tabletop`.
+- **Vehicles & Street/Alley Architecture (`vehicles.tsx`)**: `Motorbike` (underbone Wave/Dream + `motorbikeSeat` helper), `Scooter` (step-through scooter), `Bicycle`, `SedanCar` (4-door car / taxi), `SmallTruck`, `StreetCart` (xe đẩy hàng rong đầu hẻm), `VnHouseFacade` (mặt tiền nhà ống / tiệm sửa đồ), `ElectricPole` (cột điện đèn đường).
 
 ## Sets
 
@@ -100,6 +89,8 @@ idle motion carries across cuts.
 | `Kitchen` (`sets/kitchen.tsx`) | Built with the room kit: `KITCHEN = makeRoom({960,500}, back 500-1420 x 330-745, 3.4)`. Counter run along the back wall with a sink under the window (sun at 860, 530), hob and kettle, splashback, open shelves with jars, fridge on the right, wall cabinets and a wall light on the left, two pendants. Characters stand behind the island at w 0.4 (`stand(KITCHEN, u, 0.4)`), then draw `KitchenIsland` (with two bar stools) so it hides their legs; `islandTop(u, d)` is a point on its top. | `veil`, `red` |
 | `Bedroom` (`sets/bedroom.tsx`) | At night, built with the room kit: `BEDROOM = makeRoom({940,500}, back 480-1440 x 320-742, 3.4)`. Bed in the back left corner (headboard on the back wall, u 0.03-0.4, foot at w 0.47), nightstand with the lamp (`LAMP`) and the clock, `WINDOW` 1070-1330 x 374-600 onto the moon and the lit city, fairy lights and posters over the bed, `CAL` (the wall calendar), a dresser under the window, wardrobe on the right wall, door ajar on the left with the hall light, rug, beanbag, trainers. In bed: draw it with `duvet={false}`, then the character at `bedSit(u)`, then `BedDuvet` (with `knees`) over their legs. `bedTop(u, w)` is a point on the mattress. | `clock`, `lamp` (0..1: flicker it, kill it), `crossed` (the calendar), `veil` |
 | `Schematic` (`sets/schematic.tsx`) | The science beat's ground: a dark blueprint grid with registration marks. On it: `DrawOn` (a path drawing on), `Arrow`, `SchLabel` (mono, pops on), `CountUp` (a number counting, with commas), `PlantIcon` (tower, wind, solar, dam, factory; lit orange when `on`). `SCH` holds its colours. | |
+| `OngLocShop` (`sets/tin_nhan_chua_gui.tsx`) | `SET-TIEM` (Tiệm sửa đồ cuối hẻm — mysterious, antique & cluttered): back wall shelves of stopped clocks (`x 270..1030, y 175..715`), rear repair bench + warm green-shaded banker's lamp (`x 1355, y 715`), left wall fan (`x 115, y 265`) + west shelves (`kệ tây`), right wall folding iron gate (`CỬA RA HẺM`) with cold night alley light. Place `ongLoc` behind `<OngLocCounter x={890} y={855} />` (`standPose(915, 804, 0.96)`), and `duy` (`x=685`) + `thao` (`x=1105`) on `<CustomerStool y={935} />` (`sitPose(x, 845, 0.94)`), then `<OngLocForeground shiftX={...} />`. Use `<OngLocCounterInsert />` for 38° tabletop close-ups. | `veil`, `phoneState`, `showPhoto`, `receiptStage`, `penOnPaper` |
+| `MotherThaoHouse` (`sets/tin_nhan_chua_gui.tsx`) | `SET-NHA` (Nhà của mẹ và hai chị em Thảo – Duy — warm, cozy Vietnamese home): warm ochre-cream walls with wooden wainscot, terracotta tile floor, woven bamboo pendant lamp (`x 980, y 35`), window with curtains & potted pothos (`x 465, y 340`), left sewing corner (`SewingTable` at `x 385, y 815` with pinned cloth, yellow tape measure, switched-off lamp, folded cloth basket, and wall hooks `ThaoToteBag` + `HouseKeys`), center kitchen doorway (`x 760..1280` with `WallSwitch` at `x 718, y 455`, dish cabinet, two `CeramicBowl`s, rice cooker, red thermos), and right-wall `AncestralAltar` (`x 1545, y 765`, warm lamp stays on even when `kitchenLightOn={0}`). Draw `<DiningTableSet x={980} y={915} />` with `duy` (`x=765`) & `thao` (`x=1195`) at `sitPose(x, 822, 0.92)`, then `<MotherHouseForeground />`. | `kitchenLightOn`, `toteHung`, `keysHung`, `bowlsLocation` |
 
 ## The room kit (`room.tsx`, `furnish.tsx`)
 
