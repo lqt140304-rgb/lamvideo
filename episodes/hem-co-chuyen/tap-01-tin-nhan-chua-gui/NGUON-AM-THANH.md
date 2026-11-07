@@ -1,6 +1,6 @@
 # Nguồn âm thanh miễn phí — Tin nhắn chưa gửi
 
-Rà trang nguồn/giấy phép ngày **08/11/2026**, phục vụ bản kịch bản 9. Ưu tiên **nhạc không lời**, không ca từ, vocal ngân hoặc hợp xướng. Đây là **danh sách sơ tuyển theo mô tả và nhãn của thư viện**, chưa nghe thử, tải file, chọn đoạn, đo hoặc ráp cùng hình. Phân cảnh dưới là đề xuất mỹ thuật; không nhận đã kiểm chứng độ hợp bằng tai. Chỉ chốt sau khi nghe cùng giọng/animatic.
+Rà trang nguồn/giấy phép ngày **08/11/2026**, phục vụ bản kịch bản 9. Ưu tiên **nhạc không lời**, không ca từ, vocal ngân hoặc hợp xướng. Đã **duyệt phạm vi dùng thương mại của 5 bài Mixkit** theo giấy phép công bố; lựa chọn âm nhạc vẫn là **sơ tuyển theo mô tả và nhãn của thư viện**, chưa nghe thử, tải file, chọn đoạn, đo hoặc ráp cùng hình. Phân cảnh dưới là đề xuất mỹ thuật; không nhận đã kiểm chứng độ hợp bằng tai. Chỉ chốt sau khi nghe cùng giọng/animatic.
 
 ## Lựa chọn nguồn theo nhu cầu
 
@@ -8,17 +8,27 @@ Rà trang nguồn/giấy phép ngày **08/11/2026**, phục vụ bản kịch b�
 
 **Sơ tuyển có tên bản để nghe ngay: Mixkit.** [Music Free License](https://mixkit.co/license/modal/musicFree/) cho phép dự án thương mại trên web/mạng xã hội, gồm YouTube; không dùng cho game, TV/radio hoặc CD/DVD, không remix thành bản nhạc độc lập hay đăng ký quyền sở hữu. [FAQ](https://mixkit.co/free-stock-music/?page=1) nói không bắt buộc ghi công. Âm vẫn có bản quyền và được cấp phép dùng miễn phí, không phải tài sản vô chủ. Chính giấy phép có hướng xử lý claim nên không hứa “không bao giờ bị nhận diện nhầm”. Giữ link/điều kiện tại ngày tải; chưa có file âm nào được nhập repo.
 
+## Kết quả duyệt quyền dùng — 08/11/2026
+
+Đã đối chiếu tên/tác giả của đủ 5 bài dưới đây với danh mục Free Stock Music, liên kết giấy phép của danh mục, Music Free License và FAQ. **Duyệt có điều kiện cho nhạc nền của video thương mại/kiếm tiền trên YouTube và mạng xã hội**; không chuyển thành kết luận nhạc không có bản quyền. Không cần mua gói hoặc xin phép riêng cho phạm vi đã được cấp. Mỗi bài có trạng thái quyền dùng trong bảng; việc chọn đoạn và độ hợp cảnh còn chờ nghe.
+
+[User Terms](https://mixkit.co/terms/) (trang ghi sửa 02/10/2025), mục 2/13/17: quyền được cấp là không độc quyền, không chuyển quyền sở hữu; có lưu ý về thành phần bên thứ ba và không bảo đảm không xâm phạm. Vì vậy kết quả này dựa trên giấy phép nhà cung cấp công bố, **không phải kiểm chứng độc lập toàn bộ quyền tác giả/sample của từng bản thu**, không xác nhận trạng thái Content ID của file hoặc video chưa có.
+
+[Acceptable Use Policy](https://help.elements.envato.com/hc/en-us/articles/31035788503321-Acceptable-Use-Policy) (sửa 02/09/2026), mục 4(n), hạn chế khai thác/giật gân hóa bạo hành và sang chấn. Với bối cảnh bố bạo hành trong tập, giữ cách kể bảo vệ trẻ và tìm trợ giúp đã có; kết luận quyền dùng không bao gồm việc đổi sang nội dung khai thác bạo hành để gây sốc.
+
+Nếu bị nhận quyền, giấy phép chỉ dẫn gửi thông tin cho bộ phận hỗ trợ Mixkit. Chưa gửi yêu cầu hỗ trợ hoặc upload thử video để kiểm tra nhận quyền. Khi tải file thật, lưu tên/tác giả/trang tải cùng bằng chứng giấy phép tại thời điểm đó; không lấy bản đăng lại từ kênh khác. Giới hạn TV/radio/game/CD/DVD và không bán/phân phối bản nhạc rời vẫn áp dụng.
+
 ## Nhạc không lời cần nghe thử
 
 Các trang Mixkit là danh mục có nhiều bài: tìm **đúng tên và tác giả** dưới đây rồi dùng nút nghe/tải của bài đó, bỏ qua quảng cáo thư viện trả phí. Tên bài/nhãn nhạc cụ chưa đủ chứng minh file không có vocal; khi nghe phải loại bản có lời/giọng ngân hoặc crescendo lấn thoại.
 
-| Mã | Tên / tác giả / thời lượng do trang ghi | Trang gốc | Đề nghị thử / điều cần loại |
-|---|---|---|---|
-| MUS-OPEN | **Staring at the Night Sky** — Alejandro Magaña (A. M.), 2:22; piano/cello, atmospheric | [Mixkit Mysterious](https://mixkit.co/free-stock-music/mood/mysterious/) | C0 trời sao; thử đoạn thưa cho tò mò, rút trước Lộc nói. Không giữ nếu quá buồn hoặc thiếu bí ẩn |
-| MUS-LOC | **Selpan** — Eugenio Mininni, 3:14; drone/eerie, guitar điện | [Mixkit Mysterious](https://mixkit.co/free-stock-music/mood/mysterious/) | Chỉ thử ở câu hỏi cuối C4/giá G2; loại nếu gây cảm giác phim ma nặng, có âm giật hoặc gây mỏi. Có thể bỏ nhạc và giữ phòng |
-| MUS-WARM | **Classical 3** — Jonny S., 1:48; piano, hopeful/soft | [Mixkit Emotional](https://mixkit.co/free-stock-music/mood/emotional/) | C6 đi bên mẹ/chuyện nhỏ; chọn đoạn giản dị, không đám cưới/bi lụy hoặc phủ tiếng cười |
-| MUS-FAREWELL | **Silent Descent** — Eugenio Mininni, 2:40; piano/dây, reflective/melancholic | [Mixkit Emotional](https://mixkit.co/free-stock-music/mood/emotional/) | C7 sau câu chuyện vui; thử đoạn ít nốt, rút khi mẹ tan. Không dùng cao trào lớn để ép khóc |
-| MUS-END | **Classical 4** — Jonny S., 3:09; piano, hopeful/soft | [Mixkit Emotional](https://mixkit.co/free-stock-music/mood/emotional/) | C8 sau cuộc gọi/nhịp thở ra; hy vọng nhỏ, không thắng lợi. Nếu MUS-WARM hợp hơn, dùng lại đoạn khác thay vì thêm bài |
+| Mã | Tên / tác giả / thời lượng do trang ghi | Trang gốc | Đề nghị thử / điều cần loại | Quyền dùng video thương mại |
+|---|---|---|---|---|
+| MUS-OPEN | **Staring at the Night Sky** — Alejandro Magaña (A. M.), 2:22; piano/cello, atmospheric | [Mixkit Mysterious](https://mixkit.co/free-stock-music/mood/mysterious/) | C0 trời sao; thử đoạn thưa cho tò mò, rút trước Lộc nói. Không giữ nếu quá buồn hoặc thiếu bí ẩn | Đạt theo Music Free License |
+| MUS-LOC | **Selpan** — Eugenio Mininni, 3:14; drone/eerie, guitar điện | [Mixkit Mysterious](https://mixkit.co/free-stock-music/mood/mysterious/) | Chỉ thử ở câu hỏi cuối C4/giá G2; loại nếu gây cảm giác phim ma nặng, có âm giật hoặc gây mỏi. Có thể bỏ nhạc và giữ phòng | Đạt theo Music Free License |
+| MUS-WARM | **Classical 3** — Jonny S., 1:48; piano, hopeful/soft | [Mixkit Emotional](https://mixkit.co/free-stock-music/mood/emotional/) | C6 đi bên mẹ/chuyện nhỏ; chọn đoạn giản dị, không đám cưới/bi lụy hoặc phủ tiếng cười | Đạt theo Music Free License |
+| MUS-FAREWELL | **Silent Descent** — Eugenio Mininni, 2:40; piano/dây, reflective/melancholic | [Mixkit Emotional](https://mixkit.co/free-stock-music/mood/emotional/) | C7 sau câu chuyện vui; thử đoạn ít nốt, rút khi mẹ tan. Không dùng cao trào lớn để ép khóc | Đạt theo Music Free License |
+| MUS-END | **Classical 4** — Jonny S., 3:09; piano, hopeful/soft | [Mixkit Emotional](https://mixkit.co/free-stock-music/mood/emotional/) | C8 sau cuộc gọi/nhịp thở ra; hy vọng nhỏ, không thắng lợi. Nếu MUS-WARM hợp hơn, dùng lại đoạn khác thay vì thêm bài | Đạt theo Music Free License |
 
 Đây là phương án so sánh, không buộc dùng đủ năm bài. Chọn ít chủ đề âm nhạc tương thích, có đoạn không nhạc; không loop nguyên bài một cách máy móc để lấp thời lượng. Không có mốc cắt hay thời lượng sử dụng đã chốt trước khi nghe.
 
