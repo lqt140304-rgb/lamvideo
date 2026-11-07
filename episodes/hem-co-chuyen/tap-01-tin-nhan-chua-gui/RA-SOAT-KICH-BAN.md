@@ -38,6 +38,6 @@ Nền truyện đủ để sang storyboard: anh giấu nhớ → cố gánh thay
 
 ## Số liệu và đồng bộ
 
-Lời sạch **1,467 đơn vị tách khoảng trắng, 6,693 ký tự** gồm LF/xuống dòng; 29 giây nghỉ riêng, mở đầu không lời 24 giây. Ước tính **8:26–10:09 phút**, cùng giả định 2,7–3,3 đơn vị/giây và thêm 8–12 giây chuyển khác; chưa đo giọng, không phải hạn phải đọc cho đủ. Vẫn 9 phần cảnh/35 cue, hai anh em 16/8, đúng ba giao kèo và người dẫn chuyện.
+Lời sạch **1,470 đơn vị tách khoảng trắng, 6,705 ký tự** gồm LF/xuống dòng; 29 giây nghỉ riêng, mở đầu không lời 24 giây. Ước tính **8:27–10:10 phút**, cùng giả định 2,7–3,3 đơn vị/giây và thêm 8–12 giây chuyển khác; chưa đo giọng, không phải hạn phải đọc cho đủ. Vẫn 9 phần cảnh/35 cue, hai anh em 16/8, đúng ba giao kèo và người dẫn chuyện.
 
 Nguồn, LOI-DOC và ELEVENLABS được đối chiếu toàn văn; giữ thẻ cũ ở đoạn không đổi và thêm gợi ý ngập ngừng ở lời Duy nhận ra G1. Thẻ vẫn cần thử đúng model. Mã asset/demo 24 đoạn/142 giây được giữ nguyên; không nhận đã cập nhật hoặc kiểm tra lại diễn xuất bản 6 trong demo. Không gọi dịch vụ giọng/ảnh/video ở lượt rà này.

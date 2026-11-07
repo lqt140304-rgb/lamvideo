@@ -9,8 +9,8 @@ Ngày rà soát: **07/11/2026**, sau nhận bộ nâng cấp asset. Áp dụng *
 
 ## Phạm vi và điều đã chốt
 
-- Một tập kể trọn ba giao kèo và lời từ biệt. **Ước tính 8:26–10:09**, chưa có audio để đo. Mục tiêu 6–8 phút của kênh là mặc định thử nghiệm; tập này dài hơn do mở rộng đã yêu cầu. Không đọc nhanh hoặc tự chia cảnh mẹ sang tập sau chỉ để khớp định mức.
-- **Duy anh trai 16, Thảo em gái 8**; cả hai gọi Lộc là **ông**, xưng **cháu**. Anh che chở nhưng cũng nhớ mẹ; em có hành động và lựa chọn riêng. Lộc lạnh, nguy hiểm, không đổi sang ông hiền.
+- Một tập kể trọn ba giao kèo và lời từ biệt. **Ước tính 8:27–10:10**, chưa có audio để đo. Mục tiêu 6–8 phút của kênh là mặc định thử nghiệm; tập này dài hơn do mở rộng đã yêu cầu. Không đọc nhanh hoặc tự chia cảnh mẹ sang tập sau chỉ để khớp định mức.
+- **Duy anh trai 16, Thảo em gái 8**; cả hai gọi Lộc là **ông**, xưng **cháu**; Lộc tự xưng **tao**. Anh che chở nhưng cũng nhớ mẹ; em có hành động và lựa chọn riêng. Lộc lạnh, nguy hiểm, không đổi sang ông hiền.
 - G1 Duy mất ký ức sinh nhật để sửa máy; G2 Duy nhận thêm phần trống vắng của em; G3 Thảo mất những giấc mơ về mẹ để cả hai có một cuộc gặp. Giá được báo trước, không hoàn sau cuộc gặp. Duy chậm vì đã kiệt sức khi em nhận G3.
 - Mở đầu **24 giây không lời**: thành phố/trời sao/chữ → hạ tới cú → nét mắt → lùi lộ hẻm/nhà/bóng người/tiệm → chuyển sang hai trẻ trước cửa → bước vào. Chữ là lớp riêng; cú không tự có vai phép thuật.
 - Bốn nhóm không gian: thành phố–hẻm ngoài tiệm, nội tiệm, cánh đồng chủ quan, ngưỡng nhà. Mẹ hiện hình trong G3; bố qua bóng/âm khuất, dì qua lời kể. Chưa cần dựng nội nhà dì hoặc hồi tưởng riêng của bố.
@@ -56,7 +56,7 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 
 - Làm theo thứ tự ở trên; chỉ tạo media khi nhiệm vụ tiếp theo bao gồm bước đó. Lập kế hoạch và rà repo không tự chạy các dịch vụ ảnh/giọng/video.
 - Sau khi duyệt một bước, ghi phiên bản và phản hồi cụ thể. Nếu đổi lời thì đồng bộ bản lời, sau đó cập nhật timing/cue/audio/hình thực sự phụ thuộc; không dùng lại mốc cũ một cách máy móc.
-- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,467 đơn vị tách khoảng trắng, 6,693 ký tự** gồm xuống dòng; **29 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
+- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,470 đơn vị tách khoảng trắng, 6,705 ký tự** gồm xuống dòng; **29 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
 - Ghi riêng lượt ảnh, ký tự TTS, credits theo model, quota trợ lý nếu biết và thời gian render. Không đổi token thành credits hoặc hứa số video từ gói chưa đo. Chưa có chi phí media thực cho lượt tối ưu này.
 
 ## Phạm vi đồng bộ đã rà trong repo

@@ -9,7 +9,7 @@ Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SA
 
 07/11/2026. Thêm C0 theo hai phác thảo chủ repo: thành phố/trời sao/tiêu đề → mắt cú → hẻm/tiệm/người dạng bóng → hai trẻ trước cửa. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là mục tiêu dựng của bản nguồn; đã có mã thử và still SVG, chưa duyệt chuyển động toàn tập hoặc giọng/mix. Mặt Lộc concept đã chốt; tạo hình SVG mới, mẹ/cánh đồng và tương tác cần đối chiếu với các cue dưới đây.
 
-**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
+**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
 ## 1. Không gian và ánh sáng cố định
 

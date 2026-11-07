@@ -9,7 +9,7 @@ Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SA
 
 > Bản 6 — 07/11/2026. Rà logic từ bản 5: làm rõ đồng hồ, ảnh hẹn giờ, phạm vi mất ký ức, lời hứa G3 và chuỗi phiếu; cắt nhẹ lời kể lặp. Giữ mở đầu thành phố/trời sao → cú → hẻm → hai anh em trước cửa tiệm. Ba giao kèo thực sự: lần 1 và 2 do Duy trả, lần 3 do Thảo trả. Mẹ xuất hiện trong cuộc gặp ở miền cảm giác; bố chỉ là áp lực qua bóng/khuất và âm, không khai thác tuyến riêng. Toàn bộ là hư cấu.
 
-**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc giữ cách xưng **“ta”** với hai trẻ.
+**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
 Nguồn lời ở đây. [DUNG-CANH.md](DUNG-CANH.md) triển khai hình/âm, [LOI-DOC.md](LOI-DOC.md) và [ELEVENLABS.md](ELEVENLABS.md) xuất cùng nguồn. Đã có concept và bộ rig/SVG/preview mới gồm cả mẹ, cánh đồng; xem ASSET để biết file thực và trạng thái duyệt. Mặt Lộc concept đã chốt trước đó; việc nhận bản SVG mới không tự duyệt mọi biến thể hoặc chuyển động. **Chưa có giọng, storyboard/animatic toàn tập hoặc phim hoàn chỉnh đã duyệt**.
 
@@ -49,7 +49,7 @@ Mất mẹ, bố say và bỏ bê khiến Duy 16 cố mạnh để bảo vệ Th
 
 Giữ chất đời thường, nén rồi bung cảm xúc; ba lần tăng giá chứ không ba lần kể lại cùng một cơ chế. Duy suy sụp ở G2 mới chậm phản ứng G3. Trắng/ù chỉ đúng giao kèo cuối, sau đó nhịp nhẹ và ấm ở đồng, có chuyện vui nhỏ trước lời gửi gắm. Mẹ tan phải có dư âm; trở về vẫn cần giải pháp thực tế cho đêm bố say.
 
-Lời sạch **1,467 đơn vị tách khoảng trắng**, **6,693 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:26–10:09 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
+Lời sạch **1,470 đơn vị tách khoảng trắng**, **6,705 ký tự** gồm xuống dòng; **29 giây nghỉ riêng** (đã gồm chuyển trắng/ù và đi dạo không lời). Ước tính **8:27–10:10 phút**, chưa đo audio; giả định 2,7–3,3 đơn vị/giây, thêm **24 giây mở đầu không lời**, cùng 8–12 giây chuyển khác ngoài đoạn mở. Không cộng hai lần phần hình/âm dưới lời. Mở rộng thêm hai giao kèo nên không giữ ước tính bản 3.
 
 9 phần cảnh (C0 và C1–C8), 35 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Bốn nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú và người qua đường dạng bóng, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, roll 0°, rung 0 px / 0°; đã có rig và camera giả lập trong mã thử, chưa xác nhận chúng đáp ứng đủ mọi cue nguồn. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
 
@@ -137,7 +137,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Lời kể và thoại:**
 
-> “Một ký ức quan trọng, gắn với cái máy. Sửa xong, cháu quên đúng chuyện đã chọn. Không lấy lại được.”
+> “Tao lấy một ký ức quan trọng, gắn với cái máy. Sửa xong, cháu quên đúng chuyện đã chọn. Không lấy lại được.”
 
 > “Không đổi thì sao?”
 
@@ -252,7 +252,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > Ông Lộc nhếch miệng, nụ cười không làm mắt dịu đi.
 
-> “Thế muốn sửa gì nữa?”
+> “Thế muốn tao sửa gì nữa?”
 
 > “Cho hai anh em cháu… cảm thấy như ngày mẹ còn được không?”
 
@@ -437,4 +437,4 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 Câu hỏi mô tả: **Bạn sẽ trả đến đâu để người mình thương bớt cô độc?** Không biến thông điệp thành trẻ phải gánh thay mọi lỗi của người lớn. Giữ ba giao kèo trong cùng tập cho tới khi chủ repo chọn cách phát hành khác; không tự cắt lời từ biệt làm mồi tập sau.
 
-Bí ẩn Lộc và chuyện dài hạn của bố còn mở; việc được nghe/gặp mẹ, ba cái giá và nơi hai trẻ đến đêm đó phải rõ. Trailer có thể dừng ở câu “Thế muốn sửa gì nữa?”, không lộ toàn bộ G3.
+Bí ẩn Lộc và chuyện dài hạn của bố còn mở; việc được nghe/gặp mẹ, ba cái giá và nơi hai trẻ đến đêm đó phải rõ. Trailer có thể dừng ở câu “Thế muốn tao sửa gì nữa?”, không lộ toàn bộ G3.

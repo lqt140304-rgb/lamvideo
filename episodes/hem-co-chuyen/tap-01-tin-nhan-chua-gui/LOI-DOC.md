@@ -30,7 +30,7 @@ Duy vẫn đứng. Ba tiệm trước đều trả máy. Thảo nhìn anh, lấy
 
 “Cất đi. Có thứ khác trả được.”
 
-“Một ký ức quan trọng, gắn với cái máy. Sửa xong, cháu quên đúng chuyện đã chọn. Không lấy lại được.”
+“Tao lấy một ký ức quan trọng, gắn với cái máy. Sửa xong, cháu quên đúng chuyện đã chọn. Không lấy lại được.”
 
 “Không đổi thì sao?”
 
@@ -110,7 +110,7 @@ Em nhìn quanh tiệm, rồi hỏi nhỏ:
 
 Ông Lộc nhếch miệng, nụ cười không làm mắt dịu đi.
 
-“Thế muốn sửa gì nữa?”
+“Thế muốn tao sửa gì nữa?”
 
 “Cho hai anh em cháu… cảm thấy như ngày mẹ còn được không?”
 

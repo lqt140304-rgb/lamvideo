@@ -1,5 +1,9 @@
 # Ghi chú riêng — tập 01
 
+## Cập nhật xưng hô ông Lộc — 07/11/2026
+
+Theo yêu cầu mới, Lộc tự xưng **“tao”**, thay quy ước “ta” trước đó. Đã thể hiện trong lời ra giá G1 (“Tao lấy một ký ức…”) và câu hỏi sau sửa máy (“Thế muốn tao sửa gì nữa?”), đồng bộ nguồn/lời sạch/ElevenLabs cùng chỉ dẫn và kế hoạch. Hai trẻ vẫn gọi ông, xưng cháu; không đổi người nói khác hoặc tự thêm cách gọi mày. Lời hiện hành 1,470 đơn vị/6,705 ký tự, ước tính 8:27–10:10, chưa đo audio. Các mục cũ phía dưới ghi quy ước theo thời điểm lịch sử.
+
 ## Rà logic kịch bản bản 6 — 07/11/2026
 
 Sửa năm điểm: nhấc/đặt đồng hồ, ảnh hẹn giờ, mất trải nghiệm G1 không quên lời vừa nói, giới hạn lời hứa gặp mẹ G3, lấy G1 khỏi ví trước đối chiếu C8. Cắt hai câu kể lặp ở đồng/cuối. Giữ ba giá, vai/tuổi/xưng hô, giọng dẫn, mở đầu 24 giây và 35 cue. Xem [bản rà soát](RA-SOAT-KICH-BAN.md) để biết phần đã sửa và phần chỉ đề xuất. Lời mới 1,467 đơn vị/6,693 ký tự, ước tính 8:26–10:09, chưa đo audio. Không sửa mã/asset hoặc render demo cũ trong lượt rà văn bản.
