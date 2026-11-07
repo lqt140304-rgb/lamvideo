@@ -1,35 +1,37 @@
-# Asset — tập 01: Tin nhắn chưa gửi
+# Asset — Tin nhắn chưa gửi, bản 3
 
-**Chưa tạo media riêng cho tập.** Bảng dưới là kế hoạch bản 2, không phải danh sách file có sẵn. Nguồn lời là [KICH-BAN.md](KICH-BAN.md); sơ đồ, góc nhìn, pose và cue âm ở [DUNG-CANH.md](DUNG-CANH.md). Đã chọn hướng 2.5D ba lớp, chuyển động nhỏ; tạo hình cụ thể và media chưa được sản xuất/duyệt, quyền dùng nguồn tham khảo chưa được xác minh.
+07/11/2026. Đã có concept nhân vật hiện hành v4 (v2 giữ để đối chiếu mặt Lộc), mặt Lộc đã được chủ repo chốt, hai trẻ vừa sửa còn chờ duyệt. Chưa có hình hẻm/nội thất, asset tách lớp, rig, audio, storyboard, animatic hoặc video. Nguồn lời [KICH-BAN.md](KICH-BAN.md); sơ đồ và cue [DUNG-CANH.md](DUNG-CANH.md).
 
-| ID | Asset cần có | Yêu cầu giữ nhất quán | Trạng thái |
+## File đã có
+
+| File | Nguồn / phiên bản / mục đích | Duyệt / quyền dùng / chi phí |
+|---|---|---|
+| [duy-thao-loc-concept-v4.png](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Công cụ imagegen tích hợp, 07/11/2026; từ concept tự tạo: sửa Lộc, rồi giữ Lộc/sửa hai trẻ thành dáng che chở và thêm đồ cũ có vá nhẹ. Preview nhân vật cho tập, ảnh phẳng nguyên bảng | Lộc đã chốt, hai trẻ chờ duyệt; ảnh AI, không dùng ảnh người thật hoặc nguồn Gemini làm input. Chưa rà điều khoản khai thác thương mại riêng, không gắn giấy phép mã repo cho ảnh. Không có số credits/chi phí nhà cung cấp trả về, chưa quy đổi |
+
+Prompt tạo đầu: bảng toàn thân ba nhân vật Việt, 2D điện ảnh vẽ tay có khối, nền kem; Duy anh trai 16 áo thun xanh xám/quần xanh than/giày vải; Thảo em gái 8 áo vàng/quần lửng xanh/dép quai/tóc buộc nửa đầu; Lộc thợ sửa 60 sơ mi xám/quần nâu/kính cũ. Prompt sửa: chỉ đổi Lộc, mặt góc cạnh không cười, mắt lạnh dưới chân mày thấp, đầu hơi cúi, dáng cứng lặng, tay gân, ánh hổ phách hẹp và nửa mặt trong bóng; giữ nguyên trẻ/bố cục/phong cách, không thêm vũ khí hay hiệu ứng phép. Dùng built-in, không CLI/API và không dùng Gemini.
+
+Ảnh đầu hiền hơn là bản thử bị thay, không phải tạo hình đã duyệt. Không cần lưu mọi bản bỏ vào repo. Mặt Lộc từ v2 đã được chủ repo xác nhận ổn. V4 cập nhật riêng hai trẻ; chưa duyệt, không chứng minh đã tách lớp hoặc chuyển động được. Bản v2 trong cùng thư mục chỉ để đối chiếu mẫu mặt Lộc, không là mẫu trẻ hiện hành.
+
+## Cần chuẩn bị
+
+| ID | Tài nguyên | Ràng buộc | Trạng thái |
 |---|---|---|---|
-| CHAR-DUY | Duy, 26 tuổi | Trang phục, dáng ngồi, vẻ lảng tránh rồi chịu trách nhiệm; không đổi diện mạo giữa cảnh | Chưa tạo |
-| CHAR-THAO | Thảo, 32 tuổi | Người chị làm may/chăm mẹ; biểu cảm có sức nặng, không tạo hình thành phản diện một chiều | Chưa tạo |
-| CHAR-LOC | Ông Lộc, khoảng 60 tuổi | Chủ tiệm, điềm tĩnh, không dùng vẻ sát nhân để gợi sai câu chuyện | Chưa tạo |
-| VO-ME | Giọng mẹ trong ghi âm | Lời mời ăn cơm bình thường, không thêm lời trăn trối; chọn giọng riêng nếu phân vai | Chưa thu/tạo |
-| SET-TIEM | Tiệm sửa đồ cuối hẻm | Quầy gỗ, bàn sửa phía sau, kệ bên trái, cửa bên phải; đồng hồ ngừng chạy, đèn bàn vàng | Chưa tạo |
-| SET-NHA | Nhà hai chị em | Bàn ăn phía trước, máy may bên trái, bếp phía sau, bàn thờ bên phải | Chưa tạo |
-| PROP-DIENTHOAI | Điện thoại trước/sau sửa | Cùng mẫu máy/vết nứt trước sửa; trạng thái đổi đúng cảnh, không thêm thông điệp bí mật | Chưa tạo |
-| PROP-ANH | Ảnh giấy ba mẹ con | Lấy từ ví, không từ máy hỏng; không cần dựng hồi tưởng riêng | Chưa tạo |
-| PROP-BIENNHAN | Biên nhận giao kèo | Chữ dựng riêng, đúng sự kiện được chọn, còn ở đoạn kết | Chưa tạo |
-| AUDIO-TIEM | Quạt, xe máy xa, ghế và thao tác đồ vật | Chất đời thường; nghe thử thư viện trước khi tìm/tạo mới | Chưa chọn file |
-| AUDIO-NHA | Âm nền nhà và tủ bếp | Không gợi mẹ hiện về; giữ khoảng yên ở kết | Chưa chọn file |
-| VO-CHINH | Giọng kể và lời các vai | Chốt một người đọc hay phân vai; ghi voice/model/take, kiểm tra phát âm và nhịp | Chưa chọn giọng |
-| PROP-BUT-VI | Bút và ví Duy | Bút trên giấy khi đưa ra, rời giấy trước khi giấy bị kéo; ví túi trái, chứa ảnh và biên nhận | Chưa tạo |
-| PROP-BAT | Hai bát sạch + tủ/mặt bếp | Lấy từng bát, đặt mặt bếp rồi cất lại; đủ hình ngón nắm/đỡ, không chuyển bát ra bàn ăn | Chưa tạo |
-| PROP-TUI-KHOA | Túi vải Thảo và chìa khóa | Túi trên đùi tại tiệm; về nhà treo cạnh cửa, lấy khóa trước khi đi ăn | Chưa tạo |
-| PROP-CONGTAC | Công tắc đèn bếp | Có vị trí cạnh lối bếp; ngón tay chạm trước tắt đèn; đèn bàn thờ riêng không tắt | Chưa tạo |
+| CHAR-DUY | Anh trai 16 | Mặt/pose thiếu niên; không vai người đàn ông 26 tuổi; tay đủ để đặt tiền/cầm máy/chạm vai em | Có concept v4 đồ cũ/che chở, hai trẻ chờ duyệt; chưa rig/pose |
+| CHAR-THAO | Em gái 8 | Tỷ lệ trẻ; không trang phục/túi hoặc nghề người chị 32 tuổi; ghế có điểm đỡ chân | Có concept v4 đồ cũ/che chở, hai trẻ chờ duyệt; chưa rig/pose |
+| CHAR-LOC | Thợ sửa khoảng 60 | Kỳ lạ, lạnh, có phần nguy hiểm; vẫn người đời thường; bóng mặt theo nguồn sáng | Mặt Lộc đã chốt, chưa rig/pose |
+| SET-TIEM | Tiệm / cửa ra hẻm / ghế trẻ | Quầy ngang, kệ trái, cửa phải mở, bàn sửa sau, đèn vàng bán sáng; đồng hồ đứng kim | Chưa tạo |
+| SET-NHA | Cửa nhà gia đình / phòng bố phía sau | Bàn may mẹ trái/tắt, bàn ăn giữa, bàn thờ phải; bố sau vách, trẻ không vào; hướng nhà dì ở đầu hẻm | Chưa tạo |
+| PROP-MAY | Máy trước/sau sửa, túi vải | Giữ mẫu/vỏ, tắt và vỡ trước C6; mật mã rồi ghi âm, không tự phát | Chưa tạo |
+| PROP-TIEN | Phong bì, tiền Duy, hai tờ Thảo | 186.000 + 20.000 vẫn thiếu giá 800.000; Lộc không giữ tiền | Chưa tạo |
+| PROP-ANH-VI | Ảnh giấy và ví | Ảnh ra C2, cất trước ký C5; ví chứa liên giấy Duy | Chưa tạo |
+| PROP-GIAY-BUT | Hai liên có đường tách, bìa kê, bút | Ghi cùng sự kiện ở hai liên, chưa ký C3; tách C6, một liên mỗi bên; chữ lớp riêng | Chưa tạo |
+| AUDIO-BO-DI | Bố sau vách, cuộc gọi dì | Chai lăn và càm ràm không rõ chữ, không cần tạo mặt/thoại bố; dì qua lời người kể, không voice riêng | Chưa chọn/tạo |
+| AUDIO | AM-TIEM, FX-DUNGCU/TIEN/GHE-AO/GIAY/MAY, VO-ME, AM-NHA/FX-BO/FX-GOI-DI, M1/M2 | Nguồn miễn phí/đã có có quyền dùng, rõ chất liệu/vị trí; tách giấy chỉ C6, không âm ma ở nhà | Chưa chọn/tạo |
 
-## Các lớp và góc cần chuẩn bị
+Chưa cần tạo mặt/voice riêng của bố hoặc dì: bố ở phòng sau, dì đầu hẻm, xác định qua âm/tường thuật. Không biến họ thành vai hiện hình nếu chưa mở phạm vi. Concept nguyên bảng không thay cho các góc/pose/ảnh nền cần dùng trong DUNG-CANH. Lưu quyền dùng, đường dẫn, file và số dùng thật khi có; không đổi số lượt tạo thành credits.
 
-- **Tiệm:** lớp kệ/mép cửa tiền cảnh; quầy và người ở giữa; bàn sửa/đồng hồ/tường xa. Chuẩn bị góc chung phía khách, cận hai người cùng trục, insert mặt quầy và góc bàn sửa. Góc C4-A cần tay gần và mặt Duy xa; không chỉ crop một ảnh toàn cảnh để giả mọi phối cảnh.
-- **Nhà:** mép cửa gần; bàn ăn/người giữa; bếp và bàn thờ xa, bàn may bên trái. Có góc toàn từ cửa, trung đôi và góc 3/4 tủ bát C7-C. Đèn bếp và bàn thờ tách trạng thái; chỉ vẽ đủ phần nền sẽ lộ khi người/máy di chuyển.
-- **Pose:** Duy ngồi hướng quầy/quay về chị/đứng lấy bát; Thảo đứng–ngồi/siết quai/đẩy ảnh; Lộc kéo giấy/đỡ máy/đặt máy. Tay và đạo cụ có điểm nắm, trạng thái mặt đỡ và thứ tự che khuất theo DUNG-CANH. Chưa có rig/asset riêng thực thi các pose này.
-- **Âm thanh:** mã AM-TIEM, FX-GHE, FX-GIAY, FX-MAY, VO-ME, AM-NHA, FX-BAT-KHOA, M1, M2 là danh sách cần chọn, không phải clip đã có. Không tạo tiếng xé/rách hoặc máy may chạy khi hình không có hành động ấy. Ưu tiên file có sẵn/nguồn miễn phí có quyền dùng rõ.
+## Prompt sửa gần nhất và trạng thái
 
-## Ghi khi đã có file
+Dùng built-in imagegen, không CLI/API/Gemini. Pass sửa trẻ: giữ nguyên Lộc đã chốt; Duy 16 mặt trẻ, giấu buồn/căng vai, đứng chắn trước Thảo 8, em nép sau níu gấu áo; giữ nét 2D có khối và nền giấy. Pass nét khó khăn: chỉ bạc màu vải, cổ/gấu áo mòn, mũi khâu gọn ở áo và quần, vá nhỏ cùng tông quần em, giày/dép cũ vẫn dùng được; giữ mặt/tuổi/tư thế, không thêm bầm tím/dơ mặt/người gầy già hoặc sửa Lộc.
 
-Thêm đường dẫn thật, phiên bản, nguồn/tác giả/công cụ, quyền sử dụng, cảnh dùng, tình trạng duyệt và chi phí phát sinh. Asset riêng lưu dưới `assets/` trong thư mục tập khi cần; media vận hành studio dùng cùng slug theo README của tập. Những bản thử không được chọn ghi rõ hoặc dọn theo phạm vi được giao; không đưa lên thư viện chung chỉ vì đã tạo xong.
-
-Giữ khoảng nghỉ tại timeline theo bản dựng. Nhạc và hình có thể tiếp tục trong khoảng nghỉ, nhưng không cộng thời lượng của chúng thêm lần nữa nếu chạy đồng thời.
+Hai lượt chỉnh trẻ sau mẫu Lộc, không có số credits/tiền trong kết quả công cụ. Không suy ra giá từ lượt gọi/token; chưa tạo asset bố, bối cảnh, rig hay audio. V4 là đề xuất gần nhất, không gọi cả bảng đã duyệt.

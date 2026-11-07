@@ -28,6 +28,8 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 - Kiểm tra trục nhìn, hướng cửa, tay cầm đồ, vị trí nhân vật và nguồn sáng giữa các shot. Chữ quan trọng làm lớp đồ họa riêng, tránh phụ thuộc chữ sinh trong ảnh.
 - **Lời kể đúng nhưng chỉ dẫn dựng mâu thuẫn → theo dõi từng shot mà thiếu chuỗi trạng thái →** ghi vật ở đâu trước/sau hành động, tay nào giữ và thời điểm đặt/nhả/cất; soát đồng thời lời kể, sơ đồ, cue và asset. **Kiểm tra:** trước khi nhân vật “đứng lên” phải biết đang ngồi ở đâu; đồ đã cất không còn trên bàn; giấy chưa đưa lại không xuất hiện trước người ký. Đối chiếu văn bản trước, xác nhận tiếp xúc bằng animatic sau.
 
+- **Đổi tuổi/vai nhưng chỉ sửa diện mạo → giữ động cơ và đạo cụ của bản cũ →** rà lại quyền quyết định, cách xưng hô, việc làm, nguồn tiền, người chăm sóc, tầm với và ghế/quầy; cập nhật nguồn, lời đọc và chỉ dẫn cùng lượt. **Kiểm tra:** trẻ nói và làm đúng tuổi, việc của người lớn có người đảm nhiệm, pose/đạo cụ không còn mâu thuẫn với quan hệ mới.
+
 ## Góc máy điện ảnh và chiều sâu 2.5D
 
 Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và đề xuất áp dụng, **chưa phải kết quả dựng thử trong studio**. Xem [hướng dẫn chi tiết, mẫu shot và nguồn](NGON-NGU-DIEN-ANH-2-5D.md). Giữ ví dụ, bảng tham khảo và ghi chú nghiên cứu ở tài liệu đó; chỉ lưu nguyên tắc dùng lại được tại đây.

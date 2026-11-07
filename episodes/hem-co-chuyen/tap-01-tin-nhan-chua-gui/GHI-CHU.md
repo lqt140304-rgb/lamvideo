@@ -1,33 +1,24 @@
 # Ghi chú riêng — tập 01
 
-## Quyết định hiện tại
+## Hiện hành: bản 3, cập nhật sau phản hồi gia đình — 07/11/2026
 
-- Thử thế giới Hẻm Có Chuyện bằng một giao kèo nhỏ, hai bối cảnh; chưa viết bí mật trung tâm hoặc cả mùa phim.
-- Đối đầu chính là hai chị em và cách họ đối xử với nhau. Ông Lộc giữ giao kèo; tập này chưa xác lập động cơ sâu của ông. Không thêm cú lật ông là kẻ ác chỉ để gây sốc.
-- Cơ chế đổi ký ức là luật hư cấu. Sửa điện thoại không hồi sinh mẹ, sửa quá khứ hoặc thêm lời nhắn an ủi. Chưa làm nghiên cứu web/video riêng cho tập này; không gọi hồ sơ này là nghiên cứu đã kiểm chứng.
-- Thảo làm hỏng máy rồi nói dối; Duy từng nghi oan chị. Mẹ có quan tâm nhưng thiên lệch. Kết mở ra một hành động chăm sóc thực tế, không xóa trách nhiệm của ai.
-- Bản kịch bản đã có chỉ dẫn góc/lens/rung/focus và nghỉ dựng. Chưa có audio, hình, storyboard đã xem hay video đã kiểm tra.
+- Duy anh trai 16, Thảo em gái 8; bố suốt ngày say, rượu chè/bỏ bê, làm tiền vơi và trẻ sợ. Dì Hạnh ở đầu hẻm có thể giúp, không dọn tới nhà bố. Bỏ toàn bộ chuỗi dì ở bếp/ba bát của bản nháp trước trong cùng lượt sửa.
+- Duy giấu nhớ mẹ vì nghĩ lớn rồi phải vững và muốn bảo vệ em; bên ngoài cứng khiến em sợ. Không viết thành cậu không thương mẹ. Thảo chỉ cần mẹ dỗ/anh ôm, không cần hiểu hoặc giảng về tâm lý của anh.
+- Hy sinh chính: Duy tự trả buổi tối mẹ ôm trước khi chụp ảnh sinh nhật 16 để em được nghe ghi âm; cậu cũng có nhu cầu nghe mẹ, không biến mình thành người không có nhu cầu. Em xin dừng/đề nghị trả thay nhưng không bị lấy ký ức. Cậu giữ lỗi đã làm em sợ.
+- Lộc báo tiền trước (800.000đ), Duy 186.000 và Thảo 20.000 vẫn thiếu. Sau những lần nài khác nhau ông mới hé giá ký ức; trẻ được mang máy về trước bắt đầu. Giữ ranh giới luật không biến giao dịch thành công bằng hay ông thành người hiền; động cơ sâu chưa viết.
+- Kết: bố về say, trẻ dừng tại cửa; Duy gọi dì bằng máy mẹ vừa sửa, nghe dì nhận rồi mới đi tới nhà dì. Đây là chỗ ngủ/giúp đỡ trong đêm, chưa giải quyết nghiện rượu/đổi tính bố. Bố/dì có vị trí/chức năng rõ dù không cần mặt hoặc thoại riêng.
+- Timeline: mẹ mất hơn tháng; có báo dì về ghi âm chưa gửi; Duy biết mật mã. C3 nghe tin cũ trước máy vỡ; sau bố đi, em lấy máy khóa để nghe mẹ, đập vì không mở được. Không lẫn bản tin cũ với ghi âm chưa nghe.
+- Giấy tự in hai liên có đường tách/bìa kê: ghi cùng sự kiện, đọc xác nhận, ký rồi hỏi lại; tách C6, mỗi bên một liên. Tiếng tách giấy có hành động thật. Kể lại ký ức ở cuối chỉ biết sự việc, không phục hồi trải nghiệm.
 
-## Các điểm phải giữ khi sửa
+## Concept hình
 
-1. Duy biết có ghi âm nhờ mẹ từng nhắn báo; không có sẵn tệp âm thanh trong máy Duy. Bức ảnh là ảnh giấy từ ví.
-2. Giao kèo được nói trước và ký tự nguyện; không dùng ký ức vụn vặt, ký ức người khác hay ghi chép để hoàn tác cái giá.
-3. Sự thật máy bị đập có dấu hiệu từ cách Thảo muốn để nó yên; người dẫn không nói dối thay nhân vật.
-4. Ký ức vui được kể trước khi mất. Nghe chị kể lại chỉ biết thêm sự việc, không khôi phục trải nghiệm đã trả.
-5. Tin nhắn cuối giữ sự bình thường và thiên lệch; không sửa thành lời xin lỗi hoàn hảo để giải quyết mọi mâu thuẫn.
-6. Bản 2 có 22 mục thiết lập/cue trong DUNG-CANH, có góc dùng lại. Chốt số lần cắt và thời lượng ở animatic, không coi mỗi mục là một ảnh duy nhất.
+- Không dùng Gemini nữa. Quyền tải ảnh Gemini từng bị người dùng từ chối, không lấy qua cách khác. Mọi ảnh hiện lưu ở tập do imagegen tích hợp tạo/chỉnh từ hình tự tạo.
+- `assets/nhan-vat/duy-thao-loc-concept-v2.png`: mẫu mặt Lộc đã được chủ repo xác nhận ổn; hai trẻ cũ không còn là mẫu hiện hành.
+- `assets/nhan-vat/duy-thao-loc-concept-v4.png`: Lộc giữ thiết kế, Duy chắn trước em/giấu buồn, em nép giữ áo; vải bạc, khâu sửa/vá nhỏ, giày dép mòn vừa phải. Hai trẻ v4 chưa được duyệt. Concept không phải rig hoặc storyboard.
+- Tổng trong nhánh hình hiện có: tạo bảng đầu, sửa Lộc, sửa tư thế/trẻ, sửa nét khó khăn. Kết quả không trả số tiền/credits; không ghi bằng 0 hoặc suy đoán từ token. Không tự tạo video/giọng/bối cảnh bố.
 
-## Việc tiếp theo khi có yêu cầu sản xuất
+## Kiểm tra và bước tiếp
 
-Chốt tạo hình và cách phân giọng; tạo storyboard theo sơ đồ/cue trong DUNG-CANH rồi ráp animatic có tương tác và âm tạm. Khi được yêu cầu làm giọng, nghe mẫu thoại đại diện, đo thời lượng và cập nhật các cue phụ thuộc. Chỉ hoàn thiện sau hai bước duyệt. Ghi lỗi/chi phí và phản hồi tại đây hoặc asset của tập. Chưa dùng backend cũ một giọng/toàn bài để tuyên bố đã phân vai.
+Đối chiếu nguồn–lời sạch–bản thẻ, 7 cảnh/22 cue, đếm lại lời/nghỉ, link và file thật. Soi storyboard các động tác che em/níu áo, tiền, giấy, máy, gọi dì, ngồi bậc/cất đồ/nắm tay. Animatic chạy tương tác và âm tạm, không chỉ pan ảnh. Chưa có bản phim để nghe/xem, chưa đo audio hoặc chi phí.
 
-Các quy tắc áp dụng được cho tập khác chỉ chuyển sang kinh nghiệm chung sau khi đã bỏ tên nhân vật, cốt truyện và thông số riêng của tập này.
-
-## Thay đổi bản 2 — 07/11/2026
-
-- Giữ luật giao kèo và hai bối cảnh. Thảo nhận trách nhiệm, xin lỗi và nói em không phải trả thay; Duy xác nhận đó là lựa chọn của mình. Không dùng cái giá để mua sự tha thứ.
-- Câu kiểm tra ký ức chỉ nhắm cuộc gọi đã chọn; tránh hiểu rằng Duy quên mọi cuộc gọi video với mẹ.
-- Sửa continuity: ảnh xuất hiện đúng lúc lấy từ ví rồi được cất trước ký; bút rời giấy trước khi Lộc kéo; biên nhận ghi rõ sự kiện trước ký. Máy ở bàn ăn tại nhà, không đổi giữa bàn may và bàn ăn.
-- Duy lấy bát đặt mặt bếp, cất lại khi chị chọn ra ngoài, về ghế rồi mới hỏi ký ức. Cuối cảnh cất máy/giấy trước khi ra cửa. Chỉ đèn bếp tắt, đèn bàn thờ còn sáng.
-- Bổ sung sơ đồ, tư thế, đường đi đạo cụ và 22 mục thiết lập/cue trong DUNG-CANH. Thông số là ý đồ mỹ thuật chờ storyboard/animatic, chưa có render chứng minh.
-- Các bản lời được xuất từ block lời của KICH-BAN và kiểm tra khớp sau khi bỏ thẻ diễn xuất. Chưa nghe TTS; không có chi phí tạo media mới.
+Bản 2 trong lịch sử Git là Duy 26/Thảo 32 và câu chuyện tiền viện/chăm sóc. Không dùng lời/rig/timing đó cho tập hiện tại. Các nháp bản 3 trước phản hồi bố/giấu nhớ mẹ chưa được push, đã được thay đồng bộ trong lượt này.

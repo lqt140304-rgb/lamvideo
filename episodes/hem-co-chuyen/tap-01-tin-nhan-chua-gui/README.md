@@ -1,28 +1,19 @@
 # Hẻm Có Chuyện — tập 01: Tin nhắn chưa gửi
 
-**Trạng thái:** bản 2, cập nhật 07/11/2026; bản thử bằng văn bản, chưa tạo hình/giọng/video, chưa đo thời lượng audio. Các nhân vật và giao kèo đổi ký ức là hư cấu.
+**Bản hiện hành: 3, 07/11/2026.** Duy anh trai 16 tuổi, Thảo em gái 8 tuổi; Lộc kỳ lạ, lạnh và có phần nguy hiểm, ban đầu đòi tiền rồi sau nài nỉ mới mở cách trả ký ức. Thay các quan hệ/động cơ người lớn của bản 2. Có concept v4: mặt Lộc đã chốt, hai trẻ đồ cũ/dáng che chở chờ duyệt; chưa có giọng, storyboard, animatic, video hoặc episode Remotion riêng.
 
-## Bản nguồn
-
-| File | Vai trò |
+| File | Tác dụng |
 |---|---|
-| [KICH-BAN.md](KICH-BAN.md) | Bản nguồn: luật thế giới, vai trò nhân vật, cảnh, lời và chỉ dẫn dựng |
-| [DUNG-CANH.md](DUNG-CANH.md) | Sơ đồ hai phòng, 22 mục thiết lập/cue, vị trí máy/lens, tư thế, lớp cảnh, tiếp xúc và âm thanh để làm storyboard/animatic |
-| [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch, không chỉ dẫn camera hoặc khoảng nghỉ |
-| [ELEVENLABS.md](ELEVENLABS.md) | Bản có hướng diễn xuất để thử trên model hỗ trợ; không tự phân vai |
-| [ASSET.md](ASSET.md) | Những gì cần cho tập, phân biệt đã có/chưa tạo |
-| [GHI-CHU.md](GHI-CHU.md) | Quyết định và điểm kiểm tra riêng của tập |
+| [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật, vai trò, 7 cảnh, camera/lens, âm và khoảng nghỉ |
+| [DUNG-CANH.md](DUNG-CANH.md) | Sơ đồ, tỷ lệ trẻ/ghế/quầy, 22 cue, lớp cảnh, nét, pose, đạo cụ và hai bước duyệt |
+| [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch xuất từ nguồn |
+| [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời với thẻ diễn xuất gợi ý; không tự phân vai, chưa thử giọng |
+| [ASSET.md](ASSET.md) | File concept thật, nguồn/công cụ và danh sách cần sản xuất |
+| [GHI-CHU.md](GHI-CHU.md) | Quyết định, phản hồi, kiểm tra và lịch sử riêng |
+| [Ảnh concept v4](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Bảng toàn thân; Lộc đã chốt, hai trẻ bản mới chờ duyệt |
 
-## Phạm vi tập thử
+Ba vai hiện hình, mẹ qua ghi âm, bố/dì ngoài khung không cần mặt/voice riêng; hai nội cảnh, cảnh nhà chỉ tới cửa. Duy giấu nhớ mẹ, hy sinh ký ức để em được nghe mẹ và dám xin dì giúp khi bố say. Lời sạch 1,190 đơn vị tách khoảng trắng, 5,413 ký tự gồm xuống dòng; 21 giây nghỉ; ước tính 6:30–7:54 phút theo giả định trong kịch bản, chưa đo audio/credits.
 
-Một chiếc điện thoại của người mẹ đã mất được sửa bằng một ký ức quan trọng. Hai chị em phải đối diện cả sự thiên lệch trong gia đình và những tổn thương họ gây ra cho nhau. Mỗi người có lý do và trách nhiệm; giao kèo không chữa lành mọi quan hệ.
+Tiếp theo: duyệt concept và bản 3 → storyboard tĩnh → animatic chạy tương tác với âm tạm → hoàn thiện. Không tự bỏ animatic hoặc tạo giọng trả phí để duyệt hình. Ảnh nhân vật không chứng minh lớp 2.5D đã dựng được.
 
-Hai bối cảnh, ba người hiện hình và một giọng ghi âm; 7 cảnh, 22 mục thiết lập/cue có góc dùng lại; không đồng nhất số mục với số ảnh hoặc lần cắt cuối. Dự kiến lời kể/thoại với hình minh họa và chuyển động chọn lọc.
-
-Lời sạch bản 2 có 1,142 đơn vị tách khoảng trắng, 5,242 ký tự gồm xuống dòng. Có 24 giây nghỉ riêng. Ước tính 6:19–7:39 phút, chưa đo audio; giả định trong kịch bản. Chưa quy đổi sang credits.
-
-## Khi chuyển sang sản xuất
-
-Duyệt storyboard tĩnh rồi animatic theo DUNG-CANH; animatic phải kiểm tra chuyển động tương tác và nhịp, dùng hình/âm tạm khi phù hợp. Dùng slug `tap-01-tin-nhan-chua-gui` nhất quán. Chưa có episode Remotion riêng cho tập này. Khi tạo, mã ở `what-if-studio/src/episodes/tap-01-tin-nhan-chua-gui/`, media ở `what-if-studio/public/tap-01-tin-nhan-chua-gui/`, output ở `what-if-studio/out/tap-01-tin-nhan-chua-gui/`. Ghi đường dẫn file thật vào ASSET khi chúng đã tồn tại; không tạo mục giả như thể đã hoàn thành.
-
-Hồ sơ này chứa thông tin riêng của tập. Chỉ rút nguyên tắc tổng quát sang kinh nghiệm chung; không chép cốt truyện hoặc tiến độ lên file đó.
+Khi sản xuất dùng slug `tap-01-tin-nhan-chua-gui`: mã riêng `what-if-studio/src/episodes/tap-01-tin-nhan-chua-gui/`, media `what-if-studio/public/tap-01-tin-nhan-chua-gui/`, đầu ra `what-if-studio/out/tap-01-tin-nhan-chua-gui/`. Chưa có các đầu ra đó. Hồ sơ/asset riêng giữ tại tập; chỉ nguyên tắc dùng lại được vào kinh nghiệm chung.

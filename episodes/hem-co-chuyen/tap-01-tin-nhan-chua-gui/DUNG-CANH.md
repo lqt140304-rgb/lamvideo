@@ -1,225 +1,206 @@
-# Tin nhắn chưa gửi — bố trí cảnh và chỉ dẫn quay, bản 2
+# Tin nhắn chưa gửi — dựng cảnh bản 3
 
-Ngày sửa: 07/11/2026. Tài liệu triển khai hình/âm cho [kịch bản nguồn](KICH-BAN.md). Đây là thiết kế để làm storyboard và animatic, chưa có hình, audio hoặc video đã duyệt. Các kích thước, vị trí máy và nhịp chuyển nét bên dưới là thông số khởi điểm mỹ thuật, cần chỉnh khi xem bản dựng.
+07/11/2026. Triển khai theo [KICH-BAN.md](KICH-BAN.md), không có bản thoại riêng. Thay chỉ dẫn bản 2 cho hai người trưởng thành; cập nhật bố say, Duy giấu nhớ mẹ và hy sinh vì em. Chưa có storyboard/animatic/rig/camera đã chạy. Mặt Lộc đã được chủ repo chốt; concept hai trẻ mới chờ duyệt.
 
-## 1. Ngôn ngữ hình ảnh của tập
+## 1. Không gian, ánh sáng và tỷ lệ
 
-- Giữ hai bối cảnh, ba người hiện hình và giọng mẹ trong máy. Không thêm hồi tưởng thành bối cảnh thứ ba. Ký ức được kể qua mặt và cử chỉ của người đang nhớ.
-- 2.5D với tiền cảnh, lớp diễn xuất và hậu cảnh. Các vật nằm cùng mặt đỡ chuyển động theo cùng không gian; không chia lớp theo màu hoặc từng đạo cụ tùy tiện.
-- Chủ yếu máy tĩnh; hai chuyển động trượt ngắn ở C1-C và C4-B. Chuyển nét có lý do ở C4-A. Không dùng quay vòng, rung cầm tay, dolly zoom hoặc bóng ma để báo trước twist.
-- Có 22 mục thiết lập/cue dưới đây; một góc có thể xuất hiện lại trong đối thoại. Đây không phải cam kết 22 ảnh hoặc 22 lần cắt. Lập timeline theo lời thực; không kéo một still suốt cả đoạn dài chỉ vì đã có tên shot.
-- Mọi lens tính tương đương full-frame. Chiều cao máy đo từ sàn; khoảng cách đo gần đúng tới chủ thể nét chính. Góc cúi là từ đường nhìn ngang xuống; độ roll/nghiêng đường chân trời luôn 0°. **Rung tất cả shot: 0 px dịch, 0° xoay.** Không ghi khẩu độ vật lý cho SVG; thay bằng vùng cần rõ/mềm. Camera và blur hiện chỉ là ý đồ cần triển khai, chưa phải tính năng tự động.
-- Với trượt ngang: bắt đầu thử 8–12 cm trong không gian quy ước, xem lại mức parallax thực tế. Khóa điểm tì của tay, bóng và đạo cụ trước khi chỉnh chuyển động máy. Thời gian 1–2 giây chuyển nét hoặc 5–7 giây trượt chỉ là đoạn chuyển động trong shot, không phải tổng thời lượng cả lời.
+**SET-TIEM:** phòng quy ước rộng 4,2 m, sâu 6 m; phía khách là nam (y=0), tường sau y=6. Quầy y≈3,3, rộng ngang phòng nhưng chừa lối bên phải; cao 0,78 m, sâu 0,6 m. Duy trái (x≈1,4), Thảo phải (x≈2,6), Lộc sau giữa (x≈2,1; y≈4,1). Cửa bên phải x=4,2; y≈1,4 mở ra hẻm, không có động tác khóa cửa. Kệ gỗ trái, bàn sửa/đèn ở y≈5,3, lối đi phải thông. Tiền cảnh mép kệ; giữa là quầy/người; xa là bàn sửa/tường. Không thêm nhân vật qua đường để lấp khung.
 
-## 2. Sơ đồ không gian cố định
+Mở cảnh đứng, C2 mới ngồi. Duy thiếu niên khoảng 1,65 m, Thảo trẻ khoảng 1,25 m chỉ là tỷ lệ mỹ thuật khởi điểm. Ghế Duy cao khoảng 0,43 m. Ghế Thảo có bậc chân và mặt ngồi ổn định vừa tầm quầy; phải thử pose để em không treo chân, chống tay quá cao hoặc có dáng người lớn thu nhỏ. Không giữ tọa độ đầu/tay của rig người trưởng thành cũ.
 
-### Tiệm ông Lộc — SET-TIEM
+Đèn bàn vàng sau-trái Lộc tạo mảng sáng hẹp ở thái dương; ánh hắt dịu đủ đọc mắt trong phần tối. Ánh lạnh cửa phải tách hai trẻ khỏi nền. Lộc không được tối đen như mất mặt, kính không phát sáng. Ông đứng gần đèn hơn nên bóng sâu hơn trẻ; bóng đổ phải có nguồn, không phủ lớp tối cố định trên mặt bất kể quay đầu. Khi ngừng dụng cụ, tiếng quạt vẫn chạy: không làm cả thế giới tắt tiếng để báo phép.
 
-Phòng hư cấu khoảng 4,2 × 6 m. Nhìn từ khu khách vào bàn sửa: trái là kệ tây, phải là cửa đông ra hẻm. Trục y hướng sâu vào phòng, x sang phải. Sơ đồ theo mét chỉ dùng để thống nhất vị trí; cần quy đổi sang tọa độ engine khi dựng.
+**SET-NHA:** nhà gia đình, phía trước rộng khoảng 3,8×5 m: cửa ở y=0, bàn may cũ của mẹ trái, bàn ăn giữa lệch phải, bàn thờ phải; phòng sau khuất vách và lối ngoặt bên trái. Bố ở phòng sau, không lộ mặt/thân qua góc rộng. Máy may tắt; đèn bàn thờ riêng vẫn sáng. Hai trẻ chỉ đến ngưỡng cửa rồi dừng, không đi vào bếp hoặc lấy bát. Camera đặt sát phía ngoài cửa nhìn vào vùng phòng trước; cuối có hướng thoát ra hẻm tới đèn nhà dì, không cần vẽ nội thất thứ ba.
 
-```text
-                    TƯỜNG SAU, y=6
-       kệ đồng hồ       bàn sửa + đèn vàng (y≈5,3)
-       đã ngừng         ghế thợ
-                        Lộc (2,1; 4,1)
-       [khay đồ]  ===== QUẦY y≈3,3 =====
-                   Duy            Thảo
-                (1,4; 2,6)     (2,6; 2,6)
-                                         CỬA RA HẺM
-       kệ gỗ tiền cảnh                     x=4,2; y≈1,4
-              VÙNG MÁY CHÍNH y≈0,3–1,5
-                    PHÍA KHÁCH, y=0
-```
+Dì sống ở đầu hẻm, KHÔNG đang hâm cơm trong nhà có bố. Dì được thiết lập ở C1 và trả lời qua nội dung người kể thuật lại ở C7, không cần thêm voice. Tiếng bố càm ràm không rõ chữ chỉ giữ vai trò nguồn nguy hiểm có địa điểm; không tạo một đoạn thoại ngoài bản nguồn.
 
-Quầy cao khoảng 0,78 m, sâu 0,6 m; ghế cao khoảng 0,43 m để hai chân chạm sàn. Mặt quầy không cao tới ngực người ngồi. Ghế Thảo gần cửa hơn. Khoảng trống sau ghế đủ đứng dậy, lùi nửa bước và ngồi lại mà không xuyên tường/kệ.
+Camera chính ở phía khách, nam trục nối hai trẻ; Duy screen-left, Thảo screen-right. Ở cửa nhà giữ hướng đứng và lối ra đã xác lập; không còn góc bàn ăn/bếp. Không đảo anh/em do cắt cận hoặc kéo crop một ảnh để giả góc mới.
 
-Điện thoại trên khăn ở giữa quầy, lệch phía Duy; ảnh ở trái điện thoại theo góc nhìn của khách; biên nhận ở phải, trước mặt Duy khi ông Lộc đẩy ra. Cây bút nằm trên giấy, không sinh ra trong tay. Kệ phía trái có radio, hộp vít và đồng hồ sửa dở; lối đi phía phải để trống. Không cần vẽ thêm người ngoài hẻm: dùng nguồn âm ngoài khung.
+## 2. Tạo hình và diễn
 
-Đèn bàn bên sau-trái ông Lộc rọi xuống vùng sửa; một bóng trần dịu đủ đọc mặt hai khách. Ánh trắng lạnh từ cửa bên phải. Đồng hồ trên kệ đứng kim, **không lót tiếng tích tắc cho chúng**. Quạt gắn tường phía trái chạy nhẹ; xe đi ngoài cửa nghe gần hơn tiếng xe ở đầu hẻm. Ánh sáng và tiếng quạt giữ liên tục C1–C6, trừ chuyển thời gian sửa có chỉ dẫn.
-
-Camera chính luôn ở phía khách, cùng phía nam trục nối hai chị em. Duy ở trái, Thảo ở phải trong khung chung; cận một người giữ ánh mắt về đúng phía của người kia. Insert trên mặt bàn có thể cao hơn nhưng không dùng để tự ý đảo vị trí hai người ở shot sau.
-
-### Nhà của mẹ và Thảo — SET-NHA
-
-Duy về ở tạm trong lần này; không ngụ ý hai chị em vốn cùng sống thường xuyên. Phòng trước khoảng 3,8 × 5 m; nhìn từ cửa vào: bàn may bên trái, bàn ăn giữa hơi lệch phải, bếp phía sau, bàn thờ trên tường phải.
-
-```text
-                       BẾP, y≈4–5
-         công tắc     tủ bát + mặt bếp
-         ở mép trái   lối vào đủ cho Duy đứng
-       bàn may          bàn ăn       bàn thờ, tường phải
-       vải gấp       ghế Duy/Thảo    đèn riêng luôn sáng
-       móc túi/khóa
-                       CỬA NHÀ, y=0
-```
-
-Bàn may có mảnh vải đang ghim, thước dây và đèn đã tắt, không tự chạy. Không bày kéo ở nơi diễn viên đặt tay. Trên bàn ăn chỉ có khay nhỏ và khoảng trống để điện thoại; hai bát ở tủ bếp, chưa nằm sẵn trên bàn. Điện thoại được đặt trên bàn ăn, màn hình hướng lên; không đổi sang bàn may hoặc tự úp mặt ở insert.
-
-Thảo treo túi và chìa khóa ở móc cạnh cửa rồi đi về bếp. Duy đặt máy, ngồi phía trái bàn; Thảo quay lại và ngồi phía phải sau câu xin lỗi. Duy đứng lấy bát, cất lại, về ngồi rồi mới hỏi ký ức. Khi ra ngoài, Thảo lấy khóa đi trước; Duy cất giấy, lấy điện thoại, tắt đèn bếp rồi theo sau. Đèn bàn thờ dùng mạch riêng vẫn sáng, không nhấp nháy.
-
-## 3. Tư thế, trang phục và đường đi đạo cụ
-
-| Người | Dáng/trang phục giữ xuyên tập | Diễn biến cơ thể |
+| Người | Thiết kế hiện tại | Diễn xuất cần có |
 |---|---|---|
-| Duy | Áo thun xanh xám, quần tối, đồng hồ tay trái; điện thoại mẹ cầm tay phải, ví túi quần trái | Ban đầu thân chúi về máy, đầu gối hướng quầy, ít nhìn chị. C3 cằm nâng và miệng đáp nhanh rồi khựng. C4 môi hé nhưng không phản bác. C5 quay thân về chị, vai thả dần. C7 ngồi nghe hết câu, không cúi nhìn điện thoại |
-| Thảo | Áo sơ mi màu đất nhạt, tay xắn bằng nhau, quần đen, tóc buộc thấp, túi vải | C1 tay trái giữ quai túi, tay phải đẩy ghế đứng. C2 ngồi nửa trước ghế, đầu gối hơi hướng cửa. C4 thân vẫn hướng quầy nhưng mắt quay sang em, không diễn khóc ngay. C5 tay trái thôi siết quai. C6 siết mép ghế. C7 ngồi tựa được vào lưng ghế khi nói không muốn nấu |
-| Ông Lộc | Sơ mi xám, kính, dáng hơi khom khi sửa nhưng đứng thẳng khi xác nhận | Tay làm việc chậm, nhìn người nói, không cười bí hiểm. C3 lấy lại giấy chỉ sau khi bút Duy đã rời giấy. C5 chờ câu trả lời; C6 đứng sau quầy, không biến mất khỏi tiệm khi hai chị em nói |
+| Duy 16 | Áo thun xanh xám bạc màu, gấu có mũi khâu nhỏ; quần xanh than cũ, giày vải mòn sửa nhẹ; mặt vẫn thiếu niên | Căng vai, giữ em ở phía sau/ít tiếp xúc nguy hiểm; nói cứng để giấu sợ và nhớ mẹ. Không cười thoải mái đầu tập. C3 nhận ra mình làm em sợ. C5 lộ nghẹn lần đầu, vẫn tự chọn ký ức. C7 xin dì giúp rồi ngồi ngang em, không quay mặt giấu khóc |
+| Thảo 8 | Áo vàng kem hơi rộng/cũ, gấu khâu gọn; quần lửng xanh có miếng vá nhỏ cùng tông, dép quai mòn; tóc buộc đơn giản | Né sau anh, níu áo, hỏi nỗi lo cụ thể; chỉ nhớ mẹ và muốn được dỗ, không khôn như người lớn. Xin dừng trao đổi, không đòi anh phải hi sinh. Khi anh khóc có thể nép lại, không cần diễn văn |
+| Lộc khoảng 60 | Sơ mi xám sẫm, quần nâu than, kính kim loại cũ; thiết kế mặt lạnh đã chốt | Không sửa mặt qua các lần chỉnh trẻ. Nhìn xuyên kính, đặt dụng cụ, chờ; không cười/an ủi khi anh em nói chuyện, không lộ động cơ chưa viết |
 
-Không mặc định tay gần máy luôn là tay phải: đổi góc thì đổi thứ tự vẽ phần gần/xa, giữ nguyên tay đang cầm vật.
+Nét khó khăn thể hiện ở đồ bạc màu, sửa gọn và tư thế; không thêm bầm tím, dơ mặt hoặc ép trẻ gầy già. Concept xếp em trái/anh phải để anh chắn Lộc; đây là bảng tạo hình, không buộc mọi góc trong phim đảo trục. Ở sơ đồ tiệm, Duy vẫn trái/Thảo phải gần cửa; diễn anh che theo vị trí Lộc thật.
 
-| Đạo cụ | Chuỗi trạng thái phải giữ | Mốc cần kiểm tra trong animatic |
+## 3. Đạo cụ và trạng thái
+
+| Vật | Chuỗi trạng thái | Kiểm tra |
 |---|---|---|
-| Máy mẹ | Vỡ, màn hình tắt trên khăn → Duy giữ cạnh → Thảo xoay khi Duy rút tay → Lộc nhấc sang bàn sửa → máy nguyên màn, sáng trở lại trên khăn → Duy mang về → bàn ăn → túi Duy khi ra ngoài | Ngón cái ngoài mép và ngón đỡ dưới vỏ; không luồn qua màn hình. Chạm mặt đỡ rồi mới rời tay; lúc nhấc bóng và lớp che đổi theo |
-| Ảnh | Ví Duy → góc trái khăn → Thảo đẩy trên mặt quầy về phía Duy → Duy cất ví trước ký | Ảnh luôn là giấy, không có mặt sau tự biến hình. Không dùng lại ảnh trên bàn sau khi đã cất |
-| Biên nhận | Lộc đẩy tờ trống và bút → Duy đặt bút xuống → Lộc kéo giấy về → đưa lại khi chọn chuyện mới → ghi sự kiện, đọc xác nhận, ký → quầy trước Duy → gấp trong ví → Duy mở ở nhà → cất lại | Không rách/xé biên nhận; ghi chữ ở lớp đồ họa riêng. Giữ nội dung sự kiện đã trả, không ghi tên ký ức đầu bị bỏ |
-| Bát | Hai bát úp ở tủ → Duy lấy từng bát đặt lên mặt bếp → chưa mang ra bàn → cất lại khi chị muốn ăn ngoài | Có cổ tay/cẳng tay, đỡ đáy; chỉ đổi lớp trước/sau tay tại chỗ nắm hợp lý. Tiếng sứ nhẹ, không tiếng vỡ |
+| Đồng hồ mép kệ | Thảo đưa tay tới → rút lại ở lời đầu | Đồng hồ không bay, không tự quay; nhiều đồng hồ đứng kim nên không lót tiếng tích tắc |
+| Máy mẹ | Túi vải → Duy đặt khăn → Lộc xoay rồi đẩy lại → vẫn trên khăn C2–C5 → bàn sửa → khăn, màn hình đã sửa → Duy mang tới cửa nhà → gọi dì → túi phải trước đi | Khi xoay, máy tì khăn; tay kia đã nhả. C6 Duy nhập mật mã trước tìm/phát. Không tự phát, không thêm lời mẹ mới |
+| Phong bì / tiền | Phong bì túi trái Duy → tiền trên quầy trái → hai tờ của Thảo góp riêng → Duy trả đúng em, gom phần mình vào phong bì → cất túi trái, giữ tới khi qua nhà dì | Giá 800.000đ, Duy 186.000đ, Thảo 20.000đ, tổng vẫn thiếu. Lộc không nhận cả tiền lẫn ký ức. Tiền giấy không chồng lên máy |
+| Ảnh ba mẹ con | Ví Duy → trái máy C2 → cất ví C5 trước ký → ở ví đến cuối | Ảnh giấy không lấy từ máy hỏng; không để lại trên quầy sau cất |
+| Giấy tự in hai liên / bút / bìa kê | Lộc đưa trống C2 → Duy cầm bút C3 rồi đặt, chưa ghi → C5 cất ảnh, kê bìa, ghi qua hai liên, đọc xác nhận, ký → C6 tách đường răng cưa có sẵn → liên dưới Duy đọc/gấp ví, liên trên Lộc giữ → mở ở nhà → ví | Không ký sự kiện bị bỏ, không ký giấy trắng. Chỉ có một tiếng tách giấy đúng C6; không tiếng xé trong hành động kéo/đặt giấy trước đó. Chữ quan trọng dựng riêng |
+| Túi vải đựng máy | Duy mang vào → đặt bên trái vùng tiền sau lấy máy → gấp cất túi trái cùng phong bì từ C2, giữ đến khi rời cửa nhà | Không dùng túi vải phụ nữ trưởng thành của bản cũ cho Thảo |
+| Máy / giấy tại cửa nhà | Duy giữ máy sau rời tiệm → nghe bố thì gọi dì bằng máy đã sửa → ngồi bậc cửa, giữ máy → giấy cất ví/máy vào túi trước rời khung | Không xuất hiện thêm điện thoại riêng; màn hình có cuộc gọi, không phát ghi âm cùng lúc. Giấy/ảnh không lại xuất hiện trên bàn ăn |
 
-## 4. Chỉ dẫn theo cảnh và cue lời
+Ví ở túi sau, phong bì và túi vải gấp ở túi trái, máy về túi phải khi rời khung. C2 thấy thao tác gấp/cất túi trước kéo ghế; không phát sinh vật đang cầm ở C7.
 
-Các cue dùng nguyên câu trong KICH-BAN. Không ấn định timecode trước khi có audio. Chia cảnh thành các đoạn hình theo cue; nếu lời dài hơn một nhịp giữ, quay lại góc đã có hoặc diễn tiếp, không thêm asset chỉ để tăng số lần cắt.
+Tay/vật được gắn cùng không gian; điểm tì và bóng đi cùng vật. Giữ tay trái Thảo ở vạt áo cho tới lúc có động tác buông; không vừa giữ áo vừa lấy tiền bằng chính tay đó. C7 em còn níu áo lúc dừng cửa; buông để nắm tay khi anh đã cất máy. Khi Duy ngồi thấp xuống phải đổi góc khuỷu/vai, không kéo em theo cả rig.
 
-### Cảnh 1 — Giá sửa
+## 4. Theo cue
 
-**C1-A · vào câu “Sửa bao nhiêu tiền hả chú?”**
-- Máy ở giữa phía khách, cách Duy khoảng 2,3 m, cao 1,25 m; toàn vừa ba người, 35 mm, nhìn ngang. Máy khóa; cả ba đọc được, nền dịu nhưng không xóa đồ đạc.
-- Duy trái, Thảo phải, Lộc giữa sâu hơn. Mép kệ trái là tiền cảnh, ba người/quầy là lớp hành động, bàn sửa là hậu cảnh. Duy nhìn Lộc, ngón tay phải tì cạnh máy; Thảo nhìn lối ra, không nhìn thẳng ống kính.
-- Tiếng quạt và xe xa đủ định vị. Chưa nhạc. Mở thẳng bằng câu hỏi; chèn định vị tiệm qua lời kể và hình.
+Lens full-frame tương đương; khoảng cách/góc khởi điểm mỹ thuật, chưa có quang học thực. Toàn tập roll 0°, rung 0 px / 0°. Chủ yếu máy khóa; C4-B chỉ trượt khi đã có nền phía sau sẽ lộ. Các cue là thiết lập có thể trở lại, không phải mỗi cue một still kéo dài cả đoạn.
 
-**C1-B · “Ông Lộc xoay chiếc điện thoại…”**
-- Insert 85 mm, máy phía khách cao 1,25 m, cách điện thoại khoảng 0,8 m, cúi khoảng 35°. Khóa máy, nét vết nứt và ngón tay; mép khăn rõ.
-- Lộc dùng hai ngón xoay máy nằm trên khăn, không nhấc. Tay Duy rút đủ khoảng trống. Sau xoay, đầu máy hướng về hai khách. Không lộ ảnh/biên nhận vì chưa lấy ra.
-- Giữ tiếng vỏ sượt khăn nhỏ nhưng rõ. Cắt về C1-A cho giá giao kèo, nhìn được miệng Lộc và phản ứng khách.
+### Cảnh 1 — Thiếu tiền
 
-**C1-C · “Duy nhìn chị. Thảo đã đứng dậy.”**
-- Trung Thảo và Duy ở rìa trái, 50 mm; máy phía khách hơi lệch trái, cách Thảo khoảng 2,2 m, cao 1,45 m. Thảo đứng có đủ headroom ngay từ khung đầu. Trượt sang phải khoảng 8 cm trong 5 giây rồi dừng; không pan giật theo đầu.
-- Vai Duy tiền cảnh mềm, Thảo giữa, khung cửa xa. Tay phải chị tì ghế rồi rời; chân chịu lực trước khi hông đứng lên. Duy giữ cạnh máy trên khăn, không giằng trong không khí. Thảo dừng trước khi ra cửa.
-- Ghế cọ nền có sức nặng, xe ngoài hẻm vẫn xa. Sau đoạn kể về mẹ, giữ đúng 2 giây nghỉ của kịch bản; tay Duy còn trên máy.
+Bối cảnh/đường đi: 19 giờ, tiệm cuối hẻm cách nhà ba căn. Duy đứng trái sát phía Lộc hơn; Thảo phải gần lối ra, nép sau vai anh. Ngoài cửa vẫn có ánh hàng tạp hóa. Lộc đầu tiên ở bàn sửa phía sau rồi bước tới quầy. Máy trong túi vải, tiền trong phong bì túi trái. Cửa không khóa.
 
-### Cảnh 2 — Chuyện không tính bằng tiền
+**C1-A · Toàn vừa từ phía khách, ngang mắt Thảo**
+- 35 mm; cao 1,15 m; cả ba đọc được. Khoảng cách quy ước 2,7 m tới quầy.
+- Khóa; kệ gần, trẻ/quầy giữa, bàn sửa xa; Duy giữ em phía ít tiếp xúc Lộc hơn. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C2-A · đầu cảnh tới lời nói máy bị rơi**
-- Dùng lại vùng C1-A, 35 mm, cao 1,25 m. Thảo kéo ghế về chỗ cũ rồi ngồi; thấy chân ghế chạm sàn. Không đổi ghế sang bên kia quầy.
-- Chị giữ túi trên đùi, mắt rời vết nứt trước chữ “Ừ”. Duy nghiêng đầu hỏi, chưa kết tội. Cơ thể Thảo gợi khó nói nhưng không diễn như bị bắt quả tang.
-- Quạt liên tục; tiếng vải túi và chân ghế ngắn, không chèn nhạc báo nói dối.
+**C1-B · Cận ông Lộc nhìn qua kính**
+- 70 mm; cao 1,2 m; hướng lên nhẹ 7°. Khoảng cách quy ước 3,2 m tới mặt Lộc ở bàn sau.
+- Mắt nhìn lên trước khi rời bàn sửa; mặt lạnh giữ nguyên thiết kế đã được chủ repo chốt. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C2-B · “Ông Lộc đẩy ra một tờ giấy” / lấy ảnh từ ví**
-- Insert mặt quầy, 65 mm, cao 1,4 m, cách cụm đạo cụ khoảng 1 m, cúi 40°. Khóa, cả ảnh–máy–giấy đủ nét. Bút nằm trên giấy khi Lộc đẩy; Duy dùng tay trái lấy ví, phải lấy ảnh.
-- Ảnh hạ tới quầy rồi ngón tay mới rời; ví đóng và trở lại túi trái. Giấy ở vùng riêng không chồng lên máy. Mặt ảnh nhìn về Duy, bố cục đủ nhận ra ba mẹ con, không cần đọc chữ.
-- Tiếng giấy/da ví có chất liệu. Trở C2-A cho luật và câu trả góp; giữ 1 giây vẻ cười tắt dần, không thêm tiếng cười ngoài cảnh.
+**C1-C · Insert tiền, túi vải và máy**
+- 65 mm; cao 1,35 m; cúi 40°. Khoảng cách quy ước 0,9 m tới máy/tiền.
+- Duy mở túi, hạ máy lên khăn; phong bì mở, tiền đặt riêng bên trái. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-### Cảnh 3 — Một ký ức dễ bỏ
+**C1-D · Trung đôi anh em, cửa mở ở rìa phải**
+- 50 mm; cao 1,2 m; hai mặt rõ. Khoảng cách quy ước 2,1 m tới trẻ.
+- Duy căng vai cố vững; Thảo níu áo tìm an tâm, không nụ cười tạo dáng. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C3-A · “Cháu chọn cuộc gọi hồi tháng tám…”**
-- Cận vừa Duy, 70 mm; máy phía khách hơi lệch phải, cao 1,2 m, cách khoảng 2 m. Vai Thảo mềm ở phải tiền cảnh; Duy nét, Lộc ngoài khung nhưng vẫn ở vị trí đã biết.
-- Duy cầm bút tay phải, xoay nhẹ giữa ngón; thân còn hướng về quầy. Đến “Em đã xin lỗi rồi”, mắt quay nhanh sang chị, giọng phòng thủ. Không rung máy để thay diễn xuất.
-- Nhạc căng nhẹ M1 có thể vào dưới cuộc cãi; giảm nếu che phụ âm. Không dùng tiếng tim đập.
+### Cảnh 2 — Cái giá khác
 
-**C3-B · “Hôm em hỏi chị có lấy tiền mẹ không?”**
-- Cận vừa Thảo, 70 mm; máy phía khách hơi lệch trái, cao 1,2 m, cách khoảng 2 m. Vai Duy ở trái; cùng phía trục như C3-A. Khóa máy, mắt Thảo rõ, bàn tay siết quai vẫn nhìn được.
-- Chị trả lời chậm hơn em, nhìn thẳng ở “Còn chị vẫn nhớ”. Không khóc thành tiếng; hàm căng rồi thở ra. Có thể cắt qua lại A/B theo thay đổi ý, không cắt bắt buộc mỗi câu.
-- M1 rút trước câu “Còn chị vẫn nhớ”; tiếng quạt còn. Câu nói không bị hit nhạc đánh dấu.
+Bối cảnh/đường đi: Liên tục. Duy trả đúng hai tờ em góp, cất phong bì, kéo ghế cho em rồi ngồi trái; Thảo ghế phải có bậc chân. Lộc sau quầy. Máy trên khăn; ảnh được lấy từ ví đặt trái máy, giấy hai liên tự in và bút bên phải. Chưa ký.
 
-**C3-C · “Duy đặt bút xuống” và ông Lộc lấy lại giấy**
-- Dùng góc mặt quầy C2-B, 65 mm. Duy đặt bút lên quầy bên trái giấy, thả tay; sau đó Lộc mới kéo giấy bằng tay phải. Không để bút bám giấy đang trượt.
-- Tiếng bút chạm gỗ, rồi tiếng giấy kéo là hai việc riêng, không dùng tiếng xé. Quay lại C3-A cho 2 giây nghỉ: mắt Duy nhìn khoảng giấy vừa trống, tay đứng yên.
+**C2-A · Trung Lộc qua vai Duy**
+- 65 mm; cao 1,25 m; mắt Lộc rõ trong bóng. Khoảng cách quy ước 2 m tới Lộc ở quầy.
+- Giữ lâu hơn nhịp đáp thường; không cười, không nhạc phép. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-### Cảnh 4 — Vết nứt
+**C2-B · Khung chung hai trẻ ngồi và Lộc đứng**
+- 35 mm; cao 1,15 m; nét đủ. Khoảng cách quy ước 2,7 m tới quầy.
+- Thấy Duy trả tiền em, cất phong bì; Lộc để đường rút máy thông thoáng. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C4-A · “Thảo xoay chiếc máy…” / “Chị không làm rơi.”**
-- Cận chéo mặt quầy 65 mm, cao 1,05 m, cách tay khoảng 1 m. Máy nhìn từ phía khách, tay Thảo gần và mặt Duy xa cùng khung. Chuẩn bị hình góc này, không kéo biến dạng góc trên xuống.
-- Thảo xoay bằng hai ngón khi Duy đã nhả cạnh máy; thiết bị nằm trên khăn. Nét tay/vết nứt đầu shot, chuyển sang mắt Duy trong khoảng 1,2 giây sau lời thú nhận. Không coi đây là hai mặt phẳng thật trong engine trước khi dựng.
-- Xe đi ngang ngoài cửa thoáng rõ rồi xa dần, kết thúc trước câu thú nhận; không làm mất chữ. Móng chạm vỏ máy nhẹ; không có tiếng đập hồi tưởng.
+**C2-C · Insert hai liên giấy và ảnh**
+- 65 mm; cao 1,35 m; cúi 40°. Khoảng cách quy ước 0,95 m tới giấy.
+- Giấy phải, máy giữa, ảnh trái; bút nằm sẵn trên giấy. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C4-B · phần đối đáp về mẹ đến hết cảnh**
-- Trung đôi, 50 mm, máy phía khách cao 1,2 m, cách hai người khoảng 2,3 m. Cả hai cùng vùng nét, Lộc ở ngoài khung. Trượt ngang phải khoảng 10 cm trong 7 giây đầu rồi khóa; không zoom toàn ảnh thay parallax.
-- Mép kệ trái tiền cảnh lùi khỏi khuôn mặt Duy. Thảo rút tay về túi, vai không đổ gục. Duy hơi mở miệng ở câu về mẹ nhưng ngậm lại; sau đó nhìn chị, không nhìn xuống máy nữa.
-- Giữ lời và quạt, không nhạc khóc. 4 giây nghỉ có nhịp thở và ánh mắt, không cắt né phản ứng.
+### Cảnh 3 — Chuyện anh muốn quên
 
-### Cảnh 5 — Điều đáng giữ
+Bối cảnh/đường đi: Hai trẻ giữ chỗ. Duy cầm bút nhưng chưa viết. Bố chỉ được kể trong sự kiện quá khứ: không dựng hồi tưởng, không thêm cảnh hoặc giọng bố ở đây. Lộc vẫn đứng sau quầy; không diễn thành người hòa giải.
 
-**C5-A · Duy đổi lựa chọn và kể cuộc gọi vui**
-- Trung đôi từ C4-B, 50 mm, khóa máy. Duy nhấc nhẹ ghế rồi dịch về phía chị khoảng 10 cm khi chị còn ngồi; giữ chân và ghế không trượt xuyên nhau. Chưa chạm người chị.
-- Duy cười thật một nhịp khi kể camera; Thảo nhìn em rồi cười rất nhỏ trước khi nghiêm lại. Chị mở bàn tay đang siết quai; không lập tức hòa giải.
-- Quạt, tiếng ghế ngắn. Không dựng hình cuộc gọi quá khứ. Có thể dùng cận C3-A/B để đọc phản ứng mà không tạo set mới.
+**C3-A · Cận vừa Duy, vai em mềm bên phải**
+- 70 mm; cao 1,2 m; mắt rõ. Khoảng cách quy ước 1,9 m tới Duy.
+- Hàm siết, giọng cố chắc, tay run nhẹ; không khóc lộ ngay hoặc mặt dữ như bố. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C5-B · câu hỏi về cái giá / nghỉ 3 giây / đưa ảnh lại**
-- Insert 65 mm theo C2-B: ảnh, tay Duy và khoảng quầy trước mặt cậu đang thiếu tờ giấy. Biên nhận vẫn ở phía Lộc, chỉ được đưa lại ở C5-C. Trở C5-A khi Duy đáp; không giữ mỗi ảnh suốt đoạn thoại.
-- Trong nghỉ, tay Duy dừng cạnh ảnh, chưa cầm bút. Thảo đẩy ảnh bằng đầu ngón trên mặt quầy; Duy đón và cất vào ví. Điện thoại còn trên khăn, không bị tay quét qua.
-- Tiếng giấy trượt khác tiếng vải túi. M1 đã tắt; lựa chọn không được nâng bằng một cú dâng nhạc.
+**C3-B · Cận vừa Thảo nhìn anh**
+- 70 mm; cao 1,05 m; ngang mặt em. Khoảng cách quy ước 1,8 m tới em.
+- Nói nỗi sợ và muốn được ôm, không giảng về sự trưởng thành. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C5-C · xác nhận sự kiện và ký**
-- Cận mặt quầy 85 mm, cao 1,35 m, cách giấy khoảng 0,9 m, cúi 40°. Chữ dựng riêng: “Lần đầu mẹ gọi video bằng chiếc máy này, tối Duy khoe phòng trọ riêng.” Không thêm mốc ngày chưa xác lập.
-- Duy ghi sự kiện, Lộc đọc lại; Duy nhìn chị rồi gật. Tay trái giữ mép giấy, tay phải ký; sau ký đặt bút xuống. Trở khung chung cho câu hỏi xác nhận cuối, rồi mới chuyển sang bàn sửa.
-- Giấy, nét bút rõ vừa đủ. Không ký vào tờ giấy trắng hoặc viết sự kiện cũ bị bỏ. Không dùng tiếng xé để nhấn giao kèo.
+**C3-C · Insert bút đặt xuống, Lộc chặn giấy bằng đầu ngón**
+- 65 mm; góc C2-C. Khoảng cách quy ước 0,95 m tới giấy.
+- Bút rời tay trước; giấy vẫn trống, không ký; tiếng chạm gỗ riêng. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-### Cảnh 6 — Máy sáng
+### Cảnh 4 — Chiếc máy không tự rơi
 
-**C6-A · chuyển thời gian sửa và máy trở lại quầy**
-- Trung/cận bàn sửa từ lối bên phải quầy, 50 mm, máy cao 1,4 m, cách Lộc khoảng 1,8 m. Đây là góc mới được xác lập bằng động tác ông quay về bàn, không làm hai khách đổi chỗ.
-- Lộc cầm máy bằng hai tay, đỡ đáy; match cut cùng vị trí tay/khăn trước và sau khoảng sửa. Không trình bày thao tác sửa điện tử làm hướng dẫn thật. Sau đó thấy ông mang máy lại quầy, hạ lên khăn rồi thả.
-- Foley nhựa/dụng cụ nhỏ, quạt làm cầu nối thời gian; không tiếng phép thuật. Màn hình chỉ sáng sau sửa, vết nứt đã hết; giữ cùng màu vỏ và hình dáng.
+Bối cảnh/đường đi: Thảo đưa tay phải lên xoay máy sau khi Duy đã nhả cạnh vỏ. Máy còn trên khăn. Duy dịch ghế gần em khoảng 10 cm, tay phải chạm vai trái em sau khi em níu tay áo bằng tay trái; phải kiểm tra hướng nắm ở góc chính, không bám cứng thứ tự trái/phải màn hình.
 
-**C6-B · Thảo hỏi camera, Duy không nhớ sự kiện**
-- Trung đôi 50 mm, cao 1,2 m, vị trí C4-B đã khóa. Nét cả hai. Duy nhìn chị, chớp mắt, chờ tìm lại điều vừa kể; không diễn như quên chị hoặc mọi cuộc gọi với mẹ.
-- Thảo siết mép ghế bằng tay trái. Lộc xoay biên nhận cho Duy; cắt insert C5-C nếu cần đọc chữ rồi trở lại mặt Duy.
-- Không nhạc, nghe một nhịp hít vào. Sự mất mát nằm trong phản ứng, không dùng màn hình nhiễu làm bằng chứng duy nhất.
+**C4-A · Tay Thảo gần, mặt Duy xa cùng khung**
+- 65 mm; cao 1 m; chuyển nét tay → mặt Duy. Khoảng cách quy ước 0,9 m tới tay.
+- Khoảng 1,2 giây chuyển sau câu thú nhận; máy không nhấc khỏi khăn. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C6-C · “Duy bấm nghe.”**
-- Insert 85 mm, cao 1,2 m, cách máy khoảng 0,8 m, cúi 35°. Máy nằm trên khăn, tay trái Duy giữ mép vỏ, ngón trỏ phải bấm nút phát rồi nhấc ra. Giao diện ghi âm tối giản, không thêm lời nhắn mới.
-- Nét màn hình và ngón tay. Dùng hình đồ họa riêng cho giao diện; âm mẹ xuất phát từ máy trên quầy, hẹp vừa phải nhưng lời đủ rõ. Không phát đồng thời bản giọng mẹ thứ hai từ narrator.
+**C4-B · Trung đôi, anh hạ người về em**
+- 50 mm; cao 1,15 m; cả hai rõ. Khoảng cách quy ước 2,1 m tới trẻ.
+- Dịch ghế 10 cm rồi tay chạm vai; máy trượt 8 cm/6 giây nếu animatic đủ lớp, sau đó khóa. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C6-D · từ “mẹ bảo chị nấu…” tới hết cảnh**
-- Trở C6-B, 50 mm, không đổi trục. Ban đầu Duy nhìn máy; đến câu mẹ nhắc chị nấu, mắt cậu chuyển sang Thảo. Chị không nhìn lại ngay. Không cắt ở mỗi từ của lời mẹ.
-- Sau “Hết”, giữ 4 giây nghỉ. Sau lời “Mẹ lại bảo chị nấu” và “Ừ”, giữ 4 giây thứ hai với hành động khác: Duy rút ngón tay khỏi nút phát lại, quay thân về chị. Màn hình có thể vẫn sáng; không tự phát lại.
-- Quạt giữ liên tục. M2 chưa vào dưới hai khoảng nghỉ này. Sau cảnh, Duy gấp biên nhận vào ví và mang máy về; chuyển địa điểm bằng cut, không cần dựng cảnh đi đường.
+### Cảnh 5 — Một buổi tối không còn
 
-### Cảnh 7 — Người còn ở đây
+Bối cảnh/đường đi: Duy giữ ảnh còn trên quầy đến lúc chọn xong; buổi tối được đổi là sinh nhật 16, mẹ ôm Duy rồi chụp ba người bằng chiếc máy. Thảo đề nghị dừng hoặc trả thay; Duy xác nhận tự chọn. Cất ảnh vào ví trước ký. Thảo buông tay trước khi Duy lấy bút: phải ghi, trái giữ giấy. Giấy hai liên tự in có bìa kê, chữ lớp riêng. Không dựng quá khứ.
 
-**C7-A · vào nhà và câu giữ máy chung**
-- Toàn nhỏ 28 mm từ cửa nhìn vào, cao 1,45 m, máy tĩnh; nét đủ bàn may trái, bàn ăn giữa và cửa bếp sâu. Tiền cảnh mép cửa; diễn xuất giữa; bếp/bàn thờ xa.
-- Thảo treo túi/khóa rồi đi bếp. Duy đặt điện thoại màn hình lên trên bàn ăn, ngồi ghế trái và lấy biên nhận từ ví ra. Giữ ánh mắt Thảo thấy chiếc máy khi quay lại.
-- Tiếng hẻm ngoài cửa nhỏ hơn ở tiệm, tủ bếp mở nghe gần. Không tiếng máy may vì máy đang tắt. Cắt ambience theo địa điểm bằng nối mềm, không mang quạt tiệm sang nhà.
+**C5-A · Trung đôi, Lộc sâu rìa trái**
+- 50 mm; cao 1,15 m; hai mặt rõ. Khoảng cách quy ước 2,1 m tới trẻ.
+- Duy nhắc vòng tay mẹ rồi nuốt nghẹn; em xin dừng, hy sinh phải là lựa chọn thật. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C7-B · lời nhận lỗi của hai người**
-- Trung đôi 50 mm từ phía cửa, cao 1,2 m, cách bàn khoảng 2,4 m; Duy trái, Thảo phải. Ban đầu Thảo ở ngưỡng bếp, sau đó bước tới ghế phải và ngồi trong cùng hướng không gian.
-- Duy để hai tay mở trên bàn, không nắm tay chị thay lời xin lỗi. Thảo giữ lưng thẳng lúc nói “Vì có sao thật”, rồi mới tựa nhẹ; Duy nhận câu đó mà không phản bác.
-- Nét đủ hai người, điện thoại ở thấp mép khung. Chưa nhạc. Cho tiếng ghế và hơi thở hiện ra trong các khoảng câu.
+**C5-B · Insert ảnh rồi trở hai mặt**
+- 65 mm; góc C2-C. Khoảng cách quy ước 0,95 m tới ảnh.
+- Giữ 3 giây lựa chọn; Duy cất ảnh rồi mới cầm bút. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C7-C · lấy bát rồi hỏi chị muốn ăn gì**
-- Cận vừa ngang mặt bếp 50 mm, máy ở lối vào bếp cao 1,25 m, cách Duy khoảng 1,6 m, hướng 3/4 để thấy mặt và hai tay. Đây là hình góc mới của bếp, không kéo crop toàn cảnh thành mặt bên.
-- Duy đứng dậy từ bàn, đến tủ; lấy từng bát úp đặt lên mặt bếp, chưa mang đi. Đầu cậu quay về chị khi hỏi; tay dừng thật. Cắt C7-B để thấy chị bỏ câu trả lời theo thói quen, rồi về C7-C khi Duy cất lại hai bát.
-- Tiếng sứ đặt chạm mặt bếp nghe rõ nhưng nhỏ, không tiếng vỡ. Khóa âm chạm theo từng bát. Không cần thêm tiếng xé/rách vào tập khi không có hành động ấy.
+**C5-C · Cận giấy ghi sự kiện và ký**
+- 85 mm; cao 1,3 m; cúi 40°. Khoảng cách quy ước 0,9 m tới giấy.
+- Chữ riêng: tối sinh nhật 16, mẹ ôm rồi chụp ba người bằng máy này; đọc trước ký. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-**C7-D · Duy trở lại ghế, hỏi chuyện camera**
-- Dùng C7-B, 50 mm, cao 1,2 m. Duy đã cất bát, bước về và ngồi rồi mới nhìn biên nhận. Tránh lỗi đang đứng trước tủ mà lời kể lại nói “trước khi đứng lên”.
-- Thảo kể chuyện, Duy cười nhẹ nhưng mắt vẫn có khoảng trống. Tờ giấy không sáng, không hiện hình quá khứ. Cậu biết câu chuyện qua lời chị, không phục hồi ký ức.
-- M2 có thể vào rất nhẹ sau khi chị chủ động chọn ăn ngoài, nghe được nhưng không báo “đã chữa lành”. Không dùng nhạc chiến thắng.
+### Cảnh 6 — Nghe được, mất đi
 
-**C7-E · cất đồ và ra cửa**
-- Trở toàn C7-A rồi cắt khung bếp tĩnh 35 mm từ phòng trước, cao 1,35 m. Hai vị trí được chuẩn bị từ cùng set, không di chuyển máy xuyên tường.
-- Thảo đứng lấy khóa, đi trước. Duy gấp giấy cất cạnh ảnh trong ví, bỏ máy vào túi phải, đến công tắc tắt đèn bếp rồi theo chị. Tay chạm công tắc trước khi đèn tắt; đèn bàn thờ riêng còn sáng. Chân ra khỏi khung, không biến mất bằng dissolve.
-- Chìa khóa, công tắc, bước chân rồi âm hẻm ở cửa. M2 rút dần; giữ 4 giây cuối bằng căn bếp tối và tiếng bước xa. Không tiếng gọi của mẹ, không đèn nhấp nháy.
+Bối cảnh/đường đi: Lộc sửa tại bàn sau trong tầm nhìn trẻ, bỏ qua quy trình thật bằng cut. Máy hết nứt, sáng, trả lên khăn. Sau kiểm tra trí nhớ ông tách đường răng cưa, giữ liên trên/đưa liên dưới Duy. Duy nhập mật mã, đặt máy giữa hai trẻ và nghiêng phần loa về em trước phát. Cất giấy vào ví, mang túi/máy rời tiệm.
 
-## 5. Nhạc và cue âm cần chọn
+**C6-A · Trung bàn sửa, tay Lộc và máy**
+- 50 mm; cao 1,35 m; mặt bán sáng bán tối. Khoảng cách quy ước 1,8 m tới Lộc.
+- Match cut thời gian; hạ máy lên khăn mới thả; không khói phép. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
 
-| Mã | Chức năng / đoạn dùng | Yêu cầu chọn và phối |
+**C6-B · Trung hai trẻ, phản ứng rồi insert giấy dùng lại**
+- 50 mm; cao 1,15 m; nét hai mặt. Khoảng cách quy ước 2,1 m tới trẻ.
+- Thảo hỏi; Duy tìm ký ức không có; Lộc tách hai liên giấy. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
+
+**C6-C · Insert phát ghi âm rồi trở C6-B**
+- 85 mm; cao 1,2 m; cúi 35°. Khoảng cách quy ước 0,85 m tới máy.
+- Máy trên khăn, ngón phải bấm rồi nhấc; lời mẹ có nguồn từ loa máy. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
+
+### Cảnh 7 — Không phải gồng một mình
+
+Bối cảnh/đường đi: Ít phút sau, tại cửa nhà gia đình. Máy quay từ gần cửa nhìn vào: bàn may cũ mẹ trái, bàn ăn giữa, bàn thờ phải; bố ở phòng sau khuất vách, chỉ âm chai/càm ràm không rõ chữ. Không cho hai trẻ bước vào. Duy giữ máy gọi dì ở đầu hẻm rồi ngồi bậc cửa ngang em. Cuối cảnh giấy ở ví, máy vào túi, hai trẻ nắm tay rời khung về phía nhà dì; không dựng nội thất nhà dì.
+
+**C7-A · Toàn từ gần cửa thấy phần nhà và hai trẻ ở ngưỡng**
+- 28 mm; cao 1,2 m; cửa–trẻ–vách phòng sau rõ. Khoảng cách quy ước 2,5 m tới ngưỡng cửa.
+- Máy khóa; bố ngoài khung; chai lăn thật qua âm, trẻ dừng trước bước vào. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
+
+**C7-B · Trung Duy chắn trước em rồi gọi dì**
+- 50 mm; cao 1,2 m; nét Duy và tay em. Khoảng cách quy ước 2 m tới Duy.
+- Điện thoại cùng mẫu mẹ đã sửa; giữ em cạnh cửa, không vào đối đầu bố. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
+
+**C7-C · Trung đôi Duy ngồi bậc cửa ngang em**
+- 50 mm; cao 0,95 m; mặt hai trẻ cùng vùng nét. Khoảng cách quy ước 1,6 m tới trẻ ở bậc.
+- Hạ thân ngồi thật rồi lau mặt; em chạm vai, không kéo mặt người khác bằng rig. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
+
+**C7-D · Toàn ngưỡng cửa khi nắm tay rời khung**
+- 35 mm; cao 1,15 m; hướng đèn đầu hẻm được xác lập. Khoảng cách quy ước 2,5 m tới ngưỡng cửa.
+- Cất giấy/máy trước đi; lùi âm bố theo khoảng cách, không giải quyết rượu chè bằng nhạc. Giữ người/vật chính nét; nền dịu có mức, không che mắt và điểm nắm.
+- Giữ phía khách hoặc phía ngoài cửa đã xác lập; cảnh dài quay lại khung chung/cận cùng trục theo cue lời, không thêm góc cho mỗi câu.
+
+## 5. Âm thanh theo vai trò
+
+| Mã | Vai trò | Trạng thái / điều cần giữ |
 |---|---|---|
-| AM-TIEM | C1–C6, quạt cũ + hẻm xa | Loop không nghe điểm nối; đồng hồ chết không kêu. Xe đi ngang C4 rõ hơn xe xa, không đè câu thú nhận |
-| FX-GHE | Đứng, ngồi, dịch ghế | Phù hợp chân ghế/nền gạch; âm chỉ khi chân thực sự cọ, không lúc nhân vật đứng im |
-| FX-GIAY | Ảnh, biên nhận, ví | Phân biệt giấy trượt, giấy gấp và ví; không dùng tiếng giấy rách |
-| FX-MAY | Máy trượt khăn, đặt quầy, chạm nút | Nhựa/vải/mặt gỗ rõ vừa phải; không click lớn cho màn hình cảm ứng |
-| VO-ME | C6, ghi âm cũ | Giọng bình thường; xử lý chất loa điện thoại vẫn hiểu lời. Chưa chọn voice/model hoặc tạo audio |
-| AM-NHA | C7, phòng nhỏ + hẻm ngoài cửa | Yên hơn tiệm, thay đổi khi cửa mở; không tạo tiếng máy may tự chạy |
-| FX-BAT-KHOA | C7, bát, khóa, công tắc | Bát nhẹ có hai lần đặt/cất theo hình; công tắc đơn, không hiệu ứng điện ma quái |
-| M1 | C3, sức ép tăng | Nhạc không lời thưa, không sting cho mỗi câu; rút trước câu cuối của Thảo. Có thể bỏ nếu quạt và thoại đã đủ |
-| M2 | Cuối C7, một bước gần nhau | Nhạc không lời ấm nhưng chưa giải tỏa hoàn toàn; không phủ lời mẹ ở C6 hoặc kéo mất khoảng lặng cuối |
+| AM-TIEM | Quạt/phòng, xe hẻm xa C1–C6 | Chưa chọn; dụng cụ dừng vẫn còn quạt, đồng hồ đứng kim không có tích tắc |
+| FX-DUNGCU / FX-TIEN | Đặt tua vít, tiền và phong bì/túi | Chưa chọn; rõ sức nặng/chất liệu, tiền giấy không tiếng xu; không âm dao hù |
+| FX-GHE-AO | Kéo/dịch ghế, níu áo, tay chạm vai | Chưa chọn; ghế chạm sàn, tiếng vải nhỏ nhưng rõ đúng cử động |
+| FX-GIAY | Ảnh/ví/bút/giấy hai liên | Chưa chọn; phân biệt trượt/gấp và tách đường răng cưa C6, không tiếng xé trong kéo giấy |
+| FX-MAY / VO-ME | Máy trên khăn, phát bản ghi mẹ C6 | Chưa tạo; mẹ bình thường, âm có nguồn từ máy, không thêm tiếng từ bàn thờ |
+| AM-NHA / FX-BO | Phòng sau: chai lăn, giọng bố càm ràm không rõ chữ | Chưa tạo/chọn; gần hơn và nặng hơn ambience để trẻ có phản ứng, chưa thoại bố riêng. Không tiếng chai vỡ nếu không có hành động vỡ; nguồn ở sau vách, không nhảy qua hai bên stereo |
+| FX-GOI-DI | Cuộc gọi dì từ máy mẹ ở C7 | Chưa tạo; có thể không cần âm chuông nếu lời/hình đủ; không tự sinh voice dì, người kể thuật kết quả |
+| M1 / M2 | Áp lực thưa và chút ấm cuối | Chưa chọn; M1 rút trước câu em nói sợ anh; M2 chỉ sau xác nhận có chỗ qua ngủ, không che lời xin lỗi hoặc làm bố biến mất bằng nhạc |
 
-Ưu tiên thư viện có sẵn/nguồn miễn phí phù hợp; chưa chọn file hay xác minh giấy phép cho các cue trên. Ghi nguồn, quyền dùng và mức nghe đã duyệt vào ASSET khi thực hiện. Không áp gain cố định; nghe bản mix xuất ở mức nghe ổn định trên tai nghe và loa thông thường.
+Giọng Duy ban đầu chắc/hơi cụt, cố kìm; không hạ giọng như người đàn ông 30. Giọng em đúng tuổi, nói rõ; Lộc thấp/rành, không quái vật. Ưu tiên âm miễn phí/thư viện có quyền rõ, chưa nghe mix/đo gain. Tiếng bố/va chạm giữ đúng quy mô, có ngữ cảnh và khoảng phản ứng, không chỉ làm nền bé. Khi trẻ đi xa, giảm âm theo khoảng cách/vật cản chứ không tắt đột ngột.
 
-## 6. Duyệt storyboard rồi animatic
+## 6. Storyboard rồi animatic
 
-Storyboard: kiểm tra sơ đồ hai phòng, ánh mắt đúng trục, các điểm đứng/ngồi, tay gần/xa, vị trí máy và vùng nền sẽ lộ. Đặc biệt C1-C phải đủ khung cho Thảo đứng; C4-A có tay và mặt ở hai lớp; C7-C phải có góc bếp phù hợp.
+Storyboard duyệt nét mặt/đồ cũ vừa phải của trẻ; mặt Lộc giữ mẫu chốt. Soi ghế có bậc, tầm với, cửa mở, trục nhìn và tay/vật. Cảnh nhà chỉ tới ngưỡng, không quay lại chuỗi lấy bát của bản trước; bố khuất phòng sau, dì tại đầu hẻm, không nhầm cùng một người/vị trí.
 
-Animatic: cho chạy thật động tác xoay máy, kéo giấy sau khi đặt bút, chuyển ảnh vào ví, ký, mang máy từ bàn sửa, lấy/cất bát và tắt đèn. Kiểm tra tiếp xúc, che khuất, thứ tự tay–vật và nhịp nghỉ; không chỉ pan/zoom tranh tĩnh. Ráp cả mạch với giọng/âm tạm để nghe được hai khoảng yên khác nhau ở C6. Chưa cần gọi dịch vụ trả phí chỉ để duyệt.
-
-Nếu shot dài hơn nhịp diễn hợp lý, dùng lại cận/phản ứng cùng trục hoặc rút lời lặp trước khi thêm bối cảnh. Ghi frame/timecode lỗi trong GHI-CHU khi có bản thật. Không ghi đã duyệt từ văn bản này.
+Animatic chạy thật rút tay khỏi đồng hồ, anh che em, níu áo, tiền, ghế, ảnh, ký/tách giấy, máy và cuộc gọi, ngồi bậc/lau mặt, cất đồ/nắm tay/rời khung. Dùng âm/đọc tạm để kiểm tra sự gồng rồi nghẹn và nhịp em tìm an tâm. Pan ảnh tĩnh hoặc ảnh đầu–cuối không thay bước này. Sau giọng thật cập nhật mốc, chưa gọi dịch vụ giọng trả phí chỉ để duyệt hình.
