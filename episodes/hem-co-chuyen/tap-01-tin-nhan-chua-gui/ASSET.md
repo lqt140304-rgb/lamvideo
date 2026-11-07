@@ -1,4 +1,4 @@
-# Asset — Tin nhắn chưa gửi, bản 8
+# Asset — Tin nhắn chưa gửi, bản 9
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
@@ -89,6 +89,10 @@ Bản 7 đổi chữ G1 sang buổi tranh xe đồ chơi rồi được mẹ d�
 Kịch bản bản 8 bổ sung 16:9 cho thực tại, 2:1 cho C6–C7 và đoạn rung/nghiêng ngắn C5-C; chưa triển khai các chỉ dẫn này vào mã thử. Cần bố cục lại trong vùng hình, chừa nền theo góc xoay cực hạn và kiểm tra tiếp xúc. Không cần tạo thêm nhân vật/bối cảnh chỉ để đổi tỉ lệ hoặc rung; không hoàn thiện lại ngõ, tạo giọng hay xuất phim trong lượt sửa tài liệu này.
 
 Nhận tiếp `279dae2` trong lúc bàn giao tài liệu: thu hẹp ngõ, bổ sung thùng rác xanh, ruồi và xe đạp có lớp/khối; cập nhật ba ảnh mở đầu và bản sao public. Giữ bản ngõ này khi ráp C0, không kéo dãn chiều ngang ngõ để khớp tỉ lệ xuất. Việc nhận cập nhật không xác nhận cảnh đã chạy cùng camera/lời bản 8. Các sửa đổi mã/asset khác còn đang làm local thuộc công việc riêng, không nằm trong commit tài liệu này.
+
+## Âm thanh bản 9 — nguồn sơ tuyển, chưa nhập media
+
+Đã bổ sung thiết kế nền/nhạc không lời và âm chi tiết theo 35 cue trong KICH-BAN/DUNG-CANH. [NGUON-AM-THANH.md](NGUON-AM-THANH.md) lưu các ứng viên có tên/tác giả, URL và giấy phép đã đọc ngày 08/11/2026; chưa nghe/tải/đo/ráp hoặc chốt file. Ưu tiên Audio Library khi cần tránh Content ID trên YouTube; Mixkit cho ghép vào video theo giấy phép nhưng không bảo đảm không claim nhầm. Không đưa file rời Mixkit lên Git hoặc kèm source files. Quạt/phòng chưa có file phù hợp được chốt; tiếng môi/hơi thở lấy đúng vai và ghế/giấy/chai đúng động tác khi sản xuất. Không ticking cho kệ đồng hồ đứng kim. Mã/voice/timeline/mix chưa được cập nhật theo chỉ dẫn âm mới.
 
 ## Cập nhật rig/VFX và cánh đồng — 08/11/2026
 

@@ -781,7 +781,7 @@ export const OpeningC0Sheet: React.FC = () => (
           </g>
         </g>
         <text x={260} y={316} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={13.5} fill="#FFE8A8">
-          C0-C · ANIMAL-CU ĐẶC TẢ 85MM (Mắt cú phản chiếu đèn đường vàng ấm)
+          C0-C · ANIMAL-CU ĐẶC TẢ 85MM (Mắt cú sắc nét, phản chiếu ánh vàng tiệm ông Lộc)
         </text>
       </g>
     </svg>
