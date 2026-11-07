@@ -705,9 +705,15 @@ export const OpeningC0Sheet: React.FC = () => (
       {/* Main Background: `AlleyExteriorScene` (`SET-HEM-EXT` + `PerchingOwl` + `PasserbyShadow`) */}
       <AlleyExteriorScene t={24} showOwl showPassersby />
 
+      {/* Soft diffused contact shadows on asphalt beneath Duy & Thảo */}
+      <ellipse cx={1255} cy={927} rx={50} ry={13} fill="#05070E" opacity={0.72} filter="url(#softShadowBlur)" />
+      <ellipse cx={1115} cy={947} rx={40} ry={11} fill="#05070E" opacity={0.68} filter="url(#softShadowBlur)" />
+
       {/* Duy (16yo) & Thảo (8yo) stopping before Ông Lộc's shop entrance (`C0-E` / `C0-F`) */}
       <Hero
         look={LOOKS.duy}
+        rimId="rimShopWarm"
+        shadow={0.35}
         pose={standPose(1255, 925, 0.88, {
           t: 24,
           seed: 1,
@@ -719,6 +725,8 @@ export const OpeningC0Sheet: React.FC = () => (
       />
       <Hero
         look={LOOKS.thao}
+        rimId="rimStreetlamp"
+        shadow={0.3}
         pose={standPose(1115, 945, 0.68, {
           t: 24,
           seed: 2,

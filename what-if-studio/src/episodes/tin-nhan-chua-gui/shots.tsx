@@ -14,6 +14,7 @@ import {
   ShotProps,
   FONT,
   Glow,
+  Dust,
   EpisodeTitleBanner,
   PerchingOwl,
   OwlEyeMacro,
@@ -93,8 +94,13 @@ export const ShC0_E: React.FC<ShotProps> = ({ t }) => {
   return (
     <g transform={camT(panX, 740, zoom)}>
       <AlleyExteriorScene t={t} showOwl={false} showPassersby />
+      {/* Soft diffused ground contact shadows anchoring Duy and Thảo onto the damp asphalt */}
+      <ellipse cx={1245} cy={932} rx={52} ry={13} fill="#05070E" opacity={0.72} filter="url(#softShadowBlur)" />
+      <ellipse cx={1110} cy={952} rx={42} ry={11} fill="#05070E" opacity={0.68} filter="url(#softShadowBlur)" />
       <Hero
         look={LOOKS.duy}
+        rimId="rimShopWarm"
+        shadow={0.35}
         pose={standPose(1245, 930, 0.9, {
           t,
           seed: 1,
@@ -106,6 +112,8 @@ export const ShC0_E: React.FC<ShotProps> = ({ t }) => {
       />
       <Hero
         look={LOOKS.thao}
+        rimId="rimStreetlamp"
+        shadow={0.3}
         pose={standPose(1110, 950, 0.7, {
           t,
           seed: 2,
@@ -116,6 +124,8 @@ export const ShC0_E: React.FC<ShotProps> = ({ t }) => {
           gesture: 'handOnChest',
         })}
       />
+      {/* Foreground atmospheric dust motes passing gently in front of the characters */}
+      <Dust t={t} seed={88} x0={1040} y0={710} w={290} h={250} n={14} o={0.42} />
     </g>
   );
 };
@@ -124,12 +134,19 @@ export const ShC0_E: React.FC<ShotProps> = ({ t }) => {
 export const ShC0_F: React.FC<ShotProps> = ({ t }) => {
   const p = clamp(t / 90, 0, 1);
   const stepX = p * 120;
+  const duyX = 1260 + stepX;
+  const thaoX = 1120 + stepX * 0.92;
   return (
     <g transform={camT(1360 + stepX * 0.4, 760, 1.12)}>
       <AlleyExteriorScene t={t} showOwl={false} showPassersby={false} />
+      {/* Dynamic contact shadows moving with the characters across the shop threshold */}
+      <ellipse cx={duyX} cy={932} rx={52} ry={13} fill="#05070E" opacity={0.74} filter="url(#softShadowBlur)" />
+      <ellipse cx={thaoX} cy={952} rx={42} ry={11} fill="#05070E" opacity={0.7} filter="url(#softShadowBlur)" />
       <Hero
         look={LOOKS.duy}
-        pose={standPose(1260 + stepX, 930, 0.9, {
+        rimId="rimShopWarm"
+        shadow={0.35}
+        pose={standPose(duyX, 930, 0.9, {
           t,
           seed: 1,
           yaw: 0.65,
@@ -139,7 +156,9 @@ export const ShC0_F: React.FC<ShotProps> = ({ t }) => {
       />
       <Hero
         look={LOOKS.thao}
-        pose={standPose(1120 + stepX * 0.92, 950, 0.7, {
+        rimId="rimStreetlamp"
+        shadow={0.3}
+        pose={standPose(thaoX, 950, 0.7, {
           t,
           seed: 2,
           yaw: 0.6,
@@ -148,6 +167,8 @@ export const ShC0_F: React.FC<ShotProps> = ({ t }) => {
           gesture: 'handOnChest',
         })}
       />
+      {/* Foreground warm floating particles at the shop entrance */}
+      <Dust t={t} seed={93} x0={1140} y0={710} w={320} h={250} n={16} o={0.45} />
     </g>
   );
 };

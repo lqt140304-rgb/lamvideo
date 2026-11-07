@@ -2464,49 +2464,96 @@ export const AlleyExteriorScene: React.FC<{
         <stop offset="45%" stopColor="#171E2B" />
         <stop offset="100%" stopColor="#0E121A" />
       </linearGradient>
-      <linearGradient id="tiemWarmSpill" x1="0.8" y1="0.2" x2="0" y2="0.9">
-        <stop offset="0%" stopColor="#FFB85C" stopOpacity={0.62} />
-        <stop offset="55%" stopColor="#E89A3C" stopOpacity={0.25} />
-        <stop offset="100%" stopColor="#E89A3C" stopOpacity={0} />
-      </linearGradient>
+      {/* Soft multi-stage radial falloff for shop doorway warm light spill */}
+      <radialGradient id="tiemWarmSpillRadial" cx="88%" cy="28%" r="92%">
+        <stop offset="0%" stopColor="#FFE4A0" stopOpacity={0.72} />
+        <stop offset="28%" stopColor="#FFB84D" stopOpacity={0.46} />
+        <stop offset="58%" stopColor="#D97706" stopOpacity={0.2} />
+        <stop offset="82%" stopColor="#92400E" stopOpacity={0.06} />
+        <stop offset="100%" stopColor="#451A03" stopOpacity={0} />
+      </radialGradient>
       <linearGradient id="mossFade" x1="0" y1="1" x2="0" y2="0">
         <stop offset="0%" stopColor="#13241A" stopOpacity={0.92} />
         <stop offset="60%" stopColor="#13241A" stopOpacity={0.4} />
         <stop offset="100%" stopColor="#13241A" stopOpacity={0} />
       </linearGradient>
-      {/* Volumetric streetlamp beam and ground pool gradients */}
-      <linearGradient id="hemStreetlampBeam" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#FFF4B8" stopOpacity={0.65} />
-        <stop offset="25%" stopColor="#FFDE72" stopOpacity={0.4} />
-        <stop offset="65%" stopColor="#FFAA24" stopOpacity={0.16} />
-        <stop offset="100%" stopColor="#FF8C00" stopOpacity={0} />
+      {/* Volumetric streetlamp beams: soft outer atmospheric cone & bright inner core */}
+      <linearGradient id="hemStreetlampBeamSoft" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFF8D0" stopOpacity={0.62} />
+        <stop offset="18%" stopColor="#FFE082" stopOpacity={0.4} />
+        <stop offset="48%" stopColor="#FFB84D" stopOpacity={0.18} />
+        <stop offset="78%" stopColor="#E67E22" stopOpacity={0.06} />
+        <stop offset="100%" stopColor="#B35A00" stopOpacity={0} />
       </linearGradient>
-      <radialGradient id="hemStreetlampPool" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#FFEDA8" stopOpacity={0.7} />
-        <stop offset="35%" stopColor="#FFD258" stopOpacity={0.42} />
-        <stop offset="70%" stopColor="#E69528" stopOpacity={0.16} />
-        <stop offset="100%" stopColor="#B3650E" stopOpacity={0} />
+      <linearGradient id="hemStreetlampCoreBeam" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.72} />
+        <stop offset="22%" stopColor="#FFF2A8" stopOpacity={0.42} />
+        <stop offset="65%" stopColor="#FFA62B" stopOpacity={0.14} />
+        <stop offset="100%" stopColor="#D97706" stopOpacity={0} />
+      </linearGradient>
+      {/* Natural radial decay for streetlamp pool on asphalt */}
+      <radialGradient id="hemStreetlampPoolSmooth" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#FFF6CC" stopOpacity={0.82} />
+        <stop offset="25%" stopColor="#FFE48A" stopOpacity={0.55} />
+        <stop offset="54%" stopColor="#FFB842" stopOpacity={0.28} />
+        <stop offset="80%" stopColor="#D97706" stopOpacity={0.09} />
+        <stop offset="100%" stopColor="#8C4200" stopOpacity={0} />
       </radialGradient>
+      {/* Humid tropical night ground mist hugging the alley pavement */}
+      <linearGradient id="hemGroundMist" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stopColor="#1D2A3E" stopOpacity={0.42} />
+        <stop offset="50%" stopColor="#182335" stopOpacity={0.2} />
+        <stop offset="100%" stopColor="#101726" stopOpacity={0} />
+      </linearGradient>
       {/* Chiaroscuro falloff gradients ("khu vực nào không có đèn chiếu đến thì tối dần") */}
       <radialGradient id="alleyVignetteFalloff" cx="58%" cy="66%" r="66%">
         <stop offset="0%" stopColor="#020308" stopOpacity={0} />
-        <stop offset="42%" stopColor="#020308" stopOpacity={0} />
-        <stop offset="68%" stopColor="#03050E" stopOpacity={0.42} />
-        <stop offset="86%" stopColor="#020309" stopOpacity={0.74} />
-        <stop offset="100%" stopColor="#010206" stopOpacity={0.92} />
+        <stop offset="38%" stopColor="#020308" stopOpacity={0} />
+        <stop offset="66%" stopColor="#03050E" stopOpacity={0.45} />
+        <stop offset="85%" stopColor="#020309" stopOpacity={0.76} />
+        <stop offset="100%" stopColor="#010206" stopOpacity={0.94} />
       </radialGradient>
       <linearGradient id="alleyDeepShadowTop" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#020308" stopOpacity={0.88} />
-        <stop offset="25%" stopColor="#03050C" stopOpacity={0.52} />
-        <stop offset="60%" stopColor="#03050C" stopOpacity={0.15} />
+        <stop offset="0%" stopColor="#020308" stopOpacity={0.9} />
+        <stop offset="25%" stopColor="#03050C" stopOpacity={0.55} />
+        <stop offset="60%" stopColor="#03050C" stopOpacity={0.16} />
         <stop offset="100%" stopColor="#03050C" stopOpacity={0} />
       </linearGradient>
       <linearGradient id="alleyDeepShadowLeft" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="#020409" stopOpacity={0.84} />
-        <stop offset="32%" stopColor="#040712" stopOpacity={0.54} />
-        <stop offset="70%" stopColor="#040712" stopOpacity={0.15} />
+        <stop offset="0%" stopColor="#020409" stopOpacity={0.86} />
+        <stop offset="32%" stopColor="#040712" stopOpacity={0.56} />
+        <stop offset="70%" stopColor="#040712" stopOpacity={0.16} />
         <stop offset="100%" stopColor="#040712" stopOpacity={0} />
       </linearGradient>
+
+      {/* Cinematic SVG Optical & Atmospheric Filters */}
+      <filter id="hemLightFeather" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="18" />
+      </filter>
+      <filter id="hemSpillFeather" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="36" />
+      </filter>
+      <filter id="hemFloorFeather" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="26" />
+      </filter>
+      <filter id="hemSoftBloom" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="30" />
+      </filter>
+      <filter id="hemCoreBloom" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="8" />
+      </filter>
+      <filter id="hemLensStreak" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="6 1.2" />
+      </filter>
+      <filter id="hemFloorWetSheen" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="14 4" />
+      </filter>
+      <filter id="hemContactShadow" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="8" />
+      </filter>
+      <filter id="hemAlleyMist" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="28 10" />
+      </filter>
     </defs>
 
     {/* Narrow night sky strip between cramped high-rise rooftops */}
@@ -2600,14 +2647,14 @@ export const AlleyExteriorScene: React.FC<{
         <rect key={i} x={1144} y={by} width={16} height={6} rx={1} fill="#161B26" stroke="#0B0F16" strokeWidth={1.5} />
       ))}
 
-      {/* EPS foam planter boxes (`thùng xốp trồng rau chân tường`) */}
+      {/* Weathered EPS foam planter boxes shaded in nocturnal darkness */}
       <g transform="translate(685 648)">
-        <rect x={0} y={0} width={74} height={34} rx={3} fill="#BAC8D8" stroke="#121822" strokeWidth={2.5} />
-        <rect x={4} y={2} width={66} height={8} fill="#9BAEC2" />
-        <rect x={60} y={-18} width={64} height={32} rx={3} fill="#C6D2E0" stroke="#121822" strokeWidth={2.5} />
+        <rect x={0} y={0} width={74} height={34} rx={3} fill="#2E3C4E" stroke="#121822" strokeWidth={2.5} />
+        <rect x={4} y={2} width={66} height={8} fill="#23303F" />
+        <rect x={60} y={-18} width={64} height={32} rx={3} fill="#354558" stroke="#121822" strokeWidth={2.5} />
         {/* Mint / vegetable sprigs in EPS box */}
-        <path d="M 12 0 Q 16 -16 24 -12 M 32 0 Q 36 -20 44 -14 M 52 0 Q 58 -18 64 -10" stroke="#386B3E" strokeWidth={3} fill="none" strokeLinecap="round" />
-        <path d="M 74 -18 Q 80 -32 88 -26 M 98 -18 Q 104 -34 112 -28" stroke="#386B3E" strokeWidth={3} fill="none" strokeLinecap="round" />
+        <path d="M 12 0 Q 16 -16 24 -12 M 32 0 Q 36 -20 44 -14 M 52 0 Q 58 -18 64 -10" stroke="#254A2C" strokeWidth={3} fill="none" strokeLinecap="round" />
+        <path d="M 74 -18 Q 80 -32 88 -26 M 98 -18 Q 104 -34 112 -28" stroke="#254A2C" strokeWidth={3} fill="none" strokeLinecap="round" />
       </g>
 
       {/* Vintage bicycle leaning against dead-end wall (`xe đạp cũ dựa góc tường, bắt sáng đèn đường`) */}
@@ -2648,9 +2695,40 @@ export const AlleyExteriorScene: React.FC<{
       <polygon points="460,700 488,700 40,1400 -20,1400" fill="#0C1017" stroke={INK} strokeWidth={2} />
       <line x1={488} y1={700} x2={40} y2={1400} stroke="#1D2636" strokeWidth={2.5} />
 
-      {/* Streetlamp pool of warm light on the asphalt (`vùng sáng đèn đường rọi xuống lòng đường`) */}
-      <ellipse cx={1000} cy={885} rx={340} ry={105} fill="url(#hemStreetlampPool)" style={{ mixBlendMode: 'screen' }} />
-      <ellipse cx={1000} cy={885} rx={170} ry={50} fill="#FFF2B2" opacity={0.32} style={{ mixBlendMode: 'screen' }} />
+      {/* Humid tropical night ground mist hugging the alley pavement */}
+      <ellipse cx={960} cy={920} rx={740} ry={140} fill="url(#hemGroundMist)" filter="url(#hemAlleyMist)" />
+
+      {/* Streetlamp pool of warm light on the asphalt with smooth radial decay and feathering */}
+      <ellipse
+        cx={1000}
+        cy={885}
+        rx={370}
+        ry={115}
+        fill="url(#hemStreetlampPoolSmooth)"
+        filter="url(#hemFloorFeather)"
+        style={{ mixBlendMode: 'screen' }}
+      />
+      {/* Wet pavement specular sheen reflecting the overhead streetlamp */}
+      <ellipse
+        cx={1000}
+        cy={885}
+        rx={190}
+        ry={28}
+        fill="#FFEAA8"
+        opacity={0.24}
+        filter="url(#hemFloorWetSheen)"
+        style={{ mixBlendMode: 'screen' }}
+      />
+      <ellipse
+        cx={1000}
+        cy={885}
+        rx={75}
+        ry={12}
+        fill="#FFFBE6"
+        opacity={0.16}
+        filter="url(#hemCoreBloom)"
+        style={{ mixBlendMode: 'screen' }}
+      />
     </g>
 
     {/* ===================================================================== */}
@@ -2789,9 +2867,22 @@ export const AlleyExteriorScene: React.FC<{
         );
       })}
 
-      {/* Warm golden-amber light spill polygon over the alley pavement extending down */}
-      <polygon points="1380,735 1780,935 1240,1400 860,825" fill="url(#tiemWarmSpill)" />
-      <polygon points="1440,735 1780,920 1420,1350 1180,820" fill="#FFC966" opacity={0.25} style={{ mixBlendMode: 'screen' }} />
+      {/* Warm golden-amber light spill polygon over the alley pavement with soft feathered edge */}
+      <polygon
+        points="1375,720 1860,920 1180,1450 760,820"
+        fill="url(#tiemWarmSpillRadial)"
+        filter="url(#hemSpillFeather)"
+        style={{ mixBlendMode: 'screen' }}
+      />
+      <polygon
+        points="1410,735 1780,915 1380,1280 1120,820"
+        fill="#FFCA66"
+        opacity={0.32}
+        filter="url(#hemLightFeather)"
+        style={{ mixBlendMode: 'screen' }}
+      />
+      {/* Drifting warm dust motes floating near shop entrance */}
+      <Dust t={t} seed={115} x0={1350} y0={420} w={440} h={540} n={22} o={0.48} />
     </g>
 
     {/* ===================================================================== */}
@@ -2807,20 +2898,46 @@ export const AlleyExteriorScene: React.FC<{
       <path d="M 720 265 Q 760 355 780 275" stroke="#080C14" strokeWidth={2.5} fill="none" />
       <path d="M 940 235 Q 980 325 1000 245" stroke="#080C14" strokeWidth={2.2} fill="none" />
 
-      {/* Streetlamp volumetric conical light beam shining downward into alley */}
+      {/* Streetlamp volumetric conical light beam with multi-stage soft feathering */}
+      {/* 1. Broad outer atmospheric cone (Mie scattering in humid tropical air) */}
       <polygon
-        points="1000,185 640,940 1360,940"
-        fill="url(#hemStreetlampBeam)"
+        points="1000,192 560,960 1440,960"
+        fill="url(#hemStreetlampBeamSoft)"
+        filter="url(#hemLightFeather)"
+        style={{ mixBlendMode: 'screen' }}
+      />
+      {/* 2. Focused inner beam with higher core luminance */}
+      <polygon
+        points="1000,192 740,940 1260,940"
+        fill="url(#hemStreetlampCoreBeam)"
+        filter="url(#hemCoreBloom)"
         style={{ mixBlendMode: 'screen' }}
       />
 
-      {/* Streetlamp suspended on iron gooseneck pipe with warm conical glow */}
+      {/* 3. Atmospheric dust motes drifting slowly through the illuminated conical volume */}
+      <Dust t={t} seed={62} x0={710} y0={192} w={580} h={750} n={38} o={0.58} />
+
+      {/* Streetlamp on iron gooseneck pipe with authentic enamel conical shade & glowing bulb */}
       <rect x={1120} y={135} width={12} height={485} fill="#202735" stroke={INK} strokeWidth={2.8} />
-      <path d="M 1126 155 Q 1045 145 1005 175" stroke="#2B3547" strokeWidth={6} fill="none" strokeLinecap="round" />
-      <circle cx={1000} cy={180} r={46} fill="#FFF6C8" opacity={0.68} style={{ mixBlendMode: 'screen' }} />
-      <circle cx={1000} cy={180} r={18} fill="#FFFFFF" />
-      <ellipse cx={1000} cy={178} rx={22} ry={9} fill="#FFE29A" stroke={INK} strokeWidth={2.5} />
-      <Glow x={1000} y={195} r={340} o={0.8} />
+      <path d="M 1126 160 Q 1060 148 1000 172" stroke="#2B3547" strokeWidth={6} fill="none" strokeLinecap="round" />
+
+      {/* Broad warm optical bloom halo centered below the shade */}
+      <ellipse cx={1000} cy={206} rx={180} ry={130} fill="#FFB84D" opacity={0.3} filter="url(#hemSoftBloom)" style={{ mixBlendMode: 'screen' }} />
+      {/* Near optical core bloom */}
+      <ellipse cx={1000} cy={198} rx={58} ry={40} fill="#FFEAA7" opacity={0.55} filter="url(#hemCoreBloom)" style={{ mixBlendMode: 'screen' }} />
+      {/* Anamorphic horizontal lens flare streak */}
+      <ellipse cx={1000} cy={195} rx={150} ry={3} fill="#FFF6D6" opacity={0.45} filter="url(#hemLensStreak)" style={{ mixBlendMode: 'screen' }} />
+
+      {/* Conical metal enamel streetlamp shade */}
+      <polygon points="976,174 1024,174 1042,192 958,192" fill="#222C38" stroke={INK} strokeWidth={2.8} strokeLinejoin="round" />
+      <line x1={978} y1={174} x2={1022} y2={174} stroke="#485D78" strokeWidth={2} />
+      {/* Underside reflector of lamp shade */}
+      <ellipse cx={1000} cy={192} rx={42} ry={6} fill="#FFDF9E" />
+
+      {/* Incandescent glass bulb glowing underneath */}
+      <ellipse cx={1000} cy={197} rx={16} ry={11} fill="#FFFBE6" stroke="#C49B38" strokeWidth={1.5} />
+      <circle cx={1000} cy={197} r={8} fill="#FFFFFF" />
+      <Glow x={1000} y={205} r={320} o={0.7} />
     </g>
 
     {/* ===================================================================== */}

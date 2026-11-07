@@ -51,6 +51,18 @@ export const KitDefs: React.FC = () => (
       <feDropShadow dx={-4} dy={-1} stdDeviation={1.8} floodColor={N.rim} floodOpacity={1} />
       <feDropShadow dx={0} dy={0} stdDeviation={14} floodColor="#6A8CFF" floodOpacity={0.3} />
     </filter>
+    {/* Warm tungsten / amber rim kicker light from shop doorway on the right */}
+    <filter id="rimShopWarm" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx={2.4} dy={-0.4} stdDeviation={1.2} floodColor="#FFCE82" floodOpacity={0.88} />
+    </filter>
+    {/* Warm golden-yellow rim kicker light from overhead streetlamp on the left */}
+    <filter id="rimStreetlamp" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx={-1.8} dy={-2.2} stdDeviation={1.2} floodColor="#FFE39F" floodOpacity={0.88} />
+    </filter>
+    {/* Soft Gaussian blur for realistic ground contact shadows */}
+    <filter id="softShadowBlur" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation={7} />
+    </filter>
     <radialGradient id="kitMoonBloom">
       <stop offset="0%" stopColor="#E6EEFF" stopOpacity={0.75} />
       <stop offset="30%" stopColor={N.glow} stopOpacity={0.25} />
