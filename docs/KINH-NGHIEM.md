@@ -73,6 +73,9 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 - **Đánh giá bộ thử asset như phim hoàn chỉnh → hiểu sai phạm vi nâng cấp thư viện →** xác định mục tiêu của bản thử trước khi nhận xét; dùng nó kiểm tra hình, rig, tiếp xúc và khả năng tái dùng, còn nhịp/cốt truyện đủ hay chưa phải đối chiếu bản chuyển thể được giao. **Kiểm tra:** trạng thái ghi rõ asset, demo và phim hoàn chỉnh; không dùng thời lượng demo để kết luận thiếu nội dung.
 - Đọc đúng file cần sửa, giữ bản nguồn duy nhất và ghi thay đổi ngắn. Kiểm tra phần bị ảnh hưởng trước; không render lại toàn bộ hoặc nghiên cứu lại từ đầu khi không có lý do.
 
+- **Đoạn thử tốn nhiều lượt vì render sau mỗi sửa nhỏ →** soi từng khung và ảnh cắt phóng to ở các nhịp then chốt trước, chỉ render khi hình đạt; làm hai lượt, máy tĩnh để duyệt diễn rồi mới thêm góc máy, nét, ánh sáng và âm; dùng lại take giọng trùng vai, chữ, thẻ và cài đặt thay vì tạo mới. Khi chủ repo báo kịch bản sắp đổi thì dừng render, chỉ sửa mã và hình. **Kiểm tra:** số lần render và số credits ghi lại, không có clip bỏ đi chỉ vì lỗi nhìn thấy được trên ảnh tĩnh.
+- **Đẩy lên bị từ chối vì nhánh chung có người khác vừa đẩy →** lấy bản mới, rebase đúng các commit của mình rồi đẩy; không đẩy ép và không động tới commit của agent khác.
+
 ## Kỹ thuật dựng đã được rút thành nguyên tắc
 
 - Trước khi làm lại một chức năng, kiểm tra công cụ và nhánh liên quan đã biết. Chỉ mở rộng tìm kiếm khi có dấu hiệu cần; không bắt mọi nhiệm vụ quét tất cả lịch sử.
@@ -115,6 +118,8 @@ Các nguyên tắc dưới được chọn lọc từ ghi chép thực hành và
 - **Foley nhỏ khiến cảnh giả hoặc rối → ghép âm theo mọi chuyển động rig, bỏ qua take gốc và trạng thái vật →** chọn tiếng môi/hơi thở ở nhịp diễn có ý nghĩa, giữ chi tiết tự nhiên của đúng vai; chỉ thêm khi thiếu. Kiểm tra nguồn vật có hoạt động không, ghế hay bàn thực sự dịch, tay có đang chạm giấy hay không. **Kiểm tra:** không layer đôi hơi thở/click môi, không tiếng vật chạy khi đã tắt; nền phòng liền qua cắt cảnh và các khoảng lặng còn có đời sống phù hợp.
 - **Có giấy phép dùng trong video nhưng vô tình phân phối lại âm nguồn → coi mọi tài nguyên miễn phí đều được đưa vào repo công khai →** đọc cả quyền tái phân phối, lưu URL/ngày/điều kiện và trạng thái đã nghe/tải/dùng riêng. Với nguồn chỉ cho ghép vào sản phẩm, giữ file rời local, không đưa stock vào source công khai. **Kiểm tra:** phân biệt quyền sử dụng với Content ID, danh sách sơ tuyển với file đã chọn; không hứa “không bao giờ bị claim” từ nhãn miễn phí. Xem [ví dụ giới hạn SFX Mixkit](https://mixkit.co/license/modal/sfxFree/).
 
+- **Âm thật ghép vào nghe quá to, quá nhỏ hoặc lệch chất →** đo từng file sau khi cắt và lọc rồi chỉnh theo mức trung bình cho nền, theo đỉnh cho tiếng động; chuẩn hóa cả bài sau cùng. Chọn tiếng theo nguồn phát thật (quạt hút bếp không phải quạt điện, xe máy đi qua không phải đua xe). **Kiểm tra:** đo từng đoạn nền, lời và động tác; nghe bằng loa điện thoại. File nguồn chỉ giữ cục bộ, ghi mã, nguồn và quyền vào danh mục asset.
+
 ## Chuyển động nhỏ và sự liên tục của nhân vật
 
 - **Có camera di chuyển nhưng nhân vật vẫn như tranh →** kiểm tra diễn xuất riêng khỏi parallax/zoom và hiệu ứng nền. Theo từng nhịp, xác định ai muốn gì, ai đang nói, người nghe phản ứng ra sao; dựng chuẩn bị–hành động–tiếp xúc–dừng với chuyển trọng tâm, ánh mắt và khẩu hình đúng lượt. Chuyển động chớp mắt/thở lặp không thay được cảm xúc. **Kiểm tra:** xem một tương tác ngắn với camera cố định trước, rồi xem bản bình thường có âm; vẫn nhận ra chủ ý và hệ quả, không ép mọi khoảnh khắc phải cử động. Dùng rig/asset sẵn có, chưa nhân rộng trước khi đoạn thử đạt.
@@ -124,6 +129,10 @@ Các nguyên tắc dưới được chọn lọc từ ghi chép thực hành và
 - **Hiệu ứng bơi, lặp sai hoặc nói liên tục → tách khỏi điểm phát và thời điểm hành động →** gắn khói vào nguồn, bụi va đập/gợn vào điểm chạm, kết thúc sau sự kiện; cue miệng có nhịp khép/nghỉ và căn giọng cuối. Mọi nhiễu dùng seed/thời gian khung hình. Với nhân vật tan, hạt sinh từ viền thực, có lớp che khuất, tắt hết trước khoảng lặng; giữ cùng nhịp cho thân, bàn tay và bóng để tránh bộ phận lưu lại. **Kiểm tra:** tua đi/lùi cùng mốc cho cùng hình, xem clip để kiểm tra nhịp; kiểm thử hình học và ảnh trích chỉ hỗ trợ, không thay duyệt chuyển động/audio.
 
 - **Ngồi nhưng vẫn nhìn như đứng, hoặc bàn tay ôm trượt vai → chỉ kéo ngắn đùi và nhắm điểm cổ tay →** thể hiện hướng đùi trên mặt đỡ, góc gập ở gối và cẳng chân sau đó; xác định tâm lòng bàn tay chạm vai rồi tính lại khuỷu/cổ tay. Tách lớp tay sau lưng và bàn tay phía trước khi ôm nhiều người. Hướng mũi chân theo tư thế chân, không xoay ngược theo mặt khi quay đầu hoặc tựa vai. **Kiểm tra:** nhìn silhouette vẫn nhận ra dáng ngồi, không chồng giày/chân giữa các vai; chạy cả thở và nhả/tan, mông vẫn có mặt đỡ, lòng bàn tay giữ tiếp xúc.
+
+- **Tay cầm hoặc sửa đồ trông gập, dị dạng hay mất cánh tay → để thuật toán IK tự đặt khuỷu khi mục tiêu sát thân, và tay phía xa nằm sau thân →** đặt tay cần diễn bằng góc vai và khuỷu cụ thể (thử một lưới góc để biết bàn tay rơi ở đâu), cho khuỷu hướng xuống hoặc ra ngoài thân; tay phía gần máy làm việc chính, tay xa giữ vật hoặc đặt ngoài thân; vẽ lớp bàn tay đè lên thân khi cần. **Kiểm tra:** phóng to khung then chốt, thấy liền vai–khuỷu–cẳng tay–bàn tay ở mọi nhịp, không có tay chống hông, tam giác tay áo hay bàn tay lơ lửng.
+- **Vật được sửa hoặc cầm bị che hoặc to hơn tay →** đặt vật trong tay hoặc ở chỗ không bị thân che, kích thước theo tay chứ không theo bàn; vặn/đặt có nhịp (từng đợt, dừng khi người khác nói), vật đổi chỗ cùng tay khi nhân vật rời đi. **Kiểm tra:** ở cả góc rộng và cận, tay, vật và dụng cụ tiếp xúc nhau và còn thấy khi tắt tiếng.
+- **Miệng không khớp lượt nói →** đo biên độ từng take giọng, đổi thành độ mở và dáng miệng theo từng khung trong đúng khoảng nói của vai đó; người nghe giữ miệng của biểu cảm. **Kiểm tra:** tắt tiếng vẫn biết ai đang nói, miệng khép ở chỗ nghỉ.
 
 ## Cách bổ sung bài học
 
