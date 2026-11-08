@@ -4,7 +4,7 @@
  "slug": "tin-nhan-chua-gui",
  "title": "HẺM CÓ CHUYỆN · TẬP 01: TIN NHẮN CHƯA GỬI",
  "fps": 30,
- "total": 16280,
+ "total": 16382,
  "estimate": "Thời lượng theo giọng ElevenLabs đã tạo (voice-manifest.json) + nghỉ theo KICH-BAN.",
  "segments": [
   {
@@ -100,43 +100,25 @@
   {
    "shot": "ShC1_D",
    "a": 2076,
-   "b": 2344,
+   "b": 2560,
    "t0": 0,
-   "t1": 268,
+   "t1": 484,
    "look": "shopMystery",
-   "line": "“Mình về đi anh. Em sợ.” “Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.”"
-  },
-  {
-   "shot": "ShC1_A",
-   "a": 2344,
-   "b": 2412,
-   "t0": 3000,
-   "t1": 3068,
-   "look": "shopMystery",
-   "line": "[nghỉ 1s] “Cất đi.”"
+   "line": "“Mình về đi anh. Em sợ.” “Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.” [nghỉ 1s] “Cất đi.” “Mày nghĩ với số tiền đó, mày sửa nổi cái điện thoại cũ rích của mày à?”"
   },
   {
    "shot": "ShC1_D",
-   "a": 2412,
-   "b": 2560,
-   "t0": 900,
-   "t1": 1048,
-   "look": "shopMystery",
-   "line": "“Mày nghĩ với số tiền đó, mày sửa nổi cái điện thoại cũ rích của mày à?”"
-  },
-  {
-   "shot": "ShC1_A",
    "a": 2560,
-   "b": 2650,
-   "t0": 4200,
-   "t1": 4290,
+   "b": 2752,
+   "t0": 484,
+   "t1": 676,
    "look": "shopMystery",
-   "line": "Lộc nhặt tua vít, về bàn sau"
+   "line": "Phản ứng hai trẻ, Lộc cầm đồ về bàn sau"
   },
   {
    "shot": "ShC1_B",
-   "a": 2650,
-   "b": 2796,
+   "a": 2752,
+   "b": 2898,
    "t0": 600,
    "t1": 746,
    "look": "shopMystery",
@@ -144,8 +126,8 @@
   },
   {
    "shot": "ShC1_B",
-   "a": 2796,
-   "b": 2844,
+   "a": 2898,
+   "b": 2946,
    "t0": 746,
    "t1": 794,
    "look": "shopMystery",
@@ -153,8 +135,8 @@
   },
   {
    "shot": "ShC2_A",
-   "a": 2844,
-   "b": 3434,
+   "a": 2946,
+   "b": 3536,
    "t0": 0,
    "t1": 590,
    "look": "shopMystery",
@@ -162,8 +144,8 @@
   },
   {
    "shot": "ShC2_C",
-   "a": 3434,
-   "b": 3895,
+   "a": 3536,
+   "b": 3997,
    "t0": 0,
    "t1": 461,
    "look": "shopMystery",
@@ -171,8 +153,8 @@
   },
   {
    "shot": "ShC2_B",
-   "a": 3895,
-   "b": 4270,
+   "a": 3997,
+   "b": 4372,
    "t0": 0,
    "t1": 375,
    "look": "shopMystery",
@@ -180,8 +162,8 @@
   },
   {
    "shot": "ShC3_A",
-   "a": 4270,
-   "b": 4871,
+   "a": 4372,
+   "b": 4973,
    "t0": 0,
    "t1": 601,
    "look": "shopMystery",
@@ -189,8 +171,8 @@
   },
   {
    "shot": "ShC3_B",
-   "a": 4871,
-   "b": 5077,
+   "a": 4973,
+   "b": 5179,
    "t0": 0,
    "t1": 206,
    "look": "shopMystery",
@@ -198,8 +180,8 @@
   },
   {
    "shot": "ShC2_C",
-   "a": 5077,
-   "b": 5228,
+   "a": 5179,
+   "b": 5330,
    "t0": 240,
    "t1": 391,
    "look": "shopMystery",
@@ -207,8 +189,8 @@
   },
   {
    "shot": "ShC3_B",
-   "a": 5228,
-   "b": 6284,
+   "a": 5330,
+   "b": 6386,
    "t0": 206,
    "t1": 1262,
    "look": "shopMystery",
@@ -216,8 +198,8 @@
   },
   {
    "shot": "ShC3_C",
-   "a": 6284,
-   "b": 6627,
+   "a": 6386,
+   "b": 6729,
    "t0": 0,
    "t1": 343,
    "look": "shopMystery",
@@ -225,8 +207,8 @@
   },
   {
    "shot": "ShC4_A",
-   "a": 6627,
-   "b": 6717,
+   "a": 6729,
+   "b": 6819,
    "t0": 0,
    "t1": 90,
    "look": "shopMystery",
@@ -234,8 +216,8 @@
   },
   {
    "shot": "ShC4_A",
-   "a": 6717,
-   "b": 6837,
+   "a": 6819,
+   "b": 6939,
    "t0": 90,
    "t1": 210,
    "look": "shopMystery",
@@ -243,8 +225,8 @@
   },
   {
    "shot": "ShC4_B",
-   "a": 6837,
-   "b": 7471,
+   "a": 6939,
+   "b": 7573,
    "t0": 0,
    "t1": 634,
    "look": "shopMystery",
@@ -252,8 +234,8 @@
   },
   {
    "shot": "ShC4_C",
-   "a": 7471,
-   "b": 7511,
+   "a": 7573,
+   "b": 7613,
    "t0": 0,
    "t1": 40,
    "look": "shopMystery",
@@ -261,8 +243,8 @@
   },
   {
    "shot": "ShC4_C",
-   "a": 7511,
-   "b": 7616,
+   "a": 7613,
+   "b": 7718,
    "t0": 40,
    "t1": 145,
    "look": "shopMystery",
@@ -270,8 +252,8 @@
   },
   {
    "shot": "ShC4_C",
-   "a": 7616,
-   "b": 7936,
+   "a": 7718,
+   "b": 8038,
    "t0": 145,
    "t1": 465,
    "look": "shopMystery",
@@ -279,8 +261,8 @@
   },
   {
    "shot": "ShC4_B",
-   "a": 7936,
-   "b": 8108,
+   "a": 8038,
+   "b": 8210,
    "t0": 900,
    "t1": 1072,
    "look": "shopMystery",
@@ -288,8 +270,8 @@
   },
   {
    "shot": "ShC4_D",
-   "a": 8108,
-   "b": 8179,
+   "a": 8210,
+   "b": 8281,
    "t0": 0,
    "t1": 71,
    "look": "shopMystery",
@@ -297,8 +279,8 @@
   },
   {
    "shot": "ShC4_B",
-   "a": 8179,
-   "b": 8411,
+   "a": 8281,
+   "b": 8513,
    "t0": 1500,
    "t1": 1732,
    "look": "shopMystery",
@@ -306,8 +288,8 @@
   },
   {
    "shot": "ShC5_A",
-   "a": 8411,
-   "b": 9084,
+   "a": 8513,
+   "b": 9186,
    "t0": 0,
    "t1": 673,
    "look": "shopMystery",
@@ -315,8 +297,8 @@
   },
   {
    "shot": "ShC5_B",
-   "a": 9084,
-   "b": 9254,
+   "a": 9186,
+   "b": 9356,
    "t0": 0,
    "t1": 170,
    "look": "g2Warm",
@@ -324,8 +306,8 @@
   },
   {
    "shot": "ShC5_C",
-   "a": 9254,
-   "b": 9622,
+   "a": 9356,
+   "b": 9724,
    "t0": 0,
    "t1": 368,
    "look": "shopMystery",
@@ -333,8 +315,8 @@
   },
   {
    "shot": "ShC5_D",
-   "a": 9622,
-   "b": 10074,
+   "a": 9724,
+   "b": 10176,
    "t0": 0,
    "t1": 452,
    "look": "shopMystery",
@@ -342,8 +324,8 @@
   },
   {
    "shot": "ShC6_A",
-   "a": 10074,
-   "b": 10439,
+   "a": 10176,
+   "b": 10541,
    "t0": 0,
    "t1": 365,
    "look": "warmMemory",
@@ -351,8 +333,8 @@
   },
   {
    "shot": "ShC6_B",
-   "a": 10439,
-   "b": 10589,
+   "a": 10541,
+   "b": 10691,
    "t0": 0,
    "t1": 150,
    "look": "warmMemory",
@@ -360,8 +342,8 @@
   },
   {
    "shot": "ShC6_C",
-   "a": 10589,
-   "b": 11070,
+   "a": 10691,
+   "b": 11172,
    "t0": 0,
    "t1": 481,
    "look": "warmMemory",
@@ -369,8 +351,8 @@
   },
   {
    "shot": "ShC6_D",
-   "a": 11070,
-   "b": 11287,
+   "a": 11172,
+   "b": 11389,
    "t0": 0,
    "t1": 217,
    "look": "warmMemory",
@@ -378,8 +360,8 @@
   },
   {
    "shot": "ShC7_A",
-   "a": 11287,
-   "b": 11349,
+   "a": 11389,
+   "b": 11451,
    "t0": 0,
    "t1": 62,
    "look": "warmMemory",
@@ -387,8 +369,8 @@
   },
   {
    "shot": "ShC7_B",
-   "a": 11349,
-   "b": 11810,
+   "a": 11451,
+   "b": 11912,
    "t0": 0,
    "t1": 461,
    "look": "warmMemory",
@@ -396,8 +378,8 @@
   },
   {
    "shot": "ShC7_A",
-   "a": 11810,
-   "b": 12146,
+   "a": 11912,
+   "b": 12248,
    "t0": 62,
    "t1": 398,
    "look": "warmMemory",
@@ -405,8 +387,8 @@
   },
   {
    "shot": "ShC7_C",
-   "a": 12146,
-   "b": 12828,
+   "a": 12248,
+   "b": 12930,
    "t0": -322,
    "t1": 360,
    "look": "warmMemory",
@@ -414,8 +396,8 @@
   },
   {
    "shot": "ShC8_A",
-   "a": 12828,
-   "b": 12888,
+   "a": 12930,
+   "b": 12990,
    "t0": 0,
    "t1": 60,
    "look": "shopMystery",
@@ -423,8 +405,8 @@
   },
   {
    "shot": "ShC8_B",
-   "a": 12888,
-   "b": 13259,
+   "a": 12990,
+   "b": 13361,
    "t0": 0,
    "t1": 371,
    "look": "shopMystery",
@@ -432,8 +414,8 @@
   },
   {
    "shot": "ShC8_A",
-   "a": 13259,
-   "b": 13795,
+   "a": 13361,
+   "b": 13897,
    "t0": 60,
    "t1": 596,
    "look": "shopMystery",
@@ -441,8 +423,8 @@
   },
   {
    "shot": "ShC8_B",
-   "a": 13795,
-   "b": 13900,
+   "a": 13897,
+   "b": 14002,
    "t0": 420,
    "t1": 525,
    "look": "shopMystery",
@@ -450,8 +432,8 @@
   },
   {
    "shot": "ShC8_E",
-   "a": 13900,
-   "b": 14116,
+   "a": 14002,
+   "b": 14218,
    "t0": 0,
    "t1": 216,
    "look": "nightAtmosphere",
@@ -459,8 +441,8 @@
   },
   {
    "shot": "ShC8_C",
-   "a": 14116,
-   "b": 14620,
+   "a": 14218,
+   "b": 14722,
    "t0": 0,
    "t1": 504,
    "look": "nightAtmosphere",
@@ -468,8 +450,8 @@
   },
   {
    "shot": "ShC8_D",
-   "a": 14620,
-   "b": 15200,
+   "a": 14722,
+   "b": 15302,
    "t0": 0,
    "t1": 580,
    "look": "nightAtmosphere",
@@ -477,8 +459,8 @@
   },
   {
    "shot": "ShC9_A",
-   "a": 15200,
-   "b": 15620,
+   "a": 15302,
+   "b": 15722,
    "t0": 0,
    "t1": 420,
    "look": "vaultGlow",
@@ -486,8 +468,8 @@
   },
   {
    "shot": "ShC9_B",
-   "a": 15620,
-   "b": 15830,
+   "a": 15722,
+   "b": 15932,
    "t0": 0,
    "t1": 210,
    "look": "vaultGlow",
@@ -495,8 +477,8 @@
   },
   {
    "shot": "ShC9_C",
-   "a": 15830,
-   "b": 16070,
+   "a": 15932,
+   "b": 16172,
    "t0": 0,
    "t1": 240,
    "look": "vaultGlow",
@@ -504,8 +486,8 @@
   },
   {
    "shot": "ShC9_D",
-   "a": 16070,
-   "b": 16280,
+   "a": 16172,
+   "b": 16382,
    "t0": 0,
    "t1": 210,
    "look": "vaultGlow",
@@ -571,7 +553,7 @@
    "id": "ShC1_A",
    "size": "toàn 35mm",
    "key": 60,
-   "len": 4290,
+   "len": 1762,
    "first": 720,
    "line": "“Để xuống.”",
    "note": "C1-A · Thảo đặt đồng hồ lại kệ thấp; Duy che em; Duy trái, Thảo phải gần cửa"
@@ -598,9 +580,9 @@
    "id": "ShC1_D",
    "size": "trung 50mm",
    "key": 60,
-   "len": 1048,
+   "len": 676,
    "first": 2076,
-   "line": "“Mình về đi anh. Em sợ.” “Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.”",
+   "line": "“Mình về đi anh. Em sợ.” “Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.” [nghỉ 1s] “Cất đi.” “Mày nghĩ với số tiền đó, mày sửa n",
    "note": "C1-D · Thảo níu áo, chìa hai tờ; sau mỉa mai rơm rớm, Duy cầm giúp tiền"
   },
   {
@@ -608,7 +590,7 @@
    "size": "toàn 35mm",
    "key": 540,
    "len": 590,
-   "first": 2844,
+   "first": 2946,
    "line": "“Đổi một ký ức quý của mày. Máy chạy lại, chuyện đó mất luôn. Không lấy lại được.” “Cháu không đổi thì sao?” “Mang máy về.” Trước lúc vào viện, mẹ nhờ dì nhắn D",
    "note": "C2-A · Lộc về quầy; Duy trả tiền em, cất tiền, kéo ghế; ngồi Duy trái/Thảo phải"
   },
@@ -617,7 +599,7 @@
    "size": "cận vừa 70mm",
    "key": 120,
    "len": 375,
-   "first": 3895,
+   "first": 3997,
    "line": "“Bữa bố đập cửa, anh sợ bố nghe em khóc rồi lại đánh. Anh cuống quá… nên anh quát em.” “Nhưng anh la, em cũng sợ mà.” “Em chỉ muốn anh ôm em thôi.”",
    "note": "C2-B · Duy siết bút, Thảo nói nỗi sợ cụ thể"
   },
@@ -626,7 +608,7 @@
    "size": "insert 65mm",
    "key": 90,
    "len": 461,
-   "first": 3434,
+   "first": 3536,
    "line": "“Anh có muốn nghe mẹ không?” “Em nghe được là được. Đừng lo cho anh.” Mấy đêm liền, Duy chỉ dám lấy ảnh mẹ ra khi em đã ngủ. Cậu cũng muốn nghe giọng ấy. Nhưng ",
    "note": "C2-C · Ảnh ra từ ví, giấy G1 còn trắng, bút đặt xuống"
   },
@@ -635,7 +617,7 @@
    "size": "cận tay 65mm",
    "key": 90,
    "len": 601,
-   "first": 4270,
+   "first": 4372,
    "line": "“Anh ơi… máy không phải bị rơi đâu.” “Hôm đó bố đi rồi, em lấy máy mẹ. Anh cứ quay mặt vô tường, không nói với em. Em muốn nghe mẹ dỗ, mà bấm hoài không được. E",
    "note": "C3-A · Tay em xoay vết nứt; nét chuyển sang Duy"
   },
@@ -644,7 +626,7 @@
    "size": "trung đôi 50mm",
    "key": 360,
    "len": 1262,
-   "first": 4871,
+   "first": 4973,
    "line": "“Anh buồn vì em đập máy. Nhưng anh cũng sai. Anh sợ bố rồi lại quát em. Anh xin lỗi.”",
    "note": "C3-B · Duy dịch ghế 10cm, chạm vai em; nhịp quyết định 3 giây"
   },
@@ -653,7 +635,7 @@
    "size": "insert 85mm",
    "key": 180,
    "len": 343,
-   "first": 6284,
+   "first": 6386,
    "line": "“Cả buổi đó mất. Từ lúc giành xe đến lúc làm hòa. Đổi để sửa máy. Đúng chưa?” “Dạ.” “Vẫn đổi?” “Cháu vẫn đổi.”",
    "note": "C3-C · Ảnh đã cất; ghi G1 tranh xe đồ chơi–mẹ dỗ–làm hòa, ký"
   },
@@ -662,7 +644,7 @@
    "size": "trung 50mm",
    "key": 120,
    "len": 210,
-   "first": 6627,
+   "first": 6729,
    "line": "[nghỉ 3s]",
    "note": "C4-A · Lộc sửa ở bàn sau, cắt thời gian, trả máy sáng lên khăn"
   },
@@ -671,7 +653,7 @@
    "size": "trung đôi 50mm",
    "key": 150,
    "len": 1732,
-   "first": 6837,
+   "first": 6939,
    "line": "“Anh còn nhớ hôm mẹ dỗ hai anh em làm hòa không?” [nghỉ 2s] “Anh nhớ chuyện mình vừa kể. Nhưng giọng mẹ hôm đó… lúc mẹ vuốt tóc anh… không nhớ được nữa.” Duy vẫ",
    "note": "C4-B · Thảo hỏi buổi làm hòa; Duy nhắm mắt rồi lắc đầu"
   },
@@ -680,7 +662,7 @@
    "size": "insert 85mm",
    "key": 180,
    "len": 465,
-   "first": 7471,
+   "first": 7573,
    "line": "“Giữ lấy.”",
    "note": "C4-C · Tách liên G1, Duy cất ví, bấm phát; giọng mẹ từ loa máy"
   },
@@ -689,7 +671,7 @@
    "size": "cận 70mm",
    "key": 60,
    "len": 71,
-   "first": 8108,
+   "first": 8210,
    "line": "“Thế mày muốn tao sửa gì nữa?”",
    "note": "C4-D · Lộc nhếch miệng lần hai, mắt không dịu"
   },
@@ -698,7 +680,7 @@
    "size": "trung ba người 50mm",
    "key": 240,
    "len": 673,
-   "first": 8411,
+   "first": 8513,
    "line": "“Được. Hai đứa được yên như hồi còn mẹ, một lát thôi. Mẹ không về.” “Cái giá là gì?” “Con bé bớt nỗi buồn bị bỏ lại. Mày nhận phần ấy, cộng với nỗi buồn của mày",
    "note": "C5-A · Lộc báo giá G2 và hiệu lực lời; Duy giữ tay em"
   },
@@ -707,7 +689,7 @@
    "size": "trung đôi 50mm",
    "key": 120,
    "len": 170,
-   "first": 9084,
+   "first": 9186,
    "line": "“Cháu đồng ý.” [nghỉ 4s]",
    "note": "C5-B · G2: ánh ấm thoáng, vẫn ngồi trong tiệm"
   },
@@ -716,7 +698,7 @@
    "size": "cận 70mm",
    "key": 120,
    "len": 368,
-   "first": 9254,
+   "first": 9356,
    "line": "[nghỉ 2s] “Anh ơi… anh sao vậy?” “Anh… không sao…” “Ông cho anh cháu gặp mẹ đi. Lần này lấy của cháu. Đừng lấy của anh nữa.”",
    "note": "C5-C · Duy kiệt, bấu ghế; roll ≤2° trong 1,6 giây đầu khoảng nghỉ"
   },
@@ -725,7 +707,7 @@
    "size": "cận 65mm",
    "key": 60,
    "len": 452,
-   "first": 9622,
+   "first": 9724,
    "line": "“Cả hai gặp mẹ, nói chuyện một lần, rồi mẹ đi. Đổi lại, từ nay mày không mơ thấy mẹ nữa. Lúc thức vẫn nhớ mẹ. Đồng ý không?” “Cháu đồng ý!” “Thảo, đừng…” [nghỉ ",
    "note": "C5-D · Thảo nhận trọn G3, Duy ngăn muộn; trắng một lần"
   },
@@ -734,7 +716,7 @@
    "size": "toàn 35mm · 2:1",
    "key": 90,
    "len": 365,
-   "first": 10074,
+   "first": 10176,
    "line": "“Duy. Thảo. Lại đây với mẹ.” “Mẹ!” [nghỉ 6s]",
    "note": "C6-A · Trắng rút, ruộng vàng, mẹ gọi"
   },
@@ -743,7 +725,7 @@
    "size": "trung 50mm · 2:1",
    "key": 180,
    "len": 150,
-   "first": 10439,
+   "first": 10541,
    "line": "[nghỉ 5s]",
    "note": "C6-B · Mẹ giữa nắm tay Duy trái, Thảo phải, bước có đất"
   },
@@ -752,7 +734,7 @@
    "size": "trung 50mm · 2:1",
    "key": 180,
    "len": 481,
-   "first": 10589,
+   "first": 10691,
    "line": "[nghỉ 3s] “Mẹ ơi, chỗ này lại bung rồi nè. Mẹ vá cho con nữa nha.” “Mẹ mới vá xong, ai chui hàng rào hái ổi?” “Anh Duy rủ con.” “Anh đứng ngoài giữ dép cho em m",
    "note": "C6-C · Ngồi mép kè, gối gập, chân buông trên nước"
   },
@@ -761,7 +743,7 @@
    "size": "cận 70mm · 2:1",
    "key": 120,
    "len": 217,
-   "first": 11070,
+   "first": 11172,
    "line": "“Còn gắp hành qua chén em không?” “Con gắp ít hơn rồi.” “Ít hơn chứ chưa hết!”",
    "note": "C6-D · Hai trẻ cười nhỏ, mẹ rìa khung"
   },
@@ -770,7 +752,7 @@
    "size": "trung 50mm · 2:1",
    "key": 60,
    "len": 398,
-   "first": 11287,
+   "first": 11389,
    "line": "“Duy, nhìn mẹ nè.”",
    "note": "C7-A · Tay mẹ ôm vai ngoài hai con"
   },
@@ -779,7 +761,7 @@
    "size": "cận vừa 70mm · 2:1",
    "key": 150,
    "len": 461,
-   "first": 11349,
+   "first": 11451,
    "line": "“Con sợ… em thấy con khóc thì nó càng sợ.” “Con cũng nhớ mẹ.” “Con là anh của em, nhưng vẫn là con của mẹ mà. Bố say rồi đánh thì sang dì Hạnh, nhờ dì giúp. Đừn",
    "note": "C7-B · Mẹ và Duy; giữ mắt cậu"
   },
@@ -788,7 +770,7 @@
    "size": "trung→cận tay · 2:1",
    "key": 0,
    "len": 360,
-   "first": 12146,
+   "first": 12248,
    "line": "“Mẹ thương cả hai đứa. Đừng giấu nhau nữa, nghe con.” “Con còn nhiều chuyện chưa kể…” “Mẹ… đợi con…” [nghỉ 4s] [nghỉ 8s]",
    "note": "C7-C · Mẹ tan 3–4 giây, lau má, nắm tay, máy vào đôi tay, mờ tối"
   },
@@ -797,7 +779,7 @@
    "size": "trung đôi 50mm",
    "key": 60,
    "len": 596,
-   "first": 12828,
+   "first": 12930,
    "line": "",
    "note": "C8-A · Mở về tiệm, match ghế/tay; Duy tái mệt"
   },
@@ -806,7 +788,7 @@
    "size": "insert 65mm",
    "key": 120,
    "len": 525,
-   "first": 12888,
+   "first": 12990,
    "line": "Tờ sửa máy là cái giá của ký ức. Tờ thứ hai ghi phần buồn Duy nhận thay em. Tờ cuối mang tên Thảo: cuộc gặp mẹ, đổi bằng những giấc mơ về mẹ.",
    "note": "C8-B · Ba phiếu G1 (từ ví)/G2/G3 rồi cất đủ ba"
   },
@@ -815,7 +797,7 @@
    "size": "toàn ngoài tiệm 35mm",
    "key": 60,
    "len": 216,
-   "first": 13900,
+   "first": 14002,
    "line": "[nghỉ 3s]",
    "note": "C8-E · Máy ở lại ngoài cửa sau khi hai trẻ khuất; ánh tiệm rút, mặt tiền khép thành tường cũ"
   },
@@ -824,7 +806,7 @@
    "size": "toàn 28mm → trung 50mm",
    "key": 120,
    "len": 504,
-   "first": 14116,
+   "first": 14218,
    "line": "“Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.” Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đê",
    "note": "C8-C · Ngưỡng nhà, bố chỉ âm/bóng sau vách; gọi dì"
   },
@@ -833,7 +815,7 @@
    "size": "toàn 35mm",
    "key": 120,
    "len": 580,
-   "first": 14620,
+   "first": 14722,
    "line": "Buổi làm hòa bên mẹ không trở lại trong Duy. Phần buồn cậu nhận vẫn còn. Thảo cũng sẽ không gặp mẹ trong mơ nữa. Nhưng lần này, Duy chịu nói mình không kham nổi",
    "note": "C8-D · Hai trẻ nắm tay đi về đèn đầu hẻm"
   },
@@ -842,7 +824,7 @@
    "size": "cận kính 70mm → trung 50mm",
    "key": 90,
    "len": 420,
-   "first": 15200,
+   "first": 15302,
    "line": "[nghỉ 14s]",
    "note": "C9-A · Lộc đặt kính; lọ tiền cảnh che điểm ghép; người thành đồng hồ"
   },
@@ -851,7 +833,7 @@
    "size": "trung rộng 35–50mm",
    "key": 120,
    "len": 210,
-   "first": 15620,
+   "first": 15722,
    "line": "[nghỉ 7s]",
    "note": "C9-B · Nguyên hình đồng hồ ba mắt lơ lửng trong kho; ánh mắt tới ba lọ"
   },
@@ -860,7 +842,7 @@
    "size": "insert 65–85mm",
    "key": 120,
    "len": 240,
-   "first": 15830,
+   "first": 15932,
    "line": "[nghỉ 8s]",
    "note": "C9-C · Ba lọ G1/G2/G3 được nhấc, đặt lên ô kệ bằng vùng lực"
   },
@@ -869,7 +851,7 @@
    "size": "lùi 50→35mm",
    "key": 120,
    "len": 210,
-   "first": 16070,
+   "first": 16172,
    "line": "[nghỉ 7s]",
    "note": "C9-D · Lùi mở kho; cát và kim chạy ngược cục bộ; ba mắt khép lệch nhịp"
   }
@@ -986,21 +968,21 @@
    "text": "“Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.”"
   },
   {
-   "shot": "ShC1_A",
+   "shot": "ShC1_D",
    "s": 1,
    "i": 11,
    "kind": "pause",
-   "at": 3000,
+   "at": 268,
    "len": 30,
    "f": 2344,
    "text": "Tay Lộc đứng yên, Thảo chưa dám nhả tiền. Quạt và hẻm vẫn nghe được."
   },
   {
-   "shot": "ShC1_A",
+   "shot": "ShC1_D",
    "s": 1,
    "i": 12,
    "kind": "line",
-   "at": 3030,
+   "at": 298,
    "len": 38,
    "f": 2374,
    "text": "“Cất đi.”"
@@ -1010,9 +992,9 @@
    "s": 1,
    "i": 13,
    "kind": "line",
-   "at": 900,
+   "at": 335,
    "len": 148,
-   "f": 2412,
+   "f": 2411,
    "text": "“Mày nghĩ với số tiền đó, mày sửa nổi cái điện thoại cũ rích của mày à?”"
   },
   {
@@ -1022,7 +1004,7 @@
    "kind": "line",
    "at": 600,
    "len": 146,
-   "f": 2650,
+   "f": 2752,
    "text": "“Nhưng có cách khác. Không trả tiền, chúng mày vẫn sửa được máy.”"
   },
   {
@@ -1032,7 +1014,7 @@
    "kind": "line",
    "at": 0,
    "len": 165,
-   "f": 2844,
+   "f": 2946,
    "text": "“Đổi một ký ức quý của mày. Máy chạy lại, chuyện đó mất luôn. Không lấy lại được.”"
   },
   {
@@ -1042,7 +1024,7 @@
    "kind": "line",
    "at": 165,
    "len": 76,
-   "f": 3009,
+   "f": 3111,
    "text": "“Cháu không đổi thì sao?”"
   },
   {
@@ -1052,7 +1034,7 @@
    "kind": "line",
    "at": 241,
    "len": 45,
-   "f": 3085,
+   "f": 3187,
    "text": "“Mang máy về.”"
   },
   {
@@ -1062,7 +1044,7 @@
    "kind": "line",
    "at": 286,
    "len": 304,
-   "f": 3130,
+   "f": 3232,
    "text": "Trước lúc vào viện, mẹ nhờ dì nhắn Duy mở một đoạn ghi âm trong máy. Cậu chưa kịp nghe thì máy đã vỡ. Ba tiệm trước đều trả lại, không sửa được."
   },
   {
@@ -1072,7 +1054,7 @@
    "kind": "line",
    "at": 0,
    "len": 74,
-   "f": 3434,
+   "f": 3536,
    "text": "“Anh có muốn nghe mẹ không?”"
   },
   {
@@ -1082,7 +1064,7 @@
    "kind": "line",
    "at": 74,
    "len": 86,
-   "f": 3508,
+   "f": 3610,
    "text": "“Em nghe được là được. Đừng lo cho anh.”"
   },
   {
@@ -1092,7 +1074,7 @@
    "kind": "line",
    "at": 160,
    "len": 302,
-   "f": 3594,
+   "f": 3696,
    "text": "Mấy đêm liền, Duy chỉ dám lấy ảnh mẹ ra khi em đã ngủ. Cậu cũng muốn nghe giọng ấy. Nhưng trước mặt em, cậu chưa từng nhận mình cần mẹ."
   },
   {
@@ -1102,7 +1084,7 @@
    "kind": "line",
    "at": 0,
    "len": 201,
-   "f": 3895,
+   "f": 3997,
    "text": "“Bữa bố đập cửa, anh sợ bố nghe em khóc rồi lại đánh. Anh cuống quá… nên anh quát em.”"
   },
   {
@@ -1112,7 +1094,7 @@
    "kind": "line",
    "at": 201,
    "len": 91,
-   "f": 4096,
+   "f": 4198,
    "text": "“Nhưng anh la, em cũng sợ mà.”"
   },
   {
@@ -1122,7 +1104,7 @@
    "kind": "line",
    "at": 292,
    "len": 83,
-   "f": 4187,
+   "f": 4289,
    "text": "“Em chỉ muốn anh ôm em thôi.”"
   },
   {
@@ -1132,7 +1114,7 @@
    "kind": "line",
    "at": 0,
    "len": 98,
-   "f": 4270,
+   "f": 4372,
    "text": "“Anh ơi… máy không phải bị rơi đâu.”"
   },
   {
@@ -1142,7 +1124,7 @@
    "kind": "line",
    "at": 98,
    "len": 381,
-   "f": 4368,
+   "f": 4470,
    "text": "“Hôm đó bố đi rồi, em lấy máy mẹ. Anh cứ quay mặt vô tường, không nói với em. Em muốn nghe mẹ dỗ, mà bấm hoài không được. Em tức quá… em đập xuống nền.”"
   },
   {
@@ -1152,7 +1134,7 @@
    "kind": "line",
    "at": 479,
    "len": 122,
-   "f": 4749,
+   "f": 4851,
    "text": "“Em xin lỗi. Em sợ anh la nữa nên giấu.”"
   },
   {
@@ -1162,7 +1144,7 @@
    "kind": "line",
    "at": 0,
    "len": 206,
-   "f": 4871,
+   "f": 4973,
    "text": "“Anh buồn vì em đập máy. Nhưng anh cũng sai. Anh sợ bố rồi lại quát em. Anh xin lỗi.”"
   },
   {
@@ -1172,7 +1154,7 @@
    "kind": "line",
    "at": 240,
    "len": 151,
-   "f": 5077,
+   "f": 5179,
    "text": "“Cháu đổi buổi hai anh em tranh chiếc xe đồ chơi, hồi em còn học mẫu giáo.”"
   },
   {
@@ -1182,7 +1164,7 @@
    "kind": "line",
    "at": 206,
    "len": 103,
-   "f": 5228,
+   "f": 5330,
    "text": "“Hôm anh giật xe làm em ngã hả?”"
   },
   {
@@ -1192,7 +1174,7 @@
    "kind": "line",
    "at": 309,
    "len": 201,
-   "f": 5331,
+   "f": 5433,
    "text": "“Ừ. Anh tưởng mẹ mắng. Mẹ lại dỗ cả hai, vuốt tóc anh… bảo đừng làm nhau đau.”"
   },
   {
@@ -1202,7 +1184,7 @@
    "kind": "line",
    "at": 510,
    "len": 146,
-   "f": 5532,
+   "f": 5634,
    "text": "“Rồi anh xin lỗi, đưa xe cho em. Em kéo anh chơi chung.”"
   },
   {
@@ -1212,7 +1194,7 @@
    "kind": "line",
    "at": 655,
    "len": 292,
-   "f": 5677,
+   "f": 5779,
    "text": "Hôm ấy, Duy mới hiểu làm anh không phải lúc nào cũng được phần hơn. Có một đứa em sẽ khóc vì mình, rồi vẫn muốn kéo mình ngồi xuống chơi cùng."
   },
   {
@@ -1222,7 +1204,7 @@
    "kind": "line",
    "at": 948,
    "len": 127,
-   "f": 5970,
+   "f": 6072,
    "text": "“Thôi anh. Em không nghe nữa đâu. Anh đừng đổi.”"
   },
   {
@@ -1232,7 +1214,7 @@
    "kind": "line",
    "at": 1074,
    "len": 98,
-   "f": 6096,
+   "f": 6198,
    "text": "“Anh cũng nhớ mẹ. Anh muốn nghe nữa.”"
   },
   {
@@ -1242,7 +1224,7 @@
    "kind": "pause",
    "at": 1172,
    "len": 90,
-   "f": 6194,
+   "f": 6296,
    "text": "Thảo buông vạt áo. Duy nhìn ảnh rồi cất vào ví; còn cơ hội mang máy về. Giấy chưa ký; tiếng quạt giữ nhịp."
   },
   {
@@ -1252,7 +1234,7 @@
    "kind": "line",
    "at": 0,
    "len": 191,
-   "f": 6284,
+   "f": 6386,
    "text": "“Cả buổi đó mất. Từ lúc giành xe đến lúc làm hòa. Đổi để sửa máy. Đúng chưa?”"
   },
   {
@@ -1262,7 +1244,7 @@
    "kind": "line",
    "at": 191,
    "len": 40,
-   "f": 6475,
+   "f": 6577,
    "text": "“Dạ.”"
   },
   {
@@ -1272,7 +1254,7 @@
    "kind": "line",
    "at": 232,
    "len": 47,
-   "f": 6516,
+   "f": 6618,
    "text": "“Vẫn đổi?”"
   },
   {
@@ -1282,7 +1264,7 @@
    "kind": "line",
    "at": 279,
    "len": 64,
-   "f": 6563,
+   "f": 6665,
    "text": "“Cháu vẫn đổi.”"
   },
   {
@@ -1292,7 +1274,7 @@
    "kind": "pause",
    "at": 0,
    "len": 90,
-   "f": 6627,
+   "f": 6729,
    "text": "Lộc mới nhận máy, mang về bàn sau. Cut thời gian sửa; không cần thuyết minh kỹ thuật hay montage dài."
   },
   {
@@ -1302,7 +1284,7 @@
    "kind": "line",
    "at": 0,
    "len": 119,
-   "f": 6837,
+   "f": 6939,
    "text": "“Anh còn nhớ hôm mẹ dỗ hai anh em làm hòa không?”"
   },
   {
@@ -1312,7 +1294,7 @@
    "kind": "pause",
    "at": 119,
    "len": 60,
-   "f": 6956,
+   "f": 7058,
    "text": "Duy nhắm mắt tìm ký ức; một nhịp thở, rồi lắc đầu. Không âm chime, không đọc động tác."
   },
   {
@@ -1322,7 +1304,7 @@
    "kind": "line",
    "at": 179,
    "len": 211,
-   "f": 7016,
+   "f": 7118,
    "text": "“Anh nhớ chuyện mình vừa kể. Nhưng giọng mẹ hôm đó… lúc mẹ vuốt tóc anh… không nhớ được nữa.”"
   },
   {
@@ -1332,7 +1314,7 @@
    "kind": "line",
    "at": 390,
    "len": 244,
-   "f": 7227,
+   "f": 7329,
    "text": "Duy vẫn biết mẹ là ai, vẫn thương em. Chỉ trải nghiệm của buổi làm hòa ấy đã mất, dù cậu biết nó từng xảy ra."
   },
   {
@@ -1342,7 +1324,7 @@
    "kind": "line",
    "at": 0,
    "len": 40,
-   "f": 7471,
+   "f": 7573,
    "text": "“Giữ lấy.”"
   },
   {
@@ -1352,7 +1334,7 @@
    "kind": "line",
    "at": 145,
    "len": 230,
-   "f": 7616,
+   "f": 7718,
    "text": "“Duy, mẹ để hai phần bánh trong tủ lạnh. Phần có dâu là của Thảo. Con cắt miếng nhỏ giùm mẹ. Mẹ về mẹ ăn cơm.”"
   },
   {
@@ -1362,7 +1344,7 @@
    "kind": "pause",
    "at": 375,
    "len": 90,
-   "f": 7846,
+   "f": 7948,
    "text": "Bản ghi dừng. Chỉ còn quạt; Thảo nhìn anh. Không phát lặp bản ghi, không nhạc buồn đè ngay chữ cuối."
   },
   {
@@ -1372,7 +1354,7 @@
    "kind": "line",
    "at": 900,
    "len": 88,
-   "f": 7936,
+   "f": 8038,
    "text": "“Mẹ vẫn tưởng mẹ sẽ về.”"
   },
   {
@@ -1382,7 +1364,7 @@
    "kind": "line",
    "at": 988,
    "len": 83,
-   "f": 8024,
+   "f": 8126,
    "text": "“Ông sửa được thứ khác ngoài điện thoại không?”"
   },
   {
@@ -1392,7 +1374,7 @@
    "kind": "line",
    "at": 0,
    "len": 71,
-   "f": 8108,
+   "f": 8210,
    "text": "“Thế mày muốn tao sửa gì nữa?”"
   },
   {
@@ -1402,7 +1384,7 @@
    "kind": "line",
    "at": 1500,
    "len": 232,
-   "f": 8179,
+   "f": 8281,
    "text": "“Cháu muốn được yên như hồi có mẹ. Bố say, mẹ đứng che tụi cháu… có mẹ thì cháu đỡ sợ.”"
   },
   {
@@ -1412,7 +1394,7 @@
    "kind": "line",
    "at": 0,
    "len": 155,
-   "f": 8411,
+   "f": 8513,
    "text": "“Được. Hai đứa được yên như hồi còn mẹ, một lát thôi. Mẹ không về.”"
   },
   {
@@ -1422,7 +1404,7 @@
    "kind": "line",
    "at": 155,
    "len": 69,
-   "f": 8566,
+   "f": 8668,
    "text": "“Cái giá là gì?”"
   },
   {
@@ -1432,7 +1414,7 @@
    "kind": "line",
    "at": 224,
    "len": 244,
-   "f": 8635,
+   "f": 8737,
    "text": "“Con bé bớt nỗi buồn bị bỏ lại. Mày nhận phần ấy, cộng với nỗi buồn của mày. Hết hơi ấm, cái giá vẫn còn.”"
   },
   {
@@ -1442,7 +1424,7 @@
    "kind": "line",
    "at": 469,
    "len": 79,
-   "f": 8880,
+   "f": 8982,
    "text": "“Em cháu đỡ buồn là được.”"
   },
   {
@@ -1452,7 +1434,7 @@
    "kind": "line",
    "at": 547,
    "len": 95,
-   "f": 8958,
+   "f": 9060,
    "text": "“Nói đồng ý là đổi. Không lấy lại được.”"
   },
   {
@@ -1462,7 +1444,7 @@
    "kind": "pause",
    "at": 643,
    "len": 30,
-   "f": 9054,
+   "f": 9156,
    "text": "Duy giữ tay em, nhìn em rồi mới trả lời; chưa có hơi ấm hoặc hiệu ứng giao kèo."
   },
   {
@@ -1472,7 +1454,7 @@
    "kind": "line",
    "at": 0,
    "len": 50,
-   "f": 9084,
+   "f": 9186,
    "text": "“Cháu đồng ý.”"
   },
   {
@@ -1482,7 +1464,7 @@
    "kind": "pause",
    "at": 50,
    "len": 120,
-   "f": 9134,
+   "f": 9236,
    "text": "C5-B: tiếng hẻm lùi, ánh chủ quan ấm thoáng. Hai trẻ thở ra, vai dịu và tựa gần. Hơi ấm rút ở cuối; vẫn ngồi trong tiệm, không mẹ/giọng mẹ/trắng/ù."
   },
   {
@@ -1492,7 +1474,7 @@
    "kind": "pause",
    "at": 0,
    "len": 60,
-   "f": 9254,
+   "f": 9356,
    "text": "Duy hụt một nhịp thở, ghế kêu dưới trọng lượng; rung/nghiêng C5-C chỉ 1,6 giây đầu, 0,4 giây cuối về tĩnh. Không thêm tiếng tim bệnh viện."
   },
   {
@@ -1502,7 +1484,7 @@
    "kind": "line",
    "at": 60,
    "len": 74,
-   "f": 9314,
+   "f": 9416,
    "text": "“Anh ơi… anh sao vậy?”"
   },
   {
@@ -1512,7 +1494,7 @@
    "kind": "line",
    "at": 134,
    "len": 64,
-   "f": 9388,
+   "f": 9490,
    "text": "“Anh… không sao…”"
   },
   {
@@ -1522,7 +1504,7 @@
    "kind": "line",
    "at": 198,
    "len": 170,
-   "f": 9452,
+   "f": 9554,
    "text": "“Ông cho anh cháu gặp mẹ đi. Lần này lấy của cháu. Đừng lấy của anh nữa.”"
   },
   {
@@ -1532,7 +1514,7 @@
    "kind": "line",
    "at": 0,
    "len": 283,
-   "f": 9622,
+   "f": 9724,
    "text": "“Cả hai gặp mẹ, nói chuyện một lần, rồi mẹ đi. Đổi lại, từ nay mày không mơ thấy mẹ nữa. Lúc thức vẫn nhớ mẹ. Đồng ý không?”"
   },
   {
@@ -1542,7 +1524,7 @@
    "kind": "line",
    "at": 283,
    "len": 43,
-   "f": 9905,
+   "f": 10007,
    "text": "“Cháu đồng ý!”"
   },
   {
@@ -1552,7 +1534,7 @@
    "kind": "line",
    "at": 325,
    "len": 67,
-   "f": 9947,
+   "f": 10049,
    "text": "“Thảo, đừng…”"
   },
   {
@@ -1562,7 +1544,7 @@
    "kind": "pause",
    "at": 392,
    "len": 60,
-   "f": 10014,
+   "f": 10116,
    "text": "Trắng và ù G3 một lần, sau lời nhận. Lời Duy vẫn rõ, ù rút trước mẹ gọi. Đổi 16:9 sang 2:1 dưới lớp trắng; hai cơ thể vẫn ở ghế tiệm."
   },
   {
@@ -1572,7 +1554,7 @@
    "kind": "line",
    "at": 45,
    "len": 95,
-   "f": 10119,
+   "f": 10221,
    "text": "“Duy. Thảo. Lại đây với mẹ.”"
   },
   {
@@ -1582,7 +1564,7 @@
    "kind": "line",
    "at": 140,
    "len": 45,
-   "f": 10214,
+   "f": 10316,
    "text": "“Mẹ!”"
   },
   {
@@ -1592,7 +1574,7 @@
    "kind": "pause",
    "at": 185,
    "len": 180,
-   "f": 10259,
+   "f": 10361,
    "text": "C6-A → C6-B: Thảo chạy mấy bước tới trước, Duy còn sững một nhịp rồi bước theo. Mẹ cúi đón, chạm đúng tay con rồi mới nắm. Không cho ba người đã nắm tay từ đầu cảnh."
   },
   {
@@ -1602,7 +1584,7 @@
    "kind": "pause",
    "at": 0,
    "len": 150,
-   "f": 10439,
+   "f": 10541,
    "text": "C6-B: ba mẹ con nắm tay đi trên lối đất. Chân chịu trọng lượng, tay đúng bên, gió/vải/chân/nhạc ấm còn nghe; không số 0 kỹ thuật số, không lời dẫn."
   },
   {
@@ -1612,7 +1594,7 @@
    "kind": "pause",
    "at": 0,
    "len": 90,
-   "f": 10589,
+   "f": 10691,
    "text": "C6-C: mẹ cùng con nhả/chuyển tay, ngồi xuống mép kè đá khô. Đùi tì mặt kè, gối gập, chân cao hơn nước. Vải cọ đá nhẹ; sửa chỉ dẫn cỏ khô cũ."
   },
   {
@@ -1622,7 +1604,7 @@
    "kind": "line",
    "at": 90,
    "len": 141,
-   "f": 10679,
+   "f": 10781,
    "text": "“Mẹ ơi, chỗ này lại bung rồi nè. Mẹ vá cho con nữa nha.”"
   },
   {
@@ -1632,7 +1614,7 @@
    "kind": "line",
    "at": 231,
    "len": 115,
-   "f": 10820,
+   "f": 10922,
    "text": "“Mẹ mới vá xong, ai chui hàng rào hái ổi?”"
   },
   {
@@ -1642,7 +1624,7 @@
    "kind": "line",
    "at": 346,
    "len": 55,
-   "f": 10935,
+   "f": 11037,
    "text": "“Anh Duy rủ con.”"
   },
   {
@@ -1652,7 +1634,7 @@
    "kind": "line",
    "at": 400,
    "len": 81,
-   "f": 10989,
+   "f": 11091,
    "text": "“Anh đứng ngoài giữ dép cho em mà.”"
   },
   {
@@ -1662,7 +1644,7 @@
    "kind": "line",
    "at": 0,
    "len": 86,
-   "f": 11070,
+   "f": 11172,
    "text": "“Còn gắp hành qua chén em không?”"
   },
   {
@@ -1672,7 +1654,7 @@
    "kind": "line",
    "at": 86,
    "len": 62,
-   "f": 11156,
+   "f": 11258,
    "text": "“Con gắp ít hơn rồi.”"
   },
   {
@@ -1682,7 +1664,7 @@
    "kind": "line",
    "at": 148,
    "len": 69,
-   "f": 11218,
+   "f": 11320,
    "text": "“Ít hơn chứ chưa hết!”"
   },
   {
@@ -1692,7 +1674,7 @@
    "kind": "line",
    "at": 0,
    "len": 62,
-   "f": 11287,
+   "f": 11389,
    "text": "“Duy, nhìn mẹ nè.”"
   },
   {
@@ -1702,7 +1684,7 @@
    "kind": "line",
    "at": 0,
    "len": 127,
-   "f": 11349,
+   "f": 11451,
    "text": "“Con sợ… em thấy con khóc thì nó càng sợ.”"
   },
   {
@@ -1712,7 +1694,7 @@
    "kind": "line",
    "at": 127,
    "len": 71,
-   "f": 11476,
+   "f": 11578,
    "text": "“Con cũng nhớ mẹ.”"
   },
   {
@@ -1722,7 +1704,7 @@
    "kind": "line",
    "at": 198,
    "len": 263,
-   "f": 11547,
+   "f": 11649,
    "text": "“Con là anh của em, nhưng vẫn là con của mẹ mà. Bố say rồi đánh thì sang dì Hạnh, nhờ dì giúp. Đừng ở đó chịu một mình.”"
   },
   {
@@ -1732,7 +1714,7 @@
    "kind": "pause",
    "at": 62,
    "len": 90,
-   "f": 11810,
+   "f": 11912,
    "text": "Mẹ giữ hai con, Duy lấy lại hơi; chỉ gió/vải/nhạc thưa. Không narrator chen lúc nhân vật vừa chịu bộc lộ."
   },
   {
@@ -1742,7 +1724,7 @@
    "kind": "line",
    "at": 152,
    "len": 158,
-   "f": 11900,
+   "f": 12002,
    "text": "“Nhớ mẹ thì kể với anh. Bữa nào anh buồn, con ngồi cạnh anh một chút.”"
   },
   {
@@ -1752,7 +1734,7 @@
    "kind": "line",
    "at": 310,
    "len": 88,
-   "f": 12058,
+   "f": 12160,
    "text": "“Mẹ về với tụi con được không?”"
   },
   {
@@ -1762,7 +1744,7 @@
    "kind": "line",
    "at": -322,
    "len": 136,
-   "f": 12146,
+   "f": 12248,
    "text": "“Mẹ thương cả hai đứa. Đừng giấu nhau nữa, nghe con.”"
   },
   {
@@ -1772,7 +1754,7 @@
    "kind": "line",
    "at": -186,
    "len": 107,
-   "f": 12282,
+   "f": 12384,
    "text": "“Con còn nhiều chuyện chưa kể…”"
   },
   {
@@ -1782,7 +1764,7 @@
    "kind": "line",
    "at": -78,
    "len": 79,
-   "f": 12390,
+   "f": 12492,
    "text": "“Mẹ… đợi con…”"
   },
   {
@@ -1792,7 +1774,7 @@
    "kind": "pause",
    "at": 0,
    "len": 120,
-   "f": 12468,
+   "f": 12570,
    "text": "C7-C: mẹ tan mềm hết trong 3–4 giây; thấy đồng qua áo rồi khoảng trống. Hạt vàng thưa từ viền mẹ tắt hết, Dust ruộng độc lập. Chỉ gió, thở/nức nở vừa đủ và nhạc không lời, tuyệt đối không lời kể."
   },
   {
@@ -1802,7 +1784,7 @@
    "kind": "pause",
    "at": 120,
    "len": 240,
-   "f": 12588,
+   "f": 12690,
    "text": "C7-C: Duy dịch gần lau má Thảo → em đưa tay → anh nắm. Từ đầu nhịp dùng cận vừa đủ đọc mặt/tay ở 480p, tiến dịu vào đôi tay rồi giảm tốc/mờ về tiệm. Không dồn zoom vào hai giây cuối. Giữ gió và hơi thở, không digital silence hay lời tổng kết."
   },
   {
@@ -1812,7 +1794,7 @@
    "kind": "line",
    "at": 0,
    "len": 371,
-   "f": 12888,
+   "f": 12990,
    "text": "Tờ sửa máy là cái giá của ký ức. Tờ thứ hai ghi phần buồn Duy nhận thay em. Tờ cuối mang tên Thảo: cuộc gặp mẹ, đổi bằng những giấc mơ về mẹ."
   },
   {
@@ -1822,7 +1804,7 @@
    "kind": "line",
    "at": 60,
    "len": 79,
-   "f": 13259,
+   "f": 13361,
    "text": "“Sao em không để anh nói đã?”"
   },
   {
@@ -1832,7 +1814,7 @@
    "kind": "line",
    "at": 139,
    "len": 153,
-   "f": 13338,
+   "f": 13440,
    "text": "“Em thấy anh mệt lắm rồi. Em không muốn ông lấy thêm của anh nữa.”"
   },
   {
@@ -1842,7 +1824,7 @@
    "kind": "line",
    "at": 292,
    "len": 143,
-   "f": 13491,
+   "f": 13593,
    "text": "“Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?”"
   },
   {
@@ -1852,7 +1834,7 @@
    "kind": "line",
    "at": 435,
    "len": 71,
-   "f": 13634,
+   "f": 13736,
    "text": "“Được rồi, hai đứa chúng mày về đi.”"
   },
   {
@@ -1862,7 +1844,7 @@
    "kind": "pause",
    "at": 506,
    "len": 90,
-   "f": 13705,
+   "f": 13807,
    "text": "C8-A: Lộc nhếch mép rồi cười nham hiểm thành tiếng, kéo dài; Thảo nép vào anh. Tiếng cười giữ qua lúc Duy cất giấy và tới khi hai trẻ ra khỏi quán thì tắt."
   },
   {
@@ -1872,7 +1854,7 @@
    "kind": "pause",
    "at": 126,
    "len": 90,
-   "f": 14026,
+   "f": 14128,
    "text": "C8-E: hai trẻ bước ra đúng cửa tiệm lúc đầu và đi khuất trước; máy ở lại ngoài cửa sau khi hai trẻ rời khung, cửa cuốn hạ. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Trên bức tường trống hiện dần biểu tượng đồng hồ cát và lọ để C9-A zoom vào. Sau đó mới cut tới nhà hai trẻ."
   },
   {
@@ -1882,7 +1864,7 @@
    "kind": "line",
    "at": 150,
    "len": 179,
-   "f": 14266,
+   "f": 14368,
    "text": "“Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.”"
   },
   {
@@ -1892,7 +1874,7 @@
    "kind": "line",
    "at": 329,
    "len": 175,
-   "f": 14445,
+   "f": 14547,
    "text": "Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đêm nay."
   },
   {
@@ -1902,7 +1884,7 @@
    "kind": "line",
    "at": 0,
    "len": 460,
-   "f": 14620,
+   "f": 14722,
    "text": "Buổi làm hòa bên mẹ không trở lại trong Duy. Phần buồn cậu nhận vẫn còn. Thảo cũng sẽ không gặp mẹ trong mơ nữa. Nhưng lần này, Duy chịu nói mình không kham nổi. Và ở đầu hẻm, có một người lớn đang đợi hai đứa."
   },
   {
@@ -1912,7 +1894,7 @@
    "kind": "pause",
    "at": 460,
    "len": 120,
-   "f": 15080,
+   "f": 15182,
    "text": "Giữ hai trẻ đi về đèn nhà dì. Nhạc không lời nâng vừa đủ rồi để tiếng chân/hẻm kết; không thêm đoạn dạy đạo lý."
   },
   {
@@ -1922,7 +1904,7 @@
    "kind": "pause",
    "at": 0,
    "len": 420,
-   "f": 15200,
+   "f": 15302,
    "text": "C9-A: máy zoom vào biểu tượng đồng hồ cát và lọ trên tường nơi tiệm đã biến mất, rồi chuyển vào trong tiệm. Lộc cười điên dại, đầu ngửa, vai rung. Sau đó thân thể đổi từng bộ phận: mắt hổ phách mở thêm mắt thứ ba, đầu thành mặt đồng hồ, tay vai, thân, rồi nhấc khỏi mặt đất; hình dạng người mất hẳn rồi mới tới môi trường: kho lọ lan ra từ chính nguyên hình, không lóe trắng, không hòa hai cơ thể."
   },
   {
@@ -1932,7 +1914,7 @@
    "kind": "pause",
    "at": 0,
    "len": 210,
-   "f": 15620,
+   "f": 15722,
    "text": "C9-B: lộ nguyên hình đồng hồ ba mắt lơ lửng trong kho sáng huyền ảo. Giữ một nhịp để nhận diện, rồi ánh mắt chuyển tới ba lọ; không thêm lời hoặc gầm hù."
   },
   {
@@ -1942,7 +1924,7 @@
    "kind": "pause",
    "at": 0,
    "len": 240,
-   "f": 15830,
+   "f": 15932,
    "text": "C9-C: đọc được từng lọ mới bằng hình tượng rồi Lộc điều khiển xếp chúng. Lọ rời mặt đỡ nhờ vùng lực rõ, giảm tốc, chạm ô kệ và tắt quầng lực. G2 là dấu giao kèo, nỗi buồn vẫn ở Duy; G3 không phải linh hồn mẹ."
   },
   {
@@ -1952,7 +1934,7 @@
    "kind": "pause",
    "at": 0,
    "len": 210,
-   "f": 16070,
+   "f": 16172,
    "text": "C9-D: máy lùi mở các lớp kho, hạt cát chảy lên/vòng kim quay lùi cục bộ. Giữ đủ ba lọ mới, các lọ cũ không có nạn nhân mới vừa trao giá. Kết trong ánh sáng xa lạ; không hoàn ký ức, nỗi buồn hoặc quyền mơ cho trẻ."
   }
  ],
@@ -2033,445 +2015,445 @@
    "file": "tin-nhan-chua-gui/voice/1.13.0-loc-c1586182e5.mp3",
    "role": "loc",
    "id": "1.13.0",
-   "f": 2412
+   "f": 2411
   },
   {
    "file": "tin-nhan-chua-gui/voice/1.14.0-loc-26d31b3b99.mp3",
    "role": "loc",
    "id": "1.14.0",
-   "f": 2650
+   "f": 2752
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.0.0-loc-06a5d8ca30.mp3",
    "role": "loc",
    "id": "2.0.0",
-   "f": 2844
+   "f": 2946
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.1.0-duy-007e28c5a1.mp3",
    "role": "duy",
    "id": "2.1.0",
-   "f": 3009
+   "f": 3111
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.2.0-loc-fabe61131f.mp3",
    "role": "loc",
    "id": "2.2.0",
-   "f": 3085
+   "f": 3187
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.3.0-narrator-0448c5596c.mp3",
    "role": "narrator",
    "id": "2.3.0",
-   "f": 3130
+   "f": 3232
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.4.0-thao-99ca53363f.mp3",
    "role": "thao",
    "id": "2.4.0",
-   "f": 3434
+   "f": 3536
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.5.0-duy-dcc361e554.mp3",
    "role": "duy",
    "id": "2.5.0",
-   "f": 3508
+   "f": 3610
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.6.0-narrator-945faefb15.mp3",
    "role": "narrator",
    "id": "2.6.0",
-   "f": 3594
+   "f": 3696
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.7.0-duy-40bfff8276.mp3",
    "role": "duy",
    "id": "2.7.0",
-   "f": 3895
+   "f": 3997
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.8.0-thao-e844fa7443.mp3",
    "role": "thao",
    "id": "2.8.0",
-   "f": 4096
+   "f": 4198
   },
   {
    "file": "tin-nhan-chua-gui/voice/2.9.0-thao-b21f292efd.mp3",
    "role": "thao",
    "id": "2.9.0",
-   "f": 4187
+   "f": 4289
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.0.0-thao-36ab68bda2.mp3",
    "role": "thao",
    "id": "3.0.0",
-   "f": 4270
+   "f": 4372
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.1.0-thao-6c0c0aba28.mp3",
    "role": "thao",
    "id": "3.1.0",
-   "f": 4368
+   "f": 4470
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.2.0-thao-93a82163e0.mp3",
    "role": "thao",
    "id": "3.2.0",
-   "f": 4749
+   "f": 4851
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.3.0-duy-743ca646fd.mp3",
    "role": "duy",
    "id": "3.3.0",
-   "f": 4871
+   "f": 4973
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.4.0-duy-367ba0984c.mp3",
    "role": "duy",
    "id": "3.4.0",
-   "f": 5077
+   "f": 5179
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.5.0-thao-2826484dff.mp3",
    "role": "thao",
    "id": "3.5.0",
-   "f": 5228
+   "f": 5330
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.6.0-duy-f96b4b6fd4.mp3",
    "role": "duy",
    "id": "3.6.0",
-   "f": 5331
+   "f": 5433
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.7.0-thao-afacee3594.mp3",
    "role": "thao",
    "id": "3.7.0",
-   "f": 5532
+   "f": 5634
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.8.0-narrator-1c8139ac9e.mp3",
    "role": "narrator",
    "id": "3.8.0",
-   "f": 5677
+   "f": 5779
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.9.0-thao-da66ba51ba.mp3",
    "role": "thao",
    "id": "3.9.0",
-   "f": 5970
+   "f": 6072
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.10.0-duy-cb91a74c2e.mp3",
    "role": "duy",
    "id": "3.10.0",
-   "f": 6096
+   "f": 6198
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.12.0-loc-e66d6d283d.mp3",
    "role": "loc",
    "id": "3.12.0",
-   "f": 6284
+   "f": 6386
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.13.0-duy-01b8134f9b.mp3",
    "role": "duy",
    "id": "3.13.0",
-   "f": 6475
+   "f": 6577
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.14.0-loc-8b75042986.mp3",
    "role": "loc",
    "id": "3.14.0",
-   "f": 6516
+   "f": 6618
   },
   {
    "file": "tin-nhan-chua-gui/voice/3.15.0-duy-92f518ca83.mp3",
    "role": "duy",
    "id": "3.15.0",
-   "f": 6563
+   "f": 6665
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.0.0-thao-147abc326c.mp3",
    "role": "thao",
    "id": "4.0.0",
-   "f": 6837
+   "f": 6939
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.2.0-duy-d323d1b638.mp3",
    "role": "duy",
    "id": "4.2.0",
-   "f": 7016
+   "f": 7118
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.3.0-narrator-014db7efe6.mp3",
    "role": "narrator",
    "id": "4.3.0",
-   "f": 7227
+   "f": 7329
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.4.0-loc-d9161e0a77.mp3",
    "role": "loc",
    "id": "4.4.0",
-   "f": 7471
+   "f": 7573
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.5.0-me-8d3c984b93.mp3",
    "role": "me",
    "id": "4.5.0",
-   "f": 7616
+   "f": 7718
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.7.0-thao-06c4e6a2e7.mp3",
    "role": "thao",
    "id": "4.7.0",
-   "f": 7936
+   "f": 8038
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.8.0-thao-7ca27155b5.mp3",
    "role": "thao",
    "id": "4.8.0",
-   "f": 8024
+   "f": 8126
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.9.0-loc-b89bb9c39d.mp3",
    "role": "loc",
    "id": "4.9.0",
-   "f": 8108
+   "f": 8210
   },
   {
    "file": "tin-nhan-chua-gui/voice/4.10.0-thao-fe95a63cfe.mp3",
    "role": "thao",
    "id": "4.10.0",
-   "f": 8179
+   "f": 8281
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.0.0-loc-377341b9fb.mp3",
    "role": "loc",
    "id": "5.0.0",
-   "f": 8411
+   "f": 8513
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.1.0-duy-2137482f1f.mp3",
    "role": "duy",
    "id": "5.1.0",
-   "f": 8566
+   "f": 8668
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.2.0-loc-83a9cb194a.mp3",
    "role": "loc",
    "id": "5.2.0",
-   "f": 8635
+   "f": 8737
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.3.0-duy-d448060219.mp3",
    "role": "duy",
    "id": "5.3.0",
-   "f": 8880
+   "f": 8982
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.4.0-loc-c7e9fc19af.mp3",
    "role": "loc",
    "id": "5.4.0",
-   "f": 8958
+   "f": 9060
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.6.0-duy-baf05a5061.mp3",
    "role": "duy",
    "id": "5.6.0",
-   "f": 9084
+   "f": 9186
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.9.0-thao-dd5198b269.mp3",
    "role": "thao",
    "id": "5.9.0",
-   "f": 9314
+   "f": 9416
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.10.0-duy-455a16f47c.mp3",
    "role": "duy",
    "id": "5.10.0",
-   "f": 9388
+   "f": 9490
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.11.0-thao-ca13f1f320.mp3",
    "role": "thao",
    "id": "5.11.0",
-   "f": 9452
+   "f": 9554
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.12.0-loc-fa10181eef.mp3",
    "role": "loc",
    "id": "5.12.0",
-   "f": 9622
+   "f": 9724
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.13.0-thao-0ec41ad0d5.mp3",
    "role": "thao",
    "id": "5.13.0",
-   "f": 9905
+   "f": 10007
   },
   {
    "file": "tin-nhan-chua-gui/voice/5.14.0-duy-95df977a2c.mp3",
    "role": "duy",
    "id": "5.14.0",
-   "f": 9947
+   "f": 10049
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.0.0-me-7dfddc09aa.mp3",
    "role": "me",
    "id": "6.0.0",
-   "f": 10119
+   "f": 10221
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.1.0-thao-b86288acb0.mp3",
    "role": "thao",
    "id": "6.1.0",
-   "f": 10214
+   "f": 10316
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.5.0-thao-df3454ff96.mp3",
    "role": "thao",
    "id": "6.5.0",
-   "f": 10679
+   "f": 10781
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.6.0-me-32a68dc197.mp3",
    "role": "me",
    "id": "6.6.0",
-   "f": 10820
+   "f": 10922
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.7.0-thao-0f143dd6dd.mp3",
    "role": "thao",
    "id": "6.7.0",
-   "f": 10935
+   "f": 11037
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.8.0-duy-39bab4cc90.mp3",
    "role": "duy",
    "id": "6.8.0",
-   "f": 10989
+   "f": 11091
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.9.0-me-03817869c9.mp3",
    "role": "me",
    "id": "6.9.0",
-   "f": 11070
+   "f": 11172
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.10.0-duy-7fac047313.mp3",
    "role": "duy",
    "id": "6.10.0",
-   "f": 11156
+   "f": 11258
   },
   {
    "file": "tin-nhan-chua-gui/voice/6.11.0-thao-3709f6535b.mp3",
    "role": "thao",
    "id": "6.11.0",
-   "f": 11218
+   "f": 11320
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.0.0-me-4a2233c6f4.mp3",
    "role": "me",
    "id": "7.0.0",
-   "f": 11287
+   "f": 11389
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.1.0-duy-82188224eb.mp3",
    "role": "duy",
    "id": "7.1.0",
-   "f": 11349
+   "f": 11451
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.2.0-duy-ddb84149f9.mp3",
    "role": "duy",
    "id": "7.2.0",
-   "f": 11476
+   "f": 11578
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.3.0-me-57d0755f34.mp3",
    "role": "me",
    "id": "7.3.0",
-   "f": 11547
+   "f": 11649
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.5.0-me-c486d9549a.mp3",
    "role": "me",
    "id": "7.5.0",
-   "f": 11900
+   "f": 12002
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.6.0-thao-bf965fbce7.mp3",
    "role": "thao",
    "id": "7.6.0",
-   "f": 12058
+   "f": 12160
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.7.0-me-9ef0bfd19f.mp3",
    "role": "me",
    "id": "7.7.0",
-   "f": 12146
+   "f": 12248
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.8.0-thao-fbd310375d.mp3",
    "role": "thao",
    "id": "7.8.0",
-   "f": 12282
+   "f": 12384
   },
   {
    "file": "tin-nhan-chua-gui/voice/7.9.0-duy-5a0305573c.mp3",
    "role": "duy",
    "id": "7.9.0",
-   "f": 12390
+   "f": 12492
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.0.0-narrator-89751a2f7d.mp3",
    "role": "narrator",
    "id": "8.0.0",
-   "f": 12888
+   "f": 12990
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.1.0-duy-63d43b00e0.mp3",
    "role": "duy",
    "id": "8.1.0",
-   "f": 13259
+   "f": 13361
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.2.0-thao-4fd9786e3f.mp3",
    "role": "thao",
    "id": "8.2.0",
-   "f": 13338
+   "f": 13440
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.5.0-thao-8e7c4de2d2.mp3",
    "role": "thao",
    "id": "8.3.0",
-   "f": 13491
+   "f": 13593
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.4.0-loc-26da7629cb.mp3",
    "role": "loc",
    "id": "8.4.0",
-   "f": 13634
+   "f": 13736
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.7.0-duy-82fc853a71.mp3",
    "role": "duy",
    "id": "8.7.0",
-   "f": 14266
+   "f": 14368
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.8.0-narrator-652cabe1a0.mp3",
    "role": "narrator",
    "id": "8.8.0",
-   "f": 14445
+   "f": 14547
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.9.0-narrator-eabea20613.mp3",
    "role": "narrator",
    "id": "8.9.0",
-   "f": 14620
+   "f": 14722
   }
  ],
  "fx": [],

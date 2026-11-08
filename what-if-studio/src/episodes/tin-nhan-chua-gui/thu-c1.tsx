@@ -1,7 +1,8 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame } from 'remotion';
-import { Hero, handWorld, LOOKS, standPose, walkPose, sitPose, poseAt, camT, clamp, lerp, Pose, OngLocShop, OngLocCounter, OngLocForeground, ScrewdriverProp, FONT } from '../../engine';
+import { handWorld, LOOKS, standPose, walkPose, sitPose, poseAt, camT, clamp, lerp, Pose, OngLocShop, OngLocCounter, OngLocForeground, ScrewdriverProp, FONT } from '../../engine';
 import { ramp, reach, COUNTER, COUNTER_TOP, LOC_S, SHOP_FLOOR, DUY_S, THAO_S, BenchFront, DoorShelf, TwoBills } from './staging';
+import { Hero } from './actor';
 import data from './thu-c1.json';
 
 // Test clip for script v12, C1: Thảo offers the two bills → Lộc lays the screwdriver down → "Cất đi" → the sarcastic
@@ -11,6 +12,13 @@ import data from './thu-c1.json';
 
 type Line = { id: string; role: string; f: number; len: number; talk: number[]; shape: number[] };
 const LINES = (data as { lines: Line[] }).lines;
+/** Film shot clock → performance clock: the three spoken beats land on the real takes, everything between stretches to fit. */
+export const perfClock = (t: number, ask: number, scold: number, mock: number, mockEnd: number) => {
+  const a: [number, number][] = [[ask, 18], [scold, CAT], [mock, MIA], [mockEnd, MIA_END]];
+  if (t <= a[0][0]) return Math.max(0, 18 - (a[0][0] - t));
+  for (let i = 0; i < a.length - 1; i++) if (t <= a[i + 1][0]) return Math.round(a[i][1] + ((t - a[i][0]) / Math.max(1, a[i + 1][0] - a[i][0])) * (a[i + 1][1] - a[i][1]));
+  return Math.round(MIA_END + (t - mockEnd));
+};
 export const THU_C1_TOTAL = (data as { total: number }).total;
 const SHAPES = ['a', 'e', 'o', 'a', 'u', 'e', 'o'] as const;
 const line = (id: string) => LINES.find((l) => l.id === id)!;
@@ -37,7 +45,7 @@ const LOC_GROUND = COUNTER_TOP + 140 * LOC_S - 12;
 /** The clock Lộc is repairing: face open on its movement, back cover and two screws laid beside it. */
 const CLOCK = { x: 968, y: COUNTER_TOP + 2 };
 const BENCH_CLOCK = { x: 1318, y: 506 }; // on the rear bench top, in front of his seat
-const RepairClock: React.FC<{ f: number; inHand?: boolean; at?: { x: number; y: number; s: number }; hs?: number }> = ({ f, inHand = false, at, hs = 1.3 }) => (
+export const RepairClock: React.FC<{ f: number; inHand?: boolean; at?: { x: number; y: number; s: number }; hs?: number }> = ({ f, inHand = false, at, hs = 1.3 }) => (
   <g>
     {!inHand && !at ? (
       <g>
@@ -59,8 +67,8 @@ const RepairClock: React.FC<{ f: number; inHand?: boolean; at?: { x: number; y: 
   </g>
 );
 
-const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNode; heldL?: React.ReactNode; clockOnCounter?: boolean; benchClock?: boolean } => {
-  const m = mouth('loc', f);
+const locAt = (f: number, film = false): { pose: Pose; atBench: boolean; held?: React.ReactNode; heldL?: React.ReactNode; clockOnCounter?: boolean; benchClock?: boolean } => {
+  const m = film ? {} : mouth('loc', f); // in the film actor.tsx drives every mouth from the real takes
   const sit = ramp(f, 528, 548);
   const walk = clamp((f - 452) / (528 - 452));
   if (f >= 452) {
@@ -131,7 +139,7 @@ const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNod
 };
 
 const DUY_X = 1090;
-const duyAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
+const duyAt = (f: number, film = false): { pose: Pose; held?: React.ReactNode } => {
   const glance = pulse(f, 28, 40, 62); // looks down at the bills she takes out
   const flinch = pulse(f, CAT + 1, CAT + 4, CAT + 14);
   const toHer = ramp(f, 342, 356);
@@ -146,10 +154,10 @@ const duyAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
     headTilt: -3 + 6 * glance - 4 * flinch + 5 * toHer * (1 - back),
     expr: (f >= CAT && f < 300 ? 'determined' : f >= 300 && f < 452 ? 'tearsHeldBack' : f >= 452 ? 'determined' : 'worried') as Pose['expr'],
     shoulderLift: -0.3 * flinch,
-    ...mouth('duy', f),
+    ...(film ? {} : mouth('duy', f)),
   };
   let p = step > 0 && step < 1 ? walkPose(x, step * Math.PI, SHOP_FLOOR - 15, DUY_S, base, 1) : standPose(x, SHOP_FLOOR - 15, DUY_S, base);
-  const th = thaoAt(f);
+  const th = thaoAt(f, film);
   // Right hand: near her shoulder, then cups her hand on the bills (396–416), keeps them low at his side.
   const cup = ramp(f, 394, 414);
   const keep = ramp(f, 422, 440);
@@ -172,7 +180,7 @@ const thaoArm = (f: number) => {
   return mixArm(arm, ARM.strap, ramp(f, 418, 434));
 };
 
-const thaoAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
+const thaoAt = (f: number, film = false): { pose: Pose; held?: React.ReactNode } => {
   const plead = ramp(f, 20, 60) * (1 - ramp(f, 150, 190)); // leans in to ask, shrinks as her voice drops
   const shrink = ramp(f, 140, 190);
   const tap = pulse(f, 207, 209, 218); // small flinch at the screwdriver
@@ -191,7 +199,7 @@ const thaoAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
     shoulderLift: 0.35 * shrink + 0.9 * startle + 0.5 * tap + 0.45 * (f > CAT ? 1 : 0) * (1 - press * 0.4),
     expr: f < CAT ? (shrink > 0.5 ? 'sad' : 'worried') : welling ? 'tearsHeldBack' : 'scared',
     lipTremble: welling ? Math.sin(f * 1.7) * 0.7 : 0,
-    ...mouth('thao', f),
+    ...(film ? {} : mouth('thao', f)),
   });
   // Far arm hangs behind her body (a clutching far hand would draw over Duy); the near arm carries the bills.
   p = { ...p, armL: thaoArm(f) };
@@ -209,7 +217,7 @@ const mix = (a: Cam, b: Cam, k: number): Cam => ({ cx: lerp(a.cx, b.cx, k), cy: 
 
 const STATIC: Cam = { cx: 1015, cy: 600, z: 1.36, focus: 0.5 };
 /** Cuts on action/look: wide → Lộc close on the chin lift → Thảo close under the mockery → follow her eyes to Duy → wide as Lộc picks up the tool → bench. */
-const cameraAt = (f: number): Cam => {
+export const cameraAt = (f: number): Cam => {
   if (f < 54) return { ...mix({ cx: 945, cy: 575, z: 2.5, focus: 1 }, { cx: 945, cy: 570, z: 2.6, focus: 1 }, ease(f / 54)) }; // close on the hands at work
   if (f < 232) {
     const k = ease((f - 54) / 178);
@@ -226,8 +234,7 @@ const cameraAt = (f: number): Cam => {
     const c = mix({ cx: 1090, cy: 585, z: 1.2, focus: 0 }, { cx: 1120, cy: 570, z: 1.24, focus: 0 }, ease((f - 426) / 122));
     return { ...c, focus: lerp(0, 2, ease((f - 470) / 60)) };
   }
-  const k = ease((f - 548) / 52);
-  return { ...mix({ cx: 1330, cy: 480, z: 1.85, focus: 2 }, { cx: 1335, cy: 478, z: 1.92, focus: 2 }, k) };
+  return { cx: 1120, cy: 570, z: 1.24, focus: 2 };
 };
 
 /** Defocus in screen pixels for a layer at `depth`; longer lenses (zoom) give shallower focus. */
@@ -295,10 +302,10 @@ const Finish: React.FC = () => (
 );
 
 // ---------------------------------------------------------------------------- the stage
-const Stage: React.FC<{ f: number; cam: Cam; light: boolean }> = ({ f, cam, light }) => {
-  const loc = locAt(f);
-  const duy = duyAt(f);
-  const thao = thaoAt(f);
+export const Stage: React.FC<{ f: number; cam: Cam; light: boolean; film?: boolean }> = ({ f, cam, light, film = false }) => {
+  const loc = locAt(f, film);
+  const duy = duyAt(f, film);
+  const thao = thaoAt(f, film);
   const bg = light ? blurPx(cam, 2) : 0;
   const mid = light ? blurPx(cam, 1) : 0;
   const fg = light ? blurPx(cam, 0) : 0;

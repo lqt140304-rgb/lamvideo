@@ -1,11 +1,13 @@
 import React from 'react';
 import { MeadowFamily, meadowFamilyPoses } from './meadow_family';
 import { HomeFront, AuntEatery } from './house_fronts';
-import { mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
+import { mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, headW, coverage, SHOP_FLOOR, DUY_S, THAO_S, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
 import { Hero } from './actor';
+import { Stage, cameraAt, perfClock, RepairClock } from './thu-c1';
 import {
   LOOKS,
   standPose,
+  poseAt,
   walkPose,
   camT,
   clamp,
@@ -121,6 +123,14 @@ export const ShC0_F: React.FC<ShotProps> = ({ t }) => {
   );
 };
 
+/** A close-up framed on someone's head, a little low so the head sits in the upper third. */
+const closeOn = (p: Pose, z = 2.35): [number, number, number] => { const h = headW(p); return [h.x + 10, h.y + 74, z]; };
+/** Inserts creep in; nothing sits perfectly still on a detail the audience is reading. */
+const Creep: React.FC<{ t: number; len: number; children: React.ReactNode }> = ({ t, len, children }) => {
+  const z = 1 + 0.05 * smooth(t / Math.max(1, len));
+  return <g transform={camT(960, 560, z)}>{children}</g>;
+};
+
 // ============================================================================
 // CẢNH 1 — Thiếu tiền
 // ============================================================================
@@ -186,40 +196,35 @@ export const ShC1_B: React.FC<ShotProps> = ({ t }) => {
     yaw: lerp(-0.2, 0.35, smile),
     look: lerp(-0.1, 0.6, smile),
   });
+  const twist = lookUp ? 0 : Math.sin(t * 0.9);
+  const worked: Pose = { ...pose, yaw: -0.04, armL: { a: 14, b: -84 }, armR: { a: 40, b: -90 + twist * 7 }, handL: 'hold', handR: lookUp ? 'rest' : 'hold' };
   return (
-    <Shop t={t} id="c1b" cam={[1365, 470, 1.9]} loc={{ pose, atBench: true }} benchWork={lookUp ? 0 : Math.sin(t / 9)} cameo={PORTRAIT} />
+    <Shop t={t} id="c1b" cam={[1345, 400, 1.9]} focus={2} loc={{ pose: worked, atBench: true, held: lookUp ? undefined : <ScrewdriverProp x={0} y={0} s={0.55} rot={196 + twist * 8} />, heldL: <RepairClock f={t} inHand hs={0.8} /> }} cameo={PORTRAIT} />
   );
 };
 
 /** C1-C insert: Duy's hand sets the cracked phone on the cloth, then tips out his 186k on the left. */
-export const ShC1_C: React.FC<ShotProps> = ({ t }) => {
+export const ShC1_C: React.FC<ShotProps> = ({ t, len }) => {
   const down = ramp(t, 0, 1.2 * S);
   const lift = ramp(t, 1.8 * S, 2.6 * S);
   const count = mark('ShC1_C', 1, 4, 2 * S).at; // the narrator names Duy's 186k
   const money = ramp(t, count, count + 1.4 * S);
   const handOnPhone = lift < 1;
   return (
-    <g>
+    <Creep t={t} len={len}>
       <OngLocCounterInsert t={t} cracked={1} screenOn={0} playing={0} showPhoto={false} receiptStage="none" showMoney={money > 0.5} showPouch showWallet={false} />
       {handOnPhone ? <InsertHand who="duy" tip={{ x: 960, y: lerp(560, 610, down) + lift * 160 }} rot={-4} /> : null}
       {money > 0 && money < 1 ? <InsertHand who="duy" tip={{ x: 600, y: lerp(980, 840, money) }} rot={-14} /> : null}
-    </g>
+    </Creep>
   );
 };
 
-/** C1-D: the children medium. Before the scolding Thảo offers two bills; after it her eyes fill and Duy holds the bills. */
+/** C1-D: the plea, the screwdriver laid down, the scold, the mockery, her flinch, Duy covering her, Lộc going back to the bench: one performance with its cuts. */
 export const ShC1_D: React.FC<ShotProps> = ({ t }) => {
-  const after = t >= 30 * S;
-  const ask = mark('ShC1_D', 1, 10, 3 * S).at; // bills come out as she starts to plead
-  const offer = after ? 0 : ramp(t, ask - 0.3 * S, ask + 1.2 * S);
-  const kids = standingKids(t, {
-    thaoExpr: after ? 'tearsHeldBack' : offer > 0 ? 'worried' : 'scared',
-    duyExpr: after ? 'tearsHeldBack' : 'worried',
-    offerBills: offer,
-    duyHoldsBills: after,
-    clutch: 1,
-  });
-  return <Shop t={t} id="c1d" cam={[1150, 640, 1.75]} loc={{ pose: LOC_AT_COUNTER(900, t, { yaw: 0.2, look: 0.4, expr: 'neutral' }) }} kids={<>{drawKid(kids.duy, LOOKS.duy)}{drawKid(kids.thao, LOOKS.thao, 'rimStreetlamp')}</>} />;
+  const at = (i: number, fallback: number) => mark('ShC1_D', 1, i, fallback);
+  const mock = at(13, 8 * S);
+  const F = perfClock(t, at(10, 3 * S).at, at(12, 7 * S).at, mock.at, mock.at + mock.len);
+  return <Stage f={F} cam={cameraAt(F)} light film />;
 };
 
 // ============================================================================
@@ -231,14 +236,26 @@ export const ShC2_A: React.FC<ShotProps> = ({ t }) => {
   const back = ramp(t, 0, 2.5 * S);
   const lineSeat = 2.5 * S; // once Lộc is back at the counter: Duy returns the bills, then sets her stool
   const handBack = ramp(t, lineSeat, lineSeat + 1.5 * S);
-  const sit = t > lineSeat + 4.5 * S;
+  const go = ramp(t, lineSeat + 1.6 * S, lineSeat + 3.6 * S); // to the stools in front of the counter
+  const settle = ramp(t, lineSeat + 3.6 * S, lineSeat + 4.4 * S);
   const locPose = back < 1 ? walkPose(lerp(1180, 900, back), t * 0.5, COUNTER_TOP + 140 * LOC_S - 12, LOC_S, { expr: 'neutral' }, -1) : LOC_AT_COUNTER(900, t, { yaw: 0.15, look: 0.3, expr: 'neutral' });
-  if (!sit) {
-    const kids = standingKids(t, { thaoExpr: 'worried', duyExpr: 'sad', duyHoldsBills: handBack < 0.5, offerBills: handBack >= 0.5 ? 1 : 0 });
-    return <Shop t={t} id="c2a" cam={[960, 540, 0.96]} cameo={<ShelfJars t={t} />} loc={{ pose: locPose }} counter={{ phoneState: 'cracked', showMoney: handBack < 0.8, showPouch: true }} kids={<>{drawKid(kids.duy, LOOKS.duy)}{drawKid(kids.thao, LOOKS.thao, 'rimStreetlamp')}</>} />;
-  }
   const k = seatedKids(t, { duyExpr: 'sad', thaoExpr: 'worried' });
-  return <Shop t={t} id="c2a" cam={[960, 540, 0.96]} cameo={<ShelfJars t={t} />} loc={{ pose: locPose }} counter={{ phoneState: 'cracked', showMoney: false, showPouch: false }} stools={k.stools} kids={<><Hero pose={k.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={k.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />;
+  const room = { id: 'c2a', cam: [960, 540, 0.96] as [number, number, number], cameo: <ShelfJars t={t} />, loc: { pose: locPose } };
+  if (go <= 0) {
+    const kids = standingKids(t, { thaoExpr: 'worried', duyExpr: 'sad', duyHoldsBills: handBack < 0.5, offerBills: handBack >= 0.5 ? 1 : 0 });
+    return <Shop t={t} {...room} counter={{ phoneState: 'cracked', showMoney: handBack < 0.8, showPouch: true }} kids={<>{drawKid(kids.duy, LOOKS.duy)}{drawKid(kids.thao, LOOKS.thao, 'rimStreetlamp')}</>} />;
+  }
+  const seatX = [k.duy.x, k.thao.x];
+  const ground = [SHOP_FLOOR - 15, SHOP_FLOOR + 5];
+  const stand = (x: number, g: number, sc: number, seed: number, yaw: number): Pose => standPose(x, g, sc, { t, seed, yaw, expr: seed === 1 ? 'sad' : 'worried', look: yaw });
+  const walking = go < 1;
+  const dx = lerp(1080, seatX[0], smooth(go));
+  const tx = lerp(1245, seatX[1], smooth(go));
+  const duyS = walking ? walkPose(dx, t * 0.5, ground[0], DUY_S, { expr: 'sad', yaw: -0.9 }, -1) : stand(dx, ground[0], DUY_S, 1, 0.42);
+  const thaoS = walking ? walkPose(tx, t * 0.58, ground[1], THAO_S, { expr: 'worried', yaw: -0.9 }, -1) : stand(tx, ground[1], THAO_S, 2, -0.42);
+  const duy = settle > 0 ? poseAt(settle, [{ f: 0, p: duyS }, { f: 1, p: k.duy }]) : duyS;
+  const thao = settle > 0 ? poseAt(settle, [{ f: 0, p: thaoS }, { f: 1, p: k.thao }]) : thaoS;
+  return <Shop t={t} {...room} counter={{ phoneState: 'cracked', showMoney: false, showPouch: false }} stools={k.stools} kids={<><Hero pose={duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />;
 };
 
 /** C2-B: medium two-shot seated. Duy grips the pen; later Thảo tugs his shirt hem: "Lúc đó em chỉ muốn anh ôm em thôi." */
@@ -253,7 +270,7 @@ export const ShC2_B: React.FC<ShotProps> = ({ t }) => {
     <Shop
       t={t}
       id="c2b"
-      cam={[820, 650, 1.5]}
+      {...coverage('ShC2_B', t, { two: [820, 650, 1.5], duy: closeOn(k.duy), thao: closeOn(k.thao) })}
       loc={{ pose: LOC_AT_COUNTER(900, t, { yaw: 0.1, expr: 'neutral' }) }}
       counter={{ phoneState: 'cracked', showPhoto: true, receiptStage: 'blank', penOnPaper: penDown }}
       stools={k.stools}
@@ -263,17 +280,17 @@ export const ShC2_B: React.FC<ShotProps> = ({ t }) => {
 };
 
 /** C2-C insert: the photo comes out of the wallet beside the phone; blank G1 slip; pen set down before Lộc holds the edge. */
-export const ShC2_C: React.FC<ShotProps> = ({ t }) => {
+export const ShC2_C: React.FC<ShotProps> = ({ t, len }) => {
   const photo = ramp(t, 0.3 * S, 1.8 * S);
   const pen = ramp(t, 4 * S, 5 * S);
   return (
-    <g>
+    <Creep t={t} len={len}>
       <OngLocCounterInsert t={t} cracked={1} screenOn={0} playing={0} showPhoto={photo > 0.95} photoX={540} receiptStage="blank" penOnPaper={pen < 1} showMoney={false} showPouch={false} showWallet />
       {photo < 0.95 ? <InsertHand who="duy" tip={{ x: lerp(330, 540, photo), y: lerp(760, 560, photo) }} rot={-18} /> : null}
       {pen > 0 && pen < 1 ? <InsertHand who="duy" tip={{ x: 1180, y: 680 + pen * 60 }} rot={-8} /> : null}
       {/* Lộc's fingers pin the slip's top edge once the pen is down (adult hand from the far side) */}
       {pen >= 1 ? <ArmHand x={1360} y={300} rot={0} s={0.8} skin={LOOKS.ongLoc.skin} sleeve={LOOKS.ongLoc.jacket} len={900} /> : null}
-    </g>
+    </Creep>
   );
 };
 
@@ -302,12 +319,13 @@ export const ShC3_B: React.FC<ShotProps> = ({ t }) => {
   const touch = ramp(t, at(3, 0) + 2 * S, at(3, 0) + 3 * S); // on his apology
   const sleeve = ramp(t, at(9, 40), at(9, 40) + S) * (1 - ramp(t, at(11, 50), at(11, 50) + S)); // holds on at "Thôi anh", lets go in the pause
   const smile = t > at(7, 30) && t < at(8, 35); // remembering how they made up
-  const k = seatedKids(t, { duyX: 700 + scoot * 26, duyExpr: smile ? 'smile' : 'sad', thaoExpr: 'tearsHeldBack', touch: touch * (1 - sleeve * 0.0), sleeve });
+  const nearer = ramp(t, at(3, 0) + 3.2 * S, at(3, 0) + 4.4 * S);
+  const k = seatedKids(t, { duyX: 700 + scoot * 26, duyExpr: smile ? 'smile' : 'sad', thaoExpr: 'tearsHeldBack', touch: touch * (1 - sleeve * 0.0), sleeve, thaoLean: lerp(8, 15, nearer), duyHeadTilt: 7 * (1 - scoot) });
   return (
     <Shop
       t={t}
       id="c3b"
-      cam={[830 + Math.sin(t / 180) * 8, 650, 1.5]}
+      {...coverage('ShC3_B', t, { two: [830 + Math.sin(t / 180) * 8, 650, 1.5], duy: closeOn(k.duy), thao: closeOn(k.thao) })}
       loc={{ pose: LOC_AT_COUNTER(900, t, { yaw: 0.1, expr: 'neutral' }) }}
       counter={{ phoneState: 'cracked', showPhoto: true, receiptStage: 'blank', penOnPaper: true }}
       stools={k.stools}
@@ -317,7 +335,7 @@ export const ShC3_B: React.FC<ShotProps> = ({ t }) => {
 };
 
 /** C3-C insert: photo already put away; Duy writes the G1 event, Lộc reads it back, Duy signs. */
-export const ShC3_C: React.FC<ShotProps> = ({ t }) => {
+export const ShC3_C: React.FC<ShotProps> = ({ t, len }) => {
   const write = ramp(t, 0.2 * S, 3.2 * S);
   const last = mark('ShC3_C', 3, 14, 9 * S).at; // signs before Lộc's last "Vẫn đổi?"
   const sign = ramp(t, last - 1.4 * S, last);
@@ -325,7 +343,7 @@ export const ShC3_C: React.FC<ShotProps> = ({ t }) => {
   const penTip = sign > 0 && sign < 1 ? { x: 1380 + sign * 40, y: 640 } : { x: 1300 + write * 90, y: 575 + Math.sin(t / 3) * 3 * (write < 1 ? 1 : 0) };
   const writing = (write > 0 && write < 1) || (sign > 0 && sign < 1);
   return (
-    <g>
+    <Creep t={t} len={len}>
       <OngLocCounterInsert t={t} cracked={1} screenOn={0} playing={0} showPhoto={false} receiptStage={stage} penOnPaper={!writing} showMoney={false} showPouch={false} showWallet />
       {writing ? (
         <>
@@ -333,7 +351,7 @@ export const ShC3_C: React.FC<ShotProps> = ({ t }) => {
           <InsertHand who="duy" tip={{ x: penTip.x + 60, y: penTip.y - 20 }} rot={-22} />
         </>
       ) : null}
-    </g>
+    </Creep>
   );
 };
 
@@ -379,7 +397,7 @@ export const ShC4_B: React.FC<ShotProps> = ({ t }) => {
     <Shop
       t={t}
       id="c4b"
-      cam={[820, 650, 1.5]}
+      {...coverage('ShC4_B', t, { two: [820, 650, 1.5], duy: closeOn(k.duy), thao: closeOn(k.thao) })}
       loc={{ pose: LOC_AT_COUNTER(900, t, { yaw: 0.1, expr: 'neutral' }) }}
       counter={{ phoneState: 'repaired', receiptStage: t > 20 * S ? 'none' : 'signed', penOnPaper: false }}
       stools={k.stools}
@@ -389,7 +407,7 @@ export const ShC4_B: React.FC<ShotProps> = ({ t }) => {
 };
 
 /** C4-C insert: G1 copies pulled apart (not torn), Duy folds his into the wallet, right index taps play; voice from the phone. */
-export const ShC4_C: React.FC<ShotProps> = ({ t }) => {
+export const ShC4_C: React.FC<ShotProps> = ({ t, len }) => {
   const rec = mark('ShC4_C', 4, 5, 6 * S); // the mother's recording
   const keep = mark('ShC4_C', 4, 4, 0);
   const fold = ramp(t, keep.at + keep.len, keep.at + keep.len + 2 * S);
@@ -397,11 +415,11 @@ export const ShC4_C: React.FC<ShotProps> = ({ t }) => {
   const playing = t >= rec.at && t < rec.at + rec.len ? 1 : 0;
   const pressing = t > tap - 0.5 * S && t < rec.at + 0.3 * S;
   return (
-    <g>
+    <Creep t={t} len={len}>
       <OngLocCounterInsert t={t} cracked={0} screenOn={1} playing={playing} showPhoto={false} receiptStage={fold < 0.5 ? 'signed' : 'none'} penOnPaper={false} showMoney={false} showPouch={false} showWallet />
       {fold > 0 && fold < 1 ? <InsertHand who="duy" tip={{ x: lerp(1360, 330, fold), y: lerp(620, 760, fold) }} rot={-10} /> : null}
       {pressing ? <InsertHand who="duy" tip={{ x: 1000, y: t < tap ? 560 : 590 }} rot={-12} /> : null}
-    </g>
+    </Creep>
   );
 };
 
@@ -422,7 +440,7 @@ export const ShC5_A: React.FC<ShotProps> = ({ t }) => {
   const lean = g3 ? ramp(t, 60 * S, 61.5 * S) : 0;
   const loc = LOC_AT_COUNTER(900 + lean * 20, t, { yaw: lerp(0.1, 0.3, lean), look: lerp(0.2, 0.6, lean), tilt: lean * 14, headTilt: lean * 6, expr: 'neutral' });
   return (
-    <Shop t={t} id="c5a" cam={[880, 640, 1.25]} loc={{ pose: loc }} counter={{ phoneState: 'repaired' }} stools={k.stools} kids={<><Hero pose={k.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={k.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />
+    <Shop t={t} id="c5a" {...coverage('ShC5_A', t, { two: [880, 640, 1.25], duy: closeOn(k.duy), thao: closeOn(k.thao), loc: closeOn(loc, 2.1) })} loc={{ pose: loc }} counter={{ phoneState: 'repaired' }} stools={k.stools} kids={<><Hero pose={k.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={k.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />
   );
 };
 
@@ -545,10 +563,16 @@ export const ShC6_B: React.FC<ShotProps> = ({ t }) => {
   );
 };
 
+/** Cuts between the three on the ledge by who is speaking; the wide returns between exchanges. */
+const fieldCam = (shot: string, t: number, two: [number, number, number]): [number, number, number] => {
+  const { mother, duy, thao } = meadowFamilyPoses(t, false, 1);
+  return coverage(shot, t, { two, duy: closeOn(duy, 2.2), thao: closeOn(thao, 2.4), me: closeOn(mother, 2.1) }).cam;
+};
+
 /** C6-C: seated on the dry stone ledge of the ditch, thighs on the ledge, knees bent, calves hanging above the water. */
 export const ShC6_C: React.FC<ShotProps> = ({ t }) => (
   <g>
-    <g transform={camT(960, 600, 1.05)}>
+    <g transform={camT(...fieldCam('ShC6_C', t, [960, 600, 1.05]))}>
       <SunsetRiceField t={t} seatedBank />
       <MeadowFamily t={t} motherOpacity={1} />
       <SunsetMeadowForeground t={t} />
@@ -560,7 +584,7 @@ export const ShC6_C: React.FC<ShotProps> = ({ t }) => (
 /** C6-D: close on the children laughing, mother at the frame edge. */
 export const ShC6_D: React.FC<ShotProps> = ({ t }) => (
   <g>
-    <g transform={camT(940, 690, 2.0)}>
+    <g transform={camT(...fieldCam('ShC6_D', t, [940, 690, 2.0]))}>
       <SunsetRiceField t={t} seatedBank />
       <MeadowFamily t={t} motherOpacity={1} />
     </g>
@@ -583,7 +607,7 @@ export const ShC7_A: React.FC<ShotProps> = ({ t }) => (
 /** C7-B: mother and Duy, medium close; keep his eyes visible. */
 export const ShC7_B: React.FC<ShotProps> = ({ t }) => (
   <g>
-    <g transform={camT(905, 640, 2.3)}>
+    <g transform={camT(...fieldCam('ShC7_B', t, [905, 640, 2.3]))}>
       <SunsetRiceField t={t} seatedBank />
       <MeadowFamily t={t} grieving />
     </g>
@@ -599,7 +623,7 @@ export const ShC7_C: React.FC<ShotProps> = ({ t }) => {
   const tt = Math.max(t, -30 * S);
   const close = clamp((tt - 270) / 60);
   const push = close * close * (3 - 2 * close);
-  const grip = meadowFamilyPoses(Math.max(tt, 0), true, 0, Math.max(tt, 0)).grip ?? { x: 1010, y: 768 };
+  const grip = meadowFamilyPoses(Math.max(tt, 0), true, 0, Math.max(tt, 0)).grip ?? { x: 1029, y: 790 };
   return (
     <g>
       <g transform={camT(lerp(960, grip.x, push), lerp(600, grip.y - 5, push), lerp(1.05, 6.2, push))}>
@@ -623,20 +647,21 @@ export const ShC8_A: React.FC<ShotProps> = ({ t }) => {
   const laughing = t >= laugh.at - 0.2 * S;
   const shake = laughing ? Math.sin(t * 0.85) : 0;
   const k = seatedKids(t, { duyExpr: t > 8 * S ? 'tearsHeldBack' : 'exhaustedClinch', thaoExpr: laughing ? 'scared' : 'worried', holdHands: 1, duyLean: 16, duyHeadTilt: 6 });
+  const C8_LOC = LOC_AT_COUNTER(1000, t, {});
   return (
     <g>
-      <Shop t={t} id="c8a" cam={[880, 640, 1.25]} loc={{ pose: LOC_AT_COUNTER(1000, t, { yaw: 0.1, expr: laughing ? 'smug' : 'neutral', headTilt: laughing ? -5 + shake * 2.5 : 0, shoulderLift: laughing ? 0.25 + shake * 0.3 : 0, ...(laughing ? { talk: 0.55 + shake * 0.3, mouthShape: 'a' as const } : {}) }) }} counter={{ phoneState: 'repaired', receiptStage: t > 8 * S ? 'signed' : 'none' }} stools={k.stools} kids={<><Hero pose={k.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={k.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />
+      <Shop t={t} id="c8a" {...coverage('ShC8_A', t, { two: [880, 640, 1.25], duy: closeOn(k.duy), thao: closeOn(k.thao), loc: closeOn(C8_LOC, 2.1) })} loc={{ pose: LOC_AT_COUNTER(1000, t, { yaw: 0.1, expr: laughing ? 'smug' : 'neutral', headTilt: laughing ? -5 + shake * 2.5 : 0, shoulderLift: laughing ? 0.25 + shake * 0.3 : 0, ...(laughing ? { talk: 0.55 + shake * 0.3, mouthShape: 'a' as const } : {}) }) }} counter={{ phoneState: 'repaired', receiptStage: t > 8 * S ? 'signed' : 'none' }} stools={k.stools} kids={<><Hero pose={k.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={k.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />
       <rect width={1920} height={1080} fill="#1e171a" opacity={1 - clamp(t / 14)} />
     </g>
   );
 };
 
 /** C8-B insert: G2 and G3 pushed over; Duy lays G1 from his wallet beside them, then stores all three. */
-export const ShC8_B: React.FC<ShotProps> = ({ t }) => {
+export const ShC8_B: React.FC<ShotProps> = ({ t, len }) => {
   const g1 = ramp(t, 3.5 * S, 5.5 * S);
   const store = ramp(t, 14.3 * S, 16.8 * S);
   return (
-    <g>
+    <Creep t={t} len={len}>
       <OngLocCounterInsert t={t} cracked={0} screenOn={0} playing={0} showPhoto={false} receiptStage="none" penOnPaper={false} showMoney={false} showPouch={false} showWallet />
       {store < 1 ? (
         <g opacity={1 - store}>
@@ -647,7 +672,7 @@ export const ShC8_B: React.FC<ShotProps> = ({ t }) => {
       ) : null}
       {g1 > 0 && g1 < 1 ? <InsertHand who="duy" tip={{ x: lerp(330, 890, g1), y: lerp(780, 680, g1) }} rot={-14} /> : null}
       {store > 0 && store < 1 ? <InsertHand who="duy" tip={{ x: lerp(1200, 330, store), y: lerp(680, 780, store) }} rot={-10} /> : null}
-    </g>
+    </Creep>
   );
 };
 
@@ -687,18 +712,28 @@ export const ShC8_C: React.FC<ShotProps> = ({ t }) => {
   );
 };
 
-/** C8-D: hand in hand, tired, toward Aunt Hạnh's lit eatery at the alley head. */
+/** C8-D: tired, hand in hand toward the lit eatery. Thảo looks up at him, he looks down and holds on; at the door they stop, he lets his breath go, she leans in. */
 export const ShC8_D: React.FC<ShotProps> = ({ t }) => {
-  const x = 1640 - t * 1.25;
+  const told = mark('ShC8_D', 8, 9, 0);
+  const hold = mark('ShC8_D', 8, 10, 11 * S);
+  const stopAt = hold.at + 1.4 * S;
+  const moved = Math.min(t, stopAt);
+  const stopped = t >= stopAt;
+  const x = 1640 - moved * 1.25;
+  const lookUp = ramp(t, told.at + 2 * S, told.at + 3 * S) * (1 - ramp(t, told.at + 7.5 * S, told.at + 8.5 * S));
+  const eased = ramp(t, stopAt, stopAt + 1.2 * S);
+  const breath = Math.sin(clamp((t - stopAt) / (1.6 * S)) * Math.PI);
   const ph = t * 0.24;
-  let duy = walkPose(x, ph, 960, 0.92, { expr: 'tired', yaw: -1 }, -1);
-  let thao = walkPose(x + 122, ph * 1.12 + 1.5, 976, 0.72, { expr: 'worried', yaw: -1 }, -1);
+  const dO = { expr: (eased > 0.4 ? 'relieved' : 'tired') as Pose['expr'], yaw: -0.85, headTilt: 7 * lookUp + 3 * eased };
+  const tO = { expr: (eased > 0.4 ? 'relieved' : lookUp > 0.3 ? 'tearsHeldBack' : 'worried') as Pose['expr'], yaw: -0.85, headTilt: -11 * lookUp, look: -0.6 - 0.3 * lookUp };
+  let duy = stopped ? standPose(x, 960, 0.92, { t, seed: 1, ...dO, shoulderLift: -0.4 * breath }) : walkPose(x, ph, 960, 0.92, dO, -1);
+  let thao = stopped ? standPose(x + 112, 976, 0.72, { t, seed: 2, ...tO, tilt: -7 * eased }) : walkPose(x + 122, ph * 1.12 + 1.5, 976, 0.72, tO, -1);
   const g = { x: (duy.x + thao.x) / 2 + 6, y: duy.y + 30 };
   duy = reach(duy, 'L', g, 1);
   thao = reach(thao, 'R', g, 1);
   return (
     <g transform={camT(lerp(960, 930, clamp(t / 420)), 540, lerp(1.0, 1.05, clamp(t / 420)))}>
-      <AuntEatery t={t} />
+      <AuntEatery t={t} wave={ramp(t, stopAt - 0.4 * S, stopAt + 0.6 * S)} />
       <Hero look={LOOKS.duy} rimId="rimShopWarm" shadow={0.35} pose={duy} />
       <Hero look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} pose={thao} />
     </g>
@@ -748,8 +783,8 @@ const LEDGE_Y = 520;
 const JAR_FOOT = 96; // jar origin to the bottom of its base at s = 1
 const JAR_S = 1.25;
 const RACK = { x0: 1060, x1: 1580, ledge: LEDGE_Y + JAR_FOOT * JAR_S, slab: SLAB_Y + JAR_FOOT * JAR_S };
-type VaultProps = { creature?: boolean; t: number; cam: [number, number, number]; gaze?: [number, number]; shut?: [number, number, number]; lift?: [number, number, number]; field?: [number, number, number]; focus?: number; bgBlur?: number };
-const VaultStage: React.FC<VaultProps> = ({ creature = true, t, cam, gaze = [0.2, 0.1], shut, lift = [0, 0, 0], field = [0, 0, 0], focus = -1, bgBlur = 0 }) => (
+type VaultProps = { smirk?: number; lean?: number; creature?: boolean; t: number; cam: [number, number, number]; gaze?: [number, number]; shut?: [number, number, number]; lift?: [number, number, number]; field?: [number, number, number]; focus?: number; bgBlur?: number };
+const VaultStage: React.FC<VaultProps> = ({ smirk = 1, lean = 0, creature = true, t, cam, gaze = [0.2, 0.1], shut, lift = [0, 0, 0], field = [0, 0, 0], focus = -1, bgBlur = 0 }) => (
   <g transform={camT(...cam)}>
     <defs>
       <filter id="vaultSoft" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation={bgBlur} /></filter>
@@ -757,7 +792,7 @@ const VaultStage: React.FC<VaultProps> = ({ creature = true, t, cam, gaze = [0.2
     <g filter={bgBlur > 0 ? 'url(#vaultSoft)' : undefined}>
       <TimeVaultScene t={t} showJars={false} showCreature={false} />
       <ReverseClockwork x={640} y={330} s={1.1} t={t} opacity={0.4} />
-      {creature ? <ClockCreature x={840} y={470} s={1.14} t={t} hover eyeGazeX={gaze[0]} eyeGazeY={gaze[1]} smirk={1} showJars={false} eyesShut={shut} /> : null}
+      {creature ? <g transform={`rotate(${lean} 840 470)`}><ClockCreature x={840} y={470} s={1.14} t={t} hover eyeGazeX={gaze[0]} eyeGazeY={gaze[1]} smirk={smirk} showJars={false} eyesShut={shut} /></g> : null}
     </g>
     {/* a stone rack: the ledge stands on pillars rising from the slab, so every jar rests on something solid */}
     <rect x={RACK.x0 + 8} y={RACK.ledge} width={36} height={RACK.slab - RACK.ledge} fill="#1F1230" stroke="#8A5A20" strokeWidth={2.5} />
@@ -928,7 +963,10 @@ const LocEyesChange: React.FC<{ x: number; y: number; k: number; t: number }> = 
 export const ShC9_B: React.FC<ShotProps> = ({ t }) => {
   const k = easeCam(t / (7 * S));
   const look = ramp(t, 4 * S, 5.2 * S);
-  return <VaultStage t={t + C9A_LEN} cam={[lerp(960, 985, k), lerp(500, 520, k), lerp(1.35, 1.2, k)]} gaze={[lerp(0.1, 1, look), lerp(0, 0.9, look)]} focus={look > 0.5 ? 0 : -1} />;
+  // It takes in what it has become: eyes open one after another, a slow look about, the grin widening, then the jars.
+  const wake = (a: number) => 1 - ramp(t, a, a + 0.5 * S);
+  const around = Math.sin(clamp((t - 0.8 * S) / (2.6 * S)) * Math.PI * 2) * (1 - look);
+  return <VaultStage t={t + C9A_LEN} cam={[lerp(960, 985, k), lerp(500, 520, k), lerp(1.35, 1.2, k)]} gaze={[lerp(around * 0.9, 1, look), lerp(0, 0.9, look)]} focus={look > 0.5 ? 0 : -1} shut={[wake(0.1 * S), wake(0.3 * S), wake(0.5 * S)]} smirk={lerp(1, 1.3, ramp(t, 2.6 * S, 4 * S))} lean={lerp(around * 2.5, 5, look)} />;
 };
 
 /** C9-C: one jar at a time: read it, the field lifts it, it slows, its base touches the ledge, the field goes out. */
@@ -941,7 +979,7 @@ export const ShC9_C: React.FC<ShotProps> = ({ t }) => {
   }) as [number, number, number];
   const focus = Math.min(2, Math.floor(t / LEN));
   const cx = 1170 + 150 * easeCam((t - 66) / 26) + 35 * easeCam((t - 146) / 26); // the last jar stays in frame without passing the set edge
-  return <VaultStage t={t + 390} cam={[cx, 660, 1.7]} gaze={[1, 0.8]} lift={lift} field={field} focus={focus} bgBlur={3.5} />;
+  return <VaultStage t={t + 390} cam={[cx, 660, 1.7]} gaze={[0.75 + focus * 0.13, 0.8 - focus * 0.05]} lift={lift} field={field} focus={focus} bgBlur={3.5} lean={4 + focus * 1.5} smirk={1.2 + Math.max(...field) * 0.15} />;
 };
 
 /** C9-D: pulling back from the three jars; sand and hand run backward; the eyes close out of step; the strange light stays. */
@@ -950,7 +988,8 @@ export const ShC9_D: React.FC<ShotProps> = ({ t }) => {
   const shut: [number, number, number] = [ramp(t, 4.4 * S, 5 * S), ramp(t, 4.9 * S, 5.5 * S), ramp(t, 5.3 * S, 5.9 * S)];
   return (
     <g>
-      <VaultStage t={t + 630} cam={[lerp(1355, 960, k), lerp(660, 540, k), lerp(1.7, 1.0, k)]} gaze={[lerp(1, 0.1, k), lerp(0.8, 0.1, k)]} lift={[1, 1, 1]} shut={shut} bgBlur={lerp(3.5, 0, k)} />
+      {/* The work done, it turns its eyes straight out at us, grins, and only then closes them, one at a time. */}
+      <VaultStage t={t + 630} cam={[lerp(1355, 960, k), lerp(660, 540, k), lerp(1.7, 1.0, k)]} gaze={[lerp(1, 0, ramp(t, 2 * S, 3.2 * S)), lerp(0.8, 0, ramp(t, 2 * S, 3.2 * S))]} lift={[1, 1, 1]} shut={shut} bgBlur={lerp(3.5, 0, k)} lean={lerp(9, 0, ramp(t, 2 * S, 3.2 * S))} smirk={lerp(1.2, 1.5, ramp(t, 3.2 * S, 4.2 * S))} />
       <rect width={1920} height={1080} fill="#07040D" opacity={clamp((t - 6.2 * S) / (0.8 * S))} />
     </g>
   );

@@ -60,7 +60,7 @@ export const HomeFront: React.FC = () => (
 );
 
 /** Warm eatery at the alley head: rolled-up shutter, cooking corner, stools, the only welcoming light left in the alley. */
-export const AuntEatery: React.FC<{ t: number }> = ({ t }) => {
+export const AuntEatery: React.FC<{ t: number; wave?: number }> = ({ t, wave = 0 }) => {
   const sway = Math.sin(t * 0.05);
   const flick = 1 + Math.sin(t * 0.31) * 0.02;
   return (
@@ -123,7 +123,7 @@ export const AuntEatery: React.FC<{ t: number }> = ({ t }) => {
         <g transform={`translate(${sway * 5} 0)`} opacity={0.32}>
           <circle cx={560} cy={566} r={34} fill="#3A2211" />
           <path d="M 512 790 Q 514 620 560 604 Q 612 620 616 790 Z" fill="#3A2211" />
-          <path d={`M 604 650 Q 650 ${640 + sway * 8} 676 ${662 + sway * 6}`} stroke="#3A2211" strokeWidth={20} fill="none" strokeLinecap="round" />
+          <path d={`M 604 650 Q ${650 - wave * 10} ${640 + sway * 8 - wave * 90} ${676 - wave * 20} ${662 + sway * 6 - wave * 150}`} stroke="#3A2211" strokeWidth={20} fill="none" strokeLinecap="round" />
         </g>
         {/* cooking corner */}
         <rect x={640} y={690} width={250} height={100} fill="#8E8F8B" stroke={INK} strokeWidth={3.5} />

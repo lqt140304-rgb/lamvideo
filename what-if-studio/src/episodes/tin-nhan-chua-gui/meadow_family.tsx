@@ -67,7 +67,7 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
   let grip:Point|null=null,cheek:Point|null=null;
   if(farewellT!==undefined&&farewellT>=120){
     const q=farewellT,move=smooth((q-126)/38);
-    duy.x=lerp(850,965,move);duy.y=802-Math.sin(move*Math.PI)*6;
+    duy.x=lerp(850,992,move);duy.y=802-Math.sin(move*Math.PI)*6;
     duy.tilt=lerp(2,0,move);duy.yaw=lerp(.08,.22,move);duy.headTilt=lerp(1,4,move);
     duy.legL={a:65-Math.sin(move*Math.PI)*10,b:-65+Math.sin(move*Math.PI)*5};
     duy.legR={a:60-Math.sin(move*Math.PI)*8,b:-60+Math.sin(move*Math.PI)*4};
@@ -80,8 +80,8 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
     if(q>=220)duy.expr='tearsHeldBack';
     const hold=smooth((q-233)/29);
     if(hold>0){
-      duy.x=lerp(duy.x,930,hold); // he settles back as the hands meet, so both arms hang straight
-      grip={x:(duy.x+thao.x)/2+5,y:768};
+      thao.x=lerp(thao.x,1056,hold); // she shuffles in beside him: close enough to lean on, hands meeting low in their laps
+      grip={x:(duy.x+thao.x)/2+5,y:790};
       duy.armR=blendArm(duy.armR,reachPalm(duy,'R',{x:grip.x-2,y:grip.y-1},true),hold);
       thao.armL=blendArm(thao.armL,reachPalm(thao,'L',{x:grip.x+2,y:grip.y+1},true),hold);
       if(hold>=1){duy.handR='none';thao.handL='none';}

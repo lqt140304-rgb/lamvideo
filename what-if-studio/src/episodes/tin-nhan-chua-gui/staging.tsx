@@ -82,7 +82,7 @@ export const SHOP_FLOOR = 950; // customer floor line used by both children
 export const LOC_S = 1.15;
 export const LOC_AT_COUNTER = (x: number, t: number, opts: Partial<Pose> = {}) => standPose(x, COUNTER_TOP + 140 * LOC_S - 12, LOC_S, { t, seed: 3, ...opts });
 // At the rear workbench Lộc sits on the technician stool behind the bench, facing us, working on the stopped clock.
-export const LOC_AT_BENCH = (t: number, opts: Partial<Pose> = {}) => sitPose(1365, 612, 1.0, -1, { t, seed: 3, yaw: -0.2, lean: 10, ...opts });
+export const LOC_AT_BENCH = (t: number, opts: Partial<Pose> = {}) => sitPose(1318, 532, 1.0, -1, { t, seed: 3, yaw: -0.2, lean: 10, ...opts });
 
 /** Closes the workbench front in front of a seated Lộc (the set draws the bench under him). */
 export const BenchFront: React.FC<{ clockWork?: number; hideClock?: boolean }> = ({ clockWork = 0, hideClock = false }) => (
@@ -182,7 +182,7 @@ export const Shop: React.FC<{
   t: number;
   id: string;
   cam: [number, number, number];
-  loc?: { pose: Pose; atBench?: boolean; held?: React.ReactNode } | null;
+  loc?: { pose: Pose; atBench?: boolean; held?: React.ReactNode; heldL?: React.ReactNode } | null;
   counter?: Partial<React.ComponentProps<typeof OngLocCounter>>;
   shelf?: boolean;
   shelfClockHeld?: boolean;
@@ -197,7 +197,7 @@ export const Shop: React.FC<{
 }> = ({ t, id, cam, loc, counter, shelf = false, shelfClockHeld = false, stools = [], kids, roll = 0, dx = 0, dy = 0, benchWork = 0, cameo, focus = 0 }) => {
   // Longer lenses (higher zoom) throw the other planes further out of focus.
   const blur = (depth: number) => Math.abs(depth - focus) * 1.15 * cam[2] * cam[2];
-  const hero = loc ? <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={loc.held ? { R: loc.held } : undefined} /> : null;
+  const hero = loc ? <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={{ R: loc.held, L: loc.heldL }} /> : null;
   return (
     <g transform={`translate(${dx} ${dy}) rotate(${roll} 960 540)`}>
       <g transform={camT(...cam)}>
