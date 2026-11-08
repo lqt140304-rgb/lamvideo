@@ -52,6 +52,8 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 
 - **Đường máy từ toàn cực rộng tới cận rồi lùi làm vỡ hình → cố dùng một tranh cho mọi cỡ cảnh →** chia các tấm cùng mốc hình, chuẩn bị cận riêng và vùng nền sẽ lộ, đặt điểm ghép kín theo vật che hoặc động tác. **Kiểm tra:** mốc chủ thể/tỷ lệ/điểm tì không nhảy ở nối; chuyển động nhiều lớp không bị thay bằng phóng một ảnh, chỉ hoàn thiện sau animatic.
 
+- **Màu đẹp từng ảnh nhưng đứt mạch cảm xúc → tô theo từng shot, không có đường màu/nguồn sáng xuyên cảnh →** chọn các mốc đổi trạng thái và đối chiếu chúng trên cùng bảng; giữ sắc da, trang phục, mặt đỡ và hướng nguồn. Thay màu chủ quan cần điểm vào/ra rõ, khác một đèn vật lý bật/tắt. VFX tan/hiện phải cùng nhịp với da, áo và bóng, còn thấy diễn xuất và khoảng trống sau đó. **Kiểm tra:** so storyboard màu lẫn độ sáng tương đối, rồi xem animatic qua điểm chuyển và trở lại; hiệu ứng không thêm thời lượng hoặc che thông tin. Palette, mật độ hạt và chi phí của một tập không thành định mức chung.
+
 ## Tiết kiệm chi phí và lượt sửa
 
 - Khóa thời lượng, số vai, số bối cảnh và mức chuyển động trước khi làm asset. Khi thêm chi tiết, ưu tiên thay hoặc gộp đoạn cũ; không chỉ nối dài.

@@ -5,7 +5,7 @@
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kịch bản bản 9** (âm thanh), giữ lời bản 7 và khung/máy bản 8, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
+Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kịch bản bản 10** (màu/chuyển khung), giữ lời bản 7, khung/máy bản 8 và âm bản 9, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
 
 ## Phạm vi và điều đã chốt
 
@@ -21,7 +21,7 @@ Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kị
 | Bước | Làm gì / đầu ra để xem | Khi nào chuyển bước | Cách giảm lượt làm lại |
 |---|---|---|---|
 | 1. Khóa bản văn và thiết kế | Đối chiếu nguồn–lời sạch–bản ElevenLabs; duyệt mẫu hai trẻ/mẹ và bố cục bối cảnh từ bộ asset mới, bổ sung đúng phần còn thiếu | Tuổi, luật, lời và diện mạo rõ; phản hồi được ghi vào GHI-CHU | Giữ mặt Lộc đã chốt; sửa đúng nhân vật/phần bị ảnh hưởng, không tạo lại cả bảng |
-| 2. Storyboard tĩnh | Bảng ảnh thật theo 35 cue; ghi cue nào dùng chung nền/góc, có khung cho trạng thái thay đổi | Nhìn rõ thành phố–cú–cửa, không gian tiệm, tay/đồ, mẹ và cánh đồng; đủ mạch trước–sau | Dùng hình thô đủ đọc, dùng lại góc phản ứng; chưa hoàn thiện mọi biểu cảm hoặc lớp bị che |
+| 2. Storyboard tĩnh | Bảng ảnh theo 35 cue; có bảng mốc màu bản 10, ghi cue dùng chung nền/góc và trạng thái thay đổi | Nhìn rõ thành phố–cú–cửa, không gian tiệm, tay/đồ, mẹ và cánh đồng; đủ mạch trước–sau | Dùng hình thô đủ đọc, dùng lại góc phản ứng; chưa hoàn thiện mọi biểu cảm hoặc lớp bị che |
 | 3. Animatic | Ráp toàn tập bằng lời/âm tạm; chạy camera và tương tác dự kiến. Sửa trước các đoạn rủi ro trong bảng dưới | Xem bản chạy và bản ráp: nhịp, khoảng nghỉ, tiếp xúc, che khuất, chuyển cảnh đạt | Preview đủ soi mặt/tay; sửa clip lỗi rồi xem lại phần nối. Không dùng paid TTS chỉ để duyệt hình |
 | 4. Hoàn thiện hình và giọng | Hoàn thiện asset/rig đã duyệt; chọn voice/model ElevenLabs bằng mẫu ngắn trước, rồi tạo lời chính thức | Nghe giọng đúng cảm xúc, đủ vai; audio thực có mốc để cập nhật timing | Giữ các đoạn đã đạt. Muốn nhiều giọng/tái tạo từng đoạn phải có quy trình ráp riêng; backend cũ chỉ một voice/cache cả bài |
 | 5. Phối âm và xuất kiểm tra | Chọn/nghe nhạc không lời và nền theo DUNG-CANH/NGUON-AM-THANH; Foley đúng tiếp xúc, hơi thở đúng vai; cập nhật hình theo audio thật | Xem/nghe bản xuất: không vật bay/xuyên/trượt, lời rõ, nhạc đủ nghe, âm quan trọng có sức nặng, khoảng nghỉ đủ | Tìm nguồn miễn phí hoặc thư viện đã có, ghi quyền dùng; hoàn thiện và render lại phần phụ thuộc thay đổi |
@@ -49,7 +49,7 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 | C0 → C1 | Đường máy đủ 24 giây, điểm ghép mái/mắt không nhảy; cú bám thanh, giữ ngõ trống đúng asset mới, bước qua cửa nối đúng trục rồi mới với đồng hồ |
 | C1–C4 / G1 | Lộc gắt/mỉa mai, Thảo ứa nước mắt; Lộc về bàn sau làm tiếp đồng hồ rồi trở lại quầy; Duy đưa lại tiền em; đặt–thả máy, cất tiền, lấy/cất ảnh, cầm/đặt bút, ký/tách giấy; vỏ máy trước/sau sửa khớp; ký ức mất không phải quên thân phận |
 | C5 / G2 → G3 | Rung/nghiêng C5-C nằm trong nghỉ sẵn có và về 0 trước C5-D; Duy nhận sau lời báo giá; hơi ấm qua rồi kiệt rõ; còn thấy anh cố phản ứng trong lúc Lộc báo G3; em nhận trọn trước câu ngăn; trắng/ù đúng một lần |
-| C6–C7 | Giữ 2:1, roll/rung 0; mặt/tay/điểm tì đủ trong vùng hình; nắm tay đúng bên, bước có mặt đất, nhả/chuyển tay khi ngồi và ôm; mẹ/áo/bóng cùng tan; khoảng trống còn lại là dụng ý, không lỗi pose |
+| C6–C7 | Giữ 2:1, màu nắng chiều và roll/rung 0; mặt/tay/điểm tì đủ trong vùng hình; nắm tay đúng bên, bước có mặt đất, nhả/chuyển tay khi ngồi và ôm; mẹ/áo/bóng và hạt vàng thưa tan đồng bộ trong nhịp sẵn có, còn lại khoảng trống rõ; không lỗi pose |
 | C8 | Về 16:9 ngay cú cắt, đúng ghế/tay ở tiệm, đủ ba liên khách, đồ được cất thật; bố khuất, cuộc gọi dì và đi khỏi cửa; các giá còn hiệu lực |
 
 ## Quản lý chi phí và thay đổi
@@ -66,6 +66,7 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 | Tuổi, vai và xưng hô | KICH-BAN, DUNG-CANH, README tập; lời trong LOI-DOC/ELEVENLABS | Duy anh 16, Thảo em 8; trẻ xưng cháu/gọi ông, Lộc xưng tao/gọi mày; đúng người nói |
 | Ba giá, người trả, mẹ, bố/dì | KICH-BAN, DUNG-CANH, ASSET, README và GHI-CHU | G1/G2 Duy, G3 Thảo; mẹ từng che con khỏi bố bạo hành, hiện hình ở G3; bố/dì không thành tuyến dựng riêng; ba biên nhận rõ vai trò |
 | Đoạn mở, cue và thời lượng | KICH-BAN, DUNG-CANH, ASSET, README, mục lục docs/KICH-BAN | C0-A…F 24 giây; C0 + C1–C8, 35 cue; giữ ước tính mới |
+| Màu/chuyển khung bản 10 | KICH-BAN, DUNG-CANH, README, ASSET | Bảng màu/nguồn sáng theo cue, G2 ấm thoáng, G3 trắng sang ruộng 2:1, hạt vàng thưa lúc mẹ tan, cắt về tiệm 16:9. Chưa áp vào mã hoặc render/duyệt; lời/âm/thời lượng giữ nguyên |
 | Âm thanh bản 9 | KICH-BAN, DUNG-CANH, NGUON-AM-THANH, ASSET | 35 cue có âm chính/chi tiết; nền/nhạc không lời theo cảnh; nguồn miễn phí đã đọc điều kiện nhưng chưa nghe/tải/ráp. Không đổi lời, thời lượng hay tạo media |
 | Lời đọc | KICH-BAN → LOI-DOC và ELEVENLABS | Đối chiếu toàn bộ đoạn được đọc; loại thẻ để so nội dung; C0/chỉ dẫn không vào TTS |
 | Nơi tìm kế hoạch và quy tắc cập nhật | README gốc/tập, CLAUDE, skill/SKILL và look, docs/WHAT-IF-QUY-TRINH, docs/KICH-BAN, docs/ASSET | Liên kết về kế hoạch tập; hướng dẫn rà file phụ thuộc sau mỗi đổi |

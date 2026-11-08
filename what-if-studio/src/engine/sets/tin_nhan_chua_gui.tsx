@@ -145,11 +145,11 @@ export const MotherPhone: React.FC<{
               <g opacity={screenOn}>
                 <Glow x={0} y={-8} r={140} kind="cool" o={0.45 * screenOn} />
                 <rect x={-82} y={-52} width={162} height={22} rx={6} fill="#2E4A72" />
-                <text x={-70} y={-37} fontFamily={FONT.ui} fontWeight={700} fontSize={10} fill="#FFFFFF">
-                  BẢN GHI ÂM · MẸ
+                <text x={-72} y={-37} fontFamily={FONT.ui} fontWeight={700} fontSize={9.5} fill="#FFFFFF">
+                  Ghi_am_me_18h30.amr
                 </text>
                 <text x={68} y={-37} textAnchor="end" fontFamily={FONT.ui} fontSize={9} fill="#BFD8FF">
-                  00:18
+                  00:14
                 </text>
                 {/* Play button & waveform */}
                 <circle cx={-54} cy={-4} r={14} fill="#E05246" stroke={INK} strokeWidth={2} />
@@ -176,8 +176,8 @@ export const MotherPhone: React.FC<{
                     />
                   );
                 })}
-                <text x={-28} y={24} fontFamily={FONT.ui} fontSize={8.5} fill="#475569">
-                  Chưa gửi · Lưu đêm sinh nhật Duy
+                <text x={-28} y={24} fontFamily={FONT.ui} fontSize={8.2} fill="#475569">
+                  Chưa gửi · Ghi âm trước khi vào viện
                 </text>
               </g>
             ) : (
@@ -287,23 +287,28 @@ export const MemoryReceipt: React.FC<{
   const h = stage === 'folded' ? 48 : 92;
   const headerText =
     deal === 'G1'
-      ? 'PHIẾU G1 · SỬA MÁY (2 LIÊN)'
+      ? 'PHIẾU G1 · SỬA ĐIỆN THOẠI (2 LIÊN)'
       : deal === 'G2'
         ? 'PHIẾU G2 · ĐỔI BẰNG LỜI'
         : 'PHIẾU G3 · ĐỔI BẰNG LỜI';
   const line1 =
     deal === 'G1'
-      ? 'Tối sinh nhật 16t: mẹ ôm'
+      ? 'Tranh xe đồ chơi, làm em ngã;'
       : deal === 'G2'
-        ? 'Thoáng yên ấm: nhận thêm'
-        : 'Gặp mẹ một lần: từ nay';
+        ? 'Thoáng yên ấm như ngày mẹ còn;'
+        : 'Gặp mẹ một lần, nói lời chưa kịp;';
   const line2 =
     deal === 'G1'
-      ? 'rồi chụp 3 mẹ con bằng máy.'
+      ? 'mẹ dỗ cả hai rồi làm hòa.'
       : deal === 'G2'
-        ? 'phần trống vắng của em.'
-        : 'không còn mơ thấy mẹ.';
-  const payerLabel = deal === 'G3' ? 'Người trả: THẢO (8t)' : 'Người trả: DUY (16t)';
+        ? 'nhận thêm nỗi buồn của em.'
+        : 'từ nay không còn mơ thấy mẹ.';
+  const payerLabel =
+    deal === 'G3'
+      ? 'Người trả: THẢO (8t) · Bằng lời'
+      : deal === 'G2'
+        ? 'Người trả: DUY (16t) · Bằng lời'
+        : 'Người trả: DUY (16t) · Đã ký';
   return (
     <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s} ${flat ? s * 0.62 : s})`}>
       <rect x={-64} y={-h / 2 + 5} width={132} height={h} rx={2} fill="#000" opacity={0.36} />
@@ -335,10 +340,10 @@ export const MemoryReceipt: React.FC<{
           <line x1={-56} y1={12} x2={56} y2={12} stroke="#B8A88E" strokeWidth={1.2} />
           {stage === 'written' || stage === 'signed' ? (
             <g>
-              <text x={-54} y={-19} fontFamily={FONT.hand} fontSize={7.8} fill="#1E2F52">
+              <text x={-54} y={-19} fontFamily={FONT.hand} fontSize={7.5} fill="#1E2F52">
                 {line1}
               </text>
-              <text x={-54} y={-5} fontFamily={FONT.hand} fontSize={7.8} fill="#1E2F52">
+              <text x={-54} y={-5} fontFamily={FONT.hand} fontSize={7.5} fill="#1E2F52">
                 {line2}
               </text>
               <text
@@ -346,7 +351,7 @@ export const MemoryReceipt: React.FC<{
                 y={9}
                 fontFamily={FONT.ui}
                 fontWeight={700}
-                fontSize={7.5}
+                fontSize={7.2}
                 fill={deal === 'G3' ? '#A82E26' : '#3E271E'}
               >
                 {payerLabel}
@@ -357,18 +362,28 @@ export const MemoryReceipt: React.FC<{
             <g>
               {deal === 'G1' ? (
                 <path
-                  d="M 12 32 q 8 -14 14 -2 q 6 -10 12 2 q 8 -4 14 -6"
+                  d="M 12 30 q 8 -14 14 -2 q 6 -10 12 2 q 8 -4 14 -6"
                   stroke="#1E2F52"
                   strokeWidth={2}
                   fill="none"
                   strokeLinecap="round"
                 />
               ) : (
-                <text x={22} y={32} textAnchor="middle" fontFamily={FONT.hand} fontWeight={700} fontSize={8.2} fill="#7A2822">
+                <text x={22} y={30} textAnchor="middle" fontFamily={FONT.hand} fontWeight={700} fontSize={8.2} fill="#7A2822">
                   (Đã nhận lời)
                 </text>
               )}
-              <circle cx={-38} cy={28} r={9} fill="none" stroke="#B83A32" strokeWidth={1.8} opacity={0.75} />
+              {/* Red shop seal stamp: TIỆM ĐỒ CŨ & ĐỒNG HỒ ÔNG LỘC */}
+              <g transform="translate(-32 26)">
+                <rect x={-15} y={-10} width={30} height={20} fill="#B83A32" opacity={0.12} stroke="#B83A32" strokeWidth={1.4} />
+                <rect x={-13} y={-8} width={26} height={16} fill="none" stroke="#B83A32" strokeWidth={0.8} />
+                <text x={0} y={-2} textAnchor="middle" fontFamily={FONT.title} fontWeight={800} fontSize={4.2} fill="#B83A32">
+                  ÔNG LỘC
+                </text>
+                <text x={0} y={4} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={3.6} fill="#B83A32">
+                  HẺM 14/9
+                </text>
+              </g>
             </g>
           ) : null}
         </g>
@@ -613,18 +628,20 @@ const StoppedClockItem: React.FC<{
   s?: number;
   hAng?: number;
   mAng?: number;
-}> = ({ x, y, kind, s = 1, hAng = 60, mAng = 230 }) => {
+  t?: number;
+}> = ({ x, y, kind, s = 1, hAng = 60, mAng = 230, t = 0 }) => {
   const hr = (hAng * Math.PI) / 180;
   const mr = (mAng * Math.PI) / 180;
+  const bobX = t > 0 ? Math.sin(t * 0.1 + x * 0.05) * 6 : 4;
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       {kind === 'pendulum' ? (
         <g>
           <polygon points="-30,-118 0,-138 30,-118 26,0 -26,0" fill="#3E241C" stroke={INK} strokeWidth={3} />
           <rect x={-20} y={-58} width={40} height={48} rx={2} fill="#1E1414" stroke="#6E4432" strokeWidth={1.8} />
-          {/* Stopped brass pendulum bob */}
-          <line x1={0} y1={-58} x2={4} y2={-24} stroke="#C89B4B" strokeWidth={2} />
-          <circle cx={4} cy={-20} r={8} fill="#D4A24C" stroke={INK} strokeWidth={2} />
+          {/* Brass pendulum bob with gentle rhythmic sway */}
+          <line x1={0} y1={-58} x2={bobX} y2={-24} stroke="#C89B4B" strokeWidth={2} />
+          <circle cx={bobX} cy={-20} r={8} fill="#D4A24C" stroke={INK} strokeWidth={2} />
           <circle cx={0} cy={-90} r={19} fill="#EFE2CC" stroke={INK} strokeWidth={2.5} />
           <line x1={0} y1={-90} x2={Math.sin(hr) * 10} y2={-90 - Math.cos(hr) * 10} stroke={INK} strokeWidth={2.4} strokeLinecap="round" />
           <line x1={0} y1={-90} x2={Math.sin(mr) * 14} y2={-90 - Math.cos(mr) * 14} stroke={INK} strokeWidth={1.8} strokeLinecap="round" />

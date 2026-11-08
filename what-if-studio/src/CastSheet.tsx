@@ -686,6 +686,11 @@ export const EXPR_LIST: Expr[] = [
   'thinking',
   'oops',
   'dizzy',
+  'tearsHeldBack',
+  'exhaustedClinch',
+  'vacantSearch',
+  'determinedChild',
+  'glanceOverGlasses',
 ];
 
 /**
@@ -880,7 +885,7 @@ export const MeadowAndDealsSheet: React.FC = () => (
       <g transform="translate(65 825)">
         <rect x={0} y={0} width={960} height={220} rx={14} fill="#161118" opacity={0.94} stroke="#D4A857" strokeWidth={2.5} />
         <text x={480} y={26} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={13.5} fill="#FFE8A8">
-          PROP-G1-G2-G3 · BA TỜ BIÊN NHẬN 2 LIÊN (G1: Sinh nhật 16t · G2: Khoảng trống nhớ mẹ · G3: Giấc mơ của Thảo)
+          PROP-G1-G2-G3 · BA TỜ BIÊN NHẬN 2 LIÊN (G1: Tranh đồ chơi & làm hòa · G2: Nhận nỗi buồn em · G3: Giấc mơ của Thảo)
         </text>
         <ThreeReceiptsSet x={495} y={130} s={1.08} />
       </g>
@@ -922,14 +927,14 @@ export const MeadowAndDealsSheet: React.FC = () => (
             pose={standPose(585, 390, 0.85, {
               t: 24,
               yaw: 0.25,
-              expr: 'tired',
+              expr: 'exhaustedClinch',
               look: 0.2,
               headTilt: 5,
             })}
           />
         </g>
         <text x={585} y={206} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={12} fill="#FFE8A8">
-          C5-C / C8-A · Duy kiệt sức + mồ hôi thái dương
+          C5-C / C8-A · Duy kiệt sức rịn mồ hôi (`exhaustedClinch`)
         </text>
       </g>
     </svg>

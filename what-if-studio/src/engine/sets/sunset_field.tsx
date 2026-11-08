@@ -86,6 +86,25 @@ export const SunsetRiceField: React.FC<{t?:number;whiteout?:number;seatedBank?:b
       return <g key={i} transform={`translate(${x} ${y}) rotate(${a})`} stroke={i%3?'#c3aa65':'#6d713a'} strokeWidth="1.5" fill="none" strokeLinecap="round"><path d="M 0 3 Q -4 -6 -10 -13 M 1 4 Q 3 -9 10 -17 M 3 4 L 8 -6" /></g>;
     })}
     <BankGrain t={t} />
+    {/* Hovering red dragonflies (`chuồn chuồn ớt`) */}
+    {[
+      { x: 380, y: 615, s: 0.9, phase: 0 },
+      { x: 740, y: 585, s: 0.8, phase: 2.1 },
+      { x: 1220, y: 640, s: 0.85, phase: 4.3 },
+      { x: 1560, y: 595, s: 0.75, phase: 1.2 },
+    ].map((df, i) => {
+      const dfHoverX = Math.sin(t * 0.05 + df.phase) * 16;
+      const dfHoverY = Math.cos(t * 0.08 + df.phase) * 10;
+      const wingFlap = Math.sin(t * 0.35 + df.phase) * 14;
+      return (
+        <g key={`df${i}`} transform={`translate(${df.x + dfHoverX} ${df.y + dfHoverY}) scale(${df.s})`}>
+          <line x1={-8} y1={0} x2={12} y2={0} stroke="#D93829" strokeWidth={2.2} strokeLinecap="round" />
+          <circle cx={-8} cy={0} r={1.8} fill="#8A180E" />
+          <ellipse cx={-1} cy={-6} rx={7} ry={2.4} fill="#FFEAA7" opacity={0.55} transform={`rotate(${-12 + wingFlap} -1 -6)`} />
+          <ellipse cx={-1} cy={6} rx={7} ry={2.4} fill="#FFEAA7" opacity={0.55} transform={`rotate(${12 - wingFlap} -1 6)`} />
+        </g>
+      );
+    })}
     <Dust t={t} seed={43} x0={120} y0={390} w={1680} h={430} n={18} o={0.27} wind={0.18} />
     {whiteout>0.01?<rect width="1920" height="1080" fill="#fffdf7" opacity={Math.min(1,whiteout)} />:null}
   </g>;

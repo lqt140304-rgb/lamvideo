@@ -517,6 +517,13 @@ export const AncestralAltar: React.FC<{
       <rect x={-24 * s} y={topY - 90 * s} width={48 * s} height={66 * s} fill="#D9CFC0" />
       <circle cx={0} cy={topY - 64 * s} r={11 * s} fill="#7A6E62" />
       <path d={`M ${-16 * s} ${topY - 26 * s} Q 0 ${topY - 48 * s} ${16 * s} ${topY - 26 * s} Z`} fill="#4E4640" />
+      {/* Black mourning ribbon across top-left corner of portrait */}
+      <polygon
+        points={`${-32 * s},${topY - 78 * s} ${-32 * s},${topY - 90 * s} ${-14 * s},${topY - 98 * s} ${-2 * s},${topY - 98 * s}`}
+        fill="#141116"
+        stroke="#0A080C"
+        strokeWidth={1 * s}
+      />
       {/* Flower vase on left */}
       <path
         d={`M ${-92 * s} ${topY - 2 * s} L ${-100 * s} ${topY - 46 * s} L ${-76 * s} ${topY - 46 * s} L ${-84 * s} ${topY - 2 * s} Z`}
@@ -542,6 +549,14 @@ export const AncestralAltar: React.FC<{
           <circle cx={ix * 1.4 * s} cy={topY - 59 * s} r={2.2 * s} fill="#FF6A3A" />
         </g>
       ))}
+      {/* Curled incense ash */}
+      <path
+        d={`M 0 ${topY - 58 * s} Q ${6 * s} ${topY - 64 * s} ${3 * s} ${topY - 70 * s} Q ${-4 * s} ${topY - 74 * s} ${-2 * s} ${topY - 67 * s}`}
+        stroke="#C4BCB0"
+        strokeWidth={1.4 * s}
+        fill="none"
+        strokeLinecap="round"
+      />
       <path
         d={`M 0 ${topY - 64 * s} q ${Math.sin(t / 12) * 10 * s} ${-24 * s} ${Math.cos(t / 17) * 6 * s} ${-48 * s} q ${-Math.sin(t / 14) * 12 * s} ${-24 * s} 0 ${-44 * s}`}
         stroke="#E6E0D6"
@@ -550,12 +565,12 @@ export const AncestralAltar: React.FC<{
         strokeLinecap="round"
         opacity={0.35}
       />
-      {/* Two warm red altar lamps */}
+      {/* Two warm red altar lamps (`đèn quả nhót đỏ`) */}
       {[-124, 124].map((lx, i) => (
         <g key={i} transform={`translate(${lx * s} ${topY - 2 * s})`}>
           <rect x={-6 * s} y={-14 * s} width={12 * s} height={14 * s} fill="#9E742E" />
-          <ellipse cx={0} cy={-26 * s} rx={10 * s} ry={14 * s} fill="#FF5A3A" opacity={0.9} />
-          <circle cx={0} cy={-26 * s} r={4 * s} fill="#FFE8A8" />
+          <ellipse cx={0} cy={-26 * s} rx={11 * s} ry={15 * s} fill="#FF4528" opacity={0.92} />
+          <circle cx={0} cy={-26 * s} r={4.5 * s} fill="#FFFBE8" />
         </g>
       ))}
     </g>

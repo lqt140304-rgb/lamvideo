@@ -5,7 +5,7 @@
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
-**Bản hiện hành: 9, 08/11/2026.** Thêm nền/nhạc không lời theo cảnh và âm chi tiết 35 cue; nguồn miễn phí sơ tuyển, chưa nghe/tải/mix. Giữ chỉ dẫn hình bản 8: 16:9 ở thực tại, 2:1 suốt cánh đồng, rung/nghiêng ngắn chỉ tại C5-C; lời giữ bản 7. Mở đầu 24 giây không lời theo phác thảo: thành phố/trời sao và tiêu đề → hạ tới mắt cú → lùi lộ hẻm/tiệm → chuyển sang hai trẻ trước cửa và bước vào. Đúng 3 giao kèo: G1 Duy đổi ký ức tranh đồ chơi rồi được mẹ dỗ làm hòa để sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
+**Bản hiện hành: 10, 08/11/2026.** Thêm diễn biến màu/nguồn sáng theo cảnh, chuyển màu và khung, bụi vàng thưa khi mẹ tan; chưa render/duyệt hiệu quả mới. Giữ nền/nhạc không lời và âm chi tiết bản 9; đã rà quyền dùng 5 bài miễn phí, chưa nghe/tải/mix. Giữ chỉ dẫn máy bản 8: 16:9 ở thực tại, 2:1 suốt cánh đồng, rung/nghiêng ngắn chỉ tại C5-C; lời giữ bản 7. Mở đầu 24 giây không lời theo phác thảo: thành phố/trời sao và tiêu đề → hạ tới mắt cú → lùi lộ hẻm/tiệm → chuyển sang hai trẻ trước cửa và bước vào. Đúng 3 giao kèo: G1 Duy đổi ký ức tranh đồ chơi rồi được mẹ dỗ làm hòa để sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
@@ -13,8 +13,8 @@
 |---|---|
 | [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md) | Kế hoạch tối ưu, bước duyệt, nhóm asset dùng lại, đoạn cần thử và bảng đồng bộ |
 | [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, C0 + 8 cảnh chính, nhịp nghỉ, hình và thoại |
-| [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/ngõ mới và mẹ hiện hình, 35 cue, khung/nghiêng/rung, lens/focus/pose/tiếp xúc, nền/nhạc theo cảnh, Foley/hơi thở/môi, trắng-ù và duyệt |
-| [NGUON-AM-THANH.md](NGUON-AM-THANH.md) | Nhạc/tiếng nền miễn phí sơ tuyển, trang gốc, giấy phép, cảnh đề nghị và trạng thái chưa nghe/tải; không chứa file âm rời |
+| [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/ngõ mới và mẹ hiện hình, 35 cue, khung/nghiêng/rung, lens/focus/pose/tiếp xúc, màu/nguồn sáng/chuyển khung, bụi vàng lúc tan, nền/nhạc theo cảnh và Foley/hơi thở/môi |
+| [NGUON-AM-THANH.md](NGUON-AM-THANH.md) | Nhạc/tiếng nền miễn phí, kết quả rà quyền thương mại 5 bài, trang gốc/giấy phép, cảnh đề nghị và trạng thái chưa nghe/tải; không chứa file âm rời |
 | [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch từ nguồn |
 | [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời với thẻ gợi ý, không tự phân vai hoặc bảo đảm thời gian nghỉ |
 | [ASSET.md](ASSET.md) | Concept có thật và phần mới thành phố/hẻm/cú/chữ, mẹ/ruộng/pose/giọng/phiếu cần tạo |
