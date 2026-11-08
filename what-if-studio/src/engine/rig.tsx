@@ -460,6 +460,7 @@ export type Pose = {
   talk?: number; // 0..1 the mouth open while speaking
   mouthShape?: MouthShape;
   lipTremble?: number; // signed face-local motion; drive from the shot clock
+  thighDepth?: number; // frontal seated projection of the upper leg, 0.2..1; full length by default
   cloth?: number; // small secondary hem/fold movement, -1..1
   shoulderLift?: number; // -1..1 shrug (>0) or slump (<0)
 };
@@ -553,6 +554,7 @@ export const poseAt = (f: number, keys: Key[], from: Pose = basePose): Pose => {
         mouthShape: f >= B.f ? B.p.mouthShape : A.p.mouthShape,
         lipTremble: lerp(A.p.lipTremble ?? 0, B.p.lipTremble ?? 0, t),
         cloth: lerp(A.p.cloth ?? 0, B.p.cloth ?? 0, t),
+        thighDepth: lerp(A.p.thighDepth ?? 1, B.p.thighDepth ?? 1, t),
         glint: A.p.glint !== undefined || B.p.glint !== undefined ? lerp(A.p.glint ?? 0, B.p.glint ?? 0, t) : undefined,
         glintColor: B.p.glintColor ?? A.p.glintColor,
       };
@@ -611,8 +613,8 @@ export const joints = (pose: Pose) => {
   const shR = { x: SHOULDER.x * sp + pose.yaw * 6 - (faceDir === 1 ? nearPull : 0), y: SHOULDER.y + lift };
   const armL = side(-1, pose.armL, shL, UPPER_ARM, FORE_ARM, false);
   const armR = side(1, pose.armR, shR, UPPER_ARM, FORE_ARM, false);
-  const legL = side(-1, pose.legL, { x: -HIP.x * sp, y: 0 }, THIGH, SHIN, true);
-  const legR = side(1, pose.legR, { x: HIP.x * sp, y: 0 }, THIGH, SHIN, true);
+  const legL = side(-1, pose.legL, { x: -HIP.x * sp, y: 0 }, THIGH * clamp(pose.thighDepth ?? 1, 0.2, 1), SHIN, true);
+  const legR = side(1, pose.legR, { x: HIP.x * sp, y: 0 }, THIGH * clamp(pose.thighDepth ?? 1, 0.2, 1), SHIN, true);
   const r = (o: { root: P; mid: P; end: P }) => ({ root: torsoRot(o.root), mid: torsoRot(o.mid), end: torsoRot(o.end) });
   return { armL: r(armL), armR: r(armR), legL, legR, head: torsoRot(HEAD) };
 };
@@ -1106,13 +1108,14 @@ const TempleLocks: React.FC<{
   );
 };
 
-export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?: Look; opacity?: number; heldProps?: Partial<Record<'L' | 'R', React.ReactNode>> }> = ({
+export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?: Look; opacity?: number; heldProps?: Partial<Record<'L' | 'R', React.ReactNode>>; handLayer?: 'normal' | 'defer' | 'only' }> = ({
   pose,
   shadow = 1,
   rimId = 'rimR',
   look = LOOKS.pipHood,
   opacity = 1,
   heldProps,
+  handLayer = 'normal',
 }) => {
   const j = joints(pose);
   const L = look;
@@ -1232,6 +1235,15 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
       </g>
     );
   };
+
+  if (handLayer === 'only') return <g opacity={opacity}>
+    <g transform={`translate(${pose.x} ${pose.y}) scale(${pose.scale}) rotate(${pose.spin} 0 -90)`} filter={`url(#${rimId})`}>
+      <g transform={`translate(0 ${LEG_LEN}) scale(${1 + 0.6 * pose.squash} ${1 - pose.squash}) translate(0 ${-LEG_LEN})`}>
+        {hand(j.armL, 1, pose.handL, heldProps?.L)}
+        {hand(j.armR, -1, pose.handR, heldProps?.R)}
+      </g>
+    </g>
+  </g>;
 
   const kw = turnWidth(pose.yaw);
   const liftY = (pose.shoulderLift ?? 0) * -8;
@@ -2201,17 +2213,17 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           {L.body === 'swaddle' ? null : pose.yaw < 0 ? (
             <>
               {arm(j.armR)}
-              {hand(j.armR, -1, pose.handR, heldProps?.R)}
+              {handLayer !== 'defer' ? hand(j.armR, -1, pose.handR, heldProps?.R) : null}
             </>
           ) : (
             <>
               {arm(j.armL)}
-              {hand(j.armL, 1, pose.handL, heldProps?.L)}
+              {handLayer !== 'defer' ? hand(j.armL, 1, pose.handL, heldProps?.L) : null}
             </>
           )}
           {backHair}
           {/* The pelvis bridges both thigh roots; its crotch curve covers the leg attachment seams. */}
-          {L.body !== 'swaddle' ? <g transform={`rotate(${pose.tilt * 0.25}) scale(${turnWidth(pose.yaw)} ${Math.max(0.15, Math.cos((pose.legL.a + pose.legR.a) * Math.PI / 360))})`}>
+          {L.body !== 'swaddle' ? <g transform={`rotate(${pose.tilt * 0.25}) scale(${turnWidth(pose.yaw)} ${Math.max(0.15, Math.cos((pose.legL.a + pose.legR.a) * Math.PI / 360)) * Math.sqrt(pose.thighDepth ?? 1)})`}>
             <path d="M -41 -8 Q 0 -1 41 -8 Q 42 10 36 29 Q 27 37 18 32 Q 8 22 0 22 Q -8 22 -18 32 Q -27 37 -36 29 Q -42 10 -41 -8 Z" fill={L.limb} />
             <path d="M -40 -4 Q 0 4 40 -4 M 0 9 Q 2 15 0 20" stroke={L.line} strokeWidth="1.5" opacity="0.4" fill="none" />
           </g> : null}
@@ -2219,12 +2231,12 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           {L.body === 'swaddle' ? null : pose.yaw < 0 ? (
             <>
               {arm(j.armL)}
-              {hand(j.armL, 1, pose.handL, heldProps?.L)}
+              {handLayer !== 'defer' ? hand(j.armL, 1, pose.handL, heldProps?.L) : null}
             </>
           ) : (
             <>
               {arm(j.armR)}
-              {hand(j.armR, -1, pose.handR, heldProps?.R)}
+              {handLayer !== 'defer' ? hand(j.armR, -1, pose.handR, heldProps?.R) : null}
             </>
           )}
           {L.extra === 'hood' ? (

@@ -27,7 +27,7 @@ Trong lúc Lộc báo giá G3, phải còn thấy Duy cố nhấc tay/mở miệ
 
 Tới G2, chỉ ánh sáng/âm chủ quan ấm lên thoáng qua trong cùng khung; chưa hiện mẹ hoặc chuyển nhà. Sau đó Duy tái/mồ hôi/vai sụp/tay bấu, nhìn khó tập trung; phải thấy tình trạng này trước câu nhận G3 của Thảo. Trắng/ù thuộc G3, không đặt nhầm vào G1 hoặc G2. Thân hai trẻ vẫn ngồi đúng ghế, tay vẫn cùng vị trí khi trở về C8.
 
-**SET-CANHDONG / miền cảm giác G3:** ruộng lúa hư cấu miền Nam, bờ đất bằng và thảm cỏ khô đủ ba người ngồi, nắng cuối chiều từ trái khung, cây xa/đường chân trời thấp. Cỏ gần, nhóm giữa, ruộng-trời xa; không sương/hào quang để giấu tiếp xúc. Mẹ giữa, Duy trái, Thảo phải; nắm tay theo vị trí giải phẫu. Duy khoảng 1,65 m, mẹ khoảng 1,58 m, Thảo khoảng 1,25 m chỉ là tỷ lệ khởi điểm. Có thể anh cao hơn mẹ mà vẫn còn nét thiếu niên. Cùng trục khi đi/ngồi; chuyển tư thế có chân/điểm tì, không dissolve để bỏ qua ngồi xuống.
+**SET-CANHDONG / miền cảm giác G3:** đồng chín vàng dày và cao theo ảnh chủ repo; thân mảnh, bông hạt rõ, không biến thành bụi cỏ lá bản nhọn. Lối đi bộ khô ở phía trên; chỗ ngồi là mép kè đá của mương tưới, mặt kè khô đủ ba người ngồi. Vách đá có mạch xây, nước xanh xám bên dưới có bóng kè, phản chiếu và gợn; không vẽ một dải nâu trơn khiến khó hiểu đó là đất hay nước. Nắng cuối chiều từ trái khung, cây xa/đường chân trời thấp. Cỏ gần, nhóm giữa, ruộng-trời xa; không sương/hào quang để giấu tiếp xúc. Mẹ giữa, Duy trái, Thảo phải; nắm tay theo vị trí giải phẫu. Duy khoảng 1,65 m, mẹ khoảng 1,58 m, Thảo khoảng 1,25 m chỉ là tỷ lệ khởi điểm. Có thể anh cao hơn mẹ mà vẫn còn nét thiếu niên. Cùng trục khi đi/ngồi; chuyển tư thế có chân/điểm tì, không dissolve để bỏ qua ngồi xuống.
 
 Đây không phải bản dựng nguyên hồi ức đã quay: là cảnh chủ quan của giao kèo, có lời mẹ đối thoại và gửi gắm như chủ repo yêu cầu. Không dùng làm dữ liệu mẹ thật biết tương lai hoặc đã để trong máy. Không quay xác nhận thân thể ba mẹ con ở cánh đồng thật. Mẹ tan: cả da/áo/bóng cùng giảm một lần, tay trẻ níu khoảng trống có dụng ý; không nhầm với lỗi tay/vật bay, không để nửa đầu còn mà thân đã biến mất tùy tiện.
 
@@ -301,7 +301,7 @@ Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng 
 - **Khung / nghiêng / rung:** 2:1 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Âm cỏ/vải vào khi ba mẹ con hạ người và tựa, dừng khi ngồi yên; không tiếng ghế ở ruộng. Kéo gấu áo nghe vải nhẹ; chưa có động tác vá nên không thêm tiếng kim/chỉ.
 - 50 mm; cao 0,85 m; cách 2,4 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
-- Ngồi thật xuống thảm cỏ thấp khô; mẹ giữa, trẻ hai bên, không đổi trục.
+- Ngồi trên mép kè đá khô cạnh mương tưới; mẹ giữa, Duy trái, Thảo phải cùng nép vào hai vai mẹ. Đùi đặt trên mặt kè, đầu gối gập rõ, cẳng chân buông thẳng trước vách đá và cao hơn mặt nước. Giữ trục và chừa lối đi bộ khô ở C6-B.
 - Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
 
 **C6-D · Cận phản ứng hai trẻ, mẹ rìa khung**
@@ -319,7 +319,7 @@ Vẫn bờ ruộng và trục đã xác lập. Ánh cuối chiều ấm, không 
 - **Khung / nghiêng / rung:** 2:1 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Giữ cùng nền ruộng qua cắt cảnh; tay mẹ đặt vai nghe vải rất khẽ ở đúng điểm chạm. Nhạc không lời thưa dần, nhường âm đầu/cuối lời mẹ; chưa làm gió tắt hẳn để báo trước phép màu.
 - 50 mm; cao 0,85 m; cách 2,4 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
-- Lời giản dị, có nhịp nghe; mẹ chạm từng bên đúng pose đã có.
+- Lời giản dị, có nhịp nghe; mẹ vòng tay sau lưng từng con, lòng bàn tay đặt đúng đỉnh vai ngoài. Hai con nghiêng vào mẹ; không đặt cổ tay thay cho điểm chạm của lòng bàn tay.
 - Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
 
 **C7-B · Cận vừa mẹ và Duy**

@@ -1,4 +1,5 @@
 import React from 'react';
+import {MeadowFamily} from './meadow_family';
 import {
   Hero,
   LOOKS,
@@ -606,96 +607,22 @@ export const ShC6_B: React.FC<ShotProps> = ({ t }) => {
 // CẢNH 7: NHỮNG LỜI ĐỂ LẠI & MẸ TAN DẦN (05:36 – 06:12)
 // ============================================================================
 
-/** ShC7_A: Ba mẹ con ngồi bên bờ cỏ khô nắng chiều, mẹ dặn dò hai con */
-export const ShC7_A: React.FC<ShotProps> = ({ t }) => (
-  <g transform={camT(960, 580, 1.05)}>
-    <SunsetRiceField t={t} whiteout={0} />
-    <Hero
-      look={LOOKS.thao}
-      pose={sitPose(790, 775, 0.72, 1, {
-        t,
-        seed: 2,
-        yaw: 0.42,
-        expr: 'cry',
-        look: 0.35,
-        headTilt: 6,
-        gesture: 'handOnChest',
-      })}
-    />
-    <Hero
-      look={LOOKS.meDuyThao}
-      pose={sitPose(945, 765, 0.92, -1, {
-        t,
-        seed: 5,
-        yaw: -0.18,
-        expr: 'smile',
-        look: -0.2,
-        headTilt: 4,
-        gesture: 'explain',
-      })}
-    />
-    <Hero
-      look={LOOKS.duy}
-      pose={sitPose(1115, 775, 0.9, -1, {
-        t,
-        seed: 1,
-        yaw: -0.42,
-        expr: 'sad',
-        look: -0.35,
-        headTilt: 5,
-      })}
-    />
-    <SunsetMeadowForeground t={t} shiftX={0} />
-  </g>
-);
+/** ShC7_A: Two children lean into their mother's embrace above the irrigation ditch. */
+export const ShC7_A:React.FC<ShotProps> = ({t}) => <g transform={camT(960,580,1.05)}>
+  <SunsetRiceField t={t} seatedBank />
+  <MeadowFamily t={t} grieving />
+  <SunsetMeadowForeground t={t} />
+</g>;
 
-/** ShC7_B: Thảo ôm mẹ, mẹ mỉm cười tan dần theo nắng chiều, hai con níu khoảng trống */
-export const ShC7_B: React.FC<ShotProps> = ({ t }) => {
-  // Dissolving smoothly after t=60: body, clothes, shadow fade together
-  const p = clamp((t - 60) / 140, 0, 1);
-  const momOpacity = 1 - easeOut(p);
-  return (
-    <g transform={camT(960, 580, 1.05)}>
-      <SunsetRiceField t={t} whiteout={0} />
-      <Hero
-        look={LOOKS.thao}
-        pose={sitPose(790, 775, 0.72, 1, {
-          t,
-          seed: 2,
-          yaw: 0.45,
-          expr: 'cry',
-          look: 0.4,
-          gesture: 'explain',
-        })}
-      />
-      {momOpacity > 0.01 ? (
-        <Hero
-          look={LOOKS.meDuyThao}
-          opacity={momOpacity}
-          pose={sitPose(945, 765, 0.92, -1, {
-            t,
-            seed: 5,
-            yaw: -0.18,
-            expr: 'relieved',
-            look: -0.2,
-            headTilt: 4,
-          })}
-        />
-      ) : null}
-      <Hero
-        look={LOOKS.duy}
-        pose={sitPose(1115, 775, 0.9, -1, {
-          t,
-          seed: 1,
-          yaw: -0.42,
-          expr: 'sad',
-          look: -0.35,
-          headTilt: 6,
-        })}
-      />
-      <SunsetMeadowForeground t={t} shiftX={0} />
-    </g>
-  );
+/** ShC7_B: The same embrace fades as one complete mother, including both front palms. */
+export const ShC7_B:React.FC<ShotProps> = ({t}) => {
+  const p=clamp((t-60)/140,0,1),motherOpacity=1-easeOut(p);
+  return <g transform={camT(960,580,1.05)}>
+    <SunsetRiceField t={t} seatedBank />
+    <MeadowFamily t={t} motherOpacity={motherOpacity} grieving />
+    <SunsetMeadowForeground t={t} />
+  </g>;
+
 };
 
 // ============================================================================

@@ -1,31 +1,17 @@
 import React, { useId } from 'react';
+import { GoldenField, GoldenForeground, BankGrain } from './golden_grain';
 import { rnd } from '../anim';
 import { Dust } from '../light';
 import { CloudBank, SmokePlume, WaterRipple, windAt } from '../vfx';
 
-const Rice: React.FC<{x:number;y:number;s:number;t:number;seed:number;near?:boolean}> = ({x,y,s,t,seed,near=false}) => {
-  const a = windAt(t,seed,near ? 5 : 3);
-  return <g transform={`translate(${x} ${y}) scale(${s})`}>
-    <g transform={`rotate(${a})`} strokeLinecap="round">
-      <path d="M 0 0 Q -2 -25 9 -56 Q 18 -71 32 -57" fill="none" stroke={near ? '#8b753e' : '#c3a04b'} strokeWidth={near ? 2.7 : 1.6} />
-      <path d="M 1 -10 Q -20 -39 -25 -31 Q -13 -14 1 -10 M 3 -20 Q 23 -43 30 -38 Q 22 -24 3 -20" fill={near ? '#706133' : '#9d8b43'} />
-      <path d="M 10 -55 Q 20 -64 32 -57" stroke="#e4b15b" strokeWidth="2" fill="none" />
-      {Array.from({length:8},(_,i)=><g key={i} transform={`translate(${11+i*2.7} ${-57-Math.sin(i/7*Math.PI)*5}) rotate(${i*5-12})`}>
-        <ellipse rx="1.8" ry="3.2" fill={near ? '#d4a452' : '#dfb45b'} /><path d="M 0 -3 L 0 -5" stroke="#f4d78b" strokeWidth="0.6" />
-      </g>)}
-      <path d="M -9 -3 Q -10 -20 -19 -27" stroke={near ? '#66542e' : '#b7a054'} strokeWidth="1.4" fill="none" />
-    </g>
-  </g>;
-};
-
 /** Rural sunset set; keep the bank/foot planes compatible with the existing C6–C7 shots. */
-export const SunsetRiceField: React.FC<{t?:number;whiteout?:number}> = ({t=0,whiteout=0}) => {
+export const SunsetRiceField: React.FC<{t?:number;whiteout?:number;seatedBank?:boolean}> = ({t=0,whiteout=0,seatedBank=false}) => {
   const id = `field-${useId().replace(/[^a-zA-Z0-9]/g,'')}`;
   return <g>
     <defs>
       <linearGradient id={`${id}-sky`} x2="0" y2="1"><stop stopColor="#77799d" /><stop offset="0.36" stopColor="#b68d99" /><stop offset="0.68" stopColor="#e6a880" /><stop offset="1" stopColor="#f3cd8b" /></linearGradient>
       <radialGradient id={`${id}-sun`}><stop stopColor="#ffe6ae" stopOpacity="0.55" /><stop offset="1" stopColor="#f4bb7b" stopOpacity="0" /></radialGradient>
-      <linearGradient id={`${id}-rice`} x2="0" y2="1"><stop stopColor="#c0a15c" /><stop offset="1" stopColor="#77763d" /></linearGradient>
+      <linearGradient id={`${id}-rice`} x2="0" y2="1"><stop stopColor="#d6b569" /><stop offset="1" stopColor="#9f884b" /></linearGradient>
       <linearGradient id={`${id}-water`} x2="0" y2="1"><stop stopColor="#cbad7c" /><stop offset="0.5" stopColor="#9b997a" /><stop offset="1" stopColor="#596e63" /></linearGradient>
       <linearGradient id={`${id}-bank`} x2="0.2" y2="1"><stop stopColor="#a48b53" /><stop offset="0.44" stopColor="#96704b" /><stop offset="1" stopColor="#584331" /></linearGradient>
       <clipPath id={`${id}-ditch`}><path d="M -30 717 Q 550 706 1000 723 Q 1510 734 1950 710 L 1950 758 Q 1480 774 1000 752 Q 460 740 -30 766 Z" /></clipPath>
@@ -54,11 +40,10 @@ export const SunsetRiceField: React.FC<{t?:number;whiteout?:number}> = ({t=0,whi
     </g>
     {[0,1,2,3].map(i=><path key={i} d={`M ${730+i*48+t*0.08} ${310+i%2*24} q 7 ${-3-Math.sin(t*.09+i)*3} 14 0 q 7 ${-3-Math.sin(t*.09+i)*3} 14 0`} stroke="#82726f" strokeWidth="1.7" fill="none" opacity="0.65" />)}
     <path d="M -30 556 Q 920 539 1950 558 V 774 H -30 Z" fill={`url(#${id}-rice)`} />
-    {/* Perspective bunds divide paddies, without covering the actors' level walking bank. */}
-    <path d="M -30 602 Q 900 588 1950 604 M -30 660 Q 930 639 1950 667 M 1160 556 L 1860 720 M 480 555 L 95 720" stroke="#7d7043" strokeWidth="4" opacity="0.65" fill="none" />
-    {[0,1,2].map(row=><g key={row}>
-      {Array.from({length:row===0?95:62},(_,i)=><Rice key={i} x={i*(row===0?21:33)-15+rnd(row+42,i)*9} y={583+row*57+rnd(19,i)*17} s={0.25+row*0.25} t={t} seed={i*.73+row*2} />)}
-    </g>)}
+    <path d="M -30 589 Q 420 564 835 586 Q 1360 603 1950 575 L 1950 649 Q 1180 613 740 654 Q 290 632 -30 671 Z" fill="#c6aa61" opacity="0.7" />
+    <path d="M 460 556 Q 440 617 128 717 M 1180 556 Q 1330 634 1830 717" stroke="#a18a4d" strokeWidth="3" fill="none" opacity="0.45" />
+    <GoldenField t={t} />
+
     <path d="M -30 717 Q 550 706 1000 723 Q 1510 734 1950 710 L 1950 758 Q 1480 774 1000 752 Q 460 740 -30 766 Z" fill={`url(#${id}-water)`} />
     <g clipPath={`url(#${id}-ditch)`}>
       {Array.from({length:20},(_,i)=><path key={i} d={`M ${40+i*100+windAt(t,i,5)} ${723+i%4*9} h ${25+i%5*9}`} stroke={i%3 ? '#d9be8a' : '#6f8068'} strokeWidth="1.5" opacity="0.45" />)}
@@ -66,24 +51,46 @@ export const SunsetRiceField: React.FC<{t?:number;whiteout?:number}> = ({t=0,whi
     </g>
     <path d="M -60 765 Q 520 735 1040 748 Q 1520 760 1980 742 V 1090 H -60 Z" fill={`url(#${id}-bank)`} />
     <path d="M -60 765 Q 520 735 1040 748 Q 1520 760 1980 742 L 1980 835 Q 1480 852 980 838 Q 480 825 -60 850 Z" fill="#9a8b50" />
-    <path d="M -60 807 Q 480 790 980 802 Q 1480 814 1980 799 L 1980 845 Q 1450 858 980 838 Q 450 826 -60 850 Z" fill="#847045" />
-    <path d="M -60 807 Q 480 790 980 802 Q 1480 814 1980 799" fill="none" stroke="#b7a264" strokeWidth="4" />
-    <path d="M -60 850 Q 480 825 980 838 Q 1480 852 1980 835 L 1980 955 Q 1460 975 960 958 Q 460 942 -60 965 Z" fill="#a17b56" />
+    {seatedBank ? <>
+      {/* A capped stone irrigation wall: the hips sit on its top, calves hang in front. */}
+      <path d="M -60 790 Q 480 779 980 790 Q 1480 800 1980 784 L 1980 817 Q 1480 828 980 814 Q 480 802 -60 816 Z" fill="#b6a47e" />
+      <path d="M -60 807 Q 480 794 980 805 Q 1480 818 1980 801 V 943 H -60 Z" fill="#82775f" />
+      {[0,1,2].map(row=><g key={row}>
+        {Array.from({length:12},(_,i)=>{
+          const x=i*181-125+(row%2)*88,y=817+row*39;
+          return <path key={i} d={`M ${x+3} ${y+3} Q ${x+65} ${y-2} ${x+174} ${y+2} L ${x+176} ${y+35} Q ${x+77} ${y+41} ${x} ${y+35} Z`} fill={['#93856b','#a09275','#8b8068','#ac9b79'][(i+row)%4]} stroke="#6d6855" strokeWidth="2" />;
+        })}
+      </g>)}
+      <path d="M -60 803 Q 480 791 980 802 Q 1480 814 1980 798" fill="none" stroke="#d1bd92" strokeWidth="5" />
+      {/* Blue-green water, wall shadow, broken sunset glints and a visible near bank. */}
+      <path d="M -60 931 Q 520 916 1020 928 Q 1510 939 1980 919 V 1090 H -60 Z" fill="#839b8e" />
+      <path d="M -60 932 Q 520 917 1020 929 Q 1510 940 1980 920 L 1980 949 Q 1510 969 1020 956 Q 520 945 -60 960 Z" fill="#4a675f" opacity="0.55" />
+      {Array.from({length:12},(_,i)=><path key={`sun-${i}`} d={`M ${224+Math.sin(i*3)*45+windAt(t,i,5)} ${953+i*9} h ${75+(i%3)*31}`} stroke="#ead49d" strokeWidth={i%2?2:3.5} fill="none" opacity={.25+(i%4)*.1} />)}
+      {Array.from({length:20},(_,i)=><path key={i} d={`M ${i*103+windAt(t,i,6)} ${956+i%5*23} q 24 -2 ${39+i%4*14} 0`} stroke={i%2?'#cbd0b0':'#597c70'} strokeWidth="1.5" opacity="0.5" fill="none" />)}
+      <WaterRipple t={(t+40)%170} life={170} x={1250} y={1010} radius={70} color="#c0d1bc" />
+      <path d="M -60 1060 Q 600 1045 1030 1069 Q 1540 1083 1980 1052 V 1090 H -60 Z" fill="#7d7151" />
+      <path d="M -60 1060 Q 600 1045 1030 1069 Q 1540 1083 1980 1052" stroke="#c4b17d" strokeWidth="3" fill="none" />
+    </> : <>
+      <path d="M -60 807 Q 480 790 980 802 Q 1480 814 1980 799 L 1980 845 Q 1450 858 980 838 Q 450 826 -60 850 Z" fill="#847045" />
+      <path d="M -60 807 Q 480 790 980 802 Q 1480 814 1980 799" fill="none" stroke="#b7a264" strokeWidth="4" />
+      <path d="M -60 850 Q 480 825 980 838 Q 1480 852 1980 835 L 1980 955 Q 1460 975 960 958 Q 460 942 -60 965 Z" fill="#a17b56" />
+    </>}
     <path d="M -40 765 Q 520 735 1040 748 Q 1520 760 1960 743" fill="none" stroke="#e0b971" strokeWidth="3" opacity="0.75" />
-    {Array.from({length:90},(_,i)=>{
+    {!seatedBank ? Array.from({length:90},(_,i)=>{
       const x=rnd(10,i)*1920,y=856+rnd(11,i)*166;
       return <g key={i} opacity={0.2+rnd(12,i)*.23}><path d={`M ${x} ${y} q ${5+rnd(13,i)*12} -3 ${11+rnd(14,i)*14} 0`} stroke="#614b34" strokeWidth={1+rnd(15,i)*2} fill="none" />
         {i%3===0?<ellipse cx={x+5} cy={y+4} rx={3+rnd(9,i)*4} ry="1.8" fill="#cfb18a" />:null}</g>;
-    })}
+    }) : null}
     {Array.from({length:53},(_,i)=>{
       const x=i*38-20,y=763+Math.sin(i*.32)*8, a=windAt(t,i*.7,5);
       return <g key={i} transform={`translate(${x} ${y}) rotate(${a})`} stroke={i%3?'#c3aa65':'#6d713a'} strokeWidth="1.5" fill="none" strokeLinecap="round"><path d="M 0 3 Q -4 -6 -10 -13 M 1 4 Q 3 -9 10 -17 M 3 4 L 8 -6" /></g>;
     })}
+    <BankGrain t={t} />
     <Dust t={t} seed={43} x0={120} y0={390} w={1680} h={430} n={18} o={0.27} wind={0.18} />
     {whiteout>0.01?<rect width="1920" height="1080" fill="#fffdf7" opacity={Math.min(1,whiteout)} />:null}
   </g>;
 };
 
 export const SunsetMeadowForeground: React.FC<{t?:number;shiftX?:number}> = ({t=0,shiftX=0}) => <g transform={`translate(${shiftX} 0)`}>
-  {[[22,1090,2.7],[94,1092,3.2],[181,1095,2.4],[265,1100,1.7],[1650,1100,1.9],[1730,1095,2.6],[1828,1092,3.2],[1912,1090,2.8]].map(([x,y,s],i)=><Rice key={i} x={x} y={y} s={s} t={t} seed={i*.8} near />)}
+  <GoldenForeground t={t} />
 </g>;

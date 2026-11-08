@@ -351,13 +351,13 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 ## Cảnh 6. Lần thứ ba — cánh đồng có mẹ
 
-**Bối cảnh:** Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng hoặc mẹ hồi sinh. Tiệm/body vẫn ở thực tại; chỉ điểm nhìn chủ quan chuyển. Ruộng lúa hư cấu ven làng, lối đất bằng sát bờ, nắng cuối chiều; mẹ đứng giữa trước hai trẻ, gọi rồi nắm tay đi một đoạn ngắn. Mẹ khoảng 38–42, áo vải màu đất sáng, quần tối, tóc buộc thấp; đã có mẫu SVG/khung thử, chờ duyệt theo cảnh.
+**Bối cảnh:** Miền cảm giác của G3, không phải hai trẻ đã đi thật ra đồng hoặc mẹ hồi sinh. Tiệm/body vẫn ở thực tại; chỉ điểm nhìn chủ quan chuyển. Đồng chín vàng dày ven làng, bông hạt rõ theo ảnh tham khảo; lối đi khô nối tới mép kè đá mương tưới, nơi ba mẹ con ngồi với đùi trên mặt kè, gối gập và chân buông trên nước; nắng cuối chiều; mẹ đứng giữa trước hai trẻ, gọi rồi nắm tay đi một đoạn ngắn. Mẹ khoảng 38–42, áo vải màu đất sáng, quần tối, tóc buộc thấp; đã có mẫu SVG/khung thử, chờ duyệt theo cảnh.
 
 | Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
 |---|---|---|------|---|---|
 | C6-A | Toàn con đường ven ruộng, mẹ gọi hai trẻ | 35 mm; cao 1,2 m; cách nhóm 4 m | Trắng dịu đi, ù tắt dần trước tiếng mẹ; cỏ gần/nhóm giữa/ruộng trời xa | 2:1 · roll 0° · rung 0 px | Ù tắt; gió ruộng thoáng, mẹ gọi trực tiếp. |
 | C6-B | Trung đi cùng mẹ từ phía trước | 50 mm; cao 1,25 m; cách 2,5 m | Trượt lùi ngắn nếu đủ lớp; mẹ giữa, Duy trái, Thảo phải; tay nắm đúng bên, bước tiếp xúc đất | 2:1 · roll 0° · rung 0 px | Chân trên đất, lúa xào xạc, vải áo; nhạc ấm. |
-| C6-C | Trung ba mẹ con ngồi bên bờ | 50 mm; cao 0,85 m; cách 2,4 m | Ngồi thật xuống thảm cỏ thấp khô; mẹ giữa, trẻ hai bên, không đổi trục | 2:1 · roll 0° · rung 0 px | Ngồi xuống cỏ khô; vải/cỏ sột đúng điểm tì. |
+| C6-C | Trung ba mẹ con ngồi bên bờ | 50 mm; cao 0,85 m; cách 2,4 m | Ngồi trên mép kè đá khô cạnh mương tưới; mẹ giữa, Duy trái, Thảo phải cùng nép vào hai vai mẹ. Đùi đặt trên mặt kè, đầu gối gập rõ, cẳng chân buông thẳng trước vách đá và cao hơn mặt nước | 2:1 · roll 0° · rung 0 px | Ngồi xuống cỏ khô; vải/cỏ sột đúng điểm tì. |
 | C6-D | Cận phản ứng hai trẻ, mẹ rìa khung | 70 mm; cao 0,85 m; cách 1,8 m | Cười nhỏ theo chuyện đời thường; chưa nhạc dâng bi kịch | 2:1 · roll 0° · rung 0 px | Cười tự nhiên đúng vai; nhạc ấm vừa đủ. |
 
 Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
@@ -398,7 +398,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 | Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
 |---|---|---|------|---|---|
-| C7-A | Trung ba người, tay mẹ trên vai hai con | 50 mm; cao 0,85 m; cách 2,4 m | Lời giản dị, có nhịp nghe; mẹ chạm từng bên đúng pose đã có | 2:1 · roll 0° · rung 0 px | Gió liền; nhạc thưa dần theo lời gửi gắm. |
+| C7-A | Trung ba người, tay mẹ trên vai hai con | 50 mm; cao 0,85 m; cách 2,4 m | Lời giản dị, có nhịp nghe; mẹ vòng tay ôm hai con, lòng bàn tay đặt lên đỉnh vai ngoài; hai trẻ nghiêng vào mẹ, chân buông trên mương | 2:1 · roll 0° · rung 0 px | Gió liền; nhạc thưa dần theo lời gửi gắm. |
 | C7-B | Cận vừa mẹ và Duy | 70 mm; cao 0,9 m; cách 1,9 m | Giữ mắt cậu, không quay để giấu khóc; tay mẹ không xuyên cổ | 2:1 · roll 0° · rung 0 px | Hơi thở nghẹn của Duy, vải khi tựa mẹ. |
 | C7-C | Trung em ôm rồi mẹ tan | 50 mm; cao 0,85 m; cách 2,4 m | Mẹ mờ dần một lần 3–4 giây; bóng/áo cùng giảm; tay trẻ ngừng ở chỗ không còn mẹ có chủ ý | 2:1 · roll 0° · rung 0 px | Áo khi ôm; mẹ tan, gió ở lại 4 giây. |
 

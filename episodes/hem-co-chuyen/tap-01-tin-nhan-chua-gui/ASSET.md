@@ -101,3 +101,10 @@ Nhận tiếp `279dae2` trong lúc bàn giao tài liệu: thu hẹp ngõ, bổ s
 - [Ảnh preview cánh đồng mới](assets/boi-canh/preview_meadow_vfx.png) được tạo từ `MeadowMotionLab`, frame 128. Đây là bài thử set/rig, không phải một shot phim đã duyệt, không thay các still cũ cùng tên. Ảnh cũ giữ để đối chiếu lịch sử.
 - Clip thử 12 giây, H.264 960×540/30 fps: `what-if-studio/out/tin-nhan-chua-gui/asset-preview/meadow-motion.mp4` (local). Đã xuất và soi khung, chờ duyệt chuyển động; chưa có giọng/mix và khẩu hình khớp lời. Mẫu miệng của mẹ chỉ minh họa kỹ thuật.
 - Nguồn: SVG/React trong repo, sửa ngày 08/11/2026; giữ attribution engine gốc. Không thêm hình/nhạc stock hoặc gọi media trả phí. Tạo asset không đổi kịch bản, luật G1/G2/G3 hoặc định dạng có người dẫn chuyện.
+
+## Bố cục đồng vàng và vòng tay mẹ — cập nhật theo ảnh chủ repo
+
+- [BO-CUC-CANH-DONG.md](BO-CUC-CANH-DONG.md) là chỉ dẫn hình mới nhất cho đồng, bờ kè/mương và tư thế ngồi. Giữ phong cách cartoon cũ; ảnh xanh trước dùng cho độ dày, ảnh bông vàng mới quyết định hình hạt/màu, ảnh dáng ngồi mới quyết định góc đùi–gối.
+- [Preview mới](assets/boi-canh/preview_meadow_embrace.png): `MeadowMotionLab` frame 93, bản đồng chín vàng, kè đá và hai con tựa vai mẹ. Không dùng `preview_meadow_vfx.png` cũ để đánh giá lần sửa này.
+- Mã riêng của nhóm ôm: [meadow_family.tsx](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/meadow_family.tsx); bông vàng: [golden_grain.tsx](../../../what-if-studio/src/engine/sets/golden_grain.tsx). C7 của mã thử và bảng asset cùng dùng tư thế mới. `seatedBank` hiện kè/mương phía trước; cảnh đi vẫn có lối khô.
+- Đã kiểm tra hình học tay chạm vai, đùi nằm ngang hơn cẳng chân, đầu gối gập, cẳng chân thả thẳng và giày cao hơn mặt nước; đã xuất still và clip thử. Chờ chủ repo duyệt chuyển động, chưa căn giọng/nhạc cuối hoặc chuyển thể đủ 35 cue.

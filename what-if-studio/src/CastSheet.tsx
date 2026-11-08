@@ -1,4 +1,5 @@
 import React from 'react';
+import {MeadowFamily} from './episodes/tin-nhan-chua-gui/meadow_family';
 import { AbsoluteFill } from 'remotion';
 import {
   Hero,
@@ -804,14 +805,14 @@ export const MeadowAndDealsSheet: React.FC = () => (
       <SetDefs />
 
       {/* Main Background: `SunsetRiceField` (`SET-CANHDONG`) */}
-      <SunsetRiceField t={24} whiteout={0} />
+      <SunsetRiceField t={24} whiteout={0} seatedBank />
 
       {/* C6-B: Standing Mother (`CHAR-ME`) calling Duy & Thảo on the left dirt path */}
       <g opacity={0.95}>
         <Hero
           look={LOOKS.meDuyThao}
           pose={gesturePose(
-            standPose(330, 815, 0.82, {
+            standPose(330, 785, 0.82, {
               t: 24,
               seed: 9,
               yaw: 0.35,
@@ -831,42 +832,8 @@ export const MeadowAndDealsSheet: React.FC = () => (
         </g>
       </g>
 
-      {/* C7-A / C7-B: Mother (`meDuyThao`) sitting on the dry grass bank between Thảo (left) and Duy (right) */}
-      <Hero
-        look={LOOKS.thao}
-        pose={sitPose(790, 775, 0.72, 1, {
-          t: 24,
-          seed: 2,
-          yaw: 0.42,
-          expr: 'cry',
-          look: 0.35,
-          headTilt: 6,
-          gesture: 'handOnChest',
-        })}
-      />
-      <Hero
-        look={LOOKS.meDuyThao}
-        pose={sitPose(945, 765, 0.92, -1, {
-          t: 24,
-          seed: 5,
-          yaw: -0.18,
-          expr: 'smile',
-          look: -0.2,
-          headTilt: 4,
-          gesture: 'explain',
-        })}
-      />
-      <Hero
-        look={LOOKS.duy}
-        pose={sitPose(1115, 775, 0.9, -1, {
-          t: 24,
-          seed: 1,
-          yaw: -0.42,
-          expr: 'sad',
-          look: -0.35,
-          headTilt: 5,
-        })}
-      />
+      {/* Same left-to-right order and embraced seated pose as the source scene. */}
+      <MeadowFamily t={24} />
       <g transform="translate(955 455)">
         <rect x={-175} y={0} width={350} height={32} rx={8} fill="#1C140E" opacity={0.86} stroke="#E8B86D" strokeWidth={1.5} />
         <text x={0} y={21} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={12.5} fill="#FFE8A8">
@@ -878,9 +845,10 @@ export const MeadowAndDealsSheet: React.FC = () => (
       <Hero
         look={LOOKS.meDuyThao}
         opacity={0.42}
-        pose={sitPose(1510, 765, 0.88, -1, {
+        pose={sitPose(1510, 802, 0.88, -1, {
           t: 24,
           seed: 8,
+          thighDepth: .9, legL: {a:-65,b:65}, legR: {a:-60,b:60},
           yaw: -0.32,
           expr: 'relieved',
           look: -0.3,
