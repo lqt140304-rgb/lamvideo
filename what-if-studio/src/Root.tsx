@@ -16,6 +16,8 @@ import {
   MeadowAndDealsSheet,
 } from './CastSheet';
 import { ColorScriptSheet } from './ColorScriptSheet';
+import { TinNhanChuaGuiAnimatic } from './episodes/tin-nhan-chua-gui/animatic';
+import tinNhanTimeline from './episodes/tin-nhan-chua-gui/timeline.json';
 
 // Every episode gets two compositions: <Id> (the film) and <Id>Board (one frame per shot, at its key frame, for the
 // storyboard). Cast, NewCast, FurnitureSheet, VehicleSheet, OngLocShopSheet, MotherHouseSheet, OpeningC0Sheet, MeadowAndDealsSheet, and ColorScriptSheet render the studio asset sheets.
@@ -44,6 +46,7 @@ export const Root: React.FC = () => {
       <Composition id="MotherHouseSheet" component={MotherHouseSheet} durationInFrames={1} {...common} />
       <Composition id="OpeningC0Sheet" component={OpeningC0Sheet} durationInFrames={1} {...common} />
       <Composition id="MeadowAndDealsSheet" component={MeadowAndDealsSheet} durationInFrames={1} {...common} />
+      <Composition id="TinNhanChuaGuiAnimatic" component={TinNhanChuaGuiAnimatic} durationInFrames={tinNhanTimeline.total} {...common} />
       <Composition id="ColorScriptSheet" component={ColorScriptSheet} durationInFrames={1} {...common} />
     </>
   );

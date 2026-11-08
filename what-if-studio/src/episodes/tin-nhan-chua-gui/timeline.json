@@ -762,7 +762,9 @@
    "i": 0,
    "kind": "line",
    "at": 0,
-   "len": 31
+   "len": 31,
+   "f": 720,
+   "text": "“Để xuống.”"
   },
   {
    "shot": "ShC1_A",
@@ -770,7 +772,9 @@
    "i": 1,
    "kind": "line",
    "at": 31,
-   "len": 181
+   "len": 181,
+   "f": 751,
+   "text": "Thảo vội đặt chiếc đồng hồ xuống kệ, rụt tay lại. Duy kéo em sau vai mình."
   },
   {
    "shot": "ShC1_B",
@@ -778,7 +782,9 @@
    "i": 2,
    "kind": "line",
    "at": 0,
-   "len": 191
+   "len": 191,
+   "f": 931,
+   "text": "Ông Lộc nhìn lên qua cặp kính cũ. Ngọn đèn vàng chỉ soi rõ một nửa mặt ông."
   },
   {
    "shot": "ShC1_A",
@@ -786,7 +792,9 @@
    "i": 3,
    "kind": "line",
    "at": 240,
-   "len": 401
+   "len": 401,
+   "f": 1122,
+   "text": "Hai anh em ở cách tiệm ba căn. Mẹ mất hơn tháng, tiền nhà cứ vơi theo những cuộc rượu của bố. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn, nhưng Duy ít chịu kể chuyện nhà."
   },
   {
    "shot": "ShC1_A",
@@ -794,7 +802,9 @@
    "i": 4,
    "kind": "line",
    "at": 641,
-   "len": 521
+   "len": 521,
+   "f": 1523,
+   "text": "Bố say thì chửi bới, có lần đánh cả hai đứa. Khi mẹ còn, mẹ luôn đứng chắn, ôm con ra sau lưng. Bố có quát mắng thế nào, mẹ cũng không tránh đi. Từ ngày mẹ mất, nghe tiếng cửa đập là Duy lại kéo em ra sau vai mình."
   },
   {
    "shot": "ShC1_C",
@@ -802,7 +812,9 @@
    "i": 5,
    "kind": "line",
    "at": 0,
-   "len": 140
+   "len": 140,
+   "f": 2043,
+   "text": "Cậu đặt điện thoại vỡ lên khăn. Thảo bảo đã làm rơi nó."
   },
   {
    "shot": "ShC1_C",
@@ -810,7 +822,9 @@
    "i": 6,
    "kind": "line",
    "at": 140,
-   "len": 41
+   "len": 41,
+   "f": 2183,
+   "text": "“Tám trăm ngàn.”"
   },
   {
    "shot": "ShC1_C",
@@ -818,7 +832,9 @@
    "i": 7,
    "kind": "line",
    "at": 181,
-   "len": 181
+   "len": 181,
+   "f": 2224,
+   "text": "Duy đổ tiền ra. Một trăm tám mươi sáu ngàn, tiền phụ quán dì cậu để dành."
   },
   {
    "shot": "ShC1_A",
@@ -826,7 +842,9 @@
    "i": 8,
    "kind": "line",
    "at": 1800,
-   "len": 161
+   "len": 161,
+   "f": 2405,
+   "text": "“Ông sửa giúp cháu trước được không? Phần còn thiếu, cháu làm rồi trả dần.”"
   },
   {
    "shot": "ShC1_A",
@@ -834,7 +852,9 @@
    "i": 9,
    "kind": "line",
    "at": 1961,
-   "len": 81
+   "len": 81,
+   "f": 2566,
+   "text": "“Có đủ tiền rồi hãy mang tới.”"
   },
   {
    "shot": "ShC1_A",
@@ -842,7 +862,9 @@
    "i": 10,
    "kind": "line",
    "at": 2041,
-   "len": 181
+   "len": 181,
+   "f": 2646,
+   "text": "“Ông chỉ cần mở được đoạn ghi âm của mẹ cháu thôi. Màn hình xấu cũng được.”"
   },
   {
    "shot": "ShC1_A",
@@ -850,7 +872,9 @@
    "i": 11,
    "kind": "line",
    "at": 2222,
-   "len": 41
+   "len": 41,
+   "f": 2827,
+   "text": "“Giá không đổi.”"
   },
   {
    "shot": "ShC1_D",
@@ -858,7 +882,9 @@
    "i": 12,
    "kind": "line",
    "at": 0,
-   "len": 101
+   "len": 101,
+   "f": 2867,
+   "text": "Thảo níu áo anh. “Mình về đi. Em sợ.”"
   },
   {
    "shot": "ShC1_D",
@@ -866,7 +892,9 @@
    "i": 13,
    "kind": "line",
    "at": 101,
-   "len": 191
+   "len": 191,
+   "f": 2968,
+   "text": "Duy vẫn đứng. Ba tiệm trước đều trả máy. Thảo nhìn anh, lấy hai tờ tiền gấp nhỏ."
   },
   {
    "shot": "ShC1_D",
@@ -874,7 +902,9 @@
    "i": 14,
    "kind": "line",
    "at": 291,
-   "len": 181
+   "len": 181,
+   "f": 3158,
+   "text": "“Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.”"
   },
   {
    "shot": "ShC1_A",
@@ -882,7 +912,9 @@
    "i": 15,
    "kind": "line",
    "at": 3000,
-   "len": 91
+   "len": 91,
+   "f": 3338,
+   "text": "Ông Lộc đặt tua vít thẳng xuống bàn."
   },
   {
    "shot": "ShC1_A",
@@ -890,7 +922,9 @@
    "i": 16,
    "kind": "pause",
    "at": 3091,
-   "len": 30
+   "len": 30,
+   "f": 3429,
+   "text": "Tay ông đứng yên, Thảo chưa dám nhả tiền."
   },
   {
    "shot": "ShC1_A",
@@ -898,7 +932,9 @@
    "i": 17,
    "kind": "line",
    "at": 3121,
-   "len": 31
+   "len": 31,
+   "f": 3459,
+   "text": "“Cất đi.”"
   },
   {
    "shot": "ShC1_A",
@@ -906,7 +942,9 @@
    "i": 18,
    "kind": "line",
    "at": 3151,
-   "len": 181
+   "len": 181,
+   "f": 3489,
+   "text": "“Mày nghĩ với số tiền đó, mày sửa nổi cái điện thoại cũ rích của mày à?”"
   },
   {
    "shot": "ShC1_D",
@@ -914,7 +952,9 @@
    "i": 19,
    "kind": "line",
    "at": 900,
-   "len": 181
+   "len": 181,
+   "f": 3670,
+   "text": "Thảo giật mình, mắt rơm rớm. Em nép sát Duy, để anh cầm giúp hai tờ tiền."
   },
   {
    "shot": "ShC1_A",
@@ -922,7 +962,9 @@
    "i": 20,
    "kind": "line",
    "at": 4200,
-   "len": 211
+   "len": 211,
+   "f": 3851,
+   "text": "Ông Lộc nhặt lại tua vít, quay về bàn sửa phía sau, cúi xuống chiếc đồng hồ đang làm dở."
   },
   {
    "shot": "ShC1_B",
@@ -930,7 +972,9 @@
    "i": 21,
    "kind": "line",
    "at": 600,
-   "len": 191
+   "len": 191,
+   "f": 4062,
+   "text": "“Nhưng có thể có cách khác, không cần trả tiền mà chúng mày vẫn sửa được điện thoại.”"
   },
   {
    "shot": "ShC1_B",
@@ -938,7 +982,9 @@
    "i": 22,
    "kind": "line",
    "at": 791,
-   "len": 111
+   "len": 111,
+   "f": 4253,
+   "text": "Ông hơi ngoái lại, nở một nụ cười nham hiểm."
   },
   {
    "shot": "ShC2_A",
@@ -946,7 +992,9 @@
    "i": 0,
    "kind": "line",
    "at": 0,
-   "len": 121
+   "len": 121,
+   "f": 4363,
+   "text": "Ông Lộc đặt tua vít xuống bàn sửa, quay lại quầy."
   },
   {
    "shot": "ShC2_A",
@@ -954,7 +1002,9 @@
    "i": 1,
    "kind": "line",
    "at": 121,
-   "len": 311
+   "len": 311,
+   "f": 4484,
+   "text": "“Tao sửa máy. Đổi lại, mày đưa tao một ký ức thật quý của mày. Máy chạy lại thì mày quên hẳn chuyện đó. Muốn lấy lại cũng không được.”"
   },
   {
    "shot": "ShC2_A",
@@ -962,7 +1012,9 @@
    "i": 2,
    "kind": "line",
    "at": 431,
-   "len": 71
+   "len": 71,
+   "f": 4794,
+   "text": "“Nếu cháu không đổi thì sao?”"
   },
   {
    "shot": "ShC2_A",
@@ -970,7 +1022,9 @@
    "i": 3,
    "kind": "line",
    "at": 502,
-   "len": 81
+   "len": 81,
+   "f": 4865,
+   "text": "Ông hất cằm về máy. “Mang về.”"
   },
   {
    "shot": "ShC2_A",
@@ -978,7 +1032,9 @@
    "i": 4,
    "kind": "line",
    "at": 582,
-   "len": 431
+   "len": 431,
+   "f": 4945,
+   "text": "Duy đưa lại tiền cho em, cất phần tiền của mình rồi kéo ghế cho Thảo. Trước lúc vào viện, mẹ có nhờ dì nhắn Duy nghe một đoạn ghi âm trong máy. Nhưng cậu chưa kịp mở thì máy đã vỡ."
   },
   {
    "shot": "ShC2_B",
@@ -986,7 +1042,9 @@
    "i": 5,
    "kind": "line",
    "at": 0,
-   "len": 71
+   "len": 71,
+   "f": 5376,
+   "text": "“Anh có muốn nghe mẹ không?”"
   },
   {
    "shot": "ShC2_B",
@@ -994,7 +1052,9 @@
    "i": 6,
    "kind": "line",
    "at": 71,
-   "len": 101
+   "len": 101,
+   "f": 5447,
+   "text": "“Em nghe được là được. Đừng lo cho anh.”"
   },
   {
    "shot": "ShC2_B",
@@ -1002,7 +1062,9 @@
    "i": 7,
    "kind": "line",
    "at": 171,
-   "len": 170
+   "len": 170,
+   "f": 5547,
+   "text": "Những tối đợi em ngủ rồi mới lấy ảnh mẹ ra, cậu chưa kể với ai."
   },
   {
    "shot": "ShC2_C",
@@ -1010,7 +1072,9 @@
    "i": 8,
    "kind": "line",
    "at": 0,
-   "len": 131
+   "len": 131,
+   "f": 5718,
+   "text": "Duy đặt ảnh ba mẹ con cạnh máy, cầm bút ông đưa."
   },
   {
    "shot": "ShC2_C",
@@ -1018,7 +1082,9 @@
    "i": 9,
    "kind": "line",
    "at": 131,
-   "len": 101
+   "len": 101,
+   "f": 5849,
+   "text": "Duy nhìn chỗ trống trên tờ giấy, chưa viết."
   },
   {
    "shot": "ShC2_B",
@@ -1026,7 +1092,9 @@
    "i": 10,
    "kind": "line",
    "at": 600,
-   "len": 221
+   "len": 221,
+   "f": 5949,
+   "text": "Có tối bố say, đập cửa. Duy kéo em vào phòng, rồi quát: nín ngay, có anh rồi, sao còn khóc?"
   },
   {
    "shot": "ShC2_B",
@@ -1034,7 +1102,9 @@
    "i": 11,
    "kind": "line",
    "at": 821,
-   "len": 200
+   "len": 200,
+   "f": 6170,
+   "text": "“Bữa đó anh sợ bố nghe thấy em khóc rồi lại đánh. Anh cuống quá nên mới quát em.”"
   },
   {
    "shot": "ShC2_B",
@@ -1042,7 +1112,9 @@
    "i": 12,
    "kind": "line",
    "at": 1021,
-   "len": 101
+   "len": 101,
+   "f": 6370,
+   "text": "“Nhưng anh quát như vậy, em cũng sợ mà.”"
   },
   {
    "shot": "ShC2_B",
@@ -1050,7 +1122,9 @@
    "i": 13,
    "kind": "line",
    "at": 1122,
-   "len": 151
+   "len": 151,
+   "f": 6471,
+   "text": "Thảo kéo vạt áo anh. “Lúc đó em chỉ muốn anh ôm em thôi.”"
   },
   {
    "shot": "ShC2_B",
@@ -1058,7 +1132,9 @@
    "i": 14,
    "kind": "pause",
    "at": 1272,
-   "len": 60
+   "len": 60,
+   "f": 6621,
+   "text": "Duy đặt bút, chưa viết hoặc ký; nhìn em thay vì nhìn giấy."
   },
   {
    "shot": "ShC3_A",
@@ -1066,7 +1142,9 @@
    "i": 0,
    "kind": "line",
    "at": 0,
-   "len": 91
+   "len": 91,
+   "f": 6681,
+   "text": "“Anh ơi… máy không phải bị rơi đâu.”"
   },
   {
    "shot": "ShC3_A",
@@ -1074,7 +1152,9 @@
    "i": 1,
    "kind": "line",
    "at": 91,
-   "len": 71
+   "len": 71,
+   "f": 6772,
+   "text": "Thảo xoay vết nứt về mình."
   },
   {
    "shot": "ShC3_A",
@@ -1082,7 +1162,9 @@
    "i": 2,
    "kind": "line",
    "at": 161,
-   "len": 391
+   "len": 391,
+   "f": 6842,
+   "text": "“Hôm đó, đợi bố đi rồi, em lấy máy mẹ. Anh cứ quay mặt vô tường, không nói với em. Em muốn nghe mẹ dỗ… mà bấm hoài không được. Em tức quá nên đập máy xuống nền.”"
   },
   {
    "shot": "ShC3_A",
@@ -1090,7 +1172,9 @@
    "i": 3,
    "kind": "line",
    "at": 552,
-   "len": 41
+   "len": 41,
+   "f": 7233,
+   "text": "Duy ngừng tay."
   },
   {
    "shot": "ShC3_A",
@@ -1098,7 +1182,9 @@
    "i": 4,
    "kind": "line",
    "at": 592,
-   "len": 121
+   "len": 121,
+   "f": 7273,
+   "text": "“Em xin lỗi. Em sợ anh la nữa nên không nói.”"
   },
   {
    "shot": "ShC3_B",
@@ -1106,7 +1192,9 @@
    "i": 5,
    "kind": "line",
    "at": 0,
-   "len": 61
+   "len": 61,
+   "f": 7394,
+   "text": "Cậu kéo ghế gần em."
   },
   {
    "shot": "ShC3_B",
@@ -1114,7 +1202,9 @@
    "i": 6,
    "kind": "line",
    "at": 61,
-   "len": 211
+   "len": 211,
+   "f": 7455,
+   "text": "“Anh buồn vì em đập máy. Nhưng anh cũng sai. Anh sợ bố rồi lại quát em. Anh xin lỗi.”"
   },
   {
    "shot": "ShC3_B",
@@ -1122,7 +1212,9 @@
    "i": 7,
    "kind": "line",
    "at": 271,
-   "len": 111
+   "len": 111,
+   "f": 7665,
+   "text": "Duy nhìn tấm ảnh mẹ, rồi quay sang ông Lộc."
   },
   {
    "shot": "ShC3_B",
@@ -1130,7 +1222,9 @@
    "i": 8,
    "kind": "line",
    "at": 382,
-   "len": 191
+   "len": 191,
+   "f": 7776,
+   "text": "“Cháu chọn lần hai anh em tranh nhau chiếc xe đồ chơi, hồi em còn học mẫu giáo.”"
   },
   {
    "shot": "ShC3_B",
@@ -1138,7 +1232,9 @@
    "i": 9,
    "kind": "line",
    "at": 572,
-   "len": 101
+   "len": 101,
+   "f": 7966,
+   "text": "Thảo ngước lên. “Hôm anh làm em ngã hả?”"
   },
   {
    "shot": "ShC3_B",
@@ -1146,7 +1242,9 @@
    "i": 10,
    "kind": "line",
    "at": 673,
-   "len": 230
+   "len": 230,
+   "f": 8067,
+   "text": "Duy gật. “Anh giật xe, em ngã xuống nền rồi khóc. Mẹ chạy tới, dỗ em, rồi kéo cả anh ngồi cạnh.”"
   },
   {
    "shot": "ShC3_B",
@@ -1154,7 +1252,9 @@
    "i": 11,
    "kind": "line",
    "at": 903,
-   "len": 200
+   "len": 200,
+   "f": 8297,
+   "text": "“Anh tưởng mẹ sẽ mắng. Nhưng mẹ vuốt tóc anh, bảo có gì thì nói, đừng làm nhau đau.”"
   },
   {
    "shot": "ShC3_B",
@@ -1162,7 +1262,9 @@
    "i": 12,
    "kind": "line",
    "at": 1104,
-   "len": 191
+   "len": 191,
+   "f": 8498,
+   "text": "“Xong anh xin lỗi, đưa xe lại cho em,” Thảo nói. “Em lại kéo anh xuống chơi cùng.”"
   },
   {
    "shot": "ShC3_B",
@@ -1170,7 +1272,9 @@
    "i": 13,
    "kind": "line",
    "at": 1294,
-   "len": 371
+   "len": 371,
+   "f": 8688,
+   "text": "Duy cười khẽ, cúi nhìn bàn tay nhỏ đang níu áo mình. Hôm ấy, lần đầu cậu hiểu có một đứa em đang trông cậy vào mình, và làm anh là phải biết đỡ em dậy."
   },
   {
    "shot": "ShC3_B",
@@ -1178,7 +1282,9 @@
    "i": 14,
    "kind": "line",
    "at": 1665,
-   "len": 140
+   "len": 140,
+   "f": 9059,
+   "text": "“Em không nghe cũng được,” Thảo níu tay anh. “Anh đừng đổi nữa.”"
   },
   {
    "shot": "ShC3_B",
@@ -1186,7 +1292,9 @@
    "i": 15,
    "kind": "pause",
    "at": 1805,
-   "len": 90
+   "len": 90,
+   "f": 9199,
+   "text": "Còn quyền mang máy về; Duy nhìn em rồi mới chọn."
   },
   {
    "shot": "ShC3_C",
@@ -1194,7 +1302,9 @@
    "i": 16,
    "kind": "line",
    "at": 0,
-   "len": 111
+   "len": 111,
+   "f": 9289,
+   "text": "“Anh cũng nhớ mẹ. Nhưng anh muốn em được nghe.”"
   },
   {
    "shot": "ShC3_C",
@@ -1202,7 +1312,9 @@
    "i": 17,
    "kind": "line",
    "at": 111,
-   "len": 421
+   "len": 421,
+   "f": 9400,
+   "text": "Cậu cất ảnh, ghi rõ buổi tranh đồ chơi rồi được mẹ dỗ làm hòa. Ông Lộc đọc lại: sửa máy xong, cậu sẽ mất toàn bộ ký ức về buổi ấy. Duy ký. Đến lần hỏi cuối, cậu vẫn gật."
   },
   {
    "shot": "ShC4_A",
@@ -1210,7 +1322,9 @@
    "i": 0,
    "kind": "line",
    "at": 90,
-   "len": 191
+   "len": 191,
+   "f": 9910,
+   "text": "Máy sáng lại. Thảo nhìn anh. “Anh còn nhớ hôm mẹ dỗ hai anh em làm hòa không?”"
   },
   {
    "shot": "ShC4_B",
@@ -1218,7 +1332,9 @@
    "i": 1,
    "kind": "line",
    "at": 0,
-   "len": 101
+   "len": 101,
+   "f": 10101,
+   "text": "Duy nhắm mắt, chờ một lúc rồi lắc đầu."
   },
   {
    "shot": "ShC4_B",
@@ -1226,7 +1342,9 @@
    "i": 2,
    "kind": "line",
    "at": 101,
-   "len": 221
+   "len": 221,
+   "f": 10202,
+   "text": "“Anh biết chuyện đó. Nhưng anh không nhớ giọng mẹ hôm ấy, cũng không nhớ lúc mẹ vuốt tóc anh nữa.”"
   },
   {
    "shot": "ShC4_B",
@@ -1234,7 +1352,9 @@
    "i": 3,
    "kind": "line",
    "at": 321,
-   "len": 281
+   "len": 281,
+   "f": 10422,
+   "text": "Cậu vẫn nhớ cuộc nói chuyện vừa rồi, vẫn biết mình là anh của Thảo. Chỉ buổi hai đứa làm hòa bên mẹ không còn hiện ra."
   },
   {
    "shot": "ShC4_C",
@@ -1242,7 +1362,9 @@
    "i": 4,
    "kind": "line",
    "at": 0,
-   "len": 170
+   "len": 170,
+   "f": 10702,
+   "text": "Ông Lộc tách một liên biên nhận sửa điện thoại, đẩy về phía Duy. “Giữ lấy.”"
   },
   {
    "shot": "ShC4_C",
@@ -1250,7 +1372,9 @@
    "i": 5,
    "kind": "line",
    "at": 170,
-   "len": 191
+   "len": 191,
+   "f": 10872,
+   "text": "Duy gấp tờ biên nhận, cất vào ví rồi nhập mật mã, mở bản ghi cho em nghe."
   },
   {
    "shot": "ShC4_C",
@@ -1258,7 +1382,9 @@
    "i": 6,
    "kind": "line",
    "at": 361,
-   "len": 271
+   "len": 271,
+   "f": 11063,
+   "text": "“Duy, mẹ để hai phần bánh trong tủ lạnh. Phần có dâu là của Thảo. Con cắt miếng nhỏ giùm mẹ. Mẹ về mẹ ăn cơm.”"
   },
   {
    "shot": "ShC4_C",
@@ -1266,7 +1392,9 @@
    "i": 7,
    "kind": "pause",
    "at": 631,
-   "len": 90
+   "len": 90,
+   "f": 11333,
+   "text": "Bản ghi dừng; hai trẻ còn nhìn máy."
   },
   {
    "shot": "ShC4_B",
@@ -1274,7 +1402,9 @@
    "i": 8,
    "kind": "line",
    "at": 900,
-   "len": 91
+   "len": 91,
+   "f": 11423,
+   "text": "“Mẹ vẫn tưởng mẹ sẽ về,” Thảo nói."
   },
   {
    "shot": "ShC4_B",
@@ -1282,7 +1412,9 @@
    "i": 9,
    "kind": "line",
    "at": 991,
-   "len": 161
+   "len": 161,
+   "f": 11514,
+   "text": "Tiếng mẹ dừng, căn tiệm chỉ còn tiếng quạt. Thảo nhìn anh, rồi hỏi nhỏ:"
   },
   {
    "shot": "ShC4_B",
@@ -1290,7 +1422,9 @@
    "i": 10,
    "kind": "line",
    "at": 1151,
-   "len": 101
+   "len": 101,
+   "f": 11674,
+   "text": "“Ông sửa được thứ khác ngoài điện thoại không?”"
   },
   {
    "shot": "ShC4_D",
@@ -1298,7 +1432,9 @@
    "i": 11,
    "kind": "line",
    "at": 0,
-   "len": 121
+   "len": 121,
+   "f": 11775,
+   "text": "Ông Lộc nhếch miệng, nụ cười không làm mắt dịu đi."
   },
   {
    "shot": "ShC4_D",
@@ -1306,7 +1442,9 @@
    "i": 12,
    "kind": "line",
    "at": 121,
-   "len": 81
+   "len": 81,
+   "f": 11896,
+   "text": "“Thế mày muốn tao sửa gì nữa?”"
   },
   {
    "shot": "ShC4_B",
@@ -1314,7 +1452,9 @@
    "i": 13,
    "kind": "line",
    "at": 1500,
-   "len": 251
+   "len": 251,
+   "f": 11976,
+   "text": "“Cháu muốn hai anh em được yên tâm như hồi mẹ còn… Hồi đó bố có say, mẹ cũng đứng che cho tụi cháu.”"
   },
   {
    "shot": "ShC5_A",
@@ -1322,7 +1462,9 @@
    "i": 0,
    "kind": "line",
    "at": 0,
-   "len": 50
+   "len": 50,
+   "f": 12227,
+   "text": "Ông Lộc nhìn Duy."
   },
   {
    "shot": "ShC5_A",
@@ -1330,7 +1472,9 @@
    "i": 1,
    "kind": "line",
    "at": 50,
-   "len": 241
+   "len": 241,
+   "f": 12277,
+   "text": "“Được. Một lát thôi. Mẹ không về thật đâu. Chỉ là hai đứa mày thấy ấm áp, yên tâm như hồi còn mẹ.”"
   },
   {
    "shot": "ShC5_A",
@@ -1338,7 +1482,9 @@
    "i": 2,
    "kind": "line",
    "at": 291,
-   "len": 71
+   "len": 71,
+   "f": 12518,
+   "text": "“Thế phải đổi gì?” Duy hỏi."
   },
   {
    "shot": "ShC5_A",
@@ -1346,7 +1492,9 @@
    "i": 3,
    "kind": "line",
    "at": 362,
-   "len": 311
+   "len": 311,
+   "f": 12589,
+   "text": "“Nỗi buồn của con bé. Tao chuyển nó sang mày. Nó vẫn nhớ mẹ, nhưng sẽ bớt cái cảm giác bị bỏ lại. Còn mày, mày chịu thêm phần ấy.”"
   },
   {
    "shot": "ShC5_A",
@@ -1354,7 +1502,9 @@
    "i": 4,
    "kind": "line",
    "at": 672,
-   "len": 140
+   "len": 140,
+   "f": 12899,
+   "text": "“Em cháu sẽ đỡ buồn… còn cháu phải buồn thay em?” Duy hỏi."
   },
   {
    "shot": "ShC5_A",
@@ -1362,7 +1512,9 @@
    "i": 5,
    "kind": "line",
    "at": 813,
-   "len": 291
+   "len": 291,
+   "f": 13040,
+   "text": "“Ừ. Hết lúc yên ấm, mày vẫn phải chịu phần buồn của nó. Nghĩ kỹ. Chỉ cần mày nói đồng ý là tao lấy, không đổi lại được.”"
   },
   {
    "shot": "ShC5_A",
@@ -1370,7 +1522,9 @@
    "i": 6,
    "kind": "line",
    "at": 1103,
-   "len": 101
+   "len": 101,
+   "f": 13330,
+   "text": "Thảo quay sang anh. Duy giữ bàn tay em."
   },
   {
    "shot": "ShC5_A",
@@ -1378,7 +1532,9 @@
    "i": 7,
    "kind": "line",
    "at": 1204,
-   "len": 41
+   "len": 41,
+   "f": 13431,
+   "text": "“Cháu đồng ý.”"
   },
   {
    "shot": "ShC5_B",
@@ -1386,7 +1542,9 @@
    "i": 8,
    "kind": "line",
    "at": 0,
-   "len": 331
+   "len": 331,
+   "f": 13471,
+   "text": "Trong một thoáng, tiếng hẻm lùi xa. Cả hai thấy lòng dịu xuống, như đang ngồi đợi mẹ dọn cơm. Duy thả lỏng vai. Thảo bớt siết tay anh, tựa sát hơn."
   },
   {
    "shot": "ShC5_B",
@@ -1394,7 +1552,9 @@
    "i": 9,
    "kind": "line",
    "at": 331,
-   "len": 61
+   "len": 61,
+   "f": 13802,
+   "text": "Em nhắm mắt, thở ra."
   },
   {
    "shot": "ShC5_C",
@@ -1402,7 +1562,9 @@
    "i": 10,
    "kind": "line",
    "at": 0,
-   "len": 451
+   "len": 451,
+   "f": 13862,
+   "text": "Hơi ấm tan. Thảo thở nhẹ hơn, nhưng Duy lại cúi gập, bấu chặt mép ghế. Cậu vẫn nhớ mẹ như trước; giờ còn phải chịu thêm nỗi chơ vơ mà em vừa bớt được. Cậu muốn nói mà không ghép nổi trọn câu."
   },
   {
    "shot": "ShC5_C",
@@ -1410,7 +1572,9 @@
    "i": 11,
    "kind": "pause",
    "at": 451,
-   "len": 60
+   "len": 60,
+   "f": 14313,
+   "text": "Thảo mở mắt, thấy anh khác hẳn; quạt vẫn chạy, không chẩn đoán y khoa."
   },
   {
    "shot": "ShC5_C",
@@ -1418,7 +1582,9 @@
    "i": 12,
    "kind": "line",
    "at": 511,
-   "len": 341
+   "len": 341,
+   "f": 14373,
+   "text": "“Anh ơi… anh làm sao vậy?” Thảo níu tay anh, rồi quay phắt sang ông Lộc. “Ông cho anh cháu gặp mẹ đi. Lần này lấy của cháu. Đừng lấy của anh nữa.”"
   },
   {
    "shot": "ShC5_A",
@@ -1426,7 +1592,9 @@
    "i": 13,
    "kind": "line",
    "at": 1800,
-   "len": 91
+   "len": 91,
+   "f": 14713,
+   "text": "Ông Lộc cúi xuống gần tầm mắt em."
   },
   {
    "shot": "ShC5_A",
@@ -1434,7 +1602,9 @@
    "i": 14,
    "kind": "line",
    "at": 1891,
-   "len": 411
+   "len": 411,
+   "f": 14804,
+   "text": "“Tao cho hai đứa mày gặp mẹ, nói chuyện với mẹ một lần. Xong, mẹ phải đi. Giá là từ nay, mày không còn mơ thấy mẹ nữa. Lúc thức vẫn nhớ, nhưng trong mơ thì không. Đồng ý không?”"
   },
   {
    "shot": "ShC5_D",
@@ -1442,7 +1612,9 @@
    "i": 15,
    "kind": "line",
    "at": 0,
-   "len": 41
+   "len": 41,
+   "f": 15214,
+   "text": "“Cháu đồng ý!”"
   },
   {
    "shot": "ShC5_D",
@@ -1450,7 +1622,9 @@
    "i": 16,
    "kind": "line",
    "at": 41,
-   "len": 61
+   "len": 61,
+   "f": 15255,
+   "text": "Duy chồm tới. “Thảo, đừng…”"
   },
   {
    "shot": "ShC5_D",
@@ -1458,7 +1632,9 @@
    "i": 17,
    "kind": "pause",
    "at": 101,
-   "len": 60
+   "len": 60,
+   "f": 15315,
+   "text": "Lời em hoàn tất trước; trắng dâng và tiếng ù, rồi đổi sang cánh đồng. Không cắt lóe liên tục."
   },
   {
    "shot": "ShC6_A",
@@ -1466,7 +1642,9 @@
    "i": 0,
    "kind": "line",
    "at": 0,
-   "len": 151
+   "len": 151,
+   "f": 15375,
+   "text": "Tiếng ù mỏng dần. Nắng chiều rơi lên một lối đất cạnh cánh đồng."
   },
   {
    "shot": "ShC6_A",
@@ -1474,7 +1652,9 @@
    "i": 1,
    "kind": "line",
    "at": 151,
-   "len": 71
+   "len": 71,
+   "f": 15526,
+   "text": "“Duy. Thảo. Lại đây với mẹ.”"
   },
   {
    "shot": "ShC6_A",
@@ -1482,7 +1662,9 @@
    "i": 2,
    "kind": "line",
    "at": 221,
-   "len": 170
+   "len": 170,
+   "f": 15596,
+   "text": "Mẹ đứng phía trước, đưa hai bàn tay ra như bao lần đón con tan học."
   },
   {
    "shot": "ShC6_B",
@@ -1490,7 +1672,9 @@
    "i": 3,
    "kind": "line",
    "at": 0,
-   "len": 321
+   "len": 321,
+   "f": 15767,
+   "text": "Thảo chạy tới. Duy đứng sững, rồi mới bước theo. Cậu biết đó không phải con đường từ tiệm về nhà, nhưng lúc mẹ nắm tay, cậu không muốn hỏi nữa."
   },
   {
    "shot": "ShC6_B",
@@ -1498,7 +1682,9 @@
    "i": 4,
    "kind": "pause",
    "at": 321,
-   "len": 150
+   "len": 150,
+   "f": 16088,
+   "text": "Ba mẹ con đi vài bước; nghe gió lúa, chân trên đất và vải áo, không thêm lời dẫn."
   },
   {
    "shot": "ShC6_C",
@@ -1506,7 +1692,9 @@
    "i": 5,
    "kind": "line",
    "at": 0,
-   "len": 181
+   "len": 181,
+   "f": 16238,
+   "text": "Họ ngồi xuống bên bờ ruộng. Thảo ngả vào mẹ, kéo gấu áo có đường khâu nhỏ."
   },
   {
    "shot": "ShC6_C",
@@ -1514,7 +1702,9 @@
    "i": 6,
    "kind": "line",
    "at": 181,
-   "len": 151
+   "len": 151,
+   "f": 16419,
+   "text": "“Mẹ ơi, chỗ này lại bung rồi nè. Mẹ vá cho con nữa nha.”"
   },
   {
    "shot": "ShC6_C",
@@ -1522,7 +1712,9 @@
    "i": 7,
    "kind": "line",
    "at": 331,
-   "len": 140
+   "len": 140,
+   "f": 16569,
+   "text": "Mẹ bật cười. “Mẹ mới vá xong, ai chui hàng rào hái ổi?”"
   },
   {
    "shot": "ShC6_C",
@@ -1530,7 +1722,9 @@
    "i": 8,
    "kind": "line",
    "at": 471,
-   "len": 50
+   "len": 50,
+   "f": 16709,
+   "text": "“Anh Duy rủ con.”"
   },
   {
    "shot": "ShC6_C",
@@ -1538,7 +1732,9 @@
    "i": 9,
    "kind": "line",
    "at": 522,
-   "len": 91
+   "len": 91,
+   "f": 16760,
+   "text": "“Anh đứng ngoài giữ dép cho em mà.”"
   },
   {
    "shot": "ShC6_D",
@@ -1546,7 +1742,9 @@
    "i": 10,
    "kind": "line",
    "at": 0,
-   "len": 211
+   "len": 211,
+   "f": 16850,
+   "text": "Thảo cười, dúi đầu vào vai mẹ. Duy cũng cười, lần đầu không cần cố cho em thấy mình ổn."
   },
   {
    "shot": "ShC6_D",
@@ -1554,7 +1752,9 @@
    "i": 11,
    "kind": "line",
    "at": 211,
-   "len": 131
+   "len": 131,
+   "f": 17061,
+   "text": "Mẹ vuốt lại tóc cậu. “Còn gắp hành qua chén em không?”"
   },
   {
    "shot": "ShC6_D",
@@ -1562,7 +1762,9 @@
    "i": 12,
    "kind": "line",
    "at": 341,
-   "len": 61
+   "len": 61,
+   "f": 17191,
+   "text": "“Con gắp ít hơn rồi.”"
   },
   {
    "shot": "ShC6_D",
@@ -1570,7 +1772,9 @@
    "i": 13,
    "kind": "line",
    "at": 402,
-   "len": 91
+   "len": 91,
+   "f": 17252,
+   "text": "“Ít hơn chứ chưa hết!” Thảo mách ngay."
   },
   {
    "shot": "ShC7_A",
@@ -1578,7 +1782,9 @@
    "i": 0,
    "kind": "line",
    "at": 0,
-   "len": 91
+   "len": 91,
+   "f": 17342,
+   "text": "Một lúc sau, mẹ nhìn Duy lâu hơn."
   },
   {
    "shot": "ShC7_B",
@@ -1586,7 +1792,9 @@
    "i": 1,
    "kind": "line",
    "at": 0,
-   "len": 111
+   "len": 111,
+   "f": 17433,
+   "text": "“Sao con cứ làm như con không được buồn vậy?”"
   },
   {
    "shot": "ShC7_B",
@@ -1594,7 +1802,9 @@
    "i": 2,
    "kind": "line",
    "at": 111,
-   "len": 111
+   "len": 111,
+   "f": 17544,
+   "text": "“Con sợ em thấy con khóc thì nó càng sợ.”"
   },
   {
    "shot": "ShC7_B",
@@ -1602,7 +1812,9 @@
    "i": 3,
    "kind": "line",
    "at": 221,
-   "len": 61
+   "len": 61,
+   "f": 17654,
+   "text": "Mẹ kéo cậu gần lại."
   },
   {
    "shot": "ShC7_B",
@@ -1610,7 +1822,9 @@
    "i": 4,
    "kind": "line",
    "at": 282,
-   "len": 311
+   "len": 311,
+   "f": 17715,
+   "text": "“Con là anh của em, nhưng vẫn là con của mẹ mà. Bố say rồi đánh thì hai đứa cứ sang dì, nhờ dì giúp. Con đừng chịu một mình.”"
   },
   {
    "shot": "ShC7_B",
@@ -1618,7 +1832,9 @@
    "i": 5,
    "kind": "pause",
    "at": 592,
-   "len": 90
+   "len": 90,
+   "f": 18025,
+   "text": "Duy tựa vào vai mẹ; Thảo vẫn ngồi cạnh, không bị biến mất ngoài câu chuyện."
   },
   {
    "shot": "ShC7_A",
@@ -1626,7 +1842,9 @@
    "i": 6,
    "kind": "line",
    "at": 91,
-   "len": 50
+   "len": 50,
+   "f": 18115,
+   "text": "Mẹ quay sang Thảo."
   },
   {
    "shot": "ShC7_A",
@@ -1634,7 +1852,9 @@
    "i": 7,
    "kind": "line",
    "at": 141,
-   "len": 191
+   "len": 191,
+   "f": 18165,
+   "text": "“Nhớ mẹ thì kể với anh. Lúc anh buồn, con ngồi cạnh anh một chút, như bây giờ.”"
   },
   {
    "shot": "ShC7_A",
@@ -1642,7 +1862,9 @@
    "i": 8,
    "kind": "line",
    "at": 332,
-   "len": 81
+   "len": 81,
+   "f": 18356,
+   "text": "“Mẹ về với tụi con được không?”"
   },
   {
    "shot": "ShC7_C",
@@ -1650,7 +1872,9 @@
    "i": 9,
    "kind": "line",
    "at": -752,
-   "len": 111
+   "len": 111,
+   "f": 18437,
+   "text": "Mẹ vuốt má em, bàn tay đã nhạt trong nắng."
   },
   {
    "shot": "ShC7_C",
@@ -1658,7 +1882,9 @@
    "i": 10,
    "kind": "line",
    "at": -641,
-   "len": 200
+   "len": 200,
+   "f": 18548,
+   "text": "“Mẹ thương cả hai đứa. Duy cũng được buồn, Thảo cũng được khóc. Đừng giấu nhau nữa, nghe con.”"
   },
   {
    "shot": "ShC7_C",
@@ -1666,7 +1892,9 @@
    "i": 11,
    "kind": "line",
    "at": -441,
-   "len": 111
+   "len": 111,
+   "f": 18748,
+   "text": "Thảo ôm chặt hơn. “Con còn nhiều chuyện chưa kể…”"
   },
   {
    "shot": "ShC7_C",
@@ -1674,7 +1902,9 @@
    "i": 12,
    "kind": "line",
    "at": -330,
-   "len": 161
+   "len": 161,
+   "f": 18859,
+   "text": "Duy đưa tay giữ vai mẹ. Nhưng cậu đã thấy cánh đồng qua lớp áo."
   },
   {
    "shot": "ShC7_C",
@@ -1682,7 +1912,9 @@
    "i": 13,
    "kind": "line",
    "at": -170,
-   "len": 291
+   "len": 291,
+   "f": 19019,
+   "text": "Mẹ nhìn từng đứa, mỉm cười. Rồi hơi ấm và bóng dáng ấy tan vào nắng. Hai anh em còn ngồi sát nhau, tay níu vào khoảng trống."
   },
   {
    "shot": "ShC7_C",
@@ -1690,7 +1922,9 @@
    "i": 14,
    "kind": "pause",
    "at": 121,
-   "len": 240
+   "len": 240,
+   "f": 19310,
+   "text": "Mẹ tan hết. Duy dịch lại gần, nhẹ tay lau nước mắt cho Thảo. Em nhìn anh rồi đưa tay ra; hai bàn tay nắm lại. Máy từ trung cảnh tiến vào đôi tay trước nền đồng vàng, giữ một nhịp rồi mờ tối dịu chuyển sang tiệm. Tiếng gió và vải rất khẽ; không thêm giọng mẹ."
   },
   {
    "shot": "ShC8_A",
@@ -1698,7 +1932,9 @@
    "i": 0,
    "kind": "line",
    "at": 0,
-   "len": 241
+   "len": 241,
+   "f": 19549,
+   "text": "Khi Thảo mở mắt, trước mặt lại là chiếc quầy gỗ. Duy vẫn nắm tay em, mặt tái và áo ướt mồ hôi."
   },
   {
    "shot": "ShC8_B",
@@ -1706,7 +1942,9 @@
    "i": 1,
    "kind": "line",
    "at": 0,
-   "len": 431
+   "len": 431,
+   "f": 19790,
+   "text": "Ông Lộc đẩy ra hai biên nhận mới: Duy nhận nỗi buồn của em, Thảo trả giá cho cuộc gặp mẹ. Duy lấy tờ sửa điện thoại trong ví ra đặt cạnh. Đủ ba lần đổi. Tờ cuối mang tên em gái."
   },
   {
    "shot": "ShC8_A",
@@ -1714,7 +1952,9 @@
    "i": 2,
    "kind": "line",
    "at": 241,
-   "len": 111
+   "len": 111,
+   "f": 20221,
+   "text": "Duy nhìn em. “Sao em không để anh nói đã?”"
   },
   {
    "shot": "ShC8_A",
@@ -1722,7 +1962,9 @@
    "i": 3,
    "kind": "line",
    "at": 352,
-   "len": 161
+   "len": 161,
+   "f": 20332,
+   "text": "“Em thấy anh mệt lắm rồi. Em không muốn ông lấy thêm của anh nữa.”"
   },
   {
    "shot": "ShC8_A",
@@ -1730,7 +1972,9 @@
    "i": 4,
    "kind": "line",
    "at": 512,
-   "len": 50
+   "len": 50,
+   "f": 20492,
+   "text": "Con bé ngập ngừng."
   },
   {
    "shot": "ShC8_A",
@@ -1738,7 +1982,9 @@
    "i": 5,
    "kind": "line",
    "at": 563,
-   "len": 131
+   "len": 131,
+   "f": 20543,
+   "text": "“Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?”"
   },
   {
    "shot": "ShC8_A",
@@ -1746,7 +1992,9 @@
    "i": 6,
    "kind": "line",
    "at": 693,
-   "len": 41
+   "len": 41,
+   "f": 20673,
+   "text": "Ông Lộc gật."
   },
   {
    "shot": "ShC8_B",
@@ -1754,7 +2002,9 @@
    "i": 7,
    "kind": "line",
    "at": 431,
-   "len": 271
+   "len": 271,
+   "f": 20714,
+   "text": "Duy kéo em lại gần. Cậu vẫn còn mệt, chỉ lặng lẽ nắm tay em. Cậu cất cả ba biên nhận, cầm máy, đưa em về."
   },
   {
    "shot": "ShC8_C",
@@ -1762,7 +2012,9 @@
    "i": 8,
    "kind": "line",
    "at": 0,
-   "len": 170
+   "len": 170,
+   "f": 20985,
+   "text": "Đến ngưỡng cửa, tiếng chai lăn khiến Thảo khựng lại. Bố đã say trong phòng sau."
   },
   {
    "shot": "ShC8_C",
@@ -1770,7 +2022,9 @@
    "i": 9,
    "kind": "line",
    "at": 170,
-   "len": 151
+   "len": 151,
+   "f": 21155,
+   "text": "Lần này, Duy không dẫn em vào chịu cùng mình. Cậu gọi dì Hạnh."
   },
   {
    "shot": "ShC8_C",
@@ -1778,7 +2032,9 @@
    "i": 10,
    "kind": "line",
    "at": 321,
-   "len": 200
+   "len": 200,
+   "f": 21306,
+   "text": "“Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.”"
   },
   {
    "shot": "ShC8_C",
@@ -1786,7 +2042,9 @@
    "i": 11,
    "kind": "line",
    "at": 522,
-   "len": 111
+   "len": 111,
+   "f": 21507,
+   "text": "Nghe dì bảo cửa vẫn mở, cậu mới thở ra."
   },
   {
    "shot": "ShC8_D",
@@ -1794,7 +2052,9 @@
    "i": 12,
    "kind": "line",
    "at": 0,
-   "len": 501
+   "len": 501,
+   "f": 21617,
+   "text": "Thảo nắm tay anh. Duy không lấy lại được ký ức buổi làm hòa bên mẹ, cũng chưa nhẹ đi phần buồn đã nhận. Thảo sẽ không còn gặp mẹ trong mơ. Nhưng đêm ấy, hai đứa có một nơi để về, có người lớn đang đợi mở cửa."
   },
   {
    "shot": "ShC8_D",
@@ -1802,7 +2062,9 @@
    "i": 13,
    "kind": "pause",
    "at": 501,
-   "len": 120
+   "len": 120,
+   "f": 22118,
+   "text": "Hai trẻ đi khỏi cửa về phía đèn nhà dì; bố không đột ngột tỉnh hoặc được chữa bằng cuộc gặp mẹ."
   }
  ],
  "fx": [],

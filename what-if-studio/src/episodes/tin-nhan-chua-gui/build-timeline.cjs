@@ -55,7 +55,7 @@ for (const seg of plan.segments) {
       if (i !== next) throw new Error(`${seg.cue}: scene ${s} item ${i} out of order (expected ${next})`);
       used[s] = i + 1;
       const d = it.kind === 'pause' ? it.sec : lineSec(it.text);
-      marks.push({ s, i, kind: it.kind, at: sec, len: d });
+      marks.push({ s, i, kind: it.kind, at: sec, len: d, text: it.text });
       sec += d;
       said.push(it.kind === 'pause' ? `[nghỉ ${it.sec}s]` : it.text);
     }
@@ -69,7 +69,7 @@ for (const seg of plan.segments) {
     : seg.t1 !== undefined ? Math.round(seg.t1 * FPS) - len : seg.t0 !== undefined ? Math.round(seg.t0 * FPS) : (clock[shot] ?? 0);
   clock[shot] = t0 + len;
   // Where each line / pause falls on the shot's own clock, so actions can sync to words without hard-coded seconds.
-  for (const m of marks) allMarks.push({ shot, s: m.s, i: m.i, kind: m.kind, at: t0 + Math.round(m.at * FPS), len: Math.round(m.len * FPS) });
+  for (const m of marks) allMarks.push({ shot, s: m.s, i: m.i, kind: m.kind, at: t0 + Math.round(m.at * FPS), len: Math.round(m.len * FPS), f: a + Math.round(m.at * FPS), text: m.text });
   segments.push({ shot, a, b: a + len, t0, t1: t0 + len, look: seg.look, line: said.join(' ') || seg.note || '' });
   if (!shots.has(shot)) {
     const c = plan.cues[seg.cue];
