@@ -16,6 +16,7 @@ import {
   MeadowAndDealsSheet,
 } from './CastSheet';
 import { ColorScriptSheet } from './ColorScriptSheet';
+import { TimeVaultSheet } from './TimeVaultSheet';
 import { TinNhanChuaGuiAnimatic } from './episodes/tin-nhan-chua-gui/animatic';
 import tinNhanTimeline from './episodes/tin-nhan-chua-gui/timeline.json';
 import { ThuC1, ThuC1Tinh, THU_C1_TOTAL } from './episodes/tin-nhan-chua-gui/thu-c1';
@@ -51,6 +52,7 @@ export const Root: React.FC = () => {
       <Composition id="ThuC1Tinh" component={ThuC1Tinh} durationInFrames={THU_C1_TOTAL} {...common} />
       <Composition id="ThuC1" component={ThuC1} durationInFrames={THU_C1_TOTAL} {...common} />
       <Composition id="ColorScriptSheet" component={ColorScriptSheet} durationInFrames={1} {...common} />
+      <Composition id="TimeVaultSheet" component={TimeVaultSheet} durationInFrames={1} {...common} />
     </>
   );
 };

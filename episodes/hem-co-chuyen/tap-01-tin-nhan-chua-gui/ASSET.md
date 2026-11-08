@@ -31,6 +31,8 @@ Nguồn lời [KICH-BAN.md](KICH-BAN.md); mục tiêu dựng [DUNG-CANH.md](DUNG
 | [preview_meadow_g3.png](assets/boi-canh/preview_meadow_g3.png) | Render Vector | Đồng bông vàng chi tiết, cây đa bên trái, kè đá/mương và nhóm ôm gặp mẹ |
 | [preview_furniture_props.png](assets/dao-cu/preview_furniture_props.png) | Render Vector | Đồ đạc nội thất, ấm trà, phin cà phê, hộp đồ nghề cơ khí, quạt Senko, lịch lốc |
 | [preview_vehicles_houses.png](assets/dao-cu/preview_vehicles_houses.png) | Render Vector | Xe Wave, Vespa, xe đạp phượng hoàng, taxi, mặt tiền nhà ống hẻm |
+| [quai-vat-dong-ho-concept.png](assets/nhan-vat/quai-vat-dong-ho-concept.png) | Concept 2D | Ảnh concept gốc quái vật đồng hồ ba mắt của chủ repo đính kèm ngày 08/11/2026 |
+| [preview_time_vault.png](assets/boi-canh/preview_time_vault.png) | Render Vector | Bảng tổng hợp Thực thể 01 (Quái vật đồng hồ ba mắt), Kho thời gian Cảnh 9, 3 lọ ký ức G1-G2-G3, đồng hồ cát chảy ngược, vòng thiên văn quay lùi, cameo chân dung và ngõ cụt C8-E |
 | [stills/film_c0a_title.png](assets/stills/film_c0a_title.png) | Still HD | C0-A: Bầu trời sao thành phố & tựa phim "Tin Nhắn Chưa Gửi" |
 | [stills/film_c0c_owl.png](assets/stills/film_c0c_owl.png) | Still HD | Mã thử C0-C: cận mắt cú phản chiếu đèn; 85mm là ý đồ bố cục |
 | [stills/film_c0d_alley_wide.png](assets/stills/film_c0d_alley_wide.png) | Still HD | C0-D: Toàn cảnh ngõ cụt ban đêm, cú trên mái hiên, mèo trên bờ tường rêu |
@@ -60,6 +62,12 @@ Nguồn lời [KICH-BAN.md](KICH-BAN.md); mục tiêu dựng [DUNG-CANH.md](DUNG
 | SET-NHA | Căn nhà ấm cúng, bàn ăn gỗ, đèn mây, bàn thờ mẹ đèn luôn sáng, góc máy may | Có SVG và khung thử; chờ duyệt theo cảnh | [`MotherThaoHouse`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L1410), `preview_mother_house.png` |
 | PROP-MAY | Điện thoại nứt màn hình (C4) và điện thoại phục hồi phát voice memo | Có SVG và khung thử; chờ duyệt theo cảnh | [`MotherPhone`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L1230), `film_c4a_phone.png` |
 | PROP-G1-G2-G3 | Bộ 3 phiếu biên nhận ký ức hai liên, bút ký, phong bì tiền | Có SVG và khung thử; chờ duyệt theo cảnh | [`ThreeReceiptsSet`](../../../what-if-studio/src/engine/sets/tin_nhan_chua_gui.tsx#L2940), `film_c4a_phone.png` |
+| ENTITY-01-CLOCK-CREATURE | Nguyên hình quái vật đồng hồ ba mắt của Lộc: thân dày 3/4 rỉ đồng, mắt tam giác, nụ cười nhếch mép, tay chân cơ khí | Đã tạo mã SVG và preview HD | [`ClockCreature`](../../../what-if-studio/src/engine/sets/time_vault.tsx), `preview_time_vault.png` |
+| SET-KHO-THOI-GIAN | Toàn cảnh kho lưu trữ thời gian C9: kệ đá vòm cong, hàng trăm lọ phát sáng, cửa sổ Gothic, bệ đá cát chảy ngược | Đã tạo mã SVG và preview HD | [`TimeVaultScene`](../../../what-if-studio/src/engine/sets/time_vault.tsx), `preview_time_vault.png` |
+| PROP-CHRONO-JARS | Bộ 3 lọ ký ức giao kèo (G1: xe ô tô sunset, G2: hai dải sáng tím-hổ phách quyện, G3: trăng & cửa khép) nối dòng sáng vàng | Đã tạo mã SVG và preview HD | [`MemoryJar`](../../../what-if-studio/src/engine/sets/time_vault.tsx), `preview_time_vault.png` |
+| FX-REVERSE-TIME | Hiện tượng thời gian ngược: đồng hồ cát hạt bay ngược & vòng thời gian kim quét lùi | Đã tạo mã SVG và preview HD | [`ReverseHourglass`](../../../what-if-studio/src/engine/sets/time_vault.tsx), [`ReverseClockwork`](../../../what-if-studio/src/engine/sets/time_vault.tsx) |
+| PLATE-SHOP-GONE | Cảnh 8-E ngõ cụt khi tiệm biến mất, tường rêu phong vắng lặng và cú đêm | Đã tạo mã SVG và preview HD | [`AlleyWithoutShop`](../../../what-if-studio/src/engine/sets/time_vault.tsx), `preview_time_vault.png` |
+| PROP-LOC-PORTRAIT / CAMEO-JARS | Chân dung cổ khung đồng (gieo C1-B/C4-D) và cụm lọ sáng kệ tiệm (gieo C2-A/C2-C) | Đã tạo mã SVG và preview HD | [`AntiquePortraitCameo`](../../../what-if-studio/src/engine/sets/time_vault.tsx), [`CameoJars`](../../../what-if-studio/src/engine/sets/time_vault.tsx) |
 
 ## Lịch sử concept trước đợt nâng cấp SVG
 
@@ -132,18 +140,18 @@ Mẹ C7-C thêm kế hoạch hạt vàng thưa xuất phát từ viền áo/tóc
 
 Mã bảng màu đã thay “ký ức tuổi 16” bằng ký ức tranh đồ chơi rồi làm hòa; bỏ mốc phút cũ ở hồi có lời. Cụm chuồn chuồn trong ruộng scale 0,38/opacity 0,68, giữ mẫu macro chi tiết. Ảnh bảng màu, bảng ruộng và still/clip cũ chưa xuất lại theo hai sửa này; không dùng chúng làm ảnh đã duyệt của mã mới. Claude thực hiện dựng theo [bàn giao](BAN-GIAO-CLAUDE.md).
 
-## Asset mới bản 13 — cần tạo, chưa có media
+## Asset mới bản 13 — Đã hoàn thành tạo mã và render bảng tổng hợp
 
 | Mã | Phần cần có / tái dùng | Trạng thái |
 |---|---|---|
-| MON-LOC-CLOCK | Nguyên hình đồng hồ ba mắt, pose lơ lửng; cùng style rig | Chưa tạo/chưa duyệt |
-| SET-LOC-ARCHIVE | Kho lọ sáng huyền ảo, kệ gần–giữa–xa; biến thể từ bố cục tiệm | Chưa tạo/chưa duyệt |
-| PROP-JAR / G1/G2/G3 | Một mẫu lọ với nội dung ký ức/dấu chuyển buồn/quyền mơ; cùng mẫu cho lọ cũ | Chưa tạo/chưa duyệt |
-| PROP-LOC-PORTRAIT | Chân dung bạc màu từ cùng thiết kế quái vật, cameo C1/C4 | Chưa tạo/chưa duyệt |
-| FX-REVERSE-TIME | Cát chảy lên/một vòng kim lùi trong kho, không tác động hẻm | Chưa tạo/chưa duyệt |
-| PLATE-SHOP-GONE | Tường cũ khớp nhà hàng xóm cho C8-E, dùng lại hẻm | Chưa tạo/chưa duyệt |
+| MON-LOC-CLOCK | Nguyên hình đồng hồ ba mắt, pose lơ lửng, tay chân cơ khí, thân dày 3/4 rỉ đồng, mắt hổ phách nheo | Đã tạo mã SVG [`ClockCreature`](../../../what-if-studio/src/engine/sets/time_vault.tsx) & render HD [`preview_time_vault.png`](assets/boi-canh/preview_time_vault.png) |
+| SET-LOC-ARCHIVE | Kho lọ sáng huyền ảo C9: kệ đá vòm cong, hàng trăm lọ phát sáng, cửa sổ Gothic, bệ đồng hồ cát | Đã tạo mã SVG [`TimeVaultScene`](../../../what-if-studio/src/engine/sets/time_vault.tsx) & render HD [`preview_time_vault.png`](assets/boi-canh/preview_time_vault.png) |
+| PROP-JAR / G1/G2/G3 | Bộ 3 lọ ký ức giao kèo (G1: xe ô tô sunset, G2: hai dải sáng tím-hổ phách quyện, G3: trăng & cửa khép) | Đã tạo mã SVG [`MemoryJar`](../../../what-if-studio/src/engine/sets/time_vault.tsx) & render HD [`preview_time_vault.png`](assets/boi-canh/preview_time_vault.png) |
+| PROP-LOC-PORTRAIT | Chân dung cổ khung đồng gieo C1-B/C4-D và cụm lọ sáng kệ tiệm gieo C2-A/C2-C | Đã tạo mã SVG [`AntiquePortraitCameo`](../../../what-if-studio/src/engine/sets/time_vault.tsx), [`CameoJars`](../../../what-if-studio/src/engine/sets/time_vault.tsx) |
+| FX-REVERSE-TIME | Cát chảy lên/vòng kim quét lùi trong kho, không tác động hẻm | Đã tạo mã SVG [`ReverseHourglass`](../../../what-if-studio/src/engine/sets/time_vault.tsx), [`ReverseClockwork`](../../../what-if-studio/src/engine/sets/time_vault.tsx) |
+| PLATE-SHOP-GONE | Tường cũ rêu phong ngõ cụt khi tiệm biến mất cho C8-E, cú đêm quan sát | Đã tạo mã SVG [`AlleyWithoutShop`](../../../what-if-studio/src/engine/sets/time_vault.tsx) & render HD [`preview_time_vault.png`](assets/boi-canh/preview_time_vault.png) |
 
-Thiết kế/nguồn dự kiến SVG/React riêng của repo, chưa tuyên bố đã tạo hoặc có quyền trên asset sinh sau này. Đồ bay có vùng lực/mốc dừng, không xóa yêu cầu tiếp xúc của mọi cảnh khác. Xem HE-LO-QUAI-VAT để tránh tạo ba phim con hoặc ba nhân vật mẹ trong lọ.
+Thiết kế vector thuần SVG/React trong repo, phong cách nét mực/chì kết hợp màu nước kim loại, tuân thủ chặt chẽ concept gốc đính kèm. Đã kiểm thử tự động 44 test checks thông qua (`tests/time-vault.cjs`) và typecheck 0 lỗi (`npm run typecheck`). Chờ duyệt diễn xuất trong animatic.
 
 ## Âm thanh đoạn thử C1 — Mixkit SFX, tải 08/11/2026
 

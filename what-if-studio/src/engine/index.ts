@@ -20,6 +20,7 @@ export * from './sets/kitchen';
 export * from './sets/schematic';
 export * from './sets/bedroom';
 export * from './sets/tin_nhan_chua_gui';
+export * from './sets/time_vault';
 
 export * from './vfx';
 
