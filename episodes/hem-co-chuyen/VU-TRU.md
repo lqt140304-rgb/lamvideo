@@ -16,6 +16,14 @@ Mỗi thực thể cần hồ sơ ngắn: diện mạo đời thường/nguyên 
 
 Tập nào cũng khép lựa chọn chính của người trong tập. Cameo có thể nối các tập bằng một vật, dấu hiệu hoặc không gian được nhận ra lại; chưa quyết định hai anh em sẽ làm nhân vật chính xuyên series, cũng chưa cho mọi thực thể biết nhau.
 
+## Nhân vật đại diện chủ repo — kế hoạch cho tuyến truyện về sau
+
+Ghi nhận yêu cầu ngày 08/11/2026: sẽ có **một nhân vật đại diện cho chính chủ repo trong vũ trụ**, có vai trò **bắt giữ và kiểm soát các thực thể**.
+
+- Hiện chỉ ghi nhận trong kế hoạch vũ trụ; **chưa đưa nhân vật này vào kịch bản tập 01 hoặc thêm cảnh/cameo/lời thoại/ảnh đại diện trong lượt cập nhật này**.
+- Tên, diện mạo, tính cách, động cơ, cách bắt giữ/kiểm soát, năng lực và giới hạn sẽ được phát triển sau. Chưa chốt thời điểm hay tập ra mắt.
+- Quan hệ với ông Lộc và các thực thể khác để mở; chưa xác lập ai đã bị nhân vật này bắt hoặc đang chịu sự kiểm soát.
+
 ## Thực thể 01 — ông Lộc / quái vật đồng hồ
 
 | Mục | Nội dung hiện hành |
