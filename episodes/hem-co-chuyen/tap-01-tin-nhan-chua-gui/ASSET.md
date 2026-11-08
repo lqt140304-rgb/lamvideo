@@ -72,9 +72,9 @@ Giữ bộ asset đã nâng cấp; mã thử 146 giây vẫn theo lần thử tr
 
 Antigravity được nhờ cải tiến thư viện asset có sẵn; những cảnh tập này là môi trường thử. Không dùng độ dài bộ thử để đánh giá mức hoàn thành chuyển thể kịch bản. Bảng 18 nhân vật và các props/vehicles trong engine có thể dùng lại cho các tập khác; hình người/địa điểm cụ thể vẫn cần lựa chọn theo câu chuyện.
 
-- [Mã thử](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/) và [timeline](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/timeline.json): 24 đoạn, 146 giây theo JSON, chưa phải số đo video đã xem.
+- [Mã tập](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/) và [timeline](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/timeline.json): từ 08/11/2026 là **35 cue/48 đoạn, ước tính 12:21**, sinh từ KICH-BAN bằng `build-timeline.cjs`, chưa có audio đo. Ánh xạ cue → shot, quy tắc dàn dựng và phần còn mở ở [CUE-SHOT.md](CUE-SHOT.md); storyboard tĩnh v1 ở [assets/storyboard](assets/storyboard/). Bản 24 đoạn/146 giây trước đó là mã thử, đã thay.
 - [Preview vận hành](../../../what-if-studio/public/tin-nhan-chua-gui/previews/) và [still vận hành](../../../what-if-studio/public/tin-nhan-chua-gui/stills/). Đây là alias kỹ thuật `tin-nhan-chua-gui` của hồ sơ `tap-01-tin-nhan-chua-gui`; không tạo thêm một tập trùng.
-- Bộ thử dùng một số cue gộp/đổi mã: chẳng hạn kiệt sức là ShC5_B, mẹ tan ShC7_B, ngưỡng nhà ShC8_B; nguồn hiện hành lần lượt C5-C, C7-C, C8-C. Cần đối chiếu hành động khi tái dùng, không ghép chỉ theo tên file. Bộ thử không thay nguồn 35 cue.
+- Mã shot nay trùng mã cue (C5-C ↔ `ShC5_C`, C7-C ↔ `ShC7_C`, C8-C ↔ `ShC8_C`). Ghi chú cũ nhắc `ShC5_B`/`ShC7_B`/`ShC8_B` là tên của bộ thử trước 08/11/2026.
 - Chưa chọn/tạo giọng chính thức, nhạc/Foley/môi trường và mix cuối; nguồn/quyền dùng của từng audio cần ghi khi chọn. Không có chi phí mới được xác minh trong lượt cập nhật tài liệu này.
 - Đã xem bảng nhân vật mở rộng, biểu cảm/tư thế và một số still; chưa xem/nghe animatic toàn tập. Trạng thái có file không tự chứng minh chuyển động, tiếp xúc, lời dẫn, âm thanh hoặc chất lượng cuối đã đạt.
 

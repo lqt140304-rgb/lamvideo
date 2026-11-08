@@ -39,7 +39,7 @@ export const palmWorld=(pose:Pose,side:'L'|'R'):Point=>{
   const arm=joints(pose)[side==='L'?'armL':'armR'],len=Math.hypot(arm.end.x-arm.mid.x,arm.end.y-arm.mid.y);
   return {x:pose.x+(arm.end.x+(arm.end.x-arm.mid.x)/len*10)*pose.scale,y:pose.y+(arm.end.y+(arm.end.y-arm.mid.y)/len*10)*pose.scale};
 };
-const reachPalm=(pose:Pose,side:'L'|'R',target:Point,reverse=false):Limb=>{
+export const reachPalm=(pose:Pose,side:'L'|'R',target:Point,reverse=false):Limb=>{
   let wrist={...target},limb=pose[side==='L'?'armL':'armR'];
   for(let i=0;i<10;i++){
     limb=wrapArm(pose,side,wrist,reverse);

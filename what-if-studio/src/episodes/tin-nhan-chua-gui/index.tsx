@@ -1,32 +1,7 @@
 import React from 'react';
 import { defineEpisode, Timeline, LookDef, TapeLines, HudChip, FONT } from '../../engine';
 import timeline from './timeline.json';
-import {
-  ShC0_A,
-  ShC0_B,
-  ShC0_C,
-  ShC0_D,
-  ShC0_E,
-  ShC0_F,
-  ShC1_A,
-  ShC1_B,
-  ShC1_C,
-  ShC2_A,
-  ShC2_B,
-  ShC3_A,
-  ShC4_A,
-  ShC4_B,
-  ShC5_A,
-  ShC5_B,
-  ShC5_C,
-  ShC6_A,
-  ShC6_B,
-  ShC7_A,
-  ShC7_B,
-  ShC8_A,
-  ShC8_B,
-  ShC8_C,
-} from './shots';
+import * as shots from './shots';
 
 /**
  * Named visual looks & cinematic color grades for Episode 01 ("Tin Nhắn Chưa Gửi"):
@@ -109,6 +84,12 @@ const warmMemory: LookDef = {
   },
 };
 
+/** G2 (C5-B): the subjective warmth only — same room, softer shadows, no flash, no new light source. */
+const g2Warm: LookDef = {
+  grade: (lv) => `sepia(${0.3 * lv}) saturate(${1 + 0.1 * lv}) brightness(${1 + 0.06 * lv}) contrast(${1 - 0.06 * lv})`,
+  Overlay: ({ lv }) => <rect width={1920} height={1080} fill="#C49A68" opacity={0.12 * lv} style={{ mixBlendMode: 'soft-light' }} />,
+};
+
 const cozyHome: LookDef = {
   grade: (lv) => `saturate(${1 + 0.14 * lv}) contrast(${1 + 0.06 * lv}) sepia(${0.12 * lv})`,
   Overlay: ({ lv }) => (
@@ -127,32 +108,7 @@ const cozyHome: LookDef = {
 
 export const tinNhanChuaGui = defineEpisode('TinNhanChuaGui', {
   timeline: timeline as Timeline,
-  shots: {
-    ShC0_A,
-    ShC0_B,
-    ShC0_C,
-    ShC0_D,
-    ShC0_E,
-    ShC0_F,
-    ShC1_A,
-    ShC1_B,
-    ShC1_C,
-    ShC2_A,
-    ShC2_B,
-    ShC3_A,
-    ShC4_A,
-    ShC4_B,
-    ShC5_A,
-    ShC5_B,
-    ShC5_C,
-    ShC6_A,
-    ShC6_B,
-    ShC7_A,
-    ShC7_B,
-    ShC8_A,
-    ShC8_B,
-    ShC8_C,
-  },
+  shots,
   looks: {
     nightAtmosphere,
     shopMystery,
@@ -160,5 +116,6 @@ export const tinNhanChuaGui = defineEpisode('TinNhanChuaGui', {
     whiteout,
     warmMemory,
     cozyHome,
+    g2Warm,
   },
 });

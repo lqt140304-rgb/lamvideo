@@ -5,6 +5,7 @@ import { loadFont as loadMono } from '@remotion/google-fonts/FragmentMono';
 import { loadFont as loadHand } from '@remotion/google-fonts/Kalam';
 import { loadFont as loadMonoVi } from '@remotion/google-fonts/JetBrainsMono';
 import { loadFont as loadHandVi } from '@remotion/google-fonts/PatrickHand';
+import { loadFont as loadSerifVi } from '@remotion/google-fonts/NotoSerif';
 import { STUDIO } from '../studio.config';
 
 // Three faces: a heavy display face for the title card, a mono for on-screen readouts (timers, labels, chips),
@@ -16,6 +17,8 @@ if (VI) {
   loadBricolage('normal', { weights: ['600', '700', '800'], subsets: ['latin', 'latin-ext', 'vietnamese'] });
   loadMonoVi('normal', { weights: ['400'], subsets: ['latin', 'latin-ext', 'vietnamese'] });
   loadHandVi('normal', { weights: ['400'], subsets: ['latin', 'latin-ext', 'vietnamese'] });
+  // Serif title cards: Georgia has no stacked Vietnamese capitals (Ắ), so its fallback drops the mark beside the letter.
+  loadSerifVi('normal', { weights: ['700', '800'], subsets: ['latin', 'latin-ext', 'vietnamese'] });
 } else {
   loadBricolage('normal', { weights: ['600', '700', '800'], subsets: ['latin'] });
   loadMono('normal', { weights: ['400'], subsets: ['latin'] });

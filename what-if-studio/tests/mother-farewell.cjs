@@ -44,7 +44,11 @@ for(const t of [262,280,310,330]){
   check(svg.includes('data-sibling-clasp="two-hands"')&&!/NaN|Infinity/.test(svg),'Clasp renders at the contact point');
 }
 const tl=require('../src/episodes/tin-nhan-chua-gui/timeline.json');
-check(tl.total===4380&&tl.segments.find(s=>s.shot==='ShC7_B').b-tl.segments.find(s=>s.shot==='ShC7_B').a===360,'Trial extends only the farewell by four seconds');
-for(let i=1;i<tl.segments.length;i++)check(tl.segments[i-1].b===tl.segments[i].a,'Timeline remains contiguous after the extension');
-check(!tl.fx.some(f=>f.kind==='flash'&&f.f>3390&&f.f<3760),'No extra flash over the gentle return transition');
+// Cue C7-C (ShC7_C): the last segment plays the whole approved farewell clock — dissolve, 8 s wordless clasp, fade.
+const farewell=tl.segments.filter(s=>s.shot==='ShC7_C').pop();
+check(farewell&&farewell.t0<=0&&farewell.t1>=360,'The farewell segment covers dissolve, wipe, clasp, push and fade');
+const silent=tl.marks.find(m=>m.shot==='ShC7_C'&&m.kind==='pause');
+check(silent&&silent.len===240&&Math.abs(silent.at-120)<=6,'The 8 s wordless stretch starts when the mother is fully gone');
+for(let i=1;i<tl.segments.length;i++)check(tl.segments[i-1].b===tl.segments[i].a,'Timeline remains contiguous');
+check(!tl.fx.some(f=>f.kind==='flash'),'No extra flash over the gentle return transition');
 console.log('Mother farewell checks passed:',count);

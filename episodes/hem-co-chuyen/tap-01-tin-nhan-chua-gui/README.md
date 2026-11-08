@@ -1,6 +1,12 @@
 # Hẻm Có Chuyện — tập 01: Tin nhắn chưa gửi
 
-**Dựng do Claude thực hiện:** bắt đầu từ [hồ sơ bàn giao](BAN-GIAO-CLAUDE.md). Hai sửa mã G1/chuồn chuồn đã chuẩn bị; ảnh preview cần Claude xuất lại.
+**Dựng do Claude thực hiện:** bắt đầu từ [hồ sơ bàn giao](BAN-GIAO-CLAUDE.md).
+
+**Trạng thái 08/11/2026:**
+
+- Đã có timeline 35 cue (ước tính 12:21) và storyboard tĩnh v1 cho đủ 35 cue: [ánh xạ cue → shot](CUE-SHOT.md), [ảnh](assets/storyboard/).
+- Đã xuất lại preview bảng màu và ruộng G3.
+- Chưa render hoặc duyệt animatic chuyển động; chưa có giọng/âm.
 
 
 **Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
@@ -15,6 +21,7 @@
 | File | Tác dụng |
 |---|---|
 | [BAN-GIAO-CLAUDE.md](BAN-GIAO-CLAUDE.md) | Điểm bắt đầu cho Claude: phạm vi, nguồn, hai sửa mới, đầu ra và kiểm tra trước dựng cuối |
+| [CUE-SHOT.md](CUE-SHOT.md) | 35 cue → shot cùng mã, cách sinh timeline từ lời nguồn, thời lượng ước tính, quy tắc dàn dựng đã kiểm tra và phần còn mở |
 | [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md) | Kế hoạch tối ưu, bước duyệt, nhóm asset dùng lại, đoạn cần thử và bảng đồng bộ |
 | [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, C0 + 8 cảnh chính, nhịp nghỉ, hình và thoại |
 | [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/ngõ mới và mẹ hiện hình, 35 cue, khung/nghiêng/rung, lens/focus/pose/tiếp xúc, màu/nguồn sáng/chuyển khung, bụi vàng lúc tan, nền/nhạc theo cảnh và Foley/hơi thở/môi |

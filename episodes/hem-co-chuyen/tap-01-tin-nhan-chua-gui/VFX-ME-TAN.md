@@ -27,7 +27,7 @@ Tay trong của hai trẻ ôm mẹ ở lớp trước áo mẹ; tay ngoài ngh�
 
 - [mother_dissolve.tsx](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/mother_dissolve.tsx): trạng thái tan, điểm sinh hạt và lớp viền/hạt, xác định theo frame/seed.
 - [meadow_family.tsx](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/meadow_family.tsx): `dissolveT` là đồng hồ cục bộ của lần tan; giữ thứ tự thân/tay sau → hạt → trẻ → bàn tay mẹ trước. Không truyền `dissolveT` thì giữ nhóm ôm bình thường; `motherOpacity` cũ vẫn dùng được.
-- `ShC7_B`, composition **MotherFarewellLab** và mẫu bên phải **MeadowAndDealsSheet** dùng cùng hiệu ứng. Shot C7-C trong nguồn 35 cue tương ứng chức năng với ShC7_B của mã thử, không ghép chỉ theo tên.
+- `ShC7_C` (cue C7-C; trước 08/11/2026 mã thử gọi là `ShC7_B`), composition **MotherFarewellLab** và mẫu bên phải **MeadowAndDealsSheet** dùng cùng hiệu ứng. Trong timeline 35 cue, câu kể cuối của mẹ chạy khi cảnh ôm còn giữ (đồng hồ shot âm). Mẹ tan trong 4 giây cuối câu, khoảng 8 giây không lời được neo ở giây 4. Xem [CUE-SHOT.md](CUE-SHOT.md).
 - Chạy `npm run typecheck` và `node tests/mother-farewell.cjs` trong studio: kiểm tra hình học cũ, độ hiện giảm một chiều, nguồn/hướng hạt, tính xác định và không có hạt/viền sau lần tan, điểm lau má và điểm nắm tay.
 
 [Khung giữa lần tan](assets/boi-canh/preview_mother_farewell.png) · [Chuỗi khung trích từ MP4](assets/boi-canh/preview_mother_farewell_sequence.png) · [Cận hai bàn tay](assets/boi-canh/preview_siblings_clasp.png).

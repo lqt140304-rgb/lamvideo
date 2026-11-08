@@ -1896,7 +1896,7 @@ export const EpisodeTitleBanner: React.FC<{
       letterSpacing={7}
       fill="#C8D6EA"
       opacity={0.78}
-      fontFamily="Georgia, 'Noto Serif', serif"
+      fontFamily="'Noto Serif', Georgia, serif"
     >
       {subtitle}
     </text>
@@ -1917,7 +1917,7 @@ export const EpisodeTitleBanner: React.FC<{
       strokeWidth={10}
       strokeLinejoin="round"
       opacity={0.65}
-      fontFamily="Georgia, 'Noto Serif', serif"
+      fontFamily="'Noto Serif', Georgia, serif"
     >
       TIN NHẮN CHƯA GỬI
     </text>
@@ -1929,7 +1929,7 @@ export const EpisodeTitleBanner: React.FC<{
       fontWeight={800}
       letterSpacing={6}
       fill="#F6ECD9"
-      fontFamily="Georgia, 'Noto Serif', serif"
+      fontFamily="'Noto Serif', Georgia, serif"
     >
       TIN NHẮN CHƯA GỬI
     </text>

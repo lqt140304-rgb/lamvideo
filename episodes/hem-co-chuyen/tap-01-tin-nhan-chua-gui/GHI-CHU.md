@@ -1,5 +1,31 @@
 # Ghi chú riêng — tập 01
 
+## Claude bắt đầu dựng — storyboard 35 cue v1 — 08/11/2026
+
+Dựng bằng Opus 5.5 theo yêu cầu chủ repo.
+
+- Thay timeline thử 24 đoạn bằng 35 cue. Timeline sinh từ lời nguồn, ước tính 12:21 (xem [CUE-SHOT.md](CUE-SHOT.md)).
+- Đổi tên shot trùng mã cue và viết thêm 11 shot còn thiếu.
+- Xuất lại `preview_color_script.png` và `preview_meadow_g3.png` sau hai sửa của Codex.
+
+Chủ repo phản hồi trong lúc dựng và đã sửa:
+
+- **Chân không chạm đất, ngồi không có ghế, tư thế sai:** ghế khách tính từ chân người ngồi, Thảo có thanh gác chân. Bản thử C5 ngồi mà không có ghế.
+- **Ông Lộc đứng cao so với quầy và sàn:** hạ sàn sau quầy, mặt quầy ngang thắt lưng. Ở bàn sửa, ông ngồi sau bàn.
+- **Đầu Duy lúc lệch, rời khỏi thân:** do `headTilt: undefined`, khiến SVG bỏ phép xoay của cả cụm đầu.
+
+Mình phát hiện và sửa thêm:
+
+- Hai trẻ bị đặt ngược bên (Thảo trái).
+- Ngõ còn người qua đường.
+- Text cũ "tối sinh nhật 16" cho G1.
+- Kính ông Lộc thành kính đen.
+- Dấu sắc của "NHẮN" rời khỏi chữ trên tiêu đề.
+
+Kiểm tra đã chạy: `npm run typecheck`, `node tests/mother-farewell.cjs` (đã cập nhật theo ShC7_C), `node tests/episode-staging.cjs` (mới).
+
+Mới xem bảng still đầu–giữa, **chưa render hoặc xem animatic chuyển động**, chưa có giọng/âm. Không gọi dịch vụ trả phí; chi phí media bằng 0.
+
 ## Bản 11 — mẹ tan, lau nước mắt và hai bàn tay
 
 Chủ repo yêu cầu tan mềm nghệ thuật hơn, Duy lau nước mắt cho Thảo, nắm tay, máy cận và mờ sang tiệm; đồng thời sửa tay hai trẻ ôm mẹ khỏi bị khuất. Đã triển khai riêng trong mã thử và [hồ sơ VFX](VFX-ME-TAN.md). Lời sạch/bản ElevenLabs giữ nguyên; đoạn cuối không lời tăng 4 → 8 giây, tổng nghỉ 33 giây, 35 cue. Mã thử tăng ShC7_B thêm 120 frame, tổng 146 giây; bỏ lóe trắng lúc về tiệm, giữ điểm nắm qua chuyển cảnh. Không có audio/mix cuối hoặc dựng toàn bộ nguồn; các số liệu/giới hạn trong mục cũ phía dưới là lịch sử.
