@@ -1,5 +1,11 @@
 # Ghi chú riêng — tập 01
 
+## Bản 10 — ngôn ngữ màu và chuyển giao khung hình — 08/11/2026
+
+Chủ repo đồng ý bổ sung phần màu/chuyển khung trong góp ý Anti. Đã ghi bảng màu và nguồn sáng theo cue trong nguồn/dựng cảnh: đêm chàm → tiệm hổ phách kín → G2 ấm thoáng rồi trở lại → ruộng vàng ấm → thực tại → vệt ấm hướng về dì. Giữ sắc da/màu áo, hướng nguồn đèn và điểm tì; các hex chỉ là mẫu tham chiếu.
+
+Chuyển 2:1 sau lớp trắng G3, giữ toàn ruộng và cắt về 16:9 ở C8-A như bản 8. Mẹ tan thêm hạt vàng rất thưa ở viền áo/tóc, cùng da/áo/bóng tắt hết trong 3–4 giây đã có, trước nghỉ 4 giây; đây là hình thức thị giác chủ quan, không xác nhận hồn về hoặc tạo vật mang về tiệm. Không đổi lời, thẻ, âm bản 9, 35 cue hoặc thời lượng. Đồng bộ tài liệu, chưa sửa engine/asset, tạo media, render hoặc khởi chạy Claude; hiệu quả cần storyboard → animatic. Trong lúc đồng bộ đã nhận nâng cấp rig/VFX/cánh đồng và asset tới `b776a32`; ghép cả ghi chú upstream, giữ dải trời tím hồng–cam mới. Dust nền đã có tách khỏi hạt tan từ viền mẹ còn cần dựng thử. Các mục dưới giữ lịch sử.
+
 ## Bản 9 — nền đúng cảnh và âm chi tiết — 08/11/2026
 
 Theo yêu cầu chủ repo: nền âm cần hợp cảnh, ưu tiên nhạc không lời; thêm hơi thở/môi/ghế/dụng cụ/giấy nhưng có chọn lọc. Mỗi 35 cue nguồn có âm chính và DUNG-CANH có diễn giải vào/dừng; bảng nền phân biệt thành phố, phòng kín, thoáng G2, ruộng và ngưỡng nhà. Đồng hồ kệ ngừng chạy không ticking; quầy không bị kéo; tiếng môi không gắn mỗi nhịp rig nhép miệng. Bản ghi dừng phải chỉ còn quạt, mẹ tan để gió ở lại; nhạc kết chỉ sau nhịp Duy thở ra. Giữ toàn bộ lời/thẻ/29 giây nghỉ/24 giây mở/35 cue và khung/máy bản 8.

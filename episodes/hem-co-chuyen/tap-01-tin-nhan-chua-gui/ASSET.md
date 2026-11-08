@@ -1,4 +1,4 @@
-# Asset — Tin nhắn chưa gửi, bản 9
+# Asset — Tin nhắn chưa gửi, bản 10
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
@@ -101,3 +101,9 @@ Nhận tiếp `279dae2` trong lúc bàn giao tài liệu: thu hẹp ngõ, bổ s
 - [Ảnh preview cánh đồng mới](assets/boi-canh/preview_meadow_vfx.png) được tạo từ `MeadowMotionLab`, frame 128. Đây là bài thử set/rig, không phải một shot phim đã duyệt, không thay các still cũ cùng tên. Ảnh cũ giữ để đối chiếu lịch sử.
 - Clip thử 12 giây, H.264 960×540/30 fps: `what-if-studio/out/tin-nhan-chua-gui/asset-preview/meadow-motion.mp4` (local). Đã xuất và soi khung, chờ duyệt chuyển động; chưa có giọng/mix và khẩu hình khớp lời. Mẫu miệng của mẹ chỉ minh họa kỹ thuật.
 - Nguồn: SVG/React trong repo, sửa ngày 08/11/2026; giữ attribution engine gốc. Không thêm hình/nhạc stock hoặc gọi media trả phí. Tạo asset không đổi kịch bản, luật G1/G2/G3 hoặc định dạng có người dẫn chuyện.
+
+## Màu và chuyển khung bản 10 — chỉ dẫn, chưa tạo media
+
+KICH-BAN/DUNG-CANH có cùng bảng màu/nguồn sáng theo cảnh: ngõ đêm chàm, tiệm hổ phách sẫm, thoáng G2, ruộng vàng mật và ánh ấm nhỏ ở hướng đi cuối. Mã màu là tham chiếu, giữ nhận diện trang phục và hướng đèn của asset mới; chưa chỉnh màu hoặc duyệt lại mã/ảnh. Khung theo bản 8: trắng G3 che chuyển sang 2:1, cắt về tiệm 16:9.
+
+Mẹ C7-C thêm kế hoạch hạt vàng thưa xuất phát từ viền áo/tóc, đi cùng gió và tắt hết trong lần tan 3–4 giây sẵn có; da/áo/bóng cùng giảm trước nghỉ 4 giây. Đây là lớp biểu diễn trong G3, không kỷ vật, linh hồn mới hoặc hạt mang về tiệm. Ưu tiên lớp hạt đơn giản dùng lại set/rig; chưa có implementation, file render hoặc chi phí đo. Chọn/bỏ mật độ theo animatic; không sinh ảnh theo từng khung. Đã nhận tiếp các commit rig/VFX/cánh đồng và nâng cấp asset tới `b776a32`; giữ mã/ảnh của đợt đó. Lớp Dust môi trường đã có trong set, nhưng chuyển hạt từ viền mẹ theo bản 10 chưa được triển khai/duyệt. Dải trời tím hồng–cam mới được giữ, không phủ vàng cả ảnh.

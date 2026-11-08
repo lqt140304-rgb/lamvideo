@@ -1,4 +1,4 @@
-# Tin nhắn chưa gửi — dựng cảnh bản 9
+# Tin nhắn chưa gửi — dựng cảnh bản 10
 
 **Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
@@ -82,6 +82,42 @@ Lens tương đương full-frame, cao máy/khoảng cách quy ước là điểm
 **Giới hạn phạm vi:** chỉ dẫn hình/âm bổ sung, không đổi lời dẫn/thoại, thẻ cảm xúc, 35 cue hay thời lượng nghỉ. Chưa sửa/render mã thử hoặc gọi dịch vụ media. Chỉ hoàn thiện sau storyboard → animatic có chuyển động/tương tác và âm tạm; không coi bảng chữ là đã duyệt diễn xuất.
 
 Tham khảo nguyên tắc: [ARRI — định trước khung đích](https://www.arri.com/en/learn/camera-systems/pre-postproduction/conforming), [Adobe — Dutch angle](https://www.adobe.com/creativecloud/video/production/cinematography/camera-shots-and-angles/dutch-angle-shot.html), [Epic — biên độ, nhịp và thời gian rung](https://dev.epicgames.com/documentation/en-us/unreal-engine/camera-shakes-in-unreal-engine). Lựa chọn 2:1 và các mức thử của tập là quyết định mỹ thuật ở bản này, không phải định mức lấy từ nguồn.
+
+## Màu sắc và chuyển giao khung hình — bản 10
+
+**Đường cảm xúc bằng màu:** đêm chàm lạnh → tiệm hổ phách sẫm/kín → G2 ấm thoáng rồi trả về lạnh → cánh đồng vàng mật/thoáng → mẹ tan, ánh chiều vẫn ở lại → về tiệm và ngưỡng nhà → một vệt ấm nhỏ dẫn hai trẻ đi. Đây là lựa chọn mỹ thuật cần thử bằng hình, không phải màu đã được áp dụng hoặc duyệt trong mã dựng.
+
+### Mốc màu theo cảnh và cue
+
+Các mã hex chỉ là mẫu tham chiếu cho mảng nền/nguồn sáng; điều chỉnh theo bộ asset mới và màn hình xem thực tế. Giữ màu trang phục gốc của Duy/Thảo, sắc da và độ rõ mắt/tay; không phủ một lớp màu đặc lên toàn cảnh hoặc biến mọi vật thành cùng một tông.
+
+| Cảnh / cue | Màu và nguồn sáng chính | Mục đích / cách giữ diễn xuất |
+|---|---|---|
+| C0-A…F / đêm thành phố–hẻm | Chàm `#162033`, xanh đen `#101823`; vàng cửa nhà/tiệm `#C18A4A` | Đêm rộng nhưng có khoảng tối. Cửa tiệm dẫn mắt tới trẻ; trời/sao đủ đọc chữ. Khi hạ máy, ánh ấm xuất hiện do tiến gần nguồn đã có; giữ ngõ/đèn theo asset mới |
+| C1-A…D, C2-A…C, C3-A…C / tiệm | Nâu gỗ `#342B28`, hổ phách sẫm `#A76D35`, chàm cửa `#243144` | Đèn bàn sửa làm Lộc nửa sáng/nửa tối; ánh hắt giữ mắt và miệng trẻ đọc được. Kệ gần tối hơn vùng diễn, bàn sau lùi sâu; giấy/tiền vẫn phân biệt được. Chất kín đến từ lớp cảnh và vùng sáng, không ép toàn ảnh đen |
+| C4-A/B/D / máy sửa xong và câu hỏi mới | Giữ nền tiệm; vỏ máy/giấy có màu vật liệu | Màn hình sáng không kéo cả phòng rực lên. Giữ sức nặng cái giá và sự lạnh của Lộc; G1 chưa đổi khung hoặc tạo ánh phép |
+| C4-C / nghe ghi âm | Tiệm vẫn giữ nguồn đèn; ánh màn hình trắng xanh rất nhẹ `#B9C9D4` | Chỉ hắt nhỏ nếu mặt/tay ở đúng hướng và đủ gần máy. Không tắt đèn tiệm để lấy điện thoại làm nguồn sáng duy nhất. Sau ghi âm, giữ hình ổn định trong khoảng nghỉ 3 giây |
+| C5-A/D trước lớp trắng / báo giá | Trở đúng màu tiệm | Câu giá, lời đồng ý và phản ứng của hai trẻ luôn rõ. Không đổi màu theo từng người nói hoặc dùng đỏ để tự quy Lộc thành quỷ |
+| C5-B / thoáng yên G2 | Nâng nhẹ sắc ấm của vùng diễn đang có, tham chiếu `#C49A68` | Cảm nhận chủ quan ấm hơn, bóng bớt gắt một thoáng, người vẫn ngồi trong tiệm. Giữ đèn/đồ vật tại chỗ; chưa lộ mẹ, ruộng, hạt sáng hoặc lớp trắng |
+| C5-C / gánh nặng trở lại | Trả dần về nền tiệm trước G2, giữ chàm ở mép tối | Sắc da Duy nhạt vì diễn xuất/mệt, còn nhìn rõ mồ hôi và tay bấu. Màu trở lại theo lúc hơi ấm hết, không bật flash; rung/nghiêng chỉ trong cửa sổ đã chốt |
+| C6-A…D, C7-A/B / cánh đồng | Nắng vàng mật `#D6AB61`, đất ấm `#8C7650`, lúa dịu `#9B9B65`; giữ dải trời tím hồng–cam của set mới (`#77799D` → `#B68D99` → cam ấm), nắng từ trái | Thoáng và sáng hơn tiệm, bớt tương phản gắt, còn lớp cỏ gần–người giữa–ruộng xa. Da mẹ/con vẫn tự nhiên, áo không cháy sáng. Nắng ôm cả ba và môi trường, mẹ không thành nguồn phát sáng riêng |
+| C7-C / mẹ tan | Giữ cùng nắng chiều và nền ruộng | Mẹ/áo/bóng cùng tan; bụi vàng thưa ở viền áo/tóc theo mô tả bên dưới. Nét mặt, bàn tay và khoảng trống giữ trọng tâm; ruộng không mất màu hoặc tối sầm khi mẹ biến mất |
+| C8-A/B / trở tiệm, ba biên nhận | Trở đúng bảng tiệm C1, cùng hướng đèn và màu đồ | Cú cắt làm khán giả nhận ra thực tại ngay, không chuyển sang một căn phòng ấm mới. Duy còn tái/mệt; giấy đủ sáng để đọc ba cái giá |
+| C8-C / ngưỡng nhà | Chàm đêm, nâu xám nội thất; đèn bàn thờ đã có giữ riêng ổn định | Bố khuất sau vách, vùng tối có chiều sâu. Trẻ có ánh đủ đọc nét dừng/sợ và cuộc gọi; không chớp đèn hoặc thêm bóng ma |
+| C8-D / đi về hướng dì | Giữ đêm chàm; vệt ấm từ phía nhà/đèn đầu hẻm đã xác lập | Hy vọng đến từ hướng đi có nơi đón, không phủ vàng chữa lành toàn ngõ. Ánh ấm trên trẻ tăng theo khoảng cách tới nguồn; không dựng thêm nội thất nhà dì hoặc đổi đêm thành bình minh |
+
+### Chuyển màu và khung ở đúng bước ngoặt
+
+1. **C0 → C1:** theo đường máy và bước qua cửa, từ ánh đêm sang vùng đèn tiệm. Giữ 16:9; không dissolve làm mất bước qua ngưỡng hoặc thay nguồn sáng sau mỗi cỡ cảnh.
+2. **G2 tại C5-B → C5-C:** ấm lên rồi rút mềm trong hành động/nhịp sẵn có. Giữ 16:9 và sơ đồ tiệm, không mở viền hoặc chuyển cảnh. Màu trở lại trước khi báo giá G3; không dùng màu để che phản ứng kiệt sức.
+3. **G3 tại C5-D → C6-A:** sau trọn lời Thảo đồng ý, lớp trắng phủ toàn container 1920×1080 như đã chốt; phía sau nó đặt vùng hình 2:1 và bảng màu ruộng. Khi trắng rút, lộ cánh đồng vàng ấm. Đoạn trắng lên khoảng 0,6 giây, giữ/rút trong tổng nghỉ 2 giây hiện có; không cộng một lớp chuyển màu nối dài hoặc thêm lần lóe/ù. Giữ toàn C6–C7 ở 2:1, kể cả cận mẹ và lúc tan.
+4. **Mẹ tan tại C7-C:** một lần 3–4 giây dưới hành động/lời kể cuối đang có, hoàn tất trước khoảng NGHỈ 4 giây sau đó. Da/áo/bóng giảm đồng bộ; một ít hạt vàng nhỏ tách từ viền áo và vài lọn tóc, trôi cùng hướng gió lúa rồi mờ hết trong lần tan ấy. Hạt là cách biểu diễn thị giác trong G3, không biến thành linh hồn, vật mang về tiệm hoặc một luật phép mới. Giữ mắt/miệng còn rõ khi mẹ nói; không che bàn tay trẻ bằng hạt, không cho toàn thân nổ sáng hoặc tan từng mảnh rời. Trong 4 giây trống, giữ ruộng và bàn tay trẻ ở khoảng không; hạt tách từ mẹ đã tắt hết. Bụi tự nhiên trong nắng của set là lớp môi trường riêng, không mọc từ bóng dáng mẹ hoặc kéo dài lần tan.
+5. **C7-C → C8-A:** cắt về đúng tư thế ngồi/điểm nắm ở tiệm; 16:9 và bảng màu tiệm trở lại cùng cú cắt, âm quạt trở theo bản 9. Không dissolve chồng mẹ lên Lộc/quầy, không mở viền từ từ hoặc giữ bụi ruộng trong phòng.
+6. **C8-C → C8-D:** giữ đêm và các vết mệt, chỉ cho ánh ấm đầu hẻm dẫn hướng đi theo nguồn có sẵn. Chưa thêm hiệu ứng hoặc thời lượng kết.
+
+**Cách làm vừa đủ để duyệt:** chỉnh bảng màu/ánh sáng của asset hiện có; bụi vàng dự kiến bằng lớp hạt đơn giản có chuyển động xác định, không cần sinh ảnh từng khung hay gọi dịch vụ trả phí. Đây là phương án triển khai, chưa xác nhận engine hiện tại đã làm được hoặc đo chi phí. Khi animatic cho thấy hạt làm loãng diễn xuất, giảm mật độ/độ sáng hoặc tắt lớp hạt, vẫn giữ nhịp tan, tay và bóng đúng.
+
+**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue, toàn bộ lời/thẻ, 29 giây nghỉ, mở 24 giây và âm bản 9. Chưa sửa mã dựng, tạo media hoặc render/duyệt hiệu quả mới.
 
 ### Cảnh 0 — Thành phố, mắt cú và hai trẻ (24 giây)
 
@@ -333,7 +369,7 @@ Vẫn bờ ruộng và trục đã xác lập. Ánh cuối chiều ấm, không 
 - **Khung / nghiêng / rung:** 2:1 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Vải lúc Thảo siết ôm rồi ngừng khi thân mẹ đã tan; hơi con nghẹn nhưng không che lời cuối. Nhạc rút mềm cùng khoảnh khắc tan, giữ gió và hơi hai trẻ trong 4 giây trống; không whoosh tan biến, choir, tiếng mẹ gọi thêm hoặc âm tay va khoảng không.
 - 50 mm; cao 0,85 m; cách 2,4 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
-- Mẹ mờ dần một lần 3–4 giây; bóng/áo cùng giảm; tay trẻ ngừng ở chỗ không còn mẹ có chủ ý.
+- Mẹ tan một lần 3–4 giây; bóng/áo cùng giảm, bụi vàng thưa ở viền áo/tóc theo bản 10; tay trẻ ngừng ở chỗ không còn mẹ có chủ ý.
 - Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
 
 ### Cảnh 8 — Trở về cùng nhau
@@ -407,6 +443,6 @@ Nguồn sơ tuyển và giấy phép: [NGUON-AM-THANH.md](NGUON-AM-THANH.md). T�
 
 ## 6. Hai bước duyệt và phạm vi mới
 
-Storyboard: ngoài ba giao kèo/đúng người trả, kiểm tra C0 trời/chữ đúng khoảng trống, cùng một cú ở cận/trung/toàn, mái-thanh không nhảy, ngõ trống đúng asset mới và trẻ đúng màu, khung cuối trước cửa nối được C1; khung Thảo đáp không bị cắt mất đầu/cuối, Duy chậm có lý do. Xác lập tiệm–miền cảm giác–trở tiệm–ngưỡng nhà rõ, mẹ không hiện như người còn sống trong hiện tại. Đã có mã/preview ruộng và mẹ; cần duyệt tạo hình và mức phù hợp với cảnh, không coi file tồn tại là đã duyệt.
+Storyboard: đối chiếu bảng mốc màu bản 10, rồi ngoài ba giao kèo/đúng người trả, kiểm tra C0 trời/chữ đúng khoảng trống, cùng một cú ở cận/trung/toàn, mái-thanh không nhảy, ngõ trống đúng asset mới và trẻ đúng màu, khung cuối trước cửa nối được C1; khung Thảo đáp không bị cắt mất đầu/cuối, Duy chậm có lý do. Xác lập tiệm–miền cảm giác–trở tiệm–ngưỡng nhà rõ, mẹ không hiện như người còn sống trong hiện tại. Đã có mã/preview ruộng và mẹ; cần duyệt tạo hình và mức phù hợp với cảnh, không coi file tồn tại là đã duyệt.
 
-Animatic: chạy trọn C0 hạ máy/chuyển nét/lùi/trượt, các mốc ghép đầu–giữa–cuối, ngõ trống đúng asset mới và bước vào cửa, rồi tay/tiền/ảnh/phiếu/máy, G2 cơ thể sụp và C5-C rung/nghiêng ngắn rồi trả máy về 0 trước giá G3, em nhận lời/anh ngăn chậm, chuyển trắng-ù, nắm tay đi/ngồi/ôm, mẹ tan cùng bóng và tay trẻ ở khoảng trống, trở đúng ghế/khung 16:9/cất đồ/gọi dì. Soi mặt/tay/điểm tì trong khung 2:1 và các góc xoay cực hạn; nếu không tăng hiệu quả, bỏ hiệu ứng C5-C. Thử cả nền/nhạc đúng cảnh, khoảng bản ghi dừng chỉ còn quạt, hơi Duy và tiếng chai sau vách. Dùng âm/giọng tạm, không tự gọi dịch vụ trả phí. Chỉ pan tranh không kiểm tra được các tiếp xúc. Sau voice thật cập nhật timeline; không dùng timing bản 3 hoặc giữ định mức 22 cue cũ.
+Animatic: chạy trọn C0 hạ máy/chuyển nét/lùi/trượt, các mốc ghép đầu–giữa–cuối, ngõ trống đúng asset mới và bước vào cửa, rồi tay/tiền/ảnh/phiếu/máy, G2 cơ thể sụp và C5-C rung/nghiêng ngắn rồi trả máy về 0 trước giá G3, em nhận lời/anh ngăn chậm, chuyển trắng-ù, nắm tay đi/ngồi/ôm, mẹ/áo/bóng và bụi vàng thưa tan hết trước nghỉ 4 giây, tay trẻ ở khoảng trống, trở đúng ghế/khung 16:9/cất đồ/gọi dì. Soi mặt/tay/điểm tì trong khung 2:1 và các góc xoay cực hạn; nếu không tăng hiệu quả, bỏ hiệu ứng C5-C. Thử cả nền/nhạc đúng cảnh, khoảng bản ghi dừng chỉ còn quạt, hơi Duy và tiếng chai sau vách. Dùng âm/giọng tạm, không tự gọi dịch vụ trả phí. Chỉ pan tranh không kiểm tra được các tiếp xúc. Sau voice thật cập nhật timeline; không dùng timing bản 3 hoặc giữ định mức 22 cue cũ.

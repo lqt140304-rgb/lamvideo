@@ -1,6 +1,6 @@
 # Nguồn âm thanh miễn phí — Tin nhắn chưa gửi
 
-Rà trang nguồn/giấy phép ngày **08/11/2026**, phục vụ bản kịch bản 9. Ưu tiên **nhạc không lời**, không ca từ, vocal ngân hoặc hợp xướng. Đã **duyệt phạm vi dùng thương mại của 5 bài Mixkit** theo giấy phép công bố; lựa chọn âm nhạc vẫn là **sơ tuyển theo mô tả và nhãn của thư viện**, chưa nghe thử, tải file, chọn đoạn, đo hoặc ráp cùng hình. Phân cảnh dưới là đề xuất mỹ thuật; không nhận đã kiểm chứng độ hợp bằng tai. Chỉ chốt sau khi nghe cùng giọng/animatic.
+Rà trang nguồn/giấy phép ngày **08/11/2026**, phục vụ thiết kế âm bản 9, tiếp tục dùng ở kịch bản bản 10. Ưu tiên **nhạc không lời**, không ca từ, vocal ngân hoặc hợp xướng. Đã **duyệt phạm vi dùng thương mại của 5 bài Mixkit** theo giấy phép công bố; lựa chọn âm nhạc vẫn là **sơ tuyển theo mô tả và nhãn của thư viện**, chưa nghe thử, tải file, chọn đoạn, đo hoặc ráp cùng hình. Phân cảnh dưới là đề xuất mỹ thuật; không nhận đã kiểm chứng độ hợp bằng tai. Chỉ chốt sau khi nghe cùng giọng/animatic.
 
 ## Lựa chọn nguồn theo nhu cầu
 

@@ -1,10 +1,14 @@
-# Rà soát kịch bản — bản 9
+# Rà soát kịch bản — bản 10
 
 Ngày 07/11/2026. Đọc theo [kịch bản nguồn](KICH-BAN.md), [dựng cảnh](DUNG-CANH.md), bản lời và lựa chọn giữ người dẫn chuyện. Đây là đánh giá biên tập văn bản; chưa đo nhịp bằng giọng/animatic thật.
 
 ## Kết luận
 
 Nền truyện đủ để sang storyboard: anh giấu nhớ → cố gánh thay → em chủ động trả giá → cuộc gặp không hoàn mất mát → anh biết nhờ người lớn. Ba giao kèo và nơi hai trẻ đến đêm đó được khép lại. Cảnh đời thường ở đồng tạo độ ấm trước chia tay; không nên tăng thêm bi kịch, giao kèo hay nhân vật chỉ để gây sốc.
+
+## Bổ sung màu/chuyển khung bản 10 — 08/11/2026
+
+Áp dụng ngôn ngữ màu từ góp ý Anti thành bảng cụ thể theo cue, giữ mặt/tay và nguồn sáng đúng không gian. G2 chỉ đổi cảm nhận trong tiệm; G3 mới trắng sang ruộng 2:1. C7-C có hạt vàng thưa lúc mẹ tan, giới hạn trong thời gian cũ và không che nét diễn; toàn ruộng còn màu/nắng sau mẹ mất. C8 cắt về đúng tiệm/16:9, kết đêm còn bất an nhưng có vệt ấm theo hướng tìm hỗ trợ. Lời, thẻ, ba giá, âm bản 9 và thời lượng không đổi; chưa render/duyệt thực tế. Những đề xuất khác trong bản góp ý như câu bánh dâu, Lộc khựng tay, chữ G2 run hoặc thêm thoại dì không được tự nhập cùng lượt này.
 
 ## Bổ sung âm bản 9 — 08/11/2026
 
