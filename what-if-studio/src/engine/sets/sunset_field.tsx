@@ -180,7 +180,7 @@ export const SunsetRiceField: React.FC<{t?:number;whiteout?:number;seatedBank?:b
         { dx: -22, dy: 14, s: 0.95, rot: -6, phase: 3.4 },
       ];
       return (
-        <g id="dragonflyCluster" transform={`translate(${485 + swarmX} ${728 + swarmY})`}>
+        <g id="dragonflyCluster" opacity={0.68} transform={`translate(${485 + swarmX} ${728 + swarmY}) scale(.38)`}>
           {cluster.map((df, i) => {
             const hx = Math.sin(t * 0.12 + df.phase) * 6;
             const hy = Math.cos(t * 0.15 + df.phase) * 5;

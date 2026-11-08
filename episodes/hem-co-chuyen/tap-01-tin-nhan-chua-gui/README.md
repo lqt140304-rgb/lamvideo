@@ -1,5 +1,8 @@
 # Hẻm Có Chuyện — tập 01: Tin nhắn chưa gửi
 
+**Dựng do Claude thực hiện:** bắt đầu từ [hồ sơ bàn giao](BAN-GIAO-CLAUDE.md). Hai sửa mã G1/chuồn chuồn đã chuẩn bị; ảnh preview cần Claude xuất lại.
+
+
 **Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
 **Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.380 frame ở 30 fps = 146 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
@@ -11,6 +14,7 @@
 
 | File | Tác dụng |
 |---|---|
+| [BAN-GIAO-CLAUDE.md](BAN-GIAO-CLAUDE.md) | Điểm bắt đầu cho Claude: phạm vi, nguồn, hai sửa mới, đầu ra và kiểm tra trước dựng cuối |
 | [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md) | Kế hoạch tối ưu, bước duyệt, nhóm asset dùng lại, đoạn cần thử và bảng đồng bộ |
 | [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, C0 + 8 cảnh chính, nhịp nghỉ, hình và thoại |
 | [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/ngõ mới và mẹ hiện hình, 35 cue, khung/nghiêng/rung, lens/focus/pose/tiếp xúc, màu/nguồn sáng/chuyển khung, bụi vàng lúc tan, nền/nhạc theo cảnh và Foley/hơi thở/môi |

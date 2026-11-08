@@ -79,3 +79,7 @@ Phạm vi rà là tài liệu đang hướng dẫn sản xuất và hồ sơ t�
 ## Cập nhật kết bản 11 — 08/11/2026
 
 Đã có [bản thử riêng](VFX-ME-TAN.md): mẹ tan mềm, tay hai trẻ ôm mẹ phía trước; Duy lau má em, nắm tay, máy cận và mờ mở sang tiệm. Timeline thử tăng riêng ShC7_B từ 8 lên 12 giây, tổng 4.380 frame/146 giây; clip riêng 13 giây gồm thêm 1 giây cảnh tiệm. Lời sạch và thẻ không đổi; nguồn tăng đoạn cuối không lời 4 → 8 giây (nghỉ 33 giây). Chưa dựng/duyệt toàn tập hoặc mix/giọng cuối. Các ghi chú bản 10 ở trên mô tả mốc trước lần này.
+
+## Người thực hiện dựng đã chốt
+
+Chủ repo giao **Claude** dựng; Codex chỉ sửa G1 trên bảng màu, giảm cụm chuồn chuồn và chuẩn bị [BAN-GIAO-CLAUDE.md](BAN-GIAO-CLAUDE.md). Lượt chuẩn bị này không tạo render/giọng/animatic. Ảnh preview cũ chưa phản ánh hai sửa mã; Claude xuất lại khi bắt đầu storyboard.

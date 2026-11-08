@@ -68,7 +68,7 @@ export const ColorScriptSheet: React.FC = () => {
     },
     {
       act: 'ACT II',
-      scene: 'CẢNH 1–3 (00:24 – 03:00)',
+      scene: 'CẢNH 1–3 · THEO NHỊP LỜI',
       title: 'TIỆM ĐỒ CŨ ÔNG LỘC',
       sub: 'Không gian tiệm sửa đồng hồ & điện thoại u tịch ngập tràn đồ cũ',
       mood: 'U tịch · Bụi bặm thời gian · Huyền bí · Hoài niệm',
@@ -91,9 +91,9 @@ export const ColorScriptSheet: React.FC = () => {
     },
     {
       act: 'ACT III',
-      scene: 'CẢNH 4–5 (03:00 – 04:54)',
+      scene: 'CẢNH 4–5 · THEO NHỊP LỜI',
       title: 'GIAO KÈO & GÁNH NỖI BUỒN',
-      sub: 'Mất ký ức tuổi 16, gánh trống vắng của em; Thảo thốt lời chấp nhận',
+      sub: 'Quên buổi tranh đồ chơi rồi làm hòa; gánh nỗi buồn em; Thảo nhận G3',
       mood: 'Căng thẳng · Lạnh lẽo · Hy sinh · Kiệt sức ngột ngạt',
       lighting: 'Tương phản gắt (Chiaroscuro tension), rút bớt sắc ấm, ám xanh xám mệt mỏi',
       palette: [
@@ -114,7 +114,7 @@ export const ColorScriptSheet: React.FC = () => {
     },
     {
       act: 'ACT IV',
-      scene: 'CẢNH 6–7 (04:54 – 06:12)',
+      scene: 'CẢNH 6–7 · THEO NHỊP LỜI',
       title: 'CÁNH ĐỒNG CHIỀU GẶP MẸ',
       sub: 'Miền ký ức hư cấu ven làng: lúa chín vàng, chuồn chuồn ớt, mẹ ôm hai con',
       mood: 'Ấm áp · Rực rỡ · Mật ngọt tình mẹ · Xúc động nghẹn ngào',
@@ -137,7 +137,7 @@ export const ColorScriptSheet: React.FC = () => {
     },
     {
       act: 'ACT V',
-      scene: 'CẢNH 8 (06:12 – 07:00)',
+      scene: 'CẢNH 8 · THEO NHỊP LỜI',
       title: 'NGƯỠNG CỬA NHÀ & BÀN THỜ MẸ',
       sub: 'Trở về thực tại ấm cúng: bàn ăn gỗ, di ảnh mẹ băng tang đỏ ấm, hai anh em bên nhau',
       mood: 'Tĩnh lặng · Ấm cúng đời thường · Vững vàng bước tiếp',

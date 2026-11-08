@@ -120,3 +120,7 @@ Mẹ C7-C thêm kế hoạch hạt vàng thưa xuất phát từ viền áo/tóc
 - [Preview mới](assets/boi-canh/preview_meadow_embrace.png): `MeadowMotionLab` frame 93, bản đồng chín vàng với hạt/vỏ/gân rõ hơn, cây đa góc trái, kè đá và hai con tựa vai mẹ; bàn chân Thảo đã cùng hướng đầu gối. Không dùng `preview_meadow_vfx.png` cũ để đánh giá lần sửa này.
 - Mã riêng của nhóm ôm: [meadow_family.tsx](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/meadow_family.tsx); bông vàng: [golden_grain.tsx](../../../what-if-studio/src/engine/sets/golden_grain.tsx). Cây đa: [banyan_tree.tsx](../../../what-if-studio/src/engine/sets/banyan_tree.tsx), có gốc/rễ bạnh cố định, rễ phụ và tán lay nhẹ, chừa vùng giữa cho nhóm người. C7 của mã thử và bảng asset cùng dùng tư thế mới. `seatedBank` hiện kè/mương phía trước; cảnh đi vẫn có lối khô.
 - Đã kiểm tra hình học tay chạm vai, đùi nằm ngang hơn cẳng chân, đầu gối gập, cẳng chân thả thẳng và giày cao hơn mặt nước; đã xuất still và clip thử. Chờ chủ repo duyệt chuyển động, chưa căn giọng/nhạc cuối hoặc chuyển thể đủ 35 cue.
+
+## Sửa sau cập nhật Anti — chờ Claude xuất lại ảnh
+
+Mã bảng màu đã thay “ký ức tuổi 16” bằng ký ức tranh đồ chơi rồi làm hòa; bỏ mốc phút cũ ở hồi có lời. Cụm chuồn chuồn trong ruộng scale 0,38/opacity 0,68, giữ mẫu macro chi tiết. Ảnh bảng màu, bảng ruộng và still/clip cũ chưa xuất lại theo hai sửa này; không dùng chúng làm ảnh đã duyệt của mã mới. Claude thực hiện dựng theo [bàn giao](BAN-GIAO-CLAUDE.md).
