@@ -87,7 +87,7 @@ export const SunsetRiceField: React.FC<{t?:number;whiteout?:number;seatedBank?:b
       return <g key={i} transform={`translate(${x} ${y}) rotate(${a})`} stroke={i%3?'#c3aa65':'#6d713a'} strokeWidth="1.5" fill="none" strokeLinecap="round"><path d="M 0 3 Q -4 -6 -10 -13 M 1 4 Q 3 -9 10 -17 M 3 4 L 8 -6" /></g>;
     })}
     <BankGrain t={t} />
-    <BanyanTree t={t} />
+    <BanyanTree t={t} s={1.12} />
     {/* Hovering red dragonflies (`chuồn chuồn ớt`) */}
     {[
       { x: 380, y: 615, s: 0.9, phase: 0 },

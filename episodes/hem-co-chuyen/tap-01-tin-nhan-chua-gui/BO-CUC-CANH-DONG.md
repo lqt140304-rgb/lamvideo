@@ -4,7 +4,7 @@ Chốt hình theo phản hồi chủ repo ngày 08/11/2026. Giữ mặt, trang p
 
 ## Không gian phải đọc được
 
-Phía xa là làng và đồng chín vàng; lớp giữa có thân mảnh, bông hạt riêng, cao và dày theo ảnh tham khảo. Phía gần dùng bông lớn hơn, chừa trống giữa cho nhóm người. Không dùng bụi lá bản nhọn thay đồng hạt. Bông có hạt so le, đường vỏ và viền sáng, gân lá/thân; bông gần rõ hơn bông xa, cao thấp lệch nhau. Tán và rễ phụ của **một cây đa ở góc trái** làm lớp gần: rễ bạnh bám bờ đất khô phía sau mặt kè, thân xù và rễ buông thấy rõ, không che ba mẹ con hoặc kín mặt trời. Gốc không trôi theo gió; chỉ tán và rễ phụ lay nhẹ.
+Phía xa là làng và đồng chín vàng; lớp giữa có thân mảnh, bông hạt riêng, cao và dày theo ảnh tham khảo. Phía gần dùng bông lớn hơn, chừa trống giữa cho nhóm người. Không dùng bụi lá bản nhọn thay đồng hạt. Bông có hạt so le, đường vỏ và viền sáng, gân lá/thân; bông gần rõ hơn bông xa, cao thấp lệch nhau. Tán và rễ phụ của **một cây đa ở góc trái** làm lớp gần: rễ bạnh bám bờ đất khô phía sau mặt kè, thân xù và rễ buông thấy rõ, không che ba mẹ con hoặc kín mặt trời. Cây trong set dùng `s={1.12}`: cao và rộng hơn 12% so với bản đầu, giữ nguyên điểm gốc. Gốc không trôi theo gió; chỉ tán và rễ phụ lay nhẹ.
 
 Ba mẹ con ngồi trên **mặt kè đá khô của mương tưới**. Mép kè nhìn rõ phía sau đùi, mạch đá ở vách trước chân. Dưới là nước xanh xám, có bóng tối sát chân kè, các nét phản chiếu hoàng hôn và gợn nằm ngang; bờ bên gần xuất hiện ở mép dưới. Không đặt bóng tiếp đất ngay dưới giày đang buông trên nước.
 
