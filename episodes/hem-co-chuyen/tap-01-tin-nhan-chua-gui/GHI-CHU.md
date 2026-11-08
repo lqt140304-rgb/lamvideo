@@ -1,5 +1,14 @@
 # Ghi chú riêng — tập 01
 
+## Bản 12 — biên tập sau animatic, 08/11/2026
+
+Lời sạch bản 12: **1,089 đơn vị cách trắng**, **4,948 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70,1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:14–8:27**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
+
+- Tắt người dẫn toàn C6–C7, các động tác trùng hình chuyển thành Không đọc; Lộc nói gọn, giá/hiệu lực vẫn rõ. Bed từ đầu, thở Duy ở cửa; không narrator thay diễn xuất khi mẹ tan.
+- Giữ tạo hình, màu/khung và ba cái giá. Đồng bộ bản lời và phân vai; manifest/cue/timeline cũ đánh dấu bản 11, chặn build/mix nhầm. Giữ cast do chủ repo chọn, chưa gọi TTS hoặc render mới.
+- Có animatic v2 bản 11 dài 11:48,416; ghi chú bên dưới “chưa có giọng/animatic” là lịch sử. Chi tiết/kết quả kiểm tra ở BIEN-TAP-V12.
+
+
 ## Giọng ElevenLabs và animatic có giọng — 08/11/2026
 
 **Model:** `eleven_v4`. Chủ repo chọn model này trên giao diện; mẫu thử đầu tiên dùng v3 và đã bỏ.

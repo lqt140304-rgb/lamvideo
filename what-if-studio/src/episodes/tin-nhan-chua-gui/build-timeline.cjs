@@ -5,6 +5,7 @@
 //   node src/episodes/tin-nhan-chua-gui/build-timeline.cjs --items  list numbered items per scene
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const here = __dirname;
 const SRC = path.resolve(here, '../../../../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KICH-BAN.md');
 const plan = JSON.parse(fs.readFileSync(path.join(here, 'cues.json'), 'utf8'));
@@ -32,10 +33,17 @@ if (process.argv.includes('--items')) {
   process.exit(0);
 }
 
+// Item indexes and staging clocks must be retimed when the script changes. Keep the existing
+// timeline intact until the cue plan really belongs to the current source. --items above is safe.
+const sourceHash = crypto.createHash('sha256').update(fs.readFileSync(SRC, 'utf8').replace(/\r\n/g, '\n')).digest('hex');
+if (plan.scriptSha256 !== sourceHash) throw new Error('KICH-BAN changed: cues.json still belongs to script v11. Reindex/retime cues and staging before rebuilding; existing timeline.json is untouched.');
+
 // Real voice, when voice.cjs has made it: each line lasts as long as its recorded pieces (+ a short gap between
 // pieces of one line and between lines). Lines without audio fall back to the words-per-second estimate.
 const MAN = path.join(here, 'voice-manifest.json');
-const voice = fs.existsSync(MAN) ? JSON.parse(fs.readFileSync(MAN, 'utf8')).pieces : [];
+const manifest = fs.existsSync(MAN) ? JSON.parse(fs.readFileSync(MAN, 'utf8')) : null;
+if (manifest && manifest.scriptSha256 !== sourceHash) throw new Error('Voice manifest belongs to a different script. Reuse/synthesize the current voice plan before building a voiced timeline.');
+const voice = manifest?.pieces ?? [];
 const PIECE_GAP = 0.15;
 const LINE_GAP = 0.3;
 const piecesOf = (s, i) => voice.filter((p) => p.s === s && p.i === i).sort((x, y) => x.k - y.k);
@@ -97,7 +105,7 @@ const missing = Object.keys(plan.cues).filter((c) => !shots.has(`Sh${c.replace('
 if (missing.length) throw new Error(`Cues without a segment: ${missing.join(', ')}`);
 
 const order = Object.keys(plan.cues).map((c) => shots.get(`Sh${c.replace('-', '_')}`));
-const tl = { slug: 'tin-nhan-chua-gui', title: plan.title, fps: FPS, total: a, estimate: voice.length ? 'Thời lượng theo giọng ElevenLabs đã tạo (voice-manifest.json) + nghỉ theo KICH-BAN.' : plan.estimateNote, segments, shots: order, marks: allMarks, voice: voiceCues, fx: [], audio: voiceCues.length ? { voice: 'tin-nhan-chua-gui/voice/voice-track.mp3' } : {} };
+const tl = { scriptSha256: sourceHash, scriptRevision: plan.scriptRevision, slug: 'tin-nhan-chua-gui', title: plan.title, fps: FPS, total: a, estimate: voice.length ? 'Thời lượng theo giọng ElevenLabs đã tạo (voice-manifest.json) + nghỉ theo KICH-BAN.' : plan.estimateNote, segments, shots: order, marks: allMarks, voice: voiceCues, fx: [], audio: voiceCues.length ? { voice: 'tin-nhan-chua-gui/voice/voice-track.mp3' } : {} };
 fs.writeFileSync(path.join(here, 'timeline.json'), JSON.stringify(tl, null, 1) + '\n');
 const mmss = (f) => `${Math.floor(f / FPS / 60)}:${String(Math.round((f / FPS) % 60)).padStart(2, '0')}`;
 console.log(voice.length ? `timing from recorded voice (${voiceCues.length} pieces)` : 'timing estimated (no voice-manifest.json)');

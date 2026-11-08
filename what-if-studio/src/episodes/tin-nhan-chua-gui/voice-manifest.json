@@ -1596,5 +1596,7 @@
    "file": "tin-nhan-chua-gui/voice/8.12.0-narrator-abd1409dae.mp3",
    "sec": 14.96
   }
- ]
+ ],
+ "scriptSha256": "e26d727a87ea0d3dc1bc409c5313fa15d11bab2480010e99f0c0d95e6dd3f2ff",
+ "scriptRevision": 11
 }

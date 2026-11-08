@@ -14,6 +14,7 @@ const here = __dirname;
 const studio = path.resolve(here, '../../..');
 const SRC = path.resolve(studio, '../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui');
 const cfg = JSON.parse(fs.readFileSync(path.join(here, 'voices.json'), 'utf8'));
+const scriptHash = () => crypto.createHash('sha256').update(fs.readFileSync(path.join(SRC, 'KICH-BAN.md'), 'utf8').replace(/\r\n/g, '\n')).digest('hex');
 const OUT = path.join(studio, 'out/tin-nhan-chua-gui');
 const KEY = process.env.ELEVENLABS_API_KEY;
 const mode = process.argv[2];
@@ -85,6 +86,7 @@ const scriptItems = () => {
 
 /** Every spoken piece with its role, keyed scene.item.piece; quotes need an explicit speaker in voices.json. */
 const plan = () => {
+  if (cfg.scriptSha256 !== scriptHash()) throw new Error('Source changed: update and verify voices.json speakers before planning voices.');
   const items = scriptItems();
   const list = [];
   for (const [s, its] of Object.entries(items)) its.forEach((it, i) => {
@@ -132,7 +134,9 @@ const main = async () => {
       const v = cfg.cast[p.role];
       if (!v) throw new Error(`No voice chosen for role ${p.role}`);
       const hash = crypto.createHash('sha1').update(`${cfg.model}|${v.id}|${JSON.stringify(v.settings ?? cfg.settings)}|${p.say}`).digest('hex').slice(0, 10);
-      const file = `${p.id}-${p.role}-${hash}.mp3`;
+      // IDs move when lines are cut; the hash still includes model, voice, settings and tagged text.
+      const cached = fs.readdirSync(dir).find((name) => name.endsWith(`-${p.role}-${hash}.mp3`));
+      const file = cached ?? `${p.id}-${p.role}-${hash}.mp3`;
       const f = path.join(dir, file);
       if (!fs.existsSync(f)) {
         fs.writeFileSync(f, await tts(v.id, p.say, v.settings));
@@ -140,7 +144,7 @@ const main = async () => {
       }
       manifest.push({ ...p, file: `tin-nhan-chua-gui/voice/${file}`, sec: seconds(f) });
     }
-    fs.writeFileSync(path.join(here, 'voice-manifest.json'), JSON.stringify({ model: cfg.model, cast: cfg.cast, pieces: manifest }, null, 1) + '\n');
+    fs.writeFileSync(path.join(here, 'voice-manifest.json'), JSON.stringify({ scriptSha256: scriptHash(), scriptRevision: cfg.scriptRevision, model: cfg.model, cast: cfg.cast, pieces: manifest }, null, 1) + '\n');
     console.log(`\nwrote voice-manifest.json (${manifest.length} pieces, ${manifest.reduce((n, p) => n + p.sec, 0).toFixed(1)} s of speech)`);
     logCost('voice-lines', (await used()) - before, `${list.length} pieces`);
     return;

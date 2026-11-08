@@ -16,6 +16,9 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 
 ## Cảm xúc và thoại
 
+- **Lời dẫn đọc hộ điều đã thấy → phim thành tranh lồng sách nói →** phân loại mỗi câu kể: thông tin ngoài hình, động tác nhìn thấy, hoặc kết luận cảm xúc. Bỏ câu đọc lại động tác; giữ thông tin không thể suy ra, chuyển phần cần diễn vào chỉ dẫn không đọc và dành đủ thời gian cho hành động. Với cao trào thân mật, thử bỏ người kể cả phân đoạn, không chỉ bỏ một câu. **Kiểm tra:** xem/nghe cảnh liền mạch, người xem hiểu bằng hình/thoại mà không cần thuyết minh; đếm phần lời theo vai, không biến một tỷ lệ cắt của riêng tập thành luật chung.
+- **Thoại đúng chữ nhưng sai đời sống →** nghe thử theo tuổi, vùng, quan hệ và trạng thái, kể cả mẫu nghẹn/hụt hơi; tên giọng hoặc thẻ cảm xúc không chứng minh phương ngữ hay diễn xuất. Viết câu ngắn đúng nhu cầu, để nhịp thở và phản ứng có chỗ tồn tại; không bắt nhân vật giải thích cho nhau điều cả hai đã biết. Tránh chồng tiếng khóc/thở lên take đã có cùng âm.
+
 - Đặt cảm xúc trong hành động, khoảng cách, vật dụng và cách đối đáp. Lời thoại phải đủ ý để hiểu ai đang cần điều gì; không thay cuộc nói chuyện bằng khẩu hiệu. Khi rà thoại, kiểm tra câu hỏi có được đáp đúng, đại từ đúng người nghe và động từ đúng hành động; đọc thành tiếng để bỏ câu cụt hoặc cách nói giống ghi chú thủ tục.
 - Dùng “vì”, “nếu”, “nhưng”, “nên” khi chúng làm rõ suy nghĩ. Khẩu ngữ và tiếng địa phương dùng vừa phải, thống nhất với nhân vật, không nhại giọng.
 - Hài phát sinh từ tính cách hoặc tình huống; không chèn đùa làm mất trọng lượng của tổn thương. Niềm tin và sinh hoạt tinh thần cần đúng bối cảnh.
@@ -94,6 +97,9 @@ Các nguyên tắc dưới được chọn lọc từ ghi chép thực hành và
 - **Trang preview khó mở và lịch sử Git phình → nhúng nhiều ảnh lớn dạng base64 vào HTML →** dùng file ảnh tĩnh liên kết, thumbnail khi cần và tải bản lớn theo nhu cầu; chỉ nhúng khi có lý do cần một file độc lập. **Kiểm tra:** đo kích thước HTML và tổng media riêng, mở thử trong môi trường bàn giao; ảnh/đường dẫn vẫn hoạt động, không hứa mức giảm từ số đo một lần thử.
 
 ## Âm thanh: cảm xúc, chất liệu và không gian
+
+- **Không thoại bị hiểu thành không âm →** bố trí bed môi trường có chủ ý từ đầu cảnh và xuyên các khoảng nghỉ; nghe theo điểm nhìn: toàn thành phố là âm xa, cận người mới nghe hơi thở. **Kiểm tra:** đo khoảng gần im rồi nghe cả bản xuất; mức đo thấp chỉ là dấu hiệu kiểm tra, không tự kết luận cảm xúc hoặc tỷ lệ khán giả bỏ xem.
+- **Cắt lời làm sai audio hoặc cue cũ →** lưu dấu nguồn trên bản phân vai/manifest/timeline; từ chối ghép theo số thứ tự khi nguồn đã đổi. Tái dùng take theo đúng vai, nội dung và cấu hình đã tạo, chỉ tính tiết kiệm thật khi file còn dùng được. Phân biệt bản văn mới với phim cũ chưa dựng lại, không tuyên bố media đã đồng bộ chỉ vì Markdown khớp.
 
 Đây là yêu cầu phối âm đã chốt, không phải kết quả nghe thử một bản mix mới. Hướng dẫn chi tiết nằm trong [sound.md](../.claude/skills/what-if-animation/references/sound.md).
 

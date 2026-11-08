@@ -1,10 +1,15 @@
 # Asset — Tin nhắn chưa gửi, bản 10
 
+**Hiện hành: bản 12.** [Biên tập sau animatic](BIEN-TAP-V12.md) quy định phần lời/nhịp thay thế; có ưu tiên khi ghi chú các bản cũ bên dưới còn khác. Lời sạch bản 12: **1,084 đơn vị cách trắng**, **4,929 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70.1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:12–8:25**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
+
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+
+
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
+**Định dạng hiện hành — bản 12, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
 
-**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.380 frame ở 30 fps = 146 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
 
 Nguồn lời [KICH-BAN.md](KICH-BAN.md); mục tiêu dựng [DUNG-CANH.md](DUNG-CANH.md). Phân biệt có mã/file, đã xem một số still và đã duyệt diễn xuất theo cảnh. Bộ mới tiếp tục được đánh giá để dùng lại; chưa mặc định mọi tạo hình SVG thay thế concept đã chốt.
 

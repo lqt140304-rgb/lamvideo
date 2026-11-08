@@ -1,5 +1,8 @@
 # Cue → shot → timeline — Tin nhắn chưa gửi
 
+**Lưu ý phiên bản:** bảng này thuộc bản lời/animatic 11. Nguồn đã sang [bản 12](BIEN-TAP-V12.md); cần ánh xạ lại item, timing và mốc staging trước dựng mới. Giữ 35 cue, không dùng nguyên các chỉ số cũ.
+
+
 Lập ngày 08/11/2026 khi Claude bắt đầu dựng theo [bàn giao](BAN-GIAO-CLAUDE.md). Thay timeline thử 24 đoạn/146 giây bằng **35 cue nguồn** của [DUNG-CANH.md](DUNG-CANH.md). Mỗi cue có đúng một shot cùng mã, ví dụ C7-C ↔ `ShC7_C`. Mã thử cũ đặt tên lệch (mẹ tan là `ShC7_B`, ngưỡng nhà là `ShC8_B`); các tên đó không còn dùng.
 
 ## Cách timeline được tạo

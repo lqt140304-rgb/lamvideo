@@ -1,44 +1,25 @@
-# Hẻm Có Chuyện — tập 01: Tin nhắn chưa gửi
+# Hẻm Có Chuyện — Tập 01: Tin nhắn chưa gửi
 
-**Dựng do Claude thực hiện:** bắt đầu từ [hồ sơ bàn giao](BAN-GIAO-CLAUDE.md).
+**Hiện hành: kịch bản bản 12, 08/11/2026.** Sau góp ý animatic, giữ người kể tiết chế, tắt hoàn toàn ở C6–C7. Ba giao kèo, tuổi 16/8, Lộc tao–mày, mẹ che con và kết tìm dì vẫn giữ. Duy là anh trai, Thảo là em gái.
 
-**Trạng thái 08/11/2026:**
+Lời sạch bản 12: **1,089 đơn vị cách trắng**, **4,948 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70,1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:14–8:27**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
 
-- Đã có timeline 35 cue (ước tính 12:21) và storyboard tĩnh v1 cho đủ 35 cue: [ánh xạ cue → shot](CUE-SHOT.md), [ảnh](assets/storyboard/).
-- Đã xuất lại preview bảng màu và ruộng G3.
-- Đã render animatic v1 (câm, có phụ đề).
-- Đã có giọng ElevenLabs v4 cho 5 vai, đo được 11:48, chi phí 4.437 credit. Animatic v2 có giọng xuất ở `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\`; chi tiết ở [GHI-CHU](GHI-CHU.md).
-- Chưa có nhạc, Foley hay mix cuối; chủ repo chưa duyệt.
+Đã có animatic v2 **bản lời 11**, 11:48,416/854×480/30 fps. **Bản 12 chưa dựng lại hoặc tạo giọng mới**; timeline/manifest cũ đã đánh dấu nguồn để tránh ghép nhầm. Bộ demo asset 146 giây là lịch sử. Không coi ảnh tồn tại hay typecheck đạt là đã duyệt diễn xuất.
 
-
-**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
-
-**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.380 frame ở 30 fps = 146 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
-
-
-**Bản hiện hành: 11, 08/11/2026.** Thêm kết không lời: Duy lau nước mắt cho Thảo, nắm tay, máy cận rồi mờ sang tiệm; hai tay ôm mẹ rõ ở lớp trước. [Bản thử VFX và tương tác](VFX-ME-TAN.md) có clip local 13 giây (12 giây kết đồng + 1 giây mở sang tiệm), chưa có giọng cuối. Thêm diễn biến màu/nguồn sáng theo cảnh, chuyển màu và khung, bụi vàng thưa khi mẹ tan; đã có bản thử riêng, chưa duyệt hiệu quả toàn tập. Giữ nền/nhạc không lời và âm chi tiết bản 9; đã rà quyền dùng 5 bài miễn phí, chưa nghe/tải/mix. Giữ chỉ dẫn máy bản 8: 16:9 ở thực tại, 2:1 suốt cánh đồng, rung/nghiêng ngắn chỉ tại C5-C; lời giữ bản 7. Mở đầu 24 giây không lời theo phác thảo: thành phố/trời sao và tiêu đề → hạ tới mắt cú → lùi lộ hẻm/tiệm → chuyển sang hai trẻ trước cửa và bước vào. Đúng 3 giao kèo: G1 Duy đổi ký ức tranh đồ chơi rồi được mẹ dỗ làm hòa để sửa máy; G2 Duy gánh thêm phần trống vắng của em để cả hai có thoáng ấm như mẹ còn; G3 Thảo nhanh miệng đổi những giấc mơ về mẹ lấy cuộc gặp/lời từ biệt ở cánh đồng. Duy mệt sau G2, ngăn không kịp G3. Mẹ tan, các giá không được trả lại. Bố/dì vẫn qua âm/tường thuật.
-
-**Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
-
-| File | Tác dụng |
+| File / mục | Tác dụng |
 |---|---|
-| [BAN-GIAO-CLAUDE.md](BAN-GIAO-CLAUDE.md) | Điểm bắt đầu cho Claude: phạm vi, nguồn, hai sửa mới, đầu ra và kiểm tra trước dựng cuối |
-| [CUE-SHOT.md](CUE-SHOT.md) | 35 cue → shot cùng mã, cách sinh timeline từ lời nguồn, thời lượng ước tính, quy tắc dàn dựng đã kiểm tra và phần còn mở |
-| [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md) | Kế hoạch tối ưu, bước duyệt, nhóm asset dùng lại, đoạn cần thử và bảng đồng bộ |
-| [KICH-BAN.md](KICH-BAN.md) | Nguồn lời, luật/giá/hiệu lực ba giao kèo, C0 + 8 cảnh chính, nhịp nghỉ, hình và thoại |
-| [DUNG-CANH.md](DUNG-CANH.md) | Bốn nhóm không gian, cú/ngõ mới và mẹ hiện hình, 35 cue, khung/nghiêng/rung, lens/focus/pose/tiếp xúc, màu/nguồn sáng/chuyển khung, bụi vàng lúc tan, nền/nhạc theo cảnh và Foley/hơi thở/môi |
-| [NGUON-AM-THANH.md](NGUON-AM-THANH.md) | Nhạc/tiếng nền miễn phí, kết quả rà quyền thương mại 5 bài, trang gốc/giấy phép, cảnh đề nghị và trạng thái chưa nghe/tải; không chứa file âm rời |
-| [LOI-DOC.md](LOI-DOC.md) | Lời đọc sạch từ nguồn |
-| [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời với thẻ gợi ý, không tự phân vai hoặc bảo đảm thời gian nghỉ |
-| [VFX-ME-TAN.md](VFX-ME-TAN.md) | Mẹ tan mềm, tay ôm và nhịp lau nước mắt–nắm tay–cận–chuyển cảnh, mã/preview/kiểm tra |
-| [ASSET.md](ASSET.md) | Concept có thật và phần mới thành phố/hẻm/cú/chữ, mẹ/ruộng/pose/giọng/phiếu cần tạo |
-| [RA-SOAT-KINH-NGHIEM.md](RA-SOAT-KINH-NGHIEM.md) | Đối chiếu tài liệu Anti: phần mới, phần trùng, phần sửa/loại và mức kiểm chứng |
-| [RA-SOAT-KICH-BAN.md](RA-SOAT-KICH-BAN.md) | Đánh giá mạch truyện, lỗi đã sửa và điểm cần thử ở storyboard/animatic |
-| [GHI-CHU.md](GHI-CHU.md) | Quyết định, phản hồi, giới hạn và kiểm tra riêng |
-| [Concept nhân vật v4](assets/nhan-vat/duy-thao-loc-concept-v4.png) | Lộc đã chốt mặt, hai trẻ đồ cũ/dáng che chở chờ duyệt; chưa bao gồm mẹ |
+| [KICH-BAN.md](KICH-BAN.md) | Nguồn duy nhất: lời theo vai, thẻ gợi ý, chỉ dẫn không đọc, nhịp nghỉ, luật và 35 cue |
+| [BIEN-TAP-V12.md](BIEN-TAP-V12.md) | Số liệu trước–sau, thay đổi theo cue, yêu cầu âm/giọng và trạng thái dữ liệu cũ |
+| [DUNG-CANH.md](DUNG-CANH.md) | Sơ đồ bối cảnh, lens/focus/pose/tiếp xúc, màu/khung/rung/âm theo cue; phần bổ sung v12 ưu tiên |
+| [LOI-DOC.md](LOI-DOC.md) | Toàn bộ chữ cần đọc, không nhãn vai/chỉ dẫn; không đưa cả bài vào một voice |
+| [ELEVENLABS.md](ELEVENLABS.md) | Cùng lời sạch, thêm thẻ gợi ý; phân vai ở voices.json, nghe thử mới đánh giá được biểu cảm |
+| [BAN-GIAO-CLAUDE.md](BAN-GIAO-CLAUDE.md) | Việc cần làm để chuyển văn bản 12 thành animatic mới, kiểm tra nguồn/timing và phần đã có |
+| [KE-HOACH-SAN-XUAT.md](KE-HOACH-SAN-XUAT.md) | Thứ tự sản xuất, điều kiện duyệt, kiểm soát chi phí |
+| [ASSET.md](ASSET.md), [assets/](assets/) | Danh mục, nguồn và quyền dùng hình/rig/đạo cụ; tránh tạo lại phần đã đạt |
+| [NGUON-AM-THANH.md](NGUON-AM-THANH.md) | Nguồn nhạc không lời/FX miễn phí và điều kiện thương mại; chưa phải playlist đã nghe duyệt |
+| [BO-CUC-CANH-DONG.md](BO-CUC-CANH-DONG.md), [VFX-ME-TAN.md](VFX-ME-TAN.md) | Kè đá/đồng vàng, tư thế ôm và tan/lau má–nắm tay; retime theo bản 12 |
+| [CUE-SHOT.md](CUE-SHOT.md) | Bảng ánh xạ của animatic bản 11, chưa phải timing bản 12 |
+| [RA-SOAT-KICH-BAN.md](RA-SOAT-KICH-BAN.md), [RA-SOAT-KINH-NGHIEM.md](RA-SOAT-KINH-NGHIEM.md) | Kết quả rà và đối chiếu tài liệu cũ, đọc cùng trạng thái phiên bản |
+| [GHI-CHU.md](GHI-CHU.md) | Quyết định/tiến độ/lịch sử riêng tập; bài học dùng lại ở docs/KINH-NGHIEM.md |
 
-Lời sạch 1,916 đơn vị tách khoảng trắng, 8,602 ký tự gồm xuống dòng; 33 giây nghỉ riêng đã gồm trắng-ù/đi dạo, cộng 24 giây mở đầu không lời. Ước tính 10:46–12:59 phút với giả định trong nguồn, chưa đo audio/credits. Không giữ ước tính ngắn của bản 3 khi đã thêm hai giao kèo.
-
-Bốn vai có hình chi tiết, thêm cú, ngõ mới không có bóng người qua đường; bốn nhóm không gian: thành phố-hẻm/nội tiệm/miền cánh đồng/ngưỡng nhà. Đã có mã SVG/rig, các ảnh preview và 10 still ở commit cd7243c; xem ASSET để đối chiếu nội dung. Chưa có giọng, storyboard/animatic đủ bản nguồn hoặc phim hoàn chỉnh đã duyệt. Duyệt văn/concept → storyboard → animatic có tương tác và âm tạm → hoàn thiện; không bỏ animatic hoặc tự tạo giọng trả phí để duyệt hình.
-
-Slug hồ sơ giữ `tap-01-tin-nhan-chua-gui`. Bộ thử của Antigravity dùng alias kỹ thuật **`tin-nhan-chua-gui`**: [mã tập](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/), [media](../../../what-if-studio/public/tin-nhan-chua-gui/); output local khi phát sinh ở `what-if-studio/out/tin-nhan-chua-gui/`. Tiếp tục dùng alias này và ghi ánh xạ, tránh tạo tập trùng chỉ vì khác tiền tố. Không tự chia cắt lời mẹ thành tập sau để đủ thời lượng.
+Hồ sơ dùng slug `tap-01-tin-nhan-chua-gui`; mã/media dùng alias kỹ thuật `tin-nhan-chua-gui`: [mã tập](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/), [media](../../../what-if-studio/public/tin-nhan-chua-gui/). Output local ở `what-if-studio/out/tin-nhan-chua-gui/`, không commit render nặng hoặc cache/khóa API. Storyboard → animatic vẫn là hai bước duyệt hình; không quay về làm lại toàn bộ asset.

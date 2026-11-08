@@ -1,8 +1,13 @@
-# Tin nhắn chưa gửi — dựng cảnh bản 11
+# Tin nhắn chưa gửi — dựng cảnh bản 12
 
-**Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
+**Hiện hành: bản 12.** [Biên tập sau animatic](BIEN-TAP-V12.md) quy định phần lời/nhịp thay thế; có ưu tiên khi ghi chú các bản cũ bên dưới còn khác. Lời sạch bản 12: **1,084 đơn vị cách trắng**, **4,929 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70.1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:12–8:25**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
 
-**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.380 frame ở 30 fps = 146 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+
+
+**Định dạng hiện hành — bản 12, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
+
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
 
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
@@ -10,6 +15,10 @@ Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SA
 08/11/2026. Giữ đường máy C0 theo phác thảo; bối cảnh theo asset ngõ mới, bổ sung khung/rung/nghiêng có chọn lọc: thành phố/trời sao/tiêu đề → mắt cú → hẻm/tiệm không người nền → hai trẻ trước cửa. Theo [KICH-BAN.md](KICH-BAN.md): ba giao kèo, hai lần Duy trả, lần cuối Thảo trả; mẹ có hình/thoại trong miền cảm giác cuối. Chỉ dẫn là mục tiêu dựng của bản nguồn; đã có mã thử và still SVG, chưa duyệt chuyển động toàn tập hoặc giọng/mix. Mặt Lộc concept đã chốt; tạo hình SVG mới, mẹ/cánh đồng và tương tác cần đối chiếu với các cue dưới đây.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
+
+## Bổ sung dựng bắt buộc bản 12
+
+Đọc [bảng thay đổi theo cue](BIEN-TAP-V12.md#dựng-phần-đã-chuyển-khỏi-lời-dẫn) cùng nguồn. Tất cả chỉ dẫn hành động ở KICH-BAN là Không đọc. **C6–C7 không người dẫn**; các cue ở đây giữ sơ đồ/lens/pose, mốc lời và thời gian theo bản 12. Bed từ frame đầu/chậm nhất 0:01, thở Duy khi tới cửa. Trẻ đã ở cửa từ C0-D; tiền/ảnh có cầm–nhả thật. Ngồi trên kè đá, vải chạm đá chứ không tiếng cỏ; C7-C máy cận vừa từ đầu đoạn lau má 8 giây. Bản runtime cũ phải retime, không chỉ xóa lời khỏi audio.
 
 ## 1. Không gian và ánh sáng cố định
 
@@ -117,7 +126,7 @@ Các mã hex chỉ là mẫu tham chiếu cho mảng nền/nguồn sáng; điề
 
 **Cách làm vừa đủ để duyệt:** chỉnh bảng màu/ánh sáng của asset hiện có; bụi vàng dự kiến bằng lớp hạt đơn giản có chuyển động xác định, không cần sinh ảnh từng khung hay gọi dịch vụ trả phí. Riêng lần mẹ tan đã có [bản thử VFX](VFX-ME-TAN.md) trong mã ShC7_B: tan mềm 3,8 giây, hạt từ viền tóc/gấu áo và tắt trước đoạn lau nước mắt–nắm tay 8 giây; chưa đồng bộ giọng hoặc duyệt trong toàn bộ 35 cue. Khi animatic cho thấy hạt làm loãng diễn xuất, giảm mật độ/độ sáng hoặc tắt lớp hạt, vẫn giữ nhịp tan, tay và bóng đúng.
 
-**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue, toàn bộ lời/thẻ, 33 giây nghỉ, mở 24 giây và âm bản 9. Đã xuất riêng [bản thử mẹ tan](VFX-ME-TAN.md); các chuyển khung/màu toàn tập và việc căn giọng cuối vẫn chưa được dựng/duyệt đồng bộ.
+**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue, lời/thẻ bản 12, 54 giây không lời, mở 24 giây và âm bản 9. Đã xuất riêng [bản thử mẹ tan](VFX-ME-TAN.md); các chuyển khung/màu toàn tập và việc căn giọng cuối vẫn chưa được dựng/duyệt đồng bộ.
 
 ### Cảnh 0 — Thành phố, mắt cú và hai trẻ (24 giây)
 
@@ -439,10 +448,10 @@ Giữ nền phòng liên tục qua các cỡ cảnh cùng không gian; không re
 
 Thứ bậc theo từng nhịp: giá/lời nhận/lời mẹ/cuộc gọi phải nghe trọn; âm chai hoặc ghế có thể nổi hơn trong nhịp hành động để có sức nặng. Chỉnh nền và mật độ nhạc trước khi chỉ tăng giọng/FX; tránh bơm nền theo từng âm tiết. Nhạc phải nghe ra ý đồ ở chỗ cần nâng, không bị hạ tới mức vô nghĩa. Không áp chung một phần trăm gain hoặc mức dB cho mọi file. Khoảng nghỉ là có đời sống âm thanh chọn lọc, không mặc định im kỹ thuật số.
 
-Nguồn sơ tuyển và giấy phép: [NGUON-AM-THANH.md](NGUON-AM-THANH.md). Tìm file có sẵn trước, nhưng tên file có sẵn không chứng minh quyền dùng hoặc phù hợp. Animatic dùng âm tạm miễn phí, chỉ cần nền chuyển không gian + tiếng động chính + hơi thở then chốt; Foley môi chi li hoàn thiện sau khi nhịp đã khóa. Chưa tải/nghe các ứng viên mới, chưa tạo giọng, chưa phối hoặc kiểm tra âm lượng bản xuất. Khi làm thật nghe cả tai nghe và loa điện thoại, thử cả tổng thể/mono, điểm nối vòng lặp, độ rõ chữ và tương quan nền–thoại; số đo không thay việc nghe.
+Nguồn sơ tuyển và giấy phép: [NGUON-AM-THANH.md](NGUON-AM-THANH.md). Tìm file có sẵn trước, nhưng tên file có sẵn không chứng minh quyền dùng hoặc phù hợp. Animatic dùng âm tạm miễn phí, chỉ cần nền chuyển không gian + tiếng động chính + hơi thở then chốt; Foley môi chi li hoàn thiện sau khi nhịp đã khóa. Chưa tải/nghe các ứng viên mới, bản 11 đã có giọng nhưng chưa có bed/mix cuối; chưa tạo giọng hoặc kiểm tra bản xuất 12. Khi làm thật nghe cả tai nghe và loa điện thoại, thử cả tổng thể/mono, điểm nối vòng lặp, độ rõ chữ và tương quan nền–thoại; số đo không thay việc nghe.
 
 ## 6. Hai bước duyệt và phạm vi mới
 
 Storyboard: đối chiếu bảng mốc màu bản 10, rồi ngoài ba giao kèo/đúng người trả, kiểm tra C0 trời/chữ đúng khoảng trống, cùng một cú ở cận/trung/toàn, mái-thanh không nhảy, ngõ trống đúng asset mới và trẻ đúng màu, khung cuối trước cửa nối được C1; khung Thảo đáp không bị cắt mất đầu/cuối, Duy chậm có lý do. Xác lập tiệm–miền cảm giác–trở tiệm–ngưỡng nhà rõ, mẹ không hiện như người còn sống trong hiện tại. Đã có mã/preview ruộng và mẹ; cần duyệt tạo hình và mức phù hợp với cảnh, không coi file tồn tại là đã duyệt.
 
-Animatic: chạy trọn C0 hạ máy/chuyển nét/lùi/trượt, các mốc ghép đầu–giữa–cuối, ngõ trống đúng asset mới và bước vào cửa, rồi tay/tiền/ảnh/phiếu/máy, G2 cơ thể sụp và C5-C rung/nghiêng ngắn rồi trả máy về 0 trước giá G3, em nhận lời/anh ngăn chậm, chuyển trắng-ù, nắm tay đi/ngồi/ôm, mẹ/áo/bóng và bụi vàng thưa tan hết trước nghỉ 4 giây, tay trẻ ở khoảng trống, trở đúng ghế/khung 16:9/cất đồ/gọi dì. Soi mặt/tay/điểm tì trong khung 2:1 và các góc xoay cực hạn; nếu không tăng hiệu quả, bỏ hiệu ứng C5-C. Thử cả nền/nhạc đúng cảnh, khoảng bản ghi dừng chỉ còn quạt, hơi Duy và tiếng chai sau vách. Dùng âm/giọng tạm, không tự gọi dịch vụ trả phí. Chỉ pan tranh không kiểm tra được các tiếp xúc. Sau voice thật cập nhật timeline; không dùng timing bản 3 hoặc giữ định mức 22 cue cũ.
+Animatic: chạy trọn C0 hạ máy/chuyển nét/lùi/trượt, các mốc ghép đầu–giữa–cuối, ngõ trống đúng asset mới và bước vào cửa, rồi tay/tiền/ảnh/phiếu/máy, G2 cơ thể sụp và C5-C rung/nghiêng ngắn rồi trả máy về 0 trước giá G3, em nhận lời/anh ngăn chậm, chuyển trắng-ù, nắm tay đi/ngồi/ôm, mẹ/áo/bóng và bụi vàng thưa tan hết trước đoạn lau má–nắm tay 8 giây, tay trẻ ở khoảng trống, trở đúng ghế/khung 16:9/cất đồ/gọi dì. Soi mặt/tay/điểm tì trong khung 2:1 và các góc xoay cực hạn; nếu không tăng hiệu quả, bỏ hiệu ứng C5-C. Thử cả nền/nhạc đúng cảnh, khoảng bản ghi dừng chỉ còn quạt, hơi Duy và tiếng chai sau vách. Dùng âm/giọng tạm, không tự gọi dịch vụ trả phí. Chỉ pan tranh không kiểm tra được các tiếp xúc. Sau voice thật cập nhật timeline; không dùng timing bản 3 hoặc giữ định mức 22 cue cũ.

@@ -97,5 +97,7 @@
   {"cue": "C8-B", "items": [8, 7, 7], "look": "shopMystery"},
   {"cue": "C8-C", "items": [8, 8, 11], "look": "nightAtmosphere"},
   {"cue": "C8-D", "items": [8, 12, 13], "look": "nightAtmosphere"}
- ]
+ ],
+ "scriptRevision": 11,
+ "scriptSha256": "e26d727a87ea0d3dc1bc409c5313fa15d11bab2480010e99f0c0d95e6dd3f2ff"
 }

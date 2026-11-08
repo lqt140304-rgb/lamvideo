@@ -4,7 +4,7 @@ Kịch bản được lưu theo từng tập, không chép nội dung tập vào
 
 | Series / tập | Hồ sơ | Trạng thái |
 |---|---|---|
-| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Mở thư mục tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | [Kế hoạch tối ưu](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md). **08/11/2026: Claude đang dựng — timeline 35 cue (ước tính 12:21) + storyboard tĩnh v1 ([cue→shot](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/CUE-SHOT.md)); chưa có animatic chuyển động.** Bản 11: thêm màu/nguồn sáng/chuyển khung theo cue và hạt vàng thưa lúc mẹ tan, chưa render/duyệt; giữ bản 9 nền/nhạc không lời theo cảnh, 35 cue có âm chi tiết và nguồn miễn phí sơ tuyển chưa nghe/tải/mix; giữ khung bản 8 16:9/2:1, C5-C rung/nghiêng ngắn; giữ lời bản 7, ngõ theo asset mới; Lộc gắt/mỉa mai và xưng tao–mày; G1 ký ức làm hòa, G2 bình yên rồi Duy gánh buồn, G3 gặp mẹ do Thảo trả; rõ mẹ che con khỏi bố bạo hành và ba biên nhận; giữ mở trời sao–mắt cú–hẻm–hai trẻ 24 giây; ba giao kèo và mẹ ở cánh đồng; giữ người dẫn chuyện + thoại; đã có SVG/preview; chưa duyệt storyboard/animatic toàn tập, giọng hoặc phim cuối |
+| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Hồ sơ tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | **Bản 12:** [biên tập sau animatic](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/BIEN-TAP-V12.md): lời dẫn giảm 70,1%, C6–C7 không narrator, giao kèo gọn, bed từ đầu; giữ 35 cue/ba giá/tuổi 16–8. Đã có animatic v2 bản lời 11 dài 11:48,416; bản 12 chưa dựng lại. |
 | Tập độc lập — Mưa liên tục 100 ngày | [Mở thư mục tập](../episodes/doc-lap/mua-100-ngay/README.md) | Nhập bản v7 và dữ liệu dựng 10 cảnh trước đây; chưa xem/nghe lại phim trong lượt nhập |
 
 ## Quy tắc thêm tập
@@ -17,4 +17,4 @@ Kịch bản được lưu theo từng tập, không chép nội dung tập vào
 
 Các tập `rewind`, `copy-paste` trong [studio](../what-if-studio/src/episodes/) là ví dụ kỹ thuật được giữ lại, không phải các tập mới của series trên.
 
-Bản 11 tập 01 bổ sung kết không lời lau nước mắt–nắm tay–cận và chuyển mờ; [preview/tài liệu VFX](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/VFX-ME-TAN.md). Lời giữ nguyên, nghỉ riêng 33 giây; chưa phải phim đủ 35 cue.
+Kết lau má–nắm tay và VFX mẹ tan vẫn giữ trong bản 12; xem hồ sơ tập để biết trạng thái văn bản và media.

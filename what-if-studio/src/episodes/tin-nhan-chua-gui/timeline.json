@@ -2930,5 +2930,7 @@
  "fx": [],
  "audio": {
   "voice": "tin-nhan-chua-gui/voice/voice-track.mp3"
- }
+ },
+ "scriptRevision": 11,
+ "scriptSha256": "e26d727a87ea0d3dc1bc409c5313fa15d11bab2480010e99f0c0d95e6dd3f2ff"
 }
