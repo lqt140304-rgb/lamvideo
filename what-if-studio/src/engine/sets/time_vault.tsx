@@ -6,14 +6,25 @@ const INK = '#1B1412';
 // 1. MEMORY JARS (BA LỌ KÝ ỨC VÀ GIAO KÈO ĐẶC TẢ THEO CONCEPT)
 // ============================================================================
 
-export type MemoryJarKind = 'g1' | 'g2' | 'g3' | 'dormant';
+export type MemoryJarKind =
+  | 'g1'
+  | 'g2'
+  | 'g3'
+  | 'dormant'
+  | 'cradle'
+  | 'kite'
+  | 'violin'
+  | 'letter'
+  | 'umbrella'
+  | 'ship';
 
 /**
  * MemoryJar: Glass preservation canister with ornate stopper, tied twine ribbon,
- * and glowing ethereal internal essence matching the concept artwork:
- * - G1: Glowing golden sedan car driving on a sunset country road.
- * - G2: Two intertwining wisps of light (purple/violet & golden-amber) merging into one.
- * - G3: Golden crescent moon in soft clouds beside a sealed miniature double door.
+ * and glowing ethereal internal essence matching the concept artwork and script:
+ * - G1: Duy's childhood toy car with mother's soothing hand reconciling the children.
+ * - G2: Dual-helix vortex of Thảo's violet sorrow being absorbed into Duy's amber warmth.
+ * - G3: Thảo's sealed bell jar of dreams with crescent moon, locked door, and paper cranes.
+ * - Other souls: cradle (lullaby), kite (innocence), violin (music), letter (vow), umbrella (rain), ship (voyage).
  */
 export const MemoryJar: React.FC<{
   x: number;
@@ -34,161 +45,389 @@ export const MemoryJar: React.FC<{
       ? '#A855F7'
       : kind === 'g3'
       ? '#FDE047'
+      : kind === 'cradle'
+      ? '#38BDF8'
+      : kind === 'kite'
+      ? '#F87171'
+      : kind === 'violin'
+      ? '#C084FC'
+      : kind === 'letter'
+      ? '#FBBF24'
+      : kind === 'umbrella'
+      ? '#34D399'
+      : kind === 'ship'
+      ? '#22D3EE'
       : '#38BDF8';
 
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       {/* Ground contact shadow */}
-      <ellipse cx={0} cy={66} rx={32} ry={9} fill="#140B08" opacity={0.55} />
+      <ellipse cx={0} cy={66} rx={34} ry={10} fill="#0F0906" opacity={0.65} />
 
       {/* Golden swirling light aura ribbons around jar */}
       {showAura ? (
-        <g opacity={0.75 * jarGlow} style={{ mixBlendMode: 'screen' }}>
-          <ellipse cx={0} cy={12} rx={52} ry={66} fill={mainColor} opacity={0.16} />
+        <g opacity={0.78 * jarGlow} style={{ mixBlendMode: 'screen' }}>
+          <ellipse cx={0} cy={12} rx={54} ry={68} fill={mainColor} opacity={0.18} />
           <path
-            d={`M -42 45 Q ${-55 + Math.sin(t * 0.1) * 8} 0 0 -55 Q ${45 + Math.cos(t * 0.1) * 8} -30 42 35`}
+            d={`M -44 46 Q ${-58 + Math.sin(t * 0.1) * 8} 0 0 -58 Q ${48 + Math.cos(t * 0.1) * 8} -32 44 36`}
             stroke="#FDE68A"
-            strokeWidth={1.8}
+            strokeWidth={2}
             fill="none"
-            opacity={0.8}
+            opacity={0.85}
           />
           <path
-            d={`M -30 -30 Q ${35 + Math.cos(t * 0.08) * 8} -50 45 10 Q 30 65 -25 55`}
+            d={`M -32 -32 Q ${38 + Math.cos(t * 0.08) * 8} -52 48 10 Q 32 68 -28 58`}
             stroke="#F59E0B"
-            strokeWidth={1.2}
+            strokeWidth={1.4}
             strokeDasharray="6 4"
             fill="none"
-            opacity={0.7}
+            opacity={0.75}
           />
         </g>
       ) : null}
 
       {/* Internal Essence Glow Halo */}
-      <ellipse cx={0} cy={14} rx={34} ry={46} fill={mainColor} opacity={0.25 * jarGlow} />
+      <ellipse cx={0} cy={14} rx={36} ry={48} fill={mainColor} opacity={0.28 * jarGlow} />
 
       {/* =================================================================== */}
       {/* INTERNAL CONTENT PER CONTRACT (NỘI DUNG HUYỀN ẢO BÊN TRONG LỌ)       */}
       {/* =================================================================== */}
       {kind === 'g1' ? (
-        // G1: Glowing golden sedan car driving on sunset road with telegraph poles & trees
+        // G1: KÝ ỨC TUỔI THƠ DUY — XE ĐỒ CHƠI & BÀN TAY MẸ DỖ DÀNH LÀM HÒA
         <g transform="translate(0 14)">
-          {/* Distant sunset horizon silhouette */}
-          <path d="M -26 15 Q -10 5 0 10 Q 15 15 26 8 L 26 38 L -26 38 Z" fill="#78350F" opacity={0.35} />
-          {/* Curved road */}
-          <path d="M -24 38 Q -6 20 18 14" stroke="#D97706" strokeWidth={3} fill="none" opacity={0.7} />
-          {/* Miniature telegraph pole */}
-          <line x1={-18} y1={28} x2={-18} y2={2} stroke="#B45309" strokeWidth={1} />
-          <line x1={-21} y1={6} x2={-15} y2={6} stroke="#B45309" strokeWidth={1} />
-          {/* Glowing Golden Sedan Car (Chiếc xe ô tô sedan phát sáng) */}
+          {/* Sunset country road horizon */}
+          <path d="M -26 18 Q -10 8 0 13 Q 15 18 26 10 L 26 40 L -26 40 Z" fill="#78350F" opacity={0.4} />
+          <path d="M -24 40 Q -6 22 20 16" stroke="#D97706" strokeWidth={3.5} fill="none" opacity={0.75} />
+          <line x1={-18} y1={30} x2={-18} y2={4} stroke="#B45309" strokeWidth={1.2} />
+          <line x1={-21} y1={8} x2={-15} y2={8} stroke="#B45309" strokeWidth={1.2} />
+
+          {/* Golden toy sedan car */}
           <g transform={`translate(${Math.sin(t * 0.04) * 2} 18)`}>
-            {/* Car body */}
             <path
               d="M -16 6 L -15 2 L -10 -4 L 8 -4 L 14 2 L 17 6 Z"
               fill="#F59E0B"
               stroke="#FEF08A"
-              strokeWidth={1.2}
+              strokeWidth={1.4}
             />
-            {/* Windows */}
-            <polygon points="-9,-3 7,-3 5,1 -8,1" fill="#FEF9C3" opacity={0.9} />
-            {/* Wheels */}
-            <circle cx={-10} cy={7} r={3} fill="#1E140A" stroke="#FDE68A" strokeWidth={0.8} />
-            <circle cx={11} cy={7} r={3} fill="#1E140A" stroke="#FDE68A" strokeWidth={0.8} />
+            <polygon points="-9,-3 7,-3 5,1 -8,1" fill="#FEF9C3" opacity={0.92} />
+            <circle cx={-10} cy={7} r={3.2} fill="#1E140A" stroke="#FDE68A" strokeWidth={0.9} />
+            <circle cx={11} cy={7} r={3.2} fill="#1E140A" stroke="#FDE68A" strokeWidth={0.9} />
             {/* Headlight beam */}
-            <polygon points="17,3 27,0 27,8 17,6" fill="#FEF08A" opacity={0.5} />
+            <polygon points="17,3 28,0 28,8 17,6" fill="#FEF08A" opacity={0.55} />
           </g>
-          {/* Floating light motes */}
-          {[0, 1, 2, 3].map((i) => (
+
+          {/* Two small children's hands reaching toward the toy */}
+          <g transform="translate(0 20)">
+            {/* Child hand left */}
+            <path d="M -22 8 Q -16 2 -12 6" stroke="#FEF08A" strokeWidth={2} fill="none" strokeLinecap="round" />
+            {/* Child hand right */}
+            <path d="M 22 8 Q 16 2 12 6" stroke="#FEF08A" strokeWidth={2} fill="none" strokeLinecap="round" />
+          </g>
+
+          {/* Mother's loving hand descending gently from above, reconciling both */}
+          <g transform={`translate(0 ${-8 + Math.sin(t * 0.06) * 2})`}>
+            {/* Warm protective motherly palm halo */}
+            <ellipse cx={0} cy={0} rx={16} ry={10} fill="#FEF08A" opacity={0.35} />
+            {/* Gentle curved wrist and palm */}
+            <path d="M -6 -18 Q -4 -6 0 -2 Q 4 -6 6 -18" fill="#FDE68A" stroke="#B45309" strokeWidth={1.2} />
+            {/* 4 Gentle soothing fingers curving downward */}
+            <path d="M -5 -2 Q -6 6 -4 10" stroke="#FDE68A" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+            <path d="M -1 -1 Q -1 7 1 12" stroke="#FDE68A" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+            <path d="M 3 -1 Q 4 7 5 11" stroke="#FDE68A" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+            <path d="M 7 -3 Q 8 4 9 8" stroke="#FDE68A" strokeWidth={1.5} fill="none" strokeLinecap="round" />
+          </g>
+
+          {/* Golden memories dust motes */}
+          {[0, 1, 2, 3, 4].map((i) => (
             <circle
               key={i}
-              cx={-14 + ((i * 11) % 28)}
-              cy={-18 + Math.sin(t * 0.1 + i) * 6}
+              cx={-15 + ((i * 9) % 30)}
+              cy={-20 + Math.sin(t * 0.08 + i * 1.5) * 8}
               r={1.2}
               fill="#FEF08A"
-              opacity={0.8}
+              opacity={0.85}
             />
           ))}
         </g>
       ) : kind === 'g2' ? (
-        // G2: Two intertwining wisps (violet sorrow & amber warmth) merging spiraling upward
+        // G2: DẤU GIAO KÈO CHUYỂN BUỒN — VÒNG XOẮN KÉP TÍM & HỔ PHÁCH VỚI TIA SÉT CẢM XÚC
         <g transform="translate(0 14)">
-          {/* Violet wisp (Thảo's sorrow) */}
+          {/* Violet wisp: Thảo's sorrow, loneliness and tears */}
           <path
-            d={`M -14 24 C -22 6 -6 -4 ${Math.sin(t * 0.1) * 4} -22`}
+            d={`M -16 26 C -24 8 -6 -6 ${Math.sin(t * 0.1) * 6} -24`}
             stroke="#C084FC"
-            strokeWidth={3}
+            strokeWidth={3.8}
             fill="none"
             strokeLinecap="round"
-            opacity={0.85}
+            opacity={0.9}
           />
           <path
-            d={`M -12 22 C -18 8 -4 0 ${Math.sin(t * 0.1) * 3} -18`}
+            d={`M -14 24 C -20 10 -4 0 ${Math.sin(t * 0.1) * 4} -20`}
             stroke="#E9D5FF"
-            strokeWidth={1.4}
+            strokeWidth={1.8}
             fill="none"
             strokeLinecap="round"
           />
-          {/* Warm Amber wisp (Duy's enduring warmth) */}
+
+          {/* Warm Amber wisp: Duy's protective love and sacrifice */}
           <path
-            d={`M 14 24 C 22 6 6 -4 ${-Math.sin(t * 0.1) * 4} -22`}
+            d={`M 16 26 C 24 8 6 -6 ${-Math.sin(t * 0.1) * 6} -24`}
             stroke="#F59E0B"
-            strokeWidth={3}
+            strokeWidth={3.8}
             fill="none"
             strokeLinecap="round"
-            opacity={0.85}
+            opacity={0.9}
           />
           <path
-            d={`M 12 22 C 18 8 4 0 ${-Math.sin(t * 0.1) * 3} -18`}
+            d={`M 14 24 C 20 10 4 0 ${-Math.sin(t * 0.1) * 4} -20`}
             stroke="#FEF08A"
-            strokeWidth={1.4}
+            strokeWidth={1.8}
             fill="none"
             strokeLinecap="round"
           />
+
+          {/* Central emotional transference spark / helix intersection */}
+          <circle cx={0} cy={0} r={6} fill="#FAF5FF" stroke="#FDE047" strokeWidth={1.8} />
+          {/* Micro emotional lightning bolts */}
+          <path d="M -8 4 L -2 0 L 2 2 L 8 -2" stroke="#FEF08A" strokeWidth={1.2} fill="none" />
+          <path d="M -6 -8 L 0 -2 L -2 6 L 4 10" stroke="#E9D5FF" strokeWidth={1} fill="none" />
+
           {/* United spiral apex glowing bright */}
-          <circle cx={0} cy={-22} r={4.5} fill="#FAF5FF" stroke="#FDE047" strokeWidth={1.5} />
+          <circle cx={0} cy={-24} r={5} fill="#FAF5FF" stroke="#FDE047" strokeWidth={1.6} />
+
           {/* Sparkles around intertwining wisps */}
-          {[0, 1, 2, 3, 4].map((i) => {
-            const ang = i * 1.3 + t * 0.08;
+          {[0, 1, 2, 3, 4, 5].map((i) => {
+            const ang = i * 1.05 + t * 0.09;
             return (
               <circle
                 key={i}
-                cx={Math.cos(ang) * 12}
-                cy={Math.sin(ang) * 16}
-                r={1.2}
+                cx={Math.cos(ang) * 14}
+                cy={Math.sin(ang) * 18}
+                r={1.3}
                 fill={i % 2 ? '#FEF08A' : '#E9D5FF'}
-                opacity={0.85}
+                opacity={0.88}
               />
             );
           })}
         </g>
       ) : kind === 'g3' ? (
-        // G3: Luminous crescent moon floating in dream clouds beside a sealed miniature double door
+        // G3: LỌ NIÊM PHONG GIẤC MƠ THẢO — TRĂNG LƯỠI LIỀM, CỬA KHÉP VÀ HẠC GIẤY TAN
         <g transform="translate(0 14)">
           {/* Soft dream clouds */}
-          <ellipse cx={-10} cy={16} rx={16} ry={9} fill="#E0E7FF" opacity={0.4} />
-          <ellipse cx={12} cy={18} rx={18} ry={10} fill="#E0E7FF" opacity={0.35} />
-          <ellipse cx={0} cy={22} rx={22} ry={10} fill="#C7D2FE" opacity={0.45} />
+          <ellipse cx={-12} cy={18} rx={18} ry={10} fill="#E0E7FF" opacity={0.4} />
+          <ellipse cx={14} cy={20} rx={18} ry={10} fill="#E0E7FF" opacity={0.35} />
+          <ellipse cx={0} cy={24} rx={24} ry={11} fill="#C7D2FE" opacity={0.45} />
+
           {/* Golden Crescent Moon */}
           <path
-            d="M -12 -12 C -6 -28 10 -22 14 -10 C 6 -14 0 -12 -4 -4 C -8 4 -6 10 -2 14 C -12 10 -16 2 -12 -12 Z"
+            d="M -14 -12 C -8 -30 10 -24 14 -10 C 6 -14 0 -12 -4 -4 C -8 4 -6 10 -2 14 C -12 10 -18 2 -14 -12 Z"
             fill="#FDE047"
             stroke="#CA8A04"
-            strokeWidth={1}
-            opacity={0.92}
+            strokeWidth={1.2}
+            opacity={0.95}
           />
+
           {/* Miniature Sealed Double Door */}
-          <g transform="translate(8 0)">
-            <rect x={-8} y={-16} width={16} height={28} rx={2} fill="#7C2D12" stroke="#FACC15" strokeWidth={1.2} />
-            <line x1={0} y1={-16} x2={0} y2={12} stroke="#FACC15" strokeWidth={1} />
-            {/* Two tiny glowing keyholes/handles */}
-            <circle cx={-3} cy={-2} r={1.2} fill="#FEF08A" />
-            <circle cx={3} cy={-2} r={1.2} fill="#FEF08A" />
+          <g transform="translate(8 2)">
+            <rect x={-9} y={-18} width={18} height={30} rx={2} fill="#5C2D16" stroke="#FACC15" strokeWidth={1.4} />
+            <line x1={0} y1={-18} x2={0} y2={12} stroke="#FACC15" strokeWidth={1.2} />
+            {/* Two tiny glowing handles & keyholes */}
+            <circle cx={-3.5} cy={-2} r={1.4} fill="#FEF08A" />
+            <circle cx={3.5} cy={-2} r={1.4} fill="#FEF08A" />
             {/* Arched transom header */}
-            <path d="M -8 -16 Q 0 -22 8 -16" stroke="#FACC15" strokeWidth={1.2} fill="none" />
+            <path d="M -9 -18 Q 0 -25 9 -18" stroke="#FACC15" strokeWidth={1.4} fill="none" />
+            {/* Warm silhouette of mother waving farewell through the door slit */}
+            <line x1={0} y1={-12} x2={0} y2={8} stroke="#FEF08A" strokeWidth={1.2} opacity={0.8} />
           </g>
-          {/* Night stars */}
-          <circle cx={-18} cy={-18} r={1.2} fill="#FFFFFF" />
-          <circle cx={-2} cy={-24} r={1} fill="#FEF08A" />
-          <circle cx={18} cy={-18} r={1.2} fill="#FFFFFF" />
+
+          {/* Miniature paper crane dissolving into stardust */}
+          <g transform={`translate(${-10 + Math.sin(t * 0.08) * 3} ${-6 + Math.cos(t * 0.08) * 2}) scale(0.65)`}>
+            <polygon points="0,-8 10,2 0,6 -10,2" fill="#FFFFFF" opacity={0.9} />
+            <polygon points="0,-8 14,-2 0,2" fill="#FEF9C3" opacity={0.8} />
+          </g>
+
+          {/* Night starlight sparkles */}
+          <circle cx={-18} cy={-20} r={1.3} fill="#FFFFFF" />
+          <circle cx={-2} cy={-26} r={1.2} fill="#FEF08A" />
+          <circle cx={18} cy={-20} r={1.3} fill="#FFFFFF" />
+        </g>
+      ) : kind === 'cradle' ? (
+        // CRADLE: KÝ ỨC NGƯỜI MẸ — CHIẾC NÔI ĐUNG ĐƯA & BÀI HÁT RU BỊ ĐỔI
+        <g transform="translate(0 14)">
+          <ellipse cx={0} cy={16} rx={22} ry={12} fill="#38BDF8" opacity={0.3} />
+          {/* Rocking wooden cradle */}
+          <g transform={`translate(0 14) rotate(${Math.sin(t * 0.08) * 7})`}>
+            <path d="M -18 10 Q 0 18 18 10" stroke="#78350F" strokeWidth={2.5} fill="none" strokeLinecap="round" />
+            <path d="M -16 8 L -14 -6 L 14 -6 L 16 8 Z" fill="#92400E" stroke={INK} strokeWidth={1.5} />
+            <line x1={-9} y1={-5} x2={-10} y2={7} stroke="#B45309" strokeWidth={1.2} />
+            <line x1={-3} y1={-5} x2={-3} y2={8} stroke="#B45309" strokeWidth={1.2} />
+            <line x1={3} y1={-5} x2={3} y2={8} stroke="#B45309" strokeWidth={1.2} />
+            <line x1={9} y1={-5} x2={10} y2={7} stroke="#B45309" strokeWidth={1.2} />
+            <path d="M -13 -2 Q 0 4 13 -2 L 13 4 Q 0 9 -13 4 Z" fill="#E0F2FE" />
+          </g>
+          {/* Floating musical wave & starlight */}
+          <path
+            d={`M -8 ${-8 + Math.sin(t * 0.1) * 3} C -14 -18 6 -20 0 -26`}
+            stroke="#BAE6FD"
+            strokeWidth={1.2}
+            strokeDasharray="2 2"
+            fill="none"
+            opacity={0.8}
+          />
+          <circle cx={-8} cy={-8} r={2.2} fill="#FDE047" />
+          <line x1={-6} y1={-8} x2={-6} y2={-16} stroke="#FDE047" strokeWidth={1} />
+          <circle cx={8} cy={-14} r={1.8} fill="#FEF08A" />
+          <line x1={10} y1={-14} x2={10} y2={-20} stroke="#FEF08A" strokeWidth={1} />
+        </g>
+      ) : kind === 'kite' ? (
+        // KITE: KÝ ỨC TUỔI THƠ — CÁNH DIỀU ĐỎ ĐỨT DÂY BAY TRONG MÂY CHIỀU
+        <g transform="translate(0 14)">
+          <ellipse cx={-12} cy={20} rx={16} ry={8} fill="#FDA4AF" opacity={0.35} />
+          <ellipse cx={10} cy={22} rx={18} ry={9} fill="#FECDD3" opacity={0.3} />
+          {/* Soaring diamond kite */}
+          <g transform={`translate(${Math.sin(t * 0.06) * 3} ${-6 + Math.cos(t * 0.06) * 2}) rotate(${Math.sin(t * 0.05) * 12})`}>
+            <polygon points="0,-16 12,0 0,16 -12,0" fill="#EF4444" stroke="#B91C1C" strokeWidth={1.2} />
+            <polygon points="0,-16 12,0 0,0" fill="#F87171" />
+            <polygon points="0,0 0,16 -12,0" fill="#DC2626" />
+            <line x1={0} y1={-16} x2={0} y2={16} stroke="#FEF08A" strokeWidth={1} />
+            <line x1={-12} y1={0} x2={12} y2={0} stroke="#FEF08A" strokeWidth={1} />
+            {/* Swirling kite tail with bows */}
+            <path
+              d={`M 0 16 Q ${-12 + Math.sin(t * 0.1) * 6} 26 ${4 + Math.cos(t * 0.1) * 4} 34 Q -4 40 2 46`}
+              stroke="#FDE047"
+              strokeWidth={1.2}
+              fill="none"
+            />
+            <polygon points="-8,24 -4,26 -8,28 -12,26" fill="#F59E0B" />
+            <polygon points="6,32 10,34 6,36 2,34" fill="#F59E0B" />
+          </g>
+          <path d="M 0 6 Q -8 18 -14 32" stroke="#FFFFFF" strokeWidth={0.8} strokeDasharray="3 3" opacity={0.6} fill="none" />
+        </g>
+      ) : kind === 'violin' ? (
+        // VIOLIN: KÝ ỨC NHẠC CÔNG — CÂY VĨ CẦM GÃY PHÍM VÀ BÀI NHẠC DANG DỞ
+        <g transform="translate(0 14)">
+          <ellipse cx={0} cy={12} rx={22} ry={30} fill="#C084FC" opacity={0.25} />
+          <g transform={`translate(0 8) rotate(${-15 + Math.sin(t * 0.04) * 3})`}>
+            <path
+              d="M -11 -16 C -14 -10 -9 -4 -13 8 C -14 16 -4 20 0 20 C 4 20 14 16 13 8 C 9 -4 14 -10 11 -16 Z"
+              fill="#78350F"
+              stroke="#451A03"
+              strokeWidth={1.4}
+            />
+            <path
+              d="M -9 -14 C -11 -8 -7 -4 -10 7 C -11 13 -3 17 0 17 C 3 17 11 13 10 7 C 7 -4 11 -8 9 -14 Z"
+              fill="#9A3412"
+              opacity={0.85}
+            />
+            <rect x={-2.5} y={-30} width={5} height={14} fill="#451A03" />
+            <circle cx={0} cy={-32} r={3} fill="#78350F" stroke="#451A03" strokeWidth={1} />
+            <path d="M -5 2 Q -3 6 -5 10" stroke="#FDE047" strokeWidth={1} fill="none" />
+            <path d="M 5 2 Q 3 6 5 10" stroke="#FDE047" strokeWidth={1} fill="none" />
+            <polygon points="-2,12 2,12 1,18 -1,18" fill="#1C1917" />
+            <line x1={-20} y1={2} x2={18} y2={-10} stroke="#E2E8F0" strokeWidth={1.2} />
+            <line x1={-20} y1={3} x2={18} y2={-9} stroke="#F8FAFC" strokeWidth={0.8} />
+          </g>
+          {[0, 1, 2, 3].map((i) => {
+            const ny = -4 - i * 8 + Math.sin(t * 0.08 + i) * 3;
+            const nx = Math.cos(t * 0.08 + i * 1.5) * 14;
+            return (
+              <g key={i} transform={`translate(${nx} ${ny}) scale(0.85)`}>
+                <circle cx={0} cy={0} r={1.6} fill="#FDE047" />
+                <line x1={1.4} y1={0} x2={1.4} y2={-6} stroke="#FDE047" strokeWidth={0.9} />
+              </g>
+            );
+          })}
+        </g>
+      ) : kind === 'letter' ? (
+        // LETTER: KÝ ỨC NGƯỜI LÍNH — PHONG THƯ TÌNH NIÊM PHONG SÁP ĐỎ & NGỌN NẾN
+        <g transform="translate(0 14)">
+          <ellipse cx={8} cy={-4} rx={22} ry={22} fill="#F59E0B" opacity={0.25} />
+          <g transform="translate(-4 12) rotate(-8)">
+            <rect x={-14} y={-10} width={28} height={20} rx={1.5} fill="#FEF3C7" stroke="#92400E" strokeWidth={1.2} />
+            <polygon points="-14,-10 0,2 14,-10" fill="#FDE68A" stroke="#B45309" strokeWidth={1} />
+            <circle cx={0} cy={2} r={3.6} fill="#DC2626" stroke="#7F1D1D" strokeWidth={0.8} />
+            <line x1={-10} y1={6} x2={10} y2={6} stroke="#B45309" strokeWidth={0.8} opacity={0.6} />
+          </g>
+          <g transform="translate(12 8)">
+            <ellipse cx={0} cy={14} rx={10} ry={3.5} fill="#78350F" stroke={INK} strokeWidth={1} />
+            <rect x={-3} y={0} width={6} height={14} fill="#FEF9C3" stroke="#B45309" strokeWidth={1} />
+            <line x1={0} y1={0} x2={0} y2={-3} stroke="#1C1917" strokeWidth={1} />
+            <path
+              d={`M 0 -3 Q ${-4 + Math.sin(t * 0.15) * 1.5} -9 0 -15 Q ${4 - Math.sin(t * 0.15) * 1.5} -9 0 -3 Z`}
+              fill="#F59E0B"
+            />
+            <path d="M 0 -3 Q -2 -8 0 -12 Q 2 -8 0 -3 Z" fill="#FEF08A" />
+          </g>
+          {[0, 1, 2].map((i) => (
+            <circle
+              key={i}
+              cx={-8 + i * 8 + Math.sin(t * 0.1 + i) * 3}
+              cy={-14 - i * 5}
+              r={1}
+              fill="#FDE047"
+              opacity={0.8}
+            />
+          ))}
+        </g>
+      ) : kind === 'umbrella' ? (
+        // UMBRELLA: KÝ ỨC MỐI TÌNH ĐẦU — CHIẾC Ô VÀNG DƯỚI ĐÈN ĐƯỜNG ĐÊM MƯA
+        <g transform="translate(0 14)">
+          <ellipse cx={0} cy={14} rx={24} ry={16} fill="#059669" opacity={0.2} />
+          <g transform="translate(-14 4)">
+            <line x1={0} y1={24} x2={0} y2={-16} stroke="#334155" strokeWidth={2} />
+            <polygon points="-5,-16 5,-16 4,-26 -4,-26" fill="#FEF08A" stroke="#1E293B" strokeWidth={1} />
+            <polygon points="0,-20 -18,24 18,24" fill="#FEF08A" opacity={0.16} />
+          </g>
+          <g transform="translate(6 6) rotate(6)">
+            <path d="M -16 6 Q 0 -12 16 6 C 10 3 6 4 0 3 C -6 4 -10 3 -16 6 Z" fill="#EAB308" stroke="#854D0E" strokeWidth={1.2} />
+            <path d="M 0 -12 Q -8 -2 -10 3 M 0 -12 Q 8 -2 10 3" stroke="#CA8A04" strokeWidth={0.8} fill="none" />
+            <line x1={0} y1={-12} x2={0} y2={18} stroke="#475569" strokeWidth={1.4} />
+            <path d="M 0 18 Q 0 24 -4 24 Q -8 24 -8 20" stroke="#475569" strokeWidth={1.4} fill="none" />
+          </g>
+          {[0, 1, 2, 3, 4].map((i) => {
+            const rx = -18 + ((i * 11) % 36);
+            const ry = 22 - (((t * 0.8 + i * 12) % 36));
+            return (
+              <line
+                key={i}
+                x1={rx}
+                y1={ry}
+                x2={rx}
+                y2={ry - 4}
+                stroke="#67E8F9"
+                strokeWidth={1.2}
+                strokeLinecap="round"
+                opacity={0.7}
+              />
+            );
+          })}
+        </g>
+      ) : kind === 'ship' ? (
+        // SHIP: KÝ ỨC KHÁT VỌNG — CON THUYỀN VIỄN DƯƠNG VÀ NGỌN HẢI ĐĂNG
+        <g transform="translate(0 14)">
+          <ellipse cx={0} cy={16} rx={24} ry={14} fill="#06B6D4" opacity={0.25} />
+          <path
+            d="M -26 24 Q -16 18 -6 22 Q 4 26 14 20 Q 22 24 26 22 L 26 34 L -26 34 Z"
+            fill="#0E7490"
+            opacity={0.8}
+          />
+          <path
+            d="M -26 26 Q -14 22 -2 25 Q 10 28 26 23"
+            stroke="#67E8F9"
+            strokeWidth={1.4}
+            fill="none"
+          />
+          <g transform={`translate(${Math.sin(t * 0.05) * 2} ${12 + Math.cos(t * 0.06) * 2}) rotate(${Math.sin(t * 0.06) * 8})`}>
+            <path d="M -14 4 L 14 4 Q 16 -1 18 -3 L -16 -3 Z" fill="#78350F" stroke="#451A03" strokeWidth={1} />
+            <line x1={-7} y1={-3} x2={-7} y2={-18} stroke="#451A03" strokeWidth={1.2} />
+            <line x1={1} y1={-3} x2={1} y2={-22} stroke="#451A03" strokeWidth={1.4} />
+            <line x1={9} y1={-3} x2={9} y2={-17} stroke="#451A03" strokeWidth={1.2} />
+            <path d="M -7 -16 Q -2 -14 -7 -6 Z" fill="#F8FAFC" opacity={0.9} />
+            <path d="M 1 -20 Q 7 -17 1 -8 Z" fill="#F8FAFC" opacity={0.95} />
+            <path d="M 9 -15 Q 13 -13 9 -7 Z" fill="#F8FAFC" opacity={0.9} />
+            <polygon points="1,-22 5,-21 1,-20" fill="#EF4444" />
+          </g>
+          <polygon points="-24,-10 24,-20 24,0" fill="#FEF08A" opacity={0.12} />
         </g>
       ) : (
         // Dormant jar: soft drifting luminescent dust
@@ -315,138 +554,183 @@ export const ClockCreature: React.FC<{
   showJars = true,
 }) => {
   // Gentle hovering vertical bob and subtle forward-backward rocking
-  const floatY = hover ? Math.sin(t * 0.05) * 11 : 0;
-  const floatRot = hover ? Math.sin(t * 0.04) * 2 : 0;
+  const floatY = hover ? Math.sin(t * 0.05) * 12 : 0;
+  const floatRot = hover ? Math.sin(t * 0.04) * 2.2 : 0;
   const fingerTwitch = Math.sin(t * 0.09) * 2;
   const gearSpin = t * 1.5;
+  const haloSpin = t * 0.35;
+  const corePulse = Math.sin(t * 0.12) * 0.18;
 
   return (
     <g transform={`translate(${x} ${y + floatY}) rotate(${floatRot}) scale(${s})`}>
       {/* =================================================================== */}
-      {/* GROUND CAST SHADOW (BÓNG ĐỔ RỜI PHÍA DƯỚI THỂ HIỆN DÁNG LƠ LỬNG)     */}
+      {/* GROUND CAST SHADOW & ABYSSAL VOID MIST                              */}
       {/* =================================================================== */}
       <ellipse
         cx={-20}
-        cy={290 - floatY * 0.4}
-        rx={125 + floatY * 0.6}
-        ry={26 - floatY * 0.2}
-        fill="#120B09"
-        opacity={0.65}
+        cy={300 - floatY * 0.4}
+        rx={135 + floatY * 0.6}
+        ry={28 - floatY * 0.2}
+        fill="#09050F"
+        opacity={0.75}
+      />
+      {/* Dark shadowy chronal mist billowing beneath the monster */}
+      <ellipse
+        cx={-15}
+        cy={270}
+        rx={80 + Math.sin(t * 0.07) * 12}
+        ry={18}
+        fill="#3B0764"
+        opacity={0.3}
+        style={{ mixBlendMode: 'screen', filter: 'blur(8px)' }}
       />
 
       {/* =================================================================== */}
-      {/* 1. REAR CYLINDRICAL HOUSING & DEPTH (THÂN TRÒN DÀY & CHIỀU SÂU 3/4) */}
+      {/* 0. ROTATING MECHANICAL GEAR HALO & SPIKED CROWN RAYS               */}
       {/* =================================================================== */}
-      {/* Rear casing cylinder extending up-left */}
-      <g>
-        {/* Rear cylindrical barrel shell */}
-        <path
-          d="M -135 -135 C -230 -60 -250 80 -160 165 L -100 135 C -170 60 -150 -60 -80 -120 Z"
-          fill="#4A3423"
-          stroke={INK}
-          strokeWidth={4}
-        />
-        <path
-          d="M -145 -125 C -235 -50 -255 75 -170 155 C -205 85 -200 -25 -120 -95 Z"
-          fill="#334B3B"
-          opacity={0.85}
-        />
-        {/* Verdigris patina scrollwork on rear casing */}
-        <path
-          d="M -175 -85 C -210 -40 -205 30 -165 95 Q -145 40 -150 -10 Q -155 -60 -175 -85 Z"
-          fill="#5B8266"
-          stroke="#2D4A3E"
-          strokeWidth={1.5}
-        />
-        {/* Open mechanical casing showing exposed brass gear teeth inside */}
-        <g transform="translate(-165 20) rotate(-25)">
-          <circle cx={0} cy={0} r={32} fill="#633917" stroke={INK} strokeWidth={2} />
-          {Array.from({ length: 12 }).map((_, i) => (
-            <rect
-              key={i}
-              x={-4}
-              y={-34}
-              width={8}
-              height={6}
-              fill="#C28833"
-              stroke={INK}
-              strokeWidth={1}
-              transform={`rotate(${i * 30 + gearSpin})`}
+      <g transform={`rotate(${haloSpin})`}>
+        {/* Outer spiked halo ring */}
+        <circle cx={0} cy={0} r={175} fill="none" stroke="#6D491C" strokeWidth={2} strokeDasharray="12 12" opacity={0.6} />
+        {/* Radiating spiked brass teeth */}
+        {Array.from({ length: 16 }).map((_, i) => {
+          const ang = (i * 22.5 * Math.PI) / 180;
+          const x1 = Math.cos(ang) * 162;
+          const y1 = Math.sin(ang) * 162;
+          const x2 = Math.cos(ang) * 186;
+          const y2 = Math.sin(ang) * 186;
+          return (
+            <line
+              key={`spk_${i}`}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke="#D4A24C"
+              strokeWidth={i % 2 === 0 ? 3.5 : 1.8}
+              strokeLinecap="round"
+              opacity={0.7}
             />
-          ))}
-          <circle cx={0} cy={0} r={14} fill="#8A5A20" stroke={INK} strokeWidth={1.5} />
-        </g>
-        {/* Upper rear cloud-like decorative crests (Vân mây đồng cổ) */}
-        <path
-          d="M -160 -140 C -185 -165 -155 -195 -125 -175 C -105 -205 -65 -195 -60 -170 C -40 -185 -15 -165 -30 -140 Z"
-          fill="#C28833"
-          stroke={INK}
-          strokeWidth={3}
-        />
-        <path
-          d="M -145 -145 C -165 -160 -145 -180 -125 -165 C -110 -185 -80 -180 -75 -160"
-          stroke="#7A4E1B"
-          strokeWidth={2}
-          fill="none"
-        />
+          );
+        })}
       </g>
 
       {/* =================================================================== */}
-      {/* 2. TOP POCKET WATCH WINDER CROWN & CARRYING RING (NÚM VẶN & VÒNG)   */}
+      {/* 1. REAR CYLINDRICAL HOUSING & EXPOSED INTERNAL GEARS                */}
       {/* =================================================================== */}
-      <g transform="translate(-40 -165) rotate(-14)">
+      <g>
+        {/* Rear cylindrical barrel shell */}
+        <path
+          d="M -140 -140 C -240 -65 -260 85 -168 172 L -105 140 C -178 65 -158 -65 -85 -125 Z"
+          fill="#3E2718"
+          stroke={INK}
+          strokeWidth={4.5}
+        />
+        <path
+          d="M -150 -130 C -245 -55 -265 80 -178 162 C -215 90 -210 -25 -125 -100 Z"
+          fill="#233529"
+          opacity={0.88}
+        />
+        {/* Verdigris patina scrollwork on rear casing */}
+        <path
+          d="M -185 -90 C -220 -45 -215 35 -172 102 Q -150 45 -155 -10 Q -160 -65 -185 -90 Z"
+          fill="#4D7058"
+          stroke="#1E3327"
+          strokeWidth={1.8}
+        />
+        {/* Open mechanical casing showing large brass gear teeth inside */}
+        <g transform="translate(-175 22) rotate(-25)">
+          <circle cx={0} cy={0} r={36} fill="#4A2810" stroke={INK} strokeWidth={2.4} />
+          {Array.from({ length: 12 }).map((_, i) => (
+            <rect
+              key={i}
+              x={-4.5}
+              y={-38}
+              width={9}
+              height={7}
+              fill="#D4A24C"
+              stroke={INK}
+              strokeWidth={1.2}
+              transform={`rotate(${i * 30 + gearSpin})`}
+            />
+          ))}
+          <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke={INK} strokeWidth={1.8} />
+          <circle cx={0} cy={0} r={6} fill="#FEF08A" />
+        </g>
+
+        {/* Pulsing coiled mainspring barrel behind side vent */}
+        <g transform="translate(-135 -60)">
+          <circle cx={0} cy={0} r={22} fill="#24140B" stroke="#8A5A20" strokeWidth={1.5} />
+          {/* Glowing coiled spring */}
+          <path
+            d="M 0 0 C 8 -4 14 6 10 12 C 4 18 -8 14 -12 6 C -16 -4 -6 -16 6 -16 C 18 -16 22 -2 18 10"
+            stroke="#F59E0B"
+            strokeWidth={2}
+            fill="none"
+            opacity={0.85 + corePulse}
+          />
+        </g>
+      </g>
+
+      {/* =================================================================== */}
+      {/* 2. TOP POCKET WATCH WINDER CROWN & GOTHIC FINIAL HORNS              */}
+      {/* =================================================================== */}
+      <g transform="translate(-40 -168) rotate(-14)">
+        {/* Gothic brass finial horns curving outward */}
+        <path d="M -14 -12 Q -38 -45 -62 -35 Q -44 -18 -22 -6" fill="#8A5A20" stroke={INK} strokeWidth={2} />
+        <path d="M 14 -12 Q 38 -45 62 -35 Q 44 -18 22 -6" fill="#8A5A20" stroke={INK} strokeWidth={2} />
+
         {/* Heavy brass carrying loop ring */}
         <path
-          d="M -30 -25 C -45 -55 45 -55 30 -25"
+          d="M -32 -26 C -48 -58 48 -58 32 -26"
           fill="none"
           stroke="#C28833"
-          strokeWidth={11}
+          strokeWidth={12}
           strokeLinecap="round"
         />
         <path
-          d="M -30 -25 C -45 -55 45 -55 30 -25"
+          d="M -32 -26 C -48 -58 48 -58 32 -26"
           fill="none"
-          stroke="#F3D17A"
-          strokeWidth={4}
+          stroke="#FDE047"
+          strokeWidth={4.5}
           strokeLinecap="round"
         />
         <path
-          d="M -30 -25 C -45 -55 45 -55 30 -25"
+          d="M -32 -26 C -48 -58 48 -58 32 -26"
           fill="none"
           stroke={INK}
-          strokeWidth={2}
+          strokeWidth={2.4}
         />
         {/* Fluted winder crown knob */}
-        <rect x={-14} y={-24} width={28} height={18} rx={4} fill="#946323" stroke={INK} strokeWidth={3} />
-        <line x1={-8} y1={-24} x2={-8} y2={-6} stroke="#F3D17A" strokeWidth={1.5} />
-        <line x1={0} y1={-24} x2={0} y2={-6} stroke="#F3D17A" strokeWidth={1.5} />
-        <line x1={8} y1={-24} x2={8} y2={-6} stroke="#F3D17A" strokeWidth={1.5} />
+        <rect x={-15} y={-26} width={30} height={20} rx={4} fill="#946323" stroke={INK} strokeWidth={3} />
+        <line x1={-9} y1={-26} x2={-9} y2={-6} stroke="#FDE047" strokeWidth={1.8} />
+        <line x1={0} y1={-26} x2={0} y2={-6} stroke="#FDE047" strokeWidth={1.8} />
+        <line x1={9} y1={-26} x2={9} y2={-6} stroke="#FDE047" strokeWidth={1.8} />
         {/* Crown base neck */}
-        <rect x={-9} y={-8} width={18} height={10} fill="#5C3B14" stroke={INK} strokeWidth={2.5} />
+        <rect x={-10} y={-8} width={20} height={11} fill="#5C3B14" stroke={INK} strokeWidth={2.6} />
       </g>
 
       {/* =================================================================== */}
       {/* 3. MAIN CLOCK BODY BEZEL (VIỀN ĐỒNG MẶT TRƯỚC BẤT ĐỐI XỨNG)         */}
       {/* =================================================================== */}
       <g>
-        {/* Outer thick brass bezel with sharp wing-like ornate flanges on sides */}
+        {/* Outer thick brass bezel with sharp ornate flanges */}
         <path
-          d="M 0 -160 C 95 -160 165 -90 165 0 C 165 95 90 165 0 165 C -95 165 -165 90 -165 0 C -165 -90 -95 -160 0 -160 Z"
-          fill="#8A5A20"
+          d="M 0 -165 C 100 -165 172 -92 172 0 C 172 100 95 172 0 172 C -100 172 -172 95 -172 0 C -172 -95 -100 -165 0 -165 Z"
+          fill="#784E1B"
           stroke={INK}
-          strokeWidth={5}
+          strokeWidth={5.5}
         />
         {/* Verdigris patina inlay on outer bezel */}
         <path
-          d="M -60 -150 C -130 -120 -155 -50 -150 20 C -145 80 -110 135 -40 155 C -60 120 -70 80 -65 20 C -60 -40 -35 -110 -60 -150 Z"
-          fill="#4D7058"
+          d="M -65 -155 C -135 -125 -162 -55 -156 22 C -150 85 -115 142 -42 162 C -62 125 -72 85 -68 22 C -62 -42 -38 -115 -65 -155 Z"
+          fill="#3E5C46"
           stroke={INK}
           strokeWidth={2}
         />
         {/* Gold stepped inner bezel ring */}
-        <circle cx={0} cy={0} r={148} fill="#C28833" stroke={INK} strokeWidth={3.5} />
-        <circle cx={0} cy={0} r={136} fill="#5C3B14" stroke={INK} strokeWidth={2} />
-        <circle cx={0} cy={0} r={130} fill="#E5B962" stroke="#7A4E1B" strokeWidth={2} />
+        <circle cx={0} cy={0} r={152} fill="#B4822A" stroke={INK} strokeWidth={3.8} />
+        <circle cx={0} cy={0} r={140} fill="#5C3B14" stroke={INK} strokeWidth={2.2} />
+        <circle cx={0} cy={0} r={132} fill="#E5B962" stroke="#7A4E1B" strokeWidth={2} />
       </g>
 
       {/* =================================================================== */}
@@ -454,334 +738,329 @@ export const ClockCreature: React.FC<{
       {/* =================================================================== */}
       <g>
         {/* Ivory porcelain dial plate with weathered aged patina */}
-        <circle cx={0} cy={0} r={126} fill="#F3E9D2" stroke={INK} strokeWidth={3} />
+        <circle cx={0} cy={0} r={128} fill="#F4EAD4" stroke={INK} strokeWidth={3.2} />
 
         {/* Dial radial crackle lines (Đường men rạn) */}
-        <path d="M 85 -75 L 70 -50 L 80 -30 L 60 -10 M 70 -50 L 50 -60" stroke="#B8A484" strokeWidth={1.2} fill="none" opacity={0.65} />
-        <path d="M -90 -40 L -70 -30 L -75 -10 L -55 10" stroke="#B8A484" strokeWidth={1.2} fill="none" opacity={0.65} />
-        <path d="M -30 95 L -20 75 L -35 55 M -20 75 L 0 70" stroke="#B8A484" strokeWidth={1.2} fill="none" opacity={0.6} />
+        <path d="M 88 -78 L 72 -52 L 82 -32 L 62 -12 M 72 -52 L 52 -62" stroke="#B8A484" strokeWidth={1.3} fill="none" opacity={0.7} />
+        <path d="M -92 -42 L -72 -32 L -78 -12 L -58 12" stroke="#B8A484" strokeWidth={1.3} fill="none" opacity={0.7} />
+        <path d="M -32 98 L -22 78 L -38 58 M -22 78 L 0 72" stroke="#B8A484" strokeWidth={1.3} fill="none" opacity={0.65} />
 
-        {/* Minute/Hour tick marks around dial perimeter */}
-        {Array.from({ length: 12 }).map((_, i) => {
+        {/* 12 Roman numerals & tick marks around dial perimeter */}
+        {['XII', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'].map((num, i) => {
           const ang = ((i * 30 - 90) * Math.PI) / 180;
-          const x1 = Math.cos(ang) * 114;
-          const y1 = Math.sin(ang) * 114;
-          const x2 = Math.cos(ang) * 123;
-          const y2 = Math.sin(ang) * 123;
+          const x1 = Math.cos(ang) * 115;
+          const y1 = Math.sin(ang) * 115;
+          const x2 = Math.cos(ang) * 125;
+          const y2 = Math.sin(ang) * 125;
+          const tx = Math.cos(ang) * 104;
+          const ty = Math.sin(ang) * 104;
           return (
-            <line
-              key={`tick${i}`}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="#543D28"
-              strokeWidth={i % 3 === 0 ? 3.5 : 2}
-              strokeLinecap="round"
-            />
+            <g key={`num_face_${i}`}>
+              <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#543D28" strokeWidth={i % 3 === 0 ? 3.5 : 2} strokeLinecap="round" />
+              <text x={tx} y={ty + 3} fill="#78522E" fontSize={8.5} fontFamily="Cinzel, Georgia, serif" fontWeight="bold" textAnchor="middle" opacity={0.75}>
+                {num}
+              </text>
+            </g>
           );
         })}
 
         {/* Small exposed gears embedded at bottom-left of dial */}
-        <g transform="translate(-76 74)">
-          <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke={INK} strokeWidth={1.8} />
+        <g transform="translate(-78 76)">
+          <circle cx={0} cy={0} r={17} fill="#8A5A20" stroke={INK} strokeWidth={2} />
           {Array.from({ length: 8 }).map((_, i) => (
             <rect
               key={i}
               x={-2.5}
-              y={-18}
+              y={-19}
               width={5}
-              height={4}
-              fill="#C28833"
+              height={4.5}
+              fill="#D4A24C"
               stroke={INK}
-              strokeWidth={0.8}
+              strokeWidth={0.9}
               transform={`rotate(${i * 45 - gearSpin})`}
             />
           ))}
-          <circle cx={0} cy={0} r={5} fill="#4A2E12" />
+          <circle cx={0} cy={0} r={5.5} fill="#4A2E12" />
         </g>
 
         {/* --- FACIAL SKIN CREASES & WRINKLES (NẾP GẤP DA MẶT NGƯỜI GIÀ) --- */}
         {/* Forehead wrinkles above upper eye */}
-        <path d="M -42 -90 Q 0 -98 42 -90" stroke="#9E8262" strokeWidth={2.4} fill="none" strokeLinecap="round" />
-        <path d="M -50 -80 Q 0 -88 50 -80" stroke="#9E8262" strokeWidth={2.6} fill="none" strokeLinecap="round" />
-        <path d="M -35 -70 Q 0 -76 35 -70" stroke="#9E8262" strokeWidth={2} fill="none" strokeLinecap="round" />
+        <path d="M -44 -94 Q 0 -102 44 -94" stroke="#9E8262" strokeWidth={2.6} fill="none" strokeLinecap="round" />
+        <path d="M -52 -84 Q 0 -92 52 -84" stroke="#9E8262" strokeWidth={2.8} fill="none" strokeLinecap="round" />
+        <path d="M -36 -74 Q 0 -80 36 -74" stroke="#9E8262" strokeWidth={2.2} fill="none" strokeLinecap="round" />
 
         {/* Wrinkles and bags under lower eyes */}
-        <path d="M -80 0 Q -52 18 -26 2" stroke="#9E8262" strokeWidth={2.2} fill="none" strokeLinecap="round" />
-        <path d="M -75 10 Q -50 28 -24 14" stroke="#B09677" strokeWidth={1.8} fill="none" strokeLinecap="round" />
-        <path d="M 26 2 Q 52 18 80 0" stroke="#9E8262" strokeWidth={2.2} fill="none" strokeLinecap="round" />
-        <path d="M 24 14 Q 50 28 75 10" stroke="#B09677" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+        <path d="M -82 0 Q -54 20 -28 3" stroke="#9E8262" strokeWidth={2.4} fill="none" strokeLinecap="round" />
+        <path d="M -76 12 Q -52 30 -26 15" stroke="#B09677" strokeWidth={2} fill="none" strokeLinecap="round" />
+        <path d="M 28 3 Q 54 20 82 0" stroke="#9E8262" strokeWidth={2.4} fill="none" strokeLinecap="round" />
+        <path d="M 26 15 Q 52 30 76 12" stroke="#B09677" strokeWidth={2} fill="none" strokeLinecap="round" />
 
         {/* Nasolabial folds (Rãnh cười & khóe miệng người già) */}
-        <path d="M -40 28 Q -50 50 -28 66" stroke="#8A6E50" strokeWidth={2.4} fill="none" strokeLinecap="round" />
-        <path d="M 40 28 Q 50 50 28 66" stroke="#8A6E50" strokeWidth={2.4} fill="none" strokeLinecap="round" />
+        <path d="M -42 30 Q -52 52 -30 68" stroke="#8A6E50" strokeWidth={2.6} fill="none" strokeLinecap="round" />
+        <path d="M 42 30 Q 52 52 30 68" stroke="#8A6E50" strokeWidth={2.6} fill="none" strokeLinecap="round" />
         {/* Chin creases */}
-        <path d="M -16 78 Q 0 84 16 78" stroke="#A88E72" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+        <path d="M -18 80 Q 0 86 18 80" stroke="#A88E72" strokeWidth={2} fill="none" strokeLinecap="round" />
 
-        {/* --- THREE CALCULATING AMBER EYES IN A TRIANGLE (BA MẮT HỔ PHÁCH) --- */}
+        {/* Coiled wire mustache at mouth corners */}
+        <path d="M -36 50 Q -52 46 -48 64 Q -44 74 -36 70" stroke="#8A5A20" strokeWidth={1.4} fill="none" />
+        <path d="M 36 50 Q 52 46 48 64 Q 44 74 36 70" stroke="#8A5A20" strokeWidth={1.4} fill="none" />
 
-        {/* 1. TOP APEX EYE (Mắt trên trán) */}
-        <g transform="translate(0 -54)">
+        {/* --- THREE ELDRITCH LENS EYES IN A TRIANGLE (BA MẮT QUỶ QUYỆT) --- */}
+
+        {/* 1. TOP APEX EYE (Mắt trên trán: Thấu kính quang học đa tầng) */}
+        <g transform="translate(0 -55)">
           {/* Sparse wiry white eyebrow */}
-          <path
-            d="M -38 -16 Q 0 -26 38 -16"
-            stroke="#EFE8D8"
-            strokeWidth={4.5}
-            fill="none"
-            strokeLinecap="round"
-          />
-          <path
-            d="M -36 -17 Q 0 -27 36 -17"
-            stroke="#9C8974"
-            strokeWidth={1.5}
-            fill="none"
-            strokeLinecap="round"
-          />
-          {/* Eye socket with heavy drooping upper eyelid */}
-          <ellipse cx={0} cy={0} rx={32} ry={15} fill="#4A3423" stroke={INK} strokeWidth={2.5} />
-          {/* Amber-gold iris */}
-          <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={22} ry={13} fill="#D97706" />
-          <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={17} ry={10} fill="#F59E0B" />
-          <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={12} ry={7} fill="#FEF08A" />
-          {/* Horizontal sharp slit cat pupil */}
-          <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={10} ry={2.5} fill="#180C06" />
+          <path d="M -40 -17 Q 0 -28 40 -17" stroke="#EFE8D8" strokeWidth={5} fill="none" strokeLinecap="round" />
+          <path d="M -38 -18 Q 0 -29 38 -18" stroke="#9C8974" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+
+          {/* Steampunk Brass Aperture Rim */}
+          <ellipse cx={0} cy={0} rx={34} ry={16} fill="#3E2718" stroke={INK} strokeWidth={2.8} />
+
+          {/* Amber-gold glowing iris */}
+          <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={24} ry={14} fill="#D97706" />
+          <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={18} ry={10} fill="#F59E0B" />
+          <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={13} ry={7} fill="#FEF08A" />
+
+          {/* Optical aperture blades */}
+          {Array.from({ length: 6 }).map((_, i) => (
+            <line
+              key={`ap_${i}`}
+              x1={Math.cos((i * 60 * Math.PI) / 180) * 16}
+              y1={Math.sin((i * 60 * Math.PI) / 180) * 8}
+              x2={Math.cos(((i * 60 + 35) * Math.PI) / 180) * 8}
+              y2={Math.sin(((i * 60 + 35) * Math.PI) / 180) * 4}
+              stroke="#B45309"
+              strokeWidth={1}
+            />
+          ))}
+
+          {/* Dual sharp slit pupil (Đồng tử kép sắc lạnh) */}
+          <ellipse cx={eyeGazeX * 4 - 2} cy={eyeGazeY * 2} rx={7} ry={2.2} fill="#120603" />
+          <ellipse cx={eyeGazeX * 4 + 2} cy={eyeGazeY * 2} rx={7} ry={2.2} fill="#120603" />
           {/* Specular highlight */}
-          <circle cx={-4 + eyeGazeX * 3} cy={-3 + eyeGazeY} r={2.5} fill="#FFFFFF" />
-          {/* Heavy drooping upper lid fold covering top of eye (Nheo mắt đánh giá) */}
+          <circle cx={-4 + eyeGazeX * 3} cy={-3 + eyeGazeY} r={2.8} fill="#FFFFFF" />
+
+          {/* Drooping mechanical upper lid fold */}
           <path
-            d="M -34 0 C -25 -16 25 -16 34 0 C 22 -7 -22 -7 -34 0 Z"
+            d="M -36 0 C -26 -18 26 -18 36 0 C 24 -8 -24 -8 -36 0 Z"
+            fill="#DCCBB0"
+            stroke={INK}
+            strokeWidth={2.2}
+          />
+          <path d="M -34 -7 Q 0 -20 34 -7" stroke="#7A5D40" strokeWidth={2.2} fill="none" />
+        </g>
+
+        {/* 2. LOWER-LEFT EYE (Mắt dưới trái) */}
+        <g transform="translate(-50 -8) rotate(4)">
+          <path d="M -30 -15 Q 0 -24 28 -15" stroke="#EFE8D8" strokeWidth={4.2} fill="none" strokeLinecap="round" />
+          <ellipse cx={0} cy={0} rx={28} ry={14} fill="#4A3423" stroke={INK} strokeWidth={2.4} />
+          {/* Amber iris */}
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={19} ry={12} fill="#D97706" />
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={14} ry={8.5} fill="#F59E0B" />
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={9} ry={5.5} fill="#FEF08A" />
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={8.5} ry={2.4} fill="#180C06" />
+          <circle cx={-3 + eyeGazeX * 2} cy={-2} r={2.2} fill="#FFFFFF" />
+          {/* Squinting drooping lid fold */}
+          <path
+            d="M -30 0 C -22 -15 22 -15 30 0 C 20 -7 -20 -7 -30 0 Z"
             fill="#DCCBB0"
             stroke={INK}
             strokeWidth={2}
           />
-          <path d="M -32 -6 Q 0 -18 32 -6" stroke="#7A5D40" strokeWidth={2} fill="none" />
-        </g>
-
-        {/* 2. LOWER-LEFT EYE (Mắt dưới trái) */}
-        <g transform="translate(-48 -8) rotate(4)">
-          {/* Wispy eyebrow */}
-          <path d="M -28 -14 Q 0 -22 26 -14" stroke="#EFE8D8" strokeWidth={4} fill="none" strokeLinecap="round" />
-          <ellipse cx={0} cy={0} rx={27} ry={13} fill="#4A3423" stroke={INK} strokeWidth={2.2} />
-          {/* Amber iris */}
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={18} ry={11} fill="#D97706" />
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={13} ry={8} fill="#F59E0B" />
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={8} ry={5} fill="#FEF08A" />
-          {/* Sharp slit pupil looking intently at viewer */}
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={8} ry={2.2} fill="#180C06" />
-          <circle cx={-3 + eyeGazeX * 2} cy={-2} r={2} fill="#FFFFFF" />
-          {/* Squinting drooping lid fold */}
-          <path
-            d="M -28 0 C -20 -14 20 -14 28 0 C 18 -6 -18 -6 -28 0 Z"
-            fill="#DCCBB0"
-            stroke={INK}
-            strokeWidth={1.8}
-          />
-          <path d="M -26 -5 Q 0 -14 26 -5" stroke="#7A5D40" strokeWidth={1.8} fill="none" />
+          <path d="M -28 -6 Q 0 -15 28 -6" stroke="#7A5D40" strokeWidth={2} fill="none" />
         </g>
 
         {/* 3. LOWER-RIGHT EYE (Mắt dưới phải) */}
-        <g transform="translate(48 -8) rotate(-4)">
-          {/* Wispy eyebrow */}
-          <path d="M -26 -14 Q 0 -22 28 -14" stroke="#EFE8D8" strokeWidth={4} fill="none" strokeLinecap="round" />
-          <ellipse cx={0} cy={0} rx={27} ry={13} fill="#4A3423" stroke={INK} strokeWidth={2.2} />
+        <g transform="translate(50 -8) rotate(-4)">
+          <path d="M -28 -15 Q 0 -24 30 -15" stroke="#EFE8D8" strokeWidth={4.2} fill="none" strokeLinecap="round" />
+          <ellipse cx={0} cy={0} rx={28} ry={14} fill="#4A3423" stroke={INK} strokeWidth={2.4} />
           {/* Amber iris */}
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={18} ry={11} fill="#D97706" />
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={13} ry={8} fill="#F59E0B" />
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={8} ry={5} fill="#FEF08A" />
-          {/* Sharp slit pupil looking intently */}
-          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={8} ry={2.2} fill="#180C06" />
-          <circle cx={-3 + eyeGazeX * 2} cy={-2} r={2} fill="#FFFFFF" />
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={19} ry={12} fill="#D97706" />
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={14} ry={8.5} fill="#F59E0B" />
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={9} ry={5.5} fill="#FEF08A" />
+          <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={8.5} ry={2.4} fill="#180C06" />
+          <circle cx={-3 + eyeGazeX * 2} cy={-2} r={2.2} fill="#FFFFFF" />
           {/* Squinting drooping lid fold */}
           <path
-            d="M -28 0 C -20 -14 20 -14 28 0 C 18 -6 -18 -6 -28 0 Z"
+            d="M -30 0 C -22 -15 22 -15 30 0 C 20 -7 -20 -7 -30 0 Z"
             fill="#DCCBB0"
             stroke={INK}
-            strokeWidth={1.8}
+            strokeWidth={2}
           />
-          <path d="M -26 -5 Q 0 -14 26 -5" stroke="#7A5D40" strokeWidth={1.8} fill="none" />
+          <path d="M -28 -6 Q 0 -15 28 -6" stroke="#7A5D40" strokeWidth={2} fill="none" />
         </g>
 
-        {/* --- NOSE RIDGE & BRIDGE (SỐNG MŨI THỢ LÀM ĐỒNG HỒ) --- */}
-        <path d="M -2 -14 L 3 14 L -4 24 L 4 25" stroke="#9C8264" strokeWidth={2} fill="none" strokeLinecap="round" />
+        {/* --- NOSE RIDGE & BRIDGE --- */}
+        <path d="M -2 -14 L 3 14 L -4 24 L 4 25" stroke="#9C8264" strokeWidth={2.2} fill="none" strokeLinecap="round" />
 
-        {/* --- THIN KNOWING SMIRK (MIỆNG MỎNG NỤ CƯỜI CONG BÍ HIỂM) --- */}
-        <g transform={`translate(0 54) scale(${smirk})`}>
+        {/* --- THIN KNOWING SMIRK WITH TINY COG TEETH --- */}
+        <g transform={`translate(0 56) scale(${smirk})`}>
+          {/* Mouth cavity */}
+          <path d="M -34 4 Q -10 16 0 15 Q 22 11 36 -2 Q 22 6 0 10 Q -12 11 -34 4 Z" fill="#2E1208" />
+          {/* Tiny gear-teeth studs */}
+          {[-16, -8, 0, 8, 16, 24].map((px, i) => (
+            <rect key={i} x={px} y={8} width={2.5} height={3} fill="#FEF08A" opacity={0.8} />
+          ))}
           {/* Thin curved smirk line */}
           <path
-            d="M -34 4 Q -12 16 0 14 Q 22 10 36 -2"
+            d="M -35 4 Q -12 17 0 15 Q 24 10 38 -2"
             stroke="#5C3B24"
-            strokeWidth={3.5}
+            strokeWidth={3.8}
             fill="none"
             strokeLinecap="round"
           />
           <path
-            d="M -34 4 Q -12 16 0 14 Q 22 10 36 -2"
-            stroke="#8A4A28"
-            strokeWidth={1.5}
+            d="M -35 4 Q -12 17 0 15 Q 24 10 38 -2"
+            stroke="#9A4522"
+            strokeWidth={1.6}
             fill="none"
             strokeLinecap="round"
           />
           {/* Upturned right mouth corner */}
-          <path d="M 32 -3 Q 37 -7 36 -2" stroke="#5C3B24" strokeWidth={3} fill="none" />
-          {/* Lower lip shadow line */}
-          <path d="M -12 21 Q 6 24 18 18" stroke="#B09677" strokeWidth={2} fill="none" strokeLinecap="round" />
+          <path d="M 34 -3 Q 39 -7 38 -2" stroke="#5C3B24" strokeWidth={3.2} fill="none" />
+          <path d="M -12 23 Q 6 26 19 20" stroke="#B09677" strokeWidth={2.2} fill="none" strokeLinecap="round" />
         </g>
 
-        {/* --- ORNATE CLOCK HANDS INTERWEAVING THE FACE (CÁC KIM ĐỒNG MẢNH) --- */}
-        {/* Central clock pivot between lower eyes */}
-        <circle cx={0} cy={12} r={7} fill="#C28833" stroke={INK} strokeWidth={2} />
-        <circle cx={0} cy={12} r={3} fill="#5C3B14" />
+        {/* --- STILETTO CLOCK HANDS INTERWEAVING THE FACE --- */}
+        <circle cx={0} cy={12} r={8} fill="#D4A24C" stroke={INK} strokeWidth={2.4} />
+        <circle cx={0} cy={12} r={3.5} fill="#451A03" />
 
-        {/* Hour Hand: pointing toward upper-left */}
+        {/* Hour Stiletto Hand: pointing toward upper-left */}
         <g transform="translate(0 12) rotate(-55)">
-          <path d="M 0 6 L -3 0 L -1 -55 L 0 -68 L 1 -55 L 3 0 Z" fill="#4A3018" stroke={INK} strokeWidth={1.6} />
-          <circle cx={0} cy={-42} r={5} fill="#C28833" stroke={INK} strokeWidth={1.2} />
+          <path d="M 0 7 L -4 0 L -1 -58 L 0 -72 L 1 -58 L 4 0 Z" fill="#4A3018" stroke={INK} strokeWidth={1.8} />
+          <circle cx={0} cy={-45} r={5.5} fill="#C28833" stroke={INK} strokeWidth={1.4} />
         </g>
-        {/* Minute Hand: pointing toward upper-right */}
+        {/* Minute Stiletto Hand: pointing toward upper-right */}
         <g transform="translate(0 12) rotate(65)">
-          <path d="M 0 8 L -2.5 0 L -1 -75 L 0 -92 L 1 -75 L 2.5 0 Z" fill="#4A3018" stroke={INK} strokeWidth={1.6} />
-          <circle cx={0} cy={-58} r={6} fill="#E5B962" stroke={INK} strokeWidth={1.2} />
+          <path d="M 0 9 L -3 0 L -1 -78 L 0 -96 L 1 -78 L 3 0 Z" fill="#4A3018" stroke={INK} strokeWidth={1.8} />
+          <circle cx={0} cy={-62} r={6.5} fill="#FDE047" stroke={INK} strokeWidth={1.4} />
         </g>
-        {/* Second Hand with counterweight arrow: pointing down-right */}
+        {/* Second Needle Hand with counterweight */}
         <g transform="translate(0 12) rotate(145)">
-          <line x1={0} y1={-18} x2={0} y2={55} stroke="#991B1B" strokeWidth={1.5} />
-          <polygon points="-3,50 3,50 0,58" fill="#991B1B" />
+          <line x1={0} y1={-20} x2={0} y2={60} stroke="#B91C1C" strokeWidth={1.6} />
+          <polygon points="-3.5,54 3.5,54 0,63" fill="#DC2626" />
         </g>
       </g>
 
       {/* =================================================================== */}
-      {/* 5. SLENDER ARTICULATED BRASS LEGS (HAI CHÂN CƠ KHÍ MẢNH LƠ LỬNG)     */}
+      {/* 5. SLENDER ARTICULATED RAPTOR LEGS (CHÂN CƠ KHÍ GẬP NGƯỢC)         */}
       {/* =================================================================== */}
-      {/* Attached directly beneath bottom rim of clock */}
       <g>
         {/* Left Leg: Double-jointed, bent backwards at knee */}
-        <g transform="translate(-50 148)">
-          {/* Hip socket */}
-          <circle cx={0} cy={0} r={10} fill="#8A5A20" stroke={INK} strokeWidth={2.4} />
-          <circle cx={0} cy={0} r={4} fill="#F3D17A" />
-          {/* Thigh rod */}
-          <path d="M 0 0 L -25 45" stroke="#C28833" strokeWidth={6} strokeLinecap="round" />
-          <path d="M 0 0 L -25 45" stroke={INK} strokeWidth={1.5} fill="none" />
-          {/* Knee joint */}
-          <circle cx={-25} cy={45} r={8} fill="#8A5A20" stroke={INK} strokeWidth={2.2} />
-          <circle cx={-25} cy={45} r={3} fill="#5C3B14" />
+        <g transform="translate(-52 152)">
+          <circle cx={0} cy={0} r={11} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
+          <circle cx={0} cy={0} r={4.5} fill="#FDE047" />
+          {/* Thigh rod & piston cylinder */}
+          <path d="M 0 0 L -28 48" stroke="#C28833" strokeWidth={7} strokeLinecap="round" />
+          <line x1={-4} y1={2} x2={-26} y2={42} stroke="#FEF08A" strokeWidth={1.8} />
+          {/* Knee gear socket */}
+          <circle cx={-28} cy={48} r={9} fill="#8A5A20" stroke={INK} strokeWidth={2.4} />
+          <circle cx={-28} cy={48} r={3.5} fill="#5C3B14" />
           {/* Shin rod angling forward */}
-          <path d="M -25 45 L 6 95" stroke="#C28833" strokeWidth={5} strokeLinecap="round" />
+          <path d="M -28 48 L 8 100" stroke="#C28833" strokeWidth={5.5} strokeLinecap="round" />
           {/* Ankle and pointed metal claw foot */}
-          <path d="M 6 95 Q 16 115 14 125 Q 4 120 0 105 Z" fill="#946323" stroke={INK} strokeWidth={2} />
+          <path d="M 8 100 Q 18 122 16 132 Q 4 126 0 110 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
         </g>
 
-        {/* Right Leg: Sharp knee angle, pointed foot trailing */}
-        <g transform="translate(30 156)">
-          {/* Hip socket */}
-          <circle cx={0} cy={0} r={9} fill="#8A5A20" stroke={INK} strokeWidth={2.4} />
-          <circle cx={0} cy={0} r={3.5} fill="#F3D17A" />
-          {/* Thigh rod */}
-          <path d="M 0 0 L 25 42" stroke="#C28833" strokeWidth={6} strokeLinecap="round" />
-          {/* Knee joint */}
-          <circle cx={25} cy={42} r={7.5} fill="#8A5A20" stroke={INK} strokeWidth={2} />
-          {/* Shin rod angling down-left */}
-          <path d="M 25 42 L 8 92" stroke="#C28833" strokeWidth={4.8} strokeLinecap="round" />
-          {/* Pointed claw foot */}
-          <path d="M 8 92 Q 2 112 0 120 Q -8 114 -2 100 Z" fill="#946323" stroke={INK} strokeWidth={2} />
+        {/* Right Leg */}
+        <g transform="translate(32 160)">
+          <circle cx={0} cy={0} r={10} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
+          <circle cx={0} cy={0} r={4} fill="#FDE047" />
+          <path d="M 0 0 L 28 45" stroke="#C28833" strokeWidth={7} strokeLinecap="round" />
+          <circle cx={28} cy={45} r={8.5} fill="#8A5A20" stroke={INK} strokeWidth={2.2} />
+          <path d="M 28 45 L 9 98" stroke="#C28833" strokeWidth={5.2} strokeLinecap="round" />
+          <path d="M 9 98 Q 2 118 0 126 Q -9 120 -3 105 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
         </g>
       </g>
 
       {/* =================================================================== */}
-      {/* 6. LEFT ARM: OPEN CLAW INVITING / APPRAISING (TAY TRÁI MỞ NGỬA)     */}
+      {/* 6. LEFT ARM: OPEN CLAW WITH CHRONAL SPARKS                          */}
       {/* =================================================================== */}
-      <g transform="translate(-160 5)">
-        {/* Shoulder brass ball socket */}
-        <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke={INK} strokeWidth={3} />
-        <circle cx={0} cy={0} r={6} fill="#F3D17A" />
+      <g transform="translate(-165 5)">
+        <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke={INK} strokeWidth={3.2} />
+        <circle cx={0} cy={0} r={6.5} fill="#FDE047" />
 
-        {/* Upper arm extending outward-down */}
-        <path d="M 0 0 L -65 52" stroke="#C28833" strokeWidth={9} strokeLinecap="round" />
-        <path d="M -4 0 L -65 52" stroke="#5C3B14" strokeWidth={2.5} fill="none" />
+        <path d="M 0 0 L -68 54" stroke="#C28833" strokeWidth={9.5} strokeLinecap="round" />
+        <path d="M -4 0 L -68 54" stroke="#5C3B14" strokeWidth={2.8} fill="none" />
 
         {/* Elbow gear joint */}
-        <g transform="translate(-65 52) rotate(35)">
-          <circle cx={0} cy={0} r={14} fill="#8A5A20" stroke={INK} strokeWidth={2.5} />
+        <g transform="translate(-68 54) rotate(35)">
+          <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
           {Array.from({ length: 6 }).map((_, i) => (
             <rect
               key={i}
               x={-2.5}
-              y={-16}
+              y={-17}
               width={5}
-              height={4}
-              fill="#F3D17A"
+              height={4.5}
+              fill="#FDE047"
               transform={`rotate(${i * 60})`}
             />
           ))}
-          <circle cx={0} cy={0} r={5} fill="#4A2E12" />
+          <circle cx={0} cy={0} r={5.5} fill="#4A2E12" />
         </g>
 
-        {/* Forearm bending forward-inward */}
-        <path d="M -65 52 L -35 110" stroke="#C28833" strokeWidth={8} strokeLinecap="round" />
+        <path d="M -68 54 L -36 114" stroke="#C28833" strokeWidth={8.5} strokeLinecap="round" />
+        <circle cx={-36} cy={114} r={9.5} fill="#8A5A20" stroke={INK} strokeWidth={2.2} />
 
-        {/* Wrist socket */}
-        <circle cx={-35} cy={110} r={9} fill="#8A5A20" stroke={INK} strokeWidth={2} />
+        {/* Expressive Open Claw Hand with chronal spark motes */}
+        <g transform={`translate(-36 114) rotate(${fingerTwitch * 2})`}>
+          <path d="M -7 0 L 11 4 L 9 17 L -7 13 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
+          <path d="M -7 4 Q -20 8 -18 24" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />
+          <path d="M 0 14 Q 4 30 15 36 Q 24 38 30 30" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
+          <path d="M 4 14 Q 15 28 28 30 Q 38 28 40 20" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
+          <path d="M 9 12 Q 20 23 30 21" stroke="#C28833" strokeWidth={3.8} fill="none" strokeLinecap="round" />
+          <path d="M 9 6 Q 18 13 24 11" stroke="#C28833" strokeWidth={3.2} fill="none" strokeLinecap="round" />
 
-        {/* Expressive Open Claw Hand with multi-jointed crooked fingers */}
-        <g transform={`translate(-35 110) rotate(${fingerTwitch * 2})`}>
-          {/* Palm base */}
-          <path d="M -6 0 L 10 4 L 8 16 L -6 12 Z" fill="#946323" stroke={INK} strokeWidth={2} />
-          {/* Thumb */}
-          <path d="M -6 4 Q -18 8 -16 22" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
-          {/* Index finger curved upward */}
-          <path d="M 0 14 Q 4 28 14 34 Q 22 36 28 28" stroke="#C28833" strokeWidth={3.8} fill="none" strokeLinecap="round" />
-          {/* Middle finger */}
-          <path d="M 4 14 Q 14 26 26 28 Q 36 26 38 18" stroke="#C28833" strokeWidth={3.8} fill="none" strokeLinecap="round" />
-          {/* Ring finger */}
-          <path d="M 8 12 Q 18 22 28 20" stroke="#C28833" strokeWidth={3.5} fill="none" strokeLinecap="round" />
-          {/* Little finger */}
-          <path d="M 8 6 Q 16 12 22 10" stroke="#C28833" strokeWidth={3} fill="none" strokeLinecap="round" />
+          {/* Floating chronal sparks above the open claw */}
+          {[0, 1, 2].map((i) => (
+            <circle
+              key={`spk_claw_${i}`}
+              cx={24 + Math.sin(t * 0.1 + i * 2) * 8}
+              cy={12 - i * 10}
+              r={1.4}
+              fill="#FDE047"
+              opacity={0.85}
+            />
+          ))}
         </g>
       </g>
 
       {/* =================================================================== */}
-      {/* 7. RIGHT ARM: EXTENDED DOWN, GRASPING THE G1 JAR (TAY PHẢI ĐẶT LÊN LỌ) */}
+      {/* 7. RIGHT ARM: GRIPPING G1 JAR WITH SKELETAL TALONS                  */}
       {/* =================================================================== */}
-      <g transform="translate(156 12)">
-        {/* Shoulder socket */}
-        <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke={INK} strokeWidth={3} />
-        <circle cx={0} cy={0} r={6} fill="#F3D17A" />
+      <g transform="translate(160 12)">
+        <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke={INK} strokeWidth={3.2} />
+        <circle cx={0} cy={0} r={6.5} fill="#FDE047" />
 
-        {/* Long upper arm reaching down-right */}
-        <path d="M 0 0 L 72 38" stroke="#C28833" strokeWidth={9} strokeLinecap="round" />
+        <path d="M 0 0 L 75 40" stroke="#C28833" strokeWidth={9.5} strokeLinecap="round" />
 
-        {/* Elbow joint with gear cogs */}
-        <g transform="translate(72 38) rotate(-40)">
-          <circle cx={0} cy={0} r={14} fill="#8A5A20" stroke={INK} strokeWidth={2.5} />
+        <g transform="translate(75 40) rotate(-40)">
+          <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
           {Array.from({ length: 6 }).map((_, i) => (
             <rect
               key={i}
               x={-2.5}
-              y={-16}
+              y={-17}
               width={5}
-              height={4}
-              fill="#F3D17A"
+              height={4.5}
+              fill="#FDE047"
               transform={`rotate(${i * 60})`}
             />
           ))}
-          <circle cx={0} cy={0} r={5} fill="#4A2E12" />
+          <circle cx={0} cy={0} r={5.5} fill="#4A2E12" />
         </g>
 
-        {/* Forearm extending down to the jar lid */}
-        <path d="M 72 38 L 44 116" stroke="#C28833" strokeWidth={8} strokeLinecap="round" />
-        {/* Wrist */}
-        <circle cx={44} cy={116} r={9} fill="#8A5A20" stroke={INK} strokeWidth={2} />
+        <path d="M 75 40 L 46 120" stroke="#C28833" strokeWidth={8.5} strokeLinecap="round" />
+        <circle cx={46} cy={120} r={9.5} fill="#8A5A20" stroke={INK} strokeWidth={2.2} />
 
-        {/* Hand grasping the jar stopper lid */}
-        <g transform={`translate(44 116) rotate(${fingerTwitch})`}>
-          {/* Skeletal brass knuckles and fingers curling over lid */}
-          <path d="M -12 8 L 8 4 L 14 14 L -6 18 Z" fill="#946323" stroke={INK} strokeWidth={2} />
-          {/* Four jointed fingers gripping downwards onto the jar neck */}
-          <path d="M -10 16 Q -14 26 -12 36" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
-          <path d="M -4 17 Q -4 28 0 38" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
-          <path d="M 4 16 Q 8 26 12 37" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
-          <path d="M 10 14 Q 18 24 22 34" stroke="#C28833" strokeWidth={3.5} fill="none" strokeLinecap="round" />
+        {/* Hand grasping the jar stopper lid firmly */}
+        <g transform={`translate(46 120) rotate(${fingerTwitch})`}>
+          <path d="M -13 8 L 9 4 L 15 15 L -7 19 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
+          <path d="M -11 17 Q -15 28 -13 38" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />
+          <path d="M -4 18 Q -4 30 0 40" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />
+          <path d="M 4 17 Q 9 28 13 39" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />
+          <path d="M 11 15 Q 19 25 24 36" stroke="#C28833" strokeWidth={3.8} fill="none" strokeLinecap="round" />
         </g>
       </g>
 
@@ -808,19 +1087,19 @@ export const ClockCreature: React.FC<{
             opacity={0.7}
           />
 
-          {/* JAR 1: G1 (Car on Country Road) — Firmly held under Right Hand at x=195, y=175 */}
-          <MemoryJar x={198} y={175} s={1.12} kind="g1" glow={1.3} t={t} showAura />
+          {/* JAR 1: G1 (Car on Country Road) — Firmly held under Right Hand at x=198, y=175 */}
+          <MemoryJar x={198} y={175} s={1.15} kind="g1" glow={1.35} t={t} showAura />
 
           {/* JAR 2: G2 (Two Intertwining Wisps) — Floating in center at x=340, y=190 */}
           {(() => {
             const bob2 = Math.sin(t * 0.08 + 1.5) * 8;
-            return <MemoryJar x={340} y={190 + bob2} s={1.05} kind="g2" glow={1.2} t={t} showAura />;
+            return <MemoryJar x={340} y={190 + bob2} s={1.08} kind="g2" glow={1.25} t={t} showAura />;
           })()}
 
           {/* JAR 3: G3 (Crescent Moon & Sealed Door) — Floating at right at x=475, y=140 */}
           {(() => {
             const bob3 = Math.cos(t * 0.07 + 3.0) * 8;
-            return <MemoryJar x={475} y={140 + bob3} s={0.98} kind="g3" glow={1.2} t={t} showAura />;
+            return <MemoryJar x={475} y={140 + bob3} s={1.0} kind="g3" glow={1.25} t={t} showAura />;
           })()}
         </g>
       ) : null}
@@ -906,16 +1185,339 @@ export const ReverseHourglass: React.FC<{
 };
 
 // ============================================================================
-// 4. TIME VAULT SCENE (CẢNH 9: TOÀN BỘ KHÔNG GIAN KHO LƯU TRỮ THỜI GIAN)
+// 4. TEMPORAL FISSURE (VẾT RÁCH THỜI GIAN TUA NGƯỢC)
 // ============================================================================
 
 /**
- * TimeVaultScene: The grand rotunda / vault archive from the reference artwork:
- * - Amphitheater curved multi-tiered shelves receding into the deep background.
- * - Hundreds of glowing jars stored on the shelves.
- * - Central glowing Reverse Hourglass pedestal with flame.
- * - Grand Gothic arched window in background.
- * - Center Clock Creature hovering with G1, G2, G3 jars.
+ * TemporalFissure: A terrifying, jagged spacetime tear cutting through reality:
+ * - Jagged dark void rift crackling with reverse chronological energy.
+ * - Reverse chronal lightning branching outward (#38BDF8, #FDE047, #C084FC).
+ * - Floating fragmented clock dial shards reassembling into the rift.
+ * - Inward-flowing luminous reverse dust and chronal wisps.
+ */
+export const TemporalFissure: React.FC<{
+  x: number;
+  y: number;
+  s?: number;
+  t?: number;
+}> = ({ x, y, s = 1, t = 0 }) => {
+  const crackWobble = Math.sin(t * 0.1) * 3;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <defs>
+        <radialGradient id="fissureAura" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#38BDF8" stopOpacity={0.65} />
+          <stop offset="30%" stopColor="#818CF8" stopOpacity={0.38} />
+          <stop offset="65%" stopColor="#4C1D95" stopOpacity={0.16} />
+          <stop offset="100%" stopColor="#0B0314" stopOpacity={0} />
+        </radialGradient>
+      </defs>
+
+      {/* Atmospheric temporal distortion aura */}
+      <ellipse cx={0} cy={0} rx={180} ry={420} fill="url(#fissureAura)" style={{ mixBlendMode: 'screen' }} />
+
+      {/* Main jagged fissure void */}
+      <path
+        d={`M -8 -380 
+           Q ${16 + crackWobble} -290 6 -220 
+           Q ${-30 - crackWobble} -140 -8 -70 
+           Q ${34 + crackWobble} 10 14 90 
+           Q ${-36 - crackWobble} 180 -6 260 
+           Q ${20 + crackWobble} 320 2 390 
+           Q ${-14 - crackWobble} 340 -18 270 
+           Q ${-44 + crackWobble} 190 -26 100 
+           Q ${2 - crackWobble} 15 -34 -65 
+           Q ${-52 + crackWobble} -150 -20 -230 
+           Q 2 -300 -8 -380 Z`}
+        fill="#05010B"
+        stroke="#1E1B4B"
+        strokeWidth={3.5}
+      />
+
+      {/* Interior cosmic rewind energy vortex */}
+      <path
+        d="M -2 -360 Q 18 -220 2 -60 Q -16 80 14 250 Q -4 310 0 370"
+        stroke="#60A5FA"
+        strokeWidth={4}
+        fill="none"
+        opacity={0.88}
+        style={{ filter: 'drop-shadow(0 0 10px #38BDF8)' }}
+      />
+      <path
+        d="M -4 -330 Q -24 -190 8 -40 Q 24 100 -8 270"
+        stroke="#FDE047"
+        strokeWidth={2.4}
+        fill="none"
+        opacity={0.92}
+        style={{ filter: 'drop-shadow(0 0 7px #F59E0B)' }}
+      />
+      <path
+        d="M 2 -310 Q 14 -145 -12 20 Q -22 170 8 320"
+        stroke="#FFFFFF"
+        strokeWidth={1.4}
+        fill="none"
+        opacity={0.96}
+      />
+
+      {/* Reverse temporal lightning bolts branching out */}
+      {Array.from({ length: 7 }).map((_, i) => {
+        const side = i % 2 === 0 ? 1 : -1;
+        const boltY = -260 + i * 85 + Math.sin(t * 0.15 + i) * 15;
+        const boltX = side * (18 + Math.cos(t * 0.2 + i) * 10);
+        const bx2 = side * (75 + (i * 13) % 45);
+        const by2 = boltY + ((i * 23) % 40) - 20;
+        const bx3 = side * (120 + (i * 17) % 35);
+        const by3 = by2 + (side > 0 ? 25 : -25);
+        return (
+          <path
+            key={`bolt_${i}`}
+            d={`M ${boltX} ${boltY} L ${bx2} ${by2} L ${bx3} ${by3}`}
+            stroke={i % 3 === 0 ? '#FEF08A' : i % 3 === 1 ? '#38BDF8' : '#C084FC'}
+            strokeWidth={1.8}
+            fill="none"
+            opacity={0.75 + Math.sin(t * 0.25 + i * 2) * 0.25}
+            strokeLinecap="round"
+          />
+        );
+      })}
+
+      {/* Floating fractured clock gears and shards reassembling into the rift */}
+      {[-210, -110, 0, 110, 210].map((baseY, i) => {
+        const shardT = ((t * 0.05 + i * 0.2) % 1);
+        const sx = (i % 2 === 0 ? 1 : -1) * (150 - shardT * 120);
+        const sy = baseY + Math.sin(t * 0.08 + i) * 22;
+        const rot = t * (i % 2 === 0 ? 2 : -2) + i * 45;
+        return (
+          <g key={`shard_${i}`} transform={`translate(${sx} ${sy}) rotate(${rot}) scale(${0.55 + (i % 3) * 0.2})`}>
+            <path d="M -16 -12 L 18 -8 L 10 16 L -14 12 Z" fill="#D4A24C" stroke="#78350F" strokeWidth={1.5} opacity={0.88} />
+            <line x1={-8} y1={-4} x2={4} y2={6} stroke="#3E2718" strokeWidth={2} />
+            <circle cx={0} cy={0} r={2} fill="#FEF08A" />
+          </g>
+        );
+      })}
+
+      {/* Inward flowing reverse chronal motes */}
+      {Array.from({ length: 16 }).map((_, i) => {
+        const moteProg = ((t * 0.04 + i * 0.065) % 1);
+        const mx = (Math.cos(i * 1.3) * 135) * (1 - moteProg);
+        const my = -340 + i * 45 + Math.sin(t * 0.06 + i) * 15;
+        return (
+          <circle
+            key={`mote_${i}`}
+            cx={mx}
+            cy={my}
+            r={1.2 + (i % 3) * 0.7}
+            fill={i % 2 === 0 ? '#38BDF8' : '#FDE047'}
+            opacity={0.9 - moteProg * 0.5}
+          />
+        );
+      })}
+    </g>
+  );
+};
+
+// ============================================================================
+// 5. ASTROLOGICAL FLOOR (SÀN ĐÁ ĐỒ HÌNH THIÊN VĂN MA MỊ)
+// ============================================================================
+
+/**
+ * AstrologicalFloor: Massive circular stone pavement with 12 Roman numerals,
+ * concentric compass rings, subterranean cracked fissures leaking ethereal light,
+ * and creeping ground mist creating an oppressive, cavernous scale.
+ */
+export const AstrologicalFloor: React.FC<{
+  x: number;
+  y: number;
+  s?: number;
+  t?: number;
+}> = ({ x, y, s = 1, t = 0 }) => {
+  const ringRot = t * 0.15;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      {/* Deep stone ground ellipse */}
+      <ellipse cx={0} cy={0} rx={950} ry={260} fill="#120A1C" stroke="#2E1C44" strokeWidth={3} />
+      <ellipse cx={0} cy={0} rx={840} ry={230} fill="#180F26" stroke="#4C1D95" strokeWidth={2} strokeDasharray="16 10" />
+
+      {/* Subterranean glowing cracks leaking cyan & amber light */}
+      <path
+        d="M -720 20 Q -480 90 -220 40 Q 0 80 180 30 Q 520 90 760 -10"
+        stroke="#06B6D4"
+        strokeWidth={3.2}
+        fill="none"
+        opacity={0.7}
+        style={{ filter: 'drop-shadow(0 0 7px #22D3EE)' }}
+      />
+      <path
+        d="M -420 -80 Q -260 20 -110 -30 Q 80 -60 310 -20 Q 560 -70 690 -50"
+        stroke="#F59E0B"
+        strokeWidth={2.6}
+        fill="none"
+        opacity={0.65}
+        style={{ filter: 'drop-shadow(0 0 6px #FBBF24)' }}
+      />
+      <path
+        d="M -140 140 Q 0 160 140 140 M -60 -150 Q 0 -170 60 -150"
+        stroke="#818CF8"
+        strokeWidth={2}
+        fill="none"
+        opacity={0.5}
+      />
+
+      {/* Radial stone joints radiating from center */}
+      {Array.from({ length: 16 }).map((_, i) => {
+        const ang = (i * 22.5 * Math.PI) / 180;
+        const x1 = Math.cos(ang) * 260;
+        const y1 = Math.sin(ang) * 75;
+        const x2 = Math.cos(ang) * 820;
+        const y2 = Math.sin(ang) * 225;
+        return (
+          <line
+            key={`flag_${i}`}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke="#2B1A3F"
+            strokeWidth={2}
+            opacity={0.7}
+          />
+        );
+      })}
+
+      {/* Outer concentric astrological stone ring */}
+      <ellipse cx={0} cy={0} rx={680} ry={185} fill="none" stroke="#D4A24C" strokeWidth={3} opacity={0.65} />
+      <ellipse cx={0} cy={0} rx={640} ry={174} fill="none" stroke="#92400E" strokeWidth={1.5} strokeDasharray="8 6" opacity={0.75} />
+
+      {/* 12 Carved Roman numerals along the astrological stone oval */}
+      {['XII', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'].map((num, i) => {
+        const ang = ((i * 30 - 90) * Math.PI) / 180;
+        const nx = Math.cos(ang) * 660;
+        const ny = Math.sin(ang) * 180;
+        return (
+          <text
+            key={`floor_num_${i}`}
+            x={nx}
+            y={ny + 5}
+            fill="#FEF08A"
+            fontFamily="Cinzel, Georgia, serif"
+            fontWeight="bold"
+            fontSize={17}
+            textAnchor="middle"
+            opacity={0.85}
+            style={{ filter: 'drop-shadow(0 0 5px #D97706)' }}
+          >
+            {num}
+          </text>
+        );
+      })}
+
+      {/* Inner Rotating Astrological Compass & Runes */}
+      <g transform={`rotate(${ringRot}) scale(1 0.28)`}>
+        <circle cx={0} cy={0} r={460} fill="none" stroke="#6D28D9" strokeWidth={2.5} strokeDasharray="14 10" />
+        <circle cx={0} cy={0} r={360} fill="none" stroke="#F59E0B" strokeWidth={2} opacity={0.7} />
+        {/* 8-pointed star compass */}
+        {Array.from({ length: 8 }).map((_, i) => {
+          const sang = (i * 45 * Math.PI) / 180;
+          return (
+            <line
+              key={`star_${i}`}
+              x1={0}
+              y1={0}
+              x2={Math.cos(sang) * 360}
+              y2={Math.sin(sang) * 360}
+              stroke="#D4A24C"
+              strokeWidth={i % 2 === 0 ? 2.5 : 1.2}
+              opacity={0.6}
+            />
+          );
+        })}
+      </g>
+
+      {/* Creeping ground fog & ominous purple-black mist */}
+      <ellipse cx={-180} cy={70} rx={340} ry={35} fill="#4C1D95" opacity={0.25} style={{ filter: 'blur(12px)' }} />
+      <ellipse cx={220} cy={90} rx={380} ry={40} fill="#312E81" opacity={0.22} style={{ filter: 'blur(14px)' }} />
+      <ellipse cx={0} cy={120} rx={500} ry={45} fill="#0F051D" opacity={0.45} />
+    </g>
+  );
+};
+
+// ============================================================================
+// 6. TIME CHAINS (XÍCH SẮT TREO KHỔNG LỒ)
+// ============================================================================
+
+/**
+ * TimeChains: Colossal iron chains hanging from the unseen vaulted cathedral ceiling,
+ * supporting massive pendulum bobs and gear counterweights.
+ */
+export const TimeChains: React.FC<{
+  x: number;
+  y: number;
+  length?: number;
+  t?: number;
+  swayAmp?: number;
+  showBob?: boolean;
+}> = ({ x, y, length = 560, t = 0, swayAmp = 2, showBob = true }) => {
+  const sway = Math.sin(t * 0.04 + x * 0.01) * swayAmp;
+  const numLinks = Math.floor(length / 26);
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${sway})`}>
+      {Array.from({ length: numLinks }).map((_, i) => {
+        const ly = i * 24;
+        const isAlternate = i % 2 === 1;
+        return isAlternate ? (
+          <ellipse
+            key={`link_${i}`}
+            cx={0}
+            cy={ly}
+            rx={8}
+            ry={15}
+            fill="#1E1428"
+            stroke="#64748B"
+            strokeWidth={3}
+          />
+        ) : (
+          <rect
+            key={`link_${i}`}
+            x={-5}
+            y={ly - 10}
+            width={10}
+            height={20}
+            rx={4}
+            fill="#0F0A17"
+            stroke="#475569"
+            strokeWidth={2.5}
+          />
+        );
+      })}
+
+      {showBob ? (
+        <g transform={`translate(0 ${length})`}>
+          <circle cx={0} cy={22} r={32} fill="#3E2718" stroke={INK} strokeWidth={4} />
+          <circle cx={0} cy={22} r={24} fill="#8A5A20" stroke="#D4A24C" strokeWidth={2.4} />
+          <circle cx={0} cy={22} r={10} fill="#FEF08A" opacity={0.7} />
+          <polygon points="-8,52 8,52 0,74" fill="#5C3B14" stroke={INK} strokeWidth={2.2} />
+        </g>
+      ) : null}
+    </g>
+  );
+};
+
+// ============================================================================
+// 7. TIME VAULT SCENE (CẢNH 9: ĐIỆN THỜ THỜI GIAN BỊ ĐÁNH CẮP — CATHEDRAL OF STOLEN TIME)
+// ============================================================================
+
+/**
+ * TimeVaultScene: The grand oppressive cathedral of stolen time:
+ * - Gothic vaulted space with deep perspective converging toward infinity.
+ * - Central massive TemporalFissure (vết rách thời gian) crackling with reverse energy.
+ * - Reverse wall clockwork etched in stone.
+ * - Dual Colonnades of Apothecary Shelves (hàng cột kệ hai bên):
+ *   * Left Colonnade: Other people's memories (cradle, kite, violin, + dormant jars).
+ *   * Right Colonnade: Other people's memories (ship, umbrella, letter, + dormant jars).
+ * - Suspended colossal iron TimeChains dangling from ceiling darkness.
+ * - Detailed AstrologicalFloor with 12 Roman numerals, subterranean glowing cracks, and mist.
+ * - Central plinth holding the ReverseHourglass with defying-gravity sand & ethereal flame.
+ * - Central stage: The hovering ClockCreature commanding the space with G1, G2, G3 jars.
  */
 export const TimeVaultScene: React.FC<{
   t?: number;
@@ -926,178 +1528,160 @@ export const TimeVaultScene: React.FC<{
   return (
     <g>
       <defs>
-        {/* Warm parchment & mystical sepia vault atmosphere */}
+        {/* Oppressive cathedral sepia-violet gradient */}
         <linearGradient id={`${id}Bg`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2E1C16" />
-          <stop offset="50%" stopColor="#452B20" />
-          <stop offset="100%" stopColor="#24140F" />
+          <stop offset="0%" stopColor="#13091F" />
+          <stop offset="45%" stopColor="#251433" />
+          <stop offset="75%" stopColor="#1C0E28" />
+          <stop offset="100%" stopColor="#0B0514" />
         </linearGradient>
 
-        <radialGradient id={`${id}WindowGlow`} cx="50%" cy="30%" r="55%">
-          <stop offset="0%" stopColor="#FDE68A" stopOpacity={0.35} />
-          <stop offset="50%" stopColor="#D97706" stopOpacity={0.12} />
-          <stop offset="100%" stopColor="#1A0D08" stopOpacity={0} />
+        <radialGradient id={`${id}CenterGlow`} cx="50%" cy="40%" r="55%">
+          <stop offset="0%" stopColor="#38BDF8" stopOpacity={0.25} />
+          <stop offset="45%" stopColor="#818CF8" stopOpacity={0.12} />
+          <stop offset="100%" stopColor="#0B0514" stopOpacity={0} />
         </radialGradient>
       </defs>
 
-      {/* Background fill */}
+      {/* Atmospheric background */}
       <rect x={-400} y={-300} width={2720} height={1680} fill={`url(#${id}Bg)`} />
+      <ellipse cx={960} cy={420} rx={850} ry={520} fill={`url(#${id}CenterGlow)`} pointerEvents="none" />
 
       {/* =================================================================== */}
-      {/* 1. GRAND GOTHIC ARCHED WINDOW IN BACKGROUND (CỬA SỔ VÒM ÁNH SÁNG)   */}
+      {/* 1. REAR ARCHITECTURE: REVERSE CLOCKWORK & TEMPORAL FISSURE         */}
       {/* =================================================================== */}
-      <g transform="translate(1080 180) scale(1.1)">
-        {/* Soft atmospheric window light bloom */}
-        <ellipse cx={0} cy={0} rx={220} ry={220} fill={`url(#${id}WindowGlow)`} pointerEvents="none" />
-        {/* Stone tracery window frame */}
-        <path
-          d="M -140 180 L -140 -20 C -140 -120 140 -120 140 -20 L 140 180 Z"
-          fill="#1C100B"
-          stroke="#5C3B14"
-          strokeWidth={6}
-          opacity={0.7}
-        />
-        {/* Wheel / Rose window spokes */}
-        <circle cx={0} cy={-20} r={80} stroke="#452B20" strokeWidth={3} fill="none" />
-        {Array.from({ length: 8 }).map((_, i) => {
-          const ang = (i * 45 * Math.PI) / 180;
-          return (
-            <line
-              key={i}
-              x1={0}
-              y1={-20}
-              x2={Math.cos(ang) * 80}
-              y2={-20 + Math.sin(ang) * 80}
-              stroke="#452B20"
-              strokeWidth={2.5}
-            />
-          );
-        })}
-      </g>
+      {/* Reverse Clockwork on rear wall */}
+      <ReverseClockwork x={960} y={320} s={1.35} t={t} opacity={0.45} />
+
+      {/* Colossal Central Temporal Fissure (Vết rách thời gian tua ngược) */}
+      <TemporalFissure x={960} y={340} s={1.12} t={t} />
+
+      {/* Gothic stone pointed arch frame in deep background */}
+      <path
+        d="M 680 620 L 680 280 C 680 120 960 40 960 40 C 960 40 1240 120 1240 280 L 1240 620 Z"
+        fill="none"
+        stroke="#3B2252"
+        strokeWidth={14}
+        opacity={0.65}
+      />
+      <path
+        d="M 700 620 L 700 290 C 700 140 960 70 960 70 C 960 70 1220 140 1220 290 L 1220 620 Z"
+        fill="none"
+        stroke="#5B3878"
+        strokeWidth={4}
+        opacity={0.7}
+      />
 
       {/* =================================================================== */}
-      {/* 2. AMPHITHEATER CURVED MULTI-TIERED APOTHECARY SHELVES              */}
-      {/* (HÀNG KỆ CONG VÒM NHIỀU TẦNG TRẢI DÀI VỀ HẬU CẢNH)                  */}
+      {/* 2. DUAL COLONNADES OF MEMORY JARS (HÀNG KỆ HAI BÊN CỦA NHIỀU NGƯỜI) */}
       {/* =================================================================== */}
+
+      {/* --- LEFT COLONNADE --- */}
       <g>
-        {/* Tier 1 (Highest, furthest back curve): y ≈ 220 */}
-        <path
-          d="M 880 260 Q 1400 170 1920 140"
-          stroke="#382216"
-          strokeWidth={24}
-          fill="none"
-        />
-        <path
-          d="M 880 252 Q 1400 162 1920 132"
-          stroke="#6E4424"
-          strokeWidth={4}
-          fill="none"
-        />
-        {/* Jars on Tier 1 */}
-        {[960, 1060, 1160, 1260, 1360, 1580, 1680, 1780, 1880].map((jx, i) => (
-          <g key={`t1_${i}`} transform={`translate(${jx} ${220 - (i > 4 ? (i - 4) * 14 : 0)}) scale(0.48)`}>
-            <MemoryJar
-              x={0}
-              y={0}
-              kind="dormant"
-              glow={0.7}
-              t={t + i * 7}
-              showAura={false}
-            />
+        {/* Tier 1 (High, background): y ≈ 250 */}
+        <polygon points="120,280 620,290 600,320 100,310" fill="#241433" stroke="#4C1D95" strokeWidth={2} />
+        {[180, 270, 360, 450, 540].map((jx, i) => (
+          <g key={`l_t1_${i}`} transform={`translate(${jx} 260) scale(0.46)`}>
+            <MemoryJar x={0} y={0} kind="dormant" glow={0.6} t={t + i * 5} showAura={false} />
           </g>
         ))}
 
-        {/* Tier 2 (Middle curve): y ≈ 360 */}
-        <path
-          d="M 760 380 Q 1340 270 1920 230"
-          stroke="#42291B"
-          strokeWidth={30}
-          fill="none"
-        />
-        <path
-          d="M 760 370 Q 1340 260 1920 220"
-          stroke="#8A5A28"
-          strokeWidth={5}
-          fill="none"
-        />
-        {/* Jars on Tier 2 */}
-        {[820, 920, 1020, 1120, 1220, 1560, 1660, 1760, 1860].map((jx, i) => (
-          <g key={`t2_${i}`} transform={`translate(${jx} ${340 - (i > 4 ? (i - 4) * 16 : 0)}) scale(0.62)`}>
-            <MemoryJar
-              x={0}
-              y={0}
-              kind="dormant"
-              glow={0.8}
-              t={t + i * 5}
-              showAura={false}
-            />
+        {/* Tier 2 (Middle - Key other memories): y ≈ 420 */}
+        <polygon points="40,430 640,450 620,490 20,470" fill="#2E1B40" stroke="#6D28D9" strokeWidth={3} />
+        {/* Memory: Cradle (Nôi em bé) */}
+        <g transform="translate(140 405) scale(0.85)">
+          <MemoryJar x={0} y={0} kind="cradle" glow={1.15} t={t} showAura />
+        </g>
+        {/* Memory: Kite (Cánh diều đỏ) */}
+        <g transform="translate(320 420) scale(0.88)">
+          <MemoryJar x={0} y={0} kind="kite" glow={1.2} t={t + 4} showAura />
+        </g>
+        {/* Memory: Violin (Vĩ cầm dang dở) */}
+        <g transform="translate(500 435) scale(0.92)">
+          <MemoryJar x={0} y={0} kind="violin" glow={1.18} t={t + 8} showAura />
+        </g>
+
+        {/* Tier 3 (Foreground shelf): y ≈ 620 */}
+        <polygon points="-40,620 660,650 640,710 -60,680" fill="#3B2252" stroke="#8B5CF6" strokeWidth={4} />
+        {[60, 200, 360, 520].map((jx, i) => (
+          <g key={`l_t3_${i}`} transform={`translate(${jx} 580) scale(0.82)`}>
+            <MemoryJar x={0} y={0} kind="dormant" glow={0.8} t={t + i * 7} showAura={false} />
           </g>
         ))}
 
-        {/* Tier 3 (Foreground shelf with Hourglass altar): y ≈ 520 */}
-        <path
-          d="M 680 540 Q 1300 420 1920 370"
-          stroke="#4A2E1E"
-          strokeWidth={36}
-          fill="none"
-        />
-        <path
-          d="M 680 526 Q 1300 406 1920 356"
-          stroke="#A66E32"
-          strokeWidth={6}
-          fill="none"
-        />
-        {/* Jars on Tier 3 */}
-        {[720, 810, 900, 1000, 1100, 1620, 1720, 1820].map((jx, i) => (
-          <g key={`t3_${i}`} transform={`translate(${jx} ${485 - (i > 4 ? (i - 4) * 20 : 0)}) scale(0.78)`}>
-            <MemoryJar
-              x={0}
-              y={0}
-              kind="dormant"
-              glow={0.9}
-              t={t + i * 4}
-              showAura={false}
-            />
+        {/* Carved stone pillars on left */}
+        <rect x={60} y={120} width={28} height={600} fill="#1E102B" stroke="#4C1D95" strokeWidth={2.4} />
+        <rect x={440} y={160} width={24} height={520} fill="#1E102B" stroke="#4C1D95" strokeWidth={2} />
+      </g>
+
+      {/* --- RIGHT COLONNADE --- */}
+      <g>
+        {/* Tier 1 (High, background): y ≈ 250 */}
+        <polygon points="1300,290 1800,280 1820,310 1320,320" fill="#241433" stroke="#4C1D95" strokeWidth={2} />
+        {[1380, 1470, 1560, 1650, 1740].map((jx, i) => (
+          <g key={`r_t1_${i}`} transform={`translate(${jx} 260) scale(0.46)`}>
+            <MemoryJar x={0} y={0} kind="dormant" glow={0.6} t={t + i * 5} showAura={false} />
           </g>
         ))}
-      </g>
 
-      {/* =================================================================== */}
-      {/* 3. REVERSE HOURGLASS ALTAR TOWER (BỆ ĐỒNG HỒ CÁT NGƯỢC CÓ LỬA MA)   */}
-      {/* =================================================================== */}
-      <g transform="translate(1380 410)">
-        {/* Stone carved architectural pedestal */}
-        <rect x={-45} y={0} width={90} height={120} fill="#3E2718" stroke={INK} strokeWidth={3} />
-        <polygon points="-52,0 52,0 45,-12 -45,-12" fill="#5C3B14" stroke={INK} strokeWidth={2.4} />
-        {/* Hourglass */}
-        <ReverseHourglass x={0} y={-12} s={1.3} t={t} />
-      </g>
+        {/* Tier 2 (Middle - Key other memories): y ≈ 420 */}
+        <polygon points="1280,450 1880,430 1900,470 1300,490" fill="#2E1B40" stroke="#6D28D9" strokeWidth={3} />
+        {/* Memory: Ship (Thuyền viễn dương) */}
+        <g transform="translate(1420 435) scale(0.92)">
+          <MemoryJar x={0} y={0} kind="ship" glow={1.22} t={t + 2} showAura />
+        </g>
+        {/* Memory: Umbrella (Chiếc ô trong mưa) */}
+        <g transform="translate(1600 420) scale(0.88)">
+          <MemoryJar x={0} y={0} kind="umbrella" glow={1.15} t={t + 6} showAura />
+        </g>
+        {/* Memory: Letter (Bức thư tình niêm sáp) */}
+        <g transform="translate(1780 405) scale(0.85)">
+          <MemoryJar x={0} y={0} kind="letter" glow={1.2} t={t + 10} showAura />
+        </g>
 
-      {/* =================================================================== */}
-      {/* 4. GROUND HATCHING & FLOOR TEXTURE                                  */}
-      {/* =================================================================== */}
-      <g opacity={0.35}>
-        {Array.from({ length: 15 }).map((_, i) => (
-          <line
-            key={`hatch${i}`}
-            x1={100 + i * 110}
-            y1={920}
-            x2={60 + i * 110}
-            y2={990}
-            stroke="#1C1008"
-            strokeWidth={1.5}
-          />
+        {/* Tier 3 (Foreground shelf): y ≈ 620 */}
+        <polygon points="1260,650 1960,620 1980,680 1280,710" fill="#3B2252" stroke="#8B5CF6" strokeWidth={4} />
+        {[1400, 1560, 1720, 1860].map((jx, i) => (
+          <g key={`r_t3_${i}`} transform={`translate(${jx} 580) scale(0.82)`}>
+            <MemoryJar x={0} y={0} kind="dormant" glow={0.8} t={t + i * 7} showAura={false} />
+          </g>
         ))}
+
+        {/* Carved stone pillars on right */}
+        <rect x={1456} y={160} width={24} height={520} fill="#1E102B" stroke="#4C1D95" strokeWidth={2} />
+        <rect x={1832} y={120} width={28} height={600} fill="#1E102B" stroke="#4C1D95" strokeWidth={2.4} />
       </g>
 
       {/* =================================================================== */}
-      {/* 5. CENTER: CLOCK CREATURE HOVERING WITH 3 ACTIVE JARS               */}
-      {/* (QUÁI VẬT ĐỒNG HỒ BA MẮT VÀ CỤM 3 LỌ KÝ ỨC G1, G2, G3)              */}
+      {/* 3. SUSPENDED COLOSSAL TIME CHAINS FROM CEILING                     */}
+      {/* =================================================================== */}
+      <TimeChains x={280} y={-40} length={540} t={t} swayAmp={1.8} showBob />
+      <TimeChains x={640} y={-60} length={460} t={t + 5} swayAmp={1.4} showBob />
+      <TimeChains x={1280} y={-60} length={460} t={t + 10} swayAmp={1.4} showBob />
+      <TimeChains x={1640} y={-40} length={540} t={t + 15} swayAmp={1.8} showBob />
+
+      {/* =================================================================== */}
+      {/* 4. THE ASTROLOGICAL FLOOR (SÀN ĐÁ THIÊN VĂN MA MỊ)                  */}
+      {/* =================================================================== */}
+      <AstrologicalFloor x={960} y={880} s={1.08} t={t} />
+
+      {/* =================================================================== */}
+      {/* 5. CENTER PLINTH WITH REVERSE HOURGLASS                            */}
+      {/* =================================================================== */}
+      <g transform="translate(960 760)">
+        {/* Ornate hexagonal altar plinth */}
+        <polygon points="-75,40 75,40 95,120 -95,120" fill="#241433" stroke="#D4A24C" strokeWidth={2.5} />
+        <rect x={-65} y={-10} width={130} height={50} rx={4} fill="#190D24" stroke="#8A5A20" strokeWidth={2.2} />
+        <ReverseHourglass x={0} y={-10} s={1.25} t={t} />
+      </g>
+
+      {/* =================================================================== */}
+      {/* 6. CENTER OVERLORD: CLOCK CREATURE HOVERING WITH 3 ACTIVE JARS     */}
       {/* =================================================================== */}
       <ClockCreature
-        x={680}
-        y={490}
-        s={1.22}
+        x={910}
+        y={460}
+        s={1.14}
         t={t}
         hover
         eyeGazeX={0.2}
@@ -1107,19 +1691,19 @@ export const TimeVaultScene: React.FC<{
       />
 
       {/* =================================================================== */}
-      {/* 6. GRAVITY-DEFYING CHRONO PARTICLES (HẠT THỜI GIAN BAY NGƯỢC)       */}
+      {/* 7. REVERSE CHRONAL MOTE PARTICLES FLOATING UPWARD                  */}
       {/* =================================================================== */}
-      {Array.from({ length: 32 }).map((_, i) => {
+      {Array.from({ length: 36 }).map((_, i) => {
         const speed = 0.04 + (i % 4) * 0.015;
-        const py = 1050 - (((t * speed * 60 + i * 35) % 950));
-        const px = 200 + ((i * 59) % 1520) + Math.sin(t * 0.04 + i) * 18;
+        const py = 1050 - (((t * speed * 60 + i * 32) % 980));
+        const px = 180 + ((i * 57) % 1560) + Math.sin(t * 0.04 + i) * 18;
         return (
           <circle
-            key={`cp${i}`}
+            key={`cp_${i}`}
             cx={px}
             cy={py}
-            r={1.1 + (i % 3) * 0.7}
-            fill={i % 3 === 0 ? '#FDE68A' : i % 3 === 1 ? '#F59E0B' : '#E9D5FF'}
+            r={1.1 + (i % 3) * 0.8}
+            fill={i % 3 === 0 ? '#FDE68A' : i % 3 === 1 ? '#38BDF8' : '#E9D5FF'}
             opacity={0.6 + Math.sin(t * 0.1 + i) * 0.3}
           />
         );
@@ -1138,25 +1722,87 @@ export const AlleyWithoutShop: React.FC<{
 }> = ({ t = 0, showOwl = true }) => {
   return (
     <g>
-      <rect x={-300} y={-200} width={2600} height={1700} fill="#050812" />
-      <polygon points="460,700 1180,700 2200,1400 -120,1400" fill="#0C101A" stroke={INK} strokeWidth={4} />
-      <polygon points="-80,-40 460,600 460,860 -80,1080" fill="#131A26" stroke={INK} strokeWidth={4} />
+      {/* Nocturnal deep blue sky */}
+      <rect x={-300} y={-200} width={2600} height={1700} fill="#080E1C" />
+
+      {/* Streetlight cone casting eerie cold illumination */}
+      <polygon points="1060,180 340,1050 1520,1050" fill="#38BDF8" opacity={0.12} />
+      <polygon points="1060,180 580,1020 1280,1020" fill="#E0F2FE" opacity={0.08} />
+
+      {/* Alley wet stone ground with perspective */}
+      <polygon points="480,680 1140,680 2150,1400 -120,1400" fill="#111827" stroke={INK} strokeWidth={4} />
+      {/* Wet pavement specular puddle reflections */}
+      <ellipse cx={880} cy={820} rx={160} ry={22} fill="#1E293B" opacity={0.7} />
+      <ellipse cx={880} cy={820} rx={110} ry={12} fill="#38BDF8" opacity={0.15} />
+      <ellipse cx={680} cy={890} rx={210} ry={28} fill="#1E293B" opacity={0.65} />
+      <ellipse cx={680} cy={890} rx={140} ry={15} fill="#38BDF8" opacity={0.12} />
+
+      {/* Left Wall: Old tall colonial townhouse wall */}
+      <polygon points="-80,-40 480,580 480,880 -80,1100" fill="#1E293B" stroke={INK} strokeWidth={4} />
+      {/* Brick texture lines on left wall */}
+      {Array.from({ length: 8 }).map((_, i) => (
+        <line
+          key={`l_brick_${i}`}
+          x1={20 + i * 45}
+          y1={320 + i * 35}
+          x2={80 + i * 45}
+          y2={390 + i * 35}
+          stroke="#0F172A"
+          strokeWidth={2}
+          opacity={0.6}
+        />
+      ))}
+      {/* Left wall shuttered window with sliver of cold light */}
+      <rect x={180} y={420} width={70} height={110} rx={2} fill="#0F172A" stroke="#334155" strokeWidth={2.4} />
+      <rect x={190} y={430} width={50} height={90} fill="#1E293B" />
+      <line x1={215} y1={430} x2={215} y2={520} stroke="#334155" strokeWidth={2} />
 
       {/* Right Wall: WHERE THE SHOP FORMERLY WAS — NOW A BLANK DEAD-END WALL! */}
-      <polygon points="1280,600 2000,-40 2000,1080 1280,860" fill="#151D2A" stroke={INK} strokeWidth={4} />
-      <rect x={1340} y={480} width={380} height={240} fill="#1B2433" stroke="#0E141F" strokeWidth={2} />
-      <path d="M 1360 520 Q 1480 500 1560 560 M 1420 620 Q 1520 600 1620 660" stroke="#253245" strokeWidth={2} fill="none" opacity={0.6} />
+      <polygon points="1140,580 2000,-40 2000,1100 1140,880" fill="#1A2234" stroke={INK} strokeWidth={4} />
+      {/* Mossy damp blank wall patch where the shop door was */}
+      <rect x={1220} y={440} width={420} height={320} rx={4} fill="#151D2A" stroke="#253245" strokeWidth={2.5} />
+      {/* Peeling plaster and dark rectangular stain where the shop sign used to hang */}
+      <rect x={1280} y={460} width={280} height={70} fill="#0E141F" stroke="#1E293B" strokeWidth={1.5} opacity={0.8} />
+      <text x={1420} y={502} fill="#334155" fontFamily="sans-serif" fontSize={11} letterSpacing={2} textAnchor="middle" opacity={0.5}>
+        (VẾT TÍCH BIỂN TIỆM BIẾN MẤT)
+      </text>
+      {/* Green moss patches climbing up the dead-end wall */}
+      <path d="M 1220 740 Q 1260 690 1280 730 Q 1310 680 1350 740" fill="#143026" stroke="#064E3B" strokeWidth={2} />
+      <path d="M 1480 740 Q 1520 670 1560 720 Q 1600 660 1640 740" fill="#143026" stroke="#064E3B" strokeWidth={2} />
 
-      <ellipse cx={1380} cy={910} rx={140} ry={28} fill="#111B2C" opacity={0.65} />
-      <polygon points="1000,185 640,940 1360,940" fill="#3B82F6" opacity={0.06} />
+      {/* Dead-end alley iron lamp bracket */}
+      <path d="M 1040 180 L 1080 180 L 1080 220" stroke="#0F172A" strokeWidth={6} fill="none" />
+      <circle cx={1060} cy={185} r={14} fill="#FDE047" opacity={0.9} style={{ filter: 'drop-shadow(0 0 16px #38BDF8)' }} />
+      <polygon points="1040,170 1080,170 1060,150" fill="#1E293B" stroke={INK} strokeWidth={2} />
 
-      {/* Overhead wires */}
-      <path d="M 120 145 Q 520 275 1140 210 Q 1480 190 1920 150" stroke="#05070C" strokeWidth={4} fill="none" />
-      <path d="M 160 180 Q 680 330 1260 240 Q 1600 220 1920 190" stroke="#04060A" strokeWidth={3} fill="none" />
+      {/* Overhead tangled electrical wires crossing the alley */}
+      <path d="M -60 120 Q 520 280 1060 210 Q 1540 180 2000 130" stroke="#090D16" strokeWidth={4.5} fill="none" />
+      <path d="M -60 170 Q 640 340 1180 240 Q 1620 220 2000 180" stroke="#060911" strokeWidth={3.2} fill="none" />
+      <path d="M 220 180 Q 720 380 1340 260" stroke="#060911" strokeWidth={2.4} fill="none" />
 
-      {/* Eave & Owl watching */}
-      <polygon points="-50,-20 440,80 400,142 -50,60" fill="#141B26" stroke={INK} strokeWidth={4} />
-      {showOwl ? <circle cx={315} cy={205} r={18} fill="#1E2838" stroke={INK} strokeWidth={2} /> : null}
+      {/* Eave on top left & Perched Owl silently watching */}
+      <polygon points="-80,-20 460,80 420,150 -80,60" fill="#182232" stroke={INK} strokeWidth={4} />
+      {showOwl ? (
+        <g transform="translate(340 170)">
+          {/* Owl cast shadow */}
+          <ellipse cx={0} cy={38} rx={18} ry={6} fill="#090D16" opacity={0.7} />
+          {/* Owl body & folded wings */}
+          <ellipse cx={0} cy={12} rx={16} ry={24} fill="#1E293B" stroke={INK} strokeWidth={2.5} />
+          <path d="M -15 6 Q -18 24 -10 32" stroke="#334155" strokeWidth={2.5} fill="none" />
+          <path d="M 15 6 Q 18 24 10 32" stroke="#334155" strokeWidth={2.5} fill="none" />
+          {/* Head & Ear tufts */}
+          <circle cx={0} cy={-12} r={16} fill="#1E293B" stroke={INK} strokeWidth={2.5} />
+          <polygon points="-12,-22 -8,-32 -2,-24" fill="#1E293B" stroke={INK} strokeWidth={1.8} />
+          <polygon points="12,-22 8,-32 2,-24" fill="#1E293B" stroke={INK} strokeWidth={1.8} />
+          {/* Glowing yellow owl eyes */}
+          <circle cx={-6} cy={-12} r={5} fill="#FEF08A" stroke="#713F12" strokeWidth={1.2} />
+          <circle cx={-6} cy={-12} r={2.5} fill="#0F172A" />
+          <circle cx={6} cy={-12} r={5} fill="#FEF08A" stroke="#713F12" strokeWidth={1.2} />
+          <circle cx={6} cy={-12} r={2.5} fill="#0F172A" />
+          {/* Hooked beak */}
+          <polygon points="-2,-8 2,-8 0,-2" fill="#D97706" />
+        </g>
+      ) : null}
     </g>
   );
 };

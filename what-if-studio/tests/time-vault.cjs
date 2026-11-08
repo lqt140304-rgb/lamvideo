@@ -14,6 +14,9 @@ const requiredExports = [
   'MemoryJar',
   'ReverseHourglass',
   'ReverseClockwork',
+  'TemporalFissure',
+  'AstrologicalFloor',
+  'TimeChains',
   'TimeVaultScene',
   'AntiquePortraitCameo',
   'CameoJars',
@@ -30,11 +33,23 @@ for (const t of [0, 15, 60, 120]) {
   check(!/NaN|Infinity|undefined/.test(ccSvg), `ClockCreature @t=${t} renders finite geometry`);
   check(ccSvg.includes('circle') && ccSvg.includes('path'), 'ClockCreature contains expected SVG elements');
 
-  // MemoryJar with G1, G2, G3
-  for (const kind of ['g1', 'g2', 'g3', 'dormant']) {
+  // MemoryJar with G1, G2, G3 and 6 other-people memory kinds
+  for (const kind of ['g1', 'g2', 'g3', 'dormant', 'cradle', 'kite', 'violin', 'letter', 'umbrella', 'ship']) {
     const jarSvg = renderToStaticMarkup(React.createElement('svg', null, React.createElement(tv.MemoryJar, { x: 100, y: 100, kind, t })));
     check(!/NaN|Infinity|undefined/.test(jarSvg), `MemoryJar ${kind} @t=${t} renders finite geometry`);
   }
+
+  // TemporalFissure
+  const tfSvg = renderToStaticMarkup(React.createElement('svg', null, React.createElement(tv.TemporalFissure, { x: 300, y: 300, t })));
+  check(!/NaN|Infinity|undefined/.test(tfSvg), `TemporalFissure @t=${t} renders finite geometry`);
+
+  // AstrologicalFloor
+  const afSvg = renderToStaticMarkup(React.createElement('svg', null, React.createElement(tv.AstrologicalFloor, { x: 400, y: 400, t })));
+  check(!/NaN|Infinity|undefined/.test(afSvg), `AstrologicalFloor @t=${t} renders finite geometry`);
+
+  // TimeChains
+  const tcSvg = renderToStaticMarkup(React.createElement('svg', null, React.createElement(tv.TimeChains, { x: 200, y: 0, length: 400, t })));
+  check(!/NaN|Infinity|undefined/.test(tcSvg), `TimeChains @t=${t} renders finite geometry`);
 
   // ReverseHourglass
   const hgSvg = renderToStaticMarkup(React.createElement('svg', null, React.createElement(tv.ReverseHourglass, { x: 200, y: 200, t })));
