@@ -69,15 +69,16 @@ const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNod
     const sc = lerp(LOC_S, 1.0, walk);
     const g = lerp(LOC_GROUND, 752, walk);
     const stand = walk < 1 ? walkPose(x, (f - 452) * 0.2, g, sc, { expr: 'neutral', yaw: -0.55, headTilt: 4 }, 1) : standPose(1300, 752, 1.0, { t: f, seed: 3, facing: -1, yaw: -0.3, expr: 'neutral' });
-    const seat = sitPose(1318, 588, 1.0, -1, { t: f, seed: 3, yaw: -0.2, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
+    const seat = sitPose(1318, 532, 1.0, -1, { t: f, seed: 3, yaw: -0.2, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
     let pose = sit > 0 ? poseAt(sit, [{ f: 0, p: stand }, { f: 1, p: seat }]) : stand;
     if (sit >= 1) {
       // Back at work: left hand steadies the clock, right hand twists the screwdriver, then both pause for the glance up.
       const pause = ramp(f, 568, 574);
       const twist = Math.sin(f * 0.9) * (1 - pause);
-      pose = reach(pose, 'L', { x: BENCH_CLOCK.x + 20, y: BENCH_CLOCK.y - 22 }, 1);
-      pose = reach(pose, 'R', { x: BENCH_CLOCK.x - 26 + twist * 1.5, y: BENCH_CLOCK.y - 34 }, 1);
-      return { pose: { ...pose, ...m, handR: 'hold', handL: 'hold' }, atBench: true, held: <ScrewdriverProp x={0} y={0} s={0.6} rot={20 + twist * 14} />, benchClock: true };
+      // Facing screen-left the left arm is the near one: it works the screwdriver; the far right hand steadies the clock.
+      pose = reach(pose, 'L', { x: BENCH_CLOCK.x + 22 + twist * 1.5, y: BENCH_CLOCK.y - 40 }, 1);
+      pose = reach(pose, 'R', { x: BENCH_CLOCK.x - 22, y: BENCH_CLOCK.y - 24 }, 1);
+      return { pose: { ...pose, ...m, handR: 'hold', handL: 'hold' }, atBench: true, heldL: <ScrewdriverProp x={0} y={0} s={0.6} rot={160 + twist * 14} />, benchClock: true };
     }
     return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR, handL: sit < 0.5 ? 'hold' : pose.handL }, atBench: sit > 0.5, held: <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} />, heldL: sit < 0.5 ? <RepairClock f={f} inHand /> : undefined, benchClock: sit >= 0.5 };
   }
@@ -112,7 +113,7 @@ const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNod
   p = reach(p, 'R', { x: lerp(hR.x, 975, lift), y: lerp(hR.y, COUNTER_TOP - 50, lift) }, 1);
   // Left hand holds the clock steady by its rim; takes it along when he leaves.
   const take = ramp(f, 430, 444);
-  p = reach(p, 'L', { x: lerp(CLOCK.x - 26, 925, take), y: lerp(CLOCK.y - 34, COUNTER_TOP - 50, take) }, 1);
+  p = reach(p, 'L', { x: lerp(835, 925, take), y: lerp(COUNTER_TOP - 6, COUNTER_TOP - 50, take) }, 1); // far hand flat on the counter, outside his body so the arm reads
   return {
     pose: { ...p, handR: 'hold', handL: 'hold' },
     atBench: false,
