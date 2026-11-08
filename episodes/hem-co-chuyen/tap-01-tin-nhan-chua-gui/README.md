@@ -6,7 +6,7 @@ Lời sạch/thẻ giữ bản 12: 1.089 đơn vị cách trắng, 4.948 ký t�
 
 Đã có animatic v2 **bản lời 11**, 11:48,416/854×480/30 fps. **Bản 13 chưa dựng lại, tạo asset quái vật hoặc giọng mới**; timeline/manifest cũ đã đánh dấu nguồn để tránh ghép nhầm. Bộ demo asset 146 giây là lịch sử. Không coi ảnh tồn tại hay typecheck đạt là đã duyệt diễn xuất.
 
-**Dựng bản 13 (09/11/2026):** timeline/cue đã ánh xạ lại đủ 40 cue, có 5 shot mới C8-E và C9-A…D, cameo chân dung/lọ và [storyboard](assets/storyboard/storyboard-v13-1.jpg) ([trang 2](assets/storyboard/storyboard-v13-2.jpg)); dài khoảng 8:46, phần lớn lời còn ước lượng vì mới có 11/85 take khớp. **Chưa có** animatic, giọng cho 74 lượt, nhạc hoặc mix bản 13.
+**Dựng bản 13 (09/11/2026):** timeline/cue đã ánh xạ lại đủ 40 cue, có 5 shot mới C8-E và C9-A…D, cameo chân dung/lọ và [storyboard](assets/storyboard/storyboard-v13-1.jpg) ([trang 2](assets/storyboard/storyboard-v13-2.jpg));  Đã có animatic v3 có giọng đủ 85 lượt, 8:45,3, chưa duyệt. **Chưa có** âm nền, nhạc hoặc mix bản 13.
 
 | File / mục | Tác dụng |
 |---|---|

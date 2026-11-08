@@ -2,7 +2,7 @@
 
 ## Ánh xạ bản 13 (đang dùng)
 
-09/11/2026. 40 cue, 56 đoạn, tổng 8:45. Chỉ 11/85 lượt lời có take khớp; 74 lượt còn lại tính theo ước lượng 3 từ/giây nên mốc giờ sẽ đổi khi có giọng thật. Bảng sinh từ `cues.json` + `timeline.json`.
+09/11/2026. 40 cue, 56 đoạn, tổng 8:45. Bảng lập trước khi có đủ giọng nên mốc giờ và độ dài lệch với animatic v3; thứ tự cue và mục lời vẫn đúng. Bảng sinh từ `cues.json` + `timeline.json`.
 
 | Mốc | Cue | Mục lời | Dài | Ghi chú |
 |---|---|---|---|---|

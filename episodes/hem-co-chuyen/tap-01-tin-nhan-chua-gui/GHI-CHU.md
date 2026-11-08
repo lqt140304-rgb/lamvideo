@@ -183,3 +183,11 @@ Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai
 - Đồng hồ trên bàn sau dời sang cạnh, không còn che mặt Lộc ở C1-B và C4-A.
 - Giọng: `voice.cjs lines --cached` chỉ dùng take có sẵn, **0 credits**: 11/85 lượt khớp, 74 lượt (4.832 ký tự) chưa có nên tính giờ theo ước lượng. Bản 11 tốn khoảng 0,5 credit/ký tự nên ước tính 2.400–2.600 credits; chưa chạy.
 - Còn tạm: C1 chưa thay bằng diễn xuất của đoạn thử; khẩu hình mới có trong đoạn thử; C5-A chưa dùng lại C2-B; ngồi xuống ở C2-A vẫn đổi tư thế tức thì; chưa có animatic, nhạc, mix bản 13. Storyboard chưa được duyệt.
+
+## Animatic v3 bản 13 có giọng — 09/11/2026
+
+- Tạo 74 lượt thiếu bằng ElevenLabs v4, giữ cast và settings cũ; 11 lượt dùng lại. Bộ đếm tài khoản 22.168 → 24.292: **2.124 credits**. `costs.json` chỉ ghi 1.515 vì bộ đếm trễ khi đọc ngay sau lúc chạy.
+- 85 lượt, 366,6 giây lời; phim 8:45,3 (15.758 khung). Đỉnh âm −4,6 dB. Chưa ai nghe kiểm tra diễn xuất giọng.
+- Bản xem: `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\tin-nhan-chua-gui-animatic-v3-540p-giong.mp4` và bản điện thoại `...-v3-480p-dien-thoai.mp4`. Không phụ đề theo yêu cầu chủ repo, chỉ nhãn cue/mốc giờ ở góc.
+- Tóc nhân vật xoay theo đầu (`hairFrontTurn`, `hairBackTurn`, `hairLockTurn` trong rig) cho Thảo, Duy, Lộc, mẹ; các kiểu tóc khác trong thư viện chưa áp.
+- Còn tạm: chưa có âm nền, Foley, nhạc trong phim; lọ che ở C9-A đọc như một dải tối hơn là lọ; các mục còn tạm ở phần storyboard bản 13 vẫn nguyên.
