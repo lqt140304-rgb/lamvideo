@@ -30,3 +30,11 @@ Hồ sơ/asset riêng giữ đúng thư mục tập. Giữ các thay đổi củ
 **Khẩu hình:** rig có `talk`/`mouthShape`, nhưng các shot thoại được rà ở bản hiện có chưa điều khiển chúng theo lượt nói. Claude cần nối đúng speaker và khoảng nói thực; dùng ít dáng miệng rõ, chuyển theo cụm âm/nhịp câu, khép ở nghỉ. Không cần gán một dáng riêng cho từng chữ, không để người nghe mấp máy cùng. Diễn xuất mắt, đầu và thân vẫn cần sau khi đã có miệng.
 
 **Điều kiện xem lại:** biết ai đang nói dù tắt tiếng; người nghe có phản ứng gắn với điều vừa nghe; đầu–thân–tay có nhịp chuẩn bị và dừng, chân/ghế/vật cầm không trượt. Cảnh lắng được giữ yên khi có chủ ý, không chèn động tác cho đủ số lượng. Chọn đoạn thử đạt rồi mở rộng đúng các cảnh trọng yếu, giữ bộ asset đã có. Lượt bổ sung này chỉ sửa yêu cầu dựng, chưa thay chuyển động hoặc xuất clip.
+
+## Chuyển góc mượt theo phản hồi chủ repo
+
+Áp dụng phần **Máy quay và chuyển góc — bổ sung bản 12** trong [DUNG-CANH](DUNG-CANH.md). Giữ 35 cue/đường mở 24 giây, bảng màu, khung 16:9/2:1 và giới hạn rung cũ. Mượt là có hướng/đà, điểm cắt theo ánh mắt–động tác–phản ứng và nền âm liền; các nhịp gắt hoặc hoảng vẫn được cắt dứt khoát. Không tăng số cảnh hoặc thời lượng chỉ để thêm chuyển cảnh.
+
+Đoạn thử Lộc–hai trẻ: sau lượt máy tĩnh duyệt diễn, dựng góc chung → cận Lộc gắt → cận Thảo nghe câu mỉa mai → theo mắt em tới Duy che em → Lộc quay về bàn sau. Giữ tay/tiền đúng trạng thái qua cắt; không quét máy theo từng câu hoặc hòa hai hình người lên nhau. Khi nối cùng đường máy phải giữ vị trí, hướng và tốc độ đầu–cuối, tránh reset từng đoạn rồi khựng. Đoạn mẹ tan vẫn cận vừa từ đầu nhịp lau má 8 giây, tiến dịu vào tay và dừng trước mờ về tiệm.
+
+Xem chuyển động cả đoạn với âm, kiểm tra điểm nối và bản điện thoại; chưa thể duyệt từ storyboard. Lượt bổ sung này chỉ sửa tài liệu, chưa thay camera/timeline hoặc xuất clip mới.

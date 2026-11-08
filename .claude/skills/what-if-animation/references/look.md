@@ -19,6 +19,14 @@ For current lamvideo story episodes, use **limited 2D animation with character a
 - Test a short representative interaction using the existing assets and temporary/reused sound before expanding the work. First watch with a fixed camera and minimal background effects: the action, speaker and listener should still read. Then watch the normal shot with sound and at phone size. Still grids support inspection but do not replace moving playback.
 - Prioritize story-bearing actions and close dialogue shots. Reuse rigs and gestures where they fit; do not redraw every frame, force continuous full-body motion or assume paid video generation is necessary. Record actual time/usage rather than promising a percentage of quota saved.
 
+## Camera continuity for narrative episodes
+
+Use motivated camera paths and cuts for current story episodes. Establish the space, then choose a listener reaction, gesture or gaze to lead the change of angle. Keep screen direction, eyelines and hand/prop state coherent; preserve ambient sound across a cut within the same space. A clean cut may be the most natural transition, especially at a sharp dramatic beat.
+
+For a continuous move split across timeline segments, carry position, scale, direction and velocity through the boundary rather than restarting an easing curve in each segment. Ease into a move and settle where the story needs a hold; do not force every shot to float. Reserve dissolves and spatial effects for the chosen story transition instead of blending two faces or hands during normal conversation. Focus changes should lead attention without hiding the reaction.
+
+Review the moving sequence, not only endpoints: inspect camera resets, background coverage, footing, occlusion and gaze after a cut, then watch at normal speed and phone size. Test acting with the camera fixed first; add the intended framing/editing second. Keep episode-specific paths, lenses, timings and exceptions in its staging dossier.
+
 ## Pace
 
 | | The genre | Our target for 15-25 s |

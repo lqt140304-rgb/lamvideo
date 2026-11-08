@@ -20,6 +20,26 @@ Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SA
 
 Đọc [bảng thay đổi theo cue](BIEN-TAP-V12.md#dựng-phần-đã-chuyển-khỏi-lời-dẫn) cùng nguồn. Tất cả chỉ dẫn hành động ở KICH-BAN là Không đọc. **C6–C7 không người dẫn**; các cue ở đây giữ sơ đồ/lens/pose, mốc lời và thời gian theo bản 12. Bed từ frame đầu/chậm nhất 0:01, thở Duy khi tới cửa. Trẻ đã ở cửa từ C0-D; tiền/ảnh có cầm–nhả thật. Ngồi trên kè đá, vải chạm đá chứ không tiếng cỏ; C7-C máy cận vừa từ đầu đoạn lau má 8 giây. Bản runtime cũ phải retime, không chỉ xóa lời khỏi audio.
 
+## Máy quay và chuyển góc — bổ sung bản 12
+
+**Mục tiêu:** góc quay dẫn mắt theo nhân vật, đổi góc tự nhiên và đường máy có đà. Diễn xuất vẫn đọc được khi máy đứng yên; sau bước thử diễn xuất mới bật đường máy để kiểm tra cả hai cùng nhau. Giữ lens/bố cục và 35 cue đã chốt; một cue có thể dùng lại ở nhiều nhịp, không phải mỗi câu một góc mới.
+
+- **Đường máy:** vào nhẹ, chuyển động có đà, giảm tốc tới điểm cần giữ. Tránh nhảy vị trí/scale/nét ở điểm ghép. Nếu hai đoạn thuộc cùng một đường máy, dùng trạng thái cuối của đoạn trước làm đầu đoạn sau và giữ hướng/tốc độ nối; không reset đồng hồ rồi ease từ đầu ở từng đoạn làm máy khựng. Chọn thời gian tăng–giảm tốc theo độ dài động tác, không áp một đường cong cho mọi cảnh.
+- **Đổi góc:** cắt theo mắt nhìn, tay bắt đầu đưa, thân quay hoặc phản ứng; giữ hướng nhìn, bên đứng và vị trí tay/đồ qua điểm cắt. Góc chung 35 mm định vị → trung 50 mm cho quan hệ → cận 65–85 mm đúng chi tiết đã ghi. Các số là ý đồ bố cục hiện hành, không ép thay lens giữa mọi lượt thoại. Góc qua vai chỉ dùng khi asset/trục/che khuất đáp ứng, không giả quay vòng quanh một hình phẳng.
+- **Nối âm:** quạt/gió tiếp tục qua các góc cùng không gian; có thể giữ câu người nói dưới cận người nghe để phản ứng xảy ra tự nhiên. Không cắt nền theo mỗi cú đổi hình hoặc đợi hết lời rồi mới cho người nghe phản ứng.
+- **Nét:** chuyển sự chú ý từ vật sang mắt người ở đúng nhịp nhận ra, tăng/giảm độ mờ dịu; giữ một điểm đọc chính. Kiểm tra vùng nền/lớp sẽ lộ khi trượt/zoom, bóng và điểm tì cùng nhân vật. Không chồng hai mặt hoặc đôi tay bằng hòa ảnh ở các lượt đối đáp.
+
+| Nhịp / cue | Cách đặt và nối góc |
+|---|---|
+| C0-A…F | Giữ đường trời sao → cú → hẻm → hai trẻ theo phác thảo. Ghép kín qua mái/nhịp chớp mắt khi cần đổi cỡ; nối hướng/đà, cú và mái cùng mốc, trẻ đã ở cửa từ trước. Máy giảm tốc khi tìm tới hai trẻ; không khựng ở mỗi cue hoặc đổi sang zoom xuyên hình. |
+| C1 / đoạn thử Lộc–hai trẻ | Góc chung cho thấy khoảng cách và tiền, cắt cận Lộc ở câu gắt; câu mỉa mai có thể tiếp dưới cận Thảo. Theo ánh mắt em sang Duy, giữ phản ứng anh che em trước khi về góc Lộc quay bàn sau. Chuyển êm ở nhịp nhìn/nghe; điểm cắt đột ngột của câu gắt vẫn dứt khoát, không bắt máy trôi ở mọi câu. |
+| C2–C3 / ảnh và xin lỗi | Insert từ tay thật lấy/đặt ảnh rồi cận mắt Duy, về hai trẻ ở nhịp nhận lỗi. Dịch máy nhỏ khi khoảng cách hai anh em gần lại, dừng cho lời xin lỗi. Không quét máy qua lại theo từng người nói; giữ cùng bên trục và khớp tay/bút/ảnh khi dùng lại góc. |
+| C4–C5 / mất ký ức và giá | Để cận kiểm chứng có thời gian tìm kiếm; nhịp báo giá ưu tiên người đang nghe. G2 giữ cùng không gian, góc máy vững; chỉ C5-C dùng rung/nghiêng 1,6 giây trong khoảng nghỉ theo bản 8. Trả về tĩnh trước Thảo nhận G3; trắng/ù sẵn có che đổi sang 2:1, không thêm chuyển cảnh. |
+| C6–C7 / mẹ con | Trượt lùi cùng bước đi, giữ tốc độ nhóm và mặt đỡ, hạ máy theo tư thế ngồi. Cận vừa cho cuộc nói chuyện, tiến rất nhẹ ở lúc Duy thôi nén cảm xúc; có thể dừng hẳn khi mẹ ôm con. Đoạn sau mẹ tan: đủ gần từ đầu 8 giây, tiến vào tay và giảm tốc, giữ rồi mờ về tiệm đúng nhịp cũ. Không gấp zoom hoặc xoay quanh nhóm để tạo vẻ điện ảnh. |
+| C8 / trở về và rời đi | Đôi tay và hướng ngồi nối được từ đồng về ghế. Định vị cửa nhà riêng trước tiếng bố/cuộc gọi; cuối mở nhẹ không gian theo hướng đèn nhà dì. Giữ đêm, khung 16:9, không thêm cảnh hoặc thời gian chuyển ngoài bản nguồn. |
+
+**Xem lại chuyển động thật:** kiểm tra điểm trước/sau nối, cả đoạn chạy ở tốc độ thường và cỡ điện thoại. Mắt không phải tìm lại nhân vật sau cắt; không nhảy scale, trượt chân, hở nền, đổi trục hoặc dừng–chạy máy vô cớ. Đoạn thử Lộc–hai trẻ cần xem hai lượt: máy tĩnh để duyệt diễn xuất, rồi đường máy/cắt/nét/âm như đề nghị. Ảnh tĩnh không chứng minh chuyển góc đã mượt. Đây là yêu cầu dựng, chưa phải chuyển động đã triển khai hoặc duyệt.
+
 ## 1. Không gian và ánh sáng cố định
 
 **SET-CITY-HEM / ngoại mở đầu:** một thành phố miền Nam hư cấu ban đêm. Tấm toàn: trời sao chiếm khoảng nửa trên, skyline thấp hơn, vài mái gần dẫn xuống hẻm. “TIN NHẮN CHƯA GỬI” ở vùng trời, căn giữa theo khoảng trống, chừa khoảng an toàn quanh chữ; dùng lớp chữ riêng, không để AI vẽ chữ lên nền hoặc sao sáng chạy qua nét chữ. Chữ hiện/giữ trong C0-A, rút dần ở C0-B; không còn trên mắt cú/nhân vật.

@@ -41,6 +41,8 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 
 ## Góc máy điện ảnh và chiều sâu 2.5D
 
+- **Đổi góc bị giật hoặc máy trôi đều thiếu cảm xúc →** chọn điểm cắt từ ánh mắt, động tác và phản ứng, giữ trục/hướng nhìn/trạng thái đồ; nền âm cùng không gian tiếp tục qua cắt. Đường máy nối nhiều đoạn phải giữ vị trí và tốc độ đầu–cuối, tránh reset easing ở mỗi đoạn; tăng–giảm tốc và dừng theo diễn xuất. **Kiểm tra:** xem cả điểm nối lẫn đoạn chạy ở tốc độ thường/cỡ điện thoại, không dùng ảnh đầu–cuối làm bằng chứng mượt. Phân biệt đường máy êm với một điểm cắt dứt khoát có chủ ý; không hòa hai mặt/tay lên nhau để chữa mọi cú cắt.
+
 - **Khung và máy gây phân tâm → đổi tỉ lệ/rung/nghiêng theo mọi câu thoại →** chọn một khung nền, ghi rõ ngoại lệ theo bước ngoặt và giữ khung ổn định trong cùng trường đoạn. Mỗi hiệu ứng phải có mục đích, đơn vị, điểm vào/ra; chốt vùng hình trong container xuất cố định, không kéo dãn người hoặc coi thêm dải đen là nới trường nhìn. Chuyển camera/nhóm thế giới đã gắn đúng tiếp xúc, tách chữ/viền khung khỏi rung; chừa nền theo chuyển động cực hạn. **Kiểm tra:** mặt/tay/điểm tì vẫn rõ, không tăng thời lượng trùng khoảng nghỉ; nếu bản chạy không giúp đọc câu chuyện, giảm hoặc bỏ hiệu ứng. Mức thử riêng của tập không thành định mức chung.
 
 Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và đề xuất áp dụng, **chưa phải kết quả dựng thử trong studio**. Xem [hướng dẫn chi tiết, mẫu shot và nguồn](NGON-NGU-DIEN-ANH-2-5D.md). Giữ ví dụ, bảng tham khảo và ghi chú nghiên cứu ở tài liệu đó; chỉ lưu nguyên tắc dùng lại được tại đây.
