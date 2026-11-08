@@ -3,3 +3,4 @@ out/
 
 # ElevenLabs voice for episodes: generated media, kept local (paths/costs in the episode folder)
 public/*/voice/
+public/*/sfx/

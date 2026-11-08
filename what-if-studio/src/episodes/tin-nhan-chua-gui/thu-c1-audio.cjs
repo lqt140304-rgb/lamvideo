@@ -5,7 +5,7 @@
 // ffmpeg noise/sine sources: placeholders with no third-party rights, to be replaced from NGUON-AM-THANH after review.
 const fs = require('node:fs');
 const path = require('node:path');
-const { execFileSync } = require('node:child_process');
+const { execFileSync, spawnSync } = require('node:child_process');
 
 const here = __dirname;
 const studio = path.resolve(here, '../../..');
@@ -66,40 +66,55 @@ if (mode === 'env') {
   fs.mkdirSync(OUT, { recursive: true });
   const dur = TOTAL / FPS;
   const sec = (f) => (f / FPS).toFixed(3);
-  // Each layer: [lavfi source + filters, start frame]. Levels are by ear for a phone speaker, not a fixed dB rule.
-  const fx = [
-    // fan + room: brown noise, low-passed, with the blade's slow pulse
-    [`anoisesrc=c=brown:a=0.5:d=${dur},lowpass=f=520,highpass=f=60,tremolo=f=6.5:d=0.18,volume=0.22`, 0],
-    // night wind across the wires outside the door, slow swell
-    [`anoisesrc=c=pink:a=0.35:d=${dur},bandpass=f=900:w=700,tremolo=f=0.17:d=0.6,volume=0.07`, 0],
-    // a motorbike horn far out on the main road (two short beeps, muffled, small echo)
-    [`sine=f=430:d=0.5,volume=0.5[h1];sine=f=545:d=0.5,volume=0.4[h2];[h1][h2]amix=inputs=2,afade=t=in:d=0.03,afade=t=out:st=0.18:d=0.3,atrim=0:0.5,apad=pad_dur=0.12,aloop=loop=1:size=27000,lowpass=f=1300,aecho=0.6:0.5:120:0.35,volume=0.035`, 132],
-    // a distant motorbike passing in the alley mouth
-    [`anoisesrc=c=brown:a=0.6:d=3.5,lowpass=f=300,afade=t=in:d=1.6,afade=t=out:st=1.8:d=1.7,volume=0.18`, 470],
-    // screwdriver laid flat on wood: dry click + short body
-    [`anoisesrc=c=white:a=0.9:d=0.05,highpass=f=1800,afade=t=out:d=0.05,volume=0.55[a];sine=f=210:d=0.12,afade=t=out:d=0.12,volume=0.5[b];[a][b]amix=inputs=2`, 207],
-    // Thảo's caught breath on "Cất đi"
-    [`anoisesrc=c=pink:a=0.4:d=0.32,bandpass=f=1800:w=1600,afade=t=in:d=0.08,afade=t=out:st=0.12:d=0.2,volume=0.22`, 246],
-    // shirt cloth as she presses to Duy, and as he turns to cover her
-    [`anoisesrc=c=pink:a=0.4:d=0.45,bandpass=f=2600:w=2200,afade=t=in:d=0.1,afade=t=out:st=0.15:d=0.3,volume=0.18`, 252],
-    [`anoisesrc=c=pink:a=0.4:d=0.6,bandpass=f=2300:w=2000,afade=t=in:d=0.15,afade=t=out:st=0.2:d=0.4,volume=0.16`, 372],
-    // the two bills passing hand to hand
-    [`anoisesrc=c=white:a=0.5:d=0.14,highpass=f=3000,afade=t=in:d=0.02,afade=t=out:d=0.12,volume=0.16`, 412],
-    [`anoisesrc=c=white:a=0.5:d=0.1,highpass=f=3400,afade=t=out:d=0.1,volume=0.12`, 420],
-    // Lộc picks the screwdriver up, steps back to the bench, the stool takes his weight
-    [`anoisesrc=c=white:a=0.7:d=0.04,highpass=f=2200,afade=t=out:d=0.04,volume=0.25`, 432],
-    ...[468, 486, 504, 522].map((f) => [`sine=f=85:d=0.14,afade=t=out:d=0.14,volume=0.35`, f]),
-    [`anoisesrc=c=brown:a=0.5:d=0.3,lowpass=f=700,afade=t=in:d=0.05,afade=t=out:d=0.25,volume=0.2`, 540],
-    // small tool sounds on the clock at the bench, farther and duller
-    ...[566, 582].map((f) => [`sine=f=2400:d=0.05,afade=t=out:d=0.05,volume=0.08,lowpass=f=3000`, f]),
+  // Recorded layers: Mixkit SFX (free license, sources in ASSET.md), kept local in public/tin-nhan-chua-gui/sfx (gitignored).
+  // { id, at: start frame, ss/t: cut in the source, fx: extra filters, mean | peak: target level in dB after the cut and filters }.
+  // Beds are set by their mean level, one-off sounds by their peak; the gain is measured, not guessed.
+  const files = [
+    { id: 1833, at: 0, ss: 0.3, t: dur, fx: 'lowpass=f=2600,highpass=f=70', mean: -41 }, // fan in the room (extractor fan, softened)
+    { id: 2678, at: 0, ss: 20, t: dur, fx: 'highpass=f=180,lowpass=f=2800', mean: -47 }, // city at night through the open door
+    { id: 2658, at: 0, ss: 8, t: dur, fx: 'lowpass=f=1400', mean: -52 }, // light wind outside
+    { id: 717, at: 132, fx: 'lowpass=f=1800,aecho=0.6:0.5:140:0.35', peak: -33 }, // horn far out on the road
+    { id: 2732, at: 462, ss: 0.4, fx: 'lowpass=f=1100,afade=t=in:d=1.2', peak: -31 }, // motorbike passing the alley mouth
+    ...[4, 72, 140].map((at) => ({ id: 1064, at, fx: 'highpass=f=400', peak: at > 100 ? -31 : -27 })), // small screw turns on the clock
+    { id: 2182, at: 205, fx: 'highpass=f=150', peak: -17 }, // screwdriver laid flat on the wood counter
+    { id: 1898, at: 250, fx: 'highpass=f=300', peak: -25 }, // her shirt as she pulls in to Duy
+    { id: 1898, at: 370, ss: 0.1, fx: 'highpass=f=300', peak: -27 }, // his shirt as he turns to cover her
+    { id: 2380, at: 411, fx: 'highpass=f=500', peak: -27 }, // the two bills changing hands
+    { id: 1131, at: 431, ss: 0.08, t: 0.5, fx: 'highpass=f=600', peak: -29 }, // screwdriver and clock picked up
+    { id: 1016, at: 538, fx: 'lowpass=f=3500', peak: -27 }, // the bench stool takes his weight
+    { id: 1064, at: 552, fx: 'lowpass=f=4000', peak: -33 }, // back at work, farther away
   ];
-  const args = ['-y', '-v', 'error'];
-  const parts = [];
-  fx.forEach(([src], i) => {
+  // Still synthesized: her caught breath and soft sandal steps (no fitting free recording found yet).
+  const synth = [
+    [`anoisesrc=c=pink:a=0.4:d=0.32,bandpass=f=1800:w=1600,afade=t=in:d=0.08,afade=t=out:st=0.12:d=0.2,volume=0.22`, 246],
+    ...[468, 486, 504, 522].map((f) => [`sine=f=85:d=0.14,afade=t=out:d=0.14,volume=0.3`, f]),
+  ];
+  const levels = (f) => {
+    const r = spawnSync('ffmpeg', ['-v', 'info', '-i', f, '-af', 'volumedetect', '-f', 'null', '-'], { encoding: 'utf8' });
+    const g = (k) => Number((r.stderr.match(new RegExp(`${k}_volume: (-?[0-9.]+) dB`)) || [])[1]);
+    return { mean: g('mean'), peak: g('max') };
+  };
+  const fx = [];
+  files.forEach((l, i) => {
+    const src = path.join(studio, 'public/tin-nhan-chua-gui/sfx', `mixkit-${l.id}.wav`);
+    if (!fs.existsSync(src)) throw new Error(`missing ${src}: download it (see ASSET.md) before mixing`);
+    const cut = path.join(OUT, `cut${i}.wav`);
+    const af = [l.fx, 'aformat=sample_rates=44100:channel_layouts=mono'].filter(Boolean).join(',');
+    execFileSync('ffmpeg', ['-y', '-v', 'error', '-ss', String(l.ss ?? 0), ...(l.t ? ['-t', String(l.t)] : []), '-i', src, '-af', af, cut]);
+    const lv = levels(cut);
+    const gain = l.mean !== undefined ? l.mean - lv.mean : l.peak - lv.peak;
     const wav = path.join(OUT, `fx${i}.wav`);
-    execFileSync('ffmpeg', ['-y', '-v', 'error', '-filter_complex', `${src},aformat=sample_rates=44100:channel_layouts=mono`, '-t', String(dur), wav]);
-    parts.push(wav);
+    const fade = l.mean !== undefined ? `,afade=t=in:d=0.8,afade=t=out:st=${(l.t - 1).toFixed(2)}:d=1` : '';
+    execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', cut, '-af', `volume=${gain.toFixed(2)}dB${fade}`, wav]);
+    fx.push([wav, l.at]);
   });
+  synth.forEach(([src, at], i) => {
+    const wav = path.join(OUT, `syn${i}.wav`);
+    execFileSync('ffmpeg', ['-y', '-v', 'error', '-filter_complex', `${src},aformat=sample_rates=44100:channel_layouts=mono`, '-t', String(dur), wav]);
+    fx.push([wav, at]);
+  });
+  const args = ['-y', '-v', 'error'];
+  const parts = fx.map(([wav]) => wav);
   const inputs = [...LINES.map((l) => pub(l.file)), ...parts];
   for (const f of inputs) args.push('-i', f);
   const chains = [];
@@ -112,7 +127,7 @@ if (mode === 'env') {
     chains.push(`[${k}:a]adelay=${Math.round((f / FPS) * 1000)}[x${i}]`);
   });
   const labels = [...LINES.map((_, i) => `[v${i}]`), ...fx.map((_, i) => `[x${i}]`)].join('');
-  chains.push(`${labels}amix=inputs=${LINES.length + fx.length}:normalize=0,atrim=0:${dur},alimiter=limit=0.89[m]`);
+  chains.push(`${labels}amix=inputs=${LINES.length + fx.length}:normalize=0,atrim=0:${dur},loudnorm=I=-16:TP=-1.5:LRA=11,aresample=44100[m]`);
   const script = path.join(OUT, 'mix.txt');
   fs.writeFileSync(script, chains.join(';\n'));
   const wav = path.join(OUT, 'thu-c1-mix.wav');

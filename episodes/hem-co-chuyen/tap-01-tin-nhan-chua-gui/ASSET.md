@@ -144,3 +144,23 @@ Mã bảng màu đã thay “ký ức tuổi 16” bằng ký ức tranh đồ c
 | PLATE-SHOP-GONE | Tường cũ khớp nhà hàng xóm cho C8-E, dùng lại hẻm | Chưa tạo/chưa duyệt |
 
 Thiết kế/nguồn dự kiến SVG/React riêng của repo, chưa tuyên bố đã tạo hoặc có quyền trên asset sinh sau này. Đồ bay có vùng lực/mốc dừng, không xóa yêu cầu tiếp xúc của mọi cảnh khác. Xem HE-LO-QUAI-VAT để tránh tạo ba phim con hoặc ba nhân vật mẹ trong lọ.
+
+## Âm thanh đoạn thử C1 — Mixkit SFX, tải 08/11/2026
+
+Giấy phép: [Mixkit Sound Effects Free License](https://mixkit.co/license/modal/sfxFree/), dùng ghép trong video thương mại; không phân phối file rời. File gốc WAV chỉ để local ở `what-if-studio/public/tin-nhan-chua-gui/sfx/mixkit-<id>.wav` (đã gitignore). Tải lại: `https://assets.mixkit.co/active_storage/sfx/<id>/<id>.wav`. Cắt/lọc/mức nằm trong `thu-c1-audio.cjs`; trạng thái: **đã trộn vào đoạn thử, chủ repo chưa nghe duyệt**.
+
+| Id | Tên trên Mixkit | Dùng cho |
+|---|---|---|
+| 1833 | Small stove extractor fan | Nền quạt trong tiệm (lọc mềm) |
+| 2678 | Urban city ambience at night | Phố đêm lọt qua cửa |
+| 2658 | Wind blowing ambience | Gió nhẹ ngoài hẻm |
+| 717 | Small car horn | Còi xa ngoài đường lộ (lọc, vọng) |
+| 2732 | Motorcycle hum passing by | Xe máy qua đầu hẻm |
+| 1064 | Watch clock knob spin | Vặn ốc đồng hồ ở quầy và bàn sau |
+| 2182 | Wood hard hit | Tua vít đặt xuống quầy gỗ |
+| 1898 | Cloth slide out | Áo Thảo khi nép anh, áo Duy khi quay che |
+| 2380 | Paper quick movement | Hai tờ tiền chuyển tay |
+| 1131 | Mechanical tool click | Cầm tua vít/đồng hồ lên |
+| 1016 | Chair seat wood squeak | Ghế bàn sau khi Lộc ngồi |
+
+Đã tải nhưng chưa dùng: 859, 835, 3199, 2930, 1789, 1530. Còn tổng hợp bằng ffmpeg: hơi hít khựng của Thảo, bước dép của Lộc.
