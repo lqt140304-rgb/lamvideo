@@ -1,15 +1,17 @@
 # Asset — Tin nhắn chưa gửi, bản 10
 
-**Hiện hành: bản 12.** [Biên tập sau animatic](BIEN-TAP-V12.md) quy định phần lời/nhịp thay thế; có ưu tiên khi ghi chú các bản cũ bên dưới còn khác. Lời sạch bản 12: **1,084 đơn vị cách trắng**, **4,929 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70.1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:12–8:25**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
+**Hiện hành bản 13 — 08/11/2026:** thêm cameo chân dung/lọ và cảnh hé lộ quái vật đồng hồ ba mắt; [HE-LO-QUAI-VAT](HE-LO-QUAI-VAT.md) và [VU-TRU series](../VU-TRU.md) là phần mở rộng. Giữ nguyên lời/thẻ bản 12, thêm 31 giây không lời: 85 giây nghỉ/cảnh không lời định lượng +24 giây mở; 10 phần C0–C9, 40 cue (35 cũ +C8-E/C9-A…D). Ước tính 7:45–8:58, chưa đo bản mới. Animatic/media hiện có vẫn bản 11; chưa tạo asset hoặc render quái vật.
 
-**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+
+Lời sạch/thẻ bản 13 giữ nguyên bản 12: **1.089 đơn vị cách trắng, 4.948 ký tự LF, 85 lượt nói**; người dẫn **317 đơn vị**. Tổng **85 giây không lời định lượng +24 giây mở**, **40 cue/C0–C9**, ước tính **7:45–8:58**; chưa có số đo media mới.
+
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Nguồn bản 13 giữ lời bản 12 và thêm cameo/cảnh hé lộ; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
 
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-**Định dạng hiện hành — bản 12, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
+**Định dạng hiện hành — bản 13, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
 
-**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
 
 Nguồn lời [KICH-BAN.md](KICH-BAN.md); mục tiêu dựng [DUNG-CANH.md](DUNG-CANH.md). Phân biệt có mã/file, đã xem một số still và đã duyệt diễn xuất theo cảnh. Bộ mới tiếp tục được đánh giá để dùng lại; chưa mặc định mọi tạo hình SVG thay thế concept đã chốt.
 
@@ -129,3 +131,16 @@ Mẹ C7-C thêm kế hoạch hạt vàng thưa xuất phát từ viền áo/tóc
 ## Sửa sau cập nhật Anti — chờ Claude xuất lại ảnh
 
 Mã bảng màu đã thay “ký ức tuổi 16” bằng ký ức tranh đồ chơi rồi làm hòa; bỏ mốc phút cũ ở hồi có lời. Cụm chuồn chuồn trong ruộng scale 0,38/opacity 0,68, giữ mẫu macro chi tiết. Ảnh bảng màu, bảng ruộng và still/clip cũ chưa xuất lại theo hai sửa này; không dùng chúng làm ảnh đã duyệt của mã mới. Claude thực hiện dựng theo [bàn giao](BAN-GIAO-CLAUDE.md).
+
+## Asset mới bản 13 — cần tạo, chưa có media
+
+| Mã | Phần cần có / tái dùng | Trạng thái |
+|---|---|---|
+| MON-LOC-CLOCK | Nguyên hình đồng hồ ba mắt, pose lơ lửng; cùng style rig | Chưa tạo/chưa duyệt |
+| SET-LOC-ARCHIVE | Kho lọ sáng huyền ảo, kệ gần–giữa–xa; biến thể từ bố cục tiệm | Chưa tạo/chưa duyệt |
+| PROP-JAR / G1/G2/G3 | Một mẫu lọ với nội dung ký ức/dấu chuyển buồn/quyền mơ; cùng mẫu cho lọ cũ | Chưa tạo/chưa duyệt |
+| PROP-LOC-PORTRAIT | Chân dung bạc màu từ cùng thiết kế quái vật, cameo C1/C4 | Chưa tạo/chưa duyệt |
+| FX-REVERSE-TIME | Cát chảy lên/một vòng kim lùi trong kho, không tác động hẻm | Chưa tạo/chưa duyệt |
+| PLATE-SHOP-GONE | Tường cũ khớp nhà hàng xóm cho C8-E, dùng lại hẻm | Chưa tạo/chưa duyệt |
+
+Thiết kế/nguồn dự kiến SVG/React riêng của repo, chưa tuyên bố đã tạo hoặc có quyền trên asset sinh sau này. Đồ bay có vùng lực/mốc dừng, không xóa yêu cầu tiếp xúc của mọi cảnh khác. Xem HE-LO-QUAI-VAT để tránh tạo ba phim con hoặc ba nhân vật mẹ trong lọ.

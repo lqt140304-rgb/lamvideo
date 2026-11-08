@@ -1,5 +1,10 @@
 # Ghi chú riêng — tập 01
 
+## Bản 13 — vũ trụ quái vật và cameo, 08/11/2026
+
+Chủ repo chốt series quái vật có khả năng riêng; Lộc nguyên hình đồng hồ ba mắt, bay, tiệm biến mất, kho lọ sáng huyền ảo/thời gian ngược và cameo chân dung/lọ trước reveal. Nội dung riêng series ở ../VU-TRU.md; diễn giải cảnh/asset ở HE-LO-QUAI-VAT. Biên tập chọn C8-E 3 giây sau rời tiệm và C9 28 giây sau kết người để giữ dư âm; đây là nhịp đề xuất chưa xem/duyệt. Lọ G2 là dấu chuyển nỗi buồn, Duy vẫn giữ giá; lọ G3 niêm phong quyền mơ, không nhốt mẹ. Lời/thẻ giữ nguyên, chỉ phân vai theo chỉ số mới; chưa chạy Claude, render hoặc TTS.
+
+
 ## Bản 12 — biên tập sau animatic, 08/11/2026
 
 Lời sạch bản 12: **1,089 đơn vị cách trắng**, **4,948 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70,1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:14–8:27**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.

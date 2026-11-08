@@ -4,7 +4,7 @@ Kịch bản được lưu theo từng tập, không chép nội dung tập vào
 
 | Series / tập | Hồ sơ | Trạng thái |
 |---|---|---|
-| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Hồ sơ tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | **Bản 12:** [biên tập sau animatic](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/BIEN-TAP-V12.md): lời dẫn giảm 70,1%, C6–C7 không narrator, giao kèo gọn, bed từ đầu; giữ 35 cue/ba giá/tuổi 16–8. Đã có animatic v2 bản lời 11 dài 11:48,416; bản 12 chưa dựng lại. |
+| Hẻm Có Chuyện — 01: Tin nhắn chưa gửi | [Hồ sơ tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | **Bản 13:** giữ lời gọn bản 12, thêm [cameo và hé lộ Lộc quái vật đồng hồ ba mắt](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/HE-LO-QUAI-VAT.md). 40 cue, ước tính 7:45–8:58; [vũ trụ series](../episodes/hem-co-chuyen/VU-TRU.md). Media hiện có vẫn animatic bản 11, chưa dựng phần mới. |
 | Tập độc lập — Mưa liên tục 100 ngày | [Mở thư mục tập](../episodes/doc-lap/mua-100-ngay/README.md) | Nhập bản v7 và dữ liệu dựng 10 cảnh trước đây; chưa xem/nghe lại phim trong lượt nhập |
 
 ## Quy tắc thêm tập

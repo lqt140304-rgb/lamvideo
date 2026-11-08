@@ -1,13 +1,15 @@
-# Tin nhắn chưa gửi — dựng cảnh bản 12
+# Tin nhắn chưa gửi — dựng cảnh bản 13
 
-**Hiện hành: bản 12.** [Biên tập sau animatic](BIEN-TAP-V12.md) quy định phần lời/nhịp thay thế; có ưu tiên khi ghi chú các bản cũ bên dưới còn khác. Lời sạch bản 12: **1,084 đơn vị cách trắng**, **4,929 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70.1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:12–8:25**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
-
-**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+**Hiện hành bản 13 — 08/11/2026:** thêm cameo chân dung/lọ và cảnh hé lộ quái vật đồng hồ ba mắt; [HE-LO-QUAI-VAT](HE-LO-QUAI-VAT.md) và [VU-TRU series](../VU-TRU.md) là phần mở rộng. Giữ nguyên lời/thẻ bản 12, thêm 31 giây không lời: 85 giây nghỉ/cảnh không lời định lượng +24 giây mở; 10 phần C0–C9, 40 cue (35 cũ +C8-E/C9-A…D). Ước tính 7:45–8:58, chưa đo bản mới. Animatic/media hiện có vẫn bản 11; chưa tạo asset hoặc render quái vật.
 
 
-**Định dạng hiện hành — bản 12, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
+Lời sạch/thẻ bản 13 giữ nguyên bản 12: **1.089 đơn vị cách trắng, 4.948 ký tự LF, 85 lượt nói**; người dẫn **317 đơn vị**. Tổng **85 giây không lời định lượng +24 giây mở**, **40 cue/C0–C9**, ước tính **7:45–8:58**; chưa có số đo media mới.
 
-**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Nguồn bản 13 giữ lời bản 12 và thêm cameo/cảnh hé lộ; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+
+
+**Định dạng hiện hành — bản 13, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
+
 
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
@@ -16,13 +18,17 @@ Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SA
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
+## Bổ sung dựng bản 13
+
+C8-E đặt sau rời tiệm, trước ngưỡng nhà: 3 giây mặt tiền rút, trẻ không thấy. Sau C8-D thêm C9-A…D 28 giây không lời: kính/phản chiếu che đổi hình → ba mắt/kho sáng → xếp ba lọ → cát/kim đi ngược. C9 giữ 16:9/tĩnh về roll-rung, màu xanh ngọc/tím/hổ phách, không trắng/ù G3 hoặc lời dẫn. Cameo F1/C1-B, F2/C2-A/C, F3/C4-D dùng góc/thời gian cũ, không thêm cảnh. Chi tiết thiết kế, camera, âm và luật ba lọ ở HE-LO-QUAI-VAT; văn cảnh và nhịp chỉ lấy từ KICH-BAN.
+
 ## Bổ sung dựng bắt buộc bản 12
 
 Đọc [bảng thay đổi theo cue](BIEN-TAP-V12.md#dựng-phần-đã-chuyển-khỏi-lời-dẫn) cùng nguồn. Tất cả chỉ dẫn hành động ở KICH-BAN là Không đọc. **C6–C7 không người dẫn**; các cue ở đây giữ sơ đồ/lens/pose, mốc lời và thời gian theo bản 12. Bed từ frame đầu/chậm nhất 0:01, thở Duy khi tới cửa. Trẻ đã ở cửa từ C0-D; tiền/ảnh có cầm–nhả thật. Ngồi trên kè đá, vải chạm đá chứ không tiếng cỏ; C7-C máy cận vừa từ đầu đoạn lau má 8 giây. Bản runtime cũ phải retime, không chỉ xóa lời khỏi audio.
 
 ## Máy quay và chuyển góc — bổ sung bản 12
 
-**Mục tiêu:** góc quay dẫn mắt theo nhân vật, đổi góc tự nhiên và đường máy có đà. Diễn xuất vẫn đọc được khi máy đứng yên; sau bước thử diễn xuất mới bật đường máy để kiểm tra cả hai cùng nhau. Giữ lens/bố cục và 35 cue đã chốt; một cue có thể dùng lại ở nhiều nhịp, không phải mỗi câu một góc mới.
+**Mục tiêu:** góc quay dẫn mắt theo nhân vật, đổi góc tự nhiên và đường máy có đà. Diễn xuất vẫn đọc được khi máy đứng yên; sau bước thử diễn xuất mới bật đường máy để kiểm tra cả hai cùng nhau. Giữ lens/bố cục của 35 cue cũ; 5 cue mới theo HE-LO-QUAI-VAT; một cue có thể dùng lại ở nhiều nhịp, không phải mỗi câu một góc mới.
 
 - **Đường máy:** vào nhẹ, chuyển động có đà, giảm tốc tới điểm cần giữ. Tránh nhảy vị trí/scale/nét ở điểm ghép. Nếu hai đoạn thuộc cùng một đường máy, dùng trạng thái cuối của đoạn trước làm đầu đoạn sau và giữ hướng/tốc độ nối; không reset đồng hồ rồi ease từ đầu ở từng đoạn làm máy khựng. Chọn thời gian tăng–giảm tốc theo độ dài động tác, không áp một đường cong cho mọi cảnh.
 - **Đổi góc:** cắt theo mắt nhìn, tay bắt đầu đưa, thân quay hoặc phản ứng; giữ hướng nhìn, bên đứng và vị trí tay/đồ qua điểm cắt. Góc chung 35 mm định vị → trung 50 mm cho quan hệ → cận 65–85 mm đúng chi tiết đã ghi. Các số là ý đồ bố cục hiện hành, không ép thay lens giữa mọi lượt thoại. Góc qua vai chỉ dùng khi asset/trục/che khuất đáp ứng, không giả quay vòng quanh một hình phẳng.

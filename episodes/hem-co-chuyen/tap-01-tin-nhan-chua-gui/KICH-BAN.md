@@ -1,27 +1,27 @@
 # HẺM CÓ CHUYỆN — Tập thử 01: TIN NHẮN CHƯA GỬI
 
-**Định dạng hiện hành — bản 12, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
+**Định dạng hiện hành — bản 13, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
 
-**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản 13 giữ lời bản 12 và thêm cảnh hé lộ; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
 
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-> Bản 12 — 08/11/2026. Biên tập sau animatic: bỏ lời kể trùng hình, giao kèo ngắn hơn, cánh đồng không người dẫn; giữ tuổi, ba cái giá, bảng màu/khung/máy và kết lau má–nắm tay. Toàn bộ truyện là hư cấu.
+> Bản 13 — 08/11/2026. Giữ toàn bộ lời bản 12; thêm cameo chân dung/lọ trong tiệm, C8-E tiệm biến mất và C9 Lộc nguyên hình đồng hồ ba mắt/kho lọ/thời gian ngược. Thêm 31 giây không lời, tổng 40 cue. Chưa dựng media mới. Toàn bộ truyện là hư cấu.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
 
-Nguồn lời ở đây. [DUNG-CANH.md](DUNG-CANH.md) triển khai hình/âm, [LOI-DOC.md](LOI-DOC.md) và [ELEVENLABS.md](ELEVENLABS.md) xuất cùng nguồn. Đã có concept và bộ rig/SVG/preview mới gồm cả mẹ, cánh đồng; xem ASSET để biết file thực và trạng thái duyệt. Mặt Lộc concept đã chốt trước đó; việc nhận bản SVG mới không tự duyệt mọi biến thể hoặc chuyển động. **Bản 11 đã có giọng/animatic toàn tập; bản 12 chưa có media khớp lời. Chưa duyệt phim hoàn chỉnh.**
+Nguồn lời ở đây. [DUNG-CANH.md](DUNG-CANH.md) triển khai hình/âm, [LOI-DOC.md](LOI-DOC.md) và [ELEVENLABS.md](ELEVENLABS.md) xuất cùng nguồn. Đã có concept và bộ rig/SVG/preview mới gồm cả mẹ, cánh đồng; xem ASSET để biết file thực và trạng thái duyệt. Mặt Lộc concept đã chốt trước đó; việc nhận bản SVG mới không tự duyệt mọi biến thể hoặc chuyển động. **Bản 11 đã có giọng/animatic toàn tập; bản 13 chưa có media khớp nguồn. Chưa duyệt phim hoàn chỉnh.**
 
 ## Cốt truyện và nhân vật
 
-Mẹ từng che chở hai con khỏi bố say, chửi bới và đánh đập. Mẹ mất khiến Duy 16 cố đứng thay vị trí ấy để bảo vệ Thảo 8. Cậu giấu nhớ mẹ, nói cứng tới mức em sợ; em chỉ muốn nghe mẹ dỗ nên phá máy khi không mở được, rồi giấu lỗi. Tiền thiếu buộc trẻ cân nhắc giá khác. Sau lần sửa máy, chính câu hỏi tò mò của Thảo mở từ đồ vật sang cảm giác. Duy tiếp tục gánh thay em đến kiệt sức; Thảo nhận giá cuối để anh không phải trả thêm. Cuộc gặp mẹ có tình thân/đời thường và lời từ biệt, không xóa ba cái giá hoặc chữa bố. Kết là hai trẻ tìm hỗ trợ cho đêm đó.
+Mẹ từng che chở hai con khỏi bố say, chửi bới và đánh đập. Mẹ mất khiến Duy 16 cố đứng thay vị trí ấy để bảo vệ Thảo 8. Cậu giấu nhớ mẹ, nói cứng tới mức em sợ; em chỉ muốn nghe mẹ dỗ nên phá máy khi không mở được, rồi giấu lỗi. Tiền thiếu buộc trẻ cân nhắc giá khác. Sau lần sửa máy, chính câu hỏi tò mò của Thảo mở từ đồ vật sang cảm giác. Duy tiếp tục gánh thay em đến kiệt sức; Thảo nhận giá cuối để anh không phải trả thêm. Cuộc gặp mẹ có tình thân/đời thường và lời từ biệt, không xóa ba cái giá hoặc chữa bố. Kết của hai trẻ là tìm hỗ trợ cho đêm đó. Cảnh đuôi hé lộ Lộc có nguyên hình quái vật đồng hồ ba mắt trong kho lọ của mình; hai trẻ chưa biết tiệm đã biến mất.
 
 | Người | Vai trò và thay đổi |
 |---|---|
 | Duy — anh trai, 16 tuổi | Bên ngoài cứng, bên trong nhớ mẹ, hy sinh nhưng có giới hạn. Trả G1/G2, nhận lỗi vì làm em sợ, không kịp ngăn G3 khi mệt; cuối dám nói không tự gánh nổi |
 | Thảo — em gái, 8 tuổi | Nhớ mẹ đơn thuần, sợ/níu anh, có lỗi phá máy; tò mò hỏi Lộc, rồi nhanh miệng nhận giá vì không muốn anh mất thêm. Không bị viết thành người tham lam hoặc chuyên gia tâm lý |
-| Lộc, khoảng 60 | Kỳ lạ/lạnh/nguy hiểm; gắt và mỉa mai khi thiếu tiền, cuối C1 cười nham hiểm khi gợi giá khác; C4 nhếch miệng trước yêu cầu mới. Báo giá/hiệu lực rõ nhưng khai thác nỗi khao khát của trẻ; chưa giải thích động cơ sâu hoặc mặc định là người tốt |
+| Lộc, khoảng 60 | Kỳ lạ/lạnh/nguy hiểm; gắt và mỉa mai khi thiếu tiền, cuối C1 cười nham hiểm khi gợi giá khác; C4 nhếch miệng trước yêu cầu mới. Báo giá/hiệu lực rõ nhưng khai thác nỗi khao khát của trẻ; nguyên hình đồng hồ ba mắt được hé lộ ở C9, động cơ sâu còn mở |
 | Mẹ, khoảng 38–42 | Khi sống luôn che chở hai con dù bố chửi mắng. Bản ghi cũ ở G1; hiện hình và trò chuyện trong G3 ở cánh đồng. Từ chuyện nhỏ tới gửi gắm rồi tan; không trở lại đời thật hoặc sửa dữ liệu chiếc máy |
 | Bố / dì Hạnh | Bố say, chửi và từng đánh con; mẹ từng đứng chắn bảo vệ. Hiện tại bố chỉ qua bóng/âm khuất, không có tuyến riêng hoặc cảnh đánh trực diện. Dì đầu hẻm là người lớn đã có khả năng giúp; cuộc gọi cuối không phải người cứu đột ngột chưa giới thiệu |
 
@@ -45,13 +45,16 @@ Mẹ từng che chở hai con khỏi bố say, chửi bới và đánh đập. M
 6. Giấy/ảnh/lời kể/bản ghi có thể cung cấp dữ kiện và trải nghiệm mới, không khôi phục ký ức G1 đã mất; cuộc gặp mẹ không hoàn G2/G3. Không buộc khán giả tin mọi hy sinh của trẻ là quyết định đúng hoặc giao dịch công bằng.
 7. Mẹ báo dì trước vào viện có bản ghi chưa gửi. Tối la em Duy nghe tin cũ khác; sau bố đi, em đập máy khóa trước khi cậu mở bản chưa gửi. Dì ở đầu hẻm, bố ở nhà; không lẫn địa điểm hai người lớn.
 
+
+8. Sau khi trẻ rời tiệm, mặt tiền biến mất ngoài tầm nhìn hai em; không gian riêng của Lộc vẫn tồn tại. C9 có ba lọ ứng G1/G2/G3: ký ức G1, dấu chuyển buồn G2, quyền mơ G3. Nỗi buồn G2 vẫn do Duy gánh; không nhốt mẹ, không có giá thứ tư. Thời gian ngược chỉ được biểu hiện cục bộ trong kho, chưa cho phép sửa lịch sử bên ngoài.
+
 ## Nhịp, phạm vi và thời lượng
 
 Giữ chất đời thường, nén rồi bung cảm xúc; ba lần tăng giá chứ không ba lần kể lại cùng một cơ chế. Duy suy sụp ở G2 mới chậm phản ứng G3. Trắng/ù chỉ đúng giao kèo cuối, sau đó nhịp nhẹ và ấm ở đồng, có chuyện vui nhỏ trước lời gửi gắm. Mẹ tan phải có dư âm; trở về vẫn cần giải pháp thực tế cho đêm bố say.
 
-Lời sạch bản 12: **1,089 đơn vị cách trắng**, **4,948 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70,1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:14–8:27**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
+Lời sạch bản 13 giữ nguyên bản 12: **1,089 đơn vị cách trắng**, **4,948 ký tự gồm LF**, 85 lượt lời. Người dẫn vẫn **317 đơn vị**, giảm 70,1% so với manifest bản 11. Có **85 giây không lời định lượng** (54 cũ +31 mới), cộng **24 giây mở đầu**. Ước tính **7:45–8:58**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo audio hoặc animatic bản 13. Cameo nằm trong thời gian góc đã có, không cộng thêm lần nữa.
 
-9 phần cảnh (C0 và C1–C8), 35 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Bốn nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú; ngõ theo asset mới đã bỏ bóng người qua đường, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, mặc định roll 0°, rung 0 px; ngoại lệ ngắn C5-C và khung 2:1 C6–C7 theo quy ước bên dưới; đã có rig và camera giả lập trong mã thử, chưa xác nhận chúng đáp ứng đủ mọi cue nguồn. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
+10 phần cảnh (C0–C9), 40 cue thiết lập có góc dùng lại, không đồng nhất với số ảnh/lần cắt. Năm nhóm không gian: ngoại thành phố/hẻm, tiệm, miền cánh đồng, ngưỡng nhà, kho riêng của Lộc; không dựng nhà dì hoặc hồi tưởng bố. Bốn vai có hình chi tiết kể cả mẹ; thêm cú; ngõ theo asset mới đã bỏ bóng người qua đường, bố/dì qua âm/tường thuật. 2.5D, lens tương đương full-frame là ý đồ, mặc định roll 0°, rung 0 px; ngoại lệ ngắn C5-C và khung 2:1 C6–C7 theo quy ước bên dưới; đã có rig và camera giả lập trong mã thử, chưa xác nhận chúng đáp ứng đủ mọi cue nguồn. Thẻ ElevenLabs chỉ gợi ý thử, không tự phân vai/định nghỉ; không tạo audio mới ở lượt viết này.
 
 ## Khung hình và chuyển động có chọn lọc — bản 8
 
@@ -65,7 +68,7 @@ Lời sạch bản 12: **1,089 đơn vị cách trắng**, **4,948 ký tự gồ
 
 **Cách giữ hình và tiếp xúc:** đổi vùng khung không kéo dãn nhân vật. Dàn lại bố cục trong vùng hình đích; ở 2:1 giữ mắt/mặt, tay nắm và điểm tì trong vùng y=60…1020, có khoảng đệm. Rung/nghiêng áp vào camera hoặc nhóm thế giới có chung mặt đỡ, không rung tay, điện thoại, ghế và nền độc lập. Các dải khung, tiêu đề/phụ đề không rung theo cảnh. Kiểm tra góc xoay cực hạn để chừa nền vừa đủ, không lộ mép trắng/đen hoặc phóng ảnh quá mức; không tự áp một hệ số overscan cho mọi góc.
 
-**Giới hạn phạm vi:** các quy ước máy bản 8 giữ nguyên; lời, thẻ và nhịp nghỉ đã thay bằng bản 12, 35 cue giữ để tái dùng góc. Chưa sửa/render mã thử hoặc gọi dịch vụ media. Chỉ hoàn thiện sau storyboard → animatic có chuyển động/tương tác và âm tạm; không coi bảng chữ là đã duyệt diễn xuất.
+**Giới hạn phạm vi:** các quy ước máy bản 8 giữ nguyên; lời/thẻ giữ bản 12, nghỉ và cue mở rộng theo bản 13: 35 cue cũ +C8-E và C9-A/B/C/D =40. Chưa sửa/render mã thử hoặc gọi dịch vụ media. Chỉ hoàn thiện sau storyboard → animatic có chuyển động/tương tác và âm tạm; không coi bảng chữ là đã duyệt diễn xuất.
 
 Tham khảo nguyên tắc: [ARRI — định trước khung đích](https://www.arri.com/en/learn/camera-systems/pre-postproduction/conforming), [Adobe — Dutch angle](https://www.adobe.com/creativecloud/video/production/cinematography/camera-shots-and-angles/dutch-angle-shot.html), [Epic — biên độ, nhịp và thời gian rung](https://dev.epicgames.com/documentation/en-us/unreal-engine/camera-shakes-in-unreal-engine). Lựa chọn 2:1 và các mức thử của tập là quyết định mỹ thuật ở bản này, không phải định mức lấy từ nguồn.
 
@@ -103,7 +106,7 @@ Các mã hex chỉ là mẫu tham chiếu cho mảng nền/nguồn sáng; điề
 
 **Cách làm vừa đủ để duyệt:** chỉnh bảng màu/ánh sáng của asset hiện có; bụi vàng dự kiến bằng lớp hạt đơn giản có chuyển động xác định, không cần sinh ảnh từng khung hay gọi dịch vụ trả phí. Riêng lần mẹ tan đã có [bản thử VFX](VFX-ME-TAN.md) trong mã ShC7_B: tan mềm 3,8 giây, hạt từ viền tóc/gấu áo và tắt trước đoạn lau nước mắt–nắm tay 8 giây; chưa đồng bộ giọng hoặc duyệt trong toàn bộ 35 cue. Khi animatic cho thấy hạt làm loãng diễn xuất, giảm mật độ/độ sáng hoặc tắt lớp hạt, vẫn giữ nhịp tan, tay và bóng đúng.
 
-**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue, bảng màu và mở 24 giây; lời/thẻ và nghỉ theo bản 12, âm bản 9 được bổ sung yêu cầu bed từ đầu phim. Đã xuất riêng [bản thử mẹ tan](VFX-ME-TAN.md); các chuyển khung/màu toàn tập và việc căn giọng cuối vẫn chưa được dựng/duyệt đồng bộ.
+**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue cũ, mở 24 giây; màu/âm cho 5 cue mới theo HE-LO-QUAI-VAT; lời/thẻ theo bản 12, nghỉ theo bản 13, âm bản 9 được bổ sung yêu cầu bed từ đầu phim. Đã xuất riêng [bản thử mẹ tan](VFX-ME-TAN.md); các chuyển khung/màu toàn tập và việc căn giọng cuối vẫn chưa được dựng/duyệt đồng bộ.
 
 ## Âm thanh theo cảnh — bản 9
 
@@ -138,6 +141,8 @@ Nguồn miễn phí được ghi riêng ở [NGUON-AM-THANH.md](NGUON-AM-THANH.m
 Ý đồ là chuyển động mềm và dẫn mắt liên tục. Khi làm bằng 2.5D có thể ghép kín ở mái hiên và nhịp chớp mắt để thay góc/cỡ hình; không coi một tranh skyline là đủ cho cả cận mắt và đường phố. Chi tiết lớp, nguồn sáng, tiêu đề và nối trục cửa ở [DUNG-CANH.md](DUNG-CANH.md).
 
 ## Cảnh 1. Thiếu tiền
+
+**Cameo F1, không đọc:** ở C1-B có bức chân dung quái vật mờ trên tường sau Lộc, khung đồng/bụi/che một phần theo HE-LO-QUAI-VAT. Không cắt riêng hoặc kéo nét khỏi mặt ông để giới thiệu.
 
 **Bối cảnh:** Nối sau C0, khoảng 19 giờ, hai trẻ vừa bước vào vùng khách của tiệm cuối hẻm cách nhà ba căn. Thảo vừa nhấc một chiếc đồng hồ nhỏ trên mặt kệ thấp gần cửa, chưa rời chỗ thì ông Lộc nói “Để xuống”. Em đặt lại rồi mới rụt tay; không buông rơi. Duy 16 đứng trái, Thảo 8 phải gần cửa, nép sau anh; Lộc đầu tiên ở bàn sửa sau rồi bước tới quầy. Cửa mở, kệ trái, bàn sửa/đèn vàng sau, ánh hàng tạp hóa lạnh từ phải.
 
@@ -225,6 +230,8 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 **Không đọc — C1-B:** Ông hơi ngoái mặt, mép miệng nhếch lên, mắt không cười. Tiếng dụng cụ nhỏ và quạt; không thêm tiếng cười ác hoặc hit hù.
 
 ## Cảnh 2. Cái giá sửa máy
+
+**Cameo F2, không đọc:** C2-A/rìa C2-C có vài lọ cũ trên kệ, cùng mẫu với kho cuối, không chen vào vị trí ảnh/giấy/máy hoặc mang ba giá mới trước khi giao kèo.
 
 **Bối cảnh:** Nối C1: Lộc đặt tua vít ở bàn sửa rồi quay lại quầy nói giá. Duy đưa lại hai tờ tiền cho Thảo, cất tiền mình, gom/cất phong bì và túi vải rồi kéo ghế có bậc chân cho em. Hai trẻ ngồi cùng phía khách, Duy trái, Thảo phải. Điện thoại vẫn trên khăn; sau đó Lộc lấy giấy G1 hai liên và bút, Duy lấy ảnh từ ví. Không sửa máy trước G1.
 
@@ -373,6 +380,8 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 **[KHÔNG LỜI 3 giây — Lộc mới nhận máy, mang về bàn sau. Cut thời gian sửa; không cần thuyết minh kỹ thuật hay montage dài.]**
 
 ## Cảnh 4. Máy sáng, câu hỏi khác
+
+**Cameo F3, không đọc:** C4-D dùng lại rìa chân dung/lọ đúng vị trí tiệm, cho người xem có thể nhận lại khi xem lần hai; không thêm shot, tiếng hit hoặc đồng hồ đang dừng tự chạy.
 
 **Bối cảnh:** Lộc sửa ở bàn sau trong tầm nhìn, cut thời gian, trả máy đã sáng lên khăn. Tách G1, một liên mỗi bên; Duy đọc/gấp liên mình vào ví. Duy nhập mật mã và phát ghi âm trên quầy. Sau phát máy không tự chạy lại.
 
@@ -641,6 +650,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 |---|---|---|------|---|---|
 | C8-A | Trung đôi trở lại tiệm, mắt mở | 50 mm; cao 1,15 m; cách 2,1 m | Match pose ngồi, còn bàn tay em trong tay anh; Duy mệt còn đó, G2 không được xóa | 16:9 · roll 0° · rung 0 px | Cắt về quạt/hẻm tiệm; Duy vẫn mệt. |
 | C8-B | Insert ba phiếu rồi cất | 65 mm; cao 1,35 m; cúi 40°; cách 0,95 m | Duy lấy G1 từ ví đặt cạnh G2/G3 rồi cất đủ ba; G3 ghi Thảo; mỗi bên một bộ copy | 16:9 · roll 0° · rung 0 px | Bút/giấy/ví, ba biên nhận; không tiếng phép. |
+| C8-E | Toàn ngoài tiệm sau trẻ đi | 35 mm cùng trục ngoại cửa; cao 1,2 m; nét cửa rồi bức tường | Máy ở lại, hai trẻ khuất; ánh/quạt rút, mặt tiền khép thành bức tường cũ, hàng xóm giữ nguyên | 16:9 · roll 0° · rung 0 px | Hẻm liên tục; tiếng chốt nhỏ, quạt rút, không trắng/ù. |
 | C8-C | Toàn cửa nhà rồi trung cuộc gọi | 28 mm cao 1,2 m cách 2,5 m → 50 mm cao 1,15 m cách 2 m | Bố ngoài khung, chai lăn/giọng không rõ chữ; Duy chắn em và xin dì giúp | 16:9 · roll 0° · rung 0 px | Chai lăn sau vách; nén thở rồi gọi dì. |
 | C8-D | Toàn ngưỡng cửa, hai trẻ rời khung | 35 mm; cao 1,15 m; cách 2,5 m | Cất máy/giấy trước nắm tay đi; giữ đèn đầu hẻm, âm bố xa dần | 16:9 · roll 0° · rung 0 px | Cất máy/vải, bước rời cửa; âm bố xa dần. |
 
@@ -670,6 +680,8 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Không đọc — C8-A → C8-B:** Lộc gật, không an ủi hoặc trả lại giá. Duy kéo em gần, cất đủ ba tờ vào ví, cầm máy, đưa em ra. Hành động có điểm cầm/nhả thật; không narrator đọc quy trình cất đồ.
 
+**[KHÔNG LỜI 3 giây — C8-E: máy ở lại ngoài cửa sau khi hai trẻ rời khung. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Sau đó mới cut tới nhà hai trẻ.]**
+
 **Không đọc — C8-C:** Cut định vị ngưỡng NHÀ HAI TRẺ cách tiệm ba căn, có dấu cửa/đồ sinh hoạt riêng. Bóng bố và chai sau vách, lời càm ràm không rõ câu. Thảo khựng, Duy dừng ngoài cửa, lấy máy gọi. Không tái dùng nguyên biển tiệm khiến người xem tưởng chưa đi đâu.
 
 **Duy [strained] · nói nhỏ để bố không nghe, lần đầu dám nhờ người lớn**
@@ -688,8 +700,27 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **[KHÔNG LỜI 4 giây — Giữ hai trẻ đi về đèn nhà dì. Nhạc không lời nâng vừa đủ rồi để tiếng chân/hẻm kết; không thêm đoạn dạy đạo lý.]**
 
+## Cảnh 9. Người giữ những chiếc lọ
+
+**Bối cảnh:** Cảnh đuôi sau kết người ở C8-D, không lời kể hoặc thoại. Khán giả được nhìn vào phía trong tiệm đã rút khỏi hẻm; hai trẻ đang đi tới dì và không có mặt ở đây. Không gian riêng của Lộc tồn tại dù mặt tiền biến mất. [Hồ sơ vũ trụ](../VU-TRU.md), [thiết kế/cameo và giới hạn](HE-LO-QUAI-VAT.md).
+
+| Cue | Góc / cỡ cảnh | Lens / vị trí / nét | Diễn, chuyển động và âm | Khung / nghiêng / rung | Âm thanh chính |
+|---|---|---|---|---|---|
+| C9-A | Cận kính và phản chiếu → trung Lộc | 70 mm → bố cục 50 mm; sau một lọ gần | Ông đặt kính; lọ tiền cảnh che điểm ghép, đường viền người chuyển thành đồng hồ, kệ mở chiều sâu | 16:9 · roll 0° · rung 0 px | Kính chạm khăn; quạt nhường ngân kim loại, không ù G3. |
+| C9-B | Trung rộng nguyên hình và kho | 35–50 mm; hơi thấp, ngước nhẹ; ba mắt là nét chính | Đồng hồ ba mắt lơ lửng, ánh xanh ngọc/tím/hổ phách mở không gian; quầy/kệ quen giữ dấu nối với tiệm | 16:9 · roll 0° · rung 0 px | Ngân sáng và nhạc không lời thưa, nguồn đồng hồ trong kho. |
+| C9-C | Insert ba lọ rồi mắt điều khiển | 65–85 mm; cùng bên trục, nét lần lượt G1/G2/G3 | Lọ G1 có xe/ký ức; G2 dấu chuyển buồn; G3 cửa mơ khép. Vùng lực nâng rồi đặt chúng lên ô kệ, giảm tốc trước chạm | 16:9 · roll 0° · rung 0 px | Lọ chạm từng nhịp nhẹ, không tiếng người/mẹ từ trong lọ. |
+| C9-D | Từ ba lọ lùi mở kho | 50 →35 mm tương đương; giữ hướng đà C9-C | Kệ xa lộ nhiều lọ cũ; đồng hồ cát chảy ngược, một vòng kim lùi. Lộc sắp xong ba lọ mới, ba mắt khép lệch nhịp | 16:9 · roll 0° · rung 0 px | Bộ thoát đi lùi có nguồn; ngân tắt dịu, không lời giải thích. |
+
+**[KHÔNG LỜI 6 giây — C9-A: Lộc đặt kính lên khăn, máy trượt qua lọ gần để che điểm đổi hình. Nguồn sáng mở theo lớp, không hòa hai cơ thể/không lóe trắng; động tác và đổi cảnh chung 6 giây.]**
+
+**[KHÔNG LỜI 7 giây — C9-B: lộ nguyên hình đồng hồ ba mắt lơ lửng trong kho sáng huyền ảo. Giữ một nhịp để nhận diện, rồi ánh mắt chuyển tới ba lọ; không thêm lời hoặc gầm hù.]**
+
+**[KHÔNG LỜI 8 giây — C9-C: đọc được từng lọ mới bằng hình tượng rồi Lộc điều khiển xếp chúng. Lọ rời mặt đỡ nhờ vùng lực rõ, giảm tốc, chạm ô kệ và tắt quầng lực. G2 là dấu giao kèo, nỗi buồn vẫn ở Duy; G3 không phải linh hồn mẹ.]**
+
+**[KHÔNG LỜI 7 giây — C9-D: máy lùi mở các lớp kho, hạt cát chảy lên/vòng kim quay lùi cục bộ. Giữ đủ ba lọ mới, các lọ cũ không có nạn nhân mới vừa trao giá. Kết trong ánh sáng xa lạ; không hoàn ký ức, nỗi buồn hoặc quyền mơ cho trẻ.]**
+
 ## Sau tập, không đọc vào phim
 
 Câu hỏi mô tả: **Bạn sẽ trả đến đâu để người mình thương bớt cô độc?** Không biến thông điệp thành trẻ phải gánh thay mọi lỗi của người lớn. Giữ ba giao kèo trong cùng tập cho tới khi chủ repo chọn cách phát hành khác; không tự cắt lời từ biệt làm mồi tập sau.
 
-Bí ẩn Lộc và chuyện dài hạn của bố còn mở; việc được nghe/gặp mẹ, ba cái giá và nơi hai trẻ đến đêm đó phải rõ. Trailer có thể dừng ở câu “Thế muốn tao sửa gì nữa?”, không lộ toàn bộ G3.
+Nguyên hình và kho của Lộc đã lộ, mục đích thu thập và chuyện dài hạn của bố còn mở; việc được nghe/gặp mẹ, ba cái giá và nơi hai trẻ đến đêm đó phải rõ. Trailer có thể dừng ở câu “Thế muốn tao sửa gì nữa?”, không lộ toàn bộ G3.

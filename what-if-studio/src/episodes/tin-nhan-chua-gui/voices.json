@@ -178,10 +178,10 @@
   "8.1.0": "duy",
   "8.2.0": "thao",
   "8.3.0": "thao",
-  "8.4.0": "duy"
+  "8.5.0": "duy"
  },
- "speakersNote": "Bản 12: mỗi đoạn nguồn chỉ một vai; scene.item.piece tính cả các nhịp KHÔNG LỜI. Phân vai chỉ khớp scriptSha256. Manifest/timeline cũ thuộc bản 11, không khớp nguồn này. C6–C7 tuyệt đối không narrator. Mẹ bản ghi được xác định bằng scene 4 + role me, không hardcode ID cũ 4.6.0.",
+ "speakersNote": "Bản 13 giữ lời/thẻ bản 12, thêm C8-E và C9 không lời; item sau nhịp mới ở C8 đã dịch. Phân vai phải khớp scriptSha256. Manifest/cues/timeline còn bản 11. Không narrator C6–C7/C9. Mẹ bản ghi = scene 4 + role me, không hardcode ID.",
  "castNote": "Chủ repo chọn 08/11/2026: người dẫn dùng giọng của chủ repo; Thảo Yuna, Duy Nhật Phong, mẹ Chi, Lộc Dũng.",
- "scriptSha256": "c90ecee36522bb5bcbbf663e129c938736efd81b397e6b38d6dd6bcafb183b20",
- "scriptRevision": 12
+ "scriptSha256": "32ec04bb69c8845c69407a8d8fb1a98e4e148845653bf756990a0cd0beb12d6c",
+ "scriptRevision": 13
 }

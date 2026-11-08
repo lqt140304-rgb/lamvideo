@@ -44,7 +44,7 @@ what-if-studio/               studio Remotion, engine, thư viện và tập m�
 
 Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tương ứng khi phát sinh. Không tạo hàng loạt file rỗng. Kinh nghiệm chung không chứa cốt truyện riêng của tập.
 
-**Đang làm:** [kế hoạch tối ưu Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) — bản 11 **giữ người dẫn chuyện + thoại**, thêm kết lau nước mắt–nắm tay–máy cận/mờ sang tiệm và tay ôm rõ; có bản thử VFX riêng, thêm màu/nguồn sáng/chuyển khung và hạt vàng thưa lúc mẹ tan; giữ âm bản 9 và khung/máy bản 8; ngõ theo asset mới; đã nhận thư viện SVG/preview nâng cấp, chuẩn bị storyboard → animatic toàn tập; mã thử chưa phải phim hoàn chỉnh.
+**Đang làm:** Hẻm Có Chuyện mở thành [vũ trụ quái vật có khả năng riêng](episodes/hem-co-chuyen/VU-TRU.md). [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) bản 13 giữ lời gọn bản 12 và thêm cameo/tiệm biến mất/nguyên hình Lộc/kho lọ: 40 cue, ước tính 7:45–8:58. Chưa dựng hoặc tạo asset phần mới; animatic hiện có vẫn bản lời 11. Đọc bàn giao Claude trong hồ sơ tập trước khi dựng.
 
 Hồ sơ đã sắp xếp: [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 
@@ -55,7 +55,7 @@ Hồ sơ đã sắp xếp: [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-0
 | `docs/` | Tài liệu chung của kênh và mục lục. Không rải nghiên cứu, cốt truyện hoặc asset riêng của một tập vào đây |
 | `docs/tham-khao/` | Tư liệu tham khảo kỹ thuật gốc; file `Kelano-What-If-Prompts-Skills.xlsx` giữ bảng prompt/skill để đối chiếu, không thay thế quy trình hiện tại |
 | `episodes/<series>/<slug-tap>/` | Hồ sơ của đúng một tập. `<series>` là nhóm nội dung; `<slug-tap>` là tên thư mục ổn định dùng để nhận diện tập |
-| `episodes/hem-co-chuyen/` | Nhóm truyện thuộc Hẻm Có Chuyện; mỗi tập bên trong có hồ sơ riêng |
+| `episodes/hem-co-chuyen/` | Series có README/VU-TRU dùng chung; mỗi tập con có hồ sơ riêng. Lore series không đặt vào kinh nghiệm chung |
 | `episodes/doc-lap/` | Những tập What If độc lập, không mặc định thuộc thế giới của Hẻm Có Chuyện |
 | `.claude/skills/what-if-animation/` | Hướng dẫn chuyên môn và công cụ hỗ trợ What If; đọc theo công việc cần làm |
 | `tools/` ở gốc repo | Tiện ích Windows để cài/chạy công cụ What If; khác với scripts bên trong skill |

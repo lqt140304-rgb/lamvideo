@@ -1,10 +1,13 @@
-# Bàn giao dựng cho Claude — bản 12
+# Bàn giao dựng cho Claude — bản 13
+
+**Hiện hành bản 13 — 08/11/2026:** thêm cameo chân dung/lọ và cảnh hé lộ quái vật đồng hồ ba mắt; [HE-LO-QUAI-VAT](HE-LO-QUAI-VAT.md) và [VU-TRU series](../VU-TRU.md) là phần mở rộng. Giữ nguyên lời/thẻ bản 12, thêm 31 giây không lời: 85 giây nghỉ/cảnh không lời định lượng +24 giây mở; 10 phần C0–C9, 40 cue (35 cũ +C8-E/C9-A…D). Ước tính 7:45–8:58, chưa đo bản mới. Animatic/media hiện có vẫn bản 11; chưa tạo asset hoặc render quái vật.
+
 
 08/11/2026. Chủ repo giao Claude dựng; lượt Codex này biên tập văn và chuẩn bị dữ liệu, không khởi chạy TTS hoặc render phim thay Claude.
 
 1. Mở worktree `D:\lamvideo-whatif`, studio `what-if-studio/`; giữ kho Git gốc. Đọc CLAUDE.md và [BIEN-TAP-V12](BIEN-TAP-V12.md), rồi nguồn KICH-BAN. Bản cũ đã có giọng/animatic đủ 35 cue, 11:48,416; các ghi chú “chỉ demo 146 giây/chưa có giọng” là lịch sử.
-2. Dùng lại rig/asset và cue đạt; 35 cue giữ, nhưng lời đã cắt nên item/timing cũ **không dùng nguyên**. `voices.json` là bản 12, `voice-manifest/cues/timeline` còn dấu nguồn bản 11. `voice.cjs lines --dry` và `build-timeline.cjs --items` dùng để liệt kê không tốn dịch vụ. Build/mix sẽ dừng khi nguồn chưa khớp; không sửa hash để lách mà chưa đối chiếu nội dung.
-3. Ánh xạ item mới sang cue, retime mốc staging theo ý nghĩa lời và chỉ dẫn Không đọc; sửa lấy/nhả tiền/ảnh, trẻ đã ở cửa, phản ứng thay giữ trung đôi dài, thứ tự chạy–nắm–đi. Mỗi đoạn không lời phải có hành động được nhìn thấy. Giữ 54 giây nhịp định lượng +24 giây mở, không cộng chúng lần nữa. Ước tính mới trong nguồn, chưa phải thời lượng audio.
+2. Dùng lại rig/asset và 35 cue cũ đạt; thêm 5 cue theo bản 13, nhưng lời đã cắt nên item/timing cũ **không dùng nguyên**. `voices.json` là bản 13, `voice-manifest/cues/timeline` còn dấu nguồn bản 11. `voice.cjs lines --dry` và `build-timeline.cjs --items` dùng để liệt kê không tốn dịch vụ. Build/mix sẽ dừng khi nguồn chưa khớp; không sửa hash để lách mà chưa đối chiếu nội dung.
+3. Ánh xạ item mới sang cue, retime mốc staging theo ý nghĩa lời và chỉ dẫn Không đọc; sửa lấy/nhả tiền/ảnh, trẻ đã ở cửa, phản ứng thay giữ trung đôi dài, thứ tự chạy–nắm–đi. Mỗi đoạn không lời phải có hành động được nhìn thấy. Giữ 85 giây nhịp định lượng +24 giây mở, không cộng chúng lần nữa. Ước tính mới trong nguồn, chưa phải thời lượng audio.
 4. Bed môi trường từ đầu phim/chậm nhất 0:01: gió đêm qua dây điện, còi xe máy rất xa ngoài đường, thở Duy khi đã tới cửa. Nền đổi từ hẻm/quạt sang ruộng; tiếng cỏ cũ lúc ngồi đổi thành vải chạm kè đá. Nhạc ưu tiên không lời, nguồn/quyền theo NGUON-AM-THANH. Không giữ các khoảng digital silence chỉ vì không có narrator.
 5. C6–C7 **không narrator**, kể cả mẹ tan; mã cue kết C7-C, không có C7-D. Giữ khung 2:1, mẹ/áo/bóng/hạt tan 3–4 giây rồi 8 giây lau má–nắm tay. Camera vào cận vừa từ đầu nhịp, tiến/giảm tốc tự nhiên. C8 trở 16:9 đúng ghế/tay, đủ ba phiếu, định vị ngưỡng nhà trước gọi dì rồi rời đi.
 6. Giữ cast do chủ repo chọn cho tới khi nghe thử. Mẫu cần nghe: Lộc gắt/mỉa mai, Duy hụt hơi/nghẹn, Thảo trẻ 8 tuổi nhớ mẹ; khẩu ngữ miền Nam nhẹ, tránh giọng đọc diễn văn. Thẻ chỉ là gợi ý. Reuse clip trùng vai/text/model/settings/tag khi còn đạt; không tự tạo lại toàn bộ vì ID dịch. Các câu đổi hoặc diễn chưa đạt mới cần tạo lại khi bước giọng được giao. Kiểm tra chi phí thực, không quy token thành credits.
@@ -33,8 +36,16 @@ Hồ sơ/asset riêng giữ đúng thư mục tập. Giữ các thay đổi củ
 
 ## Chuyển góc mượt theo phản hồi chủ repo
 
-Áp dụng phần **Máy quay và chuyển góc — bổ sung bản 12** trong [DUNG-CANH](DUNG-CANH.md). Giữ 35 cue/đường mở 24 giây, bảng màu, khung 16:9/2:1 và giới hạn rung cũ. Mượt là có hướng/đà, điểm cắt theo ánh mắt–động tác–phản ứng và nền âm liền; các nhịp gắt hoặc hoảng vẫn được cắt dứt khoát. Không tăng số cảnh hoặc thời lượng chỉ để thêm chuyển cảnh.
+Áp dụng phần **Máy quay và chuyển góc — bổ sung bản 12** trong [DUNG-CANH](DUNG-CANH.md). Giữ 35 cue cũ, thêm 5 cue bản 13/đường mở 24 giây, bảng màu, khung 16:9/2:1 và giới hạn rung cũ. Mượt là có hướng/đà, điểm cắt theo ánh mắt–động tác–phản ứng và nền âm liền; các nhịp gắt hoặc hoảng vẫn được cắt dứt khoát. Không tăng số cảnh hoặc thời lượng chỉ để thêm chuyển cảnh.
 
 Đoạn thử Lộc–hai trẻ: sau lượt máy tĩnh duyệt diễn, dựng góc chung → cận Lộc gắt → cận Thảo nghe câu mỉa mai → theo mắt em tới Duy che em → Lộc quay về bàn sau. Giữ tay/tiền đúng trạng thái qua cắt; không quét máy theo từng câu hoặc hòa hai hình người lên nhau. Khi nối cùng đường máy phải giữ vị trí, hướng và tốc độ đầu–cuối, tránh reset từng đoạn rồi khựng. Đoạn mẹ tan vẫn cận vừa từ đầu nhịp lau má 8 giây, tiến dịu vào tay và dừng trước mờ về tiệm.
 
 Xem chuyển động cả đoạn với âm, kiểm tra điểm nối và bản điện thoại; chưa thể duyệt từ storyboard. Lượt bổ sung này chỉ sửa tài liệu, chưa thay camera/timeline hoặc xuất clip mới.
+
+## Phần mới cần dựng theo bản 13
+
+Đọc HE-LO-QUAI-VAT và VU-TRU series. Bản thử diễn xuất Lộc–hai trẻ vẫn làm trước như đã giao; không mở phiên khác hoặc tự chạy media trả phí chỉ vì thêm lore. Sau đó tích hợp cameo vào góc hiện có; storyboard/animatic phần tiệm biến mất C8-E và cảnh đuôi C9 28 giây. C8-E nằm giữa B và C, không đưa theo thứ tự chữ cái ở cuối C8. Kết người tìm dì vẫn trọn trước C9.
+
+Mẫu quái vật/kho/lọ mới chưa có asset; giữ style và tạo vừa vùng nhìn. Ba mắt, bay có chủ ý, vùng lực nhấc/đặt lọ rõ; kho sáng huyền ảo, cát/kim đảo cục bộ, không nhốt mẹ hoặc lấy mất nỗi buồn Duy đang chịu. Lọ G2 chỉ ghi dấu chuyển, không hoàn giá. Lọ G3 niêm phong quyền mơ thấy mẹ, không chứa giấc mơ tương lai đã xảy ra. Không thêm thoại/voice/nạn nhân/giao kèo thứ tư.
+
+Nguồn sang bản 13 và speakers đã ánh xạ lại; lời sạch/thẻ không đổi. Cue/manifest/timeline vẫn bản 11 để đối chiếu, chưa dựng lại. Cần dựng/retime 40 cue và mốc staging theo bản mới trước cập nhật dấu nguồn; không đổi hash để bỏ qua cảnh báo. Nếu đã bắt đầu bản 12, áp phần thay đổi này lên phần đang làm, không dựng lại toàn bộ asset.

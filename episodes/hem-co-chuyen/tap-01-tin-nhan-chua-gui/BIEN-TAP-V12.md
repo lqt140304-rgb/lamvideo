@@ -1,5 +1,8 @@
 # Biên tập sau animatic — bản 12
 
+**Lưu phiên bản:** số liệu cắt lời bên dưới vẫn đúng. Nguồn hiện đã sang bản 13, thêm 31 giây không lời/5 cue và cameo theo HE-LO-QUAI-VAT; không dùng 35 cue/54 giây nghỉ hoặc mốc ước tính bản 12 cho toàn tập mới.
+
+
 08/11/2026. Áp dụng góp ý của chủ repo: bớt lời dẫn, giao kèo đời hơn, cánh đồng chỉ có mẹ/con và âm thanh của cảnh. Bản văn đã sửa; chưa render hoặc gọi ElevenLabs trong lượt này.
 
 ## Thay đổi có thể kiểm tra

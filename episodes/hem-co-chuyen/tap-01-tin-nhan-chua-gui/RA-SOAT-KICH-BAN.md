@@ -1,15 +1,18 @@
 # Rà soát kịch bản — bản 10
 
-**Hiện hành: bản 12.** [Biên tập sau animatic](BIEN-TAP-V12.md) quy định phần lời/nhịp thay thế; có ưu tiên khi ghi chú các bản cũ bên dưới còn khác. Lời sạch bản 12: **1,084 đơn vị cách trắng**, **4,929 ký tự gồm LF**. Người dẫn: **1,059 → 317 đơn vị**, giảm **70.1%** so với manifest giọng bản 11; không tính chỉ dẫn diễn. Có **54 giây không lời có định lượng**, cộng **24 giây mở đầu**. Ước tính **7:12–8:25**, giả định 2,7–3,3 đơn vị/giây và 0,3 giây nối mỗi lượt lời; chưa đo giọng/animatic bản 12. Hình và âm chạy dưới lời không cộng thêm lần nữa.
+**Hiện hành bản 13 — 08/11/2026:** thêm cameo chân dung/lọ và cảnh hé lộ quái vật đồng hồ ba mắt; [HE-LO-QUAI-VAT](HE-LO-QUAI-VAT.md) và [VU-TRU series](../VU-TRU.md) là phần mở rộng. Giữ nguyên lời/thẻ bản 12, thêm 31 giây không lời: 85 giây nghỉ/cảnh không lời định lượng +24 giây mở; 10 phần C0–C9, 40 cue (35 cũ +C8-E/C9-A…D). Ước tính 7:45–8:58, chưa đo bản mới. Animatic/media hiện có vẫn bản 11; chưa tạo asset hoặc render quái vật.
 
-**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Bản biên tập 12 thay lời/nhịp; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
+
+Lời sạch/thẻ bản 13 giữ nguyên bản 12: **1.089 đơn vị cách trắng, 4.948 ký tự LF, 85 lượt nói**; người dẫn **317 đơn vị**. Tổng **85 giây không lời định lượng +24 giây mở**, **40 cue/C0–C9**, ước tính **7:45–8:58**; chưa có số đo media mới.
+
+**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Nguồn bản 13 giữ lời bản 12 và thêm cameo/cảnh hé lộ; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
 
 
 Ngày 07/11/2026. Đọc theo [kịch bản nguồn](KICH-BAN.md), [dựng cảnh](DUNG-CANH.md), bản lời và lựa chọn giữ người dẫn chuyện. Đây là đánh giá biên tập văn bản; chưa đo nhịp bằng giọng/animatic thật.
 
 ## Các lượt rà bản 7 trở về trước — lịch sử
 
-Phần dưới giữ để đối chiếu; số liệu và trạng thái cũ không áp dụng cho bản 12.
+Phần dưới giữ để đối chiếu; số liệu và trạng thái cũ không áp dụng cho bản 13.
 
 ## Kết luận
 

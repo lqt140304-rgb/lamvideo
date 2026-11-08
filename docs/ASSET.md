@@ -32,3 +32,7 @@ Với **nhạc, Foley/tiếng vật thể và ambience**, ưu tiên thư viện 
 Trong `ASSET.md` hoặc bảng cue của tập, ghi tính chất âm thanh và nơi dùng: nhạc theo nhịp cảm xúc; Foley theo vật liệu/hành động/lực; ambience theo địa điểm/khoảng cách/vật cản. Mỗi cue quan trọng có mốc bắt đầu–kết thúc hoặc điểm đồng bộ, vai trò nổi/nền và diễn biến âm lượng dự kiến. Đây là thông tin riêng của tập, không ghi từng clip/cue vào kinh nghiệm chung.
 
 Asset riêng nằm dưới `episodes/<series>/<slug-tap>/assets/` khi phát sinh. Bản media để Remotion đọc nằm ở `what-if-studio/public/<slug-tap>/` và được liên kết từ hồ sơ tập. Output nặng giữ local hoặc kho lưu trữ được chọn; không đẩy tự động vào Git.
+
+## Cập nhật phạm vi series
+
+[Vũ trụ Hẻm Có Chuyện](../episodes/hem-co-chuyen/VU-TRU.md) ghi năng lực và dấu nhận diện các thực thể. Nguyên hình đồng hồ ba mắt/kho lọ đang là **asset dự kiến riêng tập 01**, danh mục ở ASSET của tập; chưa có file để đưa vào thư viện dùng chung.
