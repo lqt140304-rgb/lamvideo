@@ -2,8 +2,8 @@ import React from 'react';
 import { MeadowFamily, meadowFamilyPoses } from './meadow_family';
 import { HomeFront, AuntEatery } from './house_fronts';
 import { mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
+import { Hero } from './actor';
 import {
-  Hero,
   LOOKS,
   standPose,
   walkPose,
@@ -599,7 +599,7 @@ export const ShC7_C: React.FC<ShotProps> = ({ t }) => {
   const tt = Math.max(t, -30 * S);
   const close = clamp((tt - 270) / 60);
   const push = close * close * (3 - 2 * close);
-  const grip = meadowFamilyPoses(Math.max(tt, 0), true, 0, Math.max(tt, 0)).grip ?? { x: 1027.5, y: 778 };
+  const grip = meadowFamilyPoses(Math.max(tt, 0), true, 0, Math.max(tt, 0)).grip ?? { x: 1010, y: 768 };
   return (
     <g>
       <g transform={camT(lerp(960, grip.x, push), lerp(600, grip.y - 5, push), lerp(1.05, 6.2, push))}>

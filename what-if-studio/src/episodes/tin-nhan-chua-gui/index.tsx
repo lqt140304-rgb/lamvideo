@@ -2,6 +2,8 @@ import React from 'react';
 import { defineEpisode, Timeline, LookDef, TapeLines, HudChip, FONT } from '../../engine';
 import timeline from './timeline.json';
 import * as shots from './shots';
+import { ActorClock } from './actor';
+import type { ShotProps } from '../../engine';
 
 /**
  * Named visual looks & cinematic color grades for Episode 01 ("Tin Nhắn Chưa Gửi"):
@@ -123,9 +125,14 @@ const vaultGlow: LookDef = {
   ),
 };
 
+// Hand each shot the film frame so actor.tsx can drive mouths and listeners.
+const acted = Object.fromEntries(
+  Object.entries(shots).map(([id, Shot]) => [id, (p: ShotProps) => <ActorClock.Provider value={p.f}><Shot {...p} /></ActorClock.Provider>]),
+);
+
 export const tinNhanChuaGui = defineEpisode('TinNhanChuaGui', {
   timeline: timeline as Timeline,
-  shots,
+  shots: acted,
   looks: {
     nightAtmosphere,
     shopMystery,

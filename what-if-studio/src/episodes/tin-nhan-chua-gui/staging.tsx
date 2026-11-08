@@ -1,7 +1,9 @@
 import React from 'react';
 import { reachPalm } from './meadow_family';
 import timeline from './timeline.json';
-import { Hero, LOOKS, standPose, sitPose, joints, camT, clamp, lerp, Pose, ArmHand, OngLocShop, OngLocCounter, CustomerStool, OngLocForeground } from '../../engine';
+import { LOOKS, standPose, sitPose, joints, camT, clamp, lerp, Pose, ArmHand, OngLocShop, OngLocCounter, CustomerStool, OngLocForeground } from '../../engine';
+import { Hero } from './actor';
+import voiceTimeline from './timeline.json';
 
 // Shared staging for episode 01: shop geometry, grounded seated/standing poses, inserts and the 2:1 bars.
 // Kept out of shots.tsx so shots.tsx exports only shot components (the episode registers every export as a shot).
@@ -132,7 +134,50 @@ export const drawKid = (k: Kid, look: typeof LOOKS.duy, rim = 'rimShopWarm') => 
   <Hero pose={k.pose} look={look} rimId={rim} shadow={0.32} heldProps={k.held ? { [k.heldSide ?? 'R']: k.held } : undefined} />
 );
 
-/** The whole shop at a camera: set, Lộc (behind counter or at the bench), counter with its props, children, near layer. */
+/** Lens blur for one depth layer, in screen pixels; skipped when too small to see. */
+export const DepthBlur: React.FC<{ id: string; px: number; z: number; children: React.ReactNode }> = ({ id, px, z, children }) =>
+  px < 0.5 ? (
+    <>{children}</>
+  ) : (
+    <g>
+      <defs>
+        <filter id={id} x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur stdDeviation={px / z} />
+        </filter>
+      </defs>
+      <g filter={`url(#${id})`}>{children}</g>
+    </g>
+  );
+
+const LAMP_AT = { x: 1192, y: 452 };
+const BOKEH: [number, number, number][] = [[470, 300, 18], [560, 250, 14], [640, 330, 20], [760, 280, 12], [1500, 330, 16], [1430, 260, 12], [1560, 420, 20], [1110, 300, 14]];
+/** Practical light in the shop: bloom round the bench lamp, and out-of-focus highlights on the clock glass when the rear goes soft. */
+export const LampGlow: React.FC<{ id: string; rearBlur: number; t: number }> = ({ id, rearBlur, t }) => {
+  const soft = clamp(rearBlur / 6);
+  const flick = 1 + Math.sin(t * 0.37) * 0.015;
+  return (
+    <g style={{ mixBlendMode: 'screen' }} pointerEvents="none">
+      <defs>
+        <radialGradient id={`${id}Bloom`}>
+          <stop offset="0%" stopColor="#FFE2A6" stopOpacity={0.85} />
+          <stop offset="18%" stopColor="#FFB45C" stopOpacity={0.42} />
+          <stop offset="55%" stopColor="#E07A2E" stopOpacity={0.12} />
+          <stop offset="100%" stopColor="#E07A2E" stopOpacity={0} />
+        </radialGradient>
+        <radialGradient id={`${id}Bokeh`}>
+          <stop offset="0%" stopColor="#FFD08A" stopOpacity={0.5} />
+          <stop offset="80%" stopColor="#FFC070" stopOpacity={0.32} />
+          <stop offset="100%" stopColor="#FFC070" stopOpacity={0} />
+        </radialGradient>
+      </defs>
+      <ellipse cx={LAMP_AT.x} cy={LAMP_AT.y} rx={420 * flick} ry={330 * flick} fill={`url(#${id}Bloom)`} opacity={0.72} />
+      <ellipse cx={LAMP_AT.x - 60} cy={LAMP_AT.y + 230} rx={520} ry={150} fill={`url(#${id}Bloom)`} opacity={0.32} />
+      {soft > 0.02 ? BOKEH.map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r * (1 + soft * 1.6)} fill={`url(#${id}Bokeh)`} opacity={soft * (0.55 + 0.25 * Math.sin(t * 0.05 + i))} />) : null}
+    </g>
+  );
+};
+
+/** The whole shop at a camera: set, Lộc (behind counter or at the bench), counter, children, near layer, each at its own depth. */
 export const Shop: React.FC<{
   t: number;
   id: string;
@@ -148,28 +193,74 @@ export const Shop: React.FC<{
   dy?: number;
   benchWork?: number;
   cameo?: React.ReactNode; // background detail drawn on the set, behind every character
-}> = ({ t, id, cam, loc, counter, shelf = false, shelfClockHeld = false, stools = [], kids, roll = 0, dx = 0, dy = 0, benchWork = 0, cameo }) => (
-  <g transform={`translate(${dx} ${dy}) rotate(${roll} 960 540)`}>
-    <g transform={camT(...cam)}>
-      <OngLocShop t={t} id={id} veil={0.36} />
-      {cameo}
-      {loc?.atBench ? (
-        <>
-          <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={loc.held ? { R: loc.held } : undefined} />
-          <BenchFront clockWork={benchWork} />
-        </>
-      ) : null}
-      {loc && !loc.atBench ? <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={loc.held ? { R: loc.held } : undefined} /> : null}
-      <OngLocCounter x={COUNTER.x} y={COUNTER.y} w={COUNTER.w} t={t} phoneState="cracked" showPhoto={false} receiptStage="none" showMoney={false} showPouch={false} {...counter} />
-      {shelf ? <DoorShelf clockHeld={shelfClockHeld} /> : null}
-      {stools.map((s, i) => (
-        <Stool key={i} {...s} />
-      ))}
-      {kids}
-      <OngLocForeground shiftX={0} />
+  focus?: number; // 0 the children, 1 Lộc at the counter, 2 the rear bench
+}> = ({ t, id, cam, loc, counter, shelf = false, shelfClockHeld = false, stools = [], kids, roll = 0, dx = 0, dy = 0, benchWork = 0, cameo, focus = 0 }) => {
+  // Longer lenses (higher zoom) throw the other planes further out of focus.
+  const blur = (depth: number) => Math.abs(depth - focus) * 1.15 * cam[2] * cam[2];
+  const hero = loc ? <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={loc.held ? { R: loc.held } : undefined} /> : null;
+  return (
+    <g transform={`translate(${dx} ${dy}) rotate(${roll} 960 540)`}>
+      <g transform={camT(...cam)}>
+        <DepthBlur id={`${id}Rear`} px={blur(2)} z={cam[2]}>
+          <OngLocShop t={t} id={id} veil={0.36} />
+          {cameo}
+          {loc?.atBench ? hero : null}
+          {loc?.atBench ? <BenchFront clockWork={benchWork} /> : null}
+          {!loc?.atBench ? <BenchFront clockWork={0} hideClock={false} /> : null}
+        </DepthBlur>
+        <LampGlow id={`${id}Lamp`} rearBlur={blur(2)} t={t} />
+        <DepthBlur id={`${id}Mid`} px={blur(1)} z={cam[2]}>
+          {loc && !loc.atBench ? hero : null}
+          <OngLocCounter x={COUNTER.x} y={COUNTER.y} w={COUNTER.w} t={t} phoneState="cracked" showPhoto={false} receiptStage="none" showMoney={false} showPouch={false} {...counter} />
+        </DepthBlur>
+        <DepthBlur id={`${id}Near`} px={blur(0)} z={cam[2]}>
+          {shelf ? <DoorShelf clockHeld={shelfClockHeld} /> : null}
+          {stools.map((s, i) => (
+            <Stool key={i} {...s} />
+          ))}
+          {kids}
+          <OngLocForeground shiftX={0} />
+        </DepthBlur>
+      </g>
     </g>
-  </g>
-);
+  );
+};
+
+/** World position of a character's head centre, for framing a close-up on them. */
+export const headW = (p: Pose) => {
+  const h = joints(p).head;
+  return { x: p.x + h.x * p.scale, y: p.y + h.y * p.scale };
+};
+
+type View = [number, number, number];
+const VOICE = (voiceTimeline as unknown as { voice: { id: string; role: string }[] }).voice;
+const speakerOf = (s: number, i: number) => VOICE.find((v) => v.id.startsWith(`${s}.${i}.`) && v.role !== 'narrator')?.role;
+
+/**
+ * Coverage for a seated conversation: never one two-shot throughout. Short lines stay wide; on a longer line we cut to the
+ * speaker, then to whoever is hearing it, and back if it runs on. Cuts fall on line starts and turns of thought only.
+ */
+export const coverage = (shot: string, t: number, views: { two: View; duy?: View; thao?: View; loc?: View; me?: View }): { cam: View; focus: number } => {
+  const own = MARKS.filter((m) => m.shot === shot).sort((a, b) => a.at - b.at);
+  const m = own.find((x) => t >= x.at && t < x.at + x.len);
+  const first = own[0] === m;
+  let name: keyof typeof views = 'two';
+  let from = m?.at ?? t;
+  if (m && m.kind === 'line' && !first) {
+    const who = speakerOf(m.s, m.i) as keyof typeof views | undefined;
+    if (who && views[who] && m.len >= 75) {
+      name = who;
+      if (m.len >= 120 && t >= m.at + m.len * 0.55) {
+        const listener = (who === 'duy' ? 'thao' : who === 'thao' ? 'duy' : 'thao') as keyof typeof views;
+        if (views[listener]) { name = listener; from = m.at + m.len * 0.55; }
+      }
+      if (m.len >= 240 && t >= m.at + m.len * 0.82) { name = who; from = m.at + m.len * 0.82; }
+    }
+  }
+  const v = views[name] ?? views.two;
+  const k = clamp((t - from) / 150);
+  return { cam: [v[0], v[1], v[2] * (1 + 0.04 * k * (2 - k))], focus: name === 'loc' ? 1 : 0 };
+};
 
 // Standing children in C1 (Duy left, Thảo right toward the door, half a step behind his shoulder).
 export const DUY_S = 1.12;

@@ -1,7 +1,8 @@
 import React, {useId} from 'react';
 import {motherDissolveAt,MotherDissolveAir} from './mother_dissolve';
 import { clamp, lerp } from '../../engine/anim';
-import { Hero, LOOKS, sitPose, joints, type Pose, type Limb, type Expr } from '../../engine/rig';
+import { LOOKS, sitPose, joints, type Pose, type Limb, type Expr } from '../../engine/rig';
+import { Hero } from './actor';
 import { mouthCueAt } from '../../engine/mouth';
 
 type Point = {x:number;y:number};
@@ -55,8 +56,8 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
   const duy={...bankSit(850,.84,t,1,2+8*clamp(support)),expr:(grieving?'sad':'relieved') as Expr};
   // A small fixed lean keeps the shoulder contacts stable while the eyes/cloth breathe.
   const mother={...bankSit(960,1.02,t,9,0),yaw:0,facing:1 as const,legL:{a:65,b:-65},legR:{a:60,b:-60},tilt:0,headTilt:-2,shoulderLift:0,expr:'smile' as Expr};
-  // The inside arms go round the mother, their hands out of sight behind her back (drawn under her, see MeadowFamily).
-  const hugs={duy:{x:944,y:742},thao:{x:980,y:748}};
+  // The inside arms stay in view: each hand curls round the mother's waist at her side.
+  const hugs={duy:{x:925,y:750},thao:{x:997,y:756}};
   duy.armR=blendArm(duy.armR,reachPalm(duy,'R',hugs.duy),clamp(support));
   thao.armL=blendArm(thao.armL,reachPalm(thao,'L',hugs.thao),clamp(support));
   // The outside arms hang straight, palm resting on the stone beside the hip (short cartoon arms: elbows never jut out).
@@ -79,7 +80,8 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
     if(q>=220)duy.expr='tearsHeldBack';
     const hold=smooth((q-233)/29);
     if(hold>0){
-      grip={x:(duy.x+thao.x)/2+5,y:778};
+      duy.x=lerp(duy.x,930,hold); // he settles back as the hands meet, so both arms hang straight
+      grip={x:(duy.x+thao.x)/2+5,y:768};
       duy.armR=blendArm(duy.armR,reachPalm(duy,'R',{x:grip.x-2,y:grip.y-1},true),hold);
       thao.armL=blendArm(thao.armL,reachPalm(thao,'L',{x:grip.x+2,y:grip.y+1},true),hold);
       if(hold>=1){duy.handR='none';thao.handL='none';}
@@ -114,40 +116,44 @@ export const MeadowFamily:React.FC<{t:number;motherOpacity?:number;dissolveT?:nu
     const opacity=clamp(motherOpacity)*(dissolve?.opacity??1);
     const {mother,thao,duy,grip}=meadowFamilyPoses(t,grieving,opacity,dissolveT);
     const filter=dissolve?`url(#${id}-soft)`:undefined;
-    const behind=opacity>0.02; // while she is there the inner arms pass behind her; once she is gone they are ordinary arms again
     const p=t%360;
     const mom={...mother,...(demoTalk?mouthCueAt(p,[{from:55,to:72,shape:'a',open:.3},{from:78,to:92,shape:'e',open:.25},{from:105,to:121,shape:'o',open:.25}]):{})};
     return <g data-meadow-family="embrace">
       {dissolve?<defs><filter id={`${id}-soft`} x="-12%" y="-12%" width="124%" height="124%"><feGaussianBlur stdDeviation={dissolve.softness} /></filter></defs>:null}
       {[thao,duy].map((a,i)=><ellipse key={i} cx={a.x} cy="802" rx={31*a.scale} ry="3.5" fill="#3d3a26" opacity="0.22" />)}
       <ellipse cx={mom.x} cy="802" rx="39" ry="3.5" fill="#3d3a26" opacity={opacity*.22} />
-      {behind?<><Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" /><Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" /></>:null}
       <g filter={filter}><Hero pose={mom} look={LOOKS.meDuyThao} opacity={opacity} shadow={0} rimId="rimStreetlamp" handLayer="defer" /></g>
       {dissolveT!==undefined?<MotherDissolveAir t={dissolveT} pose={mom} id={id} />:null}
-      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="defer" hideArm={behind?'L':undefined} />
-      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="defer" hideArm={behind?'R':undefined} />
-      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="only" hideArm={behind?'L':undefined} />
-      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="only" hideArm={behind?'R':undefined} />
+      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="defer" />
+      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="defer" />
+      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="only" />
+      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="only" />
       {grip?<SiblingClasp duy={duy} thao={thao} grip={grip} />:null}
       <g filter={filter}><Hero pose={mom} look={LOOKS.meDuyThao} opacity={opacity} shadow={0} rimId="rimStreetlamp" handLayer="only" /></g>
     </g>;
   };
 
-/** Hand in hand, in one piece: Thảo's small hand lies in Duy's, his four fingers close over it and her thumb folds over his. */
+/** Hand in hand with straight wrists: each hand continues its own forearm to the meeting point; his fingers close over hers, her thumb over his. */
 const SiblingClasp:React.FC<{duy:Pose;thao:Pose;grip:Point}>=({duy,thao,grip:c})=>{
-  const a=joints(duy).armR.end,b=joints(thao).armL.end;
-  const d={x:duy.x+a.x*duy.scale,y:duy.y+a.y*duy.scale};
-  const e={x:thao.x+b.x*thao.scale,y:thao.y+b.y*thao.scale};
-  // Local frame on the line between the wrists: +x points to Thảo.
-  const ang=Math.atan2(e.y-d.y,e.x-d.x),co=Math.cos(ang),si=Math.sin(ang);
-  const along=(p:Point)=>(p.x-c.x)*co+(p.y-c.y)*si;
-  const du=Math.min(-9,along(d)),eu=Math.max(9,along(e));
+  const ad=joints(duy).armR,at=joints(thao).armL;
+  const world=(p:Pose,q:Point)=>({x:p.x+q.x*p.scale,y:p.y+q.y*p.scale});
+  const d=world(duy,ad.end),e=world(thao,at.end);
+  const angD=Math.atan2(ad.end.y-ad.mid.y,ad.end.x-ad.mid.x)*180/Math.PI;
+  const angT=Math.atan2(at.end.y-at.mid.y,at.end.x-at.mid.x)*180/Math.PI;
   const ink='#46302b';
-  const finger=(y:number,x1:number,skin:string,x0=0)=><g key={y}><line x1={x0} y1={y} x2={x1} y2={y} stroke={ink} strokeWidth={5.1} strokeLinecap="round" /><line x1={x0} y1={y} x2={x1} y2={y} stroke={skin} strokeWidth={3.1} strokeLinecap="round" /></g>;
-  return <g data-sibling-clasp="two-hands" transform={`translate(${c.x} ${c.y}) rotate(${ang*180/Math.PI})`} strokeLinejoin="round">
-    <path d={`M ${eu} -3.6 Q 9 -7 2 -6.8 L 2 6.8 Q 9 7 ${eu} 3.6 Z`} fill={LOOKS.thao.hand} stroke={ink} strokeWidth={1.2} />
-    <path d={`M ${du} -4.4 Q -7 -9.4 1 -9 L 1 9 Q -7 9.4 ${du} 4.4 Z`} fill={LOOKS.duy.hand} stroke={ink} strokeWidth={1.2} />
-    {finger(-6.4,10.5,LOOKS.duy.hand)}{finger(-2.1,12,LOOKS.duy.hand)}{finger(2.2,11.5,LOOKS.duy.hand)}{finger(6.4,9.5,LOOKS.duy.hand)}
-    {finger(-9.4,0.5,LOOKS.thao.hand,8)}
+  const hand=(w:Point,ang:number,width:number,skin:string)=>{
+    const len=Math.max(14,Math.hypot(c.x-w.x,c.y-w.y)+6);
+    return <rect transform={`translate(${w.x} ${w.y}) rotate(${ang})`} x={-3} y={-width/2} width={len+3} height={width} rx={width/2} fill={skin} stroke={ink} strokeWidth={1.2} />;
+  };
+  const stroke=(x1:number,y1:number,x2:number,y2:number,skin:string,w:number)=><g key={`${x1}${y1}`}><line x1={x1} y1={y1} x2={x2} y2={y2} stroke={ink} strokeWidth={w+1.8} strokeLinecap="round" /><line x1={x1} y1={y1} x2={x2} y2={y2} stroke={skin} strokeWidth={w} strokeLinecap="round" /></g>;
+  return <g data-sibling-clasp="two-hands">
+    {hand(e,angT,9.6,LOOKS.thao.hand)}
+    {hand(d,angD,11.5,LOOKS.duy.hand)}
+    {/* his four fingers wrap across the back of her hand */}
+    <g transform={`translate(${c.x} ${c.y}) rotate(${angT})`}>
+      {[-8.5,-4.2,0,4.2].map((u)=>stroke(u,-6.6,u,6.6,LOOKS.duy.hand,2.9))}
+    </g>
+    {/* her thumb folds over his */}
+    <g transform={`translate(${c.x} ${c.y}) rotate(${angD})`}>{stroke(-1,-7,-9,-7.5,LOOKS.thao.hand,2.8)}</g>
   </g>;
 };

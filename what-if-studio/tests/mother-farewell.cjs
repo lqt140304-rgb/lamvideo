@@ -31,7 +31,7 @@ for(const t of [0,24,54,78,108,120,239]){
 }
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const hug=meadowFamilyPoses(0,true,1);
-check(distance(palmWorld(hug.duy,'R'),hug.hugs.duy)<.1&&distance(palmWorld(hug.thao,'L'),hug.hugs.thao)<.1,'Both inside palms reach the mother, behind her back');
+check(distance(palmWorld(hug.duy,'R'),hug.hugs.duy)<.1&&distance(palmWorld(hug.thao,'L'),hug.hugs.thao)<.1,'Both inside palms curl round the mother at her waist');
 for(const t of [184,194,204]){
   const p=meadowFamilyPoses(t,true,0,t);
   check(distance(palmWorld(p.duy,'R'),p.cheek)<.15,'Wiping palm reaches the actual cheek without stretching');
