@@ -177,14 +177,14 @@ export const TimeVaultSheet: React.FC = () => {
             <text x={0} y={79} fill="#FEF08A" fontFamily={FONT.title} fontWeight="bold" fontSize={10.5} textAnchor="middle">
               LỌ G1 · XE VÀ TAY MẸ
             </text>
-            <text x={0} y={104} fill="#CBD5E1" fontFamily={FONT.ui} fontSize={9.5} textAnchor="middle">
-              Xe đồ chơi tuổi thơ
+            <text x={0} y={103} fill="#CBD5E1" fontFamily={FONT.ui} fontSize={9.2} textAnchor="middle">
+              Tranh xe gỗ và tay mẹ làm hòa
             </text>
-            <text x={0} y={119} fill="#94A3B8" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
-              và tay mẹ xoa dịu làm hòa
+            <text x={0} y={118} fill="#94A3B8" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
+              Bụi ký ức tan rã lên nắp lọ
             </text>
-            <text x={0} y={134} fill="#F97316" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
-              Duy trả (ký ức đã quên)
+            <text x={0} y={133} fill="#F97316" fontFamily={FONT.ui} fontWeight="bold" fontSize={9.2} textAnchor="middle">
+              Duy đã trả (quên sạch về mẹ)
             </text>
           </g>
 
@@ -196,14 +196,14 @@ export const TimeVaultSheet: React.FC = () => {
             <text x={0} y={79} fill="#BAE6FD" fontFamily={FONT.title} fontWeight="bold" fontSize={10.5} textAnchor="middle">
               LỌ G2 · XOẮN KÉP CHUYỂN BUỒN
             </text>
-            <text x={0} y={104} fill="#CBD5E1" fontFamily={FONT.ui} fontSize={9.5} textAnchor="middle">
-              Vòng xoáy xoắn kép:
+            <text x={0} y={103} fill="#CBD5E1" fontFamily={FONT.ui} fontSize={9.2} textAnchor="middle">
+              Xoắn kép tím biếc và hổ phách
             </text>
-            <text x={0} y={119} fill="#94A3B8" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
-              nỗi buồn Thảo truyền sang Duy
+            <text x={0} y={118} fill="#94A3B8" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
+              Tim pha lê hàn gắn ở đỉnh xoáy
             </text>
-            <text x={0} y={134} fill="#38BDF8" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
-              Hơi ấm hổ phách xoa dịu
+            <text x={0} y={133} fill="#38BDF8" fontFamily={FONT.ui} fontWeight="bold" fontSize={9.2} textAnchor="middle">
+              Duy gánh trọn nỗi buồn Thảo
             </text>
           </g>
 
@@ -215,14 +215,14 @@ export const TimeVaultSheet: React.FC = () => {
             <text x={0} y={79} fill="#FDE047" fontFamily={FONT.title} fontWeight="bold" fontSize={10.5} textAnchor="middle">
               LỌ G3 · CHUÔNG NIÊM PHONG
             </text>
-            <text x={0} y={104} fill="#CBD5E1" fontFamily={FONT.ui} fontSize={9.5} textAnchor="middle">
-              Xích sắt khóa, trăng khuyết,
+            <text x={0} y={103} fill="#CBD5E1" fontFamily={FONT.ui} fontSize={9.2} textAnchor="middle">
+              Xích sắt, khóa đồng và băng giá
             </text>
-            <text x={0} y={119} fill="#94A3B8" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
-              cửa khép in bóng mẹ và hạc giấy
+            <text x={0} y={118} fill="#94A3B8" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
+              Cửa hé in bóng mẹ và hạc giấy
             </text>
-            <text x={0} y={134} fill="#EAB308" fontFamily={FONT.ui} fontSize={9} textAnchor="middle">
-              Thảo trả đổi 1 lần gặp
+            <text x={0} y={133} fill="#EAB308" fontFamily={FONT.ui} fontWeight="bold" fontSize={9.2} textAnchor="middle">
+              Thảo đổi mọi giấc mơ về mẹ
             </text>
           </g>
         </g>
