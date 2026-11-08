@@ -152,6 +152,7 @@ const main = async () => {
     const missingLines = new Set(cachedOnly ? list.filter((p) => !fileFor(p).cached).map(lineKey) : []);
     for (const p of list) {
       if (missingLines.has(lineKey(p))) continue;
+      const v = cfg.cast[p.role];
       const { file, cached } = fileFor(p);
       const f = path.join(dir, file);
       if (!cached && !cachedOnly) {

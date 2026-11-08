@@ -1103,6 +1103,27 @@ const bunchAt = (sd: number, yaw: number) => {
   return { x: 58 * sd * (1 - a) + back * 58 * a, band: far ? Math.max(0, 1 - a * 3) : 1 };
 };
 
+/** Front hair turns with the face (positive yaw looks screen-right) and narrows in profile, instead of staying front-on across the features. */
+const hairFrontTurn = (yaw: number) => {
+  const a = Math.min(1, Math.abs(yaw));
+  return `translate(${yaw * 16} 0) scale(${1 - 0.26 * a * a} 1)`;
+};
+/** Back hair slides behind the turned head so none of it pokes out in front of the face or neck. */
+const hairBackTurn = (yaw: number) => {
+  const a = Math.min(1, Math.abs(yaw));
+  return `translate(${-yaw * 22} 0) scale(${1 - 0.22 * a * a} 1)`;
+};
+/** A cheek lock on side sd (-1 screen-left, 1 screen-right): the far one folds away past 3/4, the near one moves onto the cheek. */
+const hairLockTurn = (sd: -1 | 1, yaw: number) => {
+  const a = Math.min(1, Math.abs(yaw));
+  if (a < 0.02) return undefined;
+  const facing = yaw < 0 ? -1 : 1;
+  if (sd !== facing) return `translate(${yaw * 30 * a} 0)`;
+  const k = Math.min(1, Math.max(0, (a - 0.45) / 0.35));
+  const w = 1 - k * k * (3 - 2 * k);
+  return `translate(${sd * 58} 0) scale(${Math.max(0.001, w)} 1) translate(${-sd * 58} 0)`;
+};
+
 /** Hair over the back/side of a turned head so turning never shows a bald skull. */
 const SideHair: React.FC<{ yaw: number; hair: string; line: string; bottom?: number; flare?: number; extra?: number; stroke?: number }> = ({
   yaw,
@@ -1150,6 +1171,7 @@ const TempleLocks: React.FC<{
     <g>
       {/* Left temple / sideburn lock framing the ear */}
       <path
+        transform={hairLockTurn(-1, yaw)}
         d={`M -65 ${HEAD.y - 20} Q -68 ${HEAD.y - 2} -62 ${HEAD.y + reach} Q -50 ${HEAD.y + reach + 6} -46 ${HEAD.y + reach - 8} Q -52 ${HEAD.y + 4} -52 ${HEAD.y - 18} Z`}
         fill={hair}
         stroke={line}
@@ -1158,6 +1180,7 @@ const TempleLocks: React.FC<{
       />
       {/* Right temple / sideburn lock framing the ear */}
       <path
+        transform={hairLockTurn(1, yaw)}
         d={`M 65 ${HEAD.y - 20} Q 68 ${HEAD.y - 2} 62 ${HEAD.y + reach} Q 50 ${HEAD.y + reach + 6} 46 ${HEAD.y + reach - 8} Q 52 ${HEAD.y + 4} 52 ${HEAD.y - 18} Z`}
         fill={hair}
         stroke={line}
@@ -1883,13 +1906,14 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         <g>
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={26} stroke={0} />
           <path
+            transform={hairFrontTurn(pose.yaw)}
             d={`M -62 ${HEAD.y - 6} Q -62 ${HEAD.y - 48} -42 ${HEAD.y - 66} L -28 ${HEAD.y - 82} L -16 ${HEAD.y - 66} L 4 ${HEAD.y - 86} L 16 ${HEAD.y - 64} L 34 ${HEAD.y - 78} L 40 ${HEAD.y - 60} L 58 ${HEAD.y - 66} Q 66 ${HEAD.y - 36} 62 ${HEAD.y - 6} L 40 ${HEAD.y - 28} L 24 ${HEAD.y - 18} L 12 ${HEAD.y - 34} L -4 ${HEAD.y - 18} L -18 ${HEAD.y - 34} L -34 ${HEAD.y - 22} Z`}
             fill={L.hair}
             stroke={L.line}
             strokeWidth={3}
             strokeLinejoin="round"
           />
-          <path d={`M -22 ${HEAD.y - 54} Q 4 ${HEAD.y - 64} 26 ${HEAD.y - 52}`} stroke="#FFFFFF" strokeWidth={2.6} fill="none" opacity={0.2} strokeLinecap="round" />
+          <path transform={hairFrontTurn(pose.yaw)} d={`M -22 ${HEAD.y - 54} Q 4 ${HEAD.y - 64} 26 ${HEAD.y - 52}`} stroke="#FFFFFF" strokeWidth={2.6} fill="none" opacity={0.2} strokeLinecap="round" />
         </g>
       ) : null}
 
@@ -2053,12 +2077,14 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           </g>
           {/* Soft cheek-framing locks */}
           <path
+            transform={hairLockTurn(-1, pose.yaw)}
             d={`M -58 ${HEAD.y - 4} Q -68 ${HEAD.y + 28} -52 ${HEAD.y + 52} Q -40 ${HEAD.y + 44} -44 ${HEAD.y + 12} Z`}
             fill={L.hair}
             stroke={L.line}
             strokeWidth={2.8}
           />
           <path
+            transform={hairLockTurn(1, pose.yaw)}
             d={`M 58 ${HEAD.y - 4} Q 68 ${HEAD.y + 28} 52 ${HEAD.y + 52} Q 40 ${HEAD.y + 44} 44 ${HEAD.y + 12} Z`}
             fill={L.hair}
             stroke={L.line}
@@ -2066,6 +2092,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           />
           {/* Rounded child bangs parted gently over forehead */}
           <path
+            transform={hairFrontTurn(pose.yaw)}
             d={`M -64 ${HEAD.y + 4} Q -68 ${HEAD.y - 68} 0 ${HEAD.y - 70} Q 68 ${HEAD.y - 68} 64 ${HEAD.y + 4} Q 48 ${HEAD.y - 24} 28 ${HEAD.y - 32} L 18 ${HEAD.y - 22} L 8 ${HEAD.y - 38} L -6 ${HEAD.y - 24} L -18 ${HEAD.y - 36} Q -44 ${HEAD.y - 26} -64 ${HEAD.y + 4} Z`}
             fill={L.hair}
             stroke={L.line}
@@ -2080,6 +2107,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={28} flare={5} extra={4} stroke={0} />
           {/* Messy grey-streaked dark hair with angular receding temples (matching Ông Lộc concept v4) */}
           <path
+            transform={hairFrontTurn(pose.yaw)}
             d={`M -64 ${HEAD.y - 2} Q -74 ${HEAD.y - 48} -46 ${HEAD.y - 68} L -52 ${HEAD.y - 78} L -28 ${HEAD.y - 74} Q 0 ${HEAD.y - 86} 32 ${HEAD.y - 74} L 50 ${HEAD.y - 80} L 44 ${HEAD.y - 66} Q 72 ${HEAD.y - 46} 64 ${HEAD.y - 2} Q 52 ${HEAD.y - 30} 36 ${HEAD.y - 46} L 20 ${HEAD.y - 34} L 8 ${HEAD.y - 52} L -14 ${HEAD.y - 38} L -32 ${HEAD.y - 50} Q -50 ${HEAD.y - 32} -64 ${HEAD.y - 2} Z`}
             fill={L.hair}
             stroke={L.line}
@@ -2088,6 +2116,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           />
           {/* Silver-grey hair streaks */}
           <path
+            transform={hairFrontTurn(pose.yaw)}
             d={`M -44 ${HEAD.y - 48} Q -20 ${HEAD.y - 68} 4 ${HEAD.y - 62} M 14 ${HEAD.y - 58} Q 34 ${HEAD.y - 66} 48 ${HEAD.y - 44} M -52 ${HEAD.y - 26} Q -42 ${HEAD.y - 42} -26 ${HEAD.y - 44}`}
             stroke="#9E9B95"
             strokeWidth={3}
@@ -2104,6 +2133,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           <TempleLocks yaw={pose.yaw} hair={L.hair} line={L.line} reach={26} />
           {/* Soft everyday parted front bangs for Mother (`CHAR-ME`, ~38-42yo, tóc buộc thấp giản dị) */}
           <path
+            transform={hairFrontTurn(pose.yaw)}
             d={`M -64 ${HEAD.y + 4} Q -68 ${HEAD.y - 66} 0 ${HEAD.y - 70} Q 68 ${HEAD.y - 66} 64 ${HEAD.y + 4} Q 50 ${HEAD.y - 22} 30 ${HEAD.y - 36} Q 8 ${HEAD.y - 48} -12 ${HEAD.y - 50} Q -34 ${HEAD.y - 38} -64 ${HEAD.y + 4} Z`}
             fill={L.hair}
             stroke={L.line}
@@ -2112,12 +2142,14 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           />
           {/* Gentle loose side wisps framing the temples */}
           <path
+            transform={hairLockTurn(-1, pose.yaw)}
             d={`M -58 ${HEAD.y - 2} Q -66 ${HEAD.y + 22} -54 ${HEAD.y + 38} Q -46 ${HEAD.y + 24} -48 ${HEAD.y + 4} Z`}
             fill={L.hair}
             stroke={L.line}
             strokeWidth={2.4}
           />
           <path
+            transform={hairLockTurn(1, pose.yaw)}
             d={`M 58 ${HEAD.y - 2} Q 66 ${HEAD.y + 22} 54 ${HEAD.y + 38} Q 46 ${HEAD.y + 24} 48 ${HEAD.y + 4} Z`}
             fill={L.hair}
             stroke={L.line}
@@ -2139,6 +2171,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           return (
             <g>
               <path
+                transform={hairBackTurn(pose.yaw)}
                 d={`M -68 ${HEAD.y - 12} Q -76 ${HEAD.y + 34} -38 ${HEAD.y + 48} Q 0 ${HEAD.y + 56} 38 ${HEAD.y + 48} Q 76 ${HEAD.y + 34} 68 ${HEAD.y - 12} Z`}
                 fill={L.hair}
                 stroke={L.line}
@@ -2157,7 +2190,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           );
         })()
       ) : L.extra === 'thaoHair' ? (
-        <g>
+        <g transform={hairBackTurn(pose.yaw)}>
           <path
             d={`M -68 ${HEAD.y - 12} Q -80 ${HEAD.y + 34} -56 ${HEAD.y + 70} Q 0 ${HEAD.y + 78} 56 ${HEAD.y + 70} Q 80 ${HEAD.y + 34} 68 ${HEAD.y - 12} Z`}
             fill={L.hair}

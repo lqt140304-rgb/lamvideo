@@ -37,6 +37,28 @@
    "sec": 1.04
   },
   {
+   "id": "1.1.0",
+   "s": 1,
+   "i": 1,
+   "k": 0,
+   "role": "narrator",
+   "text": "Nhà hai anh em cách tiệm ba căn. Mẹ mất hơn tháng, tiền nhà cứ vơi theo những cuộc rượu của bố. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn. Duy nhận phụ quán cho dì, nhưng chuyện trong nhà thì ít khi kể.",
+   "say": "Nhà hai anh em cách tiệm ba căn. Mẹ mất hơn tháng, tiền nhà cứ vơi theo những cuộc rượu của bố. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn. Duy nhận phụ quán cho dì, nhưng chuyện trong nhà thì ít khi kể.",
+   "file": "tin-nhan-chua-gui/voice/1.1.0-narrator-62cd55081d.mp3",
+   "sec": 13.6
+  },
+  {
+   "id": "1.2.0",
+   "s": 1,
+   "i": 2,
+   "k": 0,
+   "role": "narrator",
+   "text": "Bố say thì chửi, có lần đánh cả hai đứa. Hồi còn mẹ, mẹ luôn đứng chắn cho con, dù bị bố mắng. Bây giờ, Duy cứ nghĩ mình phải thay mẹ làm việc đó.",
+   "say": "Bố say thì chửi, có lần đánh cả hai đứa. Hồi còn mẹ, mẹ luôn đứng chắn cho con, dù bị bố mắng. Bây giờ, Duy cứ nghĩ mình phải thay mẹ làm việc đó.",
+   "file": "tin-nhan-chua-gui/voice/1.2.0-narrator-1d78391ae0.mp3",
+   "sec": 11.04
+  },
+  {
    "id": "1.3.0",
    "s": 1,
    "i": 3,
@@ -48,6 +70,50 @@
    "sec": 1.2
   },
   {
+   "id": "1.4.0",
+   "s": 1,
+   "i": 4,
+   "k": 0,
+   "role": "narrator",
+   "text": "Duy có một trăm tám mươi sáu ngàn, tiền phụ quán dành dụm được.",
+   "say": "Duy có một trăm tám mươi sáu ngàn, tiền phụ quán dành dụm được.",
+   "file": "tin-nhan-chua-gui/voice/1.4.0-narrator-e9573e0f34.mp3",
+   "sec": 3.92
+  },
+  {
+   "id": "1.5.0",
+   "s": 1,
+   "i": 5,
+   "k": 0,
+   "role": "duy",
+   "text": "Ông sửa giúp cháu trước được không? Phần thiếu, cháu đi làm rồi trả dần.",
+   "say": "[pleading] Ông sửa giúp cháu trước được không? Phần thiếu, cháu đi làm rồi trả dần.",
+   "file": "tin-nhan-chua-gui/voice/1.5.0-duy-56643da2c6.mp3",
+   "sec": 4.48
+  },
+  {
+   "id": "1.6.0",
+   "s": 1,
+   "i": 6,
+   "k": 0,
+   "role": "loc",
+   "text": "Đủ tiền rồi mang tới.",
+   "say": "[coldly] Đủ tiền rồi mang tới.",
+   "file": "tin-nhan-chua-gui/voice/1.6.0-loc-16ea167796.mp3",
+   "sec": 1.84
+  },
+  {
+   "id": "1.7.0",
+   "s": 1,
+   "i": 7,
+   "k": 0,
+   "role": "duy",
+   "text": "Cháu chỉ cần nghe được đoạn ghi âm của mẹ. Màn hình xấu cũng được.",
+   "say": "[pleading] Cháu chỉ cần nghe được đoạn ghi âm của mẹ. Màn hình xấu cũng được.",
+   "file": "tin-nhan-chua-gui/voice/1.7.0-duy-0f94478aee.mp3",
+   "sec": 3.68
+  },
+  {
    "id": "1.8.0",
    "s": 1,
    "i": 8,
@@ -57,6 +123,17 @@
    "say": "[coldly] Giá không đổi.",
    "file": "tin-nhan-chua-gui/voice/1.11.0-loc-e9439b5b1b.mp3",
    "sec": 1.28
+  },
+  {
+   "id": "1.9.0",
+   "s": 1,
+   "i": 9,
+   "k": 0,
+   "role": "thao",
+   "text": "Mình về đi anh. Em sợ.",
+   "say": "[afraid] Mình về đi anh. Em sợ.",
+   "file": "tin-nhan-chua-gui/voice/1.9.0-thao-767efa42d6.mp3",
+   "sec": 2.56
   },
   {
    "id": "1.10.0",
@@ -92,6 +169,127 @@
    "sec": 4.48
   },
   {
+   "id": "1.14.0",
+   "s": 1,
+   "i": 14,
+   "k": 0,
+   "role": "loc",
+   "text": "Nhưng có cách khác. Không trả tiền, chúng mày vẫn sửa được máy.",
+   "say": "[coldly] Nhưng có cách khác. Không trả tiền, chúng mày vẫn sửa được máy.",
+   "file": "tin-nhan-chua-gui/voice/1.14.0-loc-dcf0d7b37c.mp3",
+   "sec": 4.56
+  },
+  {
+   "id": "2.0.0",
+   "s": 2,
+   "i": 0,
+   "k": 0,
+   "role": "loc",
+   "text": "Đổi một ký ức quý của mày. Máy chạy lại, chuyện đó mất luôn. Không lấy lại được.",
+   "say": "[coldly] Đổi một ký ức quý của mày. Máy chạy lại, chuyện đó mất luôn. Không lấy lại được.",
+   "file": "tin-nhan-chua-gui/voice/2.0.0-loc-dd8ae26688.mp3",
+   "sec": 5.12
+  },
+  {
+   "id": "2.1.0",
+   "s": 2,
+   "i": 1,
+   "k": 0,
+   "role": "duy",
+   "text": "Cháu không đổi thì sao?",
+   "say": "[hesitant] Cháu không đổi thì sao?",
+   "file": "tin-nhan-chua-gui/voice/2.1.0-duy-304024674c.mp3",
+   "sec": 2.24
+  },
+  {
+   "id": "2.2.0",
+   "s": 2,
+   "i": 2,
+   "k": 0,
+   "role": "loc",
+   "text": "Mang máy về.",
+   "say": "[coldly] Mang máy về.",
+   "file": "tin-nhan-chua-gui/voice/2.2.0-loc-78e70055fc.mp3",
+   "sec": 1.2
+  },
+  {
+   "id": "2.3.0",
+   "s": 2,
+   "i": 3,
+   "k": 0,
+   "role": "narrator",
+   "text": "Trước lúc vào viện, mẹ nhờ dì nhắn Duy mở một đoạn ghi âm trong máy. Cậu chưa kịp nghe thì máy đã vỡ. Ba tiệm trước đều trả lại, không sửa được.",
+   "say": "Trước lúc vào viện, mẹ nhờ dì nhắn Duy mở một đoạn ghi âm trong máy. Cậu chưa kịp nghe thì máy đã vỡ. Ba tiệm trước đều trả lại, không sửa được.",
+   "file": "tin-nhan-chua-gui/voice/2.3.0-narrator-82d61922a4.mp3",
+   "sec": 10.08
+  },
+  {
+   "id": "2.4.0",
+   "s": 2,
+   "i": 4,
+   "k": 0,
+   "role": "thao",
+   "text": "Anh có muốn nghe mẹ không?",
+   "say": "[softly] Anh có muốn nghe mẹ không?",
+   "file": "tin-nhan-chua-gui/voice/2.4.0-thao-99ca53363f.mp3",
+   "sec": 2.16
+  },
+  {
+   "id": "2.5.0",
+   "s": 2,
+   "i": 5,
+   "k": 0,
+   "role": "duy",
+   "text": "Em nghe được là được. Đừng lo cho anh.",
+   "say": "[restrained] Em nghe được là được. Đừng lo cho anh.",
+   "file": "tin-nhan-chua-gui/voice/2.5.0-duy-ce7d16bb6a.mp3",
+   "sec": 2.56
+  },
+  {
+   "id": "2.6.0",
+   "s": 2,
+   "i": 6,
+   "k": 0,
+   "role": "narrator",
+   "text": "Mấy đêm liền, Duy chỉ dám lấy ảnh mẹ ra khi em đã ngủ. Cậu cũng muốn nghe giọng ấy. Nhưng trước mặt em, cậu chưa từng nhận mình cần mẹ.",
+   "say": "Mấy đêm liền, Duy chỉ dám lấy ảnh mẹ ra khi em đã ngủ. Cậu cũng muốn nghe giọng ấy. Nhưng trước mặt em, cậu chưa từng nhận mình cần mẹ.",
+   "file": "tin-nhan-chua-gui/voice/2.6.0-narrator-4df98e5825.mp3",
+   "sec": 9.76
+  },
+  {
+   "id": "2.7.0",
+   "s": 2,
+   "i": 7,
+   "k": 0,
+   "role": "duy",
+   "text": "Bữa bố đập cửa, anh sợ bố nghe em khóc rồi lại đánh. Anh cuống quá… nên anh quát em.",
+   "say": "[hesitant] Bữa bố đập cửa, anh sợ bố nghe em khóc rồi lại đánh. Anh cuống quá… nên anh quát em.",
+   "file": "tin-nhan-chua-gui/voice/2.7.0-duy-dc2eaf03f4.mp3",
+   "sec": 6.4
+  },
+  {
+   "id": "2.8.0",
+   "s": 2,
+   "i": 8,
+   "k": 0,
+   "role": "thao",
+   "text": "Nhưng anh la, em cũng sợ mà.",
+   "say": "[hurt] Nhưng anh la, em cũng sợ mà.",
+   "file": "tin-nhan-chua-gui/voice/2.8.0-thao-e844fa7443.mp3",
+   "sec": 2.72
+  },
+  {
+   "id": "2.9.0",
+   "s": 2,
+   "i": 9,
+   "k": 0,
+   "role": "thao",
+   "text": "Em chỉ muốn anh ôm em thôi.",
+   "say": "[softly] Em chỉ muốn anh ôm em thôi.",
+   "file": "tin-nhan-chua-gui/voice/2.9.0-thao-b21f292efd.mp3",
+   "sec": 2.48
+  },
+  {
    "id": "3.0.0",
    "s": 3,
    "i": 0,
@@ -101,6 +299,204 @@
    "say": "[hesitant] Anh ơi… máy không phải bị rơi đâu.",
    "file": "tin-nhan-chua-gui/voice/3.0.0-thao-36ab68bda2.mp3",
    "sec": 2.96
+  },
+  {
+   "id": "3.1.0",
+   "s": 3,
+   "i": 1,
+   "k": 0,
+   "role": "thao",
+   "text": "Hôm đó bố đi rồi, em lấy máy mẹ. Anh cứ quay mặt vô tường, không nói với em. Em muốn nghe mẹ dỗ, mà bấm hoài không được. Em tức quá… em đập xuống nền.",
+   "say": "[ashamed] Hôm đó bố đi rồi, em lấy máy mẹ. Anh cứ quay mặt vô tường, không nói với em. Em muốn nghe mẹ dỗ, mà bấm hoài không được. Em tức quá… em đập xuống nền.",
+   "file": "tin-nhan-chua-gui/voice/3.1.0-thao-6c0c0aba28.mp3",
+   "sec": 12.4
+  },
+  {
+   "id": "3.2.0",
+   "s": 3,
+   "i": 2,
+   "k": 0,
+   "role": "thao",
+   "text": "Em xin lỗi. Em sợ anh la nữa nên giấu.",
+   "say": "[softly] Em xin lỗi. Em sợ anh la nữa nên giấu.",
+   "file": "tin-nhan-chua-gui/voice/3.2.0-thao-93a82163e0.mp3",
+   "sec": 3.76
+  },
+  {
+   "id": "3.3.0",
+   "s": 3,
+   "i": 3,
+   "k": 0,
+   "role": "duy",
+   "text": "Anh buồn vì em đập máy. Nhưng anh cũng sai. Anh sợ bố rồi lại quát em. Anh xin lỗi.",
+   "say": "[regretful] Anh buồn vì em đập máy. Nhưng anh cũng sai. Anh sợ bố rồi lại quát em. Anh xin lỗi.",
+   "file": "tin-nhan-chua-gui/voice/3.3.0-duy-180fa289b1.mp3",
+   "sec": 6.48
+  },
+  {
+   "id": "3.4.0",
+   "s": 3,
+   "i": 4,
+   "k": 0,
+   "role": "duy",
+   "text": "Cháu đổi buổi hai anh em tranh chiếc xe đồ chơi, hồi em còn học mẫu giáo.",
+   "say": "[restrained] Cháu đổi buổi hai anh em tranh chiếc xe đồ chơi, hồi em còn học mẫu giáo.",
+   "file": "tin-nhan-chua-gui/voice/3.4.0-duy-36ef7eb1f4.mp3",
+   "sec": 4.88
+  },
+  {
+   "id": "3.5.0",
+   "s": 3,
+   "i": 5,
+   "k": 0,
+   "role": "thao",
+   "text": "Hôm anh giật xe làm em ngã hả?",
+   "say": "[hesitant] Hôm anh giật xe làm em ngã hả?",
+   "file": "tin-nhan-chua-gui/voice/3.5.0-thao-2826484dff.mp3",
+   "sec": 3.12
+  },
+  {
+   "id": "3.6.0",
+   "s": 3,
+   "i": 6,
+   "k": 0,
+   "role": "duy",
+   "text": "Ừ. Anh tưởng mẹ mắng. Mẹ lại dỗ cả hai, vuốt tóc anh… bảo đừng làm nhau đau.",
+   "say": "[softly] Ừ. Anh tưởng mẹ mắng. Mẹ lại dỗ cả hai, vuốt tóc anh… bảo đừng làm nhau đau.",
+   "file": "tin-nhan-chua-gui/voice/3.6.0-duy-efce81a6da.mp3",
+   "sec": 6.72
+  },
+  {
+   "id": "3.7.0",
+   "s": 3,
+   "i": 7,
+   "k": 0,
+   "role": "thao",
+   "text": "Rồi anh xin lỗi, đưa xe cho em. Em kéo anh chơi chung.",
+   "say": "[softly] Rồi anh xin lỗi, đưa xe cho em. Em kéo anh chơi chung.",
+   "file": "tin-nhan-chua-gui/voice/3.7.0-thao-afacee3594.mp3",
+   "sec": 4.56
+  },
+  {
+   "id": "3.8.0",
+   "s": 3,
+   "i": 8,
+   "k": 0,
+   "role": "narrator",
+   "text": "Hôm ấy, Duy mới hiểu làm anh không phải lúc nào cũng được phần hơn. Có một đứa em sẽ khóc vì mình, rồi vẫn muốn kéo mình ngồi xuống chơi cùng.",
+   "say": "Hôm ấy, Duy mới hiểu làm anh không phải lúc nào cũng được phần hơn. Có một đứa em sẽ khóc vì mình, rồi vẫn muốn kéo mình ngồi xuống chơi cùng.",
+   "file": "tin-nhan-chua-gui/voice/3.8.0-narrator-46c22e92e4.mp3",
+   "sec": 9.52
+  },
+  {
+   "id": "3.9.0",
+   "s": 3,
+   "i": 9,
+   "k": 0,
+   "role": "thao",
+   "text": "Thôi anh. Em không nghe nữa đâu. Anh đừng đổi.",
+   "say": "[pleading] Thôi anh. Em không nghe nữa đâu. Anh đừng đổi.",
+   "file": "tin-nhan-chua-gui/voice/3.9.0-thao-da66ba51ba.mp3",
+   "sec": 3.92
+  },
+  {
+   "id": "3.10.0",
+   "s": 3,
+   "i": 10,
+   "k": 0,
+   "role": "duy",
+   "text": "Anh cũng nhớ mẹ. Anh muốn nghe nữa.",
+   "say": "[softly] Anh cũng nhớ mẹ. Anh muốn nghe nữa.",
+   "file": "tin-nhan-chua-gui/voice/3.10.0-duy-cd8e7f9d1b.mp3",
+   "sec": 2.88
+  },
+  {
+   "id": "3.12.0",
+   "s": 3,
+   "i": 12,
+   "k": 0,
+   "role": "loc",
+   "text": "Cả buổi đó mất. Từ lúc giành xe đến lúc làm hòa. Đổi để sửa máy. Đúng chưa?",
+   "say": "[coldly] Cả buổi đó mất. Từ lúc giành xe đến lúc làm hòa. Đổi để sửa máy. Đúng chưa?",
+   "file": "tin-nhan-chua-gui/voice/3.12.0-loc-03edea062f.mp3",
+   "sec": 6
+  },
+  {
+   "id": "3.13.0",
+   "s": 3,
+   "i": 13,
+   "k": 0,
+   "role": "duy",
+   "text": "Dạ.",
+   "say": "[restrained] Dạ.",
+   "file": "tin-nhan-chua-gui/voice/3.13.0-duy-d816147e4c.mp3",
+   "sec": 1.04
+  },
+  {
+   "id": "3.14.0",
+   "s": 3,
+   "i": 14,
+   "k": 0,
+   "role": "loc",
+   "text": "Vẫn đổi?",
+   "say": "[coldly] Vẫn đổi?",
+   "file": "tin-nhan-chua-gui/voice/3.14.0-loc-535ede37de.mp3",
+   "sec": 1.2
+  },
+  {
+   "id": "3.15.0",
+   "s": 3,
+   "i": 15,
+   "k": 0,
+   "role": "duy",
+   "text": "Cháu vẫn đổi.",
+   "say": "[restrained] Cháu vẫn đổi.",
+   "file": "tin-nhan-chua-gui/voice/3.15.0-duy-de37b5ec97.mp3",
+   "sec": 1.76
+  },
+  {
+   "id": "4.0.0",
+   "s": 4,
+   "i": 0,
+   "k": 0,
+   "role": "thao",
+   "text": "Anh còn nhớ hôm mẹ dỗ hai anh em làm hòa không?",
+   "say": "[hesitant] Anh còn nhớ hôm mẹ dỗ hai anh em làm hòa không?",
+   "file": "tin-nhan-chua-gui/voice/4.0.0-thao-147abc326c.mp3",
+   "sec": 3.68
+  },
+  {
+   "id": "4.2.0",
+   "s": 4,
+   "i": 2,
+   "k": 0,
+   "role": "duy",
+   "text": "Anh nhớ chuyện mình vừa kể. Nhưng giọng mẹ hôm đó… lúc mẹ vuốt tóc anh… không nhớ được nữa.",
+   "say": "[confused] Anh nhớ chuyện mình vừa kể. Nhưng giọng mẹ hôm đó… lúc mẹ vuốt tóc anh… không nhớ được nữa.",
+   "file": "tin-nhan-chua-gui/voice/4.2.0-duy-688787eba3.mp3",
+   "sec": 6.4
+  },
+  {
+   "id": "4.3.0",
+   "s": 4,
+   "i": 3,
+   "k": 0,
+   "role": "narrator",
+   "text": "Duy vẫn biết mẹ là ai, vẫn thương em. Chỉ trải nghiệm của buổi làm hòa ấy đã mất, dù cậu biết nó từng xảy ra.",
+   "say": "Duy vẫn biết mẹ là ai, vẫn thương em. Chỉ trải nghiệm của buổi làm hòa ấy đã mất, dù cậu biết nó từng xảy ra.",
+   "file": "tin-nhan-chua-gui/voice/4.3.0-narrator-657800bbf3.mp3",
+   "sec": 7.84
+  },
+  {
+   "id": "4.4.0",
+   "s": 4,
+   "i": 4,
+   "k": 0,
+   "role": "loc",
+   "text": "Giữ lấy.",
+   "say": "[coldly] Giữ lấy.",
+   "file": "tin-nhan-chua-gui/voice/4.4.0-loc-01619e8611.mp3",
+   "sec": 1.12
   },
   {
    "id": "4.5.0",
@@ -114,6 +510,28 @@
    "sec": 7.2
   },
   {
+   "id": "4.7.0",
+   "s": 4,
+   "i": 7,
+   "k": 0,
+   "role": "thao",
+   "text": "Mẹ vẫn tưởng mẹ sẽ về.",
+   "say": "[sad] Mẹ vẫn tưởng mẹ sẽ về.",
+   "file": "tin-nhan-chua-gui/voice/4.7.0-thao-06c4e6a2e7.mp3",
+   "sec": 2.64
+  },
+  {
+   "id": "4.8.0",
+   "s": 4,
+   "i": 8,
+   "k": 0,
+   "role": "thao",
+   "text": "Ông sửa được thứ khác ngoài điện thoại không?",
+   "say": "[curious] Ông sửa được thứ khác ngoài điện thoại không?",
+   "file": "tin-nhan-chua-gui/voice/4.8.0-thao-7ca27155b5.mp3",
+   "sec": 2.48
+  },
+  {
    "id": "4.9.0",
    "s": 4,
    "i": 9,
@@ -123,6 +541,149 @@
    "say": "[coldly] Thế mày muốn tao sửa gì nữa?",
    "file": "tin-nhan-chua-gui/voice/4.12.0-loc-53dc519950.mp3",
    "sec": 2.24
+  },
+  {
+   "id": "4.10.0",
+   "s": 4,
+   "i": 10,
+   "k": 0,
+   "role": "thao",
+   "text": "Cháu muốn được yên như hồi có mẹ. Bố say, mẹ đứng che tụi cháu… có mẹ thì cháu đỡ sợ.",
+   "say": "[softly] Cháu muốn được yên như hồi có mẹ. Bố say, mẹ đứng che tụi cháu… có mẹ thì cháu đỡ sợ.",
+   "file": "tin-nhan-chua-gui/voice/4.10.0-thao-fe95a63cfe.mp3",
+   "sec": 7.44
+  },
+  {
+   "id": "5.0.0",
+   "s": 5,
+   "i": 0,
+   "k": 0,
+   "role": "loc",
+   "text": "Được. Hai đứa được yên như hồi còn mẹ, một lát thôi. Mẹ không về.",
+   "say": "[coldly] Được. Hai đứa được yên như hồi còn mẹ, một lát thôi. Mẹ không về.",
+   "file": "tin-nhan-chua-gui/voice/5.0.0-loc-e821c9dfc6.mp3",
+   "sec": 5.12
+  },
+  {
+   "id": "5.1.0",
+   "s": 5,
+   "i": 1,
+   "k": 0,
+   "role": "duy",
+   "text": "Cái giá là gì?",
+   "say": "[wary] Cái giá là gì?",
+   "file": "tin-nhan-chua-gui/voice/5.1.0-duy-42dc37b0fd.mp3",
+   "sec": 2
+  },
+  {
+   "id": "5.2.0",
+   "s": 5,
+   "i": 2,
+   "k": 0,
+   "role": "loc",
+   "text": "Con bé bớt nỗi buồn bị bỏ lại. Mày nhận phần ấy, cộng với nỗi buồn của mày. Hết hơi ấm, cái giá vẫn còn.",
+   "say": "[coldly] Con bé bớt nỗi buồn bị bỏ lại. Mày nhận phần ấy, cộng với nỗi buồn của mày. Hết hơi ấm, cái giá vẫn còn.",
+   "file": "tin-nhan-chua-gui/voice/5.2.0-loc-b333e48002.mp3",
+   "sec": 8
+  },
+  {
+   "id": "5.3.0",
+   "s": 5,
+   "i": 3,
+   "k": 0,
+   "role": "duy",
+   "text": "Em cháu đỡ buồn là được.",
+   "say": "[restrained] Em cháu đỡ buồn là được.",
+   "file": "tin-nhan-chua-gui/voice/5.3.0-duy-d9bb964f66.mp3",
+   "sec": 2.08
+  },
+  {
+   "id": "5.4.0",
+   "s": 5,
+   "i": 4,
+   "k": 0,
+   "role": "loc",
+   "text": "Nói đồng ý là đổi. Không lấy lại được.",
+   "say": "[coldly] Nói đồng ý là đổi. Không lấy lại được.",
+   "file": "tin-nhan-chua-gui/voice/5.4.0-loc-063fd2f45e.mp3",
+   "sec": 3.12
+  },
+  {
+   "id": "5.6.0",
+   "s": 5,
+   "i": 6,
+   "k": 0,
+   "role": "duy",
+   "text": "Cháu đồng ý.",
+   "say": "[restrained] Cháu đồng ý.",
+   "file": "tin-nhan-chua-gui/voice/5.6.0-duy-4d71f079cc.mp3",
+   "sec": 1.76
+  },
+  {
+   "id": "5.9.0",
+   "s": 5,
+   "i": 9,
+   "k": 0,
+   "role": "thao",
+   "text": "Anh ơi… anh sao vậy?",
+   "say": "[afraid] Anh ơi… anh sao vậy?",
+   "file": "tin-nhan-chua-gui/voice/5.9.0-thao-dd5198b269.mp3",
+   "sec": 2.16
+  },
+  {
+   "id": "5.10.0",
+   "s": 5,
+   "i": 10,
+   "k": 0,
+   "role": "duy",
+   "text": "Anh… không sao…",
+   "say": "[strained] Anh… không sao…",
+   "file": "tin-nhan-chua-gui/voice/5.10.0-duy-dc89f5bbc7.mp3",
+   "sec": 2
+  },
+  {
+   "id": "5.11.0",
+   "s": 5,
+   "i": 11,
+   "k": 0,
+   "role": "thao",
+   "text": "Ông cho anh cháu gặp mẹ đi. Lần này lấy của cháu. Đừng lấy của anh nữa.",
+   "say": "[pleading] Ông cho anh cháu gặp mẹ đi. Lần này lấy của cháu. Đừng lấy của anh nữa.",
+   "file": "tin-nhan-chua-gui/voice/5.11.0-thao-ca13f1f320.mp3",
+   "sec": 5.36
+  },
+  {
+   "id": "5.12.0",
+   "s": 5,
+   "i": 12,
+   "k": 0,
+   "role": "loc",
+   "text": "Cả hai gặp mẹ, nói chuyện một lần, rồi mẹ đi. Đổi lại, từ nay mày không mơ thấy mẹ nữa. Lúc thức vẫn nhớ mẹ. Đồng ý không?",
+   "say": "[coldly] Cả hai gặp mẹ, nói chuyện một lần, rồi mẹ đi. Đổi lại, từ nay mày không mơ thấy mẹ nữa. Lúc thức vẫn nhớ mẹ. Đồng ý không?",
+   "file": "tin-nhan-chua-gui/voice/5.12.0-loc-8fac6bea8e.mp3",
+   "sec": 9.12
+  },
+  {
+   "id": "5.13.0",
+   "s": 5,
+   "i": 13,
+   "k": 0,
+   "role": "thao",
+   "text": "Cháu đồng ý!",
+   "say": "[urgent] Cháu đồng ý!",
+   "file": "tin-nhan-chua-gui/voice/5.13.0-thao-0ec41ad0d5.mp3",
+   "sec": 1.12
+  },
+  {
+   "id": "5.14.0",
+   "s": 5,
+   "i": 14,
+   "k": 0,
+   "role": "duy",
+   "text": "Thảo, đừng…",
+   "say": "[strained] Thảo, đừng…",
+   "file": "tin-nhan-chua-gui/voice/5.14.0-duy-a6faefa3b7.mp3",
+   "sec": 1.84
   },
   {
    "id": "6.0.0",
@@ -136,6 +697,226 @@
    "sec": 2.88
   },
   {
+   "id": "6.1.0",
+   "s": 6,
+   "i": 1,
+   "k": 0,
+   "role": "thao",
+   "text": "Mẹ!",
+   "say": "[emotional] Mẹ!",
+   "file": "tin-nhan-chua-gui/voice/6.1.0-thao-b86288acb0.mp3",
+   "sec": 1.2
+  },
+  {
+   "id": "6.5.0",
+   "s": 6,
+   "i": 5,
+   "k": 0,
+   "role": "thao",
+   "text": "Mẹ ơi, chỗ này lại bung rồi nè. Mẹ vá cho con nữa nha.",
+   "say": "[softly] Mẹ ơi, chỗ này lại bung rồi nè. Mẹ vá cho con nữa nha.",
+   "file": "tin-nhan-chua-gui/voice/6.5.0-thao-df3454ff96.mp3",
+   "sec": 4.4
+  },
+  {
+   "id": "6.6.0",
+   "s": 6,
+   "i": 6,
+   "k": 0,
+   "role": "me",
+   "text": "Mẹ mới vá xong, ai chui hàng rào hái ổi?",
+   "say": "[amused] Mẹ mới vá xong, ai chui hàng rào hái ổi?",
+   "file": "tin-nhan-chua-gui/voice/6.6.0-me-af1262681a.mp3",
+   "sec": 3.52
+  },
+  {
+   "id": "6.7.0",
+   "s": 6,
+   "i": 7,
+   "k": 0,
+   "role": "thao",
+   "text": "Anh Duy rủ con.",
+   "say": "[playful] Anh Duy rủ con.",
+   "file": "tin-nhan-chua-gui/voice/6.7.0-thao-0f143dd6dd.mp3",
+   "sec": 1.52
+  },
+  {
+   "id": "6.8.0",
+   "s": 6,
+   "i": 8,
+   "k": 0,
+   "role": "duy",
+   "text": "Anh đứng ngoài giữ dép cho em mà.",
+   "say": "[amused] Anh đứng ngoài giữ dép cho em mà.",
+   "file": "tin-nhan-chua-gui/voice/6.8.0-duy-e5cf5c0f83.mp3",
+   "sec": 2.4
+  },
+  {
+   "id": "6.9.0",
+   "s": 6,
+   "i": 9,
+   "k": 0,
+   "role": "me",
+   "text": "Còn gắp hành qua chén em không?",
+   "say": "[amused] Còn gắp hành qua chén em không?",
+   "file": "tin-nhan-chua-gui/voice/6.9.0-me-3639e84e02.mp3",
+   "sec": 2.4
+  },
+  {
+   "id": "6.10.0",
+   "s": 6,
+   "i": 10,
+   "k": 0,
+   "role": "duy",
+   "text": "Con gắp ít hơn rồi.",
+   "say": "[softly] Con gắp ít hơn rồi.",
+   "file": "tin-nhan-chua-gui/voice/6.10.0-duy-5cce55b374.mp3",
+   "sec": 1.68
+  },
+  {
+   "id": "6.11.0",
+   "s": 6,
+   "i": 11,
+   "k": 0,
+   "role": "thao",
+   "text": "Ít hơn chứ chưa hết!",
+   "say": "[playful] Ít hơn chứ chưa hết!",
+   "file": "tin-nhan-chua-gui/voice/6.11.0-thao-3709f6535b.mp3",
+   "sec": 2
+  },
+  {
+   "id": "7.0.0",
+   "s": 7,
+   "i": 0,
+   "k": 0,
+   "role": "me",
+   "text": "Duy, nhìn mẹ nè.",
+   "say": "[softly] Duy, nhìn mẹ nè.",
+   "file": "tin-nhan-chua-gui/voice/7.0.0-me-78392d7b78.mp3",
+   "sec": 1.92
+  },
+  {
+   "id": "7.1.0",
+   "s": 7,
+   "i": 1,
+   "k": 0,
+   "role": "duy",
+   "text": "Con sợ… em thấy con khóc thì nó càng sợ.",
+   "say": "[choked up] Con sợ… em thấy con khóc thì nó càng sợ.",
+   "file": "tin-nhan-chua-gui/voice/7.1.0-duy-278370d4e6.mp3",
+   "sec": 3.76
+  },
+  {
+   "id": "7.2.0",
+   "s": 7,
+   "i": 2,
+   "k": 0,
+   "role": "duy",
+   "text": "Con cũng nhớ mẹ.",
+   "say": "[choked up] Con cũng nhớ mẹ.",
+   "file": "tin-nhan-chua-gui/voice/7.2.0-duy-0cf7f00971.mp3",
+   "sec": 2.24
+  },
+  {
+   "id": "7.3.0",
+   "s": 7,
+   "i": 3,
+   "k": 0,
+   "role": "me",
+   "text": "Con là anh của em, nhưng vẫn là con của mẹ mà. Bố say rồi đánh thì sang dì Hạnh, nhờ dì giúp. Đừng ở đó chịu một mình.",
+   "say": "[tender] Con là anh của em, nhưng vẫn là con của mẹ mà. Bố say rồi đánh thì sang dì Hạnh, nhờ dì giúp. Đừng ở đó chịu một mình.",
+   "file": "tin-nhan-chua-gui/voice/7.3.0-me-3c2dedfb6f.mp3",
+   "sec": 8.8
+  },
+  {
+   "id": "7.5.0",
+   "s": 7,
+   "i": 5,
+   "k": 0,
+   "role": "me",
+   "text": "Nhớ mẹ thì kể với anh. Bữa nào anh buồn, con ngồi cạnh anh một chút.",
+   "say": "[tender] Nhớ mẹ thì kể với anh. Bữa nào anh buồn, con ngồi cạnh anh một chút.",
+   "file": "tin-nhan-chua-gui/voice/7.5.0-me-9a26fbe1ca.mp3",
+   "sec": 4.96
+  },
+  {
+   "id": "7.6.0",
+   "s": 7,
+   "i": 6,
+   "k": 0,
+   "role": "thao",
+   "text": "Mẹ về với tụi con được không?",
+   "say": "[tearful] Mẹ về với tụi con được không?",
+   "file": "tin-nhan-chua-gui/voice/7.6.0-thao-bf965fbce7.mp3",
+   "sec": 2.64
+  },
+  {
+   "id": "7.7.0",
+   "s": 7,
+   "i": 7,
+   "k": 0,
+   "role": "me",
+   "text": "Mẹ thương cả hai đứa. Đừng giấu nhau nữa, nghe con.",
+   "say": "[tender] Mẹ thương cả hai đứa. Đừng giấu nhau nữa, nghe con.",
+   "file": "tin-nhan-chua-gui/voice/7.7.0-me-19ca7121fd.mp3",
+   "sec": 4.16
+  },
+  {
+   "id": "7.8.0",
+   "s": 7,
+   "i": 8,
+   "k": 0,
+   "role": "thao",
+   "text": "Con còn nhiều chuyện chưa kể…",
+   "say": "[crying] Con còn nhiều chuyện chưa kể…",
+   "file": "tin-nhan-chua-gui/voice/7.8.0-thao-fbd310375d.mp3",
+   "sec": 3.28
+  },
+  {
+   "id": "7.9.0",
+   "s": 7,
+   "i": 9,
+   "k": 0,
+   "role": "duy",
+   "text": "Mẹ… đợi con…",
+   "say": "[choked up] Mẹ… đợi con…",
+   "file": "tin-nhan-chua-gui/voice/7.9.0-duy-c3752d4e2b.mp3",
+   "sec": 2.48
+  },
+  {
+   "id": "8.0.0",
+   "s": 8,
+   "i": 0,
+   "k": 0,
+   "role": "narrator",
+   "text": "Tờ sửa máy là cái giá của ký ức. Tờ thứ hai ghi phần buồn Duy nhận thay em. Tờ cuối mang tên Thảo: cuộc gặp mẹ, đổi bằng những giấc mơ về mẹ.",
+   "say": "Tờ sửa máy là cái giá của ký ức. Tờ thứ hai ghi phần buồn Duy nhận thay em. Tờ cuối mang tên Thảo: cuộc gặp mẹ, đổi bằng những giấc mơ về mẹ.",
+   "file": "tin-nhan-chua-gui/voice/8.0.0-narrator-0b414c1e4d.mp3",
+   "sec": 11.92
+  },
+  {
+   "id": "8.1.0",
+   "s": 8,
+   "i": 1,
+   "k": 0,
+   "role": "duy",
+   "text": "Sao em không để anh nói đã?",
+   "say": "[strained] Sao em không để anh nói đã?",
+   "file": "tin-nhan-chua-gui/voice/8.1.0-duy-3000c5be6d.mp3",
+   "sec": 2.24
+  },
+  {
+   "id": "8.2.0",
+   "s": 8,
+   "i": 2,
+   "k": 0,
+   "role": "thao",
+   "text": "Em thấy anh mệt lắm rồi. Em không muốn ông lấy thêm của anh nữa.",
+   "say": "[softly] Em thấy anh mệt lắm rồi. Em không muốn ông lấy thêm của anh nữa.",
+   "file": "tin-nhan-chua-gui/voice/8.2.0-thao-4fd9786e3f.mp3",
+   "sec": 4.8
+  },
+  {
    "id": "8.3.0",
    "s": 8,
    "i": 3,
@@ -145,6 +926,39 @@
    "say": "[hesitant] Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?",
    "file": "tin-nhan-chua-gui/voice/8.5.0-thao-8e7c4de2d2.mp3",
    "sec": 4.48
+  },
+  {
+   "id": "8.5.0",
+   "s": 8,
+   "i": 5,
+   "k": 0,
+   "role": "duy",
+   "text": "Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.",
+   "say": "[strained] Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.",
+   "file": "tin-nhan-chua-gui/voice/8.5.0-duy-2aae867ffd.mp3",
+   "sec": 5.52
+  },
+  {
+   "id": "8.6.0",
+   "s": 8,
+   "i": 6,
+   "k": 0,
+   "role": "narrator",
+   "text": "Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đêm nay.",
+   "say": "Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đêm nay.",
+   "file": "tin-nhan-chua-gui/voice/8.6.0-narrator-c2399decc4.mp3",
+   "sec": 5.44
+  },
+  {
+   "id": "8.7.0",
+   "s": 8,
+   "i": 7,
+   "k": 0,
+   "role": "narrator",
+   "text": "Buổi làm hòa bên mẹ không trở lại trong Duy. Phần buồn cậu nhận vẫn còn. Thảo cũng sẽ không gặp mẹ trong mơ nữa. Nhưng lần này, Duy chịu nói mình không kham nổi. Và ở đầu hẻm, có một người lớn đang đợi hai đứa.",
+   "say": "Buổi làm hòa bên mẹ không trở lại trong Duy. Phần buồn cậu nhận vẫn còn. Thảo cũng sẽ không gặp mẹ trong mơ nữa. Nhưng lần này, Duy chịu nói mình không kham nổi. Và ở đầu hẻm, có một người lớn đang đợi hai đứa.",
+   "file": "tin-nhan-chua-gui/voice/8.7.0-narrator-c2021e7ed9.mp3",
+   "sec": 15.04
   }
  ]
 }

@@ -4,15 +4,11 @@ import { FONT } from '../../engine';
 import { tinNhanChuaGui } from './index';
 import timeline from './timeline.json';
 
-// Review overlay follows the stored timeline, which may precede the current editorial script.
-// Script v11 has recorded voices; v12 requires retiming before a new render. Not for release.
-type Mark = { shot: string; kind: string; f: number; len: number; text: string };
-const MARKS = (timeline as unknown as { marks: Mark[] }).marks;
+// Review build: the film plus a small cue/clock tag so notes can name the exact moment. Not for release.
 const SEGS = (timeline as unknown as { segments: { shot: string; a: number; b: number }[] }).segments;
 
 export const TinNhanChuaGuiAnimatic: React.FC = () => {
   const f = useCurrentFrame();
-  const m = MARKS.find((x) => f >= x.f && f < x.f + x.len);
   const seg = SEGS.find((s) => f >= s.a && f < s.b);
   const cue = seg ? seg.shot.replace('Sh', '').replace('_', '-') : '';
   const sec = f / 30;
@@ -23,25 +19,6 @@ export const TinNhanChuaGuiAnimatic: React.FC = () => {
       <div style={{ position: 'absolute', top: 18, left: 22, padding: '4px 12px', borderRadius: 6, background: 'rgba(0,0,0,.55)', color: '#F6E6B4', fontFamily: FONT.ui, fontSize: 26 }}>
         ANIMATIC · kịch bản {(timeline as { scriptRevision?: number }).scriptRevision ?? "?"} · {cue} · {clock}
       </div>
-      {m ? (
-        <div style={{ position: 'absolute', left: 160, right: 160, bottom: 92, textAlign: 'center' }}>
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '8px 18px',
-              borderRadius: 8,
-              background: 'rgba(0,0,0,.62)',
-              color: m.kind === 'pause' ? '#B9C2CF' : '#FFF8EA',
-              fontStyle: m.kind === 'pause' ? 'italic' : 'normal',
-              fontFamily: FONT.title,
-              fontSize: 36,
-              lineHeight: 1.3,
-            }}
-          >
-            {m.kind === 'pause' ? `[nghỉ] ${m.text}` : m.text}
-          </span>
-        </div>
-      ) : null}
     </AbsoluteFill>
   );
 };
