@@ -465,6 +465,7 @@ export type Pose = {
   talk?: number; // 0..1 the mouth open while speaking
   mouthShape?: MouthShape;
   lipTremble?: number; // signed face-local motion; drive from the shot clock
+  footFacing?: 1 | -1; // shoe direction can differ from the head when seated or looking back
   thighDepth?: number; // frontal seated projection of the upper leg, 0.2..1; full length by default
   cloth?: number; // small secondary hem/fold movement, -1..1
   shoulderLift?: number; // -1..1 shrug (>0) or slump (<0)
@@ -538,6 +539,7 @@ export const poseAt = (f: number, keys: Key[], from: Pose = basePose): Pose => {
         y: lerp(A.p.y, B.p.y, t),
         scale: lerp(A.p.scale, B.p.scale, t),
         facing: t < 0.5 ? A.p.facing : B.p.facing,
+        footFacing: t < 0.5 ? A.p.footFacing : B.p.footFacing,
         tilt: lerp(A.p.tilt, B.p.tilt, t),
         spin: lerp(A.p.spin, B.p.spin, t),
         headTilt: lerp(A.p.headTilt, B.p.headTilt, t),
@@ -1183,9 +1185,9 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
 
   // Detailed shoe with sole, upper, toe cap, and lace ticks
   const shoe = (o: { root: P; mid: P; end: P }) => {
-    const sx = o.end.x + pose.facing * 9;
+    const f = pose.footFacing ?? pose.facing;
+    const sx = o.end.x + f * 9;
     const sy = o.end.y + 4;
-    const f = pose.facing;
     return (
       <g transform={`translate(${sx} ${sy}) scale(${f} 1)`}>
         <path d="M -21 2 Q -22 -11 -4 -12 L 10 -10 Q 24 -7 24 4 L 22 9 L -20 9 Z" fill={L.shoe} stroke={L.line} strokeWidth={3.8} strokeLinejoin="round" />

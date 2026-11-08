@@ -26,7 +26,7 @@ const shoulder = (pose:Pose, side:'L'|'R'):Point => {
 /** Three-quarter seated thighs extend over the ledge; the visible knee bend leads to vertical calves. */
 const bankSit = (x:number,s:number,t:number,seed:number,lean:number):Pose => sitPose(x,802,s,lean>0?1:-1,{
   t,seed,yaw:lean>0?.08:-.08,lean:Math.abs(lean),headTilt:lean*.55,look:lean>0?.2:-.2,
-  thighDepth:.9,
+  thighDepth:.9,footFacing:1,
   legL:{a:lean>0?65:-65,b:lean>0?-65:65},legR:{a:lean>0?60:-60,b:lean>0?-60:60},
   armL:{a:12,b:-50},armR:{a:12,b:-50},handL:'rest',handR:'rest',
 });

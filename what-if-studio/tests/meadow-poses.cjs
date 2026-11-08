@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const React=require('react');
 const {renderToStaticMarkup}=require('react-dom/server');
 const {meadowFamilyPoses,MeadowFamily}=require('../src/episodes/tin-nhan-chua-gui/meadow_family');
-const {joints,handWorld,Hero,LOOKS}=require('../src/engine/rig');
+const {joints,handWorld,Hero,LOOKS,standPose,poseAt}=require('../src/engine/rig');
 let count=0;
 const check=(ok,message)=>{count++;assert.ok(ok,message);};
 for(const t of [0,27,63,93,128,210,359])for(const support of [0,.5,1]){
@@ -19,13 +19,16 @@ for(const t of [0,27,63,93,128,210,359])for(const support of [0,.5,1]){
   }
   for(const pose of [mother,thao,duy]){
     const j=joints(pose);
+    const hero=renderToStaticMarkup(React.createElement(Hero,{pose,look:LOOKS.thao}));
+    const shoes=[...hero.matchAll(/scale\((-?1) 1\)"><path d="M -21 2/g)];
+    check(shoes.length===2&&shoes.every(s=>Number(s[1])===1),'Both shoe toes follow the rightward knees even when the face turns left');
     for(const leg of [j.legL,j.legR]){
       check(Math.abs(leg.end.x-leg.mid.x)<.001,'Calves drop vertically');
       check(Math.abs(leg.mid.x-leg.root.x)>Math.abs(leg.mid.y-leg.root.y),'Thigh extends across the seat before the knee bends down');
       check(pose.y+(leg.end.y+16)*pose.scale<930,'Feet remain above the front ditch water');
     }
   }
-  const feet=pose=>{const j=joints(pose),xx=[j.legL.end.x,j.legR.end.x];return {min:pose.x+(Math.min(...xx)+pose.facing*9-24)*pose.scale,max:pose.x+(Math.max(...xx)+pose.facing*9+24)*pose.scale};};
+  const feet=pose=>{const j=joints(pose),xx=[j.legL.end.x,j.legR.end.x];return {min:pose.x+(Math.min(...xx)+(pose.footFacing??pose.facing)*9-24)*pose.scale,max:pose.x+(Math.max(...xx)+(pose.footFacing??pose.facing)*9+24)*pose.scale};};
   check(feet(duy).max+2<feet(mother).min&&feet(mother).max+2<feet(thao).min,'Shoes of adjacent people remain separated');
   const svg=renderToStaticMarkup(React.createElement('svg',null,React.createElement(MeadowFamily,{t,motherOpacity:support})));
   check(!/NaN|Infinity/.test(svg),'Finite geometry in embrace and fade');
@@ -34,4 +37,12 @@ const {mother}=meadowFamilyPoses(93);
 const hands=renderToStaticMarkup(React.createElement(Hero,{pose:mother,look:LOOKS.meDuyThao,handLayer:'only',opacity:.25}));
 check(hands.includes('opacity="0.25"'),'Front palms fade with the mother');
 check(!hands.includes('M -41 -8'),'Hands-only pass does not redraw pelvis/body');
+for(const facing of [-1,1]){
+  const p={...standPose(200,700,1),facing};
+  const svg=renderToStaticMarkup(React.createElement(Hero,{pose:p,look:LOOKS.duy}));
+  const shoes=[...svg.matchAll(/scale\((-?1) 1\)"><path d="M -21 2/g)];
+  check(shoes.length===2&&shoes.every(s=>Number(s[1])===facing),'Unspecified foot direction preserves existing standing/walking shoes');
+}
+const keys=[{f:0,p:{...mother,footFacing:1}},{f:20,p:{facing:-1,footFacing:-1}}];
+check(poseAt(4,keys).footFacing===1&&poseAt(16,keys).footFacing===-1,'Foot direction survives pose interpolation without turning inside out');
 console.log('Meadow embrace checks passed:',count);
