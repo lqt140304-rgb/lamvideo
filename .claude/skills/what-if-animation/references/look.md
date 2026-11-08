@@ -8,6 +8,17 @@ rechecked in this update; do not present them as current audience research or ou
 
 Keep characters, sets and stories original. Do not infer which tools another channel uses from its visual style.
 
+## Narrative episodes: character performance comes first
+
+For current lamvideo story episodes, use **limited 2D animation with character acting**, not a sequence of held illustrations. The inherited “They animate very little” paragraph below describes the short reference examples; it is not the production target for dialogue scenes. A slow push, parallax, dust, blinking and breathing do not by themselves supply character acting. Do not apply the inherited “something always moves” target by adding constant swaying or extra cuts.
+
+- Stage each dramatic beat as intent → preparation → action → another character's reaction → settle. Important movements need readable changes of silhouette and weight, not just translating or scaling a frozen pose. Holds can be expressive when the preceding action and gaze make the intent clear.
+- Couple the speaking character's mouth shapes/opening to the actual line and its pauses. Stop mouth motion when the line stops; listeners react with gaze, posture and small gestures. A generic jaw oscillation or every character talking together is not dialogue acting. Existing rig controls must actually be driven by the episode, not merely exist in the library.
+- Eyes can lead a head turn; the torso and arms follow with a motivated delay. A frightened child may pull back, tighten a grip, stop breathing briefly and then look to the sibling. Do not repeat the same idle loop for fear, relief and grief.
+- Animate the reach, contact, weight/support and release of props and bodies. Keep feet planted during weight shifts and attach props at the grip; do not repair continuity with a camera move or an occluding subtitle.
+- Test a short representative interaction using the existing assets and temporary/reused sound before expanding the work. First watch with a fixed camera and minimal background effects: the action, speaker and listener should still read. Then watch the normal shot with sound and at phone size. Still grids support inspection but do not replace moving playback.
+- Prioritize story-bearing actions and close dialogue shots. Reuse rigs and gestures where they fit; do not redraw every frame, force continuous full-body motion or assume paid video generation is necessary. Record actual time/usage rather than promising a percentage of quota saved.
+
 ## Pace
 
 | | The genre | Our target for 15-25 s |

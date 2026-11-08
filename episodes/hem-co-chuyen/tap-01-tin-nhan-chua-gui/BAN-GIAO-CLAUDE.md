@@ -13,3 +13,20 @@
 Trong studio chạy typecheck; kiểm tra hình ở độ phân giải điện thoại, nghe bằng loa và tai nghe. Một lượt typecheck không thay xem/nghe bản xuất. Kiểm tra không narrator C6–C7, rõ giá trước lời đồng ý, lời Duy ngăn đến sau Thảo nhận, không âm ù G2, không tích tắc kệ đồng hồ dừng. Các kiểm tra rig/VFX đang có vẫn cần nếu sửa chuyển động liên quan.
 
 Hồ sơ/asset riêng giữ đúng thư mục tập. Giữ các thay đổi của agent khác; không git add toàn repo, không push raw stock audio, cache, .env hoặc MP4 nặng. Sau công đoạn, chỉ bài học có thể dùng lại mới vào docs/KINH-NGHIEM.md, không ghi cốt truyện tập vào đó.
+
+## Bổ sung sau phản hồi: phim còn giống tranh tĩnh
+
+**Mục tiêu hình: hoạt hình 2D giản lược có diễn xuất, giữ chiều sâu 2.5D.** Không coi lia/zoom/parallax, bụi, tóc lay và chớp mắt là đã đủ chuyển động nhân vật. Cắt lời dẫn bản 12 chỉ chữa phần kể; các hành động chuyển sang Không đọc phải thật sự diễn ra trong bản dựng.
+
+**Làm thử trước:** một đoạn khoảng 12–20 giây từ khi Lộc gắt/mỉa mai tới phản ứng hai trẻ; dùng lại rig/set và tiếng tạm hoặc đoạn audio cũ phù hợp, chưa tạo trả phí hàng loạt. Không bắt ép đúng 20 giây nếu lời và hành động cần nhịp khác. Kiểm tra chuyển động trực tiếp với camera đứng yên trước, rồi mới dùng đường máy và âm đầy đủ. Không tự ghi đoạn thử là đã duyệt.
+
+| Nhóm cần diễn | Hành động và phản ứng nhìn thấy |
+|---|---|
+| Lộc nói / Thảo nghe | Lộc dừng tay trước câu gắt, đưa mắt tới tiền, nhấc cằm và mỉa mai; miệng chỉ hoạt động trong câu mình nói. Thảo khựng, tay cầm tiền rút sát người, vai co, ngước tìm Duy; không chỉ đổi nhãn khuôn mặt từ bình thường sang buồn. Duy nhìn em rồi chuyển thân che em, tay đỡ tiền đúng điểm chạm. |
+| C3 thú nhận / xin lỗi | Thảo tránh mắt rồi cố nhìn anh khi nhận lỗi. Duy định đáp, dừng, thở ra, đặt bút, dịch ghế và hạ người về phía em; em từ co người sang tựa gần sau lời xin lỗi. Không giữ một pose trong suốt đoạn thoại. |
+| C5 trả giá | Hơi ấm làm tay/vai thả khác rõ với trước đó. Khi giá đến, Duy mất sức ở thân rồi tay bấu ghế giữ lại, đầu theo sau; Thảo quay sang chạm anh, nhìn sang Lộc và nhận giá. Rung/nghiêng chỉ bổ trợ, không thay chuyển động cơ thể. |
+| C6–C7 gặp mẹ | Thảo chạy tới, thân chậm lại khi chạm mẹ, tay mới ôm; Duy tới sau. Ngồi xuống có chuyển trọng tâm/điểm tì. Khi khóc có mắt, môi, vai và nhịp thở theo câu, không rung cả hình đều đặn. Sau mẹ tan, tay mất điểm tựa, rút về rồi chuyển sang lau má/nắm tay; không trượt hai hình người tới gần nhau. |
+
+**Khẩu hình:** rig có `talk`/`mouthShape`, nhưng các shot thoại được rà ở bản hiện có chưa điều khiển chúng theo lượt nói. Claude cần nối đúng speaker và khoảng nói thực; dùng ít dáng miệng rõ, chuyển theo cụm âm/nhịp câu, khép ở nghỉ. Không cần gán một dáng riêng cho từng chữ, không để người nghe mấp máy cùng. Diễn xuất mắt, đầu và thân vẫn cần sau khi đã có miệng.
+
+**Điều kiện xem lại:** biết ai đang nói dù tắt tiếng; người nghe có phản ứng gắn với điều vừa nghe; đầu–thân–tay có nhịp chuẩn bị và dừng, chân/ghế/vật cầm không trượt. Cảnh lắng được giữ yên khi có chủ ý, không chèn động tác cho đủ số lượng. Chọn đoạn thử đạt rồi mở rộng đúng các cảnh trọng yếu, giữ bộ asset đã có. Lượt bổ sung này chỉ sửa yêu cầu dựng, chưa thay chuyển động hoặc xuất clip.
