@@ -25,6 +25,8 @@ for(const t of [0,27,63,93,128,210,359])for(const support of [0,.5,1]){
       check(pose.y+(leg.end.y+16)*pose.scale<930,'Feet remain above the front ditch water');
     }
   }
+  const feet=pose=>{const j=joints(pose),xx=[j.legL.end.x,j.legR.end.x];return {min:pose.x+(Math.min(...xx)+pose.facing*9-24)*pose.scale,max:pose.x+(Math.max(...xx)+pose.facing*9+24)*pose.scale};};
+  check(feet(duy).max+2<feet(mother).min&&feet(mother).max+2<feet(thao).min,'Shoes of adjacent people remain separated');
   const svg=renderToStaticMarkup(React.createElement('svg',null,React.createElement(MeadowFamily,{t,motherOpacity:support})));
   check(!/NaN|Infinity/.test(svg),'Finite geometry in embrace and fade');
 }

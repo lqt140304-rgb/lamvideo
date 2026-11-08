@@ -842,7 +842,7 @@ export const MeadowAndDealsSheet: React.FC = () => (
       <g transform="translate(955 455)">
         <rect x={-175} y={0} width={350} height={32} rx={8} fill="#1C140E" opacity={0.86} stroke="#E8B86D" strokeWidth={1.5} />
         <text x={0} y={21} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={12.5} fill="#FFE8A8">
-          C7-A/B · 3 MẸ CON NGỒI BỜ CỎ KHÔ NẮNG CHIỀU
+          C6–C7 · HAI CON TỰA VAI MẸ TRÊN KÈ ĐÁ
         </text>
       </g>
 
@@ -877,7 +877,7 @@ export const MeadowAndDealsSheet: React.FC = () => (
           CẢNH 6 & 7 — CÁNH ĐỒNG NẮNG CHIỀU GẶP MẸ (`SET-CANHDONG` · `CHAR-ME` · `PROP-G1-G2-G3`)
         </text>
         <text x={24} y={57} fontFamily={FONT.ui} fontSize={14} fill="#E5D2B8">
-          Bản 5: Nắng chiều ấm từ trái khung (không làm hào quang thiên đường) · Bờ cỏ khô 3 mẹ con ngồi · 3 tờ biên nhận G1, G2, G3 (tờ 3 ghi tên Thảo)
+          Bộ thử asset · Đồng bông vàng · Kè đá và mương tưới · Hai con tựa vai mẹ · Biên nhận G1/G2/G3
         </text>
       </g>
 
@@ -894,7 +894,7 @@ export const MeadowAndDealsSheet: React.FC = () => (
       <g transform="translate(1065 825)">
         <rect x={0} y={0} width={785} height={220} rx={14} fill="#161118" opacity={0.94} stroke="#D4A857" strokeWidth={2.5} />
         <text x={392} y={26} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={13.5} fill="#FFE8A8">
-          BIỂU CẢM MỚI BẢN 5: C4-D ÔNG LỘC NHẾCH MÉP LẠNH & C5-C DUY MỒ HÔI THÁI DƯƠNG
+          BỘ THỬ BIỂU CẢM: LỘC NHẾCH MÉP LẠNH · DUY KIỆT SỨC
         </text>
         <defs>
           <clipPath id="b5Expr1">
