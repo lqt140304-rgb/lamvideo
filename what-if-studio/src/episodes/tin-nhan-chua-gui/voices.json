@@ -84,11 +84,23 @@
  "cast": {
   "narrator": {
    "name": "Trung Lê Quốc (giọng chủ repo, clone)",
-   "id": "HXqqNj3PDxRdHVH1pXog"
+   "id": "HXqqNj3PDxRdHVH1pXog",
+   "settings": {
+    "stability": 0.68,
+    "similarity_boost": 0.78,
+    "style": 0.03,
+    "use_speaker_boost": true
+   }
   },
   "duy": {
    "name": "Nhật Phong - Narrative & Compelling",
-   "id": "6adFm46eyy74snVn6YrT"
+   "id": "6adFm46eyy74snVn6YrT",
+   "settings": {
+    "stability": 0.44,
+    "similarity_boost": 0.75,
+    "style": 0.18,
+    "use_speaker_boost": true
+   }
   },
   "thao": {
    "name": "Yuna - Playful, Bright & Curious",
@@ -96,11 +108,23 @@
   },
   "me": {
    "name": "Chi",
-   "id": "5yEPTrA0uAhZsBEhHjfi"
+   "id": "5yEPTrA0uAhZsBEhHjfi",
+   "settings": {
+    "stability": 0.52,
+    "similarity_boost": 0.8,
+    "style": 0.12,
+    "use_speaker_boost": true
+   }
   },
   "loc": {
    "name": "Dũng - Poetic, Deep and Resonant",
-   "id": "BUPPIXeDaJWBz696iXRS"
+   "id": "BUPPIXeDaJWBz696iXRS",
+   "settings": {
+    "stability": 0.8,
+    "similarity_boost": 0.85,
+    "style": 0.05,
+    "use_speaker_boost": true
+   }
   }
  },
  "speakers": {
@@ -178,10 +202,11 @@
   "8.1.0": "duy",
   "8.2.0": "thao",
   "8.3.0": "thao",
-  "8.4.0": "loc", "8.7.0": "duy"
+  "8.4.0": "loc",
+  "8.7.0": "duy"
  },
  "speakersNote": "Bản 13 giữ lời/thẻ bản 12, thêm C8-E và C9 không lời; item sau nhịp mới ở C8 đã dịch. Phân vai phải khớp scriptSha256. Manifest/cues/timeline còn bản 11. Không narrator C6–C7/C9. Mẹ bản ghi = scene 4 + role me, không hardcode ID.",
  "castNote": "Chủ repo chọn 08/11/2026: người dẫn dùng giọng của chủ repo; Thảo Yuna, Duy Nhật Phong, mẹ Chi, Lộc Dũng.",
- "scriptSha256": "abc4dcc346fcd04218eacf5906ef0370c2165b601e4eca2968ad6301973916b4",
+ "scriptSha256": "377e43cfeb966c046735c8b5cc5f45d6567530d3654d83f1f996f397b4bebf7d",
  "scriptRevision": 13
 }

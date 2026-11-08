@@ -7,7 +7,7 @@
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
-> Sửa 09/11/2026 theo chủ repo: thêm câu Lộc đuổi về, tiếng cười kéo dài tới khi hai trẻ ra khỏi quán (+1 lượt lời, +3 giây không lời); hai trẻ rời đi trước khi cửa đóng; có mặt tiền quán dì Hạnh ở C8-D.
+> Sửa 09/11/2026 theo chủ repo: thêm câu Lộc đuổi về, tiếng cười kéo dài tới khi hai trẻ ra khỏi quán (+1 lượt lời, +3 giây không lời); C9-A kéo thành 14 giây có zoom vào biểu tượng, cười điên, biến hình từng phần rồi tới môi trường (+8 giây); hai trẻ rời đi trước khi cửa đóng; có mặt tiền quán dì Hạnh ở C8-D.
 >
 > Bản 13 — 08/11/2026. Giữ toàn bộ lời bản 12; thêm cameo chân dung/lọ trong tiệm, C8-E tiệm biến mất và C9 Lộc nguyên hình đồng hồ ba mắt/kho lọ/thời gian ngược. Thêm 31 giây không lời, tổng 40 cue. Chưa dựng media mới. Toàn bộ truyện là hư cấu.
 
@@ -688,7 +688,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 **Không đọc — C8-A → C8-B:** Lộc không an ủi hoặc trả lại giá, vẫn cười. Duy kéo em gần, cất đủ ba tờ vào ví, cầm máy, đưa em ra. Hành động có điểm cầm/nhả thật; không narrator đọc quy trình cất đồ.
 
-**[KHÔNG LỜI 3 giây — C8-E: hai trẻ bước ra đúng cửa tiệm lúc đầu và đi khuất trước; máy ở lại ngoài cửa sau khi hai trẻ rời khung, cửa cuốn hạ. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Sau đó mới cut tới nhà hai trẻ.]**
+**[KHÔNG LỜI 3 giây — C8-E: hai trẻ bước ra đúng cửa tiệm lúc đầu và đi khuất trước; máy ở lại ngoài cửa sau khi hai trẻ rời khung, cửa cuốn hạ. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Trên bức tường trống hiện dần biểu tượng đồng hồ cát và lọ để C9-A zoom vào. Sau đó mới cut tới nhà hai trẻ.]**
 
 **Không đọc — C8-C:** Cut định vị ngưỡng NHÀ HAI TRẺ cách tiệm ba căn, có dấu cửa/đồ sinh hoạt riêng. Bóng bố và chai sau vách, lời càm ràm không rõ câu. Thảo khựng, Duy dừng ngoài cửa, lấy máy gọi. Không tái dùng nguyên biển tiệm khiến người xem tưởng chưa đi đâu.
 
@@ -719,7 +719,7 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 | C9-C | Insert ba lọ rồi mắt điều khiển | 65–85 mm; cùng bên trục, nét lần lượt G1/G2/G3 | Lọ G1 có xe/ký ức; G2 dấu chuyển buồn; G3 cửa mơ khép. Vùng lực nâng rồi đặt chúng lên ô kệ, giảm tốc trước chạm | 16:9 · roll 0° · rung 0 px | Lọ chạm từng nhịp nhẹ, không tiếng người/mẹ từ trong lọ. |
 | C9-D | Từ ba lọ lùi mở kho | 50 →35 mm tương đương; giữ hướng đà C9-C | Kệ xa lộ nhiều lọ cũ; đồng hồ cát chảy ngược, một vòng kim lùi. Lộc sắp xong ba lọ mới, ba mắt khép lệch nhịp | 16:9 · roll 0° · rung 0 px | Bộ thoát đi lùi có nguồn; ngân tắt dịu, không lời giải thích. |
 
-**[KHÔNG LỜI 6 giây — C9-A: Lộc đặt kính lên khăn, máy trượt qua lọ gần để che điểm đổi hình. Nguồn sáng mở theo lớp, không hòa hai cơ thể/không lóe trắng; động tác và đổi cảnh chung 6 giây.]**
+**[KHÔNG LỜI 14 giây — C9-A: máy zoom vào biểu tượng đồng hồ cát và lọ trên tường nơi tiệm đã biến mất, rồi chuyển vào trong tiệm. Lộc cười điên dại, đầu ngửa, vai rung. Sau đó thân thể đổi từng bộ phận: mắt hổ phách mở thêm mắt thứ ba, đầu thành mặt đồng hồ, tay vai, thân, rồi nhấc khỏi mặt đất; hình dạng người mất hẳn rồi mới tới môi trường: kho lọ lan ra từ chính nguyên hình, không lóe trắng, không hòa hai cơ thể.]**
 
 **[KHÔNG LỜI 7 giây — C9-B: lộ nguyên hình đồng hồ ba mắt lơ lửng trong kho sáng huyền ảo. Giữ một nhịp để nhận diện, rồi ánh mắt chuyển tới ba lọ; không thêm lời hoặc gầm hù.]**
 

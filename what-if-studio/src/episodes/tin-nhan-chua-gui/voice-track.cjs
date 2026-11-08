@@ -36,6 +36,14 @@ if (fs.existsSync(laughFile)) {
   chains.push(`[${n}:a]aresample=44100,aformat=channel_layouts=mono,atrim=0:${len.toFixed(3)},volume='if(gte(t,${quiet.toFixed(3)}),0.34,0.68)':eval=frame,afade=t=out:st=${(len - 0.7).toFixed(3)}:d=0.7,adelay=${Math.round((from.f / tl.fps) * 1000)}:all=1[laugh]`);
   labels.push('[laugh]');
 }
+// The laugh returns, wilder, as the shop turns into the vault: C9-A from its first frame inside the shop to the start of the change.
+if (fs.existsSync(laughFile)) {
+  const c9 = tl.segments.find((s) => s.shot === 'ShC9_A');
+  const n = tl.voice.length + 1;
+  inputs.push('-i', laughFile);
+  chains.push(`[${n}:a]aresample=44100,aformat=channel_layouts=mono,atrim=5.5:9.6,asetpts=PTS-STARTPTS,volume=0.9,afade=t=in:d=0.25,afade=t=out:st=3.2:d=0.9,adelay=${Math.round(((c9.a + 112) / tl.fps) * 1000)}:all=1[laugh2]`);
+  labels.push('[laugh2]');
+}
 const mix = `${labels.join('')}amix=inputs=${labels.length}:normalize=0:dropout_transition=0,alimiter=limit=0.89:level=false,apad,atrim=0:${(tl.total / tl.fps).toFixed(3)}[out]`;
 const script = path.join(studio, 'out/tin-nhan-chua-gui/voice-track.filter');
 fs.mkdirSync(path.dirname(script), { recursive: true });

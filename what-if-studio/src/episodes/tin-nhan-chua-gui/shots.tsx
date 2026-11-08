@@ -713,7 +713,8 @@ export const ShC8_D: React.FC<ShotProps> = ({ t }) => {
 export const ShC8_E: React.FC<ShotProps> = ({ t }) => {
   const stay = mark('ShC8_E', 8, 6, 4.2 * S).at; // the written 3 s begins once they have left the frame
   const close = ramp(t, stay + 0.1 * S, stay + 1.3 * S);
-  const gone = ramp(t, stay + 1.4 * S, stay + 2.7 * S);
+  const gone = ramp(t, stay + 1.4 * S, stay + 2.5 * S);
+  const wallMark = ramp(t, stay + 2.2 * S, stay + 3.0 * S);
   const walk = clamp(t / stay);
   const x = lerp(1400, 470, walk); // from the threshold of the same door they went in by
   const ph = t * 0.4;
@@ -724,7 +725,7 @@ export const ShC8_E: React.FC<ShotProps> = ({ t }) => {
   thao = reach(thao, 'R', hold, 1);
   return (
     <g transform={camT(1180, 740, 1.2)}>
-      <AlleyExteriorScene t={t} showOwl={false} showPassersby={false} shopClose={close} shopGone={gone} />
+      <AlleyExteriorScene t={t} showOwl={false} showPassersby={false} shopClose={close} shopGone={gone} shopMark={wallMark} />
       {walk < 1 ? <Hero look={LOOKS.duy} rimId="rimShopWarm" shadow={0.35} pose={duy} /> : null}
       {walk < 1 ? <Hero look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} pose={thao} /> : null}
     </g>
@@ -747,8 +748,8 @@ const LEDGE_Y = 520;
 const JAR_FOOT = 96; // jar origin to the bottom of its base at s = 1
 const JAR_S = 1.25;
 const RACK = { x0: 1060, x1: 1580, ledge: LEDGE_Y + JAR_FOOT * JAR_S, slab: SLAB_Y + JAR_FOOT * JAR_S };
-type VaultProps = { t: number; cam: [number, number, number]; gaze?: [number, number]; shut?: [number, number, number]; lift?: [number, number, number]; field?: [number, number, number]; focus?: number; bgBlur?: number };
-const VaultStage: React.FC<VaultProps> = ({ t, cam, gaze = [0.2, 0.1], shut, lift = [0, 0, 0], field = [0, 0, 0], focus = -1, bgBlur = 0 }) => (
+type VaultProps = { creature?: boolean; t: number; cam: [number, number, number]; gaze?: [number, number]; shut?: [number, number, number]; lift?: [number, number, number]; field?: [number, number, number]; focus?: number; bgBlur?: number };
+const VaultStage: React.FC<VaultProps> = ({ creature = true, t, cam, gaze = [0.2, 0.1], shut, lift = [0, 0, 0], field = [0, 0, 0], focus = -1, bgBlur = 0 }) => (
   <g transform={camT(...cam)}>
     <defs>
       <filter id="vaultSoft" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation={bgBlur} /></filter>
@@ -756,7 +757,7 @@ const VaultStage: React.FC<VaultProps> = ({ t, cam, gaze = [0.2, 0.1], shut, lif
     <g filter={bgBlur > 0 ? 'url(#vaultSoft)' : undefined}>
       <TimeVaultScene t={t} showJars={false} showCreature={false} />
       <ReverseClockwork x={640} y={330} s={1.1} t={t} opacity={0.4} />
-      <ClockCreature x={840} y={470} s={1.14} t={t} hover eyeGazeX={gaze[0]} eyeGazeY={gaze[1]} smirk={1} showJars={false} eyesShut={shut} />
+      {creature ? <ClockCreature x={840} y={470} s={1.14} t={t} hover eyeGazeX={gaze[0]} eyeGazeY={gaze[1]} smirk={1} showJars={false} eyesShut={shut} /> : null}
     </g>
     {/* a stone rack: the ledge stands on pillars rising from the slab, so every jar rests on something solid */}
     <rect x={RACK.x0 + 8} y={RACK.ledge} width={36} height={RACK.slab - RACK.ledge} fill="#1F1230" stroke="#8A5A20" strokeWidth={2.5} />
@@ -780,71 +781,154 @@ const easeCam = (v: number) => {
   return p * p * p * (p * (p * 6 - 15) + 10);
 };
 
-/** C9-A: Lộc sets his glasses on the cloth; a near jar crosses the lens and hides the change; past it, no old man any more. */
+const C9A_LEN = 420; // 14 s: zoom into the wall sign, the laugh, the change part by part, then the place changes
+const SHOP9 = { x: 900, y: 500 };
+const HEAD9 = { x: 926, y: 398 }; // Lộc's head centre at the counter
+const VAULT_CAM = { x: 960, y: 500, z: 1.35 };
+const prj = (c: { x: number; y: number; z: number }, p: { x: number; y: number }) => ({ x: 960 + (p.x - c.x) * c.z, y: 540 + (p.y - c.y) * c.z });
+const zigzag = (y: number) => {
+  let d = `M -300 -300 L 2300 -300 L 2300 ${y}`;
+  for (let i = 0; i <= 90; i++) d += ` L ${2300 - i * 29} ${y + (i % 2 ? -11 : 11)}`;
+  return d + ' Z';
+};
+const zigzagBelow = (y: number) => {
+  let d = `M -300 ${y}`;
+  for (let i = 0; i <= 90; i++) d += ` L ${-300 + i * 29} ${y + (i % 2 ? -11 : 11)}`;
+  return d + ' L 2300 1500 L -300 1500 Z';
+};
+
+/**
+ * C9-A. 0–3 s: the camera closes on the sign left on the wall; it fills the frame and we are inside the shop.
+ * Lộc laughs wildly; the change then runs top-down, one part at a time, behind a ragged amber seam: eyes, head, arms,
+ * body; then it lifts off the floor. Only once it is whole does the vault spread out from it.
+ */
 export const ShC9_A: React.FC<ShotProps> = ({ t }) => {
-  const SWAP = 103;
-  const up = ramp(t, 12, 34);
-  const down = ramp(t, 40, 66);
-  const off = ramp(t, 72, 88);
-  const wipe = easeCam((t - 84) / 38);
-  const jarX = lerp(-1500, 3420, wipe);
-  const drift = easeCam((t - 76) / 104); // one continuous move across the swap, carried into C9-B
-  if (t >= SWAP) {
+  const ZOOM_END = 90;
+  if (t < 104) {
+    const k = easeCam(t / ZOOM_END);
+    const kp = easeCam(t / 66);
+    const z = 1.2 * Math.pow(9 / 1.2, k);
+    const veil = ramp(t, 80, 98);
     return (
       <g>
-        <VaultStage t={t} cam={[lerp(1120, 960, drift), 500, 1.35]} />
-        <NearJar x={jarX} t={t} />
+        <g transform={camT(lerp(1180, 1580, kp), lerp(740, 432, kp), z)}>
+          <AlleyExteriorScene t={t + 1700} showOwl={false} showPassersby={false} shopGone={1} shopMark={1} />
+        </g>
+        <rect width={1920} height={1080} fill="#1A0E06" opacity={veil} />
       </g>
     );
   }
-  let p = LOC_AT_COUNTER(900, t, { yaw: 0.05, look: -0.1, headTilt: 5 * down, expr: 'neutral' });
-  const face = { x: 926, y: 398 };
-  const cloth = { x: 872, y: COUNTER_TOP - 6 };
-  const hand = { x: lerp(face.x, cloth.x, down), y: lerp(face.y, cloth.y, down) };
-  p = reach(p, 'R', { x: lerp(hand.x, 985, off), y: lerp(hand.y, COUNTER_TOP - 30, off) }, up, true);
-  const inHand = t >= 34 && t < 68;
-  const onCloth = t >= 68;
+  const tc = (t - 104) / (C9A_LEN - 104);
+  const cam = { x: SHOP9.x, y: SHOP9.y, z: lerp(1.6, 1.74, easeCam(tc * 1.4)) };
+  const laugh = ramp(t, 112, 122) * (1 - ramp(t, 196, 206));
+  const shake = Math.sin(t * 0.95) * laugh;
+  const eyes = ramp(t, 206, 232);
+  const wHead = ramp(t, 236, 272);
+  const wArms = ramp(t, 278, 314);
+  const wBody = ramp(t, 320, 356);
+  const hover = ramp(t, 356, 380);
+  const env = ramp(t, 372, 414);
+  const whole = wBody >= 1;
+  const wipeY = whole ? 2400 : 318 + 160 * wHead + 92 * wArms + 80 * wBody;
+  const wipeS = prj(cam, { x: 0, y: wipeY }).y;
+  const dark = 1 - ramp(t, 104, 122);
+  let p = LOC_AT_COUNTER(900, t, {
+    yaw: 0.02,
+    look: 0,
+    headTilt: -13 * laugh + shake * 4 + 0 * eyes,
+    tilt: -4 * laugh,
+    shoulderLift: 0.45 * laugh + shake * 0.35,
+    expr: laugh > 0.1 ? 'smug' : 'neutral',
+    ...(laugh > 0.05 ? { talk: 0.78 + 0.22 * Math.sin(t * 0.95), mouthShape: 'a' as const } : {}),
+  });
+  // Arms hang loose and shake with him: reaching for the counter by IK folds the elbows out like hands on hips.
+  p = { ...p, armL: { a: 10 + shake * 5, b: -12 }, armR: { a: 10 - shake * 5, b: -12 } };
+  // the creature, in screen space so it can carry from this room into the vault without a cut
+  const headS = prj(cam, HEAD9);
+  const vaultS = prj(VAULT_CAM, { x: 840, y: 470 });
+  const sShop = (lerp(lerp(0.5, 0.62, wHead), 0.78, wBody) + 0.0) * cam.z;
+  const lift = hover * 70 * cam.z;
+  const e = easeCam(env);
+  const cx = lerp(headS.x, vaultS.x, e);
+  const cy = lerp(headS.y + 20 - lift, vaultS.y, e);
+  const cs = lerp(sShop * (1 + 0.14 * hover), 1.14 * VAULT_CAM.z, e);
+  const R = e * 2000;
+  const sparks = Array.from({ length: 12 }).map((_, i) => ({ x: ((i * 173 + t * 5) % 1500) + 200, y: wipeS + Math.sin(t * 0.3 + i) * 16 - ((t * 3 + i * 30) % 90) }));
+  const seam = wBody < 1 && wHead > 0;
   return (
     <g>
-      <g transform={camT(lerp(900, 840, drift * 2), 470, 2.0)}>
-        <OngLocShop t={t} id="c9a" veil={0.36} />
-        <ShelfJars t={t} />
-        <Hero look={t >= 34 ? LOC_BARE : LOOKS.ongLoc} pose={{ ...p, handR: inHand ? 'hold' : p.handR }} shadow={0} heldProps={inHand ? { R: <Spectacles s={0.9} rot={90} /> } : undefined} />
-        <OngLocCounter x={COUNTER.x} y={COUNTER.y} w={COUNTER.w} t={t} phoneState="none" showPhoto={false} receiptStage="none" showMoney={false} showPouch={false} />
-        {onCloth ? <Spectacles x={cloth.x} y={cloth.y + 2} s={0.95} /> : null}
+      <g>
+        <g transform={camT(cam.x, cam.y, cam.z)}>
+          <OngLocShop t={t} id="c9a" veil={0.36} />
+          <ShelfJars t={t} />
+          <OngLocCounter x={COUNTER.x} y={COUNTER.y} w={COUNTER.w} t={t} phoneState="none" showPhoto={false} receiptStage="none" showMoney={false} showPouch={false} />
+          <Spectacles x={872} y={COUNTER_TOP - 2} s={0.95} />
+        </g>
+        <defs>
+          <clipPath id="c9Below"><path d={zigzagBelow(wipeS)} /></clipPath>
+          <clipPath id="c9Above"><path d={zigzag(wipeS)} /></clipPath>
+          <clipPath id="c9Reveal"><circle cx={cx} cy={cy} r={R} /></clipPath>
+        </defs>
+        {!whole ? (
+          <g transform={camT(cam.x, cam.y, cam.z)}>
+            <g clipPath="url(#c9Below)" transform={`translate(${-(cam.x * 0)} 0)`}>
+              <Hero look={LOC_BARE} pose={p} shadow={0} />
+              {eyes > 0 ? <LocEyesChange x={HEAD9.x} y={HEAD9.y} k={eyes} t={t} /> : null}
+            </g>
+          </g>
+        ) : null}
+        <rect width={1920} height={1080} fill="#07040D" opacity={0.5 * env} />
+        {env > 0 ? (
+          <g clipPath="url(#c9Reveal)">
+            <VaultStage creature={false} t={t} cam={[VAULT_CAM.x, VAULT_CAM.y, VAULT_CAM.z]} />
+          </g>
+        ) : null}
+        {env > 0 && env < 1 ? (
+          <g style={{ mixBlendMode: 'screen' }}>
+            <circle cx={cx} cy={cy} r={R} fill="none" stroke="#FFC567" strokeWidth={9} opacity={0.85 * (1 - env * 0.6)} />
+            <circle cx={cx} cy={cy} r={R + 14} fill="none" stroke="#2DD4BF" strokeWidth={26} opacity={0.22} />
+          </g>
+        ) : null}
+        <g clipPath={!whole ? 'url(#c9Above)' : undefined}>
+          {wHead > 0 ? <g transform={`translate(${cx} ${cy}) scale(${cs})`}><ClockCreature x={0} y={0} s={1} t={t} hover={whole} eyeGazeX={0} eyeGazeY={0} smirk={laugh > 0 ? 1 : 0.6 + 0.4 * wBody} showJars={false} /></g> : null}
+        </g>
+        {seam ? (
+          <g style={{ mixBlendMode: 'screen' }}>
+            <path d={`M -300 ${wipeS} ` + Array.from({ length: 90 }).map((_, i) => `L ${-300 + (i + 1) * 29} ${wipeS + (i % 2 ? -11 : 11)}`).join(' ')} fill="none" stroke="#FFC567" strokeWidth={5} opacity={0.95} />
+            <path d={`M -300 ${wipeS} ` + Array.from({ length: 90 }).map((_, i) => `L ${-300 + (i + 1) * 29} ${wipeS + (i % 2 ? -11 : 11)}`).join(' ')} fill="none" stroke="#2DD4BF" strokeWidth={16} opacity={0.2} />
+            {sparks.map((q, i) => <circle key={i} cx={q.x} cy={q.y} r={2.4 + (i % 3)} fill="#FFE2A6" opacity={0.75} />)}
+          </g>
+        ) : null}
+        <rect width={1920} height={1080} fill="#1A0E06" opacity={dark} />
       </g>
-      <NearJar x={jarX} t={t} />
     </g>
   );
 };
 
-/** The defocused near jar that wipes the frame in C9-A: wide enough to cover 1920 px at the swap. */
-const NearJar: React.FC<{ x: number; t: number }> = ({ x, t }) => (
-  <g transform={`translate(${x} 0)`}>
-    <defs>
-      <linearGradient id="nearJarGlass" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="#120A1E" stopOpacity={0} />
-        <stop offset="9%" stopColor="#120A1E" stopOpacity={1} />
-        <stop offset="50%" stopColor="#2A1838" stopOpacity={1} />
-        <stop offset="91%" stopColor="#120A1E" stopOpacity={1} />
-        <stop offset="100%" stopColor="#120A1E" stopOpacity={0} />
-      </linearGradient>
-      <filter id="nearJarSoft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation={18} /></filter>
-    </defs>
-    <rect x={-1300} y={-60} width={2600} height={1200} fill="url(#nearJarGlass)" />
-    <g filter="url(#nearJarSoft)" opacity={0.55}>
-      <ellipse cx={-120} cy={500} rx={330} ry={470} fill="#FFC67A" opacity={0.28 + Math.sin(t * 0.08) * 0.04} />
-      <rect x={-640} y={-60} width={46} height={1200} fill="#F5E7C8" opacity={0.3} />
-      <rect x={560} y={-60} width={26} height={1200} fill="#99F6E4" opacity={0.24} />
+/** The old man's eyes go amber and a third eye opens in his forehead before anything else changes. */
+const LocEyesChange: React.FC<{ x: number; y: number; k: number; t: number }> = ({ x, y, k, t }) => {
+  const glow = Math.min(1, k * 2);
+  const third = clamp((k - 0.45) / 0.55);
+  return (
+    <g>
+      {[-29, 29].map((dx) => (
+        <g key={dx}>
+          <ellipse cx={x + dx} cy={y - 4} rx={13} ry={9} fill="#F59E0B" opacity={0.9 * glow} />
+          <ellipse cx={x + dx} cy={y - 4} rx={5} ry={2.2} fill="#120603" opacity={glow} />
+        </g>
+      ))}
+      <ellipse cx={x} cy={y - 50} rx={15 * third} ry={Math.max(0.01, 10 * third)} fill="#F59E0B" stroke="#3E2718" strokeWidth={3} opacity={third > 0 ? 1 : 0} />
+      <ellipse cx={x} cy={y - 50} rx={5 * third} ry={Math.max(0.01, 2.4 * third)} fill="#120603" />
+      <circle cx={x} cy={y - 4} r={70} fill="#FFB65C" opacity={0.1 * glow + Math.sin(t * 0.4) * 0.02} style={{ mixBlendMode: 'screen' }} />
     </g>
-  </g>
-);
+  );
+};
 
 /** C9-B: the true form, held long enough to take in; then all three eyes travel to the jars. */
 export const ShC9_B: React.FC<ShotProps> = ({ t }) => {
   const k = easeCam(t / (7 * S));
   const look = ramp(t, 4 * S, 5.2 * S);
-  return <VaultStage t={t + 180} cam={[lerp(960, 985, k), lerp(500, 520, k), lerp(1.35, 1.2, k)]} gaze={[lerp(0.1, 1, look), lerp(0, 0.9, look)]} focus={look > 0.5 ? 0 : -1} />;
+  return <VaultStage t={t + C9A_LEN} cam={[lerp(960, 985, k), lerp(500, 520, k), lerp(1.35, 1.2, k)]} gaze={[lerp(0.1, 1, look), lerp(0, 0.9, look)]} focus={look > 0.5 ? 0 : -1} />;
 };
 
 /** C9-C: one jar at a time: read it, the field lifts it, it slows, its base touches the ledge, the field goes out. */

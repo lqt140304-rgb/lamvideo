@@ -2852,6 +2852,42 @@ export const PasserbyShadow: React.FC<{
  * - Right side (`x ≈ 1180..1760`): Ông Lộc's shop exterior (`TIỆM ÔNG LỘC`) with half-pulled folding iron gate (`cửa sắt kéo mở hé`),
  *   weathered sign `"SỬA ĐỒNG HỒ - ĐIỆN THOẠI CŨ"`, and warm amber light spilling onto the alley threshold where Duy & Thảo stop (`C0-E`) and enter (`C0-F`).
  */
+/** Faint sign of time and memory on the blank wall: a clock ring, an hourglass whose sand climbs, a small jar. Follows the wall's slope. */
+export const WallTimeMark: React.FC<{ x: number; y: number; t?: number; glow?: number }> = ({ x, y, t = 0, glow = 1 }) => (
+  <g transform={`translate(${x} ${y}) skewY(10) scale(0.84 1)`} opacity={glow}>
+    <defs>
+      <radialGradient id="wallMarkGlow">
+        <stop offset="0%" stopColor="#FFC567" stopOpacity={0.5} />
+        <stop offset="55%" stopColor="#2DD4BF" stopOpacity={0.16} />
+        <stop offset="100%" stopColor="#2DD4BF" stopOpacity={0} />
+      </radialGradient>
+    </defs>
+    <circle r={150} fill="url(#wallMarkGlow)" style={{ mixBlendMode: 'screen' }} />
+    <circle r={100} fill="#0E141D" fillOpacity={0.55} stroke="#D9A94E" strokeWidth={4} />
+    <circle r={86} fill="none" stroke="#5EEAD4" strokeWidth={2} strokeDasharray="5 7" opacity={0.8} />
+    {Array.from({ length: 12 }).map((_, i) => (
+      <line key={i} x1={0} y1={-88} x2={0} y2={i % 3 === 0 ? -72 : -80} stroke="#D9A94E" strokeWidth={i % 3 === 0 ? 4 : 2.4} transform={`rotate(${i * 30})`} />
+    ))}
+    <line x1={0} y1={0} x2={0} y2={-46} stroke="#F4D08A" strokeWidth={3.4} strokeLinecap="round" transform={`rotate(${-t * 0.9})`} />
+    <line x1={0} y1={0} x2={0} y2={-30} stroke="#F4D08A" strokeWidth={4.6} strokeLinecap="round" transform={`rotate(${-t * 0.075})`} />
+    <g transform="translate(0 -8)">
+      <polygon points="-30,-44 30,-44 0,0" fill="#FFC567" fillOpacity={0.2} stroke="#D9A94E" strokeWidth={3} strokeLinejoin="round" />
+      <polygon points="-30,44 30,44 0,0" fill="#FFC567" fillOpacity={0.34} stroke="#D9A94E" strokeWidth={3} strokeLinejoin="round" />
+      <rect x={-38} y={-52} width={76} height={8} rx={3} fill="#8A5A20" stroke="#D9A94E" strokeWidth={2} />
+      <rect x={-38} y={44} width={76} height={8} rx={3} fill="#8A5A20" stroke="#D9A94E" strokeWidth={2} />
+      {Array.from({ length: 9 }).map((_, i) => {
+        const k = ((t * 0.6 + i * 11) % 100) / 100;
+        return <circle key={i} cx={Math.sin(i * 2.1) * 6 * (1 - k)} cy={44 - k * 88} r={1.9} fill="#FFE2A6" opacity={0.9 - k * 0.5} />;
+      })}
+    </g>
+    <g transform="translate(0 68)">
+      <rect x={-13} y={-2} width={26} height={22} rx={7} fill="#2DD4BF" fillOpacity={0.22} stroke="#99F6E4" strokeWidth={2.4} />
+      <rect x={-9} y={-9} width={18} height={8} rx={2} fill="#8A5A20" stroke="#D9A94E" strokeWidth={2} />
+      <circle cx={0} cy={10} r={3.4} fill="#FFE2A6" />
+    </g>
+  </g>
+);
+
 export const AlleyExteriorScene: React.FC<{
   t?: number;
   showOwl?: boolean;
@@ -2859,7 +2895,8 @@ export const AlleyExteriorScene: React.FC<{
   showCat?: boolean;
   shopClose?: number; // 0 open .. 1 shutter down and the doorway light gone
   shopGone?: number; // 0 shop .. 1 only old wall where it stood
-}> = ({ t = 0, showOwl = true, showPassersby = false, showCat = true, shopClose = 0, shopGone = 0 }) => (
+  shopMark?: number; // 0 .. 1 the hourglass-and-jar sign that surfaces on that wall once the shop is gone
+}> = ({ t = 0, showOwl = true, showPassersby = false, showCat = true, shopClose = 0, shopGone = 0, shopMark = 0 }) => (
   <g>
     <defs>
       {/* Deep midnight alley sky gradient */}
@@ -3513,11 +3550,14 @@ export const AlleyExteriorScene: React.FC<{
     {/* ===================================================================== */}
     {shopGone > 0 ? (
       <g>
-        {/* What is left once the shop has withdrawn: blank damp wall between the same neighbours */}
-        <polygon points="1180,-60 2040,-120 2040,1060 1180,700" fill="#262126" stroke={INK} strokeWidth={4} />
-        <polygon points="1360,375 1835,285 1835,950 1360,738" fill="#211C21" />
-        <polygon points="1450,190 1780,150 1780,262 1450,296" fill="#1C181C" />
-        <path d="M 1180 700 L 2040 1060 L 2040 1022 Q 1800 930 1640 884 Q 1420 760 1180 678 Z" fill="#1E3029" />
+        {/* What is left once the shop has withdrawn: the same plaster as the house across the alley, same lean, same stains */}
+        <polygon points="1180,-60 2040,-120 2040,1060 1180,700" fill="#10151F" stroke={INK} strokeWidth={4} opacity={shopGone} />
+        {[1270, 1500, 1730, 1920].map((x, i) => (
+          <line key={x} x1={x} y1={-60 - i * 6} x2={x} y2={690 + i * 70} stroke="#0A0E16" strokeWidth={3.5} opacity={0.7 * shopGone} />
+        ))}
+        <polygon points="1180,-60 2040,-120 2040,-70 1180,-20" fill="#0C1019" opacity={0.6 * shopGone} />
+        <polygon points="1180,640 2040,1000 2040,1060 1180,700" fill="#080B12" opacity={0.55 * shopGone} />
+        {shopMark > 0 ? <WallTimeMark x={1580} y={432} t={t} glow={shopMark} /> : null}
       </g>
     ) : null}
     <g opacity={1 - shopGone}>
