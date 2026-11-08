@@ -29,3 +29,6 @@ episodes/**/renders/
 episodes/**/production/public/
 episodes/**/production/library/
 episodes/**/nguon.local.json
+
+# Imported SFX packs: source audio stays local; catalogues remain tracked
+what-if-studio/library/sfx-packs/*/media/

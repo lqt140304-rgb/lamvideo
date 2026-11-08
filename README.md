@@ -145,6 +145,7 @@ Các đường dẫn sau tính từ `what-if-studio/`; snapshot `production/` c�
 | `src/engine/` | Các thành phần dựng dùng chung; sửa cần kiểm tra các tập phụ thuộc |
 | `public/<slug-tap>/` | Media để Remotion đọc cho tập tương ứng; file sinh ra có thể chỉ giữ local |
 | `library/sfx/` | Clip âm thanh nguồn để dùng lại khi phối; cần kiểm tra nguồn và mức phù hợp |
+| `library/sfx-packs/` | Các pack âm dùng chung có danh mục riêng; [KORBANN](what-if-studio/library/sfx-packs/korbann/README.md) đã nhập local. Media giữ ngoài Git; kiểm tra quyền và nghe chọn trước khi dùng |
 | `out/<slug-tap>/` | Ảnh kiểm tra, storyboard, shotlist, video, báo cáo và log sinh ra; không phải nguồn kịch bản |
 | `node_modules/` | Thư viện đã cài trên máy; được bỏ qua bởi Git, có thể cài lại |
 

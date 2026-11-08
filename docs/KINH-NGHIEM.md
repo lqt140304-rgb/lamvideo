@@ -105,6 +105,8 @@ Các nguyên tắc dưới được chọn lọc từ ghi chép thực hành và
 
 ## Âm thanh: cảm xúc, chất liệu và không gian
 
+- **Nhập pack rồi bị tự gán âm chưa kiểm tra →** tách gói nguồn khỏi thư mục bộ dựng tự quét; lưu ID, đường dẫn gốc, hash và trạng thái nghe/quyền theo từng tệp. Giữ raw media local khi chưa có quyền tái phân phối; danh mục có thể dùng chung giữa các tập. **Kiểm tra:** đủ tệp/đúng hash, định dạng theo stream thực thay vì chỉ đuôi tên, trang nghe thử mở local và file nhị phân không lọt vào Git.
+
 - **Không thoại bị hiểu thành không âm →** bố trí bed môi trường có chủ ý từ đầu cảnh và xuyên các khoảng nghỉ; nghe theo điểm nhìn: toàn thành phố là âm xa, cận người mới nghe hơi thở. **Kiểm tra:** đo khoảng gần im rồi nghe cả bản xuất; mức đo thấp chỉ là dấu hiệu kiểm tra, không tự kết luận cảm xúc hoặc tỷ lệ khán giả bỏ xem.
 - **Cắt lời làm sai audio hoặc cue cũ →** lưu dấu nguồn trên bản phân vai/manifest/timeline; từ chối ghép theo số thứ tự khi nguồn đã đổi. Tái dùng take theo đúng vai, nội dung và cấu hình đã tạo, chỉ tính tiết kiệm thật khi file còn dùng được. Phân biệt bản văn mới với phim cũ chưa dựng lại, không tuyên bố media đã đồng bộ chỉ vì Markdown khớp.
 

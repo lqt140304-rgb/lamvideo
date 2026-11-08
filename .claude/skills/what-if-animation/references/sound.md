@@ -17,6 +17,8 @@ through it. See the project workflow before using these scripts for a narrative 
 
 ## Library and generation
 
+Also consult `docs/ASSET.md` and `what-if-studio/library/sfx-packs/` for imported shared packs. Pack catalogues are tracked, source media stays local; unresolved rights or unreviewed sound is not automatically approved by importing. The inherited selector scans the flat `library/sfx/` directory, so packs remain separate until deliberately chosen.
+
 Check `what-if-studio/library/sfx/` before creating anything. Verify suitability and rights, then reference the
 selected file in the episode's asset record. Do not assume that an automatically selected nearest clip fits.
 
