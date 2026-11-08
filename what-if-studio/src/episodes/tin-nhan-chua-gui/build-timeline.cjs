@@ -32,6 +32,14 @@ if (process.argv.includes('--items')) {
   process.exit(0);
 }
 
+// Real voice, when voice.cjs has made it: each line lasts as long as its recorded pieces (+ a short gap between
+// pieces of one line and between lines). Lines without audio fall back to the words-per-second estimate.
+const MAN = path.join(here, 'voice-manifest.json');
+const voice = fs.existsSync(MAN) ? JSON.parse(fs.readFileSync(MAN, 'utf8')).pieces : [];
+const PIECE_GAP = 0.15;
+const LINE_GAP = 0.3;
+const piecesOf = (s, i) => voice.filter((p) => p.s === s && p.i === i).sort((x, y) => x.k - y.k);
+
 const words = (s) => s.replace(/[“”"…—,.!?:;()]/g, ' ').split(/\s+/).filter(Boolean).length;
 const lineSec = (t) => words(t) / plan.wordsPerSec + plan.lineGapSec;
 
@@ -41,6 +49,7 @@ const segments = [];
 const shots = new Map();
 const clock = {};
 const allMarks = [];
+const voiceCues = [];
 let a = 0;
 for (const seg of plan.segments) {
   let sec = seg.sec ?? 0;
@@ -54,7 +63,10 @@ for (const seg of plan.segments) {
       const next = used[s] ?? 0;
       if (i !== next) throw new Error(`${seg.cue}: scene ${s} item ${i} out of order (expected ${next})`);
       used[s] = i + 1;
-      const d = it.kind === 'pause' ? it.sec : lineSec(it.text);
+      const vp = it.kind === 'line' ? piecesOf(s, i) : [];
+      const d = it.kind === 'pause' ? it.sec : vp.length ? vp.reduce((n, p) => n + p.sec, 0) + PIECE_GAP * (vp.length - 1) + LINE_GAP : lineSec(it.text);
+      let off = sec;
+      for (const p of vp) { voiceCues.push({ segStart: () => a, at: off, file: p.file, role: p.role, id: p.id }); off += p.sec + PIECE_GAP; }
       marks.push({ s, i, kind: it.kind, at: sec, len: d, text: it.text });
       sec += d;
       said.push(it.kind === 'pause' ? `[nghỉ ${it.sec}s]` : it.text);
@@ -70,6 +82,7 @@ for (const seg of plan.segments) {
   clock[shot] = t0 + len;
   // Where each line / pause falls on the shot's own clock, so actions can sync to words without hard-coded seconds.
   for (const m of marks) allMarks.push({ shot, s: m.s, i: m.i, kind: m.kind, at: t0 + Math.round(m.at * FPS), len: Math.round(m.len * FPS), f: a + Math.round(m.at * FPS), text: m.text });
+  for (const v of voiceCues) if (v.segStart) { v.f = v.segStart() + Math.round(v.at * FPS); delete v.segStart; delete v.at; }
   segments.push({ shot, a, b: a + len, t0, t1: t0 + len, look: seg.look, line: said.join(' ') || seg.note || '' });
   if (!shots.has(shot)) {
     const c = plan.cues[seg.cue];
@@ -84,7 +97,8 @@ const missing = Object.keys(plan.cues).filter((c) => !shots.has(`Sh${c.replace('
 if (missing.length) throw new Error(`Cues without a segment: ${missing.join(', ')}`);
 
 const order = Object.keys(plan.cues).map((c) => shots.get(`Sh${c.replace('-', '_')}`));
-const tl = { slug: 'tin-nhan-chua-gui', title: plan.title, fps: FPS, total: a, estimate: plan.estimateNote, segments, shots: order, marks: allMarks, fx: [], audio: {} };
+const tl = { slug: 'tin-nhan-chua-gui', title: plan.title, fps: FPS, total: a, estimate: voice.length ? 'Thời lượng theo giọng ElevenLabs đã tạo (voice-manifest.json) + nghỉ theo KICH-BAN.' : plan.estimateNote, segments, shots: order, marks: allMarks, voice: voiceCues, fx: [], audio: voiceCues.length ? { voice: 'tin-nhan-chua-gui/voice/voice-track.mp3' } : {} };
 fs.writeFileSync(path.join(here, 'timeline.json'), JSON.stringify(tl, null, 1) + '\n');
 const mmss = (f) => `${Math.floor(f / FPS / 60)}:${String(Math.round((f / FPS) % 60)).padStart(2, '0')}`;
-console.log(`${order.length} cue shots, ${segments.length} segments, ${a} frames = ${mmss(a)} (estimate)`);
+console.log(voice.length ? `timing from recorded voice (${voiceCues.length} pieces)` : 'timing estimated (no voice-manifest.json)');
+console.log(`${order.length} cue shots, ${segments.length} segments, ${a} frames = ${mmss(a)}${voice.length ? "" : " (estimate)"}`);

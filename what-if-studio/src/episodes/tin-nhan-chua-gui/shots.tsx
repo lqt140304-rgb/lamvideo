@@ -479,8 +479,11 @@ export const ShC6_A: React.FC<ShotProps> = ({ t }) => {
 
 /** C6-B: walking with mother from the front — mother centre, Duy left, Thảo right; real walk cycles, hands joined. */
 export const ShC6_B: React.FC<ShotProps> = ({ t }) => {
-  const walk = ramp(t, mark('ShC6_B', 6, 4, 9 * S).at - 0.5 * S, mark('ShC6_B', 6, 4, 9 * S).at);
-  const drift = t * 0.9 * walk;
+  const start = mark('ShC6_B', 6, 4, 9 * S).at - 0.5 * S;
+  const walk = ramp(t, start, start + 0.5 * S);
+  // Distance walked since they set off (not the absolute clock, which would jump them forward); camera stays put so
+  // the field's edges never show.
+  const drift = Math.max(0, t - start) * 0.9;
   const ph = t * 0.32;
   const momX = 960;
   // Profile walk (toward screen right) keeps feet planted on the path; the camera dollies back with them.
@@ -495,14 +498,14 @@ export const ShC6_B: React.FC<ShotProps> = ({ t }) => {
   thao = reach(thao, 'L', gr);
   return (
     <g>
-      <g transform={camT(960 + drift, 600, 1.05)}>
+      <g transform={camT(960, 600, 1.05)}>
         <SunsetRiceField t={t} whiteout={0} />
         <Hero look={LOOKS.duy} pose={duy} rimId="rimStreetlamp" />
         <Hero look={LOOKS.meDuyThao} pose={mom} rimId="rimStreetlamp" />
         <Hero look={LOOKS.thao} pose={thao} rimId="rimStreetlamp" />
       </g>
       <g transform={camT(960, 600, 1.05)}>
-        <SunsetMeadowForeground t={t} shiftX={-drift * 1.3} />
+        <SunsetMeadowForeground t={t} shiftX={0} />
       </g>
       <Bars />
     </g>

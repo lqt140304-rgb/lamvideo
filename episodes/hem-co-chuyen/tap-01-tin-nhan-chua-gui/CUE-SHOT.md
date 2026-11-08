@@ -7,7 +7,8 @@ Lập ngày 08/11/2026 khi Claude bắt đầu dựng theo [bàn giao](BAN-GIAO-
 - Lời và các khoảng `[NGHỈ]`/`[KHÔNG LỜI]` được đọc trực tiếp từ [KICH-BAN.md](KICH-BAN.md). [cues.json](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/cues.json) chỉ ghi số thứ tự câu nào chạy trên cue nào, kể cả khi quay lại một cue (C1-A ↔ C1-B ↔ C1-D…). Không có bản lời thứ hai.
 - Chạy `node src/episodes/tin-nhan-chua-gui/build-timeline.cjs` trong `what-if-studio/` để sinh `timeline.json`. Script báo lỗi nếu có câu bị bỏ, đặt sai thứ tự, hoặc cue chưa có đoạn nào.
 - `timeline.json` ghi mốc của từng câu/khoảng nghỉ trên đồng hồ riêng của shot (`marks`). Động tác bám theo lời qua các mốc này, không gõ số giây cố định: nghiêng C5-C nằm trong 1,6 giây đầu khoảng nghỉ 2 giây; lớp trắng G3 sau trọn "Cháu đồng ý!"; khoảng 8 giây không lời ở C7-C bắt đầu đúng lúc mẹ tan hết (đồng hồ shot giây 4).
-- **Thời lượng là ước tính:** 3,0 từ/giây + 0,35 giây giữa câu + nghỉ theo nguồn → **12:21** (22.238 frame ở 30 fps), nằm trong khoảng 10:46–12:59 của kế hoạch. Mở đầu 24 giây, tổng nghỉ 33 giây. Khi có giọng thật, thay bằng mốc audio rồi chạy lại script; mọi động tác theo `marks` tự dời theo.
+- **Cập nhật cùng ngày:** đã có giọng ElevenLabs, nên timeline lấy thời lượng đo thật: **11:48**. Cột thời gian trong bảng dưới vẫn là số của bản ước tính; chạy lại script để xem số mới. Chi tiết giọng ở [GHI-CHU](GHI-CHU.md).
+- **Ước tính ban đầu (trước khi có giọng):** 3,0 từ/giây + 0,35 giây giữa câu + nghỉ theo nguồn → **12:21** (22.238 frame ở 30 fps), nằm trong khoảng 10:46–12:59 của kế hoạch. Mở đầu 24 giây, tổng nghỉ 33 giây. Khi có giọng thật, thay bằng mốc audio rồi chạy lại script; mọi động tác theo `marks` tự dời theo.
 
 ## Bảng cue
 

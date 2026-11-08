@@ -1,5 +1,44 @@
 # Ghi chú riêng — tập 01
 
+## Giọng ElevenLabs và animatic có giọng — 08/11/2026
+
+**Model:** `eleven_v4`. Chủ repo chọn model này trên giao diện; mẫu thử đầu tiên dùng v3 và đã bỏ.
+
+**Vai do chủ repo chọn:**
+
+| Vai | Giọng | Voice ID |
+|---|---|---|
+| Người dẫn | giọng clone của chủ repo, Trung Lê Quốc | `HXqqNj3PDxRdHVH1pXog` |
+| Duy | Nhật Phong | `6adFm46eyy74snVn6YrT` |
+| Thảo | Yuna | `aHC3XZOMg3HZuXVYK6hy` |
+| Mẹ | Chi | `5yEPTrA0uAhZsBEhHjfi` |
+| Ông Lộc | Dũng | `BUPPIXeDaJWBz696iXRS` |
+
+Cả năm giọng đều là giọng Bắc, trong khi lời có vài khẩu ngữ Nam ("bữa đó", "giùm"); cần nghe xem có lệch không. Cấu hình nằm ở [voices.json](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/voices.json).
+
+**Cách tạo:**
+
+- Mỗi mảnh lời một request. Phần kể chuyện dùng giọng người dẫn; mỗi câu trong ngoặc kép dùng giọng nhân vật theo bảng `speakers` (70 câu, mã cảnh.câu.mảnh).
+- Thẻ cảm xúc lấy từ ELEVENLABS.md, chỉ gắn vào câu thoại đứng ngay sau thẻ.
+- Tổng cộng 143 mảnh, 8.451 ký tự, 608,8 giây lời.
+- Bản ghi âm của mẹ (4.6.0) được lọc dải 320–3.400 Hz cho giống tiếng loa điện thoại.
+
+**Công cụ** (trong `what-if-studio/`):
+
+1. `voice.cjs lines` tạo các mảnh còn thiếu, đặt tên theo hash nội dung nên không tạo lại mảnh đã có.
+2. `build-timeline.cjs` lấy thời lượng thật của từng mảnh, cách nhau 0,15 giây trong cùng câu và 0,3 giây giữa các câu.
+3. `voice-track.cjs` ghép thành `public/tin-nhan-chua-gui/voice/voice-track.mp3`.
+
+Thư mục giọng (21 MB) giữ local, đã đưa vào `.gitignore`.
+
+**Thời lượng đo được:** **11:48** (21.251 frame), gồm lời thật + 33 giây nghỉ + 24 giây mở đầu. Ước tính trước đó là 12:21.
+
+**Chi phí thực:** bộ đếm tài khoản tăng từ 17.731 lên 22.168, tức **4.437 credit** cho cả mẫu thử lẫn toàn bài. Lịch sử tạo ghi 165 lượt, cộng 4.437 ký tự. `costs.json` ghi theo từng lần chạy thấp hơn con số này vì bộ đếm cập nhật chậm; lấy 4.437 làm số chuẩn.
+
+**Chưa nghe kiểm tra:** chất giọng, thẻ cảm xúc có bị đọc thành chữ không, độ to giữa các giọng. Chưa có nhạc, Foley hay âm nền.
+
+**Đầu ra:** animatic v1 (câm, có phụ đề) ở `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\`; animatic v2 có giọng render vào cùng thư mục.
+
 ## Claude bắt đầu dựng — storyboard 35 cue v1 — 08/11/2026
 
 Dựng bằng Opus 5.5 theo yêu cầu chủ repo.

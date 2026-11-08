@@ -6,7 +6,9 @@
 
 - Đã có timeline 35 cue (ước tính 12:21) và storyboard tĩnh v1 cho đủ 35 cue: [ánh xạ cue → shot](CUE-SHOT.md), [ảnh](assets/storyboard/).
 - Đã xuất lại preview bảng màu và ruộng G3.
-- Chưa render hoặc duyệt animatic chuyển động; chưa có giọng/âm.
+- Đã render animatic v1 (câm, có phụ đề).
+- Đã có giọng ElevenLabs v4 cho 5 vai, đo được 11:48, chi phí 4.437 credit. Animatic v2 có giọng xuất ở `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\`; chi tiết ở [GHI-CHU](GHI-CHU.md).
+- Chưa có nhạc, Foley hay mix cuối; chủ repo chưa duyệt.
 
 
 **Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
