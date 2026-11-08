@@ -2,7 +2,7 @@
   "slug": "tin-nhan-chua-gui",
   "title": "HẺM CÓ CHUYỆN · TẬP 01: TIN NHẮN CHƯA GỬI",
   "fps": 30,
-  "total": 4260,
+  "total": 4380,
   "segments": [
     {
       "shot": "ShC0_A",
@@ -187,16 +187,16 @@
     {
       "shot": "ShC7_B",
       "a": 3390,
-      "b": 3630,
+      "b": 3750,
       "t0": 0,
-      "t1": 240,
+      "t1": 360,
       "line": "Thảo ôm mẹ. Mẹ mỉm cười tan dần theo nắng chiều, hai con níu lấy khoảng không.",
       "look": "warmMemory"
     },
     {
       "shot": "ShC8_A",
-      "a": 3630,
-      "b": 3840,
+      "a": 3750,
+      "b": 3960,
       "t0": 0,
       "t1": 210,
       "line": "Trở lại tiệm. Ba tờ biên nhận G1, G2, G3 nằm trên quầy. Duy gấp cất vào ví.",
@@ -204,8 +204,8 @@
     },
     {
       "shot": "ShC8_B",
-      "a": 3840,
-      "b": 4050,
+      "a": 3960,
+      "b": 4170,
       "t0": 0,
       "t1": 210,
       "line": "Trước ngưỡng nhà. Tiếng chai lăn phòng sau. Duy bấm điện thoại gọi dì.",
@@ -213,8 +213,8 @@
     },
     {
       "shot": "ShC8_C",
-      "a": 4050,
-      "b": 4260,
+      "a": 4170,
+      "b": 4380,
       "t0": 0,
       "t1": 210,
       "line": "Duy nắm tay em gái rời khỏi ngưỡng cửa, bước về phía ánh đèn nhà dì đầu hẻm.",
@@ -405,18 +405,18 @@
     {
       "id": "ShC7_B",
       "size": "dissolving shot",
-      "key": 120,
-      "len": 240,
+      "key": 300,
+      "len": 360,
       "first": 3390,
       "line": "Mẹ mỉm cười tan dần theo nắng chiều",
-      "note": "Thân thể, áo và bóng của mẹ cùng mờ dần đồng nhất; trẻ níu khoảng trống"
+      "note": "Mẹ tan mềm; Duy lau nước mắt cho Thảo; nắm tay, máy cận rồi mờ về tiệm"
     },
     {
       "id": "ShC8_A",
       "size": "medium interior return",
       "key": 105,
       "len": 210,
-      "first": 3630,
+      "first": 3750,
       "line": "Trở lại tiệm với ba tờ biên nhận",
       "note": "G1, G2, G3 nằm trên mặt quầy; Duy cất giấy và máy vào túi"
     },
@@ -425,7 +425,7 @@
       "size": "medium house threshold",
       "key": 105,
       "len": 210,
-      "first": 3840,
+      "first": 3960,
       "line": "Ngưỡng nhà ấm cúng & tiếng chai lăn",
       "note": "SET-NHA: Bóng người bố mờ phía sau vách, Duy bấm điện thoại gọi dì"
     },
@@ -434,7 +434,7 @@
       "size": "wide ending",
       "key": 105,
       "len": 210,
-      "first": 4050,
+      "first": 4170,
       "line": "Hai anh em bước về phía ánh sáng",
       "note": "Duy dắt tay Thảo rời hẻm tối, hướng về phía ánh đèn ấm áp"
     }
@@ -445,12 +445,6 @@
       "color": "#FFFDF8",
       "o": 0.95,
       "f": 2725
-    },
-    {
-      "kind": "flash",
-      "color": "#FFFDF8",
-      "o": 0.65,
-      "f": 3625
     },
     {
       "kind": "shake",

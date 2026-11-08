@@ -12,7 +12,9 @@ Ba mẹ con ngồi trên **mặt kè đá khô của mương tưới**. Mép kè
 
 - Mẹ giữa, Duy bên trái, Thảo bên phải theo nguồn dựng cảnh. Hai trẻ nghiêng vào hai vai mẹ; mẹ vòng tay sau lưng và đặt lòng bàn tay lên **đỉnh vai ngoài**, không để cổ tay ở đó còn bàn tay rơi xuống bắp tay.
 - Mông có mặt đỡ; đùi đưa ra phía trước theo góc ba phần tư, thấy đoạn đùi và đầu gối gập; cẳng chân buông gần thẳng đứng, giày treo cao hơn mặt nước. Giữ khoảng cách giữa giày của từng người. Cả ba hướng đầu gối và mũi giày sang phải theo góc ngồi; Thảo nghiêng mặt về mẹ nhưng bàn chân không quay ngược theo mặt (`footFacing: 1`).
+- Duy dùng tay phải và Thảo dùng tay trái ôm vòng ra trước áo mẹ, lòng bàn tay nằm rõ trên áo; tay còn lại nghỉ ở mép thân/đùi và vẽ phía trước áo. Không mất tay sau lưng/thân mẹ.
 - Thân và cánh tay mẹ vẽ trước trẻ; bàn tay mẹ vẽ lại phía trước vai bằng cùng pose. Không thêm một cánh tay rời hoặc để bàn tay xuyên cổ/tóc. Khi mẹ tan, cả thân, áo, vòng tay, bàn tay và bóng ngồi giảm cùng một opacity; trẻ còn tựa trên kè.
+- Bản tan mềm, nguồn hạt viền và nhịp 3,8 giây → 8 giây lau nước mắt, nắm tay và cận chuyển cảnh: xem [VFX-ME-TAN.md](VFX-ME-TAN.md). Không để lại viền người/hạt sau khi mẹ đã tan hết.
 - Chỉ dẫn hình này không thay chuyển động hạ người/ngồi và tương tác trong animatic toàn tập. C6 đi trên đường khô; C7 dùng góc nhìn mép mương.
 
 ## Mã và bản kiểm tra

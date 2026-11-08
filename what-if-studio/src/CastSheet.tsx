@@ -800,7 +800,7 @@ export const OpeningC0Sheet: React.FC = () => (
  * - Main view (`C6`–`C7`): `SunsetRiceField` (`SET-CANHDONG`) + `SunsetMeadowForeground` with `CHAR-ME` (`meDuyThao`),
  *   `duy` (16yo), and `thao` (8yo) sitting together on the dry grass bank in warm golden-hour sunlight.
  * - Bottom-Left Inset (`PROP-G1-G2-G3`): `ThreeReceiptsSet` showing the 3 carbonless receipts (G1: 16th birthday, G2: emptiness, G3: Thảo's dream of Mother).
- * - Bottom-Right Inset (`C7-C` & `C4-D`/`C5-C`): Mother (`meDuyThao`) dissolving smoothly (`opacity={0.42}` so body, clothes, and shadow fade together)
+ * - Bottom-Right Inset (`C7-C` & `C4-D`/`C5-C`): The actual layered family farewell with synchronized body/palms/shadow and contour motes
  *   + Ông Lộc's cold one-sided smirk (`expr: 'smug'`) & Duy's exhausted temple sweat (`expr: 'tired'`).
  */
 export const MeadowAndDealsSheet: React.FC = () => (
@@ -846,24 +846,14 @@ export const MeadowAndDealsSheet: React.FC = () => (
         </text>
       </g>
 
-      {/* C7-C Preview on Right of Bank: Mother dissolving smoothly (`opacity={0.42}` fading body + clothes + shadow together) */}
-      <Hero
-        look={LOOKS.meDuyThao}
-        opacity={0.42}
-        pose={sitPose(1510, 802, 0.88, -1, {
-          t: 24,
-          seed: 8,
-          thighDepth: .9, legL: {a:-65,b:65}, legR: {a:-60,b:60},
-          yaw: -0.32,
-          expr: 'relieved',
-          look: -0.3,
-          headTilt: 4,
-        })}
-      />
+      {/* The same layered farewell as the shot, scaled down for the asset catalogue. */}
+      <g transform="translate(1510 802) scale(.72) translate(-960 -802)">
+        <MeadowFamily t={62} dissolveT={62} grieving />
+      </g>
       <g transform="translate(1510 455)">
         <rect x={-165} y={0} width={330} height={32} rx={8} fill="#1C140E" opacity={0.86} stroke="#E8B86D" strokeWidth={1.5} />
         <text x={0} y={21} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={12.5} fill="#FFE8A8">
-          C7-C · MẸ TAN DẦN (opacity=0.42 · đồng nhất bóng)
+          C7-C · TAN MỀM · HẠT VIỀN · TAY/BÓNG ĐỒNG BỘ
         </text>
       </g>
 

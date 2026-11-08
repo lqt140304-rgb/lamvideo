@@ -1,5 +1,10 @@
 # Ghi chú riêng — tập 01
 
+## Bản 11 — mẹ tan, lau nước mắt và hai bàn tay
+
+Chủ repo yêu cầu tan mềm nghệ thuật hơn, Duy lau nước mắt cho Thảo, nắm tay, máy cận và mờ sang tiệm; đồng thời sửa tay hai trẻ ôm mẹ khỏi bị khuất. Đã triển khai riêng trong mã thử và [hồ sơ VFX](VFX-ME-TAN.md). Lời sạch/bản ElevenLabs giữ nguyên; đoạn cuối không lời tăng 4 → 8 giây, tổng nghỉ 33 giây, 35 cue. Mã thử tăng ShC7_B thêm 120 frame, tổng 146 giây; bỏ lóe trắng lúc về tiệm, giữ điểm nắm qua chuyển cảnh. Không có audio/mix cuối hoặc dựng toàn bộ nguồn; các số liệu/giới hạn trong mục cũ phía dưới là lịch sử.
+
+
 ## Bản 10 — ngôn ngữ màu và chuyển giao khung hình — 08/11/2026
 
 Chủ repo đồng ý bổ sung phần màu/chuyển khung trong góp ý Anti. Đã ghi bảng màu và nguồn sáng theo cue trong nguồn/dựng cảnh: đêm chàm → tiệm hổ phách kín → G2 ấm thoáng rồi trở lại → ruộng vàng ấm → thực tại → vệt ấm hướng về dì. Giữ sắc da/màu áo, hướng nguồn đèn và điểm tì; các hex chỉ là mẫu tham chiếu.

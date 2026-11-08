@@ -408,7 +408,7 @@ export const LOOKS: Record<CastName, Look> = {
 
 // ---------- the hero ----------
 /** Articulated hand poses: open, pointing, clenched fist, holding a prop, waving, palm up (explaining/asking), pinching (pen/card), or relaxed at rest. */
-export type HandKind = 'open' | 'point' | 'fist' | 'hold' | 'wave' | 'palmUp' | 'pinch' | 'rest' | 'tug' | 'clench';
+export type HandKind = 'none' | 'open' | 'point' | 'fist' | 'hold' | 'wave' | 'palmUp' | 'pinch' | 'rest' | 'tug' | 'clench';
 
 export type Expr =
   | 'neutral'
@@ -1200,6 +1200,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
 
   // Multi-pose hand renderer supporting all 8 HandKinds
   const hand = (o: { mid: P; end: P }, side: 1 | -1, kind: HandKind, attachment?: React.ReactNode) => {
+    if (kind === 'none') return null; // A scene may draw a shared contact grip at these same wrists.
     const ang = (Math.atan2(o.end.x - o.mid.x, o.end.y - o.mid.y) * 180) / Math.PI;
     return (
       <g transform={`translate(${o.end.x} ${o.end.y}) rotate(${-ang})`}>

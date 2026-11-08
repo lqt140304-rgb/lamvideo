@@ -1,5 +1,5 @@
 import React from 'react';
-import {MeadowFamily} from './meadow_family';
+import {MeadowFamily,meadowFamilyPoses} from './meadow_family';
 import {
   Hero,
   LOOKS,
@@ -400,7 +400,7 @@ export const ShC4_B: React.FC<ShotProps> = ({ t }) => (
         look: -0.2,
       })}
     />
-    <OngLocCounter x={890} y={855} w={880} t={t} phoneState="repaired" showPhoto receiptStage="signed" />
+    <OngLocCounter x={890} y={855} w={880} t={t} phoneState="repaired" showPhoto={false} receiptStage="none" showMoney={false} />
     <Hero
       look={LOOKS.duy}
       pose={sitPose(630, 830, 0.92, 1, {
@@ -443,7 +443,7 @@ export const ShC5_A: React.FC<ShotProps> = ({ t }) => (
         expr: 'neutral',
       })}
     />
-    <OngLocCounter x={890} y={855} w={880} t={t} phoneState="repaired" showPhoto receiptStage="signed" />
+    <OngLocCounter x={890} y={855} w={880} t={t} phoneState="repaired" showPhoto={false} receiptStage="none" showMoney={false} />
     <Hero
       look={LOOKS.duy}
       pose={sitPose(630, 830, 0.92, 1, {
@@ -614,13 +614,17 @@ export const ShC7_A:React.FC<ShotProps> = ({t}) => <g transform={camT(960,580,1.
   <SunsetMeadowForeground t={t} />
 </g>;
 
-/** ShC7_B: The same embrace fades as one complete mother, including both front palms. */
+/** ShC7_B: A soft 3.8-second farewell; edge motes end before the cheek wipe and hand-clasp close-up. */
 export const ShC7_B:React.FC<ShotProps> = ({t}) => {
-  const p=clamp((t-60)/140,0,1),motherOpacity=1-easeOut(p);
-  return <g transform={camT(960,580,1.05)}>
-    <SunsetRiceField t={t} seatedBank />
-    <MeadowFamily t={t} motherOpacity={motherOpacity} grieving />
-    <SunsetMeadowForeground t={t} />
+  const close=clamp((t-270)/60),push=close*close*(3-2*close);
+  const grip=meadowFamilyPoses(t,true,0,t).grip??{x:1027.5,y:778};
+  return <g>
+    <g transform={camT(lerp(960,grip.x,push),lerp(580,grip.y-5,push),lerp(1.05,6.2,push))}>
+      <SunsetRiceField t={t} seatedBank />
+      <MeadowFamily t={t} dissolveT={t} grieving />
+      <SunsetMeadowForeground t={t} />
+    </g>
+    <rect width="1920" height="1080" fill="#1e171a" opacity={clamp((t-338)/22)} />
   </g>;
 
 };
@@ -642,31 +646,15 @@ export const ShC8_A: React.FC<ShotProps> = ({ t }) => (
         expr: 'neutral',
       })}
     />
-    <OngLocCounter x={890} y={855} w={880} t={t} phoneState="repaired" showPhoto receiptStage="signed" />
-    <ThreeReceiptsSet x={980} y={850} s={0.72} flat />
-    <Hero
-      look={LOOKS.duy}
-      pose={sitPose(630, 830, 0.92, 1, {
-        t,
-        seed: 1,
-        yaw: 0.35,
-        expr: 'tired',
-        look: 0.25,
-        headTilt: 5,
-      })}
-    />
-    <Hero
-      look={LOOKS.thao}
-      pose={sitPose(490, 835, 0.7, 1, {
-        t,
-        seed: 2,
-        yaw: 0.35,
-        expr: 'sad',
-        look: 0.3,
-        gesture: 'handOnChest',
-      })}
-    />
+    <OngLocCounter x={890} y={855} w={880} t={t} phoneState="repaired" showPhoto={false} receiptStage="none" showMoney={false} />
+    <ThreeReceiptsSet x={1080} y={649} s={0.48} flat />
+    <CustomerStool x={630} y={920} s={0.92} />
+    <CustomerStool x={756} y={909} s={0.82} />
+    <g transform="translate(630 830) scale(1.095238) translate(-965 -802)">
+      <MeadowFamily t={270+t} dissolveT={270+t} motherOpacity={0} grieving />
+    </g>
     <OngLocForeground shiftX={0} />
+    <rect x={-400} y={-300} width={2800} height={1700} fill="#1e171a" opacity={1-clamp(t/14)} />
   </g>
 );
 

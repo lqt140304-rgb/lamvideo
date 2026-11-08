@@ -2,14 +2,14 @@
 
 **Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
-**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.380 frame ở 30 fps = 146 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
 Ngày rà soát: **08/11/2026**, sau nhận cập nhật ngõ. Áp dụng **kịch bản bản 10** (màu/chuyển khung), giữ lời bản 7, khung/máy bản 8 và âm bản 9, đã biên tập lời dẫn/thoại, giữ ba giao kèo và định dạng có người kể. Lượt đồng bộ tài liệu này không tạo thêm media. Nguồn nội dung là [KICH-BAN.md](KICH-BAN.md); chỉ dẫn hình/âm là [DUNG-CANH.md](DUNG-CANH.md); tài nguyên theo [ASSET.md](ASSET.md).
 
 ## Phạm vi và điều đã chốt
 
-- Một tập kể trọn ba giao kèo và lời từ biệt. **Ước tính 10:42–12:55**, chưa có audio để đo. Mục tiêu 6–8 phút của kênh là mặc định thử nghiệm; tập này dài hơn do mở rộng đã yêu cầu. Không đọc nhanh hoặc tự chia cảnh mẹ sang tập sau chỉ để khớp định mức.
+- Một tập kể trọn ba giao kèo và lời từ biệt. **Ước tính 10:46–12:59**, chưa có audio để đo. Mục tiêu 6–8 phút của kênh là mặc định thử nghiệm; tập này dài hơn do mở rộng đã yêu cầu. Không đọc nhanh hoặc tự chia cảnh mẹ sang tập sau chỉ để khớp định mức.
 - **Duy anh trai 16, Thảo em gái 8**; cả hai gọi Lộc là **ông**, xưng **cháu**; Lộc tự xưng **tao**, gọi trẻ **mày/chúng mày**. Anh che chở nhưng cũng nhớ mẹ; em có hành động và lựa chọn riêng. Lộc lạnh, nguy hiểm, không đổi sang ông hiền.
 - G1 Duy mất ký ức buổi tranh đồ chơi, mẹ dỗ rồi hai anh em làm hòa để sửa máy; G2 Duy nhận thêm phần trống vắng của em; G3 Thảo mất những giấc mơ về mẹ để cả hai có một cuộc gặp. Giá được báo trước, không hoàn sau cuộc gặp. Duy chậm vì đã kiệt sức khi em nhận G3.
 - Mở đầu **24 giây không lời**: thành phố/trời sao/chữ → hạ tới cú → nét mắt → lùi lộ hẻm/nhà/tiệm → chuyển sang hai trẻ trước cửa → bước vào. Chữ là lớp riêng; cú không tự có vai phép thuật.
@@ -56,7 +56,7 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 
 - Làm theo thứ tự ở trên; chỉ tạo media khi nhiệm vụ tiếp theo bao gồm bước đó. Lập kế hoạch và rà repo không tự chạy các dịch vụ ảnh/giọng/video.
 - Sau khi duyệt một bước, ghi phiên bản và phản hồi cụ thể. Nếu đổi lời thì đồng bộ bản lời, sau đó cập nhật timing/cue/audio/hình thực sự phụ thuộc; không dùng lại mốc cũ một cách máy móc.
-- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,916 đơn vị tách khoảng trắng, 8,602 ký tự** gồm xuống dòng; **29 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
+- Khi có audio thật, thay ước tính bằng số đo. Hiện lời sạch **1,916 đơn vị tách khoảng trắng, 8,602 ký tự** gồm xuống dòng; **33 giây nghỉ riêng**, **24 giây mở đầu**, thêm **8–12 giây chuyển khác**. Không cộng thêm các đoạn hình/nhạc đang chạy dưới lời.
 - Ghi riêng lượt ảnh, ký tự TTS, credits theo model, quota trợ lý nếu biết và thời gian render. Không đổi token thành credits hoặc hứa số video từ gói chưa đo. Chưa có chi phí media thực cho lượt tối ưu này.
 
 ## Phạm vi đồng bộ đã rà trong repo
@@ -74,4 +74,8 @@ Nền có lớp gần–giữa–xa, điểm tụ và bóng tiếp xúc thống 
 
 Phạm vi rà là tài liệu đang hướng dẫn sản xuất và hồ sơ tập hiện hành. GHI-CHU ghi bản cũ để đối chiếu; tập mưa/snapshot và ví dụ kỹ thuật giữ trạng thái lịch sử, không đổi chúng thành cốt truyện hiện tại. VieNeu trong mô tả backend cũ là thông tin tương thích, không phải lựa chọn giọng mới.
 
-**Bước kế tiếp:** chọn và duyệt asset từ bộ đã nâng cấp, ráp storyboard theo bản nguồn có người dẫn chuyện, rồi animatic có âm tạm. Có thể tận dụng mã thử sau khi đối chiếu cue; giữ 35 cue nguồn cho đến khi có chỉnh sửa biên tập rõ. Timeline thử 142 giây không được dùng để kết luận thiếu nội dung hoặc thay ước tính thời lượng toàn tập. Chưa có storyboard/animatic toàn tập hoặc phim cuối đã xem/nghe để xác nhận chất lượng chuyển động/âm thanh.
+**Bước kế tiếp:** chọn và duyệt asset từ bộ đã nâng cấp, ráp storyboard theo bản nguồn có người dẫn chuyện, rồi animatic có âm tạm. Có thể tận dụng mã thử sau khi đối chiếu cue; giữ 35 cue nguồn cho đến khi có chỉnh sửa biên tập rõ. Timeline thử 146 giây không được dùng để kết luận thiếu nội dung hoặc thay ước tính thời lượng toàn tập. Chưa có storyboard/animatic toàn tập hoặc phim cuối đã xem/nghe để xác nhận chất lượng chuyển động/âm thanh.
+
+## Cập nhật kết bản 11 — 08/11/2026
+
+Đã có [bản thử riêng](VFX-ME-TAN.md): mẹ tan mềm, tay hai trẻ ôm mẹ phía trước; Duy lau má em, nắm tay, máy cận và mờ mở sang tiệm. Timeline thử tăng riêng ShC7_B từ 8 lên 12 giây, tổng 4.380 frame/146 giây; clip riêng 13 giây gồm thêm 1 giây cảnh tiệm. Lời sạch và thẻ không đổi; nguồn tăng đoạn cuối không lời 4 → 8 giây (nghỉ 33 giây). Chưa dựng/duyệt toàn tập hoặc mix/giọng cuối. Các ghi chú bản 10 ở trên mô tả mốc trước lần này.

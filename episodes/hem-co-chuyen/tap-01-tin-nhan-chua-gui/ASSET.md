@@ -4,7 +4,7 @@ Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SA
 
 **Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
-**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.380 frame ở 30 fps = 146 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 Nguồn lời [KICH-BAN.md](KICH-BAN.md); mục tiêu dựng [DUNG-CANH.md](DUNG-CANH.md). Phân biệt có mã/file, đã xem một số still và đã duyệt diễn xuất theo cảnh. Bộ mới tiếp tục được đánh giá để dùng lại; chưa mặc định mọi tạo hình SVG thay thế concept đã chốt.
 
@@ -64,13 +64,13 @@ Nguồn: hai hình đính kèm trong chat ngày 07/11/2026, lần lượt là tr
 
 ## Lưu ý sau rà kịch bản bản 7
 
-Giữ bộ asset đã nâng cấp; mã thử 142 giây vẫn theo lần thử trước, chưa cập nhật lời/diễn bản 7. Khi ráp nguồn mới, cần đồng hồ nhỏ ở kệ thấp gần cửa để nhấc/đặt, diễn C1 gắt/mỉa mai → trẻ sợ/ứa nước mắt → Lộc quay đi làm tiếp rồi cười nham hiểm; tiền Thảo qua tay Duy rồi được đưa lại C2; biểu cảm C4 còn nhớ cuộc nói chuyện nhưng mất ký ức buổi mẹ dỗ làm hòa, và động tác lấy G1 từ ví ra đối chiếu C8. Chưa render/duyệt lại các hành động này; không tạo thêm bối cảnh hoặc nhân vật.
+Giữ bộ asset đã nâng cấp; mã thử 146 giây vẫn theo lần thử trước, chưa cập nhật lời/diễn bản 7. Khi ráp nguồn mới, cần đồng hồ nhỏ ở kệ thấp gần cửa để nhấc/đặt, diễn C1 gắt/mỉa mai → trẻ sợ/ứa nước mắt → Lộc quay đi làm tiếp rồi cười nham hiểm; tiền Thảo qua tay Duy rồi được đưa lại C2; biểu cảm C4 còn nhớ cuộc nói chuyện nhưng mất ký ức buổi mẹ dỗ làm hòa, và động tác lấy G1 từ ví ra đối chiếu C8. Chưa render/duyệt lại các hành động này; không tạo thêm bối cảnh hoặc nhân vật.
 
 ## Phạm vi bộ thử và đường dẫn vận hành
 
 Antigravity được nhờ cải tiến thư viện asset có sẵn; những cảnh tập này là môi trường thử. Không dùng độ dài bộ thử để đánh giá mức hoàn thành chuyển thể kịch bản. Bảng 18 nhân vật và các props/vehicles trong engine có thể dùng lại cho các tập khác; hình người/địa điểm cụ thể vẫn cần lựa chọn theo câu chuyện.
 
-- [Mã thử](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/) và [timeline](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/timeline.json): 24 đoạn, 142 giây theo JSON, chưa phải số đo video đã xem.
+- [Mã thử](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/) và [timeline](../../../what-if-studio/src/episodes/tin-nhan-chua-gui/timeline.json): 24 đoạn, 146 giây theo JSON, chưa phải số đo video đã xem.
 - [Preview vận hành](../../../what-if-studio/public/tin-nhan-chua-gui/previews/) và [still vận hành](../../../what-if-studio/public/tin-nhan-chua-gui/stills/). Đây là alias kỹ thuật `tin-nhan-chua-gui` của hồ sơ `tap-01-tin-nhan-chua-gui`; không tạo thêm một tập trùng.
 - Bộ thử dùng một số cue gộp/đổi mã: chẳng hạn kiệt sức là ShC5_B, mẹ tan ShC7_B, ngưỡng nhà ShC8_B; nguồn hiện hành lần lượt C5-C, C7-C, C8-C. Cần đối chiếu hành động khi tái dùng, không ghép chỉ theo tên file. Bộ thử không thay nguồn 35 cue.
 - Chưa chọn/tạo giọng chính thức, nhạc/Foley/môi trường và mix cuối; nguồn/quyền dùng của từng audio cần ghi khi chọn. Không có chi phí mới được xác minh trong lượt cập nhật tài liệu này.
@@ -102,11 +102,15 @@ Nhận tiếp `279dae2` trong lúc bàn giao tài liệu: thu hẹp ngõ, bổ s
 - Clip thử 12 giây, H.264 960×540/30 fps: `what-if-studio/out/tin-nhan-chua-gui/asset-preview/meadow-motion.mp4` (local). Đã xuất và soi khung, chờ duyệt chuyển động; chưa có giọng/mix và khẩu hình khớp lời. Mẫu miệng của mẹ chỉ minh họa kỹ thuật.
 - Nguồn: SVG/React trong repo, sửa ngày 08/11/2026; giữ attribution engine gốc. Không thêm hình/nhạc stock hoặc gọi media trả phí. Tạo asset không đổi kịch bản, luật G1/G2/G3 hoặc định dạng có người dẫn chuyện.
 
-## Màu và chuyển khung bản 10 — chỉ dẫn, chưa tạo media
+## Màu và chuyển khung bản 10 — chỉ dẫn toàn tập, có bản thử mẹ tan riêng
 
 KICH-BAN/DUNG-CANH có cùng bảng màu/nguồn sáng theo cảnh: ngõ đêm chàm, tiệm hổ phách sẫm, thoáng G2, ruộng vàng mật và ánh ấm nhỏ ở hướng đi cuối. Mã màu là tham chiếu, giữ nhận diện trang phục và hướng đèn của asset mới; chưa chỉnh màu hoặc duyệt lại mã/ảnh. Khung theo bản 8: trắng G3 che chuyển sang 2:1, cắt về tiệm 16:9.
 
-Mẹ C7-C thêm kế hoạch hạt vàng thưa xuất phát từ viền áo/tóc, đi cùng gió và tắt hết trong lần tan 3–4 giây sẵn có; da/áo/bóng cùng giảm trước nghỉ 4 giây. Đây là lớp biểu diễn trong G3, không kỷ vật, linh hồn mới hoặc hạt mang về tiệm. Ưu tiên lớp hạt đơn giản dùng lại set/rig; chưa có implementation, file render hoặc chi phí đo. Chọn/bỏ mật độ theo animatic; không sinh ảnh theo từng khung. Đã nhận tiếp các commit rig/VFX/cánh đồng và nâng cấp asset tới `b776a32`; giữ mã/ảnh của đợt đó. Lớp Dust môi trường đã có trong set, nhưng chuyển hạt từ viền mẹ theo bản 10 chưa được triển khai/duyệt. Dải trời tím hồng–cam mới được giữ, không phủ vàng cả ảnh.
+Mẹ C7-C thêm kế hoạch hạt vàng thưa xuất phát từ viền áo/tóc, đi cùng gió và tắt hết trong lần tan 3–4 giây sẵn có; da/áo/bóng cùng giảm trước đoạn lau nước mắt–nắm tay 8 giây. Đây là lớp biểu diễn trong G3, không kỷ vật, linh hồn mới hoặc hạt mang về tiệm. Đã có [bản thử VFX mẹ tan](VFX-ME-TAN.md) bằng rig/SVG hiện có và clip local 13 giây (12 giây kết đồng + 1 giây mở sang tiệm), không gọi dịch vụ media trả phí. Chọn/bỏ mật độ theo animatic; không sinh ảnh theo từng khung. Đã nhận tiếp các commit rig/VFX/cánh đồng và nâng cấp asset tới `b776a32`; giữ mã/ảnh của đợt đó. Lớp Dust môi trường tách riêng với hạt từ viền mẹ đã triển khai trong mã thử; chưa được chủ repo duyệt chuyển động hoặc căn vào bản giọng cuối. Dải trời tím hồng–cam mới được giữ, không phủ vàng cả ảnh.
+
+## Bản thử mẹ tan mềm — 08/11/2026
+
+`VFX-ME-TAN` v1: [hồ sơ](VFX-ME-TAN.md), [khung giữa](assets/boi-canh/preview_mother_farewell.png), [chuỗi khung](assets/boi-canh/preview_mother_farewell_sequence.png). Nguồn: mã SVG/React viết trong repo, không stock; giữ giấy phép engine. Có trong `ShC7_B`, `MotherFarewellLab` và mẫu bảng asset. Hạt sinh ở viền tóc/gấu áo, mờ/trôi có nhịp; thân/tay/áo/bóng tan đồng bộ, kết thúc trước đoạn hai em lau nước mắt–nắm tay, máy cận rồi mờ chuyển cảnh. Đã sửa tay trong của hai trẻ ôm mẹ rõ phía trước, tay ngoài nghỉ trước áo; có cận hai bàn tay nắm. Đã typecheck, kiểm thử và xuất clip; chờ duyệt chuyển động, chưa có giọng/mix cuối.
 
 ## Bố cục đồng vàng và vòng tay mẹ — cập nhật theo ảnh chủ repo
 

@@ -1,8 +1,8 @@
-# Tin nhắn chưa gửi — dựng cảnh bản 10
+# Tin nhắn chưa gửi — dựng cảnh bản 11
 
 **Định dạng đã chốt, 07/11/2026: giữ người dẫn chuyện kết hợp thoại nhân vật.** Lời dẫn giúp làm rõ thông tin, cảm giác khó quan sát và hệ quả cần hiểu; hình/âm đảm nhiệm hành động và diễn xuất. Cân đối để tránh kể lặp điều hình đã cho thấy. Chưa chuyển sang phim chỉ có thoại nhân vật; giữ lời dẫn theo bản nguồn hiện hành và đồng bộ LOI-DOC/ELEVENLABS sau biên tập.
 
-**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.260 frame ở 30 fps = 142 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
+**Asset đã cập nhật:** đã nhận bộ nâng cấp SVG của Antigravity tại commit `cd7243c`: rig, biểu cảm/tay, bối cảnh, đạo cụ, ảnh preview và 10 still. Mục tiêu của đợt này là cải tiến thư viện asset; mã/timeline tập được dùng thử hình. Timeline thử có 24 đoạn, 4.380 frame ở 30 fps = 146 giây; không phải bản dựng đủ kịch bản 35 cue hoặc thời lượng phim cuối. Chưa duyệt storyboard/animatic toàn tập hoặc tạo giọng/mix cuối.
 
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
@@ -111,13 +111,13 @@ Các mã hex chỉ là mẫu tham chiếu cho mảng nền/nguồn sáng; điề
 1. **C0 → C1:** theo đường máy và bước qua cửa, từ ánh đêm sang vùng đèn tiệm. Giữ 16:9; không dissolve làm mất bước qua ngưỡng hoặc thay nguồn sáng sau mỗi cỡ cảnh.
 2. **G2 tại C5-B → C5-C:** ấm lên rồi rút mềm trong hành động/nhịp sẵn có. Giữ 16:9 và sơ đồ tiệm, không mở viền hoặc chuyển cảnh. Màu trở lại trước khi báo giá G3; không dùng màu để che phản ứng kiệt sức.
 3. **G3 tại C5-D → C6-A:** sau trọn lời Thảo đồng ý, lớp trắng phủ toàn container 1920×1080 như đã chốt; phía sau nó đặt vùng hình 2:1 và bảng màu ruộng. Khi trắng rút, lộ cánh đồng vàng ấm. Đoạn trắng lên khoảng 0,6 giây, giữ/rút trong tổng nghỉ 2 giây hiện có; không cộng một lớp chuyển màu nối dài hoặc thêm lần lóe/ù. Giữ toàn C6–C7 ở 2:1, kể cả cận mẹ và lúc tan.
-4. **Mẹ tan tại C7-C:** một lần 3–4 giây dưới hành động/lời kể cuối đang có, hoàn tất trước khoảng NGHỈ 4 giây sau đó. Da/áo/bóng giảm đồng bộ; một ít hạt vàng nhỏ tách từ viền áo và vài lọn tóc, trôi cùng hướng gió lúa rồi mờ hết trong lần tan ấy. Hạt là cách biểu diễn thị giác trong G3, không biến thành linh hồn, vật mang về tiệm hoặc một luật phép mới. Giữ mắt/miệng còn rõ khi mẹ nói; không che bàn tay trẻ bằng hạt, không cho toàn thân nổ sáng hoặc tan từng mảnh rời. Trong 4 giây trống, giữ ruộng và bàn tay trẻ ở khoảng không; hạt tách từ mẹ đã tắt hết. Bụi tự nhiên trong nắng của set là lớp môi trường riêng, không mọc từ bóng dáng mẹ hoặc kéo dài lần tan.
-5. **C7-C → C8-A:** cắt về đúng tư thế ngồi/điểm nắm ở tiệm; 16:9 và bảng màu tiệm trở lại cùng cú cắt, âm quạt trở theo bản 9. Không dissolve chồng mẹ lên Lộc/quầy, không mở viền từ từ hoặc giữ bụi ruộng trong phòng.
+4. **Mẹ tan tại C7-C:** một lần 3–4 giây dưới hành động/lời kể cuối đang có, hoàn tất trước đoạn không lời 8 giây sau đó. Da/áo/bóng giảm đồng bộ; một ít hạt vàng nhỏ tách từ viền áo và vài lọn tóc, trôi cùng hướng gió lúa rồi mờ hết trong lần tan ấy. Hạt là cách biểu diễn thị giác trong G3, không biến thành linh hồn, vật mang về tiệm hoặc một luật phép mới. Giữ mắt/miệng còn rõ khi mẹ nói; không che bàn tay trẻ bằng hạt, không cho toàn thân nổ sáng hoặc tan từng mảnh rời. Sau khi mẹ tan, giữ một nhịp ngắn rồi Duy dịch lại gần, lau nước mắt trên má Thảo; hai em nắm tay. Máy tiến vào đôi tay, giữ nét ở ngón tay rồi mờ tối dịu để chuyển sang tiệm. Đoạn không lời này khoảng 8 giây; hạt từ mẹ đã tắt hết trước đó. Bụi tự nhiên trong nắng của set là lớp môi trường riêng, không mọc từ bóng dáng mẹ hoặc kéo dài lần tan.
+5. **C7-C → C8-A:** sau cận đôi tay ở ruộng, hình mờ tối dịu rồi mở sang tư thế ngồi/điểm nắm ở tiệm; 16:9 và bảng màu tiệm trở lại trong phần mở sáng, âm quạt trở theo bản 9. Không dissolve chồng mẹ lên Lộc/quầy, không mở viền từ từ hoặc giữ bụi ruộng trong phòng.
 6. **C8-C → C8-D:** giữ đêm và các vết mệt, chỉ cho ánh ấm đầu hẻm dẫn hướng đi theo nguồn có sẵn. Chưa thêm hiệu ứng hoặc thời lượng kết.
 
-**Cách làm vừa đủ để duyệt:** chỉnh bảng màu/ánh sáng của asset hiện có; bụi vàng dự kiến bằng lớp hạt đơn giản có chuyển động xác định, không cần sinh ảnh từng khung hay gọi dịch vụ trả phí. Đây là phương án triển khai, chưa xác nhận engine hiện tại đã làm được hoặc đo chi phí. Khi animatic cho thấy hạt làm loãng diễn xuất, giảm mật độ/độ sáng hoặc tắt lớp hạt, vẫn giữ nhịp tan, tay và bóng đúng.
+**Cách làm vừa đủ để duyệt:** chỉnh bảng màu/ánh sáng của asset hiện có; bụi vàng dự kiến bằng lớp hạt đơn giản có chuyển động xác định, không cần sinh ảnh từng khung hay gọi dịch vụ trả phí. Riêng lần mẹ tan đã có [bản thử VFX](VFX-ME-TAN.md) trong mã ShC7_B: tan mềm 3,8 giây, hạt từ viền tóc/gấu áo và tắt trước đoạn lau nước mắt–nắm tay 8 giây; chưa đồng bộ giọng hoặc duyệt trong toàn bộ 35 cue. Khi animatic cho thấy hạt làm loãng diễn xuất, giảm mật độ/độ sáng hoặc tắt lớp hạt, vẫn giữ nhịp tan, tay và bóng đúng.
 
-**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue, toàn bộ lời/thẻ, 29 giây nghỉ, mở 24 giây và âm bản 9. Chưa sửa mã dựng, tạo media hoặc render/duyệt hiệu quả mới.
+**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue, toàn bộ lời/thẻ, 33 giây nghỉ, mở 24 giây và âm bản 9. Đã xuất riêng [bản thử mẹ tan](VFX-ME-TAN.md); các chuyển khung/màu toàn tập và việc căn giọng cuối vẫn chưa được dựng/duyệt đồng bộ.
 
 ### Cảnh 0 — Thành phố, mắt cú và hai trẻ (24 giây)
 
@@ -367,10 +367,10 @@ Vẫn bờ ruộng và trục đã xác lập. Ánh cuối chiều ấm, không 
 
 **C7-C · Trung em ôm rồi mẹ tan**
 - **Khung / nghiêng / rung:** 2:1 · roll 0° · rung 0 px.
-- **Âm thanh chi tiết:** Vải lúc Thảo siết ôm rồi ngừng khi thân mẹ đã tan; hơi con nghẹn nhưng không che lời cuối. Nhạc rút mềm cùng khoảnh khắc tan, giữ gió và hơi hai trẻ trong 4 giây trống; không whoosh tan biến, choir, tiếng mẹ gọi thêm hoặc âm tay va khoảng không.
+- **Âm thanh chi tiết:** Vải lúc Thảo siết ôm rồi ngừng khi thân mẹ đã tan; hơi con nghẹn nhưng không che lời cuối. Nhạc rút mềm cùng khoảnh khắc tan, giữ gió, hơi hai trẻ và tiếng vải/chạm má rất nhẹ trong 8 giây lau nước mắt–nắm tay; không whoosh tan biến, choir, tiếng mẹ gọi thêm hoặc âm tay va khoảng không.
 - 50 mm; cao 0,85 m; cách 2,4 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
-- Mẹ tan một lần 3–4 giây; bóng/áo cùng giảm, bụi vàng thưa ở viền áo/tóc theo bản 10; tay trẻ ngừng ở chỗ không còn mẹ có chủ ý.
-- Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
+- Mẹ tan một lần 3–4 giây; bóng/áo cùng giảm, hạt viền tắt hết. Duy dịch gần, lau má em rồi hai trẻ nắm tay; máy tiến vào đôi tay và mờ tối dịu.
+- Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio. Máy tiến vào đôi tay sau khi nắm chắc, giữ một nhịp rồi mờ tối dịu; đoạn kết không lời 8 giây.
 
 ### Cảnh 8 — Trở về cùng nhau
 

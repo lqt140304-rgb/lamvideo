@@ -62,6 +62,6 @@ G1 sinh nhật/ảnh hẹn giờ trong bảng cũ đã được thay bằng bu�
 
 ## Số liệu và đồng bộ
 
-Lời sạch **1,916 đơn vị tách khoảng trắng, 8,602 ký tự** gồm LF/xuống dòng; 29 giây nghỉ riêng, mở đầu không lời 24 giây. Ước tính **10:42–12:55 phút**, cùng giả định 2,7–3,3 đơn vị/giây và thêm 8–12 giây chuyển khác; chưa đo giọng, không phải hạn phải đọc cho đủ. Vẫn 9 phần cảnh/35 cue, hai anh em 16/8, đúng ba giao kèo và người dẫn chuyện.
+Lời sạch **1,916 đơn vị tách khoảng trắng, 8,602 ký tự** gồm LF/xuống dòng; 33 giây nghỉ riêng, mở đầu không lời 24 giây. Ước tính **10:46–12:59 phút**, cùng giả định 2,7–3,3 đơn vị/giây và thêm 8–12 giây chuyển khác; chưa đo giọng, không phải hạn phải đọc cho đủ. Vẫn 9 phần cảnh/35 cue, hai anh em 16/8, đúng ba giao kèo và người dẫn chuyện.
 
-Nguồn, LOI-DOC và ELEVENLABS được đối chiếu toàn văn; giữ thẻ cũ ở đoạn không đổi; gợi giọng gắt/mỉa mai/lạnh cho Lộc, nài nỉ/lo sợ cho trẻ và dịu cho mẹ. Thẻ vẫn cần thử đúng model. Mã asset/demo 24 đoạn/142 giây được giữ nguyên; không nhận đã cập nhật hoặc kiểm tra lại diễn xuất bản 7 trong demo. Không gọi dịch vụ giọng/ảnh/video ở lượt rà này.
+Nguồn, LOI-DOC và ELEVENLABS được đối chiếu toàn văn; giữ thẻ cũ ở đoạn không đổi; gợi giọng gắt/mỉa mai/lạnh cho Lộc, nài nỉ/lo sợ cho trẻ và dịu cho mẹ. Thẻ vẫn cần thử đúng model. Mã asset/demo 24 đoạn/146 giây được giữ nguyên; không nhận đã cập nhật hoặc kiểm tra lại diễn xuất bản 7 trong demo. Không gọi dịch vụ giọng/ảnh/video ở lượt rà này.
