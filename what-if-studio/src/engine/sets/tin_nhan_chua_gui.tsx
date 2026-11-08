@@ -3865,5 +3865,5 @@ export const AlleyExteriorScene: React.FC<{
  * 3. Golden-green ripening rice paddy field (`ruộng lúa chiều vàng óng ngả nhẹ theo gió`).
  * 4. Flat dirt path (`lối đất bằng`) & dry low grass bank (`bờ đất bằng và thảm cỏ khô đủ ba người ngồi vững: Mẹ giữa, Thảo sát bên, Duy bên cạnh`).
  */
-export { SunsetRiceField, SunsetMeadowForeground } from './sunset_field';
+export { SunsetRiceField, SunsetMeadowForeground, RedDragonfly } from './sunset_field';
 

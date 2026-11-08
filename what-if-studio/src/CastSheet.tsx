@@ -66,6 +66,7 @@ import {
   AlleyExteriorScene,
   SunsetRiceField,
   SunsetMeadowForeground,
+  RedDragonfly,
 } from './engine';
 
 // Render sheets for inspecting cast, expressions, postures, interior furniture, and vehicles:
@@ -873,11 +874,28 @@ export const MeadowAndDealsSheet: React.FC = () => (
 
       {/* Bottom-Left Callout: `ThreeReceiptsSet` (`PROP-G1-G2-G3`) */}
       <g transform="translate(65 825)">
-        <rect x={0} y={0} width={960} height={220} rx={14} fill="#161118" opacity={0.94} stroke="#D4A857" strokeWidth={2.5} />
-        <text x={480} y={26} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={13.5} fill="#FFE8A8">
-          PROP-G1-G2-G3 · BA TỜ BIÊN NHẬN 2 LIÊN (G1: Tranh đồ chơi & làm hòa · G2: Nhận nỗi buồn em · G3: Giấc mơ của Thảo)
+        <rect x={0} y={0} width={610} height={220} rx={14} fill="#161118" opacity={0.94} stroke="#D4A857" strokeWidth={2.5} />
+        <text x={305} y={26} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={12} fill="#FFE8A8">
+          PROP-G1-G2-G3 · BA TỜ BIÊN NHẬN 2 LIÊN (G1, G2, G3)
         </text>
-        <ThreeReceiptsSet x={495} y={130} s={1.08} />
+        <ThreeReceiptsSet x={315} y={130} s={0.88} />
+      </g>
+
+      {/* Bottom-Center Callout: `ANIMAL-CHUON-CHUON` Macro Anatomy Callout */}
+      <g transform="translate(695 825)">
+        <rect x={0} y={0} width={350} height={220} rx={14} fill="#161118" opacity={0.94} stroke="#D4A857" strokeWidth={2.5} />
+        <text x={175} y={26} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={12} fill="#FFE8A8">
+          ANIMAL-CHUON-CHUON · CHUỒN CHUỒN ỚT BỜ MƯƠNG
+        </text>
+        <g transform="translate(175 110)">
+          <RedDragonfly x={0} y={0} s={2.4} rot={-12} t={24} phase={0} />
+        </g>
+        <text x={175} y={188} textAnchor="middle" fontFamily={FONT.ui} fontWeight={700} fontSize={10.5} fill="#FFD47A">
+          Thân đỏ ớt phân 8 đốt · Mắt kép to · 4 cánh óng ánh
+        </text>
+        <text x={175} y={205} textAnchor="middle" fontFamily={FONT.ui} fontSize={9.8} fill="#C6B5DC">
+          Bay tụm quanh bờ mương nước & ngọn cỏ lúa chiều
+        </text>
       </g>
 
       {/* Bottom-Right Callout: C4-D Ông Lộc nhếch mép lạnh (`smug`) & C5-C Duy kiệt sức đổ mồ hôi thái dương (`tired`) */}

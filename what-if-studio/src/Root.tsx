@@ -15,9 +15,10 @@ import {
   OpeningC0Sheet,
   MeadowAndDealsSheet,
 } from './CastSheet';
+import { ColorScriptSheet } from './ColorScriptSheet';
 
 // Every episode gets two compositions: <Id> (the film) and <Id>Board (one frame per shot, at its key frame, for the
-// storyboard). Cast, NewCast, FurnitureSheet, VehicleSheet, OngLocShopSheet, MotherHouseSheet, OpeningC0Sheet, and MeadowAndDealsSheet render the studio asset sheets.
+// storyboard). Cast, NewCast, FurnitureSheet, VehicleSheet, OngLocShopSheet, MotherHouseSheet, OpeningC0Sheet, MeadowAndDealsSheet, and ColorScriptSheet render the studio asset sheets.
 //   npx remotion studio src/index.ts --port 3430
 
 export const Root: React.FC = () => {
@@ -43,6 +44,7 @@ export const Root: React.FC = () => {
       <Composition id="MotherHouseSheet" component={MotherHouseSheet} durationInFrames={1} {...common} />
       <Composition id="OpeningC0Sheet" component={OpeningC0Sheet} durationInFrames={1} {...common} />
       <Composition id="MeadowAndDealsSheet" component={MeadowAndDealsSheet} durationInFrames={1} {...common} />
+      <Composition id="ColorScriptSheet" component={ColorScriptSheet} durationInFrames={1} {...common} />
     </>
   );
 };

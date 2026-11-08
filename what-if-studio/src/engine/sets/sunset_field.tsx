@@ -5,6 +5,87 @@ import { BanyanTree } from './banyan_tree';
 import { Dust } from '../light';
 import { CloudBank, SmokePlume, WaterRipple, windAt } from '../vfx';
 
+/**
+ * Detailed Vietnamese Red Dragonfly (`chuồn chuồn ớt` — Crocothemis servilia):
+ * Prominent scarlet-red segmented abdomen, large round compound eyes,
+ * and 4 transparent crystalline wings with amber basal patches and dark pterostigma.
+ */
+export const RedDragonfly: React.FC<{
+  x: number;
+  y: number;
+  s?: number;
+  rot?: number;
+  t?: number;
+  phase?: number;
+}> = ({ x, y, s = 1, rot = 0, t = 0, phase = 0 }) => {
+  const flap1 = Math.sin(t * 0.48 + phase) * 16;
+  const flap2 = Math.sin(t * 0.48 + phase + 0.6) * 14;
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+      {/* Soft warm sun glow halo behind wings */}
+      <ellipse cx={0} cy={2} rx={22} ry={14} fill="#FFEAA7" opacity={0.3} />
+
+      {/* Hindwings (Cánh sau) */}
+      <g transform={`rotate(${flap2})`}>
+        {/* Left hindwing */}
+        <g transform="translate(-2 -3) rotate(-34)">
+          <path d="M 0 0 C -8 -16 -24 -24 -36 -18 C -42 -14 -38 -4 -22 -1 C -12 1 -4 0 0 0 Z" fill="rgba(255, 248, 222, 0.78)" stroke="#4A2616" strokeWidth={1} />
+          <path d="M 0 0 C -4 -6 -10 -8 -14 -6 C -12 -2 -5 0 0 0 Z" fill="#E89B2B" opacity={0.7} />
+          <path d="M 0 0 Q -18 -12 -34 -17" stroke="#3D1E10" strokeWidth={0.8} fill="none" />
+          <rect x={-32} y={-17} width={5} height={2} rx={0.5} fill="#94180E" stroke="#4A0C06" strokeWidth={0.5} transform="rotate(-15 -32 -17)" />
+        </g>
+        {/* Right hindwing */}
+        <g transform="translate(2 -3) rotate(34)">
+          <path d="M 0 0 C 8 -16 24 -24 36 -18 C 42 -14 38 -4 22 -1 C 12 1 4 0 0 0 Z" fill="rgba(255, 248, 222, 0.78)" stroke="#4A2616" strokeWidth={1} />
+          <path d="M 0 0 C 4 -6 10 -8 14 -6 C 12 -2 5 0 0 0 Z" fill="#E89B2B" opacity={0.7} />
+          <path d="M 0 0 Q 18 -12 34 -17" stroke="#3D1E10" strokeWidth={0.8} fill="none" />
+          <rect x={27} y={-18} width={5} height={2} rx={0.5} fill="#94180E" stroke="#4A0C06" strokeWidth={0.5} transform="rotate(15 27 -18)" />
+        </g>
+      </g>
+
+      {/* Forewings (Cánh trước) */}
+      <g transform={`rotate(${flap1})`}>
+        {/* Left forewing */}
+        <g transform="translate(-1 -7) rotate(-16)">
+          <path d="M 0 0 C -10 -12 -28 -18 -42 -10 C -46 -6 -38 1 -24 3 C -12 4 -4 1 0 0 Z" fill="rgba(255, 250, 230, 0.84)" stroke="#4A2616" strokeWidth={1} />
+          <path d="M 0 0 C -4 -4 -9 -5 -12 -3 C -10 -1 -4 0 0 0 Z" fill="#E89B2B" opacity={0.6} />
+          <path d="M 0 0 Q -20 -8 -40 -10" stroke="#3D1E10" strokeWidth={0.8} fill="none" />
+          <rect x={-38} y={-11} width={5.5} height={1.8} rx={0.5} fill="#94180E" stroke="#4A0C06" strokeWidth={0.5} transform="rotate(-8 -38 -11)" />
+        </g>
+        {/* Right forewing */}
+        <g transform="translate(1 -7) rotate(16)">
+          <path d="M 0 0 C 10 -12 28 -18 42 -10 C 46 -6 38 1 24 3 C 12 4 4 1 0 0 Z" fill="rgba(255, 250, 230, 0.84)" stroke="#4A2616" strokeWidth={1} />
+          <path d="M 0 0 C 4 -4 9 -5 12 -3 C 10 -1 4 0 0 0 Z" fill="#E89B2B" opacity={0.6} />
+          <path d="M 0 0 Q 20 -8 40 -10" stroke="#3D1E10" strokeWidth={0.8} fill="none" />
+          <rect x={32.5} y={-11} width={5.5} height={1.8} rx={0.5} fill="#94180E" stroke="#4A0C06" strokeWidth={0.5} transform="rotate(8 32.5 -11)" />
+        </g>
+      </g>
+
+      {/* Slender scarlet abdomen (Thân đốt đỏ ớt) */}
+      <g>
+        <path d="M 0 2 L 0 38" stroke="#E62817" strokeWidth={4} strokeLinecap="round" />
+        <path d="M -0.6 4 L -0.6 36" stroke="#FFA394" strokeWidth={1.2} strokeLinecap="round" />
+        {[7, 12, 17, 22, 27, 32].map((sy) => (
+          <line key={sy} x1={-1.8} y1={sy} x2={1.8} y2={sy} stroke="#540905" strokeWidth={0.9} />
+        ))}
+        <path d="M -1.2 38 Q -2.5 42 -1 44 M 1.2 38 Q 2.5 42 1 44" stroke="#7A0C05" strokeWidth={0.9} fill="none" />
+      </g>
+
+      {/* Thorax (Ngực chuồn chuồn) */}
+      <ellipse cx={0} cy={-2} rx={3.5} ry={5.5} fill="#C41E10" stroke="#540905" strokeWidth={1} />
+      <ellipse cx={-0.8} cy={-2} rx={1.2} ry={3.5} fill="#FF7566" opacity={0.85} />
+
+      {/* Head with bulging compound eyes (Đầu và mắt kép) */}
+      <g transform="translate(0 -9)">
+        <circle cx={-3.2} cy={0} r={3.2} fill="#94160C" stroke="#4A0804" strokeWidth={0.8} />
+        <circle cx={-3.6} cy={-0.6} r={1.1} fill="#FFD2C8" />
+        <circle cx={3.2} cy={0} r={3.2} fill="#94160C" stroke="#4A0804" strokeWidth={0.8} />
+        <circle cx={2.8} cy={-0.6} r={1.1} fill="#FFD2C8" />
+        <ellipse cx={0} cy={0.2} rx={2} ry={1.8} fill="#B81E12" />
+      </g>
+    </g>
+  );
+};
 /** Rural sunset set; keep the bank/foot planes compatible with the existing C6–C7 shots. */
 export const SunsetRiceField: React.FC<{t?:number;whiteout?:number;seatedBank?:boolean}> = ({t=0,whiteout=0,seatedBank=false}) => {
   const id = `field-${useId().replace(/[^a-zA-Z0-9]/g,'')}`;
@@ -88,25 +169,37 @@ export const SunsetRiceField: React.FC<{t?:number;whiteout?:number;seatedBank?:b
     })}
     <BankGrain t={t} />
     <BanyanTree t={t} s={1.12} />
-    {/* Hovering red dragonflies (`chuồn chuồn ớt`) */}
-    {[
-      { x: 380, y: 615, s: 0.9, phase: 0 },
-      { x: 740, y: 585, s: 0.8, phase: 2.1 },
-      { x: 1220, y: 640, s: 0.85, phase: 4.3 },
-      { x: 1560, y: 595, s: 0.75, phase: 1.2 },
-    ].map((df, i) => {
-      const dfHoverX = Math.sin(t * 0.05 + df.phase) * 16;
-      const dfHoverY = Math.cos(t * 0.08 + df.phase) * 10;
-      const wingFlap = Math.sin(t * 0.35 + df.phase) * 14;
+
+    {/* Clustered red dragonflies hovering near ditch bank (`bờ mương nước`) */}
+    {(() => {
+      const swarmX = Math.sin(t * 0.04) * 20;
+      const swarmY = Math.cos(t * 0.05) * 9;
+      const cluster = [
+        { dx: 0, dy: 0, s: 1.35, rot: -14, phase: 0 },
+        { dx: 32, dy: -20, s: 1.12, rot: 12, phase: 1.8 },
+        { dx: -22, dy: 14, s: 0.95, rot: -6, phase: 3.4 },
+      ];
       return (
-        <g key={`df${i}`} transform={`translate(${df.x + dfHoverX} ${df.y + dfHoverY}) scale(${df.s})`}>
-          <line x1={-8} y1={0} x2={12} y2={0} stroke="#D93829" strokeWidth={2.2} strokeLinecap="round" />
-          <circle cx={-8} cy={0} r={1.8} fill="#8A180E" />
-          <ellipse cx={-1} cy={-6} rx={7} ry={2.4} fill="#FFEAA7" opacity={0.55} transform={`rotate(${-12 + wingFlap} -1 -6)`} />
-          <ellipse cx={-1} cy={6} rx={7} ry={2.4} fill="#FFEAA7" opacity={0.55} transform={`rotate(${12 - wingFlap} -1 6)`} />
+        <g id="dragonflyCluster" transform={`translate(${485 + swarmX} ${728 + swarmY})`}>
+          {cluster.map((df, i) => {
+            const hx = Math.sin(t * 0.12 + df.phase) * 6;
+            const hy = Math.cos(t * 0.15 + df.phase) * 5;
+            return (
+              <RedDragonfly
+                key={`dfClust${i}`}
+                x={df.dx + hx}
+                y={df.dy + hy}
+                s={df.s}
+                rot={df.rot + Math.sin(t * 0.08 + df.phase) * 4}
+                t={t}
+                phase={df.phase}
+              />
+            );
+          })}
         </g>
       );
-    })}
+    })()}
+
     <Dust t={t} seed={43} x0={120} y0={390} w={1680} h={430} n={18} o={0.27} wind={0.18} />
     {whiteout>0.01?<rect width="1920" height="1080" fill="#fffdf7" opacity={Math.min(1,whiteout)} />:null}
   </g>;
