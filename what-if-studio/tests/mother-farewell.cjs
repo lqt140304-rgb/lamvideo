@@ -47,7 +47,7 @@ const tl=require('../src/episodes/tin-nhan-chua-gui/timeline.json');
 // Cue C7-C (ShC7_C): the last segment plays the whole approved farewell clock — dissolve, 8 s wordless clasp, fade.
 const farewell=tl.segments.filter(s=>s.shot==='ShC7_C').pop();
 check(farewell&&farewell.t0<=0&&farewell.t1>=360,'The farewell segment covers dissolve, wipe, clasp, push and fade');
-const silent=tl.marks.find(m=>m.shot==='ShC7_C'&&m.kind==='pause');
+const silent=tl.marks.find(m=>m.shot==='ShC7_C'&&m.kind==='pause'&&m.len===240);
 check(silent&&silent.len===240&&Math.abs(silent.at-120)<=6,'The 8 s wordless stretch starts when the mother is fully gone');
 for(let i=1;i<tl.segments.length;i++)check(tl.segments[i-1].b===tl.segments[i].a,'Timeline remains contiguous');
 check(!tl.fx.some(f=>f.kind==='flash'),'No extra flash over the gentle return transition');

@@ -783,6 +783,7 @@ export const ClockCreature: React.FC<{
   eyeGazeY?: number;
   smirk?: number;
   showJars?: boolean;
+  eyesShut?: [number, number, number]; // top, lower-left, lower-right: 0 open .. 1 closed
 }> = ({
   x,
   y,
@@ -793,7 +794,9 @@ export const ClockCreature: React.FC<{
   eyeGazeY = 0,
   smirk = 1,
   showJars = true,
+  eyesShut = [0, 0, 0],
 }) => {
+  const lid = (i: number, rx: number, ry: number) => (eyesShut[i] > 0.01 ? <ellipse cx={0} cy={0} rx={rx} ry={ry * Math.min(1, eyesShut[i])} fill="#DCCBB0" stroke={INK} strokeWidth={2.2} /> : null);
   // Gentle hovering vertical bob and subtle forward-backward rocking
   const floatY = hover ? Math.sin(t * 0.05) * 12 : 0;
   const floatRot = hover ? Math.sin(t * 0.04) * 2.2 : 0;
@@ -1089,6 +1092,7 @@ export const ClockCreature: React.FC<{
             strokeWidth={2.2}
           />
           <path d="M -34 -7 Q 0 -20 34 -7" stroke="#7A5D40" strokeWidth={2.2} fill="none" />
+          {lid(0, 34, 16)}
         </g>
 
         {/* 2. LOWER-LEFT EYE (Mắt dưới trái) */}
@@ -1109,6 +1113,7 @@ export const ClockCreature: React.FC<{
             strokeWidth={2}
           />
           <path d="M -28 -6 Q 0 -15 28 -6" stroke="#7A5D40" strokeWidth={2} fill="none" />
+          {lid(1, 28, 14)}
         </g>
 
         {/* 3. LOWER-RIGHT EYE (Mắt dưới phải) */}
@@ -1129,6 +1134,7 @@ export const ClockCreature: React.FC<{
             strokeWidth={2}
           />
           <path d="M -28 -6 Q 0 -15 28 -6" stroke="#7A5D40" strokeWidth={2} fill="none" />
+          {lid(2, 28, 14)}
         </g>
 
         {/* --- NOSE RIDGE & BRIDGE --- */}
@@ -1763,7 +1769,8 @@ export const TimeChains: React.FC<{
 export const TimeVaultScene: React.FC<{
   t?: number;
   showJars?: boolean;
-}> = ({ t = 0, showJars = true }) => {
+  showCreature?: boolean; // false lets a shot stage the creature itself
+}> = ({ t = 0, showJars = true, showCreature = true }) => {
   const id = `vault-${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
 
   return (
@@ -1919,7 +1926,7 @@ export const TimeVaultScene: React.FC<{
       {/* =================================================================== */}
       {/* 6. CENTER OVERLORD: CLOCK CREATURE HOVERING WITH 3 ACTIVE JARS     */}
       {/* =================================================================== */}
-      <ClockCreature
+      {showCreature ? <ClockCreature
         x={910}
         y={460}
         s={1.14}
@@ -1929,7 +1936,7 @@ export const TimeVaultScene: React.FC<{
         eyeGazeY={0.1}
         smirk={1}
         showJars={showJars}
-      />
+      /> : null}
 
       {/* =================================================================== */}
       {/* 7. REVERSE CHRONAL MOTE PARTICLES FLOATING UPWARD                  */}
@@ -1960,7 +1967,8 @@ export const TimeVaultScene: React.FC<{
 export const AlleyWithoutShop: React.FC<{
   t?: number;
   showOwl?: boolean;
-}> = ({ t = 0, showOwl = true }) => {
+  caption?: boolean; // the asset sheet's note on the wall; never in the film
+}> = ({ t = 0, showOwl = true, caption = false }) => {
   return (
     <g>
       {/* Nocturnal deep blue sky */}
@@ -2004,9 +2012,9 @@ export const AlleyWithoutShop: React.FC<{
       <rect x={1220} y={440} width={420} height={320} rx={4} fill="#151D2A" stroke="#253245" strokeWidth={2.5} />
       {/* Peeling plaster and dark rectangular stain where the shop sign used to hang */}
       <rect x={1280} y={460} width={280} height={70} fill="#0E141F" stroke="#1E293B" strokeWidth={1.5} opacity={0.8} />
-      <text x={1420} y={502} fill="#334155" fontFamily="sans-serif" fontSize={11} letterSpacing={2} textAnchor="middle" opacity={0.5}>
+      {caption ? <text x={1420} y={502} fill="#334155" fontFamily="sans-serif" fontSize={11} letterSpacing={2} textAnchor="middle" opacity={0.5}>
         (VẾT TÍCH BIỂN TIỆM BIẾN MẤT)
-      </text>
+      </text> : null}
       {/* Green moss patches climbing up the dead-end wall */}
       <path d="M 1220 740 Q 1260 690 1280 730 Q 1310 680 1350 740" fill="#143026" stroke="#064E3B" strokeWidth={2} />
       <path d="M 1480 740 Q 1520 670 1560 720 Q 1600 660 1640 740" fill="#143026" stroke="#064E3B" strokeWidth={2} />

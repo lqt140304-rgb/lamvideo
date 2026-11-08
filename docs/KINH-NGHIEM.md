@@ -61,6 +61,8 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 
 - **Màu đẹp từng ảnh nhưng đứt mạch cảm xúc → tô theo từng shot, không có đường màu/nguồn sáng xuyên cảnh →** chọn các mốc đổi trạng thái và đối chiếu chúng trên cùng bảng; giữ sắc da, trang phục, mặt đỡ và hướng nguồn. Thay màu chủ quan cần điểm vào/ra rõ, khác một đèn vật lý bật/tắt. VFX tan/hiện phải cùng nhịp với da, áo và bóng, còn thấy diễn xuất và khoảng trống sau đó. **Kiểm tra:** so storyboard màu lẫn độ sáng tương đối, rồi xem animatic qua điểm chuyển và trở lại; hiệu ứng không thêm thời lượng hoặc che thông tin. Palette, mật độ hạt và chi phí của một tập không thành định mức chung.
 
+- **Địa điểm hoặc đạo cụ đã đổi trạng thái vẫn hiện lại ở cảnh sau → cảnh mới được chèn vào giữa nhưng cảnh cũ vẫn dùng nền cũ →** khi thêm biến cố làm thay đổi bối cảnh, rà mọi cảnh đứng sau dùng nền đó rồi đổi khung hoặc đổi nền. Chữ chú thích vẽ sẵn trong asset dùng cho bảng trình bày phải tắt được khi đưa vào phim. **Kiểm tra:** xem storyboard theo thứ tự thời gian, không theo mã cảnh.
+
 ## Tiết kiệm chi phí và lượt sửa
 
 - Khóa thời lượng, số vai, số bối cảnh và mức chuyển động trước khi làm asset. Khi thêm chi tiết, ưu tiên thay hoặc gộp đoạn cũ; không chỉ nối dài.

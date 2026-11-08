@@ -106,6 +106,23 @@ const cozyHome: LookDef = {
   ),
 };
 
+// C9: Lộc's private vault. Teal and amber light that is beautiful and foreign; never the white of G3.
+const vaultGlow: LookDef = {
+  grade: (lv) => `saturate(${1 + 0.1 * lv}) contrast(${1 + 0.06 * lv})`,
+  Overlay: ({ lv }) => (
+    <g opacity={lv * 0.5} style={{ pointerEvents: 'none' }}>
+      <defs>
+        <radialGradient id="vaultGlowPool" cx="50%" cy="46%" r="70%">
+          <stop offset="0%" stopColor="#FFC67A" stopOpacity={0.12} />
+          <stop offset="55%" stopColor="#2DD4BF" stopOpacity={0.07} />
+          <stop offset="100%" stopColor="#0B0614" stopOpacity={0.62} />
+        </radialGradient>
+      </defs>
+      <rect width={1920} height={1080} fill="url(#vaultGlowPool)" style={{ mixBlendMode: 'screen' }} />
+    </g>
+  ),
+};
+
 export const tinNhanChuaGui = defineEpisode('TinNhanChuaGui', {
   timeline: timeline as Timeline,
   shots,
@@ -117,5 +134,6 @@ export const tinNhanChuaGui = defineEpisode('TinNhanChuaGui', {
     warmMemory,
     cozyHome,
     g2Warm,
+    vaultGlow,
   },
 });

@@ -383,7 +383,7 @@ export const TimeVaultSheet: React.FC = () => {
 
           {/* Scaled Alley clipped inside nested SVG */}
           <svg x={16} y={44} width={428} height={140} viewBox="50 140 1830 600" preserveAspectRatio="xMidYMid slice">
-            <AlleyWithoutShop t={t} showOwl />
+            <AlleyWithoutShop t={t} showOwl caption />
           </svg>
 
           {/* Bottom sub-panel: Reverse hourglass preview + explanation */}

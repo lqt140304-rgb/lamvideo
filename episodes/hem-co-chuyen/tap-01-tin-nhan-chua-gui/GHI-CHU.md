@@ -174,3 +174,12 @@ Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai
 - Khẩu hình theo biên độ giọng từng take (`thu-c1-audio.cjs env`), người nghe giữ miệng biểu cảm. Tay gần của Thảo đặt bằng góc vai/khuỷu, không dùng IK (IK gập khuỷu sai khi tay gần thân); tay xa buông.
 - Giọng: dùng lại 3 take bản 11 trùng vai, lời và thẻ bản 12, **0 credits**. Âm nền/FX là âm tạm tổng hợp bằng ffmpeg (quạt, gió, còi xa, tua vít, vải, tiền giấy, bước chân), chưa có nhạc.
 - Bản xuất: `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\thu-c1-v12-{goc-may,may-tinh}-{1080p,480p}.mp4`. Chưa duyệt; chủ repo sẽ sửa thêm kịch bản trước khi dựng tiếp.
+
+## Dựng bản 13 — storyboard, 09/11/2026
+
+- `cues.json` chuyển sang bản 13 (dấu nguồn khớp KICH-BAN hiện hành): 40 cue, 56 đoạn. Mốc diễn trong `shots.tsx` gắn lại theo số mục lời mới. C8-E đứng giữa C8-B và C8-C.
+- Shot mới: C8-E (khe cửa khép, mặt tiền thành tường), C9-A (đặt kính, lọ gần che điểm đổi hình), C9-B (nguyên hình, ánh mắt tới ba lọ), C9-C (nhấc từng lọ lên ô kệ bằng vùng lực), C9-D (lùi mở kho, ba mắt khép lệch nhịp). Cameo: chân dung ở C1-B, lọ trên kệ ở C2-A và C4-D.
+- Thêm diễn ở C6-A: Thảo chạy trước, Duy sững rồi theo, tay chạm khi tới nơi. C8-D đổi khung về phía đầu hẻm vì tiệm đã biến mất từ C8-E.
+- Đồng hồ trên bàn sau dời sang cạnh, không còn che mặt Lộc ở C1-B và C4-A.
+- Giọng: `voice.cjs lines --cached` chỉ dùng take có sẵn, **0 credits**: 11/85 lượt khớp, 74 lượt (4.832 ký tự) chưa có nên tính giờ theo ước lượng. Bản 11 tốn khoảng 0,5 credit/ký tự nên ước tính 2.400–2.600 credits; chưa chạy.
+- Còn tạm: C1 chưa thay bằng diễn xuất của đoạn thử; khẩu hình mới có trong đoạn thử; C5-A chưa dùng lại C2-B; ngồi xuống ở C2-A vẫn đổi tư thế tức thì; chưa có animatic, nhạc, mix bản 13. Storyboard chưa được duyệt.

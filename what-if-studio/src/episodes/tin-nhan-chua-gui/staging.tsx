@@ -90,7 +90,7 @@ export const BenchFront: React.FC<{ clockWork?: number; hideClock?: boolean }> =
     <rect x={-218} y={-212} width={436} height={20} rx={4} fill="#6E4432" stroke="#120E10" strokeWidth={3.5} />
     <line x1={-212} y1={-210} x2={212} y2={-210} stroke="#F2B861" strokeWidth={2.5} opacity={0.7} />
     {/* The half-repaired mantel clock Lộc works on (stopped hands: no ticking) */}
-    {hideClock ? null : <g transform={`translate(${20 - clockWork * 4} -238)`}>
+    {hideClock ? null : <g transform={`translate(${150 - clockWork * 4} -238)`}>
       <rect x={-34} y={-22} width={68} height={26} rx={6} fill="#5C3A2C" stroke="#120E10" strokeWidth={2.5} />
       <circle cx={0} cy={-26} r={20} fill="#E9DFC8" stroke="#120E10" strokeWidth={2.5} />
       <line x1={0} y1={-26} x2={9} y2={-34} stroke="#2B1E18" strokeWidth={2} />
@@ -147,10 +147,12 @@ export const Shop: React.FC<{
   dx?: number;
   dy?: number;
   benchWork?: number;
-}> = ({ t, id, cam, loc, counter, shelf = false, shelfClockHeld = false, stools = [], kids, roll = 0, dx = 0, dy = 0, benchWork = 0 }) => (
+  cameo?: React.ReactNode; // background detail drawn on the set, behind every character
+}> = ({ t, id, cam, loc, counter, shelf = false, shelfClockHeld = false, stools = [], kids, roll = 0, dx = 0, dy = 0, benchWork = 0, cameo }) => (
   <g transform={`translate(${dx} ${dy}) rotate(${roll} 960 540)`}>
     <g transform={camT(...cam)}>
       <OngLocShop t={t} id={id} veil={0.36} />
+      {cameo}
       {loc?.atBench ? (
         <>
           <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={loc.held ? { R: loc.held } : undefined} />

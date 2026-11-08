@@ -19,6 +19,7 @@ const OUT = path.join(studio, 'out/tin-nhan-chua-gui');
 const KEY = process.env.ELEVENLABS_API_KEY;
 const mode = process.argv[2];
 const dry = process.argv.includes('--dry');
+const cachedOnly = process.argv.includes('--cached'); // reuse takes already on disk; no API call, no key needed
 
 const api = async (p, body) => {
   if (!KEY) throw new Error('Set ELEVENLABS_API_KEY in the environment.');
@@ -125,20 +126,35 @@ const main = async () => {
     const byRole = {};
     for (const p of list) byRole[p.role] = (byRole[p.role] ?? 0) + p.say.length;
     console.log(`${list.length} pieces, ${chars} characters`, byRole);
-    if (dry) { for (const p of list) console.log(p.id.padEnd(8), p.role.padEnd(9), p.say.slice(0, 90)); return; }
     const dir = path.join(studio, 'public/tin-nhan-chua-gui/voice');
     fs.mkdirSync(dir, { recursive: true });
-    const before = await used();
-    const manifest = [];
-    for (const p of list) {
+    const onDisk = fs.readdirSync(dir);
+    const fileFor = (p) => {
       const v = cfg.cast[p.role];
       if (!v) throw new Error(`No voice chosen for role ${p.role}`);
       const hash = crypto.createHash('sha1').update(`${cfg.model}|${v.id}|${JSON.stringify(v.settings ?? cfg.settings)}|${p.say}`).digest('hex').slice(0, 10);
       // IDs move when lines are cut; the hash still includes model, voice, settings and tagged text.
-      const cached = fs.readdirSync(dir).find((name) => name.endsWith(`-${p.role}-${hash}.mp3`));
-      const file = cached ?? `${p.id}-${p.role}-${hash}.mp3`;
+      const cached = onDisk.find((name) => name.endsWith(`-${p.role}-${hash}.mp3`));
+      return { file: cached ?? `${p.id}-${p.role}-${hash}.mp3`, cached: Boolean(cached) };
+    };
+    if (dry || cachedOnly) {
+      const miss = list.filter((p) => !fileFor(p).cached);
+      const missChars = miss.reduce((n, p) => n + p.say.length, 0);
+      const byMiss = {};
+      for (const p of miss) byMiss[p.role] = (byMiss[p.role] ?? 0) + p.say.length;
+      console.log(`reusable takes: ${list.length - miss.length}/${list.length}; to synthesize: ${miss.length} pieces, ${missChars} characters`, byMiss);
+      if (dry) { for (const p of list) console.log(p.id.padEnd(8), p.role.padEnd(9), fileFor(p).cached ? 'reuse' : 'NEW  ', p.say.slice(0, 80)); return; }
+    }
+    const before = cachedOnly ? 0 : await used();
+    const manifest = [];
+    const lineKey = (p) => `${p.s}.${p.i}`;
+    // --cached keeps a line only when every piece of it has a take, so a half-voiced line is timed by estimate instead.
+    const missingLines = new Set(cachedOnly ? list.filter((p) => !fileFor(p).cached).map(lineKey) : []);
+    for (const p of list) {
+      if (missingLines.has(lineKey(p))) continue;
+      const { file, cached } = fileFor(p);
       const f = path.join(dir, file);
-      if (!fs.existsSync(f)) {
+      if (!cached && !cachedOnly) {
         fs.writeFileSync(f, await tts(v.id, p.say, v.settings));
         process.stdout.write('.');
       }
@@ -146,9 +162,10 @@ const main = async () => {
     }
     fs.writeFileSync(path.join(here, 'voice-manifest.json'), JSON.stringify({ scriptSha256: scriptHash(), scriptRevision: cfg.scriptRevision, model: cfg.model, cast: cfg.cast, pieces: manifest }, null, 1) + '\n');
     console.log(`\nwrote voice-manifest.json (${manifest.length} pieces, ${manifest.reduce((n, p) => n + p.sec, 0).toFixed(1)} s of speech)`);
-    logCost('voice-lines', (await used()) - before, `${list.length} pieces`);
+    if (cachedOnly) console.log(`${missingLines.size} lines have no take yet and are timed by estimate; no credits used`);
+    else logCost('voice-lines', (await used()) - before, `${list.length} pieces`);
     return;
   }
-  console.log('usage: voice.cjs samples | lines [--dry]');
+  console.log('usage: voice.cjs samples | lines [--dry | --cached]');
 };
 main().catch((e) => { console.error(e.message); process.exit(1); });

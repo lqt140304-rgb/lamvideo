@@ -1,5 +1,70 @@
 # Cue → shot → timeline — Tin nhắn chưa gửi
 
+## Ánh xạ bản 13 (đang dùng)
+
+09/11/2026. 40 cue, 56 đoạn, tổng 8:45. Chỉ 11/85 lượt lời có take khớp; 74 lượt còn lại tính theo ước lượng 3 từ/giây nên mốc giờ sẽ đổi khi có giọng thật. Bảng sinh từ `cues.json` + `timeline.json`.
+
+| Mốc | Cue | Mục lời | Dài | Ghi chú |
+|---|---|---|---|---|
+| 0:00 | C0-A | không lời | 4.0 s | Tiêu đề lớp riêng, không đọc |
+| 0:04 | C0-B | không lời | 4.0 s | Hạ máy tới cú |
+| 0:08 | C0-C | không lời | 2.0 s | Mắt cú |
+| 0:10 | C0-D | không lời | 6.0 s | Lùi mở hẻm |
+| 0:16 | C0-E | không lời | 5.0 s | Hai trẻ trước cửa |
+| 0:21 | C0-F | không lời | 3.0 s | Bước qua ngưỡng |
+| 0:24 | C1-A | C1 · 0 | 1.3 s |  |
+| 0:25 | C1-B | C1 · 1–2 | 27.7 s |  |
+| 0:53 | C1-C | C1 · 3–4 | 6.5 s |  |
+| 0:59 | C1-A | C1 · 5–8 | 14.3 s |  |
+| 1:13 | C1-D | C1 · 9–10 | 8.4 s |  |
+| 1:22 | C1-A | C1 · 11–12 | 2.2 s |  |
+| 1:24 | C1-D | C1 · 13 | 4.8 s |  |
+| 1:29 | C1-A | không lời | 3.0 s | Lộc nhặt tua vít, về bàn sau |
+| 1:32 | C1-B | C1 · 14 | 4.7 s |  |
+| 1:36 | C1-B | không lời | 1.6 s | Giữ cái nhếch miệng sau câu gợi giá khác |
+| 1:38 | C2-A | C2 · 0–3 | 21.1 s |  |
+| 1:59 | C2-C | C2 · 4–6 | 16.4 s |  |
+| 2:15 | C2-B | C2 · 7–9 | 12.4 s |  |
+| 2:28 | C3-A | C3 · 0–2 | 19.3 s |  |
+| 2:47 | C3-B | C3 · 3 | 7.0 s |  |
+| 2:54 | C2-C | C3 · 4 | 6.0 s |  |
+| 3:00 | C3-B | C3 · 5–11 | 34.8 s |  |
+| 3:35 | C3-C | C3 · 12–15 | 9.4 s |  |
+| 3:44 | C4-A | C3 · 16 | 3.0 s |  |
+| 3:47 | C4-A | không lời | 4.0 s | Lộc trả máy sáng lên khăn |
+| 3:51 | C4-B | C4 · 0–3 | 22.4 s |  |
+| 4:14 | C4-C | C4 · 4 | 1.0 s |  |
+| 4:15 | C4-C | không lời | 3.5 s | Duy gấp liên G1, cất ví, mở máy |
+| 4:18 | C4-C | C4 · 5–6 | 10.5 s |  |
+| 4:29 | C4-B | C4 · 7–8 | 5.7 s |  |
+| 4:35 | C4-D | C4 · 9 | 2.5 s |  |
+| 4:37 | C4-B | C4 · 10 | 7.4 s |  |
+| 4:44 | C5-A | C5 · 0–5 | 22.4 s |  |
+| 5:07 | C5-B | C5 · 6–7 | 5.4 s |  |
+| 5:12 | C5-C | C5 · 8–11 | 11.4 s |  |
+| 5:24 | C5-D | C5 · 12–15 | 14.4 s |  |
+| 5:38 | C6-A | C6 · 0–2 | 11.4 s |  |
+| 5:49 | C6-B | C6 · 3 | 5.0 s |  |
+| 5:54 | C6-C | C6 · 4–8 | 16.4 s |  |
+| 6:11 | C6-D | C6 · 9–11 | 6.7 s |  |
+| 6:18 | C7-A | C7 · 0 | 1.7 s |  |
+| 6:19 | C7-B | C7 · 1–3 | 15.4 s |  |
+| 6:35 | C7-A | C7 · 4–6 | 11.4 s |  |
+| 6:46 | C7-C | C7 · 7–11 | 19.7 s | Giữ ôm dưới lời; tan trong khoảng nghỉ 4 s từ đồng hồ 0; 8 s không lời từ giây 4 |
+| 7:06 | C8-A | không lời | 2.0 s | Mở về tiệm, đúng ghế và tay |
+| 7:08 | C8-B | C8 · 0 | 11.7 s |  |
+| 7:19 | C8-A | C8 · 1–3 | 12.8 s |  |
+| 7:32 | C8-B | không lời | 3.5 s | Duy cất đủ ba tờ vào ví |
+| 7:36 | C8-E | C8 · 4 | 3.0 s |  |
+| 7:39 | C8-C | C8 · 5–6 | 18.4 s |  |
+| 7:57 | C8-D | C8 · 7–8 | 20.0 s |  |
+| 8:17 | C9-A | C9 · 0 | 6.0 s |  |
+| 8:23 | C9-B | C9 · 1 | 7.0 s |  |
+| 8:30 | C9-C | C9 · 2 | 8.0 s |  |
+| 8:38 | C9-D | C9 · 3 | 7.0 s |  |
+
+Còn tạm: giá G2 chưa dùng lại C2-B như gợi ý ở C5-A; C1 chưa thay bằng diễn xuất của đoạn thử; khẩu hình mới có trong đoạn thử; đường đi C8-D đổi khung để tiệm đã biến mất không lộ.
+
 **Lưu ý phiên bản:** bảng này thuộc bản lời/animatic 11. Nguồn đã sang [bản 13](HE-LO-QUAI-VAT.md); cần ánh xạ lại item, timing và mốc staging trước dựng mới. Giữ 35 cue cũ và thêm 5 cue theo bản 13, không dùng nguyên các chỉ số cũ.
 
 
