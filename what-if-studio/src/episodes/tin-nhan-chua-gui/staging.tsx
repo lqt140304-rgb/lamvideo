@@ -83,19 +83,19 @@ export const LOC_AT_COUNTER = (x: number, t: number, opts: Partial<Pose> = {}) =
 export const LOC_AT_BENCH = (t: number, opts: Partial<Pose> = {}) => sitPose(1365, 612, 1.0, -1, { t, seed: 3, yaw: -0.2, lean: 10, ...opts });
 
 /** Closes the workbench front in front of a seated Lộc (the set draws the bench under him). */
-export const BenchFront: React.FC<{ clockWork?: number }> = ({ clockWork = 0 }) => (
+export const BenchFront: React.FC<{ clockWork?: number; hideClock?: boolean }> = ({ clockWork = 0, hideClock = false }) => (
   <g transform="translate(1355 715)">
     <rect x={-205} y={-194} width={410} height={194} fill="#33201A" stroke="#120E10" strokeWidth={3} />
     <rect x={-190} y={-180} width={380} height={168} rx={3} fill="#2A1A15" opacity={0.85} />
     <rect x={-218} y={-212} width={436} height={20} rx={4} fill="#6E4432" stroke="#120E10" strokeWidth={3.5} />
     <line x1={-212} y1={-210} x2={212} y2={-210} stroke="#F2B861" strokeWidth={2.5} opacity={0.7} />
     {/* The half-repaired mantel clock Lộc works on (stopped hands: no ticking) */}
-    <g transform={`translate(${20 - clockWork * 4} -238)`}>
+    {hideClock ? null : <g transform={`translate(${20 - clockWork * 4} -238)`}>
       <rect x={-34} y={-22} width={68} height={26} rx={6} fill="#5C3A2C" stroke="#120E10" strokeWidth={2.5} />
       <circle cx={0} cy={-26} r={20} fill="#E9DFC8" stroke="#120E10" strokeWidth={2.5} />
       <line x1={0} y1={-26} x2={9} y2={-34} stroke="#2B1E18" strokeWidth={2} />
       <line x1={0} y1={-26} x2={-4} y2={-14} stroke="#2B1E18" strokeWidth={2} />
-    </g>
+    </g>}
   </g>
 );
 

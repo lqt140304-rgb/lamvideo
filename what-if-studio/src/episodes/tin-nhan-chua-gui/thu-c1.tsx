@@ -36,16 +36,17 @@ const LOC_GROUND = COUNTER_TOP + 140 * LOC_S - 12;
 
 /** The clock Lộc is repairing: face open on its movement, back cover and two screws laid beside it. */
 const CLOCK = { x: 968, y: COUNTER_TOP + 2 };
-const RepairClock: React.FC<{ f: number; inHand?: boolean }> = ({ f, inHand = false }) => (
+const BENCH_CLOCK = { x: 1250, y: 500 }; // on the rear bench top, in front of his seat
+const RepairClock: React.FC<{ f: number; inHand?: boolean; at?: { x: number; y: number; s: number } }> = ({ f, inHand = false, at }) => (
   <g>
-    {!inHand ? (
+    {!inHand && !at ? (
       <g>
         <ellipse cx={1022} cy={COUNTER_TOP - 1} rx={17} ry={5} fill='#8A6A3E' stroke='#120E10' strokeWidth={2} />
         <circle cx={1046} cy={COUNTER_TOP - 2} r={2.2} fill='#C9C2B0' />
         <circle cx={1053} cy={COUNTER_TOP - 1} r={2.2} fill='#C9C2B0' />
       </g>
     ) : null}
-    <g transform={inHand ? 'scale(1.3)' : `translate(${CLOCK.x} ${CLOCK.y}) scale(1.4)`}>
+    <g transform={inHand ? 'scale(1.3)' : at ? `translate(${at.x} ${at.y}) scale(${at.s})` : `translate(${CLOCK.x} ${CLOCK.y}) scale(1.4)`}>
       <rect x={-20} y={-6} width={40} height={6} rx={2} fill='#4A2E22' stroke='#120E10' strokeWidth={2} />
       <circle cx={0} cy={-24} r={18} fill='#C7A15A' stroke='#120E10' strokeWidth={3} />
       <circle cx={0} cy={-24} r={13} fill='#3A2A1C' />
@@ -58,7 +59,7 @@ const RepairClock: React.FC<{ f: number; inHand?: boolean }> = ({ f, inHand = fa
   </g>
 );
 
-const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNode; heldL?: React.ReactNode; clockOnCounter?: boolean } => {
+const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNode; heldL?: React.ReactNode; clockOnCounter?: boolean; benchClock?: boolean } => {
   const m = mouth('loc', f);
   const sit = ramp(f, 528, 548);
   const walk = clamp((f - 452) / (528 - 452));
@@ -68,9 +69,17 @@ const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNod
     const sc = lerp(LOC_S, 1.0, walk);
     const g = lerp(LOC_GROUND, 752, walk);
     const stand = walk < 1 ? walkPose(x, (f - 452) * 0.2, g, sc, { expr: 'neutral', yaw: -0.55, headTilt: 4 }, 1) : standPose(1300, 752, 1.0, { t: f, seed: 3, facing: -1, yaw: -0.3, expr: 'neutral' });
-    const seat = sitPose(1318, 612, 1.0, -1, { t: f, seed: 3, yaw: -0.2, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
-    const pose = sit > 0 ? poseAt(sit, [{ f: 0, p: stand }, { f: 1, p: seat }]) : stand;
-    return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR, handL: sit < 0.5 ? 'hold' : pose.handL }, atBench: sit > 0.5, held: sit < 0.5 ? <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} /> : undefined, heldL: sit < 0.5 ? <RepairClock f={f} inHand /> : undefined };
+    const seat = sitPose(1318, 588, 1.0, -1, { t: f, seed: 3, yaw: -0.2, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
+    let pose = sit > 0 ? poseAt(sit, [{ f: 0, p: stand }, { f: 1, p: seat }]) : stand;
+    if (sit >= 1) {
+      // Back at work: left hand steadies the clock, right hand twists the screwdriver, then both pause for the glance up.
+      const pause = ramp(f, 568, 574);
+      const twist = Math.sin(f * 0.9) * (1 - pause);
+      pose = reach(pose, 'L', { x: BENCH_CLOCK.x + 20, y: BENCH_CLOCK.y - 22 }, 1);
+      pose = reach(pose, 'R', { x: BENCH_CLOCK.x - 26 + twist * 1.5, y: BENCH_CLOCK.y - 34 }, 1);
+      return { pose: { ...pose, ...m, handR: 'hold', handL: 'hold' }, atBench: true, held: <ScrewdriverProp x={0} y={0} s={0.6} rot={20 + twist * 14} />, benchClock: true };
+    }
+    return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR, handL: sit < 0.5 ? 'hold' : pose.handL }, atBench: sit > 0.5, held: <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} />, heldL: sit < 0.5 ? <RepairClock f={f} inHand /> : undefined, benchClock: sit >= 0.5 };
   }
   // At the counter. Head down on the work, eyes come up to the bills, chin lifts before the scold, leans in to mock.
   const up = ramp(f, 40, 58);
@@ -146,7 +155,7 @@ const duyAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
 const THAO_X = 1218;
 // Her near (left) arm by explicit shoulder/elbow angles: the IK picks a folded elbow this close to the body.
 // pocket → offered toward Lộc → sinks as her voice drops → snatched to her stomach → given into Duy's palm → grips her bag strap.
-const ARM = { pocket: { a: 12, b: -4 }, offer: { a: 45, b: 25 }, low: { a: 32, b: 38 }, hold: { a: -6, b: 128 }, strap: { a: 0, b: 110 } };
+const ARM = { pocket: { a: 12, b: -4 }, offer: { a: 74, b: 12 }, low: { a: 52, b: 22 }, hold: { a: -6, b: 128 }, strap: { a: 0, b: 110 } };
 const mixArm = (A: Pose['armL'], B: Pose['armL'], k: number) => ({ a: lerp(A.a, B.a, k), b: lerp(A.b, B.b, k) });
 const thaoArm = (f: number) => {
   let arm = mixArm(ARM.pocket, ARM.offer, ramp(f, 0, 24));
@@ -178,7 +187,7 @@ const thaoAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
   });
   // Far arm hangs behind her body (a clutching far hand would draw over Duy); the near arm carries the bills.
   p = { ...p, armL: thaoArm(f) };
-  return { pose: { ...p, handL: f < 418 ? 'pinch' : 'hold' }, held: f < 418 ? <TwoBills x={0} y={6} /> : undefined };
+  return { pose: { ...p, handL: 'hold' }, held: f < 418 ? <TwoBills x={0} y={6} /> : undefined };
 };
 const duyX = (f: number) => lerp(DUY_X, 1104, clamp((f - 360) / 30));
 
@@ -291,8 +300,9 @@ const Stage: React.FC<{ f: number; cam: Cam; light: boolean }> = ({ f, cam, ligh
       <g transform={camT(cam.cx, cam.cy, cam.z)}>
         <Blur id="thuBg" px={bg} z={cam.z}>
           <OngLocShop t={f} id="thu" veil={0.36} />
+          {loc.benchClock ? <RepairClock f={f} at={{ ...BENCH_CLOCK, s: 1.0 }} /> : null}
           {loc.atBench ? lochero : null}
-          <BenchFront clockWork={loc.atBench && f > 560 ? Math.sin(f / 9) : 0} />
+          <BenchFront hideClock />
         </Blur>
         {light ? <LampLight bgBlur={bg} f={f} /> : null}
         <Blur id="thuMid" px={mid} z={cam.z}>
