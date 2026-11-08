@@ -1,0 +1,306 @@
+import React from 'react';
+import { AbsoluteFill, useCurrentFrame } from 'remotion';
+import { Hero, handWorld, LOOKS, standPose, walkPose, sitPose, poseAt, camT, clamp, lerp, Pose, OngLocShop, OngLocCounter, OngLocForeground, ScrewdriverProp, FONT } from '../../engine';
+import { ramp, reach, COUNTER, COUNTER_TOP, LOC_S, SHOP_FLOOR, DUY_S, THAO_S, BenchFront, DoorShelf, TwoBills } from './staging';
+import data from './thu-c1.json';
+
+// Test clip for script v12, C1: Thảo offers the two bills → Lộc lays the screwdriver down → "Cất đi" → the sarcastic
+// line → Thảo flinches and looks up at Duy → Duy turns, covers her and takes the bills → Lộc goes back to the bench.
+// Two cuts of the same performance: ThuC1Tinh (locked camera, for acting) and ThuC1 (cuts, moves, focus, lamp light).
+// Frames are on the clip clock; voice placement and mouth envelopes come from thu-c1.json (thu-c1-audio.cjs env).
+
+type Line = { id: string; role: string; f: number; len: number; talk: number[]; shape: number[] };
+const LINES = (data as { lines: Line[] }).lines;
+export const THU_C1_TOTAL = (data as { total: number }).total;
+const SHAPES = ['a', 'e', 'o', 'a', 'u', 'e', 'o'] as const;
+const line = (id: string) => LINES.find((l) => l.id === id)!;
+
+/** Mouth for `role` at frame f: open only inside that role's own takes, a new vowel per syllable peak, shut between. */
+const mouth = (role: string, f: number): Partial<Pose> => {
+  for (const l of LINES) {
+    if (l.role !== role || f < l.f || f >= l.f + l.len) continue;
+    const i = f - l.f;
+    const talk = l.talk[i];
+    return talk > 0.06 ? { talk: 0.25 + 0.75 * talk, mouthShape: SHAPES[l.shape[i] % SHAPES.length] } : { talk: 0, mouthShape: 'closed' };
+  }
+  return { talk: 0, mouthShape: 'auto' }; // listeners keep the expression's own mouth
+};
+const pulse = (f: number, a: number, peak: number, b: number) => (f < a || f > b ? 0 : f < peak ? ramp(f, a, peak) : 1 - ramp(f, peak, b));
+
+const CAT = line('cat').f; // "Cất đi."
+const MIA = line('mia').f; // sarcastic line
+const MIA_END = MIA + line('mia').len;
+
+// ---------------------------------------------------------------------------- acting
+const LOC_GROUND = COUNTER_TOP + 140 * LOC_S - 12;
+
+const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNode } => {
+  const m = mouth('loc', f);
+  const sit = ramp(f, 528, 548);
+  const walk = clamp((f - 452) / (528 - 452));
+  if (f >= 452) {
+    // Turned away, walks behind the counter to the rear bench (depth: scale and ground recede), then sits.
+    const x = lerp(930, 1300, walk);
+    const sc = lerp(LOC_S, 1.0, walk);
+    const g = lerp(LOC_GROUND, 752, walk);
+    const stand = walk < 1 ? walkPose(x, (f - 452) * 0.2, g, sc, { expr: 'neutral', yaw: -0.55, headTilt: 4 }, 1) : standPose(1300, 752, 1.0, { t: f, seed: 3, facing: -1, yaw: -0.3, expr: 'neutral' });
+    const seat = sitPose(1318, 612, 1.0, -1, { t: f, seed: 3, yaw: -0.2, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
+    const pose = sit > 0 ? poseAt(sit, [{ f: 0, p: stand }, { f: 1, p: seat }]) : stand;
+    return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR }, atBench: sit > 0.5, held: sit < 0.5 ? <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} /> : undefined };
+  }
+  // At the counter. Head down on the work, eyes come up to the bills, chin lifts before the scold, leans in to mock.
+  const up = ramp(f, 40, 58);
+  const chin = ramp(f, 226, 238); // the prep before "Cất đi"
+  const jab = pulse(f, CAT + 2, CAT + 7, CAT + 18); // a short forward snap on the accent
+  const mock = ramp(f, MIA - 6, MIA + 14) * (1 - ramp(f, MIA_END + 6, MIA_END + 24));
+  const nod = pulse(f, MIA + 30, MIA + 38, MIA + 50); // a dip of the chin toward "số tiền đó"
+  const turn = ramp(f, 438, 452);
+  let p = standPose(lerp(900, 930, turn), LOC_GROUND, LOC_S, {
+    t: f,
+    seed: 3,
+    yaw: lerp(lerp(0.05, 0.18, up), -0.55, turn),
+    facing: turn > 0.5 ? -1 : 1,
+    look: lerp(-0.1, 0.55, up),
+    headTilt: lerp(9, 1, up) - 7 * chin * (1 - mock) + 5 * jab + 6 * mock + 4 * nod,
+    tilt: 3 * mock + 2 * jab,
+    shoulderLift: 0.25 * chin * (1 - mock) - 0.1 * mock,
+    expr: f >= CAT - 8 && f < MIA - 6 ? 'angry' : f >= MIA - 6 && f < 438 ? 'smug' : up > 0.5 ? 'glanceOverGlasses' : 'neutral',
+    ...m,
+  });
+  // Right hand: working the screwdriver on the counter, lays it flat (f 196–207), rests on it, picks it up at 426.
+  const down = ramp(f, 196, 207);
+  const lift = ramp(f, 426, 440);
+  const work = Math.sin(f / 7) * 6 * (1 - down);
+  p = reach(p, 'R', { x: 975 + work - 30 * lift, y: lerp(COUNTER_TOP - 30, COUNTER_TOP - 4, down) - 45 * lift }, 1);
+  p = reach(p, 'L', { x: 905, y: COUNTER_TOP - 6 }, 0.85); // the left hand steadies on the counter edge
+  return { pose: { ...p, handR: 'hold' }, atBench: false, held: <ScrewdriverProp x={0} y={0} s={0.7} rot={lerp(70, 10, lift)} /> };
+};
+
+const DUY_X = 1090;
+const duyAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
+  const glance = pulse(f, 28, 40, 62); // looks down at the bills she takes out
+  const flinch = pulse(f, CAT + 1, CAT + 4, CAT + 14);
+  const toHer = ramp(f, 342, 356);
+  const step = clamp((f - 360) / 30);
+  const back = ramp(f, 432, 452); // eyes back on Lộc as he picks the screwdriver up
+  const x = lerp(DUY_X, 1104, step);
+  const base = {
+    t: f,
+    seed: 1,
+    yaw: lerp(lerp(-0.38, 0.14, toHer), 0.06, back),
+    look: lerp(lerp(-0.4 + 0.7 * glance, 0.55, toHer), -0.5, back),
+    headTilt: -3 + 6 * glance - 4 * flinch + 5 * toHer * (1 - back),
+    expr: (f >= CAT && f < 300 ? 'determined' : f >= 300 && f < 452 ? 'tearsHeldBack' : f >= 452 ? 'determined' : 'worried') as Pose['expr'],
+    shoulderLift: -0.3 * flinch,
+    ...mouth('duy', f),
+  };
+  let p = step > 0 && step < 1 ? walkPose(x, step * Math.PI, SHOP_FLOOR - 15, DUY_S, base, 1) : standPose(x, SHOP_FLOOR - 15, DUY_S, base);
+  const th = thaoAt(f);
+  // Right hand: near her shoulder, then cups her hand on the bills (396–416), keeps them low at his side.
+  const cup = ramp(f, 394, 414);
+  const keep = ramp(f, 422, 440);
+  const handPt = handWorld(th.pose, 'L');
+  const rest = { x: th.pose.x - 20 * THAO_S, y: th.pose.y - 95 * THAO_S };
+  const target = keep > 0 ? { x: lerp(handPt.x, x + 30, keep), y: lerp(handPt.y, p.y + 30, keep) } : { x: lerp(rest.x, handPt.x + 4, cup), y: lerp(rest.y, handPt.y - 2, cup) };
+  p = reach(p, 'R', target, 0.9);
+  return { pose: { ...p, handR: f >= 412 ? 'pinch' : p.handR }, held: f >= 418 ? <TwoBills x={0} y={6} /> : undefined };
+};
+
+const THAO_X = 1218;
+// Her near (left) arm by explicit shoulder/elbow angles: the IK picks a folded elbow this close to the body.
+// pocket → offered toward Lộc → sinks as her voice drops → snatched to her stomach → given into Duy's palm → grips her bag strap.
+const ARM = { pocket: { a: 12, b: -4 }, offer: { a: 45, b: 25 }, low: { a: 32, b: 38 }, hold: { a: -6, b: 128 }, strap: { a: 0, b: 110 } };
+const mixArm = (A: Pose['armL'], B: Pose['armL'], k: number) => ({ a: lerp(A.a, B.a, k), b: lerp(A.b, B.b, k) });
+const thaoArm = (f: number) => {
+  let arm = mixArm(ARM.pocket, ARM.offer, ramp(f, 0, 24));
+  arm = mixArm(arm, ARM.low, ramp(f, 150, 190));
+  arm = mixArm(arm, ARM.hold, ramp(f, CAT + 1, CAT + 10));
+  return mixArm(arm, ARM.strap, ramp(f, 418, 434));
+};
+
+const thaoAt = (f: number): { pose: Pose; held?: React.ReactNode } => {
+  const plead = ramp(f, 20, 60) * (1 - ramp(f, 150, 190)); // leans in to ask, shrinks as her voice drops
+  const shrink = ramp(f, 140, 190);
+  const tap = pulse(f, 207, 209, 218); // small flinch at the screwdriver
+  const startle = pulse(f, CAT + 1, CAT + 4, CAT + 16);
+  const lookUp = ramp(f, 326, 342) * (1 - ramp(f, 430, 444) * 0.6);
+  const press = ramp(f, 404, 430); // presses into Duy after letting go
+  const welling = f >= MIA + 14;
+  let p = standPose(THAO_X, SHOP_FLOOR + 5, THAO_S, {
+    t: f,
+    seed: 2,
+    yaw: lerp(-0.3, -0.62, lookUp), // turns to Duy in a clear 3/4
+    look: lerp(lerp(-0.35, -0.6, lookUp), -0.2, press * 0.5),
+    headTilt: 3 - 4 * plead + 7 * shrink * (1 - lookUp) - 6 * startle - 14 * lookUp + 5 * press,
+    tilt: -3 * plead - 2 * startle - 7 * press,
+    squash: -0.05 * startle,
+    shoulderLift: 0.35 * shrink + 0.9 * startle + 0.5 * tap + 0.45 * (f > CAT ? 1 : 0) * (1 - press * 0.4),
+    expr: f < CAT ? (shrink > 0.5 ? 'sad' : 'worried') : welling ? 'tearsHeldBack' : 'scared',
+    lipTremble: welling ? Math.sin(f * 1.7) * 0.7 : 0,
+    ...mouth('thao', f),
+  });
+  // Far arm hangs behind her body (a clutching far hand would draw over Duy); the near arm carries the bills.
+  p = { ...p, armL: thaoArm(f) };
+  return { pose: { ...p, handL: f < 418 ? 'pinch' : 'hold' }, held: f < 418 ? <TwoBills x={0} y={6} /> : undefined };
+};
+const duyX = (f: number) => lerp(DUY_X, 1104, clamp((f - 360) / 30));
+
+// ---------------------------------------------------------------------------- camera, focus, light
+type Cam = { cx: number; cy: number; z: number; focus: number }; // focus: 0 children, 1 counter/Lộc, 2 rear bench
+const ease = (v: number) => {
+  const p = clamp(v);
+  return p * p * p * (p * (p * 6 - 15) + 10); // smootherstep: gentle start, carried middle, soft landing
+};
+const mix = (a: Cam, b: Cam, k: number): Cam => ({ cx: lerp(a.cx, b.cx, k), cy: lerp(a.cy, b.cy, k), z: lerp(a.z, b.z, k), focus: lerp(a.focus, b.focus, k) });
+
+const STATIC: Cam = { cx: 1015, cy: 600, z: 1.36, focus: 0.5 };
+/** Cuts on action/look: wide → Lộc close on the chin lift → Thảo close under the mockery → follow her eyes to Duy → wide as Lộc picks up the tool → bench. */
+const cameraAt = (f: number): Cam => {
+  if (f < 232) {
+    const k = ease(f / 232);
+    const c = mix({ cx: 1050, cy: 610, z: 1.26, focus: 0 }, { cx: 1035, cy: 595, z: 1.36, focus: 0 }, k);
+    return { ...c, focus: lerp(0, 1, ease((f - 192) / 26)) }; // attention to Lộc's hand and face as he lays the tool down
+  }
+  if (f < 300) return { cx: 915, cy: 455, z: 2.35, focus: 1 };
+  if (f < 426) {
+    const close: Cam = { cx: 1196, cy: 660, z: 2.55, focus: 0 };
+    const two: Cam = { cx: 1150, cy: 640, z: 1.95, focus: 0 };
+    return mix(close, two, ease((f - 338) / 64)); // starts with her look, lands as his hand reaches hers
+  }
+  if (f < 548) {
+    const c = mix({ cx: 1090, cy: 585, z: 1.2, focus: 0 }, { cx: 1120, cy: 570, z: 1.24, focus: 0 }, ease((f - 426) / 122));
+    return { ...c, focus: lerp(0, 2, ease((f - 470) / 60)) };
+  }
+  const k = ease((f - 548) / 52);
+  return { ...mix({ cx: 1330, cy: 480, z: 1.85, focus: 2 }, { cx: 1335, cy: 478, z: 1.92, focus: 2 }, k) };
+};
+
+/** Defocus in screen pixels for a layer at `depth`; longer lenses (zoom) give shallower focus. */
+const blurPx = (cam: Cam, depth: number) => Math.abs(depth - cam.focus) * 2.6 * cam.z;
+const Blur: React.FC<{ id: string; px: number; z: number; children: React.ReactNode }> = ({ id, px, z, children }) =>
+  px < 0.35 ? (
+    <>{children}</>
+  ) : (
+    <g>
+      <defs>
+        <filter id={id} x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur stdDeviation={px / z} />
+        </filter>
+      </defs>
+      <g filter={`url(#${id})`}>{children}</g>
+    </g>
+  );
+
+const LAMP = { x: 1192, y: 452 }; // rear bench lamp bulb (world)
+/** Warm practical light: bloom around the bench lamp, out-of-focus highlights on the clock glass when the rear is soft. */
+const LampLight: React.FC<{ bgBlur: number; f: number }> = ({ bgBlur, f }) => {
+  const bokeh = clamp(bgBlur / 7);
+  const flick = 1 + Math.sin(f * 0.37) * 0.015;
+  const spots: [number, number, number][] = [
+    [470, 300, 18], [560, 250, 14], [640, 330, 20], [760, 280, 12], [1500, 330, 16], [1430, 260, 12], [1560, 420, 20], [1110, 300, 14],
+  ];
+  return (
+    <g style={{ mixBlendMode: 'screen' }} pointerEvents="none">
+      <defs>
+        <radialGradient id="thuLampBloom">
+          <stop offset="0%" stopColor="#FFE2A6" stopOpacity={0.85} />
+          <stop offset="18%" stopColor="#FFB45C" stopOpacity={0.42} />
+          <stop offset="55%" stopColor="#E07A2E" stopOpacity={0.12} />
+          <stop offset="100%" stopColor="#E07A2E" stopOpacity={0} />
+        </radialGradient>
+        <radialGradient id="thuBokeh">
+          <stop offset="0%" stopColor="#FFD08A" stopOpacity={0.5} />
+          <stop offset="80%" stopColor="#FFC070" stopOpacity={0.32} />
+          <stop offset="100%" stopColor="#FFC070" stopOpacity={0} />
+        </radialGradient>
+      </defs>
+      <ellipse cx={LAMP.x} cy={LAMP.y} rx={420 * flick} ry={330 * flick} fill="url(#thuLampBloom)" opacity={0.75} />
+      <ellipse cx={LAMP.x - 60} cy={LAMP.y + 230} rx={520} ry={150} fill="url(#thuLampBloom)" opacity={0.35} />
+      {bokeh > 0.02 ? spots.map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r * (1 + bokeh * 1.6)} fill="url(#thuBokeh)" opacity={bokeh * (0.55 + 0.25 * Math.sin(f * 0.05 + i))} />) : null}
+    </g>
+  );
+};
+
+/** Screen-space finish: warm lamp grade, a soft orange wash from the lamp side and a dark warm vignette, as in the reference still. */
+const Finish: React.FC = () => (
+  <svg width={1920} height={1080} viewBox="0 0 1920 1080" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+    <defs>
+      <radialGradient id="thuVig" cx="52%" cy="46%" r="72%">
+        <stop offset="55%" stopColor="#1A0B05" stopOpacity={0} />
+        <stop offset="100%" stopColor="#140804" stopOpacity={0.72} />
+      </radialGradient>
+      <linearGradient id="thuWash" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#FF9A4A" stopOpacity={0.1} />
+        <stop offset="100%" stopColor="#3A1A10" stopOpacity={0.12} />
+      </linearGradient>
+    </defs>
+    <rect width={1920} height={1080} fill="url(#thuWash)" style={{ mixBlendMode: 'soft-light' }} />
+    <rect width={1920} height={1080} fill="url(#thuVig)" />
+  </svg>
+);
+
+// ---------------------------------------------------------------------------- the stage
+const Stage: React.FC<{ f: number; cam: Cam; light: boolean }> = ({ f, cam, light }) => {
+  const loc = locAt(f);
+  const duy = duyAt(f);
+  const thao = thaoAt(f);
+  const bg = light ? blurPx(cam, 2) : 0;
+  const mid = light ? blurPx(cam, 1) : 0;
+  const fg = light ? blurPx(cam, 0) : 0;
+  const lochero = <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={loc.held ? { R: loc.held } : undefined} />;
+  return (
+    <svg width={1920} height={1080} viewBox="0 0 1920 1080">
+      <g transform={camT(cam.cx, cam.cy, cam.z)}>
+        <Blur id="thuBg" px={bg} z={cam.z}>
+          <OngLocShop t={f} id="thu" veil={0.36} />
+          {loc.atBench ? lochero : null}
+          <BenchFront clockWork={loc.atBench && f > 560 ? Math.sin(f / 9) : 0} />
+        </Blur>
+        {light ? <LampLight bgBlur={bg} f={f} /> : null}
+        <Blur id="thuMid" px={mid} z={cam.z}>
+          {!loc.atBench ? lochero : null}
+          <OngLocCounter x={COUNTER.x} y={COUNTER.y} w={COUNTER.w} t={f} phoneState="cracked" showPhoto={false} receiptStage="none" showMoney={false} showPouch />
+        </Blur>
+        <Blur id="thuFg" px={fg} z={cam.z}>
+          <DoorShelf clockHeld={false} />
+          <Hero pose={duy.pose} look={LOOKS.duy} rimId="rimShopWarm" shadow={0.32} heldProps={duy.held ? { R: duy.held } : undefined} />
+          <Hero pose={thao.pose} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} heldProps={thao.held ? { L: thao.held } : undefined} />
+          <OngLocForeground shiftX={0} />
+        </Blur>
+      </g>
+    </svg>
+  );
+};
+
+const GRADE = 'contrast(1.15) sepia(0.22) saturate(1.12) brightness(0.97)'; // shopMystery at full level
+
+const Tag: React.FC<{ f: number; label: string }> = ({ f, label }) => (
+  <div style={{ position: 'absolute', top: 18, left: 22, padding: '4px 12px', borderRadius: 6, background: 'rgba(0,0,0,.55)', color: '#F6E6B4', fontFamily: FONT.ui, fontSize: 26 }}>
+    THỬ C1 · kịch bản 12 · {label} · {(f / 30).toFixed(1)} s
+  </div>
+);
+
+export const ThuC1Tinh: React.FC = () => {
+  const f = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{ background: '#0E0C1E' }}>
+      <AbsoluteFill style={{ filter: GRADE }}>
+        <Stage f={f} cam={STATIC} light={false} />
+      </AbsoluteFill>
+      <Tag f={f} label="máy tĩnh, duyệt diễn" />
+    </AbsoluteFill>
+  );
+};
+
+export const ThuC1: React.FC = () => {
+  const f = useCurrentFrame();
+  return (
+    <AbsoluteFill style={{ background: '#0E0C1E' }}>
+      <AbsoluteFill style={{ filter: GRADE }}>
+        <Stage f={f} cam={cameraAt(f)} light />
+      </AbsoluteFill>
+      <Finish />
+      <Tag f={f} label="góc máy + nét + ánh đèn" />
+    </AbsoluteFill>
+  );
+};

@@ -167,3 +167,10 @@ Lộc có mẫu mặt đã chốt; trẻ concept v4 đồ cũ/che chở chờ du
 Đếm lại ba giao kèo/đúng người trả và lúc có hiệu lực; đồng bộ source–clean–bản thẻ, cue KICH-BAN/DUNG-CANH (hiện 35), link và số lời/nghỉ; 24 giây mở không lời không nhập TTS. Storyboard kiểm tra nguồn âm/miền cảm giác; animatic phải chạy nhận lời-ngăn muộn, nắm tay đi/ngồi/ôm/tan/trở ghế và cất giấy, không chỉ pan tranh. Chưa có phim để nghe/xem hoặc đo thời lượng thật.
 
 Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai người trưởng thành và tiền viện. Không dùng luật/pose/ước tính đó cho bản 5 hiện hành.
+
+## Đoạn thử C1 bản 12 — 08/11/2026
+
+- Composition `ThuC1Tinh` (máy tĩnh, duyệt diễn) và `ThuC1` (cắt theo hành động/ánh mắt, chuyển nét, đèn bàn sau + bokeh như ảnh mẫu), 20 giây: Thảo chìa tiền → Lộc đặt tua vít → "Cất đi" → mỉa mai → Thảo giật tiền về, nhìn anh → Duy quay sang che, đỡ tay em và giữ tiền → Lộc về bàn sau. Mã: `what-if-studio/src/episodes/tin-nhan-chua-gui/thu-c1.tsx`.
+- Khẩu hình theo biên độ giọng từng take (`thu-c1-audio.cjs env`), người nghe giữ miệng biểu cảm. Tay gần của Thảo đặt bằng góc vai/khuỷu, không dùng IK (IK gập khuỷu sai khi tay gần thân); tay xa buông.
+- Giọng: dùng lại 3 take bản 11 trùng vai, lời và thẻ bản 12, **0 credits**. Âm nền/FX là âm tạm tổng hợp bằng ffmpeg (quạt, gió, còi xa, tua vít, vải, tiền giấy, bước chân), chưa có nhạc.
+- Bản xuất: `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\thu-c1-v12-{goc-may,may-tinh}-{1080p,480p}.mp4`. Chưa duyệt; chủ repo sẽ sửa thêm kịch bản trước khi dựng tiếp.
