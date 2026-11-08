@@ -36,8 +36,8 @@ const LOC_GROUND = COUNTER_TOP + 140 * LOC_S - 12;
 
 /** The clock Lộc is repairing: face open on its movement, back cover and two screws laid beside it. */
 const CLOCK = { x: 968, y: COUNTER_TOP + 2 };
-const BENCH_CLOCK = { x: 1250, y: 500 }; // on the rear bench top, in front of his seat
-const RepairClock: React.FC<{ f: number; inHand?: boolean; at?: { x: number; y: number; s: number } }> = ({ f, inHand = false, at }) => (
+const BENCH_CLOCK = { x: 1318, y: 506 }; // on the rear bench top, in front of his seat
+const RepairClock: React.FC<{ f: number; inHand?: boolean; at?: { x: number; y: number; s: number }; hs?: number }> = ({ f, inHand = false, at, hs = 1.3 }) => (
   <g>
     {!inHand && !at ? (
       <g>
@@ -46,7 +46,7 @@ const RepairClock: React.FC<{ f: number; inHand?: boolean; at?: { x: number; y: 
         <circle cx={1053} cy={COUNTER_TOP - 1} r={2.2} fill='#C9C2B0' />
       </g>
     ) : null}
-    <g transform={inHand ? 'scale(1.3)' : at ? `translate(${at.x} ${at.y}) scale(${at.s})` : `translate(${CLOCK.x} ${CLOCK.y}) scale(1.4)`}>
+    <g transform={inHand ? `scale(${hs})` : at ? `translate(${at.x} ${at.y}) scale(${at.s})` : `translate(${CLOCK.x} ${CLOCK.y}) scale(1.4)`}>
       <rect x={-20} y={-6} width={40} height={6} rx={2} fill='#4A2E22' stroke='#120E10' strokeWidth={2} />
       <circle cx={0} cy={-24} r={18} fill='#C7A15A' stroke='#120E10' strokeWidth={3} />
       <circle cx={0} cy={-24} r={13} fill='#3A2A1C' />
@@ -69,16 +69,23 @@ const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNod
     const sc = lerp(LOC_S, 1.0, walk);
     const g = lerp(LOC_GROUND, 752, walk);
     const stand = walk < 1 ? walkPose(x, (f - 452) * 0.2, g, sc, { expr: 'neutral', yaw: -0.55, headTilt: 4 }, 1) : standPose(1300, 752, 1.0, { t: f, seed: 3, facing: -1, yaw: -0.3, expr: 'neutral' });
-    const seat = sitPose(1318, 532, 1.0, -1, { t: f, seed: 3, yaw: -0.2, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
+    const seat = sitPose(1318, 532, 1.0, -1, { t: f, seed: 3, yaw: -0.04, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
     let pose = sit > 0 ? poseAt(sit, [{ f: 0, p: stand }, { f: 1, p: seat }]) : stand;
     if (sit >= 1) {
       // Back at work: left hand steadies the clock, right hand twists the screwdriver, then both pause for the glance up.
       const pause = ramp(f, 568, 574);
       const twist = Math.sin(f * 0.9) * (1 - pause);
       // Facing screen-left the left arm is the near one: it works the screwdriver; the far right hand steadies the clock.
-      pose = reach(pose, 'L', { x: BENCH_CLOCK.x + 22 + twist * 1.5, y: BENCH_CLOCK.y - 40 }, 1);
-      pose = reach(pose, 'R', { x: BENCH_CLOCK.x - 22, y: BENCH_CLOCK.y - 24 }, 1);
-      return { pose: { ...pose, ...m, handR: 'hold', handL: 'hold' }, atBench: true, heldL: <ScrewdriverProp x={0} y={0} s={0.6} rot={160 + twist * 14} />, benchClock: true };
+      // Explicit angles (IK folds the elbows outward this close to the body): left hand holds the clock at his chest,
+      // right elbow stays outside the torso so the forearm reads, its hand turns the screwdriver toward the clock.
+      pose = { ...pose, armL: { a: 14, b: -84 }, armR: { a: 40, b: -90 + twist * 7 } };
+      return {
+        pose: { ...pose, ...m, handR: 'hold', handL: 'hold' },
+        atBench: true,
+        held: <ScrewdriverProp x={0} y={0} s={0.55} rot={196 + twist * 8} />,
+        heldL: <RepairClock f={f} inHand hs={0.8} />,
+        benchClock: false,
+      };
     }
     return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR, handL: sit < 0.5 ? 'hold' : pose.handL }, atBench: sit > 0.5, held: <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} />, heldL: sit < 0.5 ? <RepairClock f={f} inHand /> : undefined, benchClock: sit >= 0.5 };
   }
@@ -295,14 +302,15 @@ const Stage: React.FC<{ f: number; cam: Cam; light: boolean }> = ({ f, cam, ligh
   const bg = light ? blurPx(cam, 2) : 0;
   const mid = light ? blurPx(cam, 1) : 0;
   const fg = light ? blurPx(cam, 0) : 0;
-  const lochero = <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={{ R: loc.held, L: loc.heldL }} />;
+  const lochero = <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} handLayer={loc.atBench ? 'defer' : 'normal'} heldProps={{ R: loc.held, L: loc.heldL }} />;
   return (
     <svg width={1920} height={1080} viewBox="0 0 1920 1080">
       <g transform={camT(cam.cx, cam.cy, cam.z)}>
         <Blur id="thuBg" px={bg} z={cam.z}>
           <OngLocShop t={f} id="thu" veil={0.36} />
-          {loc.benchClock ? <RepairClock f={f} at={{ ...BENCH_CLOCK, s: 1.0 }} /> : null}
+          {loc.benchClock ? <RepairClock f={f} at={{ ...BENCH_CLOCK, s: 0.9 }} /> : null}
           {loc.atBench ? lochero : null}
+          {loc.atBench ? <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} handLayer="only" heldProps={{ R: loc.held, L: loc.heldL }} /> : null}
           <BenchFront hideClock />
         </Blur>
         {light ? <LampLight bgBlur={bg} f={f} /> : null}
