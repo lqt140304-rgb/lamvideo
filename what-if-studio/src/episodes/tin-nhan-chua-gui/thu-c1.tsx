@@ -34,7 +34,31 @@ const MIA_END = MIA + line('mia').len;
 // ---------------------------------------------------------------------------- acting
 const LOC_GROUND = COUNTER_TOP + 140 * LOC_S - 12;
 
-const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNode } => {
+/** The clock Lộc is repairing: face open on its movement, back cover and two screws laid beside it. */
+const CLOCK = { x: 968, y: COUNTER_TOP + 2 };
+const RepairClock: React.FC<{ f: number; inHand?: boolean }> = ({ f, inHand = false }) => (
+  <g>
+    {!inHand ? (
+      <g>
+        <ellipse cx={1022} cy={COUNTER_TOP - 1} rx={17} ry={5} fill='#8A6A3E' stroke='#120E10' strokeWidth={2} />
+        <circle cx={1046} cy={COUNTER_TOP - 2} r={2.2} fill='#C9C2B0' />
+        <circle cx={1053} cy={COUNTER_TOP - 1} r={2.2} fill='#C9C2B0' />
+      </g>
+    ) : null}
+    <g transform={inHand ? 'scale(1.3)' : `translate(${CLOCK.x} ${CLOCK.y}) scale(1.4)`}>
+      <rect x={-20} y={-6} width={40} height={6} rx={2} fill='#4A2E22' stroke='#120E10' strokeWidth={2} />
+      <circle cx={0} cy={-24} r={18} fill='#C7A15A' stroke='#120E10' strokeWidth={3} />
+      <circle cx={0} cy={-24} r={13} fill='#3A2A1C' />
+      <g transform={`rotate(${f * 3} -4 -26)`}>
+        <circle cx={-4} cy={-26} r={7} fill='none' stroke='#E0B860' strokeWidth={3} strokeDasharray='2.2 1.6' />
+      </g>
+      <circle cx={6} cy={-19} r={4.5} fill='none' stroke='#D9C9A0' strokeWidth={2} strokeDasharray='1.6 1.2' />
+      <circle cx={7} cy={-31} r={1.8} fill='#E9E2D0' />
+    </g>
+  </g>
+);
+
+const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNode; heldL?: React.ReactNode; clockOnCounter?: boolean } => {
   const m = mouth('loc', f);
   const sit = ramp(f, 528, 548);
   const walk = clamp((f - 452) / (528 - 452));
@@ -46,7 +70,7 @@ const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNod
     const stand = walk < 1 ? walkPose(x, (f - 452) * 0.2, g, sc, { expr: 'neutral', yaw: -0.55, headTilt: 4 }, 1) : standPose(1300, 752, 1.0, { t: f, seed: 3, facing: -1, yaw: -0.3, expr: 'neutral' });
     const seat = sitPose(1318, 612, 1.0, -1, { t: f, seed: 3, yaw: -0.2, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
     const pose = sit > 0 ? poseAt(sit, [{ f: 0, p: stand }, { f: 1, p: seat }]) : stand;
-    return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR }, atBench: sit > 0.5, held: sit < 0.5 ? <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} /> : undefined };
+    return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR, handL: sit < 0.5 ? 'hold' : pose.handL }, atBench: sit > 0.5, held: sit < 0.5 ? <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} /> : undefined, heldL: sit < 0.5 ? <RepairClock f={f} inHand /> : undefined };
   }
   // At the counter. Head down on the work, eyes come up to the bills, chin lifts before the scold, leans in to mock.
   const up = ramp(f, 40, 58);
@@ -70,10 +94,23 @@ const locAt = (f: number): { pose: Pose; atBench: boolean; held?: React.ReactNod
   // Right hand: working the screwdriver on the counter, lays it flat (f 196–207), rests on it, picks it up at 426.
   const down = ramp(f, 196, 207);
   const lift = ramp(f, 426, 440);
-  const work = Math.sin(f / 7) * 6 * (1 - down);
-  p = reach(p, 'R', { x: 975 + work - 30 * lift, y: lerp(COUNTER_TOP - 30, COUNTER_TOP - 4, down) - 45 * lift }, 1);
-  p = reach(p, 'L', { x: 905, y: COUNTER_TOP - 6 }, 0.85); // the left hand steadies on the counter edge
-  return { pose: { ...p, handR: 'hold' }, atBench: false, held: <ScrewdriverProp x={0} y={0} s={0.7} rot={lerp(70, 10, lift)} /> };
+  // Turning the screw: quick wrist twists in bursts with a short look between; slower once his eyes are on the bills.
+  const burst = Math.max(0, Math.sin(f / 11));
+  const twist = Math.sin(f * 0.9) * 14 * burst * (1 - down) * (1 - 0.6 * up);
+  const screw = { x: 952 + Math.sin(f * 0.9) * 1.5 * burst * (1 - down), y: COUNTER_TOP - 62 };
+  const laid = { x: 1000, y: COUNTER_TOP - 4 };
+  const hR = { x: lerp(screw.x, laid.x, down), y: lerp(screw.y, laid.y, down) };
+  p = reach(p, 'R', { x: lerp(hR.x, 975, lift), y: lerp(hR.y, COUNTER_TOP - 50, lift) }, 1);
+  // Left hand holds the clock steady by its rim; takes it along when he leaves.
+  const take = ramp(f, 430, 444);
+  p = reach(p, 'L', { x: lerp(CLOCK.x - 26, 925, take), y: lerp(CLOCK.y - 34, COUNTER_TOP - 50, take) }, 1);
+  return {
+    pose: { ...p, handR: 'hold', handL: 'hold' },
+    atBench: false,
+    held: <ScrewdriverProp x={0} y={0} s={0.7} rot={lerp(lerp(115, 70, down) + twist, 10, lift)} />,
+    heldL: f >= 434 ? <RepairClock f={f} inHand /> : undefined,
+    clockOnCounter: f < 434,
+  };
 };
 
 const DUY_X = 1090;
@@ -156,8 +193,9 @@ const mix = (a: Cam, b: Cam, k: number): Cam => ({ cx: lerp(a.cx, b.cx, k), cy: 
 const STATIC: Cam = { cx: 1015, cy: 600, z: 1.36, focus: 0.5 };
 /** Cuts on action/look: wide → Lộc close on the chin lift → Thảo close under the mockery → follow her eyes to Duy → wide as Lộc picks up the tool → bench. */
 const cameraAt = (f: number): Cam => {
+  if (f < 54) return { ...mix({ cx: 945, cy: 575, z: 2.5, focus: 1 }, { cx: 945, cy: 570, z: 2.6, focus: 1 }, ease(f / 54)) }; // close on the hands at work
   if (f < 232) {
-    const k = ease(f / 232);
+    const k = ease((f - 54) / 178);
     const c = mix({ cx: 1050, cy: 610, z: 1.26, focus: 0 }, { cx: 1035, cy: 595, z: 1.36, focus: 0 }, k);
     return { ...c, focus: lerp(0, 1, ease((f - 192) / 26)) }; // attention to Lộc's hand and face as he lays the tool down
   }
@@ -247,7 +285,7 @@ const Stage: React.FC<{ f: number; cam: Cam; light: boolean }> = ({ f, cam, ligh
   const bg = light ? blurPx(cam, 2) : 0;
   const mid = light ? blurPx(cam, 1) : 0;
   const fg = light ? blurPx(cam, 0) : 0;
-  const lochero = <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={loc.held ? { R: loc.held } : undefined} />;
+  const lochero = <Hero look={LOOKS.ongLoc} pose={loc.pose} shadow={0} heldProps={{ R: loc.held, L: loc.heldL }} />;
   return (
     <svg width={1920} height={1080} viewBox="0 0 1920 1080">
       <g transform={camT(cam.cx, cam.cy, cam.z)}>
@@ -260,6 +298,7 @@ const Stage: React.FC<{ f: number; cam: Cam; light: boolean }> = ({ f, cam, ligh
         <Blur id="thuMid" px={mid} z={cam.z}>
           {!loc.atBench ? lochero : null}
           <OngLocCounter x={COUNTER.x} y={COUNTER.y} w={COUNTER.w} t={f} phoneState="cracked" showPhoto={false} receiptStage="none" showMoney={false} showPouch />
+          {loc.clockOnCounter ? <RepairClock f={loc.clockOnCounter && f < 196 ? f : 196} /> : null}
         </Blur>
         <Blur id="thuFg" px={fg} z={cam.z}>
           <DoorShelf clockHeld={false} />
