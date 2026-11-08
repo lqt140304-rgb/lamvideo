@@ -93,16 +93,16 @@
   {"cue":"C7-C","items":[7,7,11],"pauseAt":0,"look":"warmMemory","note":"Giữ ôm dưới lời; tan trong khoảng nghỉ 4 s từ đồng hồ 0; 8 s không lời từ giây 4"},
   {"cue":"C8-A","sec":2,"look":"shopMystery","note":"Mở về tiệm, đúng ghế và tay"},
   {"cue":"C8-B","items":[8,0,0],"t0":0,"look":"shopMystery"},
-  {"cue":"C8-A","items":[8,1,3],"look":"shopMystery"},
+  {"cue":"C8-A","items":[8,1,5],"look":"shopMystery"},
   {"cue":"C8-B","sec":3.5,"t0":14,"look":"shopMystery","note":"Duy cất đủ ba tờ vào ví"},
-  {"cue":"C8-E","items":[8,4,4],"look":"nightAtmosphere"},
-  {"cue":"C8-C","items":[8,5,6],"sec":5,"look":"nightAtmosphere"},
-  {"cue":"C8-D","items":[8,7,8],"look":"nightAtmosphere"},
+  {"cue":"C8-E","items":[8,6,6],"sec":4.2,"look":"nightAtmosphere","note":"Hai trẻ ra khỏi tiệm rồi khuất; máy ở lại, cửa cuốn hạ, tiệm thành tường"},
+  {"cue":"C8-C","items":[8,7,8],"sec":5,"look":"nightAtmosphere"},
+  {"cue":"C8-D","items":[8,9,10],"look":"nightAtmosphere"},
   {"cue":"C9-A","items":[9,0,0],"look":"vaultGlow"},
   {"cue":"C9-B","items":[9,1,1],"look":"vaultGlow"},
   {"cue":"C9-C","items":[9,2,2],"look":"vaultGlow"},
   {"cue":"C9-D","items":[9,3,3],"look":"vaultGlow"}
  ],
  "scriptRevision": 13,
- "scriptSha256": "32ec04bb69c8845c69407a8d8fb1a98e4e148845653bf756990a0cd0beb12d6c"
+ "scriptSha256": "abc4dcc346fcd04218eacf5906ef0370c2165b601e4eca2968ad6301973916b4"
 }

@@ -1,5 +1,5 @@
 {
- "scriptSha256": "32ec04bb69c8845c69407a8d8fb1a98e4e148845653bf756990a0cd0beb12d6c",
+ "scriptSha256": "abc4dcc346fcd04218eacf5906ef0370c2165b601e4eca2968ad6301973916b4",
  "scriptRevision": 13,
  "model": "eleven_v4",
  "cast": {
@@ -928,9 +928,20 @@
    "sec": 4.48
   },
   {
-   "id": "8.5.0",
+   "id": "8.4.0",
    "s": 8,
-   "i": 5,
+   "i": 4,
+   "k": 0,
+   "role": "loc",
+   "text": "Được rồi, hai đứa chúng mày về đi.",
+   "say": "[coldly] Được rồi, hai đứa chúng mày về đi.",
+   "file": "tin-nhan-chua-gui/voice/8.4.0-loc-db137eab3e.mp3",
+   "sec": 2.24
+  },
+  {
+   "id": "8.7.0",
+   "s": 8,
+   "i": 7,
    "k": 0,
    "role": "duy",
    "text": "Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.",
@@ -939,9 +950,9 @@
    "sec": 5.52
   },
   {
-   "id": "8.6.0",
+   "id": "8.8.0",
    "s": 8,
-   "i": 6,
+   "i": 8,
    "k": 0,
    "role": "narrator",
    "text": "Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đêm nay.",
@@ -950,9 +961,9 @@
    "sec": 5.44
   },
   {
-   "id": "8.7.0",
+   "id": "8.9.0",
    "s": 8,
-   "i": 7,
+   "i": 9,
    "k": 0,
    "role": "narrator",
    "text": "Buổi làm hòa bên mẹ không trở lại trong Duy. Phần buồn cậu nhận vẫn còn. Thảo cũng sẽ không gặp mẹ trong mơ nữa. Nhưng lần này, Duy chịu nói mình không kham nổi. Và ở đầu hẻm, có một người lớn đang đợi hai đứa.",

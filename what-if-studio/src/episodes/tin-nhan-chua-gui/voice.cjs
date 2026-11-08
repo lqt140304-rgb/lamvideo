@@ -167,6 +167,17 @@ const main = async () => {
     else logCost('voice-lines', (await used()) - before, `${list.length} pieces`);
     return;
   }
-  console.log('usage: voice.cjs samples | lines [--dry | --cached]');
+  if (mode === 'laugh') {
+    // One long take in Lộc's voice; voice-track.cjs lays it over the exit. Not a script line, so it has its own file.
+    const v = cfg.cast.loc;
+    const say = '[sinister laugh] Hờ hờ hờ... hờ hờ... [laughs darkly] Hà hà hà hà... hà hà hà... hà hà hà hà hà... [slow evil laugh] hờ hờ hờ... hà hà hà...';
+    const before = await used();
+    const f = path.join(studio, 'public/tin-nhan-chua-gui/voice/loc-laugh.mp3');
+    fs.writeFileSync(f, await tts(v.id, say, { ...cfg.settings, stability: 0.3, style: 0.6 }));
+    console.log(`laugh: ${seconds(f).toFixed(1)} s`);
+    logCost('voice-laugh', (await used()) - before, 'Lộc laugh over the exit');
+    return;
+  }
+  console.log('usage: voice.cjs samples | lines [--dry | --cached] | laugh');
 };
 main().catch((e) => { console.error(e.message); process.exit(1); });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MeadowFamily, meadowFamilyPoses } from './meadow_family';
+import { HomeFront, AuntEatery } from './house_fronts';
 import { mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
 import {
   Hero,
@@ -30,7 +31,6 @@ import {
   ClockCreature,
   MemoryJar,
   ReverseClockwork,
-  AlleyWithoutShop,
   AntiquePortraitCameo,
   CameoJars,
   OngLocShop,
@@ -619,13 +619,13 @@ export const ShC7_C: React.FC<ShotProps> = ({ t }) => {
 
 /** C8-A: open from dark on the same stools, hands still joined; Duy pale and spent. Lộc nods later. */
 export const ShC8_A: React.FC<ShotProps> = ({ t }) => {
-  const asked = mark('ShC8_A', 8, 3, 8 * S); // Lộc only nods at her last question; no comfort
-  const nod = asked.at + asked.len - 0.8 * S;
-  const nodK = t > nod && t < nod + S ? Math.sin(((t - nod) / S) * Math.PI) * 8 : 0;
-  const k = seatedKids(t, { duyExpr: t > 8 * S ? 'tearsHeldBack' : 'exhaustedClinch', thaoExpr: 'worried', holdHands: 1, duyLean: 16, duyHeadTilt: 6 });
+  const laugh = mark('ShC8_A', 8, 5, 12 * S); // no comfort: he sends them off, then laughs
+  const laughing = t >= laugh.at - 0.2 * S;
+  const shake = laughing ? Math.sin(t * 0.85) : 0;
+  const k = seatedKids(t, { duyExpr: t > 8 * S ? 'tearsHeldBack' : 'exhaustedClinch', thaoExpr: laughing ? 'scared' : 'worried', holdHands: 1, duyLean: 16, duyHeadTilt: 6 });
   return (
     <g>
-      <Shop t={t} id="c8a" cam={[880, 640, 1.25]} loc={{ pose: LOC_AT_COUNTER(1000, t, { yaw: 0.1, expr: 'neutral', headTilt: nodK }) }} counter={{ phoneState: 'repaired', receiptStage: t > 8 * S ? 'signed' : 'none' }} stools={k.stools} kids={<><Hero pose={k.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={k.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />
+      <Shop t={t} id="c8a" cam={[880, 640, 1.25]} loc={{ pose: LOC_AT_COUNTER(1000, t, { yaw: 0.1, expr: laughing ? 'smug' : 'neutral', headTilt: laughing ? -5 + shake * 2.5 : 0, shoulderLift: laughing ? 0.25 + shake * 0.3 : 0, ...(laughing ? { talk: 0.55 + shake * 0.3, mouthShape: 'a' as const } : {}) }) }} counter={{ phoneState: 'repaired', receiptStage: t > 8 * S ? 'signed' : 'none' }} stools={k.stools} kids={<><Hero pose={k.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0} /><Hero pose={k.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0} /></>} />
       <rect width={1920} height={1080} fill="#1e171a" opacity={1 - clamp(t / 14)} />
     </g>
   );
@@ -654,13 +654,13 @@ export const ShC8_B: React.FC<ShotProps> = ({ t }) => {
 /** C8-C: outside the home threshold. Father only as sound / a shadow behind the inner wall; Duy shields Thảo and calls Aunt Hạnh. */
 export const ShC8_C: React.FC<ShotProps> = ({ t }) => {
   const stopK = ramp(t, 0.3 * S, 0.9 * S);
-  const call = mark('ShC8_C', 8, 5, 5 * S).at;
+  const call = mark('ShC8_C', 8, 7, 5 * S).at;
   const phoneUp = ramp(t, call - 1.5 * S, call - 0.7 * S);
-  const exhale = t > mark('ShC8_C', 8, 6, 10 * S).at;
+  const exhale = t > mark('ShC8_C', 8, 8, 10 * S).at;
   const zoom = lerp(1.0, 1.35, ramp(t, 5 * S, 8 * S)); // 28 mm wide → 50 mm medium on the call
   let duy = standPose(860, 990, 1.05, { t, seed: 1, yaw: 0.25, look: exhale ? 0.1 : -0.2, expr: exhale ? 'relieved' : 'determined' });
-  let thao = standPose(1060, 1000, 0.8, { t, seed: 2, yaw: -0.4 + stopK * 0.2, expr: 'scared', look: -0.5 });
-  thao = reach(thao, 'L', { x: duy.x + 40, y: duy.y - 60 }, stopK);
+  let thao = standPose(lerp(1040, 966, stopK), 1000, 0.8, { t, seed: 2, yaw: -0.4 + stopK * 0.2, expr: 'scared', look: -0.5 });
+  thao = reach(thao, 'L', { x: duy.x + 42, y: duy.y - 24 }, stopK, true); // bunches his shirt at the waist
   if (phoneUp > 0) duy = reach(duy, 'L', { x: duy.x - 20, y: duy.y - 160 * duy.scale }, phoneUp);
   return (
     <g transform={camT(940, lerp(560, 720, ramp(t, 5 * S, 8 * S)), zoom)}>
@@ -670,7 +670,7 @@ export const ShC8_C: React.FC<ShotProps> = ({ t }) => {
           <rect x={560} y={160} width={800} height={780} />
         </clipPath>
       </defs>
-      <rect x={-200} y={-200} width={2400} height={1500} fill="#141A26" />
+      <HomeFront />
       <g clipPath="url(#c8cDoor)">
         <MotherThaoHouse t={t} id="c8c" showFatherShadow veil={0.66} />
       </g>
@@ -678,36 +678,29 @@ export const ShC8_C: React.FC<ShotProps> = ({ t }) => {
       <rect x={1360} y={120} width={40} height={830} fill="#2A2420" stroke="#0E0B0A" strokeWidth={3} />
       <rect x={520} y={110} width={880} height={50} fill="#2A2420" stroke="#0E0B0A" strokeWidth={3} />
       <rect x={480} y={940} width={960} height={22} fill="#3A332C" stroke="#0E0B0A" strokeWidth={3} />
-      <rect x={-200} y={962} width={2400} height={400} fill="#1C2230" />
+      <rect x={-200} y={962} width={2400} height={400} fill="#1A202C" />
+      <line x1={-200} y1={1010} x2={2200} y2={1010} stroke="#242B39" strokeWidth={5} />
+      <ellipse cx={1500} cy={1040} rx={190} ry={18} fill="#2A3445" />
       <Hero look={LOOKS.duy} pose={duy} rimId="rimShopWarm" shadow={0.35} heldProps={phoneUp > 0 ? { L: <MotherPhone x={0} y={0} w={40} rot={90} flat={false} cracked={0} screenOn={1} /> } : undefined} />
       <Hero look={LOOKS.thao} pose={thao} rimId="rimStreetlamp" shadow={0.3} />
     </g>
   );
 };
 
-/** C8-D: hand in hand toward the warm light at the alley head. The shop is gone (C8-E), so the frame stays on the far side of the alley. */
-const C8D_CAM = { x: 440, y: 740, z: 1.4 };
+/** C8-D: hand in hand, tired, toward Aunt Hạnh's lit eatery at the alley head. */
 export const ShC8_D: React.FC<ShotProps> = ({ t }) => {
-  const go = ramp(t, 3 * S, 4 * S);
-  const x = 800 - (t - 3 * S) * 1.6 * go;
-  const ph = t * 0.5;
-  let duy = go > 0 ? walkPose(x, ph, 930, 0.9, { expr: 'tired', yaw: -1 }, -1) : standPose(800, 930, 0.9, { t, seed: 1, yaw: -0.3, expr: 'tired' });
-  let thao = go > 0 ? walkPose(x + 120, ph * 1.12 + 1.5, 945, 0.7, { expr: 'worried', yaw: -1 }, -1) : standPose(920, 945, 0.7, { t, seed: 2, yaw: -0.3, expr: 'worried' });
+  const x = 1640 - t * 1.25;
+  const ph = t * 0.24;
+  let duy = walkPose(x, ph, 960, 0.92, { expr: 'tired', yaw: -1 }, -1);
+  let thao = walkPose(x + 122, ph * 1.12 + 1.5, 976, 0.72, { expr: 'worried', yaw: -1 }, -1);
   const g = { x: (duy.x + thao.x) / 2 + 6, y: duy.y + 30 };
   duy = reach(duy, 'L', g, 1);
   thao = reach(thao, 'R', g, 1);
   return (
-    <g transform={camT(C8D_CAM.x, C8D_CAM.y, C8D_CAM.z)}>
-      <AlleyExteriorScene t={t} showOwl={false} showPassersby={false} />
-      <defs>
-        <radialGradient id="c8dAunt">
-          <stop offset="0%" stopColor="#FFC67A" stopOpacity={0.42} />
-          <stop offset="100%" stopColor="#FFC67A" stopOpacity={0} />
-        </radialGradient>
-      </defs>
-      <ellipse cx={40} cy={720} rx={520} ry={330} fill="url(#c8dAunt)" style={{ mixBlendMode: 'screen' }} />
-      <Hero look={LOOKS.duy} pose={duy} rimId="rimShopWarm" shadow={0.35} />
-      <Hero look={LOOKS.thao} pose={thao} rimId="rimStreetlamp" shadow={0.3} />
+    <g transform={camT(lerp(960, 930, clamp(t / 420)), 540, lerp(1.0, 1.05, clamp(t / 420)))}>
+      <AuntEatery t={t} />
+      <Hero look={LOOKS.duy} rimId="rimShopWarm" shadow={0.35} pose={duy} />
+      <Hero look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} pose={thao} />
     </g>
   );
 };
@@ -716,25 +709,24 @@ export const ShC8_D: React.FC<ShotProps> = ({ t }) => {
 // CẢNH 8-E và CẢNH 9 — Tiệm biến mất, nguyên hình và kho lọ (không lời)
 // ============================================================================
 
-/** C8-E: the camera stays once the children are gone. The door light narrows to a slit and goes; the front closes into old wall. */
+/** C8-E: same door as the opening. The two come out and leave hand in hand; the camera stays; the shutter comes down and the shop goes. */
 export const ShC8_E: React.FC<ShotProps> = ({ t }) => {
-  const close = ramp(t, 0.5 * S, 1.6 * S);
-  const gone = ramp(t, 1.5 * S, 2.4 * S);
-  const w = 200 * (1 - close);
+  const stay = mark('ShC8_E', 8, 6, 4.2 * S).at; // the written 3 s begins once they have left the frame
+  const close = ramp(t, stay + 0.1 * S, stay + 1.3 * S);
+  const gone = ramp(t, stay + 1.4 * S, stay + 2.7 * S);
+  const walk = clamp(t / stay);
+  const x = lerp(1400, 470, walk); // from the threshold of the same door they went in by
+  const ph = t * 0.4;
+  let duy = walkPose(x, ph, 930, 0.9, { expr: 'tired', yaw: -1 }, -1);
+  let thao = walkPose(x + 118, ph * 1.12 + 1.5, 950, 0.7, { expr: 'worried', yaw: -1 }, -1);
+  const hold = { x: (duy.x + thao.x) / 2 + 6, y: duy.y + 30 };
+  duy = reach(duy, 'L', hold, 1);
+  thao = reach(thao, 'R', hold, 1);
   return (
-    <g transform={camT(1040, 560, 1.04)}>
-      <AlleyWithoutShop t={t} showOwl />
-      <g opacity={1 - gone}>
-        <rect x={1220} y={440} width={420} height={320} rx={4} fill="#2A1F24" stroke="#120E10" strokeWidth={3} />
-        <rect x={1280} y={460} width={280} height={66} rx={3} fill="#3B2A22" stroke="#120E10" strokeWidth={2.5} />
-        <rect x={1330} y={540} width={200} height={220} fill="#14101A" stroke="#120E10" strokeWidth={3} />
-      </g>
-      {w > 0.5 ? (
-        <g style={{ mixBlendMode: 'screen' }}>
-          <rect x={1430 - w / 2} y={540} width={w} height={220} fill="#FFC56E" opacity={0.9} />
-          <polygon points={`${1430 - w / 2},760 ${1430 + w / 2},760 ${1300 + w * 0.3},${900} ${1120 - w * 0.5},${900}`} fill="#FFB65C" opacity={0.22 * (1 - close)} />
-        </g>
-      ) : null}
+    <g transform={camT(1180, 740, 1.2)}>
+      <AlleyExteriorScene t={t} showOwl={false} showPassersby={false} shopClose={close} shopGone={gone} />
+      {walk < 1 ? <Hero look={LOOKS.duy} rimId="rimShopWarm" shadow={0.35} pose={duy} /> : null}
+      {walk < 1 ? <Hero look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} pose={thao} /> : null}
     </g>
   );
 };

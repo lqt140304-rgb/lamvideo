@@ -55,12 +55,14 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
   const duy={...bankSit(850,.84,t,1,2+8*clamp(support)),expr:(grieving?'sad':'relieved') as Expr};
   // A small fixed lean keeps the shoulder contacts stable while the eyes/cloth breathe.
   const mother={...bankSit(960,1.02,t,9,0),yaw:0,facing:1 as const,legL:{a:65,b:-65},legR:{a:60,b:-60},tilt:0,headTilt:-2,shoulderLift:0,expr:'smile' as Expr};
-  // The inside arms wrap across the mother's shirt, in front of her body.
-  const hugs={duy:{x:931,y:752},thao:{x:991,y:758}};
+  // The inside arms go round the mother, their hands out of sight behind her back (drawn under her, see MeadowFamily).
+  const hugs={duy:{x:944,y:742},thao:{x:980,y:748}};
   duy.armR=blendArm(duy.armR,reachPalm(duy,'R',hugs.duy),clamp(support));
   thao.armL=blendArm(thao.armL,reachPalm(thao,'L',hugs.thao),clamp(support));
-  duy.armL=reachPalm(duy,'L',{x:duy.x-24,y:duy.y-21});
-  thao.armR=reachPalm(thao,'R',{x:thao.x+23,y:thao.y-17});
+  // The outside arms hang straight, palm resting on the stone beside the hip (short cartoon arms: elbows never jut out).
+  const duyOut=shoulder(duy,'L'),thaoOut=shoulder(thao,'R');
+  duy.armL=reachPalm(duy,'L',{x:duyOut.x-7,y:798});
+  thao.armR=reachPalm(thao,'R',{x:thaoOut.x+7,y:798});
   let grip:Point|null=null,cheek:Point|null=null;
   if(farewellT!==undefined&&farewellT>=120){
     const q=farewellT,move=smooth((q-126)/38);
@@ -112,32 +114,40 @@ export const MeadowFamily:React.FC<{t:number;motherOpacity?:number;dissolveT?:nu
     const opacity=clamp(motherOpacity)*(dissolve?.opacity??1);
     const {mother,thao,duy,grip}=meadowFamilyPoses(t,grieving,opacity,dissolveT);
     const filter=dissolve?`url(#${id}-soft)`:undefined;
+    const behind=opacity>0.02; // while she is there the inner arms pass behind her; once she is gone they are ordinary arms again
     const p=t%360;
     const mom={...mother,...(demoTalk?mouthCueAt(p,[{from:55,to:72,shape:'a',open:.3},{from:78,to:92,shape:'e',open:.25},{from:105,to:121,shape:'o',open:.25}]):{})};
     return <g data-meadow-family="embrace">
       {dissolve?<defs><filter id={`${id}-soft`} x="-12%" y="-12%" width="124%" height="124%"><feGaussianBlur stdDeviation={dissolve.softness} /></filter></defs>:null}
       {[thao,duy].map((a,i)=><ellipse key={i} cx={a.x} cy="802" rx={31*a.scale} ry="3.5" fill="#3d3a26" opacity="0.22" />)}
       <ellipse cx={mom.x} cy="802" rx="39" ry="3.5" fill="#3d3a26" opacity={opacity*.22} />
+      {behind?<><Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" /><Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" /></>:null}
       <g filter={filter}><Hero pose={mom} look={LOOKS.meDuyThao} opacity={opacity} shadow={0} rimId="rimStreetlamp" handLayer="defer" /></g>
       {dissolveT!==undefined?<MotherDissolveAir t={dissolveT} pose={mom} id={id} />:null}
-      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="defer" />
-      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="defer" />
-      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="only" />
-      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="only" />
+      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="defer" hideArm={behind?'L':undefined} />
+      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="defer" hideArm={behind?'R':undefined} />
+      <Hero pose={thao} look={LOOKS.thao} shadow={0} rimId="rimStreetlamp" handLayer="only" hideArm={behind?'L':undefined} />
+      <Hero pose={duy} look={LOOKS.duy} shadow={0} rimId="rimStreetlamp" handLayer="only" hideArm={behind?'R':undefined} />
       {grip?<SiblingClasp duy={duy} thao={thao} grip={grip} />:null}
       <g filter={filter}><Hero pose={mom} look={LOOKS.meDuyThao} opacity={opacity} shadow={0} rimId="rimStreetlamp" handLayer="only" /></g>
     </g>;
   };
 
-/** Both real wrists terminate in this single two-hand grip; no spare palms underneath. */
+/** Hand in hand, in one piece: Thảo's small hand lies in Duy's, his four fingers close over it and her thumb folds over his. */
 const SiblingClasp:React.FC<{duy:Pose;thao:Pose;grip:Point}>=({duy,thao,grip:c})=>{
   const a=joints(duy).armR.end,b=joints(thao).armL.end;
   const d={x:duy.x+a.x*duy.scale,y:duy.y+a.y*duy.scale};
   const e={x:thao.x+b.x*thao.scale,y:thao.y+b.y*thao.scale};
-  return <g data-sibling-clasp="two-hands" stroke="#46302b" strokeWidth="1.65" strokeLinejoin="round" strokeLinecap="round">
-    <path d={`M ${e.x+4} ${e.y-2} Q ${e.x+5} ${e.y+3} ${c.x+10} ${c.y+3} Q ${c.x+12} ${c.y+9} ${c.x+5} ${c.y+10} L ${c.x-4} ${c.y+7} Q ${c.x-8} ${c.y+3} ${c.x-3} ${c.y+1} L ${e.x-4} ${e.y+2} Z`} fill={LOOKS.thao.hand} />
-    <path d={`M ${d.x-4} ${d.y-2} Q ${d.x+1} ${d.y-4} ${c.x+1} ${c.y-6} Q ${c.x+7} ${c.y-8} ${c.x+10} ${c.y-3} Q ${c.x+11} ${c.y+1} ${c.x+6} ${c.y+2} Q ${c.x+9} ${c.y+6} ${c.x+5} ${c.y+8} Q ${c.x-4} ${c.y+11} ${c.x-9} ${c.y+5} L ${d.x-5} ${d.y+3} Z`} fill={LOOKS.duy.hand} />
-    <path d={`M ${c.x+6} ${c.y-1} Q ${c.x+1} ${c.y-4} ${c.x-2} ${c.y} M ${c.x-2} ${c.y+3} q 3 2 7 0 M ${c.x-3} ${c.y+6} q 3 2 6 0`} fill="none" stroke="#b68165" strokeWidth=".9" />
-    <path d={`M ${c.x+8} ${c.y+5} q -1 3 -4 3`} stroke="#f6d2af" strokeWidth="1.4" fill="none" />
+  // Local frame on the line between the wrists: +x points to Thảo.
+  const ang=Math.atan2(e.y-d.y,e.x-d.x),co=Math.cos(ang),si=Math.sin(ang);
+  const along=(p:Point)=>(p.x-c.x)*co+(p.y-c.y)*si;
+  const du=Math.min(-9,along(d)),eu=Math.max(9,along(e));
+  const ink='#46302b';
+  const finger=(y:number,x1:number,skin:string,x0=0)=><g key={y}><line x1={x0} y1={y} x2={x1} y2={y} stroke={ink} strokeWidth={5.1} strokeLinecap="round" /><line x1={x0} y1={y} x2={x1} y2={y} stroke={skin} strokeWidth={3.1} strokeLinecap="round" /></g>;
+  return <g data-sibling-clasp="two-hands" transform={`translate(${c.x} ${c.y}) rotate(${ang*180/Math.PI})`} strokeLinejoin="round">
+    <path d={`M ${eu} -3.6 Q 9 -7 2 -6.8 L 2 6.8 Q 9 7 ${eu} 3.6 Z`} fill={LOOKS.thao.hand} stroke={ink} strokeWidth={1.2} />
+    <path d={`M ${du} -4.4 Q -7 -9.4 1 -9 L 1 9 Q -7 9.4 ${du} 4.4 Z`} fill={LOOKS.duy.hand} stroke={ink} strokeWidth={1.2} />
+    {finger(-6.4,10.5,LOOKS.duy.hand)}{finger(-2.1,12,LOOKS.duy.hand)}{finger(2.2,11.5,LOOKS.duy.hand)}{finger(6.4,9.5,LOOKS.duy.hand)}
+    {finger(-9.4,0.5,LOOKS.thao.hand,8)}
   </g>;
 };

@@ -162,6 +162,8 @@ Tờ sửa máy là cái giá của ký ức. Tờ thứ hai ghi phần buồn D
 
 [hesitant] “Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?”
 
+[coldly] “Được rồi, hai đứa chúng mày về đi.”
+
 [strained] “Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.”
 
 Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đêm nay.

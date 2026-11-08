@@ -7,6 +7,8 @@
 
 Lộ trình và trạng thái: [kế hoạch sản xuất tối ưu](KE-HOACH-SAN-XUAT.md).
 
+> Sửa 09/11/2026 theo chủ repo: thêm câu Lộc đuổi về, tiếng cười kéo dài tới khi hai trẻ ra khỏi quán (+1 lượt lời, +3 giây không lời); hai trẻ rời đi trước khi cửa đóng; có mặt tiền quán dì Hạnh ở C8-D.
+>
 > Bản 13 — 08/11/2026. Giữ toàn bộ lời bản 12; thêm cameo chân dung/lọ trong tiệm, C8-E tiệm biến mất và C9 Lộc nguyên hình đồng hồ ba mắt/kho lọ/thời gian ngược. Thêm 31 giây không lời, tổng 40 cue. Chưa dựng media mới. Toàn bộ truyện là hư cấu.
 
 **Tuổi và xưng hô đã chốt:** Duy là **anh trai, 16 tuổi**; Thảo là **em gái, 8 tuổi**. Cả hai gọi ông Lộc là **“ông”**, xưng **“cháu”**. Ông Lộc tự xưng **“tao”**, gọi từng trẻ là **“mày”**, gọi cả hai là **“chúng mày/hai đứa mày”**. Hai trẻ vẫn gọi **“ông”**, xưng **“cháu”**; không tự đổi lời của hai trẻ sang mày–tao.
@@ -678,9 +680,15 @@ Chi tiết cùng mã trong [DUNG-CANH.md](DUNG-CANH.md).
 
 > “Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?”
 
-**Không đọc — C8-A → C8-B:** Lộc gật, không an ủi hoặc trả lại giá. Duy kéo em gần, cất đủ ba tờ vào ví, cầm máy, đưa em ra. Hành động có điểm cầm/nhả thật; không narrator đọc quy trình cất đồ.
+**Ông Lộc [coldly] · không an ủi, đuổi khéo**
 
-**[KHÔNG LỜI 3 giây — C8-E: máy ở lại ngoài cửa sau khi hai trẻ rời khung. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Sau đó mới cut tới nhà hai trẻ.]**
+> “Được rồi, hai đứa chúng mày về đi.”
+
+**[KHÔNG LỜI 3 giây — C8-A: Lộc nhếch mép rồi cười nham hiểm thành tiếng, kéo dài; Thảo nép vào anh. Tiếng cười giữ qua lúc Duy cất giấy và tới khi hai trẻ ra khỏi quán thì tắt.]**
+
+**Không đọc — C8-A → C8-B:** Lộc không an ủi hoặc trả lại giá, vẫn cười. Duy kéo em gần, cất đủ ba tờ vào ví, cầm máy, đưa em ra. Hành động có điểm cầm/nhả thật; không narrator đọc quy trình cất đồ.
+
+**[KHÔNG LỜI 3 giây — C8-E: hai trẻ bước ra đúng cửa tiệm lúc đầu và đi khuất trước; máy ở lại ngoài cửa sau khi hai trẻ rời khung, cửa cuốn hạ. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Sau đó mới cut tới nhà hai trẻ.]**
 
 **Không đọc — C8-C:** Cut định vị ngưỡng NHÀ HAI TRẺ cách tiệm ba căn, có dấu cửa/đồ sinh hoạt riêng. Bóng bố và chai sau vách, lời càm ràm không rõ câu. Thảo khựng, Duy dừng ngoài cửa, lấy máy gọi. Không tái dùng nguyên biển tiệm khiến người xem tưởng chưa đi đâu.
 

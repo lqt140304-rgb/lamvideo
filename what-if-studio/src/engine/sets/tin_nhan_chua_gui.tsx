@@ -2857,7 +2857,9 @@ export const AlleyExteriorScene: React.FC<{
   showOwl?: boolean;
   showPassersby?: boolean;
   showCat?: boolean;
-}> = ({ t = 0, showOwl = true, showPassersby = false, showCat = true }) => (
+  shopClose?: number; // 0 open .. 1 shutter down and the doorway light gone
+  shopGone?: number; // 0 shop .. 1 only old wall where it stood
+}> = ({ t = 0, showOwl = true, showPassersby = false, showCat = true, shopClose = 0, shopGone = 0 }) => (
   <g>
     <defs>
       {/* Deep midnight alley sky gradient */}
@@ -3509,7 +3511,16 @@ export const AlleyExteriorScene: React.FC<{
     {/* ===================================================================== */}
     {/* 6. RIGHT SIDE: ÔNG LỘC'S SHOPHOUSE (`TIỆM ÔNG LỘC` — NGUỒN SÁNG DUY NHẤT)*/}
     {/* ===================================================================== */}
-    <g>
+    {shopGone > 0 ? (
+      <g>
+        {/* What is left once the shop has withdrawn: blank damp wall between the same neighbours */}
+        <polygon points="1180,-60 2040,-120 2040,1060 1180,700" fill="#262126" stroke={INK} strokeWidth={4} />
+        <polygon points="1360,375 1835,285 1835,950 1360,738" fill="#211C21" />
+        <polygon points="1450,190 1780,150 1780,262 1450,296" fill="#1C181C" />
+        <path d="M 1180 700 L 2040 1060 L 2040 1022 Q 1800 930 1640 884 Q 1420 760 1180 678 Z" fill="#1E3029" />
+      </g>
+    ) : null}
+    <g opacity={1 - shopGone}>
       {/* 2-Story Vietnamese shophouse facade wall: weathered mustard-yellow ochre plaster */}
       <polygon points="1180,-60 2040,-120 2040,1060 1180,700" fill="#30241C" stroke={INK} strokeWidth={4} />
 
@@ -3803,6 +3814,7 @@ export const AlleyExteriorScene: React.FC<{
       {/* WARM GOLDEN LIGHT SPILL ONTO ALLEY THRESHOLD & PAVEMENT             */}
       {/* (Ánh sáng vàng ấm từ tiệm là nguồn sáng chính duy nhất của con ngõ) */}
       {/* =================================================================== */}
+      <g opacity={1 - shopClose}>
       <polygon
         points="1340,735 1860,945 1180,1450 740,820"
         fill="url(#tiemWarmSpillRadial)"
@@ -3816,6 +3828,15 @@ export const AlleyExteriorScene: React.FC<{
         filter="url(#hemLightFeather)"
         style={{ mixBlendMode: 'screen' }}
       />
+      </g>
+      {shopClose > 0 ? (
+        <g>
+          <polygon points={`1405,382 1812,298 1812,${298 + 632 * shopClose} 1405,${382 + 346 * shopClose}`} fill="#2E3138" stroke={INK} strokeWidth={3} />
+          {Array.from({ length: Math.floor(shopClose * 24) }).map((_, i) => (
+            <line key={i} x1={1405} y1={382 + i * 14.4} x2={1812} y2={298 + i * 26.3} stroke="#1D2027" strokeWidth={2.5} />
+          ))}
+        </g>
+      ) : null}
       {/* Drifting warm dust motes floating near shop entrance */}
       <Dust t={t} seed={115} x0={1340} y0={420} w={450} h={540} n={24} o={0.45} />
     </g>

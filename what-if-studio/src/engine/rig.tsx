@@ -1191,7 +1191,7 @@ const TempleLocks: React.FC<{
   );
 };
 
-export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?: Look; opacity?: number; heldProps?: Partial<Record<'L' | 'R', React.ReactNode>>; handLayer?: 'normal' | 'defer' | 'only' }> = ({
+export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?: Look; opacity?: number; heldProps?: Partial<Record<'L' | 'R', React.ReactNode>>; handLayer?: 'normal' | 'defer' | 'only'; hideArm?: 'L' | 'R' }> = ({
   pose,
   shadow = 1,
   rimId = 'rimR',
@@ -1199,6 +1199,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   opacity = 1,
   heldProps,
   handLayer = 'normal',
+  hideArm,
 }) => {
   const j = joints(pose);
   const L = look;
@@ -1350,8 +1351,8 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   if (handLayer === 'only') return <g opacity={opacity}>
     <g transform={`translate(${pose.x} ${pose.y}) scale(${pose.scale}) rotate(${pose.spin} 0 -90)`} filter={`url(#${rimId})`}>
       <g transform={`translate(0 ${LEG_LEN}) scale(${1 + 0.6 * pose.squash} ${1 - pose.squash}) translate(0 ${-LEG_LEN})`}>
-        {hand(j.armL, 1, pose.handL, heldProps?.L)}
-        {hand(j.armR, -1, pose.handR, heldProps?.R)}
+        {hideArm === 'L' ? null : hand(j.armL, 1, pose.handL, heldProps?.L)}
+        {hideArm === 'R' ? null : hand(j.armR, -1, pose.handR, heldProps?.R)}
       </g>
     </g>
   </g>;
@@ -2333,13 +2334,13 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           )}
           {L.body === 'swaddle' ? null : pose.yaw < 0 ? (
             <>
-              {arm(j.armR)}
-              {handLayer !== 'defer' ? hand(j.armR, -1, pose.handR, heldProps?.R) : null}
+              {hideArm === 'R' ? null : arm(j.armR)}
+              {handLayer !== 'defer' && hideArm !== 'R' ? hand(j.armR, -1, pose.handR, heldProps?.R) : null}
             </>
           ) : (
             <>
-              {arm(j.armL)}
-              {handLayer !== 'defer' ? hand(j.armL, 1, pose.handL, heldProps?.L) : null}
+              {hideArm === 'L' ? null : arm(j.armL)}
+              {handLayer !== 'defer' && hideArm !== 'L' ? hand(j.armL, 1, pose.handL, heldProps?.L) : null}
             </>
           )}
           {backHair}
@@ -2351,13 +2352,13 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           {torso}
           {L.body === 'swaddle' ? null : pose.yaw < 0 ? (
             <>
-              {arm(j.armL)}
-              {handLayer !== 'defer' ? hand(j.armL, 1, pose.handL, heldProps?.L) : null}
+              {hideArm === 'L' ? null : arm(j.armL)}
+              {handLayer !== 'defer' && hideArm !== 'L' ? hand(j.armL, 1, pose.handL, heldProps?.L) : null}
             </>
           ) : (
             <>
-              {arm(j.armR)}
-              {handLayer !== 'defer' ? hand(j.armR, -1, pose.handR, heldProps?.R) : null}
+              {hideArm === 'R' ? null : arm(j.armR)}
+              {handLayer !== 'defer' && hideArm !== 'R' ? hand(j.armR, -1, pose.handR, heldProps?.R) : null}
             </>
           )}
           {L.extra === 'hood' ? (

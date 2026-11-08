@@ -1,10 +1,10 @@
 {
- "scriptSha256": "32ec04bb69c8845c69407a8d8fb1a98e4e148845653bf756990a0cd0beb12d6c",
+ "scriptSha256": "abc4dcc346fcd04218eacf5906ef0370c2165b601e4eca2968ad6301973916b4",
  "scriptRevision": 13,
  "slug": "tin-nhan-chua-gui",
  "title": "HẺM CÓ CHUYỆN · TẬP 01: TIN NHẮN CHƯA GỬI",
  "fps": 30,
- "total": 15758,
+ "total": 16050,
  "estimate": "Thời lượng theo giọng ElevenLabs đã tạo (voice-manifest.json) + nghỉ theo KICH-BAN.",
  "segments": [
   {
@@ -433,16 +433,16 @@
   {
    "shot": "ShC8_A",
    "a": 13273,
-   "b": 13646,
+   "b": 13812,
    "t0": 60,
-   "t1": 433,
+   "t1": 599,
    "look": "shopMystery",
-   "line": "“Sao em không để anh nói đã?” “Em thấy anh mệt lắm rồi. Em không muốn ông lấy thêm của anh nữa.” “Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?”"
+   "line": "“Sao em không để anh nói đã?” “Em thấy anh mệt lắm rồi. Em không muốn ông lấy thêm của anh nữa.” “Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?” “Được rồi, hai đứa chúng mày về đi.” [nghỉ 3s]"
   },
   {
    "shot": "ShC8_B",
-   "a": 13646,
-   "b": 13751,
+   "a": 13812,
+   "b": 13917,
    "t0": 420,
    "t1": 525,
    "look": "shopMystery",
@@ -450,17 +450,17 @@
   },
   {
    "shot": "ShC8_E",
-   "a": 13751,
-   "b": 13841,
+   "a": 13917,
+   "b": 14133,
    "t0": 0,
-   "t1": 90,
+   "t1": 216,
    "look": "nightAtmosphere",
    "line": "[nghỉ 3s]"
   },
   {
    "shot": "ShC8_C",
-   "a": 13841,
-   "b": 14338,
+   "a": 14133,
+   "b": 14630,
    "t0": 0,
    "t1": 497,
    "look": "nightAtmosphere",
@@ -468,8 +468,8 @@
   },
   {
    "shot": "ShC8_D",
-   "a": 14338,
-   "b": 14918,
+   "a": 14630,
+   "b": 15210,
    "t0": 0,
    "t1": 580,
    "look": "nightAtmosphere",
@@ -477,8 +477,8 @@
   },
   {
    "shot": "ShC9_A",
-   "a": 14918,
-   "b": 15098,
+   "a": 15210,
+   "b": 15390,
    "t0": 0,
    "t1": 180,
    "look": "vaultGlow",
@@ -486,8 +486,8 @@
   },
   {
    "shot": "ShC9_B",
-   "a": 15098,
-   "b": 15308,
+   "a": 15390,
+   "b": 15600,
    "t0": 0,
    "t1": 210,
    "look": "vaultGlow",
@@ -495,8 +495,8 @@
   },
   {
    "shot": "ShC9_C",
-   "a": 15308,
-   "b": 15548,
+   "a": 15600,
+   "b": 15840,
    "t0": 0,
    "t1": 240,
    "look": "vaultGlow",
@@ -504,8 +504,8 @@
   },
   {
    "shot": "ShC9_D",
-   "a": 15548,
-   "b": 15758,
+   "a": 15840,
+   "b": 16050,
    "t0": 0,
    "t1": 210,
    "look": "vaultGlow",
@@ -796,7 +796,7 @@
    "id": "ShC8_A",
    "size": "trung đôi 50mm",
    "key": 60,
-   "len": 433,
+   "len": 599,
    "first": 12846,
    "line": "",
    "note": "C8-A · Mở về tiệm, match ghế/tay; Duy tái mệt"
@@ -814,8 +814,8 @@
    "id": "ShC8_E",
    "size": "toàn ngoài tiệm 35mm",
    "key": 60,
-   "len": 90,
-   "first": 13751,
+   "len": 216,
+   "first": 13917,
    "line": "[nghỉ 3s]",
    "note": "C8-E · Máy ở lại ngoài cửa sau khi hai trẻ khuất; ánh tiệm rút, mặt tiền khép thành tường cũ"
   },
@@ -824,7 +824,7 @@
    "size": "toàn 28mm → trung 50mm",
    "key": 120,
    "len": 497,
-   "first": 13841,
+   "first": 14133,
    "line": "“Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.” Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đê",
    "note": "C8-C · Ngưỡng nhà, bố chỉ âm/bóng sau vách; gọi dì"
   },
@@ -833,7 +833,7 @@
    "size": "toàn 35mm",
    "key": 120,
    "len": 580,
-   "first": 14338,
+   "first": 14630,
    "line": "Buổi làm hòa bên mẹ không trở lại trong Duy. Phần buồn cậu nhận vẫn còn. Thảo cũng sẽ không gặp mẹ trong mơ nữa. Nhưng lần này, Duy chịu nói mình không kham nổi",
    "note": "C8-D · Hai trẻ nắm tay đi về đèn đầu hẻm"
   },
@@ -842,7 +842,7 @@
    "size": "cận kính 70mm → trung 50mm",
    "key": 90,
    "len": 180,
-   "first": 14918,
+   "first": 15210,
    "line": "[nghỉ 6s]",
    "note": "C9-A · Lộc đặt kính; lọ tiền cảnh che điểm ghép; người thành đồng hồ"
   },
@@ -851,7 +851,7 @@
    "size": "trung rộng 35–50mm",
    "key": 120,
    "len": 210,
-   "first": 15098,
+   "first": 15390,
    "line": "[nghỉ 7s]",
    "note": "C9-B · Nguyên hình đồng hồ ba mắt lơ lửng trong kho; ánh mắt tới ba lọ"
   },
@@ -860,7 +860,7 @@
    "size": "insert 65–85mm",
    "key": 120,
    "len": 240,
-   "first": 15308,
+   "first": 15600,
    "line": "[nghỉ 8s]",
    "note": "C9-C · Ba lọ G1/G2/G3 được nhấc, đặt lên ô kệ bằng vùng lực"
   },
@@ -869,7 +869,7 @@
    "size": "lùi 50→35mm",
    "key": 120,
    "len": 210,
-   "first": 15548,
+   "first": 15840,
    "line": "[nghỉ 7s]",
    "note": "C9-D · Lùi mở kho; cát và kim chạy ngược cục bộ; ba mắt khép lệch nhịp"
   }
@@ -1846,53 +1846,73 @@
    "text": "“Vậy… từ nay cháu không còn mơ thấy mẹ nữa hả ông?”"
   },
   {
-   "shot": "ShC8_E",
+   "shot": "ShC8_A",
    "s": 8,
    "i": 4,
+   "kind": "line",
+   "at": 433,
+   "len": 76,
+   "f": 13646,
+   "text": "“Được rồi, hai đứa chúng mày về đi.”"
+  },
+  {
+   "shot": "ShC8_A",
+   "s": 8,
+   "i": 5,
    "kind": "pause",
-   "at": 0,
+   "at": 509,
    "len": 90,
-   "f": 13751,
-   "text": "C8-E: máy ở lại ngoài cửa sau khi hai trẻ rời khung. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Sau đó mới cut tới nhà hai trẻ."
+   "f": 13722,
+   "text": "C8-A: Lộc nhếch mép rồi cười nham hiểm thành tiếng, kéo dài; Thảo nép vào anh. Tiếng cười giữ qua lúc Duy cất giấy và tới khi hai trẻ ra khỏi quán thì tắt."
+  },
+  {
+   "shot": "ShC8_E",
+   "s": 8,
+   "i": 6,
+   "kind": "pause",
+   "at": 126,
+   "len": 90,
+   "f": 14043,
+   "text": "C8-E: hai trẻ bước ra đúng cửa tiệm lúc đầu và đi khuất trước; máy ở lại ngoài cửa sau khi hai trẻ rời khung, cửa cuốn hạ. Ánh tiệm tắt/rút theo khe cửa, mặt tiền biến mất thành tường cũ giữa hai căn không đổi. Hai em đã quay lưng, không nhìn thấy; quạt mất cùng nguồn, hẻm còn. Sau đó mới cut tới nhà hai trẻ."
   },
   {
    "shot": "ShC8_C",
    "s": 8,
-   "i": 5,
+   "i": 7,
    "kind": "line",
    "at": 150,
    "len": 175,
-   "f": 13991,
+   "f": 14283,
    "text": "“Dì ơi, cho hai anh em qua ngủ được không? Tối nay con trông em một mình không nổi.”"
   },
   {
    "shot": "ShC8_C",
    "s": 8,
-   "i": 6,
+   "i": 8,
    "kind": "line",
    "at": 325,
    "len": 172,
-   "f": 14166,
+   "f": 14458,
    "text": "Dì Hạnh bảo cửa vẫn mở, cứ đưa em sang. Duy không phải trông em một mình đêm nay."
   },
   {
    "shot": "ShC8_D",
    "s": 8,
-   "i": 7,
+   "i": 9,
    "kind": "line",
    "at": 0,
    "len": 460,
-   "f": 14338,
+   "f": 14630,
    "text": "Buổi làm hòa bên mẹ không trở lại trong Duy. Phần buồn cậu nhận vẫn còn. Thảo cũng sẽ không gặp mẹ trong mơ nữa. Nhưng lần này, Duy chịu nói mình không kham nổi. Và ở đầu hẻm, có một người lớn đang đợi hai đứa."
   },
   {
    "shot": "ShC8_D",
    "s": 8,
-   "i": 8,
+   "i": 10,
    "kind": "pause",
    "at": 460,
    "len": 120,
-   "f": 14798,
+   "f": 15090,
    "text": "Giữ hai trẻ đi về đèn nhà dì. Nhạc không lời nâng vừa đủ rồi để tiếng chân/hẻm kết; không thêm đoạn dạy đạo lý."
   },
   {
@@ -1902,7 +1922,7 @@
    "kind": "pause",
    "at": 0,
    "len": 180,
-   "f": 14918,
+   "f": 15210,
    "text": "C9-A: Lộc đặt kính lên khăn, máy trượt qua lọ gần để che điểm đổi hình. Nguồn sáng mở theo lớp, không hòa hai cơ thể/không lóe trắng; động tác và đổi cảnh chung 6 giây."
   },
   {
@@ -1912,7 +1932,7 @@
    "kind": "pause",
    "at": 0,
    "len": 210,
-   "f": 15098,
+   "f": 15390,
    "text": "C9-B: lộ nguyên hình đồng hồ ba mắt lơ lửng trong kho sáng huyền ảo. Giữ một nhịp để nhận diện, rồi ánh mắt chuyển tới ba lọ; không thêm lời hoặc gầm hù."
   },
   {
@@ -1922,7 +1942,7 @@
    "kind": "pause",
    "at": 0,
    "len": 240,
-   "f": 15308,
+   "f": 15600,
    "text": "C9-C: đọc được từng lọ mới bằng hình tượng rồi Lộc điều khiển xếp chúng. Lọ rời mặt đỡ nhờ vùng lực rõ, giảm tốc, chạm ô kệ và tắt quầng lực. G2 là dấu giao kèo, nỗi buồn vẫn ở Duy; G3 không phải linh hồn mẹ."
   },
   {
@@ -1932,7 +1952,7 @@
    "kind": "pause",
    "at": 0,
    "len": 210,
-   "f": 15548,
+   "f": 15840,
    "text": "C9-D: máy lùi mở các lớp kho, hạt cát chảy lên/vòng kim quay lùi cục bộ. Giữ đủ ba lọ mới, các lọ cũ không có nạn nhân mới vừa trao giá. Kết trong ánh sáng xa lạ; không hoàn ký ức, nỗi buồn hoặc quyền mơ cho trẻ."
   }
  ],
@@ -2430,22 +2450,28 @@
    "f": 13502
   },
   {
+   "file": "tin-nhan-chua-gui/voice/8.4.0-loc-db137eab3e.mp3",
+   "role": "loc",
+   "id": "8.4.0",
+   "f": 13646
+  },
+  {
    "file": "tin-nhan-chua-gui/voice/8.5.0-duy-2aae867ffd.mp3",
    "role": "duy",
-   "id": "8.5.0",
-   "f": 13991
+   "id": "8.7.0",
+   "f": 14283
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.6.0-narrator-c2399decc4.mp3",
    "role": "narrator",
-   "id": "8.6.0",
-   "f": 14166
+   "id": "8.8.0",
+   "f": 14458
   },
   {
    "file": "tin-nhan-chua-gui/voice/8.7.0-narrator-c2021e7ed9.mp3",
    "role": "narrator",
-   "id": "8.7.0",
-   "f": 14338
+   "id": "8.9.0",
+   "f": 14630
   }
  ],
  "fx": [],
