@@ -17,7 +17,7 @@ function Preview(){
     </section>
     <svg viewBox="-260 -35 520 660" role="img" aria-label="Nhân vật với tư thế đã chọn"><rect x="-260" y="-35" width="520" height="660" fill="#f6f1e8"/><StudentRig cast={cast} pose={shown} debug={debug} showSupport/></svg>
     <p className="note">Mẫu rig và tư thế để duyệt. Kéo thanh pha để soi chuyển động; không tự chạy phim. Chưa gắn lời thoại, khẩu hình, mặt bàn/bồn rửa hoặc đường đi trong cảnh.</p>
-    <p><a href="can-doi-chan.svg">Kiểm tra độ cân hai chân</a> · <a href="chi-tiet-khop.svg">Soi vai, cổ tay và chiều bàn tay</a> · <a href="doi-chieu-mau-goc.svg">Đối chiếu mẫu gốc / bản sửa</a> · <a href="tu-the-khop.svg">Xem bảng 12 tư thế</a> · <a href="RIG-NHAN-VAT.md">Hướng dẫn bàn giao Claude</a></p>
+    <p><a href="ban-tay-ro-net.svg">Soi từng dáng bàn tay</a> · <a href="can-doi-chan.svg">Kiểm tra độ cân hai chân</a> · <a href="chi-tiet-khop.svg">Soi vai, cổ tay và chiều bàn tay</a> · <a href="doi-chieu-mau-goc.svg">Đối chiếu mẫu gốc / bản sửa</a> · <a href="tu-the-khop.svg">Xem bảng 12 tư thế</a> · <a href="RIG-NHAN-VAT.md">Hướng dẫn bàn giao Claude</a></p>
   </main>;
 }
 createRoot(document.getElementById('root')!).render(<Preview/>);

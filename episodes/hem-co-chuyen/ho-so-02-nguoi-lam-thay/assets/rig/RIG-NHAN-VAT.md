@@ -18,18 +18,25 @@ Tư thế nghỉ: hai cổ tay gần đường dọc qua vai, khuỷu không ban
 
 [Xem bảng cân chân](can-doi-chan.png). Các nếp vải vẫn có thể khác nhau; chưa đổi mẫu gốc lưu làm tham chiếu hoặc khởi động dựng phim.
 
+### Bổ sung độ rõ của tay
+
+Tăng độ đầy cẳng tay/cổ tay, giữ chiều dài xương và tay nghỉ gần thẳng. Vẽ lại lòng tay, độ dày ngón và ngón cái; tăng khối nắm vốn nhỏ hơn các kiểu khác và bỏ phép thu riêng bàn tay mở. Nét tách ngón nhẹ hơn viền ngoài để không thành mảng đen khi thu hình.
+
+`typing` là tay mở với ngón cong chuẩn bị gõ, `cup` là tay cong giữ mép bát; không dùng chung một nắm tay cho cả hai. Đã có dáng riêng cho nghỉ, mở, nắm, gõ, giữ bát và ôm điện thoại. Các ngón vẫn là hình SVG theo trạng thái, chưa có khớp ngón độc lập hoặc diễn hoạt gõ/rửa hoàn chỉnh. Xem [bảng soi từng kiểu tay](ban-tay-ro-net.png), đối chiếu với bảng toàn thân để duyệt kích thước; chưa mặc định đã đạt trong mọi cỡ cảnh của phim.
+
 ## Tệp và tác dụng
 
 | Tệp | Tác dụng |
 |---|---|
 | [rig.tsx](rig.tsx) | `StudentRig`, 12 preset, bộ giải tay/chân hai đoạn, đường bao liền, tọa độ khớp và hàm lấy pha bước |
 | [doi-chieu-mau-goc.svg](doi-chieu-mau-goc.svg) / [PNG](doi-chieu-mau-goc.png) | Nam và Tùng gốc đặt cạnh bản rig V3, kèm phóng to ba dáng tay để đối chiếu |
+| [ban-tay-ro-net.svg](ban-tay-ro-net.svg) / [PNG](ban-tay-ro-net.png) | Sáu ô phóng lớn các dáng nghỉ, mở, nắm, điện thoại, chuẩn bị gõ và giữ bát |
 | [can-doi-chan.svg](can-doi-chan.svg) / [PNG](can-doi-chan.png) | Soi quần Nam, đùi/vớ Tùng và chân khi ngồi sau chỉnh độ rộng |
 | [chi-tiet-khop.svg](chi-tiet-khop.svg) / [PNG](chi-tiet-khop.png) | 8 ô phóng lớn vai/tay áo, dáng nghỉ, tay mở, cầm điện thoại, giữ bát, tay gập và quần |
 | [tu-the-khop.svg](tu-the-khop.svg) / [PNG](tu-the-khop.png) | Bảng tĩnh 12 tư thế để duyệt nét, dáng và trang phục; sinh từ cùng nguồn rig |
 | [xem-tu-the.html](xem-tu-the.html) | Trình xem chạy độc lập, không cần CDN; chọn ba nhân vật, tư thế, bật khớp; kéo pha bước hoặc mức đứng → dè chừng. Tải về/mở local; GitHub không chạy HTML tương tác trong trang xem mã |
 | [preview.tsx](preview.tsx) | Nguồn giao diện thử rig; không phải composition của phim |
-| [build-preview.mjs](build-preview.mjs) | Tạo lại bốn bảng SVG và HTML từ nguồn bằng các thư viện đã cài trong `what-if-studio/node_modules`; PNG cần chụp/xuất lại từ SVG |
+| [build-preview.mjs](build-preview.mjs) | Tạo lại năm bảng SVG và HTML từ nguồn bằng các thư viện đã cài trong `what-if-studio/node_modules`; PNG cần chụp/xuất lại từ SVG |
 | [verify-rig.mjs](verify-rig.mjs) | Kiểm tra chiều dài xương, dữ liệu hữu hạn, vòng bước và hướng đầu gối khi ngồi |
 
 ## Các tư thế có sẵn
@@ -41,7 +48,7 @@ Tư thế nghỉ: hai cổ tay gần đường dọc qua vai, khuỷu không ban
 - Hệ tọa độ thiết kế cao khoảng 600 đơn vị. `x`, `y`, `scale` đặt cả rig vào cảnh; các đích bàn tay/bàn chân dùng tọa độ trong rig trước phép đặt này. `left`/`right` là trái/phải màn hình trong góc vẽ hiện có, tránh hiểu nhầm thành giải phẫu khi đổi hướng.
 - `root` dịch hông/thân; `lean` nghiêng thân quanh hông; `head` nghiêng đầu quanh chân cổ. Vai theo thân, gốc đùi theo hông. Hệ đầu–cổ kế thừa nguyên mẫu đã có.
 - `leftHand`, `rightHand`, `leftFoot`, `rightFoot` là đích cổ tay/cổ chân. Bộ giải tính khuỷu/gối với chiều dài xương cố định; điểm ngoài tầm bị giới hạn thay vì kéo dài chi. Dáng ngồi dùng chiều dài chiếu riêng để gợi đùi hướng ra trước trong tranh 2D.
-- `leftBend`/`rightBend` chọn phía gập khuỷu; `leftKnee`/`rightKnee` chọn phía gập gối. Không đổi dấu đột ngột giữa cùng một động tác. `leftPalm`/`rightPalm` là góc gập bổ sung so với trục cẳng tay, không còn là góc cố định theo màn hình; `phone` dùng dáng cầm riêng giữ máy thẳng; `leftShape`/`rightShape` chọn thả, xòe hoặc nắm.
+- `leftBend`/`rightBend` chọn phía gập khuỷu; `leftKnee`/`rightKnee` chọn phía gập gối. Không đổi dấu đột ngột giữa cùng một động tác. `leftPalm`/`rightPalm` là góc gập bổ sung so với trục cẳng tay, không còn là góc cố định theo màn hình; `phone` dùng dáng cầm riêng giữ máy thẳng; `leftShape`/`rightShape` chọn `relaxed`, `open`, `grip`, `typing` hoặc `cup`.
 - Cánh tay có đường bao cong liên tục qua khớp; quần, đùi/vớ biến dạng từ đường vẽ gốc để giữ hình cắt và độ đầy. Vai nối vào áo, hông phủ gốc đùi; tay đang diễn ở lớp trước thân. Điện thoại và bát đi theo điểm tay, không đặt trôi độc lập trên màn hình. Đã bổ sung năm ngón và nếp tay, nhưng các ngón chưa có khớp điều khiển riêng; chưa có mọi góc cầm hoặc cận bàn tay.
 - `debug` hiện 14 điểm neo và đường xương. `showSupport` hiện bóng sàn hoặc ghế thử; khi dùng ghế/bối cảnh thật, tắt hỗ trợ thử và căn lại điểm tựa/đích chân. Không đặt thêm ghế thử đè lên ghế của cảnh.
 

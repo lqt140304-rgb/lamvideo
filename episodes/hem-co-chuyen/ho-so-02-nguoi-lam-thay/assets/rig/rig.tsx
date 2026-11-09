@@ -3,7 +3,7 @@ import {PALETTE as P, StudentTwinHead, TungHead, StudentTwinBody, TungSoccer, ty
 
 export type Vec = {x: number; y: number};
 export type Cast = 'nam' | 'nguoi-kia' | 'tung';
-export type HandShape = 'relaxed' | 'open' | 'grip';
+export type HandShape = 'relaxed' | 'open' | 'grip' | 'typing' | 'cup';
 // left/right are screen sides in this three-quarter design, not anatomical sides.
 export type Pose = {
   root: Vec; lean: number; head: number;
@@ -32,9 +32,9 @@ export const POSES: Record<string, Pose> = {
   offer:{...base,lean:3,head:-3,rightHand:v(166,294),rightBend:1,rightPalm:0,rightShape:'open'},
   reach:{...base,lean:7,head:-3,rightHand:v(177,227),rightBend:1,rightShape:'grip',rightPalm:0},
   sit:{...base,root:v(0,-38),lean:3,leftHand:v(-78,348),rightHand:v(80,350),leftFoot:v(-110,474),rightFoot:v(110,474),leftKnee:1,rightKnee:-1,support:'seat'},
-  type:{...base,root:v(0,-38),lean:9,head:6,leftHand:v(9,290),rightHand:v(110,291),leftPalm:0,rightPalm:0,leftShape:'grip',rightShape:'grip',leftFoot:v(-110,474),rightFoot:v(110,474),leftKnee:1,rightKnee:-1,support:'seat'},
+  type:{...base,root:v(0,-38),lean:9,head:6,leftHand:v(9,290),rightHand:v(110,291),leftPalm:0,rightPalm:0,leftShape:'typing',rightShape:'typing',leftFoot:v(-110,474),rightFoot:v(110,474),leftKnee:1,rightKnee:-1,support:'seat'},
   bend:{...base,root:v(0,30),lean:17,head:12,leftHand:v(54,397),rightHand:v(145,406),leftShape:'grip',rightShape:'grip',leftFoot:v(-55,560),rightFoot:v(63,560)},
-  wash:{...base,lean:7,head:9,leftHand:v(30,307),rightHand:v(107,298),leftPalm:0,rightPalm:0,leftShape:'grip',rightShape:'grip',prop:'bowl'},
+  wash:{...base,lean:7,head:9,leftHand:v(30,307),rightHand:v(107,298),leftPalm:0,rightPalm:0,leftShape:'cup',rightShape:'cup',prop:'bowl'},
   stepLeft:{...base,root:v(0,3),lean:2,leftHand:v(-110,344),rightHand:v(108,369),leftFoot:v(-73,557),rightFoot:v(65,534)},
   stepRight:{...base,root:v(0,3),lean:2,leftHand:v(-108,369),rightHand:v(110,344),leftFoot:v(-65,534),rightFoot:v(73,557)},
 };
@@ -127,26 +127,41 @@ function clothPath(source:string,s:ReturnType<typeof skeleton>):string {
 const REFERENCE_PANTS='M -63 329 Q -80 364 -71 403 L -67 454 Q -78 491 -65 548 Q -42 560 -12 548 L -10 471 Q -10 443 -4 411 Q 0 402 4 411 Q 10 443 10 471 L 12 548 Q 42 560 65 548 Q 78 491 67 454 L 71 403 Q 80 364 63 329 Z';
 const REFERENCE_SHORTS='M -58 322 Q -72 355 -66 388 L -61 422 Q -40 432 -14 424 L -3 388 L 3 388 L 14 424 Q 40 432 61 422 L 66 388 Q 72 355 58 322 Z';
 
+// Shared wrist width and a readable palm mass; each action has its own finger silhouette.
+const HAND_PATHS:Record<HandShape,string>={
+  relaxed:'M -12 -8 Q -16 1 -15 13 L -16 29 Q -16 35 -12 34 Q -8 34 -8 28 L -7 22 L -7 35 Q -6 42 -2 38 L 0 25 L 2 37 Q 4 42 8 37 L 10 23 Q 12 34 16 30 Q 18 26 15 18 L 14 9 Q 22 18 24 12 Q 26 7 19 0 L 12 -8 Z',
+  open:'M -10 30 Q -20 17 -27 9 Q -31 5 -28 1 Q -24 -3 -16 6 L -16 -14 Q -16 -20 -12 -20 Q -8 -20 -8 -14 L -7 3 L -8 -25 Q -7 -32 -3 -32 Q 1 -32 1 -25 L 2 2 L 3 -26 Q 4 -33 8 -31 Q 12 -30 12 -24 L 12 3 L 15 -16 Q 16 -22 20 -20 Q 24 -18 22 -12 L 19 17 Q 15 28 10 30 Z',
+  grip:'M -12 -7 Q -19 -1 -20 9 L -20 20 Q -20 28 -13 29 Q -8 36 -2 32 Q 5 37 11 30 Q 21 29 22 19 L 21 10 Q 24 3 16 0 L 9 -7 Z',
+  typing:'M -12 -8 Q -18 1 -15 14 L -11 25 Q -9 32 -5 28 L -4 18 L -1 34 Q 1 40 5 36 L 6 23 L 10 36 Q 13 42 17 36 L 16 23 L 21 32 Q 25 36 27 30 Q 28 27 21 17 L 16 9 Q 24 16 27 10 Q 29 5 20 0 L 12 -8 Z',
+  cup:'M -12 -8 Q -18 0 -16 12 Q -16 21 -10 25 Q -7 32 -2 28 Q 1 35 6 29 Q 10 33 14 27 Q 21 24 20 17 L 17 8 Q 25 11 25 5 Q 25 1 17 -2 L 12 -8 Z',
+};
 function Palm({point,angle,shape,side=1,phone=false}:{point:Vec;angle:number;shape:HandShape;side?:-1|1;phone?:boolean}) {
-  // Mirrored thumb and rounded finger loops, with a wrist wider than the fingertips.
-  const relaxed='M -10 -6 Q -12 2 -12 10 L -13 22 Q -12 28 -9 24 L -7 17 L -7 27 Q -5 32 -2 27 L 0 18 L 1 27 Q 4 31 7 25 L 8 15 Q 11 26 14 21 Q 16 17 12 9 L 11 4 Q 18 14 20 8 Q 21 3 14 -3 L 9 -6 Z';
-  const open='M -10 30 Q -20 17 -27 9 Q -31 5 -28 1 Q -24 -3 -16 6 L -16 -14 Q -16 -20 -12 -20 Q -8 -20 -8 -14 L -7 3 L -8 -25 Q -7 -32 -3 -32 Q 1 -32 1 -25 L 2 2 L 3 -26 Q 4 -33 8 -31 Q 12 -30 12 -24 L 12 3 L 15 -16 Q 16 -22 20 -20 Q 24 -18 22 -12 L 19 17 Q 15 28 10 30 Z';
-  const grip='M -10 -7 Q -15 -3 -14 5 L -15 13 Q -15 21 -9 23 Q -7 28 -1 25 Q 4 29 9 23 Q 15 22 15 13 L 14 5 Q 17 -1 11 -5 L 5 -8 Z';
-  return <g transform={`translate(${point.x} ${point.y}) rotate(${angle})`}>
-    <g visibility={phone?'hidden':undefined} transform={`scale(${-side} 1)`}><g transform={shape==='open'?'rotate(180) translate(0 -25.5) scale(.85)':undefined}>
-      <path d={shape==='open'?open:shape==='grip'?grip:relaxed} fill={P.skin} stroke="none"/><path d={(shape==='open'?open:shape==='grip'?grip:relaxed).replace(/Z$/,'')} fill="none"/>
-      <path d={shape==='open'?'M -10 10 Q -5 14 -6 23 M -1 17 Q 4 13 10 15':shape==='grip'?'M -9 15 Q -4 10 0 15 M -2 21 Q 3 15 8 18':'M -6 9 Q -1 12 4 9'} fill="none" strokeWidth={1.7}/>
-      {shape==='grip'&&<path d="M -11 5 Q -3 -2 5 3 L 9 10 Q 7 15 3 12 L -3 8 Q -8 12 -11 5 Z" fill={P.skin} strokeWidth={1.5}/>}
-      {shape==='open'&&<path d="M -14 22 Q -6 29 6 24" fill="none" stroke={P.skinShadow} strokeWidth={2.2}/>}
-    </g></g>
-    {phone&&<>
-      <path d="M -10 3 Q -18 -5 -16 -18 L -12 -34 Q -8 -43 -3 -35 L 1 -21 Q 11 -33 16 -22 Q 22 -7 13 4" fill={P.skin}/>
+  const outline=HAND_PATHS[shape];
+  const creases:Record<HandShape,string>={
+    relaxed:'M -7 10 Q -1 14 5 10',
+    open:'M -10 10 Q -5 14 -6 23 M -1 17 Q 4 13 10 15',
+    grip:'M -12 22 Q -7 18 -3 23 M -1 28 Q 4 23 9 26',
+    typing:'M -9 9 Q -2 14 7 9 M -1 19 L 1 27 M 9 20 L 11 29',
+    cup:'M -11 13 Q -6 9 -2 14 M -5 20 Q 0 16 5 20 M 3 25 Q 8 20 12 22 M 13 5 Q 9 10 11 16',
+  };
+  return <g transform={`translate(${point.x} ${point.y}) rotate(${angle})`} data-hand={phone?'phone':shape} data-side={side}>
+    <g visibility={phone?'hidden':undefined} transform={`scale(${-side} 1)`}>
+      <g transform={shape==='open'?'rotate(180) translate(0 -30) scale(1)':undefined}>
+        <path d={outline} fill={P.skin} stroke="none"/>
+        <path d={outline.replace(/Z$/,'')} fill="none" strokeWidth={2.2}/>
+        <path d={creases[shape]} fill="none" strokeWidth={1.35}/>
+        {shape==='grip'&&<path d="M -16 7 Q -7 0 2 6 L 10 15 Q 12 20 7 21 Q 3 21 0 16 L -5 13 Q -10 17 -16 12 Z" fill={P.skin} strokeWidth={1.5}/>}
+        {shape==='open'&&<path d="M -14 22 Q -6 29 6 24" fill="none" stroke={P.skinShadow} strokeWidth={1.8}/>}
+      </g>
+    </g>
+    {phone&&<g>
+      <path d="M -12 4 Q -21 -5 -19 -18 L -14 -34 Q -9 -44 -3 -35 L 1 -21 Q 12 -34 18 -22 Q 24 -7 14 5" fill={P.skin}/>
       <rect x={-14} y={-57} width={31} height={60} rx={5} fill="#343e41"/>
       <rect x={-10} y={-49} width={23} height={40} rx={2} fill="#9cb4ae" stroke="none"/>
       <path d="M -6 -53 L 7 -53 M 0 -2 L 5 -2" stroke="#89968e" strokeWidth={1.5}/>
-      <path d="M -14 -22 Q -2 -31 9 -26 Q 16 -23 9 -17 L -3 -16 Q -8 -12 -13 -11" fill={P.skin}/>
+      <path d="M -15 -22 Q -3 -33 9 -27 Q 17 -23 9 -16 L -3 -15 Q -9 -10 -14 -10" fill={P.skin} strokeWidth={2.1}/>
       <path d="M -3 -23 L 5 -23" stroke={P.skinShadow} strokeWidth={1.3}/>
-    </>}
+    </g>}
   </g>;
 }
 function Shoe({point,sport,side}:{point:Vec;sport:boolean;side:-1|1}) {
@@ -190,7 +205,7 @@ export const StudentRig:React.FC<StudentRigProps>=({cast='nam',pose='stand',mood
     const elbow=sub(l.mid,scale(sub(l.end,l.start),.025));
     const axis=sub(l.end,l.mid),n=normal(axis);
     return <g>
-      <path d={limbOutline(add(l.start,scale(sub(l.mid,l.start),.49)),elbow,l.end,17,16,11)} fill={P.skin}/>
+      <path d={limbOutline(add(l.start,scale(sub(l.mid,l.start),.49)),elbow,l.end,18.5,18,12.5)} fill={P.skin}/>
       <path d={`M ${l.mid.x+n.x*9} ${l.mid.y+n.y*9} q ${axis.x*.09} ${axis.y*.09} ${axis.x*.15} ${axis.y*.15}`} stroke={P.skinShadow} strokeWidth={2.2} fill="none"/>
     </g>;
   };
@@ -253,7 +268,7 @@ export const StudentRig:React.FC<StudentRigProps>=({cast='nam',pose='stand',mood
 
 export const PoseBoard:React.FC=()=> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1220" width="1800" height="1220">
   <rect width={1800} height={1220} rx={24} fill="#f6f1e8"/>
-  <g fontFamily="Arial,sans-serif" fill={P.ink} textAnchor="middle"><text x={900} y={42} fontSize={27} fontWeight={700}>HỒ SƠ 02 — TƯ THẾ & KHỚP STYLE B</text><text x={900} y={69} fontSize={16}>Giữ đầu, tóc, trang phục hiện có · V3: áo một đường bao · tay nghỉ buông thẳng · bàn tay theo cẳng tay</text></g>
+  <g fontFamily="Arial,sans-serif" fill={P.ink} textAnchor="middle"><text x={900} y={42} fontSize={27} fontWeight={700}>HỒ SƠ 02 — TƯ THẾ & KHỚP STYLE B</text><text x={900} y={69} fontSize={16}>Giữ đầu, tóc, trang phục hiện có · V3: áo một đường bao · tay nghỉ buông thẳng · bàn tay rõ theo từng động tác</text></g>
   {Object.keys(POSES).map((name,i)=>{
     const x=(i%6)*300,y=Math.floor(i/6)*525+95;
     const cast:Cast=i===4||i===9?'nguoi-kia':i===10||i===11?'tung':'nam';
@@ -315,4 +330,23 @@ export const LegBalanceBoard:React.FC=()=> <svg xmlns="http://www.w3.org/2000/sv
     <svg x={i*400+22} y={140} width={356} height={500} viewBox={item.box}><StudentRig cast={item.cast as Cast} pose={item.pose} showSupport/></svg>
   </g>)}
   <text x={600} y={703} textAnchor="middle" fontFamily="Arial,sans-serif" fontSize={15} fill="#59645e">Giữ dáng quần rộng và nét cartoon; cân độ rộng chân, không ép các nếp vải phải giống hệt nhau.</text>
+</svg>;
+
+export const HandReadabilityBoard:React.FC=()=> <svg xmlns="http://www.w3.org/2000/svg" width={1500} height={1000} viewBox="0 0 1500 1000">
+  <rect width={1500} height={1000} fill="#f6f1e8"/>
+  <text x={750} y={43} textAnchor="middle" fontFamily="Arial,sans-serif" fontSize={26} fill={P.ink}>BÀN TAY — CÙNG ĐỘ ĐẦY, RÕ HÀNH ĐỘNG</text>
+  {[
+    {pose:'stand',label:'Buông nghỉ / ngón khép nhẹ',box:'-105 325 210 110'},
+    {pose:'wary',label:'Mở tay / ngón cái rõ bên',box:'-160 190 320 160'},
+    {pose:'reach',label:'Nắm / khối lòng tay và ngón cái',box:'110 180 110 140'},
+    {pose:'phone',label:'Ôm điện thoại',box:'35 90 120 170'},
+    {pose:'type',label:'Ngón cong chuẩn bị gõ',box:'-55 240 220 150'},
+    {pose:'wash',label:'Tay cong ôm và giữ mép bát',box:'-30 230 210 150'},
+  ].map((item,i)=>{
+    const x=(i%3)*500,y=70+Math.floor(i/3)*450;
+    return <g key={item.label}><rect x={x+12} y={y} width={476} height={430} rx={18} fill="#fffbf4" stroke="#d9cebf"/>
+      <text x={x+250} y={y+32} textAnchor="middle" fontFamily="Arial,sans-serif" fontSize={18} fill={P.ink}>{item.label}</text>
+      <svg x={x+25} y={y+55} width={450} height={350} viewBox={item.box}><StudentRig pose={item.pose} mood="calm"/></svg>
+    </g>;
+  })}
 </svg>;
