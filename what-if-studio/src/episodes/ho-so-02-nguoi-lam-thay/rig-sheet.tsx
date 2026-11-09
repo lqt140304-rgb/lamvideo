@@ -1,19 +1,12 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
-import { HoSo02CharacterMasterBoard, JointPose, PALETTE, STAND_POSE, StudentTwinBody, TungSoccer, turnAt, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import { HoSo02CharacterMasterBoard, JointPose, mixPose, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, TungSoccer, turnAt, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 
 // Bảng kiểm tra khớp Hồ sơ 2: mỗi nhân vật đi từ dáng đứng sang một tư thế rồi quay về (120 frame).
 export const RIG_SHEET_TOTAL = 120;
 const NAMES = ['stand', 'sit', 'stride', 'crouch', 'reach', 'holdBowl', 'stop'] as const;
+const NAMES2 = ['wary', 'phone', 'offer', 'type'] as const;
 const MOODS = ['sleepy', 'hesitant', 'annoyed', 'scared', 'agitated', 'suspicious', 'shocked'] as const; // mỗi tư thế một biểu cảm để soi luôn mặt
-
-const mixLimb = (a: JointPose['armR'], b: JointPose['armR'], t: number) => ({ a: a.a + (b.a - a.a) * t, b: a.b + (b.b - a.b) * t, rot: b.rot ?? a.rot });
-const mixPose = (a: JointPose, b: JointPose, t: number): JointPose => ({
-  ...b,
-  tilt: a.tilt + (b.tilt - a.tilt) * t, neck: a.neck + (b.neck - a.neck) * t,
-  armR: mixLimb(a.armR, b.armR, t), armL: mixLimb(a.armL, b.armL, t), legR: mixLimb(a.legR, b.legR, t), legL: mixLimb(a.legL, b.legL, t),
-  wristR: a.wristR + (b.wristR - a.wristR) * t, wristL: a.wristL + (b.wristL - a.wristL) * t,
-});
 
 // Bảng các góc theo ảnh mẫu goc-quay-mau.png; giữa clip chuyển sang dáng bước để soi khớp.
 const TURN: { label: string; view: NonNullable<JointPose['view']>; facing?: 1 | -1 }[] = [
@@ -77,10 +70,16 @@ export const HoSo02RigSheet: React.FC = () => {
             <text x={150 + i * 235} y={500} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={26} fontWeight={700} fill="#515956">{n}</text>
           </g>
         ))}
-        <TungSoccer x={300} y={540} scale={0.85} />
-        <TungSoccer x={700} y={540} scale={0.85} pose={mixPose(STAND_POSE, TWIN_POSES.stride, t)} />
-        <TungSoccer x={1100} y={540} scale={0.85} pose={mixPose(STAND_POSE, TWIN_POSES.reach, t)} />
-        <StudentTwinBody mood="calm" shirt={PALETTE.nam.sleepShirt} pose={mixPose(STAND_POSE, TWIN_POSES.holdBowl, t)} x={1560} y={540} scale={0.85} />
+        {NAMES2.map((n, i) => (
+          <g key={n}>
+            <StudentTwinBody mood={i === 0 ? 'suspicious' : 'calm'} pose={mixPose(STAND_POSE, TWIN_POSES[n], t)} x={190 + i * 230} y={540} scale={0.72} />
+            <text x={190 + i * 230} y={1015} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={26} fontWeight={700} fill="#515956">{n}</text>
+          </g>
+        ))}
+        <StudentTwinBody mood="calm" pose={sampleWalk(frame / 30)} x={1110} y={540} scale={0.72} />
+        <text x={1110} y={1015} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={26} fontWeight={700} fill="#515956">walk</text>
+        <TungSoccer x={1325} y={540} scale={0.72} pose={mixPose(STAND_POSE, TWIN_POSES.reach, t)} />
+        <StudentTwinBody mood="calm" shirt={PALETTE.nam.sleepShirt} pose={mixPose(STAND_POSE, TWIN_POSES.holdBowl, t)} x={1560} y={540} scale={0.72} />
       </svg>
     </AbsoluteFill>
   );

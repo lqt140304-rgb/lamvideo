@@ -336,7 +336,7 @@ type P = { x: number; y: number };
 // a: góc đoạn trên (dương = đưa ra trước, về bên phải màn hình), b: độ gập khớp giữa (luôn ≥ 0).
 // rot = -1: xoay trong cánh tay để cẳng tay gập vào thân (chỉ dùng cho tay L, ví dụ đút túi, ôm chén).
 export type Limb = { a: number; b: number; rot?: 1 | -1 };
-export type HandKind = 'rest' | 'open' | 'fist' | 'hold' | 'none';
+export type HandKind = 'rest' | 'open' | 'fist' | 'hold' | 'type' | 'phone' | 'none';
 export type View = 'three' | 'front' | 'side' | 'quarter' | 'back';
 export type JointPose = {
   view?: View; // mặc định 3/4
@@ -346,6 +346,8 @@ export type JointPose = {
   wristR: number; wristL: number; handR: HandKind; handL: HandKind;
   footR: number; footL: number; // độ nghiêng bàn chân so với mặt sàn
   frontR: boolean; frontL: boolean; // tay vẽ đè lên thân
+  palmUp?: 'R' | 'L'; // lật ngửa bàn tay này, ngón cái đổi phía
+  prop?: 'phone' | 'bowl'; // đi theo bàn tay: điện thoại ở tay phải, bát giữa hai tay
   x: number; y: number; planted: boolean; // planted: tự hạ/nâng hông để bàn chân thấp nhất chạm sàn
 };
 
@@ -415,7 +417,7 @@ export const mirrorPose = (p: JointPose): JointPose => ({
   ...p,
   armR: { ...p.armL, rot: p.armR.rot }, armL: { ...p.armR, rot: p.armL.rot }, legR: p.legL, legL: p.legR,
   wristR: p.wristL, wristL: p.wristR, handR: p.handL, handL: p.handR, footR: p.footL, footL: p.footR,
-  frontR: p.frontL, frontL: p.frontR,
+  frontR: p.frontL, frontL: p.frontR, palmUp: p.palmUp === 'R' ? 'L' : p.palmUp === 'L' ? 'R' : undefined,
 });
 
 // Vòng quay theo thứ tự góc thật, đi đường ngắn nhất.
@@ -440,14 +442,35 @@ export const STAND_POSE: JointPose = {
   x: 0, y: 0, planted: true,
 };
 // Tư thế mẫu cho các nhịp cần diễn ở Hồ sơ 2; chỉnh tiếp bằng cách trộn đè { ...STAND_POSE, ... }.
-export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' | 'holdBowl' | 'stop', JointPose> = {
+export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' | 'holdBowl' | 'stop' | 'wary' | 'phone' | 'offer' | 'type', JointPose> = {
   stand: STAND_POSE,
   sit: { ...STAND_POSE, tilt: 6, armR: { a: -28, b: 8 }, armL: { a: 34, b: 42, rot: -1 }, legR: { a: 92, b: 100 }, legL: { a: 66, b: 112 }, handR: 'open', wristR: -40 },
   stride: { ...STAND_POSE, tilt: 4, armR: { a: -20, b: 16 }, armL: { a: 24, b: 28 }, legR: { a: 26, b: 6 }, legL: { a: -20, b: 24 } },
   crouch: { ...STAND_POSE, tilt: 24, neck: -14, armR: { a: 30, b: 40 }, armL: { a: 30, b: 40, rot: -1 }, legR: { a: 112, b: 130 }, legL: { a: 96, b: 124 }, frontR: true },
   reach: { ...STAND_POSE, tilt: 20, neck: -8, armR: { a: 66, b: 14 }, handR: 'open', frontR: true, legR: { a: 26, b: 30 }, legL: { a: 8, b: 12 } },
-  holdBowl: { ...STAND_POSE, armR: { a: 20, b: 75 }, armL: { a: 14, b: 100, rot: -1 }, handR: 'hold', handL: 'hold', frontR: true, frontL: true },
+  holdBowl: { ...STAND_POSE, armR: { a: 20, b: 75 }, armL: { a: 14, b: 100, rot: -1 }, handR: 'hold', handL: 'hold', frontR: true, frontL: true, prop: 'bowl' },
   stop: { ...STAND_POSE, tilt: -5, neck: 6, armR: { a: -78, b: 8 }, armL: { a: 72, b: 34 }, handR: 'open', handL: 'open', frontL: true, legR: { a: 8, b: 16 }, legL: { a: -12, b: 8 } },
+  // Bốn dáng dưới dựng cho góc 3/4.
+  wary: { ...STAND_POSE, tilt: -5, neck: 5, armR: { a: -37, b: 105, rot: -1 }, armL: { a: 31, b: 105, rot: 1 }, handR: 'open', handL: 'open', frontR: true, frontL: true, legR: { a: 10, b: 14 }, legL: { a: -10, b: 6 } },
+  phone: { ...STAND_POSE, neck: -4, armR: { a: -130, b: 93, rot: -1 }, wristR: -35, handR: 'phone', frontR: true, prop: 'phone' },
+  offer: { ...STAND_POSE, tilt: 3, neck: -3, armL: { a: 26, b: 50, rot: 1 }, handL: 'open', frontL: true, palmUp: 'L' },
+  type: { ...STAND_POSE, tilt: 9, neck: 6, armR: { a: 33, b: 65 }, armL: { a: -24, b: 115, rot: 1 }, handR: 'type', handL: 'type', frontR: true, frontL: true, legR: { a: 92, b: 100 }, legL: { a: 66, b: 112 } },
+};
+
+const mixLimb = (a: Limb, b: Limb, t: number): Limb => ({ a: a.a + (b.a - a.a) * t, b: a.b + (b.b - a.b) * t, rot: b.rot ?? a.rot });
+/** Trộn hai dáng theo góc khớp; trạng thái rời (kiểu tay, đạo cụ, lớp vẽ) lấy theo dáng đích. */
+export const mixPose = (a: JointPose, b: JointPose, t: number): JointPose => ({
+  ...b,
+  tilt: a.tilt + (b.tilt - a.tilt) * t, neck: a.neck + (b.neck - a.neck) * t,
+  armR: mixLimb(a.armR, b.armR, t), armL: mixLimb(a.armL, b.armL, t), legR: mixLimb(a.legR, b.legR, t), legL: mixLimb(a.legL, b.legL, t),
+  wristR: a.wristR + (b.wristR - a.wristR) * t, wristL: a.wristL + (b.wristL - a.wristL) * t,
+});
+const WALK_PASS: JointPose = { ...STAND_POSE, tilt: 4, legR: { a: 2, b: 2 }, legL: { a: 14, b: 48 } };
+const WALK_KEYS = [TWIN_POSES.stride, WALK_PASS, mirrorPose(TWIN_POSES.stride), mirrorPose(WALK_PASS)];
+/** Vòng bước tại chỗ, phase 0–1. Chưa dịch người trên sàn; đi qua phòng phải tự cộng x theo chân trụ để khỏi trượt. */
+export const sampleWalk = (phase: number): JointPose => {
+  const t = (((phase % 1) + 1) % 1) * 4, i = Math.floor(t), u = t - i;
+  return mixPose(WALK_KEYS[i], WALK_KEYS[(i + 1) % 4], u * u * (3 - 2 * u));
 };
 
 const circle = (p: P, r: number) => `M ${p.x - r} ${p.y} a ${r} ${r} 0 1 0 ${2 * r} 0 a ${r} ${r} 0 1 0 ${-2 * r} 0 Z`;
@@ -476,6 +499,8 @@ const HAND_SHAPE: Record<Exclude<HandKind, 'none'>, { base: number[]; len: [numb
   rest: { base: [8, 0, -8], len: [[10, 9], [12, 10], [10, 8]], r: [6.4, 6, 5.6], fan: 4, curl: 12, thumb: [{ x: 15, y: 12 }, { x: 15, y: 22 }] },
   hold: { base: [8, 0, -8], len: [[8, 7], [9, 7], [8, 6]], r: [6.4, 6, 5.6], fan: 3, curl: 52, thumb: [{ x: 17, y: 11 }, { x: 10, y: 22 }] },
   fist: { base: [8, 0, -8], len: [[6, 4], [6, 4], [6, 4]], r: [6.4, 6, 5.6], fan: 0, curl: 75, thumb: [{ x: 13, y: 14 }, { x: 3, y: 20 }] },
+  type: { base: [9.6, 3.2, -3.2, -9.6], len: [[10, 9], [11, 9], [10, 8], [9, 7]], r: [5, 4.7, 4.2], fan: 5, curl: 38, thumb: [{ x: 18, y: 10 }, { x: 24, y: 19 }] },
+  phone: { base: [9.6, 3.2, -3.2, -9.6], len: [[9, 7], [10, 7], [9, 7], [8, 6]], r: [5, 4.7, 4.2], fan: 2, curl: 30, thumb: [{ x: 16, y: 12 }, { x: 11, y: 26 }] },
 };
 /** Hình bàn tay tính sẵn trong hệ cánh tay để gộp chung một khối với cẳng tay, không có đường cắt ở cổ tay. s = phía ngón cái. */
 const handShapes = (at: P, deg: number, s: 1 | -1, kind: HandKind): string[] => {
@@ -575,6 +600,18 @@ const hemDrape = (o: Pick<Outfit, 'hem'>, tilt: number) => {
   return `M ${a} L ${b} L ${d} Q ${e} ${g} Q ${h} ${i} Z`;
 };
 
+const Phone: React.FC<{ at: P; deg: number }> = ({ at, deg }) => (
+  <g transform={`translate(${at.x} ${at.y}) rotate(${deg})`} stroke={PALETTE.ink} strokeWidth={3.5}>
+    <rect x={-13} y={6} width={26} height={62} rx={6} fill="#7f8f94" />
+  </g>
+);
+const Bowl: React.FC<{ at: P }> = ({ at }) => (
+  <g transform={`translate(${at.x} ${at.y - 26})`} stroke={PALETTE.ink} strokeWidth={3.5}>
+    <path d="M -46 -12 Q -42 30 0 32 Q 42 30 46 -12 Z" fill="#f4efe3" />
+    <ellipse cx={0} cy={-12} rx={46} ry={9} fill="#d9d2c0" />
+  </g>
+);
+
 /** Ghép nhân vật từ khung xương: bàn chân → chân → tay sau → áo → đầu → tay trước. */
 export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number }> = ({ pose: raw, outfit: outfit, head, x, y, scale }) => {
   const view: View = outfit.views ? raw.view ?? 'three' : 'three'; // nhân vật chưa vẽ đủ góc thì giữ 3/4
@@ -588,13 +625,18 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   const frontR = side || (!away && pose.frontR); // nghiêng: tay gần luôn trước thân, tay xa luôn sau thân
   const frontL = !side && !away && pose.frontL;
   const crotch = 414 - 110 * clamp(Math.max(Math.abs(pose.legR.a), Math.abs(pose.legL.a)) / 70); // đáy quần kéo lên khi đùi đưa ra
-  const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind) => (
+  const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => (
     <g>
+      {held}
       <Blob fill={PALETTE.skin} d={[...armShapes(c), ...handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind)]} />
     </g>
   );
-  const armR = arm(r.armR, view === 'back' ? -1 : 1, pose.wristR, pose.handR);
-  const armL = arm(r.armL, side || away ? 1 : -1, pose.wristL, pose.handL);
+  // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
+  const phoneOnL = facing === -1;
+  const held = pose.prop === 'bowl' ? <Bowl at={mix(r.armR.end, r.armL.end, 0.5)} />
+    : pose.prop === 'phone' ? <Phone at={(phoneOnL ? r.armL : r.armR).end} deg={(phoneOnL ? r.armL : r.armR).deg + lim(phoneOnL ? pose.wristL : pose.wristR, 'wrist')} /> : null;
+  const armR = arm(r.armR, ((view === 'back' ? -1 : 1) * (pose.palmUp === 'R' ? -1 : 1)) as 1 | -1, pose.wristR, pose.handR, pose.prop === 'phone' && !phoneOnL ? held : null);
+  const armL = arm(r.armL, ((side || away ? 1 : -1) * (pose.palmUp === 'L' ? -1 : 1)) as 1 | -1, pose.wristL, pose.handL, pose.prop === 'bowl' || phoneOnL ? held : null);
   return (
     <g transform={`translate(${x} ${y}) scale(${scale * facing} ${scale})`} strokeLinecap="round" strokeLinejoin="round">
       <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />

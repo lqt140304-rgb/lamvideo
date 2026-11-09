@@ -167,6 +167,10 @@ Quay trái dùng lại hình rồi lật, riêng nốt ruồi vẽ lại đúng 
 
 Màu áo theo cảnh: `shirt={PALETTE.nam.sleepShirt}` là áo ngủ xám của Nam ở các cảnh Người Kia đang mặc áo xanh.
 
+**Dáng có sẵn** trong `TWIN_POSES`: `stand`, `sit`, `stride`, `crouch`, `reach`, `holdBowl`, `stop`, `wary`, `phone`, `offer`, `type`. Bốn dáng cuối dựng cho góc 3/4; dùng ở góc khác phải soi lại. Trộn hai dáng bằng `mixPose(a, b, t)`, kiểu tay và đạo cụ lấy theo dáng đích nên đổi chúng ở mốc riêng. `sampleWalk(phase)` là vòng bước tại chỗ, đi qua phòng phải tự dịch `x` theo chân trụ để khỏi trượt.
+
+Kiểu tay: `rest`, `open`, `fist`, `hold`, `type`, `phone`, `none`. `palmUp: 'L'` lật ngửa bàn tay đó. Đạo cụ: `prop: 'phone'` đi theo tay phải, `prop: 'bowl'` nằm giữa hai tay; cả hai vẽ dưới ngón tay nên không cần đặt toạ độ riêng.
+
 ---
 
 ## 5. Công cụ & File tài nguyên trong Repo

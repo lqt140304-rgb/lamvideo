@@ -96,4 +96,23 @@ for (const view of ['three', 'front', 'side', 'quarter', 'back']) for (const fac
   }
 }
 
+// Dáng chuyển từ rig cũ: đủ góc, không lỗi số; đạo cụ chỉ hiện khi khai báo và đi theo bàn tay.
+for (const n of ['wary', 'phone', 'offer', 'type', 'holdBowl']) for (const view of ['three', 'front', 'side', 'quarter', 'back']) for (const facing of [1, -1]) {
+  const html = renderToStaticMarkup(React.createElement('svg', null, React.createElement(r.StudentTwinBody, { pose: { ...r.TWIN_POSES[n], view, facing } })));
+  assert.ok(!html.includes('NaN') && !html.includes('undefined'), n + ' ' + view);
+}
+const body = (pose) => renderToStaticMarkup(React.createElement('svg', null, React.createElement(r.StudentTwinBody, { pose })));
+const PHONE = '#7f8f94';
+assert.ok(body(r.TWIN_POSES.phone).includes(PHONE));
+assert.ok(!body(r.STAND_POSE).includes(PHONE));
+const phoneAt = (html) => html.match(/<g transform="(translate[^"]+)"[^>]*><rect[^>]*#7f8f94/)[1];
+assert.notEqual(phoneAt(body(r.TWIN_POSES.phone)), phoneAt(body({ ...r.TWIN_POSES.phone, armR: { ...r.TWIN_POSES.phone.armR, a: -20 } })));
+
+// Vòng bước khép kín, khớp không vượt giới hạn.
+assert.deepEqual(r.sampleWalk(0), r.sampleWalk(1));
+for (let i = 0; i < 40; i++) {
+  const s = r.solveRig(r.sampleWalk(i / 40));
+  assert.ok(Number.isFinite(s.legR.end.x + s.legL.end.y + s.armR.end.x + s.armL.end.y), 'walk ' + i);
+}
+
 console.log('ho-so-02 rig ok');

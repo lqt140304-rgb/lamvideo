@@ -2,7 +2,7 @@
 
 > **Bản cũ, không dùng để dựng mới.** Từ 10/11/2026 rig chính là `Rigged`, `TWIN_POSES`, `solveRig` trong [nhan-vat.tsx](../nhan-vat.tsx), có đủ 8 góc quay, khẩu hình và chớp mắt; cách dùng ở [quy chuẩn thiết kế](../thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#4-cách-vẽ-đã-chốt-để-làm-tiếp). Thư mục này giữ lại để đối chiếu. Các bảng hình ở đây vẽ theo tạo hình cũ.
 >
-> Rig chính chưa có, cần chuyển từ đây khi cảnh cần: dáng `wary`, `phone`, `offer`, `type`; kiểu tay `typing` và dáng ôm điện thoại; đạo cụ đi theo bàn tay; `sampleWalk`.
+> Dáng `wary`, `phone`, `offer`, `type`, kiểu tay gõ phím và ôm điện thoại, đạo cụ đi theo bàn tay và `sampleWalk` đã chuyển sang rig chính.
 
 **10/11/2026 — V3, sửa lộ lớp và dáng tay, chờ duyệt.** Dùng lại trực tiếp `StudentTwinHead`, `TungHead` và `PALETTE` từ [nhan-vat.tsx](../nhan-vat.tsx). Không thay dàn nhân vật, bảng thiết kế cũ hoặc kịch bản. Nam và Người Kia dùng chung cấu trúc/hình thể/trang phục; khác nhau qua biểu cảm và cách chọn tư thế. Tùng giữ tóc ngắn, áo bóng đá số 7, quần đùi, vớ và giày.
 
