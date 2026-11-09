@@ -157,9 +157,9 @@ Nam siết điện thoại, chưa dám bước vào phòng.
 
 **Lưu ý nhân quả:** Tùng chỉ nghe một lời kể qua điện thoại, chưa thấy bằng chứng. Phản ứng này không tự xác lập Tùng là người vô tâm trong mọi hoàn cảnh hoặc Nam thường xuyên nói dối. Không kết luận sự giúp đỡ của bản sao đã đáng tin chỉ vì cuộc gọi vừa thất bại; sự dè chừng còn tiếp ở phần sau.
 
-## Phần tiếp cảnh 2 — đề xuất của GPT-6 Astra, chưa duyệt
+## Nam lấy lại căn phòng — đã duyệt ngày 09/11/2026
 
-**Mục đích:** Nam lấy lại không gian an toàn bằng một yêu cầu cụ thể; việc người kia tuân thủ làm giảm nguy cơ trước mắt. Chưa cho Nam nhận giúp hoặc coi người kia là bạn. Đây là phần đang đưa ra để thảo luận, không phải cảnh đã chốt.
+**Đã duyệt:** Nam yêu cầu người kia ra ngoài, giữ khoảng cách khi đổi vị trí, tự vào phòng gài chốt; người kia nói “Tao đứng đây rồi”, Nam bảo “Đừng nói nữa”, rồi ngồi nhìn chốt cửa. Phần này do GPT-6 Astra đề xuất trước khi chuyển model. Chưa cho Nam tin hoặc nhận giúp.
 
 Nam vẫn siết điện thoại. Người kia nhìn cậu, hai tay vẫn để trống.
 
@@ -195,12 +195,73 @@ Nam nhắm mắt. Nghe giọng mình ở phía bên kia cánh cửa khiến cậ
 
 Bên ngoài im hẳn.
 
-Nam nhìn quanh phòng. Điện thoại vẫn trong tay; ví, chìa khóa còn trên bàn. Cậu kiểm tra chốt một lần nữa rồi lùi khỏi cửa.
-
-Ở góc bếp, mấy chiếc chén đã rửa được úp ngay ngắn. Nam nhìn chúng, nhưng không bước tới.
-
 Cậu kéo ghế ngồi đối diện cửa, giữ điện thoại trong lòng bàn tay. Mắt vẫn dán vào chốt.
 
-**Điểm cuối cảnh đề xuất:** Nam có lại căn phòng và khoảng cách, nhưng người giống mình vẫn ở ngoài. Cần bàn tiếp lý do Nam tự mở lại cuộc đối thoại; không tự chuyển sang đồng ý cho làm hộ chỉ vì nhìn thấy chén sạch.
+**Điểm cuối đoạn đã duyệt:** Nam có lại căn phòng và khoảng cách, nhưng người giống mình vẫn ở ngoài. Cần bàn tiếp lý do Nam tự mở lại cuộc đối thoại; không tự chuyển sang đồng ý cho làm hộ chỉ vì nhìn thấy chén sạch.
 
 **Lưu ý dựng:** phải thấy hướng Nam né về cầu thang, người kia ra phía đối diện rồi Nam mới vào phòng. Giữ một góc đủ rộng cho đoạn đổi vị trí, tránh cắt che việc hai người đi xuyên hoặc bất ngờ đổi chỗ. Cuộc gọi đã kết thúc ở đoạn được duyệt; đoạn này bắt đầu sau động tác Nam siết điện thoại, không phát lại cảnh cúp máy.
+
+**Chuyển model theo yêu cầu chủ repo:** từ phần viết tiếp sau đoạn này, dùng GPT-6.1 Sol để tiết kiệm. Giữ nguyên các đoạn đã duyệt; các đề xuất mới vẫn được chốt từng phần.
+
+## Nam chủ động hỏi lại — đề xuất của GPT-6.1 Sol, chưa duyệt
+
+**Mục đích:** Nam muốn có người quen chứng kiến thay vì phải tự xử lý điều mình vừa thấy; kiểm tra đồ trong phòng tạo một mục đích cụ thể để hỏi tiếp. Đoạn này chưa cho Nam tin hoặc nhận giúp. Việc nhắn Tùng quay về là đề xuất mới, không tự coi Tùng sẽ đồng ý hoặc đã thấy bản sao.
+
+Nam định gọi lại cho Tùng, ngón tay dừng trên nút gọi rồi chuyển sang nhắn:
+> Về phòng đi. Tao nói thật.
+
+Tin nhắn gửi đi, chưa có trả lời.
+
+Cậu đứng dậy kiểm tra ví trên bàn, rồi kéo ngăn tủ đựng giấy tờ. Mọi thứ vẫn còn. Nam cầm căn cước lên, nhìn ảnh mình một lúc.
+
+**NAM — [hesitant], nói qua cửa vẫn đóng:**
+> Ê.
+
+**NGƯỜI KIA:**
+> Ơi.
+
+Nam khựng lại vì giọng ấy.
+
+**NAM:**
+> Mày chưa đi hả?
+
+**NGƯỜI KIA:**
+> Mày bảo tao đứng đây mà.
+
+Nam đặt căn cước xuống bàn, vẫn giữ điện thoại trong tay.
+
+**NAM:**
+> Đợi thằng bạn tao về đã. Đừng đi đâu.
+
+**NGƯỜI KIA:**
+> Ừ. Bao giờ nó về?
+
+**NAM:**
+> Tao nhắn rồi.
+
+Không có tiếng hỏi thêm. Nam nhìn màn hình, chờ một lúc rồi tự lên tiếng:
+
+**NAM:**
+> Mày vô đây rửa chén làm gì?
+
+**NGƯỜI KIA:**
+> Thấy đầy bồn thì tao rửa thôi.
+
+**NAM:**
+> Ai nhờ?
+
+**NGƯỜI KIA:**
+> Không ai. Mày không thích thì lần sau tao hỏi.
+
+**NAM — [annoyed], gắt:**
+> Không có lần sau gì hết.
+
+**NGƯỜI KIA:**
+> Ừ.
+
+Nam liếc về phía bếp, rồi nhớ đến cái áo trên người kia.
+
+**NAM:**
+> Ngoài chén với cái áo, mày còn đụng vào cái gì?
+
+**Liên tục hành động:** Nam vẫn trong phòng và cửa còn gài chốt. Người kia ở hành lang, không nhìn được màn hình hoặc giấy tờ bên trong. Mọi câu trao đổi diễn ra qua cửa; kiểm tra căn cước chưa xác lập luật siêu nhiên. Chưa phát sinh vòi nước chảy: ở cảnh đầu tiếng nước đã ngừng.
