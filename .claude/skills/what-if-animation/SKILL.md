@@ -22,6 +22,7 @@ Xác định việc đang được yêu cầu: nghiên cứu, viết, sửa, d�
 | Rà sâu nhân quả, luật, tri thức nhân vật và twist | [story-logic-review](../story-logic-review/SKILL.md) |
 | Các bước và giới hạn công cụ thực tế | [quy trình](../../../docs/WHAT-IF-QUY-TRINH.md) |
 | Engine, rig, set, ánh sáng, API dựng | [kit.md](references/kit.md) |
+| Phong cách vẽ đồng nhất cho người, đạo cụ và môi trường | [quy chuẩn mỹ thuật](../../../docs/PHONG-CACH-MY-THUAT.md) |
 | Bố cục, kiểm tra still/motion | [look.md](references/look.md) |
 | Âm thanh, giọng, chi phí | [sound.md](references/sound.md) |
 | Lỗi kỹ thuật từng gặp trong bộ mẫu | [traps.md](references/traps.md) |

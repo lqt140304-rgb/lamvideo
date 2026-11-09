@@ -1,5 +1,11 @@
 # Asset — Hồ sơ 2: Người làm thay
 
+**Sửa tạo hình rig V3 — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
+
+**Bổ sung tư thế/khớp — 10/11/2026:** đã có [bảng 12 tư thế](assets/rig/tu-the-khop.png), [nguồn rig](assets/rig/rig.tsx) và [trình xem khớp](assets/rig/xem-tu-the.html) cho Nam, Người Kia, Tùng, dùng lại đầu/màu của bộ hiện có. Đọc [hướng dẫn và giới hạn](assets/rig/RIG-NHAN-VAT.md) trước khi dựng: bản để duyệt, chưa là chuyển động/tương tác đã duyệt trong phim.
+
+**Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.
+
 ## Dàn nhân vật theo mẫu SVG mới (Style B) — 09/11/2026
 
 Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người làm thay** đã được thiết kế đồng bộ theo phong cách SVG hữu cơ mới (Style B: nét vẽ mềm, mảng tóc gọn, vai áo rủ tự nhiên, quần có khối, biểu cảm linh hoạt).
@@ -64,10 +70,10 @@ Bám sát 100% dòng thời gian và các mốc diễn biến từ 7:00 AM tới
 
 | STT | Bối cảnh | File SVG | Tiêu cự | Ánh sáng & Đạo cụ chính |
 |---|---|---|---|---|
-| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM; tổng thể căn phòng: Cửa sổ $\to$ Tủ Duy Tân $\to$ 2 nệm song song (Tùng & Nam) $\to$ **Bàn học của Nam (giá sách, đèn đỏ)** $\to$ Cửa chính $\to$ Bồn rửa khít góc tường phải. |
-| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Bồn rửa inox **kê khít góc tường**, gờ nẹp trám keo silicon sát gạch men ố vàng, vòi nước nhỏ giọt, khay chén sạch bóng, kệ gia vị, thùng mì Hảo Hảo, chổi rơm, thấy mép cửa phòng. |
-| **3** | **Cửa gài chốt & Hành lang** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | Cửa đóng kín, **then cài chốt trượt kim loại**, ghế gỗ chặn cửa; bên trái thấy nệm Nam & đồng hồ; bên phải là **chiếc bàn học của Nam (đồng bộ Cảnh 4)** có sách, đèn đỏ, ví da & thẻ căn cước, ghế xoay. |
-| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | Đêm tối, quầng sáng đèn bàn vàng rực, laptop Google Docs mở bài làm hộ, điện thoại Không làm phiền, **ghế xoay học sinh công thái học lưới đen**; hậu cảnh thấy nệm Nam và cửa phòng gài chốt. |
+| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM; thiết lập chuẩn 100% theo bản vẽ tác giả (`image.png`): Cửa chính tường trái mở ra hành lang dài $\to$ Bếp & bồn rửa inox góc trái $\to$ Tủ quần áo đứng giữa phòng $\to$ **Bàn học của Nam & Chiếc ghế to đầm chắc có áo thun vắt lưng ghế** $\to$ Cửa sổ tường phải đón nắng sớm $\to$ Nệm Nam góc phải với chăn rêu xộc xệch, điện thoại 7h, dép lê. |
+| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Cận cảnh bếp góc trái: Tủ bếp dưới màu xanh xám nhạt (`#9cae9b`), bồn rửa inox 2 ngăn, vòi nước nhỏ giọt, khay chén đĩa sạch bóng, bát đũa gác chéo, kệ gia vị, quạt đứng sinh viên, cây chổi rơm, thấy mép cánh cửa mở ra hành lang dài. |
+| **3** | **Góc bàn học & Tủ quần áo** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | 7:07 AM; khu vực sinh hoạt của Nam: Chỉ có 1 cửa ở tường trái; **bên cạnh bàn học là TỦ QUẦN ÁO ĐỨNG** (không phải cửa); ở giữa có vết nứt & đồng hồ 7:07; bên phải là bàn học với laptop, **chiếc ghế to đầm chắc có áo thun vắt lưng ghế**; tường phải có cửa sổ đón nắng sớm với hạt bụi lơ lửng (`VFX-DUST`); tiền cảnh là nệm Nam với chăn rêu xộc xệch, điện thoại 7:00, dép lê. |
+| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | 23:45 Đêm muộn; **nón ánh sáng đèn bàn hình thang chuẩn VFX Tập 1** rọi ấm mặt bàn (sửa lỗi quầng sáng), hạt bụi `VFX-DUST`, laptop mở bài làm hộ, điện thoại tin nhắn gấp, **chiếc ghế xoay to đầm chắc đặt chính diện laptop**; hậu cảnh đêm thấy rõ **tủ quần áo bên trái** (không phải cửa) và cửa sổ đêm bên phải. |
 
 
 

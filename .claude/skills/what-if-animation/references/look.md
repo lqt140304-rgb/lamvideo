@@ -1,5 +1,7 @@
 # The look: technical reference from the short examples
 
+**Current art direction:** follow the [shared art standard](../../../../docs/PHONG-CACH-MY-THUAT.md): soft curves, rounded volumes and coherent linework across characters, props, interiors, architecture and nature. Preserve functional geometry and 2.5D depth. This design requirement does not mean existing assets have already been redrawn.
+
 **Scope for lamvideo:** the pace figures and short-hold targets below belong to the inherited 15–25 second
 examples. They are optional references when making that format, not requirements for narrative episodes.
 Emotional pauses and longer reaction shots are allowed when the story needs them. Use the current project

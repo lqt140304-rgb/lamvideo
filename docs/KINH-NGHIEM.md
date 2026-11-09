@@ -29,7 +29,7 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 - Dùng “vì”, “nếu”, “nhưng”, “nên” khi chúng làm rõ suy nghĩ. Khẩu ngữ và tiếng địa phương dùng vừa phải, thống nhất với nhân vật, không nhại giọng.
 - Hài phát sinh từ tính cách hoặc tình huống; không chèn đùa làm mất trọng lượng của tổn thương. Niềm tin và sinh hoạt tinh thần cần đúng bối cảnh.
 - Kết bằng một hành động cho thấy thay đổi thường hiệu quả hơn đọc một đoạn đạo lý. Hy vọng không xóa sạch thiệt hại hoặc khiến mọi người lập tức hòa thuận.
-- Khoảng nghỉ phải có mục đích và điều để nhìn/nghe. Ghi số giây ở bản dựng; không để TTS đọc chỉ dẫn. Thẻ cảm xúc chỉ là gợi ý cần nghe thử trên model phù hợp.
+- Khoảng nghỉ phải có mục đích và điều để nhìn/nghe. Ghi số giây ở bản dựng; không để TTS đọc chỉ dẫn. Khi một phản ứng/đọc hình đã nằm trong hành động, không cộng lại theo từng góc máy. Rút các lần thử/lặp bằng montage trước khi cắt mắt xích kiểm chứng khiến nhân vật đổi thái độ; chưa có đọc thử hoặc animatic thì khoảng giây chỉ là đề xuất, không phải tổng phút đã đo. Thẻ cảm xúc chỉ là gợi ý cần nghe thử trên model phù hợp.
 
 ## Tính hợp lý và hình ảnh
 
@@ -145,3 +145,7 @@ Các nguyên tắc dưới được chọn lọc từ ghi chép thực hành và
 ## Cách bổ sung bài học
 
 Viết theo mẫu: **vấn đề lặp lại → nguyên nhân → nguyên tắc xử lý → cách biết đã đạt**. Bài học phải dùng được cho một tập khác mà không cần biết cốt truyện gốc. Nếu chỉ là sửa một câu, một nhân vật hoặc một asset cụ thể, lưu vào ghi chú riêng của tập.
+
+- **Người và nền như hai phong cách khác nhau → chỉ chuẩn hóa nhân vật, bỏ qua nội thất/đạo cụ/môi trường →** dùng chung ngôn ngữ đường nét, độ mềm của khối, mức chi tiết và cách đánh sáng cho toàn khung; giữ cấu trúc và vật liệu riêng. **Kiểm tra:** ghép người–đạo cụ–nền ở cỡ xem cuối trước khi nhân rộng; không suy ra nền đã đạt từ việc bảng nhân vật đã đẹp. Đây là nguyên tắc duyệt hình, chưa phải kết quả đo chi phí.
+
+- **Đường nối khuỷu/gối lộ, gối đổi phía hoặc tay kéo dài khi đổi dáng → chỉ ghép các đoạn riêng và nội suy điểm đích không xét cấu trúc →** dùng đường bao liền quanh khớp, giữ chiều dài xương và phía gập; xử lý dáng ngồi theo hướng chiếu, tách nhịp đổi mặt đỡ/đạo cụ. **Kiểm tra:** soi dáng và các pha trung gian cùng chiều dài xương; thử trong bối cảnh để xác nhận điểm tựa. Kiểm tra số học không thay duyệt hình hoặc chứng minh chân đã bám sàn. Khi chuyển mẫu sang rig, đối chiếu cạnh nhau dáng chuẩn và vài dáng gập: giữ độ rộng áo, đường cắt quần, gấu, hình bàn tay/chân và mức chi tiết tương xứng với đầu; khớp chạy đúng vẫn có thể làm lệch mẫu. Viền dày làm lộ các mảnh chồng → hợp nhất đường bao trang phục, che gốc chi dưới cửa áo và cắt chi tiết theo biên; giảm độ dày viền không thay việc sửa thứ tự lớp. Bàn tay cần trục cổ tay theo cẳng tay và bên ngón cái đúng; kiểm tra phóng lớn cả dáng nghỉ lẫn dáng cầm, không chỉ nhìn bảng tổng. Dáng tay nắm nhỏ không thay được tay gõ hoặc tay đỡ đồ; tách hình tay theo hành động, giữ khối lòng tay/cổ tay tương xứng và giảm nét trong khi thu nhỏ để ngón không dính thành mảng. Chân to/nhỏ còn có thể do đường trong ống quần lệch: đo cả đường bao ở đùi, gối, bắp chân và gấu trong dáng chuẩn; hai xương dài bằng nhau chưa chứng minh hai chân có cùng độ đầy.

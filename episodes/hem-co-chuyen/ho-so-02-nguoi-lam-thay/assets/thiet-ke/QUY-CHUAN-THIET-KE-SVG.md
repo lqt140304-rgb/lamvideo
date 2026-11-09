@@ -1,4 +1,6 @@
 # Quy chuẩn thiết kế nhân vật SVG (Style B)
+
+**Phạm vi mở rộng 10/11/2026:** phần chi tiết dưới đây là quy chuẩn nhân vật Hồ sơ 2; dùng cùng [quy chuẩn mỹ thuật chung](../../../../../docs/PHONG-CACH-MY-THUAT.md) cho bối cảnh, nội thất, đường phố, thiên nhiên và đạo cụ. Các mã màu trang phục/nốt ruồi là dữ liệu riêng của hồ sơ, không áp cho mọi tài nguyên. Độ dày nét tính theo cỡ thiết kế, cần hiệu chỉnh khi xuất và theo gần–xa; không ép mọi đường nền thành đường cong hoặc mọi vật thành mảng khép kín.
 **Áp dụng:** Hồ sơ 02: Người làm thay (và các tập tiếp theo theo phong cách mới)  
 **Ngày chuẩn hóa:** 09/11/2026, cập nhật cách vẽ và rig khớp 10/11/2026  
 **Tham chiếu gốc:** hình bên phải trong [`character-svg-v1.png`](character-svg-v1.png) là mẫu đích; [`nhan-vat.png`](../nhan-vat.png) là bản đang dùng. Làm nhân vật mới: đọc thẳng [mục 4](#4-cách-vẽ-đã-chốt-để-làm-tiếp).

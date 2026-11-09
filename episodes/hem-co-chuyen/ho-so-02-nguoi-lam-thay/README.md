@@ -1,5 +1,13 @@
 # Hẻm Có Chuyện — Hồ sơ 2: Người làm thay
 
+**Nhịp kịch bản — 10/11/2026:** đã thêm cue không đọc vào [bản cảnh hiện hành](THAO-LUAN-CANH.md) và [đường nhịp A–H](DUNG-CANH.md#nhịp-kể-hiện-hành): phản ứng khi nhận mặt, đối đáp, thử làm bài, chốt cửa, chuyển sáng–tối và tự kiểm chứng trước khi dịu. Giữ thoại và mức duyệt; chưa có giọng/animatic để khóa tổng phút.
+
+**Sửa tạo hình rig V3 — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
+
+**Tư thế và khớp mới:** [xem bảng](assets/rig/tu-the-khop.png) và [hướng dẫn rig](assets/rig/RIG-NHAN-VAT.md). Bổ sung cho bộ nhân vật hiện có, có trình xem tương tác; chưa thay timeline hoặc khởi động dựng phim.
+
+**Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.
+
 **Trạng thái ngày 09/11/2026:** đang cùng chủ repo phát triển từng cảnh. “Người làm thay” là tên làm việc. Các đoạn đầu do GPT-6 Astra đề xuất; từ yêu cầu tiếp theo ngày 09/11/2026 chuyển sang **GPT-6.1 Sol để tiết kiệm**. Người dùng chốt nội dung lần lượt. Chưa có kịch bản hoàn chỉnh được duyệt.
 
 **Thông báo thiết kế nhân vật:** đã có bộ mới **Nam, Người Kia và Tùng** theo Style B. Xem [bảng SVG](assets/nhan-vat.svg), [nguồn React/SVG](assets/nhan-vat.tsx) và [ASSET.md](ASSET.md). Bộ này phát triển từ mẫu thứ 2 đã chọn trong [hướng tạo hình](../THIET-KE-NHAN-VAT.md); có tệp thiết kế chưa đồng nghĩa đã kiểm tra chuyển động trong cảnh. Không tự thay tạo hình Hồ sơ 1.
@@ -7,7 +15,7 @@
 | File | Tác dụng |
 |---|---|
 | [ASSET.md](ASSET.md) | Bộ SVG Nam–Người Kia–Tùng mới, mã nguồn, bảng biểu cảm và mẫu tham chiếu ban đầu |
-| [DUNG-CANH.md](DUNG-CANH.md) | Góc máy/lens/chuyển động/rung/focus; cách tách lớp, parallax, che khuất, chữ bám màn hình; mặt bằng/ánh sáng/điểm cắt theo từng đoạn, chưa render |
+| [DUNG-CANH.md](DUNG-CANH.md) | Nhịp kể/khoảng đọc và giữ; góc máy/lens/chuyển động/rung/focus; cách tách lớp, parallax, che khuất, chữ bám màn hình; mặt bằng/ánh sáng/điểm cắt theo từng đoạn, chưa render |
 | [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md) | Các yêu cầu đã chốt, khung cảnh còn đề xuất và bản cảnh hiện đang thảo luận |
 
 Tiền đề đã chọn: một nam sinh viên lười nhác thức dậy thấy người giống hệt mình làm những việc thường ngày. Sự giúp đỡ ban đầu dần trở thành chiếm chỗ, tới khi cậu bị thay thế hoàn toàn. Chỉ đoạn cuối mới xác nhận đó là sinh vật đã chủ động nhắm tới cậu từ trước.
