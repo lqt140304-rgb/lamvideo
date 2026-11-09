@@ -78,10 +78,10 @@
     <rect x="0" y="0" width="580" height="500" fill="#271f18" stroke="#282b2b" stroke-width="6" rx="3"/>
     <rect x="22" y="18" width="536" height="478" fill="url(#door-3d-grad)" stroke="#282b2b" stroke-width="4.5"/>
 
-    <rect x="50" y="45" width="480" height="175" rx="8" fill="#39494e" stroke="#282b2b" stroke-width="3.5"/>
-    <rect x="50" y="255" width="480" height="215" rx="8" fill="#39494e" stroke="#282b2b" stroke-width="3.5"/>
-    <rect x="65" y="58" width="450" height="150" rx="5" fill="none" stroke="#52676e" stroke-width="2.5"/>
-    <rect x="65" y="270" width="450" height="185" rx="5" fill="none" stroke="#52676e" stroke-width="2.5"/>
+    <rect x="50" y="45" width="480" height="175" rx="8" fill="#769384" stroke="#282b2b" stroke-width="3.5"/>
+    <rect x="50" y="255" width="480" height="215" rx="8" fill="#769384" stroke="#282b2b" stroke-width="3.5"/>
+    <rect x="65" y="58" width="450" height="150" rx="5" fill="none" stroke="#8baaa0" stroke-width="2.5"/>
+    <rect x="65" y="270" width="450" height="185" rx="5" fill="none" stroke="#8baaa0" stroke-width="2.5"/>
 
     <circle cx="290" cy="135" r="11" fill="#d4af37" stroke="#282b2b" stroke-width="3"/>
     <circle cx="290" cy="135" r="4.5" fill="#0f172a" stroke="none"/>
@@ -177,27 +177,48 @@
       <circle cx="615" cy="307" r="6.5" fill="#d4af37" stroke-width="2"/>
     </g>
 
-    <!-- GHẾ XOAY HỌC SINH CÔNG THÁI HỌC KÊ Ở KHOANG CHÂN (RENDER TRÊN KHOANG CHÂN) -->
-    <g transform="translate(250 260)" stroke="#282b2b" stroke-width="3" stroke-linejoin="round">
-      <ellipse cx="0" cy="175" rx="50" ry="14" fill="#000" opacity="0.2" filter="url(#door-shadow)"/>
-      <g stroke="#334155" stroke-width="4.5" stroke-linecap="round">
-        <line x1="0" y1="155" x2="0" y2="175" stroke="#1e293b" stroke-width="8"/>
-        <line x1="0" y1="168" x2="-38" y2="174"/>
-        <line x1="0" y1="168" x2="38" y2="174"/>
-        <line x1="0" y1="168" x2="-22" y2="162"/>
-        <line x1="0" y1="168" x2="22" y2="162"/>
+    <!-- GHẾ XOAY HỌC SINH CÔNG THÁI HỌC KÊ Ở KHOANG CHÂN (ĐÃ NÂNG CẤP TO RÕ, ĐẦM CHẮC, CÂN ĐỐI 100%) -->
+    <g id="student-swivel-chair-scene3" transform="translate(250 280)" stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round">
+      <!-- Bóng ghế đổ xuống sàn nhà rộng rãi -->
+      <polygon points="-95,110 95,110 80,145 -110,145" fill="#000" opacity="0.3" filter="url(#door-shadow)"/>
+
+      <!-- Chân đế xoay 5 chấu kim loại to bản vững chãi tiếp đất -->
+      <g stroke="#334155" stroke-width="6" stroke-linecap="round">
+        <!-- Trục piston ben hơi -->
+        <line x1="0" y1="85" x2="0" y2="115" stroke="#1e293b" stroke-width="12"/>
+        <!-- 5 chấu chân xòe rộng -->
+        <line x1="0" y1="108" x2="-75" y2="120"/>
+        <line x1="0" y1="108" x2="75" y2="120"/>
+        <line x1="0" y1="108" x2="-45" y2="98"/>
+        <line x1="0" y1="108" x2="45" y2="98"/>
+        <line x1="0" y1="108" x2="0" y2="128"/>
       </g>
-      <line x1="0" y1="155" x2="0" y2="115" stroke="#64748b" stroke-width="7" stroke-linecap="round"/>
+      <!-- 5 Bánh xe chịu lực kép màu đen -->
+      <circle cx="-75" cy="122" r="5.5" fill="#0f172a" stroke="none"/>
+      <circle cx="75" cy="122" r="5.5" fill="#0f172a" stroke="none"/>
+      <circle cx="-45" cy="100" r="5" fill="#0f172a" stroke="none"/>
+      <circle cx="45" cy="100" r="5" fill="#0f172a" stroke="none"/>
+      <circle cx="0" cy="130" r="5.5" fill="#0f172a" stroke="none"/>
 
-      <polygon points="-48,95 48,95 56,112 -56,112" fill="#1e293b" stroke="#282b2b" stroke-width="3"/>
-      <polygon points="-56,112 56,112 56,120 -56,120" fill="#0f172a" stroke="#282b2b" stroke-width="2"/>
+      <!-- Trục ben hơi nâng mạ chrome -->
+      <line x1="0" y1="85" x2="0" y2="25" stroke="#64748b" stroke-width="9" stroke-linecap="round"/>
 
-      <path d="M-36 95 C-44 45 -36 -2 0 -6 C36 -2 44 45 36 95 Z" fill="#1e293b" stroke="#282b2b" stroke-width="3"/>
-      <path d="M-28 90 C-36 45 -28 6 0 2 C28 6 36 45 28 90 Z" fill="#334155" opacity="0.6" stroke="none"/>
-      <path d="M-22 45 Q0 36 22 45" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Đệm ngồi to rộng, êm ái (Seat cushion) -->
+      <polygon points="-80,5 80,5 92,35 -92,35" fill="#1e293b" stroke="#282b2b" stroke-width="4"/>
+      <polygon points="-92,35 92,35 92,48 -92,48" fill="#0f172a" stroke="#282b2b" stroke-width="3"/>
 
-      <path d="M-48 100 L-54 70 L-42 70" fill="none" stroke="#334155" stroke-width="3.5" stroke-linecap="round"/>
-      <path d="M48 100 L54 70 L42 70" fill="none" stroke="#334155" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Tựa lưng công thái học lưới cao cấp vươn cao bề thế -->
+      <path d="M-62 5 C-76 -65 -62 -170 0 -178 C62 -170 76 -65 62 5 Z" fill="#1e293b" stroke="#282b2b" stroke-width="4"/>
+      <!-- Lưới thoáng khí bên trong -->
+      <path d="M-50 -2 C-62 -60 -50 -155 0 -162 C50 -155 62 -60 50 -2 Z" fill="#334155" opacity="0.65" stroke="none"/>
+      <!-- Đệm thắt lưng công thái học (Lumbar support xanh dương) -->
+      <path d="M-36 -60 Q0 -76 36 -60" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- Tay vịn công thái học 2 bên to chắc chắn (T-Armrests) -->
+      <g stroke="#334155" stroke-width="5" stroke-linecap="round">
+        <path d="M-80 15 L-95 -25 L-65 -25" fill="none"/>
+        <path d="M80 15 L95 -25 L65 -25" fill="none"/>
+      </g>
     </g>
 
     <!-- MẶT BÀN GỖ NẰM NGANG 3D MÀU NÂU MẬT ONG (#8a5833, ĐỒNG BỘ 100%) -->

@@ -65,10 +65,10 @@ Bám sát 100% dòng thời gian và các mốc diễn biến từ 7:00 AM tới
 
 | STT | Bối cảnh | File SVG | Tiêu cự | Ánh sáng & Đạo cụ chính |
 |---|---|---|---|---|
-| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM; tổng thể căn phòng: Cửa sổ $\to$ Tủ Duy Tân $\to$ 2 nệm song song (Tùng & Nam) $\to$ **Bàn học của Nam (giá sách, đèn đỏ)** $\to$ Cửa chính $\to$ Bồn rửa khít góc tường phải. |
-| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Bồn rửa inox **kê khít góc tường**, gờ nẹp trám keo silicon sát gạch men ố vàng, vòi nước nhỏ giọt, khay chén sạch bóng, kệ gia vị, thùng mì Hảo Hảo, chổi rơm, thấy mép cửa phòng. |
-| **3** | **Cửa gài chốt & Hành lang** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | Cửa đóng kín, **then cài chốt trượt kim loại**, ghế gỗ chặn cửa; bên trái thấy nệm Nam & đồng hồ; bên phải là **chiếc bàn học của Nam (đồng bộ Cảnh 4)** có sách, đèn đỏ, ví da & thẻ căn cước, ghế xoay. |
-| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | Đêm tối, quầng sáng đèn bàn vàng rực, laptop Google Docs mở bài làm hộ, điện thoại Không làm phiền, **ghế xoay học sinh công thái học lưới đen**; hậu cảnh thấy nệm Nam và cửa phòng gài chốt. |
+| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM; thiết lập chuẩn 100% theo bản vẽ tác giả (`image.png`): Cửa chính tường trái mở ra hành lang dài $\to$ Bếp & bồn rửa inox góc trái $\to$ Tủ quần áo đứng giữa phòng $\to$ **Bàn học của Nam & Chiếc ghế to đầm chắc có áo thun vắt lưng ghế** $\to$ Cửa sổ tường phải đón nắng sớm $\to$ Nệm Nam góc phải với chăn rêu xộc xệch, điện thoại 7h, dép lê. |
+| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Cận cảnh bếp góc trái: Tủ bếp dưới màu xanh xám nhạt (`#9cae9b`), bồn rửa inox 2 ngăn, vòi nước nhỏ giọt, khay chén đĩa sạch bóng, bát đũa gác chéo, kệ gia vị, quạt đứng sinh viên, cây chổi rơm, thấy mép cánh cửa mở ra hành lang dài. |
+| **3** | **Cửa gài chốt & Hành lang** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | Cửa chính xanh xám (`#769384`) đóng kín, **then cài chốt trượt kim loại**, ghế gỗ chặn cửa; bên phải là **chiếc bàn học của Nam** có sách giáo trình, đèn đỏ, thẻ CCCD và **chiếc ghế xoay to đầm chắc, vững chãi**. |
+| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | 23:45 Đêm muộn; quầng sáng đèn bàn vàng rực, laptop Google Docs mở bài làm hộ, điện thoại tin nhắn gấp, **chiếc ghế xoay học sinh công thái học to đầm, cân đối hoàn hảo thẳng hàng laptop**; hậu cảnh đêm thấy tủ quần áo bên trái, đồng hồ 23:45 và cửa sổ đêm bên phải. |
 
 
 
