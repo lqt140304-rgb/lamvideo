@@ -203,3 +203,8 @@ Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai
 ## 09/11/2026 — bản 14: đầu cảnh có nguyên nhân và diễn/FX chi tiết
 
 Theo chủ repo: thêm diễn Thảo nghịch đồ rồi bị quát, Duy hỏi sửa trước báo giá; rút lời dẫn gia cảnh và mở C0 còn 14 giây. Chỉ dẫn quay/focus/ánh sáng/Foley/nhịp phản ứng nằm ở BIEN-TAP-V14. Không tạo giọng hoặc phim; không thay asset mới của agent khác. Phân vai và bản lời đã cập nhật, cue/staging/audio cũ cần retime trước dựng.
+
+## Dựng đoạn đầu bản 14 — 09/11/2026
+
+- `cues.json` theo bản 14: C0 còn 14 giây; C1 chia theo chuỗi Thảo nghịch đồng hồ → bị quát → Duy che em, hỏi sửa → Lộc xem máy → báo giá. Từ cửa tới giá là một diễn biến liền theo đồng hồ phim (`openingAct` trong `shots.tsx`), các shot chỉ chọn góc nhìn.
+- Tạo 7 lượt lời mới: **233 credits** (bộ đếm 26.157 → 26.390); 82 lượt dùng lại. Toàn phim 9:01, chưa render, chưa ai nghe duyệt.

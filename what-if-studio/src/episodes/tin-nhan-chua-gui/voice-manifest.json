@@ -50,6 +50,72 @@
  },
  "pieces": [
   {
+   "id": "1.0.0",
+   "s": 1,
+   "i": 0,
+   "k": 0,
+   "role": "narrator",
+   "text": "Mẹ mất hơn tháng. Hồi còn mẹ, mỗi lần bố say rồi đánh con, mẹ đều đứng chắn. Giờ Duy không dám để em ở nhà một mình.",
+   "say": "Mẹ mất hơn tháng. Hồi còn mẹ, mỗi lần bố say rồi đánh con, mẹ đều đứng chắn. Giờ Duy không dám để em ở nhà một mình.",
+   "file": "tin-nhan-chua-gui/voice/1.0.0-narrator-46e3450244.mp3",
+   "sec": 9.12
+  },
+  {
+   "id": "1.1.0",
+   "s": 1,
+   "i": 1,
+   "k": 0,
+   "role": "thao",
+   "text": "Anh ơi, cái này cũng hư hả?",
+   "say": "[curious] Anh ơi, cái này cũng hư hả?",
+   "file": "tin-nhan-chua-gui/voice/1.1.0-thao-a8a4ec520f.mp3",
+   "sec": 2.48
+  },
+  {
+   "id": "1.2.0",
+   "s": 1,
+   "i": 2,
+   "k": 0,
+   "role": "loc",
+   "text": "Để xuống! Ai cho mày đụng vào?",
+   "say": "[stern] Để xuống! Ai cho mày đụng vào?",
+   "file": "tin-nhan-chua-gui/voice/1.2.0-loc-75024a6aff.mp3",
+   "sec": 2.08
+  },
+  {
+   "id": "1.4.0",
+   "s": 1,
+   "i": 4,
+   "k": 0,
+   "role": "duy",
+   "text": "Cháu xin lỗi, em cháu không biết. Ông coi giùm cháu cái điện thoại này được không?",
+   "say": "[hesitant] Cháu xin lỗi, em cháu không biết. Ông coi giùm cháu cái điện thoại này được không?",
+   "file": "tin-nhan-chua-gui/voice/1.4.0-duy-9d817c873f.mp3",
+   "sec": 4.72
+  },
+  {
+   "id": "1.5.0",
+   "s": 1,
+   "i": 5,
+   "k": 0,
+   "role": "loc",
+   "text": "Máy bị gì?",
+   "say": "[coldly] Máy bị gì?",
+   "file": "tin-nhan-chua-gui/voice/1.5.0-loc-5fb005bdcd.mp3",
+   "sec": 1.28
+  },
+  {
+   "id": "1.6.0",
+   "s": 1,
+   "i": 6,
+   "k": 0,
+   "role": "duy",
+   "text": "Máy không lên nữa. Trong này còn đoạn ghi âm của mẹ… cháu chưa nghe được.",
+   "say": "[restrained] Máy không lên nữa. Trong này còn đoạn ghi âm của mẹ… cháu chưa nghe được.",
+   "file": "tin-nhan-chua-gui/voice/1.6.0-duy-5e6cfedc26.mp3",
+   "sec": 4.8
+  },
+  {
    "id": "1.8.0",
    "s": 1,
    "i": 8,
@@ -202,6 +268,17 @@
    "say": "[coldly] Mang máy về.",
    "file": "tin-nhan-chua-gui/voice/2.2.0-loc-fabe61131f.mp3",
    "sec": 1.2
+  },
+  {
+   "id": "2.3.0",
+   "s": 2,
+   "i": 3,
+   "k": 0,
+   "role": "narrator",
+   "text": "Dì Hạnh đầu hẻm, chỗ Duy phụ quán, đã nhắn cậu mở đoạn ghi âm mẹ để lại trước lúc vào viện. Nhưng máy vỡ mất rồi. Ba tiệm trước đều trả lại.",
+   "say": "Dì Hạnh đầu hẻm, chỗ Duy phụ quán, đã nhắn cậu mở đoạn ghi âm mẹ để lại trước lúc vào viện. Nhưng máy vỡ mất rồi. Ba tiệm trước đều trả lại.",
+   "file": "tin-nhan-chua-gui/voice/2.3.0-narrator-f693048ea5.mp3",
+   "sec": 10.08
   },
   {
    "id": "2.4.0",
