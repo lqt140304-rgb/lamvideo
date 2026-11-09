@@ -4,7 +4,9 @@
 
 **Sửa tạo hình rig V3 — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
 
-**Tư thế và khớp mới:** [xem bảng](assets/rig/tu-the-khop.png) và [hướng dẫn rig](assets/rig/RIG-NHAN-VAT.md). Bổ sung cho bộ nhân vật hiện có, có trình xem tương tác; chưa thay timeline hoặc khởi động dựng phim.
+**Rig chính:** `Rigged`, `TWIN_POSES`, `solveRig` trong [assets/nhan-vat.tsx](assets/nhan-vat.tsx), đủ 8 góc quay; quy tắc ở [quy chuẩn thiết kế](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). Chưa thay timeline hoặc khởi động dựng phim.
+
+**Rig cũ (chỉ để đối chiếu):** [bảng tư thế](assets/rig/tu-the-khop.png) và [hướng dẫn](assets/rig/RIG-NHAN-VAT.md); các mục "rig V3" trong file này nói về bản cũ.
 
 **Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.
 
