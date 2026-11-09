@@ -5,7 +5,7 @@ Kịch bản được lưu theo từng tập, không chép nội dung tập vào
 | Series / tập | Hồ sơ | Trạng thái |
 |---|---|---|
 | Hẻm Có Chuyện — Hồ sơ 1: Tin nhắn chưa gửi | [Hồ sơ tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | **Bản 14:** mở 14 giây, diễn rõ nghịch đồng hồ → bị quát → hỏi sửa rồi báo giá; lời dẫn gia cảnh gọn. [Chỉ đạo diễn/FX](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/BIEN-TAP-V14.md), 40 cue, 89 lượt lời. Giữ ba giao kèo và hé lộ bản 13; animatic v3 bản 13 chưa duyệt, chưa dựng bản 14. |
-| Hẻm Có Chuyện — Hồ sơ 2: Người làm thay | [Hồ sơ truyện](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) | **Đang thảo luận từng cảnh:** bản cảnh 1 do GPT-6 Astra đề xuất, chưa duyệt; chưa có kịch bản hoàn chỉnh/bản lời/media. |
+| Hẻm Có Chuyện — Hồ sơ 2: Người làm thay | [Hồ sơ truyện](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) | **Đang thảo luận từng cảnh với GPT-6 Astra:** đã chốt hướng xuất hiện và cảm xúc cảnh 1; đang phát triển cảnh 2. Chưa có kịch bản hoàn chỉnh/bản lời/media. |
 | Tập độc lập — Mưa liên tục 100 ngày | [Mở thư mục tập](../episodes/doc-lap/mua-100-ngay/README.md) | Nhập bản v7 và dữ liệu dựng 10 cảnh trước đây; chưa xem/nghe lại phim trong lượt nhập |
 
 ## Quy tắc thêm tập

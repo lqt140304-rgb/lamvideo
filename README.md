@@ -47,7 +47,7 @@ Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tư�
 
 **Đang làm:** Hẻm Có Chuyện mở thành [vũ trụ quái vật có khả năng riêng](episodes/hem-co-chuyen/VU-TRU.md). [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) bản 13 giữ lời gọn bản 12 và thêm cameo/tiệm biến mất/nguyên hình Lộc/kho lọ: 40 cue, ước tính 7:45–8:58. Chưa dựng hoặc tạo asset phần mới; animatic hiện có vẫn bản lời 11. Đọc bàn giao Claude trong hồ sơ tập trước khi dựng.
 
-**Đang phát triển văn bản:** [Hồ sơ 2 — Người làm thay](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) đang cùng chủ repo chốt từng cảnh; cảnh 1 còn là đề xuất, chưa có kịch bản hoàn chỉnh hay media. [Quy ước Hồ sơ 1, Hồ sơ 2](episodes/hem-co-chuyen/README.md#cách-gọi-các-truyện) giữ các slug kỹ thuật cũ.
+**Đang phát triển văn bản:** [Hồ sơ 2 — Người làm thay](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) đang cùng chủ repo chốt từng cảnh; đã đồng ý hướng xuất hiện/cảm xúc cảnh 1, đang phát triển cảnh 2. Chưa có kịch bản hoàn chỉnh hay media. [Quy ước Hồ sơ 1, Hồ sơ 2](episodes/hem-co-chuyen/README.md#cách-gọi-các-truyện) giữ các slug kỹ thuật cũ.
 
 Hồ sơ đã sắp xếp: [Hồ sơ 1 — Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 

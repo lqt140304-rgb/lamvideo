@@ -7,7 +7,7 @@ Series truyện giả định đời thường Việt Nam, đang mở thành vũ
 | [THIET-KE-NHAN-VAT.md](THIET-KE-NHAN-VAT.md) | Hướng thiết kế SVG đã chọn, nét chung và giới hạn của mẫu thử tĩnh |
 | [VU-TRU.md](VU-TRU.md) | Luật và thông tin dùng chung riêng cho series, hồ sơ thực thể đầu tiên, phần đã chốt/phần đề xuất |
 | [Hồ sơ 1 — Tin nhắn chưa gửi](tap-01-tin-nhan-chua-gui/README.md) | Kịch bản, lời đọc, asset và kế hoạch dựng của truyện đầu |
-| [Hồ sơ 2 — Người làm thay](ho-so-02-nguoi-lam-thay/README.md) | Đang thảo luận từng cảnh; nam sinh viên lười nhác và người giống hệt dần thay thế cậu; chưa chốt cảnh 1 |
+| [Hồ sơ 2 — Người làm thay](ho-so-02-nguoi-lam-thay/README.md) | Đang thảo luận từng cảnh; đã chốt hướng xuất hiện/cảm xúc cảnh 1, đang phát triển cảnh 2 |
 
 Đọc VU-TRU trước khi phát triển tập tiếp theo. Không đưa cốt truyện hay tên quái vật riêng của series vào file kinh nghiệm chung. Chưa mở thư mục tập mới khi chưa có nội dung.
 

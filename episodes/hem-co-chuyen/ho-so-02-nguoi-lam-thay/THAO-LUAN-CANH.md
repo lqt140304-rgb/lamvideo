@@ -10,7 +10,22 @@
 - Mức thay thế tăng dần, cuối cùng thay thế cậu hoàn toàn.
 - Đó là một sinh vật đã chủ động nhắm tới cậu; chỉ tới đoạn cuối mới nói/lộ sự thật này.
 - Rà sâu từng câu chữ, mắt xích nhân quả và chiều sâu nhân vật. Phản ứng khi gặp người y hệt mình phải có sức nặng; không vừa hoảng đã lập tức vui vì được làm bài hộ.
-- Cùng thảo luận và chốt từng cảnh. Chưa viết tiếp toàn bộ kịch bản dựa trên mở đầu chưa được chọn.
+- Cùng thảo luận và chốt từng cảnh. Không viết tiếp toàn bộ kịch bản khi các quyết định trung gian còn đang bàn.
+- **Phản hồi ngày 09/11/2026:** chủ repo đồng ý cách bản sao xuất hiện bí ẩn trong sinh hoạt và nhịp cảm xúc của cảnh 1. Hướng gặp ở góc rửa chén, phản ứng sững–kiểm chứng–sợ và giữ khoảng cách được giữ để phát triển cảnh 2. Phản hồi này chưa chốt tên/tuổi cụ thể, toàn bộ câu thoại, máy quay hoặc cơ chế thay thế.
+- **Giới hạn tiết lộ đã chốt:** chưa để Tùng biết sớm về người giống hệt hoặc người lạ trong phòng. Cuộc gọi đầu chỉ giúp Nam xác nhận bạn đang ở trường; Nam chưa kể chuyện vừa thấy. Không gửi ảnh/gọi video cho Tùng ở đoạn này. Thời điểm Tùng biết còn để bàn sau.
+- **Hướng nhân vật đã yêu cầu:** cậu sinh viên lười nhác, có thể có phần đáng ghét, nhưng phải khiến người xem nhận ra một người thật ngoài xã hội. Giữ sự mâu thuẫn và các mối quan hệ đời thường, tránh biến cậu thành một mẫu người chỉ tồn tại để bị trừng phạt.
+
+## Phát triển tính cách — ví dụ đang đề xuất
+
+Những ví dụ dưới đây là cách triển khai hướng người dùng chọn, chưa phải sự kiện đã chốt trong truyện. Chọn ít chi tiết có tác động tới quan hệ, không cần đưa hết vào phim.
+
+- **Lỗi gây hậu quả thật:** cứ hẹn rửa chén rồi để bạn phải làm, trễ phần bài nhóm nhưng nói “có tí thôi mà”; lời xin giúp dần thành mặc định người khác sẽ gánh. Cho thấy sự phiền và mất lòng tin ở người chịu thay.
+- **Tự bào chữa có mâu thuẫn:** cậu cho rằng mình chỉ làm chậm chứ không vô trách nhiệm, nhưng người khác đã phải hoàn thành trước. Cậu khó chịu khi bị nhắc vì nghe ra phần đúng trong lời đó. Không cần lời dẫn giải thích suy nghĩ này.
+- **Quan hệ không chỉ có nợ nần:** cậu có thể thật lòng ngồi nghe bạn kể chuyện buồn, nhớ một thói quen riêng của bạn, rồi hôm sau vẫn để bạn dọn đống bừa của mình. Một lần quan tâm không xóa phần ích kỷ; phần ích kỷ cũng không khiến cả mối quan hệ thành giả.
+- **Có điều chủ động muốn làm:** cậu hào hứng với sở thích của mình dù lười việc chung; sở thích và giá trị gắn bó cụ thể còn chờ chọn. Không tự dùng bệnh lý, quá khứ bi kịch hoặc việc nghĩa hiệp để xóa tính lười.
+- **Hệ quả về sau:** người quen có lý do thật để nhẹ nhõm khi công việc bắt đầu được hoàn thành. Nếu họ dần tin người giống hệt, cần dựa trên những trải nghiệm cụ thể. Không biến họ thành người xấu chỉ vì có giới hạn với cậu, cũng không kết luận người tử tế/chăm chỉ thì kém chân thật.
+
+Nhịp trưởng thành hoặc hối tiếc phải thể hiện bằng lựa chọn khó và nỗ lực có kết quả; không đổi cậu thành người hoàn hảo chỉ sau một câu dạy đời. Cơ chế thay thế vẫn cần được xây dựng riêng, chưa mặc định hành vi tốt/xấu là điều kiện siêu nhiên.
 
 ## Khung cảnh để cùng điều chỉnh
 
@@ -18,8 +33,8 @@
 
 | Cảnh | Chức năng dự kiến | Trạng thái |
 |---|---|---|
-| 1 — Người trong phòng | Đời sống lười nhác; chạm mặt người giống hệt; sợ và kiểm chứng | Đang thảo luận bản bên dưới |
-| 2 — Một việc làm hộ | Lý do cậu ở lại đối thoại; phép thử hoặc giới hạn để có lần nhận giúp đầu tiên | Chưa viết; phụ thuộc cảnh 1 |
+| 1 — Người trong phòng | Đời sống lười nhác; chạm mặt người giống hệt; sợ và kiểm chứng | Đã chốt hướng xuất hiện và cảm xúc; lời chi tiết còn biên tập |
+| 2 — Một việc làm hộ | Lý do cậu ở lại đối thoại; phép thử hoặc giới hạn để có lần nhận giúp đầu tiên | Đang phát triển đề xuất; chưa duyệt |
 | 3 — Quen được làm thay | Lợi ích đủ hấp dẫn khiến cậu chủ động giao thêm; bộc lộ điều riêng đáng giữ trong đời cậu | Chưa viết |
 | 4 — Một chỗ không còn của mình | Dấu hiệu mất quyền kiểm soát rõ đầu tiên; từ thoải mái sang bất an | Chưa viết |
 | 5 — Giành lại | Cậu tìm cách lấy lại vai trò; kết quả tuân theo điều đã được thiết lập | Chưa viết |
@@ -27,7 +42,9 @@
 | 7 — Người thay thế | Thể hiện việc thay thế hoàn toàn, không chỉ tuyên bố qua lời dẫn | Chưa viết |
 | 8 — Thứ đã chọn cậu | Hé lộ sinh vật và việc nhắm tới cậu từ trước; chi tiết cũ được hiểu lại | Chưa viết; có thể gộp cảnh 7 |
 
-## Cảnh 1 — Tiếng rửa chén (đề xuất, chưa duyệt)
+## Cảnh 1 — Tiếng rửa chén (đã chốt hướng xuất hiện và cảm xúc)
+
+**Phạm vi đồng ý:** cách xuất hiện không rõ nguồn gốc và phản ứng nhân vật. Bản lời dưới đây còn là bản biên tập theo hướng đã chọn; thông số dựng chưa khóa.
 
 **Ý đồ:** người xem hiểu tính lười qua sinh hoạt; sự quen thuộc biến thành sợ hãi khi khuôn mặt rồi giọng nói trùng khớp. Kết cảnh cậu còn nghi ngờ, chưa nhận giúp đỡ.
 
@@ -110,4 +127,27 @@ Người trong phòng vẫn đứng chờ. Nước từ bàn tay nhỏ xuống n
 4. Tùng là người được gọi để kiểm chứng, chưa được chốt thành nhân vật chính thứ ba hay biết bí mật của bản sao.
 5. Không dựng hồi tưởng theo dõi hay luật chuyển danh tính từ bản cũ. Cơ chế thay thế còn chờ phát triển sau khi chốt cách xuất hiện.
 
-**Điểm chờ phản hồi:** cách xuất hiện ở bồn rửa, mức phản ứng của Nam và điểm kết cảnh. Chốt từng điểm theo phản hồi thật của người dùng.
+**Đang chuyển sang bàn cảnh 2:** giữ sự dè chừng sau cảnh 1, làm rõ vì sao Nam ở lại đối thoại và chấp nhận một việc giúp nhỏ. Tên nhân vật, cơ chế thay thế và chi tiết thoại vẫn có thể điều chỉnh; không coi các phương án kế tiếp là đã duyệt.
+
+
+## Điều chỉnh trước khi viết cảnh 2
+
+**Đã bỏ:** phương án Nam nói với Tùng “Có một thằng giống y tao. Nó đang trong phòng mình”, rồi nhờ Tùng xử lý kẻ lạ. Phương án này tiết lộ sớm hơn người dùng muốn và chưa được đưa vào bản nguồn.
+
+**Đề xuất nối cuộc gọi — chưa chốt từng câu:**
+
+**TÙNG:**
+> Ừ, tao đang trên trường. Có chuyện gì?
+
+Nam nhìn người đứng trong phòng. Miệng cậu hé ra rồi khép lại; chưa nói được điều vừa thấy.
+
+**NAM — [hesitant]:**
+> Không… tao tưởng mày còn ở phòng.
+
+**TÙNG — hạ giọng vì đang học:**
+> Tao đi từ sáng rồi. Có gì nhắn nhé, thầy đang giảng.
+
+**NAM — mắt vẫn không rời người kia:**
+> Ừ.
+
+Cuộc gọi kết thúc. Nam vẫn đứng ngoài cửa, giữ khoảng cách. Đoạn này chỉ kiểm chứng người trong phòng không phải Tùng; chưa giải thích bản sao và chưa khiến Nam tin tưởng. Lý do sâu hơn khiến Nam giữ kín có thể phát triển qua tính cách về sau; chưa mặc định Tùng sẽ không tin hoặc không quan tâm.
