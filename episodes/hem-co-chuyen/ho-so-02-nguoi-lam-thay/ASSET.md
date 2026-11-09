@@ -1,5 +1,7 @@
 # Asset — Hồ sơ 2: Người làm thay
 
+**Sửa tạo hình rig V2 — 10/11/2026:** quần áo và tay chân đã được vẽ kỹ hơn theo bộ gốc; giữ nguyên đầu. Xem [đối chiếu mẫu gốc / bản sửa](assets/rig/doi-chieu-mau-goc.png) và [bảng tư thế mới](assets/rig/tu-the-khop.png). Trình xem/SVG/PNG đã cập nhật cùng nguồn; chờ duyệt tạo hình, chưa đưa vào phim.
+
 **Bổ sung tư thế/khớp — 10/11/2026:** đã có [bảng 12 tư thế](assets/rig/tu-the-khop.png), [nguồn rig](assets/rig/rig.tsx) và [trình xem khớp](assets/rig/xem-tu-the.html) cho Nam, Người Kia, Tùng, dùng lại đầu/màu của bộ hiện có. Đọc [hướng dẫn và giới hạn](assets/rig/RIG-NHAN-VAT.md) trước khi dựng: bản để duyệt, chưa là chuyển động/tương tác đã duyệt trong phim.
 
 **Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.

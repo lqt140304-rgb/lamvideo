@@ -16,7 +16,7 @@ let cases=0;
 function check(p){
   const s=rig.skeleton(p);
   for(const name of ['la','ra','ll','rl']){
-    const l=s[name],upper=name.endsWith('a')?79:p.support==='seat'?100:110,lower=name.endsWith('a')?84:p.support==='seat'?100:109;
+    const l=s[name],upper=name.endsWith('a')?79:p.support==='seat'?100:110,lower=name.endsWith('a')?78:p.support==='seat'?100:109;
     assert(Math.abs(distance(l.start,l.mid)-upper)<1e-6, name+' upper bone drift');
     assert(Math.abs(distance(l.mid,l.end)-lower)<1e-6, name+' lower bone drift');
     assert(!/NaN|Infinity/.test(rig.limbOutline(l.start,l.mid,l.end,24,20,12)));
