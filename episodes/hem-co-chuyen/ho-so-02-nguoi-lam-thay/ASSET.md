@@ -46,3 +46,23 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
 ## File thiết kế tham chiếu ban đầu
 - [`assets/thiet-ke/character-svg-v1.png`](assets/thiet-ke/character-svg-v1.png): Bảng đối chiếu ban đầu giữa Rig cũ và Mẫu thử B.
 - [`assets/thiet-ke/character-svg-v1.tsx`](assets/thiet-ke/character-svg-v1.tsx): File thử nghiệm ban đầu của mẫu B.
+
+---
+
+## Hệ thống bối cảnh môi trường theo kịch bản (Style B) — 09/11/2026
+
+Bám sát 100% dòng thời gian và các mốc diễn biến từ 7:00 AM tới đêm muộn trong kịch bản:
+
+- **Hình ảnh tổng quan:** ![Bảng bối cảnh môi trường 4 ô](assets/boi-canh/boi-canh.png)
+- **Tài liệu chi tiết bối cảnh:** [`assets/boi-canh/BOI-CANH.md`](assets/boi-canh/BOI-CANH.md)
+- **Trình xem tương tác độc lập (Zoom/Pan):** [`assets/boi-canh/xem-truc-tiep-boi-canh.html`](assets/boi-canh/xem-truc-tiep-boi-canh.html)
+- **Master Board SVG 4K:** [`assets/boi-canh/boi-canh.svg`](assets/boi-canh/boi-canh.svg)
+- **Mã nguồn React / Remotion:** [`assets/boi-canh/boi-canh.tsx`](assets/boi-canh/boi-canh.tsx)
+
+| STT | Bối cảnh | File SVG | Tiêu cự | Ánh sáng & Đạo cụ chính |
+|---|---|---|---|---|
+| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM, vệt nắng sớm qua khe cửa mở hờ; nệm Nam xộc xệch, điện thoại reo 07:00, nệm Tùng đã dọn, dép lê, quạt máy. |
+| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Bồn rửa inox, vòi nước nhỏ giọt, khay úp chén sạch bóng, kệ gia vị dầu ăn/nước mắm, cây chổi rơm quét nhà. |
+| **3** | **Cửa gài chốt & Hành lang** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | Cửa gỗ đóng kín, **then cài chốt trượt kim loại gài cứng**, lỗ mắt mèo, ghế gỗ Nam ngồi canh, ví da & thẻ căn cước. |
+| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | Đêm tối, quầng sáng đèn bàn vàng rực, màn hình laptop Google Docs mở bài làm hộ, điện thoại bật Không làm phiền. |
+

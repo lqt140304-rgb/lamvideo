@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="tile-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbf8f2"/>
+      <stop offset="100%" stop-color="#ece4d5"/>
+    </linearGradient>
+    <linearGradient id="sink-inox" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9aa8ad"/>
+      <stop offset="50%" stop-color="#bdc9cd"/>
+      <stop offset="100%" stop-color="#77858a"/>
+    </linearGradient>
+    <linearGradient id="water-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a5f3fc" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- TƯỜNG GẠCH MEN ỐP TOÀN BỘ GÓC BẾP -->
+  <rect width="1920" height="720" fill="url(#tile-grad)"/>
+  <!-- Lưới gạch men bếp 120x120 -->
+  <g stroke="#d8cfbe" stroke-width="2.5">
+    <path d="M0 120 H1920 M0 240 H1920 M0 360 H1920 M0 480 H1920 M0 600 H1920"/>
+    <path d="M160 0 V720 M320 0 V720 M480 0 V720 M640 0 V720 M800 0 V720 M960 0 V720 M1120 0 V720 M1280 0 V720 M1440 0 V720 M1600 0 V720 M1760 0 V720"/>
+  </g>
+
+  <!-- SÀN GẠCH MEN PHÒNG TRỌ (SẠCH SẼ, ĐÃ ĐƯỢC QUÉT HẾT VỤN MÌ) -->
+  <rect y="720" width="1920" height="360" fill="#c9baa3"/>
+  <line x1="0" y1="720" x2="1920" y2="720" stroke="#806e57" stroke-width="8" stroke-linecap="round"/>
+  <path d="M-100 1080 L300 720 M350 1080 L750 720 M800 1080 L1200 720 M1250 1080 L1650 720 M1700 1080 L1950 820" stroke="#a6957c" stroke-width="3" stroke-dasharray="15 15" opacity="0.55"/>
+
+  <!-- KỆ GIA VỊ SINH VIÊN TRÊN TƯỜNG -->
+  <g transform="translate(240 180)" stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round">
+    <!-- Giá gỗ treo tường -->
+    <rect x="0" y="0" width="420" height="22" rx="4" fill="#8b5a2b" stroke="#282b2b" stroke-width="3.5"/>
+    <polygon points="40,22 40,65 55,22" fill="#282b2b" stroke="none"/>
+    <polygon points="380,22 380,65 365,22" fill="#282b2b" stroke="none"/>
+    <!-- Chai dầu ăn Simply vàng óng -->
+    <rect x="50" y="-115" width="48" height="115" rx="8" fill="#fbbf24" stroke="#282b2b" stroke-width="3.5"/>
+    <rect x="64" y="-135" width="20" height="20" fill="#dc2626" stroke="#282b2b" stroke-width="2.5"/>
+    <text x="74" y="-50" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">DẦU ĂN</text>
+    <!-- Chai nước mắm Nam Ngư / Chin-su -->
+    <rect x="130" y="-100" width="42" height="100" rx="6" fill="#991b1b" stroke="#282b2b" stroke-width="3.5"/>
+    <rect x="143" y="-120" width="16" height="20" fill="#f59e0b" stroke="#282b2b" stroke-width="2"/>
+    <!-- Lọ muối & hũ hạt nêm Knorr -->
+    <rect x="200" y="-75" width="46" height="75" rx="8" fill="#f8fafc" stroke="#282b2b" stroke-width="3"/>
+    <rect x="270" y="-85" width="55" height="85" rx="10" fill="#16a34a" stroke="#282b2b" stroke-width="3"/>
+    <!-- Hộp khăn giấy cuộn -->
+    <ellipse cx="370" cy="-50" rx="25" ry="30" fill="#f1f5f9" stroke="#282b2b" stroke-width="3"/>
+  </g>
+
+  <!-- MÓC TREO KHĂN LAU TAY & TẠP DỀ -->
+  <g transform="translate(740 220)" stroke="#282b2b" stroke-width="3.5">
+    <circle cx="0" cy="0" r="8" fill="#525252" stroke="none"/>
+    <path d="M-12 15 Q0 5 12 15 L22 130 Q0 145 -22 130 Z" fill="#fef08a" stroke="#282b2b" stroke-width="3"/>
+    <path d="M-15 45 H15 M-18 85 H18" stroke="#eab308" stroke-width="2"/>
+  </g>
+
+  <!-- BỆ BẾP & BỒN RỬA INOX LỚN TRUNG TÂM -->
+  <g id="main-sink-unit" transform="translate(560 480)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Thân tủ kệ bếp dưới bồn -->
+    <rect x="0" y="160" width="1020" height="350" fill="#59676d" stroke="#282b2b" stroke-width="5"/>
+    <!-- Cánh tủ đôi có khe nan gỗ & tay nắm -->
+    <rect x="40" y="190" width="440" height="280" fill="#475358" stroke="#282b2b" stroke-width="3.5"/>
+    <rect x="540" y="190" width="440" height="280" fill="#475358" stroke="#282b2b" stroke-width="3.5"/>
+    <circle cx="440" cy="330" r="7" fill="#d1d5db" stroke="#282b2b" stroke-width="2.5"/>
+    <circle cx="580" cy="330" r="7" fill="#d1d5db" stroke="#282b2b" stroke-width="2.5"/>
+
+    <!-- Mặt bàn bếp ốp đá granit nhân tạo xám ấm -->
+    <rect x="-30" y="130" width="1080" height="55" rx="6" fill="#394245" stroke="#282b2b" stroke-width="5"/>
+
+    <!-- LÒNG CHẬU RỬA INOX LỚN -->
+    <rect x="40" y="20" width="620" height="130" rx="16" fill="url(#sink-inox)" stroke="#282b2b" stroke-width="4.5"/>
+    <!-- Ngăn chia bồn rửa đôi -->
+    <line x1="350" y1="20" x2="350" y2="150" stroke="#282b2b" stroke-width="4"/>
+    <!-- Lỗ thoát nước kim loại -->
+    <ellipse cx="190" cy="95" rx="22" ry="12" fill="#333d40" stroke="#282b2b" stroke-width="2.5"/>
+    <ellipse cx="490" cy="95" rx="22" ry="12" fill="#333d40" stroke="#282b2b" stroke-width="2.5"/>
+
+    <!-- VÒI NƯỚC INOX CỔ NGỖNG CAO CẤP VỚI CẦN GẠT -->
+    <g transform="translate(350 20)">
+      <!-- Đế vòi nước -->
+      <rect x="-16" y="-15" width="32" height="20" rx="3" fill="#94a3b8" stroke="#282b2b" stroke-width="3"/>
+      <!-- Cổ vòi inox uốn cong mượt mà -->
+      <path d="M0 -15 V-140 Q0 -195 -45 -195 Q-90 -195 -90 -140 V-125" fill="none" stroke="#cbd5e1" stroke-width="12" stroke-linecap="round"/>
+      <path d="M0 -15 V-140 Q0 -195 -45 -195 Q-90 -195 -90 -140 V-125" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+      <!-- Đầu vòi nước & giọt nước nhỏ chậm -->
+      <rect x="-98" y="-125" width="16" height="12" rx="2" fill="#64748b" stroke="#282b2b" stroke-width="2"/>
+      <ellipse cx="-90" cy="-95" rx="4.5" ry="7" fill="url(#water-grad)" stroke="#0284c7" stroke-width="1.5"/>
+      <!-- Cần gạt nước sang ngang (đã đóng vòi nước lại) -->
+      <line x1="8" y1="-8" x2="38" y2="-30" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="38" cy="-30" r="6" fill="#cbd5e1" stroke="#282b2b" stroke-width="2"/>
+    </g>
+
+    <!-- KHAY ÚP CHÉN NHỰA BÊN PHẢI (CHỨA BÁT ĐĨA ĐÃ RỬA SẠCH SẼ) -->
+    <g transform="translate(700 -20)">
+      <rect x="0" y="0" width="280" height="165" rx="12" fill="#6ee7b7" stroke="#282b2b" stroke-width="3.8" opacity="0.85"/>
+      <!-- Các nan úp đĩa -->
+      <line x1="30" y1="20" x2="30" y2="140" stroke="#282b2b" stroke-width="2.5"/>
+      <line x1="60" y1="20" x2="60" y2="140" stroke="#282b2b" stroke-width="2.5"/>
+      <line x1="90" y1="20" x2="90" y2="140" stroke="#282b2b" stroke-width="2.5"/>
+      <!-- Đĩa sứ trắng úp thẳng hàng ngay ngắn -->
+      <ellipse cx="45" cy="60" rx="16" ry="48" fill="#f8fafc" stroke="#282b2b" stroke-width="3"/>
+      <ellipse cx="75" cy="60" rx="16" ry="48" fill="#f8fafc" stroke="#282b2b" stroke-width="3"/>
+      <ellipse cx="105" cy="60" rx="16" ry="48" fill="#f8fafc" stroke="#282b2b" stroke-width="3"/>
+      <!-- Chén cơm úp ngược khô ráo -->
+      <path d="M150 110 Q190 70 230 110 Z" fill="#f1f5f9" stroke="#282b2b" stroke-width="3"/>
+      <path d="M170 80 Q210 40 250 80 Z" fill="#f1f5f9" stroke="#282b2b" stroke-width="3"/>
+      <!-- Đũa cắm trong ống nhựa -->
+      <line x1="240" y1="90" x2="230" y2="-30" stroke="#78350f" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="250" y1="90" x2="248" y2="-35" stroke="#78350f" stroke-width="4.5" stroke-linecap="round"/>
+      <line x1="260" y1="90" x2="265" y2="-28" stroke="#78350f" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- NƯỚC RỬA CHÉN SUNLIGHT & MIẾNG MÚT XƠ MƯỚP TẠO BỌT -->
+    <g transform="translate(80 15)">
+      <rect x="0" y="-65" width="36" height="70" rx="8" fill="#facc15" stroke="#282b2b" stroke-width="3"/>
+      <rect x="10" y="-80" width="16" height="15" rx="3" fill="#dc2626" stroke="#282b2b" stroke-width="2.5"/>
+      <!-- Miếng mút rửa chén 2 mặt vàng-xanh -->
+      <rect x="55" y="-25" width="46" height="28" rx="4" fill="#eab308" stroke="#282b2b" stroke-width="2.5"/>
+      <rect x="55" y="-32" width="46" height="10" rx="2" fill="#15803d" stroke="#282b2b" stroke-width="2"/>
+      <!-- Vài bong bóng xà phòng nhỏ lăn tăn trên mép bồn -->
+      <circle cx="110" cy="-10" r="6" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+      <circle cx="120" cy="-18" r="4" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+      <circle cx="126" cy="-8" r="3" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
+    </g>
+  </g>
+
+  <!-- CÂY CHỔI RƠM QUÉT NHÀ DỰNG CẠNH VÁCH TƯỜNG (CHI TIẾT TRONG KỊCH BẢN) -->
+  <g transform="translate(440 560)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
+    <!-- Cán chổi bằng tre bóng -->
+    <line x1="0" y1="380" x2="-90" y2="-60" stroke="#a16207" stroke-width="9" stroke-linecap="round"/>
+    <!-- Bông đót / rơm quét nhà xòe hình quạt -->
+    <polygon points="-30,360 40,430 -20,450 -70,390" fill="#d97706" stroke="#282b2b" stroke-width="4"/>
+    <!-- Dây dù buộc thân chổi đỏ -->
+    <line x1="-40" y1="375" x2="5" y2="415" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <!-- Đồ hót rác nhựa xanh -->
+    <path d="M60 420 L130 420 L150 450 L40 450 Z" fill="#0284c7" stroke="#282b2b" stroke-width="3"/>
+    <line x1="95" y1="420" x2="95" y2="340" stroke="#0284c7" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- TIÊU ĐỀ BỐI CẢNH -->
+  <rect x="30" y="30" width="490" height="52" rx="10" fill="#282b2b" opacity="0.88" stroke="none"/>
+  <text x="50" y="65" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f8f3e7">BỐI CẢNH 2: GÓC BẾP &amp; BỒN RỬA CHÉN (50MM)</text>
+</svg>
