@@ -2,7 +2,7 @@
 
 Những chuyện giả định đặt người bình thường vào một lựa chọn khó, để người xem tự hỏi: **nếu là mình thì sao?** Ưu tiên đời sống Việt Nam, mâu thuẫn có chiều sâu, kết thúc có hệ quả và cách sản xuất vừa sức.
 
-**Thông báo thiết kế nhân vật — 09/11/2026:** đã có bộ **Nam, Người Kia và Tùng** theo hướng cartoon SVG mới (Style B, phát triển từ mẫu thứ 2 đã chọn). Xem [bảng SVG mới](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg), [mã React/SVG](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx) và [hồ sơ asset](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md). Đây là bộ thiết kế hiện có, chưa đồng nghĩa rig/timeline đã hoàn thiện; hướng chung tại [THIET-KE-NHAN-VAT.md](episodes/hem-co-chuyen/THIET-KE-NHAN-VAT.md).
+**Thông báo mỹ thuật — 10/11/2026:** phong cách cartoon Style B dùng đường cong mềm, hình khối tròn đầy và nét liền mạch cho **cả nhân vật, nội thất, đạo cụ, kiến trúc, đường phố và môi trường**. Đọc [quy chuẩn mỹ thuật chung](docs/PHONG-CACH-MY-THUAT.md) trước khi thiết kế. [Bộ nhân vật hiện có](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg) là tham chiếu Style B; quy chuẩn mới không đồng nghĩa toàn bộ nền/asset cũ đã được vẽ lại hoặc rig/timeline đã hoàn thiện.
 
 ## Bắt đầu ở đây
 
@@ -11,6 +11,7 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 | [MUC-TIEU.md](docs/MUC-TIEU.md) | Hướng nội dung, khán giả, phạm vi thử và tiêu chí chọn đề tài; dùng để quyết định một ý tưởng có phù hợp kênh hay không | Đọc trước khi chọn đề tài; sửa khi chủ repo thay đổi định hướng |
 | [KINH-NGHIEM.md](docs/KINH-NGHIEM.md) | Những nguyên tắc dùng lại được để nâng chất lượng và tiết kiệm thời gian/chi phí; không chứa cốt truyện hoặc nhật ký riêng của tập | Đọc trước khi làm; bổ sung bài học mới sau công việc theo quy tắc bên dưới |
 | [NGON-NGU-DIEN-ANH-2-5D.md](docs/NGON-NGU-DIEN-ANH-2-5D.md) | Nghiên cứu góc máy, lens, lấy nét, chuyển động và cách tạo chiều sâu cho hình 2D; có mẫu shot, nguồn và giới hạn kỹ thuật | Đọc khi lập storyboard hoặc chọn phong cách; các đề xuất cần dựng thử trước khi coi là khả năng đã có của studio |
+| [PHONG-CACH-MY-THUAT.md](docs/PHONG-CACH-MY-THUAT.md) | Quy chuẩn nét cong, khối mềm và sự đồng nhất người–đạo cụ–bối cảnh | Đọc trước thiết kế hoặc sửa hình; kiểm tra trong một khung ghép |
 | [ASSET.md](docs/ASSET.md) | Danh mục tài nguyên dùng chung và liên kết tới bảng asset từng tập; giúp tìm thứ đã có trước khi tạo mới | Đọc khi lập kế hoạch hình/âm; cập nhật khi có tài nguyên dùng chung hoặc hồ sơ tập mới |
 | [KICH-BAN.md](docs/KICH-BAN.md) | Mục lục tập, trạng thái và đường dẫn bản nguồn; không chứa toàn bộ lời của các tập | Đọc để tìm đúng hồ sơ; cập nhật khi thêm tập hoặc đổi trạng thái |
 | [WHAT-IF-QUY-TRINH.md](docs/WHAT-IF-QUY-TRINH.md) | Cách đi từ nghiên cứu tới viết, giọng, storyboard, dựng và bàn giao; nêu cả giới hạn công cụ | Đọc khi bắt đầu một công đoạn; sửa khi cách làm chung thay đổi |

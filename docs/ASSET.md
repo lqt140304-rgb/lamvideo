@@ -1,5 +1,7 @@
 # Danh mục asset dùng chung
 
+**Mỹ thuật khi tạo/sửa asset:** đọc [quy chuẩn chung](PHONG-CACH-MY-THUAT.md). Cả nhân vật lẫn nền và đạo cụ dùng nét cong mềm, khối tròn đầy; kiểm tra cùng khung, không mặc định asset cũ đã đạt chỉ vì được ghi trong danh mục.
+
 Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng tập. Nhân vật, đạo cụ hoặc hình thử dành riêng một tập phải được ghi trong `ASSET.md` của tập đó.
 
 | Nhóm | Vị trí | Trạng thái / lưu ý |

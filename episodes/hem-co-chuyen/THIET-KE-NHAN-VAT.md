@@ -1,5 +1,7 @@
 # Hẻm Có Chuyện — hướng thiết kế nhân vật
 
+**Mở rộng phạm vi 10/11/2026:** hướng Style B dưới đây áp dụng cùng [quy chuẩn mỹ thuật chung](../../docs/PHONG-CACH-MY-THUAT.md) cho **cả nhân vật, nội thất, đạo cụ, nhà cửa, đường phố và thiên nhiên**. Ưu tiên nét cong mềm và khối tròn đầy; tránh người mềm nhưng nền ghép hộp cứng. Tên file được giữ để bảo toàn liên kết; chi tiết nhân vật bên dưới vẫn là tham chiếu riêng của series.
+
 **Đã chọn ngày 09/11/2026:** chủ repo thích cách vẽ thứ 2 trong [bảng SVG thử](ho-so-02-nguoi-lam-thay/assets/thiet-ke/character-svg-v1.png), phía phải, và yêu cầu cập nhật GitHub. Dùng đây làm hướng mỹ thuật cho thiết kế mới; lựa chọn này không đồng nghĩa toàn bộ dàn nhân vật đã được vẽ lại hoặc hoàn thiện rig.
 
 **Bộ thiết kế mới đã có tệp:** [Nam, Người Kia và Tùng — bảng SVG](ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg), [nguồn React/SVG](ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx), [bảng asset/biểu cảm](ho-so-02-nguoi-lam-thay/ASSET.md). Dùng các tệp này để phát triển Hồ sơ 2 theo Style B; bảng so sánh cũ vẫn là tham chiếu hướng đã chọn. Chưa xác nhận chuyển động, khẩu hình hoặc tương tác đạt chỉ từ việc có bảng thiết kế.

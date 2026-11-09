@@ -1,5 +1,7 @@
 # Bối cảnh Môi trường — Hồ sơ 02: Người làm thay
 
+**Bổ sung mỹ thuật 10/11/2026:** tuân theo [quy chuẩn chung](../../../../../docs/PHONG-CACH-MY-THUAT.md). Cả căn phòng, bếp, hành lang, góc bàn học và cảnh thành phố cùng dùng nét mềm, cạnh bo vừa phải, vải/nệm có độ rủ và khối đầy. Giữ mặt bằng, bản lề/chốt, phối cảnh, lớp che và ánh sáng đã chốt. Các từ “3D” phía dưới chỉ cách gợi thể tích/phối cảnh cho tranh cartoon 2.5D, không phải yêu cầu dựng nền hộp cứng hoặc đổi sang ảnh thật. SVG/TSX/PNG hiện có chưa được vẽ lại ở lượt tài liệu này.
+
 **Chuẩn hóa:** 09/11/2026 theo phong cách nghệ thuật hữu cơ mới (Style B).  
 **Hình ảnh tổng quan:** ![Bảng bối cảnh môi trường 4 ô](boi-canh.png)
 

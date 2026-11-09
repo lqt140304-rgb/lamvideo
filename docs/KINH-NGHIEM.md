@@ -145,3 +145,5 @@ Các nguyên tắc dưới được chọn lọc từ ghi chép thực hành và
 ## Cách bổ sung bài học
 
 Viết theo mẫu: **vấn đề lặp lại → nguyên nhân → nguyên tắc xử lý → cách biết đã đạt**. Bài học phải dùng được cho một tập khác mà không cần biết cốt truyện gốc. Nếu chỉ là sửa một câu, một nhân vật hoặc một asset cụ thể, lưu vào ghi chú riêng của tập.
+
+- **Người và nền như hai phong cách khác nhau → chỉ chuẩn hóa nhân vật, bỏ qua nội thất/đạo cụ/môi trường →** dùng chung ngôn ngữ đường nét, độ mềm của khối, mức chi tiết và cách đánh sáng cho toàn khung; giữ cấu trúc và vật liệu riêng. **Kiểm tra:** ghép người–đạo cụ–nền ở cỡ xem cuối trước khi nhân rộng; không suy ra nền đã đạt từ việc bảng nhân vật đã đẹp. Đây là nguyên tắc duyệt hình, chưa phải kết quả đo chi phí.
