@@ -1,19 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
   <defs>
-    <!-- Quầng sáng ấm áp từ bóng đèn bàn học -->
-    <radialGradient id="lamp-glow" cx="40%" cy="35%" r="65%">
+    <!-- Quầng sáng ấm áp tỏa từ chóa đèn bàn -->
+    <radialGradient id="lamp-volumetric" cx="45%" cy="38%" r="62%">
       <stop offset="0%" stop-color="#fffde7" stop-opacity="0.95"/>
-      <stop offset="35%" stop-color="#fde047" stop-opacity="0.6"/>
-      <stop offset="70%" stop-color="#ca8a04" stop-opacity="0.15"/>
+      <stop offset="25%" stop-color="#fde047" stop-opacity="0.65"/>
+      <stop offset="60%" stop-color="#d97706" stop-opacity="0.2"/>
       <stop offset="100%" stop-color="#0f172a" stop-opacity="0.0"/>
     </radialGradient>
-    <!-- Quầng sáng màn hình laptop -->
-    <linearGradient id="laptop-screen" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f0fdf4"/>
-      <stop offset="100%" stop-color="#e0f2fe"/>
+    <!-- Màn hình laptop phát sáng xanh lơ -->
+    <linearGradient id="screen-grad-3d" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
     </linearGradient>
-    <filter id="screen-bloom">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
+    <filter id="night-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="glow-screen">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -21,126 +24,166 @@
     </filter>
   </defs>
 
-  <!-- TOÀN BỘ PHÒNG TRỌ CHÌM TRONG BÓNG ĐÊM HUYỀN BÍ -->
-  <rect width="1920" height="1080" fill="#12161f"/>
-  <!-- Tường đêm & nẹp sàn mờ -->
-  <rect width="1920" height="700" fill="#18202c"/>
-  <rect y="700" width="1920" height="380" fill="#0f141c"/>
-  <line x1="0" y1="700" x2="1920" y2="700" stroke="#243042" stroke-width="6" stroke-linecap="round"/>
+  <!-- ======================================================================== -->
+  <!-- LAYER 1: KHÔNG GIAN PHÒNG TRỌ BAN ĐÊM (DARK NIGHT MOOD) -->
+  <!-- ======================================================================== -->
+  <rect width="1920" height="1080" fill="#0d1117"/>
+  <!-- Tường đêm & nẹp sàn mờ trong bóng tối -->
+  <rect width="1920" height="690" fill="#161b22"/>
+  <rect y="690" width="1920" height="390" fill="#0c1015"/>
+  <line x1="0" y1="690" x2="1920" y2="690" stroke="#21262d" stroke-width="6" stroke-linecap="round"/>
 
-  <!-- HẬU CẢNH MỜ ẢO: GIƯỜNG NỆM NƠI NAM VỪA BẬT DẬY -->
-  <g transform="translate(120 480)" opacity="0.45" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
-    <path d="M0 40 L340 0 L580 80 L240 180 Z" fill="#1e293b"/>
-    <path d="M120 50 Q240 25 360 60 Q480 90 500 150 Q360 190 180 170 Z" fill="#1e3a34"/> <!-- Chăn xô lệch -->
-    <path d="M80 40 Q150 20 200 45 Z" fill="#475569"/>
+  <!-- HẬU CẢNH MỜ ẢO: NỆM NGỦ NAM VỪA BẬT DẬY TRONG BÓNG TỐI -->
+  <g transform="translate(100 480)" opacity="0.4" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
+    <polygon points="0,40 360,-10 600,70 240,170" fill="#1e293b"/>
+    <path d="M120 40 Q260 15 380 50 Q500 80 520 150 Q380 190 180 160 Z" fill="#1e3a34"/> <!-- Chăn rêu xô lệch -->
+    <ellipse cx="150" cy="45" rx="65" ry="28" fill="#334155"/>
   </g>
 
-  <!-- VÙNG QUẦNG SÁNG VÀNG ẤM TỪ ĐÈN BÀN RỌI KHẮP BÀN HỌC -->
-  <ellipse cx="1160" cy="520" rx="680" ry="440" fill="url(#lamp-glow)" stroke="none"/>
+  <!-- ======================================================================== -->
+  <!-- LAYER 2: QUẦNG SÁNG VOLUMETRIC CỦA ĐÈN BÀN RỌI SÁNG MẶT BÀN GỖ -->
+  <!-- ======================================================================== -->
+  <ellipse cx="1200" cy="530" rx="700" ry="460" fill="url(#lamp-volumetric)" stroke="none"/>
 
-  <!-- BÀN HỌC SINH VIÊN BẰNG GỖ CÔNG NGHIỆP TRUNG TÂM -->
-  <g id="study-desk" transform="translate(740 480)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
-    <!-- Thân bàn & hộc tủ ngăn kéo bên phải -->
-    <rect x="0" y="60" width="920" height="380" fill="#382b21" stroke="#282b2b" stroke-width="5"/>
-    <!-- Hộc ngăn kéo đựng tài liệu & căn cước -->
-    <rect x="620" y="80" width="260" height="100" fill="#4a392b" stroke="#282b2b" stroke-width="3.5"/>
-    <rect x="620" y="200" width="260" height="100" fill="#4a392b" stroke="#282b2b" stroke-width="3.5"/>
-    <circle cx="750" cy="130" r="6" fill="#d4af37" stroke="#282b2b" stroke-width="2"/>
-    <circle cx="750" cy="250" r="6" fill="#d4af37" stroke="#282b2b" stroke-width="2"/>
-    <!-- Khoảng trống để chân sinh viên ngồi -->
-    <rect x="80" y="100" width="480" height="340" fill="#1c1712" stroke="#282b2b" stroke-width="4"/>
+  <!-- ======================================================================== -->
+  <!-- LAYER 3: BÀN HỌC SINH VIÊN 3D BẰNG GỖ CÔNG NGHIỆP TRUNG TÂM -->
+  <!-- ======================================================================== -->
+  <g id="desk-3d-unit" transform="translate(720 470)">
+    <!-- Bóng đổ toàn bộ bàn học lên sàn đêm -->
+    <polygon points="-50,460 1050,460 980,570 -130,570" fill="#000" opacity="0.5" filter="url(#night-shadow)"/>
 
-    <!-- Mặt bàn gỗ phẳng màu nâu mật ong ấm -->
-    <rect x="-40" y="20" width="1000" height="55" rx="8" fill="#8a5833" stroke="#282b2b" stroke-width="5"/>
+    <!-- MẶT HÔNG BÊN TRÁI 3D (Left Side Face) -->
+    <polygon points="-50,20 0,65 0,440 -50,390" fill="#2b1f17" stroke="#282b2b" stroke-width="4.5"/>
 
-    <!-- ĐÈN BÀN HỌC CỔ NGỖNG PHÁT SÁNG (BÊN PHẢI BÀN) -->
-    <g transform="translate(820 20)">
-      <!-- Đế đèn kim loại tròn -->
-      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#dc2626" stroke="#282b2b" stroke-width="3"/>
-      <!-- Cần đèn lò xo uốn cong về phía laptop -->
-      <path d="M0 0 Q40 -120 -50 -180 Q-140 -230 -160 -190" fill="none" stroke="#475569" stroke-width="9" stroke-linecap="round"/>
-      <!-- Chụp đèn nhôm màu đỏ hướng xuống mặt bàn -->
-      <path d="M-180 -195 L-125 -165 L-150 -115 L-225 -135 Z" fill="#ef4444" stroke="#282b2b" stroke-width="4"/>
-      <!-- Bóng đèn LED sáng rực bên trong chụp đèn -->
-      <ellipse cx="-185" cy="-125" rx="22" ry="10" fill="#fffde7" stroke="none" transform="rotate(20 -185 -125)"/>
+    <!-- THÂN BÀN TRƯỚC (Front Face) & KHOANG CHÂN SINH VIÊN -->
+    <polygon points="0,65 960,65 960,440 0,440" fill="#3f2d21" stroke="#282b2b" stroke-width="5" stroke-linejoin="round"/>
+    <!-- Khoang trống để chân ngồi học -->
+    <rect x="60" y="95" width="520" height="345" fill="#17110c" stroke="#282b2b" stroke-width="4"/>
+
+    <!-- KHỐI 2 HỘC NGĂN KÉO BÊN PHẢI (Có mặt nổi 3D & núm kéo) -->
+    <g stroke="#282b2b" stroke-width="3.5">
+      <!-- Ngăn kéo trên (chứa giấy tờ, căn cước) -->
+      <rect x="630" y="90" width="290" height="125" rx="4" fill="#4a3527"/>
+      <circle cx="775" cy="152" r="7" fill="#d4af37" stroke-width="2"/>
+      <!-- Ngăn kéo dưới -->
+      <rect x="630" y="240" width="290" height="155" rx="4" fill="#4a3527"/>
+      <circle cx="775" cy="317" r="7" fill="#d4af37" stroke-width="2"/>
     </g>
 
-    <!-- LAPTOP CŨ ĐANG CẮM SẠC & MỞ BÀI TẬP NHÓM (TRUNG TÂM BÀN) -->
-    <g transform="translate(260 20)">
-      <!-- Thân máy laptop đặt trên bàn -->
-      <path d="M-120 0 L160 0 L195 65 L-155 65 Z" fill="#334155" stroke="#282b2b" stroke-width="4"/>
-      <!-- Bàn phím & Touchpad -->
-      <path d="M-105 10 L145 10 L165 42 L-125 42 Z" fill="#1e293b" stroke="none"/>
-      <rect x="0" y="46" width="50" height="14" rx="2" fill="#475569" stroke="#282b2b" stroke-width="1.5"/>
-      <!-- Dây sạc laptop cắm vào cạnh máy bò ra sau bàn -->
-      <path d="M-125 15 Q-160 15 -190 35 Q-230 65 -280 85" fill="none" stroke="#0f172a" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- MẶT BÀN GỖ NẰM NGANG 3D MÀU NÂU MẬT ONG (Desktop 3D Surface) -->
+    <polygon points="-80,10 930,10 1010,65 0,65" fill="#8a5833" stroke="#282b2b" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="0,65 1010,65 1010,80 0,80" fill="#54361e" stroke="#282b2b" stroke-width="3"/>
 
-      <!-- MÀN HÌNH LAPTOP MỞ GÓC NGHIÊNG 100 ĐỘ SÁNG RỰC -->
-      <g filter="url(#screen-bloom)">
-        <polygon points="-120,0 160,0 150,-190 -130,-190" fill="#0f172a" stroke="#282b2b" stroke-width="4"/>
-        <!-- Màn hình hiển thị Google Docs màu xanh lơ trắng -->
-        <polygon points="-110,-10 150,-10 142,-180 -122,-180" fill="url(#laptop-screen)" stroke="none"/>
-        <!-- Thanh công cụ Google Docs màu xanh dương phía trên -->
-        <polygon points="-110,-165 140,-165 142,-180 -122,-180" fill="#2563eb" stroke="none"/>
-        <text x="-100" y="-169" font-family="Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#ffffff">BÀI TẬP NHÓM — HOÀN THIỆN</text>
-        <!-- Các dòng văn bản đã được Người Kia gõ hoàn chỉnh ngay ngắn -->
-        <g stroke="#334155" stroke-width="2.5" stroke-linecap="round" opacity="0.75">
-          <line x1="-100" y1="-145" x2="20" y2="-145"/>
-          <line x1="-100" y1="-130" x2="120" y2="-130"/>
-          <line x1="-100" y1="-115" x2="130" y2="-115"/>
-          <line x1="-100" y1="-100" x2="110" y2="-100"/>
-          <line x1="-100" y1="-85" x2="125" y2="-85"/>
-          <line x1="-100" y1="-70" x2="90" y2="-70"/>
-          <line x1="-100" y1="-55" x2="130" y2="-55"/>
-          <line x1="-100" y1="-40" x2="60" y2="-40"/>
-          <!-- Dấu trỏ nhấp nháy màu xanh -->
-          <line x1="65" y1="-44" x2="65" y2="-36" stroke="#2563eb" stroke-width="3"/>
+    <!-- ====================================================================== -->
+    <!-- ĐÈN BÀN HỌC CỔ NGỖNG 3D PHÁT SÁNG (BÊN PHẢI MẶT BÀN) -->
+    <!-- ====================================================================== -->
+    <g transform="translate(840 25)">
+      <!-- Đế đèn kim loại tròn dày -->
+      <ellipse cx="0" cy="0" rx="40" ry="14" fill="#b91c1c" stroke="#282b2b" stroke-width="3.5"/>
+      <ellipse cx="0" cy="-4" rx="38" ry="12" fill="#ef4444" stroke="#282b2b" stroke-width="2"/>
+      <!-- Cần đèn lò xo uốn cong 3D vươn về phía laptop -->
+      <path d="M0 -4 Q50 -130 -40 -190 Q-130 -240 -150 -200" fill="none" stroke="#334155" stroke-width="10" stroke-linecap="round"/>
+      <!-- Chụp đèn nhôm đỏ hướng chéo xuống mặt bàn -->
+      <path d="M-175 -205 L-120 -170 L-145 -120 L-220 -140 Z" fill="#dc2626" stroke="#282b2b" stroke-width="4"/>
+      <!-- Bóng đèn LED sáng rực bên trong chóa đèn -->
+      <ellipse cx="-180" cy="-130" rx="25" ry="12" fill="#fffde7" stroke="none" transform="rotate(20 -180 -130)"/>
+    </g>
+
+    <!-- ====================================================================== -->
+    <!-- LAPTOP 3D CẮM SẠC & MÀN HÌNH GOOGLE DOCS SÁNG RỰC (TRUNG TÂM BÀN) -->
+    <!-- ====================================================================== -->
+    <g transform="translate(280 20)">
+      <!-- Đế máy laptop nằm nghiêng 3D trên bàn -->
+      <polygon points="-140,0 160,0 200,65 -180,65" fill="#1e293b" stroke="#282b2b" stroke-width="4.5"/>
+      <!-- Bàn phím gõ có ánh sáng xanh hắt nhẹ -->
+      <polygon points="-120,8 140,8 165,45 -145,45" fill="#0f172a" stroke="none"/>
+      <!-- Touchpad chuột cảm ứng -->
+      <rect x="-10" y="48" width="55" height="14" rx="2" fill="#334155" stroke="#282b2b" stroke-width="1.5"/>
+
+      <!-- Dây sạc laptop cắm vào cạnh máy bò ra sau bàn -->
+      <path d="M-145 15 Q-190 20 -230 45 Q-280 80 -330 110" fill="none" stroke="#020617" stroke-width="5" stroke-linecap="round"/>
+
+      <!-- MÀN HÌNH LAPTOP MỞ GÓC NGHIÊNG 105 ĐỘ SÁNG RỰC TRONG ĐÊM -->
+      <g filter="url(#glow-screen)">
+        <polygon points="-140,0 160,0 150,-205 -150,-205" fill="#020617" stroke="#282b2b" stroke-width="4.5"/>
+        <!-- Màn hình hiển thị Google Docs sáng rực -->
+        <polygon points="-130,-10 150,-10 142,-195 -142,-195" fill="url(#screen-grad-3d)" stroke="none"/>
+        <!-- Thanh menu Google Docs màu xanh dương -->
+        <polygon points="-130,-178 140,-178 142,-195 -142,-195" fill="#2563eb" stroke="none"/>
+        <text x="-120" y="-183" font-family="Arial" font-size="8.5" font-weight="bold" fill="#ffffff">BÀI TẬP NHÓM — HOÀN THIỆN (NGƯỜI LÀM THAY)</text>
+        <!-- Các đoạn văn bản đã được gõ hoàn chỉnh, chia đề mục rõ ràng -->
+        <g stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" opacity="0.8">
+          <line x1="-120" y1="-155" x2="20" y2="-155" stroke-width="3.5" stroke="#1d4ed8"/> <!-- Tiêu đề phần 1 -->
+          <line x1="-120" y1="-140" x2="120" y2="-140"/>
+          <line x1="-120" y1="-125" x2="130" y2="-125"/>
+          <line x1="-120" y1="-110" x2="110" y2="-110"/>
+          <line x1="-120" y1="-95" x2="125" y2="-95"/>
+          <line x1="-120" y1="-80" x2="40" y2="-80" stroke-width="3.5" stroke="#1d4ed8"/> <!-- Tiêu đề phần 2 -->
+          <line x1="-120" y1="-65" x2="130" y2="-65"/>
+          <line x1="-120" y1="-50" x2="120" y2="-50"/>
+          <line x1="-120" y1="-35" x2="70" y2="-35"/>
+          <!-- Dấu trỏ soạn thảo nhấp nháy -->
+          <line x1="75" y1="-40" x2="75" y2="-30" stroke="#2563eb" stroke-width="3"/>
         </g>
       </g>
     </g>
 
-    <!-- ĐIỆN THOẠI CẠNH LAPTOP (BẬT KHÔNG LÀM PHIỀN & CUỘC GỌI NHỠ) -->
-    <g transform="translate(540 30)">
-      <!-- Thân máy điện thoại smartphone -->
-      <rect x="0" y="0" width="62" height="115" rx="10" fill="#090d16" stroke="#282b2b" stroke-width="3"/>
-      <!-- Màn hình sáng nhẹ -->
-      <rect x="5" y="8" width="52" height="99" rx="6" fill="#1e293b" stroke="none"/>
-      <!-- Biểu tượng mặt trăng 'Không làm phiền' -->
-      <path d="M22 22 A 6 6 0 1 1 14 14 A 4.5 4.5 0 0 0 22 22 Z" fill="#a855f7" stroke="none"/>
-      <!-- Icon thông báo cuộc gọi nhỡ màu đỏ của trưởng nhóm -->
-      <circle cx="42" cy="18" r="6" fill="#ef4444" stroke="none"/>
-      <text x="42" y="21" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
-      <!-- Tin nhắn Zalo của Tùng hiện popup -->
-      <rect x="8" y="32" width="46" height="32" rx="4" fill="#0284c7" stroke="none"/>
-      <text x="12" y="42" font-family="Arial, sans-serif" font-size="5.5" font-weight="bold" fill="#ffffff">TÙNG: Đi đánh</text>
-      <text x="12" y="50" font-family="Arial, sans-serif" font-size="5.5" font-weight="bold" fill="#ffffff">cầu về trễ...</text>
-      <!-- Vạch thông báo giục bài -->
-      <rect x="8" y="70" width="46" height="12" rx="3" fill="#334155" stroke="none"/>
-      <text x="12" y="78" font-family="Arial, sans-serif" font-size="5" fill="#94a3b8">Trưởng nhóm: Bài đâu?</text>
+    <!-- ====================================================================== -->
+    <!-- ĐIỆN THOẠI 3D SÁNG MÀN HÌNH CẠNH LAPTOP (KHÔNG LÀM PHIỀN & CUỘC GỌI NHỠ) -->
+    <!-- ====================================================================== -->
+    <g transform="translate(570 30)">
+      <!-- Thân máy smartphone viền cong nằm nghiêng 3D -->
+      <rect x="0" y="0" width="68" height="125" rx="12" fill="#020617" stroke="#282b2b" stroke-width="3.5"/>
+      <!-- Màn hình sáng dịu trong đêm -->
+      <rect x="5" y="8" width="58" height="109" rx="8" fill="#0f172a" stroke="none"/>
+
+      <!-- Icon mặt trăng tím 'Không làm phiền' (Do Not Disturb) -->
+      <path d="M24 24 A 7 7 0 1 1 15 15 A 5 5 0 0 0 24 24 Z" fill="#c084fc" stroke="none"/>
+      <!-- Badge thông báo cuộc gọi nhỡ màu đỏ của nhóm -->
+      <circle cx="48" cy="20" r="7" fill="#ef4444" stroke="none"/>
+      <text x="48" y="24" font-family="Arial" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+
+      <!-- Tin nhắn Zalo của Tùng hiện popup nổi bật -->
+      <rect x="8" y="36" width="52" height="35" rx="5" fill="#0284c7" stroke="none"/>
+      <text x="12" y="47" font-family="Arial" font-size="6" font-weight="bold" fill="#ffffff">TÙNG: Đi đánh</text>
+      <text x="12" y="56" font-family="Arial" font-size="6" font-weight="bold" fill="#ffffff">cầu về trễ...</text>
+      <text x="12" y="65" font-family="Arial" font-size="5" fill="#e0f2fe">Mày ăn trước đi</text>
+
+      <!-- Vạch thông báo cuộc gọi nhỡ -->
+      <rect x="8" y="78" width="52" height="15" rx="3" fill="#1e293b" stroke="none"/>
+      <text x="12" y="88" font-family="Arial" font-size="5.5" fill="#f87171">Trưởng nhóm: Bài đâu?</text>
     </g>
 
-    <!-- LY NƯỚC LỌC & ỐNG CẮM BÚT SINH VIÊN -->
+    <!-- LY NƯỚC LỌC THỦY TINH & ỐNG CẮM BÚT 3D -->
     <g transform="translate(50 15)">
-      <!-- Ống cắm bút -->
-      <rect x="0" y="-45" width="42" height="55" rx="6" fill="#0284c7" stroke="#282b2b" stroke-width="3"/>
-      <line x1="10" y1="-45" x2="5" y2="-75" stroke="#dc2626" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="22" y1="-45" x2="24" y2="-80" stroke="#16a34a" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="32" y1="-45" x2="38" y2="-70" stroke="#eab308" stroke-width="4.5" stroke-linecap="round"/>
-      <!-- Ly thủy tinh có nước -->
-      <path d="M65 -40 L70 10 L100 10 L105 -40 Z" fill="#bae6fd" stroke="#282b2b" stroke-width="2.8" opacity="0.8"/>
+      <rect x="0" y="-50" width="45" height="60" rx="8" fill="#0284c7" stroke="#282b2b" stroke-width="3.5"/>
+      <line x1="10" y1="-50" x2="5" y2="-85" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+      <line x1="22" y1="-50" x2="24" y2="-90" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="34" y1="-50" x2="40" y2="-80" stroke="#eab308" stroke-width="5" stroke-linecap="round"/>
+      <path d="M70 -45 L76 10 L108 10 L114 -45 Z" fill="#bae6fd" stroke="#282b2b" stroke-width="3" opacity="0.85"/>
     </g>
   </g>
 
-  <!-- CHIẾC GHẾ TỰA XOAY NHẸ NƠI NGƯỜI KIA ĐANG NGỒI GÕ BÀI -->
-  <g transform="translate(960 620)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
-    <path d="M-10 0 L120 0 L105 70 L5 70 Z" fill="#453225" stroke="#282b2b" stroke-width="4.5"/>
-    <!-- Lưng ghế gỗ cao có ánh sáng màn hình laptop hắt nhẹ -->
-    <path d="M0 0 L15 -180 L95 -180 L110 0" fill="none" stroke="#5c4033" stroke-width="8" stroke-linecap="round"/>
-    <line x1="0" y1="70" x2="-15" y2="220" stroke="#382417" stroke-width="7" stroke-linecap="round"/>
-    <line x1="105" y1="70" x2="120" y2="220" stroke="#382417" stroke-width="7" stroke-linecap="round"/>
+  <!-- ======================================================================== -->
+  <!-- LAYER 4: CHIẾC GHẾ TỰA XOAY 3D NƠI NGƯỜI KIA ĐANG NGỒI GÕ BÀI -->
+  <!-- ======================================================================== -->
+  <g transform="translate(980 620)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
+    <polygon points="-20,180 150,180 120,240 -50,240" fill="#000" opacity="0.4" filter="url(#night-shadow)"/>
+    <!-- 4 chân ghế tiếp đất vững chãi -->
+    <line x1="0" y1="90" x2="-15" y2="195" stroke="#332216" stroke-width="7.5" stroke-linecap="round"/>
+    <line x1="115" y1="90" x2="130" y2="195" stroke="#332216" stroke-width="7.5" stroke-linecap="round"/>
+    <line x1="20" y1="50" x2="15" y2="155" stroke="#1e140d" stroke-width="5.5" stroke-linecap="round"/>
+    <line x1="95" y1="50" x2="100" y2="155" stroke="#1e140d" stroke-width="5.5" stroke-linecap="round"/>
+
+    <!-- Mặt ngồi ghế gỗ 3D -->
+    <polygon points="10,35 105,35 120,95 -5,95" fill="#5c3d26" stroke="#282b2b" stroke-width="4.5"/>
+    <!-- Lưng ghế gỗ cao có ánh sáng màn hình laptop và đèn vàng hắt lên -->
+    <path d="M10 35 L20 -165 L95 -165 L105 35" fill="none" stroke="#784c2f" stroke-width="8" stroke-linecap="round"/>
+    <line x1="25" y1="-110" x2="90" y2="-110" stroke="#784c2f" stroke-width="6"/>
+    <line x1="22" y1="-50" x2="93" y2="-50" stroke="#784c2f" stroke-width="6"/>
   </g>
 
-  <!-- TIÊU ĐỀ BỐI CẢNH -->
-  <rect x="30" y="30" width="500" height="52" rx="10" fill="#282b2b" opacity="0.88" stroke="none"/>
-  <text x="50" y="65" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f8f3e7">BỐI CẢNH 4: BÀN HỌC BAN ĐÊM (50MM)</text>
+  <!-- TIÊU ĐỀ BỐI CẢNH 4 -->
+  <rect x="30" y="30" width="550" height="55" rx="12" fill="#181a1d" opacity="0.9" stroke="#334155" stroke-width="2"/>
+  <text x="50" y="66" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f8f3e7">BỐI CẢNH 4: BÀN HỌC BAN ĐÊM (3D VIEW · 50MM)</text>
 </svg>

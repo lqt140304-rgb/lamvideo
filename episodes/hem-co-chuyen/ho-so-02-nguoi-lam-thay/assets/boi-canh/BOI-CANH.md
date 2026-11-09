@@ -18,22 +18,28 @@ Toàn bộ các phân cảnh trong kịch bản đã duyệt và đang phát tri
 
 ---
 
-## 2. Quy chuẩn thiết kế mỹ thuật (Style B Environment Specs)
+## 2. Quy chuẩn thiết kế mỹ thuật & Chiều sâu 3D (Style B 3D Specs)
 
-1. **Đường nét & Bút pháp (Stroke & Outlines):**
-   - Viền mực than ấm `#282b2b` với `stroke-width` từ `3.5px` đến `5px` cho viền đồ đạc chính, `2.5px` cho nẹp gạch và chi tiết phụ.
-   - Nét bo tròn góc `round`, tránh các góc nhọn cơ học 3D giả lập máy móc.
+1. **Chiều sâu không gian 3D & Phối cảnh (3D Perspective):**
+   - Loại bỏ hoàn toàn cảm giác dán phẳng 2D vào tường: các vật thể được dựng theo phối cảnh 3 mặt rõ ràng (mặt trên, mặt trước, mặt hông) với các đường tụ chính xác.
+   - **Góc phòng 3D:** Giao điểm giữa tường trái và tường sau tạo khối hộp không gian chân thực.
+   - **Vật thể tiếp đất (Grounded Objects):** Chân ghế, chân bàn, tủ bếp, chân quạt và nệm nằm đều có bóng đổ tiếp xúc (Ambient Occlusion & Cast Shadows) xuống mặt sàn.
 
-2. **Hệ màu ánh sáng & Không gian (Lighting & Color Script):**
-   - **Ban ngày (Cảnh 1 & 2):** Tường kem vàng nhạt `#ebe3d3`, sàn lát gạch xám be `#c8baa1`, vệt nắng sớm mềm mại `#fffde6` độ mờ nhẹ.
-   - **Chốt cửa (Cảnh 3):** Không khí căng thẳng, màu cửa gỗ xanh rêu trầm `#54696e`, kim loại sáng `#e2e8f0` tạo điểm nhấn ở then cài.
-   - **Ban đêm (Cảnh 4):** Môi trường đen tím trầm `#12161f`, tương phản cực mạnh với quầng sáng vàng ấm hình nón từ bóng đèn bàn `#fde047` và ánh sáng xanh phát quang từ màn hình laptop `#e0f2fe`.
+2. **Không gian ngoại cảnh thành phố (City Skyline View qua Cửa Sổ):**
+   - Bên ngoài cửa sổ phòng trọ là khung cảnh đô thị Việt Nam chân thực: dãy nhà phố mái ngói đỏ, nhà ống vàng, ban công phơi đồ, bồn nước Inox Tân Á trên sân thượng, các tòa chung cư cao tầng mờ ảo trong sương sớm, và hệ thống cột điện dây điện chằng chịt.
+   - Khung cửa sổ có chiều sâu bệ tường bê tông dày (window sill) và rèm cuốn 3D.
 
-3. **Cấu trúc phân lớp (Layering for Animation):**
-   - `Layer 0: Background` — Tường nhà, sàn gạch, khung cửa sổ, giếng trời.
-   - `Layer 1: Midground (Static Props)` — Tủ bếp, bàn học, khung cửa chính, nệm ngủ.
-   - `Layer 2: Dynamic Props (Diễn hoạt)` — Cánh cửa mở/khép, then chốt trượt, vòi nước nhỏ giọt, quạt quay, laptop bật/tắt, điện thoại sáng màn hình.
-   - `Layer 3: Lighting & Ambient Overlays` — Dải sáng xiên, quầng sáng đèn bàn, bóng đổ nhân vật.
+3. **Hành lang dài sâu hun hút (Deep Long Corridor):**
+   - Nhìn qua cánh cửa chính mở hé là hành lang nhà trọ sâu hun hút với điểm tụ (vanishing point) rõ rệt, dãy lan can sắt dài, bóng đèn tuýp trần, các cửa phòng trọ 101, 102, 103 và chiếu nghỉ cầu thang bê tông.
+   - Cánh cửa có độ dày cạnh 3D (door edge thickness) hé mở tạo chiều sâu không gian vượt bậc.
+
+4. **Cấu trúc phân lớp tách biệt (Layer Hierarchy for 2.5D/3D Animation):**
+   - `Layer 1: Exterior / Far Background` — Bầu trời thành phố, dãy nhà cao tầng, hành lang dài bên ngoài.
+   - `Layer 2: Architectural Shell` — Khung tường 3D, sàn gạch phối cảnh, bệ cửa sổ bê tông, khuôn bao cửa gỗ.
+   - `Layer 3: Ambient Shadows & Floor Grid` — Bóng đổ tiếp đất của toàn bộ đồ đạc.
+   - `Layer 4: 3D Heavy Furniture` — Khối nệm 3D, tủ bồn rửa chén 3D có mặt đá & chậu chìm, bàn học gỗ có ngăn kéo, cánh cửa gỗ 3D.
+   - `Layer 5: Story Props & Dynamic Devices` — Then cài chốt trượt kim loại, laptop phát sáng Google Docs, điện thoại báo thức / Không làm phiền, chén đĩa khay úp, chổi rơm quét nhà.
+   - `Layer 6: Volumetric Lighting & Atmospheric Effects` — Vệt nắng ban mai xiên qua cửa sổ, quầng sáng vàng ấm hình nón từ đèn bàn, ánh sáng xanh màn hình laptop.
 
 ---
 
