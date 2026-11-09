@@ -12,9 +12,9 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
 
 | Nhân vật | Vai trò trong kịch bản | Đặc điểm nhận diện & Tạo hình | Trang phục & Đạo cụ |
 |---|---|---|---|
-| **1. Nam** | Sinh viên năm hai, nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc rối ngái ngủ, vai mềm buông lơi, lưng gù nhẹ lười biếng. | Áo thun ngủ xám nhạt (`#8e9694`), quần thun lửng ngủ (`#3e4347`), dép lê quai kẹp (`#425850`), cầm điện thoại kiểm tra tin nhắn/cuộc gọi. |
-| **2. Người Kia (Bản sao)** | Sinh vật thay thế bí ẩn, xuất hiện ở bồn rửa chén, dần chiếm chỗ sinh hoạt | Khuôn mặt và **nốt ruồi đuôi mày trái giống hệt Nam**, nhưng **dáng đứng thẳng thớm, đĩnh đạc**, ánh mắt điềm tĩnh rợn người. | Mặc chiếc **áo thun xanh rêu (`#5c7a70`) của Nam** (chiếc áo Nam bỏ trên ghế tối qua), quần dài vải sẫm màu (`#515451`), hai bàn tay để trống lịch sự phía trước. |
-| **3. Tùng** | Bạn cùng phòng chăm chỉ, dậy sớm đi học lúc 7h, nghe máy gạt đi vì tưởng Nam ngủ mơ | Sinh viên năng động, gương mặt sáng sủa, đeo kính cận gọng mảnh, tóc rẽ ngôi side-part gọn gàng. | Áo polo sinh viên xanh navy (`#2b3f54`), quần kaki be (`#8c8474`), giày sneaker trắng ngà, đeo quai balo, một tay ôm tài liệu học, một tay nghe điện thoại. |
+| **1. Nam** | Sinh viên nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc bo tròn tự nhiên không nét thừa trên đỉnh, vai mềm buông lơi, hai tay đầy đặn rõ ràng buông tự nhiên ngoài thân áo. | Áo thun xanh rêu (`#5c7a70`), quần dài xám có khối (`#515451`), dép lê quai kẹp (`#425850`). |
+| **2. Người Kia (Bản sao)** | Sinh vật thay thế bí ẩn, 100% bản sao hoàn hảo của Nam | Khuôn mặt, **nốt ruồi đuôi mày trái, kiểu tóc và vóc dáng giống hệt Nam 100%**, dáng tay đầy đặn rõ ràng như Nam, ánh mắt điềm tĩnh / bí hiểm. | Mặc chiếc **áo thun xanh rêu (`#5c7a70`) của Nam** (chiếc áo Nam bỏ trên ghế tối qua), quần dài xám (`#515451`), dép lê (`#425850`). |
+| **3. Tùng** | Bạn cùng phòng chăm chỉ, dậy sớm đi học lúc 7h, nghe máy gạt đi vì tưởng Nam ngủ mơ ("Mày xàm hả?") | Sinh viên năng động, gương mặt sáng sủa, cằm gọn, **tóc ngắn tỉa mảng khối layer sắc nét Style B**, không đeo kính, dáng đứng thể thao tự tin. | **Đồ thể thao đá bóng**: Áo jersey xanh navy số 7 (`#1d4e89`) cổ viền trắng, quần đùi thể thao sọc hông (`#142842`), vớ cao cổ sọc trắng, giày turf ôm chân. |
 
 ---
 
