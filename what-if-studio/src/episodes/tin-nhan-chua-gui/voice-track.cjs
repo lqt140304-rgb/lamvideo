@@ -14,12 +14,15 @@ if (tl.scriptSha256 !== sourceHash) throw new Error('Timeline is from the previo
 // Yuna is a young adult voice: lifting pitch and formants together (duration kept) reads as a child; the highpass takes out the chestiness.
 const THAO_LIFT = 1.15;
 const THAO_FX = `asetrate=${Math.round(44100 * THAO_LIFT)},aresample=44100,atempo=${(1 / THAO_LIFT).toFixed(5)},highpass=f=190,equalizer=f=3400:t=q:w=1.3:g=3,`;
+// Duy read too smooth and adult: a small lift toward sixteen, the low mud cut so it is not boomy, a little edge and grit in the presence range.
+const DUY_LIFT = 1.07;
+const DUY_FX = `asetrate=${Math.round(44100 * DUY_LIFT)},aresample=44100,atempo=${(1 / DUY_LIFT).toFixed(5)},highpass=f=125,equalizer=f=260:t=q:w=1.2:g=-4,equalizer=f=2600:t=q:w=1.4:g=4,aexciter=amount=1.6:drive=6:blend=0:freq=2200,volume=0.92,`;
 const inputs = [];
 const chains = [];
 tl.voice.forEach((v, n) => {
   inputs.push('-i', path.join(studio, 'public', v.file));
   const ms = Math.round((v.f / tl.fps) * 1000);
-  const fx = v.role === 'me' && v.id.split('.')[0] === '4' ? 'highpass=f=320,lowpass=f=3400,volume=0.8,' : v.role === 'thao' ? THAO_FX : '';
+  const fx = v.role === 'me' && v.id.split('.')[0] === '4' ? 'highpass=f=320,lowpass=f=3400,volume=0.8,' : v.role === 'thao' ? THAO_FX : v.role === 'duy' ? DUY_FX : '';
   chains.push(`[${n}:a]aresample=44100,aformat=channel_layouts=mono,${fx}adelay=${ms}:all=1[v${n}]`);
 });
 // Lộc's laugh is not a line: it starts in the 3 s pause, runs under the cuts, drops once they are outside and stops as they leave the frame.
