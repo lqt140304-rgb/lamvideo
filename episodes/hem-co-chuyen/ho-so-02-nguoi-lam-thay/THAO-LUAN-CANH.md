@@ -12,7 +12,7 @@
 - Rà sâu từng câu chữ, mắt xích nhân quả và chiều sâu nhân vật. Phản ứng khi gặp người y hệt mình phải có sức nặng; không vừa hoảng đã lập tức vui vì được làm bài hộ.
 - Cùng thảo luận và chốt từng cảnh. Không viết tiếp toàn bộ kịch bản khi các quyết định trung gian còn đang bàn.
 - **Phản hồi ngày 09/11/2026:** chủ repo đồng ý cách bản sao xuất hiện bí ẩn trong sinh hoạt và nhịp cảm xúc của cảnh 1. Hướng gặp ở góc rửa chén, phản ứng sững–kiểm chứng–sợ và giữ khoảng cách được giữ để phát triển cảnh 2. Phản hồi này chưa chốt tên/tuổi cụ thể, toàn bộ câu thoại, máy quay hoặc cơ chế thay thế.
-- **Giới hạn tiết lộ đã chốt:** chưa để Tùng biết sớm về người giống hệt hoặc người lạ trong phòng. Cuộc gọi đầu chỉ giúp Nam xác nhận bạn đang ở trường; Nam chưa kể chuyện vừa thấy. Không gửi ảnh/gọi video cho Tùng ở đoạn này. Thời điểm Tùng biết còn để bàn sau.
+- **Cuộc gọi được chủ repo chốt lại:** Nam nói có người giống hệt mình; Tùng đáp rằng Nam nói xàm hoặc ngủ chưa tỉnh rồi tắt máy. Tùng đã nghe lời kể nhưng chưa tin hoặc xác nhận có bản sao. Chưa gửi ảnh/gọi video, chưa có cảnh Tùng tới cứu hay xác minh. Quyết định này thay phương án Nam giấu hoàn toàn chuyện vừa thấy; thời điểm Tùng thực sự tin còn để bàn sau.
 - **Hướng nhân vật đã yêu cầu:** cậu sinh viên lười nhác, có thể có phần đáng ghét, nhưng phải khiến người xem nhận ra một người thật ngoài xã hội. Giữ sự mâu thuẫn và các mối quan hệ đời thường, tránh biến cậu thành một mẫu người chỉ tồn tại để bị trừng phạt.
 
 ## Phát triển tính cách — ví dụ đang đề xuất
@@ -124,30 +124,29 @@ Người trong phòng vẫn đứng chờ. Nước từ bàn tay nhỏ xuống n
 1. Nam nhầm là bạn khi chỉ thấy lưng; nhận ra mặt, kiểm tra rồi mới hoảng hơn khi nghe giọng. Không thiếu phản ứng chỉ vì cậu có tính lười.
 2. “Cửa mở” giải thích đường vào phòng theo điều thấy được, không giải thích nguồn gốc hay xác nhận sinh vật lúc này. Điều đã nhắm tới Nam chỉ được hé lộ cuối truyện.
 3. Người kia dừng khi bị yêu cầu giữ khoảng cách. Điều này làm nguy hiểm trước mắt giảm, chưa đủ khiến Nam tin.
-4. Tùng là người được gọi để kiểm chứng, chưa được chốt thành nhân vật chính thứ ba hay biết bí mật của bản sao.
+4. Tùng là người được gọi để kiểm chứng. Ở phần nối cuộc gọi, cậu nghe Nam kể nhưng gạt đi vì cho rằng Nam nói xàm/ngủ chưa tỉnh. Tùng chưa tin hoặc biết bí mật của bản sao; chưa chốt thêm vai trò ngoài cuộc gọi này.
 5. Không dựng hồi tưởng theo dõi hay luật chuyển danh tính từ bản cũ. Cơ chế thay thế còn chờ phát triển sau khi chốt cách xuất hiện.
 
 **Đang chuyển sang bàn cảnh 2:** giữ sự dè chừng sau cảnh 1, làm rõ vì sao Nam ở lại đối thoại và chấp nhận một việc giúp nhỏ. Tên nhân vật, cơ chế thay thế và chi tiết thoại vẫn có thể điều chỉnh; không coi các phương án kế tiếp là đã duyệt.
 
+## Phần nối cuộc gọi — hướng đã được chủ repo chốt
 
-## Điều chỉnh trước khi viết cảnh 2
+**Quyết định hiện hành:** Nam kể, Tùng không tin rồi cúp máy. Thay cả phương án Tùng lập tức tin để giúp và phương án Nam giấu hoàn toàn. Câu chữ dưới đây là bản biên tập theo ý người dùng; phần còn lại của cảnh 2 chưa chốt.
 
-**Đã bỏ:** phương án Nam nói với Tùng “Có một thằng giống y tao. Nó đang trong phòng mình”, rồi nhờ Tùng xử lý kẻ lạ. Phương án này tiết lộ sớm hơn người dùng muốn và chưa được đưa vào bản nguồn.
-
-**Đề xuất nối cuộc gọi — chưa chốt từng câu:**
-
-**TÙNG:**
+**TÙNG — qua điện thoại:**
 > Ừ, tao đang trên trường. Có chuyện gì?
 
-Nam nhìn người đứng trong phòng. Miệng cậu hé ra rồi khép lại; chưa nói được điều vừa thấy.
+Nam nhìn người đang đứng trong phòng, hạ giọng. Tay cậu vẫn giữ cánh cửa chắn trước người.
 
-**NAM — [hesitant]:**
-> Không… tao tưởng mày còn ở phòng.
+**NAM — [scared], nói gấp nhưng hụt ở đầu câu:**
+> Có một thằng… giống y tao. Nó đang trong phòng mình.
 
-**TÙNG — hạ giọng vì đang học:**
-> Tao đi từ sáng rồi. Có gì nhắn nhé, thầy đang giảng.
+**TÙNG — [annoyed], tưởng Nam nói nhảm vì còn ngái ngủ:**
+> Mày xàm hả? Ngủ chưa tỉnh à? Thôi, tao đang học.
 
-**NAM — mắt vẫn không rời người kia:**
-> Ừ.
+**NAM — vội giữ cuộc gọi:**
+> Tao nói thật. Tùng, khoan…
 
-Cuộc gọi kết thúc. Nam vẫn đứng ngoài cửa, giữ khoảng cách. Đoạn này chỉ kiểm chứng người trong phòng không phải Tùng; chưa giải thích bản sao và chưa khiến Nam tin tưởng. Lý do sâu hơn khiến Nam giữ kín có thể phát triển qua tính cách về sau; chưa mặc định Tùng sẽ không tin hoặc không quan tâm.
+Cuộc gọi đã ngắt. Nam giữ điện thoại bên tai thêm một nhịp rồi hạ xuống. Cậu nhìn màn hình, nhìn lại người đang đứng cạnh bồn rửa. Người kia vẫn giữ khoảng cách; Nam chưa bước vào phòng.
+
+**Lưu ý nhân quả:** Tùng chỉ nghe một lời kể qua điện thoại, chưa thấy bằng chứng. Phản ứng này không tự xác lập Tùng là người vô tâm trong mọi hoàn cảnh hoặc Nam thường xuyên nói dối. Không kết luận sự giúp đỡ của bản sao đã đáng tin chỉ vì cuộc gọi vừa thất bại; sự dè chừng còn tiếp ở phần sau.
