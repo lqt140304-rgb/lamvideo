@@ -38,11 +38,72 @@ tiền cảnh: đầu/chân nệm, quạt, vùng sàn nối các mốc trên
 
 Hai điểm nhấn: **cận phản ứng trước cú lộ mặt**, và **khung bàn làm việc ban ngày được nhắc lại khi người kia ngồi vào buổi tối**. Giữ máy yên ở các đoạn giữa để diễn xuất có trọng lượng. Chưa dùng góc quái vật, mắt đỏ hoặc ánh sáng xác nhận nguồn gốc người kia.
 
+## Quay layer
+
+**Bổ sung ngày 10/11/2026:** dùng nhiều lớp để thấy thay đổi gần–xa và che/lộ khi máy đi, không chỉ phóng cả một bức tranh. Phần này là chỉ đạo tách và quay lớp cho bảng máy A–H, **chưa phải các SVG đã được tách xong hoặc chuyển động đã chạy thử**.
+
+### Những lớp cần chuẩn bị
+
+| Nhóm | Nội dung của Hồ sơ 2 | Đi theo gì / che gì |
+|---|---|---|
+| XA | Phố ngoài cửa sổ, phần cuối hành lang | Nằm sau cửa sổ/ô cửa và bị cắt đúng khẩu độ cửa; mask bám khung cửa, không bám lớp phố đang dịch. Không đặt phố phủ lên khung cửa hoặc người trong phòng. |
+| PHÒNG | Khối tường, sàn, trần và vùng sáng nền | Giữ phối cảnh, đường chân tường và điểm tiếp đất liên tục. Không cho sàn chạy một nhịp còn chân bàn/chân người chạy một nhịp khác. |
+| ĐỒ-CỐ-ĐỊNH | Hai nệm, bếp, bàn, giá sách, khung cửa | Có thể tách nhóm theo độ sâu và mặt trước/sau; những phần cùng một khối giữ liên kết. Đèn và laptop đặt trên bàn đi cùng hệ bàn, không tự lướt trên mặt bàn khi máy dịch. |
+| NGƯỜI/VẬT | Nam, Người Kia, ghế di chuyển, bát, điện thoại, căn cước | Mỗi người/vật có độ sâu riêng theo vị trí, không gom cả hai người vào một mặt phẳng bắt buộc. Vật đang cầm bám tay; bóng tiếp xúc/điểm tì theo người hoặc vật có quan hệ tương ứng. |
+| CHE-GẦN | Mép nệm, mép bàn, mặt trước bồn rửa, khung/cánh cửa, vai người gần | Tạo che khuất có lý do. Vật dùng làm tiền cảnh phải thật sự nằm gần máy của shot ấy; không kéo một mép bàn ở xa lên trước mặt Nam chỉ để có parallax. |
+| SÁNG/FX | Vệt nắng, vùng sáng đèn bàn, ánh laptop; bụi nếu dùng | Ánh trên mặt người bám người, vệt trên sàn bám sàn, vùng phát sáng bám nguồn. Không trượt mọi ánh sáng cùng một tốc độ tùy ý hoặc dùng hạt chuyển động thay diễn xuất. |
+| CHỮ | Tin nhắn, tài liệu, biểu tượng Không làm phiền; phụ đề nếu có | Chữ trong truyện bám mặt màn hình/thẻ và clip theo vật. Phụ đề ngoài truyện là lớp xuất riêng. Hai loại này không dùng chung cách giữ cố định theo khung hình. |
+
+Đây là **vai trò lớp**, không phải bảy tấm luôn xếp cố định cho mọi góc. Ví dụ thân người sau bàn thuộc NGƯỜI nhưng mặt bàn CHE-GẦN che chân; tay đặt lên bàn cần hiện trước mặt bàn. Sắp thứ tự hoặc mask theo vị trí thực và động tác, không sửa bằng cách cho toàn bộ người nổi lên trước mọi đồ.
+
+### Bốn cách quay lớp
+
+| Mã | Cách dùng | Chuyển động và điểm kiểm tra |
+|---|---|---|
+| P0 — Giữ máy | Mặc định cho diễn xuất, đối đáp, mở/gài chốt | Các lớp không tự trôi khác nhau. Người quay mặt, tay di chuyển, cửa mở và ánh đổi theo hành động; chiều sâu đến từ bố cục, mặt khối và che khuất. Máy tĩnh không đồng nghĩa mọi thứ đóng băng. |
+| P1 — Dịch ngang nhỏ | C02 và E02; chỉ dùng khi còn vùng hình phía sau vật che | Máy sang phải thì thế giới trôi trái, lớp gần trôi nhiều hơn lớp xa; ngược lại khi máy sang trái. Ví dụ thử ở 1920×1080: mép cửa gần −30 px, vùng hành động −18 px, hậu cảnh −6 px cho **một** nhịp dịch phải. Đây là mức thử cho các mặt phẳng độc lập, không phải ba tốc độ áp lên mọi vật. Nam ở gần và Người Kia ở xa có thể cần lượng dịch khác nhau; chân, sàn và bóng phải cùng phép chiếu/điểm neo phù hợp. |
+| P2 — Tiến gần nhẹ | H09, tùy mức hình sẵn có; không bắt buộc | Giữ mắt Nam làm điểm chú ý, tiến khoảng 2–3% khung như bảng máy. Bố cục phải cho lớp gần nở tương quan với lớp xa, giữ tay/điện thoại đi cùng thân. Không phóng riêng mặt rồi để vai, bàn tay hoặc bóng đứng lại. Nếu chỉ đủ hình để crop/scale cả khung, gọi đó là tiến cận giả lập; không coi nó đã tạo parallax hay cho phép nhìn vòng bên hông. |
+| P3 — Cận màn hình/thẻ | D01, D03, E01, E03, G02, H05, H07 | Chữ là phần của vật: cùng dịch, xoay, phối cảnh và clipping với mặt điện thoại/laptop/căn cước. Giữ đọc được; không để chữ dính vào khung xuất khi tay xoay máy. Các màn hình nhỏ ở shot khác cũng phải tuân thủ, không chỉ các cận P3. |
+
+**Phạm vi chuyển động:** ngoài C02/E02 và tùy chọn H09, dùng P0. Các cảnh cận đọc dùng P3 cùng máy ổn định; không thêm một chuyến máy mới cho từng lớp hoặc mỗi câu thoại. Các mức pixel/phần trăm chỉ là điểm thử, chưa đo hiệu quả hay chi phí.
+
+Ví dụ pixel ở P1 là lượng dịch cuối cùng nhìn thấy trên hình; khi dựng phải thống nhất phép camera chung và phần bù theo độ sâu, không cộng nguyên lượng dịch hai lần. Các điểm tiếp xúc trên cùng mặt phẳng vẫn phải khớp sau phép biến đổi.
+
+### Áp vào từng nhóm góc máy
+
+| Nhóm/mã | Tiền cảnh → hành động → hậu cảnh | Cách chạy và điều phải đọc được |
+|---|---|---|
+| A01–A05 — Phòng sáng | Mép nệm/đồ gần nếu đúng góc → Nam và người ở bếp → tường, bàn, cửa sổ và phố | P0. Quay mặt bằng pose/góc vẽ thích hợp, không xoay một tấm người như cánh cửa. A03 giữ phản ứng Nam trước A04 lộ mặt; không kéo lớp che tự chạy để tiết lộ sớm. Ở bếp, thân dưới có thể bị mặt trước bồn che; tay cầm bát hiện trước mép bồn khi hành động cần. |
+| B01–B03 — Cuộc gọi | Khung cửa/vai Nam → Nam và điện thoại → phòng/người kia | P0; cửa tạo ranh giới thật, không đè lên tay đang giữ cánh cửa sai phía. Điện thoại bám tay phải. Tùng chỉ là giọng qua máy, không phát sinh một lớp nhân vật đứng trong phòng hoặc cảnh lớp học mới. |
+| C01–C06 — Đổi chỗ | Khuôn/cánh cửa → hai người và đường đi → hành lang, cầu thang | C02 mới dùng P1; các shot còn lại P0. Người chỉ bị mép cửa che khi đã đi đúng phía sau mép đó. Bản lề là điểm quay của cánh cửa, không phải mép khung hình. C05 tách rõ ổ, lưỡi chốt và bàn tay để thấy gài thật. |
+| D01–D05 — Kiểm tra đồ | Mép ngăn kéo/bàn → tay, ví, căn cước, điện thoại → Nam/cửa | P0, các cận đọc theo P3. Đồ trong ngăn bị mặt ngăn che tới khi kéo ra; căn cước đã vào tay thì theo tay, không còn một bản thứ hai trong ngăn hoặc dính trên bàn. D03 chuyển điểm nét trên cùng bố cục, không đẩy hai lớp ảnh thẻ/mặt chạy thành hai hướng. |
+| E01–E04 — Bí bài | Cạnh bàn → Nam, ghế xoay, laptop → cửa/tường và các mốc phòng | E02 dùng P1 theo ghế, còn lại P0/P3 cho chữ. Bánh/chân ghế bám sàn khi di chuyển có chủ ý; máy dịch không khiến chân ghế trượt riêng. Cạnh bàn có thể che đùi Nam, nhưng tay gõ nằm đúng phía trước mặt phím. Không dùng lớp che để xóa hành động kéo ghế từ cửa về bàn. |
+| F01–F04 — Quên chốt | Mép cửa → tay trái/chốt, tay phải/điện thoại → khe cửa/hành lang | P0. F04 phải giữ được cả tín hiệu điện thoại và lưỡi chốt còn rút; không cho blur/ánh sáng che mất bằng chứng. Phần hành lang lộ qua cửa dùng mask theo độ mở thật; không trượt cảnh ngoài xuyên qua cánh cửa đã đóng. |
+| G01–G04 — Game, ngủ | Bàn/đồ gần → Nam và điện thoại, laptop → nệm/tường, vệt nắng | P0, G02 dùng P3. Điện thoại theo tay lúc chơi; sau đặt xuống, đổi sang hệ bàn đúng thời điểm nhả. Nam rời bàn không kéo điện thoại theo. Ánh nắng đổi theo thời gian trên cùng mặt sàn/tường, không tạo một camera trôi chỉ để giả thời gian. |
+| H01–H10 — Buổi tối | Cạnh bàn/màn hình gần → Nam đứng, người kia ngồi, tay gõ/lấy điện thoại → phòng tối, nệm/cửa | P0; H09 tùy chọn P2, H05/H07 dùng P3. Mặt trước bàn che thân dưới người ngồi; tay gõ ở trên phím. Ghế có phần trước/sau phù hợp cơ thể, không phủ cả lưng ghế lên ngực. H04 phải thấy tay chạm rồi nhấc điện thoại; H10 bàn phím và tay chờ vẫn rõ. |
+
+### Ba tương tác phải tách đúng
+
+**Bồn rửa:** tường/bếp sau → phần thân người ở sau bồn → mặt trước tủ/bồn che thân dưới → tay/bát và mép bồn theo vị trí tiếp xúc. Tay vẫn thuộc rig người, có thể chia pass/mask để đi trước–sau vật; không thành hai cánh tay độc lập chạy parallax khác thân. Khi đặt bát: bát theo tay tới khi chạm giá/mặt đỡ, rồi mới chuyển sang hệ bếp; tránh một bát trong tay và một bát đã nằm dưới cùng lúc.
+
+**Cửa và chốt:** hành lang sau → người ở đúng phía → khuôn/cánh cửa gần; tay giữ mép cửa nằm theo phía tay tiếp xúc. Lớp cánh cửa có góc mở và điểm bản lề riêng, lớp chốt có trạng thái gài/rút, người qua ngưỡng có thứ tự che đổi theo đường đi. Chỉ di chuyển camera không được đổi trạng thái khóa. Khi cần góc ngược từ ngoài hành lang, chuẩn bị góc hình tương ứng; tách layer không tự sinh mặt sau của đồ.
+
+**Bàn/laptop/điện thoại:** nền phòng → lưng ghế/phần thân phía sau bàn → mặt trước bàn che phần dưới → phần tay, bàn phím và đồ trên mặt theo điểm chạm. Laptop có thân, màn và lớp chữ cùng một hệ mặt bàn; biểu tượng/tin nhắn đi cùng màn. Điện thoại đổi từ mặt bàn sang tay Nam **sau khi** tay chạm/nhấc; bóng đặt bàn giảm hoặc rời theo khoảng nâng. Giữ gốc người, bàn và ghế nhất quán, không chạy tốc độ lớp chỉ theo tên “người”/“đồ”.
+
+### Mức sẵn sàng và kiểm tra
+
+- Đã đọc các nhóm như `window-city-vietnam`, `long-dorm-corridor`, `nam-bed-perspective`, `nam-desk-scene1` trong nền sáng, cùng `desk-3d-unit`/`student-swivel-chair` ở nền tối. Có nhóm SVG và clip cửa sổ/hành lang là điểm xuất phát tốt, **chưa phải** phân lớp hoàn chỉnh cho nhân vật đi qua, tay gõ hoặc máy chạy.
+- Các component nền đã đọc trong `boi-canh.tsx` nhận `className`, chưa có điều khiển camera/depth hoặc các trạng thái tương tác của bảng này. Nguồn React và các SVG chi tiết phải đối chiếu khi triển khai; không mặc định chúng có cùng mức chi tiết vì tên cảnh giống nhau.
+- Chỉ tách lớp và vẽ bù vùng bị khuất cho các shot cần P1/P2 hoặc tương tác che/lộ. Phần nền mới lộ phải có hình đủ tới vị trí máy cực hạn cộng vùng blur; kiểm tra đầu–giữa–cuối để không hở nền. Nếu chưa đủ, dùng phương án P0 của shot trước khi mở rộng chuyển động.
+- Kiểm tra ở tốc độ thường: chân/bánh ghế có điểm tì, bóng không trôi, tay và vật cùng đi, cửa che đúng người, chữ bám mặt thiết bị. Mặt và tay quan trọng phải đọc được ở cỡ điện thoại. Chưa xem animatic nên chưa kết luận chuyển động đã đạt hoặc hứa một mức tiết kiệm quota.
+
 ## Bảng góc máy theo đoạn
 
 Các nhóm A–H là nhóm máy của phần hiện có, không phải viết thêm Cảnh 3–8 trong khung truyện tương lai. Chi tiết bên dưới được biên tập cùng GPT-6.1 Sol.
 
 ### MAY-A
+
+**Quay lớp:** P0; tách thân/tay và mặt trước bồn. Cận mặt dùng pose/góc riêng, không xoay tấm người phẳng. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
 
 **Cảnh 1 — Tiếng rửa chén, nhận mặt.** Chốt cảm giác quen trước khi thấy điều không thể giải thích. Người kia chưa được quay như một quái vật.
 
@@ -56,6 +117,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 ### MAY-B
 
+**Quay lớp:** P0; khung cửa che đúng phía, điện thoại bám tay; Tùng chỉ có âm điện thoại. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+
 **Phần nối cuộc gọi — Nam tìm một người quen xác nhận.** Tùng hiện chỉ là giọng qua điện thoại, chưa cần bối cảnh lớp học mới.
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
@@ -65,6 +128,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 | B03 | Cận Nam, 65 mm, ngang mắt | Tĩnh; nền phòng ở sau vẫn có thể nhận diện, không blur đến mất vị trí người kia | Tùng bác bỏ rồi ngắt. Nam giữ máy bên tai thêm một nhịp, hạ xuống, siết máy, nhìn lại vào phòng. Tiếng ngắt ngắn; âm quạt/hành lang tiếp tục. Không thêm một khoảng 2 giây mới nếu nhịp này đã nằm trong diễn. |
 
 ### MAY-C
+
+**Quay lớp:** C02 dùng P1, còn lại P0; khung/cánh cửa và chốt có thứ tự che, điểm bản lề và trạng thái riêng. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
 
 **Nam lấy lại căn phòng — đổi vị trí rồi gài chốt.** Đoạn này cần toàn cảnh chứng minh đường đi hơn một chuỗi cận hấp dẫn nhưng khó hiểu.
 
@@ -79,6 +144,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 ### MAY-D
 
+**Quay lớp:** P0, cận màn hình/căn cước theo P3; giấy, ví và điện thoại giữ cùng điểm cầm/mặt đỡ. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+
 **Nam chủ động hỏi lại — đồ đạc và danh tính.** Cánh cửa vẫn ngăn hai người; chỉ cắt tới bên ngoài ở lời nói người kia có thể nghe.
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
@@ -91,6 +158,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 ### MAY-E
 
+**Quay lớp:** E02 dùng P1 theo ghế, phần còn lại P0/P3; chân ghế bám sàn, tay gõ ở đúng phía mặt bàn. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+
 **Ban ngày — bí bài và suy nghĩ lợi–hại.** Máy giữ lâu hơn để thấy Nam làm không được, tránh dựng thành một lần xóa chữ rồi lập tức bỏ cuộc.
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
@@ -101,6 +170,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 | E04 | Trung cận Nam ba phần tư, 65 mm; một phần bàn và góc bếp giữ trong bố cục | Tĩnh qua các suy nghĩ; nét mắt, cửa ở mép hướng nhìn | Nội tâm so sự chăm chỉ với mình, thoáng muốn nhờ rồi lắc đầu tự bác. Giữ miệng không nói, chỉ mắt/tay/tư thế thay đổi. Có thể trở lại E03 lúc Nam tiếp tục thử viết; không thêm góc cho mỗi câu nội tâm. |
 
 ### MAY-F
+
+**Quay lớp:** P0; mask cửa theo độ mở, F04 giữ cả tay rời đi và lưỡi chốt chưa gài đọc được. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
 
 **Mở chốt, đi vệ sinh và quên gài lại.** Đây là chuỗi hình giải thích việc người kia vào được phòng sau đó, không phải tiết lộ một năng lực.
 
@@ -113,6 +184,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 ### MAY-G
 
+**Quay lớp:** P0/P3; điện thoại chuyển từ hệ tay sang hệ bàn đúng lúc đặt xuống, nắng bám mặt sàn/tường. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+
 **Chơi game và ngủ quên.** Cùng một góc lặp lại với sự thay đổi nhỏ kể thời gian hiệu quả hơn một montage nhiều góc không cần thiết.
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
@@ -123,6 +196,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 | G04 | Toàn phòng góc A như A01, 35 mm | Tĩnh, rõ đường từ bàn tới nệm | Nam đặt điện thoại cạnh laptop rồi sang nệm nằm ngủ; laptop còn bài mở, ghế ở bàn. Giảm ánh sáng qua chuyển thời gian; không quay cảnh người kia lẻn vào hoặc giải thích động cơ của nó. Tiếng game đã dừng khi cậu đặt máy. |
 
 ### MAY-H
+
+**Quay lớp:** P0/P3, H09 tùy chọn P2; mặt bàn che thân dưới, tay/phím có tiếp xúc, ánh đèn bám nguồn và vật. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
 
 **Tỉnh buổi tối — người kia đã ngồi vào chỗ Nam.** Giữ lại địa lý cũ; sự thay vị trí tạo bất an, không cần đổi cả phong cách sang phim quái vật.
 

@@ -51,3 +51,7 @@ Toàn bộ các phân cảnh trong kịch bản đã duyệt và đang phát tri
 - [`boi-canh.png`](boi-canh.png): Bản render sắc nét 1920×1080 phục vụ xem nhanh.
 - [`boi-canh.tsx`](boi-canh.tsx): Bộ component React cho timeline Remotion.
 - [`xem-truc-tiep-boi-canh.html`](xem-truc-tiep-boi-canh.html): Trình xem tương tác độc lập (hỗ trợ chuyển tab từng cảnh, zoom in/out, pan chuột).
+
+## Cách quay các lớp — bổ sung 10/11/2026
+
+Xem [quay layer theo từng nhóm máy](../../DUNG-CANH.md#quay-layer): không chỉ scale toàn nền; khi dịch ngang, lớp gần thay tương quan với lớp xa, còn chân người/ghế, bóng và vật đang cầm giữ tiếp xúc. Cửa sổ/hành lang có mask theo khung mở, bàn/bồn rửa có lớp trước–sau để tay và thân bị che đúng. Chữ trong điện thoại/laptop đi cùng mặt màn hình, khác với phụ đề ngoài truyện. Phần này ghi cách triển khai, không xác nhận bốn SVG hay component React đã được tách và chạy camera.

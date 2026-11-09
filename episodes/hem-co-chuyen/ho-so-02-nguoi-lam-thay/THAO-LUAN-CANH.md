@@ -2,7 +2,7 @@
 
 **09/11/2026 — bản đề xuất, chưa phải kịch bản giao dựng.** Cảnh đầu do GPT-6 Astra đề xuất theo phản hồi người dùng. Chỉ chuyển sang viết chi tiết cảnh sau khi chủ repo chốt cảnh đang bàn hoặc yêu cầu chuyển phần. Những dòng dưới nhãn “đề xuất” chưa được coi là lore chính thức.
 
-**Góc máy bổ sung ngày 10/11/2026:** xem [DUNG-CANH.md](DUNG-CANH.md), có lens/cỡ cảnh/chuyển động/rung/focus và điểm cắt cho toàn bộ phần đã viết. Liên kết từng nhóm đặt ngay dưới các tiêu đề cảnh bên dưới. Đây là chỉ đạo hình đề xuất, giữ nguyên lời và trạng thái duyệt truyện; chưa tạo storyboard, animatic hoặc render.
+**Góc máy bổ sung ngày 10/11/2026:** xem [DUNG-CANH.md](DUNG-CANH.md), có lens/cỡ cảnh/chuyển động/rung/focus, [quay layer gần–xa/che khuất](DUNG-CANH.md#quay-layer) và điểm cắt cho toàn bộ phần đã viết. Liên kết từng nhóm đặt ngay dưới các tiêu đề cảnh bên dưới. Đây là chỉ đạo hình đề xuất, giữ nguyên lời và trạng thái duyệt truyện; chưa tạo storyboard, animatic hoặc render.
 
 ## Những điều người dùng đã chốt
 

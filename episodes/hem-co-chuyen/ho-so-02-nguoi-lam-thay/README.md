@@ -7,7 +7,7 @@
 | File | Tác dụng |
 |---|---|
 | [ASSET.md](ASSET.md) | Bộ SVG Nam–Người Kia–Tùng mới, mã nguồn, bảng biểu cảm và mẫu tham chiếu ban đầu |
-| [DUNG-CANH.md](DUNG-CANH.md) | Góc máy/lens/chuyển động/rung/focus, mặt bằng, ánh sáng và điểm cắt theo từng đoạn đã viết; đề xuất để thiết kế, chưa render |
+| [DUNG-CANH.md](DUNG-CANH.md) | Góc máy/lens/chuyển động/rung/focus; cách tách lớp, parallax, che khuất, chữ bám màn hình; mặt bằng/ánh sáng/điểm cắt theo từng đoạn, chưa render |
 | [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md) | Các yêu cầu đã chốt, khung cảnh còn đề xuất và bản cảnh hiện đang thảo luận |
 
 Tiền đề đã chọn: một nam sinh viên lười nhác thức dậy thấy người giống hệt mình làm những việc thường ngày. Sự giúp đỡ ban đầu dần trở thành chiếm chỗ, tới khi cậu bị thay thế hoàn toàn. Chỉ đoạn cuối mới xác nhận đó là sinh vật đã chủ động nhắm tới cậu từ trước.
@@ -25,3 +25,5 @@ Skill hỗ trợ: [cùng viết từng cảnh](../../../.claude/skills/co-write-
 Các đoạn trước đã duyệt như nhãn trong file. [Phần mới theo khung chủ repo](THAO-LUAN-CANH.md#nam-tự-thuyết-phục-mình--phát-triển-theo-khung-mới-chờ-duyệt) còn chờ duyệt: Nam bí bài, tự cân nhắc lợi–hại, chơi game/ngủ quên tới tối, rồi thấy người kia làm hộ bài. Dừng ở Nam tự kiểm tra bài, bắt đầu dịu và tự tâng bốc mình; chưa viết bước thay thế tiếp theo. Chủ repo xem trực tiếp file để thử thiết kế đoạn hiện có; chưa tạo giọng hoặc dựng video.
 
 **Bổ sung ngày 10/11/2026:** đã có [góc máy chi tiết theo từng đoạn](DUNG-CANH.md), nhóm MAY-A đến MAY-H. Lời và mức duyệt truyện giữ nguyên. Phần máy ưu tiên phản ứng, khoảng cách qua cửa và bố cục lặp sáng–tối; chưa tạo hình, giọng hoặc chạy dựng trong lượt này.
+
+**Quay layer 10/11/2026:** [phần hướng dẫn trong DUNG-CANH](DUNG-CANH.md#quay-layer) có thứ tự gần–xa, bốn cách quay P0–P3, ví dụ dịch lớp và áp dụng A–H. Đây là hướng dẫn triển khai; chưa tách SVG hoặc tạo chuyển động trong lượt này.
