@@ -1,6 +1,6 @@
 {
- "scriptSha256": "377e43cfeb966c046735c8b5cc5f45d6567530d3654d83f1f996f397b4bebf7d",
- "scriptRevision": 13,
+ "scriptSha256": "b946b5e1130db0470a6694710e82ee53ec53a4eae20456903f6d396844c515e3",
+ "scriptRevision": 14,
  "model": "eleven_v4",
  "cast": {
   "narrator": {
@@ -50,42 +50,9 @@
  },
  "pieces": [
   {
-   "id": "1.0.0",
+   "id": "1.8.0",
    "s": 1,
-   "i": 0,
-   "k": 0,
-   "role": "loc",
-   "text": "Để xuống.",
-   "say": "[stern] Để xuống.",
-   "file": "tin-nhan-chua-gui/voice/1.0.0-loc-408bcd633f.mp3",
-   "sec": 1.04
-  },
-  {
-   "id": "1.1.0",
-   "s": 1,
-   "i": 1,
-   "k": 0,
-   "role": "narrator",
-   "text": "Nhà hai anh em cách tiệm ba căn. Mẹ mất hơn tháng, tiền nhà cứ vơi theo những cuộc rượu của bố. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn. Duy nhận phụ quán cho dì, nhưng chuyện trong nhà thì ít khi kể.",
-   "say": "Nhà hai anh em cách tiệm ba căn. Mẹ mất hơn tháng, tiền nhà cứ vơi theo những cuộc rượu của bố. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn. Duy nhận phụ quán cho dì, nhưng chuyện trong nhà thì ít khi kể.",
-   "file": "tin-nhan-chua-gui/voice/1.1.0-narrator-6627bc2c44.mp3",
-   "sec": 13.6
-  },
-  {
-   "id": "1.2.0",
-   "s": 1,
-   "i": 2,
-   "k": 0,
-   "role": "narrator",
-   "text": "Bố say thì chửi, có lần đánh cả hai đứa. Hồi còn mẹ, mẹ luôn đứng chắn cho con, dù bị bố mắng. Bây giờ, Duy cứ nghĩ mình phải thay mẹ làm việc đó.",
-   "say": "Bố say thì chửi, có lần đánh cả hai đứa. Hồi còn mẹ, mẹ luôn đứng chắn cho con, dù bị bố mắng. Bây giờ, Duy cứ nghĩ mình phải thay mẹ làm việc đó.",
-   "file": "tin-nhan-chua-gui/voice/1.2.0-narrator-47645c4c00.mp3",
-   "sec": 11.12
-  },
-  {
-   "id": "1.3.0",
-   "s": 1,
-   "i": 3,
+   "i": 8,
    "k": 0,
    "role": "loc",
    "text": "Tám trăm ngàn.",
@@ -94,9 +61,9 @@
    "sec": 1.2
   },
   {
-   "id": "1.4.0",
+   "id": "1.9.0",
    "s": 1,
-   "i": 4,
+   "i": 9,
    "k": 0,
    "role": "narrator",
    "text": "Duy có một trăm tám mươi sáu ngàn, tiền phụ quán dành dụm được.",
@@ -105,9 +72,9 @@
    "sec": 4
   },
   {
-   "id": "1.5.0",
+   "id": "1.10.0",
    "s": 1,
-   "i": 5,
+   "i": 10,
    "k": 0,
    "role": "duy",
    "text": "Ông sửa giúp cháu trước được không? Phần thiếu, cháu đi làm rồi trả dần.",
@@ -116,9 +83,9 @@
    "sec": 4.48
   },
   {
-   "id": "1.6.0",
+   "id": "1.11.0",
    "s": 1,
-   "i": 6,
+   "i": 11,
    "k": 0,
    "role": "loc",
    "text": "Đủ tiền rồi mang tới.",
@@ -127,9 +94,9 @@
    "sec": 2
   },
   {
-   "id": "1.7.0",
+   "id": "1.12.0",
    "s": 1,
-   "i": 7,
+   "i": 12,
    "k": 0,
    "role": "duy",
    "text": "Cháu chỉ cần nghe được đoạn ghi âm của mẹ. Màn hình xấu cũng được.",
@@ -138,9 +105,9 @@
    "sec": 3.68
   },
   {
-   "id": "1.8.0",
+   "id": "1.13.0",
    "s": 1,
-   "i": 8,
+   "i": 13,
    "k": 0,
    "role": "loc",
    "text": "Giá không đổi.",
@@ -149,9 +116,9 @@
    "sec": 1.36
   },
   {
-   "id": "1.9.0",
+   "id": "1.14.0",
    "s": 1,
-   "i": 9,
+   "i": 14,
    "k": 0,
    "role": "thao",
    "text": "Mình về đi anh. Em sợ.",
@@ -160,9 +127,9 @@
    "sec": 2.56
   },
   {
-   "id": "1.10.0",
+   "id": "1.15.0",
    "s": 1,
-   "i": 10,
+   "i": 15,
    "k": 0,
    "role": "thao",
    "text": "Cháu còn hai chục nữa… Ông giúp tụi cháu với. Cháu chỉ muốn nghe mẹ nói thôi.",
@@ -171,9 +138,9 @@
    "sec": 5.76
   },
   {
-   "id": "1.12.0",
+   "id": "1.17.0",
    "s": 1,
-   "i": 12,
+   "i": 17,
    "k": 0,
    "role": "loc",
    "text": "Cất đi.",
@@ -182,9 +149,9 @@
    "sec": 0.96
   },
   {
-   "id": "1.13.0",
+   "id": "1.18.0",
    "s": 1,
-   "i": 13,
+   "i": 18,
    "k": 0,
    "role": "loc",
    "text": "Mày nghĩ với số tiền đó, mày sửa nổi cái điện thoại cũ rích của mày à?",
@@ -193,9 +160,9 @@
    "sec": 4.64
   },
   {
-   "id": "1.14.0",
+   "id": "1.19.0",
    "s": 1,
-   "i": 14,
+   "i": 19,
    "k": 0,
    "role": "loc",
    "text": "Nhưng có cách khác. Không trả tiền, chúng mày vẫn sửa được máy.",
@@ -235,17 +202,6 @@
    "say": "[coldly] Mang máy về.",
    "file": "tin-nhan-chua-gui/voice/2.2.0-loc-fabe61131f.mp3",
    "sec": 1.2
-  },
-  {
-   "id": "2.3.0",
-   "s": 2,
-   "i": 3,
-   "k": 0,
-   "role": "narrator",
-   "text": "Trước lúc vào viện, mẹ nhờ dì nhắn Duy mở một đoạn ghi âm trong máy. Cậu chưa kịp nghe thì máy đã vỡ. Ba tiệm trước đều trả lại, không sửa được.",
-   "say": "Trước lúc vào viện, mẹ nhờ dì nhắn Duy mở một đoạn ghi âm trong máy. Cậu chưa kịp nghe thì máy đã vỡ. Ba tiệm trước đều trả lại, không sửa được.",
-   "file": "tin-nhan-chua-gui/voice/2.3.0-narrator-0448c5596c.mp3",
-   "sec": 9.84
   },
   {
    "id": "2.4.0",

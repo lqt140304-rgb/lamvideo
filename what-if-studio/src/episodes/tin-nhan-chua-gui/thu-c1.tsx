@@ -79,7 +79,7 @@ const locAt = (f: number, film = false): { pose: Pose; atBench: boolean; held?: 
     const stand = walk < 1 ? walkPose(x, (f - 452) * 0.2, g, sc, { expr: 'neutral', yaw: -0.55, headTilt: 4 }, 1) : standPose(1300, 752, 1.0, { t: f, seed: 3, facing: -1, yaw: -0.3, expr: 'neutral' });
     const seat = sitPose(1318, 532, 1.0, -1, { t: f, seed: 3, yaw: -0.04, lean: 10, expr: f > 572 ? 'glanceOverGlasses' : 'neutral', headTilt: f > 572 ? 1 : 10, look: f > 572 ? 0.5 : -0.1 });
     let pose = sit > 0 ? poseAt(sit, [{ f: 0, p: stand }, { f: 1, p: seat }]) : stand;
-    if (sit >= 1) {
+    if (sit >= 1 && !film) {
       // Back at work: left hand steadies the clock, right hand twists the screwdriver, then both pause for the glance up.
       const pause = ramp(f, 568, 574);
       const twist = Math.sin(f * 0.9) * (1 - pause);
@@ -95,6 +95,7 @@ const locAt = (f: number, film = false): { pose: Pose; atBench: boolean; held?: 
         benchClock: false,
       };
     }
+    if (film) return { pose: { ...pose, ...m }, atBench: sit > 0.5 };
     return { pose: { ...pose, ...m, handR: sit < 0.5 ? 'hold' : pose.handR, handL: sit < 0.5 ? 'hold' : pose.handL }, atBench: sit > 0.5, held: <ScrewdriverProp x={0} y={0} s={0.7} rot={-60} />, heldL: sit < 0.5 ? <RepairClock f={f} inHand /> : undefined, benchClock: sit >= 0.5 };
   }
   // At the counter. Head down on the work, eyes come up to the bills, chin lifts before the scold, leans in to mock.
@@ -116,6 +117,7 @@ const locAt = (f: number, film = false): { pose: Pose; atBench: boolean; held?: 
     expr: f >= CAT - 8 && f < MIA - 6 ? 'angry' : f >= MIA - 6 && f < 438 ? 'smug' : up > 0.5 ? 'glanceOverGlasses' : 'neutral',
     ...m,
   });
+  if (film) return { pose: { ...p, armL: { a: 10, b: -12 }, armR: { a: 10, b: -12 } }, atBench: false }; // the tools stayed on the rear bench
   // Right hand: working the screwdriver on the counter, lays it flat (f 196–207), rests on it, picks it up at 426.
   const down = ramp(f, 196, 207);
   const lift = ramp(f, 426, 440);

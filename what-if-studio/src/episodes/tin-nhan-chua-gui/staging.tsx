@@ -12,6 +12,8 @@ export type Mark = { shot: string; s: number; i: number; kind: string; at: numbe
 export const MARKS = (timeline as unknown as { marks: Mark[] }).marks;
 /** Frame on `shot`'s own clock where item i of scene s starts (fallback keeps the shot drawable before a rebuild). */
 export const mark = (shot: string, s: number, i: number, fallback = 0) => MARKS.find((m) => m.shot === shot && m.s === s && m.i === i) ?? { at: fallback, len: 60 };
+/** Where item i of scene s falls on the film's own clock. */
+export const beat = (s: number, i: number) => { const m = (MARKS as unknown as { s: number; i: number; f: number; len: number }[]).find((x) => x.s === s && x.i === i); return m ?? { s, i, f: 0, len: 60 }; };
 export const S = 30; // frames per second
 export const smooth = (v: number) => {
   const p = clamp(v);
@@ -179,7 +181,7 @@ export const LampGlow: React.FC<{ id: string; rearBlur: number; t: number }> = (
 
 /** Light falls off with distance from its sources, on the people as well as the room: bright by the lamps and bulb, dim in the far corners. */
 export const RoomFalloff: React.FC<{ id: string }> = ({ id }) => (
-  <LightVeil id={`${id}Fall`} o={0.5} lights={[[1192, 452, 560], [565, 620, 470], [940, 215, 620], [1815, 520, 400]]} />
+  <LightVeil id={`${id}Fall`} o={0.5} lights={[[1192, 452, 560], [565, 620, 470], [940, 215, 620], [1815, 520, 400], [1240, 690, 560]]} />
 );
 
 /** The whole shop at a camera: set, Lộc (behind counter or at the bench), counter, children, near layer, each at its own depth. */

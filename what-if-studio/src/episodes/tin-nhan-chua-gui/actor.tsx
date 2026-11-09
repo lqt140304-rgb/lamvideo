@@ -63,7 +63,7 @@ export const actOn = (pose: Pose, role: string | undefined, f: number): Pose => 
 
 // Where the light comes from in each place: [x, y, power]. On a body, the side toward the strongest nearby source stays lit and the far side falls away.
 type Source = [number, number, number];
-const ROOM: Source[] = [[1192, 452, 1], [565, 620, 0.8], [940, 215, 1.2], [1815, 520, 0.5]];
+const ROOM: Source[] = [[1192, 452, 1], [565, 620, 0.8], [940, 215, 1.2], [1815, 520, 0.5], [1240, 300, 1.4]];
 const SEGS = (timeline as unknown as { segments: { shot: string; a: number; b: number }[] }).segments;
 const lightsAt = (f: number): { src: Source[]; dark: string; amount: number } | null => {
   const shot = SEGS.find((s) => f >= s.a && f < s.b)?.shot ?? '';

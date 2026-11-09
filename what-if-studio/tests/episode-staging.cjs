@@ -17,8 +17,8 @@ check(tl.shots.length === 40, '40 cue shots');
 check(tl.shots.findIndex((s) => s.id === 'ShC8_E') === tl.shots.findIndex((s) => s.id === 'ShC8_B') + 1, 'C8-E sits between C8-B and C8-C');
 check(tl.shots.every((s) => typeof shots[s.id] === 'function'), 'Every cue has a shot component');
 for (let i = 1; i < tl.segments.length; i++) check(tl.segments[i - 1].b === tl.segments[i].a, 'Contiguous segments');
-check(tl.segments.filter((s) => s.shot.startsWith('ShC0_')).reduce((n, s) => n + s.b - s.a, 0) === 24 * 30, 'Opening is exactly 24 s');
-check(Math.round(tl.marks.filter((m) => m.kind === 'pause').reduce((n, m) => n + m.len, 0) / 30) === 96, '96 s of written pauses');
+check(tl.segments.filter((s) => s.shot.startsWith('ShC0_')).reduce((n, s) => n + s.b - s.a, 0) === 14 * 30, 'Opening is exactly 14 s');
+check(Math.round(tl.marks.filter((m) => m.kind === 'pause').reduce((n, m) => n + m.len, 0) / 30) === 99, '99 s of written pauses');
 check(!tl.marks.some((m) => (m.s === 6 || m.s === 7 || m.s === 9) && /^(?!“)/.test(m.text) && m.kind === 'line'), 'No narrator in C6, C7 or C9');
 check(!tl.fx.some((f) => f.kind === 'flash'), 'No extra flash anywhere (one whiteout lives inside C5-D)');
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MeadowFamily, meadowFamilyPoses } from './meadow_family';
 import { HomeFront, AuntEatery } from './house_fronts';
-import { RoomFalloff, mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, headW, coverage, SHOP_FLOOR, DUY_S, THAO_S, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
+import { RoomFalloff, beat, mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, headW, coverage, SHOP_FLOOR, DUY_S, THAO_S, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
 import { Hero } from './actor';
 import { Stage, cameraAt, perfClock, RepairClock } from './thu-c1';
 import {
@@ -50,16 +50,16 @@ import {
 // ============================================================================
 
 export const ShC0_A: React.FC<ShotProps> = ({ t }) => {
-  const zoom = lerp(1.0, 1.03, clamp(t / 120));
+  const zoom = lerp(1.0, 1.03, clamp(t / 90));
   return (
-    <g transform={camT(960, 420 + ramp(t, 80, 120) * 30, zoom)}>
-      <StarryCitySkyline t={t} tiltY={0.04 + ramp(t, 80, 120) * 0.06} showTitle titleOpacity={1} showOwl={false} />
+    <g transform={camT(960, 420 + ramp(t, 55, 90) * 30, zoom)}>
+      <StarryCitySkyline t={t} tiltY={0.04 + ramp(t, 55, 90) * 0.06} showTitle titleOpacity={1} showOwl={false} />
     </g>
   );
 };
 
 export const ShC0_B: React.FC<ShotProps> = ({ t }) => {
-  const p = clamp(t / 120, 0, 1);
+  const p = clamp(t / 60, 0, 1);
   const tilt = 0.1 + easeOut(p) * 0.66;
   const titleO = clamp(1 - p * 2.2, 0, 1);
   return (
@@ -70,7 +70,7 @@ export const ShC0_B: React.FC<ShotProps> = ({ t }) => {
 };
 
 export const ShC0_C: React.FC<ShotProps> = ({ t }) => {
-  const blink = t > 34 && t < 44 ? Math.sin(((t - 34) / 10) * Math.PI) : 0;
+  const blink = t > 12 && t < 22 ? Math.sin(((t - 12) / 10) * Math.PI) : 0;
   return (
     <g transform={camT(960, 540, 1.02)}>
       <OwlEyeMacro w={1920} h={1080} blink={blink} lookX={0.22 + Math.sin(t / 22) * 0.05} lookY={0.26} />
@@ -80,7 +80,7 @@ export const ShC0_C: React.FC<ShotProps> = ({ t }) => {
 
 // Ngõ theo asset mới: không người qua đường.
 export const ShC0_D: React.FC<ShotProps> = ({ t }) => {
-  const p = easeOut(clamp(t / 180));
+  const p = easeOut(clamp(t / 90));
   return (
     <g transform={camT(lerp(720, 960, p), 540, lerp(1.28, 1.0, p))}>
       <AlleyExteriorScene t={t} showOwl showPassersby={false} />
@@ -100,7 +100,7 @@ const alleyKids = (t: number, step: number) => {
 };
 
 export const ShC0_E: React.FC<ShotProps> = ({ t }) => {
-  const p = easeOut(clamp(t / 150));
+  const p = easeOut(clamp(t / 90));
   const { duy, thao } = alleyKids(t, 0);
   return (
     <g transform={camT(lerp(1020, 1260, p), 740, lerp(1.0, 1.08, p))}>
@@ -113,7 +113,7 @@ export const ShC0_E: React.FC<ShotProps> = ({ t }) => {
 };
 
 export const ShC0_F: React.FC<ShotProps> = ({ t }) => {
-  const step = ramp(t, 24, 84); // one beat looking at each other, then they cross the threshold
+  const step = ramp(t, 12, 58); // one beat looking at each other, then they cross the threshold
   const { duy, thao } = alleyKids(t, step);
   return (
     <g transform={camT(1360 + step * 48, 760, 1.12)}>
@@ -136,61 +136,76 @@ const Creep: React.FC<{ t: number; len: number; children: React.ReactNode }> = (
 // CẢNH 1 — Thiếu tiền
 // ============================================================================
 
-/** Lộc's path in C1-A: bench (t<10s) → counter (≈14s) … screwdriver down (100s) … back to bench (140–143s). */
-const locC1 = (t: number) => {
-  const toCounter = ramp(t, 10 * S, 14 * S);
-  const toBench = ramp(t, 140 * S, 143 * S);
-  if (toBench >= 1 || toCounter <= 0) return { pose: LOC_AT_BENCH(t, { expr: 'neutral', headTilt: 10 }), atBench: true };
-  const away = toBench > 0;
-  const k = away ? toBench : toCounter;
-  if (k < 1) {
-    // Walking between bench and counter behind the counter line.
-    const x = away ? lerp(900, 1180, k) : lerp(1180, 900, k);
-    return { pose: walkPose(x, t * 0.5, COUNTER_TOP + 140 * LOC_S - 12, LOC_S, { expr: 'neutral' }, away ? 1 : -1), atBench: false };
-  }
-  const tap = ramp(t, 100 * S, 100.5 * S) * (1 - ramp(t, 112 * S, 113 * S)); // screwdriver put down flat, hand still on it
-  let p = LOC_AT_COUNTER(900, t, { yaw: 0.1, look: 0.35, expr: t > 108 * S ? 'smug' : 'neutral' });
-  if (tap > 0) p = reach(p, 'R', { x: 980, y: COUNTER_TOP - 4 }, tap);
-  return { pose: p, atBench: false, held: tap > 0 ? <ScrewdriverProp x={0} y={0} s={0.7} rot={70} /> : undefined };
-};
-
-export const ShC1_A: React.FC<ShotProps> = ({ t }) => {
-  const putBack = ramp(t, 0, 1.4 * S); // clock goes back on the shelf, then she steps behind Duy
-  const tuck = ramp(t, 1.6 * S, 3.2 * S);
-  const kids = standingKids(t, { thaoX: lerp(1335, 1245, tuck), clutch: tuck, thaoExpr: 'scared', duyExpr: 'worried' });
-  let thao = kids.thao.pose;
-  if (putBack < 1) thao = reach({ ...thao, yaw: 0.4, facing: 1 }, 'R', { x: 1440, y: 790 + putBack * 12 }, 1);
-  const loc = locC1(t);
-  const phoneDown = t > 40 * S;
-  return (
-    <Shop
-      t={t}
-      id="c1a"
-      cam={[960, 540, 0.96]}
-      loc={loc}
-      benchWork={Math.sin(t / 9)}
-      counter={{ phoneState: phoneDown ? 'cracked' : 'none', showMoney: t > 45 * S, showPouch: phoneDown }}
-      shelf
-      shelfClockHeld={putBack < 1}
-      kids={
-        <>
-          {drawKid(kids.duy, LOOKS.duy)}
-          <Hero pose={thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} heldProps={putBack < 1 ? { R: <SmallClock x={0} y={18} s={0.9} /> } : undefined} />
-        </>
-      }
-    />
-  );
-};
-
 // Seeds for a second viewing (F1–F3): the same portrait and jars return in C9. Faded, part-hidden, never the subject.
 const PORTRAIT = <g opacity={0.72}><AntiquePortraitCameo x={1612} y={322} s={1.15} /></g>;
 const ShelfJars: React.FC<{ t: number }> = ({ t }) => <g opacity={0.8}><CameoJars x={486} y={262} s={0.62} t={t} /></g>;
 
+/** Everything from the door to the price, on the film's clock: the shots only choose where to look. */
+const openingAct = (f: number, t: number) => {
+  const [m0, m1, m2, m3, m5, m7, m9] = [0, 1, 2, 3, 5, 7, 9].map((i) => beat(1, i));
+  const m4 = beat(1, 4);
+  // ---- children
+  const shield = ramp(f, m3.f + 10, m3.f + 34);
+  const inD = clamp((f - m0.f) / (2.6 * S));
+  const duyX = lerp(lerp(1380, 1060, smooth(inD)), 1090, shield);
+  const walkingD = inD > 0 && inD < 1;
+  const scared = f >= m2.f;
+  const duyBase = { t, seed: 1, yaw: walkingD ? -0.8 : -0.36, look: -0.4, expr: (scared ? 'worried' : 'neutral') as Pose['expr'], headTilt: -3 };
+  const duy = walkingD ? walkPose(duyX, t * 0.5, SHOP_FLOOR - 15, DUY_S, duyBase, -1) : shield > 0 && shield < 1 ? walkPose(duyX, shield * Math.PI, SHOP_FLOOR - 15, DUY_S, { ...duyBase, yaw: 0.1 }, 1) : standPose(duyX, SHOP_FLOOR - 15, DUY_S, duyBase);
+  const inT = clamp((f - m0.f - 20) / (2.8 * S));
+  const back = clamp((f - m3.f - 22) / (1.5 * S));
+  const thaoX = back > 0 ? lerp(1362, 1218, smooth(back)) : lerp(1500, 1362, smooth(inT));
+  const moving = (inT > 0 && inT < 1) || (back > 0 && back < 1);
+  const pick = ramp(f, m1.f - 1.5 * S, m1.f - 0.9 * S);
+  const putDown = m3.f + 14; // the base meets the shelf, then the fingers let go
+  const holding = f >= m1.f - 0.9 * S && f < putDown;
+  const startle = f < m2.f ? 0 : Math.sin(clamp((f - m2.f) / 16) * Math.PI);
+  const wind = holding ? Math.sin(f * 0.5) * 7 * ramp(f, m1.f - 0.7 * S, m1.f - 0.3 * S) : 0;
+  const reachOut = pick * (1 - ramp(f, putDown + 2, putDown + 12));
+  const tOpts = {
+    t, seed: 2, yaw: back > 0 ? -0.3 : 0.42, look: back > 0 ? -0.35 : 0.5, headTilt: 4 * (1 - back) - 7 * startle,
+    expr: (scared ? 'scared' : 'neutral') as Pose['expr'], shoulderLift: 0.8 * startle + (scared ? 0.3 : 0),
+  };
+  let thao = moving ? walkPose(thaoX, t * 0.6, SHOP_FLOOR + 5, THAO_S, { ...tOpts, yaw: back > 0 ? -0.8 : -0.8 }, -1) : standPose(thaoX, SHOP_FLOOR + 5, THAO_S, tOpts);
+  if (!moving && reachOut > 0) thao = { ...thao, armR: { a: lerp(12, -10, reachOut), b: lerp(-4, 110 + wind, reachOut) }, handR: 'hold' };
+  // ---- Lộc: repairs at the rear bench until asked, walks to the counter, stays there
+  const walkFrom = m5.f - 2.7 * S;
+  const walk = clamp((f - walkFrom) / (2.7 * S));
+  const scold = f >= m2.f - 8 && f <= m2.f + m2.len + 8;
+  const twist = scold || f >= walkFrom ? 0 : Math.sin(t * 0.9);
+  let loc: { pose: Pose; atBench: boolean; held?: React.ReactNode; heldL?: React.ReactNode };
+  if (f < walkFrom) {
+    const p = LOC_AT_BENCH(t, { expr: scold ? 'angry' : 'neutral', headTilt: scold ? 0 : 9, look: scold ? -0.5 : 0, yaw: -0.04 });
+    loc = { atBench: true, pose: { ...p, armL: { a: 14, b: -84 }, armR: { a: 40, b: -90 + twist * 7 }, handL: 'hold', handR: 'hold' }, held: <ScrewdriverProp x={0} y={0} s={0.55} rot={196 + twist * 8} />, heldL: <RepairClock f={t} inHand hs={0.8} /> };
+  } else if (walk < 1) {
+    loc = { atBench: false, pose: walkPose(lerp(1318, 900, smooth(walk)), t * 0.42, lerp(752, COUNTER_TOP + 140 * LOC_S - 12, walk), lerp(1, LOC_S, walk), { expr: 'neutral', yaw: -0.7 }, -1) };
+  } else {
+    loc = { atBench: false, pose: { ...LOC_AT_COUNTER(900, t, { yaw: 0.14, look: 0.3, expr: 'neutral' }), armL: { a: 10, b: -12 }, armR: { a: 10, b: -12 } } };
+  }
+  const phoneDown = f >= m4.f + m4.len + 1.2 * S;
+  return {
+    loc, cast: { duy, thao },
+    held: holding ? <SmallClock x={0} y={18} s={0.9} /> : undefined,
+    shelfHeld: holding,
+    counter: { phoneState: (phoneDown ? 'cracked' : 'none') as 'cracked' | 'none', showMoney: f >= m9.f + 20, showPouch: phoneDown },
+    examining: f >= m7.f && f < m7.f + m7.len,
+  };
+};
+
+const OpeningShop: React.FC<{ f: number; t: number; id: string; cam: [number, number, number]; focus?: number }> = ({ f, t, id, cam, focus = 0 }) => {
+  const a = openingAct(f, t);
+  return <Shop t={t} id={id} cam={cam} focus={focus} shelf shelfClockHeld={a.shelfHeld} cameo={id === 'c1b' ? PORTRAIT : undefined} loc={a.loc} counter={a.counter} kids={<><Hero pose={a.cast.duy} look={LOOKS.duy} rimId="rimShopWarm" shadow={0.32} /><Hero pose={a.cast.thao} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} heldProps={a.held ? { R: a.held } : undefined} /></>} />;
+};
+
+/** C1-A: the master, one barely moving wide: the distance between the customers, the counter and the bench. */
+export const ShC1_A: React.FC<ShotProps> = ({ t, f }) => <OpeningShop f={f} t={t} id="c1a" cam={[960 + clamp(t / 900) * 10, 540, 0.96 + clamp(t / 900) * 0.02]} focus={0.4} />;
+
 /** C1-B: Lộc at the rear bench, lamp on half his face; looks up cold, later turns back with the sly smile. */
-export const ShC1_B: React.FC<ShotProps> = ({ t }) => {
-  const hint = mark('ShC1_B', 1, 14, 20 * S); // the sly smile comes after the line, never on it
+export const ShC1_B: React.FC<ShotProps> = ({ t, f }) => {
+  if (f < beat(1, 14).f) return <OpeningShop f={f} t={t} id="c1b" cam={[1345, 400, 1.9]} focus={2} />; // the scold: half his face in the lamp
+  const hint = mark('ShC1_B', 1, 19, 20 * S); // the sly smile comes after the line, never on it
   const smile = ramp(t, hint.at + hint.len - 0.2 * S, hint.at + hint.len + 0.9 * S);
-  const lookUp = t < 8 * S || smile > 0;
+  const lookUp = smile > 0;
   const pose = LOC_AT_BENCH(t, {
     expr: smile > 0.5 ? 'smug' : lookUp ? 'glanceOverGlasses' : 'neutral',
     headTilt: lookUp ? lerp(2, -4, smile) : 12,
@@ -206,14 +221,19 @@ export const ShC1_B: React.FC<ShotProps> = ({ t }) => {
 
 /** C1-C insert: Duy's hand sets the cracked phone on the cloth, then tips out his 186k on the left. */
 export const ShC1_C: React.FC<ShotProps> = ({ t, len }) => {
-  const down = ramp(t, 0, 1.2 * S);
-  const lift = ramp(t, 1.8 * S, 2.6 * S);
-  const count = mark('ShC1_C', 1, 4, 2 * S).at; // the narrator names Duy's 186k
+  const down = ramp(t, 0, 0.8 * S);
+  const lift = ramp(t, 1.05 * S, 1.7 * S);
+  const look = mark('ShC1_C', 1, 7, 2 * S);
+  const u = (t - look.at) / Math.max(1, look.len); // Lộc's two seconds with it: grips, tilts to the crack, presses power, sets it back
+  const looking = u >= 0 && u <= 1;
+  const tilt = looking ? Math.sin(clamp((u - 0.18) / 0.62) * Math.PI) * 14 : 0;
+  const count = mark('ShC1_C', 1, 9, 2 * S).at; // the narrator names Duy's 186k
   const money = ramp(t, count, count + 1.4 * S);
   const handOnPhone = lift < 1;
   return (
     <Creep t={t} len={len}>
-      <OngLocCounterInsert t={t} cracked={1} screenOn={0} playing={0} showPhoto={false} receiptStage="none" showMoney={money > 0.5} showPouch showWallet={false} />
+      <OngLocCounterInsert t={t} phoneRot={tilt} cracked={1} screenOn={0} playing={0} showPhoto={false} receiptStage="none" showMoney={money > 0.5} showPouch showWallet={false} />
+      {looking ? <ArmHand x={lerp(1250, 1040, Math.min(1, u * 5) * Math.min(1, (1 - u) * 5))} y={lerp(300, 505, Math.min(1, u * 5) * Math.min(1, (1 - u) * 5))} rot={-28} s={0.8} skin={LOOKS.ongLoc.skin} sleeve={LOOKS.ongLoc.jacket} len={900} /> : null}
       {handOnPhone ? <InsertHand who="duy" tip={{ x: 960, y: lerp(560, 610, down) + lift * 160 }} rot={-4} /> : null}
       {money > 0 && money < 1 ? <InsertHand who="duy" tip={{ x: 600, y: lerp(980, 840, money) }} rot={-14} /> : null}
     </Creep>
@@ -221,10 +241,11 @@ export const ShC1_C: React.FC<ShotProps> = ({ t, len }) => {
 };
 
 /** C1-D: the plea, the screwdriver laid down, the scold, the mockery, her flinch, Duy covering her, Lộc going back to the bench: one performance with its cuts. */
-export const ShC1_D: React.FC<ShotProps> = ({ t }) => {
+export const ShC1_D: React.FC<ShotProps> = ({ t, f }) => {
+  if (f < beat(1, 14).f) return <OpeningShop f={f} t={t} id="c1d" cam={[1250, 640, 1.4]} />; // the shelf: she has it in her hands, then she does not
   const at = (i: number, fallback: number) => mark('ShC1_D', 1, i, fallback);
-  const mock = at(13, 8 * S);
-  const F = perfClock(t, at(10, 3 * S).at, at(12, 7 * S).at, mock.at, mock.at + mock.len);
+  const mock = at(18, 8 * S);
+  const F = perfClock(t, at(15, 3 * S).at, at(17, 7 * S).at, mock.at, mock.at + mock.len);
   return <Stage f={F} cam={cameraAt(F)} light film />;
 };
 

@@ -87,18 +87,22 @@ const hit = (at, id, peak, f = '', ss, t) => events.push({ src: fx(id), at: Math
 
 // C0: the distant road; Duy's breath at the door; steps over the threshold
 hit(180, 717, -36, 'lowpass=f=1800,aecho=0.6:0.5:140:0.35');
-hit(430, 2732, -34, 'lowpass=f=1000,afade=t=in:d=1.2', 0.4);
+hit(300, 2732, -34, 'lowpass=f=1000,afade=t=in:d=1.2', 0.4);
 hit(seg('C0_E').a + 60, 2232, -36, 'lowpass=f=2800', 0.4, 1.4);
 hit(seg('C0_F').a + 24, 543, -33, 'lowpass=f=2400', 0.3, 2);
 
 // C1: the clock back on the shelf; phone and money on the cloth; the performance beats
-hit(seg('C1_A').a + 22, 2182, -26, 'highpass=f=200');
-hit(seg('C1_C').a + 30, 1530, -30, 'lowpass=f=3000');
-hit(M(1, 4).f + 18, 2380, -29, 'highpass=f=500');
-const ask = M(1, 10), scold = M(1, 12), mock = M(1, 13);
-[0, 68, 140].forEach((d) => hit(ask.f + d - 18, 1064, -30, 'highpass=f=400'));
+hit(M(1, 1).f - 16, 2182, -33, 'highpass=f=300', 0, 0.2); // she lifts the clock
+[6, 22].forEach((d) => hit(M(1, 1).f + d, 1131, -32, 'highpass=f=700', 0.08, 0.2)); // the key turns one click; nothing ticks
+hit(M(1, 2).f + 2, 1898, -33, 'highpass=f=400', 0.1, 0.4);
+hit(M(1, 3).f + 14, 2182, -27, 'highpass=f=200'); // the base meets the shelf
+[0, 16, 32].forEach((d) => hit(M(1, 3).f + 24 + d, 543, -38, 'lowpass=f=1800', 0.3, 0.3));
+for (let d = 0; d < 80; d += 18) hit(M(1, 5).f - 81 + d, 543, -40, 'lowpass=f=1500', 0.3, 0.3); // Lộc comes to the counter
+hit(M(1, 7).f + 34, 1131, -35, 'highpass=f=900', 0.08, 0.2); // the power button, and nothing
+hit(seg('C1_C').a + 22, 1530, -30, 'lowpass=f=3000');
+hit(M(1, 9).f + 18, 2380, -29, 'highpass=f=500');
+const ask = M(1, 15), scold = M(1, 17), mock = M(1, 18);
 hit(ask.f - 6, 2380, -31, 'highpass=f=500'); // she takes the bills out
-hit(scold.f - 34, 2182, -19, 'highpass=f=150'); // the screwdriver laid flat in the silence
 hit(scold.f + 8, 2237, -30, 'highpass=f=300', 0.2, 0.5); // her caught breath
 hit(scold.f + 12, 1898, -27, 'highpass=f=300');
 hit(mock.f + 92, 1898, -28, 'highpass=f=300', 0.1);
