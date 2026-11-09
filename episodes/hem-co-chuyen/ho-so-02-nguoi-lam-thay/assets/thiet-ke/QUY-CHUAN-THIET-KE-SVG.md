@@ -35,7 +35,7 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 | **Mouth Deep** | `#513331` | Lòng miệng trầm | Khoang miệng khi mở |
 | **Nam/Bản sao Shirt** | `#5c7a70` | Xanh rêu sinh viên | Chiếc áo thun rêu đặc trưng của Nam |
 | **Nam/Bản sao Pants** | `#515451` | Xám vải mềm | Quần dài có nếp gấp |
-| **Nam/Bản sao Shoes** | `#425850` | Quai xanh rêu đậm | Dép lê quai kẹp, đế `#393e3c` |
+| **Nam/Bản sao Shoes** | `#425850` | Quai xanh rêu đậm | Dép lê quai ngang, đế `#393e3c` |
 | **Tùng Jersey** | `#1d4e89` | Xanh navy thể thao | Áo bóng đá số 7, viền cổ trắng |
 | **Tùng Shorts** | `#142842` | Xanh than sẫm | Quần đùi đá bóng sọc trắng |
 | **Tùng Shoes** | `#ffffff` / `#1d4e89` | Giày turf thể thao | Giày đế đinh dăm đá banh |
@@ -66,7 +66,7 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 
 ### 3.4. Bản sao (Người Kia — Doppelgänger)
 - **Quy tắc 100% giống hệt:** 
-  - Thể chất và trang phục trùng khớp 100% với Nam: cùng khung đầu, cùng kiểu tóc, cùng nốt ruồi đuôi mày, cùng áo thun rêu `#5c7a70`, quần xám `#515451` và dép kẹp.
+  - Thể chất và trang phục trùng khớp 100% với Nam: cùng khung đầu, cùng kiểu tóc, cùng nốt ruồi đuôi mày, cùng áo thun rêu `#5c7a70`, quần xám `#515451` và dép quai ngang.
   - Khác biệt duy nhất là **thần thái & biểu cảm**: ánh mắt kiên định, nụ cười điềm tĩnh hoặc nụ cười nhếch mép toan tính (`eerie_smirk`), tư thế đứng đĩnh đạc hơn.
 
 ### 3.5. Tùng (Bạn cùng phòng thể thao)
@@ -119,10 +119,51 @@ Dùng lại `Rigged` trong [`../nhan-vat.tsx`](../nhan-vat.tsx), không sao ché
 ### 4.4. Kiểm tra trước khi coi là đạt
 
 - Đặt cạnh hình bên phải của `character-svg-v1.png`: cùng độ mềm, cùng mật độ nét.
-- Xem composition `HoSo02RigSheet` khi đang chuyển động, không chỉ ảnh đứng yên: không đường cắt ở khớp, mông không lòi khỏi áo, tay không bé đi khi duỗi.
+- Xem composition `HoSo02RigSheet` và `HoSo02Spin` khi đang chuyển động, không chỉ ảnh đứng yên: không đường cắt ở khớp, mông không lòi khỏi áo, tay không bé đi khi duỗi.
 - Chạy `node tests/ho-so-02-rig.cjs` trong `what-if-studio/`.
+- Soi cận cảnh `HoSo02Turnaround` ở cả dáng đứng (frame 0) và dáng bước (frame 60), đủ 8 cột. Ảnh thu nhỏ không lộ các lỗi dưới đây.
 
-**Chưa có:** quay lưng, nhìn nghiêng, quay trái, khẩu hình. Không lật gương đầu vì nốt ruồi đổi bên.
+**Lỗi đã gặp, nhân vật mới phải tránh:**
+
+| Chỗ | Quy tắc | Lỗi nếu làm sai |
+|---|---|---|
+| Đầu nét hở (tai, cổ) | Đầu nét nằm đúng trên viền khối nó nối vào, hoặc bị tóc che | Vệt đen nhỏ thò vào mặt; đuôi nét lạc trên má |
+| Khối cắt bằng lệnh đóng `Z` | Đoạn đóng phải là đường cong theo hình, nhất là khi nằm cạnh tóc | Tai bị cắt thành đường thẳng đứng |
+| Nét đặt sát mép mặt | Điểm cuối cách viền ít nhất nửa bề dày nét của cả hai nét | Lông mày thò ra ngoài viền mặt |
+| Tóc che kín sọ (sau lưng) | Biên tóc đi ngoài biên sọ ở mọi đoạn; đo lại khi đổi `HairKit` | Viền da mỏng lộ quanh tóc |
+| Mũi, nốt ruồi | Tách hẳn khỏi vòng mắt và lông mày ở mọi góc, với mắt mở bình thường | Mũi đè vòng mắt; nốt ruồi dính lông mày |
+| Tất và giày | Thứ tự: da → tất → giày → quần | Đầu tất tròn đè lên giày |
+| Chi tiết của tay xa | Tay nằm sau thân thì viền tay áo, sọc cũng phải nằm sau hoặc bỏ | Vạch lạc giữa ngực ở góc nghiêng |
+| Đáy quần khi bước | Mảng đáy quần kéo lên theo độ mở của đùi | Mẩu quần lòi xuống giữa hai chân |
+| Tay khi bước, 3/4 và 1/4 | Pha hai tay vung vào giữa người: không vung vào, hơi mở ra ngoài để bàn tay nằm ngoài đùi. Không đẩy tay ra sau chân | Hai bàn tay chập nhau, nằm ngay đũng quần, hoặc bị quần che mất |
+| Tay xa ở góc nghiêng 90° | Thứ tự: tay xa → hai chân → áo → tay gần | Bàn tay xa nằm đè lên quần |
+| Vai và biên áo | Vai đặt sát biên áo và tay buông chếch ra ngoài, để cánh tay nằm ngoài biên vạt áo ở mọi góc | Áo đè mất cánh tay, nhất là góc 1/4 |
+| Nếp áo | Nếp không chạy qua vị trí cánh tay; bị tay cắt thì chỉ giữ phần còn dài | Mẩu nếp ngắn sau tay |
+| Chi tiết thân theo góc | Vạch dọc ngực chỉ dùng cho chính diện và 3/4; sau lưng và 1/4 chỉ giữ một nếp vạt áo. Không thêm ngấn gáy | Lưng áo nhiều nét thừa |
+| Chi tiết nhỏ trên áo | Dưới khoảng 10px ở khổ 1080p thì phóng to hoặc bỏ | Logo trông như dấu phẩy |
+
+### 4.5. Bốn góc quay (ảnh mẫu cho mọi nhân vật)
+
+Ảnh mẫu do chủ repo đưa ngày 10/11/2026: [`goc-quay-mau.png`](goc-quay-mau.png), gồm **chính diện, 3/4, nghiêng 90°, sau lưng** trên nền kem. Nhân vật mới làm đủ bốn góc theo đúng thứ tự này.
+
+Bốn góc phải thẳng hàng trên cùng các mốc ngang, tính từ đỉnh tóc xuống sàn: vai khoảng 36% chiều cao, vạt áo khoảng 60%, chân chung một đường sàn. Giữa các góc không đổi màu, tỉ lệ, kiểu tóc, chiều cao.
+
+| Góc | Cách vẽ |
+|---|---|
+| Chính diện | Mặt đối xứng, thấy cả hai tai; hai tay buông hai bên; cổ áo tròn; thân chỉ giữ nếp vạt áo |
+| 3/4 | Mặt lệch về hướng nhìn, mắt xa hẹp hơn, tai xa khuất; vai và chân xa thu lại, chân xa hơi lùi |
+| Nghiêng 90° | Một mắt; trán, mũi, môi tạo đường viền; tai giữa đầu, tóc phủ gáy; thấy một tay; hai ống quần gần như một khối; lưng hơi cong |
+| Sau lưng | Tóc là một mảng đen liền, không có mặt; lộ hai tai và gáy, không vẽ ngấn gáy; áo không có cổ trước, một nếp cong ở vạt |
+
+Chi tiết nhận dạng của từng nhân vật vẫn giữ dù ảnh mẫu không có, như nốt ruồi của Nam và Người Kia. Dép theo ảnh mẫu: quai ngang.
+
+**Cách dùng trong rig:** đặt `view` (`front`, `three`, `side`, `quarter`, `back`) và `facing: -1` để quay trái trong `pose`, xem composition `HoSo02Turnaround`. `quarter` là góc 1/4: nhìn chéo từ phía sau, chỉ còn gáy, tai gần và một dải má. Nam, Người Kia và Tùng đã đủ các góc; nhân vật mới khai báo `views` trong `Outfit` và một `HairKit` cho đầu. Nhìn từ trước/sau, bước chân tự rút ngắn thay vì xoè ngang.
+
+Xoay người: dùng `turnAt(từ, đến, t)`, mỗi góc giữ khoảng 4 frame rồi nhảy sang góc kế bên (composition `HoSo02Spin`). Khẩu hình: truyền `talk={{ shape, open }}` theo `mouthCueAt` của engine; chớp mắt: `blink`. Góc nghiêng cắt miệng theo đường mặt nên miệng luôn khớp với môi.
+
+Quay trái dùng lại hình rồi lật, riêng nốt ruồi vẽ lại đúng bên: 3/4 trái nằm ở đuôi mày bên xa, nghiêng trái và 1/4 trái không thấy. `armR`/`legR` luôn là tay/chân phải theo giải phẫu ở mọi góc, kể cả khi quay trái và sau lưng; đồ cầm ở tay phải không nhảy tay khi đổi góc.
+
+Màu áo theo cảnh: `shirt={PALETTE.nam.sleepShirt}` là áo ngủ xám của Nam ở các cảnh Người Kia đang mặc áo xanh.
 
 ---
 
