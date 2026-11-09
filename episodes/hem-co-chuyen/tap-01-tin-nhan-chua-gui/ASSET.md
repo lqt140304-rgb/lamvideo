@@ -172,3 +172,17 @@ Giấy phép: [Mixkit Sound Effects Free License](https://mixkit.co/license/moda
 | 1016 | Chair seat wood squeak | Ghế bàn sau khi Lộc ngồi |
 
 Đã tải nhưng chưa dùng: 859, 835, 3199, 2930, 1789, 1530. Còn tổng hợp bằng ffmpeg: hơi hít khựng của Thảo, bước dép của Lộc.
+
+## Âm thanh toàn phim — tải 09/11/2026
+
+Sinh bằng `what-if-studio/src/episodes/tin-nhan-chua-gui/sound.cjs`, đặt theo mốc timeline. File gốc chỉ để local ở `what-if-studio/public/tin-nhan-chua-gui/sfx/`, không đẩy lên Git. **Đã trộn, chủ repo chưa nghe duyệt.** Gói KORBANN không dùng vì chưa xác minh quyền.
+
+| Nhạc (Mixkit, [Music Free License](https://mixkit.co/license/modal/musicFree/)) | Id | Dùng ở |
+|---|---|---|
+| Staring at the Night Sky — Alejandro Magaña (A. M.) | 168 | C0, rút trong C0-E |
+| Classical 3 — Jonny S. | 710 | C6-B tới đầu C7 |
+| Silent Descent — Eugenio Mininni | 614 | C7, rút khi mẹ tan |
+| Classical 4 — Jonny S. | 711 | Cuối C8-D |
+| Selpan — Eugenio Mininni | 612 | Kho của Lộc, từ cuối C9-A |
+
+Tiếng động và nền ([Mixkit SFX Free License](https://mixkit.co/license/modal/sfxFree/)), tải từ `https://assets.mixkit.co/active_storage/sfx/<id>/<id>.wav`: 1833 quạt (quạt hút bếp đã lọc, tạm), 2678 phố đêm, 2658 và 2427 gió, 3199 nền kho, 2822 và 1049 cơ cấu đồng hồ, 2858 khóa bánh răng, 1177 ngân, 2936 lọ chạm, 717 còi, 2732 xe máy, 2232 và 379 và 2237 hơi thở, 543 và 1921 bước chân, 2182 tua vít, 1530 và 2380 giấy, 2369 và 2368 viết, 1064 và 1131 cơ khí nhỏ, 1898 vải, 1016 ghế, 525 chai, 833 kim loại. Tự tổng hợp bằng ffmpeg: ù G3, cửa cuốn.

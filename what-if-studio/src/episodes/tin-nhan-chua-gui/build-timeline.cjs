@@ -105,7 +105,7 @@ const missing = Object.keys(plan.cues).filter((c) => !shots.has(`Sh${c.replace('
 if (missing.length) throw new Error(`Cues without a segment: ${missing.join(', ')}`);
 
 const order = Object.keys(plan.cues).map((c) => shots.get(`Sh${c.replace('-', '_')}`));
-const tl = { scriptSha256: sourceHash, scriptRevision: plan.scriptRevision, slug: 'tin-nhan-chua-gui', title: plan.title, fps: FPS, total: a, estimate: voice.length ? 'Thời lượng theo giọng ElevenLabs đã tạo (voice-manifest.json) + nghỉ theo KICH-BAN.' : plan.estimateNote, segments, shots: order, marks: allMarks, voice: voiceCues, fx: [], audio: voiceCues.length ? { voice: 'tin-nhan-chua-gui/voice/voice-track.mp3' } : {} };
+const tl = { scriptSha256: sourceHash, scriptRevision: plan.scriptRevision, slug: 'tin-nhan-chua-gui', title: plan.title, fps: FPS, total: a, estimate: voice.length ? 'Thời lượng theo giọng ElevenLabs đã tạo (voice-manifest.json) + nghỉ theo KICH-BAN.' : plan.estimateNote, segments, shots: order, marks: allMarks, voice: voiceCues, fx: [], audio: voiceCues.length ? { voice: fs.existsSync(path.join(here, '../../../public/tin-nhan-chua-gui/sound/full-mix.mp3')) ? 'tin-nhan-chua-gui/sound/full-mix.mp3' : 'tin-nhan-chua-gui/voice/voice-track.mp3' } : {} };
 fs.writeFileSync(path.join(here, 'timeline.json'), JSON.stringify(tl, null, 1) + '\n');
 const mmss = (f) => `${Math.floor(f / FPS / 60)}:${String(Math.round((f / FPS) % 60)).padStart(2, '0')}`;
 console.log(voice.length ? `timing from recorded voice (${voiceCues.length} pieces)` : 'timing estimated (no voice-manifest.json)');
