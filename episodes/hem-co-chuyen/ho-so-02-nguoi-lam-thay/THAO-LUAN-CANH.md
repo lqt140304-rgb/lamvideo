@@ -13,6 +13,7 @@
 - Cùng thảo luận và chốt từng cảnh. Không viết tiếp toàn bộ kịch bản khi các quyết định trung gian còn đang bàn.
 - **Phản hồi ngày 09/11/2026:** chủ repo đồng ý cách bản sao xuất hiện bí ẩn trong sinh hoạt và nhịp cảm xúc của cảnh 1. Hướng gặp ở góc rửa chén, phản ứng sững–kiểm chứng–sợ và giữ khoảng cách được giữ để phát triển cảnh 2. Phản hồi này chưa chốt tên/tuổi cụ thể, toàn bộ câu thoại, máy quay hoặc cơ chế thay thế.
 - **Cuộc gọi được chủ repo chốt lại:** Nam nói có người giống hệt mình; Tùng đáp rằng Nam nói xàm hoặc ngủ chưa tỉnh rồi tắt máy. Tùng đã nghe lời kể nhưng chưa tin hoặc xác nhận có bản sao. Chưa gửi ảnh/gọi video, chưa có cảnh Tùng tới cứu hay xác minh. Quyết định này thay phương án Nam giấu hoàn toàn chuyện vừa thấy; thời điểm Tùng thực sự tin còn để bàn sau.
+- **Nhịp Nam chịu nhận giúp:** cần có suy nghĩ trong đầu về lợi và hại của việc có người giống hệt mình, còn phân vân, rồi có thêm tác động cụ thể mới chịu tin/thử trong giới hạn. Không chỉ bị giục bài là chuyển ngay sang nhận giúp; bản mới vẫn phải giữ các giới hạn đã thiết lập.
 - **Hướng nhân vật đã yêu cầu:** cậu sinh viên lười nhác, có thể có phần đáng ghét, nhưng phải khiến người xem nhận ra một người thật ngoài xã hội. Giữ sự mâu thuẫn và các mối quan hệ đời thường, tránh biến cậu thành một mẫu người chỉ tồn tại để bị trừng phạt.
 
 ## Phát triển tính cách — ví dụ đang đề xuất
@@ -203,9 +204,9 @@ Cậu kéo ghế ngồi đối diện cửa, giữ điện thoại trong lòng b
 
 **Chuyển model theo yêu cầu chủ repo:** từ phần viết tiếp sau đoạn này, dùng GPT-6.1 Sol để tiết kiệm. Giữ nguyên các đoạn đã duyệt; các đề xuất mới vẫn được chốt từng phần.
 
-## Nam chủ động hỏi lại — đề xuất của GPT-6.1 Sol, chưa duyệt
+## Nam chủ động hỏi lại — đã duyệt ngày 09/11/2026
 
-**Mục đích:** Nam muốn có người quen chứng kiến thay vì phải tự xử lý điều mình vừa thấy; kiểm tra đồ trong phòng tạo một mục đích cụ thể để hỏi tiếp. Đoạn này chưa cho Nam tin hoặc nhận giúp. Việc nhắn Tùng quay về là đề xuất mới, không tự coi Tùng sẽ đồng ý hoặc đã thấy bản sao.
+**Mục đích:** Nam muốn có người quen chứng kiến thay vì phải tự xử lý điều mình vừa thấy; kiểm tra đồ trong phòng tạo một mục đích cụ thể để hỏi tiếp. Đoạn này chưa cho Nam tin hoặc nhận giúp. Việc Nam nhắn Tùng quay về và phần đối đáp tới câu hỏi còn đụng vào đồ gì đã được duyệt. Tùng chưa trả lời hoặc chứng kiến bản sao.
 
 Nam định gọi lại cho Tùng, ngón tay dừng trên nút gọi rồi chuyển sang nhắn:
 > Về phòng đi. Tao nói thật.
@@ -265,3 +266,84 @@ Nam liếc về phía bếp, rồi nhớ đến cái áo trên người kia.
 > Ngoài chén với cái áo, mày còn đụng vào cái gì?
 
 **Liên tục hành động:** Nam vẫn trong phòng và cửa còn gài chốt. Người kia ở hành lang, không nhìn được màn hình hoặc giấy tờ bên trong. Mọi câu trao đổi diễn ra qua cửa; kiểm tra căn cước chưa xác lập luật siêu nhiên. Chưa phát sinh vòi nước chảy: ở cảnh đầu tiếng nước đã ngừng.
+
+**Cách duyệt từ đây:** chủ repo xem trực tiếp file. Mỗi lượt chỉ cập nhật một phần kế tiếp, ghi rõ chưa duyệt; báo ngắn nội dung thay đổi và đường dẫn, không chép lại kịch bản vào chat. Vẫn chốt lần lượt, không suy ra được phép viết hoặc duyệt cả truyện.
+
+## Lời mời đầu tiên — đề xuất của GPT-6.1 Sol, chờ duyệt
+
+**Hướng sửa theo yêu cầu:** người kia chủ động mời giúp; Nam suy nghĩ về lợi–hại, còn phân vân và từ chối trước. Một gợi ý có ích được cậu tự kiểm tra mới khiến cậu chịu thử trong giới hạn. Đây là bản thay cho phương án nhận lời ngay sau khi bị nhóm giục bài; phần này chưa được duyệt.
+
+**NGƯỜI KIA:**
+> Cây chổi nữa. Tao quét cạnh bếp. Còn lại không đụng.
+
+Nam nhìn góc bếp rồi liếc lại ngăn kéo vừa kiểm tra. Cậu chưa thấy mất thứ gì.
+
+Điện thoại rung. Nhóm làm bài đang hỏi phần mở đầu.
+
+**TIN NHẮN NHÓM — chữ trên màn hình, không đọc thành lời:**
+> Nam, phần mở đầu đâu? Tối nay phải ghép rồi.
+
+Ngay phía trên là tin nhắn hôm qua của cậu:
+> Tao làm gần xong rồi.
+
+Nam mở tài liệu chung trên điện thoại. Phần mình vẫn trống.
+
+**NAM — [annoyed], lẩm bẩm đủ để người ngoài cửa nghe:**
+> Mở đầu thôi mà giục hoài.
+
+**NGƯỜI KIA — chủ động gợi, giọng thân thiện:**
+> Bí thì tao nghĩ giúp cho. Mày đỡ ngồi làm.
+
+**NAM — ĐỘC THOẠI NỘI TÂM, không nói thành tiếng:**
+> Nó làm được thật thì khỏe. Đống chén mình ngán cả tối, nó lại tự đi rửa.
+
+Nam nhìn về góc bếp, chỗ người kia vừa đứng.
+
+**NAM — ĐỘC THOẠI NỘI TÂM:**
+> Nhưng nó đã đứng trong phòng lúc mình ngủ. Tự lấy áo mặc. Cái mặt ấy mà cầm thêm điện thoại của mình thì ai biết được?
+
+Cậu kéo điện thoại sát lại.
+
+**NAM — ĐỘC THOẠI NỘI TÂM:**
+> Ít ra bảo dừng thì nó dừng. Bảo ra ngoài cũng ra. Đồ chưa mất thứ gì… Chưa mất thôi.
+
+**NAM — nói qua cửa:**
+> Không cần. Tao tự làm. Mày cứ đứng đó.
+
+**NGƯỜI KIA:**
+> Ừ.
+
+Nam mở hướng dẫn của nhóm, gõ một câu chào rồi xóa. Cậu chống cằm, đọc thành tiếng:
+
+**NAM — bực với phần việc trước mắt:**
+> “Nêu lý do chọn đề tài”… Biết rồi, viết sao mới được chứ.
+
+**NGƯỜI KIA — chỉ gợi một bước, không đòi vào phòng:**
+> Vậy bỏ câu chào lại sau. Mày chọn đề vì cái gì thì nói trước. Một câu bình thường cũng được, rồi sửa sau.
+
+Nam ngừng tay. Cậu kéo lên phần tin nhắn lúc nhóm chọn đề. Chính cậu đã đề nghị nó vì một chuyện từng gặp. Cậu gõ lại chuyện ấy, ngắn ngủn. Trang đã có một dòng.
+
+Nam nhìn ra cửa.
+
+**NAM — ĐỘC THOẠI NỘI TÂM, tự trấn an nhưng còn phân vân:**
+> Nó có cần vào đây đâu. Mình nghe, thấy nhảm thì bỏ. Chưa phải đưa nó cái gì.
+
+**NAM — [hesitant], đặt giới hạn:**
+> Tao không mở cửa, cũng không đưa máy đâu.
+
+**NGƯỜI KIA — lời mời nhẹ, hạ cảm giác phải cam kết:**
+> Có cần đâu. Tao nói thử, mày thấy được thì lấy.
+
+Nam đọc tên đề tài qua cửa, giọng còn dè chừng.
+
+**NAM:**
+> Hai câu thôi. Đừng làm hết.
+
+**NGƯỜI KIA:**
+> Ừ. Hai câu.
+
+Cửa vẫn chốt. Nam chạm vào dòng tiếp theo trên điện thoại rồi dừng, chờ nghe.
+
+**Điểm dừng bản thiết kế thử:** Nam vừa nhận thử lời đề nghị, chưa tin hoàn toàn, chưa mở cửa hoặc giao quyền tiếp cận tài khoản/đồ đạc. Nội dung hai câu mở đầu và lần giao việc kế tiếp chưa viết; chủ repo muốn thử thiết kế đoạn hiện có trước khi phát triển thêm.
+
+**Kiểm tra liên tục:** người kia chỉ nghe những câu Nam nói thành tiếng, không đọc màn hình hoặc nghe độc thoại nội tâm. Gợi ý giúp Nam tự viết được dòng đầu là tác động mới trước lúc nhận thử; việc còn đồ/được tuân thủ chỉ làm giảm nguy cơ, không tự chứng minh người kia an toàn. Nam dùng điện thoại sẵn có; ghế vẫn đối diện cửa, không tự biến thành vật chắn cửa. Áo Nam đã bị người kia mặc, không đồng thời nằm trên giường; vòi nước đã ngừng từ cảnh đầu. Tin nhắn là lớp hình, chưa thêm vai thoại mới. Suy nghĩ của Nam là đánh giá chủ quan, không xác nhận quy luật siêu nhiên.
