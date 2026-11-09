@@ -4,6 +4,7 @@ Series truyện giả định đời thường Việt Nam, đang mở thành vũ
 
 | Mục | Dùng để làm gì |
 |---|---|
+| [THIET-KE-NHAN-VAT.md](THIET-KE-NHAN-VAT.md) | Hướng thiết kế SVG đã chọn, nét chung và giới hạn của mẫu thử tĩnh |
 | [VU-TRU.md](VU-TRU.md) | Luật và thông tin dùng chung riêng cho series, hồ sơ thực thể đầu tiên, phần đã chốt/phần đề xuất |
 | [Hồ sơ 1 — Tin nhắn chưa gửi](tap-01-tin-nhan-chua-gui/README.md) | Kịch bản, lời đọc, asset và kế hoạch dựng của truyện đầu |
 | [Hồ sơ 2 — Người làm thay](ho-so-02-nguoi-lam-thay/README.md) | Đang thảo luận từng cảnh; nam sinh viên lười nhác và người giống hệt dần thay thế cậu; chưa chốt cảnh 1 |

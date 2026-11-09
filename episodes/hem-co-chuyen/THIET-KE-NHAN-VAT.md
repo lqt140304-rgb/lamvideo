@@ -1,0 +1,19 @@
+# Hẻm Có Chuyện — hướng thiết kế nhân vật
+
+**Đã chọn ngày 09/11/2026:** chủ repo thích cách vẽ thứ 2 trong [bảng SVG thử](ho-so-02-nguoi-lam-thay/assets/thiet-ke/character-svg-v1.png), phía phải, và yêu cầu cập nhật GitHub. Dùng đây làm hướng mỹ thuật cho thiết kế mới; lựa chọn này không đồng nghĩa toàn bộ dàn nhân vật đã được vẽ lại hoặc hoàn thiện rig.
+
+## Nét cần giữ
+
+- Cartoon ít chi tiết, dễ nhận diện và dễ vẽ lại; viền rõ, mảng màu gọn, đường nét mềm.
+- Vai nối thân tự nhiên; áo đi theo khối người, hông nối với đùi có bề dày; tránh thân hình hộp và chân như que.
+- Tóc bằng vài mảng lớn. Mắt, mí, lông mày và miệng đảm nhiệm diễn xuất, thay vì thêm nhiều nếp mặt hoặc chi tiết trang trí.
+- Màu da tự nhiên được cách điệu; mảng sáng/tối đơn giản. Giữ nền tảng để dùng với bối cảnh 2.5D của series.
+- Mỗi người có dáng, mặt, tóc và tư thế riêng; cùng ngôn ngữ nét vẽ không có nghĩa dùng một khuôn mặt cho cả dàn.
+
+The Simpsons chỉ là tham chiếu về sự đơn giản và khả năng nhận diện mà chủ repo nêu. Không lấy nguyên nhân vật hoặc áp diện mạo của bộ phim đó vào series.
+
+## Phạm vi và cách áp dụng
+
+Mẫu được chọn đang nằm trong [asset Hồ sơ 2](ho-so-02-nguoi-lam-thay/ASSET.md); nguồn React/SVG được giữ ở đó để sửa. Không sao chép mẫu riêng của tập vào nhiều thư mục rồi tạo các bản lệch nhau. Chỉ chuyển thành thư viện rig chung sau khi đã tách phần tái sử dụng và kiểm tra.
+
+Đã kiểm tra ảnh tĩnh với ba biểu cảm. Chưa kiểm tra khẩu hình khi nói, chuyển góc, khớp, cầm nắm hoặc tương tác. Khi được giao sản xuất, kiểm tra storyboard rồi animatic theo quy trình repo; không xem ảnh đẹp là bằng chứng motion đã đạt. Các thiết kế và bản dựng Hồ sơ 1 giữ nguyên cho tới khi có yêu cầu thay đổi cụ thể.
