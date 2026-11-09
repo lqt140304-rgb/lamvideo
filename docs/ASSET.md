@@ -1,5 +1,7 @@
 # Danh mục asset dùng chung
 
+**Bộ tư thế/khớp Hồ sơ 2:** [nguồn và hướng dẫn](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/rig/RIG-NHAN-VAT.md), dùng lại bộ Nam–Người Kia–Tùng hiện có. Lưu trong hồ sơ; chưa chuyển thành rig chung hoặc coi là motion toàn phim đã duyệt.
+
 **Mỹ thuật khi tạo/sửa asset:** đọc [quy chuẩn chung](PHONG-CACH-MY-THUAT.md). Cả nhân vật lẫn nền và đạo cụ dùng nét cong mềm, khối tròn đầy; kiểm tra cùng khung, không mặc định asset cũ đã đạt chỉ vì được ghi trong danh mục.
 
 Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng tập. Nhân vật, đạo cụ hoặc hình thử dành riêng một tập phải được ghi trong `ASSET.md` của tập đó.

@@ -1,5 +1,7 @@
 # Hẻm Có Chuyện — Hồ sơ 2: Người làm thay
 
+**Tư thế và khớp mới:** [xem bảng](assets/rig/tu-the-khop.png) và [hướng dẫn rig](assets/rig/RIG-NHAN-VAT.md). Bổ sung cho bộ nhân vật hiện có, có trình xem tương tác; chưa thay timeline hoặc khởi động dựng phim.
+
 **Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.
 
 **Trạng thái ngày 09/11/2026:** đang cùng chủ repo phát triển từng cảnh. “Người làm thay” là tên làm việc. Các đoạn đầu do GPT-6 Astra đề xuất; từ yêu cầu tiếp theo ngày 09/11/2026 chuyển sang **GPT-6.1 Sol để tiết kiệm**. Người dùng chốt nội dung lần lượt. Chưa có kịch bản hoàn chỉnh được duyệt.
