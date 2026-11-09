@@ -49,6 +49,32 @@
   <!-- LAYER 3: BÀN HỌC SINH VIÊN 3D BẰNG GỖ CÔNG NGHIỆP TRUNG TÂM -->
   <!-- ======================================================================== -->
   <g id="desk-3d-unit" transform="translate(720 470)">
+    <!-- GIÁ SÁCH GỖ 2 TẦNG LIỀN BÀN HỌC SINH VIÊN (Kinh điển bàn sinh viên) -->
+    <g transform="translate(0 -160)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
+      <!-- Khung tủ giá sách trên mặt bàn -->
+      <polygon points="-70,0 920,0 930,170 -60,170" fill="#3a281c" stroke="#282b2b" stroke-width="4.5"/>
+      <line x1="-65" y1="85" x2="925" y2="85" stroke="#282b2b" stroke-width="4"/> <!-- Ngăn giữa -->
+      <line x1="430" y1="0" x2="430" y2="170" stroke="#282b2b" stroke-width="4"/> <!-- Vách ngăn dọc -->
+
+      <!-- CÁC CUỐN SÁCH GIÁO TRÌNH ĐẠI HỌC XẾP TRÊN GIÁ SÁCH -->
+      <!-- Tầng 1: Sách dựng đứng (Toán cao cấp, Triết học Mác-Lênin, Kinh tế vi mô) -->
+      <g stroke="#282b2b" stroke-width="2.5">
+        <rect x="-50" y="15" width="22" height="65" fill="#dc2626"/>
+        <text x="-40" y="50" font-family="Arial" font-size="6" font-weight="bold" fill="#fff" transform="rotate(-90 -40 50)">TRIẾT HỌC</text>
+        <rect x="-25" y="10" width="25" height="70" fill="#2563eb"/>
+        <text x="-15" y="50" font-family="Arial" font-size="6" font-weight="bold" fill="#fff" transform="rotate(-90 -15 50)">TOÁN C.CẤP</text>
+        <rect x="3" y="18" width="20" height="62" fill="#16a34a"/>
+        <text x="13" y="50" font-family="Arial" font-size="6" font-weight="bold" fill="#fff" transform="rotate(-90 13 50)">KINH TẾ</text>
+        <!-- Chồng vở ghi A4 xếp nằm ngang -->
+        <polygon points="30,60 120,60 125,78 35,78" fill="#f8fafc"/>
+        <polygon points="28,45 118,45 120,60 30,60" fill="#fef08a"/>
+      </g>
+
+      <!-- Tờ giấy note dán trên vách giá sách: Lịch thi & Đề tài nhóm -->
+      <rect x="160" y="20" width="45" height="45" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" transform="rotate(-8 160 20)"/>
+      <text x="165" y="38" font-family="Arial" font-size="6.5" font-weight="bold" fill="#854d0e" transform="rotate(-8 160 20)">NỘP BÀI!</text>
+      <text x="165" y="48" font-family="Arial" font-size="5" fill="#b91c1c" transform="rotate(-8 160 20)">Hôm nay 23h59</text>
+    </g>
     <!-- Bóng đổ toàn bộ bàn học lên sàn đêm -->
     <polygon points="-50,460 1050,460 980,570 -130,570" fill="#000" opacity="0.5" filter="url(#night-shadow)"/>
 
