@@ -1,14 +1,17 @@
-# Tin nhắn chưa gửi — dựng cảnh bản 13
+# Tin nhắn chưa gửi — dựng cảnh bản 14
 
-**Hiện hành bản 13 — 08/11/2026:** thêm cameo chân dung/lọ và cảnh hé lộ quái vật đồng hồ ba mắt; [HE-LO-QUAI-VAT](HE-LO-QUAI-VAT.md) và [VU-TRU series](../VU-TRU.md) là phần mở rộng. Giữ nguyên lời/thẻ bản 12, thêm 31 giây không lời: 85 giây nghỉ/cảnh không lời định lượng +24 giây mở; 10 phần C0–C9, 40 cue (35 cũ +C8-E/C9-A…D). Ước tính 7:45–8:58, chưa đo bản mới. Animatic/media hiện có vẫn bản 11; chưa tạo asset hoặc render quái vật.
+**Hiện hành bản 14 — 09/11/2026:** rút đường mở thành phố–cú–cửa tiệm còn 14 giây; diễn đủ Thảo nghịch đồng hồ → bị quát → Duy che em/xin lỗi/hỏi sửa → Lộc xem máy rồi báo giá. Rút gia cảnh đầu thành một đoạn ngắn, đưa thông tin dì Hạnh vào đúng chỗ ở C2. Chi tiết diễn/FX và nghiệm thu ở [BIEN-TAP-V14.md](BIEN-TAP-V14.md). Giữ ba giao kèo và phần kết bản 13.
+
+Bản 14: **1,092 đơn vị cách trắng, 4,976 ký tự gồm LF, 89 lượt lời**; người dẫn **264 đơn vị**. Giữ **40 cue/C0–C9**; C0 **14 giây**, các khoảng nghỉ được ghi trong nguồn cộng **99.2 giây** (không cộng lặp các khoảng đó khi lập timeline). Chưa đo thời lượng giọng hoặc phim bản 14; các đoạn dừng riêng trong cue plan cũ phải được đối chiếu trước khi cộng.
+
+**Trạng thái media bản 14:** đã có animatic v3 bản 13 (8:45,3 theo hồ sơ tập), chưa duyệt; không phải phim khớp lời mới. Lượt sửa này chỉ cập nhật văn bản và phân vai. Không tạo giọng, mix, staging, timeline hoặc MP4 mới. `cues.json`/voice-manifest/timeline giữ nguồn cũ để chặn dựng nhầm; Claude cần ánh xạ lại C0–C2 và retime diễn trước khi dựng.
 
 
-Lời sạch/thẻ bản 13 giữ nguyên bản 12: **1.089 đơn vị cách trắng, 4.948 ký tự LF, 85 lượt nói**; người dẫn **317 đơn vị**. Tổng **85 giây không lời định lượng +24 giây mở**, **40 cue/C0–C9**, ước tính **7:45–8:58**; chưa có số đo media mới.
-
-**Trạng thái media:** đã có animatic v2 đủ 35 cue, 11:48,416 (854×480, 30 fps), giọng theo bản 11. Nguồn bản 13 giữ lời bản 12 và thêm cameo/cảnh hé lộ; **MP4, voice-manifest và timeline hiện có vẫn là bản trước khi cắt**, chưa được dựng lại. Demo asset 146 giây chỉ là lịch sử, không phải animatic toàn tập hiện tại. Lượt này không tạo giọng trả phí hoặc render mới.
 
 
-**Định dạng hiện hành — bản 13, 08/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
+
+
+**Định dạng hiện hành — bản 14, 09/11/2026:** người dẫn tiết chế + thoại nhân vật; chỉ kể thông tin hoặc hệ quả khó nhìn thấy. Mọi động tác đã thể hiện bằng hình chuyển vào chỉ dẫn **Không đọc**. Toàn bộ cánh đồng C6–C7 không có người dẫn, kể cả lúc mẹ tan và hai em nắm tay. Đây vẫn là phim có người kể ở các phần khác.
 
 
 
@@ -37,7 +40,7 @@ C8-E đặt sau rời tiệm, trước ngưỡng nhà: 3 giây mặt tiền rút
 
 | Nhịp / cue | Cách đặt và nối góc |
 |---|---|
-| C0-A…F | Giữ đường trời sao → cú → hẻm → hai trẻ theo phác thảo. Ghép kín qua mái/nhịp chớp mắt khi cần đổi cỡ; nối hướng/đà, cú và mái cùng mốc, trẻ đã ở cửa từ trước. Máy giảm tốc khi tìm tới hai trẻ; không khựng ở mỗi cue hoặc đổi sang zoom xuyên hình. |
+| C0-A…F | Giữ đường trời sao → cú → hẻm → hai trẻ theo phác thảo trong 14 giây; mốc theo BIEN-TAP-V14. Ghép kín qua mái/nhịp chớp mắt khi cần đổi cỡ; nối hướng/đà, cú và mái cùng mốc, trẻ đã ở cửa từ trước. Máy giảm tốc khi tìm tới hai trẻ; không khựng ở mỗi cue hoặc đổi sang zoom xuyên hình. |
 | C1 / đoạn thử Lộc–hai trẻ | Góc chung cho thấy khoảng cách và tiền, cắt cận Lộc ở câu gắt; câu mỉa mai có thể tiếp dưới cận Thảo. Theo ánh mắt em sang Duy, giữ phản ứng anh che em trước khi về góc Lộc quay bàn sau. Chuyển êm ở nhịp nhìn/nghe; điểm cắt đột ngột của câu gắt vẫn dứt khoát, không bắt máy trôi ở mọi câu. |
 | C2–C3 / ảnh và xin lỗi | Insert từ tay thật lấy/đặt ảnh rồi cận mắt Duy, về hai trẻ ở nhịp nhận lỗi. Dịch máy nhỏ khi khoảng cách hai anh em gần lại, dừng cho lời xin lỗi. Không quét máy qua lại theo từng người nói; giữ cùng bên trục và khớp tay/bút/ảnh khi dùng lại góc. |
 | C4–C5 / mất ký ức và giá | Để cận kiểm chứng có thời gian tìm kiếm; nhịp báo giá ưu tiên người đang nghe. G2 giữ cùng không gian, góc máy vững; chỉ C5-C dùng rung/nghiêng 1,6 giây trong khoảng nghỉ theo bản 8. Trả về tĩnh trước Thảo nhận G3; trắng/ù sẵn có che đổi sang 2:1, không thêm chuyển cảnh. |
@@ -152,7 +155,7 @@ Các mã hex chỉ là mẫu tham chiếu cho mảng nền/nguồn sáng; điề
 
 **Cách làm vừa đủ để duyệt:** chỉnh bảng màu/ánh sáng của asset hiện có; bụi vàng dự kiến bằng lớp hạt đơn giản có chuyển động xác định, không cần sinh ảnh từng khung hay gọi dịch vụ trả phí. Riêng lần mẹ tan đã có [bản thử VFX](VFX-ME-TAN.md) trong mã ShC7_B: tan mềm 3,8 giây, hạt từ viền tóc/gấu áo và tắt trước đoạn lau nước mắt–nắm tay 8 giây; chưa đồng bộ giọng hoặc duyệt trong toàn bộ 35 cue. Khi animatic cho thấy hạt làm loãng diễn xuất, giảm mật độ/độ sáng hoặc tắt lớp hạt, vẫn giữ nhịp tan, tay và bóng đúng.
 
-**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Giữ 35 cue, lời/thẻ bản 12, 54 giây không lời, mở 24 giây và âm bản 9. Đã xuất riêng [bản thử mẹ tan](VFX-ME-TAN.md); các chuyển khung/màu toàn tập và việc căn giọng cuối vẫn chưa được dựng/duyệt đồng bộ.
+**Duyệt cùng hai bước hiện hành:** storyboard đối chiếu các mốc C0-E, C1-A, C5-B, C5-C, C6-A, C7-C trước/sau tan, C8-A và C8-D trên cùng bảng để thấy đường màu. Animatic kiểm tra trắng/đổi khung, màu G2 trở lại, hạt/bóng cùng tan và cú cắt về tiệm. Soi ở kích thước điện thoại và bản giảm màu để chắc mắt/tay/giấy/điểm tì còn rõ; không xem dải đen là thêm trường nhìn. Ghi chú thử màu bản 12: trước đây giữ 35 cue, lời/thẻ bản 12, 54 giây không lời, mở 24 giây và âm bản 9. Khi dựng hiện tại dùng 40 cue và mốc bản 14 ở đầu tài liệu. Đã xuất riêng [bản thử mẹ tan](VFX-ME-TAN.md); các chuyển khung/màu toàn tập và việc căn giọng cuối vẫn chưa được dựng/duyệt đồng bộ.
 
 ### Cảnh 0 — Thành phố, mắt cú và hai trẻ (24 giây)
 
@@ -161,56 +164,58 @@ Theo thứ tự hai phác thảo gửi trong chat ngày 07/11/2026. Đây là th
 **C0-A · Toàn thành phố, trời sao và tiêu đề**
 - **Khung / nghiêng / rung:** 16:9 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Âm xe phố xa tạo chiều rộng; nhạc không lời gợi tò mò, vào mềm dưới tựa phim. Không còi sát máy hoặc tiếng người rõ chữ.
-- 00:00–00:04 · 4 giây. 24 mm; nhìn từ cao hơn mái nhà; đường chân trời ở nửa dưới.
+- 00:00–00:03 · 3 giây. 24 mm; nhìn từ cao hơn mái nhà; đường chân trời ở nửa dưới.
 - Máy gần tĩnh rồi bắt đầu nghiêng xuống; trời nét đủ đọc sao, thành phố có lớp gần–xa; tiêu đề “TIN NHẮN CHƯA GỬI” nằm trong khoảng trời.
 - Trời xa giữ ổn định tương đối, skyline giữa dịch ít, mái gần dịch nhiều hơn; không cho sao trôi cùng tốc độ tiền cảnh. Máy roll 0°, rung 0 px/0°. Tiêu đề đọc được trong khoảng trời, không che nhà quan trọng.
 
 **C0-B · Hạ qua mái nhà tới cú**
 - **Khung / nghiêng / rung:** 16:9 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Tiếng phố xa dần bị nhà/mái che, tiếng hẻm có vị trí rõ hơn. Giữ liền nền qua chỗ ghép hình; chuyển máy không tự phát tiếng vút.
-- 00:04–00:08 · 4 giây. 35–50 mm cho bố cục trung mái hiên; điểm nhìn hạ về thanh đỡ.
+- 00:03–00:05 · 2 giây. 35–50 mm cho bố cục trung mái hiên; điểm nhìn hạ về thanh đỡ.
 - Tilt/hạ chậm theo đường cong, kết ở đầu cú; mái nhà lướt tiền cảnh có thể che điểm ghép; tiêu đề mờ hết trước cận mắt.
 - Dùng mái/lằn tối hiên lướt qua để nối tấm toàn với tấm gần; giữ hướng chuyển xuống và nhịp không giật. Không yêu cầu mô phỏng bay hàng chục mét bằng một tranh hoặc đổi tiêu cự thật trong engine.
 
 **C0-C · Cận mắt cú**
 - **Khung / nghiêng / rung:** 16:9 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Giữ nền hẻm nhỏ và nhạc mở liền mạch. Chớp mắt không có tiếng; nếu dùng một tiếng cú ngắn, đặt ở đây, không nâng thành âm hù.
-- 00:08–00:10 · 2 giây. 85 mm tương đương cận/macro; ngang tầm mắt cú; vùng nét mắt.
-- Chuyển nét vào đồng tử và viền lông trong khoảng 0,6 giây rồi giữ; cú chớp một lần, phản chiếu ánh đèn bình thường, không mắt phát sáng.
+- 00:05–00:06 · 1 giây. 85 mm tương đương cận/macro; ngang tầm mắt cú; vùng nét mắt.
+- Mắt gần nét từ C0-B, tinh nét 0,2 giây rồi giữ; cú có thể chớp nếu đủ nhịp, phản chiếu ánh đèn bình thường, không mắt phát sáng.
 - Cần hình cận đầu/mắt riêng đủ độ phân giải và khớp mảng lông của hình trung; không phóng mắt từ ảnh toàn hẻm. Cú đứng yên, chớp/ngoảnh rất nhẹ, móng không rời thanh. Lấy nét có điểm đầu–cuối, không blur cả khung.
 
 **C0-D · Lùi ra từ cú, mở con hẻm**
 - **Khung / nghiêng / rung:** 16:9 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Mở không gian nghe cùng hình lùi; xe ở ngoài đầu ngõ, không chạy xuyên con ngõ cụt. Không tiếng bước người nền đã bị bỏ khỏi asset.
-- 00:10–00:16 · 6 giây. Từ bố cục cận sang rộng 35 mm tương đương; giữ cùng bên nhìn.
+- 00:06–00:09 · 3 giây. Từ bố cục cận sang rộng 35 mm tương đương; giữ cùng bên nhìn.
 - Dolly-out giả lập nhiều lớp: lộ đầu/thân cú, thanh đỡ, đường, nhà hai bên và tiệm Lộc; cú/mái ở gần trái, tiệm ở giữa-xa phải; không chỉ scale một tranh.
 - Chuẩn bị cận đầu → trung toàn cú/thanh → lớp hẻm rộng có vùng mái/đường sẽ lộ. Ghép kín tại nhịp chớp hoặc mảng tối nếu cần; dùng chung mốc mắt và thanh để không nhảy tỷ lệ. Người/nhà giữ mặt sàn và điểm tụ, không kéo méo phối cảnh khi mở rộng.
 
 **C0-E · Chuyển từ cú sang hai anh em trước cửa**
 - **Khung / nghiêng / rung:** 16:9 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Quạt từ trong tiệm dần nghe rõ qua cửa mở, nằm sau hai trẻ; tiếng phố còn xa. Nhạc mở rút nhẹ, không đổi sang một bài mới chỉ vì chuyển nét.
-- 00:16–00:21 · 5 giây. 35–50 mm bố cục trung rộng; máy hạ về cao 1,2 m ở cuối.
+- 00:09–00:12 · 3 giây. 35–50 mm bố cục trung rộng; máy hạ về cao 1,2 m ở cuối.
 - Trượt chéo nhẹ sang phải, chuyển nét khỏi cú sang Duy/Thảo, dừng ở cửa; giữ ngõ trống như asset mới, không thêm bóng người; Duy đứng gần cửa hơn, em nép sau anh.
 - Cú ở mép trái mềm dần, trẻ và cửa rõ dần. Giữ đường trống theo asset mới để đọc nhịp Thảo níu áo/Duy che em; không thêm người đi ngang. Máy giảm tốc tới điểm dừng, không đảo phía trục hoặc kéo mặt trẻ theo pan.
 
 **C0-F · Giữ cửa rồi hai trẻ bước vào**
 - **Khung / nghiêng / rung:** 16:9 · roll 0° · rung 0 px.
 - **Âm thanh chi tiết:** Bước giày vải của Duy và dép của Thảo khớp chân chạm nền; khi qua cửa, nền hẻm lùi sau, quạt thành nền phòng. Nhạc mở hết trước câu “Để xuống”; cửa đang mở nên không thêm tiếng mở/sập cửa.
-- 00:21–00:24 · 3 giây. 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước.
-- Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới để Thảo tò mò đưa tay tới đồng hồ, sang C1 mới nhấc đồng hồ nhỏ rồi nghe “Để xuống”.
-- Duy giữ túi máy trong một tay, tay còn lại gần em; em níu áo/nhìn vào trong. Duy dẫn, Thảo theo, cả hai có bước qua ngưỡng rõ. Sau nối C1, Thảo nhấc đồng hồ nhỏ khỏi mặt kệ thấp gần cửa; lời đầu nói trong tiệm. Em đặt lại đúng kệ rồi rút tay, không thả rơi hoặc tự đổi vị trí đồ.
+- 00:12–00:14 · 2 giây. 50 mm ngoại cửa, nối góc 35 mm nội C1-A theo bước.
+- Giữ một nhịp nhìn nhau; Duy dẫn em qua ngưỡng, cắt kín qua khung cửa; vào vùng khách mới để Thảo tò mò đưa tay tới đồng hồ, sang C1 mới nhấc/xoay chìa, hỏi anh rồi nghe Lộc quát.
+- Duy giữ túi máy trong một tay, tay còn lại gần em; em níu áo/nhìn vào trong. Duy dẫn, Thảo theo, cả hai có bước qua ngưỡng rõ. Sau nối C1, một đoạn dẫn ngắn chạy dưới nhịp hai trẻ nhìn tiệm; Thảo nhấc đồng hồ rồi hỏi anh trước khi Lộc quát. Em đặt lại đúng kệ rồi rút tay, không thả rơi hoặc tự đổi vị trí đồ.
 
 **Nguyên tắc phối cảnh/tiết kiệm:** các lens trên là mục tiêu bố cục khác nhau. Muốn giống đường máy mềm qua cỡ cực rộng–cận–rộng cần nhiều tấm hình khớp và điểm ghép, chưa phải khả năng một camera 3D đã có. Duyệt skyline, mắt cú và khung cuối trước khi hoàn thiện lớp bị che; giữ ngõ trống như asset mới, dùng lại mặt ngoài tiệm cho C8 nếu góc phù hợp. Không hứa tiết kiệm quota theo phần trăm khi chưa render thử.
 
-### Cảnh 1 — Thiếu tiền
+### Cảnh 1 — Đừng đụng vào — thiếu tiền
+
+**Bản 14 thay nhịp đầu:** thực hiện bảng beat/FX trong [BIEN-TAP-V14](BIEN-TAP-V14.md). Gia cảnh đầu chỉ một đoạn; hành động nghịch đồ phải thấy trước câu quát, Duy hỏi sửa trước báo giá. C1-A/D/B dùng lại theo từng beat; chưa cần thêm cue hoặc bối cảnh mới.
 
 19 giờ, tiệm cuối hẻm cách nhà ba căn. Duy 16 đứng trái, Thảo 8 phải gần cửa, nép sau anh; Lộc đầu tiên ở bàn sửa sau rồi bước tới quầy. Cửa mở, kệ trái, bàn sửa/đèn vàng sau, ánh hàng tạp hóa lạnh từ phải.
 
 **C1-A · Toàn vừa qua lớp kệ gần**
 - **Khung / nghiêng / rung:** 16:9 · roll 0° · rung 0 px.
-- **Âm thanh chi tiết:** Đặt lại đồng hồ nhỏ: một tiếng vỏ chạm mặt kệ vừa lực, không rơi/vỡ. Tua vít chạm quầy một tiếng khô ngay động tác trước khoảng nghỉ 1 giây; quạt tiếp tục. Lộc quay về bàn sau thì dụng cụ xa và kín hơn, không cùng độ gần như insert.
+- **Âm thanh chi tiết:** Đặt lại đồng hồ nhỏ: một tiếng vỏ chạm mặt kệ vừa lực, không rơi/vỡ. Trước khoảng nghỉ 1 giây ở tiền, tay Lộc chỉ khựng trên mép quầy; không thêm tiếng tua vít vì dụng cụ vẫn ở bàn sau. Quạt tiếp tục. Lộc quay về bàn sau thì dụng cụ xa và kín hơn, không cùng độ gần như insert.
 - 35 mm; cao 1,15 m; cách quầy 2,7 m. Nét chính ở mặt/tay đang truyền thông tin; nền dịu có mức, không che điểm nắm.
-- Khóa; Duy che em. Lộc từ bàn sau tới quầy, cuối C1 cầm tua vít quay về làm tiếp chiếc đồng hồ dở; điện thoại trẻ vẫn trên khăn.
+- Đầu cảnh máy còn trong túi Duy. Diễn đủ tò mò–nhấc–xoay chìa–quát–đặt–che em–xin lỗi/hỏi sửa. Lộc tới quầy sau câu hỏi, xem rồi đặt lại máy; không sửa trước G1. Cuối C1 ông quay bàn sau, máy trẻ ở lại trên khăn.
 - Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
 
 **C1-B · Cận Lộc qua kính**
@@ -234,7 +239,7 @@ Theo thứ tự hai phác thảo gửi trong chat ngày 07/11/2026. Đây là th
 - Sau lời mỉa mai, Thảo sợ hãi, mắt rơm rớm, níu áo; Duy đỡ tay và cầm giúp hai tờ tiền, chưa đưa cho Lộc; không nhạc an ủi.
 - Trở góc chung/cận cùng trục theo lời; cue không phải timecode cố định trước khi có audio.
 
-**Nhịp cuối C1:** “Cất đi” gắt và dứt; câu hỏi tiếp theo chậm, mỉa mai, hướng vào Thảo đang chìa tiền. Cắt C1-D giữ phản ứng sợ, nước mắt chỉ mới ứa. Về C1-A cho thấy Lộc nhặt tua vít, quay về bàn sau; dùng C1-B ở bàn sau cho câu gợi giá khác rồi nụ cười nham hiểm. Để tiếng dụng cụ khẽ chạm đồng hồ và quạt hiện rõ sau khi ông quay đi; không thêm tiếng cười lớn, âm hù hoặc ánh trắng/ù của G3. C1-B chỉ dùng ở bàn sau, không kéo cùng crop đó theo Lộc ra quầy; câu mỉa mai ở góc chung, tiếng ông có thể tiếp dưới phản ứng hai trẻ.
+**Nhịp cuối C1:** “Cất đi” gắt và dứt; câu hỏi tiếp theo chậm, mỉa mai, hướng vào Thảo đang chìa tiền. Cắt C1-D giữ phản ứng sợ, nước mắt chỉ mới ứa. Về C1-A cho thấy Lộc quay về bàn sau rồi mới nhặt lại tua vít; dùng C1-B ở bàn sau cho câu gợi giá khác rồi nụ cười nham hiểm. Để tiếng dụng cụ khẽ chạm đồng hồ và quạt hiện rõ sau khi ông quay đi; không thêm tiếng cười lớn, âm hù hoặc ánh trắng/ù của G3. C1-B chỉ dùng ở bàn sau, không kéo cùng crop đó theo Lộc ra quầy; câu mỉa mai ở góc chung, tiếng ông có thể tiếp dưới phản ứng hai trẻ.
 
 ### Cảnh 2 — Cái giá sửa máy
 

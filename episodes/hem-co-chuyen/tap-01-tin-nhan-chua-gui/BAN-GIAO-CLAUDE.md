@@ -1,7 +1,22 @@
-# Bàn giao dựng cho Claude — bản 13
+# Bàn giao dựng cho Claude — bản 14
 
-**Hiện hành bản 13 — 08/11/2026:** thêm cameo chân dung/lọ và cảnh hé lộ quái vật đồng hồ ba mắt; [HE-LO-QUAI-VAT](HE-LO-QUAI-VAT.md) và [VU-TRU series](../VU-TRU.md) là phần mở rộng. Giữ nguyên lời/thẻ bản 12, thêm 31 giây không lời: 85 giây nghỉ/cảnh không lời định lượng +24 giây mở; 10 phần C0–C9, 40 cue (35 cũ +C8-E/C9-A…D). Ước tính 7:45–8:58, chưa đo bản mới. Animatic/media hiện có vẫn bản 11; chưa tạo asset hoặc render quái vật.
+**Hiện hành bản 14 — 09/11/2026:** rút đường mở thành phố–cú–cửa tiệm còn 14 giây; diễn đủ Thảo nghịch đồng hồ → bị quát → Duy che em/xin lỗi/hỏi sửa → Lộc xem máy rồi báo giá. Rút gia cảnh đầu thành một đoạn ngắn, đưa thông tin dì Hạnh vào đúng chỗ ở C2. Chi tiết diễn/FX và nghiệm thu ở [BIEN-TAP-V14.md](BIEN-TAP-V14.md). Giữ ba giao kèo và phần kết bản 13.
 
+Bản 14: **1,092 đơn vị cách trắng, 4,976 ký tự gồm LF, 89 lượt lời**; người dẫn **264 đơn vị**. Giữ **40 cue/C0–C9**; C0 **14 giây**, các khoảng nghỉ được ghi trong nguồn cộng **99.2 giây** (không cộng lặp các khoảng đó khi lập timeline). Chưa đo thời lượng giọng hoặc phim bản 14; các đoạn dừng riêng trong cue plan cũ phải được đối chiếu trước khi cộng.
+
+**Trạng thái media bản 14:** đã có animatic v3 bản 13 (8:45,3 theo hồ sơ tập), chưa duyệt; không phải phim khớp lời mới. Lượt sửa này chỉ cập nhật văn bản và phân vai. Không tạo giọng, mix, staging, timeline hoặc MP4 mới. `cues.json`/voice-manifest/timeline giữ nguồn cũ để chặn dựng nhầm; Claude cần ánh xạ lại C0–C2 và retime diễn trước khi dựng.
+
+
+
+## Dựng bản 14 trước
+
+Đọc BIEN-TAP-V14 cùng KICH-BAN và DUNG-CANH. Giữ cast/asset và các take cũ khớp nội dung–vai–model–settings–tag. `voices.json` đã kiểm tra phân vai với nguồn 14, bản lời sạch/thẻ xuất lại từ cùng nguồn. **Không sửa hash cue/manifest cho khớp nếu chưa ánh xạ lại nội dung và staging.**
+
+1. Theo bảng item C1/C2 trong BIEN-TAP-V14, cập nhật cue plan; C0 đổi 3/2/1/3/3/2 giây. Staging C1 cũ không còn đúng mốc lấy máy/quát/đặt đồ; đừng chỉ đổi audio.
+2. Dựng thử liên tục từ vào cửa tới báo giá bằng asset cũ, giọng tạm/take phù hợp. Kiểm tra diễn với máy khóa trước; sau đó mới bật camera/focus/light/sound theo bảng FX. Không tự tạo TTS trả phí từ lượt sửa văn này.
+3. Retime theo audio đã kiểm tra, giữ môi trường liên tục, xuất bản nháp mới mang nhãn v14. Không nhận bản v3/v13 là kết quả sửa này. C6–C9 vẫn giữ luật và diễn bản 13.
+
+## Hướng dẫn nền bản 12–13 — lịch sử, áp dụng khi không bị bản 14 thay thế
 
 08/11/2026. Chủ repo giao Claude dựng; lượt Codex này biên tập văn và chuẩn bị dữ liệu, không khởi chạy TTS hoặc render phim thay Claude.
 

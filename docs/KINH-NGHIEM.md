@@ -4,6 +4,8 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 
 ## Câu chuyện và nhân quả
 
+- **Mở cảnh đột ngột rồi phải kể bù gia cảnh →** cho thấy tác nhân và phản ứng trước, để nhân vật nêu việc đến nhờ trước khi người kia báo giá/từ chối. Chỉ giữ thông tin nền cần cho lựa chọn ngay lúc đó. Hiệu ứng bám vào động tác, ánh mắt và vật liệu; tăng độ chi tiết không đồng nghĩa tăng rung, lóe hoặc tiếng hù. **Kiểm tra:** tắt lời kể thử một lượt vẫn hiểu ai làm gì/vì sao; khi thêm lời lại, không ngắt đôi cặp hỏi–đáp và không đọc lặp hành động.
+
 - **Cảnh hé lộ đẹp nhưng đổi mất luật đã kể →** theo dõi ai đang giữ từng ký ức/cảm giác/quyền sau trao đổi; vật lưu dấu có thể ghi giao kèo mà không cất toàn bộ thứ đã chuyển cho người khác. Phân biệt hình tượng, vật thật và điều nhân vật biết; dấu thời gian đảo trong một không gian không tự cho phép sửa lịch sử bên ngoài. **Kiểm tra:** sau reveal, lựa chọn và hệ quả của truyện chính còn nguyên; cameo có thể nhận lại nhưng không buộc người xem bỏ lỡ thông tin bắt buộc.
 
 - Khi có nhiều lần đánh đổi hoặc giải pháp liên tiếp, mỗi lần cần một mong muốn, kết quả và cái giá phân biệt được. Hệ quả lần trước phải dẫn đến nhu cầu lần sau; cho nhân vật hỏi lại bằng lời đời thường rồi cho thấy giá tác động ra sao. Vật lưu dấu như giấy, ảnh hoặc biên nhận cần được gọi rõ tác dụng khi xuất hiện, tránh khiến người xem tưởng có thêm luật hoặc bí ẩn.

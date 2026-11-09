@@ -1,6 +1,8 @@
 # Cue → shot → timeline — Tin nhắn chưa gửi
 
-## Ánh xạ bản 13 (đang dùng)
+**Nguồn hiện hành bản 14:** xem bảng item và beat mới ở [BIEN-TAP-V14](BIEN-TAP-V14.md). `cues.json`/timeline hiện giữ bản 13, phải ánh xạ/retime lại C0–C2 trước khi dựng; bảng mốc dưới không đại diện lời mới.
+
+## Ánh xạ bản 13 — lịch sử, không dùng nguyên cho bản 14
 
 09/11/2026. 40 cue, 56 đoạn, tổng 8:45. Bảng lập trước khi có đủ giọng nên mốc giờ và độ dài lệch với animatic v3; thứ tự cue và mục lời vẫn đúng. Bảng sinh từ `cues.json` + `timeline.json`.
 

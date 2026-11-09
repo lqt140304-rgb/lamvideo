@@ -1,8 +1,14 @@
-[stern] “Để xuống.”
+Mẹ mất hơn tháng. Hồi còn mẹ, mỗi lần bố say rồi đánh con, mẹ đều đứng chắn. Giờ Duy không dám để em ở nhà một mình.
 
-Nhà hai anh em cách tiệm ba căn. Mẹ mất hơn tháng, tiền nhà cứ vơi theo những cuộc rượu của bố. Dì Hạnh đầu hẻm thường gọi hai đứa sang ăn. Duy nhận phụ quán cho dì, nhưng chuyện trong nhà thì ít khi kể.
+[curious] “Anh ơi, cái này cũng hư hả?”
 
-Bố say thì chửi, có lần đánh cả hai đứa. Hồi còn mẹ, mẹ luôn đứng chắn cho con, dù bị bố mắng. Bây giờ, Duy cứ nghĩ mình phải thay mẹ làm việc đó.
+[stern] “Để xuống! Ai cho mày đụng vào?”
+
+[hesitant] “Cháu xin lỗi, em cháu không biết. Ông coi giùm cháu cái điện thoại này được không?”
+
+[coldly] “Máy bị gì?”
+
+[restrained] “Máy không lên nữa. Trong này còn đoạn ghi âm của mẹ… cháu chưa nghe được.”
 
 [coldly] “Tám trăm ngàn.”
 
@@ -32,7 +38,7 @@ Duy có một trăm tám mươi sáu ngàn, tiền phụ quán dành dụm đư�
 
 [coldly] “Mang máy về.”
 
-Trước lúc vào viện, mẹ nhờ dì nhắn Duy mở một đoạn ghi âm trong máy. Cậu chưa kịp nghe thì máy đã vỡ. Ba tiệm trước đều trả lại, không sửa được.
+Dì Hạnh đầu hẻm, chỗ Duy phụ quán, đã nhắn cậu mở đoạn ghi âm mẹ để lại trước lúc vào viện. Nhưng máy vỡ mất rồi. Ba tiệm trước đều trả lại.
 
 [softly] “Anh có muốn nghe mẹ không?”
 

@@ -128,17 +128,21 @@
   }
  },
  "speakers": {
-  "1.0.0": "loc",
-  "1.3.0": "loc",
-  "1.5.0": "duy",
-  "1.6.0": "loc",
-  "1.7.0": "duy",
+  "1.1.0": "thao",
+  "1.2.0": "loc",
+  "1.4.0": "duy",
+  "1.5.0": "loc",
+  "1.6.0": "duy",
   "1.8.0": "loc",
-  "1.9.0": "thao",
-  "1.10.0": "thao",
-  "1.12.0": "loc",
+  "1.10.0": "duy",
+  "1.11.0": "loc",
+  "1.12.0": "duy",
   "1.13.0": "loc",
-  "1.14.0": "loc",
+  "1.14.0": "thao",
+  "1.15.0": "thao",
+  "1.17.0": "loc",
+  "1.18.0": "loc",
+  "1.19.0": "loc",
   "2.0.0": "loc",
   "2.1.0": "duy",
   "2.2.0": "loc",
@@ -205,8 +209,8 @@
   "8.4.0": "loc",
   "8.7.0": "duy"
  },
- "speakersNote": "Bản 13 giữ lời/thẻ bản 12, thêm C8-E và C9 không lời; item sau nhịp mới ở C8 đã dịch. Phân vai phải khớp scriptSha256. Manifest/cues/timeline còn bản 11. Không narrator C6–C7/C9. Mẹ bản ghi = scene 4 + role me, không hardcode ID.",
+ "speakersNote": "Bản 14: C1 diễn nghịch đồng hồ rồi bị quát, Duy hỏi sửa trước báo giá; C2 giới thiệu dì. Phân vai đã đối chiếu header nguồn. Cue/staging/manifest/timeline v13 chưa cập nhật; không đổi hash chúng để lách kiểm tra. Không narrator C6–C7/C9.",
  "castNote": "Chủ repo chọn 08/11/2026: người dẫn dùng giọng của chủ repo; Thảo Yuna, Duy Nhật Phong, mẹ Chi, Lộc Dũng.",
- "scriptSha256": "377e43cfeb966c046735c8b5cc5f45d6567530d3654d83f1f996f397b4bebf7d",
- "scriptRevision": 13
+ "scriptSha256": "b946b5e1130db0470a6694710e82ee53ec53a4eae20456903f6d396844c515e3",
+ "scriptRevision": 14
 }

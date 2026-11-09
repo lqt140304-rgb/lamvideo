@@ -198,3 +198,8 @@ Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai
 - Tiệm có độ sâu, chuyển nét và ánh đèn bàn; hội thoại ngồi cắt theo người nói/người nghe (`coverage`). C1 dùng lại diễn xuất đoạn thử. C2-A đi tới ghế rồi ngồi. Đoạn cuối có diễn: C8-D em ngước nhìn anh, dừng trước quán, bóng dì vẫy; C9 nguyên hình mở từng mắt, nhìn quanh, nhìn thẳng máy rồi khép mắt.
 - Tạo lại giọng người dẫn, Duy, Lộc, mẹ theo setting từng vai: **1.784 credits** (bộ đếm 24.373 → 26.157). Thảo giữ take cũ, nâng cao độ 1,15. Chưa ai nghe duyệt giọng mới.
 - Tổng 9:06, 40 cue. Chưa render bản này; chưa ghép âm nền, tiếng động, nhạc vào phim.
+
+
+## 09/11/2026 — bản 14: đầu cảnh có nguyên nhân và diễn/FX chi tiết
+
+Theo chủ repo: thêm diễn Thảo nghịch đồ rồi bị quát, Duy hỏi sửa trước báo giá; rút lời dẫn gia cảnh và mở C0 còn 14 giây. Chỉ dẫn quay/focus/ánh sáng/Foley/nhịp phản ứng nằm ở BIEN-TAP-V14. Không tạo giọng hoặc phim; không thay asset mới của agent khác. Phân vai và bản lời đã cập nhật, cue/staging/audio cũ cần retime trước dựng.
