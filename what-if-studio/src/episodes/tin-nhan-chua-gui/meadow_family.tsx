@@ -60,14 +60,14 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
   const hugs={duy:{x:925,y:750},thao:{x:997,y:756}};
   duy.armR=blendArm(duy.armR,reachPalm(duy,'R',hugs.duy),clamp(support));
   thao.armL=blendArm(thao.armL,reachPalm(thao,'L',hugs.thao),clamp(support));
-  // The outside arms hang straight, palm resting on the stone beside the hip (short cartoon arms: elbows never jut out).
+  // The outside arms stand clear of the body (they draw behind the torso), palm on the stone beside the hip (short cartoon arms: elbows never jut out).
   const duyOut=shoulder(duy,'L'),thaoOut=shoulder(thao,'R');
-  duy.armL=reachPalm(duy,'L',{x:duyOut.x-7,y:798});
-  thao.armR=reachPalm(thao,'R',{x:thaoOut.x+7,y:798});
+  duy.armL=reachPalm(duy,'L',{x:duyOut.x-26,y:796});
+  thao.armR=reachPalm(thao,'R',{x:thaoOut.x+24,y:796});
   let grip:Point|null=null,cheek:Point|null=null;
   if(farewellT!==undefined&&farewellT>=120){
     const q=farewellT,move=smooth((q-126)/38);
-    duy.x=lerp(850,992,move);duy.y=802-Math.sin(move*Math.PI)*6;
+    duy.x=lerp(850,970,move);duy.y=802-Math.sin(move*Math.PI)*6;
     duy.tilt=lerp(2,0,move);duy.yaw=lerp(.08,.22,move);duy.headTilt=lerp(1,4,move);
     duy.legL={a:65-Math.sin(move*Math.PI)*10,b:-65+Math.sin(move*Math.PI)*5};
     duy.legR={a:60-Math.sin(move*Math.PI)*8,b:-60+Math.sin(move*Math.PI)*4};
@@ -80,7 +80,7 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
     if(q>=220)duy.expr='tearsHeldBack';
     const hold=smooth((q-233)/29);
     if(hold>0){
-      thao.x=lerp(thao.x,1056,hold); // she shuffles in beside him: close enough to lean on, hands meeting low in their laps
+      thao.x=lerp(thao.x,1068,hold); // she shuffles in beside him: close enough to lean on, hands meeting low in their laps
       grip={x:(duy.x+thao.x)/2+5,y:790};
       duy.armR=blendArm(duy.armR,reachPalm(duy,'R',{x:grip.x-2,y:grip.y-1},true),hold);
       thao.armL=blendArm(thao.armL,reachPalm(thao,'L',{x:grip.x+2,y:grip.y+1},true),hold);

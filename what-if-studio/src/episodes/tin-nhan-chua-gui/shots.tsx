@@ -623,7 +623,7 @@ export const ShC7_C: React.FC<ShotProps> = ({ t }) => {
   const tt = Math.max(t, -30 * S);
   const close = clamp((tt - 270) / 60);
   const push = close * close * (3 - 2 * close);
-  const grip = meadowFamilyPoses(Math.max(tt, 0), true, 0, Math.max(tt, 0)).grip ?? { x: 1029, y: 790 };
+  const grip = meadowFamilyPoses(Math.max(tt, 0), true, 0, Math.max(tt, 0)).grip ?? { x: 1024, y: 790 };
   return (
     <g>
       <g transform={camT(lerp(960, grip.x, push), lerp(600, grip.y - 5, push), lerp(1.05, 6.2, push))}>

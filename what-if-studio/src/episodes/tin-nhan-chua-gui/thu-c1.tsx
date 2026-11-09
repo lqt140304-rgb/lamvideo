@@ -3,7 +3,7 @@ import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { handWorld, LOOKS, standPose, walkPose, sitPose, poseAt, camT, clamp, lerp, Pose, OngLocShop, OngLocCounter, OngLocForeground, ScrewdriverProp, FONT } from '../../engine';
 import { ramp, reach, COUNTER, COUNTER_TOP, LOC_S, SHOP_FLOOR, DUY_S, THAO_S, BenchFront, DoorShelf, TwoBills } from './staging';
 import { Hero } from './actor';
-import data from './thu-c1.json';
+import data from './thu-c1-data.json';
 
 // Test clip for script v12, C1: Thảo offers the two bills → Lộc lays the screwdriver down → "Cất đi" → the sarcastic
 // line → Thảo flinches and looks up at Duy → Duy turns, covers her and takes the bills → Lộc goes back to the bench.

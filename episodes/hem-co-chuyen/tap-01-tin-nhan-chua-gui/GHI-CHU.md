@@ -191,3 +191,10 @@ Lịch sử Git bản 3 là một giao kèo, mẹ chỉ giọng; bản 2 là hai
 - Bản xem: `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\tin-nhan-chua-gui-animatic-v3-540p-giong.mp4` và bản điện thoại `...-v3-480p-dien-thoai.mp4`. Không phụ đề theo yêu cầu chủ repo, chỉ nhãn cue/mốc giờ ở góc.
 - Tóc nhân vật xoay theo đầu (`hairFrontTurn`, `hairBackTurn`, `hairLockTurn` trong rig) cho Thảo, Duy, Lộc, mẹ; các kiểu tóc khác trong thư viện chưa áp.
 - Còn tạm: chưa có âm nền, Foley, nhạc trong phim; lọ che ở C9-A đọc như một dải tối hơn là lọ; các mục còn tạm ở phần storyboard bản 13 vẫn nguyên.
+
+## Diễn xuất, khẩu hình, góc máy cả phim — 09/11/2026
+
+- Khẩu hình đo từ từng take (`mouth.cjs` → `mouth.json`), `actor.tsx` điều khiển mọi nhân vật: chỉ người nói mấp máy, người nghe nhìn người nói, chớp và gật khi câu kết thúc; khóc có run môi và nhịp vai.
+- Tiệm có độ sâu, chuyển nét và ánh đèn bàn; hội thoại ngồi cắt theo người nói/người nghe (`coverage`). C1 dùng lại diễn xuất đoạn thử. C2-A đi tới ghế rồi ngồi. Đoạn cuối có diễn: C8-D em ngước nhìn anh, dừng trước quán, bóng dì vẫy; C9 nguyên hình mở từng mắt, nhìn quanh, nhìn thẳng máy rồi khép mắt.
+- Tạo lại giọng người dẫn, Duy, Lộc, mẹ theo setting từng vai: **1.784 credits** (bộ đếm 24.373 → 26.157). Thảo giữ take cũ, nâng cao độ 1,15. Chưa ai nghe duyệt giọng mới.
+- Tổng 9:06, 40 cue. Chưa render bản này; chưa ghép âm nền, tiếng động, nhạc vào phim.
