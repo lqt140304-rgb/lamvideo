@@ -15,7 +15,7 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
 
 | Nhân vật | Vai trò trong kịch bản | Đặc điểm nhận diện & Tạo hình | Trang phục & Đạo cụ |
 |---|---|---|---|
-| **1. Nam** | Sinh viên nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc bo tròn tự nhiên không nét thừa trên đỉnh, vai mềm buông lơi, hai tay đầy đặn rõ ràng buông tự nhiên ngoài thân áo. | Áo thun xanh rêu (`#5c7a70`), quần dài xám có khối (`#515451`), dép lê quai kẹp (`#425850`). |
+| **1. Nam** | Sinh viên nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc mảng gọn có lọn xoăn trên đỉnh theo Mẫu B, vai mềm buông lơi, hai tay đầy đặn rõ ràng buông tự nhiên ngoài thân áo. | Áo thun xanh rêu (`#5c7a70`), quần dài xám có khối (`#515451`), dép lê quai kẹp (`#425850`). |
 | **2. Người Kia (Bản sao)** | Sinh vật thay thế bí ẩn, 100% bản sao hoàn hảo của Nam | Khuôn mặt, **nốt ruồi đuôi mày trái, kiểu tóc và vóc dáng giống hệt Nam 100%**, dáng tay đầy đặn rõ ràng như Nam, ánh mắt điềm tĩnh / bí hiểm. | Mặc chiếc **áo thun xanh rêu (`#5c7a70`) của Nam** (chiếc áo Nam bỏ trên ghế tối qua), quần dài xám (`#515451`), dép lê (`#425850`). |
 | **3. Tùng** | Bạn cùng phòng chăm chỉ, dậy sớm đi học lúc 7h, nghe máy gạt đi vì tưởng Nam ngủ mơ ("Mày xàm hả?") | Sinh viên năng động, gương mặt sáng sủa, cằm gọn, **tóc ngắn tỉa mảng khối layer sắc nét Style B**, không đeo kính, dáng đứng thể thao tự tin. | **Đồ thể thao đá bóng**: Áo jersey xanh navy số 7 (`#1d4e89`) cổ viền trắng, quần đùi thể thao sọc hông (`#142842`), vớ cao cổ sọc trắng, giày turf ôm chân. |
 
@@ -81,3 +81,11 @@ Kiểm tra pose ngủ/bật dậy, nhìn ba phần tư, cầm điện thoại/c�
 ## Tách lớp để quay — 10/11/2026
 
 Đối chiếu [quay layer](DUNG-CANH.md#quay-layer) trước khi dựng: nhóm nền xa qua cửa sổ/hành lang, khối phòng, đồ cố định, người/vật, lớp che gần, ánh sáng và chữ bám mặt thiết bị. SVG hiện có nhóm/clip hữu ích nhưng chưa đồng nghĩa đã có mask người đi qua, tay giữ đồ hoặc camera parallax. Ưu tiên tách phần bồn che thân/tay cầm bát, cửa/bản lề/chốt, bàn/thân ngồi/tay/phím/điện thoại; giữ mẫu Style B và bố cục đang dùng. Các việc tách và kiểm tra chuyển động còn chờ bước dựng, chưa thực hiện ở lượt tài liệu này.
+
+## Rig khớp — 10/11/2026
+
+`assets/nhan-vat.tsx` đã chuyển thân Nam, Người Kia và Tùng sang khung xương có khớp vai–khuỷu–cổ tay, hông–gối–cổ chân, cổ và từng đốt ngón. Góc bị chặn theo `LIMIT` (khuỷu/gối không gập ngược); bàn chân tự chạm sàn khi `planted`. Tay/chân đặt tên theo giải phẫu: R ở phía trái màn hình, L ở phía phải.
+
+Dùng `pose` trên `StudentTwinBody`/`TungSoccer`, trộn từ `STAND_POSE` hoặc `TWIN_POSES`. Xem trong studio bằng composition `HoSo02RigSheet` (đứng ↔ 7 tư thế), `HoSo02CastBoard` (bảng dàn nhân vật); kiểm tra hình học: `node tests/ho-so-02-rig.cjs` trong `what-if-studio/`.
+
+Giới hạn hiện tại: chỉ có một hướng 3/4 sang phải, chưa có lưng/nghiêng/quay trái; đầu chưa có khẩu hình. Không lật gương đầu vì nốt ruồi sẽ đổi bên.

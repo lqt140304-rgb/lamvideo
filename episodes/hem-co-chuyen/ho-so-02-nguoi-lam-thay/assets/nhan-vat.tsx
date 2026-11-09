@@ -1,4 +1,6 @@
 import React from 'react';
+import { limbContour } from '../../../../what-if-studio/src/engine/anatomy';
+import { clamp } from '../../../../what-if-studio/src/engine/anim';
 
 // ============================================================================
 // HỒ SƠ 02: NGƯỜI LÀM THAY — BỘ ASSET NHÂN VẬT CHUẨN MẪU B (SVG HỮU CƠ)
@@ -6,7 +8,7 @@ import React from 'react';
 // 1. NAM: Sinh viên chính, áo thun xanh rêu (#5c7a70), quần xám (#515451),
 //    dép lê (#425850), nốt ruồi sát đuôi mày trái, vai mềm tự nhiên.
 // 2. NGƯỜI KIA (BẢN SAO): 100% GIỐNG HOÀN TOÀN NAM:
-//    Cùng khuôn mặt, nốt ruồi đuôi mày, cùng tóc (không nét thừa trên đỉnh),
+//    Cùng khuôn mặt, nốt ruồi đuôi mày, cùng tóc (có lọn xoăn trên đỉnh theo Mẫu B),
 //    cùng áo xanh rêu, quần xám và dáng tay rõ ràng, không bị chìm hay ẩn sau áo.
 // 3. TÙNG: Bạn cùng phòng năng động, tóc ngắn tỉa mảng khối sắc nét Style B,
 //    mặc đồ thể thao bóng đá (áo jersey xanh navy số 7, quần đùi sọc trắng, vớ cao, giày turf).
@@ -49,7 +51,7 @@ export const PALETTE = {
 };
 
 // ----------------------------------------------------------------------------
-// 1. HEAD CỦA NAM & BẢN SAO (DÙNG CHUNG 100%, KHÔNG CÓ PHẦN THỪA TRÊN ĐỈNH)
+// 1. HEAD CỦA NAM & BẢN SAO (DÙNG CHUNG 100%, CÓ LỌN XOĂN TRÊN ĐỈNH THEO MẪU B)
 // ----------------------------------------------------------------------------
 export type NamMood = 'sleepy' | 'shocked' | 'suspicious' | 'calm' | 'neutral_smile' | 'eerie_smirk';
 
@@ -79,9 +81,9 @@ export const StudentTwinHead: React.FC<{
       <path d="M -47 87 Q -75 72 -77 99 Q -78 121 -50 125" fill={PALETTE.skin} />
       <path d="M -65 99 Q -57 93 -53 106" fill="none" strokeWidth={2.4} />
 
-      {/* TÓC NAM & BẢN SAO: Bo tròn hữu cơ theo hộp sọ, ĐÃ BỎ HẲN PHẦN THỪA TRÊN ĐỈNH */}
+      {/* TÓC NAM & BẢN SAO: Bo tròn hữu cơ theo hộp sọ, có lọn tóc xoăn trên đỉnh theo Mẫu B */}
       <path
-        d="M -51 92 Q -65 79 -61 52 L -71 51 Q -58 27 -38 28 L -43 18 Q -20 18 -6 14 Q 12 12 28 16 Q 40 22 51 37 L 62 43 L 48 59 Q 34 54 22 43 Q 15 63 -4 67 L -1 52 Q -20 75 -41 74 L -43 95 Z"
+        d="M -51 92 Q -65 79 -61 52 L -71 51 Q -58 27 -38 28 L -43 18 Q -20 21 -7 14 Q -10 -5 15 -5 Q 22 -4 24 4 Q 7 0 8 16 Q 40 13 51 37 L 62 43 L 48 59 Q 34 54 22 43 Q 15 63 -4 67 L -1 52 Q -20 75 -41 74 L -43 95 Z"
         fill={PALETTE.nam.hair}
       />
 
@@ -181,61 +183,278 @@ export const StudentTwinHead: React.FC<{
 };
 
 // ----------------------------------------------------------------------------
-// 1B. BODY CỦA NAM VÀ BẢN SAO (100% GIỐNG NHAU, TAY ĐẦY ĐẶN RÕ RÀNG KHÔNG BỊ CHÌM)
+// 1B. RIG KHỚP DÙNG CHUNG (NAM, BẢN SAO, TÙNG)
+// Tay/chân đặt tên theo giải phẫu: R = phía TRÁI màn hình (bên gần máy khi nhân vật quay 3/4 sang phải), L = phía phải màn hình.
 // ----------------------------------------------------------------------------
+type P = { x: number; y: number };
+// a: góc đoạn trên (dương = đưa ra trước, về bên phải màn hình), b: độ gập khớp giữa (luôn ≥ 0).
+// rot = -1: xoay trong cánh tay để cẳng tay gập vào thân (chỉ dùng cho tay L, ví dụ đút túi, ôm chén).
+export type Limb = { a: number; b: number; rot?: 1 | -1 };
+export type HandKind = 'rest' | 'open' | 'fist' | 'hold' | 'none';
+export type JointPose = {
+  tilt: number; neck: number;
+  armR: Limb; armL: Limb; legR: Limb; legL: Limb;
+  wristR: number; wristL: number; handR: HandKind; handL: HandKind;
+  footR: number; footL: number; // độ nghiêng bàn chân so với mặt sàn
+  frontR: boolean; frontL: boolean; // tay vẽ đè lên thân
+  x: number; y: number; planted: boolean; // planted: tự hạ/nâng hông để bàn chân thấp nhất chạm sàn
+};
+
+export const BONE = { upperArm: 80, foreArm: 68, thigh: 105, shin: 105 };
+export const LIMIT: Record<'tilt' | 'neck' | 'shoulder' | 'elbow' | 'wrist' | 'hip' | 'knee' | 'ankle', [number, number]> = {
+  tilt: [-30, 40], neck: [-35, 35],
+  shoulder: [-130, 180], // gộp cả dang ngang và đưa trước/sau vì rig vẽ trên một mặt phẳng
+  elbow: [0, 150], wrist: [-70, 70],
+  hip: [-35, 125], knee: [0, 150], ankle: [-35, 35],
+};
+const SHOULDER = { R: { x: -68, y: 232 }, L: { x: 62, y: 232 } };
+const HIP = { R: { x: -29, y: 345 }, L: { x: 31, y: 345 } };
+const PELVIS = { x: 0, y: 345 };
+const NECK = { x: -6, y: 180 };
+const ANKLE_Y = 555;
+const ARM_REST = { R: 3, L: -9 }; // tay buông hơi rời thân
+
+const lim = (v: number, k: keyof typeof LIMIT) => clamp(v, LIMIT[k][0], LIMIT[k][1]);
+const step = (p: P, deg: number, len: number): P => ({ x: p.x - Math.sin((deg * Math.PI) / 180) * len, y: p.y + Math.cos((deg * Math.PI) / 180) * len });
+const mix = (a: P, b: P, t: number): P => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+
+/** Tính vị trí khớp. Tay nằm trong hệ thân (xoay theo tilt quanh chậu), chân trong hệ gốc; mọi góc đều bị chặn theo LIMIT. */
+export const solveRig = (pose: JointPose) => {
+  const arm = (root: P, l: Limb, rest: number) => {
+    const a1 = rest - lim(l.a, 'shoulder');
+    const a2 = a1 + (l.rot === -1 ? 1 : -1) * lim(l.b, 'elbow');
+    const mid = step(root, a1, BONE.upperArm);
+    return { root, mid, end: step(mid, a2, BONE.foreArm), deg: a2 };
+  };
+  const leg = (root: P, l: Limb) => {
+    const a1 = -lim(l.a, 'hip');
+    const a2 = a1 + lim(l.b, 'knee');
+    const mid = step(root, a1, BONE.thigh);
+    return { root, mid, end: step(mid, a2, BONE.shin), deg: a2 };
+  };
+  const legR = leg(HIP.R, pose.legR);
+  const legL = leg(HIP.L, pose.legL);
+  const foot = (pitch: number, shin: number) => clamp(pitch, shin + LIMIT.ankle[0], shin + LIMIT.ankle[1]);
+  return {
+    armR: arm(SHOULDER.R, pose.armR, ARM_REST.R),
+    armL: arm(SHOULDER.L, pose.armL, ARM_REST.L),
+    legR, legL,
+    footR: foot(pose.footR, legR.deg), footL: foot(pose.footL, legL.deg),
+    dy: pose.y + (pose.planted ? ANKLE_Y - Math.max(legR.end.y, legL.end.y) : 0),
+    tilt: lim(pose.tilt, 'tilt'), neck: lim(pose.neck, 'neck'),
+  };
+};
+
+export const STAND_POSE: JointPose = {
+  tilt: 0, neck: 0,
+  armR: { a: 2, b: 8 }, armL: { a: 2, b: 8, rot: -1 },
+  legR: { a: -2, b: 0 }, legL: { a: 2, b: 0 },
+  wristR: 0, wristL: 0, handR: 'rest', handL: 'rest',
+  footR: 0, footL: 0, frontR: false, frontL: false,
+  x: 0, y: 0, planted: true,
+};
+// Tư thế mẫu cho các nhịp cần diễn ở Hồ sơ 2; chỉnh tiếp bằng cách trộn đè { ...STAND_POSE, ... }.
+export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' | 'holdBowl' | 'stop', JointPose> = {
+  stand: STAND_POSE,
+  sit: { ...STAND_POSE, tilt: 6, armR: { a: -28, b: 8 }, armL: { a: 34, b: 42, rot: -1 }, legR: { a: 92, b: 100 }, legL: { a: 66, b: 112 }, handR: 'open', wristR: -40 },
+  stride: { ...STAND_POSE, tilt: 4, armR: { a: -20, b: 16 }, armL: { a: 24, b: 28 }, legR: { a: 26, b: 6 }, legL: { a: -20, b: 24 } },
+  crouch: { ...STAND_POSE, tilt: 24, neck: -14, armR: { a: 30, b: 40 }, armL: { a: 30, b: 40, rot: -1 }, legR: { a: 112, b: 130 }, legL: { a: 96, b: 124 }, frontR: true },
+  reach: { ...STAND_POSE, tilt: 20, neck: -8, armR: { a: 66, b: 14 }, handR: 'open', frontR: true, legR: { a: 26, b: 30 }, legL: { a: 8, b: 12 } },
+  holdBowl: { ...STAND_POSE, armR: { a: 20, b: 75 }, armL: { a: 14, b: 100, rot: -1 }, handR: 'hold', handL: 'hold', frontR: true, frontL: true },
+  stop: { ...STAND_POSE, tilt: -5, neck: 6, armR: { a: -78, b: 8 }, armL: { a: 72, b: 34 }, handR: 'open', handL: 'open', frontL: true, legR: { a: 8, b: 16 }, legL: { a: -12, b: 8 } },
+};
+
+const circle = (p: P, r: number) => `M ${p.x - r} ${p.y} a ${r} ${r} 0 1 0 ${2 * r} 0 a ${r} ${r} 0 1 0 ${-2 * r} 0 Z`;
+/** Một khối liền: vẽ nền mực rồi tô màu đè lên, nên khớp gập bao nhiêu cũng không có đường cắt ngang bên trong. */
+const Blob: React.FC<{ d: string[]; fill: string; w?: number }> = ({ d, fill, w = 4 }) => (
+  <g>
+    {d.map((s, i) => <path key={i} d={s} fill={PALETTE.ink} stroke={PALETTE.ink} strokeWidth={w * 2} strokeLinejoin="round" />)}
+    {d.map((s, i) => <path key={`f${i}`} d={s} fill={fill} stroke="none" />)}
+  </g>
+);
+/** Nếp gấp ở mặt trong khớp; thẳng thì không có nếp. */
+const crease = (c: { root: P; mid: P; end: P }, r: number) => {
+  const u = { x: c.root.x - c.mid.x, y: c.root.y - c.mid.y };
+  const v = { x: c.end.x - c.mid.x, y: c.end.y - c.mid.y };
+  const lu = Math.hypot(u.x, u.y), lv = Math.hypot(v.x, v.y);
+  const b = { x: u.x / lu + v.x / lv, y: u.y / lu + v.y / lv };
+  const lb = Math.hypot(b.x, b.y);
+  if (lb < 1) return null; // chỉ hiện khi gập trên ~60°
+  const n = { x: b.x / lb, y: b.y / lb };
+  return <path d={`M ${c.mid.x + n.x * r} ${c.mid.y + n.y * r} L ${c.mid.x + n.x * r * 0.25} ${c.mid.y + n.y * r * 0.25}`} fill="none" stroke={PALETTE.ink} strokeWidth={2.5} strokeLinecap="round" />;
+};
+
+// Bàn tay kiểu Mẫu B: ngón gộp thành một khối, chỉ lộ gợn đầu ngón. Thứ tự từ phía ngón cái.
+const HAND_SHAPE: Record<Exclude<HandKind, 'none'>, { base: number[]; len: [number, number][]; r: [number, number, number]; fan: number; curl: number; thumb: [P, P] }> = {
+  open: { base: [9.6, 3.2, -3.2, -9.6], len: [[11, 10], [12, 10], [11, 9], [9, 8]], r: [5, 4.7, 4.2], fan: 12, curl: 8, thumb: [{ x: 20, y: 10 }, { x: 29, y: 20 }] },
+  rest: { base: [8, 0, -8], len: [[10, 9], [12, 10], [10, 8]], r: [6.4, 6, 5.6], fan: 4, curl: 12, thumb: [{ x: 15, y: 12 }, { x: 15, y: 22 }] },
+  hold: { base: [8, 0, -8], len: [[8, 7], [9, 7], [8, 6]], r: [6.4, 6, 5.6], fan: 3, curl: 52, thumb: [{ x: 17, y: 11 }, { x: 10, y: 22 }] },
+  fist: { base: [8, 0, -8], len: [[6, 4], [6, 4], [6, 4]], r: [6.4, 6, 5.6], fan: 0, curl: 75, thumb: [{ x: 13, y: 14 }, { x: 3, y: 20 }] },
+};
+/** Hình bàn tay tính sẵn trong hệ cánh tay để gộp chung một khối với cẳng tay, không có đường cắt ở cổ tay. s = phía ngón cái. */
+const handShapes = (at: P, deg: number, s: 1 | -1, kind: HandKind): string[] => {
+  if (kind === 'none') return [];
+  const { base, len, r, fan, curl, thumb } = HAND_SHAPE[kind];
+  const c = Math.cos((deg * Math.PI) / 180), n = Math.sin((deg * Math.PI) / 180);
+  const S = 1.12;
+  const T = (p: P): P => ({ x: at.x + (p.x * c - p.y * n) * S, y: at.y + (p.x * n + p.y * c) * S });
+  const fr: [number, number, number] = [r[0] * S, r[1] * S, r[2] * S];
+  const k = Math.cos((curl * Math.PI) / 180), k1 = Math.cos((curl * 0.6 * Math.PI) / 180);
+  const fingers = base.flatMap((x, i) => {
+    const a = s * fan * ((base.length - 1) / 2 - i) * 0.66;
+    const root = { x: s * x, y: 20 };
+    const mid = step(root, -a, len[i][0] * k1);
+    const end = step(mid, -a, Math.max(2, len[i][1] * k));
+    return [limbContour({ root: T(root), mid: T(mid), end: T(end) }, fr), circle(T(end), fr[2]), circle(T(mid), fr[1])];
+  });
+  const thumbEnd = T({ x: s * thumb[1].x, y: thumb[1].y });
+  const thumbMid = T({ x: s * thumb[0].x, y: thumb[0].y });
+  return [
+    limbContour({ root: T({ x: 0, y: -3 }), mid: T({ x: 0, y: 10 }), end: T({ x: 0, y: 22 }) }, [13.5, 17, 17]),
+    ...fingers,
+    limbContour({ root: T({ x: s * 8, y: 4 }), mid: thumbMid, end: thumbEnd }, [8, 6.8, 5.6]), circle(thumbEnd, 5.6), circle(thumbMid, 6.5),
+  ];
+};
+
+export type Outfit = {
+  shirt: string; torso: string; hem: [number, number][]; sleeveEnd: number; cuff?: string;
+  pants: string; pantsLen: 'long' | 'short'; stripe?: string;
+  socks?: { color: string; stripe: string };
+  Foot: React.FC<{ side: 'R' | 'L' }>;
+  detail: React.ReactNode;
+};
+const normalOf = (a: P, b: P): P => { const l = Math.max(0.001, Math.hypot(b.x - a.x, b.y - a.y)); return { x: -(b.y - a.y) / l, y: (b.x - a.x) / l }; };
+const across = (a: P, b: P, t: number, r: number, off = 0) => { const p = mix(a, b, t), n = normalOf(a, b); return `M ${p.x + n.x * (off - r)} ${p.y + n.y * (off - r)} L ${p.x + n.x * (off + r)} ${p.y + n.y * (off + r)}`; };
+
+/** Mép gấu hơi cong để gấu quần, tay áo không bị cắt thẳng. */
+const softEnd = (prev: P, end: P, w: number, bulge: number) => {
+  const n = normalOf(prev, end);
+  const l = Math.max(0.001, Math.hypot(end.x - prev.x, end.y - prev.y));
+  const t = { x: (end.x - prev.x) / l, y: (end.y - prev.y) / l };
+  return `M ${end.x + n.x * w} ${end.y + n.y * w} Q ${end.x + t.x * bulge * 2} ${end.y + t.y * bulge * 2} ${end.x - n.x * w} ${end.y - n.y * w} Z`;
+};
+const alongSide = (a: P, b: P, off: number) => { const n = normalOf(a, b), p = mix(a, b, 0.1), q = mix(a, b, 0.7); return `M ${p.x + n.x * off} ${p.y + n.y * off} L ${q.x + n.x * off} ${q.y + n.y * off}`; };
+/** Nếp vải trôi theo ống quần: toạ độ (t dọc gối → mắt cá, v lệch ngang). */
+const FOLD = { R: [[-0.12, 22], [-0.03, 0], [0.15, -5]], L: [[0.55, 18], [0.47, 5], [0.5, -9]] };
+const foldPath = (knee: P, ankle: P, side: 'R' | 'L') => {
+  const n = normalOf(knee, ankle);
+  const [a, b, c] = FOLD[side].map(([t, v]) => { const p = mix(knee, ankle, t); return `${p.x + n.x * v} ${p.y + n.y * v}`; });
+  return `M ${a} Q ${b} ${c}`;
+};
+
+const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; foot: number; o: Outfit }> = ({ c, side, foot, o }) => {
+  const { root: hip, mid: knee, end: ankle } = c;
+  const long = o.pantsLen === 'long';
+  const cloth = long ? { root: hip, mid: knee, end: mix(knee, ankle, 0.93) } : { root: hip, mid: mix(hip, knee, 0.4), end: mix(hip, knee, 0.75) };
+  const widths: [number, number, number] = long ? [31, 26, 28] : [31, 31, 32];
+  return (
+    <g>
+      <g transform={`translate(${ankle.x} ${ankle.y}) rotate(${foot})`}><o.Foot side={side} /></g>
+      <Blob fill={PALETTE.skin} d={[limbContour({ root: hip, mid: knee, end: ankle }, [24, 19, 15]), circle(knee, 19), circle(ankle, 15)]} />
+      {o.socks && (
+        <g>
+          <Blob fill={o.socks.color} d={[limbContour({ root: mix(knee, ankle, 0.25), mid: mix(knee, ankle, 0.6), end: ankle }, [17, 15.5, 15]), circle(ankle, 15)]} />
+          <path d={`${across(knee, ankle, 0.34, 15)} ${across(knee, ankle, 0.42, 15)}`} fill="none" stroke={o.socks.stripe} strokeWidth={2.6} />
+        </g>
+      )}
+      <Blob fill={o.pants} d={[limbContour(cloth, widths), circle(hip, 30), softEnd(cloth.mid, cloth.end, widths[2], 3), ...(long ? [circle(knee, 26)] : [])]} />
+      {long && crease(c, 22)}
+      {long && <path d={foldPath(knee, ankle, side)} fill="none" stroke={PALETTE.ink} strokeWidth={2.5} strokeLinecap="round" />}
+      {o.stripe && <path d={alongSide(hip, knee, side === 'R' ? 30 : -30)} fill="none" stroke={o.stripe} strokeWidth={3.5} />}
+    </g>
+  );
+};
+
+const armShapes = (c: ReturnType<typeof solveRig>['armR']) => [limbContour(c, [19, 16, 13.5]), circle(c.mid, 16), circle(c.root, 19)];
+const sleeveShapes = (c: ReturnType<typeof solveRig>['armR'], o: Outfit) => {
+  const end = mix(c.root, c.mid, o.sleeveEnd);
+  const mid = mix(c.root, end, 0.55);
+  return [limbContour({ root: c.root, mid, end }, [25, 27, 27]), circle(c.root, 25), softEnd(mid, end, 27, 3)];
+};
+/** Tay đưa trước ngực: xoá cung vai phía trong để tay áo liền với thân áo. */
+const ShoulderPatch: React.FC<{ c: ReturnType<typeof solveRig>['armR']; fill: string }> = ({ c, fill }) => (
+  <circle cx={c.root.x + (c.root.x < 0 ? 15 : -15)} cy={c.root.y + 5} r={25} fill={fill} stroke="none" />
+);
+const Cuff: React.FC<{ c: ReturnType<typeof solveRig>['armR']; o: Outfit }> = ({ c, o }) => (o.cuff ? <path d={across(c.root, c.mid, o.sleeveEnd * 0.9, 26)} fill="none" stroke={o.cuff} strokeWidth={3.5} /> : null);
+
+/** Vạt áo giữ phương thẳng đứng trong khi thân áo nghiêng, nên cúi người không làm lộ mông ra ngoài áo. */
+const hemDrape = (o: Outfit, tilt: number) => {
+  const c = Math.cos((-tilt * Math.PI) / 180), n = Math.sin((-tilt * Math.PI) / 180);
+  const [a, b, d, e, g, h, i] = o.hem.map(([x, y]) => { const u = x - PELVIS.x, v = y - PELVIS.y; return `${PELVIS.x + u * c - v * n} ${PELVIS.y + u * n + v * c}`; });
+  return `M ${a} L ${b} L ${d} Q ${e} ${g} Q ${h} ${i} Z`;
+};
+
+/** Ghép nhân vật từ khung xương: bàn chân → chân → tay sau → áo → đầu → tay trước. */
+export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number }> = ({ pose, outfit: o, head, x, y, scale }) => {
+  const r = solveRig(pose);
+  const crotch = 414 - 60 * clamp(Math.max(Math.abs(pose.legR.a), Math.abs(pose.legL.a)) / 70); // đáy quần kéo lên khi đùi đưa ra
+  const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind) => (
+    <g>
+      <Blob fill={PALETTE.skin} d={[...armShapes(c), ...handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind)]} />
+    </g>
+  );
+  const armR = arm(r.armR, 1, pose.wristR, pose.handR);
+  const armL = arm(r.armL, -1, pose.wristL, pose.handL);
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale})`} strokeLinecap="round" strokeLinejoin="round">
+      <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
+      <g transform={`translate(${pose.x} ${r.dy})`}>
+        <Blob fill={o.pants} d={[`M -30 335 H 32 L 1 ${crotch} Z`]} />
+        <Leg c={r.legL} side="L" foot={r.footL} o={o} />
+        <Leg c={r.legR} side="R" foot={r.footR} o={o} />
+        <path d={`M -46 318 H 48 V 350 H 28 L 1 ${crotch - 7} L -26 350 H -46 Z`} fill={o.pants} stroke="none" />
+        <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
+          {!pose.frontL && armL}
+          {!pose.frontR && armR}
+          <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(pose.frontR ? [] : sleeveShapes(r.armR, o)), ...(pose.frontL ? [] : sleeveShapes(r.armL, o))]} />
+          {!pose.frontR && <Cuff c={r.armR} o={o} />}
+          {!pose.frontL && <Cuff c={r.armL} o={o} />}
+          <g stroke={PALETTE.ink}>{o.detail}</g>
+          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}>{head}</g>
+          {pose.frontL && <g>{armL}<Blob fill={o.shirt} d={sleeveShapes(r.armL, o)} /><ShoulderPatch c={r.armL} fill={o.shirt} /><Cuff c={r.armL} o={o} /></g>}
+          {pose.frontR && <g>{armR}<Blob fill={o.shirt} d={sleeveShapes(r.armR, o)} /><ShoulderPatch c={r.armR} fill={o.shirt} /><Cuff c={r.armR} o={o} /></g>}
+        </g>
+      </g>
+    </g>
+  );
+};
+
+// Bàn chân vẽ theo nét cũ của mẫu B, gốc đặt tại mắt cá.
+const Slipper: React.FC<{ side: 'R' | 'L' }> = ({ side }) => (
+  <g transform={side === 'R' ? 'translate(33 -555)' : 'translate(-35 -555)'} stroke={PALETTE.ink} strokeWidth={4}>
+    {side === 'R' ? (
+      <>
+        <path d="M -54 561 Q -80 568 -78 585 Q -53 597 -5 586 L -7 575 Q -20 560 -54 561 Z" fill={PALETTE.skin} />
+        <path d="M -78 583 Q -45 593 -6 583 L -6 590 Q -43 601 -79 590 Z" fill={PALETTE.nam.sole} strokeWidth={2.5} />
+        <path d="M -64 565 Q -38 553 -17 567 L -12 579 Q -39 564 -70 580 Z" fill={PALETTE.nam.slippers} strokeWidth={2.5} />
+      </>
+    ) : (
+      <>
+        <path d="M 23 561 Q 44 559 67 568 Q 91 571 89 584 Q 57 596 15 585 L 13 573 Z" fill={PALETTE.skin} />
+        <path d="M 15 583 Q 56 591 89 581 L 90 588 Q 54 600 15 591 Z" fill={PALETTE.nam.sole} strokeWidth={2.5} />
+        <path d="M 26 563 Q 52 559 71 573 L 75 583 Q 49 568 20 578 Z" fill={PALETTE.nam.slippers} strokeWidth={2.5} />
+      </>
+    )}
+  </g>
+);
+
+const TWIN_OUTFIT: Outfit = {
+  shirt: PALETTE.nam.shirt, sleeveEnd: 0.5, hem: [[-52, 322], [50, 322], [63, 348], [38, 366], [12, 358], [-23, 372], [-64, 354]],
+  torso: 'M -26 177 Q -60 181 -86 212 L -60 262 Q -66 312 -62 352 Q -23 370 12 356 Q 38 364 62 346 Q 56 304 54 262 L 80 212 Q 66 192 16 178 Q -7 196 -26 177 Z',
+  pants: PALETTE.nam.pants, pantsLen: 'long', Foot: Slipper,
+  detail: <path d="M -26 179 Q -23 203 -1 203 Q 14 201 21 183 M -55 218 Q -53 241 -52 262 M 56 219 L 58 257 M -45 316 Q -19 333 15 320 M 15 340 Q 36 343 48 334" fill="none" strokeWidth={2.5} />,
+};
+
 export const StudentTwinBody: React.FC<{
   mood?: NamMood;
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ mood = 'sleepy', x = 0, y = 0, scale = 1 }) => {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round">
-      {/* Bóng sàn */}
-      <ellipse cx={0} cy={589} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
-
-      {/* Cẳng chân & Bàn chân đi dép lê */}
-      <path d="M -53 537 L -54 568 L -14 567 L -13 533 M 18 537 L 22 570 L 61 566 L 56 531" fill={PALETTE.skin} />
-      <path d="M -54 561 Q -80 568 -78 585 Q -53 597 -5 586 L -7 575 Q -20 560 -54 561 Z" fill={PALETTE.skin} />
-      <path d="M 23 561 Q 44 559 67 568 Q 91 571 89 584 Q 57 596 15 585 L 13 573 Z" fill={PALETTE.skin} />
-      {/* Đế dép */}
-      <path d="M -78 583 Q -45 593 -6 583 L -6 590 Q -43 601 -79 590 Z M 15 583 Q 56 591 89 581 L 90 588 Q 54 600 15 591 Z" fill={PALETTE.nam.sole} strokeWidth={2.5} />
-      {/* Quai dép lê */}
-      <path d="M -64 565 Q -38 553 -17 567 L -12 579 Q -39 564 -70 580 Z M 26 563 Q 52 559 71 573 L 75 583 Q 49 568 20 578 Z" fill={PALETTE.nam.slippers} strokeWidth={2.5} />
-
-      {/* Quần xám có khối tự nhiên */}
-      <path
-        d="M -63 329 Q -80 364 -71 403 L -67 454 Q -78 491 -65 548 Q -42 560 -10 548 L -3 466 L 10 411 Q 17 446 16 471 L 13 548 Q 35 559 66 545 L 67 445 Q 83 388 61 330 Z"
-        fill={PALETTE.nam.pants}
-      />
-      <path d="M -6 368 Q -3 388 10 411 M -62 437 Q -40 447 -35 466 M 24 512 Q 37 503 51 506 M -53 538 L -20 539" fill="none" strokeWidth={2.5} />
-
-      {/* CÁNH TAY TRÁI (Chuẩn Mẫu B, đầy đặn, rõ ràng không bị chìm) */}
-      <path
-        d="M -73 235 Q -92 274 -86 312 L -93 367 Q -93 383 -83 387 L -78 378 Q -76 394 -68 389 L -66 378 Q -60 389 -54 381 L -51 368 Q -46 351 -57 349 L -57 310 L -43 256 Z"
-        fill={PALETTE.skin}
-      />
-
-      {/* CÁNH TAY PHẢI (Chuẩn Mẫu B, buông tự nhiên bên hông, không bị thân áo che) */}
-      <path
-        d="M 60 238 Q 82 268 79 300 L 85 354 Q 99 371 90 383 L 85 388 Q 82 379 81 394 Q 75 393 74 380 Q 72 391 66 386 L 62 368 Q 61 359 65 352 L 59 310 L 46 258 Z"
-        fill={PALETTE.skin}
-      />
-
-      {/* ÁO THUN XANH RÊU CỦA NAM (Cả Nam và Bản sao cùng mặc mẫu áo này) */}
-      <path
-        d="M -26 177 Q -58 179 -77 201 Q -94 221 -96 245 Q -77 263 -52 262 L -58 298 Q -66 329 -61 351 Q -23 370 12 355 Q 38 363 60 345 L 54 281 L 58 257 Q 78 256 87 244 Q 84 207 60 192 L 16 178 Q -7 194 -26 177 Z"
-        fill={PALETTE.nam.shirt}
-      />
-      <path d="M -26 179 Q -23 203 -1 203 Q 14 201 21 183 M -55 218 Q -53 241 -52 262 M 56 219 L 58 257 M -45 316 Q -19 333 15 320 M 15 340 Q 36 343 48 334" fill="none" strokeWidth={2.5} />
-      {/* Viền ống tay áo */}
-      <path d="M -94 246 Q -76 264 -52 262 M 58 257 Q 78 256 86 244" fill="none" stroke={PALETTE.ink} strokeWidth={3.5} />
-
-      {/* Đầu nhân vật */}
-      <StudentTwinHead mood={mood} id="twin-full-body" />
-    </g>
-  );
-};
+  pose?: JointPose;
+  id?: string;
+}> = ({ mood = 'sleepy', x = 0, y = 0, scale = 1, pose = STAND_POSE, id = 'twin-full-body' }) => (
+  <Rigged pose={pose} outfit={TWIN_OUTFIT} x={x} y={y} scale={scale} head={<StudentTwinHead mood={mood} id={id} />} />
+);
 
 // ----------------------------------------------------------------------------
 // 2. TÙNG — ĐỒ THỂ THAO ĐÁ BÓNG & TÓC NGẮN TỈA MẢNG KHỐI STYLE B
@@ -320,82 +539,53 @@ export const TungHead: React.FC<{
   );
 };
 
+const Turf: React.FC<{ side: 'R' | 'L' }> = ({ side }) => (
+  <g transform={side === 'R' ? 'translate(33 -555)' : 'translate(-35 -555)'} stroke={PALETTE.ink} strokeWidth={3.8}>
+    {side === 'R' ? (
+      <>
+        <path d="M -52 560 Q -78 566 -74 582 Q -50 594 -8 584 L -10 573 Q -22 558 -52 560 Z" fill={PALETTE.tung.cleats} />
+        <path d="M -74 580 Q -45 590 -8 580 L -8 588 Q -44 598 -75 588 Z" fill={PALETTE.tung.cleatsSole} strokeWidth={2.5} />
+        <path d="M -58 565 Q -40 560 -24 572" stroke={PALETTE.tung.cleatsAccent} strokeWidth={3} fill="none" />
+        <path d="M -62 569 Q -44 564 -28 576" stroke={PALETTE.tung.jersey} strokeWidth={2.5} fill="none" />
+      </>
+    ) : (
+      <>
+        <path d="M 16 560 Q 40 558 66 566 Q 88 570 85 582 Q 54 594 12 584 L 10 573 Z" fill={PALETTE.tung.cleats} />
+        <path d="M 12 580 Q 52 588 85 579 L 86 586 Q 50 597 12 588 Z" fill={PALETTE.tung.cleatsSole} strokeWidth={2.5} />
+        <path d="M 24 565 Q 44 560 64 572" stroke={PALETTE.tung.cleatsAccent} strokeWidth={3} fill="none" />
+        <path d="M 28 569 Q 48 564 68 576" stroke={PALETTE.tung.jersey} strokeWidth={2.5} fill="none" />
+      </>
+    )}
+  </g>
+);
+
+const TUNG_OUTFIT: Outfit = {
+  shirt: PALETTE.tung.jersey, sleeveEnd: 0.5, hem: [[-46, 318], [46, 318], [60, 340], [36, 354], [12, 347], [-20, 360], [-58, 344]], cuff: PALETTE.tung.jerseyTrim,
+  torso: 'M -24 176 Q -56 178 -84 210 L -56 256 Q -60 306 -56 342 Q -20 358 12 345 Q 36 352 58 338 Q 52 300 50 256 L 76 210 Q 62 190 16 177 Q -6 192 -24 176 Z',
+  pants: PALETTE.tung.shorts, pantsLen: 'short', stripe: PALETTE.tung.shortsStripe,
+  socks: { color: PALETTE.tung.socks, stripe: PALETTE.tung.socksStripe }, Foot: Turf,
+  detail: (
+    <>
+      <path d="M -24 177 L -10 204 L 0 192 L 10 204 L 16 177 Z" fill={PALETTE.tung.jerseyTrim} strokeWidth={2.6} />
+      <path d="M -8 184 L 0 196 L 8 184 Z" fill={PALETTE.tung.jerseyInner} stroke="none" />
+      <path d="M -48 214 Q -46 236 -45 255 M 52 216 L 54 252 M -40 310 Q -16 326 14 314 M 14 332 Q 32 336 44 326" fill="none" strokeWidth={2.4} />
+      <text x="-4" y="274" textAnchor="middle" fontFamily="'Arial Black', Impact, sans-serif" fontWeight="900" fontSize="34" fill={PALETTE.tung.number} stroke="none">7</text>
+      <path d="M -36 238 L -28 238 L -28 245 Q -32 250 -32 250 Q -36 245 -36 245 Z" fill={PALETTE.tung.jerseyTrim} stroke="none" />
+    </>
+  ),
+};
+// Dáng mặc định của Tùng: tay L đút túi quần (khuỷu mở ra ngoài, cẳng tay gập vào hông).
+export const TUNG_POSE: JointPose = { ...STAND_POSE, armL: { a: 14, b: 76, rot: -1 }, handL: 'none' };
+
 export const TungSoccer: React.FC<{
   mood?: TungMood;
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1 }) => {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} strokeWidth={3.8} strokeLinecap="round" strokeLinejoin="round">
-      {/* Bóng sàn */}
-      <ellipse cx={0} cy={590} rx={98} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
-
-      {/* CHÂN & GIÀY ĐÁ BÓNG */}
-      {/* Vớ chân trái */}
-      <path d="M -48 476 Q -55 515 -52 562 L -16 562 Q -15 515 -20 476 Z" fill={PALETTE.tung.socks} />
-      <path d="M -48 488 Q -34 492 -20 488 M -49 496 Q -34 500 -19 496" stroke={PALETTE.tung.socksStripe} strokeWidth={2.6} fill="none" />
-      {/* Giày chân trái */}
-      <path d="M -52 560 Q -78 566 -74 582 Q -50 594 -8 584 L -10 573 Q -22 558 -52 560 Z" fill={PALETTE.tung.cleats} />
-      <path d="M -74 580 Q -45 590 -8 580 L -8 588 Q -44 598 -75 588 Z" fill={PALETTE.tung.cleatsSole} strokeWidth={2.5} />
-      <path d="M -58 565 Q -40 560 -24 572" stroke={PALETTE.tung.cleatsAccent} strokeWidth={3} fill="none" />
-      <path d="M -62 569 Q -44 564 -28 576" stroke={PALETTE.tung.jersey} strokeWidth={2.5} fill="none" />
-
-      {/* Vớ chân phải */}
-      <path d="M 20 476 Q 15 515 16 562 L 52 562 Q 55 515 48 476 Z" fill={PALETTE.tung.socks} />
-      <path d="M 20 488 Q 34 492 48 488 M 19 496 Q 34 500 49 496" stroke={PALETTE.tung.socksStripe} strokeWidth={2.6} fill="none" />
-      {/* Giày chân phải */}
-      <path d="M 16 560 Q 40 558 66 566 Q 88 570 85 582 Q 54 594 12 584 L 10 573 Z" fill={PALETTE.tung.cleats} />
-      <path d="M 12 580 Q 52 588 85 579 L 86 586 Q 50 597 12 588 Z" fill={PALETTE.tung.cleatsSole} strokeWidth={2.5} />
-      <path d="M 24 565 Q 44 560 64 572" stroke={PALETTE.tung.cleatsAccent} strokeWidth={3} fill="none" />
-      <path d="M 28 569 Q 48 564 68 576" stroke={PALETTE.tung.jersey} strokeWidth={2.5} fill="none" />
-
-      {/* ĐÙI & ĐẦU GỐI THỂ THAO */}
-      <path d="M -50 412 Q -55 444 -48 476 L -20 476 Q -17 444 -18 412 Z" fill={PALETTE.skin} />
-      <path d="M 18 412 Q 17 444 20 476 L 48 476 Q 55 444 50 412 Z" fill={PALETTE.skin} />
-      <path d="M -38 470 Q -34 474 -30 470 M 30 470 Q 34 474 38 470" fill="none" strokeWidth={2.2} />
-
-      {/* QUẦN ĐÙI THỂ THAO ĐÁ BÓNG */}
-      <path
-        d="M -58 322 Q -72 355 -66 388 L -61 422 Q -40 432 -14 424 L -3 388 L 3 388 L 14 424 Q 40 432 61 422 L 66 388 Q 72 355 58 322 Z"
-        fill={PALETTE.tung.shorts}
-      />
-      <path d="M -64 340 Q -68 375 -61 414 M 64 340 Q 68 375 61 414" fill="none" stroke={PALETTE.tung.shortsStripe} strokeWidth={3.5} />
-      <path d="M -3 355 Q 0 375 3 388" fill="none" strokeWidth={2.4} />
-      <path d="M 44 336 Q 54 348 58 366" fill="none" stroke={PALETTE.ink} strokeWidth={2.4} />
-
-      {/* TAY TRÁI (Chuẩn Mẫu B, buông tự nhiên) */}
-      <path d="M -68 230 Q -84 268 -79 308 L -85 362 Q -85 378 -75 382 L -70 373 Q -68 389 -60 384 L -58 373 Q -52 384 -46 376 L -43 363 Q -40 346 -51 344 L -52 306 L -38 252 Z" fill={PALETTE.skin} />
-
-      {/* TAY PHẢI (Đút tay vào túi quần tự tin) */}
-      <path d="M 48 230 Q 68 258 72 290 Q 68 318 52 342 L 42 334 Q 52 312 54 290 Q 52 268 36 250 Z" fill={PALETTE.skin} />
-      <path d="M 42 334 Q 38 344 46 350 Q 52 346 50 338 Z" fill={PALETTE.skin} strokeWidth={2.5} />
-
-      {/* ÁO BÓNG ĐÁ */}
-      <path
-        d="M -24 176 Q -56 177 -74 198 Q -88 217 -90 240 Q -72 256 -48 255 L -54 292 Q -60 320 -56 342 Q -20 358 12 345 Q 36 352 58 338 L 52 280 L 56 252 Q 74 252 82 240 Q 78 206 56 190 L 16 177 Q -6 192 -24 176 Z"
-        fill={PALETTE.tung.jersey}
-      />
-      {/* Cổ áo V-neck thể thao viền trắng */}
-      <path d="M -24 177 L -10 204 L 0 192 L 10 204 L 16 177 Z" fill={PALETTE.tung.jerseyTrim} strokeWidth={2.6} />
-      <path d="M -8 184 L 0 196 L 8 184 Z" fill={PALETTE.tung.jerseyInner} stroke="none" />
-      {/* Sọc viền tay áo thể thao */}
-      <path d="M -76 230 L -54 250 M 56 250 L 76 230" fill="none" stroke={PALETTE.tung.jerseyTrim} strokeWidth={3.5} />
-      {/* Nếp nhăn áo thể thao */}
-      <path d="M -48 214 Q -46 236 -45 255 M 52 216 L 54 252 M -40 310 Q -16 326 14 314 M 14 332 Q 32 336 44 326" fill="none" strokeWidth={2.4} />
-
-      {/* Số 7 thể thao in sắc nét giữa ngực */}
-      <text x="-4" y="274" textAnchor="middle" fontFamily="'Arial Black', Impact, sans-serif" fontWeight="900" fontSize="34" fill={PALETTE.tung.number} stroke="none">
-        7
-      </text>
-      {/* Huy hiệu khiên thể thao ngực phải */}
-      <path d="M -36 238 L -28 238 L -28 245 Q -32 250 -32 250 Q -36 245 -36 245 Z" fill={PALETTE.tung.jerseyTrim} stroke="none" />
-
-      {/* Đầu Tùng */}
-      <TungHead mood={mood} id="tung-soccer-head" />
-    </g>
-  );
-};
+  pose?: JointPose;
+}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose = TUNG_POSE }) => (
+  <Rigged pose={pose} outfit={TUNG_OUTFIT} x={x} y={y} scale={scale} head={<TungHead mood={mood} id="tung-soccer-head" />} />
+);
 
 // ----------------------------------------------------------------------------
 // 3. BẢNG TRÌNH DIỄN SO SÁNH MASTER CHO TOÀN BỘ HỒ SƠ 02

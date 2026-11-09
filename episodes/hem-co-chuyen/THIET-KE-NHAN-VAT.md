@@ -4,6 +4,8 @@
 
 **Bộ thiết kế mới đã có tệp:** [Nam, Người Kia và Tùng — bảng SVG](ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg), [nguồn React/SVG](ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx), [bảng asset/biểu cảm](ho-so-02-nguoi-lam-thay/ASSET.md). Dùng các tệp này để phát triển Hồ sơ 2 theo Style B; bảng so sánh cũ vẫn là tham chiếu hướng đã chọn. Chưa xác nhận chuyển động, khẩu hình hoặc tương tác đạt chỉ từ việc có bảng thiết kế.
 
+**Làm nhân vật mới:** theo [cách vẽ đã chốt ngày 10/11/2026](ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#4-cách-vẽ-đã-chốt-để-làm-tiếp): nét, tỉ lệ, khớp, cách ghép bằng rig và bước kiểm tra.
+
 ## Nét cần giữ
 
 - Cartoon ít chi tiết, dễ nhận diện và dễ vẽ lại; viền rõ, mảng màu gọn, đường nét mềm.

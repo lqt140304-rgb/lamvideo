@@ -1,7 +1,7 @@
 # Quy chuẩn thiết kế nhân vật SVG (Style B)
 **Áp dụng:** Hồ sơ 02: Người làm thay (và các tập tiếp theo theo phong cách mới)  
-**Ngày chuẩn hóa:** 09/11/2026  
-**Tham chiếu gốc:** [`character-svg-v1.png`](character-svg-v1.png), [`assets/nhan-vat.svg`](../nhan-vat.svg)
+**Ngày chuẩn hóa:** 09/11/2026, cập nhật cách vẽ và rig khớp 10/11/2026  
+**Tham chiếu gốc:** hình bên phải trong [`character-svg-v1.png`](character-svg-v1.png) là mẫu đích; [`nhan-vat.png`](../nhan-vat.png) là bản đang dùng. Làm nhân vật mới: đọc thẳng [mục 4](#4-cách-vẽ-đã-chốt-để-làm-tiếp).
 
 ---
 
@@ -45,8 +45,8 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 ## 3. Quy tắc giải phẫu và cấu trúc đường vẽ (Geometry Rules)
 
 ### 3.1. Đỉnh đầu & Hộp sọ (Cranium & Hair Top)
-- **Quy tắc:** Vòm tóc trên đỉnh đầu phải uốn cong mượt mà theo hình dáng hộp sọ elip (`Q -20 18 -6 14 Q 12 12 28 16 Q 40 22 51 37`).
-- **Nghiêm cấm:** Không để lại các mấu nhọn, móc ngược (`Q -10 -5 15 -5 ...`) tạo thành sừng hay dị vật nhô lên trên đỉnh đầu.
+- **Quy tắc:** Vòm tóc uốn theo hộp sọ, có một lọn xoăn nhỏ trên đỉnh như Mẫu thử B (chủ repo xác nhận lại ngày 10/11/2026).
+- **Nghiêm cấm:** Không thêm mấu nhọn, sừng hay dị vật khác ngoài lọn xoăn đó.
 
 ### 3.2. Nốt ruồi đuôi mày trái (Crucial Story Identification)
 - **Quy tắc:** Chi tiết then chốt phục vụ diễn biến kịch bản:
@@ -58,11 +58,10 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 ### 3.3. Cánh tay & Bàn tay hoạt hình (Arms & Finger Loops)
 - **Cấu trúc cánh tay:** Phải có độ nở của bắp tay và cẳng tay, buông dọc theo đường cong thân áo.
 - **Bàn tay hoạt hình chuẩn Mẫu B:**
-  - Không vẽ ngón que thẳng đuỗn.
-  - Mỗi ngón tay là một cung bezier cong tròn mềm mại (`finger loop`), nối tiếp nhau tự nhiên (ngón trỏ, ngón giữa, ngón áp út, ngón út hơi thu gọn).
-  - Ngón cái gập nhẹ ôm theo lòng bàn tay.
+  - Không vẽ ngón que thẳng đuỗn, không vẽ vạch chia từng ngón.
+  - Cẳng tay và bàn tay là một khối liền, không có đường cắt ở cổ tay. Tay thả lỏng chỉ lộ 3 gợn đầu ngón và một gợn ngón cái; chỉ tay xoè mới tách 4 ngón.
 - **Thứ tự lớp vẽ (Z-Index):**
-  - Cánh tay buông ngoài thân áo phải có đường viền bo cửa ống tay (`sleeve cuff`) rõ ràng.
+  - Tay buông nằm dưới áo; tay áo liền một khối với thân áo.
   - Tránh tuyệt đối việc để vạt áo thân trước đè cụt cánh tay hoặc bàn tay bị chìm khuất sau lưng áo.
 
 ### 3.4. Bản sao (Người Kia — Doppelgänger)
@@ -77,7 +76,57 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 
 ---
 
-## 4. Công cụ & File tài nguyên trong Repo
+## 4. Cách vẽ đã chốt để làm tiếp
+
+Chủ repo đã duyệt hướng này qua các vòng sửa ngày 10/11/2026: **cartoon mềm, ít nét, liền mạch, không cứng**. Khớp phải đúng logic nhưng không được đánh đổi vẻ mềm của mẫu.
+
+### 4.1. Nét và khối
+
+| Làm | Không làm |
+|---|---|
+| Mỗi vùng cùng màu là **một khối liền**: tô nền mực rồi tô màu đè lên (`Blob`), nên không có đường trong | Vẽ viền từng bộ phận rồi xếp chồng, để lộ đường cắt ở vai, khuỷu, cổ tay, gối |
+| Viền ngoài 4, nét mặt 3.5, nếp vải 2.5, đầu nét và góc nối đều tròn | Nét đều tăm tắp như hình học, góc nhọn |
+| Nếp vải chỉ đặt đúng chỗ của mẫu: cổ áo, hai đường nách, hai nếp vạt áo, một nếp gối, một nếp ống chân | Thêm nếp để trông "chi tiết"; vạch khuỷu; đường chia giữa hai ống quần |
+| Gấu quần, tay áo hơi cong; ống quần phồng đùi, thu ở gối, loe nhẹ ở gấu; hai ống có khe chữ V ở đáy quần | Ống thẳng như ống nước, gấu cắt thẳng |
+| Dáng thả lỏng: vai rủ, tay hơi rời thân và hơi cong, hai chân hơi mở | Đứng nghiêm đối xứng, vai vuông như mắc áo |
+
+### 4.2. Tỉ lệ và khớp
+
+Toạ độ nhân vật: tâm ngang x = 0, đỉnh đầu quanh y = 0, sàn y = 589. Số đang dùng nằm trong `nhan-vat.tsx`, bảng dưới chỉ để đối chiếu.
+
+| Phần | Giá trị |
+|---|---|
+| Vai / hông | vai y 232, x −68 và 62; hông y 345, x −29 và 31 |
+| Độ dài xương | bắp tay 80, cẳng tay 68, đùi 105, ống chân 105 |
+| Nửa bề rộng tay | vai 19, khuỷu 16, cổ tay 13.5; bàn tay to 1.12 lần mẫu gốc |
+| Nửa bề rộng ống quần | hông 31, gối 26, gấu 28 |
+| Tay áo | gốc 25, loe 27, dài bằng nửa bắp tay |
+| Giới hạn | khuỷu và gối 0–150° (không gập ngược), cổ tay ±70°, cổ chân ±35°, hông −35 đến 125°, nghiêng thân −30 đến 40°, cổ ±35° |
+
+- **Hông luôn hẹp hơn áo:** quần không được lòi ra ngoài bề ngang áo. Vạt áo giữ phương thẳng đứng khi thân nghiêng (`hemDrape`), nên cúi người không làm lộ mông.
+- **Tay cân với thân cả khi duỗi:** không làm tay nhỏ đi để giống dáng đứng; khi duỗi thẳng vẫn phải đủ to so với đùi và áo.
+- **Chân chạm sàn:** để `planted: true`, hông tự hạ khi gập gối. Không chỉnh tay toạ độ để giấu chân lơ lửng.
+- **Tên tay/chân theo giải phẫu:** R ở phía trái màn hình, L ở phía phải màn hình.
+
+### 4.3. Thêm nhân vật mới
+
+Dùng lại `Rigged` trong [`../nhan-vat.tsx`](../nhan-vat.tsx), không sao chép thành bản riêng:
+
+1. Vẽ đầu riêng theo gốc toạ độ như `StudentTwinHead`; mỗi người có tóc, mặt, dáng riêng.
+2. Tạo `Outfit` (màu áo, `torso`, `hem`, quần dài/ngắn, giày, chi tiết áo); thân khác thì sửa `torso` và `hem` cùng lúc.
+3. Ghép bằng `<Rigged pose={STAND_POSE} outfit={...} head={...} x y scale />`, tư thế trộn từ `STAND_POSE` hoặc `TWIN_POSES`.
+
+### 4.4. Kiểm tra trước khi coi là đạt
+
+- Đặt cạnh hình bên phải của `character-svg-v1.png`: cùng độ mềm, cùng mật độ nét.
+- Xem composition `HoSo02RigSheet` khi đang chuyển động, không chỉ ảnh đứng yên: không đường cắt ở khớp, mông không lòi khỏi áo, tay không bé đi khi duỗi.
+- Chạy `node tests/ho-so-02-rig.cjs` trong `what-if-studio/`.
+
+**Chưa có:** quay lưng, nhìn nghiêng, quay trái, khẩu hình. Không lật gương đầu vì nốt ruồi đổi bên.
+
+---
+
+## 5. Công cụ & File tài nguyên trong Repo
 
 1. **Vector Master Board:** [`../nhan-vat.svg`](../nhan-vat.svg) — Bản vẽ vector độ phân giải cao 1920×1080.
 2. **Hình ảnh xuất bản (PNG):** [`../nhan-vat.png`](../nhan-vat.png) — File preview sắc nét nhúng tài liệu.
