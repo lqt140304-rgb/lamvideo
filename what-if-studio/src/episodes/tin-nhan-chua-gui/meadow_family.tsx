@@ -80,10 +80,10 @@ export const meadowFamilyPoses = (t:number, grieving=false, support=1,farewellT?
     if(q>=220)duy.expr='tearsHeldBack';
     const hold=smooth((q-233)/29);
     if(hold>0){
-      thao.x=lerp(thao.x,1068,hold); // she shuffles in beside him: close enough to lean on, hands meeting low in their laps
-      grip={x:(duy.x+thao.x)/2+5,y:790};
-      duy.armR=blendArm(duy.armR,reachPalm(duy,'R',{x:grip.x-2,y:grip.y-1},true),hold);
-      thao.armL=blendArm(thao.armL,reachPalm(thao,'L',{x:grip.x+2,y:grip.y+1},true),hold);
+      thao.x=lerp(thao.x,1076,hold); // she shuffles in beside him: close enough to lean on, hands meeting low in their laps
+      grip={x:(duy.x+thao.x)/2+12,y:795};
+      duy.armR=blendArm(duy.armR,reachPalm(duy,'R',{x:grip.x-2,y:grip.y-1}),hold);
+      thao.armL=blendArm(thao.armL,reachPalm(thao,'L',{x:grip.x+2,y:grip.y+1}),hold);
       if(hold>=1){duy.handR='none';thao.handL='none';}
       else grip=null;
     }
