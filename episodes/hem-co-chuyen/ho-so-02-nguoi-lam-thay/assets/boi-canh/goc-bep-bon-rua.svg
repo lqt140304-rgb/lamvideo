@@ -178,6 +178,12 @@
       <rect x="-150" y="-140" width="20" height="16" rx="3" fill="#334155" stroke="#282b2b" stroke-width="2.5"/>
       <!-- Giọt nước nhỏ tong tong xuống đáy bồn -->
       <path d="M-140 -115 Q-135 -100 -140 -85 Q-145 -100 -140 -115" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+      <!-- VFX-RIPPLE: GỢN SÓNG NƯỚC LAN TỎA DƯỚI ĐÁY BỒN INOX (TẬP 1 STYLE) -->
+      <g stroke="#38bdf8" fill="none" opacity="0.75">
+        <ellipse cx="-140" cy="35" rx="14" ry="4" stroke-width="1.5"/>
+        <ellipse cx="-140" cy="35" rx="28" ry="7" stroke-width="1.2" opacity="0.55"/>
+        <ellipse cx="-140" cy="35" rx="42" ry="10" stroke-width="1" opacity="0.35"/>
+      </g>
 
       <!-- Tay gạt nước inox gạt chéo -->
       <line x1="0" y1="-15" x2="45" y2="-35" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>

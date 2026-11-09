@@ -46,39 +46,75 @@
     </filter>
   
 
-    <linearGradient id="door-3d-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#3f5157"/>
-      <stop offset="50%" stop-color="#546c73"/>
-      <stop offset="100%" stop-color="#344348"/>
+    <!-- Bầu trời ban mai ngoài cửa sổ -->
+    <linearGradient id="sky-morning-s3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#70a9bd"/>
+      <stop offset="40%" stop-color="#a8cbda"/>
+      <stop offset="100%" stop-color="#dbebe8"/>
     </linearGradient>
-    <linearGradient id="wall-grad-scene3" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ebe3d3"/>
-      <stop offset="100%" stop-color="#ded0ba"/>
+
+    <!-- Luồng nắng sớm volumetric từ cửa sổ (VFX Tập 1) -->
+    <linearGradient id="sun-shaft-s3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffde7" stop-opacity="0.65"/>
+      <stop offset="35%" stop-color="#fef08a" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.05"/>
     </linearGradient>
-    <filter id="door-shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="12"/>
+
+    <!-- Màn hình laptop sáng rực -->
+    <linearGradient id="laptop-glow-s3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="10%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#bae6fd"/>
+    </linearGradient>
+
+    <!-- Đổ bóng tiếp xúc mặt sàn (Ambient Occlusion) -->
+    <filter id="ao-s3" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+    </filter>
+
+    <!-- Hạt bụi lơ lửng VFX-DUST mờ nhẹ -->
+    <filter id="dust-soft-s3" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="0.7"/>
     </filter>
   
 
-    <!-- Quầng sáng ấm áp của đèn bàn học và ánh sáng xanh từ màn hình laptop -->
-    <radialGradient id="lamp-glow-3d" cx="68%" cy="38%" r="65%">
-      <stop offset="0%" stop-color="#fffde7" stop-opacity="0.95"/>
-      <stop offset="25%" stop-color="#fef08a" stop-opacity="0.75"/>
-      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.35"/>
-      <stop offset="80%" stop-color="#78350f" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.0"/>
+    <!-- 1. VFX LIGHT CONE: NÓN ÁNH SÁNG TỪ CHAO ĐÈN BÀN RỌI XUỐNG (STYLE TẬP 1) -->
+    <linearGradient id="lamp-cone-down" x1="40%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" stop-color="#fffde7" stop-opacity="0.75"/>
+      <stop offset="30%" stop-color="#fef08a" stop-opacity="0.45"/>
+      <stop offset="70%" stop-color="#fef08a" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <!-- Vùng sáng rực trên mặt gỗ bàn học -->
+    <radialGradient id="desk-spotlight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffde7" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#fef08a" stop-opacity="0.55"/>
+      <stop offset="80%" stop-color="#d97706" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#8a5833" stop-opacity="0.0"/>
     </radialGradient>
 
-    <!-- Màn hình laptop ban đêm sáng xanh nét -->
-    <linearGradient id="screen-grad-3d" x1="0%" y1="0%" x2="0%" y2="100%">
+    <!-- Ánh sáng xanh phát quang từ màn hình laptop -->
+    <linearGradient id="screen-light-cast" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="6%" stop-color="#f0fdf4"/>
+      <stop offset="8%" stop-color="#f0fdf4"/>
       <stop offset="100%" stop-color="#e0f2fe"/>
     </linearGradient>
 
-    <!-- Đổ bóng mềm ban đêm -->
-    <filter id="night-shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <!-- Quầng xanh dịu tỏa trước laptop -->
+    <linearGradient id="screen-ambient-glow" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <!-- Bóng đổ mềm tự nhiên ban đêm (AO) -->
+    <filter id="night-ao" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="6" result="blur"/>
+    </filter>
+
+    <!-- Hạt bụi lơ lửng VFX-DUST mờ nhẹ -->
+    <filter id="dust-soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="0.7"/>
     </filter>
   
   </defs>
@@ -88,7 +124,7 @@
   <!-- TIÊU ĐỀ MASTER BOARD -->
   <g font-family="Arial, sans-serif" text-anchor="middle">
     <text x="1920" y="58" font-size="42" font-weight="900" fill="#f8f3e7" letter-spacing="1.5">HỒ SƠ 02: NGƯỜI LÀM THAY — BẢNG BỐI CẢNH PHÒNG TRỌ SINH VIÊN 3D (STYLE B)</text>
-    <text x="1920" y="98" font-size="24" fill="#94a3b8">Phát triển 100% theo bản vẽ thiết kế mặt bằng phòng trọ của tác giả · Tỉ lệ ghế to đầm chắc · 4K Master Board</text>
+    <text x="1920" y="98" font-size="24" fill="#94a3b8">Chuẩn hóa 100% theo mặt bằng tác giả · Chỉ 1 cửa ở tường trái · Tủ quần áo cạnh bàn học · Sửa ánh sáng Cảnh 4 · VFX Tập 1</text>
   </g>
 
   <!-- PANEL 1: PHÒNG TRỌ SÁNG SỚM (TOP-LEFT) -->
@@ -386,6 +422,18 @@
     <!-- ==================================================================== -->
     <polygon points="1510,540 1700,500 1660,840 940,890" fill="url(#sun-shaft-beam)" style="mix-blend-mode: screen;"/>
     <polygon points="1510,540 1700,500 1480,980 1120,950" fill="#fef08a" opacity="0.18" style="mix-blend-mode: screen;"/>
+
+    <!-- VFX-DUST: HẠT BỤI NẮNG LƠ LỬNG TRONG LUỒNG SÁNG SỚM (STYLE TẬP 1) -->
+    <g id="vfx-dust-scene1" opacity="0.85" filter="url(#floor-ao)">
+      <circle cx="1460" cy="580" r="2.5" fill="#ffffff" opacity="0.9"/>
+      <circle cx="1390" cy="630" r="3.0" fill="#fef08a" opacity="0.8"/>
+      <circle cx="1260" cy="690" r="2.2" fill="#ffffff" opacity="0.75"/>
+      <circle cx="1180" cy="750" r="2.8" fill="#fef08a" opacity="0.85"/>
+      <circle cx="1080" cy="820" r="3.0" fill="#ffffff" opacity="0.9"/>
+      <circle cx="1320" cy="730" r="2.0" fill="#fffde7" opacity="0.7"/>
+      <circle cx="1520" cy="660" r="2.6" fill="#fef08a" opacity="0.8"/>
+      <circle cx="1020" cy="860" r="2.4" fill="#ffffff" opacity="0.8"/>
+    </g>
   </g>
 
   <!-- ======================================================================== -->
@@ -737,6 +785,12 @@
       <rect x="-150" y="-140" width="20" height="16" rx="3" fill="#334155" stroke="#282b2b" stroke-width="2.5"/>
       <!-- Giọt nước nhỏ tong tong xuống đáy bồn -->
       <path d="M-140 -115 Q-135 -100 -140 -85 Q-145 -100 -140 -115" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5"/>
+      <!-- VFX-RIPPLE: GỢN SÓNG NƯỚC LAN TỎA DƯỚI ĐÁY BỒN INOX (TẬP 1 STYLE) -->
+      <g stroke="#38bdf8" fill="none" opacity="0.75">
+        <ellipse cx="-140" cy="35" rx="14" ry="4" stroke-width="1.5"/>
+        <ellipse cx="-140" cy="35" rx="28" ry="7" stroke-width="1.2" opacity="0.55"/>
+        <ellipse cx="-140" cy="35" rx="42" ry="10" stroke-width="1" opacity="0.35"/>
+      </g>
 
       <!-- Tay gạt nước inox gạt chéo -->
       <line x1="0" y1="-15" x2="45" y2="-35" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
@@ -845,264 +899,318 @@
 
   </g>
 
-  <!-- PANEL 3: CỬA GÀI CHỐT & HÀNH LANG (BOTTOM-LEFT) -->
+  <!-- PANEL 3: GÓC BÀN HỌC & TỦ QUẦN ÁO (BOTTOM-LEFT) -->
   <g id="panel-door" transform="translate(0 1140) scale(0.98)">
     
 
   <!-- ======================================================================== -->
-  <!-- 1. BỨC TƯỜNG SAU & SÀN GẠCH PHÒNG TRỌ (ĐỒNG BỘ 100% MÀU VỚI BỐI CẢNH 1 & 4) -->
+  <!-- 1. PHÔNG NỀN: TƯỜNG SAU, TƯỜNG PHẢI, SÀN GẠCH BÔNG (ĐỒNG BỘ 100% IMAGE.PNG) -->
   <!-- ======================================================================== -->
-  <rect width="1920" height="690" fill="url(#wall-grad-scene3)"/>
-  <rect y="690" width="1920" height="390" fill="#c8baa1"/>
-  <!-- Nẹp chân tường gỗ màu nâu sẫm đồng bộ -->
-  <rect y="670" width="1920" height="20" fill="#6e5a44"/>
-  <line x1="0" y1="690" x2="1920" y2="690" stroke="#282b2b" stroke-width="4"/>
+  <rect width="1920" height="1080" fill="#d9d3c5"/>
 
-  <!-- Ron gạch sàn phòng trọ phối cảnh -->
-  <g stroke="#786955" stroke-width="2.5" opacity="0.55" stroke-dasharray="12 12">
-    <line x1="200" y1="690" x2="-100" y2="1080"/>
-    <line x1="580" y1="690" x2="360" y2="1080"/>
-    <line x1="960" y1="690" x2="860" y2="1080"/>
-    <line x1="1340" y1="690" x2="1360" y2="1080"/>
-    <line x1="1720" y1="690" x2="1860" y2="1080"/>
-    <line x1="0" y1="760" x2="1920" y2="760"/>
-    <line x1="0" y1="850" x2="1920" y2="850"/>
-    <line x1="0" y1="960" x2="1920" y2="960"/>
+  <!-- Tường sau phòng trọ (Màu kem ấm) -->
+  <polygon points="0,0 1520,0 1520,620 0,620" fill="#ebe4d5" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Gờ nẹp tường trên -->
+  <line x1="0" y1="30" x2="1520" y2="30" stroke="#c2baa8" stroke-width="2.5"/>
+  <line x1="0" y1="260" x2="1520" y2="260" stroke="#dfd8c7" stroke-width="2"/>
+
+  <!-- Tường phải có cửa sổ lớn (hình thang phối cảnh) -->
+  <polygon points="1520,0 1920,0 1920,1080 1520,620" fill="#cfc7b4" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Sàn gạch bông phòng trọ -->
+  <polygon points="0,620 1520,620 1920,1080 0,1080" fill="#cacdbf" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Ron gạch sàn nhà chạy tụ phối cảnh -->
+  <g stroke="#b3b6a6" stroke-width="2" opacity="0.75">
+    <line x1="0" y1="690" x2="1580" y2="690"/>
+    <line x1="0" y1="780" x2="1660" y2="780"/>
+    <line x1="0" y1="890" x2="1760" y2="890"/>
+    <line x1="0" y1="1020" x2="1870" y2="1020"/>
+
+    <line x1="280" y1="620" x2="140" y2="1080"/>
+    <line x1="580" y1="620" x2="520" y2="1080"/>
+    <line x1="880" y1="620" x2="900" y2="1080"/>
+    <line x1="1180" y1="620" x2="1280" y2="1080"/>
+    <line x1="1480" y1="620" x2="1680" y2="1080"/>
   </g>
 
   <!-- ======================================================================== -->
-  <!-- 2. HẬU CẢNH BÊN TRÁI: MÉP NỆM NGỦ CỦA NAM (KẾT NỐI KHÔNG GIAN VỚI BỐI CẢNH 1) -->
+  <!-- 2. BÊN TRÁI BÀN HỌC: TỦ QUẦN ÁO ĐỨNG BẰNG GỖ (ĐÚNG 100% THEO IMAGE.PNG!) -->
+  <!-- Chỉ có 1 cửa ở tường trái, cái ở giữa bên cạnh bàn học là TỦ QUẦN ÁO! -->
   <!-- ======================================================================== -->
-  <g transform="translate(-80 570)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
-    <polygon points="60,120 400,120 370,145 40,145" fill="#000" opacity="0.2" filter="url(#door-shadow)"/>
-    <polygon points="60,60 380,60 360,125 40,125" fill="#697b74" stroke="#282b2b" stroke-width="3.5"/>
-    <polygon points="40,125 360,125 360,145 40,145" fill="#425249" stroke="#282b2b" stroke-width="3.5"/>
-    <path d="M80 75 Q220 50 350 80 Q360 130 320 135 Q180 140 70 120 Z" fill="#334a41" stroke="#282b2b" stroke-width="3.5"/>
-    <path d="M120 62 Q180 54 240 62 Q225 80 135 80 Z" fill="#fefce8" stroke="#282b2b" stroke-width="2.5"/>
-  </g>
+  <g id="wardrobe-closet-s3" transform="translate(80 140)" stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round">
+    <!-- Bóng tủ đổ lên tường và sàn -->
+    <rect x="-15" y="0" width="340" height="520" fill="#000" opacity="0.15" filter="url(#ao-s3)"/>
 
-  <!-- ĐỒNG HỒ TRÒN TREO TƯỜNG (KẾT NỐI VỚI BỐI CẢNH 1) -->
-  <g transform="translate(260 120)" stroke="#282b2b" stroke-width="3.5">
-    <circle cx="0" cy="0" r="38" fill="#ffffff"/>
-    <circle cx="0" cy="0" r="34" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
-    <line x1="0" y1="0" x2="14" y2="-14" stroke="#282b2b" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="0" y1="0" x2="0" y2="-22" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="0" cy="0" r="3" fill="#282b2b"/>
-  </g>
+    <!-- Hộp carton để trên nóc tủ -->
+    <polygon points="60,-35 240,-35 255,-5 75,-5" fill="#c99a6b" stroke="#282b2b" stroke-width="3"/>
+    <polygon points="60,-35 75,-5 75,15 60,-15" fill="#a77b4d" stroke="#282b2b" stroke-width="3"/>
+    <polygon points="75,-5 255,-5 255,15 75,15" fill="#b88858" stroke="#282b2b" stroke-width="3"/>
 
-  <!-- ======================================================================== -->
-  <!-- 3. KHUÔN CỬA PHÒNG GỖ ĐÓNG KÍN, THEN CÀI CHỐT TRƯỢT KIM LOẠI & Ô CHỚP -->
-  <!-- ======================================================================== -->
-  <g transform="translate(380 70)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
-    <rect x="0" y="0" width="540" height="120" fill="#2b221a" stroke="#282b2b" stroke-width="5"/>
-    <rect x="10" y="10" width="520" height="100" fill="#e5dfd4" stroke="none"/>
-    <line x1="10" y1="60" x2="530" y2="60" stroke="#475569" stroke-width="3.5"/>
-    <line x1="75" y1="10" x2="75" y2="110" stroke="#475569" stroke-width="2.5"/>
-    <line x1="150" y1="10" x2="150" y2="110" stroke="#475569" stroke-width="2.5"/>
-    <line x1="225" y1="10" x2="225" y2="110" stroke="#475569" stroke-width="2.5"/>
-    <line x1="300" y1="10" x2="300" y2="110" stroke="#475569" stroke-width="2.5"/>
-    <line x1="375" y1="10" x2="375" y2="110" stroke="#475569" stroke-width="2.5"/>
-    <line x1="450" y1="10" x2="450" y2="110" stroke="#475569" stroke-width="2.5"/>
-    <line x1="0" y1="35" x2="540" y2="45" stroke="#282b2b" stroke-width="4.5" stroke-linecap="round"/>
-    <line x1="0" y1="75" x2="540" y2="85" stroke="#282b2b" stroke-width="4.5" stroke-linecap="round"/>
-  </g>
+    <!-- Khung thân tủ quần áo gỗ màu nâu ấm (#5c4637) -->
+    <rect x="0" y="10" width="320" height="470" rx="4" fill="#5c4637" stroke-width="4.5"/>
+    <rect x="20" y="28" width="280" height="435" fill="#eadbc7" stroke-width="3"/>
 
-  <!-- KHUNG CỬA PHÒNG TRỌ VÀ THEN CÀI CHỐT TRƯỢT KIM LOẠI -->
-  <g id="door-unit-scene3" transform="translate(360 210)">
-    <polygon points="-15,0 595,0 605,500 -10,500" fill="#000" opacity="0.2" filter="url(#door-shadow)"/>
-    <rect x="0" y="0" width="580" height="500" fill="#271f18" stroke="#282b2b" stroke-width="6" rx="3"/>
-    <rect x="22" y="18" width="536" height="478" fill="url(#door-3d-grad)" stroke="#282b2b" stroke-width="4.5"/>
-
-    <rect x="50" y="45" width="480" height="175" rx="8" fill="#769384" stroke="#282b2b" stroke-width="3.5"/>
-    <rect x="50" y="255" width="480" height="215" rx="8" fill="#769384" stroke="#282b2b" stroke-width="3.5"/>
-    <rect x="65" y="58" width="450" height="150" rx="5" fill="none" stroke="#8baaa0" stroke-width="2.5"/>
-    <rect x="65" y="270" width="450" height="185" rx="5" fill="none" stroke="#8baaa0" stroke-width="2.5"/>
-
-    <circle cx="290" cy="135" r="11" fill="#d4af37" stroke="#282b2b" stroke-width="3"/>
-    <circle cx="290" cy="135" r="4.5" fill="#0f172a" stroke="none"/>
-
-    <!-- THEN CÀI CHỐT TRƯỢT KIM LOẠI -->
-    <g transform="translate(360 230)">
-      <rect x="5" y="-18" width="195" height="55" rx="5" fill="#000" opacity="0.35" filter="url(#door-shadow)"/>
-      <rect x="0" y="-22" width="130" height="50" rx="5" fill="#94a3b8" stroke="#282b2b" stroke-width="3"/>
-      <circle cx="14" cy="-10" r="3" fill="#334155" stroke="none"/>
-      <circle cx="14" cy="14" r="3" fill="#334155" stroke="none"/>
-      <circle cx="116" cy="-10" r="3" fill="#334155" stroke="none"/>
-      <circle cx="116" cy="14" r="3" fill="#334155" stroke="none"/>
-
-      <rect x="145" y="-22" width="45" height="50" rx="4" fill="#94a3b8" stroke="#282b2b" stroke-width="3"/>
-      <circle cx="162" cy="-10" r="3" fill="#334155" stroke="none"/>
-      <circle cx="162" cy="14" r="3" fill="#334155" stroke="none"/>
-
-      <rect x="30" y="-15" width="32" height="36" rx="3" fill="#64748b" stroke="#282b2b" stroke-width="2.5"/>
-      <rect x="78" y="-15" width="32" height="36" rx="3" fill="#64748b" stroke="#282b2b" stroke-width="2.5"/>
-
-      <rect x="20" y="-10" width="155" height="26" rx="4" fill="#f1f5f9" stroke="#282b2b" stroke-width="3.5"/>
-      <rect x="20" y="-10" width="155" height="7" fill="#ffffff" opacity="0.75" stroke="none"/>
-      <circle cx="72" cy="3" r="7" fill="#cbd5e1" stroke="#282b2b" stroke-width="2.5"/>
-      <rect x="68" y="3" width="8" height="26" rx="3" fill="#475569" stroke="#282b2b" stroke-width="2.5"/>
-
-      <circle cx="68" cy="105" r="24" fill="#d4af37" stroke="#282b2b" stroke-width="3.5"/>
-      <circle cx="68" cy="105" r="6" fill="#1e293b" stroke="none"/>
+    <!-- NGĂN TRÊN: TREO 2 ÁO THUN TRÊN MÓC (ÁO VÀNG & ÁO XANH ĐÁ) -->
+    <rect x="20" y="28" width="280" height="175" fill="#e4d2bc" stroke-width="2.5"/>
+    <line x1="30" y1="48" x2="290" y2="48" stroke="#78716c" stroke-width="4" stroke-linecap="round"/>
+    <!-- Áo 1: Vàng mù tạt -->
+    <g stroke="#282b2b" stroke-width="2.8">
+      <path d="M60 48 L35 72 L50 88 L65 78 L65 170 L125 170 L125 78 L140 88 L155 72 L130 48 Z" fill="#d4a359"/>
+      <path d="M80 48 Q95 62 110 48" fill="none"/>
+    </g>
+    <!-- Áo 2: Xanh đá -->
+    <g stroke="#282b2b" stroke-width="2.8">
+      <path d="M170 48 L148 72 L162 88 L174 78 L174 170 L234 170 L234 78 L246 88 L260 72 L238 48 Z" fill="#6d8c97"/>
+      <path d="M188 48 Q204 62 220 48" fill="none"/>
     </g>
 
-    <rect x="22" y="490" width="536" height="7" fill="#fef08a" opacity="0.85" stroke="none"/>
-    <ellipse cx="290" cy="493" rx="36" ry="3" fill="#181a1d" stroke="none"/>
+    <!-- NGĂN GIỮA: MỀN KHĂN GẤP GỌN -->
+    <rect x="20" y="210" width="280" height="95" fill="#d8c6b0" stroke-width="2.5"/>
+    <rect x="45" y="228" width="220" height="30" rx="6" fill="#f5f5f4" stroke-width="2.5"/>
+    <rect x="45" y="265" width="220" height="32" rx="6" fill="#68867a" stroke-width="2.5"/>
+
+    <!-- NGĂN DƯỚI: CÁNH TỦ ĐÓNG KÍN MÀU XANH CỔ VỊT CÓ CHỈ NẸP CONG -->
+    <rect x="20" y="312" width="280" height="151" fill="#435a57" stroke-width="3"/>
+    <rect x="35" y="326" width="250" height="123" rx="14" fill="#516c68" stroke-width="2.5"/>
+  </g>
+
+  <!-- MẢNG TƯỜNG Ở GIỮA: VẾT NỨT, GIẤY NOTE VÀNG VÀ ĐỒNG HỒ TREO TƯỜNG (7:07) -->
+  <g id="wall-accents-s3">
+    <!-- Vết nứt tường phong cách sinh viên -->
+    <path d="M420 110 L465 130 L458 160 L505 165" fill="none" stroke="#b5ad9b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Giấy note vàng dán vách tường: NỘP BÀI! -->
+    <g transform="translate(440 180)" stroke="#ca8a04" stroke-linejoin="round">
+      <rect x="0" y="0" width="95" height="80" fill="#fef08a" stroke-width="2" rx="2"/>
+      <line x1="18" y1="22" x2="78" y2="22" stroke="#a16207" stroke-width="3" stroke-linecap="round"/>
+      <line x1="18" y1="38" x2="70" y2="38" stroke="#a16207" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="18" y1="54" x2="60" y2="54" stroke="#a16207" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Miếng note nhỏ vàng đậm dán đè -->
+      <rect x="30" y="72" width="55" height="42" fill="#fde047" stroke="#ca8a04" stroke-width="1.8" rx="2"/>
+      <text x="38" y="95" font-family="Arial" font-size="9" font-weight="bold" fill="#b91c1c">NỘP 23:59</text>
+    </g>
+
+    <!-- ĐỒNG HỒ TRÒN TREO TƯỜNG (CHỈ 7:07 SÁNG THEO IMAGE.PNG) -->
+    <g id="wall-clock-s3" transform="translate(590 190)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
+      <circle cx="0" cy="0" r="48" fill="#ffffff"/>
+      <circle cx="0" cy="0" r="43" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+      <!-- 4 vạch số chính -->
+      <line x1="0" y1="-40" x2="0" y2="-32" stroke="#282b2b" stroke-width="3.5"/>
+      <line x1="40" y1="0" x2="32" y2="0" stroke="#282b2b" stroke-width="3.5"/>
+      <line x1="0" y1="40" x2="0" y2="32" stroke="#282b2b" stroke-width="3.5"/>
+      <line x1="-40" y1="0" x2="-32" y2="0" stroke="#282b2b" stroke-width="3.5"/>
+      <circle cx="0" cy="0" r="4" fill="#b91c1c" stroke="none"/>
+      <!-- Kim giờ chỉ 7h -->
+      <line x1="0" y1="0" x2="-14" y2="20" stroke="#282b2b" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- Kim phút chỉ phút thứ 7 (~35 độ) -->
+      <line x1="0" y1="0" x2="18" y2="-28" stroke="#282b2b" stroke-width="3.5" stroke-linecap="round"/>
+    </g>
   </g>
 
   <!-- ======================================================================== -->
-  <!-- 4. CHIẾC GHẾ GỖ TỰA NAM KÉO RA CHẶN TRƯỚC CỬA CANH CHỐT (ĐÚNG KỊCH BẢN) -->
+  <!-- 3. TƯỜNG PHẢI: CỬA SỔ LỚN, RÈM CỬA VÀ LUỒNG NẮNG SỚM VOLUMETRIC (VFX TẬP 1) -->
   <!-- ======================================================================== -->
-  <g transform="translate(560 610)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
-    <polygon points="-20,210 160,210 135,255 -50,255" fill="#000" opacity="0.22" filter="url(#door-shadow)"/>
-    <line x1="0" y1="120" x2="-18" y2="215" stroke="#613717" stroke-width="7.5" stroke-linecap="round"/>
-    <line x1="125" y1="120" x2="145" y2="215" stroke="#613717" stroke-width="7.5" stroke-linecap="round"/>
-    <line x1="20" y1="80" x2="12" y2="175" stroke="#40230c" stroke-width="5.5" stroke-linecap="round"/>
-    <line x1="105" y1="80" x2="112" y2="175" stroke="#40230c" stroke-width="5.5" stroke-linecap="round"/>
+  <g id="window-morning-s3">
+    <!-- Khung cửa sổ tường phải (hình thang phối cảnh) -->
+    <polygon points="1540,110 1860,35 1860,540 1540,595" fill="#1e293b" stroke="#282b2b" stroke-width="4.5" stroke-linejoin="round"/>
 
-    <polygon points="12,60 112,60 130,125 -5,125" fill="#9c5c2d" stroke="#282b2b" stroke-width="4"/>
-    <polygon points="-5,125 130,125 130,136 -5,136" fill="#613717" stroke="#282b2b" stroke-width="3"/>
+    <!-- Kính nhìn ra bầu trời ban mai & mái ngói đỏ phố phường -->
+    <polygon points="1555,125 1845,55 1845,525 1555,580" fill="url(#sky-morning-s3)"/>
 
-    <path d="M12 60 L20 -150 L102 -150 L112 60" fill="none" stroke="#784421" stroke-width="8" stroke-linecap="round"/>
-    <line x1="24" y1="-100" x2="98" y2="-100" stroke="#784421" stroke-width="6"/>
-    <line x1="21" y1="-40" x2="102" y2="-40" stroke="#784421" stroke-width="6"/>
+    <!-- Quang cảnh ngoài cửa sổ: Mái ngói đỏ & Rặng cây xanh tươi -->
+    <g>
+      <polygon points="1670,280 1760,235 1845,280 1670,280" fill="#b91c1c" stroke="#282b2b" stroke-width="2.5"/>
+      <polygon points="1680,280 1840,280 1840,400 1680,400" fill="#e2d6b5" stroke="#282b2b" stroke-width="2.5"/>
+      <rect x="1720" y="305" width="34" height="42" fill="#334155" stroke="#282b2b" stroke-width="2"/>
+
+      <!-- Vòm cây xanh tươi mát -->
+      <path d="M1560 480 Q1600 370 1670 415 Q1740 360 1810 425 Q1850 405 1850 515 L1555 580 Z" fill="#4d7c0f" stroke="#282b2b" stroke-width="3" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Khung chia ô cửa sổ xanh rêu sẫm -->
+    <g stroke="#2e4237" stroke-width="5" stroke-linecap="round">
+      <line x1="1650" y1="100" x2="1650" y2="565"/>
+      <line x1="1750" y1="75" x2="1750" y2="545"/>
+      <line x1="1550" y1="350" x2="1850" y2="290"/>
+    </g>
+
+    <!-- Rèm cửa màu kem vén gọn 2 bên khung -->
+    <path d="M1530 105 L1580 115 C1560 260 1590 440 1560 595 L1525 595 Z" fill="#eae4cf" stroke="#282b2b" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M1825 50 L1870 38 L1870 535 C1840 435 1855 220 1825 50 Z" fill="#eae4cf" stroke="#282b2b" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- ==================================================================== -->
+    <!-- VFX TẬP 1: LUỒNG NẮNG VOLUMETRIC CHIẾU XIÊN TỪ CỬA SỔ XUỐNG SÀN VÀ NỆM -->
+    <!-- ==================================================================== -->
+    <polygon points="1540,550 1760,505 1680,950 820,980" fill="url(#sun-shaft-s3)" style="mix-blend-mode: screen;"/>
+
+    <!-- VFX-DUST: CÁC HẠT BỤI NẮNG LƠ LỬNG TRONG LUỒNG SÁNG SỚM (STYLE TẬP 1) -->
+    <g id="vfx-sun-dust" opacity="0.8" filter="url(#dust-soft-s3)">
+      <circle cx="1450" cy="620" r="2.5" fill="#ffffff" opacity="0.9"/>
+      <circle cx="1380" cy="670" r="3.0" fill="#fef08a" opacity="0.8"/>
+      <circle cx="1240" cy="720" r="2.2" fill="#ffffff" opacity="0.75"/>
+      <circle cx="1160" cy="780" r="2.8" fill="#fef08a" opacity="0.85"/>
+      <circle cx="1050" cy="840" r="3.2" fill="#ffffff" opacity="0.9"/>
+      <circle cx="1290" cy="760" r="2.0" fill="#fffde7" opacity="0.7"/>
+      <circle cx="1480" cy="690" r="2.6" fill="#fef08a" opacity="0.8"/>
+      <circle cx="980" cy="890" r="2.4" fill="#ffffff" opacity="0.8"/>
+    </g>
   </g>
 
   <!-- ======================================================================== -->
-  <!-- 5. BÀN HỌC SINH VIÊN CỦA NAM BÊN PHẢI (ĐỒNG BỘ 100% VỚI BỐI CẢNH 4 & 1) -->
-  <!-- Bàn gỗ nâu mật ong, 2 ngăn kéo có núm đồng, giá sách giáo trình, đèn bàn đỏ, ví da & thẻ căn cước -->
+  <!-- 4. BÀN HỌC CỦA NAM (BÊN PHẢI TỦ QUẦN ÁO, ĐỒNG BỘ 100% IMAGE.PNG) -->
   <!-- ======================================================================== -->
-  <g id="nam-study-desk-scene3" transform="translate(1080 430)">
-    <!-- Bóng đổ tiếp xúc chân bàn học xuống sàn -->
-    <polygon points="-20,425 780,425 740,465 -50,465" fill="#000" opacity="0.25" filter="url(#door-shadow)"/>
+  <g id="study-desk-s3" transform="translate(740 490)">
+    <!-- Mặt bàn gỗ nằm ngang màu nâu mật ong (#c4935a) -->
+    <polygon points="0,65 520,65 550,110 -25,110" fill="#c4935a" stroke="#282b2b" stroke-width="4.5" stroke-linejoin="round"/>
+    <polygon points="-25,110 550,110 550,130 -25,130" fill="#8c6032" stroke="#282b2b" stroke-width="3"/>
 
-    <!-- GIÁ SÁCH GỖ 2 TẦNG GẮN LIỀN TRÊN BÀN (Y HỆT BỐI CẢNH 4) -->
-    <g transform="translate(0 -140)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
-      <polygon points="-40,0 750,0 760,150 -30,150" fill="#3a281c" stroke="#282b2b" stroke-width="4"/>
-      <line x1="-35" y1="75" x2="755" y2="75" stroke="#282b2b" stroke-width="3.5"/>
-      <line x1="360" y1="0" x2="360" y2="150" stroke="#282b2b" stroke-width="3.5"/>
-
-      <!-- Giáo trình đại học xếp đứng (Triết học, Toán cao cấp, Kinh tế vi mô) -->
-      <g stroke="#282b2b" stroke-width="2.5">
-        <rect x="-25" y="12" width="20" height="58" fill="#dc2626"/>
-        <text x="-16" y="42" font-family="Arial" font-size="5" font-weight="bold" fill="#fff" transform="rotate(-90 -16 42)">TRIẾT HỌC</text>
-        <rect x="-3" y="8" width="22" height="62" fill="#2563eb"/>
-        <text x="6" y="42" font-family="Arial" font-size="5" font-weight="bold" fill="#fff" transform="rotate(-90 6 42)">TOÁN C.CẤP</text>
-        <rect x="21" y="15" width="18" height="55" fill="#16a34a"/>
-        <text x="29" y="42" font-family="Arial" font-size="5" font-weight="bold" fill="#fff" transform="rotate(-90 29 42)">KINH TẾ</text>
-        <polygon points="45,50 120,50 124,68 49,68" fill="#f8fafc"/>
-        <polygon points="43,38 118,38 120,50 45,50" fill="#fef08a"/>
-      </g>
-
-      <rect x="150" y="15" width="38" height="38" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5" transform="rotate(-6 150 15)"/>
-      <text x="154" y="30" font-family="Arial" font-size="5.5" font-weight="bold" fill="#854d0e" transform="rotate(-6 150 15)">NỘP BÀI!</text>
-      <text x="154" y="40" font-family="Arial" font-size="4.5" fill="#b91c1c" transform="rotate(-6 150 15)">23h59</text>
+    <!-- 4 Chân bàn và khung bàn gỗ sẫm -->
+    <g stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
+      <line x1="20" y1="130" x2="20" y2="220" stroke="#453326" stroke-width="7"/>
+      <line x1="500" y1="130" x2="500" y2="220" stroke="#453326" stroke-width="7"/>
+      <line x1="-15" y1="130" x2="-15" y2="265" stroke="#5a4433" stroke-width="9"/>
+      <line x1="535" y1="130" x2="535" y2="265" stroke="#5a4433" stroke-width="9"/>
+      <line x1="-15" y1="205" x2="535" y2="205" stroke="#5a4433" stroke-width="5.5"/>
     </g>
 
-    <!-- THÂN BÀN HỌC BẰNG GỖ -->
-    <polygon points="-40,20 0,60 0,430 -40,390" fill="#2b1f17" stroke="#282b2b" stroke-width="4"/>
-    <polygon points="0,60 780,60 780,430 0,430" fill="#3f2d21" stroke="#282b2b" stroke-width="4.5" stroke-linejoin="round"/>
-    <rect x="45" y="90" width="410" height="340" fill="#17110c" stroke="#282b2b" stroke-width="3.5"/>
+    <!-- Sọt rác nhỏ cạnh chân bàn -->
+    <polygon points="-45,215 -15,215 -20,268 -40,268" fill="#d6d3d1" stroke="#282b2b" stroke-width="2.5"/>
 
-    <!-- 2 HỘC NGĂN KÉO CÓ NÚM ĐỒNG VÀNG -->
-    <g stroke="#282b2b" stroke-width="3">
-      <rect x="490" y="85" width="250" height="125" rx="4" fill="#4a3527"/>
-      <circle cx="615" cy="147" r="6.5" fill="#d4af37" stroke-width="2"/>
-      <rect x="490" y="230" width="250" height="155" rx="4" fill="#4a3527"/>
-      <circle cx="615" cy="307" r="6.5" fill="#d4af37" stroke-width="2"/>
+    <!-- SÁCH VỞ ĐẠI HỌC DỰNG ĐỨNG GÓC TRÁI MẶT BÀN -->
+    <g stroke="#282b2b" stroke-width="2.5">
+      <rect x="15" y="0" width="15" height="65" fill="#b91c1c"/>
+      <rect x="33" y="6" width="16" height="59" fill="#15803d"/>
+      <rect x="52" y="0" width="18" height="65" fill="#1d4ed8"/>
+      <rect x="73" y="25" width="20" height="40" fill="#f5f5f4"/>
     </g>
 
-    <!-- GHẾ XOAY HỌC SINH CÔNG THÁI HỌC KÊ Ở KHOANG CHÂN (ĐÃ NÂNG CẤP TO RÕ, ĐẦM CHẮC, CÂN ĐỐI 100%) -->
-    <g id="student-swivel-chair-scene3" transform="translate(250 280)" stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round">
-      <!-- Bóng ghế đổ xuống sàn nhà rộng rãi -->
-      <polygon points="-95,110 95,110 80,145 -110,145" fill="#000" opacity="0.3" filter="url(#door-shadow)"/>
+    <!-- LAPTOP MỞ MÀN HÌNH ĐẶT TRUNG TÂM BÀN HỌC -->
+    <g transform="translate(190 -10)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
+      <!-- Bàn phím nằm trên mặt bàn -->
+      <polygon points="-55,75 55,75 68,102 -68,102" fill="#1e293b" stroke-width="3"/>
+      <rect x="-15" y="90" width="30" height="8" rx="1.5" fill="#475569" stroke="none"/>
 
-      <!-- Chân đế xoay 5 chấu kim loại to bản vững chãi tiếp đất -->
-      <g stroke="#334155" stroke-width="6" stroke-linecap="round">
-        <!-- Trục piston ben hơi -->
-        <line x1="0" y1="85" x2="0" y2="115" stroke="#1e293b" stroke-width="12"/>
-        <!-- 5 chấu chân xòe rộng -->
-        <line x1="0" y1="108" x2="-75" y2="120"/>
-        <line x1="0" y1="108" x2="75" y2="120"/>
-        <line x1="0" y1="108" x2="-45" y2="98"/>
-        <line x1="0" y1="108" x2="45" y2="98"/>
-        <line x1="0" y1="108" x2="0" y2="128"/>
-      </g>
-      <!-- 5 Bánh xe chịu lực kép màu đen -->
-      <circle cx="-75" cy="122" r="5.5" fill="#0f172a" stroke="none"/>
-      <circle cx="75" cy="122" r="5.5" fill="#0f172a" stroke="none"/>
-      <circle cx="-45" cy="100" r="5" fill="#0f172a" stroke="none"/>
-      <circle cx="45" cy="100" r="5" fill="#0f172a" stroke="none"/>
-      <circle cx="0" cy="130" r="5.5" fill="#0f172a" stroke="none"/>
-
-      <!-- Trục ben hơi nâng mạ chrome -->
-      <line x1="0" y1="85" x2="0" y2="25" stroke="#64748b" stroke-width="9" stroke-linecap="round"/>
-
-      <!-- Đệm ngồi to rộng, êm ái (Seat cushion) -->
-      <polygon points="-80,5 80,5 92,35 -92,35" fill="#1e293b" stroke="#282b2b" stroke-width="4"/>
-      <polygon points="-92,35 92,35 92,48 -92,48" fill="#0f172a" stroke="#282b2b" stroke-width="3"/>
-
-      <!-- Tựa lưng công thái học lưới cao cấp vươn cao bề thế -->
-      <path d="M-62 5 C-76 -65 -62 -170 0 -178 C62 -170 76 -65 62 5 Z" fill="#1e293b" stroke="#282b2b" stroke-width="4"/>
-      <!-- Lưới thoáng khí bên trong -->
-      <path d="M-50 -2 C-62 -60 -50 -155 0 -162 C50 -155 62 -60 50 -2 Z" fill="#334155" opacity="0.65" stroke="none"/>
-      <!-- Đệm thắt lưng công thái học (Lumbar support xanh dương) -->
-      <path d="M-36 -60 Q0 -76 36 -60" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
-
-      <!-- Tay vịn công thái học 2 bên to chắc chắn (T-Armrests) -->
-      <g stroke="#334155" stroke-width="5" stroke-linecap="round">
-        <path d="M-80 15 L-95 -25 L-65 -25" fill="none"/>
-        <path d="M80 15 L95 -25 L65 -25" fill="none"/>
+      <!-- Màn hình mở phát sáng -->
+      <polygon points="-52,75 52,75 50,-25 -50,-25" fill="#0f172a" stroke-width="3.5"/>
+      <polygon points="-46,70 46,70 44,-20 -44,-20" fill="url(#laptop-glow-s3)" stroke="none"/>
+      <!-- Dòng văn bản hiển thị Google Docs -->
+      <g stroke="#0284c7" stroke-width="2.2" stroke-linecap="round">
+        <line x1="-36" y1="-2" x2="32" y2="-2"/>
+        <line x1="-36" y1="14" x2="38" y2="14"/>
+        <line x1="-36" y1="28" x2="20" y2="28"/>
+        <line x1="-36" y1="44" x2="26" y2="44"/>
       </g>
     </g>
 
-    <!-- MẶT BÀN GỖ NẰM NGANG 3D MÀU NÂU MẬT ONG (#8a5833, ĐỒNG BỘ 100%) -->
-    <polygon points="-60,10 760,10 820,60 0,60" fill="#8a5833" stroke="#282b2b" stroke-width="4.5" stroke-linejoin="round"/>
-    <polygon points="0,60 820,60 820,74 0,74" fill="#54361e" stroke="#282b2b" stroke-width="2.5"/>
-
-    <!-- ĐÈN BÀN CỔ NGỖNG CHÓA ĐỎ (TẮT BAN NGÀY, Y HỆT BỐI CẢNH 4) -->
-    <g transform="translate(690 25)">
-      <ellipse cx="0" cy="0" rx="32" ry="11" fill="#b91c1c" stroke="#282b2b" stroke-width="3"/>
-      <ellipse cx="0" cy="-3" rx="30" ry="9" fill="#ef4444" stroke="#282b2b" stroke-width="1.8"/>
-      <path d="M0 -3 Q40 -100 -30 -150 Q-100 -190 -120 -160" fill="none" stroke="#334155" stroke-width="8" stroke-linecap="round"/>
-      <path d="M-140 -165 L-95 -135 L-115 -95 L-175 -110 Z" fill="#dc2626" stroke="#282b2b" stroke-width="3.5"/>
+    <!-- ĐÈN HỌC BÀN VÀ CỐC NƯỚC BÊN PHẢI -->
+    <g stroke="#282b2b" stroke-width="3" stroke-linejoin="round">
+      <rect x="440" y="50" width="22" height="28" rx="3" fill="#f5f5f4"/>
+      <path d="M462 56 Q470 64 462 72" fill="none"/>
+      <ellipse cx="405" cy="70" rx="16" ry="6" fill="#334155"/>
+      <path d="M405 68 Q435 15 395 5" fill="none" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+      <polygon points="395,5 372,-15 385,-32 408,-12" fill="#475569"/>
     </g>
 
-    <!-- ỐNG CẮM BÚT TRÊN BÀN -->
-    <g transform="translate(60 15)">
-      <rect x="0" y="-15" width="32" height="42" rx="5" fill="#0284c7" stroke="#282b2b" stroke-width="2.5"/>
-      <line x1="8" y1="-15" x2="4" y2="-40" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/>
-      <line x1="16" y1="-15" x2="18" y2="-45" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>
-      <line x1="24" y1="-15" x2="28" y2="-38" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+    <!-- ==================================================================== -->
+    <!-- CHIẾC GHẾ Ở BÀN HỌC (THE STUDY CHAIR - TO ĐẦM CHẮC, CÓ ÁO VẮT LƯNG!) -->
+    <!-- Đặt thẳng hàng chính giữa laptop, chuẩn 100% theo image.png! -->
+    <!-- ==================================================================== -->
+    <g id="study-desk-chair-s3" transform="translate(190 95)" stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round">
+      <!-- Bóng ghế đổ rộng xuống sàn -->
+      <polygon points="-85,210 85,210 60,250 -105,250" fill="#000" opacity="0.22" filter="url(#ao-s3)"/>
+
+      <!-- 4 Chân ghế choãi vững vàng tiếp đất -->
+      <g stroke="#334155" stroke-width="7" stroke-linecap="round">
+        <line x1="-55" y1="110" x2="-78" y2="225"/>
+        <line x1="55" y1="110" x2="78" y2="225"/>
+        <line x1="-38" y1="90" x2="-48" y2="180" stroke="#1e293b" stroke-width="5.5"/>
+        <line x1="38" y1="90" x2="48" y2="180" stroke="#1e293b" stroke-width="5.5"/>
+        <line x1="-65" y1="185" x2="65" y2="185" stroke="#1e293b" stroke-width="5"/>
+      </g>
+
+      <!-- Đệm ngồi to rộng rãi, êm ái -->
+      <polygon points="-55,70 55,70 68,110 -68,110" fill="#383f3c" stroke-width="4"/>
+      <polygon points="-68,110 68,110 68,126 -68,126" fill="#222725" stroke-width="3"/>
+
+      <!-- Khung tựa lưng ghế vươn cao bề thế ngang mặt bàn -->
+      <path d="M-44 70 L-35 -45 L35 -45 L44 70" fill="none" stroke="#334155" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="-35" y="-42" width="70" height="95" rx="10" fill="#404d49" stroke-width="3.8"/>
+
+      <!-- ÁO THUN VẮT HỜ QUA LƯNG GHẾ (PROP QUAN TRỌNG TRONG KỊCH BẢN!) -->
+      <g stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round">
+        <!-- Thân áo rủ rộng qua lưng ghế -->
+        <path d="M-50 -32 Q0 -44 50 -32 L56 60 Q0 70 -56 60 Z" fill="#6b8c80"/>
+        <!-- Tay áo trái rủ thõng tự nhiên -->
+        <path d="M-52 -24 L-74 22 L-50 28 L-46 -6 Z" fill="#5e7c72"/>
+        <!-- Cổ áo và nếp gấp vải -->
+        <path d="M-26 -38 Q0 -24 26 -38" fill="none" stroke="#4d6960" stroke-width="3.5"/>
+        <path d="M-36 18 Q0 32 36 18" fill="none" stroke="#5e7c72" stroke-width="3"/>
+        <path d="M-30 40 Q0 52 30 40" fill="none" stroke="#5e7c72" stroke-width="3"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ======================================================================== -->
+  <!-- 5. TIỀN CẢNH PHẢI: NỆM NGỦ CỦA NAM, GỐI, CHĂN NHÀU VÀ ĐỒ DÙNG SINH VIÊN -->
+  <!-- ======================================================================== -->
+  <g id="nam-mattress-s3" transform="translate(1120 620)">
+    <!-- Bóng nệm đổ xuống sàn -->
+    <polygon points="-30,50 300,0 620,290 0,400" fill="#000" opacity="0.22" filter="url(#ao-s3)"/>
+
+    <!-- Mặt trên đệm đơn dày dặn viền xanh xám (#738f88) -->
+    <polygon points="0,40 310,0 600,260 20,360" fill="#738f88" stroke="#282b2b" stroke-width="4.5" stroke-linejoin="round"/>
+    <polygon points="20,360 600,260 600,305 20,405" fill="#546e68" stroke="#282b2b" stroke-width="4"/>
+    <polygon points="0,40 20,360 20,405 -15,70" fill="#465c57" stroke="#282b2b" stroke-width="4"/>
+
+    <!-- Gối nằm màu kem nhạt -->
+    <polygon points="35,50 250,20 285,100 70,135" fill="#f5eedc" stroke="#282b2b" stroke-width="3.5" rx="12" stroke-linejoin="round"/>
+    <path d="M110 65 Q170 95 220 65" fill="none" stroke="#ded4bd" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Điện thoại báo thức 7:00 trên nệm -->
+    <g transform="translate(85 145) rotate(-15)" stroke="#282b2b" stroke-width="2.5">
+      <rect x="0" y="0" width="32" height="58" rx="4.5" fill="#1e293b"/>
+      <rect x="3" y="4" width="26" height="50" rx="2.5" fill="#0284c7" stroke="none"/>
+      <text x="16" y="26" font-family="Arial" font-size="7.5" font-weight="bold" fill="#ffffff" text-anchor="middle">07:00</text>
+      <text x="16" y="38" font-family="Arial" font-size="5" fill="#fef08a" text-anchor="middle">BÁO THỨC</text>
     </g>
 
-    <!-- LAPTOP GẬP / SỔ TAY -->
-    <g transform="translate(210 22)">
-      <polygon points="-80,0 80,0 95,30 -95,30" fill="#1e293b" stroke="#282b2b" stroke-width="3"/>
-      <polygon points="-80,0 80,0 75,-25 -75,-25" fill="#0f172a" stroke="#282b2b" stroke-width="2.5"/>
+    <!-- Chăn bông rêu xộc xệch bung ra tự nhiên -->
+    <g stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
+      <path d="M105 135 C180 110 300 130 400 160 C510 185 610 245 600 280 C585 305 480 315 370 320 C250 325 140 350 90 315 C65 290 90 240 125 215 C100 190 75 160 105 135 Z" fill="#3d564c"/>
+      <path d="M380 165 C460 195 550 230 585 275 C535 280 450 255 380 220 Z" fill="#557569" stroke-width="3"/>
+      <path d="M155 160 Q230 215 315 195" fill="none" stroke="#2d4139" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M240 225 Q350 275 450 250" fill="none" stroke="#2d4139" stroke-width="3.5" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Đồ dùng rơi trên sàn: Áo thun, đôi dép lê, chai nước suối -->
+  <g id="floor-props-s3">
+    <!-- Áo thun xám rơi trên sàn trước nệm -->
+    <g transform="translate(880 820) rotate(12)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
+      <path d="M0 0 L-30 18 L-18 34 L-6 24 L-6 65 L42 65 L42 24 L54 34 L66 18 L36 0 Z" fill="#8b8c89"/>
+      <path d="M6 0 Q18 12 30 0" fill="none" stroke="#6b6d6a" stroke-width="2.5"/>
     </g>
 
-    <!-- VÍ DA GẬP MÀU NÂU 3D ĐẶT TRÊN MẶT BÀN -->
-    <g transform="translate(350 20)">
-      <polygon points="0,5 65,-8 78,14 12,26" fill="#713f12" stroke="#282b2b" stroke-width="2.8"/>
-      <polygon points="12,26 78,14 78,20 12,32" fill="#452408" stroke="#282b2b" stroke-width="2"/>
+    <!-- Đôi dép lê sinh viên quay mũi ra ngoài -->
+    <g transform="translate(740 910)" stroke="#282b2b" stroke-width="3" stroke-linejoin="round">
+      <ellipse cx="0" cy="0" rx="24" ry="45" fill="#cfb78f" transform="rotate(-18)"/>
+      <path d="M-22 -14 Q0 -30 20 -6" fill="none" stroke="#85693c" stroke-width="6" stroke-linecap="round"/>
+      <ellipse cx="55" cy="15" rx="24" ry="45" fill="#cfb78f" transform="rotate(12 55 15)"/>
+      <path d="M34 4 Q58 -12 75 12" fill="none" stroke="#85693c" stroke-width="6" stroke-linecap="round"/>
     </g>
 
-    <!-- THẺ CĂN CƯỚC CÔNG DÂN GẮN CHIP CỦA NAM (NAM CẦM SO SÁNH) -->
-    <g transform="translate(440 24) rotate(10)">
-      <polygon points="0,0 75,0 75,46 0,46" fill="#0284c7" stroke="#282b2b" stroke-width="2.5"/>
-      <rect x="5" y="7" width="22" height="30" fill="#f8fafc" stroke="#282b2b" stroke-width="1.5"/>
-      <circle cx="16" cy="17" r="5.5" fill="#dbad82"/>
-      <path d="M9 32 Q16 26 23 32 Z" fill="#5c7a70"/>
-      <rect x="32" y="14" width="11" height="9" rx="2" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
-      <text x="32" y="31" font-family="Arial" font-size="5" font-weight="bold" fill="#fff">CĂN CƯỚC</text>
-      <text x="32" y="39" font-family="Arial" font-size="4.5" fill="#bae6fd">HỌ TÊN: NAM</text>
+    <!-- Chai nước suối nằm lăn lóc giữa phòng -->
+    <g transform="translate(820 720) rotate(55)" stroke="#282b2b" stroke-width="2.5" stroke-linejoin="round">
+      <rect x="0" y="0" width="15" height="35" rx="4" fill="#bae6fd" opacity="0.75"/>
+      <rect x="0" y="10" width="15" height="15" fill="#0284c7" opacity="0.9"/>
+      <rect x="2.5" y="-5" width="10" height="5" rx="1.5" fill="#38bdf8"/>
     </g>
   </g>
 
   <!-- TIÊU ĐỀ BỐI CẢNH 3 -->
-  <rect x="30" y="30" width="570" height="55" rx="12" fill="#181a1d" opacity="0.9" stroke="#334155" stroke-width="2"/>
-  <text x="50" y="66" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f8f3e7">BỐI CẢNH 3: CỬA GÀI CHỐT &amp; HÀNH LANG DÀI (3D · 35MM)</text>
+  <rect x="30" y="30" width="620" height="55" rx="12" fill="#181a1d" opacity="0.9" stroke="#334155" stroke-width="2"/>
+  <text x="50" y="66" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f8f3e7">BỐI CẢNH 3: GÓC BÀN HỌC &amp; TỦ QUẦN ÁO (3D VIEW · 35MM)</text>
 
   </g>
 
@@ -1111,73 +1219,119 @@
     
 
   <!-- ======================================================================== -->
-  <!-- 1. PHÔNG NỀN BAN ĐÊM: TƯỜNG PHÒNG TRỌ, SÀN ĐÊM, CỬA SỔ PHẢI & TỦ TRÁI -->
+  <!-- 1. PHÔNG NỀN BAN ĐÊM: TƯỜNG PHÒNG TRỌ, SÀN ĐÊM -->
   <!-- ======================================================================== -->
-  <!-- Tường phòng trọ trong bóng tối -->
-  <rect width="1920" height="690" fill="#12161f"/>
-  <rect y="690" width="1920" height="390" fill="#0a0d13"/>
-  <!-- Nẹp chân tường mờ tối -->
-  <rect y="670" width="1920" height="20" fill="#1e1812"/>
-  <line x1="0" y1="690" x2="1920" y2="690" stroke="#181e29" stroke-width="4"/>
+  <rect width="1920" height="1080" fill="#0c1017"/>
+  <!-- Tường sau phòng trọ -->
+  <rect width="1920" height="700" fill="#111622"/>
+  <rect y="700" width="1920" height="380" fill="#080b10"/>
+  <!-- Nẹp chân tường gỗ sẫm -->
+  <rect y="680" width="1920" height="20" fill="#181512" stroke="#222a36" stroke-width="1.5"/>
 
   <!-- Ron gạch sàn phòng trọ mờ ảo ban đêm -->
-  <g stroke="#1a2332" stroke-width="2" opacity="0.4" stroke-dasharray="12 12">
-    <line x1="200" y1="690" x2="-100" y2="1080"/>
-    <line x1="580" y1="690" x2="360" y2="1080"/>
-    <line x1="960" y1="690" x2="860" y2="1080"/>
-    <line x1="1340" y1="690" x2="1360" y2="1080"/>
-    <line x1="1720" y1="690" x2="1860" y2="1080"/>
-    <line x1="0" y1="760" x2="1920" y2="760"/>
-    <line x1="0" y1="850" x2="1920" y2="850"/>
+  <g stroke="#16202c" stroke-width="2" opacity="0.55">
+    <line x1="0" y1="770" x2="1920" y2="770"/>
+    <line x1="0" y1="870" x2="1920" y2="870"/>
+    <line x1="0" y1="980" x2="1920" y2="980"/>
+    <line x1="220" y1="700" x2="-60" y2="1080"/>
+    <line x1="640" y1="700" x2="440" y2="1080"/>
+    <line x1="1060" y1="700" x2="980" y2="1080"/>
+    <line x1="1480" y1="700" x2="1520" y2="1080"/>
   </g>
-
-  <!-- HẬU CẢNH BÊN TRÁI: BÓNG DÁNG TỦ QUẦN ÁO ĐỨNG (ĐỒNG BỘ 100% VỚI IMAGE.PNG) -->
-  <g transform="translate(80 180)" opacity="0.35" stroke="#182026" stroke-width="3" stroke-linejoin="round">
-    <!-- Khung tủ gỗ đứng trong bóng tối -->
-    <rect x="0" y="0" width="240" height="510" fill="#181a1d" stroke="#283548" stroke-width="3.5"/>
-    <!-- Hộp carton nóc tủ -->
-    <rect x="40" y="-35" width="160" height="35" fill="#2b221a" stroke="#1f1812" stroke-width="2.5"/>
-    <!-- 2 ngăn áo mờ trong tủ -->
-    <rect x="20" y="20" width="200" height="180" rx="4" fill="#121820"/>
-    <rect x="20" y="220" width="200" height="90" rx="4" fill="#121820"/>
-    <rect x="20" y="330" width="200" height="160" rx="4" fill="#1a242c"/>
-  </g>
-
-  <!-- ĐỒNG HỒ TRÒN TREO TƯỜNG BAN ĐÊM (CHỈ 23:45 - ĐÊM KHUYA, TRÊN BÀN HỌC THEO IMAGE.PNG) -->
-  <g transform="translate(1120 120)" opacity="0.45" stroke="#1e293b" stroke-width="3">
-    <circle cx="0" cy="0" r="38" fill="#1e293b"/>
-    <circle cx="0" cy="0" r="34" fill="none" stroke="#334155" stroke-width="1.5"/>
-    <line x1="0" y1="0" x2="-14" y2="-18" stroke="#94a3b8" stroke-width="3.5" stroke-linecap="round"/> <!-- Kim giờ gần 12h -->
-    <line x1="0" y1="0" x2="-24" y2="-4" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/> <!-- Kim phút 45 -->
-  </g>
-
-  <!-- HẬU CẢNH BÊN PHẢI: CỬA SỔ TƯỜNG PHẢI NHÌN RA ĐÊM THÀNH PHỐ (ĐỒNG BỘ 100% IMAGE.PNG) -->
-  <g transform="translate(1620 120)" opacity="0.35" stroke="#1e293b" stroke-width="3.5">
-    <!-- Khung cửa sổ phối cảnh trên tường phải -->
-    <polygon points="0,60 260,0 260,560 0,610" fill="#070a0f" stroke="#222f3d" stroke-width="4"/>
-    <!-- Ánh đèn đêm le lói ngoài phố thị -->
-    <circle cx="140" cy="220" r="4" fill="#fef08a" opacity="0.8" stroke="none"/>
-    <circle cx="180" cy="260" r="3" fill="#fef08a" opacity="0.6" stroke="none"/>
-    <circle cx="120" cy="310" r="3.5" fill="#bae6fd" opacity="0.7" stroke="none"/>
-    <!-- Song cửa sổ -->
-    <line x1="110" y1="35" x2="110" y2="580" stroke="#1e293b" stroke-width="4"/>
-    <line x1="0" y1="340" x2="260" y2="280" stroke="#1e293b" stroke-width="4"/>
-  </g>
-
-  <!-- QUẦNG ÁNH SÁNG RỰC RỠ TỎA RA TỪ ĐÈN HỌC BÀN VÀ MÀN HÌNH LAPTOP -->
-  <ellipse cx="1180" cy="440" rx="780" ry="520" fill="url(#lamp-glow-3d)" style="mix-blend-mode: screen;"/>
 
   <!-- ======================================================================== -->
-  <!-- 2. BÀN HỌC SINH VIÊN CỦA NAM (GỖ MẬT ONG, 2 NGĂN KÉO NÚM ĐỒNG) -->
+  <!-- 2. HẬU CẢNH BÊN TRÁI BÀN HỌC: TỦ QUẦN ÁO ĐỨNG (ĐỒNG BỘ 100% VỚI IMAGE.PNG!) -->
+  <!-- Đúng theo ảnh mẫu: Bên cạnh bàn học là TỦ QUẦN ÁO chứ không phải cửa! -->
   <!-- ======================================================================== -->
-  <g id="study-desk" transform="translate(460 430)">
+  <g id="bg-wardrobe-closet" transform="translate(80 160)" stroke="#1e293b" stroke-width="3" stroke-linejoin="round">
+    <!-- Bóng tủ quần áo đổ lên tường -->
+    <rect x="0" y="0" width="280" height="540" fill="#000000" opacity="0.3" filter="url(#night-ao)"/>
+
+    <!-- Hộp carton để trên nóc tủ trong bóng tối -->
+    <polygon points="45,-25 215,-25 225,-5 55,-5" fill="#2a2016" stroke="#1a140e" stroke-width="2.5"/>
+    <polygon points="55,-5 225,-5 225,12 55,12" fill="#362a1e" stroke="#1a140e" stroke-width="2.5"/>
+
+    <!-- Khung thân tủ quần áo bằng gỗ sẫm -->
+    <rect x="0" y="10" width="280" height="525" rx="4" fill="#1c1713" stroke="#28221c" stroke-width="3.5"/>
+    <rect x="16" y="26" width="248" height="495" fill="#14110e" stroke="#241d17" stroke-width="2.5"/>
+
+    <!-- Ngăn trên: Treo 2 áo thun trong bóng đêm -->
+    <rect x="16" y="26" width="248" height="195" fill="#110e0c" stroke="#241d17" stroke-width="2"/>
+    <line x1="25" y1="45" x2="255" y2="45" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+    <!-- Áo 1 (vàng mù tạt mờ trong đêm) -->
+    <path d="M50 45 L30 65 L42 78 L52 70 L52 165 L105 165 L105 70 L115 78 L127 65 L107 45 Z" fill="#423214" stroke="#2a200d" stroke-width="2"/>
+    <!-- Áo 2 (xanh đá mờ trong đêm) -->
+    <path d="M145 45 L128 65 L138 78 L148 70 L148 165 L200 165 L200 70 L210 78 L220 65 L205 45 Z" fill="#1d2d33" stroke="#131e22" stroke-width="2"/>
+
+    <!-- Ngăn giữa: Mền khăn xếp gọn -->
+    <rect x="16" y="230" width="248" height="105" fill="#110e0c" stroke="#241d17" stroke-width="2"/>
+    <rect x="35" y="248" width="190" height="32" rx="6" fill="#2a2b28" stroke="#1c1d1a" stroke-width="2"/>
+    <rect x="35" y="288" width="190" height="35" rx="6" fill="#1d2824" stroke="#131c19" stroke-width="2"/>
+
+    <!-- Ngăn dưới: Cánh tủ đóng kín có nẹp cong -->
+    <rect x="16" y="345" width="248" height="175" fill="#121b19" stroke="#241d17" stroke-width="2.5"/>
+    <rect x="28" y="360" width="224" height="145" rx="12" fill="#182421" stroke="#0d1413" stroke-width="2"/>
+  </g>
+
+  <!-- ĐỒNG HỒ TRÒN TREO TƯỜNG (CHỈ 23:45 ĐÊM MUỘN, NẰM TRÊN TƯỜNG GIỮA TỦ VÀ BÀN HỌC) -->
+  <g transform="translate(415 150)" stroke="#1e293b" stroke-width="3" stroke-linejoin="round">
+    <circle cx="0" cy="0" r="38" fill="#121820" stroke="#2a384a" stroke-width="3"/>
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+    <!-- Vạch 12 số -->
+    <line x1="0" y1="-32" x2="0" y2="-26" stroke="#475569" stroke-width="2.5"/>
+    <line x1="32" y1="0" x2="26" y2="0" stroke="#475569" stroke-width="2.5"/>
+    <line x1="0" y1="32" x2="0" y2="26" stroke="#475569" stroke-width="2.5"/>
+    <line x1="-32" y1="0" x2="-26" y2="0" stroke="#475569" stroke-width="2.5"/>
+    <!-- Kim giờ chỉ gần số 12 (23h) -->
+    <line x1="0" y1="0" x2="-8" y2="-18" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <!-- Kim phút chỉ số 9 (45 phút) màu đỏ -->
+    <line x1="0" y1="0" x2="-24" y2="-3" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="3" fill="#f87171" stroke="none"/>
+  </g>
+
+  <!-- ======================================================================== -->
+  <!-- 3. HẬU CẢNH BÊN PHẢI BÀN HỌC: CỬA SỔ TƯỜNG PHẢI NHÌN RA ĐÊM THÀNH PHỐ -->
+  <!-- (Đúng 100% theo image.png: bên phải bàn học là cửa sổ có rèm!) -->
+  <!-- ======================================================================== -->
+  <g id="bg-window-night" transform="translate(1560 120)" stroke="#182230" stroke-width="3.5" stroke-linejoin="round">
+    <!-- Khung khoét cửa sổ trên tường phải (hình thang phối cảnh) -->
+    <polygon points="0,70 300,0 300,560 0,610" fill="#05080c" stroke="#1a2432" stroke-width="4"/>
+
+    <!-- Khung kính nhìn ra bầu trời đêm thành phố -->
+    <polygon points="12,82 288,14 288,546 12,596" fill="#030710"/>
+
+    <!-- Sao đêm lấp lánh ngoài trời -->
+    <circle cx="80" cy="140" r="1.5" fill="#ffffff" opacity="0.7" stroke="none"/>
+    <circle cx="160" cy="110" r="1.8" fill="#ffffff" opacity="0.8" stroke="none"/>
+    <circle cx="240" cy="90" r="1.2" fill="#ffffff" opacity="0.6" stroke="none"/>
+    <circle cx="120" cy="180" r="1.5" fill="#93c5fd" opacity="0.75" stroke="none"/>
+
+    <!-- Ánh đèn vàng le lói từ các ô cửa sổ chung cư xa xăm ngoài phố -->
+    <rect x="140" y="240" width="8" height="12" fill="#fef08a" opacity="0.65" stroke="none"/>
+    <rect x="180" y="260" width="7" height="10" fill="#fef08a" opacity="0.55" stroke="none"/>
+    <rect x="210" y="225" width="6" height="9" fill="#bae6fd" opacity="0.6" stroke="none"/>
+    <rect x="90" y="320" width="9" height="14" fill="#fef08a" opacity="0.7" stroke="none"/>
+    <rect x="230" y="300" width="7" height="11" fill="#fde047" opacity="0.5" stroke="none"/>
+
+    <!-- Khung chia ô cửa sổ sẫm màu -->
+    <line x1="110" y1="45" x2="110" y2="575" stroke="#16202c" stroke-width="5" stroke-linecap="round"/>
+    <line x1="0" y1="340" x2="290" y2="275" stroke="#16202c" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Rèm cửa màu kem khép hờ bên mép tường -->
+    <path d="M-10 65 L25 75 C10 240 30 450 5 615 L-15 615 Z" fill="#1e2528" opacity="0.85" stroke="#121618" stroke-width="2.5"/>
+  </g>
+
+  <!-- ======================================================================== -->
+  <!-- 4. BÀN HỌC SINH VIÊN CỦA NAM (GỖ MẬT ONG, 2 NGĂN KÉO NÚM ĐỒNG) -->
+  <!-- ======================================================================== -->
+  <g id="study-desk-night" transform="translate(460 430)">
     <!-- Giá sách mini 2 tầng trên mặt bàn góc trái -->
     <g stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
       <rect x="20" y="-180" width="210" height="190" rx="4" fill="#3a281c"/>
-      <rect x="30" y="-170" width="190" height="85" rx="2" fill="#2a1c13"/>
-      <rect x="30" y="-75" width="190" height="80" rx="2" fill="#2a1c13"/>
+      <rect x="30" y="-170" width="190" height="85" rx="2" fill="#22160e"/>
+      <rect x="30" y="-75" width="190" height="80" rx="2" fill="#22160e"/>
 
-      <!-- Giáo trình đại học xếp đứng: Triết học đỏ, Toán xanh, Kinh tế xanh lá -->
+      <!-- Giáo trình đại học: Triết học đỏ, Toán xanh, Kinh tế xanh lá -->
       <g stroke="#282b2b" stroke-width="2.5">
         <rect x="40" y="-165" width="20" height="75" fill="#b91c1c"/>
         <text x="50" y="-115" font-family="Arial" font-size="6.5" font-weight="bold" fill="#ffffff" transform="rotate(-90 50 -115)">TRIẾT HỌC</text>
@@ -1197,7 +1351,7 @@
     </g>
 
     <!-- Bóng đổ toàn bộ bàn học lên sàn đêm -->
-    <polygon points="-50,440 1010,440 960,510 -100,510" fill="#000" opacity="0.55" filter="url(#night-shadow)"/>
+    <polygon points="-50,440 1010,440 960,510 -100,510" fill="#000" opacity="0.6" filter="url(#night-ao)"/>
 
     <!-- Mặt hông bên trái 3D -->
     <polygon points="-50,20 0,65 0,440 -50,390" fill="#2b1f17" stroke="#282b2b" stroke-width="4.5"/>
@@ -1218,15 +1372,25 @@
     <polygon points="0,65 1010,65 1010,80 0,80" fill="#54361e" stroke="#282b2b" stroke-width="3"/>
 
     <!-- ====================================================================== -->
-    <!-- ĐÈN BÀN HỌC CỔ NGỖNG CHÓA ĐỎ 3D BẬT SÁNG VÀNG RỰC (BÊN PHẢI MẶT BÀN) -->
+    <!-- ĐÈN BÀN HỌC CỔ NGỖNG CHÓA ĐỎ 3D (BÊN PHẢI MẶT BÀN) -->
     <!-- ====================================================================== -->
     <g transform="translate(840 25)">
-      <ellipse cx="0" cy="0" rx="40" ry="14" fill="#b91c1c" stroke="#282b2b" stroke-width="3.5"/>
-      <ellipse cx="0" cy="-4" rx="38" ry="12" fill="#ef4444" stroke="#282b2b" stroke-width="2"/>
-      <path d="M0 -4 Q50 -130 -40 -190 Q-130 -240 -150 -200" fill="none" stroke="#334155" stroke-width="10" stroke-linecap="round"/>
-      <path d="M-175 -205 L-120 -170 L-145 -120 L-220 -140 Z" fill="#dc2626" stroke="#282b2b" stroke-width="4"/>
-      <ellipse cx="-180" cy="-130" rx="25" ry="12" fill="#fffde7" stroke="none" transform="rotate(20 -180 -130)"/>
+      <ellipse cx="0" cy="0" rx="38" ry="13" fill="#b91c1c" stroke="#282b2b" stroke-width="3.5"/>
+      <ellipse cx="0" cy="-4" rx="35" ry="11" fill="#ef4444" stroke="#282b2b" stroke-width="2"/>
+      <path d="M0 -4 Q45 -125 -40 -185 Q-125 -235 -145 -195" fill="none" stroke="#334155" stroke-width="9" stroke-linecap="round"/>
+      <path d="M-170 -200 L-115 -165 L-140 -115 L-215 -135 Z" fill="#dc2626" stroke="#282b2b" stroke-width="4"/>
+      <!-- Bóng đèn tròn trắng sáng chói trong chao -->
+      <ellipse cx="-175" cy="-125" rx="24" ry="12" fill="#ffffff" stroke="none" transform="rotate(20 -175 -125)"/>
     </g>
+
+    <!-- ====================================================================== -->
+    <!-- VFX ÁNH SÁNG CHUẨN XÁC: NÓN ÁNH SÁNG VÀ VÙNG RỌI TRÊN MẶT BÀN (TẬP 1 STYLE) -->
+    <!-- ====================================================================== -->
+    <!-- Nón ánh sáng hình thang từ miệng chao đèn rọi chéo xuống mặt bàn -->
+    <polygon points="650,-105 730,-95 990,65 420,65" fill="url(#lamp-cone-down)" style="mix-blend-mode: screen;"/>
+
+    <!-- Vùng sáng vàng ấm rọi trực tiếp trên mặt gỗ bàn học -->
+    <ellipse cx="700" cy="42" rx="260" ry="22" fill="url(#desk-spotlight)" style="mix-blend-mode: screen;"/>
 
     <!-- ====================================================================== -->
     <!-- LAPTOP 3D CẮM SẠC & MÀN HÌNH GOOGLE DOCS SÁNG RỰC (TRUNG TÂM BÀN) -->
@@ -1240,9 +1404,12 @@
       <!-- Dây sạc cắm cạnh trái cắm xuống ổ điện -->
       <path d="M-145 15 Q-190 20 -230 45 Q-280 80 -330 110" fill="none" stroke="#020617" stroke-width="5" stroke-linecap="round"/>
 
+      <!-- Vệt sáng xanh dịu từ màn hình chiếu về phía bàn phím và người ngồi -->
+      <polygon points="-130,-10 150,-10 190,65 -170,65" fill="url(#screen-ambient-glow)" style="mix-blend-mode: screen;"/>
+
       <!-- Màn hình laptop mở dựng đứng phát sáng rực -->
       <polygon points="-140,0 160,0 150,-205 -150,-205" fill="#020617" stroke="#282b2b" stroke-width="4.5"/>
-      <polygon points="-130,-10 150,-10 142,-195 -142,-195" fill="url(#screen-grad-3d)" stroke="none"/>
+      <polygon points="-130,-10 150,-10 142,-195 -142,-195" fill="url(#screen-light-cast)" stroke="none"/>
       <!-- Thanh tiêu đề Google Docs xanh dương -->
       <polygon points="-130,-178 140,-178 142,-195 -142,-195" fill="#2563eb" stroke="none"/>
       <text x="-120" y="-183" font-family="Arial" font-size="8.5" font-weight="bold" fill="#ffffff">BÀI TẬP NHÓM — HOÀN THIỆN (NGƯỜI LÀM THAY)</text>
@@ -1271,25 +1438,42 @@
       <text x="17" y="42" font-family="Arial" font-size="3.5" fill="#94a3b8" text-anchor="middle">Tùng: Lm bài chưa?</text>
     </g>
 
-    <!-- Ly nước lọc và ống cắm bút -->
+    <!-- Ly nước trà ấm và ống cắm bút -->
     <g transform="translate(140 25)">
       <!-- Ống cắm bút -->
       <rect x="0" y="0" width="38" height="52" rx="6" fill="#0284c7" stroke="#282b2b" stroke-width="3"/>
       <line x1="10" y1="0" x2="5" y2="-30" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
       <line x1="20" y1="0" x2="22" y2="-38" stroke="#16a34a" stroke-width="5" stroke-linecap="round"/>
       <line x1="30" y1="0" x2="35" y2="-28" stroke="#eab308" stroke-width="5" stroke-linecap="round"/>
-      <!-- Ly nước lọc -->
+      <!-- Ly nước lọc có làn hơi ấm bốc lên (VFX-SMOKE style) -->
       <path d="M70 -5 L76 50 L108 50 L114 -5 Z" fill="#bae6fd" stroke="#282b2b" stroke-width="3" opacity="0.85"/>
+      <!-- Hơi ấm bốc nhẹ -->
+      <path d="M88 -10 Q82 -25 90 -35 Q96 -45 92 -55" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+      <path d="M98 -12 Q105 -25 98 -38 Q92 -50 96 -60" fill="none" stroke="#ffffff" stroke-width="1.8" opacity="0.35" stroke-linecap="round"/>
+    </g>
+
+    <!-- ====================================================================== -->
+    <!-- VFX-DUST: HẠT BỤI PHÒNG TRỌ LƠ LỬNG TRONG QUẦNG ÁNH SÁNG ĐÈN BÀN -->
+    <!-- ====================================================================== -->
+    <g id="vfx-dust-particles" opacity="0.75" filter="url(#dust-soft)">
+      <circle cx="680" cy="-50" r="2.2" fill="#ffffff" opacity="0.8"/>
+      <circle cx="720" cy="-20" r="1.8" fill="#fef08a" opacity="0.9"/>
+      <circle cx="640" cy="10" r="2.5" fill="#fef08a" opacity="0.7"/>
+      <circle cx="780" cy="-15" r="1.5" fill="#ffffff" opacity="0.6"/>
+      <circle cx="820" cy="25" r="2.0" fill="#fef08a" opacity="0.8"/>
+      <circle cx="590" cy="35" r="1.6" fill="#fffde7" opacity="0.7"/>
+      <circle cx="740" cy="30" r="2.2" fill="#ffffff" opacity="0.85"/>
+      <circle cx="690" cy="55" r="1.8" fill="#fef08a" opacity="0.75"/>
     </g>
   </g>
 
   <!-- ======================================================================== -->
-  <!-- 3. CHIẾC GHẾ XOAY HỌC SINH CÔNG THÁI HỌC (ĐÃ NÂNG CẤP TO RÕ, ĐẦM CHẮC) -->
+  <!-- 5. CHIẾC GHẾ XOAY HỌC SINH CÔNG THÁI HỌC (ĐÃ NÂNG CẤP TO RÕ, ĐẦM CHẮC) -->
   <!-- Đặt chính giữa khoang để chân và thẳng hàng màn hình laptop -->
   <!-- ======================================================================== -->
   <g id="student-swivel-chair" transform="translate(770 680)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
     <!-- Bóng đổ rộng của ghế lên sàn đêm -->
-    <polygon points="-130,175 130,175 110,225 -150,225" fill="#000" opacity="0.65" filter="url(#night-shadow)"/>
+    <polygon points="-130,175 130,175 110,225 -150,225" fill="#000" opacity="0.65" filter="url(#night-ao)"/>
 
     <!-- Chân đế xoay 5 chấu kim loại to bản vững chãi -->
     <g stroke="#334155" stroke-width="8" stroke-linecap="round">
