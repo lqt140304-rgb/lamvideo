@@ -5,7 +5,7 @@
 ## Những điều người dùng đã chốt
 
 - Series dùng cách gọi Hồ sơ 1, Hồ sơ 2…
-- Nhân vật chính là một nam sinh viên lười nhác. Không đổi thành nữ thợ may hoặc tự thay tính lười bằng hoàn cảnh kiệt sức.
+- Nhân vật chính là Nam, sinh viên năm hai, lười nhác. Không đổi thành nữ thợ may hoặc tự thay tính lười bằng hoàn cảnh kiệt sức.
 - Cậu thức dậy gặp một người y hệt mình đang làm việc thường ngày. Người đó lúc đầu thân thiện, chủ động làm thay những việc cậu không muốn làm.
 - Mức thay thế tăng dần, cuối cùng thay thế cậu hoàn toàn.
 - Đó là một sinh vật đã chủ động nhắm tới cậu; chỉ tới đoạn cuối mới nói/lộ sự thật này.
@@ -13,7 +13,7 @@
 - Cùng thảo luận và chốt từng cảnh. Không viết tiếp toàn bộ kịch bản khi các quyết định trung gian còn đang bàn.
 - **Phản hồi ngày 09/11/2026:** chủ repo đồng ý cách bản sao xuất hiện bí ẩn trong sinh hoạt và nhịp cảm xúc của cảnh 1. Hướng gặp ở góc rửa chén, phản ứng sững–kiểm chứng–sợ và giữ khoảng cách được giữ để phát triển cảnh 2. Phản hồi này chưa chốt tên/tuổi cụ thể, toàn bộ câu thoại, máy quay hoặc cơ chế thay thế.
 - **Cuộc gọi được chủ repo chốt lại:** Nam nói có người giống hệt mình; Tùng đáp rằng Nam nói xàm hoặc ngủ chưa tỉnh rồi tắt máy. Tùng đã nghe lời kể nhưng chưa tin hoặc xác nhận có bản sao. Chưa gửi ảnh/gọi video, chưa có cảnh Tùng tới cứu hay xác minh. Quyết định này thay phương án Nam giấu hoàn toàn chuyện vừa thấy; thời điểm Tùng thực sự tin còn để bàn sau.
-- **Nhịp Nam chịu nhận giúp:** cần có suy nghĩ trong đầu về lợi và hại của việc có người giống hệt mình, còn phân vân, rồi có thêm tác động cụ thể mới chịu tin/thử trong giới hạn. Không chỉ bị giục bài là chuyển ngay sang nhận giúp; bản mới vẫn phải giữ các giới hạn đã thiết lập.
+- **Khung chuyển thái độ mới do chủ repo đưa:** giữ tin nhắn giục bài; Nam làm mãi không được, tự so mình với người kia chăm chỉ rồi nghĩ tới nhờ giúp nhưng tự bác vì sợ. Cậu chơi game, bật Không làm phiền, ngủ quên tới tối. Tỉnh dậy thấy người kia làm hộ bài, cậu quát vì bị tự ý vào phòng; sau khi tự kiểm tra tin Tùng về muộn do thể thao, cuộc gọi nhỡ giục bài và nội dung bài đã làm, cậu mới dịu, bắt đầu tự nghĩ đó là món quà ông trời cho vì mình tốt. Bản dưới phát triển khung này, chưa tự coi toàn bộ lời và cách nối là đã duyệt.
 - **Hướng nhân vật đã yêu cầu:** cậu sinh viên lười nhác, có thể có phần đáng ghét, nhưng phải khiến người xem nhận ra một người thật ngoài xã hội. Giữ sự mâu thuẫn và các mối quan hệ đời thường, tránh biến cậu thành một mẫu người chỉ tồn tại để bị trừng phạt.
 
 ## Phát triển tính cách — ví dụ đang đề xuất
@@ -269,81 +269,141 @@ Nam liếc về phía bếp, rồi nhớ đến cái áo trên người kia.
 
 **Cách duyệt từ đây:** chủ repo xem trực tiếp file. Mỗi lượt chỉ cập nhật một phần kế tiếp, ghi rõ chưa duyệt; báo ngắn nội dung thay đổi và đường dẫn, không chép lại kịch bản vào chat. Vẫn chốt lần lượt, không suy ra được phép viết hoặc duyệt cả truyện.
 
-## Lời mời đầu tiên — đề xuất của GPT-6.1 Sol, chờ duyệt
+## Nam tự thuyết phục mình — phát triển theo khung mới, chờ duyệt
 
-**Hướng sửa theo yêu cầu:** người kia chủ động mời giúp; Nam suy nghĩ về lợi–hại, còn phân vân và từ chối trước. Một gợi ý có ích được cậu tự kiểm tra mới khiến cậu chịu thử trong giới hạn. Đây là bản thay cho phương án nhận lời ngay sau khi bị nhóm giục bài; phần này chưa được duyệt.
+**Phạm vi:** thay phần nhận lời nghe thử hai câu trước đây. Giữ tin nhắn giục bài; bỏ việc Nam lẩm bẩm để người kia nghe và lập tức mời giải bài. Nam thử làm, tự cân nhắc lợi–hại, trì hoãn bằng game rồi ngủ quên. Đến tối, lợi ích của bài được làm hộ khiến cậu bắt đầu tự hợp lý hóa sự xuất hiện của người giống mình. Khung do chủ repo cung cấp, GPT-6.1 Sol phát triển; bản lời và cách nối hành động còn chờ duyệt.
 
-**NGƯỜI KIA:**
+### Ban ngày — làm mãi không được
+
+**NGƯỜI KIA — đáp câu hỏi còn đụng vào đồ gì, vẫn ở ngoài cửa:**
 > Cây chổi nữa. Tao quét cạnh bếp. Còn lại không đụng.
 
-Nam nhìn góc bếp rồi liếc lại ngăn kéo vừa kiểm tra. Cậu chưa thấy mất thứ gì.
+Nam nhìn xuống sàn. Chỗ vụn mì cạnh bàn đã sạch.
 
-Điện thoại rung. Nhóm làm bài đang hỏi phần mở đầu.
+Điện thoại rung. Nhóm làm bài hỏi phần của cậu đâu rồi.
 
-**TIN NHẮN NHÓM — chữ trên màn hình, không đọc thành lời:**
+**TIN NHẮN NHÓM — lớp chữ trên điện thoại, không đọc thành lời:**
 > Nam, phần mở đầu đâu? Tối nay phải ghép rồi.
 
-Ngay phía trên là tin nhắn hôm qua của cậu:
+Ngay phía trên là tin cậu gửi từ hôm qua:
 > Tao làm gần xong rồi.
 
-Nam mở tài liệu chung trên điện thoại. Phần mình vẫn trống.
+Nam kéo ghế từ chỗ đối diện cửa về bàn, mở chiếc laptop cũ đang cắm sạc rồi vào tài liệu chung. Các phần khác đã đầy chữ. Dưới tên mình, cậu mới có mỗi tiêu đề.
 
-**NAM — [annoyed], lẩm bẩm đủ để người ngoài cửa nghe:**
-> Mở đầu thôi mà giục hoài.
+Cậu gõ hai dòng, đọc lại rồi xóa. Đổi tư thế ngồi, đọc phần hướng dẫn, thử viết lại. Nắng dịch dần trên mép bàn. Trang bài vẫn chỉ thêm được vài câu rời rạc.
 
-**NGƯỜI KIA — chủ động gợi, giọng thân thiện:**
-> Bí thì tao nghĩ giúp cho. Mày đỡ ngồi làm.
+Nam ngả lưng, nhìn góc bếp đã được dọn.
 
 **NAM — ĐỘC THOẠI NỘI TÂM, không nói thành tiếng:**
-> Nó làm được thật thì khỏe. Đống chén mình ngán cả tối, nó lại tự đi rửa.
+> Cũng giống mình mà sao nó chăm thế? Rửa bát, quét nhà… Có ai bắt đâu.
 
-Nam nhìn về góc bếp, chỗ người kia vừa đứng.
-
-**NAM — ĐỘC THOẠI NỘI TÂM:**
-> Nhưng nó đã đứng trong phòng lúc mình ngủ. Tự lấy áo mặc. Cái mặt ấy mà cầm thêm điện thoại của mình thì ai biết được?
-
-Cậu kéo điện thoại sát lại.
+Cậu nhìn lại phần việc bỏ trống trên màn hình.
 
 **NAM — ĐỘC THOẠI NỘI TÂM:**
-> Ít ra bảo dừng thì nó dừng. Bảo ra ngoài cũng ra. Đồ chưa mất thứ gì… Chưa mất thôi.
+> Mình thì năm hai rồi. Ngoài chơi game với ngủ ra, làm được cái gì cho ra hồn đâu.
 
-**NAM — nói qua cửa:**
-> Không cần. Tao tự làm. Mày cứ đứng đó.
+Nam liếc về phía cửa vẫn chốt.
+
+**NAM — ĐỘC THOẠI NỘI TÂM, thoáng bị hấp dẫn:**
+> Không biết nó có làm được cái bài này không nhỉ…
+
+Cậu lắc đầu, kéo laptop lại gần.
+
+**NAM — ĐỘC THOẠI NỘI TÂM:**
+> Điên à. Làm gì có chuyện một đứa giống hệt mình lại sẵn sàng giúp mình? Nhỡ nó làm gì thì sao?
+
+Nam thử viết tiếp. Cậu chưa gọi người kia vào hoặc nhờ làm bài.
+
+### Mở chốt — chơi game rồi ngủ quên
+
+Một lúc sau, Nam buồn tiểu. Cậu cầm điện thoại, đứng dậy mở chốt rồi hé cửa kiểm tra.
+
+Người kia vẫn ở phía đối diện hành lang. Nam chỉ về cuối dãy, xa lối mình cần đi.
+
+**NAM — còn dè chừng:**
+> Mày ra đứng kia. Tao đi vệ sinh. Đừng vào phòng.
 
 **NGƯỜI KIA:**
 > Ừ.
 
-Nam mở hướng dẫn của nhóm, gõ một câu chào rồi xóa. Cậu chống cằm, đọc thành tiếng:
+Người kia đi ngay. Nam đợi nó đứng cách xa cửa mới bước ra, kéo cửa khép lại.
 
-**NAM — bực với phần việc trước mắt:**
-> “Nêu lý do chọn đề tài”… Biết rồi, viết sao mới được chứ.
+Khi trở về, cậu thấy nó vẫn ở đúng chỗ đã chỉ. Nam vào phòng, khép cửa. Tay cậu vừa đưa về phía chốt thì điện thoại rung: trưởng nhóm lại giục.
 
-**NGƯỜI KIA — chỉ gợi một bước, không đòi vào phòng:**
-> Vậy bỏ câu chào lại sau. Mày chọn đề vì cái gì thì nói trước. Một câu bình thường cũng được, rồi sửa sau.
+Cậu cúi trả lời, rời tay khỏi chốt mà không gài lại.
 
-Nam ngừng tay. Cậu kéo lên phần tin nhắn lúc nhóm chọn đề. Chính cậu đã đề nghị nó vì một chuyện từng gặp. Cậu gõ lại chuyện ấy, ngắn ngủn. Trang đã có một dòng.
+**TIN NAM NHẮN VÀO NHÓM:**
+> Cho tao thêm chút.
 
-Nam nhìn ra cửa.
+Nam ngồi trước laptop. Nhìn mấy dòng vừa viết, cậu chuyển sang trò chơi trên điện thoại.
 
-**NAM — ĐỘC THOẠI NỘI TÂM, tự trấn an nhưng còn phân vân:**
-> Nó có cần vào đây đâu. Mình nghe, thấy nhảm thì bỏ. Chưa phải đưa nó cái gì.
+**NAM — ĐỘC THOẠI NỘI TÂM, tự cho mình một lý do:**
+> Giải trí tí rồi làm. Càng ngồi càng bí.
 
-**NAM — [hesitant], đặt giới hạn:**
-> Tao không mở cửa, cũng không đưa máy đâu.
+Một thông báo che góc màn hình trò chơi. Nam bật **Không làm phiền**, quay lại chơi. Hết trận này, cậu bấm thêm trận nữa. Ánh nắng trên bàn thấp dần.
 
-**NGƯỜI KIA — lời mời nhẹ, hạ cảm giác phải cam kết:**
-> Có cần đâu. Tao nói thử, mày thấy được thì lấy.
+Sau cùng, Nam đặt điện thoại cạnh laptop, ngả lên giường định nằm vài phút. Bài đang làm vẫn mở trên màn hình. Cậu ngủ quên.
 
-Nam đọc tên đề tài qua cửa, giọng còn dè chừng.
+### Tỉnh dậy — trời đã tối
 
-**NAM:**
-> Hai câu thôi. Đừng làm hết.
+Phòng đã tối. Đèn bàn bật, ánh laptop hắt lên một gương mặt giống Nam.
+
+Người kia đang ngồi ở bàn, gõ phím. Nam nhìn sang chỗ ngủ của Tùng: vẫn trống. Cậu bật dậy.
+
+**NAM — [scared], quát:**
+> Ai cho mày vào?
+
+Người kia dừng tay, quay lại.
+
+**NGƯỜI KIA — giọng bình thường:**
+> Cửa không chốt. Tao kêu mày mấy lần, mày không dậy.
+
+**NAM — [angry]:**
+> Tao bảo mày đứng ngoài!
 
 **NGƯỜI KIA:**
-> Ừ. Hai câu.
+> Ừ. Tao thấy bài đang mở nên làm thử. Mày xem trước đi, chưa gửi cho ai đâu.
 
-Cửa vẫn chốt. Nam chạm vào dòng tiếp theo trên điện thoại rồi dừng, chờ nghe.
+Nam bước tới lấy điện thoại khỏi bàn, giữ nó trong tay.
 
-**Điểm dừng bản thiết kế thử:** Nam vừa nhận thử lời đề nghị, chưa tin hoàn toàn, chưa mở cửa hoặc giao quyền tiếp cận tài khoản/đồ đạc. Nội dung hai câu mở đầu và lần giao việc kế tiếp chưa viết; chủ repo muốn thử thiết kế đoạn hiện có trước khi phát triển thêm.
+**NGƯỜI KIA — chỉ về phía màn hình điện thoại đang sáng khi Nam cầm lên:**
+> Mày để Không làm phiền à? Thảo nào điện thoại cứ im.
 
-**Kiểm tra liên tục:** người kia chỉ nghe những câu Nam nói thành tiếng, không đọc màn hình hoặc nghe độc thoại nội tâm. Gợi ý giúp Nam tự viết được dòng đầu là tác động mới trước lúc nhận thử; việc còn đồ/được tuân thủ chỉ làm giảm nguy cơ, không tự chứng minh người kia an toàn. Nam dùng điện thoại sẵn có; ghế vẫn đối diện cửa, không tự biến thành vật chắn cửa. Áo Nam đã bị người kia mặc, không đồng thời nằm trên giường; vòi nước đã ngừng từ cảnh đầu. Tin nhắn là lớp hình, chưa thêm vai thoại mới. Suy nghĩ của Nam là đánh giá chủ quan, không xác nhận quy luật siêu nhiên.
+Nam nhìn biểu tượng trên máy rồi tự mở thông báo. Cậu chưa tắt chế độ đã bật lúc chơi game.
+
+**TIN TÙNG — Nam tự đọc trên màn hình:**
+> Tao đi đánh cầu. Tối chắc về muộn, mày ăn trước đi.
+
+Bên dưới là nhiều cuộc gọi nhỡ của trưởng nhóm, xen những tin giục bài. Nam nhìn giờ, rồi nhìn lại tài liệu trên laptop.
+
+Phần mang tên mình đã có nội dung, chia theo các mục trong hướng dẫn. Cậu đọc đoạn đầu, kéo xuống, đối chiếu yêu cầu. Có chỗ còn cần sửa, nhưng bài đã thành hình; không còn là vài câu cậu viết mãi chưa xong.
+
+Nam không quát nữa. Cậu vẫn giữ điện thoại, đứng cạnh bàn thay vì ngồi sát người kia.
+
+**NGƯỜI KIA — mời giúp tiếp bằng lợi ích cụ thể:**
+> Chỗ nào chưa được, tao sửa tiếp cho. Mày khỏi ngồi tới khuya.
+
+Nam nhìn phần bài, rồi nhìn người kia. Nỗi lo chưa hết, nhưng cậu đã có thứ để sửa và nộp cho nhóm.
+
+**NAM — ĐỘC THOẠI NỘI TÂM, tự luyến, nửa ngờ nửa thích:**
+> Chẳng nhẽ vì mình là người tốt nên ông trời cho mình một bản sao để giúp mình sao?
+
+Khóe miệng cậu nhích lên. Nam kéo phần hướng dẫn lại gần bài để đọc tiếp.
+
+**NAM — giọng đã dịu, vẫn giữ quyền quyết định:**
+> Để tao đọc hết đã. Đừng bấm gửi.
+
+**NGƯỜI KIA:**
+> Ừ. Mày xem đi.
+
+**Điểm dừng hiện tại:** Nam bắt đầu coi sự giúp đỡ là một lợi thế của mình, chưa xác lập tin tưởng hoàn toàn. Chưa viết cảnh Tùng về hoặc bước thay thế tiếp theo.
+
+### Ghi chú dựng và liên tục — không đọc
+
+- Bố trí cửa, hành lang và đường đi vệ sinh để nhìn rõ: người kia ở ngoài khi Nam ra/về; sau khi về, Nam khép cửa nhưng quên gài chốt vì đọc tin. Lúc ngủ, cửa khép nhưng không khóa. Người kia vào sau đó là vượt giới hạn Nam đã nói, không phải Nam ngầm cho phép hoặc năng lực đi xuyên cửa. Không lộ thêm năng lực siêu nhiên để giải thích.
+- Laptop được giới thiệu trước khi chơi game, đang cắm sạc và để nguyên tài liệu làm dở; bố trí máy không chuyển sang màn hình khóa trong khoảng này. Điện thoại dùng chơi game và bật Không làm phiền rồi được đặt cạnh laptop. Người kia chỉ thấy tài liệu mở; không tự có mật khẩu, không tự đọc mọi tin nhắn hoặc biết tên người gọi. Nam tự mở thông báo và kiểm chứng tin Tùng/cuộc gọi nhỡ.
+- Người kia nhận ra biểu tượng Không làm phiền khi Nam cầm điện thoại sáng màn hình; nó chưa biết trước nội dung tin Tùng hoặc danh sách cuộc gọi. Không thêm một điện thoại khác cho nó gọi Nam.
+- Trước ngủ: ánh sáng ban ngày dịch dần, ghế ở bàn, Nam đổi tư thế vì bí bài rồi sang game. Sau ngủ: cùng bố cục phòng, đèn bàn/laptop sáng, ghế đã có người kia ngồi, Nam bật dậy từ giường. Mốc sáng–tối có hình cụ thể; không dùng một dòng chữ để thay mọi thay đổi trạng thái.
+- Ở khoảnh khắc tỉnh: lấy phản ứng Nam rồi mới cho thấy rõ người tại bàn; ý đồ 35 mm cho khoảng cách phòng và 50–65 mm cho mặt/ánh mắt, máy tĩnh trước cú bật dậy. Không dùng rung hoặc âm hù để che thiếu phản ứng. Đây là ý đồ bố cục, chưa phải shot đã dựng hoặc thông số camera thực.
+- Âm bàn phím, quạt và tiếng game có nguồn; tiếng game dừng sau khi Nam đặt máy/ngủ. Khi xem điện thoại buổi tối, cuộc gọi trước đó chỉ hiện trong danh sách nhỡ, không phát lại tiếng chuông đã bị tắt. Màn hình thông báo/tài liệu là lớp chữ riêng, không thêm người thứ ba vào phòng.
+- Các độc thoại là suy nghĩ chủ quan của Nam, người kia không nghe được. Ý nghĩ “ông trời ban cho vì mình tốt” là cách cậu tự tâng bốc và hợp lý hóa lợi ích, không phải lời người kể xác nhận nguồn gốc sinh vật. Thẻ cảm xúc là hướng diễn xuất để thử, chưa được kiểm chứng bằng audio.

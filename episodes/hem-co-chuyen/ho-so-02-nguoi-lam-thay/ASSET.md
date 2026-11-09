@@ -4,13 +4,15 @@
 
 Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người làm thay** đã được thiết kế đồng bộ theo phong cách SVG hữu cơ mới (Style B: nét vẽ mềm, mảng tóc gọn, vai áo rủ tự nhiên, quần có khối, biểu cảm linh hoạt).
 
-### Bảng nhân vật chính thức
+**Trạng thái sử dụng:** bộ mới đã được cập nhật từ GitHub tại `593c626`; đây là nguồn thiết kế hiện hành để tham khảo. Style B được chọn từ mẫu thứ 2; chưa coi các pose/biểu cảm mới là đã được duyệt trong từng cảnh hoặc rig đã kiểm tra chuyển động. Nam là sinh viên năm hai theo kịch bản mới.
+
+### Bảng nhân vật hiện có
 - Mã nguồn React: [`assets/nhan-vat.tsx`](assets/nhan-vat.tsx) (chứa `Nam`, `NguoiKia`, `Tung`, các component đầu và biểu cảm tương ứng).
 - File vector SVG độc lập: [`assets/nhan-vat.svg`](assets/nhan-vat.svg) (bảng 1920×1080 gồm dáng toàn thân và các cận cảnh biểu cảm).
 
 | Nhân vật | Vai trò trong kịch bản | Đặc điểm nhận diện & Tạo hình | Trang phục & Đạo cụ |
 |---|---|---|---|
-| **1. Nam** | Sinh viên nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc rối ngái ngủ, vai mềm buông lơi, lưng gù nhẹ lười biếng. | Áo thun ngủ xám nhạt (`#8e9694`), quần thun lửng ngủ (`#3e4347`), dép lê quai kẹp (`#425850`), cầm điện thoại kiểm tra tin nhắn/cuộc gọi. |
+| **1. Nam** | Sinh viên năm hai, nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc rối ngái ngủ, vai mềm buông lơi, lưng gù nhẹ lười biếng. | Áo thun ngủ xám nhạt (`#8e9694`), quần thun lửng ngủ (`#3e4347`), dép lê quai kẹp (`#425850`), cầm điện thoại kiểm tra tin nhắn/cuộc gọi. |
 | **2. Người Kia (Bản sao)** | Sinh vật thay thế bí ẩn, xuất hiện ở bồn rửa chén, dần chiếm chỗ sinh hoạt | Khuôn mặt và **nốt ruồi đuôi mày trái giống hệt Nam**, nhưng **dáng đứng thẳng thớm, đĩnh đạc**, ánh mắt điềm tĩnh rợn người. | Mặc chiếc **áo thun xanh rêu (`#5c7a70`) của Nam** (chiếc áo Nam bỏ trên ghế tối qua), quần dài vải sẫm màu (`#515451`), hai bàn tay để trống lịch sự phía trước. |
 | **3. Tùng** | Bạn cùng phòng chăm chỉ, dậy sớm đi học lúc 7h, nghe máy gạt đi vì tưởng Nam ngủ mơ | Sinh viên năng động, gương mặt sáng sủa, đeo kính cận gọng mảnh, tóc rẽ ngôi side-part gọn gàng. | Áo polo sinh viên xanh navy (`#2b3f54`), quần kaki be (`#8c8474`), giày sneaker trắng ngà, đeo quai balo, một tay ôm tài liệu học, một tay nghe điện thoại. |
 
@@ -35,6 +37,8 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
    - `normal`: Vẻ mặt sinh viên bình thường.
 
 ---
+
+**Khi đưa vào đoạn đầu:** Người Kia ưu tiên `calm`/`neutral_smile` theo hướng thân thiện, chủ động mời giúp; `eerie_smirk` là mẫu biểu cảm có sẵn, không tự áp để tiết lộ bản chất săn mồi sớm. Tùng hiện chưa chứng kiến hai người giống hệt nhau. Nam có thêm nhịp bí bài, mải game, ngủ quên và tự mãn ở bản thảo mới; các pose đó mới là nhu cầu diễn xuất, chưa được coi là asset đã hoàn thiện.
 
 ## File thiết kế tham chiếu ban đầu
 - [`assets/thiet-ke/character-svg-v1.png`](assets/thiet-ke/character-svg-v1.png): Bảng đối chiếu ban đầu giữa Rig cũ và Mẫu thử B.

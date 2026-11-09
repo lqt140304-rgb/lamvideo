@@ -2,6 +2,8 @@
 
 Những chuyện giả định đặt người bình thường vào một lựa chọn khó, để người xem tự hỏi: **nếu là mình thì sao?** Ưu tiên đời sống Việt Nam, mâu thuẫn có chiều sâu, kết thúc có hệ quả và cách sản xuất vừa sức.
 
+**Thông báo thiết kế nhân vật — 09/11/2026:** đã có bộ **Nam, Người Kia và Tùng** theo hướng cartoon SVG mới (Style B, phát triển từ mẫu thứ 2 đã chọn). Xem [bảng SVG mới](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg), [mã React/SVG](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx) và [hồ sơ asset](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md). Đây là bộ thiết kế hiện có, chưa đồng nghĩa rig/timeline đã hoàn thiện; hướng chung tại [THIET-KE-NHAN-VAT.md](episodes/hem-co-chuyen/THIET-KE-NHAN-VAT.md).
+
 ## Bắt đầu ở đây
 
 | File | Tác dụng và nội dung cần có | Khi đọc hoặc cập nhật |

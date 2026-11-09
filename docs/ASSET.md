@@ -19,7 +19,7 @@ Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng t�
 
 | Hồ sơ | Danh mục |
 |---|---|
-| Hẻm Có Chuyện — Hồ sơ 2 | [ASSET.md](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md): ảnh/mã mẫu SVG thứ 2 đã chọn; chưa hoàn thiện rig chuyển động |
+| Hẻm Có Chuyện — Hồ sơ 2 | [ASSET.md](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md): bộ mới **Nam, Người Kia, Tùng**, [bảng SVG](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg) và nguồn React/SVG; giữ bảng mẫu thứ 2 làm tham chiếu, chưa xác nhận rig/timeline hoàn thiện |
 | Hẻm Có Chuyện — Hồ sơ 1 | [ASSET.md của tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/ASSET.md); [kế hoạch dùng lại/chuẩn bị](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) |
 | Tập độc lập — Mưa liên tục 100 ngày | [ASSET.md của tập](../episodes/doc-lap/mua-100-ngay/ASSET.md); mã dựng cũ và media local nằm cùng hồ sơ tập |
 
