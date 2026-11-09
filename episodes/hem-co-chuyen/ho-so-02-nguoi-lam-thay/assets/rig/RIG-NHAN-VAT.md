@@ -1,12 +1,14 @@
 # Tư thế và khớp — bộ nhân vật hiện có, Style B
 
-**10/11/2026 — V2, đã sửa theo phản hồi về độ bám mẫu, chờ duyệt.** Dùng lại trực tiếp `StudentTwinHead`, `TungHead` và `PALETTE` từ [nhan-vat.tsx](../nhan-vat.tsx). Không thay dàn nhân vật, bảng thiết kế cũ hoặc kịch bản. Nam và Người Kia dùng chung cấu trúc/hình thể/trang phục; khác nhau qua biểu cảm và cách chọn tư thế. Tùng giữ tóc ngắn, áo bóng đá số 7, quần đùi, vớ và giày.
+**10/11/2026 — V3, sửa lộ lớp và dáng tay, chờ duyệt.** Dùng lại trực tiếp `StudentTwinHead`, `TungHead` và `PALETTE` từ [nhan-vat.tsx](../nhan-vat.tsx). Không thay dàn nhân vật, bảng thiết kế cũ hoặc kịch bản. Nam và Người Kia dùng chung cấu trúc/hình thể/trang phục; khác nhau qua biểu cảm và cách chọn tư thế. Tùng giữ tóc ngắn, áo bóng đá số 7, quần đùi, vớ và giày.
 
-## Sửa tạo hình V2
+## Tạo hình hiện hành V3
 
-Bản đầu giữ đầu gốc nhưng thân/chi được giản lược quá mức, làm áo ôm, quần thu nhỏ và tay cong như ống. V2 dùng chính đường cắt quần dài, quần đùi và các nếp chính từ bộ gốc; biến dạng theo xương thay vì thay bằng ống chi chung. Áo rộng hơn, gấu theo mẫu, tay áo có cửa ống theo hướng cánh tay. Bàn tay có năm ngón, ngón cái đúng bên, nếp lòng tay và điểm nối cổ tay; dép, vớ, giày, sọc quần và huy hiệu/số áo của Tùng được giữ rõ hơn. Đầu và biểu cảm gốc không đổi.
+Giữ đường cắt quần, độ rộng áo, nếp chính, dép và đồ bóng đá của mẫu gốc. Thân và hai tay áo dùng **một đường bao**, không chồng các mảnh áo có viền kín. Viền thân giảm còn 2.6 đơn vị; sọc/nếp quần được cắt trong biên quần. Phần da bắt đầu dưới cửa tay áo và dùng mặt nạ che gốc tay; tay gập vẫn chạy liền trước thân, không khôi phục các mảnh da rời trên áo.
 
-[Xem bảng đối chiếu mẫu gốc / V2](doi-chieu-mau-goc.png) — có cả hình phóng to bàn tay; đây là tài liệu kiểm tra tạo hình, không phải bằng chứng mọi pose đã được chủ repo duyệt.
+Tư thế nghỉ: hai cổ tay gần đường dọc qua vai, khuỷu không banh ra; ngón thả lỏng khép nhẹ. Các bàn tay thông thường xoay theo trục cẳng tay; ngón cái phân đúng trái/phải theo từng mẫu bàn tay. Tư thế mở/đưa tay được chỉnh cả khuỷu lẫn cổ tay, không lật bàn tay độc lập để bù một tư thế sai. Điện thoại có riêng dáng ôm, điểm cổ tay ở đáy bàn tay và các ngón bám cạnh máy. Đầu và biểu cảm gốc không đổi.
+
+[Xem đối chiếu mẫu gốc / V3](doi-chieu-mau-goc.png) và [soi chỗ nối, cổ tay, ngón tay](chi-tiet-khop.png). Đây là tài liệu kiểm tra tạo hình, chưa phải duyệt toàn bộ diễn hoạt trong phim.
 
 ![Bảng tư thế và khớp](tu-the-khop.png)
 
@@ -15,11 +17,12 @@ Bản đầu giữ đầu gốc nhưng thân/chi được giản lược quá m�
 | Tệp | Tác dụng |
 |---|---|
 | [rig.tsx](rig.tsx) | `StudentRig`, 12 preset, bộ giải tay/chân hai đoạn, đường bao liền, tọa độ khớp và hàm lấy pha bước |
-| [doi-chieu-mau-goc.svg](doi-chieu-mau-goc.svg) / [PNG](doi-chieu-mau-goc.png) | Nam và Tùng gốc đặt cạnh bản rig V2, kèm phóng to ba dáng tay để đối chiếu |
+| [doi-chieu-mau-goc.svg](doi-chieu-mau-goc.svg) / [PNG](doi-chieu-mau-goc.png) | Nam và Tùng gốc đặt cạnh bản rig V3, kèm phóng to ba dáng tay để đối chiếu |
+| [chi-tiet-khop.svg](chi-tiet-khop.svg) / [PNG](chi-tiet-khop.png) | 8 ô phóng lớn vai/tay áo, dáng nghỉ, tay mở, cầm điện thoại, giữ bát, tay gập và quần |
 | [tu-the-khop.svg](tu-the-khop.svg) / [PNG](tu-the-khop.png) | Bảng tĩnh 12 tư thế để duyệt nét, dáng và trang phục; sinh từ cùng nguồn rig |
 | [xem-tu-the.html](xem-tu-the.html) | Trình xem chạy độc lập, không cần CDN; chọn ba nhân vật, tư thế, bật khớp; kéo pha bước hoặc mức đứng → dè chừng. Tải về/mở local; GitHub không chạy HTML tương tác trong trang xem mã |
 | [preview.tsx](preview.tsx) | Nguồn giao diện thử rig; không phải composition của phim |
-| [build-preview.mjs](build-preview.mjs) | Tạo lại hai bảng SVG và HTML từ nguồn bằng các thư viện đã cài trong `what-if-studio/node_modules`; PNG cần chụp/xuất lại từ SVG |
+| [build-preview.mjs](build-preview.mjs) | Tạo lại ba bảng SVG và HTML từ nguồn bằng các thư viện đã cài trong `what-if-studio/node_modules`; PNG cần chụp/xuất lại từ SVG |
 | [verify-rig.mjs](verify-rig.mjs) | Kiểm tra chiều dài xương, dữ liệu hữu hạn, vòng bước và hướng đầu gối khi ngồi |
 
 ## Các tư thế có sẵn
@@ -31,7 +34,7 @@ Bản đầu giữ đầu gốc nhưng thân/chi được giản lược quá m�
 - Hệ tọa độ thiết kế cao khoảng 600 đơn vị. `x`, `y`, `scale` đặt cả rig vào cảnh; các đích bàn tay/bàn chân dùng tọa độ trong rig trước phép đặt này. `left`/`right` là trái/phải màn hình trong góc vẽ hiện có, tránh hiểu nhầm thành giải phẫu khi đổi hướng.
 - `root` dịch hông/thân; `lean` nghiêng thân quanh hông; `head` nghiêng đầu quanh chân cổ. Vai theo thân, gốc đùi theo hông. Hệ đầu–cổ kế thừa nguyên mẫu đã có.
 - `leftHand`, `rightHand`, `leftFoot`, `rightFoot` là đích cổ tay/cổ chân. Bộ giải tính khuỷu/gối với chiều dài xương cố định; điểm ngoài tầm bị giới hạn thay vì kéo dài chi. Dáng ngồi dùng chiều dài chiếu riêng để gợi đùi hướng ra trước trong tranh 2D.
-- `leftBend`/`rightBend` chọn phía gập khuỷu; `leftKnee`/`rightKnee` chọn phía gập gối. Không đổi dấu đột ngột giữa cùng một động tác. `leftPalm`/`rightPalm` chỉnh hướng bàn tay; `leftShape`/`rightShape` chọn thả, xòe hoặc nắm.
+- `leftBend`/`rightBend` chọn phía gập khuỷu; `leftKnee`/`rightKnee` chọn phía gập gối. Không đổi dấu đột ngột giữa cùng một động tác. `leftPalm`/`rightPalm` là góc gập bổ sung so với trục cẳng tay, không còn là góc cố định theo màn hình; `phone` dùng dáng cầm riêng giữ máy thẳng; `leftShape`/`rightShape` chọn thả, xòe hoặc nắm.
 - Cánh tay có đường bao cong liên tục qua khớp; quần, đùi/vớ biến dạng từ đường vẽ gốc để giữ hình cắt và độ đầy. Vai nối vào áo, hông phủ gốc đùi; tay đang diễn ở lớp trước thân. Điện thoại và bát đi theo điểm tay, không đặt trôi độc lập trên màn hình. Đã bổ sung năm ngón và nếp tay, nhưng các ngón chưa có khớp điều khiển riêng; chưa có mọi góc cầm hoặc cận bàn tay.
 - `debug` hiện 14 điểm neo và đường xương. `showSupport` hiện bóng sàn hoặc ghế thử; khi dùng ghế/bối cảnh thật, tắt hỗ trợ thử và căn lại điểm tựa/đích chân. Không đặt thêm ghế thử đè lên ghế của cảnh.
 
@@ -47,8 +50,8 @@ Chỉ hỗ trợ góc chính diện hơi ba phần tư như mẫu gốc. Chưa c
 
 ## Đã kiểm tra và phần còn duyệt
 
-- Bộ giải qua 254 tư thế/pha thử: chiều dài xương ổn định, đường bao không NaN, vòng bước khép, gối ngồi không chéo tâm, xử lý đích trùng/ngoài tầm.
-- Kiểm tra kiểu dữ liệu riêng nguồn rig; SVG/HTML được build thành công. Trình xem đã thử trong Chromium: đổi sang Tùng, chọn ngồi, bật đủ 14 điểm khớp, mở điều khiển pha bước. Bảng SVG và bảng đối chiếu gốc/V2 được xem trực tiếp để sửa dáng áo/quần, tỷ lệ tay, năm ngón, nối cổ tay và chi tiết giày/vớ; vẫn cần chủ repo duyệt mức bám mẫu.
+- Bộ giải qua 254 tư thế/pha thử: chiều dài xương ổn định, đường bao không NaN, vòng bước khép, gối ngồi không chéo tâm, xử lý đích trùng/ngoài tầm. V3 kiểm tra thêm khuỷu/cổ tay nghỉ gần trục vai và hướng bàn tay theo cẳng tay ở bốn hướng.
+- Kiểm tra kiểu dữ liệu riêng nguồn rig; SVG/HTML được build thành công. Trình xem đã thử trong Chromium: đổi sang Tùng, chọn ngồi, bật đủ 14 điểm khớp, mở điều khiển pha bước. Bảng SVG và bảng đối chiếu gốc/V3 được xem trực tiếp để sửa dáng áo/quần, tỷ lệ tay, năm ngón, nối cổ tay và chi tiết giày/vớ; vẫn cần chủ repo duyệt mức bám mẫu.
 - Chờ chủ repo duyệt tạo hình. Chưa xác nhận các động tác hoặc tương tác đã đạt trong phim; vẫn cần storyboard rồi animatic có bối cảnh/đạo cụ và nhịp thoại thực khi được giao dựng.
 
 Tuân theo [quy chuẩn mỹ thuật chung](../../../../../docs/PHONG-CACH-MY-THUAT.md) và [kế hoạch quay layer](../../DUNG-CANH.md#quay-layer). Không đổi kịch bản hoặc tự bắt đầu dựng phim từ lần bổ sung asset này.

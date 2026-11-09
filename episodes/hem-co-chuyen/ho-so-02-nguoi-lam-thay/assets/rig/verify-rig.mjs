@@ -32,3 +32,13 @@ for(const [a,b] of [[{x:0,y:0},{x:0,y:0}],[{x:0,y:0},{x:900,y:900}]]){
  const l=rig.solveLimb(a,b,79,84,1);assert(Number.isFinite(l.mid.x)&&Number.isFinite(l.end.y));
 }
 console.log(`PASS ${cases} poses/phases: stable bone lengths, finite outlines, walk loop, seated knee direction, singular/out-of-reach targets.`);
+
+const idle=rig.skeleton(rig.POSES.stand);
+for (const l of [idle.la,idle.ra]) {
+ assert(Math.abs(l.end.x-l.start.x)<14,'Idle wrist is spread too far from shoulder');
+ assert(Math.abs(l.mid.x-l.start.x)<16,'Idle elbow is flared');
+}
+for(const [wrist,expected] of [[{x:0,y:1},0],[{x:1,y:0},-90],[{x:-1,y:0},90],[{x:0,y:-1},-180]]) {
+ assert(Math.abs(rig.handAngle({x:0,y:0},wrist)-expected)<1e-8,'Hand axis differs from forearm axis');
+}
+console.log('PASS idle arms near vertical and hand orientation in four directions.');
