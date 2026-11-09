@@ -23,8 +23,61 @@ export const limbContour = (chain: Chain, widths: [number, number, number]) => {
   return `M ${p(a0)} C ${control(a0, b0, 0.55)} ${control(a0, b0, 0.85)} ${p(b0)} S ${control(b0, c0, 0.65)} ${p(c0)} Q ${p(c)} ${p(c1)} C ${control(c1, b1, 0.55)} ${control(c1, b1, 0.85)} ${p(b1)} S ${control(b1, a1, 0.65)} ${p(a1)} Q ${p(a)} ${p(a0)} Z`;
 };
 
-export const SoftLimb: React.FC<{ chain: Chain; width: number; color: string; shade: string; ink: string; bare?: string; arm?: boolean; tattoo?: boolean }> =
-  ({ chain, width, color, shade, ink, bare, arm = false, tattoo = false }) => {
+/** A colour 18% darker: the tonal edge a lineless shape uses instead of an ink outline. */
+export const toneOf = (hex: string, k = 0.82) => {
+  const n = parseInt(hex.replace('#', '').slice(0, 6), 16);
+  if (Number.isNaN(n)) return hex;
+  const c = (v: number) => Math.round(v * k).toString(16).padStart(2, '0');
+  return `#${c((n >> 16) & 255)}${c((n >> 8) & 255)}${c(n & 255)}`;
+};
+
+/** The two sides of a limb as open strokes, starting a little below the root so the limb grows out of the body without a ring round it. */
+const limbSides = (chain: Chain, widths: [number, number, number], from = 0.2) => {
+  const { root: a, mid: b, end: c } = chain;
+  const n0 = normal(a, b), n1 = normal(b, c);
+  const sum = Math.hypot(n0.x + n1.x, n0.y + n1.y);
+  const nm = sum < 0.2 ? n0 : { x: (n0.x + n1.x) / sum, y: (n0.y + n1.y) / sum };
+  const side = (s: number) => {
+    const p0 = { x: a.x + n0.x * widths[0] * s, y: a.y + n0.y * widths[0] * s };
+    const p1 = { x: b.x + nm.x * widths[1] * s, y: b.y + nm.y * widths[1] * s };
+    const p2 = { x: c.x + n1.x * widths[2] * s, y: c.y + n1.y * widths[2] * s };
+    const st = at(p0, p1, from);
+    return `M ${st.x} ${st.y} Q ${at(st, p1, 0.75).x} ${at(st, p1, 0.75).y} ${p1.x} ${p1.y} Q ${at(p1, p2, 0.3).x} ${at(p1, p2, 0.3).y} ${p2.x} ${p2.y}`;
+  };
+  return `${side(1)} ${side(-1)}`;
+};
+
+/** The lineless limb: filled shape, open tonal sides, and a soft fold where it bends instead of an ink tick. */
+const OpenLimb: React.FC<{ chain: Chain; width: number; color: string; shade: string; bare?: string; arm: boolean }> = ({ chain, width, color, shade, bare, arm }) => {
+  const { root, mid, end } = chain;
+  const radius = width * (arm ? 0.64 : 1.12);
+  const widths: [number, number, number] = [radius, width * (arm ? 0.53 : 0.82), width * (arm ? 0.35 : 0.7)];
+  const d = limbContour(chain, widths);
+  const n = normal(mid, end);
+  const cuff = at(root, mid, arm ? 0.56 : 0.64);
+  const clothChain = { root: at(root, mid, -0.02), mid: at(root, cuff, 0.52), end: cuff };
+  const bend = clamp(1 - ((mid.x - root.x) * (end.x - mid.x) + (mid.y - root.y) * (end.y - mid.y)) / Math.max(1, Math.hypot(mid.x - root.x, mid.y - root.y) * Math.hypot(end.x - mid.x, end.y - mid.y)));
+  const skin = bare ?? color;
+  const edge = toneOf(skin);
+  const clothEdge = toneOf(color);
+  return <g>
+    <path d={d} fill={skin} />
+    <path d={limbSides(bare ? { root: cuff, mid, end } : chain, bare ? [width * 0.5, widths[1], widths[2]] : widths, bare ? 0 : 0.2)} fill="none" stroke={edge} strokeWidth={1.7} strokeLinecap="round" />
+    {bare ? <g>
+      <path d={limbContour(clothChain, [radius * 0.95, radius * 1.13, width * (arm ? 0.55 : 0.9)])} fill={color} />
+      <path d={limbSides(clothChain, [radius * 0.95, radius * 1.13, width * (arm ? 0.55 : 0.9)], 0.28)} fill="none" stroke={clothEdge} strokeWidth={1.7} strokeLinecap="round" />
+      <ellipse cx={cuff.x} cy={cuff.y} rx={width * 0.62} ry={width * 0.2} transform={`rotate(${Math.atan2(n.y, n.x) * 57.3 + 90} ${cuff.x} ${cuff.y})`} fill={shade} opacity={0.4} />
+    </g> : null}
+    {bend > 0.06 ? <g>
+      <ellipse cx={mid.x} cy={mid.y} rx={width * 0.72} ry={width * 0.4} fill={bare ? toneOf(skin, 0.7) : shade} opacity={0.14 + bend * 0.2} />
+      <path d={`M ${mid.x - n.x * width * 0.34} ${mid.y - n.y * width * 0.34} Q ${mid.x + 1} ${mid.y + 1} ${mid.x + n.x * width * 0.26} ${mid.y + n.y * width * 0.26} Q ${mid.x + 1} ${mid.y + 3} ${mid.x - n.x * width * 0.34} ${mid.y - n.y * width * 0.34} Z`} fill={toneOf(skin, 0.72)} opacity={0.5 * Math.min(1, bend * 2)} />
+    </g> : null}
+  </g>;
+};
+
+export const SoftLimb: React.FC<{ chain: Chain; width: number; color: string; shade: string; ink: string; bare?: string; arm?: boolean; tattoo?: boolean; open?: boolean }> =
+  ({ chain, width, color, shade, ink, bare, arm = false, tattoo = false, open = false }) => {
+    if (open) return <OpenLimb chain={chain} width={width} color={color} shade={shade} bare={bare} arm={arm} />;
     const { root, mid, end } = chain;
     const radius = width * (arm ? 0.64 : 1.12);
     const d = limbContour(chain, [radius, width * (arm ? 0.53 : 0.82), width * (arm ? 0.35 : 0.7)]);

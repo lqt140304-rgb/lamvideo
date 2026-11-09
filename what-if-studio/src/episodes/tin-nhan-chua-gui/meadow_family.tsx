@@ -120,7 +120,7 @@ export const MeadowFamily:React.FC<{t:number;motherOpacity?:number;dissolveT?:nu
     const mom={...mother,...(demoTalk?mouthCueAt(p,[{from:55,to:72,shape:'a',open:.3},{from:78,to:92,shape:'e',open:.25},{from:105,to:121,shape:'o',open:.25}]):{})};
     return <g data-meadow-family="embrace">
       {dissolve?<defs><filter id={`${id}-soft`} x="-12%" y="-12%" width="124%" height="124%"><feGaussianBlur stdDeviation={dissolve.softness} /></filter></defs>:null}
-      {[thao,duy].map((a,i)=><ellipse key={i} cx={a.x} cy="802" rx={31*a.scale} ry="3.5" fill="#3d3a26" opacity="0.22" />)}
+      {[thao,duy].map((a,i)=><g key={i}><ellipse cx={a.x} cy="803" rx={46*a.scale} ry="7" fill="#3d3a26" opacity="0.1" /><ellipse cx={a.x} cy="802" rx={32*a.scale} ry="4" fill="#3d3a26" opacity="0.2" /><ellipse cx={a.x} cy="801.5" rx={20*a.scale} ry="2" fill="#2a2719" opacity="0.42" /></g>)}
       <ellipse cx={mom.x} cy="802" rx="39" ry="3.5" fill="#3d3a26" opacity={opacity*.22} />
       <g filter={filter}><Hero pose={mom} look={LOOKS.meDuyThao} opacity={opacity} shadow={0} rimId="rimStreetlamp" handLayer="defer" /></g>
       {dissolveT!==undefined?<MotherDissolveAir t={dissolveT} pose={mom} id={id} />:null}

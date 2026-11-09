@@ -79,6 +79,7 @@ export type Look = {
   pocket?: boolean;
   pocketPens?: boolean;
   mendedHem?: boolean;
+  lineless?: boolean; // tonal edges, open limb joints, hair as closed masses
   ageLines?: boolean;
   moustache?: boolean;
   glassesDefault?: boolean;
@@ -256,26 +257,26 @@ export const LOOKS: Record<CastName, Look> = {
     skin: '#E8BC96', skinShade: '#CC9C74', hand: '#E8BC96',
     jacket: '#566A7A', jacketShade: '#3F505E', accent: '#485A68',
     limb: '#273042', line: '#15141C', shoe: '#D2C9B8', face: C.ink, hair: '#1E1A1D',
-    extra: 'spiky', limbW: 17, forearm: '#E8BC96', fingers: true, collar: 'round', mendedHem: true,
+    lineless: true, extra: 'spiky', limbW: 17, forearm: '#E8BC96', fingers: true, collar: 'round', mendedHem: true,
   },
   thao: {
     skin: '#F0CCA8', skinShade: '#D6B08C', hand: '#F0CCA8',
     jacket: '#DFC17B', jacketShade: '#C2A35E', accent: '#D6453A',
     limb: '#6D7F6B', line: '#18161C', shoe: '#4A5D4E', face: C.ink, hair: '#231B1D',
-    extra: 'thaoHair', limbW: 14, forearm: '#F0CCA8', shin: '#F0CCA8', fingers: true, collar: 'round', bottom: 'shorts', feminine: true, mendedHem: true, accessory: 'thaoTote',
+    lineless: true, extra: 'thaoHair', limbW: 14, forearm: '#F0CCA8', shin: '#F0CCA8', fingers: true, collar: 'round', bottom: 'shorts', feminine: true, mendedHem: true, accessory: 'thaoTote',
   },
   ongLoc: {
     skin: '#D29F74', skinShade: '#B38058', hand: '#D29F74',
     jacket: '#4E463F', jacketShade: '#38312C', accent: '#8C7A6B',
     limb: '#543A28', line: '#141110', shoe: '#4A3322', face: '#141110', hair: '#3E3C3B',
-    extra: 'locHair', limbW: 17, forearm: '#D29F74', fingers: true, collar: 'shirt', pocketPens: true, ageLines: true, glassesDefault: true,
+    lineless: true, extra: 'locHair', limbW: 17, forearm: '#D29F74', fingers: true, collar: 'shirt', pocketPens: true, ageLines: true, glassesDefault: true,
   },
   // CHAR-ME (Mẹ của Duy & Thảo, ~38–42 tuổi ở C6–C7: áo vải màu đất sáng, quần tối, tóc buộc thấp giản dị)
   meDuyThao: {
     skin: '#ECC4A0', skinShade: '#D2A680', hand: '#ECC4A0',
     jacket: '#D4B692', jacketShade: '#B59572', accent: '#EAE0CE',
     limb: '#2D2A34', line: '#16141C', shoe: '#584132', face: C.ink, hair: '#20181A',
-    extra: 'lowTie', limbW: 16, forearm: '#ECC4A0', fingers: true, collar: 'shirt', feminine: true,
+    lineless: true, extra: 'lowTie', limbW: 16, forearm: '#ECC4A0', fingers: true, collar: 'shirt', feminine: true,
   },
   // --- 18 New User-Requested Characters ---
   // 1. Cô gái tóc dài mặc váy (Tóc xoăn sóng dài bồng bềnh, mái bay, kẹp ngọc trai)
@@ -676,6 +677,7 @@ const Face: React.FC<{
   lipTremble?: number;
   ageLines?: boolean;
   moustache?: boolean;
+  lineless?: boolean;
   hairColor?: string;
   readingGlasses?: boolean;
   feminine?: boolean;
@@ -695,6 +697,7 @@ const Face: React.FC<{
   lipTremble = 0,
   ageLines = false,
   moustache = false,
+  lineless = false,
   hairColor = C.ink,
   readingGlasses = false,
   feminine = false,
@@ -1074,7 +1077,18 @@ const Face: React.FC<{
           )
         : null}
       {/* Round clear prescription glasses (kính cận tròn trong suốt) */}
-      {readingGlasses && glasses <= 0.01 ? (
+      {readingGlasses && glasses <= 0.01 && lineless ? (
+        <g>
+          {/* slim bronze frames: lens glint, a faint shadow on the bridge of the nose */}
+          <ellipse cx={0} cy={eyeY + 3} rx={7} ry={3} fill={skinShade} opacity={0.42} />
+          <circle cx={-21} cy={eyeY} r={16} fill="rgba(226, 242, 248, 0.2)" stroke="#7C5A34" strokeWidth={2.1} />
+          <circle cx={21} cy={eyeY} r={16} fill="rgba(226, 242, 248, 0.2)" stroke="#7C5A34" strokeWidth={2.1} />
+          <path d={`M -5 ${eyeY - 2} Q 0 ${eyeY - 7} 5 ${eyeY - 2} Q 0 ${eyeY - 4.5} -5 ${eyeY - 2} Z`} fill="#7C5A34" stroke="#7C5A34" strokeWidth={1.4} />
+          <path d={`M -37 ${eyeY - 2} L -52 ${eyeY - 4} M 37 ${eyeY - 2} L 52 ${eyeY - 4}`} stroke="#7C5A34" strokeWidth={2} strokeLinecap="round" />
+          <path d={`M -31 ${eyeY - 8} Q -26 ${eyeY - 11} -21 ${eyeY - 10} L -26 ${eyeY - 3} Q -30 ${eyeY - 4} -31 ${eyeY - 8} Z M 11 ${eyeY - 8} Q 16 ${eyeY - 11} 21 ${eyeY - 10} L 16 ${eyeY - 3} Q 12 ${eyeY - 4} 11 ${eyeY - 8} Z`} fill="#FFFFFF" opacity={0.72} />
+        </g>
+      ) : null}
+      {readingGlasses && glasses <= 0.01 && !lineless ? (
         <g>
           <circle cx={-21} cy={eyeY} r={16} fill="rgba(210, 242, 255, 0.16)" stroke={ink} strokeWidth={3.1} />
           <circle cx={21} cy={eyeY} r={16} fill="rgba(210, 242, 255, 0.16)" stroke={ink} strokeWidth={3.1} />
@@ -1203,8 +1217,8 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   const j = joints(pose);
   const L = look;
 
-  const arm = (chain: { root: P; mid: P; end: P }) => <SoftLimb chain={chain} width={L.limbW ?? 11} color={L.jacket} shade={L.jacketShade} ink={L.line} bare={L.forearm} arm tattoo={L.tattoo} />;
-  const leg = (chain: { root: P; mid: P; end: P }) => <SoftLimb chain={chain} width={L.limbW ?? 12} color={L.limb} shade={L.line} ink={L.line} bare={L.shin} />;
+  const arm = (chain: { root: P; mid: P; end: P }) => <SoftLimb chain={chain} width={L.limbW ?? 11} color={L.jacket} shade={L.jacketShade} ink={L.line} bare={L.forearm} arm tattoo={L.tattoo} open={L.lineless} />;
+  const leg = (chain: { root: P; mid: P; end: P }) => <SoftLimb chain={chain} width={L.limbW ?? 12} color={L.limb} shade={L.lineless ? L.jacketShade : L.line} ink={L.line} bare={L.shin} open={L.lineless} />;
 
   // Detailed shoe with sole, upper, toe cap, and lace ticks
   const shoe = (o: { root: P; mid: P; end: P }) => {
@@ -1904,6 +1918,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
 
       {L.extra === 'spiky' ? (
         <g>
+          <ellipse transform={hairFrontTurn(pose.yaw)} cx={0} cy={HEAD.y - 34} rx={54} ry={22} fill={L.skinShade} opacity={0.2} />
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={26} stroke={0} />
           <path
             transform={hairFrontTurn(pose.yaw)}
@@ -1913,7 +1928,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
             strokeWidth={3}
             strokeLinejoin="round"
           />
-          <path transform={hairFrontTurn(pose.yaw)} d={`M -22 ${HEAD.y - 54} Q 4 ${HEAD.y - 64} 26 ${HEAD.y - 52}`} stroke="#FFFFFF" strokeWidth={2.6} fill="none" opacity={0.2} strokeLinecap="round" />
+          <path transform={hairFrontTurn(pose.yaw)} d={`M -24 ${HEAD.y - 54} Q 4 ${HEAD.y - 67} 28 ${HEAD.y - 53} Q 4 ${HEAD.y - 60} -24 ${HEAD.y - 54} Z`} fill="#FFFFFF" opacity={0.2} />
         </g>
       ) : null}
 
@@ -2018,6 +2033,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         look={pose.look}
         glasses={pose.glasses}
         readingGlasses={L.glassesDefault}
+        lineless={L.lineless}
         yaw={pose.yaw}
         ink={L.face}
         skinShade={L.skinShade}
@@ -2062,6 +2078,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
       ) : null}
       {L.extra === 'thaoHair' ? (
         <g>
+          <ellipse transform={hairFrontTurn(pose.yaw)} cx={0} cy={HEAD.y - 34} rx={54} ry={22} fill={L.skinShade} opacity={0.2} />
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={34} flare={7} extra={5} stroke={0} />
           <TempleLocks yaw={pose.yaw} hair={L.hair} line={L.line} reach={24} />
           {/* Cute half-up topknot on top of the head tied with a red elastic band (matching Thảo 8t concept v4) */}
@@ -2104,6 +2121,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
 
       {L.extra === 'locHair' ? (
         <g>
+          <ellipse transform={hairFrontTurn(pose.yaw)} cx={0} cy={HEAD.y - 34} rx={54} ry={22} fill={L.skinShade} opacity={0.2} />
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={28} flare={5} extra={4} stroke={0} />
           {/* Messy grey-streaked dark hair with angular receding temples (matching Ông Lộc concept v4) */}
           <path
@@ -2117,11 +2135,8 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           {/* Silver-grey hair streaks */}
           <path
             transform={hairFrontTurn(pose.yaw)}
-            d={`M -44 ${HEAD.y - 48} Q -20 ${HEAD.y - 68} 4 ${HEAD.y - 62} M 14 ${HEAD.y - 58} Q 34 ${HEAD.y - 66} 48 ${HEAD.y - 44} M -52 ${HEAD.y - 26} Q -42 ${HEAD.y - 42} -26 ${HEAD.y - 44}`}
-            stroke="#9E9B95"
-            strokeWidth={3}
-            fill="none"
-            strokeLinecap="round"
+            d={`M -46 ${HEAD.y - 46} Q -22 ${HEAD.y - 72} 6 ${HEAD.y - 64} Q 2 ${HEAD.y - 59} -6 ${HEAD.y - 60} Q -26 ${HEAD.y - 62} -42 ${HEAD.y - 42} Z M 12 ${HEAD.y - 60} Q 36 ${HEAD.y - 68} 50 ${HEAD.y - 42} Q 42 ${HEAD.y - 50} 34 ${HEAD.y - 54} Q 22 ${HEAD.y - 59} 14 ${HEAD.y - 55} Z M -54 ${HEAD.y - 24} Q -44 ${HEAD.y - 44} -24 ${HEAD.y - 46} Q -38 ${HEAD.y - 40} -46 ${HEAD.y - 22} Z`}
+            fill="#9E9B95"
             opacity={0.78}
           />
         </g>
@@ -2129,6 +2144,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
 
       {L.extra === 'lowTie' ? (
         <g>
+          <ellipse transform={hairFrontTurn(pose.yaw)} cx={0} cy={HEAD.y - 34} rx={54} ry={22} fill={L.skinShade} opacity={0.2} />
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={32} flare={6} extra={5} stroke={0} />
           <TempleLocks yaw={pose.yaw} hair={L.hair} line={L.line} reach={26} />
           {/* Soft everyday parted front bangs for Mother (`CHAR-ME`, ~38-42yo, tóc buộc thấp giản dị) */}
@@ -2309,8 +2325,9 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
     <g opacity={opacity}>
       {shadow > 0 ? (
         <g>
-          <ellipse cx={pose.x} cy={pose.y + footY * pose.scale + 10} rx={72 * pose.scale} ry={13 * pose.scale} fill="#000" opacity={0.22 * shadow} />
-          <ellipse cx={pose.x} cy={pose.y + footY * pose.scale + 9} rx={44 * pose.scale} ry={7 * pose.scale} fill="#000" opacity={0.2 * shadow} />
+          {L.lineless ? <ellipse cx={pose.x} cy={pose.y + footY * pose.scale + 11} rx={96 * pose.scale} ry={20 * pose.scale} fill="#0A0810" opacity={0.1 * shadow} /> : null}
+          <ellipse cx={pose.x} cy={pose.y + footY * pose.scale + 10} rx={72 * pose.scale} ry={13 * pose.scale} fill="#000" opacity={(L.lineless ? 0.18 : 0.22) * shadow} />
+          <ellipse cx={pose.x} cy={pose.y + footY * pose.scale + 9} rx={(L.lineless ? 38 : 44) * pose.scale} ry={(L.lineless ? 5 : 7) * pose.scale} fill="#000" opacity={(L.lineless ? 0.42 : 0.2) * shadow} />
         </g>
       ) : null}
       <g transform={`translate(${pose.x} ${pose.y}) scale(${pose.scale}) rotate(${pose.spin} 0 -90)`} filter={`url(#${rimId})`}>

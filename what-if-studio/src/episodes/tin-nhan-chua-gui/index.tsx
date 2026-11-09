@@ -3,6 +3,7 @@ import { defineEpisode, Timeline, LookDef, TapeLines, HudChip, FONT } from '../.
 import timeline from './timeline.json';
 import * as shots from './shots';
 import { ActorClock } from './actor';
+import { Lineless } from './lineless';
 import type { ShotProps } from '../../engine';
 
 /**
@@ -127,7 +128,7 @@ const vaultGlow: LookDef = {
 
 // Hand each shot the film frame so actor.tsx can drive mouths and listeners.
 const acted = Object.fromEntries(
-  Object.entries(shots).map(([id, Shot]) => [id, (p: ShotProps) => <ActorClock.Provider value={p.f}><Shot {...p} /></ActorClock.Provider>]),
+  Object.entries(shots).map(([id, Shot]) => [id, (p: ShotProps) => <ActorClock.Provider value={p.f}><Lineless><Shot {...p} /></Lineless></ActorClock.Provider>]),
 );
 
 export const tinNhanChuaGui = defineEpisode('TinNhanChuaGui', {
