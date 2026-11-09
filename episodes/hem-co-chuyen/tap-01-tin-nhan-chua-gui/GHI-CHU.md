@@ -208,3 +208,7 @@ Theo chủ repo: thêm diễn Thảo nghịch đồ rồi bị quát, Duy hỏi 
 
 - `cues.json` theo bản 14: C0 còn 14 giây; C1 chia theo chuỗi Thảo nghịch đồng hồ → bị quát → Duy che em, hỏi sửa → Lộc xem máy → báo giá. Từ cửa tới giá là một diễn biến liền theo đồng hồ phim (`openingAct` trong `shots.tsx`), các shot chỉ chọn góc nhìn.
 - Tạo 7 lượt lời mới: **233 credits** (bộ đếm 26.157 → 26.390); 82 lượt dùng lại. Toàn phim 9:01, chưa render, chưa ai nghe duyệt.
+
+## Bản đầy đủ 1080p bản 14 — 09/11/2026
+
+Xuất từ composition `TinNhanChuaGui`, không nhãn: 1920×1080, 30 fps, 9:00,93, 416 MB; âm khoảng −17 LUFS, đỉnh −3,7 dB. File: `D:\lamvideo-xuat\what-if\tin-nhan-chua-gui\tin-nhan-chua-gui-ban-14-1080p.mp4` và bản 480p cho điện thoại. Đã soi 16 khung trích từ video; chủ repo chưa xem và nghe duyệt. Giọng tính cả phim tới nay tính theo bộ đếm tài khoản: 2.124 + 1.784 + 233 credits cho các đợt bản 12–14, chưa kể đợt bản 11.
