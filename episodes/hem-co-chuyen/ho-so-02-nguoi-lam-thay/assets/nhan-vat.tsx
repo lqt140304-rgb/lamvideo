@@ -441,12 +441,12 @@ export const STAND_POSE: JointPose = {
   footR: 0, footL: 0, frontR: false, frontL: false,
   x: 0, y: 0, planted: true,
 };
-// Ngồi ghế: đùi ngang ra trước, cẳng chân thẳng xuống, hai bàn chân tách nhau.
-const SIT_LEGS = { legR: { a: 85, b: 85 }, legL: { a: 75, b: 85 } };
+// Ngồi ghế: chân gần thu về sau, chân xa đưa tới trước, để thấy rõ đùi và hai bàn chân không chồng nhau.
+const SIT_LEGS = { legR: { a: 72, b: 84 }, legL: { a: 82, b: 68 } };
 // Tư thế mẫu cho các nhịp cần diễn ở Hồ sơ 2; chỉnh tiếp bằng cách trộn đè { ...STAND_POSE, ... }.
 export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' | 'holdBowl' | 'stop' | 'wary' | 'phone' | 'offer' | 'type', JointPose> = {
   stand: STAND_POSE,
-  sit: { ...STAND_POSE, tilt: 4, armR: { a: 9, b: 62 }, armL: { a: 5, b: 46, rot: 1 }, frontR: true, frontL: true, ...SIT_LEGS },
+  sit: { ...STAND_POSE, tilt: 14, neck: -6, armR: { a: 25, b: 58 }, armL: { a: 5, b: 90, rot: -1 }, handR: 'hold', handL: 'hold', frontR: true, frontL: true, ...SIT_LEGS }, // đổ người tới, hai tay đan lại
   stride: { ...STAND_POSE, tilt: 4, armR: { a: -20, b: 16 }, armL: { a: 24, b: 28 }, legR: { a: 26, b: 6 }, legL: { a: -20, b: 24 } },
   crouch: { ...STAND_POSE, tilt: 24, neck: -14, armR: { a: 30, b: 40 }, armL: { a: 30, b: 40, rot: -1 }, legR: { a: 112, b: 130 }, legL: { a: 96, b: 124 }, frontR: true },
   reach: { ...STAND_POSE, tilt: 20, neck: -8, armR: { a: 66, b: 14 }, handR: 'open', frontR: true, legR: { a: 26, b: 30 }, legL: { a: 8, b: 12 } },
@@ -599,7 +599,7 @@ const sleeveShapes = (c: ReturnType<typeof solveRig>['armR'], o: Outfit) => {
 };
 /** Tay đưa trước ngực: xoá cung vai phía trong để tay áo liền với thân áo. */
 const ShoulderPatch: React.FC<{ c: ReturnType<typeof solveRig>['armR']; fill: string; up?: boolean }> = ({ c, fill, up }) => (up ? <path d={`M ${c.root.x - 30} ${c.root.y} A 30 30 0 0 1 ${c.root.x + 30} ${c.root.y} Z`} fill={fill} stroke="none" /> :
-  <path d={`M ${c.root.x - (c.root.x < 0 ? 12.7 : -12.7)} ${c.root.y - 27.2} A 30 30 0 0 ${c.root.x < 0 ? 1 : 0} ${c.root.x + (c.root.x < 0 ? 12.7 : -12.7)} ${c.root.y + 27.2} Z`} fill={fill} stroke="none" />
+  <path d={`M ${c.root.x - (c.root.x < 0 ? 14.4 : -14.4)} ${c.root.y - 30.8} A 34 34 0 0 ${c.root.x < 0 ? 1 : 0} ${c.root.x + (c.root.x < 0 ? 14.4 : -14.4)} ${c.root.y + 30.8} Z`} fill={fill} stroke="none" />
 );
 const Cuff: React.FC<{ c: ReturnType<typeof solveRig>['armR']; o: Outfit }> = ({ c, o }) => (o.cuff ? <path d={across(c.root, c.mid, o.sleeveEnd * 0.9, 26)} fill="none" stroke={o.cuff} strokeWidth={3.5} /> : null);
 
@@ -643,6 +643,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   );
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
   const phoneOnL = facing === -1;
+  const frontSleeve = (c: typeof r.armR) => [...sleeveShapes(c, o), ...(side ? [] : [circle(c.root, 29)])]; // bọc góc vai của thân áo, khỏi lòi một mẩu khi giơ tay
   const held = pose.prop === 'bowl' ? <Bowl at={mix(r.armR.end, r.armL.end, 0.5)} />
     : pose.prop === 'phone' ? <Phone at={(phoneOnL ? r.armL : r.armR).end} deg={(phoneOnL ? r.armL : r.armR).deg + lim(phoneOnL ? pose.wristL : pose.wristR, 'wrist')} /> : null;
   const armR = arm(r.armR, ((view === 'back' ? -1 : 1) * (pose.palmUp === 'R' ? -1 : 1)) as 1 | -1, pose.wristR, pose.handR, pose.prop === 'phone' && !phoneOnL ? held : null);
@@ -664,8 +665,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
           {!frontL && !side && <Cuff c={r.armL} o={o} />}
           <g stroke={PALETTE.ink}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}>{head}</g>
-          {frontL && <g>{armL}<Blob fill={o.shirt} d={sleeveShapes(r.armL, o)} /><ShoulderPatch c={r.armL} fill={o.shirt} /><Cuff c={r.armL} o={o} /></g>}
-          {frontR && <g>{armR}<Blob fill={o.shirt} d={sleeveShapes(r.armR, o)} /><ShoulderPatch c={r.armR} fill={o.shirt} up={side} /><Cuff c={r.armR} o={o} /></g>}
+          {frontL && <g>{armL}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} /><Cuff c={r.armL} o={o} /></g>}
+          {frontR && <g>{armR}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} up={side} /><Cuff c={r.armR} o={o} /></g>}
         </g>
       </g>
     </g>
