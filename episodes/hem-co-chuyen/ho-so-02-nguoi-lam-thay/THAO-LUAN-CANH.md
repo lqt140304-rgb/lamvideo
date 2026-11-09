@@ -1,5 +1,7 @@
 # Hồ sơ 2 — Thảo luận từng cảnh
 
+**Cập nhật nhịp 10/11/2026:** các cue **NHỊP** bên dưới là chỉ dẫn không đọc, bổ sung cho phần hiện có; không đổi thoại hoặc trạng thái duyệt. Xem [đường nhịp A–H và cách tính khoảng giữ](DUNG-CANH.md#nhịp-kể-hiện-hành). Khoảng nghỉ đã nằm trong hành động chỉ tính một lần; chưa đo tổng thời lượng bằng giọng/animatic.
+
 **09/11/2026 — bản đề xuất, chưa phải kịch bản giao dựng.** Cảnh đầu do GPT-6 Astra đề xuất theo phản hồi người dùng. Chỉ chuyển sang viết chi tiết cảnh sau khi chủ repo chốt cảnh đang bàn hoặc yêu cầu chuyển phần. Những dòng dưới nhãn “đề xuất” chưa được coi là lore chính thức.
 
 **Góc máy bổ sung ngày 10/11/2026:** xem [DUNG-CANH.md](DUNG-CANH.md), có lens/cỡ cảnh/chuyển động/rung/focus, [quay layer gần–xa/che khuất](DUNG-CANH.md#quay-layer) và điểm cắt cho toàn bộ phần đã viết. Liên kết từng nhóm đặt ngay dưới các tiêu đề cảnh bên dưới. Đây là chỉ đạo hình đề xuất, giữ nguyên lời và trạng thái duyệt truyện; chưa tạo storyboard, animatic hoặc render.
@@ -69,6 +71,8 @@ Tiếng nước ngừng. Không ai đáp. Nam bực bội ngồi dậy. Một ng
 
 Người ấy quay lại.
 
+**[NHỊP A03–A04 — Cắt dòng càu nhàu ở đúng lúc Nam nhận mặt; giữ phản ứng Nam trước khi cắt xác nhận người kia. Dùng nhịp 2 giây đã ghi dưới đây cho sự sững và nhìn cửa, không cộng thêm một khoảng đứng hình.]**
+
 Nam ngừng giữa câu. Chân vừa tìm dép đứng im trên nền. Cậu nhìn gương mặt kia rồi nhìn ra cửa, như chờ Tùng bước vào cười.
 
 **[GIỮ khoảng 2 giây — không ai xuất hiện; còn tiếng quạt trong phòng.]**
@@ -83,6 +87,8 @@ Nam dụi mắt. Nhìn lại. Vẫn gương mặt ấy, cả nốt ruồi sát �
 
 Đúng giọng Nam, cả cách xuống giọng ở cuối câu.
 
+**[NHỊP A05 — Hụt hơi khoảng 0.7–1 giây rồi tay mới tìm máy; sau đó nối gấp quơ trượt → chụp máy → bật dậy/va ghế. Đây là diễn trong hành động, không dừng thêm sau từng động tác.]**
+
 Nam hụt một hơi. Tay tìm điện thoại trên nệm nhưng quơ trượt. Cậu chụp được máy, đứng bật dậy; đầu gối đụng ghế đau điếng. Cậu vẫn nhìn người kia, không cúi xoa.
 
 Người ấy nhích ra khỏi bồn rửa.
@@ -91,6 +97,8 @@ Người ấy nhích ra khỏi bồn rửa.
 > Đứng đó! Đừng tới gần tao!
 
 Người kia dừng. Đặt cái chén xuống, để hai bàn tay trống trước người. Nam men theo mép giường ra hành lang, kéo cánh cửa chắn nửa thân. Cậu còn nhìn được người kia lẫn lối cầu thang.
+
+**[NHỊP B01 — Người kia dừng ngay khi bị quát; dành khoảng 1–1.5 giây cho đặt chén/nhả tay. Nam chỉ men ra khi thấy nó đã dừng. Giữ đường đi đọc được, chưa thả lỏng vì hai tay kia trống.]**
 
 **NAM — cố nói rõ, vẫn giữ cửa:**
 > Mày là ai?
@@ -158,6 +166,8 @@ Cuộc gọi ngắt.
 
 Nam giữ điện thoại bên tai thêm một nhịp rồi mới hạ xuống. Cậu nhìn màn hình, sau đó nhìn lại người đang đứng cạnh bồn rửa.
 
+**[NHỊP B03 — Khoảng 1–1.5 giây trong chính động tác giữ/hạ máy và nhìn lại. Tùng cúp dứt sau câu níu của Nam; âm phòng còn, không lặp tiếng cúp ở đoạn kế.]**
+
 Người kia vẫn ở đó.
 
 Nam siết điện thoại, chưa dám bước vào phòng.
@@ -189,6 +199,8 @@ Người kia dừng. Nam né về phía cầu thang, chỉ sang đầu hành lan
 > Ra rồi đứng bên đó.
 
 Người kia làm theo. Nam không rời mắt khỏi nó. Đợi người kia đứng cách cửa vài bước, cậu mới lách vào phòng, đóng cửa và gài chốt.
+
+**[NHỊP C03–C05 — Giữ đủ ba mốc người kia ra đúng chỗ → Nam nhìn xác nhận khoảng 0.5–1 giây → Nam mới vào. Đóng/gài nhanh hơn phần đổi chỗ; nhịp 2 giây ở chốt bên dưới đã là khoảng chờ nghe phản ứng.]**
 
 Cậu giữ chặt chốt thêm một lúc.
 
@@ -225,6 +237,8 @@ Tin nhắn gửi đi, chưa có trả lời.
 
 Cậu đứng dậy kiểm tra ví trên bàn, rồi kéo ngăn tủ đựng giấy tờ. Mọi thứ vẫn còn. Nam cầm căn cước lên, nhìn ảnh mình một lúc.
 
+**[NHỊP D02–D03 — Đọc ảnh trên thẻ và phản ứng khoảng 2–3 giây trong lúc kiểm tra. Đó là Nam tự đối chiếu, chưa phải phát hiện ảnh/thân phận bị thay. Không giữ thêm một cận thẻ rồi lặp lại cùng ý ở cận mặt.]**
+
 **NAM — [hesitant], nói qua cửa vẫn đóng:**
 > Ê.
 
@@ -251,6 +265,8 @@ Nam đặt căn cước xuống bàn, vẫn giữ điện thoại trong tay.
 > Tao nhắn rồi.
 
 Không có tiếng hỏi thêm. Nam nhìn màn hình, chờ một lúc rồi tự lên tiếng:
+
+**[NHỊP D04 — Chờ tin khoảng 1–2 giây, rồi Nam phá im lặng bằng câu hỏi. Những câu hỏi–đáp còn lại nối tự nhiên; không chèn khoảng nghỉ dài sau mỗi câu “Ừ”.]**
 
 **NAM:**
 > Mày vô đây rửa chén làm gì?
@@ -300,9 +316,13 @@ Nam nhìn xuống sàn. Chỗ vụn mì cạnh bàn đã sạch.
 Ngay phía trên là tin cậu gửi từ hôm qua:
 > Tao làm gần xong rồi.
 
+**[NHỊP E01 — Cho đọc tin giục rồi lời hứa hôm qua, tổng khoảng 2.5–4 giây khi chữ đủ lớn. Một thoáng ngượng hiện ở mặt Nam trước khi kéo ghế; không thêm giọng đọc lại cả hai tin.]**
+
 Nam kéo ghế từ chỗ đối diện cửa về bàn, mở chiếc laptop cũ đang cắm sạc rồi vào tài liệu chung. Các phần khác đã đầy chữ. Dưới tên mình, cậu mới có mỗi tiêu đề.
 
 Cậu gõ hai dòng, đọc lại rồi xóa. Đổi tư thế ngồi, đọc phần hướng dẫn, thử viết lại. Nắng dịch dần trên mép bàn. Trang bài vẫn chỉ thêm được vài câu rời rạc.
+
+**[NHỊP E03 — Rút thời gian bằng 2–3 lát cùng bố cục, khoảng 8–12 giây cho cả chuỗi thử/xóa/đổi tư thế. Mỗi lát phải cho thấy thử khác đi hoặc thời gian trôi; không diễn một lần xóa rồi gọi là làm mãi.]**
 
 Nam ngả lưng, nhìn góc bếp đã được dọn.
 
@@ -319,6 +339,8 @@ Nam liếc về phía cửa vẫn chốt.
 **NAM — ĐỘC THOẠI NỘI TÂM, thoáng bị hấp dẫn:**
 > Không biết nó có làm được cái bài này không nhỉ…
 
+**[NHỊP E04 — Khoảng 1–1.5 giây để mắt từ bài sang cửa, thoáng muốn nhờ; rồi lắc đầu và tự bác. Đây là ý nghĩ bị hấp dẫn, chưa là nhận lời. Các câu nội tâm khác bám vật đang nhìn, không đọc thành một bài tự trách liên tục.]**
+
 Cậu lắc đầu, kéo laptop lại gần.
 
 **NAM — ĐỘC THOẠI NỘI TÂM:**
@@ -331,6 +353,8 @@ Nam thử viết tiếp. Cậu chưa gọi người kia vào hoặc nhờ làm b
 **Góc máy:** [MAY-F: đi vệ sinh và quên gài chốt](DUNG-CANH.md#may-f), F01–F04; [MAY-G: Không làm phiền, game, ngủ](DUNG-CANH.md#may-g), G01–G04. Phải nhìn thấy chốt còn rút và vị trí Nam đặt điện thoại trước khi ngủ.
 
 Một lúc sau, Nam buồn tiểu. Cậu cầm điện thoại, đứng dậy mở chốt rồi hé cửa kiểm tra.
+
+**[NHỊP F01 — Rút chốt đọc rõ khoảng 0.8–1.2 giây trong thao tác; nhìn qua khe rồi mới bước. Không cắt tắt từ ghế ra hành lang hoặc kéo dài cảnh vệ sinh.]**
 
 Người kia vẫn ở phía đối diện hành lang. Nam chỉ về cuối dãy, xa lối mình cần đi.
 
@@ -346,6 +370,8 @@ Khi trở về, cậu thấy nó vẫn ở đúng chỗ đã chỉ. Nam vào ph�
 
 Cậu cúi trả lời, rời tay khỏi chốt mà không gài lại.
 
+**[NHỊP F04 — Tay sắp gài → máy rung → mắt/tay chuyển sang máy → rời cửa là một chuỗi. Đọc được chốt còn rút khoảng 1 giây trong cùng khung; không thêm âm báo nguy hoặc phát lại insert để nhấn lỗi.]**
+
 **TIN NAM NHẮN VÀO NHÓM:**
 > Cho tao thêm chút.
 
@@ -356,7 +382,11 @@ Nam ngồi trước laptop. Nhìn mấy dòng vừa viết, cậu chuyển sang 
 
 Một thông báo che góc màn hình trò chơi. Nam bật **Không làm phiền**, quay lại chơi. Hết trận này, cậu bấm thêm trận nữa. Ánh nắng trên bàn thấp dần.
 
+**[NHỊP G02–G03 — Thao tác bật và biểu tượng rõ khoảng 1–1.5 giây. Các lát chơi tiếp gộp khoảng 6–9 giây; giữ sự lặp đủ hiểu “thêm trận nữa”, không quay từng trận hoặc lặp độc thoại tự bào chữa.]**
+
 Sau cùng, Nam đặt điện thoại cạnh laptop, ngả lên giường định nằm vài phút. Bài đang làm vẫn mở trên màn hình. Cậu ngủ quên.
+
+**[NHỊP G04 — Giữ liền đặt máy/nhả tay rồi rời bàn tới nệm; sau đó mới rút thời gian bằng ánh sáng. Tiếng game dừng khi đặt máy; không kéo màn đen để thay nhịp nghỉ có nội dung.]**
 
 ### Tỉnh dậy — trời đã tối
 
@@ -365,6 +395,8 @@ Sau cùng, Nam đặt điện thoại cạnh laptop, ngả lên giường địn
 Phòng đã tối. Đèn bàn bật, ánh laptop hắt lên một gương mặt giống Nam.
 
 Người kia đang ngồi ở bàn, gõ phím. Nam nhìn sang chỗ ngủ của Tùng: vẫn trống. Cậu bật dậy.
+
+**[NHỊP H01–H03 — Khoảng 1–2 giây nhận tiếng phím/chỗ trống/vị trí người ở bàn, rồi bật dậy quát. Lấy phản ứng Nam trước cận xác nhận mặt; không lặp toàn bộ cú dụi mắt/kiểm mặt của buổi sáng.]**
 
 **NAM — [scared], quát:**
 > Ai cho mày vào?
@@ -387,6 +419,8 @@ Nam bước tới lấy điện thoại khỏi bàn, giữ nó trong tay.
 
 Nam nhìn biểu tượng trên máy rồi tự mở thông báo. Cậu chưa tắt chế độ đã bật lúc chơi game.
 
+**[NHỊP H05 — Hiện biểu tượng 1–1.5 giây; tin Tùng 3–4 giây; danh sách nhỡ 1.5–2 giây. Các lớp đọc lần lượt trong chính hành động kiểm tra, không cộng thêm một lượt đọc lại trên mặt Nam. Người kia chưa được biết nội dung riêng này.]**
+
 **TIN TÙNG — Nam tự đọc trên màn hình:**
 > Tao đi đánh cầu. Tối chắc về muộn, mày ăn trước đi.
 
@@ -394,10 +428,14 @@ Bên dưới là nhiều cuộc gọi nhỡ của trưởng nhóm, xen những t
 
 Phần mang tên mình đã có nội dung, chia theo các mục trong hướng dẫn. Cậu đọc đoạn đầu, kéo xuống, đối chiếu yêu cầu. Có chỗ còn cần sửa, nhưng bài đã thành hình; không còn là vài câu cậu viết mãi chưa xong.
 
+**[NHỊP H06–H07 — Khoảng 5–7 giây cho đọc đoạn đầu/cuộn/đối chiếu; chỉ hiện phần cần nhận ra, không yêu cầu đọc cả bài. Giận giảm sau khi kiểm chứng, còn giữ máy và khoảng cách. Chưa cười ngay từ lúc thấy trang đầy chữ.]**
+
 Nam không quát nữa. Cậu vẫn giữ điện thoại, đứng cạnh bàn thay vì ngồi sát người kia.
 
 **NGƯỜI KIA — mời giúp tiếp bằng lợi ích cụ thể:**
 > Chỗ nào chưa được, tao sửa tiếp cho. Mày khỏi ngồi tới khuya.
+
+**[NHỊP H08–H09 — Người kia mời nhẹ, không nhấn giọng hiểm. Khoảng 1–1.5 giây cho Nam nhìn bài rồi nhìn người, trước ý nghĩ tự tâng bốc. Không dùng nhạc ấm để xác nhận đây là món quà thật.]**
 
 Nam nhìn phần bài, rồi nhìn người kia. Nỗi lo chưa hết, nhưng cậu đã có thứ để sửa và nộp cho nhóm.
 
@@ -411,6 +449,8 @@ Khóe miệng cậu nhích lên. Nam kéo phần hướng dẫn lại gần bài
 
 **NGƯỜI KIA:**
 > Ừ. Mày xem đi.
+
+**[NHỊP H10 — Kết khoảng 2 giây Nam đọc tiếp, người kia chờ với tay khỏi phím. Giữ âm phòng; chưa có thao tác gửi hoặc tiếng gõ tiếp. Đây là điểm dừng phần hiện có, chưa nối bước thay thế.]**
 
 **Điểm dừng hiện tại:** Nam bắt đầu coi sự giúp đỡ là một lợi thế của mình, chưa xác lập tin tưởng hoàn toàn. Chưa viết cảnh Tùng về hoặc bước thay thế tiếp theo.
 

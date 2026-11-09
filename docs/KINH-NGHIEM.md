@@ -29,7 +29,7 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 - Dùng “vì”, “nếu”, “nhưng”, “nên” khi chúng làm rõ suy nghĩ. Khẩu ngữ và tiếng địa phương dùng vừa phải, thống nhất với nhân vật, không nhại giọng.
 - Hài phát sinh từ tính cách hoặc tình huống; không chèn đùa làm mất trọng lượng của tổn thương. Niềm tin và sinh hoạt tinh thần cần đúng bối cảnh.
 - Kết bằng một hành động cho thấy thay đổi thường hiệu quả hơn đọc một đoạn đạo lý. Hy vọng không xóa sạch thiệt hại hoặc khiến mọi người lập tức hòa thuận.
-- Khoảng nghỉ phải có mục đích và điều để nhìn/nghe. Ghi số giây ở bản dựng; không để TTS đọc chỉ dẫn. Thẻ cảm xúc chỉ là gợi ý cần nghe thử trên model phù hợp.
+- Khoảng nghỉ phải có mục đích và điều để nhìn/nghe. Ghi số giây ở bản dựng; không để TTS đọc chỉ dẫn. Khi một phản ứng/đọc hình đã nằm trong hành động, không cộng lại theo từng góc máy. Rút các lần thử/lặp bằng montage trước khi cắt mắt xích kiểm chứng khiến nhân vật đổi thái độ; chưa có đọc thử hoặc animatic thì khoảng giây chỉ là đề xuất, không phải tổng phút đã đo. Thẻ cảm xúc chỉ là gợi ý cần nghe thử trên model phù hợp.
 
 ## Tính hợp lý và hình ảnh
 
