@@ -159,6 +159,19 @@
       <rect x="655" y="532" width="14" height="18" rx="2" fill="#a7f3d0" opacity="0.8"/>
     </g>
 
+    <!-- Chai rửa chén Sunlight vàng chanh & miếng cọ rửa -->
+    <g transform="translate(450 525)" stroke="#282b2b" stroke-width="2" stroke-linejoin="round">
+      <rect x="0" y="-12" width="14" height="32" rx="3" fill="#facc15"/>
+      <rect x="3" y="-18" width="8" height="6" rx="1" fill="#dc2626"/>
+      <!-- Miếng mút cọ xanh lá -->
+      <rect x="18" y="0" width="20" height="12" rx="2" fill="#15803d"/>
+    </g>
+
+    <!-- Khăn lau bếp treo thành bên quầy bếp -->
+    <path d="M785 565 L795 565 L797 615 L787 615 Z" fill="#93c5fd" stroke="#282b2b" stroke-width="2"/>
+    <line x1="786" y1="580" x2="796" y2="580" stroke="#3b82f6" stroke-width="1.5"/>
+    <line x1="786" y1="595" x2="796" y2="595" stroke="#3b82f6" stroke-width="1.5"/>
+
     <!-- Khối tủ bếp dưới màu xanh xám (sage green #8faea0) -->
     <rect x="435" y="565" width="350" height="105" fill="#9cae9b" stroke="#282b2b" stroke-width="3.5"/>
     <!-- 2 cánh tủ có chỉ viền và núm -->
@@ -167,12 +180,33 @@
     <rect x="615" y="575" width="160" height="85" rx="2" fill="#90a490" stroke="#282b2b" stroke-width="2"/>
     <circle cx="625" cy="615" r="4" fill="#334155"/>
 
+    <!-- BÌNH NƯỚC KHOÁNG 20L XANH DƯƠNG KÊ CẠNH BÀN BẾP (ĐẶC TRƯNG PHÒNG TRỌ) -->
+    <g transform="translate(775 510)" stroke="#282b2b" stroke-width="2.5">
+      <rect x="0" y="0" width="45" height="65" rx="8" fill="#0284c7" opacity="0.9"/>
+      <line x1="4" y1="18" x2="41" y2="18" stroke="#38bdf8" stroke-width="2.5"/>
+      <line x1="4" y1="36" x2="41" y2="36" stroke="#38bdf8" stroke-width="2.5"/>
+      <line x1="4" y1="54" x2="41" y2="54" stroke="#38bdf8" stroke-width="2.5"/>
+      <!-- Vòi rót nước đỏ trắng -->
+      <rect x="-8" y="42" width="10" height="8" rx="2" fill="#ffffff" stroke-width="1.5"/>
+      <rect x="-10" y="46" width="5" height="5" fill="#ef4444" stroke="none"/>
+    </g>
+
+    <!-- THÙNG MÌ HẢO HẢO CHUA CAY ĐẶT GẦM BẾP (PROP SINH VIÊN KINH ĐIỂN) -->
+    <g transform="translate(680 625)" stroke="#282b2b" stroke-width="2.5">
+      <polygon points="0,0 80,0 90,22 10,22" fill="#ea580c"/>
+      <polygon points="10,22 90,22 90,40 10,40" fill="#c2410c"/>
+      <text x="45" y="16" font-family="Arial" font-size="7.5" font-weight="900" fill="#fef08a" text-anchor="middle">HẢO HẢO</text>
+      <text x="50" y="34" font-family="Arial" font-size="5" font-weight="bold" fill="#ffffff" text-anchor="middle">MÌ CHUA CAY</text>
+    </g>
+
     <!-- Cây chổi rơm quét nhà dựa góc tường -->
     <line x1="430" y1="655" x2="410" y2="510" stroke="#854d0e" stroke-width="5" stroke-linecap="round"/>
     <polygon points="418,635 442,655 422,668 398,648" fill="#eab308" stroke="#282b2b" stroke-width="2.5"/>
 
     <!-- Quạt đứng sinh viên màu xanh bạc hà (Standing Fan) -->
     <g id="standing-fan" transform="translate(500 640)" stroke="#282b2b" stroke-width="3" stroke-linejoin="round">
+      <!-- Dây điện quạt nối vào ổ điện dưới tường bếp -->
+      <path d="M0 150 Q10 180 -40 170 Q-80 160 -100 130" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
       <!-- Bóng quạt đổ lên sàn -->
       <ellipse cx="0" cy="150" rx="55" ry="18" fill="#000000" opacity="0.2" filter="url(#floor-ao)"/>
       <!-- Đế quạt tròn trên sàn -->
@@ -243,6 +277,38 @@
     <!-- NGĂN DƯỚI: TỦ ĐÓNG KÍN CÓ CHỈ NẸP XANH CỔ VỊT -->
     <rect x="847" y="445" width="156" height="113" fill="#435a57" stroke="#282b2b" stroke-width="2.5"/>
     <rect x="855" y="455" width="140" height="93" rx="10" fill="#516c68" stroke="#282b2b" stroke-width="2"/>
+
+    <!-- MÓC TREO TƯỜNG CẠNH TỦ: MŨ BẢO HIỂM VÀ BALO SINH VIÊN (PROP LOGIC) -->
+    <g id="wall-hooks-scene1" stroke="#282b2b" stroke-width="2.5" stroke-linejoin="round">
+      <!-- Thanh gỗ gắn tường -->
+      <rect x="1030" y="275" width="10" height="110" rx="2" fill="#8a6d55"/>
+      <circle cx="1035" cy="285" r="3" fill="#334155"/>
+      <circle cx="1035" cy="335" r="3" fill="#334155"/>
+
+      <!-- Mũ bảo hiểm nửa đầu sinh viên có kính chắn gió -->
+      <g transform="translate(1038 290)">
+        <path d="M0 0 Q18 -15 32 0 Q30 18 10 20 L-2 15 Z" fill="#1e293b" stroke-width="2.5"/>
+        <path d="M5 8 Q20 2 28 10" fill="none" stroke="#94a3b8" stroke-width="2"/>
+        <!-- Quai nón đỏ -->
+        <path d="M8 18 Q14 28 18 20" fill="none" stroke="#dc2626" stroke-width="2"/>
+      </g>
+
+      <!-- Balo sinh viên đi học màu xám đen treo móc dưới -->
+      <g transform="translate(1036 340)">
+        <path d="M0 0 C-4 -12 18 -12 16 0 L22 45 C20 52 2 52 0 45 Z" fill="#334155" stroke-width="2.5"/>
+        <rect x="4" y="18" width="14" height="20" rx="3" fill="#475569" stroke="#282b2b" stroke-width="2"/>
+        <line x1="6" y1="26" x2="16" y2="26" stroke="#94a3b8" stroke-width="1.8"/>
+      </g>
+    </g>
+
+    <!-- Ổ cắm điện tường gần bàn học có phích cắm sạc -->
+    <g transform="translate(1045 520)" stroke="#282b2b" stroke-width="2">
+      <rect x="0" y="0" width="14" height="20" rx="2" fill="#f8fafc"/>
+      <circle cx="7" cy="6" r="1.5" fill="#1e293b"/>
+      <circle cx="7" cy="14" r="1.5" fill="#1e293b"/>
+      <!-- Phích cắm sạc laptop đen -->
+      <rect x="2" y="3" width="10" height="7" rx="1.5" fill="#020617"/>
+    </g>
 
     <!-- Vết nứt tường phong cách sinh viên -->
     <path d="M1040 190 L1080 210 L1075 235 L1115 240" fill="none" stroke="#b5ad9b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -332,107 +398,152 @@
   </g>
 
   <!-- ======================================================================== -->
-  <!-- 6. TƯỜNG SAU BÊN PHẢI: BÀN HỌC SINH VIÊN & CHIẾC GHẾ TO ĐẦM VỪA VẶN -->
+  <!-- 6. TƯỜNG SAU BÊN PHẢI: BÀN HỌC SINH VIÊN CỦA NAM (ĐỒNG BỘ 100% VỚI CẢNH 4!) -->
+  <!-- Đầy đủ: Giá sách 2 tầng Triết/Toán/Kinh tế bên trái, 2 hộc kéo núm đồng vàng bên phải, -->
+  <!-- Đèn bàn đỏ, laptop Google Docs, ống cắm bút xanh, cốc nước, ví da & thẻ CCCD! -->
   <!-- ======================================================================== -->
   <g id="study-desk-area">
-    <!-- Bàn học bằng gỗ (Desk) -->
-    <!-- Mặt bàn gỗ nằm ngang -->
-    <polygon points="1080,545 1480,545 1500,580 1060,580" fill="#c4935a" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
-    <polygon points="1060,580 1500,580 1500,595 1060,595" fill="#8c6032" stroke="#282b2b" stroke-width="3"/>
+    <!-- GIÁ SÁCH MINI 2 TẦNG TRÊN MẶT BÀN GÓC TRÁI (ĐỒNG BỘ 100% CẢNH 4) -->
+    <g stroke="#282b2b" stroke-width="2.5" stroke-linejoin="round">
+      <rect x="1065" y="445" width="115" height="105" rx="3" fill="#3a281c"/>
+      <rect x="1073" y="451" width="99" height="46" rx="2" fill="#22160e"/>
+      <rect x="1073" y="501" width="99" height="43" rx="2" fill="#22160e"/>
 
-    <!-- 4 Chân bàn và khung bàn -->
-    <g stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
-      <!-- Chân sau trái & phải -->
-      <line x1="1095" y1="595" x2="1095" y2="675" stroke="#453326" stroke-width="6"/>
-      <line x1="1465" y1="595" x2="1465" y2="675" stroke="#453326" stroke-width="6"/>
-      <!-- Chân trước trái & phải -->
-      <line x1="1070" y1="595" x2="1070" y2="710" stroke="#5a4433" stroke-width="8"/>
-      <line x1="1490" y1="595" x2="1490" y2="710" stroke="#5a4433" stroke-width="8"/>
-      <!-- Thanh giằng chân bàn -->
-      <line x1="1070" y1="660" x2="1490" y2="660" stroke="#5a4433" stroke-width="5"/>
+      <!-- Giáo trình đại học: Triết học đỏ, Toán CC xanh dương, Kinh tế xanh lá -->
+      <g stroke="#282b2b" stroke-width="1.8">
+        <rect x="1078" y="455" width="13" height="40" fill="#b91c1c"/>
+        <text x="1084" y="480" font-family="Arial" font-size="4.2" font-weight="bold" fill="#ffffff" transform="rotate(-90 1084 480)">TRIẾT</text>
+        <rect x="1094" y="457" width="14" height="38" fill="#1d4ed8"/>
+        <text x="1101" y="480" font-family="Arial" font-size="4.2" font-weight="bold" fill="#ffffff" transform="rotate(-90 1101 480)">TOÁN</text>
+        <rect x="1111" y="455" width="14" height="40" fill="#15803d"/>
+        <text x="1118" y="480" font-family="Arial" font-size="4.2" font-weight="bold" fill="#ffffff" transform="rotate(-90 1118 480)">K.TẾ</text>
+        <!-- Vở ghi chép nằm ngang tầng dưới -->
+        <polygon points="1080,530 1145,530 1148,540 1083,540" fill="#f8fafc"/>
+        <polygon points="1078,520 1143,520 1145,530 1080,530" fill="#fef08a"/>
+      </g>
+
+      <!-- Giấy note vàng dán vách giá sách: NỘP BÀI! -->
+      <rect x="1148" y="455" width="22" height="22" fill="#fef08a" stroke="#ca8a04" stroke-width="1" transform="rotate(-6 1148 455)"/>
+      <text x="1151" y="465" font-family="Arial" font-size="3.8" font-weight="bold" fill="#854d0e" transform="rotate(-6 1148 455)">NỘP!</text>
     </g>
 
-    <!-- Sọt rác giấy nhỏ cạnh chân bàn -->
-    <polygon points="1040,670 1070,670 1065,715 1045,715" fill="#d6d3d1" stroke="#282b2b" stroke-width="2.5"/>
+    <!-- Bóng đổ toàn bộ bàn học lên sàn phòng -->
+    <polygon points="1030,705 1515,705 1485,745 995,745" fill="#000000" opacity="0.22" filter="url(#floor-ao)"/>
 
-    <!-- SÁCH VỞ ĐẠI HỌC DỰNG ĐỨNG GÓC TRÁI BÀN -->
-    <g stroke="#282b2b" stroke-width="2">
-      <rect x="1090" y="490" width="12" height="55" fill="#b91c1c"/>
-      <rect x="1104" y="495" width="14" height="50" fill="#15803d"/>
-      <rect x="1120" y="490" width="16" height="55" fill="#1d4ed8"/>
-      <rect x="1138" y="515" width="18" height="30" fill="#f5f5f4"/>
+    <!-- Mặt hông bên trái 3D -->
+    <polygon points="1040,555 1065,580 1065,710 1040,685" fill="#2b1f17" stroke="#282b2b" stroke-width="3"/>
+    <!-- Mặt trước thân bàn và khoang để chân -->
+    <polygon points="1065,580 1510,580 1510,710 1065,710" fill="#3f2d21" stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round"/>
+    <rect x="1080" y="595" width="245" height="115" fill="#17110c" stroke="#282b2b" stroke-width="2.5"/>
+
+    <!-- KHỐI 2 HỘC NGĂN KÉO BÊN PHẢI CÓ NÚM ĐỒNG VÀNG (#d4af37, ĐỒNG BỘ 100% CẢNH 4!) -->
+    <g stroke="#282b2b" stroke-width="2.5">
+      <rect x="1340" y="595" width="155" height="50" rx="2" fill="#5a3f2d"/>
+      <circle cx="1417" cy="620" r="4.5" fill="#d4af37" stroke-width="1.5"/>
+      <circle cx="1415" cy="618" r="1.5" fill="#fef08a" stroke="none"/>
+      <rect x="1340" y="652" width="155" height="52" rx="2" fill="#5a3f2d"/>
+      <circle cx="1417" cy="678" r="4.5" fill="#d4af37" stroke-width="1.5"/>
+      <circle cx="1415" cy="676" r="1.5" fill="#fef08a" stroke="none"/>
     </g>
 
-    <!-- LAPTOP MỞ MÀN HÌNH ĐẶT CHÍNH GIỮA BÀN HỌC -->
-    <g transform="translate(1220 480)" stroke="#282b2b" stroke-width="3" stroke-linejoin="round">
-      <!-- Bàn phím laptop nằm nghiêng trên mặt bàn -->
-      <polygon points="-45,65 45,65 55,85 -55,85" fill="#1e293b" stroke-width="2.5"/>
-      <!-- Trackpad -->
-      <rect x="-12" y="77" width="24" height="6" rx="1" fill="#475569" stroke="none"/>
+    <!-- MẶT BÀN GỖ NẰM NGANG 3D MÀU NÂU MẬT ONG (#8a5833, ĐỒNG BỘ 100% CẢNH 4!) -->
+    <polygon points="1035,550 1485,550 1515,580 1065,580" fill="#8a5833" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round"/>
+    <polygon points="1065,580 1515,580 1515,595 1065,595" fill="#54361e" stroke="#282b2b" stroke-width="2.5"/>
 
-      <!-- Màn hình laptop mở dựng đứng -->
-      <polygon points="-42,65 42,65 40,-15 -40,-15" fill="#0f172a" stroke-width="3"/>
-      <polygon points="-37,60 37,60 35,-10 -35,-10" fill="url(#laptop-screen-glow)" stroke="none"/>
-      <!-- Dòng văn bản hiển thị trên màn hình laptop -->
-      <g stroke="#0284c7" stroke-width="1.8" stroke-linecap="round">
-        <line x1="-30" y1="5" x2="25" y2="5"/>
-        <line x1="-30" y1="18" x2="30" y2="18"/>
-        <line x1="-30" y1="30" x2="15" y2="30"/>
-        <line x1="-30" y1="42" x2="20" y2="42"/>
+    <!-- Sọt rác giấy nhỏ cạnh chân bàn bên trái -->
+    <polygon points="1035,665 1060,665 1055,710 1040,710" fill="#d6d3d1" stroke="#282b2b" stroke-width="2"/>
+
+    <!-- ĐÈN HỌC BÀN CỔ NGỖNG CHÓA ĐỎ (ĐỒNG BỘ 100% CẢNH 4!) -->
+    <g transform="translate(1455 560)">
+      <ellipse cx="0" cy="0" rx="18" ry="6" fill="#b91c1c" stroke="#282b2b" stroke-width="2"/>
+      <ellipse cx="0" cy="-2" rx="16" ry="5" fill="#ef4444" stroke="#282b2b" stroke-width="1.2"/>
+      <path d="M0 -2 Q20 -60 -18 -85 Q-60 -110 -70 -90" fill="none" stroke="#334155" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M-82 -95 L-56 -78 L-68 -54 L-106 -64 Z" fill="#dc2626" stroke="#282b2b" stroke-width="2.2"/>
+    </g>
+
+    <!-- LAPTOP MỞ MÀN HÌNH ĐẶT TRUNG TÂM BÀN HỌC (ĐỒNG BỘ 100% GOOGLE DOCS) -->
+    <g transform="translate(1210 550)" stroke="#282b2b" stroke-width="2.5" stroke-linejoin="round">
+      <!-- Dây sạc cắm cạnh trái cắm vào ổ điện tường -->
+      <path d="M-45 10 Q-90 12 -120 20 Q-150 25 -165 -30" fill="none" stroke="#020617" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Bàn phím nằm trên mặt bàn -->
+      <polygon points="-48,0 52,0 66,28 -60,28" fill="#1e293b" stroke-width="2.2"/>
+      <polygon points="-42,4 46,4 55,20 -50,20" fill="#0f172a" stroke="none"/>
+      <rect x="-6" y="21" width="20" height="5" rx="1" fill="#334155" stroke="none"/>
+
+      <!-- Màn hình mở phát sáng -->
+      <polygon points="-48,0 52,0 48,-85 -48,-85" fill="#020617" stroke-width="2.5"/>
+      <polygon points="-44,-5 48,-5 44,-80 -44,-80" fill="url(#laptop-screen-glow)" stroke="none"/>
+      <!-- Thanh tiêu đề Google Docs xanh dương -->
+      <polygon points="-44,-72 44,-72 44,-80 -44,-80" fill="#2563eb" stroke="none"/>
+      <text x="-40" y="-74" font-family="Arial" font-size="3.2" font-weight="bold" fill="#ffffff">BÀI TẬP NHÓM (NGƯỜI LÀM THAY)</text>
+      <!-- Dòng văn bản soạn thảo -->
+      <g stroke="#334155" stroke-width="1.5" stroke-linecap="round">
+        <line x1="-38" y1="-62" x2="38" y2="-62" stroke="#0f172a" stroke-width="2"/>
+        <line x1="-38" y1="-52" x2="28" y2="-52"/>
+        <line x1="-38" y1="-42" x2="35" y2="-42"/>
+        <line x1="-38" y1="-32" x2="22" y2="-32"/>
+        <line x1="-38" y1="-22" x2="36" y2="-22"/>
+        <line x1="-38" y1="-12" x2="18" y2="-12"/>
       </g>
     </g>
 
-    <!-- ĐÈN HỌC BÀN VÀ CỐC NƯỚC BÊN PHẢI BÀN -->
-    <g stroke="#282b2b" stroke-width="2.5" stroke-linejoin="round">
-      <!-- Cốc sứ uống nước -->
-      <rect x="1420" y="535" width="18" height="22" rx="2" fill="#f5f5f4"/>
-      <path d="M1438 540 Q1445 545 1438 552" fill="none"/>
+    <!-- ĐẠO CỤ TRÊN BÀN: ỐNG CẮM BÚT XANH, LY NƯỚC, VÍ DA & THẺ CCCD GẮN CHIP -->
+    <g stroke="#282b2b" stroke-width="1.8" stroke-linejoin="round">
+      <!-- Ống cắm bút màu xanh dương -->
+      <rect x="1140" y="555" width="16" height="20" rx="2" fill="#0284c7"/>
+      <line x1="1144" y1="555" x2="1141" y2="540" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="1148" y1="555" x2="1150" y2="536" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="1152" y1="555" x2="1154" y2="543" stroke="#eab308" stroke-width="2.5" stroke-linecap="round"/>
 
-      <!-- Đèn bàn học cổ ngỗng xanh rêu sẫm -->
-      <ellipse cx="1395" cy="550" rx="14" ry="5" fill="#334155"/>
-      <path d="M1395 548 Q1420 500 1385 490" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-      <polygon points="1385,490 1365,475 1375,460 1395,475" fill="#475569"/>
+      <!-- Ly sứ uống nước có quai -->
+      <rect x="1165" y="556" width="12" height="15" rx="1.5" fill="#f5f5f4"/>
+      <path d="M1177 559 Q1181 563 1177 567" fill="none"/>
+
+      <!-- Ví da gấp màu nâu -->
+      <polygon points="1295,562 1320,560 1324,570 1299,572" fill="#78350f"/>
+      <!-- Thẻ Căn cước công dân gắn chip của Nam (#0284c7) -->
+      <polygon points="1320,564 1342,564 1342,577 1320,577" fill="#0284c7" stroke-width="1.2"/>
+      <rect x="1322" y="567" width="5" height="6" fill="#fef08a" stroke="none"/>
     </g>
+
+    <!-- DÂY SẠC ĐIỆN THOẠI TRẮNG NỐI TỪ Ổ CẮM QUA NỆM CỦA NAM -->
+    <path d="M1050 540 Q1100 650 1180 690 Q1240 720 1300 755" fill="none" stroke="#f8fafc" stroke-width="1.8" stroke-dasharray="6 2" opacity="0.85"/>
 
     <!-- ==================================================================== -->
     <!-- CHIẾC GHẾ Ở BÀN HỌC (THE STUDY CHAIR - ĐÃ NÂNG CẤP TO RÕ RÀNG, VỪA VẶN NHẤT) -->
     <!-- Tỉ lệ to, đầm chắc, chuẩn tỉ lệ nhân trắc học, có áo thun vắt hờ đúng kịch bản -->
     <!-- ==================================================================== -->
-    <g id="study-desk-chair" transform="translate(1220 575)" stroke="#282b2b" stroke-width="3.8" stroke-linejoin="round">
+    <g id="study-desk-chair" transform="translate(1210 610)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
       <!-- Bóng ghế đổ xuống sàn nhà rộng rãi -->
-      <polygon points="-70,210 70,210 50,245 -90,245" fill="#000000" opacity="0.22" filter="url(#floor-ao)"/>
+      <polygon points="-65,160 65,160 45,190 -80,190" fill="#000000" opacity="0.22" filter="url(#floor-ao)"/>
 
-      <!-- 4 Chân ghế gỗ/sắt to bản, choãi vững chãi tiếp đất -->
-      <g stroke="#334155" stroke-width="6.5" stroke-linecap="round">
-        <!-- Chân trước trái & phải -->
-        <line x1="-48" y1="105" x2="-68" y2="215"/>
-        <line x1="48" y1="105" x2="68" y2="215"/>
-        <!-- Chân sau trái & phải (sẫm màu hơn tạo chiều sâu) -->
-        <line x1="-32" y1="85" x2="-42" y2="170" stroke="#1e293b" stroke-width="5"/>
-        <line x1="32" y1="85" x2="42" y2="170" stroke="#1e293b" stroke-width="5"/>
-        <!-- Thanh giằng ngang chân ghế -->
-        <line x1="-55" y1="175" x2="55" y2="175" stroke="#1e293b" stroke-width="4.5"/>
+      <!-- 4 Chân ghế choãi vững vàng tiếp đất -->
+      <g stroke="#334155" stroke-width="5.5" stroke-linecap="round">
+        <line x1="-42" y1="80" x2="-60" y2="170"/>
+        <line x1="42" y1="80" x2="60" y2="170"/>
+        <line x1="-28" y1="65" x2="-36" y2="135" stroke="#1e293b" stroke-width="4.5"/>
+        <line x1="28" y1="65" x2="36" y2="135" stroke="#1e293b" stroke-width="4.5"/>
+        <line x1="-50" y1="135" x2="50" y2="135" stroke="#1e293b" stroke-width="4"/>
       </g>
 
-      <!-- Đệm ngồi của ghế (Seat cushion to rộng, dày dặn) -->
-      <polygon points="-48,68 48,68 58,105 -58,105" fill="#383f3c" stroke-width="4"/>
-      <polygon points="-58,105 58,105 58,120 -58,120" fill="#222725" stroke-width="3"/>
+      <!-- Đệm ngồi to rộng rãi, êm ái -->
+      <polygon points="-45,45 45,45 55,78 -55,78" fill="#383f3c" stroke-width="3.5"/>
+      <polygon points="-55,78 55,78 55,90 -55,90" fill="#222725" stroke-width="2.5"/>
 
-      <!-- Khung tựa lưng ghế vươn cao bề thế -->
-      <path d="M-38 68 L-30 -38 L30 -38 L38 68" fill="none" stroke="#334155" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- Lưng tựa bản to màu xám than -->
-      <rect x="-30" y="-35" width="60" height="80" rx="8" fill="#404d49" stroke-width="3.5"/>
+      <!-- Khung tựa lưng ghế vươn cao ngang mặt bàn -->
+      <path d="M-35 45 L-28 -40 L28 -40 L35 45" fill="none" stroke="#334155" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="-28" y="-38" width="56" height="75" rx="8" fill="#404d49" stroke-width="3"/>
 
       <!-- ÁO THUN VẮT HỜ QUA LƯNG GHẾ (PROP QUAN TRỌNG TRONG KỊCH BẢN!) -->
-      <g stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
+      <g stroke="#282b2b" stroke-width="3" stroke-linejoin="round">
         <!-- Thân áo rủ rộng qua lưng ghế -->
-        <path d="M-42 -28 Q0 -38 42 -28 L48 52 Q0 60 -48 52 Z" fill="#6b8c80"/>
+        <path d="M-40 -30 Q0 -40 40 -30 L45 42 Q0 50 -45 42 Z" fill="#6b8c80"/>
         <!-- Tay áo trái rủ thõng tự nhiên -->
-        <path d="M-44 -20 L-62 20 L-42 25 L-38 -5 Z" fill="#5e7c72"/>
+        <path d="M-42 -22 L-58 15 L-40 20 L-36 -5 Z" fill="#5e7c72"/>
         <!-- Cổ áo và các nếp gấp vải sinh động -->
-        <path d="M-22 -32 Q0 -20 22 -32" fill="none" stroke="#4d6960" stroke-width="3"/>
-        <path d="M-30 15 Q0 28 30 15" fill="none" stroke="#5e7c72" stroke-width="2.5"/>
-        <path d="M-25 35 Q0 45 25 35" fill="none" stroke="#5e7c72" stroke-width="2.5"/>
+        <path d="M-20 -35 Q0 -24 20 -35" fill="none" stroke="#4d6960" stroke-width="2.5"/>
+        <path d="M-28 10 Q0 22 28 10" fill="none" stroke="#5e7c72" stroke-width="2.2"/>
+        <path d="M-24 28 Q0 38 24 28" fill="none" stroke="#5e7c72" stroke-width="2.2"/>
       </g>
     </g>
   </g>
