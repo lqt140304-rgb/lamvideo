@@ -99,7 +99,7 @@ Toạ độ nhân vật: tâm ngang x = 0, đỉnh đầu quanh y = 0, sàn y = 
 | Phần | Giá trị |
 |---|---|
 | Vai / hông | vai y 232, x −68 và 62; hông y 345, x −29 và 31 |
-| Độ dài xương | bắp tay 80, cẳng tay 68, đùi 105, ống chân 105 |
+| Độ dài xương | bắp tay 80, cẳng tay 74, đùi 105, ống chân 105 |
 | Nửa bề rộng tay | vai 19, khuỷu 16, cổ tay 13.5; bàn tay to 1.12 lần mẫu gốc |
 | Nửa bề rộng ống quần | hông 31, gối 26, gấu 28 |
 | Tay áo | gốc 25, loe 27, dài bằng nửa bắp tay |
@@ -139,6 +139,8 @@ Dùng lại `Rigged` trong [`../nhan-vat.tsx`](../nhan-vat.tsx), không sao ché
 | Đáy quần khi bước | Mảng đáy quần kéo lên theo độ mở của đùi | Mẩu quần lòi xuống giữa hai chân |
 | Tay khi bước, 3/4 và 1/4 | Pha hai tay vung vào giữa người: không vung vào, hơi mở ra ngoài để bàn tay nằm ngoài đùi. Không đẩy tay ra sau chân | Hai bàn tay chập nhau, nằm ngay đũng quần, hoặc bị quần che mất |
 | Tay xa ở góc nghiêng 90° | Thứ tự: tay xa → hai chân → áo → tay gần | Bàn tay xa nằm đè lên quần |
+| Tay gập nhiều | Khối tay đầy dần theo độ gập; đưa tay lên đầu thì khuỷu ngang vai, cẳng tay chéo lên | Tay gầy và ngắn đi, trông dị dạng |
+| Dáng ngồi | Đùi ngang ra trước, cẳng chân thẳng xuống, hai bàn chân tách nhau và mũi chân cùng hướng đùi | Chân rúm lại, dép chồng lộn xộn |
 | Vai và biên áo | Vai đặt sát biên áo và tay buông chếch ra ngoài, để cánh tay nằm ngoài biên vạt áo ở mọi góc | Áo đè mất cánh tay, nhất là góc 1/4 |
 | Nếp áo | Nếp không chạy qua vị trí cánh tay; bị tay cắt thì chỉ giữ phần còn dài | Mẩu nếp ngắn sau tay |
 | Chi tiết thân theo góc | Vạch dọc ngực chỉ dùng cho chính diện và 3/4; sau lưng và 1/4 chỉ giữ một nếp vạt áo. Không thêm ngấn gáy | Lưng áo nhiều nét thừa |

@@ -351,7 +351,7 @@ export type JointPose = {
   x: number; y: number; planted: boolean; // planted: tự hạ/nâng hông để bàn chân thấp nhất chạm sàn
 };
 
-export const BONE = { upperArm: 80, foreArm: 68, thigh: 105, shin: 105 };
+export const BONE = { upperArm: 80, foreArm: 74, thigh: 105, shin: 105 };
 export const LIMIT: Record<'tilt' | 'neck' | 'shoulder' | 'elbow' | 'wrist' | 'hip' | 'knee' | 'ankle', [number, number]> = {
   tilt: [-30, 40], neck: [-35, 35],
   shoulder: [-130, 180], // gộp cả dang ngang và đưa trước/sau vì rig vẽ trên một mặt phẳng
@@ -441,10 +441,12 @@ export const STAND_POSE: JointPose = {
   footR: 0, footL: 0, frontR: false, frontL: false,
   x: 0, y: 0, planted: true,
 };
+// Ngồi ghế: đùi ngang ra trước, cẳng chân thẳng xuống, hai bàn chân tách nhau.
+const SIT_LEGS = { legR: { a: 85, b: 85 }, legL: { a: 75, b: 85 } };
 // Tư thế mẫu cho các nhịp cần diễn ở Hồ sơ 2; chỉnh tiếp bằng cách trộn đè { ...STAND_POSE, ... }.
 export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' | 'holdBowl' | 'stop' | 'wary' | 'phone' | 'offer' | 'type', JointPose> = {
   stand: STAND_POSE,
-  sit: { ...STAND_POSE, tilt: 6, armR: { a: -28, b: 8 }, armL: { a: 34, b: 42, rot: -1 }, legR: { a: 92, b: 100 }, legL: { a: 66, b: 112 }, handR: 'open', wristR: -40 },
+  sit: { ...STAND_POSE, tilt: 4, armR: { a: 9, b: 62 }, armL: { a: 5, b: 46, rot: 1 }, frontR: true, frontL: true, ...SIT_LEGS },
   stride: { ...STAND_POSE, tilt: 4, armR: { a: -20, b: 16 }, armL: { a: 24, b: 28 }, legR: { a: 26, b: 6 }, legL: { a: -20, b: 24 } },
   crouch: { ...STAND_POSE, tilt: 24, neck: -14, armR: { a: 30, b: 40 }, armL: { a: 30, b: 40, rot: -1 }, legR: { a: 112, b: 130 }, legL: { a: 96, b: 124 }, frontR: true },
   reach: { ...STAND_POSE, tilt: 20, neck: -8, armR: { a: 66, b: 14 }, handR: 'open', frontR: true, legR: { a: 26, b: 30 }, legL: { a: 8, b: 12 } },
@@ -452,9 +454,9 @@ export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' 
   stop: { ...STAND_POSE, tilt: -5, neck: 6, armR: { a: -78, b: 8 }, armL: { a: 72, b: 34 }, handR: 'open', handL: 'open', frontL: true, legR: { a: 8, b: 16 }, legL: { a: -12, b: 8 } },
   // Bốn dáng dưới dựng cho góc 3/4.
   wary: { ...STAND_POSE, tilt: -5, neck: 5, armR: { a: -37, b: 105, rot: -1 }, armL: { a: 31, b: 105, rot: 1 }, handR: 'open', handL: 'open', frontR: true, frontL: true, legR: { a: 10, b: 14 }, legL: { a: -10, b: 6 } },
-  phone: { ...STAND_POSE, neck: -4, armR: { a: -130, b: 93, rot: -1 }, wristR: -35, handR: 'phone', frontR: true, prop: 'phone' },
+  phone: { ...STAND_POSE, neck: -4, armR: { a: -114, b: 121, rot: -1 }, wristR: -48, handR: 'phone', frontR: true, prop: 'phone' },
   offer: { ...STAND_POSE, tilt: 3, neck: -3, armL: { a: 26, b: 50, rot: 1 }, handL: 'open', frontL: true, palmUp: 'L' },
-  type: { ...STAND_POSE, tilt: 9, neck: 6, armR: { a: 33, b: 65 }, armL: { a: -24, b: 115, rot: 1 }, handR: 'type', handL: 'type', frontR: true, frontL: true, legR: { a: 92, b: 100 }, legL: { a: 66, b: 112 } },
+  type: { ...STAND_POSE, tilt: 9, neck: 6, armR: { a: 33, b: 65 }, armL: { a: -24, b: 115, rot: 1 }, handR: 'type', handL: 'type', frontR: true, frontL: true, ...SIT_LEGS },
 };
 
 const mixLimb = (a: Limb, b: Limb, t: number): Limb => ({ a: a.a + (b.a - a.a) * t, b: a.b + (b.b - a.b) * t, rot: b.rot ?? a.rot });
@@ -561,7 +563,8 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
   const long = o.pantsLen === 'long';
   const cloth = long ? { root: hip, mid: knee, end: mix(knee, ankle, 0.93) } : { root: hip, mid: mix(hip, knee, 0.4), end: mix(hip, knee, 0.75) };
   const widths: [number, number, number] = long ? [31, 26, 28] : [31, 31, 32];
-  const shoe = <g transform={`translate(${ankle.x} ${ankle.y}) rotate(${foot})`}><o.Foot side={side} view={view} /></g>;
+  // Đùi đưa hẳn ra trước (ngồi, ngồi xổm): bàn chân cũng quay về trước, không xoè ngược lại như lúc đứng.
+  const shoe = <g transform={`translate(${ankle.x} ${ankle.y}) rotate(${foot})`}><o.Foot side={view === 'three' && knee.x - hip.x > 60 ? 'L' : side} view={view} /></g>;
   return (
     <g>
       {!o.socks && shoe}
@@ -581,7 +584,14 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
   );
 };
 
-const armShapes = (c: ReturnType<typeof solveRig>['armR']) => [limbContour(c, [19, 16, 13.5]), circle(c.mid, 16), circle(c.root, 19)];
+// Tay gập nhiều nhìn gầy đi so với tay buông, nên khối tay đầy dần theo độ gập.
+const armShapes = (c: ReturnType<typeof solveRig>['armR']) => {
+  const u = Math.atan2(c.mid.y - c.root.y, c.mid.x - c.root.x), f = Math.atan2(c.end.y - c.mid.y, c.end.x - c.mid.x);
+  const bend = Math.abs(((((f - u) * 180) / Math.PI + 540) % 360) - 180);
+  const k = clamp((bend - 30) / 60);
+  const w: [number, number, number] = [19 + 1.5 * k, 16 + 4 * k, 13.5 + 3.5 * k];
+  return [limbContour(c, w), circle(c.mid, w[1]), circle(c.root, w[0])];
+};
 const sleeveShapes = (c: ReturnType<typeof solveRig>['armR'], o: Outfit) => {
   const end = mix(c.root, c.mid, o.sleeveEnd);
   const mid = mix(c.root, end, 0.55);
