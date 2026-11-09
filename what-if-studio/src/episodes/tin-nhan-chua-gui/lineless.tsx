@@ -16,6 +16,15 @@ const css = (rgb: number[], k: number) => `rgb(${rgb.map((v) => Math.round(v * k
 export const Lineless: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const root = useRef<SVGGElement>(null);
   useLayoutEffect(() => {
+    // Flat dark ellipses on a floor are contact shadows: give each a dense core, a mid fall-off and a faint outer spread.
+    root.current?.querySelectorAll<SVGElement>('ellipse[fill]').forEach((el) => {
+      const fill = parse(el.getAttribute('fill')) ?? (el.getAttribute('fill') === '#000' ? [0, 0, 0] : null);
+      const rx = Number(el.getAttribute('rx'));
+      const ry = Number(el.getAttribute('ry'));
+      const flat = rx > 0 && ry / rx < 0.3 && ry > 0;
+      if (fill && flat && lum(fill) < 0.25 && !el.getAttribute('stroke') && !el.style.mixBlendMode) el.style.setProperty('fill', 'url(#aoTiers)');
+      else if (el.style.fill) el.style.removeProperty('fill');
+    });
     root.current?.querySelectorAll<SVGElement>('[stroke]').forEach((el) => {
       const stroke = parse(el.getAttribute('stroke'));
       const fillAttr = el.getAttribute('fill');
@@ -33,5 +42,19 @@ export const Lineless: React.FC<{ children: React.ReactNode }> = ({ children }) 
       el.dataset.toned = '1';
     });
   });
-  return <g ref={root}>{children}</g>;
+  return (
+    <g ref={root}>
+      <defs>
+        <radialGradient id="aoTiers">
+          <stop offset="0%" stopColor="#07060A" stopOpacity={1} />
+          <stop offset="36%" stopColor="#07060A" stopOpacity={0.92} />
+          <stop offset="40%" stopColor="#0E0B12" stopOpacity={0.58} />
+          <stop offset="72%" stopColor="#0E0B12" stopOpacity={0.4} />
+          <stop offset="76%" stopColor="#14111A" stopOpacity={0.18} />
+          <stop offset="100%" stopColor="#14111A" stopOpacity={0} />
+        </radialGradient>
+      </defs>
+      {children}
+    </g>
+  );
 };

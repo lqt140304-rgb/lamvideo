@@ -1,7 +1,7 @@
 import React from 'react';
 import { MeadowFamily, meadowFamilyPoses } from './meadow_family';
 import { HomeFront, AuntEatery } from './house_fronts';
-import { mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, headW, coverage, SHOP_FLOOR, DUY_S, THAO_S, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
+import { RoomFalloff, mark, S, smooth, ramp, seated, reach, COUNTER, COUNTER_TOP, LOC_S, LOC_AT_COUNTER, LOC_AT_BENCH, headW, coverage, SHOP_FLOOR, DUY_S, THAO_S, SmallClock, drawKid, Shop, standingKids, seatedKids, Bars, InsertHand } from './staging';
 import { Hero } from './actor';
 import { Stage, cameraAt, perfClock, RepairClock } from './thu-c1';
 import {
@@ -33,6 +33,7 @@ import {
   ClockCreature,
   MemoryJar,
   ReverseClockwork,
+  LightVeil,
   AntiquePortraitCameo,
   CameoJars,
   OngLocShop,
@@ -708,6 +709,7 @@ export const ShC8_C: React.FC<ShotProps> = ({ t }) => {
       <ellipse cx={1500} cy={1040} rx={190} ry={18} fill="#2A3445" />
       <Hero look={LOOKS.duy} pose={duy} rimId="rimShopWarm" shadow={0.35} heldProps={phoneUp > 0 ? { L: <MotherPhone x={0} y={0} w={40} rot={90} flat={false} cracked={0} screenOn={1} /> } : undefined} />
       <Hero look={LOOKS.thao} pose={thao} rimId="rimStreetlamp" shadow={0.3} />
+      <LightVeil id="c8cFall" o={0.55} lights={[[960, 460, 760]]} />
     </g>
   );
 };
@@ -736,6 +738,7 @@ export const ShC8_D: React.FC<ShotProps> = ({ t }) => {
       <AuntEatery t={t} wave={ramp(t, stopAt - 0.4 * S, stopAt + 0.6 * S)} />
       <Hero look={LOOKS.duy} rimId="rimShopWarm" shadow={0.35} pose={duy} />
       <Hero look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} pose={thao} />
+      <LightVeil id="c8dFall" o={0.6} lights={[[680, 640, 880]]} />
     </g>
   );
 };
@@ -912,6 +915,7 @@ export const ShC9_A: React.FC<ShotProps> = ({ t }) => {
             </g>
           </g>
         ) : null}
+        <g transform={camT(cam.x, cam.y, cam.z)}><RoomFalloff id="c9a" /></g>
         <rect width={1920} height={1080} fill="#07040D" opacity={0.5 * env} />
         {env > 0 ? (
           <g clipPath="url(#c9Reveal)">

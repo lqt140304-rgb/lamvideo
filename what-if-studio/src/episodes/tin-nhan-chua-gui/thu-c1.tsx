@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame } from 'remotion';
 import { handWorld, LOOKS, standPose, walkPose, sitPose, poseAt, camT, clamp, lerp, Pose, OngLocShop, OngLocCounter, OngLocForeground, ScrewdriverProp, FONT } from '../../engine';
-import { ramp, reach, COUNTER, COUNTER_TOP, LOC_S, SHOP_FLOOR, DUY_S, THAO_S, BenchFront, DoorShelf, TwoBills } from './staging';
+import { RoomFalloff, ramp, reach, COUNTER, COUNTER_TOP, LOC_S, SHOP_FLOOR, DUY_S, THAO_S, BenchFront, DoorShelf, TwoBills } from './staging';
 import { Hero } from './actor';
 import data from './thu-c1-data.json';
 
@@ -332,6 +332,7 @@ export const Stage: React.FC<{ f: number; cam: Cam; light: boolean; film?: boole
           <Hero pose={thao.pose} look={LOOKS.thao} rimId="rimStreetlamp" shadow={0.3} heldProps={thao.held ? { L: thao.held } : undefined} />
           <OngLocForeground shiftX={0} />
         </Blur>
+        <RoomFalloff id="thu" />
       </g>
     </svg>
   );
