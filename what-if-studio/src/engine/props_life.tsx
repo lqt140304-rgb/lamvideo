@@ -53,18 +53,21 @@ export const Boot: React.FC<{ x: number; y: number; s?: number; flip?: boolean; 
   lace = 0,
 }) => (
   <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
-    <ellipse cx={20} cy={8} rx={190} ry={22} fill="#000" opacity={0.4} />
+    {/* Multi-tier contact shadow: tight core contact + ambient falloff */}
+    <ellipse cx={20} cy={38} rx={220} ry={24} fill="#000" opacity={0.14} />
+    <ellipse cx={18} cy={35} rx={195} ry={14} fill="#000" opacity={0.32} />
+    <ellipse cx={15} cy={33} rx={170} ry={6} fill="#000" opacity={0.65} />
     <path
       d="M -150 0 L -150 -70 Q -150 -110 -110 -118 L -60 -122 L -50 -240 Q -50 -262 -28 -262 L 60 -262 Q 82 -262 84 -240 L 90 -130 Q 150 -110 176 -56 Q 190 -30 184 0 Z"
       fill="#6E5A46"
-      stroke={INK}
-      strokeWidth={6}
+      stroke="#3A2C22"
+      strokeWidth={2.8}
       strokeLinejoin="round"
     />
     <path d="M 90 -130 Q 150 -110 176 -56 Q 190 -30 184 0 L 40 0 Q 70 -60 90 -130 Z" fill="#54443A" opacity={0.7} />
-    <path d="M -150 -20 L 184 -20" stroke={INK} strokeWidth={5} opacity={0.5} />
-    <path d="M -156 0 L 190 0 L 190 24 Q 190 34 178 34 L -142 34 Q -156 34 -156 22 Z" fill="#2A2420" stroke={INK} strokeWidth={5} />
-    <path d="M -150 14 L 184 14" stroke="#4A3F36" strokeWidth={3} />
+    <path d="M -150 -20 L 184 -20" stroke="#3A2C22" strokeWidth={2.5} opacity={0.5} />
+    <path d="M -156 0 L 190 0 L 190 24 Q 190 34 178 34 L -142 34 Q -156 34 -156 22 Z" fill="#221C18" stroke="#14100E" strokeWidth={2.5} />
+    <path d="M -150 14 L 184 14" stroke="#4A3F36" strokeWidth={2.5} />
     {[0, 1, 2].map((i) => (
       <g key={i}>
         <path d={`M -40 ${-232 + i * 38} L 60 ${-226 + i * 38}`} stroke={INK} strokeWidth={5} strokeLinecap="round" />

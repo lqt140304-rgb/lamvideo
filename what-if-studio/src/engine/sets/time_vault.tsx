@@ -862,12 +862,12 @@ export const ClockCreature: React.FC<{
       {/* 1. REAR CYLINDRICAL HOUSING & EXPOSED INTERNAL GEARS                */}
       {/* =================================================================== */}
       <g>
-        {/* Rear cylindrical barrel shell */}
+        {/* Rear cylindrical barrel shell - Planar shaded */}
         <path
           d="M -140 -140 C -240 -65 -260 85 -168 172 L -105 140 C -178 65 -158 -65 -85 -125 Z"
           fill="#3E2718"
-          stroke={INK}
-          strokeWidth={4.5}
+          stroke="#261509"
+          strokeWidth={1.8}
         />
         <path
           d="M -150 -130 C -245 -55 -265 80 -178 162 C -215 90 -210 -25 -125 -100 Z"
@@ -879,11 +879,11 @@ export const ClockCreature: React.FC<{
           d="M -185 -90 C -220 -45 -215 35 -172 102 Q -150 45 -155 -10 Q -160 -65 -185 -90 Z"
           fill="#4D7058"
           stroke="#1E3327"
-          strokeWidth={1.8}
+          strokeWidth={1.2}
         />
         {/* Open mechanical casing showing large brass gear teeth inside */}
         <g transform="translate(-175 22) rotate(-25)">
-          <circle cx={0} cy={0} r={36} fill="#4A2810" stroke={INK} strokeWidth={2.4} />
+          <circle cx={0} cy={0} r={36} fill="#4A2810" stroke="#261509" strokeWidth={1.2} />
           {Array.from({ length: 12 }).map((_, i) => (
             <rect
               key={i}
@@ -892,12 +892,12 @@ export const ClockCreature: React.FC<{
               width={9}
               height={7}
               fill="#D4A24C"
-              stroke={INK}
-              strokeWidth={1.2}
+              stroke="#7A4E1B"
+              strokeWidth={0.8}
               transform={`rotate(${i * 30 + gearSpin})`}
             />
           ))}
-          <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke={INK} strokeWidth={1.8} />
+          <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke="#4A2810" strokeWidth={1.2} />
           <circle cx={0} cy={0} r={6} fill="#FEF08A" />
         </g>
 
@@ -920,8 +920,8 @@ export const ClockCreature: React.FC<{
       {/* =================================================================== */}
       <g transform="translate(-40 -168) rotate(-14)">
         {/* Gothic brass finial horns curving outward */}
-        <path d="M -14 -12 Q -38 -45 -62 -35 Q -44 -18 -22 -6" fill="#8A5A20" stroke={INK} strokeWidth={2} />
-        <path d="M 14 -12 Q 38 -45 62 -35 Q 44 -18 22 -6" fill="#8A5A20" stroke={INK} strokeWidth={2} />
+        <path d="M -14 -12 Q -38 -45 -62 -35 Q -44 -18 -22 -6" fill="#8A5A20" stroke="#44290C" strokeWidth={1.4} />
+        <path d="M 14 -12 Q 38 -45 62 -35 Q 44 -18 22 -6" fill="#8A5A20" stroke="#44290C" strokeWidth={1.4} />
 
         {/* Heavy brass carrying loop ring */}
         <path
@@ -938,43 +938,43 @@ export const ClockCreature: React.FC<{
           strokeWidth={4.5}
           strokeLinecap="round"
         />
-        <path
-          d="M -32 -26 C -48 -58 48 -58 32 -26"
-          fill="none"
-          stroke={INK}
-          strokeWidth={2.4}
-        />
         {/* Fluted winder crown knob */}
-        <rect x={-15} y={-26} width={30} height={20} rx={4} fill="#946323" stroke={INK} strokeWidth={3} />
+        <rect x={-15} y={-26} width={30} height={20} rx={4} fill="#946323" stroke="#4A2E0D" strokeWidth={1.5} />
         <line x1={-9} y1={-26} x2={-9} y2={-6} stroke="#FDE047" strokeWidth={1.8} />
         <line x1={0} y1={-26} x2={0} y2={-6} stroke="#FDE047" strokeWidth={1.8} />
         <line x1={9} y1={-26} x2={9} y2={-6} stroke="#FDE047" strokeWidth={1.8} />
         {/* Crown base neck */}
-        <rect x={-10} y={-8} width={20} height={11} fill="#5C3B14" stroke={INK} strokeWidth={2.6} />
+        <rect x={-10} y={-8} width={20} height={11} fill="#5C3B14" stroke="#3A200B" strokeWidth={1.5} />
       </g>
 
       {/* =================================================================== */}
       {/* 3. MAIN CLOCK BODY BEZEL (VIỀN ĐỒNG MẶT TRƯỚC BẤT ĐỐI XỨNG)         */}
       {/* =================================================================== */}
       <g>
-        {/* Outer thick brass bezel with sharp ornate flanges */}
+        {/* Outer thick brass bezel with sharp ornate flanges: Planar shaded, no harsh 5.5px black stroke */}
         <path
           d="M 0 -165 C 100 -165 172 -92 172 0 C 172 100 95 172 0 172 C -100 172 -172 95 -172 0 C -172 -95 -100 -165 0 -165 Z"
           fill="#784E1B"
-          stroke={INK}
-          strokeWidth={5.5}
+          stroke="#44290C"
+          strokeWidth={1.8}
+        />
+        {/* Rim specular highlight curve (warm metallic gleam replacing comic stroke) */}
+        <path
+          d="M -90 -145 Q 0 -162 90 -145 Q 70 -154 0 -156 Q -70 -154 -90 -145 Z"
+          fill="#FFF2B2"
+          opacity={0.42}
         />
         {/* Verdigris patina inlay on outer bezel */}
         <path
           d="M -65 -155 C -135 -125 -162 -55 -156 22 C -150 85 -115 142 -42 162 C -62 125 -72 85 -68 22 C -62 -42 -38 -115 -65 -155 Z"
           fill="#3E5C46"
-          stroke={INK}
-          strokeWidth={2}
+          stroke="#1E3327"
+          strokeWidth={1}
         />
-        {/* Gold stepped inner bezel ring */}
-        <circle cx={0} cy={0} r={152} fill="#B4822A" stroke={INK} strokeWidth={3.8} />
-        <circle cx={0} cy={0} r={140} fill="#5C3B14" stroke={INK} strokeWidth={2.2} />
-        <circle cx={0} cy={0} r={132} fill="#E5B962" stroke="#7A4E1B" strokeWidth={2} />
+        {/* Gold stepped inner bezel ring - Planar stepped bevel without black ink stroke */}
+        <circle cx={0} cy={0} r={152} fill="#B4822A" />
+        <circle cx={0} cy={0} r={140} fill="#5C3B14" />
+        <circle cx={0} cy={0} r={132} fill="#E5B962" stroke="#7A4E1B" strokeWidth={1} />
       </g>
 
       {/* =================================================================== */}
@@ -982,7 +982,9 @@ export const ClockCreature: React.FC<{
       {/* =================================================================== */}
       <g>
         {/* Ivory porcelain dial plate with weathered aged patina */}
-        <circle cx={0} cy={0} r={128} fill="#F4EAD4" stroke={INK} strokeWidth={3.2} />
+        <circle cx={0} cy={0} r={128} fill="#F4EAD4" />
+        {/* Dial edge bevel shadow */}
+        <circle cx={0} cy={0} r={128} fill="none" stroke="#7A522A" strokeWidth={1.6} opacity={0.4} />
 
         {/* Dial radial crackle lines (Đường men rạn) */}
         <path d="M 88 -78 L 72 -52 L 82 -32 L 62 -12 M 72 -52 L 52 -62" stroke="#B8A484" strokeWidth={1.3} fill="none" opacity={0.7} />
@@ -1058,7 +1060,7 @@ export const ClockCreature: React.FC<{
           <path d="M -38 -18 Q 0 -29 38 -18" stroke="#9C8974" strokeWidth={1.8} fill="none" strokeLinecap="round" />
 
           {/* Steampunk Brass Aperture Rim */}
-          <ellipse cx={0} cy={0} rx={34} ry={16} fill="#3E2718" stroke={INK} strokeWidth={2.8} />
+          <ellipse cx={0} cy={0} rx={34} ry={16} fill="#3E2718" stroke="#4A2E0D" strokeWidth={1.5} />
 
           {/* Amber-gold glowing iris */}
           <ellipse cx={eyeGazeX * 4} cy={eyeGazeY * 2} rx={24} ry={14} fill="#D97706" />
@@ -1088,8 +1090,8 @@ export const ClockCreature: React.FC<{
           <path
             d="M -36 0 C -26 -18 26 -18 36 0 C 24 -8 -24 -8 -36 0 Z"
             fill="#DCCBB0"
-            stroke={INK}
-            strokeWidth={2.2}
+            stroke="#7A5D40"
+            strokeWidth={1.2}
           />
           <path d="M -34 -7 Q 0 -20 34 -7" stroke="#7A5D40" strokeWidth={2.2} fill="none" />
           {lid(0, 34, 16)}
@@ -1098,7 +1100,7 @@ export const ClockCreature: React.FC<{
         {/* 2. LOWER-LEFT EYE (Mắt dưới trái) */}
         <g transform="translate(-50 -8) rotate(4)">
           <path d="M -30 -15 Q 0 -24 28 -15" stroke="#EFE8D8" strokeWidth={4.2} fill="none" strokeLinecap="round" />
-          <ellipse cx={0} cy={0} rx={28} ry={14} fill="#4A3423" stroke={INK} strokeWidth={2.4} />
+          <ellipse cx={0} cy={0} rx={28} ry={14} fill="#4A3423" stroke="#4A2E0D" strokeWidth={1.5} />
           {/* Amber iris */}
           <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={19} ry={12} fill="#D97706" />
           <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={14} ry={8.5} fill="#F59E0B" />
@@ -1109,8 +1111,8 @@ export const ClockCreature: React.FC<{
           <path
             d="M -30 0 C -22 -15 22 -15 30 0 C 20 -7 -20 -7 -30 0 Z"
             fill="#DCCBB0"
-            stroke={INK}
-            strokeWidth={2}
+            stroke="#7A5D40"
+            strokeWidth={1.2}
           />
           <path d="M -28 -6 Q 0 -15 28 -6" stroke="#7A5D40" strokeWidth={2} fill="none" />
           {lid(1, 28, 14)}
@@ -1119,7 +1121,7 @@ export const ClockCreature: React.FC<{
         {/* 3. LOWER-RIGHT EYE (Mắt dưới phải) */}
         <g transform="translate(50 -8) rotate(-4)">
           <path d="M -28 -15 Q 0 -24 30 -15" stroke="#EFE8D8" strokeWidth={4.2} fill="none" strokeLinecap="round" />
-          <ellipse cx={0} cy={0} rx={28} ry={14} fill="#4A3423" stroke={INK} strokeWidth={2.4} />
+          <ellipse cx={0} cy={0} rx={28} ry={14} fill="#4A3423" stroke="#4A2E0D" strokeWidth={1.5} />
           {/* Amber iris */}
           <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={19} ry={12} fill="#D97706" />
           <ellipse cx={eyeGazeX * 3} cy={eyeGazeY * 2} rx={14} ry={8.5} fill="#F59E0B" />
@@ -1130,8 +1132,8 @@ export const ClockCreature: React.FC<{
           <path
             d="M -30 0 C -22 -15 22 -15 30 0 C 20 -7 -20 -7 -30 0 Z"
             fill="#DCCBB0"
-            stroke={INK}
-            strokeWidth={2}
+            stroke="#7A5D40"
+            strokeWidth={1.2}
           />
           <path d="M -28 -6 Q 0 -15 28 -6" stroke="#7A5D40" strokeWidth={2} fill="none" />
           {lid(2, 28, 14)}
@@ -1195,28 +1197,28 @@ export const ClockCreature: React.FC<{
       <g>
         {/* Left Leg: Double-jointed, bent backwards at knee */}
         <g transform="translate(-52 152)">
-          <circle cx={0} cy={0} r={11} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
+          <circle cx={0} cy={0} r={11} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.5} />
           <circle cx={0} cy={0} r={4.5} fill="#FDE047" />
           {/* Thigh rod & piston cylinder */}
           <path d="M 0 0 L -28 48" stroke="#C28833" strokeWidth={7} strokeLinecap="round" />
           <line x1={-4} y1={2} x2={-26} y2={42} stroke="#FEF08A" strokeWidth={1.8} />
           {/* Knee gear socket */}
-          <circle cx={-28} cy={48} r={9} fill="#8A5A20" stroke={INK} strokeWidth={2.4} />
+          <circle cx={-28} cy={48} r={9} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.5} />
           <circle cx={-28} cy={48} r={3.5} fill="#5C3B14" />
           {/* Shin rod angling forward */}
           <path d="M -28 48 L 8 100" stroke="#C28833" strokeWidth={5.5} strokeLinecap="round" />
           {/* Ankle and pointed metal claw foot */}
-          <path d="M 8 100 Q 18 122 16 132 Q 4 126 0 110 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
+          <path d="M 8 100 Q 18 122 16 132 Q 4 126 0 110 Z" fill="#946323" stroke="#4A2E0D" strokeWidth={1.2} />
         </g>
 
         {/* Right Leg */}
         <g transform="translate(32 160)">
-          <circle cx={0} cy={0} r={10} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
+          <circle cx={0} cy={0} r={10} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.5} />
           <circle cx={0} cy={0} r={4} fill="#FDE047" />
           <path d="M 0 0 L 28 45" stroke="#C28833" strokeWidth={7} strokeLinecap="round" />
-          <circle cx={28} cy={45} r={8.5} fill="#8A5A20" stroke={INK} strokeWidth={2.2} />
+          <circle cx={28} cy={45} r={8.5} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.5} />
           <path d="M 28 45 L 9 98" stroke="#C28833" strokeWidth={5.2} strokeLinecap="round" />
-          <path d="M 9 98 Q 2 118 0 126 Q -9 120 -3 105 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
+          <path d="M 9 98 Q 2 118 0 126 Q -9 120 -3 105 Z" fill="#946323" stroke="#4A2E0D" strokeWidth={1.2} />
         </g>
       </g>
 
@@ -1224,7 +1226,7 @@ export const ClockCreature: React.FC<{
       {/* 6. LEFT ARM: OPEN CLAW WITH CHRONAL SPARKS                          */}
       {/* =================================================================== */}
       <g transform="translate(-165 5)">
-        <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke={INK} strokeWidth={3.2} />
+        <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.8} />
         <circle cx={0} cy={0} r={6.5} fill="#FDE047" />
 
         <path d="M 0 0 L -68 54" stroke="#C28833" strokeWidth={9.5} strokeLinecap="round" />
@@ -1232,7 +1234,7 @@ export const ClockCreature: React.FC<{
 
         {/* Elbow gear joint */}
         <g transform="translate(-68 54) rotate(35)">
-          <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
+          <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.5} />
           {Array.from({ length: 6 }).map((_, i) => (
             <rect
               key={i}
@@ -1248,11 +1250,11 @@ export const ClockCreature: React.FC<{
         </g>
 
         <path d="M -68 54 L -36 114" stroke="#C28833" strokeWidth={8.5} strokeLinecap="round" />
-        <circle cx={-36} cy={114} r={9.5} fill="#8A5A20" stroke={INK} strokeWidth={2.2} />
+        <circle cx={-36} cy={114} r={9.5} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.4} />
 
         {/* Expressive Open Claw Hand with chronal spark motes */}
         <g transform={`translate(-36 114) rotate(${fingerTwitch * 2})`}>
-          <path d="M -7 0 L 11 4 L 9 17 L -7 13 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
+          <path d="M -7 0 L 11 4 L 9 17 L -7 13 Z" fill="#946323" stroke="#4A2E0D" strokeWidth={1.4} />
           <path d="M -7 4 Q -20 8 -18 24" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />
           <path d="M 0 14 Q 4 30 15 36 Q 24 38 30 30" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
           <path d="M 4 14 Q 15 28 28 30 Q 38 28 40 20" stroke="#C28833" strokeWidth={4} fill="none" strokeLinecap="round" />
@@ -1277,13 +1279,13 @@ export const ClockCreature: React.FC<{
       {/* 7. RIGHT ARM: GRIPPING G1 JAR WITH SKELETAL TALONS                  */}
       {/* =================================================================== */}
       <g transform="translate(160 12)">
-        <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke={INK} strokeWidth={3.2} />
+        <circle cx={0} cy={0} r={16} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.8} />
         <circle cx={0} cy={0} r={6.5} fill="#FDE047" />
 
         <path d="M 0 0 L 75 40" stroke="#C28833" strokeWidth={9.5} strokeLinecap="round" />
 
         <g transform="translate(75 40) rotate(-40)">
-          <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke={INK} strokeWidth={2.6} />
+          <circle cx={0} cy={0} r={15} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.5} />
           {Array.from({ length: 6 }).map((_, i) => (
             <rect
               key={i}
@@ -1299,11 +1301,11 @@ export const ClockCreature: React.FC<{
         </g>
 
         <path d="M 75 40 L 46 120" stroke="#C28833" strokeWidth={8.5} strokeLinecap="round" />
-        <circle cx={46} cy={120} r={9.5} fill="#8A5A20" stroke={INK} strokeWidth={2.2} />
+        <circle cx={46} cy={120} r={9.5} fill="#8A5A20" stroke="#4A2E0D" strokeWidth={1.4} />
 
         {/* Hand grasping the jar stopper lid firmly */}
         <g transform={`translate(46 120) rotate(${fingerTwitch})`}>
-          <path d="M -13 8 L 9 4 L 15 15 L -7 19 Z" fill="#946323" stroke={INK} strokeWidth={2.2} />
+          <path d="M -13 8 L 9 4 L 15 15 L -7 19 Z" fill="#946323" stroke="#4A2E0D" strokeWidth={1.4} />
           <path d="M -11 17 Q -15 28 -13 38" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />
           <path d="M -4 18 Q -4 30 0 40" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />
           <path d="M 4 17 Q 9 28 13 39" stroke="#C28833" strokeWidth={4.2} fill="none" strokeLinecap="round" />

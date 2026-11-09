@@ -293,8 +293,8 @@ export const standingKids = (t: number, o: { duyExpr?: Pose['expr']; thaoExpr?: 
 
 // Seated children from C2 on: Duy left (x 700), Thảo right (x 900) on a footrest stool; they turn toward each other.
 export const seatedKids = (t: number, o: { duyExpr?: Pose['expr']; thaoExpr?: Pose['expr']; duyX?: number; duyLean?: number; thaoLean?: number; touch?: number; sleeve?: number; holdHands?: number; duyYaw?: number; thaoYaw?: number; duyHeadTilt?: number } = {}) => {
-  const a = seated(o.duyX ?? 700, SHOP_FLOOR, DUY_S, 1, { t, seed: 1, yaw: o.duyYaw ?? 0.42, look: 0.35, expr: o.duyExpr ?? 'sad', lean: o.duyLean ?? 10, headTilt: -7 + (o.duyHeadTilt ?? 0) }); // offset from the rig's seated default
-  const b = seated(930, SHOP_FLOOR + 6, THAO_S, -1, { t, seed: 2, yaw: o.thaoYaw ?? -0.42, look: -0.35, expr: o.thaoExpr ?? 'worried', lean: o.thaoLean ?? 8 }, a.stool.s); // same stool height as Duy's, footrest at her soles
+  const a = seated(o.duyX ?? 700, SHOP_FLOOR, DUY_S, 1, { t, seed: 1, yaw: o.duyYaw ?? 0.62, look: 0.5, expr: o.duyExpr ?? 'sad', lean: o.duyLean ?? 10, headTilt: -7 + (o.duyHeadTilt ?? 0) }); // offset from the rig's seated default
+  const b = seated(930, SHOP_FLOOR + 6, THAO_S, -1, { t, seed: 2, yaw: o.thaoYaw ?? -0.58, look: -0.45, expr: o.thaoExpr ?? 'worried', lean: o.thaoLean ?? 8 }, a.stool.s); // same stool height as Duy's, footrest at her soles
   let duy = a.pose;
   let thao = b.pose;
   if (o.sleeve) thao = reach(thao, 'L', { x: duy.x + 52 * DUY_S, y: duy.y - 78 * DUY_S }, o.sleeve); // Thảo's left hand on Duy's right sleeve

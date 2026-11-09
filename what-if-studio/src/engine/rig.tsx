@@ -703,11 +703,30 @@ const Face: React.FC<{
   feminine = false,
   browSlit = false,
 }) => {
-  const ex = look * 7;
   const ay = Math.min(1, Math.abs(yaw));
-  const farHidden = ay > 0.72;
-  const farSide = yaw > 0 ? -1 : 1;
+  const sgn = Math.sign(yaw || 1);
+  const faceShiftX = yaw * 18;
+  const faceW = 1 - 0.18 * ay;
+  const eyeSpread = 21 * (1 - 0.12 * ay);
+  const cxL = faceShiftX - eyeSpread;
+  const cxR = faceShiftX + eyeSpread;
+  const noseX = faceShiftX + sgn * 2;
+
+  // Eyes scale with subtle, natural cartoon perspective (never deformed)
+  const nearW = 1.0;
+  const farW = 1 - 0.15 * ay;
+  const w_L = yaw > 0 ? nearW : farW;
+  const w_R = yaw > 0 ? farW : nearW;
+
+  // Far eye occlusion only on extreme profile turns (> 0.82)
+  const opL = yaw < -0.82 ? Math.max(0, (1 - ay) / 0.18) : 1;
+  const opR = yaw > 0.82 ? Math.max(0, (1 - ay) / 0.18) : 1;
+
+  const X_mid = faceShiftX;
+  const W_mid = faceW;
+
   const eyeY = HEAD.y - 4;
+  const ex = look * 5;
   // heavy lids: half shut when smug, cool, thinking or guilty; more when tired or sighing; also cold half-lowered lids for stoic elder (Ông Lộc)
   const coldElder = ageLines && !feminine && expr === 'neutral';
   const lid =
@@ -727,8 +746,7 @@ const Face: React.FC<{
   const open = Math.max(0.08, 1 - Math.max(blink, lid));
 
   const eye = (cx: number) => {
-    if (farHidden && Math.sign(cx) === farSide) return null;
-    const sg = cx < 0 ? 1 : -1; // + for the screen-left eye: its inner corner is on the right
+    const sg = cx < X_mid ? 1 : -1; // + for the screen-left eye: its inner corner is on the right
     if (expr === 'happy') {
       return (
         <g>
@@ -1022,52 +1040,82 @@ const Face: React.FC<{
     ),
   };
 
-  const noseX = yaw * 6;
+  const browParts = brows[expr] ? brows[expr].split(' M ') : null;
+  const leftBrow = browParts ? browParts[0] : null;
+  const rightBrow = browParts && browParts.length > 1 ? 'M ' + browParts[1] : null;
+
+  const renderEye = (cx: number, w: number, op: number) => {
+    if (op <= 0.05) return null;
+    return (
+      <g key={cx} opacity={op} transform={`translate(${cx} 0) scale(${w} 1) translate(${-cx} 0)`}>
+        {eye(cx)}
+      </g>
+    );
+  };
+
+  const noseTipX = noseX + (yaw >= 0 ? 4 : -4);
+
   return (
-    <g transform={`translate(${yaw * 30} 0) scale(${1 - 0.28 * ay} 1)`}>
-      {/* subtle nose bridge & tip for 3D facial depth */}
+    <g>
+      {/* 2.5D Nose bridge & tip aligned with face cluster */}
       <path
-        d={`M ${noseX} ${eyeY + 3} L ${noseX + (yaw >= 0 ? 4 : -4)} ${eyeY + 16} L ${noseX} ${eyeY + 18}`}
+        d={`M ${noseX} ${eyeY + 2} L ${noseTipX} ${eyeY + 14} L ${noseX} ${eyeY + 16}`}
         stroke={skinShade}
-        strokeWidth={3.2}
+        strokeWidth={3}
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       {ageLines ? (
         <g stroke={skinShade} strokeWidth={2.4} fill="none" strokeLinecap="round" opacity={0.8}>
-          <path d={`M -26 ${eyeY + 16} Q -18 ${eyeY + 22} -14 ${eyeY + 20}`} />
-          <path d={`M 26 ${eyeY + 16} Q 18 ${eyeY + 22} 14 ${eyeY + 20}`} />
-          <path d={`M -18 ${mY - 8} Q -22 ${mY + 2} -18 ${mY + 10}`} />
-          <path d={`M 18 ${mY - 8} Q 22 ${mY + 2} 18 ${mY + 10}`} />
+          {opL > 0.05 ? (
+            <path d={`M ${cxL - 6 * w_L} ${eyeY + 15} Q ${cxL + 2 * w_L} ${eyeY + 20} ${cxL + 6 * w_L} ${eyeY + 18}`} />
+          ) : null}
+          {opR > 0.05 ? (
+            <path d={`M ${cxR + 6 * w_R} ${eyeY + 15} Q ${cxR - 2 * w_R} ${eyeY + 20} ${cxR - 6 * w_R} ${eyeY + 18}`} />
+          ) : null}
+          <path d={`M ${X_mid - 16 * W_mid} ${mY - 6} Q ${X_mid - 20 * W_mid} ${mY + 2} ${X_mid - 16 * W_mid} ${mY + 10}`} />
+          <path d={`M ${X_mid + 16 * W_mid} ${mY - 6} Q ${X_mid + 20 * W_mid} ${mY + 2} ${X_mid + 16 * W_mid} ${mY + 10}`} />
         </g>
       ) : null}
-      {eye(-21)}
-      {eye(21)}
-      {brows[expr] ? (
-        <g>
-          <path d={brows[expr]} stroke={ink} strokeWidth={feminine ? 3.8 : 4.8} fill="none" strokeLinecap="round" />
+      {renderEye(cxL, w_L, opL)}
+      {renderEye(cxR, w_R, opR)}
+      {leftBrow && opL > 0.05 ? (
+        <g opacity={opL} transform={`translate(${cxL} 0) scale(${w_L} 1) translate(21 0)`}>
+          <path d={leftBrow} stroke={ink} strokeWidth={feminine ? 3.8 : 4.8} fill="none" strokeLinecap="round" />
+        </g>
+      ) : null}
+      {rightBrow && opR > 0.05 ? (
+        <g opacity={opR} transform={`translate(${cxR} 0) scale(${w_R} 1) translate(-21 0)`}>
+          <path d={rightBrow} stroke={ink} strokeWidth={feminine ? 3.8 : 4.8} fill="none" strokeLinecap="round" />
           {browSlit ? (
-            <path d={`M 25 ${eyeY - 28} L 28 ${eyeY - 18}`} stroke={skinShade} strokeWidth={3.2} strokeLinecap="round" />
+            <path d={`M ${cxR + 4 * w_R} ${eyeY - 28} L ${cxR + 7 * w_R} ${eyeY - 18}`} stroke={skinShade} strokeWidth={3.2} strokeLinecap="round" />
           ) : null}
         </g>
       ) : null}
       {moustache ? (
-        <path d={`M -18 ${mY - 4} Q 0 ${mY - 11} 18 ${mY - 4} Q 9 ${mY - 2} 0 ${mY - 5} Q -9 ${mY - 2} -18 ${mY - 4} Z`} fill={hairColor} stroke={ink} strokeWidth={1.5} />
+        <g transform={`translate(${X_mid} 0) scale(${W_mid} 1)`}>
+          <path d={`M -18 ${mY - 4} Q 0 ${mY - 11} 18 ${mY - 4} Q 9 ${mY - 2} 0 ${mY - 5} Q -9 ${mY - 2} -18 ${mY - 4} Z`} fill={hairColor} stroke={ink} strokeWidth={1.5} />
+        </g>
       ) : null}
-      {mouthShape !== 'auto' || talk > 0.08 ? (
-        <ArticulatedMouth shape={mouthShape === 'auto' ? 'a' : mouthShape} open={talk} y={mY} ink={ink} shade={skinShade} tremble={lipTremble} />
-      ) : (
-        <g transform={`translate(${clamp(lipTremble, -1, 1) * 1.2} 0)`}>{mouth[expr]}</g>
-      )}
+      <g transform={`translate(${X_mid + clamp(lipTremble, -1, 1) * 1.2} 0) scale(${W_mid} 1)`}>
+        {mouthShape !== 'auto' || talk > 0.08 ? (
+          <ArticulatedMouth shape={mouthShape === 'auto' ? 'a' : mouthShape} open={talk} y={mY} ink={ink} shade={skinShade} tremble={lipTremble} />
+        ) : (
+          mouth[expr]
+        )}
+      </g>
       {expr === 'shock' || expr === 'oops' || expr === 'scared' || expr === 'worried' || expr === 'tired' ? (
-        <path d={`M 52 ${HEAD.y - 30} q 6 10 0 16 q -6 -6 0 -16 Z`} fill="#8FD3FF" opacity={expr === 'worried' || expr === 'tired' ? 0.78 : 1} />
+        <path d={`M ${yaw >= 0 ? -48 : 48} ${HEAD.y - 30} q 6 10 0 16 q -6 -6 0 -16 Z`} fill="#8FD3FF" opacity={expr === 'worried' || expr === 'tired' ? 0.78 : 1} />
       ) : null}
-      {/* a power lighting the eyes: a soft halo, a bright iris, a white catchlight (none while the lids are shut) */}
+      {/* Glint power eyes */}
       {glint > 0.01 && blink < 0.95
-        ? [-21, 21].map((cx) =>
-            farHidden && Math.sign(cx) === farSide ? null : (
-              <g key={`gl${cx}`} opacity={Math.min(1, glint)}>
+        ? [
+            { cx: cxL, w: w_L, op: opL },
+            { cx: cxR, w: w_R, op: opR },
+          ].map(({ cx, w, op }) =>
+            op <= 0.05 ? null : (
+              <g key={`gl${cx}`} opacity={Math.min(1, glint) * op} transform={`translate(${cx} 0) scale(${w} 1) translate(${-cx} 0)`}>
                 <circle cx={cx + ex} cy={eyeY} r={17} fill={glintColor} opacity={0.2} />
                 <circle cx={cx + ex} cy={eyeY} r={12} fill={glintColor} opacity={0.28} />
                 <ellipse cx={cx + ex} cy={eyeY + (lid ? 3 : 0)} rx={8} ry={Math.max(2, 11 * open)} fill={glintColor} />
@@ -1076,29 +1124,57 @@ const Face: React.FC<{
             ),
           )
         : null}
-      {/* Round clear prescription glasses (kính cận tròn trong suốt) */}
+      {/* Round clear prescription glasses (Ông Lộc) */}
       {readingGlasses && glasses <= 0.01 && lineless ? (
         <g>
-          {/* slim bronze frames: lens glint, a faint shadow on the bridge of the nose */}
-          <ellipse cx={0} cy={eyeY + 3} rx={7} ry={3} fill={skinShade} opacity={0.42} />
-          <circle cx={-21} cy={eyeY} r={16} fill="rgba(226, 242, 248, 0.2)" stroke="#7C5A34" strokeWidth={2.1} />
-          <circle cx={21} cy={eyeY} r={16} fill="rgba(226, 242, 248, 0.2)" stroke="#7C5A34" strokeWidth={2.1} />
-          <path d={`M -5 ${eyeY - 2} Q 0 ${eyeY - 7} 5 ${eyeY - 2} Q 0 ${eyeY - 4.5} -5 ${eyeY - 2} Z`} fill="#7C5A34" stroke="#7C5A34" strokeWidth={1.4} />
-          <path d={`M -37 ${eyeY - 2} L -52 ${eyeY - 4} M 37 ${eyeY - 2} L 52 ${eyeY - 4}`} stroke="#7C5A34" strokeWidth={2} strokeLinecap="round" />
-          <path d={`M -31 ${eyeY - 8} Q -26 ${eyeY - 11} -21 ${eyeY - 10} L -26 ${eyeY - 3} Q -30 ${eyeY - 4} -31 ${eyeY - 8} Z M 11 ${eyeY - 8} Q 16 ${eyeY - 11} 21 ${eyeY - 10} L 16 ${eyeY - 3} Q 12 ${eyeY - 4} 11 ${eyeY - 8} Z`} fill="#FFFFFF" opacity={0.72} />
+          {/* slim bronze frames with 2.5D perspective */}
+          <ellipse cx={X_mid} cy={eyeY + 3} rx={7 * W_mid} ry={3} fill={skinShade} opacity={0.42} />
+          {opL > 0.05 ? (
+            <ellipse cx={cxL} cy={eyeY} rx={16 * w_L} ry={16} fill="rgba(226, 242, 248, 0.2)" stroke="#7C5A34" strokeWidth={2.1} />
+          ) : null}
+          {opR > 0.05 ? (
+            <ellipse cx={cxR} cy={eyeY} rx={16 * w_R} ry={16} fill="rgba(226, 242, 248, 0.2)" stroke="#7C5A34" strokeWidth={2.1} />
+          ) : null}
+          <path
+            d={`M ${opL <= 0.05 ? X_mid - 6 : cxL + 16 * w_L} ${eyeY - 2} Q ${X_mid} ${eyeY - 6} ${opR <= 0.05 ? X_mid + 6 : cxR - 16 * w_R} ${eyeY - 2}`}
+            stroke="#7C5A34"
+            strokeWidth={1.8}
+            fill="none"
+            strokeLinecap="round"
+          />
+          {opL > 0.05 ? (
+            <path d={`M ${cxL - 9 * w_L} ${eyeY - 8} Q ${cxL - 5 * w_L} ${eyeY - 11} ${cxL} ${eyeY - 10} L ${cxL - 5 * w_L} ${eyeY - 3} Z`} fill="#FFFFFF" opacity={0.72} />
+          ) : null}
+          {opR > 0.05 ? (
+            <path d={`M ${cxR - 9 * w_R} ${eyeY - 8} Q ${cxR - 5 * w_R} ${eyeY - 11} ${cxR} ${eyeY - 10} L ${cxR - 5 * w_R} ${eyeY - 3} Z`} fill="#FFFFFF" opacity={0.72} />
+          ) : null}
         </g>
       ) : null}
       {readingGlasses && glasses <= 0.01 && !lineless ? (
         <g>
-          <circle cx={-21} cy={eyeY} r={16} fill="rgba(210, 242, 255, 0.16)" stroke={ink} strokeWidth={3.1} />
-          <circle cx={21} cy={eyeY} r={16} fill="rgba(210, 242, 255, 0.16)" stroke={ink} strokeWidth={3.1} />
-          <path d={`M -5 ${eyeY - 2} Q 0 ${eyeY - 7} 5 ${eyeY - 2}`} stroke={ink} strokeWidth={3} fill="none" strokeLinecap="round" />
-          <path d={`M -37 ${eyeY - 2} L -52 ${eyeY - 4} M 37 ${eyeY - 2} L 52 ${eyeY - 4}`} stroke={ink} strokeWidth={2.6} strokeLinecap="round" />
-          <path d={`M -30 ${eyeY - 9} L -24 ${eyeY - 3} M 12 ${eyeY - 9} L 18 ${eyeY - 3}`} stroke="#FFFFFF" strokeWidth={2.2} strokeLinecap="round" opacity={0.75} />
+          {opL > 0.05 ? (
+            <ellipse cx={cxL} cy={eyeY} rx={16 * w_L} ry={16} fill="rgba(210, 242, 255, 0.16)" stroke={ink} strokeWidth={3.1} />
+          ) : null}
+          {opR > 0.05 ? (
+            <ellipse cx={cxR} cy={eyeY} rx={16 * w_R} ry={16} fill="rgba(210, 242, 255, 0.16)" stroke={ink} strokeWidth={3.1} />
+          ) : null}
+          <path
+            d={`M ${opL <= 0.05 ? X_mid - 8 : cxL + 16 * w_L} ${eyeY - 2} Q ${X_mid} ${eyeY - 7} ${opR <= 0.05 ? X_mid + 8 : cxR - 16 * w_R} ${eyeY - 2}`}
+            stroke={ink}
+            strokeWidth={3}
+            fill="none"
+            strokeLinecap="round"
+          />
+          {opL > 0.05 ? (
+            <path d={`M ${cxL - 9 * w_L} ${eyeY - 9} L ${cxL - 3 * w_L} ${eyeY - 3}`} stroke="#FFFFFF" strokeWidth={2.2} strokeLinecap="round" opacity={0.75} />
+          ) : null}
+          {opR > 0.05 ? (
+            <path d={`M ${cxR - 9 * w_R} ${eyeY - 9} L ${cxR - 3 * w_R} ${eyeY - 3}`} stroke="#FFFFFF" strokeWidth={2.2} strokeLinecap="round" opacity={0.75} />
+          ) : null}
         </g>
       ) : null}
       {glasses > 0.01 ? (
-        <g opacity={glasses} transform={`translate(0 ${(1 - glasses) * -60})`}>
+        <g opacity={glasses} transform={`translate(${X_mid} ${(1 - glasses) * -60}) scale(${1 - 0.2 * ay} 1)`}>
           <path d={`M -58 ${eyeY - 12} L 58 ${eyeY - 12}`} stroke={ink} strokeWidth={6} strokeLinecap="round" />
           <path d={`M -50 ${eyeY - 14} L -6 ${eyeY - 14} L -10 ${eyeY + 8} Q -28 ${eyeY + 18} -46 ${eyeY + 8} Z`} fill="#0D0F1C" stroke={ink} strokeWidth={3} />
           <path d={`M 6 ${eyeY - 14} L 50 ${eyeY - 14} L 46 ${eyeY + 8} Q 28 ${eyeY + 18} 10 ${eyeY + 8} Z`} fill="#0D0F1C" stroke={ink} strokeWidth={3} />
@@ -1117,22 +1193,22 @@ const bunchAt = (sd: number, yaw: number) => {
   return { x: 58 * sd * (1 - a) + back * 58 * a, band: far ? Math.max(0, 1 - a * 3) : 1 };
 };
 
-/** Front hair turns with the face (positive yaw looks screen-right) and narrows in profile, instead of staying front-on across the features. */
+/** Front hair turns with the face (positive yaw looks screen-right) and narrows in profile, in 1:1 lockstep with facial features. */
 const hairFrontTurn = (yaw: number) => {
   const a = Math.min(1, Math.abs(yaw));
-  return `translate(${yaw * 16} 0) scale(${1 - 0.26 * a * a} 1)`;
+  return `translate(${yaw * 10} 0) scale(${1 - 0.10 * a * a} 1)`;
 };
 /** Back hair slides behind the turned head so none of it pokes out in front of the face or neck. */
 const hairBackTurn = (yaw: number) => {
   const a = Math.min(1, Math.abs(yaw));
-  return `translate(${-yaw * 22} 0) scale(${1 - 0.22 * a * a} 1)`;
+  return `translate(${-yaw * 16} 0) scale(${1 - 0.18 * a * a} 1)`;
 };
 /** A cheek lock on side sd (-1 screen-left, 1 screen-right): the far one folds away past 3/4, the near one moves onto the cheek. */
 const hairLockTurn = (sd: -1 | 1, yaw: number) => {
   const a = Math.min(1, Math.abs(yaw));
   if (a < 0.02) return undefined;
   const facing = yaw < 0 ? -1 : 1;
-  if (sd !== facing) return `translate(${yaw * 30 * a} 0)`;
+  if (sd !== facing) return `translate(${yaw * 18 * a} 0)`;
   const k = Math.min(1, Math.max(0, (a - 0.45) / 0.35));
   const w = 1 - k * k * (3 - 2 * k);
   return `translate(${sd * 58} 0) scale(${Math.max(0.001, w)} 1) translate(${-sd * 58} 0)`;
@@ -1531,10 +1607,28 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
   );
 
   const ay = Math.abs(pose.yaw);
-  const earSide = pose.yaw >= 0 ? -1 : 1; // visible ear on the side away from the turn
+  const sgn = Math.sign(pose.yaw || 1);
+  const skullRx = HEAD.r * (1 - 0.08 * ay);
 
+  // Ears: left is screen-left (-skullRx), right is screen-right (+skullRx)
+  // When looking right (yaw > 0), right ear turns away into background (far), left ear faces camera (near).
+  const rightFar = pose.yaw > 0;
+  const leftFar = pose.yaw < 0;
+  const rightOp = rightFar ? Math.max(0, 1 - ay * 2.6) : 1;
+  const leftOp = leftFar ? Math.max(0, 1 - ay * 2.6) : 1;
+
+  const hasHairDome =
+    L.extra &&
+    L.extra !== 'hood' &&
+    L.extra !== 'baldRing' &&
+    L.extra !== 'babyHood' &&
+    L.extra !== 'policeCap' &&
+    L.extra !== 'guardCap' &&
+    L.extra !== 'hardhat';
+
+  const headShiftX = pose.yaw * 6;
   const head = (
-    <g transform={`rotate(${pose.tilt}) translate(0 ${liftY * 0.3}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
+    <g transform={`rotate(${pose.tilt}) translate(${headShiftX} ${liftY * 0.3}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
       {L.extra === 'bunches'
         ? [-1, 1].map((sd) => {
             const b = bunchAt(sd, pose.yaw);
@@ -1545,22 +1639,50 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
             );
           })
         : null}
-      {/* Ears: both ears face-on, or the near ear when turned */}
-      {ay < 0.25 ? (
-        [-1, 1].map((sd) => (
-          <g key={`ear${sd}`}>
-            <ellipse cx={sd * 61} cy={HEAD.y + 4} rx={9} ry={13} fill={L.skin} stroke={L.line} strokeWidth={3.5} />
-            <path d={`M ${sd * 59} ${HEAD.y - 2} Q ${sd * 64} ${HEAD.y + 4} ${sd * 59} ${HEAD.y + 9}`} stroke={L.skinShade} strokeWidth={2.5} fill="none" strokeLinecap="round" />
-          </g>
-        ))
-      ) : (
-        <g>
-          <ellipse cx={earSide * (58 - ay * 16)} cy={HEAD.y + 4} rx={10} ry={13.5} fill={L.skin} stroke={L.line} strokeWidth={3.5} />
-          <path d={`M ${earSide * (56 - ay * 16)} ${HEAD.y - 2} Q ${earSide * (61 - ay * 16)} ${HEAD.y + 4} ${earSide * (56 - ay * 16)} ${HEAD.y + 9}`} stroke={L.skinShade} strokeWidth={2.5} fill="none" strokeLinecap="round" />
+
+      {/* Far ear (behind skull): visible face-on, ducks behind silhouette as head turns */}
+      {leftFar && leftOp > 0.05 ? (
+        <g opacity={leftOp}>
+          <ellipse cx={-skullRx} cy={HEAD.y + 4} rx={8.5 * (1 - 0.4 * ay)} ry={12.5} fill={L.skin} stroke={L.line} strokeWidth={3} />
         </g>
-      )}
-      <circle cx={HEAD.x} cy={HEAD.y} r={HEAD.r} fill={L.skin} stroke={L.line} strokeWidth={4} />
-      <path d={`M ${HEAD.x + 14} ${HEAD.y + 58} A ${HEAD.r} ${HEAD.r} 0 0 0 ${HEAD.x + 60} ${HEAD.y + 14} A 70 70 0 0 1 ${HEAD.x + 14} ${HEAD.y + 58} Z`} fill={L.skinShade} />
+      ) : null}
+      {rightFar && rightOp > 0.05 ? (
+        <g opacity={rightOp}>
+          <ellipse cx={skullRx} cy={HEAD.y + 4} rx={8.5 * (1 - 0.4 * ay)} ry={12.5} fill={L.skin} stroke={L.line} strokeWidth={3} />
+        </g>
+      ) : null}
+
+      {/* 2. Natural Cartoon Skull Ellipse (What If Studio original aesthetic - 100% smooth, cute & round) */}
+      <ellipse cx={HEAD.x} cy={HEAD.y} rx={skullRx} ry={HEAD.r} fill={L.skin} stroke={L.line} strokeWidth={4} />
+
+      {/* 3. Soft Dynamic Jaw Cast Shadow */}
+      <path
+        d={`M ${HEAD.x + sgn * 14} ${HEAD.y + 58} A ${HEAD.r} ${HEAD.r} 0 0 ${pose.yaw >= 0 ? 0 : 1} ${HEAD.x + sgn * (skullRx - 2)} ${HEAD.y + 16} A 70 70 0 0 ${pose.yaw >= 0 ? 1 : 0} ${HEAD.x + sgn * 14} ${HEAD.y + 58} Z`}
+        fill={L.skinShade}
+        opacity={0.75}
+      />
+
+      {/* 4. Under-Hair Cranial Cap (Fills upper hemisphere under hair so turning or tilting NEVER exposes bald gaps!) */}
+      {hasHairDome ? (
+        <path
+          d={`M ${-skullRx - 1} ${HEAD.y - 8} A ${skullRx + 1} ${HEAD.r + 1} 0 0 1 ${skullRx + 1} ${HEAD.y - 8} Q ${pose.yaw * 10} ${HEAD.y - 44} ${-skullRx - 1} ${HEAD.y - 8} Z`}
+          fill={L.hair}
+        />
+      ) : null}
+
+      {/* Near ear: drawn ON TOP of the skull contour so it is never painted over by skin fill */}
+      {!leftFar ? (
+        <g>
+          <ellipse cx={-skullRx + 1} cy={HEAD.y + 4} rx={8.5} ry={12.5} fill={L.skin} stroke={L.line} strokeWidth={3.2} />
+          <path d={`M ${-skullRx + 3} ${HEAD.y - 2} Q ${-skullRx - 2} ${HEAD.y + 4} ${-skullRx + 3} ${HEAD.y + 9}`} stroke={L.skinShade} strokeWidth={2.4} fill="none" strokeLinecap="round" />
+        </g>
+      ) : null}
+      {!rightFar ? (
+        <g>
+          <ellipse cx={skullRx - 1} cy={HEAD.y + 4} rx={8.5} ry={12.5} fill={L.skin} stroke={L.line} strokeWidth={3.2} />
+          <path d={`M ${skullRx - 3} ${HEAD.y - 2} Q ${skullRx + 2} ${HEAD.y + 4} ${skullRx - 3} ${HEAD.y + 9}`} stroke={L.skinShade} strokeWidth={2.4} fill="none" strokeLinecap="round" />
+        </g>
+      ) : null}
 
       {/* Default Pip tuft + SideHair so turning Pip never leaves the back of his head bare */}
       {!L.extra || L.extra === 'hood' ? (
@@ -1922,7 +2044,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={26} stroke={0} />
           <path
             transform={hairFrontTurn(pose.yaw)}
-            d={`M -62 ${HEAD.y - 6} Q -62 ${HEAD.y - 48} -42 ${HEAD.y - 66} L -28 ${HEAD.y - 82} L -16 ${HEAD.y - 66} L 4 ${HEAD.y - 86} L 16 ${HEAD.y - 64} L 34 ${HEAD.y - 78} L 40 ${HEAD.y - 60} L 58 ${HEAD.y - 66} Q 66 ${HEAD.y - 36} 62 ${HEAD.y - 6} L 40 ${HEAD.y - 28} L 24 ${HEAD.y - 18} L 12 ${HEAD.y - 34} L -4 ${HEAD.y - 18} L -18 ${HEAD.y - 34} L -34 ${HEAD.y - 22} Z`}
+            d={`M -60 ${HEAD.y - 12} Q -62 ${HEAD.y - 50} -40 ${HEAD.y - 68} L -26 ${HEAD.y - 84} L -14 ${HEAD.y - 68} L 6 ${HEAD.y - 88} L 18 ${HEAD.y - 66} L 36 ${HEAD.y - 80} L 42 ${HEAD.y - 62} L 58 ${HEAD.y - 68} Q 64 ${HEAD.y - 38} 60 ${HEAD.y - 12} L 44 ${HEAD.y - 26} L 30 ${HEAD.y - 34} L 16 ${HEAD.y - 26} L 0 ${HEAD.y - 36} L -14 ${HEAD.y - 28} L -28 ${HEAD.y - 36} L -44 ${HEAD.y - 28} Z`}
             fill={L.hair}
             stroke={L.line}
             strokeWidth={3}
@@ -2082,9 +2204,9 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={34} flare={7} extra={5} stroke={0} />
           <TempleLocks yaw={pose.yaw} hair={L.hair} line={L.line} reach={24} />
           {/* Cute half-up topknot on top of the head tied with a red elastic band (matching Thảo 8t concept v4) */}
-          <g transform={`translate(${-pose.yaw * 22} 0)`}>
+          <g transform={`translate(${-pose.yaw * 16} 0)`}>
             <path
-              d={`M -16 ${HEAD.y - 64} Q -28 ${HEAD.y - 98} -4 ${HEAD.y - 96} Q 18 ${HEAD.y - 98} 16 ${HEAD.y - 64} Z`}
+              d={`M -16 ${HEAD.y - 64} Q -26 ${HEAD.y - 96} -4 ${HEAD.y - 94} Q 18 ${HEAD.y - 96} 16 ${HEAD.y - 64} Z`}
               fill={L.hair}
               stroke={L.line}
               strokeWidth={3}
@@ -2110,7 +2232,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
           {/* Rounded child bangs parted gently over forehead */}
           <path
             transform={hairFrontTurn(pose.yaw)}
-            d={`M -64 ${HEAD.y + 4} Q -68 ${HEAD.y - 68} 0 ${HEAD.y - 70} Q 68 ${HEAD.y - 68} 64 ${HEAD.y + 4} Q 48 ${HEAD.y - 24} 28 ${HEAD.y - 32} L 18 ${HEAD.y - 22} L 8 ${HEAD.y - 38} L -6 ${HEAD.y - 24} L -18 ${HEAD.y - 36} Q -44 ${HEAD.y - 26} -64 ${HEAD.y + 4} Z`}
+            d={`M -62 ${HEAD.y - 8} Q -66 ${HEAD.y - 70} 0 ${HEAD.y - 72} Q 66 ${HEAD.y - 70} 62 ${HEAD.y - 8} Q 46 ${HEAD.y - 30} 24 ${HEAD.y - 34} L 14 ${HEAD.y - 26} L 4 ${HEAD.y - 38} L -10 ${HEAD.y - 26} L -22 ${HEAD.y - 36} Q -44 ${HEAD.y - 28} -62 ${HEAD.y - 8} Z`}
             fill={L.hair}
             stroke={L.line}
             strokeWidth={2.8}
@@ -2123,16 +2245,20 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
         <g>
           <ellipse transform={hairFrontTurn(pose.yaw)} cx={0} cy={HEAD.y - 34} rx={54} ry={22} fill={L.skinShade} opacity={0.2} />
           <SideHair yaw={pose.yaw} hair={L.hair} line={L.line} bottom={28} flare={5} extra={4} stroke={0} />
-          {/* Messy grey-streaked dark hair with angular receding temples (matching Ông Lộc concept v4) */}
+          {/* Forehead contact shadow (lineless depth) */}
+          <path
+            transform={hairFrontTurn(pose.yaw)}
+            d={`M -60 ${HEAD.y + 4} Q 0 ${HEAD.y - 12} 60 ${HEAD.y + 4} Q 32 ${HEAD.y + 12} 0 ${HEAD.y + 10} Q -32 ${HEAD.y + 12} -60 ${HEAD.y + 4} Z`}
+            fill="#000"
+            opacity={0.16}
+          />
+          {/* Volumetric hair cluster silhouette without harsh cartoon outline */}
           <path
             transform={hairFrontTurn(pose.yaw)}
             d={`M -64 ${HEAD.y - 2} Q -74 ${HEAD.y - 48} -46 ${HEAD.y - 68} L -52 ${HEAD.y - 78} L -28 ${HEAD.y - 74} Q 0 ${HEAD.y - 86} 32 ${HEAD.y - 74} L 50 ${HEAD.y - 80} L 44 ${HEAD.y - 66} Q 72 ${HEAD.y - 46} 64 ${HEAD.y - 2} Q 52 ${HEAD.y - 30} 36 ${HEAD.y - 46} L 20 ${HEAD.y - 34} L 8 ${HEAD.y - 52} L -14 ${HEAD.y - 38} L -32 ${HEAD.y - 50} Q -50 ${HEAD.y - 32} -64 ${HEAD.y - 2} Z`}
             fill={L.hair}
-            stroke={L.line}
-            strokeWidth={2.8}
-            strokeLinejoin="round"
           />
-          {/* Silver-grey hair streaks */}
+          {/* Volumetric silver-grey hair clusters instead of scratchy stroke lines */}
           <path
             transform={hairFrontTurn(pose.yaw)}
             d={`M -46 ${HEAD.y - 46} Q -22 ${HEAD.y - 72} 6 ${HEAD.y - 64} Q 2 ${HEAD.y - 59} -6 ${HEAD.y - 60} Q -26 ${HEAD.y - 62} -42 ${HEAD.y - 42} Z M 12 ${HEAD.y - 60} Q 36 ${HEAD.y - 68} 50 ${HEAD.y - 42} Q 42 ${HEAD.y - 50} 34 ${HEAD.y - 54} Q 22 ${HEAD.y - 59} 14 ${HEAD.y - 55} Z M -54 ${HEAD.y - 24} Q -44 ${HEAD.y - 44} -24 ${HEAD.y - 46} Q -38 ${HEAD.y - 40} -46 ${HEAD.y - 22} Z`}
@@ -2178,7 +2304,7 @@ export const Hero: React.FC<{ pose: Pose; shadow?: number; rimId?: string; look?
 
   // Back hair layer rendered BEHIND torso & neck so female & long hairstyles have lush volume with zero neck gaps
   const backHair = (
-    <g transform={`rotate(${pose.tilt}) translate(0 ${liftY * 0.3}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
+    <g transform={`rotate(${pose.tilt}) translate(${headShiftX} ${liftY * 0.3}) rotate(${pose.headTilt} 0 ${HEAD.y + 40})`}>
       {L.extra === 'lowTie' ? (
         (() => {
           const bDir = pose.yaw >= 0 ? -1 : 1;
