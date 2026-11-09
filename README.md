@@ -13,6 +13,7 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 | [KICH-BAN.md](docs/KICH-BAN.md) | Mục lục tập, trạng thái và đường dẫn bản nguồn; không chứa toàn bộ lời của các tập | Đọc để tìm đúng hồ sơ; cập nhật khi thêm tập hoặc đổi trạng thái |
 | [WHAT-IF-QUY-TRINH.md](docs/WHAT-IF-QUY-TRINH.md) | Cách đi từ nghiên cứu tới viết, giọng, storyboard, dựng và bàn giao; nêu cả giới hạn công cụ | Đọc khi bắt đầu một công đoạn; sửa khi cách làm chung thay đổi |
 | [what-if-yeu-cau.md](docs/what-if-yeu-cau.md) | Mẫu đầu vào: việc cần làm, chủ đề, phạm vi, nguồn, ngân sách và đầu ra | Dùng để lập yêu cầu; thông tin đã điền cho một tập phải lưu trong hồ sơ tập |
+| [Skill viết từng cảnh](.claude/skills/co-write-scenes/SKILL.md), [cảm xúc–thoại](.claude/skills/emotional-dialogue/SKILL.md), [logic truyện](.claude/skills/story-logic-review/SKILL.md) | Ba công cụ biên tập bổ sung: cùng chốt từng cảnh, diễn xuất đúng tình huống và rà nguyên nhân–hệ quả | Đọc đúng skill theo việc đang làm; không tự tạo media |
 | [CLAUDE.md](CLAUDE.md) | Quy tắc làm việc, phân chia file, phạm vi nhiệm vụ và cách cập nhật repo cho Claude | Đọc trước khi thao tác repo; sửa khi có quy ước dùng chung mới |
 
 `README.md` này là bản đồ của repo: giúp người và agent biết đọc gì, sửa ở đâu. Chi tiết từng tập nằm trong `episodes/`, tài liệu chuyên sâu nằm trong `docs/` và skill.
@@ -46,7 +47,9 @@ Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tư�
 
 **Đang làm:** Hẻm Có Chuyện mở thành [vũ trụ quái vật có khả năng riêng](episodes/hem-co-chuyen/VU-TRU.md). [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) bản 13 giữ lời gọn bản 12 và thêm cameo/tiệm biến mất/nguyên hình Lộc/kho lọ: 40 cue, ước tính 7:45–8:58. Chưa dựng hoặc tạo asset phần mới; animatic hiện có vẫn bản lời 11. Đọc bàn giao Claude trong hồ sơ tập trước khi dựng.
 
-Hồ sơ đã sắp xếp: [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
+**Đang phát triển văn bản:** [Hồ sơ 2 — Người làm thay](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) đang cùng chủ repo chốt từng cảnh; cảnh 1 còn là đề xuất, chưa có kịch bản hoàn chỉnh hay media. [Quy ước Hồ sơ 1, Hồ sơ 2](episodes/hem-co-chuyen/README.md#cách-gọi-các-truyện) giữ các slug kỹ thuật cũ.
+
+Hồ sơ đã sắp xếp: [Hồ sơ 1 — Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 
 ## Tác dụng các thư mục
 

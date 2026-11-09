@@ -20,6 +20,8 @@ File này chỉ lưu nguyên tắc có thể dùng lại để nâng chất lư�
 
 ## Cảm xúc và thoại
 
+- **Nhân vật vừa hoảng đã tin vì một lợi ích → thiếu bước chuyển có nguyên nhân →** cho thấy điều họ vừa nhận ra, cách họ kiểm tra và lý do nguy hiểm trước mắt giảm; giữ sự dè chừng trong hành vi dù họ bắt đầu tò mò. Đặc điểm như lười hoặc tham không tự giải thích mọi quyết định. **Kiểm tra văn bản:** mỗi lần đổi thái độ có tác nhân rõ; nhãn cảm xúc và khoảng nghỉ không được dùng để che mắt xích còn thiếu. Đây là tiêu chí biên tập, chưa phải kết quả thử với khán giả.
+
 - **Lời dẫn đọc hộ điều đã thấy → phim thành tranh lồng sách nói →** phân loại mỗi câu kể: thông tin ngoài hình, động tác nhìn thấy, hoặc kết luận cảm xúc. Bỏ câu đọc lại động tác; giữ thông tin không thể suy ra, chuyển phần cần diễn vào chỉ dẫn không đọc và dành đủ thời gian cho hành động. Với cao trào thân mật, thử bỏ người kể cả phân đoạn, không chỉ bỏ một câu. **Kiểm tra:** xem/nghe cảnh liền mạch, người xem hiểu bằng hình/thoại mà không cần thuyết minh; đếm phần lời theo vai, không biến một tỷ lệ cắt của riêng tập thành luật chung.
 - **Thoại đúng chữ nhưng sai đời sống →** nghe thử theo tuổi, vùng, quan hệ và trạng thái, kể cả mẫu nghẹn/hụt hơi; tên giọng hoặc thẻ cảm xúc không chứng minh phương ngữ hay diễn xuất. Viết câu ngắn đúng nhu cầu, để nhịp thở và phản ứng có chỗ tồn tại; không bắt nhân vật giải thích cho nhau điều cả hai đã biết. Tránh chồng tiếng khóc/thở lên take đã có cùng âm.
 

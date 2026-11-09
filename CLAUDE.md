@@ -16,6 +16,7 @@ Repo này dành cho nội dung What If. Đọc [mục tiêu](docs/MUC-TIEU.md), 
 
 - Không tự mặc định zombie, tận thế hay giải thích khoa học. Đánh giá đề tài theo đồng cảm, lựa chọn khó, tính mới, khả năng kể trọn và chi phí dựng.
 - Mỗi tập có lựa chọn và hệ quả đủ khép lại. Nhân vật có mục đích, vai trò, giới hạn và mâu thuẫn; twist phải được chuẩn bị. Khoa học chỉ giải thích nguyên nhân thiết yếu, các luật siêu nhiên được ghi là hư cấu và giữ nhất quán.
+- Khi chủ repo muốn chốt từng cảnh, dùng [co-write-scenes](.claude/skills/co-write-scenes/SKILL.md): ghi rõ phần đã chọn/phần đề xuất, chỉ viết chi tiết cảnh đang bàn. Dùng [emotional-dialogue](.claude/skills/emotional-dialogue/SKILL.md) khi sửa diễn xuất/thoại và [story-logic-review](.claude/skills/story-logic-review/SKILL.md) khi rà nhân quả/luật truyện. Không tự chuyển đề xuất thành bản giao dựng.
 - Chốt phạm vi và bản lời trước khi tạo giọng/hình. Chỉ chạy phần được yêu cầu; yêu cầu viết hoặc cập nhật repo không tự bao gồm tạo media tốn phí.
 - Ưu tiên ElevenLabs cho nội dung mới theo lựa chọn của chủ repo. Chọn voice/model rõ ràng; backend cũ không tự đổi mặc định. Thẻ cảm xúc không thay được diễn xuất và không tự phân vai. Khoảng nghỉ chính xác được dựng trên timeline.
 - Công cụ giọng cũ có cắt ngắn khoảng lặng, ElevenLabs backend cũ tổng hợp cả bài bằng một giọng. Không đưa thẳng kịch bản nhiều vai vào đó rồi báo đã giữ cảm xúc/phân vai.

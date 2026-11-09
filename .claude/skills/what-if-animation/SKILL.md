@@ -17,6 +17,9 @@ Xác định việc đang được yêu cầu: nghiên cứu, viết, sửa, d�
 |---|---|
 | Nghiên cứu nguyên nhân, hệ quả, sự kiện/video liên quan | [research.md](references/research.md) |
 | Đề tài, nhân vật, xung đột, twist, kết thúc | [formula.md](references/formula.md) |
+| Cùng chủ repo thảo luận và chốt lần lượt từng cảnh | [co-write-scenes](../co-write-scenes/SKILL.md) |
+| Phản ứng nhân vật, lời thoại và chuyển biến cảm xúc | [emotional-dialogue](../emotional-dialogue/SKILL.md) |
+| Rà sâu nhân quả, luật, tri thức nhân vật và twist | [story-logic-review](../story-logic-review/SKILL.md) |
 | Các bước và giới hạn công cụ thực tế | [quy trình](../../../docs/WHAT-IF-QUY-TRINH.md) |
 | Engine, rig, set, ánh sáng, API dựng | [kit.md](references/kit.md) |
 | Bố cục, kiểm tra still/motion | [look.md](references/look.md) |

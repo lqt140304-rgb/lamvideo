@@ -1,4 +1,4 @@
-# HẺM CÓ CHUYỆN — Tập thử 01: TIN NHẮN CHƯA GỬI
+# HẺM CÓ CHUYỆN — HỒ SƠ 1: TIN NHẮN CHƯA GỬI
 
 **Hiện hành bản 14 — 09/11/2026:** rút đường mở thành phố–cú–cửa tiệm còn 14 giây; diễn đủ Thảo nghịch đồng hồ → bị quát → Duy che em/xin lỗi/hỏi sửa → Lộc xem máy rồi báo giá. Rút gia cảnh đầu thành một đoạn ngắn, đưa thông tin dì Hạnh vào đúng chỗ ở C2. Chi tiết diễn/FX và nghiệm thu ở [BIEN-TAP-V14.md](BIEN-TAP-V14.md). Giữ ba giao kèo và phần kết bản 13.
 

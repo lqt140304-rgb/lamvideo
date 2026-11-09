@@ -53,3 +53,7 @@ Ba lọ mới chỉ ứng với ba giao kèo đã hoàn tất. Lọ cũ trên k�
 - Đoạn nguyên hình không lời, tách sau đoạn kết tìm người lớn giúp. Điều bất thường là thật trong thế giới truyện; trải nghiệm mẹ ở G3 vẫn không chứng minh mẹ hồi sinh hoặc linh hồn mẹ bị nhốt.
 
 Nội dung/cue của tập ở [KICH-BAN](tap-01-tin-nhan-chua-gui/KICH-BAN.md); cách làm cameo và cảnh hé lộ ở [HE-LO-QUAI-VAT](tap-01-tin-nhan-chua-gui/HE-LO-QUAI-VAT.md). Chưa tạo ảnh, rig, âm hoặc video mới trong lượt viết này.
+
+**Tên trình bày từ 09/11/2026:** các truyện gọi là Hồ sơ 1, Hồ sơ 2…; xem [quy ước của series](README.md#cách-gọi-các-truyện). Cách gọi không tự xác lập tổ chức săn bắt hoặc cho nhân vật đại diện chủ repo ra mắt.
+
+**Hồ sơ đang phát triển:** [Hồ sơ 2 — Người làm thay](ho-so-02-nguoi-lam-thay/README.md) có tiền đề đã chọn nhưng cơ chế thực thể và các cảnh chưa chốt. Đọc trạng thái trong hồ sơ; chưa nhập luật đề xuất của truyện này thành canon dùng chung.
