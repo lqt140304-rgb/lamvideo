@@ -191,22 +191,55 @@
   </g>
 
   <!-- ======================================================================== -->
-  <!-- LAYER 4: CHIẾC GHẾ TỰA XOAY 3D NƠI NGƯỜI KIA ĐANG NGỒI GÕ BÀI -->
+  <!-- LAYER 4: CHIẾC GHẾ XOAY HỌC SINH CÔNG THÁI HỌC 3D HOÀN TOÀN MỚI (STUDENT TASK CHAIR) -->
   <!-- ======================================================================== -->
-  <g transform="translate(980 620)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
-    <polygon points="-20,180 150,180 120,240 -50,240" fill="#000" opacity="0.4" filter="url(#night-shadow)"/>
-    <!-- 4 chân ghế tiếp đất vững chãi -->
-    <line x1="0" y1="90" x2="-15" y2="195" stroke="#332216" stroke-width="7.5" stroke-linecap="round"/>
-    <line x1="115" y1="90" x2="130" y2="195" stroke="#332216" stroke-width="7.5" stroke-linecap="round"/>
-    <line x1="20" y1="50" x2="15" y2="155" stroke="#1e140d" stroke-width="5.5" stroke-linecap="round"/>
-    <line x1="95" y1="50" x2="100" y2="155" stroke="#1e140d" stroke-width="5.5" stroke-linecap="round"/>
+  <g transform="translate(1010 680)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- Bóng đổ chân sao trên sàn đêm -->
+    <ellipse cx="0" cy="150" rx="115" ry="35" fill="#000" opacity="0.55" filter="url(#night-shadow)"/>
 
-    <!-- Mặt ngồi ghế gỗ 3D -->
-    <polygon points="10,35 105,35 120,95 -5,95" fill="#5c3d26" stroke="#282b2b" stroke-width="4.5"/>
-    <!-- Lưng ghế gỗ cao có ánh sáng màn hình laptop và đèn vàng hắt lên -->
-    <path d="M10 35 L20 -165 L95 -165 L105 35" fill="none" stroke="#784c2f" stroke-width="8" stroke-linecap="round"/>
-    <line x1="25" y1="-110" x2="90" y2="-110" stroke="#784c2f" stroke-width="6"/>
-    <line x1="22" y1="-50" x2="93" y2="-50" stroke="#784c2f" stroke-width="6"/>
+    <!-- CHÂN SAO 5 CÁNH BÁNH XE (5-STAR BASE WITH CASTERS) -->
+    <g transform="translate(0 135)">
+      <line x1="0" y1="0" x2="0" y2="22" stroke="#475569" stroke-width="12"/>
+      <!-- Chân trước trái -->
+      <line x1="0" y1="10" x2="-75" y2="16" stroke="#1e293b" stroke-width="8"/>
+      <!-- Chân trước phải -->
+      <line x1="0" y1="10" x2="75" y2="16" stroke="#1e293b" stroke-width="8"/>
+      <!-- Chân giữa trước -->
+      <line x1="0" y1="10" x2="-15" y2="28" stroke="#334155" stroke-width="9"/>
+      <!-- Chân sau trái -->
+      <line x1="0" y1="10" x2="-65" y2="-5" stroke="#0f172a" stroke-width="7"/>
+      <!-- Chân sau phải -->
+      <line x1="0" y1="10" x2="65" y2="-5" stroke="#0f172a" stroke-width="7"/>
+
+      <!-- 5 Bánh xe con lăn kép tiếp đất -->
+      <circle cx="-75" cy="18" r="6.5" fill="#0f172a"/>
+      <circle cx="75" cy="18" r="6.5" fill="#0f172a"/>
+      <circle cx="-15" cy="30" r="7" fill="#0f172a"/>
+      <circle cx="-65" cy="-3" r="5.5" fill="#0f172a"/>
+      <circle cx="65" cy="-3" r="5.5" fill="#0f172a"/>
+    </g>
+
+    <!-- TRỤC NÂNG HẠ PÍT-TÔNG KIM LOẠI & CẦN GẠT -->
+    <rect x="-7" y="75" width="14" height="62" rx="3" fill="#94a3b8" stroke="#282b2b" stroke-width="3"/>
+    <rect x="-12" y="95" width="24" height="12" rx="2" fill="#334155" stroke="#282b2b" stroke-width="2.5"/>
+    <line x1="10" y1="70" x2="45" y2="80" stroke="#1e293b" stroke-width="5"/>
+    <circle cx="45" cy="80" r="5" fill="#020617" stroke="none"/>
+
+    <!-- ĐỆM NGỒI BỌC NỈ ÊM ÁI (SEAT CUSHION WITH 3D BEVEL) -->
+    <path d="M-75 55 Q0 70 75 55 L65 75 Q0 88 -65 75 Z" fill="#0f172a" stroke="#282b2b" stroke-width="4"/>
+    <path d="M-80 40 Q0 20 80 40 Q75 65 65 75 Q0 88 -65 75 Q-75 65 -80 40 Z" fill="#1e293b" stroke="#282b2b" stroke-width="4.5"/>
+    <path d="M-70 45 Q0 30 70 45" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.4"/>
+
+    <!-- TAY VỊN 2 BÊN (ARMRESTS) -->
+    <path d="M-75 40 L-85 -5 Q-85 -20 -70 -20 L-50 -20" fill="none" stroke="#334155" stroke-width="6"/>
+    <path d="M75 40 L85 -5 Q85 -20 70 -20 L50 -20" fill="none" stroke="#334155" stroke-width="6"/>
+
+    <!-- LƯNG GHẾ LƯỚI CÔNG THÁI HỌC UỐN CONG CÓ ÁNH SÁNG MÀN HÌNH HẮT VÀO -->
+    <path d="M-55 30 Q-70 -50 -60 -120 Q-55 -160 0 -165 Q55 -160 60 -120 Q70 -50 55 30 Z" fill="#090d14" stroke="#282b2b" stroke-width="5"/>
+    <path d="M-45 20 Q-58 -50 -50 -110 Q-45 -145 0 -150 Q45 -145 50 -110 Q58 -50 45 20 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2" opacity="0.85"/>
+    <path d="M-48 -60 Q0 -75 48 -60" fill="none" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
+    <!-- Tựa đầu bọc da đen -->
+    <ellipse cx="0" cy="-175" rx="35" ry="16" fill="#1e293b" stroke="#282b2b" stroke-width="3.5"/>
   </g>
 
   <!-- TIÊU ĐỀ BỐI CẢNH 4 -->
