@@ -48,7 +48,7 @@ Nhịp trưởng thành hoặc hối tiếc phải thể hiện bằng lựa ch�
 
 **Ý đồ:** người xem hiểu tính lười qua sinh hoạt; sự quen thuộc biến thành sợ hãi khi khuôn mặt rồi giọng nói trùng khớp. Kết cảnh cậu còn nghi ngờ, chưa nhận giúp đỡ.
 
-**Bối cảnh đề xuất:** buổi sáng, phòng trọ hai người. Tạm gọi sinh viên là Nam, bạn cùng phòng là Tùng; tên chưa chốt. Nệm sát tường, ghế áo quần cạnh nệm, góc rửa chén ở sâu trong phòng. Lối giữa nệm và cửa thông ra hành lang, nhìn được cầu thang. Cửa khép hờ sau khi người bạn đi học, thể hiện bằng khe sáng ngay đầu cảnh.
+**Bối cảnh:** buổi sáng, phòng trọ hai người. Sinh viên là Nam, bạn cùng phòng là Tùng, dùng theo đoạn thoại đã duyệt. Bố trí cụ thể bên dưới vẫn là đề xuất. Nệm sát tường, ghế áo quần cạnh nệm, góc rửa chén ở sâu trong phòng. Lối giữa nệm và cửa thông ra hành lang, nhìn được cầu thang. Cửa khép hờ sau khi người bạn đi học, thể hiện bằng khe sáng ngay đầu cảnh.
 
 Báo thức ghi “7 giờ — đi học” lại reo. Nam thò tay tắt, kéo chăn qua đầu. Ở góc bếp là đống chén cậu đã hẹn rửa từ tối hôm trước.
 
@@ -127,11 +127,11 @@ Người trong phòng vẫn đứng chờ. Nước từ bàn tay nhỏ xuống n
 4. Tùng là người được gọi để kiểm chứng. Ở phần nối cuộc gọi, cậu nghe Nam kể nhưng gạt đi vì cho rằng Nam nói xàm/ngủ chưa tỉnh. Tùng chưa tin hoặc biết bí mật của bản sao; chưa chốt thêm vai trò ngoài cuộc gọi này.
 5. Không dựng hồi tưởng theo dõi hay luật chuyển danh tính từ bản cũ. Cơ chế thay thế còn chờ phát triển sau khi chốt cách xuất hiện.
 
-**Đang chuyển sang bàn cảnh 2:** giữ sự dè chừng sau cảnh 1, làm rõ vì sao Nam ở lại đối thoại và chấp nhận một việc giúp nhỏ. Tên nhân vật, cơ chế thay thế và chi tiết thoại vẫn có thể điều chỉnh; không coi các phương án kế tiếp là đã duyệt.
+**Đang chuyển sang bàn cảnh 2:** giữ sự dè chừng sau cảnh 1, làm rõ vì sao Nam ở lại đối thoại và chấp nhận một việc giúp nhỏ. Cơ chế thay thế và chi tiết phần tiếp vẫn đang bàn; không coi các phương án kế tiếp là đã duyệt.
 
-## Phần nối cuộc gọi — hướng đã được chủ repo chốt
+## Phần nối cuộc gọi — đã duyệt ngày 09/11/2026
 
-**Quyết định hiện hành:** Nam kể, Tùng không tin rồi cúp máy. Thay cả phương án Tùng lập tức tin để giúp và phương án Nam giấu hoàn toàn. Câu chữ dưới đây là bản biên tập theo ý người dùng; phần còn lại của cảnh 2 chưa chốt.
+**Quyết định hiện hành:** Nam kể, Tùng không tin rồi cúp máy. Thay cả phương án Tùng lập tức tin để giúp và phương án Nam giấu hoàn toàn. Chủ repo đã duyệt lời Nam báo có người giống mình, lời Tùng gạt đi/cúp máy và phản ứng Nam còn sợ sau cuộc gọi. Giữ nguyên đoạn được duyệt; phần còn lại của cảnh 2 chưa chốt.
 
 **TÙNG — qua điện thoại:**
 > Ừ, tao đang trên trường. Có chuyện gì?
@@ -147,6 +147,60 @@ Nam nhìn người đang đứng trong phòng, hạ giọng. Tay cậu vẫn gi�
 **NAM — vội giữ cuộc gọi:**
 > Tao nói thật. Tùng, khoan…
 
-Cuộc gọi đã ngắt. Nam giữ điện thoại bên tai thêm một nhịp rồi hạ xuống. Cậu nhìn màn hình, nhìn lại người đang đứng cạnh bồn rửa. Người kia vẫn giữ khoảng cách; Nam chưa bước vào phòng.
+Cuộc gọi ngắt.
+
+Nam giữ điện thoại bên tai thêm một nhịp rồi mới hạ xuống. Cậu nhìn màn hình, sau đó nhìn lại người đang đứng cạnh bồn rửa.
+
+Người kia vẫn ở đó.
+
+Nam siết điện thoại, chưa dám bước vào phòng.
 
 **Lưu ý nhân quả:** Tùng chỉ nghe một lời kể qua điện thoại, chưa thấy bằng chứng. Phản ứng này không tự xác lập Tùng là người vô tâm trong mọi hoàn cảnh hoặc Nam thường xuyên nói dối. Không kết luận sự giúp đỡ của bản sao đã đáng tin chỉ vì cuộc gọi vừa thất bại; sự dè chừng còn tiếp ở phần sau.
+
+## Phần tiếp cảnh 2 — đề xuất của GPT-6 Astra, chưa duyệt
+
+**Mục đích:** Nam lấy lại không gian an toàn bằng một yêu cầu cụ thể; việc người kia tuân thủ làm giảm nguy cơ trước mắt. Chưa cho Nam nhận giúp hoặc coi người kia là bạn. Đây là phần đang đưa ra để thảo luận, không phải cảnh đã chốt.
+
+Nam vẫn siết điện thoại. Người kia nhìn cậu, hai tay vẫn để trống.
+
+**NGƯỜI KIA — nói nhẹ, chưa bước tới:**
+> Tao để chén xuống rồi. Mày muốn tao làm gì?
+
+**NAM — cố giữ giọng chắc:**
+> Ra khỏi phòng tao.
+
+Người kia gật đầu, bước về phía cửa. Nam lập tức lùi lại.
+
+**NAM — [scared]:**
+> Từ từ! Đừng đi sát tao.
+
+Người kia dừng. Nam né về phía cầu thang, chỉ sang đầu hành lang bên kia.
+
+**NAM:**
+> Ra rồi đứng bên đó.
+
+Người kia làm theo. Nam không rời mắt khỏi nó. Đợi người kia đứng cách cửa vài bước, cậu mới lách vào phòng, đóng cửa và gài chốt.
+
+Cậu giữ chặt chốt thêm một lúc.
+
+**[GIỮ khoảng 2 giây — không có tiếng đẩy cửa hoặc bước chân tiến lại.]**
+
+**NGƯỜI KIA — bên ngoài:**
+> Tao đứng đây rồi.
+
+Nam nhắm mắt. Nghe giọng mình ở phía bên kia cánh cửa khiến cậu nổi da gà.
+
+**NAM — nhỏ hơn, căng thẳng:**
+> Đừng nói nữa.
+
+Bên ngoài im hẳn.
+
+Nam nhìn quanh phòng. Điện thoại vẫn trong tay; ví, chìa khóa còn trên bàn. Cậu kiểm tra chốt một lần nữa rồi lùi khỏi cửa.
+
+Ở góc bếp, mấy chiếc chén đã rửa được úp ngay ngắn. Nam nhìn chúng, nhưng không bước tới.
+
+Cậu kéo ghế ngồi đối diện cửa, giữ điện thoại trong lòng bàn tay. Mắt vẫn dán vào chốt.
+
+**Điểm cuối cảnh đề xuất:** Nam có lại căn phòng và khoảng cách, nhưng người giống mình vẫn ở ngoài. Cần bàn tiếp lý do Nam tự mở lại cuộc đối thoại; không tự chuyển sang đồng ý cho làm hộ chỉ vì nhìn thấy chén sạch.
+
+**Lưu ý dựng:** phải thấy hướng Nam né về cầu thang, người kia ra phía đối diện rồi Nam mới vào phòng. Giữ một góc đủ rộng cho đoạn đổi vị trí, tránh cắt che việc hai người đi xuyên hoặc bất ngờ đổi chỗ. Cuộc gọi đã kết thúc ở đoạn được duyệt; đoạn này bắt đầu sau động tác Nam siết điện thoại, không phát lại cảnh cúp máy.
