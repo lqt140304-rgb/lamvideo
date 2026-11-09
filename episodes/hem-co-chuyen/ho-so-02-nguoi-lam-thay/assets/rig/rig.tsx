@@ -31,8 +31,8 @@ export const POSES: Record<string, Pose> = {
   phone:{...base,head:-4,rightHand:v(68,154),rightBend:1,rightPalm:0,rightShape:'grip',prop:'phone'},
   offer:{...base,lean:3,head:-3,rightHand:v(166,294),rightBend:1,rightPalm:0,rightShape:'open'},
   reach:{...base,lean:7,head:-3,rightHand:v(177,227),rightBend:1,rightShape:'grip',rightPalm:0},
-  sit:{...base,root:v(0,-38),lean:3,leftHand:v(-78,348),rightHand:v(80,350),leftFoot:v(-108,474),rightFoot:v(112,474),leftKnee:1,rightKnee:-1,support:'seat'},
-  type:{...base,root:v(0,-38),lean:9,head:6,leftHand:v(9,290),rightHand:v(110,291),leftPalm:0,rightPalm:0,leftShape:'grip',rightShape:'grip',leftFoot:v(-108,474),rightFoot:v(112,474),leftKnee:1,rightKnee:-1,support:'seat'},
+  sit:{...base,root:v(0,-38),lean:3,leftHand:v(-78,348),rightHand:v(80,350),leftFoot:v(-110,474),rightFoot:v(110,474),leftKnee:1,rightKnee:-1,support:'seat'},
+  type:{...base,root:v(0,-38),lean:9,head:6,leftHand:v(9,290),rightHand:v(110,291),leftPalm:0,rightPalm:0,leftShape:'grip',rightShape:'grip',leftFoot:v(-110,474),rightFoot:v(110,474),leftKnee:1,rightKnee:-1,support:'seat'},
   bend:{...base,root:v(0,30),lean:17,head:12,leftHand:v(54,397),rightHand:v(145,406),leftShape:'grip',rightShape:'grip',leftFoot:v(-55,560),rightFoot:v(63,560)},
   wash:{...base,lean:7,head:9,leftHand:v(30,307),rightHand:v(107,298),leftPalm:0,rightPalm:0,leftShape:'grip',rightShape:'grip',prop:'bowl'},
   stepLeft:{...base,root:v(0,3),lean:2,leftHand:v(-110,344),rightHand:v(108,369),leftFoot:v(-73,557),rightFoot:v(65,534)},
@@ -124,7 +124,7 @@ function clothPath(source:string,s:ReturnType<typeof skeleton>):string {
     return `${mix(fixed.x,moved.x,q).toFixed(3)} ${mix(fixed.y,moved.y,q).toFixed(3)}`;
   });
 }
-const REFERENCE_PANTS='M -63 329 Q -80 364 -71 403 L -67 454 Q -78 491 -65 548 Q -42 560 -10 548 L -3 466 L 10 411 Q 17 446 16 471 L 13 548 Q 35 559 66 545 L 67 445 Q 83 388 61 330 Z';
+const REFERENCE_PANTS='M -63 329 Q -80 364 -71 403 L -67 454 Q -78 491 -65 548 Q -42 560 -12 548 L -10 471 Q -10 443 -4 411 Q 0 402 4 411 Q 10 443 10 471 L 12 548 Q 42 560 65 548 Q 78 491 67 454 L 71 403 Q 80 364 63 329 Z';
 const REFERENCE_SHORTS='M -58 322 Q -72 355 -66 388 L -61 422 Q -40 432 -14 424 L -3 388 L 3 388 L 14 424 Q 40 432 61 422 L 66 388 Q 72 355 58 322 Z';
 
 function Palm({point,angle,shape,side=1,phone=false}:{point:Vec;angle:number;shape:HandShape;side?:-1|1;phone?:boolean}) {
@@ -216,9 +216,9 @@ export const StudentRig:React.FC<StudentRigProps>=({cast='nam',pose='stand',mood
       {p.support==='seat'?<><path d={`M -110 ${s.pelvis.y+40} Q 0 ${s.pelvis.y+30} 115 ${s.pelvis.y+40} L 115 ${s.pelvis.y+56} L -110 ${s.pelvis.y+56} Z`}/><path d={`M -90 ${s.pelvis.y+56} L -90 540 M 95 ${s.pelvis.y+56} L 95 540`} fill="none" strokeWidth={11}/></>:<ellipse cx={0} cy={590} rx={116} ry={12} fill={P.shadowFloor} stroke="none"/>}
     </g>}
     {leg(s.ll,-1)}{leg(s.rl,1)}
-    <path d={clothPath(sport?REFERENCE_SHORTS:REFERENCE_PANTS,s)} fill={pants}/>
+    <path d={clothPath(sport?REFERENCE_SHORTS:REFERENCE_PANTS,s)} fill={pants} data-part="pants"/>
     <g clipPath={`url(#${id}-pants-details)`}>
-    <path d={clothPath(sport?'M -3 355 Q 0 375 3 388 M 44 336 Q 54 348 58 366':'M -6 368 Q -3 388 10 411 M -62 437 Q -40 447 -35 466 M 24 512 Q 37 503 51 506 M -53 538 L -20 539',s)} fill="none" strokeWidth={2.5}/>
+    <path d={clothPath(sport?'M -3 355 Q 0 375 3 388 M 44 336 Q 54 348 58 366':'M 0 368 Q -2 390 0 407 M -62 437 Q -45 445 -35 466 M 24 512 Q 37 503 51 506 M -53 538 L -20 539',s)} fill="none" strokeWidth={2.5}/>
     {sport&&<path d={clothPath('M -64 340 Q -68 375 -61 414 M 64 340 Q 68 375 61 414',s)} fill="none" stroke={P.tung.shortsStripe} strokeWidth={3.5}/>}
     </g>
     <defs>
@@ -300,4 +300,19 @@ export const JointDetailBoard:React.FC=()=> <svg xmlns="http://www.w3.org/2000/s
       <svg x={x+20} y={y+52} width={360} height={365} viewBox={item.box}><StudentRig cast={item.cast as Cast} pose={item.pose} mood={item.cast==='tung'?'normal':'calm'}/></svg>
     </g>;
   })}
+</svg>;
+
+export const LegBalanceBoard:React.FC=()=> <svg xmlns="http://www.w3.org/2000/svg" width={1200} height={720} viewBox="0 0 1200 720">
+  <rect width={1200} height={720} fill="#f6f1e8"/>
+  <text x={600} y={43} textAnchor="middle" fontFamily="Arial,sans-serif" fontSize={26} fill={P.ink}>CÂN LẠI ĐÙI, ỐNG QUẦN VÀ BẮP CHÂN</text>
+  {[
+    {cast:'nam',pose:'stand',label:'Nam — hai ống quần cân nhau',box:'-140 300 280 320'},
+    {cast:'tung',pose:'stand',label:'Tùng — đùi / vớ cân nhau',box:'-140 300 280 320'},
+    {cast:'nam',pose:'sit',label:'Dáng ngồi — cùng độ đầy',box:'-170 260 340 320'},
+  ].map((item,i)=><g key={item.label}>
+    <rect x={i*400+12} y={75} width={376} height={600} rx={18} fill="#fffbf4" stroke="#d9cebf"/>
+    <text x={i*400+200} y={112} textAnchor="middle" fontFamily="Arial,sans-serif" fontSize={18} fill={P.ink}>{item.label}</text>
+    <svg x={i*400+22} y={140} width={356} height={500} viewBox={item.box}><StudentRig cast={item.cast as Cast} pose={item.pose} showSupport/></svg>
+  </g>)}
+  <text x={600} y={703} textAnchor="middle" fontFamily="Arial,sans-serif" fontSize={15} fill="#59645e">Giữ dáng quần rộng và nét cartoon; cân độ rộng chân, không ép các nếp vải phải giống hệt nhau.</text>
 </svg>;

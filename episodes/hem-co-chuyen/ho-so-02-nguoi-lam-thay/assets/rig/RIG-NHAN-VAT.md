@@ -12,17 +12,24 @@ Tư thế nghỉ: hai cổ tay gần đường dọc qua vai, khuỷu không ban
 
 ![Bảng tư thế và khớp](tu-the-khop.png)
 
+### Bổ sung cân chân
+
+Đường trong hai ống quần trước đây lệch ở đầu gối, khiến một bên trông to hơn dù chiều dài xương đúng. Đã cân đường trong/ngoài và độ rộng gấu ở dáng đứng; giữ độ đầy của quần rộng. Dáng ngồi dùng khoảng chân tương ứng hai bên. Đã soi đùi/vớ Tùng và đo trực tiếp hai ống quần Nam trên SVG ở ba cao độ 430, 485, 535: độ rộng trái/phải tương ứng khoảng 61.80, 61.53, 56.04 đơn vị, bằng nhau trong sai số lấy mẫu. Đây là kiểm tra dáng đứng, không áp bằng độ rộng trên màn hình cho chân ở hai hướng phối cảnh khác nhau.
+
+[Xem bảng cân chân](can-doi-chan.png). Các nếp vải vẫn có thể khác nhau; chưa đổi mẫu gốc lưu làm tham chiếu hoặc khởi động dựng phim.
+
 ## Tệp và tác dụng
 
 | Tệp | Tác dụng |
 |---|---|
 | [rig.tsx](rig.tsx) | `StudentRig`, 12 preset, bộ giải tay/chân hai đoạn, đường bao liền, tọa độ khớp và hàm lấy pha bước |
 | [doi-chieu-mau-goc.svg](doi-chieu-mau-goc.svg) / [PNG](doi-chieu-mau-goc.png) | Nam và Tùng gốc đặt cạnh bản rig V3, kèm phóng to ba dáng tay để đối chiếu |
+| [can-doi-chan.svg](can-doi-chan.svg) / [PNG](can-doi-chan.png) | Soi quần Nam, đùi/vớ Tùng và chân khi ngồi sau chỉnh độ rộng |
 | [chi-tiet-khop.svg](chi-tiet-khop.svg) / [PNG](chi-tiet-khop.png) | 8 ô phóng lớn vai/tay áo, dáng nghỉ, tay mở, cầm điện thoại, giữ bát, tay gập và quần |
 | [tu-the-khop.svg](tu-the-khop.svg) / [PNG](tu-the-khop.png) | Bảng tĩnh 12 tư thế để duyệt nét, dáng và trang phục; sinh từ cùng nguồn rig |
 | [xem-tu-the.html](xem-tu-the.html) | Trình xem chạy độc lập, không cần CDN; chọn ba nhân vật, tư thế, bật khớp; kéo pha bước hoặc mức đứng → dè chừng. Tải về/mở local; GitHub không chạy HTML tương tác trong trang xem mã |
 | [preview.tsx](preview.tsx) | Nguồn giao diện thử rig; không phải composition của phim |
-| [build-preview.mjs](build-preview.mjs) | Tạo lại ba bảng SVG và HTML từ nguồn bằng các thư viện đã cài trong `what-if-studio/node_modules`; PNG cần chụp/xuất lại từ SVG |
+| [build-preview.mjs](build-preview.mjs) | Tạo lại bốn bảng SVG và HTML từ nguồn bằng các thư viện đã cài trong `what-if-studio/node_modules`; PNG cần chụp/xuất lại từ SVG |
 | [verify-rig.mjs](verify-rig.mjs) | Kiểm tra chiều dài xương, dữ liệu hữu hạn, vòng bước và hướng đầu gối khi ngồi |
 
 ## Các tư thế có sẵn
