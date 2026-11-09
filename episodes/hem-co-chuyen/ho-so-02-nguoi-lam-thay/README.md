@@ -2,9 +2,15 @@
 
 **Nhịp kịch bản — 10/11/2026:** đã thêm cue không đọc vào [bản cảnh hiện hành](THAO-LUAN-CANH.md) và [đường nhịp A–H](DUNG-CANH.md#nhịp-kể-hiện-hành): phản ứng khi nhận mặt, đối đáp, thử làm bài, chốt cửa, chuyển sáng–tối và tự kiểm chứng trước khi dịu. Giữ thoại và mức duyệt; chưa có giọng/animatic để khóa tổng phút.
 
-**Sửa tạo hình rig V3 — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
+**Sửa tạo hình rig V3 (bản cũ) — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
 
-**Rig chính:** `Rigged`, `TWIN_POSES`, `solveRig` trong [assets/nhan-vat.tsx](assets/nhan-vat.tsx), đủ 8 góc quay; quy tắc ở [quy chuẩn thiết kế](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). Chưa thay timeline hoặc khởi động dựng phim.
+**Rig chính:** `Rigged`, `TWIN_POSES`, `solveRig` trong [assets/nhan-vat.tsx](assets/nhan-vat.tsx), dùng cho Nam, Người Kia và Tùng:
+
+- 8 góc quay: chính diện, 3/4, nghiêng, 1/4, sau lưng và ba góc quay trái; `turnAt` để xoay dần.
+- 11 dáng: `stand`, `sit`, `stride`, `crouch`, `reach`, `holdBowl`, `stop`, `wary`, `phone`, `offer`, `type`. Bốn dáng cuối mới dựng và soi ở góc 3/4.
+- `sampleWalk` cho vòng bước tại chỗ, `talk` cho khẩu hình, `blink` cho chớp mắt, `prop` cho điện thoại và bát đi theo bàn tay.
+
+Xem trong Studio (`npm run studio` tại `what-if-studio/`): `HoSo02Turnaround`, `HoSo02Spin`, `HoSo02RigSheet`. Cách dùng và bảng lỗi cần tránh ở [quy chuẩn thiết kế](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). Kiểm tra bằng `node tests/ho-so-02-rig.cjs` trong `what-if-studio/`. Chưa thay timeline hoặc khởi động dựng phim.
 
 **Rig cũ (chỉ để đối chiếu):** [bảng tư thế](assets/rig/tu-the-khop.png) và [hướng dẫn](assets/rig/RIG-NHAN-VAT.md); các mục "rig V3" trong file này nói về bản cũ.
 
