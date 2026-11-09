@@ -1,24 +1,41 @@
 # Asset — Hồ sơ 2: Người làm thay
 
-## Thiết kế nhân vật đã chọn — 09/11/2026
+## Dàn nhân vật theo mẫu SVG mới (Style B) — 09/11/2026
 
-Chủ repo chọn **cách vẽ thứ 2, phía phải bảng SVG** làm hướng thiết kế chính. Đây là mẫu thử cậu sinh viên, không phải nhân vật đã hoàn thiện rig. Tên và tuổi cụ thể vẫn chưa chốt.
+Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người làm thay** đã được thiết kế đồng bộ theo phong cách SVG hữu cơ mới (Style B: nét vẽ mềm, mảng tóc gọn, vai áo rủ tự nhiên, quần có khối, biểu cảm linh hoạt).
 
-![Rig hiện có và mẫu SVG đã chọn](assets/thiet-ke/character-svg-v1.png)
+### Bảng nhân vật chính thức
+- Mã nguồn React: [`assets/nhan-vat.tsx`](assets/nhan-vat.tsx) (chứa `Nam`, `NguoiKia`, `Tung`, các component đầu và biểu cảm tương ứng).
+- File vector SVG độc lập: [`assets/nhan-vat.svg`](assets/nhan-vat.svg) (bảng 1920×1080 gồm dáng toàn thân và các cận cảnh biểu cảm).
 
-| Mã / tệp | Công dụng | Trạng thái |
-|---|---|---|
-| CHAR-STUDENT-SVG-v1 / [PNG](assets/thiet-ke/character-svg-v1.png) | Xem nhanh: bên trái rig hiện có, bên phải mẫu mới; ba biểu cảm uể oải, hoảng sợ, nghi ngờ | Đã xuất và xem ảnh; chủ repo chọn hướng bên phải |
-| [SVG](assets/thiet-ke/character-svg-v1.svg) | Bảng vector có thể phóng to, tham khảo hình khối và nét | Đã có tệp; ảnh tĩnh |
-| [Nguồn React/SVG](assets/thiet-ke/character-svg-v1.tsx) | `StudentHead` nhận mood/id; `Student` là dáng toàn thân; `Board` là bảng so sánh. Dùng React và rig từ studio qua đường dẫn tương đối | Mã mẫu, chưa nối timeline/khẩu hình/khớp chuyển động |
+| Nhân vật | Vai trò trong kịch bản | Đặc điểm nhận diện & Tạo hình | Trang phục & Đạo cụ |
+|---|---|---|---|
+| **1. Nam** | Sinh viên nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc rối ngái ngủ, vai mềm buông lơi, lưng gù nhẹ lười biếng. | Áo thun ngủ xám nhạt (`#8e9694`), quần thun lửng ngủ (`#3e4347`), dép lê quai kẹp (`#425850`), cầm điện thoại kiểm tra tin nhắn/cuộc gọi. |
+| **2. Người Kia (Bản sao)** | Sinh vật thay thế bí ẩn, xuất hiện ở bồn rửa chén, dần chiếm chỗ sinh hoạt | Khuôn mặt và **nốt ruồi đuôi mày trái giống hệt Nam**, nhưng **dáng đứng thẳng thớm, đĩnh đạc**, ánh mắt điềm tĩnh rợn người. | Mặc chiếc **áo thun xanh rêu (`#5c7a70`) của Nam** (chiếc áo Nam bỏ trên ghế tối qua), quần dài vải sẫm màu (`#515451`), hai bàn tay để trống lịch sự phía trước. |
+| **3. Tùng** | Bạn cùng phòng chăm chỉ, dậy sớm đi học lúc 7h, nghe máy gạt đi vì tưởng Nam ngủ mơ | Sinh viên năng động, gương mặt sáng sủa, đeo kính cận gọng mảnh, tóc rẽ ngôi side-part gọn gàng. | Áo polo sinh viên xanh navy (`#2b3f54`), quần kaki be (`#8c8474`), giày sneaker trắng ngà, đeo quai balo, một tay ôm tài liệu học, một tay nghe điện thoại. |
 
-Nguồn: mẫu bên phải được viết bằng mã SVG trong lượt làm việc này; bên trái dùng `Hero`/`LOOKS.nam` của repo để đối chiếu, đổi màu và kiểu tóc trong bảng thử. Giữ attribution/giấy phép của mã kế thừa. Đây không phải bản sao nhân vật The Simpsons và không phải PNG sinh ảnh AI được giả làm đầu ra SVG. Bảng so sánh chụp từ mã React/SVG; không đưa bundle hoặc cache vào Git.
+---
 
-Quy ước chung và phần đã chọn nằm ở [thiết kế nhân vật của series](../THIET-KE-NHAN-VAT.md). Tệp này giữ asset riêng của Hồ sơ 2.
+## Các biểu cảm chi tiết (Moods)
 
-## Bước tiếp theo
+1. **Nam:**
+   - `sleepy`: Mí mắt sụp uể oải, miệng trễ hé mở ngái ngủ.
+   - `shocked`: Mắt mở trừng to, con ngươi thu nhỏ, miệng há hốc thấy hàm răng trên, co rúm thủ thế.
+   - `suspicious`: Mày nhíu bất đối xứng, mắt liếc ngang, môi bặm dò xét qua khe cửa.
+   - `hesitant`: Đắn đo, tự đấu tranh tư tưởng khi nghe bản sao gợi ý làm bài hộ.
 
-- Đề xuất chưa duyệt riêng: vai hơi buông, đầu chúi nhẹ, trọng lượng lệch một chân để làm rõ tính lười.
-- Hoàn thiện bàn tay, tư thế/góc nhìn và chuyển động sau khi chốt mẫu; ảnh tĩnh chưa chứng minh chuyển động mượt hoặc cầm nắm đúng.
-- Bản sao dùng cùng diện mạo; khác biệt diễn xuất giữa hai người còn chờ chốt trong kịch bản.
-- Chưa thay rig dùng chung, chưa đổi nhân vật Hồ sơ 1; chưa tạo giọng hoặc video Hồ sơ 2. Claude dựng khi được giao.
+2. **Người Kia (Bản sao):**
+   - `calm`: Mắt mở đều, ánh nhìn kiên định, thản nhiên lạ thường.
+   - `neutral_smile`: Nụ cười nhẹ lịch sự, giảm cảm giác đe dọa.
+   - `eerie_smirk`: Nụ cười nhếch nhẹ sắc lạnh, toan tính khi Nam bắt đầu cắn câu giao việc.
+
+3. **Tùng:**
+   - `annoyed`: Mày cau bực bội khi bị Nam gọi nhảm giữa giờ học giảng đường ("Mày xàm hả?").
+   - `focused`: Nghiêm túc, tập trung vào bài giảng.
+   - `normal`: Vẻ mặt sinh viên bình thường.
+
+---
+
+## File thiết kế tham chiếu ban đầu
+- [`assets/thiet-ke/character-svg-v1.png`](assets/thiet-ke/character-svg-v1.png): Bảng đối chiếu ban đầu giữa Rig cũ và Mẫu thử B.
+- [`assets/thiet-ke/character-svg-v1.tsx`](assets/thiet-ke/character-svg-v1.tsx): File thử nghiệm ban đầu của mẫu B.
