@@ -61,8 +61,8 @@ Bám sát 100% dòng thời gian và các mốc diễn biến từ 7:00 AM tới
 
 | STT | Bối cảnh | File SVG | Tiêu cự | Ánh sáng & Đạo cụ chính |
 |---|---|---|---|---|
-| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM; 2 nệm nằm song song chân thực (nệm Tùng gấp gọn, nệm Nam xộc xệch), bồn rửa kê sát góc tường phải, gạch ốp ố vàng nhẹ đồng bộ Bối cảnh 2. |
-| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Bồn rửa inox, vòi nước nhỏ giọt, khay úp chén sạch bóng, kệ gia vị dầu ăn/nước mắm, thùng mì Hảo Hảo, cây chổi rơm quét nhà. |
-| **3** | **Cửa gài chốt & Hành lang** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | Cửa gỗ đóng kín, **then cài chốt trượt kim loại gài cứng**, lỗ mắt mèo, ghế gỗ Nam ngồi chặn cửa, ví da & thẻ căn cước. |
-| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | Đêm tối, quầng sáng đèn bàn vàng rực, laptop Google Docs mở bài làm hộ, điện thoại bật Không làm phiền, **ghế xoay học sinh công thái học lưới đen**. |
+| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM; tổng thể căn phòng: Cửa sổ $\to$ Tủ Duy Tân $\to$ 2 nệm song song (Tùng & Nam) $\to$ **Bàn học của Nam (giá sách, đèn đỏ)** $\to$ Cửa chính $\to$ Bồn rửa khít góc tường phải. |
+| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Bồn rửa inox **kê khít góc tường**, gờ nẹp trám keo silicon sát gạch men ố vàng, vòi nước nhỏ giọt, khay chén sạch bóng, kệ gia vị, thùng mì Hảo Hảo, chổi rơm, thấy mép cửa phòng. |
+| **3** | **Cửa gài chốt & Hành lang** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | Cửa đóng kín, **then cài chốt trượt kim loại**, ghế gỗ chặn cửa; bên trái thấy nệm Nam & đồng hồ; bên phải là **chiếc bàn học của Nam (đồng bộ Cảnh 4)** có sách, đèn đỏ, ví da & thẻ căn cước, ghế xoay. |
+| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | Đêm tối, quầng sáng đèn bàn vàng rực, laptop Google Docs mở bài làm hộ, điện thoại Không làm phiền, **ghế xoay học sinh công thái học lưới đen**; hậu cảnh thấy nệm Nam và cửa phòng gài chốt. |
 

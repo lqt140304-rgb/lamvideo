@@ -317,6 +317,48 @@
   </g>
 
 <!-- ======================================================================== -->
+    <!-- ======================================================================== -->
+  <!-- 4.5. BÀN HỌC SINH VIÊN CỦA NAM KÊ SÁT TƯỜNG (ĐỒNG BỘ 100% VỚI BỐI CẢNH 3 & 4) -->
+  <!-- ======================================================================== -->
+  <g id="nam-desk-scene1" stroke="#282b2b" stroke-width="3" stroke-linejoin="round">
+    <!-- Bóng đổ bàn học lên sàn -->
+    <polygon points="995,680 1235,680 1250,710 990,710" fill="#000" opacity="0.2" filter="url(#soft-ao)"/>
+
+    <!-- Giá sách mini 2 tầng trên mặt bàn -->
+    <g stroke="#282b2b" stroke-width="2.5">
+      <polygon points="995,435 1145,435 1145,530 995,530" fill="#3a281c"/>
+      <line x1="995" y1="485" x2="1145" y2="485" stroke="#282b2b" stroke-width="2"/>
+      <!-- Sách giáo trình đại học xếp đứng (Triết học đỏ, Toán cao cấp xanh, Kinh tế xanh lá) -->
+      <rect x="1005" y="445" width="12" height="38" fill="#dc2626"/>
+      <rect x="1018" y="440" width="14" height="43" fill="#2563eb"/>
+      <rect x="1033" y="448" width="11" height="35" fill="#16a34a"/>
+      <!-- Vở ghi trắng & giấy note vàng -->
+      <rect x="1050" y="465" width="28" height="18" fill="#f8fafc"/>
+      <rect x="1090" y="450" width="16" height="16" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+    </g>
+
+    <!-- Thân bàn học gỗ màu nâu sẫm (#3f2d21) -->
+    <polygon points="1005,555 1195,555 1195,680 1005,680" fill="#3f2d21" stroke="#282b2b" stroke-width="3.5"/>
+    <!-- Khoang chân bàn -->
+    <rect x="1015" y="580" width="95" height="95" fill="#17110c" stroke="#282b2b" stroke-width="2"/>
+    <!-- 2 hộc ngăn kéo bên phải có núm đồng vàng (#d4af37, đồng bộ Bối cảnh 3 & 4) -->
+    <rect x="1118" y="575" width="70" height="44" rx="3" fill="#4a3527" stroke="#282b2b" stroke-width="2"/>
+    <circle cx="1153" cy="597" r="3" fill="#d4af37" stroke="none"/>
+    <rect x="1118" y="625" width="70" height="50" rx="3" fill="#4a3527" stroke="#282b2b" stroke-width="2"/>
+    <circle cx="1153" cy="650" r="3" fill="#d4af37" stroke="none"/>
+
+    <!-- Mặt bàn gỗ nằm ngang màu nâu mật ong (#8a5833, đồng bộ Bối cảnh 3 & 4) -->
+    <polygon points="990,530 1150,530 1205,555 995,555" fill="#8a5833" stroke="#282b2b" stroke-width="3.5"/>
+    <polygon points="995,555 1205,555 1205,565 995,565" fill="#54361e" stroke="#282b2b" stroke-width="2"/>
+
+    <!-- Đèn bàn cổ ngỗng chóa đỏ (#dc2626, đồng bộ 100% với Bối cảnh 3 & 4) -->
+    <g transform="translate(1175 530)">
+      <ellipse cx="0" cy="0" rx="14" ry="5" fill="#b91c1c" stroke="#282b2b" stroke-width="2"/>
+      <path d="M0 0 Q15 -35 -10 -55 Q-30 -65 -40 -55" fill="none" stroke="#334155" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M-46 -58 L-30 -48 L-38 -34 L-58 -40 Z" fill="#dc2626" stroke="#282b2b" stroke-width="2.5"/>
+    </g>
+  </g>
+
   <!-- 5. BÀN BẾP BỒN RỬA INOX KÊ SÁT GÓC TƯỜNG PHẢI & GẠCH ỐP Ố VÀNG 100% ĐỒNG BỘ -->
   <!-- ======================================================================== -->
   <g id="sink-corner-flush" transform="translate(1440 280)">
