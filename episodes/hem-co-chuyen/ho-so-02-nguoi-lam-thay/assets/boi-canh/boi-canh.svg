@@ -220,98 +220,121 @@
     <polygon points="1310,165 1440,120 1860,1080 1240,1080" fill="url(#sun-volumetric)" stroke="none" filter="url(#soft-ao)"/>
   </g>
 
+    <!-- ======================================================================== -->
+  <!-- 4. KHU VỰC NGỦ: 2 GIƯỜNG ĐƠN SONG SONG CHUẨN PHỐI CẢNH 1 ĐIỂM TỤ (VP 960, 480) -->
   <!-- ======================================================================== -->
-  <!-- 4. KHU VỰC NGỦ 2 GIƯỜNG ĐẶT SONG SONG HỢP LÝ THEO PHỐI CẢNH 3D -->
-  <!-- ======================================================================== -->
-  <!-- TỦ NHỰA DUY TÂN 4 TẦNG KÊ SÁT GÓC TƯỜNG SAU BÊN TRÁI -->
-  <g transform="translate(480 390)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
-    <polygon points="0,230 150,230 130,275 -25,275" fill="#000" opacity="0.2" filter="url(#soft-ao)"/>
-    <polygon points="-30,25 0,55 0,230 -30,200" fill="#0284c7" stroke="#282b2b" stroke-width="3"/>
-    <rect x="0" y="55" width="145" height="175" rx="6" fill="#38bdf8" stroke="#282b2b" stroke-width="3.5"/>
-    <!-- 4 ngăn kéo có núm tròn -->
-    <rect x="10" y="65" width="125" height="34" rx="4" fill="#f0f9ff" stroke="#282b2b" stroke-width="2.5"/>
-    <circle cx="72" cy="82" r="4" fill="#0284c7"/>
-    <rect x="10" y="105" width="125" height="34" rx="4" fill="#bae6fd" stroke="#282b2b" stroke-width="2.5"/>
-    <circle cx="72" cy="122" r="4" fill="#0284c7"/>
-    <rect x="10" y="145" width="125" height="34" rx="4" fill="#f0f9ff" stroke="#282b2b" stroke-width="2.5"/>
-    <circle cx="72" cy="162" r="4" fill="#0284c7"/>
-    <rect x="10" y="185" width="125" height="34" rx="4" fill="#bae6fd" stroke="#282b2b" stroke-width="2.5"/>
-    <circle cx="72" cy="202" r="4" fill="#0284c7"/>
-    <!-- Ấm siêu tốc mini trên tủ -->
-    <polygon points="-30,25 115,25 145,55 0,55" fill="#7dd3fc" stroke="#282b2b" stroke-width="3"/>
-    <rect x="30" y="0" width="26" height="32" rx="5" fill="#e2e8f0" stroke="#282b2b" stroke-width="2.5"/>
-    <path d="M56 8 Q65 16 56 26" fill="none" stroke="#282b2b" stroke-width="3"/>
+  
+  <!-- TỦ NHỰA DUY TÂN 4 TẦNG KÊ GÓC TƯỜNG SAU BÊN TRÁI (x: 450 to 555) -->
+  <g transform="translate(450 400)" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round">
+    <polygon points="-15,220 105,220 85,250 -35,250" fill="#000" opacity="0.22" filter="url(#soft-ao)"/>
+    <!-- Thân tủ nhựa Duy Tân -->
+    <rect x="0" y="20" width="105" height="200" rx="6" fill="#38bdf8" stroke="#282b2b" stroke-width="3.5"/>
+    <!-- 4 ngăn kéo có tay nắm tròn -->
+    <rect x="8" y="30" width="89" height="40" rx="4" fill="#f0f9ff" stroke="#282b2b" stroke-width="2.5"/>
+    <circle cx="52" cy="50" r="4" fill="#0284c7"/>
+    <rect x="8" y="76" width="89" height="40" rx="4" fill="#bae6fd" stroke="#282b2b" stroke-width="2.5"/>
+    <circle cx="52" cy="96" r="4" fill="#0284c7"/>
+    <rect x="8" y="122" width="89" height="40" rx="4" fill="#f0f9ff" stroke="#282b2b" stroke-width="2.5"/>
+    <circle cx="52" cy="142" r="4" fill="#0284c7"/>
+    <rect x="8" y="168" width="89" height="40" rx="4" fill="#bae6fd" stroke="#282b2b" stroke-width="2.5"/>
+    <circle cx="52" cy="188" r="4" fill="#0284c7"/>
+    <!-- Ấm siêu tốc mini trên nóc tủ -->
+    <rect x="35" y="-12" width="28" height="32" rx="5" fill="#e2e8f0" stroke="#282b2b" stroke-width="2.5"/>
+    <path d="M63 -4 Q72 4 63 14" fill="none" stroke="#282b2b" stroke-width="3"/>
   </g>
 
-  <!-- GIƯỜNG 1: NỆM CỦA TÙNG (KÊ DỌC SÁT TƯỜNG TRÁI PHÍA TRONG, GỌN GÀNG PHẲNG PHIU) -->
-  <g id="tung-bed-aligned" transform="translate(80 580)">
-    <!-- Bóng đổ nệm Tùng -->
-    <polygon points="-10,40 320,-20 460,45 140,110" fill="#000" opacity="0.22" filter="url(#soft-ao)"/>
-    <!-- Khối nệm 3D có độ dày 18cm chuẩn phối cảnh -->
-    <polygon points="0,35 140,90 140,115 0,58" fill="#394740" stroke="#282b2b" stroke-width="3.5"/>
-    <polygon points="140,90 440,35 440,10 140,65" fill="#4d5d54" stroke="#282b2b" stroke-width="3.5"/>
-    <polygon points="0,35 300,-20 440,10 140,65" fill="#789081" stroke="#282b2b" stroke-width="4"/>
+  <!-- GIƯỜNG 1: TÙNG (KÊ SÁT BÊN TRÁI, ĐẦU GIƯỜNG TỰA TƯỜNG SAU, GỌN GÀNG NGĂN NẮP) -->
+  <!-- x_back: 570 to 760 (y: 620); x_front: 236 to 588 (y: 740) -->
+  <g id="tung-bed-perspective">
+    <!-- Bóng đổ tiếp sàn nệm Tùng -->
+    <polygon points="215,775 605,775 780,630 550,630" fill="#000" opacity="0.22" filter="url(#soft-ao)"/>
 
-    <!-- Chăn Tùng gấp vuông vắn 3D đặt gọn gàng đầu giường -->
-    <g transform="translate(40 5)">
-      <polygon points="0,22 130,-5 130,22 0,50" fill="#1e293b" stroke="#282b2b" stroke-width="3"/>
-      <polygon points="0,22 130,-5 100,-32 -30,-5" fill="#334155" stroke="#282b2b" stroke-width="3"/>
+    <!-- Táp đầu giường gỗ tựa sát tường sau -->
+    <polygon points="565,588 765,588 765,620 565,620" fill="#7c5132" stroke="#282b2b" stroke-width="3.5"/>
+    <line x1="565" y1="595" x2="765" y2="595" stroke="#9c6644" stroke-width="2.5"/>
+
+    <!-- Khung dát giường pallet gỗ lộ gờ mỏng -->
+    <polygon points="230,765 595,765 765,625 565,625" fill="#674226" stroke="#282b2b" stroke-width="3"/>
+
+    <!-- Mặt trên nệm Tùng phẳng phiu (xanh rêu nhạt thanh lịch) -->
+    <polygon points="570,602 760,602 588,740 236,740" fill="#7a8f83" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Thành trước nệm Tùng có độ dày 25px -->
+    <polygon points="236,740 588,740 588,765 236,765" fill="#4d6155" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Thành hông bên phải nệm Tùng nhìn vào lối đi giữa 2 giường -->
+    <polygon points="760,602 760,625 588,765 588,740" fill="#394a40" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round"/>
+
+    <!-- Gối Tùng phẳng phiu ngay ngắn ở đầu giường -->
+    <g transform="translate(610 615)">
+      <ellipse cx="45" cy="14" rx="45" ry="16" fill="#f8fafc" stroke="#282b2b" stroke-width="3"/>
+      <path d="M15 14 Q45 8 75 14" fill="none" stroke="#cbd5e1" stroke-width="2"/>
     </g>
-    <!-- Gối Tùng phẳng phiu ngay ngắn -->
-    <g transform="translate(185 10)">
-      <ellipse cx="55" cy="15" rx="48" ry="20" fill="#e2e8f0" stroke="#282b2b" stroke-width="3.5"/>
-      <path d="M20 15 Q55 5 90 15" fill="none" stroke="#cbd5e1" stroke-width="2.5"/>
+
+    <!-- Chăn Tùng gấp vuông vắn 3D phẳng phiu đặt ở cuối giường bên trái -->
+    <g transform="translate(260 705)">
+      <polygon points="0,16 140,16 130,-18 0,-18" fill="#334155" stroke="#282b2b" stroke-width="3.5"/>
+      <polygon points="0,16 140,16 140,34 0,34" fill="#1e293b" stroke="#282b2b" stroke-width="3.5"/>
     </g>
   </g>
 
-  <!-- GIƯỜNG 2: NỆM CỦA NAM (ĐẶT SONG SONG VỚI NỆM TÙNG, Ở PHÍA NGOÀI TIỀN CẢNH) -->
-  <!-- Bề bộn, chăn bông rêu đùn đống lười nhác, gối lún, điện thoại reo 07:00, dép lê tiếp đất -->
-  <g id="nam-bed-aligned" transform="translate(180 710)">
-    <!-- Bóng đổ nệm Nam -->
-    <polygon points="-20,60 380,-15 620,80 220,205" fill="#000" opacity="0.28" filter="url(#soft-ao)"/>
-    <!-- Khối nệm lò xo dày 22cm chuẩn phối cảnh song song -->
-    <polygon points="0,50 220,175 220,205 0,78" fill="#39433e" stroke="#282b2b" stroke-width="4.5"/>
-    <polygon points="220,175 590,90 590,62 220,148" fill="#4b5752" stroke="#282b2b" stroke-width="4.5"/>
-    <polygon points="0,50 370,-15 590,62 220,148" fill="#6f7f78" stroke="#282b2b" stroke-width="4.5"/>
+  <!-- GIƯỜNG 2: NAM (SONG SONG VỚI GIƯỜNG TÙNG, CÁCH LỐI ĐI 55px) -->
+  <!-- x_back: 800 to 990 (y: 620); x_front: 663 to 1016 (y: 740) -->
+  <g id="nam-bed-perspective">
+    <!-- Bóng đổ tiếp sàn nệm Nam -->
+    <polygon points="640,775 1035,775 1010,630 780,630" fill="#000" opacity="0.28" filter="url(#soft-ao)"/>
 
-    <!-- Gối nằm lún sâu 3D -->
-    <path d="M80 35 Q170 10 240 32 Q220 75 110 68 Z" fill="#fefce8" stroke="#282b2b" stroke-width="4"/>
+    <!-- Táp đầu giường gỗ tựa sát tường sau -->
+    <polygon points="795,588 995,588 995,620 795,620" fill="#7c5132" stroke="#282b2b" stroke-width="3.5"/>
+    <line x1="795" y1="595" x2="995" y2="595" stroke="#9c6644" stroke-width="2.5"/>
 
-    <!-- Chăn bông màu rêu xộc xệch phồng 3D cuộn sóng hữu cơ -->
-    <g stroke="#282b2b" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">
-      <path d="M110 50 Q230 20 360 55 Q490 85 520 150 Q360 205 160 175 Q85 140 110 50 Z" fill="#394f47"/>
-      <path d="M125 65 Q235 32 345 68 Q455 92 485 142 Q345 182 175 160 Q105 125 125 65 Z" fill="#4d695e"/>
-      <path d="M170 95 Q265 65 350 98 M215 120 Q325 95 410 135 M270 145 Q360 132 455 160" fill="none" stroke="#23352f" stroke-width="4"/>
+    <!-- Khung dát giường pallet gỗ -->
+    <polygon points="655,765 1025,765 995,625 795,625" fill="#674226" stroke="#282b2b" stroke-width="3"/>
+
+    <!-- Mặt trên nệm Nam (xộc xệch, có vết lún người nằm) -->
+    <polygon points="800,602 990,602 1016,740 663,740" fill="#697b74" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Thành trước nệm Nam dày 25px -->
+    <polygon points="663,740 1016,740 1016,765 663,765" fill="#425249" stroke="#282b2b" stroke-width="4" stroke-linejoin="round"/>
+
+    <!-- Thành hông bên trái nệm Nam nhìn vào lối đi -->
+    <polygon points="800,602 800,625 663,765 663,740" fill="#313d37" stroke="#282b2b" stroke-width="3.5" stroke-linejoin="round"/>
+
+    <!-- Gối Nam lún sâu tự nhiên ở đầu giường -->
+    <path d="M845 615 Q915 605 975 615 Q955 642 865 642 Z" fill="#fefce8" stroke="#282b2b" stroke-width="3.5"/>
+
+    <!-- Chăn bông màu rêu xộc xệch phồng hữu cơ 3D, đùn đống một góc -->
+    <g stroke="#282b2b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M685 665 Q830 625 995 655 Q1025 725 965 745 Q810 755 675 725 Z" fill="#334a41"/>
+      <path d="M705 678 Q835 645 980 672 Q1000 720 950 735 Q810 745 690 715 Z" fill="#496559"/>
+      <path d="M735 695 Q820 675 905 700 M770 715 Q860 695 940 720" fill="none" stroke="#23352f" stroke-width="3.5"/>
     </g>
 
-    <!-- ĐIỆN THOẠI 3D REO BÁO THỨC 07:00 (Nằm nghiêng trên góc nệm) -->
-    <g transform="translate(30 95) rotate(-15)">
-      <rect x="4" y="4" width="46" height="85" rx="10" fill="#000" opacity="0.4" filter="url(#soft-ao)"/>
-      <rect x="0" y="0" width="46" height="85" rx="10" fill="#1e293b" stroke="#282b2b" stroke-width="3.5"/>
-      <rect x="4" y="7" width="38" height="71" rx="6" fill="#0f172a" stroke="none"/>
-      <text x="23" y="38" font-family="Arial, sans-serif" font-size="12" font-weight="900" fill="#38bdf8" text-anchor="middle">07:00</text>
-      <text x="23" y="52" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#94a3b8" text-anchor="middle">ĐI HỌC</text>
-      <path d="M-8 22 Q-16 40 -8 58 M54 22 Q62 40 54 58" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+    <!-- ĐIỆN THOẠI 3D REO BÁO THỨC 07:00 (Nằm ngay mép nệm phía ngoài) -->
+    <g transform="translate(980 690) rotate(14)">
+      <rect x="3" y="3" width="40" height="72" rx="9" fill="#000" opacity="0.4" filter="url(#soft-ao)"/>
+      <rect x="0" y="0" width="40" height="72" rx="9" fill="#1e293b" stroke="#282b2b" stroke-width="3"/>
+      <rect x="4" y="6" width="32" height="60" rx="5" fill="#0f172a" stroke="none"/>
+      <text x="20" y="32" font-family="Arial, sans-serif" font-size="10.5" font-weight="900" fill="#38bdf8" text-anchor="middle">07:00</text>
+      <text x="20" y="46" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#94a3b8" text-anchor="middle">ĐI HỌC</text>
+      <path d="M-6 20 Q-12 36 -6 52 M46 20 Q52 36 46 52" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
     </g>
 
     <!-- ĐÔI DÉP LÊ QUAI KẸP TIẾP ĐẤT TRÊN SÀN (Nơi Nam bước chân xuống) -->
-    <g transform="translate(490 180)">
-      <g transform="rotate(35)">
-        <ellipse cx="2" cy="4" rx="22" ry="46" fill="#000" opacity="0.3" filter="url(#soft-ao)"/>
-        <ellipse cx="0" cy="2" rx="22" ry="46" fill="#27342f" stroke="#282b2b" stroke-width="3"/>
-        <ellipse cx="0" cy="-2" rx="21" ry="44" fill="#dbad82" stroke="#282b2b" stroke-width="3"/>
-        <path d="M-11 -9 Q0 -27 13 -11" fill="none" stroke="#425850" stroke-width="4.5" stroke-linecap="round"/>
-      </g>
-      <g transform="translate(60 22) rotate(55)">
-        <ellipse cx="2" cy="4" rx="22" ry="46" fill="#000" opacity="0.3" filter="url(#soft-ao)"/>
-        <ellipse cx="0" cy="2" rx="22" ry="46" fill="#27342f" stroke="#282b2b" stroke-width="3"/>
-        <ellipse cx="0" cy="-2" rx="21" ry="44" fill="#dbad82" stroke="#282b2b" stroke-width="3"/>
-        <path d="M-11 -9 Q0 -27 13 -11" fill="none" stroke="#425850" stroke-width="4.5" stroke-linecap="round"/>
+    <g transform="translate(930 775)">
+      <ellipse cx="2" cy="3" rx="15" ry="34" fill="#000" opacity="0.3" filter="url(#soft-ao)" transform="rotate(30)"/>
+      <ellipse cx="0" cy="0" rx="15" ry="34" fill="#dbad82" stroke="#282b2b" stroke-width="3" transform="rotate(30)"/>
+      <path d="M-8 -6 Q0 -18 8 -6" fill="none" stroke="#425850" stroke-width="4" stroke-linecap="round" transform="rotate(30)"/>
+
+      <g transform="translate(45 12)">
+        <ellipse cx="2" cy="3" rx="15" ry="34" fill="#000" opacity="0.3" filter="url(#soft-ao)" transform="rotate(50)"/>
+        <ellipse cx="0" cy="0" rx="15" ry="34" fill="#dbad82" stroke="#282b2b" stroke-width="3" transform="rotate(50)"/>
+        <path d="M-8 -6 Q0 -18 8 -6" fill="none" stroke="#425850" stroke-width="4" stroke-linecap="round" transform="rotate(50)"/>
       </g>
     </g>
   </g>
 
-  <!-- ======================================================================== -->
+<!-- ======================================================================== -->
   <!-- 5. BÀN BẾP BỒN RỬA INOX KÊ SÁT GÓC TƯỜNG PHẢI & GẠCH ỐP Ố VÀNG 100% ĐỒNG BỘ -->
   <!-- ======================================================================== -->
   <g id="sink-corner-flush" transform="translate(1440 280)">
@@ -409,7 +432,7 @@
   <!-- ======================================================================== -->
   <!-- 6. CHIẾC GHẾ GỖ TỰA 3D VÀ QUẠT ĐỨNG TIẾP ĐẤT VỮNG CHÃI -->
   <!-- ======================================================================== -->
-  <g transform="translate(980 640)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
+  <g transform="translate(1015 640)" stroke="#282b2b" stroke-width="4" stroke-linejoin="round">
     <polygon points="-15,190 145,190 120,230 -40,230" fill="#000" opacity="0.2" filter="url(#soft-ao)"/>
     <line x1="0" y1="110" x2="-15" y2="195" stroke="#673e1e" stroke-width="7" stroke-linecap="round"/>
     <line x1="115" y1="110" x2="135" y2="195" stroke="#673e1e" stroke-width="7" stroke-linecap="round"/>
