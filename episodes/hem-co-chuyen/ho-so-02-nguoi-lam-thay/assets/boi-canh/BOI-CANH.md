@@ -3,6 +3,8 @@
 **Chuẩn hóa:** 09/11/2026 theo phong cách nghệ thuật hữu cơ mới (Style B).  
 **Hình ảnh tổng quan:** ![Bảng bối cảnh môi trường 4 ô](boi-canh.png)
 
+**Khi đưa nền vào cảnh:** bảng thiết kế thể hiện hình tĩnh; trạng thái cửa/chốt và vị trí hai ghế theo [bảng máy 10/11](../../DUNG-CANH.md). Có hình chốt gài hoặc ghế trước cửa không có nghĩa mọi thời điểm truyện đều khóa/chặn. Không tự đổi các SVG trong lượt thêm máy.
+
 ---
 
 ## 1. Hệ thống 4 Bối cảnh cốt lõi theo Kịch bản

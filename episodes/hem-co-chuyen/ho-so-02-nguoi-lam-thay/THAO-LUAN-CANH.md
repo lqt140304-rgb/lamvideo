@@ -2,6 +2,8 @@
 
 **09/11/2026 — bản đề xuất, chưa phải kịch bản giao dựng.** Cảnh đầu do GPT-6 Astra đề xuất theo phản hồi người dùng. Chỉ chuyển sang viết chi tiết cảnh sau khi chủ repo chốt cảnh đang bàn hoặc yêu cầu chuyển phần. Những dòng dưới nhãn “đề xuất” chưa được coi là lore chính thức.
 
+**Góc máy bổ sung ngày 10/11/2026:** xem [DUNG-CANH.md](DUNG-CANH.md), có lens/cỡ cảnh/chuyển động/rung/focus và điểm cắt cho toàn bộ phần đã viết. Liên kết từng nhóm đặt ngay dưới các tiêu đề cảnh bên dưới. Đây là chỉ đạo hình đề xuất, giữ nguyên lời và trạng thái duyệt truyện; chưa tạo storyboard, animatic hoặc render.
+
 ## Những điều người dùng đã chốt
 
 - Series dùng cách gọi Hồ sơ 1, Hồ sơ 2…
@@ -44,6 +46,8 @@ Nhịp trưởng thành hoặc hối tiếc phải thể hiện bằng lựa ch�
 | 8 — Thứ đã chọn cậu | Hé lộ sinh vật và việc nhắm tới cậu từ trước; chi tiết cũ được hiểu lại | Chưa viết; có thể gộp cảnh 7 |
 
 ## Cảnh 1 — Tiếng rửa chén (đã chốt hướng xuất hiện và cảm xúc)
+
+**Góc máy:** [MAY-A: nhận mặt và phản ứng](DUNG-CANH.md#may-a), A01–A05; lấy phản ứng Nam trước khi xác nhận mặt người kia.
 
 **Phạm vi đồng ý:** cách xuất hiện không rõ nguồn gốc và phản ứng nhân vật. Bản lời dưới đây còn là bản biên tập theo hướng đã chọn; thông số dựng chưa khóa.
 
@@ -132,6 +136,8 @@ Người trong phòng vẫn đứng chờ. Nước từ bàn tay nhỏ xuống n
 
 ## Phần nối cuộc gọi — đã duyệt ngày 09/11/2026
 
+**Góc máy:** [MAY-B: giữ khoảng cách và cuộc gọi](DUNG-CANH.md#may-b), B01–B03; Tùng chỉ có giọng điện thoại, không thêm cảnh lớp học.
+
 **Quyết định hiện hành:** Nam kể, Tùng không tin rồi cúp máy. Thay cả phương án Tùng lập tức tin để giúp và phương án Nam giấu hoàn toàn. Chủ repo đã duyệt lời Nam báo có người giống mình, lời Tùng gạt đi/cúp máy và phản ứng Nam còn sợ sau cuộc gọi. Giữ nguyên đoạn được duyệt; phần còn lại của cảnh 2 chưa chốt.
 
 **TÙNG — qua điện thoại:**
@@ -159,6 +165,8 @@ Nam siết điện thoại, chưa dám bước vào phòng.
 **Lưu ý nhân quả:** Tùng chỉ nghe một lời kể qua điện thoại, chưa thấy bằng chứng. Phản ứng này không tự xác lập Tùng là người vô tâm trong mọi hoàn cảnh hoặc Nam thường xuyên nói dối. Không kết luận sự giúp đỡ của bản sao đã đáng tin chỉ vì cuộc gọi vừa thất bại; sự dè chừng còn tiếp ở phần sau.
 
 ## Nam lấy lại căn phòng — đã duyệt ngày 09/11/2026
+
+**Góc máy:** [MAY-C: toàn hành lang → đổi vị trí → chốt cửa](DUNG-CANH.md#may-c), C01–C06; hai người đổi chỗ trên hình trước khi cắt cận chốt.
 
 **Đã duyệt:** Nam yêu cầu người kia ra ngoài, giữ khoảng cách khi đổi vị trí, tự vào phòng gài chốt; người kia nói “Tao đứng đây rồi”, Nam bảo “Đừng nói nữa”, rồi ngồi nhìn chốt cửa. Phần này do GPT-6 Astra đề xuất trước khi chuyển model. Chưa cho Nam tin hoặc nhận giúp.
 
@@ -205,6 +213,8 @@ Cậu kéo ghế ngồi đối diện cửa, giữ điện thoại trong lòng b
 **Chuyển model theo yêu cầu chủ repo:** từ phần viết tiếp sau đoạn này, dùng GPT-6.1 Sol để tiết kiệm. Giữ nguyên các đoạn đã duyệt; các đề xuất mới vẫn được chốt từng phần.
 
 ## Nam chủ động hỏi lại — đã duyệt ngày 09/11/2026
+
+**Góc máy:** [MAY-D: kiểm tra đồ và đối đáp qua cửa](DUNG-CANH.md#may-d), D01–D05; giữ đúng tay cầm điện thoại/căn cước, cửa còn gài chốt.
 
 **Mục đích:** Nam muốn có người quen chứng kiến thay vì phải tự xử lý điều mình vừa thấy; kiểm tra đồ trong phòng tạo một mục đích cụ thể để hỏi tiếp. Đoạn này chưa cho Nam tin hoặc nhận giúp. Việc Nam nhắn Tùng quay về và phần đối đáp tới câu hỏi còn đụng vào đồ gì đã được duyệt. Tùng chưa trả lời hoặc chứng kiến bản sao.
 
@@ -275,6 +285,8 @@ Nam liếc về phía bếp, rồi nhớ đến cái áo trên người kia.
 
 ### Ban ngày — làm mãi không được
 
+**Góc máy:** [MAY-E: áp lực bài nhóm, làm mãi không được, nội tâm](DUNG-CANH.md#may-e), E01–E04; giữ bố cục để đọc được sự trì hoãn, không thêm một cú cắt cho mỗi câu suy nghĩ.
+
 **NGƯỜI KIA — đáp câu hỏi còn đụng vào đồ gì, vẫn ở ngoài cửa:**
 > Cây chổi nữa. Tao quét cạnh bếp. Còn lại không đụng.
 
@@ -316,6 +328,8 @@ Nam thử viết tiếp. Cậu chưa gọi người kia vào hoặc nhờ làm b
 
 ### Mở chốt — chơi game rồi ngủ quên
 
+**Góc máy:** [MAY-F: đi vệ sinh và quên gài chốt](DUNG-CANH.md#may-f), F01–F04; [MAY-G: Không làm phiền, game, ngủ](DUNG-CANH.md#may-g), G01–G04. Phải nhìn thấy chốt còn rút và vị trí Nam đặt điện thoại trước khi ngủ.
+
 Một lúc sau, Nam buồn tiểu. Cậu cầm điện thoại, đứng dậy mở chốt rồi hé cửa kiểm tra.
 
 Người kia vẫn ở phía đối diện hành lang. Nam chỉ về cuối dãy, xa lối mình cần đi.
@@ -345,6 +359,8 @@ Một thông báo che góc màn hình trò chơi. Nam bật **Không làm phiề
 Sau cùng, Nam đặt điện thoại cạnh laptop, ngả lên giường định nằm vài phút. Bài đang làm vẫn mở trên màn hình. Cậu ngủ quên.
 
 ### Tỉnh dậy — trời đã tối
+
+**Góc máy:** [MAY-H: khung phòng sáng–tối lặp lại và dịu dần](DUNG-CANH.md#may-h), H01–H10; người kia ở đúng bàn/ghế Nam đã dùng, Nam tự kiểm tra tin và bài trước khi bớt đề phòng.
 
 Phòng đã tối. Đèn bàn bật, ánh laptop hắt lên một gương mặt giống Nam.
 

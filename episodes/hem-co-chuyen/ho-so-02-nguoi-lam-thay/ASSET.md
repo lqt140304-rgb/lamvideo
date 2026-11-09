@@ -66,3 +66,14 @@ Bám sát 100% dòng thời gian và các mốc diễn biến từ 7:00 AM tới
 | **3** | **Cửa gài chốt & Hành lang** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | Cửa đóng kín, **then cài chốt trượt kim loại**, ghế gỗ chặn cửa; bên trái thấy nệm Nam & đồng hồ; bên phải là **chiếc bàn học của Nam (đồng bộ Cảnh 4)** có sách, đèn đỏ, ví da & thẻ căn cước, ghế xoay. |
 | **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | Đêm tối, quầng sáng đèn bàn vàng rực, laptop Google Docs mở bài làm hộ, điện thoại Không làm phiền, **ghế xoay học sinh công thái học lưới đen**; hậu cảnh thấy nệm Nam và cửa phòng gài chốt. |
 
+
+
+**Khi đưa nền vào cảnh:** bảng thiết kế thể hiện hình tĩnh; trạng thái cửa/chốt và vị trí hai ghế theo [bảng máy 10/11](DUNG-CANH.md). Có hình chốt gài hoặc ghế trước cửa không có nghĩa mọi thời điểm truyện đều khóa/chặn. Không tự đổi các SVG trong lượt thêm máy.
+
+## Nhu cầu theo góc máy — 10/11/2026
+
+Đã đối chiếu bảng PNG bốn nền mới; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ song song, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung góc toàn **ngoài** hành lang và pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
+
+**Trạng thái dùng trong phim:** ghế gỗ là đồ cạnh nệm/ngoài lối, không tự biến thành vật chắn; ghế xoay theo Nam từ bàn ra cửa rồi trở lại bàn. Cần thấy chốt gài khi Nam khóa và chốt rút sau lúc quên gài khi về; nền tối không được giữ trạng thái khóa như một quy luật bất biến. Đây là yêu cầu continuity cho timeline, không thay hoặc vẽ lại các SVG trong lượt thêm góc máy.
+
+Kiểm tra pose ngủ/bật dậy, nhìn ba phần tư, cầm điện thoại/căn cước, gõ bài/game, tay chạm chốt, đặt chén và người kia ngồi bàn. Những pose/góc chưa có mới là yêu cầu bổ sung, chưa tạo hay chạy thử. Giữ nội tâm là suy nghĩ của Nam; Người Kia không đọc được suy nghĩ hoặc màn hình từ ngoài cửa.
