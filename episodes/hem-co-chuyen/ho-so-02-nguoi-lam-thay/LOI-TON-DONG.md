@@ -6,7 +6,6 @@ Cập nhật 10/11/2026, trên commit `eec2a4f`. Làm xong mục nào thì xóa 
 
 | Việc | Cần chốt |
 |---|---|
-| Nốt ruồi của Nam và Người Kia | Kịch bản ghi "đuôi mày trái". Hình hiện đặt bên trái màn hình khi quay 3/4 phải, tức mày phải theo giải phẫu. Chốt mày trái thật hay trái màn hình |
 | Các sửa truyện ở phiên tách | Nằm chưa commit trong worktree `hungry-zhukovsky-ff0b82` (`THAO-LUAN-CANH.md`, `DUNG-CANH.md`, `ASSET.md`, `README.md`), chờ duyệt: ảnh gửi Tùng, "Còn đó không?", giờ tối, một chìa khóa. Tách từ `09e7616`, cần gộp với `main` hiện tại nếu duyệt |
 | Áo Nam mặc mặc định | Rig mặc định áo xanh. Áo ngủ xám dùng `shirt={PALETTE.nam.sleepShirt}`; chốt có đổi mặc định không |
 

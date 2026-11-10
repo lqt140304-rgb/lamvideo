@@ -51,6 +51,8 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 - **Nghiêm cấm:** Không thêm mấu nhọn, sừng hay dị vật khác ngoài lọn xoăn đó.
 
 ### 3.2. Nốt ruồi đuôi mày trái (Crucial Story Identification)
+
+**Đã chốt 10/11/2026:** nốt ruồi nằm **bên trái màn hình khi nhân vật nhìn về phía máy**. "Mày trái" trong kịch bản tính theo người xem. Rig đã vẽ theo quy tắc này ở mọi góc; khi quay sang trái hẳn hoặc quay lưng thì không thấy.
 - **Quy tắc:** Chi tiết then chốt phục vụ diễn biến kịch bản:
   ```xml
   <circle cx="-32" cy="82" r="2.2" fill="#282b2b" stroke="none"/>
