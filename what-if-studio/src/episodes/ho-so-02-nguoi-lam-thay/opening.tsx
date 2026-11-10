@@ -298,63 +298,65 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
 };
 
 // ---------- SHOT 4: bàn tay xuyên kính, dolly zoom (38–44s) ----------
+// Bố cục: mép sàn–tường chạy chéo từ góc dưới trái lên chân gương; gương đặt cao, lùi xa bên phải.
+// Nam đứng quay lưng trước gương, quay lại rồi đi thẳng về phía máy theo đường sàn (to dần).
 // Trong kính là thế giới gương 3D (MirrorRealm). Cánh tay vươn ra là tay rig của chính cái bóng:
-// vẽ bóng 2 lần cùng toạ độ — bản trong kính, và bản ngoài kính chỉ lộ phần vượt mép trái — nên tay liền một khối.
-// gương lùi xa hơn Nam (nhỏ lại) và nghiêng cùng chiều Nam; bản tay ngoài kính dùng cùng phép đặt để tay liền khối
-const MIR = "translate(80 -112) scale(0.88) rotate(-9)"; // gương nâng lên; cái bóng hạ xuống trong kính (DROP) để chân cùng mặt sàn với Nam
-const DROP = 150;
-const REACH_ARM = (k: number): JointPose => ({ ...STAND_POSE, tilt: 4 * k, armR: { a: 122 * k, b: 8 * k }, wristR: 40 * k, handR: k > 0.2 ? 'open' : 'rest', frontR: true });
+// vẽ bóng 2 lần cùng phép đặt — bản trong kính, và bản ngoài kính (vẽ sau Nam) chỉ lộ phần vượt mép trái kính.
+const MIR_AT = { x: 1270, y: 760, s: 0.7, r: -3 }; // chân gương trên đường sàn
+const MIR = `translate(${MIR_AT.x} ${MIR_AT.y}) scale(${MIR_AT.s}) rotate(${MIR_AT.r})`;
+const FLOOR = 'M-300 1230L1190 752H2400V1500H-300Z'; // sàn phía trước, mép chéo về chân gương
+const REACH_ARM = (k: number): JointPose => ({ ...STAND_POSE, tilt: 6 * k, armR: { a: 80 * k, b: 8 * k }, wristR: 32 * k, handR: k > 0.2 ? 'open' : 'rest', frontR: true });
 const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const t = f / 180;
-  const push = 1 + 0.32 * t; // dolly-in
+  const push = 1 + 0.22 * t; // dolly-in
   const realmZoom = 1 + 0.5 * t; // zoom-out phía trong kính: thế giới gương lùi ra xa
-  const lift = seg(f, 30, 64), smirk = f > 64;
-  const ripple = seg(f, 56, 96);
-  const reach = seg(f, 92, 132) * (1 - seg(f, 160, 178));
-  const turn = seg(f, 6, 22);
-  // đi chậm ra xa gương; lúc tay chạm gáy (f≈132) gáy Nam vừa ngang tầm bàn tay
-  const nx = interpolate(f, [24, 132, 178], [-10, -95, -260], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const walkP = f > 24 ? sampleWalk((f - 24) / 20) : STAND_POSE;
+  const lift = seg(f, 24, 56), grin = f > 56;
+  const ripple = seg(f, 50, 90);
+  const reach = seg(f, 72, 104) * (1 - seg(f, 128, 146));
+  const turn = seg(f, 14, 28);
+  // Nam đi dọc đường sàn về phía máy: chậm lúc tay đặt lên vai, nhanh dần sau khi tay rút
+  const walk = interpolate(f, [28, 112, 178], [0, 0.16, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const feet = { x: 1060 + (560 - 1060) * walk, y: 732 + (1030 - 732) * walk };
+  const ns = 0.72 + 0.5 * walk;
+  const walkP = f > 28 ? sampleWalk((f - 28) / 18) : STAND_POSE;
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
-  const rx = MW * 0.32, ry = MH * 0.1, rs = 0.95, ryIn = ry + DROP;
+  const rx = MW * 0.3, ryIn = 250, rs = 1;
   const vw = 1920 * realmZoom, vh = 1080 * realmZoom;
   const realm = (
-    <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.78 - (DROP * vh) / (MH + 120)} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
+    <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.9} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
       <MirrorRealm ripple={f / 40} floating={false} />
     </svg>
   );
+  const shadowOut = (
+    <g transform={`translate(${-MW / 2} ${-MH})`}>
+      <clipPath id="ngoai-kinh"><rect x={-2000} y={-500} width={2026} height={MH + 1000} /></clipPath>
+      {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ryIn} scale={rs} mood="stare_grin" blink={false} pose={reflPose} /></g>}
+    </g>
+  );
   return (
     <AbsoluteFill style={{ background: '#060d0c' }}>
-      <div style={{ position: 'absolute', inset: 0, transform: `translate(${shake}px, ${shake * 0.4}px) rotate(-15deg) scale(${push})`, transformOrigin: '960px 560px' }}>
+      <div style={{ position: 'absolute', inset: 0, transform: `translate(${shake}px, ${shake * 0.4}px) rotate(-5deg) scale(${push})`, transformOrigin: '1000px 700px' }}>
         <svg width={1920} height={1080}>
           <rect x={-600} y={-600} width={3100} height={2300} fill="#0c1615" />
-          <path d="M-600 900H2500V1700H-600Z" fill="#121e1c" />
-          <g transform="translate(1180 1010) scale(0.98)">
-            <g transform={MIR}>
+          <path d={FLOOR} fill="#142220" />
+          <path d="M-300 1230L1190 752H2400" fill="none" stroke="#1d302d" strokeWidth={4} />
+          <g transform={MIR}>
             <Mirror w={MW} h={MH} progress={ripple} phase={f / 6}>
               <rect x={-60} y={-60} width={MW + 120} height={MH + 120} fill="#03100f" />
               {realm}
-              <NguoiKia {...LOOK} x={rx} y={ryIn} scale={rs} mood={smirk ? 'stare_grin' : 'calm'} face={smirk ? undefined : 'cuoi-che-giau-01'} blink={false} pose={reflPose} />
+              <NguoiKia {...LOOK} x={rx} y={ryIn} scale={rs} mood={grin ? 'stare_grin' : 'calm'} face={grin ? undefined : 'cuoi-che-giau-01'} blink={false} pose={reflPose} />
             </Mirror>
-            </g>
-            <g transform={`translate(${-MW / 2} ${-MH})`}>
-              {/* Nam: quay lưng khỏi gương rồi bước đi, không hay biết */}
-              <StudentTwinBody {...LOOK} x={nx} y={ry} scale={rs} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'side', facing: -1 }} />
-            </g>
-            {/* tay cái bóng thò ra khỏi kính, vẽ sau Nam: bàn tay úp lên vai */}
-            <g transform={MIR}>
-            <g transform={`translate(${-MW / 2} ${-MH})`}>
-              <clipPath id="ngoai-kinh"><rect x={-2000} y={-500} width={2026} height={MH + 1000} /></clipPath>
-              {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ryIn} scale={rs} mood="stare_grin" blink={false} pose={reflPose} /></g>}
-            </g>
-            </g>
           </g>
+          {/* Nam: quay lưng nhìn gương → quay lại → đi thẳng về phía máy, không hay biết */}
+          <StudentTwinBody {...LOOK} x={feet.x} y={feet.y - 589 * ns} scale={ns} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'three', facing: -1 }} />
+          {/* tay cái bóng thò ra khỏi kính, vẽ sau Nam: bàn tay úp lên vai */}
+          <g transform={MIR}>{shadowOut}</g>
         </svg>
-        <div style={{ position: 'absolute', left: 1000, top: 140, width: 420, height: 880, borderRadius: 200, background: 'radial-gradient(ellipse, rgba(80,255,210,.3), rgba(0,0,0,0) 70%)', opacity: ripple, mixBlendMode: 'screen' }} />
+        <div style={{ position: 'absolute', left: MIR_AT.x - 190, top: MIR_AT.y - 640, width: 380, height: 660, borderRadius: 180, background: 'radial-gradient(ellipse, rgba(80,255,210,.3), rgba(0,0,0,0) 70%)', opacity: ripple, mixBlendMode: 'screen' }} />
       </div>
-      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 55% 60% at 55% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,.7) 100%)' }} />
-      <Streak t={seg(f, 64, 110)} color="#5affd2" y={560} />
+      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 60% 62% at 52% 52%, rgba(0,0,0,0) 40%, rgba(0,0,0,.7) 100%)' }} />
+      <Streak t={seg(f, 56, 100)} color="#5affd2" y={500} />
     </AbsoluteFill>
   );
 };
