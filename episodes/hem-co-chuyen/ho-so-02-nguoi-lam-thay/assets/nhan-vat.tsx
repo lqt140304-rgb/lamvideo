@@ -757,10 +757,12 @@ const BLACK = '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0';
  * để tay trước thân, chân trước chân cũng có khối. `behind`: khối nằm ngay sau (thân sau tay áo) — mép chạm khối đó
  * không phải mép ngoài nên không tô, nếu không tay áo ngắn trên thân thành một quả bóng.
  */
-const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; children: React.ReactNode }> = ({ l, facing, behind, children }) => {
+// `size`: cỡ bộ phận so với thân (đầu ~2.6, tay ~0.6). Mảng tối/viền sáng tỉ lệ theo cỡ, để đầu và thân cùng một mức sáng–tối,
+// không phải đầu phẳng một màu còn tay tối cả cánh.
+const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; size?: number; children: React.ReactNode }> = ({ l, facing, behind, size = 1, children }) => {
   const id = useClipId('shade');
   if (!l) return <>{children}</>;
-  const k = l.depth ?? 18, dx = l.x * k * facing, dy = l.y * k;
+  const k = (l.depth ?? 18) * size, dx = l.x * k * facing, dy = l.y * k;
   const sil = (tx: number, ty: number, f: string) => <g transform={`translate(${tx} ${ty})`} filter={`url(#${id}-${f})`}>{children}{f === 'k' && behind}</g>;
   return (
     <g>
@@ -769,7 +771,7 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; chi
         <filter id={`${id}-w`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={WHITE} /></filter>
         {/* Viền sáng co vào trong đường bao (erode) để không phủ lên nét mực, nếu không nét bị nhòa thành đứt quãng. */}
         <filter id={`${id}-wi`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={WHITE} /><feMorphology operator="erode" radius={3.2} /></filter>
-        <filter id={`${id}-k`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={BLACK} /><feGaussianBlur stdDeviation={l.soft ?? 5} /></filter>
+        <filter id={`${id}-k`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={BLACK} /><feGaussianBlur stdDeviation={(l.soft ?? 5) * Math.sqrt(size)} /></filter>
         <mask id={`${id}-d`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}{sil(dx, dy, 'k')}</mask>
         <mask id={`${id}-f`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}</mask>
         {!!l.rim && <mask id={`${id}-r`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'wi')}{sil(-dx * 0.45, -dy * 0.45, 'k')}</mask>}
@@ -828,30 +830,30 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
       )}
       <g transform={`translate(${pose.x} ${r.dy})`}>
-        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
-        <Shade l={l} facing={facing}>
+        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
+        <Shade l={l} facing={facing} size={0.85}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
           {!side && <Blob fill={o.pants} d={[`M -30 335 H 32 L 30 ${crotch - 4} Q 1 ${crotch - 30} -28 ${crotch - 4} Z`]} />}
           {back(<Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} />)}
         </Shade>
-        <Shade l={l} facing={facing}>
+        <Shade l={l} facing={facing} size={0.85}>
           <Leg c={r.legR} side="R" foot={r.footR} o={o} view={view} />
           <path d={side ? 'M -30 318 H 36 V 352 H -30 Z' : `M -46 318 H 48 V 350 H 28 Q 1 ${Math.min(crotch - 34, 372)} -26 350 H -46 Z`} fill={o.pants} stroke="none" />
         </Shade>
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
           {/* Nhìn từ sau: khuỷu, cẳng tay hai bên nằm ngoài hông nên đè lên quần; phần tay vào giữa thân (bàn tay đưa ra trước) bị thân che nên cắt bỏ dải giữa. */}
-          {away && <g clipPath={`url(#${awayClip})`}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath>{back(<Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade>)}</g>}
-          {!frontL && !side && !away && back(<Shade l={l} facing={facing}>{whole(armL)}</Shade>)}
-          {!frontR && !away && back(<Shade l={l} facing={facing}>{whole(armR)}</Shade>)}
-          <Shade l={l} facing={facing}>
+          {away && <g clipPath={`url(#${awayClip})`}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}{whole(armR)}</Shade>)}</g>}
+          {!frontL && !side && !away && back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}
+          {!frontR && !away && back(<Shade l={l} facing={facing} size={0.6}>{whole(armR)}</Shade>)}
+          <Shade l={l} facing={facing} size={1.3}>
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
             {!frontR && <Cuff c={r.armR} o={o} />}
             {!frontL && !side && <Cuff c={r.armL} o={o} />}
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
-          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
-          {frontL && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade>}
-          {frontR && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
+          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.6}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
+          {frontL && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade>}
+          {frontR && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
         </g>
       </g>
     </g>
