@@ -3,7 +3,7 @@ import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
 import { JointPose, Light, mixPose, NamMood, NguoiKia, Outline, PALETTE, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, Talk, turnAt, TWIN_POSES, View } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import type { FaceKey } from '../../../library/expressions/cartoon-soft/net-mat';
-import { CameraMove, lightFor, placeOn, RoomScene, RoomView } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
+import { CameraMove, lightFor, placeOn, RoomScene, RoomView, sunExposure } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 
 /**
  * Hồ sơ 2 — demo animatic Cảnh 1 (MAY-A, A01–A05), bản câm: phụ đề tạm thay giọng, chưa có âm.
@@ -11,7 +11,7 @@ import { CameraMove, lightFor, placeOn, RoomScene, RoomView } from '../../../../
  * Cận cảnh là phóng khung trên cùng camera của phòng (tiến cận giả lập), không phải lens thật.
  */
 // Đoạn thức dậy A02B chèn sau báo thức; các shot sau giữ mốc cũ và lùi lại WAKE_LEN frame.
-const WAKE_AT = 400, WAKE_LEN = 66;
+const WAKE_AT = 400, WAKE_LEN = 150;
 export const CANH01_TOTAL = 1170 + WAKE_LEN;
 
 const SLEEP = PALETTE.nam.sleepShirt;
@@ -23,7 +23,13 @@ const PHONE: [number, number][] = [[282, 256], [289, 256], [289, 270], [282, 270
 
 // Ánh sáng duyệt: hướng theo cửa sổ qua camera của shot, viền ấm, nét mảnh 0.65.
 // Nắng cửa sổ rõ hướng: mảng tối lạnh và đậm hơn, viền sáng ấm và rõ; vẫn mềm, hẹp.
-const lit = (view: RoomView, at: [number, number]): Light => ({ rim: 0.75, rimColor: '#ffdc9a', amount: 0.55, shade: '#3c4763', depth: 15, soft: 4, line: 0.65, ...lightFor(view, at) });
+// Khối sáng–tối chỉ có khi người đứng trong nắng: nhân theo mức nắng chiếu tới thân (`top` = chiều cao thân, ngồi ~95, đứng ~160).
+// Ngoài nắng (bồn rửa, chỗ nằm ngủ) chỉ còn bóng tiếp đất dưới chân.
+const lit = (view: RoomView, at: [number, number], top = 160): Light => {
+  const e = sunExposure(at, 20, top);
+  const L = lightFor(view, at);
+  return { rim: 0.75 * e, rimColor: '#ffdc9a', amount: 0.55 * e, shade: '#3c4763', depth: 15, soft: 4, line: 0.65, ...L, back: L.back * e, ground: 0.7 + 0.3 * e };
+};
 const RAYS = 0.9; // vệt nắng xiên từ cửa sổ (RoomScene rays)
 
 const ease = Easing.inOut(Easing.cubic);
@@ -90,7 +96,9 @@ const BLANKET_REST = 232; // mép chăn lúc ngủ: ngang ngực dưới nách (
 const BLANKET_OVER = -46; // trùm qua đỉnh đầu
 const BLANKET_TOSSED = 430; // hất xuống: chăn chỉ còn trên đùi–chân
 // Thức dậy: `toss` hất chăn xuống chân, `rise` ngồi dậy (xoay quanh hông), `slide` lết ra mép nệm tới `seat` (điểm đứng của SEAT trên màn hình).
-type Wake = { toss: number; rise: number; slide: number; seat: { x: number; y: number; scale: number } };
+type Wake = { toss: number; rise: number; slide: number; stretch?: number; yawn?: number; rub?: number; seat: { x: number; y: number; scale: number } };
+// Vươn vai khi ngồi: một tay giơ cao quá đầu, ngửa người ra sau một chút.
+const STRETCH: JointPose = { ...TWIN_POSES.sitLow, tilt: -8, neck: 9, armR: { a: 170, b: 28 }, handR: 'fist', frontR: true }; // một tay vươn quá đầu (tay xa không giơ cao hơn ngang vai được trong rig phẳng)
 type SleepState = { cover?: number; breath?: number; reach?: number; carry?: number; phone?: boolean; alarm?: boolean; f?: number; wake?: Wake };
 // Kiểu viền đã chốt cho phim: không viền bao; tách lớp bằng tương phản sáng–tối (xem toneBack/toneFront trong rig).
 const LOOK = { outline: 'none', headOutline: 'none' } as const;
@@ -123,7 +131,9 @@ const Sleeper = ({ cover = 0, breath = 0, reach = 0, carry = 0, phone = true, al
   // Thân đặt theo hông: nằm = xoay LIE_ROT quanh hông (đỉnh đầu rơi đúng điểm gối); ngồi dậy = xoay về 0 và trộn sang dáng sitLow,
   // rồi lết hông tới mép nệm. Cùng một hình cho cả quá trình nên không nhảy cảnh.
   const k = ease(wake?.rise ?? 0), m = ease(wake?.slide ?? 0);
-  const pose = k > 0 ? mixPose(TWIN_POSES.lie, TWIN_POSES.sitLow, k) : TWIN_POSES.lie;
+  const sit = k > 0 ? mixPose(TWIN_POSES.lie, TWIN_POSES.sitLow, k) : TWIN_POSES.lie;
+  const st = ease(wake?.stretch ?? 0), yw = ease(wake?.yawn ?? 0), rbv = ease(wake?.rub ?? 0);
+  const pose = mixPose(mixPose(sit, STRETCH, st), { ...RUB, wristR: RUB.wristR + 10 * Math.sin(f / 2.5) }, rbv);
   const rb = solveRig(pose);
   const th = LIE_ROT * (1 - k), thr = (th * Math.PI) / 180;
   const hipLie = { x: hx - 345 * p.scale * Math.sin(rad), y: hy + 345 * p.scale * Math.cos(rad) };
@@ -132,10 +142,12 @@ const Sleeper = ({ cover = 0, breath = 0, reach = 0, carry = 0, phone = true, al
   const sc = p.scale + ((seat?.scale ?? p.scale) - p.scale) * m;
   const hip = { x: hipLie.x + (hipSeat.x - hipLie.x) * m, y: hipLie.y + (hipSeat.y - hipLie.y) * m };
   const look = turnAt({ view: 'three', facing: 1 }, { view: 'three', facing: -1 }, Math.min(1, Math.max(0, (k - 0.45) / 0.4)));
-  const bodyLight: Light = { ...L, x: L.x * Math.cos(thr) + L.y * Math.sin(thr), y: -L.x * Math.sin(thr) + L.y * Math.cos(thr), ground: k > 0.9 ? 0.6 : 0 };
+  // Chỗ nằm không có nắng; lết ra mép nệm (vùng nắng) thì khối sáng–tối hiện dần theo `slide`.
+  const Ls = lit('wide', SEAT, 95);
+  const bodyLight: Light = { ...Ls, x: Ls.x * Math.cos(thr) + Ls.y * Math.sin(thr), y: -Ls.x * Math.sin(thr) + Ls.y * Math.cos(thr), amount: (Ls.amount ?? 0) * m, rim: (Ls.rim ?? 0) * m, back: (Ls.back ?? 0) * m, ground: k > 0.9 ? 0.6 : 0 };
   const body = (
     <g transform={`rotate(${th} ${hip.x} ${hip.y})`}>
-      <StudentTwinBody {...LOOK} x={hip.x} y={hip.y - (345 + rb.dy) * sc} scale={sc} shirt={SLEEP} mood={k > 0.15 ? 'annoyed' : 'sleepy'} blink={k < 0.15 || (f % 84 < 3)} face={k > 0.6 ? 'tuc-gian-01' : undefined} light={wake ? bodyLight : light} pose={{ ...pose, view: look.view, facing: look.facing }} />
+      <StudentTwinBody {...LOOK} x={hip.x} y={hip.y - (345 + rb.dy) * sc} scale={sc} shirt={SLEEP} mood={m > 0.05 ? 'annoyed' : 'sleepy'} blink={k < 0.15 || yw > 0.2 || rbv > 0.4 || (f % 84 < 3)} talk={yw > 0.05 ? { shape: 'o', open: 0.35 + 0.65 * yw } : undefined} face={m > 0.05 ? 'tuc-gian-01' : undefined} light={wake ? bodyLight : light} pose={{ ...pose, view: look.view, facing: look.facing }} />
     </g>
   );
   return (
@@ -211,9 +223,9 @@ const SHOTS: { from: number; code: string; label: string }[] = [
   { from: 1018, code: 'A05', label: 'trung rộng nệm và ghế' },
 ];
 
-const Overlay: React.FC<{ f: number; wake?: boolean }> = ({ f, wake }) => {
-  const shot = wake ? { code: 'A02B', label: 'thức dậy · lết ra mép nệm (liền máy A02)' } : [...SHOTS].reverse().find((s) => f >= s.from)!;
-  const cue: Cue | undefined = wake ? { from: 0, to: 0, text: 'hất chăn · ngồi dậy · lết ra mép nệm', sfx: true } : CUES.find((c) => f >= c.from && f < c.to);
+const Overlay: React.FC<{ f: number; wake?: boolean; w?: number }> = ({ f, wake, w = 0 }) => {
+  const shot = wake ? { code: 'A02B', label: 'thức dậy · ngáp · lết ra mép nệm (liền máy A02)' } : [...SHOTS].reverse().find((s) => f >= s.from)!;
+  const cue: Cue | undefined = wake ? { from: 0, to: 0, text: w < 44 ? 'hất chăn · ngồi dậy lờ đờ' : w < 96 ? 'vươn vai · ngáp dài' : 'dụi mắt · tiếng chén va · lết ra mép nệm', sfx: true } : CUES.find((c) => f >= c.from && f < c.to);
   return (
     <AbsoluteFill style={{ pointerEvents: 'none' }}>
       {/* nhãn shot nằm trong viền đen trên, không đè lên hình */}
@@ -250,11 +262,11 @@ const faceAt = (f: number, steps: [number, FaceKey][], dur = 4): FaceCue => {
   return { face: steps[i][1], faceFrom: i > 0 ? steps[i - 1][1] : undefined, faceMix: i > 0 ? Math.min(1, (f - steps[i][0]) / dur) : 1 };
 };
 
-const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; rise?: number; mood: NamMood; face?: FaceCue; look: { view: View; facing: 1 | -1 }; talk?: Talk; blink?: boolean; move?: CameraMove }) => ({
+const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; rise?: number; mood: NamMood; face?: FaceCue; look: { view: View; facing: 1 | -1 }; talk?: Talk; blink?: boolean; move?: CameraMove; top?: number }) => ({
   at: NEAR,
   render: () => {
     const p = placeOn(view, o.at, 168, o.move);
-    return <StudentTwinBody {...LOOK} x={p.x} y={p.y + (o.rise ?? 0) * p.scale} scale={p.scale} light={lit(view, o.at)} shirt={SLEEP} mood={o.mood} {...o.face} pose={{ ...o.pose, view: o.look.view, facing: o.look.facing }} talk={o.talk} blink={o.blink} />;
+    return <StudentTwinBody {...LOOK} x={p.x} y={p.y + (o.rise ?? 0) * p.scale} scale={p.scale} light={lit(view, o.at, o.top ?? 95)} shirt={SLEEP} mood={o.mood} {...o.face} pose={{ ...o.pose, view: o.look.view, facing: o.look.facing }} talk={o.talk} blink={o.blink} />;
   },
 });
 
@@ -266,7 +278,7 @@ const wideMove = (f: number): CameraMove => {
 };
 const A01: React.FC<{ f: number }> = ({ f }) => (
   <Camera lens={WIDE_LENS} f={f} hand={0.7}>
-    <RoomScene rays={RAYS} view="wide" door="ajar" chair="bed" phone="hidden" move={wideMove(f)} sleeper={Sleeper({ alarm: true, f })} actors={[washer(f, 'wide')]} />
+    <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" move={wideMove(f)} sleeper={Sleeper({ alarm: true, f })} actors={[washer(f, 'wide')]} />
   </Camera>
 );
 
@@ -280,23 +292,32 @@ const A02: React.FC<{ f: number }> = ({ f }) => {
   const carry = seg(f, 240, 252);
   return (
     <Camera lens={lens} f={f} hand={1}>
-      <RoomScene rays={RAYS} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: seg(f, 254, 272), breath: f > 272 ? Math.sin(f / 15) * 5 : 0, reach, carry, alarm: f < 236, f })} actors={[washer(f, 'wide')]} />
+      <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: seg(f, 254, 272), breath: f > 272 ? Math.sin(f / 15) * 5 : 0, reach, carry, alarm: f < 236, f })} actors={[washer(f, 'wide')]} />
     </Camera>
   );
 };
 
-// A02B: cùng máy A02 kéo lùi ra trung cảnh, Nam hất chăn, ngồi dậy rồi lết ra mép nệm — nối liền vào A03 (cắt theo hành động).
+// A02B (5 giây): cùng máy A02. Hất chăn chậm → ngồi dậy lờ đờ (máy lùi ra) → vươn vai, ngáp dài (máy đẩy vào cận mặt)
+// → dụi mắt → nghe tiếng chén, cau mặt, lết ra mép nệm (máy lùi ra trung cảnh) — rồi cắt theo hành động vào A03.
 const A02B: React.FC<{ w: number; f: number }> = ({ w, f }) => {
   const move = wideMove(180);
   const head = placeOn('wide', [424, 332], 33, move);
   const seat = placeOn('wide', SEAT, 168, move);
+  const s = head.scale * (168 / 33); // cỡ rig của người nằm (Sleeper dùng 168 cm)
+  const r = (LIE_ROT * Math.PI) / 180;
+  const hx = head.x + HEAD_AT[0] * s, hy = head.y + HEAD_AT[1] * s;
+  const hip = { x: hx - 345 * s * Math.sin(r), y: hy + 345 * s * Math.cos(r) };
   const close = { cx: head.x - 40, cy: head.y + 40, z: 2.75 };
-  const mid = { cx: (head.x + seat.x) / 2, cy: seat.y + 330 * seat.scale, z: 1.75 };
-  const lens = lerpLens(close, mid, seg(w, 4, 36));
-  const wake = { toss: seg(w, 0, 10), rise: seg(w, 6, 30), slide: seg(w, 28, 60), seat };
+  const sitMid = { cx: hip.x, cy: hip.y - 140 * s, z: 1.95 };
+  const face = { cx: hip.x + 10 * s, cy: hip.y - 215 * s, z: 3.1 };
+  const end = { cx: (hip.x + seat.x) / 2, cy: seat.y + 330 * seat.scale, z: 1.75 };
+  let lens = lerpLens(close, sitMid, seg(w, 6, 42));
+  lens = lerpLens(lens, face, seg(w, 44, 60));
+  lens = lerpLens(lens, end, seg(w, 100, 142));
+  const wake = { toss: seg(w, 0, 16), rise: seg(w, 12, 44), stretch: seg(w, 46, 62) * (1 - seg(w, 84, 96)), yawn: seg(w, 50, 64) * (1 - seg(w, 80, 92)), rub: seg(w, 96, 104) * (1 - seg(w, 112, 120)), slide: seg(w, 112, 146), seat };
   return (
-    <Camera lens={lens} f={f} hand={1.4}>
-      <RoomScene rays={RAYS} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: 1, phone: false, f, wake })} actors={[washer(f, 'wide')]} />
+    <Camera lens={lens} f={f} hand={w > 44 && w < 96 ? 1 : 1.4}>
+      <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: 1, phone: false, f, wake })} actors={[washer(f, 'wide')]} />
     </Camera>
   );
 };
@@ -326,7 +347,7 @@ const NamClose: React.FC<{ f: number; start: number }> = ({ f, start }) => {
   const zoom = a03 ? 1.95 + 0.06 * seg(f, 400, 492) + 0.24 * snap : 1.95 + 0.14 * seg(f, 650, 830);
   return (
     <Camera lens={seatLens(zoom)} f={f} hand={1.3}>
-      <RoomScene rays={RAYS} view="bed" door="ajar" chair="bed" phone="hidden" actors={[{ at: [300, 300], render: () => <PhoneOnMat view="bed" /> }, namActor('bed', { pose, at: SEAT, rise, mood, face, look, talk: talkAt(f, 440, 492), blink: f > 500 ? false : blinkAt(f) })]} />
+      <RoomScene rays={RAYS} falloff={0.9} view="bed" door="ajar" chair="bed" phone="hidden" actors={[{ at: [300, 300], render: () => <PhoneOnMat view="bed" /> }, namActor('bed', { pose, at: SEAT, rise, mood, face, look, talk: talkAt(f, 440, 492), blink: f > 500 ? false : blinkAt(f) })]} />
     </Camera>
   );
 };
@@ -338,7 +359,7 @@ const OverShoulder: React.FC<{ f: number; nk: { look: { view: View; facing: 1 | 
   const p = placeOn('kitchen', SINK, 168, move);
   return (
     <Camera lens={{ cx: p.x + 60 * p.scale, cy: p.y + 170 * p.scale, z: 1.35 }} f={f} hand={1.1}>
-      <RoomScene rays={RAYS} view="kitchen" door="ajar" chair="bed" move={move} actors={[
+      <RoomScene rays={RAYS} falloff={0.9} view="kitchen" door="ajar" chair="bed" move={move} actors={[
         { at: SINK, render: (q) => <NguoiKia {...q} {...LOOK} light={lit('kitchen', SINK)} mood="calm" face="binh-than-00" blink={blinkAt(f, 30)} talk={nk.talk} pose={{ ...TWIN_POSES.holdBowl, view: nk.look.view, facing: nk.look.facing }} /> },
         namActor('kitchen', { pose: LOWSIT, at: SEAT, mood: 'hesitant', look: { view: 'quarter', facing: -1 }, move }),
       ]} />
@@ -366,7 +387,7 @@ const A05: React.FC<{ f: number }> = ({ f }) => {
   const z = 1.3 + 0.08 * seg(f, 830, 1080) - 0.06 * seg(f, 1080, 1110);
   return (
     <Camera lens={{ cx: 600, cy: 640, z }} shake={shake} f={f} hand={f > 1080 ? 2.2 : 1.2}>
-      <RoomScene rays={RAYS} view="bed" door="ajar" chair="bed" phone="hidden" actors={[...(f < 1068 ? [{ at: [300, 300] as [number, number], render: () => <PhoneOnMat view="bed" /> }] : []), namActor('bed', { pose, at, mood, face, look: { view: 'three', facing: -1 }, talk: talkAt(f, 874, 926), blink: f > 1018 ? false : blinkAt(f) })]} />
+      <RoomScene rays={RAYS} falloff={0.9} view="bed" door="ajar" chair="bed" phone="hidden" actors={[...(f < 1068 ? [{ at: [300, 300] as [number, number], render: () => <PhoneOnMat view="bed" /> }] : []), namActor('bed', { pose, at, top: 95 + 65 * up, mood, face, look: { view: 'three', facing: -1 }, talk: talkAt(f, 874, 926), blink: f > 1018 ? false : blinkAt(f) })]} />
     </Camera>
   );
 };
@@ -424,7 +445,7 @@ export const HoSo02Canh01Demo: React.FC = () => {
       <AbsoluteFill style={{ background: '#d9cfb9' }}>
         <A02B w={real - WAKE_AT} f={real} />
         <FilmLook f={real} total={CANH01_TOTAL} />
-        <Overlay f={f} wake />
+        <Overlay f={f} wake w={real - WAKE_AT} />
       </AbsoluteFill>
     );
   }

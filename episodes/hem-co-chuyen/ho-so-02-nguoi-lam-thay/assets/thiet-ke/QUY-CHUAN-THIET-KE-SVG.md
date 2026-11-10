@@ -99,6 +99,8 @@ Chủ repo đã so ba kiểu viền đen, viền màu và không viền ([bảng
 
 | **Nguồn sáng đọc được**: cảnh ban ngày bật vệt nắng xiên từ cửa sổ (`RoomScene rays`) nằm sau người, chỉ phủ rất nhẹ lên nhân vật; mảng tối lạnh (`#3c4763`, độ đậm 0.55), viền sáng ấm rõ (0.75) ([xem](nang-cua-so.png)) | Vệt sáng phủ đặc lên người làm nhân vật mờ đục mất tương phản |
 
+| **Chỉ có khối sáng–tối khi đứng trong nắng**: độ đậm mảng tối/viền sáng nhân theo mức nắng chiếu tới thân (`sunExposure` của bối cảnh: dò tia nắng qua ô cửa sổ, lấy mẫu dọc thân). Ngoài nắng (bồn rửa, chỗ nằm ngủ) chỉ còn bóng tiếp đất dưới chân. Phòng tối dần theo khoảng cách tới vùng nắng (`RoomScene falloff`), đè lên cả người ([xem](bong-theo-nang.png)) | Đổ bóng cửa sổ lên người đứng trong góc không có nắng |
+
 Kiểm tra: đặt mặt cạnh thân trong cùng khung. Hai bên phải có cùng hướng sáng và cùng tỉ lệ vùng tối. Chỗ da chồng da (tay ôm bát, tay đặt lên cẳng tay) phải tách được bằng độ sáng. Bảng cũ có viền trong mục 4.1–4.5 vẫn đúng về hình khối và nếp, chỉ khác phần hiển thị viền.
 
 ### 4.1. Nét và khối

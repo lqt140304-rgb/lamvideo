@@ -762,7 +762,7 @@ const BLACK = '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0';
 // không phải đầu phẳng một màu còn tay tối cả cánh.
 const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; size?: number; children: React.ReactNode }> = ({ l, facing, behind, size = 1, children }) => {
   const id = useClipId('shade');
-  if (!l) return <>{children}</>;
+  if (!l || ((l.amount ?? 0.34) < 0.01 && !(l.rim ?? 0) && !(l.back ?? 0))) return <>{children}</>; // ngoài nắng: không khối sáng–tối
   const k = (l.depth ?? 18) * size, dx = l.x * k * facing, dy = l.y * k;
   const sil = (tx: number, ty: number, f: string) => <g transform={`translate(${tx} ${ty})`} filter={`url(#${id}-${f})`}>{children}{f === 'k' && behind}</g>;
   return (

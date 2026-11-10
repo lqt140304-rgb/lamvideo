@@ -81,6 +81,24 @@ export const lightFor = (view: RoomView, at: [number, number], source: V3 = LIGH
   return { x: sx / n, y: sy / n, back, gx: (cast.x - foot.x) / foot.scale, gy: (floorY(cast) - floorY(foot)) / foot.scale }; // px → đơn vị rig
 };
 
+/**
+ * Mức nắng cửa sổ chiếu trực tiếp lên một người đứng/ngồi tại `at` (0–1): lấy mẫu dọc thân từ `from` tới `to` cm,
+ * mỗi điểm dò ngược theo tia nắng xem có lọt qua ô cửa sổ không (mép mềm 18 cm). Ngoài nắng thì chỉ nên có bóng tiếp đất.
+ */
+export const sunExposure = (at: [number, number], from = 20, to = 160, sun = 0) => {
+  const l = Math.hypot(1, 0.62 + sun * 1.5, 0.45 - sun * 0.8);
+  const d = [-1 / l, -(0.62 + sun * 1.5) / l, (0.45 - sun * 0.8) / l];
+  const soft = (v: number, a: number, b: number) => clamp(Math.min(v - a, b - v) / 18 + 0.5, 0, 1);
+  let sum = 0, n = 0;
+  for (let y = from; y <= to; y += 10, n++) {
+    const t = (W - at[0]) / -d[0];
+    if (t < 0) continue;
+    const wy = y - d[1] * t, wz = at[1] - d[2] * t;
+    sum += soft(wy, WIN.y0, WIN.y1) * soft(wz, WIN.z0, WIN.z1);
+  }
+  return n ? sum / n : 0;
+};
+
 const hull = (pts: P2[]) => {
   const s = [...pts].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
   const cr = (o: P2, a: P2, b: P2) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
@@ -122,6 +140,8 @@ export type RoomProps = {
   sun?: number;
   /** 0–1: vệt nắng xiên từ cửa sổ xuống sàn (khối sáng mờ đè lên cả người), làm rõ hướng nguồn sáng. Chỉ ban ngày. */
   rays?: number;
+  /** 0–1: phòng tối dần theo khoảng cách tới vùng nắng (lớp multiply đè cả người), chỗ xa cửa sổ tối riêng biệt. */
+  falloff?: number;
   door?: 'ajar' | 'open' | 'closed' | 'latched';
   chair?: keyof typeof SEATS;
   phone?: 'mat' | 'desk' | 'hidden';
@@ -142,7 +162,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', bed: 'Góc nệm' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway';
@@ -752,6 +772,15 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         </g>
       )}
       {!night && !inHall && <rect width="1920" height="1080" fill={`url(#${uid}-win)`} />}
+      {falloff > 0 && !night && !inHall && (() => {
+        const c = P([330, 40, 230]), r = cam.pxcm([330, 40, 230]) * 420;
+        return (
+          <>
+            <defs><radialGradient id={`${uid}-fall`} gradientUnits="userSpaceOnUse" cx={c[0]} cy={c[1]} r={r}><stop offset=".25" stopColor="#1e2430" stopOpacity="0" /><stop offset=".62" stopColor="#1e2430" stopOpacity={0.3 * falloff} /><stop offset="1" stopColor="#1e2430" stopOpacity={0.55 * falloff} /></radialGradient></defs>
+            <rect width="1920" height="1080" fill={`url(#${uid}-fall)`} style={{ mixBlendMode: 'multiply' }} />
+          </>
+        );
+      })()}
       <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} />
       {children}
     </svg>
