@@ -502,8 +502,8 @@ export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' 
   phone: { ...STAND_POSE, neck: -4, armR: { a: -114, b: 121, rot: -1 }, wristR: -48, handR: 'phone', frontR: true, prop: 'phone' },
   offer: { ...STAND_POSE, tilt: 3, neck: -3, armL: { a: 26, b: 50, rot: 1 }, handL: 'open', frontL: true, palmUp: 'L' },
   type: { ...STAND_POSE, tilt: 9, neck: 6, armR: { a: 33, b: 65 }, armL: { a: -24, b: 115, rot: 1 }, handR: 'type', handL: 'type', frontR: true, frontL: true, ...SIT_LEGS },
-  // Ngồi bệ thấp (~24 cm, mép nệm): đùi dốc lên nhẹ, bàn chân đặt ra trước gối, cẳng tay gác lên gối. Khác `sit` (ghế ~45 cm).
-  sitLow: { ...STAND_POSE, tilt: 6, neck: -2, armR: { a: 38, b: 52 }, armL: { a: 30, b: 60, rot: -1 }, handR: 'open', handL: 'open', frontR: true, frontL: true, legR: { a: 104, b: 72 }, legL: { a: 98, b: 66 } },
+  // Ngồi bệ thấp (~24 cm, mép nệm): đùi dốc lên nhẹ, bàn chân đặt ra trước gối; tay gần máy đặt dọc đùi, bàn tay trên gối, tay xa buông bên hông. Khác `sit` (ghế ~45 cm).
+  sitLow: { ...STAND_POSE, tilt: 6, neck: -2, armR: { a: 20, b: 58 }, armL: { a: 18, b: 40, rot: -1 }, handR: 'rest', handL: 'rest', frontR: true, frontL: false, legR: { a: 104, b: 72 }, legL: { a: 98, b: 66 } },
   // Nằm nghiêng, gối hơi co (co nhiều thì gối thò ra mép nệm vì phối cảnh), hai tay xuôi theo thân, nằm trong chăn. Vẽ xoay 90° quanh đỉnh đầu (đầu phải, chân trái), dùng góc 3/4 quay ra máy.
   lie: { ...STAND_POSE, tilt: -4, neck: -6, armR: { a: 18, b: 24 }, armL: { a: 10, b: 20, rot: -1 }, legR: { a: 36, b: 40 }, legL: { a: 30, b: 30 } },
 };
@@ -713,10 +713,12 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; chi
       {children}
       <defs>
         <filter id={`${id}-w`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={WHITE} /></filter>
+        {/* Viền sáng co vào trong đường bao (erode) để không phủ lên nét mực, nếu không nét bị nhòa thành đứt quãng. */}
+        <filter id={`${id}-wi`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={WHITE} /><feMorphology operator="erode" radius={3.2} /></filter>
         <filter id={`${id}-k`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={BLACK} /><feGaussianBlur stdDeviation={l.soft ?? 5} /></filter>
         <mask id={`${id}-d`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}{sil(dx, dy, 'k')}</mask>
         <mask id={`${id}-f`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}</mask>
-        {!!l.rim && <mask id={`${id}-r`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}{sil(-dx * 0.45, -dy * 0.45, 'k')}</mask>}
+        {!!l.rim && <mask id={`${id}-r`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'wi')}{sil(-dx * 0.45, -dy * 0.45, 'k')}</mask>}
       </defs>
       {!!l.back && <rect {...B6} fill={l.shade ?? '#4a5260'} opacity={(l.amount ?? 0.34) * l.back * 0.55} mask={`url(#${id}-f)`} style={{ mixBlendMode: 'multiply' }} />}
       <rect {...B6} fill={l.shade ?? '#4a5260'} opacity={l.amount ?? 0.34} mask={`url(#${id}-d)`} style={{ mixBlendMode: 'multiply' }} />

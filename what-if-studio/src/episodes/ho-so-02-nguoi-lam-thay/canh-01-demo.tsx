@@ -30,12 +30,13 @@ const blinkAt = (f: number, seed = 0) => (f + seed) % 84 < 3;
 
 // Ngồi mép nệm thấp (24 cm): đùi hơi dốc lên, cẳng chân thẳng xuống sàn.
 const LOWSIT: JointPose = TWIN_POSES.sitLow; // ngồi mép nệm thấp, gối cao hơn hông
-const RUB: JointPose = { ...LOWSIT, armR: { a: -114, b: 121, rot: -1 }, wristR: -40, handR: 'fist', frontR: true };
+const RUB: JointPose = { ...LOWSIT, armR: { a: -45, b: 138 }, wristR: -50, // bắp tay thả, cẳng tay gập lên mặt: giơ cả bắp tay về máy làm vai phồng thành cục
+  handR: 'fist', frontR: true };
 const RUB_SIDE: JointPose = { ...LOWSIT, armR: { a: 84, b: 122 }, wristR: -40, handR: 'fist', frontR: true }; // nhìn nghiêng: tay đưa lên mặt về phía trước, không lộn ra sau lưng
 const TOUCH: JointPose = { ...RUB, wristR: -55, handR: 'open' };
 const REACH: JointPose = { ...LOWSIT, tilt: 2, armR: { a: -34, b: 12 }, handR: 'open' };
 const GRAB: JointPose = { ...REACH, handR: 'phone', prop: 'phone' };
-const HOLD: JointPose = { ...STAND_POSE, tilt: -4, neck: 4, armR: { a: -70, b: 95 }, handR: 'phone', prop: 'phone', frontR: true, armL: { a: 6, b: 14, rot: -1 }, handL: 'open', legR: { a: 8, b: 10 }, legL: { a: -8, b: 6 } };
+const HOLD: JointPose = { ...STAND_POSE, tilt: -4, neck: 4, armR: { a: -30, b: 130 }, wristR: -20, handR: 'phone', prop: 'phone', frontR: true, armL: { a: 6, b: 14, rot: -1 }, handL: 'open', legR: { a: 8, b: 10 }, legL: { a: -8, b: 6 } };
 const SEAT_DY = solveRig(LOWSIT).dy;
 
 type Lens = { cx: number; cy: number; z: number };
