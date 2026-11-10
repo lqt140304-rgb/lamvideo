@@ -547,7 +547,7 @@ const crease = (c: { root: P; mid: P; end: P }, r: number) => {
 // Bàn tay kiểu Mẫu B: ngón gộp thành một khối, chỉ lộ gợn đầu ngón. Thứ tự từ phía ngón cái.
 const HAND_SHAPE: Record<Exclude<HandKind, 'none'>, { base: number[]; len: [number, number][]; r: [number, number, number]; fan: number; curl: number; thumb: [P, P] }> = {
   open: { base: [9.6, 3.2, -3.2, -9.6], len: [[11, 10], [12, 10], [11, 9], [9, 8]], r: [5, 4.7, 4.2], fan: 12, curl: 8, thumb: [{ x: 20, y: 10 }, { x: 29, y: 20 }] },
-  rest: { base: [8, 0, -8], len: [[10, 9], [12, 10], [10, 8]], r: [6.4, 6, 5.6], fan: 4, curl: 12, thumb: [{ x: 15, y: 12 }, { x: 15, y: 22 }] },
+  rest: { base: [8, 0, -8], len: [[8, 7], [9, 8], [8, 6]], r: [6.4, 6, 5.6], fan: 3, curl: 22, thumb: [{ x: 13, y: 12 }, { x: 12, y: 20 }] }, // gọn cỡ nắm tay, không to hơn tay đang cầm
   hold: { base: [8, 0, -8], len: [[8, 7], [9, 7], [8, 6]], r: [6.4, 6, 5.6], fan: 3, curl: 52, thumb: [{ x: 17, y: 11 }, { x: 10, y: 22 }] },
   fist: { base: [8, 0, -8], len: [[6, 4], [6, 4], [6, 4]], r: [6.4, 6, 5.6], fan: 0, curl: 75, thumb: [{ x: 13, y: 14 }, { x: 3, y: 20 }] },
   type: { base: [9.6, 3.2, -3.2, -9.6], len: [[10, 9], [11, 9], [10, 8], [9, 7]], r: [5, 4.7, 4.2], fan: 5, curl: 38, thumb: [{ x: 18, y: 10 }, { x: 24, y: 19 }] },
@@ -634,12 +634,28 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
 };
 
 // Tay gập nhiều nhìn gầy đi so với tay buông, nên khối tay đầy dần theo độ gập.
-const armShapes = (c: ReturnType<typeof solveRig>['armR']) => {
+const armBend = (c: ReturnType<typeof solveRig>['armR']) => {
   const u = Math.atan2(c.mid.y - c.root.y, c.mid.x - c.root.x), f = Math.atan2(c.end.y - c.mid.y, c.end.x - c.mid.x);
-  const bend = Math.abs(((((f - u) * 180) / Math.PI + 540) % 360) - 180);
-  const k = clamp((bend - 30) / 60);
-  const w: [number, number, number] = [19 + 1.5 * k, 16 + 4 * k, 13.5 + 3.5 * k];
+  return Math.abs(((((f - u) * 180) / Math.PI + 540) % 360) - 180);
+};
+const armWidths = (c: ReturnType<typeof solveRig>['armR']): [number, number, number] => {
+  const k = clamp((armBend(c) - 30) / 60);
+  return [19 + 1.5 * k, 16 + 4 * k, 13.5 + 3.5 * k];
+};
+const armShapes = (c: ReturnType<typeof solveRig>['armR']) => {
+  const w = armWidths(c);
   return [limbContour(c, w), circle(c.mid, w[1]), circle(c.root, w[0])];
+};
+// Tay gập mạnh (cẳng tay quặt ngược lên ngực): tách bắp tay (nằm dưới tay áo) và cẳng tay (đè lên tay áo),
+// nếu vẽ chung một khối rồi phủ tay áo lên thì mép áo cắt ngang cẳng tay thành răng cưa.
+const FOLD_BEND = 95;
+const upperArmShapes = (c: ReturnType<typeof solveRig>['armR']) => {
+  const w = armWidths(c);
+  return [limbContour({ root: c.root, mid: mix(c.root, c.mid, 0.5), end: c.mid }, [w[0], (w[0] + w[1]) / 2, w[1]]), circle(c.root, w[0]), circle(c.mid, w[1])];
+};
+const foreArmShapes = (c: ReturnType<typeof solveRig>['armR']) => {
+  const w = armWidths(c);
+  return [limbContour({ root: c.mid, mid: mix(c.mid, c.end, 0.5), end: c.end }, [w[1], (w[1] + w[2]) / 2, w[2]]), circle(c.mid, w[1])];
 };
 const sleeveShapes = (c: ReturnType<typeof solveRig>['armR'], o: Outfit) => {
   const end = mix(c.root, c.mid, o.sleeveEnd);
@@ -741,12 +757,13 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   const frontR = side || (!away && pose.frontR); // nghiêng: tay gần luôn trước thân, tay xa luôn sau thân
   const frontL = !side && !away && pose.frontL;
   const crotch = 414 - 110 * clamp(Math.max(Math.abs(pose.legR.a), Math.abs(pose.legL.a)) / 70); // đáy quần kéo lên khi đùi đưa ra
-  const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => (
-    <g>
-      {held}
-      <Blob fill={PALETTE.skin} d={[...armShapes(c), ...handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind)]} />
-    </g>
-  );
+  // under: vẽ dưới tay áo; over: vẽ đè lên tay áo (chỉ có khi tay gập mạnh).
+  const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => {
+    const hand = handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind);
+    if (armBend(c) < FOLD_BEND) return { under: <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} /></g>, over: null };
+    return { under: <Blob fill={PALETTE.skin} d={upperArmShapes(c)} />, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
+  };
+  const whole = (a: { under: React.ReactNode; over: React.ReactNode }) => <>{a.under}{a.over}</>;
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
   const phoneOnL = facing === -1;
   const frontSleeve = (c: typeof r.armR) => [...sleeveShapes(c, o), ...(side ? [] : [circle(c.root, 29)])]; // bọc góc vai của thân áo, khỏi lòi một mẩu khi giơ tay
@@ -767,7 +784,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
       )}
       <g transform={`translate(${pose.x} ${r.dy})`}>
-        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}><Shade l={l} facing={facing}>{armL}</Shade></g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
+        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
           {!side && <Blob fill={o.pants} d={[`M -30 335 H 32 L 30 ${crotch - 4} Q 1 ${crotch - 30} -28 ${crotch - 4} Z`]} />}
@@ -778,8 +795,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
           <path d={side ? 'M -30 318 H 36 V 352 H -30 Z' : `M -46 318 H 48 V 350 H 28 Q 1 ${Math.min(crotch - 34, 372)} -26 350 H -46 Z`} fill={o.pants} stroke="none" />
         </Shade>
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
-          {!frontL && !side && <Shade l={l} facing={facing}>{armL}</Shade>}
-          {!frontR && <Shade l={l} facing={facing}>{armR}</Shade>}
+          {!frontL && !side && <Shade l={l} facing={facing}>{whole(armL)}</Shade>}
+          {!frontR && <Shade l={l} facing={facing}>{whole(armR)}</Shade>}
           <Shade l={l} facing={facing}>
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
             {!frontR && <Cuff c={r.armR} o={o} />}
@@ -787,8 +804,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             <g stroke={PALETTE.ink}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
           <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing}>{head}</Shade></g>
-          {frontL && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armL}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} /></Shade>}
-          {frontR && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armR}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} /></Shade>}
+          {frontL && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{armL.over}</Shade>}
+          {frontR && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{armR.over}</Shade>}
         </g>
       </g>
     </g>
