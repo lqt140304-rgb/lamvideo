@@ -104,10 +104,17 @@ const profilePath = (d: number) => {
 const talkDrop = (t: Talk) => (t.shape === 'closed' || t.shape === 'pressed' || t.shape === 'smile' ? 0 : 3 + 11 * clamp(t.open ?? 0.4));
 
 // Ghép nét mặt thư viện: bỏ lớp mũi (giữ mũi nhân vật), tuỳ chọn bỏ mắt (đang chớp) và miệng (đang nói).
-const faceMarkup = (key: FaceKey, o: { eyes: boolean; mouth: boolean }) => {
+// Mắt thư viện nhỏ hơn mắt gốc của Nam: tách đôi lớp mắt theo đường giữa (x = 7, hệ trước translate của nhóm features)
+// rồi phóng từng mắt quanh tâm của nó (-16,73) / (30,70), để mắt to ra mà không dãn khoảng cách hai mắt.
+const EYE_GROW = 1.28;
+const faceMarkup = (key: FaceKey, o: { eyes: boolean; mouth: boolean; uid: string }) => {
   const f = FACES[key];
-  const keep = ['color', ...(o.eyes ? ['eyes'] : []), 'brows', 'details', ...(o.mouth ? ['mouth'] : [])] as (keyof typeof f.layers)[];
-  return f.defs + f.wrap + keep.map((l) => f.layers[l]).join('') + '</g>';
+  const one = (side: 'l' | 'r', cx: number, cy: number) =>
+    `<g clip-path="url(#${o.uid}-${side})"><g transform="translate(${cx} ${cy}) scale(${EYE_GROW}) translate(${-cx} ${-cy})">${f.layers.eyes}</g></g>`;
+  const eyes = o.eyes
+    ? `<defs><clipPath id="${o.uid}-l"><rect x="-80" y="0" width="87" height="160"/></clipPath><clipPath id="${o.uid}-r"><rect x="7" y="0" width="87" height="160"/></clipPath></defs>` + one('l', -16, 73) + one('r', 30, 70)
+    : '';
+  return f.defs + f.wrap + f.layers.color + eyes + f.layers.brows + f.layers.details + (o.mouth ? f.layers.mouth : '') + '</g>';
 };
 
 const headFrame = (x: number, y: number, scale: number) => ({ transform: `translate(${x} ${y}) scale(${scale})`, stroke: PALETTE.ink, style: { strokeWidth: lw(3.5) }, strokeLinejoin: 'round' as const, strokeLinecap: 'round' as const });
@@ -179,10 +186,13 @@ export const StudentTwinHead: React.FC<{
   blink?: boolean;
   /** Nét mặt phân mức từ thư viện cartoon-soft (vd 'so-hai-02'); chỉ áp ở chính diện và 3/4, thay mắt–mày–miệng của `mood`. */
   face?: FaceKey;
+  /** Chuyển dần từ nét mặt trước: vẽ chồng `faceFrom` mờ dần trong khi `face` hiện dần theo `faceMix` 0–1. */
+  faceFrom?: FaceKey;
+  faceMix?: number;
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face }) => {
+}> = ({ mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1 }) => {
   const markNear = identity === 'nam' ? facing === 1 : facing === -1;
   const isShocked = mood === 'shocked';
   const isSuspicious = mood === 'suspicious';
@@ -227,7 +237,9 @@ export const StudentTwinHead: React.FC<{
       {face ? (
         <>
           {/* Gốc thư viện (giữa hai mắt) đặt vào giữa hai mắt Nam; giữ cỡ mắt gần mắt gốc, kéo dọc để miệng rơi đúng cằm. Giữ mũi và nốt ruồi của nhân vật. */}
-          <g transform={`translate(9.5 ${front ? 99 : 97.5}) scale(1 1.08)`} dangerouslySetInnerHTML={{ __html: faceMarkup(face, { eyes: !blink, mouth: !talk }) }} />
+          {[...(faceFrom && faceFrom !== face && faceMix < 1 ? [[faceFrom, 1 - faceMix] as const] : []), [face, faceFrom && faceFrom !== face ? faceMix : 1] as const].map(([k, op], i) => (
+            <g key={i} opacity={op} transform={`translate(9.5 ${front ? 99 : 97.5}) scale(1 1.08)`} dangerouslySetInnerHTML={{ __html: faceMarkup(k, { eyes: !blink, mouth: !talk, uid: `${clip}-f${i}` }) }} />
+          ))}
           {blink && <path d="M -27 102 Q -11 108 5 101 M 16 99 Q 30 104 45 98" fill="none" style={{ strokeWidth: lw(3) }} />}
           <circle cx={front ? (identity === 'nam' ? -32 : 52) : (markNear ? -32 : 47)} data-identity-mark={identity} cy={78} r={2.2} fill={PALETTE.ink} stroke="none" />
           <path d={front ? 'M 4 110 Q 10 118 16 110' : 'M 13 113 Q 25 115 22 123 L 13 125'} fill="none" style={{ strokeWidth: lw(2.5) }} />
@@ -864,8 +876,10 @@ export const StudentTwinBody: React.FC<{
   blink?: boolean;
   light?: Light;
   face?: FaceKey;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face }) => (
-  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} />} />
+  faceFrom?: FaceKey;
+  faceMix?: number;
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix }) => (
+  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */

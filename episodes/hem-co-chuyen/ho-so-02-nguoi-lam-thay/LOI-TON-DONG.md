@@ -16,8 +16,8 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 | Vừa | Bốn dáng `wary`, `phone`, `offer`, `type` | Mới dựng và soi ở góc 3/4; góc khác chưa kiểm tra |
 | Vừa | Tay khi bước ở 3/4 trái và 1/4 | Ở pha hai tay vung vào giữa, tay chỉ hơi mở ra nên trông cứng hơn 3/4 phải |
 | Nhỏ | Mũi 3/4 khi mắt mở to | Dáng sốc, sợ thì vòng mắt có thể chạm mũi |
-| Nhỏ | Dáng nằm `lie`, ngồi thấp `sitLow` | Đã có (10/11). `lie` là rig đứng xoay phẳng 87° quanh đỉnh đầu ở góc wide: tay/chân giơ ra đều nhấc khỏi mặt nệm, nên tay với điện thoại ở A02 là nét vẽ riêng từ khớp vai; chưa có bản nằm cho góc máy khác, chưa nhận ánh sáng. `sitLow` mới soi ở 3/4 trái |
-| Vừa | Nét mặt phân mức (`face`) | Ghép bộ cartoon-soft cho đầu chính diện/3/4; góc nghiêng, 1/4, sau lưng vẫn dùng `mood`. Mắt thư viện nhỏ hơn mắt gốc của Nam; lớp màu sợ hãi (tím dưới mắt) dễ đọc thành vết bầm dưới ánh sáng ấm — cần chủ repo duyệt mức đậm. Đổi nét đang cắt cứng, chưa nội suy |
+| Nhỏ | Dáng nằm `lie`, ngồi thấp `sitLow` | `lie` là rig đứng xoay phẳng quanh đỉnh đầu, đã nhận ánh sáng cửa sổ (hướng xoay theo thân). Tay/chân giơ ra đều nhấc khỏi mặt nệm, nên tay với điện thoại là nét vẽ riêng từ khớp vai. Mới đặt cho góc wide (A01–A02); góc khác cần chỉnh lại góc xoay và điểm neo. `sitLow` mới soi ở 3/4 trái |
+| Nhỏ | Nét mặt phân mức (`face`) | Đã phóng to từng mắt quanh tâm (giữ khoảng cách hai mắt) và chuyển dần 4 frame khi đổi nét (`faceFrom`/`faceMix`, giữa chừng thấy hai lớp mờ chồng). Góc nghiêng, 1/4, sau lưng vẫn dùng `mood`. Lớp tím dưới mắt khi sợ chờ chủ repo duyệt mức đậm |
 | Nhỏ | Miệng góc nghiêng | Đã làm lại (10/11): hàm hạ mở khe giữa hai môi, lòng miệng nằm sau da; nét khép nằm trong má. Xem [bảng](assets/thiet-ke/mieng-nghieng.png). Khe còn nhỏ ở mức hé, chưa có lưỡi |
 | Chưa soi | Khung miệng lúc nói, Người Kia | Chưa kiểm tra riêng ở cận cảnh |
 
@@ -37,7 +37,7 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 
 | Mức | Việc | Chi tiết |
 |---|---|---|
-| Vừa | Demo Cảnh 1 (`canh-01-demo.tsx`) | Đã sửa 10/11: Nam nằm toàn thân bằng rig, một tấm chăn đi cùng người (đắp ngang ngực, kéo trùm đầu), tay với tắt chuông rồi kéo điện thoại vào chăn; ngồi thấp đúng chiều cao nệm; nét mặt phân mức theo nhịp; tay dụi mắt A04B; đứng cầm máy ngang ngực. Còn: chăn là mảng phẳng, không có nếp rủ qua mép nệm; giường trống ở A03–A05 dùng chăn cuộn cũ của phòng; cáp sạc mất ở A01–A02; sau khi trùm chăn chỉ có nhịp thở; đầu gối chưa chạm ghế thật |
+| Nhỏ | Demo Cảnh 1 (`canh-01-demo.tsx`) | Đã có: nằm toàn thân có ánh sáng, một tấm chăn có bề dày rủ xuống nệm, cáp sạc nối tới ổ cắm, điện thoại nằm trên mặt nệm; ngồi thấp; nét mặt chuyển dần; đứng dậy sát ghế. Còn: giường trống ở A03–A05 dùng chăn cuộn của phòng (đọc như chăn bị hất ra, chưa khớp hình dạng tấm chăn lúc nằm); ghế chưa xê dịch khi va; sau khi trùm chăn chỉ có nhịp thở |
 | Nhỏ | Ánh sáng | Mảng tối dùng vật che phía sau cho tay trước thân; chân trước chân và tay sau thân chưa soi riêng ở góc nghiêng/sau lưng |
 
 Chưa có storyboard, giọng hay timeline chính thức cho Hồ sơ 2. Đoạn comic thử và âm thanh (`comic.tsx`, `sound.cjs`, `what-if-studio/public/ho-so-02-nguoi-lam-thay/`) chỉ ở máy, không đưa lên repo.

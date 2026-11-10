@@ -128,7 +128,7 @@ export type RoomProps = {
   drawerOpen?: boolean;
   move?: CameraMove;
   /** Vẽ dưới chăn, trên gối của Nam (đầu người đang ngủ). */
-  sleeper?: (p: { x: number; y: number; scale: number }) => React.ReactNode;
+  sleeper?: (p: { x: number; y: number; scale: number; plug?: [number, number] }) => React.ReactNode; // plug: ổ cắm cạnh nệm trên màn hình, cho cáp sạc
   wallet?: boolean;
   clockMinutes?: number | null;
   /** Nhân vật/đạo cụ đứng trên sàn; được xếp lớp theo độ sâu cùng đồ đạc. */
@@ -625,7 +625,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     box({ x: [276, 330], y: [h, h + 11], z: [232, 288], c: '#a4b5a4', top: '#b3c2b0' });
     line([276, h + 6, 288.2], [330, h + 6, 288.2], '#8c9e8c', 1.6);
     // Có người ngủ thì người tự mang tấm chăn của mình (đắp theo dáng nằm); phòng chỉ vẽ chăn rời khi giường trống.
-    if (sleeper) { const at: V3 = [424, h + 9, 332], s = P(at); sink.push(<g key={key++}>{sleeper({ x: s[0], y: s[1], scale: (168 / 590) * cam.pxcm(at) })}</g>); }
+    if (sleeper) { const at: V3 = [424, h + 9, 332], s = P(at); sink.push(<g key={key++}>{sleeper({ x: s[0], y: s[1], scale: (168 / 590) * cam.pxcm(at), plug: [P([459, 31, 378])[0], P([459, 31, 378])[1]] })}</g>); }
     else {
       const b = h + 5;
       soft([[258, b, 318], [272, b + 12, 302], [305, b + 16, 298], [338, b + 12, 305], [372, b + 18, 300], [392, b + 8, 312], [396, b + 12, 338], [386, b + 8, 366], [352, b + 2, 374], [312, b, 374], [276, b, 372], [256, b + 3, 352]], C.blanket);
@@ -633,6 +633,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       curve([[294, b + 8, 360], [322, b + 14, 346], [360, b + 10, 354]], '#4e6c64', 2.4);
       curve([[350, b + 14, 312], [372, b + 12, 330], [380, b + 6, 352]], '#8aa69f', 2.4);
     }
+    if (phone !== 'mat' && sleeper) box({ x: [458.5, 460], y: [26, 36], z: [372, 384], c: '#f1ecdb', ink: false });
     if (phone === 'mat') {
       box({ x: [388, 397], y: [h, h + 1], z: [362, 373], c: '#3a4a47' });
       curve([[397, h + 1, 368], [432, h, 373], [452, 22, 378], [459, 30, 378]], '#55655d', 2);
