@@ -4,7 +4,7 @@ import { FONT } from '../../engine/fonts';
 import { JointPose, mixPose, NguoiKia, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, StudentTwinHead, TungSoccer, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { placeOn, RoomScene } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 import { Mirror } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/dao-cu';
-import { EXTRA_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/nhan-vat-va-tu-the';
+import { EXTRA_POSES, gripAt } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/nhan-vat-va-tu-the';
 import { MirrorRealm } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/boi-canh';
 import { LaptopScreen } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/giao-dien';
 import { Camera, FilmLook, HEAD_AT, lerpLens, Lens, LOOK, RAYS, seg, Sleeper, wideMove } from './canh-01-demo';
@@ -220,13 +220,15 @@ const Slice2C: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const push = seg(f, 50, 80);
   const SEAT_NEAR: [number, number] = [262, 360];
   const tung = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [276, 240]); return <TungSoccer {...p} mood="normal" blink={f % 70 < 3} pose={{ ...RUB_CALF, tilt: RUB_CALF.tilt + rub * 0.3, view: 'three', facing: -1 }} />; } };
+  const namCup: JointPose = { ...mixPose(TWIN_POSES.sitLow, OFFER_CUP, push), handL: 'hold' };
+  const cupAt = gripAt(namCup, 'L');
   const nam = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [318, 252]); return (
     <g>
-      <StudentTwinBody {...LOOK} {...p} shirt={PALETTE.nam.sleepShirt} mood="calm" face={push > 0.5 ? 'nhe-nhom-02' : 'buon-01'} pose={{ ...mixPose(TWIN_POSES.sitLow, OFFER_CUP, push), view: 'three', facing: 1 }} />
+      <StudentTwinBody {...LOOK} {...p} shirt={PALETTE.nam.sleepShirt} mood="calm" face={push > 0.5 ? 'nhe-nhom-02' : 'buon-01'} pose={{ ...namCup, view: 'three', facing: 1 }} />
       {/* cốc nước: đẩy dần sang phía Tùng */}
-      <g transform={`translate(${p.x + (60 + 120 * push) * p.scale} ${p.y + 360 * p.scale}) scale(${p.scale})`}>
-        <path d="M-22 -40H22L17 20Q0 28-17 20Z" fill="#cfe6e8" opacity={0.85} />
-        <path d="M-19 -18H19L16 18Q0 24-16 18Z" fill="#9fd0d8" opacity={0.7} />
+      <g transform={`translate(${p.x + cupAt.x * p.scale} ${p.y + cupAt.y * p.scale}) scale(${p.scale})`}>
+        <path d="M-20 -46H20L16 22Q0 30-16 22Z" fill="#cfe6e8" opacity={0.9} />
+        <path d="M-18 -22H18L15 20Q0 26-15 20Z" fill="#9fd0d8" opacity={0.75} />
       </g>
     </g>
   ); } };
@@ -262,15 +264,17 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
     <AbsoluteFill style={{ background: '#0b1211' }}>
       <div style={{ position: 'absolute', inset: 0, transform: `scale(${z}) translateX(${glitch ? (f % 2 ? 14 : -10) : 0}px)`, transformOrigin: '1000px 480px' }}>
         <svg width={1920} height={1080}>
+          <defs><linearGradient id="uplight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#000" stopOpacity=".75" /><stop offset=".2" stopColor="#000" stopOpacity=".35" /><stop offset=".34" stopColor="#000" stopOpacity="0" /><stop offset=".7" stopColor="#3ff0d8" stopOpacity=".14" /><stop offset="1" stopColor="#3ff0d8" stopOpacity=".3" /></linearGradient></defs>
           <g transform="translate(1390 1500) scale(1.6)">
             <Mirror w={MW} h={MH}>
               <rect width={MW} height={MH} fill="#101917" />
               {swap ? (
-                <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={free > 0.5 ? undefined : namFace3(lagT)} mood={free > 0.5 ? 'eerie_smirk' : 'calm'} blink={free > 0.5 ? false : blink} pose={{ ...reflPose, view: free > 0.5 ? 'front' : 'three', facing: -1 }} />
+                <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={free > 0.5 ? 'cuoi-che-giau-03' : namFace3(lagT)} mood={free > 0.5 ? 'eerie_smirk' : 'calm'} blink={free > 0.5 ? false : blink} pose={{ ...reflPose, view: free > 0.5 ? 'front' : 'three', facing: -1 }} />
               ) : (
                 <StudentTwinBody {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={namFace3(f)} mood="sleepy" blink={blink} talk={talk} pose={{ ...reflPose, view: 'three', facing: -1 }} />
               )}
               <rect width={MW} height={MH} fill="#3cc6c0" opacity={0.05 + 0.08 * free} />
+              <rect width={MW} height={MH} fill="url(#uplight)" opacity={free} />
             </Mirror>
           </g>
           <StudentTwinBody {...LOOK} x={760} y={150} scale={1.55} face={namFace3(f)} mood="sleepy" blink={blink} talk={talk} pose={{ ...namPose3(f), view: 'three', facing: 1 }} />
@@ -312,7 +316,7 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const rx = MW * 0.32, ry = MH * 0.1, rs = 0.95;
   const vw = 1920 * realmZoom, vh = 1080 * realmZoom;
   const realm = (
-    <svg width={MW} height={MH} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.78} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
+    <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.78} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
       <MirrorRealm ripple={f / 40} floating={false} />
     </svg>
   );
@@ -325,7 +329,7 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
           <g transform="translate(1180 1010) scale(0.98)">
             <Mirror w={MW} h={MH} progress={ripple} phase={f / 6}>
               {realm}
-              <NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood={smirk ? 'eerie_smirk' : 'calm'} blink={false} pose={reflPose} />
+              <NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood={smirk ? 'eerie_smirk' : 'calm'} face={smirk ? 'cuoi-che-giau-03' : 'cuoi-che-giau-01'} blink={false} pose={reflPose} />
             </Mirror>
             <g transform={`translate(${-MW / 2} ${-MH})`}>
               {/* Nam: quay lưng khỏi gương rồi bước đi, không hay biết */}
@@ -354,8 +358,8 @@ const Shot5: React.FC<{ f: number }> = ({ f }) => {
         <svg width={1920} height={1080}>
           <g transform={`translate(960 1420) scale(${1.45 + 0.004 * f})`}>
             <Mirror w={MW} h={MH}>
-              <svg width={MW} height={MH} viewBox={`${1160 - vw * 0.5} ${880 - vh * 0.8} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice"><MirrorRealm floating={false} /></svg>
-              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.1} scale={0.95} mood="eerie_smirk" blink={false} pose={{ ...STAND_POSE, view: 'front' }} />
+              <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.5} ${880 - vh * 0.8} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice"><MirrorRealm floating={false} /></svg>
+              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.1} scale={0.95} mood="eerie_smirk" face="cuoi-che-giau-03" blink={false} pose={{ ...STAND_POSE, neck: -5, view: 'front' }} />
             </Mirror>
           </g>
         </svg>
