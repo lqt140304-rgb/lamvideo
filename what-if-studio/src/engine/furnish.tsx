@@ -658,7 +658,7 @@ export const WoodenSofa: React.FC<{
 /**
  * Vintage treadle sewing machine table (`SewingTable` / Bàn máy may cổ điển):
  * Cast-iron filigree legs, foot treadle, warm wooden tabletop, black & gold sewing machine head,
- * handwheel, spools of thread, and draped fabric. Essential for Bà Sáu in *Hẻm Có Chuyện*.
+ * handwheel, spools of thread, and draped fabric. Essential for Bà Sáu in *The Crack in Reality*.
  * Place at (x, y) = floor contact center.
  */
 export const SewingTable: React.FC<{

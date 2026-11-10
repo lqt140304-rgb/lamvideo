@@ -689,7 +689,7 @@ export const PizzaBox: React.FC<{ x: number; y: number; w?: number; lid?: boolea
 /**
  * A phone, from above or held: x, y its centre, w its width, `rot` its turn. Dark and glossy when `on` is 0; lit when
  * `on` > 0, showing an incoming call (`caller`, an avatar, a red and a green button) or a voice memo player (`voiceMemo` > 0).
- * `cracked` (0..1) overlays a spiderweb screen crack (for Hẻm Có Chuyện / dramatic props); `buzz` draws vibration marks.
+ * `cracked` (0..1) overlays a spiderweb screen crack (for The Crack in Reality / dramatic props); `buzz` draws vibration marks.
  */
 export const Phone: React.FC<{
   x: number;
@@ -840,7 +840,7 @@ export const PaperBall: React.FC<{ x: number; y: number; r?: number; rot?: numbe
 
 // ---------- Vietnamese household & story props ----------
 
-/** A printed family photograph on glossy paper with white border (e.g., mother and two children in Hẻm Có Chuyện). */
+/** A printed family photograph on glossy paper with white border (e.g., mother and two children in The Crack in Reality). */
 export const PhotoPrint: React.FC<{
   x: number;
   y: number;

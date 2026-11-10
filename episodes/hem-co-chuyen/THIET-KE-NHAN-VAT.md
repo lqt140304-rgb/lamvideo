@@ -1,4 +1,4 @@
-# Hẻm Có Chuyện — hướng thiết kế nhân vật
+# The Crack in Reality (Hẻm Có Chuyện) — hướng thiết kế nhân vật
 
 **Nhân vật xuyên series — 10/11/2026:** [mẫu truy vết và bộ biểu cảm đã duyệt](assets/nguoi-truy-vet/README.md): nam khoảng 20 tuổi, đen/than với điểm đỏ trầm; toàn thân V7 hiện hành, 27 nét theo 3 mức và mặt trung tính. Đây là mẫu của nhân vật đại diện chủ repo, chưa phải rig chung hoặc lệnh đổi các vai đã có.
 

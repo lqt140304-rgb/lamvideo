@@ -1881,7 +1881,7 @@ export const EpisodeTitleBanner: React.FC<{
   s?: number;
   opacity?: number;
   subtitle?: string;
-}> = ({ x = 960, y = 210, s = 1, opacity = 1, subtitle = 'HẺM CÓ CHUYỆN  •  TẬP 01' }) => (
+}> = ({ x = 960, y = 210, s = 1, opacity = 1, subtitle = 'THE CRACK IN REALITY  •  HỒ SƠ 01' }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`} opacity={opacity}>
     {/* Soft dark sky cushion behind title so stars never slice through letter strokes (`vùng ít sao quanh chữ`) */}
     <ellipse cx={0} cy={8} rx={480} ry={105} fill="#080D1A" opacity={0.78} />

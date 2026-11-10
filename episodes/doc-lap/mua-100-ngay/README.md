@@ -1,6 +1,6 @@
 # Chuyện gì xảy ra nếu mưa liên tục 100 ngày?
 
-**Loại:** tập What If độc lập, được nhập lại từ dự án trước. Không thuộc thế giới Hẻm Có Chuyện. Nhập ngày 07/11/2026, không sáng tác lại hoặc tạo media mới trong lượt này.
+**Loại:** tập What If độc lập, được nhập lại từ dự án trước. Không thuộc thế giới The Crack in Reality (Hẻm Có Chuyện). Nhập ngày 07/11/2026, không sáng tác lại hoặc tạo media mới trong lượt này.
 
 ## File để dùng
 
