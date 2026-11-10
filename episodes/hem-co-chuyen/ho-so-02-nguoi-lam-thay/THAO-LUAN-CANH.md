@@ -7,6 +7,8 @@
 
 **Yêu cầu mới:** mỗi phần có thể tới 10 phút; thêm hồi tưởng nhanh bằng giọng đọc để giới thiệu Nam trước tuyến chính; viết luôn các phần chưa có kịch bản chi tiết. Bản hiện tại thử nhịp 9:40 / 9:00 / 9:00, tổng 27:40, chưa đo diễn/giọng.
 
+**Yêu cầu 10/11/2026 về mở đầu:** đoạn giới thiệu Nam làm **kiểu trailer**; gần hết trailer, **tiếng báo thức đánh thức Nam** thay cho tiếng vòi nước. Đã viết lại P1.00 và đầu Cảnh 1 theo hai ý này; câu càu nhàu mới “Tùng, giờ này mày còn chưa đi hả?”, chữ lớn, thẻ tên phim và nhịp nhạc vẫn là đề xuất. Tên cảnh “Tiếng rửa chén” tạm giữ, chờ chủ repo quyết có đổi không.
+
 ## Những điều người dùng đã chốt
 
 - Series dùng cách gọi Hồ sơ 1, Hồ sơ 2…
@@ -25,7 +27,7 @@
 
 ## Phương án viết mới — hướng kết đã chốt, chi tiết còn đề xuất
 
-- Hồi tưởng khoảng 40 giây: sinh viên năm hai, thói quen “tí nữa”, một nét biết nghe bạn và lời hẹn rửa chén tối trước. Chiếc gương được Nam mang về một tuần trước, chưa lộ bất thường ở đầu.
+- Mở đầu kiểu trailer khoảng 40 giây, kết bằng báo thức đánh thức Nam: sinh viên năm hai, thói quen “tí nữa”, một nét biết nghe bạn và lời hẹn rửa chén tối trước. Chiếc gương được Nam mang về một tuần trước, chưa lộ bất thường ở đầu.
 - Phần 2: Nam tự gửi bài, rút lời kể với Tùng vì muốn giữ người giúp, giao điện thoại/mã và nhờ dự họp nhóm; sau khi không giải thích nổi bài, cậu xin lỗi, rút quyền và tự tập.
 - Phần 3: Nam làm được một bước; bản sao vẫn giả danh, Nam thú nhận, tìm trợ giúp và quay bằng chứng. Đối phương cưỡng ép tiếp xúc mặt gương gốc để giam Nam, rồi ở lại ngoài đời.
 - Luật cụ thể, dòng thời gian ba ngày và giới hạn quyền xem [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa nhập các đề xuất này vào VU-TRU hoặc coi đã được chủ repo chốt.

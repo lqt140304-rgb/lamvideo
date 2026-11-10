@@ -2,7 +2,7 @@
 
 **Bản nguồn V1 đủ ba phần — 10/11/2026.** [KICH-BAN.md](KICH-BAN.md) dẫn tới lời nguồn trong từng file PHAN. Ngân sách thử 9:40 / 9:00 / 9:00, tổng 27:40; mỗi phần có thể tới 10 phút, chưa đo audio/animatic.
 
-**Phạm vi bảng máy dưới đây:** A–H dành cho P1.01–P1.08, giữ bố cục/rig/phòng đã cập nhật. Hồi tưởng O01–O05 có hướng máy/âm trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00). Phần 2 và 3 đã có bối cảnh, cỡ cảnh, điểm nhìn, hành động/âm ngay dưới từng cảnh trong [phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [phần 3](PHAN-03-NGUOI-BI-THAY-THE.md); chưa tách thành shot list/timeline thực thi toàn tập. Không coi A–H đủ để dựng cả ba phần.
+**Phạm vi bảng máy dưới đây:** A–H dành cho P1.01–P1.08, giữ bố cục/rig/phòng đã cập nhật. Trailer mở đầu O01–O05 có hướng máy/âm trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00). Phần 2 và 3 đã có bối cảnh, cỡ cảnh, điểm nhìn, hành động/âm ngay dưới từng cảnh trong [phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [phần 3](PHAN-03-NGUOI-BI-THAY-THE.md); chưa tách thành shot list/timeline thực thi toàn tập. Không coi A–H đủ để dựng cả ba phần.
 
 Nguồn lời phần 1 chuyển từ THAO-LUAN sang PHAN-01, các đoạn đã duyệt bảo toàn câu chữ. Gương và các pose/đạo cụ mới xem [ASSET.md](ASSET.md); cơ chế mới là đề xuất trong [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa render hay tạo âm thanh.
 
@@ -151,8 +151,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
-| A01 | Toàn phòng theo nền sáng hiện có, máy cao khoảng 152 cm theo `VIEWS.wide`, 35 mm; góc A | Tĩnh, rung 0; chỗ Nam phải, bàn sau–phải, bếp sau–trái và cửa chính tường trái đều đọc được | Nam ngủ, người ở bếp quay lưng. Báo thức, tiếng nước và tiếng chén có vị trí; lập cả lối ra. Khung khoảng 5–8 giây nếu vừa nhịp hành động, không thêm lời dẫn mới. |
-| A02 | Cận tay tắt báo thức và một phần mặt Nam, 65 mm, chéo nhẹ xuống nệm | Tĩnh; nét ngón tay → mắt Nam đang nhắm; điện thoại ở cạnh nệm | Cậu tắt rồi kéo chăn, chưa biết có người giống mình. Giữ tiếng chén sang cú cắt để dẫn sự chú ý. Điện thoại chưa được nhấc lên mang đi. |
+| A01 | Toàn phòng theo nền sáng hiện có, máy cao khoảng 152 cm theo `VIEWS.wide`, 35 mm; góc A | Tĩnh, rung 0; chỗ Nam phải, bàn sau–phải, bếp sau–trái và cửa chính tường trái đều đọc được | Báo thức nối từ cuối trailer P1.00 đánh thức Nam; người ở bếp quay lưng úp chén, vòi không chảy. Báo thức và tiếng chén có vị trí; lập cả lối ra. Khung khoảng 5–8 giây nếu vừa nhịp hành động, không thêm lời dẫn mới. |
+| A02 | Cận tay tắt báo thức và một phần mặt Nam, 65 mm, chéo nhẹ xuống nệm | Tĩnh; nét ngón tay → mắt Nam đang nhắm; điện thoại ở cạnh nệm | Cậu tắt rồi chống tay ngồi dậy, chưa biết có người giống mình. Tiếng chén úp lên rổ giữ qua cú cắt để dẫn mắt về bếp. Điện thoại chưa được nhấc lên mang đi. |
 | A03 | Trung cận Nam ba phần tư, 50 mm; bếp ở ngoài phần chính của khung | Máy giữ yên; nét mắt Nam. Không rack focus lộ mặt người kia sớm | Chạy lời tưởng đó là Tùng, rồi “Ê, áo đó…”; hướng mắt về bếp trái/sâu theo góc A. Khi người kia quay, giữ máy trên Nam: cậu ngừng giữa câu. Cắt khi mắt Nam đã dán vào người kia. |
 | A04 | Cận mặt người kia, 65 mm, ngang mắt; lấy đủ vùng mắt/mày theo mẫu | Tĩnh; rõ mặt; nốt ruồi Người Kia ở bên phải theo thiết kế mới, không nhấn riêng, nền bếp mềm vừa đủ | Cắt theo ánh mắt Nam để khán giả xác nhận gương mặt giống hệt. Giữ ánh sáng ban ngày; không chớp đèn, đổi mắt hoặc thêm tiếng gầm. |
 | A04B | Lặp bố cục A03, 50 mm | Tĩnh; nét mắt Nam | Nam nhìn ra cửa chờ Tùng bước vào. Khoảng giữ 2 giây của nguồn nằm tại đây, không cộng lần nữa. Dụi mắt rồi nhìn lại về bếp; không thêm cận riêng chỉ nốt ruồi. |
@@ -263,7 +263,7 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 - **Sáng:** cửa sổ là nguồn chính, phòng đủ sáng để nhận mặt và đường thoát. Không phủ vàng viền mọi người hoặc thêm sương chỉ để có vẻ điện ảnh.
 - **Làm bài → game:** cùng cửa sổ, vệt sáng dịch trên bàn/tường và tư thế thay đổi. Đèn/laptop chưa tự đổi thành nguồn chính giữa một cảnh ban ngày.
 - **Tối:** khoảng 19h30, đồng hồ theo mốc này; đèn bàn và laptop; giữ sắc da, màu áo, vị trí cửa và vùng tối có thể đọc. Đèn bàn bật là trạng thái đã có khi Nam tỉnh; không cần thêm một cảnh ai bật đèn để giải thích mọi thao tác nhỏ.
-- **Cắt:** dùng ánh mắt, tay chạm đồ, người ngừng nói hoặc người đổi hướng. Giữ âm phòng nối qua các góc cùng thời điểm; tiếng nước ngừng đúng lúc nguồn ghi. Cửa đóng làm âm người kia ở ngoài bớt trực tiếp, không biến thành giọng nội tâm.
+- **Cắt:** dùng ánh mắt, tay chạm đồ, người ngừng nói hoặc người đổi hướng. Giữ âm phòng nối qua các góc cùng thời điểm; báo thức tắt đúng lúc tay Nam chạm máy. Cửa đóng làm âm người kia ở ngoài bớt trực tiếp, không biến thành giọng nội tâm.
 - **Chuyển thời gian:** cắt cùng bố cục với nắng/tư thế/trạng thái bài đổi; sang tối có thể dùng dissolve ngắn trên phòng/nệm. Không hòa hai khuôn mặt lên nhau khi đối thoại hoặc dùng một giọng nói mơ hồ để báo thời gian trôi.
 - **Chữ:** thông báo, tin hứa hôm qua, Không làm phiền, tin Tùng và cuộc gọi nhỡ là các lớp đọc riêng. Cận đủ lớn ở cỡ điện thoại; tăng thời gian giữ trước khi tăng số hiệu ứng. Chữ và viền khung không rung theo camera.
 - **Nội tâm:** Nam không mấp máy miệng để nói thành tiếng; người kia không cắt phản ứng đúng nhịp những suy nghĩ thầm. Phần lời dẫn/nội tâm vẫn theo nguồn, không thêm giọng diễn giải kỹ thuật.

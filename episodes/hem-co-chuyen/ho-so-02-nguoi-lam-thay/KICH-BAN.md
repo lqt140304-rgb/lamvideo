@@ -7,7 +7,7 @@
 
 | Đọc theo thứ tự | Nội dung | Nhịp thử |
 |---|---|---:|
-| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | Hồi tưởng giới thiệu Nam khoảng 40 giây → gặp người giống mình → đề phòng → muốn nhận giúp | 9:40 |
+| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | Trailer giới thiệu Nam khoảng 40 giây, kết bằng báo thức đánh thức Nam → gặp người giống mình → đề phòng → muốn nhận giúp | 9:40 |
 | [Phần 2 — Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) | Tự nhận giúp, giấu Tùng, cho đại diện ở nhóm, mất tự tin/vai trò và quyết định tự làm | 9:00 |
 | [Phần 3 — Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) | Tiến bộ nhỏ, bị vượt giới hạn, tìm người làm chứng, chống lại và bị thay thế; hé lộ gương ở cuối | 9:00 |
 
@@ -15,7 +15,7 @@ Tổng ngân sách thử **27:40**, trần cho phép 30:00; không phải thời
 
 ## Mức duyệt
 
-Phần 1 giữ nhãn từng đoạn và lời đã duyệt từ nguồn cũ. Hồi tưởng mở đầu và lời/diễn chi tiết phần 2–3 là bản viết mới theo yêu cầu, **chưa duyệt toàn bộ**; hướng kết đã chốt như ghi đầu file. Nguồn gốc gương, bản sao nhắm Nam và hướng thay thế hoàn toàn đã chốt; cách Nam bị giam, chiếc gương cụ thể và đường đi của Tùng là phương án V1 ở [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md).
+Phần 1 giữ nhãn từng đoạn và lời đã duyệt từ nguồn cũ. Trailer mở đầu và lời/diễn chi tiết phần 2–3 là bản viết mới theo yêu cầu, **chưa duyệt toàn bộ**; hướng kết đã chốt như ghi đầu file. Nguồn gốc gương, bản sao nhắm Nam và hướng thay thế hoàn toàn đã chốt; cách Nam bị giam, chiếc gương cụ thể và đường đi của Tùng là phương án V1 ở [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md).
 
 ## Tài liệu đi kèm
 
@@ -24,4 +24,4 @@ Phần 1 giữ nhãn từng đoạn và lời đã duyệt từ nguồn cũ. H�
 - [ASSET.md](ASSET.md): nguồn hình hiện có và các đạo cụ/pose mới cần chuẩn bị; chưa tự tạo asset mới.
 - [RA-SOAT-SUA-TRUYEN.md](RA-SOAT-SUA-TRUYEN.md): lịch sử rà A–H và bổ sung rà bản V1. [LOI-TON-DONG.md](LOI-TON-DONG.md) ghi việc cần kiểm khi dựng.
 
-**Điểm cần người dùng đọc trước:** P1.00 về giọng giới thiệu; P2.02–P2.04 về Nam tự giấu/cho thay mặt; P3.03–P3.07 về bằng chứng, luật gương và kết. Đây là các đoạn mới quan trọng cần đọc/sửa; ngoài hướng kết vừa chốt, không tự coi mọi chi tiết đã được duyệt.
+**Điểm cần người dùng đọc trước:** P1.00 về trailer giới thiệu và cú báo thức nối sang Cảnh 1; P2.02–P2.04 về Nam tự giấu/cho thay mặt; P3.03–P3.07 về bằng chứng, luật gương và kết. Đây là các đoạn mới quan trọng cần đọc/sửa; ngoài hướng kết vừa chốt, không tự coi mọi chi tiết đã được duyệt.

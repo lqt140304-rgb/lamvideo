@@ -3,7 +3,7 @@
 **Chốt hướng kết mới nhất của chủ repo:** Nam bị nhốt trong thế giới gương; Người Kia thay thế Nam ngoài đời. Giữ kết mở về khả năng thoát và việc người quen có nhận ra hay không. Chỉ hướng kết này đã chốt; cơ chế bắt, lời và dàn cảnh cụ thể vẫn là đề xuất V1.
 
 
-**Đã có bản nháp kịch bản chi tiết đủ ba phần V1, cập nhật 10/11/2026.** Mở [KICH-BAN.md](KICH-BAN.md) để đọc theo thứ tự. Nội dung gồm bối cảnh, hành động, thoại/thẻ cảm xúc, khoảng nghỉ và hướng máy/âm. Hồi tưởng giới thiệu Nam khoảng 40 giây đã có trước cảnh thức dậy. Bản nháp mới chưa duyệt toàn bộ, chưa giao Claude dựng và chưa tạo media.
+**Đã có bản nháp kịch bản chi tiết đủ ba phần V1, cập nhật 10/11/2026.** Mở [KICH-BAN.md](KICH-BAN.md) để đọc theo thứ tự. Nội dung gồm bối cảnh, hành động, thoại/thẻ cảm xúc, khoảng nghỉ và hướng máy/âm. Trailer giới thiệu Nam khoảng 40 giây đã có trước cảnh thức dậy; cuối trailer, tiếng báo thức đánh thức Nam (thay tiếng vòi nước). Bản nháp mới chưa duyệt toàn bộ, chưa giao Claude dựng và chưa tạo media.
 
 ## Thời lượng từng phần — cập nhật theo lời đính chính 10/11/2026
 
@@ -13,7 +13,7 @@
 
 | Nguồn lời | Nội dung / tình trạng |
 |---|---|
-| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.00 hồi tưởng mới; P1.01–08 giữ lời A–H và mức duyệt cũ, tới Nam đọc bài và dặn đừng gửi |
+| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.00 trailer giới thiệu Nam, kết bằng báo thức; P1.01–08 giữ lời A–H và mức duyệt cũ, tới Nam đọc bài và dặn đừng gửi |
 | [Phần 2 — Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) | P2.01–07 đã viết cảnh/thoại: tự nhận giúp, cho thay mặt, lệ thuộc, mất tự tin và bắt đầu tự làm; toàn bộ mới đề xuất |
 | [Phần 3 — Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) | P3.01–07 đã viết cảnh/thoại: nỗ lực, đối đầu, bị giam trong gương và sự chiếm chỗ; toàn bộ mới đề xuất |
 
