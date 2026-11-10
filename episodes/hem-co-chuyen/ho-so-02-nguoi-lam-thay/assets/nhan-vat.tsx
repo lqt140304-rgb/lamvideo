@@ -162,7 +162,7 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
       <path d={face} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -8 84 Q -28 76 -26 100 Q -26 120 -8 118" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -19 98 Q -12 93 -9 105" fill="none" style={{ strokeWidth: lw(2.4) }} />
-      <path d={hair.side} fill={hair.color} {...o(hair.color)} />
+      <path d={hair.side} fill={hair.color} {...o(hair.color)} visibility="visible" />
       <defs>
         <clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98} rx={11} ry={f.ry} /></clipPath>
       </defs>
@@ -186,7 +186,7 @@ const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number }>
       <path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 56 87 Q 84 72 86 99 Q 87 121 59 125" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 60 140 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -60 140 -60 108 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-      <path d={hair.back} fill={hair.color} {...o(hair.color)} />
+      <path d={hair.back} fill={hair.color} {...o(hair.color)} visibility="visible" />
     </g>
   );
 };
@@ -198,7 +198,7 @@ const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number
   <g {...headFrame(x, y, scale)}>
     <path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M -56 70 Q -50 24 4 24 Q 56 24 62 70 L 64 112 Q 64 140 44 156 Q 20 170 -8 166 Q -46 158 -56 120 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-    <path d={hair.quarter} fill={hair.color} {...o(hair.color)} />
+    <path d={hair.quarter} fill={hair.color} {...o(hair.color)} visibility="visible" />
     <path d="M 24 88 Q 50 76 50 100 Q 50 122 26 124 Q 14 106 24 88 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M 44 98 Q 36 92 32 106" fill="none" style={{ strokeWidth: lw(2.4) }} />
     <path d="M 50 80 L 58 77" fill="none" style={{ strokeWidth: lw(5.5) }} />
@@ -263,6 +263,7 @@ export const StudentTwinHead: React.FC<{
       <path
         d={front ? 'M -60 92 Q -72 70 -66 50 L -76 46 Q -62 24 -42 24 L -44 14 Q -22 18 -7 12 Q -10 -6 15 -6 Q 24 -5 25 4 Q 8 1 9 15 Q 44 12 56 34 L 70 38 L 60 58 L 60 88 Q 48 62 28 52 Q 18 66 -2 66 L 0 54 Q -24 74 -46 70 L -48 92 Z' : 'M -51 92 Q -65 79 -61 52 L -71 51 Q -58 27 -38 28 L -43 18 Q -20 21 -7 14 Q -10 -5 15 -5 Q 22 -4 24 4 Q 7 0 8 16 Q 40 13 51 37 L 62 43 L 48 59 Q 34 54 22 43 Q 15 63 -4 67 L -1 52 Q -20 75 -41 74 L -43 95 Z'}
         fill={PALETTE.nam.hair}
+        visibility="visible"
         {...o(PALETTE.nam.hair)}
       />
 
@@ -851,7 +852,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             {!frontL && !side && <Cuff c={r.armL} o={o} />}
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
-          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
+          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade>{l && <g visibility="hidden"><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></g>/* tóc vẽ lại đè lên lớp bóng: tóc phẳng một màu (không mảng tối, không viền sáng), chỉ mặt có sáng–tối */}</g>
           {frontL && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade>}
           {frontR && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
         </g>
@@ -999,10 +1000,11 @@ export const TungHead: React.FC<{
       <path
         d={front ? 'M -58 86 Q -66 68 -62 50 L -70 44 Q -60 24 -40 22 L -46 12 Q -26 12 -12 8 L -14 0 Q 2 -6 16 2 L 14 8 Q 30 4 42 16 L 40 22 Q 54 24 62 40 L 66 46 L 58 56 L 58 86 Q 50 62 34 52 Q 22 64 6 62 L 8 50 Q -14 70 -42 66 L -46 86 Z' : 'M -48 90 Q -60 76 -57 52 L -66 48 Q -58 26 -38 24 L -44 14 Q -26 14 -12 10 L -14 2 Q 2 -4 16 4 L 14 10 Q 28 6 40 18 L 38 24 Q 50 24 56 36 L 52 46 Q 44 48 40 56 L 32 52 Q 24 66 8 68 L 12 54 Q -6 72 -24 70 L -18 56 Q -34 68 -42 78 Z'}
         fill={PALETTE.tung.hair}
+        visibility="visible"
         {...o(PALETTE.tung.hair)}
       />
       {/* Nếp rãnh lọn tóc nhẹ */}
-      <path d="M -16 18 Q -4 12 6 16 M 16 14 Q 26 16 34 26 M -8 38 Q 4 38 12 48" fill="none" stroke={PALETTE.tung.hair} style={{ strokeWidth: lw(2.2) }} />
+      <path d="M -16 18 Q -4 12 6 16 M 16 14 Q 26 16 34 26 M -8 38 Q 4 38 12 48" fill="none" visibility="visible" stroke={PALETTE.tung.hair} style={{ strokeWidth: lw(2.2) }} />
 
       <g transform={front ? 'translate(-10 0)' : undefined}>
       {/* Mắt thể thao tỉnh táo */}

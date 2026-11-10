@@ -95,6 +95,8 @@ Chủ repo đã so ba kiểu viền đen, viền màu và không viền ([bảng
 | **Tách lớp bằng tương phản màu**: tay xa và chân sau tối hơn khoảng 20%, cẳng tay đè trước sáng hơn khoảng 7% (tô sẵn qua `ToneCtx`) | Dùng CSS `filter` để làm tối/sáng, vì render chậm gấp đôi |
 | **Bóng mềm nhưng hẹp** (chủ repo chọn "loang nhưng gọn, đừng chiếm nhiều"): mép tối chuyển mềm (độ mờ 4), vùng tối chỉ ôm mép khối, không phủ quá nửa bộ phận (độ dày 15 trong cảnh), độ dày tỉ lệ theo cỡ bộ phận (`Shade size`: đầu 2.2, thân 1.3, chân 0.85, tay 0.6), cùng một hướng sáng cho đầu và thân ([so trước/sau](sang-toi-dong-bo.png), [loang rộng, gọn sắc và loang hẹp (chọn)](bong-gon.png)) | Bóng cắt sắc kiểu cel; đầu phẳng một màu trong khi tay tối cả cánh |
 
+| **Tóc phẳng một màu**: không mảng tối, không viền sáng; rig vẽ lại tóc đè lên lớp bóng của đầu ([xem](toc-phang.png)) | Để bóng hoặc viền sáng làm tóc loang xám |
+
 Kiểm tra: đặt mặt cạnh thân trong cùng khung. Hai bên phải có cùng hướng sáng và cùng tỉ lệ vùng tối. Chỗ da chồng da (tay ôm bát, tay đặt lên cẳng tay) phải tách được bằng độ sáng. Bảng cũ có viền trong mục 4.1–4.5 vẫn đúng về hình khối và nếp, chỉ khác phần hiển thị viền.
 
 ### 4.1. Nét và khối
