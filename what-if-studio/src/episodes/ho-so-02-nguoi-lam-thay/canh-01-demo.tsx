@@ -11,7 +11,7 @@ import { CameraMove, lightFor, placeOn, RoomScene, RoomView, sunExposure } from 
  * Cận cảnh là phóng khung trên cùng camera của phòng (tiến cận giả lập), không phải lens thật.
  */
 // Đoạn thức dậy A02B chèn sau báo thức; các shot sau giữ mốc cũ và lùi lại WAKE_LEN frame.
-const WAKE_AT = 400, WAKE_LEN = 150;
+const WAKE_AT = 400, WAKE_LEN = 180;
 export const CANH01_TOTAL = 1170 + WAKE_LEN;
 
 const SLEEP = PALETTE.nam.sleepShirt;
@@ -97,6 +97,8 @@ const BLANKET_OVER = -46; // trùm qua đỉnh đầu
 const BLANKET_TOSSED = 430; // hất xuống: chăn chỉ còn trên đùi–chân
 // Thức dậy: `toss` hất chăn xuống chân, `rise` ngồi dậy (xoay quanh hông), `slide` lết ra mép nệm tới `seat` (điểm đứng của SEAT trên màn hình).
 type Wake = { toss: number; rise: number; slide: number; stretch?: number; yawn?: number; rub?: number; seat: { x: number; y: number; scale: number } };
+// Chống tay lết: hai tay chống xuống nệm cạnh hông, đổ người tới để nhấc hông.
+const PUSH: JointPose = { ...TWIN_POSES.sitLow, tilt: 18, neck: -4, armR: { a: 14, b: 6 }, armL: { a: 8, b: 8, rot: -1 }, handR: 'open', handL: 'open', frontR: true, frontL: false };
 // Vươn vai khi ngồi: một tay giơ cao quá đầu, ngửa người ra sau một chút.
 const STRETCH: JointPose = { ...TWIN_POSES.sitLow, tilt: -8, neck: 9, armR: { a: 170, b: 28 }, handR: 'fist', frontR: true }; // một tay vươn quá đầu (tay xa không giơ cao hơn ngang vai được trong rig phẳng)
 type SleepState = { cover?: number; breath?: number; reach?: number; carry?: number; phone?: boolean; alarm?: boolean; f?: number; wake?: Wake };
@@ -130,17 +132,24 @@ const Sleeper = ({ cover = 0, breath = 0, reach = 0, carry = 0, phone = true, al
   const rigGroup = (children: React.ReactNode) => <g transform={`rotate(${LIE_ROT} ${hx} ${hy}) translate(${hx} ${hy}) scale(${p.scale})`} stroke="#40443f" strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">{children}</g>;
   // Thân đặt theo hông: nằm = xoay LIE_ROT quanh hông (đỉnh đầu rơi đúng điểm gối); ngồi dậy = xoay về 0 và trộn sang dáng sitLow,
   // rồi lết hông tới mép nệm. Cùng một hình cho cả quá trình nên không nhảy cảnh.
-  const k = ease(wake?.rise ?? 0), m = ease(wake?.slide ?? 0);
+  const k = ease(wake?.rise ?? 0);
+  // Lết ra mép nệm theo 3 lần nhích: chống tay + đổ người (30%) → nhấc hông và nhích (45%) → hạ người, nảy nhẹ (25%).
+  const sl = Math.min(1, Math.max(0, wake?.slide ?? 0)), N = 3;
+  const si = Math.min(N - 1, Math.floor(sl * N)), stT = sl >= 1 ? 1 : sl * N - si;
+  const moveT = ease(Math.min(1, Math.max(0, (stT - 0.3) / 0.45)));
+  const m = sl <= 0 ? 0 : (si + moveT) / N;
+  const press = sl <= 0 || sl >= 1 ? 0 : stT < 0.3 ? ease(stT / 0.3) : stT < 0.75 ? 1 : 1 - ease((stT - 0.75) / 0.25);
+  const lift = Math.sin(Math.PI * moveT) * 16, dip = stT > 0.75 && sl < 1 ? Math.sin((Math.PI * (stT - 0.75)) / 0.25) * 5 : 0;
   const sit = k > 0 ? mixPose(TWIN_POSES.lie, TWIN_POSES.sitLow, k) : TWIN_POSES.lie;
   const st = ease(wake?.stretch ?? 0), yw = ease(wake?.yawn ?? 0), rbv = ease(wake?.rub ?? 0);
-  const pose = mixPose(mixPose(sit, STRETCH, st), { ...RUB, wristR: RUB.wristR + 10 * Math.sin(f / 2.5) }, rbv);
+  const pose = mixPose(mixPose(mixPose(sit, STRETCH, st), { ...RUB, wristR: RUB.wristR + 10 * Math.sin(f / 2.5) }, rbv), PUSH, press);
   const rb = solveRig(pose);
   const th = LIE_ROT * (1 - k), thr = (th * Math.PI) / 180;
   const hipLie = { x: hx - 345 * p.scale * Math.sin(rad), y: hy + 345 * p.scale * Math.cos(rad) };
   const seat = wake?.seat;
   const hipSeat = seat ? { x: seat.x, y: seat.y + (345 + solveRig(TWIN_POSES.sitLow).dy) * seat.scale } : hipLie;
   const sc = p.scale + ((seat?.scale ?? p.scale) - p.scale) * m;
-  const hip = { x: hipLie.x + (hipSeat.x - hipLie.x) * m, y: hipLie.y + (hipSeat.y - hipLie.y) * m };
+  const hip = { x: hipLie.x + (hipSeat.x - hipLie.x) * m, y: hipLie.y + (hipSeat.y - hipLie.y) * m - (lift - dip) * (p.scale + ((seat?.scale ?? p.scale) - p.scale) * m) };
   const look = turnAt({ view: 'three', facing: 1 }, { view: 'three', facing: -1 }, Math.min(1, Math.max(0, (k - 0.45) / 0.4)));
   // Chỗ nằm không có nắng; lết ra mép nệm (vùng nắng) thì khối sáng–tối hiện dần theo `slide`.
   const Ls = lit('wide', SEAT, 95);
@@ -313,8 +322,8 @@ const A02B: React.FC<{ w: number; f: number }> = ({ w, f }) => {
   const end = { cx: (hip.x + seat.x) / 2, cy: seat.y + 330 * seat.scale, z: 1.75 };
   let lens = lerpLens(close, sitMid, seg(w, 6, 42));
   lens = lerpLens(lens, face, seg(w, 44, 60));
-  lens = lerpLens(lens, end, seg(w, 100, 142));
-  const wake = { toss: seg(w, 0, 16), rise: seg(w, 12, 44), stretch: seg(w, 46, 62) * (1 - seg(w, 84, 96)), yawn: seg(w, 50, 64) * (1 - seg(w, 80, 92)), rub: seg(w, 96, 104) * (1 - seg(w, 112, 120)), slide: seg(w, 112, 146), seat };
+  lens = lerpLens(lens, end, seg(w, 100, 160));
+  const wake = { toss: seg(w, 0, 16), rise: seg(w, 12, 44), stretch: seg(w, 46, 62) * (1 - seg(w, 84, 96)), yawn: seg(w, 50, 64) * (1 - seg(w, 80, 92)), rub: seg(w, 96, 104) * (1 - seg(w, 112, 120)), slide: interpolate(w, [114, 172], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }), seat };
   return (
     <Camera lens={lens} f={f} hand={w > 44 && w < 96 ? 1 : 1.4}>
       <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: 1, phone: false, f, wake })} actors={[washer(f, 'wide')]} />
