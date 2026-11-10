@@ -39,3 +39,5 @@ Ba file PHAN là nguồn lời duy nhất theo phần. KICH-BAN là mục lục 
 - Studio trong `what-if-studio/`; các composition kiểm rig gồm `HoSo02Turnaround`, `HoSo02Spin`, `HoSo02RigSheet`. Không phải timeline hoàn chỉnh của bản V1.
 
 Claude dựng khi người dùng giao. Chưa có lời sạch phân vai, take ElevenLabs, storyboard cảnh, animatic hoặc video cho bản ba phần. Giữ ranh giới tài liệu viết với sản phẩm đã nghe/xem. Xem [quy ước series](../README.md), [vũ trụ](../VU-TRU.md); chưa đưa luật đề xuất V1 thành lore chính thức.
+
+**Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Chưa nghe/tải duyệt các nguồn mới, chưa sửa rig hoặc dựng lại demo. Phần 2–3 vẫn đề cương.

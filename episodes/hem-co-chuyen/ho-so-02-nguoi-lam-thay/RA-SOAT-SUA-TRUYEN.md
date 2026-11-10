@@ -62,3 +62,16 @@ Nhận xét trước đã gọi cue chụp/gửi trong 1–1.5 giây là điều
 ## Kiểm tra đã thực hiện
 
 Đã chạy kiểm tra rig Hồ sơ 2 và TypeScript; đã soi bảng nhân vật cùng bảng đối chiếu nốt ruồi xuất từ SVG thật. Kiểm tra tự động xác nhận dấu đối bên/khuất hiện theo góc, không đổi điểm cầm điện thoại khi chỉ đổi danh tính, ID/clip không trùng và liên kết tài liệu tồn tại. Đã xác nhận bốn file làm dở ở worktree Claude giữ nguyên nội dung. Chưa chạy animatic hoặc tạo giọng/video trong lượt này.
+
+## Rà hành động A–H — lượt bổ sung 10/11/2026
+
+Phân biệt với lỗi cốt truyện: các chỗ dưới là bước nối chưa viết đủ để giao dựng, không khẳng định demo hiện tại đều đã mắc lỗi. Đã sửa trực tiếp lời chỉ dẫn trong THAO-LUAN-CANH và thêm bảng DUNG-CANH:
+
+- Thức dậy thiếu tháo chăn/dịch người; bổ sung lật chăn, tay chống, dịch hông xuống cuối giường, xoay và xỏ dép. Nhận mặt khi vẫn ngồi, đứng sau quơ điện thoại; tránh hai lần đứng liên tiếp.
+- Cầm bát sang tay trống thiếu điểm nhả: đáy chạm mặt đỡ rồi mới nhả. Nam tới cửa bằng đường đi và tay giữ rõ.
+- Di chuyển ghế/kiểm ví-thẻ/laptop thiếu phân bổ tay và bước ngồi: giữ máy tay phải lúc kiểm đồ, đặt xuống bàn trước mở laptop; ghế bốn chân có nhịp nhấc/kéo/đặt, không lăn.
+- Từ bàn sang nằm thiếu quãng đi: thêm đứng, đi tới nệm, ngồi/rút dép rồi hạ thân/đưa chân lên; điện thoại và ghế ở bàn.
+- Tối từ tỉnh sang tới bàn thiếu điểm đứng; tách ngồi-quát khỏi đứng-tiến, chỉ tiến sau khi Người Kia lùi ghế. Nam giữ máy tay phải, dùng trackpad tay trái; đứng đọc vì ghế còn có người ngồi.
+- “Kéo phần hướng dẫn” chưa rõ vật: ghi là cửa sổ trên laptop, tránh tự sinh một tờ giấy. Giữ chưa gửi và không gõ lại ở cuối.
+
+Không sửa thoại, nguồn gốc gương hoặc tự chốt phần 2–3. Các đoạn đã có đủ đường đi như C/F được giữ ý chính, chỉ bổ sung tiếp xúc và nhịp trung gian. Chưa đo thời lượng sau sửa bằng đọc/animatic; các khung thời lượng đề xuất không là kết quả. Chỉ kiểm tra văn bản và liên kết trong lượt này, không chạy lại kiểm thử rig vì chưa đổi mã, không lấy kết quả kiểm thử của lượt cũ làm bằng chứng cho hành động mới.
