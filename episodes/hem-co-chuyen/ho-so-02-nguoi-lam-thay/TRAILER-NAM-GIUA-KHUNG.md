@@ -23,7 +23,7 @@
 
 ## Nhịp
 
-Khoảng **8,9 giây** ở 30 fps: 17 nhịp × 15 frame, cộng 12 frame giữ ở nhịp cuối. Nền hòa sang nền trong 4 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt.
+Khoảng **8,9 giây** ở 30 fps: 17 nhịp × 15 frame, cộng 12 frame giữ ở nhịp cuối. Nền hòa sang nền trong 4 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt. **Không có nhãn thời gian trên hình** (bỏ cho gọn theo yêu cầu); cột thời gian truyện dưới đây chỉ để người dựng theo dõi.
 
 | Nhịp | Thời gian truyện | Nền | Nam | Trang phục |
 |---|---|---|---|---|

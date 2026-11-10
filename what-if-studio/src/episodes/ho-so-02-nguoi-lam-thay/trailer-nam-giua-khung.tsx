@@ -14,7 +14,7 @@ import { FootballPitch, LectureRoom, SchoolCorridor, SchoolYard } from '../../..
 
 export type Beat = {
   id: string;
-  chip: string; // nhãn thời gian nhỏ trên hình
+  chip: string; // mốc thời gian truyện; chỉ ghi chú, không hiện trên hình (bỏ nhãn theo yêu cầu 10/11/2026)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   bg: React.FC<any>;
   bgProps?: RoomProps & { dusk?: boolean };
@@ -63,7 +63,7 @@ export const storyTotal = BEATS_STORY.length * BEAT_FRAMES + LAST_HOLD;
 const NAM = { x: 960, y: 150, scale: 2.35 };
 
 /** Một khung hình của đoạn, thuần theo tham số để vừa dùng trong Remotion vừa xuất bảng tĩnh. */
-export const NamCenterFrame: React.FC<{ beat: Beat; prev?: Beat; t: number; k: number; blinkOn?: boolean; showChip?: boolean }> = ({ beat, prev, t, k, blinkOn = false, showChip = true }) => {
+export const NamCenterFrame: React.FC<{ beat: Beat; prev?: Beat; t: number; k: number; blinkOn?: boolean; showChip?: boolean }> = ({ beat, prev, t, k, blinkOn = false, showChip = false }) => {
   // t: 0..1 tiến độ hòa từ nhịp trước sang nhịp này; k: 0..1 tiến độ trong nhịp (để nền trôi).
   const pose = prev && t < 1 ? mixPose(prev.pose, beat.pose, t) : beat.pose;
   const mood = prev && t < 0.5 ? prev.mood : beat.mood;
