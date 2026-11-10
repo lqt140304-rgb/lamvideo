@@ -22,6 +22,7 @@
 
 ## Danh mục tài liệu kỹ thuật & Mỹ thuật đi kèm
 
+- [KICH-BAN-TRAILER-VA-OPENING.md](KICH-BAN-TRAILER-VA-OPENING.md): **Kịch bản Opening (30s) & Trailer chính thức (60s)** dành riêng cho tập 2.
 - [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md): Luật thực thể, lý do chọn Nam thay vì Tùng, 4 chi tiết phản kháng cho có lệ, cơ chế bẫy buông lỏng tinh thần, bản chất quang học của gương.
 - [PHAN-01-NGUOI-TRONG-PHONG.md](PHAN-01-NGUOI-TRONG-PHONG.md): Kịch bản chi tiết Hồi 1.
 - [PHAN-02-QUEN-DUOC-LAM-THAY.md](PHAN-02-QUEN-DUOC-LAM-THAY.md): Kịch bản chi tiết Hồi 2.
