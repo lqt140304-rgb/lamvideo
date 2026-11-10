@@ -751,9 +751,9 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; siz
 export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline; headOutline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'none', headOutline }) => {
   const awayClip = useClipId('away');
   const hemClip = useClipId('drawn-hem');
-  // Không viền: tách lớp bằng độ sáng — phần nằm sau (tay xa, chân sau) tối hơn, cẳng tay gập đè lên trước sáng hơn.
-  const back = (n: React.ReactNode) => (outline === 'none' ? <ToneCtx.Provider value={0.2}>{n}</ToneCtx.Provider> : n);
-  const front = (n: React.ReactNode) => (outline === 'none' ? <ToneCtx.Provider value={-0.07}>{n}</ToneCtx.Provider> : n);
+  // Quy tắc 11/11: không tô tối/sáng nguyên chi để tách lớp; tách bằng che khuất và mảng bóng tự vẽ. Giữ hàm để không đổi cấu trúc.
+  const back = (n: React.ReactNode) => n;
+  const front = (n: React.ReactNode) => n;
   const view: View = outfit.views ? raw.view ?? 'three' : 'three'; // nhân vật chưa vẽ đủ góc thì giữ 3/4
   const o = { ...outfit, ...outfit.views?.[view] };
   // chính diện và sau lưng không lật được: hai bên phải giữ đúng chỗ
@@ -805,7 +805,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
             {!frontR && <Cuff c={r.armR} o={o} />}
             {!frontL && !side && <Cuff c={r.armL} o={o} />}
-            {(view === 'three' || view === 'front') && <g><defs><clipPath id={hemClip}><path d={[o.torso, hemDrape(o, r.tilt)].join(' ')} /></clipPath></defs><path data-shadow="drawn-hem" clipPath={`url(#${hemClip})`} d="M-49 337Q-19 350 12 341Q36 348 56 337L56 348Q35 360 13 355Q-20 365-58 351Z" fill="#253f37" opacity={0.13} stroke="none" /></g>}
+            {(view === 'three' || view === 'front') && <g><defs><clipPath id={hemClip}><path d={[o.torso, hemDrape(o, r.tilt)].join(' ')} /></clipPath></defs><path data-shadow="drawn-hem" clipPath={`url(#${hemClip})`} d="M-49 337Q-19 350 12 341Q36 348 56 337L56 348Q35 360 13 355Q-20 365-58 351Z" fill="#253f37" opacity={0.2} stroke="none" />{/* mặt hông phía xa của thân áo (quay khỏi máy): một mảng tự vẽ để thân có khối, không theo đèn */}<path data-shadow="drawn-side" clipPath={`url(#${hemClip})`} d={view === 'front' ? 'M70 140Q44 250 54 366H110V140Z' : 'M62 140Q34 250 42 366H110V140Z'} fill="#253f37" opacity={0.12} stroke="none" /></g>}
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
           <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
