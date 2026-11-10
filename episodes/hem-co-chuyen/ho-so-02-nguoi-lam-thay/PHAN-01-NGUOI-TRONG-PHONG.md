@@ -1,4 +1,4 @@
-# Hồ sơ 2 — Phần 1: Người trong phòng
+# The Crack in Reality — Hồ sơ 2: Người trong gương · Phần 1: Người trong phòng
 
 **Kịch bản chi tiết V1 — 10/11/2026.** File này hiện chứa **lời nguồn của phần 1**, gồm hồi tưởng giới thiệu Nam mới và toàn bộ A–H chuyển từ THAO-LUAN-CANH. Các đoạn đã duyệt giữ nguyên lời; phần mới và các đoạn từng chờ duyệt vẫn là đề xuất. Hướng thêm giới thiệu ngắn bằng giọng đọc do chủ repo yêu cầu. Cơ chế/kết mới xem [luật bản nháp](LUAT-BAN-NHAP-V1.md), không đọc tài liệu đó thành lời.
 

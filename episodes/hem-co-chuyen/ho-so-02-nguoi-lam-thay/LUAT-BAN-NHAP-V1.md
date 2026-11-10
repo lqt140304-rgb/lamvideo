@@ -1,4 +1,4 @@
-# Hồ sơ 2 — Luật và tính liên tục của kịch bản đã cập nhật
+# The Crack in Reality — Hồ sơ 2: Người trong gương · Luật và tính liên tục
 
 **Chốt hướng kết, thời lượng và cơ chế theo phê duyệt mới nhất:** 
 1. **Thời lượng chuẩn 15 phút** (cấu trúc điện ảnh 3 hồi hoàn chỉnh: Hồi 1 ~5:00, Hồi 2 ~6:30, Hồi 3 ~4:00).

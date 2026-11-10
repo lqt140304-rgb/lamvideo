@@ -1,4 +1,4 @@
-# Asset — Hồ sơ 2: Người làm thay
+# Asset — Hồ sơ 02: Người trong gương
 
 ## Nhu cầu theo kịch bản mới — đồng bộ 11/11/2026
 

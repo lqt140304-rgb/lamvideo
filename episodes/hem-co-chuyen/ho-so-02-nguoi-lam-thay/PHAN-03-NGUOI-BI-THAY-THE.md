@@ -1,4 +1,4 @@
-# Hồ sơ 2 — Phần 3: Người bị thay thế
+# The Crack in Reality — Hồ sơ 2: Người trong gương · Phần 3: Người bị thay thế
 
 **Kịch bản chi tiết đã cập nhật theo phê duyệt mới nhất (Thời lượng chuẩn: ~4 phút 00 giây).**
 Trọng tâm: **Nỗ lực giành lại bất thành vì bị xã hội đào thải $\to$ Phát hiện nốt ruồi đảo bên & Bí mật chiếc gương $\to$ Đối chất tâm lý trước gương (xóa bỏ cảnh đánh nhau) $\to$ Cái bẫy buông lỏng tinh thần & Mặt kính hóa nước $\to$ Đoạn kết rợn ngáy khi Tùng chột dạ phát hiện.**

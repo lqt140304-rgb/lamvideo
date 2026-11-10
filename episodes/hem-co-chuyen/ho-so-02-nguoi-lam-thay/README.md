@@ -1,4 +1,4 @@
-# Hẻm Có Chuyện — Hồ sơ 2: Người làm thay
+# The Crack in Reality — Hồ sơ 02: Người trong gương
 
 **Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
 

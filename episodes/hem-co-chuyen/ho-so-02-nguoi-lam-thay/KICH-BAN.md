@@ -1,4 +1,4 @@
-# Hồ sơ 2 — Người làm thay · Kịch bản hoàn chỉnh (Bản chuẩn 15 phút)
+# The Crack in Reality — Hồ sơ 2: Người trong gương · Kịch bản hoàn chỉnh (15 phút)
 
 **Chốt toàn diện theo các yêu cầu phê duyệt mới nhất:** 
 1. **Thời lượng chuẩn:** khoảng **15 phút** (cấu trúc điện ảnh 3 hồi hoàn chỉnh, lớp lang tâm lý dày dặn, nhịp căng thẳng cuốn hút).

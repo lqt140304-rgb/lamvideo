@@ -1,4 +1,4 @@
-# Hồ sơ 2 — Phần 2: Quen được làm thay
+# The Crack in Reality — Hồ sơ 2: Người trong gương · Phần 2: Quen được làm thay
 
 **Kịch bản chi tiết đã cập nhật (Bổ sung tương tác đời thực, ngôn ngữ giới trẻ & những cuộc trò chuyện lúc cày game).**
 Trọng tâm: Bước chuyển mình tâm lý của Nam từ **Chưa tin tưởng $\to$ Thả lỏng phòng vệ & Thị uy làm "ông chủ" $\to$ Giãy giụa tự ái nhưng gục ngã trước thói lười $\to$ Lần nhờ vả đầu tiên $\to$ Tâm sự & Banter lúc chơi game $\to$ Xâm lấn leo thang & Các phản kháng nửa vời $\to$ Đỉnh điểm tương phản qua clip Zalo gia đình & Chiếc gương phòng trọ.**
