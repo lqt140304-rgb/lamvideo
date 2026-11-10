@@ -3,7 +3,7 @@ import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
 import { JointPose, Light, mixPose, NamMood, NguoiKia, PALETTE, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, Talk, turnAt, TWIN_POSES, View } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import type { FaceKey } from '../../../library/expressions/cartoon-soft/net-mat';
-import { lightFor, placeOn, RoomScene, RoomView } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
+import { CameraMove, lightFor, placeOn, RoomScene, RoomView } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 
 /**
  * Hồ sơ 2 — demo animatic Cảnh 1 (MAY-A, A01–A05), bản câm: phụ đề tạm thay giọng, chưa có âm.
@@ -41,11 +41,39 @@ const SEAT_DY = solveRig(LOWSIT).dy;
 
 type Lens = { cx: number; cy: number; z: number };
 const clampLens = ({ cx, cy, z }: Lens): Lens => ({ z, cx: Math.min(1920 - 960 / z, Math.max(960 / z, cx)), cy: Math.min(1080 - 540 / z, Math.max(540 / z, cy)) });
-const Camera: React.FC<{ lens: Lens; shake?: number; children: React.ReactNode }> = ({ lens, shake = 0, children }) => {
+// Máy cầm tay: dao động chậm vài px và nghiêng rất nhẹ, để khung không đứng im như animation phẳng.
+const handheld = (f: number, amp: number) => ({
+  x: amp * (Math.sin(f / 23) + 0.6 * Math.sin(f / 9.7 + 1.3) + 0.25 * Math.sin(f / 4.1)),
+  y: amp * (Math.sin(f / 29 + 2) + 0.5 * Math.sin(f / 11.3) + 0.2 * Math.sin(f / 5.3 + 0.7)),
+  r: amp * 0.05 * Math.sin(f / 31 + 0.4),
+});
+const Camera: React.FC<{ lens: Lens; shake?: number; f?: number; hand?: number; children: React.ReactNode }> = ({ lens, shake = 0, f = 0, hand = 0, children }) => {
   const l = clampLens(lens);
+  const h = handheld(f, hand);
   return (
     <AbsoluteFill style={{ overflow: 'hidden', background: '#d9cfb9' }}>
-      <div style={{ position: 'absolute', width: 1920, height: 1080, transformOrigin: '0 0', transform: `translate(${960 - l.cx * l.z + shake}px, ${540 - l.cy * l.z}px) scale(${l.z})` }}>{children}</div>
+      {/* phóng thêm 2% để lúc rung/nghiêng không lộ mép khung */}
+      <div style={{ position: 'absolute', width: 1920, height: 1080, transformOrigin: '960px 540px', transform: `translate(${h.x + shake}px, ${h.y}px) rotate(${h.r}deg) scale(1.02)` }}>
+        <div style={{ position: 'absolute', width: 1920, height: 1080, transformOrigin: '0 0', transform: `translate(${960 - l.cx * l.z}px, ${540 - l.cy * l.z}px) scale(${l.z})` }}>{children}</div>
+      </div>
+    </AbsoluteFill>
+  );
+};
+const lerpLens = (a: Lens, b: Lens, t: number): Lens => ({ cx: a.cx + (b.cx - a.cx) * t, cy: a.cy + (b.cy - a.cy) * t, z: a.z + (b.z - a.z) * t });
+
+// Khung phim: viền đen 2:1, tối bốn góc, hạt phim đổi theo frame; mở/kết bằng màn đen.
+const FilmLook: React.FC<{ f: number; total: number }> = ({ f, total }) => {
+  const black = 1 - seg(f, 0, 14) + seg(f, total - 18, total - 1);
+  return (
+    <AbsoluteFill style={{ pointerEvents: 'none' }}>
+      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 75% 70% at 50% 50%, rgba(0,0,0,0) 62%, rgba(20,16,12,.28) 100%)' }} />
+      <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, mixBlendMode: 'overlay', opacity: 0.16 }}>
+        <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency={0.9} numOctaves={2} seed={f % 24} /><feColorMatrix type="saturate" values="0" /></filter>
+        <rect width={1920} height={1080} filter="url(#grain)" />
+      </svg>
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 60, background: '#000' }} />
+      <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 60, background: '#000' }} />
+      <AbsoluteFill style={{ background: '#000', opacity: Math.min(1, black) }} />
     </AbsoluteFill>
   );
 };
@@ -147,12 +175,14 @@ const CUES: Cue[] = [
 ];
 
 const SHOTS: { from: number; code: string; label: string }[] = [
-  { from: 0, code: 'A01', label: 'toàn phòng · 35 mm' },
-  { from: 180, code: 'A02', label: 'cận báo thức · 65 mm' },
-  { from: 400, code: 'A03', label: 'trung cận Nam · 50 mm' },
-  { from: 560, code: 'A04', label: 'cận mặt người kia · 65 mm' },
-  { from: 650, code: 'A04B', label: 'lặp A03 · 50 mm' },
-  { from: 830, code: 'A05', label: 'trung rộng nệm và ghế · 35 mm' },
+  { from: 0, code: 'A01', label: 'toàn phòng · dolly vào chậm' },
+  { from: 180, code: 'A02', label: 'đẩy liền vào cận báo thức' },
+  { from: 400, code: 'A03', label: 'trung cận Nam · snap-zoom lúc nhận mặt' },
+  { from: 560, code: 'A04', label: 'qua vai Nam → người kia' },
+  { from: 650, code: 'A04B', label: 'lặp A03 · đẩy chậm' },
+  { from: 830, code: 'A05', label: 'trung rộng nệm và ghế' },
+  { from: 935, code: 'A05R', label: 'ngược góc qua vai Nam → người kia đáp' },
+  { from: 1018, code: 'A05', label: 'trung rộng nệm và ghế' },
 ];
 
 const Overlay: React.FC<{ f: number }> = ({ f }) => {
@@ -160,14 +190,15 @@ const Overlay: React.FC<{ f: number }> = ({ f }) => {
   const cue = CUES.find((c) => f >= c.from && f < c.to);
   return (
     <AbsoluteFill style={{ pointerEvents: 'none' }}>
-      <div style={{ position: 'absolute', left: 36, top: 28, fontFamily: FONT.ui, fontSize: 24, color: '#f6efe3', background: 'rgba(28,36,32,.62)', padding: '8px 14px', borderRadius: 10 }}>
+      {/* nhãn shot nằm trong viền đen trên, không đè lên hình */}
+      <div style={{ position: 'absolute', left: 36, top: 16, fontFamily: FONT.ui, fontSize: 20, color: 'rgba(246,239,227,.75)' }}>
         {shot.code} · {shot.label}
       </div>
-      <div style={{ position: 'absolute', right: 36, top: 28, fontFamily: FONT.ui, fontSize: 20, color: '#f6efe3', background: 'rgba(28,36,32,.5)', padding: '8px 14px', borderRadius: 10 }}>
+      <div style={{ position: 'absolute', right: 36, top: 16, fontFamily: FONT.ui, fontSize: 18, color: 'rgba(246,239,227,.55)' }}>
         HỒ SƠ 2 · CẢNH 1 · ANIMATIC CÂM, PHỤ ĐỀ TẠM
       </div>
       {cue && (
-        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 56, display: 'flex', justifyContent: 'center' }}>
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: 84, display: 'flex', justifyContent: 'center' }}>
           <div style={{ maxWidth: 1400, textAlign: 'center', background: 'rgba(20,26,24,.72)', borderRadius: 14, padding: '14px 28px', color: '#fbf6ec', fontFamily: FONT.title }}>
             {cue.who && <div style={{ fontFamily: FONT.ui, fontSize: 22, opacity: 0.75, marginBottom: 6 }}>{cue.who}</div>}
             <div style={{ fontSize: cue.sfx ? 34 : 46, fontStyle: cue.sfx ? 'italic' : 'normal', fontWeight: cue.sfx ? 400 : 600 }}>{cue.sfx ? `[${cue.text}]` : cue.text}</div>
@@ -193,29 +224,37 @@ const faceAt = (f: number, steps: [number, FaceKey][], dur = 4): FaceCue => {
   return { face: steps[i][1], faceFrom: i > 0 ? steps[i - 1][1] : undefined, faceMix: i > 0 ? Math.min(1, (f - steps[i][0]) / dur) : 1 };
 };
 
-const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; rise?: number; mood: NamMood; face?: FaceCue; look: { view: View; facing: 1 | -1 }; talk?: Talk; blink?: boolean }) => ({
+const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; rise?: number; mood: NamMood; face?: FaceCue; look: { view: View; facing: 1 | -1 }; talk?: Talk; blink?: boolean; move?: CameraMove }) => ({
   at: NEAR,
   render: () => {
-    const p = placeOn(view, o.at);
+    const p = placeOn(view, o.at, 168, o.move);
     return <StudentTwinBody x={p.x} y={p.y + (o.rise ?? 0) * p.scale} scale={p.scale} light={lit(view, o.at)} shirt={SLEEP} mood={o.mood} {...o.face} pose={{ ...o.pose, view: o.look.view, facing: o.look.facing }} talk={o.talk} blink={o.blink} />;
   },
 });
 
+// A01: máy dolly thật vào phòng (có thị sai), rồi A02 đẩy liền vào cận báo thức — một chuyển động, không cắt.
+const WIDE_LENS: Lens = { cx: 960, cy: 540, z: 1 };
+const wideMove = (f: number): CameraMove => {
+  const t = interpolate(f, [0, 180], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  return { push: 22 * t, truck: 14 * t };
+};
 const A01: React.FC<{ f: number }> = ({ f }) => (
-  <Camera lens={{ cx: 960, cy: 540, z: 1 }}>
-    <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" sleeper={Sleeper({ alarm: true, f })} actors={[washer(f, 'wide')]} />
+  <Camera lens={WIDE_LENS} f={f} hand={0.7}>
+    <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" move={wideMove(f)} sleeper={Sleeper({ alarm: true, f })} actors={[washer(f, 'wide')]} />
   </Camera>
 );
 
 const A02: React.FC<{ f: number }> = ({ f }) => {
-  const head = placeOn('wide', [424, 332], 33);
-  const lens = { cx: head.x - 40, cy: head.y + 40, z: 2.6 + 0.15 * seg(f, 180, 400) };
-  // Tay thò khỏi chăn với điện thoại trên đầu nệm, tắt chuông (f226–236), kéo máy về vào chăn (f238–252), rồi kéo chăn trùm đầu.
+  const move = wideMove(180);
+  const head = placeOn('wide', [424, 332], 33, move);
+  const close = { cx: head.x - 40, cy: head.y + 40, z: 2.6 + 0.15 * seg(f, 216, 400) };
+  const lens = lerpLens(WIDE_LENS, close, seg(f, 180, 216));
+  // Tay thò khỏi chăn với điện thoại, tắt chuông (f226–236), kéo máy về vào chăn (f238–252), rồi kéo chăn trùm đầu.
   const reach = seg(f, 206, 226) * (1 - seg(f, 238, 254));
   const carry = seg(f, 240, 252);
   return (
-    <Camera lens={lens}>
-      <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" sleeper={Sleeper({ cover: seg(f, 254, 272), breath: f > 272 ? Math.sin(f / 15) * 5 : 0, reach, carry, alarm: f < 236, f })} actors={[washer(f, 'wide')]} />
+    <Camera lens={lens} f={f} hand={1}>
+      <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: seg(f, 254, 272), breath: f > 272 ? Math.sin(f / 15) * 5 : 0, reach, carry, alarm: f < 236, f })} actors={[washer(f, 'wide')]} />
     </Camera>
   );
 };
@@ -240,22 +279,32 @@ const NamClose: React.FC<{ f: number; start: number }> = ({ f, start }) => {
   }
   // Nét mặt phân mức (chỉ hiện ở 3/4; lúc quay nghiêng ra cửa dùng `mood`): bực nhẹ → kinh ngạc → sững lại; A04B: bất an.
   const face = faceAt(f, a03 ? [[0, 'tuc-gian-01'], [492, 'bat-ngo-03'], [512, 'bat-ngo-02']] : [[0, 'so-hai-01'], [724, 'nghi-ngo-01'], [762, 'so-hai-01']]);
+  // A03: đẩy chậm, rồi giật zoom nhanh đúng lúc nhận ra mặt (f492); A04B: đẩy chậm suốt shot.
+  const snap = interpolate(f, [492, 500], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic) });
+  const zoom = a03 ? 1.95 + 0.06 * seg(f, 400, 492) + 0.24 * snap : 1.95 + 0.14 * seg(f, 650, 830);
   return (
-    <Camera lens={seatLens(1.95)}>
+    <Camera lens={seatLens(zoom)} f={f} hand={1.3}>
       <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[{ at: [300, 300], render: () => <PhoneOnMat view="bed" /> }, namActor('bed', { pose, at: SEAT, rise, mood, face, look, talk: talkAt(f, 440, 492), blink: f > 500 ? false : blinkAt(f) })]} />
     </Camera>
   );
 };
 
-const A04: React.FC<{ f: number }> = ({ f }) => {
-  const p = placeOn('kitchen', SINK);
-  const look = turnAt({ view: 'quarter', facing: 1 }, { view: 'three', facing: 1 }, seg(f, 560, 570));
+// Góc qua vai Nam nhìn về bồn rửa: lùi máy góc bếp ra sau để lưng/vai Nam (ngồi mép nệm) chiếm tiền cảnh.
+const OTS_MOVE = { push: -140, truck: 40 };
+const OverShoulder: React.FC<{ f: number; nk: { look: { view: View; facing: 1 | -1 }; talk?: Talk }; drift: number }> = ({ f, nk, drift }) => {
+  const move: CameraMove = { push: OTS_MOVE.push + drift, truck: OTS_MOVE.truck };
+  const p = placeOn('kitchen', SINK, 168, move);
   return (
-    <Camera lens={{ cx: p.x + 40 * p.scale, cy: p.y + 150 * p.scale, z: 1.55 }}>
-      <RoomScene view="kitchen" door="ajar" chair="bed" actors={[{ at: SINK, render: (q) => <NguoiKia {...q} light={lit('kitchen', SINK)} mood="calm" face="binh-than-00" blink={blinkAt(f, 30)} pose={{ ...TWIN_POSES.holdBowl, view: look.view, facing: look.facing }} /> }]} />
+    <Camera lens={{ cx: p.x + 60 * p.scale, cy: p.y + 170 * p.scale, z: 1.35 }} f={f} hand={1.1}>
+      <RoomScene view="kitchen" door="ajar" chair="bed" move={move} actors={[
+        { at: SINK, render: (q) => <NguoiKia {...q} light={lit('kitchen', SINK)} mood="calm" face="binh-than-00" blink={blinkAt(f, 30)} talk={nk.talk} pose={{ ...TWIN_POSES.holdBowl, view: nk.look.view, facing: nk.look.facing }} /> },
+        namActor('kitchen', { pose: LOWSIT, at: SEAT, mood: 'hesitant', look: { view: 'quarter', facing: -1 }, move }),
+      ]} />
     </Camera>
   );
 };
+const A04: React.FC<{ f: number }> = ({ f }) => <OverShoulder f={f} drift={12 * seg(f, 560, 650)} nk={{ look: turnAt({ view: 'quarter', facing: 1 }, { view: 'three', facing: 1 }, seg(f, 566, 578)) }} />;
+const A05R: React.FC<{ f: number }> = ({ f }) => <OverShoulder f={f} drift={12 + 10 * seg(f, 935, 1018)} nk={{ look: { view: 'three', facing: 1 }, talk: talkAt(f, 940, 1016) }} />;
 
 const A05: React.FC<{ f: number }> = ({ f }) => {
   const touch = seg(f, 832, 846) * (1 - seg(f, 862, 874));
@@ -271,8 +320,10 @@ const A05: React.FC<{ f: number }> = ({ f }) => {
   // Sững người → dò hỏi → nghe đúng giọng mình thì sợ → bật dậy hoảng hốt.
   const face = faceAt(f, [[0, 'bat-ngo-02'], [870, 'nghi-ngo-02'], [1018, 'so-hai-02'], [1080, 'so-hai-03']]);
   const shake = f >= 1098 && f < 1103 ? (f % 2 ? 3 : -3) : 0; // xung 3 px, tắt trong 0,15 giây
+  // Đẩy chậm vào Nam; khi bật dậy (f1080+) máy lùi nhẹ theo, cầm tay rung mạnh hơn.
+  const z = 1.3 + 0.08 * seg(f, 830, 1080) - 0.06 * seg(f, 1080, 1110);
   return (
-    <Camera lens={{ cx: 600, cy: 640, z: 1.3 }} shake={shake}>
+    <Camera lens={{ cx: 600, cy: 640, z }} shake={shake} f={f} hand={f > 1080 ? 2.2 : 1.2}>
       <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[...(f < 1068 ? [{ at: [300, 300] as [number, number], render: () => <PhoneOnMat view="bed" /> }] : []), namActor('bed', { pose, at, mood, face, look: { view: 'three', facing: -1 }, talk: talkAt(f, 874, 926), blink: f > 1018 ? false : blinkAt(f) })]} />
     </Camera>
   );
@@ -309,12 +360,33 @@ export const HoSo02AnhSangThu: React.FC = () => {
   );
 };
 
+// Bảng shot: `mix` = số frame hoà tan từ shot trước (đổi cỡ cùng chủ thể); `dip` = tối dần qua đen rồi sáng lại (nhảy thời gian);
+// còn lại cắt thẳng (thuận–ngược góc trong đối thoại).
+const CUT_LIST: { from: number; mix?: number; dip?: number; render: (f: number) => React.ReactNode }[] = [
+  { from: 0, render: (f) => <A01 f={f} /> },
+  { from: 180, render: (f) => <A02 f={f} /> },
+  { from: 400, dip: 10, render: (f) => <NamClose f={f} start={400} /> },
+  { from: 560, render: (f) => <A04 f={f} /> },
+  { from: 650, render: (f) => <NamClose f={f} start={650} /> },
+  { from: 830, mix: 8, render: (f) => <A05 f={f} /> },
+  { from: 935, render: (f) => <A05R f={f} /> },
+  { from: 1018, render: (f) => <A05 f={f} /> },
+];
+
 export const HoSo02Canh01Demo: React.FC = () => {
   const f = useCurrentFrame();
-  const shot = f < 180 ? <A01 f={f} /> : f < 400 ? <A02 f={f} /> : f < 560 ? <NamClose f={f} start={400} /> : f < 650 ? <A04 f={f} /> : f < 830 ? <NamClose f={f} start={650} /> : <A05 f={f} />;
+  let i = 0;
+  while (i + 1 < CUT_LIST.length && f >= CUT_LIST[i + 1].from) i++;
+  const cur = CUT_LIST[i];
+  const t = cur.mix ? seg(f, cur.from, cur.from + cur.mix) : 1;
+  const next = CUT_LIST[i + 1];
+  const dark = Math.max(cur.dip ? 1 - seg(f, cur.from, cur.from + cur.dip) : 0, next?.dip ? seg(f, next.from - next.dip, next.from) : 0);
   return (
     <AbsoluteFill style={{ background: '#d9cfb9' }}>
-      {shot}
+      {t < 1 && i > 0 && CUT_LIST[i - 1].render(f)}
+      <AbsoluteFill style={{ opacity: t }}>{cur.render(f)}</AbsoluteFill>
+      {dark > 0 && <AbsoluteFill style={{ background: '#000', opacity: dark }} />}
+      <FilmLook f={f} total={CANH01_TOTAL} />
       <Overlay f={f} />
     </AbsoluteFill>
   );

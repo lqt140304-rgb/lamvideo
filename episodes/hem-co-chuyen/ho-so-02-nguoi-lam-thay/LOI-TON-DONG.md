@@ -37,7 +37,7 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 
 | Mức | Việc | Chi tiết |
 |---|---|---|
-| Nhỏ | Demo Cảnh 1 (`canh-01-demo.tsx`) | Đã có: nằm toàn thân có ánh sáng, một tấm chăn có bề dày rủ xuống nệm, cáp sạc nối tới ổ cắm, điện thoại nằm trên mặt nệm; ngồi thấp; nét mặt chuyển dần; đứng dậy sát ghế. Còn: giường trống ở A03–A05 dùng chăn cuộn của phòng (đọc như chăn bị hất ra, chưa khớp hình dạng tấm chăn lúc nằm); ghế chưa xê dịch khi va; sau khi trùm chăn chỉ có nhịp thở |
+| Nhỏ | Demo Cảnh 1 (`canh-01-demo.tsx`) | Đã có: nằm toàn thân có ánh sáng, một tấm chăn có bề dày rủ xuống nệm, cáp sạc nối tới ổ cắm, điện thoại nằm trên mặt nệm; ngồi thấp; nét mặt chuyển dần; đứng dậy sát ghế. Còn: giường trống ở A03–A05 dùng chăn cuộn của phòng (đọc như chăn bị hất ra, chưa khớp hình dạng tấm chăn lúc nằm); ghế chưa xê dịch khi va; sau khi trùm chăn chỉ có nhịp thở Máy và dựng (10/11): A01 dolly thật nối liền A02 đẩy vào cận; A02→A03 tối qua đen; A03 giật zoom lúc nhận mặt; A04 và A05R (người kia đáp) là góc qua vai Nam từ máy bếp lùi ra; cầm tay rung nhẹ; khung 2:1, tối góc, hạt phim. Chưa có âm thanh để đặt điểm cắt theo nhịp thoại; góc qua vai mới dùng một vị trí máy |
 | Nhỏ | Ánh sáng | Viền sáng đã co vào trong đường bao, không còn làm nhòa/đứt nét mực (10/11). Nét vẽ bên trong (viền tay áo) sát mép vẫn có thể bị sáng phủ nhẹ; chân trước chân và tay sau thân chưa soi riêng ở góc nghiêng/sau lưng |
 
 Chưa có storyboard, giọng hay timeline chính thức cho Hồ sơ 2. Đoạn comic thử và âm thanh (`comic.tsx`, `sound.cjs`, `what-if-studio/public/ho-so-02-nguoi-lam-thay/`) chỉ ở máy, không đưa lên repo.

@@ -746,6 +746,7 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; chi
 /** Ghép nhân vật từ khung xương: bàn chân → chân → tay sau → áo → đầu → tay trước. */
 export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l }) => {
   const gid = useClipId('ground');
+  const awayClip = useClipId('away');
   const view: View = outfit.views ? raw.view ?? 'three' : 'three'; // nhân vật chưa vẽ đủ góc thì giữ 3/4
   const o = { ...outfit, ...outfit.views?.[view] };
   // chính diện và sau lưng không lật được: hai bên phải giữ đúng chỗ
@@ -785,8 +786,6 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
       )}
       <g transform={`translate(${pose.x} ${r.dy})`}>
-        {/* Nhìn từ sau: tay đưa ra trước nằm sau cả quần lẫn áo, vẽ trước chân để bàn tay không lòi ra dưới gấu áo/giữa háng. */}
-        {away && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}><Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade></g>}
         {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
@@ -798,6 +797,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
           <path d={side ? 'M -30 318 H 36 V 352 H -30 Z' : `M -46 318 H 48 V 350 H 28 Q 1 ${Math.min(crotch - 34, 372)} -26 350 H -46 Z`} fill={o.pants} stroke="none" />
         </Shade>
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
+          {/* Nhìn từ sau: khuỷu, cẳng tay hai bên nằm ngoài hông nên đè lên quần; phần tay vào giữa thân (bàn tay đưa ra trước) bị thân che nên cắt bỏ dải giữa. */}
+          {away && <g clipPath={`url(#${awayClip})`}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath><Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade></g>}
           {!frontL && !side && !away && <Shade l={l} facing={facing}>{whole(armL)}</Shade>}
           {!frontR && !away && <Shade l={l} facing={facing}>{whole(armR)}</Shade>}
           <Shade l={l} facing={facing}>
