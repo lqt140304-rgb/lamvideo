@@ -109,9 +109,13 @@ Ba hình nhanh: **`kitchen` — đống chén ở bồn → `bed` — áo xanh t
 
 ### O05 — Jumpscare · khoảng 0:30–0:40 · toàn phòng → mắt Nam → cận mặt
 
-Chỉ cảnh đầu là toàn phòng; từ đó trở đi là **góc nhìn của Nam**. Không há miệng, không nuốt.
+Ba cảnh đầu (H, B, W) kể từ phía người kia; từ đó trở đi là **góc nhìn của Nam**, mí mắt chỉ là phần đen, không viền. Không há miệng, không nuốt.
 
-**W · 4 giây · gần như im lặng, phòng tối hơn bản trước.** Toàn phòng ban đêm, máy đẩy chậm. Nam nằm ngủ toàn thân, đắp chăn (mẫu nằm `Sleeper` của cảnh 1). **Cửa mở, một bóng đen người bước vào, đi dón dén trong bóng tối** (6 bước ngắn, người hơi cúi, mỗi bước dừng một nhịp) tới cạnh nệm, chỉ thấy hình dáng, tiếng bước chân đều và nhỏ. Nó đứng im nhìn Nam. Cuối cảnh, **hai đốm mắt trong bóng đen lóe sáng** rồi giữ sáng.
+**H · 2,8 giây · góc nhìn người kia.** Cảnh đầu tiên. Nó đi dọc hành lang trong bóng tối tới cửa phòng Nam, bước dón dén, máy lắc nhẹ theo nhịp bước. Cửa từ từ mở ra (tiếng gỗ kẽo kẹt nhỏ). Chỉ vignette đen quanh khung, **không viền**.
+
+**B · 2,4 giây · sát sau lưng người kia.** Khi nó bước qua cửa, cắt sang góc **sát sau lưng**: bóng đen người kia chiếm **bên trái** khung, **bên phải là Nam đang ngủ** trong phòng. Nó tiếp tục bước dón dén, máy đẩy rất chậm.
+
+**W · 2,8 giây · toàn phòng, tối hơn bản trước.** Người kia bước nốt hai bước tới trước giường rồi đứng im nhìn Nam ngủ (mẫu nằm `Sleeper` của cảnh 1). Cuối cảnh, **hai đốm mắt trong bóng đen lóe sáng** rồi giữ sáng.
 
 **P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đứng ở cửa rồi **tiến lại gần đều và chậm**, **cười rợn ngay từ đầu đoạn**, nụ cười toét dần khi tới gần. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt sáng lên. Nó dừng lại, đứng cười. Rồi máy **vụt một cái vào mặt nó** (khoảng 0,2 giây), không zoom chậm.
 
@@ -119,7 +123,7 @@ Chỉ cảnh đầu là toàn phòng; từ đó trở đi là **góc nhìn của
 
 **Âm:** tiếng phòng ở W và P; tiếng ù thấp dâng cuối P; im khoảng 0,2 giây; tiếng hù (`drone_hit` chồng `glitch`) đúng frame cắt vào mặt. Âm lấy từ thư viện, chưa nghe duyệt kỹ.
 
-**Cắt đen**, rồi chuông báo thức vào ở O06. Cả đoạn dài khoảng 10 giây, dài hơn mốc 4 giây cũ; tổng trailer sẽ vượt 40 giây nếu giữ nguyên các đoạn khác.
+**Cắt đen**, rồi chuông báo thức vào ở O06. Cả đoạn dài khoảng 14 giây, dài hơn mốc 4 giây cũ; tổng trailer sẽ vượt 40 giây nếu giữ nguyên các đoạn khác.
 
 **Logic truyện:** theo [dòng thời gian V1](LUAT-BAN-NHAP-V1.md#dòng-thời-gian-và-quyền), thực thể ra ngoài trong đêm trước ngày 1. Cú hù chỉ cho thấy nó đứng nhìn Nam ngủ; không lộ nó từ đâu ra hay gương liên quan thế nào. Nó mặc áo xanh lấy từ ghế, khớp với buổi sáng ở P1.01. Đây là cảnh đề xuất mới, chưa được duyệt thành lore.
 
