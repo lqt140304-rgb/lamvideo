@@ -1,6 +1,6 @@
 # Hồ sơ 2 — Lỗi và việc còn tồn đọng
 
-Cập nhật 11/11/2026, trên commit `eec2a4f`. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md).
+Cập nhật 10/11/2026, trên commit `eec2a4f`. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md).
 
 ## Cần chủ repo quyết định
 
