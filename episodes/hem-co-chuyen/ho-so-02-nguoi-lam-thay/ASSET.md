@@ -10,6 +10,7 @@ Nguồn lời: [KICH-BAN.md](KICH-BAN.md). Các mục dưới là yêu cầu m�
 | Góc đồ cho tặng ở hành lang và nhãn giấy | O01; quay lại cùng góc ở P3.07, không xây địa điểm mới chỉ cho hồi tưởng |
 | Khăn lớn, sổ gáy mềm, giấy ba ý và bút | Khăn chặn mặt kính; sổ được Nam giao từ P2.05; giấy Nam tự viết từ cuối phần 2 đến hình kết |
 | UI tin/nhóm, file nháp, ghi âm thử, camera sau, gửi clip và xóa clip local | Mỗi lần biết thông tin có nguồn; clip đã gửi cho Tùng vẫn còn; không đặt dữ liệu thật vào hình |
+| Trailer P1.00: nhạc nền, chuông báo thức, chữ lớn/tên phim | Thử âm thư viện trước (`library/sfx`, gói KORBANN chưa xác minh quyền); chữ dựng bằng text Remotion. Không thêm bối cảnh/góc máy, xem ngân sách dựng trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00) |
 | Hộp cơm/đũa/cốc nước, balô | Hồi tưởng đời thường, Tùng mang hai hộp tối ngày 1; tái dùng đạo cụ thư viện nếu có |
 | Biến thể áo thường của Nam, túi ngực để giữ điện thoại ở P3 | A–H giữ áo ngủ xám; từ ngày 2 áo xám nhạt có túi, Người Kia xanh rêu. Cần kiểm rig/túi trước dùng, chưa tự đổi thiết kế chính |
 | Pose nghe bạn, giảng bài, trao máy, giữ cửa, tránh/thoát, giằng cổ tay/khung gỗ, bám mép gương | Phải thấy liền cổ tay–bàn tay, lực/điểm tựa; thử animatic ngắn khi được giao trước khi dựng đoạn dài |
