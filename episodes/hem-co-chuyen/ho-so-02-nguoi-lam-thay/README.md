@@ -13,7 +13,7 @@
 
 | Nguồn lời | Nội dung / tình trạng |
 |---|---|
-| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.00 trailer: Nam giữa khung với nền đổi theo dòng thời gian ([bảng phân cảnh](assets/trailer/nam-giua-khung-bang.png)), kết bằng báo thức; P1.01–08 giữ lời A–H và mức duyệt cũ, tới Nam đọc bài và dặn đừng gửi |
+| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.00 trailer bình thường, [jumpscare](assets/trailer/jumpscare-bang.png) rồi báo thức đánh thức Nam; P1.01–08 giữ lời A–H và mức duyệt cũ, tới Nam đọc bài và dặn đừng gửi |
 | [Phần 2 — Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) | P2.01–07 đã viết cảnh/thoại: tự nhận giúp, cho thay mặt, lệ thuộc, mất tự tin và bắt đầu tự làm; toàn bộ mới đề xuất |
 | [Phần 3 — Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) | P3.01–07 đã viết cảnh/thoại: nỗ lực, đối đầu, bị giam trong gương và sự chiếm chỗ; toàn bộ mới đề xuất |
 
@@ -25,6 +25,7 @@ Ba file PHAN là nguồn lời duy nhất theo phần. KICH-BAN là mục lục 
 |---|---|
 | [KICH-BAN.md](KICH-BAN.md) | Điểm bắt đầu đọc, thứ tự ba phần, nhịp thử và mức duyệt |
 | [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md) | Yêu cầu đã chốt, phương án mới cần đọc/sửa và đường dẫn tới các đoạn đã chuyển |
+| [TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md) | Clip riêng: Nam đứng giữa khung, bối cảnh và trang phục đổi theo dòng thời gian truyện; 13 nhịp, có bảng phân cảnh |
 | [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md) | Giới hạn gương/bản sao, kiến thức từng người, dòng thời gian, gieo–trả; tài liệu có spoil cho người viết/dựng |
 | [DUNG-CANH.md](DUNG-CANH.md) | Máy A–H phần 1, bố cục/lens/rung/focus, layer/parallax/che khuất và nguyên tắc dựng; hướng cảnh mới nằm ngay trong các file PHAN |
 | [ASSET.md](ASSET.md) | Hình/rig có sẵn, đúng nguồn cần dùng, đạo cụ và pose V1 còn phải chuẩn bị |

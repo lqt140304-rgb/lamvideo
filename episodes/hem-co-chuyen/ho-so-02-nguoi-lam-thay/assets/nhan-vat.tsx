@@ -55,7 +55,7 @@ export const PALETTE = {
 // ----------------------------------------------------------------------------
 // 1. HEAD CỦA NAM & BẢN SAO (DÙNG CHUNG 100%, CÓ LỌN XOĂN TRÊN ĐỈNH THEO MẪU B)
 // ----------------------------------------------------------------------------
-export type NamMood = 'sleepy' | 'annoyed' | 'hesitant' | 'scared' | 'agitated' | 'shocked' | 'suspicious' | 'calm' | 'neutral_smile' | 'eerie_smirk';
+export type NamMood = 'sleepy' | 'annoyed' | 'hesitant' | 'scared' | 'agitated' | 'shocked' | 'suspicious' | 'calm' | 'neutral_smile' | 'eerie_smirk' | 'stare_grin';
 
 // Nhiều nhân vật trong cùng một SVG phải có clipPath khác mã, nếu không mắt người này bị cắt theo mắt người kia.
 const useClipId = (id: string) => `${id}-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
@@ -89,6 +89,7 @@ const SIDE_FACE: Record<NamMood, { ry: number; lid?: string; brow: string; mouth
   calm: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 68 135 Q 56 136 47 135' },
   neutral_smile: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 68 135 Q 56 139 46 132' },
   eerie_smirk: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 74 Q 36 69 50 72', mouth: 'M 68 135 Q 56 136 45 129' },
+  stare_grin: { ry: 20, brow: 'M 20 76 L 50 76', mouth: 'M 74 128 Q 52 134 40 124 Q 50 146 74 144 Z', open: true },
 };
 const PROFILE = 'M -50 78 Q -48 24 4 22 Q 50 22 58 62 L 60 92 Q 62 102 74 112 Q 77 118 66 121 Q 63 125 66 130 Q 67 134 65 136 Q 68 142 63 147 Q 52 166 16 166 Q -22 166 -36 142 Z';
 const LIPS = 'M 66 121 Q 63 125 66 130 Q 67 134 65 136 Q 68 142 63 147'; // vẽ lại đè lên miệng, chỉ đoạn môi để không hằn lên tóc
@@ -173,9 +174,10 @@ export const StudentTwinHead: React.FC<{
   const isHesitant = mood === 'hesitant';
   const isScared = mood === 'scared';
   const isAgitated = mood === 'agitated';
-  const isWide = isShocked || isScared; // mắt mở to, con ngươi nhỏ
-  const eyeRy = isShocked ? 23 : isScared ? 20 : isAgitated ? 17 : 15;
-  const eyeRyL = isShocked ? 22 : isScared ? 19 : isAgitated ? 16 : 14;
+  const isStare = mood === 'stare_grin'; // chỉ cho bản sao ở cảnh hù: trừng mắt, cười toét
+  const isWide = isShocked || isScared || isStare; // mắt mở to, con ngươi nhỏ
+  const eyeRy = isShocked ? 23 : isStare ? 21 : isScared ? 20 : isAgitated ? 17 : 15;
+  const eyeRyL = isShocked ? 22 : isStare ? 20 : isScared ? 19 : isAgitated ? 16 : 14;
   const clip = useClipId(id);
   if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} />;
   if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} />;
@@ -221,22 +223,22 @@ export const StudentTwinHead: React.FC<{
         <ellipse
           cx={isSuspicious ? -4 : isEerie ? -6 : isHesitant ? -14 : -8}
           cy={isWide ? 100 : 102}
-          rx={isWide ? 3.3 : 4}
-          ry={isWide ? 4.8 : 5.5}
+          rx={isStare ? 2.2 : isWide ? 3.3 : 4}
+          ry={isStare ? 2.8 : isWide ? 4.8 : 5.5}
           fill={PALETTE.ink}
           stroke="none"
         />
         <ellipse
           cx={isSuspicious ? 36 : isEerie ? 34 : isHesitant ? 26 : 32}
           cy={isWide ? 97 : 99}
-          rx={isWide ? 3.3 : 4}
-          ry={isWide ? 4.8 : 5.5}
+          rx={isStare ? 2.2 : isWide ? 3.3 : 4}
+          ry={isStare ? 2.8 : isWide ? 4.8 : 5.5}
           fill={PALETTE.ink}
           stroke="none"
         />
         {/* Điểm sáng bắt sáng */}
-        <circle cx={isSuspicious ? -3 : isHesitant ? -13 : -7} cy={isWide ? 98 : 100} r={1.2} fill="#ffffff" stroke="none" />
-        <circle cx={isSuspicious ? 37 : isHesitant ? 27 : 33} cy={isWide ? 95 : 97} r={1.2} fill="#ffffff" stroke="none" />
+        {!isStare && <circle cx={isSuspicious ? -3 : isHesitant ? -13 : -7} cy={isWide ? 98 : 100} r={1.2} fill="#ffffff" stroke="none" />}
+        {!isStare && <circle cx={isSuspicious ? 37 : isHesitant ? 27 : 33} cy={isWide ? 95 : 97} r={1.2} fill="#ffffff" stroke="none" />}
 
         {blink && <rect x={-40} y={70} width={100} height={60} fill={PALETTE.skin} stroke="none" />}
         {/* Nếp mí */}
@@ -277,6 +279,8 @@ export const StudentTwinHead: React.FC<{
             ? 'M -28 78 L 2 87 M 19 79 L 44 68'
             : isEerie
             ? 'M -28 75 Q -12 70 2 73 M 19 72 Q 33 65 44 68'
+            : isStare
+            ? 'M -28 76 L 2 78 M 19 77 L 44 75'
             : isCalm || isSmiling
             ? 'M -28 76 Q -12 74 2 76 M 19 74 Q 33 71 44 73'
             : 'M -28 78 Q -12 74 2 75 M 19 72 Q 33 69 44 70'
@@ -315,6 +319,11 @@ export const StudentTwinHead: React.FC<{
         </g>
       ) : isSuspicious ? (
         <path d="M -6 141 Q 9 136 22 140" fill="none" strokeWidth={2.8} />
+      ) : isStare ? (
+        <g>
+          <path d="M -24 132 Q 13 166 50 130 Q 13 146 -24 132 Z" fill={PALETTE.mouthDark} />
+          <path d="M -18 135 Q 13 148 44 133 L 42 139 Q 13 152 -16 140 Z" fill={PALETTE.teeth} strokeWidth={2} />
+        </g>
       ) : isEerie ? (
         <path d="M -2 143 Q 12 135 28 138" fill="none" strokeWidth={3} />
       ) : isSmiling ? (
@@ -746,6 +755,65 @@ const TWIN_OUTFIT: Outfit = {
   detail: <path d="M -26 179 Q -23 203 -1 203 Q 14 201 21 183 M -55 218 Q -53 241 -52 262 M 56 219 L 58 257 M -45 316 Q -19 333 15 320 M 15 340 Q 36 343 48 334" fill="none" strokeWidth={2.5} />,
 };
 
+// Các bộ đồ của Nam: cùng thân áo/khung xương, chỉ đổi màu, cổ áo và chi tiết vẽ trên áo.
+// Chi tiết riêng vẽ cho góc chính diện và 3/4; các góc khác giữ nếp áo chung.
+export type NamOutfitId = 'xanh' | 'ngu' | 'xam-tui' | 'dong-phuc' | 'the-thao';
+export const NAM_COLORS = {
+  ngu: PALETTE.nam.sleepShirt,
+  xamTui: '#a7a8a0',
+  uniform: '#f3f0e6', uniformPants: '#2f3b53', badge: '#3f6aa1',
+  sport: '#d4673f', sportTrim: '#f6efe0', sportShorts: '#2c3138', sportSocks: '#f2ede2',
+};
+const withDetail = (front: React.ReactNode, base: Outfit['views'] = TWIN_VIEWS): Outfit['views'] => ({ ...base, front: { ...base!.front!, detail: front } });
+const FRONT_FOLDS = 'M -56 218 Q -54 241 -53 262 M 56 218 Q 54 241 53 262 M -34 330 Q 0 344 34 330';
+const UNIFORM_FRONT = (
+  <>
+    <path d={FRONT_FOLDS} {...TWIN_FOLD} />
+    <path d="M 0 200 L 0 352" fill="none" strokeWidth={2.5} />
+    {[226, 262, 298, 334].map((y) => <circle key={y} cx={7} cy={y} r={3.6} fill="#e6e1d2" strokeWidth={2} />)}
+    <path d="M -30 250 H -8 V 278 Q -19 284 -30 278 Z" fill="none" strokeWidth={2.4} />
+    <path d="M -26 241 L -12 241 L -12 247 L -19 251 L -26 247 Z" fill={NAM_COLORS.badge} strokeWidth={1.8} />
+    <path d="M -26 178 L -4 206 L 0 196 L -8 180 Z" fill={NAM_COLORS.uniform} strokeWidth={2.6} />
+    <path d="M 26 178 L 4 206 L 0 196 L 8 180 Z" fill={NAM_COLORS.uniform} strokeWidth={2.6} />
+  </>
+);
+const UNIFORM_THREE = (
+  <>
+    <path d="M -45 316 Q -19 333 15 320 M 15 340 Q 36 343 48 334 M 1 203 L 3 352" fill="none" strokeWidth={2.5} />
+    <path d="M -26 179 L -6 210 L 0 201 L -10 181 Z M 21 182 L 3 210 L 0 201 L 8 185 Z" fill={NAM_COLORS.uniform} strokeWidth={2.6} />
+    <path d="M -36 252 H -14 V 278 Q -25 284 -36 278 Z" fill="none" strokeWidth={2.4} />
+  </>
+);
+const SPORT_FRONT = (
+  <>
+    <path d={FRONT_FOLDS} {...TWIN_FOLD} />
+    <path d="M -24 179 L 0 210 L 24 179" fill="none" stroke={NAM_COLORS.sportTrim} strokeWidth={6} />
+    <path d="M -24 179 L 0 210 L 24 179" fill="none" strokeWidth={2} />
+    <path d="M -60 270 L -62 350 M 60 270 L 62 350" fill="none" stroke={NAM_COLORS.sportTrim} strokeWidth={5} />
+  </>
+);
+const POCKET_FRONT = (
+  <>
+    <path d="M -24 179 Q -14 200 0 200 Q 14 200 24 179" {...TWIN_FOLD} />
+    <path d={FRONT_FOLDS} {...TWIN_FOLD} />
+    <path d="M -36 236 H -10 V 266 Q -23 272 -36 266 Z" fill="#9a9b93" strokeWidth={2.4} />
+    <path d="M -36 242 H -10" fill="none" strokeWidth={2} />
+  </>
+);
+export const NAM_OUTFITS: Record<NamOutfitId, Outfit> = {
+  xanh: TWIN_OUTFIT,
+  ngu: { ...TWIN_OUTFIT, shirt: NAM_COLORS.ngu },
+  /** Áo thường xám nhạt có túi ngực, dùng từ ngày 2 (P3 cần túi giữ điện thoại). */
+  'xam-tui': { ...TWIN_OUTFIT, shirt: NAM_COLORS.xamTui, views: withDetail(POCKET_FRONT) },
+  /** Đồng phục: sơ mi trắng cộc tay có cổ, nẹp cúc, túi ngực có phù hiệu; quần âu xanh than. */
+  'dong-phuc': { ...TWIN_OUTFIT, shirt: NAM_COLORS.uniform, pants: NAM_COLORS.uniformPants, detail: UNIFORM_THREE, views: withDetail(UNIFORM_FRONT) },
+  /** Đồ thể thao: áo cổ tim viền trắng, quần đùi sọc, tất trắng; giày chưa vẽ riêng, tạm dùng dép. */
+  'the-thao': {
+    ...TWIN_OUTFIT, shirt: NAM_COLORS.sport, cuff: NAM_COLORS.sportTrim, pants: NAM_COLORS.sportShorts, pantsLen: 'short', stripe: NAM_COLORS.sportTrim,
+    socks: { color: NAM_COLORS.sportSocks, stripe: NAM_COLORS.sport }, views: withDetail(SPORT_FRONT),
+  },
+};
+
 export const StudentTwinBody: React.FC<{
   mood?: NamMood;
   identity?: 'nam' | 'nguoi-kia';
@@ -756,8 +824,10 @@ export const StudentTwinBody: React.FC<{
   shirt?: string;
   talk?: Talk;
   blink?: boolean;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink }) => (
-  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
+  /** Bộ đồ của Nam; bỏ trống thì dùng áo thun theo `shirt` như trước. */
+  outfit?: NamOutfitId;
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, outfit }) => (
+  <Rigged pose={pose} outfit={outfit ? NAM_OUTFITS[outfit] : { ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */

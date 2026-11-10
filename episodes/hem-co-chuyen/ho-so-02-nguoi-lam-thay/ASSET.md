@@ -10,7 +10,10 @@ Nguồn lời: [KICH-BAN.md](KICH-BAN.md). Các mục dưới là yêu cầu m�
 | Góc đồ cho tặng ở hành lang và nhãn giấy | O01; quay lại cùng góc ở P3.07, không xây địa điểm mới chỉ cho hồi tưởng |
 | Khăn lớn, sổ gáy mềm, giấy ba ý và bút | Khăn chặn mặt kính; sổ được Nam giao từ P2.05; giấy Nam tự viết từ cuối phần 2 đến hình kết |
 | UI tin/nhóm, file nháp, ghi âm thử, camera sau, gửi clip và xóa clip local | Mỗi lần biết thông tin có nguồn; clip đã gửi cho Tùng vẫn còn; không đặt dữ liệu thật vào hình |
-| Trailer P1.00: bối cảnh mới và đoạn Nam giữa khung | **Đã dựng nền bằng mã, chờ duyệt:** góc gương, góc đồ cho tặng, hành lang–cầu thang trong [mô hình phòng](assets/boi-canh/BOI-CANH.md#góc-máy). [Bảng phân cảnh 13 nhịp](assets/trailer/nam-giua-khung-bang.png); composition `HoSo02TrailerIntro`, `HoSo02TrailerStory`, `HoSo02TrailerBoard`. Chưa có giọng/nhạc, chưa render bản cuối |
+| Ba nền mới và clip riêng Nam giữa khung | **Đã dựng bằng mã, chờ duyệt:** góc gương, góc đồ cho tặng, hành lang–cầu thang trong [mô hình phòng](assets/boi-canh/BOI-CANH.md#góc-máy). Clip: [TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md), [bảng 13 nhịp](assets/trailer/nam-giua-khung-bang.png) |
+| Trang phục Nam | `NAM_OUTFITS` trong rig: `xanh`, `ngu`, `xam-tui` (túi ngực cho P3), `dong-phuc`, `the-thao`. [Bảng xem](assets/trailer/trang-phuc-nam.png). Chỉ đổi màu/chi tiết áo trên cùng thân; đồ thể thao chưa có giày riêng |
+| Jumpscare trailer O05 | Biểu cảm mới `stare_grin` cho bản sao (chỉ dùng ở cú hù); [khung tĩnh](assets/trailer/jumpscare-bang.png); composition `HoSo02TrailerJumpscare`. Chưa có âm |
+| Áo xanh vắt trên ghế | Trailer O04 cần; mô hình phòng chưa có prop này (nền hiện không vẽ áo trên ghế) |
 | Trailer P1.00: nhạc nền, chuông báo thức, chữ lớn/tên phim | Thử âm thư viện trước (`library/sfx`, gói KORBANN chưa xác minh quyền); chữ dựng bằng text Remotion. Không thêm bối cảnh/góc máy, xem ngân sách dựng trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00) |
 | Hộp cơm/đũa/cốc nước, balô | Hồi tưởng đời thường, Tùng mang hai hộp tối ngày 1; tái dùng đạo cụ thư viện nếu có |
 | Biến thể áo thường của Nam, túi ngực để giữ điện thoại ở P3 | A–H giữ áo ngủ xám; từ ngày 2 áo xám nhạt có túi, Người Kia xanh rêu. Cần kiểm rig/túi trước dùng, chưa tự đổi thiết kế chính |

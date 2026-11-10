@@ -10,7 +10,7 @@ Khoảng **9 phút 40**, có thể tới 10 phút; đây là ngân sách thử, 
 
 | Cảnh | Mốc thử | Máy / trạng thái |
 |---|---|---|
-| P1.00 — Nam là ai? | 0:00–0:40 | O01–O06 trailer: Nam giữa khung, nền đổi theo dòng thời gian, kết bằng báo thức; đề xuất mới |
+| P1.00 — Nam là ai? | 0:00–0:40 | O01–O06 trailer bình thường, jumpscare rồi báo thức; đề xuất mới |
 | P1.01 — Tiếng rửa chén | 0:40–1:55 | A01–A05; chốt hướng xuất hiện/cảm xúc, chưa khóa mọi câu |
 | P1.02 — Gọi người quen | 1:55–2:40 | B01–B03; thoại cuộc gọi đã duyệt |
 | P1.03 — Lấy lại căn phòng | 2:40–3:35 | C01–C06; đoạn đã duyệt |
@@ -29,110 +29,110 @@ Khoảng **9 phút 40**, có thể tới 10 phút; đây là ngân sách thử, 
 
 <a id="p1-00"></a>
 
-## P1.00 — Nam là ai? — mở đầu kiểu trailer, đề xuất mới
+## P1.00 — Nam là ai? — trailer mở đầu, đề xuất mới
 
-**Khoảng 40 giây trước tuyến hiện tại, dựng như trailer.** Chủ repo đã chọn ngày 10/11/2026:
-- mở đầu kiểu trailer;
-- gần cuối dùng **tiếng báo thức đánh thức Nam** thay cho tiếng vòi nước;
-- dựng theo hướng **tiết kiệm quota**;
-- có đoạn **Nam đứng giữa khung, bối cảnh đổi liên tục theo dòng thời gian truyện, nét mặt và cử chỉ đổi theo**;
-- đoạn đó **hé cả truyện**, dừng trước kết.
+**Khoảng 40 giây trước tuyến hiện tại.** Chủ repo đã chọn ngày 10/11/2026:
+- trailer **bình thường**, dựng bằng các góc máy có sẵn;
+- có **một cảnh jumpscare ngay trước tiếng báo thức**;
+- **tiếng báo thức đánh thức Nam**, thay cho tiếng vòi nước;
+- dựng tiết kiệm quota.
 
-Lát cắt, lời và nhịp nhạc bên dưới là đề xuất.
+Đoạn Nam đứng giữa khung với nền đổi theo thời gian **làm thành clip riêng**, không nằm trong trailer này; xem [TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md). Lát cắt, lời và nhịp nhạc bên dưới là đề xuất.
 
-**Cách kể:** cắt theo phách nhạc, chữ lớn ngắn, lời dẫn từng câu gọn, một nhịp hạ rồi dồn lên. Giọng dẫn gần gũi, hơi dí dỏm. Không tấu hài/meme. **Bản sao không xuất hiện**, không có thế giới gương hay cách Nam bị thay; gương chỉ là đồ vật bình thường. Nam là sinh viên năm hai; không tự gán tuổi, ngành hay quê.
+**Cách kể:** cắt theo phách nhạc, chữ lớn ngắn, lời dẫn từng câu gọn; có một nhịp hạ rồi dồn lên, rồi một khoảng im trước cú hù. Giọng dẫn gần gũi, hơi dí dỏm. Không tấu hài, không meme. Lời dẫn không biết thay nhân vật; gương chỉ là đồ vật bình thường. Nam là sinh viên năm hai; không tự gán tuổi, ngành hay quê.
 
 ### Ngân sách dựng tiết kiệm — áp dụng [nguyên tắc chung](../../../docs/KINH-NGHIEM.md#tiết-kiệm-chi-phí-và-lượt-sửa)
 
 | Hạng mục | Khóa trước khi làm |
 |---|---|
-| Bối cảnh | Một mô hình phòng duy nhất, mọi khung là camera của nó. Ba bối cảnh mới theo yêu cầu đều là đồ truyện vốn cần ở các phần sau: **góc gương** (`mirror`), **góc đồ cho tặng** (`giveaway`, quay lại ở P3.07), **hành lang–cầu thang** (`stairs`, P3.04). Xem [BOI-CANH.md](assets/boi-canh/BOI-CANH.md#góc-máy). |
-| Đoạn Nam giữa khung | Một rig, một vị trí giữa khung, trung cảnh từ thắt lưng. Đổi nền bằng hòa hình; đổi nét mặt bằng biểu cảm có sẵn, che lúc đổi bằng một cái chớp mắt; nối dáng bằng `mixPose`. Không vẽ thêm pose/biểu cảm. Mã: [`trailer-nam-giua-khung.tsx`](../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/trailer-nam-giua-khung.tsx). |
-| Trang phục | Áo ngủ xám ngày 1; ngày 2–3 chỉ đổi màu áo sang xám nhạt trên cùng rig (đề xuất màu, chưa vẽ túi ngực). |
-| Lời đọc | Lời dẫn 7 câu, khoảng 220 ký tự; Nam 4 câu ngắn. Tạo giọng gộp vào lượt của cả phần 1 theo vai. Animatic dùng giọng tạm. |
-| Nhạc/SFX | Thư viện trước: `music-4cdabe20`, `title_boom`, `room_tone` trong `what-if-studio/library/sfx/`; chuông thử `phone ringtone` ở [gói KORBANN](../../../what-if-studio/library/sfx-packs/korbann/README.md) (chưa xác minh quyền dùng). |
-| Chữ | Text trong Remotion, font có dấu tiếng Việt. |
-| Duyệt | Lời → [bảng phân cảnh tĩnh](assets/trailer/nam-giua-khung-bang.png) → animatic giọng tạm → mới tạo giọng/render cuối. |
+| Bối cảnh | Chỉ các camera của [mô hình phòng](assets/boi-canh/BOI-CANH.md#góc-máy): `giveaway`, `wide`, `bed`, `kitchen`, cận A02. Không thêm địa điểm. |
+| Nhân vật | Nam, Tùng; bản sao chỉ ở cú hù. Trang phục chọn từ [bộ đồ có sẵn của rig](assets/trailer/trang-phuc-nam.png); không vẽ pose mới. |
+| Jumpscare | Dựng bằng góc `bed` đêm có sẵn, rig bản sao và một biểu cảm mới `stare_grin` (trừng mắt, cười toét; chỉ dùng cho cú hù). Mã: [`trailer-jumpscare.tsx`](../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/trailer-jumpscare.tsx). |
+| Lời đọc | Lời dẫn 5 câu, khoảng 200 ký tự; Nam 4 câu ngắn. Tạo giọng gộp vào lượt của cả phần 1 theo vai; animatic dùng giọng tạm. |
+| Nhạc/SFX | Thư viện trước: `music-4cdabe20`, `title_boom`, `room_tone`, `drone_hit`, `glitch` trong `what-if-studio/library/sfx/`; chuông thử `phone ringtone` ở [gói KORBANN](../../../what-if-studio/library/sfx-packs/korbann/README.md) (chưa xác minh quyền dùng). |
+| Duyệt | Lời → [khung tĩnh jumpscare](assets/trailer/jumpscare-bang.png) → animatic giọng tạm → mới tạo giọng/render cuối. |
 
-### O01 — Mở · khoảng 0:00–0:03
+### O01 — Mở trailer · khoảng 0:00–0:06 · `giveaway` → `wide` ngày
 
-Màn đen, một phách nhạc.
+Màn đen, một phách nhạc. Chữ nhỏ **“Một tuần trước”**.
 
-**LỜI DẪN — [storytelling], tự tin kiểu trailer, không gằn giọng:**
+Góc đồ cho tặng cuối hành lang. Nam, **mặc đồng phục** vừa đi học về, bê chiếc gương khung gỗ khỏi kệ; nhãn giấy “Ai cần cứ lấy” trên tường. Cắt sang `wide` ngày: Nam kê gương cạnh hông tủ, soi, vuốt tóc rồi quay đi. Gương không tự chuyển động.
+
+**LỜI DẪN — [storytelling], tự tin kiểu trailer:**
 > Đây là Nam.
 
-### O02 — Nam giữa khung: giới thiệu · khoảng 0:03–0:08 · nhịp I1–I4
+**Chữ lớn (khi Nam vuốt tóc):** NAM · SINH VIÊN NĂM HAI
 
-Nam đứng giữa khung, nhìn thẳng. Nền đổi sau lưng cậu theo phách, mỗi nhịp khoảng 1,2 giây; chữ thời gian nhỏ ở góc trên trái.
+**LỜI DẪN:**
+> Ở trọ cùng Tùng.
 
-| Nhịp | Nền | Nam | Âm/lời |
-|---|---|---|---|
-| I1 · Một tuần trước | Góc đồ cho tặng, ngày | Cười hớn hở, tay đưa ra như vừa nhặt được đồ | Chữ lớn **NAM · SINH VIÊN NĂM HAI** |
-| I2 · Ngày thường | Góc nệm, ngày | Mắt díp, cầm điện thoại | **NAM:** “Tí nữa.” |
-| I3 · Ngày thường | Góc nệm, đêm | Cúi sâu hơn vào điện thoại | **NAM:** “…Tí nữa.” |
-| I4 · Ngày thường | Góc nệm, sáng, cửa mở | Ngập ngừng, vẫn cầm máy | **NAM:** “Ừ, tí.” — tiếng cửa đóng ngoài hình: Tùng đi học một mình |
+### O02 — “Tí nữa” · khoảng 0:06–0:14 · một khung `bed`, cắt nhảy
 
-**LỜI DẪN — hơi cười trong giọng, không giễu cợt (chạy dưới I2–I4):**
+Một khung máy, cắt nhảy theo phách. Nam nằm cùng một chỗ, dáng cầm điện thoại; mỗi lát đổi ánh sáng, **trang phục** và việc Tùng đang làm:
+
+1. Ngày, **đồ thể thao**: Tùng ôm bóng rủ đi đá. Nam giơ một ngón tay.
+2. Đêm, **áo xanh rêu**: Tùng chỉ về phía bếp. Nam không ngẩng lên.
+3. Sáng, **áo ngủ xám**: Tùng đeo balô đứng ở mép khung, nhìn đồng hồ. Nam vẫn nằm.
+
+**NAM — [casual], mỗi lát một câu, mỗi lần lười hơn:**
+> Tí nữa.
+> …Tí nữa.
+> Ừ, tí.
+
+**LỜI DẪN — hơi cười trong giọng, không giễu cợt:**
 > Câu cửa miệng: “Tí nữa.”
 
-### O03 — Nhịp hạ · khoảng 0:08–0:15 · khung `bed` đêm
+**Chữ lớn:** “TÍ NỮA”. Lát chốt: Tùng bước ra khỏi khung một mình, tiếng cửa đóng ngoài hình.
 
-**Nhạc rút còn một lớp đệm. Thoát khỏi kiểu đứng giữa khung**, về khung toàn góc nệm. Tùng về, ngồi im ở mép nệm. Nam thoát ván, úp điện thoại, quay hẳn người về phía bạn, đẩy cốc nước sang.
+### O03 — Nhịp hạ · khoảng 0:14–0:21 · `bed` đêm
+
+**Nhạc rút còn một lớp đệm.** Tùng về, ngồi im ở mép nệm. Nam liếc bạn, thoát ván, úp điện thoại, quay hẳn người về phía Tùng.
 
 **LỜI DẪN — [warm]:**
 > Nhưng hôm nào Tùng có chuyện, Nam vẫn bỏ dở ván game để ngồi nghe.
 
-**[GIỮ trong hành động khoảng 1 giây. Không đọc lời chứng nhận “Nam là người tốt”.]**
+**[GIỮ trong hành động khoảng 1 giây — Nam đẩy cốc nước về phía bạn. Không đọc lời chứng nhận “Nam là người tốt”.]**
 
-### O04 — Nam giữa khung: hé cả truyện · khoảng 0:15–0:27 · nhịp S1–S9
+### O04 — Tối hôm trước · khoảng 0:21–0:30 · `wide` → `kitchen` → `bed` → A02, bản đêm
 
-**Nhạc vào lại và dồn dần.** Quay về Nam giữa khung. Nền đổi theo dòng thời gian [ba ngày](LUAT-BAN-NHAP-V1.md#dòng-thời-gian-và-quyền); Nam không bước đi đâu, chỉ có cảm xúc và cử chỉ đổi.
+**Nhạc dồn lại.** Chữ nhỏ **“Tối hôm trước”**. Nam cởi áo xanh rêu, mặc áo ngủ xám, vắt áo xanh lên ghế cạnh nệm. Tùng chỉ bồn chén; Nam vẫn nhìn điện thoại.
 
-| Nhịp | Nền | Nam | Ứng với |
-|---|---|---|---|
-| S1 · Ngày 1 · 7:00 | Góc bếp, bồn đã sạch | Sững sờ, hai tay buông | P1.01 |
-| S2 · Ngày 1 | Cửa gài chốt | Nghi ngờ, khoanh tay đề phòng | P1.03–P1.04 |
-| S3 · Ngày 1 · chiều | Góc bàn học, nắng rút | Bực bội | P1.05 |
-| S4 · Ngày 1 · tối | Bàn học đêm | Mỉm cười nhẹ nhõm, cầm điện thoại | P1.08 |
-| S5 · Ngày 2 | Toàn phòng ban ngày | Đắc ý, tay đưa ra như trao máy | P2.03–P2.04 |
-| S6 · Ngày 2 · tối | Bàn học đêm | Ngập ngừng, cúi đầu | P2.06 |
-| S7 · Ngày 2 · khuya | Góc nệm đêm, cửa gài | Bình tĩnh, ngẩng lên | P2.07 |
-| S8 · Ngày 3 | Hành lang, cầu thang bên trái | Sợ, dáng định bước đi | P3.04 |
-| S9 · Ngày 3 | Góc gương ban đêm, gương bên phải Nam | Sững sờ, đề phòng | P3.05–P3.06 |
-
-**LỜI DẪN — từng câu ngắn, rơi đúng phách:**
-> (S1) Rồi một sáng, có người làm thay cậu mọi thứ.
-> (S5) Sướng thật.
-> (S8) Nhưng làm thay tới đâu… thì vừa?
-
-S9 giữ thêm khoảng 0,6 giây. **Nhạc cắt cụt, cắt đen.**
-
-### O05 — Tối hôm trước · khoảng 0:27–0:36
-
-Im một nhịp. Chữ nhỏ **“Tối hôm trước”**. Không còn đứng giữa khung: khung `wide` đêm, Nam vắt áo xanh rêu lên ghế. Tùng chỉ bồn chén; Nam vẫn nhìn điện thoại.
-
-**NAM — [casual], nói với Tùng, lời hứa thuận miệng:**
+**NAM — [casual], lời hứa thuận miệng:**
 > Tí tao rửa. Mày ngủ đi.
 
-Tùng nằm xuống nửa nệm sát tường. Ba hình nhanh: **`kitchen` — đống chén ở bồn → `bed` — áo xanh trên ghế → cận tay A02 — điện thoại sáng trong tay Nam.**
+Ba hình nhanh: **`kitchen` — đống chén ở bồn → `bed` — áo xanh trên ghế, gương ở xa phản chiếu bình thường → cận tay A02 — điện thoại tuột khỏi tay Nam, màn hình tắt.**
 
 **LỜI DẪN — bình thản, câu cuối của người dẫn:**
 > Còn đống chén tối đó… để mai tính.
 
-### O06 — Báo thức · khoảng 0:36–0:40 · khung A02 đêm → sáng
+**Nhạc cắt cụt.**
 
-Điện thoại tuột khỏi tay Nam, màn hình tắt, cắt đen.
+### O05 — Jumpscare · khoảng 0:30–0:34 · `bed` đêm → cận mặt
+
+**J1 · 2,6 giây · im lặng.** Chỉ còn tiếng quạt. Góc nệm ban đêm, máy đẩy vào rất chậm. Nam ngủ, đầu nghiêng trên gối; Tùng nằm phía sát tường dưới chăn. Ở mép trái khung, cạnh lối đi, **có một bóng người đứng im**, gần như tan vào bóng tối. Không nhấn, không cho nhạc báo; người xem để ý được thì càng sợ.
+
+**J2 · 0,4 giây.** **Cắt phụt vào cận mặt bóng người**, sát máy: gương mặt Nam, mắt trừng, con ngươi nhỏ, cười toét, ánh xanh hắt từ dưới, khung rung mạnh. Nốt ruồi nằm bên phải theo thiết kế bản sao, không nhấn riêng. **Tiếng hù** (thử `drone_hit` hoặc `glitch` chồng `title_boom` trong thư viện) rơi đúng frame đầu J2.
+
+**J3.** Cắt đen.
+
+**Logic truyện:** theo [dòng thời gian V1](LUAT-BAN-NHAP-V1.md#dòng-thời-gian-và-quyền), thực thể ra ngoài trong đêm trước ngày 1. Cú hù chỉ cho thấy nó đứng nhìn Nam ngủ; không lộ nó từ đâu ra hay gương liên quan thế nào. Nó mặc áo xanh lấy từ ghế, khớp với buổi sáng ở P1.01. Đây là cảnh đề xuất mới, chưa được duyệt thành lore.
+
+### O06 — Tên phim và báo thức · khoảng 0:34–0:40 · đen → A02 sáng
 
 **Chữ trên nền đen, im lặng gần 1 giây:** HẺM CÓ CHUYỆN — HỒ SƠ 2: NGƯỜI LÀM THAY
 
-**Tiếng báo thức reo xé khoảng im** (âm có nguồn, từ điện thoại trên nệm). Mở lại **đúng khung A02, bản sáng**: cùng bàn tay, cùng điện thoại, giờ là “7 giờ — đi học”. Khung này là A02 của P1.01, không phải shot thêm.
+**Tiếng báo thức reo xé khoảng im** (âm có nguồn, từ điện thoại trên nệm). Mở vào **khung A02 bản sáng**: bàn tay Nam trên nệm, điện thoại hiện “7 giờ — đi học”. Khung này là A02 của P1.01, không phải shot thêm.
 
 **Lời dẫn dừng hẳn từ đây.** Tiếng báo thức liền qua cú cắt sang P1.01, không phát lại lần hai.
 
 **Ghi chú duyệt:**
-- **Đã chọn:** mở đầu kiểu trailer, báo thức thay tiếng vòi nước, tiết kiệm quota, đoạn Nam giữa khung có nền đổi theo thời gian, hé cả truyện nhưng dừng trước kết.
-- **Còn đề xuất:** thứ tự và số nhịp S1–S9, biểu cảm từng nhịp, ba câu “Tí nữa”, ba câu lời dẫn mới ở O04, tên phim trên nền đen, nhạc và âm thư viện.
-- **Bản xem nhịp:** composition `HoSo02TrailerIntro` và `HoSo02TrailerStory` trong studio. Chỉ là hình chưa có giọng, nhạc hay âm; chưa render bản cuối.
+- **Đã chọn:** trailer bình thường; jumpscare trước báo thức; báo thức thay tiếng vòi nước; tiết kiệm quota; clip Nam giữa khung tách riêng.
+- **Còn đề xuất:**
+  - cách dựng cú hù (bóng người cạnh nệm, cận mặt cười toét);
+  - trang phục từng lát;
+  - ba câu “Tí nữa”, tên phim trên nền đen;
+  - nhạc và âm thư viện.
+- **Bản xem:** composition `HoSo02TrailerJumpscare` chỉ có hình, chưa có âm. Các đoạn O01–O04, O06 chưa dựng.
 
 
 <a id="p1-01"></a>
