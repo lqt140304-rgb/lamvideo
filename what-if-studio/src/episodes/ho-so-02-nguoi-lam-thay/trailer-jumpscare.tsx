@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, Audio, interpolate, Sequence, staticFile, useCurrentFrame } from 'remotion';
-import { mixPose, sampleWalk, STAND_POSE, StudentTwinBody, StudentTwinHead } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import { mixPose, sampleWalk, STAND_POSE, StudentTwinBody } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { placeOn, RoomNight } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 import { Sleeper } from './canh-01-demo';
 
@@ -9,17 +9,16 @@ import { Sleeper } from './canh-01-demo';
  * W: toàn phòng ban đêm, Nam nằm ngủ (mẫu nằm toàn thân `Sleeper`). Bóng đen người đứng im cạnh nệm nhìn Nam;
  *    gần cuối cảnh hai đốm mắt trong bóng đen lóe sáng (giữ từ bản jumpscare đầu).
  * P: mắt Nam, mí còn nặng, mở dần, cảnh nhòe. Người kia, có mặt Nam, đi vào từ cửa; hai đốm mắt sáng lên khi Nam chớp mắt nhận ra.
- * C: người kia cúi sát, mặt lớn dần trong im lặng, nụ cười nở chậm; rồi một cú giật: khung rung, mí Nam sập xuống,
- *    trong bóng tối chỉ còn hai đốm mắt sáng rồi tắt. Không há miệng.
+ * C: im bặt một nhịp, cắt phụt vào mặt dọa (đen trắng, hốc mắt sâu, cười toác đầy răng), rung mạnh rồi mí Nam sập, đen. Không há miệng nuốt.
  * Báo thức và tên phim nằm ở timeline trailer, không trong clip này.
- * Âm: tiếng phòng ở W và P, tiếng ù thấp dâng ở C, tiếng hù đúng lúc mí sập (file thư viện chép vào public, xem P1.00).
+ * Âm: tiếng phòng ở W và P, tiếng ù thấp dâng cuối P, im 6 frame, tiếng hù đúng lúc cắt vào mặt (file thư viện chép vào public, xem P1.00).
  */
 export const WIDE = 66; // 2,2 giây toàn phòng
 export const POV = 150; // 5 giây mắt Nam: người kia tiến lại gần dần, máy zoom liền vào đầu
-export const CLOSE = 66; // 2,2 giây cận mặt đến lúc sập mí
-export const BLACK = 20;
+export const CLOSE = 20; // 0,67 giây: cắt phụt vào mặt dọa rồi sập tối, dứt khoát
+export const BLACK = 16;
 export const JUMP_TOTAL = WIDE + POV + CLOSE + BLACK;
-export const SLAM_AT = 0.82; // phần của C mà mí sập xuống
+export const SLAM_AT = 0.72; // phần của C mà mí sập xuống
 export const EYES_ON = 48; // frame hai đốm mắt lóe sáng ở cảnh toàn phòng
 
 const ease = (x: number) => x * x * (3 - 2 * x);
@@ -127,56 +126,70 @@ export const PovFrame: React.FC<{ u: number }> = ({ u }) => {
   );
 };
 
-/** Cận mặt: k 0..1 trong đoạn C. Lún dần vào mặt, nụ cười nở chậm; đến SLAM_AT thì giật, mí sập, chỉ còn hai đốm mắt. */
-export const CloseFrame: React.FC<{ k: number }> = ({ k }) => {
-  const lean = ease(clamp(k / SLAM_AT));
-  const s = 4.4 + 2.2 * lean;
-  const hx = 1010, hy = 300 - 78 * s;
-  const slam = clamp((k - SLAM_AT) / 0.05); // mí sập trong ~3 frame
-  const after = k >= SLAM_AT + 0.05;
-  const kick = k >= SLAM_AT && k < SLAM_AT + 0.12 ? Math.sin((k - SLAM_AT) * 260) * 60 * (1 - (k - SLAM_AT) / 0.12) : 0;
-  const tremor = Math.sin(k * 140) * 2.5 * lean;
-  const lids = 1 - ease(slam); // 1 mở, 0 khép
-  const eyeA = after ? 1 - clamp((k - SLAM_AT - 0.1) / 0.1) : 0;
-  const ex = (dx: number) => hx + (dx - 10) * s, ey = hy + 99 * s;
-  const w = ease(clamp((k - 0.4) / (SLAM_AT - 0.4))); // độ méo hình, tăng dần tới lúc dọa
-  const cy = hy + 95 * s;
-  const warp = `translate(${hx} ${cy}) rotate(${(-9 * w).toFixed(2)}) skewX(${(-7 * w).toFixed(2)}) scale(${(1 - 0.08 * w).toFixed(3)} ${(1 + 0.34 * w).toFixed(3)}) translate(${-hx} ${-cy})`;
-  const seed = Math.floor(k * 66) % 7 + 1;
+/** Mặt dọa: vẽ riêng cho cú hù, đen trắng tương phản mạnh, hốc mắt sâu, mắt nhỏ trừng, cười toác đầy răng, có hạt nhiễu.
+ *  Giữ tóc có lọn xoăn và nốt ruồi bên phải để vẫn nhận ra là bản sao của Nam. k 0..1 trong đoạn C. */
+const upperLip = (x: number) => { const t = (x - 600) / 720; return 770 - 130 * t * (1 - t); };
+export const ScareFace: React.FC<{ k: number }> = ({ k }) => {
+  const z = 1.3 + 0.18 * ease(clamp(k / SLAM_AT));
+  const amp = 34 * (1 - clamp(k / SLAM_AT));
+  const sx = Math.sin(k * 140) * amp, sy = Math.cos(k * 113) * amp * 0.6;
+  const slam = clamp((k - SLAM_AT) / 0.12);
+  const seed = Math.floor(k * 40) % 9 + 1;
+  const up = Array.from({ length: 13 }, (_, j) => j - 6);
+  const mouth = 'M600 770 Q960 640 1320 770 Q1190 1010 960 1012 Q730 1010 600 770 Z';
   return (
-    <AbsoluteFill style={{ background: '#020305' }}>
+    <AbsoluteFill style={{ background: '#000' }}>
       <svg width={1920} height={1080} viewBox="0 0 1920 1080">
         <defs>
-          <linearGradient id="cl-under" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stopColor="#bcd6ff" stopOpacity=".5" /><stop offset=".5" stopColor="#0b1222" stopOpacity="0" /></linearGradient>
-          <radialGradient id="cl-vig" cx=".5" cy=".55" r=".6"><stop offset=".4" stopColor="#000" stopOpacity="0" /><stop offset="1" stopColor="#000" stopOpacity=".95" /></radialGradient>
-          <radialGradient id="cl-socket"><stop offset="0" stopColor="#05060a" stopOpacity="0" /><stop offset=".5" stopColor="#05060a" stopOpacity="0" /><stop offset=".72" stopColor="#05060a" stopOpacity=".7" /><stop offset="1" stopColor="#05060a" stopOpacity="0" /></radialGradient>
-          <filter id="cl-warp" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".006 .018" numOctaves="2" seed={seed} result="n" /><feDisplacementMap in="SourceGraphic" in2="n" scale={46 * w} xChannelSelector="R" yChannelSelector="G" /></filter>
-          <filter id="cl-face"><feColorMatrix type="matrix" values=".5 0 0 0 0  0 .54 0 0 .01  0 0 .7 0 .04  0 0 0 1 0" /></filter>
+          <radialGradient id="sf-light" cx=".5" cy=".5" r=".55"><stop offset="0" stopColor="#ecebe6" /><stop offset=".36" stopColor="#bdbab3" /><stop offset=".62" stopColor="#3a3835" /><stop offset=".86" stopColor="#000" /></radialGradient>
+          <radialGradient id="sf-socket"><stop offset="0" stopColor="#000" stopOpacity="1" /><stop offset=".55" stopColor="#000" stopOpacity=".92" /><stop offset="1" stopColor="#000" stopOpacity="0" /></radialGradient>
+          <radialGradient id="sf-vig" cx=".5" cy=".5" r=".62"><stop offset=".5" stopColor="#000" stopOpacity="0" /><stop offset="1" stopColor="#000" stopOpacity="1" /></radialGradient>
+          <clipPath id="sf-mouth"><path d={mouth} /></clipPath>
+          <filter id="sf-grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed={seed} /><feColorMatrix type="saturate" values="0" /></filter>
+          <filter id="sf-soft"><feGaussianBlur stdDeviation="6" /></filter>
         </defs>
-        <g transform={`translate(${960 + kick + tremor} ${540 + kick * 0.5}) translate(-960 -540)`}>
-          {!after && (
-            <g>
-              <g filter={w > 0.05 ? 'url(#cl-warp)' : undefined}>
-                <g transform={warp}>
-                  <g filter="url(#cl-face)"><StudentTwinHead identity="nguoi-kia" mood={k < 0.45 ? 'eerie_smirk' : 'stare_grin'} view="front" x={hx} y={hy} scale={s} id="cl-head" /></g>
-                  {w > 0 && [-11, 30].map((dx, i) => (
-                    <ellipse key={i} cx={ex(dx)} cy={ey + 4 * s} rx={34 * s} ry={38 * s} fill="url(#cl-socket)" opacity={w} />
-                  ))}
-                </g>
-              </g>
-              <rect x={-200} y={-200} width={2320} height={1480} fill="url(#cl-under)" style={{ mixBlendMode: 'screen' }} />
+        <g transform={`translate(${960 + sx} ${540 + sy}) scale(${z}) translate(-960 -540)`}>
+          {/* Khối mặt sáng từ chính diện, tối dần ra mép */}
+          <path d="M960 10 C1380 10 1500 360 1480 600 C1460 880 1250 1150 960 1160 C670 1150 460 880 440 600 C420 360 540 10 960 10 Z" fill="url(#sf-light)" />
+          {/* Tóc tối hòa vào nền, có lọn xoăn trên đỉnh */}
+          <path d="M420 330 Q450 40 960 -20 Q1470 40 1500 330 Q1360 190 1180 230 Q1060 170 960 200 Q850 160 720 230 Q560 190 420 330 Z" fill="#070707" />
+          <path d="M900 -10 Q980 -120 1060 -40 Q1010 -70 980 -20 Z" fill="#070707" />
+          {/* Hốc mắt sâu */}
+          <ellipse cx={750} cy={455} rx={190} ry={150} fill="url(#sf-socket)" />
+          <ellipse cx={1170} cy={455} rx={190} ry={150} fill="url(#sf-socket)" />
+          {/* Mắt nhỏ trừng, con ngươi nhìn thẳng */}
+          {[[760, 462], [1160, 462]].map(([x, y], i) => (
+            <g key={i}>
+              <ellipse cx={x} cy={y} rx={44} ry={36} fill="#efede6" />
+              <circle cx={x + (i ? -6 : 6)} cy={y + 2} r={15} fill="#060606" />
+              <circle cx={x + (i ? -11 : 1)} cy={y - 4} r={4} fill="#ffffff" />
             </g>
-          )}
-        </g>
-        <rect width={1920} height={1080} fill="url(#cl-vig)" />
-        {k >= SLAM_AT && <Lids s={lids} />}
-        {after && eyeA > 0 && (
-          <g opacity={eyeA} transform={`translate(${kick + tremor} ${kick * 0.5})`}>
-            {[-11, 30].map((dx, i) => (
-              <g key={i}><circle cx={ex(dx)} cy={ey} r={10 * s} fill="#cfe2ff" opacity={0.2} /><circle cx={ex(dx)} cy={ey} r={1.7 * s} fill="#f2f7ff" /></g>
-            ))}
+          ))}
+          {/* Lông mày hất cao */}
+          <path d="M600 330 Q740 270 870 330" fill="none" stroke="#0a0a0a" strokeWidth={26} strokeLinecap="round" />
+          <path d="M1050 330 Q1180 270 1320 330" fill="none" stroke="#0a0a0a" strokeWidth={26} strokeLinecap="round" />
+          {/* Nốt ruồi bên phải (dấu của bản sao) */}
+          <circle cx={1310} cy={420} r={10} fill="#0a0a0a" />
+          {/* Mũi: sống mũi sáng, cánh mũi và lỗ mũi tối */}
+          <path d="M930 520 Q960 600 925 660 Q960 690 995 660 Q960 600 990 520" fill="none" stroke="#3a3836" strokeWidth={10} opacity={0.5} filter="url(#sf-soft)" />
+          <ellipse cx={928} cy={668} rx={20} ry={11} fill="#141312" />
+          <ellipse cx={992} cy={668} rx={20} ry={11} fill="#141312" />
+          {/* Rãnh má kéo căng về khoé miệng */}
+          <path d="M880 640 Q700 690 610 780" fill="none" stroke="#1c1b1a" strokeWidth={16} opacity={0.6} filter="url(#sf-soft)" />
+          <path d="M1040 640 Q1220 690 1310 780" fill="none" stroke="#1c1b1a" strokeWidth={16} opacity={0.6} filter="url(#sf-soft)" />
+          {/* Miệng toác: lòng tối, lợi, hai hàm răng */}
+          <path d={mouth} fill="#080505" />
+          <g clipPath="url(#sf-mouth)">
+            <path d="M600 770 Q960 640 1320 770 L1320 800 Q960 672 600 800 Z" fill="#5b4747" />
+            {up.map((j) => { const x = 960 + j * 52, y = upperLip(x) + 18, h = 104 - Math.abs(j) * 6; return <rect key={`u${j}`} x={x - 24} y={y} width={48} height={h} rx={10} fill="#f0ede4" stroke="#1a1a1a" strokeWidth={4} />; })}
+            {up.map((j) => { const x = 960 + j * 52 + 26, h = 84 - Math.abs(j) * 5; return <rect key={`l${j}`} x={x - 23} y={1000 - h - Math.abs(j) * 9} width={46} height={h + 40} rx={10} fill="#dedbd2" stroke="#1a1a1a" strokeWidth={4} />; })}
           </g>
-        )}
+          <path d={mouth} fill="none" stroke="#0d0b0b" strokeWidth={8} />
+        </g>
+        <rect width={1920} height={1080} filter="url(#sf-grain)" opacity={0.2} style={{ mixBlendMode: 'overlay' }} />
+        <rect width={1920} height={1080} fill="url(#sf-vig)" />
+        {slam > 0 && <Lids s={1 - ease(slam)} />}
+        {slam >= 1 && <rect width={1920} height={1080} fill="#000" />}
       </svg>
     </AbsoluteFill>
   );
@@ -184,13 +197,13 @@ export const CloseFrame: React.FC<{ k: number }> = ({ k }) => {
 
 /** Âm thanh: file thư viện chép vào public/ho-so-02-nguoi-lam-thay/sfx/ (thư mục bị Git bỏ qua). */
 const SFX = (name: string) => staticFile(`ho-so-02-nguoi-lam-thay/sfx/${name}`);
-const SLAM_FRAME = WIDE + POV + Math.round(CLOSE * SLAM_AT);
 export const JumpAudio: React.FC = () => (
   <>
-    <Sequence durationInFrames={WIDE + POV}><Audio src={SFX('room_tone.mp3')} volume={0.5} /></Sequence>
-    <Sequence from={WIDE + POV - 12} durationInFrames={SLAM_FRAME - (WIDE + POV - 12)}><Audio src={SFX('power_hum.mp3')} volume={0.35} /></Sequence>
-    <Sequence from={SLAM_FRAME}><Audio src={SFX('drone_hit.mp3')} volume={1} /></Sequence>
-    <Sequence from={SLAM_FRAME}><Audio src={SFX('glitch.mp3')} volume={0.5} /></Sequence>
+    <Sequence durationInFrames={WIDE + POV - 6}><Audio src={SFX('room_tone.mp3')} volume={0.5} /></Sequence>
+    <Sequence from={WIDE + POV - 40} durationInFrames={34}><Audio src={SFX('power_hum.mp3')} volume={0.35} /></Sequence>
+    {/* 6 frame im bặt trước cú hù */}
+    <Sequence from={WIDE + POV}><Audio src={SFX('drone_hit.mp3')} volume={1} /></Sequence>
+    <Sequence from={WIDE + POV}><Audio src={SFX('glitch.mp3')} volume={0.5} /></Sequence>
   </>
 );
 
@@ -199,14 +212,14 @@ export const HoSo02TrailerJumpscare: React.FC = () => {
   const view = f < WIDE
     ? <JumpWide t={interpolate(f, [0, WIDE], [0, 1])} eyes={interpolate(f, [EYES_ON, EYES_ON + 6], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} />
     : f < WIDE + POV ? <PovFrame u={(f - WIDE) / POV} />
-    : f < WIDE + POV + CLOSE ? <CloseFrame k={(f - WIDE - POV) / CLOSE} />
+    : f < WIDE + POV + CLOSE ? <ScareFace k={(f - WIDE - POV) / CLOSE} />
     : <AbsoluteFill style={{ background: '#000' }} />;
   return <AbsoluteFill>{view}<JumpAudio /></AbsoluteFill>;
 };
 
 /** Sáu khung tĩnh để duyệt: người kia tiến lại gần, zoom vào đầu, mặt méo dần, mí sập. */
 export const HoSo02JumpscareBoard: React.FC = () => {
-  const panels: React.ReactNode[] = [<PovFrame u={0.4} />, <PovFrame u={0.72} />, <PovFrame u={0.97} />, <CloseFrame k={0.2} />, <CloseFrame k={0.7} />, <CloseFrame k={0.87} />];
+  const panels: React.ReactNode[] = [<JumpWide t={1} eyes={1} />, <PovFrame u={0.72} />, <PovFrame u={0.97} />, <ScareFace k={0} />, <ScareFace k={0.5} />, <ScareFace k={0.8} />];
   return (
     <div style={{ width: 1920, height: 720, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '1fr 1fr', background: '#111' }}>
       {panels.map((el, i) => (

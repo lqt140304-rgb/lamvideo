@@ -115,11 +115,11 @@ Chỉ cảnh đầu là toàn phòng; từ đó trở đi là **góc nhìn của
 
 **P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đi vào từ cửa, **tiến lại gần đều và chậm**. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt sáng lên. Gần cuối, máy **zoom liền vào đầu** nó, không cắt.
 
-**C · 2,2 giây.** Mặt lớn dần trong im lặng, nụ cười nở chậm. Khi dọa, **mặt méo đi**: kéo dài, nghiêng, hốc mắt lõm tối, viền gợn như nhiễu. Ở đỉnh, khung giật mạnh, **mí Nam sập xuống**, trong bóng tối chỉ còn hai đốm mắt sáng rồi tắt.
+**C · khoảng 0,7 giây, dứt khoát.** Tiếng phòng tắt bặt một nhịp ngắn, rồi **cắt phụt vào mặt dọa** kín khung: đen trắng tương phản mạnh, hốc mắt sâu tối, mắt nhỏ trừng, cười toác lộ hai hàm răng, có hạt nhiễu. Vẫn giữ tóc có lọn xoăn và nốt ruồi bên phải để nhận ra bản sao. Khung rung mạnh và đẩy vào, rồi **mí Nam sập xuống**, đen hẳn. Mặt vẽ riêng theo phong cách ảnh tham khảo của chủ repo, không chép ảnh.
 
-**Âm:** tiếng phòng ở W và P; tiếng ù thấp dâng từ cuối P; tiếng hù (`drone_hit` chồng `glitch`) đúng lúc mí sập. Mọi âm lấy từ thư viện, chưa nghe duyệt kỹ.
+**Âm:** tiếng phòng ở W và P; tiếng ù thấp dâng cuối P; im khoảng 0,2 giây; tiếng hù (`drone_hit` chồng `glitch`) đúng frame cắt vào mặt. Âm lấy từ thư viện, chưa nghe duyệt kỹ.
 
-**Cắt đen**, rồi chuông báo thức vào ở O06. Cả đoạn dài khoảng 10 giây, dài hơn mốc 4 giây cũ; tổng trailer sẽ vượt 40 giây nếu giữ nguyên các đoạn khác.
+**Cắt đen**, rồi chuông báo thức vào ở O06. Cả đoạn dài khoảng 8,5 giây, dài hơn mốc 4 giây cũ; tổng trailer sẽ vượt 40 giây nếu giữ nguyên các đoạn khác.
 
 **Logic truyện:** theo [dòng thời gian V1](LUAT-BAN-NHAP-V1.md#dòng-thời-gian-và-quyền), thực thể ra ngoài trong đêm trước ngày 1. Cú hù chỉ cho thấy nó đứng nhìn Nam ngủ; không lộ nó từ đâu ra hay gương liên quan thế nào. Nó mặc áo xanh lấy từ ghế, khớp với buổi sáng ở P1.01. Đây là cảnh đề xuất mới, chưa được duyệt thành lore.
 
