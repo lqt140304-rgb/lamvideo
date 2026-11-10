@@ -120,6 +120,8 @@ export type RoomProps = {
   night?: boolean;
   /** 0: nắng sớm, 1: nắng đã rút gần hết (chiều). */
   sun?: number;
+  /** 0–1: vệt nắng xiên từ cửa sổ xuống sàn (khối sáng mờ đè lên cả người), làm rõ hướng nguồn sáng. Chỉ ban ngày. */
+  rays?: number;
   door?: 'ajar' | 'open' | 'closed' | 'latched';
   chair?: keyof typeof SEATS;
   phone?: 'mat' | 'desk' | 'hidden';
@@ -140,7 +142,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', bed: 'Góc nệm' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway';
@@ -705,7 +707,26 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   lampsOff = true;
   shell();
   lampsOff = false;
+  const rayAt = sink.length; // vệt nắng chính chèn ngay sau tường–sàn, trước đồ đạc và người
   const dist = (o: Obj) => { const q = Q(o.at); return Math.hypot(q[0], q[2]); };
+  // Vệt nắng: mỗi ô kính nối với mảng nắng của nó trên sàn thành một khối sáng; vẽ bao lồi trên màn hình rồi làm mờ.
+  const rayHull = (pts: [number, number][]) => {
+    const p = [...pts].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const cr = (o: number[], a: number[], b: number[]) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    const lo: [number, number][] = [], up: [number, number][] = [];
+    for (const q of p) { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], q) <= 0) lo.pop(); lo.push(q); }
+    for (const q of [...p].reverse()) { while (up.length >= 2 && cr(up[up.length - 2], up[up.length - 1], q) <= 0) up.pop(); up.push(q); }
+    return [...lo.slice(0, -1), ...up.slice(0, -1)];
+  };
+  const rayShapes = !night && !inHall && rays > 0 ? sunPanes().map(([a, b, c, e]) => {
+    const wall: V3[] = [[W, c, a], [W, c, b], [W, e, b], [W, e, a]];
+    const floor = wall.map((p) => add(p, mul(sunDir, p[1] / -sunDir[1])));
+    const all = [...wall, ...floor];
+    if (behind(all)) return null;
+    return rayHull(all.map((p) => { const q = P(p); return [q[0], q[1]] as [number, number]; }));
+  }).filter(Boolean) as [number, number][][] : [];
+  const rayPaths = (op: number) => rayShapes.map((h, i) => <path key={i} d={`M${h.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} fill="#fff1cf" opacity={op} />);
+  if (rayShapes.length) sink.splice(rayAt, 0, <g key="rays-back" filter={`url(#${uid}-blur)`} style={{ mixBlendMode: 'screen' }} opacity={rays}>{rayPaths(0.3)}</g>);
   [...objs].sort((a, b) => dist(b) - dist(a)).forEach((o) => {
     const before = sink; sink = [];
     o.draw();
@@ -725,6 +746,11 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       </defs>
       <rect width="1920" height="1080" fill={night ? '#111722' : '#d9cfb9'} />
       <g data-layer={`room-${view}`}>{sink}</g>
+      {rayShapes.length > 0 && (
+        <g filter={`url(#${uid}-blur)`} style={{ mixBlendMode: 'screen' }} opacity={rays}>
+          {rayPaths(0.06)}
+        </g>
+      )}
       {!night && !inHall && <rect width="1920" height="1080" fill={`url(#${uid}-win)`} />}
       <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} />
       {children}

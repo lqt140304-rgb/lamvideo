@@ -22,7 +22,9 @@ const NEAR: [number, number] = [262, 360]; // khoá xếp lớp: Nam vẽ sau kh
 const PHONE: [number, number][] = [[282, 256], [289, 256], [289, 270], [282, 270]];
 
 // Ánh sáng duyệt: hướng theo cửa sổ qua camera của shot, viền ấm, nét mảnh 0.65.
-const lit = (view: RoomView, at: [number, number]): Light => ({ rim: 0.45, amount: 0.42, depth: 15, soft: 4, line: 0.65, ...lightFor(view, at) }); // bóng mềm nhưng hẹp, không phủ quá nửa bộ phận
+// Nắng cửa sổ rõ hướng: mảng tối lạnh và đậm hơn, viền sáng ấm và rõ; vẫn mềm, hẹp.
+const lit = (view: RoomView, at: [number, number]): Light => ({ rim: 0.75, rimColor: '#ffdc9a', amount: 0.55, shade: '#3c4763', depth: 15, soft: 4, line: 0.65, ...lightFor(view, at) });
+const RAYS = 0.9; // vệt nắng xiên từ cửa sổ (RoomScene rays)
 
 const ease = Easing.inOut(Easing.cubic);
 const seg = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease });
@@ -264,7 +266,7 @@ const wideMove = (f: number): CameraMove => {
 };
 const A01: React.FC<{ f: number }> = ({ f }) => (
   <Camera lens={WIDE_LENS} f={f} hand={0.7}>
-    <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" move={wideMove(f)} sleeper={Sleeper({ alarm: true, f })} actors={[washer(f, 'wide')]} />
+    <RoomScene rays={RAYS} view="wide" door="ajar" chair="bed" phone="hidden" move={wideMove(f)} sleeper={Sleeper({ alarm: true, f })} actors={[washer(f, 'wide')]} />
   </Camera>
 );
 
@@ -278,7 +280,7 @@ const A02: React.FC<{ f: number }> = ({ f }) => {
   const carry = seg(f, 240, 252);
   return (
     <Camera lens={lens} f={f} hand={1}>
-      <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: seg(f, 254, 272), breath: f > 272 ? Math.sin(f / 15) * 5 : 0, reach, carry, alarm: f < 236, f })} actors={[washer(f, 'wide')]} />
+      <RoomScene rays={RAYS} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: seg(f, 254, 272), breath: f > 272 ? Math.sin(f / 15) * 5 : 0, reach, carry, alarm: f < 236, f })} actors={[washer(f, 'wide')]} />
     </Camera>
   );
 };
@@ -294,7 +296,7 @@ const A02B: React.FC<{ w: number; f: number }> = ({ w, f }) => {
   const wake = { toss: seg(w, 0, 10), rise: seg(w, 6, 30), slide: seg(w, 28, 60), seat };
   return (
     <Camera lens={lens} f={f} hand={1.4}>
-      <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: 1, phone: false, f, wake })} actors={[washer(f, 'wide')]} />
+      <RoomScene rays={RAYS} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: 1, phone: false, f, wake })} actors={[washer(f, 'wide')]} />
     </Camera>
   );
 };
@@ -324,7 +326,7 @@ const NamClose: React.FC<{ f: number; start: number }> = ({ f, start }) => {
   const zoom = a03 ? 1.95 + 0.06 * seg(f, 400, 492) + 0.24 * snap : 1.95 + 0.14 * seg(f, 650, 830);
   return (
     <Camera lens={seatLens(zoom)} f={f} hand={1.3}>
-      <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[{ at: [300, 300], render: () => <PhoneOnMat view="bed" /> }, namActor('bed', { pose, at: SEAT, rise, mood, face, look, talk: talkAt(f, 440, 492), blink: f > 500 ? false : blinkAt(f) })]} />
+      <RoomScene rays={RAYS} view="bed" door="ajar" chair="bed" phone="hidden" actors={[{ at: [300, 300], render: () => <PhoneOnMat view="bed" /> }, namActor('bed', { pose, at: SEAT, rise, mood, face, look, talk: talkAt(f, 440, 492), blink: f > 500 ? false : blinkAt(f) })]} />
     </Camera>
   );
 };
@@ -336,7 +338,7 @@ const OverShoulder: React.FC<{ f: number; nk: { look: { view: View; facing: 1 | 
   const p = placeOn('kitchen', SINK, 168, move);
   return (
     <Camera lens={{ cx: p.x + 60 * p.scale, cy: p.y + 170 * p.scale, z: 1.35 }} f={f} hand={1.1}>
-      <RoomScene view="kitchen" door="ajar" chair="bed" move={move} actors={[
+      <RoomScene rays={RAYS} view="kitchen" door="ajar" chair="bed" move={move} actors={[
         { at: SINK, render: (q) => <NguoiKia {...q} {...LOOK} light={lit('kitchen', SINK)} mood="calm" face="binh-than-00" blink={blinkAt(f, 30)} talk={nk.talk} pose={{ ...TWIN_POSES.holdBowl, view: nk.look.view, facing: nk.look.facing }} /> },
         namActor('kitchen', { pose: LOWSIT, at: SEAT, mood: 'hesitant', look: { view: 'quarter', facing: -1 }, move }),
       ]} />
@@ -364,7 +366,7 @@ const A05: React.FC<{ f: number }> = ({ f }) => {
   const z = 1.3 + 0.08 * seg(f, 830, 1080) - 0.06 * seg(f, 1080, 1110);
   return (
     <Camera lens={{ cx: 600, cy: 640, z }} shake={shake} f={f} hand={f > 1080 ? 2.2 : 1.2}>
-      <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[...(f < 1068 ? [{ at: [300, 300] as [number, number], render: () => <PhoneOnMat view="bed" /> }] : []), namActor('bed', { pose, at, mood, face, look: { view: 'three', facing: -1 }, talk: talkAt(f, 874, 926), blink: f > 1018 ? false : blinkAt(f) })]} />
+      <RoomScene rays={RAYS} view="bed" door="ajar" chair="bed" phone="hidden" actors={[...(f < 1068 ? [{ at: [300, 300] as [number, number], render: () => <PhoneOnMat view="bed" /> }] : []), namActor('bed', { pose, at, mood, face, look: { view: 'three', facing: -1 }, talk: talkAt(f, 874, 926), blink: f > 1018 ? false : blinkAt(f) })]} />
     </Camera>
   );
 };
