@@ -4,6 +4,7 @@ Series truyện giả định đời thường Việt Nam, đang mở thành vũ
 
 | Mục | Dùng để làm gì |
 |---|---|
+| [Nhân vật truy vết — asset chung](assets/nguoi-truy-vet/README.md) | Mẫu toàn thân hiện hành và 27 biểu cảm theo mức + trung tính; dùng xuyên series, chưa có rig hoặc tập ra mắt |
 | [THIET-KE-NHAN-VAT.md](THIET-KE-NHAN-VAT.md) | Hướng thiết kế SVG đã chọn, nét chung và giới hạn của mẫu thử tĩnh |
 | [VU-TRU.md](VU-TRU.md) | Luật và thông tin dùng chung riêng cho series, hồ sơ thực thể đầu tiên, phần đã chốt/phần đề xuất |
 | [Hồ sơ 1 — Tin nhắn chưa gửi](tap-01-tin-nhan-chua-gui/README.md) | Kịch bản, lời đọc, asset và kế hoạch dựng của truyện đầu |

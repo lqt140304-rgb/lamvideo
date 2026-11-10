@@ -8,6 +8,7 @@ Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng t�
 
 | Nhóm | Vị trí | Trạng thái / lưu ý |
 |---|---|---|
+| Nhân vật truy vết xuyên series | [Mẫu và biểu cảm](../episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) | Toàn thân V7 hiện hành, 27 biểu cảm theo 3 mức + mặt trung tính; chủ repo duyệt bộ nét mặt 10/11/2026. SVG/PNG đã rà tĩnh; chưa rig hoặc ghép cảnh. Tên chính thức và cơ chế thu giữ còn mở |
 | Engine, rig, props, UI | [engine](../what-if-studio/src/engine/) | Đã nhận nâng cấp cd7243c: thêm biểu cảm/tay/phụ kiện, hands, props_life, vehicles và set thử; có mã/preview, cần kiểm tra trong cảnh mới |
 | VFX, khẩu hình, rig mềm | [ASSET-VFX.md](ASSET-VFX.md) | Wind/cloud/dust/smoke/rain/ripple/impact, blink/mouth và khớp–vải–hông; có code, still/clip thử; giữ tỉ lệ cartoon, chưa duyệt toàn tập |
 | Tư liệu hình thể | [hinh-the-nguoi](tham-khao/hinh-the-nguoi/README.md) | 3 ảnh chủ repo gửi, nguyên nguồn; chỉ tham khảo tư thế, không là asset sản xuất đã cấp quyền |
