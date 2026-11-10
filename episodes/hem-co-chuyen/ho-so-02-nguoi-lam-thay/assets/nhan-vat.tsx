@@ -569,7 +569,7 @@ const crease = (c: { root: P; mid: P; end: P }, r: number) => {
   const lb = Math.hypot(b.x, b.y);
   if (lb < 1) return null; // chỉ hiện khi gập trên ~60°
   const n = { x: b.x / lb, y: b.y / lb };
-  return <path d={`M ${c.mid.x + n.x * r} ${c.mid.y + n.y * r} L ${c.mid.x + n.x * r * 0.25} ${c.mid.y + n.y * r * 0.25}`} fill="none" stroke={PALETTE.ink} style={{ strokeWidth: lw(2.5) }} strokeLinecap="round" />;
+  return <path d={`M ${c.mid.x + n.x * r} ${c.mid.y + n.y * r} L ${c.mid.x + n.x * r * 0.25} ${c.mid.y + n.y * r * 0.25}`} fill="none" style={{ strokeWidth: lw(2.5), stroke: 'var(--inner-ink, #2b2b2b)' }} strokeLinecap="round" />;
 };
 
 // Bàn tay kiểu Mẫu B: ngón gộp thành một khối, chỉ lộ gợn đầu ngón. Thứ tự từ phía ngón cái.
@@ -655,7 +655,7 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
       {o.socks && shoe}
       <Blob fill={o.pants} d={[limbContour(cloth, widths), circle(hip, 30), softEnd(cloth.mid, cloth.end, widths[2], 3), ...(long ? [circle(knee, 26)] : [])]} />
       {long && crease(c, 22)}
-      {long && !(view === 'side' && side === 'L') && <path d={foldPath(knee, ankle, side)} fill="none" stroke={PALETTE.ink} style={{ strokeWidth: lw(2.5) }} strokeLinecap="round" />}
+      {long && !(view === 'side' && side === 'L') && <path d={foldPath(knee, ankle, side)} fill="none" style={{ strokeWidth: lw(2.5), stroke: 'var(--inner-ink, #2b2b2b)' }} strokeLinecap="round" />}
       {o.stripe && <path d={alongSide(hip, knee, side === 'R' ? 30 : -30)} fill="none" stroke={o.stripe} style={{ strokeWidth: lw(3.5) }} />}
     </g>
   );
@@ -772,9 +772,12 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; chi
 };
 
 /** Ghép nhân vật từ khung xương: bàn chân → chân → tay sau → áo → đầu → tay trước. */
-export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'ink' }) => {
+export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline; headOutline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'ink', headOutline }) => {
   const gid = useClipId('ground');
   const awayClip = useClipId('away');
+  // Không viền: tách lớp bằng độ sáng — phần nằm sau (tay xa, chân sau) tối hơn, cẳng tay gập đè lên trước sáng hơn.
+  const toneBack = outline === 'none' ? { filter: 'brightness(0.8)' } : undefined;
+  const toneFront = outline === 'none' ? { filter: 'brightness(1.07)' } : undefined;
   const view: View = outfit.views ? raw.view ?? 'three' : 'three'; // nhân vật chưa vẽ đủ góc thì giữ 3/4
   const o = { ...outfit, ...outfit.views?.[view] };
   // chính diện và sau lưng không lật được: hai bên phải giữ đúng chỗ
@@ -803,7 +806,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   const armL = arm(r.armL, ((side || away ? 1 : -1) * (pose.palmUp === 'L' ? -1 : 1)) as 1 | -1, pose.wristL, pose.handL, pose.prop === 'bowl' || phoneOnL ? held : null);
   return (
     <OutlineCtx.Provider value={outline}>
-    <g transform={`translate(${x} ${y}) scale(${scale * facing} ${scale})`} strokeLinecap="round" strokeLinejoin="round" style={{ ['--lw' as string]: l?.line ?? 1 } as React.CSSProperties}>
+    <g transform={`translate(${x} ${y}) scale(${scale * facing} ${scale})`} strokeLinecap="round" strokeLinejoin="round" style={{ ['--lw' as string]: l?.line ?? 1, ...(outline !== 'ink' ? { ['--inner-ink' as string]: 'rgba(32,24,18,.36)' } : {}) } as React.CSSProperties}>
       {l ? (
         // Bóng tiếp đất: mảng mềm lệch khỏi phía đèn, thêm vệt đậm sát gót để chân "đè" lên sàn.
         <g style={{ mixBlendMode: 'multiply' }} stroke="none">
@@ -815,11 +818,11 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
       )}
       <g transform={`translate(${pose.x} ${r.dy})`}>
-        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
+        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`} style={toneBack}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
           {!side && <Blob fill={o.pants} d={[`M -30 335 H 32 L 30 ${crotch - 4} Q 1 ${crotch - 30} -28 ${crotch - 4} Z`]} />}
-          <Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} />
+          <g style={toneBack}><Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} /></g>
         </Shade>
         <Shade l={l} facing={facing}>
           <Leg c={r.legR} side="R" foot={r.footR} o={o} view={view} />
@@ -827,18 +830,18 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         </Shade>
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
           {/* Nhìn từ sau: khuỷu, cẳng tay hai bên nằm ngoài hông nên đè lên quần; phần tay vào giữa thân (bàn tay đưa ra trước) bị thân che nên cắt bỏ dải giữa. */}
-          {away && <g clipPath={`url(#${awayClip})`}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath><Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade></g>}
-          {!frontL && !side && !away && <Shade l={l} facing={facing}>{whole(armL)}</Shade>}
-          {!frontR && !away && <Shade l={l} facing={facing}>{whole(armR)}</Shade>}
+          {away && <g clipPath={`url(#${awayClip})`} style={toneBack}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath><Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade></g>}
+          {!frontL && !side && !away && <g style={toneBack}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>}
+          {!frontR && !away && <g style={toneBack}><Shade l={l} facing={facing}>{whole(armR)}</Shade></g>}
           <Shade l={l} facing={facing}>
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
             {!frontR && <Cuff c={r.armR} o={o} />}
             {!frontL && !side && <Cuff c={r.armL} o={o} />}
-            <g stroke={PALETTE.ink}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
+            <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
-          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing}>{head}</Shade></g>
-          {frontL && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{armL.over}</Shade>}
-          {frontR && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{armR.over}</Shade>}
+          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
+          {frontL && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} /><g style={toneFront}>{armL.over}</g></Shade>}
+          {frontR && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} /><g style={toneFront}>{armR.over}</g></Shade>}
         </g>
       </g>
     </g>
@@ -856,7 +859,7 @@ const FLAT_FOOT: Record<Exclude<View, 'three'>, { body: string; band?: string; s
 const FlatFoot: React.FC<{ view: Exclude<View, 'three'>; upper: string; sole: string; band: string }> = ({ view, upper, sole, band }) => {
   const f = FLAT_FOOT[view];
   return (
-    <g stroke={PALETTE.ink} style={{ strokeWidth: lw(4) }}>
+    <g style={{ strokeWidth: lw(4), stroke: 'var(--inner-ink, #2b2b2b)' }}>
       <path d={f.body} fill={upper} />
       {f.band && <path d={f.band} fill={band} style={{ strokeWidth: lw(2.5) }} />}
       <path d={f.sole} fill={sole} style={{ strokeWidth: lw(2.5) }} />
@@ -868,7 +871,7 @@ const FlatFoot: React.FC<{ view: Exclude<View, 'three'>; upper: string; sole: st
 const Slipper: React.FC<{ side: 'R' | 'L'; view: View }> = ({ side, view }) => {
   if (view !== 'three') return <FlatFoot view={view} upper={PALETTE.skin} sole={PALETTE.nam.sole} band={PALETTE.nam.slippers} />;
   return (
-    <g transform={side === 'R' ? 'translate(33 -555)' : 'translate(-35 -555)'} stroke={PALETTE.ink} style={{ strokeWidth: lw(4) }}>
+    <g transform={side === 'R' ? 'translate(33 -555)' : 'translate(-35 -555)'} style={{ strokeWidth: lw(4), stroke: 'var(--inner-ink, #2b2b2b)' }}>
       {side === 'R' ? (
         <>
           <path d="M -54 561 Q -80 568 -78 585 Q -53 597 -5 586 L -7 575 Q -20 560 -54 561 Z" fill={PALETTE.skin} />
@@ -932,8 +935,9 @@ export const StudentTwinBody: React.FC<{
   faceFrom?: FaceKey;
   faceMix?: number;
   outline?: Outline;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline }) => (
-  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} />} />
+  headOutline?: Outline;
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline }) => (
+  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */
@@ -1039,7 +1043,7 @@ export const TungHead: React.FC<{
 };
 
 const Turf: React.FC<{ side: 'R' | 'L'; view: View }> = ({ side, view }) => view !== 'three' ? <FlatFoot view={view} upper={PALETTE.tung.cleats} sole={PALETTE.tung.cleatsSole} band={PALETTE.tung.cleatsAccent} /> : (
-  <g transform={side === 'R' ? 'translate(33 -555)' : 'translate(-35 -555)'} stroke={PALETTE.ink} style={{ strokeWidth: lw(3.8) }}>
+  <g transform={side === 'R' ? 'translate(33 -555)' : 'translate(-35 -555)'} style={{ strokeWidth: lw(3.8), stroke: 'var(--inner-ink, #2b2b2b)' }}>
     {side === 'R' ? (
       <>
         <path d="M -52 560 Q -78 566 -74 582 Q -50 594 -8 584 L -10 573 Q -22 558 -52 560 Z" fill={PALETTE.tung.cleats} />
