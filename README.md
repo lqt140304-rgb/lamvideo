@@ -4,6 +4,8 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 
 **Thông báo mỹ thuật — 10/11/2026:** phong cách cartoon Style B dùng đường cong mềm, hình khối tròn đầy và nét liền mạch cho **cả nhân vật, nội thất, đạo cụ, kiến trúc, đường phố và môi trường**. Đọc [quy chuẩn mỹ thuật chung](docs/PHONG-CACH-MY-THUAT.md) trước khi thiết kế. [Bộ nhân vật hiện có](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg) là tham chiếu Style B; quy chuẩn mới không đồng nghĩa toàn bộ nền/asset cũ đã được vẽ lại hoặc rig/timeline đã hoàn thiện.
 
+**Quyết định tạo hình mới — 10/11/2026:** nhân vật không viền ngoài, tay–chân giản lược bằng khối mềm; xem [quy chuẩn và ảnh so sánh](docs/PHONG-CACH-MY-THUAT.md). Đã chốt hướng thiết kế; chưa đồng nghĩa rig và toàn bộ preview đã cập nhật.
+
 ## Bắt đầu ở đây
 
 **Thư viện biểu cảm dùng chung:** [bộ nét mặt tách lớp](what-if-studio/library/expressions/cartoon-soft/README.md) có 27 mức biểu cảm + trung tính, không tóc/khung đầu, để căn vào nhân vật mới; xem giới hạn góc nhìn và cách ghép trong hướng dẫn.

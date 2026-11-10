@@ -8,6 +8,7 @@ Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng t�
 
 | Nhóm | Vị trí | Trạng thái / lưu ý |
 |---|---|---|
+| Mẫu tay–chân cartoon tối giản | [Quy chuẩn và ảnh so sánh](PHONG-CACH-MY-THUAT.md) | Ảnh AI tạo trong chat theo yêu cầu chủ repo, duyệt hướng bên phải ngày 10/11/2026; tham chiếu dùng chung, chưa phải rig SVG hoặc kiểm chứng chuyển động |
 | Nét mặt cartoon dùng chung | [EXP-CARTOON-SOFT-01](../what-if-studio/library/expressions/cartoon-soft/README.md) | 27 nét theo 3 mức + trung tính, nền trong suốt, 6 lớp chỉnh riêng; không tóc/đầu/da/tai/cổ. Đã rà tĩnh; cần căn theo nhận diện và góc đầu từng nhân vật, chưa tự gắn mọi rig |
 | Nhân vật truy vết xuyên series | [Mẫu và biểu cảm](../episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) | Toàn thân V7 hiện hành, 27 biểu cảm theo 3 mức + mặt trung tính; chủ repo duyệt bộ nét mặt 10/11/2026. SVG/PNG đã rà tĩnh; chưa rig hoặc ghép cảnh. Tên chính thức và cơ chế thu giữ còn mở |
 | Engine, rig, props, UI | [engine](../what-if-studio/src/engine/) | Đã nhận nâng cấp cd7243c: thêm biểu cảm/tay/phụ kiện, hands, props_life, vehicles và set thử; có mã/preview, cần kiểm tra trong cảnh mới |

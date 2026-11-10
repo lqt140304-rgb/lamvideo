@@ -6,9 +6,24 @@
 
 - Ưu tiên đường cong mềm, khối tròn đầy và đường bao liền mạch. Nét cong có chủ đích, không rung ngẫu nhiên hoặc uốn méo mọi vật.
 - Vai–thân–hông–đùi nối tự nhiên; tay chân có khối, trang phục rủ theo cơ thể. Tóc, mắt, miệng và cử chỉ giữ tính cartoon, không chuyển sang tỉ lệ người thật.
-- Dùng nét viền đầu/nối bo tròn; độ dày tương xứng với kích thước xuất và khoảng cách. Mực than ấm `#282b2b` là màu tham chiếu Style B; nền xa giảm tương phản và chi tiết để người nổi rõ. Không áp cứng độ dày nét của khuôn mặt cho cả thành phố.
+- Nhân vật theo lựa chọn mới: không viền ngoài, giữ nét mắt–mày–miệng và vài nét trong cần thiết. Tách lớp bằng mảng màu và bóng gọn, không bằng quầng sáng hay gradient bóng nhựa. Với asset còn dùng nét, bo tròn đầu/nối và giữ độ dày theo khoảng cách; mực than ấm `#282b2b` là tham chiếu cũ, không bắt buộc viền cho nhân vật mới.
 - Nhân vật Hẻm Có Chuyện (từ Hồ sơ 2): **không viền ngoài**; giữ nét mặt và các nếp chính (nếp đổi sang tông tối trong suốt); tách lớp bằng tương phản sáng–tối; **bóng mềm nhưng hẹp** (mép loang, vùng tối chỉ ôm mép khối), đầu và thân chung một hướng sáng. Chi tiết và cách dùng rig ở [quy chuẩn Hồ sơ 2, mục 4.0](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-kiểu-hiển-thị-đã-chốt-10112026-không-viền-ngoài-giữ-nét-mặt-và-nếp-chính-bóng-mềm-hẹp). Bối cảnh vẫn giữ nét như hiện tại cho tới khi có quyết định riêng.
 - Mảng màu gọn, sáng/tối có nguồn sáng thống nhất. Tránh nền quá nhiều chi tiết hoặc chất liệu ảnh thật đặt cạnh nhân vật cartoon phẳng.
+
+## Tay–chân tối giản — đã chốt 10/11/2026
+
+![So sánh cách tạo hình tay–chân](tham-khao/cartoon-toi-gian/so-sanh-tay-chan.png)
+
+**Áp dụng hướng bên phải.** Đây là phác thảo AI được chủ repo chọn để định hướng cách vẽ; cột trái chỉ minh họa lối nhiều chi tiết, không phải ảnh chụp rig hiện tại. Bản cập nhật này lưu quy chuẩn và ảnh mẫu, chưa sửa SVG/TSX hoặc xác nhận motion đã đạt. Phạm vi là nhân vật mới và các asset được giao sửa; không tự thay toàn bộ kho cũ.
+
+- **Tay thả:** lòng tay thành khối mềm nối liền cổ tay; ngón cái tách rõ, các ngón còn lại gom nhóm. Chỉ giữ một hoặc hai nét phân ngón khi cần đọc dáng; bỏ móng và các nếp khớp nhỏ. Không cần số đường phân ngón cố định cho mọi góc.
+- **Tay nắm:** khối bo tròn với ngón cái ôm ngoài; ít nét trong, không vẽ từng đốt hoặc gân. Giữ đúng bên ngón cái khi đổi hướng.
+- **Tay cầm:** khối ngón ôm sát đồ vật và ngón cái ở phía đối diện; thứ tự lớp làm rõ lực nắm. Trong ảnh mẫu, tay cầm điện thoại còn tách nhiều ngón: khi triển khai nên gom thêm, không chép nguyên chi tiết đó. Chỉ tách ngón trỏ khi cần bấm/chỉ hoặc hành động mang thông tin.
+- **Bàn chân:** một khối rõ gót–mu–mũi, không vẽ từng ngón; quai dép đơn giản nhưng phải vòng đúng bàn chân. Giữ hướng chân theo tư thế, không xoay chân theo mặt một cách máy móc.
+- **Khớp và trang phục:** khuỷu/gối thể hiện bằng đường bao cong liên tục và rất ít nếp gấp; giữ khối chi, không biến thành que. Tay ra đúng cửa tay áo, chân ra đúng gấu quần; không xuyên áo/quần hoặc nổi sai lớp.
+- **Màu và bóng:** không viền ngoài, giữ nét trong thiết yếu; vài mảng bóng gọn theo cùng nguồn sáng. Không lấy màu áo/da ở bảng mẫu thành bảng màu bắt buộc của dàn nhân vật.
+
+**Kiểm tra trước khi nhân rộng:** đặt cạnh mẫu nhân vật đã duyệt ở cỡ khung hình cuối; thử tay thả, nắm, cầm điện thoại/bát, chỉ/bấm và chân đứng/ngồi ở góc chính diện, nghiêng, ba phần tư. Đọc được hành động qua silhouette; cổ tay liền cẳng tay, đúng bên ngón cái, vật bám lòng tay, chân có điểm đỡ. Khi được giao dựng, xem animatic cầm–thả và đổi che khuất; ảnh tĩnh không chứng minh tiếp xúc suốt chuyển động. Tối giản hình vẽ không thay cho kiểm tra rig.
 
 ## Áp dụng cho cả thế giới trong hình
 

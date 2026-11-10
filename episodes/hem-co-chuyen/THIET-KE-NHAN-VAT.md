@@ -10,9 +10,11 @@
 
 **Làm nhân vật mới:** theo [cách vẽ đã chốt ngày 10/11/2026](ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#4-cách-vẽ-đã-chốt-để-làm-tiếp): nét, tỉ lệ, khớp, cách ghép bằng rig và bước kiểm tra.
 
+**Chốt tay–chân tối giản 10/11/2026:** áp dụng [quy chuẩn và ảnh so sánh dùng chung](../../docs/PHONG-CACH-MY-THUAT.md): ngón cái riêng, nhóm ngón mềm, chân liền khối không tách ngón, khớp liền mạch; không viền ngoài. Đây là lựa chọn tạo hình, chưa xác nhận rig hiện có đã được sửa theo mẫu.
+
 ## Nét cần giữ
 
-- Cartoon ít chi tiết, dễ nhận diện và dễ vẽ lại; viền rõ, mảng màu gọn, đường nét mềm.
+- Cartoon ít chi tiết, dễ nhận diện và dễ vẽ lại; không viền ngoài theo lựa chọn mới, mảng màu gọn, đường bao mềm; giữ nét trong cần cho diễn xuất.
 - Vai nối thân tự nhiên; áo đi theo khối người, hông nối với đùi có bề dày; tránh thân hình hộp và chân như que.
 - Tóc bằng vài mảng lớn. Mắt, mí, lông mày và miệng đảm nhiệm diễn xuất, thay vì thêm nhiều nếp mặt hoặc chi tiết trang trí.
 - Màu da tự nhiên được cách điệu; mảng sáng/tối đơn giản. Giữ nền tảng để dùng với bối cảnh 2.5D của series.
