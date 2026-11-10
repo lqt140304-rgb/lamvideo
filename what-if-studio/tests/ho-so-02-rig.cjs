@@ -115,4 +115,13 @@ for (let i = 0; i < 40; i++) {
   assert.ok(Number.isFinite(s.legR.end.x + s.legL.end.y + s.armR.end.x + s.armL.end.y), 'walk ' + i);
 }
 
+// Bối cảnh: mọi góc máy và trạng thái theo truyện dựng được; nhân vật đứng xa thì nhỏ hơn, chân chạm sàn.
+const room = require('../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh');
+for (const view of Object.keys(room.VIEWS)) for (const night of [false, true]) for (const door of ['ajar', 'open', 'closed', 'latched']) for (const chair of ['desk', 'door']) {
+  const html = renderToStaticMarkup(React.createElement(room.RoomScene, { view, night, door, chair, kitchen: night ? 'clean' : 'messy', drawerOpen: night, clockMinutes: 450 }));
+  assert.ok(!html.includes('NaN') && !html.includes('undefined') && !html.includes('Infinity'), view + ' ' + door);
+}
+assert.ok(room.placeOn('wide', [100, 80]).scale < room.placeOn('wide', [100, 300]).scale);
+assert.ok(renderToStaticMarkup(React.createElement(room.RoomScene, { actors: [{ at: [90, 90], render: (p) => React.createElement('g', { 'data-actor': p.scale > 0 }) }] })).includes('data-actor'));
+
 console.log('ho-so-02 rig ok');

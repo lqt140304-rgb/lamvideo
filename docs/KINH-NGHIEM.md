@@ -85,6 +85,7 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 ## Kỹ thuật dựng đã được rút thành nguyên tắc
 
 - **Ảnh nền đẹp nhưng nguồn dựng vẫn là bố cục cũ → chỉnh riêng SVG/PNG thay vì nguồn component →** xuất toàn cảnh, khung cắt, biến thể ngày/đêm và trang xem từ một nguồn; đặt thời gian, màn hình và vật đang cầm/cất thành trạng thái theo shot. Khi ghép nhiều SVG vào một bảng phải đổi cả ID và mọi tham chiếu gradient/mask/clip để tránh cảnh dùng nhầm định nghĩa của nhau. **Kiểm tra:** so ảnh xuất từ component với bảng, kiểm tra ID trùng/tham chiếu thiếu, rồi ghép nhân vật kiểm tra tỉ lệ và mặt đỡ. Khung cắt một tranh không được gọi là phối cảnh mới.
+- **Nhiều góc máy của cùng một bối cảnh vẽ tay từng tấm hoặc cắt từ một ảnh → đồ lệch chỗ, không có góc mới, người không biết đứng đâu →** dựng bối cảnh chính thành mô hình 3D đơn giản theo cm rồi chiếu ra SVG; mỗi góc là một camera, nắng tính bằng tia, nhân vật đặt theo toạ độ sàn. Vật nằm sau camera phải được loại trước khi chiếu.
 
 - Trước khi làm lại một chức năng, kiểm tra công cụ và nhánh liên quan đã biết. Chỉ mở rộng tìm kiếm khi có dấu hiệu cần; không bắt mọi nhiệm vụ quét tất cả lịch sử.
 - Mốc chữ cần tăng dần và khớp đúng lần xuất hiện. Thẻ diễn xuất không phải chữ được đọc. Sau thay giọng, căn chỉnh hoặc khoảng nghỉ, cập nhật lại timeline, cue, âm thanh và các phần hình phụ thuộc; không giữ mốc cũ vì nội dung câu giống nhau.

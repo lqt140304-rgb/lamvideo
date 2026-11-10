@@ -1,6 +1,6 @@
 # Asset — Hồ sơ 2: Người làm thay
 
-**Đại tu không gian 10/11/2026 — chờ duyệt:** [bảng nền mới](assets/boi-canh/boi-canh.png), [ghép Nam kiểm tra tỉ lệ](assets/boi-canh/kiem-tra-ti-le.png), [nguồn và hướng dẫn](assets/boi-canh/BOI-CANH.md). Nệm đôi tách bàn/ghế; không còn áo ghế, căn cước trên bàn, giờ đêm/tin cũ/tên tập gắn vào nền. Bốn khung dùng chung nguồn TSX, đã xuất SVG/PNG/HTML và thay thế bộ nền cũ; chưa dựng phim.
+**Đại tu không gian 10/11/2026 — chờ duyệt:** [bảng nền mới](assets/boi-canh/boi-canh.png), [ghép Nam kiểm tra tỉ lệ](assets/boi-canh/kiem-tra-ti-le.png), [nguồn và hướng dẫn](assets/boi-canh/BOI-CANH.md). Nệm đôi tách bàn/ghế; không còn áo ghế, căn cước trên bàn, giờ đêm/tin cũ/tên tập gắn vào nền. Căn phòng là một mô hình 3D trong nguồn TSX, mỗi góc máy là một camera thật, có thêm góc cửa/chốt và hành lang; đã xuất SVG/PNG/HTML, chưa dựng phim.
 
 **Sửa tạo hình rig V3 — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
 
@@ -73,9 +73,12 @@ Bản nền ngày–tối dùng chung mặt bằng; giờ và nội dung màn h�
 | STT | Bối cảnh | File SVG | Phạm vi và trạng thái |
 |---|---|---|---|
 | 1 | Phòng trọ sáng sớm | [Toàn phòng](assets/boi-canh/phong-tro-sang-som.svg) | Cửa trái, bếp sau–trái, tủ giữa, bàn sau–phải; nệm đôi tiền cảnh phải có khoảng sàn tách bàn/ghế. Điện thoại trên nệm tắt màn hình; báo thức là lớp theo shot |
-| 2 | Bếp và bồn rửa | [Góc bếp](assets/boi-canh/goc-bep-bon-rua.svg) | Cùng bếp hai ngăn, vòi không chảy cố định; khung cắt từ toàn cảnh, chưa phải phối cảnh mới |
+| 2 | Bếp và bồn rửa | [Góc bếp](assets/boi-canh/goc-bep-bon-rua.svg) | Cùng bếp hai ngăn, vòi không chảy cố định; camera riêng trên cùng mô hình; `kitchen` chuyển messy/clean theo nhịp |
 | 3 | Bàn học ngày | [Góc bàn sáng](assets/boi-canh/goc-ban-hoc-sang.svg) | Tủ cạnh bàn, ghế bốn chân không áo; căn cước còn trong ngăn tủ trước D02. Không gắn giờ hoặc tin nhắn cố định |
 | 4 | Bàn học tối | [Góc bàn đêm](assets/boi-canh/ban-hoc-laptop-dem.svg) | Cùng mẫu bàn/ghế và cùng khung ngày; đèn ấm/laptop sáng, điện thoại tắt. Nội dung bài, tin và mốc giờ phải theo cue |
+| 5 | Toàn phòng tối | [Toàn phòng tối](assets/boi-canh/phong-tro-toi.svg) | Cùng camera với toàn phòng sáng; đèn bàn và laptop là nguồn sáng |
+| 6 | Cửa và chốt | [Góc cửa](assets/boi-canh/goc-cua-va-chot.svg) | Bốn trạng thái cửa: khép hờ, mở, khép chưa gài, gài chốt |
+| 7 | Hành lang | [Hành lang](assets/boi-canh/hanh-lang-cua-phong.svg) | Góc B: cầu thang bên trái, cửa giữa, phía đối diện bên phải |
 
 
 
@@ -84,7 +87,7 @@ Bản nền ngày–tối dùng chung mặt bằng; giờ và nội dung màn h�
 
 ## Nhu cầu theo góc máy — 10/11/2026
 
-Đã đối chiếu bảng PNG bốn nền mới; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ trên cùng nệm đôi, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung góc toàn **ngoài** hành lang và pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
+Đã đối chiếu bảng PNG bốn nền mới; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ trên cùng nệm đôi, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
 
 **Trạng thái dùng trong phim:** một mẫu ghế bốn chân theo Nam từ bàn ra cửa rồi trở lại bàn; không đổi thành ghế xoay hoặc tự thêm ghế chắn cửa. Cần thấy chốt gài khi Nam khóa và chốt rút sau lúc quên gài khi về; nền tối không được giữ trạng thái khóa như một quy luật bất biến. Đối chiếu các trạng thái của nguồn bối cảnh; đường di chuyển và cú va A05 vẫn cần kiểm tra animatic.
 
