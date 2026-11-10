@@ -1,8 +1,23 @@
 # Hẻm Có Chuyện — Hồ sơ 2: Người làm thay
 
+
+## Thời lượng từng phần — cập nhật theo lời đính chính 10/11/2026
+
+**Mỗi PHẦN có thể lên tới 10 phút.** Không áp giới hạn 10 phút cho cả Hồ sơ 2. Đây vẫn là ba chặng của cùng câu chuyện; cách phát hành chung hay riêng chưa được chốt.
+
+| Phần | Ngân sách biên tập đề xuất | Trọng tâm mở rộng |
+|---|---:|---|
+| 1 — Người trong phòng | Khoảng 9 phút, có thể tới 10 | Sợ và tự kiểm chứng; thử bài thật; cân nhắc lợi–hại; tự kiểm tra trước khi dịu |
+| 2 — Quen được làm thay | Khoảng 9 phút, có thể tới 10 | Lần nhờ có giới hạn; ba mức hưởng lợi/nhường chỗ; quan hệ và mất mát đầu tiên |
+| 3 — Người bị thay thế | Khoảng 8 phút 30, có thể tới 10 | Nỗ lực giành lại; đối đầu nhiều lượt; hệ quả hoàn tất và dư âm hé lộ |
+
+**Tổng khung thử: 26 phút 30; trần theo yêu cầu: 30 phút.** Đây là phân bổ để viết, không phải số phút đã đo hoặc bắt buộc lấp đầy. Không quy đổi trực tiếp phút thành số chữ: thoại, diễn và hành động có thể chồng nhau; khoảng nghỉ chỉ tính một lần. Đọc thử từng cảnh rồi cân lại cả phần, không kéo tốc độ lời để ép vào bảng.
+
+Chi tiết diễn biến bổ sung nằm trong ba file PHAN. Phần 1 mở rộng nhịp theo các sự kiện đã có; phần 2–3 có hướng tình huống cụ thể **đang đề xuất**, vẫn cần chốt luật/tiếp xúc với người ngoài trước khi viết thoại. THAO-LUAN-CANH là nguồn lời duy nhất. Ưu tiên một lần nhận giúp đầy đủ, một lần mất mát đủ đau và một nỗ lực chống lại có cơ hội; rút đoạn lặp nếu ngắn hơn mà vẫn đủ ý.
+
 ## Làm chi tiết theo 3 phần
 
-Theo yêu cầu chủ repo ngày 10/11/2026, chia **cùng một Hồ sơ 2** thành ba phần làm việc. Chưa tách thành ba video, chưa khóa thời lượng hay đẩy các khung đề xuất thành nội dung đã duyệt.
+Theo yêu cầu chủ repo ngày 10/11/2026, chia **cùng một Hồ sơ 2** thành ba phần làm việc. Mỗi phần có thể tới 10 phút theo lời đính chính của chủ repo; cách phát hành chung/riêng và thời lượng thực chưa khóa, các khung đề xuất chưa thành nội dung đã duyệt.
 
 | Phần | Phạm vi và tác dụng | Trạng thái |
 |---|---|---|

@@ -1,5 +1,8 @@
 # Hồ sơ 2 — Dựng cảnh và góc máy
 
+**Mở rộng thời lượng 10/11/2026:** chủ repo đính chính **mỗi phần có thể tới 10 phút**, không phải cả hồ sơ. Xem [phân bổ ba phần](README.md#thời-lượng-từng-phần--cập-nhật-theo-lời-đính-chính-10112026) và chi tiết diễn biến trong các file PHAN. Khung thử lần lượt 9:00 / 9:00 / 8:30, tổng 26:30, chưa đo bằng diễn/giọng. Phần bổ sung là đề xuất biên tập, chưa đổi thoại, nhãn duyệt hay tự cấp máy mới.
+
+
 **Phạm vi khi chia 3 phần:** toàn bộ máy A–H dưới đây thuộc [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md), ánh xạ P1.01–P1.08. [Phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [Phần 3](PHAN-03-NGUOI-BI-THAY-THE.md) mới có khung, chưa cấp máy/thoại/timeline; không dùng A–H như bảng quay đã đủ toàn tập. Giữ nguyên máy, lời, nhịp và trạng thái duyệt hiện có.
 
 **Ngày 10/11/2026 — đề xuất để thiết kế/storyboard, chưa render.** Phạm vi chỉ gồm phần truyện đã viết, từ Nam thức dậy tới lúc đọc bài người kia làm hộ vào buổi tối. Nguồn lời và trạng thái duyệt nằm ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md). Tài liệu này chỉ bổ sung cách quay, không tạo bản thoại thứ hai hoặc chốt thay các tình tiết còn chờ duyệt.

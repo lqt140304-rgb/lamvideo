@@ -4,6 +4,53 @@
 
 **Đường đi:** một người lạ giống mình xâm nhập → Nam cố giữ khoảng cách → lợi ích cụ thể làm cậu bắt đầu muốn giữ người đó lại. **Điểm kết:** H10, Nam đọc bản nháp, dặn “Đừng bấm gửi”; Người Kia chờ, tay khỏi phím. Chưa có tin tưởng hoàn toàn, chưa gửi bài, chưa biết nguồn gốc gương. Phần hiện có gồm A–H; chia phần không nâng các đoạn chờ duyệt thành đã duyệt.
 
+
+## Mở rộng phần 1 — khoảng 9 phút, có thể tới 10 phút
+
+**Điều chỉnh theo lời đính chính của chủ repo ngày 10/11/2026: mỗi PHẦN có thể tới 10 phút, không phải cả hồ sơ.** Bảng dưới là ngân sách biên tập đề xuất cho bản mở rộng, chưa phải thời lượng của lời nguồn hiện có. Tổng 9:00; còn tối đa 1:00 để điều chỉnh sau đọc thử. Thời gian đã gồm thoại, diễn, khoảng đọc và chuyển cảnh; các hành động có thể diễn đồng thời. Không tự cộng thêm các cue nghỉ cũ.
+
+| Cảnh | Mốc trong phần | Dự kiến | Điều phải phát triển đủ |
+|---|---|---:|---|
+| P1.01 | 0:00–1:15 | 1:15 | Đời sống quen thuộc → nhận mặt → thử giải thích → phản ứng với giọng giống mình |
+| P1.02 | 1:15–2:00 | 0:45 | Nam tìm một người cùng xác nhận, rồi nhận ra mình phải tự xử lý |
+| P1.03 | 2:00–2:55 | 0:55 | Lấy lại phòng bằng cách giữ khoảng cách và đổi vị trí thật |
+| P1.04 | 2:55–3:50 | 0:55 | Kiểm đồ, chờ bạn, chủ động hỏi nhưng chưa tin |
+| P1.05 | 3:50–5:30 | 1:40 | Ba lần thử bài khác nhau; xấu hổ, tự so sánh và giằng co lợi–hại |
+| P1.06 | 5:30–6:20 | 0:50 | Ra ngoài vẫn cảnh giác; chuỗi quên chốt đủ rõ nhưng không báo trước tai họa |
+| P1.07 | 6:20–7:20 | 1:00 | Tự cho phép nghỉ → thất hứa với mình → ngủ quên |
+| P1.08 | 7:20–9:00 | 1:40 | Tái lập giới hạn, tự kiểm tin và bài, bắt đầu muốn nhận sự giúp đỡ |
+
+### Nhịp diễn mở rộng — đề xuất để nhập vào nguồn khi biên tập cảnh
+
+**P1.01:** mở bằng việc Nam tắt báo thức và nhìn phần nệm trống, rồi mặc nhiên coi tiếng rửa chén là Tùng. Để sự khó chịu vì bị đánh thức dẫn tới câu càu nhàu có sẵn. Khi nhận mặt, mắt cậu tìm cửa và chỗ bạn nằm trước khi quay lại người lạ; cậu đang kiểm tra một trò đùa có thể xảy ra. Giọng giống mình làm cách giải thích ấy lung lay. Động tác sờ mặt, tìm điện thoại và lùi phải có mục đích khác nhau, không lặp dụi mắt để kéo phút. Người Kia dừng tay khi thấy Nam sợ, giữ vẻ bình thường khiến tình huống càng khó lý giải.
+
+**P1.02:** Nam định nói to nhưng tự hạ giọng khi thấy người kia vẫn nghe được. Cậu vừa mong Tùng trả lời vừa canh khoảng cách. Sau câu gạt đi đã duyệt và cuộc gọi ngắt, giữ một lần nhìn màn hình rồi nhìn lại phòng: người vừa bị coi là nói xàm vẫn phải đối mặt điều đang ở trước mắt. Không thêm cuộc gọi dài để giải thích quá khứ hoặc để Tùng biết bí mật.
+
+**P1.03:** trước khi ra lệnh, Nam nhìn lối đi để chọn chỗ mình không bị dồn vào góc. Khi người kia tiến ra theo yêu cầu, Nam vô thức lùi thêm; đối phương dừng, để Nam tự nhường đường. Thấy trọn quá trình đổi chỗ và gài chốt. Sau tiếng chốt, vai Nam mới hạ xuống một chút, nhưng cậu chưa quay lưng ngay. Một nhịp thở và tiếng bước phía ngoài đủ cho cảm giác an toàn tạm thời; không thêm cảnh đuổi bắt.
+
+**P1.04:** kiểm ví/căn cước giúp Nam xác nhận đồ vẫn ở đó, không chứng minh người lạ là ai. Cậu chờ phản hồi của Tùng trong lúc quan sát cửa. Sự im lặng và bồn rửa sạch khiến cậu muốn hỏi người kia đã chạm vào những gì; Nam tự mở cuộc nói chuyện từ phía sau cánh cửa. Đối phương chỉ trả lời việc mình đã làm. Cuối cảnh, sự sợ vẫn còn nhưng tò mò đã có chỗ, chuẩn bị cho so sánh ở cảnh bài tập.
+
+**P1.05 — ba lượt làm bài, mỗi lượt có kết quả khác:**
+
+1. Nam đọc phần các bạn đã làm trong tài liệu chung, chuyển sang nháp riêng rồi gõ một câu mở đầu chung chung. Đọc lại yêu cầu, cậu nhận ra câu ấy chưa trả lời đề; xóa một phần, giữ lại ý có ích.
+2. Cậu cố nối ý với phần của nhóm, phải chuyển qua lại giữa yêu cầu và nháp. Đoạn mới lặp điều bạn đã viết. Nam bắt đầu bực vì thực sự không biết tiếp tục thế nào, không chỉ bực vì bị nhắc.
+3. Tin giục hiện lên bên lời hứa “gần xong” của cậu. Ngón tay sắp trả lời rồi dừng; cậu không có sản phẩm để chứng minh. Ánh nhìn rời bản nháp sang góc bếp sạch và cây chổi. So sánh với người kia chuyển từ khó chịu sang ý nghĩ nhờ làm bài, rồi bị nỗi sợ tự bác bỏ.
+
+Giữ chữ trên màn hình vừa đủ hiểu vấn đề, không dạy môn học. Dùng một bố cục bàn lặp lại với tư thế và nội dung nháp thay đổi; tiếng gõ thưa dần. Khoảng lặng đáng giữ nằm sau lần Nam tự nhận ra lời hứa hão của mình, không phải sau mỗi thao tác xóa. Đây là chỗ để khán giả thấy cả lỗi lẫn sự bất lực của cậu.
+
+**P1.06:** đi vệ sinh là nhu cầu đời thường có thật, không phải nhân vật đột nhiên quên người lạ. Nam hé cửa, kiểm tra vị trí, gửi ảnh rồi mới đi. Khi quay lại thấy đối phương vẫn đứng đúng chỗ, cậu bớt căng một nấc. Tin nhóm chen ngang thao tác gài chốt; máy quay giữ cùng hành động để thấy cậu tự rời cửa. Đừng đặc tả chốt quá lâu như một lời thông báo của tác giả.
+
+**P1.07:** lần chuyển sang game xuất phát từ bế tắc ở bài. Ban đầu cậu vẫn liếc cửa và nháp, sau đó chú ý dồn vào màn hình. Montage có ba trạng thái: còn tự đặt giới hạn → tìm cớ chơi thêm → mỏi người và mất ý niệm thời gian. Dùng âm ván chơi kết thúc rồi bắt đầu lượt mới; không cần nhiều màn hình game mới. Trước ngủ vẫn giữ động tác tắt game, đặt máy, hỏi vọng và chờ không có đáp. Chuyển chiều–tối bằng ánh sáng phòng và âm môi trường, không để người kia xuất hiện trong cú chuyển như đã lộ đường vào.
+
+**P1.08 — một lần bị xâm nhập, một lần kiểm chứng, một lần bị dụ:**
+
+1. Nam tỉnh, nhìn nửa nệm Tùng còn trống rồi nhận ra tiếng gõ đến từ bàn mình. Cơn hoảng buổi sáng trở lại dưới dạng tức giận: cậu vừa mất kiểm soát không gian đã giành được.
+2. Người Kia dừng, lùi ghế theo yêu cầu. Nam lấy lại vị trí cạnh bàn và điện thoại trước khi kiểm chứng. Thứ tự này giúp cậu dịu vì đã lấy lại chút kiểm soát, không vì vừa bị xâm nhập đã mang ơn.
+3. Nam tự mở tin/call nhỡ, thấy hạn bài vẫn còn thời gian nhưng mình đã lãng phí buổi chiều. Sau đó mới đọc nháp: hiểu được một đoạn, tìm thấy chỗ chưa ổn và đọc tiếp. Mặt cậu bớt gồng, nhưng người vẫn giữ khoảng cách.
+4. Lời mời giúp đánh trúng việc cậu vừa thất bại. Ý nghĩ tự tâng bốc khiến cậu muốn tin; bàn tay giữ máy và câu “Đừng bấm gửi” cho thấy cậu chưa chịu thả hết quyền. Kết trên hai thái độ cùng tồn tại, chưa mở ngay một lời nhờ mới.
+
+**Cao trào riêng của phần:** người Nam cố đuổi đang ngồi tại bàn mình; tới cuối, chính Nam bắt đầu muốn người ấy ở lại. Đó là thay đổi đủ khép một chặng. Không cần chèn một cú hù hay tiết lộ gương để câu phần sau.
+
 ## Các cảnh nhỏ để làm chi tiết lần lượt
 
 | Cảnh làm việc | Nguồn lời | Máy hiện có | Chuyển biến / mức duyệt |
@@ -89,4 +136,4 @@ Mã P1.xx dùng để bàn từng cảnh; **không đổi** tên cảnh gốc ho
 | Cửa / đồ | Cửa khép, chốt còn rút theo chuỗi hiện có; một chìa ở Tùng. Không tự thêm điện thoại hay đổi áo/đồ giữa hai người |
 | Bí mật | Nam chưa biết nguồn gốc; manh mối nốt ruồi đối bên có thể nhìn lại, không có lời giải sớm |
 
-**Việc làm tiếp:** rà/chốt lời và cách nối P1.05–P1.08 theo khung chủ repo, rồi mới viết chi tiết [P2.01](PHAN-02-QUEN-DUOC-LAM-THAY.md). Chưa chia tổng phút hay mặc định ba phần bằng nhau; đo sau đọc thử/animatic khi được giao.
+**Việc làm tiếp:** rà/chốt lời và cách nối P1.05–P1.08 theo khung chủ repo, rồi mới viết chi tiết [P2.01](PHAN-02-QUEN-DUOC-LAM-THAY.md). Đã có ngân sách mở rộng khoảng 9 phút cho phần 1, tối đa 10 phút theo yêu cầu; thời lượng thực chỉ xác nhận sau đọc thử/animatic khi được giao.

@@ -1,5 +1,8 @@
 # Hồ sơ 2 — Thảo luận từng cảnh
 
+**Mở rộng thời lượng 10/11/2026:** chủ repo đính chính **mỗi phần có thể tới 10 phút**, không phải cả hồ sơ. Xem [phân bổ ba phần](README.md#thời-lượng-từng-phần--cập-nhật-theo-lời-đính-chính-10112026) và chi tiết diễn biến trong các file PHAN. Khung thử lần lượt 9:00 / 9:00 / 8:30, tổng 26:30, chưa đo bằng diễn/giọng. Phần bổ sung là đề xuất biên tập, chưa đổi thoại, nhãn duyệt hay tự cấp máy mới.
+
+
 **Chia 3 phần để làm kỹ từng cảnh — 10/11/2026:** [Phần 1: Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) gồm toàn bộ A–H đã viết; [Phần 2: Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [Phần 3: Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) mới có khung công việc. Cùng một Hồ sơ 2, chưa tách thành ba video. File này vẫn giữ lời nguồn và nhãn duyệt; chia phần không tự duyệt tình tiết hay luật mới.
 
 **Cập nhật nhịp 10/11/2026:** các cue **NHỊP** bên dưới là chỉ dẫn không đọc, bổ sung cho phần hiện có; không đổi thoại hoặc trạng thái duyệt. Xem [đường nhịp A–H và cách tính khoảng giữ](DUNG-CANH.md#nhịp-kể-hiện-hành). Khoảng nghỉ đã nằm trong hành động chỉ tính một lần; chưa đo tổng thời lượng bằng giọng/animatic.
