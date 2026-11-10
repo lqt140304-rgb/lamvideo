@@ -54,8 +54,8 @@ export const BEATS_STORY: Beat[] = [
   { id: 'S9', chip: 'Ngày 3', bg: MirrorCorner, bgProps: { night: true, move: { truck: -110 } }, mood: 'shocked', pose: P.wary, outfit: 'dong-phuc', night: true, note: 'Trước gương. Nhạc cắt cụt ngay sau nhịp này.' },
 ];
 
-export const BEAT_FRAMES = 15; // 0,5 giây mỗi nhịp ở 30 fps: mỗi bối cảnh chỉ thoáng qua (yêu cầu 10/11/2026)
-export const BLEND = 4; // số frame hòa nền và nối dáng giữa hai nhịp
+export const BEAT_FRAMES = 9; // 0,3 giây mỗi nhịp ở 30 fps: mỗi bối cảnh chỉ thoáng qua (yêu cầu 10/11/2026)
+export const BLEND = 3; // số frame hòa nền và nối dáng giữa hai nhịp
 export const LAST_HOLD = 12; // nhịp cuối giữ thêm trước khi cắt đen
 export const introTotal = BEATS_INTRO.length * BEAT_FRAMES;
 export const storyTotal = BEATS_STORY.length * BEAT_FRAMES + LAST_HOLD;
@@ -72,7 +72,7 @@ export const NamCenterFrame: React.FC<{ beat: Beat; prev?: Beat; t: number; k: n
   const drift = (k - 0.5) * -46;
   const breathe = 1 + Math.sin(k * Math.PI * 2) * 0.004;
   const Bg = ({ b, op }: { b: Beat; op: number }) => (
-    <div style={{ position: 'absolute', inset: 0, opacity: op, transform: `translateX(${drift}px) scale(1.1)`, filter: 'blur(2.2px) saturate(.9)' }}>
+    <div style={{ position: 'absolute', inset: 0, opacity: op, transform: `translateX(${drift}px) scale(1.1)`, filter: 'blur(5px) saturate(.82) brightness(.94)' }}>
       <b.bg {...b.bgProps} />
     </div>
   );
@@ -82,8 +82,8 @@ export const NamCenterFrame: React.FC<{ beat: Beat; prev?: Beat; t: number; k: n
       <Bg b={beat} op={prev ? Math.min(1, t) : 1} />
       <svg width={1920} height={1080} viewBox="0 0 1920 1080" style={{ position: 'absolute', inset: 0 }}>
         <defs>
-          <radialGradient id="nam-sep" cx=".5" cy=".55" r=".5"><stop offset="0" stopColor="#10140f" stopOpacity=".38" /><stop offset="1" stopColor="#10140f" stopOpacity="0" /></radialGradient>
-          <filter id="nam-night"><feColorMatrix type="matrix" values=".52 0 0 0 .02  0 .56 0 0 .03  0 0 .7 0 .08  0 0 0 1 0" /></filter>
+          <radialGradient id="nam-sep" cx=".5" cy=".55" r=".5"><stop offset="0" stopColor="#10140f" stopOpacity=".46" /><stop offset="1" stopColor="#10140f" stopOpacity="0" /></radialGradient>
+          <filter id="nam-night"><feColorMatrix type="matrix" values=".78 0 0 0 .02  0 .8 0 0 .03  0 0 .9 0 .06  0 0 0 1 0" /></filter>
           <filter id="nam-day"><feColorMatrix type="matrix" values="1.02 0 0 0 0  0 1 0 0 0  0 0 .96 0 0  0 0 0 1 0" /></filter>
           <radialGradient id="nam-vig" cx=".5" cy=".5" r=".72"><stop offset=".55" stopColor="#000" stopOpacity="0" /><stop offset="1" stopColor="#000" stopOpacity=".45" /></radialGradient>
         </defs>
@@ -107,7 +107,7 @@ const useBeat = (beats: Beat[], frame: number) => {
   const local = frame - i * BEAT_FRAMES;
   const span = i === beats.length - 1 ? BEAT_FRAMES + LAST_HOLD : BEAT_FRAMES;
   const t = i === 0 ? 1 : Math.min(1, local / BLEND);
-  return { beat: beats[i], prev: i > 0 ? beats[i - 1] : undefined, t, k: Math.min(1, local / span), blink: i > 0 && local >= 1 && local <= 3 };
+  return { beat: beats[i], prev: i > 0 ? beats[i - 1] : undefined, t, k: Math.min(1, local / span), blink: i > 0 && local >= 1 && local <= 2 };
 };
 
 /** Clip riêng: 13 nhịp liền, giới thiệu rồi hé cả truyện. */

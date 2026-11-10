@@ -12,7 +12,8 @@
 - **Đã chọn:**
   - Nam giữa khung, nền đổi theo thời gian, cảm xúc đổi theo;
   - hé cả truyện;
-  - **mỗi bối cảnh chỉ thoáng qua, khoảng 0,5 giây** (yêu cầu sau cùng; trước đó 0,93 giây);
+  - **mỗi bối cảnh chỉ thoáng qua, khoảng 0,3 giây** (yêu cầu sau cùng; trước đó 0,5 rồi 0,93 giây);
+  - **nhân vật rõ, nền mờ hơn** (nền nhòe 5 px, giảm nhẹ màu và sáng; quầng tối sau lưng Nam đậm hơn để tách lớp; cảnh đêm phủ tối nhân vật nhẹ hơn để vẫn rõ mặt);
   - **nhiều bộ trang phục, có đồng phục và đồ thể thao**;
   - làm thành clip riêng.
 - **Còn đề xuất:**
@@ -23,7 +24,7 @@
 
 ## Nhịp
 
-Khoảng **8,9 giây** ở 30 fps: 17 nhịp × 15 frame, cộng 12 frame giữ ở nhịp cuối. Nền hòa sang nền trong 4 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt. **Không có nhãn thời gian trên hình** (bỏ cho gọn theo yêu cầu); cột thời gian truyện dưới đây chỉ để người dựng theo dõi.
+Khoảng **5,5 giây** ở 30 fps: 17 nhịp × 9 frame, cộng 12 frame giữ ở nhịp cuối. Nền hòa sang nền trong 3 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt. **Không có nhãn thời gian trên hình** (bỏ cho gọn theo yêu cầu); cột thời gian truyện dưới đây chỉ để người dựng theo dõi.
 
 | Nhịp | Thời gian truyện | Nền | Nam | Trang phục |
 |---|---|---|---|---|
