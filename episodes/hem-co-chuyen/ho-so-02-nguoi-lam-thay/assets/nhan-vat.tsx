@@ -852,7 +852,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             {!frontL && !side && <Cuff c={r.armL} o={o} />}
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
-          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade>{l && <g visibility="hidden"><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></g>/* tóc vẽ lại đè lên lớp bóng: tóc phẳng một màu (không mảng tối, không viền sáng), chỉ mặt có sáng–tối */}</g>
+          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
           {frontL && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade>}
           {frontR && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
         </g>
