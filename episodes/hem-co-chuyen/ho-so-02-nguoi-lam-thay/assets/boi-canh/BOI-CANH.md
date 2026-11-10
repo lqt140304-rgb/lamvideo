@@ -29,6 +29,7 @@ Ngồi dậy trên nệm, Nam quay về phía bếp và cửa, nên hướng nh�
 | `kitchen` | `KitchenSink` | A04, cận người kia ở bồn | |
 | `desk` | `StudyCornerMorning`, `StudyDeskNight` | E02, G01, H03–H10 | Ngày và đêm cùng một camera |
 | `door` | `DoorInside` | C04–C06, D04, F01, F04 | Thấy rõ lưỡi chốt và ổ chốt |
+| `bed` | `BedCorner` | A02, A03, A05, H01 | Thấy cả chỗ Nam, chỗ Tùng và ghế cạnh nệm |
 | `hallway` | `HallwayDoor` | C01–C03, F02, F03 | Máy đặt ngoài lan can, bỏ lan can phía trước để không che người |
 
 ## Trạng thái theo kịch bản
@@ -38,12 +39,14 @@ Tất cả là prop của `RoomScene`, không vẽ cứng vào nền.
 | Prop | Giá trị | Quy tắc |
 |---|---|---|
 | `door` | `ajar`, `open`, `closed`, `latched` | `ajar` là đầu sáng khép hờ. `closed` là khép nhưng chốt còn rút, đúng lúc Nam quên gài; `latched` lưỡi chốt vào ổ |
-| `chair` | `desk`, `door` | Cùng một ghế bốn chân. `door`: đối diện cửa, ngoài vùng quét cánh cửa |
+| `chair` | `bed`, `door`, `desk` | Cùng một ghế bốn chân. `bed`: để cạnh lối đi đầu sáng, chỗ Nam va đầu gối ở A05. `door`: đối diện cửa, ngoài vùng quét cánh cửa. `desk`: từ E02 trở đi |
 | `phone` | `mat`, `desk`, `hidden` | Màn hình tắt mặc định; báo thức và tin nhắn là lớp riêng theo cue |
 | `kitchen` | `messy`, `clean` | `messy`: chén chất trong bồn, vụn mì cạnh bếp. `clean`: chén úp trên giá, sàn sạch, từ nhịp E trở đi |
 | `sun` | 0 đến 1 | Nắng rút dần về phía cửa sổ cho chuỗi E và G |
 | `night` | true/false | Ánh sáng chỉ đến từ đèn bàn và laptop |
 | `drawerOpen` | true/false | Ngăn giấy tờ kéo ra ở D02 |
+| `move` | `{ truck, push }` theo cm | Dịch máy thật cho C02, E02, H09; vật gần trôi nhiều hơn vật xa. Truyền cùng giá trị cho `placeOn` nếu đặt người thủ công |
+| `sleeper` | hàm vẽ | Vẽ đầu Nam trên gối, nằm dưới chăn, cho A01, G04, H01 |
 | `wallet` | true/false | Ví trên bàn, dùng ở cảnh kiểm đồ |
 | `clockMinutes` | số phút hoặc `null` | Mặc định không có đồng hồ; chỉ bật khi shot đã chốt giờ |
 
@@ -55,12 +58,14 @@ Căn cước không vẽ sẵn: nó nằm trong ngăn tới D02, dùng prop theo
 <RoomMorning actors={[{ at: [94, 92], render: (p) => <StudentTwinBody {...p} pose={...} /> }]} />
 ```
 
-`at` là `[x, z]` trên sàn. `actors` tự tính vị trí, tỉ lệ theo khoảng cách và xếp lớp cùng đồ đạc, nên chân chạm đúng sàn và người đứng sau vật sẽ bị che. Cần toạ độ riêng thì gọi `placeOn(view, [x, z])`.
+`at` là `[x, z]` trên sàn. `actors` tự tính vị trí, tỉ lệ theo khoảng cách và xếp lớp cùng đồ đạc, nên chân chạm đúng sàn và người đứng sau vật sẽ bị che. Lưng ghế là lớp riêng, che đúng người ngồi. Cần toạ độ riêng thì gọi `placeOn(view, [x, z])`.
 
-Điểm đứng gợi ý: bồn rửa `[94, 92]`, ngồi trên nệm `[300, 340]`, trước cửa `[60, 215]`, ngoài hành lang dùng z −60 (phía cầu thang), 215 (trước cửa), 400 (phía đối diện) với x khoảng −80.
+Người ngồi ghế: `at` lấy từ `SEATS[chair]`. Bàn cao 65 cm, ghế 40 cm, mặt bếp 76 cm, thấp hơn đồ thật vì rig chân ngắn, để tay chạm được bàn và hông đúng mặt ghế.
+
+Điểm đứng gợi ý: bồn rửa `[94, 92]`, ngồi trên nệm `[300, 340]`, trước cửa `[60, 215]`. Hành lang dùng x khoảng −80 với z −60 (phía cầu thang), 215 (trước cửa), 400 (phía đối diện).
 
 ## Xuất lại và giới hạn
 
 Chạy `node render-previews.cjs` trong thư mục này để xuất SVG, PNG và trang xem. Không sửa riêng ảnh. [kiem-tra-ti-le.png](kiem-tra-ti-le.png) đặt nhân vật thử vào nền, không phải vị trí đã duyệt.
 
-Chưa có: máy chuyển động thật, tay che/lộ theo mặt bàn và mép bồn, người đi qua ngưỡng cửa. Các tương tác đó vẫn cần thử ở animatic. Khi hạ tiêu cự hoặc đổi camera, kiểm tra lại vật ở sát máy.
+Chưa có: tay che/lộ theo mặt bàn và mép bồn, người đi qua ngưỡng cửa, dáng nằm toàn thân. Các tương tác đó vẫn cần thử ở animatic. Bốn dáng `wary`, `phone`, `offer`, `type` mới soi ở góc 3/4. Khi đổi camera, kiểm tra lại vật ở sát máy.

@@ -130,8 +130,8 @@ Ví dụ pixel ở P1 là lượng dịch cuối cùng nhìn thấy trên hình;
 
 ### Mức sẵn sàng và kiểm tra
 
-- Đã đọc các nhóm như `window-city-vietnam`, `long-dorm-corridor`, `nam-bed-perspective`, `nam-desk-scene1` trong nền sáng, cùng `desk-3d-unit`/`student-swivel-chair` ở nền tối. Có nhóm SVG và clip cửa sổ/hành lang là điểm xuất phát tốt, **chưa phải** phân lớp hoàn chỉnh cho nhân vật đi qua, tay gõ hoặc máy chạy.
-- Các component nền đã đọc trong `boi-canh.tsx` nhận `className`, chưa có điều khiển camera/depth hoặc các trạng thái tương tác của bảng này. Nguồn React và các SVG chi tiết phải đối chiếu khi triển khai; không mặc định chúng có cùng mức chi tiết vì tên cảnh giống nhau.
+- Nền hiện là một mô hình 3D trong `boi-canh.tsx`: đồ đạc xếp lớp theo khoảng cách tới máy, nên không cần tách tay từng lớp cho các cú dịch máy nhỏ.
+- `RoomScene` có `view`, `move` (dịch máy cho C02, E02, H09), `actors` và các trạng thái cửa, chốt, ghế, bếp, nắng; xem [BOI-CANH.md](assets/boi-canh/BOI-CANH.md). Tay che/lộ theo mặt bàn, mép bồn và người qua ngưỡng cửa vẫn cần chia lớp theo shot.
 - Chỉ tách lớp và vẽ bù vùng bị khuất cho các shot cần P1/P2 hoặc tương tác che/lộ. Phần nền mới lộ phải có hình đủ tới vị trí máy cực hạn cộng vùng blur; kiểm tra đầu–giữa–cuối để không hở nền. Nếu chưa đủ, dùng phương án P0 của shot trước khi mở rộng chuyển động.
 - Kiểm tra ở tốc độ thường: chân/bánh ghế có điểm tì, bóng không trôi, tay và vật cùng đi, cửa che đúng người, chữ bám mặt thiết bị. Mặt và tay quan trọng phải đọc được ở cỡ điện thoại. Chưa xem animatic nên chưa kết luận chuyển động đã đạt hoặc hứa một mức tiết kiệm quota.
 

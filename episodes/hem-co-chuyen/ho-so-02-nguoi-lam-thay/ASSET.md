@@ -64,7 +64,7 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
 
 Bản nền ngày–tối dùng chung mặt bằng; giờ và nội dung màn hình là trạng thái theo shot, không phải thông tin đóng cứng vào ảnh:
 
-- **Hình ảnh tổng quan:** ![Bảng bối cảnh môi trường 4 ô](assets/boi-canh/boi-canh.png)
+- **Hình ảnh tổng quan:** ![Bảng các góc máy phòng trọ](assets/boi-canh/boi-canh.png)
 - **Tài liệu chi tiết bối cảnh:** [`assets/boi-canh/BOI-CANH.md`](assets/boi-canh/BOI-CANH.md)
 - **Trình xem tương tác độc lập (Zoom/Pan):** [`assets/boi-canh/xem-truc-tiep-boi-canh.html`](assets/boi-canh/xem-truc-tiep-boi-canh.html)
 - **Master Board SVG 4K:** [`assets/boi-canh/boi-canh.svg`](assets/boi-canh/boi-canh.svg)
@@ -79,6 +79,7 @@ Bản nền ngày–tối dùng chung mặt bằng; giờ và nội dung màn h�
 | 5 | Toàn phòng tối | [Toàn phòng tối](assets/boi-canh/phong-tro-toi.svg) | Cùng camera với toàn phòng sáng; đèn bàn và laptop là nguồn sáng |
 | 6 | Cửa và chốt | [Góc cửa](assets/boi-canh/goc-cua-va-chot.svg) | Bốn trạng thái cửa: khép hờ, mở, khép chưa gài, gài chốt |
 | 7 | Hành lang | [Hành lang](assets/boi-canh/hanh-lang-cua-phong.svg) | Góc B: cầu thang bên trái, cửa giữa, phía đối diện bên phải |
+| 8 | Góc nệm | [Góc nệm](assets/boi-canh/goc-nem.svg) | Chỗ Nam, chỗ Tùng và ghế cạnh nệm cho cú va A05 |
 
 
 
@@ -87,7 +88,7 @@ Bản nền ngày–tối dùng chung mặt bằng; giờ và nội dung màn h�
 
 ## Nhu cầu theo góc máy — 10/11/2026
 
-Đã đối chiếu bảng PNG bốn nền mới; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ trên cùng nệm đôi, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
+Đã đối chiếu bảng các góc máy; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ trên cùng nệm đôi, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
 
 **Trạng thái dùng trong phim:** một mẫu ghế bốn chân theo Nam từ bàn ra cửa rồi trở lại bàn; không đổi thành ghế xoay hoặc tự thêm ghế chắn cửa. Cần thấy chốt gài khi Nam khóa và chốt rút sau lúc quên gài khi về; nền tối không được giữ trạng thái khóa như một quy luật bất biến. Đối chiếu các trạng thái của nguồn bối cảnh; đường di chuyển và cú va A05 vẫn cần kiểm tra animatic.
 

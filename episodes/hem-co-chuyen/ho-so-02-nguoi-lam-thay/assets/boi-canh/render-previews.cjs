@@ -14,7 +14,7 @@ async function main(){
  const Module=require('node:module');
  process.env.NODE_PATH=path.resolve(path.dirname(req.resolve('react/package.json')),'..');Module._initPaths();
  const React=req('react');const {renderToStaticMarkup}=req('react-dom/server');const room=require(bundle);
- const views=[['phong-tro-sang-som','RoomMorning','01 / TOÀN PHÒNG — SÁNG SỚM'],['phong-tro-toi','RoomNight','02 / TOÀN PHÒNG — TỐI'],['goc-bep-bon-rua','KitchenSink','03 / GÓC BẾP — CHỖ NGƯỜI KIA ĐỨNG'],['goc-cua-va-chot','DoorInside','04 / CỬA PHÒNG VÀ CHỐT'],['goc-ban-hoc-sang','StudyCornerMorning','05 / GÓC HỌC — BAN NGÀY'],['ban-hoc-laptop-dem','StudyDeskNight','06 / CÙNG GÓC HỌC — BAN ĐÊM'],['hanh-lang-cua-phong','HallwayDoor','07 / HÀNH LANG TRƯỚC CỬA']];
+ const views=[['phong-tro-sang-som','RoomMorning','01 / TOÀN PHÒNG — SÁNG SỚM'],['phong-tro-toi','RoomNight','02 / TOÀN PHÒNG — TỐI'],['goc-bep-bon-rua','KitchenSink','03 / GÓC BẾP — CHỖ NGƯỜI KIA ĐỨNG'],['goc-nem','BedCorner','04 / GÓC NỆM'],['goc-cua-va-chot','DoorInside','05 / CỬA PHÒNG VÀ CHỐT'],['goc-ban-hoc-sang','StudyCornerMorning','06 / GÓC HỌC — BAN NGÀY'],['ban-hoc-laptop-dem','StudyDeskNight','07 / CÙNG GÓC HỌC — BAN ĐÊM'],['hanh-lang-cua-phong','HallwayDoor','08 / HÀNH LANG TRƯỚC CỬA']];
  const svgs=views.map(([name,component])=>{
   const svg=renderToStaticMarkup(React.createElement(room[component],{}));
   fs.writeFileSync(path.join(out,name+'.svg'),svg);return svg;

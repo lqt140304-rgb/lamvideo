@@ -13,13 +13,16 @@ export const ROOM = { w: 460, h: 265, d: 780 };
 const { w: W, h: H, d: D } = ROOM;
 const DOOR = { z0: 170, z1: 260, top: 205 };
 const WIN = { z0: 90, z1: 220, y0: 95, y1: 205 };
+/** Tâm ghế theo trạng thái; người ngồi đặt `at` vào đây. `bed`: ghế để gần lối đi cạnh nệm, chỗ Nam va đầu gối. */
+export const SEATS = { desk: { x: 396, z: 112, a: 0 }, door: { x: 195, z: 215, a: Math.PI / 2 }, bed: { x: 222, z: 196, a: 0.5 } };
 
 export const VIEWS = {
   wide: { pos: [228, 152, 800], target: [228, 0], mm: 34, horizon: 395 },
   kitchen: { pos: [240, 122, 300], target: [85, 20], mm: 38, horizon: 470 },
   desk: { pos: [215, 122, 310], target: [385, 30], mm: 36, horizon: 470 },
   door: { pos: [335, 120, 240], target: [0, 215], mm: 27, horizon: 470 },
-  hallway: { pos: [-430, 118, 195], target: [0, 195], mm: 26, horizon: 480 },
+  hallway: { pos: [-520, 118, 195], target: [0, 195], mm: 26, horizon: 480 },
+  bed: { pos: [300, 150, 640], target: [350, 290], mm: 34, horizon: 300 },
 } satisfies Record<string, Cam>;
 export type RoomView = keyof typeof VIEWS;
 
@@ -41,9 +44,18 @@ const camera = (c: Cam) => {
   return { F, toCam, screen, pos: c.pos, project: (p: V3) => screen(toCam(p)), pxcm: (p: V3) => F / Math.max(toCam(p)[2], 12) };
 };
 
+/** Dịch máy theo cm: truck sang ngang, push tiến tới. Dùng cho các cú máy nhỏ, vật gần sẽ trôi nhiều hơn vật xa. */
+export type CameraMove = { truck?: number; push?: number };
+const moved = (c: Cam, m?: CameraMove): Cam => {
+  if (!m) return c;
+  const fw = norm([c.target[0] - c.pos[0], 0, c.target[1] - c.pos[2]]);
+  const d = add(mul([-fw[2], 0, fw[0]], m.truck ?? 0), mul(fw, m.push ?? 0));
+  return { ...c, pos: add(c.pos, d), target: [c.target[0] + d[0], c.target[1] + d[2]] };
+};
+
 /** Điểm đứng của nhân vật trên sàn: trả về x, y, scale để truyền thẳng vào rig (rig cao 590 đơn vị, người cao 168 cm). */
-export const placeOn = (view: RoomView, at: [number, number], heightCm = 168) => {
-  const c = camera(VIEWS[view]);
+export const placeOn = (view: RoomView, at: [number, number], heightCm = 168, move?: CameraMove) => {
+  const c = camera(moved(VIEWS[view], move));
   const scale = (heightCm / 590) * c.pxcm([at[0], 0, at[1]]);
   const [x, y] = c.project([at[0], 0, at[1]]);
   return { x, y: y - 590 * scale, scale };
@@ -89,11 +101,14 @@ export type RoomProps = {
   /** 0: nắng sớm, 1: nắng đã rút gần hết (chiều). */
   sun?: number;
   door?: 'ajar' | 'open' | 'closed' | 'latched';
-  chair?: 'desk' | 'door';
+  chair?: keyof typeof SEATS;
   phone?: 'mat' | 'desk' | 'hidden';
   /** messy: chén chất trong bồn, vụn mì cạnh bếp; clean: chén úp trên giá, sàn sạch. */
   kitchen?: 'messy' | 'clean';
   drawerOpen?: boolean;
+  move?: CameraMove;
+  /** Vẽ dưới chăn, trên gối của Nam (đầu người đang ngủ). */
+  sleeper?: (p: { x: number; y: number; scale: number }) => React.ReactNode;
   wallet?: boolean;
   clockMinutes?: number | null;
   /** Nhân vật/đạo cụ đứng trên sàn; được xếp lớp theo độ sâu cùng đồ đạc. */
@@ -103,19 +118,25 @@ export type RoomProps = {
 
 type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: number; raw?: boolean };
 
-const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa' };
+const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', bed: 'Góc nệm' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
-  const cam = camera(VIEWS[view]);
+  const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway';
   let sink: React.ReactNode[] = [];
   let key = 0;
   const NEAR = 14;
+  // Bàn, ghế, bếp hạ thấp theo tỉ lệ chân ngắn của rig; phần dưới co lại, đồ phía trên giữ nguyên hình.
+  let yMap = (y: number) => y;
+  const mapY = (p: V3): V3 => [p[0], yMap(p[1]), p[2]];
+  const Q = (p: V3) => cam.toCam(mapY(p));
+  const P = (p: V3) => cam.screen(Q(p));
+  const fitY = (top: number, to: number, fn: () => void) => () => { yMap = (y) => (y <= top ? (y * to) / top : y - (top - to)); fn(); yMap = (y) => y; };
 
   const lights: { p: V3; col: [number, number, number]; r: number; k: number }[] = [
-    { p: [420, 112, 36], col: [1, 0.8, 0.52], r: 150, k: 1.5 },
-    { p: [392, 96, 44], col: [0.62, 0.86, 0.95], r: 80, k: 0.7 },
+    { p: [420, 100, 36], col: [1, 0.8, 0.52], r: 150, k: 1.5 },
+    { p: [392, 84, 44], col: [0.62, 0.86, 0.95], r: 80, k: 0.7 },
   ];
   const L = norm([0.55, 0.6, 0.58]);
   let lampsOff = false; // tường, sàn là mặt lớn: ánh đèn trên đó vẽ bằng vùng sáng, không tính theo tâm mặt
@@ -134,7 +155,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   const nightOf = (hex: string) => (night ? shade(hex, [0, 0, 0], [9999, 0, 9999]) : hex);
 
   const clip = (ps: V3[]) => {
-    const q = ps.map(cam.toCam), out: V3[] = [];
+    const q = ps.map(Q), out: V3[] = [];
     q.forEach((a, i) => {
       const b = q[(i + 1) % q.length];
       if (a[2] >= NEAR) out.push(a);
@@ -142,7 +163,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     });
     return out.map(cam.screen);
   };
-  const behind = (ps: V3[]) => ps.some((p) => cam.toCam(p)[2] < NEAR * 2);
+  const behind = (ps: V3[]) => ps.some((p) => Q(p)[2] < NEAR * 2);
   const lineW = (p: V3) => clamp(0.5 * cam.pxcm(p) + 0.7, 1.6, 4.4);
   const center = (ps: V3[]) => mul(ps.reduce((a, b) => add(a, b), [0, 0, 0] as V3), 1 / ps.length);
 
@@ -152,6 +173,16 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const pts = clip(ps);
     if (pts.length < 3) return;
     sink.push(<path key={key++} d={`M${pts.map((p) => `${f1(p[0])} ${f1(p[1])}`).join('L')}Z`} fill={o.raw ? fill : shade(fill, n, c)} stroke={o.stroke ?? 'none'} strokeWidth={o.w ?? 1} strokeLinejoin="round" opacity={o.op} />);
+  };
+  /** Chỉ cho phần vẽ trong fn lộ qua một ô mở (lòng bồn, khe cửa, cửa sổ). */
+  const inClip = (hole: V3[], fn: () => void) => {
+    if (behind(hole)) { fn(); return; }
+    const id = `${uid}-c${key++}`, p = hole.map(P);
+    sink.push(<clipPath key={key++} id={id}><path d={`M${p.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} /></clipPath>);
+    const before = sink; sink = [];
+    fn();
+    before.push(<g key={key++} clipPath={`url(#${id})`}>{sink}</g>);
+    sink = before;
   };
   const line = (a: V3, b: V3, stroke: string, w: number) => {
     const pts = clip([a, b, b]);
@@ -176,9 +207,9 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     for (const [n, ps, col] of faces) {
       const W3 = ps.map(T), N = R(n);
       if (dot(N, sub(cam.pos, center(W3))) <= 0) continue;
-      if (W3.some((p) => cam.toCam(p)[2] < NEAR)) { poly(W3, col, { n: N, cull: false }); continue; }
+      if (W3.some((p) => Q(p)[2] < NEAR)) { poly(W3, col, { n: N, cull: false }); continue; }
       poly(W3, col, { n: N, cull: false, stroke: 'rgba(50,55,50,.28)', w: 1 });
-      vis.push(...W3.map(cam.project)); ref = W3[0];
+      vis.push(...W3.map(P)); ref = W3[0];
     }
     if (vis.length > 2 && o.ink !== false) { const w = lineW(ref); sink.push(<path key={key++} d={roundPath(hull(vis), w * 1.6)} fill="none" stroke={nightOf(INK)} strokeWidth={w} strokeLinejoin="round" />); }
   };
@@ -189,18 +220,18 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   };
   const curve = (ps: V3[], stroke: string, w: number, op?: number) => {
     if (behind(ps)) return;
-    sink.push(<path key={key++} d={smoothPath(ps.map(cam.project), false)} fill="none" stroke={nightOf(stroke)} strokeWidth={w} strokeLinecap="round" opacity={op} />);
+    sink.push(<path key={key++} d={smoothPath(ps.map(P), false)} fill="none" stroke={nightOf(stroke)} strokeWidth={w} strokeLinecap="round" opacity={op} />);
   };
   const tube = (ps: V3[], cm: number, col: string) => {
     if (behind(ps)) return;
-    const w = cm * cam.pxcm(ps[Math.floor(ps.length / 2)]), iw = lineW(ps[0]), d = ps.length > 2 ? smoothPath(ps.map(cam.project), false) : `M${ps.map(cam.project).map((p) => `${f1(p[0])} ${f1(p[1])}`).join('L')}`;
+    const w = cm * cam.pxcm(ps[Math.floor(ps.length / 2)]), iw = lineW(ps[0]), d = ps.length > 2 ? smoothPath(ps.map(P), false) : `M${ps.map(P).map((p) => `${f1(p[0])} ${f1(p[1])}`).join('L')}`;
     sink.push(<g key={key++} fill="none" strokeLinecap="round"><path d={d} stroke={nightOf(INK)} strokeWidth={w + iw * 1.5} /><path d={d} stroke={night ? nightOf(col) : col} strokeWidth={w} /></g>);
   };
   const ring = (c: V3, r: number, y: number) => Array.from({ length: 22 }, (_, i) => { const t = (i / 22) * Math.PI * 2; return [c[0] + Math.cos(t) * r, y, c[2] + Math.sin(t) * r] as V3; });
   const cyl = (c: V3, r: number, h: number, col: string, o: { top?: string; r2?: number } = {}) => {
     if (behind([c, add(c, [0, h, 0])])) return;
     const top = ring(c, o.r2 ?? r, c[1] + h), bot = ring(c, r, c[1]);
-    const outline = hull([...top, ...bot].map(cam.project)), w = lineW(c), d = roundPath(outline, w);
+    const outline = hull([...top, ...bot].map(P)), w = lineW(c), d = roundPath(outline, w);
     const body = shade(col, [0.4, 0, 0.9], c);
     sink.push(<g key={key++} strokeLinejoin="round"><path d={d} fill={body} /><path d={d} fill={`url(#${uid}-cyl)`} /><path d={d} fill="none" stroke={nightOf(INK)} strokeWidth={w} /></g>);
     if (c[1] + h < cam.pos[1]) poly(top, o.top ?? col, { n: [0, 1, 0], cull: false, stroke: nightOf(INK), w: w * 0.7 });
@@ -213,9 +244,9 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const foot: V3[] = [[x[0], 0, z[0]], [x[1], 0, z[0]], [x[1], 0, z[1]], [x[0], 0, z[1]]];
     if (behind(foot)) return;
     const cast = foot.map((p) => [p[0] - h * 0.42, 0, p[2] + h * 0.3] as V3);
-    const pts = hull([...foot, ...cast].map(cam.project));
+    const pts = hull([...foot, ...cast].map(P));
     sink.push(<path key={key++} d={roundPath(pts, 10)} fill="#3e4a3e" opacity={op} filter={`url(#${uid}-blur)`} />);
-    const ao = hull(foot.map(cam.project));
+    const ao = hull(foot.map(P));
     sink.push(<path key={key++} d={roundPath(ao, 6)} fill="#2f382f" opacity={op * 1.5} filter={`url(#${uid}-blur-sm)`} />);
   };
   const aoLine = (a: V3, b: V3, wide: number, op: number) => {
@@ -259,20 +290,24 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
 
   const shell = () => {
     if (inHall) {
-      poly([[60, 0, 120], [60, 0, 320], [60, 240, 320], [60, 240, 120]], night ? '#1c2230' : '#8d9180', { raw: true });
+      poly([[0, 0, 330], [460, 0, 330], [460, 0, 110], [0, 0, 110]], C.floor, { n: [0, 1, 0], cull: false });
+      poly([[459, 0, 110], [459, 0, 330], [459, 105, 330], [459, 105, 110]], C.lower, { n: [-1, 0, 0], cull: false });
+      poly([[459, 105, 110], [459, 105, 330], [459, H, 330], [459, H, 110]], C.wall, { n: [-1, 0, 0], cull: false });
+      bedUnit();
       const seg = (z0: number, z1: number, y0: number, y1: number, col: string) => poly([[-14, y0, z1], [-14, y0, z0], [-14, y1, z0], [-14, y1, z1]], col, { n: [0.5, 0.5, 0.7], cull: false });
       const STAIR = [-112, -22], N2 = [430, 520];
       const wallBand = (z0: number, z1: number) => { seg(z0, z1, 0, 110, '#b2bfac'); seg(z0, z1, 110, H, '#e4d9c1'); };
       wallBand(-900, STAIR[0]); wallBand(STAIR[1], DOOR.z0); wallBand(DOOR.z1, 1200);
-      seg(DOOR.z0, DOOR.z1, DOOR.top, H, '#e4d9c1'); seg(STAIR[0], STAIR[1], 215, H, '#e4d9c1');
+      seg(DOOR.z0, DOOR.z1, DOOR.top, H, '#e4d9c1');
       poly([[120, 0, STAIR[0]], [120, 0, STAIR[1]], [120, 260, STAIR[1]], [120, 260, STAIR[0]]], '#b9b49c', { n: [0.5, 0.5, 0.7], cull: false });
       for (let i = 7; i >= 0; i--) box({ x: [-14 + i * 18, 4 + i * 18], y: [0, 15 * (i + 1)], z: [STAIR[0], STAIR[1]], c: '#b5ab94', top: '#d9cfb8', side: '#c9bea6' });
-      tube([[-14, 100, STAIR[1] - 5], [120, 212, STAIR[1] - 5]], 3, '#6e7d76');
-      poly([[-14, 215, STAIR[0]], [-14, 215, STAIR[1]], [-14, 200, STAIR[1]], [-14, 200, STAIR[0]]], '#8e907c', { raw: true });
-      poly([[-200, 0, -900], [-14, 0, -900], [-14, 0, 1200], [-200, 0, 1200]], '#cbc0a8', { n: [0, 1, 0], cull: false });
-      for (let z = -900; z <= 1200; z += 40) line([-200, 0, z], [-14, 0, z], '#b4aa93', 1.2);
-      for (let x = -200; x <= -14; x += 40) line([x, 0, -900], [x, 0, 1200], '#b4aa93', 1.2);
-      poly([[-200, H, -900], [-14, H, -900], [-14, H, 1200], [-200, H, 1200]], '#efe7d4', { n: [0, -1, 0], cull: false });
+      for (let i = 0; i < 8; i += 2) { const x = -5 + i * 18; line([x, 15 * (i + 1), STAIR[1] - 5], [x, 15 * (i + 1) + 92, STAIR[1] - 5], '#6e7d76', 3); }
+      tube([[-16, 96, STAIR[1] - 5], [112, 212, STAIR[1] - 5]], 3, '#6e7d76');
+      seg(STAIR[0], STAIR[1], 215, H, '#e4d9c1');
+      poly([[-320, 0, -900], [-14, 0, -900], [-14, 0, 1200], [-320, 0, 1200]], '#cbc0a8', { n: [0, 1, 0], cull: false });
+      for (let z = -900; z <= 1200; z += 40) line([-320, 0, z], [-14, 0, z], '#b4aa93', 1.2);
+      for (let x = -320; x <= -14; x += 40) line([x, 0, -900], [x, 0, 1200], '#b4aa93', 1.2);
+      poly([[-320, H, -900], [-14, H, -900], [-14, H, 1200], [-320, H, 1200]], '#efe7d4', { n: [0, -1, 0], cull: false });
       aoLine([-14, 0, -900], [-14, 0, 1200], 22, 0.3);
       aoLine([-14, H, -900], [-14, H, 1200], 26, 0.22);
       for (const [a, b] of [[N2[0], N2[1]]]) {
@@ -287,7 +322,6 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       box({ x: [-60, -18], y: [0, 1.5], z: [186, 244], c: '#7f8f7c', top: '#8a9a86' });
       cyl([-32, 0, 395], 9, 18, C.red, { top: '#5d4a3d', r2: 12 });
       soft([[-32, 18, 378], [-32, 50, 382], [-32, 66, 395], [-32, 50, 410], [-32, 18, 412]], '#6e9678', { n: [0.5, 0.5, 0.7] });
-      box({ x: [-160, -150], y: [0, 14], z: [-900, 1200], c: '#b5ab94' });
       return;
     }
     city(1000);
@@ -305,10 +339,8 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       for (const [a, b] of [[0, WIN.z0], [WIN.z1, D]]) poly([[W, y0, a], [W, y0, b], [W, y1, b], [W, y1, a]], col(y0, y1), { n: [-1, 0, 0], cull: false });
     }
     poly([[0, DOOR.top, DOOR.z1], [0, DOOR.top, DOOR.z0], [0, H, DOOR.z0], [0, H, DOOR.z1]], C.wall, { n: [1, 0, 0], cull: false });
-    poly([[W, 105, WIN.z0], [W, 105, WIN.z1], [W, WIN.y0, WIN.z1], [W, WIN.y0, WIN.z0]], C.wall, { n: [-1, 0, 0], cull: false });
     poly([[W, 0, WIN.z0], [W, 0, WIN.z1], [W, Math.min(105, WIN.y0), WIN.z1], [W, Math.min(105, WIN.y0), WIN.z0]], C.lower, { n: [-1, 0, 0], cull: false });
     poly([[W, WIN.y1, WIN.z0], [W, WIN.y1, WIN.z1], [W, H, WIN.z1], [W, H, WIN.z0]], C.wall, { n: [-1, 0, 0], cull: false });
-    poly([[W, 0, 0], [W, 0, 0], [W, 0, 0]], C.wall);
     poly([[0, H, D], [W, H, D], [W, H, 0], [0, H, 0]], C.ceiling, { n: [0.4, 0.5, 0.7], cull: false });
     poly([[0, 0, D], [W, 0, D], [W, 0, 0], [0, 0, 0]], C.floor, { n: [0, 1, 0], cull: false });
     for (let x = 0; x <= W; x += 46) line([x, 0, 0], [x, 0, D], C.tile, 1.5);
@@ -327,10 +359,10 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     aoLine([0, H, 0], [0, H, D], 26, 0.18); aoLine([W, H, 0], [W, H, D], 26, 0.18);
 
     // Vết đời sống trên tường: ống điện, vết ẩm, vết nứt.
-    curve([[120, 250, 1], [120, 232, 1], [120, 196, 1]], '#a7a491', 3);
+    line([120, H, 1], [120, 196, 1], '#a7a491', 3);
+    box({ x: [115, 125], y: [184, 196], z: [0.5, 2], c: '#e8e2cf', ink: false });
     soft([[440, 265, 1], [370, 262, 1], [330, 240, 1], [352, 228, 1], [392, 234, 1], [430, 214, 1], [460, 222, 1]], '#c9bfa3', { n: [0, 0, 1], noInk: true, op: 0.28 });
-    curve([[205, 238, 1], [214, 222, 1], [208, 208, 1], [221, 194, 1]], '#a79d86', 1.8);
-    curve([[0.5, 248, 110], [0.5, 232, 128], [0.5, 240, 148]], '#9da08c', 1.8);
+    curve([[203, H, 1], [205, 238, 1], [214, 222, 1], [208, 208, 1], [221, 194, 1]], '#a79d86', 1.8);
     box({ x: [188, 252], y: [258, 263], z: [320, 328], c: night ? '#49505a' : '#f6f2e4' });
     box({ x: [388, 412], y: [150, 182], z: [0.5, 1.5], c: '#e9c77e', ink: false });
     box({ x: [352, 382], y: [172, 212], z: [0.5, 1.5], c: '#e6dbc2' });
@@ -363,7 +395,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const g: React.ReactNode[] = sunPanes().map(([a, b, c, e], i) => {
       const pts = [[W, c, a], [W, c, b], [W, e, b], [W, e, a]].map((p) => cast(p as V3)).filter((p) => p[0] >= (clipId ? 252 : 0));
       if (pts.length < 3 || behind(pts)) return null;
-      return <path key={i} d={roundPath(pts.map(cam.project), 5)} fill={sun > 0.5 ? '#f3c98e' : '#fff0c2'} />;
+      return <path key={i} d={roundPath(pts.map(P), 5)} fill={sun > 0.5 ? '#f3c98e' : '#fff0c2'} />;
     });
     sink.push(<g key={key++} opacity={strength} clipPath={clipId ? `url(#${clipId})` : undefined} style={{ mixBlendMode: 'soft-light' }}>{g}</g>);
     sink.push(<g key={key++} opacity={strength * 0.55} clipPath={clipId ? `url(#${clipId})` : undefined}>{g}</g>);
@@ -371,6 +403,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
 
   const windowUnit = () => {
     const x0 = W, x1 = W + 14;
+    inClip([[W, WIN.y0, WIN.z0], [W, WIN.y0, WIN.z1], [W, WIN.y1, WIN.z1], [W, WIN.y1, WIN.z0]], () => {
     poly([[x0, WIN.y0, WIN.z0], [x1, WIN.y0, WIN.z0], [x1, WIN.y1, WIN.z0], [x0, WIN.y1, WIN.z0]], C.trim, { n: [0, 0, 1] });
     poly([[x1, WIN.y0, WIN.z1], [x0, WIN.y0, WIN.z1], [x0, WIN.y1, WIN.z1], [x1, WIN.y1, WIN.z1]], C.wall, { n: [0, 0, -1] });
     poly([[x0, WIN.y1, WIN.z0], [x1, WIN.y1, WIN.z0], [x1, WIN.y1, WIN.z1], [x0, WIN.y1, WIN.z1]], C.wall, { n: [0, -1, 0], cull: false });
@@ -384,6 +417,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     box({ x: [X, X + 3], y: [WIN.y0, WIN.y1], z: [WIN.z1 - 5, WIN.z1], c: bar, ink: false });
     box({ x: [X, X + 3], y: [WIN.y0, WIN.y1], z: [zM - 2.5, zM + 2.5], c: bar, ink: false });
     box({ x: [X, X + 3], y: [yM - 2.5, yM + 2.5], z: [WIN.z0, WIN.z1], c: bar, ink: false });
+    });
     box({ x: [W - 7, W + 2], y: [WIN.y0 - 5, WIN.y0], z: [WIN.z0 - 8, WIN.z1 + 8], c: C.cream });
     tube([[W - 5, WIN.y1 + 13, WIN.z0 - 28], [W - 5, WIN.y1 + 13, WIN.z1 + 28]], 2, '#8b7a5e');
     const curtain = (a: number, b: number) => {
@@ -399,10 +433,12 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const T = (p: V3): V3 => [p[2] * Math.sin(a) + p[0] * Math.cos(a), p[1], DOOR.z0 + p[2] * Math.cos(a) - p[0] * Math.sin(a)];
     const dW = DOOR.z1 - DOOR.z0;
     if (!inHall) {
+      inClip([[0, 0, DOOR.z0], [0, 0, DOOR.z1], [0, DOOR.top, DOOR.z1], [0, DOOR.top, DOOR.z0]], () => {
       poly([[-14, 0, DOOR.z1], [0, 0, DOOR.z1], [0, 0, DOOR.z0], [-14, 0, DOOR.z0]], '#b4ac96', { n: [0, 1, 0], cull: false });
       poly([[-14, 0, DOOR.z0], [0, 0, DOOR.z0], [0, DOOR.top, DOOR.z0], [-14, DOOR.top, DOOR.z0]], C.trim, { n: [0, 0, 1] });
       poly([[0, 0, DOOR.z1], [-14, 0, DOOR.z1], [-14, DOOR.top, DOOR.z1], [0, DOOR.top, DOOR.z1]], C.trim, { n: [0, 0, -1] });
       poly([[-14, DOOR.top, DOOR.z0], [0, DOOR.top, DOOR.z0], [0, DOOR.top, DOOR.z1], [-14, DOOR.top, DOOR.z1]], C.trim, { n: [0, -1, 0], cull: false });
+      });
       box({ x: [0, 3], y: [0, DOOR.top + 8], z: [DOOR.z0 - 8, DOOR.z0], c: C.trim });
       box({ x: [0, 3], y: [0, DOOR.top + 8], z: [DOOR.z1, DOOR.z1 + 8], c: C.trim });
       box({ x: [0, 3], y: [DOOR.top, DOOR.top + 8], z: [DOOR.z0, DOOR.z1], c: C.trim });
@@ -442,11 +478,15 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     }
     box({ x: [8, 180], y: [84, 89], z: [2, 70], c: C.counter, top: '#ebe7d7' });
     const S = { x0: 48, x1: 124, z0: 18, z1: 58 }, y = 89, dp = 17;
-    poly([[S.x0, y, S.z1], [S.x1, y, S.z1], [S.x1, y, S.z0], [S.x0, y, S.z0]], '#7f8f8e', { n: [0, 1, 0], cull: false, stroke: nightOf(INK), w: 2.4 });
+    poly([[S.x0, y, S.z1], [S.x1, y, S.z1], [S.x1, y, S.z0], [S.x0, y, S.z0]], '#7f8f8e', { n: [0, 1, 0], cull: false });
+    const basin: V3[] = [[S.x0, y, S.z1], [S.x1, y, S.z1], [S.x1, y, S.z0], [S.x0, y, S.z0]];
+    inClip(basin, () => {
     poly([[S.x0 + 5, y - dp, S.z0 + 4], [S.x1 - 5, y - dp, S.z0 + 4], [S.x1, y, S.z0], [S.x0, y, S.z0]], '#a7b5b3', { n: [0, 0, 1], cull: false });
     poly([[S.x1 - 5, y - dp, S.z0 + 4], [S.x1 - 5, y - dp, S.z1 - 4], [S.x1, y, S.z1], [S.x1, y, S.z0]], '#8a9998', { n: [-1, 0, 0], cull: false });
     poly([[S.x0 + 5, y - dp, S.z1 - 4], [S.x0 + 5, y - dp, S.z0 + 4], [S.x0, y, S.z0], [S.x0, y, S.z1]], '#c1cdca', { n: [1, 0, 0], cull: false });
     poly([[S.x0 + 5, y - dp, S.z1 - 4], [S.x1 - 5, y - dp, S.z1 - 4], [S.x1 - 5, y - dp, S.z0 + 4], [S.x0 + 5, y - dp, S.z0 + 4]], '#92a3a1', { n: [0, 1, 0], cull: false });
+    });
+    poly(basin, 'none', { raw: true, stroke: nightOf(INK), w: 2.4 });
     tube([[86, 89, 12], [86, 118, 12], [86, 130, 22], [86, 122, 34], [86, 116, 34]], 2.4, '#c5d0cd');
     if (messy) {
       for (const [x, z, h, col] of [[66, 36, 72, '#e4dac3'], [66, 36, 78, '#efe5cf'], [66, 37, 84, '#e4dac3'], [92, 42, 72, '#d9c8a6'], [104, 32, 73, '#efe5cf']] as [number, number, number, string][]) bowl([x, h, z], 13, col);
@@ -486,7 +526,12 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     soft([[322, 128, 15], [338, 128, 15], [340, 116, 15], [320, 116, 15]], '#8ea594', { n: [0, 0, 1], w: 1.7 });
   };
 
-  const helmet = () => soft([[323, 186, 9], [326, 202, 12], [338, 206, 12], [349, 198, 11], [350, 184, 9], [336, 180, 12]], '#5d7a70', { n: [0, 0, 1] });
+  const helmet = () => {
+    box({ x: [334, 338], y: [204, 208], z: [0.5, 4], c: C.woodDark, ink: false });
+    soft([[322, 184, 10], [324, 198, 10], [336, 205, 10], [348, 198, 10], [350, 184, 10]], '#5d7a70', { n: [0, 0, 1] });
+    soft([[322, 186, 11], [336, 183, 11], [350, 186, 11], [348, 178, 11], [336, 175, 11], [324, 178, 11]], '#a9c0c0', { n: [0, 0, 1], w: 1.7 });
+    curve([[326, 176, 11], [331, 164, 11], [342, 164, 11], [347, 176, 11]], '#47584f', 2);
+  };
 
   const deskUnit = () => {
     const open = drawerOpen ? 26 : 0;
@@ -527,14 +572,19 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     if (phone === 'desk') box({ x: [416, 424], y: [77, 78], z: [50, 65], c: '#3a4a47' });
   };
 
-  const chairUnit = () => {
-    const at = chair === 'door' ? { x: 195, z: 215, a: Math.PI / 2 } : { x: 396, z: 112, a: 0 };
-    const T = (p: V3): V3 => [at.x + p[0] * Math.cos(at.a) + p[2] * Math.sin(at.a), p[1], at.z - p[0] * Math.sin(at.a) + p[2] * Math.cos(at.a)];
+  const seat = SEATS[chair];
+  const chairT = (p: V3): V3 => [seat.x + p[0] * Math.cos(seat.a) + p[2] * Math.sin(seat.a), p[1], seat.z - p[0] * Math.sin(seat.a) + p[2] * Math.cos(seat.a)];
+  const chairSeat = () => {
+    const T = chairT;
+    groundShadow([seat.x - 22, seat.x + 22], [seat.z - 22, seat.z + 22], 40, 0.16);
     const legs: [number, number][] = [[-18, -18], [18, -18], [-18, 18], [18, 18]];
-    groundShadow([at.x - 22, at.x + 22], [at.z - 22, at.z + 22], 45, 0.16);
-    const order = [...legs].sort((a, b) => cam.toCam(T([b[0], 0, b[1]]))[2] - cam.toCam(T([a[0], 0, a[1]]))[2]);
+    const order = [...legs].sort((a, b) => Q(T([b[0], 0, b[1]]))[2] - Q(T([a[0], 0, a[1]]))[2]);
     for (const [x, z] of order) box({ x: [x - 1.6, x + 1.6], y: [0, 45], z: [z - 1.6, z + 1.6], c: '#5f7468', xf: T, ink: false });
     box({ x: [-21, 21], y: [45, 49], z: [-21, 21], c: C.chair, top: '#a5b8a0', xf: T });
+  };
+  // Lưng ghế tách riêng để nằm đúng lớp so với người ngồi.
+  const chairBack = () => {
+    const T = chairT;
     for (const x of [-17, 17]) box({ x: [x - 1.6, x + 1.6], y: [49, 92], z: [18, 21], c: '#5f7468', xf: T, ink: false });
     box({ x: [-20, 20], y: [68, 92], z: [18, 21], c: C.chair, xf: T });
   };
@@ -546,7 +596,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     for (let x = x0 + 40; x < x1; x += 40) line([x, h, z0], [x, h, z1], '#9db3a2', 1.3);
     line([x0 + 2, h - 8, z1], [x1 - 2, h - 8, z1], '#c3d1c2', 1.8);
     if (!night) {
-      const p = top.map(cam.project);
+      const p = top.map(P);
       sink.push(<clipPath key={key++} id={`${uid}-mat`}><path d={`M${p.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} /></clipPath>);
       sunPatch(h, `${uid}-mat`);
     }
@@ -554,6 +604,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     pillow([402, 446], [302, 362], h, C.cream);
     box({ x: [276, 330], y: [h, h + 11], z: [232, 288], c: '#a4b5a4', top: '#b3c2b0' });
     line([276, h + 6, 288.2], [330, h + 6, 288.2], '#8c9e8c', 1.6);
+    if (sleeper) { const at: V3 = [424, h + 9, 332], s = P(at); sink.push(<g key={key++}>{sleeper({ x: s[0], y: s[1], scale: (168 / 590) * cam.pxcm(at) })}</g>); }
     const b = h + 5;
     soft([[258, b, 318], [272, b + 12, 302], [305, b + 16, 298], [338, b + 12, 305], [372, b + 18, 300], [392, b + 8, 312], [396, b + 12, 338], [386, b + 8, 366], [352, b + 2, 374], [312, b, 374], [276, b, 372], [256, b + 3, 352]], C.blanket);
     curve([[274, b + 12, 310], [298, b + 18, 330], [322, b + 13, 318], [346, b + 16, 340]], '#4e6c64', 2.4);
@@ -567,7 +618,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   };
 
   const fanUnit = () => {
-    const c: V3 = [222, 0, 112];
+    const c: V3 = [32, 0, 388];
     groundShadow([c[0] - 16, c[0] + 16], [c[2] - 16, c[2] + 16], 40, 0.14);
     cyl(c, 16, 3, '#7c9586', { top: '#8fa698' });
     tube([[c[0], 3, c[2]], [c[0], 92, c[2]]], 3, '#9fb1a5');
@@ -581,8 +632,8 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     soft(circ(24, 4), 'rgba(0,0,0,0)', { n, raw: true, w: 3 });
     for (let i = 0; i < 8; i++) { const t = (i / 8) * 6.283; line(at(Math.cos(t) * 5, Math.sin(t) * 5, 4), at(Math.cos(t) * 24, Math.sin(t) * 24, 4), '#7f9788', 1.1); }
     soft(circ(14, 4), 'rgba(0,0,0,0)', { n, raw: true, w: 1 });
-    curve([[c[0], 1, c[2] - 4], [214, 0, 70], [216, 1, 20], [214, 26, 2]], '#5d6e62', 2);
-    box({ x: [208, 220], y: [22, 32], z: [0.5, 1.5], c: '#f1ecdb', ink: false });
+    curve([[c[0], 1, c[2] + 4], [12, 0, 398], [2, 26, 398]], '#5d6e62', 2);
+    box({ x: [0.5, 2], y: [22, 32], z: [392, 404], c: '#f1ecdb', ink: false });
   };
 
   const broom = () => {
@@ -601,27 +652,36 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   };
   const crumbs = () => { for (let i = 0; i < 16; i++) { const x = 112 + ((i * 47) % 70), z = 76 + ((i * 29) % 34); box({ x: [x, x + 2.2], y: [0, 0.8], z: [z, z + 1.6], c: '#c9a161', ink: false }); } };
   const supplies = () => {
-    cyl([200, 0, 30], 14, 44, C.teal, { top: '#a5c5c2', r2: 8 });
-    cyl([200, 44, 30], 5, 6, '#5c8c89', { top: '#9fbfbb' });
+    cyl([200, 0, 30], 14, 34, C.teal, { top: C.teal });
+    cyl([200, 34, 30], 14, 9, C.teal, { top: '#a5c5c2', r2: 6 });
+    cyl([200, 43, 30], 4.5, 5, '#5c8c89', { top: '#9fbfbb' });
+    for (const y of [12, 24]) line([187, y, 43], [213, y, 43], '#a5c5c2', 1.6);
     box({ x: [6, 52], y: [0, 28], z: [84, 126], c: '#c49a70', top: '#d1ab82', ink: true });
     line([6, 28.2, 105], [52, 28.2, 105], '#8c6a47', 1.6);
     cyl([324, 0, 28], 12, 28, '#a5a487', { top: '#6e6c56', r2: 15 });
     soft([[314, 28, 28], [320, 40, 32], [330, 36, 30], [336, 28, 30]], C.cream, { n: [0, 0, 1], w: 1.8 });
   };
 
+  // Quầng đèn vẽ ngay sau bàn, nên ghế và người ở phía trước không bị phủ trắng.
+  const lampGlow = () => {
+    const lamp = P([418, 100, 37]), pool = P([418, 65, 36]), px = cam.pxcm([418, 65, 36]);
+    sink.push(<g key={key++} style={{ mixBlendMode: 'screen' }}><ellipse cx={pool[0]} cy={pool[1]} rx={px * 150} ry={px * 70} fill={`url(#${uid}-lamp)`} /><ellipse cx={lamp[0]} cy={lamp[1] + px * 16} rx={px * 90} ry={px * 90} fill={`url(#${uid}-lamp)`} /></g>);
+  };
+
   type Obj = { at: V3; draw: () => void };
   const objs: Obj[] = inHall ? [{ at: [-6, 0, 215], draw: doorUnit }] : [
     { at: [0, 0, 215], draw: doorUnit }, { at: [W, 150, 155], draw: windowUnit },
-    { at: [94, 0, 34], draw: kitchenUnit }, { at: [270, 0, 30], draw: wardrobeUnit }, { at: [340, 190, 8], draw: helmet }, { at: [395, 0, 34], draw: deskUnit },
-    { at: chair === 'door' ? [195, 0, 215] : [396, 0, 112], draw: chairUnit }, { at: [352, 0, 300], draw: bedUnit }, { at: [222, 0, 112], draw: fanUnit },
+    { at: [94, 0, 34], draw: fitY(89, 76, kitchenUnit) }, { at: [270, 0, 30], draw: wardrobeUnit }, { at: [340, 190, 8], draw: helmet }, { at: [395, 0, 34], draw: fitY(77, 65, deskUnit) },
+    { at: [seat.x, 0, seat.z], draw: fitY(49, 40, chairSeat) }, { at: chairT([0, 0, 19.5]), draw: fitY(49, 40, chairBack) }, { at: [352, 0, 300], draw: bedUnit }, { at: [32, 0, 388], draw: fanUnit },
     { at: [12, 0, 76], draw: broom }, { at: [215, 0, 355], draw: clutter }, { at: [28, 0, 105], draw: supplies },
     ...(kitchen === 'messy' ? [{ at: [145, 0, 92] as V3, draw: crumbs }] : []),
+    ...(night ? [{ at: [396, 0, 75] as V3, draw: lampGlow }] : []),
   ];
-  for (const a of actors) objs.push({ at: [a.at[0], 0, a.at[1]], draw: () => { sink.push(<g key={key++}>{a.render(placeOn(view, a.at))}</g>); } });
+  for (const a of actors) objs.push({ at: [a.at[0], 0, a.at[1]], draw: () => { sink.push(<g key={key++}>{a.render(placeOn(view, a.at, 168, move))}</g>); } });
   lampsOff = true;
   shell();
   lampsOff = false;
-  const dist = (o: Obj) => { const q = cam.toCam(o.at); return Math.hypot(q[0], q[2]); };
+  const dist = (o: Obj) => { const q = Q(o.at); return Math.hypot(q[0], q[2]); };
   [...objs].sort((a, b) => dist(b) - dist(a)).forEach((o) => {
     const before = sink; sink = [];
     o.draw();
@@ -629,9 +689,6 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     sink = before;
   });
 
-  const lamp = cam.project([418, 112, 37]);
-  const lampPool = cam.project([418, 77, 36]);
-  const pxLamp = cam.pxcm([418, 77, 36]);
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" className={className} role="img" aria-label={`${SHOT_LABEL[view]}, ${night ? 'ban đêm' : 'ban ngày'}`} data-view={view}>
       <defs>
@@ -644,7 +701,6 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       </defs>
       <rect width="1920" height="1080" fill={night ? '#111722' : '#d9cfb9'} />
       <g data-layer={`room-${view}`}>{sink}</g>
-      {night && !inHall && <g style={{ mixBlendMode: 'screen' }}><ellipse cx={lampPool[0]} cy={lampPool[1]} rx={pxLamp * 150} ry={pxLamp * 70} fill={`url(#${uid}-lamp)`} /><ellipse cx={lamp[0]} cy={lamp[1] + pxLamp * 16} rx={pxLamp * 90} ry={pxLamp * 90} fill={`url(#${uid}-lamp)`} /></g>}
       {!night && !inHall && <rect width="1920" height="1080" fill={`url(#${uid}-win)`} />}
       <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} />
       {children}
@@ -652,11 +708,12 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   );
 }
 
-export const RoomMorning = (p: RoomProps) => <RoomScene door="ajar" {...p} />;
+export const RoomMorning = (p: RoomProps) => <RoomScene door="ajar" chair="bed" {...p} />;
 export const RoomNight = (p: RoomProps) => <RoomScene phone="desk" kitchen="clean" {...p} night />;
-export const KitchenSink = (p: RoomProps) => <RoomScene door="ajar" {...p} view="kitchen" />;
+export const KitchenSink = (p: RoomProps) => <RoomScene door="ajar" chair="bed" {...p} view="kitchen" />;
+export const BedCorner = (p: RoomProps) => <RoomScene door="ajar" chair="bed" {...p} view="bed" />;
 export const StudyCornerMorning = (p: RoomProps) => <RoomScene phone="hidden" kitchen="clean" {...p} view="desk" />;
 export const StudyDeskNight = (p: RoomProps) => <RoomScene phone="desk" kitchen="clean" {...p} night view="desk" />;
 export const DoorInside = (p: RoomProps) => <RoomScene door="latched" phone="hidden" {...p} view="door" />;
 export const HallwayDoor = (p: RoomProps) => <RoomScene {...p} view="hallway" />;
-export function HoSo02EnvironmentMasterBoard() { return <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}><RoomMorning /><RoomNight /><KitchenSink /><DoorInside /><StudyCornerMorning /><StudyDeskNight /><HallwayDoor /></div>; }
+export function HoSo02EnvironmentMasterBoard() { return <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}><RoomMorning /><RoomNight /><KitchenSink /><BedCorner /><DoorInside /><StudyCornerMorning /><StudyDeskNight /><HallwayDoor /></div>; }
