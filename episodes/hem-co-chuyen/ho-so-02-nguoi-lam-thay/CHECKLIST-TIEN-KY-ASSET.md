@@ -139,3 +139,20 @@ Trước khi kích hoạt render bất kỳ shot nào, Animator cần tick đủ
 - [ ] **4. Điểm tì đỡ Vật lý (Support Grounds)**: Không có nhân vật trôi nổi trong không trung; bàn chân phải tiếp xúc mặt sàn (`floor`), mông tiếp xúc nệm (`bed`) hoặc ghế (`chair`).
 - [ ] **5. Ánh sáng Motivated Lighting**: Vùng sáng rọi của đèn bàn và laptop phải đổ bóng đúng hướng đối diện trên tường và sàn nhà.
 - [ ] **6. Âm thanh Nguồn (Motivated Sound)**: Mọi tiếng rơi (búa, đũa, then cài, bát sứ) phải khớp frame với điểm tiếp xúc vật lý trên hình ảnh.
+- [ ] **7. Lớp phủ hòa sắc điện ảnh (Cinematic Grade Overlay)**: Áp dụng component `CinematicGradeOverlay` với `mix-blend-mode: soft-light`, opacity nhẹ $8\% - 14\%$ theo đúng mood của từng phân đoạn (`morning`, `fincher_night`, `mirror_realm`), bảo vệ 100% màu da nhân vật.
+
+---
+
+## 6. Quy Chuẩn Lớp Phủ Hòa Sắc Điện Ảnh (Cinematic Color Grading)
+
+Áp dụng component `CinematicGradeOverlay` (`what-if-studio/src/engine/CinematicGradeOverlay.tsx`) trên đỉnh khung hình:
+
+| Phân đoạn & Cảnh | Mood Preset | Tone màu chủ đạo | Chế độ hòa trộn & Opacity | Hiệu quả thị giác |
+|---|---|---|---|---|
+| **Sáng sớm (P1.01–P1.04, P2.03)** | `morning` | `#1a2b3c` (Xanh lơ lạnh) | `soft-light`, $8\%$ | Tươi tắn nhưng lạnh, cảm giác ngái ngủ đầu ngày. |
+| **Trưa gắt (P1.05, P2.04)** | `noon_harsh` | `#2e2518` (Vàng mù tạt) | `soft-light`, $9\%$ | Ngột ngạt, bí bách, áp lực deadline bài tập lớn. |
+| **Chiều tà (P1.07)** | `sunset_golden` | `#3d200a` (Cam thẫm) | `soft-light`, $12\%$ | Golden hour buông thả, thời gian trôi nhanh khi cày game. |
+| **Đêm phòng trọ (P1.08, P2.01, P2.05, P3.03)** | `fincher_night` | `#0d1f18` (Xanh rêu đen) | `soft-light`, $12\%$ | Đậm chất Chiaroscuro David Fincher, rùng rợn, bí ẩn. |
+| **Đại giảng đường (P3.01)** | `lecture_cold` | `#16252b` (Trắng lạnh công nghiệp) | `soft-light`, $10\%$ | Lạnh lùng, trơ trọi, cô lập trước đám đông phán xét. |
+| **Cõi hư vô gương (P3.05, Trailer)** | `mirror_realm` | `#051824` (Deep Teal Abyss) | `color`, $18\%$ | Vực thẳm không đáy, vô thực, câm lặng tuyệt đối. |
+

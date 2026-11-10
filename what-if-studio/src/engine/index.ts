@@ -24,6 +24,7 @@ export * from './sets/time_vault';
 
 export * from './vfx';
 export * from './clock_entity';
+export * from './CinematicGradeOverlay';
 
 export { mouthCueAt, ArticulatedMouth } from './mouth';
 export type { MouthCue } from './mouth';
