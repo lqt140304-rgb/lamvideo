@@ -21,6 +21,7 @@ import { TinNhanChuaGuiAnimatic } from './episodes/tin-nhan-chua-gui/animatic';
 import tinNhanTimeline from './episodes/tin-nhan-chua-gui/timeline.json';
 import { ThuC1, ThuC1Tinh, THU_C1_TOTAL } from './episodes/tin-nhan-chua-gui/thu-c1';
 import { HoSo02CastBoard, HoSo02RigSheet, HoSo02Spin, HoSo02Turnaround, RIG_SHEET_TOTAL, SPIN_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/rig-sheet';
+import { BOARD_SIZE, HoSo02TrailerBoard, HoSo02TrailerIntro, HoSo02TrailerStory, introTotal, storyTotal } from './episodes/ho-so-02-nguoi-lam-thay/trailer-nam-giua-khung';
 
 // Every episode gets two compositions: <Id> (the film) and <Id>Board (one frame per shot, at its key frame, for the
 // storyboard). Cast, NewCast, FurnitureSheet, VehicleSheet, OngLocShopSheet, MotherHouseSheet, OpeningC0Sheet, MeadowAndDealsSheet, and ColorScriptSheet render the studio asset sheets.
@@ -56,6 +57,9 @@ export const Root: React.FC = () => {
       <Composition id="HoSo02Turnaround" component={HoSo02Turnaround} durationInFrames={RIG_SHEET_TOTAL} {...common} />
       <Composition id="HoSo02Spin" component={HoSo02Spin} durationInFrames={SPIN_TOTAL} {...common} />
       <Composition id="HoSo02RigSheet" component={HoSo02RigSheet} durationInFrames={RIG_SHEET_TOTAL} {...common} />
+      <Composition id="HoSo02TrailerIntro" component={HoSo02TrailerIntro} durationInFrames={introTotal} {...common} />
+      <Composition id="HoSo02TrailerStory" component={HoSo02TrailerStory} durationInFrames={storyTotal} {...common} />
+      <Composition id="HoSo02TrailerBoard" component={HoSo02TrailerBoard} durationInFrames={1} fps={common.fps} width={BOARD_SIZE.width} height={BOARD_SIZE.height} />
       <Composition id="ColorScriptSheet" component={ColorScriptSheet} durationInFrames={1} {...common} />
       <Composition id="TimeVaultSheet" component={TimeVaultSheet} durationInFrames={1} {...common} />
     </>

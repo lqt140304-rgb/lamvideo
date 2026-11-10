@@ -13,7 +13,7 @@
 
 | Nguồn lời | Nội dung / tình trạng |
 |---|---|
-| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.00 trailer giới thiệu Nam, kết bằng báo thức; P1.01–08 giữ lời A–H và mức duyệt cũ, tới Nam đọc bài và dặn đừng gửi |
+| [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.00 trailer: Nam giữa khung với nền đổi theo dòng thời gian ([bảng phân cảnh](assets/trailer/nam-giua-khung-bang.png)), kết bằng báo thức; P1.01–08 giữ lời A–H và mức duyệt cũ, tới Nam đọc bài và dặn đừng gửi |
 | [Phần 2 — Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) | P2.01–07 đã viết cảnh/thoại: tự nhận giúp, cho thay mặt, lệ thuộc, mất tự tin và bắt đầu tự làm; toàn bộ mới đề xuất |
 | [Phần 3 — Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) | P3.01–07 đã viết cảnh/thoại: nỗ lực, đối đầu, bị giam trong gương và sự chiếm chỗ; toàn bộ mới đề xuất |
 

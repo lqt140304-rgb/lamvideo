@@ -23,6 +23,12 @@ export const VIEWS = {
   door: { pos: [335, 120, 240], target: [0, 215], mm: 27, horizon: 470 },
   hallway: { pos: [-520, 118, 195], target: [0, 195], mm: 26, horizon: 480 },
   bed: { pos: [300, 150, 640], target: [350, 290], mm: 34, horizon: 300 },
+  /** Góc gương cạnh hông tủ (cần bật prop `mirror`). */
+  mirror: { pos: [338, 128, 420], target: [206, 84], mm: 30, horizon: 470 },
+  /** Hành lang nhìn về đầu cầu thang, máy ngoài lan can. */
+  stairs: { pos: [-300, 135, 40], target: [0, -40], mm: 24, horizon: 360 },
+  /** Góc đồ cho tặng cuối hành lang, nơi Nam lấy gương. */
+  giveaway: { pos: [-262, 125, 420], target: [-14, 668], mm: 30, horizon: 470 },
 } satisfies Record<string, Cam>;
 export type RoomView = keyof typeof VIEWS;
 
@@ -110,6 +116,10 @@ export type RoomProps = {
   /** Vẽ dưới chăn, trên gối của Nam (đầu người đang ngủ). */
   sleeper?: (p: { x: number; y: number; scale: number }) => React.ReactNode;
   wallet?: boolean;
+  /** Gương đứng khung gỗ 50 × 120 cm cạnh hông tủ. Mặc định tắt để không đổi các bảng nền đã xuất; bật khi shot cần gương. */
+  mirror?: boolean;
+  /** Góc đồ cho tặng ở hành lang; luôn hiện ở view `giveaway`. */
+  giveaway?: boolean;
   clockMinutes?: number | null;
   /** Nhân vật/đạo cụ đứng trên sàn; được xếp lớp theo độ sâu cùng đồ đạc. */
   actors?: { at: [number, number]; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }[];
@@ -118,12 +128,12 @@ export type RoomProps = {
 
 type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: number; raw?: boolean };
 
-const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', bed: 'Góc nệm' };
+const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
-  const inHall = view === 'hallway';
+  const inHall = view === 'hallway' || view === 'stairs' || view === 'giveaway';
   let sink: React.ReactNode[] = [];
   let key = 0;
   const NEAR = 14;
@@ -299,10 +309,21 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       const wallBand = (z0: number, z1: number) => { seg(z0, z1, 0, 110, '#b2bfac'); seg(z0, z1, 110, H, '#e4d9c1'); };
       wallBand(-900, STAIR[0]); wallBand(STAIR[1], DOOR.z0); wallBand(DOOR.z1, 1200);
       seg(DOOR.z0, DOOR.z1, DOOR.top, H, '#e4d9c1');
-      poly([[120, 0, STAIR[0]], [120, 0, STAIR[1]], [120, 260, STAIR[1]], [120, 260, STAIR[0]]], '#b9b49c', { n: [0.5, 0.5, 0.7], cull: false });
-      for (let i = 7; i >= 0; i--) box({ x: [-14 + i * 18, 4 + i * 18], y: [0, 15 * (i + 1)], z: [STAIR[0], STAIR[1]], c: '#b5ab94', top: '#d9cfb8', side: '#c9bea6' });
-      for (let i = 0; i < 8; i += 2) { const x = -5 + i * 18; line([x, 15 * (i + 1), STAIR[1] - 5], [x, 15 * (i + 1) + 92, STAIR[1] - 5], '#6e7d76', 3); }
-      tube([[-16, 96, STAIR[1] - 5], [112, 212, STAIR[1] - 5]], 3, '#6e7d76');
+      if (view !== 'stairs') poly([[120, 0, STAIR[0]], [120, 0, STAIR[1]], [120, 260, STAIR[1]], [120, 260, STAIR[0]]], '#b9b49c', { n: [0.5, 0.5, 0.7], cull: false });
+      const stairFlight = () => {
+        for (let i = 7; i >= 0; i--) box({ x: [-14 + i * 18, 4 + i * 18], y: [0, 15 * (i + 1)], z: [STAIR[0], STAIR[1]], c: '#b5ab94', top: '#d9cfb8', side: '#c9bea6' });
+        for (let i = 0; i < 8; i += 2) { const x = -5 + i * 18; line([x, 15 * (i + 1), STAIR[1] - 5], [x, 15 * (i + 1) + 92, STAIR[1] - 5], '#6e7d76', 3); }
+        tube([[-16, 96, STAIR[1] - 5], [112, 212, STAIR[1] - 5]], 3, '#6e7d76');
+      };
+      if (view === 'stairs') inClip([[-14, 0, STAIR[0]], [-14, 0, STAIR[1]], [-14, 215, STAIR[1]], [-14, 215, STAIR[0]]], () => {
+        // Lòng hốc cầu thang: sàn và hai vách, chỉ lộ qua ô mở để không vẽ đè tường hành lang.
+        poly([[-14, 0, STAIR[1]], [120, 0, STAIR[1]], [120, 0, STAIR[0]], [-14, 0, STAIR[0]]], '#c2b8a0', { n: [0, 1, 0], cull: false });
+        poly([[-14, 0, STAIR[0]], [120, 0, STAIR[0]], [120, H, STAIR[0]], [-14, H, STAIR[0]]], '#d6ccb4', { n: [0, 0, 1], cull: false });
+        poly([[120, 0, STAIR[1]], [-14, 0, STAIR[1]], [-14, H, STAIR[1]], [120, H, STAIR[1]]], '#cfc5ad', { n: [0, 0, -1], cull: false });
+        poly([[120, 0, STAIR[0]], [120, 0, STAIR[1]], [120, 260, STAIR[1]], [120, 260, STAIR[0]]], '#b9b49c', { n: [-1, 0, 0], cull: false });
+        stairFlight();
+      });
+      else stairFlight();
       seg(STAIR[0], STAIR[1], 215, H, '#e4d9c1');
       poly([[-320, 0, -900], [-14, 0, -900], [-14, 0, 1200], [-320, 0, 1200]], '#cbc0a8', { n: [0, 1, 0], cull: false });
       for (let z = -900; z <= 1200; z += 40) line([-320, 0, z], [-14, 0, z], '#b4aa93', 1.2);
@@ -322,6 +343,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       box({ x: [-60, -18], y: [0, 1.5], z: [186, 244], c: '#7f8f7c', top: '#8a9a86' });
       cyl([-32, 0, 395], 9, 18, C.red, { top: '#5d4a3d', r2: 12 });
       soft([[-32, 18, 378], [-32, 50, 382], [-32, 66, 395], [-32, 50, 410], [-32, 18, 412]], '#6e9678', { n: [0.5, 0.5, 0.7] });
+      if (giveaway || view === 'giveaway') giveawayCorner();
       return;
     }
     city(1000);
@@ -500,6 +522,53 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     box({ x: [20, 32], y: [89, 93], z: [28, 38], c: '#7ea37d' });
   };
 
+  /** Góc đồ cho tặng: kệ thấp sát tường hành lang, thùng giấy, túi áo, đèn bàn cũ và tờ giấy dán tường. */
+  const giveawayCorner = () => {
+    const z0 = 600, z1 = 712;
+    groundShadow([-62, -16], [z0, z1], 60, 0.16);
+    box({ x: [-62, -16], y: [0, 4], z: [z0, z1], c: C.woodDark });
+    for (const z of [z0 + 2, z1 - 6]) box({ x: [-60, -18], y: [4, 58], z: [z, z + 4], c: C.woodDark, ink: false });
+    box({ x: [-62, -16], y: [30, 34], z: [z0, z1], c: C.wood, top: '#d7b483' });
+    box({ x: [-62, -16], y: [58, 62], z: [z0, z1], c: C.wood, top: '#d7b483' });
+    box({ x: [-56, -22], y: [4, 28], z: [z0 + 10, z0 + 48], c: '#c49a70', top: '#d1ab82' });
+    line([-56, 28.2, z0 + 29], [-22, 28.2, z0 + 29], '#8c6a47', 1.6);
+    soft([[-58, 4, z0 + 58], [-50, 20, z0 + 54], [-36, 24, z0 + 66], [-24, 18, z0 + 82], [-22, 4, z0 + 96], [-48, 4, z0 + 98]], '#9fb2c4', { n: [1, 0.3, 0.2] });
+    for (let i = 0; i < 4; i++) box({ x: [-54, -26], y: [34 + i * 4.5, 38 + i * 4.5], z: [z0 + 10 + i, z0 + 44 - i], c: ['#c06c55', '#7f9e98', '#e2c47a', '#8aa0bf'][i] });
+    cyl([-40, 34, z0 + 78], 8, 2, '#5d6e62', { top: '#6e8072' });
+    tube([[-40, 36, z0 + 78], [-38, 52, z0 + 74], [-34, 58, z0 + 84]], 1.6, '#5d6e62');
+    cyl([-34, 54, z0 + 88], 4, 8, '#d8c49a', { r2: 9, top: '#efe0b8' });
+    box({ x: [-56, -24], y: [62, 70], z: [z0 + 20, z0 + 60], c: '#c9b98e' });
+    box({ x: [-52, -28], y: [70, 76], z: [z0 + 64, z0 + 96], c: '#d7b58c' });
+    poly([[-14.6, 98, z0 + 24], [-14.6, 98, z0 + 74], [-14.6, 132, z0 + 74], [-14.6, 132, z0 + 24]], '#f6efda', { n: [-1, 0, 0], cull: false, stroke: nightOf(INK), w: 1.4 });
+    for (let k = 0; k < 2; k++) curve([[-15, 124 - k * 13, z0 + 30], [-15, 126 - k * 13, z0 + 42], [-15, 122 - k * 13, z0 + 55], [-15, 125 - k * 13, z0 + 68 - k * 10]], '#4f5b8a', 2.2);
+    box({ x: [-15.5, -14.6], y: [129, 134], z: [z0 + 44, z0 + 54], c: '#e3d7a6', ink: false });
+  };
+  /** Gương đứng khung gỗ cạnh hông trái của tủ, xoay mặt vào phòng; kính chỉ phản chiếu ánh sáng chung. */
+  const mirrorUnit = () => {
+    const cx = 206, cz = 86, yaw = -0.62, cs = Math.cos(yaw), sn = Math.sin(yaw);
+    const T = (p: V3): V3 => [cx + p[0] * cs + p[2] * sn, p[1], cz - p[0] * sn + p[2] * cs];
+    const fr = { c: C.wood, top: '#d7b483', front: '#b98d5a', side: C.woodDark, xf: T };
+    groundShadow([cx - 26, cx + 22], [cz - 16, cz + 12], 120, 0.16);
+    box({ x: [-30, -18], y: [0, 6], z: [-14, 10], ...fr });
+    box({ x: [18, 30], y: [0, 6], z: [-14, 10], ...fr });
+    box({ x: [20, 28], y: [6, 8], z: [-6, 2], c: '#f2ead2', xf: T, ink: false });
+    tube([T([0, 70, -3]), T([0, 30, -26]), T([0, 2, -34])], 1.6, C.woodDark);
+    const g = { y0: 12, y1: 124, x: 19 };
+    box({ x: [-25, 25], y: [6, g.y0], z: [-2, 2], ...fr });
+    box({ x: [-25, 25], y: [g.y1, 130], z: [-2, 2], ...fr });
+    box({ x: [-25, -g.x], y: [g.y0, g.y1], z: [-2, 2], ...fr });
+    box({ x: [g.x, 25], y: [g.y0, g.y1], z: [-2, 2], ...fr });
+    const n = sub(T([0, 0, 1]), T([0, 0, 0]));
+    if (dot(n, sub(cam.pos, T([0, 60, 0]))) > 0) {
+      const gl = (a: number, b: number, c: number, d: number): V3[] => [T([a, b, 1.2]), T([c, b, 1.2]), T([c, d, 1.2]), T([a, d, 1.2])];
+      poly(gl(-g.x, g.y0, g.x, g.y1), night ? '#3a4b5e' : '#cbdcd8', { n, cull: false, raw: true, stroke: nightOf(INK), w: 1.2 });
+      poly(gl(-g.x, g.y0, g.x, (g.y0 + g.y1) / 2.4), night ? '#26303a' : '#c7b9a0', { n, cull: false, raw: true, op: 0.55 });
+      for (const [a, w] of [[-12, 6], [2, 3]] as const) {
+        const q: V3[] = [T([a, g.y1 - 4, 1.4]), T([a + w, g.y1 - 4, 1.4]), T([a + w - 22, g.y0 + 30, 1.4]), T([a - 22, g.y0 + 30, 1.4])].map((p) => p);
+        poly(q.map((p) => [p[0], clamp(p[1], g.y0, g.y1), p[2]] as V3), '#ffffff', { n, cull: false, raw: true, op: night ? 0.16 : 0.32 });
+      }
+    }
+  };
   const wardrobeUnit = () => {
     const x0 = 225, x1 = 315, z0 = 4, z1 = 58, h = 192, t = 4;
     box({ x: [x0, x1], y: [0, h], z: [z0, z1], c: C.wood, top: '#d7b483', front: C.woodDark });
@@ -673,7 +742,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     { at: [0, 0, 215], draw: doorUnit }, { at: [W, 150, 155], draw: windowUnit },
     { at: [94, 0, 34], draw: fitY(89, 76, kitchenUnit) }, { at: [270, 0, 30], draw: wardrobeUnit }, { at: [340, 190, 8], draw: helmet }, { at: [395, 0, 34], draw: fitY(77, 65, deskUnit) },
     { at: [seat.x, 0, seat.z], draw: fitY(49, 40, chairSeat) }, { at: chairT([0, 0, 19.5]), draw: fitY(49, 40, chairBack) }, { at: [352, 0, 300], draw: bedUnit }, { at: [32, 0, 388], draw: fanUnit },
-    { at: [12, 0, 76], draw: broom }, { at: [215, 0, 355], draw: clutter }, { at: [28, 0, 105], draw: supplies },
+    { at: [12, 0, 76], draw: broom }, ...(mirror ? [{ at: [206, 0, 86] as V3, draw: mirrorUnit }] : []), { at: [215, 0, 355], draw: clutter }, { at: [28, 0, 105], draw: supplies },
     ...(kitchen === 'messy' ? [{ at: [145, 0, 92] as V3, draw: crumbs }] : []),
     ...(night ? [{ at: [396, 0, 75] as V3, draw: lampGlow }] : []),
   ];
@@ -716,4 +785,7 @@ export const StudyCornerMorning = (p: RoomProps) => <RoomScene phone="hidden" ki
 export const StudyDeskNight = (p: RoomProps) => <RoomScene phone="desk" kitchen="clean" {...p} night view="desk" />;
 export const DoorInside = (p: RoomProps) => <RoomScene door="latched" phone="hidden" {...p} view="door" />;
 export const HallwayDoor = (p: RoomProps) => <RoomScene {...p} view="hallway" />;
+export const MirrorCorner = (p: RoomProps) => <RoomScene door="ajar" chair="bed" kitchen="clean" {...p} mirror view="mirror" />;
+export const HallwayStairs = (p: RoomProps) => <RoomScene {...p} view="stairs" />;
+export const GiveawayCorner = (p: RoomProps) => <RoomScene {...p} giveaway view="giveaway" />;
 export function HoSo02EnvironmentMasterBoard() { return <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}><RoomMorning /><RoomNight /><KitchenSink /><BedCorner /><DoorInside /><StudyCornerMorning /><StudyDeskNight /><HallwayDoor /></div>; }

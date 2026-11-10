@@ -7,7 +7,7 @@
 
 **Yêu cầu mới:** mỗi phần có thể tới 10 phút; thêm hồi tưởng nhanh bằng giọng đọc để giới thiệu Nam trước tuyến chính; viết luôn các phần chưa có kịch bản chi tiết. Bản hiện tại thử nhịp 9:40 / 9:00 / 9:00, tổng 27:40, chưa đo diễn/giọng.
 
-**Yêu cầu 10/11/2026 về mở đầu:** đoạn giới thiệu Nam làm **kiểu trailer**; gần hết trailer, **tiếng báo thức đánh thức Nam** thay cho tiếng vòi nước. Đã viết lại P1.00 và đầu Cảnh 1 theo hai ý này; câu càu nhàu mới “Tùng, giờ này mày còn chưa đi hả?”, chữ lớn, thẻ tên phim và nhịp nhạc vẫn là đề xuất. Tên cảnh “Tiếng rửa chén” tạm giữ, chờ chủ repo quyết có đổi không. Chủ repo yêu cầu dựng tiết kiệm quota: trailer chỉ dùng góc máy/bối cảnh có sẵn, cắt khớp A02 đêm → sáng, âm thư viện trước, giọng gộp vào lượt của cả phần 1.
+**Yêu cầu 10/11/2026 về mở đầu:** đoạn giới thiệu Nam làm **kiểu trailer**; gần hết trailer, **tiếng báo thức đánh thức Nam** thay cho tiếng vòi nước. Đã viết lại P1.00 và đầu Cảnh 1 theo hai ý này; câu càu nhàu mới “Tùng, giờ này mày còn chưa đi hả?”, chữ lớn, thẻ tên phim và nhịp nhạc vẫn là đề xuất. Tên cảnh “Tiếng rửa chén” tạm giữ, chờ chủ repo quyết có đổi không. Chủ repo yêu cầu dựng tiết kiệm quota: trailer chỉ dùng góc máy/bối cảnh có sẵn, cắt khớp A02 đêm → sáng, âm thư viện trước, giọng gộp vào lượt của cả phần 1. Yêu cầu thêm cùng ngày: đoạn **Nam đứng giữa khung, bối cảnh đổi liên tục theo dòng thời gian, nét mặt và cử chỉ đổi theo**; chủ repo chọn **hé cả truyện, dừng trước kết, không lộ bản sao**. Đã dựng ba nền mới (gương, góc đồ cho tặng, cầu thang) và bản xem nhịp; thứ tự 13 nhịp, biểu cảm và lời dẫn mới chờ duyệt.
 
 ## Những điều người dùng đã chốt
 
