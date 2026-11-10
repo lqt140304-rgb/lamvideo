@@ -1,4 +1,4 @@
-# Hẻm Có Chuyện — Hồ sơ 2: Người làm thay
+# The Crack in Reality — Hồ sơ 02: Người trong gương
 
 **Chốt hướng kết mới nhất của chủ repo:** Nam bị nhốt trong thế giới gương; Người Kia thay thế Nam ngoài đời. Giữ kết mở về khả năng thoát và việc người quen có nhận ra hay không. Chỉ hướng kết này đã chốt; cơ chế bắt, lời và dàn cảnh cụ thể vẫn là đề xuất V1.
 

@@ -1,4 +1,4 @@
-# Hồ sơ 2 — Quyết định và thảo luận
+# The Crack in Reality — Hồ sơ 2: Người trong gương · Quyết định và thảo luận
 
 **Chốt hướng kết và kịch bản chính thức (Chủ repo đã DUYỆT ngày 11/11/2026):** 
 1. **Thời lượng chuẩn 15 phút** (cấu trúc 3 hồi: Hồi 1 ~4:50, Hồi 2 ~6:30, Hồi 3 ~3:45).

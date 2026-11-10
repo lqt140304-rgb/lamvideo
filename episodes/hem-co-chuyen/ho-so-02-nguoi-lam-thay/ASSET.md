@@ -1,4 +1,4 @@
-# Asset — Hồ sơ 2: Người làm thay
+# Asset — Hồ sơ 02: Người trong gương
 
 ## Bổ sung theo kịch bản đủ ba phần V1 — chưa tạo/sửa asset
 

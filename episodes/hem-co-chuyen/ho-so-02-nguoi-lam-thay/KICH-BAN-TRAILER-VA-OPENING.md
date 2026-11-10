@@ -1,10 +1,10 @@
-# Hồ sơ 2: Người làm thay — Kịch bản Opening & Trailer (Dành riêng cho tập này)
+# The Crack in Reality — Hồ sơ 02: Người trong gương · Kịch bản Opening & Trailer
 
-Tài liệu này là kịch bản dàn dựng chi tiết cho **Opening giới thiệu nhân vật Nam** và **Trailer chính thức**, được thiết kế **100% chuyên biệt cho Tập 2: Người làm thay** (series *Hẻm Có Chuyện*), tối ưu cho sản xuất 2.5D trên Remotion.
+Tài liệu này là kịch bản dàn dựng chi tiết cho **Opening giới thiệu nhân vật Nam** và **Trailer chính thức**, được thiết kế **100% chuyên biệt cho dự án "Người trong gương"** (thuộc series vũ trụ *The Crack in Reality*), tối ưu cho sản xuất 2.5D trên Remotion.
 
 ---
 
-# PHẦN 1: KỊCH BẢN OPENING GIỚI THIỆU NHÂN VẬT NAM (45 – 50 GIÂY)
+# PHẦN 1: KỊCH BẢN OPENING GIỚI THIỆU NHÂN VẬT NAM (48 GIÂY)
 **Ý niệm nghệ thuật (Concept):** *"Chân dung một kẻ lười biếng & Mầm mống tai họa từ chiếc gương"*  
 **Thời lượng chuẩn:** ~48 giây (khoảng 1150 frames @ 24fps)  
 **Tone/Mood:** Mở đầu dí dỏm, chân thực đời sống sinh viên trọ $\to$ chuyển dần sang ma mị, lạnh lẽo $\to$ kết bằng cú bẻ lái rợn ngáy.
@@ -14,7 +14,7 @@ Tài liệu này là kịch bản dàn dựng chi tiết cho **Opening giới th
 0:00                0:15                0:28                0:40        0:48
 |--- Hồi 1: Nam ---|--- Hồi 2: Thói ---|--- Hồi 3: Gương --|--- Hồi 4: Title --|
 Chân dung sinh viên  Câu "Tí nữa làm"   Chiếc gương &       Cú sốc phản chiếu
-năm hai & nệm ấm    áp lực người lớn   ước muốn trốn chạy   Title Card tập 2
+năm hai & nệm ấm    áp lực người lớn   ước muốn trốn chạy   Title Card tập phim
 ```
 
 ---
@@ -26,13 +26,13 @@ năm hai & nệm ấm    áp lực người lớn   ước muốn trốn chạy 
 | **0:00 – 0:08** | **Cận cảnh nệm trọ & Báo thức:** <br>Báo thức điện thoại reo inh ỏi: *"7:00 — Đi học"*. Một bàn tay lười biếng thò ra khỏi chăn trùm kín đầu, mò mẫm đập tắt chuông rồi kéo chăn ngủ tiếp. <br>Camera kéo lùi (Zoom out) thấy toàn cảnh phòng trọ: quần áo vắt lộn xộn, sách vở giáo trình bỏ xó, bàn học ngập vỏ lon nước ngọt và bao bì mì tôm. | **LỜI DẪN (Giọng ấm, dí dỏm, gần gũi):** <br>> *"Đây là Nam. Sinh viên năm hai, hiện đang 'tạm trú' tại một phòng trọ nhỏ cùng Tùng — thằng bạn thân nghiêm túc đến phát mệt."* | Tiếng chuông báo thức điện thoại reo rồi tắt phụt. <br>Tiếng ngáy nhẹ. <br>Nhạc nền acoustic lo-fi nhẹ nhàng, thư thả kiểu sinh viên. |
 | **0:08 – 0:18** | **Ba lát cắt thói quen (Montage 3 shots):** <br>1. *Shot A:* Tùng chỉ vào xấp tài liệu slide nhóm, Nam đang cắm mặt bấm game MOBA, giơ 1 ngón tay xin khất: *"Chờ nốt combat này!"*. <br>2. *Shot B:* Đống chén bát ngập bồn rửa cáu bẩn, Nam xua tay: *"Tí nữa tao rửa!"*. <br>3. *Shot C (Nét ấm):* Một tối Tùng đi làm thêm về mệt mỏi ngồi thụp xuống mép nệm. Nam chủ động tắt ván game, rót cốc nước đẩy sang ngồi lắng nghe bạn kể. | **LỜI DẪN:** <br>> *"Nam không phải người xấu. Cậu chỉ mắc đúng một 'căn bệnh' nan y của tuổi trẻ: Trì hoãn. Việc gì cũng có thể đợi đến 'tí nữa'. Nhưng kỳ lạ là, ở cùng một thằng lười như Nam... thi thoảng cũng thấy dễ chịu."* | Tiếng bấm game lách cách: *tách-tách-tách*. <br>Tiếng thở dài của Tùng. <br>Tiếng cốc nước chạm mặt bàn gỗ. |
 | **0:18 – 0:28** | **Ước muốn trốn chạy & Chiếc gương vô danh:** <br>Nam ngồi trước laptop, nhìn hạn nộp bài tập lớn nhấp nháy 23:59. Cậu vò đầu bứt tai, nhìn ra góc phòng: Cạnh hông tủ là **chiếc gương đứng khung gỗ** mà cậu vừa tha lôi từ góc đồ cho tặng xóm trọ về tuần trước. <br>Nam đứng dậy vươn vai, bước lại soi gương vuốt lại tóc mái. | **NAM (Thở dài, độc thoại nội tâm):** <br>> *"Làm người lớn mệt mỏi vãi chưởng... Deadline dí, học lại, áp lực gia đình... Ước gì có ai đó gánh hết phiền toái, sống hộ mình cái cuộc đời này thì sướng biết mấy!"* | Tiếng quạt trần quay lạch cạch: *lạch... cạch...* <br>Nhạc lo-fi bỗng chững lại, một nốt trầm cello kéo dài lạnh toát bắt đầu luồn vào. |
-| **0:28 – 0:40** | **Cú bẻ lái ma mị (The Chilling Turn):** <br>Nam thở dài, quay lưng bước trở lại nệm... <br>**NHƯNG CÁI BÓNG TRONG GƯƠNG KHÔNG HỀ QUAY LƯNG ĐI!** <br>Chiếc bóng trong gương vẫn đứng im bất động. Từ từ, chiếc bóng ngẩng đầu lên, khóe môi nhếch lên một nụ cười sắc lạnh rợn tóc gáy. <br>Đặc tả đuôi mắt phải của cái bóng: **Một nốt ruồi đen đối xứng xuất hiện!** <br>Mặt kính gương bỗng gợn sóng lăn tăn như mặt nước đêm buốt giá, một bàn tay mặc áo xanh rêu từ từ thò ra khỏi mặt kính... | **TIẾNG NGƯỜI KIA (Thì thầm ma mị, vang vọng trong không gian):** <br>> *"Mày thấy mệt mỏi rồi đúng không?... Cuộc đời ngoài kia, để tao sống thay cho."* | Nhạc cello trỗi dậy cao trào kết hợp nhịp bass thình thịch như nhịp tim: *thump... thump... thump...* <br>SFX: Tiếng kính hóa nước gợn sóng lạnh buốt ùng ục. |
-| **0:40 – 0:48** | **Mặt kính đông cứng & Title Drop:** <br>Bàn tay biến mất, mặt gương đóng băng phẳng lặng trở lại. <br>Một vết nứt mảnh chạy dọc giữa mặt kính, phát ra luồng sáng xanh sắc lạnh. Khung hình chìm vào bóng đen, bùng lên Title chính thức: <br>**H Ẻ M   C Ó   C H U Y Ệ N** <br>**HỒ SƠ 02: NGƯỜI LÀM THAY** <br>Dòng chữ nhỏ hiện bên dưới: *"Có những việc... không bao giờ nên để người khác làm thay."* | Tiếng then sắt cửa phòng trọ đóng sập đanh gọn: **"CẠCH!"**. <br>Tiếng gõ phím máy chữ dứt khoát rồi tắt hẳn. | Chuyển cảnh mượt mà dẫn vào Cảnh 1 (Tiếng rửa chén buổi sáng). |
+| **0:28 – 0:40** | **Cú bẻ lái ma mị (The Chilling Turn):** <br>Nam thở dài, quay lưng bước trở lại nệm... <br>**NHƯNG CÁI BÓNG TRONG GƯƠNG KHÔNG HỀ QUAY LƯNG ĐI!** <br>Chiếc bóng trong gương vẫn đứng im bất động. Từ từ, chiếc bóng ngẩng đầu lên, khóe môi nhếch lên một nụ cười sắc lạnh rợn tóc gáy. <br>Đặc tả đuôi mắt phải của cái bóng: **Một nốt ruồi đen đối xứng xuất hiện!** <br>Mặt kính gương bỗng gợn sóng lăn tăn như mặt nước đêm buốt giá, một bàn tay mặc áo xanh rêu từ từ thò ra khỏi mặt kính... | **TIẾNG NGƯỜI TRONG GƯƠNG (Thì thầm ma mị, vang vọng trong không gian):** <br>> *"Mày thấy mệt mỏi rồi đúng không?... Cuộc đời ngoài kia, để tao sống thay cho."* | Nhạc cello trỗi dậy cao trào kết hợp nhịp bass thình thịch như nhịp tim: *thump... thump... thump...* <br>SFX: Tiếng kính hóa nước gợn sóng lạnh buốt ùng ục. |
+| **0:40 – 0:48** | **Mặt kính đông cứng & Title Drop:** <br>Bàn tay biến mất, mặt gương đóng băng phẳng lặng trở lại. <br>Một vết nứt mảnh chạy dọc giữa mặt kính, phát ra luồng sáng xanh sắc lạnh. Khung hình chìm vào bóng đen, bùng lên Title chính thức: <br>**T H E   C R A C K   I N   R E A L I T Y** <br>**HỒ SƠ 02: NGƯỜI TRONG GƯƠNG** <br>Dòng chữ nhỏ hiện bên dưới: *"Có những chiếc bóng... không bao giờ nên để bước ra ngoài."* | Tiếng then sắt cửa phòng trọ đóng sập đanh gọn: **"CẠCH!"**. <br>Tiếng gõ phím máy chữ dứt khoát rồi tắt hẳn. | Chuyển cảnh mượt mà dẫn vào Cảnh 1 (Tiếng rửa chén buổi sáng). |
 
 ---
 
-# PHẦN 2: KỊCH BẢN TRAILER CHÍNH THỨC TẬP 2 (60 GIÂY)
-**Tên gọi:** *Official Episode Trailer — Hồ sơ 02: Người làm thay*  
+# PHẦN 2: KỊCH BẢN TRAILER CHÍNH THỨC (60 GIÂY)
+**Tên gọi:** *Official Trailer — The Crack in Reality: Người trong gương*  
 **Thời lượng chuẩn:** 60.00s (1440 frames @ 24fps)  
 **Tagline:** *"Khi bạn muốn trốn chạy cuộc đời... sẽ có kẻ sẵn sàng sống thay bạn."*
 
@@ -66,7 +66,7 @@ năm hai & nệm ấm    áp lực người lớn   ước muốn trốn chạy 
 ---
 
 ### HỒI 2: XÂM LẤN LEO THANG & TÂM SỰ CÀY GAME (0:20 – 0:40)
-*Nhịp điệu dồn dập, âm nhạc điện tử đẩy cao, Người Kia tỏa sáng còn Nam chìm sâu vào tha hóa.*
+*Nhịp điệu dồn dập, âm nhạc điện tử đẩy cao, Người Trong Gương tỏa sáng còn Nam chìm sâu vào tha hóa.*
 
 * **0:20 – 0:27 | Cảnh 5 (Chuỗi đối lập gay gắt):**
   * **Visual cắt chớp nhoáng (Fast cuts):**
@@ -100,14 +100,14 @@ năm hai & nệm ấm    áp lực người lớn   ước muốn trốn chạy 
 * **0:46 – 0:51 | Cảnh 9 (Manh mối nốt ruồi & Chiếc búa sắt):**
   * **Visual:** Nam về phòng, zoom ảnh căn cước công dân và clip Zalo:
     * Cận cảnh: **Căn cước nốt ruồi đuôi mắt TRÁI** $\leftrightarrow$ **Người Kia nốt ruồi đuôi mắt PHẢI!**
-  * Nam nhận ra sự thật kinh hoàng: *"Nó đến từ chiếc gương!"*
+  * Nam nhận ra sự thật kinh hoàng: *"Nó là Người Trong Gương!"*
   * Nam vớ chiếc búa sắt dưới gầm giường, gầm lên lao vào mặt kính: *"Tao sẽ đập nát cái gương này!"*
 
 * **0:51 – 0:55 | Cảnh 10 (Mặt kính hóa nước):**
   * **Visual:** Người Kia đứng cạnh gương điềm tĩnh bóc trần:
     > *"Chính mày đã tạo ra tao... Mày đập gương rồi mày định lấy cái thân xác ăn hại này ra làm khổ họ tiếp à?"*
   * Chiếc búa sắt rơi xuống sàn: **"KENG!"**. Nam suy sụp chạm tay vào kính.
-  * **VFX ĐẶC TẢ:** Mặt kính gợn sóng như nước đêm lạnh buốt. Bàn tay Người Kia trong gương siết chặt cổ tay Nam, kéo chìm toàn bộ cơ thể cậu vào trong bóng tối mặt kính! Tiếng Nam gào nghẹn ứ: *"Không... cứu...!"* rồi im bặt.
+  * **VFX ĐẶC TẢ:** Mặt kính gợn sóng như nước đêm lạnh buốt. Bàn tay Người Trong Gương siết chặt cổ tay Nam, kéo chìm toàn bộ cơ thể cậu vào trong bóng tối mặt kính! Tiếng Nam gào nghẹn ứ: *"Không... cứu...!"* rồi im bặt.
 
 * **0:55 – 0:58 | Cảnh 11 (Cú twist Quiet Horror với Tùng):**
   * **Visual:** Căn phòng yên tĩnh tinh tươm. Tùng đẩy cửa xách túi bún chả bước vào. Người Kia mỉm cười đưa **tay trái** đón lấy.
@@ -119,9 +119,9 @@ năm hai & nệm ấm    áp lực người lớn   ước muốn trốn chạy 
 
 * **0:58 – 1:00 | Cảnh 12 (Title Card & Tagline):**
   * **Màn hình đen kịt.** 
-  * Logo bùng cháy:  
-    **H Ẻ M   C Ó   C H U Y Ệ N**  
-    **HỒ SƠ 02: NGƯỜI LÀM THAY**  
+  * Logo series và tập phim bốc cháy hiện lên:  
+    **T H E   C R A C K   I N   R E A L I T Y**  
+    **HỒ SƠ 02: NGƯỜI TRONG GƯƠNG**  
   * Dòng Tagline màu đỏ máu:  
     *"Khi bạn muốn trốn chạy cuộc đời... sẽ có kẻ sẵn sàng sống thay bạn."*  
   * Âm thanh cuối: Tiếng hai bàn tay đập thình thịch vào mặt kính từ bên trong thế giới gương trong câm lặng.
