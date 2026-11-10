@@ -60,6 +60,21 @@ export type NamMood = 'sleepy' | 'annoyed' | 'hesitant' | 'scared' | 'agitated' 
 
 /** Nét theo biến CSS --lw (mặc định 1), để chỉnh độ dày nét khớp nền mà không đổi hình. */
 export const lw = (n: number) => `calc(${n}px * var(--lw, 1))`;
+/** Kiểu viền bao: 'ink' = nét mực như mẫu; 'tint' = viền là tông tối của chính mảng màu; 'none' = bỏ viền bao (giữ nét mắt, mày, miệng). */
+export type Outline = 'ink' | 'tint' | 'none';
+const OutlineCtx = React.createContext<Outline>('ink');
+const darken = (hex: string, k = 0.42) => {
+  const m = /^#([0-9a-f]{6})$/i.exec(hex);
+  if (!m) return PALETTE.ink;
+  const n = parseInt(m[1], 16), c = (v: number) => Math.round(v * (1 - k)).toString(16).padStart(2, '0');
+  return `#${c((n >> 16) & 255)}${c((n >> 8) & 255)}${c(n & 255)}`;
+};
+/** Màu và độ dày viền bao của đầu theo kiểu viền đang dùng. */
+// Gắn vào các mảng bao (cổ, sọ, tai, tóc); nét mắt, mày, miệng không dùng nên luôn giữ mực.
+const useHeadLine = (w = 3.5) => {
+  const mode = React.useContext(OutlineCtx);
+  return (fill: string) => ({ stroke: mode === 'tint' ? darken(fill, 0.45) : PALETTE.ink, style: { strokeWidth: mode === 'none' ? '0px' : lw(w) } });
+};
 
 // Nhiều nhân vật trong cùng một SVG phải có clipPath khác mã, nếu không mắt người này bị cắt theo mắt người kia.
 const useClipId = (id: string) => `${id}-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
@@ -124,9 +139,10 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
   const face = profilePath(drop);
   const line = talk ? (drop ? undefined : 'M 64 136 Q 59 136.5 55 136') : drop ? undefined : f.mouth;
+  const o = useHeadLine();
   return (
     <g {...headFrame(x, y, scale)}>
-      <path d="M -20 146 L -22 184 Q 0 196 22 182 L 24 152" fill={PALETTE.skin} />
+      <path d="M -20 146 L -22 184 Q 0 196 22 182 L 24 152" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -21 158 Q 0 174 23 160 L 22 176 Q 0 188 -22 176 Z" fill={PALETTE.skinShadow} stroke="none" />
       {drop > 0 && (
         <g stroke="none">
@@ -134,10 +150,10 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
           {drop > 6 && <path d={`M 65.5 135.5 L 57 ${136.5 + drop * 0.2} L 57 ${138.5 + drop * 0.2} L 65 138 Z`} fill={PALETTE.teeth} />}
         </g>
       )}
-      <path d={face} fill={PALETTE.skin} />
-      <path d="M -8 84 Q -28 76 -26 100 Q -26 120 -8 118" fill={PALETTE.skin} />
+      <path d={face} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d="M -8 84 Q -28 76 -26 100 Q -26 120 -8 118" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -19 98 Q -12 93 -9 105" fill="none" style={{ strokeWidth: lw(2.4) }} />
-      <path d={hair.side} fill={hair.color} />
+      <path d={hair.side} fill={hair.color} {...o(hair.color)} />
       <defs>
         <clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98} rx={11} ry={f.ry} /></clipPath>
       </defs>
@@ -154,27 +170,33 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
   );
 };
 
-const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number }> = ({ hair, x, y, scale }) => (
-  <g {...headFrame(x, y, scale)}>
-    <path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} />
-    <path d="M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 56 87 Q 84 72 86 99 Q 87 121 59 125" fill={PALETTE.skin} />
-    <path d="M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 60 140 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -60 140 -60 108 Z" fill={PALETTE.skin} />
-    <path d={hair.back} fill={hair.color} />
-  </g>
-);
+const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number }> = ({ hair, x, y, scale }) => {
+  const o = useHeadLine();
+  return (
+    <g {...headFrame(x, y, scale)}>
+      <path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d="M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 56 87 Q 84 72 86 99 Q 87 121 59 125" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d="M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 60 140 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -60 140 -60 108 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d={hair.back} fill={hair.color} {...o(hair.color)} />
+    </g>
+  );
+};
 
 // 1/4: thấy gáy, tai phía gần và một dải má; mũi, miệng đã khuất.
-const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number }> = ({ hair, mole, x, y, scale }) => (
+const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number }> = ({ hair, mole, x, y, scale }) => {
+  const o = useHeadLine();
+  return (
   <g {...headFrame(x, y, scale)}>
-    <path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} />
-    <path d="M -56 70 Q -50 24 4 24 Q 56 24 62 70 L 64 112 Q 64 140 44 156 Q 20 170 -8 166 Q -46 158 -56 120 Z" fill={PALETTE.skin} />
-    <path d={hair.quarter} fill={hair.color} />
-    <path d="M 24 88 Q 50 76 50 100 Q 50 122 26 124 Q 14 106 24 88 Z" fill={PALETTE.skin} />
+    <path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+    <path d="M -56 70 Q -50 24 4 24 Q 56 24 62 70 L 64 112 Q 64 140 44 156 Q 20 170 -8 166 Q -46 158 -56 120 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+    <path d={hair.quarter} fill={hair.color} {...o(hair.color)} />
+    <path d="M 24 88 Q 50 76 50 100 Q 50 122 26 124 Q 14 106 24 88 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M 44 98 Q 36 92 32 106" fill="none" style={{ strokeWidth: lw(2.4) }} />
     <path d="M 50 80 L 58 77" fill="none" style={{ strokeWidth: lw(5.5) }} />
     {mole && <circle cx={57} cy={92} r={2.2} fill={PALETTE.ink} stroke="none" />}
   </g>
-);
+  );
+};
 
 export const StudentTwinHead: React.FC<{
   mood?: NamMood;
@@ -207,6 +229,7 @@ export const StudentTwinHead: React.FC<{
   const eyeRy = isShocked ? 23 : isScared ? 20 : isAgitated ? 17 : 15;
   const eyeRyL = isShocked ? 22 : isScared ? 19 : isAgitated ? 16 : 14;
   const clip = useClipId(id);
+  const o = useHeadLine();
   if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} />;
   if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} />;
   if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
@@ -217,20 +240,21 @@ export const StudentTwinHead: React.FC<{
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} style={{ strokeWidth: lw(3.5) }} strokeLinejoin="round" strokeLinecap="round">
       {/* Cổ & Khối bóng đổ cằm */}
-      <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -28 141 L -28 182 Q -8 201 16 181 L 19 138'} fill={PALETTE.skin} />
+      <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -28 141 L -28 182 Q -8 201 16 181 L 19 138'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -21 155 Q 0 171 21 155 L 21 175 Q 0 188 -21 175 Z' : 'M -26 155 Q -8 171 17 153 L 16 175 Q -7 187 -27 174 Z'} fill={PALETTE.skinShadow} stroke="none" />
 
       {/* Hộp sọ & Đường cằm bo tròn hữu cơ (chuẩn mẫu B) */}
-      <path d={front ? 'M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 62 138 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -62 138 -60 108 Z' : 'M -55 60 Q -50 25 -9 25 Q 42 24 53 66 L 55 111 Q 72 130 54 146 Q 38 166 6 165 Q -30 163 -45 138 L -58 100 Z'} fill={PALETTE.skin} />
+      <path d={front ? 'M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 62 138 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -62 138 -60 108 Z' : 'M -55 60 Q -50 25 -9 25 Q 42 24 53 66 L 55 111 Q 72 130 54 146 Q 38 166 6 165 Q -30 163 -45 138 L -58 100 Z'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
 
       {/* Tai trái */}
-      <path d={front ? 'M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 60 86 Q 84 72 86 99 Q 87 121 60 125' : 'M -47 87 Q -75 72 -77 99 Q -78 121 -50 125'} fill={PALETTE.skin} />
+      <path d={front ? 'M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 60 86 Q 84 72 86 99 Q 87 121 60 125' : 'M -47 87 Q -75 72 -77 99 Q -78 121 -50 125'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -74 99 Q -66 93 -62 106 M 74 99 Q 66 93 62 106' : 'M -65 99 Q -57 93 -53 106'} fill="none" style={{ strokeWidth: lw(2.4) }} />
 
       {/* TÓC NAM & BẢN SAO: Bo tròn hữu cơ theo hộp sọ, có lọn tóc xoăn trên đỉnh theo Mẫu B */}
       <path
         d={front ? 'M -60 92 Q -72 70 -66 50 L -76 46 Q -62 24 -42 24 L -44 14 Q -22 18 -7 12 Q -10 -6 15 -6 Q 24 -5 25 4 Q 8 1 9 15 Q 44 12 56 34 L 70 38 L 60 58 L 60 88 Q 48 62 28 52 Q 18 66 -2 66 L 0 54 Q -24 74 -46 70 L -48 92 Z' : 'M -51 92 Q -65 79 -61 52 L -71 51 Q -58 27 -38 28 L -43 18 Q -20 21 -7 14 Q -10 -5 15 -5 Q 22 -4 24 4 Q 7 0 8 16 Q 40 13 51 37 L 62 43 L 48 59 Q 34 54 22 43 Q 15 63 -4 67 L -1 52 Q -20 75 -41 74 L -43 95 Z'}
         fill={PALETTE.nam.hair}
+        {...o(PALETTE.nam.hair)}
       />
 
       <g transform={front ? 'translate(-10 0)' : undefined}>
@@ -526,12 +550,16 @@ export const sampleWalk = (phase: number): JointPose => {
 
 const circle = (p: P, r: number) => `M ${p.x - r} ${p.y} a ${r} ${r} 0 1 0 ${2 * r} 0 a ${r} ${r} 0 1 0 ${-2 * r} 0 Z`;
 /** Một khối liền: vẽ nền mực rồi tô màu đè lên, nên khớp gập bao nhiêu cũng không có đường cắt ngang bên trong. */
-const Blob: React.FC<{ d: string[]; fill: string; w?: number }> = ({ d, fill, w = 4 }) => (
-  <g>
-    {d.map((s, i) => <path key={i} d={s} fill={PALETTE.ink} stroke={PALETTE.ink} style={{ strokeWidth: lw(w * 2) }} strokeLinejoin="round" />)}
-    {d.map((s, i) => <path key={`f${i}`} d={s} fill={fill} stroke="none" />)}
-  </g>
-);
+const Blob: React.FC<{ d: string[]; fill: string; w?: number }> = ({ d, fill, w = 4 }) => {
+  const mode = React.useContext(OutlineCtx);
+  const ink = mode === 'tint' ? darken(fill) : PALETTE.ink;
+  return (
+    <g>
+      {mode !== 'none' && d.map((s, i) => <path key={i} d={s} fill={ink} stroke={ink} style={{ strokeWidth: lw(w * 2) }} strokeLinejoin="round" />)}
+      {d.map((s, i) => <path key={`f${i}`} d={s} fill={fill} stroke="none" />)}
+    </g>
+  );
+};
 /** Nếp gấp ở mặt trong khớp; thẳng thì không có nếp. */
 const crease = (c: { root: P; mid: P; end: P }, r: number) => {
   const u = { x: c.root.x - c.mid.x, y: c.root.y - c.mid.y };
@@ -744,7 +772,7 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; chi
 };
 
 /** Ghép nhân vật từ khung xương: bàn chân → chân → tay sau → áo → đầu → tay trước. */
-export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l }) => {
+export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'ink' }) => {
   const gid = useClipId('ground');
   const awayClip = useClipId('away');
   const view: View = outfit.views ? raw.view ?? 'three' : 'three'; // nhân vật chưa vẽ đủ góc thì giữ 3/4
@@ -774,6 +802,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   const armR = arm(r.armR, ((view === 'back' ? -1 : 1) * (pose.palmUp === 'R' ? -1 : 1)) as 1 | -1, pose.wristR, pose.handR, pose.prop === 'phone' && !phoneOnL ? held : null);
   const armL = arm(r.armL, ((side || away ? 1 : -1) * (pose.palmUp === 'L' ? -1 : 1)) as 1 | -1, pose.wristL, pose.handL, pose.prop === 'bowl' || phoneOnL ? held : null);
   return (
+    <OutlineCtx.Provider value={outline}>
     <g transform={`translate(${x} ${y}) scale(${scale * facing} ${scale})`} strokeLinecap="round" strokeLinejoin="round" style={{ ['--lw' as string]: l?.line ?? 1 } as React.CSSProperties}>
       {l ? (
         // Bóng tiếp đất: mảng mềm lệch khỏi phía đèn, thêm vệt đậm sát gót để chân "đè" lên sàn.
@@ -813,6 +842,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         </g>
       </g>
     </g>
+    </OutlineCtx.Provider>
   );
 };
 
@@ -901,8 +931,9 @@ export const StudentTwinBody: React.FC<{
   face?: FaceKey;
   faceFrom?: FaceKey;
   faceMix?: number;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix }) => (
-  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} />} />
+  outline?: Outline;
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline }) => (
+  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
-import { JointPose, Light, mixPose, NamMood, NguoiKia, PALETTE, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, Talk, turnAt, TWIN_POSES, View } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import { JointPose, Light, mixPose, NamMood, NguoiKia, Outline, PALETTE, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, Talk, turnAt, TWIN_POSES, View } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import type { FaceKey } from '../../../library/expressions/cartoon-soft/net-mat';
 import { CameraMove, lightFor, placeOn, RoomScene, RoomView } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 
@@ -388,6 +388,46 @@ export const HoSo02Canh01Demo: React.FC = () => {
       {dark > 0 && <AbsoluteFill style={{ background: '#000', opacity: dark }} />}
       <FilmLook f={f} total={CANH01_TOTAL} />
       <Overlay f={f} />
+    </AbsoluteFill>
+  );
+};
+
+// Thử kiểu viền nhân vật (chưa áp vào phim): mỗi frame một kiểu — 0–2 cận Nam ở nệm, 3–5 góc qua vai về bồn rửa.
+const OUTLINES: { mode: Outline; label: string }[] = [
+  { mode: 'ink', label: 'VIỀN ĐEN (HIỆN TẠI)' },
+  { mode: 'tint', label: 'VIỀN MÀU — TÔNG TỐI CỦA MẢNG' },
+  { mode: 'none', label: 'KHÔNG VIỀN — CHỈ KHỐI MÀU + SÁNG' },
+];
+export const OUTLINE_TEST_TOTAL = 6;
+export const HoSo02VienThu: React.FC = () => {
+  const f = useCurrentFrame();
+  const { mode, label } = OUTLINES[f % 3];
+  const bed = f < 3;
+
+  const move: CameraMove = { push: OTS_MOVE.push + 12, truck: OTS_MOVE.truck };
+  const q = placeOn('kitchen', SINK, 168, move);
+  const seatNam = (view: RoomView, look: { view: View; facing: 1 | -1 }, m?: CameraMove) => ({
+    at: NEAR,
+    render: () => {
+      const s = placeOn(view, SEAT, 168, m);
+      return <StudentTwinBody x={s.x} y={s.y} scale={s.scale} light={lit(view, SEAT)} shirt={SLEEP} mood="shocked" face="bat-ngo-02" outline={mode} pose={{ ...LOWSIT, view: look.view, facing: look.facing }} />;
+    },
+  });
+  return (
+    <AbsoluteFill>
+      {bed ? (
+        <Camera lens={seatLens(1.95)}>
+          <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[seatNam('bed', { view: 'three', facing: -1 })]} />
+        </Camera>
+      ) : (
+        <Camera lens={{ cx: q.x + 60 * q.scale, cy: q.y + 170 * q.scale, z: 1.35 }}>
+          <RoomScene view="kitchen" door="ajar" chair="bed" move={move} actors={[
+            { at: SINK, render: (r) => <NguoiKia {...r} light={lit('kitchen', SINK)} mood="calm" face="binh-than-00" outline={mode} pose={{ ...TWIN_POSES.holdBowl, view: 'three', facing: 1 }} /> },
+            seatNam('kitchen', { view: 'quarter', facing: -1 }, move),
+          ]} />
+        </Camera>
+      )}
+      <div style={{ position: 'absolute', left: 36, top: 28, fontFamily: FONT.ui, fontSize: 30, color: '#f6efe3', background: 'rgba(28,36,32,.7)', padding: '10px 16px', borderRadius: 10 }}>{label}</div>
     </AbsoluteFill>
   );
 };
