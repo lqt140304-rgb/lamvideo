@@ -156,3 +156,27 @@ Trước khi kích hoạt render bất kỳ shot nào, Animator cần tick đủ
 | **Đại giảng đường (P3.01)** | `lecture_cold` | `#16252b` (Trắng lạnh công nghiệp) | `soft-light`, $10\%$ | Lạnh lùng, trơ trọi, cô lập trước đám đông phán xét. |
 | **Cõi hư vô gương (P3.05, Trailer)** | `mirror_realm` | `#051824` (Deep Teal Abyss) | `color`, $18\%$ | Vực thẳm không đáy, vô thực, câm lặng tuyệt đối. |
 
+### Cách Dùng Nhanh Khi Dựng Video (Quick Integration Guide)
+
+Trong bất kỳ Composition, Scene hoặc Shot nào của Remotion, Animator chỉ cần import từ engine và đặt component này ở lớp trên cùng của khung hình:
+
+```tsx
+import React from 'react';
+import { CinematicGradeOverlay } from '../../../../what-if-studio/src/engine';
+// hoặc nếu đang ở trong what-if-studio/src: import { CinematicGradeOverlay } from './engine';
+
+export const SceneDemo: React.FC = () => {
+  return (
+    <div style={{ position: 'relative', width: 1920, height: 1080, overflow: 'hidden' }}>
+      {/* 1. Các layer bối cảnh nền, nhân vật, animation, đạo cụ... */}
+      <RoomBackground view="desk" />
+      <NamCharacter pose="desk_slump" />
+
+      {/* 2. Lớp phủ hòa sắc điện ảnh tự động (Tự có tone màu, hạt phim 35mm và vignette) */}
+      <CinematicGradeOverlay mood="fincher_night" vignetteStrength={0.45} />
+    </div>
+  );
+};
+```
+
+
