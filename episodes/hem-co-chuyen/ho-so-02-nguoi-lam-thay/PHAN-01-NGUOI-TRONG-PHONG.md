@@ -107,13 +107,13 @@ Ba hình nhanh: **`kitchen` — đống chén ở bồn → `bed` — áo xanh t
 
 **Nhạc cắt cụt.**
 
-### O05 — Jumpscare · khoảng 0:30–0:34 · `bed` đêm → cận mặt
+### O05 — Jumpscare · khoảng 0:30–0:34 · toàn phòng đêm → cận mặt
 
-**J1 · 2,6 giây · im lặng.** Chỉ còn tiếng quạt. Góc nệm ban đêm, máy đẩy vào rất chậm. Nam ngủ, đầu nghiêng trên gối; Tùng nằm phía sát tường dưới chăn. Ở mép trái khung, cạnh lối đi, **có một bóng người đứng im**, gần như tan vào bóng tối. Không nhấn, không cho nhạc báo; người xem để ý được thì càng sợ.
+**J1 · 2,6 giây · gần như im lặng.** Chỉ còn tiếng quạt rất nhỏ. Toàn phòng ban đêm, máy đẩy vào rất chậm. Nam ngủ, đầu nghiêng trên gối. Ở lối đi cạnh nệm **có một bóng đen người đứng im**, quay mặt về phía Nam, chỉ còn hình dáng, không thấy mặt hay áo. Không nhạc báo. Ở khoảng giây thứ 1,9, **hai đốm mắt trong bóng đen sáng lên**.
 
-**J2 · 0,4 giây.** **Cắt phụt vào cận mặt bóng người**, sát máy: gương mặt Nam, mắt trừng, con ngươi nhỏ, cười toét, ánh xanh hắt từ dưới, khung rung mạnh. Nốt ruồi nằm bên phải theo thiết kế bản sao, không nhấn riêng. **Tiếng hù** (thử `drone_hit` hoặc `glitch` chồng `title_boom` trong thư viện) rơi đúng frame đầu J2.
+**J2 · 0,4 giây.** **Cắt phụt vào cận mặt**, kín khung: gương mặt Nam trừng mắt, con ngươi nhỏ, cười toét, ánh xanh hắt từ dưới lên, khung rung mạnh, viền lệch màu đỏ/xanh. Nốt ruồi nằm bên phải theo thiết kế bản sao, không nhấn riêng. **Tiếng hù** rơi đúng frame đầu J2: `drone_hit` chồng `glitch` từ thư viện, đã thử trong clip xem thử. Mặt này dùng biểu cảm `stare_grin`.
 
-**J3.** Cắt đen.
+**J3.** Cắt đen. Tiếng hù còn đuôi ngắn trên màn đen rồi chuông báo thức vào ở O06.
 
 **Logic truyện:** theo [dòng thời gian V1](LUAT-BAN-NHAP-V1.md#dòng-thời-gian-và-quyền), thực thể ra ngoài trong đêm trước ngày 1. Cú hù chỉ cho thấy nó đứng nhìn Nam ngủ; không lộ nó từ đâu ra hay gương liên quan thế nào. Nó mặc áo xanh lấy từ ghế, khớp với buổi sáng ở P1.01. Đây là cảnh đề xuất mới, chưa được duyệt thành lore.
 
@@ -128,7 +128,7 @@ Ba hình nhanh: **`kitchen` — đống chén ở bồn → `bed` — áo xanh t
 **Ghi chú duyệt:**
 - **Đã chọn:** trailer bình thường; jumpscare trước báo thức; báo thức thay tiếng vòi nước; tiết kiệm quota; clip Nam giữa khung tách riêng.
 - **Còn đề xuất:**
-  - cách dựng cú hù (bóng người cạnh nệm, cận mặt cười toét);
+  - cách dựng cú hù (bóng đen cạnh nệm, hai đốm mắt, cận mặt cười toét lệch màu);
   - trang phục từng lát;
   - ba câu “Tí nữa”, tên phim trên nền đen;
   - nhạc và âm thư viện.
