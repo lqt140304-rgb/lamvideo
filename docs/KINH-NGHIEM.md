@@ -188,8 +188,11 @@ Viết theo mẫu: **vấn đề lặp lại → nguyên nhân → nguyên tắc
 
 - **Ánh sáng nhân vật: đầu phẳng một màu, tay tối cả cánh → mảng tối/viền sáng dùng một độ dày cố định cho mọi bộ phận →** tỉ lệ độ dày (và độ mềm) mảng tối theo cỡ từng bộ phận (đầu lớn dày hơn, tay mảnh mỏng hơn) để cả người chung một mức chuyển sáng–tối. Tách lớp khi không viền bằng màu tô sẵn tối/sáng hơn, không dùng CSS filter vì render chậm hẳn. **Đạt khi** đặt mặt cạnh thân trong cùng khung, hai bên có cùng hướng và cùng tỉ lệ vùng tối.
 
+- **Nguồn chỉ ghi tư thế đầu/cuối khiến dựng phải tự đoán →** với chuyển động mang thông tin, ghi điểm tì và đường nối: rời mặt đỡ, chuyển trọng lượng, tới vị trí mới, chạm rồi nhả vật; phân bổ tay khi cầm máy/đồ. Không cần đặc tả mọi bước vụn. **Kiểm tra:** rà ngồi–đứng–đi–ngồi, vật trong tay và mặt đỡ qua cảnh trước/sau; cùng một ghế không phục vụ hai người đồng thời, âm chỉ bật khi hành động thật xảy ra. Văn bản rõ vẫn cần animatic xác nhận.
+
 ## Rút kinh nghiệm asset không viền và biểu cảm — 11/11/2026
 
 - **Tách lớp làm lệch màu da hoặc thành râu →** không tô tối nguyên tay để phân lớp và không viền bóng quanh cằm/má. Giữ cùng da nền cho đầu–tay–chân, dùng che khuất và vài mảng tiếp xúc chọn lọc. Hướng bóng tự sinh trước đây là lịch sử; quy chuẩn hiện hành là bóng tự vẽ tiết chế.
 - **Tay méo ở dáng diễn →** ưu tiên đường bao bàn tay liền, giải cổ tay theo cẳng tay và neo vật vào khớp; kiểm tra cả mép khung preview vì cắt ngón có thể trông như dị dạng. Đổi dáng bằng hành động rõ, có mặt đỡ; không xoay rig đứng để giả nằm. Ảnh tĩnh chỉ là bước kiểm tra trước animatic.
 - **Ba mức cảm xúc chỉ khác màu →** tăng/giảm mí, hướng nhìn, mày, miệng và sức phản ứng theo tâm lý; dấu màu nhỏ chỉ hỗ trợ. Cao trào kiệt sức/buông xuôi có thể ít cử động hơn. Tách nét mặt khỏi tóc/sọ, giữ bộ đã duyệt và kiểm tra ID/clip khi ghép nhiều người cùng biểu cảm.
+
