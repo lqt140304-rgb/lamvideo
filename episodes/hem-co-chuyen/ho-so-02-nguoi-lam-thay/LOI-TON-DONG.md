@@ -2,12 +2,11 @@
 
 Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa truyện trong phiên tách. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md).
 
-## Cần chủ repo quyết định
+## Trạng thái bản nguồn
 
-| Việc | Cần chốt |
-|---|---|
-| Các sửa truyện ở phiên tách | Đã rà phần chưa commit trong worktree `hungry-zhukovsky-ff0b82`: chưa duyệt gộp nguyên trạng. Cần khớp bản nháp riêng với lời “chưa gửi”, nới cue chụp/gửi ảnh. Xem [kết quả rà và điều kiện gộp](RA-SOAT-SUA-TRUYEN.md); giữ các cập nhật nền/rig mới khi gộp |
-| Áo Nam mặc mặc định | Rig mặc định áo xanh. Áo ngủ xám dùng `shirt={PALETTE.nam.sleepShirt}`; chốt có đổi mặc định không |
+Đã tích hợp phần Claude sửa trong phiên tách, sửa chuỗi ghế và làm rõ bản nháp riêng. Nốt ruồi Người Kia đổi bên theo chốt gương mới; A–H dùng áo ngủ xám cho Nam, áo xanh cho Người Kia. Xem [căn cứ và kết quả rà](RA-SOAT-SUA-TRUYEN.md). Bản làm dở ở worktree gốc được giữ nguyên; không gộp đè lại toàn bộ bốn file cũ lên main.
+
+Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng khi dựng. Nhãn mức chỉ mức ưu tiên; mục “chưa soi/chưa xem” không phải lỗi đã được chứng minh. Không cần hỏi lại việc đổi màu mặc định thư viện: dùng biến thể áo theo cảnh.
 
 ## Nhân vật
 
@@ -29,7 +28,6 @@ Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa 
 | Vừa | Dịch máy `move` | Đã test số, chưa xem hình khi máy chạy thật ở C02, E02, H09 |
 | Vừa | Cận đạo cụ | Chốt (C05), căn cước (D03), màn hình điện thoại và laptop (D01, E03, G02, H05, H07) cần lớp vẽ riêng; nền chỉ có trang giấy trung tính |
 | Vừa | Đạo cụ theo shot | Căn cước, nội dung bài, tin nhắn, báo thức chưa có; ví có sẵn trên bàn |
-| Nhỏ | Camera toàn phòng | Cao 152 cm để thấy mặt nệm, trong khi A01 của bảng máy ghi ngang tầm người ngồi. Chốt theo cái nào |
 | Nhỏ | Hành lang | Được nới rộng hơn thực tế để đủ chỗ đứng; không có lan can ở tiền cảnh. Bản tối chưa có đèn hành lang riêng |
 | Nhỏ | Ghế ở vị trí `bed` | Che một phần bình nước ở toàn phòng |
 

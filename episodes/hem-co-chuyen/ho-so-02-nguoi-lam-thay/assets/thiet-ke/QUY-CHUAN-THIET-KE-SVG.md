@@ -50,14 +50,14 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 - **Quy tắc:** Vòm tóc uốn theo hộp sọ, có một lọn xoăn nhỏ trên đỉnh như Mẫu thử B (chủ repo xác nhận lại ngày 10/11/2026).
 - **Nghiêm cấm:** Không thêm mấu nhọn, sừng hay dị vật khác ngoài lọn xoăn đó.
 
-### 3.2. Nốt ruồi đuôi mày trái (Crucial Story Identification)
+### 3.2. Nốt ruồi đối bên — dấu nhận dạng từ gương
 
-**Đã chốt 10/11/2026:** nốt ruồi nằm **bên trái màn hình khi nhân vật nhìn về phía máy**. "Mày trái" trong kịch bản tính theo người xem. Rig đã vẽ theo quy tắc này ở mọi góc; khi quay sang trái hẳn hoặc quay lưng thì không thấy.
+**Chốt mới 10/11/2026:** **Nam** giữ nốt ruồi bên trái màn hình khi nhìn về máy theo mẫu hiện tại; **Người Kia** đổi sang bên phải ở cùng góc. Đây là dấu nhận dạng phản chiếu do Người Kia sinh ra từ gương, không còn là bản sao trùng mọi dấu 100%. Không đổi vị trí khi chỉ đổi biểu cảm; khi xoay phải tính bên gần/xa và che khuất. Nhìn nghiêng phải, Nam thấy nốt còn Người Kia không thấy; nhìn nghiêng trái thì ngược lại. Sau lưng không thấy ở cả hai. Giữ bán kính 2.2 đơn vị gốc để dấu nhỏ, không thêm glow/viền. Đầu truyện không cắt đặc tả dấu đảo; nguồn gốc gương để cuối mới xác nhận.
 - **Quy tắc:** Chi tiết then chốt phục vụ diễn biến kịch bản:
   ```xml
   <circle cx="-32" cy="82" r="2.2" fill="#282b2b" stroke="none"/>
   ```
-- Nằm sát góc ngoài đuôi lông mày trái của cả **Nam** và **Người Kia**.
+- Nằm sát đuôi mày của **Nam** theo mẫu trái; **Người Kia** ở đuôi mày đối diện khi so cùng hướng nhìn.
 
 ### 3.3. Cánh tay & Bàn tay hoạt hình (Arms & Finger Loops)
 - **Cấu trúc cánh tay:** Phải có độ nở của bắp tay và cẳng tay, buông dọc theo đường cong thân áo.
@@ -69,8 +69,8 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
   - Tránh tuyệt đối việc để vạt áo thân trước đè cụt cánh tay hoặc bàn tay bị chìm khuất sau lưng áo.
 
 ### 3.4. Bản sao (Người Kia — Doppelgänger)
-- **Quy tắc 100% giống hệt:** 
-  - Thể chất và trang phục trùng khớp 100% với Nam: cùng khung đầu, cùng kiểu tóc, cùng nốt ruồi đuôi mày, cùng áo thun rêu `#5c7a70`, quần xám `#515451` và dép quai ngang.
+- **Quy tắc tương đồng và dấu phản chiếu:**
+  - Gương mặt/vóc dáng tương đồng với Nam; dấu nốt ruồi phản chiếu, áo thay theo cảnh: cùng khung đầu, cùng kiểu tóc, nốt ruồi ở phía đối diện, áo thun rêu `#5c7a70`, quần xám `#515451` và dép quai ngang.
   - Khác biệt duy nhất là **thần thái & biểu cảm**: ánh mắt kiên định, nụ cười điềm tĩnh hoặc nụ cười nhếch mép toan tính (`eerie_smirk`), tư thế đứng đĩnh đạc hơn.
 
 ### 3.5. Tùng (Bạn cùng phòng thể thao)
@@ -169,7 +169,7 @@ Chi tiết nhận dạng của từng nhân vật vẫn giữ dù ảnh mẫu kh
 
 Xoay người: dùng `turnAt(từ, đến, t)`, mỗi góc giữ khoảng 4 frame rồi nhảy sang góc kế bên (composition `HoSo02Spin`). Khẩu hình: truyền `talk={{ shape, open }}` theo `mouthCueAt` của engine; chớp mắt: `blink`. Góc nghiêng cắt miệng theo đường mặt nên miệng luôn khớp với môi.
 
-Quay trái dùng lại hình rồi lật, riêng nốt ruồi vẽ lại đúng bên: 3/4 trái nằm ở đuôi mày bên xa, nghiêng trái và 1/4 trái không thấy. `armR`/`legR` luôn là tay/chân phải theo giải phẫu ở mọi góc, kể cả khi quay trái và sau lưng; đồ cầm ở tay phải không nhảy tay khi đổi góc.
+Quay trái dùng lại hình rồi lật, riêng nốt ruồi tính theo danh tính: Nam ở mày xa trong 3/4 trái và khuất khi nghiêng trái/1/4 trái; Người Kia đảo quy tắc gần–xa đó. Sau lưng cả hai không thấy. Không chỉ đổi dấu `facing` để tạo Người Kia vì sẽ đảo cả hướng diễn. `armR`/`legR` luôn là tay/chân phải theo giải phẫu ở mọi góc, kể cả khi quay trái và sau lưng; đồ cầm ở tay phải không nhảy tay khi đổi góc.
 
 Màu áo theo cảnh: `shirt={PALETTE.nam.sleepShirt}` là áo ngủ xám của Nam ở các cảnh Người Kia đang mặc áo xanh.
 
@@ -185,3 +185,11 @@ Kiểu tay: `rest`, `open`, `fist`, `hold`, `type`, `phone`, `none`. `palmUp: 'L
 2. **Hình ảnh xuất bản (PNG):** [`../nhan-vat.png`](../nhan-vat.png) — File preview sắc nét nhúng tài liệu.
 3. **Trình xem trực tiếp tương tác:** [`../xem-truc-tiep.html`](../xem-truc-tiep.html) — Hỗ trợ zoom pan, soi chi tiết từng nhân vật và đối chiếu clone.
 4. **Mã nguồn React / Remotion Rig:** [`../nhan-vat.tsx`](../nhan-vat.tsx) — Component hóa để lắp ráp vào timeline diễn hoạt video.
+
+## Biến thể Người Kia từ gương — cách dùng và giới hạn
+
+Dùng `NguoiKia` hoặc truyền `identity="nguoi-kia"` vào `StudentTwinBody`/`StudentTwinHead`; Nam mặc định `identity="nam"`. Biến thể đổi vị trí và sự che khuất của **nốt ruồi**, không lật cả SVG rồi làm đảo tay giữ điện thoại/bát. Các góc, `facing`, pose và tay cầm vẫn theo hành động đang diễn.
+
+Nguồn hiện đã thực hiện dấu nốt ruồi đảo bên. Luật truyện về dấu hình thể phản chiếu dành cho các đặc điểm bất đối xứng có nguồn gốc từ cơ thể Nam. Nếu chọn thêm vết sẹo/ngôi tóc làm bằng chứng cụ thể, phải thiết kế và soi đủ góc trước; chưa tuyên bố toàn bộ mọi mảng tóc/nếp áo đã được tái tạo bằng mô hình phản chiếu. Áo xanh Người Kia đang mặc là đồ thật lấy từ ghế, nên chữ/logo nếu có trên đồ đó vẫn theo vật thật, không tự đảo. Không gắn chữ đảo vào mọi đạo cụ Người Kia cầm.
+
+Xuất lại bảng nhân vật hiện hành và bảng đối chiếu dấu bằng `node render-previews.cjs` trong thư mục `assets/`; đây là xuất ảnh tĩnh từ mã, không chạy video hoặc giọng. Ảnh concept bốn góc `goc-quay-mau.png` giữ nguyên làm tư liệu ban đầu, không phải bản thiết kế Người Kia mới.

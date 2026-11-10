@@ -8,8 +8,8 @@ import { ArticulatedMouth, MouthShape } from '../../../../what-if-studio/src/eng
 // ============================================================================
 // 1. NAM: Sinh viên chính, áo thun xanh rêu (#5c7a70), quần xám (#515451),
 //    dép lê (#425850), nốt ruồi sát đuôi mày trái, vai mềm tự nhiên.
-// 2. NGƯỜI KIA (BẢN SAO): 100% GIỐNG HOÀN TOÀN NAM:
-//    Cùng khuôn mặt, nốt ruồi đuôi mày, cùng tóc (có lọn xoăn trên đỉnh theo Mẫu B),
+// 2. NGƯỜI KIA: giống Nam về mặt/vóc dáng, nốt ruồi phản chiếu sang bên đối diện:
+//    Cùng khuôn mặt, nốt ruồi ở bên đối diện, cùng tóc (có lọn xoăn trên đỉnh theo Mẫu B),
 //    cùng áo xanh rêu, quần xám và dáng tay rõ ràng, không bị chìm hay ẩn sau áo.
 // 3. TÙNG: Bạn cùng phòng năng động, tóc ngắn tỉa mảng khối sắc nét Style B,
 //    mặc đồ thể thao bóng đá (áo jersey xanh navy số 7, quần đùi sọc trắng, vớ cao, giày turf).
@@ -25,7 +25,7 @@ export const PALETTE = {
   tongue: '#bf7b73',
   shadowFloor: '#d6c9b6',
 
-  // Nam & Bản sao (100% dùng chung hệ màu và trang phục)
+  // Nam & Người Kia dùng chung bảng màu; áo ngủ Nam thay theo cảnh.
   nam: {
     hair: '#292a29',
     shirt: '#5c7a70',
@@ -153,6 +153,7 @@ const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number
 
 export const StudentTwinHead: React.FC<{
   mood?: NamMood;
+  identity?: 'nam' | 'nguoi-kia';
   id?: string;
   view?: View;
   facing?: 1 | -1;
@@ -161,7 +162,8 @@ export const StudentTwinHead: React.FC<{
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ mood = 'sleepy', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink }) => {
+}> = ({ mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink }) => {
+  const markNear = identity === 'nam' ? facing === 1 : facing === -1;
   const isShocked = mood === 'shocked';
   const isSuspicious = mood === 'suspicious';
   const isCalm = mood === 'calm';
@@ -176,8 +178,8 @@ export const StudentTwinHead: React.FC<{
   const eyeRyL = isShocked ? 22 : isScared ? 19 : isAgitated ? 16 : 14;
   const clip = useClipId(id);
   if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} />;
-  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={facing === 1} x={x} y={y} scale={scale} />;
-  if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={facing === 1} talk={talk} blink={blink} x={x} y={y} scale={scale} />; // quay trái thấy nửa mặt bên kia, không có nốt ruồi
+  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} />;
+  if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
   const front = view === 'front';
   const rxR = front ? 15 : 17;
   const rxL = front ? 15 : 15;
@@ -283,8 +285,8 @@ export const StudentTwinHead: React.FC<{
         strokeWidth={5.5}
       />
 
-      {/* NỐT RUỒI SÁT ĐUÔI MÀY TRÁI (CHI TIẾT THEN CHỐT CỦA KỊCH BẢN) */}
-      <circle cx={facing === -1 ? 47 : -32} cy={isWide ? 74 : 82} r={2.2} fill={PALETTE.ink} stroke="none" />
+      {/* Dấu nhỏ cố định theo danh tính; Người Kia đảo bên, không đổi hướng nhìn. */}
+      <circle cx={front ? (identity === 'nam' ? -32 : 52) : (markNear ? -32 : 47)} data-identity-mark={identity} cy={isWide ? 74 : 82} r={2.2} fill={PALETTE.ink} stroke="none" />
 
       {/* Mũi tròn tối giản */}
       <path d={front ? 'M 4 110 Q 10 118 16 110' : 'M 13 113 Q 25 115 22 123 L 13 125'} fill="none" strokeWidth={2.5} />
@@ -746,6 +748,7 @@ const TWIN_OUTFIT: Outfit = {
 
 export const StudentTwinBody: React.FC<{
   mood?: NamMood;
+  identity?: 'nam' | 'nguoi-kia';
   x?: number;
   y?: number;
   scale?: number;
@@ -753,9 +756,12 @@ export const StudentTwinBody: React.FC<{
   shirt?: string;
   talk?: Talk;
   blink?: boolean;
-}> = ({ mood = 'sleepy', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink }) => (
-  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} head={<StudentTwinHead mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink }) => (
+  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
 );
+
+/** Use this entry point for the mirror-born double; pose/held hands remain explicit. */
+export const NguoiKia: React.FC<React.ComponentProps<typeof StudentTwinBody>> = (props) => <StudentTwinBody {...props} identity="nguoi-kia" />;
 
 // ----------------------------------------------------------------------------
 // 2. TÙNG — ĐỒ THỂ THAO ĐÁ BÓNG & TÓC NGẮN TỈA MẢNG KHỐI STYLE B
@@ -961,7 +967,7 @@ export const HoSo02CharacterMasterBoard: React.FC = () => {
           HỒ SƠ 02: NGƯỜI LÀM THAY — DÀN NHÂN VẬT THIẾT KẾ MẪU B
         </text>
         <text x={960} y={85} fontSize={16} fill="#69706c">
-          Nam &amp; Bản sao giống nhau 100% (cùng mặt, áo xanh, nốt ruồi, tay) · Tùng tóc ngắn thể thao &amp; đồ bóng đá · Chuẩn Style B
+          Nam &amp; Người Kia cùng gương mặt · Nốt ruồi đối bên theo quy tắc phản chiếu · Tùng tóc ngắn thể thao &amp; đồ bóng đá · Chuẩn Style B
         </text>
       </g>
 
@@ -973,10 +979,10 @@ export const HoSo02CharacterMasterBoard: React.FC = () => {
           1. NAM (SINH VIÊN CHÍNH)
         </text>
         <text x={0} y={160} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={14} fill="#707875">
-          Áo xanh rêu, quần xám, vai mềm tự nhiên, nốt ruồi đuôi mày trái
+          Áo ngủ xám trong A–H · nốt ruồi bên trái theo mẫu
         </text>
         <g transform="translate(0 190) scale(0.82)">
-          <StudentTwinBody mood="sleepy" />
+          <StudentTwinBody mood="sleepy" shirt={PALETTE.nam.sleepShirt} />
         </g>
         {/* 3 biểu cảm Nam */}
         <g transform="translate(-180 750) scale(0.68)">
@@ -993,28 +999,28 @@ export const HoSo02CharacterMasterBoard: React.FC = () => {
         </g>
       </g>
 
-      {/* CỘT 2: NGƯỜI KIA (GIỐNG HOÀN TOÀN NAM 100%) */}
+      {/* CỘT 2: NGƯỜI KIA (DẤU NHẬN DẠNG PHẢN CHIẾU) */}
       <g transform="translate(960 0)">
         <text x={0} y={135} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={22} fontWeight="700" fill={PALETTE.ink}>
-          2. NGƯỜI KIA (BẢN SAO 100% GIỐNG NAM)
+          2. NGƯỜI KIA (NỐT RUỒI BÊN PHẢI)
         </text>
         <text x={0} y={160} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={14} fill="#707875">
-          Cùng khuôn mặt, tóc, nốt ruồi đuôi mày, cùng áo xanh và dáng tay
+          Áo xanh của Nam · nốt ruồi đối bên · không lộ nguồn gốc sớm
         </text>
         <g transform="translate(0 190) scale(0.82)">
-          <StudentTwinBody mood="calm" />
+          <NguoiKia mood="calm" />
         </g>
         {/* 3 biểu cảm Bản sao */}
         <g transform="translate(-180 750) scale(0.68)">
-          <StudentTwinHead mood="calm" id="b-doppel-calm" />
+          <StudentTwinHead mood="calm" id="b-doppel-calm" identity="nguoi-kia" />
           <text x={0} y={225} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={20} fontWeight="700" fill="#515956" stroke="none">ĐIỀM TĨNH</text>
         </g>
         <g transform="translate(0 750) scale(0.68)">
-          <StudentTwinHead mood="neutral_smile" id="b-doppel-smile" />
+          <StudentTwinHead mood="neutral_smile" id="b-doppel-smile" identity="nguoi-kia" />
           <text x={0} y={225} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={20} fontWeight="700" fill="#515956" stroke="none">THÂN THIỆN</text>
         </g>
         <g transform="translate(180 750) scale(0.68)">
-          <StudentTwinHead mood="eerie_smirk" id="b-doppel-eerie" />
+          <StudentTwinHead mood="eerie_smirk" id="b-doppel-eerie" identity="nguoi-kia" />
           <text x={0} y={225} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={20} fontWeight="700" fill="#515956" stroke="none">BÍ HIỂM</text>
         </g>
       </g>
@@ -1046,7 +1052,7 @@ export const HoSo02CharacterMasterBoard: React.FC = () => {
       </g>
 
       <text x={960} y={1055} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={16} fill="#828a86">
-        Đường nét hữu cơ đồng bộ mẫu B · Không có nét thừa hay hở viền · Nam &amp; Người Kia là bản sao hoàn hảo 100%.
+        Đường nét hữu cơ đồng bộ mẫu B · Không có nét thừa hay hở viền · Nam &amp; Người Kia: cùng gương mặt, khác bên nốt ruồi; r = 2.2 theo mẫu.
       </text>
     </svg>
   );

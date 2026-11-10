@@ -9,7 +9,21 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "noEmit": true,
-    "lib": ["ES2022", "DOM"]
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "react": [
+        "node_modules/@types/react/index.d.ts"
+      ],
+      "react/*": [
+        "node_modules/@types/react/*"
+      ]
+    }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

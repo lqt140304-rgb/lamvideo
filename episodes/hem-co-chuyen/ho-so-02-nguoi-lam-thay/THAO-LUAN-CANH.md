@@ -2,6 +2,8 @@
 
 **Cập nhật nhịp 10/11/2026:** các cue **NHỊP** bên dưới là chỉ dẫn không đọc, bổ sung cho phần hiện có; không đổi thoại hoặc trạng thái duyệt. Xem [đường nhịp A–H và cách tính khoảng giữ](DUNG-CANH.md#nhịp-kể-hiện-hành). Khoảng nghỉ đã nằm trong hành động chỉ tính một lần; chưa đo tổng thời lượng bằng giọng/animatic.
 
+**Tích hợp sửa truyện 10/11/2026:** Nam và Tùng chung một giường; Nam mặc áo ngủ khác áo người kia; phòng chỉ có một chìa; Nam chụp ảnh gửi Tùng ở đoạn đi vệ sinh; Nam về ghế đối diện cửa trước khi đối đáp; thêm câu hỏi vọng trước khi ngủ; buổi tối bắt người kia lùi khỏi bàn; Nam tỉnh khoảng 19h30. Đã tích hợp phần Claude sửa trong phiên tách và rà liên tục theo yêu cầu chủ repo; những phần truyện còn nhãn “chờ duyệt” vẫn giữ nguyên mức duyệt. Xem [kết quả rà, hướng sửa và giới hạn kiểm chứng](RA-SOAT-SUA-TRUYEN.md).
+
 **09/11/2026 — bản đề xuất, chưa phải kịch bản giao dựng.** Cảnh đầu do GPT-6 Astra đề xuất theo phản hồi người dùng. Chỉ chuyển sang viết chi tiết cảnh sau khi chủ repo chốt cảnh đang bàn hoặc yêu cầu chuyển phần. Những dòng dưới nhãn “đề xuất” chưa được coi là lore chính thức.
 
 **Góc máy bổ sung ngày 10/11/2026:** xem [DUNG-CANH.md](DUNG-CANH.md), có lens/cỡ cảnh/chuyển động/rung/focus, [quay layer gần–xa/che khuất](DUNG-CANH.md#quay-layer) và điểm cắt cho toàn bộ phần đã viết. Liên kết từng nhóm đặt ngay dưới các tiêu đề cảnh bên dưới. Đây là chỉ đạo hình đề xuất, giữ nguyên lời và trạng thái duyệt truyện; chưa tạo storyboard, animatic hoặc render.
@@ -13,10 +15,11 @@
 - Cậu thức dậy gặp một người y hệt mình đang làm việc thường ngày. Người đó lúc đầu thân thiện, chủ động làm thay những việc cậu không muốn làm.
 - Mức thay thế tăng dần, cuối cùng thay thế cậu hoàn toàn.
 - Đó là một sinh vật đã chủ động nhắm tới cậu; chỉ tới đoạn cuối mới nói/lộ sự thật này.
+- **Chốt mới 10/11/2026:** Người Kia sinh ra từ gương, các dấu nhận dạng bất đối xứng bị phản chiếu trái–phải. Nam giữ nốt ruồi phía trái theo mẫu đã chốt; Người Kia ở phía phải khi cùng nhìn về máy. Nốt vẫn nhỏ, không thành dấu hiệu ma quái. Đây là manh mối thị giác từ đầu; nguồn gốc gương chỉ xác nhận ở cuối. Quy tắc nói về bên trái/phải của hình thể, không tự đảo thời gian, động cơ hay ý nghĩa câu nói. Chiếc gương cụ thể/cách thoát ra và các bước thay thế còn chờ bàn.
 - Rà sâu từng câu chữ, mắt xích nhân quả và chiều sâu nhân vật. Phản ứng khi gặp người y hệt mình phải có sức nặng; không vừa hoảng đã lập tức vui vì được làm bài hộ.
 - Cùng thảo luận và chốt từng cảnh. Không viết tiếp toàn bộ kịch bản khi các quyết định trung gian còn đang bàn.
 - **Phản hồi ngày 09/11/2026:** chủ repo đồng ý cách bản sao xuất hiện bí ẩn trong sinh hoạt và nhịp cảm xúc của cảnh 1. Hướng gặp ở góc rửa chén, phản ứng sững–kiểm chứng–sợ và giữ khoảng cách được giữ để phát triển cảnh 2. Phản hồi này chưa chốt tên/tuổi cụ thể, toàn bộ câu thoại, máy quay hoặc cơ chế thay thế.
-- **Cuộc gọi được chủ repo chốt lại:** Nam nói có người giống hệt mình; Tùng đáp rằng Nam nói xàm hoặc ngủ chưa tỉnh rồi tắt máy. Tùng đã nghe lời kể nhưng chưa tin hoặc xác nhận có bản sao. Chưa gửi ảnh/gọi video, chưa có cảnh Tùng tới cứu hay xác minh. Quyết định này thay phương án Nam giấu hoàn toàn chuyện vừa thấy; thời điểm Tùng thực sự tin còn để bàn sau.
+- **Cuộc gọi được chủ repo chốt lại:** Nam nói có người giống hệt mình; Tùng đáp rằng Nam nói xàm hoặc ngủ chưa tỉnh rồi tắt máy. Tùng đã nghe lời kể nhưng chưa tin hoặc xác nhận có bản sao. Ở thời điểm cuộc gọi này chưa gửi ảnh/gọi video; tới F01 Nam mới chụp và gửi ảnh. Chưa có cảnh Tùng tới cứu hay xác minh. Quyết định này thay phương án Nam giấu hoàn toàn chuyện vừa thấy; thời điểm Tùng thực sự tin còn để bàn sau.
 - **Khung chuyển thái độ mới do chủ repo đưa:** giữ tin nhắn giục bài; Nam làm mãi không được, tự so mình với người kia chăm chỉ rồi nghĩ tới nhờ giúp nhưng tự bác vì sợ. Cậu chơi game, bật Không làm phiền, ngủ quên tới tối. Tỉnh dậy thấy người kia làm hộ bài, cậu quát vì bị tự ý vào phòng; sau khi tự kiểm tra tin Tùng về muộn do thể thao, cuộc gọi nhỡ giục bài và nội dung bài đã làm, cậu mới dịu, bắt đầu tự nghĩ đó là món quà ông trời cho vì mình tốt. Bản dưới phát triển khung này, chưa tự coi toàn bộ lời và cách nối là đã duyệt.
 - **Hướng nhân vật đã yêu cầu:** cậu sinh viên lười nhác, có thể có phần đáng ghét, nhưng phải khiến người xem nhận ra một người thật ngoài xã hội. Giữ sự mâu thuẫn và các mối quan hệ đời thường, tránh biến cậu thành một mẫu người chỉ tồn tại để bị trừng phạt.
 
@@ -55,11 +58,11 @@ Nhịp trưởng thành hoặc hối tiếc phải thể hiện bằng lựa ch�
 
 **Ý đồ:** người xem hiểu tính lười qua sinh hoạt; sự quen thuộc biến thành sợ hãi khi khuôn mặt rồi giọng nói trùng khớp. Kết cảnh cậu còn nghi ngờ, chưa nhận giúp đỡ.
 
-**Bối cảnh:** buổi sáng, phòng trọ hai người. Sinh viên là Nam, bạn cùng phòng là Tùng, dùng theo đoạn thoại đã duyệt. Bố trí cụ thể bên dưới vẫn là đề xuất. Nệm sát tường, ghế áo quần cạnh nệm, góc rửa chén ở sâu trong phòng. Lối giữa nệm và cửa thông ra hành lang, nhìn được cầu thang. Cửa khép hờ sau khi người bạn đi học, thể hiện bằng khe sáng ngay đầu cảnh.
+**Bối cảnh:** buổi sáng, phòng trọ hai người. Sinh viên là Nam, bạn cùng phòng là Tùng, dùng theo đoạn thoại đã duyệt. Bố trí cụ thể bên dưới vẫn là đề xuất. Nệm đôi sát tường phải, ghế làm việc cạnh nệm không còn áo vắt, góc rửa chén ở sâu trong phòng. Lối giữa nệm và cửa thông ra hành lang, nhìn được cầu thang. Cửa khép hờ sau khi người bạn đi học, thể hiện bằng khe sáng ngay đầu cảnh. Phòng chỉ có một chìa, Tùng cầm đi học. Nam và Tùng ngủ trên cùng nệm đôi; Nam phía gần máy/lối đi, Tùng phía sau sát tường. Nam ngủ trong áo ngủ xám; chiếc áo xanh rêu bỏ trên ghế tối qua là cái người kia đang mặc.
 
 Báo thức ghi “7 giờ — đi học” lại reo. Nam thò tay tắt, kéo chăn qua đầu. Ở góc bếp là đống chén cậu đã hẹn rửa từ tối hôm trước.
 
-Tiếng chén va nhau.
+Tiếng nước chảy, tiếng chén va nhau.
 
 **NAM — [sleepy], càu nhàu:**
 > Tùng, nhẹ tay chút coi. Tao đang ngủ.
@@ -73,11 +76,11 @@ Người ấy quay lại.
 
 **[NHỊP A03–A04 — Cắt dòng càu nhàu ở đúng lúc Nam nhận mặt; giữ phản ứng Nam trước khi cắt xác nhận người kia. Dùng nhịp 2 giây đã ghi dưới đây cho sự sững và nhìn cửa, không cộng thêm một khoảng đứng hình.]**
 
-Nam ngừng giữa câu. Chân vừa tìm dép đứng im trên nền. Cậu nhìn gương mặt kia rồi nhìn ra cửa, như chờ Tùng bước vào cười.
+Nam ngừng giữa câu. Chân vừa xỏ dép đứng im trên nền. Cậu nhìn gương mặt kia rồi nhìn ra cửa, như chờ Tùng bước vào cười.
 
 **[GIỮ khoảng 2 giây — không ai xuất hiện; còn tiếng quạt trong phòng.]**
 
-Nam dụi mắt. Nhìn lại. Vẫn gương mặt ấy, cả nốt ruồi sát đuôi mày trái. Cậu vô thức sờ lên mặt mình.
+Nam dụi mắt. Nhìn lại. Vẫn gương mặt quá đỗi quen thuộc ấy. Cậu vô thức sờ lên mặt mình.
 
 **NAM — [hesitant], cố tìm lời giải bình thường:**
 > Tùng thuê mày hù tao hả?
@@ -122,12 +125,10 @@ Nam liếc chốt cửa, rồi lập tức nhìn lại người kia. Cậu bấm
 
 Người trong phòng vẫn đứng chờ. Nước từ bàn tay nhỏ xuống nền. Nam siết điện thoại. Cậu chưa tìm được lời giải cho người đang đứng trước mặt.
 
-**Dừng phần đang bàn tại đây. Chưa cho Nam tin, vui vẻ hay nhận giúp đỡ. Cuộc gọi còn tiếp ở cảnh sau nếu cách ngắt này được chọn.**
-
 ### Ghi chú hình/âm để đọc cảnh — chưa khóa thông số dựng
 
 - Bắt đầu bằng một góc đủ thấy lối ra và người ở bồn rửa quay lưng; không tạo tình huống không gian vô tình nhốt Nam giữa người lạ và cửa.
-- Khi người kia quay mặt, giữ cận phản ứng Nam trước khi cắt cận người kia. Máy tương đương 50–65 mm cho ý đồ bố cục, gần ngang mắt, ban đầu tĩnh. Đặc tả nốt ruồi và tay chạm mặt chỉ kéo dài đủ nhận ra chi tiết.
+- Khi người kia quay mặt, giữ cận phản ứng Nam trước khi cắt cận người kia. Máy tương đương 50–65 mm cho ý đồ bố cục, gần ngang mắt, ban đầu tĩnh. Đầu cảnh không đặc tả hay chuyển nét riêng vào nốt ruồi: Nam và khán giả trước hết nhận gương mặt/giọng nói. Nốt ruồi bên phải của Người Kia vẫn tồn tại trong hình ở đúng kích thước mẫu, không làm mất nó để giấu manh mối. Tay Nam chạm mặt là phản ứng sửng sốt, chưa phải đã nhận ra bên đảo.
 - Khi Nam lùi ra hành lang, góc tương đương 35 mm cho thấy khoảng cách và đường thoát; chưa cần rung. Tránh đánh tráo hai người bằng góc cắt khiến khán giả không biết ai đang sợ.
 - Quạt, tiếng nước, chén và va ghế là âm có nguồn. Không thêm tiếng quái vật hoặc nhạc báo lộ bản chất ngay lúc quay mặt. Giữ nỗi sợ bằng khoảng chờ và giọng của chính cậu.
 - Các thẻ cảm xúc là hướng diễn xuất, chưa kiểm chứng trên giọng ElevenLabs. Chưa tính thời lượng chính xác.
@@ -139,8 +140,6 @@ Người trong phòng vẫn đứng chờ. Nước từ bàn tay nhỏ xuống n
 3. Người kia dừng khi bị yêu cầu giữ khoảng cách. Điều này làm nguy hiểm trước mắt giảm, chưa đủ khiến Nam tin.
 4. Tùng là người được gọi để kiểm chứng. Ở phần nối cuộc gọi, cậu nghe Nam kể nhưng gạt đi vì cho rằng Nam nói xàm/ngủ chưa tỉnh. Tùng chưa tin hoặc biết bí mật của bản sao; chưa chốt thêm vai trò ngoài cuộc gọi này.
 5. Không dựng hồi tưởng theo dõi hay luật chuyển danh tính từ bản cũ. Cơ chế thay thế còn chờ phát triển sau khi chốt cách xuất hiện.
-
-**Đang chuyển sang bàn cảnh 2:** giữ sự dè chừng sau cảnh 1, làm rõ vì sao Nam ở lại đối thoại và chấp nhận một việc giúp nhỏ. Cơ chế thay thế và chi tiết phần tiếp vẫn đang bàn; không coi các phương án kế tiếp là đã duyệt.
 
 ## Phần nối cuộc gọi — đã duyệt ngày 09/11/2026
 
@@ -216,7 +215,7 @@ Nam nhắm mắt. Nghe giọng mình ở phía bên kia cánh cửa khiến cậ
 
 Bên ngoài im hẳn.
 
-Cậu kéo ghế ngồi đối diện cửa, giữ điện thoại trong lòng bàn tay. Mắt vẫn dán vào chốt.
+Cậu kéo chiếc ghế vừa va ở cạnh nệm tới chỗ đối diện cửa rồi ngồi xuống, giữ điện thoại trong lòng bàn tay. Mắt vẫn dán vào chốt.
 
 **Điểm cuối đoạn đã duyệt:** Nam có lại căn phòng và khoảng cách, nhưng người giống mình vẫn ở ngoài. Cần bàn tiếp lý do Nam tự mở lại cuộc đối thoại; không tự chuyển sang đồng ý cho làm hộ chỉ vì nhìn thấy chén sạch.
 
@@ -239,6 +238,8 @@ Cậu đứng dậy kiểm tra ví trên bàn, rồi kéo ngăn tủ đựng gi�
 
 **[NHỊP D02–D03 — Đọc ảnh trên thẻ và phản ứng khoảng 2–3 giây trong lúc kiểm tra. Đó là Nam tự đối chiếu, chưa phải phát hiện ảnh/thân phận bị thay. Không giữ thêm một cận thẻ rồi lặp lại cùng ý ở cận mặt.]**
 
+Nam đặt căn cước xuống bàn, vẫn giữ điện thoại trong tay, rồi quay lại ghế đối diện cửa.
+
 **NAM — [hesitant], nói qua cửa vẫn đóng:**
 > Ê.
 
@@ -252,8 +253,6 @@ Nam khựng lại vì giọng ấy.
 
 **NGƯỜI KIA:**
 > Mày bảo tao đứng đây mà.
-
-Nam đặt căn cước xuống bàn, vẫn giữ điện thoại trong tay.
 
 **NAM:**
 > Đợi thằng bạn tao về đã. Đừng đi đâu.
@@ -291,7 +290,7 @@ Nam liếc về phía bếp, rồi nhớ đến cái áo trên người kia.
 **NAM:**
 > Ngoài chén với cái áo, mày còn đụng vào cái gì?
 
-**Liên tục hành động:** Nam vẫn trong phòng và cửa còn gài chốt. Người kia ở hành lang, không nhìn được màn hình hoặc giấy tờ bên trong. Mọi câu trao đổi diễn ra qua cửa; kiểm tra căn cước chưa xác lập luật siêu nhiên. Chưa phát sinh vòi nước chảy: ở cảnh đầu tiếng nước đã ngừng.
+**Liên tục hành động:** Nam vẫn trong phòng và cửa còn gài chốt. Cậu ngồi ở ghế đối diện cửa khi đối đáp, nói vừa đủ vọng qua cửa. Người kia ở hành lang, không nhìn được màn hình hoặc giấy tờ bên trong. Mọi câu trao đổi diễn ra qua cửa; kiểm tra căn cước chưa xác lập luật siêu nhiên. Chưa phát sinh vòi nước chảy: ở cảnh đầu tiếng nước đã ngừng.
 
 **Cách duyệt từ đây:** chủ repo xem trực tiếp file. Mỗi lượt chỉ cập nhật một phần kế tiếp, ghi rõ chưa duyệt; báo ngắn nội dung thay đổi và đường dẫn, không chép lại kịch bản vào chat. Vẫn chốt lần lượt, không suy ra được phép viết hoặc duyệt cả truyện.
 
@@ -306,7 +305,7 @@ Nam liếc về phía bếp, rồi nhớ đến cái áo trên người kia.
 **NGƯỜI KIA — đáp câu hỏi còn đụng vào đồ gì, vẫn ở ngoài cửa:**
 > Cây chổi nữa. Tao quét cạnh bếp. Còn lại không đụng.
 
-Nam nhìn xuống sàn. Chỗ vụn mì cạnh bàn đã sạch.
+Nam nhìn về phía bếp. Chỗ vụn mì trên sàn đã sạch.
 
 Điện thoại rung. Nhóm làm bài hỏi phần của cậu đâu rồi.
 
@@ -318,7 +317,7 @@ Ngay phía trên là tin cậu gửi từ hôm qua:
 
 **[NHỊP E01 — Cho đọc tin giục rồi lời hứa hôm qua, tổng khoảng 2.5–4 giây khi chữ đủ lớn. Một thoáng ngượng hiện ở mặt Nam trước khi kéo ghế; không thêm giọng đọc lại cả hai tin.]**
 
-Nam kéo ghế từ chỗ đối diện cửa về bàn, mở chiếc laptop cũ đang cắm sạc rồi vào tài liệu chung. Các phần khác đã đầy chữ. Dưới tên mình, cậu mới có mỗi tiêu đề.
+Nam kéo ghế từ chỗ đối diện cửa về bàn, mở chiếc laptop cũ đang cắm sạc rồi vào tài liệu chung. Các phần khác đã đầy chữ. Dưới tên mình, cậu mới có mỗi tiêu đề. Nam chuyển sang bản nháp riêng phần mở đầu để viết trước, chưa chia sẻ cho nhóm.
 
 Cậu gõ hai dòng, đọc lại rồi xóa. Đổi tư thế ngồi, đọc phần hướng dẫn, thử viết lại. Nắng dịch dần trên mép bàn. Trang bài vẫn chỉ thêm được vài câu rời rạc.
 
@@ -356,7 +355,11 @@ Một lúc sau, Nam buồn tiểu. Cậu cầm điện thoại, đứng dậy m�
 
 **[NHỊP F01 — Rút chốt đọc rõ khoảng 0.8–1.2 giây trong thao tác; nhìn qua khe rồi mới bước. Không cắt tắt từ ghế ra hành lang hoặc kéo dài cảnh vệ sinh.]**
 
-Người kia vẫn ở phía đối diện hành lang. Nam chỉ về cuối dãy, xa lối mình cần đi.
+Người kia vẫn ở phía đối diện hành lang. Nam giơ điện thoại qua khe cửa, chụp một tấm rồi gửi cho Tùng. Cậu không dám bước lại gần để chụp rõ hơn; người kia đứng xa, ngược sáng, trong ảnh chỉ là một dáng nhỏ không rõ mặt.
+
+**[NHỊP F01 — Thấy Nam chụp được ảnh rồi gửi trong cuộc trò chuyện với Tùng. Có thể cắt lược thao tác sau khi đã lập ảnh; không khóa toàn chuỗi vào 1–1.5 giây. Khoảng 1–1.5 giây chỉ là mức thử để người xem đọc ảnh nhỏ/ngược sáng, nằm trong thao tác xem lại. Thời lượng cuối đo khi thử diễn.]**
+
+Nam chỉ về cuối dãy, xa lối mình cần đi.
 
 **NAM — còn dè chừng:**
 > Mày ra đứng kia. Tao đi vệ sinh. Đừng vào phòng.
@@ -364,7 +367,7 @@ Người kia vẫn ở phía đối diện hành lang. Nam chỉ về cuối dã
 **NGƯỜI KIA:**
 > Ừ.
 
-Người kia đi ngay. Nam đợi nó đứng cách xa cửa mới bước ra, kéo cửa khép lại.
+Người kia đi ngay. Nam đợi nó đứng cách xa cửa mới bước ra, kéo cửa khép lại. Chìa phòng Tùng cầm từ sáng, cậu không khóa được từ bên ngoài.
 
 Khi trở về, cậu thấy nó vẫn ở đúng chỗ đã chỉ. Nam vào phòng, khép cửa. Tay cậu vừa đưa về phía chốt thì điện thoại rung: trưởng nhóm lại giục.
 
@@ -380,13 +383,18 @@ Nam ngồi trước laptop. Nhìn mấy dòng vừa viết, cậu chuyển sang 
 **NAM — ĐỘC THOẠI NỘI TÂM, tự cho mình một lý do:**
 > Giải trí tí rồi làm. Càng ngồi càng bí.
 
-Một thông báo che góc màn hình trò chơi. Nam bật **Không làm phiền**, quay lại chơi. Hết trận này, cậu bấm thêm trận nữa. Ánh nắng trên bàn thấp dần.
+Một thông báo che góc màn hình trò chơi. Nam bật **Không làm phiền**, quay lại chơi. Hết trận này, cậu bấm thêm trận nữa. Nắng rút dần khỏi mép bàn, phòng dịu lại.
 
 **[NHỊP G02–G03 — Thao tác bật và biểu tượng rõ khoảng 1–1.5 giây. Các lát chơi tiếp gộp khoảng 6–9 giây; giữ sự lặp đủ hiểu “thêm trận nữa”, không quay từng trận hoặc lặp độc thoại tự bào chữa.]**
 
-Sau cùng, Nam đặt điện thoại cạnh laptop, ngả lên giường định nằm vài phút. Bài đang làm vẫn mở trên màn hình. Cậu ngủ quên.
+Sau cùng, Nam tắt trò chơi, đặt điện thoại cạnh laptop. Cậu nhìn về phía cửa, nói vọng ra.
 
-**[NHỊP G04 — Giữ liền đặt máy/nhả tay rồi rời bàn tới nệm; sau đó mới rút thời gian bằng ánh sáng. Tiếng game dừng khi đặt máy; không kéo màn đen để thay nhịp nghỉ có nội dung.]**
+**NAM — còn dè chừng, hơi nhỏ:**
+> Còn đó không?
+
+Bên ngoài im. Nam đợi một lúc, không nghe gì thêm, thở ra rồi ngả lên giường định nằm vài phút. Bài đang làm vẫn mở trên màn hình. Cậu ngủ quên.
+
+**[NHỊP G04 — Đặt máy, hỏi vọng và chờ khoảng 1.5–2 giây rồi mới rời bàn tới nệm; sau đó mới rút thời gian bằng ánh sáng. Tiếng game dừng khi đặt máy; không kéo màn đen để thay nhịp nghỉ có nội dung.]**
 
 ### Tỉnh dậy — trời đã tối
 
@@ -394,7 +402,7 @@ Sau cùng, Nam đặt điện thoại cạnh laptop, ngả lên giường địn
 
 Phòng đã tối. Đèn bàn bật, ánh laptop hắt lên một gương mặt giống Nam.
 
-Người kia đang ngồi ở bàn, gõ phím. Nam nhìn sang chỗ ngủ của Tùng: vẫn trống. Cậu bật dậy.
+Người kia đang ngồi ở bàn, gõ phím. Nam nhìn sang nửa giường của Tùng: vẫn trống. Cậu bật dậy.
 
 **[NHỊP H01–H03 — Khoảng 1–2 giây nhận tiếng phím/chỗ trống/vị trí người ở bàn, rồi bật dậy quát. Lấy phản ứng Nam trước cận xác nhận mặt; không lặp toàn bộ cú dụi mắt/kiểm mặt của buổi sáng.]**
 
@@ -406,13 +414,16 @@ Người kia dừng tay, quay lại.
 **NGƯỜI KIA — giọng bình thường:**
 > Cửa không chốt. Tao kêu mày mấy lần, mày không dậy.
 
-**NAM — [angry]:**
+**NAM — [agitated]:**
 > Tao bảo mày đứng ngoài!
 
 **NGƯỜI KIA:**
 > Ừ. Tao thấy bài đang mở nên làm thử. Mày xem trước đi, chưa gửi cho ai đâu.
 
-Nam bước tới lấy điện thoại khỏi bàn, giữ nó trong tay.
+**NAM — [scared], chưa dám lại gần:**
+> Bỏ tay khỏi bàn. Lùi ra.
+
+Người kia đứng dậy kéo ghế lùi một đoạn rồi ngồi xuống, đặt hai tay lên đùi. Nam đợi nó dừng hẳn mới bước tới, với lấy điện thoại khỏi bàn, giữ nó trong tay.
 
 **NGƯỜI KIA — chỉ về phía màn hình điện thoại đang sáng khi Nam cầm lên:**
 > Mày để Không làm phiền à? Thảo nào điện thoại cứ im.
@@ -422,11 +433,11 @@ Nam nhìn biểu tượng trên máy rồi tự mở thông báo. Cậu chưa t�
 **[NHỊP H05 — Hiện biểu tượng 1–1.5 giây; tin Tùng 3–4 giây; danh sách nhỡ 1.5–2 giây. Các lớp đọc lần lượt trong chính hành động kiểm tra, không cộng thêm một lượt đọc lại trên mặt Nam. Người kia chưa được biết nội dung riêng này.]**
 
 **TIN TÙNG — Nam tự đọc trên màn hình:**
-> Tao đi đánh cầu. Tối chắc về muộn, mày ăn trước đi.
+> Ảnh gì mờ vậy? Tao đi đá banh. Tối chắc về muộn, mày ăn trước đi.
 
-Bên dưới là nhiều cuộc gọi nhỡ của trưởng nhóm, xen những tin giục bài. Nam nhìn giờ, rồi nhìn lại tài liệu trên laptop.
+Bên dưới là nhiều cuộc gọi nhỡ của trưởng nhóm, xen những tin giục bài. Nam nhìn giờ: 19:30, rồi nhìn lại bản nháp trên laptop.
 
-Phần mang tên mình đã có nội dung, chia theo các mục trong hướng dẫn. Cậu đọc đoạn đầu, kéo xuống, đối chiếu yêu cầu. Có chỗ còn cần sửa, nhưng bài đã thành hình; không còn là vài câu cậu viết mãi chưa xong.
+Bản nháp riêng phần mở đầu đã có nội dung, chia theo các mục trong hướng dẫn. Cậu đọc đoạn đầu, kéo xuống, đối chiếu yêu cầu. Có chỗ còn cần sửa, nhưng bài đã thành hình; không còn là vài câu cậu viết mãi chưa xong.
 
 **[NHỊP H06–H07 — Khoảng 5–7 giây cho đọc đoạn đầu/cuộn/đối chiếu; chỉ hiện phần cần nhận ra, không yêu cầu đọc cả bài. Giận giảm sau khi kiểm chứng, còn giữ máy và khoảng cách. Chưa cười ngay từ lúc thấy trang đầy chữ.]**
 
@@ -457,9 +468,17 @@ Khóe miệng cậu nhích lên. Nam kéo phần hướng dẫn lại gần bài
 ### Ghi chú dựng và liên tục — không đọc
 
 - Bố trí cửa, hành lang và đường đi vệ sinh để nhìn rõ: người kia ở ngoài khi Nam ra/về; sau khi về, Nam khép cửa nhưng quên gài chốt vì đọc tin. Lúc ngủ, cửa khép nhưng không khóa. Người kia vào sau đó là vượt giới hạn Nam đã nói, không phải Nam ngầm cho phép hoặc năng lực đi xuyên cửa. Không lộ thêm năng lực siêu nhiên để giải thích.
-- Laptop được giới thiệu trước khi chơi game, đang cắm sạc và để nguyên tài liệu làm dở; bố trí máy không chuyển sang màn hình khóa trong khoảng này. Điện thoại dùng chơi game và bật Không làm phiền rồi được đặt cạnh laptop. Người kia chỉ thấy tài liệu mở; không tự có mật khẩu, không tự đọc mọi tin nhắn hoặc biết tên người gọi. Nam tự mở thông báo và kiểm chứng tin Tùng/cuộc gọi nhỡ.
+- Nam tỉnh khoảng 19h30, trời đã tối; hạn nộp là 23h59 nên câu “khỏi ngồi tới khuya” còn đúng. Đồng hồ và giờ trên điện thoại buổi tối theo mốc này.
+- Ban ngày dãy trọ vắng vì mọi người đi học, đi làm, nên không ai để ý người đứng ngoài hành lang. Không có hàng xóm trong phần này.
+- Laptop được giới thiệu trước khi chơi game, đang cắm sạc và để nguyên bản nháp riêng làm dở; bố trí máy không chuyển sang màn hình khóa trong khoảng này. Điện thoại dùng chơi game và bật Không làm phiền rồi được đặt cạnh laptop. Người kia chỉ thấy bản nháp riêng đang mở, không sửa trực tiếp vào tài liệu chung và chưa chia sẻ/nộp phần này; không tự có mật khẩu, không tự đọc mọi tin nhắn hoặc biết tên người gọi. Nam tự mở thông báo và kiểm chứng tin Tùng/cuộc gọi nhỡ.
 - Người kia nhận ra biểu tượng Không làm phiền khi Nam cầm điện thoại sáng màn hình; nó chưa biết trước nội dung tin Tùng hoặc danh sách cuộc gọi. Không thêm một điện thoại khác cho nó gọi Nam.
 - Trước ngủ: ánh sáng ban ngày dịch dần, ghế ở bàn, Nam đổi tư thế vì bí bài rồi sang game. Sau ngủ: cùng bố cục phòng, đèn bàn/laptop sáng, ghế đã có người kia ngồi, Nam bật dậy từ giường. Mốc sáng–tối có hình cụ thể; không dùng một dòng chữ để thay mọi thay đổi trạng thái.
 - Ở khoảnh khắc tỉnh: lấy phản ứng Nam rồi mới cho thấy rõ người tại bàn; ý đồ 35 mm cho khoảng cách phòng và 50–65 mm cho mặt/ánh mắt, máy tĩnh trước cú bật dậy. Không dùng rung hoặc âm hù để che thiếu phản ứng. Đây là ý đồ bố cục, chưa phải shot đã dựng hoặc thông số camera thực.
-- Âm bàn phím, quạt và tiếng game có nguồn; tiếng game dừng sau khi Nam đặt máy/ngủ. Khi xem điện thoại buổi tối, cuộc gọi trước đó chỉ hiện trong danh sách nhỡ, không phát lại tiếng chuông đã bị tắt. Màn hình thông báo/tài liệu là lớp chữ riêng, không thêm người thứ ba vào phòng.
+- Âm bàn phím, quạt và tiếng game có nguồn; tiếng game dừng lúc Nam tắt trò chơi, trước khi đặt máy và hỏi qua cửa. Khi xem điện thoại buổi tối, cuộc gọi trước đó chỉ hiện trong danh sách nhỡ, không phát lại tiếng chuông đã bị tắt. Màn hình thông báo/tài liệu là lớp chữ riêng, không thêm người thứ ba vào phòng.
 - Các độc thoại là suy nghĩ chủ quan của Nam, người kia không nghe được. Ý nghĩ “ông trời ban cho vì mình tốt” là cách cậu tự tâng bốc và hợp lý hóa lợi ích, không phải lời người kể xác nhận nguồn gốc sinh vật. Thẻ cảm xúc là hướng diễn xuất để thử, chưa được kiểm chứng bằng audio.
+
+### Ghi chú manh mối gương — dành cho người viết/dựng, không đọc
+
+- Nam và Người Kia giống gương mặt/giọng/vóc dáng đến mức Nam nói “giống hệt”; đó là nhận định trong lúc hoảng, không phải tài liệu thiết kế khẳng định mọi nét giống 100%.
+- Dấu nhỏ trái–phải là khác biệt có chủ ý do nguồn gốc phản chiếu. Không thêm mắt đỏ, bóng tự chuyển hoặc lời giải thích về gương vào A–H. Khi viết phần kết phải cho thấy nguồn gốc gương và liên hệ với dấu đảo, thay vì chỉ nói suông “nó đến từ gương”.
+- “Trái/phải” so ở cùng hướng nhìn. Khi nhân vật xoay, nốt ruồi có thể khuất; không vẽ một chấm luôn ở mép phải màn hình bất kể góc. Rig có biến thể riêng cho Người Kia; các đặc điểm bất đối xứng khác nếu dùng làm bằng chứng phải lập và đối chiếu trước khi đưa vào truyện.

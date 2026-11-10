@@ -2,6 +2,8 @@
 
 **Ngày 10/11/2026 — đề xuất để thiết kế/storyboard, chưa render.** Phạm vi chỉ gồm phần truyện đã viết, từ Nam thức dậy tới lúc đọc bài người kia làm hộ vào buổi tối. Nguồn lời và trạng thái duyệt nằm ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md). Tài liệu này chỉ bổ sung cách quay, không tạo bản thoại thứ hai hoặc chốt thay các tình tiết còn chờ duyệt.
 
+**Sửa 10/11/2026:** bảng máy đã khớp lại với các sửa logic ghi đầu [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md), chờ duyệt. Đã giữ cập nhật mô hình phòng/rig hiện hành khi tích hợp, không phục hồi nền cũ; xem báo cáo rà.
+
 ## Cách dùng
 
 - Đi theo hành động/thoại ở bản nguồn; mã máy dùng để tìm bố cục, không phải một câu thoại tương ứng một cú cắt. Một shot có thể giữ qua nhiều lượt đối đáp.
@@ -32,8 +34,8 @@
 | C — Giành lại phòng | Câu ra lệnh ngắn; bước chậm vì phải kiểm soát khoảng cách; khép cửa/gài chốt nhanh hơn khi đường vào đã an toàn | Chờ khoảng 0.5–1 giây sau khi người kia đứng đúng chỗ rồi Nam mới vào. Giữ 2 giây đã có ở chốt, nghe có ai tiến lại không | Hạ âm sau chốt nhưng không hạ hết căng thẳng. Kéo ghế ngồi nhìn cửa kết thúc bằng một việc cụ thể |
 | D — Kiểm tra và hỏi qua cửa | Bận tay kiểm đồ → đối đáp ngắn → lúng túng vì người kia làm đúng lời mình → khó chịu vì bị xâm phạm | Căn cước 2–3 giây gắn với nhìn ảnh/chạm giữ; tin chưa trả lời 1–2 giây trong lúc Nam chờ rồi tự hỏi tiếp | Trừ phản ứng khựng trước giọng và chờ tin, trả lời tự nhiên, không chèn lặng giữa mọi câu. Câu hỏi đụng đồ nối thẳng sang lời đáp về cây chổi ở E |
 | E — Bí bài, tự cân nhắc | Bắt tay làm → bí dần → thoáng xấu hổ vì lời hứa hôm qua → bị lợi ích hấp dẫn → tự bác vì sợ | Tin nhóm và lời hứa cũ đọc lần lượt, khoảng 2.5–4 giây tổng khi chữ đủ lớn. Gõ–xóa/đổi tư thế/nắng dịch rút thành 8–12 giây. Sau ý nghĩ nhờ giúp, 1–1.5 giây nhìn cửa rồi tự lắc đầu | Độc thoại bám bếp, trang bài và cửa; không đọc liền như bài tự kiểm điểm. Kết ở Nam thử làm tiếp, chưa quyết định nhờ |
-| F — Rút chốt rồi quên | Còn đề phòng khi ra/về; một việc nhỏ làm đứt mạch chú ý | Chốt được rút cần đọc rõ khoảng 0.8–1.2 giây trong thao tác. Lúc trở về, tay sắp gài → máy rung → tay rời chốt: một chuỗi liền; thấy chốt còn rút khoảng 1 giây trong cùng khung | Không dừng/phóng thêm để báo “đây là lỗi”. Người kia vẫn ở xa khi Nam vào; sự quên do phân tâm đã có trên hình |
-| G — Game, ngủ | Tự thưởng “một tí” → lặp thêm trận → buông việc → chuyển thời gian | Không làm phiền 1–1.5 giây đủ nhận ra thao tác; 2–3 lát chơi game gộp khoảng 6–9 giây, không quay cả trận. Đặt máy/chuyển sang nệm giữ liền để thấy vị trí đồ | Tiếng game dừng theo nguồn. Ánh sáng/tư thế cho thấy thời gian trôi; chuyển sang tối ngắn, không giữ màn đen để giả một khoảng lặng cảm xúc |
+| F — Rút chốt rồi quên | Còn đề phòng khi ra/về; một việc nhỏ làm đứt mạch chú ý | Chốt được rút cần đọc rõ khoảng 0.8–1.2 giây trong thao tác. Chụp ảnh qua khe rồi gửi Tùng; không khóa thời lượng toàn thao tác. Khoảng đọc ảnh 1–1.5 giây chỉ là mức thử trong hành động. Lúc trở về, tay sắp gài → máy rung → tay rời chốt: một chuỗi liền; thấy chốt còn rút khoảng 1 giây trong cùng khung | Không dừng/phóng thêm để báo “đây là lỗi”. Người kia vẫn ở xa khi Nam vào; sự quên do phân tâm đã có trên hình |
+| G — Game, ngủ | Tự thưởng “một tí” → lặp thêm trận → buông việc → chuyển thời gian | Không làm phiền 1–1.5 giây đủ nhận ra thao tác; 2–3 lát chơi game gộp khoảng 6–9 giây, không quay cả trận. Đặt máy, hỏi vọng ra cửa, chờ 1.5–2 giây rồi sang nệm, giữ liền để thấy vị trí đồ | Tiếng game dừng theo nguồn. Ánh sáng/tư thế cho thấy thời gian trôi; chuyển sang tối ngắn, không giữ màn đen để giả một khoảng lặng cảm xúc |
 | H — Phát hiện, giận, cân nhắc lợi ích | Tỉnh chưa hiểu → nhận ra người ở bàn → quát → tự kiểm tra → giảm giận nhưng còn đề phòng → tự tâng bốc | Nhận chỗ Tùng trống/người ở bàn trong nhịp nhìn khoảng 1–2 giây rồi phản ứng. DND 1–1.5 giây, tin Tùng 3–4 giây, cuộc gọi nhỡ 1.5–2 giây; bài làm 5–7 giây để cuộn/đối chiếu. Sau lời mời giúp, 1–1.5 giây cho Nam nhìn bài rồi nhìn người | Các khoảng đọc H05/H07 thay cho thời gian hành động đọc đã có, không cộng thêm. Chỉ cười thoáng sau quá trình tự kiểm tra; kết giữ khoảng 2 giây Nam đọc tiếp, người kia chờ, tay khỏi phím |
 
 ### Nhịp thoại, khoảng lặng và âm
@@ -64,10 +66,10 @@ phải: cửa sổ; tiền cảnh phải là chỗ ngủ Nam
 - **Góc toàn A:** Nam/chỗ ngủ tiền cảnh phải, bàn sau–phải, bếp sau–trái và cửa chính tường trái. Lập rõ đường Nam men từ nệm ra ngưỡng mà không đi xuyên qua người ở bếp hoặc tự sinh thêm cửa cạnh bàn.
 - **Bàn ngày/đêm:** cùng một vị trí với tủ quần áo bên cạnh và cửa sổ phía phải; ánh sáng đổi nhưng đồ không đổi tường. Nệm đôi tiền cảnh phải có hai gối: Nam phía gối kem gần lối đi, Tùng phía gối xanh gần tường. Nệm đã tách khỏi bàn/ghế bằng khoảng sàn; H01 nhìn vào nửa trống của Tùng, không nhân đôi nệm tùy góc.
 - **Góc toàn B ngoài hành lang:** đã có ở `hanh-lang-cua-phong.svg` (`view="hallway"`), cầu thang bên trái, cửa giữa. Lập B với Nam về phía cầu thang/lối đi, người kia ở đầu dãy đối diện; toàn cảnh xác lập lại trục trước cận. Trái/phải ngoài hành lang do góc B xác định.
-- **Ghế và đường đi:** giữ chiếc ghế làm việc xuyên chuỗi kéo ra đối diện cửa rồi kéo về bàn. Không tự thêm ghế chắn cửa. Bản đại tu dùng chung một mẫu ghế bốn chân, không bánh ở cả ngày/đêm; diễn kéo, không diễn lăn. Sau dời nệm cần kiểm tra lại ghế tại cú va A05, giữ chân ghế ngoài nệm và đường ra cửa thông thoáng. Cú va cạnh nệm cần đặt ghế trong đường đi đã lập. Kết thúc nhịp khi người/ghế đã tới vị trí, không cắt mất đường đi để ép thời gian.
+- **Ghế và đường đi:** giữ một chiếc ghế làm việc theo chuỗi cạnh nệm (`bed`) → đối diện cửa (`door`) → bàn (`desk`). Không tự thêm ghế chắn cửa. Bản đại tu dùng chung một mẫu ghế bốn chân, không bánh ở cả ngày/đêm; diễn kéo, không diễn lăn. Sau dời nệm cần kiểm tra lại ghế tại cú va A05, giữ chân ghế ngoài nệm và đường ra cửa thông thoáng. Cú va cạnh nệm cần đặt ghế trong đường đi đã lập. Kết thúc nhịp khi người/ghế đã tới vị trí, không cắt mất đường đi để ép thời gian.
 - **Chốt và cửa:** có lớp trạng thái riêng: đầu sáng hé/mở; Nam vào khóa thì chốt gài; đi vệ sinh thì Nam rút chốt; về khép cửa nhưng quên gài nên chốt còn rút. Nền tối hiện có chữ/miêu tả cửa gài không được dùng nguyên trạng để phủ nhận cách người kia vào. Giữ hướng bản lề của thiết kế, kiểm tra vùng quét cánh cửa với bàn/ghế.
 - **Điện thoại/căn cước:** lúc đối đáp Nam giữ điện thoại tay phải, tay trái kiểm giấy trên mặt bàn. Khi bắt đầu làm laptop, đặt điện thoại trong tầm với trước khi dùng hai tay; sau game mới đặt nó cạnh laptop rồi sang giường. Buổi tối Nam tự nhặt và mở tin; người kia không cầm hộ.
-- Áo người kia đang mặc không trở lại trên ghế hoặc giường. Nam và người kia nay có tạo hình/trang phục gần như giống hệt trong bộ SVG mới; phân biệt bằng vị trí và diễn xuất, không trông chờ màu áo khác nhau để khán giả nhận diện.
+- Áo người kia đang mặc không trở lại trên ghế hoặc giường. Mặt, tóc, dáng của Nam và người kia giống hệt. Suốt phần A–H, Nam mặc áo ngủ xám, người kia mặc áo xanh rêu của Nam, để câu “áo đó của tao” có nghĩa; vẫn dựa thêm vào vị trí và diễn xuất.
 - Lối đi vệ sinh ở ngoài khung phía Nam rời đi, người kia đứng phía đối diện. Không cần nền WC hoặc lớp học/sân thể thao của Tùng; Tùng ở phần này chỉ có giọng gọi và tin nhắn theo nguồn.
 
 ## Đường cảm xúc của máy
@@ -101,7 +103,7 @@ Hai điểm nhấn: **cận phản ứng trước cú lộ mặt**, và **khung 
 | P0 — Giữ máy | Mặc định cho diễn xuất, đối đáp, mở/gài chốt | Các lớp không tự trôi khác nhau. Người quay mặt, tay di chuyển, cửa mở và ánh đổi theo hành động; chiều sâu đến từ bố cục, mặt khối và che khuất. Máy tĩnh không đồng nghĩa mọi thứ đóng băng. |
 | P1 — Dịch ngang nhỏ | C02 và E02; chỉ dùng khi còn vùng hình phía sau vật che | Máy sang phải thì thế giới trôi trái, lớp gần trôi nhiều hơn lớp xa; ngược lại khi máy sang trái. Ví dụ thử ở 1920×1080: mép cửa gần −30 px, vùng hành động −18 px, hậu cảnh −6 px cho **một** nhịp dịch phải. Đây là mức thử cho các mặt phẳng độc lập, không phải ba tốc độ áp lên mọi vật. Nam ở gần và Người Kia ở xa có thể cần lượng dịch khác nhau; chân, sàn và bóng phải cùng phép chiếu/điểm neo phù hợp. |
 | P2 — Tiến gần nhẹ | H09, tùy mức hình sẵn có; không bắt buộc | Giữ mắt Nam làm điểm chú ý, tiến khoảng 2–3% khung như bảng máy. Bố cục phải cho lớp gần nở tương quan với lớp xa, giữ tay/điện thoại đi cùng thân. Không phóng riêng mặt rồi để vai, bàn tay hoặc bóng đứng lại. Nếu chỉ đủ hình để crop/scale cả khung, gọi đó là tiến cận giả lập; không coi nó đã tạo parallax hay cho phép nhìn vòng bên hông. |
-| P3 — Cận màn hình/thẻ | D01, D03, E01, E03, G02, H05, H07 | Chữ là phần của vật: cùng dịch, xoay, phối cảnh và clipping với mặt điện thoại/laptop/căn cước. Giữ đọc được; không để chữ dính vào khung xuất khi tay xoay máy. Các màn hình nhỏ ở shot khác cũng phải tuân thủ, không chỉ các cận P3. |
+| P3 — Cận màn hình/thẻ | D01, D03, E01, E03, F01 (đoạn ảnh), G02, H05, H07 | Chữ là phần của vật: cùng dịch, xoay, phối cảnh và clipping với mặt điện thoại/laptop/căn cước. Giữ đọc được; không để chữ dính vào khung xuất khi tay xoay máy. Các màn hình nhỏ ở shot khác cũng phải tuân thủ, không chỉ các cận P3. |
 
 **Phạm vi chuyển động:** ngoài C02/E02 và tùy chọn H09, dùng P0. Các cảnh cận đọc dùng P3 cùng máy ổn định; không thêm một chuyến máy mới cho từng lớp hoặc mỗi câu thoại. Các mức pixel/phần trăm chỉ là điểm thử, chưa đo hiệu quả hay chi phí.
 
@@ -147,11 +149,12 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
-| A01 | Toàn phòng theo nền sáng hiện có, ngang tầm người ngồi, 35 mm; góc A | Tĩnh, rung 0; chỗ Nam phải, bàn sau–phải, bếp sau–trái và cửa chính tường trái đều đọc được | Nam ngủ, người ở bếp quay lưng. Báo thức và tiếng chén có vị trí; lập cả lối ra. Khung khoảng 5–8 giây nếu vừa nhịp hành động, không thêm lời dẫn mới. |
+| A01 | Toàn phòng theo nền sáng hiện có, máy cao khoảng 152 cm theo `VIEWS.wide`, 35 mm; góc A | Tĩnh, rung 0; chỗ Nam phải, bàn sau–phải, bếp sau–trái và cửa chính tường trái đều đọc được | Nam ngủ, người ở bếp quay lưng. Báo thức, tiếng nước và tiếng chén có vị trí; lập cả lối ra. Khung khoảng 5–8 giây nếu vừa nhịp hành động, không thêm lời dẫn mới. |
 | A02 | Cận tay tắt báo thức và một phần mặt Nam, 65 mm, chéo nhẹ xuống nệm | Tĩnh; nét ngón tay → mắt Nam đang nhắm; điện thoại ở cạnh nệm | Cậu tắt rồi kéo chăn, chưa biết có người giống mình. Giữ tiếng chén sang cú cắt để dẫn sự chú ý. Điện thoại chưa được nhấc lên mang đi. |
-| A03 | Trung cận Nam ba phần tư, 50 mm; bếp ở ngoài phần chính của khung | Máy giữ yên; nét mắt Nam. Không rack focus lộ mặt người kia sớm | Chạy lời tưởng đó là Tùng, rồi “Ê, áo đó…”; hướng mắt về bếp trái/sâu theo góc A. Khi người kia quay, giữ máy trên Nam: cậu ngừng giữa câu, nhìn ra cửa. Khoảng giữ 2 giây của nguồn nằm tại đây, không cộng lần nữa. |
-| A04 | Cận mặt người kia, 65 mm, ngang mắt; lấy đủ phần mày trái | Tĩnh; rõ mặt và nốt ruồi, nền bếp mềm vừa đủ | Cắt theo ánh mắt Nam để khán giả xác nhận gương mặt giống hệt. Giữ ánh sáng ban ngày; không chớp đèn, đổi mắt hoặc thêm tiếng gầm. Sau đó mới nghe câu hỏi và câu đáp theo đúng thứ tự nguồn. |
-| A05 | Trung rộng Nam tại nệm và ghế cạnh đó, 35 mm | Tĩnh để thấy chuỗi động tác; rung mặc định 0. Nếu thử cú va: một xung tối đa 3 px ở 1080p, tắt trong 0,15 giây, không xoay khung | Nam dụi mắt, sờ mặt, hỏi có phải trò đùa; nghe đúng giọng mình thì mới quơ điện thoại, đứng dậy va ghế. Không cắt mất đầu gối/điểm va. Tiếng ghế ngắn, có trọng lượng; tránh chồng thêm âm hù. |
+| A03 | Trung cận Nam ba phần tư, 50 mm; bếp ở ngoài phần chính của khung | Máy giữ yên; nét mắt Nam. Không rack focus lộ mặt người kia sớm | Chạy lời tưởng đó là Tùng, rồi “Ê, áo đó…”; hướng mắt về bếp trái/sâu theo góc A. Khi người kia quay, giữ máy trên Nam: cậu ngừng giữa câu. Cắt khi mắt Nam đã dán vào người kia. |
+| A04 | Cận mặt người kia, 65 mm, ngang mắt; lấy đủ vùng mắt/mày theo mẫu | Tĩnh; rõ mặt; nốt ruồi Người Kia ở bên phải theo thiết kế mới, không nhấn riêng, nền bếp mềm vừa đủ | Cắt theo ánh mắt Nam để khán giả xác nhận gương mặt giống hệt. Giữ ánh sáng ban ngày; không chớp đèn, đổi mắt hoặc thêm tiếng gầm. |
+| A04B | Lặp bố cục A03, 50 mm | Tĩnh; nét mắt Nam | Nam nhìn ra cửa chờ Tùng bước vào. Khoảng giữ 2 giây của nguồn nằm tại đây, không cộng lần nữa. Dụi mắt rồi nhìn lại về bếp; không thêm cận riêng chỉ nốt ruồi. |
+| A05 | Trung rộng Nam tại nệm và ghế cạnh đó, 35 mm | Tĩnh để thấy chuỗi động tác; rung mặc định 0. Nếu thử cú va: một xung tối đa 3 px ở 1080p, tắt trong 0,15 giây, không xoay khung | Nam sờ mặt vì chưa tin gương mặt trước mắt, hỏi có phải trò đùa; nghe đúng giọng mình thì mới quơ điện thoại, đứng dậy va ghế. Không cắt mất đầu gối/điểm va. Tiếng ghế ngắn, có trọng lượng; tránh chồng thêm âm hù. |
 
 ### MAY-B
 
@@ -161,7 +164,7 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
-| B01 | Trung rộng nhìn chéo qua cửa, 35 mm; Nam phía nệm/cửa, người kia phía bếp phải | Máy tĩnh, giữ cả hai vùng hành động rõ; khung cửa làm lớp gần | Nam lùi, quát đừng tới gần; người kia dừng và đặt chén xuống, hai tay trống. Thấy hành động tuân thủ trong cùng khung, không dùng lời kể thay. Bàn tay Nam phải nhấc được điện thoại từ A05 trước khi gọi. |
+| B01 | Trung rộng nhìn chéo qua cửa, 35 mm; Nam phía nệm/cửa, người kia phía bếp sau–trái | Máy tĩnh, giữ cả hai vùng hành động rõ; khung cửa làm lớp gần | Nam lùi, quát đừng tới gần; người kia dừng và đặt chén xuống, hai tay trống. Thấy hành động tuân thủ trong cùng khung, không dùng lời kể thay. Bàn tay Nam phải nhấc được điện thoại từ A05 trước khi gọi. |
 | B02 | Trung cận Nam ở ngưỡng cửa, 50 mm; cửa và lối ra còn đọc được | Máy cùng phía trục vừa lập; nét mắt/tay Nam. Tay phải cầm điện thoại, tay trái giữ cửa | Giữ các câu hỏi tên, đường vào và cuộc gọi. Không cần cắt theo mỗi câu. Giọng Tùng có màu âm điện thoại; không cắt sang cảnh Tùng thấy bản sao. |
 | B03 | Cận Nam, 65 mm, ngang mắt | Tĩnh; nền phòng ở sau vẫn có thể nhận diện, không blur đến mất vị trí người kia | Tùng bác bỏ rồi ngắt. Nam giữ máy bên tai thêm một nhịp, hạ xuống, siết máy, nhìn lại vào phòng. Tiếng ngắt ngắn; âm quạt/hành lang tiếp tục. Không thêm một khoảng 2 giây mới nếu nhịp này đã nằm trong diễn. |
 
@@ -173,12 +176,12 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
-| C01 | Toàn hành lang, 28 mm; góc B đối diện cửa | Tĩnh; Nam phía cầu thang/trái, cửa giữa, chỗ chờ bên phải | Tái xác lập không gian trước khi đổi trục. Người kia đáp “Mày muốn tao làm gì?”, Nam yêu cầu ra ngoài. Thấy vị trí hai người trước khi họ di chuyển. |
+| C01 | Toàn hành lang, 28 mm; góc B nhìn vuông vào dãy phòng, máy sát lan can, lan can nằm dưới mép khung | Tĩnh; Nam phía cầu thang/trái, cửa giữa, chỗ chờ bên phải | Lượt “Mày muốn tao làm gì?” và “Ra khỏi phòng tao” quay tiếp ở B01, vì lúc đó người kia còn trong phòng. Cắt sang C01 khi người kia tới gần ngưỡng để tái xác lập không gian trước khi đổi trục. |
 | C02 | Trung rộng cùng phía trục hành lang, 40 mm | Dịch ngang ngắn theo Nam né trái; tối đa khoảng 2% bề ngang khung làm điểm thử, rung 0; cạnh cửa lướt ở lớp gần | Nam lùi khi người kia tiến, nhắc giữ khoảng cách; người kia dừng. Tránh silhouette chồng kín nhau. Có thể giữ nguyên toàn C01 nếu bố cục đã đọc được, không bắt buộc thêm cú máy. |
 | C03 | Toàn như C01, 28 mm | Tĩnh, giữ hai người rõ | Người kia đi về chỗ được chỉ, Nam chờ rồi mới lách vào phòng. Giữ đến lúc Nam qua ngưỡng; không cho người kia biến vị trí giữa hai cú cắt. |
 | C04 | Trung Nam phía trong nhìn về cửa, 50 mm | Tĩnh, tay khép cửa còn trong hình | Nối đúng hướng chuyển động C03. Nam đóng cửa; điện thoại vẫn trong tay phải, tay trái rảnh để gài chốt. Tiếng hành lang bớt trực tiếp khi cửa khép. |
 | C05 | Đặc tả chốt và tay trái, góc xiên nhẹ, 85 mm | Tĩnh; rõ lưỡi chốt đi vào ổ, không rung/nhòe | Bằng chứng cửa thực sự khóa ở thời điểm này. Tiếng kim loại nhỏ, rõ. Cắt sau khi tay ngừng, không chỉ cho thấy một cánh cửa đã đóng. |
-| C06 | Trung Nam ngồi đối diện cửa, 50 mm, ngang tầm ngồi | Tĩnh; cửa đóng chiếm một phần khung, mặt Nam đọc được | Lời người kia “Tao đứng đây rồi” ở ngoài, Nam đáp “Đừng nói nữa”; sau đó im thật. Cho thấy Nam kéo ghế làm việc từ bàn ra ngồi đối diện cửa, giữ ngoài vùng quét cánh cửa. Không dùng kiểu lăn khi mẫu ghế chưa thống nhất. Điện thoại trong tay, chưa trượt sang bàn. |
+| C06 | Trung Nam ngồi đối diện cửa, 50 mm, ngang tầm ngồi | Tĩnh; cửa đóng chiếm một phần khung, mặt Nam đọc được | Lời người kia “Tao đứng đây rồi” ở ngoài, Nam đáp “Đừng nói nữa”; sau đó im thật. Cho thấy Nam kéo chiếc ghế làm việc từ cạnh nệm ra ngồi đối diện cửa, giữ ngoài vùng quét cánh cửa. Ghế bốn chân, diễn đứng lên kéo/nhấc, không lăn như ghế có bánh. Điện thoại trong tay, chưa trượt sang bàn. |
 
 ### MAY-D
 
@@ -191,7 +194,7 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 | D01 | Cận điện thoại, 85 mm, mặt máy gần vuông góc hướng nhìn | Tĩnh, chữ rõ, không rung hay bloom | Nam nhắn Tùng về phòng; chưa có trả lời. Giữ đủ đọc đúng câu, không cần chèn thêm tin mới hoặc dữ liệu riêng. |
 | D02 | Cận vừa bàn, tay và ví/ngăn giấy, 65 mm, chéo xuống nhẹ | Tĩnh; điện thoại tay phải; tay trái kiểm ví trên bàn, kéo ngăn tủ giấy tờ rồi lấy căn cước từ trong ngăn | Thấy cậu tự kiểm tra ví/giấy tờ; không dựng đồ bay vào tay. Có thể đặt ví nằm mở để tay trái thao tác được. Giữ tiếng ngăn kéo và giấy nhỏ, có nguồn. |
 | D03 | Cận mặt Nam với căn cước ở dưới cằm/mép dưới khung, 65 mm | Nét từ ảnh khuôn mặt trên thẻ → mắt Nam trong khoảng 0,5–0,8 giây để thử; không làm mất cả hai trong blur | Đối chiếu hình mình với điều vừa gặp. Không zoom dữ liệu cá nhân trên thẻ. Nam đặt thẻ xuống bằng tay trái; điện thoại vẫn tay phải theo nguồn. |
-| D04 | Trung Nam nhìn cửa, 50 mm | Máy tĩnh; chốt đóng và Nam cùng đọc được khi bố cục cho phép | Giữ đối đáp, cả “Không có lần sau”. Cửa không hé dần trong lúc nói. Nội dung câu hỏi đã đủ căng, không cần máy trôi liên tục. |
+| D04 | Trung Nam ngồi ghế đối diện cửa, 50 mm, lặp C06 | Máy tĩnh; chốt đóng và Nam cùng đọc được | Giữ đối đáp, cả “Không có lần sau”. Cửa không hé dần trong lúc nói. Nội dung câu hỏi đã đủ căng, không cần máy trôi liên tục. |
 | D05 | Trung người kia ở hành lang, 50 mm, ngang mắt | Tĩnh, khuôn mặt điềm tĩnh, cửa Nam nằm đúng phía trục | Chỉ xen khi người kia trả lời về chén, áo, chổi; trở lại D04 khi Nam có phản ứng. Không cắt tới người kia mỉm cười sau suy nghĩ thầm của Nam để tạo cảm giác nó nghe được nội tâm. |
 
 ### MAY-E
@@ -203,8 +206,9 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
 | E01 | Cận điện thoại, 85 mm | Tĩnh, rõ tin giục và lời Nam hứa hôm qua | Một nhịp rung mở đoạn; giữ đủ đọc. Không thêm giọng trưởng nhóm đọc thay tin nhắn, không có tiếng rung liên tục phủ các suy nghĩ sau đó. |
-| E02 | Trung rộng bàn Nam sau–phải cạnh tủ quần áo, 35 mm | Dịch ngang nhẹ theo Nam kéo ghế từ vùng đối diện cửa về bàn rồi đứng lại; cạnh bàn lớp gần và tường lớp xa dịch khác nhau | Nam đặt điện thoại trong tầm với, mở laptop đã cắm sạc. Xác lập vị trí đồ trước phần tối. Không đổi cửa/nệm sang bên khác để lấy một góc đẹp riêng. |
-| E03 | Cận tài liệu trên laptop, 65 mm; góc gần chính diện | Tĩnh; chữ là lớp riêng rõ, tay/phím có vùng chạm hợp lý | Tên Nam, tiêu đề còn trống so với phần các bạn. Gõ–dừng–xóa nhiều lần; có thể cắt thời gian cùng bố cục bằng thay vệt nắng và trạng thái bài. Âm phím thưa, không phát thành nhịp gõ giỏi liên tục. |
+| E01B | Toàn phòng góc A như A01, 35 mm | Tĩnh, rung 0 | Nam đứng dậy kéo ghế rời chỗ đối diện cửa, băng qua phòng. Cắt khi ghế gần tới bàn, để đường đi được thấy trọn. |
+| E02 | Trung rộng bàn Nam sau–phải cạnh tủ quần áo, 35 mm | Dịch ngang nhẹ theo đoạn cuối, khi ghế vào khung rồi đứng lại; cạnh bàn lớp gần và tường lớp xa dịch khác nhau | Nam đặt điện thoại trong tầm với, mở laptop đã cắm sạc. Xác lập vị trí đồ trước phần tối. Không đổi cửa/nệm sang bên khác để lấy một góc đẹp riêng. |
+| E03 | Cận tài liệu trên laptop, 65 mm; góc gần chính diện | Tĩnh; chữ là lớp riêng rõ, tay/phím có vùng chạm hợp lý | Đầu shot thấy tài liệu chung có phần bạn đã đầy chữ/phần Nam còn tiêu đề, sau đó Nam chuyển sang nháp riêng phần mở đầu để viết; giao diện đọc được đây là bản riêng chưa chia sẻ. Gõ–dừng–xóa nhiều lần; có thể cắt thời gian cùng bố cục bằng thay vệt nắng và trạng thái bài. Âm phím thưa, không phát thành nhịp gõ giỏi liên tục. |
 | E04 | Trung cận Nam ba phần tư, 65 mm; một phần bàn và góc bếp giữ trong bố cục | Tĩnh qua các suy nghĩ; nét mắt, cửa ở mép hướng nhìn | Nội tâm so sự chăm chỉ với mình, thoáng muốn nhờ rồi lắc đầu tự bác. Giữ miệng không nói, chỉ mắt/tay/tư thế thay đổi. Có thể trở lại E03 lúc Nam tiếp tục thử viết; không thêm góc cho mỗi câu nội tâm. |
 
 ### MAY-F
@@ -215,10 +219,10 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
-| F01 | Trung cận cửa/chốt, 65 mm, đủ thấy mặt Nam nhìn ra | Tĩnh; điện thoại tay phải, tay trái mở chốt, nét chốt → mắt Nam | Cho thấy chốt được rút bởi Nam. Cậu hé kiểm tra trước khi bước; không cắt thẳng từ ghế sang ngoài hành lang. |
+| F01 | Trung cận cửa/chốt, 65 mm, đủ thấy mặt Nam nhìn ra | Tĩnh; điện thoại tay phải, tay trái mở chốt, nét chốt → mắt Nam | Cho thấy chốt được rút bởi Nam. Cậu hé kiểm tra, giơ máy qua khe chụp người kia ở xa; ảnh gửi Tùng chỉ là dáng nhỏ ngược sáng, hiện thoáng theo P3. Đây là bằng chứng Nam có thử, không phải bằng chứng đủ để Tùng tin. Cậu chỉ bước ra sau đó; không cắt thẳng từ ghế sang ngoài hành lang. |
 | F02 | Toàn hành lang lặp C01, 28 mm | Tĩnh, giữ chiều trái/phải cũ | Nam chỉ người kia đứng xa; nó đi tới đúng điểm thì cậu mới rời phòng theo lối đối diện. Không quay nội thất nhà vệ sinh; cắt thời gian sau khi đường đi đã rõ. |
 | F03 | Cùng góc F02, 28 mm | Tĩnh, màu sáng cùng đoạn ban ngày | Nam trở về, người kia vẫn ở chỗ được chỉ. Nam vào, khép cửa. Giữ ngưỡng đủ lâu để thấy người kia chưa lẻn theo ngay lúc này. |
-| F04 | Cận vừa mép cửa, tay trái và chốt, điện thoại tay phải, 65 mm | Tĩnh; cả chốt rút lẫn máy rung/sáng đều rõ, không rack focus làm mờ mất bằng chứng | Tay Nam định gài, tin nhắn giục làm cậu chuyển sang trả lời rồi bỏ đi. Giữ 1–2 giây trong nhịp hành động để đọc được lưỡi chốt vẫn rút; không có tiếng khóa. Cửa đóng không đồng nghĩa cửa đã chốt. |
+| F04 | Cận vừa mép cửa, tay trái và chốt, điện thoại tay phải, 65 mm | Tĩnh; cả chốt rút lẫn máy rung/sáng đều rõ, không rack focus làm mờ mất bằng chứng | Tay Nam định gài, tin nhắn giục làm cậu chuyển sang trả lời rồi bỏ đi. Giữ khoảng 1 giây trong nhịp hành động để đọc được lưỡi chốt vẫn rút; không có tiếng khóa. Cửa đóng không đồng nghĩa cửa đã chốt. |
 
 ### MAY-G
 
@@ -230,8 +234,8 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 |---|---|---|---|
 | G01 | Trung Nam ở bàn, 50 mm; cùng phía với E02 | Tĩnh; tài liệu trên laptop và điện thoại trong tay cùng có chỗ trong hình | Nam tự cho mình nghỉ, chuyển sang game. Tiếng game có nguồn từ điện thoại, thấp hơn nội tâm, không biến thành nhạc nền thay tâm trạng. |
 | G02 | Cận màn hình điện thoại, 85 mm | Tĩnh, rõ tay bật Không làm phiền và biểu tượng sau khi bật | Phải thấy thao tác do Nam làm. Chưa dùng dấu báo đỏ/âm hù báo trước hậu quả. Hiện chữ đủ đọc, không phóng cả UI nhiều lần. |
-| G03 | Lặp trung G01, 50 mm | Tĩnh; 2–3 lát cắt cùng góc với tư thế/vệt nắng đổi | Hết trận này tới trận khác, ánh nắng thấp dần. Giữ vị trí bàn/đồ ổn định; không để chiếc ghế hoặc điện thoại nhân đôi qua montage. |
-| G04 | Toàn phòng góc A như A01, 35 mm | Tĩnh, rõ đường từ bàn tới nệm | Nam đặt điện thoại cạnh laptop rồi sang nệm nằm ngủ; laptop còn bài mở, ghế ở bàn. Giảm ánh sáng qua chuyển thời gian; không quay cảnh người kia lẻn vào hoặc giải thích động cơ của nó. Tiếng game đã dừng khi cậu đặt máy. |
+| G03 | Lặp trung G01, 50 mm | Tĩnh; 2–3 lát cắt cùng góc với tư thế/vệt nắng đổi | Hết trận này tới trận khác, nắng rút dần khỏi mép bàn, phòng dịu lại. Giữ vị trí bàn/đồ ổn định; không để chiếc ghế hoặc điện thoại nhân đôi qua montage. |
+| G04 | Toàn phòng góc A như A01, 35 mm | Tĩnh, rõ đường từ bàn tới nệm | Nam đặt điện thoại cạnh laptop, nhìn ra cửa, hỏi vọng “Còn đó không?”, chờ một nhịp không có tiếng đáp, rồi sang nệm nằm ngủ; laptop còn bài mở, ghế ở bàn. Giảm ánh sáng qua chuyển thời gian; không quay cảnh người kia lẻn vào hoặc giải thích động cơ của nó. Tiếng game đã dừng khi cậu đặt máy. |
 
 ### MAY-H
 
@@ -241,14 +245,14 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
-| H01 | Trung cận Nam trên nệm, 50 mm, hướng nhìn về bàn theo trục đã lập | Tĩnh, nét mắt Nam; ánh bàn rọi từ phía phải | Tiếng phím đánh thức, lấy phản ứng trước. Nam nhìn chỗ Tùng trống trong hướng cắt kế tiếp hoặc trong mép khung. Không cần hiện bảng chữ “Tối” thay mọi dấu ánh sáng. |
+| H01 | Trung cận Nam trên nệm, 50 mm, hướng nhìn về bàn theo trục đã lập | Tĩnh, nét mắt Nam; ánh bàn rọi từ phía phải | Tiếng phím đánh thức, lấy phản ứng trước. Nam nhìn nửa giường của Tùng còn trống ngay cạnh mình, trong cùng khung. Không cần hiện bảng chữ “Tối” thay mọi dấu ánh sáng. |
 | H02 | Toàn phòng góc A lặp A01/G04, 35 mm | Tĩnh, rõ Nam ở chỗ ngủ phải và người kia tại bàn sau–phải cạnh tủ | Khán giả đọc ngay thay đổi: cùng căn phòng, người kia ngồi ở ghế Nam đã dùng. Đèn bàn và laptop là nguồn sáng; bếp sau–trái và cửa tường trái vẫn nhận diện được. Không đổi nệm/cửa hoặc quay đảo toàn cảnh. |
-| H03 | Trung đôi chéo, ngang mắt, 40 mm | Tĩnh, nét cả hai vùng diễn; không mặc định handheld | Nam bật dậy quát; người kia dừng gõ và đáp. Giữ khoảng cách/đường Nam đi tới bàn rõ, người kia không chắn lối. Lời về cửa không chốt gợi lại F04 bằng trí nhớ khán giả, không bắt buộc phát lại insert. |
-| H04 | Cận vừa mặt bàn và tay Nam, 65 mm | Tĩnh; thấy điện thoại ở đúng vị trí G04 rồi Nam lấy bằng tay phải | Không cắt ngay sang điện thoại đã nằm trong tay. Người kia không đưa/giữ điện thoại hộ; tay nó rời phím sau khi bị quát. |
-| H05 | Cận điện thoại từ phía Nam, 85 mm, màn hình gần chính diện | Tĩnh, rõ biểu tượng Không làm phiền rồi thao tác mở tin Tùng/danh sách nhỡ | Người kia chỉ nhận ra biểu tượng khi có đường nhìn tới màn hình Nam cầm sáng. Nam tự mở và đọc, không có montage người kia biết thông tin từ trước. Chừa thời gian đọc từng lớp, không hiện mọi chữ trong một khung bé. |
+| H03 | Trung đôi chéo, ngang mắt, 40 mm | Tĩnh, nét cả hai vùng diễn; không mặc định handheld | Nam bật dậy quát; người kia dừng gõ và đáp. Nam bắt nó bỏ tay khỏi bàn; người kia đứng dậy kéo ghế lùi rồi ngồi xuống, đặt tay lên đùi trước khi Nam lại gần. Giữ khoảng cách/đường Nam đi tới bàn rõ, người kia không chắn lối. Lời về cửa không chốt gợi lại F04 bằng trí nhớ khán giả, không bắt buộc phát lại insert. |
+| H04 | Cận vừa mặt bàn và tay Nam, 65 mm | Tĩnh; thấy điện thoại ở đúng vị trí G04 rồi Nam lấy bằng tay phải | Không cắt ngay sang điện thoại đã nằm trong tay. Người kia không đưa/giữ điện thoại hộ; nó đã lùi ghế, tay trên đùi. Nam với lấy máy ở tầm tay, không đứng sát. |
+| H05 | Cận điện thoại từ phía Nam, 85 mm, màn hình gần chính diện | Tĩnh, rõ biểu tượng Không làm phiền rồi thao tác mở tin Tùng/danh sách nhỡ | Người kia chỉ nhận ra biểu tượng khi có đường nhìn tới màn hình Nam cầm sáng. Nam tự mở và đọc, tin Tùng có nhắc tới tấm ảnh mờ; giờ trên máy khoảng 19h30. Không có montage người kia biết thông tin từ trước. Chừa thời gian đọc từng lớp, không hiện mọi chữ trong một khung bé. |
 | H06 | Cận Nam bên bàn, 65 mm | Máy tĩnh; ánh đèn bàn giữ rõ mắt và tay còn siết điện thoại | Giận chuyển sang xem xét; còn đề phòng. Cắt theo ánh mắt từ điện thoại sang laptop, chưa cho cười hoặc thả lỏng toàn thân ngay. Không dùng nhạc ấm xác nhận người kia đáng tin. |
-| H07 | Cận laptop, 65 mm, góc đọc tài liệu gần E03 | Tĩnh; nét chữ/phần hướng dẫn, tay trái Nam ở trackpad hoặc vùng cuộn | Nam tự đối chiếu, đọc và cuộn; khác biệt trang trống ban ngày với bài thành hình là bằng chứng lợi ích. Giữ cả chỗ còn cần sửa, không biến thành bài hoàn hảo. Không bấm gửi. |
-| H08 | Trung người kia ngồi, ngang tầm mắt ngồi, 50 mm | Tĩnh; Nam vẫn có vị trí ngoài khung đúng trục; rõ hai tay không gõ tiếp | Lời mời sửa giúp khỏi thức khuya diễn nhẹ, thân thiện. Không góc thấp tôn quyền lực, không `eerie_smirk` phô lộ săn mồi. Cắt về Nam khi lời đề nghị tác động. |
+| H07 | Cận laptop, 65 mm, góc đọc tài liệu gần E03 | Tĩnh; nét chữ/phần hướng dẫn, tay trái Nam ở trackpad hoặc vùng cuộn | Nam tự đối chiếu, đọc và cuộn chính bản nháp riêng từ E03; khác biệt bản vài câu ban ngày với bài thành hình là bằng chứng lợi ích. Không chuyển sang sửa tài liệu chung. Giữ cả chỗ còn cần sửa, không biến thành bài hoàn hảo. Không bấm gửi. |
+| H08 | Trung người kia ngồi, ngang tầm mắt ngồi, 50 mm; cùng hướng máy G01 để gợi nó chiếm chỗ Nam, nhưng ghế vẫn ở vị trí đã kéo lùi tại H03 | Tĩnh; Nam vẫn có vị trí ngoài khung đúng trục; rõ hai tay không gõ tiếp | Lời mời sửa giúp khỏi thức khuya diễn nhẹ, thân thiện. Không góc thấp tôn quyền lực, không `eerie_smirk` phô lộ săn mồi. Cắt về Nam khi lời đề nghị tác động. |
 | H09 | Cận Nam, 65 mm, ngang mắt | Có thể tiến nhẹ 2–3% khung nếu nền/pose đủ; mặc định giữ tĩnh cũng được. Nét mắt rồi khóe miệng | Nội tâm tự luyến, ngẫm rồi cười nhẹ. Điện thoại vẫn trong tay. Không thêm tia sáng từ trời, nhân vật thần linh hoặc hình minh họa xác nhận suy nghĩ của cậu. |
 | H10 | Trung đôi ổn định, 40 mm, bàn ở lớp gần | Tĩnh, đọc được khoảng cách Nam đứng/người kia ngồi và bàn phím | Nam giữ quyền đọc hết/chưa cho gửi; người kia đồng ý, tay chờ khỏi phím. Kết ở âm phòng, ánh bàn và hành động đọc tiếp, không nối sang Tùng về hoặc bước thay thế chưa viết. |
 
@@ -256,7 +260,7 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 - **Sáng:** cửa sổ là nguồn chính, phòng đủ sáng để nhận mặt và đường thoát. Không phủ vàng viền mọi người hoặc thêm sương chỉ để có vẻ điện ảnh.
 - **Làm bài → game:** cùng cửa sổ, vệt sáng dịch trên bàn/tường và tư thế thay đổi. Đèn/laptop chưa tự đổi thành nguồn chính giữa một cảnh ban ngày.
-- **Tối:** đèn bàn và laptop; giữ sắc da, màu áo, vị trí cửa và vùng tối có thể đọc. Đèn bàn bật là trạng thái đã có khi Nam tỉnh; không cần thêm một cảnh ai bật đèn để giải thích mọi thao tác nhỏ.
+- **Tối:** khoảng 19h30, đồng hồ theo mốc này; đèn bàn và laptop; giữ sắc da, màu áo, vị trí cửa và vùng tối có thể đọc. Đèn bàn bật là trạng thái đã có khi Nam tỉnh; không cần thêm một cảnh ai bật đèn để giải thích mọi thao tác nhỏ.
 - **Cắt:** dùng ánh mắt, tay chạm đồ, người ngừng nói hoặc người đổi hướng. Giữ âm phòng nối qua các góc cùng thời điểm; tiếng nước ngừng đúng lúc nguồn ghi. Cửa đóng làm âm người kia ở ngoài bớt trực tiếp, không biến thành giọng nội tâm.
 - **Chuyển thời gian:** cắt cùng bố cục với nắng/tư thế/trạng thái bài đổi; sang tối có thể dùng dissolve ngắn trên phòng/nệm. Không hòa hai khuôn mặt lên nhau khi đối thoại hoặc dùng một giọng nói mơ hồ để báo thời gian trôi.
 - **Chữ:** thông báo, tin hứa hôm qua, Không làm phiền, tin Tùng và cuộc gọi nhỡ là các lớp đọc riêng. Cận đủ lớn ở cỡ điện thoại; tăng thời gian giữ trước khi tăng số hiệu ứng. Chữ và viền khung không rung theo camera.
@@ -266,7 +270,7 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 Tham chiếu bộ nhân vật ở [ASSET.md](ASSET.md), theo [hướng Style B](../THIET-KE-NHAN-VAT.md). Bảng SVG có biểu cảm/pose chưa chứng minh mọi góc và động tác trong bảng máy đã sẵn sàng.
 
-1. Dùng mặt bằng mới một cửa trái, bếp trái, bàn phải làm mốc; chuẩn bị góc toàn ngoài hành lang B và các lớp trạng thái cửa/ghế còn thiếu. Có lớp nền được vẽ đủ cho các dịch máy nhỏ; không cần orbit hoặc góc trần mới.
+1. Dùng mặt bằng mới một cửa trái, bếp trái, bàn phải làm mốc; dùng nền hành lang B và trạng thái cửa/ghế đã có; kiểm tra đường qua ngưỡng và che/lộ khi dựng. Có lớp nền được vẽ đủ cho các dịch máy nhỏ; không cần orbit hoặc góc trần mới.
 2. Kiểm tra/tạo bổ sung khi được giao: Nam ngủ/bật dậy, gõ–xóa, cầm điện thoại/căn cước, chơi game, mở/gài chốt; người kia quay mặt từ bồn rửa, đặt chén, đi rồi ngồi gõ. Chỉ bổ sung pose/góc thực sự được dùng, không tự nhận có sẵn cả rig ngồi/gõ từ một bảng tĩnh.
 3. Mặt ba phần tư, bàn tay/điểm cầm, cận nốt ruồi, chốt và màn hình phải đủ chi tiết cho cỡ gần. Không phóng SVG toàn cảnh để thay mọi cận. Bát được đặt xuống trước khi nhân vật để hai tay trống.
 4. Duyệt storyboard theo thứ tự câu chuyện, đặc biệt A03–A05, C01–C05, F03–F04 và G04–H04. Đối chiếu trạng thái chốt/điện thoại/ghế, hướng mắt, tay đang giữ và nguồn sáng.

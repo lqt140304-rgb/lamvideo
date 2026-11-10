@@ -1,5 +1,8 @@
 // node tests/ho-so-02-rig.cjs — kiểm tra khớp của rig Hồ sơ 2: xương không đổi độ dài, khớp không gập ngược, chân chạm sàn.
 // Không thay được việc xem chuyển động (composition HoSo02RigSheet).
+// Shared episode assets live outside the studio folder; resolve React from this studio.
+process.env.NODE_PATH = [require('node:path').resolve(__dirname, '../node_modules'), process.env.NODE_PATH].filter(Boolean).join(require('node:path').delimiter);
+require('node:module').Module._initPaths();
 require('./shared-assets.cjs'); // đăng ký loader TypeScript
 const assert = require('node:assert/strict');
 const React = require('react');
@@ -128,5 +131,25 @@ assert.ok(drift(300) > drift(80));
 // Người ngủ nằm dưới chăn: có sleeper thì được vẽ.
 assert.ok(renderToStaticMarkup(React.createElement(room.RoomScene, { view: 'bed', sleeper: (p) => React.createElement('g', { 'data-sleeper': p.scale > 0 }) })).includes('data-sleeper'));
 assert.ok(renderToStaticMarkup(React.createElement(room.RoomScene, { actors: [{ at: [90, 90], render: (p) => React.createElement('g', { 'data-actor': p.scale > 0 }) }] })).includes('data-actor'));
+
+// Mirror identity: same view/facing, opposite side; not a flipped phone/hand pose.
+const mirrorMole = (view, facing, identity) => mole({ view, facing, identity });
+for (const view of ['side', 'quarter']) for (const facing of [1, -1]) {
+  assert.equal(mirrorMole(view, facing, 'nam') + mirrorMole(view, facing, 'nguoi-kia'), 1, `${view} opposite visible sides`);
+}
+for (const identity of ['nam','nguoi-kia']) {
+  assert.equal(mirrorMole('back', 1, identity), 0);
+  for (const view of ['front','three']) for (const facing of [1,-1]) assert.equal(mirrorMole(view,facing,identity),1);
+}
+const markX = identity => Number(renderToStaticMarkup(React.createElement('svg',null,React.createElement(r.StudentTwinHead,{view:'front',identity}))).match(/<circle cx="([^"]+)"[^>]*data-identity-mark=/)[1]) - 10;
+assert.ok(markX('nam') < 0 && markX('nguoi-kia') > 0, 'front marks are on opposite sides');
+near(markX('nam'), -markX('nguoi-kia'), 'front marks reflect about head centre');
+for (const view of ['front','three','side','quarter','back']) for (const facing of [1,-1]) {
+  const pose={...r.TWIN_POSES.phone,view,facing};
+  const original=renderToStaticMarkup(React.createElement('svg',null,React.createElement(r.StudentTwinBody,{pose})));
+  const double=renderToStaticMarkup(React.createElement('svg',null,React.createElement(r.NguoiKia,{pose})));
+  assert.ok(!/NaN|undefined|Infinity/.test(double),'mirror render finite');
+  assert.equal(phoneAt(original),phoneAt(double),'identity must not move held phone');
+}
 
 console.log('ho-so-02 rig ok');

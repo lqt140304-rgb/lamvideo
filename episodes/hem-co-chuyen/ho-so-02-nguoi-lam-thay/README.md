@@ -1,5 +1,7 @@
 # Hẻm Có Chuyện — Hồ sơ 2: Người làm thay
 
+**Rà và tích hợp 10/11/2026:** đã đưa các sửa truyện từ phiên tách vào [bản cảnh](THAO-LUAN-CANH.md), đồng bộ [bảng máy](DUNG-CANH.md) với phòng/rig hiện hành. Đã khớp chuỗi ghế, bản nháp riêng, áo theo cảnh và dấu nốt ruồi đối bên theo chốt Người Kia sinh ra từ gương. Xem [căn cứ, hướng sửa và phần còn cần thử](RA-SOAT-SUA-TRUYEN.md). Chưa viết phần kết hoặc nâng các cảnh còn “chờ duyệt” thành đã duyệt phim.
+
 **Nhịp kịch bản — 10/11/2026:** đã thêm cue không đọc vào [bản cảnh hiện hành](THAO-LUAN-CANH.md) và [đường nhịp A–H](DUNG-CANH.md#nhịp-kể-hiện-hành): phản ứng khi nhận mặt, đối đáp, thử làm bài, chốt cửa, chuyển sáng–tối và tự kiểm chứng trước khi dịu. Giữ thoại và mức duyệt; chưa có giọng/animatic để khóa tổng phút.
 
 **Sửa tạo hình rig V3 (bản cũ) — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
@@ -16,7 +18,7 @@ Xem trong Studio (`npm run studio` tại `what-if-studio/`): `HoSo02Turnaround`,
 
 **Rig cũ (chỉ để đối chiếu):** [bảng tư thế](assets/rig/tu-the-khop.png) và [hướng dẫn](assets/rig/RIG-NHAN-VAT.md); các mục "rig V3" trong file này nói về bản cũ.
 
-**Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.
+**Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Đã có mô hình phòng và các góc xem trong hồ sơ bối cảnh; còn phải kiểm tra tương tác/chuyển động theo shot.
 
 **Trạng thái ngày 09/11/2026:** đang cùng chủ repo phát triển từng cảnh. “Người làm thay” là tên làm việc. Các đoạn đầu do GPT-6 Astra đề xuất; từ yêu cầu tiếp theo ngày 09/11/2026 chuyển sang **GPT-6.1 Sol để tiết kiệm**. Người dùng chốt nội dung lần lượt. Chưa có kịch bản hoàn chỉnh được duyệt.
 

@@ -8,6 +8,8 @@
 
 **Quy chuẩn mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Bộ phòng trọ đã có bản đại tu SVG/TSX/PNG theo thông báo đầu file; chờ duyệt mỹ thuật, chưa coi tương tác/chuyển động là hoàn thiện.
 
+**Chốt gương 10/11/2026:** Nam giữ nốt ruồi bên trái theo mẫu; Người Kia bên phải ở cùng góc nhìn. Dùng `NguoiKia` hoặc `identity="nguoi-kia"`, không dùng đầu Nam mặc định cho bản sao. Kích thước nốt giữ nhỏ, không phóng to. Xem [bảng đối chiếu](assets/thiet-ke/doi-chieu-not-ruoi.png) và [quy chuẩn](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md).
+
 ## Dàn nhân vật theo mẫu SVG mới (Style B) — 09/11/2026
 
 Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người làm thay** đã được thiết kế đồng bộ theo phong cách SVG hữu cơ mới (Style B: nét vẽ mềm, mảng tóc gọn, vai áo rủ tự nhiên, quần có khối, biểu cảm linh hoạt).
@@ -23,8 +25,8 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
 
 | Nhân vật | Vai trò trong kịch bản | Đặc điểm nhận diện & Tạo hình | Trang phục & Đạo cụ |
 |---|---|---|---|
-| **1. Nam** | Sinh viên nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái** (chi tiết then chốt từ kịch bản), tóc mảng gọn có lọn xoăn trên đỉnh theo Mẫu B, vai mềm buông lơi, hai tay đầy đặn rõ ràng buông tự nhiên ngoài thân áo. | Áo thun xanh rêu (`#5c7a70`), quần dài xám có khối (`#515451`), dép lê quai ngang (`#425850`). |
-| **2. Người Kia (Bản sao)** | Sinh vật thay thế bí ẩn, 100% bản sao hoàn hảo của Nam | Khuôn mặt, **nốt ruồi đuôi mày trái, kiểu tóc và vóc dáng giống hệt Nam 100%**, dáng tay đầy đặn rõ ràng như Nam, ánh mắt điềm tĩnh / bí hiểm. | Mặc chiếc **áo thun xanh rêu (`#5c7a70`) của Nam** (chiếc áo Nam bỏ trên ghế tối qua), quần dài xám (`#515451`), dép lê quai ngang (`#425850`). |
+| **1. Nam** | Sinh viên nhân vật chính, lười nhác, ngủ nướng, trễ deadline bài nhóm, sợ hãi khi gặp bản sao | **Nốt ruồi sát đuôi mày trái theo mẫu nhìn từ máy** (chi tiết then chốt từ kịch bản), tóc mảng gọn có lọn xoăn trên đỉnh theo Mẫu B, vai mềm buông lơi, hai tay đầy đặn rõ ràng buông tự nhiên ngoài thân áo. | A–H: áo ngủ xám (`#8a8783`); áo thường xanh rêu (`#5c7a70`), quần dài xám có khối (`#515451`), dép lê quai ngang (`#425850`). |
+| **2. Người Kia (Bản sao)** | Sinh vật từ gương, thay thế Nam; nguồn gốc chỉ lộ cuối truyện | Khuôn mặt, **nốt ruồi đuôi mày đối bên với Nam**, gương mặt/kiểu tóc/vóc dáng tương đồng, dáng tay đầy đặn rõ ràng như Nam, ánh mắt điềm tĩnh / bí hiểm. | Mặc chiếc **áo thun xanh rêu (`#5c7a70`) của Nam** (chiếc áo Nam bỏ trên ghế tối qua), quần dài xám (`#515451`), dép lê quai ngang (`#425850`). |
 | **3. Tùng** | Bạn cùng phòng chăm chỉ, dậy sớm đi học lúc 7h, nghe máy gạt đi vì tưởng Nam ngủ mơ ("Mày xàm hả?") | Sinh viên năng động, gương mặt sáng sủa, cằm gọn, **tóc ngắn tỉa mảng khối layer sắc nét Style B**, không đeo kính, dáng đứng thể thao tự tin. | **Đồ thể thao đá bóng**: Áo jersey xanh navy số 7 (`#1d4e89`) cổ viền trắng, quần đùi thể thao sọc hông (`#142842`), vớ cao cổ sọc trắng, giày turf ôm chân. |
 
 ---
@@ -90,7 +92,7 @@ Bản nền ngày–tối dùng chung mặt bằng; giờ và nội dung màn h�
 
 Đã đối chiếu bảng các góc máy; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ trên cùng nệm đôi, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
 
-**Trạng thái dùng trong phim:** một mẫu ghế bốn chân theo Nam từ bàn ra cửa rồi trở lại bàn; không đổi thành ghế xoay hoặc tự thêm ghế chắn cửa. Cần thấy chốt gài khi Nam khóa và chốt rút sau lúc quên gài khi về; nền tối không được giữ trạng thái khóa như một quy luật bất biến. Đối chiếu các trạng thái của nguồn bối cảnh; đường di chuyển và cú va A05 vẫn cần kiểm tra animatic.
+**Trạng thái dùng trong phim:** một mẫu ghế bốn chân theo chuỗi cạnh nệm → đối diện cửa → bàn; không đổi thành ghế xoay hoặc tự thêm ghế chắn cửa. Cần thấy chốt gài khi Nam khóa và chốt rút sau lúc quên gài khi về; nền tối không được giữ trạng thái khóa như một quy luật bất biến. Đối chiếu các trạng thái của nguồn bối cảnh; đường di chuyển và cú va A05 vẫn cần kiểm tra animatic.
 
 Kiểm tra pose ngủ/bật dậy, nhìn ba phần tư, cầm điện thoại/căn cước, gõ bài/game, tay chạm chốt, đặt chén và người kia ngồi bàn. Những pose/góc chưa có mới là yêu cầu bổ sung, chưa tạo hay chạy thử. Giữ nội tâm là suy nghĩ của Nam; Người Kia không đọc được suy nghĩ hoặc màn hình từ ngoài cửa.
 

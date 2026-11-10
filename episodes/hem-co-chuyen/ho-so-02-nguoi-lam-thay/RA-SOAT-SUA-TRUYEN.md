@@ -1,38 +1,49 @@
-# Rà phần sửa truyện trong phiên tách — Hồ sơ 2
+# Rà và sửa tính liên tục — Hồ sơ 2
 
-**10/11/2026. Kết luận: chưa duyệt gộp nguyên trạng.** Đã đọc diff và các cảnh nối A–H của worktree `hungry-zhukovsky-ff0b82`, nền gốc `09e7616`, bốn file chưa commit: `THAO-LUAN-CANH.md`, `DUNG-CANH.md`, `ASSET.md`, `README.md`. Đối chiếu với main `2a1cf22`. Không sửa hay commit thay các file đang làm dở trong worktree đó.
+**Cập nhật 10/11/2026 theo yêu cầu: chỉ sửa khi có căn cứ, nêu hướng trước khi sửa.** Đã tích hợp các thay đổi truyện của Claude từ worktree `hungry-zhukovsky-ff0b82` vào bản nguồn, giữ cập nhật nền/rig trên main và giữ nguyên file chưa commit ở worktree gốc. Không viết tiếp đoạn thay thế hoặc đoạn kết chưa được bàn. Những cảnh còn nhãn “chờ duyệt” vẫn giữ mức đó.
 
-Đây là rà văn bản và tính liên tục, không thay quyền chốt các phần truyện vẫn mang nhãn “chờ duyệt” của chủ repo. Chưa duyệt hình, giọng hoặc nhịp bằng animatic.
+Đã đọc bản cảnh A–H, bảng máy, bảng asset, quy chuẩn nhân vật và nguồn phòng/rig. Kết luận bên dưới phân biệt **lỗi liên tục có bằng chứng**, **chỗ mô tả mơ hồ** và **việc chưa được thử**, không coi tất cả là lỗ hổng truyện.
 
-## Các điểm cần sửa trước khi gộp
+## Căn cứ → hướng sửa → kết quả
 
-### 1. Tài liệu chung mâu thuẫn với quyền chưa gửi — cần sửa
+| Phân loại | Căn cứ trước sửa | Hướng và kết quả đã sửa |
+|---|---|---|
+| Lỗi vị trí ghế | A05 va chiếc ghế cạnh nệm, nền đầu sáng `chair='bed'`, nhưng C06 lại kéo chiếc ghế làm việc “từ bàn” mà không có bước di chuyển về bàn | Một ghế theo chuỗi **cạnh nệm → đối diện cửa → bàn**. Đã sửa câu hành động C, mô tả chung và C06; E01B/E02 đưa nó từ cửa về bàn |
+| Lệch nguồn và hướng dẫn | A01 yêu cầu máy ngang tầm người ngồi, trong khi góc toàn hiện dùng camera cao 152 cm; một số dòng còn yêu cầu chuẩn bị hành lang/trạng thái dù nguồn đã có | Giữ góc toàn 152 cm để thấy nệm và lối đi, các cận phản ứng mới ngang tầm nhân vật. Đã cập nhật bảng máy và loại việc đó khỏi danh sách “chờ quyết định”. Đây là thống nhất chỉ dẫn với asset, không kết luận máy thấp là lựa chọn mỹ thuật sai |
+| Mơ hồ về bản bài | E nói mở tài liệu chung, H dựa vào quyền “chưa gửi/đừng gửi”; chưa xác định nơi đang gõ là file chia sẻ trực tuyến hay nháp riêng | E cho thấy tiến độ chung, rồi Nam mở **bản nháp riêng phần mở đầu**, chưa chia sẻ/nộp. G để đúng bản đó mở; H Người Kia sửa trên đó. E03/H07 và ghi chú nguồn đã khớp. Không kết luận chỉ từ từ “chung” rằng nhóm chắc chắn đã đọc mọi sửa đổi |
+| Xung đột với quyết định mới về gương | Hướng cũ mô tả mọi dấu nhận dạng trùng 100%, đầu A nhận “cả nốt ruồi … trái”, bảng máy thêm đặc tả nốt ruồi; chủ repo nay chốt Người Kia có nốt ruồi đối bên | Giữ Nam trái theo mẫu, Người Kia phải ở cùng hướng nhìn. Bỏ lời xác nhận nốt ruồi cùng bên và insert riêng A04C; giữ dấu nhỏ hiện tự nhiên trong hình, không xóa để giấu. Nguồn gốc gương vẫn chỉ xác nhận ở cuối. Rig có biến thể danh tính riêng |
+| Mô tả áo theo cảnh không khớp nhận diện thư viện | Bộ tạo hình mặc định cả hai áo xanh, trong khi Người Kia đã lấy áo xanh trên ghế và Nam đang ngủ | A–H Nam áo ngủ xám, Người Kia áo xanh đã lấy. Bảng asset và ảnh nhân vật hiện hành dùng đúng biến thể. Không đổi mặc định màu áo của cả thư viện chỉ để diễn một cảnh |
+| Cách kéo ghế cần khớp mẫu | H nói “đẩy ghế lùi” dễ bị diễn thành ghế xoay lăn, nhưng mẫu hiện hành có bốn chân không bánh | Ghi rõ Người Kia đứng dậy kéo ghế lùi rồi ngồi xuống, tay trên đùi; Nam đợi xong mới lấy máy. H08 giữ cùng hướng máy G01 nhưng không đặt ghế trở lại sát bàn để ép trùng khung |
 
-Trong bản phiên tách, `THAO-LUAN-CANH.md:319` cho Nam vào **tài liệu chung**, thấy các phần của bạn đã có chữ. Đến dòng 420, Người Kia nói “chưa gửi cho ai đâu”; dòng 458, Nam yêu cầu “Đừng bấm gửi”. Nếu dựng thành một tài liệu cùng chỉnh sửa trực tuyến, nội dung viết vào đã có thể được nhóm thấy trước thao tác gửi. Không thể dùng nút gửi như mốc bảo đảm Nam còn kiểm soát việc công bố.
+## Đính chính nhận xét cũ về thời lượng ảnh
 
-**Sửa tối thiểu đề xuất:** Nam mở tài liệu chung để nhìn tiến độ, sau đó chuyển sang **bản nháp riêng phần mở đầu**, chưa chia sẻ và chưa nộp cho nhóm. Nam để chính bản nháp ấy mở khi ngủ; buổi tối Người Kia sửa trên bản đó. Ở E03 và H07, giao diện phải phân biệt tài liệu chung với bản nháp riêng. Không cần thêm mật khẩu, năng lực siêu nhiên hoặc một cảnh giải thích dài. Giữ tin nhóm làm sức ép và quyền Nam đọc trước/nộp sau làm điểm chuyển tâm lý.
+Nhận xét trước đã gọi cue chụp/gửi trong 1–1.5 giây là điều “cần sửa trước gộp”. **Chưa có diễn thử hoặc animatic nên chưa đủ căn cứ kết luận nó là lỗi logic hay chắc chắn không thể thực hiện.** Có thể cắt lược thao tác hợp lý.
 
-Nếu muốn giữ toàn bộ là tài liệu chung thì phải đổi các câu “chưa gửi/đừng gửi” và logic Nam kiểm soát việc nộp theo cơ chế khác. Không âm thầm biến lời đó thành lời nói dối có chủ ý của Người Kia.
+Đã đổi chỉ dẫn: thấy ảnh được chụp rồi được gửi trong chat Tùng; không ép toàn chuỗi vào một con số chưa đo. 1–1.5 giây chỉ là khoảng thử để đọc ảnh, nằm trong hành động xem lại. Thời lượng thật chốt khi diễn thử. Đây là bỏ ràng buộc thiếu kiểm chứng, không thêm tình tiết hay coi Nam kém thông minh.
 
-### 2. Cue chụp và gửi ảnh bị ép quá ngắn — cần chỉnh chỉ dẫn
+## Trạng thái quan trọng sau sửa
 
-`THAO-LUAN-CANH.md:357–359` gom việc đưa máy, chụp và gửi Tùng vào 1–1.5 giây. Chưa thiết lập camera hoặc cuộc trò chuyện đang mở; nếu diễn liên tục sẽ dễ bỏ mất thao tác hoặc làm nhân vật thao tác phi lý. `DUNG-CANH` F01 và hàng nhịp F cần cùng cách tính.
+| Chuỗi | Trạng thái cần giữ |
+|---|---|
+| Cửa/chìa | Đầu sáng khép hờ; Nam về phòng gài chốt; đi vệ sinh rút chốt, Tùng giữ chìa; khi về quên gài do tin giục. Người Kia tự vào sau đó là vượt lời Nam dặn, không phải có phép xuyên cửa hoặc đã được cho phép |
+| Điện thoại/ảnh | Nam tự cầm và gửi ảnh Tùng ở F; bật Không làm phiền khi chơi; đặt máy cạnh laptop trước ngủ; tối tự lấy và mở tin. Tùng thấy ảnh không rõ mặt nên chưa xác nhận bản sao. Chưa tạo thêm điện thoại cho Người Kia |
+| Căn cước | Còn trong ngăn trước D02 → Nam lấy bằng tay trái → nhìn đối chiếu → đặt lên bàn trước khi trở về ghế đối diện cửa. Không có thẻ bày sẵn ngay đầu sáng |
+| Bài | Xem tiến độ chung → mở nháp riêng → vài câu → ngủ để máy mở → nháp được làm hộ → Nam tự đọc → chưa gửi. Không thêm quyền đọc tin/mật khẩu cho Người Kia |
+| Tùng | Có giọng cuộc gọi và tin nhắn; chưa về phòng/chứng kiến. “Chưa gửi ảnh” chỉ đúng tại thời điểm cuộc gọi đầu, không phủ định F01 về sau |
+| Nệm/giờ | Chung nệm đôi, Nam gần máy/lối đi, Tùng phía sau; khi Nam tỉnh, phần Tùng trống. Mốc tối 19:30 theo bản sửa Claude, không còn 23:45 gắn sẵn trong nền |
+| Kiến thức | Nam nhận ra sự giống nhau, chưa suy ra sinh ra từ gương. Không ai trong A–H nói trước nguồn gốc. Người Kia không phản ứng trúng suy nghĩ thầm của Nam |
 
-**Sửa tối thiểu đề xuất:** 1–1.5 giây chỉ dành cho **đọc được ảnh vừa chụp**, không khóa cả chuỗi vào thời lượng ấy. Cho thấy Nam bấm gửi trong khung tiếp hoặc cắt lược thao tác có chủ ý sau khi đã xác lập ảnh. Thời lượng cuối đo khi thử diễn. Không thêm một lớp nghỉ riêng chồng lên chuỗi nhìn qua khe.
+## Quy tắc gương: đã chốt và còn cần phát triển
 
-## Phần sửa có thể giữ
+- Đã chốt: Người Kia sinh ra từ gương; dấu bất đối xứng của cơ thể bị phản chiếu, nốt ruồi là manh mối nhỏ. Trái/phải so tại cùng hướng nhìn, không gắn chấm vĩnh viễn vào một mép màn hình khi người xoay.
+- Đồ thật lấy sau khi xuất hiện, như áo trên ghế hoặc bát/điện thoại trong phòng, giữ đặc điểm của vật thật. Không tự đảo chữ trên mọi đồ nó chạm; không tự đảo thời gian, nhân cách hoặc lực hấp dẫn.
+- Đã thực hiện trong rig: nốt ruồi đối bên và quy tắc khuất/hiện tương ứng theo góc, qua `NguoiKia` hoặc `identity='nguoi-kia'`. Chưa khẳng định toàn bộ mảng tóc/nếp áo đã được thiết kế thành mô hình phản chiếu chính xác.
+- Chưa viết: chiếc gương nào, cách sinh vật ra khỏi gương, lúc nó bắt đầu nhắm Nam và từng bước thay thế. Đây là phần truyện tiếp theo cần xây dựng, không phải sự kiện đã có mà bản đầu kể sai. Khi tới kết cần trả được nguồn gốc gương và manh mối đã gieo; không thêm một năng lực quyết định ở phút cuối để giải quyết mọi thứ.
 
-- Nệm hai người/chỗ Tùng trống phù hợp nền đôi hiện hành.
-- Nam mặc áo ngủ xám, Người Kia mặc áo xanh đã lấy: câu nhận ra áo có tác dụng, không còn áo trùng trên ghế. Rig hiện có tùy chọn màu áo, không cần đổi nhận diện mặc định toàn thư viện.
-- Thiết lập một chìa Tùng cầm và việc Nam quên gài chốt giúp phân biệt cửa khép với cửa khóa. Cần biểu đạt nguyên nhân trong bản phim nếu bỏ lời dẫn, không chỉ để ở ghi chú.
-- Nam trở về ghế đối diện cửa trước khi nói giúp đường nhìn và khoảng cách rõ hơn.
-- Thêm câu “Còn đó không?” cho thấy Nam vẫn để tâm tới người ngoài; im lặng chỉ là điều Nam nghe được, không chứng minh Người Kia đã đi hay được phép vào.
-- Buổi tối Người Kia lùi khỏi bàn rồi Nam mới lấy điện thoại: tốt hơn việc Nam tự tiến sát. Giữ lối thoát và hai tay nó đọc được trong hình.
-- Mốc 19h30 và Tùng đi đá banh khớp bối cảnh tối/trang phục thể thao. Đây vẫn là đề xuất trong phiên tách, không tự nâng thành chi tiết chủ repo đã chốt.
-- Ảnh ngược sáng chưa đủ chứng minh mặt giống nhau, nên phản hồi hoài nghi của Tùng có thể giữ. Khi dựng, ảnh phải đúng góc/ngược sáng đã lập; tránh chỉ làm mờ ảnh tùy tiện để giữ Tùng không tin.
+## Còn phải kiểm tra khi dựng
 
-## Điều kiện gộp với main
+[LOI-TON-DONG.md](LOI-TON-DONG.md) giữ các tương tác chưa hoàn thiện hoặc chưa kiểm chứng: tay trước/sau mép bàn/bồn, đi qua ngưỡng cửa, cận thiết bị, pose nhiều góc, khẩu hình và dịch máy. Có việc chưa làm không chứng minh hình đang hỏng; chỉ đánh dấu lỗi thị giác sau khi có khung/clip cụ thể. Bản rà này không chứng nhận chuyển động, âm thanh hay nhịp cảm xúc đã đạt.
 
-Áp dụng theo diff ba chiều, không chép đè bốn file từ worktree cũ lên main. Bản `DUNG-CANH` cũ vẫn chứa nhận xét ghế ngày/đêm khác nhau và tên nền hành lang cũ; main đã sửa nền/rig sau đó. Giữ mặt bằng, nguồn bối cảnh và thông tin rig hiện hành; chỉ gộp thay đổi truyện/góc máy liên quan.
+## Kiểm tra đã thực hiện
 
-Sau hai sửa trên, so lại E03 → G04 → H07/H10, cue ảnh F01 và nội dung trên thiết bị; rồi kiểm tra link và trạng thái đã duyệt/chờ duyệt. Chưa cần render phim để xác nhận các sửa văn bản này.
+Đã chạy kiểm tra rig Hồ sơ 2 và TypeScript; đã soi bảng nhân vật cùng bảng đối chiếu nốt ruồi xuất từ SVG thật. Kiểm tra tự động xác nhận dấu đối bên/khuất hiện theo góc, không đổi điểm cầm điện thoại khi chỉ đổi danh tính, ID/clip không trùng và liên kết tài liệu tồn tại. Đã xác nhận bốn file làm dở ở worktree Claude giữ nguyên nội dung. Chưa chạy animatic hoặc tạo giọng/video trong lượt này.
