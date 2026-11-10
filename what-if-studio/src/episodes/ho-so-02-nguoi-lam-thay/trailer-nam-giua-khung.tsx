@@ -54,9 +54,9 @@ export const BEATS_STORY: Beat[] = [
   { id: 'S9', chip: 'Ngày 3', bg: MirrorCorner, bgProps: { night: true, move: { truck: -110 } }, mood: 'shocked', pose: P.wary, outfit: 'dong-phuc', night: true, note: 'Trước gương. Nhạc cắt cụt ngay sau nhịp này.' },
 ];
 
-export const BEAT_FRAMES = 28; // khoảng 0,93 giây mỗi nhịp ở 30 fps (đã tăng tốc theo yêu cầu)
-export const BLEND = 6; // số frame hòa nền và nối dáng giữa hai nhịp
-export const LAST_HOLD = 18; // nhịp cuối giữ thêm trước khi cắt đen
+export const BEAT_FRAMES = 15; // 0,5 giây mỗi nhịp ở 30 fps: mỗi bối cảnh chỉ thoáng qua (yêu cầu 10/11/2026)
+export const BLEND = 4; // số frame hòa nền và nối dáng giữa hai nhịp
+export const LAST_HOLD = 12; // nhịp cuối giữ thêm trước khi cắt đen
 export const introTotal = BEATS_INTRO.length * BEAT_FRAMES;
 export const storyTotal = BEATS_STORY.length * BEAT_FRAMES + LAST_HOLD;
 
@@ -107,7 +107,7 @@ const useBeat = (beats: Beat[], frame: number) => {
   const local = frame - i * BEAT_FRAMES;
   const span = i === beats.length - 1 ? BEAT_FRAMES + LAST_HOLD : BEAT_FRAMES;
   const t = i === 0 ? 1 : Math.min(1, local / BLEND);
-  return { beat: beats[i], prev: i > 0 ? beats[i - 1] : undefined, t, k: Math.min(1, local / span), blink: i > 0 && local >= 1 && local <= 5 };
+  return { beat: beats[i], prev: i > 0 ? beats[i - 1] : undefined, t, k: Math.min(1, local / span), blink: i > 0 && local >= 1 && local <= 3 };
 };
 
 /** Clip riêng: 13 nhịp liền, giới thiệu rồi hé cả truyện. */

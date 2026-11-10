@@ -12,7 +12,7 @@
 - **Đã chọn:**
   - Nam giữa khung, nền đổi theo thời gian, cảm xúc đổi theo;
   - hé cả truyện;
-  - **tốc độ tăng một chút** (khoảng 0,93 giây mỗi nhịp, trước là 1,2 giây);
+  - **mỗi bối cảnh chỉ thoáng qua, khoảng 0,5 giây** (yêu cầu sau cùng; trước đó 0,93 giây);
   - **nhiều bộ trang phục, có đồng phục và đồ thể thao**;
   - làm thành clip riêng.
 - **Còn đề xuất:**
@@ -23,7 +23,7 @@
 
 ## Nhịp
 
-Khoảng **16,5 giây** ở 30 fps: 17 nhịp × 28 frame, cộng 18 frame giữ ở nhịp cuối. Nền hòa sang nền trong 6 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt.
+Khoảng **8,9 giây** ở 30 fps: 17 nhịp × 15 frame, cộng 12 frame giữ ở nhịp cuối. Nền hòa sang nền trong 4 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt.
 
 | Nhịp | Thời gian truyện | Nền | Nam | Trang phục |
 |---|---|---|---|---|
