@@ -88,7 +88,7 @@ export const LectureHall = ({ children, failed = false, students = true }: { chi
   S.box({ x: [-520, 520], y: [0, 22], z: [1250, 1500], c: '#c9bfa6', top: '#d8cfb6' });
   S.castShadow([-520, 520], [1250, 1500], 22, 0.12);
   S.box({ x: [-250, 130], y: [100, 245], z: [1494, 1500], c: '#6f7f74' });
-  S.plane([-240, 238, 1493], [380 / 480 - 0.02, 0, 0], [0, -130 / 240, 0], <Blackboard failed={failed} />, 2.5);
+  S.plane([-240, 238, 1493], [380 / 480 - 0.02, 0, 0], [0, -130 / 240, 0], <Blackboard failed={failed} />, 2, 80);
   S.box({ x: [-230, 110], y: [96, 100], z: [1480, 1500], c: '#b5ad98' });
   S.box({ x: [190, 340], y: [22, 100], z: [1300, 1370], c: K.wood, top: '#d3b282', front: '#a8875f' });
   S.castShadow([190, 340], [1300, 1370], 100, 0.2, 22);
@@ -148,7 +148,7 @@ export const ComputerLab = ({ children }: { children?: React.ReactNode }) => {
   // Màn chiếu và biển LAB 402 trên tường trước
   S.box({ x: [-230, 170], y: [120, 290], z: [1246, 1250], c: '#f6f5ee', front: '#f6f5ee' });
   S.box({ x: [-240, 180], y: [290, 300], z: [1240, 1250], c: '#59605d' });
-  S.plane([-210, 268, 1245], [0.62, 0, 0], [0, -0.62, 0], <g><text x={0} y={70} fontFamily="Arial, sans-serif" fontWeight={700} fontSize={70} fill="#3f5f57">LAB 402</text><text x={2} y={120} fontFamily="Arial, sans-serif" fontSize={32} fill="#6b8073">Trình bày · Làm việc nhóm</text></g>, 2.5);
+  S.plane([-210, 268, 1245], [0.62, 0, 0], [0, -0.62, 0], <g><text x={0} y={70} fontFamily="Arial, sans-serif" fontWeight={700} fontSize={70} fill="#3f5f57">LAB 402</text><text x={2} y={120} fontFamily="Arial, sans-serif" fontSize={32} fill="#6b8073">Trình bày · Làm việc nhóm</text></g>, 2, 80);
   S.box({ x: [-470, -400], y: [0, 215], z: [1248, 1250], c: '#7e978a' });
   for (let z = 150; z <= 1150; z += 330) for (const x of [-250, 250]) tubeLight(S, x, z, H);
   // Ba dãy bàn máy, mỗi dãy hai cụm, ghế phía camera
@@ -334,7 +334,8 @@ export const MiniPitch = ({ children }: { children?: React.ReactNode }) => {
 // ---------------------------------------------------------------------------------------------
 // 7. Góc cắt tóc (P2.05 montage): tiệm nhỏ, gương lớn, quầy, ghế cắt tóc, sàn ô cờ đen trắng.
 // ---------------------------------------------------------------------------------------------
-export const BarberCorner = () => {
+/** `turn`: góc xoay của ghế cắt tóc quanh trụ (độ, dương là xoay ngược chiều kim đồng hồ nhìn từ trên). */
+export const BarberCorner = ({ turn = 0 }: { turn?: number }) => {
   const id = uid(), S = makeScene(camera({ pos: [-150, 158, -40], look: [40, 105, 420], mm: 26 }), { sun: [0.6, -0.65, 0.4], amb: 0.62, diff: 0.42, lamps: [{ p: [40, 250, 300], col: [1, 0.9, 0.7], r: 200, k: 0.25 }] });
   const X: [number, number] = [-260, 320], Z: [number, number] = [-100, 430], H = 300;
   shellRoom(S, X, Z, H, { wall: '#e3dcc6', lower: '#9fb7ad', lowerH: 120, floor: '#e8e4d8' });
@@ -354,10 +355,12 @@ export const BarberCorner = () => {
   const cx = 50, cz = 250;
   S.cyl([cx, 0, cz], 30, 4, '#5f6664', { n: 18 });
   S.cyl([cx, 4, cz], 7, 38, '#8a9290', { n: 10 });
-  S.box({ x: [cx - 32, cx + 32], y: [42, 58], z: [cz - 30, cz + 30], c: '#3f5a52', top: '#4f6d64' });
-  S.box({ x: [cx - 30, cx + 30], y: [58, 128], z: [cz + 24, cz + 34], c: '#3f5a52' });
-  for (const dx of [-34, 30]) S.box({ x: [cx + dx, cx + dx + 6], y: [58, 74], z: [cz - 26, cz + 26], c: '#5d4e3c' });
-  S.box({ x: [cx - 22, cx + 22], y: [12, 16], z: [cz - 62, cz - 40], c: '#8a9290' });
+  // Phần xoay: đệm, lưng, tay vịn, gác chân cùng quay quanh trụ (pivot tại tâm trụ)
+  const sw = { yaw: turn, pivot: [cx, cz] as [number, number] };
+  S.box({ x: [cx - 32, cx + 32], y: [42, 58], z: [cz - 30, cz + 30], c: '#3f5a52', top: '#4f6d64', ...sw });
+  S.box({ x: [cx - 30, cx + 30], y: [58, 128], z: [cz + 24, cz + 34], c: '#3f5a52', ...sw });
+  for (const dx of [-34, 30]) S.box({ x: [cx + dx, cx + dx + 6], y: [58, 74], z: [cz - 26, cz + 26], c: '#5d4e3c', ...sw });
+  S.box({ x: [cx - 22, cx + 22], y: [12, 16], z: [cz - 62, cz - 40], c: '#8a9290', ...sw });
   S.contact([cx - 34, cx + 34], [cz - 34, cz + 34], 0.24);
   S.castShadow([cx - 32, cx + 32], [cz - 30, cz + 34], 128, 0.14);
   S.line([40, H, 300], [40, 262, 300], '#4a4a42', 0.8, { cm: true, layer: 2 });

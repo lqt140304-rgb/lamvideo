@@ -92,7 +92,8 @@ export const makeScene = (cam: Cam, light: Light) => {
     });
   };
 
-  type BoxO = { x: [number, number]; y: [number, number]; z: [number, number]; c: string; top?: string; front?: string; side?: string; back?: string; bottom?: string; edge?: boolean; layer?: number; emit?: boolean };
+  type BoxO = { x: [number, number]; y: [number, number]; z: [number, number]; c: string; top?: string; front?: string; side?: string; back?: string; bottom?: string; edge?: boolean; layer?: number; emit?: boolean; yaw?: number; pivot?: [number, number] };
+  /** Hộp; `yaw` (độ) xoay quanh trục đứng qua `pivot` [x, z] (mặc định tâm hộp), dùng cho đồ xoay được như ghế. */
   const box = (o: BoxO) => {
     const [x0, x1] = o.x, [y0, y1] = o.y, [z0, z1] = o.z;
     const faces: [V3, V3[], string][] = [
@@ -103,7 +104,12 @@ export const makeScene = (cam: Cam, light: Light) => {
       [[0, 1, 0], [[x0, y1, z0], [x1, y1, z0], [x1, y1, z1], [x0, y1, z1]], o.top ?? o.c],
       [[0, -1, 0], [[x0, y0, z1], [x1, y0, z1], [x1, y0, z0], [x0, y0, z0]], o.bottom ?? o.c],
     ];
-    const c = center([[x0, y0, z0], [x1, y1, z1]]);
+    const a = ((o.yaw ?? 0) * Math.PI) / 180, ca = Math.cos(a), sa = Math.sin(a);
+    const pv = o.pivot ?? [(x0 + x1) / 2, (z0 + z1) / 2];
+    const rot = (p: V3): V3 => { const dx = p[0] - pv[0], dz = p[2] - pv[1]; return [pv[0] + dx * ca - dz * sa, p[1], pv[1] + dx * sa + dz * ca]; };
+    const rotN = (n: V3): V3 => [n[0] * ca - n[2] * sa, n[1], n[0] * sa + n[2] * ca];
+    if (a) for (const f of faces) { f[0] = rotN(f[0]); f[1] = f[1].map(rot); }
+    const c = rot(center([[x0, y0, z0], [x1, y1, z1]]));
     const d = Math.hypot(...sub(c, cam.pos));
     const nodes: React.ReactNode[] = [];
     for (const [n, ps, col] of faces) {
@@ -209,11 +215,11 @@ export const makeScene = (cam: Cam, light: Light) => {
   };
 
   /** Nhóm 2D phẳng dán lên một mặt phẳng (biển chữ, bảng): toạ độ cục bộ x sang phải theo u, y xuống theo v (đơn vị cm/đơn vị). */
-  const plane = (o: V3, u: V3, v: V3, node: React.ReactNode, layer = 2) => {
+  const plane = (o: V3, u: V3, v: V3, node: React.ReactNode, layer = 2, bias = 0) => {
     if (cam.depth(o) < NEAR) return;
     const p0 = cam.project(o), pu = cam.project(add(o, u)), pv = cam.project(add(o, v));
     const m = [pu[0] - p0[0], pu[1] - p0[1], pv[0] - p0[0], pv[1] - p0[1], p0[0], p0[1]].map(f1).join(' ');
-    items.push({ layer, depth: Math.hypot(...sub(o, cam.pos)) - 1, node: <g key={key++} transform={`matrix(${m})`}>{node}</g> });
+    items.push({ layer, depth: Math.hypot(...sub(o, cam.pos)) - 1 - bias, node: <g key={key++} transform={`matrix(${m})`}>{node}</g> });
   };
 
   /** Toạ độ đặt rig (cao 590 đơn vị) đứng tại điểm sàn `at` cao `heightCm`. */
