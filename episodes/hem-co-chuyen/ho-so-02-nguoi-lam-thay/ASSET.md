@@ -2,7 +2,7 @@
 
 ## Nhu cầu theo kịch bản mới — đồng bộ 11/11/2026
 
-Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Đã tạo [bộ bổ sung](assets/bo-sung-15p/README.md): **47 SVG rời, 9 bảng duyệt, 16 PNG**, kèm nguồn TSX, manifest và [trình xem](assets/bo-sung-15p/xem-asset.html). Đây là hình tĩnh để duyệt, chưa xác nhận motion, khẩu hình, âm thanh hoặc timeline đã đủ.
+Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Bảng kê tổng duyệt chi tiết trước khi dựng xem tại **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md)** (phân loại bối cảnh, đạo cụ hero props, dáng rig, ma trận biểu cảm 3 cấp độ). Đã tạo [bộ bổ sung](assets/bo-sung-15p/README.md): **47 SVG rời, 9 bảng duyệt, 16 PNG**, kèm nguồn TSX, manifest và [trình xem](assets/bo-sung-15p/xem-asset.html). Đây là hình tĩnh để duyệt, chưa xác nhận motion, khẩu hình, âm thanh hoặc timeline đã đủ.
 
 | Nhóm bổ sung | Nội dung và bảng xem |
 |---|---|

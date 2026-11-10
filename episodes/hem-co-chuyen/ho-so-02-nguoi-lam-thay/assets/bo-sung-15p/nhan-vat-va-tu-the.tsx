@@ -29,18 +29,23 @@ const raised=armTo(armTo({...base,handR:'hold',handL:'hold'},'R',[65,200]),'L',[
 const gamingPose=(p:JointPose)=>{let q=armTo(armTo({...p,prop:'phoneLandscape',handR:'hold',handL:'hold',frontR:true,frontL:true},'R',[-47,306]),'L',[47,306]);const r=solveRig(q);return {...q,wristR:Math.max(-70,Math.min(70,-90-r.armR.deg)),wristL:Math.max(-70,Math.min(70,90-r.armL.deg))};};
 const seatedGame=gamingPose({...TWIN_POSES.sit,tilt:8,neck:5});
 const lyingBase:JointPose={...STAND_POSE,view:'front',support:'bed',planted:false,frontR:true,frontL:true,legR:{a:0,b:0},legL:{a:0,b:0},tilt:0,neck:0};
-const collapsed=armTo(armTo({...TWIN_POSES.sit,tilt:12,neck:5,handR:'rest',handL:'rest'},'R',[-44,373]),'L',[71,376]);
+// suy sụp: đổ người tới, cẳng tay tì lên đùi, hai bàn tay buông thõng giữa hai gối, đầu cúi
+const collapsed=armTo(armTo({...TWIN_POSES.sit,tilt:17,neck:9,handR:'rest',handL:'rest'},'R',[66,404]),'L',[96,410]);
 export const EXTRA_POSES:Record<string,JointPose>={
- 'thi-uy':{...base,armR:{a:-30,b:120,rot:-1},armL:{...STAND_POSE.armL},wristR:-12,handR:'fist',handL:'rest',frontR:true,frontL:false,tilt:-2,neck:2},
- 'thuyet-trinh':{...base,armR:{...STAND_POSE.armR},armL:{a:28,b:54,rot:1},wristL:-25,handR:'rest',handL:'open',frontR:false,frontL:true,palmUp:'L',neck:-3},
+ // thị uy: nắm tay giơ trước ngực–vai (khuỷu thả xuống, cẳng tay dựng), tay kia buông; ngực ưỡn nhẹ
+ 'thi-uy':{...base,armR:{a:-58,b:132,rot:-1},armL:{...STAND_POSE.armL},wristR:-18,handR:'fist',handL:'rest',frontR:true,frontL:false,tilt:-3,neck:3},
+ // thuyết trình: khuỷu gập ~70°, cẳng tay đưa ra trước, lòng bàn tay ngửa
+ 'thuyet-trinh':{...base,armR:{...STAND_POSE.armR},armL:{a:30,b:72,rot:1},wristL:-12,handR:'rest',handL:'open',frontR:false,frontL:true,palmUp:'L',neck:-3},
  'choi-game':seatedGame,
  'cam-tui':{...base,armL:{a:-7,b:4,rot:-1},handL:'hold'},
  'giu-bua':raised,
  'suy-sup':collapsed,
  'nam-choi-game':gamingPose(lyingBase),
  'nam-nhin-tran':{...lyingBase,armR:{a:8,b:4},armL:{a:8,b:4,rot:-1},frontR:false,frontL:false},
- 'ap-kinh':armTo({...base,tilt:4,handL:'open',handR:'rest',wristL:-65,frontR:false},'L',[209,263]),
- 'nhan-do-tay-trai':armTo({...base,handL:'hold',handR:'rest',frontR:false},'L',[174,300]),
+ // áp kính: bàn tay áp mặt kính, khuỷu hơi chùng (không duỗi căng hết cỡ)
+ 'ap-kinh':armTo({...base,tilt:4,handL:'open',handR:'rest',wristL:-65,frontR:false},'L',[186,258]),
+ // nhận đồ: khuỷu gập ~90° sát hông, cẳng tay đưa ra trước, lòng bàn tay ngửa để đón
+ 'nhan-do-tay-trai':armTo({...base,handL:'open',palmUp:'L',wristL:-8,handR:'rest',frontR:false},'L',[150,332]),
 };
 export const FormalTwin=({pose=base,identity='nguoi-kia',mood='calm',x=0,y=0,scale=1}:{pose?:JointPose;identity?:'nam'|'nguoi-kia';mood?:NamMood;x?:number;y?:number;scale?:number})=><Rigged x={x} y={y} scale={scale} pose={pose} outfit={formalOutfit()} head={<StudentTwinHead identity={identity} mood={mood} view={pose.view} id="formal-twin"/>} outline="none"/>;
 const BareFoot:Outfit['Foot']=({side})=><g transform={`scale(${side==='R'?-1:1} 1)`}><path d="M-16-10Q0-17 17-8L23 14Q26 25 16 28Q-2 32-21 26Q-26 22-22 11Z" fill={C.skin}/></g>;

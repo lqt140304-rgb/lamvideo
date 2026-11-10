@@ -649,6 +649,22 @@ const foldPath = (knee: P, ankle: P, side: 'R' | 'L') => {
   return `M ${a} Q ${b} ${c}`;
 };
 
+// Mảng bóng tự vẽ (quy tắc 11/11): bóng tay áo đổ lên bắp tay, ngay dưới mép tay áo — một dải hẹp, mép dưới cong.
+const sleeveShadow = (c: { root: P; mid: P }, se: number) => {
+  const a = mix(c.root, c.mid, se), b = mix(c.root, c.mid, Math.min(0.95, se + 0.17)), n = normalOf(c.root, c.mid);
+  const t = { x: (b.x - a.x), y: (b.y - a.y) }, l = Math.hypot(t.x, t.y) || 1;
+  const tip = { x: b.x + (t.x / l) * 5, y: b.y + (t.y / l) * 5 };
+  return `M ${a.x + n.x * 16} ${a.y + n.y * 16} L ${a.x - n.x * 16} ${a.y - n.y * 16} L ${b.x - n.x * 13} ${b.y - n.y * 13} Q ${tip.x} ${tip.y} ${b.x + n.x * 13} ${b.y + n.y * 13} Z`;
+};
+// Vệt bóng nhỏ ở mặt trong gối khi chân gập (vải dồn lại), chỉ hiện khi gập trên ~35°.
+const kneeShadow = (c: { root: P; mid: P; end: P }) => {
+  const u = { x: c.root.x - c.mid.x, y: c.root.y - c.mid.y }, v = { x: c.end.x - c.mid.x, y: c.end.y - c.mid.y };
+  const lu = Math.hypot(u.x, u.y), lv = Math.hypot(v.x, v.y), bx = u.x / lu + v.x / lv, by = u.y / lu + v.y / lv, lb = Math.hypot(bx, by);
+  if (lb < 0.6) return null;
+  const nx = bx / lb, ny = by / lb, cx = c.mid.x + nx * 10, cy = c.mid.y + ny * 10, ang = (Math.atan2(ny, nx) * 180) / Math.PI + 90;
+  return <ellipse cx={cx} cy={cy} rx={15} ry={6} transform={`rotate(${ang} ${cx} ${cy})`} fill="#1f2a26" opacity={0.18} stroke="none" />;
+};
+
 const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; foot: number; o: Outfit; view: View }> = ({ c, side, foot, o, view }) => {
   const { root: hip, mid: knee, end: ankle } = c;
   const long = o.pantsLen === 'long';
@@ -668,6 +684,7 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
       )}
       {o.socks && shoe}
       <Blob fill={o.pants} d={[limbContour(cloth, widths), circle(hip, 30), softEnd(cloth.mid, cloth.end, widths[2], 3), ...(long ? [circle(knee, 26)] : [])]} />
+      {long && kneeShadow(c)}
       {long && crease(c, 22)}
       {long && !(view === 'side' && side === 'L') && <path d={foldPath(knee, ankle, side)} fill="none" style={{ strokeWidth: lw(2.5), stroke: 'var(--inner-ink, #2b2b2b)' }} strokeLinecap="round" />}
       {o.stripe && <path d={alongSide(hip, knee, side === 'R' ? 30 : -30)} fill="none" stroke={o.stripe} style={{ strokeWidth: lw(3.5) }} />}
@@ -760,9 +777,9 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; siz
 export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline; headOutline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'none', headOutline }) => {
   const awayClip = useClipId('away');
   const hemClip = useClipId('drawn-hem');
-  // Không viền: tách lớp bằng độ sáng — phần nằm sau (tay xa, chân sau) tối hơn, cẳng tay gập đè lên trước sáng hơn.
-  const back = (n: React.ReactNode) => (outline === 'none' ? <ToneCtx.Provider value={0.2}>{n}</ToneCtx.Provider> : n);
-  const front = (n: React.ReactNode) => (outline === 'none' ? <ToneCtx.Provider value={-0.07}>{n}</ToneCtx.Provider> : n);
+  // Quy tắc 11/11: không tô tối/sáng nguyên chi để tách lớp; tách bằng che khuất và mảng bóng tự vẽ. Giữ hàm để không đổi cấu trúc.
+  const back = (n: React.ReactNode) => n;
+  const front = (n: React.ReactNode) => n;
   const view: View = outfit.views ? raw.view ?? 'three' : 'three'; // nhân vật chưa vẽ đủ góc thì giữ 3/4
   const o = { ...outfit, ...outfit.views?.[view] };
   // chính diện và sau lưng không lật được: hai bên phải giữ đúng chỗ
@@ -777,9 +794,10 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   // under: vẽ dưới tay áo; over: vẽ đè lên tay áo (chỉ có khi tay gập mạnh).
   const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => {
     const hand = handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind);
-    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} /></g>;
+    const sleeveSh = <path d={sleeveShadow(c, o.sleeveEnd)} fill={PALETTE.skinShadow} opacity={0.55} stroke="none" />;
+    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} />{sleeveSh}</g>;
     if (armBend(c) < FOLD_BEND) return { one, under: one, over: null };
-    return { one, under: <Blob fill={PALETTE.skin} d={upperArmShapes(c)} />, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
+    return { one, under: <g><Blob fill={PALETTE.skin} d={upperArmShapes(c)} />{sleeveSh}</g>, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
   };
   const whole = (a: { one: React.ReactNode }) => a.one; // tay sau thân/không có tay áo đè: một khối liền, không tách
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
@@ -814,7 +832,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
             {!frontR && <Cuff c={r.armR} o={o} />}
             {!frontL && !side && <Cuff c={r.armL} o={o} />}
-            {(view === 'three' || view === 'front') && <g><defs><clipPath id={hemClip}><path d={[o.torso, hemDrape(o, r.tilt)].join(' ')} /></clipPath></defs><path data-shadow="drawn-hem" clipPath={`url(#${hemClip})`} d="M-49 337Q-19 350 12 341Q36 348 56 337L56 348Q35 360 13 355Q-20 365-58 351Z" fill="#253f37" opacity={0.13} stroke="none" /></g>}
+            {(view === 'three' || view === 'front') && <g><defs><clipPath id={hemClip}><path d={[o.torso, hemDrape(o, r.tilt)].join(' ')} /></clipPath></defs><path data-shadow="drawn-hem" clipPath={`url(#${hemClip})`} d="M-49 337Q-19 350 12 341Q36 348 56 337L56 348Q35 360 13 355Q-20 365-58 351Z" fill="#253f37" opacity={0.2} stroke="none" />{/* mặt hông phía xa của thân áo (quay khỏi máy): một mảng tự vẽ để thân có khối, không theo đèn */}<path data-shadow="drawn-side" clipPath={`url(#${hemClip})`} d={view === 'front' ? 'M78 268Q56 276 52 300Q48 340 54 366H110V268Z' : 'M70 268Q48 276 42 300Q38 340 42 366H110V268Z'} fill="#253f37" opacity={0.12} stroke="none" /></g>}
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
           <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>

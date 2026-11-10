@@ -6,13 +6,22 @@
 
 Nguồn lời phần 1 chuyển từ THAO-LUAN sang PHAN-01, các đoạn đã duyệt bảo toàn câu chữ. Gương và các pose/đạo cụ mới xem [ASSET.md](ASSET.md); cơ chế mới là đề xuất trong [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa render hay tạo âm thanh.
 
-## Cách dùng
+## Cách dùng & Bộ quy chuẩn máy quay điện ảnh người đóng (Live-Action Cine Suite)
 
-- Đi theo hành động/thoại ở bản nguồn; mã máy dùng để tìm bố cục, không phải một câu thoại tương ứng một cú cắt. Một shot có thể giữ qua nhiều lượt đối đáp.
-- Khung nền **16:9**; bố cục theo chiều sâu, giữ mắt và tay quan trọng trong khung. Chưa cần thay tỉ lệ giữa các shot để có chất phim.
-- Các tiêu cự là **tương đương full-frame để mô tả ý đồ bố cục**. Dựng SVG phải chuẩn bị phối cảnh và góc hình thích hợp; nhãn 35/50/85 mm hoặc scale một tranh không tự tạo lens hay camera 3D.
-- Mặc định **máy tĩnh, rung 0**. Các dịch máy nhỏ ghi trong từng shot; mức dịch theo khung chỉ là điểm thử cho storyboard, chưa phải kết quả chạy. Nếu cú va cần rung, ghi biên độ ở đầu ra 1920×1080 và cho tắt nhanh, rồi kiểm tra hình thật.
-- Focus mặc định giữ rõ mặt/tay đang có tác dụng. Chuyển nét trong SVG là điều khiển lớp/blur có chọn lọc; chữ điện thoại và tài liệu cần đọc luôn rõ. Không làm mờ người nghe đúng lúc họ phản ứng.
+- Đi theo hành động/thoại ở bản nguồn; mã máy dùng để tìm bố cục và ý đồ tâm lý, không phải một câu thoại tương ứng một cú cắt.
+- Khung hình chuẩn **2.39:1 Anamorphic Cinema** (hoặc 16:9 với letterbox điện ảnh); bố cục theo chiều sâu trục Z, phân lớp ánh sáng Chiaroscuro (Fincher) và trường sâu ảnh nông (Shallow DoF f/1.4 - f/2.0).
+- Tiêu cự ống kính tương đương **Full-Frame Cine Primes**:
+  * **24mm Cine Anamorphic**: Góc rộng méo viền (Barrel Distortion), tạo cảm giác chật chội, tù túng và ngột ngạt của căn phòng trọ 12m2.
+  * **35mm Cine**: Tiêu cự kể chuyện toàn cảnh tự nhiên, tái hiện không gian và tương quan khoảng cách giữa hai nhân vật.
+  * **50mm f/1.4 Prime**: Tiêu cự đối thoại chân dung, xóa mờ hậu cảnh nhẹ, tách chủ thể sắc nét.
+  * **85mm f/1.2 Telephoto**: Cận cảnh nén không gian (Spatial Compression), dồn toàn bộ sự chú ý vào đôi mắt, nốt ruồi và biểu cảm vi mô.
+- **Chuyển động máy quay sống động (Organic Camera Movements)**:
+  * **Handheld Breathing Jitter (Rung thở hữu cơ)**: Máy quay không đứng im chết cứng như 2D tĩnh, mà có dao động thở cầm tay vác vai của DOP (tần số $0.2\text{Hz}$, biên độ vi mô $0.3 - 0.8\text{px}$). Khi có cú sốc/va chạm, rung giật dứt khoát $2.0 - 3.5\text{px}$ rồi hồi phục.
+  * **Slow Push-In (Creeping In)**: Máy quay trườn từ từ vào gương mặt ($1 - 2\text{px/s}$) tạo áp lực tâm lý nghẹt thở khi Nam bế tắc hoặc toan tính vụ lợi.
+  * **Dutch Angle (Góc nghiêng tâm lý $5^\circ - 15^\circ$)**: Khung hình nghiêng trục chân trời khi thực tại bị bẻ cong (trùng giọng nói, phát hiện căn phòng bị chiếm, đối diện mặt gương).
+  * **Rack Focus / Focus Pull**: Chuyển nét mượt mà giữa tiền cảnh và hậu cảnh qua vai (Over-The-Shoulder).
+  * **Hitchcock Vertigo Dolly Zoom**: Phối hợp Zoom In + Dolly Out làm biến dạng phối cảnh hậu cảnh khi bí mật chiếc gương bị bóc trần.
+- Danh mục bối cảnh, đạo cụ, tư thế nhân vật chi tiết xem tại [CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md).
 - Xem [nhịp kể A–H](#nhịp-kể-hiện-hành) cùng các cue NHỊP trong bản nguồn trước khi thử diễn; đây là bổ sung nhịp 10/11/2026, chưa phải giọng hoặc timeline đã đo.
 - Khoảng giữ cho cú sốc, cuộc gọi ngắt và do dự **nằm trong thời lượng hành động/thoại đã có**. Khoảng nghỉ 2 giây ở bản nguồn chỉ được tính một lần. Chưa đo tổng thời lượng bằng diễn/giọng, không cộng riêng mọi nhịp giữ như một cảnh mới.
 
@@ -98,18 +107,16 @@ Hai điểm nhấn: **cận phản ứng trước cú lộ mặt**, và **khung 
 
 Đây là **vai trò lớp**, không phải bảy tấm luôn xếp cố định cho mọi góc. Ví dụ thân người sau bàn thuộc NGƯỜI nhưng mặt bàn CHE-GẦN che chân; tay đặt lên bàn cần hiện trước mặt bàn. Sắp thứ tự hoặc mask theo vị trí thực và động tác, không sửa bằng cách cho toàn bộ người nổi lên trước mọi đồ.
 
-### Bốn cách quay lớp
+### Sáu chế độ máy quay điện ảnh (Cine Camera Modes)
 
-| Mã | Cách dùng | Chuyển động và điểm kiểm tra |
-|---|---|---|
-| P0 — Giữ máy | Mặc định cho diễn xuất, đối đáp, mở/gài chốt | Các lớp không tự trôi khác nhau. Người quay mặt, tay di chuyển, cửa mở và ánh đổi theo hành động; chiều sâu đến từ bố cục, mặt khối và che khuất. Máy tĩnh không đồng nghĩa mọi thứ đóng băng. |
-| P1 — Dịch ngang nhỏ | C02 và E02; chỉ dùng khi còn vùng hình phía sau vật che | Máy sang phải thì thế giới trôi trái, lớp gần trôi nhiều hơn lớp xa; ngược lại khi máy sang trái. Ví dụ thử ở 1920×1080: mép cửa gần −30 px, vùng hành động −18 px, hậu cảnh −6 px cho **một** nhịp dịch phải. Đây là mức thử cho các mặt phẳng độc lập, không phải ba tốc độ áp lên mọi vật. Nam ở gần và Người Kia ở xa có thể cần lượng dịch khác nhau; chân, sàn và bóng phải cùng phép chiếu/điểm neo phù hợp. |
-| P2 — Tiến gần nhẹ | H09, tùy mức hình sẵn có; không bắt buộc | Giữ mắt Nam làm điểm chú ý, tiến khoảng 2–3% khung như bảng máy. Bố cục phải cho lớp gần nở tương quan với lớp xa, giữ tay/điện thoại đi cùng thân. Không phóng riêng mặt rồi để vai, bàn tay hoặc bóng đứng lại. Nếu chỉ đủ hình để crop/scale cả khung, gọi đó là tiến cận giả lập; không coi nó đã tạo parallax hay cho phép nhìn vòng bên hông. |
-| P3 — Cận màn hình/thẻ | D01, D03, E01, E03, F01 (đoạn ảnh), G02, H05, H07 | Chữ là phần của vật: cùng dịch, xoay, phối cảnh và clipping với mặt điện thoại/laptop/căn cước. Giữ đọc được; không để chữ dính vào khung xuất khi tay xoay máy. Các màn hình nhỏ ở shot khác cũng phải tuân thủ, không chỉ các cận P3. |
-
-**Phạm vi chuyển động:** ngoài C02/E02 và tùy chọn H09, dùng P0. Các cảnh cận đọc dùng P3 cùng máy ổn định; không thêm một chuyến máy mới cho từng lớp hoặc mỗi câu thoại. Các mức pixel/phần trăm chỉ là điểm thử, chưa đo hiệu quả hay chi phí.
-
-Ví dụ pixel ở P1 là lượng dịch cuối cùng nhìn thấy trên hình; khi dựng phải thống nhất phép camera chung và phần bù theo độ sâu, không cộng nguyên lượng dịch hai lần. Các điểm tiếp xúc trên cùng mặt phẳng vẫn phải khớp sau phép biến đổi.
+| Mã | Tên chế độ | Ứng dụng & Ý đồ điện ảnh | Kỹ thuật chuyển động & Thông số kiểm tra |
+|---|---|---|---|
+| **P0** | **Handheld Organic Breathing**<br>(Rung thở cầm tay) | Mặc định cho mọi cảnh hội thoại và diễn xuất thay cho máy tĩnh chết. | Máy quay vác vai mô phỏng DOP cầm máy thật: Dao động hữu cơ tần số $0.2\text{Hz}$, biên độ vi mô $0.3 - 0.8\text{px}$. Giữ nhân vật sống động mà không gây chóng mặt. Khi có va chạm hoặc hoảng loạn, biên độ giật tăng lên $2.0 - 3.5\text{px}$ rồi tắt nhanh trong $0.2\text{s}$. |
+| **P1** | **Parallax Lateral Track**<br>(Dịch ngang tách lớp) | C02, E02, P2.01, P3.02; lia máy theo chuyển động nhân vật. | Máy dịch ngang với độ trễ (damping) hữu cơ: Lớp tiền cảnh (mép cửa, vai) dịch nhanh ($-30\text{px}$), lớp nhân vật dịch vừa ($-18\text{px}$), hậu cảnh dịch chậm ($-6\text{px}$). Tạo chiều sâu không gian quang học chân thực. |
+| **P2** | **Slow Creeping Push-In**<br>(Dolly tiến chậm) | H09, P2.03, P2.06, P3.01, P3.04; thắt chặt không gian tâm lý. | Máy quay trườn từ từ vào gương mặt nhân vật với vận tốc $1.0 - 1.5\text{px/s}$. Tiêu cự giữ nguyên hoặc khẽ siết DoF. Bắt buộc lớp gần nở tương quan với lớp xa, tạo cảm giác nghẹt thở khi Nam đối mặt với sự thật hoặc lòng tham trỗi dậy. |
+| **P3** | **Macro Insert & UI Tracking**<br>(Cận màn hình / Thẻ) | D01, D03, E01, E03, G02, H05, H07, P2.06, P3.03. | Ống kính Macro 85mm f/1.4: Chữ, vết nứt, nốt ruồi và UI hiển thị sắc nét. Chữ gắn chặt vào bề mặt thiết bị (planar tracking), nghiêng theo góc xoay của tay cầm. Hiệu ứng quét sáng màn hình điện thoại (Screen Glow) phản chiếu lên mắt nhân vật. |
+| **P4** | **Dutch Angle & Power Tilt**<br>(Góc nghiêng tâm lý & Góc thấp/cao) | A04, H03, P2.03, P3.01, P3.04; bẻ cong thực tại & quyền lực. | Trục chân trời nghiêng lệch $5^\circ - 15^\circ$ biểu thị sự bất an hoặc tâm lý đảo điên. Kết hợp **Low-Angle** (hếch từ dưới lên Người Kia để tôn vị thế áp đảo) và **High-Angle / Top-Down** (nhìn từ trên trần xuống dìm Nam vào cảm giác bị giam cầm như côn trùng mắc kẹt). |
+| **P5** | **Vertigo Dolly Zoom & Water Ripple**<br>(Quang học dị thường & Kính hóa nước) | P3.03, P3.04, P3.05, Trailer. | • **Hitchcock Vertigo Zoom:** Zoom in tiêu cự từ 35mm lên 85mm đồng thời Dolly lùi máy quay, giữ nguyên kích thước Nam nhưng hút sâu hậu cảnh phòng trọ.<br>• **Water Refraction Shader:** Khi mặt gương hóa nước, shader khúc xạ ánh sáng (Chromatic Aberration xanh/đỏ) và gợn sóng lỏng nuốt trọn nhân vật. |
 
 ### Áp vào từng nhóm góc máy
 
@@ -143,121 +150,163 @@ Ví dụ pixel ở P1 là lượng dịch cuối cùng nhìn thấy trên hình;
 
 Các nhóm A–H là nhóm máy của phần hiện có, không phải viết thêm Cảnh 3–8 trong khung truyện tương lai. Chi tiết bên dưới được biên tập cùng GPT-6.1 Sol.
 
-### MAY-A
+### MAY-A — Nhận mặt & Cú sốc trùng giọng
 
-**Quay lớp:** P0; tách thân/tay và mặt trước bồn. Cận mặt dùng pose/góc riêng, không xoay tấm người phẳng. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** P0 Handheld Breathing ($0.4\text{px}$ nhịp thở hữu cơ), P4 Dutch Angle nhẹ khi nhận ra giọng; tách thân/tay và mặt trước bồn. Xem [CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md).
 
-**Cảnh 1 — Tiếng rửa chén, nhận mặt.** Chốt cảm giác quen trước khi thấy điều không thể giải thích. Người kia chưa được quay như một quái vật.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| A01 | Toàn phòng theo nền sáng hiện có, máy cao khoảng 152 cm theo `VIEWS.wide`, 35 mm; góc A | Tĩnh, rung 0; chỗ Nam phải, bàn sau–phải, bếp sau–trái và cửa chính tường trái đều đọc được | Nam ngủ, người ở bếp quay lưng. Báo thức, tiếng nước và tiếng chén có vị trí; lập cả lối ra. Khung khoảng 5–8 giây nếu vừa nhịp hành động, không thêm lời dẫn mới. |
-| A02 | Cận tay tắt báo thức và một phần mặt Nam, 65 mm, chéo nhẹ xuống nệm | Tĩnh; nét ngón tay → mắt Nam đang nhắm; điện thoại ở cạnh nệm | Cậu tắt rồi kéo chăn, chưa biết có người giống mình. Giữ tiếng chén sang cú cắt để dẫn sự chú ý. Điện thoại chưa được nhấc lên mang đi. |
-| A02B | Trung rộng đủ thấy nệm, cuối giường và lối đi, 40 mm | Tĩnh, rung 0; giữ trục A, bếp chỉ thấy người quay lưng | Sau câu càu nhàu và lúc nước ngừng: Nam lật chăn khỏi chân → chống tay ngồi → dịch hông xuống cuối giường → xoay về lối đi → buông chân/xỏ dép. Không kéo một pose ngồi trượt trên nệm; hông chuyển từng nhịp với tay/chân đỡ. Điện thoại ở nệm trong tầm với sau khi đổi chỗ; chưa nhìn rõ mặt Người Kia. Âm vải/nệm bám các điểm chuyển trọng lượng, không thêm âm mỗi khớp. Không cộng thời lượng cứng; thử diễn trước. |
-| A03 | Trung cận Nam ba phần tư, 50 mm; bếp ở ngoài phần chính của khung | Máy giữ yên; nét mắt Nam. Không rack focus lộ mặt người kia sớm | Chạy lời tưởng đó là Tùng, rồi “Ê, áo đó…”; hướng mắt về bếp trái/sâu theo góc A. Khi người kia quay, giữ máy trên Nam: cậu ngừng giữa câu. Cắt khi mắt Nam đã dán vào người kia. |
-| A04 | Cận mặt người kia, 65 mm, ngang mắt; lấy đủ vùng mắt/mày theo mẫu | Tĩnh; rõ mặt; nốt ruồi Người Kia ở bên phải theo thiết kế mới, không nhấn riêng, nền bếp mềm vừa đủ | Cắt theo ánh mắt Nam để khán giả xác nhận gương mặt giống hệt. Giữ ánh sáng ban ngày; không chớp đèn, đổi mắt hoặc thêm tiếng gầm. |
-| A04B | Lặp bố cục A03, 50 mm | Tĩnh; nét mắt Nam | Nam nhìn ra cửa chờ Tùng bước vào. Khoảng giữ 2 giây của nguồn nằm tại đây, không cộng lần nữa. Dụi mắt rồi nhìn lại về bếp; không thêm cận riêng chỉ nốt ruồi. |
-| A05 | Trung rộng Nam tại nệm và ghế cạnh đó, 35 mm | Tĩnh để thấy chuỗi động tác; rung mặc định 0. Nếu thử cú va: một xung tối đa 3 px ở 1080p, tắt trong 0,15 giây, không xoay khung | Nam sờ mặt vì chưa tin gương mặt trước mắt, hỏi có phải trò đùa; nghe đúng giọng mình thì mới quơ điện thoại, đứng dậy va ghế. Không cắt mất đầu gối/điểm va. Tiếng ghế ngắn, có trọng lượng; tránh chồng thêm âm hù. |
+| A01 | Toàn phòng góc A (`VIEWS.wide`), 35mm Cine Anamorphic 2.39:1 | P0 Handheld Breathing nhẹ ($0.4\text{px}$, nhịp $0.2\text{Hz}$); DoF sâu toàn cảnh | Nam ngủ trên nệm phải, bóng Người Kia quay lưng ở bồn rửa sau–trái. Tiếng báo thức reo chói tai, tiếng nước chảy và tiếng bát sứ cọ rửa vang vọng trong không gian tĩnh mịch. Khung 5–8s. |
+| A02 | Cận bàn tay tắt báo thức & nửa mặt Nam, 65mm Cine Macro, DoF mỏng f/2.0 | P3 Macro Insert; nét trượt từ ngón tay ấn tắt màn hình $\to$ mí mắt Nam đang nhắm nghiền | Nam thò tay tắt báo thức rồi kéo chăn trùm đầu ngái ngủ. Tiếng cọ bát sứ vẫn tiếp diễn đều đặn dẫn dắt sự chú ý. |
+| A02B | Trung rộng nệm ngủ & lối đi, 40mm Cine Prime | P0 Handheld Breathing; nét giữ trên Nam, hậu cảnh bếp mờ nhẹ | Nam càu nhàu, lật chăn, chống tay ngồi dậy, dịch hông xoay ra mép nệm xỏ dép lê. Âm vải xột xoạt bám trọng lượng cơ thể. |
+| A03 | Trung cận Nam ba phần tư, 50mm f/1.4 Cine Prime | P2 Slow Push-in nhẹ ($1.0\text{px/s}$) vào mắt Nam khi câu nói bị nghẹn ứ | Nam tưởng là Tùng càu nhàu: *"Ê, áo đó..."*. Khi Người Kia bắt đầu quay đầu lại, máy đẩy chậm vào đồng tử Nam giãn to kinh ngạc. |
+| A04 | Cận mặt Người Kia ngoảnh lại, 65mm Cine Prime, ngang tầm mắt | P4 Dutch Angle lệch nhẹ $5^\circ$ sang phải (thực tại rạn nứt); DoF f/1.8 xóa mờ bếp | Khán giả và Nam cùng đối diện gương mặt giống hệt Nam nhưng nốt ruồi nằm ở đuôi mày BÊN PHẢI. Ánh mắt Người Kia trong veo, không chớp, nụ cười nhẹ lịch thiệp. |
+| A04B | Lặp bố cục A03 trên Nam, 50mm Prime | P0 Handheld; nét mắt Nam | Nam dụi mắt, nhìn trân trân không tin vào mắt mình. Khoảng lặng 2s nghẹt thở không tiếng động, chỉ có tiếng quạt trần quay chậm rì rì. |
+| A05 | Trung rộng Nam tại nệm & ghế cạnh đó, 35mm Anamorphic | P4 Low-Angle hếch nhẹ kết hợp P0 Handheld; khi đầu gối va ghế va chạm rung giật $3.2\text{px}$ tắt nhanh trong $0.15\text{s}$ | Nam lắp bắp sờ mặt, nghe Người Kia cất tiếng trùng khớp 100% tần số giọng mình thì hoảng loạn giật lùi, gối đập mạnh vào cạnh ghế gỗ kêu *"CỘP"*, vơ vội điện thoại tháo chạy ra cửa. |
 
-### MAY-B
+### MAY-B — Cố thủ ngưỡng cửa & Cuộc gọi cho Tùng
 
-**Quay lớp:** P0; khung cửa che đúng phía, điện thoại bám tay; Tùng chỉ có âm điện thoại. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** P0 Handheld, OTS (Over-The-Shoulder qua khung cửa), âm thanh điện thoại lọc tần số hẹp (Telephone EQ Filter).
 
-**Phần nối cuộc gọi — Nam tìm một người quen xác nhận.** Tùng hiện chỉ là giọng qua điện thoại, chưa cần bối cảnh lớp học mới.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| B01 | Trung rộng nhìn chéo qua cửa, 35 mm; Nam phía nệm/cửa, người kia phía bếp sau–trái | Máy tĩnh, giữ cả hai vùng hành động rõ; khung cửa làm lớp gần | Nam lùi, quát đừng tới gần; người kia dừng và đặt chén xuống, hai tay trống. Thấy hành động tuân thủ trong cùng khung, không dùng lời kể thay. Bàn tay Nam phải nhấc được điện thoại từ A05 trước khi gọi. |
-| B02 | Trung cận Nam ở ngưỡng cửa, 50 mm; cửa và lối ra còn đọc được | Máy cùng phía trục vừa lập; nét mắt/tay Nam. Tay phải cầm điện thoại, tay trái giữ cửa | Giữ các câu hỏi tên, đường vào và cuộc gọi. Không cần cắt theo mỗi câu. Giọng Tùng có màu âm điện thoại; không cắt sang cảnh Tùng thấy bản sao. |
-| B03 | Cận Nam, 65 mm, ngang mắt | Tĩnh; nền phòng ở sau vẫn có thể nhận diện, không blur đến mất vị trí người kia | Tùng bác bỏ rồi ngắt. Nam giữ máy bên tai thêm một nhịp, hạ xuống, siết máy, nhìn lại vào phòng. Tiếng ngắt ngắn; âm quạt/hành lang tiếp tục. Không thêm một khoảng 2 giây mới nếu nhịp này đã nằm trong diễn. |
+| B01 | Trung rộng nhìn chéo qua cửa, 35mm Cine Prime | P0 Handheld; khung cửa làm tiền cảnh che nhẹ mép trái | Nam lùi sát mép cửa quát: *"Mày là ai?! Đứng yên đó!"*. Người Kia dừng tay, đặt bát sứ chạm đáy giá bồn rửa kêu *"LÁCH CÁCH"* rồi giơ hai bàn tay trống ngang bụng tuân thủ. |
+| B02 | Trung cận Nam ở ngưỡng cửa, 50mm f/1.4 Prime | P0 Handheld nhịp thở gấp gáp; nét dán chặt vào mắt và tay cầm máy run rẩy | Nam bấm gọi Tùng, mắt không rời Người Kia. Giọng Tùng càu nhàu qua loa thoại: *"Gì đấy con zời? Đang trên giảng đường..."*. |
+| B03 | Cận mặt Nam, 65mm Cine Prime | P2 Creeping Push-in nhẹ; hậu cảnh phòng tối sâu Chiaroscuro | Tùng gạt phắt: *"Mày ngủ mơ à? Thằng song sinh cái đầu mày!"* rồi cúp máy *"TÚT TÚT"*. Nam hạ điện thoại, siết chặt nắm tay, đồng tử co giật vì tuyệt vọng. |
 
-### MAY-C
+### MAY-C — Đổi chỗ hành lang & Gài chốt then sắt
 
-**Quay lớp:** C02 dùng P1, còn lại P0; khung/cánh cửa và chốt có thứ tự che, điểm bản lề và trạng thái riêng. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** C02 dùng P1 Parallax Lateral Track, C05 Macro P3 đặc tả then cài; âm thanh kim loại đanh chắc.
 
-**Nam lấy lại căn phòng — đổi vị trí rồi gài chốt.** Đoạn này cần toàn cảnh chứng minh đường đi hơn một chuỗi cận hấp dẫn nhưng khó hiểu.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| C01 | Toàn hành lang, 28 mm; góc B nhìn vuông vào dãy phòng, máy sát lan can, lan can nằm dưới mép khung | Tĩnh; Nam phía cầu thang/trái, cửa giữa, chỗ chờ bên phải | Lượt “Mày muốn tao làm gì?” và “Ra khỏi phòng tao” quay tiếp ở B01, vì lúc đó người kia còn trong phòng. Cắt sang C01 khi người kia tới gần ngưỡng để tái xác lập không gian trước khi đổi trục. |
-| C02 | Trung rộng cùng phía trục hành lang, 40 mm | Dịch ngang ngắn theo Nam né trái; tối đa khoảng 2% bề ngang khung làm điểm thử, rung 0; cạnh cửa lướt ở lớp gần | Nam lùi khi người kia tiến, nhắc giữ khoảng cách; người kia dừng. Tránh silhouette chồng kín nhau. Có thể giữ nguyên toàn C01 nếu bố cục đã đọc được, không bắt buộc thêm cú máy. |
-| C03 | Toàn như C01, 28 mm | Tĩnh, giữ hai người rõ | Người kia đi về chỗ được chỉ, Nam chờ rồi mới lách vào phòng. Giữ đến lúc Nam qua ngưỡng; không cho người kia biến vị trí giữa hai cú cắt. |
-| C04 | Trung Nam phía trong nhìn về cửa, 50 mm | Tĩnh, tay khép cửa còn trong hình | Nối đúng hướng chuyển động C03. Nam đóng cửa; điện thoại vẫn trong tay phải, tay trái rảnh để gài chốt. Tiếng hành lang bớt trực tiếp khi cửa khép. |
-| C05 | Đặc tả chốt và tay trái, góc xiên nhẹ, 85 mm | Tĩnh; rõ lưỡi chốt đi vào ổ, không rung/nhòe | Bằng chứng cửa thực sự khóa ở thời điểm này. Tiếng kim loại nhỏ, rõ. Cắt sau khi tay ngừng, không chỉ cho thấy một cánh cửa đã đóng. |
-| C06 | Trung Nam ngồi đối diện cửa, 50 mm, ngang tầm ngồi | Tĩnh; cửa đóng chiếm một phần khung, mặt Nam đọc được | Lời người kia “Tao đứng đây rồi” ở ngoài, Nam đáp “Đừng nói nữa”; sau đó im thật. Cho thấy Nam kéo chiếc ghế làm việc từ cạnh nệm ra ngồi đối diện cửa, giữ ngoài vùng quét cánh cửa. Ghế bốn chân, diễn đứng lên kéo/nhấc, không lăn như ghế có bánh. Điện thoại trong tay, chưa trượt sang bàn. |
+| C01 | Toàn hành lang dãy trọ tầng 2, 28mm Anamorphic | P0 Handheld vác vai; ánh đèn tuýp vàng vọt nhấp nháy mờ ảo | Tái lập không gian: Cửa phòng Nam ở giữa, lan can sắt rỉ bên phải, cầu thang bên trái. Người Kia từ trong phòng bước ra ngoài hành lang. |
+| C02 | Trung rộng ngang tầm ngực dọc hành lang, 40mm Cine | P1 Parallax Lateral Track (tiền cảnh mép cửa trượt $-30\text{px}$, Nam $-18\text{px}$, tường $-6\text{px}$) | Nam né người dán lưng vào tường hoa tiêu, quát Người Kia đứng lùi xa ra đầu dãy trọ. Người Kia ngoan ngoãn đi đến điểm chỉ định rồi đứng im. |
+| C03 | Toàn hành lang như C01, 28mm | P0 Handheld; giữ rõ cả hai nhân vật ở hai đầu khung hình | Nam nhanh như cắt lách người qua ngưỡng cửa thụt vào trong phòng. |
+| C04 | Trung Nam phía trong nhìn về cửa, 50mm Prime | P0 Handheld; cánh cửa dập sầm lại che kín khung hình | Nam giật mạnh cánh cửa gỗ khép sầm. Tiếng gió hành lang bị ngắt hoàn toàn, âm thanh phòng kín nghẹt thở. |
+| C05 | Đặc tả then sắt cài cửa, 85mm Macro Lens | P3 Macro Insert; lưỡi then sắt trượt sâu vào ổ đón | Bàn tay Nam gạt thanh then sắt, tiếng kim loại kêu lên một tiếng đanh gọn: *"CẠCH"*. Bằng chứng xác nhận cửa ĐÃ KHÓA CHẶT BÊN TRONG. |
+| C06 | Trung Nam ngồi ghế đối diện cửa, 50mm Prime | P0 Handheld nhịp thở chậm dần; cửa đóng chiếm $1/3$ khung hình | Nam kéo chiếc ghế gỗ 4 chân ra ngồi đối diện cánh cửa canh chừng. Tiếng Người Kia từ ngoài vọng vào qua khe thông gió: *"Tao đứng đây rồi"*. Nam quát: *"Câm mồm!"*. |
 
-### MAY-D
+### MAY-D — Đối chiếu căn cước & Tra khảo qua cửa
 
-**Quay lớp:** P0, cận màn hình/căn cước theo P3; giấy, ví và điện thoại giữ cùng điểm cầm/mặt đỡ. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** P3 Macro Insert tài liệu & màn hình; Rack Focus chuyển nét.
 
-**Nam chủ động hỏi lại — đồ đạc và danh tính.** Cánh cửa vẫn ngăn hai người; chỉ cắt tới bên ngoài ở lời nói người kia có thể nghe.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| D01 | Cận điện thoại, 85 mm, mặt máy gần vuông góc hướng nhìn | Tĩnh, chữ rõ, không rung hay bloom | Nam nhắn Tùng về phòng; chưa có trả lời. Giữ đủ đọc đúng câu, không cần chèn thêm tin mới hoặc dữ liệu riêng. |
-| D02 | Cận vừa bàn, tay và ví/ngăn giấy, 65 mm, chéo xuống nhẹ | Tĩnh; điện thoại tay phải; tay trái kiểm ví trên bàn, kéo ngăn tủ giấy tờ rồi lấy căn cước từ trong ngăn | Thấy cậu tự kiểm tra ví/giấy tờ; không dựng đồ bay vào tay. Có thể đặt ví nằm mở để tay trái thao tác được. Giữ tiếng ngăn kéo và giấy nhỏ, có nguồn. |
-| D03 | Cận mặt Nam với căn cước ở dưới cằm/mép dưới khung, 65 mm | Nét từ ảnh khuôn mặt trên thẻ → mắt Nam trong khoảng 0,5–0,8 giây để thử; không làm mất cả hai trong blur | Đối chiếu hình mình với điều vừa gặp. Không zoom dữ liệu cá nhân trên thẻ. Nam đặt thẻ xuống bằng tay trái; điện thoại vẫn tay phải theo nguồn. |
-| D04 | Trung Nam ngồi ghế đối diện cửa, 50 mm, lặp C06 | Máy tĩnh; chốt đóng và Nam cùng đọc được | Giữ đối đáp, cả “Không có lần sau”. Cửa không hé dần trong lúc nói. Nội dung câu hỏi đã đủ căng, không cần máy trôi liên tục. |
-| D05 | Trung người kia ở hành lang, 50 mm, ngang mắt | Tĩnh, khuôn mặt điềm tĩnh, cửa Nam nằm đúng phía trục | Chỉ xen khi người kia trả lời về chén, áo, chổi; trở lại D04 khi Nam có phản ứng. Không cắt tới người kia mỉm cười sau suy nghĩ thầm của Nam để tạo cảm giác nó nghe được nội tâm. |
+| D01 | Cận màn hình điện thoại, 85mm Macro | P3 Macro; chữ tin nhắn gửi Tùng rõ nét | Nam nhắn tin giục Tùng về phòng gấp. Màn hình báo "Đã nhận", chưa có phản hồi. |
+| D02 | Cận vừa mặt bàn & ngăn kéo tủ, 65mm Prime | P0 Handheld; góc chéo nhìn xuống bàn | Nam kéo ngăn kéo bàn học, lôi ví tiền và rút tấm thẻ Căn cước công dân ra soi. Tiếng gỗ ngăn kéo kẽo kẹt. |
+| D03 | Cận mặt Nam & Thẻ căn cước ngang cằm, 65mm f/1.4 | Rack Focus Pull mượt mà: Nét từ ảnh thẻ CCCD (nốt ruồi bên trái) $\to$ Đôi mắt Nam đang nhìn trân trân | Nam đối chiếu khuôn mặt mình trên thẻ với bóng hình Người Kia vừa gặp. Cậu rùng mình nhận ra sự trùng khớp kỳ dị. |
+| D04 | Trung Nam ngồi ghế đối diện cửa, 50mm Prime | P0 Handheld; ánh sáng cửa sổ rọi xiên | Nam gặng hỏi qua cửa: *"Sao mày có chìa khóa? Sao mặc áo của tao?"*. Cửa vẫn đóng im lìm. |
+| D05 | Trung Người Kia ngoài hành lang, 50mm Prime | P0 Handheld; Người Kia đứng tựa lan can ngược sáng điềm tĩnh | Người Kia trả lời mạch lạc về việc áo vắt trên ghế, chổi dựng góc cửa. Sự bình thản của nó khiến Nam càng thêm hoang mang. |
 
-### MAY-E
+### MAY-E — Bí bài tập lớn & Toan tính vụ lợi
 
-**Quay lớp:** E02 dùng P1 theo ghế, phần còn lại P0/P3; chân ghế bám sàn, tay gõ ở đúng phía mặt bàn. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** P1 dịch chuyển ngang theo ghế, P2 Slow Push-in vào mắt Nam; ánh nắng dịch chuyển theo thời gian.
 
-**Ban ngày — bí bài và suy nghĩ lợi–hại.** Máy giữ lâu hơn để thấy Nam làm không được, tránh dựng thành một lần xóa chữ rồi lập tức bỏ cuộc.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| E01 | Cận điện thoại, 85 mm | Tĩnh, rõ tin giục và lời Nam hứa hôm qua | Một nhịp rung mở đoạn; giữ đủ đọc. Không thêm giọng trưởng nhóm đọc thay tin nhắn, không có tiếng rung liên tục phủ các suy nghĩ sau đó. |
-| E01B | Toàn phòng góc A như A01, 35 mm | Tĩnh, rung 0 | Nam đứng dậy kéo ghế rời chỗ đối diện cửa, băng qua phòng. Cắt khi ghế gần tới bàn, để đường đi được thấy trọn. |
-| E02 | Trung rộng bàn Nam sau–phải cạnh tủ quần áo, 35 mm | Dịch ngang nhẹ theo đoạn cuối, khi ghế vào khung rồi đứng lại; cạnh bàn lớp gần và tường lớp xa dịch khác nhau | Nam đặt điện thoại trong tầm với, mở laptop đã cắm sạc. Xác lập vị trí đồ trước phần tối. Không đổi cửa/nệm sang bên khác để lấy một góc đẹp riêng. |
-| E03 | Cận tài liệu trên laptop, 65 mm; góc gần chính diện | Tĩnh; chữ là lớp riêng rõ, tay/phím có vùng chạm hợp lý | Đầu shot thấy tài liệu chung có phần bạn đã đầy chữ/phần Nam còn tiêu đề, sau đó Nam chuyển sang nháp riêng phần mở đầu để viết; giao diện đọc được đây là bản riêng chưa chia sẻ. Gõ–dừng–xóa nhiều lần; có thể cắt thời gian cùng bố cục bằng thay vệt nắng và trạng thái bài. Âm phím thưa, không phát thành nhịp gõ giỏi liên tục. |
-| E04 | Trung cận Nam ba phần tư, 65 mm; một phần bàn và góc bếp giữ trong bố cục | Tĩnh qua các suy nghĩ; nét mắt, cửa ở mép hướng nhìn | Nội tâm so sự chăm chỉ với mình, thoáng muốn nhờ rồi lắc đầu tự bác. Giữ miệng không nói, chỉ mắt/tay/tư thế thay đổi. Có thể trở lại E03 lúc Nam tiếp tục thử viết; không thêm góc cho mỗi câu nội tâm. |
+| E01 | Cận điện thoại rung bần bật trên bàn, 85mm Macro | P3 Macro; tin nhắn nhóm Zalo đòi bài tập lớn | Chuông Zalo réo giục hạn nộp bài 17h chiều nay. Nam vò đầu bứt tai. |
+| E01B | Toàn phòng góc A, 35mm Cine Anamorphic | P0 Handheld; góc máy rộng bao quát căn phòng | Nam đứng dậy kéo ghế từ cửa về bàn học. Tiếng chân ghế bốn chân miết trên sàn gạch men *"két"*. |
+| E02 | Trung rộng bàn học cạnh tủ quần áo, 35mm Cine | P1 Parallax Track theo Nam ngồi xuống mở laptop Asus/Dell cắm sạc | Nam ngồi vào bàn, cắm sạc laptop. Xác lập vị trí các đồ vật: Cốc nước đá tan chảy, chồng sách vở lộn xộn. |
+| E03 | Cận màn hình Word bài tập lớn, 65mm Cine Prime | P3 Macro; con trỏ chuột nhấp nháy trên trang giấy trắng trơn | Nam gõ vài chữ $\to$ khựng lại $\to$ nhấn Backspace xóa sạch. Áp lực bài vở đè nặng, thời gian trôi qua vệt nắng dịch dần từ bàn sang sàn. |
+| E04 | Trung cận Nam ba phần tư, 65mm f/1.4 Cine Prime | P2 Slow Push-in ($1.2\text{px/s}$) vào khóe mắt Nam đang liếc nhìn về phía cánh cửa | Nội tâm Nam trỗi dậy: *"Nếu nó thông minh giống mình... hay là nhờ nó làm hộ?"*. Nhưng rồi cậu lập tức lắc đầu tự bác bỏ vì xấu hổ và sợ hãi. |
 
-### MAY-F
+### MAY-F — Rút then đi vệ sinh & Sai lầm chí mạng
 
-**Quay lớp:** P0; mask cửa theo độ mở, F04 giữ cả tay rời đi và lưỡi chốt chưa gài đọc được. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** P0 Handheld; F04 giữ nét đồng thời then cửa rút và điện thoại rung; âm thanh then cài không phát ra.
 
-**Mở chốt, đi vệ sinh và quên gài lại.** Đây là chuỗi hình giải thích việc người kia vào được phòng sau đó, không phải tiết lộ một năng lực.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| F01 | Trung cận cửa/chốt, 65 mm, đủ thấy mặt Nam nhìn ra | Tĩnh; điện thoại tay phải, tay trái mở chốt, nét chốt → mắt Nam | Cho thấy chốt được rút bởi Nam. Cậu hé kiểm tra, giơ máy qua khe chụp người kia ở xa; ảnh gửi Tùng chỉ là dáng nhỏ ngược sáng, hiện thoáng theo P3. Đây là bằng chứng Nam có thử, không phải bằng chứng đủ để Tùng tin. Cậu chỉ bước ra sau đó; không cắt thẳng từ ghế sang ngoài hành lang. |
-| F02 | Toàn hành lang lặp C01, 28 mm | Tĩnh, giữ chiều trái/phải cũ | Nam chỉ người kia đứng xa; nó đi tới đúng điểm thì cậu mới rời phòng theo lối đối diện. Không quay nội thất nhà vệ sinh; cắt thời gian sau khi đường đi đã rõ. |
-| F03 | Cùng góc F02, 28 mm | Tĩnh, màu sáng cùng đoạn ban ngày | Nam trở về, người kia vẫn ở chỗ được chỉ. Nam vào, khép cửa. Giữ ngưỡng đủ lâu để thấy người kia chưa lẻn theo ngay lúc này. |
-| F04 | Cận vừa mép cửa, tay trái và chốt, điện thoại tay phải, 65 mm | Tĩnh; cả chốt rút lẫn máy rung/sáng đều rõ, không rack focus làm mờ mất bằng chứng | Tay Nam định gài, tin nhắn giục làm cậu chuyển sang trả lời rồi bỏ đi. Giữ khoảng 1 giây trong nhịp hành động để đọc được lưỡi chốt vẫn rút; không có tiếng khóa. Cửa đóng không đồng nghĩa cửa đã chốt. |
+| F01 | Trung cận cửa phòng & bàn tay Nam, 65mm Prime | P0 Handheld; tay trái rút then sắt kêu *"CẠCH"* | Nam mở chốt, hé mắt nhìn qua khe cửa: Người Kia vẫn đứng yên ở đầu dãy trọ. Nam giơ điện thoại chụp một tấm ảnh mờ ngược sáng gửi Tùng làm bằng chứng. |
+| F02 | Toàn hành lang dãy trọ, 28mm Anamorphic | P0 Handheld bao quát hành lang | Nam chỉ tay ra lệnh Người Kia đứng yên, rồi cậu rảo bước đi vệ sinh ở cuối hành lang đối diện. |
+| F03 | Toàn hành lang khi Nam trở về, 28mm | P0 Handheld; ánh nắng chiều đã ngả vàng cam | Nam quay về phòng, Người Kia vẫn đứng nguyên chỗ cũ. Nam bước vào trong phòng khép cửa lại. |
+| F04 | Cận mép cửa, tay trái Nam trên then sắt & tay phải cầm máy, 65mm | P0 Handheld; Giữ nét đồng thời lưỡi then sắt và màn hình điện thoại rung bần bật | **Sai lầm cốt lõi:** Tay Nam vừa chạm vào then định gài thì điện thoại rung chuông tin nhắn mới. Nam phân tâm chuyển sang bấm điện thoại, buông tay khỏi then sắt. **LƯỠI THEN SẮT VẪN RÚT HOÀN TOÀN TRÊN KHUNG CỬA.** Cửa khép hờ nhưng KHÔNG HỀ ĐƯỢC KHÓA. |
 
-### MAY-G
+### MAY-G — Cày game buông thả & Chiều tà buông xuống
 
-**Quay lớp:** P0/P3; điện thoại chuyển từ hệ tay sang hệ bàn đúng lúc đặt xuống, nắng bám mặt sàn/tường. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** P4 Top-Down Claustrophobic View, P3 Macro bật DND; vệt nắng Golden Hour rút dần sang tối.
 
-**Chơi game và ngủ quên.** Cùng một góc lặp lại với sự thay đổi nhỏ kể thời gian hiệu quả hơn một montage nhiều góc không cần thiết.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| G01 | Trung Nam ở bàn, 50 mm; cùng phía với E02 | Tĩnh; tài liệu trên laptop và điện thoại trong tay cùng có chỗ trong hình | Nam tự cho mình nghỉ, chuyển sang game. Tiếng game có nguồn từ điện thoại, thấp hơn nội tâm, không biến thành nhạc nền thay tâm trạng. |
-| G02 | Cận màn hình điện thoại, 85 mm | Tĩnh, rõ tay bật Không làm phiền và biểu tượng sau khi bật | Phải thấy thao tác do Nam làm. Chưa dùng dấu báo đỏ/âm hù báo trước hậu quả. Hiện chữ đủ đọc, không phóng cả UI nhiều lần. |
-| G03 | Lặp trung G01, 50 mm | Tĩnh; 2–3 lát cắt cùng góc với tư thế/vệt nắng đổi | Hết trận này tới trận khác, nắng rút dần khỏi mép bàn, phòng dịu lại. Giữ vị trí bàn/đồ ổn định; không để chiếc ghế hoặc điện thoại nhân đôi qua montage. |
-| G04 | Toàn phòng góc A như A01, 35 mm | Tĩnh, rõ đường từ bàn tới nệm | Nam đặt điện thoại cạnh laptop, nhìn ra cửa, hỏi vọng “Còn đó không?”, chờ một nhịp không có tiếng đáp, rồi sang nệm nằm ngủ; laptop còn bài mở, ghế ở bàn. Giảm ánh sáng qua chuyển thời gian; không quay cảnh người kia lẻn vào hoặc giải thích động cơ của nó. Tiếng game đã dừng khi cậu đặt máy. |
+| G01 | Trung Nam ngồi ở bàn học, 50mm Cine Prime | P0 Handheld; tài liệu Word dang dở trên màn hình laptop | Nam tự nhủ *"nghỉ tí cày một trận game đã"*. Cậu ngả lưng cầm điện thoại xoay ngang. Tiếng game chiến thuật nổ giòn giã. |
+| G02 | Cận màn hình điện thoại, 85mm Macro | P3 Macro Insert; ngón tay Nam gạt bật icon vầng trăng khuyết tím | Nam bật chế độ **Không làm phiền (Do Not Disturb)** để chặn mọi tin nhắn giục bài của nhóm. |
+| G03 | Lặp trung G01 qua 3 lát cắt thời gian (Jump Cuts) | P0 Handheld ổn định; vệt nắng cam dịch chuyển từ mặt bàn xuống sàn rồi tắt hẳn | Nam miệt mài chơi hết trận này sang trận khác. Ánh hoàng hôn tắt dần, căn phòng chìm vào bóng tối nhờ nhợ. |
+| G04 | Toàn phòng góc A, 35mm Cine Anamorphic | P0 Handheld bao quát căn phòng lúc chập tối | Nam ném điện thoại cạnh laptop, nhìn ra cửa hỏi vọng: *"Còn đó không?"*. Không có tiếng đáp. Nam ngáp dài sang nệm nằm ngủ thiếp đi. |
 
-### MAY-H
+### MAY-H — Tỉnh giấc ban đêm & Bản hợp đồng ma quỷ
 
-**Quay lớp:** P0/P3, H09 tùy chọn P2; mặt bàn che thân dưới, tay/phím có tiếp xúc, ánh đèn bám nguồn và vật. Xem [hướng dẫn layer và bảng áp dụng](#quay-layer).
+**Quay lớp & Hiệu ứng:** Ánh sáng Chiaroscuro David Fincher (Đèn bàn vàng ấm 3200K + Màn hình laptop xanh lạnh 6500K); P2 Slow Push-in; DoF nông f/1.4.
 
-**Tỉnh buổi tối — người kia đã ngồi vào chỗ Nam.** Giữ lại địa lý cũ; sự thay vị trí tạo bất an, không cần đổi cả phong cách sang phim quái vật.
-
-| Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
+| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
 |---|---|---|---|
-| H01 | Trung cận Nam trên nệm, 50 mm, hướng nhìn về bàn theo trục đã lập | Tĩnh, nét mắt Nam; ánh bàn rọi từ phía phải | Tiếng phím đánh thức, lấy phản ứng trước. Nam nhìn nửa giường của Tùng còn trống ngay cạnh mình, trong cùng khung. Không cần hiện bảng chữ “Tối” thay mọi dấu ánh sáng. |
-| H02 | Toàn phòng góc A lặp A01/G04, 35 mm | Tĩnh, rõ Nam ở chỗ ngủ phải và người kia tại bàn sau–phải cạnh tủ | Khán giả đọc ngay thay đổi: cùng căn phòng, người kia ngồi ở ghế Nam đã dùng. Đèn bàn và laptop là nguồn sáng; bếp sau–trái và cửa tường trái vẫn nhận diện được. Không đổi nệm/cửa hoặc quay đảo toàn cảnh. |
-| H03 | Trung đôi chéo, ngang mắt, 40 mm | Tĩnh, nét cả hai vùng diễn; không mặc định handheld | Nam bật thân ngồi thẳng ở mép nệm để quát; người kia dừng gõ và đáp. Nam chỉ đứng sau khi đối phương lùi ghế và ngồi yên. Nam bắt nó bỏ tay khỏi bàn; người kia đứng dậy kéo ghế lùi rồi ngồi xuống, đặt tay lên đùi trước khi Nam lại gần. Giữ khoảng cách/đường Nam đi tới bàn rõ, người kia không chắn lối. Lời về cửa không chốt gợi lại F04 bằng trí nhớ khán giả, không bắt buộc phát lại insert. |
-| H04 | Cận vừa mặt bàn và tay Nam, 65 mm | Tĩnh; thấy điện thoại ở đúng vị trí G04 rồi Nam lấy bằng tay phải | Không cắt ngay sang điện thoại đã nằm trong tay. Người kia không đưa/giữ điện thoại hộ; nó đã lùi ghế, tay trên đùi. Nam với lấy máy ở tầm tay, không đứng sát. |
-| H05 | Cận điện thoại từ phía Nam, 85 mm, màn hình gần chính diện | Tĩnh, rõ biểu tượng Không làm phiền rồi thao tác mở tin Tùng/danh sách nhỡ | Người kia chỉ nhận ra biểu tượng khi có đường nhìn tới màn hình Nam cầm sáng. Nam tự mở và đọc, tin Tùng có nhắc tới tấm ảnh mờ; giờ trên máy khoảng 19h30. Không có montage người kia biết thông tin từ trước. Chừa thời gian đọc từng lớp, không hiện mọi chữ trong một khung bé. |
-| H06 | Cận Nam bên bàn, 65 mm | Máy tĩnh; ánh đèn bàn giữ rõ mắt và tay còn siết điện thoại | Giận chuyển sang xem xét; còn đề phòng. Cắt theo ánh mắt từ điện thoại sang laptop, chưa cho cười hoặc thả lỏng toàn thân ngay. Không dùng nhạc ấm xác nhận người kia đáng tin. |
-| H07 | Cận laptop, 65 mm, góc đọc tài liệu gần E03 | Tĩnh; nét chữ/phần hướng dẫn, tay trái Nam ở trackpad hoặc vùng cuộn | Nam tự đối chiếu, đọc và cuộn chính bản nháp riêng từ E03; khác biệt bản vài câu ban ngày với bài thành hình là bằng chứng lợi ích. Không chuyển sang sửa tài liệu chung. Giữ cả chỗ còn cần sửa, không biến thành bài hoàn hảo. Không bấm gửi. |
-| H08 | Trung người kia ngồi, ngang tầm mắt ngồi, 50 mm; cùng hướng máy G01 để gợi nó chiếm chỗ Nam, nhưng ghế vẫn ở vị trí đã kéo lùi tại H03 | Tĩnh; Nam vẫn có vị trí ngoài khung đúng trục; rõ hai tay không gõ tiếp | Lời mời sửa giúp khỏi thức khuya diễn nhẹ, thân thiện. Không góc thấp tôn quyền lực, không `eerie_smirk` phô lộ săn mồi. Cắt về Nam khi lời đề nghị tác động. |
-| H09 | Cận Nam, 65 mm, ngang mắt | Có thể tiến nhẹ 2–3% khung nếu nền/pose đủ; mặc định giữ tĩnh cũng được. Nét mắt rồi khóe miệng | Nội tâm tự luyến, ngẫm rồi cười nhẹ. Điện thoại vẫn trong tay. Không thêm tia sáng từ trời, nhân vật thần linh hoặc hình minh họa xác nhận suy nghĩ của cậu. |
-| H10 | Trung đôi ổn định, 40 mm, bàn ở lớp gần | Tĩnh, đọc được khoảng cách Nam đứng/người kia ngồi và bàn phím | Nam giữ quyền đọc hết/chưa cho gửi; người kia đồng ý, tay chờ khỏi phím. Kết ở âm phòng, ánh bàn và hành động đọc tiếp, không nối sang Tùng về hoặc bước thay thế chưa viết. |
+| H01 | Trung cận Nam trên nệm ngủ, 50mm f/1.4 Prime | P0 Handheld; ánh đèn bàn rọi xiên cắt nửa khuôn mặt Nam | Tiếng gõ bàn phím lách cách ròn rã đánh thức Nam dậy. Cậu mở mắt nhìn sang nửa nệm của Tùng vẫn trống không. Đồng hồ góc phòng chỉ 19h30. |
+| H02 | Toàn phòng góc A đêm tối, 35mm Anamorphic | P0 Handheld; Nguồn sáng duy nhất từ bàn học rọi bóng đen dài lên tường | **Cú sốc thị giác:** Căn phòng tối om, Người Kia đang ngồi ngay ngắn trên chiếc ghế của Nam, hai tay gõ phím thoăn thoắt trước laptop. |
+| H03 | Trung đôi chéo góc $45^\circ$, 40mm Cine Prime | P4 Dutch Angle nhẹ $7^\circ$ biểu thị sự hoảng hốt | Nam bật dậy quát: *"Mày vào đây bằng cách nào?!"*. Người Kia dừng gõ, điềm tĩnh đáp: *"Cửa mày không chốt"*. Người Kia lùi ghế lại 40cm, đặt hai bàn tay úp ngay ngắn lên đùi. |
+| H04 | Cận mặt bàn học & tay Nam với lấy máy, 65mm Prime | P0 Handheld; DoF mỏng f/1.8 | Nam tiến lại gần bàn, với lấy điện thoại kiểm tra trong sự đề phòng cao độ. |
+| H05 | Cận màn hình điện thoại, 85mm Macro | P3 Macro; mở danh sách cuộc gọi nhỡ và tin nhắn Tùng | Hàng loạt cuộc gọi nhỡ của Tùng và nhóm lớp hiện lên. Tin nhắn Tùng: *"Thằng trong ảnh mờ quá, tao nhìn không rõ..."*. |
+| H06 | Cận mặt Nam bên bàn học, 65mm f/1.4 Prime | P2 Slow Push-in chậm rãi ($1.0\text{px/s}$) | Ánh mắt Nam chuyển từ tức giận sang hoang mang rồi tò mò liếc nhìn sang màn hình laptop. |
+| H07 | Cận màn hình laptop bài tập lớn, 65mm Cine Macro | P3 Macro; tay trái Nam cuộn trackpad xem văn bản | **Bằng chứng năng lực:** File Word đã được viết trọn vẹn 10 trang, lập luận sắc bén, biểu đồ hoàn hảo vượt xa khả năng của Nam. |
+| H08 | Trung Người Kia ngồi ghế lùi lại, 50mm Prime | P0 Handheld; ánh đèn bàn vàng ấm bao phủ khuôn mặt điềm đạm | Người Kia cất giọng trầm ấm, mời mọc: *"Mày mệt rồi. Cứ để tao làm hộ cho, mày không phải thức khuya nữa"*. |
+| H09 | Cận mặt Nam, 65mm f/1.4 Cine Prime | P2 Slow Push-in sát khóe mắt $\to$ Nụ cười nhếch mép tự luyến | Cảm xúc Nam chuyển biến: Tự ái bị thói lười biếng đánh bại. Cậu tự tâng bốc: *"Thằng này giống mình nên mới giỏi thế..."*. Nam khẽ cười thỏa mãn. |
+| H10 | Trung đôi bàn học đêm, 40mm Cine Anamorphic | P0 Handheld; bố cục chiều sâu chia đôi hai nhân vật | Nam nói: *"Để tao đọc lại đã, cấm mày bấm gửi"*. Người Kia khẽ gật đầu, tay giữ ngoài bàn phím. Âm quạt trần và ánh đèn bàn vàng ấm khép lại Phần 1. |
+
+---
+
+### MAY-P2 — Bảng máy điện ảnh Phần 2: Quen được làm thay (~6:25)
+
+**Chủ đề hình ảnh:** Từ hài hước sinh viên, lười biếng buông thả $\to$ Xâm lấn hiện sinh ngột ngạt. Bổ sung các góc máy độc đáo: Top-Down Claustrophobic, Mirror OTS, Rack Focus kép.
+
+| Mã cảnh & Shot | Cỡ / Góc / Lens điện ảnh | Chế độ máy & Hiệu ứng điện ảnh | Diễn xuất, Chi tiết bối cảnh & Âm thanh |
+|---|---|---|---|
+| **P2.01_01**<br>Nộp bài | Cận mặt bàn laptop & ngón tay Nam, 65mm Macro | P3 Macro Insert; DoF f/1.4; ánh xanh màn hình rọi mắt Nam | Nam bấm nút "Gửi file" vào nhóm chat lớp. Tiếng click chuột đanh gọn. Cậu ngả lưng thở phào khoan khoái. |
+| **P2.01_02**<br>Mưa lời khen | Cận màn hình điện thoại reo dồn dập, 85mm Macro | P3 Macro; thanh thông báo Zalo nhảy liên hồi | Trưởng nhóm nhắn: *"U là trời! Đoạn mở đầu Nam viết đỉnh chóp thế! Quả này nhóm mình out trình chắc!"*. Nam đắc chí cười tươi. |
+| **P2.01_03**<br>Đuổi Người Kia | Trung đôi qua vai (OTS Nam $\to$ Người Kia), 50mm Prime | P0 Handheld; Chiaroscuro tương phản gắt | Nụ cười Nam tắt ngấm khi chạm ánh mắt Người Kia. Nam chỉ tay ra cửa: *"Xong việc rồi. Ra khỏi phòng tao"*. Người Kia lẳng lặng đứng dậy bước ra. |
+| **P2.01_04**<br>Gài then cửa | Cận then cài cửa sắt, 85mm Macro | P3 Macro; âm thanh then cài đanh gọn | Nam sập cửa gài then sắt đánh *"CẠCH"*. Tiếng kim loại khóa chặt căn phòng. |
+| **P2.01_05**<br>Hành lang bốc hơi | Nhìn qua khe thông gió cửa chính, 50mm Anamorphic | P2 Creeping Push-In chậm rãi vào bóng đêm hành lang | **Chi tiết kỳ dị:** Nam áp mắt nhìn ra khe cửa: Hành lang tầng 2 hoàn toàn trống không, im phăng phắc dưới ánh đèn tuýp vàng vọt. Không tiếng dép lê, Người Kia như bốc hơi vào không khí. |
+| **P2.02_01**<br>Tùng xách cơm | Trung rộng cửa chính mở toang, 35mm Cine Anamorphic | P0 Handheld; ánh đèn ấm phòng trọ | Tùng xách 2 hộp cơm sườn bốc khói đá cửa bước vào, cười lớn: *"Cơm sườn 35 cành đây bạn ơi! Sáng réo có thằng song sinh chui vào phòng, rồi nó đâu rồi? Bay màu rồi à?"*. |
+| **P2.02_02**<br>Bóc đũa lấp liếm | Trung cận Nam ngồi mép nệm, 50mm Prime | P0 Handheld; DoF mỏng | Nam bóc đôi đũa tre lấp liếm: *"À... tao ngủ mơ sảng tí thôi..."*. Cậu cắm cúi ăn để né tránh ánh mắt dò xét của bạn thân. |
+| **P2.03_01**<br>Sáng Ngày 2 | Toàn phòng góc A, 35mm Cine Anamorphic | P4 Dutch Angle lệch $8^\circ$ (Cú sốc phi lý) | Sáng hôm sau, Nam tỉnh dậy nhìn thấy: **Then cửa sắt bên trong vẫn đang cài chặt**, nhưng **Người Kia đã đứng rửa bát trong bếp từ bao giờ!** |
+| **P2.03_02**<br>Thử lòng 3 củ | Cận mặt bàn học & phong bì tiền, 65mm Macro | P3 Macro; phong bì 3 triệu thò ra tiền polyme 500k | Nam đặt phong bì 3 triệu tiền ăn lên bàn thử lòng. Người Kia lau khô tay, không màng liếc nhìn cọc tiền một giây nào. |
+| **P2.03_03**<br>Thị uy ông chủ | Góc thấp (Low-Angle) hếch lên Nam, 40mm Cine Prime | P4 Power Tilt; Nam đứng thẳng vỗ ngực thị uy | **Phản kháng 1:** Nam đập bàn ra oai: *"Ở đây tao là chủ phòng! Cấm mày đụng vào PC hay đồ đạc của tao nghe chưa?!"*. Người Kia khẽ cúi đầu: *"Ừ, tao biết rồi"*. |
+| **P2.04_01**<br>Lab 402 réo | Cận màn hình Lab 402 & Zalo, 85mm Macro | P3 Macro; chuông reo dồn dập | Tùng nhắn: *"Chiến thần gánh team đâu rồi? Lên thuyết trình Lab 402 mau không mất 2 củ rưỡi học lại cả lũ!"*. Nam toát mồ hôi hột. |
+| **P2.04_02**<br>Tập nói trước gương | Góc máy nhìn qua mặt chiếc gương soi (`VIEW_MIRROR`), 50mm f/1.4 | Mirror OTS: DoF nông rọi vào Nam trong gương cầm sách lúng búng | **Phản kháng 2:** Nam mở giáo trình đứng trước gương tập thuyết trình nhưng não bị "lag", đọc ngắc ngứ lí nhí, vò đầu bất lực. |
+| **P2.04_03**<br>Trao thẻ sinh viên | Cận hai bàn tay trao đổi thẻ sinh viên, 65mm Cine | P3 Macro Insert; nhấn mạnh tay thuận | Nam tặc lưỡi đưa thẻ sinh viên bằng tay phải. **Người Kia đón lấy thẻ bằng TAY TRÁI.** Ánh mắt Người Kia thoáng vẻ đắc thắng lạnh lùng. |
+| **P2.05_01**<br>Top-Down Cày Game | **Góc máy trần vuông góc $90^\circ$ (Top-Down Claustrophobic)**, 24mm | Góc nhìn từ trên cao đè nén xuống nệm ngủ | Nam nằm co quắp cày rank thâu đêm, ánh sáng xanh tím của điện thoại chớp giật trên gương mặt hốc hác, xung quanh là vỏ hộp cơm và chai nước rỗng. |
+| **P2.05_02**<br>Banter cày game | Trung cận Người Kia ngồi học ở bàn, 50mm Prime | P0 Handheld; ánh đèn bàn Chiaroscuro | Người Kia cất giọng rót mật: *"Mày thấy mệt mỏi với cuộc sống người lớn thì cứ nằm chơi game đi... Để tao sống thay cho"*. Nam cười hờ hững: *"Ừ, mày gánh được thì cứ gánh"*. |
+| **P2.05_03**<br>Comic Panels leo thang | 3 lát cắt khung hình dạng Comic Split-Screen | Jump Cuts dồn dập với âm thanh pop-up | • **Phản kháng 3:** Nam cáu vụ dọn bàn rồi lại sai đi mua đồ.<br>• **Phản kháng 4:** Đặt báo thức 6h tự đi học nhưng rồi tắt máy ngủ nướng.<br>• **Bảng điểm 9.5:** Snap Zoom vào con số 9.5 đỏ rực rỡ cổng đào tạo. |
+| **P2.06_01**<br>Clip Zalo gia đình | Cận màn hình điện thoại xem clip Zalo, 85mm Macro | P3 Macro; video clip phát hình ảnh mâm cơm quê | Mẹ và bác Hai khen ngợi Nam hết cắm mặt vào game. Clip quay rõ Người Kia ngồi gắp thức ăn cho mẹ bằng **TAY TRÁI**, nốt ruồi lộ rõ **BÊN PHẢI**. |
+| **P2.06_02**<br>Rack Focus bàng hoàng | Trung cận Nam trong phòng tối, 50mm f/1.4 Prime | **Rack Focus Pull:** Nét từ màn hình điện thoại $\to$ Đôi mắt Nam đang trừng trừng run rẩy | Nam lạnh toát sống lưng nhận ra: Người thân của mình đang yêu quý bản sao hơn chính bản thân mình. |
+| **P2.06_03**<br>Soi gương tàn tạ | Cận mặt Nam trước chiếc gương soi toàn thân, 50mm Prime | P2 Slow Push-in chậm rãi ($1.2\text{px/s}$) vào tấm gương | Nam nhìn vào gương: Một kẻ mắt trũng sâu thâm quầng, tóc tai bù xù, người ngợm hôi hám rách rưới. Một cảm giác khủng hoảng hiện sinh rợn tóc gáy. |
+| **P2.07_01**<br>Gói xôi gấc | Trung Người Kia mở cửa xách gói xôi gấc về đặt lên bàn, 35mm | P0 Handheld; Người Kia mặc áo sơ mi trắng bảnh bao | Người Kia mỉm cười: *"Mẹ gửi xôi gấc lên cho mày này, ăn đi cho nóng"*. |
+| **P2.07_02**<br>Hất tung gói xôi | Cận bàn tay Nam hất văng gói xôi gấc, 65mm Cine | **Crash Zoom & Rung giật $3.5\text{px}$** | Gói xôi gấc văng tung tóe xuống nền gạch men. Nam gào thét: *"Cút đi! Tao không cần mày sống thay! Ngày mai tao sẽ tự đi học, tự giành lại mọi thứ!"*. Khép lại Phần 2. |
+
+---
+
+### MAY-P3 — Bảng máy điện ảnh Phần 3: Người bị thay thế (~3:45)
+
+**Chủ đề hình ảnh:** Cao trào bi kịch, đối chất tâm lý bóc trần bản chất $\to$ Kỹ xảo quang học Vertigo Dolly Zoom & Mặt kính hóa nước $\to$ Đoạn kết rợn ngáy Quiet Horror.
+
+| Mã cảnh & Shot | Cỡ / Góc / Lens điện ảnh | Chế độ máy & Hiệu ứng điện ảnh | Diễn xuất, Chi tiết bối cảnh & Âm thanh |
+|---|---|---|---|
+| **P3.01_01**<br>Đại giảng đường | **Extreme Wide High-Angle (Góc toàn trên cao nhìn xuống bục giảng)**, 24mm Anamorphic | Ánh sáng Cold Neon trắng bệch công nghiệp; P0 Handheld nhẹ | Nam mặc áo quần chỉnh tề đứng đơn độc trên bục giảng gỗ rộng thênh thang. Phía sau là màn chiếu khổng lồ dày đặc công thức, phía trước là 100 sinh viên đang đổ dồn ánh mắt phán xét. |
+| **P3.01_02**<br>Não trắng xóa | Cận mặt Nam toát mồ hôi hột, 85mm Cine Prime | P2 Slow Push-in ($1.5\text{px/s}$) vào đôi mắt đờ đẫn | Não Nam trắng xóa, không một chữ kiến thức. Giọt mồ hôi chảy ròng ròng từ thái dương xuống cằm. Bàn tay cậu run bần bật bẻ gãy đôi viên phấn, bột phấn rơi lả tả xuống sàn gỗ. |
+| **P3.01_03**<br>Trừ điểm nhục nhã | Trung giảng viên & OTS qua vai Tùng, 50mm Prime | P0 Handheld; tiếng gõ thước côm cốp xuống bàn | Giảng viên nhíu mày quát: *"Hôm trước trả lời lưu loát lắm cơ mà? Sao hôm nay đứng như người mất hồn thế này?! Trừ 2 điểm chuyên cần!"*. Cả lớp xì xào mỉa mai. Nam nhìn Tùng: Ánh mắt Tùng nhìn cậu lạnh ngắt, đầy sự thất vọng. |
+| **P3.02_01**<br>Hành lang nắng gắt | Toàn cảnh hành lang đại học, 35mm Cine Anamorphic | P1 Parallax Lateral Track theo bước chân Nam | Nam cúi gằm mặt tháo chạy dọc hành lang nắng gắt chói chang. Tùng đi ngang qua, buông tiếng thở dài ngao ngán: *"Mày tụt dốc quá rồi..."*. |
+| **P3.02_02**<br>Kẻ thừa thãi | Trung Nam nép mình sau cột bê tông, 50mm f/1.4 Prime | DoF nông xóa mờ đám đông sinh viên cười đùa phía sau | Nam nhận ra sự thật cay đắng: Bạn bè, thầy cô, gia đình... tất cả đều chuộng bản sao hoàn hảo kia hơn là một kẻ lười biếng, ăn hại như cậu. Cậu là kẻ thừa thãi. |
+| **P3.03_01**<br>Soi nốt ruồi | Cận mặt bàn học tối om & hai tấm thẻ / màn hình, 85mm Macro | P3 Macro Insert; đèn bàn rọi luồng sáng hẹp | Nam vội vã lôi thẻ CCCD và clip Zalo gia đình ra đối chiếu. Cậu run rẩy dí sát hai hình ảnh vào nhau. |
+| **P3.03_02**<br>Khám phá bí mật | Cận cực đại (ECU) nốt ruồi trên thẻ & trên clip Zalo | **Snap Zoom kép dứt khoát** | • Zoom giật vào nốt ruồi **BÊN TRÁI** trên ảnh thẻ chính chủ.<br>• Zoom giật vào nốt ruồi **BÊN PHẢI** trên clip Zalo.<br>Nam trợn trừng mắt: Kẻ kia không phải người song sinh, nó là hình ảnh phản chiếu bước ra từ chiếc gương! |
+| **P3.03_03**<br>Vertigo Chiếc Gương | Toàn phòng hướng về chiếc gương soi góc phòng, 35mm $\to$ 85mm | **P5 Hitchcock Vertigo Dolly Zoom** (Zoom In kết hợp Dolly Out lùi máy) | Không gian căn phòng trọ bị bẻ cong, kéo dài hút sâu hun hút vào bóng tối kỳ dị. Chiếc gương soi góc phòng sừng sững lơ lửng như một cánh cổng tử thần. |
+| **P3.04_01**<br>Vác búa đối chất | Trung Nam vác chiếc búa đinh cán gỗ, 35mm Cine Prime | **P4 Extreme Dutch Angle $12^\circ$** nghiêng lệch trục chân trời | Nam gào thét nước mắt giàn giụa, giơ cao chiếc búa đinh định đập nát tấm gương: *"Mày chui từ gương ra đúng không?! Tao sẽ đập nát mày!"*. |
+| **P3.04_02**<br>Người Kia chặn búa | Cận mặt gương & Bàn tay trái Người Kia, 50mm f/1.4 | OTS qua vai Nam; ánh sáng Chiaroscuro sắc lạnh | Người Kia xuất hiện trong gương, giơ bàn **TAY TRÁI** nhẹ nhàng đón lấy đầu búa sắt mà không hề biến sắc. Ánh mắt nó nhìn Nam đầy vẻ thương hại. |
+| **P3.04_03**<br>Đòn tâm lý tàn nhẫn | Cận mặt Người Kia trong gương, 65mm Cine Prime | P2 Slow Push-in chậm rãi vào con ngươi đen thẳm | Người Kia cất giọng lạnh lùng bóc trần: *"Mày đập gương làm gì? Tao chính là những gì mày từng muốn trở thành: Chăm chỉ, giỏi giang, được mọi người yêu quý. Mày đã nhường cuộc sống này cho tao từ lúc mày nằm cày game rồi..."*. |
+| **P3.04_04**<br>Buông rơi chiếc búa | Cận bàn tay Nam & Chiếc búa rơi xuống sàn, 65mm Prime | P0 Handheld; cú va đập rung giật $3.0\text{px}$ | Từng câu chữ của Người Kia đánh gục ý chí Nam. Bàn tay Nam run rẩy buông lỏng. Chiếc búa đinh rơi cộp xuống sàn gạch men lạnh ngắt. |
+| **P3.05_01**<br>Khuỵu gối buông xuôi | Toàn cảnh góc cao (High-Angle) nhìn xuống Nam, 35mm | P0 Handheld tĩnh lặng | Nam khuỵu hai đầu gối xuống sàn nhà, cúi gằm đầu buông xuôi hoàn toàn. Ý chí phản kháng tan thành mây khói. |
+| **P3.05_02**<br>Bàn tay chạm kính | Cận bàn tay Nam áp vào mặt gương, 65mm Cine Macro | Slow Motion $60\text{fps}$; DoF siêu mỏng f/1.2 | Các đầu ngón tay Nam chạm vào mặt kính. Không có tiếng chạm kính cứng. Mặt kính khẽ gợn sóng lỏng lăn tăn như mặt hồ đêm. |
+| **P3.05_03**<br>Mặt kính hóa nước | Toàn phòng góc chiếc gương phát quang xanh thẫm, 35mm | **P5 Liquid Water Distortion Shader & Chromatic Aberration** | Mặt kính gương hóa lỏng thành dòng nước xanh buốt nuốt chửng toàn bộ cơ thể Nam vào bên trong cõi hư vô câm lặng. Mặt gương phẳng lặng trở lại như chưa từng có chuyện gì xảy ra. |
+| **P3.06_01**<br>Tùng mua bún chả | Trung rộng cửa chính mở ra, 35mm Cine Anamorphic | P0 Handheld; ánh đèn đêm ấm áp | Tối hôm đó, Tùng xách bọc bún chả nem thơm phức mở cửa vào: *"Nam ơi! Nay tao mua bún chả nem nướng tạ lỗi vụ ban sáng nhé!"*. |
+| **P3.06_02**<br>Dấu hiệu nghịch đảo | Cận Tùng khựng người & Người Kia ngồi ở bàn, 50mm f/1.4 | **Rack Focus Pull:** Nét chuyển từ nụ cười của Tùng sang Người Kia | Người Kia quay đầu lại mỉm cười nhẹ. Tùng khựng người, đôi mắt nheo lại hoài nghi dán chặt vào: Người Kia đang cầm đôi đũa bằng **TAY TRÁI** và nốt ruồi lộ rõ ở đuôi mày **BÊN PHẢI**. |
+| **P3.06_03**<br>Cài then sắt kết phim | Đặc tả bàn tay trái Người Kia gài then sắt cửa, 85mm Macro | P3 Macro Insert; âm thanh then cài đanh thép | Người Kia bước ra cửa, dùng bàn tay trái đẩy thanh then sắt cài chốt đánh *"CẠCH"*. Tiếng kim loại khóa chặt số phận của Nam bên trong chiếc gương. |
+| **P3.06_04**<br>Ending Shot | Cận mặt Người Kia, 65mm Cine Prime | Ánh sáng Chiaroscuro David Fincher cắt nửa mặt Người Kia trong bóng tối | Người Kia nhìn thẳng vào mắt Tùng, khóe môi khẽ nhếch một nụ cười bí hiểm: *"Mày nhìn nhầm rồi... Tao là Nam mà."* Màn hình sập đen hoàn toàn (Cut to Black). Hết phim. |
 
 ## Ánh sáng, âm và nhịp nối
 
@@ -271,7 +320,7 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 
 ## Chuẩn bị asset và kiểm tra trước khi dựng dài
 
-Tham chiếu bộ nhân vật ở [ASSET.md](ASSET.md), theo [hướng Style B](../THIET-KE-NHAN-VAT.md). Bảng SVG có biểu cảm/pose chưa chứng minh mọi góc và động tác trong bảng máy đã sẵn sàng.
+Đọc bảng kê tổng duyệt tiền kỳ chi tiết tại **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md)** (bao gồm đầy đủ 12 Bối cảnh bóc tách layer, 12 Đạo cụ tương tác Hero Props & 7 UI màn hình, 24 Dáng rig tư thế nhân vật, cùng ma trận biểu cảm 3 cấp độ). Tham chiếu bộ nhân vật ở [ASSET.md](ASSET.md), theo [hướng Style B](../THIET-KE-NHAN-VAT.md). Bảng SVG có biểu cảm/pose chưa chứng minh mọi góc và động tác trong bảng máy đã sẵn sàng.
 
 1. Dùng mặt bằng mới một cửa trái, bếp trái, bàn phải làm mốc; dùng nền hành lang B và trạng thái cửa/ghế đã có; kiểm tra đường qua ngưỡng và che/lộ khi dựng. Có lớp nền được vẽ đủ cho các dịch máy nhỏ; không cần orbit hoặc góc trần mới.
 2. Kiểm tra/tạo bổ sung khi được giao: Nam ngủ/bật dậy, gõ–xóa, cầm điện thoại/căn cước, chơi game, mở/gài chốt; người kia quay mặt từ bồn rửa, đặt chén, đi rồi ngồi gõ. Chỉ bổ sung pose/góc thực sự được dùng, không tự nhận có sẵn cả rig ngồi/gõ từ một bảng tĩnh.

@@ -27,5 +27,6 @@
 - [PHAN-01-NGUOI-TRONG-PHONG.md](PHAN-01-NGUOI-TRONG-PHONG.md): Kịch bản chi tiết Hồi 1.
 - [PHAN-02-QUEN-DUOC-LAM-THAY.md](PHAN-02-QUEN-DUOC-LAM-THAY.md): Kịch bản chi tiết Hồi 2.
 - [PHAN-03-NGUOI-BI-THAY-THE.md](PHAN-03-NGUOI-BI-THAY-THE.md): Kịch bản chi tiết Hồi 3.
-- [DUNG-CANH.md](DUNG-CANH.md): Bảng máy A–H, bố cục góc quay và visual direction.
+- [DUNG-CANH.md](DUNG-CANH.md): Bảng máy điện ảnh Live-Action cho cả 3 Phần (P1, P2, P3), tiêu cự lens, góc máy và visual direction.
+- [CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md): Bảng kê tổng duyệt asset tiền kỳ (12 bối cảnh, 12 đạo cụ hero props, 7 UI, 24 tư thế rig và ma trận biểu cảm).
 - [ASSET.md](ASSET.md): Danh mục nhân vật, biểu cảm, đạo cụ và bối cảnh phòng trọ.
