@@ -10,23 +10,23 @@
 ## Đã chọn và còn đề xuất
 
 - **Đã chọn:**
-  - Nam giữa khung, nền đổi theo thời gian, cảm xúc đổi theo;
+  - Nam giữa khung, nền và trang phục đổi theo thời gian; Nam đứng yên, giữ một vẻ lười biếng (thay cho bản cũ đổi cảm xúc từng nhịp);
   - hé cả truyện;
   - **mỗi bối cảnh chỉ thoáng qua, khoảng 0,3 giây** (yêu cầu sau cùng; trước đó 0,5 rồi 0,93 giây);
   - **nhân vật rõ, nền mờ hơn** (nền nhòe 5 px, giảm nhẹ màu và sáng; quầng tối sau lưng Nam đậm hơn để tách lớp; cảnh đêm phủ tối nhân vật nhẹ hơn để vẫn rõ mặt);
   - **nhiều bộ trang phục, có đồng phục và đồ thể thao**;
   - làm thành clip riêng.
 - **Còn đề xuất:**
-  - thứ tự 17 nhịp, biểu cảm và trang phục từng nhịp;
+  - thứ tự 17 nhịp và trang phục từng nhịp;
   - bốn nhịp ở trường và sân bóng (I1b–I1d, S7b) thêm theo yêu cầu có bối cảnh trường học và sân thể thao; nhịp S7b là chi tiết mới, kịch bản các phần chưa có cảnh Nam tự đến trường;
   - màu đồng phục và đồ thể thao;
   - có lời dẫn hay chỉ nhạc.
 
 ## Nhịp
 
-Khoảng **5,5 giây** ở 30 fps: 17 nhịp × 9 frame, cộng 12 frame giữ ở nhịp cuối. Nền hòa sang nền trong 3 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt. **Không có nhãn thời gian trên hình** (bỏ cho gọn theo yêu cầu); cột thời gian truyện dưới đây chỉ để người dựng theo dõi.
+Khoảng **5,5 giây** ở 30 fps: 17 nhịp × 9 frame, cộng 12 frame giữ ở nhịp cuối. Nền hòa sang nền trong 3 frame. **Nam đứng yên suốt clip với vẻ lười biếng**: mắt lờ đờ, miệng hơi hé, hơi gù, đầu cúi nhẹ, tay buông thõng; không biểu cảm kinh ngạc/hoảng sợ, không cử động tay (yêu cầu 10/11/2026). Chỉ nền và trang phục đổi. **Không có nhãn thời gian trên hình** (bỏ cho gọn theo yêu cầu); cột thời gian truyện dưới đây chỉ để người dựng theo dõi.
 
-| Nhịp | Thời gian truyện | Nền | Nam | Trang phục |
+| Nhịp | Thời gian truyện | Nền | Cảm xúc của truyện (ghi chú, không vẽ lên mặt Nam) | Trang phục |
 |---|---|---|---|---|
 | I1 | Một tuần trước | Góc đồ cho tặng | Hớn hở, tay đưa ra như vừa nhặt được gương | Đồng phục |
 | I1b | Ngày thường | Giảng đường | Mắt díp, đầu gật gù | Đồng phục |

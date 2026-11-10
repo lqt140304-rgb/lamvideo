@@ -1,6 +1,6 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
-import { JointPose, mixPose, NamMood, NamOutfitId, STAND_POSE, StudentTwinBody, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import { JointPose, NamMood, NamOutfitId, STAND_POSE, StudentTwinBody, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { BedCorner, DoorInside, GiveawayCorner, HallwayStairs, KitchenSink, MirrorCorner, RoomMorning, RoomProps, StudyCornerMorning, StudyDeskNight } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 import { FootballPitch, LectureRoom, SchoolCorridor, SchoolYard } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/truong-va-san';
 
@@ -54,6 +54,10 @@ export const BEATS_STORY: Beat[] = [
   { id: 'S9', chip: 'Ngày 3', bg: MirrorCorner, bgProps: { night: true, move: { truck: -110 } }, mood: 'shocked', pose: P.wary, outfit: 'dong-phuc', night: true, note: 'Trước gương. Nhạc cắt cụt ngay sau nhịp này.' },
 ];
 
+/** Theo yêu cầu 10/11/2026: Nam đứng yên với vẻ lười biếng (mắt lờ đờ, hơi gù, đầu cúi nhẹ), tay buông, không kinh ngạc/hoảng sợ.
+ *  `mood`/`pose` trong từng nhịp chỉ còn là ghi chú cảm xúc của truyện, không vẽ lên hình. */
+export const STILL_MOOD: NamMood = 'sleepy';
+export const STILL_POSE: JointPose = { ...STAND_POSE, tilt: 4, neck: -7, armR: { a: 3, b: 4 }, armL: { a: 3, b: 4, rot: -1 } };
 export const BEAT_FRAMES = 9; // 0,3 giây mỗi nhịp ở 30 fps: mỗi bối cảnh chỉ thoáng qua (yêu cầu 10/11/2026)
 export const BLEND = 3; // số frame hòa nền và nối dáng giữa hai nhịp
 export const LAST_HOLD = 12; // nhịp cuối giữ thêm trước khi cắt đen
@@ -65,12 +69,12 @@ const NAM = { x: 960, y: 150, scale: 2.35 };
 /** Một khung hình của đoạn, thuần theo tham số để vừa dùng trong Remotion vừa xuất bảng tĩnh. */
 export const NamCenterFrame: React.FC<{ beat: Beat; prev?: Beat; t: number; k: number; blinkOn?: boolean; showChip?: boolean }> = ({ beat, prev, t, k, blinkOn = false, showChip = false }) => {
   // t: 0..1 tiến độ hòa từ nhịp trước sang nhịp này; k: 0..1 tiến độ trong nhịp (để nền trôi).
-  const pose = prev && t < 1 ? mixPose(prev.pose, beat.pose, t) : beat.pose;
-  const mood = prev && t < 0.5 ? prev.mood : beat.mood;
+  const pose = STILL_POSE;
+  const mood = STILL_MOOD;
   const outfit = prev && t < 0.5 ? prev.outfit : beat.outfit;
   const night = prev && t < 0.5 ? !!prev.night : !!beat.night;
   const drift = (k - 0.5) * -46;
-  const breathe = 1 + Math.sin(k * Math.PI * 2) * 0.004;
+  const breathe = 1; // đứng yên hoàn toàn
   const Bg = ({ b, op }: { b: Beat; op: number }) => (
     <div style={{ position: 'absolute', inset: 0, opacity: op, transform: `translateX(${drift}px) scale(1.1)`, filter: 'blur(5px) saturate(.82) brightness(.94)' }}>
       <b.bg {...b.bgProps} />
@@ -107,7 +111,7 @@ const useBeat = (beats: Beat[], frame: number) => {
   const local = frame - i * BEAT_FRAMES;
   const span = i === beats.length - 1 ? BEAT_FRAMES + LAST_HOLD : BEAT_FRAMES;
   const t = i === 0 ? 1 : Math.min(1, local / BLEND);
-  return { beat: beats[i], prev: i > 0 ? beats[i - 1] : undefined, t, k: Math.min(1, local / span), blink: i > 0 && local >= 1 && local <= 2 };
+  return { beat: beats[i], prev: i > 0 ? beats[i - 1] : undefined, t, k: Math.min(1, local / span), blink: false };
 };
 
 /** Clip riêng: 13 nhịp liền, giới thiệu rồi hé cả truyện. */
@@ -148,7 +152,7 @@ export const HoSo02TrailerBoard: React.FC = () => {
                 <NamCenterFrame beat={b} t={1} k={0.5} />
               </div>
             </div>
-            <div style={{ color: '#dfe6d8', fontSize: 24, marginTop: 8, lineHeight: 1.3 }}><b>{b.id}</b> · {b.chip} · <i>{b.mood}</i> · {b.outfit} — {b.note}</div>
+            <div style={{ color: '#dfe6d8', fontSize: 24, marginTop: 8, lineHeight: 1.3 }}><b>{b.id}</b> · {b.chip} · {b.outfit} — {b.note}</div>
           </div>
         );
       })}
