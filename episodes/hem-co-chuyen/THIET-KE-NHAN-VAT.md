@@ -1,5 +1,7 @@
 # Hẻm Có Chuyện — hướng thiết kế nhân vật
 
+**Nhân vật xuyên series — 10/11/2026:** [mẫu truy vết và bộ biểu cảm đã duyệt](assets/nguoi-truy-vet/README.md): nam khoảng 20 tuổi, đen/than với điểm đỏ trầm; toàn thân V7 hiện hành, 27 nét theo 3 mức và mặt trung tính. Đây là mẫu của nhân vật đại diện chủ repo, chưa phải rig chung hoặc lệnh đổi các vai đã có.
+
 **Mở rộng phạm vi 10/11/2026:** hướng Style B dưới đây áp dụng cùng [quy chuẩn mỹ thuật chung](../../docs/PHONG-CACH-MY-THUAT.md) cho **cả nhân vật, nội thất, đạo cụ, nhà cửa, đường phố và thiên nhiên**. Ưu tiên nét cong mềm và khối tròn đầy; tránh người mềm nhưng nền ghép hộp cứng. Tên file được giữ để bảo toàn liên kết; chi tiết nhân vật bên dưới vẫn là tham chiếu riêng của series.
 
 **Đã chọn ngày 09/11/2026:** chủ repo thích cách vẽ thứ 2 trong [bảng SVG thử](ho-so-02-nguoi-lam-thay/assets/thiet-ke/character-svg-v1.png), phía phải, và yêu cầu cập nhật GitHub. Dùng đây làm hướng mỹ thuật cho thiết kế mới; lựa chọn này không đồng nghĩa toàn bộ dàn nhân vật đã được vẽ lại hoặc hoàn thiện rig.

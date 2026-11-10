@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1100" viewBox="0 0 1500 1100">
+<title>Người truy vết — concept SVG, khoảng 20 tuổi</title>
+<desc>Bản vẽ vector nguyên bản: nam trẻ mặc áo đen, viền đỏ trầm, thắt lưng ba túi. Hình toàn thân, cận mặt và cận thắt lưng. Chưa chốt tên hoặc năng lực siêu nhiên.</desc>
+<defs>
+ <g id="lighting-resources">
+ <linearGradient id="skin-volume" x1="0" y1="0" x2="1" y2=".4"><stop stop-color="#f2c69c" /><stop offset=".58" stop-color="#e3b085" /><stop offset="1" stop-color="#c99170" /></linearGradient>
+ <linearGradient id="jacket-volume" x1="0" y1="0" x2="1" y2=".2"><stop stop-color="#484952" /><stop offset=".35" stop-color="#292a31" /><stop offset="1" stop-color="#17191f" /></linearGradient>
+ <linearGradient id="leather-volume" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#565058" /><stop offset=".6" stop-color="#36333c" /><stop offset="1" stop-color="#23242b" /></linearGradient>
+ <linearGradient id="hair-volume" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#414046" /><stop offset=".6" stop-color="#25252b" /><stop offset="1" stop-color="#181b22" /></linearGradient>
+ <linearGradient id="trouser-volume" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#39363e" /><stop offset=".5" stop-color="#25252c" /><stop offset="1" stop-color="#3c3941" /></linearGradient>
+ <linearGradient id="metal-volume" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#b2aca0" /><stop offset=".45" stop-color="#797a7b" /><stop offset="1" stop-color="#555962" /></linearGradient>
+</g><g id="head" stroke="#272728" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">
+  <path d="M-23 119 L-24 155 Q-1 173 24 153 L23 116" fill="url(#skin-volume)" />
+  <path d="M-23 128 Q1 147 24 128 L24 145 Q1 157-24 144Z" fill="#bd8766" stroke="none" />
+  <path d="M-51 47 Q-45 12-5 12 Q36 11 49 43 Q53 65 50 93 Q47 114 26 129 Q9 141-8 135 Q-36 126-45 105 L-51 88Z" fill="url(#skin-volume)" />
+  <path d="M-47 68 Q-67 56-67 77 Q-65 96-47 99" fill="url(#skin-volume)" />
+  <path d="M-59 76 Q-52 69-48 82" fill="none" stroke-width="2" />
+  <path d="M-49 73 Q-62 60-57 37 L-66 39 Q-58 18-41 13 L-47 6 Q-27 8-14-5 Q-11 1-13 5 Q7-12 28-6 Q21-3 18 4 Q44-4 56 17 L48 15 Q64 31 57 47 L49 60 L45 42 Q35 39 28 25 Q24 43 4 55 L8 36 Q-5 57-25 61 L-22 45 Q-36 59-42 57 L-43 77Z" fill="url(#hair-volume)" />
+  <path d="M-41 22 Q-24 10-8 12 M4 14 Q26 5 42 20 M-31 36 Q-15 31-6 20" fill="none" stroke="#3c3839" stroke-width="2" />
+  <path d="M-30 74 C-24 65-10 64-2 72 C-8 82-24 83-30 74Z M18 71 C24 62 36 61 43 69 C38 79 24 80 18 71Z" fill="#f4ecdf" stroke-width="1.8" />
+  <ellipse cx="-12" cy="73" rx="4.4" ry="6" fill="#302d2c" stroke="none" clip-path="url(#eye-left)" />
+  <ellipse cx="32" cy="70" rx="4" ry="5.8" fill="#302d2c" stroke="none" clip-path="url(#eye-right)" />
+  <circle cx="-10.8" cy="71" r="1" fill="#fff8eb" stroke="none" clip-path="url(#eye-left)" />
+  <circle cx="33" cy="68" r="1" fill="#fff8eb" stroke="none" clip-path="url(#eye-right)" />
+  <path d="M-29 61 Q-16 56-3 60 M18 58 Q30 53 42 57" fill="none" stroke-width="3.3" />
+  <path d="M16 79 Q19 85 24 89 Q27 92 22 94 L16 94" fill="none" stroke-width="1.6" />
+  <path d="M1 112 Q13 113 24 109" fill="none" stroke-width="1.8" />
+  </g>
+ <g id="pouch" stroke="#23242a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+
+ <path d="M-16-12 L-16-28 Q-11-31-7-28 L-7-12Z M10-12 L10-28 Q15-31 19-28 L19-12Z" fill="#37353d" />
+ <path d="M-12-25 L-12-14 M14-25 L14-14" fill="none" stroke="#6b6066" stroke-width=".8" />
+
+ <path d="M20-7 L29-2 Q33 18 29 43 L21 49 L18 11Z" fill="#24262d" />
+ <path d="M-25-9 Q-29 15-25 43 Q-5 52 22 44 Q28 18 23-9Z" fill="url(#leather-volume)" />
+ <path d="M-20 18 L-20 39 Q-4 46 18 40 M25 10 L25 37" fill="none" stroke="#75646d" stroke-width=".8" opacity=".7" />
+
+ <path d="M-27-10 Q-3-16 25-9 L25 9 Q22 21 0 23 Q-22 20-26 10Z" fill="url(#leather-volume)" />
+ <path d="M-22-6 Q0-10 21-5 M-22 10 Q-10 18 0 18 Q14 17 20 10" fill="none" stroke="#86727b" stroke-width=".8" opacity=".65" />
+
+ <path d="M-4 14 Q0 12 5 14 L5 33 Q1 39-4 33Z" fill="#282a30" />
+ <rect x="-5" y="19" width="11" height="10" rx="3" fill="url(#metal-volume)" stroke-width="1.2" />
+ <path d="M0 23 L0 31" stroke="#31323a" stroke-width="1.4" />
+ <circle cx="0" cy="15" r="1.2" fill="#a39c93" stroke="none" />
+</g><g id="belt" stroke="#24252b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+ <path d="M-69-5 Q0 3 69-5 L68 15 Q0 26-69 14Z" fill="#29292f" />
+ <path d="M-65 0 Q0 8 65 0 M-65 10 Q0 21 64 11" fill="none" stroke="#645960" stroke-width=".8" />
+
+ <use href="#pouch" transform="translate(64 21) rotate(-8) scale(.48 .69)" />
+ <path d="M76 36 L82 35 L84 62 Q81 66 77 62Z" fill="#8b303d" stroke-width="1.4" />
+ <path d="M79 40 L81 60" stroke="#bb6570" stroke-width=".8" />
+ <use href="#pouch" transform="translate(-53 20) rotate(5) scale(.8)" />
+ <use href="#pouch" transform="translate(45 22) rotate(-4) scale(.75)" />
+
+ <rect x="-21" y="-5" width="39" height="29" rx="5" fill="url(#metal-volume)" />
+ <rect x="-15" y="1" width="27" height="16" rx="2" fill="#302d34" stroke-width="1.2" />
+ <path d="M-1 7 L14 7" stroke="#b7afa0" stroke-width="2.8" />
+ <path d="M23-1 L24 19 M-29-1 L-29 17" stroke="#62575f" stroke-width="3" />
+</g><g id="body" stroke="#272728" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="6" cy="688.06" rx="116" ry="13" fill="#d4c9b8" stroke="none" />
+
+  <path d="M-68 368 Q-89 405-80 455 L-78 516 Q-84 574-71 650 Q-41 661-9 650 L-7 526 L-5 466 Q0 454 5 466 L7 526 L9 650 Q41 661 71 650 Q84 574 78 516 L80 455 Q89 405 68 368Z" fill="url(#trouser-volume)" />
+  <path d="M-62 410 Q-76 452-66 505 L-61 629 L-32 635 L-22 513 Q-11 467-20 415Z M27 414 Q13 474 22 520 L31 634 L62 629 L65 507 Q76 452 62 412Z" fill="#383439" stroke="none" />
+  <path d="M0 405 Q-4 429-2 453 M-72 501 Q-49 504-35 521 M30 548 Q49 540 71 544 M-62 636 L-22 640 M23 640 L63 636" fill="none" stroke="#51494d" stroke-width="1.8" />
+
+  <path d="M-65 644.200 L-63 664.840 Q-82 665.700-91 676.880 Q-98 689.780-76 691.500 L-10 687.200 L-13 663.120 L-21 648.500Z" fill="#323236" />
+  <path d="M65 644.200 L63 664.840 Q82 665.700 91 676.880 Q98 689.780 76 691.500 L10 687.200 L13 663.120 L21 648.500Z" fill="#323236" />
+  <path d="M-94 683.760 Q-66 692.360-10 681.180 L-9 688.920 Q-66 700.960-95 690.640Z M94 683.760 Q66 692.360 10 681.180 L9 688.920 Q66 700.960 95 690.640Z" fill="#535052" />
+  <path d="M-57 664.840 L-31 665.700 M-60 670.000 L-33 670.860 M-65 676.020 L-35 676.880 M57 664.840 L31 665.700 M60 670.000 L33 670.860 M65 676.020 L35 676.880" fill="none" stroke="#8b827d" stroke-width="1.5" />
+  <path d="M-74 649 Q-40 659-8 648 L-10 663 Q-40 672-70 661Z M74 649 Q40 659 8 648 L10 663 Q40 672 70 661Z" fill="#464146" />
+
+  <path d="M-107 269 Q-117 301-116 329 L-129 397 Q-116 406-102 399 L-87 330 L-83 279Z" fill="url(#skin-volume)" stroke="none" />
+  <path d="M-107 269 Q-117 301-116 329 L-128 391 M-103 392 L-87 330 L-83 279" fill="none" /><path id="forearm-and-relaxed-hand" d="M94 269 Q110 299 108 329 L119 383 Q121 393 121 402 L125 417 Q126 424 122 424 Q118 423 116 412 L118 432 Q118 439 114 437 Q111 436 109 422 L110 436 Q109 443 105 439 L102 422 L102 435 Q100 441 97 436 L95 416 Q91 420 88 416 Q85 413 88 406 L94 392 L96 383 L81 331 L80 281Z" fill="url(#skin-volume)" stroke-width="2.3" /><path d="M99 407 Q106 411 114 406" fill="none" stroke="#b88463" stroke-width="1.2" /><path d="M-111 298 Q-112 325-120 355 M102 299 L102 330" fill="none" stroke="#bd8968" stroke-width="2" />
+
+  <path id="torso-base" d="M-24 150 Q-55 155-72 181 Q-77 221-68 266 L-64 372 Q0 385 64 372 L68 266 Q77 221 72 181 Q55 155 23 150Z" fill="url(#skin-volume)" stroke="none" /><path d="M-24 150 Q-4 165 23 151 Q56 158 74 184 Q77 225 69 270 L65 369 Q0 383-65 369 L-69 270 Q-77 225-74 184 Q-55 158-24 150Z" fill="#38383f" />
+  <path d="M-26 147 Q-60 148-84 164 Q-106 179-112 213 L-122 268 Q-106 285-83 280 L-75 249 Q-79 302-79 356 Q-57 367-28 359 L-29 215 L-13 171Z" fill="url(#jacket-volume)" />
+  <path d="M23 147 Q60 149 84 166 Q106 183 111 214 L120 268 Q103 284 82 280 L75 249 Q79 304 79 356 Q57 367 25 359 L27 214 L13 171Z" fill="url(#jacket-volume)" />
+  <path d="M-84 177 Q-103 204-105 257 L-94 267 Q-81 239-75 213 L-65 178Z M67 178 Q98 188 102 220 L109 258 L94 268 L77 219Z" fill="#303138" stroke="none" />
+  <path d="M-30 192 L-30 346 M29 192 L29 346" fill="none" stroke="#8b303c" stroke-width="3" />
+  <path d="M-36 199 L-36 346 M35 199 L35 346" fill="none" stroke="#767174" stroke-width="1.2" stroke-dasharray="2 5" />
+  <path d="M-77 214 L-45 216 L-46 249 Q-64 260-78 247Z M44 216 L76 214 L77 247 Q62 260 45 249Z" fill="#292a2f" />
+  <path d="M-79 211 L-44 212 L-45 225 L-61 230 L-78 223Z M43 212 L78 211 L77 223 L61 230 L44 225Z" fill="#37373e" />
+  <circle cx="-61" cy="221" r="2.5" fill="#918b82" stroke="none" /><circle cx="61" cy="221" r="2.5" fill="#918b82" stroke="none" />
+  <path d="M-95 250 Q-105 257-110 269 M87 251 L101 265 M-73 323 L-53 334 M53 334 L73 323" fill="none" stroke="#575057" stroke-width="1.5" />
+
+  <g id="rolled-cuffs" stroke="#25262c" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+
+ <path d="M-119 278 Q-98 289-82 279 L-84 285 Q-101 293-119 284Z M83 278 Q101 287 120 276 L120 283 Q100 293 84 284Z" fill="#b98567" stroke="none" opacity=".6" />
+
+ <path d="M-110 255 Q-92 264-73 258 L-70 278 Q-88 289-112 278 Q-115 268-110 255Z" fill="#4b474f" transform="translate(-10 0)" />
+ <path d="M-109 258 Q-93 266-76 261 L-75 268 Q-92 273-111 265Z" fill="#635963" stroke="none" transform="translate(-10 0)" />
+ <path d="M-111 273 Q-90 282-72 273" fill="none" stroke="#35353e" stroke-width="1.3" transform="translate(-10 0)" />
+ <path d="M66 258 Q83 265 102 255 Q107 265 106 276 Q86 288 67 279Z" fill="#4b474f" transform="translate(16 0)" />
+ <path d="M68 261 Q84 267 102 258 L104 265 Q85 274 69 267Z" fill="#635963" stroke="none" transform="translate(16 0)" />
+ <path d="M68 274 Q85 282 105 271" fill="none" stroke="#35353e" stroke-width="1.3" transform="translate(16 0)" />
+</g><use href="#belt" transform="translate(0 368)" />
+
+  <g transform="translate(-116 398) rotate(11)">
+   <path d="M-10-1 L18-3 L20 51 L-9 55Z" fill="#d6c7ad" />
+   <path d="M-15-5 L13-7 L15 48 L-13 52Z" fill="#3c363b" />
+   <path d="M-11-1 L-9 47 M16 0 L18 46" stroke="#8f3743" stroke-width="2" />
+   <path d="M-12-13 Q-17-7-18 3 L-17 17 Q-16 23-12 20 L-10 10 Q-7 23-3 19 L-3 8 Q1 20 5 15 L4 5 Q12 11 14 5 Q14 1 5-3 L11-13Z" fill="url(#skin-volume)" stroke-width="1.7" stroke="none" />
+  <path d="M-12-13 Q-17-7-18 3 L-17 17 Q-16 23-12 20 L-10 10 Q-7 23-3 19 L-3 8 Q1 20 5 15 L4 5 Q12 11 14 5 Q14 1 5-3 L11-13" fill="none" stroke-width="2.1" /></g>
+  <use href="#head" />
+ <g id="collar" stroke="#29292f" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round">
+ <path d="M-22 151 Q0 167 23 151 L22 160 Q0 175-22 160Z" fill="#45434b" />
+ <path d="M-26 148 Q-37 150-42 157 L-49 181 Q-35 183-26 176 L-17 164 Q-25 159-26 148Z" fill="#45424a" />
+ <path d="M24 148 Q35 151 41 158 L48 181 Q34 184 26 176 L17 164 Q24 159 24 148Z" fill="#45424a" />
+ <path d="M-26 151 L-32 163 L-40 175 M24 151 L30 164 L39 176" fill="none" stroke="#98505a" stroke-width="2" />
+ <path d="M-40 158 L-45 176 M39 159 L44 177" fill="none" stroke="#777079" stroke-width=".8" />
+</g></g>
+<clipPath id="eye-left"><path d="M-30 74 C-24 65-10 64-2 72 C-8 82-24 83-30 74Z" /></clipPath><clipPath id="eye-right"><path d="M18 71 C24 62 36 61 43 69 C38 79 24 80 18 71Z" /></clipPath><clipPath id="portrait-window"><rect x="733" y="93" width="694" height="559" rx="20" /></clipPath></defs>
+<rect width="1500" height="1100" fill="#f4eee4" />
+<path d="M660 90 V1005 M710 680 H1440" fill="none" stroke="#d7cabc" stroke-width="1.5" />
+<g font-family="Arial,sans-serif" fill="#302d32">
+ <text x="65" y="65" font-size="28" font-weight="700">NGƯỜI TRUY VẾT</text>
+ <text x="65" y="94" font-size="16" fill="#77706d">SVG V7 · khối sáng–tối mềm · đen / đỏ trầm</text>
+ <text x="730" y="65" font-size="19" font-weight="700">DIỆN MẠO</text>
+ <text x="730" y="715" font-size="19" font-weight="700">TÚI CÓ NẮP, KHÓA &amp; QUAI GẮN</text>
+</g>
+<use href="#body" transform="translate(340 163) scale(1.16)" />
+<g clip-path="url(#portrait-window)"><use href="#body" transform="translate(1090 126) scale(2.65)" /></g><g transform="translate(1055 806) scale(2.6)">
+ <use href="#belt" />
+</g>
+<g font-family="Arial,sans-serif" fill="#77706d" font-size="15">
+ <text x="65" y="1050">Bản tinh chỉnh — chưa chốt tên, cơ chế thu giữ hoặc năng lực siêu nhiên.</text>
+ <text x="65" y="1075">SVG thuần vector · các nhóm đầu, thân, bàn tay và túi có thể chỉnh riêng.</text>
+</g>
+</svg>

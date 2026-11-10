@@ -1,0 +1,172 @@
+{
+  "trung_tinh": "binh-than-00.svg",
+  "bieu_cam": [
+    {
+      "cam_xuc": "Nghi ngờ",
+      "muc_do": 1,
+      "ten": "Hơi ngờ vực",
+      "file": "nghi-ngo-01.svg"
+    },
+    {
+      "cam_xuc": "Nghi ngờ",
+      "muc_do": 2,
+      "ten": "Dò xét",
+      "file": "nghi-ngo-02.svg"
+    },
+    {
+      "cam_xuc": "Nghi ngờ",
+      "muc_do": 3,
+      "ten": "Không tin",
+      "file": "nghi-ngo-03.svg"
+    },
+    {
+      "cam_xuc": "Tập trung",
+      "muc_do": 1,
+      "ten": "Chú ý",
+      "file": "suy-luan-01.svg"
+    },
+    {
+      "cam_xuc": "Tập trung",
+      "muc_do": 2,
+      "ten": "Suy luận",
+      "file": "suy-luan-02.svg"
+    },
+    {
+      "cam_xuc": "Tập trung",
+      "muc_do": 3,
+      "ten": "Căng óc tìm lời giải",
+      "file": "suy-luan-03.svg"
+    },
+    {
+      "cam_xuc": "Bất ngờ",
+      "muc_do": 1,
+      "ten": "Hơi sửng sốt",
+      "file": "bat-ngo-01.svg"
+    },
+    {
+      "cam_xuc": "Bất ngờ",
+      "muc_do": 2,
+      "ten": "Sững người",
+      "file": "bat-ngo-02.svg"
+    },
+    {
+      "cam_xuc": "Bất ngờ",
+      "muc_do": 3,
+      "ten": "Kinh ngạc",
+      "file": "bat-ngo-03.svg"
+    },
+    {
+      "cam_xuc": "Sợ hãi",
+      "muc_do": 1,
+      "ten": "Bất an",
+      "file": "so-hai-01.svg"
+    },
+    {
+      "cam_xuc": "Sợ hãi",
+      "muc_do": 2,
+      "ten": "Sợ hãi",
+      "file": "so-hai-02.svg"
+    },
+    {
+      "cam_xuc": "Sợ hãi",
+      "muc_do": 3,
+      "ten": "Hoảng hốt",
+      "file": "so-hai-03.svg"
+    },
+    {
+      "cam_xuc": "Tức giận",
+      "muc_do": 1,
+      "ten": "Khó chịu",
+      "file": "tuc-gian-01.svg"
+    },
+    {
+      "cam_xuc": "Tức giận",
+      "muc_do": 2,
+      "ten": "Bực tức",
+      "file": "tuc-gian-02.svg"
+    },
+    {
+      "cam_xuc": "Tức giận",
+      "muc_do": 3,
+      "ten": "Nổi giận",
+      "file": "tuc-gian-03.svg"
+    },
+    {
+      "cam_xuc": "Kìm nén",
+      "muc_do": 1,
+      "ten": "Giữ bình tĩnh",
+      "file": "kim-nen-01.svg"
+    },
+    {
+      "cam_xuc": "Kìm nén",
+      "muc_do": 2,
+      "ten": "Cố nhịn",
+      "file": "kim-nen-02.svg"
+    },
+    {
+      "cam_xuc": "Kìm nén",
+      "muc_do": 3,
+      "ten": "Sắp mất bình tĩnh",
+      "file": "kim-nen-03.svg"
+    },
+    {
+      "cam_xuc": "Buồn",
+      "muc_do": 1,
+      "ten": "Chạnh lòng",
+      "file": "buon-01.svg"
+    },
+    {
+      "cam_xuc": "Buồn",
+      "muc_do": 2,
+      "ten": "Buồn rõ",
+      "file": "buon-02.svg"
+    },
+    {
+      "cam_xuc": "Buồn",
+      "muc_do": 3,
+      "ten": "Nghẹn ngào",
+      "file": "buon-03.svg"
+    },
+    {
+      "cam_xuc": "Vui",
+      "muc_do": 1,
+      "ten": "Mỉm cười",
+      "file": "vui-01.svg"
+    },
+    {
+      "cam_xuc": "Vui",
+      "muc_do": 2,
+      "ten": "Vui rõ",
+      "file": "vui-02.svg"
+    },
+    {
+      "cam_xuc": "Vui",
+      "muc_do": 3,
+      "ten": "Cười thành tiếng",
+      "file": "vui-03.svg"
+    },
+    {
+      "cam_xuc": "Nhẹ nhõm",
+      "muc_do": 1,
+      "ten": "Bớt căng",
+      "file": "nhe-nhom-01.svg"
+    },
+    {
+      "cam_xuc": "Nhẹ nhõm",
+      "muc_do": 2,
+      "ten": "Thở phào",
+      "file": "nhe-nhom-02.svg"
+    },
+    {
+      "cam_xuc": "Nhẹ nhõm",
+      "muc_do": 3,
+      "ten": "Trút được gánh nặng",
+      "file": "nhe-nhom-03.svg"
+    }
+  ],
+  "bang_xem": [
+    "bang-01.svg",
+    "bang-02.svg",
+    "bang-03.svg"
+  ]
+}

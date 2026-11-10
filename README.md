@@ -6,6 +6,8 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 
 ## Bắt đầu ở đây
 
+**Asset xuyên series mới — 10/11/2026:** [Nhân vật truy vết](episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) có mẫu toàn thân hiện hành và 27 biểu cảm theo 3 mức + trung tính đã duyệt. Lưu riêng ở asset chung của Hẻm Có Chuyện; chưa rig hoặc ghép vào tập.
+
 | File | Tác dụng và nội dung cần có | Khi đọc hoặc cập nhật |
 |---|---|---|
 | [MUC-TIEU.md](docs/MUC-TIEU.md) | Hướng nội dung, khán giả, phạm vi thử và tiêu chí chọn đề tài; dùng để quyết định một ý tưởng có phù hợp kênh hay không | Đọc trước khi chọn đề tài; sửa khi chủ repo thay đổi định hướng |

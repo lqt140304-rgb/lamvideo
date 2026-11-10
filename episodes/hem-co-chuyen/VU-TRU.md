@@ -21,7 +21,8 @@ Tập nào cũng khép lựa chọn chính của người trong tập. Cameo có
 Ghi nhận yêu cầu ngày 08/11/2026: sẽ có **một nhân vật đại diện cho chính chủ repo trong vũ trụ**, có vai trò **bắt giữ và kiểm soát các thực thể**.
 
 - Hiện chỉ ghi nhận trong kế hoạch vũ trụ; **chưa đưa nhân vật này vào kịch bản tập 01 hoặc thêm cảnh/cameo/lời thoại/ảnh đại diện trong lượt cập nhật này**.
-- Tên, diện mạo, tính cách, động cơ, cách bắt giữ/kiểm soát, năng lực và giới hạn sẽ được phát triển sau. Chưa chốt thời điểm hay tập ra mắt.
+- Cập nhật 10/11/2026: đã có [mẫu toàn thân hiện hành và bộ biểu cảm đã duyệt](assets/nguoi-truy-vet/README.md). Nam khoảng 20 tuổi, hơi bụi bặm, đen/than chủ đạo với điểm đỏ trầm, thắt lưng có túi bên hông; thế mạnh là suy luận và truy vết. “Người truy vết” là nhãn làm việc.
+- Tên chính thức, tính cách chi tiết, động cơ, cơ chế bắt giữ/kiểm soát, năng lực siêu nhiên và giới hạn còn mở. Chưa chốt thời điểm hay tập ra mắt; mẫu hiện có là SVG tĩnh, chưa có rig.
 - Quan hệ với ông Lộc và các thực thể khác để mở; chưa xác lập ai đã bị nhân vật này bắt hoặc đang chịu sự kiểm soát.
 
 ## Thực thể 01 — ông Lộc / quái vật đồng hồ
