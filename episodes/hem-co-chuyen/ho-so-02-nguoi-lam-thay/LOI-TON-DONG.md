@@ -35,7 +35,7 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 
 | Mức | Việc | Chi tiết |
 |---|---|---|
-| Vừa | Demo Cảnh 1 (`canh-01-demo.tsx`) | Đã áp ánh sáng đã duyệt. Còn: A05 Nam ngồi mép nệm chồm trên chân nệm, chưa có dáng ngồi thấp đúng (khớp với dáng nằm toàn thân đang thiếu); A02 chưa có tay tắt báo thức; sleeper A01–A02 chưa nhận ánh sáng; điện thoại vẽ lại cạnh chỗ ngồi ở A03–A05 lệch với chỗ cạnh gối ở A01–A02; dáng cầm máy khi đứng, tay trái chạm hông |
+| Vừa | Demo Cảnh 1 (`canh-01-demo.tsx`) | Đã sửa 10/11: vai/thân lộ trên mép chăn khi nằm, tay tắt chuông và kéo điện thoại vào chăn, tay dụi mắt A04B (bản nhìn nghiêng riêng), dáng đứng cầm máy ngang ngực, ngồi sâu hơn trên nệm. Còn: chưa có dáng nằm toàn thân thật (thân là mảng vẽ riêng, chưa nhận ánh sáng); dáng ngồi thấp vẫn là xấp xỉ; cáp sạc điện thoại mất ở A02; sau khi trùm chăn chỉ có nhịp thở nhẹ; đầu gối chưa chạm ghế thật (chỉ đặt ghế sát chân); tay kéo chăn còn thô |
 | Nhỏ | Ánh sáng | Mảng tối dùng vật che phía sau cho tay trước thân; chân trước chân và tay sau thân chưa soi riêng ở góc nghiêng/sau lưng |
 
 Chưa có storyboard, giọng hay timeline chính thức cho Hồ sơ 2. Đoạn comic thử và âm thanh (`comic.tsx`, `sound.cjs`, `what-if-studio/public/ho-so-02-nguoi-lam-thay/`) chỉ ở máy, không đưa lên repo.
