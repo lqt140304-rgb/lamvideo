@@ -6,19 +6,19 @@
 
 ## Nhịp phần 1
 
-Khoảng **9 phút 40**, có thể tới 10 phút; đây là ngân sách thử, chưa đo audio/animatic. Thoại, đọc tin, hành động và khoảng nghỉ có thể chồng nhau; không cộng cue nghỉ hai lần hoặc kéo diễn để khớp số phút. Lời dẫn chỉ mở đầu và những chỗ cần thiết, nhường tuyến chính cho nhân vật.
+**Mục tiêu phần 1 theo bản mới: khoảng 4:50.** Bảng dưới giữ mã cảnh/máy để đối chiếu; bỏ các mốc ngân sách 9:40 của bản trước. Chưa đo audio/animatic, cần cân nhịp theo lời và hành động thực, không ép đọc nhanh để đạt mục tiêu.
 
-| Cảnh | Mốc thử | Máy / trạng thái |
+| Cảnh | Thời lượng | Máy / trạng thái |
 |---|---|---|
-| P1.00 — Nam là ai? | 0:00–0:40 | O01–O05 mới đề xuất; hồi tưởng ngắn có giọng dẫn |
-| P1.01 — Tiếng rửa chén | 0:40–1:55 | A01–A05; chốt hướng xuất hiện/cảm xúc, chưa khóa mọi câu |
-| P1.02 — Gọi người quen | 1:55–2:40 | B01–B03; thoại cuộc gọi đã duyệt |
-| P1.03 — Lấy lại căn phòng | 2:40–3:35 | C01–C06; đoạn đã duyệt |
-| P1.04 — Hỏi qua cửa | 3:35–4:30 | D01–D05; đoạn đã duyệt |
-| P1.05 — Bài không làm nổi | 4:30–6:10 | E01–E04; khung chủ repo, lời/cách nối chờ duyệt |
-| P1.06 — Quên gài lại chốt | 6:10–7:00 | F01–F04; chờ duyệt |
-| P1.07 — Chơi thêm một trận | 7:00–8:00 | G01–G04; chờ duyệt |
-| P1.08 — Người ngồi ở bàn | 8:00–9:40 | H01–H10; chờ duyệt |
+| P1.00 — Nam là ai? | Chờ đọc thử | O01–O05 mới đề xuất; hồi tưởng ngắn có giọng dẫn |
+| P1.01 — Tiếng rửa chén | Chờ đọc thử | A01–A05; chốt hướng xuất hiện/cảm xúc, chưa khóa mọi câu |
+| P1.02 — Gọi người quen | Chờ đọc thử | B01–B03; thoại cuộc gọi đã duyệt |
+| P1.03 — Lấy lại căn phòng | Chờ đọc thử | C01–C06; đoạn đã duyệt |
+| P1.04 — Hỏi qua cửa | Chờ đọc thử | D01–D05; đoạn đã duyệt |
+| P1.05 — Bài không làm nổi | Chờ đọc thử | E01–E04; khung chủ repo, lời/cách nối chờ duyệt |
+| P1.06 — Quên gài lại chốt | Chờ đọc thử | F01–F04; chờ duyệt |
+| P1.07 — Chơi thêm một trận | Chờ đọc thử | G01–G04; chờ duyệt |
+| P1.08 — Người ngồi ở bàn | Chờ đọc thử | H01–H10; chờ duyệt |
 
 ## Cách dùng bản dựng chữ
 

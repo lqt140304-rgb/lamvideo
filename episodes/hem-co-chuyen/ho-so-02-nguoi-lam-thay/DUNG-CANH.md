@@ -1,6 +1,6 @@
 # Hồ sơ 2 — Dựng cảnh và góc máy
 
-**Bản nguồn V1 đủ ba phần — 10/11/2026.** [KICH-BAN.md](KICH-BAN.md) dẫn tới lời nguồn trong từng file PHAN. Ngân sách thử 9:40 / 9:00 / 9:00, tổng 27:40; mỗi phần có thể tới 10 phút, chưa đo audio/animatic.
+**Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
 
 **Phạm vi bảng máy dưới đây:** A–H dành cho P1.01–P1.08, giữ bố cục/rig/phòng đã cập nhật. Hồi tưởng O01–O05 có hướng máy/âm trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00). Phần 2 và 3 đã có bối cảnh, cỡ cảnh, điểm nhìn, hành động/âm ngay dưới từng cảnh trong [phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [phần 3](PHAN-03-NGUOI-BI-THAY-THE.md); chưa tách thành shot list/timeline thực thi toàn tập. Không coi A–H đủ để dựng cả ba phần.
 
@@ -300,4 +300,4 @@ Bổ sung theo yêu cầu chủ repo, không thay nguồn thoại. Đây là cá
 
 **Hướng diễn:** lúc ngái ngủ chuyển trọng lượng chậm; khi nhận giọng, hành động gấp và có một nhịp hụt; khi giành lại phòng kiểm tra rồi mới tiến; tối tới bàn chậm hơn cơn quát. Không dùng chung một tốc độ cho mọi bước. Cắt theo điểm chạm/ánh mắt, giữ hướng đi qua cắt; không nối vị trí đầu/cuối bằng dissolve để che bước thiếu. Các khoảng nghỉ cũ đã nằm trong hành động, không cộng lại theo từng ô.
 
-**Chưa thể khóa:** PHAN-02 và PHAN-03 còn là đề cương, chưa có đầy đủ hành động/luật thay thế. Rà lại trạng thái vào–ra, tay giữ đồ và vị trí sau khi từng cảnh được chốt; không tự viết chuyển đổi hoặc tiết lộ gương để lấp chỗ trống.
+**Cần đồng bộ khi dựng:** PHAN-02/03 đã có kịch bản chi tiết mới. Bảng A–H chỉ bao phủ phần 1; chưa phải shot list đủ bản 15 phút. Đọc cơ chế mới trong LUAT-BAN-NHAP-V1, bỏ hướng giằng co/cưỡng ép cũ. Demo A02B và ánh sáng/rig đã có cập nhật riêng; đối chiếu trước khi dùng.

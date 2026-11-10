@@ -26,12 +26,11 @@
 - **Hướng nhân vật đã yêu cầu:** cậu sinh viên lười nhác, có thể có phần đáng ghét, nhưng phải khiến người xem nhận ra một người thật ngoài xã hội. Giữ sự mâu thuẫn và các mối quan hệ đời thường, tránh biến cậu thành một mẫu người chỉ tồn tại để bị trừng phạt.
 
 
-## Phương án viết mới — hướng kết đã chốt, chi tiết còn đề xuất
+## Bản hiện hành — đồng bộ 11/11/2026
 
-- Hồi tưởng khoảng 40 giây: sinh viên năm hai, thói quen “tí nữa”, một nét biết nghe bạn và lời hẹn rửa chén tối trước. Chiếc gương được Nam mang về một tuần trước, chưa lộ bất thường ở đầu.
-- Phần 2: Nam tự gửi bài, rút lời kể với Tùng vì muốn giữ người giúp, giao điện thoại/mã và nhờ dự họp nhóm; sau khi không giải thích nổi bài, cậu xin lỗi, rút quyền và tự tập.
-- Phần 3: Nam làm được một bước; bản sao vẫn giả danh, Nam thú nhận, tìm trợ giúp và quay bằng chứng. Đối phương cưỡng ép tiếp xúc mặt gương gốc để giam Nam, rồi ở lại ngoài đời.
-- Luật cụ thể, dòng thời gian ba ngày và giới hạn quyền xem [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa nhập các đề xuất này vào VU-TRU hoặc coi đã được chủ repo chốt.
+Đọc [KICH-BAN.md](KICH-BAN.md), ba file PHAN và [luật hiện hành](LUAT-BAN-NHAP-V1.md). Bản mới chọn mục tiêu khoảng 15 phút; bổ sung tương tác sinh viên, các lần phản kháng nửa vời, clip Zalo gia đình và kết đối đầu tâm lý. Nam bị nhốt trong thế giới gương, bản sao thay thế; Tùng bắt đầu nhận ra dấu đảo bên và thói quen tay trái, kết ở then cửa.
+
+Phương án V1 về tự học thành công, gửi clip gương cho Tùng và cưỡng ép tay/giằng co đã được thay thế. Không dùng ghi chú cũ để phục hồi tuyến đó. Những mốc duyệt cũ ở trên là lịch sử, bản mới đọc trong các file nguồn hiện hành. Chưa xác nhận đầu ra media đủ bản mới.
 
 ## Liên kết các đoạn cũ
 

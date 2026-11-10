@@ -3,14 +3,12 @@
 Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa truyện trong phiên tách. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời đủ ba phần dẫn từ [KICH-BAN.md](KICH-BAN.md).
 
 
-## Bản nháp V1 — việc mới chưa dựng
+## Đồng bộ kịch bản mới — 11/11/2026
 
-- Rà/duyệt cơ chế gương và cách Nam giấu người kia với Tùng; hướng kết Nam bị nhốt trong thế giới gương, bị thay thế và để mở đã chốt, không hỏi lại hướng này.
-- Kiểm mặt bằng có chỗ gương, hướng phản chiếu, khăn che và đường thoát; giữ một cửa chính.
-- Thử đoạn giữ cửa/giằng tay/gương bằng animatic khi được giao, tránh che mất chân/điểm tiếp xúc; kiểm thời gian Tùng tới để không kéo dài tiếng kêu vô lý.
-- Kiểm UI ghi/gửi/xóa clip và trạng thái khóa máy, phân biệt file local với file đã gửi; không khẳng định thao tác nếu chưa dựng được rõ.
-- Đọc diễn từng phần để đo thời lượng thực; thẻ và mốc phút hiện chỉ là chỉ dẫn. Chưa tạo media hoặc chạy dựng trong lượt viết.
-
+- Bản nguồn mục tiêu khoảng 15 phút đã có trong KICH-BAN và ba file PHAN; không dùng mốc 27:40 hoặc cảnh giằng co V1.
+- Cân thời lượng: bảng tổng phân bổ 4:50 / 6:25 / 3:45, trong khi phần 2 ghi 6:30 và bảng cảnh phần 3 kết 4:55. Chưa có đọc thử đủ bản mới; không gọi các số này là thời lượng phim đã đo.
+- Kiểm dựng đối chất tâm lý, búa rơi, kính hóa nước, nốt ruồi đảo bên/tay trái và then cửa; giữ phản chiếu đúng, không tự đảo đồ thật.
+- Đồng bộ shot list, vai phụ/giảng đường/clip gia đình và asset/giọng theo từng cảnh. Demo Cảnh 1 chỉ chứng minh phạm vi đoạn thử, chưa xác nhận cả bản mới.
 
 ## Trạng thái bản nguồn
 

@@ -1,5 +1,10 @@
 # Rà và sửa tính liên tục — Hồ sơ 2
 
+**Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
+
+Các mục rà V1 bên dưới giữ làm lịch sử; các nhận xét về giằng co, clip cầu cứu và quá trình tự học cũ không còn chỉ đạo dựng bản mới. Điểm cần kiểm hiện hành ở [LOI-TON-DONG.md](LOI-TON-DONG.md).
+
+
 ## Rà văn bản V1 đủ ba phần — 10/11/2026
 
 Yêu cầu mới cho phép viết luôn các phần còn thiếu. Đã chuyển nguồn lời A–H vào PHAN-01, thêm P1.00 hồi tưởng; PHAN-02/03 có bản cảnh/thoại đầy đủ. Các đoạn được duyệt trước được so bảo toàn lời; các tình tiết mới chưa duyệt toàn bộ. Chủ repo đã chốt hướng Nam bị nhốt trong thế giới gương, Người Kia thay thế và kết mở; cơ chế/diễn cụ thể còn đề xuất. Bản rà bên dưới mục này là lịch sử trước V1, các chữ “chưa viết phần kết” ở đó mô tả trạng thái lúc rà cũ.
