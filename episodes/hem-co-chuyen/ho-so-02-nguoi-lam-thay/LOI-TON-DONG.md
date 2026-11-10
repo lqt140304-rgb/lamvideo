@@ -1,4 +1,12 @@
-# Hồ sơ 2 — Lỗi và việc còn tồn đọng
+# The Crack in Reality — Hồ sơ 02: Người trong gương — Lỗi và việc còn tồn đọng
+
+## Asset và bóng cập nhật 11/11/2026
+
+- Đã có [47 SVG bổ sung](assets/bo-sung-15p/README.md) theo bản kịch bản mới, chín bảng và 16 PNG. Đây là bản hình để duyệt, chưa đủ điều kiện kết luận mọi cảnh đã sẵn sàng dựng.
+- Rig/phòng chính bỏ bóng vật liệu tự sinh, dùng mảng tự vẽ; đã xuất lại bảng nhân vật và tám góc phòng. Video local và ảnh thử bóng lịch sử chưa được dựng lại.
+- Còn phải duyệt vai phụ; vẽ thêm góc nhìn nếu shot yêu cầu, kiểm tra che khuất/cầm–thả búa/túi/đồ ăn, tay áp kính, kính hóa nước, chuyển biểu cảm/khẩu hình và nội dung clip gia đình khi có timeline. Bốn trạng thái gương tĩnh chưa chứng minh chuyển động mượt.
+- Chưa tạo hoặc nghe thử giọng/âm thanh; chưa đo lại thời lượng 15 phút. Các ghi chú ánh sáng sinh tự động ở lịch sử dưới đây đã được thay bằng quy chuẩn bóng vẽ tay 11/11.
+
 
 Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa truyện trong phiên tách. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời đủ ba phần dẫn từ [KICH-BAN.md](KICH-BAN.md).
 

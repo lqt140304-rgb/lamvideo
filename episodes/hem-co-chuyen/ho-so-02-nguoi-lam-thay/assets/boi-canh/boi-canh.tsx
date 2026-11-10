@@ -178,24 +178,26 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   const P = (p: V3) => cam.screen(Q(p));
   const fitY = (top: number, to: number, fn: () => void) => () => { yMap = (y) => (y <= top ? (y * to) / top : y - (top - to)); fn(); yMap = (y) => y; };
 
-  const lights: { p: V3; col: [number, number, number]; r: number; k: number }[] = [
-    { p: [420, 100, 36], col: [1, 0.8, 0.52], r: 150, k: 1.5 },
-    { p: [392, 84, 44], col: [0.62, 0.86, 0.95], r: 80, k: 0.7 },
-  ];
-  const L = norm([0.55, 0.6, 0.58]);
-  let lampsOff = false; // tường, sàn là mặt lớn: ánh đèn trên đó vẽ bằng vùng sáng, không tính theo tâm mặt
-  const shade = (hex: string, n: V3, at: V3) => {
-    const c = rgb(hex);
-    if (!night) { const k = 0.74 + 0.34 * Math.max(0, dot(n, L)); return `rgb(${c.map((v) => Math.round(Math.min(255, v * k))).join(',')})`; }
-    const out = [c[0] * 0.2 + 6, c[1] * 0.24 + 10, c[2] * 0.36 + 22];
-    for (const l of lampsOff ? [] : lights) {
-      const to = sub(l.p, at), d = Math.hypot(to[0], to[1], to[2]);
-      const I = (Math.max(0, dot(n, norm(to)) + 0.25) * l.k) / (1 + (d / l.r) ** 2);
-      const J = Math.min(I, 0.5);
-      out[0] += c[0] * J * l.col[0]; out[1] += c[1] * J * l.col[1]; out[2] += c[2] * J * l.col[2];
-    }
-    return `rgb(${out.map((v) => Math.round(Math.min(255, v))).join(',')})`;
+  // Bảng màu do người vẽ chọn: không Lambert, khoảng cách đèn hay ambient occlusion.
+  const DRAWN_SIDE: Record<string, string> = {
+    [C.wall]: '#d9cfb8', [C.lower]: '#b4bea7', [C.trim]: '#ddd2b9',
+    [C.floor]: '#c2b79e', [C.ceiling]: '#d4cbb5', [C.door]: '#6d887c',
+    [C.doorIn]: '#809b8b', [C.metal]: '#9da8a4', [C.steel]: '#7c8b87',
+    [C.wood]: '#b18a5d', [C.woodDark]: '#806244', [C.woodDeep]: '#5c4939',
+    [C.cabinet]: '#8fa38e', [C.counter]: '#d0cdbd', [C.red]: '#a65d4a',
+    [C.cream]: '#d9cfb8', [C.mat]: '#9eaf9c', [C.blanket]: '#58756d',
+    [C.teal]: '#698f8a', [C.chair]: '#788e75',
   };
+  const DRAWN_NIGHT: Record<string, string> = {
+    [C.wall]: '#47534f', [C.lower]: '#3e5047', [C.trim]: '#697166',
+    [C.floor]: '#424c46', [C.ceiling]: '#394a46', [C.door]: '#354d44',
+    [C.doorIn]: '#426052', [C.metal]: '#737f77', [C.steel]: '#536a63',
+    [C.wood]: '#8b795b', [C.woodDark]: '#625541', [C.woodDeep]: '#443d33',
+    [C.cabinet]: '#4f6553', [C.counter]: '#949987', [C.red]: '#9b6652',
+    [C.cream]: '#d1c199', [C.mat]: '#667965', [C.blanket]: '#405f56',
+    [C.teal]: '#456e67', [C.chair]: '#4e6953', [INK]: '#29372f',
+  };
+  const shade = (hex: string, _normal: V3, _at: V3) => night ? (DRAWN_NIGHT[hex] ?? '#657266') : hex;
   const nightOf = (hex: string) => (night ? shade(hex, [0, 0, 0], [9999, 0, 9999]) : hex);
 
   const clip = (ps: V3[]) => {
@@ -241,8 +243,8 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const faces: [V3, V3[], string][] = [
       [[0, 0, 1], [[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]], o.front ?? o.c],
       [[0, 0, -1], [[x1, y0, z0], [x0, y0, z0], [x0, y1, z0], [x1, y1, z0]], o.c],
-      [[1, 0, 0], [[x1, y0, z1], [x1, y0, z0], [x1, y1, z0], [x1, y1, z1]], o.side ?? o.c],
-      [[-1, 0, 0], [[x0, y0, z0], [x0, y0, z1], [x0, y1, z1], [x0, y1, z0]], o.side ?? o.c],
+      [[1, 0, 0], [[x1, y0, z1], [x1, y0, z0], [x1, y1, z0], [x1, y1, z1]], o.side ?? DRAWN_SIDE[o.c] ?? o.c],
+      [[-1, 0, 0], [[x0, y0, z0], [x0, y0, z1], [x0, y1, z1], [x0, y1, z0]], o.side ?? DRAWN_SIDE[o.c] ?? o.c],
       [[0, 1, 0], [[x0, y1, z1], [x1, y1, z1], [x1, y1, z0], [x0, y1, z0]], o.top ?? o.c],
       [[0, -1, 0], [[x0, y0, z0], [x1, y0, z0], [x1, y0, z1], [x0, y0, z1]], o.c],
     ];
@@ -277,27 +279,18 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const top = ring(c, o.r2 ?? r, c[1] + h), bot = ring(c, r, c[1]);
     const outline = hull([...top, ...bot].map(P)), w = lineW(c), d = roundPath(outline, w);
     const body = shade(col, [0.4, 0, 0.9], c);
-    sink.push(<g key={key++} strokeLinejoin="round"><path d={d} fill={body} /><path d={d} fill={`url(#${uid}-cyl)`} /><path d={d} fill="none" stroke={nightOf(INK)} strokeWidth={w} /></g>);
+    sink.push(<g key={key++} strokeLinejoin="round"><path d={d} fill={body} /><path d={d} fill="none" stroke={nightOf(INK)} strokeWidth={w} /></g>);
     if (c[1] + h < cam.pos[1]) poly(top, o.top ?? col, { n: [0, 1, 0], cull: false, stroke: nightOf(INK), w: w * 0.7 });
   };
   const bowl = (c: V3, r: number, col: string) => cyl(c, r * 0.55, r * 0.75, col, { r2: r, top: '#a79a7f' });
 
-  /** Bóng đổ mềm trên sàn: footprint kéo theo hướng sáng từ cửa sổ. */
-  const groundShadow = (x: [number, number], z: [number, number], h: number, op = 0.17) => {
-    if (night) op *= 1.7;
+  /** Một mảng chân vật vẽ sẵn trong mặt phẳng sàn; không chiếu bóng theo chiều cao/đèn. */
+  const groundShadow = (x: [number, number], z: [number, number], _h: number, op = 0.17) => {
     const foot: V3[] = [[x[0], 0, z[0]], [x[1], 0, z[0]], [x[1], 0, z[1]], [x[0], 0, z[1]]];
     if (behind(foot)) return;
-    const cast = foot.map((p) => [p[0] - h * 0.42, 0, p[2] + h * 0.3] as V3);
-    const pts = hull([...foot, ...cast].map(P));
-    sink.push(<path key={key++} d={roundPath(pts, 10)} fill="#3e4a3e" opacity={op} filter={`url(#${uid}-blur)`} />);
-    const ao = hull(foot.map(P));
-    sink.push(<path key={key++} d={roundPath(ao, 6)} fill="#2f382f" opacity={op * 1.5} filter={`url(#${uid}-blur-sm)`} />);
+    sink.push(<path data-shadow="drawn-contact" key={key++} d={roundPath(foot.map(P), 7)} fill="#4b5748" opacity={op} />);
   };
-  const aoLine = (a: V3, b: V3, wide: number, op: number) => {
-    const p = clip([a, b, b]);
-    if (p.length < 2) return;
-    sink.push(<path key={key++} d={`M${f1(p[0][0])} ${f1(p[0][1])}L${f1(p[1][0])} ${f1(p[1][1])}`} stroke="#39443a" strokeWidth={wide} opacity={night ? op * 1.3 : op} filter={`url(#${uid}-blur)`} fill="none" />);
-  };
+  const aoLine = (_a: V3, _b: V3, _wide: number, _op: number) => {}; // bỏ AO tự động; nét tiếp xúc đã nằm trong vật
 
   /** Phố nhìn qua cửa sổ/cửa ra vào: dãy nhà ống nhiều tầng kiểu phố Việt, có thị sai thật khi đổi góc máy. */
   const city = (X: number) => {
@@ -811,9 +804,9 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     ...(night ? [{ at: [396, 0, 75] as V3, draw: lampGlow }] : []),
   ];
   for (const a of actors) objs.push({ at: [a.at[0], 0, a.at[1]], draw: () => { sink.push(<g key={key++}>{a.render(placeOn(view, a.at, 168, move))}</g>); } });
-  lampsOff = true;
+
   shell();
-  lampsOff = false;
+
   const rayAt = sink.length; // vệt nắng chính chèn ngay sau tường–sàn, trước đồ đạc và người
   const dist = (o: Obj) => { const q = Q(o.at); return Math.hypot(q[0], q[2]); };
   // Vệt nắng: mỗi ô kính nối với mảng nắng của nó trên sàn thành một khối sáng; vẽ bao lồi trên màn hình rồi làm mờ.
@@ -846,8 +839,6 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       <defs>
         <filter id={`${uid}-blur`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="11" /></filter>
         <filter id={`${uid}-blur-sm`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" /></filter>
-        <linearGradient id={`${uid}-cyl`} x1="0" x2="1" y1="0" y2="0"><stop offset="0" stopColor="#23302b" stopOpacity=".32" /><stop offset=".55" stopColor="#23302b" stopOpacity="0" /><stop offset=".8" stopColor="#fff" stopOpacity=".22" /><stop offset="1" stopColor="#23302b" stopOpacity=".12" /></linearGradient>
-        <radialGradient id={`${uid}-vig`} cx=".5" cy=".46" r=".75"><stop offset=".62" stopColor="#1c2420" stopOpacity="0" /><stop offset="1" stopColor="#1c2420" stopOpacity={night ? 0.5 : 0.2} /></radialGradient>
         <radialGradient id={`${uid}-lamp`}><stop offset="0" stopColor="#ffd894" stopOpacity=".55" /><stop offset=".5" stopColor="#f2b56a" stopOpacity=".18" /><stop offset="1" stopColor="#f2b56a" stopOpacity="0" /></radialGradient>
         <linearGradient id={`${uid}-win`} x1="1" x2="0" y1="0" y2=".5"><stop offset="0" stopColor="#fff6d8" stopOpacity=".28" /><stop offset=".6" stopColor="#fff6d8" stopOpacity="0" /></linearGradient>
       </defs>
@@ -859,16 +850,6 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         </g>
       )}
       {!night && !inHall && <rect width="1920" height="1080" fill={`url(#${uid}-win)`} />}
-      {falloff > 0 && !night && !inHall && (() => {
-        const c = P([330, 40, 230]), r = cam.pxcm([330, 40, 230]) * 420;
-        return (
-          <>
-            <defs><radialGradient id={`${uid}-fall`} gradientUnits="userSpaceOnUse" cx={c[0]} cy={c[1]} r={r}><stop offset=".25" stopColor="#1e2430" stopOpacity="0" /><stop offset=".62" stopColor="#1e2430" stopOpacity={0.3 * falloff} /><stop offset="1" stopColor="#1e2430" stopOpacity={0.55 * falloff} /></radialGradient></defs>
-            <rect width="1920" height="1080" fill={`url(#${uid}-fall)`} style={{ mixBlendMode: 'multiply' }} />
-          </>
-        );
-      })()}
-      <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} />
       {children}
     </svg>
   );
