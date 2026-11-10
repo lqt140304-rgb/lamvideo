@@ -2,6 +2,7 @@ import React from 'react';
 import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
 import { JointPose, Light, mixPose, NamMood, NguoiKia, PALETTE, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, Talk, turnAt, TWIN_POSES, View } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import type { FaceKey } from '../../../library/expressions/cartoon-soft/net-mat';
 import { lightFor, placeOn, RoomScene, RoomView } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 
 /**
@@ -28,7 +29,7 @@ const talkAt = (f: number, from: number, to: number): Talk | undefined => (f >= 
 const blinkAt = (f: number, seed = 0) => (f + seed) % 84 < 3;
 
 // Ngồi mép nệm thấp (24 cm): đùi hơi dốc lên, cẳng chân thẳng xuống sàn.
-const LOWSIT: JointPose = { ...STAND_POSE, tilt: 8, neck: -2, armR: { a: 22, b: 46 }, armL: { a: 10, b: 58, rot: -1 }, legR: { a: 96, b: 110 }, legL: { a: 88, b: 98 } };
+const LOWSIT: JointPose = TWIN_POSES.sitLow; // ngồi mép nệm thấp, gối cao hơn hông
 const RUB: JointPose = { ...LOWSIT, armR: { a: -114, b: 121, rot: -1 }, wristR: -40, handR: 'fist', frontR: true };
 const RUB_SIDE: JointPose = { ...LOWSIT, armR: { a: 84, b: 122 }, wristR: -40, handR: 'fist', frontR: true }; // nhìn nghiêng: tay đưa lên mặt về phía trước, không lộn ra sau lưng
 const TOUCH: JointPose = { ...RUB, wristR: -55, handR: 'open' };
@@ -49,53 +50,70 @@ const Camera: React.FC<{ lens: Lens; shake?: number; children: React.ReactNode }
 };
 
 // Đầu Nam nằm trên gối (đầu hướng tường phải); `cover` 0–1 kéo chăn trùm qua đầu.
-const Sleeper = (cover: number, breath = 0) => (p: { x: number; y: number; scale: number }) => (
-  <g>
-    {/* Vai và cổ áo ngủ nằm dưới đầu: thân nằm dọc theo nệm (đầu phải, chân trái), hai vai vắt ngang gối; chăn vẽ sau che phần dưới. */}
-    <g transform={`translate(${p.x} ${p.y}) scale(${p.scale})`} stroke="#40443f" strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
-      {/* hai vai gồ lên khỏi mép chăn, cổ áo sát đầu; chăn kéo lên tới nách ở phía chân */}
-      <path d="M 38 -26 Q 24 -96 -34 -104 Q -90 -108 -124 -60 Q -142 -20 -130 34 Q -90 56 -50 52 Q 14 50 44 18 Z" fill={SLEEP} />
-      <path d="M 30 -30 Q 8 -8 28 18" fill="none" strokeWidth={3} />
-      <path d="M -40 -98 Q -20 -60 -52 -30" fill="none" strokeWidth={2.5} />
-    </g>
-    <g transform={`rotate(80 ${p.x} ${p.y})`}>
-      <StudentTwinHead mood="sleepy" blink view="three" facing={-1} id="a01-sleeper" x={p.x} y={p.y - 85 * p.scale} scale={p.scale} />
-    </g>
-    {cover > 0 && (
-      <g transform={`translate(0 ${breath * p.scale})`}>
-        <path transform={`translate(${p.x - (1 - cover) * 150 * p.scale} ${p.y}) scale(${p.scale})`} d="M -150 40 Q -170 -40 -60 -80 Q 40 -110 110 -60 Q 150 -20 120 50 Q 40 80 -150 40 Z" fill="#68877f" stroke="#40443f" strokeWidth={4} />
-        {/* nếp chăn mới kéo lên và bàn tay nắm mép chăn (chỉ thấy lúc đang kéo) */}
-        <path transform={`translate(${p.x - (1 - cover) * 150 * p.scale} ${p.y}) scale(${p.scale})`} d="M -90 -40 Q -10 -62 70 -34 M -120 10 Q -20 -10 90 8" fill="none" stroke="#4e6c64" strokeWidth={3} strokeLinecap="round" />
-        {cover < 1 && (
-          <g transform={`translate(${p.x + (150 * cover - 150 + 112) * p.scale} ${p.y - 54 * p.scale}) scale(${p.scale})`} stroke="#40443f" strokeWidth={4} strokeLinejoin="round">
-            <path d="M -30 -6 Q -14 -20 -4 -14 L 0 14 Q -14 22 -30 16 Z" fill={SLEEP} />
-            <path d="M -6 -16 Q 26 -18 34 -2 Q 38 16 24 24 Q 8 30 -4 16 Z" fill={PALETTE.skin} />
-            <path d="M 10 -10 Q 14 4 8 18 M 22 -6 Q 26 6 20 20" fill="none" strokeWidth={2.5} />
+const HEAD_AT: [number, number] = [150, -40]; // đỉnh đầu so với điểm neo gối, đơn vị rig
+const LIE_ROT = 87; // trục người dọc mép nệm ở góc wide
+const PHONE_RIG = { x: 118, y: 168 }; // điện thoại trên nệm trước mặt (khung rig chưa xoay; +x là phía máy quay)
+const BLANKET_REST = 232; // mép chăn lúc ngủ: ngang ngực dưới nách (đơn vị rig, 0 = đỉnh đầu)
+const BLANKET_OVER = -46; // trùm qua đỉnh đầu
+type SleepState = { cover?: number; breath?: number; reach?: number; carry?: number; phone?: boolean; alarm?: boolean; f?: number };
+/**
+ * Nam nằm nghiêng bằng rig (TWIN_POSES.lie) xoay quanh đỉnh đầu, cùng một tấm chăn vẽ trong cùng khung xoay nên luôn ôm theo người.
+ * `cover` 0–1 kéo mép chăn từ ngực lên trùm đầu; `reach` 0–1 với tay tới điện thoại; `carry` 0–1 tay kéo điện thoại về vào chăn.
+ * Điện thoại đặt đúng chỗ bàn tay chạm khi với hết tay, nên tay và máy luôn khớp.
+ */
+const Sleeper = ({ cover = 0, breath = 0, reach = 0, carry = 0, phone = true, alarm = false, f = 0 }: SleepState) => (p: { x: number; y: number; scale: number }) => {
+  const r = solveRig(TWIN_POSES.lie);
+  const hx = p.x + HEAD_AT[0] * p.scale, hy = p.y + HEAD_AT[1] * p.scale;
+  // Tay với: rig chỉ xoay phẳng nên tay rig giơ ra sẽ nhấc khỏi nệm; vẽ cánh tay riêng từ đúng khớp vai, bám mặt nệm tới điện thoại.
+  const sh = { x: r.armR.root.x, y: r.armR.root.y };
+  const rest = { x: sh.x + 40, y: sh.y + 150 };
+  const ease = (t: number) => t * t * (3 - 2 * t);
+  const t = ease(Math.max(reach, 0));
+  const hand = { x: rest.x + (PHONE_RIG.x - rest.x) * t, y: rest.y + (PHONE_RIG.y - rest.y) * t };
+  const elbow = { x: (sh.x + hand.x) / 2 + 34 * t, y: (sh.y + hand.y) / 2 + 30 };
+  const ph = carry > 0 ? { x: PHONE_RIG.x + (rest.x - PHONE_RIG.x) * ease(carry), y: PHONE_RIG.y + (rest.y - PHONE_RIG.y) * ease(carry) } : PHONE_RIG;
+  const edge = BLANKET_REST + (BLANKET_OVER - BLANKET_REST) * cover;
+  const pulse = 0.55 + 0.45 * Math.abs(Math.sin(f / 5));
+  return (
+    <g transform={`rotate(${LIE_ROT} ${hx} ${hy})`}>
+      <g transform={`translate(0 ${-r.dy * p.scale})`}>
+        <StudentTwinBody x={hx} y={hy} scale={p.scale} shirt={SLEEP} mood="sleepy" blink pose={{ ...TWIN_POSES.lie, view: 'three', facing: 1 }} />
+      </g>
+      <g transform={`translate(${hx} ${hy}) scale(${p.scale})`} stroke="#40443f" strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
+        {phone && (
+          <g transform={`translate(${ph.x} ${ph.y})`} opacity={1 - carry}>
+            {alarm && <ellipse cx={0} cy={0} rx={70} ry={46} fill="#fff3c4" opacity={0.35 * pulse} stroke="none" />}
+            <rect x={-16} y={-26} width={32} height={52} rx={6} fill="#3a4a47" />
+            {alarm && <rect x={-11} y={-20} width={22} height={38} rx={3} fill="#fffbe6" stroke="none" />}
           </g>
         )}
+        {/* Một tấm chăn: phủ từ mép `edge` tới quá bàn chân, dư ra hai bên thân rồi rủ xuống nệm. */}
+        <g transform={`translate(${breath} 0)`}>
+          <path d={`M -88 ${edge + 6} Q 20 ${edge - 22} 132 ${edge + 4} Q 156 ${edge + 90} 160 380 Q 182 580 160 690 Q 30 712 -90 690 Q -112 540 -98 360 Q -100 ${edge + 70} -88 ${edge + 6} Z`} fill="#68877f" />
+          <path d={`M -70 ${edge + 30} Q 20 ${edge + 8} 120 ${edge + 30}`} fill="none" stroke="#8aa69f" strokeWidth={5} />
+          <path d={`M 60 ${Math.max(edge + 90, 260)} Q 100 420 64 590 M -40 ${Math.max(edge + 120, 300)} Q -6 460 -46 610`} fill="none" stroke="#4e6c64" strokeWidth={3.5} />
+          {reach > 0.01 && (
+            <g>
+              <path d={`M ${sh.x} ${sh.y} Q ${elbow.x} ${elbow.y} ${hand.x} ${hand.y}`} fill="none" stroke="#40443f" strokeWidth={44} />
+              <path d={`M ${sh.x} ${sh.y} Q ${elbow.x} ${elbow.y} ${hand.x} ${hand.y}`} fill="none" stroke={PALETTE.skin} strokeWidth={36} />
+              <path d={`M ${sh.x} ${sh.y} L ${sh.x + (elbow.x - sh.x) * 0.55} ${sh.y + (elbow.y - sh.y) * 0.55}`} fill="none" stroke={SLEEP} strokeWidth={50} />
+              <circle cx={hand.x} cy={hand.y} r={22} fill={PALETTE.skin} />
+            </g>
+          )}
+          {cover > 0 && cover < 1 && (
+            <path d={`M 52 ${edge - 22} Q 82 ${edge - 30} 96 ${edge - 8} Q 100 ${edge + 16} 80 ${edge + 22} Q 60 ${edge + 26} 50 ${edge + 6} Z M 68 ${edge - 20} Q 66 ${edge} 72 ${edge + 20} M 84 ${edge - 18} Q 82 ${edge} 88 ${edge + 16}`} fill={PALETTE.skin} />
+          )}
+        </g>
       </g>
-    )}
-  </g>
-);
+    </g>
+  );
+};
 
 const PhoneOnMat: React.FC<{ view: RoomView }> = ({ view }) => {
   const pts = PHONE.map((c) => placeOn(view, c, 24.6));
   return <path d={`M${pts.map((q) => `${q.x.toFixed(1)} ${q.y.toFixed(1)}`).join('L')}Z`} fill="#3a4a47" stroke="#282b2b" strokeWidth={2} strokeLinejoin="round" />;
 };
 
-// Màn báo thức sáng trên điện thoại cạnh gối (phone="mat" của phòng, tâm khoảng [392, 367]).
-const AlarmGlow: React.FC<{ view: RoomView; on: boolean; f: number }> = ({ view, on, f }) => {
-  if (!on) return null;
-  const p = placeOn(view, [392.5, 367.5], 25.5);
-  const k = p.scale / 0.3;
-  const pulse = 0.55 + 0.45 * Math.abs(Math.sin(f / 5));
-  return (
-    <g>
-      <ellipse cx={p.x} cy={p.y} rx={34 * k} ry={14 * k} fill="#fff3c4" opacity={0.35 * pulse} />
-      <ellipse cx={p.x} cy={p.y} rx={12 * k} ry={5 * k} fill="#fffbe6" opacity={0.9} />
-    </g>
-  );
-};
 
 type Cue = { from: number; to: number; who?: string; text: string; sfx?: boolean };
 const CUES: Cue[] = [
@@ -150,51 +168,29 @@ const washer = (f: number, view: RoomView) => {
 };
 
 // Nam ngồi mép nệm / đứng dậy, cùng cách tính cho mọi view.
-const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; rise?: number; mood: NamMood; look: { view: View; facing: 1 | -1 }; talk?: Talk; blink?: boolean }) => ({
+const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; rise?: number; mood: NamMood; face?: FaceKey; look: { view: View; facing: 1 | -1 }; talk?: Talk; blink?: boolean }) => ({
   at: NEAR,
   render: () => {
     const p = placeOn(view, o.at);
-    return <StudentTwinBody x={p.x} y={p.y + (o.rise ?? 0) * p.scale} scale={p.scale} light={lit(view, o.at)} shirt={SLEEP} mood={o.mood} pose={{ ...o.pose, view: o.look.view, facing: o.look.facing }} talk={o.talk} blink={o.blink} />;
+    return <StudentTwinBody x={p.x} y={p.y + (o.rise ?? 0) * p.scale} scale={p.scale} light={lit(view, o.at)} shirt={SLEEP} mood={o.mood} face={o.face} pose={{ ...o.pose, view: o.look.view, facing: o.look.facing }} talk={o.talk} blink={o.blink} />;
   },
 });
 
 const A01: React.FC<{ f: number }> = ({ f }) => (
   <Camera lens={{ cx: 960, cy: 540, z: 1 }}>
-    <RoomScene view="wide" door="ajar" chair="bed" sleeper={Sleeper(0)} actors={[washer(f, 'wide')]}>
-      <AlarmGlow view="wide" on f={f} />
-    </RoomScene>
+    <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" sleeper={Sleeper({ alarm: true, f })} actors={[washer(f, 'wide')]} />
   </Camera>
 );
 
 const A02: React.FC<{ f: number }> = ({ f }) => {
   const head = placeOn('wide', [424, 332], 33);
   const lens = { cx: head.x - 40, cy: head.y + 40, z: 2.6 + 0.15 * seg(f, 180, 400) };
-  // Tay thò ra khỏi chăn tắt chuông (f226–236), kéo điện thoại vào trong chăn (f238–252) rồi rụt về.
-  const reach = seg(f, 206, 226) * (1 - seg(f, 246, 256));
-  const drag = seg(f, 237, 249);
-  const dx = -22 * drag, dz = -12 * drag;
-  const phoneOpacity = 1 - seg(f, 243, 249);
-  const corners: [number, number][] = [[388 + dx, 362 + dz], [397 + dx, 362 + dz], [397 + dx, 373 + dz], [388 + dx, 373 + dz]];
-  const pq = corners.map((c) => placeOn('wide', c, 24.6));
-  const hand = placeOn('wide', [392.5 + dx, 367.5 + dz], 26);
-  const shoulder = placeOn('wide', [338, 350], 28);
-  const k = hand.scale / 0.3;
-  const hx = shoulder.x + (hand.x - shoulder.x) * reach, hy = shoulder.y + (hand.y - shoulder.y) * reach;
-  const ex = (shoulder.x + hx) / 2, ey = Math.min(shoulder.y, hy) - 14 * k * reach;
-  const press = f >= 226 && f < 236 ? 1.5 * k : 0;
+  // Tay thò khỏi chăn với điện thoại trên đầu nệm, tắt chuông (f226–236), kéo máy về vào chăn (f238–252), rồi kéo chăn trùm đầu.
+  const reach = seg(f, 206, 226) * (1 - seg(f, 238, 254));
+  const carry = seg(f, 240, 252);
   return (
     <Camera lens={lens}>
-      <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" sleeper={Sleeper(seg(f, 250, 268), f > 268 ? Math.sin(f / 15) * 4 : 0)} actors={[washer(f, 'wide')]}>
-        <path d={`M${pq.map((q) => `${q.x.toFixed(1)} ${q.y.toFixed(1)}`).join('L')}Z`} fill="#3a4a47" stroke="#282b2b" strokeWidth={2} strokeLinejoin="round" opacity={phoneOpacity} />
-        <AlarmGlow view="wide" on={f < 236} f={f} />
-        {reach > 0.02 && (
-          <g strokeLinecap="round" strokeLinejoin="round" fill="none">
-            <path d={`M${shoulder.x} ${shoulder.y} Q${ex} ${ey} ${hx} ${hy + press}`} stroke="#40443f" strokeWidth={46 * k} />
-            <path d={`M${shoulder.x} ${shoulder.y} Q${ex} ${ey} ${hx} ${hy + press}`} stroke={SLEEP} strokeWidth={36 * k} />
-            <circle cx={hx} cy={hy + press} r={17 * k} fill={PALETTE.skin} stroke="#40443f" strokeWidth={3 * k} />
-          </g>
-        )}
-      </RoomScene>
+      <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" sleeper={Sleeper({ cover: seg(f, 254, 272), breath: f > 272 ? Math.sin(f / 15) * 5 : 0, reach, carry, alarm: f < 236, f })} actors={[washer(f, 'wide')]} />
     </Camera>
   );
 };
@@ -217,9 +213,11 @@ const NamClose: React.FC<{ f: number; start: number }> = ({ f, start }) => {
     pose = mixPose(LOWSIT, { ...RUB_SIDE, wristR: RUB_SIDE.wristR + 10 * Math.sin(f / 2.5) }, rub);
     mood = f < 724 ? 'shocked' : f < 762 ? 'hesitant' : 'shocked';
   }
+  // Nét mặt phân mức (chỉ hiện ở 3/4; lúc quay nghiêng ra cửa dùng `mood`): bực nhẹ → kinh ngạc → sững lại; A04B: bất an.
+  const face: FaceKey = a03 ? (f < 492 ? 'tuc-gian-01' : f < 512 ? 'bat-ngo-03' : 'bat-ngo-02') : f < 724 ? 'so-hai-01' : 'nghi-ngo-01';
   return (
     <Camera lens={seatLens(1.95)}>
-      <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[{ at: [300, 300], render: () => <PhoneOnMat view="bed" /> }, namActor('bed', { pose, at: SEAT, rise, mood, look, talk: talkAt(f, 440, 492), blink: f > 500 ? false : blinkAt(f) })]} />
+      <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[{ at: [300, 300], render: () => <PhoneOnMat view="bed" /> }, namActor('bed', { pose, at: SEAT, rise, mood, face, look, talk: talkAt(f, 440, 492), blink: f > 500 ? false : blinkAt(f) })]} />
     </Camera>
   );
 };
@@ -229,7 +227,7 @@ const A04: React.FC<{ f: number }> = ({ f }) => {
   const look = turnAt({ view: 'quarter', facing: 1 }, { view: 'three', facing: 1 }, seg(f, 560, 570));
   return (
     <Camera lens={{ cx: p.x + 40 * p.scale, cy: p.y + 150 * p.scale, z: 1.55 }}>
-      <RoomScene view="kitchen" door="ajar" chair="bed" actors={[{ at: SINK, render: (q) => <NguoiKia {...q} light={lit('kitchen', SINK)} mood="calm" blink={blinkAt(f, 30)} pose={{ ...TWIN_POSES.holdBowl, view: look.view, facing: look.facing }} /> }]} />
+      <RoomScene view="kitchen" door="ajar" chair="bed" actors={[{ at: SINK, render: (q) => <NguoiKia {...q} light={lit('kitchen', SINK)} mood="calm" face="binh-than-00" blink={blinkAt(f, 30)} pose={{ ...TWIN_POSES.holdBowl, view: look.view, facing: look.facing }} /> }]} />
     </Camera>
   );
 };
@@ -245,10 +243,12 @@ const A05: React.FC<{ f: number }> = ({ f }) => {
   if (f >= 1078) pose = mixPose(GRAB, HOLD, up);
   const at: [number, number] = [SEAT[0] + (STANDUP[0] - SEAT[0]) * up, SEAT[1] + (STANDUP[1] - SEAT[1]) * up];
   const mood: NamMood = f < 870 ? 'shocked' : f < 1018 ? 'hesitant' : f < 1080 ? 'shocked' : 'scared';
+  // Sững người → dò hỏi → nghe đúng giọng mình thì sợ → bật dậy hoảng hốt.
+  const face: FaceKey = f < 870 ? 'bat-ngo-02' : f < 1018 ? 'nghi-ngo-02' : f < 1080 ? 'so-hai-02' : 'so-hai-03';
   const shake = f >= 1098 && f < 1103 ? (f % 2 ? 3 : -3) : 0; // xung 3 px, tắt trong 0,15 giây
   return (
     <Camera lens={{ cx: 600, cy: 640, z: 1.3 }} shake={shake}>
-      <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[...(f < 1068 ? [{ at: [300, 300] as [number, number], render: () => <PhoneOnMat view="bed" /> }] : []), namActor('bed', { pose, at, mood, look: { view: 'three', facing: -1 }, talk: talkAt(f, 874, 926), blink: f > 1018 ? false : blinkAt(f) })]} />
+      <RoomScene view="bed" door="ajar" chair="bed" phone="hidden" actors={[...(f < 1068 ? [{ at: [300, 300] as [number, number], render: () => <PhoneOnMat view="bed" /> }] : []), namActor('bed', { pose, at, mood, face, look: { view: 'three', facing: -1 }, talk: talkAt(f, 874, 926), blink: f > 1018 ? false : blinkAt(f) })]} />
     </Camera>
   );
 };

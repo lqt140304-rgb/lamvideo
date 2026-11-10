@@ -2,6 +2,7 @@ import React from 'react';
 import { limbContour } from '../../../../what-if-studio/src/engine/anatomy';
 import { clamp } from '../../../../what-if-studio/src/engine/anim';
 import { ArticulatedMouth, MouthShape } from '../../../../what-if-studio/src/engine/mouth';
+import { FaceKey, FACES } from '../../../../what-if-studio/library/expressions/cartoon-soft/net-mat';
 
 // ============================================================================
 // HỒ SƠ 02: NGƯỜI LÀM THAY — BỘ ASSET NHÂN VẬT CHUẨN MẪU B (SVG HỮU CƠ)
@@ -80,43 +81,56 @@ const TUNG_HAIR: HairKit = {
   quarter: 'M -56 96 Q -64 70 -58 50 L -70 44 Q -58 24 -40 22 L -46 12 Q -26 12 -12 8 L -14 0 Q 2 -6 16 2 L 14 8 Q 28 6 40 18 L 46 28 L 52 38 L 44 52 Q 34 66 28 88 L 26 120 Q 18 136 -4 146 Q -30 146 -50 128 Q -54 112 -56 96 Z',
 };
 
-// Miệng nghiêng vẽ tràn ra ngoài rồi cắt theo đường mặt, nên luôn khớp với môi. Khoé miệng ở x≈46, mép môi x≈67.
-const SIDE_FACE: Record<NamMood, { ry: number; lid?: string; brow: string; mouth: string; open?: boolean }> = {
-  sleepy: { ry: 14, lid: 'M 18 66 H 56 V 92 H 18 Z', brow: 'M 20 76 Q 34 72 50 74', mouth: 'M 74 132 Q 60 130 56 134 Q 60 140 74 138 Z', open: true },
-  annoyed: { ry: 14, lid: 'M 18 66 H 56 V 90 L 18 82 Z', brow: 'M 20 74 Q 36 76 50 84', mouth: 'M 68 135 Q 56 132 46 139' },
-  hesitant: { ry: 14, lid: 'M 18 66 H 56 V 83 H 18 Z', brow: 'M 20 78 Q 36 72 50 66', mouth: 'M 68 135 Q 62 132 57 136 Q 52 139 46 136' },
-  scared: { ry: 19, brow: 'M 20 72 Q 36 64 50 58', mouth: 'M 74 131 Q 58 129 52 135 Q 58 142 74 140 Z', open: true },
-  agitated: { ry: 16, brow: 'M 20 68 L 50 82', mouth: 'M 74 130 Q 56 128 50 136 Q 53 148 74 147 Z', open: true },
-  shocked: { ry: 22, brow: 'M 20 64 Q 36 54 50 60', mouth: 'M 74 128 Q 54 124 48 137 Q 51 153 74 152 Z', open: true },
-  suspicious: { ry: 14, lid: 'M 18 66 H 56 V 88 L 18 78 Z', brow: 'M 20 72 L 50 86', mouth: 'M 68 135 Q 56 133 47 137' },
-  calm: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 68 135 Q 56 136 47 135' },
-  neutral_smile: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 68 135 Q 56 139 46 132' },
-  eerie_smirk: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 74 Q 36 69 50 72', mouth: 'M 68 135 Q 56 136 45 129' },
+// Miệng nghiêng: hàm hạ xuống `drop` px, viền mặt mở khe giữa hai môi; lòng miệng tối vẽ SAU da nên chỉ lộ đúng khe. Nét miệng khép nằm trong má (x ≤ 64), không vượt viền môi.
+const SIDE_FACE: Record<NamMood, { ry: number; lid?: string; brow: string; mouth?: string; drop?: number }> = {
+  sleepy: { ry: 14, lid: 'M 18 66 H 56 V 92 H 18 Z', brow: 'M 20 76 Q 34 72 50 74', drop: 4 },
+  annoyed: { ry: 14, lid: 'M 18 66 H 56 V 90 L 18 82 Z', brow: 'M 20 74 Q 36 76 50 84', mouth: 'M 64 135 Q 56 134 49 139' },
+  hesitant: { ry: 14, lid: 'M 18 66 H 56 V 83 H 18 Z', brow: 'M 20 78 Q 36 72 50 66', mouth: 'M 64 135 Q 60 133 56 135.5 Q 52 138 48 136' },
+  scared: { ry: 19, brow: 'M 20 72 Q 36 64 50 58', drop: 8 },
+  agitated: { ry: 16, brow: 'M 20 68 L 50 82', drop: 11 },
+  shocked: { ry: 22, brow: 'M 20 64 Q 36 54 50 60', drop: 16 },
+  suspicious: { ry: 14, lid: 'M 18 66 H 56 V 88 L 18 78 Z', brow: 'M 20 72 L 50 86', mouth: 'M 64 135 Q 56 134.5 49 137' },
+  calm: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 64 135 Q 57 135.5 50 135' },
+  neutral_smile: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 64 135 Q 56 137 49 131' },
+  eerie_smirk: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 74 Q 36 69 50 72', mouth: 'M 64 135 Q 56 136 48 129' },
 };
-const PROFILE = 'M -50 78 Q -48 24 4 22 Q 50 22 58 62 L 60 92 Q 62 102 74 112 Q 77 118 66 121 Q 63 125 66 130 Q 67 134 65 136 Q 68 142 63 147 Q 52 166 16 166 Q -22 166 -36 142 Z';
-const LIPS = 'M 66 121 Q 63 125 66 130 Q 67 134 65 136 Q 68 142 63 147'; // vẽ lại đè lên miệng, chỉ đoạn môi để không hằn lên tóc
-const talkSide = (t: Talk) => {
-  if (t.shape === 'closed' || t.shape === 'pressed' || t.shape === 'smile' || (t.open ?? 0.4) < 0.04) return { mouth: 'M 68 135 Q 56 135 47 137', open: false };
-  const h = 2 + 12 * clamp(t.open ?? 0.4);
-  return { mouth: `M 74 ${134 - h / 2} Q 60 ${133 - h / 2} 53 135 Q 60 ${136 + h / 2} 74 ${134 + h / 2} Z`, open: true };
+// Viền mặt nghiêng; d > 0 hạ môi dưới + cằm và mở khe miệng (góc miệng ở x≈51).
+const profilePath = (d: number) =>
+  d <= 0
+    ? 'M -50 78 Q -48 24 4 22 Q 50 22 58 62 L 60 92 Q 62 102 74 112 Q 77 118 66 121 Q 63 125 66 130 Q 67 134 65 136 Q 68 142 63 147 Q 52 166 16 166 Q -22 166 -36 142 Z'
+    : `M -50 78 Q -48 24 4 22 Q 50 22 58 62 L 60 92 Q 62 102 74 112 Q 77 118 66 121 Q 63 125 66 130 Q 59 ${131 + d * 0.3} 51 ${133 + d * 0.45} Q 58 ${132 + d * 0.8} 65 ${132 + d} Q 68 ${140 + d} 63 ${147 + d} Q 52 ${166 + d * 0.7} 16 ${166 + d * 0.5} Q -22 166 -36 142 Z`;
+const talkDrop = (t: Talk) => (t.shape === 'closed' || t.shape === 'pressed' || t.shape === 'smile' ? 0 : 3 + 11 * clamp(t.open ?? 0.4));
+
+// Ghép nét mặt thư viện: bỏ lớp mũi (giữ mũi nhân vật), tuỳ chọn bỏ mắt (đang chớp) và miệng (đang nói).
+const faceMarkup = (key: FaceKey, o: { eyes: boolean; mouth: boolean }) => {
+  const f = FACES[key];
+  const keep = ['color', ...(o.eyes ? ['eyes'] : []), 'brows', 'details', ...(o.mouth ? ['mouth'] : [])] as (keyof typeof f.layers)[];
+  return f.defs + f.wrap + keep.map((l) => f.layers[l]).join('') + '</g>';
 };
 
 const headFrame = (x: number, y: number, scale: number) => ({ transform: `translate(${x} ${y}) scale(${scale})`, stroke: PALETTE.ink, style: { strokeWidth: lw(3.5) }, strokeLinejoin: 'round' as const, strokeLinecap: 'round' as const });
 
 const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number }> = ({ hair, mood, clip, mole, talk, blink, x, y, scale }) => {
   const f = SIDE_FACE[mood];
-  const m = talk ? talkSide(talk) : f;
+  const drop = talk ? talkDrop(talk) : f.drop ?? 0;
+  const face = profilePath(drop);
+  const line = talk ? (drop ? undefined : 'M 64 135 Q 57 135.5 50 135') : drop ? undefined : f.mouth;
   return (
     <g {...headFrame(x, y, scale)}>
       <path d="M -20 146 L -22 184 Q 0 196 22 182 L 24 152" fill={PALETTE.skin} />
       <path d="M -21 158 Q 0 174 23 160 L 22 176 Q 0 188 -22 176 Z" fill={PALETTE.skinShadow} stroke="none" />
-      <path d={PROFILE} fill={PALETTE.skin} />
+      {drop > 0 && (
+        <g stroke="none">
+          <path d={`M 66 129 L 49 ${133 + drop * 0.45} L 65.5 ${133 + drop} Z`} fill={PALETTE.mouthDark} />
+          {drop > 6 && <path d={`M 66 129.5 L 58 ${131 + drop * 0.25} L 58 ${133.5 + drop * 0.2} L 66 132.5 Z`} fill={PALETTE.teeth} />}
+        </g>
+      )}
+      <path d={face} fill={PALETTE.skin} />
       <path d="M -8 84 Q -28 76 -26 100 Q -26 120 -8 118" fill={PALETTE.skin} />
       <path d="M -19 98 Q -12 93 -9 105" fill="none" style={{ strokeWidth: lw(2.4) }} />
       <path d={hair.side} fill={hair.color} />
       <defs>
         <clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98} rx={11} ry={f.ry} /></clipPath>
-        <clipPath id={`${clip}-face`}><path d={PROFILE} /></clipPath>
       </defs>
       <ellipse cx={36} cy={98} rx={11} ry={f.ry} fill={PALETTE.eyeWhite} style={{ strokeWidth: lw(2.5) }} />
       <g clipPath={`url(#${clip}-eyes)`}>
@@ -126,8 +140,7 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
       {blink && <path d="M 26 100 Q 36 106 47 100" fill="none" style={{ strokeWidth: lw(3) }} />}
       <path d={f.brow} fill="none" style={{ strokeWidth: lw(5.5) }} />
       {mole && <circle cx={12} cy={85} r={2.2} fill={PALETTE.ink} stroke="none" />}
-      <g clipPath={`url(#${clip}-face)`}><path d={m.mouth} fill={m.open ? PALETTE.mouthDark : 'none'} style={{ strokeWidth: lw(2.6) }} /></g>
-      <path d={LIPS} fill="none" />
+      {line && <path d={line} fill="none" style={{ strokeWidth: lw(2.6) }} />}
     </g>
   );
 };
@@ -162,10 +175,12 @@ export const StudentTwinHead: React.FC<{
   facing?: 1 | -1;
   talk?: Talk;
   blink?: boolean;
+  /** Nét mặt phân mức từ thư viện cartoon-soft (vd 'so-hai-02'); chỉ áp ở chính diện và 3/4, thay mắt–mày–miệng của `mood`. */
+  face?: FaceKey;
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink }) => {
+}> = ({ mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face }) => {
   const markNear = identity === 'nam' ? facing === 1 : facing === -1;
   const isShocked = mood === 'shocked';
   const isSuspicious = mood === 'suspicious';
@@ -207,6 +222,16 @@ export const StudentTwinHead: React.FC<{
       />
 
       <g transform={front ? 'translate(-10 0)' : undefined}>
+      {face ? (
+        <>
+          {/* Gốc thư viện (giữa hai mắt) đặt vào giữa hai mắt Nam; giữ cỡ mắt gần mắt gốc, kéo dọc để miệng rơi đúng cằm. Giữ mũi và nốt ruồi của nhân vật. */}
+          <g transform={`translate(9.5 ${front ? 99 : 97.5}) scale(1 1.08)`} dangerouslySetInnerHTML={{ __html: faceMarkup(face, { eyes: !blink, mouth: !talk }) }} />
+          {blink && <path d="M -27 102 Q -11 108 5 101 M 16 99 Q 30 104 45 98" fill="none" style={{ strokeWidth: lw(3) }} />}
+          <circle cx={front ? (identity === 'nam' ? -32 : 52) : (markNear ? -32 : 47)} data-identity-mark={identity} cy={78} r={2.2} fill={PALETTE.ink} stroke="none" />
+          <path d={front ? 'M 4 110 Q 10 118 16 110' : 'M 13 113 Q 25 115 22 123 L 13 125'} fill="none" style={{ strokeWidth: lw(2.5) }} />
+          {talk && <g transform={front ? 'translate(-6 0)' : undefined}><g transform="translate(13 142) scale(1.25)"><ArticulatedMouth shape={talk.shape} open={talk.open} ink={PALETTE.mouthDark} /></g></g>}
+        </>
+      ) : (<>
       {/* Vùng mắt */}
       <defs>
         <clipPath id={`${clip}-eyes`}>
@@ -328,6 +353,7 @@ export const StudentTwinHead: React.FC<{
         <path d="M 8 139 Q 20 131 25 144 Q 15 149 8 145 Z" fill={PALETTE.mouthDark} style={{ strokeWidth: lw(2.5) }} />
       )}
       </g>
+      </>)}
       </g>
     </g>
   );
@@ -449,7 +475,7 @@ export const STAND_POSE: JointPose = {
 // Ngồi ghế: chân gần thu về sau, chân xa đưa tới trước, để thấy rõ đùi và hai bàn chân không chồng nhau.
 const SIT_LEGS = { legR: { a: 72, b: 84 }, legL: { a: 82, b: 68 } };
 // Tư thế mẫu cho các nhịp cần diễn ở Hồ sơ 2; chỉnh tiếp bằng cách trộn đè { ...STAND_POSE, ... }.
-export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' | 'holdBowl' | 'stop' | 'wary' | 'phone' | 'offer' | 'type', JointPose> = {
+export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' | 'holdBowl' | 'stop' | 'wary' | 'phone' | 'offer' | 'type' | 'sitLow' | 'lie', JointPose> = {
   stand: STAND_POSE,
   sit: { ...STAND_POSE, tilt: 14, neck: -6, armR: { a: 25, b: 58 }, armL: { a: 5, b: 90, rot: -1 }, handR: 'hold', handL: 'hold', frontR: true, frontL: true, ...SIT_LEGS }, // đổ người tới, hai tay đan lại
   stride: { ...STAND_POSE, tilt: 4, armR: { a: -20, b: 16 }, armL: { a: 24, b: 28 }, legR: { a: 26, b: 6 }, legL: { a: -20, b: 24 } },
@@ -462,6 +488,10 @@ export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' 
   phone: { ...STAND_POSE, neck: -4, armR: { a: -114, b: 121, rot: -1 }, wristR: -48, handR: 'phone', frontR: true, prop: 'phone' },
   offer: { ...STAND_POSE, tilt: 3, neck: -3, armL: { a: 26, b: 50, rot: 1 }, handL: 'open', frontL: true, palmUp: 'L' },
   type: { ...STAND_POSE, tilt: 9, neck: 6, armR: { a: 33, b: 65 }, armL: { a: -24, b: 115, rot: 1 }, handR: 'type', handL: 'type', frontR: true, frontL: true, ...SIT_LEGS },
+  // Ngồi mép nệm thấp (~24 cm): đùi dốc lên, gối cao hơn hông, khớp hông cách sàn ~90/590 rig. Dáng `sit` là cho ghế ~45 cm.
+  sitLow: { ...STAND_POSE, tilt: 16, neck: -4, armR: { a: 22, b: 46 }, armL: { a: 10, b: 58, rot: -1 }, legR: { a: 126, b: 124 }, legL: { a: 120, b: 120 } },
+  // Nằm nghiêng, gối hơi co (co nhiều thì gối thò ra mép nệm vì phối cảnh), hai tay xuôi theo thân, nằm trong chăn. Vẽ xoay 90° quanh đỉnh đầu (đầu phải, chân trái), dùng góc 3/4 quay ra máy.
+  lie: { ...STAND_POSE, tilt: -4, neck: -6, armR: { a: 18, b: 24 }, armL: { a: 10, b: 20, rot: -1 }, legR: { a: 36, b: 40 }, legL: { a: 30, b: 30 } },
 };
 
 const mixLimb = (a: Limb, b: Limb, t: number): Limb => ({ a: a.a + (b.a - a.a) * t, b: a.b + (b.b - a.b) * t, rot: b.rot ?? a.rot });
@@ -831,8 +861,9 @@ export const StudentTwinBody: React.FC<{
   talk?: Talk;
   blink?: boolean;
   light?: Light;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light }) => (
-  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
+  face?: FaceKey;
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face }) => (
+  <Rigged pose={pose} outfit={{ ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */
