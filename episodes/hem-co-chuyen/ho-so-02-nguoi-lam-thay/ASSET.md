@@ -1,10 +1,12 @@
 # Asset — Hồ sơ 2: Người làm thay
 
+**Đại tu không gian 10/11/2026 — chờ duyệt:** [bảng nền mới](assets/boi-canh/boi-canh.png), [ghép Nam kiểm tra tỉ lệ](assets/boi-canh/kiem-tra-ti-le.png), [nguồn và hướng dẫn](assets/boi-canh/BOI-CANH.md). Nệm đôi tách bàn/ghế; không còn áo ghế, căn cước trên bàn, giờ đêm/tin cũ/tên tập gắn vào nền. Bốn khung dùng chung nguồn TSX, đã xuất SVG/PNG/HTML và thay thế bộ nền cũ; chưa dựng phim.
+
 **Sửa tạo hình rig V3 — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.
 
 **Rig cũ, chỉ để đối chiếu (rig chính nằm trong `assets/nhan-vat.tsx`) — 10/11/2026:** đã có [bảng 12 tư thế](assets/rig/tu-the-khop.png), [nguồn rig](assets/rig/rig.tsx) và [trình xem khớp](assets/rig/xem-tu-the.html) cho Nam, Người Kia, Tùng, dùng lại đầu/màu của bộ hiện có. Đọc [hướng dẫn và giới hạn](assets/rig/RIG-NHAN-VAT.md) trước khi dựng: bản để duyệt, chưa là chuyển động/tương tác đã duyệt trong phim.
 
-**Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.
+**Quy chuẩn mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Bộ phòng trọ đã có bản đại tu SVG/TSX/PNG theo thông báo đầu file; chờ duyệt mỹ thuật, chưa coi tương tác/chuyển động là hoàn thiện.
 
 ## Dàn nhân vật theo mẫu SVG mới (Style B) — 09/11/2026
 
@@ -60,7 +62,7 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
 
 ## Hệ thống bối cảnh môi trường theo kịch bản (Style B) — 09/11/2026
 
-Bám sát 100% dòng thời gian và các mốc diễn biến từ 7:00 AM tới đêm muộn trong kịch bản:
+Bản nền ngày–tối dùng chung mặt bằng; giờ và nội dung màn hình là trạng thái theo shot, không phải thông tin đóng cứng vào ảnh:
 
 - **Hình ảnh tổng quan:** ![Bảng bối cảnh môi trường 4 ô](assets/boi-canh/boi-canh.png)
 - **Tài liệu chi tiết bối cảnh:** [`assets/boi-canh/BOI-CANH.md`](assets/boi-canh/BOI-CANH.md)
@@ -68,22 +70,23 @@ Bám sát 100% dòng thời gian và các mốc diễn biến từ 7:00 AM tới
 - **Master Board SVG 4K:** [`assets/boi-canh/boi-canh.svg`](assets/boi-canh/boi-canh.svg)
 - **Mã nguồn React / Remotion:** [`assets/boi-canh/boi-canh.tsx`](assets/boi-canh/boi-canh.tsx)
 
-| STT | Bối cảnh | File SVG | Tiêu cự | Ánh sáng & Đạo cụ chính |
-|---|---|---|---|---|
-| **1** | **Phòng trọ sáng sớm** | [`phong-tro-sang-som.svg`](assets/boi-canh/phong-tro-sang-som.svg) | 35mm | 7:00 AM; thiết lập chuẩn 100% theo bản vẽ tác giả (`image.png`): Cửa chính tường trái mở ra hành lang dài $\to$ Bếp & bồn rửa inox góc trái $\to$ Tủ quần áo đứng giữa phòng $\to$ **Bàn học của Nam & Chiếc ghế to đầm chắc có áo thun vắt lưng ghế** $\to$ Cửa sổ tường phải đón nắng sớm $\to$ Nệm Nam góc phải với chăn rêu xộc xệch, điện thoại 7h, dép lê. |
-| **2** | **Góc bếp & Bồn rửa chén** | [`goc-bep-bon-rua.svg`](assets/boi-canh/goc-bep-bon-rua.svg) | 50mm | Cận cảnh bếp góc trái: Tủ bếp dưới màu xanh xám nhạt (`#9cae9b`), bồn rửa inox 2 ngăn, vòi nước nhỏ giọt, khay chén đĩa sạch bóng, bát đũa gác chéo, kệ gia vị, quạt đứng sinh viên, cây chổi rơm, thấy mép cánh cửa mở ra hành lang dài. |
-| **3** | **Góc bàn học & Tủ quần áo** | [`hanh-lang-cua-phong.svg`](assets/boi-canh/hanh-lang-cua-phong.svg) | 35mm | 7:07 AM; khu vực sinh hoạt của Nam: Chỉ có 1 cửa ở tường trái; **bên cạnh bàn học là TỦ QUẦN ÁO ĐỨNG** (không phải cửa); ở giữa có vết nứt & đồng hồ 7:07; bên phải là bàn học với laptop, **chiếc ghế to đầm chắc có áo thun vắt lưng ghế**; tường phải có cửa sổ đón nắng sớm với hạt bụi lơ lửng (`VFX-DUST`); tiền cảnh là nệm Nam với chăn rêu xộc xệch, điện thoại 7:00, dép lê. |
-| **4** | **Bàn học ban đêm** | [`ban-hoc-laptop-dem.svg`](assets/boi-canh/ban-hoc-laptop-dem.svg) | 50mm | 23:45 Đêm muộn; **nón ánh sáng đèn bàn hình thang chuẩn VFX Tập 1** rọi ấm mặt bàn (sửa lỗi quầng sáng), hạt bụi `VFX-DUST`, laptop mở bài làm hộ, điện thoại tin nhắn gấp, **chiếc ghế xoay to đầm chắc đặt chính diện laptop**; hậu cảnh đêm thấy rõ **tủ quần áo bên trái** (không phải cửa) và cửa sổ đêm bên phải. |
+| STT | Bối cảnh | File SVG | Phạm vi và trạng thái |
+|---|---|---|---|
+| 1 | Phòng trọ sáng sớm | [Toàn phòng](assets/boi-canh/phong-tro-sang-som.svg) | Cửa trái, bếp sau–trái, tủ giữa, bàn sau–phải; nệm đôi tiền cảnh phải có khoảng sàn tách bàn/ghế. Điện thoại trên nệm tắt màn hình; báo thức là lớp theo shot |
+| 2 | Bếp và bồn rửa | [Góc bếp](assets/boi-canh/goc-bep-bon-rua.svg) | Cùng bếp hai ngăn, vòi không chảy cố định; khung cắt từ toàn cảnh, chưa phải phối cảnh mới |
+| 3 | Bàn học ngày | [Góc bàn sáng](assets/boi-canh/goc-ban-hoc-sang.svg) | Tủ cạnh bàn, ghế bốn chân không áo; căn cước còn trong ngăn tủ trước D02. Không gắn giờ hoặc tin nhắn cố định |
+| 4 | Bàn học tối | [Góc bàn đêm](assets/boi-canh/ban-hoc-laptop-dem.svg) | Cùng mẫu bàn/ghế và cùng khung ngày; đèn ấm/laptop sáng, điện thoại tắt. Nội dung bài, tin và mốc giờ phải theo cue |
 
 
 
-**Khi đưa nền vào cảnh:** bảng thiết kế thể hiện hình tĩnh; trạng thái cửa/chốt và vị trí hai ghế theo [bảng máy 10/11](DUNG-CANH.md). Có hình chốt gài hoặc ghế trước cửa không có nghĩa mọi thời điểm truyện đều khóa/chặn. Không tự đổi các SVG trong lượt thêm máy.
+
+**Khi đưa nền vào cảnh:** bảng thiết kế thể hiện hình tĩnh; trạng thái cửa/chốt và vị trí chiếc ghế làm việc theo [bảng máy 10/11](DUNG-CANH.md). Có hình chốt gài hoặc ghế trước cửa không có nghĩa mọi thời điểm truyện đều khóa/chặn. Khi sửa nền, sửa nguồn TSX rồi xuất lại bộ ảnh.
 
 ## Nhu cầu theo góc máy — 10/11/2026
 
-Đã đối chiếu bảng PNG bốn nền mới; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ song song, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung góc toàn **ngoài** hành lang và pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
+Đã đối chiếu bảng PNG bốn nền mới; dùng [DUNG-CANH.md](DUNG-CANH.md) để chọn cỡ/góc theo diễn biến. Giữ hai chỗ ngủ trên cùng nệm đôi, bồn rửa sát góc, bàn Nam/đèn đỏ đồng bộ ban ngày–đêm. Chuẩn bị bổ sung góc toàn **ngoài** hành lang và pose/cận còn thiếu khi được giao dựng; việc có nền tĩnh chưa chứng minh chuyển động hoặc mọi hướng nhìn đã có.
 
-**Trạng thái dùng trong phim:** ghế gỗ là đồ cạnh nệm/ngoài lối, không tự biến thành vật chắn; ghế xoay theo Nam từ bàn ra cửa rồi trở lại bàn. Cần thấy chốt gài khi Nam khóa và chốt rút sau lúc quên gài khi về; nền tối không được giữ trạng thái khóa như một quy luật bất biến. Đây là yêu cầu continuity cho timeline, không thay hoặc vẽ lại các SVG trong lượt thêm góc máy.
+**Trạng thái dùng trong phim:** một mẫu ghế bốn chân theo Nam từ bàn ra cửa rồi trở lại bàn; không đổi thành ghế xoay hoặc tự thêm ghế chắn cửa. Cần thấy chốt gài khi Nam khóa và chốt rút sau lúc quên gài khi về; nền tối không được giữ trạng thái khóa như một quy luật bất biến. Đối chiếu các trạng thái của nguồn bối cảnh; đường di chuyển và cú va A05 vẫn cần kiểm tra animatic.
 
 Kiểm tra pose ngủ/bật dậy, nhìn ba phần tư, cầm điện thoại/căn cước, gõ bài/game, tay chạm chốt, đặt chén và người kia ngồi bàn. Những pose/góc chưa có mới là yêu cầu bổ sung, chưa tạo hay chạy thử. Giữ nội tâm là suy nghĩ của Nam; Người Kia không đọc được suy nghĩ hoặc màn hình từ ngoài cửa.
 

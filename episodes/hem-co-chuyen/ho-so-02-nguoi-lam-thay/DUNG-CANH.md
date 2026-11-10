@@ -51,7 +51,7 @@ Lấy các cue NHỊP ở bản nguồn và bảng này làm một bộ chỉ d�
 
 ## Mặt bằng và trục nhìn theo bộ bối cảnh mới
 
-Đã đối chiếu [bảng PNG hiện có](assets/boi-canh/boi-canh.png) và [hồ sơ bối cảnh](assets/boi-canh/BOI-CANH.md) ngày 10/11/2026 tới `ab1979e`. Mặt bằng mới thay mô tả trái/phải từ nền cũ: chỉ một cửa chính ở tường trái; khối cạnh bàn là tủ quần áo, không phải cửa thứ hai. Không đổi vị trí đồ để rút đường đi cho vừa số giây.
+Đã đối chiếu [bảng PNG hiện có](assets/boi-canh/boi-canh.png) và [hồ sơ bối cảnh](assets/boi-canh/BOI-CANH.md) ngày 10/11/2026 tới `09e7616`; bản đại tu ngày 10/11 sau đó nằm trong hồ sơ bối cảnh. Mặt bằng mới thay mô tả trái/phải từ nền cũ: chỉ một cửa chính ở tường trái; khối cạnh bàn là tủ quần áo, không phải cửa thứ hai. Không đổi vị trí đồ để rút đường đi cho vừa số giây.
 
 ```text
 NHÌN THEO NỀN PHÒNG TRỌ HIỆN HÀNH
@@ -62,9 +62,9 @@ phải: cửa sổ; tiền cảnh phải là chỗ ngủ Nam
 ```
 
 - **Góc toàn A:** Nam/chỗ ngủ tiền cảnh phải, bàn sau–phải, bếp sau–trái và cửa chính tường trái. Lập rõ đường Nam men từ nệm ra ngưỡng mà không đi xuyên qua người ở bếp hoặc tự sinh thêm cửa cạnh bàn.
-- **Bàn ngày/đêm:** cùng một vị trí với tủ quần áo bên cạnh và cửa sổ phía phải; ánh sáng đổi nhưng đồ không đổi tường. Nền mới chỉ thể hiện rõ chỗ Nam; vị trí chỗ ngủ Tùng cần lập trong storyboard để giữ phản ứng nhìn chỗ trống ở H01, không nhân đôi nệm tùy góc.
+- **Bàn ngày/đêm:** cùng một vị trí với tủ quần áo bên cạnh và cửa sổ phía phải; ánh sáng đổi nhưng đồ không đổi tường. Nệm đôi tiền cảnh phải có hai gối: Nam phía gối kem gần lối đi, Tùng phía gối xanh gần tường. Nệm đã tách khỏi bàn/ghế bằng khoảng sàn; H01 nhìn vào nửa trống của Tùng, không nhân đôi nệm tùy góc.
 - **Góc toàn B ngoài hành lang:** cần chuẩn bị khi dựng. Tệp `hanh-lang-cua-phong.svg` hiện đã đổi nội dung thành góc bàn/tủ; tên cũ không chứng minh có góc hành lang. Lập B với Nam về phía cầu thang/lối đi, người kia ở đầu dãy đối diện; toàn cảnh xác lập lại trục trước cận. Trái/phải ngoài hành lang do góc B xác định.
-- **Ghế và đường đi:** giữ chiếc ghế làm việc xuyên chuỗi kéo ra đối diện cửa rồi kéo về bàn. Không tự thêm ghế chắn cửa. Nền ngày và đêm đang thể hiện kiểu ghế khác nhau; cần thống nhất mẫu cho cùng chiếc ghế trước animatic. Chỉ diễn lăn nếu mẫu đã chọn có bánh; nguồn chỉ yêu cầu kéo ghế. Cú va cạnh nệm cần đặt ghế trong đường đi đã lập. Kết thúc nhịp khi người/ghế đã tới vị trí, không cắt mất đường đi để ép thời gian.
+- **Ghế và đường đi:** giữ chiếc ghế làm việc xuyên chuỗi kéo ra đối diện cửa rồi kéo về bàn. Không tự thêm ghế chắn cửa. Bản đại tu dùng chung một mẫu ghế bốn chân, không bánh ở cả ngày/đêm; diễn kéo, không diễn lăn. Sau dời nệm cần kiểm tra lại ghế tại cú va A05, giữ chân ghế ngoài nệm và đường ra cửa thông thoáng. Cú va cạnh nệm cần đặt ghế trong đường đi đã lập. Kết thúc nhịp khi người/ghế đã tới vị trí, không cắt mất đường đi để ép thời gian.
 - **Chốt và cửa:** có lớp trạng thái riêng: đầu sáng hé/mở; Nam vào khóa thì chốt gài; đi vệ sinh thì Nam rút chốt; về khép cửa nhưng quên gài nên chốt còn rút. Nền tối hiện có chữ/miêu tả cửa gài không được dùng nguyên trạng để phủ nhận cách người kia vào. Giữ hướng bản lề của thiết kế, kiểm tra vùng quét cánh cửa với bàn/ghế.
 - **Điện thoại/căn cước:** lúc đối đáp Nam giữ điện thoại tay phải, tay trái kiểm giấy trên mặt bàn. Khi bắt đầu làm laptop, đặt điện thoại trong tầm với trước khi dùng hai tay; sau game mới đặt nó cạnh laptop rồi sang giường. Buổi tối Nam tự nhặt và mở tin; người kia không cầm hộ.
 - Áo người kia đang mặc không trở lại trên ghế hoặc giường. Nam và người kia nay có tạo hình/trang phục gần như giống hệt trong bộ SVG mới; phân biệt bằng vị trí và diễn xuất, không trông chờ màu áo khác nhau để khán giả nhận diện.
@@ -189,7 +189,7 @@ Các nhóm A–H là nhóm máy của phần hiện có, không phải viết th
 | Mã | Cỡ/góc/lens tương đương | Máy, rung, focus | Diễn xuất, điểm cắt và âm |
 |---|---|---|---|
 | D01 | Cận điện thoại, 85 mm, mặt máy gần vuông góc hướng nhìn | Tĩnh, chữ rõ, không rung hay bloom | Nam nhắn Tùng về phòng; chưa có trả lời. Giữ đủ đọc đúng câu, không cần chèn thêm tin mới hoặc dữ liệu riêng. |
-| D02 | Cận vừa bàn, tay và ví/ngăn giấy, 65 mm, chéo xuống nhẹ | Tĩnh; điện thoại tay phải, tay trái mở/lật đồ đặt trên mặt bàn rồi lấy căn cước | Thấy cậu tự kiểm tra ví/giấy tờ; không dựng đồ bay vào tay. Có thể đặt ví nằm mở để tay trái thao tác được. Giữ tiếng ngăn kéo và giấy nhỏ, có nguồn. |
+| D02 | Cận vừa bàn, tay và ví/ngăn giấy, 65 mm, chéo xuống nhẹ | Tĩnh; điện thoại tay phải; tay trái kiểm ví trên bàn, kéo ngăn tủ giấy tờ rồi lấy căn cước từ trong ngăn | Thấy cậu tự kiểm tra ví/giấy tờ; không dựng đồ bay vào tay. Có thể đặt ví nằm mở để tay trái thao tác được. Giữ tiếng ngăn kéo và giấy nhỏ, có nguồn. |
 | D03 | Cận mặt Nam với căn cước ở dưới cằm/mép dưới khung, 65 mm | Nét từ ảnh khuôn mặt trên thẻ → mắt Nam trong khoảng 0,5–0,8 giây để thử; không làm mất cả hai trong blur | Đối chiếu hình mình với điều vừa gặp. Không zoom dữ liệu cá nhân trên thẻ. Nam đặt thẻ xuống bằng tay trái; điện thoại vẫn tay phải theo nguồn. |
 | D04 | Trung Nam nhìn cửa, 50 mm | Máy tĩnh; chốt đóng và Nam cùng đọc được khi bố cục cho phép | Giữ đối đáp, cả “Không có lần sau”. Cửa không hé dần trong lúc nói. Nội dung câu hỏi đã đủ căng, không cần máy trôi liên tục. |
 | D05 | Trung người kia ở hành lang, 50 mm, ngang mắt | Tĩnh, khuôn mặt điềm tĩnh, cửa Nam nằm đúng phía trục | Chỉ xen khi người kia trả lời về chén, áo, chổi; trở lại D04 khi Nam có phản ứng. Không cắt tới người kia mỉm cười sau suy nghĩ thầm của Nam để tạo cảm giác nó nghe được nội tâm. |

@@ -1,54 +1,53 @@
-# Bối cảnh Môi trường — Hồ sơ 02: Người làm thay
+# Bối cảnh — Hồ sơ 2: Người làm thay
 
-**Bổ sung mỹ thuật 10/11/2026:** tuân theo [quy chuẩn chung](../../../../../docs/PHONG-CACH-MY-THUAT.md). Cả căn phòng, bếp, hành lang, góc bàn học và cảnh thành phố cùng dùng nét mềm, cạnh bo vừa phải, vải/nệm có độ rủ và khối đầy. Giữ mặt bằng, bản lề/chốt, phối cảnh, lớp che và ánh sáng đã chốt. Các từ “3D” phía dưới chỉ cách gợi thể tích/phối cảnh cho tranh cartoon 2.5D, không phải yêu cầu dựng nền hộp cứng hoặc đổi sang ảnh thật.
+**Đại tu 10/11/2026, trên bản Anti `09e7616`. Bản hình để duyệt, thay bộ nền cũ theo yêu cầu chủ repo; chưa dựng chuyển động.** Áp dụng [Style B chung](../../../../../docs/PHONG-CACH-MY-THUAT.md). Tất cả nền và bản xem được xuất từ **một nguồn** [boi-canh.tsx](boi-canh.tsx), không chỉnh SVG/PNG độc lập rồi bỏ quên nguồn dựng.
 
-**Chuẩn hóa:** 09/11/2026 theo bản vẽ thiết kế mặt bằng phòng trọ chuẩn hóa của tác giả (`image.png`) — Phong cách Style B.  
-**Hình ảnh tổng quan:** ![Bảng bối cảnh môi trường 4 ô](boi-canh.png)
+![Bốn khung nền](boi-canh.png)
 
-**Khi đưa nền vào cảnh:** bảng thiết kế thể hiện hình tĩnh; trạng thái cửa/chốt và vị trí hai ghế theo [bảng máy 10/11](../../DUNG-CANH.md). Có hình chốt gài hoặc ghế trước cửa không có nghĩa mọi thời điểm truyện đều khóa/chặn.
+## Mặt bằng và chiều sâu
 
----
+- Một cửa chính trên tường trái, bồn rửa sau–trái; tủ quần áo sau–giữa; bàn học sau–phải; cửa sổ tường phải. Không thêm cửa cạnh bàn.
+- **Nệm đôi**, thiết kế theo ý đồ 160 × 200 cm, hai gối và hai phần chăn. Đây là kích thước thiết kế tham chiếu, không phải số đo suy ra từ pixel. Nệm nằm ở tiền cảnh phải, tách khỏi bàn/ghế bằng một dải sàn nhìn thấy. Đường Nam ra cửa đi qua khoảng giữa phòng.
+- Nam dùng phía gối kem/chăn xộc xệch gần lối đi; chỗ Tùng là gối xanh/chăn gấp phía tường. H01 nhìn vào chỗ trống ngay bên cạnh, không tự tạo nệm thứ hai.
+- Phân biệt sáng tối của ba mặt tường, sàn chuyển sắc theo chiều sâu; hốc cửa sổ có bề dày và bậu; tủ có mặt bên, bàn có khung/ngăn kéo, nệm có cạnh dày. Bóng tiếp xúc và bóng đổ từ nguồn phải neo đồ vào sàn.
+- Một mẫu ghế bốn chân, không bánh, dùng xuyên ngày/đêm. Không có áo vắt trên ghế: áo đã được Người Kia mặc từ lúc Nam nhìn thấy.
+- Màu nền giảm tương phản so với nhân vật. [Ảnh ghép kiểm tra tỉ lệ](kiem-tra-ti-le.png) dùng rig hiện có; đây là thử mỹ thuật, không phải vị trí/pose đã duyệt cho một shot.
 
-## 1. Hệ thống 4 Bối cảnh cốt lõi theo Mặt bằng Phòng trọ của tác giả
+## File và tác dụng
 
-Toàn bộ các phân cảnh trong **Hồ sơ 2: Người làm thay** được phát triển thống nhất 100% từ bản vẽ mặt bằng phòng trọ chuẩn do tác giả cung cấp (`image.png`):
+| File | Dùng để làm gì |
+|---|---|
+| [boi-canh.tsx](boi-canh.tsx) | Nguồn React/SVG duy nhất, có trạng thái cửa, ghế, điện thoại và đồng hồ tùy cảnh |
+| [render-previews.cjs](render-previews.cjs) | Xuất lại SVG, PNG và trang xem bằng các thư viện đã có trong studio; chỉ ảnh tĩnh, không gọi AI/TTS/video |
+| [boi-canh.svg](boi-canh.svg), [boi-canh.png](boi-canh.png) | Bảng 4 khung để đối chiếu; SVG 3840 × 2370, PNG 1920 × 1185 |
+| [phong-tro-sang-som.svg](phong-tro-sang-som.svg) | Toàn cảnh sáng, kiểm tra đường đi và nệm đôi |
+| [goc-bep-bon-rua.svg](goc-bep-bon-rua.svg) | Khung cắt khu bếp từ cùng bản vẽ; không tạo phối cảnh mới |
+| [goc-ban-hoc-sang.svg](goc-ban-hoc-sang.svg) | Góc bàn/tủ ban ngày, cùng tọa độ khung với góc đêm |
+| [ban-hoc-laptop-dem.svg](ban-hoc-laptop-dem.svg) | Góc bàn/tủ ban đêm; đèn và laptop sáng, điện thoại tắt |
+| [hanh-lang-cua-phong.svg](hanh-lang-cua-phong.svg) | Tên cũ được giữ để không đứt link; nội dung giống góc bàn sáng. **Không phải nền ngoài hành lang** |
+| [kiem-tra-ti-le.svg](kiem-tra-ti-le.svg), [PNG](kiem-tra-ti-le.png) | Đặt Nam vào nền kiểm tra phong cách và tương quan người–đồ |
+| [xem-truc-tiep-boi-canh.html](xem-truc-tiep-boi-canh.html) | Xem từng nền và phóng to ngay trên máy |
+| `archive-old-layout/` | Lịch sử bố cục cũ, không dùng làm nguồn dựng hiện hành |
 
-| STT | Tên bối cảnh & File SVG | Tiêu cự máy quay | Thời điểm & Ánh sáng | Đạo cụ & Ý nghĩa diễn hoạt |
-|---|---|---|---|---|
-| **1** | **Toàn cảnh phòng trọ sáng sớm**<br>[`phong-tro-sang-som.svg`](phong-tro-sang-som.svg) | **24mm** (Toàn cảnh 3D) | **7:00 AM** — Nắng sớm xiên qua cửa sổ tường phải | **Thiết lập mặt bằng chuẩn 100% theo bản vẽ tác giả:** Tường trái có cửa chính duy nhất mở ra hành lang có lan can $\to$ Bếp & bồn rửa inox góc trái (bình nước 20L, thùng mì Hảo Hảo gầm bếp, chai Sunlight + mút, chổi rơm, quạt đứng có dây cắm) $\to$ Giữa tường sau có tủ quần áo gỗ đứng 3 tầng $\to$ Móc treo tường cạnh tủ có **Mũ bảo hiểm xe máy & Balo sinh viên** $\to$ Bên phải tường sau là **Bàn học sinh viên đồng bộ 100% (Giá sách mini 2 tầng Triết/Toán/Kinh tế, 2 hộc kéo núm đồng vàng, đèn đỏ, laptop Google Docs có dây sạc, ống bút, cốc nước, ví da & thẻ CCCD) & Chiếc ghế to đầm chắc có áo thun vắt lưng ghế** $\to$ Tường phải có cửa sổ phố xá với vệt nắng chiếu xiên và hạt bụi `VFX-DUST` $\to$ Tiền cảnh góc phải có nệm Nam với chăn rêu xộc xệch, điện thoại cắm sạc báo thức 7h, dép lê & áo rơi trên sàn. |
-| **2** | **Góc bếp & Bồn rửa chén**<br>[`goc-bep-bon-rua.svg`](goc-bep-bon-rua.svg) | **50mm** (Trung cận 3D) | Ánh sáng trong phòng, phản quang gạch men ố vàng | **Cận cảnh góc bếp bên trái theo mặt bằng tác giả:** Tủ bếp dưới màu xanh xám nhạt (`#9cae9b`), bồn rửa inox 2 ngăn, vòi nước nhỏ giọt tạo sóng `VFX-RIPPLE`, khay úp chén đĩa, bát to kèm đũa gác chéo, chai rửa chén Sunlight vàng chanh + miếng xơ mướp, bình nước khoáng 20L xanh dương, kệ gia vị gỗ treo tường (dầu ăn Meizan, nước mắm Nam Ngư, muối, hạt nêm, tiêu), thùng mì Hảo Hảo gầm bếp, cây chổi rơm, quạt đứng sinh viên ở tiền cảnh, mép trái thấy cánh cửa mở ra hành lang dài bên ngoài. |
-| **3** | **Góc bàn học & Tủ quần áo**<br>[`hanh-lang-cua-phong.svg`](hanh-lang-cua-phong.svg) | **35mm** (Trung cảnh sinh hoạt) | **7:07 AM** — Nắng sớm xiên qua cửa sổ và hạt bụi lơ lửng | **Khu vực sinh hoạt của Nam (chuẩn 100% theo bản vẽ tác giả):** Bên cạnh bàn học là **TỦ QUẦN ÁO ĐỨNG bằng gỗ 3 tầng** (hộp carton nóc tủ, áo vàng/xanh treo, mền gấp, tủ kín xanh cổ vịt); **Móc treo tường cạnh tủ có Mũ bảo hiểm & Balo đi học**; ở giữa có vết nứt tường, giấy note vàng "NỘP BÀI!" và đồng hồ kim 7:07; bên phải là **Bàn học sinh viên đồng bộ hoàn toàn (Giá sách 2 tầng Triết/Toán/Kinh tế, khối 2 ngăn kéo núm đồng vàng lộ rõ trọn vẹn, đèn bàn đỏ, laptop Google Docs có dây sạc rủ tự nhiên, ống bút xanh, cốc nước, ví da & thẻ CCCD) & Chiếc ghế to đầm chắc có áo thun vắt lưng ghế**; tường phải có cửa sổ với luồng nắng volumetric và hạt bụi lơ lửng (`VFX-DUST`); tiền cảnh có nệm ngủ Nam với chăn rêu xộc xệch, điện thoại 7:00, dép lê và áo rớt trên sàn. |
-| **4** | **Bàn học ban đêm**<br>[`ban-hoc-laptop-dem.svg`](ban-hoc-laptop-dem.svg) | **50mm** (Cận cảnh ban đêm) | **23:45 Đêm muộn** — Nón ánh sáng đèn bàn + màn hình laptop | Cận cảnh chiếc bàn học sinh viên ở góc phải: **Bàn học gỗ mật ong khối 2 hộc kéo núm đồng vàng, giá sách mini 2 tầng (Triết học đỏ, Toán CC xanh, Kinh tế xanh lá, note NỘP BÀI!)**, **đèn đỏ rọi nón ánh sáng hình thang chuẩn VFX Tập 1** xuống mặt bàn, hạt bụi `VFX-DUST` trong luồng sáng, ly nước bốc hơi ấm `VFX-SMOKE`, laptop mở bài tập nhóm làm hộ cắm sạc, điện thoại báo tin nhắn khẩn từ Tùng lúc 23:45, ví da & thẻ CCCD gắn chip, **chiếc ghế xoay to đầm chắc đặt chính diện laptop**; hậu cảnh đêm thấy rõ **tủ quần áo và móc treo mũ/balo bên trái**, đồng hồ 23:45 ở trên và cửa sổ đêm thành phố bên phải. |
+## Trạng thái theo kịch bản — không đóng cứng vào nền
 
----
+| Chi tiết | Quy tắc |
+|---|---|
+| Căn cước | Mặc định nằm trong ngăn tủ giấy tờ. Không có thẻ sẵn trên bàn. D02 mới lấy ra; sau D03 có thể nằm trên bàn theo thao tác nguồn. Dùng prop ở shot, không vẽ cố định vào nền |
+| Ví | Nguồn có ví trên bàn ở cảnh kiểm đồ; bổ sung đúng cảnh như prop riêng. Không coi việc bỏ thẻ khỏi nền là xóa thao tác kiểm ví |
+| Điện thoại | `phone='mat'` đầu sáng; Nam cầm thì `hidden`; đặt cạnh laptop thì `desk`. Cả hai hình mặc định tắt màn hình. Báo thức/tin nhắn là lớp riêng theo cue, không mang tin cũ sang cảnh mới |
+| Đồng hồ | `clockMinutes=null` mặc định: không đưa đồng hồ vào hình nền. Khi shot cần mốc giờ đã chốt, truyền số phút từ 00:00 và giữ nhất quán các shot kế tiếp. Không tự mặc định 23:45 cho cảnh chỉ nói “buổi tối” |
+| Laptop | Màn hình giấy làm bài trung tính, không tên tập hay dữ liệu truyện. Nội dung bài/tin cần đọc phải thay bằng lớp màn hình theo shot. Chữ trang trí không chứng minh bài đã được viết xong |
+| Cửa | `open`, `closed` (khép nhưng chưa gài), `latched` (gài). Nền đêm mặc định `closed`, phù hợp việc Nam quên gài; phải căn trạng thái đầu sáng khép hờ trong storyboard |
+| Ghế | `desk` hoặc `door`. Biến thể vị trí là mẫu tĩnh; đường kéo, cú va đầu gối và khoảng quét cửa cần kiểm tra animatic. Sau dời nệm, dựng lại cú va A05 với ghế tách khỏi nệm, không kéo nệm xuyên bàn để giữ pose cũ |
+| Nước, khói, bụi | Nước không chảy cố định sau câu thoại đã tắt vòi. Không gắn khói cốc mặc định. Hạt bụi trong hình sáng chỉ là mẫu tĩnh, chưa có diễn hoạt |
 
-## 2. Quy chuẩn thiết kế mỹ thuật & Chiều sâu 3D (Style B Specs)
+## Dùng trong dựng
 
-1. **Chiều sâu không gian 1-Point Perspective chuẩn xác:**
-   - Dựng trực tiếp từ mặt bằng phòng trọ tác giả: Điểm tụ trung tâm kéo dài từ cửa chính (tường trái), góc bếp và tủ quần áo (tường sau), bàn học và cửa sổ (tường phải).
-   - Lưới gạch sàn nhà chạy tụ tự nhiên, tạo chiều sâu 3D không gian phòng trọ sinh viên thực thụ.
-   - **Vật thể tiếp đất (Grounded Objects):** Chân ghế to bản, chân bàn học, tủ bếp, chân quạt đứng, nệm nằm đều có bóng tiếp xúc Ambient Occlusion (AO).
+Các export: `RoomScene`, `RoomMorning`, `KitchenSink`, `StudyCornerMorning`, `StudyDeskNight`, `HoSo02EnvironmentMasterBoard`. `HallwayDoor` là alias cũ của góc bàn để tương thích, không mang nghĩa đã có hành lang.
 
-2. **Tỉ lệ Ghế bàn học to đầm chắc (Human-scale Ergonomic Chair):**
-   - Đã nâng cấp toàn diện kích thước chiếc ghế ở bàn học theo yêu cầu tác giả: Tựa lưng cao ngang mặt bàn, đệm ngồi rộng rãi, khung chân vững chãi, tỷ lệ cân xứng tuyệt đối với cơ thể người và kích thước bàn học, loại bỏ hoàn toàn cảm giác ghế bị nhỏ lọt thỏm.
-   - Chiếc áo thun vắt hờ trên lưng ghế ở Bối cảnh 1 là chi tiết đạo cụ đắt giá liên kết chặt chẽ với kịch bản (chiếc áo bản sao mặc khi xuất hiện).
+Các nền riêng xuất 1920 × 1080. Ba khung cắt chỉ thay phạm vi nhìn trên cùng hình 2D; không phải camera xoay hay giả lập tiêu cự. Những góc ngược, góc ngoài hành lang và cận tay vẫn phải dựng theo [DUNG-CANH](../../DUNG-CANH.md).
 
-3. **Lưu trữ phiên bản cũ (Archive):**
-   - Các file thiết kế cũ được lưu trữ an toàn trong thư mục `episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/archive-old-layout/`.
+Mã có nhóm `data-layer` cho phòng, sàn, cửa, tủ, bếp, bàn, ghế và nệm; ID SVG được tách theo instance. `children` là lớp trên cùng cho kiểm tra bố cục, **chưa tự giải quyết người bị mép bàn/bồn rửa che**. Khi diễn tương tác, tách mặt trước/sau theo shot và gắn vật vào tay. Bản này đã kiểm tra ảnh tĩnh, chưa xác nhận parallax, tiếp xúc đang chuyển động hoặc thời lượng.
 
----
-
-## 3. Danh mục tài nguyên trong thư mục
-
-- [`boi-canh.svg`](boi-canh.svg): Master Board 4 bối cảnh độ phân giải cao 3840×2160 (4K).
-- [`boi-canh.png`](boi-canh.png): Bản render sắc nét 1920×1080 phục vụ xem nhanh.
-- [`phong-tro-sang-som.svg`](phong-tro-sang-som.svg): Bối cảnh 1 (Toàn cảnh theo bản vẽ tác giả).
-- [`goc-bep-bon-rua.svg`](goc-bep-bon-rua.svg): Bối cảnh 2 (Cận cảnh góc bếp bên trái).
-- [`hanh-lang-cua-phong.svg`](hanh-lang-cua-phong.svg): Bối cảnh 3 (Cửa phòng & hành lang dài).
-- [`ban-hoc-laptop-dem.svg`](ban-hoc-laptop-dem.svg): Bối cảnh 4 (Bàn học ban đêm & ghế to đầm chắc).
-- [`boi-canh.tsx`](boi-canh.tsx): Bộ component React cho timeline Remotion.
-- [`xem-truc-tiep-boi-canh.html`](xem-truc-tiep-boi-canh.html): Trình xem tương tác độc lập (chuyển tab từng cảnh, zoom +/−, pan chuột).
-
-## Cách quay các lớp — bổ sung 10/11/2026
-
-Xem [quay layer theo từng nhóm máy](../../DUNG-CANH.md#quay-layer): không chỉ scale toàn nền; khi dịch ngang, lớp gần thay tương quan với lớp xa, còn chân người/ghế, bóng và vật đang cầm giữ tiếp xúc. Cửa sổ/hành lang có mask theo khung mở, bàn/bồn rửa có lớp trước–sau để tay và thân bị che đúng. Chữ trong điện thoại/laptop đi cùng mặt màn hình, khác với phụ đề ngoài truyện.
+Để xuất lại: chạy `node render-previews.cjs` trong thư mục này sau khi studio có dependencies. Không sửa riêng ảnh bảng tổng hợp. Nếu nguồn nhân vật thay đổi, xuất lại ảnh kiểm tra tỉ lệ cùng lượt.

@@ -84,6 +84,8 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 
 ## Kỹ thuật dựng đã được rút thành nguyên tắc
 
+- **Ảnh nền đẹp nhưng nguồn dựng vẫn là bố cục cũ → chỉnh riêng SVG/PNG thay vì nguồn component →** xuất toàn cảnh, khung cắt, biến thể ngày/đêm và trang xem từ một nguồn; đặt thời gian, màn hình và vật đang cầm/cất thành trạng thái theo shot. Khi ghép nhiều SVG vào một bảng phải đổi cả ID và mọi tham chiếu gradient/mask/clip để tránh cảnh dùng nhầm định nghĩa của nhau. **Kiểm tra:** so ảnh xuất từ component với bảng, kiểm tra ID trùng/tham chiếu thiếu, rồi ghép nhân vật kiểm tra tỉ lệ và mặt đỡ. Khung cắt một tranh không được gọi là phối cảnh mới.
+
 - Trước khi làm lại một chức năng, kiểm tra công cụ và nhánh liên quan đã biết. Chỉ mở rộng tìm kiếm khi có dấu hiệu cần; không bắt mọi nhiệm vụ quét tất cả lịch sử.
 - Mốc chữ cần tăng dần và khớp đúng lần xuất hiện. Thẻ diễn xuất không phải chữ được đọc. Sau thay giọng, căn chỉnh hoặc khoảng nghỉ, cập nhật lại timeline, cue, âm thanh và các phần hình phụ thuộc; không giữ mốc cũ vì nội dung câu giống nhau.
 - **Ảnh storyboard đúng nhưng chuyển động vẫn lỗi → một khung không thể hiện cả đường đi →** duyệt theo hai bước đã chốt: storyboard tĩnh rồi animatic. Bản nháp phải cho chạy tương tác tay–đồ vật và thay đổi che khuất dự kiến; pan/zoom một tranh tĩnh không kiểm chứng được các tương tác đó. **Kiểm tra:** xem chuyển động và bản ráp; ảnh đầu–giữa–cuối/motion grid chỉ hỗ trợ soi điểm tiếp xúc, không thay animatic. Cảnh dùng lại kiểm tra từng khoảng sử dụng; bảng soi chia trang đủ lớn để đọc chi tiết.
