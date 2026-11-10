@@ -27,6 +27,8 @@ Giữ hình 2D có chiều sâu 2.5D bằng phối cảnh, tỉ lệ gần–xa,
 
 ## Cách áp dụng và kiểm tra
 
+Có thể bắt đầu từ [bộ nét mặt tách lớp dùng chung](../what-if-studio/library/expressions/cartoon-soft/README.md): không tóc/đầu, có 3 mức cảm xúc. Giữ nhận diện từng vai, căn lại tỷ lệ/góc nhìn và cắt lớp màu theo da mặt; không mặc định các nét đã khớp mọi nhân vật hoặc rig.
+
 1. Đọc quy chuẩn này cùng mẫu Style B và bảng asset của hồ sơ. Giữ màu/nhận diện riêng của nhân vật; không lấy một bảng màu trang phục làm bảng màu bắt buộc cho mọi tập.
 2. Khi được giao sửa hình, ghép người, đạo cụ và nền trong cùng khung trước khi nhân rộng. Kiểm tra độ mềm của nét, mức chi tiết, ánh sáng, tỉ lệ và tiếp xúc ở cỡ xem điện thoại; xem riêng từng asset chưa đủ.
 3. Nếu sửa nguồn SVG/TSX, rà các bản preview HTML/PNG và bảng asset phụ thuộc; ghi rõ bản chưa cập nhật. Không để preview cũ được hiểu là mẫu mới đã duyệt.
