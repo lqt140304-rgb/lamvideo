@@ -1,5 +1,17 @@
 # Hẻm Có Chuyện — Hồ sơ 2: Người làm thay
 
+## Làm chi tiết theo 3 phần
+
+Theo yêu cầu chủ repo ngày 10/11/2026, chia **cùng một Hồ sơ 2** thành ba phần làm việc. Chưa tách thành ba video, chưa khóa thời lượng hay đẩy các khung đề xuất thành nội dung đã duyệt.
+
+| Phần | Phạm vi và tác dụng | Trạng thái |
+|---|---|---|
+| [1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.01–P1.08: gặp người giống mình, giữ khoảng cách, bí bài và bắt đầu thấy lợi; ánh xạ lời/máy A–H, liệt kê nhịp diễn và trạng thái từng cảnh | Có bản lời ở THAO-LUAN-CANH; giữ nhãn đã duyệt/chờ duyệt, dừng H10 trước khi gửi bài |
+| [2 — Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) | P2.01–P2.03: lần nhờ chủ động, phụ thuộc tăng và mất chỗ đầu tiên; tách tác nhân/lựa chọn/hệ quả cần chốt | Khung đề xuất cho cảnh 3–4 gốc, chưa có thoại chi tiết |
+| [3 — Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) | P3.01–P3.04: giành lại, đối đầu, thay thế hoàn toàn và hé lộ sinh vật từ gương ở cuối | Khung đề xuất cho cảnh 5–8 gốc; luật/cơ chế còn mở, chưa viết lời |
+
+Các file PHAN là hồ sơ triển khai, không nhân bản lời thoại. **THAO-LUAN-CANH.md vẫn là nguồn lời hiện hành; DUNG-CANH.md vẫn là nguồn máy/layer.** Mã P1/P2/P3 phục vụ bàn từng cảnh, không đổi các mã máy A–H hoặc tên cảnh gốc. Bước trước mắt: rà/chốt P1.05–P1.08 rồi viết P2.01 lần lượt theo cách duyệt đã thống nhất. Ba phần không bắt buộc dài bằng nhau; tránh để phần mở chiếm hết thời lượng, chỉ khóa nhịp sau đọc thử/animatic khi được giao.
+
 **Rà và tích hợp 10/11/2026:** đã đưa các sửa truyện từ phiên tách vào [bản cảnh](THAO-LUAN-CANH.md), đồng bộ [bảng máy](DUNG-CANH.md) với phòng/rig hiện hành. Đã khớp chuỗi ghế, bản nháp riêng, áo theo cảnh và dấu nốt ruồi đối bên theo chốt Người Kia sinh ra từ gương. Xem [căn cứ, hướng sửa và phần còn cần thử](RA-SOAT-SUA-TRUYEN.md). Chưa viết phần kết hoặc nâng các cảnh còn “chờ duyệt” thành đã duyệt phim.
 
 **Nhịp kịch bản — 10/11/2026:** đã thêm cue không đọc vào [bản cảnh hiện hành](THAO-LUAN-CANH.md) và [đường nhịp A–H](DUNG-CANH.md#nhịp-kể-hiện-hành): phản ứng khi nhận mặt, đối đáp, thử làm bài, chốt cửa, chuyển sáng–tối và tự kiểm chứng trước khi dịu. Giữ thoại và mức duyệt; chưa có giọng/animatic để khóa tổng phút.

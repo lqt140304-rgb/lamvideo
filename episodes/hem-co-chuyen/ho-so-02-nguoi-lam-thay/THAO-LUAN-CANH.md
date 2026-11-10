@@ -1,5 +1,7 @@
 # Hồ sơ 2 — Thảo luận từng cảnh
 
+**Chia 3 phần để làm kỹ từng cảnh — 10/11/2026:** [Phần 1: Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) gồm toàn bộ A–H đã viết; [Phần 2: Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [Phần 3: Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) mới có khung công việc. Cùng một Hồ sơ 2, chưa tách thành ba video. File này vẫn giữ lời nguồn và nhãn duyệt; chia phần không tự duyệt tình tiết hay luật mới.
+
 **Cập nhật nhịp 10/11/2026:** các cue **NHỊP** bên dưới là chỉ dẫn không đọc, bổ sung cho phần hiện có; không đổi thoại hoặc trạng thái duyệt. Xem [đường nhịp A–H và cách tính khoảng giữ](DUNG-CANH.md#nhịp-kể-hiện-hành). Khoảng nghỉ đã nằm trong hành động chỉ tính một lần; chưa đo tổng thời lượng bằng giọng/animatic.
 
 **Tích hợp sửa truyện 10/11/2026:** Nam và Tùng chung một giường; Nam mặc áo ngủ khác áo người kia; phòng chỉ có một chìa; Nam chụp ảnh gửi Tùng ở đoạn đi vệ sinh; Nam về ghế đối diện cửa trước khi đối đáp; thêm câu hỏi vọng trước khi ngủ; buổi tối bắt người kia lùi khỏi bàn; Nam tỉnh khoảng 19h30. Đã tích hợp phần Claude sửa trong phiên tách và rà liên tục theo yêu cầu chủ repo; những phần truyện còn nhãn “chờ duyệt” vẫn giữ nguyên mức duyệt. Xem [kết quả rà, hướng sửa và giới hạn kiểm chứng](RA-SOAT-SUA-TRUYEN.md).
@@ -49,6 +51,8 @@ Nhịp trưởng thành hoặc hối tiếc phải thể hiện bằng lựa ch�
 | 6 — Đối đầu | Một lựa chọn có hệ quả thật và nỗ lực chống lại đáng tin | Chưa viết |
 | 7 — Người thay thế | Thể hiện việc thay thế hoàn toàn, không chỉ tuyên bố qua lời dẫn | Chưa viết |
 | 8 — Thứ đã chọn cậu | Hé lộ sinh vật và việc nhắm tới cậu từ trước; chi tiết cũ được hiểu lại | Chưa viết; có thể gộp cảnh 7 |
+
+<a id="p1-01"></a>
 
 ## Cảnh 1 — Tiếng rửa chén (đã chốt hướng xuất hiện và cảm xúc)
 
@@ -141,6 +145,8 @@ Người trong phòng vẫn đứng chờ. Nước từ bàn tay nhỏ xuống n
 4. Tùng là người được gọi để kiểm chứng. Ở phần nối cuộc gọi, cậu nghe Nam kể nhưng gạt đi vì cho rằng Nam nói xàm/ngủ chưa tỉnh. Tùng chưa tin hoặc biết bí mật của bản sao; chưa chốt thêm vai trò ngoài cuộc gọi này.
 5. Không dựng hồi tưởng theo dõi hay luật chuyển danh tính từ bản cũ. Cơ chế thay thế còn chờ phát triển sau khi chốt cách xuất hiện.
 
+<a id="p1-02"></a>
+
 ## Phần nối cuộc gọi — đã duyệt ngày 09/11/2026
 
 **Góc máy:** [MAY-B: giữ khoảng cách và cuộc gọi](DUNG-CANH.md#may-b), B01–B03; Tùng chỉ có giọng điện thoại, không thêm cảnh lớp học.
@@ -172,6 +178,8 @@ Người kia vẫn ở đó.
 Nam siết điện thoại, chưa dám bước vào phòng.
 
 **Lưu ý nhân quả:** Tùng chỉ nghe một lời kể qua điện thoại, chưa thấy bằng chứng. Phản ứng này không tự xác lập Tùng là người vô tâm trong mọi hoàn cảnh hoặc Nam thường xuyên nói dối. Không kết luận sự giúp đỡ của bản sao đã đáng tin chỉ vì cuộc gọi vừa thất bại; sự dè chừng còn tiếp ở phần sau.
+
+<a id="p1-03"></a>
 
 ## Nam lấy lại căn phòng — đã duyệt ngày 09/11/2026
 
@@ -222,6 +230,8 @@ Cậu kéo chiếc ghế vừa va ở cạnh nệm tới chỗ đối diện c�
 **Lưu ý dựng:** phải thấy hướng Nam né về cầu thang, người kia ra phía đối diện rồi Nam mới vào phòng. Giữ một góc đủ rộng cho đoạn đổi vị trí, tránh cắt che việc hai người đi xuyên hoặc bất ngờ đổi chỗ. Cuộc gọi đã kết thúc ở đoạn được duyệt; đoạn này bắt đầu sau động tác Nam siết điện thoại, không phát lại cảnh cúp máy.
 
 **Chuyển model theo yêu cầu chủ repo:** từ phần viết tiếp sau đoạn này, dùng GPT-6.1 Sol để tiết kiệm. Giữ nguyên các đoạn đã duyệt; các đề xuất mới vẫn được chốt từng phần.
+
+<a id="p1-04"></a>
 
 ## Nam chủ động hỏi lại — đã duyệt ngày 09/11/2026
 
@@ -298,6 +308,8 @@ Nam liếc về phía bếp, rồi nhớ đến cái áo trên người kia.
 
 **Phạm vi:** thay phần nhận lời nghe thử hai câu trước đây. Giữ tin nhắn giục bài; bỏ việc Nam lẩm bẩm để người kia nghe và lập tức mời giải bài. Nam thử làm, tự cân nhắc lợi–hại, trì hoãn bằng game rồi ngủ quên. Đến tối, lợi ích của bài được làm hộ khiến cậu bắt đầu tự hợp lý hóa sự xuất hiện của người giống mình. Khung do chủ repo cung cấp, GPT-6.1 Sol phát triển; bản lời và cách nối hành động còn chờ duyệt.
 
+<a id="p1-05"></a>
+
 ### Ban ngày — làm mãi không được
 
 **Góc máy:** [MAY-E: áp lực bài nhóm, làm mãi không được, nội tâm](DUNG-CANH.md#may-e), E01–E04; giữ bố cục để đọc được sự trì hoãn, không thêm một cú cắt cho mỗi câu suy nghĩ.
@@ -347,6 +359,8 @@ Cậu lắc đầu, kéo laptop lại gần.
 
 Nam thử viết tiếp. Cậu chưa gọi người kia vào hoặc nhờ làm bài.
 
+<a id="p1-06"></a>
+
 ### Mở chốt — chơi game rồi ngủ quên
 
 **Góc máy:** [MAY-F: đi vệ sinh và quên gài chốt](DUNG-CANH.md#may-f), F01–F04; [MAY-G: Không làm phiền, game, ngủ](DUNG-CANH.md#may-g), G01–G04. Phải nhìn thấy chốt còn rút và vị trí Nam đặt điện thoại trước khi ngủ.
@@ -378,6 +392,8 @@ Cậu cúi trả lời, rời tay khỏi chốt mà không gài lại.
 **TIN NAM NHẮN VÀO NHÓM:**
 > Cho tao thêm chút.
 
+<a id="p1-07"></a>
+
 Nam ngồi trước laptop. Nhìn mấy dòng vừa viết, cậu chuyển sang trò chơi trên điện thoại.
 
 **NAM — ĐỘC THOẠI NỘI TÂM, tự cho mình một lý do:**
@@ -395,6 +411,8 @@ Sau cùng, Nam tắt trò chơi, đặt điện thoại cạnh laptop. Cậu nh�
 Bên ngoài im. Nam đợi một lúc, không nghe gì thêm, thở ra rồi ngả lên giường định nằm vài phút. Bài đang làm vẫn mở trên màn hình. Cậu ngủ quên.
 
 **[NHỊP G04 — Đặt máy, hỏi vọng và chờ khoảng 1.5–2 giây rồi mới rời bàn tới nệm; sau đó mới rút thời gian bằng ánh sáng. Tiếng game dừng khi đặt máy; không kéo màn đen để thay nhịp nghỉ có nội dung.]**
+
+<a id="p1-08"></a>
 
 ### Tỉnh dậy — trời đã tối
 
