@@ -54,7 +54,7 @@ Tài liệu này bóc tách **100% toàn bộ câu thoại, độc thoại nội
 | `TR_GUE_04` | NGƯỜI TRONG GƯƠNG | [điềm tĩnh bóc trần, nhát dao tâm lý] | "Chính mày đã tạo ra tao... Mày đập gương rồi mày định lấy cái thân xác ăn hại này ra làm khổ họ tiếp à?" | 4.5s | Lạnh ngắt, dứt khoát |
 | `TR_NAM_08` | NAM | [tiếng gào nghẹn ứ dưới nước] | "Không... cứu...!" | 1.5s | Bóp nghẹt dưới nước |
 | `TR_TUNG_03` | TÙNG | [chột dạ, giọng sững lại] | "Ủa Nam... nốt ruồi bên mắt mày... sao nay lại nằm bên phải?" | 3.0s | Hoang mang sững sờ |
-| `TR_GUE_05` | NGƯỜI TRONG GƯƠNG | [chậm rãi, tà ác không cảm xúc] | "Mày nhìn nhầm rồi... Tao là Nam mà." | 3.0s | Rợn người |
+| `TR_GUE_05` | NGƯỜI TRONG GƯƠNG | [chậm rãi, tà ác không cảm xúc] | "Mày nhìn nhầm rồi... Tao mới là Nam thật." | 3.0s | Rợn người |
 
 ---
 
