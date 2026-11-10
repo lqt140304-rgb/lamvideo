@@ -12,6 +12,8 @@
 
 Xem trong Studio (`npm run studio` tại `what-if-studio/`): `HoSo02Turnaround`, `HoSo02Spin`, `HoSo02RigSheet`. Cách dùng và bảng lỗi cần tránh ở [quy chuẩn thiết kế](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). Kiểm tra bằng `node tests/ho-so-02-rig.cjs` trong `what-if-studio/`. Chưa thay timeline hoặc khởi động dựng phim.
 
+**Lỗi và việc còn tồn đọng:** [LOI-TON-DONG.md](LOI-TON-DONG.md).
+
 **Rig cũ (chỉ để đối chiếu):** [bảng tư thế](assets/rig/tu-the-khop.png) và [hướng dẫn](assets/rig/RIG-NHAN-VAT.md); các mục "rig V3" trong file này nói về bản cũ.
 
 **Thông báo mỹ thuật 10/11/2026:** áp dụng [quy chuẩn chung](../../../docs/PHONG-CACH-MY-THUAT.md) cho nhân vật **và toàn bộ bối cảnh/đạo cụ**: nét cong mềm, khối tròn đầy, phối cảnh và điểm tiếp xúc rõ. Những nền hiện có cần được đối chiếu khi chỉnh hình; chưa ghi nhận vẽ lại SVG/TSX/PNG trong lượt cập nhật tài liệu này.
