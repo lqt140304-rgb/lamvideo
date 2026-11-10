@@ -22,7 +22,7 @@ const NEAR: [number, number] = [262, 360]; // khoá xếp lớp: Nam vẽ sau kh
 const PHONE: [number, number][] = [[282, 256], [289, 256], [289, 270], [282, 270]];
 
 // Ánh sáng duyệt: hướng theo cửa sổ qua camera của shot, viền ấm, nét mảnh 0.65.
-const lit = (view: RoomView, at: [number, number]): Light => ({ rim: 0.45, amount: 0.42, depth: 24, line: 0.65, ...lightFor(view, at) });
+const lit = (view: RoomView, at: [number, number]): Light => ({ rim: 0.45, amount: 0.42, depth: 15, soft: 4, line: 0.65, ...lightFor(view, at) }); // bóng mềm nhưng hẹp, không phủ quá nửa bộ phận
 
 const ease = Easing.inOut(Easing.cubic);
 const seg = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease });
