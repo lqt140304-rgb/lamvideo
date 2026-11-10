@@ -1,10 +1,11 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
-import { JointPose, mixPose, NguoiKia, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, TungSoccer, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import { JointPose, mixPose, NguoiKia, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, StudentTwinHead, TungSoccer, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { placeOn, RoomScene } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 import { Mirror } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/dao-cu';
 import { EXTRA_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/nhan-vat-va-tu-the';
+import { MirrorRealm } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/boi-canh';
 import { LaptopScreen } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/giao-dien';
 import { Camera, FilmLook, HEAD_AT, lerpLens, Lens, LOOK, RAYS, seg, Sleeper, wideMove } from './canh-01-demo';
 
@@ -44,34 +45,53 @@ const Streak: React.FC<{ t: number; color?: string; y?: number }> = ({ t, color 
   );
 
 // Tấm vải hoa cũ phủ nửa trên gương (toạ độ của Mirror: gốc ở chân giữa, kính từ -h tới 0).
-const Cloth: React.FC<{ w: number; h: number; sway: number }> = ({ w, h, sway }) => {
-  const x0 = -w / 2 - 14, x1 = w / 2 + 14, top = -h - 34, bot = -h * 0.5;
-  const edge = `M${x0} ${bot + 10}Q${x0 + w * 0.2} ${bot + 34 + sway} ${x0 + w * 0.38} ${bot + 6}Q${x0 + w * 0.55} ${bot + 40 - sway} ${x0 + w * 0.72} ${bot + 14}Q${x0 + w * 0.88} ${bot + 30} ${x1} ${bot + 4}`;
+// Vải đã cũ: bạc màu, hoa phai gần hết, vết ố loang, hai lỗ thủng nhỏ, một miếng vá khâu tay, mép dưới sờn tua chỉ.
+// `breath` 0–1 phồng mép vải ra như có hơi thở từ phía sau kính.
+const Cloth: React.FC<{ w: number; h: number; sway: number; breath?: number }> = ({ w, h, sway, breath = 0 }) => {
+  const x0 = -w / 2 - 14, x1 = w / 2 + 14, top = -h - 34, bot = -h * 0.5 + 18 * breath;
+  const b = 26 * breath;
+  const body = `M${x0} ${top + 30}Q0 ${top - 40} ${x1} ${top + 30}V${bot + 4}Q${x0 + w * 0.88} ${bot + 30 + b} ${x0 + w * 0.72} ${bot + 14 + b}Q${x0 + w * 0.55} ${bot + 40 - sway + b} ${x0 + w * 0.38} ${bot + 6 + b}Q${x0 + w * 0.2} ${bot + 34 + sway} ${x0} ${bot + 10}Z`;
   return (
     <g data-layer="vai-phu">
-      <path d={`M${x0} ${top + 30}Q0 ${top - 40} ${x1} ${top + 30}V${bot + 4}L${x1} ${bot + 4}Q${x0 + w * 0.88} ${bot + 30} ${x0 + w * 0.72} ${bot + 14}Q${x0 + w * 0.55} ${bot + 40 - sway} ${x0 + w * 0.38} ${bot + 6}Q${x0 + w * 0.2} ${bot + 34 + sway} ${x0} ${bot + 10}Z`} fill="#7d6f73" />
+      <path d={body} fill="#6b6366" />
       {/* nếp vải: vài mảng tối tự vẽ */}
-      <path d={`M${x0 + w * 0.3} ${top + 10}Q${x0 + w * 0.26} ${bot - 80} ${x0 + w * 0.38} ${bot + 6}L${x0 + w * 0.45} ${bot + 8}Q${x0 + w * 0.36} ${bot - 90} ${x0 + w * 0.4} ${top + 6}Z`} fill="#5f5357" opacity={0.7} />
-      <path d={`M${x0 + w * 0.7} ${top + 14}Q${x0 + w * 0.76} ${bot - 60} ${x0 + w * 0.72} ${bot + 14}L${x0 + w * 0.8} ${bot + 18}Q${x0 + w * 0.82} ${bot - 70} ${x0 + w * 0.76} ${top + 12}Z`} fill="#5f5357" opacity={0.6} />
-      {Array.from({ length: 22 }, (_, i) => {
-        const cx = x0 + 30 + ((i * 97) % (w - 20)), cy = top + 60 + ((i * 53) % (h * 0.42));
-        return <g key={i} transform={`translate(${cx} ${cy})`} opacity={0.5}>{[0, 72, 144, 216, 288].map((a) => <ellipse key={a} cx={0} cy={-7} rx={4} ry={7} fill="#a8949a" transform={`rotate(${a})`} />)}<circle r={3} fill="#c4b38c" /></g>;
+      <path d={`M${x0 + w * 0.3} ${top + 10}Q${x0 + w * 0.26} ${bot - 80} ${x0 + w * 0.38} ${bot + 6 + b}L${x0 + w * 0.45} ${bot + 8 + b}Q${x0 + w * 0.36} ${bot - 90} ${x0 + w * 0.4} ${top + 6}Z`} fill="#4f484b" opacity={0.75} />
+      <path d={`M${x0 + w * 0.7} ${top + 14}Q${x0 + w * 0.76} ${bot - 60} ${x0 + w * 0.72} ${bot + 14 + b}L${x0 + w * 0.8} ${bot + 18 + b}Q${x0 + w * 0.82} ${bot - 70} ${x0 + w * 0.76} ${top + 12}Z`} fill="#4f484b" opacity={0.65} />
+      {/* hoa đã phai gần hết */}
+      {Array.from({ length: 18 }, (_, i) => {
+        const cx = x0 + 30 + ((i * 97) % (w - 20)), cy = top + 60 + ((i * 53) % (h * 0.4));
+        return <g key={i} transform={`translate(${cx} ${cy})`} opacity={0.18 + (i % 3) * 0.06}>{[0, 72, 144, 216, 288].map((a) => <ellipse key={a} cx={0} cy={-7} rx={4} ry={7} fill="#94868a" transform={`rotate(${a})`} />)}<circle r={3} fill="#a39a7c" /></g>;
       })}
-      <path d={edge} fill="none" stroke="#5a4e52" strokeWidth={3} opacity={0.6} />
+      {/* vết ố vàng nâu loang */}
+      <path d={`M${x0 + w * 0.12} ${top + h * 0.2}q30 -26 62 -4q28 22 6 46q-30 26 -58 4q-24 -20 -10 -46Z`} fill="#7a6a4c" opacity={0.35} />
+      <path d={`M${x0 + w * 0.58} ${bot - 120}q40 -10 52 22q10 34 -28 40q-44 4 -46 -26q0 -26 22 -36Z`} fill="#6e5f45" opacity={0.3} />
+      <path d={`M${x0 + w * 0.82} ${top + h * 0.12}q18 -8 26 10q6 20 -16 22q-18 0 -10 -32Z`} fill="#7a6a4c" opacity={0.28} />
+      {/* miếng vá khâu tay */}
+      <g transform={`translate(${x0 + w * 0.22} ${bot - 150}) rotate(-6)`}>
+        <rect width={70} height={54} rx={4} fill="#5d6460" />
+        <rect x={4} y={4} width={62} height={46} rx={3} fill="none" stroke="#a49c8a" strokeWidth={2} strokeDasharray="5 5" />
+      </g>
+      {/* lỗ thủng: thấy mặt kính tối phía sau */}
+      <path d={`M${x0 + w * 0.64} ${top + h * 0.26}q10 -8 20 0q6 10 -4 16q-14 4 -16 -16Z`} fill="#141c1d" />
+      <path d={`M${x0 + w * 0.4} ${bot - 46 + b}q7 -5 13 1q3 8 -5 10q-10 0 -8 -11Z`} fill="#141c1d" />
+      {/* mép dưới sờn: tua chỉ rủ */}
+      {Array.from({ length: 16 }, (_, i) => {
+        const t = (i + 0.5) / 16, x = x0 + (x1 - x0) * t;
+        const y = bot + 10 + Math.sin(t * Math.PI * 3) * 14 + b * Math.sin(t * Math.PI);
+        return <path key={i} d={`M${x} ${y}l${(i % 3) - 1} ${8 + (i * 7) % 12}`} stroke="#5a5255" strokeWidth={2} strokeLinecap="round" opacity={0.8} />;
+      })}
     </g>
   );
 };
 
-// ---------- SHOT 0: tấm vải phủ gương, giọt nước lăn ngược (0–5s) ----------
+// ---------- SHOT 0: tấm vải cũ phủ gương, kính "thở" (0–5s) ----------
 const MW = 420, MH = 900;
 const Shot0: React.FC<{ f: number }> = ({ f }) => {
   const pan = interpolate(f, [0, 150], [150, -110]);
-  const z = interpolate(f, [0, 150], [1.55, 1.8]);
-  // giọt nước: trôi xuống → khựng → lăn NGƯỢC lên ~24px → rẽ nhánh chảy xuống
-  const down = seg(f, 8, 70), up = seg(f, 86, 104), fall = seg(f, 116, 148);
-  const dy = -330 + 70 * down - 26 * up + 120 * fall;
-  const dx = 70 + 10 * fall;
-  const trailTop = -330;
+  const z = interpolate(f, [0, 150], [1.55, 1.85]);
+  // hơi thở từ trong kính: mép vải phồng ra rồi xẹp (hai nhịp, nhịp sau mạnh hơn), mặt kính dưới vải mờ hơi sương
+  const breath = 0.5 * Math.sin(Math.PI * seg(f, 40, 70)) + Math.sin(Math.PI * seg(f, 96, 136));
+  const mist = Math.max(seg(f, 44, 64) * (1 - seg(f, 70, 92)), seg(f, 100, 118) * (1 - seg(f, 136, 150)));
   return (
     <AbsoluteFill style={{ background: '#0e1517' }}>
       <svg width={1920} height={1080}>
@@ -80,17 +100,9 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
           <Mirror w={MW} h={MH}>
             <rect width={MW} height={MH} fill="#1d2a2b" opacity={0.92} />
             <path d={`M0 ${MH * 0.62}L${MW} ${MH * 0.5}V${MH * 0.58}L0 ${MH * 0.72}Z`} fill="#7fb7c4" opacity={0.18} />
+            <filter id="suong" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={22} /></filter><g filter="url(#suong)" opacity={0.32 * mist}><ellipse cx={MW * 0.52} cy={MH * 0.56} rx={90 + 40 * mist} ry={40 + 16 * mist} fill="#d6ebe8" /><ellipse cx={MW * 0.38} cy={MH * 0.6} rx={50} ry={26} fill="#d6ebe8" /><ellipse cx={MW * 0.66} cy={MH * 0.6} rx={46} ry={22} fill="#d6ebe8" /></g>
           </Mirror>
-          <Cloth w={MW} h={MH} sway={Math.sin(f / 18) * 3} />
-          {/* vệt nước đã đi qua */}
-          <path d={`M${70} ${trailTop}L${70} ${Math.max(dy, -330 + 70 * down)}`} stroke="#cfe3de" strokeWidth={5} strokeLinecap="round" opacity={0.22} />
-          {fall > 0 && <path d={`M70 ${-330 + 70 - 26}Q${72 + 8 * fall} ${dy - 40} ${dx} ${dy}`} stroke="#cfe3de" strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.25} />}
-          <g transform={`translate(${dx} ${dy})`}>
-            <ellipse rx={11} ry={14} fill="#d9ece8" opacity={0.8} />
-            <ellipse cx={-2.5} cy={-3.5} rx={2.4} ry={3} fill="#ffffff" opacity={0.85} />
-          </g>
-          {/* chữ khắc trên viền gỗ dưới */}
-          <g transform={`translate(${-MW / 2 + 6} ${-MH * 0.5 + 64}) rotate(-3)`}><rect width={170} height={32} rx={4} fill="#8d6c4c" /><text x={85} y={22} textAnchor="middle" fontFamily={FONT.hand} fontSize={18} fill="#2e2218" opacity={0.85}>Đừng mở vải sau 0h</text></g>
+          <Cloth w={MW} h={MH} sway={Math.sin(f / 18) * 3} breath={breath} />
         </g>
       </svg>
       {/* ánh xanh chạng vạng từ khe cửa sổ, phần còn lại chìm trong tối */}
@@ -173,7 +185,7 @@ const POINT: JointPose = { ...STAND_POSE, tilt: 6, neck: 6, armL: { a: 22, b: 14
 
 const Slice2A: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const move = { push: 10 * seg(f, 0, 100), truck: 0 };
-  const nam = { at: DESK, render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood={f > 40 ? 'annoyed' : 'calm'} pose={{ ...GAME, view: 'three', facing: 1 }} /> };
+  const nam = { at: DESK, render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood="annoyed" face={f > 40 ? 'tuc-gian-02' : 'tuc-gian-01'} pose={{ ...GAME, view: 'three', facing: 1 }} /> };
   const tung = { at: [235, 250] as [number, number], render: () => { const p = placeOn('desk', [334, 60], 168, move); return <TungSoccer {...p} mood="annoyed" pose={{ ...POINT, view: 'three', facing: 1 }} />; } };
   return (
     <Camera lens={{ cx: 960, cy: 540, z: 1 }} f={g} hand={0.8}>
@@ -188,7 +200,7 @@ const Slice2B: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const walk = sampleWalk(f / 16);
   const wave = seg(f, 30, 40) * (1 - seg(f, 70, 80));
   const pose = mixPose(walk, { ...walk, armL: { a: 80, b: 60, rot: 1 }, handL: 'open', frontL: true }, wave);
-  const nam = { at: [x, 66] as [number, number], render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood="annoyed" talk={wave > 0.5 && f % 8 < 4 ? { shape: 'a', open: 0.6 } : undefined} pose={{ ...pose, view: 'three', facing: -1 }} /> };
+  const nam = { at: [x, 66] as [number, number], render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood="annoyed" face="tuc-gian-01" talk={wave > 0.5 && f % 8 < 4 ? { shape: 'a', open: 0.6 } : undefined} pose={{ ...pose, view: 'three', facing: -1 }} /> };
   const whip = seg(f, 92, 110);
   return (
     <AbsoluteFill style={{ filter: whip > 0 ? `blur(${whip * 14}px)` : undefined }}>
@@ -210,7 +222,7 @@ const Slice2C: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const tung = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [276, 240]); return <TungSoccer {...p} mood="normal" blink={f % 70 < 3} pose={{ ...RUB_CALF, tilt: RUB_CALF.tilt + rub * 0.3, view: 'three', facing: -1 }} />; } };
   const nam = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [318, 252]); return (
     <g>
-      <StudentTwinBody {...LOOK} {...p} shirt={PALETTE.nam.sleepShirt} mood="calm" pose={{ ...mixPose(TWIN_POSES.sitLow, OFFER_CUP, push), view: 'three', facing: 1 }} />
+      <StudentTwinBody {...LOOK} {...p} shirt={PALETTE.nam.sleepShirt} mood="calm" face={push > 0.5 ? 'nhe-nhom-02' : 'buon-01'} pose={{ ...mixPose(TWIN_POSES.sitLow, OFFER_CUP, push), view: 'three', facing: 1 }} />
       {/* cốc nước: đẩy dần sang phía Tùng */}
       <g transform={`translate(${p.x + (60 + 120 * push) * p.scale} ${p.y + 360 * p.scale}) scale(${p.scale})`}>
         <path d="M-22 -40H22L17 20Q0 28-17 20Z" fill="#cfe6e8" opacity={0.85} />
@@ -227,81 +239,107 @@ const Slice2C: React.FC<{ f: number; g: number }> = ({ f, g }) => {
 
 const Shot2: React.FC<{ f: number; g: number }> = ({ f, g }) => (f < 100 ? <Slice2A f={f} g={g} /> : f < 210 ? <Slice2B f={f - 100} g={g} /> : <Slice2C f={f - 210} g={g} />);
 
-// ---------- SHOT 3: độc thoại, phản chiếu đảo bên (26–38s) ----------
+// ---------- SHOT 3: độc thoại, phản chiếu lệch dần (26–38s) ----------
+// Đầu shot bóng trong gương là phản chiếu thật (cùng Nam, lật ngang). Lúc gãi mắt: bóng làm trễ 6 frame,
+// nốt ruồi chớp đổi bên (lóe 2 frame mặt Người Kia), rồi bóng thôi bắt chước: Nam cúi gục, bóng ngẩng lên nhìn thẳng máy.
 const SCRATCH: JointPose = { ...STAND_POSE, neck: 4, armR: { a: -45, b: 138 }, wristR: -50, handR: 'fist', frontR: true };
+const SLUMP: JointPose = { ...STAND_POSE, tilt: 4, neck: 16 };
+const namPose3 = (t: number) => mixPose(mixPose(STAND_POSE, SCRATCH, seg(t, 150, 175) * (1 - seg(t, 238, 258))), SLUMP, seg(t, 262, 290));
+const namFace3 = (t: number) => (t < 60 ? 'buon-01' : t < 150 ? 'buon-02' : 'buon-03') as 'buon-01' | 'buon-02' | 'buon-03';
+const heartbeat = (t: number, from: number, rate: number) => (t < from ? 0 : Math.max(0, Math.sin(((t - from) / rate) * Math.PI * 2)) ** 8);
 const Shot3: React.FC<{ f: number }> = ({ f }) => {
-  const z = interpolate(f, [0, 360], [1, 1.14]);
-  const sc = seg(f, 150, 175) * (1 - seg(f, 250, 270)); // gãi đuôi mắt
-  const stare = seg(f, 280, 296); // cái bóng quay ra nhìn khán giả
-  const pose = mixPose(STAND_POSE, SCRATCH, sc);
-  const reflPose = mixPose(STAND_POSE, SCRATCH, seg(f, 154, 179) * (1 - seg(f, 250, 270)));
+  const swap = f >= 162; // từ đây cái bóng là Người Kia: nốt ruồi nằm bên kia
+  const glitch = f >= 160 && f < 166;
+  const flash = f === 161 || f === 162;
+  const free = seg(f, 268, 286); // bóng thôi bắt chước
+  const lagT = f < 150 ? f : f - 6;
+  const reflPose = mixPose(namPose3(lagT), { ...STAND_POSE, neck: -6 }, free);
+  const pulse = heartbeat(f, 170, 26) * 0.012;
+  const z = interpolate(f, [0, 360], [1, 1.2]) + pulse;
+  const talk = f > 40 && f < 340 && f % 10 < 5 ? { shape: 'closed' as const, open: 0.25 } : undefined;
+  const blink = f % 90 < 3;
   return (
     <AbsoluteFill style={{ background: '#0b1211' }}>
-      <div style={{ position: 'absolute', inset: 0, transform: `scale(${z})`, transformOrigin: '900px 520px' }}>
+      <div style={{ position: 'absolute', inset: 0, transform: `scale(${z}) translateX(${glitch ? (f % 2 ? 14 : -10) : 0}px)`, transformOrigin: '1000px 480px' }}>
         <svg width={1920} height={1080}>
-          {/* gương bên phải, cái bóng mặc áo xanh như Nam nhưng nốt ruồi ở bên kia */}
           <g transform="translate(1390 1500) scale(1.6)">
             <Mirror w={MW} h={MH}>
-              <rect width={MW} height={MH} fill="#16211f" />
-              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} mood={stare > 0.5 ? 'calm' : 'hesitant'} blink={false} pose={{ ...reflPose, view: stare > 0.5 ? 'front' : 'three', facing: -1 }} />
-              <rect width={MW} height={MH} fill="#3cc6c0" opacity={0.06} />
+              <rect width={MW} height={MH} fill="#101917" />
+              {swap ? (
+                <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={free > 0.5 ? undefined : namFace3(lagT)} mood={free > 0.5 ? 'eerie_smirk' : 'calm'} blink={free > 0.5 ? false : blink} pose={{ ...reflPose, view: free > 0.5 ? 'front' : 'three', facing: -1 }} />
+              ) : (
+                <StudentTwinBody {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={namFace3(f)} mood="sleepy" blink={blink} talk={talk} pose={{ ...reflPose, view: 'three', facing: -1 }} />
+              )}
+              <rect width={MW} height={MH} fill="#3cc6c0" opacity={0.05 + 0.08 * free} />
             </Mirror>
           </g>
-          {/* Nam: trung cận, nhìn vào gương */}
-          <StudentTwinBody {...LOOK} x={760} y={150} scale={1.55} mood="sleepy" blink={f % 90 < 3} talk={f > 60 && f < 340 && f % 10 < 5 ? { shape: 'closed', open: 0.2 } : undefined} pose={{ ...pose, view: 'three', facing: 1 }} />
+          <StudentTwinBody {...LOOK} x={760} y={150} scale={1.55} face={namFace3(f)} mood="sleepy" blink={blink} talk={talk} pose={{ ...namPose3(f), view: 'three', facing: 1 }} />
         </svg>
-        {/* laptop tiền cảnh trái, hắt sáng xanh lạnh lên nửa mặt */}
+        {/* laptop tiền cảnh trái, hắt sáng xanh lạnh */}
         <div style={{ position: 'absolute', left: 60, bottom: BAR + 10, width: 460, height: 260, transform: 'perspective(800px) rotateY(28deg)', filter: 'blur(2px)', boxShadow: '0 0 90px rgba(110,220,230,.45)' }}>
           <svg width={460} height={260} viewBox="0 0 1920 1080"><LaptopScreen /></svg>
-          <div style={{ position: 'absolute', left: 0, right: 0, top: 40, textAlign: 'center', fontFamily: FONT.title, fontSize: 30, color: '#ff4b3a', textShadow: '0 0 14px #ff5a3a' }}>Hạn chót: 23:59 — THIẾU BÀI TẬP</div>
+          <div style={{ position: 'absolute', left: 0, right: 0, top: 40, textAlign: 'center', fontFamily: FONT.title, fontSize: 30, color: '#ff4b3a', textShadow: '0 0 14px #ff5a3a', opacity: f % 30 < 20 ? 1 : 0.55 }}>Hạn chót: 23:59 — THIẾU BÀI TẬP</div>
         </div>
       </div>
-      {/* Chiaroscuro: sáng lạnh từ trái, nửa phải chìm tối */}
-      <AbsoluteFill style={{ background: 'linear-gradient(90deg, rgba(70,170,180,.18) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.15) 100%)' }} />
+      <AbsoluteFill style={{ background: 'linear-gradient(90deg, rgba(70,170,180,.16) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,.4) 62%, rgba(0,0,0,.2) 100%)' }} />
+      {/* lóe 2 frame: cận mặt Người Kia cười lạnh */}
+      {flash && (
+        <AbsoluteFill style={{ background: '#d8fff8' }}>
+          <svg width={1920} height={1080}><StudentTwinHead identity="nguoi-kia" mood="eerie_smirk" view="front" x={960} y={140} scale={5.2} /></svg>
+        </AbsoluteFill>
+      )}
+      <AbsoluteFill style={{ background: '#000', opacity: 0.25 * free * (f % 7 < 2 ? 1 : 0.4) }} />
     </AbsoluteFill>
   );
 };
 
 // ---------- SHOT 4: bàn tay xuyên kính, dolly zoom (38–44s) ----------
+// Trong kính là thế giới gương 3D (MirrorRealm). Cánh tay vươn ra là tay rig của chính cái bóng:
+// vẽ bóng 2 lần cùng toạ độ — bản trong kính, và bản ngoài kính chỉ lộ phần vượt mép trái — nên tay liền một khối.
+const REACH_ARM = (k: number): JointPose => ({ ...STAND_POSE, tilt: -2 * k, armR: { a: 84 * k, b: 6 }, wristR: -6 * k, handR: k > 0.2 ? 'open' : 'rest', frontR: true });
 const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const t = f / 180;
-  const fg = 1 + 0.18 * t, bg = 1 - 0.22 * t; // dolly-in + zoom-out: tiền cảnh to ra, hậu cảnh co lại
-  const walkX = interpolate(f, [10, 170], [0, -260], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const lift = seg(f, 30, 70), smirk = f > 70;
-  const ripple = seg(f, 60, 100);
-  const reach = seg(f, 90, 140) * (1 - seg(f, 168, 180));
-  const handTip = { x: 1250 - 330 * reach, y: 560 + 10 * reach };
+  const push = 1 + 0.32 * t; // dolly-in
+  const realmZoom = 1 + 0.5 * t; // zoom-out phía trong kính: thế giới gương lùi ra xa
+  const lift = seg(f, 30, 64), smirk = f > 64;
+  const ripple = seg(f, 56, 96);
+  const reach = seg(f, 92, 132) * (1 - seg(f, 160, 178));
+  const turn = seg(f, 6, 22);
+  const nx = interpolate(f, [24, 178], [-30, -330], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const walkP = f > 24 ? sampleWalk((f - 24) / 20) : STAND_POSE;
+  const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
+  const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
+  const rx = MW * 0.32, ry = MH * 0.1, rs = 0.95;
+  const vw = 1920 * realmZoom, vh = 1080 * realmZoom;
+  const realm = (
+    <svg width={MW} height={MH} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.78} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
+      <MirrorRealm ripple={f / 40} floating={false} />
+    </svg>
+  );
   return (
-    <AbsoluteFill style={{ background: '#081211' }}>
-      <div style={{ position: 'absolute', inset: 0, transform: `rotate(-15deg) scale(${bg * 1.25})`, transformOrigin: '960px 540px' }}>
+    <AbsoluteFill style={{ background: '#060d0c' }}>
+      <div style={{ position: 'absolute', inset: 0, transform: `translate(${shake}px, ${shake * 0.4}px) rotate(-15deg) scale(${push})`, transformOrigin: '960px 560px' }}>
         <svg width={1920} height={1080}>
-          <rect x={-400} y={-400} width={2700} height={1900} fill="#101b1a" />
-          <path d="M-400 880H2300V1500H-400Z" fill="#162321" />
-          <g transform="translate(1260 1150) scale(1.15)">
+          <rect x={-600} y={-600} width={3100} height={2300} fill="#0c1615" />
+          <path d="M-600 900H2500V1700H-600Z" fill="#121e1c" />
+          <g transform="translate(1180 1010) scale(0.98)">
             <Mirror w={MW} h={MH} progress={ripple} phase={f / 6}>
-              <rect width={MW} height={MH} fill="#0f2421" />
-              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.1} scale={0.95} mood={smirk ? 'eerie_smirk' : 'calm'} pose={{ ...STAND_POSE, neck: 14 * (1 - lift), view: 'front' }} />
+              {realm}
+              <NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood={smirk ? 'eerie_smirk' : 'calm'} blink={false} pose={reflPose} />
             </Mirror>
+            <g transform={`translate(${-MW / 2} ${-MH})`}>
+              {/* Nam: quay lưng khỏi gương rồi bước đi, không hay biết */}
+              <StudentTwinBody {...LOOK} x={nx} y={ry} scale={rs} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'three', facing: -1 }} />
+              {/* phần tay của cái bóng đã thò ra khỏi kính */}
+              <clipPath id="ngoai-kinh"><rect x={-2000} y={-500} width={2026} height={MH + 1000} /></clipPath>
+              {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood="eerie_smirk" pose={reflPose} /></g>}
+            </g>
           </g>
         </svg>
-        {/* ánh lân tinh xanh từ mặt gương */}
-        <div style={{ position: 'absolute', left: 1020, top: 160, width: 480, height: 900, borderRadius: 200, background: 'radial-gradient(ellipse, rgba(80,255,210,.28), rgba(0,0,0,0) 70%)', opacity: ripple, mixBlendMode: 'screen' }} />
+        <div style={{ position: 'absolute', left: 1000, top: 140, width: 420, height: 880, borderRadius: 200, background: 'radial-gradient(ellipse, rgba(80,255,210,.3), rgba(0,0,0,0) 70%)', opacity: ripple, mixBlendMode: 'screen' }} />
       </div>
-      <div style={{ position: 'absolute', inset: 0, transform: `rotate(-15deg) scale(${fg})`, transformOrigin: '960px 540px' }}>
-        <svg width={1920} height={1080}>
-          {/* Nam quay lưng bước đi */}
-          <StudentTwinBody {...LOOK} x={820 + walkX} y={120} scale={1.25} mood="sleepy" pose={{ ...sampleWalk(f / 18), view: 'back', facing: -1 }} />
-          {/* bàn tay áo sơ mi xanh thò ra khỏi kính, chạm gáy Nam */}
-          {reach > 0.01 && (
-            <g>
-              <path d={`M1260 600L${handTip.x + 40} ${handTip.y}`} stroke="#4f7fa8" strokeWidth={44} strokeLinecap="round" />
-              <ellipse cx={handTip.x} cy={handTip.y} rx={30} ry={22} fill={PALETTE.skin} />
-              {[0, 1, 2, 3].map((i) => <path key={i} d={`M${handTip.x - 20} ${handTip.y - 12 + i * 8}l-${26 - i * 3} -${2 + i}`} stroke={PALETTE.skin} strokeWidth={9} strokeLinecap="round" />)}
-            </g>
-          )}
-        </svg>
-      </div>
-      <Streak t={seg(f, 70, 120)} color="#5affd2" y={560} />
+      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 55% 60% at 55% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,.7) 100%)' }} />
+      <Streak t={seg(f, 64, 110)} color="#5affd2" y={560} />
     </AbsoluteFill>
   );
 };
@@ -310,13 +348,14 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
 const CRACK = 'M180 560L420 520L560 588L760 500L930 556L1080 470L1240 548L1420 486L1600 560L1760 512';
 const Shot5: React.FC<{ f: number }> = ({ f }) => {
   if (f < 30) {
+    const vw = 1920 * 0.7, vh = 1080 * 0.7;
     return (
       <AbsoluteFill style={{ background: '#0b1514' }}>
         <svg width={1920} height={1080}>
-          <g transform="translate(960 1420) scale(1.45)">
+          <g transform={`translate(960 1420) scale(${1.45 + 0.004 * f})`}>
             <Mirror w={MW} h={MH}>
-              <rect width={MW} height={MH} fill="#132321" />
-              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.1} scale={0.95} mood="neutral_smile" blink={false} pose={{ ...STAND_POSE, view: 'front' }} />
+              <svg width={MW} height={MH} viewBox={`${1160 - vw * 0.5} ${880 - vh * 0.8} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice"><MirrorRealm floating={false} /></svg>
+              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.1} scale={0.95} mood="eerie_smirk" blink={false} pose={{ ...STAND_POSE, view: 'front' }} />
             </Mirror>
           </g>
         </svg>
@@ -324,7 +363,7 @@ const Shot5: React.FC<{ f: number }> = ({ f }) => {
     );
   }
   const k = f - 30;
-  const crack = seg(k, 0, 10), glow = seg(k, 6, 20), title = seg(k, 14, 30), tag = seg(k, 34, 50);
+  const crack = seg(k, 0, 8), glow = seg(k, 6, 20), title = seg(k, 14, 30), tag = seg(k, 34, 50);
   return (
     <AbsoluteFill style={{ background: '#000' }}>
       <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>

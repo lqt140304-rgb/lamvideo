@@ -179,7 +179,13 @@ export const Sleeper = ({ cover = 0, breath = 0, reach = 0, carry = 0, phone = t
                 <path d={`M ${sh.x} ${sh.y} Q ${elbow.x} ${elbow.y} ${hand.x} ${hand.y}`} fill="none" stroke="#8f6a4f" strokeWidth={44} />
                 <path d={`M ${sh.x} ${sh.y} Q ${elbow.x} ${elbow.y} ${hand.x} ${hand.y}`} fill="none" stroke={PALETTE.skin} strokeWidth={36} />
                 <path d={`M ${sh.x} ${sh.y} L ${sh.x + (elbow.x - sh.x) * 0.55} ${sh.y + (elbow.y - sh.y) * 0.55}`} fill="none" stroke={SLEEP} strokeWidth={50} />
-                <circle cx={hand.x} cy={hand.y} r={22} fill={PALETTE.skin} />
+                {/* bàn tay: lòng bàn tay + 4 ngón khum theo hướng cẳng tay + ngón cái; không viền */}
+                <g transform={`translate(${hand.x} ${hand.y}) rotate(${(Math.atan2(hand.y - elbow.y, hand.x - elbow.x) * 180) / Math.PI})`} stroke="none">
+                  <ellipse cx={6} cy={0} rx={24} ry={19} fill={PALETTE.skin} />
+                  {[-12, -4, 4, 12].map((o, i) => <path key={o} d={`M 18 ${o} Q ${34 + (i === 0 || i === 3 ? -3 : 0)} ${o * 1.1} ${40 + (i === 1 || i === 2 ? 4 : 0)} ${o * 1.2 + 6}`} fill="none" stroke={PALETTE.skin} strokeWidth={9} strokeLinecap="round" />)}
+                  <path d="M 4 -14 Q 14 -30 26 -30" fill="none" stroke={PALETTE.skin} strokeWidth={10} strokeLinecap="round" />
+                  <path d="M 14 -8 Q 20 0 14 8" fill="none" stroke={PALETTE.skinShadow} strokeWidth={3} strokeLinecap="round" opacity={0.6} />
+                </g>
               </g>
             )}
             {cover > 0 && cover < 1 && (
