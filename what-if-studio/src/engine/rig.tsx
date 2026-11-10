@@ -252,7 +252,7 @@ export const LOOKS: Record<CastName, Look> = {
     limb: '#44506A', line: '#16141C', shoe: '#E9E0CC', face: C.ink, hair: '#1A1516',
     extra: 'crop', limbW: 19, forearm: '#E0B48C', shin: '#E0B48C', fingers: true, collar: 'round',
   },
-  // "Hẻm Có Chuyện — Tập 01: Tin nhắn chưa gửi" (Bản 3 / Concept v4: Duy 16t, Thảo 8t, Ông Lộc ~60t)
+  // "The Crack in Reality — Hồ sơ 01: Tin nhắn chưa gửi" (Bản 3 / Concept v4: Duy 16t, Thảo 8t, Ông Lộc ~60t)
   duy: {
     skin: '#E8BC96', skinShade: '#CC9C74', hand: '#E8BC96',
     jacket: '#566A7A', jacketShade: '#3F505E', accent: '#485A68',

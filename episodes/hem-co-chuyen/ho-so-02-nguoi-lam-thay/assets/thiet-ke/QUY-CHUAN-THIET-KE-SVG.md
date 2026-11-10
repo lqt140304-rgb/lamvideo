@@ -1,7 +1,7 @@
 # Quy chuẩn thiết kế nhân vật SVG (Style B)
 
 **Phạm vi mở rộng 10/11/2026:** phần chi tiết dưới đây là quy chuẩn nhân vật Hồ sơ 2; dùng cùng [quy chuẩn mỹ thuật chung](../../../../../docs/PHONG-CACH-MY-THUAT.md) cho bối cảnh, nội thất, đường phố, thiên nhiên và đạo cụ. Các mã màu trang phục/nốt ruồi là dữ liệu riêng của hồ sơ, không áp cho mọi tài nguyên. Độ dày nét tính theo cỡ thiết kế, cần hiệu chỉnh khi xuất và theo gần–xa; không ép mọi đường nền thành đường cong hoặc mọi vật thành mảng khép kín.
-**Áp dụng:** The Crack in Reality — Hồ sơ 02: Người trong gương (tên cũ: Hẻm Có Chuyện — Người làm thay) và các tập tiếp theo theo phong cách mới  
+**Áp dụng:** The Crack in Reality — Hồ sơ 02: Người trong gương (trước đây: Người làm thay, và các tập tiếp theo theo phong cách mới)  
 **Ngày chuẩn hóa:** 09/11/2026, cập nhật cách vẽ và rig khớp 10/11/2026  
 **Tham chiếu gốc:** hình bên phải trong [`character-svg-v1.png`](character-svg-v1.png) là mẫu đích; [`nhan-vat.png`](../nhan-vat.png) là bản đang dùng. Làm nhân vật mới: đọc thẳng [mục 4](#4-cách-vẽ-đã-chốt-để-làm-tiếp).
 
@@ -84,31 +84,26 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 
 Chủ repo đã duyệt hướng này qua các vòng sửa ngày 10/11/2026: **cartoon mềm, ít nét, liền mạch, không cứng**. Khớp phải đúng logic nhưng không được đánh đổi vẻ mềm của mẫu.
 
-### 4.0. Kiểu hiển thị đã chốt (10/11/2026): không viền ngoài, giữ nét mặt và nếp chính, bóng mềm hẹp
+<a id="40-kiểu-hiển-thị-đã-chốt-10112026-không-viền-ngoài-giữ-nét-mặt-và-nếp-chính-bóng-mềm-hẹp"></a>
+<a id="40-bóng-vẽ-tay-không-viền-11112026"></a>
+### 4.0. Bóng vẽ tay, không viền — 11/11/2026
 
-Chủ repo đã so ba kiểu viền đen, viền màu và không viền ([bảng so](so-sanh-vien.png)), rồi chốt **không viền ngoài**. Đây là mặc định của rig (`outline: 'none'`). Hai kiểu `ink` và `tint` vẫn còn để thử, nhưng không dùng cho phim.
+Thay hướng bóng mềm sinh tự động ngày 10/11 bằng quyết định mới: **mảng bóng tự vẽ, ít chi tiết, không viền ngoài**. Xem [nguyên tắc chung và tham chiếu không viền](../../../../../docs/PHONG-CACH-MY-THUAT.md#minh-họa-không-viền--tiếp-thu-ảnh-tham-chiếu-11112026).
 
-| Giữ | Bỏ hoặc đổi |
-|---|---|
-| **Nét mặt**: mắt, mi, con ngươi, mày, mũi, miệng, nốt ruồi, nét trong tai, vẫn bằng mực | Viền bao quanh đầu, cổ, tai, tóc, áo, quần, tay, chân |
-| **Nếp chính** theo mục 4.1 (cổ áo, nách, vạt, gối, ống chân, gấp khuỷu), đổi sang tông tối trong suốt (`--inner-ink`), không dùng mực đen | Thêm nếp để bù cho việc mất viền |
-| **Tách lớp bằng tương phản màu**: tay xa và chân sau tối hơn khoảng 20%, cẳng tay đè trước sáng hơn khoảng 7% (tô sẵn qua `ToneCtx`) | Dùng CSS `filter` để làm tối/sáng, vì render chậm gấp đôi |
-| **Bóng mềm nhưng hẹp** (chủ repo chọn "loang nhưng gọn, đừng chiếm nhiều"): mép tối chuyển mềm (độ mờ 4), vùng tối chỉ ôm mép khối, không phủ quá nửa bộ phận (độ dày 15 trong cảnh), độ dày tỉ lệ theo cỡ bộ phận (`Shade size`: đầu 2.2, thân 1.3, chân 0.85, tay 0.6), cùng một hướng sáng cho đầu và thân ([so trước/sau](sang-toi-dong-bo.png), [loang rộng, gọn sắc và loang hẹp (chọn)](bong-gon.png)) | Bóng cắt sắc kiểu cel; đầu phẳng một màu trong khi tay tối cả cánh |
+- Giữ mắt–mày–miệng, nốt ruồi và một số nếp chính; tách người/đồ bằng màu và silhouette. `outline: 'none'` là mặc định; `ink`/`tint` chỉ phục vụ đối chiếu.
+- Rig giữ các mảng cổ, dưới vạt áo, màu trang phục ở lớp trước/sau và một bóng tiếp đất cố định. Da đầu/tay/chân dùng cùng màu nền; không tô tối nguyên tay hoặc vẽ dải bóng cằm giống râu. `Shade` còn tồn tại để tương thích lời gọi nhưng không tự tạo bóng/rim bằng filter. Các tham số Light cũ không còn chứng minh ánh sáng đã được áp lên vật liệu.
+- Phòng giữ hình học/camera 3D; mặt bên dùng bảng màu chọn sẵn (`DRAWN_SIDE`), bản đêm dùng `DRAWN_NIGHT`. Bóng đồ vật là dấu tiếp xúc ngắn trên sàn; bỏ Lambert, cast shadow theo chiều cao, blur AO và gradient bóng trụ.
+- Ánh đèn/vệt nắng là lớp không khí riêng; không dùng chúng tạo quầng bao người. Mảng sáng/tối cần ít, rõ ở cỡ điện thoại và đồng nhất trong cùng khung.
+- Khi thêm pose, bóng vẽ tay phải bám đúng lớp và điểm tiếp xúc; không coi bảng tĩnh là chứng nhận motion. Không bật lại shading cũ chỉ vì đổi camera.
 
-| **Tóc nhận bóng như mặt** (mảng tối hẹp + viền sáng; chủ repo đã thử bỏ rồi chốt giữ) | Tô tóc phẳng tách khỏi ánh sáng của đầu |
-
-| **Nguồn sáng đọc được**: cảnh ban ngày bật vệt nắng xiên từ cửa sổ (`RoomScene rays`) nằm sau người, chỉ phủ rất nhẹ lên nhân vật; mảng tối lạnh (`#3c4763`, độ đậm 0.55), viền sáng ấm rõ (0.75) ([xem](nang-cua-so.png)) | Vệt sáng phủ đặc lên người làm nhân vật mờ đục mất tương phản |
-
-| **Chỉ có khối sáng–tối khi đứng trong nắng**: độ đậm mảng tối/viền sáng nhân theo mức nắng chiếu tới thân (`sunExposure` của bối cảnh: dò tia nắng qua ô cửa sổ, lấy mẫu dọc thân). Ngoài nắng (bồn rửa, chỗ nằm ngủ) chỉ còn bóng tiếp đất dưới chân. Phòng tối dần theo khoảng cách tới vùng nắng (`RoomScene falloff`), đè lên cả người ([xem](bong-theo-nang.png)) | Đổ bóng cửa sổ lên người đứng trong góc không có nắng |
-
-Kiểm tra: đặt mặt cạnh thân trong cùng khung. Hai bên phải có cùng hướng sáng và cùng tỉ lệ vùng tối. Chỗ da chồng da (tay ôm bát, tay đặt lên cẳng tay) phải tách được bằng độ sáng. Bảng cũ có viền trong mục 4.1–4.5 vẫn đúng về hình khối và nếp, chỉ khác phần hiển thị viền.
+Đã xuất lại bảng nhân vật và tám góc phòng chính theo nguồn mới. Các ảnh thử `bong-gon`, `sang-toi-dong-bo`, `nang-cua-so`, `bong-theo-nang` là **lịch sử so sánh**, không còn là chuẩn bóng. Các bảng khớp cũ vẫn tham khảo được về hình, không dùng để chép viền/bóng. Chưa xuất lại toàn bộ ảnh lịch sử hoặc dựng lại video demo.
 
 ### 4.1. Nét và khối
 
 | Làm | Không làm |
 |---|---|
 | Mỗi vùng cùng màu là **một khối liền**: tô nền mực rồi tô màu đè lên (`Blob`), nên không có đường trong | Vẽ viền từng bộ phận rồi xếp chồng, để lộ đường cắt ở vai, khuỷu, cổ tay, gối |
-| Viền ngoài 4, nét mặt 3.5, nếp vải 2.5, đầu nét và góc nối đều tròn | Nét đều tăm tắp như hình học, góc nhọn |
+| Không viền ngoài; nét mặt và nếp thiết yếu bo tròn, độ dày theo cỡ hình. Số viền 4 của bảng cũ chỉ để đối chiếu | Nét đều tăm tắp như hình học, góc nhọn |
 | Nếp vải chỉ đặt đúng chỗ của mẫu: cổ áo, hai đường nách, hai nếp vạt áo, một nếp gối, một nếp ống chân | Thêm nếp để trông "chi tiết"; vạch khuỷu; đường chia giữa hai ống quần |
 | Gấu quần, tay áo hơi cong; ống quần phồng đùi, thu ở gối, loe nhẹ ở gấu; hai ống có khe chữ V ở đáy quần | Ống thẳng như ống nước, gấu cắt thẳng |
 | Dáng thả lỏng: vai rủ, tay hơi rời thân và hơi cong, hai chân hơi mở | Đứng nghiêm đối xứng, vai vuông như mắc áo |

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * ClockEntity: Nguyên hình Thực thể Đồng hồ Ba Mắt của Ông Lộc (Hẻm Có Chuyện)
+ * ClockEntity: Nguyên hình Thực thể Đồng hồ Ba Mắt của Ông Lộc (The Crack in Reality / Hẻm Có Chuyện)
  * Được thiết kế theo phong cách KHÔNG VIỀN (Lineless / Planar Shading):
  * - Thân mặt đồng hồ đồng cổ khổng lồ định hình bằng mảng màu kim loại & highlight (không viền đen).
  * - Ba mắt xếp hình tam giác phát sáng xuyên thấu huyền ảo.

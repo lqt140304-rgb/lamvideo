@@ -1,14 +1,29 @@
 # Phong cách mỹ thuật chung — cartoon mềm, tròn, có chiều sâu
 
-**Cập nhật 10/11/2026 theo lựa chọn của chủ repo.** Style B áp dụng thống nhất cho thiết kế mới và các asset được giao chỉnh sửa: nhân vật, trang phục, đạo cụ, nội thất, kiến trúc, đường phố, cây cối và môi trường. Không chỉ đổi nhân vật rồi để nền theo lối ghép hộp cứng. Đây là quy chuẩn thiết kế, chưa xác nhận toàn bộ asset hiện có đã được vẽ lại.
+**Cập nhật 11/11/2026 theo lựa chọn của chủ repo.** Style B áp dụng thống nhất cho thiết kế mới và các asset được giao chỉnh sửa: nhân vật, trang phục, đạo cụ, nội thất, kiến trúc, đường phố, cây cối và môi trường. Không chỉ đổi nhân vật rồi để nền theo lối ghép hộp cứng. Đây là quy chuẩn thiết kế, chưa xác nhận toàn bộ asset hiện có đã được vẽ lại.
 
 ## Ngôn ngữ hình và nét
 
 - Ưu tiên đường cong mềm, khối tròn đầy và đường bao liền mạch. Nét cong có chủ đích, không rung ngẫu nhiên hoặc uốn méo mọi vật.
 - Vai–thân–hông–đùi nối tự nhiên; tay chân có khối, trang phục rủ theo cơ thể. Tóc, mắt, miệng và cử chỉ giữ tính cartoon, không chuyển sang tỉ lệ người thật.
 - Nhân vật theo lựa chọn mới: không viền ngoài, giữ nét mắt–mày–miệng và vài nét trong cần thiết. Tách lớp bằng mảng màu và bóng gọn, không bằng quầng sáng hay gradient bóng nhựa. Với asset còn dùng nét, bo tròn đầu/nối và giữ độ dày theo khoảng cách; mực than ấm `#282b2b` là tham chiếu cũ, không bắt buộc viền cho nhân vật mới.
-- Nhân vật The Crack in Reality (trước là Hẻm Có Chuyện; từ Hồ sơ 02 Người trong gương): **không viền ngoài**; giữ nét mặt và các nếp chính (nếp đổi sang tông tối trong suốt); tách lớp bằng tương phản sáng–tối; **bóng mềm nhưng hẹp** (mép loang, vùng tối chỉ ôm mép khối), đầu và thân chung một hướng sáng. Chi tiết và cách dùng rig ở [quy chuẩn Hồ sơ 2, mục 4.0](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-kiểu-hiển-thị-đã-chốt-10112026-không-viền-ngoài-giữ-nét-mặt-và-nếp-chính-bóng-mềm-hẹp). Bối cảnh vẫn giữ nét như hiện tại cho tới khi có quyết định riêng.
+- Nhân vật series The Crack in Reality (từ Hồ sơ 02: Người trong gương): **không viền ngoài; bóng là mảng tự vẽ**, ít và rõ. Không tạo bóng vật liệu bằng bộ lọc, gradient, rim tự động, AO hay thuật toán chiếu sáng. Quy chuẩn hiện hành ở [mục 4.0 Hồ sơ 2](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026). Nền cũ có nét kiến trúc chọn lọc vẫn được giữ; không tự xóa mọi nét kết cấu trong kho cũ.
 - Mảng màu gọn, sáng/tối có nguồn sáng thống nhất. Tránh nền quá nhiều chi tiết hoặc chất liệu ảnh thật đặt cạnh nhân vật cartoon phẳng.
+
+## Minh họa không viền — tiếp thu ảnh tham chiếu 11/11/2026
+
+Ảnh hướng dẫn do chủ repo cung cấp là tham chiếu kỹ thuật, không phải mẫu nhân vật để sao chép. Ưu tiên hình khối và sáng–tối khi nhìn từ xa hơn độ tinh xảo khi phóng lớn.
+
+1. **Dựng silhouette trước:** dáng nhận ra được ở cỡ nhỏ; đường bao có nhịp lớn–vừa–nhỏ, không thành một khối tròn đơn điệu. Nét phác chỉ để xây hình, không bắt buộc xuất ra hình cuối.
+2. **Chốt màu nền trước bóng:** các phần kề nhau tách bằng sắc độ, màu và che khuất. Nhóm xa–giữa–gần riêng cho cả nhân vật, đạo cụ và môi trường; không thêm viền dày để chữa các mảng màu dính nhau.
+3. **Giữ nét có chọn lọc:** mắt, miệng, ngón cái, một nếp gấp hay cạnh tiếp xúc cần thiết. Không viền ngoài không có nghĩa xóa mọi đường trong, cũng không dùng nét để mô tả từng đốt/ngấn nhỏ.
+4. **Bóng và sáng do người vẽ chọn:** thường chỉ cần 1–3 mảng ở cổ, dưới vạt áo, chỗ chồng hoặc điểm đỡ. Đường mảng cong mềm, cắt trong đúng khối/lớp; không tràn qua quần áo hoặc phủ cả khuôn mặt. Có thể tô màu trực tiếp hoặc dùng clipping mask. Không tự sinh bóng theo hướng đèn, độ sâu hay hình học vật liệu. Bóng tiếp xúc là mảng nhỏ bám điểm đỡ, không phải quầng blur.
+**Màu da và khuôn mặt:** đầu, cổ, tay/chân cùng màu da nền; không làm tối nguyên cánh tay để tách lớp. Không thêm dải bóng quanh má/cằm khiến vai không có râu trông như có râu. Tóc phải phủ kín phần da đầu cần che; bàn tay dùng đường bao liền, khung preview phải chứa đủ ngón trước khi đánh giá hình.
+
+5. **Không khóa công thức pha màu:** Multiply/Dodge và các phần trăm trong ảnh là ví dụ thao tác, không phải thông số bắt buộc. Chọn độ đậm theo da, trang phục, cảm xúc và cỡ hình; tránh tối bẩn hoặc sáng nhựa. Lớp màu không khí/vệt sáng là lớp riêng, không thay cho bóng vật liệu.
+6. **Texture là tùy chọn cuối:** thật nhẹ, không rung ngẫu nhiên từng frame, không làm mất silhouette, chữ và nét mặt. Xem bản thu nhỏ và nền khác màu trước khi thêm chi tiết.
+
+Mô hình không gian 3D, phối cảnh và camera vẫn được dùng để bố trí đúng; quy tắc trên thay cách **vẽ bóng**. Hiệu ứng kính gợn, ánh đèn, bụi hay khói được đánh giá riêng, không lấy lệnh bỏ bóng render để xóa chúng. Áp dụng cho asset mới/được giao sửa; không tự thay bộ đã duyệt của Hồ sơ 1.
 
 ## Tay–chân tối giản — đã chốt 10/11/2026
 
@@ -30,7 +45,7 @@
 | Nhóm | Cách thể hiện cần giữ |
 |---|---|
 | Người và quần áo | Đường bao mềm, vai thả, hông/đùi có thể tích; tay áo, nếp vải và tiếp xúc không đứt đoạn |
-| Nội thất | Bàn, ghế, tủ, bồn rửa giữ công năng; bo mép vừa phải, chuyển mặt sáng/tối mềm; nệm phồng, rèm và vải có độ rủ |
+| Nội thất | Bàn, ghế, tủ, bồn rửa giữ công năng; bo mép vừa phải, chuyển mặt bằng mảng màu tự vẽ tiết chế; nệm phồng, rèm và vải có độ rủ |
 | Nhà, hẻm, đường phố | Giữ phối cảnh, mặt sàn và độ dày cửa; làm mềm cạnh/đường bao và chi tiết mái, tường, biển hiệu. Giảm lặp các hộp chữ nhật giống hệt nhau |
 | Đạo cụ | Cùng ngôn ngữ nét/màu với người và nền; điện thoại, bát, cốc, đèn có hình dễ đọc, điểm cầm và mặt tiếp xúc rõ |
 | Cây cối, mây, đất, nước | Tán/lá/mây thành mảng cong lớn có nhịp lớn–vừa–nhỏ; đất và bờ nước có đường bao tự nhiên; tránh que thẳng lặp đều hoặc đám tròn giống nhau |
@@ -50,4 +65,7 @@ Có thể bắt đầu từ [bộ nét mặt tách lớp dùng chung](../what-if
 3. Nếu sửa nguồn SVG/TSX, rà các bản preview HTML/PNG và bảng asset phụ thuộc; ghi rõ bản chưa cập nhật. Không để preview cũ được hiểu là mẫu mới đã duyệt.
 4. Duyệt storyboard rồi animatic khi được giao dựng. Quy chuẩn hoặc ảnh tĩnh không chứng minh rig, khẩu hình và tương tác đã đạt. Tái sử dụng phần phù hợp, sửa theo phạm vi được giao; không tự vẽ lại cả kho cũ hay chạy media tốn phí.
 
-Tham chiếu cụ thể: [hướng tạo hình The Crack in Reality](../episodes/hem-co-chuyen/THIET-KE-NHAN-VAT.md), [quy chuẩn nhân vật Style B](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). Chi tiết nhân vật và bảng màu riêng nằm trong hồ sơ, không chép thành quy tắc dùng chung.
+Tham chiếu cụ thể: [hướng tạo hình Hẻm Có Chuyện](../episodes/hem-co-chuyen/THIET-KE-NHAN-VAT.md), [quy chuẩn nhân vật Style B](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). Chi tiết nhân vật và bảng màu riêng nằm trong hồ sơ, không chép thành quy tắc dùng chung.
+
+
+**Thiết kế và tái sử dụng asset 11/11:** [hướng dẫn nguồn, khớp/tay, layer, bóng và biểu cảm ba mức](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/CACH-THIET-KE-VA-SU-DUNG.md). Dùng bộ nét mặt chung, giữ nhận diện đã duyệt; ảnh tĩnh chưa thay cho kiểm tra chuyển động.

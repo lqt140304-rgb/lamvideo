@@ -43,7 +43,7 @@ export const S4: React.FC<ShotProps> = ({ t, len }) => {
 
 One rig, 22 costumes (`LOOKS`):
 - Original What-If cast: `pip` (mustard jacket), `pipHood` (hero dark hoodie), `pipInk` (dark head), `mo` (curls, olive jacket, headphones), `sis` (bunches, teal; scale ~0.7), `mom` (bob, rose cardigan), `suit` (combed hair, charcoal suit, red tie).
-- Vietnamese everyday & series cast: `worker`, `workerHat`, `student`, `tech`, `chu`, `bac`, `moi`, `an`, `hanh`, `linh` (child scale ~0.62), `baSau` (silver bun, glasses, shawl/apron), `nam`, `duy` (hero of *Hẻm Có Chuyện*), `thao` (sister in *Hẻm Có Chuyện*), `ongLoc` (elderly repair shop owner with glasses & moustache).
+- Vietnamese everyday & series cast: `worker`, `workerHat`, `student`, `tech`, `chu`, `bac`, `moi`, `an`, `hanh`, `linh` (child scale ~0.62), `baSau` (silver bun, glasses, shawl/apron), `nam`, `duy` (hero of *The Crack in Reality*), `thao` (sister in *The Crack in Reality*), `ongLoc` (elderly repair shop owner with glasses & moustache).
 Render sheets with `npx remotion still src/index.ts Cast out/cast.png`, `FurnitureSheet`, and `VehicleSheet`.
 
 `<Hero look pose rimId shadow />` (alias `Actor`). The **pose**:

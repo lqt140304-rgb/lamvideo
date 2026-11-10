@@ -1,4 +1,4 @@
-// node tests/ho-so-02-rig.cjs — kiểm tra khớp của rig Hồ sơ 2: xương không đổi độ dài, khớp không gập ngược, chân chạm sàn.
+// node tests/ho-so-02-rig.cjs — kiểm tra khớp của rig The Crack in Reality — Hồ sơ 02: Người trong gương: xương không đổi độ dài, khớp không gập ngược, chân chạm sàn.
 // Không thay được việc xem chuyển động (composition HoSo02RigSheet).
 // Shared episode assets live outside the studio folder; resolve React from this studio.
 process.env.NODE_PATH = [require('node:path').resolve(__dirname, '../node_modules'), process.env.NODE_PATH].filter(Boolean).join(require('node:path').delimiter);
@@ -37,9 +37,10 @@ near(r.solveRig({ ...r.STAND_POSE, legR: { a: 0, b: 90 } }).footR, 55, 'ankle li
 
 // Hai nhân vật trong cùng SVG không được dùng chung mã clip mắt.
 const twoBodies = renderToStaticMarkup(React.createElement('svg', null, React.createElement(r.StudentTwinBody, { mood: 'shocked' }), React.createElement(r.StudentTwinBody, { mood: 'calm' }), React.createElement(r.TungSoccer)));
-const ids = twoBodies.match(/id="[^"]+"/g);
-assert.equal(ids.length, 3, 'one eye clip per head');
-assert.equal(new Set(ids).size, 3, 'eye clip ids are unique');
+const ids = twoBodies.match(/id="[^"]+"/g) || [];
+const eyeIds = ids.filter(id => id.includes('-eyes"'));
+assert.equal(eyeIds.length, 3, 'one eye clip per head');
+assert.equal(new Set(ids).size, ids.length, 'all eye and authored shadow clip ids are unique');
 
 // Mọi biểu cảm kịch bản dùng đều vẽ được.
 for (const mood of ['annoyed', 'hesitant', 'scared', 'agitated']) {
@@ -153,3 +154,30 @@ for (const view of ['front','three','side','quarter','back']) for (const facing 
 }
 
 console.log('ho-so-02 rig ok');
+
+
+// Cùng nét mặt thư viện trên hai người: không trùng ID mắt/gradient, mọi tham chiếu còn đúng.
+const sameFaces = renderToStaticMarkup(React.createElement('svg', null,
+  React.createElement(r.StudentTwinBody, {face:'buon-02'}),
+  React.createElement(r.StudentTwinBody, {face:'buon-02'})));
+const faceIds = [...sameFaces.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+assert.equal(faceIds.length, new Set(faceIds).size, 'repeated library faces have unique ids');
+for (const m of sameFaces.matchAll(/url\(#([^)]*)\)/g)) assert.ok(faceIds.includes(m[1]), 'face reference resolves');
+
+
+// New story overlay families: every level renders on both identities and supported views.
+const {STORY_FACES,STORY_GROUPS}=require('../library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat');
+assert.equal(Object.keys(STORY_FACES).length,18);
+for(const group of STORY_GROUPS)for(const level of [1,2,3]){
+ const key=`${group.id}-0${level}`;assert.ok(STORY_FACES[key]);
+ for(const view of ['front','three']){
+  const text=renderToStaticMarkup(React.createElement('svg',null,
+   React.createElement(r.StudentTwinBody,{identity:'nam',face:key,pose:{...r.STAND_POSE,view}}),
+   React.createElement(r.StudentTwinBody,{identity:'nguoi-kia',face:key,pose:{...r.STAND_POSE,view},blink:true,talk:{shape:'a',open:.4}})));
+  assert.ok(!/NaN|undefined|Infinity/.test(text),key);
+  const defs=[...text.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(defs.length,new Set(defs).size,key+' duplicate IDs');
+  for(const m of text.matchAll(/url\(#([^)]*)\)/g))assert.ok(defs.includes(m[1]),key+' missing clip');
+ }
+}
+console.log('Story emotions ok: 6 families x 3 levels, both identities and front/three views');

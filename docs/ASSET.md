@@ -1,6 +1,6 @@
 # Danh mục asset dùng chung
 
-**Bộ tư thế/khớp Hồ sơ 2:** rig chính ở [nhan-vat.tsx](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx), đủ 8 góc quay cho Nam–Người Kia–Tùng; [cách dùng](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). [Rig cũ](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/rig/RIG-NHAN-VAT.md) chỉ để đối chiếu. Lưu trong hồ sơ; chưa chuyển thành rig chung hoặc coi là motion toàn phim đã duyệt.
+**Bộ tư thế/khớp The Crack in Reality — Hồ sơ 02 (Người trong gương):** rig chính ở [nhan-vat.tsx](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx), đủ 8 góc quay cho Nam–Người Kia–Tùng; [cách dùng](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). [Rig cũ](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/rig/RIG-NHAN-VAT.md) chỉ để đối chiếu. Lưu trong hồ sơ; chưa chuyển thành rig chung hoặc coi là motion toàn phim đã duyệt.
 
 **Mỹ thuật khi tạo/sửa asset:** đọc [quy chuẩn chung](PHONG-CACH-MY-THUAT.md). Cả nhân vật lẫn nền và đạo cụ dùng nét cong mềm, khối tròn đầy; kiểm tra cùng khung, không mặc định asset cũ đã đạt chỉ vì được ghi trong danh mục.
 
@@ -26,8 +26,8 @@ Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng t�
 
 | Hồ sơ | Danh mục |
 |---|---|
-| Hẻm Có Chuyện — Hồ sơ 2 | [ASSET.md](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md): bộ mới **Nam, Người Kia, Tùng**, [bảng SVG](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg) và nguồn React/SVG; giữ bảng mẫu thứ 2 làm tham chiếu, chưa xác nhận rig/timeline hoàn thiện |
-| Hẻm Có Chuyện — Hồ sơ 1 | [ASSET.md của tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/ASSET.md); [kế hoạch dùng lại/chuẩn bị](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) |
+| The Crack in Reality — Hồ sơ 02: Người trong gương | [ASSET.md](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md): bộ mới **Nam, Người Kia, Tùng**, [bảng SVG](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg) và nguồn React/SVG; giữ bảng mẫu thứ 2 làm tham chiếu, chưa xác nhận rig/timeline hoàn thiện |
+| The Crack in Reality (Hẻm Có Chuyện) — Hồ sơ 1: Tin nhắn chưa gửi | [ASSET.md của tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/ASSET.md); [kế hoạch dùng lại/chuẩn bị](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/KE-HOACH-SAN-XUAT.md) |
 | Tập độc lập — Mưa liên tục 100 ngày | [ASSET.md của tập](../episodes/doc-lap/mua-100-ngay/ASSET.md); mã dựng cũ và media local nằm cùng hồ sơ tập |
 
 ## Khi thêm hoặc dùng lại tài nguyên
@@ -44,4 +44,12 @@ Asset riêng nằm dưới `episodes/<series>/<slug-tap>/assets/` khi phát sinh
 
 ## Cập nhật phạm vi series
 
-[Vũ trụ Hẻm Có Chuyện](../episodes/hem-co-chuyen/VU-TRU.md) ghi năng lực và dấu nhận diện các thực thể. Nguyên hình đồng hồ ba mắt/kho lọ đang là **asset dự kiến riêng tập 01**, danh mục ở ASSET của tập; chưa có file để đưa vào thư viện dùng chung.
+[Vũ trụ The Crack in Reality (Hẻm Có Chuyện)](../episodes/hem-co-chuyen/VU-TRU.md) ghi năng lực và dấu nhận diện các thực thể. Nguyên hình đồng hồ ba mắt/kho lọ đang là **asset dự kiến riêng tập 01**, danh mục ở ASSET của tập; chưa có file để đưa vào thư viện dùng chung.
+
+
+### The Crack in Reality — Hồ sơ 02: Người trong gương (bổ sung theo kịch bản 11/11/2026)
+
+[Bộ asset SVG/TSX](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/README.md): 47 asset, chín bảng duyệt, 16 PNG; nguồn dùng lại rig/phòng hiện có. Bản hình tĩnh chưa chứng nhận motion. Quy chuẩn bóng hiện hành là mảng tự vẽ tiết chế, xem [phong cách mỹ thuật](PHONG-CACH-MY-THUAT.md).
+
+
+**Thiết kế và tái sử dụng asset 11/11:** [hướng dẫn nguồn, khớp/tay, layer, bóng và biểu cảm ba mức](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/CACH-THIET-KE-VA-SU-DUNG.md). Dùng bộ nét mặt chung, giữ nhận diện đã duyệt; ảnh tĩnh chưa thay cho kiểm tra chuyển động.

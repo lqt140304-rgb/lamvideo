@@ -3,10 +3,10 @@ import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
 import { JointPose, Light, mixPose, NamMood, NguoiKia, Outline, PALETTE, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, Talk, turnAt, TWIN_POSES, View } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import type { FaceKey } from '../../../library/expressions/cartoon-soft/net-mat';
-import { CameraMove, lightFor, placeOn, RoomScene, RoomView, sunExposure } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
+import { CameraMove, lightFor, placeOn, RoomScene, RoomView } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 
 /**
- * Hồ sơ 2 — demo animatic Cảnh 1 (MAY-A, A01–A05), bản câm: phụ đề tạm thay giọng, chưa có âm.
+ * The Crack in Reality — Hồ sơ 02: Người trong gương — demo animatic Cảnh 1 (MAY-A, A01–A05), bản câm: phụ đề tạm thay giọng, chưa có âm.
  * Nguồn lời: episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/THAO-LUAN-CANH.md; góc máy: DUNG-CANH.md#may-a.
  * Cận cảnh là phóng khung trên cùng camera của phòng (tiến cận giả lập), không phải lens thật.
  */
@@ -21,15 +21,8 @@ const STANDUP: [number, number] = [236, 212]; // đứng dậy sát ghế (SEATS
 const NEAR: [number, number] = [262, 360]; // khoá xếp lớp: Nam vẽ sau khối nệm/ghế, vì nệm được xếp theo tâm
 const PHONE: [number, number][] = [[282, 256], [289, 256], [289, 270], [282, 270]];
 
-// Ánh sáng duyệt: hướng theo cửa sổ qua camera của shot, viền ấm, nét mảnh 0.65.
-// Nắng cửa sổ rõ hướng: mảng tối lạnh và đậm hơn, viền sáng ấm và rõ; vẫn mềm, hẹp.
-// Khối sáng–tối chỉ có khi người đứng trong nắng: nhân theo mức nắng chiếu tới thân (`top` = chiều cao thân, ngồi ~95, đứng ~160).
-// Ngoài nắng (bồn rửa, chỗ nằm ngủ) chỉ còn bóng tiếp đất dưới chân.
-const lit = (view: RoomView, at: [number, number], top = 160): Light => {
-  const e = sunExposure(at, 20, top);
-  const L = lightFor(view, at);
-  return { rim: 0.75 * e, rimColor: '#ffdc9a', amount: 0.55 * e, shade: '#3c4763', depth: 15, soft: 4, line: 0.65, ...L, back: L.back * e, ground: 0.7 + 0.3 * e };
-};
+// 11/11: bóng là mảng vẽ tay trong rig; giữ Light để tương thích cỡ nét, không tính bóng từ vị trí đèn.
+const lit = (_view: RoomView, _at: [number, number], _top = 160): Light => ({ x: 0, y: 0, amount: 0, rim: 0, back: 0, line: 0.65 });
 const RAYS = 0.9; // vệt nắng xiên từ cửa sổ (RoomScene rays)
 
 const ease = Easing.inOut(Easing.cubic);
@@ -242,7 +235,7 @@ const Overlay: React.FC<{ f: number; wake?: boolean; w?: number }> = ({ f, wake,
         {shot.code} · {shot.label}
       </div>
       <div style={{ position: 'absolute', right: 36, top: 16, fontFamily: FONT.ui, fontSize: 18, color: 'rgba(246,239,227,.55)' }}>
-        THE CRACK IN REALITY · HỒ SƠ 02 NGƯỜI TRONG GƯƠNG · CẢNH 1 · ANIMATIC CÂM
+        THE CRACK IN REALITY — HỒ SƠ 02: NGƯỜI TRONG GƯƠNG · CẢNH 1 · ANIMATIC CÂM, PHỤ ĐỀ TẠM
       </div>
       {cue && (
         <div style={{ position: 'absolute', left: 0, right: 0, bottom: 84, display: 'flex', justifyContent: 'center' }}>
