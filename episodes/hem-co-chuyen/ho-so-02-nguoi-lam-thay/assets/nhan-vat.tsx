@@ -640,6 +640,22 @@ const foldPath = (knee: P, ankle: P, side: 'R' | 'L') => {
   return `M ${a} Q ${b} ${c}`;
 };
 
+// Mảng bóng tự vẽ (quy tắc 11/11): bóng tay áo đổ lên bắp tay, ngay dưới mép tay áo — một dải hẹp, mép dưới cong.
+const sleeveShadow = (c: { root: P; mid: P }, se: number) => {
+  const a = mix(c.root, c.mid, se), b = mix(c.root, c.mid, Math.min(0.95, se + 0.17)), n = normalOf(c.root, c.mid);
+  const t = { x: (b.x - a.x), y: (b.y - a.y) }, l = Math.hypot(t.x, t.y) || 1;
+  const tip = { x: b.x + (t.x / l) * 5, y: b.y + (t.y / l) * 5 };
+  return `M ${a.x + n.x * 16} ${a.y + n.y * 16} L ${a.x - n.x * 16} ${a.y - n.y * 16} L ${b.x - n.x * 13} ${b.y - n.y * 13} Q ${tip.x} ${tip.y} ${b.x + n.x * 13} ${b.y + n.y * 13} Z`;
+};
+// Vệt bóng nhỏ ở mặt trong gối khi chân gập (vải dồn lại), chỉ hiện khi gập trên ~35°.
+const kneeShadow = (c: { root: P; mid: P; end: P }) => {
+  const u = { x: c.root.x - c.mid.x, y: c.root.y - c.mid.y }, v = { x: c.end.x - c.mid.x, y: c.end.y - c.mid.y };
+  const lu = Math.hypot(u.x, u.y), lv = Math.hypot(v.x, v.y), bx = u.x / lu + v.x / lv, by = u.y / lu + v.y / lv, lb = Math.hypot(bx, by);
+  if (lb < 0.6) return null;
+  const nx = bx / lb, ny = by / lb, cx = c.mid.x + nx * 10, cy = c.mid.y + ny * 10, ang = (Math.atan2(ny, nx) * 180) / Math.PI + 90;
+  return <ellipse cx={cx} cy={cy} rx={15} ry={6} transform={`rotate(${ang} ${cx} ${cy})`} fill="#1f2a26" opacity={0.18} stroke="none" />;
+};
+
 const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; foot: number; o: Outfit; view: View }> = ({ c, side, foot, o, view }) => {
   const { root: hip, mid: knee, end: ankle } = c;
   const long = o.pantsLen === 'long';
@@ -659,6 +675,7 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
       )}
       {o.socks && shoe}
       <Blob fill={o.pants} d={[limbContour(cloth, widths), circle(hip, 30), softEnd(cloth.mid, cloth.end, widths[2], 3), ...(long ? [circle(knee, 26)] : [])]} />
+      {long && kneeShadow(c)}
       {long && crease(c, 22)}
       {long && !(view === 'side' && side === 'L') && <path d={foldPath(knee, ankle, side)} fill="none" style={{ strokeWidth: lw(2.5), stroke: 'var(--inner-ink, #2b2b2b)' }} strokeLinecap="round" />}
       {o.stripe && <path d={alongSide(hip, knee, side === 'R' ? 30 : -30)} fill="none" stroke={o.stripe} style={{ strokeWidth: lw(3.5) }} />}
@@ -768,9 +785,10 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   // under: vẽ dưới tay áo; over: vẽ đè lên tay áo (chỉ có khi tay gập mạnh).
   const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => {
     const hand = handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind);
-    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} /></g>;
+    const sleeveSh = <path d={sleeveShadow(c, o.sleeveEnd)} fill={PALETTE.skinShadow} opacity={0.55} stroke="none" />;
+    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} />{sleeveSh}</g>;
     if (armBend(c) < FOLD_BEND) return { one, under: one, over: null };
-    return { one, under: <Blob fill={PALETTE.skin} d={upperArmShapes(c)} />, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
+    return { one, under: <g><Blob fill={PALETTE.skin} d={upperArmShapes(c)} />{sleeveSh}</g>, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
   };
   const whole = (a: { one: React.ReactNode }) => a.one; // tay sau thân/không có tay áo đè: một khối liền, không tách
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
