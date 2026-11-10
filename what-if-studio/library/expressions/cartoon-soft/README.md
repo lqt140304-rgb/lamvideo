@@ -53,3 +53,8 @@ Hồ sơ 2: `StudentTwinHead`/`StudentTwinBody` nhận `face="so-hai-02"` (chín
 Mã asset: **EXP-CARTOON-SOFT-01**. Vector do Codex viết từ yêu cầu/phản hồi của chủ repo, tách từ mẫu gốc trong repo; không nhập stock, font nhúng hoặc ảnh raster ngoài vào file SVG. Không tự áp giấy phép media của bên khác. Giữ tác giả/nguồn này khi dùng lại trong repo.
 
 Chạy từ gốc repo bằng Python 3: `python what-if-studio/library/expressions/cartoon-soft/tools/export.py`. Script đọc mẫu nguồn ở `episodes/hem-co-chuyen/assets/nguoi-truy-vet/bieu-cam/`, ghi đè SVG thư viện và danh mục tương ứng; chỉ chạy khi chủ ý cập nhật bộ chung. Sau khi đổi SVG, render lại 3 PNG bảng cùng kích thước 1380×1050 và kiểm tra trước khi push; script không tự xác nhận PNG cũ đã đồng bộ. Nhân vật mới dùng file chung hoặc dẫn tới file này; không rải bản sao ở từng hồ sơ chỉ để lưu cùng một biểu cảm.
+
+
+## Mở rộng diễn biến tâm lý — 11/11/2026
+
+[18 nét mới, sáu nhóm × ba mức](bo-sung-cot-truyen/README.md): ngái ngủ, tự mãn, áy náy, kiệt sức, buông xuôi và cười che giấu. Đây là module riêng, giữ nguyên 28 SVG gốc và exporter cũ. `StudentTwinHead`/`StudentTwinBody` của Hồ sơ 2 nhận key cũ và mới. Xem bảng ghép thực tế và giới hạn góc nhìn trong README của phần mở rộng; không coi mọi rig đã tự nhận key mới.

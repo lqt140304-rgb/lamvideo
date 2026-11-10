@@ -1,0 +1,642 @@
+{
+  "episode": "ho-so-02-nguoi-lam-thay",
+  "date": "2026-11-11",
+  "status": "new static assets for visual review; no motion or audio validation",
+  "style": "Style B: soft forms, flat colors, sparse hand-drawn shadow shapes",
+  "provenance": "SVG/TSX authored in this repository; existing episode rig/room reused; no external image or paid generation",
+  "boards": [
+    {
+      "id": "bang-cam-xuc-01",
+      "w": 1800,
+      "h": 1280,
+      "svg": "bang-cam-xuc-01.svg",
+      "png": "bang-cam-xuc-01.png"
+    },
+    {
+      "id": "bang-cam-xuc-02",
+      "w": 1800,
+      "h": 1280,
+      "svg": "bang-cam-xuc-02.svg",
+      "png": "bang-cam-xuc-02.png"
+    },
+    {
+      "id": "bang-dang-nghi",
+      "w": 2000,
+      "h": 1030,
+      "svg": "bang-dang-nghi.svg",
+      "png": "bang-dang-nghi.png"
+    },
+    {
+      "id": "bang-dao-cu",
+      "w": 1600,
+      "h": 1380,
+      "svg": "bang-dao-cu.svg",
+      "png": "bang-dao-cu.png"
+    },
+    {
+      "id": "bang-boi-canh",
+      "w": 1600,
+      "h": 1580,
+      "svg": "bang-boi-canh.svg",
+      "png": "bang-boi-canh.png"
+    },
+    {
+      "id": "bang-vai-phu-tu-the",
+      "w": 1800,
+      "h": 1120,
+      "svg": "bang-vai-phu-tu-the.svg",
+      "png": "bang-vai-phu-tu-the.png"
+    },
+    {
+      "id": "bang-giao-dien",
+      "w": 1800,
+      "h": 1060,
+      "svg": "bang-giao-dien.svg",
+      "png": "bang-giao-dien.png"
+    },
+    {
+      "id": "bang-guong",
+      "w": 1600,
+      "h": 1000,
+      "svg": "bang-guong.svg",
+      "png": "bang-guong.png"
+    },
+    {
+      "id": "bang-tiep-xuc",
+      "w": 1200,
+      "h": 800,
+      "svg": "bang-tiep-xuc.svg",
+      "png": "bang-tiep-xuc.png"
+    }
+  ],
+  "assets": [
+    {
+      "id": "bua-dong-dinh",
+      "name": "Búa · neo tại lòng tay",
+      "scenes": [
+        "P3.03",
+        "P3.04"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/bua-dong-dinh.svg"
+    },
+    {
+      "id": "phong-bi-tien-an",
+      "name": "Phong bì tiền ăn",
+      "scenes": [
+        "P2.03"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/phong-bi-tien-an.svg"
+    },
+    {
+      "id": "the-sinh-vien",
+      "name": "Thẻ sinh viên hư cấu",
+      "scenes": [
+        "P2.04"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/the-sinh-vien.svg"
+    },
+    {
+      "id": "the-doi-chieu",
+      "name": "Thẻ đối chiếu hư cấu",
+      "scenes": [
+        "P1.04",
+        "P3.03"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/the-doi-chieu.svg"
+    },
+    {
+      "id": "com-suon-trung",
+      "name": "Cơm sườn trứng",
+      "scenes": [
+        "P2.02"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/com-suon-trung.svg"
+    },
+    {
+      "id": "bun-cha-nem",
+      "name": "Bún chả và nem",
+      "scenes": [
+        "P3.06"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/bun-cha-nem.svg"
+    },
+    {
+      "id": "xoi-gac",
+      "name": "Xôi gấc",
+      "scenes": [
+        "P2.07"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/xoi-gac.svg"
+    },
+    {
+      "id": "tui-hoa-qua",
+      "name": "Túi hoa quả · neo tại quai",
+      "scenes": [
+        "P2.07",
+        "P3.06"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/tui-hoa-qua.svg"
+    },
+    {
+      "id": "may-tinh-ban",
+      "name": "PC · màn hình thay được",
+      "scenes": [
+        "P2.03",
+        "P2.05"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/may-tinh-ban.svg"
+    },
+    {
+      "id": "thau-quan-ao",
+      "name": "Thau quần áo bẩn",
+      "scenes": [
+        "P2.05"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/thau-quan-ao.svg"
+    },
+    {
+      "id": "bong-da",
+      "name": "Bóng đá mini",
+      "scenes": [
+        "P2.05"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/bong-da.svg"
+    },
+    {
+      "id": "keo-cat-toc",
+      "name": "Kéo · góc montage",
+      "scenes": [
+        "P2.05"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/keo-cat-toc.svg"
+    },
+    {
+      "id": "goc-do-cho-tang",
+      "name": "Góc đồ cho tặng",
+      "scenes": [
+        "P1.00"
+      ],
+      "w": 720,
+      "h": 560,
+      "kind": "prop",
+      "svg": "svg/goc-do-cho-tang.svg"
+    },
+    {
+      "id": "giang-duong",
+      "name": "Giảng đường · lớp gần/xa",
+      "scenes": [
+        "P3.01"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/giang-duong.svg",
+      "png": "svg/giang-duong.png"
+    },
+    {
+      "id": "lab-402",
+      "name": "Lab 402 · bàn máy tính",
+      "scenes": [
+        "P2.04",
+        "P2.05"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/lab-402.svg",
+      "png": "svg/lab-402.png"
+    },
+    {
+      "id": "hanh-lang-dai-hoc",
+      "name": "Hành lang đại học",
+      "scenes": [
+        "P3.02"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/hanh-lang-dai-hoc.svg",
+      "png": "svg/hanh-lang-dai-hoc.png"
+    },
+    {
+      "id": "bua-com-gia-dinh",
+      "name": "Bữa giỗ gia đình · clip",
+      "scenes": [
+        "P2.06"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/bua-com-gia-dinh.svg",
+      "png": "svg/bua-com-gia-dinh.png"
+    },
+    {
+      "id": "san-bong-mini",
+      "name": "Sân bóng mini · montage",
+      "scenes": [
+        "P2.05"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/san-bong-mini.svg",
+      "png": "svg/san-bong-mini.png"
+    },
+    {
+      "id": "goc-cat-toc",
+      "name": "Góc cắt tóc · montage",
+      "scenes": [
+        "P2.05"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/goc-cat-toc.svg",
+      "png": "svg/goc-cat-toc.png"
+    },
+    {
+      "id": "the-gioi-guong",
+      "name": "Thế giới gương · từ phòng gốc",
+      "scenes": [
+        "P3.05",
+        "P3.06"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/the-gioi-guong.svg",
+      "png": "svg/the-gioi-guong.png"
+    },
+    {
+      "id": "giang-vien",
+      "name": "Giảng viên",
+      "scenes": [
+        "P3.01"
+      ],
+      "w": 420,
+      "h": 720,
+      "kind": "cast",
+      "svg": "svg/giang-vien.svg"
+    },
+    {
+      "id": "me",
+      "name": "Mẹ Nam",
+      "scenes": [
+        "P2.05",
+        "P2.06"
+      ],
+      "w": 420,
+      "h": 720,
+      "kind": "cast",
+      "svg": "svg/me.svg"
+    },
+    {
+      "id": "ba",
+      "name": "Bố Nam",
+      "scenes": [
+        "P2.05",
+        "P2.06"
+      ],
+      "w": 420,
+      "h": 720,
+      "kind": "cast",
+      "svg": "svg/ba.svg"
+    },
+    {
+      "id": "bac-hai",
+      "name": "Bác Hai",
+      "scenes": [
+        "P2.05",
+        "P2.06"
+      ],
+      "w": 420,
+      "h": 720,
+      "kind": "cast",
+      "svg": "svg/bac-hai.svg"
+    },
+    {
+      "id": "sinh-vien-nam",
+      "name": "Bạn học nam",
+      "scenes": [
+        "P3.01"
+      ],
+      "w": 420,
+      "h": 720,
+      "kind": "cast",
+      "svg": "svg/sinh-vien-nam.svg"
+    },
+    {
+      "id": "sinh-vien-nu",
+      "name": "Bạn học nữ",
+      "scenes": [
+        "P3.01"
+      ],
+      "w": 420,
+      "h": 720,
+      "kind": "cast",
+      "svg": "svg/sinh-vien-nu.svg"
+    },
+    {
+      "id": "tu-the-thi-uy",
+      "name": "thi uy",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-thi-uy.svg"
+    },
+    {
+      "id": "tu-the-thuyet-trinh",
+      "name": "thuyet trinh",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-thuyet-trinh.svg"
+    },
+    {
+      "id": "tu-the-choi-game",
+      "name": "choi game",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-choi-game.svg"
+    },
+    {
+      "id": "tu-the-cam-tui",
+      "name": "cam tui",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-cam-tui.svg"
+    },
+    {
+      "id": "tu-the-giu-bua",
+      "name": "giu bua",
+      "scenes": [
+        "P3.03",
+        "P3.04"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-giu-bua.svg"
+    },
+    {
+      "id": "tu-the-suy-sup",
+      "name": "suy sup",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-suy-sup.svg"
+    },
+    {
+      "id": "tu-the-nam-choi-game",
+      "name": "nam choi game",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-nam-choi-game.svg"
+    },
+    {
+      "id": "tu-the-nam-nhin-tran",
+      "name": "nam nhin tran",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-nam-nhin-tran.svg"
+    },
+    {
+      "id": "tu-the-ap-kinh",
+      "name": "ap kinh",
+      "scenes": [
+        "P3.05"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-ap-kinh.svg"
+    },
+    {
+      "id": "tu-the-nhan-do-tay-trai",
+      "name": "nhan do tay trai",
+      "scenes": [
+        "P2.03",
+        "P2.05",
+        "P2.07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-nhan-do-tay-trai.svg"
+    },
+    {
+      "id": "ui-han-bai",
+      "name": "UI · han bai",
+      "scenes": [
+        "P2.04",
+        "P2.05"
+      ],
+      "w": 400,
+      "h": 690,
+      "kind": "ui",
+      "svg": "svg/ui-han-bai.svg"
+    },
+    {
+      "id": "ui-diem-95",
+      "name": "UI · diem 95",
+      "scenes": [
+        "P2.05"
+      ],
+      "w": 400,
+      "h": 690,
+      "kind": "ui",
+      "svg": "svg/ui-diem-95.svg"
+    },
+    {
+      "id": "ui-me-goi",
+      "name": "UI · me goi",
+      "scenes": [
+        "P2.04",
+        "P2.05"
+      ],
+      "w": 400,
+      "h": 690,
+      "kind": "ui",
+      "svg": "svg/ui-me-goi.svg"
+    },
+    {
+      "id": "ui-clip-gia-dinh",
+      "name": "UI · clip gia dinh",
+      "scenes": [
+        "P2.06"
+      ],
+      "w": 400,
+      "h": 690,
+      "kind": "ui",
+      "svg": "svg/ui-clip-gia-dinh.svg"
+    },
+    {
+      "id": "ui-bao-thuc",
+      "name": "UI · bao thuc",
+      "scenes": [
+        "P2.04",
+        "P2.05"
+      ],
+      "w": 400,
+      "h": 690,
+      "kind": "ui",
+      "svg": "svg/ui-bao-thuc.svg"
+    },
+    {
+      "id": "ui-tien-ve",
+      "name": "UI · tien ve",
+      "scenes": [
+        "P2.04",
+        "P2.05"
+      ],
+      "w": 400,
+      "h": 690,
+      "kind": "ui",
+      "svg": "svg/ui-tien-ve.svg"
+    },
+    {
+      "id": "doi-chieu-not-ruoi",
+      "name": "Đối chiếu dấu bên trái / phải",
+      "scenes": [
+        "P3.03"
+      ],
+      "w": 940,
+      "h": 380,
+      "kind": "ui",
+      "svg": "svg/doi-chieu-not-ruoi.svg"
+    },
+    {
+      "id": "guong-trang-thai-0",
+      "name": "Gương tĩnh",
+      "scenes": [
+        "P1.00",
+        "P2.04"
+      ],
+      "w": 400,
+      "h": 720,
+      "kind": "mirror",
+      "svg": "svg/guong-trang-thai-0.svg"
+    },
+    {
+      "id": "guong-trang-thai-1",
+      "name": "Gợn khi chạm",
+      "scenes": [
+        "P3.05",
+        "P3.06"
+      ],
+      "w": 400,
+      "h": 720,
+      "kind": "mirror",
+      "svg": "svg/guong-trang-thai-1.svg"
+    },
+    {
+      "id": "guong-trang-thai-2",
+      "name": "Mặt kính hóa nước",
+      "scenes": [
+        "P3.05",
+        "P3.06"
+      ],
+      "w": 400,
+      "h": 720,
+      "kind": "mirror",
+      "svg": "svg/guong-trang-thai-2.svg"
+    },
+    {
+      "id": "guong-trang-thai-3",
+      "name": "Phía bên trong",
+      "scenes": [
+        "P3.05",
+        "P3.06"
+      ],
+      "w": 400,
+      "h": 720,
+      "kind": "mirror",
+      "svg": "svg/guong-trang-thai-3.svg"
+    }
+  ],
+  "reuse": [
+    "../nhan-vat.tsx",
+    "../boi-canh/boi-canh.tsx"
+  ],
+  "limitations": [
+    "2D projected plates; no automatic 3D camera re-projection",
+    "Extra poses tested as still keys only",
+    "Supporting characters currently three-quarter front; other views need drawing when a shot requires them",
+    "No audio files or complete film timeline"
+  ]
+}
