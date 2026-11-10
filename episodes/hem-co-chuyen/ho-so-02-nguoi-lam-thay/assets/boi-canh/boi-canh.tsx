@@ -408,9 +408,23 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       wallBand(-900, STAIR[0]); wallBand(STAIR[1], DOOR.z0); wallBand(DOOR.z1, 1200);
       seg(DOOR.z0, DOOR.z1, DOOR.top, H, '#e4d9c1');
       poly([[120, 0, STAIR[0]], [120, 0, STAIR[1]], [120, 260, STAIR[1]], [120, 260, STAIR[0]]], '#b9b49c', { n: [0.5, 0.5, 0.7], cull: false });
-      for (let i = 7; i >= 0; i--) box({ x: [-14 + i * 18, 4 + i * 18], y: [0, 15 * (i + 1)], z: [STAIR[0], STAIR[1]], c: '#b5ab94', top: '#d9cfb8', side: '#c9bea6' });
-      for (let i = 0; i < 8; i += 2) { const x = -5 + i * 18; line([x, 15 * (i + 1), STAIR[1] - 5], [x, 15 * (i + 1) + 92, STAIR[1] - 5], '#6e7d76', 3); }
-      tube([[-16, 96, STAIR[1] - 5], [112, 212, STAIR[1] - 5]], 3, '#6e7d76');
+      // Cầu thang: mặt bậc sáng, cổ bậc tối hơn, một vách hông liền theo dáng bậc ở phía gần máy (không lộ hông từng khối),
+      // tay vịn bám theo mép bậc phía mở. Vẽ bậc từ trên xuống để bậc dưới đè lên bậc trên.
+      const rise = 15, run = 18, nS = 8;
+      for (let i = nS - 1; i >= 0; i--) {
+        const x0 = -14 + i * run, x1 = x0 + run, y = rise * (i + 1);
+        poly([[x0, y - rise, STAIR[0]], [x0, y - rise, STAIR[1]], [x0, y, STAIR[1]], [x0, y, STAIR[0]]], '#b1a68f', { n: [-1, 0, 0], cull: false });
+        poly([[x0, y, STAIR[0]], [x0, y, STAIR[1]], [x1, y, STAIR[1]], [x1, y, STAIR[0]]], '#ddd3bc', { n: [0, 1, 0], cull: false });
+        line([x0, y, STAIR[0]], [x0, y, STAIR[1]], '#efe7d4', 1.6); // mũi bậc bắt sáng
+      }
+      const nearZ = VIEWS[view].pos[2] < (STAIR[0] + STAIR[1]) / 2 ? STAIR[0] : STAIR[1];
+      const prof: V3[] = [[-14, 0, nearZ]];
+      for (let i = 0; i < nS; i++) prof.push([-14 + i * run, rise * (i + 1), nearZ], [-14 + (i + 1) * run, rise * (i + 1), nearZ]);
+      prof.push([-14 + nS * run, 0, nearZ]);
+      poly(prof, '#cdc2a9', { n: [0, 0, nearZ === STAIR[0] ? -1 : 1], cull: false });
+      const hz = nearZ === STAIR[0] ? STAIR[0] + 5 : STAIR[1] - 5;
+      for (let i = 0; i < nS; i += 2) { const x = -14 + i * run + run / 2; line([x, rise * (i + 1), hz], [x, rise * (i + 1) + 90, hz], '#6e7d76', 3); }
+      tube([[-14 + run / 2, rise + 90, hz], [-14 + (nS - 0.5) * run, rise * nS + 90, hz]], 3, '#6e7d76');
       seg(STAIR[0], STAIR[1], 215, H, '#e4d9c1');
       poly([[-320, 0, -900], [-14, 0, -900], [-14, 0, 1200], [-320, 0, 1200]], '#cbc0a8', { n: [0, 1, 0], cull: false });
       for (let z = -900; z <= 1200; z += 40) line([-320, 0, z], [-14, 0, z], '#b4aa93', 1.2);
