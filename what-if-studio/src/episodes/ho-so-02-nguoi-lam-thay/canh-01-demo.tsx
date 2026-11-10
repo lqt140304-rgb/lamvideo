@@ -23,10 +23,10 @@ const PHONE: [number, number][] = [[282, 256], [289, 256], [289, 270], [282, 270
 
 // 11/11: bóng là mảng vẽ tay trong rig; giữ Light để tương thích cỡ nét, không tính bóng từ vị trí đèn.
 const lit = (_view: RoomView, _at: [number, number], _top = 160): Light => ({ x: 0, y: 0, amount: 0, rim: 0, back: 0, line: 0.65 });
-const RAYS = 0.9; // vệt nắng xiên từ cửa sổ (RoomScene rays)
+export const RAYS = 0.9; // vệt nắng xiên từ cửa sổ (RoomScene rays)
 
 const ease = Easing.inOut(Easing.cubic);
-const seg = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease });
+export const seg = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease });
 const TALK = ['a', 'closed', 'o', 'e', 'closed', 'u', 'a', 'closed'] as const;
 const talkAt = (f: number, from: number, to: number): Talk | undefined => (f >= from && f < to ? { shape: TALK[Math.floor((f - from) / 4) % TALK.length], open: 0.7 } : undefined);
 const blinkAt = (f: number, seed = 0) => (f + seed) % 84 < 3;
@@ -42,7 +42,7 @@ const GRAB: JointPose = { ...REACH, handR: 'phone', prop: 'phone' };
 const HOLD: JointPose = { ...STAND_POSE, tilt: -4, neck: 4, armR: { a: -30, b: 130 }, wristR: -20, handR: 'phone', prop: 'phone', frontR: true, armL: { a: 6, b: 14, rot: -1 }, handL: 'open', legR: { a: 8, b: 10 }, legL: { a: -8, b: 6 } };
 const SEAT_DY = solveRig(LOWSIT).dy;
 
-type Lens = { cx: number; cy: number; z: number };
+export type Lens = { cx: number; cy: number; z: number };
 const clampLens = ({ cx, cy, z }: Lens): Lens => ({ z, cx: Math.min(1920 - 960 / z, Math.max(960 / z, cx)), cy: Math.min(1080 - 540 / z, Math.max(540 / z, cy)) });
 // Máy cầm tay: dao động chậm vài px và nghiêng rất nhẹ, để khung không đứng im như animation phẳng.
 const handheld = (f: number, amp: number) => ({
@@ -50,7 +50,7 @@ const handheld = (f: number, amp: number) => ({
   y: amp * (Math.sin(f / 29 + 2) + 0.5 * Math.sin(f / 11.3) + 0.2 * Math.sin(f / 5.3 + 0.7)),
   r: amp * 0.05 * Math.sin(f / 31 + 0.4),
 });
-const Camera: React.FC<{ lens: Lens; shake?: number; f?: number; hand?: number; children: React.ReactNode }> = ({ lens, shake = 0, f = 0, hand = 0, children }) => {
+export const Camera: React.FC<{ lens: Lens; shake?: number; f?: number; hand?: number; children: React.ReactNode }> = ({ lens, shake = 0, f = 0, hand = 0, children }) => {
   const l = clampLens(lens);
   const h = handheld(f, hand);
   return (
@@ -62,10 +62,10 @@ const Camera: React.FC<{ lens: Lens; shake?: number; f?: number; hand?: number; 
     </AbsoluteFill>
   );
 };
-const lerpLens = (a: Lens, b: Lens, t: number): Lens => ({ cx: a.cx + (b.cx - a.cx) * t, cy: a.cy + (b.cy - a.cy) * t, z: a.z + (b.z - a.z) * t });
+export const lerpLens = (a: Lens, b: Lens, t: number): Lens => ({ cx: a.cx + (b.cx - a.cx) * t, cy: a.cy + (b.cy - a.cy) * t, z: a.z + (b.z - a.z) * t });
 
 // Khung phim: viền đen 2:1, tối bốn góc, hạt phim đổi theo frame; mở/kết bằng màn đen.
-const FilmLook: React.FC<{ f: number; total: number }> = ({ f, total }) => {
+export const FilmLook: React.FC<{ f: number; total: number }> = ({ f, total }) => {
   const black = 1 - seg(f, 0, 14) + seg(f, total - 18, total - 1);
   return (
     <AbsoluteFill style={{ pointerEvents: 'none' }}>
@@ -82,7 +82,7 @@ const FilmLook: React.FC<{ f: number; total: number }> = ({ f, total }) => {
 };
 
 // Đầu Nam nằm trên gối (đầu hướng tường phải); `cover` 0–1 kéo chăn trùm qua đầu.
-const HEAD_AT: [number, number] = [150, -40]; // đỉnh đầu so với điểm neo gối, đơn vị rig
+export const HEAD_AT: [number, number] = [150, -40]; // đỉnh đầu so với điểm neo gối, đơn vị rig
 const LIE_ROT = 87; // trục người dọc mép nệm ở góc wide
 const PHONE_RIG = { x: 92, y: 168 }; // điện thoại trên nệm trước mặt (khung rig chưa xoay; +x là phía máy quay)
 const BLANKET_REST = 232; // mép chăn lúc ngủ: ngang ngực dưới nách (đơn vị rig, 0 = đỉnh đầu)
@@ -96,7 +96,7 @@ const PUSH: JointPose = { ...TWIN_POSES.sitLow, tilt: 18, neck: -4, armR: { a: 1
 const STRETCH: JointPose = { ...TWIN_POSES.sitLow, tilt: -8, neck: 9, armR: { a: 170, b: 28 }, handR: 'fist', frontR: true }; // một tay vươn quá đầu (tay xa không giơ cao hơn ngang vai được trong rig phẳng)
 type SleepState = { cover?: number; breath?: number; reach?: number; carry?: number; phone?: boolean; alarm?: boolean; f?: number; wake?: Wake };
 // Kiểu viền đã chốt cho phim: không viền bao; tách lớp bằng tương phản sáng–tối (xem toneBack/toneFront trong rig).
-const LOOK = { outline: 'none', headOutline: 'none' } as const;
+export const LOOK = { outline: 'none', headOutline: 'none' } as const;
 /**
  * Nam nằm nghiêng bằng rig (TWIN_POSES.lie) xoay quanh đỉnh đầu, cùng một tấm chăn vẽ trong cùng khung xoay nên luôn ôm theo người.
  * `cover` 0–1 kéo mép chăn từ ngực lên trùm đầu; `reach` 0–1 với tay tới điện thoại; `carry` 0–1 tay kéo điện thoại về vào chăn.
@@ -273,8 +273,8 @@ const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; ri
 });
 
 // A01: máy dolly thật vào phòng (có thị sai), rồi A02 đẩy liền vào cận báo thức — một chuyển động, không cắt.
-const WIDE_LENS: Lens = { cx: 960, cy: 540, z: 1 };
-const wideMove = (f: number): CameraMove => {
+export const WIDE_LENS: Lens = { cx: 960, cy: 540, z: 1 };
+export const wideMove = (f: number): CameraMove => {
   const t = interpolate(f, [0, 180], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   return { push: 22 * t, truck: 14 * t };
 };
