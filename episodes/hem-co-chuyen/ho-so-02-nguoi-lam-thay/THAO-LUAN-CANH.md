@@ -1,15 +1,16 @@
-# Hồ sơ 2 — Quyết định và thảo luận
+# The Crack in Reality — Hồ sơ 2: Người trong gương · Quyết định và thảo luận
 
-**Chốt hướng kết mới nhất của chủ repo:** Nam bị nhốt trong thế giới gương; Người Kia thay thế Nam ngoài đời. Giữ kết mở về khả năng thoát và việc người quen có nhận ra hay không. Chỉ hướng kết này đã chốt; cơ chế bắt, lời và dàn cảnh cụ thể vẫn là đề xuất V1.
+**Chốt hướng kết và kịch bản chính thức (Chủ repo đã DUYỆT ngày 11/11/2026):** 
+1. **Thời lượng chuẩn 15 phút** (cấu trúc 3 hồi: Hồi 1 ~4:50, Hồi 2 ~6:30, Hồi 3 ~3:45).
+2. **Giữ kín tuyệt đối bí mật chiếc gương ở Phần 1**: Chiếc gương chỉ là đồ sinh viên nhặt về ở góc cho tặng; không lộ chuyện quái vật trong gương quan sát để tăng tối đa sự tò mò.
+3. **Chi tiết phản kháng "cho có lệ"**: Nam có tự ái, sĩ diện, đập bàn thị uy làm "ông chủ", tự tập thuyết trình trước gương, tự đặt báo thức 6h dậy sớm đi học... nhưng đều gục ngã trước thói lười biếng và ỷ lại.
+4. **Bổ sung tương tác Gen Z & trò chuyện cày game**: Những màn cằn nhằn thua rank, roast deadpan của Người Kia, Nam hỏi lai lịch vu vơ, than vãn áp lực người lớn $\to$ Người Kia rót mật *"để tao sống thay cho"*.
+5. **Cơ chế hoán đổi tâm lý (Xóa bỏ cảnh đánh nhau)**: Bị giảng đường đào thải vì rỗng kiến thức $\to$ Bị trừ 2 điểm chuyên cần $\to$ Tùng thất vọng $\to$ Nam về phòng soi clip Zalo đối chiếu căn cước phát hiện nốt ruồi đảo bên $\to$ Cầm búa định đập gương $\to$ Người Kia đối chất tâm lý bóc trần bản chất $\to$ Ý chí buông xuôi, mặt kính hóa nước nuốt Nam.
+6. **Đoạn kết rợn ngáy (Quiet Horror)**: Tùng mua bún chả về, phát hiện nốt ruồi bên phải và thói quen tay trái; Người Kia cài then sắt phòng trọ.
 
+---
 
-**Cập nhật 10/11/2026:** đã có [kịch bản chi tiết đủ ba phần V1](KICH-BAN.md). Lời nguồn được chuyển vào từng file PHAN để mở phần nào đọc ngay phần đó; file này giữ quyết định và mức duyệt, không giữ bản thoại thứ hai. Các đoạn từng duyệt đã được bảo toàn lời khi chuyển file.
-
-**Yêu cầu mới:** mỗi phần có thể tới 10 phút; thêm hồi tưởng nhanh bằng giọng đọc để giới thiệu Nam trước tuyến chính; viết luôn các phần chưa có kịch bản chi tiết. Bản hiện tại thử nhịp 9:40 / 9:00 / 9:00, tổng 27:40, chưa đo diễn/giọng.
-
-**Yêu cầu 10/11/2026 về mở đầu:** đoạn giới thiệu Nam làm **kiểu trailer**; gần hết trailer, **tiếng báo thức đánh thức Nam** thay cho tiếng vòi nước. Đã viết lại P1.00 và đầu Cảnh 1 theo hai ý này; câu càu nhàu mới “Tùng, giờ này mày còn chưa đi hả?”, chữ lớn, thẻ tên phim và nhịp nhạc vẫn là đề xuất. Tên cảnh “Tiếng rửa chén” tạm giữ, chờ chủ repo quyết có đổi không. Chủ repo yêu cầu dựng tiết kiệm quota: trailer chỉ dùng góc máy/bối cảnh có sẵn, cắt khớp A02 đêm → sáng, âm thư viện trước, giọng gộp vào lượt của cả phần 1. Yêu cầu thêm cùng ngày: đoạn **Nam đứng giữa khung, bối cảnh đổi liên tục theo dòng thời gian, nét mặt và cử chỉ đổi theo**; chủ repo chọn **hé cả truyện, dừng trước kết, không lộ bản sao**. Đã dựng ba nền mới (gương, góc đồ cho tặng, cầu thang) và bản xem nhịp; thứ tự 13 nhịp, biểu cảm và lời dẫn mới chờ duyệt. **Cập nhật cùng ngày:** đoạn Nam giữa khung tăng tốc, thêm nhiều trang phục (đồng phục, đồ thể thao) và **làm thành clip riêng** ([TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md)); P1.00 trở lại **trailer bình thường** và thêm **một cảnh jumpscare trước tiếng báo thức**. Cách dựng cú hù là đề xuất.
-
-## Những điều người dùng đã chốt
+## Những điều người dùng đã chốt chính thức (Đã duyệt)
 
 - Series dùng cách gọi Hồ sơ 1, Hồ sơ 2…
 - Nhân vật chính là Nam, sinh viên năm hai, lười nhác. Không đổi thành nữ thợ may hoặc tự thay tính lười bằng hoàn cảnh kiệt sức.
@@ -25,12 +26,11 @@
 - **Hướng nhân vật đã yêu cầu:** cậu sinh viên lười nhác, có thể có phần đáng ghét, nhưng phải khiến người xem nhận ra một người thật ngoài xã hội. Giữ sự mâu thuẫn và các mối quan hệ đời thường, tránh biến cậu thành một mẫu người chỉ tồn tại để bị trừng phạt.
 
 
-## Phương án viết mới — hướng kết đã chốt, chi tiết còn đề xuất
+## Bản hiện hành — đồng bộ 11/11/2026
 
-- Mở đầu kiểu trailer khoảng 40 giây, kết bằng báo thức đánh thức Nam: sinh viên năm hai, thói quen “tí nữa”, một nét biết nghe bạn và lời hẹn rửa chén tối trước. Chiếc gương được Nam mang về một tuần trước, chưa lộ bất thường ở đầu.
-- Phần 2: Nam tự gửi bài, rút lời kể với Tùng vì muốn giữ người giúp, giao điện thoại/mã và nhờ dự họp nhóm; sau khi không giải thích nổi bài, cậu xin lỗi, rút quyền và tự tập.
-- Phần 3: Nam làm được một bước; bản sao vẫn giả danh, Nam thú nhận, tìm trợ giúp và quay bằng chứng. Đối phương cưỡng ép tiếp xúc mặt gương gốc để giam Nam, rồi ở lại ngoài đời.
-- Luật cụ thể, dòng thời gian ba ngày và giới hạn quyền xem [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa nhập các đề xuất này vào VU-TRU hoặc coi đã được chủ repo chốt.
+Đọc [KICH-BAN.md](KICH-BAN.md), ba file PHAN và [luật hiện hành](LUAT-BAN-NHAP-V1.md). Bản mới chọn mục tiêu khoảng 15 phút; bổ sung tương tác sinh viên, các lần phản kháng nửa vời, clip Zalo gia đình và kết đối đầu tâm lý. Nam bị nhốt trong thế giới gương, bản sao thay thế; Tùng bắt đầu nhận ra dấu đảo bên và thói quen tay trái, kết ở then cửa.
+
+Phương án V1 về tự học thành công, gửi clip gương cho Tùng và cưỡng ép tay/giằng co đã được thay thế. Không dùng ghi chú cũ để phục hồi tuyến đó. Những mốc duyệt cũ ở trên là lịch sử, bản mới đọc trong các file nguồn hiện hành. Chưa xác nhận đầu ra media đủ bản mới.
 
 ## Liên kết các đoạn cũ
 
