@@ -111,19 +111,19 @@ Ba hình nhanh: **`kitchen` — đống chén ở bồn → `bed` — áo xanh t
 
 Ba cảnh đầu (H, B, W) kể từ phía người kia; từ đó trở đi là **góc nhìn của Nam**, mí mắt chỉ là phần đen, không viền. Không há miệng, không nuốt.
 
-**H · 2,8 giây · góc nhìn người kia.** Cảnh đầu tiên. Nó đi dọc hành lang trong bóng tối tới cửa phòng Nam, bước dón dén, máy lắc nhẹ theo nhịp bước. Cửa từ từ mở ra (tiếng gỗ kẽo kẹt nhỏ). Chỉ vignette đen quanh khung, **không viền**.
+**H · 5 giây · góc nhìn người kia, chậm.** Cảnh đầu tiên. Nó **bước chậm dọc hành lang tối**, bốn bước dón dén, mỗi bước dừng một nhịp, máy lắc nhẹ theo nhịp bước. Tới cửa phòng Nam thì **dừng một thoáng**. Rồi **"cạch"** (chốt cửa), cửa **từ từ mở ra kẽo kẹt**, và máy **tiến vào thật chậm**. Chỉ vignette đen quanh khung, **không viền**.
 
-**B · 2,4 giây · sát sau lưng người kia.** Khi nó bước qua cửa, cắt sang góc **sát sau lưng**: bóng đen người kia chiếm **bên trái** khung, **bên phải là Nam đang ngủ** trong phòng. Nó tiếp tục bước dón dén, máy đẩy rất chậm.
+**B · 4 giây · sát sau lưng người kia.** Cắt sang góc **sát sau lưng** khi nó bước vào: bóng đen người kia chiếm **bên trái** khung, **bên phải là Nam đang ngủ**. Nó **từ từ bước vào chậm dãi**, bốn bước dón dén, máy đẩy rất chậm.
 
-**W · 2,8 giây · toàn phòng, tối hơn bản trước.** Người kia bước nốt hai bước tới trước giường rồi đứng im nhìn Nam ngủ (mẫu nằm `Sleeper` của cảnh 1). Cuối cảnh, **hai đốm mắt trong bóng đen lóe sáng** rồi giữ sáng.
+**W · 2,2 giây · toàn phòng, tối hơn bản trước.** Không còn đoạn bước vào: người kia **đã đứng sẵn trước giường** nhìn Nam ngủ (mẫu nằm `Sleeper` của cảnh 1). **Hai đốm mắt đỏ trong bóng đen lóe sáng** rồi giữ sáng.
 
-**P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đứng ở cửa rồi **tiến lại gần đều và chậm**, **cười rợn ngay từ đầu đoạn**, nụ cười toét dần khi tới gần. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt sáng lên. Nó dừng lại, đứng cười. Rồi máy **vụt một cái vào mặt nó** (khoảng 0,2 giây), không zoom chậm.
+**P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đứng ở cửa rồi **tiến lại gần đều và chậm**, **cười rợn ngay từ đầu đoạn**, nụ cười toét dần khi tới gần. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt đỏ sáng lên. Nó dừng lại, đứng cười. Rồi máy **vụt một cái vào mặt nó** (khoảng 0,2 giây), không zoom chậm.
 
 **C · khoảng 0,7 giây, dứt khoát.** Tiếng phòng tắt bặt một nhịp ngắn, rồi **cắt phụt vào mặt dọa** kín khung: đen trắng tương phản mạnh, hốc mắt sâu tối, mắt nhỏ trừng, cười toác lộ hai hàm răng, có hạt nhiễu. Vẫn giữ tóc có lọn xoăn và nốt ruồi bên phải để nhận ra bản sao. Khung rung mạnh và đẩy vào, rồi **mí Nam sập xuống**, đen hẳn. Mặt vẽ riêng theo phong cách ảnh tham khảo của chủ repo, không chép ảnh.
 
-**Âm:** tiếng phòng ở W và P; tiếng ù thấp dâng cuối P; im khoảng 0,2 giây; tiếng hù (`drone_hit` chồng `glitch`) đúng frame cắt vào mặt. Âm lấy từ thư viện, chưa nghe duyệt kỹ.
+**Âm:** tiếng phòng suốt đoạn; bước chân chậm ở H và B; "cạch" (`switch_off`) rồi kẽo kẹt (`crack`) lúc mở cửa; tiếng ù thấp dâng cuối P; im khoảng 0,2 giây; tiếng hù (`drone_hit` chồng `glitch`) đúng frame cắt vào mặt. Âm lấy từ thư viện, chưa nghe duyệt kỹ.
 
-**Cắt đen**, rồi chuông báo thức vào ở O06. Cả đoạn dài khoảng 14 giây, dài hơn mốc 4 giây cũ; tổng trailer sẽ vượt 40 giây nếu giữ nguyên các đoạn khác.
+**Cắt đen**, rồi chuông báo thức vào ở O06. Cả đoạn dài khoảng 17 giây, dài hơn mốc 4 giây cũ; tổng trailer sẽ vượt 40 giây nếu giữ nguyên các đoạn khác.
 
 **Logic truyện:** theo [dòng thời gian V1](LUAT-BAN-NHAP-V1.md#dòng-thời-gian-và-quyền), thực thể ra ngoài trong đêm trước ngày 1. Cú hù chỉ cho thấy nó đứng nhìn Nam ngủ; không lộ nó từ đâu ra hay gương liên quan thế nào. Nó mặc áo xanh lấy từ ghế, khớp với buổi sáng ở P1.01. Đây là cảnh đề xuất mới, chưa được duyệt thành lore.
 

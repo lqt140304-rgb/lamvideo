@@ -13,27 +13,28 @@ import { Sleeper } from './canh-01-demo';
  * Báo thức và tên phim nằm ở timeline trailer, không trong clip này.
  * Âm: tiếng phòng ở W và P, tiếng ù thấp dâng cuối P, im 6 frame, tiếng hù đúng lúc cắt vào mặt (file thư viện chép vào public, xem P1.00).
  */
-export const HALL = 84; // 2,8 giây: góc nhìn người kia đi dọc hành lang, mở cửa
-export const BEHIND = 72; // 2,4 giây: sát sau lưng người kia khi bước qua cửa, Nam ngủ ở bên phải
-export const WIDE = 84; // 2,8 giây toàn phòng: người kia bước nốt tới trước giường rồi đứng nhìn, mắt lóe sáng
+export const HALL = 150; // 5 giây: góc nhìn người kia bước chậm dọc hành lang, dừng trước cửa, cạch, cửa từ từ mở
+export const BEHIND = 120; // 4 giây: sát sau lưng người kia, từ từ bước vào phòng, Nam ngủ ở bên phải
+export const WIDE = 66; // 2,2 giây toàn phòng: người kia đã đứng trước giường nhìn Nam, mắt lóe sáng (không còn đoạn bước vào)
 export const POV = 150; // 5 giây mắt Nam: người kia tiến lại gần dần, máy zoom liền vào đầu
 export const CLOSE = 20; // 0,67 giây: cắt phụt vào mặt dọa rồi sập tối, dứt khoát
 export const BLACK = 16;
 export const OPEN = HALL + BEHIND + WIDE; // đoạn mở đầu trước góc nhìn của Nam
 export const JUMP_TOTAL = OPEN + POV + CLOSE + BLACK;
 export const SLAM_AT = 0.72; // phần của C mà mí sập xuống
-export const EYES_ON = 66; // frame (trong cảnh toàn phòng) hai đốm mắt lóe sáng
+export const EYES_ON = 38; // frame (trong cảnh toàn phòng) hai đốm mắt lóe sáng
 
 const ease = (x: number) => x * x * (3 - 2 * x);
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
-/** Hai đốm mắt sáng trên đầu người đứng; (x, y, scale) là điểm neo của rig như `placeOn`. */
+/** Hai đốm mắt sáng màu đỏ trên đầu người đứng; (x, y, scale) là điểm neo của rig như `placeOn`. */
 const GlowEyes: React.FC<{ x: number; y: number; scale: number; a: number }> = ({ x, y, scale, a }) => (
   <g opacity={a}>
     {[[-11, 99], [30, 96]].map(([ex, ey], i) => (
       <g key={i}>
-        <circle cx={x + ex * scale} cy={y + ey * scale} r={10 * scale} fill="#cfe2ff" opacity={0.25} />
-        <circle cx={x + ex * scale} cy={y + ey * scale} r={3.2 * scale} fill="#eef5ff" />
+        <circle cx={x + ex * scale} cy={y + ey * scale} r={13 * scale} fill="#ff1a10" opacity={0.28} />
+        <circle cx={x + ex * scale} cy={y + ey * scale} r={5.5 * scale} fill="#ff2e22" opacity={0.55} />
+        <circle cx={x + ex * scale} cy={y + ey * scale} r={3.2 * scale} fill="#ff6a58" />
       </g>
     ))}
   </g>
@@ -45,14 +46,19 @@ const tiptoe = (ph: number, still: number, view: 'three' | 'back') => {
   return { ...base, tilt: (base.tilt ?? 0) + 7, neck: (base.neck ?? 0) - 6, view, facing: 1 as const };
 };
 
-/** Cảnh 1, góc nhìn người kia: đi dọc hành lang tới cửa phòng Nam, cửa mở ra. Chỉ vignette đen, không viền. */
+/** Cảnh 1, góc nhìn người kia: bước chậm dọc hành lang tới cửa, dừng, cạch, cửa từ từ mở rồi tiến vào. Chỉ vignette đen, không viền. */
 export const HallFov: React.FC<{ u: number }> = ({ u }) => {
-  const door = u < 0.48 ? 'closed' : u < 0.6 ? 'ajar' : 'open';
-  const bob = Math.sin(u * 30) * 7, sway = Math.sin(u * 15) * 5;
+  const STEPS = 4, w = clamp(u / 0.5); // 4 bước chậm tới cửa, mỗi bước dừng một nhịp
+  const i = Math.min(STEPS - 1, Math.floor(w * STEPS)), fr = w * STEPS - i;
+  const walk = w >= 1 ? 1 : (i + ease(clamp(fr * 1.35))) / STEPS;
+  const enter = ease(clamp((u - 0.62) / 0.38)); // sau khi cửa mở, tiến vào thật chậm
+  const door = u < 0.56 ? 'closed' : u < 0.8 ? 'ajar' : 'open';
+  const stepping = u < 0.5 ? 1 : 0.15;
+  const bob = Math.sin(w * STEPS * Math.PI * 2) * 6 * stepping, sway = Math.sin(w * STEPS * Math.PI) * 4 * stepping;
   return (
     <AbsoluteFill style={{ background: '#030405' }}>
       <div style={{ position: 'absolute', inset: 0, transform: `translate(${sway}px, ${bob}px) scale(1.05)` }}>
-        <RoomNight view="hallway" door={door} kitchen="messy" move={{ push: 470 * ease(clamp(u / 0.96)) }}>
+        <RoomNight view="hallway" door={door} kitchen="messy" move={{ push: 380 * walk + 90 * enter }}>
           <rect width={1920} height={1080} fill="#02040a" opacity={0.3} />
         </RoomNight>
       </div>
@@ -90,38 +96,30 @@ export const BehindFrame: React.FC<{ u: number }> = ({ u }) => {
   );
 };
 
-/** Cảnh 3, toàn phòng: người kia bước nốt tới trước giường rồi đứng nhìn Nam; cuối cảnh hai đốm mắt lóe sáng. */
-export const JumpWide: React.FC<{ t: number; eyes?: number }> = ({ t, eyes = 0 }) => {
-  const raw = clamp((t - 0.03) / 0.5), STEPS = 2;
-  const i = Math.min(STEPS - 1, Math.floor(raw * STEPS)), fr = raw * STEPS - i;
-  const wk = raw >= 1 ? 1 : (i + ease(clamp(fr * 1.35))) / STEPS;
-  const at: [number, number] = [150 + 64 * wk, 262 + 28 * wk];
-  const pose = tiptoe(wk * (STEPS / 2), raw >= 1 ? 1 : 0, 'three');
-  const dark = 0.08 + 0.05 * wk;
-  return (
-    <AbsoluteFill style={{ background: '#05070b' }}>
-      <RoomNight
-        door="open"
-        kitchen="messy"
-        move={{ push: 70 * t, truck: 45 }}
-        sleeper={Sleeper({ phone: false, cover: 0, breath: Math.sin(t * 20) * 5, f: 0 })}
-        actors={[{
-          at,
-          render: (p) => (
-            <g>
-              <g style={{ filter: `brightness(${dark.toFixed(3)}) saturate(.3)` }}>
-                <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood="calm" pose={pose} {...p} />
-              </g>
-              {eyes > 0 && <GlowEyes {...p} a={eyes} />}
+/** Cảnh 3, toàn phòng: người kia đã đứng trước giường nhìn Nam ngủ; hai đốm mắt trong bóng đen lóe sáng. */
+export const JumpWide: React.FC<{ t: number; eyes?: number }> = ({ t, eyes = 0 }) => (
+  <AbsoluteFill style={{ background: '#05070b' }}>
+    <RoomNight
+      door="open"
+      kitchen="messy"
+      move={{ push: 50 * t, truck: 45 }}
+      sleeper={Sleeper({ phone: false, cover: 0, breath: Math.sin(t * 20) * 5, f: 0 })}
+      actors={[{
+        at: [214, 290],
+        render: (p) => (
+          <g>
+            <g style={{ filter: 'brightness(.13) saturate(.3)' }}>
+              <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood="calm" pose={tiptoe(0, 1, 'three')} {...p} />
             </g>
-          ),
-        }]}
-      >
-        <rect width={1920} height={1080} fill="#02040a" opacity={0.45} />
-      </RoomNight>
-    </AbsoluteFill>
-  );
-};
+            {eyes > 0 && <GlowEyes {...p} a={eyes} />}
+          </g>
+        ),
+      }]}
+    >
+      <rect width={1920} height={1080} fill="#02040a" opacity={0.45} />
+    </RoomNight>
+  </AbsoluteFill>
+);
 
 /** Mí mắt: s 0..1 là độ mở. Chỉ phần đen, không viền; rìa mí là hình thấu kính, hai khoé luôn khép nhỏ nhất. */
 const Lids: React.FC<{ s: number }> = ({ s }) => {
@@ -259,11 +257,12 @@ export const ScareFace: React.FC<{ k: number }> = ({ k }) => {
 /** Âm thanh: file thư viện chép vào public/ho-so-02-nguoi-lam-thay/sfx/ (thư mục bị Git bỏ qua). */
 const SFX = (name: string) => staticFile(`ho-so-02-nguoi-lam-thay/sfx/${name}`);
 const SCARE = OPEN + POV; // frame cắt vào mặt dọa
-const STEP_FRAMES = [12, 28, 44, 60, HALL + 10, HALL + 28, HALL + 46, HALL + 62, HALL + BEHIND + 12, HALL + BEHIND + 38];
+const STEP_FRAMES = [14, 34, 54, 74, HALL + 16, HALL + 46, HALL + 76, HALL + 104]; // bước chậm, mỗi bước cách nhau khoảng 0,7 đến 1 giây
 export const JumpAudio: React.FC = () => (
   <>
     <Sequence durationInFrames={SCARE - 6}><Audio src={SFX('room_tone.mp3')} volume={0.45} /></Sequence>
-    <Sequence from={HALL * 0.58} durationInFrames={20}><Audio src={SFX('crack.mp3')} volume={0.35} /></Sequence>
+    <Sequence from={Math.round(HALL * 0.54)} durationInFrames={14}><Audio src={SFX('switch_off.mp3')} volume={0.7} /></Sequence>{/* cạch: chốt cửa */}
+    <Sequence from={Math.round(HALL * 0.58)} durationInFrames={36}><Audio src={SFX('crack.mp3')} volume={0.3} /></Sequence>{/* cửa kẽo kẹt mở */}
     {STEP_FRAMES.map((f) => <Sequence key={f} from={f} durationInFrames={12}><Audio src={SFX('step.mp3')} volume={0.3} /></Sequence>)}
     <Sequence from={SCARE - 40} durationInFrames={34}><Audio src={SFX('power_hum.mp3')} volume={0.35} /></Sequence>
     {/* 6 frame im bặt trước cú hù */}
@@ -285,7 +284,7 @@ export const HoSo02TrailerJumpscare: React.FC = () => {
 
 /** Sáu khung tĩnh để duyệt: hành lang, sau lưng người kia, đứng trước giường, mắt Nam, mặt dọa. */
 export const HoSo02JumpscareBoard: React.FC = () => {
-  const panels: React.ReactNode[] = [<HallFov u={0.3} />, <HallFov u={0.85} />, <BehindFrame u={0.5} />, <JumpWide t={1} eyes={1} />, <PovFrame u={0.62} />, <ScareFace k={0.4} />];
+  const panels: React.ReactNode[] = [<HallFov u={0.3} />, <HallFov u={0.7} />, <HallFov u={0.98} />, <BehindFrame u={0.5} />, <JumpWide t={1} eyes={1} />, <ScareFace k={0.4} />];
   return (
     <div style={{ width: 1920, height: 720, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '1fr 1fr', background: '#111' }}>
       {panels.map((el, i) => (
