@@ -6,6 +6,8 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 
 ## Bắt đầu ở đây
 
+**Thư viện biểu cảm dùng chung:** [bộ nét mặt tách lớp](what-if-studio/library/expressions/cartoon-soft/README.md) có 27 mức biểu cảm + trung tính, không tóc/khung đầu, để căn vào nhân vật mới; xem giới hạn góc nhìn và cách ghép trong hướng dẫn.
+
 **Asset xuyên series mới — 10/11/2026:** [Nhân vật truy vết](episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) có mẫu toàn thân hiện hành và 27 biểu cảm theo 3 mức + trung tính đã duyệt. Lưu riêng ở asset chung của Hẻm Có Chuyện; chưa rig hoặc ghép vào tập.
 
 | File | Tác dụng và nội dung cần có | Khi đọc hoặc cập nhật |

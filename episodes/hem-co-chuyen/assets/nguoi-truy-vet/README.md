@@ -1,5 +1,7 @@
 # Nhân vật truy vết — asset dùng chung của Hẻm Có Chuyện
 
+**Bản nét mặt không tóc/đầu để dùng cho vai khác:** [thư viện EXP-CARTOON-SOFT-01](../../../../what-if-studio/library/expressions/cartoon-soft/README.md). Bộ ở đây giữ nguyên làm mẫu nhận diện của nhân vật truy vết; thư viện chung chỉ chứa các nét và lớp cảm xúc đã tách.
+
 Cập nhật 10/11/2026 theo thiết kế và biểu cảm được chủ repo duyệt trong chat. **“Người truy vết” là nhãn làm việc, chưa phải tên chính thức.** Nhân vật dành cho tuyến xuyên series, không thuộc riêng Hồ sơ 1 hoặc Hồ sơ 2.
 
 ## Mẫu hiện hành
