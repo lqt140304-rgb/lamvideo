@@ -27,14 +27,13 @@ export const EYES_ON = 38; // frame (trong cảnh toàn phòng) hai đốm mắt
 const ease = (x: number) => x * x * (3 - 2 * x);
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
-/** Hai đốm mắt sáng màu đỏ trên đầu người đứng; (x, y, scale) là điểm neo của rig như `placeOn`. */
+/** Hai đốm mắt sáng (trắng xanh nhạt) trên đầu người đứng; (x, y, scale) là điểm neo của rig như `placeOn`. */
 const GlowEyes: React.FC<{ x: number; y: number; scale: number; a: number }> = ({ x, y, scale, a }) => (
   <g opacity={a}>
     {[[-11, 99], [30, 96]].map(([ex, ey], i) => (
       <g key={i}>
-        <circle cx={x + ex * scale} cy={y + ey * scale} r={13 * scale} fill="#ff1a10" opacity={0.28} />
-        <circle cx={x + ex * scale} cy={y + ey * scale} r={5.5 * scale} fill="#ff2e22" opacity={0.55} />
-        <circle cx={x + ex * scale} cy={y + ey * scale} r={3.2 * scale} fill="#ff6a58" />
+        <circle cx={x + ex * scale} cy={y + ey * scale} r={10 * scale} fill="#cfe2ff" opacity={0.25} />
+        <circle cx={x + ex * scale} cy={y + ey * scale} r={3.2 * scale} fill="#eef5ff" />
       </g>
     ))}
   </g>

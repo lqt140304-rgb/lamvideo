@@ -115,9 +115,9 @@ Ba cảnh đầu (H, B, W) kể từ phía người kia; từ đó trở đi là
 
 **B · 4 giây · sát sau lưng người kia.** Cắt sang góc **sát sau lưng** khi nó bước vào: bóng đen người kia chiếm **bên trái** khung, **bên phải là Nam đang ngủ**. Nó **từ từ bước vào chậm dãi**, bốn bước dón dén, máy đẩy rất chậm.
 
-**W · 2,2 giây · toàn phòng, tối hơn bản trước.** Không còn đoạn bước vào: người kia **đã đứng sẵn trước giường** nhìn Nam ngủ (mẫu nằm `Sleeper` của cảnh 1). **Hai đốm mắt đỏ trong bóng đen lóe sáng** rồi giữ sáng.
+**W · 2,2 giây · toàn phòng, tối hơn bản trước.** Không còn đoạn bước vào: người kia **đã đứng sẵn trước giường** nhìn Nam ngủ (mẫu nằm `Sleeper` của cảnh 1). **Hai đốm mắt trong bóng đen lóe sáng** rồi giữ sáng.
 
-**P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đứng ở cửa rồi **tiến lại gần đều và chậm**, **cười rợn ngay từ đầu đoạn**, nụ cười toét dần khi tới gần. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt đỏ sáng lên. Nó dừng lại, đứng cười. Rồi máy **vụt một cái vào mặt nó** (khoảng 0,2 giây), không zoom chậm.
+**P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đứng ở cửa rồi **tiến lại gần đều và chậm**, **cười rợn ngay từ đầu đoạn**, nụ cười toét dần khi tới gần. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt sáng lên. Nó dừng lại, đứng cười. Rồi máy **vụt một cái vào mặt nó** (khoảng 0,2 giây), không zoom chậm.
 
 **C · khoảng 0,7 giây, dứt khoát.** Tiếng phòng tắt bặt một nhịp ngắn, rồi **cắt phụt vào mặt dọa** kín khung: đen trắng tương phản mạnh, hốc mắt sâu tối, mắt nhỏ trừng, cười toác lộ hai hàm răng, có hạt nhiễu. Vẫn giữ tóc có lọn xoăn và nốt ruồi bên phải để nhận ra bản sao. Khung rung mạnh và đẩy vào, rồi **mí Nam sập xuống**, đen hẳn. Mặt vẽ riêng theo phong cách ảnh tham khảo của chủ repo, không chép ảnh.
 
