@@ -18,6 +18,9 @@ const STANDUP: [number, number] = [238, 232]; // đứng dậy, ghế (SEATS.bed
 const NEAR: [number, number] = [262, 360]; // khoá xếp lớp: Nam vẽ sau khối nệm/ghế, vì nệm được xếp theo tâm
 const PHONE: [number, number][] = [[282, 256], [289, 256], [289, 270], [282, 270]];
 
+// Ánh sáng duyệt: hướng theo cửa sổ qua camera của shot, viền ấm, nét mảnh 0.65.
+const lit = (view: RoomView, at: [number, number]): Light => ({ rim: 0.45, amount: 0.42, depth: 24, line: 0.65, ...lightFor(view, at) });
+
 const ease = Easing.inOut(Easing.cubic);
 const seg = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease });
 const TALK = ['a', 'closed', 'o', 'e', 'closed', 'u', 'a', 'closed'] as const;
@@ -47,6 +50,12 @@ const Camera: React.FC<{ lens: Lens; shake?: number; children: React.ReactNode }
 // Đầu Nam nằm trên gối (đầu hướng tường phải); `cover` 0–1 kéo chăn trùm qua đầu.
 const Sleeper = (cover: number) => (p: { x: number; y: number; scale: number }) => (
   <g>
+    {/* Vai và cổ áo ngủ nằm dưới đầu: thân nằm dọc theo nệm (đầu phải, chân trái), hai vai vắt ngang gối; chăn vẽ sau che phần dưới. */}
+    <g transform={`translate(${p.x - 118 * p.scale} ${p.y + 6 * p.scale}) scale(${p.scale})`} stroke="#40443f" strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
+      <path d="M 70 -34 Q 30 -92 -30 -84 Q -92 -76 -100 -20 Q -108 44 -64 76 Q -10 96 52 76 Q 92 54 84 6 Z" fill={SLEEP} />
+      <path d="M 74 -22 Q 96 -4 78 30 Q 60 60 40 62" fill="none" strokeWidth={3} />
+      <path d="M -22 -80 Q -6 -52 -34 -34 M -40 4 Q -66 18 -80 8" fill="none" strokeWidth={2.5} />
+    </g>
     <g transform={`rotate(80 ${p.x} ${p.y})`}>
       <StudentTwinHead mood="sleepy" blink view="three" facing={-1} id="a01-sleeper" x={p.x} y={p.y - 85 * p.scale} scale={p.scale} />
     </g>
@@ -122,9 +131,9 @@ const Overlay: React.FC<{ f: number }> = ({ f }) => {
 };
 
 // Người kia ở bồn rửa, quay lưng; tay rửa chén nhịp nhẹ tới khi nước ngừng.
-const washer = (f: number) => {
+const washer = (f: number, view: RoomView) => {
   const w = f < 375 ? Math.sin(f / 6) : 0;
-  return { at: SINK, render: (p: { x: number; y: number; scale: number }) => <NguoiKia {...p} mood="calm" pose={{ ...TWIN_POSES.holdBowl, view: 'back', tilt: 3 + 2 * w, armR: { a: 20 + 8 * w, b: 75 }, armL: { a: 14 - 8 * w, b: 100, rot: -1 } }} /> };
+  return { at: SINK, render: (p: { x: number; y: number; scale: number }) => <NguoiKia {...p} light={lit(view, SINK)} mood="calm" pose={{ ...TWIN_POSES.holdBowl, view: 'back', tilt: 3 + 2 * w, armR: { a: 20 + 8 * w, b: 75 }, armL: { a: 14 - 8 * w, b: 100, rot: -1 } }} /> };
 };
 
 // Nam ngồi mép nệm / đứng dậy, cùng cách tính cho mọi view.
@@ -132,13 +141,13 @@ const namActor = (view: RoomView, o: { pose: JointPose; at: [number, number]; ri
   at: NEAR,
   render: () => {
     const p = placeOn(view, o.at);
-    return <StudentTwinBody x={p.x} y={p.y + (o.rise ?? 0) * p.scale} scale={p.scale} shirt={SLEEP} mood={o.mood} pose={{ ...o.pose, view: o.look.view, facing: o.look.facing }} talk={o.talk} blink={o.blink} />;
+    return <StudentTwinBody x={p.x} y={p.y + (o.rise ?? 0) * p.scale} scale={p.scale} light={lit(view, o.at)} shirt={SLEEP} mood={o.mood} pose={{ ...o.pose, view: o.look.view, facing: o.look.facing }} talk={o.talk} blink={o.blink} />;
   },
 });
 
 const A01: React.FC<{ f: number }> = ({ f }) => (
   <Camera lens={{ cx: 960, cy: 540, z: 1 }}>
-    <RoomScene view="wide" door="ajar" chair="bed" sleeper={Sleeper(0)} actors={[washer(f)]}>
+    <RoomScene view="wide" door="ajar" chair="bed" sleeper={Sleeper(0)} actors={[washer(f, 'wide')]}>
       <AlarmGlow view="wide" on f={f} />
     </RoomScene>
   </Camera>
@@ -149,7 +158,7 @@ const A02: React.FC<{ f: number }> = ({ f }) => {
   const lens = { cx: head.x - 40, cy: head.y + 40, z: 2.6 + 0.15 * seg(f, 180, 400) };
   return (
     <Camera lens={lens}>
-      <RoomScene view="wide" door="ajar" chair="bed" sleeper={Sleeper(seg(f, 250, 268))} actors={[washer(f)]}>
+      <RoomScene view="wide" door="ajar" chair="bed" sleeper={Sleeper(seg(f, 250, 268))} actors={[washer(f, 'wide')]}>
         <AlarmGlow view="wide" on={f < 236} f={f} />
       </RoomScene>
     </Camera>
@@ -186,7 +195,7 @@ const A04: React.FC<{ f: number }> = ({ f }) => {
   const look = turnAt({ view: 'quarter', facing: 1 }, { view: 'three', facing: 1 }, seg(f, 560, 570));
   return (
     <Camera lens={{ cx: p.x + 40 * p.scale, cy: p.y + 150 * p.scale, z: 1.55 }}>
-      <RoomScene view="kitchen" door="ajar" chair="bed" actors={[{ at: SINK, render: (q) => <NguoiKia {...q} mood="calm" blink={blinkAt(f, 30)} pose={{ ...TWIN_POSES.holdBowl, view: look.view, facing: look.facing }} /> }]} />
+      <RoomScene view="kitchen" door="ajar" chair="bed" actors={[{ at: SINK, render: (q) => <NguoiKia {...q} light={lit('kitchen', SINK)} mood="calm" blink={blinkAt(f, 30)} pose={{ ...TWIN_POSES.holdBowl, view: look.view, facing: look.facing }} /> }]} />
     </Camera>
   );
 };
