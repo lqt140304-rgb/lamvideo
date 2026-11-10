@@ -11,6 +11,8 @@ Nguồn lời: [KICH-BAN.md](KICH-BAN.md). Các mục dưới là yêu cầu m�
 | Khăn lớn, sổ gáy mềm, giấy ba ý và bút | Khăn chặn mặt kính; sổ được Nam giao từ P2.05; giấy Nam tự viết từ cuối phần 2 đến hình kết |
 | UI tin/nhóm, file nháp, ghi âm thử, camera sau, gửi clip và xóa clip local | Mỗi lần biết thông tin có nguồn; clip đã gửi cho Tùng vẫn còn; không đặt dữ liệu thật vào hình |
 | Ba nền mới và clip riêng Nam giữa khung | **Đã dựng bằng mã, chờ duyệt:** góc gương, góc đồ cho tặng, hành lang–cầu thang trong [mô hình phòng](assets/boi-canh/BOI-CANH.md#góc-máy). Clip: [TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md), [bảng 13 nhịp](assets/trailer/nam-giua-khung-bang.png) |
+| Trường học và sân thể thao | **Đã dựng bằng mã, chờ duyệt:** sân trường ngày/đêm, hành lang lớp, giảng đường, sân bóng ngày/chiều/đêm. Xem [BOI-CANH.md](assets/boi-canh/BOI-CANH.md#trường-học-và-sân-thể-thao--đề-xuất-10112026-chờ-duyệt) |
+| Nhân vật không viền ngoài | **Đã cập nhật rig 10/11/2026** theo quyết định tạo hình chung: bỏ đường bao thân/tay/chân/đầu/tóc/giày; giữ nét mặt và nếp áo; chi phía sau tối hơn để tách lớp. Bảng [nhan-vat.png](assets/nhan-vat.png) đã xuất lại. Tay chưa giản lược ngón theo ảnh so sánh |
 | Trang phục Nam | `NAM_OUTFITS` trong rig: `xanh`, `ngu`, `xam-tui` (túi ngực cho P3), `dong-phuc`, `the-thao`. [Bảng xem](assets/trailer/trang-phuc-nam.png). Chỉ đổi màu/chi tiết áo trên cùng thân; đồ thể thao chưa có giày riêng |
 | Jumpscare trailer O05 | Biểu cảm mới `stare_grin` cho bản sao (chỉ dùng ở cú hù); [khung tĩnh](assets/trailer/jumpscare-bang.png); composition `HoSo02TrailerJumpscare`. Chưa có âm |
 | Áo xanh vắt trên ghế | Trailer O04 cần; mô hình phòng chưa có prop này (nền hiện không vẽ áo trên ghế) |

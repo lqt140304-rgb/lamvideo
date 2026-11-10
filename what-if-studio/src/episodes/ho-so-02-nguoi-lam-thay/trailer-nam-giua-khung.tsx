@@ -2,6 +2,7 @@ import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 import { JointPose, mixPose, NamMood, NamOutfitId, STAND_POSE, StudentTwinBody, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { BedCorner, DoorInside, GiveawayCorner, HallwayStairs, KitchenSink, MirrorCorner, RoomMorning, RoomProps, StudyCornerMorning, StudyDeskNight } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
+import { FootballPitch, LectureRoom, SchoolCorridor, SchoolYard } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/truong-va-san';
 
 /**
  * Hồ sơ 2 — clip riêng "Nam giữa khung" (không nằm trong trailer P1.00; xem TRAILER-NAM-GIUA-KHUNG.md của hồ sơ).
@@ -14,8 +15,9 @@ import { BedCorner, DoorInside, GiveawayCorner, HallwayStairs, KitchenSink, Mirr
 export type Beat = {
   id: string;
   chip: string; // nhãn thời gian nhỏ trên hình
-  bg: React.FC<RoomProps>;
-  bgProps?: RoomProps;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  bg: React.FC<any>;
+  bgProps?: RoomProps & { dusk?: boolean };
   mood: NamMood;
   pose: JointPose;
   outfit: NamOutfitId;
@@ -30,7 +32,10 @@ const lean = (p: JointPose, d: Partial<JointPose>): JointPose => ({ ...p, ...d }
 /** Phần 1 của đoạn: giới thiệu, theo thứ tự trước tuyến chính. */
 export const BEATS_INTRO: Beat[] = [
   { id: 'I1', chip: 'Một tuần trước', bg: GiveawayCorner, bgProps: { move: { truck: -95 } }, mood: 'neutral_smile', pose: P.offer, outfit: 'dong-phuc', note: 'Đi học về, mặc đồng phục; nhặt được gương ở góc đồ cho tặng, hớn hở.' },
-  { id: 'I2', chip: 'Ngày thường', bg: BedCorner, mood: 'sleepy', pose: P.phone, outfit: 'the-thao', note: '“Tí nữa.” Đồ thể thao, Tùng rủ đi đá bóng, Nam vẫn nằm bấm máy.' },
+  { id: 'I1b', chip: 'Ngày thường · giảng đường', bg: LectureRoom, mood: 'sleepy', pose: lean(STAND_POSE, { neck: -6, tilt: 3 }), outfit: 'dong-phuc', note: 'Trên giảng đường, mắt díp, đầu gật gù.' },
+  { id: 'I1c', chip: 'Ngày thường · trễ học', bg: SchoolCorridor, mood: 'hesitant', pose: P.phone, outfit: 'dong-phuc', note: 'Hành lang lớp: vào trễ, vẫn cầm máy.' },
+  { id: 'I1d', chip: 'Ngày thường · sân bóng', bg: FootballPitch, bgProps: { dusk: true }, mood: 'annoyed', pose: lean(STAND_POSE, { tilt: 6, neck: -4 }), outfit: 'the-thao', note: 'Ra sân với Tùng nhưng chỉ đứng thở, chưa đá đã muốn về.' },
+  { id: 'I2', chip: 'Ngày thường', bg: BedCorner, mood: 'sleepy', pose: P.phone, outfit: 'the-thao', note: '“Tí nữa.” Về phòng vẫn đồ thể thao, nằm bấm máy.' },
   { id: 'I3', chip: 'Ngày thường', bg: BedCorner, bgProps: { night: true }, mood: 'sleepy', pose: lean(P.phone, { neck: -8 }), outfit: 'xanh', night: true, note: '“…Tí nữa.” Đêm, áo xanh rêu: chiếc áo sau này vắt trên ghế.' },
   { id: 'I4', chip: 'Ngày thường', bg: BedCorner, bgProps: { door: 'open' }, mood: 'hesitant', pose: lean(P.phone, { tilt: -3 }), outfit: 'ngu', note: '“Ừ, tí.” Sáng, còn áo ngủ; cửa mở vì Tùng vừa đi học một mình.' },
 ];
@@ -44,6 +49,7 @@ export const BEATS_STORY: Beat[] = [
   { id: 'S5', chip: 'Ngày 2', bg: RoomMorning, bgProps: { kitchen: 'clean' }, mood: 'neutral_smile', pose: P.offer, outfit: 'xam-tui', note: 'Cho mượn cả tên mình: trao máy, đắc ý.' },
   { id: 'S6', chip: 'Ngày 2 · tối', bg: StudyDeskNight, bgProps: { phone: 'hidden' }, mood: 'hesitant', pose: lean(STAND_POSE, { neck: -10, tilt: 4 }), outfit: 'xam-tui', night: true, note: 'Câu hỏi mình không trả lời nổi.' },
   { id: 'S7', chip: 'Ngày 2 · khuya', bg: BedCorner, bgProps: { night: true, door: 'latched' }, mood: 'calm', pose: lean(STAND_POSE, { neck: 4, tilt: -3 }), outfit: 'xam-tui', night: true, note: '“Lần này tao tự làm.” Quyết tâm.' },
+  { id: 'S7b', chip: 'Ngày 3 · sáng', bg: SchoolYard, mood: 'calm', pose: lean(STAND_POSE, { neck: 4 }), outfit: 'dong-phuc', note: 'Tự đến trường đúng giờ, lần đầu không nhờ ai.' },
   { id: 'S8', chip: 'Ngày 3', bg: HallwayStairs, bgProps: { move: { truck: 110 } }, mood: 'scared', pose: P.stride, outfit: 'dong-phuc', note: 'Mặc đồng phục định ra chỗ đông người, tìm đường xuống cầu thang.' },
   { id: 'S9', chip: 'Ngày 3', bg: MirrorCorner, bgProps: { night: true, move: { truck: -110 } }, mood: 'shocked', pose: P.wary, outfit: 'dong-phuc', night: true, note: 'Trước gương. Nhạc cắt cụt ngay sau nhịp này.' },
 ];

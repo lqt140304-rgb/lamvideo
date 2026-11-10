@@ -16,18 +16,22 @@
   - **nhiều bộ trang phục, có đồng phục và đồ thể thao**;
   - làm thành clip riêng.
 - **Còn đề xuất:**
-  - thứ tự 13 nhịp, biểu cảm và trang phục từng nhịp;
+  - thứ tự 17 nhịp, biểu cảm và trang phục từng nhịp;
+  - bốn nhịp ở trường và sân bóng (I1b–I1d, S7b) thêm theo yêu cầu có bối cảnh trường học và sân thể thao; nhịp S7b là chi tiết mới, kịch bản các phần chưa có cảnh Nam tự đến trường;
   - màu đồng phục và đồ thể thao;
   - có lời dẫn hay chỉ nhạc.
 
 ## Nhịp
 
-Khoảng **12,7 giây** ở 30 fps: 13 nhịp × 28 frame, cộng 18 frame giữ ở nhịp cuối. Nền hòa sang nền trong 6 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt.
+Khoảng **16,5 giây** ở 30 fps: 17 nhịp × 28 frame, cộng 18 frame giữ ở nhịp cuối. Nền hòa sang nền trong 6 frame. Nam chớp mắt đúng lúc đổi nét mặt và đổi đồ, dáng tay nối mượt.
 
 | Nhịp | Thời gian truyện | Nền | Nam | Trang phục |
 |---|---|---|---|---|
 | I1 | Một tuần trước | Góc đồ cho tặng | Hớn hở, tay đưa ra như vừa nhặt được gương | Đồng phục |
-| I2 | Ngày thường | Góc nệm, ngày | Mắt díp, cầm máy: “Tí nữa” khi Tùng rủ đá bóng | Đồ thể thao |
+| I1b | Ngày thường | Giảng đường | Mắt díp, đầu gật gù | Đồng phục |
+| I1c | Ngày thường | Hành lang lớp | Vào trễ, vẫn cầm máy | Đồng phục |
+| I1d | Ngày thường | Sân bóng lúc chiều | Đứng thở, chưa đá đã muốn về | Đồ thể thao |
+| I2 | Ngày thường | Góc nệm, ngày | Mắt díp, cầm máy: “Tí nữa” | Đồ thể thao |
 | I3 | Ngày thường | Góc nệm, đêm | Cúi vào máy | Áo xanh rêu |
 | I4 | Ngày thường | Góc nệm, sáng, cửa mở | Ngập ngừng | Áo ngủ xám |
 | S1 | Ngày 1 · 7:00 | Góc bếp, bồn đã sạch | Sững sờ | Áo ngủ xám |
@@ -37,6 +41,7 @@ Khoảng **12,7 giây** ở 30 fps: 13 nhịp × 28 frame, cộng 18 frame giữ
 | S5 | Ngày 2 | Toàn phòng | Đắc ý, như trao máy | Áo xám có túi |
 | S6 | Ngày 2 · tối | Bàn học đêm | Ngập ngừng | Áo xám có túi |
 | S7 | Ngày 2 · khuya | Góc nệm, cửa gài | Bình tĩnh, quyết tâm | Áo xám có túi |
+| S7b | Ngày 3 · sáng | Sân trường | Bình tĩnh, tự đến trường đúng giờ | Đồng phục |
 | S8 | Ngày 3 | Hành lang, cầu thang | Sợ, định bước đi | Đồng phục |
 | S9 | Ngày 3 | Góc gương, đêm | Sững sờ, đề phòng | Đồng phục |
 
@@ -51,6 +56,7 @@ Ngày 1 giữ áo ngủ xám vì chiếc áo xanh rêu đang ở trên người 
 - **Bảng phân cảnh:** [nam-giua-khung-bang.png](assets/trailer/nam-giua-khung-bang.png).
 - **Trang phục:** [trang-phuc-nam.png](assets/trailer/trang-phuc-nam.png). Có 5 bộ trong `NAM_OUTFITS` của [rig](assets/nhan-vat.tsx): `xanh`, `ngu`, `xam-tui`, `dong-phuc`, `the-thao`. Đồ thể thao chưa có giày riêng, tạm dùng dép.
 - **Mã:** [`trailer-nam-giua-khung.tsx`](../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/trailer-nam-giua-khung.tsx). Trong studio có composition `HoSo02NamGiuaKhung` (clip) và `HoSo02NamGiuaKhungBoard` (bảng).
-- **Nền:** các góc máy của [mô hình phòng](assets/boi-canh/BOI-CANH.md#góc-máy), gồm ba nền mới: gương, góc đồ cho tặng, cầu thang.
+- **Nền:** các góc máy của [mô hình phòng](assets/boi-canh/BOI-CANH.md#góc-máy) (gồm gương, góc đồ cho tặng, cầu thang) và [trường học, sân thể thao](assets/boi-canh/BOI-CANH.md#trường-học-và-sân-thể-thao--đề-xuất-10112026-chờ-duyệt).
+- **Nhân vật:** rig đã bỏ viền ngoài theo quyết định tạo hình 10/11/2026.
 
 Chưa có giọng, nhạc hay âm; chưa render bản cuối. Bản xem thử nửa độ phân giải chỉ để duyệt nhịp, không đưa lên repo.

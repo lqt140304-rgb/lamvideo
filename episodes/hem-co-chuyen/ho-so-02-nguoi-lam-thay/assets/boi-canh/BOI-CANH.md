@@ -35,6 +35,17 @@ Ngồi dậy trên nệm, Nam quay về phía bếp và cửa, nên hướng nh�
 | `giveaway` | `GiveawayCorner` | Trailer I1; P3.07 | Góc đồ cho tặng cuối hành lang: kệ thấp, thùng, túi áo, đèn cũ, tờ giấy dán tường. [Xem](goc-do-cho-tang.png). Mới, chờ duyệt |
 | `stairs` | `HallwayStairs` | Trailer S8; P3.04 | Hành lang nhìn vào hốc cầu thang; lòng hốc chỉ lộ qua ô mở. [Xem](hanh-lang-cau-thang.png). Mới, chờ duyệt |
 
+## Trường học và sân thể thao — đề xuất 10/11/2026, chờ duyệt
+
+Nguồn riêng [`truong-va-san.tsx`](truong-va-san.tsx), không thuộc mô hình phòng. Mỗi cảnh là một camera phối cảnh thật theo cm; `placeAt(cảnh, x, z)` đặt nhân vật chạm đất đúng tỉ lệ. Trường là trường chung chung, biển chỉ ghi "TRƯỜNG ĐẠI HỌC", không tên trường thật.
+
+| Component | Cảnh | Ảnh |
+|---|---|---|
+| `SchoolYard`, `SchoolYardNight` | Sân trường, dãy nhà ba tầng có hành lang lan can, cột cờ, cây bàng, ghế đá | [ngày](san-truong.png), [đêm](san-truong-dem.png) |
+| `SchoolCorridor` | Hành lang tầng hai: lan can nhìn ra sân, cửa lớp, cột đều nhịp | [xem](hanh-lang-truong.png) |
+| `LectureRoom` | Giảng đường: bảng trắng, bàn dài nhiều dãy, cửa sổ có nắng, quạt trần | [xem](giang-duong.png) |
+| `FootballPitch`, `PitchDusk`, `PitchNight` | Sân bóng mini cỏ nhân tạo, khung thành có lưới, rào lưới, cột đèn, ghế băng | [ngày](san-bong.png), [chiều](san-bong-chieu.png), [đêm](san-bong-dem.png) |
+
 ## Trạng thái theo kịch bản
 
 Tất cả là prop của `RoomScene`, không vẽ cứng vào nền.
