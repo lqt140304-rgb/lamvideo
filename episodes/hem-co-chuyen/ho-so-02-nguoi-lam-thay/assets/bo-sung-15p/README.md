@@ -1,6 +1,6 @@
 # Asset bổ sung — Hồ sơ 02: Người trong gương
 
-Bộ hình theo kịch bản mục tiêu khoảng 15 phút, cập nhật 11/11/2026. **47 SVG rời, chín bảng duyệt và 16 PNG**; nguồn TSX chỉnh được. Tái sử dụng rig/phòng hiện có; không dùng ảnh sinh trả phí. Hình tĩnh mới để duyệt, chưa phải video hoặc chuyển động đã duyệt.
+Bộ hình theo kịch bản mục tiêu khoảng 15 phút, cập nhật 11/11/2026. **63 SVG rời, 12 bảng duyệt và 22 PNG**; nguồn TSX chỉnh được. Tái sử dụng rig/phòng hiện có; không dùng ảnh sinh trả phí. Hình tĩnh mới để duyệt, chưa phải video hoặc chuyển động đã duyệt.
 
 Mỹ thuật: silhouette mềm, không viền ngoài, nét trong chọn lọc, màu gọn và ít mảng bóng tự vẽ. Đọc [quy chuẩn chung](../../../../../docs/PHONG-CACH-MY-THUAT.md) và [quy chuẩn rig](../thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026). Không bật lại shading vật liệu tự động khi đưa vào phim.
 
@@ -12,14 +12,16 @@ Mở [xem-asset.html](xem-asset.html) ở máy sau khi tải repo, hoặc xem PN
 |---|---|
 | [Cảm xúc 1](bang-cam-xuc-01.png) / [Cảm xúc 2](bang-cam-xuc-02.png) | 18 nét mới ghép lên Nam/Người Kia, mỗi nhóm ba mức; SVG nét mặt dùng chung nằm ở thư viện |
 | [Dáng nghỉ của Nam](bang-dang-nghi.png) | Ngồi chơi game, nằm chơi game, suy sụp và nằm ngửa nhìn trần; có mặt đỡ |
-| [Đạo cụ](bang-dao-cu.png) | 13 đạo cụ: búa, tiền ăn, hai thẻ hư cấu, ba món ăn, túi quả, PC, thau đồ, bóng, kéo, góc đồ cho/tặng |
-| [Bối cảnh](bang-boi-canh.png) | Giảng đường, Lab 402, hành lang trường, cơm gia đình, sân bóng, góc cắt tóc |
+| [Đạo cụ](bang-dao-cu.png) | 13 đạo cụ: búa, tiền ăn, hai thẻ hư cấu, ba món ăn, túi quả, PC, thau đồ, bóng, kéo, viên phấn |
+| [Bối cảnh](bang-boi-canh.png) | Mười bối cảnh, góc chính: giảng đường bậc thang, Lab 402, hành lang trường, mâm cơm gia đình, sân bóng, góc cắt tóc, thế giới gương, góc đồ cho tặng, hành lang trọ đêm, phòng trọ chiều tà |
+| [Bối cảnh nhiều góc](bang-boi-canh-nhieu-goc.png) | Tám bối cảnh 3D, mỗi cảnh bốn `view` |
+| [Chiều tà](bang-nang-chieu-ta.png) | S03: lớp nắng cam ở bốn mốc `t` |
 | [Vai phụ và tư thế](bang-vai-phu-tu-the.png) | Sáu vai phụ, mười dáng diễn; dùng khớp rig gốc |
 | [Giao diện](bang-giao-dien.png) | Sáu UI hư cấu và bảng so nốt ruồi |
 | [Gương](bang-guong.png) | Bốn trạng thái tĩnh để chốt cách chuyển mặt kính |
 | [Tiếp xúc](bang-tiep-xuc.png) | Tay giữ búa, cầm túi, áp kính |
 
-[Thế giới gương](svg/the-gioi-guong.png) là nền thứ bảy, dùng lại phòng gốc. Toàn bộ 47 SVG rời nằm trong [svg/](svg/); [MANIFEST.json](MANIFEST.json) ghi tên, kích thước, cảnh liên quan và giới hạn. Bảng duyệt có nhãn/tiêu đề để kiểm tra, **không ghép nguyên bảng vào phim**.
+[Thế giới gương](svg/the-gioi-guong.png) lật ngang phòng gốc, đặt trên mặt nước; [phòng chiều tà](svg/phong-tro-chieu-ta.png) là phòng gốc cộng lớp nắng `SunsetLight`. Toàn bộ 63 SVG rời nằm trong [svg/](svg/); [MANIFEST.json](MANIFEST.json) ghi tên, kích thước, cảnh liên quan và giới hạn. Bảng duyệt có nhãn/tiêu đề để kiểm tra, **không ghép nguyên bảng vào phim**.
 
 ## Nguồn và cách lắp
 

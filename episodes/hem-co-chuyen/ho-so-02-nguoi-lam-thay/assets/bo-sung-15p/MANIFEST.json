@@ -43,7 +43,7 @@
     {
       "id": "bang-boi-canh",
       "w": 1600,
-      "h": 1580,
+      "h": 2505,
       "svg": "bang-boi-canh.svg",
       "png": "bang-boi-canh.png"
     },
@@ -78,9 +78,16 @@
     {
       "id": "bang-boi-canh-nhieu-goc",
       "w": 2000,
-      "h": 1980,
+      "h": 2610,
       "svg": "bang-boi-canh-nhieu-goc.svg",
       "png": "bang-boi-canh-nhieu-goc.png"
+    },
+    {
+      "id": "bang-nang-chieu-ta",
+      "w": 2000,
+      "h": 1290,
+      "svg": "bang-nang-chieu-ta.svg",
+      "png": "bang-nang-chieu-ta.png"
     }
   ],
   "assets": [
@@ -232,19 +239,8 @@
       "svg": "svg/keo-cat-toc.svg"
     },
     {
-      "id": "goc-do-cho-tang",
-      "name": "Góc đồ cho tặng",
-      "scenes": [
-        "P1.00"
-      ],
-      "w": 720,
-      "h": 560,
-      "kind": "prop",
-      "svg": "svg/goc-do-cho-tang.svg"
-    },
-    {
       "id": "giang-duong",
-      "name": "Giảng đường · lớp gần/xa",
+      "name": "Giảng đường bậc thang · đèn trắng lạnh",
       "scenes": [
         "P3.01"
       ],
@@ -256,7 +252,7 @@
     },
     {
       "id": "lab-402",
-      "name": "Lab 402 · bàn máy tính",
+      "name": "Lab 402 · màn hình hạn nộp",
       "scenes": [
         "P2.04",
         "P2.05"
@@ -281,7 +277,7 @@
     },
     {
       "id": "bua-com-gia-dinh",
-      "name": "Bữa giỗ gia đình · clip",
+      "name": "Mâm cơm gia đình ở quê · clip Zalo",
       "scenes": [
         "P2.06"
       ],
@@ -317,7 +313,7 @@
     },
     {
       "id": "the-gioi-guong",
-      "name": "Thế giới gương · từ phòng gốc",
+      "name": "Thế giới trong gương · phòng lật, mặt nước",
       "scenes": [
         "P3.05",
         "P3.06"
@@ -327,6 +323,44 @@
       "kind": "set",
       "svg": "svg/the-gioi-guong.svg",
       "png": "svg/the-gioi-guong.png"
+    },
+    {
+      "id": "goc-do-cho-tang",
+      "name": "Góc đồ cho tặng · chân cầu thang sau mưa",
+      "scenes": [
+        "P1.00"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/goc-do-cho-tang.svg",
+      "png": "svg/goc-do-cho-tang.png"
+    },
+    {
+      "id": "hanh-lang-tro-dem",
+      "name": "Hành lang dãy trọ · đêm đèn tuýp",
+      "scenes": [
+        "P1.03",
+        "P1.06",
+        "P2.01"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/hanh-lang-tro-dem.svg",
+      "png": "svg/hanh-lang-tro-dem.png"
+    },
+    {
+      "id": "phong-tro-chieu-ta",
+      "name": "Phòng trọ chiều tà · lớp nắng cam",
+      "scenes": [
+        "P1.07"
+      ],
+      "w": 1920,
+      "h": 1080,
+      "kind": "set",
+      "svg": "svg/phong-tro-chieu-ta.svg",
+      "png": "svg/phong-tro-chieu-ta.png"
     },
     {
       "id": "giang-vien",

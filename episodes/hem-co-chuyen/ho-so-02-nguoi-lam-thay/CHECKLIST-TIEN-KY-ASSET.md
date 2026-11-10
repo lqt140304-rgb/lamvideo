@@ -185,19 +185,20 @@ export const SceneDemo: React.FC = () => {
 
 Đánh dấu `[x]` khi đã có bản tĩnh dùng được trong repo. Dáng mới chỉ được duyệt bằng ảnh tĩnh, chưa kiểm chứng chuyển động. Đường dẫn tính từ `assets/`.
 
-### Bối cảnh (người khác phụ trách, chỉ đối chiếu)
+### Bối cảnh
+Các bối cảnh `bo-sung-15p` dựng bằng mô hình 3D theo cm ([`kit3d.tsx`](assets/bo-sung-15p/kit3d.tsx)), mỗi cảnh có bốn góc `view` (`chinh · nguoc · cheo · cao`). Bản bổ sung 11/11/2026 còn chờ chủ repo duyệt. Chưa có: tách lớp FORE/MID/BACK để chạy parallax, khung 2.39:1; hiện tại mỗi cảnh xuất một khối chung 16:9, chuyển động máy làm bằng camera 3D.
 - [x] S01 Phòng trọ sáng sớm: `boi-canh/boi-canh.tsx` `RoomMorning`
 - [x] S02 Bàn học ngày: `StudyCornerMorning`
-- [ ] S03 Phòng trọ chiều tà: `RoomScene` mới có nắng rút dần (`sun`), chưa có vệt nắng cam Golden Hour riêng
+- [x] S03 Phòng trọ chiều tà *(mới, chờ duyệt)*: `bo-sung-15p` `RoomSunset t={0..1}`, lớp ánh sáng tách riêng `SunsetLight` (`data-layer="LIGHT_LAYER"`). Vệt nắng cam được tính bằng tia qua ô cửa sổ, rơi lên mép bàn, nệm, sàn rồi leo lên tường đối diện và tắt; phòng tối và xanh dần ([bảng](assets/bo-sung-15p/bang-nang-chieu-ta.png))
 - [x] S04 Phòng trọ đêm: `RoomNight`, `StudyDeskNight`
 - [x] S05 Góc cửa và then sắt: `DoorInside` (`door: 'ajar' | 'latched'`)
-- [x] S06 Hành lang dãy trọ: `HallwayDoor`, view `corridor`
-- [x] S07 Góc đồ cho tặng: `bo-sung-15p` `GiftCorner`
-- [x] S08 Giảng đường: `LectureHall`
-- [x] S09 Lab 402: `ComputerLab`
+- [x] S06 Hành lang dãy trọ: ban ngày dùng `HallwayDoor`, view `corridor`. Bản đêm *(mới, chờ duyệt)*: `DormHallNight`, có cửa phòng 201–205, lan can tường lửng và song sắt, ba đèn tuýp vàng, một bóng chập chờn theo `flicker` 0–1. Có thêm sương ẩm và bậc cầu thang cuối dãy chìm vào bóng tối. Vị trí đứng: `dormSpot()`
+- [x] S07 Góc đồ cho tặng *(dựng lại, chờ duyệt)*: `DonationCorner` (thay `GiftCorner`). Đặt ở chân cầu thang tầng trệt, chiều muộn sau mưa, có vũng nước và vệt ẩm. Đồ gồm ghế gãy chân, chậu hoa nứt, đống đồ phủ bạt xanh, gương gỗ bám bụi dựa tường và bìa các-tông viết tay "Góc đồ cho tặng – Ai cần thì lấy". Vị trí đứng: `donationSpot()`
+- [x] S08 Giảng đường *(đã bổ sung, chờ duyệt)*: `LectureHall` có năm bậc (mỗi bậc 34 cm), đèn tuýp trắng lạnh phủ trần, bục đứng của Nam và bàn giảng viên đều có micro cổ ngỗng. Màn chiếu slide đầy công thức. `view="nguoc"` nhìn từ bục lên các bậc, sinh viên quay mặt về camera; `cheo` là góc ngang bục giảng
+- [x] S09 Lab 402: `ComputerLab`. Màn hình xen kẽ hiện hạn nộp bài tập lớn (`23:59`, đếm ngược `02:14:08`)
 - [x] S10 Hành lang đại học: `UniversityCorridor`
-- [x] S11 Mâm cơm gia đình: `FamilyGathering`
-- [x] S12 Thế giới trong gương: `MirrorRealm`
+- [x] S11 Mâm cơm gia đình *(dựng lại, chờ duyệt)*: `FamilyGathering`. Chiếu hoa cói viền đỏ–xanh, mâm nhôm tròn có canh cua, nem rán, rau luộc, bát cơm, đũa và nồi cơm; cả nhà ngồi bệt. Tường quét vôi bong lộ gạch, có bàn thờ, cửa gỗ mở ra sân nắng. Góc chính đặt như điện thoại cầm tay chĩa xuống mâm
+- [x] S12 Thế giới trong gương *(dựng lại, chờ duyệt)*: `MirrorRealm`. Phòng trọ lật ngang hoàn toàn, chìm trong vực xanh thẫm; sàn hóa mặt nước phát sáng lân tinh, phản chiếu mờ căn phòng lật. Có gợn sóng theo `ripple`/`at`, khung gương trôi lơ lửng; người chìm truyền qua `children`, giữa hai lớp nước
 
 ### Đạo cụ (`bo-sung-15p/dao-cu.tsx`, bảng `bang-dao-cu`)
 - [x] P01 Gương, 4 trạng thái: `Mirror` (`guong-trang-thai-0..3`)
