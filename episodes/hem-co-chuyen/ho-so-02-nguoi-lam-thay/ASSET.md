@@ -137,4 +137,3 @@ Kế hoạch trailer/opening cũ đã hủy theo yêu cầu chủ repo. Opening 
 | Trang phục Nam | `NAM_OUTFITS` trong [rig](assets/nhan-vat.tsx): `xanh`, `ngu`, `xam-tui`, `dong-phuc`, `the-thao`; [bảng xem](assets/trailer/trang-phuc-nam.png) | Đồ thể thao chưa có giày riêng |
 | Biểu cảm `stare_grin` | Rig, cho bản sao lúc hù | |
 | Clip Nam giữa khung | [TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md), composition `HoSo02NamGiuaKhung` | Chủ repo đã duyệt bản đứng yên, lười biếng, 0,3 giây mỗi nền |
-| Cảnh jumpscare (bản cũ) | Composition `HoSo02TrailerJumpscare` trong [`trailer-jumpscare.tsx`](../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/trailer-jumpscare.tsx) | **Bỏ hẳn 10/11/2026** theo chủ repo: không dùng cho trailer/opening mới, làm lại từ đầu theo [bảng phân cảnh mới](KICH-BAN-TRAILER-VA-OPENING.md). Mã còn trong repo, chưa xóa |
