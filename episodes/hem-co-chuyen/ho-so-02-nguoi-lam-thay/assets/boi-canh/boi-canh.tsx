@@ -69,12 +69,16 @@ export const LIGHT_SOURCES = { window: [W, 150, 155] as V3, lamp: [418, 100, 37]
  * theo hướng rời xa nguồn sáng.
  */
 export const lightFor = (view: RoomView, at: [number, number], source: V3 = LIGHT_SOURCES.window, move?: CameraMove) => {
-  const chest = placeOn(view, at, 120, move), src = placeOn(view, [source[0], source[2]], source[1], move);
-  const sx = src.x - chest.x, sy = src.y - chest.y, n = Math.hypot(sx, sy) || 1;
+  // Tính trong hệ camera (phải, lên, tới), không qua phép chiếu: nguồn sáng ngang tầm máy sẽ không làm đảo dấu.
+  const cam = camera(moved(VIEWS[view], move));
+  const a = cam.toCam([at[0], 120, at[1]]), b = cam.toCam(source);
+  const dx = b[0] - a[0], dy = b[1] - a[1], dz = b[2] - a[2], dn = Math.hypot(dx, dy, dz) || 1;
+  const n = Math.hypot(dx, dy) || 1, sx = dx, sy = -dy;
+  const back = clamp(dz / dn, 0, 1); // 1: nguồn sáng ở sau lưng người so với máy (ngược sáng), 0: ngang hoặc phía máy
   const ax = at[0] - source[0], az = at[1] - source[2], an = Math.hypot(ax, az) || 1;
   const foot = placeOn(view, at, 168, move), cast = placeOn(view, [at[0] + (ax / an) * 30, at[1] + (az / an) * 30], 168, move);
   const floorY = (p: { y: number; scale: number }) => p.y + 590 * p.scale; // placeOn trả đỉnh đầu; cộng lại ra điểm sàn
-  return { x: sx / n, y: sy / n, gx: (cast.x - foot.x) / foot.scale, gy: (floorY(cast) - floorY(foot)) / foot.scale }; // px → đơn vị rig
+  return { x: sx / n, y: sy / n, back, gx: (cast.x - foot.x) / foot.scale, gy: (floorY(cast) - floorY(foot)) / foot.scale }; // px → đơn vị rig
 };
 
 const hull = (pts: P2[]) => {

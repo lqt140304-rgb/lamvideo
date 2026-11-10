@@ -646,6 +646,7 @@ export type Light = {
   shade?: string; amount?: number; // màu và độ đậm mảng tối (multiply)
   depth?: number; soft?: number; // bề rộng mảng tối và độ mềm đường chuyển, đơn vị rig
   rim?: number; rimColor?: string; // viền sáng phía nguồn sáng (screen)
+  back?: number; // 0–1: nguồn sáng ở sau người so với máy (ngược sáng) → mặt hướng máy tối hơn, viền sáng rõ hơn
   ground?: number; // độ đậm bóng tiếp đất
   gx?: number; gy?: number; // lệch bóng tiếp đất trên màn hình (đơn vị rig), lấy từ lightFor của bối cảnh
   line?: number; // hệ số độ dày nét, 1 = như mẫu
@@ -670,10 +671,12 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; chi
         <filter id={`${id}-w`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={WHITE} /></filter>
         <filter id={`${id}-k`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={BLACK} /><feGaussianBlur stdDeviation={l.soft ?? 5} /></filter>
         <mask id={`${id}-d`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}{sil(dx, dy, 'k')}</mask>
+        <mask id={`${id}-f`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}</mask>
         {!!l.rim && <mask id={`${id}-r`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}{sil(-dx * 0.45, -dy * 0.45, 'k')}</mask>}
       </defs>
+      {!!l.back && <rect {...B6} fill={l.shade ?? '#4a5260'} opacity={(l.amount ?? 0.34) * l.back * 0.55} mask={`url(#${id}-f)`} style={{ mixBlendMode: 'multiply' }} />}
       <rect {...B6} fill={l.shade ?? '#4a5260'} opacity={l.amount ?? 0.34} mask={`url(#${id}-d)`} style={{ mixBlendMode: 'multiply' }} />
-      {!!l.rim && <rect {...B6} fill={l.rimColor ?? '#fff1cf'} opacity={l.rim} mask={`url(#${id}-r)`} style={{ mixBlendMode: 'screen' }} />}
+      {!!l.rim && <rect {...B6} fill={l.rimColor ?? '#ffe2a8'} opacity={Math.min(1, l.rim * (1 + (l.back ?? 0)))} mask={`url(#${id}-r)`} style={{ mixBlendMode: 'screen' }} />}
     </g>
   );
 };

@@ -211,7 +211,7 @@ const A05: React.FC<{ f: number }> = ({ f }) => {
 };
 
 // Thử ánh sáng nhân vật trong phòng: mỗi frame một mức để so (0–2 góc nệm, 3–5 góc bếp).
-const MORNING: Partial<Light> = { rim: 0.22 }; // hướng lấy từ lightFor theo vị trí người và cửa sổ
+const MORNING: Partial<Light> = { rim: 0.45, amount: 0.42, depth: 24 }; // hướng lấy từ lightFor theo vị trí người và cửa sổ
 const LIGHT_STEPS: { label: string; light?: Light }[] = [
   { label: 'HIỆN TẠI — PHẲNG' },
   { label: 'CÓ KHỐI + BÓNG TIẾP ĐẤT (NÉT GIỮ)' },
