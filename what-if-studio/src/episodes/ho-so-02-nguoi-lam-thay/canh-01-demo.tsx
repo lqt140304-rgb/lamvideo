@@ -242,7 +242,7 @@ const Overlay: React.FC<{ f: number; wake?: boolean; w?: number }> = ({ f, wake,
         {shot.code} · {shot.label}
       </div>
       <div style={{ position: 'absolute', right: 36, top: 16, fontFamily: FONT.ui, fontSize: 18, color: 'rgba(246,239,227,.55)' }}>
-        HỒ SƠ 2 · CẢNH 1 · ANIMATIC CÂM, PHỤ ĐỀ TẠM
+        THE CRACK IN REALITY · HỒ SƠ 02 NGƯỜI TRONG GƯƠNG · CẢNH 1 · ANIMATIC CÂM
       </div>
       {cue && (
         <div style={{ position: 'absolute', left: 0, right: 0, bottom: 84, display: 'flex', justifyContent: 'center' }}>
