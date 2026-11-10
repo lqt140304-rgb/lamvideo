@@ -1,412 +1,298 @@
 # Hồ sơ 2 — Phần 2: Quen được làm thay
 
-**Bản nháp chi tiết V1 — 10/11/2026.** Viết đầy đủ theo yêu cầu mới; toàn bộ phần này đang đề xuất, chưa được duyệt nội dung. Đây là **nguồn lời duy nhất của phần 2**. Đọc [phần 1](PHAN-01-NGUOI-TRONG-PHONG.md) trước và [luật của bản nháp](LUAT-BAN-NHAP-V1.md) khi rà logic. Các thẻ cảm xúc và chỉ dẫn hình/âm không đọc thành lời.
+**Kịch bản chi tiết đã cập nhật (Bổ sung tương tác đời thực, ngôn ngữ giới trẻ & những cuộc trò chuyện lúc cày game).**
+Trọng tâm: Bước chuyển mình tâm lý của Nam từ **Chưa tin tưởng $\to$ Thả lỏng phòng vệ & Thị uy làm "ông chủ" $\to$ Giãy giụa tự ái nhưng gục ngã trước thói lười $\to$ Lần nhờ vả đầu tiên $\to$ Tâm sự & Banter lúc chơi game $\to$ Xâm lấn leo thang & Các phản kháng nửa vời $\to$ Đỉnh điểm tương phản qua clip Zalo gia đình & Chiếc gương phòng trọ.**
 
-**Nhịp thử:** khoảng 9 phút, có thể tới 10; chưa đọc thử hay đo audio. Các mốc là ngân sách biên tập, không phải yêu cầu kéo từng cảnh cho đủ giây. Cùng câu chuyện với phần 1; không cần recap dài.
+**Nhịp thời lượng dự kiến:** khoảng **6 phút 30 giây** (hài hước sinh viên ở nửa đầu, đen tối dần về nửa sau).
 
-| Cảnh | Mốc dự kiến | Chuyển biến |
+| Cảnh | Mốc dự kiến | Chức năng chuyển biến & Tương tác nhân vật |
 |---|---|---|
-| P2.01 — Cho sửa một đoạn | 0:00–1:20 | Đọc nháp → tự yêu cầu giúp → tự gửi |
-| P2.02 — Chưa kể với Tùng | 1:20–2:25 | Muốn người làm chứng → tự giấu vì muốn giữ lợi ích |
-| P2.03 — Sáng hôm sau | 2:25–3:40 | Lần đầu cho vào → chủ động nhờ thay mặt |
-| P2.04 — Cho mượn cả tên mình | 3:40–5:05 | Trao thông tin và điện thoại → cho đi gặp nhóm |
-| P2.05 — Một buổi được nghỉ | 5:05–6:20 | Hưởng lợi → chạnh lòng → tiếp tục tự bào chữa |
-| P2.06 — Câu hỏi mình không trả lời nổi | 6:20–7:45 | Được khen → lộ khoảng trống → bị giúp ngay trong việc chứng minh mình |
-| P2.07 — Lần này tao tự làm | 7:45–9:00 | Xấu hổ → thu hồi quyền → quyết định thử giành lại |
+| P2.01 — Gửi bài & Biến mất bí ẩn | 0:00–0:45 | Nam nộp bài $\to$ Trưởng nhóm khen "out trình" $\to$ Nam đề phòng đuổi Người Kia đi $\to$ Người Kia biến mất bí ẩn vào hư không. |
+| P2.02 — Chưa kể với Tùng | 0:45–1:25 | Tùng xách cơm về trêu đùa $\to$ Nam lấp liếm $\to$ Tùng tưởng bạn "giác ngộ tu tâm dưỡng tính" vì thấy phòng sạch bong. |
+| P2.03 — Sáng Ngày 2: Khóa cửa vô nghĩa & Thử lòng | 1:25–2:35 | Khóa cửa trong nhưng Người Kia vẫn ở trong phòng $\to$ Thử lòng bằng 3 củ tiền ăn $\to$ **Phản kháng 1**: Nam đập bàn thị uy làm "nóc nhà", cấm đụng vào PC. |
+| P2.04 — Trưa Ngày 2: Áp lực Lab 402 & Lần nhờ vả đầu tiên | 2:35–4:00 | Tùng réo "chiến thần gánh team" $\to$ **Phản kháng 2**: Tự ái mở sách tập nói trước gương nhưng bị "lag não", sợ mất 2 củ rưỡi học lại $\to$ Tặc lưỡi cử "pháp sư" đi gánh. |
+| P2.05 — Tâm sự lúc cày game & Comic leo thang | 4:00–5:45 | **Banter lúc chơi game** (Nam cằn nhằn thua rank, hỏi lai lịch vu vơ, than vãn áp lực người lớn $\to$ Người Kia rót mật "để tao sống thay cho") $\to$ Comic panels leo thang: **Phản kháng 3** (dọn bàn) $\to$ **Phản kháng 4** (nệm chữa lành) $\to$ mẹ gọi Zalo "ting ting viện trợ". |
+| P2.06 — Clip Zalo gia đình & Chiếc gương soi tàn tạ | 5:45–6:45 | Xem clip bác Hai khen "cháu Nam nay hết cắm mặt vào game" $\to$ Soi gương thấy cái xác tàn tạ $\to$ Khủng hoảng hiện sinh rợn tóc gáy. |
+| P2.07 — Quyết định vùng dậy | 6:45–7:25 | Người Kia mang xôi gấc về $\to$ Nam hất đổ, nổi điên gào thét đuổi đi, thề ngày mai tự đi học giành lại spotlight. |
+
+---
 
 <a id="p2-01"></a>
 
-## P2.01 — Cho sửa một đoạn
+## P2.01 — Gửi bài & Biến mất bí ẩn
 
-**Tối ngày 1, tiếp H10, khoảng 19h40.** Nam ở cạnh bàn, điện thoại trong tay. Người Kia ngồi ghế đã kéo lùi, hai tay trên đùi. Cửa khép, chốt chưa gài. Đèn bàn sáng; ngoài hành lang có tiếng người về trọ. Không phát lại câu kết phần 1.
+**Tối ngày 1, tiếp H10, khoảng 19h40.** Nam ngồi ở mép nệm, kéo laptop kiểm tra file bài tập vừa được gõ hộ. Người Kia ngồi ghế lùi lại, hai tay đặt trên đùi, nét mặt bình thản đến lạ lùng.
 
-Nam kéo tài liệu lên đầu, đọc rồi chuyển sang yêu cầu của nhóm. Ngón tay cậu dừng ở một đoạn.
+Nam đọc lướt qua, ngón tay dừng lại ở đoạn mở đầu. Từng câu từng chữ mượt mà, luận điểm sắc bén, đúng chuẩn format nghiên cứu mà ông thầy khó tính nhất khoa yêu cầu. Cậu bấm nộp file vào nhóm chat lớp.
 
-**NAM — [hesitant], vẫn nhìn màn hình:**
-> Chỗ này… đề bảo nói vấn đề trước. Sao mày đưa giải pháp lên đây?
+Chỉ 10 giây sau, chuông thông báo Zalo reo liên hồi:
 
-**NGƯỜI KIA — bình thường:**
-> Tao viết thử thôi. Mày muốn đổi thì đưa đoạn dưới lên trước.
+**TIN NHẮN TRƯỞNG NHÓM — hiển thị trên màn hình:**
+> U là trời! Đoạn mở đầu Nam viết đỉnh chóp thế! Cứ ngỡ con bot nào gánh team chứ không phải Nam hay sủi deadline nữa rồi! Ghép slide luôn đây, quả này nhóm mình out trình chắc!
 
-Nam tự bôi đen, cắt rồi dán. Câu nối bên dưới trở nên lạc ý. Cậu đọc lại, nhíu mày, định xóa cả đoạn.
+Nam ngả người ra sau nệm, thở phào một hơi khoan khoái, khóe môi khẽ nhếch lên: *"Đấy, người ta gọi là đẳng cấp..."*. Nhưng nụ cười lập tức tắt ngấm khi mắt cậu chạm vào Người Kia đang ngồi im lìm ở góc bàn. 
 
-**NGƯỜI KIA — chỉ nói khi thấy thao tác:**
-> Khoan. Giữ ý đó lại. Sửa câu nối là được.
+Một cảm giác rợn gáy chạy dọc sống lưng: Kẻ này giống hệt mình, từ vết sẹo nhỏ trên lông mày đến dáng ngồi, không rõ lai lịch. Đây là đời thực, không phải game, không thể để một kẻ quái dị ở chung phòng qua đêm.
 
-Nam ngừng tay. Người Kia không nhích ghế tới.
+**NAM — [tense, chỉ tay dứt khoát về phía cửa]:**
+> Xong việc rồi. Giờ mày ra khỏi đây đi. Đừng có lởn vởn quanh phòng tao nữa.
 
-**NAM:**
-> Mày… sửa đúng chỗ đó thôi. Tao ngồi đây coi.
+**NGƯỜI KIA — giọng đều đều, không chút biểu cảm:**
+> Ừ. Mày muốn tao đi thì tao đi.
 
-Nam nhích sang bên, vẫn đứng sát bàn. Người Kia kéo ghế vào, đặt tay lên phím sau khi Nam nhường chỗ. Gõ vài chữ, dừng để Nam đọc.
+Người Kia lẳng lặng đứng dậy, bước ra ngoài hành lang. Nam lập tức bám sát phía sau, nhanh như cắt giật cánh cửa khép sầm lại rồi gài chốt then sắt bên trong. Tiếng then sắt kêu lên một tiếng đanh gọn: *"CẠCH"*.
 
-**NAM — ngạc nhiên nhẹ, không muốn lộ:**
-> Ờ… vậy dễ hiểu hơn.
+Nam áp tai vào cửa nghe ngóng, rồi hé mắt nhìn qua khe cửa thông gió: **Hành lang tầng 2 hoàn toàn trống không, im phăng phắc dưới ánh đèn tuýp vàng vọt.** Không có tiếng dép lê, không có tiếng bước chân xuống cầu thang. Người Kia như bốc hơi vào không khí.
 
-**NGƯỜI KIA:**
-> Mày đọc tiếp đi. Chỗ nào không đúng ý thì nói.
+*(Ghi chú: Khán giả và Nam đều chưa biết Người Kia biến đi đâu; giữ trọn vẹn sự tò mò, không để lộ việc thực thể trượt vào gương).*
 
-**[NHỊP — cắt lược qua hai lượt Nam đọc, chỉ và tự sửa. Giữ một lỗi nhỏ được sửa trên hình; không biến bài thành hoàn hảo bằng một cú gõ.]**
-
-Nam ngồi xuống mép nệm cạnh bàn, kéo laptop gần mình. Người Kia đứng dậy, nhường hẳn ghế. Nam đọc dòng cuối, tự mở cuộc trò chuyện nhóm trên điện thoại rồi đăng nhập tài khoản nhắn tin của mình trên laptop bằng xác nhận từ điện thoại. Cậu tự đính kèm bản vừa đọc.
-
-**NGƯỜI KIA:**
-> Gửi chưa?
-
-**NAM — ngón tay còn ở nút gửi:**
-> Để tao kiểm tra tên file đã.
-
-Nam đổi tên, bấm gửi. Chỉ khi thấy file đã đi, cậu mới thở ra.
-
-**TIN TRƯỞNG NHÓM — trên màn hình, không đọc:**
-> Nhận rồi. Để tao ghép. Mai 11 giờ qua phòng tự học nhé.
-
-Nam ngả người ra sau. Lần đầu tiên từ sáng, vai cậu thả xuống.
-
-**NAM — [awkward], nói nhỏ:**
-> Cũng… cảm ơn.
-
-**NGƯỜI KIA — nhẹ, không nhấn thành đe dọa:**
-> Có gì đâu. Mai còn chỗ nào chưa xong thì tao làm với mày.
-
-Nam không trả lời ngay. Cậu nhìn thông báo “Nhận rồi” lâu hơn cần thiết.
-
-**Máy/diễn/âm:** 50 mm hai người cùng khung, bàn phím ở giữa để thấy ai được chạm; cận 65 mm cho lần Nam tự yêu cầu. Máy tĩnh, rung 0. Màn hình là lớp chữ riêng; lời và tiếng gõ không tranh nhau. Một nhịp thở sau khi gửi, không nhạc chiến thắng. Điện thoại và quyền gửi vẫn ở Nam.
+---
 
 <a id="p2-02"></a>
 
 ## P2.02 — Chưa kể với Tùng
 
-**Khoảng 21h30, cùng phòng.** Điện thoại của Nam sáng: Tùng báo sắp về, hỏi có mua cơm không. Nam trả lời “Hai hộp như mọi khi”, rồi nhìn sang Người Kia. Cậu chưa kể cho Tùng sự việc buổi tối.
+**Khoảng 21h30.** Tiếng chìa khóa lách cách mở cửa ngoài. Tùng xách hai hộp cơm sườn bốc khói nghi ngút bước vào, chân đá nhẹ cánh cửa khép lại.
 
-**NAM:**
-> Bạn tao về rồi. Mày ra ngoài trước đi.
+**TÙNG — đặt cộp hộp cơm xuống bàn:**
+> Cơm sườn trứng ốp la 35 cành nhiều cơm thêm của mày đây bạn ơi! Sáng nay gọi điện cho tao réo như cháy nhà, bảo có thằng 'song sinh' chui vào phòng. Rồi nó đâu rồi? Bay màu rồi à?
 
-**NGƯỜI KIA:**
-> Sáng mày bảo đợi nó về mà.
+**NAM — [awkward, bóc đũa lấp liếm để né ánh mắt dò xét của bạn]:**
+> À... thôi bỏ đi. Sáng nay tao cày rank khuya quá, mắt kèm nhèm hoa mắt tí thôi, làm gì căng. Mà công nhận dĩa cơm nay thơm xỉu!
 
-Nam mở miệng rồi khép lại. Mắt lướt qua file đã gửi.
+**TÙNG — càu nhàu, vừa tháo ba lô vừa lườm:**
+> Nhìn nhầm cái khỉ mốc! Tao đã bảo bớt thức thâu đêm leo rank đi, cày cho cố vào rồi thần hồn nát thần tính.
 
-**NAM — [defensive]:**
-> Tao biết. Nhưng giờ nó thấy cả hai thì giải thích kiểu gì?
+Tùng quay người định ra bồn rửa tay thì khựng lại, mắt tròn xoe:
+* Góc bếp sạch bóng kin kít, chén bát úp ngay ngắn ráo nước.
+* Trên màn hình laptop Nam đang mở nhóm chat môn học với lời khen nức nở của trưởng nhóm.
 
-**NGƯỜI KIA:**
-> Mày muốn tao đi thì tao đi.
+**TÙNG — bật cười trêu chọc, vỗ bôm bốp vào vai Nam:**
+> Ủa alo? Nay bồn chén sạch bong kin kít, phòng trọ thơm tho, bài tập nộp trước deadline luôn? Quả này mai chắc mặt trời mọc đằng tây quá! Hay Nam nhà ta mới giác ngộ chân lý tu tâm dưỡng tính thế?
 
-Người Kia lấy đôi dép, bước ra hành lang. Không xin tiền, không chặn cửa. Nam nhìn theo, vừa nhẹ nhõm vừa thấy mình sắp bỏ mất một sự tiện lợi.
+**NAM — [cười gượng gạo, cúi đầu lùa miếng cơm]:**
+> Gì chứ người ta cũng phải trưởng thành chứ mày, chê hoài! Ăn đi kẻo nguội!
 
-**NAM — gọi nhỏ:**
-> Ê. Mai… nếu mày còn ở đây thì gõ cửa. Đừng tự vào nữa.
+Nam vừa ăn vừa liếc nhìn căn phòng yên ắng. Cậu muốn mở miệng kể lại sự việc kinh dị ban sáng, nhưng nhìn vẻ mặt vui vẻ của Tùng và căn phòng sạch sẽ, thói ỷ lại và sĩ diện khiến cậu tự nhủ: *"Thôi, kể ra nó lại tưởng mình bị ngáo đá hay điên khùng. Đằng nào thứ đó cũng biến mất rồi, coi như tai qua nạn khỏi."*
 
-**NGƯỜI KIA:**
-> Ừ. Tao đợi mày mở.
-
-Nam khép cửa. Cắt sau một khoảng thời gian ngắn: Tùng dùng chiếc chìa duy nhất mở cửa, mang hai hộp cơm vào. Nam đã ngồi trên nệm; laptop vẫn ở bàn.
-
-**TÙNG — đặt cơm xuống:**
-> Rồi cái thằng giống mày đâu?
-
-**NAM — [awkward], bóc đũa để tránh nhìn bạn:**
-> Thôi, bỏ đi. Tao nhìn nhầm.
-
-**TÙNG:**
-> Nhìn nhầm gì mà gọi tao như cháy nhà? Tao nhắn hỏi lại mày cũng không nói.
-
-**NAM:**
-> Ừ, sáng tao hoảng quá. Giờ hết rồi.
-
-Tùng nhìn cậu, chưa thật thỏa mãn nhưng không thấy bằng chứng nào khác. Cậu liếc góc bếp sạch, rồi điện thoại vừa nhận thông báo nhóm.
-
-**TÙNG — dịu hơn:**
-> Nay còn rửa chén, gửi bài nữa. Sớm vậy có phải đỡ ai cũng giục không.
-
-Nam cười gượng, định nói gì rồi gắp cơm. Tùng ngồi xuống cạnh cậu như mọi tối.
-
-**[GIỮ 2 giây trong bữa ăn — Nam có bạn ngay bên cạnh nhưng đã tự bỏ cơ hội kể thật. Tiếng đũa, quạt; không thấy Người Kia ngoài cửa.]**
-
-**Máy/diễn/âm:** 35 mm cùng trục cửa đã có; thấy đối phương đi ra thật, không biến mất qua cắt. Khi ăn, 50 mm ngang mắt hai người; Nam gần máy, Tùng không chìm mờ lúc hỏi. Hài nhẹ trong sự lúng túng, không biến Tùng thành người dễ bị lừa một cách ngớ ngẩn. Món ăn hai hộp đủ hai người, không tự có phần cho Người Kia.
+---
 
 <a id="p2-03"></a>
 
-## P2.03 — Sáng hôm sau
+## P2.03 — Sáng Ngày 2: Khóa cửa vô nghĩa & Màn thử lòng của "Nóc nhà"
 
-**Ngày 2, sau 8h.** Tùng đã đi học, mang chìa. Nam đang dậy. Ba tiếng gõ ở cửa, cách nhau bình thường. Cậu nhìn qua khe; Người Kia áo xanh rêu, đứng lùi như hôm trước.
+**Sáng ngày 2, 7h00.** Tùng dắt xe máy đi học ca sớm, khóa cửa ngoài. Nam ở lại phòng một mình.
 
-**NAM:**
-> Đêm qua mày ở đâu?
+Vẫn còn ám ảnh chuyện hôm qua, Nam bật dậy phóng ra cửa, **cẩn thận gài chốt then sắt bên trong**. Cậu giật mạnh then cửa hai lần kiểm tra, thở phào tự đắc: *"Khóa chặt từ bên trong thế này thì có hack game cũng chả vào được."*
 
-**NGƯỜI KIA:**
-> Dưới cầu thang. Có cái ghế nhựa.
+Nam quay lưng lại định nhảy tót lên nệm ngủ nướng tiếp... Cậu **chết sững, cả người đông cứng như bị đóng băng**:
 
-**NAM — chưa mở rộng cửa:**
-> Nhà mày đâu?
+**Người Kia đã ngồi sẵn ở chiếc ghế cạnh bàn học từ lúc nào!** 
+Vẫn chiếc áo xanh rêu quen thuộc, hai tay đặt ngay ngắn trên đầu gối, ánh mắt điềm tĩnh nhìn thẳng vào Nam.
 
-Người Kia nhìn vào khoảng phòng sau lưng Nam.
+**NAM — [panicked, nhảy giật lùi đập lưng vào cửa, vớ vội cây chổi lau nhà chĩa ra thủ thế]:**
+> Mày... mày vào đây bằng cách nào?! Tao chốt then sắt bên trong rồi cơ mà?!
 
-**NGƯỜI KIA:**
-> Giờ tao chưa có chỗ về. Mày không muốn cho vào thì tao đứng đây cũng được.
+Người Kia không hề chớp mắt, cất giọng trầm tĩnh:
+> Tao có đi đâu đâu. Tao vẫn ở đây mà.
 
-Nam nhìn hành lang. Một tiếng đóng cửa ở tầng dưới làm cậu kéo người kia vào cho khỏi bị người khác thấy, rồi tự khép cửa. Cậu dừng lại, nhận ra vừa chủ động làm việc mình cấm hôm qua.
+Lưng Nam toát mồ hôi lạnh ngắt. Cậu nhận ra cánh cửa hay then khóa hoàn toàn vô dụng. Kẻ này không phải đột nhập từ ngoài đường; nó ở ngay trong căn phòng này!
 
-**NAM — lấp sự ngượng bằng giọng cứng:**
-> Đứng đó đã. Đừng lấy đồ lung tung.
+**Màn thử lòng bằng tiền ăn cả tháng:**
+* Bị kẹt cùng phòng, Nam ngồi co ro trên nệm, tay vẫn ghì chặt cán chổi lau nhà, mắt dán chặt vào Người Kia suốt cả buổi sáng.
+* Để kiểm tra xem đây là kẻ trộm giả dạng hay quỷ dữ, Nam vứt **phong bì tiền tiêu vặt đầu tháng (khoảng 3 triệu đồng mẹ mới gửi)** và chiếc **laptop đang mở** ngay trên mặt bàn giữa hai người, rồi giả vờ đi vào nhà vệ sinh hé mắt nhìn qua khe cửa.
+* Người Kia ngồi im như một pho tượng đá. Nó không hề liếc nhìn xấp tiền, không chạm vào laptop, không hề có ý định lục lọi đồ đạc. Nó chỉ ngồi đó lặng lẽ, như một chiếc bóng phục tùng.
+* Nam bước ra, thấy tiền và máy tính còn nguyên vẹn. Cậu thở hắt ra một hơi dài, hạ cây chổi xuống.
 
-Người Kia gật đầu. Nam đi rửa mặt ở bồn. Trên đường qua, hình cậu lướt qua chiếc gương khung gỗ kê cạnh hông tủ; gương đã xuất hiện trong hồi tưởng đầu phần 1. Chỉ là một vật có sẵn trong phòng, chưa đặc tả.
+**CHI TIẾT PHẢN KHÁNG 1 — Nam thị uy làm "ông chủ":**
+* Thấy Người Kia hoàn toàn vô hại và hiền lành, bản tính sĩ diện và tính chiếm hữu của Nam lập tức trỗi dậy. Cậu muốn thị uy để lấy lại thể diện:
+* Nam bước lại gần bàn, giật lấy phong bì tiền nhét tọt vào túi quần, đập mạnh tay xuống bàn, cất giọng đe dọa làm ra vẻ bề trên:
+  > **NAM — [hống hách, cố làm ra vẻ ông chủ]:**  
+  > *"Mày biết điều đấy! Đụng vào 3 củ này là tao cho mày cook ngay lập tức! Giờ nghe cho rõ đây: Phòng này tao là 'nóc nhà'! Mày chỉ được ngồi yên ở cái ghế đẩu này làm chân bảo vệ, cấm bén mảng đụng vào máy tính, ví tiền hay quần áo của tao. Tao bảo ngồi thì ngồi, bảo đứng thì đứng. Tao mà thấy mất sợi lông chân nào là mày tới công chuyện với tao đấy!"*
+* Người Kia không hề giận, chỉ gật đầu ngoan ngoãn: *"Ừ. Tao nhớ rồi."*
+* Nam thấy nó dễ bảo thì đắc chí, khóe môi khẽ nhếch lên tự mãn: *"Hóa ra cũng chỉ là một thằng lù đù. Đúng là số mình có đệ tử hầu hạ!"*. Cậu nhảy tót lên nệm nằm vắt chân chữ ngũ lướt TikTok.
 
-Nam mở nhóm: lịch gặp 11h, mỗi người phải giải thích phần mình viết. Cậu đọc đoạn mở đầu, vấp ở một câu vừa sửa tối qua.
-
-**NAM:**
-> Hôm qua mày làm chỗ này, lát mày giải thích lại cho tao được không?
-
-**NGƯỜI KIA:**
-> Được. Mày ngồi đây, tao nói từng ý.
-
-Nam kéo ghế, nghe vài câu. Cậu hiểu ý đầu, gật; tới ý tiếp theo lại nhìn đồng hồ.
-
-**NGƯỜI KIA — nhận ra cậu phân tâm, giọng gợi mở:**
-> Hay tao đi với mày?
-
-**NAM:**
-> Hai thằng giống nhau đi chung để cả trường bu lại à?
-
-**NGƯỜI KIA:**
-> Vậy tao đi. Chỗ đó tao viết cùng mày, tao nói được. Mày ở nhà nghỉ.
-
-Nam nhìn lên. Ý nghĩ vừa hấp dẫn vừa vô lý ấy khiến cậu bật cười một tiếng rồi im.
-
-**NAM — [hesitant]:**
-> Mày nói nghe dễ quá. Nó hỏi chuyện khác thì sao?
-
-**NGƯỜI KIA:**
-> Mày chỉ tao. Cái gì không biết thì tao hỏi lại mày, không tự bịa.
-
-Nam nhìn phần bài rồi nhìn nệm. Cậu còn đủ thời gian chuẩn bị, nhưng cơ hội khỏi phải đi vừa được đặt ngay trước mặt.
-
-**Máy/diễn/âm:** 35 mm lập rõ gương cạnh tủ, không thêm trục cửa mới. Chuyển nhẹ sang 50 mm khi lời đề nghị xuất hiện; focus phản ứng Nam, không zoom gương. Dùng một lần nhìn bài–nệm; không lặp độc thoại phần 1. Hành vi kéo người vào là lựa chọn có hệ quả, không lời xác nhận đã hết sợ.
+---
 
 <a id="p2-04"></a>
 
-## P2.04 — Cho mượn cả tên mình
+## P2.04 — Trưa Ngày 2: Áp lực Lab 402 & Lần nhờ vả đầu tiên
 
-**Cuối buổi sáng, nối cùng cảnh.** Nam đã thay áo thường xám nhạt; Người Kia vẫn áo xanh rêu. Điện thoại ở giữa bàn, Nam giữ phía mình.
+**11h30 trưa.** Chuông điện thoại Nam reo dồn dập. Thông báo khẩn từ nhóm môn chuyên ngành:
+* Trưởng nhóm nhắn réo rắt: *"13h chiều nay kiểm tra vấn đáp trực tiếp trên phòng Lab 402. Thầy Chủ nhiệm khoa nổi tiếng gắt gao, gọi ngẫu nhiên từng người lên bục hỏi bài tập lớn. Vắng hoặc không trả lời được là cấm thi cả nhóm!"*
+* Tùng nhắn riêng gấp gáp: *"Ê Nam ơi, chiều nay tao kẹt thi đấu bóng chuyền cho khoa rồi, đành giao lại trọng trách 'gánh xiếc' phòng Lab 402 cho mày nhé! Đừng để thầy đồ sát cả nhóm đấy, tao tin mày, chiến thần thuyết trình!"*
 
-**NAM:**
-> Một buổi thôi. Họ hỏi phần mở đầu thì nói. Đừng nhận thêm việc.
+Nam hoảng loạn thực sự. Cả tuần nay cậu có đọc chữ nào trong giáo trình đâu! Tối qua thức cày game, đầu óc rỗng tuếch. 
+> *"Chiến thần cái con khỉ mốc! Mở slide 40 trang toàn sơ đồ với thuật toán nhìn như chữ Phạn thế này thì chiến bằng niềm tin à?!"*
 
-**NGƯỜI KIA:**
-> Ừ.
+Cậu sợ chết khiếp cảnh phải vác mặt lên đứng trước mấy chục con người, bị thầy hỏi vặn rồi ú ớ, quê độ trước mặt crush và bạn bè cùng khóa.
 
-**NAM:**
-> Còn Tùng… bạn ở cùng tao. Áo xanh đậm, tóc ngắn. Nó hỏi sáng sao không đi cùng thì bảo tao… bảo mày đi trước.
+**Người Kia cất giọng từ góc bàn:**
+> Bài hôm qua tao làm, tao nắm hết ý rồi. Mày ngại đứng trước lớp thì để tao lên nói cho.
 
-Nam tự mắc ở đại từ. Người Kia chờ để cậu sửa, không cười.
+**CHI TIẾT PHẢN KHÁNG 2 — Nam tự ái, cố vùng vẫy nhưng thất bại trước thói lười:**
+* Lòng tự trọng của một thằng sinh viên năm hai bị chạm tự ái. Nam giãy nảy lên, gạt phắt đi:
+  > **NAM — [annoyed, tự ái gắt gỏng]:**  
+  > *"Mày tính dạy khôn ai đấy?! Thẻ sinh viên mang bản mặt tao, tao tự đi flex chứ mắc mớ gì nhờ mày! Mày định cướp spotlight của tao à?! Dẹp đi!"*
+* Nam quyết tâm chứng minh bản lĩnh: Cậu kéo ghế ngồi vào bàn, mở tài liệu ra đọc. Cậu đứng dậy, bước lại trước chiếc gương cạnh tủ, hắng giọng chỉnh lại cổ áo, định tập thuyết trình thử:
+  > **NAM — [lúng túng, tập nói trước gương]:**  
+  > *"Kính thưa thầy... và các bạn sinh viên... à nhầm, các đồng chí... phần nghiên cứu của nhóm em gồm có... à... gồm có ba giai đoạn... là..."*
+* Nam vấp liên tục. Cậu cà lăm, tim đập thình thịch, trán toát mồ hôi hột. Mở lại đống sơ đồ thuật toán, đầu óc Nam như bị "lag mạng", hoa mắt chóng mặt, ngáp ngắn ngáp dài. Cơn lười biếng và nỗi sợ hãi cố hữu lại trỗi dậy như thủy triều.
+* Đồng hồ điểm **12h40** — chỉ còn 20 phút nữa là vào giờ.
 
-**NAM — tự thấy kỳ, cố nói trọn:**
-> Thì cứ nói “tao đi trước”. Mày đang là tao mà.
+**Cú điểm huyệt của Người Kia:**
+* Người Kia lúc này mới chậm rãi đứng dậy. Nó đứng thẳng lưng trước chiếc gương, hai tay mở tự nhiên, ánh mắt tự tin, bắt đầu diễn tập thử một đoạn 1 phút:
+  * Giọng nói vang, rành rọt, từng luận điểm tuôn ra mạch lạc như một diễn giả chuyên nghiệp.
+* Nam đứng nhìn trân trân, vừa ghen tị vừa thấy nhẹ nhõm đến run rẩy.
+* Người Kia quay sang nhìn Nam, nói đúng một câu trúng tim đen:
+  > **NGƯỜI KIA — [calm]:**  
+  > *"Mày lên đó mà cà lăm là cả nhóm ăn con zero tròn trĩnh, chuẩn bị đóng 2 củ rưỡi một tín chỉ học lại đấy. Tùng đang đợi tin vui ở sân bóng kìa."*
 
-Nam cho xem tên nhóm, ảnh đại diện trưởng nhóm và địa chỉ phòng tự học. Đây là thông tin Người Kia được Nam trực tiếp cung cấp, không tự biết từ ký ức.
+**Khoảnh khắc Nam hoàn toàn "thả lỏng" và bước qua lằn ranh:**
+* Sự sĩ diện của Nam xẹp lép như một quả bóng xì hơi. Nỗi sợ tốn tiền học lại và sợ mất mặt trước đám đông đè bẹp sự cảnh giác. Cậu tự dối lòng: *"Thôi... quả này phải nhờ 'pháp sư' gánh team rồi. Coi như cho nó đi thử nghiệm một lần... chứ hôm nay mình mệt quá, lên đó chỉ tổ làm trò cười cho thiên hạ."*
+* Nam lục tủ, lấy chiếc áo sơ mi phẳng phiu nhất đưa cho Người Kia:
 
-**NGƯỜI KIA:**
-> Nếu đổi phòng, họ nhắn thì sao?
+**NAM — [trying to sound in control, but surrendering]:**
+> Mặc áo này vào, cầm thẻ sinh viên của tao đây. Lên phòng 402, nói đúng mấy câu vừa nãy rồi ký tên điểm danh xong thì về thẳng phòng. Cấm la cà nói chuyện với ai khác nghe chưa!
 
-Nam định bảo về hỏi, rồi nhận ra như vậy mình phải theo dõi thay. Cậu nhìn điện thoại và laptop đang mở tài khoản của chính mình.
+**NGƯỜI KIA — đón lấy thẻ sinh viên, nhìn thẳng vào mắt Nam:**
+> Ừ. Tao sẽ làm đúng như mày muốn.
 
-**NAM — miễn cưỡng đưa máy:**
-> Cầm tạm. Mã mở là…
+Cánh cửa khép lại. Nam ở lại phòng một mình, nhảy tót lên nệm bật quạt số to nhất, với tay lấy gói bim bim mở máy game cày tiếp: *"Đấy, cuộc sống phải sướng thế này chứ. Ngu gì mà vác xác lên trường!"*
 
-**[KHÔNG ĐỌC/HIỆN DÃY SỐ — Nam nói nhỏ và tự mở khóa mẫu. Không dùng thông tin thật.]**
-
-**NAM:**
-> Chỉ xem nhóm bài tập. Đừng mở ảnh hay mấy cái khác. Có gì nhắn tài khoản tao cũng vô ích, đang cùng một máy đấy… thôi, không biết thì bảo để về kiểm tra.
-
-**NGƯỜI KIA:**
-> Xong tao mang về.
-
-Nam đặt điện thoại vào tay đối phương, chưa nhả ngay. Sau một thoáng cậu mới buông.
-
-Người Kia đứng trước gương kéo thẳng cổ áo. Nam đứng lệch phía sau, sửa lại vai áo vì nếp gấp bị cuộn.
-
-**NAM:**
-> Đừng có đứng nghiêm thế. Nhìn giả lắm.
-
-Người Kia thả vai, hơi dồn trọng tâm sang một chân như Nam. Cậu thử cười. Nam nhìn, lần đầu thấy sự giống nhau có thể dùng được.
-
-**NAM — nửa đùa, nửa lo:**
-> Giống thì giống thật. Nhưng đừng làm tao mất mặt đấy.
-
-Người Kia đi ra, kéo cửa khép. Nam không khóa được từ ngoài, nhưng đang ở trong và tự gài chốt. Trên laptop, cậu tự gõ vào nhóm “Tao đi trước nhé” để khớp lời dặn. Sau đó cậu ngả xuống nệm, bật game trên laptop.
-
-**[GIỮ ngắn trên bàn tay Nam vừa trống — cậu đã tự trao cả công cụ lẫn cách xưng danh.]**
-
-**Máy/diễn/âm:** 65 mm cận tay trao máy, thấy hai cổ tay nối đúng thân; 50 mm hai người và gương trong cùng bố cục, phản chiếu vật lý bình thường lúc này. Lớp gương có bản hình phản chiếu riêng; không lật cả nền hay chữ. Tiếng cửa khép nối tiếng game từ laptop, không từ chiếc điện thoại đã đi khỏi phòng.
+---
 
 <a id="p2-05"></a>
 
-## P2.05 — Một buổi được nghỉ
+## P2.05 — Tâm sự lúc cày game & Chuỗi Comic xâm lấn leo thang
 
-**Trưa ngày 2.** Montage ngắn: Nam ở nệm chơi laptop; một ván xong; cậu vào nhóm đọc thông báo “Ghép ổn rồi”. Không có cảnh Người Kia bước vào trường chưa được thiết kế; cuộc gặp được xác nhận bằng phản hồi cụ thể sau đó.
+### Đoạn tương tác: Nam nói chuyện với Người Kia lúc cày game
 
-Tiếng gõ cửa. Nam tự mở. Người Kia trả điện thoại, đặt ngay vào bàn tay đang chờ, rồi báo lại việc đã làm.
+Sau chiến thắng 9.5 điểm vang dội ở phòng Lab 402, Nam hoàn toàn buông lỏng cảnh giác. Cậu bắt đầu quen với sự hiện diện của Người Kia trong phòng, thậm chí coi nó như một "con bot trò chuyện" biết lắng nghe và làm việc vặt.
 
-**NGƯỜI KIA:**
-> Họ đổi thứ tự hai mục. Tao ghi trong file rồi. Mai ba giờ tập nói thử.
+Một buổi tối khi Tùng đi tập văn nghệ của khoa chưa về. Nam nằm cởi trần gác chân lên tường, hai ngón tay cái bấm lia lịa trên màn hình điện thoại, mắt dán chặt vào trận game MOBA căng thẳng. Người Kia ngồi ngay ngắn trên chiếc ghế đẩu cạnh bàn học.
 
-**NAM:**
-> Có ai hỏi gì không?
+**1. Lúc combat thua & màn "roast" deadpan:**
+Màn hình điện thoại hiện chữ **"DEFEAT"** đỏ lòm. Nam quăng mạnh chiếc gối ôm xuống nệm, miệng chửi đổng:
+> **NAM — [ức chế, vò đầu bứt tai]:**  
+> *"Má nó, team óc bò, gánh còng cả lưng mà vẫn thua tụt rank! Ê mày, nãy ngồi đó thấy pha solo kill của tao khét mù không? Quả đấy tao xử lý out trình vãi chưởng!"*
 
-**NGƯỜI KIA:**
-> Tùng hỏi tối qua ngủ mấy giờ. Tao bảo muộn. Còn lại hỏi bài thôi.
+Người Kia ngồi thẳng lưng, ánh mắt phẳng lặng nhìn Nam, cất giọng đều đều rất chân thật:
+> **NGƯỜI KIA:**  
+> *"Mày feed 7 mạng. Thua vì mày đi lẻ bị bắt chứ không phải do team."*
 
-Nam mở nhóm đối chiếu. Một tin của trưởng nhóm: “Nam nói phần mở đầu nhé. Hôm nay giải thích rõ đấy.”
+Nam quạu quọ, trừng mắt:
+> **NAM — [chẹp miệng xua tay]:**  
+> *"Biết cái quái gì mà phán! Đấy là tao cố tình di chuyển tạo khoảng trống cho team ăn rồng, hiểu chưa? Đúng là thứ không biết chơi game, chả hiểu tí nghệ thuật chiến thuật nào!"*
 
-**NAM — nụ cười đến trước khi đọc hết:**
-> Ủa, được khen luôn.
+**2. Nam tò mò hỏi lai lịch vu vơ:**
+Đang trong lúc chờ tìm trận mới, Nam liếc nhìn bộ mặt giống hệt mình của Người Kia, tính tò mò của một thằng sinh viên trỗi dậy:
+> **NAM — [nửa đùa nửa thật, chỉ màn hình game]:**  
+> *"Mà ê... tao hỏi thật, rốt cuộc mày từ đâu chui ra đấy? Đừng bảo là clone nhân bản vô tính trong phòng thí nghiệm trốn ra đấy nhé? Hay người ngoài hành tinh nhập vào?"*
 
-Rồi cậu thấy lịch tập nói. Nụ cười dừng lại.
+Người Kia im lặng đúng một nhịp. Nó đưa mắt nhìn lướt qua **chiếc gương khung gỗ cạnh hông tủ**, rồi quay lại nhìn thẳng vào con ngươi của Nam, cất giọng trầm nhẹ:
+> **NGƯỜI KIA:**  
+> *"Mày ở đâu thì tao ở đó. Mày muốn tao là ai thì tao là người đó."*
 
-**NAM:**
-> Tao bảo đừng nhận thêm việc mà.
+Nam bật cười sặc sụa, vỗ đùi bôm bốp:
+> **NAM — [khoái chí]:**  
+> *"Lại văn vở triết lý TikTok rồi! Thôi kệ xác mày, quái vật hay người nhân bản cũng được, miễn là mai lên trường điểm danh với chép bài hộ tao là được. Có đệ tử như mày cũng hời phết!"*
 
-**NGƯỜI KIA:**
-> Họ phân theo phần mỗi đứa viết. Tao chưa nhận thay mày. Mày không muốn thì nhắn lại.
+**3. Nam than thở áp lực & Chiếc bẫy rót mật vào tai:**
+Ván game tiếp theo kết thúc, Nam buông thõng điện thoại xuống bụng, ngửa mặt nhìn trần nhà, thở dài sườn sượt một hơi dài:
+> **NAM — [than thở, trút bầu tâm sự]:**  
+> *"Nói thật với mày, làm người lớn mệt mỏi vãi chưởng. Hồi bé cứ mong lớn lên, giờ lớn lên thấy cái gì cũng áp lực: deadline dí ngập đầu, tiền trọ tiền ăn, ra trường thì sợ thất nghiệp, về quê thì họ hàng săm soi so sánh... Ước gì cứ nằm một chỗ chơi game ăn mì tôm cả đời mà không ai làm phiền, không ai bắt phải cố gắng phấn đấu gì cả."*
 
-Nam đặt ngón tay vào ô nhập. Gõ vài chữ từ chối, xóa.
+Người Kia lặng lẽ quan sát Nam, ánh mắt sâu hoắm như đang ghi nhớ và hấp thụ trọn vẹn từng lời buông xuôi của cậu:
+> **NGƯỜI KIA — [giọng trầm ấm, ma mị]:**  
+> *"Mày thấy mệt thì cứ nằm đây nghỉ ngơi đi. Cuộc đời ngoài kia... để tao sống thay cho."*
 
-**NAM — khó chịu với tình thế hơn với đối phương:**
-> Giờ nhắn thì lại bảo tao trốn.
+Nam tưởng Người Kia nói đùa vuốt ve tính lười của mình, khoái chí cười khẩy:
+> **NAM — [tự mãn]:**  
+> *"Mày biết điều đấy con zời! Được, thế mai đi đá bóng với thằng Tùng hộ tao luôn nhé! Nay tao phải cày nốt mùa rank này!"*
 
-Người Kia đứng chờ. Nam nhìn cậu.
+---
 
-**NAM:**
-> Mai mày nói nốt được không? Một lần nữa thôi.
+### Chuỗi Comic Montage: Xâm lấn leo thang & Phản kháng nửa vời
 
-**NGƯỜI KIA — nhẹ nhàng:**
-> Được. Mày cứ nghỉ đi.
+* **Panel 1 — 9.5 điểm bùng nổ & Group chat dậy sóng:**
+  * Thầy giáo gật đầu tấm tắc khen ngợi trước cả hội trường Lab 402. Trưởng nhóm tag Nam vào group chat lớp: *"@Nam hôm nay bị ai nhập à? Nói vanh vách như giáo sư, thầy cho 9.5 điểm luôn! Quả này Nam là idol của nhóm rồi nhé!"*.
+  * Trong phòng, Nam nằm cởi trần gác chân chữ ngũ, húp mì tôm cười tít mắt: *"Haha out trình chưa! Đúng là phong thái sếp lớn, chỉ cần cử đệ đi là ẵm trọn show!"*.
 
-Nam tự nhắn “Ừ, để tao chuẩn bị”. Nam đưa thêm cuốn sổ gáy mềm lấy trong ngăn bàn để Người Kia ghi các ý cần nói. Người Kia chỉ cầm laptop khi Nam đẩy máy sang; Nam giữ điện thoại chơi tiếp. Bữa cơm hộp tối qua đã được dọn, nhưng lần này Nam thuận miệng chỉ chén nước của mình.
+* **Panel 2 — CHI TIẾT PHẢN KHÁNG 3: Bàn học bị dọn & "Bừa bộn có kiểm soát":**
+  * Người Kia đi học về, tự ý sắp xếp lại toàn bộ bàn học của Nam theo trật tự ngăn nắp: sách vở xếp theo môn, tài liệu phân loại, bút xếp vào hộp.
+  * Nam đi vệ sinh bước ra thấy bàn học bị đổi khác, lập tức nổi cáu vì cảm giác bị xâm phạm không gian riêng:
+    > **NAM — [gắt gỏng, giật cuốn sổ lại]:**  
+    > *"Ai mượn mày dọn?! Bàn của tao là trường phái 'bừa bộn có kiểm soát', để thế tao mới có cảm hứng sáng tạo! Mày phận làm thuê thì biết điều tí coi, cấm tự tiện nghe chưa!"*
+  * Người Kia cúi đầu nhún nhường: *"Tao xin lỗi. Tao thấy bừa quá nên dọn hộ thôi."*
+  * Thấy Người Kia lại ngoan ngoãn nhận lỗi, cơn giận của Nam tan biến ngay lập tức. Cậu ngả lưng xuống nệm bấm game tiếp, tiện mồm sai vặt:
+    > **NAM — [lazy]:**  
+    > *"Cơ mà tiện tay thì đem cái thau đồ bẩn ở góc nhà đi giặt hộ tao cái, ngâm 3 ngày sắp mọc nấm rơm tới nơi rồi."*
 
-**NAM — mắt còn ở game:**
-> Tiện thì rửa luôn cái này giúp tao.
+* **Panel 3 — CHI TIẾT PHẢN KHÁNG 4: Quyết tâm dậy sớm & "Chiếc nệm chữa lành":**
+  * Thấy Tùng về phòng khen Nam nức nở: *"Nay trên trường mày đỉnh thật đấy, thầy khen trước cả khoa!"*, Nam bắt đầu cảm thấy một chút bất an ngấm ngầm: Kẻ này đang được mọi người chú ý quá mức.
+  * Nam quyết định: *"Ngày mai mình sẽ tự đi học, không nhờ nó nữa!"*. Cậu tự tay đặt báo thức điện thoại **6h00 sáng**.
+  * **Sáng hôm sau, 6h00:** Chuông báo thức reo inh ỏi. Nam thò tay ra khỏi chăn, mắt nhắm nghiền, đập tắt chuông lẩm bẩm: *"Còn sớm chán... chợp mắt thêm 15 phút nữa thôi..."*.
+  * Đến **7h kém 15**, Nam giật mình choàng tỉnh. Nhìn ra ngoài cửa sổ, trời đang mưa phùn rả rích, gió lạnh buốt. Nhìn sang góc phòng, Người Kia đã mặc sẵn quần áo chỉnh tề, đứng chờ sẵn.
+  * Cơn lười biếng và ngại rét lại chiến thắng áp đảo. Nam kéo chăn trùm kín cổ, phẩy tay tự dối lòng:
+    > **NAM — [ngái ngủ]:**  
+    > *"Trời sinh ra chiếc nệm êm ái là để chữa lành tâm hồn, mưa rét thế này dậy đi học làm gì cho hao mòn tuổi xuân... Người tao nay hơi sốt ấm đầu rồi. Ê... mày cầm ô đi học hộ tao buổi nữa đi, coi như tích công đức!"*
 
-Người Kia cầm chén đi. Nam chợt ngẩng lên, như định nói thêm “cảm ơn”, nhưng màn chơi kéo mắt cậu trở lại. Không cần lời dẫn kết tội.
+* **Panel 4 — Mẹ gọi video call & "Ting ting viện trợ":**
+  * Người Kia đi cắt tóc ngắn gọn gàng theo lời rủ của Tùng, tham gia đội bóng đá mini của khoa, thậm chí nhận làm cán sự phong trào.
+  * Buổi tối, chuông video call Zalo reo inh ỏi: **"MẸ GỌI"**. 
+  * Nam nhìn vào màn hình, thấy mặt mình đầy mụn nhọt, râu ria lởm chởm, phòng trọ nồng nặc mùi ẩm mốc. Cậu sợ bị mẹ cằn nhằn chuyện học hành và lối sống bừa bãi.
+  * Nam dúi vội chiếc điện thoại cho Người Kia: *"Mày nghe máy đi! Bắn tiếng ngọt ngào vào bảo tao đang bận cày đề cương ôn thi để mẹ gửi 'viện trợ'!"*.
+  * Người Kia cầm máy, nở nụ cười tươi tắn, nói chuyện với mẹ bằng giọng điệu ấm áp, ân cần, hỏi thăm sức khỏe bố mẹ ở quê. Mẹ Nam ở đầu dây bên kia rơm rớm nước mắt vì xúc động, chuyển ngay 2 triệu đồng vào tài khoản kèm lời nhắn: *"Mẹ thưởng cho con trai chăm ngoan nhé"*.
+  * Nam nằm trên nệm, nghe tiếng chuông điện thoại báo ting ting cộng 2 triệu thì sướng rơn: *"Đỉnh chóp! Tiền về ví rồi, tối nay làm bữa lẩu thôi!"*, hoàn toàn buông bỏ chút phòng bị cuối cùng.
 
-**Máy/diễn/âm:** lặp góc bàn–nệm phần 1 với vai trò đảo: Người Kia làm, Nam nằm. Trước câu nhờ lần nữa, giảm tiếng game và giữ gương mặt Nam đủ thấy sự lựa chọn. Một chuỗi đời thường có đối đáp đầy đủ, không montage “nó làm hết mọi thứ”.
+---
 
 <a id="p2-06"></a>
 
-## P2.06 — Câu hỏi mình không trả lời nổi
+## P2.06 — Clip Zalo gia đình & Chiếc gương soi tàn tạ
 
-**Cuối chiều ngày 2, Tùng về.** Nam đang giữ điện thoại ở gần cửa. Người Kia làm ở bàn phía sâu, bị góc tủ che khỏi cửa. Điện thoại báo Tùng nhắn “Tao lên đây”. Nam lập tức hé cửa nhìn rồi chỉ Người Kia về đầu hành lang khuất sau vế cầu thang đi lên tầng trên. Người Kia ra bằng cửa chính trước lúc Tùng lên tới tầng; không đi vào khu vệ sinh ở đầu đối diện. Nam vừa khép lại thì Tùng tới. Thấy trọn đường rút; không xuyên tủ, không có cửa phụ.
+**Chiều muộn Ngày 3.** Căn phòng trọ ngập trong bóng hoàng hôn ảm đạm. Nam nằm bẹp trên nệm, đói lả, người bốc mùi hôi hám sau 3 ngày không tắm, sàn nhà la liệt vỏ lon nước ngọt và bao bì mì tôm.
 
-**TÙNG — vui vì công việc tiến triển, đặt balô xuống:**
-> Trưa nay mày nói được đấy. Tao tưởng lại phải ngồi gỡ từng ý cho mày.
+Điện thoại rung bần bật từ nhóm Zalo **"Đại Gia Đình"**. Nam uể oải mở ra xem: Bác Hai vừa gửi một đoạn video clip ngắn 20 giây kèm tràng pháo tay chúc mừng:
+* **Trong clip:** Bữa tiệc giỗ họ hàng đông đúc, rộn rã tiếng cười nói. Người Kia đang ngồi ngay ngắn giữa mâm cỗ trưởng, hai tay nâng chén trà mời bác Hai và các cô chú lớn tuổi, miệng cười rạng rỡ, đối đáp thông minh, lễ phép.
+* **Tiếng bác Hai trong clip vang lên đầy tự hào:**
+  > *"Cả họ xem thằng Nam nhà chú Thành nay chững chạc chưa này! Biết sang sớm phụ dọn cỗ, ăn nói đâu ra đấy chứ không có cắm mặt vào điện thoại như trước nữa. Bố mẹ nó mát mặt thật đấy!"*
+* Kèm theo dòng tin nhắn của mẹ Nam trong nhóm: *"Hôm nay Nam sang làm bố mẹ nở mày nở mặt với cả dòng họ con trai ạ."*
 
-Nam cười, nhận lời khen như đang thử một chiếc áo vừa vặn lạ lẫm.
+**Cú va chạm với chiếc gương — Khủng hoảng hiện sinh bùng nổ:**
+* Nam cầm chiếc điện thoại đang sáng rực, lảo đảo lê đôi dép lẹp xẹp bước đến đứng trước chiếc gương khung gỗ cạnh tủ.
+* **Bố cục khung hình tương phản tàn nhẫn (The Split Contrast):**
+  * *Trên màn hình điện thoại:* Bản sao của cậu rạng rỡ, tràn đầy sinh khí, được cả gia đình yêu thương vây quanh trong ánh nắng ấm áp.
+  * *Phản chiếu trong gương:* Nam thật đứng đó — một cái xác tiều tụy, mắt thâm quầng trũng sâu, da mặt nhợt nhạt bóng nhẫy dầu mỡ, áo ngủ rách vai dính vụn thức ăn, lưng gù xuống như một con chuột cống rúc trong xó tối.
+* Cơn nhục nhã, ghen tị và sợ hãi bùng nổ trong lồng ngực Nam. 
+* Cậu nhìn trừng trừng vào đôi mắt của chính mình trong gương. Một nỗi kinh hoàng hiện sinh ập đến bóp nghẹt tim cậu:
+  > **NAM — ĐỘC THOẠI NỘI TÂM, run rẩy trong kinh hãi:**  
+  > *"Nó học giỏi hơn mình... bạn bè quý nó hơn mình... nó làm bố mẹ tự hào hơn mình...*  
+  > *Thế thì mình là cái thứ gì đang đứng ở đây? Ai mới là Nam thật? Ai là người thừa?!"*
 
-**NAM:**
-> Thì… tao cũng có làm chứ.
-
-**TÙNG:**
-> Ừ, tao biết. Mai đoạn đổi thứ tự, mày nối giúp tao câu đầu nha. Tại sao bỏ ví dụ kia, nhắc lại tao nghe cái.
-
-Nam nhìn laptop. Người Kia đã đổi nội dung, nhưng cậu chưa đọc. Cậu kéo máy lại, tìm đoạn Tùng hỏi.
-
-**NAM — [hesitant]:**
-> Vì… nó hơi thừa.
-
-**TÙNG:**
-> Thừa chỗ nào? Trưa mày nói lý do khác mà.
-
-Nam cuộn lên quá xa, kéo xuống. Tùng chờ, sự khó hiểu lớn dần.
-
-**NAM — [defensive]:**
-> Tao mệt. Tí nói được không?
-
-**TÙNG:**
-> Tao hỏi có một ý thôi. Nếu mày đổi thì nói để tao sửa phần tao, chứ đừng tới lúc tập mới…
-
-**NAM — gắt quá mức:**
-> Biết rồi! Lúc nào cũng bài, bài. Cho tao nghỉ tí không được à?
-
-Tùng ngừng. Cậu rút tay khỏi bàn, nhặt khăn để đi rửa mặt.
-
-**TÙNG — thấp giọng, không mỉa mai:**
-> Tao hỏi vì nghĩ giờ mày nắm phần đó. Mày không muốn nói thì thôi.
-
-Tùng đi ra hành lang. Nam nhìn chỗ bạn vừa đứng. Lúc này mới thấy câu gắt của mình đã làm hỏng điều gì.
-
-Điện thoại nhóm hiện yêu cầu ghi một đoạn giải thích ngắn để cả nhóm nghe. Nam bấm thu thử, nói vài chữ rồi dừng. Xóa bản thu nháp chưa gửi.
-
-Người Kia trở lại ngưỡng cửa đang mở khi Tùng đi về phía khu vệ sinh; chưa bước vào.
-
-**NGƯỜI KIA:**
-> Tao nói lại cho mày nghe nhé?
-
-**NAM — còn xấu hổ nên càng cứng:**
-> Không cần. Tao tự biết.
-
-Người Kia im. Nam thử thêm một lần, vấp đúng chỗ cũ.
-
-**[GIỮ 2 giây — màn thu âm vẫn chạy, có hơi thở của Nam. Cậu tự bấm dừng. Không phát giọng Người Kia để cứu cậu ở nhịp này.]**
-
-**Máy/diễn/âm:** đầu cảnh 35 mm cho đường đi và vị trí Tùng; sau đó hai người trên cùng trục 50 mm. Không cắt sang biểu cảm ác của Người Kia. Cận Nam 65 mm sau khi Tùng đi, nền đủ nhỏ và lùi để mặt/tay đọc rõ. Tiếng môi trường vẫn liền qua cú gắt; nhạc không ép người xem ghét Tùng.
+---
 
 <a id="p2-07"></a>
 
-## P2.07 — Lần này tao tự làm
+## P2.07 — Quyết định vùng dậy
 
-**Ít phút sau.** Tùng trở lại phòng; Nam ra dấu cho Người Kia quay về đầu hành lang khuất sau vế thang; nó đi khỏi ngưỡng cửa trước khi Tùng từ khu vệ sinh đầu đối diện trở lại. Tùng thấy Nam ngồi nhìn bản thu chưa gửi.
+Tiếng chìa khóa mở cửa nhẹ nhàng. Người Kia đi ăn giỗ về, mặc chiếc áo sơ mi phẳng phiu trắng tinh, tay xách túi hoa quả và đĩa xôi gấc bác Hai gói cho mang về. 
 
-**NAM — [remorseful], không nhìn bạn ngay:**
-> Nãy tao nói hơi quá. Tao xin lỗi.
+Nó bước vào phòng, mỉm cười đặt túi hoa quả lên bàn:
+> Bác Hai gửi hoa quả với xôi gấc cho mày này. Bác bảo mày dạo này gầy quá, nhớ ăn nhiều vào cho có da có thịt.
 
-**TÙNG:**
-> Ừ.
+Nam nhìn túi hoa quả, rồi nhìn bộ mặt giống hệt mình nhưng ngập tràn vẻ tự tin và sức sống. Cảm giác mình đang bị xóa sổ hoàn toàn khỏi thế giới này biến thành một cơn thịnh nộ tuyệt vọng.
 
-**NAM:**
-> Đoạn mai… để tao tự chuẩn bị. Tối mày nghe tao nói thử được không?
+**NAM — [shaking with rage & fear], gạt phắt túi hoa quả rơi tung tóe xuống sàn:**
+> Cút! Mày cút khỏi cuộc đời tao ngay! Tao không cần mày đi học thay, không cần mày đóng vai cháu ngoan trò giỏi hộ tao nữa! Mày là đồ quái thai cướp đoạt cuộc đời tao!
 
-Tùng nhìn cậu, cân nhắc lời hứa lần này.
+Người Kia đứng yên, không hề tức giận. Nó chỉ nhìn Nam bằng ánh mắt sâu hoắm, phẳng lặng như một mặt hồ không đáy:
+> Mày chắc không? Mày thực sự muốn tự sống cuộc đời của mày à?
 
-**TÙNG:**
-> Được. Nhưng chín giờ thì chín giờ. Đừng để tao ngồi đợi rồi mày lại bảo chưa làm.
+**NAM — [gào lên, chỉ tay ra cửa]:**
+> Tao chắc chắn! Từ ngày mai tao sẽ tự đi học, tự gặp bạn bè, tự giành lại vị trí của tao! Cút ra ngoài!
 
-**NAM:**
-> Ừ. Tao làm bây giờ.
+Nam lao tới đẩy Người Kia ra khỏi phòng rồi đóng sầm cửa lại, gài chặt then sắt. Cậu tựa lưng vào cửa, thở dốc trong bóng tối. 
 
-Cắt lược tới lúc Tùng đã ra ngoài mua đồ ăn. Nam mở cửa, nói với Người Kia đang đứng ngoài. Cậu không mời vào bàn.
-
-**NAM — cố nói rõ, bớt hung hăng:**
-> Từ giờ mày đừng đi gặp nhóm nữa. Điện thoại cũng không đưa. Tao tự làm phần còn lại.
-
-**NGƯỜI KIA:**
-> Tao làm sai chỗ nào à?
-
-**NAM:**
-> Không. Chính vì mày làm được hết nên tao mới…
-
-Nam ngừng, tìm cách nói điều mình cũng vừa hiểu.
-
-**NAM — [frustrated], nhỏ dần:**
-> Trưa nó nói chuyện với mày. Chiều nó hỏi tao. Tao chẳng biết trả lời sao. Cứ vậy rồi tao còn ở đây để làm gì?
-
-**NGƯỜI KIA — vẫn có vẻ quan tâm:**
-> Tao có bắt mày làm gì đâu. Mày muốn tự làm thì cứ làm. Bí chỗ nào gọi tao.
-
-Người Kia lùi khỏi cửa. Nam tự khép, gài chốt. Cậu đổi mã mở điện thoại; thao tác này thu hồi quyền biết mã cũ, không đọc dãy số. Đặt điện thoại úp xuống, mở bài và bắt đầu đọc thành tiếng.
-
-Một câu ngắc ngứ. Nam định với điện thoại, dừng tay giữa chừng rồi kéo giấy lại. Cậu viết ra ba ý cần hiểu.
-
-Trong gương cạnh tủ, hình Nam vẫn cúi ở bàn khi Nam ngoài gương đã ngẩng lên tìm bút — sai lệch thoáng qua, chỉ đủ để người xem nghi, Nam chưa nhìn thấy. Không âm nhấn, không đặc tả, chưa xác nhận bản chất.
-
-**[KẾT PHẦN — 3 giây Nam tự viết tiếp. Tiếng bút thay tiếng game. Câu hỏi được mở là cậu có giành lại được vai trò hay không.]**
-
-**Máy/diễn/âm:** trung cảnh Nam và bàn, gương ở lớp sau nhưng đủ đọc chuyển động. Giữ nguyên trục hình thể; lần sai nhịp là hiện tượng có chủ ý của truyện, không lỗi rig. Người Kia ở ngoài nên hình gương bất thường chưa được giải thích bằng một bản sao đứng ngay sau Nam. Không dựng rõ một sinh vật trong gương ở đây.
-
-## Trạng thái chuyển phần
-
-- Nam đã tự gửi bài, một lần cho mượn điện thoại/mã và cho đối phương đại diện tại nhóm; cuối phần lấy lại máy, đổi mã, rút quyền gặp nhóm.
-- Tùng đã gặp Người Kia ngoài phòng nhưng tưởng đó là Nam; chưa từng thấy hai người cùng lúc. Nam đã tự rút lời kể buổi sáng. Sự nghi ngờ của Tùng chỉ mới đến từ cách Nam nói về bài thay đổi.
-- Người Kia biết đúng những thông tin được Nam chỉ và điều quan sát được trong buổi họp; không đọc nội tâm, không biết mã mới. Mỗi lần tránh Tùng đều có đường đi qua cửa chính.
-- Nam có kế hoạch thật: tự hiểu bài và nói thử với Tùng lúc 21h. Chưa có quyền siêu nhiên nào chuyển vì được nhờ làm bài; đó là quá trình chiếm chỗ xã hội.
-- Người Kia vẫn có thể giả Nam ngoài đời dù bị rút lời cho phép; mất quyền hợp lệ không làm nó mất mặt/giọng. Phần 3 phải cho thấy hành vi giả danh vượt giới hạn, không gọi đó là Nam tiếp tục đồng ý.
+Nhưng khi Nam ngẩng đầu lên nhìn về phía góc tủ, chiếc gương khung gỗ dường như đang phát ra một luồng khí lạnh buốt rợn người, và bóng tối trong gương dường như đang mỉm cười chờ đợi cậu.

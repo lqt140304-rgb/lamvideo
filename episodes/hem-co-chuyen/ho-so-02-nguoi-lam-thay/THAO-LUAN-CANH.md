@@ -1,13 +1,16 @@
 # Hồ sơ 2 — Quyết định và thảo luận
 
-**Chốt hướng kết mới nhất của chủ repo:** Nam bị nhốt trong thế giới gương; Người Kia thay thế Nam ngoài đời. Giữ kết mở về khả năng thoát và việc người quen có nhận ra hay không. Chỉ hướng kết này đã chốt; cơ chế bắt, lời và dàn cảnh cụ thể vẫn là đề xuất V1.
+**Chốt hướng kết và kịch bản chính thức (Chủ repo đã DUYỆT ngày 11/11/2026):** 
+1. **Thời lượng chuẩn 15 phút** (cấu trúc 3 hồi: Hồi 1 ~4:50, Hồi 2 ~6:30, Hồi 3 ~3:45).
+2. **Giữ kín tuyệt đối bí mật chiếc gương ở Phần 1**: Chiếc gương chỉ là đồ sinh viên nhặt về ở góc cho tặng; không lộ chuyện quái vật trong gương quan sát để tăng tối đa sự tò mò.
+3. **Chi tiết phản kháng "cho có lệ"**: Nam có tự ái, sĩ diện, đập bàn thị uy làm "ông chủ", tự tập thuyết trình trước gương, tự đặt báo thức 6h dậy sớm đi học... nhưng đều gục ngã trước thói lười biếng và ỷ lại.
+4. **Bổ sung tương tác Gen Z & trò chuyện cày game**: Những màn cằn nhằn thua rank, roast deadpan của Người Kia, Nam hỏi lai lịch vu vơ, than vãn áp lực người lớn $\to$ Người Kia rót mật *"để tao sống thay cho"*.
+5. **Cơ chế hoán đổi tâm lý (Xóa bỏ cảnh đánh nhau)**: Bị giảng đường đào thải vì rỗng kiến thức $\to$ Bị trừ 2 điểm chuyên cần $\to$ Tùng thất vọng $\to$ Nam về phòng soi clip Zalo đối chiếu căn cước phát hiện nốt ruồi đảo bên $\to$ Cầm búa định đập gương $\to$ Người Kia đối chất tâm lý bóc trần bản chất $\to$ Ý chí buông xuôi, mặt kính hóa nước nuốt Nam.
+6. **Đoạn kết rợn ngáy (Quiet Horror)**: Tùng mua bún chả về, phát hiện nốt ruồi bên phải và thói quen tay trái; Người Kia cài then sắt phòng trọ.
 
+---
 
-**Cập nhật 10/11/2026:** đã có [kịch bản chi tiết đủ ba phần V1](KICH-BAN.md). Lời nguồn được chuyển vào từng file PHAN để mở phần nào đọc ngay phần đó; file này giữ quyết định và mức duyệt, không giữ bản thoại thứ hai. Các đoạn từng duyệt đã được bảo toàn lời khi chuyển file.
-
-**Yêu cầu mới:** mỗi phần có thể tới 10 phút; thêm hồi tưởng nhanh bằng giọng đọc để giới thiệu Nam trước tuyến chính; viết luôn các phần chưa có kịch bản chi tiết. Bản hiện tại thử nhịp 9:40 / 9:00 / 9:00, tổng 27:40, chưa đo diễn/giọng.
-
-## Những điều người dùng đã chốt
+## Những điều người dùng đã chốt chính thức (Đã duyệt)
 
 - Series dùng cách gọi Hồ sơ 1, Hồ sơ 2…
 - Nhân vật chính là Nam, sinh viên năm hai, lười nhác. Không đổi thành nữ thợ may hoặc tự thay tính lười bằng hoàn cảnh kiệt sức.

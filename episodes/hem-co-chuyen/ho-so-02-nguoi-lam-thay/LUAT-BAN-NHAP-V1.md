@@ -1,59 +1,79 @@
-# Hồ sơ 2 — Luật và tính liên tục của bản nháp V1
+# Hồ sơ 2 — Luật và tính liên tục của kịch bản đã cập nhật
 
-**Chốt hướng kết mới nhất của chủ repo:** Nam bị nhốt trong thế giới gương; Người Kia thay thế Nam ngoài đời. Giữ kết mở về khả năng thoát và việc người quen có nhận ra hay không. Chỉ hướng kết này đã chốt; cơ chế bắt, lời và dàn cảnh cụ thể vẫn là đề xuất V1.
+**Chốt hướng kết, thời lượng và cơ chế theo phê duyệt mới nhất:** 
+1. **Thời lượng chuẩn 15 phút** (cấu trúc điện ảnh 3 hồi hoàn chỉnh: Hồi 1 ~5:00, Hồi 2 ~6:30, Hồi 3 ~4:00).
+2. **Giữ bí mật tuyệt đối nguồn gốc gương ở Phần 1**: Khán giả và Nam chỉ thấy chiếc gương là vật dụng sinh viên bình thường nhặt về góc trọ; Người Kia xuất hiện bí ẩn như một người lạ giống hệt mình. Không hề lộ chuyện thực thể quan sát từ gương ở phần đầu để đẩy sự tò mò lên đỉnh điểm. Bí mật chỉ được Nam bóc tách dần qua nốt ruồi đảo ngược ở cuối Phần 2 và được lột trần ở Phần 3.
+3. **Chi tiết phản kháng "cho có lệ" của Nam**: Nam có lòng tự ái, sĩ diện của con trai, có giãy giụa và thị uy làm "ông chủ", có cố gắng tự tập thuyết trình và đặt báo thức dậy sớm. Nhưng tất cả phản kháng đều gãy đổ trước thói lười biếng, ngại va chạm đám đông và sự ỷ lại cố hữu.
+4. **Không dùng va chạm vật lý đánh nhau xô đổ gương**: Thay bằng **màn đối chất tâm lý bóc trần bản chất $\to$ cái bẫy buông lỏng tinh thần (surrender of will) $\to$ mặt kính hóa nước**. 
+5. **Đoạn kết rợn ngáy (Quiet Horror)**: Tùng chột dạ nhận ra nốt ruồi đảo bên / thói quen tay trái; Người Kia cài then sắt cửa phòng.
 
+---
 
-**10/11/2026 — tài liệu cho người viết/dựng, có tiết lộ kết.** Chủ repo yêu cầu viết luôn ba phần chi tiết sau khi mở rộng mỗi phần tới 10 phút. Những lựa chọn cụ thể dưới đây phục vụ một bản nháp đọc trọn; chưa thành lore chính thức của series và chưa phải lệnh dựng.
+## 1. Bí mật chiếc gương & Bản chất thực thể
 
-## Những điều đã chốt trước và phương án mới
+1. **Giữ bí mật chiếc gương ở giai đoạn đầu (Pacing & Mystery):**
+   - Chiếc gương khung gỗ Nam nhặt ở góc đồ cho tặng dãy trọ vào một tuần trước (O01) chỉ mang tính chất gieo đạo cụ đời thường.
+   - Tuyệt đối không có lời dẫn hay góc máy ma quái nào tiết lộ "có quái vật trong gương quan sát Nam". Người xem phải tò mò tự hỏi: *Kẻ giống Nam này là ai? Ảo giác của Nam do thức đêm? Anh em sinh đôi thất lạc? Hay một kẻ mạo danh?*
+   - Khi Nam đuổi Người Kia ra hành lang ở cuối P1, Người Kia tan biến bí ẩn; Nam chỉ thấy hành lang vắng lặng chứ không thấy nó chui vào gương.
+   - Sang sáng Ngày 2 (P2.03), Nam khóa chặt cửa trong nhưng Người Kia vẫn ung dung ngồi sẵn trong phòng. Nam hoảng loạn không hiểu tại sao. Người Kia chỉ nói vu vơ: *"Tao có đi đâu đâu, tao vẫn ở đây mà"*.
+   - Manh mối chiếc gương chỉ bắt đầu xuất hiện gián tiếp khi Người Kia đứng tập thuyết trình trước gương, rồi bùng nổ khi Nam đối chiếu clip Zalo gia đình với gương soi (P2.06 - phát hiện nốt ruồi đảo bên), và được khẳng định chắc nịch ở P3.03 - P3.04.
 
-| Đã được người dùng chọn | Cách cụ thể hóa mới trong V1, chờ duyệt |
-|---|---|
-| Nam là sinh viên năm hai lười nhác; bản sao ban đầu giúp rồi thay thế hoàn toàn | Diễn biến qua ba ngày; Nam cho mượn tên/điện thoại để họp nhóm, rồi rút quyền và thú nhận |
-| Người Kia sinh ra từ gương, nốt ruồi đối bên; chỉ cuối mới xác nhận bản chất và sự nhắm tới | Chiếc gương khung gỗ Nam lấy ở góc đồ cho tặng một tuần trước; kẻ trong gương đã quan sát từ lúc ấy |
-| Tùng ban đầu không tin; Nam cần có cảm xúc và tính người | Tùng cùng nhóm học, gặp bản sao ở buổi họp nhưng chưa thấy hai Nam cùng lúc; tin sự việc nghiêm trọng sau lời thú nhận và clip |
-| Chốt mới: Nam bị nhốt trong thế giới gương, Người Kia thay thế, kết mở | Cách ép tiếp xúc gương gốc và Tùng đưa bản sao ra ngoài là phương án V1; chưa trả lời Nam có thoát được hay Tùng sẽ phát hiện không |
+2. **Tại sao thực thể chọn Nam (thay vì Tùng)?**
+   - Nam là sinh viên năm hai lười nhác, trốn học ở lì trong phòng trọ, lướt điện thoại, và đặc biệt **thường xuyên đứng trước gương vuốt tóc, thở dài, than vãn về bản thân**.
+   - Thực thể bên trong mặt kính đã hấp thụ trọn vẹn năng lượng trì hoãn, sự tự ti và thói lười biếng của Nam suốt 7 ngày qua để sao chép hình dáng.
+   - Tùng là sinh viên năng động, kỷ luật, đi học và chơi thể thao suốt ngày, về phòng chỉ để ngủ rồi đi tiếp, hiếm khi soi gương nên không bị nhắm tới.
 
-## Giới hạn dùng nhất quán trong bản nháp
+---
 
-1. **Một cá thể từ một gương gốc.** Nó học mặt, giọng và dáng của người ở trước gương; khi đã có thân ngoài đời, dấu cơ thể bị đảo bên. Nó đã đi ra vào đêm trước phần 1; hồi tưởng cuối xác nhận, không có câu ước hay giao kèo ngầm.
-2. **Quan sát không phải đọc trí óc.** Nó học sinh hoạt qua gương, còn nhóm học, địa điểm và mật mã do Nam tự chỉ sau đó. Độc thoại nội tâm không lọt tới nó. Nó không biết mã Nam đổi cuối phần 2.
-3. **Thân ngoài đời phải dùng cửa, đi bộ, cầm đồ thật.** Không xuyên tường, không dịch chuyển, không tự mở khóa hay xóa dữ liệu từ xa. Khi Nam rút quyền giúp, nó vẫn có mặt/giọng để tiếp tục giả danh; đó là cố tình vượt giới hạn, không phải lời cho phép mới.
-4. **Mặt kính gốc là chỗ bắt người thật.** Cần mặt kính lộ và bàn tay trần của chính Nam chạm nó; lực kéo đến từ phía gương sau tiếp xúc. Bản sao phải dùng sức giữ tay Nam vào kính ở đoạn kết. Khung gỗ và khăn che không dẫn qua. Người ngoài không bị hút chỉ vì liếc thấy gương. Luật này là lựa chọn mới, phải được gieo bằng tay phản chiếu tự tiến về mặt kính và phản ứng của Người Kia với khăn che trước cú bắt.
-5. **Phía trong là thế giới phản chiếu.** Nam thấy bên ngoài nhưng chưa vượt lại được mặt kính bằng cách đập/đẩy. Cửa phòng dẫn sang hành lang đảo chiều trong cùng thế giới, không tự đưa cậu về đời thật. Chưa khẳng định không tồn tại một đường thoát khác. Từ ngoài vẫn thấy phản chiếu căn phòng, không thấy người bị giam. Tiếng trong không xuyên ra. Cảnh quay bên trong phải đổi điểm nhìn rõ, không để Tùng nghe/nhìn tiếng kêu mà làm ngơ.
-6. **Thay thế xã hội và bắt người là hai việc khác nhau.** Nhận làm bài không tự cộng điểm phép thuật hoặc trao linh hồn. Giúp đỡ tạo cơ hội quan sát, quyền đại diện và khiến Nam giấu sự việc. Khi Nam rút quyền và tìm người chứng kiến, nó bỏ vẻ thân thiện, tìm cách giữ vị trí bằng gương. Không có luật “người lười đáng bị trừng phạt”.
-7. **Bằng chứng có giới hạn thật.** Nam gửi thành công clip gương lạ cho Tùng; bản sao không xóa được clip ấy từ xa. Clip cuối ghi giằng co nằm trên máy đang mở và bị xóa bằng thao tác; không cam kết không thể khôi phục. Tùng biết có nguy hiểm, nhưng clip đã nhận không chứng minh ai đang đứng trước mặt sau biến cố.
+## 2. Các nỗ lực phản kháng "cho có lệ" của Nam
 
-## Gieo và trả
+Nam không ngu ngốc đến mức dâng hiến cuộc đời ngay lập tức. Cậu có bản năng phòng vệ và lòng tự ái:
+1. **Phản kháng 1 (Sáng Ngày 2 - Sau màn thử tiền):**
+   - Khi thấy cọc tiền 3 triệu còn nguyên, Nam hạ chổi lau nhà nhưng lập tức "thị uy" xưng hô mày - tao: *"Phòng này tao là chủ! Mày chỉ được ngồi yên ở cái ghế đẩu này, cấm đụng vào máy tính, ví tiền hay quần áo của tao!"*.
+   - Nam tự mãn tưởng mình thuần phục được một "kẻ hầu vô hình", tự phong mình làm "ông chủ".
+2. **Phản kháng 2 (Trưa Ngày 2 - Trước vụ Lab 402):**
+   - Bị dí thuyết trình, Người Kia ngỏ ý đi hộ, Nam tự ái giãy nảy: *"Mày điên à? Thẻ sinh viên có tên tao, tao tự đi! Mắc mớ gì nhờ mày!"*.
+   - Nam quyết tâm lấy lại phong độ: Mở tài liệu ra đọc, đứng trước gương tập nói thử. Nhưng chỉ được 2 câu là vấp, cà lăm, toát mồ hôi hột. Nhìn xấp tài liệu 40 trang thuật ngữ, Nam hoa mắt buồn nôn.
+   - Người Kia chêm đúng một câu điểm huyệt: *"Mày lên đó mà ú ớ là thầy trừ điểm cả nhóm đấy. Tùng đang đợi ở sân banh kìa."*
+   - Cơn lười và nỗi sợ mất mặt trước đám đông đè bẹp sĩ diện. Nam tặc lưỡi buông xuôi trao thẻ: *"Thôi... lần này thôi. Coi như cho nó đi thử nghiệm một lần... chứ hôm nay tao mệt quá."*
+3. **Phản kháng 3 (Chuỗi tha hóa - Các phản kháng nửa vời):**
+   - *Lần Người Kia dọn bàn:* Người Kia tự ý xếp lại bàn học ngăn nắp, Nam cáu giật lại sổ: *"Ai cho mày động vào đồ của tao? Tao để bừa là có trật tự của tao!"*. Nhưng 5 phút sau Nam lại bảo: *"Mà thôi... giặt luôn thau quần áo góc phòng hộ tao đi"*.
+   - *Lần quyết tâm tự đi học:* Thấy Người Kia được thầy khen, Nam sợ bị cướp chỗ nên đặt báo thức 6h00 sáng để "ngày mai tự đi học". Chuông reo, Nam tắt đi ngủ tiếp đến 7h kém 15. Thấy ngoài trời mưa lạnh, Nam lại quay sang bảo Người Kia: *"Nay trời mưa lạnh quá, người tao hơi sốt... Mày đi học hộ tao buổi nữa đi"*.
+   - *Lần mẹ gọi video:* Nam toan bấm nghe, nhưng thấy râu ria nhếch nhác và sợ bị cằn nhằn chuyện học hành, Nam lại dúi máy cho Người Kia: *"Bảo tao đang ôn thi bận lắm"*.
 
-| Chi tiết được thấy | Lúc gieo | Lúc có nghĩa mới |
+---
+
+## 3. Cơ chế hoán đổi: Cái bẫy buông lỏng tinh thần & Mặt kính hóa nước
+
+1. **Nguyên lý bảo toàn:** Muốn một bản sao bước ra đời thực hoàn toàn, **bắt buộc phải có người thật bước vào thế chỗ bên trong gương**.
+2. **Điều kiện sập bẫy:**
+   - Thực thể không thể dùng vũ lực thô bạo lôi Nam vào gương. Nó cần Nam **tự nguyện chuyển giao quyền kiểm soát và buông xuôi ý chí sinh tồn**.
+   - Mỗi lần Nam lười biếng đẩy Người Kia đi làm thay (thuyết trình, đá bóng, dọn dẹp, ăn giỗ họ hàng), Nam đã tự cắt bỏ từng sợi dây liên kết của mình với thế giới thực.
+   - Khi Nam nhận ra mình bị xã hội đào thải (ở P3.01 - P3.02) và nhận ra mình hoàn toàn vô dụng, ý chí tự vệ của Nam sụp đổ 100%.
+3. **Cách thức bắt người ở đoạn kết (Xóa bỏ cảnh đánh nhau):**
+   - Không có cảnh xô xát, đấm đá, làm vỡ kính.
+   - Nam cầm búa định đập gương, nhưng bị Người Kia bóc trần tâm lý: *"Mày lười biếng, mày muốn trốn chạy cuộc đời. Giờ mày đập gương rồi mày lấy cái thân xác ăn hại này ra làm khổ bố mẹ tiếp à?"*. Chiếc búa rơi xuống sàn.
+   - Người Kia dụ Nam áp tay vào gương ("Vào trong đó đi, không ai bắt mày phải cố gắng nữa").
+   - **Mặt kính không vỡ, mà biến mềm và gợn sóng như mặt nước đêm lạnh buốt.** Bàn tay Người Kia trong gương siết chặt cổ tay Nam, kéo chìm Nam vào sâu bên trong một cách lặng lẽ, êm ru và nghẹt thở. Mặt gương phẳng lặng trở lại.
+
+---
+
+## 4. Chiếc gương phản chiếu thật & Cú sốc Zalo gia đình
+
+1. **Gương là vật phản chiếu quang học, không phải màn hình ma thuật:** Tránh biến phim thành kỳ ảo rẻ tiền bằng cách cho gương phát sóng trực tiếp như TV.
+2. **Kênh tiếp nhận thông tin:** Nam nhận được clip 20s trong nhóm Zalo "Đại Gia Đình" do bác Hai gửi lên khen "cháu Nam nay chững chạc, lễ phép, biết phụ dọn cỗ".
+3. **Cú đối chiếu tàn nhẫn (The Split Contrast):**
+   - Trên màn hình điện thoại: Bản sao rạng rỡ, đĩnh đạc, được cả họ chúc tụng.
+   - Trong gương phòng trọ: Nam thật tiều tụy, mắt thâm quầng, người hôi hám, áo rách vai, lưng gù như chuột cống.
+   - Nam khủng hoảng hiện sinh: *"Ai mới là Nam thật? Ai là người thừa?"*.
+
+---
+
+## 5. Phân bổ thời lượng chuẩn 15 phút
+
+| Hồi | Thời lượng | Trọng tâm nội dung |
 |---|---|---|
-| Nam đem gương về, soi rồi quay đi | P1.00 O01, chưa bất thường | P3.07 giữ thêm phần cuối cùng bố cục: đôi mắt trong kính nhìn theo |
-| Áo xanh ở ghế, Nam áo ngủ xám | P1.00 O04; P1.01 thấy người khác mặc áo | P3.07 thấy nó tách khỏi kính rồi lấy áo thật; không áo được tạo từ phép |
-| Nốt ruồi đối bên | Tạo hình từ đầu, không đặc tả báo trước | P3.03 đối chiếu ảnh trực tiếp; gợi nghi chứ chưa giải thích mọi luật |
-| Thói quen, giọng, tư thế | Sinh hoạt trong phòng; Nam còn dạy cách gặp bạn ở P2.04 | Người Kia đại diện đủ tự nhiên để Tùng tưởng Nam |
-| Hình chậm hơn người | Cuối P2.07, chỉ người xem thấy | P3.03 Nam kiểm lại, quay được và gửi đi |
-| Tay trong kính tự tiến về bề mặt; khăn chặn hình | P3.03 | P3.05 đối phương phải kéo khăn/xoay gương bằng tay; P3.06 cần ép tiếp xúc |
-| Nam nhận trách nhiệm với bài; Tùng sẵn lòng nghe | P3.01–02 | Kết vẫn có người quan tâm cậu; mất mát không phải bị cả xã hội ghét bỏ |
-
-## Dòng thời gian và quyền
-
-| Mốc | Nam / Người Kia | Tùng / thông tin | Vật và quyền |
-|---|---|---|---|
-| Một tuần trước | Nam lấy gương; thực thể bắt đầu quan sát theo phương án V1 | Tùng giữ cửa khi mang gương vào, chưa có nghi vấn | Gương cạnh hông tủ, chèn chân |
-| Tối trước ngày 1 | Nam hẹn rửa chén, ngủ; thực thể ra ngoài sau đó | Tùng ngủ phía sát tường | Áo xanh ở ghế; một chìa của phòng |
-| Ngày 1, sáng–19h30 | Chuỗi A–H đã có; Nam tự kiểm đồ/tin/nháp | Tùng ở trường/thể thao, chưa thấy bản sao | Không chép lại hoặc thay lời đã duyệt |
-| Ngày 1, tối | Nam tự gửi bài, hẹn Người Kia mai gõ cửa, rồi nói với Tùng rằng mình nhìn nhầm | Tùng về với hai hộp cơm; thấy người thật | Người Kia chờ ngoài dãy; không ở cùng khi Tùng về |
-| Ngày 2, sáng–trưa | Nam tự cho vào, giao máy/mã, chỉ tên/nhóm và nhờ đi họp | Tùng gặp Người Kia, tưởng Nam | Nam ở nhà dùng laptop; Người Kia mang điện thoại rồi trả |
-| Ngày 2, chiều–tối | Nam không giải thích được bài; xin lỗi, lấy lại quyền, đổi mã; tự tập nói | Tùng nghe Nam thật lúc 21h, thấy một bước tiến | Sổ có từ P2.05; gương giữ vị trí; không thêm máy cho bản sao |
-| Ngày 3, đầu chiều | Người Kia gặp Tùng dưới sân, tự nói thay dù bị cấm; Nam thú nhận và quay gương | Tùng nhận clip, quay về để giúp | Clip thử ở cả hai máy; Nam giữ điện thoại mã mới |
-| Ngày 3, đối đầu | Nam định ra chỗ đông người, bị chặn; chống lại và bị ép vào gương | Tùng tới sau khi mặt kính khép | Máy mở khi ghi, bản sao xóa clip cuối bằng tay; không biết mã mới |
-| Kết | Người Kia ra ngoài với Tùng; người thật còn trong gương | Tùng vẫn nghi gương/người lạ, không bị xóa ký ức | Tin thú nhận và clip thử còn tồn tại; chưa bảo đảm bản sao qua mọi kiểm tra về sau |
-
-## Điểm cần duyệt hoặc thử tiếp
-
-- Hướng Nam bị nhốt trong thế giới gương, Người Kia thay thế và kết mở đã được chủ repo chốt. Cơ chế tiếp xúc, đường đi của Tùng và dàn cảnh vẫn là đề xuất; khi sửa phải đồng bộ nhịp gieo và kết. Không tự thêm lời tuyên bố Nam bị nhốt vĩnh viễn, đã chết, chắc chắn được cứu hoặc nhân vật mới tới giải quyết.
-- Phải dựng được địa lý cửa–nệm–tủ–gương và việc Người Kia tránh Tùng qua cửa chính. Nếu đường đi quá chật, sửa động tác/mặt bằng trước, không giải thích bằng phép.
-- Đối đầu cần có nhịp nghỉ, không đánh nhau suốt 4 phút. Các mốc là ngân sách; nếu đọc thử ngắn hơn thì giữ tự nhiên thay vì kéo vật lộn.
-- Người Kia giả danh được nhờ mặt/giọng và quyền Nam từng cho; không khẳng định đã qua kiểm tra sinh trắc học, ngân hàng, danh tính pháp lý hoặc xóa được mọi bằng chứng.
-- Chưa có đọc diễn, giọng, storyboard hoặc animatic cho bản ba phần. Thẻ cảm xúc chỉ hướng diễn; chưa kiểm tra ElevenLabs. Claude dựng khi người dùng giao.
+| **Phần 1: Người trong phòng** | **~4:50** | Giới thiệu Nam & Chiếc gương vô danh $\to$ Tiếng rửa chén & Cú chạm mặt ngỡ ngàng $\to$ Gọi Tùng xác nhận $\to$ Đẩy Người Kia ra ngoài gài then $\to$ Bế tắc bài tập, chơi game ngủ quên. *(Giữ bí mật chiếc gương)* |
+| **Phần 2: Quen được làm thay** | **~6:25** | Bài tập được gõ hộ $\to$ Tùng về mang cơm $\to$ Sáng Ngày 2: Khóa cửa vô nghĩa, thử lòng bằng tiền, Nam thị uy "ông chủ" $\to$ Khủng hoảng Lab 402: Nam tự ái tập thuyết trình bất thành, tặc lưỡi trao thẻ $\to$ Điểm 9.5 bùng nổ, Người Kia xâm lấn leo thang (dọn bàn, cắt tóc, mẹ gọi), Nam phản kháng nửa vời (đặt báo thức rồi ngủ nướng) $\to$ Đỉnh điểm clip Zalo gia đình đối chiếu chiếc gương tàn tạ. |
+| **Phần 3: Người bị thay thế** | **~3:45** | Quyết tâm đi học lại nhưng bị giảng đường đào thải cay đắng $\to$ Tùng thất vọng, Nam chạy trốn $\to$ Về phòng soi căn cước & clip Zalo phát hiện nốt ruồi đảo ngược $\to$ Định đập gương $\to$ Đối chất tâm lý bóc trần bản chất $\to$ Ý chí buông xuôi, mặt kính hóa nước nuốt Nam $\to$ Đoạn kết rợn ngáy: Tùng phát hiện nốt ruồi & tay trái, Người Kia cài then sắt. |
+| **TỔNG CỘNG** | **~15:00** | Nhịp phim hoạt hình điện ảnh chuẩn xác, kịch tính, lớp lang tâm lý dày dặn. |
