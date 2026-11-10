@@ -30,7 +30,7 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 | Vừa | Dịch máy `move` | Đã test số, chưa xem hình khi máy chạy thật ở C02, E02, H09 |
 | Vừa | Cận đạo cụ | Chốt (C05), căn cước (D03), màn hình điện thoại và laptop (D01, E03, G02, H05, H07) cần lớp vẽ riêng; nền chỉ có trang giấy trung tính |
 | Vừa | Đạo cụ theo shot | Căn cước, nội dung bài, tin nhắn, báo thức chưa có; ví có sẵn trên bàn |
-| Nhỏ | Hành lang | Được nới rộng hơn thực tế để đủ chỗ đứng; không có lan can ở tiền cảnh. Bản tối chưa có đèn hành lang riêng |
+| Nhỏ | Hành lang và ngoài trời | Đã dựng (10/11): ngoài cửa sổ là dãy nhà ống phố Việt (ban công, máy lạnh, bồn inox, dây điện, toà cao tầng xa); ngoài cửa ra vào là sân và dãy trọ hai tầng đối diện (cửa sắt, song cửa sổ, số phòng, lan can, đồ phơi, mái tôn). Thêm góc `corridor` nhìn xiên dọc hành lang có lan can ([xem](assets/boi-canh/ngoai-troi-pho-day-tro.png)). Góc `hallway` cũ giữ khung theo DUNG-CANH nên vẫn không thấy phía ngoài lan can; bản tối chưa có đèn hành lang riêng |
 | Nhỏ | Ghế ở vị trí `bed` | Che một phần bình nước ở toàn phòng |
 
 ## Dựng phim

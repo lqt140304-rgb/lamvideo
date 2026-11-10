@@ -11,7 +11,7 @@ import { CameraMove, lightFor, placeOn, RoomScene, RoomView, sunExposure } from 
  * Cận cảnh là phóng khung trên cùng camera của phòng (tiến cận giả lập), không phải lens thật.
  */
 // Đoạn thức dậy A02B chèn sau báo thức; các shot sau giữ mốc cũ và lùi lại WAKE_LEN frame.
-const WAKE_AT = 400, WAKE_LEN = 180;
+const WAKE_AT = 400, WAKE_LEN = 225;
 export const CANH01_TOTAL = 1170 + WAKE_LEN;
 
 const SLEEP = PALETTE.nam.sleepShirt;
@@ -322,8 +322,8 @@ const A02B: React.FC<{ w: number; f: number }> = ({ w, f }) => {
   const end = { cx: (hip.x + seat.x) / 2, cy: seat.y + 330 * seat.scale, z: 1.75 };
   let lens = lerpLens(close, sitMid, seg(w, 6, 42));
   lens = lerpLens(lens, face, seg(w, 44, 60));
-  lens = lerpLens(lens, end, seg(w, 100, 160));
-  const wake = { toss: seg(w, 0, 16), rise: seg(w, 12, 44), stretch: seg(w, 46, 62) * (1 - seg(w, 84, 96)), yawn: seg(w, 50, 64) * (1 - seg(w, 80, 92)), rub: seg(w, 96, 104) * (1 - seg(w, 112, 120)), slide: interpolate(w, [114, 172], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }), seat };
+  lens = lerpLens(lens, end, seg(w, 100, 200));
+  const wake = { toss: seg(w, 0, 16), rise: seg(w, 12, 44), stretch: seg(w, 46, 62) * (1 - seg(w, 84, 96)), yawn: seg(w, 50, 64) * (1 - seg(w, 80, 92)), rub: seg(w, 96, 104) * (1 - seg(w, 112, 120)), slide: interpolate(w, [114, 214], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }), seat };
   return (
     <Camera lens={lens} f={f} hand={w > 44 && w < 96 ? 1 : 1.4}>
       <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ cover: 1, phone: false, f, wake })} actors={[washer(f, 'wide')]} />
@@ -511,6 +511,19 @@ export const HoSo02VienThu: React.FC = () => {
         </Camera>
       )}
       <div style={{ position: 'absolute', left: 36, top: 28, fontFamily: FONT.ui, fontSize: 30, color: '#f6efe3', background: 'rgba(28,36,32,.7)', padding: '10px 16px', borderRadius: 10 }}>{label}</div>
+    </AbsoluteFill>
+  );
+};
+
+// Xem nhanh bối cảnh theo từng góc máy (mỗi frame một góc), có nắng cửa sổ và tối dần như trong phim.
+const ROOM_VIEWS: RoomView[] = ['wide', 'door', 'hallway', 'corridor', 'bed', 'kitchen', 'desk'];
+export const ROOM_VIEW_TOTAL = ROOM_VIEWS.length;
+export const HoSo02BoiCanhGoc: React.FC = () => {
+  const view = ROOM_VIEWS[useCurrentFrame() % ROOM_VIEWS.length];
+  return (
+    <AbsoluteFill>
+      <RoomScene rays={RAYS} falloff={0.9} view={view} door="ajar" chair="bed" />
+      <div style={{ position: 'absolute', left: 36, top: 28, fontFamily: FONT.ui, fontSize: 28, color: '#f6efe3', background: 'rgba(28,36,32,.7)', padding: '10px 16px', borderRadius: 10 }}>{view}</div>
     </AbsoluteFill>
   );
 };

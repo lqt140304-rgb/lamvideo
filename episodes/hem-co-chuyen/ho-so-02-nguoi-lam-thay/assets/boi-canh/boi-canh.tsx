@@ -22,6 +22,8 @@ export const VIEWS = {
   desk: { pos: [215, 122, 310], target: [385, 30], mm: 36, horizon: 470 },
   door: { pos: [335, 120, 240], target: [0, 215], mm: 27, horizon: 470 },
   hallway: { pos: [-520, 118, 195], target: [0, 195], mm: 26, horizon: 480 },
+  // Hành lang dãy trọ nhìn xiên: một bên dãy cửa phòng, một bên lan can mở ra sân, dãy trọ đối diện và phố.
+  corridor: { pos: [-285, 150, -560], target: [-30, 640], mm: 24, horizon: 470 },
   bed: { pos: [300, 150, 640], target: [350, 290], mm: 34, horizon: 300 },
 } satisfies Record<string, Cam>;
 export type RoomView = keyof typeof VIEWS;
@@ -160,12 +162,12 @@ export type RoomProps = {
 
 type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: number; raw?: boolean };
 
-const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', bed: 'Góc nệm' };
+const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm' };
 
 export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
-  const inHall = view === 'hallway';
+  const inHall = view === 'hallway' || view === 'corridor';
   let sink: React.ReactNode[] = [];
   let key = 0;
   const NEAR = 14;
@@ -297,26 +299,87 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     sink.push(<path key={key++} d={`M${f1(p[0][0])} ${f1(p[0][1])}L${f1(p[1][0])} ${f1(p[1][1])}`} stroke="#39443a" strokeWidth={wide} opacity={night ? op * 1.3 : op} filter={`url(#${uid}-blur)`} fill="none" />);
   };
 
-  /** Phố nhìn qua cửa sổ/cửa ra vào: một tấm cảnh xa, có thị sai thật khi đổi góc máy. */
+  /** Phố nhìn qua cửa sổ/cửa ra vào: dãy nhà ống nhiều tầng kiểu phố Việt, có thị sai thật khi đổi góc máy. */
   const city = (X: number) => {
-    const n: V3 = X > 0 ? [-1, 0, 0] : [1, 0, 0];
-    const sky = night ? '#1b2a44' : '#bfe0dc';
-    poly([[X, -600, -4200], [X, -600, 2600], [X, 2200, 2600], [X, 2200, -4200]], sky, { raw: true });
-    const hues = ['#d9c7a6', '#c7b79a', '#e0d3b5', '#b9b49a', '#d4bea0'];
-    for (let i = 0; i < 26; i++) {
-      const z0 = -4100 + i * 260, seed = (i * 37) % 11, top = 260 + seed * 62, w = 190 + (seed % 3) * 30;
-      const col = night ? '#22304a' : hues[i % 5];
-      poly([[X, -600, z0], [X, -600, z0 + w], [X, top, z0 + w], [X, top, z0]], col, { raw: true, n, stroke: night ? '#121b2c' : '#a5977c', w: 1.4, cull: false });
-      poly([[X, top, z0 - 12], [X, top, z0 + w + 12], [X, top + 70, z0 + w / 2]], night ? '#1a2439' : i % 2 ? '#b57a5e' : '#8b9a85', { raw: true, n, cull: false });
-      for (let r = 0; r < 3; r++) for (let q = 0; q < 2; q++) {
-        const wy = top - 80 - r * 110, wz = z0 + 36 + q * 90, lit = night && (i + r + q) % 3 === 0;
-        poly([[X, wy, wz], [X, wy, wz + 44], [X, wy + 64, wz + 44], [X, wy + 64, wz]], lit ? '#f1cf85' : night ? '#141d30' : '#8fa6a3', { raw: true, n, cull: false });
+    const s = X > 0 ? 1 : -1; // mặt nhà quay về phía phòng
+    const n: V3 = [-s, 0, 0];
+    const sky = night ? '#1b2a44' : '#cfe3e0';
+    poly([[X + s * 1200, -800, -5200], [X + s * 1200, -800, 3600], [X + s * 1200, 2600, 3600], [X + s * 1200, 2600, -5200]], sky, { raw: true });
+    // toà cao tầng xa, nhạt và ít chi tiết
+    for (let i = 0; i < 9; i++) {
+      const z0 = -4600 + i * 900 + ((i * 131) % 200), h = 1300 + ((i * 53) % 7) * 160, w = 360 + ((i * 7) % 3) * 80, Xf = X + s * 900;
+      poly([[Xf, -600, z0], [Xf, -600, z0 + w], [Xf, h, z0 + w], [Xf, h, z0]], night ? '#1e2a40' : '#c3d2cf', { raw: true, n, cull: false });
+      for (let y = 0; y < h - 60; y += 70) line([Xf, y, z0 + 30], [Xf, y, z0 + w - 30], night ? '#2a3a55' : '#b2c3c0', 2);
+    }
+    // dãy nhà ống: mỗi căn 3,6–4,6 m mặt tiền, 3–6 tầng, màu sơn khác nhau
+    const paint = ['#e9d29a', '#cfe0c8', '#efc6b2', '#bcd3de', '#ece2cf', '#dcb98f', '#d6cfe6'];
+    let z0 = -4300;
+    for (let i = 0; z0 < 3200; i++) {
+      const w = 360 + ((i * 37) % 3) * 50, floors = 3 + ((i * 5) % 4), top = -300 + floors * 330;
+      const col = night ? '#243049' : paint[i % paint.length];
+      poly([[X, -600, z0], [X, -600, z0 + w], [X, top, z0 + w], [X, top, z0]], col, { raw: true, n, stroke: night ? '#121b2c' : '#a5977c', w: 1.2, cull: false });
+      for (let f = 0; f < floors; f++) {
+        const y0 = -300 + f * 330;
+        // cửa kính lớn + song sắt
+        const lit = night && (i + f) % 3 === 0;
+        poly([[X, y0 + 70, z0 + 50], [X, y0 + 70, z0 + w - 50], [X, y0 + 250, z0 + w - 50], [X, y0 + 250, z0 + 50]], lit ? '#f1cf85' : night ? '#141d30' : '#88a2a6', { raw: true, n, cull: false });
+        for (let z = z0 + 80; z < z0 + w - 50; z += 34) line([X - s * 1, y0 + 70, z], [X - s * 1, y0 + 250, z], night ? '#0e1522' : '#5f6f6b', 1.6);
+        // ban công nhô ra + lan can
+        if (f > 0) {
+          box({ x: s > 0 ? [X - 70, X] : [X, X + 70], y: [y0 + 40, y0 + 52], z: [z0 + 20, z0 + w - 20], c: night ? '#2c3650' : '#e6dcc8', ink: false });
+          line([X - s * 70, y0 + 52, z0 + 20], [X - s * 70, y0 + 52, z0 + w - 20], night ? '#3a4560' : '#6f7b75', 2);
+          line([X - s * 70, y0 + 140, z0 + 20], [X - s * 70, y0 + 140, z0 + w - 20], night ? '#3a4560' : '#6f7b75', 2.4);
+          for (let z = z0 + 40; z < z0 + w - 20; z += 30) line([X - s * 70, y0 + 52, z], [X - s * 70, y0 + 140, z], night ? '#3a4560' : '#6f7b75', 1.4);
+        }
+        // cục nóng máy lạnh
+        if ((i + f) % 2 === 0) box({ x: s > 0 ? [X - 34, X] : [X, X + 34], y: [y0 + 270, y0 + 316], z: [z0 + w - 120, z0 + w - 50], c: night ? '#3a4458' : '#e9ecea' });
+      }
+      // nóc: mái tôn và bồn nước inox
+      poly([[X, top, z0 - 10], [X, top, z0 + w + 10], [X + s * 60, top + 40, z0 + w + 10], [X + s * 60, top + 40, z0 - 10]], night ? '#1a2439' : i % 2 ? '#b57a5e' : '#7d9a92', { raw: true, n: [0, 1, 0], cull: false });
+      if (i % 2 === 0) cyl([X + s * 90, top + 40, z0 + w / 2], 38, 90, night ? '#3a4458' : '#cfd5d8', { top: night ? '#4a5468' : '#e3e7e8' });
+      z0 += w;
+    }
+    // dây điện chằng ngang trước nhà
+    for (let k = 0; k < 4; k++) curve([[X - s * 60, 560 + k * 14, -4300], [X - s * 60, 500 + k * 10, -500], [X - s * 60, 540 + k * 12, 3200]], night ? '#0c121d' : '#4b5350', 1.6);
+  };
+
+  /** Dãy trọ đối diện qua khoảng sân, nhìn qua cửa ra vào và lan can hành lang: hai tầng, cửa sắt, song cửa sổ, số phòng, lan can, đồ phơi, mái tôn. */
+  const dayTro = (X: number) => {
+    const n: V3 = [1, 0, 0];
+    const yG = -320; // sân dưới (hành lang phòng ở tầng trên)
+    poly([[X, yG, -2600], [-160, yG, -2600], [-160, yG, 3000], [X, yG, 3000]], night ? '#262b33' : '#c9c1ad', { raw: true, n: [0, 1, 0], cull: false });
+    for (let z = -2600; z <= 3000; z += 120) line([X, yG, z], [-160, yG, z], night ? '#20242b' : '#b8b09c', 1.2);
+    const wallA = night ? '#2b3242' : '#eadfc4', wallB = night ? '#283040' : '#dfe6d4';
+    for (let i = -7; i <= 8; i++) {
+      const z0 = i * 360 - 180, z1 = z0 + 360, wall = i % 2 ? wallA : wallB;
+      for (const [y0, y1] of [[yG, -20], [0, 280]] as [number, number][]) {
+        poly([[X, y0, z0], [X, y0, z1], [X, y1, z1], [X, y1, z0]], wall, { raw: true, n, stroke: night ? '#141a26' : '#b9ab90', w: 1.1, cull: false });
+        // cửa sắt xếp
+        poly([[X + 1, y0, z0 + 40], [X + 1, y0, z0 + 135], [X + 1, y0 + 210, z0 + 135], [X + 1, y0 + 210, z0 + 40]], night ? '#33405a' : '#6f8fa3', { raw: true, n, cull: false });
+        for (let y = y0 + 20; y < y0 + 210; y += 18) line([X + 2, y, z0 + 40], [X + 2, y, z0 + 135], night ? '#232e44' : '#56707f', 1.3);
+        // cửa sổ + song
+        const lit = night && (i + y0) % 3 === 0;
+        poly([[X + 1, y0 + 95, z0 + 190], [X + 1, y0 + 95, z0 + 300], [X + 1, y0 + 185, z0 + 300], [X + 1, y0 + 185, z0 + 190]], lit ? '#f1cf85' : night ? '#141d30' : '#91a9a8', { raw: true, n, cull: false });
+        for (let z = z0 + 205; z < z0 + 300; z += 16) line([X + 2, y0 + 95, z], [X + 2, y0 + 185, z], night ? '#0e1522' : '#5f6f6b', 1.4);
+        // số phòng
+        box({ x: [X, X + 2], y: [y0 + 222, y0 + 240], z: [z0 + 70, z0 + 104], c: '#f4efe1', ink: false });
+      }
+      // đồ phơi ở lan can tầng trên
+      if (i % 3 !== 1) {
+        const cols = ['#d98c7a', '#7fa7c9', '#e8d27c', '#9cc59a'];
+        for (let k = 0; k < 3; k++) {
+          const zc = z0 + 60 + k * 90;
+          poly([[X + 150, 90, zc - 22], [X + 150, 90, zc + 22], [X + 150, 30, zc + 18], [X + 150, 30, zc - 18]], night ? '#3a4458' : cols[(i + k + 8) % 4], { raw: true, n, stroke: night ? '#141a26' : '#8d7d68', w: 1, cull: false });
+        }
       }
     }
-    for (let i = 0; i < 12; i++) {
-      const z = -3900 + i * 540, y = -60 + ((i * 53) % 70);
-      soft([[X, -400, z - 260], [X, y, z - 300], [X, y + 170, z - 90], [X, y + 110, z + 110], [X, y + 190, z + 280], [X, -400, z + 330]], night ? '#16251f' : '#7fa27c', { raw: true, noInk: true });
-    }
+    // sàn hành lang tầng trên + lan can, mái tôn
+    box({ x: [X, X + 150], y: [-20, 0], z: [-2700, 3100], c: night ? '#30384a' : '#d8cdb5', ink: false });
+    for (const y of [0, 98]) line([X + 150, y, -2700], [X + 150, y, 3100], night ? '#3a4560' : '#5d6d66', 3);
+    for (let z = -2700; z < 3100; z += 120) line([X + 150, 0, z], [X + 150, 98, z], night ? '#3a4560' : '#5d6d66', 2.2);
+    line([X + 150, 95, -2700], [X + 150, 92, 3100], night ? '#3a4560' : '#8a7f6c', 1.4); // dây phơi
+    poly([[X - 20, 300, -2700], [X - 20, 300, 3100], [X + 200, 270, 3100], [X + 200, 270, -2700]], night ? '#1f2738' : '#a9b4ad', { raw: true, n: [0.3, 1, 0], cull: false, stroke: night ? '#121b2c' : '#8c968f', w: 1.2 });
+    for (let z = -2700; z < 3100; z += 40) line([X - 20, 300, z], [X + 200, 270, z], night ? '#18202f' : '#93a09a', 1);
   };
 
   const shirt = (x: number, y: number, z: number, s: number, col: string) => {
@@ -332,6 +395,9 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
 
   const shell = () => {
     if (inHall) {
+      // ngoài lan can: sân, dãy trọ đối diện, phố phía sau
+      city(-2100);
+      dayTro(-1000);
       poly([[0, 0, 330], [460, 0, 330], [460, 0, 110], [0, 0, 110]], C.floor, { n: [0, 1, 0], cull: false });
       poly([[459, 0, 110], [459, 0, 330], [459, 105, 330], [459, 105, 110]], C.lower, { n: [-1, 0, 0], cull: false });
       poly([[459, 105, 110], [459, 105, 330], [459, H, 330], [459, H, 110]], C.wall, { n: [-1, 0, 0], cull: false });
@@ -363,11 +429,18 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       box({ x: [-90, -82], y: [258, 263], z: [150, 280], c: night ? '#fff0c9' : '#f7f3e4', ink: true });
       box({ x: [-60, -18], y: [0, 1.5], z: [186, 244], c: '#7f8f7c', top: '#8a9a86' });
       cyl([-32, 0, 395], 9, 18, C.red, { top: '#5d4a3d', r2: 12 });
+      // mép hành lang: tấm sàn + lan can sắt nhìn ra sân (chỉ góc xiên; máy góc cũ đứng ngoài mép nên lan can sẽ chắn trước ống kính)
+      if (view === 'corridor') box({ x: [-330, -318], y: [-14, 0], z: [-900, 1200], c: '#bdb29a', ink: false });
+      if (view === 'corridor') {
+        for (const y of [0, 100]) line([-322, y, -900], [-322, y, 1200], '#5d6d66', 3);
+        for (let z = -900; z <= 1200; z += 110) line([-322, 0, z], [-322, 100, z], '#5d6d66', 2.4);
+      }
       soft([[-32, 18, 378], [-32, 50, 382], [-32, 66, 395], [-32, 50, 410], [-32, 18, 412]], '#6e9678', { n: [0.5, 0.5, 0.7] });
       return;
     }
     city(1000);
-    city(-800);
+    dayTro(-470);
+    city(-1500);
     poly([[-160, 0, -700], [-14, 0, -700], [-14, 0, 1200], [-160, 0, 1200]], night ? '#2a3039' : '#dcd2bb', { raw: true });
     poly([[-160, H, -700], [-14, H, -700], [-14, H, 1200], [-160, H, 1200]], night ? '#20262f' : '#f2ecdd', { raw: true });
     box({ x: [-156, -148], y: [100, 106], z: [-700, 1200], c: C.door });
