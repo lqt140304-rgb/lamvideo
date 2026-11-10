@@ -269,7 +269,7 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
             <Mirror w={MW} h={MH}>
               <rect width={MW} height={MH} fill="#101917" />
               {swap ? (
-                <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={free > 0.5 ? 'cuoi-che-giau-03' : namFace3(lagT)} mood={free > 0.5 ? 'eerie_smirk' : 'calm'} blink={free > 0.5 ? false : blink} pose={{ ...reflPose, view: free > 0.5 ? 'front' : 'three', facing: -1 }} />
+                <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={free > 0.5 ? undefined : namFace3(lagT)} mood={free > 0.5 ? 'stare_grin' : 'calm'} blink={free > 0.5 ? false : blink} pose={{ ...reflPose, view: free > 0.5 ? 'front' : 'three', facing: -1 }} />
               ) : (
                 <StudentTwinBody {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={namFace3(f)} mood="sleepy" blink={blink} talk={talk} pose={{ ...reflPose, view: 'three', facing: -1 }} />
               )}
@@ -300,7 +300,7 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
 // ---------- SHOT 4: bàn tay xuyên kính, dolly zoom (38–44s) ----------
 // Trong kính là thế giới gương 3D (MirrorRealm). Cánh tay vươn ra là tay rig của chính cái bóng:
 // vẽ bóng 2 lần cùng toạ độ — bản trong kính, và bản ngoài kính chỉ lộ phần vượt mép trái — nên tay liền một khối.
-const REACH_ARM = (k: number): JointPose => ({ ...STAND_POSE, tilt: -2 * k, armR: { a: 84 * k, b: 6 }, wristR: -6 * k, handR: k > 0.2 ? 'open' : 'rest', frontR: true });
+const REACH_ARM = (k: number): JointPose => ({ ...STAND_POSE, tilt: 4 * k, armR: { a: 90 * k, b: 4 }, wristR: 6 * k, handR: k > 0.2 ? 'open' : 'rest', frontR: true });
 const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const t = f / 180;
   const push = 1 + 0.32 * t; // dolly-in
@@ -309,7 +309,8 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const ripple = seg(f, 56, 96);
   const reach = seg(f, 92, 132) * (1 - seg(f, 160, 178));
   const turn = seg(f, 6, 22);
-  const nx = interpolate(f, [24, 178], [-30, -330], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  // đi chậm ra xa gương; lúc tay chạm gáy (f≈132) gáy Nam vừa ngang tầm bàn tay
+  const nx = interpolate(f, [24, 132, 178], [-20, -150, -300], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const walkP = f > 24 ? sampleWalk((f - 24) / 20) : STAND_POSE;
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
@@ -327,16 +328,19 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
           <rect x={-600} y={-600} width={3100} height={2300} fill="#0c1615" />
           <path d="M-600 900H2500V1700H-600Z" fill="#121e1c" />
           <g transform="translate(1180 1010) scale(0.98)">
+            <g transform="rotate(-4)">
             <Mirror w={MW} h={MH} progress={ripple} phase={f / 6}>
               {realm}
-              <NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood={smirk ? 'eerie_smirk' : 'calm'} face={smirk ? 'cuoi-che-giau-03' : 'cuoi-che-giau-01'} blink={false} pose={reflPose} />
+              <NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood={smirk ? 'stare_grin' : 'calm'} face={smirk ? undefined : 'cuoi-che-giau-01'} blink={false} pose={reflPose} />
             </Mirror>
             <g transform={`translate(${-MW / 2} ${-MH})`}>
-              {/* Nam: quay lưng khỏi gương rồi bước đi, không hay biết */}
-              <StudentTwinBody {...LOOK} x={nx} y={ry} scale={rs} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'three', facing: -1 }} />
-              {/* phần tay của cái bóng đã thò ra khỏi kính */}
               <clipPath id="ngoai-kinh"><rect x={-2000} y={-500} width={2026} height={MH + 1000} /></clipPath>
-              {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood="eerie_smirk" pose={reflPose} /></g>}
+              {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood="stare_grin" blink={false} pose={reflPose} /></g>}
+            </g>
+            </g>
+            <g transform={`translate(${-MW / 2} ${-MH})`}>
+              {/* Nam: quay lưng khỏi gương rồi bước đi, không hay biết */}
+              <StudentTwinBody {...LOOK} x={nx} y={ry} scale={rs} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'side', facing: -1 }} />
             </g>
           </g>
         </svg>
@@ -359,7 +363,7 @@ const Shot5: React.FC<{ f: number }> = ({ f }) => {
           <g transform={`translate(960 1420) scale(${1.45 + 0.004 * f})`}>
             <Mirror w={MW} h={MH}>
               <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.5} ${880 - vh * 0.8} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice"><MirrorRealm floating={false} /></svg>
-              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.1} scale={0.95} mood="eerie_smirk" face="cuoi-che-giau-03" blink={false} pose={{ ...STAND_POSE, neck: -5, view: 'front' }} />
+              <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.1} scale={0.95} mood="stare_grin" blink={false} pose={{ ...STAND_POSE, neck: -5, view: 'front' }} />
             </Mirror>
           </g>
         </svg>

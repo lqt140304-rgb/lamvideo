@@ -811,7 +811,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
     <OutlineCtx.Provider value={outline}>
     <g transform={`translate(${x} ${y}) scale(${scale * facing} ${scale})`} strokeLinecap="round" strokeLinejoin="round" style={{ ['--lw' as string]: l?.line ?? 1, ...(outline !== 'ink' ? { ['--inner-ink' as string]: 'rgba(32,24,18,.36)' } : {}) } as React.CSSProperties}>
       {/* Một nét bóng tiếp xúc vẽ sẵn, bám mặt sàn; không kéo bóng theo nguồn sáng. */}
-      {pose.support !== 'bed' && <ellipse data-shadow="drawn-contact" cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={10} fill={PALETTE.shadowFloor} stroke="none" />}
+      {pose.support !== 'bed' && <ellipse data-shadow="drawn-contact" cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={10} fill="#232a26" opacity={0.26} stroke="none" />}
       <g transform={`translate(${pose.x} ${r.dy})`}>
         {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing} size={0.85}>
