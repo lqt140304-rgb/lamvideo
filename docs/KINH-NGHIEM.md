@@ -82,6 +82,20 @@ Rút từ nghiên cứu ngày 07/11/2026. Đây là nguyên lý có nguồn và 
 - Đọc đúng file cần sửa, giữ bản nguồn duy nhất và ghi thay đổi ngắn. Kiểm tra phần bị ảnh hưởng trước; không render lại toàn bộ hoặc nghiên cứu lại từ đầu khi không có lý do.
 
 - **Đoạn thử tốn nhiều lượt vì render sau mỗi sửa nhỏ →** soi từng khung và ảnh cắt phóng to ở các nhịp then chốt trước, chỉ render khi hình đạt; làm hai lượt, máy tĩnh để duyệt diễn rồi mới thêm góc máy, nét, ánh sáng và âm; dùng lại take giọng trùng vai, chữ, thẻ và cài đặt thay vì tạo mới. Khi chủ repo báo kịch bản sắp đổi thì dừng render, chỉ sửa mã và hình. **Kiểm tra:** số lần render và số credits ghi lại, không có clip bỏ đi chỉ vì lỗi nhìn thấy được trên ảnh tĩnh.
+### Hạn mức của trợ lý (token)
+
+Hạn mức của trợ lý chủ yếu tốn vào việc **xem ảnh**, **đọc file dài** và **số vòng hỏi–sửa**. Render video chạy trên máy nên không tốn token. Lúc chờ render chạy nền cũng không tốn, miễn là không đọc log liên tục. Áp dụng cho mọi phiên Claude làm việc trong repo:
+
+- **Gom góp ý:** chủ repo liệt kê nhiều lỗi trong một tin nhắn; trợ lý sửa hết rồi gửi **một** bảng so sánh, không gửi từng ảnh.
+- **Soi bằng ảnh nhỏ:** chụp frame ở 1/2 cỡ, ghép một bảng 2–8 ô, chỉ cắt cận đúng chỗ nghi lỗi. Không đọc ảnh 1080p nguyên khung, không đọc lại ảnh chưa đổi. Dùng `what-if-studio/tools/soi/`.
+- **Duyệt tạo hình bằng ảnh tĩnh:** pose, tay, viền, màu, ánh sáng đều duyệt trên sheet hoặc bảng frame. Chỉ render video khi cần xem chuyển động, nhịp hoặc chuyển cảnh, hay khi chủ repo yêu cầu. Bản xem trên điện thoại dùng 480p–720p.
+- **Đọc đúng đoạn:** dò bằng grep để lấy số dòng rồi đọc theo khoảng. Không đọc lại cả file rig/cảnh dài mỗi vòng.
+- **Sửa bằng công cụ sửa chính xác:** đoạn nhiều dòng thì sửa bằng Edit hoặc script đọc từ file. Không nhét script nhiều dòng có backtick vào lệnh shell, vì dễ hỏng quote phải chạy lại. Không cắt file bằng mốc chuỗi chưa chắc duy nhất, vì có thể xóa nhầm cả đoạn. Commit thường xuyên để khôi phục được.
+- **Tránh chi phí render ẩn:** CSS `filter` trên nhiều lớp SVG làm render chậm gấp đôi (đo được hơn 600 giây so với 340 giây cho 41 giây phim 720p). Hãy tô sẵn màu sáng/tối thay cho filter.
+- **Đổi model theo việc:** dựng cảnh, hệ thống hay thiết kế mới dùng model mạnh (Opus). Các vòng chỉnh nhỏ theo góp ý dùng model rẻ hơn (Sonnet). Phiên không tự đổi model của chính nó được, nên nhắc chủ repo đổi trong menu.
+- **Phiên ngắn, ghi chép rõ:** phiên càng dài thì mỗi lượt càng tốn. Hết một mốc thì cập nhật `LOI-TON-DONG.md` và README của tập, commit, push, rồi mở phiên mới đọc từ các file đó thay vì kéo dài phiên cũ.
+- **Không gửi lại file nặng mỗi vòng:** chỉ gửi video khi đã gom đủ thay đổi. Giữa chừng gửi bảng ảnh.
+
 - **Đẩy lên bị từ chối vì nhánh chung có người khác vừa đẩy →** lấy bản mới, rebase đúng các commit của mình rồi đẩy; không đẩy ép và không động tới commit của agent khác.
 
 ## Kỹ thuật dựng đã được rút thành nguyên tắc
