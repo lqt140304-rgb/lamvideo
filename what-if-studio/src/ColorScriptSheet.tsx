@@ -17,7 +17,7 @@ import {
 /**
  * ColorScriptSheet:
  * Bảng tổng phổ Ngôn ngữ Màu sắc & Ánh sáng (Cinematic Color Script & Lighting Progression)
- * cho tập 01 "Tin Nhắn Chưa Gửi" (Hẻm Có Chuyện).
+ * cho tập 01 "Tin Nhắn Chưa Gửi" (The Crack in Reality / Hẻm Có Chuyện).
  * 
  * 5 Hồi màu sắc tâm lý theo diễn biến kịch bản:
  * 1. Act I (Cảnh 0): Đêm Ngõ Cụt & Bầu Trời — Xanh chàm lạnh lẽo, cô lập, chiaroscuro quầng đèn đường.
@@ -180,7 +180,7 @@ export const ColorScriptSheet: React.FC = () => {
         <g transform="translate(60 30)">
           <rect x={0} y={0} width={1800} height={80} rx={14} fill="#181224" stroke="#E8B86D" strokeWidth={2} opacity={0.95} />
           <text x={32} y={35} fontFamily={FONT.title} fontWeight={800} fontSize={26} fill="#FFE8A8" letterSpacing={1.2}>
-            HẺM CÓ CHUYỆN · TẬP 01: NGÔN NGỮ MÀU SẮC & ÁNH SÁNG (COLOR SCRIPT)
+            THE CRACK IN REALITY · HỒ SƠ 01: TIN NHẮN CHƯA GỬI · COLOR SCRIPT
           </text>
           <text x={32} y={62} fontFamily={FONT.ui} fontSize={14.5} fill="#D6C7E8" letterSpacing={0.8}>
             Hành trình thị giác 5 hồi tâm lý: Từ bóng tối ngõ hẻm cô lập → Tiệm đồng hồ cổ kính → Đỉnh điểm hy sinh → Cánh đồng hoàng hôn rực rỡ → Ngưỡng cửa ấm áp bên nhau

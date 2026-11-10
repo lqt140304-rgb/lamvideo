@@ -26,6 +26,6 @@ Chất Việt đến từ quan hệ, cách nói, đồ vật, không gian và si
 
 Ghi ở hồ sơ của từng tập: thời gian làm, số lượt tạo lại, chi phí thực, đoạn người xem thấy khó hiểu, điều họ nhớ, và dữ liệu giữ chân nếu có. Tách quan sát khỏi suy đoán. Chỉ chuyển kết luận dùng lại được vào [kinh nghiệm chung](KINH-NGHIEM.md), sau khi bỏ chi tiết riêng của tập.
 
-## Series đang phát triển — Hẻm Có Chuyện
+## Series đang phát triển — The Crack in Reality (Hẻm Có Chuyện)
 
-08/11/2026: chủ repo chọn mở một vũ trụ các quái vật có khả năng đặc biệt giữa đời sống Việt Nam. Nhân vật con người vẫn có lựa chọn/hệ quả và câu chuyện đủ kết; từng thực thể có diện mạo/năng lực/giới hạn riêng. Luật và hồ sơ cụ thể nằm trong [VU-TRU của series](../episodes/hem-co-chuyen/VU-TRU.md), không rải lore vào tài liệu dùng chung. Định hướng này không đổi các tập độc lập trước đây thành cùng vũ trụ.
+08/11/2026: chủ repo chọn mở một vũ trụ hiện thực rạn nứt / các thực thể đặc biệt giữa đời sống Việt Nam với tên chính thức **The Crack in Reality** (tiền thân: Hẻm Có Chuyện). Nhân vật con người vẫn có lựa chọn/hệ quả và câu chuyện đủ kết; từng thực thể có diện mạo/năng lực/giới hạn riêng. Hồ sơ 02 chính thức mang tên **Người trong gương**. Luật và hồ sơ cụ thể nằm trong [VU-TRU của series](../episodes/hem-co-chuyen/VU-TRU.md), không rải lore vào tài liệu dùng chung. Định hướng này không đổi các tập độc lập trước đây thành cùng vũ trụ.

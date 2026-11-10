@@ -2,7 +2,9 @@
 
 **Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
 
-**Demo Cảnh 1 và rig — 10/11/2026:** animatic câm A01–A05 (`HoSo02Canh01Demo`) gồm thức dậy A02B (hất chăn, ngáp, lết ra mép nệm), máy dolly, góc qua vai, khung phim 2:1. Nhân vật **không viền ngoài**, bóng mềm hẹp, chỉ có khối sáng–tối khi đứng trong nắng cửa sổ (xem [quy chuẩn mục 4.0](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md)). Rig có thêm dáng `lie`, `sitLow`, nét mặt phân mức (`face`). Bối cảnh: phố và dãy trọ bên ngoài, góc `corridor`. Việc còn lại ở [LOI-TON-DONG](LOI-TON-DONG.md). Video render chỉ để local (`what-if-studio/out/ho-so-02-nguoi-lam-thay/`).
+**Asset bổ sung 11/11/2026:** [47 SVG và hướng dẫn](assets/bo-sung-15p/README.md), [bảng bối cảnh](assets/bo-sung-15p/bang-boi-canh.png), [vai phụ/dáng](assets/bo-sung-15p/bang-vai-phu-tu-the.png), [đạo cụ](assets/bo-sung-15p/bang-dao-cu.png). Bóng rig/phòng đã chuyển sang mảng tự vẽ; bản hình tĩnh mới chưa phải motion đã duyệt. Claude dùng nguồn và manifest để lắp cảnh, không ghép nguyên bảng duyệt vào phim.
+
+**Demo Cảnh 1 và rig — 10/11/2026:** animatic câm A01–A05 (`HoSo02Canh01Demo`) gồm thức dậy A02B (hất chăn, ngáp, lết ra mép nệm), máy dolly, góc qua vai, khung phim 2:1. Nguồn mới 11/11 giữ nhân vật **không viền ngoài**, dùng mảng bóng tự vẽ. Video local 10/11 là bản lịch sử, chưa dựng lại theo thay đổi này (xem [quy chuẩn mục 4.0](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md)). Rig có thêm dáng `lie`, `sitLow`, nét mặt phân mức (`face`). Bối cảnh: phố và dãy trọ bên ngoài, góc `corridor`. Việc còn lại ở [LOI-TON-DONG](LOI-TON-DONG.md). Video render chỉ để local (`what-if-studio/out/ho-so-02-nguoi-lam-thay/`).
 
 
 
@@ -30,7 +32,7 @@ Ba file PHAN là nguồn lời duy nhất theo phần. KICH-BAN là mục lục 
 | [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md) | Yêu cầu đã chốt, phương án mới cần đọc/sửa và đường dẫn tới các đoạn đã chuyển |
 | [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md) | Giới hạn gương/bản sao, kiến thức từng người, dòng thời gian, gieo–trả; tài liệu có spoil cho người viết/dựng |
 | [DUNG-CANH.md](DUNG-CANH.md) | Máy A–H phần 1, bố cục/lens/rung/focus, layer/parallax/che khuất và nguyên tắc dựng; hướng cảnh mới nằm ngay trong các file PHAN |
-| [ASSET.md](ASSET.md) | Hình/rig có sẵn, đúng nguồn cần dùng, đạo cụ và pose V1 còn phải chuẩn bị |
+| [ASSET.md](ASSET.md) | Hình/rig có sẵn, đúng nguồn cần dùng, asset bổ sung và các giới hạn còn phải kiểm tra khi dựng |
 | [RA-SOAT-SUA-TRUYEN.md](RA-SOAT-SUA-TRUYEN.md) | Lịch sử sửa liên tục A–H và rà logic văn bản V1; không phải chứng nhận hình/âm |
 | [LOI-TON-DONG.md](LOI-TON-DONG.md) | Việc còn phải kiểm/sửa khi dựng, gồm điểm tiếp xúc và mặt bằng đoạn kết |
 
@@ -43,4 +45,7 @@ Ba file PHAN là nguồn lời duy nhất theo phần. KICH-BAN là mục lục 
 
 Claude dựng khi người dùng giao. Chưa xác nhận lời sạch phân vai, take ElevenLabs hoặc timeline đủ ba phần của bản 15 phút. Đã có demo câm riêng cho Cảnh 1 như mô tả phía trên. Giữ ranh giới tài liệu viết với sản phẩm đã nghe/xem. Xem [quy ước series](../README.md), [vũ trụ](../VU-TRU.md); chưa đưa luật đề xuất V1 thành lore chính thức.
 
-**Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Chưa nghe/tải duyệt các nguồn mới, chưa sửa rig hoặc dựng lại demo. Phần 2–3 vẫn đề cương.
+**Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Ghi chú này lưu trạng thái 10/11. Hiện đã có kịch bản đủ ba phần và bộ asset 11/11 ở đầu file; chưa xác nhận audio hoặc timeline toàn phim.
+
+
+**Thiết kế và tái sử dụng asset 11/11:** [hướng dẫn nguồn, khớp/tay, layer, bóng và biểu cảm ba mức](assets/bo-sung-15p/CACH-THIET-KE-VA-SU-DUNG.md). Dùng bộ nét mặt chung, giữ nhận diện đã duyệt; ảnh tĩnh chưa thay cho kiểm tra chuyển động.

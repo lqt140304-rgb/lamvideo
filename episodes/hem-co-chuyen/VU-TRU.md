@@ -1,6 +1,6 @@
-# Hẻm Có Chuyện — vũ trụ các thực thể đặc biệt
+# The Crack in Reality (Hẻm Có Chuyện) — vũ trụ các thực thể đặc biệt
 
-Hướng series theo yêu cầu chủ repo, 08/11/2026. Đây là thế giới hư cấu. Giữ tên series hiện có; chưa tự đặt thương hiệu mới hoặc viết cả mùa trước khi tập đầu đạt.
+Hướng series theo yêu cầu chính thức của chủ repo (đổi tên series thành **The Crack in Reality**, tên tiền thân: Hẻm Có Chuyện). Đây là thế giới hư cấu khai thác các vết nứt hiện thực và thực thể siêu nhiên.
 
 ## Điều đã chốt từ yêu cầu
 
@@ -57,4 +57,4 @@ Nội dung/cue của tập ở [KICH-BAN](tap-01-tin-nhan-chua-gui/KICH-BAN.md);
 
 **Tên trình bày từ 09/11/2026:** các truyện gọi là Hồ sơ 1, Hồ sơ 2…; xem [quy ước của series](README.md#cách-gọi-các-truyện). Cách gọi không tự xác lập tổ chức săn bắt hoặc cho nhân vật đại diện chủ repo ra mắt.
 
-**Hồ sơ đang phát triển:** [Hồ sơ 2 — Người làm thay](ho-so-02-nguoi-lam-thay/README.md) có tiền đề đã chọn nhưng cơ chế thực thể và các cảnh chưa chốt. Đọc trạng thái trong hồ sơ; chưa nhập luật đề xuất của truyện này thành canon dùng chung.
+**Hồ sơ đang phát triển:** [The Crack in Reality — Hồ sơ 02: Người trong gương](ho-so-02-nguoi-lam-thay/README.md) (trước đây: *Người làm thay*) đã hoàn thiện kịch bản 15 phút, Trailer & Opening điện ảnh và Voiceover Cue Sheet 86 cues. Đọc trạng thái chi tiết trong hồ sơ tập.

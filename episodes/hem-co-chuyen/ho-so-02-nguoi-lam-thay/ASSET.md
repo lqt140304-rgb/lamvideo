@@ -2,15 +2,19 @@
 
 ## Nhu cầu theo kịch bản mới — đồng bộ 11/11/2026
 
-Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Giữ bộ rig/phòng/ánh sáng đã cập nhật; các mục sau là nhu cầu, không phải tài nguyên đã tạo hoặc duyệt.
+Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Đã tạo [bộ bổ sung](assets/bo-sung-15p/README.md): **47 SVG rời, 9 bảng duyệt, 16 PNG**, kèm nguồn TSX, manifest và [trình xem](assets/bo-sung-15p/xem-asset.html). Đây là hình tĩnh để duyệt, chưa xác nhận motion, khẩu hình, âm thanh hoặc timeline đã đủ.
 
-| Cần đối chiếu/chuẩn bị | Theo bản mới |
+| Nhóm bổ sung | Nội dung và bảng xem |
 |---|---|
-| Gương khung gỗ, lớp phản chiếu, hiệu ứng kính hóa nước | Giữ bí mật ở phần đầu; đối chiếu nốt ruồi; Nam tự buông xuôi và chạm kính, không dựng giằng tay/cưỡng ép |
-| Căn cước/thẻ sinh viên, điện thoại, PC, sách/sổ và UI | Trao quyền đại diện, Lab 402, điểm 9.5, clip Zalo gia đình; dấu nhận diện cơ thể đảo bên, chữ trên vật thật không tự đảo |
-| Tiền ăn, cơm hộp/bún chả, quần áo, búa và then cửa | Theo đúng các cảnh mới; búa rơi trong đối chất, không phải đánh nhau hoặc đập vỡ kính |
-| Giảng đường/Lab, clip gia đình và vai phụ | Chưa xác nhận đủ bối cảnh/rig/giọng; liệt kê theo từng cảnh trước khi dựng, tái dùng thư viện nếu phù hợp |
-| Pose thị uy, tập nói, ngủ nướng, chơi game, suy sụp và áp tay vào kính | Dựng biểu cảm/chuyển trọng lượng và điểm tiếp xúc; bỏ yêu cầu pose giằng co của bản V1 |
+| 13 đạo cụ | Búa, phong bì, hai thẻ hư cấu, cơm sườn, bún chả/nem, xôi gấc, túi quả, PC, thau đồ, bóng, kéo, góc đồ cho/tặng — [bảng](assets/bo-sung-15p/bang-dao-cu.png) |
+| 7 bối cảnh | Giảng đường, Lab 402, hành lang trường, cơm gia đình, thế giới gương, sân bóng, góc cắt tóc — [bảng](assets/bo-sung-15p/bang-boi-canh.png); thế giới gương nằm trong asset rời |
+| 6 vai phụ, 10 dáng | Giảng viên, mẹ, ba, bác Hai, hai sinh viên; thị uy, thuyết trình, game, cầm túi, giữ búa, suy sụp, áp kính, nhận đồ tay trái — [bảng](assets/bo-sung-15p/bang-vai-phu-tu-the.png) |
+| 6 UI, 1 đối chiếu | Hạn bài, điểm 9.5, mẹ gọi, clip gia đình, báo thức, tiền về; nốt ruồi — [bảng](assets/bo-sung-15p/bang-giao-dien.png) |
+| 4 trạng thái gương | Khung cố định, phản chiếu riêng, kính gợn và lớp cảnh cuối — [bảng](assets/bo-sung-15p/bang-guong.png); [soi điểm cầm/chạm](assets/bo-sung-15p/bang-tiep-xuc.png) |
+
+**Cảm xúc ba mức 11/11:** bổ sung [18 nét tách lớp dùng chung](../../../what-if-studio/library/expressions/cartoon-soft/bo-sung-cot-truyen/README.md), ghép kiểm tra trên Nam/Người Kia ở [bảng 1](assets/bo-sung-15p/bang-cam-xuc-01.png) và [bảng 2](assets/bo-sung-15p/bang-cam-xuc-02.png). Không thêm tóc/sọ vào overlay. Xem [cách thiết kế, API và cách xuất lại](assets/bo-sung-15p/CACH-THIET-KE-VA-SU-DUNG.md). Hai bảng cảm xúc nằm trong chín bảng duyệt; 18 SVG nét mặt nằm ở thư viện chung, không tính lặp vào 47 SVG đặc thù hồ sơ.
+
+**Bóng và nét 11/11:** rig/phòng chính đã chuyển sang mảng bóng tự vẽ tiết chế; bảng nhân vật và tám góc phòng đã xuất lại. Đọc [quy chuẩn](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026). Không dùng ảnh thử bóng cũ làm chuẩn. Vai phụ hiện có góc ba phần tư phía trước; khi cần góc sau/nghiêng phải bổ sung. Bối cảnh mới là plate 2D tách nhóm, không tự biến thành camera 3D tùy ý. Giữ bí mật gương ở đầu truyện; không đảo chữ trên đồ thật hoặc dùng pose giằng co V1.
 
 **Đại tu không gian 10/11/2026 — chờ duyệt:** [bảng nền mới](assets/boi-canh/boi-canh.png), [ghép Nam kiểm tra tỉ lệ](assets/boi-canh/kiem-tra-ti-le.png), [nguồn và hướng dẫn](assets/boi-canh/BOI-CANH.md). Nệm đôi tách bàn/ghế; không còn áo ghế, căn cước trên bàn, giờ đêm/tin cũ/tên tập gắn vào nền. Căn phòng là một mô hình 3D trong nguồn TSX, mỗi góc máy là một camera thật, có thêm góc cửa/chốt và hành lang; đã xuất SVG/PNG/HTML, chưa dựng phim.
 
@@ -24,7 +28,7 @@ Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Giữ bộ r
 
 ## Dàn nhân vật theo mẫu SVG mới (Style B) — 09/11/2026
 
-Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người làm thay** đã được thiết kế đồng bộ theo phong cách SVG hữu cơ mới (Style B: nét vẽ mềm, mảng tóc gọn, vai áo rủ tự nhiên, quần có khối, biểu cảm linh hoạt).
+Ba nhân vật chính của **Hồ sơ 2: Người trong gương** đã được thiết kế đồng bộ theo phong cách SVG hữu cơ mới (Style B: nét vẽ mềm, mảng tóc gọn, vai áo rủ tự nhiên, quần có khối, biểu cảm linh hoạt).
 
 **Trạng thái sử dụng:** bộ mới đã được cập nhật từ GitHub tại `593c626`; đây là nguồn thiết kế hiện hành để tham khảo. Style B được chọn từ mẫu thứ 2; chưa coi các pose/biểu cảm mới là đã được duyệt trong từng cảnh hoặc rig đã kiểm tra chuyển động. Nam là sinh viên năm hai theo kịch bản mới.
 
@@ -66,7 +70,7 @@ Toàn bộ nhân vật xuất hiện trong kịch bản **Hồ sơ 2: Người l
 
 ---
 
-**Khi đưa vào đoạn đầu:** Người Kia ưu tiên `calm`/`neutral_smile` theo hướng thân thiện, chủ động mời giúp; `eerie_smirk` là mẫu biểu cảm có sẵn, không tự áp để tiết lộ bản chất săn mồi sớm. Tùng hiện chưa chứng kiến hai người giống hệt nhau. Nam có thêm nhịp bí bài, mải game, ngủ quên và tự mãn ở bản thảo mới; các pose đó mới là nhu cầu diễn xuất, chưa được coi là asset đã hoàn thiện.
+**Khi đưa vào đoạn đầu:** Người Kia ưu tiên `calm`/`neutral_smile` theo hướng thân thiện, chủ động mời giúp; `eerie_smirk` là mẫu biểu cảm có sẵn, không tự áp để tiết lộ bản chất săn mồi sớm. Tùng hiện chưa chứng kiến hai người giống hệt nhau. Nam có thêm nhịp bí bài, mải game, ngủ quên và tự mãn ở bản thảo mới; các dáng tĩnh bổ sung có trong bộ 11/11; chuyển tư thế và diễn xuất vẫn cần kiểm tra khi dựng.
 
 ## File thiết kế tham chiếu ban đầu
 - [`assets/thiet-ke/character-svg-v1.png`](assets/thiet-ke/character-svg-v1.png): Bảng đối chiếu ban đầu giữa Rig cũ và Mẫu thử B.
@@ -120,7 +124,7 @@ Dùng `pose` trên `StudentTwinBody`/`TungSoccer`, trộn từ `STAND_POSE` ho�
 
 Cả ba nhân vật có đủ chính diện, 3/4, nghiêng, 1/4 (chéo từ sau), sau lưng và quay trái qua `view`/`facing` trong `pose` (xem composition `HoSo02Turnaround`, `HoSo02Spin`). Có `talk` cho khẩu hình, `blink` cho chớp mắt, `turnAt` để xoay dần, 11 dáng trong `TWIN_POSES`, `sampleWalk` cho vòng bước và `prop` cho điện thoại, bát đi theo bàn tay. Nam mặc áo ngủ xám bằng `shirt={PALETTE.nam.sleepShirt}` khi Người Kia đang mặc áo xanh.
 
-**Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Chưa nghe/tải duyệt các nguồn mới, chưa sửa rig hoặc dựng lại demo. Phần 2–3 vẫn đề cương.
+**Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Ghi chú này lưu trạng thái 10/11. Hiện đã có kịch bản đủ ba phần và bộ asset 11/11 ở đầu file; chưa xác nhận audio hoặc timeline toàn phim.
 
 ## Asset dựng sẵn từ kế hoạch trailer cũ — 10/11/2026, có thể tái dùng
 

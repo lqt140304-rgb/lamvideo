@@ -1,4 +1,4 @@
-# Nhân vật truy vết — asset dùng chung của Hẻm Có Chuyện
+# Nhân vật truy vết — asset dùng chung của The Crack in Reality (Hẻm Có Chuyện)
 
 **Bản nét mặt không tóc/đầu để dùng cho vai khác:** [thư viện EXP-CARTOON-SOFT-01](../../../../what-if-studio/library/expressions/cartoon-soft/README.md). Bộ ở đây giữ nguyên làm mẫu nhận diện của nhân vật truy vết; thư viện chung chỉ chứa các nét và lớp cảm xúc đã tách.
 

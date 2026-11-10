@@ -55,7 +55,7 @@ export const TimeVaultSheet: React.FC = () => {
             fontSize={20}
             letterSpacing={0.8}
           >
-            HẺM CÓ CHUYỆN · THỰC THỂ 01: QUÁI VẬT ĐỒNG HỒ VÀ ĐIỆN THỜ THỜI GIAN (CATHEDRAL OF TIME)
+            THE CRACK IN REALITY · THỰC THỂ 01: QUÁI VẬT ĐỒNG HỒ VÀ ĐIỆN THỜ THỜI GIAN (CATHEDRAL OF TIME)
           </text>
           <text
             x={28}
@@ -69,7 +69,7 @@ export const TimeVaultSheet: React.FC = () => {
           </text>
           <rect x={1630} y={16} width={185} height={36} rx={5} fill="#14B8A6" opacity={0.18} stroke="#2DD4BF" strokeWidth={1.2} />
           <text x={1722} y={39} fill="#5EEAD4" fontFamily={FONT.ui} fontWeight="bold" fontSize={12} textAnchor="middle">
-            VŨ TRỤ HẺM CÓ CHUYỆN
+            VŨ TRỤ THE CRACK IN REALITY (HẺM CÓ CHUYỆN)
           </text>
         </g>
 

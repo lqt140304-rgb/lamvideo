@@ -4,13 +4,13 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 
 **Thông báo mỹ thuật — 10/11/2026:** phong cách cartoon Style B dùng đường cong mềm, hình khối tròn đầy và nét liền mạch cho **cả nhân vật, nội thất, đạo cụ, kiến trúc, đường phố và môi trường**. Đọc [quy chuẩn mỹ thuật chung](docs/PHONG-CACH-MY-THUAT.md) trước khi thiết kế. [Bộ nhân vật hiện có](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg) là tham chiếu Style B; quy chuẩn mới không đồng nghĩa toàn bộ nền/asset cũ đã được vẽ lại hoặc rig/timeline đã hoàn thiện.
 
-**Quyết định tạo hình mới — 10/11/2026:** nhân vật không viền ngoài, tay–chân giản lược bằng khối mềm; xem [quy chuẩn và ảnh so sánh](docs/PHONG-CACH-MY-THUAT.md). Rig Hồ sơ 2 (`nhan-vat.tsx`) đã bỏ viền ngoài ngày 10/11/2026 và xuất lại bảng dàn nhân vật; tay vẫn cần một lượt giản lược ngón theo ảnh so sánh. Asset của hồ sơ khác chưa cập nhật.
+**Quyết định tạo hình mới — 10/11/2026:** nhân vật không viền ngoài, tay–chân giản lược bằng khối mềm; xem [quy chuẩn và ảnh so sánh](docs/PHONG-CACH-MY-THUAT.md). Đã chốt hướng thiết kế; chưa đồng nghĩa rig và toàn bộ preview đã cập nhật.
 
 ## Bắt đầu ở đây
 
 **Thư viện biểu cảm dùng chung:** [bộ nét mặt tách lớp](what-if-studio/library/expressions/cartoon-soft/README.md) có 27 mức biểu cảm + trung tính, không tóc/khung đầu, để căn vào nhân vật mới; xem giới hạn góc nhìn và cách ghép trong hướng dẫn.
 
-**Asset xuyên series mới — 10/11/2026:** [Nhân vật truy vết](episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) có mẫu toàn thân hiện hành và 27 biểu cảm theo 3 mức + trung tính đã duyệt. Lưu riêng ở asset chung của Hẻm Có Chuyện; chưa rig hoặc ghép vào tập.
+**Asset xuyên series mới — 10/11/2026:** [Nhân vật truy vết](episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) có mẫu toàn thân hiện hành và 27 biểu cảm theo 3 mức + trung tính đã duyệt. Lưu riêng ở asset chung của The Crack in Reality (Hẻm Có Chuyện); chưa rig hoặc ghép vào tập.
 
 | File | Tác dụng và nội dung cần có | Khi đọc hoặc cập nhật |
 |---|---|---|
@@ -54,11 +54,11 @@ what-if-studio/               studio Remotion, engine, thư viện và tập m�
 
 Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tương ứng khi phát sinh. Không tạo hàng loạt file rỗng. Kinh nghiệm chung không chứa cốt truyện riêng của tập.
 
-**Đang làm:** Hẻm Có Chuyện mở thành [vũ trụ quái vật có khả năng riêng](episodes/hem-co-chuyen/VU-TRU.md). [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) bản 13 giữ lời gọn bản 12 và thêm cameo/tiệm biến mất/nguyên hình Lộc/kho lọ: 40 cue, ước tính 7:45–8:58. Chưa dựng hoặc tạo asset phần mới; animatic hiện có vẫn bản lời 11. Đọc bàn giao Claude trong hồ sơ tập trước khi dựng.
+**Đang làm:** Series **The Crack in Reality** (tiền thân Hẻm Có Chuyện) mở thành [vũ trụ các thực thể / hiện thực rạn nứt có khả năng riêng](episodes/hem-co-chuyen/VU-TRU.md). [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) bản 13 giữ lời gọn bản 12 và thêm cameo/tiệm biến mất/nguyên hình Lộc/kho lọ: 40 cue, ước tính 7:45–8:58. Chưa dựng hoặc tạo asset phần mới; animatic hiện có vẫn bản lời 11. Đọc bàn giao Claude trong hồ sơ tập trước khi dựng.
 
-**Đang phát triển văn bản:** [Hồ sơ 2 — Người làm thay](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) đã có [bản nháp chi tiết đủ ba phần V1](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/KICH-BAN.md) (10/11/2026), mỗi phần có thể tới 10 phút, nhịp thử 9:40 / 9:00 / 9:00. Đã chốt hướng kết: Nam bị nhốt trong thế giới gương, Người Kia thay thế ngoài đời, kết mở. Giữ mức duyệt cũ của phần 1; phần 2–3, luật và cơ chế mới là đề xuất chờ duyệt. Chưa có lời sạch phân vai, giọng, storyboard hay video. Bộ nhân vật Nam, Người Kia, Tùng đã có rig khớp với 8 góc quay và 11 dáng; xem README của hồ sơ. [Quy ước Hồ sơ 1, Hồ sơ 2](episodes/hem-co-chuyen/README.md#cách-gọi-các-truyện) giữ các slug kỹ thuật cũ.
+**Đang phát triển văn bản:** [The Crack in Reality — Hồ sơ 02: Người trong gương](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) (trước đây: *Người làm thay*) đã hoàn thiện kịch bản 15 phút, kịch bản Trailer & Opening điện ảnh, và Voiceover Cue Sheet 86 câu thoại chuẩn. Bộ nhân vật Nam, Người Kia, Tùng đã có rig khớp với 8 góc quay và 11 dáng; xem README của hồ sơ. [Quy ước Hồ sơ 1, Hồ sơ 2](episodes/hem-co-chuyen/README.md#cách-gọi-các-truyện) giữ các slug kỹ thuật cũ.
 
-Hồ sơ đã sắp xếp: [Hồ sơ 1 — Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
+Hồ sơ đã sắp xếp: [The Crack in Reality — Hồ sơ 1: Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 
 ## Tác dụng các thư mục
 
@@ -67,8 +67,8 @@ Hồ sơ đã sắp xếp: [Hồ sơ 1 — Tin nhắn chưa gửi](episodes/hem-
 | `docs/` | Tài liệu chung của kênh và mục lục. Không rải nghiên cứu, cốt truyện hoặc asset riêng của một tập vào đây |
 | `docs/tham-khao/` | Tư liệu tham khảo kỹ thuật gốc; file `Kelano-What-If-Prompts-Skills.xlsx` giữ bảng prompt/skill để đối chiếu, không thay thế quy trình hiện tại |
 | `episodes/<series>/<slug-tap>/` | Hồ sơ của đúng một tập. `<series>` là nhóm nội dung; `<slug-tap>` là tên thư mục ổn định dùng để nhận diện tập |
-| `episodes/hem-co-chuyen/` | Series có README/VU-TRU dùng chung; mỗi tập con có hồ sơ riêng. Lore series không đặt vào kinh nghiệm chung |
-| `episodes/doc-lap/` | Những tập What If độc lập, không mặc định thuộc thế giới của Hẻm Có Chuyện |
+| `episodes/hem-co-chuyen/` | Series The Crack in Reality (tiền thân Hẻm Có Chuyện) có README/VU-TRU dùng chung; mỗi tập con có hồ sơ riêng. Lore series không đặt vào kinh nghiệm chung |
+| `episodes/doc-lap/` | Những tập What If độc lập, không mặc định thuộc thế giới của The Crack in Reality |
 | `.claude/skills/what-if-animation/` | Hướng dẫn chuyên môn và công cụ hỗ trợ What If; đọc theo công việc cần làm |
 | `tools/` ở gốc repo | Tiện ích Windows để cài/chạy công cụ What If; khác với scripts bên trong skill |
 | `what-if-studio/` | Dự án Remotion dùng chung: mã dựng, engine, ví dụ và thư viện. Chạy lệnh npm tại đây |

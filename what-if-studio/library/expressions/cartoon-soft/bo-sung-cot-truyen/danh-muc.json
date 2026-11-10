@@ -1,0 +1,249 @@
+{
+  "version": 1,
+  "date": "2026-11-11",
+  "viewBox": [
+    -65,
+    -50,
+    130,
+    120
+  ],
+  "layers": [
+    "color",
+    "eyes",
+    "brows",
+    "nose",
+    "mouth",
+    "details"
+  ],
+  "groups": [
+    {
+      "id": "ngai-ngu",
+      "name": "Ngái ngủ",
+      "levels": [
+        "Lơ đãng, mí hơi nặng",
+        "Mắt lim dim, phản ứng chậm",
+        "Sắp ngủ, miệng hé ngáp"
+      ],
+      "use": "Nam trì hoãn, chơi game muộn và ngủ quên"
+    },
+    {
+      "id": "tu-man",
+      "name": "Tự mãn",
+      "levels": [
+        "Hài lòng với lợi ích nhỏ",
+        "Tin mình may mắn, hơi vênh",
+        "Đắc ý, né nhìn vào công sức thật"
+      ],
+      "use": "Nam nhận bài làm hộ rồi tự hợp lý hóa"
+    },
+    {
+      "id": "toi-loi",
+      "name": "Áy náy",
+      "levels": [
+        "Ngượng, bắt đầu tránh mắt",
+        "Xấu hổ khi bị đối chiếu",
+        "Nghẹn lời, biết mình đã làm sai"
+      ],
+      "use": "Nam đối diện trưởng nhóm, Tùng và tình cảm gia đình"
+    },
+    {
+      "id": "kiet-suc",
+      "name": "Kiệt sức",
+      "levels": [
+        "Mỏi mệt, khó tập trung",
+        "Mí nặng, nét mặt rệu rã",
+        "Cạn sức, không còn phản ứng mạnh"
+      ],
+      "use": "Nam cố tự làm lại nhưng liên tục thất bại"
+    },
+    {
+      "id": "buong-xuoi",
+      "name": "Buông xuôi",
+      "levels": [
+        "Còn muốn phản bác",
+        "Sức chống cự yếu dần",
+        "Chấp nhận trong trống rỗng"
+      ],
+      "use": "Chỉ dùng giai đoạn cuối trước khi Nam chạm gương"
+    },
+    {
+      "id": "cuoi-che-giau",
+      "name": "Cười che giấu",
+      "levels": [
+        "Lịch sự, dễ tạo thiện cảm",
+        "Cười có kiểm soát, dè chừng",
+        "Nụ cười lệch lạnh, lớp mặt nạ rơi"
+      ],
+      "use": "Người Kia: thân thiện ban đầu; mức 3 chỉ khi bản chất đã lộ"
+    }
+  ],
+  "expressions": [
+    {
+      "key": "ngai-ngu-01",
+      "group": "ngai-ngu",
+      "name": "Ngái ngủ",
+      "level": 1,
+      "description": "Lơ đãng, mí hơi nặng",
+      "use": "Nam trì hoãn, chơi game muộn và ngủ quên",
+      "file": "svg/ngai-ngu-01.svg"
+    },
+    {
+      "key": "ngai-ngu-02",
+      "group": "ngai-ngu",
+      "name": "Ngái ngủ",
+      "level": 2,
+      "description": "Mắt lim dim, phản ứng chậm",
+      "use": "Nam trì hoãn, chơi game muộn và ngủ quên",
+      "file": "svg/ngai-ngu-02.svg"
+    },
+    {
+      "key": "ngai-ngu-03",
+      "group": "ngai-ngu",
+      "name": "Ngái ngủ",
+      "level": 3,
+      "description": "Sắp ngủ, miệng hé ngáp",
+      "use": "Nam trì hoãn, chơi game muộn và ngủ quên",
+      "file": "svg/ngai-ngu-03.svg"
+    },
+    {
+      "key": "tu-man-01",
+      "group": "tu-man",
+      "name": "Tự mãn",
+      "level": 1,
+      "description": "Hài lòng với lợi ích nhỏ",
+      "use": "Nam nhận bài làm hộ rồi tự hợp lý hóa",
+      "file": "svg/tu-man-01.svg"
+    },
+    {
+      "key": "tu-man-02",
+      "group": "tu-man",
+      "name": "Tự mãn",
+      "level": 2,
+      "description": "Tin mình may mắn, hơi vênh",
+      "use": "Nam nhận bài làm hộ rồi tự hợp lý hóa",
+      "file": "svg/tu-man-02.svg"
+    },
+    {
+      "key": "tu-man-03",
+      "group": "tu-man",
+      "name": "Tự mãn",
+      "level": 3,
+      "description": "Đắc ý, né nhìn vào công sức thật",
+      "use": "Nam nhận bài làm hộ rồi tự hợp lý hóa",
+      "file": "svg/tu-man-03.svg"
+    },
+    {
+      "key": "toi-loi-01",
+      "group": "toi-loi",
+      "name": "Áy náy",
+      "level": 1,
+      "description": "Ngượng, bắt đầu tránh mắt",
+      "use": "Nam đối diện trưởng nhóm, Tùng và tình cảm gia đình",
+      "file": "svg/toi-loi-01.svg"
+    },
+    {
+      "key": "toi-loi-02",
+      "group": "toi-loi",
+      "name": "Áy náy",
+      "level": 2,
+      "description": "Xấu hổ khi bị đối chiếu",
+      "use": "Nam đối diện trưởng nhóm, Tùng và tình cảm gia đình",
+      "file": "svg/toi-loi-02.svg"
+    },
+    {
+      "key": "toi-loi-03",
+      "group": "toi-loi",
+      "name": "Áy náy",
+      "level": 3,
+      "description": "Nghẹn lời, biết mình đã làm sai",
+      "use": "Nam đối diện trưởng nhóm, Tùng và tình cảm gia đình",
+      "file": "svg/toi-loi-03.svg"
+    },
+    {
+      "key": "kiet-suc-01",
+      "group": "kiet-suc",
+      "name": "Kiệt sức",
+      "level": 1,
+      "description": "Mỏi mệt, khó tập trung",
+      "use": "Nam cố tự làm lại nhưng liên tục thất bại",
+      "file": "svg/kiet-suc-01.svg"
+    },
+    {
+      "key": "kiet-suc-02",
+      "group": "kiet-suc",
+      "name": "Kiệt sức",
+      "level": 2,
+      "description": "Mí nặng, nét mặt rệu rã",
+      "use": "Nam cố tự làm lại nhưng liên tục thất bại",
+      "file": "svg/kiet-suc-02.svg"
+    },
+    {
+      "key": "kiet-suc-03",
+      "group": "kiet-suc",
+      "name": "Kiệt sức",
+      "level": 3,
+      "description": "Cạn sức, không còn phản ứng mạnh",
+      "use": "Nam cố tự làm lại nhưng liên tục thất bại",
+      "file": "svg/kiet-suc-03.svg"
+    },
+    {
+      "key": "buong-xuoi-01",
+      "group": "buong-xuoi",
+      "name": "Buông xuôi",
+      "level": 1,
+      "description": "Còn muốn phản bác",
+      "use": "Chỉ dùng giai đoạn cuối trước khi Nam chạm gương",
+      "file": "svg/buong-xuoi-01.svg"
+    },
+    {
+      "key": "buong-xuoi-02",
+      "group": "buong-xuoi",
+      "name": "Buông xuôi",
+      "level": 2,
+      "description": "Sức chống cự yếu dần",
+      "use": "Chỉ dùng giai đoạn cuối trước khi Nam chạm gương",
+      "file": "svg/buong-xuoi-02.svg"
+    },
+    {
+      "key": "buong-xuoi-03",
+      "group": "buong-xuoi",
+      "name": "Buông xuôi",
+      "level": 3,
+      "description": "Chấp nhận trong trống rỗng",
+      "use": "Chỉ dùng giai đoạn cuối trước khi Nam chạm gương",
+      "file": "svg/buong-xuoi-03.svg"
+    },
+    {
+      "key": "cuoi-che-giau-01",
+      "group": "cuoi-che-giau",
+      "name": "Cười che giấu",
+      "level": 1,
+      "description": "Lịch sự, dễ tạo thiện cảm",
+      "use": "Người Kia: thân thiện ban đầu; mức 3 chỉ khi bản chất đã lộ",
+      "file": "svg/cuoi-che-giau-01.svg"
+    },
+    {
+      "key": "cuoi-che-giau-02",
+      "group": "cuoi-che-giau",
+      "name": "Cười che giấu",
+      "level": 2,
+      "description": "Cười có kiểm soát, dè chừng",
+      "use": "Người Kia: thân thiện ban đầu; mức 3 chỉ khi bản chất đã lộ",
+      "file": "svg/cuoi-che-giau-02.svg"
+    },
+    {
+      "key": "cuoi-che-giau-03",
+      "group": "cuoi-che-giau",
+      "name": "Cười che giấu",
+      "level": 3,
+      "description": "Nụ cười lệch lạnh, lớp mặt nạ rơi",
+      "use": "Người Kia: thân thiện ban đầu; mức 3 chỉ khi bản chất đã lộ",
+      "file": "svg/cuoi-che-giau-03.svg"
+    }
+  ],
+  "limits": [
+    "Static overlays; front/three-quarter only",
+    "No hair, head, skin fill or neck",
+    "No lip-sync or motion acceptance"
+  ]
+}

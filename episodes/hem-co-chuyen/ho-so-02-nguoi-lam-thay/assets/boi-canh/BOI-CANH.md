@@ -1,4 +1,7 @@
-# Bối cảnh — Hồ sơ 2: Người làm thay
+# Bối cảnh — The Crack in Reality — Hồ sơ 02: Người trong gương (trước đây: Người làm thay)
+
+**Bóng cập nhật 11/11/2026:** phòng vẫn dùng hình học/camera không gian; cách tô đã chuyển sang màu mặt chọn sẵn và bóng tiếp xúc tự vẽ. Bỏ bóng vật liệu sinh theo hướng đèn, gradient trụ, blur AO và lớp tối falloff. Ánh đèn/vệt nắng là lớp không khí riêng. Bảng tám góc phòng và kiểm tra tỉ lệ đã xuất lại; ảnh thử ánh sáng/video local cũ không phải chuẩn bóng mới. Đọc [quy chuẩn hiện hành](../thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026).
+
 
 **Đại tu 3D 10/11/2026, trên bản `a70ad45`. Bản hình để duyệt; chưa dựng chuyển động.** Áp dụng [Style B chung](../../../../../docs/PHONG-CACH-MY-THUAT.md). Căn phòng giờ là **một mô hình 3D tính bằng cm** trong [boi-canh.tsx](boi-canh.tsx). Mỗi góc máy là một camera thật, nên đồ đạc không lệch chỗ giữa các shot và vật gần che vật xa đúng theo khoảng cách.
 

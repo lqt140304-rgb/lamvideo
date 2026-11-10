@@ -1,239 +1,412 @@
 # The Crack in Reality — Hồ sơ 02: Người trong gương
 ## BẢNG PHÂN CẢNH KỸ THUẬT ĐIỆN ẢNH: OPENING & TRAILER
-*(Cinematic Storyboard, Camera Direction, VFX & SFX Production Bible)*
+*(Cinematic Storyboard, Live-Action Film Aesthetics, Psychological Suspense, VFX & SFX Production Bible)*
 
-Tài liệu này quy chuẩn toàn bộ thông số kỹ thuật điện ảnh (Góc máy, Tiêu cự, Chuyển động Camera, Ánh sáng, VFX Shaders, Thiết kế âm thanh SFX đa tầng) cho **Opening (48 giây)** và **Trailer chính thức (60 giây)** của dự án **"Người trong gương"** thuộc vũ trụ **The Crack in Reality**.
+Tài liệu này quy chuẩn toàn bộ thông số kỹ thuật điện ảnh cấp cao (Góc máy, Tiêu cự ống kính Anamorphic, Chuyển động Camera người đóng, Ánh sáng Chiaroscuro, Mô phỏng chất phim nhựa 35mm, VFX Shaders, Thiết kế âm thanh SFX đa tầng, Subliminal Flash-frames và các Manh mối kích thích tò mò tột đỉnh) cho **Opening (48 giây)** và **Trailer chính thức (60 giây)** của dự án **"Người trong gương"** thuộc vũ trụ **The Crack in Reality**.
+
+---
+
+# MỤC 0: BỘ QUY CHUẨN HIỆU ỨNG ĐIỆN ẢNH NGƯỜI ĐÓNG (LIVE-ACTION CINEMATIC SUITE)
+*Bộ thông số và kỹ thuật biến chuyển hình ảnh đồ họa thành một tác phẩm điện ảnh sống động, chân thực, có khối và có linh hồn như phim người đóng (Live-Action Cinema).*
+
+### 1. Quang học & Vật lý thấu kính (Anamorphic Optics & Lens Physics):
+* **Tỉ lệ khung hình Anamorphic 2.39:1 (Cinemascope):** Hai thanh viền đen điện ảnh (Cinematic Letterbox Bars) trên và dưới, mở rộng trường thị giác theo chiều ngang, tạo cảm giác phim chiếu rạp cao cấp.
+* **Anamorphic Blue / Cyan Streak Flare:** Khi nguồn sáng gắt (đèn màn hình laptop, đèn pin điện thoại, đèn xe máy ngoài hẻm) chiếu vào ống kính, tạo vệt lóa sáng xanh sapphire nằm ngang kéo dài sang hai bên mép khung hình (đặc trưng ống kính Panavision / Cooke Anamorphic).
+* **Bokeh Elip (Oval Bokeh):** Các đốm sáng mờ nhòe ở tiền cảnh và hậu cảnh có hình elip bầu dục dọc thay vì hình tròn thông thường của máy kỹ thuật số.
+* **Độ sâu trường ảnh nông (Shallow Depth of Field — f/1.4 đến f/2.0):** Xóa phông mượt mà, tách biệt nhân vật với hậu cảnh; sử dụng kỹ thuật **Rack Focus** chuyển điểm nét từ màn hình điện thoại sang khuôn mặt mệt mỏi của Nam.
+* **Quang sai sắc thấu kính (Lens Chromatic Aberration — 1.5px đến 2.5px):** Hiện tượng tán sắc đỏ - lam (RGB Edge Fringing) ở mép ngoài cùng của khung hình và quanh các vật thể tương phản cao, xóa tan cảm giác sắc cạnh giả tạo của vector đồ họa.
+* **Độ cong thấu kính (Optical Barrel Distortion):** Độ cong méo nhẹ 2% ở các góc khung hình khi dùng tiêu cự góc rộng 24mm, mô phỏng thấu kính máy quay điện ảnh thực tế.
+* **Motion Blur cửa trập 180° (Shutter Angle 180°):** Độ mờ chuyển động tự nhiên với tốc độ màn trập 1/48s tại 24fps. Khi hành động giật gắt (vung búa, giật lùi), chuyển sang **Shutter Angle 90° (1/96s)** để hình ảnh sắc lẹm, giật cục gay cấn như phim hành động Hollywood.
+
+### 2. Mô phỏng chất liệu phim nhựa 35mm (Analog Film Emulation):
+* **Hạt phim hữu cơ 35mm (Kodak Vision3 500T 5219 Grain):** Lớp hạt nhiễu analog sống động, phân bổ tự nhiên tập trung nhiều ở vùng tối (Shadows) và trung tính (Midtones), tuyệt đối không phải nhiễu kỹ thuật số (Digital noise).
+* **Quầng sáng đỏ viền phim (Film Halation):** Hiện tượng ánh sáng đỏ ấm rực (Red Glow) lan tỏa mềm mại quanh các nguồn sáng chói (viền màn hình máy tính, bóng đèn trần, viền cửa sổ sáng ngược) do ánh sáng phản xạ từ lớp đế phim nhựa.
+* **Màng khuếch tán ánh sáng mềm (Black Pro-Mist 1/4 Filter):** Giảm bớt độ tương phản gay gắt kỹ thuật số, làm dịu các mảng sáng, tạo quầng sương mờ (Bloom) huyền ảo quanh tóc và gương mặt nhân vật.
+* **Rung lắc cổng phim (Film Gate Weave):** Khung hình có độ trôi rung vi mô ngẫu nhiên 0.3px theo trục X-Y, tái hiện cảm giác cuộn phim nhựa đang chạy qua máy chiếu cơ khí.
+
+### 3. Ánh sáng kịch tính & Chiều sâu không gian (Chiaroscuro & Motivated Lighting):
+* **Ánh sáng có nguồn gốc thực tế (Motivated Practical Light):** Không dùng ánh sáng phẳng đều. Mọi luồng sáng đều bắt nguồn từ nguồn thật: ánh nắng sớm xuyên qua nan rèm rách, ánh sáng trắng xanh lạnh từ laptop, ánh đèn đường vàng hắt qua khe cửa sổ, ánh lân tinh xanh lục ma mị từ mặt kính gương.
+* **Độ tương phản cao Chiaroscuro (Phong cách David Fincher):** Tương phản sâu giữa mảng sáng rực và mảng tối thẳm (Crushed blacks), vùng bóng đổ không bị đen tuyền tuyệt đối mà có sắc xanh rêu đậm hoặc xám than.
+* **Ánh sáng thể tích & Khói bụi lơ lửng (Atmospheric Dust & God Rays):** Những hạt bụi li ti lơ lửng chuyển động chậm trong luồng ánh sáng mặt trời chiếu chéo qua phòng trọ (Tyndall Effect).
+* **Đường viền sáng tách khối (Rim / Kicker Light 1.5px):** Một vệt sáng mỏng sắc nét bao quanh bờ vai, sống mũi và viền tóc nhân vật, tách biệt cơ thể khỏi phông nền tối đen, tạo cảm giác nhân vật có khối 3D lập thể như người thật.
+* **Độ chuyển bóng tự nhiên (Contact Shadow & Penumbra):** Bóng tiếp xúc (Contact shadow) đen đậm sát chân bàn, chân nệm, lan tỏa dần thành vùng bóng nửa tối (Penumbra) mềm mại, triệt tiêu hoàn toàn bóng giả nhựa phẳng lì.
+
+### 4. Ngôn ngữ chuyển động máy quay người đóng (Live-Action Camera Grammar):
+* **Độ rung thở tự nhiên (Handheld Camera Breathing):** Giả lập chuyển động của máy quay vác vai (Shoulder Rig) do quay phim thật cầm, có độ rung rinh nhẹ trôi dạt ngẫu nhiên theo nhịp thở con người, khiến cảnh quay không bao giờ "chết cứng".
+* **Cú máy Vertigo / Hitchcock Dolly Zoom:** Camera Dolly tiến tới trong khi thu hẹp tiêu cự (hoặc ngược lại) ở cảnh Nam phát hiện nốt ruồi đảo nghịch, làm méo mó không gian, khiến các bức tường và chiếc gương dường như giãn dài ra vô tận.
+* **Chuyển cảnh lia máy nhanh (Whip Pan):** Lia máy tốc độ cao với Motion Blur quét ngang mịt mù để chuyển giao giữa các lát cắt thời gian.
+
+### 5. Bảng màu điện ảnh ngột ngạt (Dark Moody Palette & Split Toning):
+* **Tone màu Fincher & A24:** Vàng mù tạt bẩn (Drab Tungsten Greenish-Yellow) kết hợp với Xanh Cyan lạnh và Xanh rêu ẩm mốc.
+* **Bảo toàn màu da người (Skin Tone Protection):** Dù phông nền có kéo lạnh hay bẩn, vùng da mặt nhân vật vẫn giữ được sắc hồng cam ấm áp của tế bào sống, tương phản sâu sắc với làn da tái mét lạnh ngắt của Người Trong Gương.
 
 ---
 
 # PHẦN 1: BẢNG PHÂN CẢNH KỸ THUẬT OPENING (48 GIÂY)
 * **Thời lượng:** 48 giây (1152 frames @ 24fps)
-* **Tỉ lệ khung hình:** 2.39:1 (Anamorphic Widescreen Cinematic) hoặc 16:9
-* **Concept:** *"Chân dung kẻ lười biếng & Mầm mống tai họa từ chiếc gương"*
+* **Tỉ lệ khung hình:** 2.39:1 Anamorphic Widescreen (Letterbox đen trên/dưới)
+* **Chủ đề trung tâm:** *"Sự phản chiếu dị thường & Lời cảnh báo bị phớt lờ"*
+* **Phong cách:** Điện ảnh tâm lý giật gân (Psychological Thriller Cinema)
 
 ```
 TIMECODE RULER (OPENING 48s @ 24fps):
-00:00                 00:08                 00:18                 00:28                 00:40        00:48
-[   SHOT 1: NỆM TRỌ   ] [  SHOT 2: MONTAGE   ] [  SHOT 3: TRỐN CHẠY  ] [  SHOT 4: BẺ LÁI MA MỊ ] [ TITLE DROP ]
-(0 - 192f)              (192 - 432f)           (432 - 672f)           (672 - 960f)          (960 - 1152f)
+00:00        00:05                 00:15                 00:26                 00:38        00:48
+[ SHOT 0: VẢI ] [   SHOT 1: ĐỘ TRỄ   ] [  SHOT 2: MONTAGE   ] [  SHOT 3: BẤT AN     ] [ SHOT 4: BẺ LÁI ] [ TITLE DROP ]
+(0 - 120f)      (120 - 360f)          (360 - 624f)          (624 - 912f)          (912 - 1056f)     (1056 - 1152f)
 ```
 
 ---
 
-### SHOT 1: CHÂN DUNG NAM & CĂN PHÒNG TRỌ (00:00 – 00:08 | Frame 0 – 192)
+### SHOT 0: COLD OPEN — TẤM VẢI PHỦ GƯƠNG & GIỌT NƯỚC NGHỊCH ĐẢO (00:00 – 00:05 | Frame 0 – 120)
+*Mục đích: Thiết lập không khí phim người đóng u uất, tĩnh lặng và bí ẩn ngay từ giây đầu tiên.*
 
 * **Góc máy & Cử động:**
-  * **Khung hình:** Macro Close-Up (Cực cận) $\to$ Slow Dolly-Out (Lùi dần máy) thành Wide Shot (Góc rộng).
-  * **Tiêu cự:** 85mm f/1.8 (xóa phông mờ mịt ở đầu) $\to$ chuyển nét Rack Focus về 24mm f/4.0 toàn phòng.
-  * **Góc quay:** Low Angle (Góc thấp sát mặt chiếu) nhìn chếch lên nệm.
-* **Bố cục & Ánh sáng:**
-  * *Tiền cảnh:* Chiếc điện thoại màn hình vỡ góc đang nhấp nháy sáng chói chữ: `7:00 — BÁO THỨC: ĐI HỌC`.
-  * *Trung cảnh:* Nam trùm chăn kín mít, chỉ thò một cánh tay gầy gò, lười biếng quờ quạng đập tắt chuông rồi co rụt vào chăn ngủ tiếp.
-  * *Hậu cảnh:* Căn phòng trọ bừa bộn: vỏ lon bò húc, bát mì tôm ăn dở cáu bẩn, quần áo vắt ngang song sắt cửa sổ.
-  * *Ánh sáng:* Ánh sáng ban mai vàng nhạt xuyên qua khe rèm rách, hạt bụi lơ lửng trong không khí (Dust Particles).
-* **VFX & Shaders (Remotion):**
-  * `FilmGrain`: Hạt phim 35mm cường độ 15% tạo cảm giác analog điện ảnh.
-  * `Vignette`: Bo tối 4 góc 20% hướng ánh nhìn vào màn hình điện thoại.
-  * `ChromaticAberration`: Sắc sai viền đỏ-xanh 1.5px ở mép khung hình khi điện thoại rung chuông.
+  * **Khung hình:** Extreme Macro Close-Up (Cực cận 100mm f/2.8 Anamorphic).
+  * **Góc quay:** Dutch Angle 5° nghiêng nhẹ. Camera trượt chậm từ từ dọc theo khung gỗ chiếc gương đứng cũ kỹ.
+* **Ánh sáng & Hiệu ứng người đóng (Live-Action Suite):**
+  * *Ánh sáng Chiaroscuro:* Ánh sáng xanh chạng vạng 5h30 sáng yếu ớt từ khe cửa sổ hắt lên mặt kính mờ hơi ẩm. Toàn bộ góc phòng còn lại chìm trong bóng tối xám than (Deep Charcoal Shadow).
+  * *Optical Flare:* Một tia sáng Anamorphic Cyan lướt qua thấu kính khi camera di chuyển qua gờ gương.
+  * *Film Halation & Grain:* Quầng đỏ ấm (Red Halation) lan nhẹ quanh vệt phản quang trên mặt kính. Hạt phim 35mm mịn phủ khắp khung hình.
+* **Hành động & Chi tiết bí ẩn (Curiosity Hook #1):**
+  * Tấm vải hoa cũ kỹ bạc màu phủ kín nửa trên của gương. Trên viền gỗ mục có dòng chữ khắc tay mờ ố: *"Đừng mở vải sau 0h"*.
+  * Một giọt sương mai đọng trên mặt kính lạnh. Khi camera tiến lại gần, **giọt nước bỗng dừng lại 1 nhịp rồi LĂN NGƯỢC TỪ DƯỚI LÊN TRÊN một đoạn 1.5cm** rồi mới rẽ nhánh chảy xuôi xuống!
 * **SFX Multi-layer Sound Design:**
-  * *Layer 1 (Ambience):* Tiếng quạt con cóc rù rì: *rù... rù...*, tiếng ve sớm xa xăm ngoài hẻm.
-  * *Layer 2 (Foley):* Tiếng chuông báo thức iPhone mặc định chói tai: *Marimba / Radar ringtone*, tiếng tay đập cộp vào màn hình, tiếng chăn sột soạt.
-  * *Layer 3 (Music):* Nhạc nền lo-fi hiphop / acoustic guitar mộc mạc, nhịp điệu lười biếng 75 BPM.
-* **Voice-over (Lời dẫn):**
-  * **LỜI DẪN [Giọng nam miền Nam/Bắc trầm ấm, hơi dí dỏm]:**  
+  * *Layer 1 (Sub-bass):* Tiếng ù rền tần số thấp 30Hz rung chuyển ngực (*Sub-rumble*).
+  * *Layer 2 (Foley):* Tiếng thở lạnh hắt ra từ bên trong mặt kính: *hùuuu...*, tiếng giọt nước chảy ngược: *tóc...* (Reverse Water Drop Foley).
+  * *Layer 3 (Ambience):* Tiếng ve sầu sớm xa xăm ngoài ngõ hẻm vọng lại như ảo giác.
+
+---
+
+### SHOT 1: CHÂN DUNG NAM & CÚ GLITCH ĐỘ TRỄ 5 FRAMES (00:05 – 00:15 | Frame 120 – 360)
+
+* **Góc máy & Cử động:**
+  * **Khung hình:** Macro Close-Up $\to$ Slow Dolly-Out mượt mà kết hợp **Handheld Camera Breathing (độ thở vác vai ngẫu nhiên 0.4px)** thành Medium Shot bao quát góc nệm và chiếc gương.
+  * **Tiêu cự:** 85mm f/1.8 Anamorphic $\to$ **Rack Focus** chuyển điểm nét từ màn hình điện thoại sang căn phòng.
+* **Ánh sáng & Hiệu ứng người đóng:**
+  * *Ánh sáng thể tích (God Rays):* Một luồng nắng ban mai vàng nhạt chiếu chéo qua khe rèm nan rách, làm lộ rõ hàng nghìn hạt bụi li ti lơ lửng trong không khí (Dust Particles Tyndall Effect).
+  * *Anamorphic Streak Flare:* Màn hình điện thoại vỡ góc nhấp nháy tạo một vệt lóa sáng xanh lam nằm ngang (Horizontal Blue Flare) quét ngang mặt Nam.
+  * *Rim Light:* Vệt sáng vàng mỏng 1.5px viền quanh chăn và sống mũi Nam, tách cơ thể khỏi nền tối.
+* **Hành động & Chi tiết bí ẩn (Curiosity Hook #2 — Độ trễ gương):**
+  * Màn hình điện thoại hiện dòng chữ sáng rực: `07:00 — BÁO THỨC: ĐI HỌC (LẦN 5)`.
+  * Cánh tay gầy gò của Nam thò ra khỏi chăn, quờ quạng đập mạnh tắt chuông rồi co rụt vào chăn ngủ tiếp.
+  * **CHI TIẾT GLITCH THẦN KINH:** Trong chiếc gương ở góc hậu cảnh, **cánh tay phản chiếu vươn ra TRỄ HƠN NAM THẬT 5 FRAMES (0.2s)!** Khi Nam thật đã rút tay về chăn, cánh tay trong gương vẫn lơ lửng giữa không trung thêm một tích tắc rồi mới hạ xuống một cách gượng gạo.
+* **SFX & Music:**
+  * Tiếng chuông báo thức iPhone default chói gắt (*Radar Ringtone*) kèm méo tiếng nhẹ (Tape Flutter).
+  * Tiếng tay đập cộp vào màn hình điện thoại, tiếng chăn bông sột soạt.
+  * Nhạc nền Lo-fi Acoustic Guitar mộc mạc vang lên với tiếng gảy dây đàn chân thực (75 BPM), mang đến cảm giác đời thường thư thái đánh lừa khán giả.
+* **Voice-over:**
+  * **LỜI DẪN [Giọng nam miền Nam/Bắc trầm ấm, hóm hỉnh đời thường]:**  
     > *"Đây là Nam. Sinh viên năm hai, hiện đang 'tạm trú' tại một phòng trọ nhỏ cùng Tùng — thằng bạn thân nghiêm túc đến phát mệt."*
 
 ---
 
-### SHOT 2: BA LÁT CẮT THÓI QUEN TRÌ HOÃN (00:08 – 00:18 | Frame 192 – 432)
+### SHOT 2: BA LÁT CẮT BỆNH TRÌ HOÃN & CHI TIẾT TÌNH BẠN (00:15 – 00:26 | Frame 360 – 624)
 
-* **Góc máy & Cử động (Montage 3 nhịp nhanh):**
-  * *Lát 2A (00:08 – 00:11):* Over-The-Shoulder (Qua vai Tùng). Tùng chỉ tay vào laptop hiển thị slide môn học. Nam dán mắt vào điện thoại chơi Liên Quân, giơ ngón trỏ lên: *"Chờ nốt combat này!"*. Máy tĩnh 50mm.
-  * *Lát 2B (00:11 – 00:14):* Dutch Angle (Góc nghiêng 10°). Cận cảnh bồn rửa bát ngập ngụa xoong nồi cáu mỡ. Nam đi ngang xua tay: *"Tí nữa tao rửa!"*. Cú Pan nhanh (Whip Pan) theo bước chân Nam.
-  * *Lát 2C (00:14 – 00:18):* Medium Two-Shot (Góc trung 2 người). Trời tối. Tùng đi làm thêm về kiệt sức ngồi mép nệm. Nam nhìn bạn, chủ động vuốt màn hình thoát game, với tay lấy cốc nước đẩy sang cho Tùng. Máy tĩnh 35mm.
-* **Bố cục & Ánh sáng:**
-  * Lát 2A & 2B: Ánh sáng ban ngày chói gắt, bóng đổ sắc nét.
-  * Lát 2C: Ánh đèn tuýp vàng ấm cúng, tạo cảm giác tình bạn đời thường chân thành.
-* **VFX & Shaders:**
-  * Chuyển cảnh giữa các lát bằng `Whip Pan Blur` (quét mờ chuyển động ngang).
-  * Lớp phủ UI tin nhắn nhấp nháy trên màn hình điện thoại: `Nhóm Bài Tập Lớn: Nam ơi nộp bài!`.
-* **SFX Multi-layer Sound Design:**
-  * *Layer 1 (Foley):* Tiếng bấm màn hình lia lịa: *tách-tách-tách*, tiếng kim loại va chạm ở bồn bát, tiếng cốc nước đặt xuống bàn gỗ: *cộp*.
-  * *Layer 2 (Ambience):* Tiếng xe máy chạy qua hẻm ngoài cửa sổ.
-  * *Layer 3 (Music):* Giai điệu lo-fi tiếp tục, đến Lát 2C thì nốt nhạc chậm dần, ấm áp.
-* **Voice-over (Lời dẫn):**
-  * **LỜI DẪN [giọng thân mật, giảm nét đùa]:**  
-    > *"Nam không phải người xấu. Cậu chỉ mắc đúng một 'căn bệnh' nan y của tuổi trẻ: Trì hoãn. Việc gì cũng có thể đợi đến 'tí nữa'. Nhưng kỳ lạ là, ở cùng một thằng lười như Nam... thi thoảng cũng thấy dễ chịu."*
+* **Góc máy & Cử động (Montage 3 nhịp nhanh với Whip Pan Transition):**
+  * *Lát 2A (00:15 – 00:18):* Over-The-Shoulder qua vai Tùng. Tùng chỉ ngón tay vào màn hình laptop đang mở slide môn học. Nam dán mắt vào điện thoại leo rank, giơ ngón trỏ: *"Chờ nốt combat này!"*.
+  * *Lát 2B (00:18 – 00:22):* Dutch Angle 10°. Cận cảnh bồn rửa bát ngập ngụa xoong nồi cáu mỡ. Nam đi ngang xua tay: *"Tí nữa tao rửa!"*. Cú Whip Pan nhanh với Motion Blur 180° quét ngang theo bước chân Nam.
+  * *Lát 2C (00:22 – 00:26):* Medium Two-Shot 35mm. Đêm muộn. Tùng đi làm thêm về kiệt sức ngồi xoa bóp bắp chân ở mép nệm. Nam nhìn bạn, chủ động gập điện thoại thoát game, với tay lấy cốc nước mát đẩy sang cho Tùng: *"Uống đi cho đỡ mệt"*.
+* **Ánh sáng & Hiệu ứng người đóng:**
+  * Lát 2A & 2B: Ánh sáng ban ngày chói gắt, bóng đổ sắc nét (Hard Sun Shadow), khói thuốc mờ ảo.
+  * Lát 2C: Chuyển sang ánh đèn tuýp vàng ấm cúng (Tungsten 3200K), ánh sáng mềm mại dịu dàng làm nổi bật tình bạn gắn bó chân thành.
+* **Voice-over:**
+  * **LỜI DẪN [Giọng thân mật, giảm nét đùa, chân thành]:**  
+    > *"Nam không phải người xấu. Cậu chỉ mắc đúng một căn bệnh nan y của tuổi trẻ: Trì hoãn. Việc gì cũng có thể đợi đến... tí nữa. Nhưng kỳ lạ là, ở cùng một thằng lười như Nam... thi thoảng cũng thấy dễ chịu."*
 
 ---
 
-### SHOT 3: ƯỚC MUỐN TRỐN CHẠY & CHIẾC GƯƠNG VÔ DANH (00:18 – 00:28 | Frame 432 – 672)
+### SHOT 3: ĐỘC THOẠI BẾ TẮC & SỰ PHẢN CHIẾU ĐẢO BÊN (00:26 – 00:38 | Frame 624 – 912)
 
 * **Góc máy & Cử động:**
-  * **Khung hình:** Medium Close-Up $\to$ Slow Push-In (Đẩy máy từ từ vào gương mặt Nam).
-  * **Tiêu cự:** 50mm f/2.0 $\to$ DOF (Depth of field) nông, làm mờ hậu cảnh.
-  * **Góc quay:** Eye-level (Ngang tầm mắt) đối diện chiếc gương đứng khung gỗ cũ kỹ kê cạnh hông tủ.
-* **Bố cục & Ánh sáng:**
-  * *Bố cục:* Nam đứng ở nửa trái khung hình, mặt gương phản chiếu nửa phải. Trên bàn học phía sau, màn hình laptop hiển thị đồng hồ đếm ngược nộp bài: `Hạn chót: 23:59`.
-  * *Ánh sáng:* Ánh sáng trắng xanh lạnh từ laptop hắt lên nửa mặt Nam. Góc phòng chìm dần vào bóng tối u uất.
-* **VFX & Shaders:**
-  * `Color Grading`: Kéo màu lạnh (Desaturate 20%, đẩy tông Teal & Cyan vào vùng tối).
-  * `Lens Distortion`: Rìa mặt gương hơi cong nhẹ như một thấu kính lồi bí hiểm.
-* **SFX Multi-layer Sound Design:**
-  * *Layer 1 (Ambience):* Quạt trần quay lạch cạch đơn điệu: *kẽo kẹt... kẽo kẹt...*
-  * *Layer 2 (Music Transition):* Nhạc lo-fi bỗng nghẹn lại, một nốt cello trầm đục (Low Cello Drone) kéo dài bắt đầu trườn vào, tạo cảm giác gai ốc.
-  * *Layer 3 (SFX):* Tiếng thở dài não nề của Nam có reverb vang vọng như tiếng vang trong phòng trống.
+  * **Khung hình:** Medium Close-Up $\to$ Slow Push-In (Đẩy máy từ từ vào gương mặt Nam đối diện chiếc gương).
+  * **Tiêu cự:** 50mm f/1.4 Anamorphic với DOF cực nông, làm nhòe toàn bộ phòng trọ phía sau thành những đốm Bokeh elip lung linh.
+* **Ánh sáng & Phối màu Chiaroscuro kiểu David Fincher:**
+  * Màn hình laptop hiển thị đồng hồ đếm ngược đỏ rực: `Hạn chót: 23:59 — THIẾU BÀI TẬP`.
+  * Luồng sáng trắng xanh lạnh (Cold Cyan Light) từ laptop hắt ngược lên nửa khuôn mặt Nam, nửa mặt còn lại chìm hoàn toàn vào bóng tối đen thẳm.
+  * *Halation:* Quầng đỏ ấm rực bao quanh các con số điện tử của đồng hồ đếm ngược.
+* **Hành động & Chi tiết bất thường (Curiosity Hook #3):**
+  * Nam mệt mỏi đưa **tay phải** lên gãi đuôi mắt trái (vị trí có nốt ruồi thật).
+  * **TRONG GƯƠNG:** Hình ảnh phản chiếu đưa **tay trái** lên... **nhưng nốt ruồi trong gương lại nằm ở đuôi mắt PHẢI!**
+  * Đôi mắt của cái bóng trong gương không nhìn vào mắt Nam thật mà đang **nhìn thẳng trừng trừng ra phía khán giả màn ảnh** (Phá vỡ bức tường thứ 4 — Fourth Wall Break)!
+* **SFX & Music Transition:**
+  * Nhạc Lo-fi ngưng bặt đột ngột bằng hiệu ứng đĩa than bị hãm phanh (*Vinyl Brake Stop*).
+  * Tiếng quạt trần quay lạch cạch đơn điệu: *kẽo kẹt... kẽo kẹt...*
+  * Một nốt Cello trầm đục (Low Cello Drone 45Hz) bắt đầu trườn vào, kéo dài u uất rợn gai ốc.
 * **Voice / Độc thoại:**
   * **NAM [Độc thoại nội tâm, giọng mệt mỏi, bất lực]:**  
-    > *"Làm người lớn mệt mỏi vãi chưởng... Deadline dí, học lại, áp lực gia đình... Ước gì có ai đó gánh hết phiền toái, sống hộ mình cái cuộc đời này thì sướng biết mấy!"*
+    > *"Làm người lớn mệt mỏi vãi chưởng... Deadline dí, học lại, áp lực gia đình... Ước gì có ai đó gánh hết phiền toái, sống hộ mình cái cuộc đời này thì sướng biết mấy..."*
 
 ---
 
-### SHOT 4: CÚ BẺ LÁI MA MỊ — THẾ GIỚI TRONG GƯƠNG (00:28 – 00:40 | Frame 672 – 960)
+### SHOT 4: CÚ BẺ LÁI MA MỊ — BÀN TAY XUYÊN KÍNH & HITCHCOCK DOLLY ZOOM (00:38 – 00:44 | Frame 912 – 1056)
 
-* **Góc máy & Cử động:**
-  * **Khung hình:** Over-The-Shoulder (Từ sau lưng Nam nhìn vào gương) $\to$ Crash Zoom cực nhanh vào đôi mắt cái bóng trong gương.
-  * **Tiêu cự:** 35mm $\to$ Zoom giật về 85mm.
-  * **Góc quay:** Dutch Angle nghiêng 15° tạo cảm giác mất trọng lực, méo mó thực tại.
-* **Bố cục & Ánh sáng:**
-  * Nam thật thở dài, xoay người bước quay lưng đi... **NHƯNG HÌNH ẢNH TRONG GƯƠNG KHÔNG QUAY LƯNG ĐI!**
-  * Cái bóng trong gương vẫn đứng nguyên vị trí, từ từ ngẩng đầu lên, nở một nụ cười nhếch mép sắc lạnh, tà ác.
-  * **ĐẶC TẢ CHI TIẾT:** Đuôi mắt phải của cái bóng có **NỐT RUỒI ĐỐI XỨNG** (Đảo bên so với Nam thật)!
-  * Mặt kính gương rung chuyển, gợn sóng lăn tăn như hồ nước đêm buốt giá. Một bàn tay mặc áo sơ mi xanh rêu thò hẳn ra khỏi mặt kính!
-  * *Ánh sáng:* Căn phòng tối sầm lại, chỉ còn mặt gương phát ra luồng sáng lân tinh xanh lục ma quái (Eerie Greenish Cyan Glow).
-* **VFX & Shaders:**
-  * `Fluid Displacement Shader`: Mặt kính gợn sóng hình tròn (Ripple Effect) tại điểm bàn tay Người Kia chạm vào xuyên qua.
-  * `Edge Glitch`: Giật khung hình (Frame stutter) 2 frames tạo cảm giác thực tại bị nứt vỡ.
-  * `Eye Glow`: Ánh sáng con ngươi trong gương sắc lạnh, không chớp mắt.
+* **Góc máy & Kỹ thuật máy quay:**
+  * **Cú máy Hitchcock Vertigo Effect (Dolly-In kết hợp Zoom-Out):** Camera tiến sát vào lưng Nam trong khi trường nhìn (FOV) giãn rộng ra, khiến không gian căn phòng trọ và chiếc gương dường như bị kéo giãn méo mó vô tận!
+  * **Góc quay:** Dutch Angle 15° nghiêng lệch tạo cảm giác mất trọng lực thực tại.
+* **Hành động & Diễn xuất:**
+  * Nam thật thở dài, xoay người bước quay lưng đi...
+  * **NHƯNG HÌNH ẢNH TRONG GƯƠNG KHÔNG QUAY LƯNG ĐI!**
+  * Cái bóng vẫn đứng nguyên tại chỗ, từ từ ngẩng đầu lên, nhếch mép cười sắc lạnh.
+  * Mặt kính gương gợn sóng biến dạng như một hồ nước đêm. **Bàn tay Người Trong Gương mặc áo sơ mi xanh thò hẳn ra ngoài không gian thực**, những ngón tay chạm nhẹ vào gáy của Nam nhưng Nam không hề hay biết!
+* **VFX Shaders Điện ảnh (Remotion):**
+  * `FluidDisplacement`: Mặt kính biến dạng gợn sóng hình tròn (Water Ripple Shader) tại điểm bàn tay xuyên qua.
+  * `EerieCyanGlow`: Mặt gương bùng phát luồng ánh sáng lân tinh xanh lục ma quái kèm theo vệt Anamorphic Streak xanh quét ngang toàn bộ khung hình.
 * **SFX Multi-layer Sound Design:**
-  * *Layer 1 (SFX Stinger):* Một cú đập Sub-bass cực mạnh (Sub-drop 40Hz) làm rung chuyển toàn bộ không gian!
-  * *Layer 2 (Foley):* Tiếng kính biến thành chất lỏng gợn sóng: *ù... ùng... ục...*, tiếng hơi lạnh xì ra buốt giá.
-  * *Layer 3 (Whisper):* Giọng thì thầm đa tầng (Binaural stereo panned 2 tai) của Người Kia:
-    > **NGƯỜI TRONG GƯƠNG [Giọng trầm, ma mị, vang vọng]:**  
+  * *SFX Sub-drop 40Hz:* Cú dập bass siêu trầm làm rung chuyển toàn bộ không gian phòng chiếu.
+  * *SFX Fluid:* Tiếng kính hóa lỏng gợn sóng: *ù... ùng... ục...*, tiếng hơi lạnh buốt giá xì ra.
+  * *Voice Binaural:* Giọng thì thầm đảo 2 tai sắc lẹm, ma mị:
+    > **NGƯỜI TRONG GƯƠNG [Thì thầm ma mị, vang vọng đa chiều]:**  
     > *"Mày thấy mệt mỏi rồi đúng không?... Cuộc đời ngoài kia... để tao sống thay cho."*
 
 ---
 
-### SHOT 5: MẶT KÍNH ĐÔNG CỨNG & TITLE DROP (00:40 – 00:48 | Frame 960 – 1152)
+### SHOT 5: MẶT KÍNH ĐÔNG CỨNG & TITLE DROP (00:44 – 00:48 | Frame 1056 – 1152)
 
-* **Góc máy & Cử động:**
-  * Cực cận mặt gương $\to$ Khung hình chìm vào bóng đen tuyệt đối (Cut to Black).
-* **Bố cục & Ánh sáng:**
-  * Bàn tay rụt trở lại, mặt kính đông cứng phẳng lặng như gương soi bình thường. Trong gương là bóng lưng Người Kia đang ngồi ngay ngắn ở bàn học.
-  * Một vết nứt sắc lẹm chạy dọc xé đôi màn hình đen, ánh sáng xanh buốt bùng nổ hiện Logo chính thức:
+* **Góc máy:** Cực cận mặt gương $\to$ Chớp đen đột ngột (Hard Cut to Black).
+* **Hành động:**
+  * Bàn tay rụt vào, mặt kính đông cứng phẳng lặng như gương soi bình thường. Trong gương, cái bóng đã ngồi ngay ngắn ở bàn học của Nam.
+  * Một vết nứt sắc lẹm rạch đôi màn hình đen, ánh sáng xanh bùng nổ hiện Logo chính thức:
     ```
     T H E   C R A C K   I N   R E A L I T Y
             HỒ SƠ 02: NGƯỜI TRONG GƯƠNG
     ```
   * Dòng Tagline màu bạc hiện mờ bên dưới: *"Có những chiếc bóng... không bao giờ nên để bước ra ngoài."*
-* **SFX Multi-layer Sound Design:**
-  * *SFX 1:* Tiếng then sắt cửa phòng trọ cài chốt cực mạnh: **"CẠCH!"** (Dry, loud, không reverb).
-  * *SFX 2:* Tiếng kính nứt rạn: *Rắccc...*
-  * *SFX 3:* Tiếng gõ phím máy chữ dứt khoát rồi tắt lịm, chừa lại 1 giây tĩnh lặng tuyệt đối trước khi vào tập phim.
+* **SFX:**
+  * Tiếng then sắt cửa phòng trọ cài chốt cực mạnh: **"CẠCH!"** (Dry, in-your-face, không reverb).
+  * Tiếng kính nứt rạn: *Rắccc...* rồi tắt lịm, chừa lại 1 giây tĩnh lặng tuyệt đối trước khi vào tập phim.
 
 ---
 
 # PHẦN 2: BẢNG PHÂN CẢNH KỸ THUẬT TRAILER (60 GIÂY)
 * **Thời lượng:** 60 giây (1440 frames @ 24fps)
-* **Cấu trúc:** Trailer Hollywood 3 Hồi (Teaser $\to$ Escalation $\to$ Horror Climax)
+* **Cấu trúc:** Hollywood Psychological Thriller Teaser (4 Hồi nghẹt thở)
+* **Mục tiêu:** Kích thích sự tò mò, tạo cảm giác phim người đóng ly kỳ, giật gân, đưa người xem vào mê cung tâm lý của việc bị đánh cắp danh tính.
 
 ```
 TIMECODE RULER (TRAILER 60s @ 24fps):
-00:00                     00:20                     00:40                                01:00
-[ HỒI 1: CÁM DỖ NGỌT NGÀO ] [ HỒI 2: XÂM LẤN LEO THANG ] [ HỒI 3: ĐÀO THẢI & BẪY SẬP ] [ TITLE & TWIST ]
-(0 - 480f)                  (480 - 960f)                  (960 - 1392f)                  (1392 - 1440f)
+00:00                 00:15                 00:32                               00:50        00:60
+[ HỒI 1: CÁM DỖ NGỌT ] [ HỒI 2: KẺ THẾ THÂN ] [ HỒI 3: ĐÀO THẢI & NỖI SỢ ]       [ HỒI 4: BẪY SẬP & TWIST ]
+(0 - 360f)            (360 - 768f)          (768 - 1200f)                       (1200 - 1440f)
 ```
 
 ---
 
-### HỒI 1: CÁM DỖ CỦA SỰ LƯỜI BIẾNG (00:00 – 00:20 | Frame 0 – 480)
+### HỒI 1: CÁM DỖ CỦA SỰ TIỆN LỢI & CÚ CHẠM MẶT ĐẦU TIÊN (00:00 – 00:15 | Frame 0 – 360)
 
-* **Cảnh T01 (00:00 – 00:04 | Cực cận mắt Nam):**
-  * *Camera:* Extreme Close-up mắt Nam đỏ ngầu vì thức đêm cày rank, ánh sáng màn hình phản chiếu trong con ngươi.
-  * *VFX:* Khói thuốc mờ ảo, hạt grain nặng.
-  * *Voice:* Nam than thở: *"Làm người lớn mệt mỏi vãi chưởng... Deadline dí, học lại... Ước gì cứ nằm một chỗ chơi game có thằng làm hộ hết!"*
-  * *SFX:* Tiếng game MOBA: *Double Kill! Defeat!*
-* **Cảnh T02 (00:04 – 00:09 | Cú chạm mặt ở bồn rửa):**
-  * *Camera:* Medium Shot góc ngang. Nam ngái ngủ bước ra bồn rửa chén $\to$ Người quay lại mặc áo xanh của Nam, gương mặt giống hệt!
-  * *Camera movement:* Whip Zoom cực gắt vào khuôn mặt Nam thật đang há hốc mồm sợ hãi.
-  * *Thoại:* Nam hét: *"Mày... mày là ai?!"* — Người Kia: *"Tao tên Nam."*
-  * *SFX:* Tiếng nước chảy ào ào bị ngắt cụt. Cú quất dây đàn violin chói gắt (*Violin Screech*).
-* **Cảnh T03 (00:09 – 00:15 | Màn thử lòng & Thị uy):**
-  * *Camera:* Low angle ngước nhìn Nam đập phong bì tiền 3 triệu xuống bàn gỗ.
-  * *Thoại:* Nam hống hách: *"Phòng này tao là 'nóc nhà'! Tao bảo ngồi thì ngồi, cấm đụng vào đồ tao!"*. Người Kia gật đầu ngoan ngoãn.
-  * *VFX:* Cắt nhanh cảnh Nam nằm vắt chân chữ ngũ cười khà khà: *"Có thằng hầu hạ nhàn vãi!"*
-* **Cảnh T04 (00:15 – 00:20 | Lần nhờ vả đầu tiên Lab 402):**
-  * *Camera:* Split screen (Chia đôi màn hình): Bên trái là tin nhắn Tùng réo: *"Gánh xiếc Lab 402 đi mày!"*, bên phải là Nam toát mồ hôi tập thuyết trình trước gương bị cà lăm.
-  * *Thoại:* Người Kia đứng đĩnh đạc: *"Mày lên đó cà lăm là ăn zero, đóng 2 củ rưỡi học lại đấy."*
-  * *Action:* Nam vội vã dúi thẻ sinh viên: *"Mày lên flex hộ tao lấy điểm A rồi lượn lẹ nhé!"*
+* **Cảnh T01 (00:00 – 00:04 | Cực cận con ngươi & Sự kiệt quệ):**
+  * *Camera:* Extreme Macro Close-up vào mắt Nam đỏ ngầu, tơ máu chằng chịt.
+  * *VFX Người đóng:* Màn hình điện thoại phản chiếu trong con ngươi có hiện tượng quang sai thấu kính (Chromatic Aberration 2px). Hạt phim 35mm nặng hạt (Heavy Grain). Làn khói thuốc lá mờ ảo trôi ngang ống kính.
+  * *Voice Nam:* *"Làm người lớn mệt mỏi vãi chưởng... Deadline dí, học lại, gia đình soi mói... Ước gì cứ nằm một chỗ chơi game ăn mì tôm cả đời!"*
+  * *SFX:* Tiếng game: *Defeat!*, tiếng chuông điện thoại giục tiền trọ dồn dập.
+* **Cảnh T02 (00:04 – 00:09 | Cú chạm mặt ở bồn rửa & Whip Zoom):**
+  * *Visual:* Sáng hôm sau. Nam ngái ngủ lảo đảo bước ra bồn rửa. Một bóng người mặc áo xanh của Nam đang cặm cụi rửa sạch bóng đống bát đĩa.
+  * *Action:* Người đó quay đầu lại... **GƯƠNG MẶT GIỐNG HỆT NAM 100%!**
+  * *Camera:* **Whip Zoom cực nhanh (Crash Zoom 24mm $\to$ 85mm)** vào khuôn mặt Nam thật đang há hốc mồm kinh hoàng.
+  * *Thoại:* 
+    * Nam: *"Mày... mày là ai?!"*
+    * Người Kia (giọng phẳng lặng, mắt không hề chớp): *"Tao tên Nam."*
+  * *SFX:* Tiếng quất dây violin rít chói gắt (*Violin Screech*), tiếng nước chảy ào ào bị ngắt cụt.
+* **Cảnh T03 (00:09 – 00:15 | Bản hợp đồng ngầm & Sự thỏa mãn):**
+  * *Camera:* Low Angle từ dưới mặt bàn nhìn lên Nam đập phong bì tiền 3 triệu xuống bàn thị uy: *"Phòng này tao là nóc nhà! Mày làm thuê thì biết điều, cấm đụng vào đồ tao!"*.
+  * *Action:* Người Kia gật đầu ngoan ngoãn.
+  * *Cắt cảnh nhanh:* Nam nằm vắt chân chữ ngũ trên nệm húp mì tôm cười đắc chí: *"Có thằng hầu hạ nhàn vãi chưởng!"*
+  * *Voice Người Kia (thì thầm):* *"Mày ngại thuyết trình Lab 402 đúng không? Để tao lên nói cho."*
+  * *Nam vội dúi thẻ sinh viên:* *"Lên flex hộ tao lấy điểm A rồi lượn lẹ nhé!"*
 
 ---
 
-### HỒI 2: XÂM LẤN LEO THANG & BANTER CÀY GAME (00:20 – 00:40 | Frame 480 – 960)
+### HỒI 2: KẺ THẾ THÂN HOÀN HẢO & MANH MỐI BẤT THƯỜNG (00:15 – 00:32 | Frame 360 – 768)
+*Nhạc nền: Trailer Braam dồn dập (Trống Taiko phối hợp âm Synthwave nặng trịch, dải Shepard Tone tăng tiến)*
 
-* **Cảnh T05 (00:20 – 00:27 | Montage đối lập cực nhanh — 1s/shot):**
-  * *Nhạc nền:* Trailer Braam dồn dập (Nhịp trống Taiko dồn dập kết hợp âm Synthwave nặng trịch).
-  * *Shot 1:* Người Kia trên bục Lab 402, slide hiện số điểm **9.5** to đùng, cả hội trường vỗ tay $\leftrightarrow$ Nam nằm trên nệm húp mì tôm cười ha hả.
-  * *Shot 2:* Tùng xách cơm sườn về vỗ vai: *"Nay phòng sạch bong, mai mặt trời mọc đằng tây à?"*
-  * *Shot 3:* Người Kia sút tung lưới sân bóng đá mini $\leftrightarrow$ Nam mắt thâm quầng trong quán net khói thuốc mù mịt.
-  * *Shot 4:* Clip Zalo gia đình: Bác Hai cười rạng rỡ: *"Cả họ xem thằng Nam nay chững chạc chưa này!"*
-* **Cảnh T06 (00:27 – 00:34 | Trò chuyện lúc cày game):**
-  * *Camera:* Over-the-shoulder qua vai Nam nhìn Người Kia đang ngồi im như tượng trên ghế đẩu giữa phòng tối.
-  * *Thoại Nam:* *"Ê mày, rốt cuộc mày từ đâu chui ra đấy? Đừng bảo là clone nhân bản trốn trại nhé?"*
-  * *Camera:* Dolly từ từ vào cận cảnh nụ cười của Người Kia.
+* **Cảnh T04 (00:15 – 00:22 | Montage vinh quang của Kẻ Thế Thân — 1s/shot):**
+  * *Shot 1:* Người Kia đứng trên bục Lab 402 đĩnh đạc, slide hiện số **9.5** to đùng, giảng viên và bạn học vỗ tay rào rào.
+  * *Shot 2:* Sân bóng đá mini, Người Kia vung chân trái sút tung nóc lưới ghi bàn quyết định, đồng đội ôm chúc mừng reo hò.
+  * *Shot 3:* Tùng xách cơm sườn về vỗ vai: *"Nay phòng sạch bong, bài nộp trước hạn, mai mặt trời mọc đằng tây à?"*
+  * *Shot 4:* Điện thoại reo, Bác Hai cười rạng rỡ giữa tiệc cỗ họ: *"Cả họ xem thằng Nam nay chững chạc chưa này!"*
+* **Cảnh T05 (00:22 – 00:27 | SỰ ĐỐI LẬP KINH HOÀNG — The Rotting Original):**
+  * *Camera:* Cắt song song tương phản (Cross-cutting) giữa hai thực thể:
+    * Người Kia: Quần áo phẳng phiu, da dẻ hồng hào, nụ cười sáng rực giữa đám đông (Tông màu ấm áp Golden Hour).
+    * Nam thật: Nằm co quắp trong góc phòng tối ẩm mốc, da dẻ tái mét, mắt trũng sâu, móng tay thâm đen như một kẻ ốm liệt giường (Tông màu xanh rêu lạnh Desaturated).
+  * *Curiosity Hook:* Mỗi khi Người Kia nhận được một lời khen, Nam thật lại ôm ngực thở dốc hụt hơi, như sinh lực sống đang bị rút cạn dần qua không khí!
+* **Cảnh T06 (00:27 – 00:32 | Cuộc trò chuyện lúc nửa đêm & Lời gài bẫy):**
+  * *Visual:* Phòng trọ tối đen chỉ có ánh sáng xanh từ màn hình máy tính. Người Kia ngồi bất động như một bức tượng trên ghế đẩu giữa phòng, hai mắt mở trừng trừng trong đêm. Dưới ánh đèn tuýp, **bóng đổ trên tường của Người Kia không hề có nhịp phập phồng lồng ngực**!
+  * *Thoại Nam (nửa đùa nửa run):* *"Ê mày, rốt cuộc mày từ đâu chui ra đấy? Đừng bảo là clone nhân bản trốn trại nhé?"*
+  * *Camera:* Slow Dolly-In vào nụ cười không có độ ấm của Người Kia:
   * *Thoại Người Kia:* *"Mày thấy mệt mỏi thì cứ nằm đây nghỉ đi... Cuộc đời ngoài kia, để tao sống thay cho."*
-  * *SFX:* Tiếng gió rít lạnh buốt luồn qua khe cửa sổ.
-* **Cảnh T07 (00:34 – 00:40 | Cú sốc trước tấm gương tàn tạ):**
-  * *Camera:* Đối diện trực tiếp mặt gương. 
-  * *Visual:* Trên tay Nam, điện thoại phát clip bản sao rực rỡ hạnh phúc $\leftrightarrow$ Chiếc gương phản chiếu Nam thật tiều tụy, áo rách dính mỡ, mắt trũng sâu như xác chết.
-  * *Voice Nam (hụt hơi, kinh hoàng):* *"Nếu nó làm mọi thứ tốt hơn mình... thì mình là cái thứ gì đang đứng ở đây?!"*
 
 ---
 
-### HỒI 3: BỊ ĐÀO THẢI, MANH MỐI NỐT RUỒI & CÚ BẪY NGHẸT THỞ (00:40 – 01:00 | Frame 960 – 1440)
+### HỒI 3: BỊ ĐÀO THẢI, MANH MỐI NỐT RUỒI & NỖI SỢ BIẾN MẤT (00:32 – 00:48 | Frame 768 – 1152)
 
-* **Cảnh T08 (00:40 – 00:46 | Bị xã hội đào thải):**
+* **Cảnh T07 (00:32 – 00:38 | Bị đào thải khỏi thế giới thật):**
   * *SFX:* **TOÀN BỘ NHẠC TẮT PHỤT.** Chỉ còn tiếng nhịp tim đập nặng nề: *THUMP... THUMP...*
-  * *Camera:* Medium Close-Up Nam thật đứng trên bục giảng giảng đường đại học, tay run lẩy bẩy làm rơi viên phấn. Cả lớp cười mỉa mai rộ lên: *"Bị lag mạng à?", "Học vẹt à?"*.
-  * *Thoại:* Thầy giáo đập bàn: *"Trừ 2 điểm chuyên cần cả nhóm!"*. Tùng lườm Nam giận dữ: *"Đang phong độ tốt tự dưng thụt lùi làm cả nhóm bị trừ điểm oan là sao?!"*
-* **Cảnh T09 (00:46 – 00:51 | Manh mối nốt ruồi & Chiếc búa):**
-  * *Camera:* Macro cận cảnh màn hình điện thoại phóng to clip Zalo đối chiếu căn cước công dân:
-    * **Căn cước: Nốt ruồi đuôi mắt TRÁI** $\leftrightarrow$ **Clip Zalo: Nốt ruồi đuôi mắt PHẢI!**
-  * *Camera:* Dutch Angle giật gắt. Nam vớ chiếc búa sắt dưới gầm giường, hai mắt đỏ ngầu gầm lên xé họng: *"Nó là Người Trong Gương! Tao sẽ đập nát cái gương này!"*
-* **Cảnh T10 (00:51 – 00:55 | Mặt kính hóa nước & Nuốt chửng):**
-  * *Camera:* Slow Motion 60fps. Nam vung búa lên... Người Kia đứng cạnh gương điềm tĩnh nói: *"Mày đập gương rồi mày định lấy cái thân xác ăn hại này ra làm khổ họ tiếp à?"*
-  * *Action:* Búa sắt tuột tay rơi xuống sàn: **"KENG!"** (Echo vang vọng).
-  * *VFX Điện ảnh:* Nam suy sụp chạm tay vào gương. Mặt kính gợn sóng biến thành nước đêm đen tuyền buốt giá. Bàn tay Người Kia trong gương siết chặt cổ tay Nam, kéo chìm toàn bộ thân xác Nam vào trong bóng tối mặt kính! Tiếng Nam gào nghẹn ứ: *"Không... cứu...!"* rồi bị nước nuốt chửng câm lặng.
-* **Cảnh T11 (00:55 – 00:58 | Twist rợn người với Tùng):**
-  * *Camera:* Eye-level góc 35mm. Phòng trọ sạch sẽ tinh tươm. Tùng xách túi bún chả bước vào. Người Kia mỉm cười đưa **TAY TRÁI** đón lấy.
-  * *Camera:* Cắt cận mặt Tùng sững sờ:
-    > **TÙNG [chột dạ]:** *"Ủa Nam... nốt ruồi bên mắt mày... sao nay lại nằm bên phải?"*
-  * *Camera:* Cận cảnh nụ cười Người Kia tắt ngấm, đôi mắt phẳng lặng lạnh ngắt:
-    > **NGƯỜI TRONG GƯƠNG:** *"Mày nhìn nhầm rồi... Tao là Nam mà."*
-  * *Action:* Tay Người Kia thò ra sau lưng đẩy cửa khép sập lại: **"CẠCH!"**.
-* **Cảnh T12 (00:58 – 01:00 | Title Card Bùng Nổ):**
-  * *Màn hình đen.* Bùng nổ âm thanh Sub-drop chấn động cùng Title kim loại rạn nứt:
+  * *Visual:* Nam thật quyết định bước ra giảng đường để đòi lại vị trí. Nhưng đứng trên bục giảng, Nam run lẩy bẩy làm rơi viên phấn, lắp bắp không hiểu gì về bài giảng.
+  * *Sinh viên dưới lớp cười mỉa:* *"Ủa, nay Nam bị lag mạng à?", "Hôm trước hack não xài hết mana rồi à?"*
+  * *Giảng viên đập bàn quát lớn:* *"Trừ 2 điểm chuyên cần cả nhóm!"*
+  * *Tùng thất vọng tột cùng đẩy vai Nam:* *"Đang phong độ tốt tự dưng thụt lùi làm cả nhóm bị trừ điểm oan là sao?!"*
+* **Cảnh T08 (00:38 – 00:43 | MANH MỐI NỐT RUỒI & SỰ THẬT KINH HOÀNG):**
+  * *Camera:* Macro cận cảnh màn hình điện thoại phóng to clip Zalo đối chiếu thẻ Căn cước công dân:
+    * **Căn cước công dân: Nốt ruồi ở đuôi mắt TRÁI.**
+    * **Clip Zalo Người Kia: Nốt ruồi ở đuôi mắt PHẢI!**
+  * *Nam thật nhìn vào gương (giọng nghẹn ngào kinh hoàng):*
+    > *"Nếu nó làm mọi thứ tốt hơn mình... bạn bè quý nó hơn mình... thì mình là cái thứ gì đang đứng ở đây?!"*
+* **Cảnh T09 (00:43 – 00:48 | Cơn thịnh nộ & Chiếc búa sắt):**
+  * *Action:* Nam vớ lấy chiếc búa sắt dưới gầm giường, mắt đỏ ngầu gầm lên xé họng:
+    > *"Nó là Người Trong Gương! Tao sẽ đập nát cái gương này!"*
+  * *Kỹ thuật máy quay:* Chuyển sang **Shutter Angle 90°** khiến từng cử động vung búa giật cục, sắc bén nghẹt thở.
+  * *Người Kia đứng cạnh gương, lạnh lùng đáp trả:*
+    > *"Mày đập gương rồi mày định lấy cái thân xác ăn hại này ra làm khổ họ tiếp à?"*
+
+---
+
+### HỒI 4: BẪY SẬP, SUBLIMINAL FLASHES & CLIFFHANGER TỐI THƯỢNG (00:48 – 01:00 | Frame 1152 – 1440)
+
+* **Cảnh T10 (00:48 – 00:52 | Mặt kính hóa nước & Cú nuốt chửng):**
+  * *Camera:* Slow motion 60fps. Búa sắt tuột tay rơi xuống sàn: **"KENG!"** (Echo vang vọng).
+  * *Action:* Nam ngã nhào chạm tay vào gương. Mặt kính gợn sóng biến thành hồ nước đen tuyền buốt giá!
+  * *VFX:* Hàng chục cánh tay nhợt nhạt từ đáy nước trong gương vươn lên tóm chặt cổ tay, lôi tuột toàn bộ thân thể Nam chìm sâu vào mặt kính!
+  * *Thoại Nam gào nghẹn dưới nước:* *"Không... cứu...!"* $\to$ Bong bóng khí vỡ tan, mặt kính phẳng lại như cũ.
+* **Cảnh T11 (00:52 – 00:54 | SUBLIMINAL FLASH-FRAMES — 3 FRAME ÁM ẢNH (1/24s mỗi frame)):**
+  * *Flash 1 (Frame 1248):* Gương mặt Nam thật đang áp sát mặt kính từ bên trong, miệng há hốc kêu gào trong tuyệt vọng không ra tiếng.
+  * *Flash 2 (Frame 1256):* Bức ảnh chụp chung của cả phòng trọ trên bàn: Khuôn mặt Nam thật trong ảnh từ từ biến mất, chỉ còn lại khoảng trống nham nhở.
+  * *Flash 3 (Frame 1264):* Đôi mắt Người Kia trợn tròn nhìn thẳng vào ống kính máy quay với nụ cười rộng đến mang tai.
+* **Cảnh T12 (00:54 – 00:58 | CLIFFHANGER TỘT ĐỈNH VỚI TÙNG):**
+  * *Bối cảnh:* Phòng trọ đêm khuya tinh tươm sạch sẽ. Tùng xách túi bún chả bước vào: *"Nam ơi, ăn bún chả đi rồi tối tao kèm lại bài cho!"*
+  * *Action:* Người Kia mỉm cười tươi tắn, vươn **TAY TRÁI** đón lấy túi đồ ăn (Nam thật thuận tay phải).
+  * *Camera:* Cắt cận cảnh Tùng sững sờ, mắt mở to chột dạ:
+    > **TÙNG [giọng run run]:** *"Ủa Nam... nốt ruồi bên mắt mày... sao nay lại nằm bên phải?"*
+  * *Camera:* Cực cận khuôn mặt "Nam" — nụ cười vụt tắt trong tích tắc, chỉ còn lại đôi mắt đen sâu thẳm không đáy:
+    > **NGƯỜI TRONG GƯƠNG [giọng lạnh ngắt]:** *"Mày nhìn nhầm rồi... Tao mới là Nam thật."*
+  * *Action:* Bàn tay Người Kia thò ra sau lưng đẩy cửa phòng trọ khép sập lại: **"RẦM!"**
+* **Cảnh T13 (00:58 – 01:00 | TITLE CARD BÙNG NỔ & CÂU HỎI THIÊU ĐỐT TRÍ TÒ MÒ):**
+  * *Màn hình đen hoàn toàn.* Âm thanh Sub-drop chấn động cùng Logo kim loại nứt vỡ:
     ```
     T H E   C R A C K   I N   R E A L I T Y
             HỒ SƠ 02: NGƯỜI TRONG GƯƠNG
     ```
-  * *Tagline máu:* *"Khi bạn muốn trốn chạy cuộc đời... sẽ có kẻ sẵn sàng sống thay bạn."*
-  * *Âm thanh dư âm cuối cùng:* Tiếng hai bàn tay Nam thật đập thình thịch vào mặt kính từ bên trong thế giới gương trong câm lặng.
+  * Dòng chữ đỏ rực hiện lên giáng thẳng vào tâm lý người xem:
+    ```
+    NẾU CÓ MỘT BẢN SAO HOÀN HẢO HƠN CỦA BẠN XUẤT HIỆN...
+    LIỆU BẠN CÓ CÒN ĐỦ TƯ CÁCH ĐỂ TỒN TẠI?
+    ```
+  * *Âm thanh dư âm:* Tiếng hai bàn tay đập dồn dập vào mặt kính từ bên trong thế giới gương: *thình... thình... thình...* trong bóng tối.
 
 ---
 
-### HƯỚNG DẪN DỰNG REMOTION (DEV & ANIMATION CHEAT SHEET)
+### BẢNG TỔNG HỢP MANH MỐI BÍ ẨN (EASTER EGGS FOR AUDIENCE DISCUSSION)
 
-1. **Camera Transitions (Remotion Interpolation):**
-   ```tsx
-   // Cú lướt máy Dolly-Out ở Shot 1 Opening
-   const scale = interpolate(frame, [0, 192], [2.2, 1.0], { extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) });
-   const blur = interpolate(frame, [0, 40], [8, 0], { extrapolateRight: "clamp" });
-   ```
-2. **Hiệu ứng Mặt Kính Hóa Nước (Fluid Mirror Shader):**
-   * Sử dụng SVG Filter `<feDisplacementMap>` kết hợp `<feTurbulence>` với tham số `baseFrequency` tăng dần từ `0.01` lên `0.08` khi bàn tay chạm vào mặt gương.
-3. **Audio Mixing Stems:**
-   * Track 1: `ambience_room.mp3` (-14dB)
-   * Track 2: `foley_actions.mp3` (-6dB)
-   * Track 3: `trailer_score_braam.mp3` (-4dB peak lúc cao trào)
-   * Track 4: `voiceover_nam_nguoitrongguong.mp3` (0dB normalized, sidechain nén nhạc -4dB khi có thoại).
+| STT | Chi tiết cài cắm (Easter Egg) | Vị trí xuất hiện | Ý nghĩa bí ẩn / Lời giải thích |
+|:---:|---|---|---|
+| 1 | **Độ trễ gương 5 frames** | Shot 1 Opening (00:07) | Cái bóng cử động trễ hơn Nam 0.2s, chứng minh nó không phải phản chiếu quang học mà là một thực thể độc lập đang bắt chước. |
+| 2 | **Nốt ruồi đảo nghịch (Mirror Inversion)** | Khắp Opening & Trailer | Nam thật: Nốt ruồi ở đuôi mắt **TRÁI**.<br>Người Trong Gương: Nốt ruồi ở đuôi mắt **PHẢI** (Quy luật đối xứng gương). |
+| 3 | **Thuận tay trái (Left-handed)** | Cảnh T04 & T12 Trailer | Nam thật thuận tay phải. Bản sao luôn cầm bút, sút bóng, nhận đồ bằng **tay trái**. |
+| 4 | **Dòng chữ trên khung gỗ** | Shot 0 Opening (00:02) | *"Đừng mở vải sau 0h"* — Manh mối cho thấy đã từng có người thuê trọ trước đây chịu chung số phận bị thay thế. |
+| 5 | **Bóng không đầu / Mất bóng** | Cảnh T06 Trailer (00:30) | Dưới ánh đèn tuýp, bóng đổ trên tường của Người Kia không có cử động thở phập phồng của lồng ngực. |
+| 6 | **Âm thanh Shepard Tone** | Nhạc nền Hồi 3 Trailer | Dải tần số âm thanh tăng tiến vô tận tạo ảo giác bất an và dồn dập không lối thoát. |
+
+---
+
+# PHẦN 3: CHEAT SHEET CODE SHADER & COMPONENT REMOTION (LIVE-ACTION SUITE)
+*(Dành cho đội ngũ lập trình Remotion để tạo chất phim người đóng 1:1 trong mã nguồn)*
+
+```tsx
+import React from 'react';
+import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+
+// 1. Tỉ lệ khung hình Anamorphic 2.39:1 (Cinemascope Letterbox)
+export const CinematicLetterbox: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', backgroundColor: '#000' }}>
+      {children}
+      {/* Thanh đen trên và dưới chuẩn Anamorphic 2.39:1 trên khung 16:9 */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '12.5%', backgroundColor: '#050505', zIndex: 100 }} />
+      <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '12.5%', backgroundColor: '#050505', zIndex: 100 }} />
+    </div>
+  );
+};
+
+// 2. Mô phỏng chuyển động thở máy quay cầm tay vác vai (Handheld Camera Breathing)
+export const HandheldCamera: React.FC<{ frame: number; children: React.ReactNode }> = ({ frame, children }) => {
+  // Chuyển động sin phức hợp mô phỏng nhịp thở của cameraman
+  const x = Math.sin(frame * 0.04) * 1.2 + Math.cos(frame * 0.09) * 0.6;
+  const y = Math.cos(frame * 0.05) * 1.5 + Math.sin(frame * 0.08) * 0.8;
+  const rotation = Math.sin(frame * 0.03) * 0.15;
+
+  return (
+    <div style={{ transform: `translate3d(${x}px, ${y}px, 0px) rotate(${rotation}deg)`, width: '100%', height: '100%' }}>
+      {children}
+    </div>
+  );
+};
+
+// 3. Bộ lọc mô phỏng chất phim nhựa 35mm (Grain, Halation & Black Pro-Mist)
+export const Film35mmPostProcess: React.FC = () => {
+  return (
+    <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+      <defs>
+        {/* Hạt phim 35mm hữu cơ Kodak Vision3 */}
+        <filter id="filmGrain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.15 0" in="noise" result="coloredNoise" />
+          <feBlend mode="overlay" in="SourceGraphic" in2="coloredNoise" />
+        </filter>
+
+        {/* Quầng sáng đỏ viền phim (Red Halation quanh vùng sáng) */}
+        <filter id="redHalation">
+          <feColorMatrix type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redPass" />
+          <feGaussianBlur in="redPass" stdDeviation="6" result="blurredRed" />
+          <feBlend mode="screen" in="SourceGraphic" in2="blurredRed" />
+        </filter>
+
+        {/* Mặt kính gợn sóng hóa lỏng (Fluid Water Ripple) */}
+        <filter id="fluidMirrorRipple">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04 0.08" numOctaves="3" result="rippleNoise" />
+          <feDisplacementMap in="SourceGraphic" in2="rippleNoise" scale="30" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
+
+// 4. Vệt lóa sáng ngang Anamorphic Blue Streak Flare
+export const AnamorphicStreakFlare: React.FC<{ intensity: number; x: number; y: number }> = ({ intensity, x, y }) => {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: 0,
+        top: `${y}%`,
+        width: '100%',
+        height: '2px',
+        background: 'linear-gradient(90deg, transparent 0%, rgba(0, 180, 255, 0.8) 50%, transparent 100%)',
+        opacity: intensity,
+        filter: 'blur(1px) drop-shadow(0 0 8px rgba(0, 210, 255, 0.9))',
+        transform: 'scaleY(2.5)',
+        pointerEvents: 'none',
+        zIndex: 90,
+      }}
+    />
+  );
+};
+
+// 5. Cú máy Hitchcock Dolly Zoom (Vertigo Effect)
+export const HitchcockDollyZoom: React.FC<{ frame: number; startFrame: number; duration: number; children: React.ReactNode }> = ({
+  frame,
+  startFrame,
+  duration,
+  children,
+}) => {
+  // Scale chủ thể tiến tới trong khi hậu cảnh giãn nở
+  const progress = interpolate(frame, [startFrame, startFrame + duration], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const scale = 1 + progress * 0.45;
+  const perspective = 1000 - progress * 400; // Tiêu cự co giãn tạo cảm giác méo không gian
+
+  return (
+    <div style={{ perspective: `${perspective}px`, width: '100%', height: '100%' }}>
+      <div style={{ transform: `scale(${scale})`, width: '100%', height: '100%', transformOrigin: 'center center' }}>
+        {children}
+      </div>
+    </div>
+  );
+};
+```

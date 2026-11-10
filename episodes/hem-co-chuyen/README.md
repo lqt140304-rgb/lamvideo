@@ -1,6 +1,6 @@
-# Hẻm Có Chuyện
+# The Crack in Reality (Tiền thân: Hẻm Có Chuyện)
 
-Series truyện giả định đời thường Việt Nam, đang mở thành vũ trụ các quái vật có khả năng đặc biệt. Mỗi tập giữ lựa chọn, cái giá và cảm xúc của con người; quái vật có giới hạn và dấu hiệu riêng.
+Series truyện giả định đời thường Việt Nam thuộc vũ trụ **The Crack in Reality** (tiền thân: Hẻm Có Chuyện), khai thác các hiện thực rạn nứt và các thực thể có khả năng đặc biệt. Mỗi tập giữ lựa chọn, cái giá và cảm xúc của con người; thực thể có giới hạn và dấu hiệu riêng.
 
 | Mục | Dùng để làm gì |
 |---|---|
@@ -8,7 +8,7 @@ Series truyện giả định đời thường Việt Nam, đang mở thành vũ
 | [THIET-KE-NHAN-VAT.md](THIET-KE-NHAN-VAT.md) | Hướng thiết kế SVG đã chọn, nét chung và giới hạn của mẫu thử tĩnh |
 | [VU-TRU.md](VU-TRU.md) | Luật và thông tin dùng chung riêng cho series, hồ sơ thực thể đầu tiên, phần đã chốt/phần đề xuất |
 | [Hồ sơ 1 — Tin nhắn chưa gửi](tap-01-tin-nhan-chua-gui/README.md) | Kịch bản, lời đọc, asset và kế hoạch dựng của truyện đầu |
-| [Hồ sơ 2 — Người làm thay](ho-so-02-nguoi-lam-thay/README.md) | Đã có bản nháp chi tiết V1 đủ ba phần, mỗi phần có thể tới 10 phút; mở đầu bằng trailer giới thiệu Nam. Giữ mức duyệt cũ, phần mới/luật/kết chờ duyệt; chưa dựng |
+| [Hồ sơ 02 — Người trong gương](ho-so-02-nguoi-lam-thay/README.md) | Kịch bản 15 phút đủ ba phần, kịch bản Trailer & Opening điện ảnh, Voiceover Cue Sheet 86 câu thoại chuẩn; bối cảnh, rig Nam/Người Kia/Tùng |
 
 Đọc VU-TRU trước khi phát triển tập tiếp theo. Không đưa cốt truyện hay tên quái vật riêng của series vào file kinh nghiệm chung. Chưa mở thư mục tập mới khi chưa có nội dung.
 

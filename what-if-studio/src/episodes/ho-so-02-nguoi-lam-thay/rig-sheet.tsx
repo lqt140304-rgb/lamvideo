@@ -2,7 +2,7 @@ import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 import { HoSo02CharacterMasterBoard, JointPose, mixPose, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, TungSoccer, turnAt, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 
-// Bảng kiểm tra khớp Hồ sơ 2: mỗi nhân vật đi từ dáng đứng sang một tư thế rồi quay về (120 frame).
+// Bảng kiểm tra khớp The Crack in Reality — Hồ sơ 02: Người trong gương: mỗi nhân vật đi từ dáng đứng sang một tư thế rồi quay về (120 frame).
 export const RIG_SHEET_TOTAL = 120;
 const NAMES = ['stand', 'sit', 'stride', 'crouch', 'reach', 'holdBowl', 'stop'] as const;
 const NAMES2 = ['wary', 'phone', 'offer', 'type'] as const;
