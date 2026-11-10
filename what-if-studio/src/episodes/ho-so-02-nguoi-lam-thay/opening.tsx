@@ -4,6 +4,7 @@ import { FONT } from '../../engine/fonts';
 import { JointPose, mixPose, NguoiKia, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, TungSoccer, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { placeOn, RoomScene } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 import { Mirror } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/dao-cu';
+import { EXTRA_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/nhan-vat-va-tu-the';
 import { LaptopScreen } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/giao-dien';
 import { Camera, FilmLook, HEAD_AT, lerpLens, Lens, LOOK, RAYS, seg, Sleeper, wideMove } from './canh-01-demo';
 
@@ -115,32 +116,30 @@ const PhoneAlarm: React.FC<{ f: number }> = ({ f }) => {
   );
 };
 
-// Insert gương: tay thật (tiền cảnh, nhoè) rút về trước, tay trong gương rút trễ 8 frame và khựng lại.
-const MirrorLag: React.FC<{ f: number }> = ({ f }) => {
-  const real = seg(f, 6, 26) * (1 - seg(f, 46, 60));
-  const ghost = seg(f, 14, 34) * (1 - seg(f, 54 + 8, 74 + 8)); // trễ 8 frame (≈ 5 frame @24fps)
-  const hang = f > 62 && f < 70 ? 1 : 0;
-  const arm = (t: number) => `M${40} ${MH * 0.86}Q${120 + 60 * t} ${MH * 0.8 - 90 * t} ${150 + 150 * t} ${MH * 0.76 - 140 * t}`;
+// Insert gương: kính phản chiếu chính căn phòng (lật ngang). Tay thật đã rút về ở shot trước; tay trong gương còn duỗi, khựng lại rồi mới rút.
+const reachReal = (t: number) => seg(t, 20, 40) * (1 - seg(t, 46, 60));
+const MirrorLag: React.FC<{ f: number; g: number }> = ({ f, g }) => {
+  const move = wideMove(180);
+  const head = placeOn('wide', BED_HEAD, 33, move);
+  const refl = 1 - seg(f, 18, 32); // f=0 là lúc tay thật vừa rút xong
+  const vw = 560, vh = (vw * MH) / MW;
   return (
     <AbsoluteFill style={{ background: '#121a1b' }}>
       <svg width={1920} height={1080}>
-        <g transform={`translate(960 1000) scale(${0.9 + 0.03 * seg(f, 0, 90)})`}>
+        <g transform={`translate(960 889) scale(${1.55 + 0.05 * seg(f, 0, 74)})`}>
           <rect x={-1200} y={-1200} width={2400} height={1300} fill="#1a2224" />
           <Mirror w={MW} h={MH}>
-            <rect width={MW} height={MH} fill="#243233" />
-            {/* nệm và chăn phản chiếu (đảo bên) */}
-            <path d={`M${MW} ${MH * 0.78}H${MW * 0.1}Q${MW * 0.02} ${MH * 0.8} ${MW * 0.06} ${MH * 0.88}H${MW}Z`} fill="#4a5753" />
-            <path d={`M${MW} ${MH * 0.74}Q${MW * 0.5} ${MH * 0.7} ${MW * 0.2} ${MH * 0.8}H${MW}Z`} fill="#5d6e62" />
-            <path d={arm(Math.max(ghost, hang))} stroke={PALETTE.skin} strokeWidth={22} strokeLinecap="round" fill="none" opacity={ghost + hang > 0 ? 0.9 : 0} />
+            <g transform={`translate(${MW} 0) scale(-1 1)`}>
+              <svg width={MW} height={MH} viewBox={`${head.x - vw * 0.55} ${head.y - vh * 0.74} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
+                <RoomScene view="wide" door="ajar" chair="bed" phone="hidden" move={move} sleeper={Sleeper({ reach: refl, alarm: false, f: g, phone: true })} />
+              </svg>
+            </g>
+            <rect width={MW} height={MH} fill="#0d1a1c" opacity={0.22} />
           </Mirror>
           <Cloth w={MW} h={MH} sway={1} />
         </g>
       </svg>
-      {/* tay thật ở tiền cảnh, ngoài nét */}
-      <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, filter: 'blur(9px)' }}>
-        <path d={`M-40 ${1000}Q${160 + 220 * real} ${900 - 120 * real} ${260 + 360 * real} ${820 - 200 * real}`} stroke="#c9946c" strokeWidth={78} strokeLinecap="round" fill="none" opacity={real > 0.02 ? 0.95 : 0} />
-      </svg>
-      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 50% 60% at 52% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,.6) 100%)' }} />
+      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 50% 60% at 50% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,.6) 100%)' }} />
     </AbsoluteFill>
   );
 };
@@ -148,20 +147,20 @@ const MirrorLag: React.FC<{ f: number }> = ({ f }) => {
 const Shot1: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const move = wideMove(180);
   const head = placeOn('wide', BED_HEAD, 33, move);
-  const close: Lens = { cx: head.x - 40, cy: head.y + 40, z: 2.7 };
+  const close: Lens = { cx: head.x - 140, cy: head.y + 60, z: 1.85 };
   const mid: Lens = { cx: head.x - 260, cy: head.y + 120, z: 1.6 };
-  if (f >= 44 && f < 134) return <MirrorLag f={f - 44} />;
-  const a = f < 44;
+  if (f >= 60 && f < 134) return <MirrorLag f={f - 60} g={g} />;
+  const a = f < 60;
   // a: chuông reo, tay thò ra với máy. c: đã trùm chăn ngủ tiếp, máy lùi dần ra trung cảnh (dolly-out).
-  const reach = a ? seg(f, 20, 40) : 0;
+  const reach = a ? reachReal(f) : 0;
   const cover = a ? 0 : 0.55 * seg(f, 134, 150); // rụt vào chăn nhưng còn lộ tóc/mắt để lời dẫn giới thiệu Nam
   const lens = a ? close : lerpLens(close, mid, seg(f, 150, 300));
   return (
     <AbsoluteFill>
       <Camera lens={lens} f={g} hand={0.4}>
-        <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" mirror move={move} sleeper={Sleeper({ cover, breath: !a && f > 150 ? Math.sin(f / 15) * 5 : 0, reach, carry: 0, alarm: a, f, phone: true })} />
+        <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" mirror move={move} sleeper={Sleeper({ cover, breath: !a && f > 150 ? Math.sin(f / 15) * 5 : 0, reach, carry: 0, alarm: a && f < 42, f, phone: true })} />
       </Camera>
-      {a && <PhoneAlarm f={f} />}
+      {a && f < 42 && <PhoneAlarm f={f} />}
       <Streak t={a ? seg(f, 4, 40) : 0} color="#7fb4ff" y={430} />
     </AbsoluteFill>
   );
@@ -169,13 +168,13 @@ const Shot1: React.FC<{ f: number; g: number }> = ({ f, g }) => {
 
 // ---------- SHOT 2: ba lát cắt trì hoãn (15–26s) ----------
 const DESK: [number, number] = [396, 112]; // SEATS.desk
-const GAME: JointPose = { ...TWIN_POSES.sit, tilt: 8, neck: 6, armR: { a: -60, b: 120, rot: -1 }, armL: { a: -20, b: 120, rot: 1 }, wristR: -40, handR: 'hold', handL: 'hold', frontR: true, frontL: true, prop: 'phoneLandscape' };
-const POINT: JointPose = { ...STAND_POSE, tilt: 6, neck: 4, armL: { a: 70, b: 10, rot: 1 }, handL: 'open', frontL: true };
+const GAME: JointPose = EXTRA_POSES['choi-game'];
+const POINT: JointPose = { ...STAND_POSE, tilt: 6, neck: 6, armL: { a: 22, b: 14, rot: 1 }, handL: 'open', frontL: true };
 
 const Slice2A: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const move = { push: 10 * seg(f, 0, 100), truck: 0 };
-  const nam = { at: DESK, render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood={f > 40 ? 'annoyed' : 'calm'} pose={{ ...GAME, view: 'three', facing: -1 }} /> };
-  const tung = { at: [300, 14] as [number, number], render: (p: { x: number; y: number; scale: number }) => <TungSoccer {...p} mood="annoyed" pose={{ ...POINT, view: 'three', facing: 1 }} /> };
+  const nam = { at: DESK, render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood={f > 40 ? 'annoyed' : 'calm'} pose={{ ...GAME, view: 'three', facing: 1 }} /> };
+  const tung = { at: [235, 250] as [number, number], render: () => { const p = placeOn('desk', [334, 60], 168, move); return <TungSoccer {...p} mood="annoyed" pose={{ ...POINT, view: 'three', facing: 1 }} />; } };
   return (
     <Camera lens={{ cx: 960, cy: 540, z: 1 }} f={g} hand={0.8}>
       <RoomScene rays={RAYS} sun={0} view="desk" chair="desk" move={move} actors={[tung, nam]} />
@@ -207,8 +206,9 @@ const OFFER_CUP: JointPose = { ...TWIN_POSES.sitLow, tilt: 6, neck: 2, armL: { a
 const Slice2C: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const rub = Math.sin(f / 4) * 6;
   const push = seg(f, 50, 80);
-  const tung = { at: [276, 240] as [number, number], render: (p: { x: number; y: number; scale: number }) => <TungSoccer {...p} mood="normal" blink={f % 70 < 3} pose={{ ...RUB_CALF, tilt: RUB_CALF.tilt + rub * 0.3, view: 'three', facing: -1 }} /> };
-  const nam = { at: [326, 252] as [number, number], render: (p: { x: number; y: number; scale: number }) => (
+  const SEAT_NEAR: [number, number] = [262, 360];
+  const tung = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [276, 240]); return <TungSoccer {...p} mood="normal" blink={f % 70 < 3} pose={{ ...RUB_CALF, tilt: RUB_CALF.tilt + rub * 0.3, view: 'three', facing: -1 }} />; } };
+  const nam = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [318, 252]); return (
     <g>
       <StudentTwinBody {...LOOK} {...p} shirt={PALETTE.nam.sleepShirt} mood="calm" pose={{ ...mixPose(TWIN_POSES.sitLow, OFFER_CUP, push), view: 'three', facing: 1 }} />
       {/* cốc nước: đẩy dần sang phía Tùng */}
@@ -217,7 +217,7 @@ const Slice2C: React.FC<{ f: number; g: number }> = ({ f, g }) => {
         <path d="M-19 -18H19L16 18Q0 24-16 18Z" fill="#9fd0d8" opacity={0.7} />
       </g>
     </g>
-  ) };
+  ); } };
   return (
     <Camera lens={{ cx: 820, cy: 720, z: 1.35 + 0.05 * seg(f, 0, 120) }} f={g} hand={0.5}>
       <RoomScene night view="bed" chair="bed" door="closed" actors={[nam, tung]} />
