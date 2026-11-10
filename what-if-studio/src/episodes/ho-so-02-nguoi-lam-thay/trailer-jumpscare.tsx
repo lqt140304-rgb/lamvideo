@@ -38,10 +38,13 @@ const GlowEyes: React.FC<{ x: number; y: number; scale: number; a: number }> = (
 
 /** Toàn phòng: t 0..1 là tiến độ đẩy máy, eyes 0..1 là độ sáng hai đốm mắt. Người kia đi từ cửa tới cạnh nệm trong bóng tối. */
 export const JumpWide: React.FC<{ t: number; eyes?: number }> = ({ t, eyes = 0 }) => {
-  const wk = clamp((t - 0.1) / 0.6);
+  // Bước dón dén: 6 bước chậm, mỗi bước trượt chân rồi dừng một nhịp; bước ngắn, người hơi cúi, đầu hơi rụt.
+  const raw = clamp((t - 0.08) / 0.72), STEPS = 6;
+  const i = Math.min(STEPS - 1, Math.floor(raw * STEPS)), fr = raw * STEPS - i;
+  const wk = raw >= 1 ? 1 : (i + ease(clamp(fr * 1.35))) / STEPS;
   const at: [number, number] = [8 + 206 * wk, 215 + 75 * wk];
-  const stop = clamp((wk - 0.9) / 0.1);
-  const pose = { ...mixPose(sampleWalk(wk * 4.2), STAND_POSE, stop), view: 'three' as const, facing: 1 as const };
+  const base = mixPose(mixPose(sampleWalk(wk * (STEPS / 2)), STAND_POSE, 0.4), STAND_POSE, raw >= 1 ? 1 : 0);
+  const pose = { ...base, tilt: (base.tilt ?? 0) + 7, neck: (base.neck ?? 0) - 6, view: 'three' as const, facing: 1 as const };
   const dark = 0.06 + 0.06 * wk; // đi vào càng gần đèn bàn càng lộ ra một chút
   return (
     <AbsoluteFill style={{ background: '#05070b' }}>
@@ -87,11 +90,12 @@ export const PovFrame: React.FC<{ u: number }> = ({ u }) => {
   const dip = u > 0.6 && u < 0.7 ? Math.sin(((u - 0.6) / 0.1) * Math.PI) : 0; // chớp mắt khi nhận ra mình
   const open = (0.06 + 0.72 * ease(u) + 0.035 * Math.sin(u * 38)) * (1 - 0.97 * dip);
   const blur = 9 - 8 * ease(clamp(u * 1.15)) + dip * 4;
-  const walk = clamp((u - 0.08) / 0.7);
+  const walk = clamp((u - 0.08) / 0.78);
   const fx = -25 + 160 * walk, fz = 215 + 60 * walk; // tiến đều, chậm
   const end = placeOn('pov', [135, 275], 168);
   const hx0 = end.x, hy0 = end.y + 95 * end.scale; // tâm đầu lúc dừng
-  const zm = ease(clamp((u - 0.78) / 0.22));
+  const zx = clamp((u - 0.93) / 0.045); // vụt một cái: khoảng 7 frame
+  const zm = 1 - Math.pow(1 - zx, 4);
   const zoom = 1 + 3.6 * zm, dx = (990 - hx0) * zm, dy = (420 - hy0) * zm;
   const stop = clamp((walk - 0.85) / 0.15);
   const pose = { ...mixPose(sampleWalk(walk * 3.2), STAND_POSE, stop), view: 'front' as const };
@@ -111,7 +115,7 @@ export const PovFrame: React.FC<{ u: number }> = ({ u }) => {
             render: (p) => (
               <g>
                 <g style={{ filter: `brightness(${bright.toFixed(2)}) saturate(.8)` }}>
-                  <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood={u > 0.8 ? 'stare_grin' : u > 0.42 ? 'eerie_smirk' : 'calm'} pose={pose} {...p} />
+                  <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood={u > 0.5 ? 'stare_grin' : u > 0.18 ? 'eerie_smirk' : 'calm'} pose={pose} {...p} />
                 </g>
                 {glow > 0 && <GlowEyes {...p} a={glow} />}
               </g>
@@ -208,7 +212,7 @@ export const JumpAudio: React.FC = () => (
   <>
     <Sequence durationInFrames={WIDE + POV - 6}><Audio src={SFX('room_tone.mp3')} volume={0.5} /></Sequence>
     <Sequence from={WIDE + POV - 40} durationInFrames={34}><Audio src={SFX('power_hum.mp3')} volume={0.35} /></Sequence>
-    {[22, 40, 58, 76, 94].map((f) => <Sequence key={f} from={f} durationInFrames={12}><Audio src={SFX('step.mp3')} volume={0.35} /></Sequence>)}
+    {[20, 34, 49, 63, 78, 92].map((f) => <Sequence key={f} from={f} durationInFrames={12}><Audio src={SFX('step.mp3')} volume={0.3} /></Sequence>)}
     {/* 6 frame im bặt trước cú hù */}
     <Sequence from={WIDE + POV}><Audio src={SFX('drone_hit.mp3')} volume={1} /></Sequence>
     <Sequence from={WIDE + POV}><Audio src={SFX('glitch.mp3')} volume={0.5} /></Sequence>

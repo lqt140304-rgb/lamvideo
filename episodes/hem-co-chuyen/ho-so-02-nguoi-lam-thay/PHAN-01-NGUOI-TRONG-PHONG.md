@@ -111,9 +111,9 @@ Ba hình nhanh: **`kitchen` — đống chén ở bồn → `bed` — áo xanh t
 
 Chỉ cảnh đầu là toàn phòng; từ đó trở đi là **góc nhìn của Nam**. Không há miệng, không nuốt.
 
-**W · 4 giây · gần như im lặng, phòng tối hơn bản trước.** Toàn phòng ban đêm, máy đẩy chậm. Nam nằm ngủ toàn thân, đắp chăn (mẫu nằm `Sleeper` của cảnh 1). **Cửa mở, một bóng đen người bước vào, đi bộ chậm trong bóng tối** tới cạnh nệm, chỉ thấy hình dáng, tiếng bước chân đều và nhỏ. Nó đứng im nhìn Nam. Cuối cảnh, **hai đốm mắt trong bóng đen lóe sáng** rồi giữ sáng.
+**W · 4 giây · gần như im lặng, phòng tối hơn bản trước.** Toàn phòng ban đêm, máy đẩy chậm. Nam nằm ngủ toàn thân, đắp chăn (mẫu nằm `Sleeper` của cảnh 1). **Cửa mở, một bóng đen người bước vào, đi dón dén trong bóng tối** (6 bước ngắn, người hơi cúi, mỗi bước dừng một nhịp) tới cạnh nệm, chỉ thấy hình dáng, tiếng bước chân đều và nhỏ. Nó đứng im nhìn Nam. Cuối cảnh, **hai đốm mắt trong bóng đen lóe sáng** rồi giữ sáng.
 
-**P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đứng ở cửa rồi **tiến lại gần đều và chậm**, **cười rợn** từ giữa đoạn, nụ cười toét dần khi tới gần. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt sáng lên. Gần cuối, máy **zoom liền vào đầu** nó, không cắt.
+**P · 5 giây.** Cắt sang mắt Nam: mí còn nặng, mở dần theo hình thấu kính, cảnh nhòe rồi rõ dần. Người kia, mặt giống hệt Nam, đứng ở cửa rồi **tiến lại gần đều và chậm**, **cười rợn ngay từ đầu đoạn**, nụ cười toét dần khi tới gần. Nam chớp mắt một lần khi nhận ra chính mình, hai đốm mắt sáng lên. Nó dừng lại, đứng cười. Rồi máy **vụt một cái vào mặt nó** (khoảng 0,2 giây), không zoom chậm.
 
 **C · khoảng 0,7 giây, dứt khoát.** Tiếng phòng tắt bặt một nhịp ngắn, rồi **cắt phụt vào mặt dọa** kín khung: đen trắng tương phản mạnh, hốc mắt sâu tối, mắt nhỏ trừng, cười toác lộ hai hàm răng, có hạt nhiễu. Vẫn giữ tóc có lọn xoăn và nốt ruồi bên phải để nhận ra bản sao. Khung rung mạnh và đẩy vào, rồi **mí Nam sập xuống**, đen hẳn. Mặt vẽ riêng theo phong cách ảnh tham khảo của chủ repo, không chép ảnh.
 
