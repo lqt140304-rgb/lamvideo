@@ -29,7 +29,8 @@ const raised=armTo(armTo({...base,handR:'hold',handL:'hold'},'R',[65,200]),'L',[
 const gamingPose=(p:JointPose)=>{let q=armTo(armTo({...p,prop:'phoneLandscape',handR:'hold',handL:'hold',frontR:true,frontL:true},'R',[-47,306]),'L',[47,306]);const r=solveRig(q);return {...q,wristR:Math.max(-70,Math.min(70,-90-r.armR.deg)),wristL:Math.max(-70,Math.min(70,90-r.armL.deg))};};
 const seatedGame=gamingPose({...TWIN_POSES.sit,tilt:8,neck:5});
 const lyingBase:JointPose={...STAND_POSE,view:'front',support:'bed',planted:false,frontR:true,frontL:true,legR:{a:0,b:0},legL:{a:0,b:0},tilt:0,neck:0};
-const collapsed=armTo(armTo({...TWIN_POSES.sit,tilt:12,neck:5,handR:'rest',handL:'rest'},'R',[-44,373]),'L',[71,376]);
+// suy sụp: đổ người tới, cẳng tay tì lên đùi, hai bàn tay buông thõng giữa hai gối, đầu cúi
+const collapsed=armTo(armTo({...TWIN_POSES.sit,tilt:17,neck:9,handR:'rest',handL:'rest'},'R',[66,404]),'L',[96,410]);
 export const EXTRA_POSES:Record<string,JointPose>={
  // thị uy: nắm tay giơ trước ngực–vai (khuỷu thả xuống, cẳng tay dựng), tay kia buông; ngực ưỡn nhẹ
  'thi-uy':{...base,armR:{a:-58,b:132,rot:-1},armL:{...STAND_POSE.armL},wristR:-18,handR:'fist',handL:'rest',frontR:true,frontL:false,tilt:-3,neck:3},
