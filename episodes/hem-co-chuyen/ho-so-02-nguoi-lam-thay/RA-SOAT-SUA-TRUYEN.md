@@ -1,5 +1,10 @@
 # Rà và sửa tính liên tục — Hồ sơ 2
 
+**Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
+
+Các mục rà V1 bên dưới giữ làm lịch sử; các nhận xét về giằng co, clip cầu cứu và quá trình tự học cũ không còn chỉ đạo dựng bản mới. Điểm cần kiểm hiện hành ở [LOI-TON-DONG.md](LOI-TON-DONG.md).
+
+
 ## Rà văn bản V1 đủ ba phần — 10/11/2026
 
 Yêu cầu mới cho phép viết luôn các phần còn thiếu. Đã chuyển nguồn lời A–H vào PHAN-01, thêm P1.00 hồi tưởng; PHAN-02/03 có bản cảnh/thoại đầy đủ. Các đoạn được duyệt trước được so bảo toàn lời; các tình tiết mới chưa duyệt toàn bộ. Chủ repo đã chốt hướng Nam bị nhốt trong thế giới gương, Người Kia thay thế và kết mở; cơ chế/diễn cụ thể còn đề xuất. Bản rà bên dưới mục này là lịch sử trước V1, các chữ “chưa viết phần kết” ở đó mô tả trạng thái lúc rà cũ.
@@ -62,3 +67,16 @@ Nhận xét trước đã gọi cue chụp/gửi trong 1–1.5 giây là điều
 ## Kiểm tra đã thực hiện
 
 Đã chạy kiểm tra rig Hồ sơ 2 và TypeScript; đã soi bảng nhân vật cùng bảng đối chiếu nốt ruồi xuất từ SVG thật. Kiểm tra tự động xác nhận dấu đối bên/khuất hiện theo góc, không đổi điểm cầm điện thoại khi chỉ đổi danh tính, ID/clip không trùng và liên kết tài liệu tồn tại. Đã xác nhận bốn file làm dở ở worktree Claude giữ nguyên nội dung. Chưa chạy animatic hoặc tạo giọng/video trong lượt này.
+
+## Rà hành động A–H — lượt bổ sung 10/11/2026
+
+Phân biệt với lỗi cốt truyện: các chỗ dưới là bước nối chưa viết đủ để giao dựng, không khẳng định demo hiện tại đều đã mắc lỗi. Đã sửa trực tiếp lời chỉ dẫn trong THAO-LUAN-CANH và thêm bảng DUNG-CANH:
+
+- Thức dậy thiếu tháo chăn/dịch người; bổ sung lật chăn, tay chống, dịch hông xuống cuối giường, xoay và xỏ dép. Nhận mặt khi vẫn ngồi, đứng sau quơ điện thoại; tránh hai lần đứng liên tiếp.
+- Cầm bát sang tay trống thiếu điểm nhả: đáy chạm mặt đỡ rồi mới nhả. Nam tới cửa bằng đường đi và tay giữ rõ.
+- Di chuyển ghế/kiểm ví-thẻ/laptop thiếu phân bổ tay và bước ngồi: giữ máy tay phải lúc kiểm đồ, đặt xuống bàn trước mở laptop; ghế bốn chân có nhịp nhấc/kéo/đặt, không lăn.
+- Từ bàn sang nằm thiếu quãng đi: thêm đứng, đi tới nệm, ngồi/rút dép rồi hạ thân/đưa chân lên; điện thoại và ghế ở bàn.
+- Tối từ tỉnh sang tới bàn thiếu điểm đứng; tách ngồi-quát khỏi đứng-tiến, chỉ tiến sau khi Người Kia lùi ghế. Nam giữ máy tay phải, dùng trackpad tay trái; đứng đọc vì ghế còn có người ngồi.
+- “Kéo phần hướng dẫn” chưa rõ vật: ghi là cửa sổ trên laptop, tránh tự sinh một tờ giấy. Giữ chưa gửi và không gõ lại ở cuối.
+
+Không sửa thoại, nguồn gốc gương hoặc tự chốt phần 2–3. Các đoạn đã có đủ đường đi như C/F được giữ ý chính, chỉ bổ sung tiếp xúc và nhịp trung gian. Chưa đo thời lượng sau sửa bằng đọc/animatic; các khung thời lượng đề xuất không là kết quả. Chỉ kiểm tra văn bản và liên kết trong lượt này, không chạy lại kiểm thử rig vì chưa đổi mã, không lấy kết quả kiểm thử của lượt cũ làm bằng chứng cho hành động mới.

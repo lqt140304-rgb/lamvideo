@@ -1,23 +1,16 @@
 # Asset — Hồ sơ 02: Người trong gương
 
-## Bổ sung theo kịch bản đủ ba phần V1 — chưa tạo/sửa asset
+## Nhu cầu theo kịch bản mới — đồng bộ 11/11/2026
 
-Nguồn lời: [KICH-BAN.md](KICH-BAN.md). Các mục dưới là yêu cầu mới của bản nháp, chưa phải asset đã làm hoặc đã duyệt. Giữ toàn bộ bộ hình/rig đang có.
+Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Giữ bộ rig/phòng/ánh sáng đã cập nhật; các mục sau là nhu cầu, không phải tài nguyên đã tạo hoặc duyệt.
 
-| Cần chuẩn bị | Cảnh dùng / liên tục |
+| Cần đối chiếu/chuẩn bị | Theo bản mới |
 |---|---|
-| Gương đứng khung gỗ khoảng 50 × 120 cm, chèn chân; lớp phản chiếu tách riêng | P1.00 mang về; cạnh hông tủ ở mọi cảnh; P2.07 hình trễ; P3 quay/che/giằng/kéo người; không chặn cửa hoặc đường tới nệm |
-| Góc đồ cho tặng ở hành lang và nhãn giấy | O01; quay lại cùng góc ở P3.07, không xây địa điểm mới chỉ cho hồi tưởng |
-| Khăn lớn, sổ gáy mềm, giấy ba ý và bút | Khăn chặn mặt kính; sổ được Nam giao từ P2.05; giấy Nam tự viết từ cuối phần 2 đến hình kết |
-| UI tin/nhóm, file nháp, ghi âm thử, camera sau, gửi clip và xóa clip local | Mỗi lần biết thông tin có nguồn; clip đã gửi cho Tùng vẫn còn; không đặt dữ liệu thật vào hình |
-| Hộp cơm/đũa/cốc nước, balô | Hồi tưởng đời thường, Tùng mang hai hộp tối ngày 1; tái dùng đạo cụ thư viện nếu có |
-| Biến thể áo thường của Nam, túi ngực để giữ điện thoại ở P3 | A–H giữ áo ngủ xám; từ ngày 2 áo xám nhạt có túi, Người Kia xanh rêu. Cần kiểm rig/túi trước dùng, chưa tự đổi thiết kế chính |
-| Pose nghe bạn, giảng bài, trao máy, giữ cửa, tránh/thoát, giằng cổ tay/khung gỗ, bám mép gương | Phải thấy liền cổ tay–bàn tay, lực/điểm tựa; thử animatic ngắn khi được giao trước khi dựng đoạn dài |
-| Không gian nhìn từ trong gương, hành lang đảo chiều phía sau và hiệu ứng tiếp xúc mặt kính | Chỉ xác nhận nguồn gốc/bắt người ở cuối; âm trong không lọt ra ngoài. Hướng nhìn khác rõ, không đảo chữ trên toàn cảnh |
-
-Nhân vật mới có hình: không thêm vai có mặt. Trưởng nhóm chỉ qua chữ; Tùng là vai đã có. Một đường cửa chính, không thêm cửa sau để tránh giải quyết việc hai Nam tránh gặp Tùng.
-
-
+| Gương khung gỗ, lớp phản chiếu, hiệu ứng kính hóa nước | Giữ bí mật ở phần đầu; đối chiếu nốt ruồi; Nam tự buông xuôi và chạm kính, không dựng giằng tay/cưỡng ép |
+| Căn cước/thẻ sinh viên, điện thoại, PC, sách/sổ và UI | Trao quyền đại diện, Lab 402, điểm 9.5, clip Zalo gia đình; dấu nhận diện cơ thể đảo bên, chữ trên vật thật không tự đảo |
+| Tiền ăn, cơm hộp/bún chả, quần áo, búa và then cửa | Theo đúng các cảnh mới; búa rơi trong đối chất, không phải đánh nhau hoặc đập vỡ kính |
+| Giảng đường/Lab, clip gia đình và vai phụ | Chưa xác nhận đủ bối cảnh/rig/giọng; liệt kê theo từng cảnh trước khi dựng, tái dùng thư viện nếu phù hợp |
+| Pose thị uy, tập nói, ngủ nướng, chơi game, suy sụp và áp tay vào kính | Dựng biểu cảm/chuyển trọng lượng và điểm tiếp xúc; bỏ yêu cầu pose giằng co của bản V1 |
 
 **Đại tu không gian 10/11/2026 — chờ duyệt:** [bảng nền mới](assets/boi-canh/boi-canh.png), [ghép Nam kiểm tra tỉ lệ](assets/boi-canh/kiem-tra-ti-le.png), [nguồn và hướng dẫn](assets/boi-canh/BOI-CANH.md). Nệm đôi tách bàn/ghế; không còn áo ghế, căn cước trên bàn, giờ đêm/tin cũ/tên tập gắn vào nền. Căn phòng là một mô hình 3D trong nguồn TSX, mỗi góc máy là một camera thật, có thêm góc cửa/chốt và hành lang; đã xuất SVG/PNG/HTML, chưa dựng phim.
 
@@ -126,3 +119,5 @@ Kiểm tra pose ngủ/bật dậy, nhìn ba phần tư, cầm điện thoại/c�
 Dùng `pose` trên `StudentTwinBody`/`TungSoccer`, trộn từ `STAND_POSE` hoặc `TWIN_POSES`. Xem trong studio bằng composition `HoSo02RigSheet` (đứng ↔ 7 tư thế), `HoSo02CastBoard` (bảng dàn nhân vật); kiểm tra hình học: `node tests/ho-so-02-rig.cjs` trong `what-if-studio/`.
 
 Cả ba nhân vật có đủ chính diện, 3/4, nghiêng, 1/4 (chéo từ sau), sau lưng và quay trái qua `view`/`facing` trong `pose` (xem composition `HoSo02Turnaround`, `HoSo02Spin`). Có `talk` cho khẩu hình, `blink` cho chớp mắt, `turnAt` để xoay dần, 11 dáng trong `TWIN_POSES`, `sampleWalk` cho vòng bước và `prop` cho điện thoại, bát đi theo bàn tay. Nam mặc áo ngủ xám bằng `shirt={PALETTE.nam.sleepShirt}` khi Người Kia đang mặc áo xanh.
+
+**Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Chưa nghe/tải duyệt các nguồn mới, chưa sửa rig hoặc dựng lại demo. Phần 2–3 vẫn đề cương.

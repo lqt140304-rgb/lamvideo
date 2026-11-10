@@ -1,26 +1,26 @@
 # The Crack in Reality — Hồ sơ 02: Người trong gương
 
-**Chốt hướng kết mới nhất của chủ repo:** Nam bị nhốt trong thế giới gương; Người Kia thay thế Nam ngoài đời. Giữ kết mở về khả năng thoát và việc người quen có nhận ra hay không. Chỉ hướng kết này đã chốt; cơ chế bắt, lời và dàn cảnh cụ thể vẫn là đề xuất V1.
+**Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
 
 **Demo Cảnh 1 và rig — 10/11/2026:** animatic câm A01–A05 (`HoSo02Canh01Demo`) gồm thức dậy A02B (hất chăn, ngáp, lết ra mép nệm), máy dolly, góc qua vai, khung phim 2:1. Nhân vật **không viền ngoài**, bóng mềm hẹp, chỉ có khối sáng–tối khi đứng trong nắng cửa sổ (xem [quy chuẩn mục 4.0](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md)). Rig có thêm dáng `lie`, `sitLow`, nét mặt phân mức (`face`). Bối cảnh: phố và dãy trọ bên ngoài, góc `corridor`. Việc còn lại ở [LOI-TON-DONG](LOI-TON-DONG.md). Video render chỉ để local (`what-if-studio/out/ho-so-02-nguoi-lam-thay/`).
 
 
 
-**Đã có bản nháp kịch bản chi tiết đủ ba phần V1, cập nhật 10/11/2026.** Mở [KICH-BAN.md](KICH-BAN.md) để đọc theo thứ tự. Nội dung gồm bối cảnh, hành động, thoại/thẻ cảm xúc, khoảng nghỉ và hướng máy/âm. Hồi tưởng giới thiệu Nam khoảng 40 giây đã có trước cảnh thức dậy. Bản nháp mới chưa duyệt toàn bộ, chưa giao Claude dựng và chưa tạo media.
+**Nguồn hiện hành:** [KICH-BAN.md](KICH-BAN.md) tổng hợp thứ tự đọc ba phần đã được cập nhật trong commit a0b3cda. Đã đồng bộ thêm cập nhật rig/phòng/demo trên GitHub. Demo Cảnh 1 là đoạn thử riêng; chưa phải toàn bộ phim theo bản kịch bản mới.
 
-## Thời lượng từng phần — cập nhật theo lời đính chính 10/11/2026
+## Thời lượng bản mới — cập nhật 11/11/2026
 
-**Mỗi phần có thể tới 10 phút**, không phải cả hồ sơ. Nhịp thử 9:40 / 9:00 / 9:00, tổng **27:40**, trần 30:00. Chưa đo bằng đọc diễn hoặc audio; không kéo cảnh cho đủ phút. Cách phát hành chung hay riêng chưa chốt.
+**Mục tiêu mới: cả hồ sơ khoảng 15 phút**, theo KICH-BAN.md: phần 1 khoảng 4:50, phần 2 khoảng 6:25, phần 3 khoảng 3:45. Các mốc chi tiết còn chênh với bảng tổng; cần cân lại khi đọc thử. Không dùng ngân sách 9:40 / 9:00 / 9:00 của bản trước để dựng.
 
 ## Làm chi tiết theo 3 phần
 
 | Nguồn lời | Nội dung / tình trạng |
 |---|---|
 | [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md) | P1.00 hồi tưởng mới; P1.01–08 giữ lời A–H và mức duyệt cũ, tới Nam đọc bài và dặn đừng gửi |
-| [Phần 2 — Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) | P2.01–07 đã viết cảnh/thoại: tự nhận giúp, cho thay mặt, lệ thuộc, mất tự tin và bắt đầu tự làm; toàn bộ mới đề xuất |
-| [Phần 3 — Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) | P3.01–07 đã viết cảnh/thoại: nỗ lực, đối đầu, bị giam trong gương và sự chiếm chỗ; toàn bộ mới đề xuất |
+| [Phần 2 — Quen được làm thay](PHAN-02-QUEN-DUOC-LAM-THAY.md) | Nhận giúp, thử lòng, thị uy, nhờ đi học/thuyết trình, trò chuyện lúc chơi game, các lần phản kháng nửa vời và clip gia đình |
+| [Phần 3 — Người bị thay thế](PHAN-03-NGUOI-BI-THAY-THE.md) | Tự đi học thất bại, nhận ra dấu đảo bên, định đập gương, đối chất tâm lý, bị nhốt; Tùng nghi ngờ và Người Kia cài then |
 
-Ba file PHAN là nguồn lời duy nhất theo phần. KICH-BAN là mục lục bản đầy đủ; THAO-LUAN giữ quyết định và liên kết cũ, không chép lại thoại. Việc viết đầy đủ được chủ repo yêu cầu; các lựa chọn mới về luật/kết chưa tự được duyệt.
+Ba file PHAN là nguồn lời duy nhất theo phần. KICH-BAN là mục lục bản đầy đủ; THAO-LUAN giữ quyết định và liên kết cũ, không chép lại thoại. Việc viết đầy đủ được chủ repo yêu cầu; nội dung hiện hành được ghi trong bản cập nhật a0b3cda; chưa suy ra mọi shot/giọng/chuyển động đã được kiểm chứng.
 
 ## Các file và tác dụng
 
@@ -41,4 +41,6 @@ Ba file PHAN là nguồn lời duy nhất theo phần. KICH-BAN là mục lục 
 - **Mỹ thuật:** [phong cách chung](../../../docs/PHONG-CACH-MY-THUAT.md), nét mềm/khối tròn cho cả người và môi trường. Nam áo ngủ xám, Người Kia áo xanh ở A–H; nốt ruồi Người Kia đối bên theo hình thể. Không đảo chữ trên đồ thật.
 - Studio trong `what-if-studio/`; các composition kiểm rig gồm `HoSo02Turnaround`, `HoSo02Spin`, `HoSo02RigSheet`. Không phải timeline hoàn chỉnh của bản V1.
 
-Claude dựng khi người dùng giao. Chưa có lời sạch phân vai, take ElevenLabs, storyboard cảnh, animatic hoặc video cho bản ba phần. Giữ ranh giới tài liệu viết với sản phẩm đã nghe/xem. Xem [quy ước series](../README.md), [vũ trụ](../VU-TRU.md); chưa đưa luật đề xuất V1 thành lore chính thức.
+Claude dựng khi người dùng giao. Chưa xác nhận lời sạch phân vai, take ElevenLabs hoặc timeline đủ ba phần của bản 15 phút. Đã có demo câm riêng cho Cảnh 1 như mô tả phía trên. Giữ ranh giới tài liệu viết với sản phẩm đã nghe/xem. Xem [quy ước series](../README.md), [vũ trụ](../VU-TRU.md); chưa đưa luật đề xuất V1 thành lore chính thức.
+
+**Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Chưa nghe/tải duyệt các nguồn mới, chưa sửa rig hoặc dựng lại demo. Phần 2–3 vẫn đề cương.
