@@ -301,7 +301,8 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
 // Trong kính là thế giới gương 3D (MirrorRealm). Cánh tay vươn ra là tay rig của chính cái bóng:
 // vẽ bóng 2 lần cùng toạ độ — bản trong kính, và bản ngoài kính chỉ lộ phần vượt mép trái — nên tay liền một khối.
 // gương lùi xa hơn Nam (nhỏ lại) và nghiêng cùng chiều Nam; bản tay ngoài kính dùng cùng phép đặt để tay liền khối
-const MIR = "translate(80 -12) scale(0.88) rotate(-9)";
+const MIR = "translate(80 -112) scale(0.88) rotate(-9)"; // gương nâng lên; cái bóng hạ xuống trong kính (DROP) để chân cùng mặt sàn với Nam
+const DROP = 150;
 const REACH_ARM = (k: number): JointPose => ({ ...STAND_POSE, tilt: 4 * k, armR: { a: 122 * k, b: 8 * k }, wristR: 40 * k, handR: k > 0.2 ? 'open' : 'rest', frontR: true });
 const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const t = f / 180;
@@ -316,10 +317,10 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const walkP = f > 24 ? sampleWalk((f - 24) / 20) : STAND_POSE;
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
-  const rx = MW * 0.32, ry = MH * 0.1, rs = 0.95;
+  const rx = MW * 0.32, ry = MH * 0.1, rs = 0.95, ryIn = ry + DROP;
   const vw = 1920 * realmZoom, vh = 1080 * realmZoom;
   const realm = (
-    <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.78} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
+    <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.78 - (DROP * vh) / (MH + 120)} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
       <MirrorRealm ripple={f / 40} floating={false} />
     </svg>
   );
@@ -332,8 +333,9 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
           <g transform="translate(1180 1010) scale(0.98)">
             <g transform={MIR}>
             <Mirror w={MW} h={MH} progress={ripple} phase={f / 6}>
+              <rect x={-60} y={-60} width={MW + 120} height={MH + 120} fill="#03100f" />
               {realm}
-              <NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood={smirk ? 'stare_grin' : 'calm'} face={smirk ? undefined : 'cuoi-che-giau-01'} blink={false} pose={reflPose} />
+              <NguoiKia {...LOOK} x={rx} y={ryIn} scale={rs} mood={smirk ? 'stare_grin' : 'calm'} face={smirk ? undefined : 'cuoi-che-giau-01'} blink={false} pose={reflPose} />
             </Mirror>
             </g>
             <g transform={`translate(${-MW / 2} ${-MH})`}>
@@ -344,7 +346,7 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
             <g transform={MIR}>
             <g transform={`translate(${-MW / 2} ${-MH})`}>
               <clipPath id="ngoai-kinh"><rect x={-2000} y={-500} width={2026} height={MH + 1000} /></clipPath>
-              {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ry} scale={rs} mood="stare_grin" blink={false} pose={reflPose} /></g>}
+              {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ryIn} scale={rs} mood="stare_grin" blink={false} pose={reflPose} /></g>}
             </g>
             </g>
           </g>
