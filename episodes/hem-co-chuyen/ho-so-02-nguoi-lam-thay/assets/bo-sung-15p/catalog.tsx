@@ -2,7 +2,7 @@ import { STORY_GROUPS, type StoryFaceKey } from '../../../../../what-if-studio/l
 import React from 'react';
 import { Sheet, Label, C, Contact } from './common';
 import { Mirror, Hammer, MoneyEnvelope, IdentityCard, RiceBox, BunCha, XoiGac, FruitBag, Computer, LaundryBasin, Football, Scissors } from './dao-cu';
-import { LectureHall, ComputerLab, UniversityCorridor, FamilyGathering, MirrorRealm, GiftCorner, MiniPitch, BarberCorner } from './boi-canh';
+import { LectureHall, ComputerLab, UniversityCorridor, FamilyGathering, MirrorRealm, GiftCorner, MiniPitch, BarberCorner, lectureSpot, corridorSpot } from './boi-canh';
 import { SupportingActor, FormalTwin, PoseActor, EXTRA_POSES, gripAt, type Role } from './nhan-vat-va-tu-the';
 import { PhonePanel, FaceComparison, type ScreenKind } from './giao-dien';
 import { StudentTwinBody, StudentTwinHead } from '../nhan-vat';
@@ -24,9 +24,9 @@ export const ASSETS:Item[]=[
  prop('bong-da','Bóng đá mini',['P2.05'],()=> <g transform="translate(220 135)"><Contact y={86} rx={87}/><Football/></g>),
  prop('keo-cat-toc','Kéo · góc montage',['P2.05'],()=> <g transform="translate(220 170)"><Scissors/></g>),
  prop('goc-do-cho-tang','Góc đồ cho tặng',['P1.00'],()=> <g transform="translate(356 503)"><GiftCorner/></g>,720,560),
- {id:'giang-duong',name:'Giảng đường · lớp gần/xa',scenes:['P3.01'],w:1920,h:1080,kind:'set',node:()=> <LectureHall failed><FormalTwin identity="nam" mood="scared" x={1010} y={273} scale={.55}/></LectureHall>},
+ {id:'giang-duong',name:'Giảng đường · lớp gần/xa',scenes:['P3.01'],w:1920,h:1080,kind:'set',node:()=> <LectureHall failed><FormalTwin identity="nam" mood="scared" {...lectureSpot()}/></LectureHall>},
  {id:'lab-402',name:'Lab 402 · bàn máy tính',scenes:['P2.04','P2.05'],w:1920,h:1080,kind:'set',node:()=> <ComputerLab/>},
- {id:'hanh-lang-dai-hoc',name:'Hành lang đại học',scenes:['P3.02'],w:1920,h:1080,kind:'set',node:()=> <UniversityCorridor><FormalTwin identity="nam" mood="scared" x={1090} y={364} scale={.83}/></UniversityCorridor>},
+ {id:'hanh-lang-dai-hoc',name:'Hành lang đại học',scenes:['P3.02'],w:1920,h:1080,kind:'set',node:()=> <UniversityCorridor><FormalTwin identity="nam" mood="scared" {...corridorSpot()}/></UniversityCorridor>},
  {id:'bua-com-gia-dinh',name:'Bữa giỗ gia đình · clip',scenes:['P2.06'],w:1920,h:1080,kind:'set',node:()=> <FamilyGathering/>},
  {id:'san-bong-mini',name:'Sân bóng mini · montage',scenes:['P2.05'],w:1920,h:1080,kind:'set',node:()=> <MiniPitch/>},
  {id:'goc-cat-toc',name:'Góc cắt tóc · montage',scenes:['P2.05'],w:1920,h:1080,kind:'set',node:()=> <BarberCorner/>},
