@@ -124,7 +124,7 @@ Cả ba nhân vật có đủ chính diện, 3/4, nghiêng, 1/4 (chéo từ sau)
 
 ## Asset dựng sẵn từ kế hoạch trailer cũ — 10/11/2026, có thể tái dùng
 
-Kế hoạch trailer/opening cũ đã hủy theo yêu cầu chủ repo; các asset dưới đây vẫn còn trong repo và dùng lại được cho bản mới.
+Kế hoạch trailer/opening cũ đã hủy theo yêu cầu chủ repo. Opening và trailer mới dựng theo đúng [bảng phân cảnh](KICH-BAN-TRAILER-VA-OPENING.md) (cảnh 1 demo chỉ là bản thử), và **chỉ bắt đầu khi chủ repo cho phép**. Các asset dưới đây vẫn còn trong repo, dùng lại được nếu hợp.
 
 | Asset | Nguồn | Ghi chú |
 |---|---|---|
@@ -133,4 +133,4 @@ Kế hoạch trailer/opening cũ đã hủy theo yêu cầu chủ repo; các ass
 | Trang phục Nam | `NAM_OUTFITS` trong [rig](assets/nhan-vat.tsx): `xanh`, `ngu`, `xam-tui`, `dong-phuc`, `the-thao`; [bảng xem](assets/trailer/trang-phuc-nam.png) | Đồ thể thao chưa có giày riêng |
 | Biểu cảm `stare_grin` | Rig, cho bản sao lúc hù | |
 | Clip Nam giữa khung | [TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md), composition `HoSo02NamGiuaKhung` | Chủ repo đã duyệt bản đứng yên, lười biếng, 0,3 giây mỗi nền |
-| Cảnh jumpscare | Composition `HoSo02TrailerJumpscare` trong [`trailer-jumpscare.tsx`](../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/trailer-jumpscare.tsx); [khung tĩnh](assets/trailer/jumpscare-bang.png) | **Chủ repo đã duyệt 10/11/2026** (bản khoảng 17 giây: hành lang góc nhìn người kia, sau lưng, đứng trước giường mắt sáng, mắt Nam, mặt dọa đen trắng `ScareFace`). Âm thư viện chép vào `what-if-studio/public/ho-so-02-nguoi-lam-thay/sfx/` (Git bỏ qua) |
+| Cảnh jumpscare (bản cũ) | Composition `HoSo02TrailerJumpscare` trong [`trailer-jumpscare.tsx`](../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/trailer-jumpscare.tsx) | **Bỏ hẳn 10/11/2026** theo chủ repo: không dùng cho trailer/opening mới, làm lại từ đầu theo [bảng phân cảnh mới](KICH-BAN-TRAILER-VA-OPENING.md). Mã còn trong repo, chưa xóa |
