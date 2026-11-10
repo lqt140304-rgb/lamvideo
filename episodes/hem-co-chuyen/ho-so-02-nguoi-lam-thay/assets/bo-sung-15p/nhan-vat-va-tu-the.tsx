@@ -48,13 +48,13 @@ export const EXTRA_POSES:Record<string,JointPose>={
  'nhan-do-tay-trai':armTo({...base,handL:'open',palmUp:'L',wristL:-8,handR:'rest',frontR:false},'L',[150,332]),
  // ---- Dáng theo CHECKLIST-TIEN-KY-ASSET mục 3 (mã pose ghi trong POSE_INFO) ----
  // NAM_P02 bật dậy: ngồi mép nệm thấp, lưng gập tới, hai nắm tay ghì mép chăn trước gối
- 'bat-day':armTo(armTo({...TWIN_POSES.sitLow,view:'three',tilt:12,neck:-6,handR:'fist',handL:'fist',frontR:true,frontL:true},'R',[58,336]),'L',[92,334]),
+ 'bat-day':armTo(armTo({...TWIN_POSES.sitLow,view:'three',tilt:12,neck:-6,handR:'fist',handL:'fist',frontR:true,frontL:true},'R',[42,300]),'L',[84,302]),
  // NAM_P03 lùi va ghế: thân ngả ra sau, gối gần khuỵu vì va cạnh ghế, tay phải vơ điện thoại, tay kia hất ra giữ thăng bằng
  'lui-va-ghe':{...base,tilt:-9,neck:7,armR:{a:-62,b:96,rot:-1},wristR:-30,handR:'phone',prop:'phone',armL:{a:-38,b:24,rot:-1},handL:'open',frontL:false,legR:{a:22,b:34},legL:{a:-10,b:4}},
  // NAM_P04 gài then: tay trái đẩy then ngang vai, tay phải ghì điện thoại trước ngực, nghiêng đầu áp tai về phía cửa
  'gai-then':armTo({...TWIN_POSES.phone,view:'three',tilt:5,neck:7,handL:'fist',frontL:true},'L',[150,236]),
  // NAM_P07 tập nói trước gương: hai tay ôm sách mở trước ngực, vai rụt, đầu cúi
- 'tap-noi':armTo(armTo({...base,neck:-5,handR:'hold',handL:'hold'},'R',[22,318]),'L',[70,316]),
+ 'tap-noi':{...base,neck:-5,armR:{a:6,b:84,rot:1},armL:{a:-18,b:96,rot:1},wristR:-10,wristL:-10,handR:'hold',handL:'hold'},
  // NAM_P08 bục giảng: hai tay buông, tay phải cầm mẩu phấn, đầu cúi gằm
  'buc-giang':{...base,tilt:3,neck:11,armR:{a:4,b:16},handR:'hold',armL:{a:3,b:10,rot:-1},handL:'rest',frontL:false},
  // NAM_P10 quỳ gục: hai gối chạm sàn, thân đổ tới, hai bàn tay chống sàn trước gối
@@ -92,7 +92,7 @@ export const PoseActor=({name,x=0,y=0,scale=1}:{name:keyof typeof EXTRA_POSES;x?
   {name==='nk-do-bua'&&<g transform={`translate(${hand.x+4} ${hand.y-20}) rotate(-80) translate(0 118)`}><Hammer/></g>}
   {name==='tung-xach-com'&&<g transform={`translate(${hand.x} ${hand.y})`}><path d="M-8 0Q-22 22-30 40H30Q22 22 8 0" fill="none" stroke="#e9e6dc" strokeWidth={3}/><rect x={-42} y={38} width={84} height={46} rx={9} fill="#d8cfb6"/><rect x={-42} y={38} width={84} height={12} rx={6} fill="#b9ad8f"/></g>}
   {name==='tung-cam-dua'&&<path d={`M${handR.x-6} ${handR.y-4}L${handR.x+70} ${handR.y-26}M${handR.x-4} ${handR.y+4}L${handR.x+72} ${handR.y-14}`} stroke="#b88b52" strokeWidth={4} strokeLinecap="round"/>}
-  {name==='tap-noi'&&<g transform={`translate(${(hand.x+handR.x)/2} ${(hand.y+handR.y)/2-4})`}><path d="M-46-30L0-22 46-30V24L0 32-46 24Z" fill="#efe8d4"/><path d="M0-22V32" stroke="#b9ad90" strokeWidth={2}/><path d="M-38-14H-8M-38-2H-8M8-14H38M8-2H38" stroke="#b9ad90" strokeWidth={2}/></g>}
+  {name==='tap-noi'&&<g transform={`translate(${(hand.x+handR.x)/2} ${(hand.y+handR.y)/2-4}) scale(1.25)`}><path d="M-46-30L0-22 46-30V24L0 32-46 24Z" fill="#efe8d4"/><path d="M0-22V32" stroke="#b9ad90" strokeWidth={2}/><path d="M-38-14H-8M-38-2H-8M8-14H38M8-2H38" stroke="#b9ad90" strokeWidth={2}/></g>}
   {name==='buc-giang'&&<rect x={handR.x-5} y={handR.y+4} width={10} height={26} rx={4} fill="#f4f1e6" transform={`rotate(-25 ${handR.x} ${handR.y})`}/>}
  </g>;
 };
