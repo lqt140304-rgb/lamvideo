@@ -179,7 +179,12 @@ export const makeScene = (cam: Cam, light: Light) => {
   };
 
   /** Hình 2D (người, đạo cụ có sẵn) đặt vào chiều sâu của cảnh. */
-  const sprite = (at: V3, node: React.ReactNode, layer = 2) => items.push({ layer, depth: Math.hypot(...sub(at, cam.pos)), node: <g key={key++}>{node}</g> });
+  /** `face`: hướng mặt đã vẽ của hình phẳng (vd lưng sinh viên nhìn về -z). Camera ở phía sau mặt đó thì ẩn hình, tránh lộ như tấm bìa. */
+  let hiddenFlat = 0;
+  const sprite = (at: V3, node: React.ReactNode, layer = 2, face?: V3) => {
+    if (face && dot(face, sub(cam.pos, at)) < 0) { hiddenFlat++; return; }
+    items.push({ layer, depth: Math.hypot(...sub(at, cam.pos)), node: <g key={key++}>{node}</g> });
+  };
 
   /** Bóng đổ của một khối hộp xuống sàn theo hướng nắng. */
   const hull = (pts: P2[]) => {
@@ -247,7 +252,7 @@ export const makeScene = (cam: Cam, light: Light) => {
       </g>
     );
   };
-  return { quad, box, cyl, sphere, line, sprite, castShadow, contact, sunPatch, glow, plane, rigAt, render, shade, cam };
+  return { quad, box, cyl, sphere, line, sprite, hidden: () => hiddenFlat, castShadow, contact, sunPatch, glow, plane, rigAt, render, shade, cam };
 };
 
 /** Lớp hoàn thiện: tối bốn góc và hạt mịn, dùng chung cho mọi cảnh. */

@@ -2,7 +2,7 @@ import { STORY_GROUPS, type StoryFaceKey } from '../../../../../what-if-studio/l
 import React from 'react';
 import { Sheet, Label, C, Contact } from './common';
 import { Mirror, Hammer, MoneyEnvelope, IdentityCard, RiceBox, BunCha, XoiGac, FruitBag, Computer, LaundryBasin, Football, Scissors } from './dao-cu';
-import { LectureHall, ComputerLab, UniversityCorridor, FamilyGathering, MirrorRealm, GiftCorner, MiniPitch, BarberCorner, lectureSpot, corridorSpot } from './boi-canh';
+import { LectureHall, ComputerLab, UniversityCorridor, FamilyGathering, MirrorRealm, GiftCorner, MiniPitch, BarberCorner, lectureSpot, corridorSpot, SET_VIEWS, type SetView } from './boi-canh';
 import { SupportingActor, FormalTwin, PoseActor, EXTRA_POSES, gripAt, type Role } from './nhan-vat-va-tu-the';
 import { PhonePanel, FaceComparison, type ScreenKind } from './giao-dien';
 import { StudentTwinBody, StudentTwinHead } from '../nhan-vat';
@@ -53,4 +53,17 @@ export const StoryEmotionBoard=({page}:{page:number})=><Sheet w={1800} h={1280} 
  {STORY_GROUPS.slice(page*3,page*3+3).map((group,row)=>[1,2,3].map(n=>{const x=25+(n-1)*590,y=120+row*365,key=`${group.id}-0${n}` as StoryFaceKey;return <g key={key}><rect x={x} y={y} width={570} height={345} rx={22} fill="#faf6ed"/><StudentTwinHead x={x+278} y={y+22} scale={1.25} face={key} identity={group.id==='cuoi-che-giau'?'nguoi-kia':'nam'} mood="calm"/><Label x={x+24} y={y+286} size={23}>{group.name} · mức {n}</Label><Label x={x+24} y={y+319} size={17}>{group.levels[n-1]}</Label></g>;}))}
  <Label x={30} y={1260} size={17}>Ghép tĩnh để kiểm tra, chưa duyệt motion. Không dùng nét lạnh/cười lệch của Người Kia sớm trong truyện.</Label>
  </Sheet>;
-export const BOARDS=[{id:'bang-cam-xuc-01',node:()=> <StoryEmotionBoard page={0}/>,w:1800,h:1280},{id:'bang-cam-xuc-02',node:()=> <StoryEmotionBoard page={1}/>,w:1800,h:1280},{id:'bang-dang-nghi',node:RestPosesBoard,w:2000,h:1030},{id:'bang-dao-cu',node:PropsBoard,w:1600,h:1380},{id:'bang-boi-canh',node:SetsBoard,w:1600,h:1580},{id:'bang-vai-phu-tu-the',node:CastBoard,w:1800,h:1120},{id:'bang-giao-dien',node:UIBoard,w:1800,h:1060},{id:'bang-guong',node:MirrorBoard,w:1600,h:1000},{id:'bang-tiep-xuc',node:InteractionBoard,w:1200,h:800}];
+const ANGLE_SETS:{name:string;node:(v:SetView)=>React.ReactNode}[]=[
+ {name:'Giảng đường',node:v=> <LectureHall failed view={v}/>},
+ {name:'Lab 402',node:v=> <ComputerLab view={v}/>},
+ {name:'Hành lang đại học',node:v=> <UniversityCorridor view={v}/>},
+ {name:'Bữa giỗ gia đình',node:v=> <FamilyGathering view={v}/>},
+ {name:'Sân bóng mini',node:v=> <MiniPitch view={v}/>},
+ {name:'Góc cắt tóc',node:v=> <BarberCorner view={v}/>},
+];
+const VIEW_NAME:Record<SetView,string>={chinh:'Góc chính',nguoc:'Ngược góc',cheo:'Chéo bên',cao:'Góc cao'};
+/** Bảng bối cảnh nhiều góc: mỗi hàng một cảnh, bốn góc máy đặt sẵn. Người phẳng chỉ vẽ một mặt tự ẩn ở góc nhìn thấy mặt sau. */
+export const MultiAngleBoard=()=> <Sheet w={2000} h={1980} title="HỒ SƠ 02 / BỐI CẢNH NHIỀU GÓC" subtitle="Cùng một mô hình 3D, bốn camera đặt sẵn (view: chinh · nguoc · cheo · cao). Người phẳng một mặt tự ẩn ở góc nhìn thấy mặt sau.">
+ {ANGLE_SETS.map((set,r)=>SET_VIEWS.map((v,c)=>{const x=20+c*492,y=110+r*310;return <g key={set.name+v}><svg x={x} y={y} width={480} height={270} viewBox="0 0 1920 1080" overflow="hidden">{set.node(v)}</svg><Label x={x+4} y={y+294} size={18}>{set.name} · {VIEW_NAME[v]}</Label></g>;}))}
+</Sheet>;
+export const BOARDS=[{id:'bang-cam-xuc-01',node:()=> <StoryEmotionBoard page={0}/>,w:1800,h:1280},{id:'bang-cam-xuc-02',node:()=> <StoryEmotionBoard page={1}/>,w:1800,h:1280},{id:'bang-dang-nghi',node:RestPosesBoard,w:2000,h:1030},{id:'bang-dao-cu',node:PropsBoard,w:1600,h:1380},{id:'bang-boi-canh',node:SetsBoard,w:1600,h:1580},{id:'bang-vai-phu-tu-the',node:CastBoard,w:1800,h:1120},{id:'bang-giao-dien',node:UIBoard,w:1800,h:1060},{id:'bang-guong',node:MirrorBoard,w:1600,h:1000},{id:'bang-tiep-xuc',node:InteractionBoard,w:1200,h:800},{id:'bang-boi-canh-nhieu-goc',node:MultiAngleBoard,w:2000,h:1980}];
