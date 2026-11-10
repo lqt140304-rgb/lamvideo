@@ -1,13 +1,10 @@
 # Hồ sơ 2 — Dựng cảnh và góc máy
 
-**Mở rộng thời lượng 10/11/2026:** chủ repo đính chính **mỗi phần có thể tới 10 phút**, không phải cả hồ sơ. Xem [phân bổ ba phần](README.md#thời-lượng-từng-phần--cập-nhật-theo-lời-đính-chính-10112026) và chi tiết diễn biến trong các file PHAN. Khung thử lần lượt 9:00 / 9:00 / 8:30, tổng 26:30, chưa đo bằng diễn/giọng. Phần bổ sung là đề xuất biên tập, chưa đổi thoại, nhãn duyệt hay tự cấp máy mới.
+**Bản nguồn V1 đủ ba phần — 10/11/2026.** [KICH-BAN.md](KICH-BAN.md) dẫn tới lời nguồn trong từng file PHAN. Ngân sách thử 9:40 / 9:00 / 9:00, tổng 27:40; mỗi phần có thể tới 10 phút, chưa đo audio/animatic.
 
+**Phạm vi bảng máy dưới đây:** A–H dành cho P1.01–P1.08, giữ bố cục/rig/phòng đã cập nhật. Hồi tưởng O01–O05 có hướng máy/âm trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00). Phần 2 và 3 đã có bối cảnh, cỡ cảnh, điểm nhìn, hành động/âm ngay dưới từng cảnh trong [phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [phần 3](PHAN-03-NGUOI-BI-THAY-THE.md); chưa tách thành shot list/timeline thực thi toàn tập. Không coi A–H đủ để dựng cả ba phần.
 
-**Phạm vi khi chia 3 phần:** toàn bộ máy A–H dưới đây thuộc [Phần 1 — Người trong phòng](PHAN-01-NGUOI-TRONG-PHONG.md), ánh xạ P1.01–P1.08. [Phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [Phần 3](PHAN-03-NGUOI-BI-THAY-THE.md) mới có khung, chưa cấp máy/thoại/timeline; không dùng A–H như bảng quay đã đủ toàn tập. Giữ nguyên máy, lời, nhịp và trạng thái duyệt hiện có.
-
-**Ngày 10/11/2026 — đề xuất để thiết kế/storyboard, chưa render.** Phạm vi chỉ gồm phần truyện đã viết, từ Nam thức dậy tới lúc đọc bài người kia làm hộ vào buổi tối. Nguồn lời và trạng thái duyệt nằm ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md). Tài liệu này chỉ bổ sung cách quay, không tạo bản thoại thứ hai hoặc chốt thay các tình tiết còn chờ duyệt.
-
-**Sửa 10/11/2026:** bảng máy đã khớp lại với các sửa logic ghi đầu [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md), chờ duyệt. Đã giữ cập nhật mô hình phòng/rig hiện hành khi tích hợp, không phục hồi nền cũ; xem báo cáo rà.
+Nguồn lời phần 1 chuyển từ THAO-LUAN sang PHAN-01, các đoạn đã duyệt bảo toàn câu chữ. Gương và các pose/đạo cụ mới xem [ASSET.md](ASSET.md); cơ chế mới là đề xuất trong [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa render hay tạo âm thanh.
 
 ## Cách dùng
 
@@ -21,7 +18,7 @@
 
 ## Nhịp kể hiện hành
 
-**Bổ sung 10/11/2026 theo yêu cầu cập nhật nhịp.** Áp dụng cho phần đã viết A–H, từ buổi sáng đến lúc Nam đọc bài người kia làm hộ. Chỉ dẫn nhịp là bản biên tập để thử; giữ nguyên thoại, tình tiết và nhãn đã duyệt/chờ duyệt. Không mở rộng sang quá trình thay thế chưa viết.
+**Bổ sung 10/11/2026 theo yêu cầu cập nhật nhịp.** Áp dụng cho phần đã viết A–H, từ buổi sáng đến lúc Nam đọc bài người kia làm hộ. Chỉ dẫn nhịp là bản biên tập để thử; giữ nguyên thoại, tình tiết và nhãn đã duyệt/chờ duyệt. Bảng A–H không bao gồm quá trình thay thế; nhịp phần 2–3 đọc trong đúng file PHAN.
 
 ### Cách tính nhịp
 

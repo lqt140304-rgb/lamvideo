@@ -1,6 +1,16 @@
 # Hồ sơ 2 — Lỗi và việc còn tồn đọng
 
-Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa truyện trong phiên tách. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md).
+Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa truyện trong phiên tách. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời đủ ba phần dẫn từ [KICH-BAN.md](KICH-BAN.md).
+
+
+## Bản nháp V1 — việc mới chưa dựng
+
+- Rà/duyệt cơ chế gương và cách Nam giấu người kia với Tùng; hướng kết Nam bị nhốt trong thế giới gương, bị thay thế và để mở đã chốt, không hỏi lại hướng này.
+- Kiểm mặt bằng có chỗ gương, hướng phản chiếu, khăn che và đường thoát; giữ một cửa chính.
+- Thử đoạn giữ cửa/giằng tay/gương bằng animatic khi được giao, tránh che mất chân/điểm tiếp xúc; kiểm thời gian Tùng tới để không kéo dài tiếng kêu vô lý.
+- Kiểm UI ghi/gửi/xóa clip và trạng thái khóa máy, phân biệt file local với file đã gửi; không khẳng định thao tác nếu chưa dựng được rõ.
+- Đọc diễn từng phần để đo thời lượng thực; thẻ và mốc phút hiện chỉ là chỉ dẫn. Chưa tạo media hoặc chạy dựng trong lượt viết.
+
 
 ## Trạng thái bản nguồn
 

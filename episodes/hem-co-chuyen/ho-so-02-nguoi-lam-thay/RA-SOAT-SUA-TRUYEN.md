@@ -1,5 +1,20 @@
 # Rà và sửa tính liên tục — Hồ sơ 2
 
+## Rà văn bản V1 đủ ba phần — 10/11/2026
+
+Yêu cầu mới cho phép viết luôn các phần còn thiếu. Đã chuyển nguồn lời A–H vào PHAN-01, thêm P1.00 hồi tưởng; PHAN-02/03 có bản cảnh/thoại đầy đủ. Các đoạn được duyệt trước được so bảo toàn lời; các tình tiết mới chưa duyệt toàn bộ. Chủ repo đã chốt hướng Nam bị nhốt trong thế giới gương, Người Kia thay thế và kết mở; cơ chế/diễn cụ thể còn đề xuất. Bản rà bên dưới mục này là lịch sử trước V1, các chữ “chưa viết phần kết” ở đó mô tả trạng thái lúc rà cũ.
+
+- **Giấu với Tùng:** Nam đổi lựa chọn sau khi được giúp, tự rút lời kể; Người Kia đi ra thật trước lúc Tùng về. P2.06 cần diễn rõ đường qua cửa chính và góc tủ, không cắt thành biến mất.
+- **Quyền/kiến thức:** Nam tự nộp bài, chỉ nhóm/địa điểm, giao máy/mã rồi đổi mã. Người Kia tiếp tục giả danh bằng mặt/giọng dù bị cấm; không vì thế biết mã mới hoặc nội tâm Nam.
+- **Cầu cứu/bằng chứng:** Nam thú nhận, gửi clip gương thành công, giữ người bạn đang tới giúp. Bản sao chỉ xóa clip cuối trên máy đang mở; không xóa được clip bên Tùng. Tùng chưa thấy cú bắt người nên chưa phân biệt danh tính sau biến cố, vẫn nghi sự việc.
+- **Cơ hội chống lại:** Nam tự học có kết quả, che/quay gương, định đi xuống chỗ đông người, bị chặn, tìm đường thoát và bám khung khi bị kéo. Không buộc cậu tự chạm kính sau khi đã biết bất thường.
+- **Gieo–trả:** gương/áo ở mở đầu, lệch nhịp ở cuối phần 2, tay trong kính và khăn chặn ở P3.03. Nguồn gốc/nhắm tới xác nhận cuối; luật là phương án mới, xem [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md).
+- **Giới hạn kiểm chứng:** mới rà câu chữ, đường đi và vật/quyền; chưa đọc diễn, chưa nghe giọng, chưa thử pose/shot/nhịp. Tổng 27:40 là ngân sách biên tập, không chứng nhận phim dài chừng đó.
+
+## Lịch sử rà A–H trước bản đầy đủ
+
+
+
 **Cập nhật 10/11/2026 theo yêu cầu: chỉ sửa khi có căn cứ, nêu hướng trước khi sửa.** Đã tích hợp các thay đổi truyện của Claude từ worktree `hungry-zhukovsky-ff0b82` vào bản nguồn, giữ cập nhật nền/rig trên main và giữ nguyên file chưa commit ở worktree gốc. Không viết tiếp đoạn thay thế hoặc đoạn kết chưa được bàn. Những cảnh còn nhãn “chờ duyệt” vẫn giữ mức đó.
 
 Đã đọc bản cảnh A–H, bảng máy, bảng asset, quy chuẩn nhân vật và nguồn phòng/rig. Kết luận bên dưới phân biệt **lỗi liên tục có bằng chứng**, **chỗ mô tả mơ hồ** và **việc chưa được thử**, không coi tất cả là lỗ hổng truyện.

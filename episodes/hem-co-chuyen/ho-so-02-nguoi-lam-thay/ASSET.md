@@ -1,5 +1,24 @@
 # Asset — Hồ sơ 2: Người làm thay
 
+## Bổ sung theo kịch bản đủ ba phần V1 — chưa tạo/sửa asset
+
+Nguồn lời: [KICH-BAN.md](KICH-BAN.md). Các mục dưới là yêu cầu mới của bản nháp, chưa phải asset đã làm hoặc đã duyệt. Giữ toàn bộ bộ hình/rig đang có.
+
+| Cần chuẩn bị | Cảnh dùng / liên tục |
+|---|---|
+| Gương đứng khung gỗ khoảng 50 × 120 cm, chèn chân; lớp phản chiếu tách riêng | P1.00 mang về; cạnh hông tủ ở mọi cảnh; P2.07 hình trễ; P3 quay/che/giằng/kéo người; không chặn cửa hoặc đường tới nệm |
+| Góc đồ cho tặng ở hành lang và nhãn giấy | O01; quay lại cùng góc ở P3.07, không xây địa điểm mới chỉ cho hồi tưởng |
+| Khăn lớn, sổ gáy mềm, giấy ba ý và bút | Khăn chặn mặt kính; sổ được Nam giao từ P2.05; giấy Nam tự viết từ cuối phần 2 đến hình kết |
+| UI tin/nhóm, file nháp, ghi âm thử, camera sau, gửi clip và xóa clip local | Mỗi lần biết thông tin có nguồn; clip đã gửi cho Tùng vẫn còn; không đặt dữ liệu thật vào hình |
+| Hộp cơm/đũa/cốc nước, balô | Hồi tưởng đời thường, Tùng mang hai hộp tối ngày 1; tái dùng đạo cụ thư viện nếu có |
+| Biến thể áo thường của Nam, túi ngực để giữ điện thoại ở P3 | A–H giữ áo ngủ xám; từ ngày 2 áo xám nhạt có túi, Người Kia xanh rêu. Cần kiểm rig/túi trước dùng, chưa tự đổi thiết kế chính |
+| Pose nghe bạn, giảng bài, trao máy, giữ cửa, tránh/thoát, giằng cổ tay/khung gỗ, bám mép gương | Phải thấy liền cổ tay–bàn tay, lực/điểm tựa; thử animatic ngắn khi được giao trước khi dựng đoạn dài |
+| Không gian nhìn từ trong gương, hành lang đảo chiều phía sau và hiệu ứng tiếp xúc mặt kính | Chỉ xác nhận nguồn gốc/bắt người ở cuối; âm trong không lọt ra ngoài. Hướng nhìn khác rõ, không đảo chữ trên toàn cảnh |
+
+Nhân vật mới có hình: không thêm vai có mặt. Trưởng nhóm chỉ qua chữ; Tùng là vai đã có. Một đường cửa chính, không thêm cửa sau để tránh giải quyết việc hai Nam tránh gặp Tùng.
+
+
+
 **Đại tu không gian 10/11/2026 — chờ duyệt:** [bảng nền mới](assets/boi-canh/boi-canh.png), [ghép Nam kiểm tra tỉ lệ](assets/boi-canh/kiem-tra-ti-le.png), [nguồn và hướng dẫn](assets/boi-canh/BOI-CANH.md). Nệm đôi tách bàn/ghế; không còn áo ghế, căn cước trên bàn, giờ đêm/tin cũ/tên tập gắn vào nền. Căn phòng là một mô hình 3D trong nguồn TSX, mỗi góc máy là một camera thật, có thêm góc cửa/chốt và hành lang; đã xuất SVG/PNG/HTML, chưa dựng phim.
 
 **Sửa tạo hình rig V3 — 10/11/2026:** thân/tay áo hợp thành một viền, giảm nét chồng, tay nghỉ buông gần thẳng; hướng bàn tay bám cẳng tay, sửa bên ngón cái và dáng cầm điện thoại. Xem [soi chỗ nối/bàn tay](assets/rig/chi-tiet-khop.png), [đối chiếu mẫu](assets/rig/doi-chieu-mau-goc.png), [bảng 12 dáng](assets/rig/tu-the-khop.png). Đã cân thêm độ rộng hai chân: [xem bảng chân](assets/rig/can-doi-chan.png). Đã làm đầy cẳng tay/cổ tay và tách dáng ngón khi gõ/giữ bát: [soi bàn tay](assets/rig/ban-tay-ro-net.png). Nguồn/SVG/PNG/HTML đã cập nhật; chờ duyệt, chưa đưa vào phim.

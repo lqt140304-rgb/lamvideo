@@ -1,85 +1,412 @@
 # Hồ sơ 2 — Phần 2: Quen được làm thay
 
-**Khung làm việc ngày 10/11/2026, chưa có lời/cảnh chi tiết được duyệt.** Cùng một tập Hồ sơ 2, nối từ [H10 của phần 1](PHAN-01-NGUOI-TRONG-PHONG.md#trạng-thái-bàn-giao-sang-phần-2). Hai cảnh lớn tương ứng cảnh 3–4 trong khung gốc; mã dưới đây chỉ để cùng làm từng bước. Không coi gợi ý thành sự kiện đã xảy ra.
+**Bản nháp chi tiết V1 — 10/11/2026.** Viết đầy đủ theo yêu cầu mới; toàn bộ phần này đang đề xuất, chưa được duyệt nội dung. Đây là **nguồn lời duy nhất của phần 2**. Đọc [phần 1](PHAN-01-NGUOI-TRONG-PHONG.md) trước và [luật của bản nháp](LUAT-BAN-NHAP-V1.md) khi rà logic. Các thẻ cảm xúc và chỉ dẫn hình/âm không đọc thành lời.
 
-**Đường đi cần có:** dè chừng nhưng muốn lợi → Nam chủ động giao một việc → quen hưởng kết quả → công việc/thói quen/quan hệ bắt đầu dành chỗ cho Người Kia. **Điểm kết đề xuất:** một mất mát cụ thể khiến Nam không còn xem đó chỉ là người làm giúp. Chi tiết mất gì và lúc nào còn chờ chốt; chưa khóa luật thay thế.
+**Nhịp thử:** khoảng 9 phút, có thể tới 10; chưa đọc thử hay đo audio. Các mốc là ngân sách biên tập, không phải yêu cầu kéo từng cảnh cho đủ giây. Cùng câu chuyện với phần 1; không cần recap dài.
 
+| Cảnh | Mốc dự kiến | Chuyển biến |
+|---|---|---|
+| P2.01 — Cho sửa một đoạn | 0:00–1:20 | Đọc nháp → tự yêu cầu giúp → tự gửi |
+| P2.02 — Chưa kể với Tùng | 1:20–2:25 | Muốn người làm chứng → tự giấu vì muốn giữ lợi ích |
+| P2.03 — Sáng hôm sau | 2:25–3:40 | Lần đầu cho vào → chủ động nhờ thay mặt |
+| P2.04 — Cho mượn cả tên mình | 3:40–5:05 | Trao thông tin và điện thoại → cho đi gặp nhóm |
+| P2.05 — Một buổi được nghỉ | 5:05–6:20 | Hưởng lợi → chạnh lòng → tiếp tục tự bào chữa |
+| P2.06 — Câu hỏi mình không trả lời nổi | 6:20–7:45 | Được khen → lộ khoảng trống → bị giúp ngay trong việc chứng minh mình |
+| P2.07 — Lần này tao tự làm | 7:45–9:00 | Xấu hổ → thu hồi quyền → quyết định thử giành lại |
 
-## Mở rộng phần 2 — khoảng 9 phút, có thể tới 10 phút
+<a id="p2-01"></a>
 
-**Ngân sách biên tập đề xuất, chưa phải thời lượng đã đo hoặc cảnh đã duyệt.** Phần này cần các cảnh đời thường có đối đáp và hệ quả, thay vì gom cả sự lệ thuộc thành montage ngắn. Tổng 9:00; có thể điều chỉnh tới 10:00 khi lời và hành động thực sự cần. Mọi nhánh tiếp xúc với người ngoài dưới đây chỉ là hướng đề xuất, phụ thuộc cách Nam che giấu sự tồn tại của hai người.
+## P2.01 — Cho sửa một đoạn
 
-| Cảnh | Mốc trong phần | Dự kiến | Đường đi |
-|---|---|---:|---|
-| P2.01 | 0:00–2:30 | 2:30 | Tự đọc/sửa → cân nhắc lời nhờ → đặt giới hạn → nhận giúp có kiểm tra |
-| P2.02a | 2:30–3:45 | 1:15 | Việc được giải quyết làm Nam nhẹ nhõm; lợi ích đầu tiên phải nhìn thấy |
-| P2.02b | 3:45–5:15 | 1:30 | Nam tự giao thêm, quen để người kia gánh; một việc ảnh hưởng quan hệ |
-| P2.02c | 5:15–6:30 | 1:15 | Niềm vui được khen xen cảm giác công lao không thuộc mình; Nam tự gạt bất an |
-| P2.03 | 6:30–9:00 | 2:30 | Mất chỗ cụ thể → đòi lại → kết quả không như mong đợi → quyết định tự làm |
+**Tối ngày 1, tiếp H10, khoảng 19h40.** Nam ở cạnh bàn, điện thoại trong tay. Người Kia ngồi ghế đã kéo lùi, hai tay trên đùi. Cửa khép, chốt chưa gài. Đèn bàn sáng; ngoài hành lang có tiếng người về trọ. Không phát lại câu kết phần 1.
 
-Các hậu tố a/b/c là nhịp con của P2.02, chưa phải mã máy mới. Cần thấy thời gian trôi qua nhiều lần lựa chọn; số ngày và việc Tùng trở về xử lý thế nào vẫn phải chốt trước khi viết lời.
+Nam kéo tài liệu lên đầu, đọc rồi chuyển sang yêu cầu của nhóm. Ngón tay cậu dừng ở một đoạn.
 
-### P2.01 — Sự đồng ý phải được Nam tự nói ra
+**NAM — [hesitant], vẫn nhìn màn hình:**
+> Chỗ này… đề bảo nói vấn đề trước. Sao mày đưa giải pháp lên đây?
 
-Đề xuất mở ngay từ việc đọc nháp đang dang dở. Nam gặp một đoạn chưa hiểu, thử sửa theo ý mình rồi nhận ra sửa ấy làm phần sau không khớp. Cậu ngừng, liếc người kia đang chờ. Đối phương không giành bàn phím, chỉ có thể gợi một chỗ Nam đang công khai hỏi. Để Nam tự quyết định cho sửa đúng đoạn đó, ngay trước mắt mình.
+**NGƯỜI KIA — bình thường:**
+> Tao viết thử thôi. Mày muốn đổi thì đưa đoạn dưới lên trước.
 
-Lần giúp này có đầu–cuối: yêu cầu rõ, thực hiện trong phạm vi, Nam đối chiếu lại và chọn giữ kết quả. Đề xuất Nam tự gửi phần bài sau khi đọc hết, để việc gửi không bị hiểu là quyền đối phương đã chiếm từ trước. Cách nộp và lời đối đáp còn chờ duyệt. Phản hồi của nhóm chỉ xác nhận nhận được bài hoặc bớt giục; không lập tức khen thiên tài.
+Nam tự bôi đen, cắt rồi dán. Câu nối bên dưới trở nên lạc ý. Cậu đọc lại, nhíu mày, định xóa cả đoạn.
 
-Nhịp cảm xúc: miễn cưỡng nhờ → căng khi người kia chạm phím → nhìn thấy kết quả → nhẹ nhõm → cố làm như mình vẫn đang kiểm soát. Một tiếng cảm ơn ngập ngừng hoặc việc Nam tránh nhìn người vừa giúp có thể diễn tả lòng biết ơn lẫn sĩ diện; chọn khi viết thoại, không mặc định cậu đã yêu quý đối phương.
+**NGƯỜI KIA — chỉ nói khi thấy thao tác:**
+> Khoan. Giữ ý đó lại. Sửa câu nối là được.
 
-### P2.02 — Ba lần được lợi, ba mức nhường chỗ
+Nam ngừng tay. Người Kia không nhích ghế tới.
 
-**a. Giải thoát trước mắt:** sau bài tập, trở lại bữa ăn hoặc góc bếp đã lập. Nam được ngồi nghỉ khi một việc mình từng trì hoãn đã xong. Có một nhịp đời thường hơi buồn cười ở việc cậu tìm cớ coi chuyện này là hợp lý. Đối phương không chế giễu, chỉ khiến sự nhàn nhã trở nên dễ chịu. Cảnh kết ở một lời nhờ do Nam chủ động, không phải người kia tự có thêm quyền.
+**NAM:**
+> Mày… sửa đúng chỗ đó thôi. Tao ngồi đây coi.
 
-**b. Tiện lợi thành mặc định:** ở lần sau, Nam đang làm dở một việc thì dừng vì biết có người sẽ làm tiếp. So với lần đầu còn đứng giám sát, lần này cậu quay lưng về game hoặc nệm. Người Kia phải hỏi phần thông tin mình chưa biết, Nam mới cung cấp; giữ nguồn học được thói quen rõ ràng. Việc tăng quyền nào diễn ra phải được thấy, không suy ra mật khẩu hay quyền dùng điện thoại từ việc từng giúp bài.
+Nam nhích sang bên, vẫn đứng sát bàn. Người Kia kéo ghế vào, đặt tay lên phím sau khi Nam nhường chỗ. Gõ vài chữ, dừng để Nam đọc.
 
-**c. Lợi ích chạm vào quan hệ:** chọn một tình huống với Tùng hoặc nhóm đã hiện diện để người khác thấy Nam có vẻ biết giữ lời hơn. Đề xuất dùng một lời cảm ơn vì việc cụ thể đã hoàn tất, rồi để Nam nhận phần công lao ấy. Cậu định vui nhưng thoáng nhìn người thực sự làm. Người Kia không đòi công, khiến Nam càng dễ tự trấn an rằng đôi bên đều có lợi. Nếu cho đối phương trực tiếp giao tiếp với bạn, phải giải quyết ai thấy hai người và tại sao không nghi trước; chưa tự coi nhánh này đã xảy ra.
+**NAM — ngạc nhiên nhẹ, không muốn lộ:**
+> Ờ… vậy dễ hiểu hơn.
 
-Giữa ba nhịp, dùng lại bàn, cửa và nệm để cho thấy Nam từ đứng canh sang ngả lưng nghỉ; Người Kia từ chờ ngoài rìa sang làm ở vị trí trung tâm. Bố cục hỗ trợ lựa chọn đã diễn, không thay lựa chọn. Xen một khoảnh khắc Nam thật lòng quan tâm người quen, rồi lại né việc cần làm, để giữ mâu thuẫn của một con người.
+**NGƯỜI KIA:**
+> Mày đọc tiếp đi. Chỗ nào không đúng ý thì nói.
 
-### P2.03 — Mất mát đầu tiên cần làm Nam đau
+**[NHỊP — cắt lược qua hai lượt Nam đọc, chỉ và tự sửa. Giữ một lỗi nhỏ được sửa trên hình; không biến bài thành hoàn hảo bằng một cú gõ.]**
 
-Đề xuất ưu tiên một tình huống tiếp nối chính việc nhóm: Nam muốn tự trả lời một câu hỏi về phần mang tên mình nhưng không giải thích được vì đã để người kia làm liên tiếp. Người kia trả lời được nếu đã được cho tham gia cuộc trao đổi. Không dùng tình huống này trước khi chốt việc người ngoài phân biệt hai người thế nào; nếu chưa đủ điều kiện, giữ cuộc đối chiếu riêng giữa hai người và để phản hồi nhóm tới qua điện thoại do Nam tự đọc.
+Nam ngồi xuống mép nệm cạnh bàn, kéo laptop gần mình. Người Kia đứng dậy, nhường hẳn ghế. Nam đọc dòng cuối, tự mở cuộc trò chuyện nhóm trên điện thoại rồi đăng nhập tài khoản nhắn tin của mình trên laptop bằng xác nhận từ điện thoại. Cậu tự đính kèm bản vừa đọc.
 
-Nam ban đầu chống chế, sau đó thử tự làm và nhận ra mình đang chậm hơn chính cái hình giống mình. Sự im lặng sau lần thử có giá trị hơn việc lập tức nổi giận. Cậu muốn người kia lùi lại, nhưng việc người khác đã quen với chất lượng mới không tự biến mất theo lời yêu cầu. **Đây có thể mới là hậu quả xã hội và sự phụ thuộc, chưa phải bằng chứng quyền siêu nhiên đã chuyển.**
+**NGƯỜI KIA:**
+> Gửi chưa?
 
-Kết phần bằng một quyết định nhìn được: Nam kéo lại ghế, tự mở phần việc tiếp theo, hoặc thu hồi đúng quyền đã cho. Chọn một hành động chính khi chốt cảnh. Cậu muốn chứng minh mình còn làm được; phần 3 sẽ kiểm tra quyết tâm ấy. Không kết chỉ bằng nhạc đáng sợ và một ánh mắt của đối phương.
+**NAM — ngón tay còn ở nút gửi:**
+> Để tao kiểm tra tên file đã.
 
-**Cao trào riêng:** giúp đỡ bắt đầu làm Nam thấy mình thừa. Cần giữ đủ thời gian để cậu thử bảo vệ lòng tự trọng, thay vì vừa được giúp đã lập tức nghi ngờ rồi bị thay thế.
+Nam đổi tên, bấm gửi. Chỉ khi thấy file đã đi, cậu mới thở ra.
 
-## P2.01 — Từ xem bài đến chủ động nhờ
+**TIN TRƯỞNG NHÓM — trên màn hình, không đọc:**
+> Nhận rồi. Để tao ghép. Mai 11 giờ qua phòng tự học nhé.
 
-**Chức năng:** bắc cầu từ “đừng bấm gửi” sang một lựa chọn tự nguyện có phạm vi; không nhảy từ H10 sang Nam đã cho làm mọi thứ.
+Nam ngả người ra sau. Lần đầu tiên từ sáng, vai cậu thả xuống.
 
-- Đầu vào: Nam tự kiểm tra bài, có thể sửa/nộp phần của mình; người kia chưa có quyền gửi, đọc tin hay đại diện Nam.
-- Khi phát triển: xác định Nam thực sự làm gì với bản nháp, ai gửi và người kia nhận được quyền gì. Lời mời phải trúng việc Nam muốn tránh, nhưng cậu vẫn có cách từ chối hoặc giới hạn.
-- Chỉ viết một lần nhận giúp đủ thuyết phục trước, chưa dùng montage để thay toàn bộ bước nhận lời. Từ ích kỷ, ngượng hoặc muốn được công nhận có thể sinh lựa chọn; chưa tự thêm quá khứ bi kịch để bào chữa.
-- Cần chốt trước khi viết: việc đầu tiên Nam chủ động nhờ là gì, giới hạn cậu đặt, kết quả kiểm chứng và tác động lên người khác. Không mặc định việc đó là một giao kèo siêu nhiên.
-- Kết cần đạt: Nam thấy mình được lợi và đã tự nhường một phần công việc cụ thể; chưa giải thích cơ chế gương.
+**NAM — [awkward], nói nhỏ:**
+> Cũng… cảm ơn.
 
-## P2.02 — Quen với phần thưởng
+**NGƯỜI KIA — nhẹ, không nhấn thành đe dọa:**
+> Có gì đâu. Mai còn chỗ nào chưa xong thì tao làm với mày.
 
-**Chức năng:** cho thấy sự phụ thuộc tăng bằng hành động có hệ quả, không chỉ một câu dẫn “từ đó nó làm hết”.
+Nam không trả lời ngay. Cậu nhìn thông báo “Nhận rồi” lâu hơn cần thiết.
 
-- Chọn ít việc nối nhau: kết quả lần trước khiến Nam nhờ thêm lần sau. Mỗi việc phải thêm một thứ khác về thời gian, thông tin, thói quen hoặc quyền đại diện; không tự cho sinh vật biết mật khẩu/đọc trí óc.
-- Có một quan hệ đời thường đủ giá trị để người xem hiểu Nam có điều đáng mất; Tùng/nhóm chỉ biết chuyện qua trải nghiệm thật, không bất chợt đồng loạt tin người kia hoặc chán Nam.
-- Nam có phần đáng ghét nhưng có mâu thuẫn thật: vui vì được việc, hơi chạnh khi người khác công nhận thay mình, rồi tự gạt đi vì còn lợi. Không biến thành kẻ ác chỉ để đáng bị trừng phạt.
-- Khi viết hình: giữ lại một bố cục/đồ quen đã lập ở phần 1 để đối chiếu chủ động–bị động, thay vì thêm hàng loạt địa điểm/nhân vật mới. Chưa cấp mã máy tiếp theo khi hành động chưa chốt.
-- Cần chốt: thời gian trôi bao lâu, ai từng gặp cả hai, người ngoài phân biệt bằng gì, Nam có đang giấu người kia hay không. Không dựng cảnh gặp mặt Tùng trước khi giải quyết các câu hỏi này.
+**Máy/diễn/âm:** 50 mm hai người cùng khung, bàn phím ở giữa để thấy ai được chạm; cận 65 mm cho lần Nam tự yêu cầu. Máy tĩnh, rung 0. Màn hình là lớp chữ riêng; lời và tiếng gõ không tranh nhau. Một nhịp thở sau khi gửi, không nhạc chiến thắng. Điện thoại và quyền gửi vẫn ở Nam.
 
-## P2.03 — Chỗ của mình bắt đầu mất
+<a id="p2-02"></a>
 
-**Chức năng:** tương ứng cảnh 4 trong khung gốc; chuyển từ hưởng lợi sang cảm thấy bị thay thế.
+## P2.02 — Chưa kể với Tùng
 
-- Chọn một sự kiện nhìn được, có ý nghĩa với Nam và đã được chuẩn bị: không chỉ mất một cái ghế, cũng không tự bịa cơ chế mọi người quên cậu.
-- Lần đầu Nam đòi dừng hoặc sửa giới hạn phải có phản ứng/hệ quả rõ. Nếu đối phương không còn nghe lời, nguyên nhân nằm trong luật/quyền đã thiết lập, không vì tác giả muốn đẩy kinh dị.
-- Chưa tiết lộ sinh vật đã nhắm cậu từ trước. Manh mối có thể trở nên đáng ngờ, chưa thuyết minh nguồn gốc gương.
-- Cần chốt: điều gì đã mất thật, điều gì chỉ là nỗi sợ của Nam; cậu quyết định lấy lại bằng cách nào. Kết phần là Nam chuyển sang chủ động giành lại, không cắt trước khi cậu kịp hiểu một hậu quả nào.
+**Khoảng 21h30, cùng phòng.** Điện thoại của Nam sáng: Tùng báo sắp về, hỏi có mua cơm không. Nam trả lời “Hai hộp như mọi khi”, rồi nhìn sang Người Kia. Cậu chưa kể cho Tùng sự việc buổi tối.
 
-## Sổ bàn giao sang phần 3 — điền sau khi chốt cảnh
+**NAM:**
+> Bạn tao về rồi. Mày ra ngoài trước đi.
 
-Ghi đúng trạng thái: Nam đã trao quyền gì; còn quyền/tài sản/thông tin nào; ai biết có hai người; cách nhận diện đã chứng minh; giới hạn Người Kia đã bộc lộ; thời hạn nếu có. Chưa có số liệu hoặc luật để tự điền ở đây.
+**NGƯỜI KIA:**
+> Sáng mày bảo đợi nó về mà.
 
-**Máy, lớp, ánh sáng, âm:** khi có cảnh được chọn, mỗi nhịp ghi điểm nhìn, trục, vật tiếp xúc, cỡ cảnh/lens có mục đích, máy tĩnh/chuyển động, lớp gần–xa và âm nguồn. Giữ nguyên tắc đã có trong [DUNG-CANH.md](DUNG-CANH.md), không coi A–H là máy của phần 2.
+Nam mở miệng rồi khép lại. Mắt lướt qua file đã gửi.
 
-**Cách làm:** P2.01 → P2.02 → P2.03, chốt từng bước; nguồn lời tiếp tục nằm ở THAO-LUAN-CANH, không viết bản thoại song song trong file này. Chưa dựng hoặc tạo giọng.
+**NAM — [defensive]:**
+> Tao biết. Nhưng giờ nó thấy cả hai thì giải thích kiểu gì?
+
+**NGƯỜI KIA:**
+> Mày muốn tao đi thì tao đi.
+
+Người Kia lấy đôi dép, bước ra hành lang. Không xin tiền, không chặn cửa. Nam nhìn theo, vừa nhẹ nhõm vừa thấy mình sắp bỏ mất một sự tiện lợi.
+
+**NAM — gọi nhỏ:**
+> Ê. Mai… nếu mày còn ở đây thì gõ cửa. Đừng tự vào nữa.
+
+**NGƯỜI KIA:**
+> Ừ. Tao đợi mày mở.
+
+Nam khép cửa. Cắt sau một khoảng thời gian ngắn: Tùng dùng chiếc chìa duy nhất mở cửa, mang hai hộp cơm vào. Nam đã ngồi trên nệm; laptop vẫn ở bàn.
+
+**TÙNG — đặt cơm xuống:**
+> Rồi cái thằng giống mày đâu?
+
+**NAM — [awkward], bóc đũa để tránh nhìn bạn:**
+> Thôi, bỏ đi. Tao nhìn nhầm.
+
+**TÙNG:**
+> Nhìn nhầm gì mà gọi tao như cháy nhà? Tao nhắn hỏi lại mày cũng không nói.
+
+**NAM:**
+> Ừ, sáng tao hoảng quá. Giờ hết rồi.
+
+Tùng nhìn cậu, chưa thật thỏa mãn nhưng không thấy bằng chứng nào khác. Cậu liếc góc bếp sạch, rồi điện thoại vừa nhận thông báo nhóm.
+
+**TÙNG — dịu hơn:**
+> Nay còn rửa chén, gửi bài nữa. Sớm vậy có phải đỡ ai cũng giục không.
+
+Nam cười gượng, định nói gì rồi gắp cơm. Tùng ngồi xuống cạnh cậu như mọi tối.
+
+**[GIỮ 2 giây trong bữa ăn — Nam có bạn ngay bên cạnh nhưng đã tự bỏ cơ hội kể thật. Tiếng đũa, quạt; không thấy Người Kia ngoài cửa.]**
+
+**Máy/diễn/âm:** 35 mm cùng trục cửa đã có; thấy đối phương đi ra thật, không biến mất qua cắt. Khi ăn, 50 mm ngang mắt hai người; Nam gần máy, Tùng không chìm mờ lúc hỏi. Hài nhẹ trong sự lúng túng, không biến Tùng thành người dễ bị lừa một cách ngớ ngẩn. Món ăn hai hộp đủ hai người, không tự có phần cho Người Kia.
+
+<a id="p2-03"></a>
+
+## P2.03 — Sáng hôm sau
+
+**Ngày 2, sau 8h.** Tùng đã đi học, mang chìa. Nam đang dậy. Ba tiếng gõ ở cửa, cách nhau bình thường. Cậu nhìn qua khe; Người Kia áo xanh rêu, đứng lùi như hôm trước.
+
+**NAM:**
+> Đêm qua mày ở đâu?
+
+**NGƯỜI KIA:**
+> Dưới cầu thang. Có cái ghế nhựa.
+
+**NAM — chưa mở rộng cửa:**
+> Nhà mày đâu?
+
+Người Kia nhìn vào khoảng phòng sau lưng Nam.
+
+**NGƯỜI KIA:**
+> Giờ tao chưa có chỗ về. Mày không muốn cho vào thì tao đứng đây cũng được.
+
+Nam nhìn hành lang. Một tiếng đóng cửa ở tầng dưới làm cậu kéo người kia vào cho khỏi bị người khác thấy, rồi tự khép cửa. Cậu dừng lại, nhận ra vừa chủ động làm việc mình cấm hôm qua.
+
+**NAM — lấp sự ngượng bằng giọng cứng:**
+> Đứng đó đã. Đừng lấy đồ lung tung.
+
+Người Kia gật đầu. Nam đi rửa mặt ở bồn. Trên đường qua, hình cậu lướt qua chiếc gương khung gỗ kê cạnh hông tủ; gương đã xuất hiện trong hồi tưởng đầu phần 1. Chỉ là một vật có sẵn trong phòng, chưa đặc tả.
+
+Nam mở nhóm: lịch gặp 11h, mỗi người phải giải thích phần mình viết. Cậu đọc đoạn mở đầu, vấp ở một câu vừa sửa tối qua.
+
+**NAM:**
+> Hôm qua mày làm chỗ này, lát mày giải thích lại cho tao được không?
+
+**NGƯỜI KIA:**
+> Được. Mày ngồi đây, tao nói từng ý.
+
+Nam kéo ghế, nghe vài câu. Cậu hiểu ý đầu, gật; tới ý tiếp theo lại nhìn đồng hồ.
+
+**NGƯỜI KIA — nhận ra cậu phân tâm, giọng gợi mở:**
+> Hay tao đi với mày?
+
+**NAM:**
+> Hai thằng giống nhau đi chung để cả trường bu lại à?
+
+**NGƯỜI KIA:**
+> Vậy tao đi. Chỗ đó tao viết cùng mày, tao nói được. Mày ở nhà nghỉ.
+
+Nam nhìn lên. Ý nghĩ vừa hấp dẫn vừa vô lý ấy khiến cậu bật cười một tiếng rồi im.
+
+**NAM — [hesitant]:**
+> Mày nói nghe dễ quá. Nó hỏi chuyện khác thì sao?
+
+**NGƯỜI KIA:**
+> Mày chỉ tao. Cái gì không biết thì tao hỏi lại mày, không tự bịa.
+
+Nam nhìn phần bài rồi nhìn nệm. Cậu còn đủ thời gian chuẩn bị, nhưng cơ hội khỏi phải đi vừa được đặt ngay trước mặt.
+
+**Máy/diễn/âm:** 35 mm lập rõ gương cạnh tủ, không thêm trục cửa mới. Chuyển nhẹ sang 50 mm khi lời đề nghị xuất hiện; focus phản ứng Nam, không zoom gương. Dùng một lần nhìn bài–nệm; không lặp độc thoại phần 1. Hành vi kéo người vào là lựa chọn có hệ quả, không lời xác nhận đã hết sợ.
+
+<a id="p2-04"></a>
+
+## P2.04 — Cho mượn cả tên mình
+
+**Cuối buổi sáng, nối cùng cảnh.** Nam đã thay áo thường xám nhạt; Người Kia vẫn áo xanh rêu. Điện thoại ở giữa bàn, Nam giữ phía mình.
+
+**NAM:**
+> Một buổi thôi. Họ hỏi phần mở đầu thì nói. Đừng nhận thêm việc.
+
+**NGƯỜI KIA:**
+> Ừ.
+
+**NAM:**
+> Còn Tùng… bạn ở cùng tao. Áo xanh đậm, tóc ngắn. Nó hỏi sáng sao không đi cùng thì bảo tao… bảo mày đi trước.
+
+Nam tự mắc ở đại từ. Người Kia chờ để cậu sửa, không cười.
+
+**NAM — tự thấy kỳ, cố nói trọn:**
+> Thì cứ nói “tao đi trước”. Mày đang là tao mà.
+
+Nam cho xem tên nhóm, ảnh đại diện trưởng nhóm và địa chỉ phòng tự học. Đây là thông tin Người Kia được Nam trực tiếp cung cấp, không tự biết từ ký ức.
+
+**NGƯỜI KIA:**
+> Nếu đổi phòng, họ nhắn thì sao?
+
+Nam định bảo về hỏi, rồi nhận ra như vậy mình phải theo dõi thay. Cậu nhìn điện thoại và laptop đang mở tài khoản của chính mình.
+
+**NAM — miễn cưỡng đưa máy:**
+> Cầm tạm. Mã mở là…
+
+**[KHÔNG ĐỌC/HIỆN DÃY SỐ — Nam nói nhỏ và tự mở khóa mẫu. Không dùng thông tin thật.]**
+
+**NAM:**
+> Chỉ xem nhóm bài tập. Đừng mở ảnh hay mấy cái khác. Có gì nhắn tài khoản tao cũng vô ích, đang cùng một máy đấy… thôi, không biết thì bảo để về kiểm tra.
+
+**NGƯỜI KIA:**
+> Xong tao mang về.
+
+Nam đặt điện thoại vào tay đối phương, chưa nhả ngay. Sau một thoáng cậu mới buông.
+
+Người Kia đứng trước gương kéo thẳng cổ áo. Nam đứng lệch phía sau, sửa lại vai áo vì nếp gấp bị cuộn.
+
+**NAM:**
+> Đừng có đứng nghiêm thế. Nhìn giả lắm.
+
+Người Kia thả vai, hơi dồn trọng tâm sang một chân như Nam. Cậu thử cười. Nam nhìn, lần đầu thấy sự giống nhau có thể dùng được.
+
+**NAM — nửa đùa, nửa lo:**
+> Giống thì giống thật. Nhưng đừng làm tao mất mặt đấy.
+
+Người Kia đi ra, kéo cửa khép. Nam không khóa được từ ngoài, nhưng đang ở trong và tự gài chốt. Trên laptop, cậu tự gõ vào nhóm “Tao đi trước nhé” để khớp lời dặn. Sau đó cậu ngả xuống nệm, bật game trên laptop.
+
+**[GIỮ ngắn trên bàn tay Nam vừa trống — cậu đã tự trao cả công cụ lẫn cách xưng danh.]**
+
+**Máy/diễn/âm:** 65 mm cận tay trao máy, thấy hai cổ tay nối đúng thân; 50 mm hai người và gương trong cùng bố cục, phản chiếu vật lý bình thường lúc này. Lớp gương có bản hình phản chiếu riêng; không lật cả nền hay chữ. Tiếng cửa khép nối tiếng game từ laptop, không từ chiếc điện thoại đã đi khỏi phòng.
+
+<a id="p2-05"></a>
+
+## P2.05 — Một buổi được nghỉ
+
+**Trưa ngày 2.** Montage ngắn: Nam ở nệm chơi laptop; một ván xong; cậu vào nhóm đọc thông báo “Ghép ổn rồi”. Không có cảnh Người Kia bước vào trường chưa được thiết kế; cuộc gặp được xác nhận bằng phản hồi cụ thể sau đó.
+
+Tiếng gõ cửa. Nam tự mở. Người Kia trả điện thoại, đặt ngay vào bàn tay đang chờ, rồi báo lại việc đã làm.
+
+**NGƯỜI KIA:**
+> Họ đổi thứ tự hai mục. Tao ghi trong file rồi. Mai ba giờ tập nói thử.
+
+**NAM:**
+> Có ai hỏi gì không?
+
+**NGƯỜI KIA:**
+> Tùng hỏi tối qua ngủ mấy giờ. Tao bảo muộn. Còn lại hỏi bài thôi.
+
+Nam mở nhóm đối chiếu. Một tin của trưởng nhóm: “Nam nói phần mở đầu nhé. Hôm nay giải thích rõ đấy.”
+
+**NAM — nụ cười đến trước khi đọc hết:**
+> Ủa, được khen luôn.
+
+Rồi cậu thấy lịch tập nói. Nụ cười dừng lại.
+
+**NAM:**
+> Tao bảo đừng nhận thêm việc mà.
+
+**NGƯỜI KIA:**
+> Họ phân theo phần mỗi đứa viết. Tao chưa nhận thay mày. Mày không muốn thì nhắn lại.
+
+Nam đặt ngón tay vào ô nhập. Gõ vài chữ từ chối, xóa.
+
+**NAM — khó chịu với tình thế hơn với đối phương:**
+> Giờ nhắn thì lại bảo tao trốn.
+
+Người Kia đứng chờ. Nam nhìn cậu.
+
+**NAM:**
+> Mai mày nói nốt được không? Một lần nữa thôi.
+
+**NGƯỜI KIA — nhẹ nhàng:**
+> Được. Mày cứ nghỉ đi.
+
+Nam tự nhắn “Ừ, để tao chuẩn bị”. Nam đưa thêm cuốn sổ gáy mềm lấy trong ngăn bàn để Người Kia ghi các ý cần nói. Người Kia chỉ cầm laptop khi Nam đẩy máy sang; Nam giữ điện thoại chơi tiếp. Bữa cơm hộp tối qua đã được dọn, nhưng lần này Nam thuận miệng chỉ chén nước của mình.
+
+**NAM — mắt còn ở game:**
+> Tiện thì rửa luôn cái này giúp tao.
+
+Người Kia cầm chén đi. Nam chợt ngẩng lên, như định nói thêm “cảm ơn”, nhưng màn chơi kéo mắt cậu trở lại. Không cần lời dẫn kết tội.
+
+**Máy/diễn/âm:** lặp góc bàn–nệm phần 1 với vai trò đảo: Người Kia làm, Nam nằm. Trước câu nhờ lần nữa, giảm tiếng game và giữ gương mặt Nam đủ thấy sự lựa chọn. Một chuỗi đời thường có đối đáp đầy đủ, không montage “nó làm hết mọi thứ”.
+
+<a id="p2-06"></a>
+
+## P2.06 — Câu hỏi mình không trả lời nổi
+
+**Cuối chiều ngày 2, Tùng về.** Nam đang giữ điện thoại ở gần cửa. Người Kia làm ở bàn phía sâu, bị góc tủ che khỏi cửa. Điện thoại báo Tùng nhắn “Tao lên đây”. Nam lập tức hé cửa nhìn rồi chỉ Người Kia về đầu hành lang khuất sau vế cầu thang đi lên tầng trên. Người Kia ra bằng cửa chính trước lúc Tùng lên tới tầng; không đi vào khu vệ sinh ở đầu đối diện. Nam vừa khép lại thì Tùng tới. Thấy trọn đường rút; không xuyên tủ, không có cửa phụ.
+
+**TÙNG — vui vì công việc tiến triển, đặt balô xuống:**
+> Trưa nay mày nói được đấy. Tao tưởng lại phải ngồi gỡ từng ý cho mày.
+
+Nam cười, nhận lời khen như đang thử một chiếc áo vừa vặn lạ lẫm.
+
+**NAM:**
+> Thì… tao cũng có làm chứ.
+
+**TÙNG:**
+> Ừ, tao biết. Mai đoạn đổi thứ tự, mày nối giúp tao câu đầu nha. Tại sao bỏ ví dụ kia, nhắc lại tao nghe cái.
+
+Nam nhìn laptop. Người Kia đã đổi nội dung, nhưng cậu chưa đọc. Cậu kéo máy lại, tìm đoạn Tùng hỏi.
+
+**NAM — [hesitant]:**
+> Vì… nó hơi thừa.
+
+**TÙNG:**
+> Thừa chỗ nào? Trưa mày nói lý do khác mà.
+
+Nam cuộn lên quá xa, kéo xuống. Tùng chờ, sự khó hiểu lớn dần.
+
+**NAM — [defensive]:**
+> Tao mệt. Tí nói được không?
+
+**TÙNG:**
+> Tao hỏi có một ý thôi. Nếu mày đổi thì nói để tao sửa phần tao, chứ đừng tới lúc tập mới…
+
+**NAM — gắt quá mức:**
+> Biết rồi! Lúc nào cũng bài, bài. Cho tao nghỉ tí không được à?
+
+Tùng ngừng. Cậu rút tay khỏi bàn, nhặt khăn để đi rửa mặt.
+
+**TÙNG — thấp giọng, không mỉa mai:**
+> Tao hỏi vì nghĩ giờ mày nắm phần đó. Mày không muốn nói thì thôi.
+
+Tùng đi ra hành lang. Nam nhìn chỗ bạn vừa đứng. Lúc này mới thấy câu gắt của mình đã làm hỏng điều gì.
+
+Điện thoại nhóm hiện yêu cầu ghi một đoạn giải thích ngắn để cả nhóm nghe. Nam bấm thu thử, nói vài chữ rồi dừng. Xóa bản thu nháp chưa gửi.
+
+Người Kia trở lại ngưỡng cửa đang mở khi Tùng đi về phía khu vệ sinh; chưa bước vào.
+
+**NGƯỜI KIA:**
+> Tao nói lại cho mày nghe nhé?
+
+**NAM — còn xấu hổ nên càng cứng:**
+> Không cần. Tao tự biết.
+
+Người Kia im. Nam thử thêm một lần, vấp đúng chỗ cũ.
+
+**[GIỮ 2 giây — màn thu âm vẫn chạy, có hơi thở của Nam. Cậu tự bấm dừng. Không phát giọng Người Kia để cứu cậu ở nhịp này.]**
+
+**Máy/diễn/âm:** đầu cảnh 35 mm cho đường đi và vị trí Tùng; sau đó hai người trên cùng trục 50 mm. Không cắt sang biểu cảm ác của Người Kia. Cận Nam 65 mm sau khi Tùng đi, nền đủ nhỏ và lùi để mặt/tay đọc rõ. Tiếng môi trường vẫn liền qua cú gắt; nhạc không ép người xem ghét Tùng.
+
+<a id="p2-07"></a>
+
+## P2.07 — Lần này tao tự làm
+
+**Ít phút sau.** Tùng trở lại phòng; Nam ra dấu cho Người Kia quay về đầu hành lang khuất sau vế thang; nó đi khỏi ngưỡng cửa trước khi Tùng từ khu vệ sinh đầu đối diện trở lại. Tùng thấy Nam ngồi nhìn bản thu chưa gửi.
+
+**NAM — [remorseful], không nhìn bạn ngay:**
+> Nãy tao nói hơi quá. Tao xin lỗi.
+
+**TÙNG:**
+> Ừ.
+
+**NAM:**
+> Đoạn mai… để tao tự chuẩn bị. Tối mày nghe tao nói thử được không?
+
+Tùng nhìn cậu, cân nhắc lời hứa lần này.
+
+**TÙNG:**
+> Được. Nhưng chín giờ thì chín giờ. Đừng để tao ngồi đợi rồi mày lại bảo chưa làm.
+
+**NAM:**
+> Ừ. Tao làm bây giờ.
+
+Cắt lược tới lúc Tùng đã ra ngoài mua đồ ăn. Nam mở cửa, nói với Người Kia đang đứng ngoài. Cậu không mời vào bàn.
+
+**NAM — cố nói rõ, bớt hung hăng:**
+> Từ giờ mày đừng đi gặp nhóm nữa. Điện thoại cũng không đưa. Tao tự làm phần còn lại.
+
+**NGƯỜI KIA:**
+> Tao làm sai chỗ nào à?
+
+**NAM:**
+> Không. Chính vì mày làm được hết nên tao mới…
+
+Nam ngừng, tìm cách nói điều mình cũng vừa hiểu.
+
+**NAM — [frustrated], nhỏ dần:**
+> Trưa nó nói chuyện với mày. Chiều nó hỏi tao. Tao chẳng biết trả lời sao. Cứ vậy rồi tao còn ở đây để làm gì?
+
+**NGƯỜI KIA — vẫn có vẻ quan tâm:**
+> Tao có bắt mày làm gì đâu. Mày muốn tự làm thì cứ làm. Bí chỗ nào gọi tao.
+
+Người Kia lùi khỏi cửa. Nam tự khép, gài chốt. Cậu đổi mã mở điện thoại; thao tác này thu hồi quyền biết mã cũ, không đọc dãy số. Đặt điện thoại úp xuống, mở bài và bắt đầu đọc thành tiếng.
+
+Một câu ngắc ngứ. Nam định với điện thoại, dừng tay giữa chừng rồi kéo giấy lại. Cậu viết ra ba ý cần hiểu.
+
+Trong gương cạnh tủ, hình Nam vẫn cúi ở bàn khi Nam ngoài gương đã ngẩng lên tìm bút — sai lệch thoáng qua, chỉ đủ để người xem nghi, Nam chưa nhìn thấy. Không âm nhấn, không đặc tả, chưa xác nhận bản chất.
+
+**[KẾT PHẦN — 3 giây Nam tự viết tiếp. Tiếng bút thay tiếng game. Câu hỏi được mở là cậu có giành lại được vai trò hay không.]**
+
+**Máy/diễn/âm:** trung cảnh Nam và bàn, gương ở lớp sau nhưng đủ đọc chuyển động. Giữ nguyên trục hình thể; lần sai nhịp là hiện tượng có chủ ý của truyện, không lỗi rig. Người Kia ở ngoài nên hình gương bất thường chưa được giải thích bằng một bản sao đứng ngay sau Nam. Không dựng rõ một sinh vật trong gương ở đây.
+
+## Trạng thái chuyển phần
+
+- Nam đã tự gửi bài, một lần cho mượn điện thoại/mã và cho đối phương đại diện tại nhóm; cuối phần lấy lại máy, đổi mã, rút quyền gặp nhóm.
+- Tùng đã gặp Người Kia ngoài phòng nhưng tưởng đó là Nam; chưa từng thấy hai người cùng lúc. Nam đã tự rút lời kể buổi sáng. Sự nghi ngờ của Tùng chỉ mới đến từ cách Nam nói về bài thay đổi.
+- Người Kia biết đúng những thông tin được Nam chỉ và điều quan sát được trong buổi họp; không đọc nội tâm, không biết mã mới. Mỗi lần tránh Tùng đều có đường đi qua cửa chính.
+- Nam có kế hoạch thật: tự hiểu bài và nói thử với Tùng lúc 21h. Chưa có quyền siêu nhiên nào chuyển vì được nhờ làm bài; đó là quá trình chiếm chỗ xã hội.
+- Người Kia vẫn có thể giả Nam ngoài đời dù bị rút lời cho phép; mất quyền hợp lệ không làm nó mất mặt/giọng. Phần 3 phải cho thấy hành vi giả danh vượt giới hạn, không gọi đó là Nam tiếp tục đồng ý.
