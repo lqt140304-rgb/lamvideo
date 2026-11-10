@@ -343,3 +343,24 @@ export const Mirror = ({ w = 280, h = 640, progress = 0, phase = 0, children }: 
     </g>
   );
 };
+
+/** Viên phấn (P3.01): một viên nguyên và một viên gãy đôi kèm bụi phấn; neo cầm ở giữa viên nguyên (0, 0). */
+export const Chalk = () => (
+  <g data-prop="chalk">
+    <g transform="translate(-70 0) rotate(-12)">
+      <rect x={-34} y={-8} width={68} height={16} rx={7} fill="#f4f1e6" />
+      <rect x={-34} y={2} width={68} height={6} rx={3} fill="#d9d4c3" />
+      <ellipse cx={30} cy={0} rx={4} ry={7} fill="#e6e1d0" />
+    </g>
+    <g transform="translate(58 6) rotate(18)">
+      <rect x={-30} y={-8} width={26} height={16} rx={6} fill="#f4f1e6" />
+      <rect x={-30} y={2} width={26} height={6} rx={3} fill="#d9d4c3" />
+      <path d="M-4 -8L1 -3-3 1 2 5-4 8Z" fill="#e6e1d0" />
+    </g>
+    <g transform="translate(98 14) rotate(-28)">
+      <rect x={-13} y={-8} width={26} height={16} rx={6} fill="#f4f1e6" />
+      <rect x={-13} y={2} width={26} height={6} rx={3} fill="#d9d4c3" />
+    </g>
+    {[[74, 24, 3], [84, 28, 2], [66, 27, 2], [92, 30, 1.6], [104, 27, 2.2]].map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r} fill="#f4f1e6" opacity={0.8} />)}
+  </g>
+);

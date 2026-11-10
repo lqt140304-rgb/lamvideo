@@ -139,3 +139,77 @@ Trước khi kích hoạt render bất kỳ shot nào, Animator cần tick đủ
 - [ ] **4. Điểm tì đỡ Vật lý (Support Grounds)**: Không có nhân vật trôi nổi trong không trung; bàn chân phải tiếp xúc mặt sàn (`floor`), mông tiếp xúc nệm (`bed`) hoặc ghế (`chair`).
 - [ ] **5. Ánh sáng Motivated Lighting**: Vùng sáng rọi của đèn bàn và laptop phải đổ bóng đúng hướng đối diện trên tường và sàn nhà.
 - [ ] **6. Âm thanh Nguồn (Motivated Sound)**: Mọi tiếng rơi (búa, đũa, then cài, bát sứ) phải khớp frame với điểm tiếp xúc vật lý trên hình ảnh.
+
+> Sáu tiêu chí trên được kiểm tra **cho từng shot khi dựng**, không phải asset. Chưa tick vì chưa có shot nào qua bước render.
+
+---
+
+## 6. Tiến độ asset (rà ngày 11/11/2026)
+
+Đánh dấu `[x]` khi đã có bản tĩnh dùng được trong repo. Dáng mới chỉ được duyệt bằng ảnh tĩnh, chưa kiểm chứng chuyển động. Đường dẫn tính từ `assets/`.
+
+### Bối cảnh (người khác phụ trách, chỉ đối chiếu)
+- [x] S01 Phòng trọ sáng sớm: `boi-canh/boi-canh.tsx` `RoomMorning`
+- [x] S02 Bàn học ngày: `StudyCornerMorning`
+- [ ] S03 Phòng trọ chiều tà: `RoomScene` mới có nắng rút dần (`sun`), chưa có vệt nắng cam Golden Hour riêng
+- [x] S04 Phòng trọ đêm: `RoomNight`, `StudyDeskNight`
+- [x] S05 Góc cửa và then sắt: `DoorInside` (`door: 'ajar' | 'latched'`)
+- [x] S06 Hành lang dãy trọ: `HallwayDoor`, view `corridor`
+- [x] S07 Góc đồ cho tặng: `bo-sung-15p` `GiftCorner`
+- [x] S08 Giảng đường: `LectureHall`
+- [x] S09 Lab 402: `ComputerLab`
+- [x] S10 Hành lang đại học: `UniversityCorridor`
+- [x] S11 Mâm cơm gia đình: `FamilyGathering`
+- [x] S12 Thế giới trong gương: `MirrorRealm`
+
+### Đạo cụ (`bo-sung-15p/dao-cu.tsx`, bảng `bang-dao-cu`)
+- [x] P01 Gương, 4 trạng thái: `Mirror` (`guong-trang-thai-0..3`)
+- [x] P02 Búa đinh: `Hammer`
+- [x] P03 Thẻ căn cước (hư cấu): `IdentityCard student={false}`
+- [x] P04 Thẻ sinh viên: `IdentityCard`
+- [x] P05 Then sắt cửa: trong phòng gốc, trạng thái `ajar`/`latched`
+- [x] P06 Phong bì tiền ăn: `MoneyEnvelope`
+- [x] P07 Bát sứ và bồn rửa: góc bếp phòng gốc và đạo cụ `bowl` của rig
+- [x] P08 Cơm sườn trứng: `RiceBox`
+- [x] P09 Bún chả và nem: `BunCha`
+- [x] P10 Xôi gấc: `XoiGac`
+- [x] P11 Túi hoa quả: `FruitBag`
+- [x] P12 Viên phấn (nguyên và gãy đôi): `Chalk` *(mới)*
+
+### Màn hình UI (`bo-sung-15p/giao-dien.tsx`, bảng `bang-giao-dien`)
+- [x] UI-01 Báo thức: `bao-thuc`
+- [x] UI-02 Không làm phiền: `khong-lam-phien` *(mới)*
+- [x] UI-03 Nhóm Zalo: `han-bai`. Nội dung đang là lịch họp Lab 402; nếu cần câu khen "đỉnh chóp" thì sửa chữ khi chốt thoại.
+- [x] UI-04 Điểm 9.5: `diem-95`
+- [x] UI-05 Mẹ gọi và tiền về: `me-goi`, `tien-ve`. **Lệch số tiền:** UI ghi 2.000.000 đ, checklist ghi 3 triệu; cần chủ repo chốt.
+- [x] UI-06 Clip gia đình: `clip-gia-dinh`
+- [x] UI-07 Laptop bài tập lớn: `LaptopScreen` 1920×1080 *(mới)*
+
+### Dáng nhân vật (`bo-sung-15p/nhan-vat-va-tu-the.tsx` `EXTRA_POSES`, bảng `bang-dang-checklist`)
+- [x] NAM_P01 Nằm ngủ: `TWIN_POSES.lie`
+- [x] NAM_P02 Bật dậy co rúm: `bat-day` *(mới)*
+- [x] NAM_P03 Lùi va ghế: `lui-va-ghe` *(mới)*
+- [x] NAM_P04 Gài then: `gai-then` *(mới)*
+- [x] NAM_P05 Cày game: `choi-game`, `nam-choi-game`
+- [x] NAM_P06 Thị uy: `thi-uy`
+- [x] NAM_P07 Tập nói trước gương: `tap-noi` *(mới)*
+- [x] NAM_P08 Bục giảng hoảng loạn: `buc-giang` *(mới)*
+- [x] NAM_P09 Vác búa: `giu-bua`
+- [x] NAM_P10 Quỳ gục: `quy-guc` *(mới; bản ngồi ghế là `suy-sup`)*
+- [x] NAM_P11 Chạm tay vào gương: `ap-kinh`
+- [x] GUE_P01 Rửa chén: `TWIN_POSES.holdBowl`
+- [ ] GUE_P02 Ngoảnh đầu 90°: rig chưa xoay riêng đầu so với thân; làm khi dựng shot P1.02
+- [x] GUE_P03 Gõ phím: `TWIN_POSES.type`
+- [x] GUE_P04 Chờ đợi: `nk-cho-doi` *(mới)*
+- [x] GUE_P05 Đỡ đầu búa: `nk-do-bua` *(mới)*
+- [x] GUE_P06 Gài then kết phim: `nk-gai-then` *(mới)*
+- [x] TUNG_P01 Xách cơm, đá cửa: `tung-xach-com` *(mới)*
+- [x] TUNG_P02 Khoanh tay: `tung-khoanh-tay` *(mới)*
+- [x] TUNG_P03 Khựng đũa: `tung-cam-dua` *(mới)*
+
+### Vai phụ (`SupportingActor`, bảng `bang-vai-phu-tu-the`)
+- [x] Tạo hình Giảng viên, Mẹ, Bác Hai, Sinh viên nam và nữ (đã có thêm Bố)
+- [ ] Dáng riêng GV_P01 (gõ thước), HAI_P01 (nâng chén), SV_P01/02 (thì thầm): hiện chỉ có dáng đứng; làm khi dựng shot
+
+### Biểu cảm
+- [x] Ma trận 3 cấp: 6 nhóm × 3 mức (`bang-cam-xuc-01`, `bang-cam-xuc-02`)

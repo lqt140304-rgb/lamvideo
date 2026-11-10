@@ -27,6 +27,13 @@
       "png": "bang-dang-nghi.png"
     },
     {
+      "id": "bang-dang-checklist",
+      "w": 1800,
+      "h": 1150,
+      "svg": "bang-dang-checklist.svg",
+      "png": "bang-dang-checklist.png"
+    },
+    {
       "id": "bang-dao-cu",
       "w": 1600,
       "h": 1380,
@@ -49,7 +56,7 @@
     },
     {
       "id": "bang-giao-dien",
-      "w": 1800,
+      "w": 2110,
       "h": 1060,
       "svg": "bang-giao-dien.svg",
       "png": "bang-giao-dien.png"
@@ -194,6 +201,17 @@
       "h": 330,
       "kind": "prop",
       "svg": "svg/bong-da.svg"
+    },
+    {
+      "id": "vien-phan",
+      "name": "Viên phấn · nguyên và gãy đôi",
+      "scenes": [
+        "P3.01"
+      ],
+      "w": 440,
+      "h": 330,
+      "kind": "prop",
+      "svg": "svg/vien-phan.svg"
     },
     {
       "id": "keo-cat-toc",
@@ -500,6 +518,138 @@
       "svg": "svg/tu-the-nhan-do-tay-trai.svg"
     },
     {
+      "id": "tu-the-bat-day",
+      "name": "bat day",
+      "scenes": [
+        "NAM_P02"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-bat-day.svg"
+    },
+    {
+      "id": "tu-the-lui-va-ghe",
+      "name": "lui va ghe",
+      "scenes": [
+        "NAM_P03"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-lui-va-ghe.svg"
+    },
+    {
+      "id": "tu-the-gai-then",
+      "name": "gai then",
+      "scenes": [
+        "NAM_P04"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-gai-then.svg"
+    },
+    {
+      "id": "tu-the-tap-noi",
+      "name": "tap noi",
+      "scenes": [
+        "NAM_P07"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-tap-noi.svg"
+    },
+    {
+      "id": "tu-the-buc-giang",
+      "name": "buc giang",
+      "scenes": [
+        "NAM_P08"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-buc-giang.svg"
+    },
+    {
+      "id": "tu-the-quy-guc",
+      "name": "quy guc",
+      "scenes": [
+        "NAM_P10"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-quy-guc.svg"
+    },
+    {
+      "id": "tu-the-nk-cho-doi",
+      "name": "nk cho doi",
+      "scenes": [
+        "GUE_P04"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-nk-cho-doi.svg"
+    },
+    {
+      "id": "tu-the-nk-do-bua",
+      "name": "nk do bua",
+      "scenes": [
+        "GUE_P05"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-nk-do-bua.svg"
+    },
+    {
+      "id": "tu-the-nk-gai-then",
+      "name": "nk gai then",
+      "scenes": [
+        "GUE_P06"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-nk-gai-then.svg"
+    },
+    {
+      "id": "tu-the-tung-xach-com",
+      "name": "tung xach com",
+      "scenes": [
+        "TUNG_P01"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-tung-xach-com.svg"
+    },
+    {
+      "id": "tu-the-tung-khoanh-tay",
+      "name": "tung khoanh tay",
+      "scenes": [
+        "TUNG_P02"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-tung-khoanh-tay.svg"
+    },
+    {
+      "id": "tu-the-tung-cam-dua",
+      "name": "tung cam dua",
+      "scenes": [
+        "TUNG_P03"
+      ],
+      "w": 480,
+      "h": 720,
+      "kind": "pose",
+      "svg": "svg/tu-the-tung-cam-dua.svg"
+    },
+    {
       "id": "ui-han-bai",
       "name": "UI · han bai",
       "scenes": [
@@ -568,6 +718,18 @@
       "h": 690,
       "kind": "ui",
       "svg": "svg/ui-tien-ve.svg"
+    },
+    {
+      "id": "ui-khong-lam-phien",
+      "name": "UI · khong lam phien",
+      "scenes": [
+        "P2.04",
+        "P2.05"
+      ],
+      "w": 400,
+      "h": 690,
+      "kind": "ui",
+      "svg": "svg/ui-khong-lam-phien.svg"
     },
     {
       "id": "doi-chieu-not-ruoi",
