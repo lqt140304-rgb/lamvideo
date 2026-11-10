@@ -33,6 +33,12 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 
 ## Dựng phim
 
-Chưa có storyboard, animatic, giọng hay timeline cho Hồ sơ 2. Đoạn comic thử và âm thanh (`comic.tsx`, `sound.cjs`, `what-if-studio/public/ho-so-02-nguoi-lam-thay/`) chỉ ở máy, không đưa lên repo.
+| Mức | Việc | Chi tiết |
+|---|---|---|
+| Lớn | Chốt ánh sáng nhân vật | Chờ chủ repo duyệt [bảng so](assets/thiet-ke/thu-anh-sang.png): mức tối, viền sáng, nét 0.65 hay 1. Sau đó áp `lightFor` vào mọi actor của demo |
+| Vừa | Demo Cảnh 1 (`canh-01-demo.tsx`) | Bản nháp A01–A05: A02 chưa có tay tắt báo thức; điện thoại vẽ lại cạnh chỗ ngồi ở A03–A05 nên lệch với vị trí cạnh gối ở A01–A02; chỗ ngồi mép nệm/ghế chọn tạm `SEAT`/`STANDUP`; dáng cầm máy khi đứng và tay trái chạm hông cần sửa |
+| Nhỏ | Ánh sáng | Mảng tối dùng vật che phía sau cho tay trước thân; chân trước chân và tay sau thân chưa soi riêng ở góc nghiêng/sau lưng |
+
+Chưa có storyboard, giọng hay timeline chính thức cho Hồ sơ 2. Đoạn comic thử và âm thanh (`comic.tsx`, `sound.cjs`, `what-if-studio/public/ho-so-02-nguoi-lam-thay/`) chỉ ở máy, không đưa lên repo.
 
 `assets/rig/` là rig cũ, giữ để đối chiếu. Các bảng hình trong đó vẫn là tạo hình cũ.
