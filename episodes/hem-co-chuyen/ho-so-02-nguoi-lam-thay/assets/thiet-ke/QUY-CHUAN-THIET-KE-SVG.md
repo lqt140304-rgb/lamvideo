@@ -84,6 +84,19 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 
 Chủ repo đã duyệt hướng này qua các vòng sửa ngày 10/11/2026: **cartoon mềm, ít nét, liền mạch, không cứng**. Khớp phải đúng logic nhưng không được đánh đổi vẻ mềm của mẫu.
 
+### 4.0. Kiểu hiển thị đã chốt (10/11/2026): không viền ngoài, giữ nét mặt và nếp chính, bóng gọn
+
+Chủ repo đã so ba kiểu viền đen, viền màu và không viền ([bảng so](so-sanh-vien.png)), rồi chốt **không viền ngoài**. Đây là mặc định của rig (`outline: 'none'`). Hai kiểu `ink` và `tint` vẫn còn để thử, nhưng không dùng cho phim.
+
+| Giữ | Bỏ hoặc đổi |
+|---|---|
+| **Nét mặt**: mắt, mi, con ngươi, mày, mũi, miệng, nốt ruồi, nét trong tai, vẫn bằng mực | Viền bao quanh đầu, cổ, tai, tóc, áo, quần, tay, chân |
+| **Nếp chính** theo mục 4.1 (cổ áo, nách, vạt, gối, ống chân, gấp khuỷu), đổi sang tông tối trong suốt (`--inner-ink`), không dùng mực đen | Thêm nếp để bù cho việc mất viền |
+| **Tách lớp bằng tương phản màu**: tay xa và chân sau tối hơn khoảng 20%, cẳng tay đè trước sáng hơn khoảng 7% (tô sẵn qua `ToneCtx`) | Dùng CSS `filter` để làm tối/sáng, vì render chậm gấp đôi |
+| **Bóng gọn, ít loang**: mảng tối và viền sáng có mép sắc (độ mờ mặc định 1.6), độ dày tỉ lệ theo cỡ bộ phận (`Shade size`: đầu 2.6, thân 1.3, chân 0.85, tay 0.6), cùng một hướng sáng cho đầu và thân ([so trước/sau](sang-toi-dong-bo.png), [bóng loang và bóng gọn](bong-gon.png)) | Bóng mềm loang rộng; đầu phẳng một màu trong khi tay tối cả cánh |
+
+Kiểm tra: đặt mặt cạnh thân trong cùng khung. Hai bên phải có cùng hướng sáng và cùng tỉ lệ vùng tối. Chỗ da chồng da (tay ôm bát, tay đặt lên cẳng tay) phải tách được bằng độ sáng. Bảng cũ có viền trong mục 4.1–4.5 vẫn đúng về hình khối và nếp, chỉ khác phần hiển thị viền.
+
 ### 4.1. Nét và khối
 
 | Làm | Không làm |

@@ -771,7 +771,7 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; siz
         <filter id={`${id}-w`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={WHITE} /></filter>
         {/* Viền sáng co vào trong đường bao (erode) để không phủ lên nét mực, nếu không nét bị nhòa thành đứt quãng. */}
         <filter id={`${id}-wi`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={WHITE} /><feMorphology operator="erode" radius={3.2} /></filter>
-        <filter id={`${id}-k`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={BLACK} /><feGaussianBlur stdDeviation={(l.soft ?? 5) * Math.sqrt(size)} /></filter>
+        <filter id={`${id}-k`} x="-20%" y="-20%" width="140%" height="140%"><feColorMatrix type="matrix" values={BLACK} /><feGaussianBlur stdDeviation={(l.soft ?? 1.6) * Math.sqrt(size)} /></filter>
         <mask id={`${id}-d`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}{sil(dx, dy, 'k')}</mask>
         <mask id={`${id}-f`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'w')}</mask>
         {!!l.rim && <mask id={`${id}-r`} maskUnits="userSpaceOnUse" {...B6}>{sil(0, 0, 'wi')}{sil(-dx * 0.45, -dy * 0.45, 'k')}</mask>}
