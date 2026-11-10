@@ -84,21 +84,23 @@ const TUNG_HAIR: HairKit = {
 // Miệng nghiêng: hàm hạ xuống `drop` px, viền mặt mở khe giữa hai môi; lòng miệng tối vẽ SAU da nên chỉ lộ đúng khe. Nét miệng khép nằm trong má (x ≤ 64), không vượt viền môi.
 const SIDE_FACE: Record<NamMood, { ry: number; lid?: string; brow: string; mouth?: string; drop?: number }> = {
   sleepy: { ry: 14, lid: 'M 18 66 H 56 V 92 H 18 Z', brow: 'M 20 76 Q 34 72 50 74', drop: 4 },
-  annoyed: { ry: 14, lid: 'M 18 66 H 56 V 90 L 18 82 Z', brow: 'M 20 74 Q 36 76 50 84', mouth: 'M 64 135 Q 56 134 49 139' },
-  hesitant: { ry: 14, lid: 'M 18 66 H 56 V 83 H 18 Z', brow: 'M 20 78 Q 36 72 50 66', mouth: 'M 64 135 Q 60 133 56 135.5 Q 52 138 48 136' },
+  annoyed: { ry: 14, lid: 'M 18 66 H 56 V 90 L 18 82 Z', brow: 'M 20 74 Q 36 76 50 84', mouth: 'M 64 136 Q 58 136 53 140' },
+  hesitant: { ry: 14, lid: 'M 18 66 H 56 V 83 H 18 Z', brow: 'M 20 78 Q 36 72 50 66', mouth: 'M 64 136 Q 60 135 57 136.5 Q 54 138 51 137' },
   scared: { ry: 19, brow: 'M 20 72 Q 36 64 50 58', drop: 8 },
   agitated: { ry: 16, brow: 'M 20 68 L 50 82', drop: 11 },
   shocked: { ry: 22, brow: 'M 20 64 Q 36 54 50 60', drop: 16 },
-  suspicious: { ry: 14, lid: 'M 18 66 H 56 V 88 L 18 78 Z', brow: 'M 20 72 L 50 86', mouth: 'M 64 135 Q 56 134.5 49 137' },
-  calm: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 64 135 Q 57 135.5 50 135' },
-  neutral_smile: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 64 135 Q 56 137 49 131' },
-  eerie_smirk: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 74 Q 36 69 50 72', mouth: 'M 64 135 Q 56 136 48 129' },
+  suspicious: { ry: 14, lid: 'M 18 66 H 56 V 88 L 18 78 Z', brow: 'M 20 72 L 50 86', mouth: 'M 64 136 Q 58 136 53 138' },
+  calm: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 64 136 Q 59 136.5 55 136' },
+  neutral_smile: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 76 Q 36 73 50 75', mouth: 'M 64 136 Q 58 137.5 53 133' },
+  eerie_smirk: { ry: 14, lid: 'M 18 66 H 56 V 84 H 18 Z', brow: 'M 20 74 Q 36 69 50 72', mouth: 'M 64 136 Q 57 137 52 131' },
 };
-// Viền mặt nghiêng; d > 0 hạ môi dưới + cằm và mở khe miệng (góc miệng ở x≈51).
-const profilePath = (d: number) =>
-  d <= 0
-    ? 'M -50 78 Q -48 24 4 22 Q 50 22 58 62 L 60 92 Q 62 102 74 112 Q 77 118 66 121 Q 63 125 66 130 Q 67 134 65 136 Q 68 142 63 147 Q 52 166 16 166 Q -22 166 -36 142 Z'
-    : `M -50 78 Q -48 24 4 22 Q 50 22 58 62 L 60 92 Q 62 102 74 112 Q 77 118 66 121 Q 63 125 66 130 Q 59 ${131 + d * 0.3} 51 ${133 + d * 0.45} Q 58 ${132 + d * 0.8} 65 ${132 + d} Q 68 ${140 + d} 63 ${147 + d} Q 52 ${166 + d * 0.7} 16 ${166 + d * 0.5} Q -22 166 -36 142 Z`;
+// Viền mặt nghiêng theo mẫu tham khảo: khe miệng mở tại điểm giao hai môi (65,136); hàm hạ `d` thì môi dưới và cằm vừa xuống vừa lùi về sau.
+const profilePath = (d: number) => {
+  const top = 'M -50 78 Q -48 24 4 22 Q 50 22 58 62 L 60 92 Q 62 102 74 112 Q 77 118 66 121 Q 63 125 66 130 Q 67 134 65 136';
+  if (d <= 0) return top + ' Q 68 142 63 147 Q 52 166 16 166 Q -22 166 -36 142 Z';
+  const back = 0.3 * d;
+  return top + ` Q 58 ${137 + d * 0.3} 51 ${137 + d * 0.45} Q 57 ${137 + d * 0.8} ${64 - back} ${137 + d} Q ${67 - back} ${142 + d} ${62 - back} ${147 + d} Q ${52 - back} ${166 + d * 0.7} 16 ${166 + d * 0.5} Q -22 166 -36 142 Z`;
+};
 const talkDrop = (t: Talk) => (t.shape === 'closed' || t.shape === 'pressed' || t.shape === 'smile' ? 0 : 3 + 11 * clamp(t.open ?? 0.4));
 
 // Ghép nét mặt thư viện: bỏ lớp mũi (giữ mũi nhân vật), tuỳ chọn bỏ mắt (đang chớp) và miệng (đang nói).
@@ -114,15 +116,15 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
   const face = profilePath(drop);
-  const line = talk ? (drop ? undefined : 'M 64 135 Q 57 135.5 50 135') : drop ? undefined : f.mouth;
+  const line = talk ? (drop ? undefined : 'M 64 136 Q 59 136.5 55 136') : drop ? undefined : f.mouth;
   return (
     <g {...headFrame(x, y, scale)}>
       <path d="M -20 146 L -22 184 Q 0 196 22 182 L 24 152" fill={PALETTE.skin} />
       <path d="M -21 158 Q 0 174 23 160 L 22 176 Q 0 188 -22 176 Z" fill={PALETTE.skinShadow} stroke="none" />
       {drop > 0 && (
         <g stroke="none">
-          <path d={`M 66 129 L 49 ${133 + drop * 0.45} L 65.5 ${133 + drop} Z`} fill={PALETTE.mouthDark} />
-          {drop > 6 && <path d={`M 66 129.5 L 58 ${131 + drop * 0.25} L 58 ${133.5 + drop * 0.2} L 66 132.5 Z`} fill={PALETTE.teeth} />}
+          <path d={`M 67 134 L 49 ${137 + drop * 0.45} L ${65 - 0.3 * drop} ${139 + drop} Z`} fill={PALETTE.mouthDark} />
+          {drop > 6 && <path d={`M 65.5 135.5 L 57 ${136.5 + drop * 0.2} L 57 ${138.5 + drop * 0.2} L 65 138 Z`} fill={PALETTE.teeth} />}
         </g>
       )}
       <path d={face} fill={PALETTE.skin} />
