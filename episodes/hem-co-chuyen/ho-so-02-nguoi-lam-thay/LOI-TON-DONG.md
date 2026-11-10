@@ -1,19 +1,13 @@
 # Hồ sơ 2 — Lỗi và việc còn tồn đọng
 
-Cập nhật 10/11/2026, trên commit `eec2a4f`. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md).
+Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa truyện trong phiên tách. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời ở [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md).
 
 ## Cần chủ repo quyết định
 
 | Việc | Cần chốt |
 |---|---|
-| Các sửa truyện ở phiên tách | Nằm chưa commit trong worktree `hungry-zhukovsky-ff0b82` (`THAO-LUAN-CANH.md`, `DUNG-CANH.md`, `ASSET.md`, `README.md`), chờ duyệt: ảnh gửi Tùng, "Còn đó không?", giờ tối, một chìa khóa. Tách từ `09e7616`, cần gộp với `main` hiện tại nếu duyệt |
+| Các sửa truyện ở phiên tách | Đã rà phần chưa commit trong worktree `hungry-zhukovsky-ff0b82`: chưa duyệt gộp nguyên trạng. Cần khớp bản nháp riêng với lời “chưa gửi”, nới cue chụp/gửi ảnh. Xem [kết quả rà và điều kiện gộp](RA-SOAT-SUA-TRUYEN.md); giữ các cập nhật nền/rig mới khi gộp |
 | Áo Nam mặc mặc định | Rig mặc định áo xanh. Áo ngủ xám dùng `shirt={PALETTE.nam.sleepShirt}`; chốt có đổi mặc định không |
-
-## Thiếu file
-
-| Việc | Chi tiết |
-|---|---|
-| Ảnh mẫu các góc quay | Link `goc-quay-mau.png` trong [quy chuẩn thiết kế](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md) đang hỏng. Ảnh chỉ có trong chat; cần lưu vào `assets/thiet-ke/goc-quay-mau.png` |
 
 ## Nhân vật
 

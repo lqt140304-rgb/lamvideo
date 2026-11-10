@@ -150,7 +150,9 @@ Dùng lại `Rigged` trong [`../nhan-vat.tsx`](../nhan-vat.tsx), không sao ché
 
 ### 4.5. Bốn góc quay (ảnh mẫu cho mọi nhân vật)
 
-Ảnh mẫu do chủ repo đưa ngày 10/11/2026: [`goc-quay-mau.png`](goc-quay-mau.png), gồm **chính diện, 3/4, nghiêng 90°, sau lưng** trên nền kem. Nhân vật mới làm đủ bốn góc theo đúng thứ tự này.
+Ảnh tham chiếu bốn góc đã tạo trong chat và lưu vào repo ngày 10/11/2026: [`goc-quay-mau.png`](goc-quay-mau.png), gồm **chính diện, 3/4, nghiêng 90°, sau lưng** trên nền kem. Đây là ảnh concept AI để tham khảo hình dáng, không phải ảnh xuất từ rig SVG. Nhân vật mới làm đủ bốn góc theo đúng thứ tự này.
+
+![Ảnh tham chiếu bốn góc nhân vật](goc-quay-mau.png)
 
 Bốn góc phải thẳng hàng trên cùng các mốc ngang, tính từ đỉnh tóc xuống sàn: vai khoảng 36% chiều cao, vạt áo khoảng 60%, chân chung một đường sàn. Giữa các góc không đổi màu, tỉ lệ, kiểu tóc, chiều cao.
 
