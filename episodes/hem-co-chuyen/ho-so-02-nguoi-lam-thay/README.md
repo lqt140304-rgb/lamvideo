@@ -2,6 +2,9 @@
 
 **Chốt hướng kết mới nhất của chủ repo:** Nam bị nhốt trong thế giới gương; Người Kia thay thế Nam ngoài đời. Giữ kết mở về khả năng thoát và việc người quen có nhận ra hay không. Chỉ hướng kết này đã chốt; cơ chế bắt, lời và dàn cảnh cụ thể vẫn là đề xuất V1.
 
+**Demo Cảnh 1 và rig — 10/11/2026:** animatic câm A01–A05 (`HoSo02Canh01Demo`) gồm thức dậy A02B (hất chăn, ngáp, lết ra mép nệm), máy dolly, góc qua vai, khung phim 2:1. Nhân vật **không viền ngoài**, bóng mềm hẹp, chỉ có khối sáng–tối khi đứng trong nắng cửa sổ (xem [quy chuẩn mục 4.0](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md)). Rig có thêm dáng `lie`, `sitLow`, nét mặt phân mức (`face`). Bối cảnh: phố và dãy trọ bên ngoài, góc `corridor`. Việc còn lại ở [LOI-TON-DONG](LOI-TON-DONG.md). Video render chỉ để local (`what-if-studio/out/ho-so-02-nguoi-lam-thay/`).
+
+
 
 **Đã có bản nháp kịch bản chi tiết đủ ba phần V1, cập nhật 10/11/2026.** Mở [KICH-BAN.md](KICH-BAN.md) để đọc theo thứ tự. Nội dung gồm bối cảnh, hành động, thoại/thẻ cảm xúc, khoảng nghỉ và hướng máy/âm. Hồi tưởng giới thiệu Nam khoảng 40 giây đã có trước cảnh thức dậy. Bản nháp mới chưa duyệt toàn bộ, chưa giao Claude dựng và chưa tạo media.
 

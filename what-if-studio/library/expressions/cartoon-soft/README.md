@@ -12,6 +12,8 @@ Phiên bản 1, 10/11/2026. Tách từ bộ biểu cảm đã duyệt của [nh�
 | [bang-01.svg](bang-01.svg) / [PNG](bang-01.png) | Nghi ngờ, tập trung, bất ngờ; 3 cột tăng mức từ trái sang phải |
 | [bang-02.svg](bang-02.svg) / [PNG](bang-02.png) | Sợ hãi, tức giận, kìm nén |
 | [bang-03.svg](bang-03.svg) / [PNG](bang-03.png) | Buồn, vui, nhẹ nhõm |
+| [net-mat.ts](net-mat.ts) | Cùng 28 nét mặt dưới dạng chuỗi SVG theo lớp để rig React ghép trực tiếp. Tự sinh, không sửa tay |
+| [tools/to-ts.cjs](tools/to-ts.cjs) | Sinh lại `net-mat.ts` từ `svg/` (chạy sau export.py) |
 | [tools/export.py](tools/export.py) | Xuất lại SVG và bảng từ mẫu nguồn, kiểm tra số lượng, ID và tham chiếu; không tạo PNG, rig, giọng hoặc video |
 
 ![Bảng quan sát](bang-01.png)
@@ -41,6 +43,10 @@ Không tô màu da nền vào file nét mặt. Không thêm lại tóc/khung s�
 4. Kiểm tra cạnh nhau trung tính → nhẹ → rõ → cao trào ở cỡ xem cuối. Với trẻ em, người già hoặc nhân vật ít bộc lộ, chỉnh tỷ lệ và dấu hiệu riêng; không buộc mọi người có cùng mặt hoặc cùng cách giận.
 
 Hình nguồn ở hướng gần chính diện hơi chếch; **chưa có bộ riêng cho nghiêng hẳn, nhìn từ sau, góc ngửa/cúi sâu**. Chỉ tách lớp không tự giải quyết phối cảnh hoặc làm biểu cảm tự khớp mọi rig. Đã kiểm tra SVG và bảng tĩnh, chưa ghép thử trên toàn bộ dàn nhân vật, chưa có lip-sync hoặc chuyển động nội suy. Khi được giao dựng, thử một nhân vật và một đoạn đổi nét trước, rồi mới nhân rộng.
+
+## Đã gắn vào rig
+
+Hồ sơ 2: `StudentTwinHead`/`StudentTwinBody` nhận `face="so-hai-02"` (chính diện và 3/4). Gốc thư viện đặt vào giữa hai mắt nhân vật, giữ mũi và nốt ruồi của nhân vật, bỏ lớp mũi thư viện; chớp mắt và khẩu hình nói vẫn dùng của rig. Góc nghiêng chưa có bộ riêng nên vẫn dùng `mood`.
 
 ## Nguồn và xuất lại
 
