@@ -6,20 +6,20 @@ import { Sleeper } from './canh-01-demo';
 
 /**
  * Trailer P1.00 — O05 jumpscare, ngay trước tiếng báo thức. Chỉ cảnh đầu là toàn phòng; từ đó trở đi là mắt Nam.
- * W: toàn phòng ban đêm, Nam nằm ngủ (mẫu nằm toàn thân `Sleeper`). Bóng đen người đứng im cạnh nệm nhìn Nam;
- *    gần cuối cảnh hai đốm mắt trong bóng đen lóe sáng (giữ từ bản jumpscare đầu).
+ * W: toàn phòng ban đêm (tối hơn bản trước), Nam nằm ngủ (mẫu nằm toàn thân `Sleeper`). Bóng đen người kia đi bộ chậm từ cửa
+ *    tới cạnh nệm, đứng im nhìn Nam; gần cuối cảnh hai đốm mắt trong bóng đen lóe sáng.
  * P: mắt Nam, mí còn nặng, mở dần, cảnh nhòe. Người kia, có mặt Nam, đi vào từ cửa; hai đốm mắt sáng lên khi Nam chớp mắt nhận ra.
  * C: im bặt một nhịp, cắt phụt vào mặt dọa (đen trắng, hốc mắt sâu, cười toác đầy răng), rung mạnh rồi mí Nam sập, đen. Không há miệng nuốt.
  * Báo thức và tên phim nằm ở timeline trailer, không trong clip này.
  * Âm: tiếng phòng ở W và P, tiếng ù thấp dâng cuối P, im 6 frame, tiếng hù đúng lúc cắt vào mặt (file thư viện chép vào public, xem P1.00).
  */
-export const WIDE = 66; // 2,2 giây toàn phòng
+export const WIDE = 120; // 4 giây toàn phòng: người kia đi bộ chậm trong bóng tối tới cạnh nệm rồi đứng nhìn
 export const POV = 150; // 5 giây mắt Nam: người kia tiến lại gần dần, máy zoom liền vào đầu
 export const CLOSE = 20; // 0,67 giây: cắt phụt vào mặt dọa rồi sập tối, dứt khoát
 export const BLACK = 16;
 export const JUMP_TOTAL = WIDE + POV + CLOSE + BLACK;
 export const SLAM_AT = 0.72; // phần của C mà mí sập xuống
-export const EYES_ON = 48; // frame hai đốm mắt lóe sáng ở cảnh toàn phòng
+export const EYES_ON = 100; // frame hai đốm mắt lóe sáng ở cảnh toàn phòng
 
 const ease = (x: number) => x * x * (3 - 2 * x);
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -36,30 +36,37 @@ const GlowEyes: React.FC<{ x: number; y: number; scale: number; a: number }> = (
   </g>
 );
 
-/** Toàn phòng: t 0..1 là tiến độ đẩy máy, eyes 0..1 là độ sáng hai đốm mắt. */
-export const JumpWide: React.FC<{ t: number; eyes?: number }> = ({ t, eyes = 0 }) => (
-  <AbsoluteFill style={{ background: '#05070b' }}>
-    <RoomNight
-      door="closed"
-      kitchen="messy"
-      move={{ push: 70 * t, truck: 45 }}
-      sleeper={Sleeper({ phone: false, cover: 0, breath: Math.sin(t * 14) * 5, f: 0 })}
-      actors={[{
-        at: [214, 290],
-        render: (p) => (
-          <g>
-            <g style={{ filter: 'brightness(.09) saturate(.3)' }}>
-              <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood="calm" pose={{ ...STAND_POSE, view: 'three', facing: 1 }} {...p} />
+/** Toàn phòng: t 0..1 là tiến độ đẩy máy, eyes 0..1 là độ sáng hai đốm mắt. Người kia đi từ cửa tới cạnh nệm trong bóng tối. */
+export const JumpWide: React.FC<{ t: number; eyes?: number }> = ({ t, eyes = 0 }) => {
+  const wk = clamp((t - 0.1) / 0.6);
+  const at: [number, number] = [8 + 206 * wk, 215 + 75 * wk];
+  const stop = clamp((wk - 0.9) / 0.1);
+  const pose = { ...mixPose(sampleWalk(wk * 4.2), STAND_POSE, stop), view: 'three' as const, facing: 1 as const };
+  const dark = 0.06 + 0.06 * wk; // đi vào càng gần đèn bàn càng lộ ra một chút
+  return (
+    <AbsoluteFill style={{ background: '#05070b' }}>
+      <RoomNight
+        door="open"
+        kitchen="messy"
+        move={{ push: 70 * t, truck: 45 }}
+        sleeper={Sleeper({ phone: false, cover: 0, breath: Math.sin(t * 20) * 5, f: 0 })}
+        actors={[{
+          at,
+          render: (p) => (
+            <g>
+              <g style={{ filter: `brightness(${dark.toFixed(3)}) saturate(.3)` }}>
+                <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood="calm" pose={pose} {...p} />
+              </g>
+              {eyes > 0 && <GlowEyes {...p} a={eyes} />}
             </g>
-            {eyes > 0 && <GlowEyes {...p} a={eyes} />}
-          </g>
-        ),
-      }]}
-    >
-      <rect width={1920} height={1080} fill="#02040a" opacity={0.3} />
-    </RoomNight>
-  </AbsoluteFill>
-);
+          ),
+        }]}
+      >
+        <rect width={1920} height={1080} fill="#02040a" opacity={0.45} />
+      </RoomNight>
+    </AbsoluteFill>
+  );
+};
 
 /** Mí mắt: s 0..1 là độ mở. Rìa mí là hình thấu kính, hai khoé luôn khép nhỏ nhất. */
 const Lids: React.FC<{ s: number }> = ({ s }) => {
@@ -104,14 +111,14 @@ export const PovFrame: React.FC<{ u: number }> = ({ u }) => {
             render: (p) => (
               <g>
                 <g style={{ filter: `brightness(${bright.toFixed(2)}) saturate(.8)` }}>
-                  <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood={u > 0.72 ? 'eerie_smirk' : 'calm'} pose={pose} {...p} />
+                  <StudentTwinBody identity="nguoi-kia" outfit="xanh" mood={u > 0.8 ? 'stare_grin' : u > 0.42 ? 'eerie_smirk' : 'calm'} pose={pose} {...p} />
                 </g>
                 {glow > 0 && <GlowEyes {...p} a={glow} />}
               </g>
             ),
           }]}
         >
-          <rect width={1920} height={1080} fill="#02040a" opacity={0.3} />
+          <rect width={1920} height={1080} fill="#02040a" opacity={0.42} />
         </RoomNight>
       </div>
       </div>
@@ -201,6 +208,7 @@ export const JumpAudio: React.FC = () => (
   <>
     <Sequence durationInFrames={WIDE + POV - 6}><Audio src={SFX('room_tone.mp3')} volume={0.5} /></Sequence>
     <Sequence from={WIDE + POV - 40} durationInFrames={34}><Audio src={SFX('power_hum.mp3')} volume={0.35} /></Sequence>
+    {[22, 40, 58, 76, 94].map((f) => <Sequence key={f} from={f} durationInFrames={12}><Audio src={SFX('step.mp3')} volume={0.35} /></Sequence>)}
     {/* 6 frame im bặt trước cú hù */}
     <Sequence from={WIDE + POV}><Audio src={SFX('drone_hit.mp3')} volume={1} /></Sequence>
     <Sequence from={WIDE + POV}><Audio src={SFX('glitch.mp3')} volume={0.5} /></Sequence>
@@ -219,7 +227,7 @@ export const HoSo02TrailerJumpscare: React.FC = () => {
 
 /** Sáu khung tĩnh để duyệt: người kia tiến lại gần, zoom vào đầu, mặt méo dần, mí sập. */
 export const HoSo02JumpscareBoard: React.FC = () => {
-  const panels: React.ReactNode[] = [<JumpWide t={1} eyes={1} />, <PovFrame u={0.72} />, <PovFrame u={0.97} />, <ScareFace k={0} />, <ScareFace k={0.5} />, <ScareFace k={0.8} />];
+  const panels: React.ReactNode[] = [<JumpWide t={0.3} />, <JumpWide t={0.55} />, <JumpWide t={1} eyes={1} />, <PovFrame u={0.62} />, <PovFrame u={0.96} />, <ScareFace k={0.4} />];
   return (
     <div style={{ width: 1920, height: 720, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '1fr 1fr', background: '#111' }}>
       {panels.map((el, i) => (
