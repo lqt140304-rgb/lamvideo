@@ -760,10 +760,11 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   // under: vẽ dưới tay áo; over: vẽ đè lên tay áo (chỉ có khi tay gập mạnh).
   const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => {
     const hand = handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind);
-    if (armBend(c) < FOLD_BEND) return { under: <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} /></g>, over: null };
-    return { under: <Blob fill={PALETTE.skin} d={upperArmShapes(c)} />, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
+    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} /></g>;
+    if (armBend(c) < FOLD_BEND) return { one, under: one, over: null };
+    return { one, under: <Blob fill={PALETTE.skin} d={upperArmShapes(c)} />, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
   };
-  const whole = (a: { under: React.ReactNode; over: React.ReactNode }) => <>{a.under}{a.over}</>;
+  const whole = (a: { one: React.ReactNode }) => a.one; // tay sau thân/không có tay áo đè: một khối liền, không tách
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
   const phoneOnL = facing === -1;
   const frontSleeve = (c: typeof r.armR) => [...sleeveShapes(c, o), ...(side ? [] : [circle(c.root, 29)])]; // bọc góc vai của thân áo, khỏi lòi một mẩu khi giơ tay
@@ -784,6 +785,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
       )}
       <g transform={`translate(${pose.x} ${r.dy})`}>
+        {/* Nhìn từ sau: tay đưa ra trước nằm sau cả quần lẫn áo, vẽ trước chân để bàn tay không lòi ra dưới gấu áo/giữa háng. */}
+        {away && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}><Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade></g>}
         {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
@@ -795,8 +798,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
           <path d={side ? 'M -30 318 H 36 V 352 H -30 Z' : `M -46 318 H 48 V 350 H 28 Q 1 ${Math.min(crotch - 34, 372)} -26 350 H -46 Z`} fill={o.pants} stroke="none" />
         </Shade>
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
-          {!frontL && !side && <Shade l={l} facing={facing}>{whole(armL)}</Shade>}
-          {!frontR && <Shade l={l} facing={facing}>{whole(armR)}</Shade>}
+          {!frontL && !side && !away && <Shade l={l} facing={facing}>{whole(armL)}</Shade>}
+          {!frontR && !away && <Shade l={l} facing={facing}>{whole(armR)}</Shade>}
           <Shade l={l} facing={facing}>
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
             {!frontR && <Cuff c={r.armR} o={o} />}
