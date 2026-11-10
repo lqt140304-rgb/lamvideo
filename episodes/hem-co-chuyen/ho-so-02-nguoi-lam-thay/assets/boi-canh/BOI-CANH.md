@@ -61,6 +61,42 @@ Căn cước không vẽ sẵn: nó nằm trong ngăn tới D02, dùng prop theo
 `at` là `[x, z]` trên sàn. `actors` tự tính vị trí, tỉ lệ theo khoảng cách và xếp lớp cùng đồ đạc, nên chân chạm đúng sàn và người đứng sau vật sẽ bị che. Lưng ghế là lớp riêng, che đúng người ngồi. Cần toạ độ riêng thì gọi `placeOn(view, [x, z])`.
 
 Người ngồi ghế: `at` lấy từ `SEATS[chair]`. Bàn cao 65 cm, ghế 40 cm, mặt bếp 76 cm, thấp hơn đồ thật vì rig chân ngắn, để tay chạm được bàn và hông đúng mặt ghế.
+---
+
+## 4. Bài học kinh nghiệm & Tiêu chuẩn vàng thiết kế Bối cảnh (Đúc kết từ phiên bản chuẩn được duyệt)
+
+1. **Khóa bản vẽ mặt bằng tác giả (`image.png`) làm nguồn chân lý duy nhất (Single Source of Truth):**
+   - Mọi góc máy (Toàn cảnh 24mm, Cận cảnh bồn rửa 50mm, Trung cảnh bàn học 35mm, Cận cảnh bàn học đêm 50mm) đều là các camera chụp trong **CÙNG MỘT KHÔNG GIAN 3D DUY NHẤT**.
+   - Căn phòng chỉ có duy nhất **1 cửa chính ở tường trái** mở ra hành lang; vật thể ở tường sau cạnh bàn học là **TỦ QUẦN ÁO ĐỨNG**, tuyệt đối không biến thành cửa phụ hay cửa sổ.
+
+2. **Đồng bộ 100% Mô hình Kiến trúc & Đạo cụ cốt lõi (Canonical Asset Model):**
+   - Chiếc bàn học của Nam là một "Canonical Model" thống nhất trên tất cả các shot:
+     - Mặt bàn gỗ nâu mật ong (`#8a5833`), nẹp cạnh (`#54361e`), thùng bàn óc chó (`#3f2d21`), khoang để chân bên trái.
+     - Giá sách mini 2 tầng góc trái: tầng trên có 3 cuốn giáo trình (*Triết học* đỏ, *Toán CC* xanh dương, *Kinh tế chính trị* xanh lá), tầng dưới có tập vở + note vàng `NỘP BÀI!`.
+     - Khối 2 ngăn kéo bên phải có núm kéo tròn bằng đồng vàng (`#d4af37`), bố trí không bị nệm hay đồ vật tiền cảnh che khuất.
+     - Đèn cổ ngỗng đỏ (`#dc2626` / `#b91c1c`) ở góc phải mặt bàn.
+     - Laptop Google Docs mở chính diện có dây sạc cắm bên trái rủ xuống chân bàn.
+     - Ống cắm bút xanh (`#0284c7`), ly sứ trắng uống nước, ví da và thẻ CCCD gắn chip.
+     - Ghế ngồi to đầm chắc, chuẩn tỉ lệ cơ thể người, có áo thun vắt lưng ghế.
+
+3. **Kể chuyện môi trường & Chi tiết sinh hoạt sinh viên chân thực (Environmental Storytelling):**
+   - Không để phòng trọ thành showroom trống trơn; đưa vào các chi tiết đời sống có câu chuyện:
+     - Bình nước khoáng 20L màu xanh dương có vòi rót đỏ trắng.
+     - Thùng mì tôm Hảo Hảo chua cay đặt gầm quầy bếp.
+     - Chai Sunlight vàng chanh + miếng mút xơ mướp, khăn lau bếp.
+     - Thanh móc treo tường cạnh tủ có Mũ bảo hiểm xe máy nửa đầu và Balo sinh viên đi học.
+     - Liên kết dây cắm điện thực tế: dây sạc laptop, dây sạc điện thoại trắng nối từ ổ cắm ngang sàn đến nệm, dây nguồn quạt cắm tường.
+     - Dép lê sinh viên quay mũi ra ngoài, áo thun rơi trên sàn trước nệm, chai nước suối lăn lóc, vết nứt tường chân thực.
+
+4. **VFX điện ảnh hữu cơ, tinh tế:**
+   - Hạt bụi phòng trọ `VFX-DUST` lơ lửng trong luồng sáng sớm và nón ánh sáng đèn bàn.
+   - Gợn sóng nước `VFX-RIPPLE` dưới vòi nước nhỏ giọt ở bồn rửa chén.
+   - Hơi ấm bốc nhẹ `VFX-SMOKE` từ ly nước nóng ban đêm.
+   - Nón ánh sáng đèn bàn dùng hình thang volumetric gradient mềm, tạo quầng rọi vàng ấm trên mặt gỗ thay vì hình tròn chói gắt.
+
+5. **Quy trình lắp ráp tự động (Automated Assembly):**
+   - Biên dịch tự động Master Board 4K (`boi-canh.svg`) trực tiếp từ 4 file SVG thành phần để đảm bảo 100% không bao giờ xảy ra lệch pha mã nguồn.
+
 
 Điểm đứng gợi ý: bồn rửa `[94, 92]`, ngồi trên nệm `[300, 340]`, trước cửa `[60, 215]`. Hành lang dùng x khoảng −80 với z −60 (phía cầu thang), 215 (trước cửa), 400 (phía đối diện).
 
