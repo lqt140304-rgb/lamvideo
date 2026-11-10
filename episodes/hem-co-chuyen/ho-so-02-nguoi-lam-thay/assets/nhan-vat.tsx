@@ -502,8 +502,8 @@ export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' 
   phone: { ...STAND_POSE, neck: -4, armR: { a: -114, b: 121, rot: -1 }, wristR: -48, handR: 'phone', frontR: true, prop: 'phone' },
   offer: { ...STAND_POSE, tilt: 3, neck: -3, armL: { a: 26, b: 50, rot: 1 }, handL: 'open', frontL: true, palmUp: 'L' },
   type: { ...STAND_POSE, tilt: 9, neck: 6, armR: { a: 33, b: 65 }, armL: { a: -24, b: 115, rot: 1 }, handR: 'type', handL: 'type', frontR: true, frontL: true, ...SIT_LEGS },
-  // Ngồi mép nệm thấp (~24 cm): đùi dốc lên, gối cao hơn hông, khớp hông cách sàn ~90/590 rig. Dáng `sit` là cho ghế ~45 cm.
-  sitLow: { ...STAND_POSE, tilt: 16, neck: -4, armR: { a: 22, b: 46 }, armL: { a: 10, b: 58, rot: -1 }, legR: { a: 126, b: 124 }, legL: { a: 120, b: 120 } },
+  // Ngồi bệ thấp (~24 cm, mép nệm): đùi dốc lên nhẹ, bàn chân đặt ra trước gối, cẳng tay gác lên gối. Khác `sit` (ghế ~45 cm).
+  sitLow: { ...STAND_POSE, tilt: 6, neck: -2, armR: { a: 38, b: 52 }, armL: { a: 30, b: 60, rot: -1 }, handR: 'open', handL: 'open', frontR: true, frontL: true, legR: { a: 104, b: 72 }, legL: { a: 98, b: 66 } },
   // Nằm nghiêng, gối hơi co (co nhiều thì gối thò ra mép nệm vì phối cảnh), hai tay xuôi theo thân, nằm trong chăn. Vẽ xoay 90° quanh đỉnh đầu (đầu phải, chân trái), dùng góc 3/4 quay ra máy.
   lie: { ...STAND_POSE, tilt: -4, neck: -6, armR: { a: 18, b: 24 }, armL: { a: 10, b: 20, rot: -1 }, legR: { a: 36, b: 40 }, legL: { a: 30, b: 30 } },
 };

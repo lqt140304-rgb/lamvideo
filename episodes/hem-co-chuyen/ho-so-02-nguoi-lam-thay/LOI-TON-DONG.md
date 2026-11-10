@@ -16,7 +16,7 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 | Vừa | Bốn dáng `wary`, `phone`, `offer`, `type` | Mới dựng và soi ở góc 3/4; góc khác chưa kiểm tra |
 | Vừa | Tay khi bước ở 3/4 trái và 1/4 | Ở pha hai tay vung vào giữa, tay chỉ hơi mở ra nên trông cứng hơn 3/4 phải |
 | Nhỏ | Mũi 3/4 khi mắt mở to | Dáng sốc, sợ thì vòng mắt có thể chạm mũi |
-| Nhỏ | Dáng nằm `lie`, ngồi thấp `sitLow` | `lie` là rig đứng xoay phẳng quanh đỉnh đầu, đã nhận ánh sáng cửa sổ (hướng xoay theo thân). Tay/chân giơ ra đều nhấc khỏi mặt nệm, nên tay với điện thoại là nét vẽ riêng từ khớp vai. Mới đặt cho góc wide (A01–A02); góc khác cần chỉnh lại góc xoay và điểm neo. `sitLow` mới soi ở 3/4 trái |
+| Nhỏ | Dáng nằm `lie`, ngồi thấp `sitLow` | `lie` là rig đứng xoay phẳng quanh đỉnh đầu, đã nhận ánh sáng cửa sổ (hướng xoay theo thân). Tay/chân giơ ra đều nhấc khỏi mặt nệm, nên tay với điện thoại là nét vẽ riêng từ khớp vai. Mới đặt cho góc wide (A01–A02); góc khác cần chỉnh lại góc xoay và điểm neo. `sitLow` làm lại riêng (đùi dốc nhẹ, bàn chân ra trước, tay gác gối), xem [bảng](assets/thiet-ke/dang-ngoi-thap.png); chính diện chưa gập được chân về phía máy. Demo chưa render lại với dáng mới |
 | Nhỏ | Nét mặt phân mức (`face`) | Đã phóng to từng mắt quanh tâm (giữ khoảng cách hai mắt) và chuyển dần 4 frame khi đổi nét (`faceFrom`/`faceMix`, giữa chừng thấy hai lớp mờ chồng). Góc nghiêng, 1/4, sau lưng vẫn dùng `mood`. Lớp tím dưới mắt khi sợ chờ chủ repo duyệt mức đậm |
 | Nhỏ | Miệng góc nghiêng | Đã làm lại (10/11): hàm hạ mở khe giữa hai môi, lòng miệng nằm sau da; nét khép nằm trong má. Xem [bảng](assets/thiet-ke/mieng-nghieng.png). Khe còn nhỏ ở mức hé, chưa có lưỡi |
 | Chưa soi | Khung miệng lúc nói, Người Kia | Chưa kiểm tra riêng ở cận cảnh |
