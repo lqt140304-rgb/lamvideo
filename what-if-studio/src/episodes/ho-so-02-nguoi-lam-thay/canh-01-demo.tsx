@@ -102,7 +102,7 @@ const LOOK = { outline: 'none', headOutline: 'none' } as const;
  * `cover` 0–1 kéo mép chăn từ ngực lên trùm đầu; `reach` 0–1 với tay tới điện thoại; `carry` 0–1 tay kéo điện thoại về vào chăn.
  * Điện thoại đặt đúng chỗ bàn tay chạm khi với hết tay, nên tay và máy luôn khớp.
  */
-const Sleeper = ({ cover = 0, breath = 0, reach = 0, carry = 0, phone = true, alarm = false, f = 0, wake }: SleepState) => (p: { x: number; y: number; scale: number; plug?: [number, number] }) => {
+export const Sleeper = ({ cover = 0, breath = 0, reach = 0, carry = 0, phone = true, alarm = false, f = 0, wake }: SleepState) => (p: { x: number; y: number; scale: number; plug?: [number, number] }) => {
   const r = solveRig(TWIN_POSES.lie);
   const hx = p.x + HEAD_AT[0] * p.scale, hy = p.y + HEAD_AT[1] * p.scale;
   // Tay với: rig chỉ xoay phẳng nên tay rig giơ ra sẽ nhấc khỏi nệm; vẽ cánh tay riêng từ đúng khớp vai, bám mặt nệm tới điện thoại.

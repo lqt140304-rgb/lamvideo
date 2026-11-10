@@ -244,7 +244,7 @@ Nam tưởng Người Kia nói đùa vuốt ve tính lười của mình, khoái
   * Nam nhìn vào màn hình, thấy mặt mình đầy mụn nhọt, râu ria lởm chởm, phòng trọ nồng nặc mùi ẩm mốc. Cậu sợ bị mẹ cằn nhằn chuyện học hành và lối sống bừa bãi.
   * Nam dúi vội chiếc điện thoại cho Người Kia: *"Mày nghe máy đi! Bắn tiếng ngọt ngào vào bảo tao đang bận cày đề cương ôn thi để mẹ gửi 'viện trợ'!"*.
   * Người Kia cầm máy, nở nụ cười tươi tắn, nói chuyện với mẹ bằng giọng điệu ấm áp, ân cần, hỏi thăm sức khỏe bố mẹ ở quê. Mẹ Nam ở đầu dây bên kia rơm rớm nước mắt vì xúc động, chuyển ngay 2 triệu đồng vào tài khoản kèm lời nhắn: *"Mẹ thưởng cho con trai chăm ngoan nhé"*.
-  * Nam nằm trên nệm, nghe tiếng chuông điện thoại báo ting ting cộng 2 triệu thì sướng rơn: *"Đỉnh chóp! Tiền về ví rồi, tối nay làm bữa lẩu thôi!"*, hoàn toàn buông bỏ chút phòng bị cuối cùng.
+  * Nam nằm trên nệm, nghe tiếng chuông điện thoại báo ting ting cộng 3 triệu thì sướng rơn: *"Đỉnh chóp! Tiền về ví rồi, tối nay làm bữa lẩu thôi!"*, hoàn toàn buông bỏ chút phòng bị cuối cùng.
 
 ---
 

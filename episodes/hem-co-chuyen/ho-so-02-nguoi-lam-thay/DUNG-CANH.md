@@ -21,6 +21,12 @@ Nguồn lời phần 1 chuyển từ THAO-LUAN sang PHAN-01, các đoạn đã d
   * **Dutch Angle (Góc nghiêng tâm lý $5^\circ - 15^\circ$)**: Khung hình nghiêng trục chân trời khi thực tại bị bẻ cong (trùng giọng nói, phát hiện căn phòng bị chiếm, đối diện mặt gương).
   * **Rack Focus / Focus Pull**: Chuyển nét mượt mà giữa tiền cảnh và hậu cảnh qua vai (Over-The-Shoulder).
   * **Hitchcock Vertigo Dolly Zoom**: Phối hợp Zoom In + Dolly Out làm biến dạng phối cảnh hậu cảnh khi bí mật chiếc gương bị bóc trần.
+- **Hòa sắc & Lớp phủ điện ảnh (Cinematic Grade Overlay)**: Dùng component `CinematicGradeOverlay` phủ trên đỉnh khung hình với `mix-blend-mode: soft-light` ($8\% - 14\%$) theo từng mood phân cảnh (`fincher_night`, `morning`, `mirror_realm`), tích hợp sẵn hạt phim 35mm và vignette:
+  ```tsx
+  import { CinematicGradeOverlay } from '../../../../what-if-studio/src/engine';
+  // Đặt ở lớp trên cùng trong Composition:
+  <CinematicGradeOverlay mood="fincher_night" vignetteStrength={0.45} />
+  ```
 - Danh mục bối cảnh, đạo cụ, tư thế nhân vật chi tiết xem tại [CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md).
 - Xem [nhịp kể A–H](#nhịp-kể-hiện-hành) cùng các cue NHỊP trong bản nguồn trước khi thử diễn; đây là bổ sung nhịp 10/11/2026, chưa phải giọng hoặc timeline đã đo.
 - Khoảng giữ cho cú sốc, cuộc gọi ngắt và do dự **nằm trong thời lượng hành động/thoại đã có**. Khoảng nghỉ 2 giây ở bản nguồn chỉ được tính một lần. Chưa đo tổng thời lượng bằng diễn/giọng, không cộng riêng mọi nhịp giữ như một cảnh mới.

@@ -56,6 +56,19 @@ Mô hình không gian 3D, phối cảnh và camera vẫn được dùng để b�
 
 Giữ hình 2D có chiều sâu 2.5D bằng phối cảnh, tỉ lệ gần–xa, lớp chồng, bóng tiếp xúc và ánh sáng. Không dùng khối hộp cứng làm phương tiện duy nhất để tạo thể tích. Tách nền xa, khối phòng, đồ cố định, người/đồ cầm và lớp che gần theo [hướng dẫn điện ảnh](NGON-NGU-DIEN-ANH-2-5D.md) và DUNG-CANH của hồ sơ. Đồ nằm trên bàn phải có điểm đỡ; tay cầm bám vật; bóng không tách khỏi nguồn.
 
+## Hòa sắc điện ảnh & Lớp phủ màu (Cinematic Color Grading)
+
+**Cập nhật 11/11/2026:** Để đạt chất phim điện ảnh người đóng (Live-action) và khử cảm giác "hoạt hình vector máy tính", toàn bộ video được xử lý qua quy trình hòa sắc đồng bộ:
+
+1. **Không dùng CSS filter nặng nề trên từng phần tử:** Tránh dùng `filter: hue-rotate(...) contrast(...)` vì làm chậm gấp đôi thời gian render và gây xỉn màu cục bộ.
+2. **Lớp phủ hòa sắc duy nhất (Adjustment Grade Overlay):** Sử dụng component `CinematicGradeOverlay` đặt trên đỉnh khung hình (dưới Letterbox 2.39:1).
+   - Chế độ hòa trộn: `mix-blend-mode: soft-light` (hoặc `color`).
+   - Độ mờ (Opacity) tiết chế: **$8\% - 14\%$** (không vượt quá $20\%$).
+   - Ép vùng tối và trung tính vào bảng màu tâm lý (Fincher night `#0d1f18`, Sáng sớm `#1a2b3c`, Cõi gương `#051824`).
+3. **Bảo tồn màu da (Skin Tone Protection):** Vùng da mặt nhân vật sống (Nam) luôn giữ sắc hồng cam ấm áp tế bào sống (`#d89c7a`), tương phản sâu sắc với sắc da tái mét lạnh ngắt của Người Trong Gương.
+4. **Vignette quang học:** Lớp gradient tròn `radial-gradient` tối nhẹ $30\% - 45\%$ ở 4 góc mép khung (`mix-blend-mode: multiply`), mô phỏng thấu kính Anamorphic cinema cổ điển.
+
+
 ## Cách áp dụng và kiểm tra
 
 Có thể bắt đầu từ [bộ nét mặt tách lớp dùng chung](../what-if-studio/library/expressions/cartoon-soft/README.md): không tóc/đầu, có 3 mức cảm xúc. Giữ nhận diện từng vai, căn lại tỷ lệ/góc nhìn và cắt lớp màu theo da mặt; không mặc định các nét đã khớp mọi nhân vật hoặc rig.

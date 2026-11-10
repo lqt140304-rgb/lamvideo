@@ -34,6 +34,20 @@ Ngồi dậy trên nệm, Nam quay về phía bếp và cửa, nên hướng nh�
 | `door` | `DoorInside` | C04–C06, D04, F01, F04 | Thấy rõ lưỡi chốt và ổ chốt |
 | `bed` | `BedCorner` | A02, A03, A05, H01 | Thấy cả chỗ Nam, chỗ Tùng và ghế cạnh nệm |
 | `hallway` | `HallwayDoor` | C01–C03, F02, F03 | Máy đặt ngoài lan can, bỏ lan can phía trước để không che người |
+| `mirror` | `MirrorCorner` | Trailer S9; P2.07, P3 | Góc gương cạnh hông trái tủ. [Ngày](goc-guong.png), [đêm](goc-guong-dem.png). Mới 10/11/2026, chờ duyệt |
+| `giveaway` | `GiveawayCorner` | Trailer I1; P3.07 | Góc đồ cho tặng cuối hành lang: kệ thấp, thùng, túi áo, đèn cũ, tờ giấy dán tường. [Xem](goc-do-cho-tang.png). Mới, chờ duyệt |
+| `stairs` | `HallwayStairs` | Trailer S8; P3.04 | Hành lang nhìn vào hốc cầu thang; lòng hốc chỉ lộ qua ô mở. [Xem](hanh-lang-cau-thang.png). Mới, chờ duyệt |
+
+## Trường học và sân thể thao — đề xuất 10/11/2026, chờ duyệt
+
+Nguồn riêng [`truong-va-san.tsx`](truong-va-san.tsx), không thuộc mô hình phòng. Mỗi cảnh là một camera phối cảnh thật theo cm; `placeAt(cảnh, x, z)` đặt nhân vật chạm đất đúng tỉ lệ. Trường là trường chung chung, biển chỉ ghi "TRƯỜNG ĐẠI HỌC", không tên trường thật.
+
+| Component | Cảnh | Ảnh |
+|---|---|---|
+| `SchoolYard`, `SchoolYardNight` | Sân trường, dãy nhà ba tầng có hành lang lan can, cột cờ, cây bàng, ghế đá | [ngày](san-truong.png), [đêm](san-truong-dem.png) |
+| `SchoolCorridor` | Hành lang tầng hai: lan can nhìn ra sân, cửa lớp, cột đều nhịp | [xem](hanh-lang-truong.png) |
+| `LectureRoom` | Giảng đường: bảng trắng, bàn dài nhiều dãy, cửa sổ có nắng, quạt trần | [xem](giang-duong.png) |
+| `FootballPitch`, `PitchDusk`, `PitchNight` | Sân bóng mini cỏ nhân tạo, khung thành có lưới, rào lưới, cột đèn, ghế băng | [ngày](san-bong.png), [chiều](san-bong-chieu.png), [đêm](san-bong-dem.png) |
 
 ## Trạng thái theo kịch bản
 
@@ -51,6 +65,8 @@ Tất cả là prop của `RoomScene`, không vẽ cứng vào nền.
 | `move` | `{ truck, push }` theo cm | Dịch máy thật cho C02, E02, H09; vật gần trôi nhiều hơn vật xa. Truyền cùng giá trị cho `placeOn` nếu đặt người thủ công |
 | `sleeper` | hàm vẽ | Vẽ đầu Nam trên gối, nằm dưới chăn, cho A01, G04, H01 |
 | `wallet` | true/false | Ví trên bàn, dùng ở cảnh kiểm đồ |
+| `mirror` | true/false | Gương đứng khung gỗ 50 × 120 cm, chèn một chân, cạnh hông trái tủ, xoay mặt vào phòng. **Mặc định tắt** để các bảng nền đã xuất không đổi; có bật mặc định cho mọi cảnh hay không chờ chủ repo duyệt vị trí. Kính chỉ phản chiếu ánh sáng chung, chưa có lớp phản chiếu nhân vật |
+| `giveaway` | true/false | Hiện góc đồ cho tặng ở hành lang; luôn bật ở view `giveaway` |
 | `clockMinutes` | số phút hoặc `null` | Mặc định không có đồng hồ; chỉ bật khi shot đã chốt giờ |
 
 Căn cước không vẽ sẵn: nó nằm trong ngăn tới D02, dùng prop theo shot. Không có áo vắt trên ghế, vì áo đó đang ở trên người kia. Laptop là trang giấy trung tính, nội dung bài thay bằng lớp màn hình theo shot.

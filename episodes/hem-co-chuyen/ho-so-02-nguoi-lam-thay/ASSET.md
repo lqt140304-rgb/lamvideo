@@ -7,7 +7,7 @@ Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Bảng kê t
 | Nhóm bổ sung | Nội dung và bảng xem |
 |---|---|
 | 13 đạo cụ | Búa, phong bì, hai thẻ hư cấu, cơm sườn, bún chả/nem, xôi gấc, túi quả, PC, thau đồ, bóng, kéo, góc đồ cho/tặng — [bảng](assets/bo-sung-15p/bang-dao-cu.png) |
-| 7 bối cảnh | Giảng đường, Lab 402, hành lang trường, cơm gia đình, thế giới gương, sân bóng, góc cắt tóc — [bảng](assets/bo-sung-15p/bang-boi-canh.png); thế giới gương nằm trong asset rời |
+| 7 bối cảnh | Giảng đường, Lab 402, hành lang trường, cơm gia đình, thế giới gương, sân bóng, góc cắt tóc — [bảng](assets/bo-sung-15p/bang-boi-canh.png); thế giới gương nằm trong asset rời **Đại tu 11/11/2026, chủ repo đã duyệt bối cảnh nhiều góc:** sáu bối cảnh dựng lại bằng mô hình 3D theo cm ([`kit3d.tsx`](assets/bo-sung-15p/kit3d.tsx)): camera phối cảnh thật, mặt khối sáng–tối theo hướng nắng, bóng đổ và vệt nắng qua cửa sổ, đèn trần, mờ theo khoảng cách; kích thước đồ đạc theo đồ thật. Đạo cụ và vai phụ giữ nguyên, chỉ đặt lại theo phối cảnh (`lectureSpot`, `corridorSpot`…). Thế giới gương vẫn dùng phòng trọ gốc. Ghế cắt tóc xoay được: `<BarberCorner turn={độ} />` xoay đệm, lưng, tay vịn, gác chân quanh trụ (0 là khách nhìn vào gương). **Nhiều góc:** mỗi cảnh nhận `view` = `chinh` · `nguoc` · `cheo` · `cao` ([bảng](assets/bo-sung-15p/bang-boi-canh-nhieu-goc.png)); đã dựng thêm tường còn thiếu (cửa cuối lớp, tủ Lab, cửa cầu thang, cửa gỗ nhà, mặt tiền tiệm, nhà quanh sân bóng). Các hàm vị trí nhận cùng `view`. Người phẳng chỉ vẽ một mặt (lưng sinh viên, giảng viên, gia đình) tự ẩn ở góc nhìn thấy mặt sau của họ; muốn có họ ở góc đó phải vẽ thêm hướng nhìn. |
 | 6 vai phụ, 10 dáng | Giảng viên, mẹ, ba, bác Hai, hai sinh viên; thị uy, thuyết trình, game, cầm túi, giữ búa, suy sụp, áp kính, nhận đồ tay trái — [bảng](assets/bo-sung-15p/bang-vai-phu-tu-the.png) |
 | 6 UI, 1 đối chiếu | Hạn bài, điểm 9.5, mẹ gọi, clip gia đình, báo thức, tiền về; nốt ruồi — [bảng](assets/bo-sung-15p/bang-giao-dien.png) |
 | 4 trạng thái gương | Khung cố định, phản chiếu riêng, kính gợn và lớp cảnh cuối — [bảng](assets/bo-sung-15p/bang-guong.png); [soi điểm cầm/chạm](assets/bo-sung-15p/bang-tiep-xuc.png) |
@@ -125,3 +125,16 @@ Dùng `pose` trên `StudentTwinBody`/`TungSoccer`, trộn từ `STAND_POSE` ho�
 Cả ba nhân vật có đủ chính diện, 3/4, nghiêng, 1/4 (chéo từ sau), sau lưng và quay trái qua `view`/`facing` trong `pose` (xem composition `HoSo02Turnaround`, `HoSo02Spin`). Có `talk` cho khẩu hình, `blink` cho chớp mắt, `turnAt` để xoay dần, 11 dáng trong `TWIN_POSES`, `sampleWalk` cho vòng bước và `prop` cho điện thoại, bát đi theo bàn tay. Nam mặc áo ngủ xám bằng `shirt={PALETTE.nam.sleepShirt}` khi Người Kia đang mặc áo xanh.
 
 **Cập nhật hành động và hiệu ứng 10/11/2026:** đã rà phần A–H trong THAO-LUAN-CANH và bổ sung bảng chuyển động ở [DUNG-CANH.md](DUNG-CANH.md); xem [SFX-VFX.md](SFX-VFX.md) để chọn âm/hình có sẵn và nguồn CC0 ứng viên. Ghi chú này lưu trạng thái 10/11. Hiện đã có kịch bản đủ ba phần và bộ asset 11/11 ở đầu file; chưa xác nhận audio hoặc timeline toàn phim.
+
+## Asset dựng sẵn từ kế hoạch trailer cũ — 10/11/2026, có thể tái dùng
+
+Kế hoạch trailer/opening cũ đã hủy theo yêu cầu chủ repo. Opening và trailer mới dựng theo đúng [bảng phân cảnh](KICH-BAN-TRAILER-VA-OPENING.md) (cảnh 1 demo chỉ là bản thử), và **chỉ bắt đầu khi chủ repo cho phép**. Các asset dưới đây vẫn còn trong repo, dùng lại được nếu hợp.
+
+| Asset | Nguồn | Ghi chú |
+|---|---|---|
+| Ba nền phòng/hành lang thêm | [BOI-CANH.md](assets/boi-canh/BOI-CANH.md#góc-máy): view `mirror` (gương cạnh tủ, prop `mirror`), `giveaway` (góc đồ cho tặng), `stairs`, `pov` (mắt Nam trên gối) | Gương mặc định tắt để các nền cũ không đổi |
+| Trường học và sân thể thao | [`truong-va-san.tsx`](assets/boi-canh/truong-va-san.tsx): sân trường ngày/đêm, hành lang lớp, giảng đường, sân bóng ngày/chiều/đêm | Chờ duyệt |
+| Trang phục Nam | `NAM_OUTFITS` trong [rig](assets/nhan-vat.tsx): `xanh`, `ngu`, `xam-tui`, `dong-phuc`, `the-thao`; [bảng xem](assets/trailer/trang-phuc-nam.png) | Đồ thể thao chưa có giày riêng |
+| Biểu cảm `stare_grin` | Rig, cho bản sao lúc hù | |
+| Clip Nam giữa khung | [TRAILER-NAM-GIUA-KHUNG.md](TRAILER-NAM-GIUA-KHUNG.md), composition `HoSo02NamGiuaKhung` | Chủ repo đã duyệt bản đứng yên, lười biếng, 0,3 giây mỗi nền |
+| Cảnh jumpscare (bản cũ) | Composition `HoSo02TrailerJumpscare` trong [`trailer-jumpscare.tsx`](../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/trailer-jumpscare.tsx) | **Bỏ hẳn 10/11/2026** theo chủ repo: không dùng cho trailer/opening mới, làm lại từ đầu theo [bảng phân cảnh mới](KICH-BAN-TRAILER-VA-OPENING.md). Mã còn trong repo, chưa xóa |

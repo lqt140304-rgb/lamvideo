@@ -139,12 +139,49 @@ Trước khi kích hoạt render bất kỳ shot nào, Animator cần tick đủ
 - [ ] **4. Điểm tì đỡ Vật lý (Support Grounds)**: Không có nhân vật trôi nổi trong không trung; bàn chân phải tiếp xúc mặt sàn (`floor`), mông tiếp xúc nệm (`bed`) hoặc ghế (`chair`).
 - [ ] **5. Ánh sáng Motivated Lighting**: Vùng sáng rọi của đèn bàn và laptop phải đổ bóng đúng hướng đối diện trên tường và sàn nhà.
 - [ ] **6. Âm thanh Nguồn (Motivated Sound)**: Mọi tiếng rơi (búa, đũa, then cài, bát sứ) phải khớp frame với điểm tiếp xúc vật lý trên hình ảnh.
+- [ ] **7. Lớp phủ hòa sắc điện ảnh (Cinematic Grade Overlay)**: Áp dụng component `CinematicGradeOverlay` với `mix-blend-mode: soft-light`, opacity nhẹ $8\% - 14\%$ theo đúng mood của từng phân đoạn (`morning`, `fincher_night`, `mirror_realm`), bảo vệ 100% màu da nhân vật.
 
-> Sáu tiêu chí trên được kiểm tra **cho từng shot khi dựng**, không phải asset. Chưa tick vì chưa có shot nào qua bước render.
+> Bảy tiêu chí trên được kiểm tra **cho từng shot khi dựng**, không phải asset. Chưa tick vì chưa có shot nào qua bước render.
 
 ---
 
-## 6. Tiến độ asset (rà ngày 11/11/2026)
+## 6. Quy Chuẩn Lớp Phủ Hòa Sắc Điện Ảnh (Cinematic Color Grading)
+
+Áp dụng component `CinematicGradeOverlay` (`what-if-studio/src/engine/CinematicGradeOverlay.tsx`) trên đỉnh khung hình:
+
+| Phân đoạn & Cảnh | Mood Preset | Tone màu chủ đạo | Chế độ hòa trộn & Opacity | Hiệu quả thị giác |
+|---|---|---|---|---|
+| **Sáng sớm (P1.01–P1.04, P2.03)** | `morning` | `#1a2b3c` (Xanh lơ lạnh) | `soft-light`, $8\%$ | Tươi tắn nhưng lạnh, cảm giác ngái ngủ đầu ngày. |
+| **Trưa gắt (P1.05, P2.04)** | `noon_harsh` | `#2e2518` (Vàng mù tạt) | `soft-light`, $9\%$ | Ngột ngạt, bí bách, áp lực deadline bài tập lớn. |
+| **Chiều tà (P1.07)** | `sunset_golden` | `#3d200a` (Cam thẫm) | `soft-light`, $12\%$ | Golden hour buông thả, thời gian trôi nhanh khi cày game. |
+| **Đêm phòng trọ (P1.08, P2.01, P2.05, P3.03)** | `fincher_night` | `#0d1f18` (Xanh rêu đen) | `soft-light`, $12\%$ | Đậm chất Chiaroscuro David Fincher, rùng rợn, bí ẩn. |
+| **Đại giảng đường (P3.01)** | `lecture_cold` | `#16252b` (Trắng lạnh công nghiệp) | `soft-light`, $10\%$ | Lạnh lùng, trơ trọi, cô lập trước đám đông phán xét. |
+| **Cõi hư vô gương (P3.05, Trailer)** | `mirror_realm` | `#051824` (Deep Teal Abyss) | `color`, $18\%$ | Vực thẳm không đáy, vô thực, câm lặng tuyệt đối. |
+
+### Cách Dùng Nhanh Khi Dựng Video (Quick Integration Guide)
+
+Trong bất kỳ Composition, Scene hoặc Shot nào của Remotion, Animator chỉ cần import từ engine và đặt component này ở lớp trên cùng của khung hình:
+
+```tsx
+import React from 'react';
+import { CinematicGradeOverlay } from '../../../../what-if-studio/src/engine';
+// hoặc nếu đang ở trong what-if-studio/src: import { CinematicGradeOverlay } from './engine';
+
+export const SceneDemo: React.FC = () => {
+  return (
+    <div style={{ position: 'relative', width: 1920, height: 1080, overflow: 'hidden' }}>
+      {/* 1. Các layer bối cảnh nền, nhân vật, animation, đạo cụ... */}
+      <RoomBackground view="desk" />
+      <NamCharacter pose="desk_slump" />
+
+      {/* 2. Lớp phủ hòa sắc điện ảnh tự động (Tự có tone màu, hạt phim 35mm và vignette) */}
+      <CinematicGradeOverlay mood="fincher_night" vignetteStrength={0.45} />
+    </div>
+  );
+};
+```
+
+## 7. Tiến độ asset (rà ngày 11/11/2026)
 
 Đánh dấu `[x]` khi đã có bản tĩnh dùng được trong repo. Dáng mới chỉ được duyệt bằng ảnh tĩnh, chưa kiểm chứng chuyển động. Đường dẫn tính từ `assets/`.
 
@@ -181,7 +218,7 @@ Trước khi kích hoạt render bất kỳ shot nào, Animator cần tick đủ
 - [x] UI-02 Không làm phiền: `khong-lam-phien` *(mới)*
 - [x] UI-03 Nhóm Zalo: `han-bai`. Nội dung đang là lịch họp Lab 402; nếu cần câu khen "đỉnh chóp" thì sửa chữ khi chốt thoại.
 - [x] UI-04 Điểm 9.5: `diem-95`
-- [x] UI-05 Mẹ gọi và tiền về: `me-goi`, `tien-ve`. **Lệch số tiền:** UI ghi 2.000.000 đ, checklist ghi 3 triệu; cần chủ repo chốt.
+- [x] UI-05 Mẹ gọi và tiền về: `me-goi`, `tien-ve`. Số tiền đã chốt 3.000.000 đ.
 - [x] UI-06 Clip gia đình: `clip-gia-dinh`
 - [x] UI-07 Laptop bài tập lớn: `LaptopScreen` 1920×1080 *(mới)*
 

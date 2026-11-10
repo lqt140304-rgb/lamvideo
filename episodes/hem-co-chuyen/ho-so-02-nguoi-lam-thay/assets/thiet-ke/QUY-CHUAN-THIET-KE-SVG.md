@@ -13,7 +13,8 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 
 1. **Đường nét hữu cơ (Organic Bezier Curves):**
    - Mọi bộ phận cơ thể, nếp áo, lọn tóc đều sử dụng các đường cong bezier (`Q` hoặc `C`) khép kín (`Z`).
-   - Viền nét (ink stroke) liền mạch, dùng `stroke-linecap="round"` và `stroke-linejoin="round"`.
+   - **Cập nhật 10/11/2026 — không viền ngoài:** thân, tay, chân, đầu, tai, tóc, giày dép là khối màu liền, không vẽ đường bao. Chỉ giữ nét trong: mắt, mày, mũi, miệng, nét tai trong, nếp áo, cổ áo, cúc. Tay/chân phía sau tối hơn khoảng 9–10% để tách lớp thay cho viền (`tone()` trong `nhan-vat.tsx`). Các dòng nói về viền ngoài bên dưới là quy ước cũ.
+   - Nét trong liền mạch, dùng `stroke-linecap="round"` và `stroke-linejoin="round"`.
    - Tuyệt đối không để nét thừa, nét hở viền (leak borders), hoặc các đường thẳng cụt lơ lửng.
 
 2. **Độ rủ tự nhiên & Trọng lực (Gravity & Weight):**

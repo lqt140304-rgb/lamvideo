@@ -74,6 +74,13 @@
       "h": 800,
       "svg": "bang-tiep-xuc.svg",
       "png": "bang-tiep-xuc.png"
+    },
+    {
+      "id": "bang-boi-canh-nhieu-goc",
+      "w": 2000,
+      "h": 1980,
+      "svg": "bang-boi-canh-nhieu-goc.svg",
+      "png": "bang-boi-canh-nhieu-goc.png"
     }
   ],
   "assets": [
