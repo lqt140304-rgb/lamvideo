@@ -31,6 +31,8 @@ export const VIEWS = {
   stairs: { pos: [-300, 135, 40], target: [0, -40], mm: 24, horizon: 360 },
   /** Góc đồ cho tặng cuối hành lang, nơi Nam lấy gương. */
   giveaway: { pos: [-262, 125, 420], target: [-14, 668], mm: 30, horizon: 470 },
+  /** Mắt Nam nằm trên gối, nhìn dọc nệm về phía cửa. */
+  pov: { pos: [420, 42, 332], target: [0, 215], mm: 28, horizon: 800 },
 } satisfies Record<string, Cam>;
 export type RoomView = keyof typeof VIEWS;
 
@@ -172,7 +174,7 @@ export type RoomProps = {
 
 type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: number; raw?: boolean };
 
-const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng' };
+const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
 export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
