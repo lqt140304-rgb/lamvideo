@@ -62,7 +62,16 @@ export type NamMood = 'sleepy' | 'annoyed' | 'hesitant' | 'scared' | 'agitated' 
 export const lw = (n: number) => `calc(${n}px * var(--lw, 1))`;
 /** Kiểu viền bao: 'ink' = nét mực như mẫu; 'tint' = viền là tông tối của chính mảng màu; 'none' = bỏ viền bao (giữ nét mắt, mày, miệng). */
 export type Outline = 'ink' | 'tint' | 'none';
-const OutlineCtx = React.createContext<Outline>('ink');
+const OutlineCtx = React.createContext<Outline>('none');
+// Tách lớp không viền: tô sẵn màu tối hơn (lớp sau, >0) hoặc sáng hơn (lớp trước, <0) cho mảng màu. Rẻ hơn nhiều so với CSS filter khi render.
+const ToneCtx = React.createContext(0);
+const toned = (hex: string, t: number) => {
+  if (!t) return hex;
+  const m = /^#([0-9a-f]{6})$/i.exec(hex);
+  if (!m) return hex;
+  const n = parseInt(m[1], 16), c = (v: number) => Math.round(t > 0 ? v * (1 - t) : v + (255 - v) * -t).toString(16).padStart(2, '0');
+  return `#${c((n >> 16) & 255)}${c((n >> 8) & 255)}${c(n & 255)}`;
+};
 const darken = (hex: string, k = 0.42) => {
   const m = /^#([0-9a-f]{6})$/i.exec(hex);
   if (!m) return PALETTE.ink;
@@ -552,6 +561,7 @@ const circle = (p: P, r: number) => `M ${p.x - r} ${p.y} a ${r} ${r} 0 1 0 ${2 *
 /** Một khối liền: vẽ nền mực rồi tô màu đè lên, nên khớp gập bao nhiêu cũng không có đường cắt ngang bên trong. */
 const Blob: React.FC<{ d: string[]; fill: string; w?: number }> = ({ d, fill, w = 4 }) => {
   const mode = React.useContext(OutlineCtx);
+  fill = toned(fill, React.useContext(ToneCtx));
   const ink = mode === 'tint' ? darken(fill) : PALETTE.ink;
   return (
     <g>
@@ -772,12 +782,12 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; chi
 };
 
 /** Ghép nhân vật từ khung xương: bàn chân → chân → tay sau → áo → đầu → tay trước. */
-export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline; headOutline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'ink', headOutline }) => {
+export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline; headOutline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'none', headOutline }) => {
   const gid = useClipId('ground');
   const awayClip = useClipId('away');
   // Không viền: tách lớp bằng độ sáng — phần nằm sau (tay xa, chân sau) tối hơn, cẳng tay gập đè lên trước sáng hơn.
-  const toneBack = outline === 'none' ? { filter: 'brightness(0.8)' } : undefined;
-  const toneFront = outline === 'none' ? { filter: 'brightness(1.07)' } : undefined;
+  const back = (n: React.ReactNode) => (outline === 'none' ? <ToneCtx.Provider value={0.2}>{n}</ToneCtx.Provider> : n);
+  const front = (n: React.ReactNode) => (outline === 'none' ? <ToneCtx.Provider value={-0.07}>{n}</ToneCtx.Provider> : n);
   const view: View = outfit.views ? raw.view ?? 'three' : 'three'; // nhân vật chưa vẽ đủ góc thì giữ 3/4
   const o = { ...outfit, ...outfit.views?.[view] };
   // chính diện và sau lưng không lật được: hai bên phải giữ đúng chỗ
@@ -818,11 +828,11 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <ellipse cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={13} fill={PALETTE.shadowFloor} stroke="none" />
       )}
       <g transform={`translate(${pose.x} ${r.dy})`}>
-        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`} style={toneBack}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
+        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
           {!side && <Blob fill={o.pants} d={[`M -30 335 H 32 L 30 ${crotch - 4} Q 1 ${crotch - 30} -28 ${crotch - 4} Z`]} />}
-          <g style={toneBack}><Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} /></g>
+          {back(<Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} />)}
         </Shade>
         <Shade l={l} facing={facing}>
           <Leg c={r.legR} side="R" foot={r.footR} o={o} view={view} />
@@ -830,9 +840,9 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         </Shade>
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
           {/* Nhìn từ sau: khuỷu, cẳng tay hai bên nằm ngoài hông nên đè lên quần; phần tay vào giữa thân (bàn tay đưa ra trước) bị thân che nên cắt bỏ dải giữa. */}
-          {away && <g clipPath={`url(#${awayClip})`} style={toneBack}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath><Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade></g>}
-          {!frontL && !side && !away && <g style={toneBack}><Shade l={l} facing={facing}>{whole(armL)}</Shade></g>}
-          {!frontR && !away && <g style={toneBack}><Shade l={l} facing={facing}>{whole(armR)}</Shade></g>}
+          {away && <g clipPath={`url(#${awayClip})`}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath>{back(<Shade l={l} facing={facing}>{whole(armL)}{whole(armR)}</Shade>)}</g>}
+          {!frontL && !side && !away && back(<Shade l={l} facing={facing}>{whole(armL)}</Shade>)}
+          {!frontR && !away && back(<Shade l={l} facing={facing}>{whole(armR)}</Shade>)}
           <Shade l={l} facing={facing}>
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
             {!frontR && <Cuff c={r.armR} o={o} />}
@@ -840,8 +850,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
           <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
-          {frontL && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} /><g style={toneFront}>{armL.over}</g></Shade>}
-          {frontR && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} /><g style={toneFront}>{armR.over}</g></Shade>}
+          {frontL && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade>}
+          {frontR && <Shade l={l} facing={facing} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
         </g>
       </g>
     </g>
@@ -960,6 +970,7 @@ export const TungHead: React.FC<{
   scale?: number;
 }> = ({ mood = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1 }) => {
   const clip = useClipId(id);
+  const o = useHeadLine();
   const isAnnoyed = mood === 'annoyed';
   const isFocused = mood === 'focused';
   if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} />;
@@ -972,20 +983,21 @@ export const TungHead: React.FC<{
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} style={{ strokeWidth: lw(3.5) }} strokeLinejoin="round" strokeLinecap="round">
       {/* Cổ khỏe khoắn */}
-      <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -26 142 L -26 182 Q -6 200 18 181 L 20 138'} fill={PALETTE.skin} />
+      <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -26 142 L -26 182 Q -6 200 18 181 L 20 138'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -21 155 Q 0 171 21 155 L 21 175 Q 0 188 -21 175 Z' : 'M -24 156 Q -6 172 19 154 L 18 174 Q -6 186 -25 174 Z'} fill={PALETTE.skinShadow} stroke="none" />
 
       {/* Đầu & Cằm thể thao sáng sủa, gọn gàng */}
-      <path d={front ? 'M -56 62 Q -50 25 0 25 Q 50 25 56 62 L 58 104 Q 58 132 38 152 Q 18 165 0 164 Q -18 165 -38 152 Q -58 132 -58 104 Z' : 'M -54 62 Q -50 25 -9 24 Q 40 24 51 64 L 53 108 Q 62 126 48 144 Q 34 162 4 163 Q -28 162 -42 138 L -55 100 Z'} fill={PALETTE.skin} />
+      <path d={front ? 'M -56 62 Q -50 25 0 25 Q 50 25 56 62 L 58 104 Q 58 132 38 152 Q 18 165 0 164 Q -18 165 -38 152 Q -58 132 -58 104 Z' : 'M -54 62 Q -50 25 -9 24 Q 40 24 51 64 L 53 108 Q 62 126 48 144 Q 34 162 4 163 Q -28 162 -42 138 L -55 100 Z'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
 
       {/* Tai trái */}
-      <path d={front ? 'M -54 88 Q -82 74 -84 99 Q -85 120 -57 124 M 58 87 Q 82 74 84 99 Q 85 120 58 124' : 'M -46 88 Q -74 74 -76 99 Q -77 120 -49 124'} fill={PALETTE.skin} />
+      <path d={front ? 'M -54 88 Q -82 74 -84 99 Q -85 120 -57 124 M 58 87 Q 82 74 84 99 Q 85 120 58 124' : 'M -46 88 Q -74 74 -76 99 Q -77 120 -49 124'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -72 99 Q -64 93 -60 106 M 72 99 Q 64 93 60 106' : 'M -64 99 Q -56 93 -52 106'} fill="none" style={{ strokeWidth: lw(2.4) }} />
 
       {/* TÓC NGẮN THỂ THAO TỈA LAYER TỰ NHIÊN STYLE B (Không cộm, không thừa) */}
       <path
         d={front ? 'M -58 86 Q -66 68 -62 50 L -70 44 Q -60 24 -40 22 L -46 12 Q -26 12 -12 8 L -14 0 Q 2 -6 16 2 L 14 8 Q 30 4 42 16 L 40 22 Q 54 24 62 40 L 66 46 L 58 56 L 58 86 Q 50 62 34 52 Q 22 64 6 62 L 8 50 Q -14 70 -42 66 L -46 86 Z' : 'M -48 90 Q -60 76 -57 52 L -66 48 Q -58 26 -38 24 L -44 14 Q -26 14 -12 10 L -14 2 Q 2 -4 16 4 L 14 10 Q 28 6 40 18 L 38 24 Q 50 24 56 36 L 52 46 Q 44 48 40 56 L 32 52 Q 24 66 8 68 L 12 54 Q -6 72 -24 70 L -18 56 Q -34 68 -42 78 Z'}
         fill={PALETTE.tung.hair}
+        {...o(PALETTE.tung.hair)}
       />
       {/* Nếp rãnh lọn tóc nhẹ */}
       <path d="M -16 18 Q -4 12 6 16 M 16 14 Q 26 16 34 26 M -8 38 Q 4 38 12 48" fill="none" stroke={PALETTE.tung.hair} style={{ strokeWidth: lw(2.2) }} />
