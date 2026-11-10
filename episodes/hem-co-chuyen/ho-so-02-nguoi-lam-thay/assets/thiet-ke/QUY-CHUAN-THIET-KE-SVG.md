@@ -85,6 +85,25 @@ Phong cách SVG mới (Style B) thay thế hoàn toàn cho lối vẽ hình họ
 
 Chủ repo đã duyệt hướng này qua các vòng sửa ngày 10/11/2026: **cartoon mềm, ít nét, liền mạch, không cứng**. Khớp phải đúng logic nhưng không được đánh đổi vẻ mềm của mẫu.
 
+### 4.0. Kiểu hiển thị đã chốt (10/11/2026): không viền ngoài, giữ nét mặt và nếp chính, bóng mềm hẹp
+
+Chủ repo đã so ba kiểu viền đen, viền màu và không viền ([bảng so](so-sanh-vien.png)), rồi chốt **không viền ngoài**. Đây là mặc định của rig (`outline: 'none'`). Hai kiểu `ink` và `tint` vẫn còn để thử, nhưng không dùng cho phim.
+
+| Giữ | Bỏ hoặc đổi |
+|---|---|
+| **Nét mặt**: mắt, mi, con ngươi, mày, mũi, miệng, nốt ruồi, nét trong tai, vẫn bằng mực | Viền bao quanh đầu, cổ, tai, tóc, áo, quần, tay, chân |
+| **Nếp chính** theo mục 4.1 (cổ áo, nách, vạt, gối, ống chân, gấp khuỷu), đổi sang tông tối trong suốt (`--inner-ink`), không dùng mực đen | Thêm nếp để bù cho việc mất viền |
+| **Tách lớp bằng tương phản màu**: tay xa và chân sau tối hơn khoảng 20%, cẳng tay đè trước sáng hơn khoảng 7% (tô sẵn qua `ToneCtx`) | Dùng CSS `filter` để làm tối/sáng, vì render chậm gấp đôi |
+| **Bóng mềm nhưng hẹp** (chủ repo chọn "loang nhưng gọn, đừng chiếm nhiều"): mép tối chuyển mềm (độ mờ 4), vùng tối chỉ ôm mép khối, không phủ quá nửa bộ phận (độ dày 15 trong cảnh), độ dày tỉ lệ theo cỡ bộ phận (`Shade size`: đầu 2.2, thân 1.3, chân 0.85, tay 0.6), cùng một hướng sáng cho đầu và thân ([so trước/sau](sang-toi-dong-bo.png), [loang rộng, gọn sắc và loang hẹp (chọn)](bong-gon.png)) | Bóng cắt sắc kiểu cel; đầu phẳng một màu trong khi tay tối cả cánh |
+
+| **Tóc nhận bóng như mặt** (mảng tối hẹp + viền sáng; chủ repo đã thử bỏ rồi chốt giữ) | Tô tóc phẳng tách khỏi ánh sáng của đầu |
+
+| **Nguồn sáng đọc được**: cảnh ban ngày bật vệt nắng xiên từ cửa sổ (`RoomScene rays`) nằm sau người, chỉ phủ rất nhẹ lên nhân vật; mảng tối lạnh (`#3c4763`, độ đậm 0.55), viền sáng ấm rõ (0.75) ([xem](nang-cua-so.png)) | Vệt sáng phủ đặc lên người làm nhân vật mờ đục mất tương phản |
+
+| **Chỉ có khối sáng–tối khi đứng trong nắng**: độ đậm mảng tối/viền sáng nhân theo mức nắng chiếu tới thân (`sunExposure` của bối cảnh: dò tia nắng qua ô cửa sổ, lấy mẫu dọc thân). Ngoài nắng (bồn rửa, chỗ nằm ngủ) chỉ còn bóng tiếp đất dưới chân. Phòng tối dần theo khoảng cách tới vùng nắng (`RoomScene falloff`), đè lên cả người ([xem](bong-theo-nang.png)) | Đổ bóng cửa sổ lên người đứng trong góc không có nắng |
+
+Kiểm tra: đặt mặt cạnh thân trong cùng khung. Hai bên phải có cùng hướng sáng và cùng tỉ lệ vùng tối. Chỗ da chồng da (tay ôm bát, tay đặt lên cẳng tay) phải tách được bằng độ sáng. Bảng cũ có viền trong mục 4.1–4.5 vẫn đúng về hình khối và nếp, chỉ khác phần hiển thị viền.
+
 ### 4.1. Nét và khối
 
 | Làm | Không làm |
