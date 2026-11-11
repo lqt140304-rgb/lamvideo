@@ -1092,10 +1092,10 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
         {/* bóng hàm đổ xuống cổ + một dải tối nhẹ ở mép trước cổ */}
         <path d={NECK_D} transform={NECK_T} fill={PALETTE.skinShadow} opacity={0.4} />
         <path d={NECK_D} transform={`translate(-6.5 0) ${NECK_T}`} fill={PALETTE.skin} />
-        <g transform="translate(5 3) rotate(5 -8 150) scale(1.1)"><path d={tungSkinPath(drop)} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.7} /></g>
+        <g transform="translate(5 8) rotate(5 -8 150) scale(1.1)"><path d={tungSkinPath(drop)} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.7} /></g>
       </g>
       <path d="M -31 183 Q -10 199 17 190" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6.5) }} strokeLinecap="butt" />
-      <g transform="translate(5 3) rotate(5 -8 150) scale(1.1)">
+      <g transform="translate(5 8) rotate(5 -8 150) scale(1.1)">
       {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
       <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <g clipPath={`url(#${clip}-face)`} stroke="none">
