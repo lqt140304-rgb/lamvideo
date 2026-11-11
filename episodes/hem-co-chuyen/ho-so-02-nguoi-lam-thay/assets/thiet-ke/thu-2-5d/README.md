@@ -66,5 +66,6 @@ Chủ repo yêu cầu thêm chi tiết vật lý để nhân vật phản ứng 
 - Góc sau lưng: rig chỉ cho tay vung nhẹ nên chưa giơ tay chạm gương như ảnh tham chiếu.
 - Mỗi lớp cắt dựng lại cả nhân vật (~30–35 bản trong mask), thêm bộ lọc làm mềm → render nặng hơn 2D rõ rệt. Chưa đo trên video.
 - Vật lý chưa gắn với va chạm thật của bối cảnh (chạm bàn, đồ vật): `Impact` do người dựng đặt tay; chưa có chân bước đỡ khi bị đẩy mạnh; tóc chỉ xoay cả khối, chưa từng lọn riêng; vạt áo/tay áo chưa tách chuyển động riêng khỏi thân; mới kiểm tra ở góc 3/4, quay phải. Mới xem bằng dải khung tĩnh, chưa xem video chạy liền.
+- Bảng `trong-phong.png` dựng lại sau khi hợp nhất ánh sáng theo mặt của phòng (nhánh khác); lớp 2.5D vẫn lấy hướng sáng từ `lightFor`, chưa đọc mức tối/sáng theo vùng của phòng mới nên cường độ hai bên chỉ khớp bằng mắt.
 - Phòng 3D chưa có nguồn sáng laptop riêng: ở cảnh đêm laptop, đèn bàn ấm vẫn bật trong nền trong khi Nam nhận ánh xanh từ màn hình.
 - Opening mẫu (`HoSo02Opening25D`, bản sao `opening.tsx` trong studio) vẫn dùng `Nam25D` với mặc định ban ngày; chưa gán kiểu sáng theo từng shot và **chưa render lại video** sau vòng 2. Video vòng 1 (local, không commit): `what-if-studio/out/ho-so-02-nguoi-lam-thay/thu-2-5d/opening-nam-2-5d.mp4`. Render trong môi trường này cần `--browser-executable` trỏ Chromium có sẵn vì mạng chặn host tải Chrome của Remotion.

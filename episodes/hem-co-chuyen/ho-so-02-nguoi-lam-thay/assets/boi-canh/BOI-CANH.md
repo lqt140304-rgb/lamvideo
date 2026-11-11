@@ -7,6 +7,8 @@
 
 ![Bảng các góc máy](boi-canh.png)
 
+> **Ánh sáng 11/11/2026 (chờ duyệt):** theo ảnh đề xuất của chủ repo, `RoomScene` có `grade` (mặc định bật). Ánh sáng làm theo **từng mặt vật thể**: mỗi mặt có ba mức vẽ sẵn (hướng nguồn sáng và ở gần thì ám ấm, quay lưng thì ám lạnh, còn lại giữ màu gốc), nguồn chính là cửa sổ (ngày), đèn bàn (đêm), đèn tuýp (hành lang); ban đêm cửa sổ chỉ hắt ánh trăng rất nhẹ. Thêm vài mảng nắng vàng trên sàn và bóng ngắn vẽ sẵn của nệm, tủ, bàn, bếp (ngày). Người đặt qua `actors` được ám ấm phía nguồn sáng và ám lạnh phía ngược lại, cắt đúng theo hình người (mask alpha); người truyền qua `children` thì không. Lớp phủ toàn ảnh chỉ còn là hòa màu nhẹ ở cuối. Truyền `grade={false}` để lấy lại bảng màu phẳng cũ.
+
 ## Mặt bằng
 
 Phòng rộng 460 cm, cao 265 cm. Trục x từ tường cửa sang tường cửa sổ, z từ tường sau ra phía máy.
