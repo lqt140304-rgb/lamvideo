@@ -899,7 +899,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const fl = wall.map((p) => add(p, mul(sunDir, p[1] / -sunDir[1])));
     return behind(fl) ? null : fl.map((p) => P(p));
   }).filter(Boolean) as P2[][] : [];
-  if (sunGold.length) sink.splice(rayAt, 0, <g key="sun-gold" opacity={0.9 * (1 - sun)}>{sunGold.map((h, i) => <path key={i} d={`M${h.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} fill="#ffc861" opacity={0.62} />)}</g>);
+  if (sunGold.length) sink.splice(rayAt, 0, <g key="sun-gold" filter={`url(#${uid}-blur-sm)`} opacity={0.8 * (1 - sun)}>{sunGold.map((h, i) => <path key={i} d={`M${h.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} fill="#ffdc9a" opacity={0.5} />)}</g>);
   const scr = (p: V3) => (Q(p)[2] > NEAR ? P(p) : null);
   const winS = scr(LIGHT_SOURCES.window), lampS = scr(LIGHT_SOURCES.lamp), tubeS = scr([-86, 258, 215]);
   [...objs].sort((a, b) => dist(b) - dist(a)).forEach((o) => {
@@ -916,12 +916,13 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         <filter id={`${uid}-blur-sm`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" /></filter>
         <radialGradient id={`${uid}-lamp`}><stop offset="0" stopColor="#ffd894" stopOpacity=".55" /><stop offset=".5" stopColor="#f2b56a" stopOpacity=".18" /><stop offset="1" stopColor="#f2b56a" stopOpacity="0" /></radialGradient>
         <linearGradient id={`${uid}-cool`} x1="0" x2="1" y1="0" y2="0"><stop offset="0" stopColor="#4d6185" stopOpacity=".3" /><stop offset=".62" stopColor="#4d6185" stopOpacity="0" /></linearGradient>
-        <linearGradient id={`${uid}-fall`} x1="0" x2="0" y1="0" y2="1"><stop offset=".1" stopColor="#585a70" stopOpacity="0" /><stop offset="1" stopColor="#6a6470" stopOpacity=".28" /></linearGradient>
+        <linearGradient id={`${uid}-fall`} x1="0" x2="0" y1="0" y2="1"><stop offset=".1" stopColor="#585a70" stopOpacity="0" /><stop offset="1" stopColor="#6a6470" stopOpacity=".2" /></linearGradient>
         <radialGradient id={`${uid}-sunglow`}><stop offset="0" stopColor="#ffe6a6" stopOpacity=".75" /><stop offset=".35" stopColor="#ffd98c" stopOpacity=".3" /><stop offset="1" stopColor="#ffd98c" stopOpacity="0" /></radialGradient>
         <radialGradient id={`${uid}-lampwarm`}><stop offset="0" stopColor="#ffc56e" stopOpacity=".7" /><stop offset=".35" stopColor="#f59a3c" stopOpacity=".3" /><stop offset="1" stopColor="#f59a3c" stopOpacity="0" /></radialGradient>
         <radialGradient id={`${uid}-moon`}><stop offset="0" stopColor="#6f8fd6" stopOpacity=".4" /><stop offset="1" stopColor="#6f8fd6" stopOpacity="0" /></radialGradient>
         <radialGradient id={`${uid}-tube`}><stop offset="0" stopColor="#fff3c9" stopOpacity=".95" /><stop offset=".3" stopColor="#ffe09a" stopOpacity=".42" /><stop offset="1" stopColor="#ffe6a6" stopOpacity="0" /></radialGradient>
         <radialGradient id={`${uid}-vig`} cx=".5" cy=".5" r=".75"><stop offset=".5" stopColor="#101522" stopOpacity="0" /><stop offset="1" stopColor="#101522" stopOpacity=".42" /></radialGradient>
+        <radialGradient id={`${uid}-far`}><stop offset=".12" stopColor="#3c4a6e" stopOpacity="0" /><stop offset=".45" stopColor="#3c4a6e" stopOpacity=".22" /><stop offset=".8" stopColor="#3c4a6e" stopOpacity=".42" /></radialGradient>
         <linearGradient id={`${uid}-win`} x1="1" x2="0" y1="0" y2=".5"><stop offset="0" stopColor="#fff6d8" stopOpacity=".28" /><stop offset=".6" stopColor="#fff6d8" stopOpacity="0" /></linearGradient>
       </defs>
       <rect width="1920" height="1080" fill={night ? '#111722' : '#d9cfb9'} />
@@ -935,24 +936,25 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       {grade && (
         <g data-layer="light-grade" pointerEvents="none">
           {!night && !inHall && <>
-            <rect width="1920" height="1080" fill="#ffd9a0" opacity={0.2} style={{ mixBlendMode: 'multiply' }} />
-            <rect width="1920" height="1080" fill={`url(#${uid}-cool)`} style={{ mixBlendMode: 'multiply' }} />
-            {winS && <circle cx={winS[0]} cy={winS[1]} r={560} fill={`url(#${uid}-sunglow)`} opacity={1 - 0.7 * sun} style={{ mixBlendMode: 'screen' }} />}
-            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={0.5} />
+            <rect width="1920" height="1080" fill="#ffe3b8" opacity={0.14} style={{ mixBlendMode: 'multiply' }} />
+            {winS && <circle cx={winS[0]} cy={winS[1]} r={2300} fill={`url(#${uid}-far)`} opacity={0.55} style={{ mixBlendMode: 'multiply' }} />}
+            {winS && <circle cx={winS[0]} cy={winS[1]} r={620} fill={`url(#${uid}-sunglow)`} opacity={0.6 * (1 - 0.7 * sun)} style={{ mixBlendMode: 'screen' }} />}
+            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={0.3} />
           </>}
           {night && !inHall && <>
-            <rect width="1920" height="1080" fill="#1d2f66" opacity={0.42} style={{ mixBlendMode: 'multiply' }} />
+            <rect width="1920" height="1080" fill="#24376e" opacity={0.3} style={{ mixBlendMode: 'multiply' }} />
+            {lampS && <circle cx={lampS[0]} cy={lampS[1]} r={2300} fill={`url(#${uid}-far)`} opacity={0.9} style={{ mixBlendMode: 'multiply' }} />}
             <rect width="1920" height="1080" fill="#2b4c96" opacity={0.1} style={{ mixBlendMode: 'screen' }} />
-            {lampS && <circle cx={lampS[0] - 20} cy={lampS[1] + 30} r={320} fill={`url(#${uid}-lampwarm)`} style={{ mixBlendMode: 'screen' }} />}
+            {lampS && <circle cx={lampS[0] - 20} cy={lampS[1] + 30} r={380} opacity={0.6} fill={`url(#${uid}-lampwarm)`} style={{ mixBlendMode: 'screen' }} />}
             {winS && <circle cx={winS[0]} cy={winS[1]} r={200} opacity={0.6} fill={`url(#${uid}-moon)`} style={{ mixBlendMode: 'screen' }} />}
-            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} />
+            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={0.5} />
           </>}
           {inHall && <>
             {night && <rect width="1920" height="1080" fill="#16244f" opacity={0.5} style={{ mixBlendMode: 'multiply' }} />}
             <rect width="1920" height="1080" fill={`url(#${uid}-fall)`} style={{ mixBlendMode: 'multiply' }} />
             {!night && <rect width="1920" height="1080" fill="#ffe2b0" opacity={0.14} style={{ mixBlendMode: 'multiply' }} />}
-            {tubeS && <ellipse cx={tubeS[0]} cy={tubeS[1] + 110} rx={820} ry={430} fill={`url(#${uid}-tube)`} style={{ mixBlendMode: 'screen' }} />}
-            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={night ? 1 : 0.6} />
+            {tubeS && <ellipse cx={tubeS[0]} cy={tubeS[1] + 110} rx={900} ry={520} opacity={0.6} fill={`url(#${uid}-tube)`} style={{ mixBlendMode: 'screen' }} />}
+            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={night ? 0.8 : 0.35} />
           </>}
         </g>
       )}
