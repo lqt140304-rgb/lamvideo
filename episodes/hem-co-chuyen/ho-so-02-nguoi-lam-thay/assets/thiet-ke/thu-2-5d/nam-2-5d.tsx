@@ -220,7 +220,7 @@ export const DANG_THAM_CHIEU: Partial<Build> = {
   shoulderX: 0.9, // vai vừa phải (bản trước 0,98 trông "đô")
   arm: [17.5, 15.5, 13.5], // tay thon như bản đã chốt, không to bắp
   hand: 1.18, // nắm tay vừa
-  sleeve: [24, 26, 26],
+  sleeve: [26, 29, 30], // tay áo xòe khỏi cánh tay như mẫu
   pants: [28, 26, 26], // ống thẳng, rộng đều, không loe
   pantsEnd: 0.84, // quần lửng, lộ cổ chân
   foot: 1,
@@ -242,11 +242,12 @@ export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway)
   const vs = Object.fromEntries(Object.entries(views).map(([k, v]) => [k, { ...v!, hem: swayHem(v!.hem, sway) }])) as NonNullable<Outfit['views']>;
   // Góc nghiêng dựng lại theo ảnh tham chiếu: lưng gần thẳng, ngực dốc chéo ra trước từ cổ áo rồi mới phình (khuôn thân áo nghiêng đã chốt là mái vòm đối xứng).
   vs.side = {
-    torso: 'M -26 184 Q -38 185 -45 200 Q -50 214 -50 260 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z',
+    // vai sau tròn (không góc nhọn), lưng hơi cong ở trên rồi thẳng xuống
+    torso: 'M -26 184 Q -44 186 -48 212 Q -51 236 -50 264 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z',
     hem: swayHem([[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]], sway),
     detail: <path d="M 33 262 Q 38 292 36 330" fill="none" style={{ strokeWidth: lw(2.5) }} />,
   };
-  return { ...nb, hem: swayHem(nb.hem, sway), views: vs };
+  return { ...nb, hem: swayHem(nb.hem, sway), views: vs, sleeveFold: true };
 };
 /** Đầu thon lại (ngang ×0,9) và hạ thấp (cổ ngắn, cằm sát vai) như ảnh tham chiếu; tâm phóng ở chân cổ. */
 const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';

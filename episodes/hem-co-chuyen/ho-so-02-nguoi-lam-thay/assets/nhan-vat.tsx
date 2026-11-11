@@ -657,6 +657,8 @@ export type Outfit = {
   views?: Partial<Record<View, { torso: string; hem: [number, number][]; detail: Detail }>>;
   /** Vóc dáng riêng; bỏ trống = DEFAULT_BUILD. */
   build?: Partial<Build>;
+  /** Góc nghiêng: vẽ nếp mép sau và gấu tay áo để tay áo tách khỏi thân (bỏ trống = như đã chốt). */
+  sleeveFold?: boolean;
 };
 const normalOf = (a: P, b: P): P => { const l = Math.max(0.001, Math.hypot(b.x - a.x, b.y - a.y)); return { x: -(b.y - a.y) / l, y: (b.x - a.x) / l }; };
 const across = (a: P, b: P, t: number, r: number, off = 0) => { const p = mix(a, b, t), n = normalOf(a, b); return `M ${p.x + n.x * (off - r)} ${p.y + n.y * (off - r)} L ${p.x + n.x * (off + r)} ${p.y + n.y * (off + r)}`; };
@@ -875,7 +877,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             <path d="M-29 17L-10 0 3 13 18-3 32 14" stroke="#c7d5bc" strokeWidth={3} fill="none" />
           </g>}
           {frontL && <g data-limb="L"><Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade></g>}
-          {frontR && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
+          {frontR && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{o.sleeveFold && side && <path data-fold="sleeve" d={`${alongSide(r.armR.root, mix(r.armR.root, r.armR.mid, o.sleeveEnd), 21)} ${across(r.armR.root, r.armR.mid, o.sleeveEnd * 0.97, 22)}`} fill="none" style={{ strokeWidth: lw(2.3), stroke: 'var(--inner-ink, #2b2b2b)' }} opacity={0.75} />}{front(armR.over)}</Shade>}
         </g>
       </g>
     </g>
@@ -1153,7 +1155,7 @@ const namSkinPath = (d: number) => {
 };
 // đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
 const NAM_NECK_D = 'M -26 120 L -27 172 Q -27 180 -26 184 Q -18 192 -8 196 Q 8 195 22 198 Q 11 180 7 160 L 6 120 Z';
-const NAM_HEAD_T = 'translate(4 33.5) rotate(4 -8 150) translate(-8 150) scale(1.07) translate(8 -150)';
+const NAM_HEAD_T = 'translate(8 31) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
 const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, mole, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
@@ -1195,10 +1197,14 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
           <path d={NAM_SIDE.hair} fill={PALETTE.nam.hair} {...o(PALETTE.nam.hair)} visibility="visible" />
           <path d={NAM_SIDE.curl} transform="translate(0 5)" fill={PALETTE.nam.hair} {...o(PALETTE.nam.hair)} visibility="visible" />
         </g>
-        <path d={NAM_SIDE.ear} fill={PALETTE.skin} {...o(PALETTE.skin)} />
-        <path d={NAM_SIDE.earLine} fill="none" style={{ strokeWidth: lw(2.4) }} />
+        {/* tai lùi ra sau chồng lên mảng tóc (nền tối) nên đọc được hình tai như mẫu; lòng tai có mảng tối nhẹ */}
+        <g transform="translate(-4.5 0)">
+          <path d={NAM_SIDE.ear} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+          <path d={NAM_SIDE.ear} transform="translate(-14 98) scale(0.62) translate(14 -98) translate(3 0)" fill={PALETTE.skinShadow} opacity={0.45} stroke="none" />
+          <path d={NAM_SIDE.earLine} fill="none" style={{ strokeWidth: lw(2.4) }} />
+        </g>
         <defs><clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98.5} rx={11} ry={ry} /></clipPath></defs>
-        <ellipse cx={36} cy={98.5} rx={11} ry={ry} fill={PALETTE.eyeWhite} style={{ strokeWidth: lw(2.5) }} />
+        <ellipse cx={36} cy={98.5} rx={11} ry={ry} fill={PALETTE.eyeWhite} style={{ strokeWidth: lw(2) }} />
         <g clipPath={`url(#${clip}-eyes)`}>
           <ellipse cx={41} cy={99.5} rx={3.8} ry={Math.min(5.2, ry - 2)} fill={PALETTE.ink} stroke="none" />
           {blink ? <rect x={18} y={70} width={40} height={60} fill={PALETTE.skin} stroke="none" /> : f.lid && <path d={f.lid} fill={PALETTE.skin} style={{ strokeWidth: lw(2.5) }} />}
@@ -1207,7 +1213,8 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         <g clipPath={`url(#${clip}-face)`}><path d={f.brow} transform="translate(6 0) translate(20 0) scale(0.8 1) translate(-20 0)" fill="none" style={{ strokeWidth: lw(5.5) }} /></g>
         {mole && <circle cx={16.6} cy={76.9} r={2.2} fill={PALETTE.ink} stroke="none" />}
         {mouth && <path d={mouth} fill="none" style={{ strokeWidth: lw(2.6) }} />}
-        {drop > 0 && <path d={`M 48.7 124.2 Q 44.5 124.6 41.5 125.8 Q 43.5 ${126.4 + 0.45 * drop} ${46.6 - 0.3 * drop} ${128.2 + 0.8 * drop} Q 47.6 ${126.5 + 0.5 * drop} 48.7 124.2 Z`} fill={PALETTE.mouthDark} stroke="none" />}
+        {/* miệng mở: lỗ tròn nhỏ hơi lùi vào trong môi như mẫu (không phải nêm ở mép) */}
+        {drop > 0 && <ellipse cx={44.2} cy={127 + 0.25 * drop} rx={2.6 + 0.08 * drop} ry={1.7 + 0.42 * drop} transform={`rotate(-10 44.2 ${127 + 0.25 * drop})`} fill={PALETTE.mouthDark} stroke="none" />}
       </g>
     </g>
   );
