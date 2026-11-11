@@ -23,6 +23,7 @@ import { ThuC1, ThuC1Tinh, THU_C1_TOTAL } from './episodes/tin-nhan-chua-gui/thu
 import { HoSo02CastBoard, HoSo02RigSheet, HoSo02Spin, HoSo02Turnaround, RIG_SHEET_TOTAL, SPIN_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/rig-sheet';
 import { allTotal, BOARD_SIZE, HoSo02NamGiuaKhung, HoSo02TrailerBoard } from './episodes/ho-so-02-nguoi-lam-thay/trailer-nam-giua-khung';
 import { HoSo02Opening, OPENING_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/opening';
+import { HoSo02Trailer, TRAILER_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/trailer';
 import { CANH01_TOTAL, HoSo02AnhSangThu, HoSo02BoiCanhGoc, HoSo02Canh01Demo, HoSo02VienThu, LIGHT_TEST_TOTAL, OUTLINE_TEST_TOTAL, ROOM_VIEW_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/canh-01-demo';
 
 // Every episode gets two compositions: <Id> (the film) and <Id>Board (one frame per shot, at its key frame, for the
@@ -65,6 +66,7 @@ export const Root: React.FC = () => {
       <Composition id="HoSo02RigSheet" component={HoSo02RigSheet} durationInFrames={RIG_SHEET_TOTAL} {...common} />
       <Composition id="HoSo02NamGiuaKhung" component={HoSo02NamGiuaKhung} durationInFrames={allTotal} {...common} />
       <Composition id="HoSo02Opening" component={HoSo02Opening} durationInFrames={OPENING_TOTAL} {...common} />
+      <Composition id="HoSo02Trailer" component={HoSo02Trailer} durationInFrames={TRAILER_TOTAL} {...common} />
       <Composition id="HoSo02NamGiuaKhungBoard" component={HoSo02TrailerBoard} durationInFrames={1} fps={common.fps} width={BOARD_SIZE.width} height={BOARD_SIZE.height} />
       <Composition id="ColorScriptSheet" component={ColorScriptSheet} durationInFrames={1} {...common} />
       <Composition id="TimeVaultSheet" component={TimeVaultSheet} durationInFrames={1} {...common} />
