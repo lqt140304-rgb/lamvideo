@@ -1,5 +1,5 @@
 import React from 'react';
-import { HairSway, JointPose, Limb, StudentTwinBody, TungSoccer, STAND_POSE, type Talk } from './nhan-vat';
+import { HairSway, JointPose, Limb, StudentTwinBody, TungSoccer, STAND_POSE, TUNG_POSE, type Talk } from './nhan-vat';
 import { SupportingActor, type Role } from './bo-sung-15p/nhan-vat-va-tu-the';
 
 /**
@@ -145,7 +145,7 @@ export const LivingTwin: React.FC<BodyProps & { frame: number; seed?: number; li
 );
 /** Tùng sống. */
 export const LivingTung: React.FC<React.ComponentProps<typeof TungSoccer> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 11, life, pose, blink, ...rest }) => (
-  <TungSoccer {...rest} pose={lifePose(pose ?? STAND_POSE, frame, { seed, ...life })} blink={blink ?? blinkAt(frame, seed)} />
+  <TungSoccer {...rest} pose={lifePose(pose ?? TUNG_POSE, frame, { seed, ...life })} blink={blink ?? blinkAt(frame, seed)} />
 );
 
 /**

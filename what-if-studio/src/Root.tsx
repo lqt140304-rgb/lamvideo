@@ -27,7 +27,7 @@ import { HoSo02Opening25D } from './episodes/ho-so-02-nguoi-lam-thay/opening-2-5
 import { HoSo02Trailer, TRAILER_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/trailer';
 import { FREESTYLE_TOTAL, HoSo02TrailerFreestyle } from './episodes/ho-so-02-nguoi-lam-thay/trailer-freestyle';
 import { HoSo02Trailer3D, TRAILER3D_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/trailer-3d';
-import { HoSo02SongDongThu, SONGDONG_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/song-dong-thu';
+import { HoSo02SongDongRong, HoSo02SongDongThu, SONGDONG_TOTAL, SONGDONG_WIDE_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/song-dong-thu';
 import { CANH01_TOTAL, HoSo02AnhSangThu, HoSo02BoiCanhGoc, HoSo02Canh01Demo, HoSo02VienThu, LIGHT_TEST_TOTAL, OUTLINE_TEST_TOTAL, ROOM_VIEW_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/canh-01-demo';
 
 // Every episode gets two compositions: <Id> (the film) and <Id>Board (one frame per shot, at its key frame, for the
@@ -75,6 +75,7 @@ export const Root: React.FC = () => {
       <Composition id="HoSo02TrailerFreestyle" component={HoSo02TrailerFreestyle} durationInFrames={FREESTYLE_TOTAL} {...common} />
       <Composition id="HoSo02Trailer3D" component={HoSo02Trailer3D} durationInFrames={TRAILER3D_TOTAL} {...common} />
       <Composition id="HoSo02SongDongThu" component={HoSo02SongDongThu} durationInFrames={SONGDONG_TOTAL} fps={common.fps} width={1920} height={540} />
+      <Composition id="HoSo02SongDongRong" component={HoSo02SongDongRong} durationInFrames={SONGDONG_WIDE_TOTAL} fps={common.fps} width={1920} height={540} />
       <Composition id="HoSo02NamGiuaKhungBoard" component={HoSo02TrailerBoard} durationInFrames={1} fps={common.fps} width={BOARD_SIZE.width} height={BOARD_SIZE.height} />
       <Composition id="ColorScriptSheet" component={ColorScriptSheet} durationInFrames={1} {...common} />
       <Composition id="TimeVaultSheet" component={TimeVaultSheet} durationInFrames={1} {...common} />
