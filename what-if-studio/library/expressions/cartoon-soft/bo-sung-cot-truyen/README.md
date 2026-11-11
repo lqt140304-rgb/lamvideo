@@ -1,6 +1,6 @@
 # Nét mặt bổ sung theo cốt truyện — ba mức độ
 
-18 nét mặt mới, sáu nhóm × ba mức, ngày 11/11/2026. Đây là phần mở rộng dùng chung của `cartoon-soft`; giữ nguyên 28 nét mặt gốc. SVG riêng trong suốt, **không tóc, sọ, màu da nền, tai hoặc cổ**. Không thay tóc Nam/Người Kia.
+36 nét mặt, mười hai nhóm × ba mức (sáu nhóm đầu và sáu nhóm thêm cùng ngày 11/11/2026). Đây là phần mở rộng dùng chung của `cartoon-soft`; giữ nguyên 28 nét mặt gốc. SVG riêng trong suốt, **không tóc, sọ, màu da nền, tai hoặc cổ**. Không thay tóc Nam/Người Kia.
 
 ## Chọn nét theo diễn biến
 
@@ -12,11 +12,21 @@
 | `kiet-suc` | Mỏi → rệu rã → cạn sức | Cố tự làm lại, liên tục thất bại |
 | `buong-xuoi` | Còn phản bác → sức chống cự yếu → trống rỗng | Đối chất cuối và quyết định chạm kính; không gán lên Nam đầu truyện |
 | `cuoi-che-giau` | Lịch sự → kiểm soát → nụ cười lệch lạnh | Người Kia; mức 3 chỉ sau khi bản chất đã lộ |
+| `lo-lang` | Bồn chồn → lo âu, toát mồ hôi → hoảng | Nam chờ kết quả, nghe tiếng động ngoài cửa, sắp bị lộ |
+| `boi-roi` | Ngơ ngác → khó hiểu → rối trí | Nam thấy việc mình chưa làm đã xong; bị hỏi câu khó |
+| `ghe-so` | Nhăn mũi → nhếch môi trên → ghê tởm | Nam nhìn bồn rửa bẩn; khi nhận ra thứ trong gương |
+| `quyet-tam` | Mím môi → ánh mắt kiên định → nghiến răng | Nam quyết đòi lại cuộc sống; lúc cầm búa |
+| `tui-than` | Mắt long lanh → môi run, rưng rưng → nước mắt chảy | Nam đọc tin nhắn của mẹ; bị bạn bè gạt ra |
+| `khinh-thuong` | Nhếch mép → nhìn từ trên xuống → khinh miệt rõ | Người Kia khi đã lộ bản chất; không dùng sớm |
 
 Mức 3 là cao trào **của từng cảm xúc**, không phải lúc nào cũng mở mắt/miệng lớn hơn: buông xuôi càng nặng càng ít phản ứng. Sợ hãi, bất ngờ, buồn và giận dùng lại [bộ gốc](../README.md). Không dùng màu tím/đỏ thay cho diễn xuất; mảng phụ nhỏ, không thành bầm tím hoặc râu.
 
 ![Ngái ngủ, tự mãn, áy náy](bang-1.png)
 ![Kiệt sức, buông xuôi, cười che giấu](bang-2.png)
+![Lo lắng, bối rối, ghê sợ](bang-3.png)
+![Quyết tâm, tủi thân, khinh thường](bang-4.png)
+
+Cử chỉ đi kèm từng mức và các dáng chuyển trạng thái của Hồ sơ 02: [`cu-chi.tsx`](../../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/cu-chi.tsx), bảng [cử chỉ](../../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/bang-cu-chi.png) và [chuyển trạng thái](../../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/bang-chuyen-trang-thai.png).
 
 ## Mỗi file dùng làm gì
 

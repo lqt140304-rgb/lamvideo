@@ -84,4 +84,15 @@ assert.notEqual(tv(45), tv(45, { physics: false }));
 const tgOutfit = require(A + 'thiet-ke/thu-2-5d/tung-2-5d').tungOutfitSway;
 assert.equal(tgOutfit(undefined), r.TUNG_OUTFIT); assert.notDeepEqual(tgOutfit({ dx: 6, dy: 4 }).hem, r.TUNG_OUTFIT.hem);
 assert.deepEqual(tgOutfit({ dx: 6, dy: 4 }).hem.slice(0, 2), r.TUNG_OUTFIT.hem.slice(0, 2), 'hai điểm trên eo giữ nguyên');
+// Cử chỉ theo cảm xúc và dáng chuyển trạng thái: không NaN, đầu/cuối đúng khoá, nét mặt mới có trong thư viện
+const cc = require(A + 'cu-chi'), nm = require('../library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat');
+for (const [g, poses] of Object.entries(cc.GESTURES)) {
+  assert.equal(poses.length, 3, g);
+  poses.forEach((p, i) => { assert.ok(nm.STORY_FACES[`${g}-0${i + 1}`], `thiếu nét mặt ${g}-0${i + 1}`); assert.ok(!JSON.stringify(r.solveRig(p)).includes('NaN'), `${g} mức ${i + 1}`); });
+}
+for (const tr of cc.TRANSITIONS) {
+  for (let t = 0; t <= 1.0001; t += 0.05) { const p = cc.transitionPose(tr.id, t); assert.ok(!JSON.stringify(r.solveRig(p)).includes('NaN'), `${tr.id} t=${t}`); }
+  assert.equal(cc.transitionPose(tr.id, 1).tilt, tr.keys[tr.keys.length - 1].pose.tilt, `${tr.id} kết thúc đúng khoá cuối`);
+}
+assert.equal(nm.STORY_GROUPS.length, 12);
 console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà');

@@ -75,6 +75,66 @@
         "Nụ cười lệch lạnh, lớp mặt nạ rơi"
       ],
       "use": "Người Kia: thân thiện ban đầu; mức 3 chỉ khi bản chất đã lộ"
+    },
+    {
+      "id": "lo-lang",
+      "name": "Lo lắng",
+      "levels": [
+        "Bồn chồn, mày nhíu lên",
+        "Lo âu, mắt đảo, toát mồ hôi",
+        "Hoảng, mắt mở to, miệng căng"
+      ],
+      "use": "Nam chờ kết quả, nghe tiếng động ngoài cửa, sắp bị lộ"
+    },
+    {
+      "id": "boi-roi",
+      "name": "Bối rối",
+      "levels": [
+        "Ngơ ngác, một mày nhướng",
+        "Khó hiểu, mắt lệch, môi méo",
+        "Rối trí, không biết phản ứng"
+      ],
+      "use": "Nam thấy việc mình chưa làm đã xong; bị hỏi câu khó"
+    },
+    {
+      "id": "ghe-so",
+      "name": "Ghê sợ",
+      "levels": [
+        "Nhăn mũi, khó chịu",
+        "Nhếch môi trên, muốn lùi",
+        "Ghê tởm, nhăn cả mặt"
+      ],
+      "use": "Nam nhìn bồn rửa bẩn; khi nhận ra thứ trong gương"
+    },
+    {
+      "id": "quyet-tam",
+      "name": "Quyết tâm",
+      "levels": [
+        "Mím môi, nhìn thẳng",
+        "Mày hạ, ánh mắt kiên định",
+        "Nghiến răng, dồn sức"
+      ],
+      "use": "Nam quyết đòi lại cuộc sống; lúc cầm búa"
+    },
+    {
+      "id": "tui-than",
+      "name": "Tủi thân",
+      "levels": [
+        "Hơi chùng, mắt long lanh",
+        "Môi run, rưng rưng",
+        "Nước mắt chảy, cố nén"
+      ],
+      "use": "Nam đọc tin nhắn của mẹ; bị bạn bè gạt ra"
+    },
+    {
+      "id": "khinh-thuong",
+      "name": "Khinh thường",
+      "levels": [
+        "Nhếch mép nhẹ",
+        "Mí hạ, nhìn từ trên xuống",
+        "Khinh miệt rõ, một bên môi kéo"
+      ],
+      "use": "Người Kia khi đã lộ bản chất; không dùng sớm"
     }
   ],
   "expressions": [
@@ -239,6 +299,168 @@
       "description": "Nụ cười lệch lạnh, lớp mặt nạ rơi",
       "use": "Người Kia: thân thiện ban đầu; mức 3 chỉ khi bản chất đã lộ",
       "file": "svg/cuoi-che-giau-03.svg"
+    },
+    {
+      "key": "lo-lang-01",
+      "group": "lo-lang",
+      "name": "Lo lắng",
+      "level": 1,
+      "description": "Bồn chồn, mày nhíu lên",
+      "use": "Nam chờ kết quả, nghe tiếng động ngoài cửa, sắp bị lộ",
+      "file": "svg/lo-lang-01.svg"
+    },
+    {
+      "key": "lo-lang-02",
+      "group": "lo-lang",
+      "name": "Lo lắng",
+      "level": 2,
+      "description": "Lo âu, mắt đảo, toát mồ hôi",
+      "use": "Nam chờ kết quả, nghe tiếng động ngoài cửa, sắp bị lộ",
+      "file": "svg/lo-lang-02.svg"
+    },
+    {
+      "key": "lo-lang-03",
+      "group": "lo-lang",
+      "name": "Lo lắng",
+      "level": 3,
+      "description": "Hoảng, mắt mở to, miệng căng",
+      "use": "Nam chờ kết quả, nghe tiếng động ngoài cửa, sắp bị lộ",
+      "file": "svg/lo-lang-03.svg"
+    },
+    {
+      "key": "boi-roi-01",
+      "group": "boi-roi",
+      "name": "Bối rối",
+      "level": 1,
+      "description": "Ngơ ngác, một mày nhướng",
+      "use": "Nam thấy việc mình chưa làm đã xong; bị hỏi câu khó",
+      "file": "svg/boi-roi-01.svg"
+    },
+    {
+      "key": "boi-roi-02",
+      "group": "boi-roi",
+      "name": "Bối rối",
+      "level": 2,
+      "description": "Khó hiểu, mắt lệch, môi méo",
+      "use": "Nam thấy việc mình chưa làm đã xong; bị hỏi câu khó",
+      "file": "svg/boi-roi-02.svg"
+    },
+    {
+      "key": "boi-roi-03",
+      "group": "boi-roi",
+      "name": "Bối rối",
+      "level": 3,
+      "description": "Rối trí, không biết phản ứng",
+      "use": "Nam thấy việc mình chưa làm đã xong; bị hỏi câu khó",
+      "file": "svg/boi-roi-03.svg"
+    },
+    {
+      "key": "ghe-so-01",
+      "group": "ghe-so",
+      "name": "Ghê sợ",
+      "level": 1,
+      "description": "Nhăn mũi, khó chịu",
+      "use": "Nam nhìn bồn rửa bẩn; khi nhận ra thứ trong gương",
+      "file": "svg/ghe-so-01.svg"
+    },
+    {
+      "key": "ghe-so-02",
+      "group": "ghe-so",
+      "name": "Ghê sợ",
+      "level": 2,
+      "description": "Nhếch môi trên, muốn lùi",
+      "use": "Nam nhìn bồn rửa bẩn; khi nhận ra thứ trong gương",
+      "file": "svg/ghe-so-02.svg"
+    },
+    {
+      "key": "ghe-so-03",
+      "group": "ghe-so",
+      "name": "Ghê sợ",
+      "level": 3,
+      "description": "Ghê tởm, nhăn cả mặt",
+      "use": "Nam nhìn bồn rửa bẩn; khi nhận ra thứ trong gương",
+      "file": "svg/ghe-so-03.svg"
+    },
+    {
+      "key": "quyet-tam-01",
+      "group": "quyet-tam",
+      "name": "Quyết tâm",
+      "level": 1,
+      "description": "Mím môi, nhìn thẳng",
+      "use": "Nam quyết đòi lại cuộc sống; lúc cầm búa",
+      "file": "svg/quyet-tam-01.svg"
+    },
+    {
+      "key": "quyet-tam-02",
+      "group": "quyet-tam",
+      "name": "Quyết tâm",
+      "level": 2,
+      "description": "Mày hạ, ánh mắt kiên định",
+      "use": "Nam quyết đòi lại cuộc sống; lúc cầm búa",
+      "file": "svg/quyet-tam-02.svg"
+    },
+    {
+      "key": "quyet-tam-03",
+      "group": "quyet-tam",
+      "name": "Quyết tâm",
+      "level": 3,
+      "description": "Nghiến răng, dồn sức",
+      "use": "Nam quyết đòi lại cuộc sống; lúc cầm búa",
+      "file": "svg/quyet-tam-03.svg"
+    },
+    {
+      "key": "tui-than-01",
+      "group": "tui-than",
+      "name": "Tủi thân",
+      "level": 1,
+      "description": "Hơi chùng, mắt long lanh",
+      "use": "Nam đọc tin nhắn của mẹ; bị bạn bè gạt ra",
+      "file": "svg/tui-than-01.svg"
+    },
+    {
+      "key": "tui-than-02",
+      "group": "tui-than",
+      "name": "Tủi thân",
+      "level": 2,
+      "description": "Môi run, rưng rưng",
+      "use": "Nam đọc tin nhắn của mẹ; bị bạn bè gạt ra",
+      "file": "svg/tui-than-02.svg"
+    },
+    {
+      "key": "tui-than-03",
+      "group": "tui-than",
+      "name": "Tủi thân",
+      "level": 3,
+      "description": "Nước mắt chảy, cố nén",
+      "use": "Nam đọc tin nhắn của mẹ; bị bạn bè gạt ra",
+      "file": "svg/tui-than-03.svg"
+    },
+    {
+      "key": "khinh-thuong-01",
+      "group": "khinh-thuong",
+      "name": "Khinh thường",
+      "level": 1,
+      "description": "Nhếch mép nhẹ",
+      "use": "Người Kia khi đã lộ bản chất; không dùng sớm",
+      "file": "svg/khinh-thuong-01.svg"
+    },
+    {
+      "key": "khinh-thuong-02",
+      "group": "khinh-thuong",
+      "name": "Khinh thường",
+      "level": 2,
+      "description": "Mí hạ, nhìn từ trên xuống",
+      "use": "Người Kia khi đã lộ bản chất; không dùng sớm",
+      "file": "svg/khinh-thuong-02.svg"
+    },
+    {
+      "key": "khinh-thuong-03",
+      "group": "khinh-thuong",
+      "name": "Khinh thường",
+      "level": 3,
+      "description": "Khinh miệt rõ, một bên môi kéo",
+      "use": "Người Kia khi đã lộ bản chất; không dùng sớm",
+      "file": "svg/khinh-thuong-03.svg"
     }
   ],
   "limits": [

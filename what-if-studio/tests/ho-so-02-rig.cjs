@@ -167,7 +167,7 @@ for (const m of sameFaces.matchAll(/url\(#([^)]*)\)/g)) assert.ok(faceIds.includ
 
 // New story overlay families: every level renders on both identities and supported views.
 const {STORY_FACES,STORY_GROUPS}=require('../library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat');
-assert.equal(Object.keys(STORY_FACES).length,18);
+assert.equal(Object.keys(STORY_FACES).length,STORY_GROUPS.length*3); assert.equal(STORY_GROUPS.length,12);
 for(const group of STORY_GROUPS)for(const level of [1,2,3]){
  const key=`${group.id}-0${level}`;assert.ok(STORY_FACES[key]);
  for(const view of ['front','three']){

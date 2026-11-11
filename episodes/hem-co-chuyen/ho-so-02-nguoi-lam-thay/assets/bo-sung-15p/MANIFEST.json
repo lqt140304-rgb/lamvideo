@@ -20,6 +20,34 @@
       "png": "bang-cam-xuc-02.png"
     },
     {
+      "id": "bang-cam-xuc-03",
+      "w": 1800,
+      "h": 1280,
+      "svg": "bang-cam-xuc-03.svg",
+      "png": "bang-cam-xuc-03.png"
+    },
+    {
+      "id": "bang-cam-xuc-04",
+      "w": 1800,
+      "h": 1280,
+      "svg": "bang-cam-xuc-04.svg",
+      "png": "bang-cam-xuc-04.png"
+    },
+    {
+      "id": "bang-cu-chi",
+      "w": 1500,
+      "h": 2140,
+      "svg": "bang-cu-chi.svg",
+      "png": "bang-cu-chi.png"
+    },
+    {
+      "id": "bang-chuyen-trang-thai",
+      "w": 1560,
+      "h": 2050,
+      "svg": "bang-chuyen-trang-thai.svg",
+      "png": "bang-chuyen-trang-thai.png"
+    },
+    {
       "id": "bang-dang-nghi",
       "w": 2000,
       "h": 1030,
