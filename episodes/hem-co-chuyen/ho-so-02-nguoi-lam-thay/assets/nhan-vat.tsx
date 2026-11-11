@@ -1040,6 +1040,68 @@ export const NguoiKia: React.FC<React.ComponentProps<typeof StudentTwinBody>> = 
 // ----------------------------------------------------------------------------
 export type TungMood = 'annoyed' | 'focused' | 'normal';
 
+
+/**
+ * Đầu NGHIÊNG của Tùng, dựng lại theo ảnh tham chiếu (đo điểm mốc trên ảnh, quy ra đơn vị đầu): sọ thon, hơi cúi (cằm lùi so với trán),
+ * hàm nhỏ cằm tròn, cổ nhỏ; tóc ÔM SÁT sọ — phủ cả gáy xuống tới chân tóc nhọn sau tai, mũi tóc nhọn trên trán, tai chữ C nằm ở mép tóc.
+ * Chỉ dùng cho Tùng; đầu nghiêng của Nam và các góc khác giữ nguyên. Nét mặt dùng lại `SIDE_FACE`, mày/miệng đặt lại theo khuôn mặt mới.
+ */
+const TUNG_SIDE = {
+  hair: 'M 48.6 68.4 C 52.2 64.8 56.1 52.1 56.1 52.1 C 56.1 52.1 51.6 44.5 48.6 41.2 C 45.6 37.9 40.8 35.4 38.4 32.4 C 36.0 29.4 34.3 23.5 34.3 23.5 C 34.3 23.5 28.3 27.5 25.5 26.9 C 22.7 26.3 17.3 20.1 17.3 20.1 C 17.3 20.1 11.0 24.1 7.8 23.5 C 4.6 22.9 -1.7 16.7 -1.7 16.7 C -1.7 16.7 -9.2 22.2 -9.2 22.2 C -9.2 22.2 -17.0 24.6 -20.8 26.3 C -24.6 28.0 -32.3 32.4 -32.3 32.4 C -32.3 32.4 -34.4 37.1 -34.4 37.1 C -34.4 37.1 -40.7 40.0 -43.9 41.9 C -47.1 43.8 -51.4 46.8 -53.4 48.7 C -55.4 50.6 -56.1 53.5 -56.1 53.5 C -56.1 53.5 -59.8 59.2 -60.9 63.7 C -62.0 68.2 -63.7 74.8 -62.9 80.7 C -62.1 86.6 -60.0 92.9 -56.1 99.0 C -52.2 105.1 -44.9 111.5 -39.8 117.4 C -34.7 123.3 -25.5 134.4 -25.5 134.4 C -25.5 134.4 -27.4 122.2 -27.6 116.7 C -27.8 111.2 -28.4 106.1 -26.9 101.7 C -25.4 97.3 -22.2 93.6 -18.7 90.2 C -15.2 86.8 -10.7 84.2 -5.8 81.3 C -0.9 78.3 10.5 72.5 10.5 72.5 C 10.5 72.5 18.0 69.1 18.0 69.1 C 18.0 69.1 29.2 74.0 34.3 73.9 C 39.4 73.8 45.0 72.0 48.6 68.4 Z',
+  ear: 'M -27.6 92.2 C -25.9 87.4 -20.4 85.0 -16.7 84.7 C -12.9 84.4 -6.9 85.4 -5.1 90.2 C -3.3 95.0 -4.0 108.5 -5.8 113.3 C -7.6 118.0 -12.5 118.7 -16.0 118.7 C -19.5 118.7 -25.0 117.7 -26.9 113.3 C -28.8 108.9 -29.3 97.0 -27.6 92.2 Z',
+  earLine: 'M -18.7 98.3 Q -9.9 97.7 -7.2 107.9',
+  // sọ phía sau (ẩn dưới tóc) rồi trán–mũi–môi; hàm/cằm sinh theo độ mở miệng
+  back: [[-25.5, 134.4], [-35, 119], [-47, 101], [-53, 81], [-49, 58], [-27, 41], [-6, 28], [22, 30], [40, 40], [48.6, 55.5]] as [number, number][], // nằm trong đường bao tóc, không lòi da ra mép tóc
+  front: [[47.9, 67.7], [49.9, 77.9], [51.3, 90.2], [52.0, 101.7], [54.4, 114.0], [49.9, 120.8], [48.6, 127.2]] as [number, number][],
+};
+const catmull = (pts: [number, number][], closed: boolean) => {
+  const n = pts.length, at = (i: number) => (closed ? pts[((i % n) + n) % n] : pts[Math.max(0, Math.min(n - 1, i))]);
+  let d = `M ${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 0; i < (closed ? n : n - 1); i++) {
+    const p0 = at(i - 1), p1 = at(i), p2 = at(i + 1), p3 = at(i + 2), t = 0.5 / 3;
+    d += ` C ${(p1[0] + (p2[0] - p0[0]) * t).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) * t).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) * t).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) * t).toFixed(1)} ${p2[0]} ${p2[1]}`;
+  }
+  return d + (closed ? ' Z' : '');
+};
+const tungSkinPath = (d: number) => {
+  const b = 0.3 * d;
+  const lower: [number, number][] = d > 0
+    ? [[48.6, 127.2], [41, 131.5 + 0.3 * d], [46.5 - b, 132 + d], [42.5 - b, 142 + d], [34.3 - 0.2 * d, 149.3 + 0.8 * d], [18, 151 + 0.4 * d], [6, 148]]
+    : [[48.6, 127.2], [46.5, 131.7], [42.5, 141.9], [34.3, 149.3], [18, 151], [6, 148]];
+  const pts = [...TUNG_SIDE.back, ...TUNG_SIDE.front.slice(0, -1), ...lower, [-12, 142] as [number, number]];
+  return catmull(pts, true);
+};
+const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, talk, blink, x, y, scale, sway }) => {
+  const f = SIDE_FACE[mood];
+  const drop = talk ? talkDrop(talk) : f.drop ?? 0;
+  const o = useHeadLine();
+  const ang = mood === 'annoyed';
+  const brow = ang ? 'M 25 80.5 Q 37 82.5 45 88.5' : 'M 24 78 Q 36 74.5 47.5 77';
+  const mouth = drop > 0 ? undefined : ang ? 'M 47 131.6 Q 42.5 130.6 38 133' : 'M 47 131.6 Q 42.5 132 38 132.6';
+  return (
+    <g {...headFrame(x, y, scale)}>
+      <path d="M -23 126 L -24 184 Q -8 196 4 182 L 3 126 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d="M -23.5 158 Q -9 172 3.5 158 L 3.5 176 Q -9 188 -24 176 Z" fill={PALETTE.skinShadow} stroke="none" />
+      <g transform="translate(-4 3) rotate(5 -8 150) scale(1.1)">
+      {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
+      <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d={TUNG_SIDE.hair} fill={PALETTE.tung.hair} {...o(PALETTE.tung.hair)} visibility="visible" transform={hairSway(sway)} />
+      <path d={TUNG_SIDE.ear} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d={TUNG_SIDE.earLine} fill="none" style={{ strokeWidth: lw(2.4) }} />
+      <defs><clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98.5} rx={11} ry={Math.min(f.ry, 14) - 2.5} /></clipPath></defs>
+      <ellipse cx={36} cy={98.5} rx={11} ry={Math.min(f.ry, 14) - 2.5} fill={PALETTE.eyeWhite} style={{ strokeWidth: lw(2.5) }} />
+      <g clipPath={`url(#${clip}-eyes)`}>
+        <ellipse cx={41} cy={99} rx={3.8} ry={4.6} fill={PALETTE.ink} stroke="none" />
+        {blink ? <rect x={18} y={70} width={40} height={60} fill={PALETTE.skin} stroke="none" /> : f.lid && <path d={f.lid} fill={PALETTE.skin} style={{ strokeWidth: lw(2.5) }} />}
+      </g>
+      {blink && <path d="M 26 100 Q 36 106 47 100" fill="none" style={{ strokeWidth: lw(3) }} />}
+      <path d={brow} fill="none" style={{ strokeWidth: lw(5.5) }} />
+      {mouth && <path d={mouth} fill="none" style={{ strokeWidth: lw(2.6) }} />}
+      </g>
+    </g>
+  );
+};
+
 export const TungHead: React.FC<{
   mood?: TungMood;
   id?: string;
@@ -1059,7 +1121,7 @@ export const TungHead: React.FC<{
   const isFocused = mood === 'focused';
   if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} sway={sway} />;
   if (view === 'quarter') return <QuarterHead hair={TUNG_HAIR} mole={false} x={x} y={y} scale={scale} sway={sway} />;
-  if (view === 'side') return <ProfileHead hair={TUNG_HAIR} mood={isAnnoyed ? 'annoyed' : 'calm'} clip={clip} mole={false} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'side') return <TungProfileHead mood={isAnnoyed ? 'annoyed' : 'calm'} clip={clip} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
   const front = view === 'front';
   const rxR = front ? 15 : 16;
   const rxL = front ? 15 : 14.5;
