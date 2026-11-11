@@ -76,3 +76,4 @@ Chủ repo yêu cầu thêm chi tiết vật lý để nhân vật phản ứng 
 - **Tùng:** [`tung-2-5d.tsx`](tung-2-5d.tsx): `Tung25D` phủ `Volume25` lên `TungSoccer`, tách khối theo màu áo đấu, quần đùi và tóc của Tùng. Giữ dáng Tùng đã chốt, không dùng `DANG_THAM_CHIEU`. `volume={false}` về 2D. Mới soi ảnh tĩnh ở ngày và đèn vàng.
 - `Volume25` nhận thêm prop `hair` (màu tóc để tách khối; mặc định màu tóc Nam, nên các bảng cũ không đổi).
 - Phòng: nhân vật 2.5D qua `actors` của `RoomScene` truyền `lit: false`.
+- **Vật lý Tùng:** `TungVatLy` dùng cùng bản mô phỏng `simulate` của Nam (quán tính, nhún, vạt áo đấu lệch qua `tungOutfitSway`); chưa lắc tóc. Gói dáng sống + vật lý: `TungSongVatLy` ở `assets/song-dong.tsx`.

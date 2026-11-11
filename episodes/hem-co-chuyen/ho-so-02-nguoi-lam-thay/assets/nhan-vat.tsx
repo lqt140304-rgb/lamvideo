@@ -1199,7 +1199,7 @@ const TUNG_VIEWS: Outfit['views'] = {
   },
 };
 
-const TUNG_OUTFIT: Outfit = {
+export const TUNG_OUTFIT: Outfit = {
   shirt: PALETTE.tung.jersey, sleeveEnd: 0.5, hem: [[-46, 318], [46, 318], [60, 340], [36, 354], [12, 347], [-20, 360], [-58, 344]], cuff: PALETTE.tung.jerseyTrim,
   torso: 'M -24 176 Q -56 178 -84 210 L -56 256 Q -60 306 -56 342 Q -20 358 12 345 Q 36 352 58 338 Q 52 300 50 256 L 76 210 Q 62 190 16 177 Q -6 192 -24 176 Z',
   pants: PALETTE.tung.shorts, pantsLen: 'short', stripe: PALETTE.tung.shortsStripe,
@@ -1225,8 +1225,10 @@ export const TungSoccer: React.FC<{
   talk?: Talk;
   blink?: boolean;
   light?: Light;
-}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose = TUNG_POSE, talk, blink, light }) => (
-  <Rigged pose={pose} outfit={TUNG_OUTFIT} x={x} y={y} scale={scale} light={light} head={<TungHead mood={mood} id="tung-soccer-head" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
+  /** Bộ đồ thay thế (vd vạt áo lệch theo vật lý); mặc định `TUNG_OUTFIT`. */
+  outfit?: Outfit;
+}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose = TUNG_POSE, talk, blink, light, outfit = TUNG_OUTFIT }) => (
+  <Rigged pose={pose} outfit={outfit} x={x} y={y} scale={scale} light={light} head={<TungHead mood={mood} id="tung-soccer-head" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
 );
 
 // ----------------------------------------------------------------------------

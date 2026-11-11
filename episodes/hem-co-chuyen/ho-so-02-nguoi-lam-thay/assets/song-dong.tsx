@@ -2,7 +2,7 @@ import React from 'react';
 import { HairSway, JointPose, Limb, StudentTwinBody, TungSoccer, STAND_POSE, TUNG_POSE, type Talk } from './nhan-vat';
 import { SupportingActor, type Role } from './bo-sung-15p/nhan-vat-va-tu-the';
 import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
-import { Tung25D } from './thiet-ke/thu-2-5d/tung-2-5d';
+import { Tung25D, TungVatLy } from './thiet-ke/thu-2-5d/tung-2-5d';
 import { NamVatLy, simulate, type Impact, type PhysParams, DEFAULT_PHYS } from './thiet-ke/thu-2-5d/vat-ly';
 
 /**
@@ -202,4 +202,14 @@ export const NamSongVatLy: React.FC<Omit<React.ComponentProps<typeof NamVatLy>, 
   const living = React.useMemo(() => (f: number) => lifePose(base(f), f, { seed, ...life }), [key]); // eslint-disable-line react-hooks/exhaustive-deps
   const track = React.useMemo(() => simulate(living, impacts, total, phys), [key]); // eslint-disable-line react-hooks/exhaustive-deps
   return <NamVatLy {...rest} blink={blink ?? blinkAt(frame, seed)} track={track} frame={frame} base={living} />;
+};
+
+/** Tùng 2.5D có dáng sống LẪN vật lý thứ cấp (xem `NamSongVatLy`). Dáng gốc mặc định `TUNG_POSE`. */
+export const TungSongVatLy: React.FC<Omit<React.ComponentProps<typeof TungVatLy>, 'track' | 'base' | 'frame'> & {
+  frame: number; total: number; base?: (f: number) => JointPose; impacts?: Impact[]; seed?: number; life?: LifeOpts; phys?: PhysParams;
+}> = ({ frame, total, base, impacts = [], seed = 11, life, phys = DEFAULT_PHYS, blink, ...rest }) => {
+  const key = JSON.stringify([total, seed, life, impacts]);
+  const living = React.useMemo(() => (f: number) => lifePose(base ? base(f) : TUNG_POSE, f, { seed, ...life }), [key]); // eslint-disable-line react-hooks/exhaustive-deps
+  const track = React.useMemo(() => simulate(living, impacts, total, phys), [key]); // eslint-disable-line react-hooks/exhaustive-deps
+  return <TungVatLy {...rest} blink={blink ?? blinkAt(frame, seed)} track={track} frame={frame} base={living} />;
 };

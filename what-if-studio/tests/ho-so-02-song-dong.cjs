@@ -76,4 +76,12 @@ const sv = (f, extra = {}) => html2(React.createElement(s.NamSongVatLy, { frame:
 assert.ok(!sv(10).includes('NaN') && !sv(44).includes('NaN') && !sv(100).includes('NaN'));
 assert.notEqual(sv(38), sv(46), 'cú va phải đổi hình');
 assert.notEqual(sv(44), sv(44, { physics: false }), 'physics=false khác có vật lý');
+// Tùng có vật lý thứ cấp: cú va đổi hình, vạt áo đấu lệch, physics=false khác, không NaN
+const tv = (f, extra = {}) => html2(React.createElement(s.TungSongVatLy, { frame: f, total: 120, impacts: [{ f: 40, kind: 'giat-minh', mag: 1.6, dir: 1 }], seed: 4, ...extra }));
+assert.ok(!tv(10).includes('NaN') && !tv(44).includes('NaN') && !tv(100).includes('NaN'));
+assert.notEqual(tv(38), tv(45), 'giật mình phải đổi hình Tùng');
+assert.notEqual(tv(45), tv(45, { physics: false }));
+const tgOutfit = require(A + 'thiet-ke/thu-2-5d/tung-2-5d').tungOutfitSway;
+assert.equal(tgOutfit(undefined), r.TUNG_OUTFIT); assert.notDeepEqual(tgOutfit({ dx: 6, dy: 4 }).hem, r.TUNG_OUTFIT.hem);
+assert.deepEqual(tgOutfit({ dx: 6, dy: 4 }).hem.slice(0, 2), r.TUNG_OUTFIT.hem.slice(0, 2), 'hai điểm trên eo giữ nguyên');
 console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà');

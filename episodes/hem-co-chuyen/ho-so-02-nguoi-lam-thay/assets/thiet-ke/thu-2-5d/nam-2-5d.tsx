@@ -232,7 +232,7 @@ const narrow = <T extends { torso: string; hem: [number, number][]; detail: Outf
 /** Bộ đồ Nam với dáng tham chiếu; `shirt` đổi màu áo như StudentTwinBody. */
 /** Vạt áo lệch theo vật lý: chỉ các điểm gấu (chỉ số ≥ 2) dịch, hai điểm trên eo giữ nguyên; điểm càng thấp càng lệch nhiều. */
 export type HemSway = { dx: number; dy: number };
-const swayHem = (hem: [number, number][], h?: HemSway): [number, number][] => (h && (h.dx || h.dy) ? hem.map(([x, y], i) => (i < 2 ? [x, y] : [x + h.dx * (0.6 + 0.4 * ((i - 2) / 4)), y + h.dy * (0.5 + 0.5 * ((i - 2) / 4))] as [number, number])) : hem);
+export const swayHem = (hem: [number, number][], h?: HemSway): [number, number][] => (h && (h.dx || h.dy) ? hem.map(([x, y], i) => (i < 2 ? [x, y] : [x + h.dx * (0.6 + 0.4 * ((i - 2) / 4)), y + h.dy * (0.5 + 0.5 * ((i - 2) / 4))] as [number, number])) : hem);
 export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway): Outfit => {
   const base = { ...TWIN_OUTFIT, shirt, sleeveEnd: 0.56, build: DANG_THAM_CHIEU };
   const views = Object.fromEntries(Object.entries(TWIN_OUTFIT.views ?? {}).map(([k, v]) => [k, narrow(v!)])) as NonNullable<Outfit['views']>;
