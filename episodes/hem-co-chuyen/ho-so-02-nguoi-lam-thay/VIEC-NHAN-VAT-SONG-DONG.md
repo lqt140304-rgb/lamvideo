@@ -18,7 +18,7 @@ Chủ repo yêu cầu làm luôn phần nhân vật nên đã dựng bản đầ
 - `speak`, `faceBlend` (B4): khẩu hình tạm có nhịp (chưa khớp lời), chuyển nét mặt có thời gian.
 - `LivingTwin`, `LivingTung`, `LivingCast`, `castIdle` (B1, B5): thành phần dùng ngay cho Nam/Người Kia, Tùng và vai phụ.
 - **B3** chưa nối vật lý thứ cấp của bản 2.5D (`vat-ly.tsx`) vì nó gắn với `Nam25D`; `LivingTwin` chỉ tự thêm lắc tóc nhẹ.
-- Mới soi bằng ảnh tĩnh và test số, **chưa xem chuyển động qua video**, chưa áp vào opening hay trailer. Phiên nhận việc nên bắt đầu bằng xem video thử rồi chỉnh biên độ, nối B3 nếu bản 2.5D được giữ.
+- Đã dựng video so sánh 6 giây (composition `HoSo02SongDongThu`, `what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/song-dong-thu.tsx`; video local `what-if-studio/out/ho-so-02-nguoi-lam-thay/song-dong-so-sanh.mp4`, không commit): Nam ngồi ở bàn đêm, trái là cách cũ, phải có lớp sống động. Chưa áp vào opening hay trailer. Phiên nhận việc nên bắt đầu bằng xem video thử rồi chỉnh biên độ, nối B3 nếu bản 2.5D được giữ.
 
 ## B. Phần nhân vật — việc giao
 
