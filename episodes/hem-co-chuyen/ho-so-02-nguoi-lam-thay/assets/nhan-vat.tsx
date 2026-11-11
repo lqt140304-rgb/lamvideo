@@ -1144,7 +1144,7 @@ const NAM_SIDE = {
   earLine: 'M -13.6 92.6 Q -6.2 94.6 -6.8 103.4',
   back: [[-24.5, 135.4], [-34.7, 119.8], [-41.5, 95.3], [-38.8, 74.9], [-25.9, 55.8], [-2.1, 46.3], [25.1, 42.2], [45.5, 49.0], [51.6, 59.2]] as [number, number][],
   front: [[51.6, 57.2], [49.9, 66.0], [48.6, 77.6], [49.3, 89.5], [51.3, 102.1], [53.3, 110.9], [51.0, 114.7], [48.6, 116.7], [48.9, 123.8]] as [number, number][],
-  lower: [[48.9, 123.8], [47.6, 131.5], [43.2, 141.0], [33.4, 147.0], [18.0, 147.5], [2.5, 143.5], [-11.6, 138.5]] as [number, number][], // cằm nâng ~6 đơn vị so với bản đầu (xệ, nặng hàm)
+  lower: [[48.9, 123.8], [47.6, 129.5], [43.4, 137.5], [34.0, 142.5], [18.5, 143.0], [3.0, 139.5], [-11.6, 135.5]] as [number, number][], // cằm nâng ~11 đơn vị so với bản đầu (xệ, nặng hàm)
 };
 const namSkinPath = (d: number) => {
   const k = [0, 0.35, 0.7, 1, 1, 0.55, 0.2];
@@ -1182,7 +1182,7 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
       </g>
       <path d="M -26 184 Q -18 192 -8 196 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} />
       <g transform={NAM_HEAD_T}>
-        {drop > 0 && <path d={`M 49 131 L 41 ${132 + 0.4 * drop} L ${46 - 0.3 * drop} ${134 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
+        {drop > 0 && <path d={`M 49 131 L 41 ${132 + 0.4 * drop} L ${46 - 0.3 * drop} ${134 + drop} Z`} transform="translate(-1.5 -3.5)" fill={PALETTE.mouthDark} stroke="none" />}
         <path d={skin} fill={PALETTE.skin} {...o(PALETTE.skin)} />
         <g clipPath={`url(#${clip}-face)`} stroke="none" data-shadow="drawn-face">
           <g filter={`url(#${clip}-soft)`}>
@@ -1206,7 +1206,7 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         {blink && <path d="M 26 100 Q 36 106 47 100" fill="none" style={{ strokeWidth: lw(3) }} />}
         <g clipPath={`url(#${clip}-face)`}><path d={f.brow} transform="translate(6 0) translate(20 0) scale(0.8 1) translate(-20 0)" fill="none" style={{ strokeWidth: lw(5.5) }} /></g>
         {mole && <circle cx={16.6} cy={76.9} r={2.2} fill={PALETTE.ink} stroke="none" />}
-        {mouth && <path d={mouth} fill="none" style={{ strokeWidth: lw(2.6) }} />}
+        {mouth && <path d={mouth} transform="translate(-2 -3.5)" fill="none" style={{ strokeWidth: lw(2.6) }} />}
       </g>
     </g>
   );
