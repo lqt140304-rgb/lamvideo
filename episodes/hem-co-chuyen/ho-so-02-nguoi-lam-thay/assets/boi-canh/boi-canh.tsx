@@ -71,6 +71,13 @@ export const placeOn = (view: RoomView, at: [number, number], heightCm = 168, mo
   return { x, y: y - 590 * scale, scale };
 };
 
+/** Hệ số co chiều cao (cos θ) của người đứng tại `at` khi `floorTilt` bật; 1 = không ngả. Dùng chung với `RoomScene` để điểm tiếp xúc vẫn khớp. */
+export const tiltCos = (view: RoomView, at: [number, number], floorTilt = 0, move?: CameraMove) => {
+  if (floorTilt <= 0) return 1;
+  const c = camera(moved(VIEWS[view], move)), hd = Math.hypot(at[0] - c.pos[0], at[1] - c.pos[2]) || 1;
+  return Math.cos(Math.min(Math.PI / 6, Math.atan2(c.pos[1], hd) * 1.6 * floorTilt));
+};
+
 /**
  * Điểm 3D của cảnh (cm, chiều cao theo ĐÚNG hình đã vẽ: ghế mặt 40, mặt bàn 65 sau khi hạ thấp theo chân ngắn của rig) → toạ độ ảnh.
  * Dùng để khoá điểm tiếp xúc của người vào đồ: hông–mặt ghế, bàn tay–mặt bàn.
@@ -223,6 +230,12 @@ export type RoomProps = {
   clockMinutes?: number | null;
   /** Nhân vật/đạo cụ đứng trên sàn; được xếp lớp theo độ sâu cùng đồ đạc. */
   /** `lit: false` cho nhân vật 2.5D (`Nam25D`, `Tung25D`) đã có lớp sáng riêng, để phòng không ám sáng/tối lần nữa. */
+  /**
+   * Ngả người đứng ra sau theo độ dốc của mặt sàn (0 = tắt, 1 = mặc định đề xuất): ống kính dịch giữ tường và người thẳng đứng nên sàn
+   * trông như dốc về phía khán giả; người là tấm phẳng song song màn hình nên trông "dán". Mỗi người được xoay quanh bàn chân như đứng
+   * vuông góc với mặt sàn: co chiều cao theo cos(θ), θ = 1,6 × góc nhìn xuống sàn tại chỗ đứng (tối đa 30°) × `floorTilt`.
+   */
+  floorTilt?: number;
   actors?: { at: [number, number]; lit?: boolean; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }[];
   children?: React.ReactNode;
 };
@@ -231,7 +244,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, layers = false, frame = null, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, layers = false, frame = null, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], floorTilt = 0, move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway' || view === 'corridor' || view === 'stairs' || view === 'giveaway';
@@ -940,7 +953,14 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   ];
   // Người đặt qua `actors`: mặt hướng nguồn sáng ám ấm, mặt quay lưng ám lạnh, cắt đúng theo hình người (mask alpha), hai mảng vẽ sẵn.
   const lightActor = (a: { at: [number, number]; lit?: boolean; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }) => {
-    const p = placeOn(view, a.at, 168, move), rendered = a.render(p);
+    const p = placeOn(view, a.at, 168, move);
+    const rendered0 = a.render(p);
+    let rendered = rendered0;
+    if (floorTilt > 0) {
+      const hd = Math.hypot(a.at[0] - cam.pos[0], a.at[1] - cam.pos[2]) || 1, alpha = Math.atan2(cam.pos[1], hd);
+      const th = Math.min(Math.PI / 6, alpha * 1.6 * floorTilt), fx0 = p.x, fy0 = p.y + 590 * p.scale;
+      rendered = <g transform={`translate(${f1(fx0)} ${f1(fy0)}) scale(1 ${Math.cos(th).toFixed(4)}) translate(${f1(-fx0)} ${f1(-fy0)})`}>{rendered0}</g>;
+    }
     const L = lightFor(view, a.at, SRC, move), dist = Math.hypot(a.at[0] - SRC[0], a.at[1] - SRC[2]);
     const near = clamp(1 - dist / (REACH + 120), 0, 1);
     const sunE = !night && !inHall ? sunExposure(a.at, 20, 160, sun) : 0;

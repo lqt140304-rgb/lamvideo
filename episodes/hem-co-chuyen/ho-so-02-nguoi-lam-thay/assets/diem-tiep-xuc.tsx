@@ -1,6 +1,6 @@
 import { JointPose, Limb, solveRig, STAND_POSE, View } from './nhan-vat';
 import { armHint } from './tay-ik';
-import { CameraMove, placeOn, RoomView, screenOf, SEATS } from './boi-canh/boi-canh';
+import { CameraMove, placeOn, RoomView, screenOf, SEATS, tiltCos } from './boi-canh/boi-canh';
 import { facingFor, Pt } from './di-chuyen';
 
 /**
@@ -29,21 +29,24 @@ const PELVIS = { x: 0, y: 345 };
 /** Đế dép thấp hơn điểm cổ chân của rig (ANKLE_Y 555 → đáy 589). */
 const SOLE = 34;
 const rot = (x: number, y: number, deg: number) => { const a = (deg * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a); return { x: x * c - y * s, y: x * s + y * c }; };
-export type FrameOpts = { heightCm?: number; move?: CameraMove };
+/** `floorTilt`: cùng giá trị truyền cho `RoomScene` (người ngả theo mặt sàn co chiều cao theo cos θ quanh bàn chân). */
+export type FrameOpts = { heightCm?: number; move?: CameraMove; floorTilt?: number };
 
 /** Điểm 3D → toạ độ rig của THÂN (trước khi xoay theo tilt), dùng làm đích cho khớp tay. */
 export const toRig = (view: RoomView, at: Pt, pose: JointPose, p3: V3, o: FrameOpts = {}): Pt => {
   const pl = placeOn(view, at, o.heightCm ?? 168, o.move), sc = pl.scale, [sx, sy] = screenOf(view, p3, o.move);
-  const f = pose.facing ?? 1, dy = solveRig(pose).dy;
-  const lx = (sx - pl.x) / (sc * f) - pose.x, ly = (sy - pl.y) / sc - dy;
+  const f = pose.facing ?? 1, dy = solveRig(pose).dy, c = tiltCos(view, at, o.floorTilt, o.move), fy = pl.y + 590 * sc;
+  const syU = fy + (sy - fy) / c; // bỏ co chiều cao do ngả theo sàn
+  const lx = (sx - pl.x) / (sc * f) - pose.x, ly = (syU - pl.y) / sc - dy;
   const r = rot(lx - PELVIS.x, ly - PELVIS.y, -solveRig(pose).tilt);
   return [r.x + PELVIS.x, r.y + PELVIS.y];
 };
 /** Ngược lại: điểm rig của thân → toạ độ ảnh (để đo sai số). */
 export const rigToScreen = (view: RoomView, at: Pt, pose: JointPose, g: Pt, o: FrameOpts = {}): Pt => {
   const pl = placeOn(view, at, o.heightCm ?? 168, o.move), sc = pl.scale, f = pose.facing ?? 1, r = solveRig(pose);
-  const q = rot(g[0] - PELVIS.x, g[1] - PELVIS.y, r.tilt);
-  return [pl.x + f * sc * (q.x + PELVIS.x + pose.x), pl.y + sc * (q.y + PELVIS.y + r.dy)];
+  const q = rot(g[0] - PELVIS.x, g[1] - PELVIS.y, r.tilt), c = tiltCos(view, at, o.floorTilt, o.move), fy = pl.y + 590 * sc;
+  const y = pl.y + sc * (q.y + PELVIS.y + r.dy);
+  return [pl.x + f * sc * (q.x + PELVIS.x + pose.x), fy + (y - fy) * c];
 };
 
 /** Đưa cổ tay `side` chạm điểm 3D `target`; khuỷu gợi ý hạ xuống phía thân (mặc định) hoặc theo `elbow` (toạ độ rig của thân). */
@@ -68,10 +71,14 @@ export const sitLegs = (seatTopCm = SURFACES.seatTop, o: { pad?: number; a?: num
   // Giải theo chính `solveRig` của góc nhìn đang dùng (nhìn thẳng/sau lưng co đùi theo cos nên công thức đóng không đúng ở mọi góc).
   const view = o.view ?? 'three';
   const height = (a: number, b: number) => { const l = solveRig({ ...STAND_POSE, view, legR: { a, b } }).legR; return l.end.y - l.root.y; };
-  const one = (a: number): Limb => {
-    let best = { b: a, e: Infinity };
-    for (let b = Math.max(0, a - 30); b <= Math.min(150, a + 90); b += 0.5) { const e = Math.abs(height(a, b) - H) + 0.02 * Math.abs(b - a); if (e < best.e) best = { b, e }; }
-    return { a, b: best.b };
+  const one = (a0: number): Limb => {
+    // Người ngả theo sàn co chiều cao nên hông phải cao hơn trong hệ rig: nếu đùi nghiêng a0 độ không với tới thì nâng đùi dần (giảm a).
+    for (let a = a0; a >= 15; a -= 2) {
+      let best = { b: a, e: Infinity };
+      for (let b = Math.max(0, a - 30); b <= Math.min(150, a + 90); b += 0.5) { const e = Math.abs(height(a, b) - H); if (e < best.e) best = { b, e }; }
+      if (best.e < 1.5) return { a, b: best.b };
+    }
+    return { a: 15, b: 15 };
   };
   const a = o.a ?? 74, st = o.stagger ?? 8;
   return { legR: one(a - st / 2), legL: one(a + st / 2) };
@@ -89,7 +96,7 @@ export type Seated = { at: Pt; pose: JointPose };
  */
 export const seatedAt = (view: RoomView, chair: keyof typeof SEATS, o: FrameOpts & { hands?: { R?: V3; L?: V3 }; lean?: number; base?: JointPose } = {}): Seated => {
   const s = seatAnchor(chair), { view: v, facing } = facingFor(view, s.facing, o.move);
-  const legs = sitLegs(s.top, { heightCm: o.heightCm, view: v as View });
+  const legs = sitLegs(s.top, { heightCm: (o.heightCm ?? 168) * tiltCos(view, s.at, o.floorTilt, o.move), view: v as View });
   const hands = o.hands ?? { R: [SEATS[chair].x - 8, SURFACES.deskTop + 2, SEATS[chair].z - 48] as V3, L: [SEATS[chair].x + 14, SURFACES.deskTop + 2, SEATS[chair].z - 47] as V3 };
   let pose: JointPose = { ...(o.base ?? STAND_POSE), view: v as View, facing, ...legs, tilt: o.lean ?? 8, neck: -5, handR: 'type', handL: 'type', frontR: true, frontL: true };
   if (hands.R) pose = reachWorld(view, s.at, pose, 'R', hands.R, o);

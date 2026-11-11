@@ -77,4 +77,18 @@ for (const view of ['desk', 'wide', 'bed']) {
   assert.ok(!JSON.stringify(pose).includes('NaN'));
 }
 assert.ok(Math.abs(ct.hipHeightCm({ ...r.STAND_POSE, ...ct.sitLegs(40) }) - 46) < 2, 'sitLegs đưa hông tới mặt ghế + 6 cm');
-console.log('di-chuyen ok: điểm tiếp xúc ghế, bàn, sàn');
+// Ngả theo mặt sàn: người co chiều cao theo cos θ; điểm tiếp xúc vẫn khớp khi truyền cùng floorTilt.
+for (const floorTilt of [1]) {
+  const c = room.tiltCos('wide', [396, 112], floorTilt); assert.ok(c < 1 && c > 0.8, `cos θ = ${c}`);
+  assert.equal(room.tiltCos('wide', [396, 112], 0), 1);
+  assert.ok(room.tiltCos('wide', [150, 380], floorTilt) < room.tiltCos('wide', [150, 60], floorTilt), 'người gần máy ngả nhiều hơn người xa');
+  const hands = { R: [388, 67, 64], L: [410, 67, 65] };
+  const { pose, at } = ct.seatedAt('desk', 'desk', { hands, floorTilt });
+  for (const side of ['R', 'L']) assert.ok(ct.reachError('desk', at, pose, side, hands[side], { floorTilt }) < 8, `ngả sàn: tay ${side}`);
+  const k = room.placeOn('desk', at).scale, s = ct.seatAnchor('desk'), cc = room.tiltCos('desk', at, floorTilt), pl = room.placeOn('desk', at);
+  const hip = ct.rigToScreen('desk', at, pose, [0, 345], { floorTilt })[1], seatTop = room.screenOf('desk', [s.at[0], s.top, s.at[1]])[1];
+  assert.ok(Math.abs(seatTop - hip - 6 * (590 / 168) * k) < 6, `ngả sàn: hông lệch ${(seatTop - hip - 6 * (590 / 168) * k).toFixed(1)} px`);
+  const html = renderToStaticMarkup(React.createElement(room.RoomScene, { view: 'wide', floorTilt, actors: [{ at: [200, 300], render: (p) => React.createElement(r.StudentTwinBody, { ...p, mood: 'calm' }) }] }));
+  assert.ok(/scale\(1 0\.[89]\d+\)/.test(html), 'người được ngả theo sàn');
+}
+console.log('di-chuyen ok: điểm tiếp xúc ghế, bàn, sàn, ngả theo mặt sàn');
