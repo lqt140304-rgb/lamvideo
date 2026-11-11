@@ -78,6 +78,8 @@ const SKIN = PALETTE.skin, SKIN_SH = PALETTE.skinShadow, HAIR = PALETTE.nam.hair
 const MUL: React.CSSProperties = { mixBlendMode: 'multiply' };
 const SCREEN: React.CSSProperties = { mixBlendMode: 'screen' };
 const RIM_BOTTOM = 350; // y hông trong hệ rig; viền sáng dừng ở đây
+/** Độ mềm mép trong của mảng (tỉ lệ theo bề rộng mảng). 0 = sắc cạnh như quy chuẩn cũ. Chủ repo chọn mềm (11/11). */
+const SOFT = 0.5;
 const BOX = { x: -500, y: -400, width: 1000, height: 1300 };
 const useUid = (p: string) => `${p}-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
 
@@ -99,7 +101,8 @@ const sel = (c: string, part: Part, cols: { shirt: string; pants: string }) => {
 const exclude = (c: string, part: Part) =>
   part === 'skinHead' ? `.${c} [data-part~="head"] [fill="${HAIR}"]` : part === 'skinLimb' ? `.${c} [data-part~="head"] *` : '';
 
-type Layer = { mode: 'vis' | 'onlyW' | 'onlyB'; part: Part; shift?: [number, number] };
+/** `blur`: làm mềm riêng lớp này (độ lệch chuẩn, đơn vị rig) — dùng cho bản dịch, để mép trong của mảng chuyển dần, mép ngoài vẫn cắt theo hình bao. */
+type Layer = { mode: 'vis' | 'onlyW' | 'onlyB'; part: Part; shift?: [number, number]; blur?: number };
 const lum = (h: string) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
 /**
  * Mask dựng từ chính nhân vật. `vis`: khối trắng, mọi phần khác đen (đen của phần vẽ sau che đúng chỗ bị che).
@@ -117,7 +120,8 @@ const SubjectMask: React.FC<{ id: string; subject: React.ReactNode; cols: { shir
       return (
         <g key={i} transform={l.shift ? `translate(${l.shift[0].toFixed(2)} ${l.shift[1].toFixed(2)})` : undefined}>
           <style>{css}</style>
-          <g className={c}>{subject}</g>
+          {l.blur ? <filter id={`${c}-soft`} filterUnits="userSpaceOnUse" {...BOX}><feGaussianBlur stdDeviation={l.blur.toFixed(1)} /></filter> : null}
+          <g className={c} filter={l.blur ? `url(#${c}-soft)` : undefined}>{subject}</g>
         </g>
       );
     })}
@@ -143,8 +147,8 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
   const away = (k: number): [number, number] => [(-lx / n) * k, (-ly / n) * k];
   const id = (s: string) => `${uid}-${s}`;
   // Da đầu chỉ lệch NGANG: lệch dọc sẽ để lại dải tối dưới cằm, trông như râu (quy chuẩn cấm).
-  const band = (part: Part, k: number) => ({ id: id(`b-${part}`), layers: [{ mode: 'vis', part }, { mode: 'onlyB', part, shift: part === 'skinHead' ? [toward(k)[0], 0] as [number, number] : toward(k) }] as Layer[] });
-  const lit = (part: Part, k: number, tag: string) => ({ id: id(`l-${tag}-${part}`), layers: [{ mode: 'vis', part }, { mode: 'onlyB', part, shift: away(k) }] as Layer[] });
+  const band = (part: Part, k: number) => ({ id: id(`b-${part}`), layers: [{ mode: 'vis', part }, { mode: 'onlyB', part, shift: part === 'skinHead' ? [toward(k)[0], 0] as [number, number] : toward(k), blur: k * SOFT }] as Layer[] });
+  const lit = (part: Part, k: number, tag: string, soft = SOFT) => ({ id: id(`l-${tag}-${part}`), layers: [{ mode: 'vis', part }, { mode: 'onlyB', part, shift: away(k), blur: k * soft }] as Layer[] });
   const shadows: { m: { id: string; layers: Layer[] }; color: string }[] = [
     ...(head ? [{ m: band('skinHead', L.k.head), color: L.shade.skin }, { m: band('hair', L.k.head * 0.55), color: '#a3a3a3' }] : []),
     { m: band('skinLimb', L.k.limb), color: L.shade.skin },
@@ -164,7 +168,7 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
     armsFront ? pair('shirt', 'skinLimb', k0, L.shade.cloth) : pair('skinLimb', 'shirt', k0 * 0.8, L.shade.skin),
   ];
   const hairHL = L.hairLight && head ? lit('hair', L.hairLight.k, 'hl') : null;
-  const rim = L.rim ? lit('all', L.rim.k, 'rim') : null;
+  const rim = L.rim ? lit('all', L.rim.k, 'rim', 0.3) : null; // viền giữ mảnh, chỉ mềm nhẹ
   const glowOp = L.glow ? Math.min(1, L.glow.opacity * (0.5 + (1 - lum(L.tint ?? '#ffffff')))) : 0; // phòng tối → hắt mạnh
   const glows = L.glow ? ([['skinHead', 1], ['shirt', 1.6], ['skinLimb', 0.6]] as [Part, number][]).filter(([p]) => head || p !== 'skinHead').map(([p, f]) => lit(p, L.glow!.k * f, 'glow')) : [];
   const far = depth ? { id: id('far'), layers: [{ mode: 'vis', part: 'far' }] as Layer[] } : null;
@@ -179,7 +183,7 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
         {casts.map((c, i) => (
           <React.Fragment key={i}>
             <SubjectMask id={id(`ct${i}`)} subject={subject} cols={cols} layers={[{ mode: 'vis', part: c.target }]} />
-            <SubjectMask id={id(`cc${i}`)} subject={subject} cols={cols} layers={[{ mode: 'vis', part: c.caster, shift: castShift(c.k) }, { mode: 'onlyB', part: c.caster }]} />
+            <SubjectMask id={id(`cc${i}`)} subject={subject} cols={cols} layers={[{ mode: 'vis', part: c.caster, shift: castShift(c.k), blur: c.k * SOFT * 0.8 }, { mode: 'onlyB', part: c.caster }]} />
           </React.Fragment>
         ))}
       </defs>
