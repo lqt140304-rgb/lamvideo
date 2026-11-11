@@ -245,29 +245,38 @@ const Slice2B: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   );
 };
 
-const RUB_CALF: JointPose = { ...TWIN_POSES.sitLow, tilt: 24, neck: 8, armR: { a: 40, b: 30 }, armL: { a: 30, b: 34, rot: -1 }, handR: 'open', handL: 'open', frontR: true };
-const OFFER_CUP: JointPose = { ...TWIN_POSES.sitLow, tilt: 6, neck: 2, armL: { a: 60, b: 30, rot: 1 }, handL: 'hold', frontL: true };
+// 2C: đêm, hai đứa đứng giữa phòng. Tùng đi làm về mệt, xoa gáy; Nam chìa cốc nước, Tùng đưa tay đón rồi cầm cốc về trước ngực.
+const NAM_2C: [number, number] = [160, 222], TUNG_2C: [number, number] = [268, 232];
+const OFFER_CUP: JointPose = { ...STAND_POSE, tilt: 4, neck: 2, armL: { a: 62, b: 22, rot: -1 }, handL: 'hold', frontL: true };
+const TUNG_TIRED: JointPose = { ...STAND_POSE, tilt: 5, neck: 10, armR: { a: -40, b: 140, rot: -1 }, wristR: -40, handR: 'open', frontR: true }; // xoa gáy
+const TUNG_TAKE: JointPose = { ...STAND_POSE, tilt: 3, neck: 4, armR: { a: 62, b: 22 }, handR: 'hold', frontR: true };
+const Cup: React.FC<{ x: number; y: number; s: number }> = ({ x, y, s }) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`}>
+    <path d="M-20 -46H20L16 22Q0 30-16 22Z" fill="#cfe6e8" opacity={0.9} />
+    <path d="M-18 -22H18L15 20Q0 26-15 20Z" fill="#9fd0d8" opacity={0.75} />
+  </g>
+);
 const Slice2C: React.FC<{ f: number; g: number }> = ({ f, g }) => {
-  const rub = Math.sin(f / 4) * 6;
-  const push = seg(f, 50, 80);
-  const SEAT_NEAR: [number, number] = [262, 360];
-  const tung = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [276, 240]); return <TungSoccer {...p} mood="normal" blink={f % 70 < 3} pose={{ ...RUB_CALF, tilt: RUB_CALF.tilt + rub * 0.3, view: 'three', facing: -1 }} />; } };
-  const namCup: JointPose = { ...mixPose(TWIN_POSES.sitLow, OFFER_CUP, push), handL: 'hold' };
-  const cupAt = gripAt(namCup, 'L');
-  const nam = { at: SEAT_NEAR, render: () => { const p = placeOn('bed', [318, 252]); return (
-    <g>
-      <StudentTwinBody {...LOOK} {...p} shirt={PALETTE.nam.sleepShirt} mood="calm" face={push > 0.5 ? 'nhe-nhom-02' : 'buon-01'} pose={{ ...namCup, view: 'three', facing: 1 }} />
-      {/* cốc nước: đẩy dần sang phía Tùng */}
-      <g transform={`translate(${p.x + cupAt.x * p.scale} ${p.y + cupAt.y * p.scale}) scale(${p.scale})`}>
-        <path d="M-20 -46H20L16 22Q0 30-16 22Z" fill="#cfe6e8" opacity={0.9} />
-        <path d="M-18 -22H18L15 20Q0 26-15 20Z" fill="#9fd0d8" opacity={0.75} />
-      </g>
-    </g>
-  ); } };
+  const offer = seg(f, 20, 46);
+  const take = seg(f, 46, 64); // Tùng vươn tay đón
+  const handed = f >= 66; // cốc sang tay Tùng
+  const bring = seg(f, 70, 92);
+  const namPose = mixPose(STAND_POSE, OFFER_CUP, handed ? 1 - seg(f, 70, 90) : offer);
+  // sau khi trao, Tùng giữ nguyên tay đón đang cầm cốc (cốc đứng yên đúng chỗ hai tay gặp nhau), Nam rút tay về
+  const tungPose = handed ? { ...TUNG_TAKE, neck: TUNG_TAKE.neck - 4 * bring } : mixPose(mixPose(STAND_POSE, TUNG_TIRED, 1 - seg(f, 30, 44)), TUNG_TAKE, take);
+  const pn = placeOn('wide', NAM_2C), pt = placeOn('wide', TUNG_2C);
+  const gN = gripAt(handed ? OFFER_CUP : namPose, 'L');
+  const cup = { x: pn.x + gN.x * pn.scale, y: pn.y + gN.y * pn.scale, s: pn.scale };
+  const nam = { at: NAM_2C, render: () => <StudentTwinBody {...LOOK} {...pn} shirt={PALETTE.nam.sleepShirt} mood="calm" face={offer > 0.5 ? 'nhe-nhom-02' : 'buon-01'} blink={f % 80 < 3} pose={{ ...namPose, handL: handed ? 'rest' : 'hold', view: 'three', facing: 1 }} /> };
+  const tung = { at: TUNG_2C, render: () => <TungSoccer {...pt} mood={handed ? 'normal' : 'annoyed'} blink={f % 64 < 3} pose={{ ...tungPose, view: 'three', facing: -1 }} /> };
+  const mid = { cx: (pn.x + pt.x) / 2, cy: pn.y + 280 * pn.scale };
   return (
-    <Camera lens={{ cx: 820, cy: 720, z: 1.35 + 0.05 * seg(f, 0, 120) }} f={g} hand={0.5}>
-      <RoomScene night view="bed" chair="bed" door="closed" actors={[nam, tung]} />
-    </Camera>
+    <AbsoluteFill>
+      <Camera lens={{ cx: mid.cx, cy: mid.cy, z: 1.55 + 0.08 * seg(f, 0, 120) }} f={g} hand={0.5}>
+        <RoomScene night view="wide" chair="bed" door="closed" phone="hidden" actors={[nam, tung]} />
+        <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}><Cup {...cup} /></svg>
+      </Camera>
+    </AbsoluteFill>
   );
 };
 
@@ -336,7 +345,7 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
 // vẽ bóng 2 lần cùng phép đặt — bản trong kính, và bản ngoài kính (vẽ sau Nam) chỉ lộ phần vượt mép trái kính.
 const MIR_AT = { x: 1270, y: 760, s: 0.7, r: -3 }; // chân gương trên đường sàn
 const MIR = `translate(${MIR_AT.x} ${MIR_AT.y}) scale(${MIR_AT.s}) rotate(${MIR_AT.r})`;
-const FLOOR = 'M-300 1230L1190 752H2400V1500H-300Z'; // sàn phía trước, mép chéo về chân gương
+const FLOOR = 'M-300 1300L1100 772H2400V1500H-300Z'; // sàn phía trước, mép chéo về chân gương
 const REACH_ARM = (k: number): JointPose => ({ ...STAND_POSE, tilt: 6 * k, armR: { a: 80 * k, b: 8 * k }, wristR: 32 * k, handR: k > 0.2 ? 'open' : 'rest', frontR: true });
 const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const t = f / 180;
@@ -348,8 +357,8 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const turn = seg(f, 14, 28);
   // Nam đi dọc đường sàn về phía máy: chậm lúc tay đặt lên vai, nhanh dần sau khi tay rút
   const walk = interpolate(f, [28, 112, 178], [0, 0.16, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const feet = { x: 1060 + (560 - 1060) * walk, y: 732 + (1030 - 732) * walk };
-  const ns = 0.72 + 0.5 * walk;
+  const feet = { x: 1060 + (560 - 1060) * walk, y: 792 + (1040 - 792) * walk };
+  const ns = 0.74 + 0.48 * walk;
   const walkP = f > 28 ? sampleWalk((f - 28) / 18) : STAND_POSE;
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
@@ -372,7 +381,7 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
         <svg width={1920} height={1080}>
           <rect x={-600} y={-600} width={3100} height={2300} fill="#0c1615" />
           <path d={FLOOR} fill="#142220" />
-          <path d="M-300 1230L1190 752H2400" fill="none" stroke="#1d302d" strokeWidth={4} />
+          <path d="M-300 1300L1100 772H2400" fill="none" stroke="#1d302d" strokeWidth={4} />
           <g transform={MIR}>
             <Mirror w={MW} h={MH} progress={ripple} phase={f / 6}>
               <rect x={-60} y={-60} width={MW + 120} height={MH + 120} fill="#03100f" />
