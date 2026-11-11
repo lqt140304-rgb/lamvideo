@@ -23,7 +23,8 @@ type View25 = 'three' | 'front';
  */
 export const VOL = {
   skin: '#dcc9cc', // → #bd8968 trên da
-  cloth: '#c3c7c9', // vải mặt tối ≈ 77% sáng
+  cloth: '#cdd1d2', // vải mặt tối ≈ 81% sáng
+  clothSoft: '#dadddd', // bóng nhẹ (vạt áo đổ xuống quần)
   light: '#fff6e4', lightOp: 0.13, // mảng sáng phủ thường, rất nhẹ
   hairLight: '#4a4c49',
 };
@@ -49,14 +50,14 @@ const torsoOf = (v: View25): string[] => {
 // Mảng tự vẽ của đầu, hệ toạ độ đầu (như StudentTwinHead).
 const HEAD_MASS: Record<View25, { hairLight: string; temple: string; ear: string[]; earFar?: string; nose: string }> = {
   three: {
-    hairLight: 'M -60 52 Q -50 34 -30 30 Q -14 27 -2 20 Q 4 8 14 2 Q 6 12 6 22 Q -10 32 -28 36 Q -46 40 -60 52 Z M 14 18 Q 34 14 46 30 Q 32 22 14 22 Z',
-    temple: 'M 40 40 Q 54 52 56 76 L 57 110 Q 62 118 64 126 Q 52 120 49 104 Q 46 80 44 62 Z',
+    hairLight: 'M -60 52 Q -50 34 -30 30 Q -14 27 -2 20 Q 4 8 14 2 Q 6 12 6 22 Q -10 32 -28 36 Q -46 40 -60 52 Z',
+    temple: 'M 42 42 Q 54 54 55 76 L 56 98 Q 51 94 49 84 Q 47 66 44 56 Z',
     ear: ['M -71 92 Q -64 86 -58 96 Q -55 112 -64 118 Q -60 104 -71 92 Z'],
     nose: 'M 12 124 Q 22 127 26 119 Q 27 128 15 130 Z',
   },
   front: {
-    hairLight: 'M -66 52 Q -56 34 -36 30 Q -18 26 -4 18 Q 4 6 15 0 Q 8 12 8 22 Q -12 32 -32 36 Q -52 40 -66 52 Z M 16 18 Q 40 16 52 32 Q 36 24 16 22 Z',
-    temple: 'M 44 44 Q 58 56 60 80 L 61 112 Q 58 130 50 142 Q 52 120 52 104 Q 50 80 46 60 Z',
+    hairLight: 'M -66 52 Q -56 34 -36 30 Q -18 26 -4 18 Q 4 6 15 0 Q 8 12 8 22 Q -12 32 -32 36 Q -52 40 -66 52 Z',
+    temple: 'M 46 46 Q 58 58 59 80 L 60 100 Q 55 96 53 86 Q 51 68 48 58 Z',
     ear: ['M -80 94 Q -72 88 -66 98 Q -63 112 -72 118 Q -68 106 -80 94 Z'],
     earFar: 'M 62 88 Q 84 74 86 99 Q 87 121 62 125 Q 72 112 70 100 Q 68 92 62 88 Z',
     nose: 'M 2 114 Q 10 121 18 113 Q 16 122 6 121 Z',
@@ -64,15 +65,6 @@ const HEAD_MASS: Record<View25, { hairLight: string; temple: string; ear: string
 };
 
 const useUid = (p: string) => `${p}-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
-
-/** Mask trắng theo silhouette: render lại chính nhân vật, ép mọi phần thành trắng. */
-const Silhouette: React.FC<{ id: string; cut?: string[]; children: React.ReactNode }> = ({ id, cut, children }) => (
-  <mask id={id} maskUnits="userSpaceOnUse" x={-400} y={-200} width={800} height={1000}>
-    <style>{`.${id} *{fill:#fff!important;stroke:#fff!important;opacity:1!important}.${id} [data-shadow]{display:none}`}</style>
-    <g className={id}>{children}</g>
-    {cut?.map((d) => <path key={d} d={d} fill="#000" />)}
-  </mask>
-);
 
 /** Lớp thể tích của đầu — đặt chồng lên StudentTwinHead cùng hệ toạ độ. */
 const HeadVolume: React.FC<{ view: View25 }> = ({ view }) => {
@@ -88,13 +80,12 @@ const HeadVolume: React.FC<{ view: View25 }> = ({ view }) => {
         </mask>
       </defs>
       {/* tóc: một mảng sáng theo vòm sọ phía nguồn sáng */}
-      <path d={m.hairLight} fill={VOL.hairLight} clipPath={`url(#${hair})`} />
+      <path d={m.hairLight} fill={VOL.hairLight} opacity={0.6} clipPath={`url(#${hair})`} />
       <g mask={`url(#${skin})`} style={MUL}>
         {/* bóng tóc đổ xuống trán: chính mảng tóc, lệch theo hướng sáng */}
         <path d={HAIR[view]} transform="translate(4 7)" fill={VOL.skin} />
         {/* mặt bên phía xa (thái dương), dừng trên gò má để không thành dải râu */}
         <path d={m.temple} fill={VOL.skin} />
-        <path d={m.nose} fill={VOL.skin} />
       </g>
       {m.ear.map((d, i) => <path key={i} d={d} fill={VOL.skin} style={MUL} />)}
       {m.earFar && <path d={m.earFar} fill={VOL.skin} style={MUL} />}
@@ -132,58 +123,88 @@ const down = (p: P, dy: number): P => ({ x: p.x, y: p.y + dy });
 // Mảng thân áo (hệ toạ độ thân, tư thế đứng).
 const TORSO_MASS: Record<View25, { dark: string; light: string; sleeveDark: string; hemCast: string }> = {
   three: {
-    dark: 'M 22 186 Q 36 212 36 248 Q 32 300 34 380 L 140 380 L 140 170 Z',
+    dark: 'M 40 184 Q 22 214 24 256 Q 26 306 40 352 Q 46 372 52 384 L 140 384 L 140 170 Z',
     light: 'M -110 230 Q -96 196 -66 184 Q -46 177 -26 177 Q -50 186 -64 200 Q -78 214 -84 236 Q -90 262 -92 290 L -110 290 Z',
     sleeveDark: 'M 74 205 L 120 205 L 120 292 L 80 292 Z',
-    hemCast: 'M -64 350 Q -23 372 12 358 Q 38 366 64 344 L 64 354 Q 40 375 12 366 Q -24 382 -64 360 Z',
+    hemCast: 'M -62 352 Q -23 374 12 360 Q 38 368 62 346 L 62 351 Q 40 373 12 365 Q -24 379 -62 357 Z',
   },
   front: {
-    dark: 'M 30 186 Q 42 214 40 250 Q 36 300 38 380 L 140 380 L 140 170 Z',
+    dark: 'M 44 184 Q 28 214 30 256 Q 32 306 44 352 Q 50 372 56 384 L 140 384 L 140 170 Z',
     light: 'M -110 230 Q -96 196 -66 184 Q -46 178 -24 178 Q -48 187 -62 201 Q -76 216 -82 238 Q -88 262 -90 290 L -110 290 Z',
     sleeveDark: 'M 80 205 L 120 205 L 120 292 L 84 292 Z',
-    hemCast: 'M -64 348 Q -30 368 0 360 Q 30 368 64 348 L 64 357 Q 30 377 0 368 Q -30 377 -64 357 Z',
+    hemCast: 'M -62 350 Q -30 370 0 362 Q 30 370 62 350 L 62 355 Q 30 375 0 367 Q -30 375 -62 355 Z',
   },
 };
 
-/** Nam 2.5D: Nam gốc + lớp mảng thể tích tự vẽ. Chỉ hỗ trợ tư thế đứng (3/4, chính diện) trong bản thử. */
-export const Nam25D: React.FC<{ mood?: NamMood; shirt?: string; view?: View25; x?: number; y?: number; scale?: number; volume?: boolean }> = ({ mood = 'sleepy', shirt = PALETTE.nam.shirt, view = 'three', x = 0, y = 0, scale = 1, volume = true }) => {
-  const pose: JointPose = { ...STAND_POSE, view };
-  const body = <StudentTwinBody mood={mood} shirt={shirt} pose={pose} />;
+type BodyProps = React.ComponentProps<typeof StudentTwinBody>;
+/** Chỉ vẽ mảng cho góc 3/4 và chính diện, nhân vật quay phải, đứng/ngồi trên sàn; còn lại rơi về Nam 2D. */
+export const supports25D = (p: Pick<BodyProps, 'pose' | 'outfit'>) => {
+  const q = p.pose ?? STAND_POSE;
+  const v = q.view ?? 'three';
+  return (v === 'three' || v === 'front') && (q.facing ?? 1) === 1 && q.support !== 'bed' && (!p.outfit || p.outfit === 'xanh' || p.outfit === 'ngu' || p.outfit === 'xam-tui' || p.outfit === 'dong-phuc');
+};
+
+/**
+ * Nam 2.5D: cùng props với `StudentTwinBody`. Lớp thể tích đi theo đúng các phép biến đổi của rig
+ * (dịch hông → nghiêng thân quanh chậu → xoay cổ), nên theo được dáng đứng/ngồi/đi.
+ * `volume={false}` hoặc góc chưa hỗ trợ → trả về Nam 2D gốc.
+ */
+export const Nam25D: React.FC<BodyProps & { volume?: boolean }> = ({ volume = true, ...props }) => {
+  const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;
   const sil = useUid('v25sil'), limbs = useUid('v25limb'), torso = useUid('v25torso');
-  const r = solveRig(pose);
-  const dy = r.dy;
+  const body = <StudentTwinBody {...props} x={0} y={0} scale={1} />;
+  if (!volume || !supports25D(props)) return <StudentTwinBody {...props} />;
+  const view: View25 = pose.view === 'front' ? 'front' : 'three';
+  const r = solveRig({ ...pose, view });
   const T = TORSO_MASS[view];
   const shirt2 = torsoOf(view);
-  // Tay: tối từ cửa tay áo tới bàn tay. Tay gần (R) chỉ một dải hẹp mép trong; tay xa (L) rộng hơn.
+  // Chân gập (ngồi) và tay đưa lên thân che nhau; mảng cắt theo cả hình bao nên chỉ vẽ mảng chân khi chân gần thẳng, tránh lem lên tay/đồ cầm.
+  const legsDown = Math.max(Math.abs(pose.legR.a), Math.abs(pose.legL.a)) < 40;
+  const G1 = `translate(${pose.x} ${r.dy})`; // dịch hông / hạ hông khi gập gối
+  const G2 = `rotate(${r.tilt} 0 345)`; // nghiêng thân quanh chậu (tay, áo, đầu nằm trong hệ này)
   const arm = (c: typeof r.armR, inner: [number, number, number]) =>
-    limbShade([lerpP(c.root, c.mid, 0.58), c.mid, lerpP(c.mid, c.end, 1.42)].map((p) => down(p, dy)) as [P, P, P], [17, 16, 15], inner, 1.6);
-  // Ống quần: hông → gối → cổ chân; mép trong thu hẹp ở gối như nếp vải. Ống xa gần như cả mặt bên.
+    limbShade([lerpP(c.root, c.mid, 0.58), c.mid, lerpP(c.mid, c.end, 1.42)] as [P, P, P], [17, 16, 15], inner, 1.6);
   const leg = (c: typeof r.legR, inner: [number, number, number]) =>
-    limbShade([down(c.root, dy + 8), down(c.mid, dy), down(c.end, dy - 8)], [31, 26, 28], inner, 1.08); // dừng trên gấu quần, không phủ bàn chân
+    limbShade([down(c.root, 8), c.mid, down(c.end, -8)], [31, 26, 28], inner, 1.08);
+  // Mask phải ở hệ toạ độ của khung bọc (nơi Nam gốc được vẽ); vùng cắt áo thì theo hệ thân.
+  const cut = shirt2.map((d) => <path key={d} d={d} transform={`${G1} ${G2}`} fill="#000" />);
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       {body}
-      {volume && (
-        <g stroke="none" data-volume="body">
-          <defs>
-            <Silhouette id={sil}>{body}</Silhouette>
-            <Silhouette id={limbs} cut={shirt2}>{body}</Silhouette>
-            <clipPath id={torso}>{shirt2.map((d) => <path key={d} d={d} />)}</clipPath>
-          </defs>
-          {/* thân áo: mặt tối phía xa (multiply) + mảng sáng vai gần, cắt trong áo */}
-          <g clipPath={`url(#${torso})`} style={MUL}><path d={T.dark} fill={VOL.cloth} /></g>
-          {/* mảng sáng: một vành cong theo vai gần, chạy liền từ thân sang tay áo */}
-          <g mask={`url(#${sil})`}><path d={T.light} fill={VOL.light} opacity={VOL.lightOp} /></g>
-          <g mask={`url(#${limbs})`} style={MUL}>
-            <path d={T.sleeveDark} fill={VOL.cloth} />
-            <path d={[arm(r.armR, [0.45, 0.5, 0.4]), arm(r.armL, [-0.1, 0.05, 0])].join(' ')} fill={VOL.skin} />
-            <path d={[leg(r.legR, [0.35, 0.62, 0.4]), leg(r.legL, [-0.25, 0.05, -0.15])].join(' ')} fill={VOL.cloth} />
-            {/* vạt áo đổ bóng xuống quần: một dải tự vẽ bám mép vạt */}
-            <path d={T.hemCast} fill={VOL.cloth} />
+      <g stroke="none" data-volume="body">
+        <defs>
+          <mask id={sil} maskUnits="userSpaceOnUse" x={-400} y={-300} width={800} height={1100}>
+            <style>{`.${sil} *{fill:#fff!important;stroke:#fff!important;opacity:1!important}.${sil} [data-shadow]{display:none}`}</style>
+            <g className={sil}>{body}</g>
+          </mask>
+          <mask id={limbs} maskUnits="userSpaceOnUse" x={-400} y={-300} width={800} height={1100}>
+            <style>{`.${limbs} *{fill:#fff!important;stroke:#fff!important;opacity:1!important}.${limbs} [data-shadow]{display:none}`}</style>
+            <g className={limbs}>{body}</g>
+            {cut}
+          </mask>
+          {/* vùng tối thân áo = áo trừ các tay đang đưa ra trước thân (tay vẽ đè lên áo nên không được dính mảng tối) */}
+          <mask id={torso} maskUnits="userSpaceOnUse" x={-400} y={-300} width={800} height={1100}>
+            {shirt2.map((d) => <path key={d} d={d} fill="#fff" />)}
+            {([[pose.frontR, r.armR], [pose.frontL, r.armL]] as const).map(([on, c], i) => on && <path key={i} d={`M ${c.root.x} ${c.root.y} L ${c.mid.x} ${c.mid.y} L ${c.end.x} ${c.end.y}`} fill="none" stroke="#000" strokeWidth={46} strokeLinecap="round" strokeLinejoin="round" />)}
+          </mask>
+        </defs>
+        {/* thân áo: mặt tối phía xa (multiply), cắt trong áo */}
+        <g transform={`${G1} ${G2}`} mask={`url(#${torso})`} style={MUL}><path d={T.dark} fill={VOL.cloth} /></g>
+        {/* mảng sáng: vành cong theo vai gần, liền từ thân sang tay áo */}
+        {!pose.frontR && <g mask={`url(#${sil})`}><g transform={`${G1} ${G2}`}><path d={T.light} fill={VOL.light} opacity={VOL.lightOp} /></g></g>}
+        <g mask={`url(#${limbs})`} style={MUL}>
+          <g transform={G1}>
+            {legsDown && <path d={[leg(r.legR, [0.55, 0.8, 0.6]), leg(r.legL, [0.1, 0.4, 0.2])].join(' ')} fill={VOL.cloth} />}
+            {legsDown && <path d={T.hemCast} fill={VOL.clothSoft} />}
+            <g transform={G2}>
+              {!pose.frontL && pose.armL.b < 50 && <path d={T.sleeveDark} fill={VOL.cloth} />}
+              {/* tay duỗi/thả mới có dải tối dọc tay; tay gập đưa lên thân (cầm máy, đan tay) dải dài sẽ lem lên tay và đồ cầm nên bỏ */}
+              <path d={[!pose.frontR && pose.armR.b < 50 ? arm(r.armR, [0.62, 0.7, 0.6]) : '', !pose.frontL && pose.armL.b < 50 ? arm(r.armL, [0.25, 0.4, 0.3]) : ''].join(' ')} fill={VOL.skin} />
+            </g>
           </g>
-          <g transform={`translate(0 ${dy})`}><HeadVolume view={view} /></g>
         </g>
-      )}
+        <g transform={`${G1} ${G2} rotate(${r.neck} -6 180)`}><HeadVolume view={view} /></g>
+      </g>
     </g>
   );
 };
@@ -204,8 +225,8 @@ export const Nam25DBoard: React.FC = () => (
         <Label x={480} y={130} s={22} t={name} />
         <Label x={250} y={160} s={15} w={600} c="#707875" t="2D hiện tại (đã chốt)" />
         <Label x={710} y={160} s={15} w={600} c="#2f5d50" t="2.5D thử" />
-        <Nam25D view={v} shirt={PALETTE.nam.sleepShirt} volume={false} x={250} y={180} scale={0.92} />
-        <Nam25D view={v} shirt={PALETTE.nam.sleepShirt} x={710} y={180} scale={0.92} />
+        <Nam25D pose={{ ...STAND_POSE, view: v }} shirt={PALETTE.nam.sleepShirt} mood="sleepy" volume={false} x={250} y={180} scale={0.92} />
+        <Nam25D pose={{ ...STAND_POSE, view: v }} shirt={PALETTE.nam.sleepShirt} mood="sleepy" x={710} y={180} scale={0.92} />
       </g>
     ))}
     <path d="M 60 790 H 1860" stroke="#ded5c6" strokeWidth={1.8} strokeDasharray="6 6" />
