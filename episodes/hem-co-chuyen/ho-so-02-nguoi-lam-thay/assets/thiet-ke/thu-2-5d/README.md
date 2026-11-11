@@ -12,16 +12,16 @@
 
 Nguồn: [`nam-2-5d.tsx`](nam-2-5d.tsx). Bảng xuất bằng `renderToStaticMarkup` + Chromium; không lưu SVG vì mỗi lớp cắt nhúng lại cả nhân vật (0,7–1,6 MB/bảng), dựng lại từ TSX khi cần.
 
-## Dáng người (vòng 3–4, theo ảnh tham chiếu)
+## Dáng người (vòng 3–5, theo ảnh tham chiếu)
 
-Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Vòng 3 tôi đo ảnh bằng mắt và đo sai (tưởng vai hẹp, tay ngắn). Vòng 4 ghép ảnh mẫu cạnh Nam ở cùng chiều cao, ba góc, rồi chỉnh theo. Kết quả đo:
+Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Vòng 3 tôi đo ảnh bằng mắt và đo sai. Vòng 4 ghép ảnh mẫu cạnh Nam ở cùng chiều cao, ba góc. Vòng 5 thu gọn vì bản vòng 4 trông "đô" (vai, tay, bàn tay quá to):
 
 | | Ảnh tham chiếu | Đã chốt | Dáng mới (`DANG_THAM_CHIEU`) |
 |---|---|---|---|
 | Đầu | thon: ngang ≈ 0,9 bản chốt, cằm sát vai | tròn, có cổ | ngang ×0,9, hạ 8 đơn vị |
-| Vai so với đầu | ~1,3 lần | ~1,05 | điểm vai ×0,98 (đầu thon nên tỉ lệ đạt) |
-| Tay | dày, nắm tay to rơi dưới vạt áo | mảnh, dài | dài hơn nhẹ (78/72), dày 21/18,5/16, bàn tay 1,12→1,3 |
-| Quần, chân | ống thẳng rộng đều, lửng; chân ngắn hơn ~6% | thu gối, loe gấu | 29/27/27, gấu 0,84, đùi/ống chân 99 |
+| Vai | rộng vừa, thân đầy | | điểm vai ×0,9, áo ×0,94 |
+| Tay | dài hơn một chút, nắm tay rơi dưới vạt áo | | 78/72 (đã chốt 80/74), dày 17,5/15,5/13,5 (đã chốt 19/16/13,5), bàn tay 1,18 (đã chốt 1,12) |
+| Quần, chân | ống thẳng rộng đều, lửng; chân ngắn hơn ~6% | thu gối, loe gấu | 28/26/26, gấu 0,84, đùi/ống chân 99 |
 
 **Giữ nguyên:** mặt, nét mặt, tóc, màu, nốt ruồi, khớp/giới hạn rig. `Nam25D` mặc định `dang="moi"`; `dang="chot"` về dáng đã chốt. Bộ đồ `outfit` khác áo thun chưa có dáng mới.
 
@@ -33,7 +33,7 @@ Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Vòng 3 tôi đo ảnh
 - **Mảng tối theo khối:** mỗi khối (da đầu, da tay/chân, tóc, áo, quần) lấy **phần đang lộ** — dựng lại nhân vật trong mask, khối đó trắng, mọi thứ vẽ sau nó đen — rồi trừ đi chính nó dịch về phía nguồn sáng. Còn lại một dải sắc cạnh bám đường bao ở phía tối. Vì theo đúng thứ tự vẽ của rig nên tay trước thân, chân ngồi, đồ cầm không bị mảng phía sau lem lên; áp được cho mọi góc/tư thế mà không cần vẽ mảng riêng.
 - Da đầu chỉ lệch ngang để không có dải tối dưới cằm (giống râu).
 - **Bóng đổ:** tóc lên trán, vạt áo lên quần.
-- **Mảng sáng tóc, viền sáng, ánh hắt:** cùng cách cắt nhưng phía nguồn sáng; blend screen. Viền sáng ở đèn vàng, đêm xanh, ngược sáng; ánh hắt từ dưới ở ánh màn hình.
+- **Mảng sáng tóc, viền sáng:** cùng cách cắt nhưng phía nguồn sáng; blend screen. Viền sáng mỏng ở đèn vàng, đêm xanh, ngược sáng, ánh màn hình (từ dưới‑phải). Viền chỉ chạy ở thân trên (đầu, vai, tay), dừng ở hông: ở chân nó chui vào khe giữa hai ống và quanh dép, rối hình. Đã bỏ kiểu "ánh hắt" dải dày lên má/tay áo/vạt áo ở vòng đầu vì xấu.
 - Hướng, bề rộng, màu của từng kiểu sáng chọn tay trong `LIGHTS_25D`. Không filter, gradient, blur, AO; không phải chiếu sáng Lambert. Chủ repo đã cho phép viền sáng/ánh hắt sắc cạnh (ghi ở [quy chuẩn 4.0](../QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026)).
 
 ```tsx

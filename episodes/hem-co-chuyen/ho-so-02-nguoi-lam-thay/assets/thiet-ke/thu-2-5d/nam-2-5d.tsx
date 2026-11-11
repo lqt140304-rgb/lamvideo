@@ -30,7 +30,6 @@ type LightSpec = {
   hairLight?: { color: string; k: number; opacity: number };
   cast?: number; // độ lệch bóng đổ tóc/vạt áo
   rim?: { color: string; k: number; opacity: number }; // viền sáng phía nguồn sáng
-  glow?: { color: string; k: number; opacity: number }; // ánh hắt mạnh lên da đầu/áo phía nguồn sáng
   bg: string;
 };
 
@@ -47,15 +46,15 @@ export const LIGHTS_25D: Record<Light25, LightSpec> = {
   },
   'den-vang': {
     name: 'ĐÈN VÀNG', dir: [0.85, -0.5], bg: '#6e5446', tint: '#f2cfa2',
-    shade: { skin: '#c7a69c', cloth: '#bdb5ad' }, k: { head: 30, limb: 10, shirt: 40, pants: 18 },
+    shade: { skin: '#c7a69c', cloth: '#bdb5ad' }, k: { head: 26, limb: 8, shirt: 24, pants: 14 },
     hairLight: { color: '#6a5a46', k: 6, opacity: 0.7 }, cast: 9,
     rim: { color: '#ffcf8a', k: 3, opacity: 0.55 },
   },
   'man-hinh': {
-    name: 'ÁNH MÀN HÌNH', dir: [0.25, 0.97], bg: '#2c3646', tint: '#7d8aa8',
-    shade: { skin: '#c3c6d4', cloth: '#c3c6d4' }, k: { head: 18, limb: 8, shirt: 24, pants: 12 },
+    name: 'ÁNH MÀN HÌNH', dir: [0.62, 0.78], bg: '#2c3646', tint: '#7d8aa8',
+    shade: { skin: '#c3c6d4', cloth: '#c3c6d4' }, k: { head: 12, limb: 5, shirt: 16, pants: 10 },
     cast: 0,
-    glow: { color: '#4fb9e6', k: 13, opacity: 0.45 },
+    rim: { color: '#86d6f5', k: 4.5, opacity: 0.9 },
   },
   'dem-xanh': {
     name: 'ĐÊM XANH', dir: [-0.6, -0.8], bg: '#1f2c4a', tint: '#7a8bb6',
@@ -74,6 +73,7 @@ export const LIGHTS_25D: Record<Light25, LightSpec> = {
 const SKIN = PALETTE.skin, SKIN_SH = PALETTE.skinShadow, HAIR = PALETTE.nam.hair;
 const MUL: React.CSSProperties = { mixBlendMode: 'multiply' };
 const SCREEN: React.CSSProperties = { mixBlendMode: 'screen' };
+const RIM_BOTTOM = 350; // y hông trong hệ rig; viền sáng dừng ở đây
 const BOX = { x: -500, y: -400, width: 1000, height: 1300 };
 const useUid = (p: string) => `${p}-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
 
@@ -147,14 +147,13 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
   ] : [];
   const hairHL = L.hairLight && head ? lit('hair', L.hairLight.k, 'hl') : null;
   const rim = L.rim ? lit('all', L.rim.k, 'rim') : null;
-  // ánh hắt từ dưới: chỉ dải dưới hàm/cổ và thân áo, không phủ má
-  const glows = L.glow ? (['skinHead', 'shirt'] as Part[]).filter((p) => head || p !== 'skinHead').map((p) => lit(p, p === 'shirt' ? L.glow!.k * 1.8 : L.glow!.k, 'glow')) : [];
   const sil = { id: id('sil'), layers: [{ mode: 'vis', part: 'all' }] as Layer[] };
-  const masks = [sil, ...shadows.map((s) => s.m), ...(hairHL ? [hairHL] : []), ...(rim ? [rim] : []), ...glows];
+  const masks = [sil, ...shadows.map((s) => s.m), ...(hairHL ? [hairHL] : []), ...(rim ? [rim] : [])];
   return (
     <g data-volume={light} stroke="none">
       {subject}
       <defs>
+        <clipPath id={id('rimclip')}><rect x={-500} y={-400} width={1000} height={RIM_BOTTOM + 400} /></clipPath>
         {masks.map((m) => <SubjectMask key={m.id} id={m.id} subject={subject} cols={cols} layers={m.layers} />)}
         {casts.map((c, i) => (
           <React.Fragment key={i}>
@@ -173,10 +172,8 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
         ))}
       </g>
       {hairHL && <Fill mask={hairHL.id} color={L.hairLight!.color} opacity={L.hairLight!.opacity} />}
-      <g style={SCREEN}>
-        {glows.map((g) => <Fill key={g.id} mask={g.id} color={L.glow!.color} opacity={L.glow!.opacity} />)}
-        {rim && <Fill mask={rim.id} color={L.rim!.color} opacity={L.rim!.opacity} />}
-      </g>
+      {/* viền sáng chỉ phần thân trên (đầu, vai, tay): ở chân nó chạy vào khe giữa hai ống và quanh dép, rối hình */}
+      {rim && <g clipPath={`url(#${id('rimclip')})`} style={SCREEN}><Fill mask={rim.id} color={L.rim!.color} opacity={L.rim!.opacity} /></g>}
     </g>
   );
 };
@@ -189,15 +186,15 @@ type BodyProps = React.ComponentProps<typeof StudentTwinBody>;
 /** Đo trên ảnh tham chiếu (tham-khao/tao-hinh-2-5d.jpg), so với Nam đã chốt cùng chiều cao. */
 export const DANG_THAM_CHIEU: Partial<Build> = {
   upperArm: 78, foreArm: 72, thigh: 99, shin: 99, // tay hơi dài hơn, chân ngắn lại ~6%
-  shoulderX: 0.98, // vai rộng ~1,3 lần bề ngang đầu (đầu thon lại, xem HEAD_FIT)
-  arm: [21, 18.5, 16], // tay dày, tròn
-  hand: 1.3, // nắm tay to
-  sleeve: [27, 29, 29],
-  pants: [29, 27, 27], // ống thẳng, rộng đều, không loe
+  shoulderX: 0.9, // vai vừa phải (bản trước 0,98 trông "đô")
+  arm: [17.5, 15.5, 13.5], // tay thon như bản đã chốt, không to bắp
+  hand: 1.18, // nắm tay vừa
+  sleeve: [24, 26, 26],
+  pants: [28, 26, 26], // ống thẳng, rộng đều, không loe
   pantsEnd: 0.84, // quần lửng, lộ cổ chân
   foot: 1,
 };
-const SHIRT_X = 1.0; // áo đầy ngang theo vai, nở dần xuống gấu
+const SHIRT_X = 0.94; // áo đầy ngang theo vai, nở dần xuống gấu
 const scaleX = (d: string, k: number) => d.replace(/(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/g, (_, x, y) => `${+(Number(x) * k).toFixed(2)} ${y}`);
 const narrow = <T extends { torso: string; hem: [number, number][]; detail: Outfit['detail'] }>(v: T): T => ({
   ...v, torso: scaleX(v.torso, SHIRT_X), hem: v.hem.map(([x, y]) => [x * SHIRT_X, y] as [number, number]),
