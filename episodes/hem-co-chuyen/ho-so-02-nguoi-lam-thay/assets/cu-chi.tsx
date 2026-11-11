@@ -1,6 +1,6 @@
 import React from 'react';
-import { JointPose, STAND_POSE, StudentTwinBody, TWIN_POSES, turnAt } from './nhan-vat';
-import { armTo, EXTRA_POSES } from './bo-sung-15p/nhan-vat-va-tu-the';
+import { JointPose, solveRig, STAND_POSE, StudentTwinBody, TWIN_POSES, turnAt } from './nhan-vat';
+import { EXTRA_POSES } from './bo-sung-15p/nhan-vat-va-tu-the';
 import { Sheet, Label } from './bo-sung-15p/common';
 import { easePose } from './song-dong';
 import type { StoryFaceKey } from '../../../../what-if-studio/library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat';
@@ -14,45 +14,62 @@ import type { StoryFaceKey } from '../../../../what-if-studio/library/expression
  * Tư thế dựng trên rig gốc (`nhan-vat.tsx`), dùng được cho bản 2D và 2.5D (`Nam25D`, `LivingNam25D`, `NamSongVatLy`).
  */
 const B: JointPose = { ...STAND_POSE, view: 'three', facing: 1, frontR: true, frontL: true };
-const both = (p: JointPose, r: [number, number], l: [number, number]) => armTo(armTo(p, 'R', r), 'L', l);
+/**
+ * Đặt bàn tay vào `hand` với khuỷu tay gần `elbow` nhất (toạ độ rig: vai gần máy ≈ (-68, 232), vai xa ≈ (62, 232),
+ * tâm đầu ≈ (10, 105), miệng ≈ (10, 145), tai ≈ (-70, 112), hông ≈ y 345). Khác `armTo` cũ: cho phép khuỷu nâng cao hơn vai
+ * và chọn đúng phía khuỷu, nên tay đưa lên đầu/mặt không bị gập ngược hay vắt chéo người.
+ */
+const arm = (p: JointPose, side: 'R' | 'L', hand: [number, number], elbow: [number, number], w = 0.35): JointPose => {
+  const k = side === 'R' ? 'armR' : 'armL';
+  let best = { s: Infinity, a: 0, b: 0, rot: 1 as 1 | -1 };
+  for (let a = -180; a <= 180; a += 3) for (let b = 0; b <= 150; b += 3) for (const rot of [1, -1] as const) {
+    const r = solveRig({ ...p, [k]: { a, b, rot } })[k];
+    const s = Math.hypot(r.end.x - hand[0], r.end.y - hand[1]) + w * Math.hypot(r.mid.x - elbow[0], r.mid.y - elbow[1]);
+    if (s < best.s) best = { s, a, b, rot };
+  }
+  return { ...p, [k]: { a: best.a, b: best.b, rot: best.rot } };
+};
+type ArmSpec = { hand: [number, number]; elbow: [number, number]; w?: number };
+const pose2 = (p: JointPose, R?: ArmSpec, L?: ArmSpec) => { let q = p; if (R) q = arm(q, 'R', R.hand, R.elbow, R.w); if (L) q = arm(q, 'L', L.hand, L.elbow, L.w); return q; };
+const DOWN = { frontL: false } as const;
 
 export type GestureGroup = 'lo-lang' | 'boi-roi' | 'ghe-so' | 'quyet-tam' | 'tui-than' | 'khinh-thuong';
 export const GESTURES: Record<GestureGroup, [JointPose, JointPose, JointPose]> = {
-  // bồn chồn xoắn tay → cắn móng tay → ôm đầu
+  // bồn chồn xoắn hai tay trước bụng → cắn móng tay → hai tay ôm hai bên đầu
   'lo-lang': [
-    both({ ...B, tilt: 2, neck: 3, handR: 'hold', handL: 'hold' }, [20, 300], [44, 304]),
-    armTo({ ...B, tilt: 4, neck: 4, handR: 'fist', handL: 'rest', frontL: false }, 'R', [44, 150]),
-    both({ ...B, tilt: -3, neck: 6, handR: 'open', handL: 'open' }, [-16, 112], [48, 126]),
+    pose2({ ...B, tilt: 2, neck: 3, handR: 'hold', handL: 'hold' }, { hand: [14, 318], elbow: [-88, 300] }, { hand: [40, 322], elbow: [92, 302] }),
+    pose2({ ...B, ...DOWN, tilt: 4, neck: 6, handR: 'fist' }, { hand: [6, 150], elbow: [-40, 268] }),
+    pose2({ ...B, tilt: -2, neck: 8, handR: 'open', handL: 'open' }, { hand: [-74, 104], elbow: [-138, 176] }, { hand: [70, 96], elbow: [132, 168] }),
   ],
-  // nghiêng đầu → gãi đầu → nhún vai, ngửa hai bàn tay
+  // nghiêng đầu → gãi sau đầu, khuỷu nâng → nhún vai, hai cẳng tay chìa ra hai bên, ngửa bàn tay
   'boi-roi': [
     { ...B, neck: 9, tilt: 1, frontR: false, frontL: false },
-    armTo({ ...B, neck: 9, handR: 'fist', frontL: false }, 'R', [-34, 66]),
-    { ...both({ ...B, neck: 6, handR: 'open', handL: 'open' }, [-56, 304], [104, 300]), palmUp: 'L' },
+    pose2({ ...B, ...DOWN, neck: 10, handR: 'fist' }, { hand: [-60, 82], elbow: [-146, 150] }),
+    { ...pose2({ ...B, neck: 7, handR: 'open', handL: 'open' }, { hand: [-150, 290], elbow: [-80, 311], w: 1 }, { hand: [148, 290], elbow: [78, 311], w: 1 }), palmUp: 'L' },
   ],
-  // ngả nhẹ ra sau → giơ một tay chắn → lùi chân, hai tay che
+  // ngả nhẹ ra sau → một tay giơ chắn trước ngực → lùi nửa bước, hai tay chắn trước mặt
   'ghe-so': [
     { ...B, tilt: -4, neck: 5, frontR: false, frontL: false },
-    armTo({ ...B, tilt: -7, neck: 7, handR: 'open', frontL: false }, 'R', [16, 176]),
-    both({ ...B, tilt: -11, neck: 9, handR: 'open', handL: 'open', legR: { a: -7, b: 8 }, legL: { a: 3, b: 6 } }, [6, 168], [82, 174]),
+    pose2({ ...B, ...DOWN, tilt: -7, neck: 7, handR: 'open' }, { hand: [44, 196], elbow: [-30, 290] }),
+    pose2({ ...B, tilt: -10, neck: 9, handR: 'open', handL: 'open', legR: { a: -7, b: 8 }, legL: { a: 3, b: 6 } }, { hand: [40, 200], elbow: [-40, 286] }, { hand: [104, 204], elbow: [116, 292] }),
   ],
-  // đứng thẳng nắm tay → nắm tay trước ngực → hạ thấp người, hai nắm tay siết
+  // đứng thẳng, nắm tay buông → một nắm tay trước ngực → hai nắm tay siết hai bên hông, khuỷu hơi co
   'quyet-tam': [
     { ...B, tilt: -2, neck: -2, handR: 'fist', handL: 'fist', frontR: false, frontL: false },
-    armTo({ ...B, tilt: 0, neck: -3, handR: 'fist', handL: 'fist', frontL: false }, 'R', [46, 246]),
-    both({ ...B, tilt: 7, neck: -7, handR: 'fist', handL: 'fist' }, [24, 300], [70, 298]),
+    pose2({ ...B, ...DOWN, tilt: 0, neck: -3, handR: 'fist', handL: 'fist' }, { hand: [24, 256], elbow: [-58, 312] }),
+    pose2({ ...B, tilt: 6, neck: -7, handR: 'fist', handL: 'fist' }, { hand: [-66, 382], elbow: [-86, 306], w: 0.8 }, { hand: [112, 380], elbow: [90, 306], w: 0.8 }),
   ],
-  // cúi đầu, tay buông → ôm lấy cánh tay mình → đưa tay quệt mắt
+  // cúi đầu, tay buông → một tay ôm lấy cẳng tay kia → đưa tay quệt mắt
   'tui-than': [
     { ...B, neck: 9, tilt: 2, armR: { a: 6, b: 10 }, armL: { a: 4, b: 10, rot: -1 }, frontR: false, frontL: false },
-    both({ ...B, neck: 10, tilt: 3, handR: 'hold', handL: 'hold' }, [66, 262], [-6, 246]),
-    armTo({ ...B, neck: 11, tilt: 5, handR: 'fist', frontL: false }, 'R', [12, 96]),
+    pose2({ ...B, ...DOWN, neck: 10, tilt: 3, handR: 'hold' }, { hand: [74, 344], elbow: [-40, 314] }),
+    pose2({ ...B, ...DOWN, neck: 11, tilt: 5, handR: 'fist' }, { hand: [-8, 114], elbow: [-58, 226] }),
   ],
-  // hếch cằm → khoanh tay → khoanh tay, ngả người, dồn trọng tâm một chân
+  // hếch cằm → khoanh tay trước ngực → khoanh tay, ngả người ra sau
   'khinh-thuong': [
     { ...B, neck: -6, tilt: -1, frontR: false, frontL: false },
-    both({ ...B, neck: -8, handR: 'rest', handL: 'rest' }, [62, 280], [-26, 286]),
-    both({ ...B, neck: -11, tilt: -5, handR: 'rest', handL: 'rest' }, [62, 280], [-26, 286]),
+    pose2({ ...B, neck: -8, handR: 'rest', handL: 'rest' }, { hand: [74, 296], elbow: [-58, 300] }, { hand: [-40, 290], elbow: [78, 304] }),
+    pose2({ ...B, neck: -11, tilt: -5, handR: 'rest', handL: 'rest' }, { hand: [74, 296], elbow: [-58, 300] }, { hand: [-40, 290], elbow: [78, 304] }),
   ],
 };
 
@@ -63,10 +80,10 @@ const T3 = (p: JointPose): JointPose => ({ ...p, view: 'three', facing: 1 });
 export const TRANSITIONS: Transition[] = [
   { id: 'dung-xuong-ngoi', name: 'Đứng → ngồi', note: 'Khuỵu gối, đổ người tới để giữ thăng bằng rồi hạ hông xuống ghế', keys: [{ t: 0, pose: T3(STAND_POSE) }, { t: 0.45, pose: T3({ ...STAND_POSE, tilt: 20, neck: -6, legR: { a: 44, b: 70 }, legL: { a: 50, b: 64 }, armR: { a: 30, b: 30 }, armL: { a: 24, b: 30, rot: -1 } }) }, { t: 1, pose: T3(TWIN_POSES.sit) }] },
   { id: 'ngoi-dung-day', name: 'Ngồi → đứng dậy', note: 'Chống tay lên đùi, đổ người tới, đẩy hông lên rồi thẳng lưng', keys: [{ t: 0, pose: T3(TWIN_POSES.sit) }, { t: 0.4, pose: T3({ ...TWIN_POSES.sit, tilt: 26, neck: -10, armR: { a: 40, b: 40 }, armL: { a: 36, b: 44, rot: -1 } }) }, { t: 0.7, pose: T3({ ...STAND_POSE, tilt: 14, legR: { a: 30, b: 40 }, legL: { a: 34, b: 36 } }) }, { t: 1, pose: T3(STAND_POSE) }] },
-  { id: 'giat-lui', name: 'Giật mình, lùi lại', note: 'Người bật ra sau, tay vung lên che, chân lùi một bước, rồi thủ thế dè chừng', keys: [{ t: 0, pose: T3(STAND_POSE) }, { t: 0.3, pose: { ...both({ ...B, tilt: -14, neck: 10, handR: 'open', handL: 'open', legR: { a: -18, b: 12 }, legL: { a: 8, b: 8 } }, [0, 150], [80, 160]) } }, { t: 1, pose: T3(TWIN_POSES.wary) }] },
+  { id: 'giat-lui', name: 'Giật mình, lùi lại', note: 'Người bật ra sau, tay vung lên che, chân lùi một bước, rồi thủ thế dè chừng', keys: [{ t: 0, pose: T3(STAND_POSE) }, { t: 0.3, pose: pose2({ ...B, tilt: -12, neck: 10, handR: 'open', handL: 'open', legR: { a: -10, b: 10 }, legL: { a: 4, b: 6 } }, { hand: [40, 196], elbow: [-40, 284] }, { hand: [104, 200], elbow: [116, 290] }) }, { t: 1, pose: pose2({ ...T3(TWIN_POSES.wary), frontR: true, frontL: true, handR: 'open', handL: 'open' }, { hand: [34, 250], elbow: [-50, 296] }, { hand: [104, 252], elbow: [108, 310] }) }] },
   { id: 'quay-lung', name: 'Quay lưng bỏ đi', note: 'Đầu quay trước, rồi vai, rồi chân; góc nhìn đổi dần ba phần tư → nghiêng → sau lưng', keys: [{ t: 0, pose: T3({ ...STAND_POSE, neck: 0 }) }, { t: 0.5, pose: T3({ ...STAND_POSE, tilt: 3, neck: -4 }) }, { t: 1, pose: T3(TWIN_POSES.stride) }], turn: ['three', 'back'] },
   { id: 'guc-xuong', name: 'Gục xuống', note: 'Vai sụp, đầu cúi, gối khuỵu rồi quỳ hẳn, hai tay chống sàn', keys: [{ t: 0, pose: T3(STAND_POSE) }, { t: 0.35, pose: T3({ ...STAND_POSE, tilt: 10, neck: 14, armR: { a: 4, b: 6 }, armL: { a: 2, b: 6, rot: -1 } }) }, { t: 1, pose: T3(EXTRA_POSES['quy-guc']) }] },
-  { id: 'lao-toi', name: 'Lao tới, với tay', note: 'Lùi trọng tâm chuẩn bị, rồi phóng người tới, tay vươn dài', keys: [{ t: 0, pose: T3(STAND_POSE) }, { t: 0.25, pose: T3({ ...STAND_POSE, tilt: -6, neck: 2, legR: { a: 12, b: 24 }, legL: { a: -6, b: 18 }, armR: { a: -20, b: 30 } }) }, { t: 1, pose: T3({ ...STAND_POSE, tilt: 22, neck: -10, armR: { a: 84, b: 6 }, armL: { a: -34, b: 24, rot: -1 }, handR: 'open', frontR: true, legR: { a: 32, b: 12 }, legL: { a: -26, b: 22 } }) }] },
+  { id: 'lao-toi', name: 'Lao tới, với tay', note: 'Lùi trọng tâm chuẩn bị, rồi phóng người tới, tay vươn dài', keys: [{ t: 0, pose: T3(STAND_POSE) }, { t: 0.25, pose: T3({ ...STAND_POSE, tilt: -6, neck: 2, legR: { a: 12, b: 24 }, legL: { a: -6, b: 18 }, armR: { a: -20, b: 30 } }) }, { t: 1, pose: pose2({ ...B, ...DOWN, tilt: 22, neck: -10, handR: 'open', legR: { a: 32, b: 12 }, legL: { a: -26, b: 22 } }, { hand: [66, 152], elbow: [0, 192] }, { hand: [-20, 340], elbow: [36, 300] }) }] },
 ];
 /** Dáng tại thời điểm t (0–1) của một chuỗi chuyển trạng thái. */
 export const transitionPose = (id: string, t: number): JointPose => {
