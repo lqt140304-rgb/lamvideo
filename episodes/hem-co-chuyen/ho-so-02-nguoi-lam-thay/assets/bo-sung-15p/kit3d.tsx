@@ -33,7 +33,7 @@ export const camera = (c: CamSpec) => {
 };
 export type Cam = ReturnType<typeof camera>;
 
-export type Light = { sun: V3; amb?: number; diff?: number; lamps?: { p: V3; col: [number, number, number]; r: number; k: number }[]; fog?: { color: string; dist: number; max?: number } };
+export type Light = { sun: V3; amb?: number; diff?: number; band?: boolean; lamps?: { p: V3; col: [number, number, number]; r: number; k: number }[]; fog?: { color: string; dist: number; max?: number } };
 type Item = { layer: number; depth: number; node: React.ReactNode };
 export type FaceOpt = { n?: V3; cull?: boolean; edge?: boolean; raw?: boolean; op?: number; layer?: number; blend?: string; emit?: boolean };
 
@@ -49,14 +49,20 @@ export const makeScene = (cam: Cam, light: Light) => {
   const shade = (hex: string, n: V3 | undefined, at: V3, emit = false) => {
     let c = rgb(hex).map((v) => v / 255);
     if (!emit) {
-      let k = n ? amb + diff * Math.max(0, dot(n, L)) : amb + diff * 0.5;
+      const band = light.band !== false;
+      const dp = n ? Math.max(0, dot(n, L)) : 0.5;
+      // Ba mức sáng vẽ sẵn thay cho chuyển dần: mặt hướng nắng ám ấm, mặt quay lưng ám lạnh, còn lại giữ nguyên.
+      const q = band ? (dp > 0.55 ? 1 : dp > 0.15 ? 0.5 : 0) : dp;
+      const k = amb + diff * q;
+      const tint = band ? (q >= 1 ? [1.04, 1.01, 0.93] : q <= 0 ? [0.94, 0.97, 1.05] : [1, 1, 1]) : [1, 1, 1];
       const add3 = [0, 0, 0];
       for (const l of light.lamps ?? []) {
         const to = sub(l.p, at), d = Math.hypot(...to);
-        const I = ((n ? Math.max(0, dot(n, norm(to))) : 0.6) * l.k) / (1 + (d / l.r) ** 2);
+        let I = ((n ? Math.max(0, dot(n, norm(to))) : 0.6) * l.k) / (1 + (d / l.r) ** 2);
+        if (band) I = I > 0.35 * l.k ? l.k * 0.9 : I > 0.12 * l.k ? l.k * 0.5 : I > 0.03 * l.k ? l.k * 0.2 : 0;
         add3[0] += I * l.col[0]; add3[1] += I * l.col[1]; add3[2] += I * l.col[2];
       }
-      c = c.map((v, i) => v * k + v * add3[i]);
+      c = c.map((v, i) => v * k * tint[i] + v * add3[i]);
     }
     if (light.fog) {
       const d = cam.depth(at), f = (1 - Math.exp(-Math.max(0, d) / light.fog.dist)) * (light.fog.max ?? 0.55);
@@ -234,6 +240,38 @@ export const makeScene = (cam: Cam, light: Light) => {
     return { x, y: y - 590 * s, scale: s };
   };
 
+  /**
+   * Người đặt qua `children` của một bối cảnh: một mảng ám ấm phía nguồn sáng và một mảng ám lạnh phía ngược lại,
+   * cắt theo hình người (mask alpha). Nguồn sáng: đèn gần nhất nếu người đứng trong tầm đèn, còn lại là nắng.
+   */
+  const litActors = (uidStr: string, at: V3, children: React.ReactNode, o: { lit?: string; dark?: string } = {}) => {
+    const lamp = (light.lamps ?? []).map((l) => ({ l, d: Math.hypot(...sub(l.p, at)) })).sort((a, b) => a.d - b.d)[0];
+    const useLamp = !!lamp && lamp.d < lamp.l.r * 1.6;
+    const near = useLamp ? clamp(1 - lamp.d / (lamp.l.r * 1.6)) : 0;
+    const toward = useLamp ? norm(sub(lamp!.l.p, at)) : mul(L, 1);
+    const c0 = cam.project(add(at, [0, 100, 0])), c1 = cam.project(add(add(at, [0, 100, 0]), mul(toward, 100)));
+    const dx = c1[0] - c0[0], dy = c1[1] - c0[1], dn = Math.hypot(dx, dy) || 1, ux = dx / dn, uy = dy / dn;
+    const s = cam.pxcm(at), cx = c0[0], cy = c0[1], h = 90 * s;
+    const night = (light.amb ?? 0.62) < 0.4;
+    const litA = useLamp ? 0.5 * near : night ? 0.1 : 0.22, shadeA = night ? 0.45 - 0.25 * near : 0.24;
+    const lit = o.lit ?? (useLamp ? '#' + lamp!.l.col.map((v) => Math.round(clamp(v) * 255).toString(16).padStart(2, '0')).join('') : '#fff0c8'), dark = o.dark ?? (night ? '#101a36' : '#4a587a');
+    const id = `${uidStr}-act`;
+    return (
+      <g>
+        <defs>
+          <mask id={`${id}-m`} maskUnits="userSpaceOnUse" x={-2000} y={-2000} width={6000} height={6000} style={{ maskType: 'alpha' }}>{children}</mask>
+          <linearGradient id={`${id}-l`} gradientUnits="userSpaceOnUse" x1={cx + ux * h} y1={cy + uy * h} x2={cx - ux * h} y2={cy - uy * h}><stop offset="0" stopColor={lit} stopOpacity={litA} /><stop offset=".42" stopColor={lit} stopOpacity={litA} /><stop offset=".5" stopColor={lit} stopOpacity="0" /></linearGradient>
+          <linearGradient id={`${id}-d`} gradientUnits="userSpaceOnUse" x1={cx + ux * h} y1={cy + uy * h} x2={cx - ux * h} y2={cy - uy * h}><stop offset=".5" stopColor={dark} stopOpacity="0" /><stop offset=".58" stopColor={dark} stopOpacity={shadeA} /><stop offset="1" stopColor={dark} stopOpacity={shadeA} /></linearGradient>
+        </defs>
+        {children}
+        <g mask={`url(#${id}-m)`}>
+          <rect x={-2000} y={-2000} width={6000} height={6000} fill={`url(#${id}-d)`} style={{ mixBlendMode: 'multiply' }} />
+          <rect x={-2000} y={-2000} width={6000} height={6000} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'screen' }} />
+        </g>
+      </g>
+    );
+  };
+
   const render = (uidStr: string, bg: React.ReactNode) => {
     const sorted = [...items].sort((a, b) => a.layer - b.layer || b.depth - a.depth);
     const shell = sorted.filter((i) => i.layer < 1);
@@ -252,7 +290,7 @@ export const makeScene = (cam: Cam, light: Light) => {
       </g>
     );
   };
-  return { quad, box, cyl, sphere, line, sprite, hidden: () => hiddenFlat, castShadow, contact, sunPatch, glow, plane, rigAt, render, shade, cam };
+  return { quad, box, cyl, sphere, line, sprite, hidden: () => hiddenFlat, castShadow, contact, sunPatch, glow, plane, rigAt, litActors, render, shade, cam };
 };
 
 /** Lớp hoàn thiện: tối bốn góc và hạt mịn, dùng chung cho mọi cảnh. */

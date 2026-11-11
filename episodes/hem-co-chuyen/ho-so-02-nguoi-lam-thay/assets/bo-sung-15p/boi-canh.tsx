@@ -168,7 +168,7 @@ export const LectureHall = ({ children, failed = false, students = true, view = 
   }));
   const t = S.rigAt([265, 22, 1420], 165);
   S.sprite([265, 22, 1420], <SupportingActor role="giang-vien" x={t.x} y={t.y} scale={t.scale} smile={!failed} />, 2, [0, 0, -1]);
-  S.sprite([-70, 22, 1360], <g data-layer="actors">{children}</g>);
+  S.sprite([-70, 22, 1360], S.litActors(id, [-70, 22, 1360], <g data-layer="actors">{children}</g>));
   return wrap(id, 'giang-duong', S.render(id, <rect width={1920} height={1080} fill="#dfe3df" />), '#cfe3ff');
 };
 // ---------------------------------------------------------------------------------------------
@@ -236,7 +236,7 @@ export const ComputerLab = ({ children, view = 'chinh' }: { children?: React.Rea
       S.contact([mx - 22, mx + 22], [z - 54, z - 10], 0.12);
     }
   }));
-  S.sprite([-40, 0, 1120], <g data-layer="actors">{children}</g>);
+  S.sprite([-40, 0, 1120], S.litActors(id, [-40, 0, 1120], <g data-layer="actors">{children}</g>));
   return wrap(id, 'lab-402', S.render(id, <rect width={1920} height={1080} fill="#dde3d8" />));
 };
 
@@ -290,7 +290,7 @@ export const UniversityCorridor = ({ children, view = 'chinh' }: { children?: Re
   S.cyl([115, 0, 260], 22, 38, '#a3765a', { r2: 26, n: 14 });
   for (const [dx, dy, dz, r] of [[0, 62, 0, 30], [-18, 88, 8, 24], [16, 86, -6, 22], [2, 112, 4, 18]] as const) S.sphere([115 + dx, dy, 260 + dz], r, dy > 80 ? K.leaf : K.leafDark, { sy: 0.9, n: 20, bands: 10 });
   S.castShadow([95, 135], [240, 280], 120, 0.18);
-  S.sprite([10, 0, 620], <g data-layer="actors">{children}</g>);
+  S.sprite([10, 0, 620], S.litActors(id, [10, 0, 620], <g data-layer="actors">{children}</g>));
   return wrap(id, 'hanh-lang-dai-hoc', S.render(id, sky('#b9d8d6', '#e7efe0', id)));
 };
 
@@ -394,7 +394,7 @@ export const FamilyGathering = ({ children, cast = true, view = 'chinh' }: { chi
       S.sprite([x, 30, z], <g><clipPath id={`${id}-sit${i}`}><rect x={-4000} y={-4000} width={8000} height={cut + 4000} /></clipPath><g clipPath={`url(#${id}-sit${i})`}>{node}</g></g>, 2, [0, 0, -1]);
     });
   }
-  S.sprite([0, 0, 520], <g data-layer="actors">{children}</g>);
+  S.sprite([0, 0, 520], S.litActors(id, [0, 0, 520], <g data-layer="actors">{children}</g>));
   return wrap(id, 'mam-com-gia-dinh', S.render(id, <rect width={1920} height={1080} fill="#d8c7aa" />), '#ffcf8a', 0.38);
 };
 
@@ -506,7 +506,7 @@ export const DonationCorner = ({ children, view = 'chinh', cam }: { children?: R
   // Vũng nước đọng phản chiếu trời xám, giọt mưa còn rỏ từ mép sàn tầng trên
   for (const [x, z, rx, rz] of [[120, 120, 90, 34], [-160, 40, 60, 22], [330, -60, 140, 50], [380, 260, 80, 28]]) S.plane([x - rx, 0.5, z + rz], [1, 0, 0], [0, 0, -1], <ellipse cx={rx} cy={rz} rx={rx} ry={rz} fill="#c4ccc8" opacity={0.22} />, 0.55);
   for (const [x, z] of [[XR + 10, -200], [XR + 14, 40], [XR + 8, 230]]) S.line([x, 280, z], [x, 262, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.7 });
-  S.sprite([-170, 0, 170], <g data-layer="actors">{children}</g>);
+  S.sprite([-170, 0, 170], S.litActors(id, [-170, 0, 170], <g data-layer="actors">{children}</g>));
   return wrap(id, 'goc-do-cho-tang', S.render(id, sky('#aeb8b6', '#e1dccb', id)), '#e8c48f', 0.42);
 };
 // ---------------------------------------------------------------------------------------------
@@ -543,7 +543,7 @@ export const MiniPitch = ({ children, view = 'chinh', cam }: { children?: React.
   const ball = S.cam.project([-260, 0, 980]), bs = (22 * S.cam.pxcm([-260, 0, 980])) / 170;
   S.contact([-272, -248], [968, 992], 0.3);
   S.sprite([-260, 11, 980], <g transform={`translate(${ball[0]} ${ball[1] - 85 * bs}) scale(${bs})`}><Football /></g>);
-  S.sprite([-120, 0, 900], <g data-layer="actors">{children}</g>);
+  S.sprite([-120, 0, 900], S.litActors(id, [-120, 0, 900], <g data-layer="actors">{children}</g>));
   return wrap(id, 'san-bong-mini', S.render(id, sky('#a9d0d4', '#e9efdf', id)), '#ffe7b0');
 };
 
@@ -653,7 +653,7 @@ export const DormHallNight = ({ children, view = 'chinh', flicker = 1, cam }: { 
   S.line([2, 262, Z[0]], [2, 262, 1900], '#2e3432', 0.8, { cm: true, layer: 1.6 });
   S.box({ x: [0, 6], y: [150, 185], z: [205, 228], c: '#d7d3c4' });
   const mist = <g style={{ mixBlendMode: 'screen' }}><defs><linearGradient id={`${id}-mist`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#8fa3a6" stopOpacity="0" /><stop offset=".5" stopColor="#8fa3a6" stopOpacity=".14" /><stop offset="1" stopColor="#8fa3a6" stopOpacity="0" /></linearGradient></defs><rect y={260} width={1920} height={520} fill={`url(#${id}-mist)`} /></g>;
-  S.sprite([95, 0, 520], <g data-layer="actors">{children}</g>);
+  S.sprite([95, 0, 520], S.litActors(id, [95, 0, 520], <g data-layer="actors">{children}</g>));
   return wrap(id, 'hanh-lang-tro-dem', <>{S.render(id, sky('#070b0d', '#1a2326', id))}{mist}</>, '#ffcf7a', 0.55);
 };
 
