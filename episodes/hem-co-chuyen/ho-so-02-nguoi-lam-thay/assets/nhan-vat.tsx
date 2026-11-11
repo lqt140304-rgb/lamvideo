@@ -1080,9 +1080,12 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
   const mouth = drop > 0 ? undefined : ang ? 'M 47 131.6 Q 42.5 130.6 38 133' : 'M 47 131.6 Q 42.5 132 38 132.6';
   return (
     <g {...headFrame(x, y, scale)}>
-      <path d="M -23 126 L -24 184 Q -8 196 4 182 L 3 126 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-      <path d="M -23.5 158 Q -9 172 3.5 158 L 3.5 176 Q -9 188 -24 176 Z" fill={PALETTE.skinShadow} stroke="none" />
-      <g transform="translate(-4 3) rotate(5 -8 150) scale(1.1)">
+      {/* cổ chếch ra trước: nghiêng quanh chân cổ (y = 184), đỉnh cổ lệch về phía mặt ~10 đơn vị */}
+      <g transform="translate(0 184) skewX(-10) translate(0 -184)">
+        <path d="M -23 126 L -24 184 Q -8 196 4 182 L 3 126 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+        <path d="M -23.5 158 Q -9 172 3.5 158 L 3.5 176 Q -9 188 -24 176 Z" fill={PALETTE.skinShadow} stroke="none" />
+      </g>
+      <g transform="translate(5 -3) rotate(5 -8 150) scale(1.1)">
       {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
       <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={TUNG_SIDE.hair} fill={PALETTE.tung.hair} {...o(PALETTE.tung.hair)} visibility="visible" transform={hairSway(sway)} />
