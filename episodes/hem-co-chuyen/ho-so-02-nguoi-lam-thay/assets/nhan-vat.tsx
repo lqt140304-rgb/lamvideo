@@ -1071,6 +1071,8 @@ const tungSkinPath = (d: number) => {
   const pts = [...TUNG_SIDE.back, ...TUNG_SIDE.front.slice(0, -1), ...lower, [-12, 142] as [number, number]];
   return catmull(pts, true);
 };
+const NECK_D = 'M -22 112 L -23 172 Q -24 181 -29 186 Q -8 196 16 191 Q 8 180 4 160 L 3 112 Z';
+const NECK_T = 'translate(0 184) skewX(-8) translate(0 -184)';
 const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
@@ -1080,14 +1082,28 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
   const mouth = drop > 0 ? undefined : ang ? 'M 47 131.6 Q 42.5 130.6 38 133' : 'M 47 131.6 Q 42.5 132 38 132.6';
   return (
     <g {...headFrame(x, y, scale)}>
-      {/* cổ chếch ra trước: nghiêng quanh chân cổ (y = 184), đỉnh cổ lệch về phía mặt ~10 đơn vị */}
-      <g transform="translate(0 184) skewX(-10) translate(0 -184)">
-        <path d="M -23 126 L -24 184 Q -8 196 4 182 L 3 126 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-        <path d="M -23.5 158 Q -9 172 3.5 158 L 3.5 176 Q -9 188 -24 176 Z" fill={PALETTE.skinShadow} stroke="none" />
+      {/* Cổ dày, chếch ra trước, LOE ở gốc: sau gáy thoải xuống vai, trước dốc ra cổ áo thấp hơn → da ngực/vai đỡ chân cổ. Cổ áo vẽ ĐÈ lên chân cổ. */}
+      <defs>
+        <clipPath id={`${clip}-neck`}><path d={NECK_D} transform={NECK_T} /></clipPath>
+        <clipPath id={`${clip}-face`}><path d={tungSkinPath(drop)} /></clipPath>
+      </defs>
+      <path d={NECK_D} transform={NECK_T} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <g clipPath={`url(#${clip}-neck)`} stroke="none">
+        {/* bóng hàm đổ xuống cổ + một dải tối nhẹ ở mép trước cổ */}
+        <path d={NECK_D} transform={NECK_T} fill={PALETTE.skinShadow} opacity={0.4} />
+        <path d={NECK_D} transform={`translate(-6.5 0) ${NECK_T}`} fill={PALETTE.skin} />
+        <g transform="translate(5 3) rotate(5 -8 150) scale(1.1)"><path d={tungSkinPath(drop)} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.7} /></g>
       </g>
+      <path d="M -31 183 Q -10 199 17 190" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6.5) }} strokeLinecap="butt" />
       <g transform="translate(5 3) rotate(5 -8 150) scale(1.1)">
       {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
       <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <g clipPath={`url(#${clip}-face)`} stroke="none">
+        {/* bóng nhẹ ở viền: quầng dưới hàm/má để tách mặt khỏi cổ, và tóc đổ bóng lên trán–thái dương */}
+        <path d={tungSkinPath(drop)} fill={PALETTE.skinShadow} opacity={0.38} />
+        <path d={tungSkinPath(drop)} transform="translate(0 -6)" fill={PALETTE.skin} />
+        <path d={TUNG_SIDE.hair} transform="translate(3.5 7)" fill={PALETTE.skinShadow} opacity={0.5} />
+      </g>
       <path d={TUNG_SIDE.hair} fill={PALETTE.tung.hair} {...o(PALETTE.tung.hair)} visibility="visible" transform={hairSway(sway)} />
       <path d={TUNG_SIDE.ear} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={TUNG_SIDE.earLine} fill="none" style={{ strokeWidth: lw(2.4) }} />
@@ -1264,14 +1280,10 @@ const TUNG_VIEWS: Outfit['views'] = {
   // Góc nghiêng dựng lại theo ảnh mẫu (bản cũ dùng chung khuôn thân áo của Nam: vạt loe ra phía lưng, gấu dốc xuống phía trước,
   // cổ áo chữ V phía trước). Mẫu: lưng thẳng, ngực–bụng phình tròn ra TRƯỚC, gấu ngang, cổ áo là dải trắng ôm quanh cổ.
   side: {
-    torso: 'M -12 180 Q -38 186 -46 214 Q -50 262 -50 300 L -52 352 Q -8 360 46 352 Q 52 322 50 288 Q 48 238 34 206 Q 24 186 10 180 Q -1 188 -12 180 Z',
+    // lưng gần thẳng từ gáy xuống; ngực dốc chéo ra trước từ cổ áo rồi mới phình tròn (không phải mái vòm đối xứng)
+    torso: 'M -26 184 Q -38 185 -45 200 Q -50 214 -50 260 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z',
     hem: [[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]],
-    detail: (
-      <>
-        <path d="M -20 185 Q -3 199 17 184" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6) }} />
-        <path d="M 30 250 Q 36 288 34 330" {...JERSEY_FOLD} />
-      </>
-    ),
+    detail: <path d="M 33 262 Q 38 292 36 330" {...JERSEY_FOLD} />,
   },
 };
 
