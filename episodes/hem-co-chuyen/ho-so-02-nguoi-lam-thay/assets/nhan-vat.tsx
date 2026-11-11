@@ -1085,7 +1085,7 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
         <path d="M -23 126 L -24 184 Q -8 196 4 182 L 3 126 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
         <path d="M -23.5 158 Q -9 172 3.5 158 L 3.5 176 Q -9 188 -24 176 Z" fill={PALETTE.skinShadow} stroke="none" />
       </g>
-      <g transform="translate(5 -3) rotate(5 -8 150) scale(1.1)">
+      <g transform="translate(5 3) rotate(5 -8 150) scale(1.1)">
       {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
       <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={TUNG_SIDE.hair} fill={PALETTE.tung.hair} {...o(PALETTE.tung.hair)} visibility="visible" transform={hairSway(sway)} />
