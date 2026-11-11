@@ -661,6 +661,8 @@ export type Outfit = {
   sleeveFold?: boolean;
   /** Góc nghiêng: khối mông (màu quần) sau hông, hệ toạ độ chân (bỏ trống = như đã chốt). */
   seatSide?: string;
+  /** Dải áo quanh cổ vẽ ĐÈ lên đầu, đứng yên theo thân (hệ toạ độ thân): che phần cổ kéo dài xuống dưới cổ áo nên đầu ngửng/cúi không hở. Bỏ trống = như đã chốt. */
+  collarCover?: Partial<Record<View, React.ReactNode>>;
 };
 const normalOf = (a: P, b: P): P => { const l = Math.max(0.001, Math.hypot(b.x - a.x, b.y - a.y)); return { x: -(b.y - a.y) / l, y: (b.x - a.x) / l }; };
 const across = (a: P, b: P, t: number, r: number, off = 0) => { const p = mix(a, b, t), n = normalOf(a, b); return `M ${p.x + n.x * (off - r)} ${p.y + n.y * (off - r)} L ${p.x + n.x * (off + r)} ${p.y + n.y * (off + r)}`; };
@@ -874,6 +876,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
           </Shade>
           {/* data-part="head": nhãn để lớp 2.5D tách da đầu khỏi da tay khi cắt mảng; không ảnh hưởng hình vẽ */}
           <g data-part="head" transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
+          {outfit.collarCover?.[view] && <g data-part="collar">{outfit.collarCover[view]}</g>}
           {pose.prop === 'phoneLandscape' && <g data-prop="phone-landscape" transform={`translate(${(r.armR.end.x+r.armL.end.x)/2} ${(r.armR.end.y+r.armL.end.y)/2})`}>
             <rect x={-49} y={-16} width={98} height={51} rx={8} fill="#34434a" />
             <rect x={-40} y={-10} width={80} height={38} rx={4} fill="#80978d" />
@@ -1080,7 +1083,7 @@ const tungSkinPath = (d: number) => {
   const pts = [...TUNG_SIDE.back, ...TUNG_SIDE.front.slice(0, -1), ...lower, [-12, 142] as [number, number]];
   return catmull(pts, true);
 };
-const NECK_D = 'M -22 112 L -23 172 Q -24 181 -29 186 Q -8 196 16 191 Q 8 180 4 160 L 3 112 Z';
+const NECK_D = 'M -22 112 L -23 172 Q -24 181 -29 186 L -30 206 Q -6 214 20 208 L 16 191 Q 8 180 4 160 L 3 112 Z'; // đáy kéo dài dưới cổ áo, phần dư bị `collarCover` che
 const NECK_T = 'translate(0 184) skewX(-8) translate(0 -184)';
 const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
@@ -1107,7 +1110,6 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
         </g>
         <g filter={`url(#${clip}-soft)`}><g transform="translate(5 8) rotate(5 -8 150) scale(1.1)"><path d={tungSkinPath(drop)} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
       </g>
-      <path d="M -31 183 Q -10 199 17 190" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6.5) }} strokeLinecap="butt" />
       <g transform="translate(5 8) rotate(5 -8 150) scale(1.1)">
       {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
       <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
@@ -1158,7 +1160,7 @@ const namSkinPath = (d: number) => {
 };
 // đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
 // mỗi mép cổ là MỘT đường cong liền, chếch ra trước (không ghép đoạn thẳng + nghiêng cả khối nên không gãy khúc); đáy trùng mép trên áo
-const NAM_NECK_D = 'M -12 112 C -12 150 -21 177 -24 194 Q -16 197 -8 197 Q 8 195 22 198 C 13 186 12 158 18 112 Z';
+const NAM_NECK_D = 'M -12 112 C -12 150 -21 177 -24 194 L -28 214 Q -6 220 12 216 L 22 198 C 13 186 12 158 18 112 Z'; // đáy kéo dài xuống dưới cổ áo (y≈214), phần dư bị dải áo `collarCover` che
 const NAM_HEAD_T = 'translate(13 36) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
 // cổ chếch ra trước rõ hơn cổ Tùng, đầu đưa theo (mẫu: cổ cong nhẹ hướng về trước)
 const NAM_NECK_T = ''; // độ chếch đã nằm trong đường cong của NAM_NECK_D
@@ -1189,7 +1191,6 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         </g>
         <g filter={`url(#${clip}-soft)`}><g transform={NAM_HEAD_T}><path d={skin} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
       </g>
-      <path d="M -24 194 Q -16 197 -8 197 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} />
       <g transform={NAM_HEAD_T}>
         <path d={skin} fill={PALETTE.skin} {...o(PALETTE.skin)} />
         <g clipPath={`url(#${clip}-face)`} stroke="none" data-shadow="drawn-face">
@@ -1389,10 +1390,12 @@ const TUNG_VIEWS: Outfit['views'] = {
     torso: 'M -26 184 Q -38 185 -45 200 Q -50 214 -50 260 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z',
     hem: [[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]],
     detail: <path d="M 33 262 Q 38 292 36 330" {...JERSEY_FOLD} />,
+    // dải áo quanh cổ + viền cổ trắng, vẽ đè lên đầu (che phần cổ dư khi ngửng/cúi)
   },
 };
 
 export const TUNG_OUTFIT: Outfit = {
+  collarCover: { side: <g><path d="M -26 184 Q -38 185 -45 200 L -47 226 L 46 226 Q 40 210 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z" fill={PALETTE.tung.jersey} stroke="none" /><path d="M -31 183 Q -10 199 17 190" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6.5) }} strokeLinecap="butt" /></g> },
   shirt: PALETTE.tung.jersey, sleeveEnd: 0.5, hem: [[-46, 318], [46, 318], [60, 340], [36, 354], [12, 347], [-20, 360], [-58, 344]], cuff: PALETTE.tung.jerseyTrim,
   torso: 'M -24 176 Q -56 178 -84 210 L -56 256 Q -60 306 -56 342 Q -20 358 12 345 Q 36 352 58 338 Q 52 300 50 256 L 76 210 Q 62 190 16 177 Q -6 192 -24 176 Z',
   pants: PALETTE.tung.shorts, pantsLen: 'short', stripe: PALETTE.tung.shortsStripe,
