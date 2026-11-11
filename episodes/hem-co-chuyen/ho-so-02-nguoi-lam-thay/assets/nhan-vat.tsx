@@ -1138,13 +1138,13 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
  * mái hất ra trước theo mẫu. Bóng vẽ tay làm mềm bằng blur (mép ngoài cắt theo hình bao). Đầu nghiêng đã chốt (`ProfileHead`) giữ nguyên cho dáng cũ.
  */
 const NAM_SIDE = {
-  hair: 'M 59.1 51.1 C 59.1 51.1 58.2 44.1 56.4 40.9 C 54.6 37.7 51.4 34.4 48.2 32.0 C 45.0 29.6 41.0 27.9 37.0 26.6 C 33.0 25.3 28.2 24.6 24.4 24.2 C 20.6 23.8 18.6 24.2 14.2 24.2 C 9.8 24.2 3.4 23.9 -2.1 24.2 C -7.6 24.5 -13.4 25.2 -19.1 25.9 C -24.8 26.6 -31.5 27.2 -36.1 28.6 C -40.8 30.0 -42.9 34.1 -47.0 34.1 C -51.1 34.1 -60.6 28.6 -60.6 28.6 C -60.6 28.6 -48.9 40.6 -49.0 45.0 C -49.1 49.4 -57.9 51.2 -61.2 55.2 C -64.5 59.2 -67.1 63.7 -68.7 69.1 C -70.3 74.5 -71.1 81.6 -70.8 87.8 C -70.5 94.0 -69.1 101.1 -66.7 106.5 C -64.3 111.9 -61.6 115.8 -56.5 120.1 C -51.4 124.3 -36.1 132.0 -36.1 132.0 C -36.1 132.0 -31.2 124.6 -30.0 120.1 C -28.8 115.6 -28.6 109.9 -28.6 104.8 C -28.6 99.7 -30.8 92.8 -30.0 89.2 C -29.2 85.6 -27.3 84.3 -23.8 83.0 C -20.3 81.7 -13.0 81.2 -8.9 81.3 C -4.8 81.4 -2.2 84.8 0.6 83.7 C 3.4 82.6 5.0 77.9 8.1 74.9 C 11.2 72.0 14.7 68.5 19.0 66.0 C 23.3 63.5 29.1 61.5 34.0 59.9 C 38.9 58.3 44.0 58.0 48.2 56.5 C 52.4 55.0 59.1 51.1 59.1 51.1 Z',
+  hair: 'M 59.1 51.1 C 59.1 51.1 58.2 44.1 56.4 40.9 C 54.6 37.7 51.4 34.4 48.2 32.0 C 45.0 29.6 41.0 27.9 37.0 26.6 C 33.0 25.3 28.2 24.6 24.4 24.2 C 20.6 23.8 18.6 24.2 14.2 24.2 C 9.8 24.2 3.4 23.9 -2.1 24.2 C -7.6 24.5 -13.4 25.2 -19.1 25.9 C -24.8 26.6 -31.5 27.2 -36.1 28.6 C -40.8 30.0 -42.9 34.1 -47.0 34.1 C -51.1 34.1 -60.6 28.6 -60.6 28.6 C -60.6 28.6 -48.9 40.6 -49.0 45.0 C -49.1 49.4 -57.9 51.2 -61.2 55.2 C -64.5 59.2 -67.1 63.7 -68.7 69.1 C -70.3 74.5 -71.1 81.6 -70.8 87.8 C -70.5 94.0 -69.3 100.4 -66.7 106.5 C -64.1 112.6 -61.5 118.8 -55.1 124.5 C -48.8 130.2 -28.6 140.8 -28.6 140.8 C -28.6 140.8 -26.0 131.1 -25.9 125.2 C -25.8 119.3 -27.2 111.5 -27.9 105.5 C -28.6 99.5 -30.7 93.0 -30.0 89.2 C -29.3 85.5 -27.3 84.3 -23.8 83.0 C -20.3 81.7 -13.0 81.2 -8.9 81.3 C -4.8 81.4 -2.2 84.8 0.6 83.7 C 3.4 82.6 5.0 77.9 8.1 74.9 C 11.2 72.0 14.7 68.5 19.0 66.0 C 23.3 63.5 29.1 61.5 34.0 59.9 C 38.9 58.3 44.0 58.0 48.2 56.5 C 52.4 55.0 59.1 51.1 59.1 51.1 Z',
   curl: 'M -11.6 23.9 C -11.6 23.9 -16.3 17.0 -15.0 13.7 C -13.7 10.4 -8.2 5.9 -3.8 4.2 C 0.6 2.5 7.4 3.2 11.5 3.5 C 15.6 3.8 18.6 4.7 21.0 6.2 C 23.4 7.7 25.8 12.3 25.8 12.3 C 25.8 12.3 21.5 9.7 19.0 9.3 C 16.5 8.9 13.4 9.5 10.8 9.9 C 8.2 10.3 5.4 10.9 3.4 12.0 C 1.4 13.1 -0.5 14.4 -1.4 16.4 C -2.3 18.4 -0.4 22.9 -2.1 24.2 C -3.8 25.4 -11.6 23.9 -11.6 23.9 Z',
   ear: 'M -30.6 98.7 C -30.8 95.0 -30.3 90.5 -28.6 87.8 C -26.9 85.1 -23.6 83.2 -20.4 82.4 C -17.2 81.6 -12.3 81.5 -9.6 83.0 C -6.9 84.5 -4.9 88.0 -4.1 91.2 C -3.3 94.4 -3.8 98.8 -4.8 102.1 C -5.8 105.4 -7.8 108.9 -10.2 110.9 C -12.6 112.9 -16.3 114.4 -19.1 114.3 C -21.9 114.2 -25.3 112.8 -27.2 110.2 C -29.1 107.6 -30.4 102.4 -30.6 98.7 Z',
   earLine: 'M -13.6 92.6 Q -6.2 94.6 -6.8 103.4',
   back: [[-24.5, 135.4], [-34.7, 119.8], [-41.5, 95.3], [-38.8, 74.9], [-25.9, 55.8], [-2.1, 46.3], [25.1, 42.2], [45.5, 49.0], [51.6, 59.2]] as [number, number][],
   front: [[51.6, 57.2], [49.9, 66.0], [48.6, 77.6], [49.3, 89.5], [51.3, 102.1], [53.3, 110.9], [51.0, 114.7], [48.6, 116.7], [48.9, 123.8]] as [number, number][],
-  lower: [[48.9, 123.8], [47.6, 129.5], [43.4, 137.5], [34.0, 142.5], [18.5, 143.0], [3.0, 139.5], [-11.6, 135.5]] as [number, number][], // cằm nâng ~11 đơn vị so với bản đầu (xệ, nặng hàm)
+  lower: [[48.9, 123.8], [47.6, 127.5], [43.6, 135.0], [34.3, 140.0], [18.8, 140.5], [3.3, 137.0], [-11.6, 133.5]] as [number, number][], // cằm nâng ~14 đơn vị so với bản đầu (xệ, nặng hàm)
 };
 const namSkinPath = (d: number) => {
   const k = [0, 0.35, 0.7, 1, 1, 0.55, 0.2];
@@ -1153,14 +1153,15 @@ const namSkinPath = (d: number) => {
 };
 // đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
 const NAM_NECK_D = 'M -26 120 L -27 172 Q -27 180 -26 184 Q -18 192 -8 196 Q 8 195 22 198 Q 11 180 7 160 L 6 120 Z';
-const NAM_HEAD_T = 'translate(4 31) rotate(4 -8 150) translate(-8 150) scale(1.07) translate(8 -150)';
+const NAM_HEAD_T = 'translate(4 33.5) rotate(4 -8 150) translate(-8 150) scale(1.07) translate(8 -150)';
 const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, mole, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
   const o = useHeadLine();
   const sour = mood === 'annoyed' || mood === 'suspicious' || mood === 'agitated';
   const smile = mood === 'neutral_smile' || mood === 'eerie_smirk' || mood === 'stare_grin';
-  const mouth = drop > 0 ? undefined : sour ? 'M 48.5 133 Q 44 131.5 40 134' : smile ? 'M 48.5 132.5 Q 44 135.5 40 132' : mood === 'hesitant' ? 'M 48.5 133 Q 45 135 42.5 132.8 Q 41 131.8 39.5 133.5' : 'M 48.5 133.5 Q 44 134.2 40 133.5';
+  // Miệng đặt theo đường viền môi (môi trên nhô ở y≈124): nét đóng nằm trong mặt, đầu nét chạm mép môi; miệng mở là một nêm tối vẽ ĐÈ lên da
+  const mouth = drop > 0 ? undefined : sour ? 'M 47.8 127 Q 44.5 125.6 41 127.4' : smile ? 'M 47.8 125.4 Q 44.5 128.4 41 125.6' : mood === 'hesitant' ? 'M 47.8 126.6 Q 45 128.4 43 126.4 Q 41.6 125.6 40.4 127' : 'M 47.8 126.4 Q 44.5 127.4 41 126.6';
   const ry = Math.min(f.ry - 3, 16);
   const skin = namSkinPath(drop);
   return (
@@ -1182,7 +1183,6 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
       </g>
       <path d="M -26 184 Q -18 192 -8 196 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} />
       <g transform={NAM_HEAD_T}>
-        {drop > 0 && <path d={`M 49 131 L 41 ${132 + 0.4 * drop} L ${46 - 0.3 * drop} ${134 + drop} Z`} transform="translate(-1.5 -3.5)" fill={PALETTE.mouthDark} stroke="none" />}
         <path d={skin} fill={PALETTE.skin} {...o(PALETTE.skin)} />
         <g clipPath={`url(#${clip}-face)`} stroke="none" data-shadow="drawn-face">
           <g filter={`url(#${clip}-soft)`}>
@@ -1206,7 +1206,8 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         {blink && <path d="M 26 100 Q 36 106 47 100" fill="none" style={{ strokeWidth: lw(3) }} />}
         <g clipPath={`url(#${clip}-face)`}><path d={f.brow} transform="translate(6 0) translate(20 0) scale(0.8 1) translate(-20 0)" fill="none" style={{ strokeWidth: lw(5.5) }} /></g>
         {mole && <circle cx={16.6} cy={76.9} r={2.2} fill={PALETTE.ink} stroke="none" />}
-        {mouth && <path d={mouth} transform="translate(-2 -3.5)" fill="none" style={{ strokeWidth: lw(2.6) }} />}
+        {mouth && <path d={mouth} fill="none" style={{ strokeWidth: lw(2.6) }} />}
+        {drop > 0 && <path d={`M 48.7 124.2 Q 44.5 124.6 41.5 125.8 Q 43.5 ${126.4 + 0.45 * drop} ${46.6 - 0.3 * drop} ${128.2 + 0.8 * drop} Q 47.6 ${126.5 + 0.5 * drop} 48.7 124.2 Z`} fill={PALETTE.mouthDark} stroke="none" />}
       </g>
     </g>
   );
