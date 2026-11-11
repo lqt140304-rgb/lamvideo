@@ -467,6 +467,7 @@ export type Build = {
   pants: [number, number, number]; // nửa bề rộng ống quần dài: hông, gối, gấu
   pantsEnd: number; // gấu quần dài tại tỉ lệ gối → mắt cá (1 = chấm mắt cá)
   foot: number; // hệ số cỡ dép
+  shortsSide?: [number, number, number]; // nửa bề rộng ống quần ĐÙI khi nhìn nghiêng (bỏ trống = 31/31/32 như đã chốt)
 };
 export const DEFAULT_BUILD: Build = { ...BONE, shoulderX: 1, arm: [19, 16, 13.5], hand: 1.12, sleeve: [25, 27, 27], pants: [31, 26, 28], pantsEnd: 0.93, foot: 1 };
 export const LIMIT: Record<'tilt' | 'neck' | 'shoulder' | 'elbow' | 'wrist' | 'hip' | 'knee' | 'ankle', [number, number]> = {
@@ -694,7 +695,7 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
   const long = o.pantsLen === 'long';
   const B = o.build ? { ...DEFAULT_BUILD, ...o.build } : DEFAULT_BUILD;
   const cloth = long ? { root: hip, mid: knee, end: mix(knee, ankle, B.pantsEnd) } : { root: hip, mid: mix(hip, knee, 0.4), end: mix(hip, knee, 0.75) };
-  const widths: [number, number, number] = long ? B.pants : [31, 31, 32];
+  const widths: [number, number, number] = long ? B.pants : view === 'side' && B.shortsSide ? B.shortsSide : [31, 31, 32];
   // Đùi đưa hẳn ra trước (ngồi, ngồi xổm): bàn chân cũng quay về trước, không xoè ngược lại như lúc đứng.
   const shoe = <g transform={`translate(${ankle.x} ${ankle.y}) rotate(${foot})${B.foot !== 1 ? ` scale(${B.foot})` : ''}`}><o.Foot side={view === 'three' && knee.x - hip.x > 60 ? 'L' : side} view={view} /></g>;
   return (
@@ -1084,25 +1085,31 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
     <g {...headFrame(x, y, scale)}>
       {/* Cổ dày, chếch ra trước, LOE ở gốc: sau gáy thoải xuống vai, trước dốc ra cổ áo thấp hơn → da ngực/vai đỡ chân cổ. Cổ áo vẽ ĐÈ lên chân cổ. */}
       <defs>
+        <filter id={`${clip}-soft`} filterUnits="userSpaceOnUse" x={-150} y={-60} width={300} height={320}><feGaussianBlur stdDeviation={2.6} /></filter>
+        <filter id={`${clip}-soft2`} filterUnits="userSpaceOnUse" x={-150} y={-60} width={300} height={320}><feGaussianBlur stdDeviation={1.8} /></filter>
         <clipPath id={`${clip}-neck`}><path d={NECK_D} transform={NECK_T} /></clipPath>
         <clipPath id={`${clip}-face`}><path d={tungSkinPath(drop)} /></clipPath>
       </defs>
       <path d={NECK_D} transform={NECK_T} fill={PALETTE.skin} {...o(PALETTE.skin)} />
-      <g clipPath={`url(#${clip}-neck)`} stroke="none">
-        {/* bóng hàm đổ xuống cổ + một dải tối nhẹ ở mép trước cổ */}
-        <path d={NECK_D} transform={NECK_T} fill={PALETTE.skinShadow} opacity={0.4} />
-        <path d={NECK_D} transform={`translate(-6.5 0) ${NECK_T}`} fill={PALETTE.skin} />
-        <g transform="translate(5 8) rotate(5 -8 150) scale(1.1)"><path d={tungSkinPath(drop)} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.7} /></g>
+      {/* bóng vẽ tay, MỀM: làm mờ riêng bản dịch (mép trong chuyển dần), mép ngoài vẫn cắt theo hình bao nhờ clip; data-shadow để lớp 2.5D bỏ qua */}
+      <g clipPath={`url(#${clip}-neck)`} stroke="none" data-shadow="drawn-neck">
+        <g filter={`url(#${clip}-soft2)`}>
+          <rect x={-150} y={-60} width={300} height={320} fill={PALETTE.skinShadow} opacity={0.3} />
+          <path d={NECK_D} transform={`translate(-6.5 0) ${NECK_T}`} fill={PALETTE.skin} />
+        </g>
+        <g filter={`url(#${clip}-soft)`}><g transform="translate(5 8) rotate(5 -8 150) scale(1.1)"><path d={tungSkinPath(drop)} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
       </g>
       <path d="M -31 183 Q -10 199 17 190" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6.5) }} strokeLinecap="butt" />
       <g transform="translate(5 8) rotate(5 -8 150) scale(1.1)">
       {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
       <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
-      <g clipPath={`url(#${clip}-face)`} stroke="none">
-        {/* bóng nhẹ ở viền: quầng dưới hàm/má để tách mặt khỏi cổ, và tóc đổ bóng lên trán–thái dương */}
-        <path d={tungSkinPath(drop)} fill={PALETTE.skinShadow} opacity={0.38} />
-        <path d={tungSkinPath(drop)} transform="translate(0 -6)" fill={PALETTE.skin} />
-        <path d={TUNG_SIDE.hair} transform="translate(3.5 7)" fill={PALETTE.skinShadow} opacity={0.5} />
+      <g clipPath={`url(#${clip}-face)`} stroke="none" data-shadow="drawn-face">
+        {/* quầng dưới hàm/má tách mặt khỏi cổ; tóc đổ bóng lên trán–thái dương */}
+        <g filter={`url(#${clip}-soft)`}>
+          <rect x={-150} y={-60} width={300} height={320} fill={PALETTE.skinShadow} opacity={0.4} />
+          <path d={tungSkinPath(drop)} transform="translate(0 -6)" fill={PALETTE.skin} />
+        </g>
+        <g filter={`url(#${clip}-soft2)`}><path d={TUNG_SIDE.hair} transform="translate(3.5 7)" fill={PALETTE.skinShadow} opacity={0.5} /></g>
       </g>
       <path d={TUNG_SIDE.hair} fill={PALETTE.tung.hair} {...o(PALETTE.tung.hair)} visibility="visible" transform={hairSway(sway)} />
       <path d={TUNG_SIDE.ear} fill={PALETTE.skin} {...o(PALETTE.skin)} />

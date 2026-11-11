@@ -15,7 +15,7 @@ export const NguoiKia25D: React.FC<React.ComponentProps<typeof Nam25D>> = (p) =>
 // TÙNG
 // ---------------------------------------------------------------------------
 /** Đo trên ảnh tham chiếu (cùng cách ghép cùng chiều cao như Nam): chân ngắn ~6%, bàn tay lớn hơn một chút, vai hơi hẹp lại. */
-export const TUNG_DANG: Partial<Build> = { thigh: 99, shin: 98, shoulderX: 0.96, arm: [20, 17, 14.5], hand: 1.22, sleeve: [26, 28, 28] };
+export const TUNG_DANG: Partial<Build> = { thigh: 99, shin: 98, shoulderX: 0.96, arm: [20, 17, 14.5], hand: 1.22, sleeve: [26, 28, 28], shortsSide: [42, 43, 44] }; // quần đùi nghiêng rộng gần bằng vạt áo như mẫu
 const TUNG_PAL: Pal25 = {
   // áo + tất cùng một màu navy; viền cổ/tay áo, số 7, sọc và giày trắng cùng màu kem; quần đùi + cổ áo trong cùng navy sẫm
   shirt: [PALETTE.tung.jersey, PALETTE.tung.jerseyTrim],
