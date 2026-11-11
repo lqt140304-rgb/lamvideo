@@ -114,17 +114,49 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
 
 // ---------- SHOT 1: báo thức lần 5, tay trong gương rút trễ (5–15s) ----------
 const BED_HEAD: [number, number] = [424, 332];
+// Khung báo thức riêng ở góc trên trái, tách khỏi cảnh giường bằng một vết cắt răng cưa hình tia sét.
+// Khung có nền riêng (đỏ cam nháy theo nhịp chuông), điện thoại cận to và rung; chém vào nhanh lúc chuông reo, rút ra khi tắt chuông.
+const BOLT = 'M0 138H980L860 300L930 312L700 520L780 534L460 760L540 772L0 942Z';
 const PhoneAlarm: React.FC<{ f: number }> = ({ f }) => {
-  const shake = Math.sin(f * 2.1) * 3;
+  const open = seg(f, 0, 5) * (1 - seg(f, 36, 42)); // chém vào / rút ra
+  const ring = 0.5 + 0.5 * Math.sin(f * 0.9); // nhịp chuông
+  const shake = Math.sin(f * 2.3) * 5 * open;
+  const slide = (1 - open) * -420;
   return (
-    <div style={{ position: 'absolute', left: 230, top: BAR + 70, width: 250, height: 420, borderRadius: 34, background: '#2a3436', padding: 10, transform: `rotate(${-4 + shake * 0.3}deg) translateX(${shake}px)`, boxShadow: '0 0 30px rgba(120,190,255,.35)' }}>
-      <div style={{ width: '100%', height: '100%', borderRadius: 26, background: '#1e2a33', border: '3px solid #d0533f', fontFamily: FONT.title, color: '#eef3f6', textAlign: 'center' }}>
-        <div style={{ fontSize: 76, marginTop: 70 }}>07:00</div>
-        <div style={{ fontSize: 22, marginTop: 10, letterSpacing: 1 }}>BÁO THỨC: ĐI HỌC</div>
-        <div style={{ fontSize: 26, marginTop: 8, color: '#ff8a74' }}>(LẦN 5)</div>
-        <div style={{ margin: '70px 30px 0', borderRadius: 30, background: '#d0533f', padding: '12px 0', fontSize: 22 }}>Dừng · Báo lại</div>
-      </div>
-    </div>
+    <AbsoluteFill style={{ pointerEvents: 'none' }}>
+      <svg width={1920} height={1080}>
+        <defs>
+          <clipPath id="khung-bao-thuc"><path d={BOLT} transform={`translate(${slide} ${slide * 0.4})`} /></clipPath>
+          <radialGradient id="nen-bao-thuc" cx=".32" cy=".42" r=".7">
+            <stop offset="0" stopColor="#ff7a45" />
+            <stop offset=".55" stopColor="#b8322a" />
+            <stop offset="1" stopColor="#3a0f12" />
+          </radialGradient>
+        </defs>
+        <g clipPath="url(#khung-bao-thuc)">
+          <rect width={1920} height={1080} fill="url(#nen-bao-thuc)" />
+          <rect width={1920} height={1080} fill="#ffd7a8" opacity={0.18 * ring} />
+          {/* vạch rung toả quanh máy */}
+          {[0, 1, 2].map((i) => (
+            <g key={i} stroke="#ffe3c4" strokeWidth={8} strokeLinecap="round" fill="none" opacity={0.35 + 0.4 * ring}>
+              <path d={`M${170 - i * 34} ${330 + i * 10}q-18 70 0 140`} />
+              <path d={`M${560 + i * 34} ${330 + i * 10}q18 70 0 140`} />
+            </g>
+          ))}
+          <g transform={`translate(${365 + shake} 560) rotate(${-8 + shake * 0.6})`}>
+            <rect x={-150} y={-280} width={300} height={520} rx={42} fill="#1c2428" />
+            <rect x={-134} y={-264} width={268} height={488} rx={32} fill="#18232c" stroke="#ff6b52" strokeWidth={5} />
+            <text x={0} y={-150} textAnchor="middle" fontFamily={FONT.title} fontSize={92} fill="#f4f7f9">07:00</text>
+            <text x={0} y={-96} textAnchor="middle" fontFamily={FONT.title} fontSize={26} fill="#e3e9ee" letterSpacing={1}>BÁO THỨC: ĐI HỌC</text>
+            <text x={0} y={-58} textAnchor="middle" fontFamily={FONT.title} fontSize={30} fill="#ff8a74">(LẦN 5)</text>
+            <rect x={-100} y={120} width={200} height={56} rx={28} fill="#d0533f" />
+            <text x={0} y={157} textAnchor="middle" fontFamily={FONT.title} fontSize={24} fill="#fff">Dừng · Báo lại</text>
+          </g>
+        </g>
+        {/* viền vết cắt sáng như tia sét */}
+        <path d="M980 138L860 300L930 312L700 520L780 534L460 760L540 772L0 942" transform={`translate(${slide} ${slide * 0.4})`} fill="none" stroke="#fff6d8" strokeWidth={9} strokeLinejoin="miter" opacity={open} style={{ filter: 'drop-shadow(0 0 10px #ffd27a)' }} />
+      </svg>
+    </AbsoluteFill>
   );
 };
 
