@@ -75,6 +75,7 @@ Ba nhân vật chính của **Hồ sơ 2: Người trong gương** đã được
 ## File thiết kế tham chiếu ban đầu
 - [`assets/thiet-ke/character-svg-v1.png`](assets/thiet-ke/character-svg-v1.png): Bảng đối chiếu ban đầu giữa Rig cũ và Mẫu thử B.
 - [`assets/thiet-ke/character-svg-v1.tsx`](assets/thiet-ke/character-svg-v1.tsx): File thử nghiệm ban đầu của mẫu B.
+- [`assets/thiet-ke/thu-2-5d/`](assets/thiet-ke/thu-2-5d/README.md): **Thử 11/11** Nam 2D → 2.5D, giữ nguyên tạo hình, chỉ thêm mảng sáng–tối tự vẽ theo khối; chờ duyệt, chưa thay bộ đã chốt.
 
 ---
 
