@@ -188,16 +188,16 @@ type BodyProps = React.ComponentProps<typeof StudentTwinBody>;
 // ---------------------------------------------------------------------------
 /** Đo trên ảnh tham chiếu (tham-khao/tao-hinh-2-5d.jpg), so với Nam đã chốt cùng chiều cao. */
 export const DANG_THAM_CHIEU: Partial<Build> = {
-  upperArm: 70, foreArm: 60, // tay ngắn: nắm tay chạm ngay dưới vạt áo
-  shoulderX: 0.86, // vai hẹp: ~1,4 lần bề ngang mặt (cũ ~1,6)
-  arm: [15.5, 13.5, 12], // tay mảnh
-  hand: 0.95, // nắm tay nhỏ
-  sleeve: [22, 23.5, 23.5],
-  pants: [30, 29, 29], // ống thẳng, rộng đều, không loe
-  pantsEnd: 0.8, // quần lửng, lộ cổ chân
-  foot: 0.92,
+  upperArm: 78, foreArm: 72, thigh: 99, shin: 99, // tay hơi dài hơn, chân ngắn lại ~6%
+  shoulderX: 0.98, // vai rộng ~1,3 lần bề ngang đầu (đầu thon lại, xem HEAD_FIT)
+  arm: [21, 18.5, 16], // tay dày, tròn
+  hand: 1.3, // nắm tay to
+  sleeve: [27, 29, 29],
+  pants: [29, 27, 27], // ống thẳng, rộng đều, không loe
+  pantsEnd: 0.84, // quần lửng, lộ cổ chân
+  foot: 1,
 };
-const SHIRT_X = 0.88; // áo hẹp ngang theo vai
+const SHIRT_X = 1.0; // áo đầy ngang theo vai, nở dần xuống gấu
 const scaleX = (d: string, k: number) => d.replace(/(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/g, (_, x, y) => `${+(Number(x) * k).toFixed(2)} ${y}`);
 const narrow = <T extends { torso: string; hem: [number, number][]; detail: Outfit['detail'] }>(v: T): T => ({
   ...v, torso: scaleX(v.torso, SHIRT_X), hem: v.hem.map(([x, y]) => [x * SHIRT_X, y] as [number, number]),
@@ -209,8 +209,8 @@ export const namOutfitDang = (shirt: string = PALETTE.nam.shirt): Outfit => {
   const views = Object.fromEntries(Object.entries(TWIN_OUTFIT.views ?? {}).map(([k, v]) => [k, narrow(v!)])) as Outfit['views'];
   return { ...narrow(base), views };
 };
-/** Đầu to hơn ~6% và hạ thấp (cổ ngắn) như ảnh tham chiếu; tâm phóng ở chân cổ. */
-const HEAD_FIT = 'translate(-6 186) scale(1.06) translate(6 -180)';
+/** Đầu thon lại (ngang ×0,9) và hạ thấp (cổ ngắn, cằm sát vai) như ảnh tham chiếu; tâm phóng ở chân cổ. */
+const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';
 
 /** Nam 2D với dáng tham chiếu (cùng props StudentTwinBody; `outfit` khác áo thun chưa hỗ trợ ở bản thử). */
 export const NamDangMoi: React.FC<BodyProps> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline }) => (

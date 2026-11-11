@@ -12,16 +12,16 @@
 
 Nguồn: [`nam-2-5d.tsx`](nam-2-5d.tsx). Bảng xuất bằng `renderToStaticMarkup` + Chromium; không lưu SVG vì mỗi lớp cắt nhúng lại cả nhân vật (0,7–1,6 MB/bảng), dựng lại từ TSX khi cần.
 
-## Dáng người (vòng 3, theo ảnh tham chiếu)
+## Dáng người (vòng 3–4, theo ảnh tham chiếu)
 
-Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Đo [tham-khao/tao-hinh-2-5d.jpg](tham-khao/tao-hinh-2-5d.jpg) so với Nam đã chốt cùng chiều cao:
+Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Vòng 3 tôi đo ảnh bằng mắt và đo sai (tưởng vai hẹp, tay ngắn). Vòng 4 ghép ảnh mẫu cạnh Nam ở cùng chiều cao, ba góc, rồi chỉnh theo. Kết quả đo:
 
 | | Ảnh tham chiếu | Đã chốt | Dáng mới (`DANG_THAM_CHIEU`) |
 |---|---|---|---|
-| Vai / bề ngang mặt | ~1,4 | ~1,6 | điểm vai ×0,86, áo hẹp ×0,88 |
-| Tay | ngắn, mảnh; nắm tay ngay dưới vạt áo | dài, to | bắp tay 80→70, cẳng tay 74→60, dày 19/16/13,5 → 15,5/13,5/12, bàn tay 1,12→0,95 |
-| Quần | ống thẳng rộng đều, lửng lộ cổ chân | thu gối, loe gấu, chấm dép | 30/29/29, gấu tại 0,8 gối→mắt cá |
-| Đầu, cổ | đầu to hơn chút, cổ ngắn | | đầu ×1,06, hạ 6 đơn vị |
+| Đầu | thon: ngang ≈ 0,9 bản chốt, cằm sát vai | tròn, có cổ | ngang ×0,9, hạ 8 đơn vị |
+| Vai so với đầu | ~1,3 lần | ~1,05 | điểm vai ×0,98 (đầu thon nên tỉ lệ đạt) |
+| Tay | dày, nắm tay to rơi dưới vạt áo | mảnh, dài | dài hơn nhẹ (78/72), dày 21/18,5/16, bàn tay 1,12→1,3 |
+| Quần, chân | ống thẳng rộng đều, lửng; chân ngắn hơn ~6% | thu gối, loe gấu | 29/27/27, gấu 0,84, đùi/ống chân 99 |
 
 **Giữ nguyên:** mặt, nét mặt, tóc, màu, nốt ruồi, khớp/giới hạn rig. `Nam25D` mặc định `dang="moi"`; `dang="chot"` về dáng đã chốt. Bộ đồ `outfit` khác áo thun chưa có dáng mới.
 
