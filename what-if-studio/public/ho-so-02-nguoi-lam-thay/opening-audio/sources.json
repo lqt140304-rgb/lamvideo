@@ -1,0 +1,242 @@
+{
+  "duration": 48,
+  "fps": 30,
+  "voice": false,
+  "music": {
+    "file": "lightless-dawn-excerpt.mp3",
+    "source": "https://incompetech.com/music/royalty-free/index.html?Search=Search&isrc=USUAN1100655",
+    "author": "Kevin MacLeod",
+    "license": "CC BY 4.0",
+    "excerpt": [
+      35,
+      83
+    ]
+  },
+  "sfx": {
+    "source": [
+      "https://kenney.nl/assets/impact-sounds",
+      "https://kenney.nl/assets/digital-audio"
+    ],
+    "author": "Kenney",
+    "license": "CC0"
+  },
+  "events": [
+    {
+      "file": "impactSoft_medium_000.ogg",
+      "at": 2.28,
+      "gain": 0.32,
+      "filter": "lowpass=f=850"
+    },
+    {
+      "file": "impactGlass_light_000.ogg",
+      "at": 2.88,
+      "gain": 0.2,
+      "filter": "lowpass=f=1600"
+    },
+    {
+      "file": "twoTone1.ogg",
+      "at": 5,
+      "gain": 0.48,
+      "filter": ""
+    },
+    {
+      "file": "twoTone1.ogg",
+      "at": 5.65,
+      "gain": 0.48,
+      "filter": ""
+    },
+    {
+      "file": "twoTone1.ogg",
+      "at": 6.3,
+      "gain": 0.48,
+      "filter": ""
+    },
+    {
+      "file": "twoTone1.ogg",
+      "at": 6.95,
+      "gain": 0.48,
+      "filter": ""
+    },
+    {
+      "file": "twoTone1.ogg",
+      "at": 7.6,
+      "gain": 0.48,
+      "filter": ""
+    },
+    {
+      "file": "impactSoft_medium_000.ogg",
+      "at": 7.8,
+      "gain": 0.27,
+      "filter": ""
+    },
+    {
+      "file": "impactSoft_medium_000.ogg",
+      "at": 10.9,
+      "gain": 0.12,
+      "filter": "lowpass=f=1200"
+    },
+    {
+      "file": "impactGlass_light_000.ogg",
+      "at": 9.27,
+      "gain": 0.12,
+      "filter": "areverse,asetrate=32000,aresample=48000"
+    },
+    {
+      "file": "laser1.ogg",
+      "at": 15.22,
+      "gain": 0.045,
+      "filter": "lowpass=f=1800"
+    },
+    {
+      "file": "laser1.ogg",
+      "at": 15.8,
+      "gain": 0.045,
+      "filter": "lowpass=f=1800"
+    },
+    {
+      "file": "laser1.ogg",
+      "at": 16.65,
+      "gain": 0.045,
+      "filter": "lowpass=f=1800"
+    },
+    {
+      "file": "laser1.ogg",
+      "at": 17.45,
+      "gain": 0.045,
+      "filter": "lowpass=f=1800"
+    },
+    {
+      "file": "footstep_concrete_000.ogg",
+      "at": 18.52,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_001.ogg",
+      "at": 19.05,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_000.ogg",
+      "at": 19.58,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_001.ogg",
+      "at": 20.11,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_000.ogg",
+      "at": 20.64,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "impactSoft_medium_000.ogg",
+      "at": 23.52,
+      "gain": 0.13,
+      "filter": ""
+    },
+    {
+      "file": "impactSoft_medium_000.ogg",
+      "at": 24.2,
+      "gain": 0.12,
+      "filter": "highpass=f=300"
+    },
+    {
+      "file": "tone1.ogg",
+      "at": 27.1,
+      "gain": 0.1,
+      "filter": ""
+    },
+    {
+      "file": "impactGlass_light_000.ogg",
+      "at": 31.4,
+      "gain": 0.18,
+      "filter": "areverse,lowpass=f=1800"
+    },
+    {
+      "file": "impactWood_light_000.ogg",
+      "at": 35.0,
+      "gain": 0.14,
+      "filter": "asetrate=26000,aresample=48000"
+    },
+    {
+      "file": "footstep_concrete_000.ogg",
+      "at": 39.05,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_001.ogg",
+      "at": 39.65,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_000.ogg",
+      "at": 40.25,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_001.ogg",
+      "at": 40.85,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_000.ogg",
+      "at": 41.5,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_001.ogg",
+      "at": 42.1,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_000.ogg",
+      "at": 42.7,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "footstep_concrete_001.ogg",
+      "at": 43.3,
+      "gain": 0.25,
+      "filter": ""
+    },
+    {
+      "file": "impactGlass_light_000.ogg",
+      "at": 40.45,
+      "gain": 0.23,
+      "filter": "areverse,asetrate=28000,aresample=48000"
+    },
+    {
+      "file": "impactGlass_medium_000.ogg",
+      "at": 45,
+      "gain": 0.45,
+      "filter": "aecho=0.8:0.5:180|340:0.25|0.12"
+    }
+  ],
+  "sha256": {
+    "footstep_concrete_000.ogg": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+    "footstep_concrete_001.ogg": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+    "impactGlass_light_000.ogg": "d750cf88097d0c3e69920e6e14496e1444e1a9da01aa4cca8f5ec8cb44c57b4f",
+    "impactGlass_medium_000.ogg": "9252d50bfb85edb17d6073c4a7806e10cdb9de56d3dbfc93a4b9727146d2df6d",
+    "impactPlate_light_000.ogg": "6e797cf8a5bfc52d7ed5eb47c227974c1cf2a674954fec5b539cea7d62c7282c",
+    "impactSoft_medium_000.ogg": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+    "impactWood_light_000.ogg": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+    "laser1.ogg": "0bf468769b48a834dc1c6e38e457f2c71159b010225a9aedf84316795e8cc3e5",
+    "lightless-dawn-excerpt.mp3": "777ff3c67755d437e84e1b467ca62dda31a5aa741ea763219d66ea1e13bd9f64",
+    "tone1.ogg": "12c6a1955aad54cb04206b5e9985df4379ebc598a01b65070609e0b0a3b9b026",
+    "twoTone1.ogg": "8732f14d6398407a8f1df77b986c2099cfd88f6583e1272cb60497cb2fe8da1d"
+  }
+}

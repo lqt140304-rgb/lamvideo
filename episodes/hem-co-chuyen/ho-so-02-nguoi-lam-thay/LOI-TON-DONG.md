@@ -60,3 +60,8 @@ Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng 
 Chưa có storyboard, giọng hay timeline chính thức cho Hồ sơ 2. Đoạn comic thử và âm thanh (`comic.tsx`, `sound.cjs`, `what-if-studio/public/ho-so-02-nguoi-lam-thay/`) chỉ ở máy, không đưa lên repo.
 
 `assets/rig/` là rig cũ, giữ để đối chiếu. Các bảng hình trong đó vẫn là tạo hình cũ.
+
+
+## Opening v3 — 11/11/2026
+
+Đã sửa dấu tay đỏ, điểm trao cốc, nhịp chớp/rung, phụ đề và bổ sung nhạc/SFX theo [OPENING-AM-THANH](OPENING-AM-THANH.md). Còn nghe duyệt mix trên loa/tai nghe và duyệt chuyển động bản xem thử; chưa có giọng theo yêu cầu. Không dùng trạng thái bản câm trước đó để suy ra bản v3 vẫn thiếu toàn bộ âm thanh.

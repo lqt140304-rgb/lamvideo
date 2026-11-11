@@ -200,3 +200,5 @@ Viết theo mẫu: **vấn đề lặp lại → nguyên nhân → nguyên tắc
 - **Phủ filter màu làm đục hình, xỉn da hoặc render chậm → phủ lớp màu đơn sắc đè lên toàn màn hình hoặc lạm dụng CSS filter `hue-rotate/contrast` →** không dùng CSS filter trên từng phần tử SVG; thay vào đó dùng duy nhất 1 lớp `CinematicGradeOverlay` phủ trên đỉnh khung hình với `mix-blend-mode: soft-light` (hoặc `color`) và opacity cực nhẹ ($8\% - 14\%$). Luôn bảo vệ sắc hồng cam ấm áp của da mặt Nam (`#d89c7a`), không để filter biến da thành tím tái/xám xịt; kết hợp `radial-gradient` tối 4 góc nhẹ ($30\% - 45\%$) mô phỏng vignette thấu kính anamorphic. **Đạt khi** toàn bộ bối cảnh và nhân vật hòa cùng một tone ánh sáng điện ảnh mà da mặt vẫn sống động, thời gian render không tăng.
 
 
+
+- **Đạo cụ nhảy khi đổi người cầm → tọa độ tay giải phẫu khác tọa độ sau lật rig →** giải điểm cầm sau phép đổi hướng, đưa hai tay về cùng điểm thế giới trước frame trao, rồi đổi chủ sở hữu đạo cụ. Kiểm tra chuỗi khung hình trước–đúng–sau lúc trao, không chỉ ảnh cuối. Âm tiếp xúc chỉ đặt khi hai vật thực sự chạm.
