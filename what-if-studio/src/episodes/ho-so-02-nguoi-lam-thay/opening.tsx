@@ -39,6 +39,42 @@ const Caption: React.FC<{ f: number; from: number; to: number; who?: string; chi
 };
 
 // Vệt lóa ngang (anamorphic streak) quét qua khung.
+/** Chớp rồi vụt tắt trong `len` frame cuối trước khi cắt cảnh. */
+const FlickerOut: React.FC<{ f: number; end: number; len?: number }> = ({ f, end, len = 20 }) => {
+  const k = f - (end - len);
+  if (k < 0) return null;
+  const pattern = [0, 0.75, 0, 0, 0.9, 0.2, 0, 1, 1, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const dark = k >= len - 6 ? 1 : pattern[Math.min(pattern.length - 1, Math.floor((k / len) * pattern.length))];
+  const flash = k === 3 || k === 9 ? 0.35 : 0;
+  return (
+    <AbsoluteFill style={{ pointerEvents: 'none' }}>
+      <AbsoluteFill style={{ background: '#cffcff', opacity: flash, mixBlendMode: 'screen' }} />
+      <AbsoluteFill style={{ background: '#000', opacity: dark }} />
+    </AbsoluteFill>
+  );
+};
+// Bụi lơ lửng trôi chậm trong vệt sáng, đèn chập chờn: không khí ma mị cho cận gương.
+const Dust: React.FC<{ f: number }> = ({ f }) => (
+  <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, mixBlendMode: 'screen' }}>
+    {Array.from({ length: 40 }, (_, i) => {
+      const x = ((i * 271) % 1700) + 110 + Math.sin(f / 40 + i) * 30, y = ((i * 157) % 760) + 160 - ((f * (0.3 + (i % 5) * 0.12)) % 120);
+      return <circle key={i} cx={x} cy={y} r={1.2 + (i % 4) * 0.7} fill="#bdeff0" opacity={0.18 + 0.2 * Math.abs(Math.sin(f / 13 + i))} />;
+    })}
+  </svg>
+);
+const StreakBig: React.FC<{ t: number; y: number }> = ({ t, y }) => {
+  if (t <= 0 || t >= 1) return null;
+  const o = Math.sin(Math.PI * t), x = -900 + 3600 * t;
+  return (
+    <AbsoluteFill style={{ pointerEvents: 'none', mixBlendMode: 'screen' }}>
+      <AbsoluteFill style={{ background: '#9ff4ff', opacity: 0.12 * o ** 6 }} />
+      <div style={{ position: 'absolute', left: x, top: y - 40, width: 1800, height: 80, opacity: 0.7 * o, background: 'linear-gradient(90deg, transparent, rgba(80,220,235,.55), transparent)', filter: 'blur(18px)' }} />
+      <div style={{ position: 'absolute', left: x + 200, top: y - 3, width: 1400, height: 6, borderRadius: 3, opacity: o, background: 'linear-gradient(90deg, transparent, #ffffff, transparent)', filter: 'blur(1px)' }} />
+      <div style={{ position: 'absolute', left: x - 300, top: y - 26, width: 1100, height: 2, opacity: 0.55 * o, background: 'linear-gradient(90deg, transparent, #b8fbff, transparent)' }} />
+      <div style={{ position: 'absolute', left: x + 500, top: y + 22, width: 900, height: 2, opacity: 0.45 * o, background: 'linear-gradient(90deg, transparent, #b8fbff, transparent)' }} />
+    </AbsoluteFill>
+  );
+};
 const Streak: React.FC<{ t: number; color?: string; y?: number }> = ({ t, color = '#6fe3e6', y = 540 }) =>
   t <= 0 || t >= 1 ? null : (
     <div style={{ position: 'absolute', left: -600 + 3100 * t, top: y - 4, width: 1400, height: 8, borderRadius: 4, opacity: Math.sin(Math.PI * t) * 0.8, background: `linear-gradient(90deg, transparent, ${color}, transparent)`, filter: 'blur(3px)', mixBlendMode: 'screen' }} />
@@ -90,8 +126,9 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
   const pan = interpolate(f, [0, 150], [150, -110]);
   const z = interpolate(f, [0, 150], [1.55, 1.85]);
   // hơi thở từ trong kính: mép vải phồng ra rồi xẹp (hai nhịp, nhịp sau mạnh hơn), mặt kính dưới vải mờ hơi sương
-  const breath = 0.5 * Math.sin(Math.PI * seg(f, 40, 70)) + Math.sin(Math.PI * seg(f, 96, 136));
-  const mist = Math.max(seg(f, 44, 64) * (1 - seg(f, 70, 92)), seg(f, 100, 118) * (1 - seg(f, 136, 150)));
+  const breath = 0.9 * Math.sin(Math.PI * seg(f, 30, 62)) + 1.6 * Math.sin(Math.PI * seg(f, 92, 134));
+  const palm = seg(f, 108, 116) * (1 - seg(f, 136, 148)); // dấu bàn tay áp từ phía trong kính
+  const mist = Math.max(seg(f, 34, 56) * (1 - seg(f, 64, 88)), seg(f, 96, 114) * (1 - seg(f, 140, 150)));
   return (
     <AbsoluteFill style={{ background: '#0e1517' }}>
       <svg width={1920} height={1080}>
@@ -100,14 +137,25 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
           <Mirror w={MW} h={MH}>
             <rect width={MW} height={MH} fill="#1d2a2b" opacity={0.92} />
             <path d={`M0 ${MH * 0.62}L${MW} ${MH * 0.5}V${MH * 0.58}L0 ${MH * 0.72}Z`} fill="#7fb7c4" opacity={0.18} />
-            <filter id="suong" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={22} /></filter><g filter="url(#suong)" opacity={0.32 * mist}><ellipse cx={MW * 0.52} cy={MH * 0.56} rx={90 + 40 * mist} ry={40 + 16 * mist} fill="#d6ebe8" /><ellipse cx={MW * 0.38} cy={MH * 0.6} rx={50} ry={26} fill="#d6ebe8" /><ellipse cx={MW * 0.66} cy={MH * 0.6} rx={46} ry={22} fill="#d6ebe8" /></g>
+            <filter id="suong" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={22} /></filter><rect width={MW} height={MH} fill="#5ff0dc" opacity={0.1 * Math.max(0, breath)} />
+            <g filter="url(#suong)" opacity={0.6 * mist}><ellipse cx={MW * 0.52} cy={MH * 0.56} rx={120 + 60 * mist} ry={56 + 24 * mist} fill="#d6ebe8" /><ellipse cx={MW * 0.38} cy={MH * 0.6} rx={50} ry={26} fill="#d6ebe8" /><ellipse cx={MW * 0.66} cy={MH * 0.6} rx={46} ry={22} fill="#d6ebe8" /></g>
+            {palm > 0 && (
+              <g transform={`translate(${MW * 0.55} ${MH * 0.62}) rotate(-8)`} fill="#0e1a1b" opacity={0.75 * palm}>
+                <ellipse cx={0} cy={18} rx={30} ry={34} />
+                {[[-24, -30, -14], [-9, -48, -4], [7, -50, 4], [22, -40, 14]].map(([x, y, r], i) => <ellipse key={i} cx={x} cy={y} rx={7} ry={22} transform={`rotate(${r} ${x} ${y})`} />)}
+                <ellipse cx={-36} cy={10} rx={7} ry={18} transform="rotate(-40 -36 10)" />
+              </g>
+            )}
           </Mirror>
           <Cloth w={MW} h={MH} sway={Math.sin(f / 18) * 3} breath={breath} />
         </g>
       </svg>
-      {/* ánh xanh chạng vạng từ khe cửa sổ, phần còn lại chìm trong tối */}
-      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 45% 55% at 38% 46%, rgba(120,170,190,.10), rgba(0,0,0,.62) 100%)' }} />
-      <Streak t={seg(f, 84, 124)} y={470} />
+      <Dust f={f} />
+      {/* ánh xanh chạng vạng từ khe cửa sổ chập chờn; phần còn lại chìm sâu trong tối */}
+      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 40% 50% at 40% 46%, rgba(120,190,200,.12), rgba(0,0,0,.78) 100%)' }} />
+      <AbsoluteFill style={{ background: '#000', opacity: 0.12 + 0.1 * Math.max(0, Math.sin(f / 3.1) * Math.sin(f / 7.7)) }} />
+      <FlickerOut f={f} end={150} />
+      <StreakBig t={seg(f, 70, 104)} y={480} />
     </AbsoluteFill>
   );
 };
@@ -216,12 +264,12 @@ const GAME: JointPose = EXTRA_POSES['choi-game'];
 const POINT: JointPose = { ...STAND_POSE, tilt: 6, neck: 6, armL: { a: 22, b: 14, rot: 1 }, handL: 'open', frontL: true };
 
 const Slice2A: React.FC<{ f: number; g: number }> = ({ f, g }) => {
-  const move = { push: 10 * seg(f, 0, 100), truck: 0 };
+  const move = { push: -60 + 10 * seg(f, 0, 100), truck: 0 }; // lùi máy để thấy rõ tay cầm ngang điện thoại
   const nam = { at: DESK, render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood="annoyed" face={f > 40 ? 'tuc-gian-02' : 'tuc-gian-01'} pose={{ ...GAME, view: 'three', facing: 1 }} /> };
   const tung = { at: [235, 250] as [number, number], render: () => { const p = placeOn('desk', [334, 60], 168, move); return <TungSoccer {...p} mood="annoyed" pose={{ ...POINT, view: 'three', facing: 1 }} />; } };
   return (
-    <Camera lens={{ cx: 960, cy: 540, z: 1 }} f={g} hand={0.8}>
-      <RoomScene rays={RAYS} sun={0} view="desk" chair="desk" move={move} actors={[tung, nam]} />
+    <Camera lens={{ cx: 980, cy: 620, z: 1.15 }} f={g} hand={0.8}>
+      <RoomScene rays={RAYS} sun={0} view="desk" chair="desk" chairTurn={Math.PI * 0.8} move={move} actors={[tung, nam]} />
     </Camera>
   );
 };
@@ -334,6 +382,7 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
         </AbsoluteFill>
       )}
       <AbsoluteFill style={{ background: '#000', opacity: 0.25 * free * (f % 7 < 2 ? 1 : 0.4) }} />
+      <FlickerOut f={f} end={360} />
     </AbsoluteFill>
   );
 };

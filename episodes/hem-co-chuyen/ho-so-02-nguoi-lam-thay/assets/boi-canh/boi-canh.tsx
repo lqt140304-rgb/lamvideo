@@ -154,6 +154,8 @@ export type RoomProps = {
   falloff?: number;
   door?: 'ajar' | 'open' | 'closed' | 'latched';
   chair?: keyof typeof SEATS;
+  /** Xoay thêm ghế quanh tâm (radian). Mặc định 0 = hướng cũ; dùng khi cần thấy người ngồi quay ra máy. */
+  chairTurn?: number;
   phone?: 'mat' | 'desk' | 'hidden';
   /** messy: chén chất trong bồn, vụn mì cạnh bếp; clean: chén úp trên giá, sàn sạch. */
   kitchen?: 'messy' | 'clean';
@@ -176,7 +178,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway' || view === 'corridor' || view === 'stairs' || view === 'giveaway';
@@ -755,7 +757,8 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   };
 
   const seat = SEATS[chair];
-  const chairT = (p: V3): V3 => [seat.x + p[0] * Math.cos(seat.a) + p[2] * Math.sin(seat.a), p[1], seat.z - p[0] * Math.sin(seat.a) + p[2] * Math.cos(seat.a)];
+  const ca = seat.a + chairTurn;
+  const chairT = (p: V3): V3 => [seat.x + p[0] * Math.cos(ca) + p[2] * Math.sin(ca), p[1], seat.z - p[0] * Math.sin(ca) + p[2] * Math.cos(ca)];
   const chairSeat = () => {
     const T = chairT;
     groundShadow([seat.x - 22, seat.x + 22], [seat.z - 22, seat.z + 22], 40, 0.16);
