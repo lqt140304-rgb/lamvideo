@@ -35,10 +35,10 @@ export type Cam = ReturnType<typeof camera>;
 
 export type Light = { sun: V3; amb?: number; diff?: number; band?: boolean; lamps?: { p: V3; col: [number, number, number]; r: number; k: number }[]; fog?: { color: string; dist: number; max?: number } };
 type Item = { layer: number; depth: number; node: React.ReactNode };
-export type FaceOpt = { n?: V3; cull?: boolean; edge?: boolean; raw?: boolean; op?: number; layer?: number; blend?: string; emit?: boolean };
+export type FaceOpt = { n?: V3; cull?: boolean; edge?: boolean; seam?: boolean; raw?: boolean; op?: number; layer?: number; blend?: string; emit?: boolean };
 
 /** Một bối cảnh: gom các mặt, sắp xếp và vẽ. */
-export const makeScene = (cam: Cam, light: Light, frame: number | null = null) => {
+export const makeScene = (cam: Cam, light: Light, frame: number | null = null, layers = false) => {
   const items: Item[] = [];
   const shadows: React.ReactNode[] = [];
   const glows: React.ReactNode[] = [];
@@ -94,7 +94,7 @@ export const makeScene = (cam: Cam, light: Light, frame: number | null = null) =
     const col = o.raw ? fill : shade(fill, o.n, c, o.emit);
     items.push({
       layer: o.layer ?? 2, depth: Math.hypot(...sub(c, cam.pos)),
-      node: <path key={key++} d={path(pts)} fill={col} stroke={o.edge === false ? 'none' : o.raw ? 'none' : darker(col)} strokeWidth={1.1} strokeLinejoin="round" opacity={o.op} style={o.blend ? { mixBlendMode: o.blend as React.CSSProperties['mixBlendMode'] } : undefined} />,
+      node: <path key={key++} d={path(pts)} fill={col} stroke={o.seam ? col : o.edge === false ? 'none' : o.raw ? 'none' : darker(col)} strokeWidth={o.seam ? 0.8 : 1.1} strokeLinejoin="round" opacity={o.op} style={o.blend ? { mixBlendMode: o.blend as React.CSSProperties['mixBlendMode'] } : undefined} />,
     });
   };
 
@@ -278,6 +278,25 @@ export const makeScene = (cam: Cam, light: Light, frame: number | null = null) =
     const sorted = [...items].sort((a, b) => a.layer - b.layer || b.depth - a.depth);
     const shell = sorted.filter((i) => i.layer < 1);
     const rest = sorted.filter((i) => i.layer >= 1);
+    // Tách lớp để ghép thị sai: BACK = vỏ phòng và vật ở xa, FORE = vật gần máy nhất, MID = còn lại (giữ nguyên thứ tự vẽ).
+    const obj = rest.filter((i) => i.layer >= 2), dmin = Math.min(...obj.map((i) => i.depth)), dmax = Math.max(...obj.map((i) => i.depth));
+    const foreD = dmin + (dmax - dmin) * 0.16, backD = dmin + (dmax - dmin) * 0.62;
+    const grouped = (arr: Item[], name: string) => <g data-layer={name}>{arr.map((i) => i.node)}</g>;
+    if (layers && obj.length) {
+      const back = rest.filter((i) => i.layer < 2 || i.depth >= backD), fore = rest.filter((i) => i.layer >= 2 && i.depth < foreD), mid = rest.filter((i) => i.layer >= 2 && i.depth >= foreD && i.depth < backD);
+      return (
+        <g>
+          <defs>
+            <filter id={`${uidStr}-soft`} x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7" /></filter>
+            <filter id={`${uidStr}-glow`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="12" /></filter>
+          </defs>
+          <g data-layer="SKY">{bg}</g>
+          <g data-layer="BACK">{shell.map((i) => i.node)}<g filter={`url(#${uidStr}-soft)`}>{shadows}</g><g filter={`url(#${uidStr}-glow)`} style={{ mixBlendMode: 'screen' }}>{glows}</g>{back.map((i) => i.node)}</g>
+          {grouped(mid, 'MID')}
+          {grouped(fore, 'FORE')}
+        </g>
+      );
+    }
     return (
       <g>
         <defs>
@@ -305,5 +324,14 @@ export const Finish: React.FC<{ id: string; vignette?: number; warm?: string; wa
     {warm && <rect width={1920} height={1080} fill={warm} opacity={warmOp} style={{ mixBlendMode: 'soft-light' }} />}
     <rect width={1920} height={1080} fill={`url(#${id}-vig)`} />
     <rect width={1920} height={1080} filter={`url(#${id}-grain)`} opacity={0.07} style={{ mixBlendMode: 'overlay' }} />
+  </g>
+);
+
+/** Khung điện ảnh 2.39:1 trên khung 16:9: hai thanh đen trên và dưới (vùng thấy được cao 804 px). */
+export const SCOPE_BAR = 138;
+export const Scope: React.FC = () => (
+  <g pointerEvents="none" data-layer="scope-2.39">
+    <rect x={0} y={0} width={1920} height={SCOPE_BAR} fill="#000" />
+    <rect x={0} y={1080 - SCOPE_BAR} width={1920} height={SCOPE_BAR} fill="#000" />
   </g>
 );

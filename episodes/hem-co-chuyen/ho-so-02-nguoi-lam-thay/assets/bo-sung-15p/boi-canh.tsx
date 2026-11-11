@@ -4,7 +4,7 @@ import { Blackboard, BunCha, RiceBox, XoiGac, Football, Scissors, Mirror } from 
 import { SupportingActor, FormalTwin } from './nhan-vat-va-tu-the';
 import { RoomScene, type RoomProps } from '../boi-canh/boi-canh';
 import { TWIN_POSES } from '../nhan-vat';
-import { camera, CamSpec, Finish, Light, makeScene, V3 } from './kit3d';
+import { camera, CamSpec, Finish, Light, makeScene, Scope, V3 } from './kit3d';
 
 /**
  * Bối cảnh bổ sung Hồ sơ 02 — đại tu 11/11/2026: dựng bằng mô hình 3D theo cm (kit3d), camera phối cảnh thật,
@@ -25,12 +25,20 @@ const K = {
 /** Vỏ phòng hình hộp: sàn, trần, tường nhìn từ trong. Tường phía camera (z0) bỏ qua. */
 const shellRoom = (S: ReturnType<typeof makeScene>, x: [number, number], z: [number, number], h: number, c: { wall?: string; left?: string; right?: string; front?: string; back?: string; floor?: string; ceil?: string; lower?: string; lowerH?: number } = {}) => {
   const [x0, x1] = x, [z0, z1] = z;
-  S.quad([[x0, 0, z0], [x1, 0, z0], [x1, 0, z1], [x0, 0, z1]], c.floor ?? K.floor, { n: [0, 1, 0], layer: 0, edge: false });
-  S.quad([[x0, h, z1], [x1, h, z1], [x1, h, z0], [x0, h, z0]], c.ceil ?? K.ceil, { n: [0, -1, 0], layer: 0, edge: false });
+  // Mặt lớn chia thành các dải/ô để mức sáng đổi theo từng dải (sáng dần về phía nguồn sáng, xa thì dịu), không còn một màu phẳng.
+  const sq = (p: V3[], col: string, nu: number, nv: number, n: V3) => {
+    const lerp = (a: V3, b: V3, t: number): V3 => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+    for (let i = 0; i < nu; i++) for (let j = 0; j < nv; j++) {
+      const at = (u: number, v: number) => lerp(lerp(p[0], p[1], u), lerp(p[3], p[2], u), v);
+      S.quad([at(i / nu, j / nv), at((i + 1) / nu, j / nv), at((i + 1) / nu, (j + 1) / nv), at(i / nu, (j + 1) / nv)], col, { n, layer: 0, edge: false, seam: true });
+    }
+  };
+  sq([[x0, 0, z0], [x1, 0, z0], [x1, 0, z1], [x0, 0, z1]], c.floor ?? K.floor, 6, 6, [0, 1, 0]);
+  sq([[x0, h, z1], [x1, h, z1], [x1, h, z0], [x0, h, z0]], c.ceil ?? K.ceil, 5, 4, [0, -1, 0]);
   const lh = c.lowerH ?? 0;
   const wallPair = (pts: (y0: number, y1: number) => V3[], n: V3, col: string) => {
-    if (lh > 0) { S.quad(pts(0, lh), c.lower ?? K.lower, { n, layer: 0, edge: false }); S.quad(pts(lh, h), col, { n, layer: 0, edge: false }); }
-    else S.quad(pts(0, h), col, { n, layer: 0, edge: false });
+    if (lh > 0) { sq(pts(0, lh), c.lower ?? K.lower, 6, 1, n); sq(pts(lh, h), col, 6, 2, n); }
+    else sq(pts(0, h), col, 6, 2, n);
   };
   wallPair((a, b) => [[x0, a, z0], [x0, a, z1], [x0, b, z1], [x0, b, z0]], [1, 0, 0], c.left ?? c.wall ?? K.wall);
   wallPair((a, b) => [[x1, a, z1], [x1, a, z0], [x1, b, z0], [x1, b, z1]], [-1, 0, 0], c.right ?? c.wall ?? K.wall);
@@ -108,8 +116,8 @@ const goosenecMic = (S: ReturnType<typeof makeScene>, b: V3, toward: [number, nu
   const h = pts[pts.length - 1];
   S.line(h, [h[0] + toward[0] * 6, h[1] - 2, h[2] + toward[1] * 6], '#1f2524', 3.2, { cm: true, layer: 2.45 });
 };
-export const LectureHall = ({ children, failed = false, students = true, view = 'chinh', cam, frame = null }: { children?: React.ReactNode; failed?: boolean; students?: boolean; view?: SetView; cam?: CamSpec; frame?: number | null }) => {
-  const id = uid(), S = makeScene(camera(cam ?? LECTURE_VIEWS[view]), LECTURE_LIGHT, frame);
+export const LectureHall = ({ children, failed = false, students = true, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; failed?: boolean; students?: boolean; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+  const id = uid(), S = makeScene(camera(cam ?? LECTURE_VIEWS[view]), LECTURE_LIGHT, frame, layers);
   const X: [number, number] = [-520, 520], Z: [number, number] = [-200, 1500], H = 430;
   shellRoom(S, X, Z, H, { lowerH: 110, lower: '#c3ccc4', wall: '#e3e4da', front: '#e7e7dd', floor: '#c9c4b2', ceil: '#eef0ea' });
   tiles(S, X, [995, 1250], 60, '#aeb0a2');
@@ -162,7 +170,7 @@ export const LectureHall = ({ children, failed = false, students = true, view = 
       const sx = a + 50 + i * ((b - a - 100) / 3), at: V3 = [sx, y + 60, z - 36];
       const topP = S.cam.project([sx, y + 128, z - 35]), pc = S.cam.pxcm([sx, y, z - 35]), s = (130 * pc) / 258;
       const bob = frame === null ? 0 : (Math.sin(frame / 38 + i * 2.1 + r * 1.3) * 1.2 + Math.max(0, Math.sin(frame / 97 + i * 5 + r)) ** 6 * 4) * s * 2;
-      S.sprite(at, <BackStudent x={topP[0]} y={topP[1] + 35 * s + bob} s={s} shirt={shirts[(r * 3 + i + side) % shirts.length]} />, 2, [0, 0, -1]);
+      S.sprite(at, <BackStudent x={topP[0]} y={topP[1] + 35 * s + bob} s={s} shirt={S.shade(shirts[(r * 3 + i + side) % shirts.length], [0, 0, -1], [sx, y + 100, z - 35])} />, 2, [0, 0, -1]);
       const p = S.rigAt([sx, y, z - 35], 165);
       S.sprite(at, <SupportingActor role={(r + i + side) % 2 ? 'sinh-vien-nu' : 'sinh-vien-nam'} pose={TWIN_POSES.sit} smile={!failed} {...p} y={p.y + bob * 0.8} />, 2, [0, 0, 1]);
     }
@@ -170,7 +178,8 @@ export const LectureHall = ({ children, failed = false, students = true, view = 
   const t = S.rigAt([265, 22, 1420], 165);
   S.sprite([265, 22, 1420], <SupportingActor role="giang-vien" x={t.x} y={t.y} scale={t.scale} smile={!failed} />, 2, [0, 0, -1]);
   S.sprite([-70, 22, 1360], S.litActors(id, [-70, 22, 1360], <g data-layer="actors">{children}</g>));
-  return wrap(id, 'giang-duong', S.render(id, <rect width={1920} height={1080} fill="#dfe3df" />), '#cfe3ff');
+  const out = wrap(id, 'giang-duong', S.render(id, <rect width={1920} height={1080} fill="#dfe3df" />), '#cfe3ff');
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 // ---------------------------------------------------------------------------------------------
 // 2. Lab 402 (P2.04, P2.05): dãy máy tính, màn hình hướng về camera, rèm lá bên phải.
@@ -202,8 +211,8 @@ const monitor = (S: ReturnType<typeof makeScene>, x: number, y: number, z: numbe
   S.glow([x, y + 29, z - 4], 26, '#d9f1ee', 0.14);
   S.box({ x: [x - 21, x + 21], y: [y, y + 2], z: [z - 30, z - 16], c: '#5c6766', top: '#7c8786' });
 };
-export const ComputerLab = ({ children, view = 'chinh', frame = null }: { children?: React.ReactNode; view?: SetView; frame?: number | null }) => {
-  const id = uid(), S = makeScene(camera(LAB_VIEWS[view]), LAB_LIGHT, frame);
+export const ComputerLab = ({ children, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+  const id = uid(), S = makeScene(camera(LAB_VIEWS[view]), LAB_LIGHT, frame, layers);
   const X: [number, number] = [-480, 480], Z: [number, number] = [-200, 1250], H = 320;
   shellRoom(S, X, Z, H, { lowerH: 100, lower: '#b8c6b8', wall: '#e1e6d8', front: '#e6e8db', floor: '#c4ccbd' });
   tiles(S, X, Z, 60, '#a8b4a6', 0.6);
@@ -239,7 +248,8 @@ export const ComputerLab = ({ children, view = 'chinh', frame = null }: { childr
     }
   }));
   S.sprite([-40, 0, 1120], S.litActors(id, [-40, 0, 1120], <g data-layer="actors">{children}</g>));
-  return wrap(id, 'lab-402', S.render(id, <rect width={1920} height={1080} fill="#dde3d8" />));
+  const out = wrap(id, 'lab-402', S.render(id, <rect width={1920} height={1080} fill="#dde3d8" />));
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -248,8 +258,8 @@ export const ComputerLab = ({ children, view = 'chinh', frame = null }: { childr
 export const CORR_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [40, 165, -60], look: [-20, 135, 3000], mm: 22 }, nguoc: { pos: [-30, 165, 3400], look: [40, 135, -200], mm: 22 }, cheo: { pos: [140, 170, 2000], look: [-160, 115, 1350], mm: 24 }, cao: { pos: [40, 310, 120], look: [-60, 0, 1500], mm: 20 } };
 const CORR_LIGHT: Light = { sun: [-0.62, -0.62, 0.32], amb: 0.66, diff: 0.42, fog: { color: '#e4ead9', dist: 2600, max: 0.45 } };
 export const corridorSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT).rigAt([10, 0, 620], heightCm);
-export const UniversityCorridor = ({ children, view = 'chinh', frame = null }: { children?: React.ReactNode; view?: SetView; frame?: number | null }) => {
-  const id = uid(), S = makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT, frame);
+export const UniversityCorridor = ({ children, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+  const id = uid(), S = makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT, frame, layers);
   const W0 = -160, W1 = 160, H = 330, D = 3600;
   // Ngoài lan can: sân, dãy nhà đối diện, cây
   S.quad([[W1, -340, -200], [3000, -340, -200], [3000, -340, 6000], [W1, -340, 6000]], '#c9c2ad', { n: [0, 1, 0], layer: 0, edge: false });
@@ -293,7 +303,8 @@ export const UniversityCorridor = ({ children, view = 'chinh', frame = null }: {
   for (const [dx, dy, dz, r] of [[0, 62, 0, 30], [-18, 88, 8, 24], [16, 86, -6, 22], [2, 112, 4, 18]] as const) S.sphere([115 + dx, dy, 260 + dz], r, dy > 80 ? K.leaf : K.leafDark, { sy: 0.9, n: 20, bands: 10 });
   S.castShadow([95, 135], [240, 280], 120, 0.18);
   S.sprite([10, 0, 620], S.litActors(id, [10, 0, 620], <g data-layer="actors">{children}</g>));
-  return wrap(id, 'hanh-lang-dai-hoc', S.render(id, sky('#b9d8d6', '#e7efe0', id)));
+  const out = wrap(id, 'hanh-lang-dai-hoc', S.render(id, sky('#b9d8d6', '#e7efe0', id)));
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -337,8 +348,8 @@ const flowerMat = (S: ReturnType<typeof makeScene>, x: [number, number], z: [num
   const cx = (x[0] + x[1]) / 2, cz = (z[0] + z[1]) / 2;
   for (const [fx, fz, sz] of [[cx, cz, 60], [x[0] + 70, z[0] + 70, 40], [x[1] - 70, z[0] + 70, 40], [x[0] + 70, z[1] - 70, 40], [x[1] - 70, z[1] - 70, 40]]) S.plane([fx - sz / 2, y + 0.4, fz + sz / 2], [sz / 100, 0, 0], [0, 0, -sz / 100], <MatFlower />, 0.55);
 };
-export const FamilyGathering = ({ children, cast = true, view = 'chinh', frame = null }: { children?: React.ReactNode; cast?: boolean; view?: SetView; frame?: number | null }) => {
-  const id = uid(), S = makeScene(camera(FAM_VIEWS[view]), FAM_LIGHT, frame);
+export const FamilyGathering = ({ children, cast = true, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; cast?: boolean; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+  const id = uid(), S = makeScene(camera(FAM_VIEWS[view]), FAM_LIGHT, frame, layers);
   const X: [number, number] = [-450, 450], Z: [number, number] = [-250, 800], H = 330;
   shellRoom(S, X, Z, H, { wall: '#ece4cc', lower: '#d6c9a6', lowerH: 85, floor: '#b8775b', ceil: '#d9cdb2' });
   tiles(S, X, Z, 30, '#9a5c44', 0.6);
@@ -395,11 +406,12 @@ export const FamilyGathering = ({ children, cast = true, view = 'chinh', frame =
       const p = S.rigAt([x, -20, z], 168), cut = S.cam.project([x, 0, z - 48])[1];
       const pose = TWIN_POSES.sitLow;
       const node = i === 0 ? <SupportingActor role="me" pose={pose} {...p} /> : i === 1 ? <SupportingActor role="bac-hai" pose={pose} {...p} /> : i === 2 ? <FormalTwin pose={pose} mood="neutral_smile" {...p} /> : <SupportingActor role="ba" pose={pose} {...p} />;
-      S.sprite([x, 30, z], <g><clipPath id={`${id}-sit${i}`}><rect x={-4000} y={-4000} width={8000} height={cut + 4000} /></clipPath><g clipPath={`url(#${id}-sit${i})`}>{node}</g></g>, 2, [0, 0, -1]);
+      S.sprite([x, 30, z], <g><clipPath id={`${id}-sit${i}`}><rect x={-4000} y={-4000} width={8000} height={cut + 4000} /></clipPath><g clipPath={`url(#${id}-sit${i})`}>{S.litActors(`${id}-f${i}`, [x, 40, z], node)}</g></g>, 2, [0, 0, -1]);
     });
   }
   S.sprite([0, 0, 520], S.litActors(id, [0, 0, 520], <g data-layer="actors">{children}</g>));
-  return wrap(id, 'mam-com-gia-dinh', S.render(id, <rect width={1920} height={1080} fill="#d8c7aa" />), '#ffcf8a', 0.38);
+  const out = wrap(id, 'mam-com-gia-dinh', S.render(id, <rect width={1920} height={1080} fill="#d8c7aa" />), '#ffcf8a', 0.38);
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -453,8 +465,8 @@ export const MirrorRealm = ({ children, ripple: rp = 0, at = [1160, 880], floati
 export const DONATION_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [110, 150, -300], look: [50, 95, 400], mm: 25 }, nguoc: { pos: [180, 155, 330], look: [-80, 100, -400], mm: 22 }, cheo: { pos: [430, 160, -60], look: [-120, 80, 380], mm: 22 }, cao: { pos: [-280, 262, -260], look: [120, 20, 340], mm: 19 } };
 const DONATION_LIGHT: Light = { sun: [-0.82, -0.36, 0.3], amb: 0.6, diff: 0.3, fog: { color: '#c7cdc8', dist: 2200, max: 0.32 } };
 export const donationSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(DONATION_VIEWS[view]), DONATION_LIGHT).rigAt([-170, 0, 170], heightCm);
-export const DonationCorner = ({ children, view = 'chinh', cam, frame = null }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null }) => {
-  const id = uid(), S = makeScene(camera(cam ?? DONATION_VIEWS[view]), DONATION_LIGHT, frame);
+export const DonationCorner = ({ children, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+  const id = uid(), S = makeScene(camera(cam ?? DONATION_VIEWS[view]), DONATION_LIGHT, frame, layers);
   const BZ = 400, XR = 260;
   // Sân ngoài (bên phải) ướt mưa, tường nhà bên, cây
   S.quad([[XR, -0.2, -500], [1100, -0.2, -500], [1100, -0.2, 1500], [XR, -0.2, 1500]], '#8e958b', { n: [0, 1, 0], layer: 0, edge: false });
@@ -512,7 +524,8 @@ export const DonationCorner = ({ children, view = 'chinh', cam, frame = null }: 
   if (frame !== null) for (let k = 0; k < 9; k++) { const ph = (frame * 0.035 + k * 0.381) % 1, x = XR + 8 + (k % 3) * 3, z = -230 + k * 62, y = 284 - ph * 280; S.line([x, y, z], [x, y + 16, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.75 * Math.min(1, (1 - ph) * 5) }); }
   else for (const [x, z] of [[XR + 10, -200], [XR + 14, 40], [XR + 8, 230]]) S.line([x, 280, z], [x, 262, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.7 });
   S.sprite([-170, 0, 170], S.litActors(id, [-170, 0, 170], <g data-layer="actors">{children}</g>));
-  return wrap(id, 'goc-do-cho-tang', S.render(id, sky('#aeb8b6', '#e1dccb', id)), '#e8c48f', 0.42);
+  const out = wrap(id, 'goc-do-cho-tang', S.render(id, sky('#aeb8b6', '#e1dccb', id)), '#e8c48f', 0.42);
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 // ---------------------------------------------------------------------------------------------
 // 6. Sân bóng mini (P2.05): cỏ nhân tạo sọc, khung thành có lưới, rào lưới, cột đèn, nhà và cây phía xa.
@@ -520,8 +533,8 @@ export const DonationCorner = ({ children, view = 'chinh', cam, frame = null }: 
 export const PITCH_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [180, 260, -260], look: [0, 40, 2400], mm: 26 }, nguoc: { pos: [-200, 260, 4500], look: [0, 40, 1000], mm: 26 }, cheo: { pos: [1180, 320, 2200], look: [-400, 0, 2200], mm: 24 }, cao: { pos: [-1150, 1300, -700], look: [0, 0, 2400], mm: 24 } };
 const PITCH_LIGHT: Light = { sun: [0.45, -0.55, -0.7], amb: 0.66, diff: 0.4, fog: { color: '#dfe8dc', dist: 5200, max: 0.5 } };
 export const pitchSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(PITCH_VIEWS[view]), PITCH_LIGHT).rigAt([-120, 0, 900], heightCm);
-export const MiniPitch = ({ children, view = 'chinh', cam, frame = null }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null }) => {
-  const id = uid(), S = makeScene(camera(cam ?? PITCH_VIEWS[view]), PITCH_LIGHT, frame);
+export const MiniPitch = ({ children, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+  const id = uid(), S = makeScene(camera(cam ?? PITCH_VIEWS[view]), PITCH_LIGHT, frame, layers);
   const XW = 1000, Z0 = 200, Z1 = 4200;
   S.quad([[-6000, 0, -500], [6000, 0, -500], [6000, 0, 9000], [-6000, 0, 9000]], '#b8b39c', { n: [0, 1, 0], layer: 0, edge: false });
   [-3800, -2300, -600, 1200, 2900].forEach((x, i) => { S.box({ x: [x, x + 1300], y: [0, 900 + (i % 2) * 450], z: [7000, 7800], c: ['#d9c7a6', '#c7b79a', '#e0d3b5', '#b9b49a', '#d4bea0'][i], layer: 0.2 }); for (let r = 0; r < 4; r++) for (let q = 0; q < 4; q++) S.quad([[x + 120 + q * 290, 160 + r * 200, 6998], [x + 260 + q * 290, 160 + r * 200, 6998], [x + 260 + q * 290, 260 + r * 200, 6998], [x + 120 + q * 290, 260 + r * 200, 6998]], '#8fa6a3', { n: [0, 0, -1], layer: 0.25, edge: false }); });
@@ -549,7 +562,8 @@ export const MiniPitch = ({ children, view = 'chinh', cam, frame = null }: { chi
   S.contact([-272, -248], [968, 992], 0.3);
   S.sprite([-260, 11, 980], <g transform={`translate(${ball[0]} ${ball[1] - 85 * bs}) scale(${bs})`}><Football /></g>);
   S.sprite([-120, 0, 900], S.litActors(id, [-120, 0, 900], <g data-layer="actors">{children}</g>));
-  return wrap(id, 'san-bong-mini', S.render(id, sky('#a9d0d4', '#e9efdf', id)), '#ffe7b0');
+  const out = wrap(id, 'san-bong-mini', S.render(id, sky('#a9d0d4', '#e9efdf', id)), '#ffe7b0');
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -557,8 +571,8 @@ export const MiniPitch = ({ children, view = 'chinh', cam, frame = null }: { chi
 // ---------------------------------------------------------------------------------------------
 /** `turn`: góc xoay của ghế cắt tóc quanh trụ (độ). 0 là khách ngồi nhìn vào gương; 180 là quay ra cửa. */
 export const BARBER_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [-150, 158, -40], look: [40, 105, 420], mm: 26 }, nguoc: { pos: [180, 160, 380], look: [-100, 110, -100], mm: 24 }, cheo: { pos: [300, 170, 40], look: [-150, 90, 350], mm: 24 }, cao: { pos: [-240, 285, -90], look: [100, 10, 330], mm: 22 } };
-export const BarberCorner = ({ turn = 0, view = 'chinh', frame = null }: { turn?: number; view?: SetView; frame?: number | null }) => {
-  const id = uid(), S = makeScene(camera(BARBER_VIEWS[view]), { sun: [0.6, -0.65, 0.4], amb: 0.62, diff: 0.42, lamps: [{ p: [40, 250, 300], col: [1, 0.9, 0.7], r: 200, k: 0.25 }] }, frame);
+export const BarberCorner = ({ turn = 0, view = 'chinh', frame = null, layers = false, scope = false }: { turn?: number; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+  const id = uid(), S = makeScene(camera(BARBER_VIEWS[view]), { sun: [0.6, -0.65, 0.4], amb: 0.62, diff: 0.42, lamps: [{ p: [40, 250, 300], col: [1, 0.9, 0.7], r: 200, k: 0.25 }] }, frame, layers);
   const X: [number, number] = [-260, 320], Z: [number, number] = [-100, 430], H = 300;
   shellRoom(S, X, Z, H, { wall: '#e3dcc6', lower: '#9fb7ad', lowerH: 120, floor: '#e8e4d8' });
   // Mặt tiền: cửa kính ra phố, ô kính có biển hiệu nhìn ngược, ghế chờ
@@ -595,7 +609,8 @@ export const BarberCorner = ({ turn = 0, view = 'chinh', frame = null }: { turn?
   S.line([40, H, 300], [40, 262, 300], '#4a4a42', 0.8, { cm: true, layer: 2 });
   S.cyl([40, 250, 300], 22, 12, '#d8c18e', { r2: 8, n: 14 });
   S.glow([40, 244, 300], 30, '#ffe8b8', 0.22);
-  return wrap(id, 'goc-cat-toc', S.render(id, <rect width={1920} height={1080} fill="#d9d5c2" />), '#ffe2b0');
+  const out = wrap(id, 'goc-cat-toc', S.render(id, <rect width={1920} height={1080} fill="#d9d5c2" />), '#ffe2b0');
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -607,9 +622,9 @@ export const DORM_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [60, 160, -7
 const DORM_TUBES = [260, 920, 1580];
 const dormLight = (flicker: number): Light => ({ sun: [0.3, -0.8, 0.2], amb: 0.2, diff: 0.05, lamps: DORM_TUBES.map((z, i) => ({ p: [24, 232, z] as V3, col: [1, 0.86, 0.52] as [number, number, number], r: 260, k: i === 1 ? 1.05 * flicker : 1.05 })), fog: { color: '#0b1012', dist: 1300, max: 0.8 } });
 export const dormSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(DORM_VIEWS[view]), dormLight(1)).rigAt([95, 0, 520], heightCm);
-export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = null }: { children?: React.ReactNode; view?: SetView; flicker?: number; cam?: CamSpec; frame?: number | null }) => {
+export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; flicker?: number; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
   const fl = flicker ?? (frame === null ? 1 : frame % 197 < 3 ? 0.15 : frame % 113 < 2 ? 0.5 : frame % 331 > 322 ? 0.05 : 1);
-  const id = uid(), S = makeScene(camera(cam ?? DORM_VIEWS[view]), dormLight(fl), frame);
+  const id = uid(), S = makeScene(camera(cam ?? DORM_VIEWS[view]), dormLight(fl), frame, layers);
   const Z: [number, number] = [-100, 2300], H = 285, XW = 180;
   // Sân và dãy trọ đối diện chìm trong đêm, vài ô cửa còn sáng
   S.quad([[XW, -300, Z[0]], [900, -300, Z[0]], [900, -300, Z[1]], [XW, -300, Z[1]]], '#1d2526', { n: [0, 1, 0], layer: 0, edge: false, raw: true });
@@ -660,7 +675,8 @@ export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = 
   S.box({ x: [0, 6], y: [150, 185], z: [205, 228], c: '#d7d3c4' });
   const mist = <g style={{ mixBlendMode: 'screen' }}><defs><linearGradient id={`${id}-mist`} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#8fa3a6" stopOpacity="0" /><stop offset=".5" stopColor="#8fa3a6" stopOpacity=".14" /><stop offset="1" stopColor="#8fa3a6" stopOpacity="0" /></linearGradient></defs><rect y={260} width={1920} height={520} fill={`url(#${id}-mist)`} /></g>;
   S.sprite([95, 0, 520], S.litActors(id, [95, 0, 520], <g data-layer="actors">{children}</g>));
-  return wrap(id, 'hanh-lang-tro-dem', <>{S.render(id, sky('#070b0d', '#1a2326', id))}{mist}</>, '#ffcf7a', 0.55);
+  const out = wrap(id, 'hanh-lang-tro-dem', <>{S.render(id, sky('#070b0d', '#1a2326', id))}{mist}</>, '#ffcf7a', 0.55);
+  return scope ? <g>{out}<Scope /></g> : out;
 };
 
 // ---------------------------------------------------------------------------------------------
