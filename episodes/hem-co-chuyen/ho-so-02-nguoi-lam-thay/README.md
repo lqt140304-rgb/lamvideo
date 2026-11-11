@@ -6,7 +6,7 @@
 
 **Demo Cảnh 1 và rig — 10/11/2026:** animatic câm A01–A05 (`HoSo02Canh01Demo`) gồm thức dậy A02B (hất chăn, ngáp, lết ra mép nệm), máy dolly, góc qua vai, khung phim 2:1. Nguồn mới 11/11 giữ nhân vật **không viền ngoài**, dùng mảng bóng tự vẽ. Video local 10/11 là bản lịch sử, chưa dựng lại theo thay đổi này (xem [quy chuẩn mục 4.0](assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md)). Rig có thêm dáng `lie`, `sitLow`, nét mặt phân mức (`face`). Bối cảnh: phố và dãy trọ bên ngoài, góc `corridor`. Việc còn lại ở [LOI-TON-DONG](LOI-TON-DONG.md). Video render chỉ để local (`what-if-studio/out/ho-so-02-nguoi-lam-thay/`).
 
-**Opening v4 — 11/11/2026:** `HoSo02Opening`, 48 giây @30fps, đã có nhạc không lời/SFX/room tone, dấu tay đỏ máu và sửa điểm trao cốc. **Chưa tạo giọng theo yêu cầu**, lời bằng phụ đề tạm. Xem [nguồn âm, credit, lời opening và cách dựng lại](OPENING-AM-THANH.md). Video local `what-if-studio/out/ho-so-02-nguoi-lam-thay/opening-v4-am-thanh-720p.mp4`; chưa phải bản đã duyệt phát hành.
+**Opening v5 — 11/11/2026:** `HoSo02Opening`, 48 giây @30fps, đã có nhạc không lời/SFX/room tone, dấu tay đỏ máu và sửa điểm trao cốc. **Chưa tạo giọng theo yêu cầu**, lời bằng phụ đề tạm. Xem [nguồn âm, credit, lời opening và cách dựng lại](OPENING-AM-THANH.md). Video local `what-if-studio/out/ho-so-02-nguoi-lam-thay/opening-v5-final-720p.mp4`; chưa phải bản đã duyệt phát hành.
 
 
 

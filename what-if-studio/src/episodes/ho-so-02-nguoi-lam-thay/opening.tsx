@@ -444,10 +444,19 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const touch = seg(f, 90, 104)*(1-seg(f, 128, 146));
   // Contact stays attached to Nam's shoulder while he moves; it is not a fixed overlay.
   const shoulder = {x: feet.x+42*ns, y: bodyY+197*ns};
-  const hand = {x: 1125+(shoulder.x-1125)*seg(f,72,104), y: 458+(shoulder.y-458)*seg(f,72,104)};
+  const extend=seg(f,72,104)*(1-seg(f,128,146));
+  const source={x:1220,y:456};
+  const hand = {x:source.x+(shoulder.x-source.x)*extend,y:source.y+(shoulder.y-source.y)*extend};
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
-  const rx = MW * 0.3, ryIn = 250, rs = 1;
+  const rx = MW * 0.5, ryIn = 250, rs = 1;
+  // Same mirror-to-world transform as the reflected actor, including the tilted frame.
+  const inWorld = (x:number,y:number) => {
+    const a=MIR_AT.r*Math.PI/180;
+    return {x:MIR_AT.x+MIR_AT.s*(x*Math.cos(a)-y*Math.sin(a)), y:MIR_AT.y+MIR_AT.s*(x*Math.sin(a)+y*Math.cos(a))};
+  };
+  const armRoot=inWorld(rx-MW/2-58*rs,ryIn-MH+210*rs);
+  const elbow={x:armRoot.x+(hand.x-armRoot.x)*.46,y:armRoot.y+(hand.y-armRoot.y)*.46+18*reach};
   const vw = 1920 * realmZoom, vh = 1080 * realmZoom;
   const realm = (
     <svg x={-60} y={-60} width={MW + 120} height={MH + 120} viewBox={`${1160 - vw * 0.32} ${880 - vh * 0.9} ${vw} ${vh}`} preserveAspectRatio="xMidYMid slice">
@@ -456,9 +465,10 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   );
   const shadowOut = reach > 0.01 && (
     <g opacity={seg(f,72,82)*(1-seg(f,138,146))}>
-      {/* One continuous forearm emerging at the mirror rim. */}
-      <path d={`M1130 449Q${hand.x+65} ${hand.y-24} ${hand.x+7} ${hand.y-8}L${hand.x+7} ${hand.y+10}Q${hand.x+65} ${hand.y-3} 1130 471Z`} fill="#b6c6b2" />
-      <path d={`M1130 466Q${hand.x+55} ${hand.y+1} ${hand.x+9} ${hand.y+8}`} fill="none" stroke="#7e9584" strokeWidth={4}/>
+      {/* Arm is rooted at the reflected shoulder, never at a hard-coded rim point. */}
+      <path d={`M${armRoot.x} ${armRoot.y-12}Q${elbow.x} ${elbow.y-14} ${hand.x+8} ${hand.y-8}L${hand.x+8} ${hand.y+10}Q${elbow.x} ${elbow.y+12} ${armRoot.x} ${armRoot.y+13}Z`} fill="#b6c6b2" />
+      <path d={`M${armRoot.x+4} ${armRoot.y-15}Q${armRoot.x-20} ${armRoot.y-14} ${armRoot.x-40} ${armRoot.y-2}L${armRoot.x-31} ${armRoot.y+17}Q${armRoot.x-14} ${armRoot.y+11} ${armRoot.x+4} ${armRoot.y+14}Z`} fill="#5c7a70"/>
+      <path d={`M${elbow.x} ${elbow.y+7}Q${hand.x+48} ${hand.y+3} ${hand.x+9} ${hand.y+8}`} fill="none" stroke="#7e9584" strokeWidth={3}/>
       <g transform={`translate(${hand.x} ${hand.y}) scale(${ns})`}>
         {/* A small drawn contact patch follows the fingers, no automatic material shadow. */}
         <path d="M-20 7Q-13 0 8 3L24 11 20 17Q1 11-17 17Z" fill="#17271f" opacity={touch*.55}/>

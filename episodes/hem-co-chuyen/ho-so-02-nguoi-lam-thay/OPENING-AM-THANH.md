@@ -1,4 +1,4 @@
-# Opening v4 — hình và âm thanh, chưa có giọng
+# Opening v5 — hình và âm thanh, chưa có giọng
 
 Cập nhật 11/11/2026. Phạm vi: `HoSo02Opening`, 48 giây, 1440 frame ở 30 fps. Chưa triển khai trailer hoặc phim 15 phút. Giữ Nam, Người Kia, Tùng và nguồn bối cảnh hiện có.
 
@@ -45,7 +45,7 @@ Credit phải đi cùng video khi đăng:
 - `sources.json`: nguồn, SHA-256 từng tệp, thời điểm/gain/filter của 35 cue; không dựa vào tên tệp để suy ra giấy phép.
 - Từ studio chạy `python tools/opening-audio.py`, sau đó render composition `HoSo02Opening`. Script không dùng API, kiểm tra hash trước khi mix; FFmpeg cần có trên PATH.
 - `mix.wav` là đầu ra tái tạo, bỏ qua Git; các nguồn chọn nhỏ cùng giấy phép/manifest được giữ để máy khác dựng lại. Không commit video render.
-- Video local: `what-if-studio/out/ho-so-02-nguoi-lam-thay/opening-v4-final-720p.mp4`.
+- Video local: `what-if-studio/out/ho-so-02-nguoi-lam-thay/opening-v5-final-720p.mp4`.
 
 ## Kiểm tra và giới hạn
 
@@ -64,3 +64,8 @@ Credit phải đi cùng video khi đăng:
 - Shot 4: thêm nhịp vai/thân tối đa 3.5 px theo pha bước, giữ chân đế tính theo đường đi. Thay phần tay ghép không chạm bằng cẳng tay liên tục từ mép kính đến vai, bàn tay bám tọa độ vai khi Nam di chuyển; mảng bóng tiếp xúc vẽ tay chỉ tăng khi ngón đã chạm. Không áp `drop-shadow` tự động lên rig vì chuẩn mỹ thuật dùng mảng bóng tự vẽ.
 - Shot 5: giữ lớp kính cũ nhưng bổ sung `impactGlass_heavy_002.ogg` lọc lấy cạnh sắc ở 45.00 s và `impactMetal_light_002.ogg` cắt gọn ở 45.13 s. Nguồn cùng gói Impact Sounds — Kenney CC0 đã lưu giấy phép; đây là xử lý thiết kế, không khẳng định là bản thu chốt cửa thật.
 - Trạng thái: kiểm tra kiểu dữ liệu và ảnh mẫu đã qua; đã kiểm chuỗi khung hình chạm vai trong video v4, cảm nhận âm thanh vẫn cần nghe duyệt. Chưa tạo giọng.
+
+
+## v5 — đặt Người Kia giữa gương và nối tay về vai
+
+Shot 4 đặt nhân vật ở x = 0.5 chiều rộng gương. Gốc cánh tay dùng cùng phép biến đổi vị trí, tỷ lệ và góc nghiêng của mặt gương; cẳng tay nối từ vai áo Người Kia đến bàn tay bám vai Nam. Khi rút tay, điểm tay trở về trong gương. Chỉ render lại frame 1140–1319 rồi ghép với v4 ở mốc 38 và 44 giây; âm thanh và các cảnh còn lại giữ nguyên. Đã xem ảnh tiếp xúc trước khi dựng đoạn chuyển động.
