@@ -65,4 +65,15 @@ assert.ok(!n25(20).includes('NaN')); assert.notEqual(n25(10), n25(70));
 const vl = require(A + 'thiet-ke/thu-2-5d/vat-ly');
 const track = vl.simulate((f) => s.lifePose(r.TWIN_POSES.stand, f, { seed: 1 }), [{ f: 40, kind: 'va', dir: 1 }], 120);
 assert.ok(track.length === 120 && !JSON.stringify(track).includes('NaN'), 'vật lý chồng lớp sống động');
+// Người Kia 2.5D, Tùng 2.5D, và gói dáng sống + vật lý thành một thành phần
+const html2 = (el) => renderToStaticMarkup(React.createElement('svg', null, el));
+const nk = html2(React.createElement(s.LivingNguoiKia25D, { frame: 30, seed: 3, pose: r.TWIN_POSES.stand, lighting: 'dem-xanh' }));
+assert.ok(!nk.includes('NaN') && nk.length > 1000, 'Người Kia 2.5D');
+const tg = html2(React.createElement(s.LivingTung25D, { frame: 30, lighting: 'den-vang' }));
+assert.ok(!tg.includes('NaN') && tg.includes('data-volume'), 'Tùng 2.5D có lớp sáng');
+assert.notEqual(tg, html2(React.createElement(s.LivingTung25D, { frame: 80, lighting: 'den-vang' })));
+const sv = (f, extra = {}) => html2(React.createElement(s.NamSongVatLy, { frame: f, total: 120, base: () => r.TWIN_POSES.stand, impacts: [{ f: 40, kind: 'va', dir: 1 }], seed: 1, ...extra }));
+assert.ok(!sv(10).includes('NaN') && !sv(44).includes('NaN') && !sv(100).includes('NaN'));
+assert.notEqual(sv(38), sv(46), 'cú va phải đổi hình');
+assert.notEqual(sv(44), sv(44, { physics: false }), 'physics=false khác có vật lý');
 console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà');

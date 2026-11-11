@@ -176,7 +176,8 @@ export type RoomProps = {
   giveaway?: boolean;
   clockMinutes?: number | null;
   /** Nhân vật/đạo cụ đứng trên sàn; được xếp lớp theo độ sâu cùng đồ đạc. */
-  actors?: { at: [number, number]; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }[];
+  /** `lit: false` cho nhân vật 2.5D (`Nam25D`, `Tung25D`) đã có lớp sáng riêng, để phòng không ám sáng/tối lần nữa. */
+  actors?: { at: [number, number]; lit?: boolean; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }[];
   children?: React.ReactNode;
 };
 
@@ -892,9 +893,9 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     ...(night ? [{ at: [396, 0, 75] as V3, draw: lampGlow }] : []),
   ];
   // Người đặt qua `actors`: mặt hướng nguồn sáng ám ấm, mặt quay lưng ám lạnh, cắt đúng theo hình người (mask alpha), hai mảng vẽ sẵn.
-  const lightActor = (a: { at: [number, number]; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }) => {
+  const lightActor = (a: { at: [number, number]; lit?: boolean; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }) => {
     const p = placeOn(view, a.at, 168, move), node = a.render(p);
-    if (!grade) { sink.push(<g key={key++}>{node}</g>); return; }
+    if (!grade || a.lit === false) { sink.push(<g key={key++}>{node}</g>); return; }
     const L = lightFor(view, a.at, SRC, move), dist = Math.hypot(a.at[0] - SRC[0], a.at[1] - SRC[2]);
     const near = clamp(1 - dist / (REACH + 120), 0, 1);
     const sunE = !night && !inHall ? sunExposure(a.at, 20, 160, sun) : 0;

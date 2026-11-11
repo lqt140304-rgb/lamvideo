@@ -2,6 +2,8 @@ import React from 'react';
 import { HairSway, JointPose, Limb, StudentTwinBody, TungSoccer, STAND_POSE, TUNG_POSE, type Talk } from './nhan-vat';
 import { SupportingActor, type Role } from './bo-sung-15p/nhan-vat-va-tu-the';
 import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
+import { Tung25D } from './thiet-ke/thu-2-5d/tung-2-5d';
+import { NamVatLy, simulate, type Impact, type PhysParams, DEFAULT_PHYS } from './thiet-ke/thu-2-5d/vat-ly';
 
 /**
  * LỚP "DÁNG SỐNG" cho nhân vật Hồ sơ 02 (11/11/2026).
@@ -177,3 +179,27 @@ export const LivingCast: React.FC<React.ComponentProps<typeof SupportingActor> &
 export const LivingNam25D: React.FC<React.ComponentProps<typeof Nam25D> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 0, life, pose, blink, hair, ...rest }) => (
   <Nam25D {...rest} pose={lifePose(pose ?? STAND_POSE, frame, { seed, ...life })} blink={blink ?? blinkAt(frame, seed)} hair={hair ?? ((life?.amount ?? 1) > 0 ? hairLife(frame, seed, life?.amount ?? 1) : undefined)} />
 );
+
+/** Người Kia 2.5D: `Nam25D` với `identity="nguoi-kia"` (cùng dáng, bộ đồ và lớp sáng của Nam; khác mặt, nốt ruồi và nét mặt). */
+export const NguoiKia25D: React.FC<Omit<React.ComponentProps<typeof Nam25D>, 'identity'>> = (props) => <Nam25D {...props} identity="nguoi-kia" />;
+export const LivingNguoiKia25D: React.FC<Omit<React.ComponentProps<typeof LivingNam25D>, 'identity'>> = (props) => <LivingNam25D {...props} identity="nguoi-kia" />;
+
+/** Tùng 2.5D sống: thở, chớp mắt, dịch trọng tâm trên `Tung25D`. Mặc định dáng của Tùng (`TUNG_POSE`). */
+export const LivingTung25D: React.FC<React.ComponentProps<typeof Tung25D> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 11, life, pose, blink, ...rest }) => (
+  <Tung25D {...rest} pose={lifePose(pose ?? TUNG_POSE, frame, { seed, ...life })} blink={blink ?? blinkAt(frame, seed)} />
+);
+
+/**
+ * Nam / Người Kia 2.5D có CẢ dáng sống LẪN vật lý thứ cấp: `lifePose` (thở, trôi, trọng tâm) đi vào dáng gốc, rồi mô phỏng quán tính,
+ * nhún, tóc và vạt áo (`NamVatLy`) lên trên. `base(f)` là diễn xuất đã dựng; `impacts` là các cú va, tiếp đất, giật mình.
+ * Bản mô phỏng chạy một lần từ khung 0 tới `total` (tất định) và được nhớ lại; đổi `base`/`impacts`/`seed`/`amount` thì tính lại.
+ * `identity="nguoi-kia"` cho Người Kia. Chớp mắt tự thêm. `physics={false}` để so với dáng sống không vật lý.
+ */
+export const NamSongVatLy: React.FC<Omit<React.ComponentProps<typeof NamVatLy>, 'track' | 'base' | 'frame'> & {
+  frame: number; total: number; base: (f: number) => JointPose; impacts?: Impact[]; seed?: number; life?: LifeOpts; phys?: PhysParams;
+}> = ({ frame, total, base, impacts = [], seed = 0, life, phys = DEFAULT_PHYS, blink, ...rest }) => {
+  const key = JSON.stringify([total, seed, life, impacts]);
+  const living = React.useMemo(() => (f: number) => lifePose(base(f), f, { seed, ...life }), [key]); // eslint-disable-line react-hooks/exhaustive-deps
+  const track = React.useMemo(() => simulate(living, impacts, total, phys), [key]); // eslint-disable-line react-hooks/exhaustive-deps
+  return <NamVatLy {...rest} blink={blink ?? blinkAt(frame, seed)} track={track} frame={frame} base={living} />;
+};
