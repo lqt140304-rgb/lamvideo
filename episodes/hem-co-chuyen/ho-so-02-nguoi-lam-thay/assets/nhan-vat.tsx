@@ -1261,9 +1261,17 @@ const TUNG_VIEWS: Outfit['views'] = {
       </>
     ),
   },
+  // Góc nghiêng dựng lại theo ảnh mẫu (bản cũ dùng chung khuôn thân áo của Nam: vạt loe ra phía lưng, gấu dốc xuống phía trước,
+  // cổ áo chữ V phía trước). Mẫu: lưng thẳng, ngực–bụng phình tròn ra TRƯỚC, gấu ngang, cổ áo là dải trắng ôm quanh cổ.
   side: {
-    ...TWIN_VIEWS!.side!,
-    detail: <path d="M -14 181 L 0 196 L 12 181 M 14 340 Q 26 342 36 332" {...JERSEY_FOLD} />,
+    torso: 'M -12 180 Q -38 186 -46 214 Q -50 262 -50 300 L -52 352 Q -8 360 46 352 Q 52 322 50 288 Q 48 238 34 206 Q 24 186 10 180 Q -1 188 -12 180 Z',
+    hem: [[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]],
+    detail: (
+      <>
+        <path d="M -20 185 Q -3 199 17 184" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6) }} />
+        <path d="M 30 250 Q 36 288 34 330" {...JERSEY_FOLD} />
+      </>
+    ),
   },
 };
 
