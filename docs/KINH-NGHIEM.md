@@ -92,7 +92,12 @@ Hạn mức của trợ lý chủ yếu tốn vào việc **xem ảnh**, **đọ
 - **Đọc đúng đoạn:** dò bằng grep để lấy số dòng rồi đọc theo khoảng. Không đọc lại cả file rig/cảnh dài mỗi vòng.
 - **Sửa bằng công cụ sửa chính xác:** đoạn nhiều dòng thì sửa bằng Edit hoặc script đọc từ file. Không nhét script nhiều dòng có backtick vào lệnh shell, vì dễ hỏng quote phải chạy lại. Không cắt file bằng mốc chuỗi chưa chắc duy nhất, vì có thể xóa nhầm cả đoạn. Commit thường xuyên để khôi phục được.
 - **Tránh chi phí render ẩn:** CSS `filter` trên nhiều lớp SVG làm render chậm gấp đôi (đo được hơn 600 giây so với 340 giây cho 41 giây phim 720p). Hãy tô sẵn màu sáng/tối thay cho filter.
-- **Đổi model theo việc:** dựng cảnh, hệ thống hay thiết kế mới dùng model mạnh (Opus). Các vòng chỉnh nhỏ theo góp ý dùng model rẻ hơn (Sonnet). Phiên không tự đổi model của chính nó được, nên nhắc chủ repo đổi trong menu.
+- **Đổi model theo việc:**
+  - **Haiku 5.5:** tìm file, phân loại, trích dữ liệu (đối chiếu checklist, đếm mục, đọc manifest/log, kiểm tra "có/không").
+  - **Opus 5.5, effort trung bình:** dựng cảnh, bối cảnh, nhân vật, hệ thống hay thiết kế mới.
+  - **Sonnet 5.5, effort trung bình:** vòng chỉnh nhỏ theo góp ý, sửa lỗi đã rõ nguyên nhân, cập nhật tài liệu sau khi có quyết định.
+  - Một việc vừa tìm vừa dựng thì tách: Haiku tìm, Opus dựng, Sonnet sửa.
+  - Phiên không tự đổi model của chính nó được: nhắc chủ repo đổi bằng `/model` và `/effort medium`.
 - **Phiên ngắn, ghi chép rõ:** phiên càng dài thì mỗi lượt càng tốn. Hết một mốc thì cập nhật `LOI-TON-DONG.md` và README của tập, commit, push, rồi mở phiên mới đọc từ các file đó thay vì kéo dài phiên cũ.
 - **Không gửi lại file nặng mỗi vòng:** chỉ gửi video khi đã gom đủ thay đổi. Giữa chừng gửi bảng ảnh.
 
