@@ -160,6 +160,7 @@ export type RoomProps = {
   /** messy: chén chất trong bồn, vụn mì cạnh bếp; clean: chén úp trên giá, sàn sạch. */
   kitchen?: 'messy' | 'clean';
   drawerOpen?: boolean;
+  studyWork?: boolean; // Unfinished assignment on laptop; same screen geometry in all views.
   move?: CameraMove;
   /** Vẽ dưới chăn, trên gối của Nam (đầu người đang ngủ). */
   sleeper?: (p: { x: number; y: number; scale: number; plug?: [number, number] }) => React.ReactNode; // plug: ổ cắm cạnh nệm trên màn hình, cho cáp sạc
@@ -178,7 +179,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, studyWork = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway' || view === 'corridor' || view === 'stairs' || view === 'giveaway';
@@ -725,29 +726,42 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     box({ x: [408, 445], y: [38, 68], z: [62, 64], c: C.wood });
     box({ x: [408, 445], y: [6, 34], z: [62 + open, 64 + open], c: C.wood });
     if (open) { box({ x: [410, 443], y: [10, 30], z: [40, 62 + open], c: '#b48f63' }); poly([[414, 30.5, 84], [440, 30.5, 84], [440, 30.5, 54], [414, 30.5, 54]], '#ece3cf', { n: [0, 1, 0], cull: false, stroke: nightOf(INK), w: 1.4 }); }
-    cyl([426, 53, 65], 2.4, 0.1, '#d4b463', { top: '#d4b463' });
-    cyl([426, 20, 65 + open], 2.4, 0.1, '#d4b463', { top: '#d4b463' });
+    cyl([426, 53, 65], 2.4, 0.1, '#d4af37', { top: '#d4af37' });
+    cyl([426, 20, 65 + open], 2.4, 0.1, '#d4af37', { top: '#d4af37' });
     box({ x: [338, 452], y: [73, 77], z: [4, 68], c: C.wood, top: '#d9b482' });
 
     box({ x: [346, 384], y: [77, 124], z: [6, 26], c: C.woodDark });
     poly([[349, 80, 26.3], [381, 80, 26.3], [381, 121, 26.3], [349, 121, 26.3]], '#4f4639', { n: [0, 0, 1], cull: false });
     box({ x: [346, 384], y: [99, 102], z: [6, 26.5], c: C.wood, ink: false });
-    [['#a8695a', 351, 6], ['#6f9186', 358, 5], ['#d0ad6c', 364, 7], ['#7b8ba3', 372, 6]].forEach(([col, x, wd]) => box({ x: [x as number, (x as number) + (wd as number)], y: [80, 97], z: [16, 26], c: col as string, ink: false }));
-    [['#c98f58', 351, 7], ['#8aa294', 359, 6], ['#b56f62', 366, 7]].forEach(([col, x, wd]) => box({ x: [x as number, (x as number) + (wd as number)], y: [102, 119], z: [16, 26], c: col as string, ink: false }));
+    // Canonical shelf: upper textbooks, lower notebooks and the reminder note.
+    [['#b84c43',351,8,'TRIẾT'],['#4f76a3',361,8,'TOÁN'],['#557c59',371,9,'KTCT']].forEach(([col,x,wd,title]) => {
+      box({x:[x as number,(x as number)+(wd as number)],y:[102,120],z:[16,26],c:col as string,ink:false});
+      const at=P([Number(x)+Number(wd)/2,110,26.4]);
+      sink.push(<text key={key++} x={at[0]} y={at[1]} textAnchor="middle" fontSize={Math.max(3,cam.pxcm([Number(x),110,26])*2)} fill="#eee5ce" transform={`rotate(-90 ${at[0]} ${at[1]})`}>{title}</text>);
+    });
+    for (let i=0;i<3;i++) box({x:[350,376],y:[81+i*3,83+i*3],z:[16,26],c:['#d1c6ac','#8da394','#b77e67'][i],ink:false});
+    poly([[371,90,26.5],[381,90,26.5],[381,98,26.5],[371,98,26.5]],'#d7bb65',{n:[0,0,1],cull:false,raw:true});
+    const note=P([376,94,26.8]);
+    sink.push(<text key={key++} x={note[0]} y={note[1]} fontSize={Math.max(3,cam.pxcm([376,94,26])*1.6)} textAnchor="middle" fill="#51462e">NỘP BÀI!</text>);
 
     box({ x: [374, 412], y: [77, 79], z: [32, 60], c: '#7c8c86', top: '#94a39b' });
     poly([[378, 79.2, 37], [408, 79.2, 37], [408, 79.2, 52], [378, 79.2, 52]], '#61716b', { n: [0, 1, 0], cull: false });
     const scr: V3[] = [[374, 79, 32], [412, 79, 32], [412, 106, 26], [374, 106, 26]];
     poly(scr, '#47574f', { n: [0, 0.2, 1], cull: false, stroke: nightOf(INK), w: lineW(scr[0]) });
     const inset = scr.map((p, i) => [p[0] + (i === 0 || i === 3 ? 2 : -2), p[1] + (i < 2 ? 2 : -2), p[2] + 0.1] as V3);
-    poly(inset, night ? '#dff1ee' : '#dbe5d9', { n: [0, 0.2, 1], cull: false, raw: true });
+    poly(inset, studyWork ? '#8eafa8' : night ? '#dff1ee' : '#dbe5d9', { n: [0, 0.2, 1], cull: false, raw: true });
     for (let i = 0; i < 4; i++) { const y = 100 - i * 4.6, zz = 27.3 + i * 1, w0 = 379 + (i % 2) * 1; line([w0, y, zz], [w0 + (i % 2 ? 18 : 25), y, zz], '#90a79b', 1.5); }
+    if(studyWork){
+      const at=P([393,103,27]);
+      sink.push(<text key={key++} x={at[0]} y={at[1]} fontSize={Math.max(4,cam.pxcm([393,103,27])*2.2)} textAnchor="middle" fill="#364c49">BÀI TẬP — CHƯA XONG</text>);
+      poly([[380,82,31.4],[402,82,31.4],[402,86,30.5],[380,86,30.5]],'#b5a478',{n:[0,.2,1],cull:false,raw:true});
+    }
     curve([[410, 77, 34], [436, 75, 26], [452, 42, 10], [456, 22, 3]], '#55655d', 2);
     box({ x: [450, 459], y: [18, 28], z: [0.5, 2], c: '#f1ecdb', ink: false });
 
-    cyl([433, 77, 38], 8, 2, C.red);
+    cyl([433, 77, 38], 8, 2, '#b91c1c');
     tube([[433, 79, 38], [441, 104, 34], [432, 122, 34], [421, 118, 36]], 1.3, '#5d7067');
-    soft([[425, 124, 36], [414, 124, 36], [408, 108, 37], [427, 106, 37]], night ? '#c9805f' : C.red, { n: [0, 0, 1] });
+    soft([[425, 124, 36], [414, 124, 36], [408, 108, 37], [427, 106, 37]], night ? '#b9594e' : '#dc2626', { n: [0, 0, 1] });
     cyl([442, 77, 56], 4, 9, '#d3c198', { top: '#6e5a42' });
     cyl([351, 77, 44], 4, 12, '#6e8f96', { top: '#3c4d4f' });
     line([350, 89, 44], [347, 104, 44], '#b56f62', 2);

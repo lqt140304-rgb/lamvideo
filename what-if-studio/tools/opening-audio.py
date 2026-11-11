@@ -2,7 +2,7 @@
 Run from any directory: python path/to/opening-audio.py
 """
 from pathlib import Path
-import subprocess, json, hashlib
+import subprocess, json, hashlib, wave, array
 
 studio=Path(__file__).resolve().parents[1]
 folder=studio/'public/ho-so-02-nguoi-lam-thay/opening-audio'
@@ -23,7 +23,17 @@ for i,e in enumerate(m['events'],2):
  if e['filter']: chain+=','+e['filter']
  chain+=f",volume={e['gain']},adelay={round(e['at']*1000)}:all=1[e{i}]"
  filters.append(chain); labels.append(f'[e{i}]')
-filters.append(''.join(labels)+f'amix=inputs={len(labels)}:normalize=0:duration=longest,atrim=duration=48,loudnorm=I=-18:TP=-2:LRA=9,aresample=48000[out]')
+filters.append(''.join(labels)+f"amix=inputs={len(labels)}:normalize=0:duration=longest,atrim=duration=48,loudnorm=I=-18:TP=-2:LRA=9,aresample=48000,volume='if(between(t,35,35.5),0,if(between(t,34.99,35),(35-t)/0.01,if(between(t,35.5,36.2),(t-35.5)/0.7,1)))':eval=frame[out]")
+filters[-1]=filters[-1].replace('[out]',"[envelope]")
+filters.append("[envelope]aeval=exprs='if(between(t,35,35.5),0,val(0))|if(between(t,35,35.5),0,val(1))':channel_layout=stereo[out]")
 args+=['-filter_complex',';'.join(filters),'-map','[out]','-c:a','pcm_s16le','-ar','48000','-ac','2',str(folder/'mix.wav')]
 subprocess.run(args,check=True)
+# Write the silence in PCM samples as well: no boundary rounding from filter timestamps.
+with wave.open(str(folder/'mix.wav'),'rb') as wav:
+ params=wav.getparams()
+ samples=array.array('h',wav.readframes(wav.getnframes()))
+samples[35*48000*2:int(35.5*48000)*2]=array.array('h',[0])*48000
+with wave.open(str(folder/'mix.wav'),'wb') as wav:
+ wav.setparams(params)
+ wav.writeframes(samples.tobytes())
 print('Mix ready:',folder/'mix.wav')

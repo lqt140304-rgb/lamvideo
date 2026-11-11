@@ -160,12 +160,6 @@
       "filter": "areverse,lowpass=f=1800"
     },
     {
-      "file": "impactWood_light_000.ogg",
-      "at": 35.0,
-      "gain": 0.14,
-      "filter": "asetrate=26000,aresample=48000"
-    },
-    {
       "file": "footstep_concrete_000.ogg",
       "at": 39.05,
       "gain": 0.25,
@@ -224,6 +218,18 @@
       "at": 45,
       "gain": 0.45,
       "filter": "aecho=0.8:0.5:180|340:0.25|0.12"
+    },
+    {
+      "file": "impactGlass_heavy_002.ogg",
+      "at": 45,
+      "gain": 0.32,
+      "filter": "highpass=f=1900,afade=t=out:st=0.35:d=0.2"
+    },
+    {
+      "file": "impactMetal_light_002.ogg",
+      "at": 45.13,
+      "gain": 0.38,
+      "filter": "highpass=f=500,atrim=duration=0.18,afade=t=out:st=0.12:d=0.06"
     }
   ],
   "sha256": {
@@ -237,6 +243,13 @@
     "laser1.ogg": "0bf468769b48a834dc1c6e38e457f2c71159b010225a9aedf84316795e8cc3e5",
     "lightless-dawn-excerpt.mp3": "777ff3c67755d437e84e1b467ca62dda31a5aa741ea763219d66ea1e13bd9f64",
     "tone1.ogg": "12c6a1955aad54cb04206b5e9985df4379ebc598a01b65070609e0b0a3b9b026",
-    "twoTone1.ogg": "8732f14d6398407a8f1df77b986c2099cfd88f6583e1272cb60497cb2fe8da1d"
+    "twoTone1.ogg": "8732f14d6398407a8f1df77b986c2099cfd88f6583e1272cb60497cb2fe8da1d",
+    "impactGlass_heavy_002.ogg": "4978654ac840ad519692d5d5ba48a8101cabce13b9a577be73ad589185e5e9ed",
+    "impactMetal_light_002.ogg": "25a96f90a9a1f88a531e824e126f0519504625e5635e65a72e4f31611428db29"
+  },
+  "vacuum": {
+    "from": 35,
+    "to": 35.5,
+    "meaning": "reflection stops imitating; all stems mute"
   }
 }

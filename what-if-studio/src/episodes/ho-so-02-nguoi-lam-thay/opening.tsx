@@ -266,7 +266,7 @@ const Shot1: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   return (
     <AbsoluteFill>
       <Camera lens={lens} f={g} hand={0.4} shake={a && f < 84 ? (Math.sin(f * 2.7) * 3 + Math.sin(f * 5.3) * 1.2) * (0.6 + 0.4 * Math.abs(Math.sin(f * 0.9))) : 0}>
-        <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" mirror move={move} sleeper={Sleeper({ cover, breath: !a && f > 188 ? Math.sin(f / 15) * 5 : 0, reach, carry: 0, alarm: a && f < 84, f, phone: true })} />
+        <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" mirror studyWork move={move} sleeper={Sleeper({ cover, breath: !a && f > 188 ? Math.sin(f / 15) * 5 : 0, reach, carry: 0, alarm: a && f < 84, f, phone: true })} />
       </Camera>
       {a && f < 90 && <PhoneAlarm f={f} />}
       <Streak t={a ? seg(f, 4, 40) : 0} color="#7fb4ff" y={430} />
@@ -276,7 +276,7 @@ const Shot1: React.FC<{ f: number; g: number }> = ({ f, g }) => {
 
 // ---------- SHOT 2: ba lát cắt trì hoãn (15–26s) ----------
 const DESK: [number, number] = [396, 112]; // SEATS.desk
-const GAME: JointPose = EXTRA_POSES['choi-game'];
+const GAME: JointPose = {...EXTRA_POSES['choi-game'], tilt: 12, neck: 13};
 const POINT: JointPose = { ...STAND_POSE, tilt: 6, neck: 6, armL: { a: 22, b: 14, rot: 1 }, handL: 'open', frontL: true };
 
 const Slice2A: React.FC<{ f: number; g: number }> = ({ f, g }) => {
@@ -285,7 +285,7 @@ const Slice2A: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const tung = { at: [235, 250] as [number, number], render: () => { const p = placeOn('desk', [334, 60], 168, move); return <TungSoccer {...p} mood="annoyed" pose={{ ...POINT, view: 'three', facing: 1 }} />; } };
   return (
     <Camera lens={{ cx: 980, cy: 620, z: 1.15 }} f={g} hand={0.8}>
-      <RoomScene rays={RAYS} sun={0} view="desk" chair="desk" chairTurn={Math.PI * 0.8} move={move} actors={[tung, nam]} />
+      <RoomScene rays={RAYS} sun={0} view="desk" chair="desk" chairTurn={Math.PI * 0.8} studyWork move={move} actors={[tung, nam]} />
     </Camera>
   );
 };
@@ -380,13 +380,18 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
           <defs><linearGradient id="uplight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#000" stopOpacity=".75" /><stop offset=".2" stopColor="#000" stopOpacity=".35" /><stop offset=".34" stopColor="#000" stopOpacity="0" /><stop offset=".7" stopColor="#3ff0d8" stopOpacity=".14" /><stop offset="1" stopColor="#3ff0d8" stopOpacity=".3" /></linearGradient></defs>
           <g transform="translate(1390 1500) scale(1.6)">
             <Mirror w={MW} h={MH}>
-              <rect width={MW} height={MH} fill="#101917" />
+              <rect width={MW} height={MH} fill="#0a1816" />
+              <path d={`M0 0L${MW*.18} ${MH*.12}V${MH*.88}L0 ${MH}ZM${MW} 0L${MW*.82} ${MH*.12}V${MH*.88}L${MW} ${MH}Z`} fill="#0d211d" />
+              <path d={`M${MW*.18} ${MH*.88}H${MW*.82}L${MW} ${MH}H0Z`} fill="#07120f" />
+              <path d={`M${MW*.22} ${MH*.16}H${MW*.78}V${MH*.82}H${MW*.22}Z`} fill="#06100e" />
               {swap ? (
                 <NguoiKia {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={free > 0.5 ? undefined : namFace3(lagT)} mood={free > 0.5 ? 'stare_grin' : 'calm'} blink={free > 0.5 ? false : blink} pose={{ ...reflPose, view: free > 0.5 ? 'front' : 'three', facing: -1 }} />
               ) : (
                 <StudentTwinBody {...LOOK} x={MW * 0.5} y={MH * 0.12} scale={0.95} face={namFace3(f)} mood="sleepy" blink={blink} talk={talk} pose={{ ...reflPose, view: 'three', facing: -1 }} />
               )}
-              <rect width={MW} height={MH} fill="#3cc6c0" opacity={0.05 + 0.08 * free} />
+              {/* Receding planes, not a flat black card; all remain behind the reflected actor. */}
+              <rect width={MW} height={MH} fill="#020806" opacity={0.15} />
+              <rect width={MW} height={MH} fill="#3cc6c0" opacity={0.025 + 0.045 * free} />
               <rect width={MW} height={MH} fill="url(#uplight)" opacity={free} />
             </Mirror>
           </g>
@@ -415,7 +420,7 @@ const Shot3: React.FC<{ f: number }> = ({ f }) => {
 // Bố cục: mép sàn–tường chạy chéo từ góc dưới trái lên chân gương; gương đặt cao, lùi xa bên phải.
 // Nam đứng quay lưng trước gương, quay lại rồi đi thẳng về phía máy theo đường sàn (to dần).
 // Trong kính là thế giới gương 3D (MirrorRealm). Cánh tay vươn ra là tay rig của chính cái bóng:
-// vẽ bóng 2 lần cùng phép đặt — bản trong kính, và bản ngoài kính (vẽ sau Nam) chỉ lộ phần vượt mép trái kính.
+// Bản ngoài kính dùng cẳng tay liền đến vai Nam, mảng tiếp xúc theo đúng tọa độ vai.
 const MIR_AT = { x: 1270, y: 760, s: 0.7, r: -3 }; // chân gương trên đường sàn
 const MIR = `translate(${MIR_AT.x} ${MIR_AT.y}) scale(${MIR_AT.s}) rotate(${MIR_AT.r})`;
 const FLOOR = 'M-300 1300L1100 772H2400V1500H-300Z'; // sàn phía trước, mép chéo về chân gương
@@ -432,7 +437,14 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const walk = interpolate(f, [28, 112, 178], [0, 0.16, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const feet = { x: 1060 + (560 - 1060) * walk, y: 792 + (1040 - 792) * walk };
   const ns = 0.74 + 0.48 * walk;
-  const walkP = f > 28 ? sampleWalk((f - 28) / 18) : STAND_POSE;
+  const gait = Math.max(0, (f-28)/18);
+  const bob = f > 28 ? -3.5*Math.sin(Math.PI*gait)**2 : 0;
+  const walkP = f > 28 ? {...sampleWalk(gait), tilt: 1.4*Math.sin(Math.PI*gait)} : STAND_POSE;
+  const bodyY = feet.y - 589*ns + bob;
+  const touch = seg(f, 90, 104)*(1-seg(f, 128, 146));
+  // Contact stays attached to Nam's shoulder while he moves; it is not a fixed overlay.
+  const shoulder = {x: feet.x+42*ns, y: bodyY+197*ns};
+  const hand = {x: 1125+(shoulder.x-1125)*seg(f,72,104), y: 458+(shoulder.y-458)*seg(f,72,104)};
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
   const rx = MW * 0.3, ryIn = 250, rs = 1;
@@ -442,10 +454,17 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
       <MirrorRealm ripple={f / 40} floating={false} />
     </svg>
   );
-  const shadowOut = (
-    <g transform={`translate(${-MW / 2} ${-MH})`}>
-      <clipPath id="ngoai-kinh"><rect x={-2000} y={-500} width={2026} height={MH + 1000} /></clipPath>
-      {reach > 0.05 && <g clipPath="url(#ngoai-kinh)"><NguoiKia {...LOOK} x={rx} y={ryIn} scale={rs} mood="stare_grin" blink={false} pose={reflPose} /></g>}
+  const shadowOut = reach > 0.01 && (
+    <g opacity={seg(f,72,82)*(1-seg(f,138,146))}>
+      {/* One continuous forearm emerging at the mirror rim. */}
+      <path d={`M1130 449Q${hand.x+65} ${hand.y-24} ${hand.x+7} ${hand.y-8}L${hand.x+7} ${hand.y+10}Q${hand.x+65} ${hand.y-3} 1130 471Z`} fill="#b6c6b2" />
+      <path d={`M1130 466Q${hand.x+55} ${hand.y+1} ${hand.x+9} ${hand.y+8}`} fill="none" stroke="#7e9584" strokeWidth={4}/>
+      <g transform={`translate(${hand.x} ${hand.y}) scale(${ns})`}>
+        {/* A small drawn contact patch follows the fingers, no automatic material shadow. */}
+        <path d="M-20 7Q-13 0 8 3L24 11 20 17Q1 11-17 17Z" fill="#17271f" opacity={touch*.55}/>
+        <path d="M21-8Q8-15-9-9Q-21-7-21 0L-19 13Q-17 18-13 13L-12 5-7 3-8 17Q-5 23-1 17L1 3 6 4 6 17Q10 22 13 16L15 4 21 5Q29 2 28-4Z" fill="#c2cfb8"/>
+        <path d="M-12 5L-11-3M1 3L2-5M15 4L15-3" fill="none" stroke="#728b79" strokeWidth={1.7}/>
+      </g>
     </g>
   );
   return (
@@ -463,9 +482,9 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
             </Mirror>
           </g>
           {/* Nam: quay lưng nhìn gương → quay lại → đi thẳng về phía máy, không hay biết */}
-          <StudentTwinBody {...LOOK} x={feet.x} y={feet.y - 589 * ns} scale={ns} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'three', facing: -1 }} />
+          <StudentTwinBody {...LOOK} x={feet.x} y={bodyY} scale={ns} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'three', facing: -1 }} />
           {/* tay cái bóng thò ra khỏi kính, vẽ sau Nam: bàn tay úp lên vai */}
-          <g transform={MIR}>{shadowOut}</g>
+          {shadowOut}
         </svg>
         <div style={{ position: 'absolute', left: MIR_AT.x - 190, top: MIR_AT.y - 640, width: 380, height: 660, borderRadius: 180, background: 'radial-gradient(ellipse, rgba(80,255,210,.3), rgba(0,0,0,0) 70%)', opacity: ripple, mixBlendMode: 'screen' }} />
       </div>
