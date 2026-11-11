@@ -1,6 +1,6 @@
 # Thử chuyển Nam 2D → 2.5D (11/11/2026)
 
-**Trạng thái: bản thử chờ chủ repo duyệt.** Chưa thay bộ Nam đã chốt. Chỉ duyệt bằng ảnh tĩnh; chưa xem chuyển động của vòng 2.
+**Trạng thái: chủ repo đã chọn dùng 2.5D (11/11/2026).** Dùng `Nam25D`/`NamVatLy` cho shot Nam dựng mới; bộ Nam đã chốt trong `nhan-vat.tsx` giữ nguyên (không đổi hình mặc định). Mới duyệt bằng ảnh tĩnh và dải khung; chưa xem chuyển động liền, chưa render lại opening, chưa áp cho Người Kia và Tùng.
 
 | Bảng | Nội dung |
 |---|---|

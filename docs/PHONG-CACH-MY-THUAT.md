@@ -54,6 +54,8 @@ Mô hình không gian 3D, phối cảnh và camera vẫn được dùng để b�
 
 ## Chiều sâu và chuyển động
 
+**Quyết định 11/11/2026 (chủ repo): dùng 2.5D cho nhân vật Hồ sơ 02 dựng mới.** Nhân vật 2.5D = nhân vật đã chốt + lớp ánh sáng theo cảnh (mảng tối/bóng đổ giữa lớp mềm chuyển dần, viền sáng và ánh hắt theo nguồn sáng của bối cảnh 3D) + dáng theo ảnh tham chiếu + vật lý thứ cấp. Chi tiết, số liệu và giới hạn: [thu-2-5d/README](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/README.md). Chưa render lại video, chưa áp cho Người Kia/Tùng, không tự thay bộ Hồ sơ 1.
+
 Giữ hình 2D có chiều sâu 2.5D bằng phối cảnh, tỉ lệ gần–xa, lớp chồng, bóng tiếp xúc và ánh sáng. Không dùng khối hộp cứng làm phương tiện duy nhất để tạo thể tích. Tách nền xa, khối phòng, đồ cố định, người/đồ cầm và lớp che gần theo [hướng dẫn điện ảnh](NGON-NGU-DIEN-ANH-2-5D.md) và DUNG-CANH của hồ sơ. Đồ nằm trên bàn phải có điểm đỡ; tay cầm bám vật; bóng không tách khỏi nguồn.
 
 ## Hòa sắc điện ảnh & Lớp phủ màu (Cinematic Color Grading)

@@ -89,7 +89,7 @@ Chủ repo đã duyệt hướng này qua các vòng sửa ngày 10/11/2026: **c
 <a id="40-bóng-vẽ-tay-không-viền-11112026"></a>
 ### 4.0. Bóng vẽ tay, không viền — 11/11/2026
 
-**Bổ sung 11/11 — lớp 2.5D đang thử (chủ repo chọn):** viền sáng và ánh hắt (đêm, ngược sáng, ánh màn hình) **được phép** khi là mảng sắc cạnh chọn theo từng kiểu sáng cảnh; vẫn cấm rim tự sinh bằng filter. **Bổ sung sau, cùng ngày (chủ repo chọn):** mảng tối/bóng đổ của lớp 2.5D được làm **mềm, chuyển dần** về phía sáng (làm mờ riêng mép trong của mảng trong mask; mép ngoài vẫn cắt theo hình bao, không loang ra ngoài người). Ở bản thử, mảng tối/sáng được cắt từ phần đang lộ của từng khối theo hướng sáng chọn tay cho mỗi kiểu (không phải chiếu sáng Lambert). Chi tiết, giới hạn và trạng thái duyệt: [thu-2-5d/README.md](thu-2-5d/README.md). Chưa thay bộ Nam đã chốt.
+**Bổ sung 11/11 — lớp 2.5D (chủ repo đã chọn dùng):** viền sáng và ánh hắt (đêm, ngược sáng, ánh màn hình) **được phép** khi là mảng sắc cạnh chọn theo từng kiểu sáng cảnh; vẫn cấm rim tự sinh bằng filter. **Bổ sung sau, cùng ngày (chủ repo chọn):** mảng tối/bóng đổ của lớp 2.5D được làm **mềm, chuyển dần** về phía sáng (làm mờ riêng mép trong của mảng trong mask; mép ngoài vẫn cắt theo hình bao, không loang ra ngoài người). Ở bản thử, mảng tối/sáng được cắt từ phần đang lộ của từng khối theo hướng sáng chọn tay cho mỗi kiểu (không phải chiếu sáng Lambert). Chi tiết, giới hạn và trạng thái duyệt: [thu-2-5d/README.md](thu-2-5d/README.md). Chưa thay bộ Nam đã chốt.
 
 Thay hướng bóng mềm sinh tự động ngày 10/11 bằng quyết định mới: **mảng bóng tự vẽ, ít chi tiết, không viền ngoài**. Xem [nguyên tắc chung và tham chiếu không viền](../../../../../docs/PHONG-CACH-MY-THUAT.md#minh-họa-không-viền--tiếp-thu-ảnh-tham-chiếu-11112026).
 
