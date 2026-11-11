@@ -7,7 +7,7 @@
 - Ưu tiên đường cong mềm, khối tròn đầy và đường bao liền mạch. Nét cong có chủ đích, không rung ngẫu nhiên hoặc uốn méo mọi vật.
 - Vai–thân–hông–đùi nối tự nhiên; tay chân có khối, trang phục rủ theo cơ thể. Tóc, mắt, miệng và cử chỉ giữ tính cartoon, không chuyển sang tỉ lệ người thật.
 - Nhân vật theo lựa chọn mới: không viền ngoài, giữ nét mắt–mày–miệng và vài nét trong cần thiết. Tách lớp bằng mảng màu và bóng gọn, không bằng quầng sáng hay gradient bóng nhựa. Với asset còn dùng nét, bo tròn đầu/nối và giữ độ dày theo khoảng cách; mực than ấm `#282b2b` là tham chiếu cũ, không bắt buộc viền cho nhân vật mới.
-- Nhân vật series The Crack in Reality (từ Hồ sơ 02: Người trong gương): **không viền ngoài; bóng là mảng tự vẽ**, ít và rõ. Không tạo bóng vật liệu bằng bộ lọc, gradient, rim tự động, AO hay thuật toán chiếu sáng. Quy chuẩn hiện hành ở [mục 4.0 Hồ sơ 2](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026). Nền cũ có nét kiến trúc chọn lọc vẫn được giữ; không tự xóa mọi nét kết cấu trong kho cũ.
+- Nhân vật series The Crack in Reality (từ Hồ sơ 02: Người trong gương): **không viền ngoài; bóng là mảng tự vẽ**, ít và rõ. Không tạo bóng vật liệu bằng bộ lọc, gradient, rim tự động, AO hay thuật toán chiếu sáng. Quy chuẩn hiện hành ở [mục 4.0 Hồ sơ 2](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026). Nền cũ có nét kiến trúc chọn lọc vẫn được giữ; không tự xóa mọi nét kết cấu trong kho cũ. Bổ sung 11/11 (bản thử 2.5D, chủ repo chọn): viền sáng/ánh hắt theo kiểu sáng cảnh được phép; mảng tối và bóng đổ giữa lớp được làm mềm chuyển dần về phía sáng, mép ngoài vẫn theo hình bao. Vẫn cấm rim tự sinh bằng filter.
 - Mảng màu gọn, sáng/tối có nguồn sáng thống nhất. Tránh nền quá nhiều chi tiết hoặc chất liệu ảnh thật đặt cạnh nhân vật cartoon phẳng.
 
 ## Minh họa không viền — tiếp thu ảnh tham chiếu 11/11/2026
@@ -53,6 +53,8 @@ Mô hình không gian 3D, phối cảnh và camera vẫn được dùng để b�
 Đường thẳng vẫn cần cho mặt bàn, cột nhà, bản lề, khung cửa và màn hình. Mềm mại không đồng nghĩa biến mọi vật thành viên nang, làm tường chảy hoặc làm mất cấu trúc. Phân biệt gỗ, kim loại, kính và vải qua hình, mảng sáng/tối và vài chi tiết chọn lọc.
 
 ## Chiều sâu và chuyển động
+
+**Quyết định 11/11/2026 (chủ repo): dùng 2.5D cho nhân vật Hồ sơ 02 dựng mới.** Nhân vật 2.5D = nhân vật đã chốt + lớp ánh sáng theo cảnh (mảng tối/bóng đổ giữa lớp mềm chuyển dần, viền sáng và ánh hắt theo nguồn sáng của bối cảnh 3D) + dáng theo ảnh tham chiếu + vật lý thứ cấp. Chi tiết, số liệu và giới hạn: [thu-2-5d/README](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/README.md). Chưa render lại video, chưa áp cho Người Kia/Tùng, không tự thay bộ Hồ sơ 1.
 
 Giữ hình 2D có chiều sâu 2.5D bằng phối cảnh, tỉ lệ gần–xa, lớp chồng, bóng tiếp xúc và ánh sáng. Không dùng khối hộp cứng làm phương tiện duy nhất để tạo thể tích. Tách nền xa, khối phòng, đồ cố định, người/đồ cầm và lớp che gần theo [hướng dẫn điện ảnh](NGON-NGU-DIEN-ANH-2-5D.md) và DUNG-CANH của hồ sơ. Đồ nằm trên bàn phải có điểm đỡ; tay cầm bám vật; bóng không tách khỏi nguồn.
 

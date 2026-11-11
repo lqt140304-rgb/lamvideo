@@ -94,6 +94,10 @@ const useClipId = (id: string) => `${id}-${React.useId().replace(/[^a-zA-Z0-9]/g
 // Góc nghiêng, 1/4 (nhìn chéo từ sau) và sau lưng vẽ riêng, dùng chung cho mọi nhân vật; mỗi người chỉ khác mảng tóc.
 // Chính diện dùng chung nét mặt với 3/4 trong từng hàm đầu.
 export type Talk = { shape: Exclude<MouthShape, 'auto'>; open?: number };
+/** Tóc đung đưa (vật lý thứ cấp): xoay (độ) và dịch (đơn vị rig) quanh da đầu; bỏ trống = tóc đứng yên như mẫu đã chốt. */
+export type HairSway = { rot: number; dx: number; dy: number };
+const SCALP = { x: 0, y: 60 };
+const hairSway = (h?: HairSway) => (h && (h.rot || h.dx || h.dy) ? `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)}) rotate(${h.rot.toFixed(2)} ${SCALP.x} ${SCALP.y})` : undefined);
 type HairKit = { color: string; side: string; back: string; quarter: string };
 const NAM_HAIR: HairKit = {
   color: PALETTE.nam.hair,
@@ -149,7 +153,7 @@ const faceMarkup = (key: FaceKey, o: { eyes: boolean; mouth: boolean; uid: strin
 
 const headFrame = (x: number, y: number, scale: number) => ({ transform: `translate(${x} ${y}) scale(${scale})`, stroke: PALETTE.ink, style: { strokeWidth: lw(3.5) }, strokeLinejoin: 'round' as const, strokeLinecap: 'round' as const });
 
-const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number }> = ({ hair, mood, clip, mole, talk, blink, x, y, scale }) => {
+const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, mood, clip, mole, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
   const face = profilePath(drop);
@@ -168,7 +172,7 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
       <path d={face} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -8 84 Q -28 76 -26 100 Q -26 120 -8 118" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -19 98 Q -12 93 -9 105" fill="none" style={{ strokeWidth: lw(2.4) }} />
-      <path d={hair.side} fill={hair.color} {...o(hair.color)} visibility="visible" />
+      <path d={hair.side} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
       <defs>
         <clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98} rx={11} ry={f.ry} /></clipPath>
       </defs>
@@ -185,26 +189,26 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
   );
 };
 
-const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number }> = ({ hair, x, y, scale }) => {
+const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, x, y, scale, sway }) => {
   const o = useHeadLine();
   return (
     <g {...headFrame(x, y, scale)}>
       <path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 56 87 Q 84 72 86 99 Q 87 121 59 125" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 60 140 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -60 140 -60 108 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-      <path d={hair.back} fill={hair.color} {...o(hair.color)} visibility="visible" />
+      <path d={hair.back} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
     </g>
   );
 };
 
 // 1/4: thấy gáy, tai phía gần và một dải má; mũi, miệng đã khuất.
-const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number }> = ({ hair, mole, x, y, scale }) => {
+const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, mole, x, y, scale, sway }) => {
   const o = useHeadLine();
   return (
   <g {...headFrame(x, y, scale)}>
     <path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M -56 70 Q -50 24 4 24 Q 56 24 62 70 L 64 112 Q 64 140 44 156 Q 20 170 -8 166 Q -46 158 -56 120 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-    <path d={hair.quarter} fill={hair.color} {...o(hair.color)} visibility="visible" />
+    <path d={hair.quarter} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
     <path d="M 24 88 Q 50 76 50 100 Q 50 122 26 124 Q 14 106 24 88 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M 44 98 Q 36 92 32 106" fill="none" style={{ strokeWidth: lw(2.4) }} />
     <path d="M 50 80 L 58 77" fill="none" style={{ strokeWidth: lw(5.5) }} />
@@ -230,7 +234,9 @@ export const StudentTwinHead: React.FC<{
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ gazeY = 0, mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1 }) => {
+  /** Tóc đung đưa theo vật lý; bỏ trống = tóc đứng yên. */
+  hair?: HairSway;
+}> = ({ gazeY = 0, mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1, hair: sway }) => {
   const markNear = identity === 'nam' ? facing === 1 : facing === -1;
   const isShocked = mood === 'shocked';
   const isSuspicious = mood === 'suspicious';
@@ -247,9 +253,9 @@ export const StudentTwinHead: React.FC<{
   const eyeRyL = isShocked ? 22 : isStare ? 20 : isScared ? 19 : isAgitated ? 16 : 14;
   const clip = useClipId(id);
   const o = useHeadLine();
-  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} />;
-  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} />;
-  if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
+  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
   const front = view === 'front';
   const rxR = front ? 15 : 17;
   const rxL = front ? 15 : 15;
@@ -272,6 +278,7 @@ export const StudentTwinHead: React.FC<{
         d={front ? 'M -60 92 Q -72 70 -66 50 L -76 46 Q -62 24 -42 24 L -44 14 Q -22 18 -7 12 Q -10 -6 15 -6 Q 24 -5 25 4 Q 8 1 9 15 Q 44 12 56 34 L 70 38 L 60 58 L 60 88 Q 48 62 28 52 Q 18 66 -2 66 L 0 54 Q -24 74 -46 70 L -48 92 Z' : 'M -51 92 Q -65 79 -61 52 L -71 51 Q -58 27 -38 28 L -43 18 Q -20 21 -7 14 Q -10 -5 15 -5 Q 22 -4 24 4 Q 7 0 8 16 Q 40 13 51 37 L 62 43 L 48 59 Q 34 54 22 43 Q 15 63 -4 67 L -1 52 Q -20 75 -41 74 L -43 95 Z'}
         fill={PALETTE.nam.hair}
         visibility="visible"
+        transform={hairSway(sway)}
         {...o(PALETTE.nam.hair)}
       />
 
@@ -447,6 +454,21 @@ export type JointPose = {
 };
 
 export const BONE = { upperArm: 80, foreArm: 74, thigh: 105, shin: 105 };
+/**
+ * Vóc dáng: độ dài xương, bề ngang vai, độ dày tay/ống quần, cỡ bàn tay, tay áo, dép.
+ * Mặc định = Nam Style B đã chốt (giữ nguyên mọi bản dựng cũ). Biến thể truyền qua `Outfit.build`.
+ */
+export type Build = {
+  upperArm: number; foreArm: number; thigh: number; shin: number;
+  shoulderX: number; // hệ số bề ngang điểm vai
+  arm: [number, number, number]; // nửa bề rộng tay: vai, khuỷu, cổ tay (tay thả)
+  hand: number; // hệ số cỡ bàn tay
+  sleeve: [number, number, number]; // nửa bề rộng tay áo: gốc, giữa, mép
+  pants: [number, number, number]; // nửa bề rộng ống quần dài: hông, gối, gấu
+  pantsEnd: number; // gấu quần dài tại tỉ lệ gối → mắt cá (1 = chấm mắt cá)
+  foot: number; // hệ số cỡ dép
+};
+export const DEFAULT_BUILD: Build = { ...BONE, shoulderX: 1, arm: [19, 16, 13.5], hand: 1.12, sleeve: [25, 27, 27], pants: [31, 26, 28], pantsEnd: 0.93, foot: 1 };
 export const LIMIT: Record<'tilt' | 'neck' | 'shoulder' | 'elbow' | 'wrist' | 'hip' | 'knee' | 'ankle', [number, number]> = {
   tilt: [-30, 40], neck: [-35, 35],
   shoulder: [-130, 180], // gộp cả dang ngang và đưa trước/sau vì rig vẽ trên một mặt phẳng
@@ -471,7 +493,7 @@ const step = (p: P, deg: number, len: number): P => ({ x: p.x - Math.sin((deg * 
 const mix = (a: P, b: P, t: number): P => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
 
 /** Tính vị trí khớp. Tay nằm trong hệ thân (xoay theo tilt quanh chậu), chân trong hệ gốc; mọi góc đều bị chặn theo LIMIT. */
-export const solveRig = (pose: JointPose) => {
+export const solveRig = (pose: JointPose, build: Build = DEFAULT_BUILD) => {
   const v = pose.view ?? 'three';
   const A = ANCHOR[v];
   const frontal = v === 'front' || v === 'back'; // đưa trước–sau nhìn từ trước/sau không được thành xoè ngang
@@ -484,22 +506,22 @@ export const solveRig = (pose: JointPose) => {
     const flexToCenter = (v === 'three' || v === 'quarter') && !front && root.x < 0; // cẳng tay bên trái màn hình gập vào giữa người
     const flex = lim(l.b, 'elbow') * ((frontal && !front) || flexToCenter ? 0.35 : 1);
     const a2 = a1 + ((v === 'front' ? isL : v === 'back' ? !isL : l.rot === -1 && v === 'three') ? 1 : -1) * flex;
-    const mid = step(root, a1, BONE.upperArm);
-    return { root, mid, end: step(mid, a2, BONE.foreArm), deg: a2 };
+    const mid = step(root, a1, build.upperArm);
+    return { root, mid, end: step(mid, a2, build.foreArm), deg: a2 };
   };
   const leg = (root: P, l: Limb) => {
     const a = lim(l.a, 'hip'), b = lim(l.b, 'knee');
     const a1 = frontal ? (root.x < 0 ? 2 : -2) : -a;
     const a2 = frontal ? a1 : a1 + b;
-    const mid = step(root, a1, BONE.thigh * depth(a));
-    return { root, mid, end: step(mid, a2, BONE.shin * depth(b - a)), deg: a2 };
+    const mid = step(root, a1, build.thigh * depth(a));
+    return { root, mid, end: step(mid, a2, build.shin * depth(b - a)), deg: a2 };
   };
   const legR = leg(A.hip.R, pose.legR);
   const legL = leg(A.hip.L, pose.legL);
   const foot = (pitch: number, shin: number) => clamp(pitch, shin + LIMIT.ankle[0], shin + LIMIT.ankle[1]);
   return {
-    armR: arm(A.shoulder.R, pose.armR, A.rest.R, false, pose.frontR),
-    armL: arm(A.shoulder.L, pose.armL, A.rest.L, true, pose.frontL),
+    armR: arm(build.shoulderX === 1 ? A.shoulder.R : { x: A.shoulder.R.x * build.shoulderX, y: A.shoulder.R.y }, pose.armR, A.rest.R, false, pose.frontR),
+    armL: arm(build.shoulderX === 1 ? A.shoulder.L : { x: A.shoulder.L.x * build.shoulderX, y: A.shoulder.L.y }, pose.armL, A.rest.L, true, pose.frontL),
     legR, legL,
     footR: foot(pose.footR, legR.deg), footL: foot(pose.footL, legL.deg),
     dy: pose.y + (pose.planted ? ANKLE_Y - Math.max(legR.end.y, legL.end.y) : 0),
@@ -611,9 +633,9 @@ const HAND_OUTLINE: Record<Exclude<HandKind, 'none'>, string> = {
   type: 'M -13 -9 Q -15 0 -16 12 Q -16 25 -11 31 Q -8 34 -5 31 L -5 24 L -1 36 Q 1 40 5 38 Q 8 36 6 31 L 5 23 L 10 34 Q 13 38 16 35 Q 18 33 16 29 L 12 19 L 20 24 Q 24 26 26 22 Q 28 18 24 15 L 16 8 Q 13 3 13 -9 Z',
   phone: 'M -13 -9 Q -16 2 -16 15 Q -16 29 -10 34 Q -6 37 -2 34 Q 2 37 6 34 Q 12 33 14 26 L 15 20 Q 22 20 23 15 Q 24 10 19 8 L 12 6 Q 11 0 13 -9 Z',
 };
-const handShapes = (at: P, deg: number, s: 1 | -1, kind: HandKind): string[] => {
+const handShapes = (at: P, deg: number, s: 1 | -1, kind: HandKind, size = 1.12): string[] => {
   if (kind === 'none') return [];
-  const c = Math.cos(deg * Math.PI / 180), n = Math.sin(deg * Math.PI / 180), size = 1.12;
+  const c = Math.cos(deg * Math.PI / 180), n = Math.sin(deg * Math.PI / 180);
   return [HAND_OUTLINE[kind].replace(/(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/g, (_, x, y) => {
     const px = Number(x) * s, py = Number(y);
     return `${at.x + (px * c - py * n) * size} ${at.y + (px * n + py * c) * size}`;
@@ -629,6 +651,8 @@ export type Outfit = {
   Foot: React.FC<{ side: 'R' | 'L'; view: View }>;
   detail: Detail;
   views?: Partial<Record<View, { torso: string; hem: [number, number][]; detail: Detail }>>;
+  /** Vóc dáng riêng; bỏ trống = DEFAULT_BUILD. */
+  build?: Partial<Build>;
 };
 const normalOf = (a: P, b: P): P => { const l = Math.max(0.001, Math.hypot(b.x - a.x, b.y - a.y)); return { x: -(b.y - a.y) / l, y: (b.x - a.x) / l }; };
 const across = (a: P, b: P, t: number, r: number, off = 0) => { const p = mix(a, b, t), n = normalOf(a, b); return `M ${p.x + n.x * (off - r)} ${p.y + n.y * (off - r)} L ${p.x + n.x * (off + r)} ${p.y + n.y * (off + r)}`; };
@@ -668,10 +692,11 @@ const kneeShadow = (c: { root: P; mid: P; end: P }) => {
 const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; foot: number; o: Outfit; view: View }> = ({ c, side, foot, o, view }) => {
   const { root: hip, mid: knee, end: ankle } = c;
   const long = o.pantsLen === 'long';
-  const cloth = long ? { root: hip, mid: knee, end: mix(knee, ankle, 0.93) } : { root: hip, mid: mix(hip, knee, 0.4), end: mix(hip, knee, 0.75) };
-  const widths: [number, number, number] = long ? [31, 26, 28] : [31, 31, 32];
+  const B = o.build ? { ...DEFAULT_BUILD, ...o.build } : DEFAULT_BUILD;
+  const cloth = long ? { root: hip, mid: knee, end: mix(knee, ankle, B.pantsEnd) } : { root: hip, mid: mix(hip, knee, 0.4), end: mix(hip, knee, 0.75) };
+  const widths: [number, number, number] = long ? B.pants : [31, 31, 32];
   // Đùi đưa hẳn ra trước (ngồi, ngồi xổm): bàn chân cũng quay về trước, không xoè ngược lại như lúc đứng.
-  const shoe = <g transform={`translate(${ankle.x} ${ankle.y}) rotate(${foot})`}><o.Foot side={view === 'three' && knee.x - hip.x > 60 ? 'L' : side} view={view} /></g>;
+  const shoe = <g transform={`translate(${ankle.x} ${ankle.y}) rotate(${foot})${B.foot !== 1 ? ` scale(${B.foot})` : ''}`}><o.Foot side={view === 'three' && knee.x - hip.x > 60 ? 'L' : side} view={view} /></g>;
   return (
     <g>
       {!o.socks && shoe}
@@ -683,7 +708,7 @@ const Leg: React.FC<{ c: ReturnType<typeof solveRig>['legR']; side: 'R' | 'L'; f
         </g>
       )}
       {o.socks && shoe}
-      <Blob fill={o.pants} d={[limbContour(cloth, widths), circle(hip, 30), softEnd(cloth.mid, cloth.end, widths[2], 3), ...(long ? [circle(knee, 26)] : [])]} />
+      <Blob fill={o.pants} d={[limbContour(cloth, widths), circle(hip, 30), softEnd(cloth.mid, cloth.end, widths[2], 3), ...(long ? [circle(knee, widths[1])] : [])]} />
       {long && kneeShadow(c)}
       {long && crease(c, 22)}
       {long && !(view === 'side' && side === 'L') && <path d={foldPath(knee, ankle, side)} fill="none" style={{ strokeWidth: lw(2.5), stroke: 'var(--inner-ink, #2b2b2b)' }} strokeLinecap="round" />}
@@ -697,29 +722,30 @@ const armBend = (c: ReturnType<typeof solveRig>['armR']) => {
   const u = Math.atan2(c.mid.y - c.root.y, c.mid.x - c.root.x), f = Math.atan2(c.end.y - c.mid.y, c.end.x - c.mid.x);
   return Math.abs(((((f - u) * 180) / Math.PI + 540) % 360) - 180);
 };
-const armWidths = (c: ReturnType<typeof solveRig>['armR']): [number, number, number] => {
+const armWidths = (c: ReturnType<typeof solveRig>['armR'], w0: [number, number, number] = DEFAULT_BUILD.arm): [number, number, number] => {
   const k = clamp((armBend(c) - 30) / 60);
-  return [19 + 1.5 * k, 16 + 4 * k, 13.5 + 3.5 * k];
+  return [w0[0] + 1.5 * k, w0[1] + 4 * k, w0[2] + 3.5 * k];
 };
-const armShapes = (c: ReturnType<typeof solveRig>['armR']) => {
-  const w = armWidths(c);
+const armShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number]) => {
+  const w = armWidths(c, w0);
   return [limbContour(c, w), circle(c.mid, w[1]), circle(c.root, w[0])];
 };
 // Tay gập mạnh (cẳng tay quặt ngược lên ngực): tách bắp tay (nằm dưới tay áo) và cẳng tay (đè lên tay áo),
 // nếu vẽ chung một khối rồi phủ tay áo lên thì mép áo cắt ngang cẳng tay thành răng cưa.
 const FOLD_BEND = 95;
-const upperArmShapes = (c: ReturnType<typeof solveRig>['armR']) => {
-  const w = armWidths(c);
+const upperArmShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number]) => {
+  const w = armWidths(c, w0);
   return [limbContour({ root: c.root, mid: mix(c.root, c.mid, 0.5), end: c.mid }, [w[0], (w[0] + w[1]) / 2, w[1]]), circle(c.root, w[0]), circle(c.mid, w[1])];
 };
-const foreArmShapes = (c: ReturnType<typeof solveRig>['armR']) => {
-  const w = armWidths(c);
+const foreArmShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number]) => {
+  const w = armWidths(c, w0);
   return [limbContour({ root: c.mid, mid: mix(c.mid, c.end, 0.5), end: c.end }, [w[1], (w[1] + w[2]) / 2, w[2]]), circle(c.mid, w[1])];
 };
 const sleeveShapes = (c: ReturnType<typeof solveRig>['armR'], o: Outfit) => {
   const end = mix(c.root, c.mid, o.sleeveEnd);
   const mid = mix(c.root, end, 0.55);
-  return [limbContour({ root: c.root, mid, end }, [25, 27, 27]), circle(c.root, 25), softEnd(mid, end, 27, 3)];
+  const sw = o.build?.sleeve ?? DEFAULT_BUILD.sleeve;
+  return [limbContour({ root: c.root, mid, end }, sw), circle(c.root, sw[0]), softEnd(mid, end, sw[2], 3)];
 };
 /** Tay đưa trước ngực: xoá cung vai phía trong để tay áo liền với thân áo. */
 // Miếng vá che đường nối tay áo–thân; cắt theo thân áo và đầu vai để đầu mút không đè mất viền ngoài ở dốc vai.
@@ -785,7 +811,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   // chính diện và sau lưng không lật được: hai bên phải giữ đúng chỗ
   const facing = outfit.views && view !== 'front' && view !== 'back' ? raw.facing ?? 1 : 1;
   const pose = facing === -1 ? mirrorPose(raw) : raw;
-  const r = solveRig({ ...pose, view });
+  const B = o.build ? { ...DEFAULT_BUILD, ...o.build } : DEFAULT_BUILD;
+  const r = solveRig({ ...pose, view }, B);
   const side = view === 'side';
   const away = view === 'back' || view === 'quarter'; // nhìn từ sau: tay đưa ra trước bị thân che
   const frontR = side || (!away && pose.frontR); // nghiêng: tay gần luôn trước thân, tay xa luôn sau thân
@@ -793,16 +820,16 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   const crotch = 414 - 110 * clamp(Math.max(Math.abs(pose.legR.a), Math.abs(pose.legL.a)) / 70); // đáy quần kéo lên khi đùi đưa ra
   // under: vẽ dưới tay áo; over: vẽ đè lên tay áo (chỉ có khi tay gập mạnh).
   const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => {
-    const hand = handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind);
+    const hand = handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind, B.hand);
     const sleeveSh = <path d={sleeveShadow(c, o.sleeveEnd)} fill={PALETTE.skinShadow} opacity={0.55} stroke="none" />;
-    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c), ...hand]} />{sleeveSh}</g>;
+    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c, B.arm), ...hand]} />{sleeveSh}</g>;
     if (armBend(c) < FOLD_BEND) return { one, under: one, over: null };
-    return { one, under: <g><Blob fill={PALETTE.skin} d={upperArmShapes(c)} />{sleeveSh}</g>, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c), ...hand]} /></g> };
+    return { one, under: <g><Blob fill={PALETTE.skin} d={upperArmShapes(c, B.arm)} />{sleeveSh}</g>, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c, B.arm), ...hand]} /></g> };
   };
   const whole = (a: { one: React.ReactNode }) => a.one; // tay sau thân/không có tay áo đè: một khối liền, không tách
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
   const phoneOnL = facing === -1;
-  const frontSleeve = (c: typeof r.armR) => [...sleeveShapes(c, o), ...(side ? [] : [circle(c.root, 29)])]; // bọc góc vai của thân áo, khỏi lòi một mẩu khi giơ tay
+  const frontSleeve = (c: typeof r.armR) => [...sleeveShapes(c, o), ...(side ? [] : [circle(c.root, B.sleeve[0] + 4)])]; // bọc góc vai của thân áo, khỏi lòi một mẩu khi giơ tay
   const held = pose.prop === 'bowl' ? <Bowl at={mix(r.armR.end, r.armL.end, 0.5)} />
     : pose.prop === 'phone' ? <Phone at={(phoneOnL ? r.armL : r.armR).end} deg={(phoneOnL ? r.armL : r.armR).deg + lim(phoneOnL ? pose.wristL : pose.wristR, 'wrist')} /> : null;
   const armR = arm(r.armR, ((view === 'back' ? -1 : 1) * (pose.palmUp === 'R' ? -1 : 1)) as 1 | -1, pose.wristR, pose.handR, pose.prop === 'phone' && !phoneOnL ? held : null);
@@ -813,11 +840,12 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
       {/* Một nét bóng tiếp xúc vẽ sẵn, bám mặt sàn; không kéo bóng theo nguồn sáng. */}
       {pose.support !== 'bed' && <ellipse data-shadow="drawn-contact" cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={10} fill="#232a26" opacity={0.26} stroke="none" />}
       <g transform={`translate(${pose.x} ${r.dy})`}>
-        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
+        {side && <g data-limb="L" transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing} size={0.85}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
           {!side && <Blob fill={o.pants} d={[`M -30 335 H 32 L 30 ${crotch - 4} Q 1 ${crotch - 30} -28 ${crotch - 4} Z`]} />}
-          {back(<Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} />)}
+          {/* data-limb: nhãn tay/chân vế L (phía xa máy ở 3/4, nghiêng) cho lớp 2.5D; không ảnh hưởng hình vẽ */}
+          <g data-limb="L">{back(<Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} />)}</g>
         </Shade>
         <Shade l={l} facing={facing} size={0.85}>
           <Leg c={r.legR} side="R" foot={r.footR} o={o} view={view} />
@@ -826,7 +854,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
           {/* Nhìn từ sau: khuỷu, cẳng tay hai bên nằm ngoài hông nên đè lên quần; phần tay vào giữa thân (bàn tay đưa ra trước) bị thân che nên cắt bỏ dải giữa. */}
           {away && <g clipPath={`url(#${awayClip})`}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}{whole(armR)}</Shade>)}</g>}
-          {!frontL && !side && !away && back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}
+          {!frontL && !side && !away && <g data-limb="L">{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>}
           {!frontR && !away && back(<Shade l={l} facing={facing} size={0.6}>{whole(armR)}</Shade>)}
           <Shade l={l} facing={facing} size={1.3}>
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
@@ -835,13 +863,14 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             {(view === 'three' || view === 'front') && <g><defs><clipPath id={hemClip}><path d={[o.torso, hemDrape(o, r.tilt)].join(' ')} /></clipPath></defs><path data-shadow="drawn-hem" clipPath={`url(#${hemClip})`} d="M-49 337Q-19 350 12 341Q36 348 56 337L56 348Q35 360 13 355Q-20 365-58 351Z" fill="#253f37" opacity={0.2} stroke="none" />{/* mặt hông phía xa của thân áo (quay khỏi máy): một mảng tự vẽ để thân có khối, không theo đèn */}<path data-shadow="drawn-side" clipPath={`url(#${hemClip})`} d={view === 'front' ? 'M78 268Q56 276 52 300Q48 340 54 366H110V268Z' : 'M70 268Q48 276 42 300Q38 340 42 366H110V268Z'} fill="#253f37" opacity={0.12} stroke="none" /></g>}
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
-          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
+          {/* data-part="head": nhãn để lớp 2.5D tách da đầu khỏi da tay khi cắt mảng; không ảnh hưởng hình vẽ */}
+          <g data-part="head" transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
           {pose.prop === 'phoneLandscape' && <g data-prop="phone-landscape" transform={`translate(${(r.armR.end.x+r.armL.end.x)/2} ${(r.armR.end.y+r.armL.end.y)/2})`}>
             <rect x={-49} y={-16} width={98} height={51} rx={8} fill="#34434a" />
             <rect x={-40} y={-10} width={80} height={38} rx={4} fill="#80978d" />
             <path d="M-29 17L-10 0 3 13 18-3 32 14" stroke="#c7d5bc" strokeWidth={3} fill="none" />
           </g>}
-          {frontL && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade>}
+          {frontL && <g data-limb="L"><Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade></g>}
           {frontR && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
         </g>
       </g>
@@ -997,8 +1026,10 @@ export const StudentTwinBody: React.FC<{
   headOutline?: Outline;
   /** Bộ đồ của Nam; bỏ trống thì dùng áo thun theo `shirt` như trước. */
   outfit?: NamOutfitId;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, outfit }) => (
-  <Rigged pose={pose} outfit={outfit ? NAM_OUTFITS[outfit] : { ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} />} />
+  /** Tóc đung đưa (vật lý thứ cấp). */
+  hair?: HairSway;
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, outfit, hair }) => (
+  <Rigged pose={pose} outfit={outfit ? NAM_OUTFITS[outfit] : { ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */

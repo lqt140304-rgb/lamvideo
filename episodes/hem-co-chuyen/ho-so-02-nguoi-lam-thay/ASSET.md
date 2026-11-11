@@ -75,6 +75,7 @@ Ba nhân vật chính của **Hồ sơ 2: Người trong gương** đã được
 ## File thiết kế tham chiếu ban đầu
 - [`assets/thiet-ke/character-svg-v1.png`](assets/thiet-ke/character-svg-v1.png): Bảng đối chiếu ban đầu giữa Rig cũ và Mẫu thử B.
 - [`assets/thiet-ke/character-svg-v1.tsx`](assets/thiet-ke/character-svg-v1.tsx): File thử nghiệm ban đầu của mẫu B.
+- [`assets/thiet-ke/thu-2-5d/`](assets/thiet-ke/thu-2-5d/README.md): **Đã chọn 11/11: dùng 2.5D cho Nam.** `Nam25D` (6 kiểu sáng theo cảnh, tách lớp, dáng theo ảnh tham chiếu, bóng mềm), `NamVatLy` (quán tính, nhún, tóc, vạt áo). Mặc định `dang="moi"`; `dang="chot"`/`volume={false}` trở về bản đã chốt. Chưa áp cho Người Kia/Tùng, chưa render lại opening.
 
 ---
 
