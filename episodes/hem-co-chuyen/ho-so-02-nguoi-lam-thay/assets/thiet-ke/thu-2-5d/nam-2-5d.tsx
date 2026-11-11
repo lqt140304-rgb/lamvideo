@@ -216,7 +216,7 @@ type BodyProps = React.ComponentProps<typeof StudentTwinBody>;
 // ---------------------------------------------------------------------------
 /** Đo trên ảnh tham chiếu (tham-khao/tao-hinh-2-5d.jpg), so với Nam đã chốt cùng chiều cao. */
 export const DANG_THAM_CHIEU: Partial<Build> = {
-  upperArm: 81, foreArm: 76, thigh: 99, shin: 99, // tay dài hơn một chút // tay hơi dài hơn, chân ngắn lại ~6%
+  upperArm: 76, foreArm: 70, thigh: 99, shin: 99, // tay ngắn hơn một chút (chủ repo chọn) // tay hơi dài hơn, chân ngắn lại ~6%
   shoulderX: 0.9, // vai vừa phải (bản trước 0,98 trông "đô")
   arm: [17.5, 15.5, 13.5], // tay thon như bản đã chốt, không to bắp
   hand: 1.18, // nắm tay vừa
