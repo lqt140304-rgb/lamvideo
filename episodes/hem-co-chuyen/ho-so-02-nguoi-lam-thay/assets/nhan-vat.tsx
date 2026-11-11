@@ -94,6 +94,10 @@ const useClipId = (id: string) => `${id}-${React.useId().replace(/[^a-zA-Z0-9]/g
 // Góc nghiêng, 1/4 (nhìn chéo từ sau) và sau lưng vẽ riêng, dùng chung cho mọi nhân vật; mỗi người chỉ khác mảng tóc.
 // Chính diện dùng chung nét mặt với 3/4 trong từng hàm đầu.
 export type Talk = { shape: Exclude<MouthShape, 'auto'>; open?: number };
+/** Tóc đung đưa (vật lý thứ cấp): xoay (độ) và dịch (đơn vị rig) quanh da đầu; bỏ trống = tóc đứng yên như mẫu đã chốt. */
+export type HairSway = { rot: number; dx: number; dy: number };
+const SCALP = { x: 0, y: 60 };
+const hairSway = (h?: HairSway) => (h && (h.rot || h.dx || h.dy) ? `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)}) rotate(${h.rot.toFixed(2)} ${SCALP.x} ${SCALP.y})` : undefined);
 type HairKit = { color: string; side: string; back: string; quarter: string };
 const NAM_HAIR: HairKit = {
   color: PALETTE.nam.hair,
@@ -149,7 +153,7 @@ const faceMarkup = (key: FaceKey, o: { eyes: boolean; mouth: boolean; uid: strin
 
 const headFrame = (x: number, y: number, scale: number) => ({ transform: `translate(${x} ${y}) scale(${scale})`, stroke: PALETTE.ink, style: { strokeWidth: lw(3.5) }, strokeLinejoin: 'round' as const, strokeLinecap: 'round' as const });
 
-const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number }> = ({ hair, mood, clip, mole, talk, blink, x, y, scale }) => {
+const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, mood, clip, mole, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
   const face = profilePath(drop);
@@ -168,7 +172,7 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
       <path d={face} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -8 84 Q -28 76 -26 100 Q -26 120 -8 118" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -19 98 Q -12 93 -9 105" fill="none" style={{ strokeWidth: lw(2.4) }} />
-      <path d={hair.side} fill={hair.color} {...o(hair.color)} visibility="visible" />
+      <path d={hair.side} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
       <defs>
         <clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98} rx={11} ry={f.ry} /></clipPath>
       </defs>
@@ -185,26 +189,26 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
   );
 };
 
-const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number }> = ({ hair, x, y, scale }) => {
+const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, x, y, scale, sway }) => {
   const o = useHeadLine();
   return (
     <g {...headFrame(x, y, scale)}>
       <path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 56 87 Q 84 72 86 99 Q 87 121 59 125" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 60 140 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -60 140 -60 108 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-      <path d={hair.back} fill={hair.color} {...o(hair.color)} visibility="visible" />
+      <path d={hair.back} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
     </g>
   );
 };
 
 // 1/4: thấy gáy, tai phía gần và một dải má; mũi, miệng đã khuất.
-const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number }> = ({ hair, mole, x, y, scale }) => {
+const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, mole, x, y, scale, sway }) => {
   const o = useHeadLine();
   return (
   <g {...headFrame(x, y, scale)}>
     <path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M -56 70 Q -50 24 4 24 Q 56 24 62 70 L 64 112 Q 64 140 44 156 Q 20 170 -8 166 Q -46 158 -56 120 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
-    <path d={hair.quarter} fill={hair.color} {...o(hair.color)} visibility="visible" />
+    <path d={hair.quarter} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
     <path d="M 24 88 Q 50 76 50 100 Q 50 122 26 124 Q 14 106 24 88 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M 44 98 Q 36 92 32 106" fill="none" style={{ strokeWidth: lw(2.4) }} />
     <path d="M 50 80 L 58 77" fill="none" style={{ strokeWidth: lw(5.5) }} />
@@ -230,7 +234,9 @@ export const StudentTwinHead: React.FC<{
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ gazeY = 0, mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1 }) => {
+  /** Tóc đung đưa theo vật lý; bỏ trống = tóc đứng yên. */
+  hair?: HairSway;
+}> = ({ gazeY = 0, mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1, hair: sway }) => {
   const markNear = identity === 'nam' ? facing === 1 : facing === -1;
   const isShocked = mood === 'shocked';
   const isSuspicious = mood === 'suspicious';
@@ -247,9 +253,9 @@ export const StudentTwinHead: React.FC<{
   const eyeRyL = isShocked ? 22 : isStare ? 20 : isScared ? 19 : isAgitated ? 16 : 14;
   const clip = useClipId(id);
   const o = useHeadLine();
-  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} />;
-  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} />;
-  if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
+  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
   const front = view === 'front';
   const rxR = front ? 15 : 17;
   const rxL = front ? 15 : 15;
@@ -272,6 +278,7 @@ export const StudentTwinHead: React.FC<{
         d={front ? 'M -60 92 Q -72 70 -66 50 L -76 46 Q -62 24 -42 24 L -44 14 Q -22 18 -7 12 Q -10 -6 15 -6 Q 24 -5 25 4 Q 8 1 9 15 Q 44 12 56 34 L 70 38 L 60 58 L 60 88 Q 48 62 28 52 Q 18 66 -2 66 L 0 54 Q -24 74 -46 70 L -48 92 Z' : 'M -51 92 Q -65 79 -61 52 L -71 51 Q -58 27 -38 28 L -43 18 Q -20 21 -7 14 Q -10 -5 15 -5 Q 22 -4 24 4 Q 7 0 8 16 Q 40 13 51 37 L 62 43 L 48 59 Q 34 54 22 43 Q 15 63 -4 67 L -1 52 Q -20 75 -41 74 L -43 95 Z'}
         fill={PALETTE.nam.hair}
         visibility="visible"
+        transform={hairSway(sway)}
         {...o(PALETTE.nam.hair)}
       />
 
@@ -1019,8 +1026,10 @@ export const StudentTwinBody: React.FC<{
   headOutline?: Outline;
   /** Bộ đồ của Nam; bỏ trống thì dùng áo thun theo `shirt` như trước. */
   outfit?: NamOutfitId;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, outfit }) => (
-  <Rigged pose={pose} outfit={outfit ? NAM_OUTFITS[outfit] : { ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} />} />
+  /** Tóc đung đưa (vật lý thứ cấp). */
+  hair?: HairSway;
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, outfit, hair }) => (
+  <Rigged pose={pose} outfit={outfit ? NAM_OUTFITS[outfit] : { ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */

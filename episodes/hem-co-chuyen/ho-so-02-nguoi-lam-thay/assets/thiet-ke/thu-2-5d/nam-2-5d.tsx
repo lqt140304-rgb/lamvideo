@@ -230,18 +230,23 @@ const narrow = <T extends { torso: string; hem: [number, number][]; detail: Outf
   detail: typeof v.detail === 'function' ? v.detail : <g transform={`scale(${SHIRT_X} 1)`}>{v.detail}</g>,
 });
 /** Bộ đồ Nam với dáng tham chiếu; `shirt` đổi màu áo như StudentTwinBody. */
-export const namOutfitDang = (shirt: string = PALETTE.nam.shirt): Outfit => {
+/** Vạt áo lệch theo vật lý: chỉ các điểm gấu (chỉ số ≥ 2) dịch, hai điểm trên eo giữ nguyên; điểm càng thấp càng lệch nhiều. */
+export type HemSway = { dx: number; dy: number };
+const swayHem = (hem: [number, number][], h?: HemSway): [number, number][] => (h && (h.dx || h.dy) ? hem.map(([x, y], i) => (i < 2 ? [x, y] : [x + h.dx * (0.6 + 0.4 * ((i - 2) / 4)), y + h.dy * (0.5 + 0.5 * ((i - 2) / 4))] as [number, number])) : hem);
+export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway): Outfit => {
   const base = { ...TWIN_OUTFIT, shirt, sleeveEnd: 0.56, build: DANG_THAM_CHIEU };
-  const views = Object.fromEntries(Object.entries(TWIN_OUTFIT.views ?? {}).map(([k, v]) => [k, narrow(v!)])) as Outfit['views'];
-  return { ...narrow(base), views };
+  const views = Object.fromEntries(Object.entries(TWIN_OUTFIT.views ?? {}).map(([k, v]) => [k, narrow(v!)])) as NonNullable<Outfit['views']>;
+  const nb = narrow(base);
+  const vs = Object.fromEntries(Object.entries(views).map(([k, v]) => [k, { ...v!, hem: swayHem(v!.hem, sway) }])) as Outfit['views'];
+  return { ...nb, hem: swayHem(nb.hem, sway), views: vs };
 };
 /** Đầu thon lại (ngang ×0,9) và hạ thấp (cổ ngắn, cằm sát vai) như ảnh tham chiếu; tâm phóng ở chân cổ. */
 const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';
 
 /** Nam 2D với dáng tham chiếu (cùng props StudentTwinBody; `outfit` khác áo thun chưa hỗ trợ ở bản thử). */
-export const NamDangMoi: React.FC<BodyProps> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline }) => (
-  <Rigged pose={pose} outfit={namOutfitDang(shirt)} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline}
-    head={<g transform={HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} /></g>} />
+export const NamDangMoi: React.FC<BodyProps & { hemSway?: HemSway }> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, hair, hemSway }) => (
+  <Rigged pose={pose} outfit={namOutfitDang(shirt, hemSway)} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline}
+    head={<g transform={HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} /></g>} />
 );
 
 const colorsOf = (p: Pick<BodyProps, 'outfit' | 'shirt'>) => {
@@ -256,8 +261,8 @@ export const supports25D = (_: Pick<BodyProps, 'pose' | 'outfit'>) => true;
  * 'moi' (mặc định, dáng theo ảnh tham chiếu) hoặc 'chot' (dáng Style B đã chốt). `volume={false}` = bản 2D.
  * Bộ đồ `outfit` khác áo thun tự dùng dáng đã chốt.
  */
-export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25; dang?: 'moi' | 'chot'; lightDir?: [number, number] }> = ({ volume = true, lighting = 'ngay', dang = 'moi', lightDir, ...props }) => {
-  const Body = dang === 'moi' && !props.outfit ? NamDangMoi : StudentTwinBody;
+export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25; dang?: 'moi' | 'chot'; lightDir?: [number, number]; hemSway?: HemSway }> = ({ volume = true, lighting = 'ngay', dang = 'moi', lightDir, hemSway, ...props }) => {
+  const Body: React.FC<BodyProps> = dang === 'moi' && !props.outfit ? (q) => <NamDangMoi {...q} hemSway={hemSway} /> : StudentTwinBody;
   if (!volume) return <Body {...props} />;
   const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;
   const c = colorsOf(props);

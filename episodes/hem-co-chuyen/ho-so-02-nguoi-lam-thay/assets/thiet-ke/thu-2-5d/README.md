@@ -9,6 +9,7 @@
 | [tu-the.png](tu-the.png) | Đi, ngồi ghế đẩu, cầm điện thoại, đứng trước gương (sau lưng) |
 | [nam-2-5d.png](nam-2-5d.png) | So sánh 2D ↔ 2.5D toàn thân và ba nét mặt |
 | [trong-phong.png](trong-phong.png) | Nam trong phòng 3D đang dùng, 2D ↔ 2.5D: ban ngày (cửa sổ), đêm (đèn bàn), đêm (laptop) |
+| [vat-ly-va.png](vat-ly-va.png) · [vat-ly-dat.png](vat-ly-dat.png) · [vat-ly-dung.png](vat-ly-dung.png) · [vat-ly-giat.png](vat-ly-giat.png) | Vật lý thứ cấp: bị va vào vai, nhảy xuống tiếp đất, đang đi dừng khựng, giật mình — hàng trên tư thế gốc, hàng dưới có vật lý |
 | [tham-khao/](tham-khao/) | Ảnh tham chiếu 2,5D chủ repo gửi (tư thế, tạo hình 3 góc, ánh sáng); chỉ học cách đánh sáng/khối, không chép tạo hình |
 
 Nguồn: [`nam-2-5d.tsx`](nam-2-5d.tsx). Bảng xuất bằng `renderToStaticMarkup` + Chromium; không lưu SVG vì mỗi lớp cắt nhúng lại cả nhân vật (0,7–1,6 MB/bảng), dựng lại từ TSX khi cần.
@@ -46,6 +47,17 @@ import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
 <Nam25D lighting="dem-xanh" mood="sleepy" shirt={PALETTE.nam.sleepShirt} pose={{ ...STAND_POSE, view: 'three' }} />
 ```
 
+## Vật lý thứ cấp (vòng 7)
+
+Chủ repo yêu cầu thêm chi tiết vật lý để nhân vật phản ứng chân thật khi có tác động. Mã: [`vat-ly.tsx`](vat-ly.tsx); kiểm tra: [`kiem-tra-vat-ly.cjs`](kiem-tra-vat-ly.cjs).
+
+- **Mô hình:** tư thế gốc (`base(f)`) là diễn xuất đã dựng; lớp này cộng độ lệch từ các lò xo–giảm chấn gắn vào khớp rig: thân (ngả ngược gia tốc), đầu (trễ rồi vượt), bắp tay và cẳng tay (cẳng tay trễ hơn), nhún (dẹt–vươn giữ thể tích + gập gối khi nén), tóc (xoay, dịch ngang, nảy), vạt áo (lệch ngang/dọc). Gia tốc thân lấy từ chính chuyển động của `base` (`pose.x`, `pose.y`, `tilt`), nên đi–dừng, nhảy–đáp tự sinh phản ứng; các cú va dùng `Impact` (`va`, `tiep-dat`, `giat-minh`, `khung`) cộng thẳng vào vận tốc lò xo.
+- **Tất định theo số khung:** mô phỏng từ khung 0 bằng bước cố định, nên Remotion render lại khung bất kỳ cũng ra đúng kết quả. Rẻ (vài nghìn phép tính) nên hook `usePhysics` tính lại mỗi lần render cũng được.
+- **Hệ số:** `DEFAULT_PHYS`. Giảm chấn ζ = c/(2√k) trong [0,25; 1): tóc/vạt áo ≈ 0,35 (vượt 1–2 nhịp rồi lặng nhanh). Vòng đầu tôi để tóc ζ ≈ 0,15 và nó lắc hơn 30 khung — bài kiểm tra bắt được, đã chỉnh. Vòng đầu cũng để thân ngả 14° khi dừng gấp (quá tay), đã giảm hệ số.
+- **Rig gốc chỉ thêm `hair?: HairSway`** (xoay/dịch nhóm tóc quanh da đầu) cho `StudentTwinHead`/`StudentTwinBody`; bỏ trống thì tóc đứng yên, bảng nhân vật trước/sau trùng từng điểm ảnh. Vạt áo lệch qua `Outfit.hem` ở `NamDangMoi` (`hemSway`).
+- **Dùng:** `NamVatLy` (`track`, `frame`, `base`, `physics`); `physics={false}` hiện đúng tư thế gốc để so.
+- `kiem-tra-vat-ly.cjs` (6505 kiểm tra / 4 cảnh): tất định, mọi số hữu hạn, dẹt–vươn giữ thể tích (sx·sy = 1) và trong ±10%, khuỷu/gối không gập ngược, giải khớp hữu hạn, có phản ứng nhìn thấy được, dao động và tóc tắt dần ở cuối, đứng yên không tác động thì chỉ thở.
+
 ## Giới hạn
 
 - Mảng tối là dải bám đường bao: khối rất tròn (đầu, vai) đọc tốt; mặt phẳng lớn chỉ có một dải ở mép, ít "mặt khối" như tranh vẽ tay hoàn toàn.
@@ -53,5 +65,6 @@ import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
 - Dáng mới mới thử ở tư thế đứng/đi/ngồi/cầm máy; chưa rà các tư thế bổ sung (`EXTRA_POSES`, `gripAt` vẫn tính theo xương đã chốt nên đồ cầm sẽ lệch nếu dùng với dáng mới).
 - Góc sau lưng: rig chỉ cho tay vung nhẹ nên chưa giơ tay chạm gương như ảnh tham chiếu.
 - Mỗi lớp cắt dựng lại cả nhân vật (~30–35 bản trong mask), thêm bộ lọc làm mềm → render nặng hơn 2D rõ rệt. Chưa đo trên video.
+- Vật lý chưa gắn với va chạm thật của bối cảnh (chạm bàn, đồ vật): `Impact` do người dựng đặt tay; chưa có chân bước đỡ khi bị đẩy mạnh; tóc chỉ xoay cả khối, chưa từng lọn riêng; vạt áo/tay áo chưa tách chuyển động riêng khỏi thân; mới kiểm tra ở góc 3/4, quay phải. Mới xem bằng dải khung tĩnh, chưa xem video chạy liền.
 - Phòng 3D chưa có nguồn sáng laptop riêng: ở cảnh đêm laptop, đèn bàn ấm vẫn bật trong nền trong khi Nam nhận ánh xanh từ màn hình.
 - Opening mẫu (`HoSo02Opening25D`, bản sao `opening.tsx` trong studio) vẫn dùng `Nam25D` với mặc định ban ngày; chưa gán kiểu sáng theo từng shot và **chưa render lại video** sau vòng 2. Video vòng 1 (local, không commit): `what-if-studio/out/ho-so-02-nguoi-lam-thay/thu-2-5d/opening-nam-2-5d.mp4`. Render trong môi trường này cần `--browser-executable` trỏ Chromium có sẵn vì mạng chặn host tải Chrome của Remotion.
