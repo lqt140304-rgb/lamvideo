@@ -1,6 +1,7 @@
 import React from 'react';
 import { JointPose, Outfit, PALETTE, TungSoccer, TUNG_OUTFIT, TUNG_POSE } from '../../nhan-vat';
-import { HemSway, Light25, swayHem, Volume25 } from './nam-2-5d';
+import { HemSway, Light25, LIGHTS_25D, swayHem, Volume25 } from './nam-2-5d';
+import { exprFrom } from '../../cam-xuc-2-5d';
 import type { PhysFrame } from './vat-ly';
 
 /**
@@ -15,7 +16,9 @@ export const tungOutfitSway = (sway?: HemSway): Outfit => {
   const views = Object.fromEntries(Object.entries(TUNG_OUTFIT.views ?? {}).map(([k, v]) => [k, { ...v!, hem: swayHem(v!.hem, sway) }])) as Outfit['views'];
   return { ...TUNG_OUTFIT, hem: swayHem(TUNG_OUTFIT.hem, sway), views };
 };
-export const Tung25D: React.FC<TungProps & { volume?: boolean; lighting?: Light25; lightDir?: [number, number]; hemSway?: HemSway }> = ({ volume = true, lighting = 'ngay', lightDir, hemSway, ...props0 }) => {
+/** Mặt 2.5D mới mặc định (mood cũ đổi sang bộ cảm xúc mới); `matCu` giữ mặt cũ. */
+export const Tung25D: React.FC<TungProps & { volume?: boolean; lighting?: Light25; lightDir?: [number, number]; hemSway?: HemSway; matCu?: boolean }> = ({ volume = true, lighting = 'ngay', lightDir, hemSway, matCu, ...props1 }) => {
+  const props0 = { ...props1, expr: props1.expr ?? (matCu ? undefined : exprFrom(undefined, props1.mood ?? 'annoyed')), exprLight: props1.exprLight ?? lightDir ?? LIGHTS_25D[lighting].dir };
   const props = hemSway ? { ...props0, outfit: tungOutfitSway(hemSway) } : props0;
   if (!volume) return <TungSoccer {...props} />;
   const { x = 0, y = 0, scale = 1, pose = TUNG_POSE } = props;

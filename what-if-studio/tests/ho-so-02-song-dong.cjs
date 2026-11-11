@@ -95,4 +95,26 @@ for (const tr of cc.TRANSITIONS) {
   assert.equal(cc.transitionPose(tr.id, 1).tilt, tr.keys[tr.keys.length - 1].pose.tilt, `${tr.id} kết thúc đúng khoá cuối`);
 }
 assert.equal(nm.STORY_GROUPS.length, 12);
-console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà');
+
+// Cảm xúc 2.5D tham số: 24 nhóm × 3 mức, trộn/chuyển/sống tất định, khoá cũ đổi sang mặt mới, vẽ không NaN, ID không trùng.
+const cx = require(A + 'cam-xuc-2-5d');
+assert.equal(cx.FAMILY_IDS.length, 24);
+const finite = (e) => Object.values(e).every((v) => typeof v !== 'number' || Number.isFinite(v));
+for (const f of cx.FAMILY_IDS) for (const lv of [1, 2, 3]) assert.ok(finite(cx.exprOf(f, lv)), `${f}-${lv}`);
+assert.deepEqual(cx.exprAmount('vui', 1), cx.exprOf('vui', 3));
+assert.deepEqual(cx.shiftExpr(cx.exprOf('vui', 1), cx.exprOf('so-hai', 3), 1), cx.exprOf('so-hai', 3));
+assert.deepEqual(cx.liveExpr(cx.exprOf('buon', 2), 50, { amount: 0 }), cx.exprOf('buon', 2));
+assert.deepEqual(cx.liveExpr(cx.NEUTRAL, 333, { seed: 4 }), cx.liveExpr(cx.NEUTRAL, 333, { seed: 4 }));
+assert.deepEqual(cx.exprFrom('so-hai-03'), cx.exprOf('so-hai', 3));
+assert.deepEqual(cx.exprFrom(undefined, 'scared'), cx.exprOf('so-hai', 2));
+let blinked = 0; for (let f = 0; f < 900; f++) { const b = cx.blinkAmount(f, 2); assert.ok(b >= 0 && b <= 1); if (b > 0.9) blinked++; }
+assert.ok(blinked > 10, 'có chớp mắt trong 30 s');
+for (let t = 0; t <= 1; t += 0.05) assert.ok(finite(cx.shiftExpr(cx.exprOf('buon', 3), cx.exprOf('vui', 3), t)));
+for (const f of cx.FAMILY_IDS) for (const view of ['three', 'front']) {
+  const html = renderToStaticMarkup(React.createElement('svg', null, React.createElement(require(A + 'thiet-ke/thu-2-5d/nam-2-5d').Nam25DHead, { expr: cx.liveExpr(cx.exprOf(f, 3), 37, { seed: 1 }), view, id: `t-${f}-${view}` })));
+  assert.ok(!/NaN|Infinity|undefined/.test(html), `${f} ${view}`);
+  const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(ids.length, new Set(ids).size, `${f} ${view} trùng id`);
+  assert.ok(html.includes('data-face25d'), `${f} dùng mặt mới`);
+}
+console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà, cảm xúc 2.5D 24×3');

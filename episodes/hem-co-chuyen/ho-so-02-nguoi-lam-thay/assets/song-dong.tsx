@@ -1,7 +1,8 @@
 import React from 'react';
 import { HairSway, JointPose, Limb, StudentTwinBody, TungSoccer, STAND_POSE, TUNG_POSE, type Talk } from './nhan-vat';
 import { SupportingActor, type Role } from './bo-sung-15p/nhan-vat-va-tu-the';
-import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
+import { expr25For, Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
+import { exprFrom, liveExpr } from './cam-xuc-2-5d';
 import { Tung25D, TungVatLy } from './thiet-ke/thu-2-5d/tung-2-5d';
 import { NamVatLy, simulate, type Impact, type PhysParams, DEFAULT_PHYS } from './thiet-ke/thu-2-5d/vat-ly';
 
@@ -176,18 +177,22 @@ export const LivingCast: React.FC<React.ComponentProps<typeof SupportingActor> &
  * Nhận mọi prop của `Nam25D` (`lighting`, `lightDir` từ `lightFor`, `dang`, `hemSway`…). Muốn thêm quán tính/va chạm, dùng `NamVatLy` với
  * `base={(f) => lifePose(dáng(f), f, { seed })}` thay cho dáng gốc; đã kiểm tra hai lớp chồng không NaN trong tests/ho-so-02-song-dong.cjs.
  */
-export const LivingNam25D: React.FC<React.ComponentProps<typeof Nam25D> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 0, life, pose, blink, hair, ...rest }) => (
-  <Nam25D {...rest} pose={lifePose(pose ?? STAND_POSE, frame, { seed, ...life })} blink={blink ?? blinkAt(frame, seed)} hair={hair ?? ((life?.amount ?? 1) > 0 ? hairLife(frame, seed, life?.amount ?? 1) : undefined)} />
-);
+export const LivingNam25D: React.FC<React.ComponentProps<typeof Nam25D> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 0, life, pose, blink, hair, ...rest }) => {
+  // mặt 2.5D sống: chớp là độ sụp mí liên tục, liếc nhỏ, mày/khoé môi nhích (cam-xuc-2-5d.tsx); mặt cũ (`matCu`) vẫn chớp bật/tắt
+  const base = expr25For(rest, rest.matCu);
+  const expr = base && !rest.matCu ? liveExpr(base, frame, { seed, amount: life?.amount ?? 1 }) : base;
+  return <Nam25D {...rest} expr={expr} pose={lifePose(pose ?? STAND_POSE, frame, { seed, ...life })} blink={blink ?? (expr && !rest.matCu ? undefined : blinkAt(frame, seed))} hair={hair ?? ((life?.amount ?? 1) > 0 ? hairLife(frame, seed, life?.amount ?? 1) : undefined)} />;
+};
 
 /** Người Kia 2.5D: `Nam25D` với `identity="nguoi-kia"` (cùng dáng, bộ đồ và lớp sáng của Nam; khác mặt, nốt ruồi và nét mặt). */
 export const NguoiKia25D: React.FC<Omit<React.ComponentProps<typeof Nam25D>, 'identity'>> = (props) => <Nam25D {...props} identity="nguoi-kia" />;
 export const LivingNguoiKia25D: React.FC<Omit<React.ComponentProps<typeof LivingNam25D>, 'identity'>> = (props) => <LivingNam25D {...props} identity="nguoi-kia" />;
 
 /** Tùng 2.5D sống: thở, chớp mắt, dịch trọng tâm trên `Tung25D`. Mặc định dáng của Tùng (`TUNG_POSE`). */
-export const LivingTung25D: React.FC<React.ComponentProps<typeof Tung25D> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 11, life, pose, blink, ...rest }) => (
-  <Tung25D {...rest} pose={lifePose(pose ?? TUNG_POSE, frame, { seed, ...life })} blink={blink ?? blinkAt(frame, seed)} />
-);
+export const LivingTung25D: React.FC<React.ComponentProps<typeof Tung25D> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 11, life, pose, blink, ...rest }) => {
+  const expr = rest.matCu ? rest.expr : liveExpr(rest.expr ?? exprFrom(undefined, rest.mood ?? 'annoyed'), frame, { seed, amount: life?.amount ?? 1 });
+  return <Tung25D {...rest} expr={expr} pose={lifePose(pose ?? TUNG_POSE, frame, { seed, ...life })} blink={blink ?? (rest.matCu ? blinkAt(frame, seed) : undefined)} />;
+};
 
 /**
  * Nam / Người Kia 2.5D có CẢ dáng sống LẪN vật lý thứ cấp: `lifePose` (thở, trôi, trọng tâm) đi vào dáng gốc, rồi mô phỏng quán tính,
@@ -201,7 +206,9 @@ export const NamSongVatLy: React.FC<Omit<React.ComponentProps<typeof NamVatLy>, 
   const key = JSON.stringify([total, seed, life, impacts]);
   const living = React.useMemo(() => (f: number) => lifePose(base(f), f, { seed, ...life }), [key]); // eslint-disable-line react-hooks/exhaustive-deps
   const track = React.useMemo(() => simulate(living, impacts, total, phys), [key]); // eslint-disable-line react-hooks/exhaustive-deps
-  return <NamVatLy {...rest} blink={blink ?? blinkAt(frame, seed)} track={track} frame={frame} base={living} />;
+  const e0 = expr25For(rest, rest.matCu);
+  const expr = e0 && !rest.matCu ? liveExpr(e0, frame, { seed, amount: life?.amount ?? 1 }) : e0;
+  return <NamVatLy {...rest} expr={expr} blink={blink ?? (rest.matCu ? blinkAt(frame, seed) : undefined)} track={track} frame={frame} base={living} />;
 };
 
 /** Tùng 2.5D có dáng sống LẪN vật lý thứ cấp (xem `NamSongVatLy`). Dáng gốc mặc định `TUNG_POSE`. */
@@ -211,5 +218,6 @@ export const TungSongVatLy: React.FC<Omit<React.ComponentProps<typeof TungVatLy>
   const key = JSON.stringify([total, seed, life, impacts]);
   const living = React.useMemo(() => (f: number) => lifePose(base ? base(f) : TUNG_POSE, f, { seed, ...life }), [key]); // eslint-disable-line react-hooks/exhaustive-deps
   const track = React.useMemo(() => simulate(living, impacts, total, phys), [key]); // eslint-disable-line react-hooks/exhaustive-deps
-  return <TungVatLy {...rest} blink={blink ?? blinkAt(frame, seed)} track={track} frame={frame} base={living} />;
+  const expr = rest.matCu ? rest.expr : liveExpr(rest.expr ?? exprFrom(undefined, rest.mood ?? 'annoyed'), frame, { seed, amount: life?.amount ?? 1 });
+  return <TungVatLy {...rest} expr={expr} blink={blink ?? (rest.matCu ? blinkAt(frame, seed) : undefined)} track={track} frame={frame} base={living} />;
 };

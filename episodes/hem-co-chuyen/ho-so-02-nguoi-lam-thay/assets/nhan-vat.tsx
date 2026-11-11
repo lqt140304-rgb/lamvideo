@@ -5,6 +5,7 @@ import { ArticulatedMouth, MouthShape } from '../../../../what-if-studio/src/eng
 import { FaceKey as BaseFaceKey, FACES as BASE_FACES } from '../../../../what-if-studio/library/expressions/cartoon-soft/net-mat';
 import { StoryFaceKey, STORY_FACES } from '../../../../what-if-studio/library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat';
 type FaceKey = BaseFaceKey | StoryFaceKey;
+import { Expr, Face25D, moodOfExpr, talkExpr } from './cam-xuc-2-5d';
 const FACES = {...BASE_FACES, ...STORY_FACES};
 
 // ============================================================================
@@ -236,7 +237,12 @@ export const StudentTwinHead: React.FC<{
   scale?: number;
   /** Tóc đung đưa theo vật lý; bỏ trống = tóc đứng yên. */
   hair?: HairSway;
-}> = ({ gazeY = 0, mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1, hair: sway }) => {
+  /** Mặt 2.5D tham số (`cam-xuc-2-5d.tsx`). Có giá trị thì thay mắt–mày–miệng ở chính diện/3/4; mặt nghiêng dùng mood gần nhất. */
+  expr?: Expr;
+  /** Hướng tới nguồn sáng cho mặt 2.5D (đốm sáng mắt). */
+  exprLight?: [number, number];
+}> = ({ gazeY = 0, mood: mood0 = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1, hair: sway, expr, exprLight }) => {
+  const mood = expr ? (moodOfExpr(expr) as NamMood) : mood0;
   const markNear = identity === 'nam' ? facing === 1 : facing === -1;
   const isShocked = mood === 'shocked';
   const isSuspicious = mood === 'suspicious';
@@ -282,6 +288,11 @@ export const StudentTwinHead: React.FC<{
         {...o(PALETTE.nam.hair)}
       />
 
+      {expr ? (
+        <Face25D e={talkExpr(blink ? { ...expr, lid: 1 } : expr, talk)} view={front ? 'front' : 'three'} light={exprLight} uid={`${clip}-x`}
+          skull={front ? 'M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 62 138 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -62 138 -60 108 Z' : 'M -55 60 Q -50 25 -9 25 Q 42 24 53 66 L 55 111 Q 72 130 54 146 Q 38 166 6 165 Q -30 163 -45 138 L -58 100 Z'}
+          nose={front ? 'M 4 110 Q 10 118 16 110' : 'M 13 113 Q 25 115 22 123 L 13 125'} mark={[front ? (identity === 'nam' ? -32 : 52) : (markNear ? -32 : 47), 80]} />
+      ) : (
       <g transform={front ? 'translate(-10 0)' : undefined}>
       {face ? (
         <>
@@ -425,6 +436,7 @@ export const StudentTwinHead: React.FC<{
       </g>
       </>)}
       </g>
+      )}
     </g>
   );
 };
@@ -1028,8 +1040,11 @@ export const StudentTwinBody: React.FC<{
   outfit?: NamOutfitId;
   /** Tóc đung đưa (vật lý thứ cấp). */
   hair?: HairSway;
-}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, outfit, hair }) => (
-  <Rigged pose={pose} outfit={outfit ? NAM_OUTFITS[outfit] : { ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} />} />
+  /** Mặt 2.5D tham số; xem `StudentTwinHead`. */
+  expr?: Expr;
+  exprLight?: [number, number];
+}> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, outfit, hair, expr, exprLight }) => (
+  <Rigged pose={pose} outfit={outfit ? NAM_OUTFITS[outfit] : { ...TWIN_OUTFIT, shirt }} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline} head={<StudentTwinHead identity={identity} mood={mood} id="twin-full-body" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} expr={expr} exprLight={exprLight} />} />
 );
 
 /** Use this entry point for the mirror-born double; pose/held hands remain explicit. */
@@ -1050,9 +1065,14 @@ export const TungHead: React.FC<{
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ mood = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1 }) => {
+  /** Mặt 2.5D tham số (cùng hệ với Nam). */
+  expr?: Expr;
+  exprLight?: [number, number];
+}> = ({ mood: mood0 = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1, expr, exprLight }) => {
   const clip = useClipId(id);
   const o = useHeadLine();
+  const em = expr ? moodOfExpr(expr) : undefined;
+  const mood: TungMood = em ? (em === 'annoyed' || em === 'agitated' || em === 'suspicious' ? 'annoyed' : 'normal') : mood0;
   const isAnnoyed = mood === 'annoyed';
   const isFocused = mood === 'focused';
   if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} />;
@@ -1085,6 +1105,11 @@ export const TungHead: React.FC<{
       {/* Nếp rãnh lọn tóc nhẹ */}
       <path d="M -16 18 Q -4 12 6 16 M 16 14 Q 26 16 34 26 M -8 38 Q 4 38 12 48" fill="none" visibility="visible" stroke={PALETTE.tung.hair} style={{ strokeWidth: lw(2.2) }} />
 
+      {expr ? (
+        <Face25D e={talkExpr(blink ? { ...expr, lid: 1 } : expr, talk)} view={front ? 'front' : 'three'} light={exprLight} uid={`${clip}-x`}
+          skull={front ? 'M -56 62 Q -50 25 0 25 Q 50 25 56 62 L 58 104 Q 58 132 38 152 Q 18 165 0 164 Q -18 165 -38 152 Q -58 132 -58 104 Z' : 'M -54 62 Q -50 25 -9 24 Q 40 24 51 64 L 53 108 Q 62 126 48 144 Q 34 162 4 163 Q -28 162 -42 138 L -55 100 Z'}
+          nose={front ? 'M 4 110 Q 10 118 16 110' : 'M 12 113 Q 23 115 20 123 L 12 125'} />
+      ) : (
       <g transform={front ? 'translate(-10 0)' : undefined}>
       {/* Mắt thể thao tỉnh táo */}
       <defs>
@@ -1133,6 +1158,7 @@ export const TungHead: React.FC<{
       )}
       </g>
       </g>
+      )}
     </g>
   );
 };
@@ -1227,8 +1253,11 @@ export const TungSoccer: React.FC<{
   light?: Light;
   /** Bộ đồ thay thế (vd vạt áo lệch theo vật lý); mặc định `TUNG_OUTFIT`. */
   outfit?: Outfit;
-}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose = TUNG_POSE, talk, blink, light, outfit = TUNG_OUTFIT }) => (
-  <Rigged pose={pose} outfit={outfit} x={x} y={y} scale={scale} light={light} head={<TungHead mood={mood} id="tung-soccer-head" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
+  /** Mặt 2.5D tham số; xem `TungHead`. */
+  expr?: Expr;
+  exprLight?: [number, number];
+}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose = TUNG_POSE, talk, blink, light, outfit = TUNG_OUTFIT, expr, exprLight }) => (
+  <Rigged pose={pose} outfit={outfit} x={x} y={y} scale={scale} light={light} head={<TungHead mood={mood} id="tung-soccer-head" view={pose.view} facing={pose.facing} talk={talk} blink={blink} expr={expr} exprLight={exprLight} />} />
 );
 
 // ----------------------------------------------------------------------------
