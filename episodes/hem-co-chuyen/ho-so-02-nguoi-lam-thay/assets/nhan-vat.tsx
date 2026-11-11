@@ -1050,14 +1050,16 @@ export const TungHead: React.FC<{
   x?: number;
   y?: number;
   scale?: number;
-}> = ({ mood = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1 }) => {
+  /** Tóc đung đưa theo vật lý; bỏ trống = tóc đứng yên. */
+  hair?: HairSway;
+}> = ({ mood = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1, hair: sway }) => {
   const clip = useClipId(id);
   const o = useHeadLine();
   const isAnnoyed = mood === 'annoyed';
   const isFocused = mood === 'focused';
-  if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} />;
-  if (view === 'quarter') return <QuarterHead hair={TUNG_HAIR} mole={false} x={x} y={y} scale={scale} />;
-  if (view === 'side') return <ProfileHead hair={TUNG_HAIR} mood={isAnnoyed ? 'annoyed' : 'calm'} clip={clip} mole={false} talk={talk} blink={blink} x={x} y={y} scale={scale} />;
+  if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'quarter') return <QuarterHead hair={TUNG_HAIR} mole={false} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'side') return <ProfileHead hair={TUNG_HAIR} mood={isAnnoyed ? 'annoyed' : 'calm'} clip={clip} mole={false} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
   const front = view === 'front';
   const rxR = front ? 15 : 16;
   const rxL = front ? 15 : 14.5;
@@ -1080,10 +1082,11 @@ export const TungHead: React.FC<{
         d={front ? 'M -58 86 Q -66 68 -62 50 L -70 44 Q -60 24 -40 22 L -46 12 Q -26 12 -12 8 L -14 0 Q 2 -6 16 2 L 14 8 Q 30 4 42 16 L 40 22 Q 54 24 62 40 L 66 46 L 58 56 L 58 86 Q 50 62 34 52 Q 22 64 6 62 L 8 50 Q -14 70 -42 66 L -46 86 Z' : 'M -48 90 Q -60 76 -57 52 L -66 48 Q -58 26 -38 24 L -44 14 Q -26 14 -12 10 L -14 2 Q 2 -4 16 4 L 14 10 Q 28 6 40 18 L 38 24 Q 50 24 56 36 L 52 46 Q 44 48 40 56 L 32 52 Q 24 66 8 68 L 12 54 Q -6 72 -24 70 L -18 56 Q -34 68 -42 78 Z'}
         fill={PALETTE.tung.hair}
         visibility="visible"
+        transform={hairSway(sway)}
         {...o(PALETTE.tung.hair)}
       />
       {/* Nếp rãnh lọn tóc nhẹ */}
-      <path d="M -16 18 Q -4 12 6 16 M 16 14 Q 26 16 34 26 M -8 38 Q 4 38 12 48" fill="none" visibility="visible" stroke={PALETTE.tung.hair} style={{ strokeWidth: lw(2.2) }} />
+      <path d="M -16 18 Q -4 12 6 16 M 16 14 Q 26 16 34 26 M -8 38 Q 4 38 12 48" fill="none" visibility="visible" stroke={PALETTE.tung.hair} transform={hairSway(sway)} style={{ strokeWidth: lw(2.2) }} />
 
       <g transform={front ? 'translate(-10 0)' : undefined}>
       {/* Mắt thể thao tỉnh táo */}
@@ -1199,7 +1202,7 @@ const TUNG_VIEWS: Outfit['views'] = {
   },
 };
 
-const TUNG_OUTFIT: Outfit = {
+export const TUNG_OUTFIT: Outfit = {
   shirt: PALETTE.tung.jersey, sleeveEnd: 0.5, hem: [[-46, 318], [46, 318], [60, 340], [36, 354], [12, 347], [-20, 360], [-58, 344]], cuff: PALETTE.tung.jerseyTrim,
   torso: 'M -24 176 Q -56 178 -84 210 L -56 256 Q -60 306 -56 342 Q -20 358 12 345 Q 36 352 58 338 Q 52 300 50 256 L 76 210 Q 62 190 16 177 Q -6 192 -24 176 Z',
   pants: PALETTE.tung.shorts, pantsLen: 'short', stripe: PALETTE.tung.shortsStripe,
@@ -1225,8 +1228,10 @@ export const TungSoccer: React.FC<{
   talk?: Talk;
   blink?: boolean;
   light?: Light;
-}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose = TUNG_POSE, talk, blink, light }) => (
-  <Rigged pose={pose} outfit={TUNG_OUTFIT} x={x} y={y} scale={scale} light={light} head={<TungHead mood={mood} id="tung-soccer-head" view={pose.view} facing={pose.facing} talk={talk} blink={blink} />} />
+  /** Tóc đung đưa (vật lý thứ cấp). */
+  hair?: HairSway;
+}> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose = TUNG_POSE, talk, blink, light, hair }) => (
+  <Rigged pose={pose} outfit={TUNG_OUTFIT} x={x} y={y} scale={scale} light={light} head={<TungHead mood={mood} id="tung-soccer-head" view={pose.view} facing={pose.facing} talk={talk} blink={blink} hair={hair} />} />
 );
 
 // ----------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 import React from 'react';
 import { HairSway, JointPose, Limb, PALETTE, STAND_POSE, sampleWalk, TWIN_POSES } from '../../nhan-vat';
 import { Light25, Nam25D } from './nam-2-5d';
+import { NguoiKia25D, Tung25D } from './nhan-vat-khac-2-5d';
 
 /**
  * VẬT LÝ THỨ CẤP CHO NAM (thử 11/11/2026).
@@ -157,14 +158,14 @@ type NamProps = React.ComponentProps<typeof Nam25D>;
  * Nam 2.5D có vật lý: nhận `frame` (số khung hiện tại) và bản mô phỏng; dẹt–vươn quanh bàn chân, tóc, vạt áo, khớp lấy từ `PhysFrame`.
  * `physics={false}` hiển thị đúng tư thế gốc để so sánh.
  */
-export const NamVatLy: React.FC<Omit<NamProps, 'pose' | 'hair'> & { track: PhysFrame[]; frame: number; base: (f: number) => JointPose; physics?: boolean; groundY?: number }> = ({ track, frame, base, physics = true, x = 0, y = 0, scale = 1, groundY = 589, ...rest }) => {
+export const NamVatLy: React.FC<Omit<NamProps, 'pose' | 'hair'> & { track: PhysFrame[]; frame: number; base: (f: number) => JointPose; physics?: boolean; groundY?: number; Body?: React.ComponentType<any> }> = ({ track, frame, base, physics = true, x = 0, y = 0, scale = 1, groundY = 589, Body = Nam25D, ...rest }) => {
   const fr = track[clampN(Math.round(frame), 0, track.length - 1)];
-  if (!physics) return <Nam25D {...rest} x={x} y={y} scale={scale} pose={base(frame)} />;
+  if (!physics) return <Body {...rest} x={x} y={y} scale={scale} pose={base(frame)} />;
   const { sx, sy } = fr.squash;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <g transform={`translate(0 ${groundY}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(0 ${-groundY})`}>
-        <Nam25D {...rest} x={0} y={0} scale={1} pose={fr.pose} hair={fr.hair} hemSway={fr.hem} />
+        <Body {...rest} x={0} y={0} scale={1} pose={fr.pose} hair={fr.hair} hemSway={fr.hem} />
       </g>
     </g>
   );
@@ -206,14 +207,21 @@ const SCENES: { id: string; title: string; note: string; total: number; frames: 
 ];
 export const PHYS_SCENES = SCENES;
 
-export const VatLyBoard: React.FC<{ scene?: string }> = ({ scene = 'va' }) => {
+export type Who25 = 'nam' | 'kia' | 'tung';
+const WHO: Record<Who25, { Body: React.ComponentType<any>; props: Record<string, unknown>; name: string }> = {
+  nam: { Body: Nam25D, props: { shirt: PALETTE.nam.sleepShirt, mood: 'sleepy' }, name: 'NAM' },
+  kia: { Body: NguoiKia25D, props: { mood: 'calm' }, name: 'NGƯỜI KIA' },
+  tung: { Body: Tung25D, props: { mood: 'annoyed' }, name: 'TÙNG' },
+};
+export const VatLyBoard: React.FC<{ scene?: string; who?: Who25 }> = ({ scene = 'va', who = 'nam' }) => {
+  const W0 = WHO[who];
   const sc = SCENES.find((s) => s.id === scene) ?? SCENES[0];
   const track = simulate(sc.base, sc.impacts, sc.total);
   const W = 1920, cols = sc.frames.length, cw = W / cols;
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={W} height={1080} viewBox={`0 0 ${W} 1080`}>
       <rect width={W} height={1080} fill="#f6f1e8" />
-      <text x={W / 2} y={46} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={28} fontWeight={800} fill={PALETTE.ink}>{`VẬT LÝ THỨ CẤP — ${sc.title}`}</text>
+      <text x={W / 2} y={46} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={28} fontWeight={800} fill={PALETTE.ink}>{`VẬT LÝ THỨ CẤP — ${W0.name} — ${sc.title}`}</text>
       <text x={W / 2} y={74} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={15} fill="#69706c">{sc.note}</text>
       {['TƯ THẾ GỐC (không vật lý)', 'CÓ VẬT LÝ'].map((t, row) => (
         <g key={t}>
@@ -223,7 +231,7 @@ export const VatLyBoard: React.FC<{ scene?: string }> = ({ scene = 'va' }) => {
             return (
               <g key={f}>
                 <path d={`M ${cw * i + 20} ${floor} H ${cw * (i + 1) - 20}`} stroke="#d7cdb9" strokeWidth={2} />
-                <NamVatLy track={track} frame={f} base={sc.base} physics={!!row} lighting={'ngay' as Light25} shirt={PALETTE.nam.sleepShirt} mood="sleepy" x={cx - 5 - sc.base(f).x * S} y={floor - 589 * S} scale={S} />
+                <NamVatLy Body={W0.Body} {...(W0.props as object)} track={track} frame={f} base={sc.base} physics={!!row} lighting={'ngay' as Light25} x={cx - 5 - sc.base(f).x * S} y={floor - 589 * S} scale={S} />
                 <text x={cx} y={floor + 30} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={15} fill="#69706c">{`khung ${f}`}</text>
               </g>
             );

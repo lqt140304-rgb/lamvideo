@@ -9,7 +9,8 @@
 | [tu-the.png](tu-the.png) | Đi, ngồi ghế đẩu, cầm điện thoại, đứng trước gương (sau lưng) |
 | [nam-2-5d.png](nam-2-5d.png) | So sánh 2D ↔ 2.5D toàn thân và ba nét mặt |
 | [trong-phong.png](trong-phong.png) | Nam trong phòng 3D đang dùng, 2D ↔ 2.5D: ban ngày (cửa sổ), đêm (đèn bàn), đêm (laptop) |
-| [vat-ly-va.png](vat-ly-va.png) · [vat-ly-dat.png](vat-ly-dat.png) · [vat-ly-dung.png](vat-ly-dung.png) · [vat-ly-giat.png](vat-ly-giat.png) | Vật lý thứ cấp: bị va vào vai, nhảy xuống tiếp đất, đang đi dừng khựng, giật mình — hàng trên tư thế gốc, hàng dưới có vật lý |
+| [dan-nhan-vat.png](dan-nhan-vat.png) · [dan-nhan-vat-trong-phong.png](dan-nhan-vat-trong-phong.png) | **Cả ba nhân vật chính** (Nam, Người Kia, Tùng): 3 góc 2D ↔ 2.5D; và ba người đứng trong phòng 3D ban ngày + đêm (ánh laptop xanh) |
+| [vat-ly-va.png](vat-ly-va.png) · [vat-ly-dat.png](vat-ly-dat.png) · [vat-ly-dung.png](vat-ly-dung.png) · [vat-ly-giat.png](vat-ly-giat.png) · [vat-ly-tung-dung.png](vat-ly-tung-dung.png) · [vat-ly-kia-giat.png](vat-ly-kia-giat.png) | Vật lý thứ cấp: bị va vào vai, nhảy xuống tiếp đất, đang đi dừng khựng, giật mình — hàng trên tư thế gốc, hàng dưới có vật lý |
 | [tham-khao/](tham-khao/) | Ảnh tham chiếu 2,5D chủ repo gửi (tư thế, tạo hình 3 góc, ánh sáng); chỉ học cách đánh sáng/khối, không chép tạo hình |
 
 Nguồn: [`nam-2-5d.tsx`](nam-2-5d.tsx). Bảng xuất bằng `renderToStaticMarkup` + Chromium; không lưu SVG vì mỗi lớp cắt nhúng lại cả nhân vật (0,7–1,6 MB/bảng), dựng lại từ TSX khi cần.
@@ -46,6 +47,22 @@ Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Vòng 3 tôi đo ảnh
 import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
 <Nam25D lighting="dem-xanh" mood="sleepy" shirt={PALETTE.nam.sleepShirt} pose={{ ...STAND_POSE, view: 'three' }} />
 ```
+
+## Người Kia và Tùng (vòng 8)
+
+Áp cùng lớp 2.5D, tách lớp, bóng mềm và vật lý cho hai nhân vật chính còn lại; mã: [`nhan-vat-khac-2-5d.tsx`](nhan-vat-khac-2-5d.tsx), bảng: [dan-nhan-vat.png](dan-nhan-vat.png), [dan-nhan-vat-trong-phong.png](dan-nhan-vat-trong-phong.png).
+
+- **Người Kia** (`NguoiKia25D`): dùng chung rig, đầu, bảng màu và dáng mới với Nam (khác nốt ruồi bên phải, nét mặt mặc định điềm tĩnh, áo rêu) — chỉ đổi danh tính nên không có đường đi riêng nào cần kiểm thêm.
+- **Tùng** (`Tung25D`): đầu và đồ riêng nên khai bảng màu nhận diện khối riêng (`Pal25`: áo + tất cùng navy, viền cổ/số 7/sọc/giày cùng màu kem, quần đùi, tóc). Dáng theo ảnh tham chiếu, đo bằng cách ghép cùng chiều cao như Nam: chân ngắn ~6%, bàn tay 1,22, vai ×0,96, tay dày hơn chút (`TUNG_DANG`). Rig gốc chỉ thêm tham số `hair` cho `TungHead`/`TungSoccer`, xuất `TUNG_OUTFIT`; bảng nhân vật (có Tùng) trước/sau trùng từng điểm ảnh.
+- **Lớp ánh sáng đã khái quát hoá:** `Volume25` nhận bảng màu `Pal25` (danh sách màu áo, quần, tóc) thay vì cứng theo Nam; đầu/mắt luôn bị loại khỏi khối áo/quần (mắt Tùng cùng màu kem với viền áo nên trước đó sẽ bị bóng áo phủ lên). Nam không đổi một điểm ảnh (so bảng `nam-2-5d.png`, `anh-sang.png`).
+- **Vật lý:** `NamVatLy` nhận `Body` (mặc định `Nam25D`, hoặc `NguoiKia25D`/`Tung25D`); `VatLyBoard` có tham số `who`. Mẫu: [vat-ly-tung-dung.png](vat-ly-tung-dung.png), [vat-ly-kia-giat.png](vat-ly-kia-giat.png).
+- **Kiểm tra:** [`kiem-tra-2-5d.cjs`](kiem-tra-2-5d.cjs) — 610 kiểm tra: 3 nhân vật × 5 góc × 6 kiểu sáng × tư thế (đứng, ngồi, cầm điện thoại, đi) dựng được, không NaN/undefined, đủ lớp và mask, `volume={false}` là 2D, Tùng chọn khối đúng màu.
+- Opening mẫu `HoSo02Opening25D` giờ dùng 2.5D cho cả ba nhân vật (Người Kia, Tùng thay qua alias import; `opening.tsx` gốc không đổi).
+- **Chưa làm:** vai phụ (giảng viên, mẹ, ba, bác hai, sinh viên); Tùng chưa kiểm ở tư thế bỏ tay vào túi (dùng `TUNG_POSE` gốc); chưa xem chuyển động liền.
+
+## Ánh laptop màu xanh (vòng 8)
+
+Nguồn sáng chính ban đêm của phòng đặt sát bàn laptop nhưng trước đây tô vàng ấm. Đã đổi sang xanh lạnh (`LAPTOP_LIGHT` trong [`boi-canh.tsx`](../../boi-canh/boi-canh.tsx)): quầng quanh bàn, ánh lên mặt/áo người đứng gần (lớp ánh sáng theo mặt của phòng), mảng sáng trên các mặt đồ. Đèn bàn vẫn là vật cạnh laptop (không còn quầng vàng). Đã xuất lại `phong-tro-toi.png`, `ban-hoc-laptop-dem.png`, `boi-canh.png` và các SVG phụ thuộc; `render-previews.cjs` nhận `CHROME_PATH` để chạy khi mạng chặn tải Chrome của Remotion. Trailer 3D/freestyle của nhánh khác còn dùng tint vàng `#ffc878` riêng, chưa đổi.
 
 ## Vật lý thứ cấp (vòng 7)
 

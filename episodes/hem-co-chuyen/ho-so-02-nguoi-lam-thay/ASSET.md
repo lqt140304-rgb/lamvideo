@@ -75,7 +75,7 @@ Ba nhân vật chính của **Hồ sơ 2: Người trong gương** đã được
 ## File thiết kế tham chiếu ban đầu
 - [`assets/thiet-ke/character-svg-v1.png`](assets/thiet-ke/character-svg-v1.png): Bảng đối chiếu ban đầu giữa Rig cũ và Mẫu thử B.
 - [`assets/thiet-ke/character-svg-v1.tsx`](assets/thiet-ke/character-svg-v1.tsx): File thử nghiệm ban đầu của mẫu B.
-- [`assets/thiet-ke/thu-2-5d/`](assets/thiet-ke/thu-2-5d/README.md): **Đã chọn 11/11: dùng 2.5D cho Nam.** `Nam25D` (6 kiểu sáng theo cảnh, tách lớp, dáng theo ảnh tham chiếu, bóng mềm), `NamVatLy` (quán tính, nhún, tóc, vạt áo). Mặc định `dang="moi"`; `dang="chot"`/`volume={false}` trở về bản đã chốt. Chưa áp cho Người Kia/Tùng, chưa render lại opening.
+- [`assets/thiet-ke/thu-2-5d/`](assets/thiet-ke/thu-2-5d/README.md): **Đã chọn 11/11: dùng 2.5D cho Nam.** `Nam25D` (6 kiểu sáng theo cảnh, tách lớp, dáng theo ảnh tham chiếu, bóng mềm), `NamVatLy` (quán tính, nhún, tóc, vạt áo). Mặc định `dang="moi"`; `dang="chot"`/`volume={false}` trở về bản đã chốt. Đã áp cho Người Kia (`NguoiKia25D`) và Tùng (`Tung25D`) trong [`nhan-vat-khac-2-5d.tsx`](assets/thiet-ke/thu-2-5d/nhan-vat-khac-2-5d.tsx); bảng: [dàn nhân vật](assets/thiet-ke/thu-2-5d/dan-nhan-vat.png), [ba người trong phòng](assets/thiet-ke/thu-2-5d/dan-nhan-vat-trong-phong.png). Ánh sáng đêm của phòng là laptop **xanh** (`LAPTOP_LIGHT`). Chưa render lại opening, vai phụ chưa áp.
 
 ---
 

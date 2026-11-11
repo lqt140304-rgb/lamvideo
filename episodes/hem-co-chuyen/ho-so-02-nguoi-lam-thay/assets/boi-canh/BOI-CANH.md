@@ -62,7 +62,7 @@ Tất cả là prop của `RoomScene`, không vẽ cứng vào nền.
 | `phone` | `mat`, `desk`, `hidden` | Màn hình tắt mặc định; báo thức và tin nhắn là lớp riêng theo cue |
 | `kitchen` | `messy`, `clean` | `messy`: chén chất trong bồn, vụn mì cạnh bếp. `clean`: chén úp trên giá, sàn sạch, từ nhịp E trở đi |
 | `sun` | 0 đến 1 | Nắng rút dần về phía cửa sổ cho chuỗi E và G |
-| `night` | true/false | Ánh sáng chỉ đến từ đèn bàn và laptop |
+| `night` | true/false | Ánh sáng chỉ đến từ laptop trên bàn học, màu **xanh lạnh** (`LAPTOP_LIGHT`; trước đây tô vàng như đèn bàn) |
 | `drawerOpen` | true/false | Ngăn giấy tờ kéo ra ở D02 |
 | `move` | `{ truck, push }` theo cm | Dịch máy thật cho C02, E02, H09; vật gần trôi nhiều hơn vật xa. Truyền cùng giá trị cho `placeOn` nếu đặt người thủ công |
 | `sleeper` | hàm vẽ | Vẽ đầu Nam trên gối, nằm dưới chăn, cho A01, G04, H01 |

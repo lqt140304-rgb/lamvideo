@@ -1,8 +1,9 @@
 import React from 'react';
 import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
-import { JointPose, mixPose, NguoiKia, PALETTE, sampleWalk, STAND_POSE, StudentTwinHead, TungSoccer, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
-// THỬ 11/11: Nam dùng lớp 2.5D (mảng sáng–tối tự vẽ); góc chưa hỗ trợ tự rơi về Nam 2D. Bản copy của opening.tsx để so sánh, không thay bản gốc.
+import { JointPose, mixPose, PALETTE, sampleWalk, STAND_POSE, StudentTwinHead, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import { NguoiKia25D as NguoiKia, Tung25D as TungSoccer } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/nhan-vat-khac-2-5d';
+// THỬ 11/11: cả ba nhân vật chính (Nam, Người Kia, Tùng) dùng lớp 2.5D (mảng sáng–tối tự vẽ); góc chưa hỗ trợ tự rơi về Nam 2D. Bản copy của opening.tsx để so sánh, không thay bản gốc.
 import { Nam25D as StudentTwinBody } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/nam-2-5d';
 import { placeOn, RoomScene } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 import { Mirror } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/dao-cu';
