@@ -1158,7 +1158,9 @@ const namSkinPath = (d: number) => {
 };
 // đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
 const NAM_NECK_D = 'M -26 120 L -27 172 Q -27 186 -24 194 Q -16 197 -8 197 Q 8 195 22 198 Q 11 180 7 160 L 6 120 Z';
-const NAM_HEAD_T = 'translate(8 31) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
+const NAM_HEAD_T = 'translate(13 31) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
+// cổ chếch ra trước rõ hơn cổ Tùng, đầu đưa theo (mẫu: cổ cong nhẹ hướng về trước)
+const NAM_NECK_T = 'translate(0 194) skewX(-16) translate(0 -194)';
 const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, mole, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
@@ -1174,15 +1176,15 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
       <defs>
         <filter id={`${clip}-soft`} filterUnits="userSpaceOnUse" x={-150} y={-60} width={300} height={320}><feGaussianBlur stdDeviation={2.6} /></filter>
         <filter id={`${clip}-soft2`} filterUnits="userSpaceOnUse" x={-150} y={-60} width={300} height={320}><feGaussianBlur stdDeviation={1.8} /></filter>
-        <clipPath id={`${clip}-neck`}><path d={NAM_NECK_D} transform={NECK_T} /></clipPath>
+        <clipPath id={`${clip}-neck`}><path d={NAM_NECK_D} transform={NAM_NECK_T} /></clipPath>
         <clipPath id={`${clip}-face`}><path d={skin} /></clipPath>
       </defs>
       {/* Cổ ngắn dày, loe ở gốc; cổ áo tròn vẽ đè lên chân cổ */}
-      <path d={NAM_NECK_D} transform={NECK_T} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <path d={NAM_NECK_D} transform={NAM_NECK_T} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <g clipPath={`url(#${clip}-neck)`} stroke="none" data-shadow="drawn-neck">
         <g filter={`url(#${clip}-soft2)`}>
           <rect x={-150} y={-60} width={300} height={320} fill={PALETTE.skinShadow} opacity={0.3} />
-          <path d={NAM_NECK_D} transform={`translate(-7 0) ${NECK_T}`} fill={PALETTE.skin} />
+          <path d={NAM_NECK_D} transform={`translate(-7 0) ${NAM_NECK_T}`} fill={PALETTE.skin} />
         </g>
         <g filter={`url(#${clip}-soft)`}><g transform={NAM_HEAD_T}><path d={skin} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
       </g>
