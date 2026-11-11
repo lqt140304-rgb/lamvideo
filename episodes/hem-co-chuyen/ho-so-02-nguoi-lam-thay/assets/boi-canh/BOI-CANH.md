@@ -7,7 +7,7 @@
 
 ![Bảng các góc máy](boi-canh.png)
 
-> **Ánh sáng 11/11/2026 (chờ duyệt):** theo ảnh đề xuất của chủ repo, `RoomScene` có thêm lớp ánh sáng hoàn thiện, mặc định bật (`grade`). Ban ngày: nắng vàng in từng ô cửa xuống sàn (nằm dưới đồ đạc), quầng sáng quanh cửa sổ, phía xa cửa sổ dịu và lạnh hơn. Ban đêm: phòng ngả xanh thẫm, chỉ quầng đèn bàn ấm. Hành lang: đèn tuýp toả sáng, tường tối dần xuống dưới. Truyền `grade={false}` để lấy lại bảng màu phẳng cũ. Lớp này phủ cả người đặt qua `actors`; người truyền qua `children` thì không. Các PNG/SVG trong thư mục đã xuất lại.
+> **Ánh sáng 11/11/2026 (chờ duyệt):** theo ảnh đề xuất của chủ repo, `RoomScene` có `grade` (mặc định bật). Ánh sáng làm theo **từng mặt vật thể**: mỗi mặt có ba mức vẽ sẵn (hướng nguồn sáng và ở gần thì ám ấm, quay lưng thì ám lạnh, còn lại giữ màu gốc), nguồn chính là cửa sổ (ngày), đèn bàn (đêm), đèn tuýp (hành lang); ban đêm cửa sổ chỉ hắt ánh trăng rất nhẹ. Thêm vài mảng nắng vàng trên sàn và bóng ngắn vẽ sẵn của nệm, tủ, bàn, bếp (ngày). Người đặt qua `actors` được ám ấm phía nguồn sáng và ám lạnh phía ngược lại, cắt đúng theo hình người (mask alpha); người truyền qua `children` thì không. Lớp phủ toàn ảnh chỉ còn là hòa màu nhẹ ở cuối. Truyền `grade={false}` để lấy lại bảng màu phẳng cũ.
 
 ## Mặt bằng
 
