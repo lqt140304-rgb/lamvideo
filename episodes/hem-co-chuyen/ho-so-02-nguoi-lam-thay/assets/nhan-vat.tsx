@@ -835,7 +835,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             {(view === 'three' || view === 'front') && <g><defs><clipPath id={hemClip}><path d={[o.torso, hemDrape(o, r.tilt)].join(' ')} /></clipPath></defs><path data-shadow="drawn-hem" clipPath={`url(#${hemClip})`} d="M-49 337Q-19 350 12 341Q36 348 56 337L56 348Q35 360 13 355Q-20 365-58 351Z" fill="#253f37" opacity={0.2} stroke="none" />{/* mặt hông phía xa của thân áo (quay khỏi máy): một mảng tự vẽ để thân có khối, không theo đèn */}<path data-shadow="drawn-side" clipPath={`url(#${hemClip})`} d={view === 'front' ? 'M78 268Q56 276 52 300Q48 340 54 366H110V268Z' : 'M70 268Q48 276 42 300Q38 340 42 366H110V268Z'} fill="#253f37" opacity={0.12} stroke="none" /></g>}
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
-          <g transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
+          {/* data-part="head": nhãn để lớp 2.5D tách da đầu khỏi da tay khi cắt mảng; không ảnh hưởng hình vẽ */}
+          <g data-part="head" transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
           {pose.prop === 'phoneLandscape' && <g data-prop="phone-landscape" transform={`translate(${(r.armR.end.x+r.armL.end.x)/2} ${(r.armR.end.y+r.armL.end.y)/2})`}>
             <rect x={-49} y={-16} width={98} height={51} rx={8} fill="#34434a" />
             <rect x={-40} y={-10} width={80} height={38} rx={4} fill="#80978d" />
