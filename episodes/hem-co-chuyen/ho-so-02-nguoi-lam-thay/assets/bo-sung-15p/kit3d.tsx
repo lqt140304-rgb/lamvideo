@@ -38,7 +38,7 @@ type Item = { layer: number; depth: number; node: React.ReactNode };
 export type FaceOpt = { n?: V3; cull?: boolean; edge?: boolean; seam?: boolean; raw?: boolean; op?: number; layer?: number; blend?: string; emit?: boolean };
 
 /** Một bối cảnh: gom các mặt, sắp xếp và vẽ. */
-export const makeScene = (cam: Cam, light: Light, frame: number | null = null, layers = false) => {
+export const makeScene = (cam: Cam, light: Light, frame: number | null = null, layers: boolean | { fore?: number; back?: number } = false) => {
   const items: Item[] = [];
   const shadows: React.ReactNode[] = [];
   const glows: React.ReactNode[] = [];
@@ -280,7 +280,7 @@ export const makeScene = (cam: Cam, light: Light, frame: number | null = null, l
     const rest = sorted.filter((i) => i.layer >= 1);
     // Tách lớp để ghép thị sai: BACK = vỏ phòng và vật ở xa, FORE = vật gần máy nhất, MID = còn lại (giữ nguyên thứ tự vẽ).
     const obj = rest.filter((i) => i.layer >= 2), dmin = Math.min(...obj.map((i) => i.depth)), dmax = Math.max(...obj.map((i) => i.depth));
-    const foreD = dmin + (dmax - dmin) * 0.16, backD = dmin + (dmax - dmin) * 0.62;
+    const LS = typeof layers === 'object' ? layers : {}, foreD = dmin + (dmax - dmin) * (LS.fore ?? 0.16), backD = dmin + (dmax - dmin) * (LS.back ?? 0.62);
     const grouped = (arr: Item[], name: string) => <g data-layer={name}>{arr.map((i) => i.node)}</g>;
     if (layers && obj.length) {
       const back = rest.filter((i) => i.layer < 2 || i.depth >= backD), fore = rest.filter((i) => i.layer >= 2 && i.depth < foreD), mid = rest.filter((i) => i.layer >= 2 && i.depth >= foreD && i.depth < backD);

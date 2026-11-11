@@ -116,7 +116,7 @@ const goosenecMic = (S: ReturnType<typeof makeScene>, b: V3, toward: [number, nu
   const h = pts[pts.length - 1];
   S.line(h, [h[0] + toward[0] * 6, h[1] - 2, h[2] + toward[1] * 6], '#1f2524', 3.2, { cm: true, layer: 2.45 });
 };
-export const LectureHall = ({ children, failed = false, students = true, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; failed?: boolean; students?: boolean; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const LectureHall = ({ children, failed = false, students = true, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; failed?: boolean; students?: boolean; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const id = uid(), S = makeScene(camera(cam ?? LECTURE_VIEWS[view]), LECTURE_LIGHT, frame, layers);
   const X: [number, number] = [-520, 520], Z: [number, number] = [-200, 1500], H = 430;
   shellRoom(S, X, Z, H, { lowerH: 110, lower: '#c3ccc4', wall: '#e3e4da', front: '#e7e7dd', floor: '#c9c4b2', ceil: '#eef0ea' });
@@ -211,7 +211,7 @@ const monitor = (S: ReturnType<typeof makeScene>, x: number, y: number, z: numbe
   S.glow([x, y + 29, z - 4], 26, '#d9f1ee', 0.14);
   S.box({ x: [x - 21, x + 21], y: [y, y + 2], z: [z - 30, z - 16], c: '#5c6766', top: '#7c8786' });
 };
-export const ComputerLab = ({ children, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const ComputerLab = ({ children, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const id = uid(), S = makeScene(camera(LAB_VIEWS[view]), LAB_LIGHT, frame, layers);
   const X: [number, number] = [-480, 480], Z: [number, number] = [-200, 1250], H = 320;
   shellRoom(S, X, Z, H, { lowerH: 100, lower: '#b8c6b8', wall: '#e1e6d8', front: '#e6e8db', floor: '#c4ccbd' });
@@ -258,7 +258,7 @@ export const ComputerLab = ({ children, view = 'chinh', frame = null, layers = f
 export const CORR_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [40, 165, -60], look: [-20, 135, 3000], mm: 22 }, nguoc: { pos: [-30, 165, 3400], look: [40, 135, -200], mm: 22 }, cheo: { pos: [140, 170, 2000], look: [-160, 115, 1350], mm: 24 }, cao: { pos: [40, 310, 120], look: [-60, 0, 1500], mm: 20 } };
 const CORR_LIGHT: Light = { sun: [-0.62, -0.62, 0.32], amb: 0.66, diff: 0.42, fog: { color: '#e4ead9', dist: 2600, max: 0.45 } };
 export const corridorSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT).rigAt([10, 0, 620], heightCm);
-export const UniversityCorridor = ({ children, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const UniversityCorridor = ({ children, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const id = uid(), S = makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT, frame, layers);
   const W0 = -160, W1 = 160, H = 330, D = 3600;
   // Ngoài lan can: sân, dãy nhà đối diện, cây
@@ -348,7 +348,7 @@ const flowerMat = (S: ReturnType<typeof makeScene>, x: [number, number], z: [num
   const cx = (x[0] + x[1]) / 2, cz = (z[0] + z[1]) / 2;
   for (const [fx, fz, sz] of [[cx, cz, 60], [x[0] + 70, z[0] + 70, 40], [x[1] - 70, z[0] + 70, 40], [x[0] + 70, z[1] - 70, 40], [x[1] - 70, z[1] - 70, 40]]) S.plane([fx - sz / 2, y + 0.4, fz + sz / 2], [sz / 100, 0, 0], [0, 0, -sz / 100], <MatFlower />, 0.55);
 };
-export const FamilyGathering = ({ children, cast = true, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; cast?: boolean; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const FamilyGathering = ({ children, cast = true, view = 'chinh', frame = null, layers = false, scope = false }: { children?: React.ReactNode; cast?: boolean; view?: SetView; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const id = uid(), S = makeScene(camera(FAM_VIEWS[view]), FAM_LIGHT, frame, layers);
   const X: [number, number] = [-450, 450], Z: [number, number] = [-250, 800], H = 330;
   shellRoom(S, X, Z, H, { wall: '#ece4cc', lower: '#d6c9a6', lowerH: 85, floor: '#b8775b', ceil: '#d9cdb2' });
@@ -434,6 +434,7 @@ export const MirrorRealm = ({ children, ripple: rp = 0, at = [1160, 880], floati
         <radialGradient id={`${id}-vig`} cx=".5" cy=".55" r=".72"><stop offset=".45" stopColor="#000" stopOpacity="0" /><stop offset="1" stopColor="#000" stopOpacity=".75" /></radialGradient>
         <clipPath id={`${id}-wc`}><rect y={WATER_Y} width={1920} height={1080 - WATER_Y} /></clipPath>
       </defs>
+      <g data-layer="BACK">
       {flipped}
       <rect width={1920} height={1080} fill="#0e3a42" opacity={0.62} />
       <rect width={1920} height={1080} fill={`url(#${id}-abyss)`} />
@@ -441,6 +442,8 @@ export const MirrorRealm = ({ children, ripple: rp = 0, at = [1160, 880], floati
       <g clipPath={`url(#${id}-wc)`} opacity={0.26}><g transform={`translate(0 ${2 * WATER_Y}) scale(1 -1)`}>{flipped}<rect width={1920} height={1080} fill="#0e3a42" opacity={0.6} /></g></g>
       <rect y={WATER_Y} width={1920} height={1080 - WATER_Y} fill={`url(#${id}-water)`} />
       <rect y={WATER_Y - 2} width={1920} height={4} fill="#8ff3e6" opacity={0.55} />
+      </g>
+      <g data-layer="MID">
       {floating && (
         <g data-layer="guong-troi">
           <ellipse cx={560} cy={WATER_Y + 26} rx={150} ry={16} fill="#7ff0e2" opacity={0.18} />
@@ -448,12 +451,15 @@ export const MirrorRealm = ({ children, ripple: rp = 0, at = [1160, 880], floati
         </g>
       )}
       <g data-layer="actors">{children}</g>
+      </g>
+      <g data-layer="FORE">
       <rect y={WATER_Y} width={1920} height={1080 - WATER_Y} fill={`url(#${id}-veil)`} />
       <g data-layer="gon-song" fill="none" stroke="#9af7ea">
         {[0, 1, 2, 3].map((k) => { const p = (k + (ripple % 1)) / 4, rx = 70 + p * 620; return <ellipse key={k} cx={at[0]} cy={at[1]} rx={rx} ry={rx * 0.11} strokeWidth={3 - p * 2} opacity={0.6 * (1 - p)} />; })}
       </g>
       {specks.map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r} fill="#b9fff4" opacity={(0.25 + ((i * 13) % 10) / 20) * (frame === null ? 1 : 0.55 + 0.45 * Math.sin(frame / 11 + i * 1.7))} />)}
       <rect width={1920} height={1080} fill={`url(#${id}-vig)`} />
+      </g>
     </g>
   );
 };
@@ -465,7 +471,7 @@ export const MirrorRealm = ({ children, ripple: rp = 0, at = [1160, 880], floati
 export const DONATION_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [110, 150, -300], look: [50, 95, 400], mm: 25 }, nguoc: { pos: [180, 155, 330], look: [-80, 100, -400], mm: 22 }, cheo: { pos: [430, 160, -60], look: [-120, 80, 380], mm: 22 }, cao: { pos: [-280, 262, -260], look: [120, 20, 340], mm: 19 } };
 const DONATION_LIGHT: Light = { sun: [-0.82, -0.36, 0.3], amb: 0.6, diff: 0.3, fog: { color: '#c7cdc8', dist: 2200, max: 0.32 } };
 export const donationSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(DONATION_VIEWS[view]), DONATION_LIGHT).rigAt([-170, 0, 170], heightCm);
-export const DonationCorner = ({ children, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const DonationCorner = ({ children, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const id = uid(), S = makeScene(camera(cam ?? DONATION_VIEWS[view]), DONATION_LIGHT, frame, layers);
   const BZ = 400, XR = 260;
   // Sân ngoài (bên phải) ướt mưa, tường nhà bên, cây
@@ -533,7 +539,7 @@ export const DonationCorner = ({ children, view = 'chinh', cam, frame = null, la
 export const PITCH_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [180, 260, -260], look: [0, 40, 2400], mm: 26 }, nguoc: { pos: [-200, 260, 4500], look: [0, 40, 1000], mm: 26 }, cheo: { pos: [1180, 320, 2200], look: [-400, 0, 2200], mm: 24 }, cao: { pos: [-1150, 1300, -700], look: [0, 0, 2400], mm: 24 } };
 const PITCH_LIGHT: Light = { sun: [0.45, -0.55, -0.7], amb: 0.66, diff: 0.4, fog: { color: '#dfe8dc', dist: 5200, max: 0.5 } };
 export const pitchSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(PITCH_VIEWS[view]), PITCH_LIGHT).rigAt([-120, 0, 900], heightCm);
-export const MiniPitch = ({ children, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const MiniPitch = ({ children, view = 'chinh', cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const id = uid(), S = makeScene(camera(cam ?? PITCH_VIEWS[view]), PITCH_LIGHT, frame, layers);
   const XW = 1000, Z0 = 200, Z1 = 4200;
   S.quad([[-6000, 0, -500], [6000, 0, -500], [6000, 0, 9000], [-6000, 0, 9000]], '#b8b39c', { n: [0, 1, 0], layer: 0, edge: false });
@@ -571,7 +577,7 @@ export const MiniPitch = ({ children, view = 'chinh', cam, frame = null, layers 
 // ---------------------------------------------------------------------------------------------
 /** `turn`: góc xoay của ghế cắt tóc quanh trụ (độ). 0 là khách ngồi nhìn vào gương; 180 là quay ra cửa. */
 export const BARBER_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [-150, 158, -40], look: [40, 105, 420], mm: 26 }, nguoc: { pos: [180, 160, 380], look: [-100, 110, -100], mm: 24 }, cheo: { pos: [300, 170, 40], look: [-150, 90, 350], mm: 24 }, cao: { pos: [-240, 285, -90], look: [100, 10, 330], mm: 22 } };
-export const BarberCorner = ({ turn = 0, view = 'chinh', frame = null, layers = false, scope = false }: { turn?: number; view?: SetView; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const BarberCorner = ({ turn = 0, view = 'chinh', frame = null, layers = false, scope = false }: { turn?: number; view?: SetView; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const id = uid(), S = makeScene(camera(BARBER_VIEWS[view]), { sun: [0.6, -0.65, 0.4], amb: 0.62, diff: 0.42, lamps: [{ p: [40, 250, 300], col: [1, 0.9, 0.7], r: 200, k: 0.25 }] }, frame, layers);
   const X: [number, number] = [-260, 320], Z: [number, number] = [-100, 430], H = 300;
   shellRoom(S, X, Z, H, { wall: '#e3dcc6', lower: '#9fb7ad', lowerH: 120, floor: '#e8e4d8' });
@@ -622,7 +628,7 @@ export const DORM_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [60, 160, -7
 const DORM_TUBES = [260, 920, 1580];
 const dormLight = (flicker: number): Light => ({ sun: [0.3, -0.8, 0.2], amb: 0.2, diff: 0.05, lamps: DORM_TUBES.map((z, i) => ({ p: [24, 232, z] as V3, col: [1, 0.86, 0.52] as [number, number, number], r: 260, k: i === 1 ? 1.05 * flicker : 1.05 })), fog: { color: '#0b1012', dist: 1300, max: 0.8 } });
 export const dormSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(DORM_VIEWS[view]), dormLight(1)).rigAt([95, 0, 520], heightCm);
-export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; flicker?: number; cam?: CamSpec; frame?: number | null; layers?: boolean; scope?: boolean }) => {
+export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = null, layers = false, scope = false }: { children?: React.ReactNode; view?: SetView; flicker?: number; cam?: CamSpec; frame?: number | null; layers?: boolean | { fore?: number; back?: number }; scope?: boolean }) => {
   const fl = flicker ?? (frame === null ? 1 : frame % 197 < 3 ? 0.15 : frame % 113 < 2 ? 0.5 : frame % 331 > 322 ? 0.05 : 1);
   const id = uid(), S = makeScene(camera(cam ?? DORM_VIEWS[view]), dormLight(fl), frame, layers);
   const Z: [number, number] = [-100, 2300], H = 285, XW = 180;

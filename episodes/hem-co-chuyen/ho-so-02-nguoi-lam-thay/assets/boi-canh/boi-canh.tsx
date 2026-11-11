@@ -154,6 +154,8 @@ export type RoomProps = {
   falloff?: number;
   /** Lớp ánh sáng hoàn thiện (mặc định bật): nắng vàng trên sàn, quầng cửa sổ/đèn bàn/đèn tuýp, góc xa dịu và lạnh, đêm ngả xanh thẫm. */
   grade?: boolean;
+  /** Tách đầu ra thành các nhóm BACK (vỏ phòng, đồ xa), MID, FORE (đồ gần máy nhất) để ghép thị sai. `true` hoặc ngưỡng {fore, back} theo tỉ lệ khoảng cách (mặc định 0.18 và 0.6). Hình giữ nguyên. */
+  layers?: boolean | { fore?: number; back?: number };
   /** Số khung hiện tại (30 fps). Có giá trị thì bối cảnh tự chuyển động: quạt quay và quay đầu, rèm lay, bụi trong vệt nắng, đèn bàn nhấp nhẹ. Bỏ trống = tĩnh như cũ. */
   frame?: number | null;
   door?: 'ajar' | 'open' | 'closed' | 'latched';
@@ -182,7 +184,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, frame = null, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, layers = false, frame = null, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway' || view === 'corridor' || view === 'stairs' || view === 'giveaway';
@@ -963,12 +965,27 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     return { x: q[0], y: q[1], r: (1 + (i % 3) * 0.6) * Math.max(0.7, cam.pxcm(p) * 0.35), o: 0.5 * fade * (0.5 + 0.5 * Math.abs(Math.sin(frame / 17 + i))) };
   }).filter(Boolean) as { x: number; y: number; r: number; o: number }[] : [];
   const winS = scr(LIGHT_SOURCES.window), lampS = scr(LIGHT_SOURCES.lamp), tubeS = scr([-86, 258, 215]);
+  const shellCount = sink.length, layered: { d: number; node: React.ReactNode }[] = [];
   [...objs].sort((a, b) => dist(b) - dist(a)).forEach((o) => {
     const before = sink; sink = [];
     o.draw();
-    before.push(<g key={key++}>{sink}</g>);
+    const node = <g key={key++}>{sink}</g>;
+    before.push(node);
+    if (layers) layered.push({ d: dist(o), node });
     sink = before;
   });
+  let roomNodes: React.ReactNode = sink;
+  if (layers && layered.length) {
+    const lo = Math.min(...layered.map((o) => o.d)), hi = Math.max(...layered.map((o) => o.d)), L = typeof layers === 'object' ? layers : {};
+    const foreD = lo + (hi - lo) * (L.fore ?? 0.18), backD = lo + (hi - lo) * (L.back ?? 0.6);
+    roomNodes = (
+      <>
+        <g data-layer="BACK">{sink.slice(0, shellCount)}{layered.filter((o) => o.d >= backD).map((o) => o.node)}</g>
+        <g data-layer="MID">{layered.filter((o) => o.d < backD && o.d >= foreD).map((o) => o.node)}</g>
+        <g data-layer="FORE">{layered.filter((o) => o.d < foreD).map((o) => o.node)}</g>
+      </>
+    );
+  }
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" className={className} role="img" aria-label={`${SHOT_LABEL[view]}, ${night ? 'ban đêm' : 'ban ngày'}`} data-view={view}>
@@ -988,7 +1005,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         <linearGradient id={`${uid}-win`} x1="1" x2="0" y1="0" y2=".5"><stop offset="0" stopColor="#fff6d8" stopOpacity=".28" /><stop offset=".6" stopColor="#fff6d8" stopOpacity="0" /></linearGradient>
       </defs>
       <rect width="1920" height="1080" fill={night ? '#111722' : '#d9cfb9'} />
-      <g data-layer={`room-${view}`}>{sink}</g>
+      <g data-layer={`room-${view}`}>{roomNodes}</g>
       {rayShapes.length > 0 && (
         <g filter={`url(#${uid}-blur)`} style={{ mixBlendMode: 'screen' }} opacity={rays}>
           {rayPaths(0.06)}
