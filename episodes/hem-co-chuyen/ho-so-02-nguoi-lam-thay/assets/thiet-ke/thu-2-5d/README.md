@@ -12,9 +12,20 @@
 
 Nguồn: [`nam-2-5d.tsx`](nam-2-5d.tsx). Bảng xuất bằng `renderToStaticMarkup` + Chromium; không lưu SVG vì mỗi lớp cắt nhúng lại cả nhân vật (0,7–1,6 MB/bảng), dựng lại từ TSX khi cần.
 
-## Giữ nguyên nhân vật
+## Dáng người (vòng 3, theo ảnh tham chiếu)
 
-Nam gốc (`StudentTwinBody`/`StudentTwinHead` trong [`../../nhan-vat.tsx`](../../nhan-vat.tsx)) vẽ y nguyên: rig, tóc, nét mặt, màu, nốt ruồi. Lớp 2.5D chỉ phủ lên trên. `volume={false}` trả về đúng Nam 2D. Rig gốc chỉ thêm nhãn `data-part="head"` trên nhóm đầu; đã so bảng nhân vật trước/sau: trùng từng điểm ảnh.
+Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Đo [tham-khao/tao-hinh-2-5d.jpg](tham-khao/tao-hinh-2-5d.jpg) so với Nam đã chốt cùng chiều cao:
+
+| | Ảnh tham chiếu | Đã chốt | Dáng mới (`DANG_THAM_CHIEU`) |
+|---|---|---|---|
+| Vai / bề ngang mặt | ~1,4 | ~1,6 | điểm vai ×0,86, áo hẹp ×0,88 |
+| Tay | ngắn, mảnh; nắm tay ngay dưới vạt áo | dài, to | bắp tay 80→70, cẳng tay 74→60, dày 19/16/13,5 → 15,5/13,5/12, bàn tay 1,12→0,95 |
+| Quần | ống thẳng rộng đều, lửng lộ cổ chân | thu gối, loe gấu, chấm dép | 30/29/29, gấu tại 0,8 gối→mắt cá |
+| Đầu, cổ | đầu to hơn chút, cổ ngắn | | đầu ×1,06, hạ 6 đơn vị |
+
+**Giữ nguyên:** mặt, nét mặt, tóc, màu, nốt ruồi, khớp/giới hạn rig. `Nam25D` mặc định `dang="moi"`; `dang="chot"` về dáng đã chốt. Bộ đồ `outfit` khác áo thun chưa có dáng mới.
+
+**Sửa trong rig gốc ([`../../nhan-vat.tsx`](../../nhan-vat.tsx)):** thêm `Build`/`DEFAULT_BUILD` (độ dài xương, vai, độ dày tay, bàn tay, tay áo, ống quần, dép) truyền qua `Outfit.build`, và nhãn `data-part="head"`. Mặc định = số đã chốt; bảng nhân vật trước/sau trùng từng điểm ảnh; `npm run typecheck`, `tests/ho-so-02-rig.cjs`, `bo-sung-15p/verify.cjs` đều qua. Bộ Nam đã chốt **chưa** đổi sang dáng mới.
 
 ## Cách làm (vòng 2, theo ảnh tham chiếu)
 
@@ -34,6 +45,7 @@ import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
 
 - Mảng tối là dải bám đường bao: khối rất tròn (đầu, vai) đọc tốt; mặt phẳng lớn chỉ có một dải ở mép, ít "mặt khối" như tranh vẽ tay hoàn toàn.
 - Khối nhận diện bằng màu tô: áo/quần lấy từ props, da `#dbad82`/`#bd8968`, tóc `#292a29` trong `data-part="head"`. Đổi màu da/tóc trong rig thì phải đổi theo. Chưa áp cho Người Kia (dùng chung rig, chạy được nhưng chưa duyệt) và Tùng (đầu riêng chưa có nhãn).
+- Dáng mới mới thử ở tư thế đứng/đi/ngồi/cầm máy; chưa rà các tư thế bổ sung (`EXTRA_POSES`, `gripAt` vẫn tính theo xương đã chốt nên đồ cầm sẽ lệch nếu dùng với dáng mới).
 - Góc sau lưng: rig chỉ cho tay vung nhẹ nên chưa giơ tay chạm gương như ảnh tham chiếu.
 - Mỗi lớp cắt dựng lại cả nhân vật (~20–25 bản trong mask) → render nặng hơn 2D. Chưa đo trên video.
 - Opening mẫu (`HoSo02Opening25D`, bản sao `opening.tsx` trong studio) vẫn dùng `Nam25D` với mặc định ban ngày; chưa gán kiểu sáng theo từng shot và **chưa render lại video** sau vòng 2. Video vòng 1 (local, không commit): `what-if-studio/out/ho-so-02-nguoi-lam-thay/thu-2-5d/opening-nam-2-5d.mp4`. Render trong môi trường này cần `--browser-executable` trỏ Chromium có sẵn vì mạng chặn host tải Chrome của Remotion.

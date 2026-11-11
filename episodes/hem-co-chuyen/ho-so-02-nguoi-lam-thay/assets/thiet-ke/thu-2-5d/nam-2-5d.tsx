@@ -1,5 +1,5 @@
 import React from 'react';
-import { JointPose, NAM_OUTFITS, NamMood, PALETTE, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_POSES } from '../../nhan-vat';
+import { Build, JointPose, NAM_OUTFITS, NamMood, Outfit, PALETTE, Rigged, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_OUTFIT, TWIN_POSES } from '../../nhan-vat';
 import { Mirror } from '../../bo-sung-15p/dao-cu';
 
 /**
@@ -182,6 +182,42 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
 };
 
 type BodyProps = React.ComponentProps<typeof StudentTwinBody>;
+
+// ---------------------------------------------------------------------------
+// DÁNG NGƯỜI THEO ẢNH THAM CHIẾU (vòng 3) — mặt, tóc, màu, nốt ruồi giữ nguyên
+// ---------------------------------------------------------------------------
+/** Đo trên ảnh tham chiếu (tham-khao/tao-hinh-2-5d.jpg), so với Nam đã chốt cùng chiều cao. */
+export const DANG_THAM_CHIEU: Partial<Build> = {
+  upperArm: 70, foreArm: 60, // tay ngắn: nắm tay chạm ngay dưới vạt áo
+  shoulderX: 0.86, // vai hẹp: ~1,4 lần bề ngang mặt (cũ ~1,6)
+  arm: [15.5, 13.5, 12], // tay mảnh
+  hand: 0.95, // nắm tay nhỏ
+  sleeve: [22, 23.5, 23.5],
+  pants: [30, 29, 29], // ống thẳng, rộng đều, không loe
+  pantsEnd: 0.8, // quần lửng, lộ cổ chân
+  foot: 0.92,
+};
+const SHIRT_X = 0.88; // áo hẹp ngang theo vai
+const scaleX = (d: string, k: number) => d.replace(/(-?\d+(?:\.\d+)?)[ ,]+(-?\d+(?:\.\d+)?)/g, (_, x, y) => `${+(Number(x) * k).toFixed(2)} ${y}`);
+const narrow = <T extends { torso: string; hem: [number, number][]; detail: Outfit['detail'] }>(v: T): T => ({
+  ...v, torso: scaleX(v.torso, SHIRT_X), hem: v.hem.map(([x, y]) => [x * SHIRT_X, y] as [number, number]),
+  detail: typeof v.detail === 'function' ? v.detail : <g transform={`scale(${SHIRT_X} 1)`}>{v.detail}</g>,
+});
+/** Bộ đồ Nam với dáng tham chiếu; `shirt` đổi màu áo như StudentTwinBody. */
+export const namOutfitDang = (shirt: string = PALETTE.nam.shirt): Outfit => {
+  const base = { ...TWIN_OUTFIT, shirt, sleeveEnd: 0.56, build: DANG_THAM_CHIEU };
+  const views = Object.fromEntries(Object.entries(TWIN_OUTFIT.views ?? {}).map(([k, v]) => [k, narrow(v!)])) as Outfit['views'];
+  return { ...narrow(base), views };
+};
+/** Đầu to hơn ~6% và hạ thấp (cổ ngắn) như ảnh tham chiếu; tâm phóng ở chân cổ. */
+const HEAD_FIT = 'translate(-6 186) scale(1.06) translate(6 -180)';
+
+/** Nam 2D với dáng tham chiếu (cùng props StudentTwinBody; `outfit` khác áo thun chưa hỗ trợ ở bản thử). */
+export const NamDangMoi: React.FC<BodyProps> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline }) => (
+  <Rigged pose={pose} outfit={namOutfitDang(shirt)} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline}
+    head={<g transform={HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} /></g>} />
+);
+
 const colorsOf = (p: Pick<BodyProps, 'outfit' | 'shirt'>) => {
   const o = p.outfit ? NAM_OUTFITS[p.outfit] : undefined;
   return { shirt: o?.shirt ?? p.shirt ?? PALETTE.nam.shirt, pants: o?.pants ?? PALETTE.nam.pants };
@@ -189,14 +225,19 @@ const colorsOf = (p: Pick<BodyProps, 'outfit' | 'shirt'>) => {
 /** Mọi góc/tư thế đều có lớp 2.5D (giữ để tương thích lời gọi cũ). */
 export const supports25D = (_: Pick<BodyProps, 'pose' | 'outfit'>) => true;
 
-/** Nam 2.5D: cùng props với `StudentTwinBody`, thêm `lighting` (kiểu sáng cảnh). `volume={false}` = Nam 2D gốc. */
-export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25 }> = ({ volume = true, lighting = 'ngay', ...props }) => {
-  if (!volume) return <StudentTwinBody {...props} />;
+/**
+ * Nam 2.5D: cùng props với `StudentTwinBody`, thêm `lighting` (kiểu sáng cảnh) và `dang`:
+ * 'moi' (mặc định, dáng theo ảnh tham chiếu) hoặc 'chot' (dáng Style B đã chốt). `volume={false}` = bản 2D.
+ * Bộ đồ `outfit` khác áo thun tự dùng dáng đã chốt.
+ */
+export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25; dang?: 'moi' | 'chot' }> = ({ volume = true, lighting = 'ngay', dang = 'moi', ...props }) => {
+  const Body = dang === 'moi' && !props.outfit ? NamDangMoi : StudentTwinBody;
+  if (!volume) return <Body {...props} />;
   const { x = 0, y = 0, scale = 1 } = props;
   const c = colorsOf(props);
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      <Volume25 subject={<StudentTwinBody {...props} x={0} y={0} scale={1} />} light={lighting} shirt={c.shirt} pants={c.pants} />
+      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} shirt={c.shirt} pants={c.pants} />
     </g>
   );
 };
@@ -262,11 +303,11 @@ export const Nam25DLightBoard: React.FC = () => {
 export const Nam25DTurnBoard: React.FC = () => {
   const views: [JointPose['view'], string][] = [['front', 'CHÍNH DIỆN'], ['three', 'GÓC 3/4'], ['side', 'NGHIÊNG'], ['quarter', '1/4 SAU'], ['back', 'SAU LƯNG']];
   return (
-    <Board title="NAM — CÁC GÓC 2,5D" sub="Trên: 2D đã chốt · Dưới: 2.5D ban ngày · cùng rig, cùng nốt ruồi/tóc/màu">
+    <Board title="NAM — CÁC GÓC 2,5D" sub="Trên: 2D đã chốt · Dưới: 2.5D ban ngày, dáng theo ảnh tham chiếu · cùng rig, mặt, tóc, nốt ruồi, màu">
       {views.map(([v, t], i) => (
         <g key={v} transform={`translate(${200 + i * 380} 0)`}>
           <Label x={0} y={128} s={20} t={t} />
-          <Nam25D volume={false} shirt={SLEEP} mood="sleepy" pose={{ ...STAND_POSE, view: v }} x={0} y={145} scale={0.6} />
+          <Nam25D dang="chot" volume={false} shirt={SLEEP} mood="sleepy" pose={{ ...STAND_POSE, view: v }} x={0} y={145} scale={0.6} />
           <Nam25D shirt={SLEEP} mood="sleepy" pose={{ ...STAND_POSE, view: v }} x={0} y={540} scale={0.85} />
         </g>
       ))}
@@ -300,7 +341,7 @@ export const Nam25DPoseBoard: React.FC = () => {
     { t: 'ĐỨNG TRƯỚC GƯƠNG (SAU LƯNG)', pose: mirrorPose, x: -50, behind: <g transform={`translate(120 ${FLOOR})`}><Mirror w={170} h={470} /></g> },
   ];
   return (
-    <Board title="NAM — TƯ THẾ 2,5D" sub="Cùng rig khớp đã chốt · mảng tối tính theo phần đang lộ nên tay trước thân, chân ngồi, đồ cầm không bị lem · ban ngày">
+    <Board title="NAM — TƯ THẾ 2,5D" sub="Rig khớp đã chốt, dáng theo ảnh tham chiếu · mảng tối tính theo phần đang lộ nên tay trước thân, chân ngồi, đồ cầm không bị lem · ban ngày">
       {cells.map((c, i) => (
         <g key={c.t} transform={`translate(${240 + i * 480} 0)`}>
           <Label x={0} y={150} s={20} t={c.t} />
@@ -314,13 +355,13 @@ export const Nam25DPoseBoard: React.FC = () => {
 
 /** Bảng so sánh 2D (đã chốt) ↔ 2.5D, giữ tên cũ. */
 export const Nam25DBoard: React.FC = () => (
-  <Board title="NAM — THỬ CHUYỂN 2D → 2.5D (GIỮ NGUYÊN TẠO HÌNH STYLE B)" sub="Cùng rig, nét mặt, tóc, màu · lớp ánh sáng ban ngày: mảng tối theo khối, bóng tóc lên trán, bóng vạt áo lên quần, mảng sáng tóc">
+  <Board title="NAM — THỬ CHUYỂN 2D → 2.5D (GIỮ NGUYÊN TẠO HÌNH STYLE B)" sub="Giữ mặt, tóc, màu, nốt ruồi · dáng theo ảnh tham chiếu (vai hẹp, tay ngắn mảnh, quần ống thẳng lửng, đầu to hơn) · ánh sáng ban ngày">
     {(['three', 'front'] as const).map((v, i) => (
       <g key={v} transform={`translate(${i * 960} 0)`}>
         <Label x={480} y={130} s={22} t={v === 'three' ? 'GÓC 3/4' : 'CHÍNH DIỆN'} />
         <Label x={250} y={160} s={15} w={600} c="#707875" t="2D hiện tại (đã chốt)" />
-        <Label x={710} y={160} s={15} w={600} c="#2f5d50" t="2.5D thử" />
-        <Nam25D volume={false} pose={{ ...STAND_POSE, view: v }} shirt={SLEEP} mood="sleepy" x={250} y={180} scale={0.92} />
+        <Label x={710} y={160} s={15} w={600} c="#2f5d50" t="2.5D thử · dáng tham chiếu" />
+        <Nam25D dang="chot" volume={false} pose={{ ...STAND_POSE, view: v }} shirt={SLEEP} mood="sleepy" x={250} y={180} scale={0.92} />
         <Nam25D pose={{ ...STAND_POSE, view: v }} shirt={SLEEP} mood="sleepy" x={710} y={180} scale={0.92} />
       </g>
     ))}
