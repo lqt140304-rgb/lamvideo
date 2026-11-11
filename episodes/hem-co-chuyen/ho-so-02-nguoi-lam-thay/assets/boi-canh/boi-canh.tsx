@@ -51,7 +51,7 @@ const camera = (c: Cam) => {
   const right: V3 = [-fw[2], 0, fw[0]];
   const toCam = (p: V3): V3 => { const d = sub(p, c.pos); return [dot(d, right), d[1], dot(d, fw)]; };
   const screen = (q: V3): P2 => [960 + (F * q[0]) / q[2], c.horizon - (F * q[1]) / q[2]];
-  return { F, toCam, screen, pos: c.pos, project: (p: V3) => screen(toCam(p)), pxcm: (p: V3) => F / Math.max(toCam(p)[2], 12) };
+  return { F, toCam, screen, pos: c.pos, right, fw, project: (p: V3) => screen(toCam(p)), pxcm: (p: V3) => F / Math.max(toCam(p)[2], 12) };
 };
 
 /** Dịch máy theo cm: truck sang ngang, push tiến tới. Dùng cho các cú máy nhỏ, vật gần sẽ trôi nhiều hơn vật xa. */
@@ -69,6 +69,41 @@ export const placeOn = (view: RoomView, at: [number, number], heightCm = 168, mo
   const scale = (heightCm / 590) * c.pxcm([at[0], 0, at[1]]);
   const [x, y] = c.project([at[0], 0, at[1]]);
   return { x, y: y - 590 * scale, scale };
+};
+
+/**
+ * Hướng một người đi trên sàn nhìn từ máy của shot. `dir` = hướng đi trên sàn (x, z). Trả về góc φ (độ, −180…180]:
+ * 0 = đi thẳng về phía máy (nhìn chính diện), ±90 = đi ngang (nghiêng; + sang phải màn hình), 180 = đi xa khỏi máy (quay lưng).
+ */
+export const walkFacing = (view: RoomView, dir: [number, number], move?: CameraMove) => {
+  const c = camera(moved(VIEWS[view], move));
+  const r = dir[0] * c.right[0] + dir[1] * c.right[2], f = dir[0] * c.fw[0] + dir[1] * c.fw[2]; // f > 0: đi ra xa máy
+  return (Math.atan2(r, -f) * 180) / Math.PI;
+};
+
+/**
+ * Khối che của đồ lớn (cm): x0, x1, z0, z1 trên sàn và chiều cao h. Dùng để xếp người đứng trước/sau đồ đúng theo tia nhìn của máy,
+ * không chỉ theo khoảng cách tới tâm đồ. Số đo lấy từ chính chân đồ trong cảnh (cùng danh sách bóng đổ ban ngày).
+ */
+export const OCCLUDERS: { id: string; box: [number, number, number, number, number]; at: [number, number, number] }[] = [
+  { id: 'bed', box: [252, 452, 215, 375, 40], at: [352, 0, 300] },
+  { id: 'wardrobe', box: [225, 315, 4, 58, 192], at: [270, 0, 30] },
+  { id: 'desk', box: [342, 449, 8, 62, 75], at: [395, 0, 34] },
+  { id: 'kitchen', box: [12, 176, 2, 56, 88], at: [94, 0, 34] },
+];
+/** Đoạn thẳng từ a tới b có cắt khối [x0,x1]×[0,h]×[z0,z1] không (phương pháp slab). */
+const segHitsBox = (a: V3, b: V3, [x0, x1, z0, z1, h]: [number, number, number, number, number]) => {
+  let t0 = 0, t1 = 1;
+  const lo = [x0, 0, z0], hi = [x1, h, z1];
+  for (let i = 0; i < 3; i++) {
+    const d = b[i] - a[i];
+    if (Math.abs(d) < 1e-9) { if (a[i] < lo[i] || a[i] > hi[i]) return false; continue; }
+    let u = (lo[i] - a[i]) / d, v = (hi[i] - a[i]) / d;
+    if (u > v) [u, v] = [v, u];
+    t0 = Math.max(t0, u); t1 = Math.min(t1, v);
+    if (t0 > t1) return false;
+  }
+  return true;
 };
 
 /** Nguồn sáng trong phòng (cm): tâm cửa sổ tường phải cho ban ngày, bóng đèn bàn cho ban đêm. */
@@ -888,7 +923,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     sink.push(<g key={key++} style={{ mixBlendMode: 'screen' }} opacity={frame === null ? 1 : 0.93 + 0.07 * Math.sin(frame / 9) * Math.sin(frame / 23)}><ellipse cx={pool[0]} cy={pool[1]} rx={px * 150} ry={px * 70} fill={`url(#${uid}-lamp)`} /><ellipse cx={lamp[0]} cy={lamp[1] + px * 16} rx={px * 90} ry={px * 90} fill={`url(#${uid}-lamp)`} /></g>);
   };
 
-  type Obj = { at: V3; draw: () => void };
+  type Obj = { at: V3; draw: () => void; actorAt?: [number, number] };
   const objs: Obj[] = inHall ? [{ at: [-6, 0, 215], draw: doorUnit }] : [
     { at: [0, 0, 215], draw: doorUnit }, { at: [W, 150, 155], draw: windowUnit },
     { at: [94, 0, 34], draw: fitY(89, 76, kitchenUnit) }, { at: [270, 0, 30], draw: wardrobeUnit }, { at: [340, 190, 8], draw: helmet }, { at: [395, 0, 34], draw: fitY(77, 65, deskUnit) },
@@ -899,11 +934,31 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   ];
   // Người đặt qua `actors`: mặt hướng nguồn sáng ám ấm, mặt quay lưng ám lạnh, cắt đúng theo hình người (mask alpha), hai mảng vẽ sẵn.
   const lightActor = (a: { at: [number, number]; lit?: boolean; render: (p: { x: number; y: number; scale: number }) => React.ReactNode }) => {
-    const p = placeOn(view, a.at, 168, move), node = a.render(p);
-    if (!grade || a.lit === false) { sink.push(<g key={key++}>{node}</g>); return; }
+    const p = placeOn(view, a.at, 168, move), rendered = a.render(p);
     const L = lightFor(view, a.at, SRC, move), dist = Math.hypot(a.at[0] - SRC[0], a.at[1] - SRC[2]);
     const near = clamp(1 - dist / (REACH + 120), 0, 1);
     const sunE = !night && !inHall ? sunExposure(a.at, 20, 160, sun) : 0;
+    // Bóng tiếp xúc theo VỊ TRÍ: vết tối nhỏ sát chân + bóng đổ trên sàn lệch theo hướng rời nguồn sáng, đậm theo mức sáng nơi đứng
+    // (ngày: nắng cửa sổ chiếu tới chỗ đó; đêm: gần laptop; hành lang: gần đèn tuýp). Thay vệt bóng cố định vẽ sẵn trong rig.
+    let node = rendered;
+    if (grade) {
+      const sc = p.scale, fx = p.x, fy = p.y + 590 * sc, cid = `${uid}-sh${key++}`;
+      const gl = Math.hypot(L.gx, L.gy), gang = (Math.atan2(L.gy, L.gx) * 180) / Math.PI;
+      const castOp = night ? 0.1 + 0.32 * near : inHall ? 0.1 + 0.16 * near : 0.1 + 0.26 * sunE;
+      const ink = night ? '#080e20' : '#1b2120';
+      const shadow = (
+        <g key={key++} style={{ mixBlendMode: 'multiply' }}>
+          <g filter={`url(#${uid}-blur-sm)`}>
+            <ellipse cx={f1(fx + L.gx * sc * 0.5)} cy={f1(fy + L.gy * sc * 0.5)} rx={f1((70 + gl * 0.5) * sc)} ry={f1(Math.max(8, 10 + Math.abs(L.gy) * 0.3) * sc)} transform={`rotate(${f1(Math.abs(gang) < 80 || Math.abs(gang) > 100 ? gang * 0.35 : 0)} ${f1(fx)} ${f1(fy)})`} fill={ink} opacity={castOp} />
+          </g>
+          <ellipse cx={f1(fx)} cy={f1(fy)} rx={f1(86 * sc)} ry={f1(11 * sc)} fill={ink} opacity={0.12} />
+          <ellipse cx={f1(fx)} cy={f1(fy)} rx={f1(66 * sc)} ry={f1(7.5 * sc)} fill={ink} opacity={0.26} />
+        </g>
+      );
+      sink.push(shadow);
+      node = (<><style>{`.${cid} [data-shadow="drawn-contact"]{display:none}`}</style><g className={cid}>{rendered}</g></>);
+    }
+    if (!grade || a.lit === false) { sink.push(<g key={key++}>{node}</g>); return; }
     const litA = Math.min(1, night ? 0.7 * near : inHall ? 0.4 * near : 0.12 + 0.28 * sunE), shadeA = night ? 0.5 - 0.3 * near : 0.08;
     const cx = p.x, cy = p.y + 295 * p.scale, h = 150 * p.scale, id = `${uid}-act${key++}`;
     const lit = night ? LAPTOP_LIGHT.lit : '#fff0c8', dark = night ? '#101a36' : '#4a587a';
@@ -922,7 +977,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       </g>,
     );
   };
-  for (const a of actors) objs.push({ at: [a.at[0], 0, a.at[1]], draw: () => lightActor(a) });
+  for (const a of actors) objs.push({ at: [a.at[0], 0, a.at[1]], draw: () => lightActor(a), actorAt: a.at });
 
   shell();
 
@@ -972,7 +1027,29 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   }).filter(Boolean) as { x: number; y: number; r: number; o: number }[] : [];
   const winS = scr(LIGHT_SOURCES.window), lampS = scr(LIGHT_SOURCES.lamp), tubeS = scr([-86, 258, 215]);
   const shellCount = sink.length, layered: { d: number; node: React.ReactNode }[] = [];
-  [...objs].sort((a, b) => dist(b) - dist(a)).forEach((o) => {
+  // Thứ tự vẽ: xa trước, gần sau. Người đứng quanh đồ lớn được xếp theo tia nhìn của máy: tia từ máy tới đầu/chân/hai bên người
+  // chui qua khối đồ thì đồ che người (vẽ người trước); người nằm hẳn phía trước khối (theo độ sâu của máy) thì vẽ sau.
+  const depthKey = new Map<Obj, number>();
+  if (!inHall) {
+    for (const o of objs) {
+      const a = o.actorAt;
+      if (!a) continue;
+      let k = dist(o);
+      const lat = cam.right;
+      for (const occ of OCCLUDERS) {
+        const [x0, x1, z0, z1] = occ.box, dB = dist({ at: occ.at, draw: () => {} });
+        const zs = [[x0, z0], [x1, z0], [x0, z1], [x1, z1]].map(([x, z]) => cam.toCam([x, 0, z])[2]);
+        const aZ = cam.toCam([a[0], 0, a[1]])[2];
+        const probes: V3[] = [-22, 0, 22].flatMap((off) => [[a[0] + lat[0] * off, 0, a[1] + lat[2] * off], [a[0] + lat[0] * off, 160, a[1] + lat[2] * off]] as V3[]);
+        const hit = probes.some((q) => segHitsBox(cam.pos, q, occ.box));
+        if (hit && aZ > Math.min(...zs)) k = Math.max(k, dB + 1); // đồ che người
+        else if (aZ < Math.min(...zs) - 4) k = Math.min(k, dB - 1); // người đứng hẳn trước đồ
+      }
+      depthKey.set(o, k);
+    }
+  }
+  const order = (o: Obj) => depthKey.get(o) ?? dist(o);
+  [...objs].sort((a, b) => order(b) - order(a)).forEach((o) => {
     const before = sink; sink = [];
     o.draw();
     const node = <g key={key++}>{sink}</g>;
