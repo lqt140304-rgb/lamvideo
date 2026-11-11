@@ -236,7 +236,9 @@ export const StudentTwinHead: React.FC<{
   scale?: number;
   /** Tóc đung đưa theo vật lý; bỏ trống = tóc đứng yên. */
   hair?: HairSway;
-}> = ({ gazeY = 0, mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1, hair: sway }) => {
+  /** Đầu nghiêng mới theo ảnh tham chiếu (dáng 2.5D); mặc định tắt = đầu nghiêng đã chốt. */
+  sideNew?: boolean;
+}> = ({ gazeY = 0, mood = 'sleepy', identity = 'nam', id = 'twin-head', x = 0, y = 0, scale = 1, view = 'three', facing = 1, talk, blink, face, faceFrom, faceMix = 1, hair: sway, sideNew = false }) => {
   const markNear = identity === 'nam' ? facing === 1 : facing === -1;
   const isShocked = mood === 'shocked';
   const isSuspicious = mood === 'suspicious';
@@ -255,6 +257,7 @@ export const StudentTwinHead: React.FC<{
   const o = useHeadLine();
   if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} sway={sway} />;
   if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'side' && sideNew) return <NamSoftProfileHead mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
   if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
   const front = view === 'front';
   const rxR = front ? 15 : 17;
@@ -1123,6 +1126,87 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
       {blink && <path d="M 26 100 Q 36 106 47 100" fill="none" style={{ strokeWidth: lw(3) }} />}
       <path d={brow} fill="none" style={{ strokeWidth: lw(5.5) }} />
       {mouth && <path d={mouth} fill="none" style={{ strokeWidth: lw(2.6) }} />}
+      </g>
+    </g>
+  );
+};
+
+
+/**
+ * Đầu NGHIÊNG mới của Nam và Người Kia (dùng khi `sideNew`, tức dáng 2.5D mới), dựng theo ảnh tham chiếu như đầu Tùng:
+ * sọ thon, mặt nhỏ cằm thon, tai chữ C ở mép tóc, cổ ngắn dày; tóc ÔM SÁT sọ xuống gáy (chân tóc nhọn sau tai), lọn cuộn trên đỉnh và
+ * mái hất ra trước theo mẫu. Bóng vẽ tay làm mềm bằng blur (mép ngoài cắt theo hình bao). Đầu nghiêng đã chốt (`ProfileHead`) giữ nguyên cho dáng cũ.
+ */
+const NAM_SIDE = {
+  hair: 'M 59.1 51.1 C 59.1 51.1 58.2 44.1 56.4 40.9 C 54.6 37.7 51.4 34.4 48.2 32.0 C 45.0 29.6 41.0 27.9 37.0 26.6 C 33.0 25.3 28.2 24.6 24.4 24.2 C 20.6 23.8 18.6 24.2 14.2 24.2 C 9.8 24.2 3.4 23.9 -2.1 24.2 C -7.6 24.5 -13.4 25.2 -19.1 25.9 C -24.8 26.6 -31.5 27.2 -36.1 28.6 C -40.8 30.0 -42.9 34.1 -47.0 34.1 C -51.1 34.1 -60.6 28.6 -60.6 28.6 C -60.6 28.6 -48.9 40.6 -49.0 45.0 C -49.1 49.4 -57.9 51.2 -61.2 55.2 C -64.5 59.2 -67.1 63.7 -68.7 69.1 C -70.3 74.5 -71.1 81.6 -70.8 87.8 C -70.5 94.0 -69.1 101.1 -66.7 106.5 C -64.3 111.9 -61.6 115.8 -56.5 120.1 C -51.4 124.3 -36.1 132.0 -36.1 132.0 C -36.1 132.0 -31.2 124.6 -30.0 120.1 C -28.8 115.6 -28.6 109.9 -28.6 104.8 C -28.6 99.7 -30.8 92.8 -30.0 89.2 C -29.2 85.6 -27.3 84.3 -23.8 83.0 C -20.3 81.7 -13.0 81.2 -8.9 81.3 C -4.8 81.4 -2.2 84.8 0.6 83.7 C 3.4 82.6 5.0 77.9 8.1 74.9 C 11.2 72.0 14.7 68.5 19.0 66.0 C 23.3 63.5 29.1 61.5 34.0 59.9 C 38.9 58.3 44.0 58.0 48.2 56.5 C 52.4 55.0 59.1 51.1 59.1 51.1 Z',
+  curl: 'M -11.6 23.9 C -11.6 23.9 -16.3 17.0 -15.0 13.7 C -13.7 10.4 -8.2 5.9 -3.8 4.2 C 0.6 2.5 7.4 3.2 11.5 3.5 C 15.6 3.8 18.6 4.7 21.0 6.2 C 23.4 7.7 25.8 12.3 25.8 12.3 C 25.8 12.3 21.5 9.7 19.0 9.3 C 16.5 8.9 13.4 9.5 10.8 9.9 C 8.2 10.3 5.4 10.9 3.4 12.0 C 1.4 13.1 -0.5 14.4 -1.4 16.4 C -2.3 18.4 -0.4 22.9 -2.1 24.2 C -3.8 25.4 -11.6 23.9 -11.6 23.9 Z',
+  ear: 'M -30.6 98.7 C -30.8 95.0 -30.3 90.5 -28.6 87.8 C -26.9 85.1 -23.6 83.2 -20.4 82.4 C -17.2 81.6 -12.3 81.5 -9.6 83.0 C -6.9 84.5 -4.9 88.0 -4.1 91.2 C -3.3 94.4 -3.8 98.8 -4.8 102.1 C -5.8 105.4 -7.8 108.9 -10.2 110.9 C -12.6 112.9 -16.3 114.4 -19.1 114.3 C -21.9 114.2 -25.3 112.8 -27.2 110.2 C -29.1 107.6 -30.4 102.4 -30.6 98.7 Z',
+  earLine: 'M -13.6 92.6 Q -6.2 94.6 -6.8 103.4',
+  back: [[-24.5, 135.4], [-34.7, 119.8], [-41.5, 95.3], [-38.8, 74.9], [-25.9, 55.8], [-2.1, 46.3], [25.1, 42.2], [45.5, 49.0], [51.6, 59.2]] as [number, number][],
+  front: [[51.6, 57.2], [49.9, 66.0], [48.6, 77.6], [49.3, 89.5], [51.3, 102.1], [53.3, 110.9], [51.0, 114.7], [48.6, 116.7], [48.9, 123.8]] as [number, number][],
+  lower: [[48.9, 123.8], [47.6, 134.0], [42.8, 146.3], [32.6, 153.4], [17.0, 153.8], [1.3, 148.3], [-11.6, 142.2]] as [number, number][],
+};
+const namSkinPath = (d: number) => {
+  const k = [0, 0.35, 0.7, 1, 1, 0.55, 0.2];
+  const lower = NAM_SIDE.lower.map(([x, y], i) => [x - 0.3 * d * k[i], y + d * k[i]] as [number, number]);
+  return catmull([...NAM_SIDE.back, ...NAM_SIDE.front.slice(0, -1), ...lower], true);
+};
+// đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
+const NAM_NECK_D = 'M -26 120 L -27 172 Q -27 180 -26 184 Q -18 192 -8 196 Q 8 195 22 198 Q 11 180 7 160 L 6 120 Z';
+const NAM_HEAD_T = 'translate(4 31) rotate(4 -8 150) translate(-8 150) scale(1.07) translate(8 -150)';
+const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, mole, talk, blink, x, y, scale, sway }) => {
+  const f = SIDE_FACE[mood];
+  const drop = talk ? talkDrop(talk) : f.drop ?? 0;
+  const o = useHeadLine();
+  const sour = mood === 'annoyed' || mood === 'suspicious' || mood === 'agitated';
+  const smile = mood === 'neutral_smile' || mood === 'eerie_smirk' || mood === 'stare_grin';
+  const mouth = drop > 0 ? undefined : sour ? 'M 48.5 133 Q 44 131.5 40 134' : smile ? 'M 48.5 132.5 Q 44 135.5 40 132' : mood === 'hesitant' ? 'M 48.5 133 Q 45 135 42.5 132.8 Q 41 131.8 39.5 133.5' : 'M 48.5 133.5 Q 44 134.2 40 133.5';
+  const ry = Math.min(f.ry - 3, 16);
+  const skin = namSkinPath(drop);
+  return (
+    <g {...headFrame(x, y, scale)}>
+      <defs>
+        <filter id={`${clip}-soft`} filterUnits="userSpaceOnUse" x={-150} y={-60} width={300} height={320}><feGaussianBlur stdDeviation={2.6} /></filter>
+        <filter id={`${clip}-soft2`} filterUnits="userSpaceOnUse" x={-150} y={-60} width={300} height={320}><feGaussianBlur stdDeviation={1.8} /></filter>
+        <clipPath id={`${clip}-neck`}><path d={NAM_NECK_D} transform={NECK_T} /></clipPath>
+        <clipPath id={`${clip}-face`}><path d={skin} /></clipPath>
+      </defs>
+      {/* Cổ ngắn dày, loe ở gốc; cổ áo tròn vẽ đè lên chân cổ */}
+      <path d={NAM_NECK_D} transform={NECK_T} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <g clipPath={`url(#${clip}-neck)`} stroke="none" data-shadow="drawn-neck">
+        <g filter={`url(#${clip}-soft2)`}>
+          <rect x={-150} y={-60} width={300} height={320} fill={PALETTE.skinShadow} opacity={0.3} />
+          <path d={NAM_NECK_D} transform={`translate(-7 0) ${NECK_T}`} fill={PALETTE.skin} />
+        </g>
+        <g filter={`url(#${clip}-soft)`}><g transform={NAM_HEAD_T}><path d={skin} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
+      </g>
+      <path d="M -26 184 Q -18 192 -8 196 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} />
+      <g transform={NAM_HEAD_T}>
+        {drop > 0 && <path d={`M 49 131 L 41 ${132 + 0.4 * drop} L ${46 - 0.3 * drop} ${134 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
+        <path d={skin} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+        <g clipPath={`url(#${clip}-face)`} stroke="none" data-shadow="drawn-face">
+          <g filter={`url(#${clip}-soft)`}>
+            <rect x={-150} y={-60} width={300} height={320} fill={PALETTE.skinShadow} opacity={0.4} />
+            <path d={skin} transform="translate(0 -6)" fill={PALETTE.skin} />
+          </g>
+          <g filter={`url(#${clip}-soft2)`}><path d={NAM_SIDE.hair} transform="translate(3.5 7)" fill={PALETTE.skinShadow} opacity={0.5} /></g>
+        </g>
+        <g transform={hairSway(sway)}>
+          <path d={NAM_SIDE.hair} fill={PALETTE.nam.hair} {...o(PALETTE.nam.hair)} visibility="visible" />
+          <path d={NAM_SIDE.curl} transform="translate(0 5)" fill={PALETTE.nam.hair} {...o(PALETTE.nam.hair)} visibility="visible" />
+        </g>
+        <path d={NAM_SIDE.ear} fill={PALETTE.skin} {...o(PALETTE.skin)} />
+        <path d={NAM_SIDE.earLine} fill="none" style={{ strokeWidth: lw(2.4) }} />
+        <defs><clipPath id={`${clip}-eyes`}><ellipse cx={36} cy={98.5} rx={11} ry={ry} /></clipPath></defs>
+        <ellipse cx={36} cy={98.5} rx={11} ry={ry} fill={PALETTE.eyeWhite} style={{ strokeWidth: lw(2.5) }} />
+        <g clipPath={`url(#${clip}-eyes)`}>
+          <ellipse cx={41} cy={99.5} rx={3.8} ry={Math.min(5.2, ry - 2)} fill={PALETTE.ink} stroke="none" />
+          {blink ? <rect x={18} y={70} width={40} height={60} fill={PALETTE.skin} stroke="none" /> : f.lid && <path d={f.lid} fill={PALETTE.skin} style={{ strokeWidth: lw(2.5) }} />}
+        </g>
+        {blink && <path d="M 26 100 Q 36 106 47 100" fill="none" style={{ strokeWidth: lw(3) }} />}
+        <g clipPath={`url(#${clip}-face)`}><path d={f.brow} transform="translate(6 0) translate(20 0) scale(0.8 1) translate(-20 0)" fill="none" style={{ strokeWidth: lw(5.5) }} /></g>
+        {mole && <circle cx={16.6} cy={76.9} r={2.2} fill={PALETTE.ink} stroke="none" />}
+        {mouth && <path d={mouth} fill="none" style={{ strokeWidth: lw(2.6) }} />}
       </g>
     </g>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Build, JointPose, NAM_OUTFITS, NamMood, Outfit, PALETTE, Rigged, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_OUTFIT, TWIN_POSES } from '../../nhan-vat';
+import { Build, JointPose, lw, NAM_OUTFITS, NamMood, Outfit, PALETTE, Rigged, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_OUTFIT, TWIN_POSES } from '../../nhan-vat';
 import { Mirror } from '../../bo-sung-15p/dao-cu';
 import { LIGHT_SOURCES, lightFor, RoomScene, RoomView } from '../../boi-canh/boi-canh';
 
@@ -239,7 +239,13 @@ export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway)
   const base = { ...TWIN_OUTFIT, shirt, sleeveEnd: 0.56, build: DANG_THAM_CHIEU };
   const views = Object.fromEntries(Object.entries(TWIN_OUTFIT.views ?? {}).map(([k, v]) => [k, narrow(v!)])) as NonNullable<Outfit['views']>;
   const nb = narrow(base);
-  const vs = Object.fromEntries(Object.entries(views).map(([k, v]) => [k, { ...v!, hem: swayHem(v!.hem, sway) }])) as Outfit['views'];
+  const vs = Object.fromEntries(Object.entries(views).map(([k, v]) => [k, { ...v!, hem: swayHem(v!.hem, sway) }])) as NonNullable<Outfit['views']>;
+  // Góc nghiêng dựng lại theo ảnh tham chiếu: lưng gần thẳng, ngực dốc chéo ra trước từ cổ áo rồi mới phình (khuôn thân áo nghiêng đã chốt là mái vòm đối xứng).
+  vs.side = {
+    torso: 'M -26 184 Q -38 185 -45 200 Q -50 214 -50 260 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z',
+    hem: swayHem([[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]], sway),
+    detail: <path d="M 33 262 Q 38 292 36 330" fill="none" style={{ strokeWidth: lw(2.5) }} />,
+  };
   return { ...nb, hem: swayHem(nb.hem, sway), views: vs };
 };
 /** Đầu thon lại (ngang ×0,9) và hạ thấp (cổ ngắn, cằm sát vai) như ảnh tham chiếu; tâm phóng ở chân cổ. */
@@ -248,7 +254,7 @@ const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';
 /** Nam 2D với dáng tham chiếu (cùng props StudentTwinBody; `outfit` khác áo thun chưa hỗ trợ ở bản thử). */
 export const NamDangMoi: React.FC<BodyProps & { hemSway?: HemSway }> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, hair, hemSway }) => (
   <Rigged pose={pose} outfit={namOutfitDang(shirt, hemSway)} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline}
-    head={<g transform={HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} /></g>} />
+    head={<g transform={pose.view === 'side' ? undefined : HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} sideNew /></g>} />
 );
 
 const NAM_HAIR_HEX = PALETTE.nam.hair;
