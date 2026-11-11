@@ -159,6 +159,10 @@ export type RoomProps = {
   falloff?: number;
   /** Lớp ánh sáng hoàn thiện (mặc định bật): nắng vàng trên sàn, quầng cửa sổ/đèn bàn/đèn tuýp, góc xa dịu và lạnh, đêm ngả xanh thẫm. */
   grade?: boolean;
+  /** Tách đầu ra thành các nhóm BACK (vỏ phòng, đồ xa), MID, FORE (đồ gần máy nhất) để ghép thị sai. `true` hoặc ngưỡng {fore, back} theo tỉ lệ khoảng cách (mặc định 0.18 và 0.6). Hình giữ nguyên. */
+  layers?: boolean | { fore?: number; back?: number };
+  /** Số khung hiện tại (30 fps). Có giá trị thì bối cảnh tự chuyển động: quạt quay và quay đầu, rèm lay, bụi trong vệt nắng, đèn bàn nhấp nhẹ. Bỏ trống = tĩnh như cũ. */
+  frame?: number | null;
   door?: 'ajar' | 'open' | 'closed' | 'latched';
   chair?: keyof typeof SEATS;
   /** Xoay thêm ghế quanh tâm (radian). Mặc định 0 = hướng cũ; dùng khi cần thấy người ngồi quay ra máy. */
@@ -185,7 +189,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, layers = false, frame = null, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway' || view === 'corridor' || view === 'stairs' || view === 'giveaway';
@@ -584,8 +588,9 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     tube([[W - 5, WIN.y1 + 13, WIN.z0 - 28], [W - 5, WIN.y1 + 13, WIN.z1 + 28]], 2, '#8b7a5e');
     const curtain = (a: number, b: number) => {
       const dir = b > a ? 1 : -1, x = W - 5, top = WIN.y1 + 12, bot = WIN.y0 - 16;
-      soft([[x, top, a], [x, top, b], [x + 3, (top + bot) / 2, b - dir * 6], [x, bot, b + dir * 3], [x - 2, bot - 3, (a + b) / 2], [x + 2, bot, a]], '#efe3c2', { n: [-1, 0, 0], w: 2 });
-      for (let i = 1; i < 4; i++) { const z = a + ((b - a) * i) / 4; curve([[x - 1, top, z], [x - 1, (top + bot) / 2, z + dir * 3], [x - 1, bot + 3, z - dir * 2]], '#c8b990', 1.7); }
+      const sw = frame === null ? 0 : (5 * Math.sin(frame / 38 + a / 40) + 1.6 * Math.sin(frame / 15 + a / 25)) * dir, sx = frame === null ? 0 : 2.5 * Math.sin(frame / 29 + a / 30);
+      soft([[x, top, a], [x, top, b], [x + 3 + sx * 0.5, (top + bot) / 2, b - dir * 6 + sw * 0.5], [x + sx, bot, b + dir * 3 + sw], [x - 2 + sx, bot - 3, (a + b) / 2 + sw], [x + 2 + sx, bot, a + sw]], '#efe3c2', { n: [-1, 0, 0], w: 2 });
+      for (let i = 1; i < 4; i++) { const z = a + ((b - a) * i) / 4; curve([[x - 1, top, z], [x - 1, (top + bot) / 2, z + dir * 3 + sw * 0.5], [x - 1 + sx, bot + 3, z - dir * 2 + sw]], '#c8b990', 1.7); }
     };
     curtain(WIN.z0 - 26, WIN.z0 + 20); curtain(WIN.z1 + 26, WIN.z1 - 20);
   };
@@ -837,11 +842,11 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     cyl(c, 16, 3, '#7c9586', { top: '#8fa698' });
     tube([[c[0], 3, c[2]], [c[0], 92, c[2]]], 3, '#9fb1a5');
     const head: V3 = [c[0], 108, c[2]];
-    const yaw = 0.62, r: V3 = [Math.cos(yaw), 0, -Math.sin(yaw)], n: V3 = [Math.sin(yaw), 0, Math.cos(yaw)], up: V3 = [0, 1, 0];
+    const spin = frame === null ? 0 : frame * 0.55, yaw = 0.62 + (frame === null ? 0 : 0.2 * Math.sin(frame / 70)), r: V3 = [Math.cos(yaw), 0, -Math.sin(yaw)], n: V3 = [Math.sin(yaw), 0, Math.cos(yaw)], up: V3 = [0, 1, 0];
     const at = (u: number, v: number, off = 0) => add(add(add(head, mul(r, u)), mul(up, v)), mul(n, off));
     const circ = (R: number, off = 0) => Array.from({ length: 18 }, (_, i) => at(Math.cos((i / 18) * 6.283) * R, Math.sin((i / 18) * 6.283) * R, off));
     soft(circ(24, -6), '#d8e2d4', { n, op: 0.75, w: 2 });
-    for (let i = 0; i < 3; i++) { const t = (i / 3) * 6.283 + 0.5, u = (a: number, R: number) => at(Math.cos(t + a) * R, Math.sin(t + a) * R); soft([u(0.1, 3), u(0.62, 15), u(0.42, 22), u(-0.3, 20), u(-0.3, 8)], '#94b0a0', { n, w: 1.5 }); }
+    for (let i = 0; i < 3; i++) { const t = (i / 3) * 6.283 + 0.5 + spin, u = (a: number, R: number) => at(Math.cos(t + a) * R, Math.sin(t + a) * R); soft([u(0.1, 3), u(0.62, 15), u(0.42, 22), u(-0.3, 20), u(-0.3, 8)], '#94b0a0', { n, w: 1.5 }); }
     soft(circ(5, 2), '#6a8676', { n, w: 1.5 });
     soft(circ(24, 4), 'rgba(0,0,0,0)', { n, raw: true, w: 3 });
     for (let i = 0; i < 8; i++) { const t = (i / 8) * 6.283; line(at(Math.cos(t) * 5, Math.sin(t) * 5, 4), at(Math.cos(t) * 24, Math.sin(t) * 24, 4), '#7f9788', 1.1); }
@@ -879,7 +884,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   // Quầng đèn vẽ ngay sau bàn, nên ghế và người ở phía trước không bị phủ trắng.
   const lampGlow = () => {
     const lamp = P([418, 100, 37]), pool = P([418, 65, 36]), px = cam.pxcm([418, 65, 36]);
-    sink.push(<g key={key++} style={{ mixBlendMode: 'screen' }}><ellipse cx={pool[0]} cy={pool[1]} rx={px * 150} ry={px * 70} fill={`url(#${uid}-lamp)`} /><ellipse cx={lamp[0]} cy={lamp[1] + px * 16} rx={px * 90} ry={px * 90} fill={`url(#${uid}-lamp)`} /></g>);
+    sink.push(<g key={key++} style={{ mixBlendMode: 'screen' }} opacity={frame === null ? 1 : 0.93 + 0.07 * Math.sin(frame / 9) * Math.sin(frame / 23)}><ellipse cx={pool[0]} cy={pool[1]} rx={px * 150} ry={px * 70} fill={`url(#${uid}-lamp)`} /><ellipse cx={lamp[0]} cy={lamp[1] + px * 16} rx={px * 90} ry={px * 90} fill={`url(#${uid}-lamp)`} /></g>);
   };
 
   type Obj = { at: V3; draw: () => void };
@@ -898,20 +903,20 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const L = lightFor(view, a.at, SRC, move), dist = Math.hypot(a.at[0] - SRC[0], a.at[1] - SRC[2]);
     const near = clamp(1 - dist / (REACH + 120), 0, 1);
     const sunE = !night && !inHall ? sunExposure(a.at, 20, 160, sun) : 0;
-    const litA = night ? 0.5 * near : inHall ? 0.22 * near : 0.14 + 0.3 * sunE, shadeA = night ? 0.5 - 0.3 * near : 0.24;
+    const litA = Math.min(1, night ? 0.7 * near : inHall ? 0.4 * near : 0.12 + 0.28 * sunE), shadeA = night ? 0.5 - 0.3 * near : 0.08;
     const cx = p.x, cy = p.y + 295 * p.scale, h = 150 * p.scale, id = `${uid}-act${key++}`;
     const lit = night ? LAPTOP_LIGHT.lit : '#fff0c8', dark = night ? '#101a36' : '#4a587a';
     sink.push(
       <g key={key++}>
         <defs>
           <mask id={`${id}-m`} maskUnits="userSpaceOnUse" x={0} y={0} width={1920} height={1080} style={{ maskType: 'alpha' }}>{node}</mask>
-          <linearGradient id={`${id}-l`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset="0" stopColor={lit} stopOpacity={litA} /><stop offset=".42" stopColor={lit} stopOpacity={litA} /><stop offset=".5" stopColor={lit} stopOpacity="0" /></linearGradient>
-          <linearGradient id={`${id}-d`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset=".5" stopColor={dark} stopOpacity="0" /><stop offset=".58" stopColor={dark} stopOpacity={shadeA} /><stop offset="1" stopColor={dark} stopOpacity={shadeA} /></linearGradient>
+          <linearGradient id={`${id}-l`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset="0" stopColor={lit} stopOpacity={litA} /><stop offset=".3" stopColor={lit} stopOpacity={litA} /><stop offset=".62" stopColor={lit} stopOpacity="0" /></linearGradient>
+          <linearGradient id={`${id}-d`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset=".4" stopColor={dark} stopOpacity="0" /><stop offset=".75" stopColor={dark} stopOpacity={shadeA} /><stop offset="1" stopColor={dark} stopOpacity={shadeA} /></linearGradient>
         </defs>
         {node}
         <g mask={`url(#${id}-m)`}>
           <rect width={1920} height={1080} fill={`url(#${id}-d)`} style={{ mixBlendMode: 'multiply' }} />
-          <rect width={1920} height={1080} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'screen' }} />
+          <rect width={1920} height={1080} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'soft-light' }} />
         </g>
       </g>,
     );
@@ -955,13 +960,37 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   if (dayShadows.length) sink.splice(rayAt, 0, <g key="day-shadows" data-shadow="drawn-cast" opacity={0.16}>{dayShadows.map((d, i) => <path key={i} d={d} fill="#56627a" />)}</g>);
   if (sunGold.length) sink.splice(rayAt, 0, <g key="sun-gold" filter={`url(#${uid}-blur-sm)`} opacity={0.8 * (1 - sun)}>{sunGold.map((h, i) => <path key={i} d={`M${h.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} fill="#ffd78a" opacity={0.7} />)}</g>);
   const scr = (p: V3) => (Q(p)[2] > NEAR ? P(p) : null);
+  // Bụi lơ lửng trong khối nắng ngày: mỗi hạt nằm trên một tia từ ô cửa, trôi chậm và lắc nhẹ theo số khung.
+  const motes = frame !== null && !night && !inHall && sun < 0.6 ? Array.from({ length: 34 }, (_, i) => {
+    const a = WIN.z0 + 6 + ((i * 53) % (WIN.z1 - WIN.z0 - 12)), e = WIN.y0 + 6 + ((i * 37) % (WIN.y1 - WIN.y0 - 12));
+    const s0 = ((i * 97) % 100) / 100, sv = (((s0 * 330 + frame * (0.35 + (i % 5) * 0.08)) % 330) + 330) % 330;
+    const p: V3 = add(add([W - 4, e, a] as V3, mul(sunDir, sv / -sunDir[1] * 0.62)), [0, Math.sin(frame / 31 + i) * 4, Math.cos(frame / 27 + i * 2) * 4]);
+    if (p[1] < 4 || p[0] < 8 || behind([p])) return null;
+    const q = P(p), fade = Math.min(1, sv / 40, (330 - sv) / 60);
+    return { x: q[0], y: q[1], r: (1 + (i % 3) * 0.6) * Math.max(0.7, cam.pxcm(p) * 0.35), o: 0.5 * fade * (0.5 + 0.5 * Math.abs(Math.sin(frame / 17 + i))) };
+  }).filter(Boolean) as { x: number; y: number; r: number; o: number }[] : [];
   const winS = scr(LIGHT_SOURCES.window), lampS = scr(LIGHT_SOURCES.lamp), tubeS = scr([-86, 258, 215]);
+  const shellCount = sink.length, layered: { d: number; node: React.ReactNode }[] = [];
   [...objs].sort((a, b) => dist(b) - dist(a)).forEach((o) => {
     const before = sink; sink = [];
     o.draw();
-    before.push(<g key={key++}>{sink}</g>);
+    const node = <g key={key++}>{sink}</g>;
+    before.push(node);
+    if (layers) layered.push({ d: dist(o), node });
     sink = before;
   });
+  let roomNodes: React.ReactNode = sink;
+  if (layers && layered.length) {
+    const lo = Math.min(...layered.map((o) => o.d)), hi = Math.max(...layered.map((o) => o.d)), L = typeof layers === 'object' ? layers : {};
+    const foreD = lo + (hi - lo) * (L.fore ?? 0.18), backD = lo + (hi - lo) * (L.back ?? 0.6);
+    roomNodes = (
+      <>
+        <g data-layer="BACK">{sink.slice(0, shellCount)}{layered.filter((o) => o.d >= backD).map((o) => o.node)}</g>
+        <g data-layer="MID">{layered.filter((o) => o.d < backD && o.d >= foreD).map((o) => o.node)}</g>
+        <g data-layer="FORE">{layered.filter((o) => o.d < foreD).map((o) => o.node)}</g>
+      </>
+    );
+  }
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" className={className} role="img" aria-label={`${SHOT_LABEL[view]}, ${night ? 'ban đêm' : 'ban ngày'}`} data-view={view}>
@@ -981,13 +1010,14 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         <linearGradient id={`${uid}-win`} x1="1" x2="0" y1="0" y2=".5"><stop offset="0" stopColor="#fff6d8" stopOpacity=".28" /><stop offset=".6" stopColor="#fff6d8" stopOpacity="0" /></linearGradient>
       </defs>
       <rect width="1920" height="1080" fill={night ? '#111722' : '#d9cfb9'} />
-      <g data-layer={`room-${view}`}>{sink}</g>
+      <g data-layer={`room-${view}`}>{roomNodes}</g>
       {rayShapes.length > 0 && (
         <g filter={`url(#${uid}-blur)`} style={{ mixBlendMode: 'screen' }} opacity={rays}>
           {rayPaths(0.06)}
         </g>
       )}
       {!night && !inHall && <rect width="1920" height="1080" fill={`url(#${uid}-win)`} />}
+      {motes.length > 0 && <g data-layer="bui" style={{ mixBlendMode: 'screen' }} pointerEvents="none">{motes.map((m, i) => <circle key={i} cx={m.x} cy={m.y} r={m.r} fill="#fff4d0" opacity={m.o} />)}</g>}
       {grade && (
         <g data-layer="light-grade" pointerEvents="none">
           {!night && !inHall && <>

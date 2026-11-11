@@ -186,7 +186,7 @@ export const SceneDemo: React.FC = () => {
 Đánh dấu `[x]` khi đã có bản tĩnh dùng được trong repo. Dáng mới chỉ được duyệt bằng ảnh tĩnh, chưa kiểm chứng chuyển động. Đường dẫn tính từ `assets/`.
 
 ### Bối cảnh
-Các bối cảnh `bo-sung-15p` dựng bằng mô hình 3D theo cm ([`kit3d.tsx`](assets/bo-sung-15p/kit3d.tsx)), mỗi cảnh có bốn góc `view` (`chinh · nguoc · cheo · cao`). Bản bổ sung 11/11/2026 còn chờ chủ repo duyệt. Chưa có: tách lớp FORE/MID/BACK để chạy parallax, khung 2.39:1; hiện tại mỗi cảnh xuất một khối chung 16:9, chuyển động máy làm bằng camera 3D.
+Các bối cảnh `bo-sung-15p` dựng bằng mô hình 3D theo cm ([`kit3d.tsx`](assets/bo-sung-15p/kit3d.tsx)), mỗi cảnh có bốn góc `view` (`chinh · nguoc · cheo · cao`). Bản bổ sung 11/11/2026 còn chờ chủ repo duyệt. Tách lớp và khung 2.39:1: bối cảnh 3D có tuỳ chọn `layers` (nhóm SKY/BACK/MID/FORE) và `scope` (hai thanh đen 2.39:1); mặc định tắt, ảnh tĩnh xuất vẫn là một khối 16:9. Phòng trọ gốc (`RoomScene layers`) và thế giới gương cũng đã tách lớp. Chuyển động máy hiện làm bằng camera 3D.
 - [x] S01 Phòng trọ sáng sớm: `boi-canh/boi-canh.tsx` `RoomMorning`
 - [x] S02 Bàn học ngày: `StudyCornerMorning`
 - [x] S03 Phòng trọ chiều tà *(mới, chờ duyệt)*: `bo-sung-15p` `RoomSunset t={0..1}`, lớp ánh sáng tách riêng `SunsetLight` (`data-layer="LIGHT_LAYER"`). Vệt nắng cam được tính bằng tia qua ô cửa sổ, rơi lên mép bàn, nệm, sàn rồi leo lên tường đối diện và tắt; phòng tối và xanh dần ([bảng](assets/bo-sung-15p/bang-nang-chieu-ta.png))

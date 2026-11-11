@@ -33,12 +33,12 @@ export const camera = (c: CamSpec) => {
 };
 export type Cam = ReturnType<typeof camera>;
 
-export type Light = { sun: V3; amb?: number; diff?: number; lamps?: { p: V3; col: [number, number, number]; r: number; k: number }[]; fog?: { color: string; dist: number; max?: number } };
+export type Light = { sun: V3; amb?: number; diff?: number; band?: boolean; lamps?: { p: V3; col: [number, number, number]; r: number; k: number }[]; fog?: { color: string; dist: number; max?: number } };
 type Item = { layer: number; depth: number; node: React.ReactNode };
-export type FaceOpt = { n?: V3; cull?: boolean; edge?: boolean; raw?: boolean; op?: number; layer?: number; blend?: string; emit?: boolean };
+export type FaceOpt = { n?: V3; cull?: boolean; edge?: boolean; seam?: boolean; raw?: boolean; op?: number; layer?: number; blend?: string; emit?: boolean };
 
 /** Một bối cảnh: gom các mặt, sắp xếp và vẽ. */
-export const makeScene = (cam: Cam, light: Light) => {
+export const makeScene = (cam: Cam, light: Light, frame: number | null = null, layers: boolean | { fore?: number; back?: number } = false) => {
   const items: Item[] = [];
   const shadows: React.ReactNode[] = [];
   const glows: React.ReactNode[] = [];
@@ -49,14 +49,20 @@ export const makeScene = (cam: Cam, light: Light) => {
   const shade = (hex: string, n: V3 | undefined, at: V3, emit = false) => {
     let c = rgb(hex).map((v) => v / 255);
     if (!emit) {
-      let k = n ? amb + diff * Math.max(0, dot(n, L)) : amb + diff * 0.5;
+      const band = light.band !== false;
+      const dp = n ? Math.max(0, dot(n, L)) : 0.5;
+      // Ba mức sáng vẽ sẵn thay cho chuyển dần: mặt hướng nắng ám ấm, mặt quay lưng ám lạnh, còn lại giữ nguyên.
+      const q = band ? (dp > 0.55 ? 1 : dp > 0.15 ? 0.5 : 0) : dp;
+      const k = amb + diff * q;
+      const tint = band ? (q >= 1 ? [1.04, 1.01, 0.93] : q <= 0 ? [0.94, 0.97, 1.05] : [1, 1, 1]) : [1, 1, 1];
       const add3 = [0, 0, 0];
       for (const l of light.lamps ?? []) {
         const to = sub(l.p, at), d = Math.hypot(...to);
-        const I = ((n ? Math.max(0, dot(n, norm(to))) : 0.6) * l.k) / (1 + (d / l.r) ** 2);
+        let I = ((n ? Math.max(0, dot(n, norm(to))) : 0.6) * l.k) / (1 + (d / l.r) ** 2);
+        if (band) I = I > 0.35 * l.k ? l.k * 0.9 : I > 0.12 * l.k ? l.k * 0.5 : I > 0.03 * l.k ? l.k * 0.2 : 0;
         add3[0] += I * l.col[0]; add3[1] += I * l.col[1]; add3[2] += I * l.col[2];
       }
-      c = c.map((v, i) => v * k + v * add3[i]);
+      c = c.map((v, i) => v * k * tint[i] + v * add3[i]);
     }
     if (light.fog) {
       const d = cam.depth(at), f = (1 - Math.exp(-Math.max(0, d) / light.fog.dist)) * (light.fog.max ?? 0.55);
@@ -88,7 +94,7 @@ export const makeScene = (cam: Cam, light: Light) => {
     const col = o.raw ? fill : shade(fill, o.n, c, o.emit);
     items.push({
       layer: o.layer ?? 2, depth: Math.hypot(...sub(c, cam.pos)),
-      node: <path key={key++} d={path(pts)} fill={col} stroke={o.edge === false ? 'none' : o.raw ? 'none' : darker(col)} strokeWidth={1.1} strokeLinejoin="round" opacity={o.op} style={o.blend ? { mixBlendMode: o.blend as React.CSSProperties['mixBlendMode'] } : undefined} />,
+      node: <path key={key++} d={path(pts)} fill={col} stroke={o.seam ? col : o.edge === false ? 'none' : o.raw ? 'none' : darker(col)} strokeWidth={o.seam ? 0.8 : 1.1} strokeLinejoin="round" opacity={o.op} style={o.blend ? { mixBlendMode: o.blend as React.CSSProperties['mixBlendMode'] } : undefined} />,
     });
   };
 
@@ -157,7 +163,9 @@ export const makeScene = (cam: Cam, light: Light) => {
   };
 
   /** Khối cầu/elip (tán cây, bụi lá, chụp đèn tròn): các dải vĩ tuyến, sáng tối theo pháp tuyến thật. */
-  const sphere = (c: V3, r: number, col: string, o: { sy?: number; n?: number; bands?: number; layer?: number } = {}) => {
+  const sphere = (c0: V3, r: number, col: string, o: { sy?: number; n?: number; bands?: number; layer?: number } = {}) => {
+    // Có `frame` thì tán lá đung đưa nhẹ theo gió, mỗi cây một pha.
+    const c: V3 = frame === null ? c0 : [c0[0] + Math.sin(frame / 41 + c0[0] * 0.013 + c0[2] * 0.007) * r * 0.05, c0[1], c0[2] + Math.cos(frame / 53 + c0[2] * 0.011) * r * 0.035];
     const N = o.n ?? 14, B = o.bands ?? 7, sy = o.sy ?? 1;
     const pt = (lat: number, lon: number): V3 => [c[0] + r * Math.cos(lat) * Math.cos(lon), c[1] + r * sy * Math.sin(lat), c[2] + r * Math.cos(lat) * Math.sin(lon)];
     const faces: { d: number; node: React.ReactNode }[] = [];
@@ -234,10 +242,61 @@ export const makeScene = (cam: Cam, light: Light) => {
     return { x, y: y - 590 * s, scale: s };
   };
 
+  /**
+   * Người đặt qua `children` của một bối cảnh: một mảng ám ấm phía nguồn sáng và một mảng ám lạnh phía ngược lại,
+   * cắt theo hình người (mask alpha). Nguồn sáng: đèn gần nhất nếu người đứng trong tầm đèn, còn lại là nắng.
+   */
+  const litActors = (uidStr: string, at: V3, children: React.ReactNode, o: { lit?: string; dark?: string } = {}) => {
+    const lamp = (light.lamps ?? []).map((l) => ({ l, d: Math.hypot(...sub(l.p, at)) })).sort((a, b) => a.d - b.d)[0];
+    const useLamp = !!lamp && lamp.d < lamp.l.r * 1.6;
+    const near = useLamp ? clamp(1 - lamp.d / (lamp.l.r * 1.6)) : 0;
+    const toward = useLamp ? norm(sub(lamp!.l.p, at)) : mul(L, 1);
+    const c0 = cam.project(add(at, [0, 100, 0])), c1 = cam.project(add(add(at, [0, 100, 0]), mul(toward, 100)));
+    const dx = c1[0] - c0[0], dy = c1[1] - c0[1], dn = Math.hypot(dx, dy) || 1, ux = dx / dn, uy = dy / dn;
+    const s = cam.pxcm(at), cx = c0[0], cy = c0[1], h = 90 * s;
+    const night = (light.amb ?? 0.62) < 0.4;
+    const litA = useLamp ? Math.min(1, 0.7 * near) : night ? 0.2 : 0.4, shadeA = night ? 0.45 - 0.25 * near : 0.1;
+    const lit = o.lit ?? (useLamp ? '#' + lamp!.l.col.map((v) => Math.round(clamp(v) * 255).toString(16).padStart(2, '0')).join('') : '#fff0c8'), dark = o.dark ?? (night ? '#101a36' : '#4a587a');
+    const id = `${uidStr}-act`;
+    return (
+      <g>
+        <defs>
+          <mask id={`${id}-m`} maskUnits="userSpaceOnUse" x={-2000} y={-2000} width={6000} height={6000} style={{ maskType: 'alpha' }}>{children}</mask>
+          <linearGradient id={`${id}-l`} gradientUnits="userSpaceOnUse" x1={cx + ux * h} y1={cy + uy * h} x2={cx - ux * h} y2={cy - uy * h}><stop offset="0" stopColor={lit} stopOpacity={litA} /><stop offset=".3" stopColor={lit} stopOpacity={litA} /><stop offset=".62" stopColor={lit} stopOpacity="0" /></linearGradient>
+          <linearGradient id={`${id}-d`} gradientUnits="userSpaceOnUse" x1={cx + ux * h} y1={cy + uy * h} x2={cx - ux * h} y2={cy - uy * h}><stop offset=".4" stopColor={dark} stopOpacity="0" /><stop offset=".75" stopColor={dark} stopOpacity={shadeA} /><stop offset="1" stopColor={dark} stopOpacity={shadeA} /></linearGradient>
+        </defs>
+        {children}
+        <g mask={`url(#${id}-m)`}>
+          <rect x={-2000} y={-2000} width={6000} height={6000} fill={`url(#${id}-d)`} style={{ mixBlendMode: 'multiply' }} />
+          <rect x={-2000} y={-2000} width={6000} height={6000} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'soft-light' }} />
+        </g>
+      </g>
+    );
+  };
+
   const render = (uidStr: string, bg: React.ReactNode) => {
     const sorted = [...items].sort((a, b) => a.layer - b.layer || b.depth - a.depth);
     const shell = sorted.filter((i) => i.layer < 1);
     const rest = sorted.filter((i) => i.layer >= 1);
+    // Tách lớp để ghép thị sai: BACK = vỏ phòng và vật ở xa, FORE = vật gần máy nhất, MID = còn lại (giữ nguyên thứ tự vẽ).
+    const obj = rest.filter((i) => i.layer >= 2), dmin = Math.min(...obj.map((i) => i.depth)), dmax = Math.max(...obj.map((i) => i.depth));
+    const LS = typeof layers === 'object' ? layers : {}, foreD = dmin + (dmax - dmin) * (LS.fore ?? 0.16), backD = dmin + (dmax - dmin) * (LS.back ?? 0.62);
+    const grouped = (arr: Item[], name: string) => <g data-layer={name}>{arr.map((i) => i.node)}</g>;
+    if (layers && obj.length) {
+      const back = rest.filter((i) => i.layer < 2 || i.depth >= backD), fore = rest.filter((i) => i.layer >= 2 && i.depth < foreD), mid = rest.filter((i) => i.layer >= 2 && i.depth >= foreD && i.depth < backD);
+      return (
+        <g>
+          <defs>
+            <filter id={`${uidStr}-soft`} x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7" /></filter>
+            <filter id={`${uidStr}-glow`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="12" /></filter>
+          </defs>
+          <g data-layer="SKY">{bg}</g>
+          <g data-layer="BACK">{shell.map((i) => i.node)}<g filter={`url(#${uidStr}-soft)`}>{shadows}</g><g filter={`url(#${uidStr}-glow)`} style={{ mixBlendMode: 'screen' }}>{glows}</g>{back.map((i) => i.node)}</g>
+          {grouped(mid, 'MID')}
+          {grouped(fore, 'FORE')}
+        </g>
+      );
+    }
     return (
       <g>
         <defs>
@@ -252,7 +311,7 @@ export const makeScene = (cam: Cam, light: Light) => {
       </g>
     );
   };
-  return { quad, box, cyl, sphere, line, sprite, hidden: () => hiddenFlat, castShadow, contact, sunPatch, glow, plane, rigAt, render, shade, cam };
+  return { quad, box, cyl, sphere, line, sprite, hidden: () => hiddenFlat, castShadow, contact, sunPatch, glow, plane, rigAt, litActors, render, shade, cam, frame };
 };
 
 /** Lớp hoàn thiện: tối bốn góc và hạt mịn, dùng chung cho mọi cảnh. */
@@ -265,5 +324,14 @@ export const Finish: React.FC<{ id: string; vignette?: number; warm?: string; wa
     {warm && <rect width={1920} height={1080} fill={warm} opacity={warmOp} style={{ mixBlendMode: 'soft-light' }} />}
     <rect width={1920} height={1080} fill={`url(#${id}-vig)`} />
     <rect width={1920} height={1080} filter={`url(#${id}-grain)`} opacity={0.07} style={{ mixBlendMode: 'overlay' }} />
+  </g>
+);
+
+/** Khung điện ảnh 2.39:1 trên khung 16:9: hai thanh đen trên và dưới (vùng thấy được cao 804 px). */
+export const SCOPE_BAR = 138;
+export const Scope: React.FC = () => (
+  <g pointerEvents="none" data-layer="scope-2.39">
+    <rect x={0} y={0} width={1920} height={SCOPE_BAR} fill="#000" />
+    <rect x={0} y={1080 - SCOPE_BAR} width={1920} height={SCOPE_BAR} fill="#000" />
   </g>
 );
