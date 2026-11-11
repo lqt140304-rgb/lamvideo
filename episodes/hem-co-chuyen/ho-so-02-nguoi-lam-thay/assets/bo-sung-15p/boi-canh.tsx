@@ -108,8 +108,8 @@ const goosenecMic = (S: ReturnType<typeof makeScene>, b: V3, toward: [number, nu
   const h = pts[pts.length - 1];
   S.line(h, [h[0] + toward[0] * 6, h[1] - 2, h[2] + toward[1] * 6], '#1f2524', 3.2, { cm: true, layer: 2.45 });
 };
-export const LectureHall = ({ children, failed = false, students = true, view = 'chinh', cam }: { children?: React.ReactNode; failed?: boolean; students?: boolean; view?: SetView; cam?: CamSpec }) => {
-  const id = uid(), S = makeScene(camera(cam ?? LECTURE_VIEWS[view]), LECTURE_LIGHT);
+export const LectureHall = ({ children, failed = false, students = true, view = 'chinh', cam, frame = null }: { children?: React.ReactNode; failed?: boolean; students?: boolean; view?: SetView; cam?: CamSpec; frame?: number | null }) => {
+  const id = uid(), S = makeScene(camera(cam ?? LECTURE_VIEWS[view]), LECTURE_LIGHT, frame);
   const X: [number, number] = [-520, 520], Z: [number, number] = [-200, 1500], H = 430;
   shellRoom(S, X, Z, H, { lowerH: 110, lower: '#c3ccc4', wall: '#e3e4da', front: '#e7e7dd', floor: '#c9c4b2', ceil: '#eef0ea' });
   tiles(S, X, [995, 1250], 60, '#aeb0a2');
@@ -161,9 +161,10 @@ export const LectureHall = ({ children, failed = false, students = true, view = 
       if ((r + side + i) % 3 === 2) continue;
       const sx = a + 50 + i * ((b - a - 100) / 3), at: V3 = [sx, y + 60, z - 36];
       const topP = S.cam.project([sx, y + 128, z - 35]), pc = S.cam.pxcm([sx, y, z - 35]), s = (130 * pc) / 258;
-      S.sprite(at, <BackStudent x={topP[0]} y={topP[1] + 35 * s} s={s} shirt={shirts[(r * 3 + i + side) % shirts.length]} />, 2, [0, 0, -1]);
+      const bob = frame === null ? 0 : (Math.sin(frame / 38 + i * 2.1 + r * 1.3) * 1.2 + Math.max(0, Math.sin(frame / 97 + i * 5 + r)) ** 6 * 4) * s * 2;
+      S.sprite(at, <BackStudent x={topP[0]} y={topP[1] + 35 * s + bob} s={s} shirt={shirts[(r * 3 + i + side) % shirts.length]} />, 2, [0, 0, -1]);
       const p = S.rigAt([sx, y, z - 35], 165);
-      S.sprite(at, <SupportingActor role={(r + i + side) % 2 ? 'sinh-vien-nu' : 'sinh-vien-nam'} pose={TWIN_POSES.sit} smile={!failed} {...p} />, 2, [0, 0, 1]);
+      S.sprite(at, <SupportingActor role={(r + i + side) % 2 ? 'sinh-vien-nu' : 'sinh-vien-nam'} pose={TWIN_POSES.sit} smile={!failed} {...p} y={p.y + bob * 0.8} />, 2, [0, 0, 1]);
     }
   }));
   const t = S.rigAt([265, 22, 1420], 165);
@@ -178,30 +179,31 @@ export const LAB_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [-330, 175, -
 const LAB_LIGHT: Light = { sun: [-0.72, -0.55, 0.25], amb: 0.64, diff: 0.42, lamps: [], fog: { color: '#dfe6dc', dist: 2400, max: 0.3 } };
 export const labSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(LAB_VIEWS[view]), LAB_LIGHT).rigAt([-40, 0, 1120], heightCm);
 /** Màn hình hạn nộp (khung 200 × 120 đơn vị = mặt kính 50 × 30 cm). */
-const DeadlineScreen = ({ variant = 0 }: { variant?: number }) => (
+const hms = (t: number) => `${String(Math.floor(t / 3600)).padStart(2, '0')}:${String(Math.floor((t % 3600) / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`;
+const DeadlineScreen = ({ variant = 0, frame = null }: { variant?: number; frame?: number | null }) => (
   <g>
     <rect width={200} height={120} fill="#f4f2ec" />
     <rect width={200} height={24} fill="#c4493b" />
     <text x={8} y={17} fontFamily="Arial, sans-serif" fontWeight={700} fontSize={13} fill="#fff">HẠN NỘP BÀI TẬP LỚN</text>
-    <text x={100} y={70} textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight={700} fontSize={38} fill="#c4493b">{variant % 4 ? '23:59' : '02:14:08'}</text>
+    <text x={100} y={70} textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight={700} fontSize={38} fill="#c4493b">{variant % 4 ? '23:59' : hms(8048 - Math.floor((frame ?? 0) / 30))}</text>
     <text x={100} y={94} textAnchor="middle" fontFamily="Arial, sans-serif" fontSize={12} fill="#55605b">{variant % 4 ? 'Hôm nay · Kiến trúc máy tính' : 'Còn lại · Nhóm 5 chưa nộp'}</text>
     <rect x={10} y={104} width={180} height={7} rx={3.5} fill="#d9d5c9" />
     <rect x={10} y={104} width={variant % 4 ? 160 : 172} height={7} rx={3.5} fill="#c4493b" />
   </g>
 );
-const monitor = (S: ReturnType<typeof makeScene>, x: number, y: number, z: number, i: number) => {
+const monitor = (S: ReturnType<typeof makeScene>, x: number, y: number, z: number, i: number, frame: number | null = null) => {
   S.box({ x: [x - 4, x + 4], y: [y, y + 14], z: [z + 6, z + 10], c: '#40494a' });
   S.box({ x: [x - 12, x + 12], y: [y, y + 1.5], z: [z + 2, z + 16], c: '#40494a' });
   S.box({ x: [x - 27, x + 27], y: [y + 12, y + 46], z: [z, z + 4], c: '#2f3738', front: '#2f3738' });
   S.quad([[x - 25, y + 14, z - 0.4], [x + 25, y + 14, z - 0.4], [x + 25, y + 44, z - 0.4], [x - 25, y + 44, z - 0.4]], i % 3 ? '#cfe1e3' : '#bcd6cc', { n: [0, 0, -1], emit: true, edge: false });
   // Màn hình chẵn hiện hạn nộp bài tập lớn (P2.04: áp lực thời gian); màn lẻ là giao diện làm việc chung.
-  if (i % 2 === 0 && S.cam.pos[2] < z) S.plane([x - 25, y + 44, z - 0.8], [0.25, 0, 0], [0, -0.25, 0], <DeadlineScreen variant={i} />, 2, 3);
+  if (i % 2 === 0 && S.cam.pos[2] < z) S.plane([x - 25, y + 44, z - 0.8], [0.25, 0, 0], [0, -0.25, 0], <DeadlineScreen variant={i} frame={frame} />, 2, 3);
   else for (let k = 0; k < 3; k++) S.quad([[x - 20, y + 38 - k * 8, z - 0.6], [x + 6 - k * 4, y + 38 - k * 8, z - 0.6], [x + 6 - k * 4, y + 35 - k * 8, z - 0.6], [x - 20, y + 35 - k * 8, z - 0.6]], '#8ea9a2', { n: [0, 0, -1], emit: true, edge: false });
   S.glow([x, y + 29, z - 4], 26, '#d9f1ee', 0.14);
   S.box({ x: [x - 21, x + 21], y: [y, y + 2], z: [z - 30, z - 16], c: '#5c6766', top: '#7c8786' });
 };
-export const ComputerLab = ({ children, view = 'chinh' }: { children?: React.ReactNode; view?: SetView }) => {
-  const id = uid(), S = makeScene(camera(LAB_VIEWS[view]), LAB_LIGHT);
+export const ComputerLab = ({ children, view = 'chinh', frame = null }: { children?: React.ReactNode; view?: SetView; frame?: number | null }) => {
+  const id = uid(), S = makeScene(camera(LAB_VIEWS[view]), LAB_LIGHT, frame);
   const X: [number, number] = [-480, 480], Z: [number, number] = [-200, 1250], H = 320;
   shellRoom(S, X, Z, H, { lowerH: 100, lower: '#b8c6b8', wall: '#e1e6d8', front: '#e6e8db', floor: '#c4ccbd' });
   tiles(S, X, Z, 60, '#a8b4a6', 0.6);
@@ -229,7 +231,7 @@ export const ComputerLab = ({ children, view = 'chinh' }: { children?: React.Rea
     S.castShadow([a, b], [z, z + 70], 76, 0.15);
     for (let i = 0; i < 4; i++) {
       const mx = a + 48 + i * ((b - a - 96) / 3);
-      monitor(S, mx, 76, z + 42, i + side);
+      monitor(S, mx, 76, z + 42, i + side, frame);
       S.box({ x: [mx - 20, mx + 20], y: [44, 49], z: [z - 50, z - 12], c: '#5d6f6a', top: '#6f837d' });
       S.box({ x: [mx - 19, mx + 19], y: [49, 92], z: [z - 54, z - 49], c: '#5d6f6a' });
       S.cyl([mx, 0, z - 31], 3, 44, K.steel, { n: 8 });
@@ -246,8 +248,8 @@ export const ComputerLab = ({ children, view = 'chinh' }: { children?: React.Rea
 export const CORR_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [40, 165, -60], look: [-20, 135, 3000], mm: 22 }, nguoc: { pos: [-30, 165, 3400], look: [40, 135, -200], mm: 22 }, cheo: { pos: [140, 170, 2000], look: [-160, 115, 1350], mm: 24 }, cao: { pos: [40, 310, 120], look: [-60, 0, 1500], mm: 20 } };
 const CORR_LIGHT: Light = { sun: [-0.62, -0.62, 0.32], amb: 0.66, diff: 0.42, fog: { color: '#e4ead9', dist: 2600, max: 0.45 } };
 export const corridorSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT).rigAt([10, 0, 620], heightCm);
-export const UniversityCorridor = ({ children, view = 'chinh' }: { children?: React.ReactNode; view?: SetView }) => {
-  const id = uid(), S = makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT);
+export const UniversityCorridor = ({ children, view = 'chinh', frame = null }: { children?: React.ReactNode; view?: SetView; frame?: number | null }) => {
+  const id = uid(), S = makeScene(camera(CORR_VIEWS[view]), CORR_LIGHT, frame);
   const W0 = -160, W1 = 160, H = 330, D = 3600;
   // Ngoài lan can: sân, dãy nhà đối diện, cây
   S.quad([[W1, -340, -200], [3000, -340, -200], [3000, -340, 6000], [W1, -340, 6000]], '#c9c2ad', { n: [0, 1, 0], layer: 0, edge: false });
@@ -335,8 +337,8 @@ const flowerMat = (S: ReturnType<typeof makeScene>, x: [number, number], z: [num
   const cx = (x[0] + x[1]) / 2, cz = (z[0] + z[1]) / 2;
   for (const [fx, fz, sz] of [[cx, cz, 60], [x[0] + 70, z[0] + 70, 40], [x[1] - 70, z[0] + 70, 40], [x[0] + 70, z[1] - 70, 40], [x[1] - 70, z[1] - 70, 40]]) S.plane([fx - sz / 2, y + 0.4, fz + sz / 2], [sz / 100, 0, 0], [0, 0, -sz / 100], <MatFlower />, 0.55);
 };
-export const FamilyGathering = ({ children, cast = true, view = 'chinh' }: { children?: React.ReactNode; cast?: boolean; view?: SetView }) => {
-  const id = uid(), S = makeScene(camera(FAM_VIEWS[view]), FAM_LIGHT);
+export const FamilyGathering = ({ children, cast = true, view = 'chinh', frame = null }: { children?: React.ReactNode; cast?: boolean; view?: SetView; frame?: number | null }) => {
+  const id = uid(), S = makeScene(camera(FAM_VIEWS[view]), FAM_LIGHT, frame);
   const X: [number, number] = [-450, 450], Z: [number, number] = [-250, 800], H = 330;
   shellRoom(S, X, Z, H, { wall: '#ece4cc', lower: '#d6c9a6', lowerH: 85, floor: '#b8775b', ceil: '#d9cdb2' });
   tiles(S, X, Z, 30, '#9a5c44', 0.6);
@@ -374,6 +376,8 @@ export const FamilyGathering = ({ children, cast = true, view = 'chinh' }: { chi
   // Bát canh cua: nước rau xanh – nâu riêu
   S.cyl([-20, y0, tz + 8], 12, 9, '#eef0ea', { r2: 15, top: '#8f8a4e', n: 16 });
   for (const [dx, dz] of [[-4, 2], [3, -3], [5, 5]]) S.cyl([-20 + dx, y0 + 9.2, tz + 8 + dz], 3, 0.4, '#c79c64', { n: 8 });
+  // Hơi nóng bốc lên từ bát canh: vài đốm trắng mờ trôi lên, nở rộng và tan dần.
+  if (frame !== null) for (let k = 0; k < 6; k++) { const ph = (frame / 75 + k / 6) % 1; S.glow([-20 + Math.sin(frame / 14 + k * 2) * 4 * ph, y0 + 11 + ph * 34, tz + 8], 5 + ph * 9, '#ffffff', 0.34 * (1 - ph)); }
   // Đĩa nem rán
   S.cyl([24, y0, tz - 8], 15, 1.5, '#f3f1e9', { r2: 18, n: 18 });
   [[-8, -4, 20], [-2, 4, -15], [6, -2, 35], [10, 6, 5], [0, -9, -30]].forEach(([dx, dz, yaw]) => S.box({ x: [24 + dx - 6, 24 + dx + 6], y: [y0 + 1.5, y0 + 4.5], z: [tz - 8 + dz - 1.6, tz - 8 + dz + 1.6], c: '#c4803c', top: '#da9b4c', yaw }));
@@ -404,9 +408,9 @@ export const FamilyGathering = ({ children, cast = true, view = 'chinh' }: { chi
 //      `ripple` 0–1 là pha gợn sóng (chạy vòng); `at` là tâm gợn trên màn hình; children vẽ giữa hai lớp nước.
 // ---------------------------------------------------------------------------------------------
 const WATER_Y = 800;
-export const MirrorRealm = ({ children, ripple = 0, at = [1160, 880], floating = true }: { children?: React.ReactNode; ripple?: number; at?: [number, number]; floating?: boolean }) => {
-  const id = uid();
-  const room = <RoomScene view="wide" night door="ajar" phone="hidden" wallet={false} kitchen="clean" />;
+export const MirrorRealm = ({ children, ripple: rp = 0, at = [1160, 880], floating = true, frame = null }: { children?: React.ReactNode; ripple?: number; at?: [number, number]; floating?: boolean; frame?: number | null }) => {
+  const id = uid(), ripple = frame === null ? rp : rp + frame / 38, bob = frame === null ? 0 : 9 * Math.sin(frame / 31);
+  const room = <RoomScene view="wide" night door="ajar" phone="hidden" wallet={false} kitchen="clean" frame={frame} />;
   const flipped = <g transform="translate(1920 0) scale(-1 1)">{room}</g>;
   const specks = Array.from({ length: 46 }, (_, i) => [((i * 397) % 1880) + 20, WATER_Y + 12 + ((i * 131) % 260), 1.2 + ((i * 7) % 5) * 0.5] as const);
   return (
@@ -428,7 +432,7 @@ export const MirrorRealm = ({ children, ripple = 0, at = [1160, 880], floating =
       {floating && (
         <g data-layer="guong-troi">
           <ellipse cx={560} cy={WATER_Y + 26} rx={150} ry={16} fill="#7ff0e2" opacity={0.18} />
-          <g transform={`translate(560 ${WATER_Y - 40}) rotate(-7) scale(0.62)`}><Mirror progress={0.6} phase={2} /></g>
+          <g transform={`translate(560 ${WATER_Y - 40 + bob}) rotate(${-7 + bob * 0.25}) scale(0.62)`}><Mirror progress={0.6} phase={2} /></g>
         </g>
       )}
       <g data-layer="actors">{children}</g>
@@ -436,7 +440,7 @@ export const MirrorRealm = ({ children, ripple = 0, at = [1160, 880], floating =
       <g data-layer="gon-song" fill="none" stroke="#9af7ea">
         {[0, 1, 2, 3].map((k) => { const p = (k + (ripple % 1)) / 4, rx = 70 + p * 620; return <ellipse key={k} cx={at[0]} cy={at[1]} rx={rx} ry={rx * 0.11} strokeWidth={3 - p * 2} opacity={0.6 * (1 - p)} />; })}
       </g>
-      {specks.map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r} fill="#b9fff4" opacity={0.25 + ((i * 13) % 10) / 20} />)}
+      {specks.map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r} fill="#b9fff4" opacity={(0.25 + ((i * 13) % 10) / 20) * (frame === null ? 1 : 0.55 + 0.45 * Math.sin(frame / 11 + i * 1.7))} />)}
       <rect width={1920} height={1080} fill={`url(#${id}-vig)`} />
     </g>
   );
@@ -449,8 +453,8 @@ export const MirrorRealm = ({ children, ripple = 0, at = [1160, 880], floating =
 export const DONATION_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [110, 150, -300], look: [50, 95, 400], mm: 25 }, nguoc: { pos: [180, 155, 330], look: [-80, 100, -400], mm: 22 }, cheo: { pos: [430, 160, -60], look: [-120, 80, 380], mm: 22 }, cao: { pos: [-280, 262, -260], look: [120, 20, 340], mm: 19 } };
 const DONATION_LIGHT: Light = { sun: [-0.82, -0.36, 0.3], amb: 0.6, diff: 0.3, fog: { color: '#c7cdc8', dist: 2200, max: 0.32 } };
 export const donationSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(DONATION_VIEWS[view]), DONATION_LIGHT).rigAt([-170, 0, 170], heightCm);
-export const DonationCorner = ({ children, view = 'chinh', cam }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec }) => {
-  const id = uid(), S = makeScene(camera(cam ?? DONATION_VIEWS[view]), DONATION_LIGHT);
+export const DonationCorner = ({ children, view = 'chinh', cam, frame = null }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null }) => {
+  const id = uid(), S = makeScene(camera(cam ?? DONATION_VIEWS[view]), DONATION_LIGHT, frame);
   const BZ = 400, XR = 260;
   // Sân ngoài (bên phải) ướt mưa, tường nhà bên, cây
   S.quad([[XR, -0.2, -500], [1100, -0.2, -500], [1100, -0.2, 1500], [XR, -0.2, 1500]], '#8e958b', { n: [0, 1, 0], layer: 0, edge: false });
@@ -505,7 +509,8 @@ export const DonationCorner = ({ children, view = 'chinh', cam }: { children?: R
   S.sprite([200, 40, 378], <g transform={`translate(${g[0]} ${g[1]}) scale(${gs}) rotate(-3)`}><Mirror /><rect x={-118} y={-600} width={236} height={548} fill="#d6ccb2" opacity={0.26} />{Array.from({ length: 18 }, (_, i) => <circle key={i} cx={-100 + ((i * 53) % 200)} cy={-560 + ((i * 97) % 480)} r={3 + (i % 4)} fill="#e6dcc3" opacity={0.5} />)}<path d="M-110 -80Q0 -110 110 -70" stroke="#e1d7be" strokeWidth={14} opacity={0.35} fill="none" /></g>, 2, [0, 0, -1]);
   // Vũng nước đọng phản chiếu trời xám, giọt mưa còn rỏ từ mép sàn tầng trên
   for (const [x, z, rx, rz] of [[120, 120, 90, 34], [-160, 40, 60, 22], [330, -60, 140, 50], [380, 260, 80, 28]]) S.plane([x - rx, 0.5, z + rz], [1, 0, 0], [0, 0, -1], <ellipse cx={rx} cy={rz} rx={rx} ry={rz} fill="#c4ccc8" opacity={0.22} />, 0.55);
-  for (const [x, z] of [[XR + 10, -200], [XR + 14, 40], [XR + 8, 230]]) S.line([x, 280, z], [x, 262, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.7 });
+  if (frame !== null) for (let k = 0; k < 9; k++) { const ph = (frame * 0.035 + k * 0.381) % 1, x = XR + 8 + (k % 3) * 3, z = -230 + k * 62, y = 284 - ph * 280; S.line([x, y, z], [x, y + 16, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.75 * Math.min(1, (1 - ph) * 5) }); }
+  else for (const [x, z] of [[XR + 10, -200], [XR + 14, 40], [XR + 8, 230]]) S.line([x, 280, z], [x, 262, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.7 });
   S.sprite([-170, 0, 170], S.litActors(id, [-170, 0, 170], <g data-layer="actors">{children}</g>));
   return wrap(id, 'goc-do-cho-tang', S.render(id, sky('#aeb8b6', '#e1dccb', id)), '#e8c48f', 0.42);
 };
@@ -515,8 +520,8 @@ export const DonationCorner = ({ children, view = 'chinh', cam }: { children?: R
 export const PITCH_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [180, 260, -260], look: [0, 40, 2400], mm: 26 }, nguoc: { pos: [-200, 260, 4500], look: [0, 40, 1000], mm: 26 }, cheo: { pos: [1180, 320, 2200], look: [-400, 0, 2200], mm: 24 }, cao: { pos: [-1150, 1300, -700], look: [0, 0, 2400], mm: 24 } };
 const PITCH_LIGHT: Light = { sun: [0.45, -0.55, -0.7], amb: 0.66, diff: 0.4, fog: { color: '#dfe8dc', dist: 5200, max: 0.5 } };
 export const pitchSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(PITCH_VIEWS[view]), PITCH_LIGHT).rigAt([-120, 0, 900], heightCm);
-export const MiniPitch = ({ children, view = 'chinh', cam }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec }) => {
-  const id = uid(), S = makeScene(camera(cam ?? PITCH_VIEWS[view]), PITCH_LIGHT);
+export const MiniPitch = ({ children, view = 'chinh', cam, frame = null }: { children?: React.ReactNode; view?: SetView; cam?: CamSpec; frame?: number | null }) => {
+  const id = uid(), S = makeScene(camera(cam ?? PITCH_VIEWS[view]), PITCH_LIGHT, frame);
   const XW = 1000, Z0 = 200, Z1 = 4200;
   S.quad([[-6000, 0, -500], [6000, 0, -500], [6000, 0, 9000], [-6000, 0, 9000]], '#b8b39c', { n: [0, 1, 0], layer: 0, edge: false });
   [-3800, -2300, -600, 1200, 2900].forEach((x, i) => { S.box({ x: [x, x + 1300], y: [0, 900 + (i % 2) * 450], z: [7000, 7800], c: ['#d9c7a6', '#c7b79a', '#e0d3b5', '#b9b49a', '#d4bea0'][i], layer: 0.2 }); for (let r = 0; r < 4; r++) for (let q = 0; q < 4; q++) S.quad([[x + 120 + q * 290, 160 + r * 200, 6998], [x + 260 + q * 290, 160 + r * 200, 6998], [x + 260 + q * 290, 260 + r * 200, 6998], [x + 120 + q * 290, 260 + r * 200, 6998]], '#8fa6a3', { n: [0, 0, -1], layer: 0.25, edge: false }); });
@@ -552,8 +557,8 @@ export const MiniPitch = ({ children, view = 'chinh', cam }: { children?: React.
 // ---------------------------------------------------------------------------------------------
 /** `turn`: góc xoay của ghế cắt tóc quanh trụ (độ). 0 là khách ngồi nhìn vào gương; 180 là quay ra cửa. */
 export const BARBER_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [-150, 158, -40], look: [40, 105, 420], mm: 26 }, nguoc: { pos: [180, 160, 380], look: [-100, 110, -100], mm: 24 }, cheo: { pos: [300, 170, 40], look: [-150, 90, 350], mm: 24 }, cao: { pos: [-240, 285, -90], look: [100, 10, 330], mm: 22 } };
-export const BarberCorner = ({ turn = 0, view = 'chinh' }: { turn?: number; view?: SetView }) => {
-  const id = uid(), S = makeScene(camera(BARBER_VIEWS[view]), { sun: [0.6, -0.65, 0.4], amb: 0.62, diff: 0.42, lamps: [{ p: [40, 250, 300], col: [1, 0.9, 0.7], r: 200, k: 0.25 }] });
+export const BarberCorner = ({ turn = 0, view = 'chinh', frame = null }: { turn?: number; view?: SetView; frame?: number | null }) => {
+  const id = uid(), S = makeScene(camera(BARBER_VIEWS[view]), { sun: [0.6, -0.65, 0.4], amb: 0.62, diff: 0.42, lamps: [{ p: [40, 250, 300], col: [1, 0.9, 0.7], r: 200, k: 0.25 }] }, frame);
   const X: [number, number] = [-260, 320], Z: [number, number] = [-100, 430], H = 300;
   shellRoom(S, X, Z, H, { wall: '#e3dcc6', lower: '#9fb7ad', lowerH: 120, floor: '#e8e4d8' });
   // Mặt tiền: cửa kính ra phố, ô kính có biển hiệu nhìn ngược, ghế chờ
@@ -602,8 +607,9 @@ export const DORM_VIEWS: Record<SetView, CamSpec> = { chinh: { pos: [60, 160, -7
 const DORM_TUBES = [260, 920, 1580];
 const dormLight = (flicker: number): Light => ({ sun: [0.3, -0.8, 0.2], amb: 0.2, diff: 0.05, lamps: DORM_TUBES.map((z, i) => ({ p: [24, 232, z] as V3, col: [1, 0.86, 0.52] as [number, number, number], r: 260, k: i === 1 ? 1.05 * flicker : 1.05 })), fog: { color: '#0b1012', dist: 1300, max: 0.8 } });
 export const dormSpot = (heightCm = 168, view: SetView = 'chinh') => makeScene(camera(DORM_VIEWS[view]), dormLight(1)).rigAt([95, 0, 520], heightCm);
-export const DormHallNight = ({ children, view = 'chinh', flicker = 1, cam }: { children?: React.ReactNode; view?: SetView; flicker?: number; cam?: CamSpec }) => {
-  const id = uid(), S = makeScene(camera(cam ?? DORM_VIEWS[view]), dormLight(flicker));
+export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = null }: { children?: React.ReactNode; view?: SetView; flicker?: number; cam?: CamSpec; frame?: number | null }) => {
+  const fl = flicker ?? (frame === null ? 1 : frame % 197 < 3 ? 0.15 : frame % 113 < 2 ? 0.5 : frame % 331 > 322 ? 0.05 : 1);
+  const id = uid(), S = makeScene(camera(cam ?? DORM_VIEWS[view]), dormLight(fl), frame);
   const Z: [number, number] = [-100, 2300], H = 285, XW = 180;
   // Sân và dãy trọ đối diện chìm trong đêm, vài ô cửa còn sáng
   S.quad([[XW, -300, Z[0]], [900, -300, Z[0]], [900, -300, Z[1]], [XW, -300, Z[1]]], '#1d2526', { n: [0, 1, 0], layer: 0, edge: false, raw: true });
@@ -640,7 +646,7 @@ export const DormHallNight = ({ children, view = 'chinh', flicker = 1, cam }: { 
   S.box({ x: [XW - 9, XW + 1], y: [102, 107], z: Z, c: '#4a5250' });
   // Đèn tuýp trên tường trái; bóng thứ hai chập chờn
   DORM_TUBES.forEach((z, i) => {
-    const on = i === 1 ? flicker : 1;
+    const on = i === 1 ? fl : 1;
     S.box({ x: [2, 8], y: [229, 235], z: [z - 60, z + 60], c: on > 0.3 ? '#fbe9b0' : '#7d7766', emit: true, edge: false });
     S.box({ x: [0, 4], y: [227, 237], z: [z - 64, z + 64], c: '#cfc8b4' });
     if (on > 0.05) S.glow([20, 226, z], 46 * on, '#ffdb8a', 0.32 * on);

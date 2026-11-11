@@ -38,7 +38,7 @@ type Item = { layer: number; depth: number; node: React.ReactNode };
 export type FaceOpt = { n?: V3; cull?: boolean; edge?: boolean; raw?: boolean; op?: number; layer?: number; blend?: string; emit?: boolean };
 
 /** Một bối cảnh: gom các mặt, sắp xếp và vẽ. */
-export const makeScene = (cam: Cam, light: Light) => {
+export const makeScene = (cam: Cam, light: Light, frame: number | null = null) => {
   const items: Item[] = [];
   const shadows: React.ReactNode[] = [];
   const glows: React.ReactNode[] = [];
@@ -163,7 +163,9 @@ export const makeScene = (cam: Cam, light: Light) => {
   };
 
   /** Khối cầu/elip (tán cây, bụi lá, chụp đèn tròn): các dải vĩ tuyến, sáng tối theo pháp tuyến thật. */
-  const sphere = (c: V3, r: number, col: string, o: { sy?: number; n?: number; bands?: number; layer?: number } = {}) => {
+  const sphere = (c0: V3, r: number, col: string, o: { sy?: number; n?: number; bands?: number; layer?: number } = {}) => {
+    // Có `frame` thì tán lá đung đưa nhẹ theo gió, mỗi cây một pha.
+    const c: V3 = frame === null ? c0 : [c0[0] + Math.sin(frame / 41 + c0[0] * 0.013 + c0[2] * 0.007) * r * 0.05, c0[1], c0[2] + Math.cos(frame / 53 + c0[2] * 0.011) * r * 0.035];
     const N = o.n ?? 14, B = o.bands ?? 7, sy = o.sy ?? 1;
     const pt = (lat: number, lon: number): V3 => [c[0] + r * Math.cos(lat) * Math.cos(lon), c[1] + r * sy * Math.sin(lat), c[2] + r * Math.cos(lat) * Math.sin(lon)];
     const faces: { d: number; node: React.ReactNode }[] = [];
@@ -290,7 +292,7 @@ export const makeScene = (cam: Cam, light: Light) => {
       </g>
     );
   };
-  return { quad, box, cyl, sphere, line, sprite, hidden: () => hiddenFlat, castShadow, contact, sunPatch, glow, plane, rigAt, litActors, render, shade, cam };
+  return { quad, box, cyl, sphere, line, sprite, hidden: () => hiddenFlat, castShadow, contact, sunPatch, glow, plane, rigAt, litActors, render, shade, cam, frame };
 };
 
 /** Lớp hoàn thiện: tối bốn góc và hạt mịn, dùng chung cho mọi cảnh. */
