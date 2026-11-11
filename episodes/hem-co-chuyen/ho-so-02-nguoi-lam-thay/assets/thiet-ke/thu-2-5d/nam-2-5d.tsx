@@ -1,6 +1,7 @@
 import React from 'react';
 import { Build, JointPose, NAM_OUTFITS, NamMood, Outfit, PALETTE, Rigged, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_OUTFIT, TWIN_POSES } from '../../nhan-vat';
 import { Mirror } from '../../bo-sung-15p/dao-cu';
+import { LIGHT_SOURCES, lightFor, RoomScene, RoomView } from '../../boi-canh/boi-canh';
 
 /**
  * THỬ NGHIỆM 11/11/2026 (vòng 2, theo ảnh tham chiếu 2,5D trong ./tham-khao/) — Nam 2D → 2.5D, giữ nguyên tạo hình.
@@ -19,7 +20,7 @@ import { Mirror } from '../../bo-sung-15p/dao-cu';
  */
 
 export type Light25 = 'ngay' | 'am-u' | 'den-vang' | 'man-hinh' | 'dem-xanh' | 'nguoc-sang';
-type Part = 'all' | 'skinHead' | 'skinLimb' | 'hair' | 'shirt' | 'pants';
+type Part = 'all' | 'skinHead' | 'skinLimb' | 'hair' | 'shirt' | 'pants' | 'headAll' | 'far';
 type LightSpec = {
   name: string;
   /** hướng TỚI nguồn sáng trên màn hình (y dương = xuống) */
@@ -30,6 +31,8 @@ type LightSpec = {
   hairLight?: { color: string; k: number; opacity: number };
   cast?: number; // độ lệch bóng đổ tóc/vạt áo
   rim?: { color: string; k: number; opacity: number }; // viền sáng phía nguồn sáng
+  /** ánh hắt mạnh (màn hình): dải sáng rộng phía nguồn sáng trên mặt, áo, tay; phòng càng tối (tint càng tối) hắt càng mạnh */
+  glow?: { color: string; k: number; opacity: number };
   bg: string;
 };
 
@@ -51,10 +54,11 @@ export const LIGHTS_25D: Record<Light25, LightSpec> = {
     rim: { color: '#ffcf8a', k: 3, opacity: 0.55 },
   },
   'man-hinh': {
-    name: 'ÁNH MÀN HÌNH', dir: [0.62, 0.78], bg: '#2c3646', tint: '#7d8aa8',
-    shade: { skin: '#c3c6d4', cloth: '#c3c6d4' }, k: { head: 12, limb: 5, shirt: 16, pants: 10 },
+    name: 'ÁNH MÀN HÌNH', dir: [0.35, 0.94], bg: '#1e2533', tint: '#5d6784',
+    shade: { skin: '#b9bccb', cloth: '#b9bccb' }, k: { head: 14, limb: 6, shirt: 18, pants: 12 },
     cast: 0,
-    rim: { color: '#86d6f5', k: 4.5, opacity: 0.9 },
+    glow: { color: '#5cc6f2', k: 16, opacity: 0.62 },
+    rim: { color: '#a6e8ff', k: 3, opacity: 0.9 },
   },
   'dem-xanh': {
     name: 'ĐÊM XANH', dir: [-0.6, -0.8], bg: '#1f2c4a', tint: '#7a8bb6',
@@ -87,6 +91,8 @@ const sel = (c: string, part: Part, cols: { shirt: string; pants: string }) => {
     case 'skinLimb': return `.${c} [fill="${SKIN}"], .${c} [fill="${SKIN_SH}"]`;
     case 'shirt': return own(`[fill="${cols.shirt}"]`);
     case 'pants': return own(`[fill="${cols.pants}"]`);
+    case 'headAll': return `.${c} [data-part~="head"] *`;
+    case 'far': return `.${c} [data-limb~="L"] *`;
   }
 };
 /** Quy tắc bổ sung để loại phần không thuộc khối (tóc khỏi da đầu, da đầu khỏi da tay). Đặt SAU quy tắc chính. */
@@ -94,6 +100,7 @@ const exclude = (c: string, part: Part) =>
   part === 'skinHead' ? `.${c} [data-part~="head"] [fill="${HAIR}"]` : part === 'skinLimb' ? `.${c} [data-part~="head"] *` : '';
 
 type Layer = { mode: 'vis' | 'onlyW' | 'onlyB'; part: Part; shift?: [number, number] };
+const lum = (h: string) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
 /**
  * Mask dựng từ chính nhân vật. `vis`: khối trắng, mọi phần khác đen (đen của phần vẽ sau che đúng chỗ bị che).
  * `onlyW`/`onlyB`: chỉ khối đó trắng/đen, phần khác trong suốt. `shift`: dịch bản dựng.
@@ -121,12 +128,16 @@ const Fill: React.FC<{ mask: string; color: string; opacity?: number }> = ({ mas
   <g mask={`url(#${mask})`}><rect {...BOX} fill={color} opacity={opacity} /></g>
 );
 
-/** Lớp ánh sáng 2.5D phủ lên một nhân vật bất kỳ dùng bảng màu Nam (cùng hệ toạ độ với `subject`). */
-export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; shirt: string; pants: string; head?: boolean }> = ({ subject, light = 'ngay', shirt, pants, head = true }) => {
+/**
+ * Lớp ánh sáng 2.5D phủ lên một nhân vật bất kỳ dùng bảng màu Nam (cùng hệ toạ độ với `subject`).
+ * `dir`: hướng tới nguồn sáng trên màn hình, ưu tiên lấy từ bối cảnh (`lightFor` của phòng 3D) để nhân vật cùng nguồn sáng với nền.
+ * `armsFront`: có tay đưa ra trước thân (đổi chiều bóng đổ tay ↔ áo). `depth`: tách tay/chân phía xa (góc 3/4, nghiêng).
+ */
+export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; shirt: string; pants: string; head?: boolean; dir?: [number, number]; armsFront?: boolean; depth?: boolean }> = ({ subject, light = 'ngay', shirt, pants, head = true, dir, armsFront = false, depth = false }) => {
   const L = LIGHTS_25D[light];
   const uid = useUid('v25');
   const cols = { shirt: shirt.toLowerCase(), pants: pants.toLowerCase() };
-  const [lx, ly] = L.dir;
+  const [lx, ly] = dir ?? L.dir;
   const n = Math.hypot(lx, ly) || 1;
   const toward = (k: number): [number, number] => [(lx / n) * k, (ly / n) * k];
   const away = (k: number): [number, number] => [(-lx / n) * k, (-ly / n) * k];
@@ -135,20 +146,30 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
   const band = (part: Part, k: number) => ({ id: id(`b-${part}`), layers: [{ mode: 'vis', part }, { mode: 'onlyB', part, shift: part === 'skinHead' ? [toward(k)[0], 0] as [number, number] : toward(k) }] as Layer[] });
   const lit = (part: Part, k: number, tag: string) => ({ id: id(`l-${tag}-${part}`), layers: [{ mode: 'vis', part }, { mode: 'onlyB', part, shift: away(k) }] as Layer[] });
   const shadows: { m: { id: string; layers: Layer[] }; color: string }[] = [
-    ...(head ? [{ m: band('skinHead', L.k.head), color: L.shade.skin }] : []),
+    ...(head ? [{ m: band('skinHead', L.k.head), color: L.shade.skin }, { m: band('hair', L.k.head * 0.55), color: '#a3a3a3' }] : []),
     { m: band('skinLimb', L.k.limb), color: L.shade.skin },
     { m: band('shirt', L.k.shirt), color: L.shade.cloth },
     { m: band('pants', L.k.pants), color: L.shade.cloth },
   ];
-  // bóng đổ: (khối che dịch ra xa nguồn sáng) − (chính khối che), trong phần lộ của khối nhận bóng
-  const casts = L.cast ? [
-    ...(head ? [{ target: 'skinHead' as Part, caster: 'hair' as Part, k: L.cast, color: L.shade.skin }] : []),
-    { target: 'pants' as Part, caster: 'shirt' as Part, k: L.cast * 1.6, color: L.shade.cloth },
-  ] : [];
+  // Bóng đổ GIỮA CÁC LỚP (lớp trước đổ lên lớp sau): khối che = phần đang lộ của nó, dịch ra xa nguồn sáng và xuống;
+  // trừ chính nó, cắt trong phần lộ của khối nhận. Không có bóng đổ theo hướng (ngược sáng, màn hình) thì vẫn giữ
+  // một bóng tiếp xúc ngắn thẳng xuống để các lớp tóc–mặt–cổ áo–áo–quần–tay vẫn tách nhau.
+  const k0 = L.cast || 5;
+  const castShift = (k: number): [number, number] => (L.cast ? [away(k)[0], away(k)[1] + k * 0.6] : [0, k]);
+  const pair = (target: Part, caster: Part, k: number, color: string) => ({ target, caster, k, color });
+  const casts = [
+    ...(head ? [pair('skinHead', 'hair', k0, L.shade.skin), pair('shirt', 'headAll', k0 * 1.3, L.shade.cloth)] : []),
+    pair('pants', 'shirt', k0 * 1.6, L.shade.cloth),
+    pair('pants', 'skinLimb', k0, L.shade.cloth),
+    armsFront ? pair('shirt', 'skinLimb', k0, L.shade.cloth) : pair('skinLimb', 'shirt', k0 * 0.8, L.shade.skin),
+  ];
   const hairHL = L.hairLight && head ? lit('hair', L.hairLight.k, 'hl') : null;
   const rim = L.rim ? lit('all', L.rim.k, 'rim') : null;
+  const glowOp = L.glow ? Math.min(1, L.glow.opacity * (0.5 + (1 - lum(L.tint ?? '#ffffff')))) : 0; // phòng tối → hắt mạnh
+  const glows = L.glow ? ([['skinHead', 1], ['shirt', 1.6], ['skinLimb', 0.6]] as [Part, number][]).filter(([p]) => head || p !== 'skinHead').map(([p, f]) => lit(p, L.glow!.k * f, 'glow')) : [];
+  const far = depth ? { id: id('far'), layers: [{ mode: 'vis', part: 'far' }] as Layer[] } : null;
   const sil = { id: id('sil'), layers: [{ mode: 'vis', part: 'all' }] as Layer[] };
-  const masks = [sil, ...shadows.map((s) => s.m), ...(hairHL ? [hairHL] : []), ...(rim ? [rim] : [])];
+  const masks = [sil, ...shadows.map((s) => s.m), ...(hairHL ? [hairHL] : []), ...(rim ? [rim] : []), ...glows, ...(far ? [far] : [])];
   return (
     <g data-volume={light} stroke="none">
       {subject}
@@ -158,20 +179,24 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
         {casts.map((c, i) => (
           <React.Fragment key={i}>
             <SubjectMask id={id(`ct${i}`)} subject={subject} cols={cols} layers={[{ mode: 'vis', part: c.target }]} />
-            <SubjectMask id={id(`cc${i}`)} subject={subject} cols={cols} layers={[{ mode: 'onlyW', part: c.caster, shift: away(c.k).map((v, j) => (j === 1 ? v + c.k * 0.6 : v)) as [number, number] }, { mode: 'onlyB', part: c.caster }]} />
+            <SubjectMask id={id(`cc${i}`)} subject={subject} cols={cols} layers={[{ mode: 'vis', part: c.caster, shift: castShift(c.k) }, { mode: 'onlyB', part: c.caster }]} />
           </React.Fragment>
         ))}
       </defs>
       {/* tông cảnh */}
       {L.tint && <g style={MUL}><Fill mask={sil.id} color={L.tint} /></g>}
-      {/* mảng tối + bóng đổ: cùng một nhóm multiply, các khối không chồng nhau nên không tối gấp đôi */}
+      {/* lớp xa (tay/chân vế sau) lùi vào trong: tối và lạnh hơn một chút */}
+      {far && <g style={MUL}><Fill mask={far.id} color="#d9dbe3" /></g>}
+      {/* mảng tối theo khối */}
+      <g style={MUL}>{shadows.map((s) => <Fill key={s.m.id} mask={s.m.id} color={s.color} />)}</g>
+      {/* bóng đổ giữa lớp: nhóm riêng để chồng lên mảng tối (chỗ vừa quay khỏi sáng vừa bị che thì tối hơn) */}
       <g style={MUL}>
-        {shadows.map((s) => <Fill key={s.m.id} mask={s.m.id} color={s.color} />)}
         {casts.map((c, i) => (
           <g key={i} mask={`url(#${id(`ct${i}`)})`}><Fill mask={id(`cc${i}`)} color={c.color} /></g>
         ))}
       </g>
       {hairHL && <Fill mask={hairHL.id} color={L.hairLight!.color} opacity={L.hairLight!.opacity} />}
+      {glows.length > 0 && <g style={SCREEN}>{glows.map((g) => <Fill key={g.id} mask={g.id} color={L.glow!.color} opacity={glowOp} />)}</g>}
       {/* viền sáng chỉ phần thân trên (đầu, vai, tay): ở chân nó chạy vào khe giữa hai ống và quanh dép, rối hình */}
       {rim && <g clipPath={`url(#${id('rimclip')})`} style={SCREEN}><Fill mask={rim.id} color={L.rim!.color} opacity={L.rim!.opacity} /></g>}
     </g>
@@ -227,14 +252,15 @@ export const supports25D = (_: Pick<BodyProps, 'pose' | 'outfit'>) => true;
  * 'moi' (mặc định, dáng theo ảnh tham chiếu) hoặc 'chot' (dáng Style B đã chốt). `volume={false}` = bản 2D.
  * Bộ đồ `outfit` khác áo thun tự dùng dáng đã chốt.
  */
-export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25; dang?: 'moi' | 'chot' }> = ({ volume = true, lighting = 'ngay', dang = 'moi', ...props }) => {
+export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25; dang?: 'moi' | 'chot'; lightDir?: [number, number] }> = ({ volume = true, lighting = 'ngay', dang = 'moi', lightDir, ...props }) => {
   const Body = dang === 'moi' && !props.outfit ? NamDangMoi : StudentTwinBody;
   if (!volume) return <Body {...props} />;
-  const { x = 0, y = 0, scale = 1 } = props;
+  const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;
   const c = colorsOf(props);
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} shirt={c.shirt} pants={c.pants} />
+      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} shirt={c.shirt} pants={c.pants} dir={lightDir}
+        armsFront={!!(pose.frontR || pose.frontL)} depth={pose.view === 'three' || pose.view === 'side' || pose.view === 'quarter' || pose.view === undefined} />
     </g>
   );
 };
@@ -374,3 +400,38 @@ export const Nam25DBoard: React.FC = () => (
     ))}
   </Board>
 );
+
+/**
+ * Ghép Nam vào phòng 3D đang dùng: cùng điểm đứng, cùng camera; bản 2.5D lấy hướng sáng từ `lightFor`
+ * (cửa sổ ban ngày, đèn bàn ban đêm) để mảng tối/viền sáng khớp nguồn sáng của bối cảnh.
+ */
+export const Nam25DRoomBoard: React.FC = () => {
+  type Shot = { view: RoomView; night: boolean; at: [number, number]; src: [number, number, number]; light: Light25; label: string };
+  const shots: Shot[] = [
+    { view: 'wide', night: false, at: [190, 330], src: LIGHT_SOURCES.window, light: 'ngay', label: 'BAN NGÀY · NẮNG CỬA SỔ' },
+    { view: 'wide', night: true, at: [330, 300], src: LIGHT_SOURCES.lamp, light: 'den-vang', label: 'BAN ĐÊM · ĐÈN BÀN' },
+    // laptop trên bàn học (bàn tại SEATS.desk, mặt bàn ~75 cm): nguồn sáng là màn hình
+    { view: 'wide', night: true, at: [318, 205], src: [404, 92, 80], light: 'man-hinh', label: 'ĐÊM · ÁNH LAPTOP' },
+  ];
+  const pose: JointPose = { ...STAND_POSE, view: 'three' };
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1720" viewBox="0 0 1920 1720">
+      <rect width="1920" height="1720" fill="#f6f1e8" />
+      <Label x={960} y={44} s={28} w={800} t="NAM TRONG PHÒNG 3D — 2D ↔ 2.5D" />
+      <Label x={960} y={72} s={15} w={400} c="#69706c" t="Cùng camera, điểm đứng, nguồn sáng của bối cảnh · 2.5D lấy hướng sáng từ lightFor (cửa sổ / đèn bàn) · tách lớp tóc–mặt–cổ áo–áo–quần–tay, tay/chân phía xa lùi vào" />
+      {shots.map((sh, row) => {
+        const d = lightFor(sh.view, sh.at, sh.src);
+        return [false, true].map((v25, col) => (
+          <g key={`${row}-${col}`} transform={`translate(${16 + col * 952} ${96 + row * 540}) scale(0.49)`}>
+            <RoomScene view={sh.view} night={sh.night} rays={sh.night ? 0 : 0.9} falloff={0.9} door="ajar" chair="bed" phone="hidden" kitchen="clean"
+              actors={[{ at: sh.at, render: (p) => v25
+                ? <Nam25D lighting={sh.light} lightDir={[d.x, d.y]} shirt={SLEEP} mood="sleepy" pose={pose} x={p.x} y={p.y} scale={p.scale} />
+                : <StudentTwinBody shirt={SLEEP} mood="sleepy" pose={pose} x={p.x} y={p.y} scale={p.scale} outline="none" headOutline="none" /> }]} />
+            <rect x={24} y={24} width={760} height={64} rx={10} fill="#000" opacity={0.55} />
+            <text x={44} y={68} fontFamily="Arial, sans-serif" fontSize={34} fontWeight={800} fill="#fff">{v25 ? '2.5D' : '2D HIỆN TẠI'} · {sh.label}</text>
+          </g>
+        ));
+      })}
+    </svg>
+  );
+};

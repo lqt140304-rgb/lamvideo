@@ -833,11 +833,12 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
       {/* Một nét bóng tiếp xúc vẽ sẵn, bám mặt sàn; không kéo bóng theo nguồn sáng. */}
       {pose.support !== 'bed' && <ellipse data-shadow="drawn-contact" cx={(r.legR.end.x + r.legL.end.x) / 2 + pose.x} cy={589 + pose.y} rx={103} ry={10} fill="#232a26" opacity={0.26} stroke="none" />}
       <g transform={`translate(${pose.x} ${r.dy})`}>
-        {side && <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
+        {side && <g data-limb="L" transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>/* nghiêng: tay xa ở phía bên kia người, nằm sau cả hai chân */}
         <Shade l={l} facing={facing} size={0.85}>
           {/* Đáy quần là vòm cong (∩) phủ lên khe hai ống, để đỉnh khe tròn, không chọc mũi nhọn xuống giữa háng. */}
           {!side && <Blob fill={o.pants} d={[`M -30 335 H 32 L 30 ${crotch - 4} Q 1 ${crotch - 30} -28 ${crotch - 4} Z`]} />}
-          {back(<Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} />)}
+          {/* data-limb: nhãn tay/chân vế L (phía xa máy ở 3/4, nghiêng) cho lớp 2.5D; không ảnh hưởng hình vẽ */}
+          <g data-limb="L">{back(<Leg c={r.legL} side="L" foot={r.footL} o={o} view={view} />)}</g>
         </Shade>
         <Shade l={l} facing={facing} size={0.85}>
           <Leg c={r.legR} side="R" foot={r.footR} o={o} view={view} />
@@ -846,7 +847,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
         <g transform={`rotate(${r.tilt} ${PELVIS.x} ${PELVIS.y})`}>
           {/* Nhìn từ sau: khuỷu, cẳng tay hai bên nằm ngoài hông nên đè lên quần; phần tay vào giữa thân (bàn tay đưa ra trước) bị thân che nên cắt bỏ dải giữa. */}
           {away && <g clipPath={`url(#${awayClip})`}><clipPath id={awayClip}><rect x={-400} y={-200} width={358} height={900} /><rect x={42} y={-200} width={358} height={900} /></clipPath>{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}{whole(armR)}</Shade>)}</g>}
-          {!frontL && !side && !away && back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}
+          {!frontL && !side && !away && <g data-limb="L">{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>}
           {!frontR && !away && back(<Shade l={l} facing={facing} size={0.6}>{whole(armR)}</Shade>)}
           <Shade l={l} facing={facing} size={1.3}>
             <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
@@ -862,7 +863,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             <rect x={-40} y={-10} width={80} height={38} rx={4} fill="#80978d" />
             <path d="M-29 17L-10 0 3 13 18-3 32 14" stroke="#c7d5bc" strokeWidth={3} fill="none" />
           </g>}
-          {frontL && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade>}
+          {frontL && <g data-limb="L"><Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armL.under}<Blob fill={o.shirt} d={frontSleeve(r.armL)} /><ShoulderPatch c={r.armL} fill={o.shirt} torso={o.torso} /><Cuff c={r.armL} o={o} />{front(armL.over)}</Shade></g>}
           {frontR && <Shade l={l} facing={facing} size={0.6} behind={<path d={o.torso} />}>{armR.under}<Blob fill={o.shirt} d={frontSleeve(r.armR)} /><ShoulderPatch c={r.armR} fill={o.shirt} torso={o.torso} up={side} /><Cuff c={r.armR} o={o} />{front(armR.over)}</Shade>}
         </g>
       </g>

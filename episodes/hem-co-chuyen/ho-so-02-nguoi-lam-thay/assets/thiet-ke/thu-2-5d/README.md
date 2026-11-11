@@ -8,6 +8,7 @@
 | [cac-goc.png](cac-goc.png) | 2D đã chốt ↔ 2.5D ở chính diện, 3/4, nghiêng, 1/4 sau, sau lưng |
 | [tu-the.png](tu-the.png) | Đi, ngồi ghế đẩu, cầm điện thoại, đứng trước gương (sau lưng) |
 | [nam-2-5d.png](nam-2-5d.png) | So sánh 2D ↔ 2.5D toàn thân và ba nét mặt |
+| [trong-phong.png](trong-phong.png) | Nam trong phòng 3D đang dùng, 2D ↔ 2.5D: ban ngày (cửa sổ), đêm (đèn bàn), đêm (laptop) |
 | [tham-khao/](tham-khao/) | Ảnh tham chiếu 2,5D chủ repo gửi (tư thế, tạo hình 3 góc, ánh sáng); chỉ học cách đánh sáng/khối, không chép tạo hình |
 
 Nguồn: [`nam-2-5d.tsx`](nam-2-5d.tsx). Bảng xuất bằng `renderToStaticMarkup` + Chromium; không lưu SVG vì mỗi lớp cắt nhúng lại cả nhân vật (0,7–1,6 MB/bảng), dựng lại từ TSX khi cần.
@@ -32,8 +33,11 @@ Chủ repo yêu cầu vẽ lại dáng cho giống ảnh. Vòng 3 tôi đo ảnh
 - **Tông cảnh:** multiply một màu lên cả hình bao (đêm xanh, đèn vàng…).
 - **Mảng tối theo khối:** mỗi khối (da đầu, da tay/chân, tóc, áo, quần) lấy **phần đang lộ** — dựng lại nhân vật trong mask, khối đó trắng, mọi thứ vẽ sau nó đen — rồi trừ đi chính nó dịch về phía nguồn sáng. Còn lại một dải sắc cạnh bám đường bao ở phía tối. Vì theo đúng thứ tự vẽ của rig nên tay trước thân, chân ngồi, đồ cầm không bị mảng phía sau lem lên; áp được cho mọi góc/tư thế mà không cần vẽ mảng riêng.
 - Da đầu chỉ lệch ngang để không có dải tối dưới cằm (giống râu).
-- **Bóng đổ:** tóc lên trán, vạt áo lên quần.
-- **Mảng sáng tóc, viền sáng:** cùng cách cắt nhưng phía nguồn sáng; blend screen. Viền sáng mỏng ở đèn vàng, đêm xanh, ngược sáng, ánh màn hình (từ dưới‑phải). Viền chỉ chạy ở thân trên (đầu, vai, tay), dừng ở hông: ở chân nó chui vào khe giữa hai ống và quanh dép, rối hình. Đã bỏ kiểu "ánh hắt" dải dày lên má/tay áo/vạt áo ở vòng đầu vì xấu.
+- **Tách lớp (bóng đổ giữa lớp):** lớp trước đổ bóng lên lớp sau: tóc → trán, đầu/cằm → cổ áo, vạt áo → quần, tay → quần, áo → tay (tay đưa ra trước thân thì ngược lại: tay → áo). Khối che lấy phần **đang lộ**, dịch ra xa nguồn sáng và xuống. Kiểu sáng không có bóng đổ theo hướng (ngược sáng, màn hình) vẫn giữ một bóng tiếp xúc ngắn thẳng xuống để các lớp không dính nhau. Tóc có thêm mảng tối riêng ngoài mảng sáng.
+- **Xa–gần:** tay/chân vế L (phía xa máy ở 3/4, nghiêng, 1/4) phủ một lớp tối‑lạnh nhẹ, lùi ra sau thân. Rig gắn nhãn `data-limb="L"` để nhận ra (chỉ là thuộc tính, hình không đổi).
+- **Khớp bối cảnh 3D:** `Nam25D lightDir={[x, y]}` nhận hướng sáng trên màn hình; trong phòng lấy từ `lightFor(view, at, nguồn)` của [`boi-canh.tsx`](../../boi-canh/boi-canh.tsx) nên mảng tối/viền sáng cùng phía cửa sổ, đèn bàn hay laptop của nền. Xem [trong-phong.png](trong-phong.png).
+- **Ánh màn hình:** chủ repo chọn bản hắt mạnh (dải sáng rộng trên mặt, áo, tay phía màn hình). Cường độ theo độ tối phòng: `opacity × (0,5 + 1 − độ sáng tông cảnh)` — phòng càng tối, hắt càng mạnh.
+- **Mảng sáng tóc, viền sáng:** cùng cách cắt nhưng phía nguồn sáng; blend screen. Viền sáng mỏng ở đèn vàng, đêm xanh, ngược sáng, ánh màn hình. Viền chỉ chạy ở thân trên (đầu, vai, tay), dừng ở hông: ở chân nó chui vào khe giữa hai ống và quanh dép, rối hình.
 - Hướng, bề rộng, màu của từng kiểu sáng chọn tay trong `LIGHTS_25D`. Không filter, gradient, blur, AO; không phải chiếu sáng Lambert. Chủ repo đã cho phép viền sáng/ánh hắt sắc cạnh (ghi ở [quy chuẩn 4.0](../QUY-CHUAN-THIET-KE-SVG.md#40-bóng-vẽ-tay-không-viền-11112026)).
 
 ```tsx
@@ -47,5 +51,6 @@ import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
 - Khối nhận diện bằng màu tô: áo/quần lấy từ props, da `#dbad82`/`#bd8968`, tóc `#292a29` trong `data-part="head"`. Đổi màu da/tóc trong rig thì phải đổi theo. Chưa áp cho Người Kia (dùng chung rig, chạy được nhưng chưa duyệt) và Tùng (đầu riêng chưa có nhãn).
 - Dáng mới mới thử ở tư thế đứng/đi/ngồi/cầm máy; chưa rà các tư thế bổ sung (`EXTRA_POSES`, `gripAt` vẫn tính theo xương đã chốt nên đồ cầm sẽ lệch nếu dùng với dáng mới).
 - Góc sau lưng: rig chỉ cho tay vung nhẹ nên chưa giơ tay chạm gương như ảnh tham chiếu.
-- Mỗi lớp cắt dựng lại cả nhân vật (~20–25 bản trong mask) → render nặng hơn 2D. Chưa đo trên video.
+- Mỗi lớp cắt dựng lại cả nhân vật (~30–35 bản trong mask) → render nặng hơn 2D. Chưa đo trên video.
+- Phòng 3D chưa có nguồn sáng laptop riêng: ở cảnh đêm laptop, đèn bàn ấm vẫn bật trong nền trong khi Nam nhận ánh xanh từ màn hình.
 - Opening mẫu (`HoSo02Opening25D`, bản sao `opening.tsx` trong studio) vẫn dùng `Nam25D` với mặc định ban ngày; chưa gán kiểu sáng theo từng shot và **chưa render lại video** sau vòng 2. Video vòng 1 (local, không commit): `what-if-studio/out/ho-so-02-nguoi-lam-thay/thu-2-5d/opening-nam-2-5d.mp4`. Render trong môi trường này cần `--browser-executable` trỏ Chromium có sẵn vì mạng chặn host tải Chrome của Remotion.
