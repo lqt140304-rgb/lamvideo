@@ -127,7 +127,8 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
   const z = interpolate(f, [0, 150], [1.55, 1.85]);
   // hơi thở từ trong kính: mép vải phồng ra rồi xẹp (hai nhịp, nhịp sau mạnh hơn), mặt kính dưới vải mờ hơi sương
   const breath = 0.9 * Math.sin(Math.PI * seg(f, 30, 62)) + 1.6 * Math.sin(Math.PI * seg(f, 92, 134));
-  const palm = seg(f, 108, 116) * (1 - seg(f, 136, 148)); // dấu bàn tay áp từ phía trong kính
+  const palm = seg(f, 100, 110) * (1 - seg(f, 140, 150)); // dấu bàn tay áp từ phía trong kính, giữ lâu
+  const drip = seg(f, 112, 140); // vệt nước chảy xuống từ dấu tay
   const mist = Math.max(seg(f, 34, 56) * (1 - seg(f, 64, 88)), seg(f, 96, 114) * (1 - seg(f, 140, 150)));
   return (
     <AbsoluteFill style={{ background: '#0e1517' }}>
@@ -140,10 +141,18 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
             <filter id="suong" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={22} /></filter><rect width={MW} height={MH} fill="#5ff0dc" opacity={0.1 * Math.max(0, breath)} />
             <g filter="url(#suong)" opacity={0.6 * mist}><ellipse cx={MW * 0.52} cy={MH * 0.56} rx={120 + 60 * mist} ry={56 + 24 * mist} fill="#d6ebe8" /><ellipse cx={MW * 0.38} cy={MH * 0.6} rx={50} ry={26} fill="#d6ebe8" /><ellipse cx={MW * 0.66} cy={MH * 0.6} rx={46} ry={22} fill="#d6ebe8" /></g>
             {palm > 0 && (
-              <g transform={`translate(${MW * 0.55} ${MH * 0.62}) rotate(-8)`} fill="#0e1a1b" opacity={0.75 * palm}>
-                <ellipse cx={0} cy={18} rx={30} ry={34} />
-                {[[-24, -30, -14], [-9, -48, -4], [7, -50, 4], [22, -40, 14]].map(([x, y, r], i) => <ellipse key={i} cx={x} cy={y} rx={7} ry={22} transform={`rotate(${r} ${x} ${y})`} />)}
-                <ellipse cx={-36} cy={10} rx={7} ry={18} transform="rotate(-40 -36 10)" />
+              <g transform={`translate(${MW * 0.55} ${MH * 0.74}) rotate(-8) scale(1.3)`}>
+                {/* quầng sương sáng quanh dấu tay để dấu tay nổi rõ */}
+                <ellipse cx={0} cy={-6} rx={78} ry={84} fill="#e6f6f3" opacity={0.45 * palm} filter="url(#suong)" />
+                <g fill="#08100f" opacity={0.92 * palm}>
+                  <ellipse cx={0} cy={18} rx={30} ry={34} />
+                  {[[-24, -30, -14], [-9, -48, -4], [7, -50, 4], [22, -40, 14]].map(([x, y, r], i) => <ellipse key={i} cx={x} cy={y} rx={7.5} ry={23} transform={`rotate(${r} ${x} ${y})`} />)}
+                  <ellipse cx={-36} cy={10} rx={7.5} ry={19} transform="rotate(-40 -36 10)" />
+                </g>
+                {/* vệt nước chảy xuống từ đầu ngón và lòng bàn tay */}
+                <g stroke="#08100f" strokeLinecap="round" opacity={0.75 * palm}>
+                  {[[-9, -26, 70], [7, -28, 52], [-2, 50, 90], [16, 46, 60]].map(([x, y, l], i) => <path key={i} d={`M${x} ${y}V${y + l * drip}`} strokeWidth={3.2 - (i % 2)} />)}
+                </g>
               </g>
             )}
           </Mirror>
@@ -166,7 +175,7 @@ const BED_HEAD: [number, number] = [424, 332];
 // Khung có nền riêng (đỏ cam nháy theo nhịp chuông), điện thoại cận to và rung; chém vào nhanh lúc chuông reo, rút ra khi tắt chuông.
 const BOLT = 'M0 138H980L860 300L930 312L700 520L780 534L460 760L540 772L0 942Z';
 const PhoneAlarm: React.FC<{ f: number }> = ({ f }) => {
-  const open = seg(f, 0, 5) * (1 - seg(f, 36, 42)); // chém vào / rút ra
+  const open = seg(f, 0, 5) * (1 - seg(f, 84, 90)); // chém vào / rút ra khi tay chạm tắt
   const ring = 0.5 + 0.5 * Math.sin(f * 0.9); // nhịp chuông
   const shake = Math.sin(f * 2.3) * 5 * open;
   const slide = (1 - open) * -420;
@@ -209,7 +218,7 @@ const PhoneAlarm: React.FC<{ f: number }> = ({ f }) => {
 };
 
 // Insert gương: kính phản chiếu chính căn phòng (lật ngang). Tay thật đã rút về ở shot trước; tay trong gương còn duỗi, khựng lại rồi mới rút.
-const reachReal = (t: number) => seg(t, 20, 40) * (1 - seg(t, 46, 60));
+const reachReal = (t: number) => Math.min(1, seg(t, 40, 64) * 0.7 + seg(t, 70, 84) * 0.3 + (t > 64 && t < 72 ? 0.04 * Math.sin((t - 64) / 1.3) : 0)) * (1 - seg(t, 98, 110));
 const MirrorLag: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const move = wideMove(180);
   const head = placeOn('wide', BED_HEAD, 33, move);
@@ -241,18 +250,18 @@ const Shot1: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const head = placeOn('wide', BED_HEAD, 33, move);
   const close: Lens = { cx: head.x - 140, cy: head.y + 60, z: 1.85 };
   const mid: Lens = { cx: head.x - 260, cy: head.y + 120, z: 1.6 };
-  if (f >= 60 && f < 134) return <MirrorLag f={f - 60} g={g} />;
-  const a = f < 60;
+  if (f >= 110 && f < 170) return <MirrorLag f={f - 110} g={g} />;
+  const a = f < 110;
   // a: chuông reo, tay thò ra với máy. c: đã trùm chăn ngủ tiếp, máy lùi dần ra trung cảnh (dolly-out).
   const reach = a ? reachReal(f) : 0;
-  const cover = a ? 0 : 0.55 * seg(f, 134, 150); // rụt vào chăn nhưng còn lộ tóc/mắt để lời dẫn giới thiệu Nam
-  const lens = a ? close : lerpLens(close, mid, seg(f, 150, 300));
+  const cover = a ? 0 : 0.55 * seg(f, 170, 188); // rụt vào chăn nhưng còn lộ tóc/mắt để lời dẫn giới thiệu Nam
+  const lens = a ? close : lerpLens(close, mid, seg(f, 188, 300));
   return (
     <AbsoluteFill>
-      <Camera lens={lens} f={g} hand={0.4}>
-        <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" mirror move={move} sleeper={Sleeper({ cover, breath: !a && f > 150 ? Math.sin(f / 15) * 5 : 0, reach, carry: 0, alarm: a && f < 42, f, phone: true })} />
+      <Camera lens={lens} f={g} hand={0.4} shake={a && f < 84 ? (Math.sin(f * 2.7) * 9 + Math.sin(f * 5.3) * 4) * (0.6 + 0.4 * Math.abs(Math.sin(f * 0.9))) : 0}>
+        <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" mirror move={move} sleeper={Sleeper({ cover, breath: !a && f > 188 ? Math.sin(f / 15) * 5 : 0, reach, carry: 0, alarm: a && f < 84, f, phone: true })} />
       </Camera>
-      {a && f < 42 && <PhoneAlarm f={f} />}
+      {a && f < 90 && <PhoneAlarm f={f} />}
       <Streak t={a ? seg(f, 4, 40) : 0} color="#7fb4ff" y={430} />
     </AbsoluteFill>
   );
@@ -503,7 +512,7 @@ export const HoSo02Opening: React.FC = () => {
       {shot}
       {g < S[5] + 30 && <FilmLook f={g} total={S[5] + 30} />}
       <Letterbox />
-      <Caption f={vo} from={150} to={300} who="LỜI DẪN">Đây là Nam. Sinh viên năm hai, đang “tạm trú” ở một phòng trọ nhỏ cùng Tùng — thằng bạn thân nghiêm túc đến phát mệt.</Caption>
+      <Caption f={vo} from={176} to={300} who="LỜI DẪN">Đây là Nam. Sinh viên năm hai, đang “tạm trú” ở một phòng trọ nhỏ cùng Tùng — thằng bạn thân nghiêm túc đến phát mệt.</Caption>
       <Caption f={g} from={S[2] + 40} to={S[2] + 96} who="NAM">Chờ nốt combat này!</Caption>
       <Caption f={g} from={S[2] + 128} to={S[2] + 196} who="NAM">Tí nữa tao rửa!</Caption>
       <Caption f={g} from={S[2] + 262} to={S[2] + 326} who="NAM">Uống đi cho đỡ mệt.</Caption>
