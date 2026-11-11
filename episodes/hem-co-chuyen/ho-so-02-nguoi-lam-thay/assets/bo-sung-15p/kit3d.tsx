@@ -255,7 +255,7 @@ export const makeScene = (cam: Cam, light: Light, frame: number | null = null, l
     const dx = c1[0] - c0[0], dy = c1[1] - c0[1], dn = Math.hypot(dx, dy) || 1, ux = dx / dn, uy = dy / dn;
     const s = cam.pxcm(at), cx = c0[0], cy = c0[1], h = 90 * s;
     const night = (light.amb ?? 0.62) < 0.4;
-    const litA = useLamp ? 0.5 * near : night ? 0.1 : 0.22, shadeA = night ? 0.45 - 0.25 * near : 0.24;
+    const litA = useLamp ? Math.min(1, 0.7 * near) : night ? 0.2 : 0.4, shadeA = night ? 0.45 - 0.25 * near : 0.24;
     const lit = o.lit ?? (useLamp ? '#' + lamp!.l.col.map((v) => Math.round(clamp(v) * 255).toString(16).padStart(2, '0')).join('') : '#fff0c8'), dark = o.dark ?? (night ? '#101a36' : '#4a587a');
     const id = `${uidStr}-act`;
     return (
@@ -268,7 +268,7 @@ export const makeScene = (cam: Cam, light: Light, frame: number | null = null, l
         {children}
         <g mask={`url(#${id}-m)`}>
           <rect x={-2000} y={-2000} width={6000} height={6000} fill={`url(#${id}-d)`} style={{ mixBlendMode: 'multiply' }} />
-          <rect x={-2000} y={-2000} width={6000} height={6000} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'screen' }} />
+          <rect x={-2000} y={-2000} width={6000} height={6000} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'soft-light' }} />
         </g>
       </g>
     );

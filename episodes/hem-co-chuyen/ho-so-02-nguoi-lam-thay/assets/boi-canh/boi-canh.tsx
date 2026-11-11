@@ -898,7 +898,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const L = lightFor(view, a.at, SRC, move), dist = Math.hypot(a.at[0] - SRC[0], a.at[1] - SRC[2]);
     const near = clamp(1 - dist / (REACH + 120), 0, 1);
     const sunE = !night && !inHall ? sunExposure(a.at, 20, 160, sun) : 0;
-    const litA = night ? 0.5 * near : inHall ? 0.22 * near : 0.14 + 0.3 * sunE, shadeA = night ? 0.5 - 0.3 * near : 0.24;
+    const litA = Math.min(1, night ? 0.7 * near : inHall ? 0.4 * near : 0.25 + 0.55 * sunE), shadeA = night ? 0.5 - 0.3 * near : 0.24;
     const cx = p.x, cy = p.y + 295 * p.scale, h = 150 * p.scale, id = `${uid}-act${key++}`;
     const lit = night ? '#ffc878' : '#fff0c8', dark = night ? '#101a36' : '#4a587a';
     sink.push(
@@ -911,7 +911,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         {node}
         <g mask={`url(#${id}-m)`}>
           <rect width={1920} height={1080} fill={`url(#${id}-d)`} style={{ mixBlendMode: 'multiply' }} />
-          <rect width={1920} height={1080} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'screen' }} />
+          <rect width={1920} height={1080} fill={`url(#${id}-l)`} style={{ mixBlendMode: 'soft-light' }} />
         </g>
       </g>,
     );

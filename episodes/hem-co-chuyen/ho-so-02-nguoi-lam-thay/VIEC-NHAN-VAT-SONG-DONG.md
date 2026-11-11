@@ -10,6 +10,16 @@ Chỉ để biết cách nối với nhân vật. Không sửa các file bối c
 - Cảnh quay muốn có chuyển động bối cảnh chỉ cần truyền `frame={useCurrentFrame()}`.
 - Ánh sáng theo từng mặt và người đặt qua `actors` (phòng) hoặc `children` (bối cảnh 3D) đã được ám ấm/lạnh theo nguồn sáng.
 
+## Tình trạng 11/11/2026: phần B đã có bản đầu
+
+Chủ repo yêu cầu làm luôn phần nhân vật nên đã dựng bản đầu ở [`assets/song-dong.tsx`](assets/song-dong.tsx), test `what-if-studio/tests/ho-so-02-song-dong.cjs`:
+- `lifePose`, `breath`, `blinkAt`, `drift`, `hairLife` (B1): thở, chớp không đều, đầu trôi, dịch trọng tâm, tóc lắc; tất định theo số khung; `amount` 0 trả lại dáng gốc.
+- `easePose` (B2): chuyển dáng có chuẩn bị ngược chiều, quá đà nhẹ, từng bộ phận trễ khác nhau.
+- `speak`, `faceBlend` (B4): khẩu hình tạm có nhịp (chưa khớp lời), chuyển nét mặt có thời gian.
+- `LivingTwin`, `LivingTung`, `LivingCast`, `castIdle` (B1, B5): thành phần dùng ngay cho Nam/Người Kia, Tùng và vai phụ.
+- **B3** chưa nối vật lý thứ cấp của bản 2.5D (`vat-ly.tsx`) vì nó gắn với `Nam25D`; `LivingTwin` chỉ tự thêm lắc tóc nhẹ.
+- Mới soi bằng ảnh tĩnh và test số, **chưa xem chuyển động qua video**, chưa áp vào opening hay trailer. Phiên nhận việc nên bắt đầu bằng xem video thử rồi chỉnh biên độ, nối B3 nếu bản 2.5D được giữ.
+
 ## B. Phần nhân vật — việc giao
 
 Mục tiêu: nhân vật không còn đứng im như hình dán; thêm chuyển động nhỏ lúc không làm gì, chuyển dáng có đà, và vật lý thứ cấp. **Không đổi tạo hình đã chốt** (không viền ngoài, tóc/màu/nốt ruồi giữ nguyên, rig `assets/nhan-vat.tsx` là rig chính).
