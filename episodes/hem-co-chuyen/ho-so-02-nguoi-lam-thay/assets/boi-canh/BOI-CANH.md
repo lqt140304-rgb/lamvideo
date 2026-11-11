@@ -7,6 +7,8 @@
 
 ![Bảng các góc máy](boi-canh.png)
 
+> **Ánh sáng 11/11/2026 (chờ duyệt):** theo ảnh đề xuất của chủ repo, `RoomScene` có thêm lớp ánh sáng hoàn thiện, mặc định bật (`grade`). Ban ngày: nắng vàng in từng ô cửa xuống sàn (nằm dưới đồ đạc), quầng sáng quanh cửa sổ, phía xa cửa sổ dịu và lạnh hơn. Ban đêm: phòng ngả xanh thẫm, chỉ quầng đèn bàn ấm. Hành lang: đèn tuýp toả sáng, tường tối dần xuống dưới. Truyền `grade={false}` để lấy lại bảng màu phẳng cũ. Lớp này phủ cả người đặt qua `actors`; người truyền qua `children` thì không. Các PNG/SVG trong thư mục đã xuất lại.
+
 ## Mặt bằng
 
 Phòng rộng 460 cm, cao 265 cm. Trục x từ tường cửa sang tường cửa sổ, z từ tường sau ra phía máy.

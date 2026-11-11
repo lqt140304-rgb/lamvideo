@@ -152,6 +152,8 @@ export type RoomProps = {
   rays?: number;
   /** 0–1: phòng tối dần theo khoảng cách tới vùng nắng (lớp multiply đè cả người), chỗ xa cửa sổ tối riêng biệt. */
   falloff?: number;
+  /** Lớp ánh sáng hoàn thiện (mặc định bật): nắng vàng trên sàn, quầng cửa sổ/đèn bàn/đèn tuýp, góc xa dịu và lạnh, đêm ngả xanh thẫm. */
+  grade?: boolean;
   door?: 'ajar' | 'open' | 'closed' | 'latched';
   chair?: keyof typeof SEATS;
   /** Xoay thêm ghế quanh tâm (radian). Mặc định 0 = hướng cũ; dùng khi cần thấy người ngồi quay ra máy. */
@@ -178,7 +180,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway' || view === 'corridor' || view === 'stairs' || view === 'giveaway';
@@ -890,6 +892,16 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
   }).filter(Boolean) as [number, number][][] : [];
   const rayPaths = (op: number) => rayShapes.map((h, i) => <path key={i} d={`M${h.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} fill="#fff1cf" opacity={op} />);
   if (rayShapes.length) sink.splice(rayAt, 0, <g key="rays-back" filter={`url(#${uid}-blur)`} style={{ mixBlendMode: 'screen' }} opacity={rays}>{rayPaths(0.3)}</g>);
+  // Ánh sáng theo bảng đề xuất 11/11: nắng vàng in ô cửa xuống sàn (nằm dưới đồ đạc), cửa sổ/đèn bàn/đèn tuýp toả sáng,
+  // vùng xa nguồn sáng dịu và lạnh hơn; ban đêm ngả xanh thẫm. `grade={false}` trả về bảng màu phẳng cũ.
+  const sunGold = grade && !night && !inHall ? sunPanes().map(([a, b, c, e]) => {
+    const wall: V3[] = [[W, c, a], [W, c, b], [W, e, b], [W, e, a]];
+    const fl = wall.map((p) => add(p, mul(sunDir, p[1] / -sunDir[1])));
+    return behind(fl) ? null : fl.map((p) => P(p));
+  }).filter(Boolean) as P2[][] : [];
+  if (sunGold.length) sink.splice(rayAt, 0, <g key="sun-gold" opacity={0.9 * (1 - sun)}>{sunGold.map((h, i) => <path key={i} d={`M${h.map((q) => `${f1(q[0])} ${f1(q[1])}`).join('L')}Z`} fill="#ffc861" opacity={0.62} />)}</g>);
+  const scr = (p: V3) => (Q(p)[2] > NEAR ? P(p) : null);
+  const winS = scr(LIGHT_SOURCES.window), lampS = scr(LIGHT_SOURCES.lamp), tubeS = scr([-86, 258, 215]);
   [...objs].sort((a, b) => dist(b) - dist(a)).forEach((o) => {
     const before = sink; sink = [];
     o.draw();
@@ -903,6 +915,13 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         <filter id={`${uid}-blur`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="11" /></filter>
         <filter id={`${uid}-blur-sm`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" /></filter>
         <radialGradient id={`${uid}-lamp`}><stop offset="0" stopColor="#ffd894" stopOpacity=".55" /><stop offset=".5" stopColor="#f2b56a" stopOpacity=".18" /><stop offset="1" stopColor="#f2b56a" stopOpacity="0" /></radialGradient>
+        <linearGradient id={`${uid}-cool`} x1="0" x2="1" y1="0" y2="0"><stop offset="0" stopColor="#4d6185" stopOpacity=".3" /><stop offset=".62" stopColor="#4d6185" stopOpacity="0" /></linearGradient>
+        <linearGradient id={`${uid}-fall`} x1="0" x2="0" y1="0" y2="1"><stop offset=".1" stopColor="#585a70" stopOpacity="0" /><stop offset="1" stopColor="#6a6470" stopOpacity=".28" /></linearGradient>
+        <radialGradient id={`${uid}-sunglow`}><stop offset="0" stopColor="#ffe6a6" stopOpacity=".75" /><stop offset=".35" stopColor="#ffd98c" stopOpacity=".3" /><stop offset="1" stopColor="#ffd98c" stopOpacity="0" /></radialGradient>
+        <radialGradient id={`${uid}-lampwarm`}><stop offset="0" stopColor="#ffc56e" stopOpacity=".7" /><stop offset=".35" stopColor="#f59a3c" stopOpacity=".3" /><stop offset="1" stopColor="#f59a3c" stopOpacity="0" /></radialGradient>
+        <radialGradient id={`${uid}-moon`}><stop offset="0" stopColor="#6f8fd6" stopOpacity=".4" /><stop offset="1" stopColor="#6f8fd6" stopOpacity="0" /></radialGradient>
+        <radialGradient id={`${uid}-tube`}><stop offset="0" stopColor="#fff3c9" stopOpacity=".95" /><stop offset=".3" stopColor="#ffe09a" stopOpacity=".42" /><stop offset="1" stopColor="#ffe6a6" stopOpacity="0" /></radialGradient>
+        <radialGradient id={`${uid}-vig`} cx=".5" cy=".5" r=".75"><stop offset=".5" stopColor="#101522" stopOpacity="0" /><stop offset="1" stopColor="#101522" stopOpacity=".42" /></radialGradient>
         <linearGradient id={`${uid}-win`} x1="1" x2="0" y1="0" y2=".5"><stop offset="0" stopColor="#fff6d8" stopOpacity=".28" /><stop offset=".6" stopColor="#fff6d8" stopOpacity="0" /></linearGradient>
       </defs>
       <rect width="1920" height="1080" fill={night ? '#111722' : '#d9cfb9'} />
@@ -913,6 +932,30 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
         </g>
       )}
       {!night && !inHall && <rect width="1920" height="1080" fill={`url(#${uid}-win)`} />}
+      {grade && (
+        <g data-layer="light-grade" pointerEvents="none">
+          {!night && !inHall && <>
+            <rect width="1920" height="1080" fill="#ffd9a0" opacity={0.2} style={{ mixBlendMode: 'multiply' }} />
+            <rect width="1920" height="1080" fill={`url(#${uid}-cool)`} style={{ mixBlendMode: 'multiply' }} />
+            {winS && <circle cx={winS[0]} cy={winS[1]} r={560} fill={`url(#${uid}-sunglow)`} opacity={1 - 0.7 * sun} style={{ mixBlendMode: 'screen' }} />}
+            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={0.5} />
+          </>}
+          {night && !inHall && <>
+            <rect width="1920" height="1080" fill="#1d2f66" opacity={0.42} style={{ mixBlendMode: 'multiply' }} />
+            <rect width="1920" height="1080" fill="#2b4c96" opacity={0.1} style={{ mixBlendMode: 'screen' }} />
+            {lampS && <circle cx={lampS[0] - 20} cy={lampS[1] + 30} r={320} fill={`url(#${uid}-lampwarm)`} style={{ mixBlendMode: 'screen' }} />}
+            {winS && <circle cx={winS[0]} cy={winS[1]} r={200} opacity={0.6} fill={`url(#${uid}-moon)`} style={{ mixBlendMode: 'screen' }} />}
+            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} />
+          </>}
+          {inHall && <>
+            {night && <rect width="1920" height="1080" fill="#16244f" opacity={0.5} style={{ mixBlendMode: 'multiply' }} />}
+            <rect width="1920" height="1080" fill={`url(#${uid}-fall)`} style={{ mixBlendMode: 'multiply' }} />
+            {!night && <rect width="1920" height="1080" fill="#ffe2b0" opacity={0.14} style={{ mixBlendMode: 'multiply' }} />}
+            {tubeS && <ellipse cx={tubeS[0]} cy={tubeS[1] + 110} rx={820} ry={430} fill={`url(#${uid}-tube)`} style={{ mixBlendMode: 'screen' }} />}
+            <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={night ? 1 : 0.6} />
+          </>}
+        </g>
+      )}
       {children}
     </svg>
   );
