@@ -1157,10 +1157,11 @@ const namSkinPath = (d: number) => {
   return catmull([...NAM_SIDE.back, ...NAM_SIDE.front.slice(0, -1), ...lower], true);
 };
 // đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
-const NAM_NECK_D = 'M -26 120 L -27 172 Q -27 186 -24 194 Q -16 197 -8 197 Q 8 195 22 198 Q 11 180 7 160 L 6 120 Z';
-const NAM_HEAD_T = 'translate(13 31) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
+// mỗi mép cổ là MỘT đường cong liền, chếch ra trước (không ghép đoạn thẳng + nghiêng cả khối nên không gãy khúc); đáy trùng mép trên áo
+const NAM_NECK_D = 'M -12 112 C -12 150 -21 177 -24 194 Q -16 197 -8 197 Q 8 195 22 198 C 13 186 12 158 18 112 Z';
+const NAM_HEAD_T = 'translate(13 36) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
 // cổ chếch ra trước rõ hơn cổ Tùng, đầu đưa theo (mẫu: cổ cong nhẹ hướng về trước)
-const NAM_NECK_T = 'translate(0 194) skewX(-16) translate(0 -194)';
+const NAM_NECK_T = ''; // độ chếch đã nằm trong đường cong của NAM_NECK_D
 const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, mole, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
   const drop = talk ? talkDrop(talk) : f.drop ?? 0;
