@@ -74,6 +74,11 @@ export const placeOn = (view: RoomView, at: [number, number], heightCm = 168, mo
 /** Nguồn sáng trong phòng (cm): tâm cửa sổ tường phải cho ban ngày, bóng đèn bàn cho ban đêm. */
 export const LIGHT_SOURCES = { window: [W, 150, 155] as V3, lamp: [418, 100, 37] as V3 };
 /**
+ * Nguồn sáng chính ban đêm là màn hình laptop trên bàn học nên ánh sáng màu XANH lạnh (trước đây tô vàng ấm như đèn bàn):
+ * quầng quanh bàn, ánh lên mặt/áo người đứng gần, mảng sáng trên các mặt đồ. Vị trí giữ ở `LIGHT_SOURCES.lamp` (sát laptop).
+ */
+export const LAPTOP_LIGHT = { lit: '#8fd0ff', core: '#a9dcff', mid: '#5fb4ec', hot: '#86ceff', edge: '#3f96e0' };
+/**
  * Hướng sáng cho nhân vật đứng tại `at`, tính bằng chính camera của shot: x, y là hướng trên màn hình từ ngực
  * tới nguồn sáng (mảng tối nằm phía ngược lại); gx, gy là độ lệch bóng tiếp đất theo đơn vị rig, đổ trên sàn
  * theo hướng rời xa nguồn sáng.
@@ -229,7 +234,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const base = night ? (DRAWN_NIGHT[hex] ?? '#657266') : hex;
     if (!grade || hex[0] !== '#' || hex.length !== 7) return base;
     const to = sub(SRC, at), d = Math.hypot(to[0], to[1], to[2]) || 1, k = dot(n, mul(to, 1 / d)), near = clamp(1 - d / REACH, 0, 1);
-    if (k > 0.3 && near > 0) return mixHex(base, night ? (inHall ? '#ffd98c' : '#ffc878') : '#fff0c8', (night ? 0.4 : inHall ? 0.2 : 0.24) * (near > 0.5 ? 1 : 0.55));
+    if (k > 0.3 && near > 0) return mixHex(base, night ? (inHall ? '#ffd98c' : LAPTOP_LIGHT.lit) : '#fff0c8', (night ? 0.4 : inHall ? 0.2 : 0.24) * (near > 0.5 ? 1 : 0.55));
     if (k < -0.15) return mixHex(base, night ? '#0f1830' : '#4a587a', night ? 0.16 : inHall ? 0.08 : 0.12);
     if (night && !inHall) {
       const w = sub(LIGHT_SOURCES.window, at), wd = Math.hypot(w[0], w[1], w[2]) || 1;
@@ -901,7 +906,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const sunE = !night && !inHall ? sunExposure(a.at, 20, 160, sun) : 0;
     const litA = Math.min(1, night ? 0.7 * near : inHall ? 0.4 * near : 0.12 + 0.28 * sunE), shadeA = night ? 0.5 - 0.3 * near : 0.08;
     const cx = p.x, cy = p.y + 295 * p.scale, h = 150 * p.scale, id = `${uid}-act${key++}`;
-    const lit = night ? '#ffc878' : '#fff0c8', dark = night ? '#101a36' : '#4a587a';
+    const lit = night ? LAPTOP_LIGHT.lit : '#fff0c8', dark = night ? '#101a36' : '#4a587a';
     sink.push(
       <g key={key++}>
         <defs>
@@ -993,11 +998,11 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
       <defs>
         <filter id={`${uid}-blur`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="11" /></filter>
         <filter id={`${uid}-blur-sm`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" /></filter>
-        <radialGradient id={`${uid}-lamp`}><stop offset="0" stopColor="#ffd894" stopOpacity=".4" /><stop offset=".5" stopColor="#f2b56a" stopOpacity=".14" /><stop offset="1" stopColor="#f2b56a" stopOpacity="0" /></radialGradient>
+        <radialGradient id={`${uid}-lamp`}><stop offset="0" stopColor={LAPTOP_LIGHT.core} stopOpacity=".4" /><stop offset=".5" stopColor={LAPTOP_LIGHT.mid} stopOpacity=".14" /><stop offset="1" stopColor={LAPTOP_LIGHT.mid} stopOpacity="0" /></radialGradient>
         <linearGradient id={`${uid}-cool`} x1="0" x2="1" y1="0" y2="0"><stop offset="0" stopColor="#4d6185" stopOpacity=".3" /><stop offset=".62" stopColor="#4d6185" stopOpacity="0" /></linearGradient>
         <linearGradient id={`${uid}-fall`} x1="0" x2="0" y1="0" y2="1"><stop offset=".1" stopColor="#585a70" stopOpacity="0" /><stop offset=".55" stopColor="#5a5870" stopOpacity=".2" /><stop offset="1" stopColor="#5a5870" stopOpacity=".42" /></linearGradient>
         <radialGradient id={`${uid}-sunglow`}><stop offset="0" stopColor="#ffe6a6" stopOpacity=".6" /><stop offset=".35" stopColor="#ffd98c" stopOpacity=".24" /><stop offset="1" stopColor="#ffd98c" stopOpacity="0" /></radialGradient>
-        <radialGradient id={`${uid}-lampwarm`}><stop offset="0" stopColor="#ffc56e" stopOpacity=".6" /><stop offset=".35" stopColor="#f59a3c" stopOpacity=".26" /><stop offset="1" stopColor="#f59a3c" stopOpacity="0" /></radialGradient>
+        <radialGradient id={`${uid}-lampglow`}><stop offset="0" stopColor={LAPTOP_LIGHT.hot} stopOpacity=".6" /><stop offset=".35" stopColor={LAPTOP_LIGHT.edge} stopOpacity=".26" /><stop offset="1" stopColor={LAPTOP_LIGHT.edge} stopOpacity="0" /></radialGradient>
         <radialGradient id={`${uid}-moon`}><stop offset="0" stopColor="#6f8fd6" stopOpacity=".4" /><stop offset="1" stopColor="#6f8fd6" stopOpacity="0" /></radialGradient>
         <radialGradient id={`${uid}-tube`}><stop offset="0" stopColor="#fff3c9" stopOpacity=".72" /><stop offset=".3" stopColor="#ffe09a" stopOpacity=".32" /><stop offset="1" stopColor="#ffe6a6" stopOpacity="0" /></radialGradient>
         <radialGradient id={`${uid}-vig`} cx=".5" cy=".5" r=".75"><stop offset=".5" stopColor="#101522" stopOpacity="0" /><stop offset="1" stopColor="#101522" stopOpacity=".42" /></radialGradient>
@@ -1026,7 +1031,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
             <rect width="1920" height="1080" fill="#24376e" opacity={0.12} style={{ mixBlendMode: 'multiply' }} />
             {lampS && <circle cx={lampS[0]} cy={lampS[1]} r={2300} fill={`url(#${uid}-far)`} opacity={0.5} style={{ mixBlendMode: 'multiply' }} />}
             <rect width="1920" height="1080" fill="#2b4c96" opacity={0.1} style={{ mixBlendMode: 'screen' }} />
-            {lampS && <circle cx={lampS[0] - 20} cy={lampS[1] + 30} r={400} opacity={0.62} fill={`url(#${uid}-lampwarm)`} style={{ mixBlendMode: 'screen' }} />}
+            {lampS && <circle cx={lampS[0] - 20} cy={lampS[1] + 30} r={400} opacity={0.62} fill={`url(#${uid}-lampglow)`} style={{ mixBlendMode: 'screen' }} />}
             {winS && <circle cx={winS[0]} cy={winS[1]} r={200} opacity={0.45} fill={`url(#${uid}-moon)`} style={{ mixBlendMode: 'screen' }} />}
             <rect width="1920" height="1080" fill={`url(#${uid}-vig)`} opacity={0.5} />
           </>}

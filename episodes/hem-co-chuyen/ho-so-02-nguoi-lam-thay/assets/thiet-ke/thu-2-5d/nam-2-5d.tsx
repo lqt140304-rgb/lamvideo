@@ -1,5 +1,5 @@
 import React from 'react';
-import { Build, JointPose, NAM_OUTFITS, NamMood, Outfit, PALETTE, Rigged, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_OUTFIT, TWIN_POSES } from '../../nhan-vat';
+import { Build, JointPose, lw, NAM_OUTFITS, NamMood, Outfit, PALETTE, Rigged, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_OUTFIT, TWIN_POSES } from '../../nhan-vat';
 import { Mirror } from '../../bo-sung-15p/dao-cu';
 import { LIGHT_SOURCES, lightFor, RoomScene, RoomView } from '../../boi-canh/boi-canh';
 import { Expr, exprFrom, shiftExpr } from '../../cam-xuc-2-5d';
@@ -75,7 +75,9 @@ export const LIGHTS_25D: Record<Light25, LightSpec> = {
   },
 };
 
-const SKIN = PALETTE.skin, SKIN_SH = PALETTE.skinShadow, HAIR = PALETTE.nam.hair;
+const SKIN = PALETTE.skin, SKIN_SH = PALETTE.skinShadow;
+/** Bảng màu nhận diện khối của một nhân vật: màu tô (hex thường) của áo, quần, tóc. Da dùng chung. */
+export type Pal25 = { shirt: string[]; pants: string[]; hair: string };
 const MUL: React.CSSProperties = { mixBlendMode: 'multiply' };
 const SCREEN: React.CSSProperties = { mixBlendMode: 'screen' };
 const RIM_BOTTOM = 350; // y hông trong hệ rig; viền sáng dừng ở đây
@@ -85,22 +87,22 @@ const BOX = { x: -500, y: -400, width: 1000, height: 1300 };
 const useUid = (p: string) => `${p}-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
 
 /** Bộ chọn CSS cho phần tử của một khối (chính nó và con cháu). */
-const sel = (c: string, part: Part, cols: { shirt: string; pants: string; hair?: string }) => {
-  const own = (q: string) => `.${c} ${q}, .${c} ${q} *`;
+const sel = (c: string, part: Part, cols: Pal25) => {
+  const own = (qs: string[]) => qs.map((q) => `.${c} [fill="${q}"], .${c} [fill="${q}"] *`).join(',');
   switch (part) {
     case 'all': return `.${c} *`;
     case 'skinHead': return `.${c} [data-part~="head"] *`;
-    case 'hair': return `.${c} [data-part~="head"] [fill="${cols.hair ?? HAIR}"]`;
+    case 'hair': return `.${c} [data-part~="head"] [fill="${cols.hair}"]`;
     case 'skinLimb': return `.${c} [fill="${SKIN}"], .${c} [fill="${SKIN_SH}"]`;
-    case 'shirt': return own(`[fill="${cols.shirt}"]`);
-    case 'pants': return own(`[fill="${cols.pants}"]`);
+    case 'shirt': return own(cols.shirt);
+    case 'pants': return own(cols.pants);
     case 'headAll': return `.${c} [data-part~="head"] *`;
     case 'far': return `.${c} [data-limb~="L"] *`;
   }
 };
 /** Quy tắc bổ sung để loại phần không thuộc khối (tóc khỏi da đầu, da đầu khỏi da tay). Đặt SAU quy tắc chính. */
-const exclude = (c: string, part: Part, hair: string = HAIR) =>
-  part === 'skinHead' ? `.${c} [data-part~="head"] [fill="${hair}"]` : part === 'skinLimb' ? `.${c} [data-part~="head"] *` : '';
+const exclude = (c: string, part: Part, cols: Pal25) =>
+  part === 'shirt' || part === 'pants' ? `.${c} [data-part~="head"] *` : part === 'skinHead' ? `.${c} [data-part~="head"] [fill="${cols.hair}"]` : part === 'skinLimb' ? `.${c} [data-part~="head"] *` : '';
 
 /** `blur`: làm mềm riêng lớp này (độ lệch chuẩn, đơn vị rig) — dùng cho bản dịch, để mép trong của mảng chuyển dần, mép ngoài vẫn cắt theo hình bao. */
 type Layer = { mode: 'vis' | 'onlyW' | 'onlyB'; part: Part; shift?: [number, number]; blur?: number };
@@ -109,13 +111,13 @@ const lum = (h: string) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.s
  * Mask dựng từ chính nhân vật. `vis`: khối trắng, mọi phần khác đen (đen của phần vẽ sau che đúng chỗ bị che).
  * `onlyW`/`onlyB`: chỉ khối đó trắng/đen, phần khác trong suốt. `shift`: dịch bản dựng.
  */
-const SubjectMask: React.FC<{ id: string; subject: React.ReactNode; cols: { shirt: string; pants: string; hair?: string }; layers: Layer[] }> = ({ id, subject, cols, layers }) => (
+const SubjectMask: React.FC<{ id: string; subject: React.ReactNode; cols: Pal25; layers: Layer[] }> = ({ id, subject, cols, layers }) => (
   <mask id={id} maskUnits="userSpaceOnUse" {...BOX}>
     {layers.map((l, i) => {
       const c = `${id}-${i}`;
       const on = l.mode === 'onlyB' ? '#000' : '#fff';
       const off = l.mode === 'vis' ? '#000' : 'transparent';
-      const ex = exclude(c, l.part, cols.hair);
+      const ex = exclude(c, l.part, cols);
       const css = `.${c} *{fill:${off}!important;stroke:none!important;opacity:1!important}.${c} [data-shadow]{display:none!important}`
         + `${sel(c, l.part, cols)}{fill:${on}!important}` + (ex ? `${ex}{fill:${off}!important}` : '');
       return (
@@ -138,10 +140,10 @@ const Fill: React.FC<{ mask: string; color: string; opacity?: number }> = ({ mas
  * `dir`: hướng tới nguồn sáng trên màn hình, ưu tiên lấy từ bối cảnh (`lightFor` của phòng 3D) để nhân vật cùng nguồn sáng với nền.
  * `armsFront`: có tay đưa ra trước thân (đổi chiều bóng đổ tay ↔ áo). `depth`: tách tay/chân phía xa (góc 3/4, nghiêng).
  */
-export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; shirt: string; pants: string; hair?: string; head?: boolean; dir?: [number, number]; armsFront?: boolean; depth?: boolean }> = ({ subject, light = 'ngay', shirt, pants, hair, head = true, dir, armsFront = false, depth = false }) => {
+export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; pal: Pal25; head?: boolean; dir?: [number, number]; armsFront?: boolean; depth?: boolean }> = ({ subject, light = 'ngay', pal, head = true, dir, armsFront = false, depth = false }) => {
   const L = LIGHTS_25D[light];
   const uid = useUid('v25');
-  const cols = { shirt: shirt.toLowerCase(), pants: pants.toLowerCase(), hair: hair?.toLowerCase() };
+  const cols: Pal25 = { shirt: pal.shirt.map((c) => c.toLowerCase()), pants: pal.pants.map((c) => c.toLowerCase()), hair: pal.hair.toLowerCase() };
   const [lx, ly] = dir ?? L.dir;
   const n = Math.hypot(lx, ly) || 1;
   const toward = (k: number): [number, number] => [(lx / n) * k, (ly / n) * k];
@@ -215,11 +217,11 @@ type BodyProps = React.ComponentProps<typeof StudentTwinBody>;
 // ---------------------------------------------------------------------------
 /** Đo trên ảnh tham chiếu (tham-khao/tao-hinh-2-5d.jpg), so với Nam đã chốt cùng chiều cao. */
 export const DANG_THAM_CHIEU: Partial<Build> = {
-  upperArm: 78, foreArm: 72, thigh: 99, shin: 99, // tay hơi dài hơn, chân ngắn lại ~6%
+  upperArm: 76, foreArm: 70, thigh: 99, shin: 99, // tay ngắn hơn một chút (chủ repo chọn) // tay hơi dài hơn, chân ngắn lại ~6%
   shoulderX: 0.9, // vai vừa phải (bản trước 0,98 trông "đô")
   arm: [17.5, 15.5, 13.5], // tay thon như bản đã chốt, không to bắp
   hand: 1.18, // nắm tay vừa
-  sleeve: [24, 26, 26],
+  sleeve: [26, 29, 30], // tay áo xòe khỏi cánh tay như mẫu
   pants: [28, 26, 26], // ống thẳng, rộng đều, không loe
   pantsEnd: 0.84, // quần lửng, lộ cổ chân
   foot: 1,
@@ -238,8 +240,17 @@ export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway)
   const base = { ...TWIN_OUTFIT, shirt, sleeveEnd: 0.56, build: DANG_THAM_CHIEU };
   const views = Object.fromEntries(Object.entries(TWIN_OUTFIT.views ?? {}).map(([k, v]) => [k, narrow(v!)])) as NonNullable<Outfit['views']>;
   const nb = narrow(base);
-  const vs = Object.fromEntries(Object.entries(views).map(([k, v]) => [k, { ...v!, hem: swayHem(v!.hem, sway) }])) as Outfit['views'];
-  return { ...nb, hem: swayHem(nb.hem, sway), views: vs };
+  const vs = Object.fromEntries(Object.entries(views).map(([k, v]) => [k, { ...v!, hem: swayHem(v!.hem, sway) }])) as NonNullable<Outfit['views']>;
+  // Góc nghiêng dựng lại theo ảnh tham chiếu: lưng gần thẳng, ngực dốc chéo ra trước từ cổ áo rồi mới phình (khuôn thân áo nghiêng đã chốt là mái vòm đối xứng).
+  vs.side = {
+    // vai sau tròn nhỏ rồi lưng thẳng, hơi lõm ở thắt lưng (bản trước lồi ở vai sau trông gù)
+    // vai sau dốc thoải từ chân cổ xuống lưng (mép áo sau không nhô cao hơn gáy — trước đó tạo cục gù)
+    torso: 'M -24 194 Q -38 197 -44 212 Q -47 222 -46 240 Q -45 270 -50 302 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 195 -8 197 Q -16 197 -24 194 Z',
+    hem: swayHem([[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]], sway),
+    detail: <path d="M 33 262 Q 38 292 36 330" fill="none" style={{ strokeWidth: lw(2.5) }} />,
+  };
+  // khối mông: phồng sau hông dưới vạt áo rồi thu vào đùi
+  return { ...nb, hem: swayHem(nb.hem, sway), views: vs, sleeveFold: true, seatSide: 'M -26 336 C -40 340 -47 358 -46 378 C -45 398 -36 414 -24 424 L -14 424 L -14 336 Z' };
 };
 /** Đầu thon lại (ngang ×0,9) và hạ thấp (cổ ngắn, cằm sát vai) như ảnh tham chiếu; tâm phóng ở chân cổ. */
 const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';
@@ -247,7 +258,7 @@ const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';
 /** Nam 2D với dáng tham chiếu (cùng props StudentTwinBody; `outfit` khác áo thun chưa hỗ trợ ở bản thử). */
 export const NamDangMoi: React.FC<BodyProps & { hemSway?: HemSway }> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, hair, hemSway, expr, exprLight }) => (
   <Rigged pose={pose} outfit={namOutfitDang(shirt, hemSway)} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline}
-    head={<g transform={HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} expr={expr} exprLight={exprLight} /></g>} />
+    head={<g transform={pose.view === 'side' ? undefined : HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} sideNew expr={expr} exprLight={exprLight} /></g>} />
 );
 
 /**
@@ -261,9 +272,10 @@ export const expr25For = (p: Pick<BodyProps, 'expr' | 'face' | 'faceFrom' | 'fac
   return p.faceFrom && p.faceFrom !== p.face && (p.faceMix ?? 1) < 1 ? shiftExpr(exprFrom(p.faceFrom, p.mood), to, p.faceMix ?? 1) : to;
 };
 
-const colorsOf = (p: Pick<BodyProps, 'outfit' | 'shirt'>) => {
+const NAM_HAIR_HEX = PALETTE.nam.hair;
+const palOf = (p: Pick<BodyProps, 'outfit' | 'shirt'>): Pal25 => {
   const o = p.outfit ? NAM_OUTFITS[p.outfit] : undefined;
-  return { shirt: o?.shirt ?? p.shirt ?? PALETTE.nam.shirt, pants: o?.pants ?? PALETTE.nam.pants };
+  return { shirt: [o?.shirt ?? p.shirt ?? PALETTE.nam.shirt], pants: [o?.pants ?? PALETTE.nam.pants], hair: NAM_HAIR_HEX };
 };
 /** Mọi góc/tư thế đều có lớp 2.5D (giữ để tương thích lời gọi cũ). */
 export const supports25D = (_: Pick<BodyProps, 'pose' | 'outfit'>) => true;
@@ -278,10 +290,9 @@ export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25
   const Body: React.FC<BodyProps> = dang === 'moi' && !props.outfit ? (q) => <NamDangMoi {...q} hemSway={hemSway} /> : StudentTwinBody;
   if (!volume) return <Body {...props} />;
   const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;
-  const c = colorsOf(props);
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} shirt={c.shirt} pants={c.pants} dir={lightDir}
+      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} pal={palOf(props)} dir={lightDir}
         armsFront={!!(pose.frontR || pose.frontL)} depth={pose.view === 'three' || pose.view === 'side' || pose.view === 'quarter' || pose.view === undefined} />
     </g>
   );
@@ -290,7 +301,7 @@ export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25
 /** Đầu Nam 2.5D (bảng biểu cảm). */
 export const Nam25DHead: React.FC<React.ComponentProps<typeof StudentTwinHead> & { lighting?: Light25; lightDir?: [number, number]; matCu?: boolean }> = ({ lighting = 'ngay', lightDir, matCu, ...p }) => (
   <g transform={`translate(${p.x ?? 0} ${p.y ?? 0}) scale(${p.scale ?? 1})`}>
-    <Volume25 subject={<g data-part="head"><StudentTwinHead {...p} expr={expr25For(p, matCu)} exprLight={p.exprLight ?? lightDir ?? LIGHTS_25D[lighting].dir} x={0} y={0} scale={1} /></g>} light={lighting} dir={lightDir} shirt="#000001" pants="#000002" />
+    <Volume25 subject={<g data-part="head"><StudentTwinHead {...p} expr={expr25For(p, matCu)} exprLight={p.exprLight ?? lightDir ?? LIGHTS_25D[lighting].dir} x={0} y={0} scale={1} /></g>} light={lighting} dir={lightDir} pal={{ shirt: ['#000001'], pants: ['#000002'], hair: NAM_HAIR_HEX }} />
   </g>
 );
 

@@ -82,7 +82,7 @@ assert.ok(!tv(10).includes('NaN') && !tv(44).includes('NaN') && !tv(100).include
 assert.notEqual(tv(38), tv(45), 'giật mình phải đổi hình Tùng');
 assert.notEqual(tv(45), tv(45, { physics: false }));
 const tgOutfit = require(A + 'thiet-ke/thu-2-5d/tung-2-5d').tungOutfitSway;
-assert.equal(tgOutfit(undefined), r.TUNG_OUTFIT); assert.notDeepEqual(tgOutfit({ dx: 6, dy: 4 }).hem, r.TUNG_OUTFIT.hem);
+assert.deepEqual(tgOutfit(undefined).hem, r.TUNG_OUTFIT.hem); assert.notDeepEqual(tgOutfit({ dx: 6, dy: 4 }).hem, r.TUNG_OUTFIT.hem);
 assert.deepEqual(tgOutfit({ dx: 6, dy: 4 }).hem.slice(0, 2), r.TUNG_OUTFIT.hem.slice(0, 2), 'hai điểm trên eo giữ nguyên');
 // Cử chỉ theo cảm xúc và dáng chuyển trạng thái: không NaN, đầu/cuối đúng khoá, nét mặt mới có trong thư viện
 const cc = require(A + 'cu-chi'), nm = require('../library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat');
