@@ -55,3 +55,26 @@ const sh = renderToStaticMarkup(React.createElement(room.RoomScene, { view: 'wid
 assert.ok(sh.includes('data-shadow="drawn-contact"]{display:none}'), 'ẩn bóng cố định của rig');
 assert.ok(!sh.includes('NaN'));
 console.log('di-chuyen ok: đường đi, góc theo hướng, bước không trượt, che khuất, bóng theo vị trí');
+
+// Điểm tiếp xúc: ngồi đúng mặt ghế, hai bàn tay chạm mặt bàn, chân chạm sàn — đo bằng px trên ảnh ở nhiều góc máy.
+const ct = require(A + 'diem-tiep-xuc');
+for (const view of ['desk', 'wide', 'bed']) {
+  const sd = ct.seatedAt(view, 'desk'), s = ct.seatAnchor('desk');
+  const hands = { R: [388, 67, 64], L: [410, 67, 65] };
+  const { pose, at } = ct.seatedAt(view, 'desk', { hands });
+  const frontal = pose.view === 'front' || pose.view === 'back'; // rig không biểu diễn được tay đưa tới trước theo chiều sâu khi nhìn thẳng/sau lưng
+  console.log(`  ${view}: ngồi nhìn ${pose.view}/${pose.facing}`, frontal ? '(không đo tay: góc thẳng/sau lưng)' : ['R', 'L'].map((q) => ct.reachError(view, at, pose, q, hands[q]).toFixed(1) + 'px').join(' '));
+  for (const side of frontal ? [] : ['R', 'L']) {
+    const e = ct.reachError(view, at, pose, side, hands[side]);
+    assert.ok(e < 8, `${view}: bàn tay ${side} cách mặt bàn ${e.toFixed(1)} px`);
+  }
+  const k = room.placeOn(view, at).scale; // px / đơn vị rig
+  const hip = ct.rigToScreen(view, at, pose, [0, 345])[1], seatTop = room.screenOf(view, [s.at[0], s.top, s.at[1]])[1];
+  const padPx = 6 * (590 / 168) * k; // hông cao hơn mặt ghế 6 cm
+  assert.ok(Math.abs(seatTop - hip - padPx) < 6, `${view}: hông lệch mặt ghế ${(seatTop - hip - padPx).toFixed(1)} px`);
+  const low = Math.max(r.solveRig(pose).legR.end.y, r.solveRig(pose).legL.end.y), sole = ct.rigToScreen(view, at, pose, [0, low + 34])[1];
+  const floor = room.placeOn(view, at); assert.ok(Math.abs(sole - (floor.y + 590 * floor.scale)) < 8, `${view}: chân chạm sàn lệch ${(sole - (floor.y + 590 * floor.scale)).toFixed(1)} px`);
+  assert.ok(!JSON.stringify(pose).includes('NaN'));
+}
+assert.ok(Math.abs(ct.hipHeightCm({ ...r.STAND_POSE, ...ct.sitLegs(40) }) - 46) < 2, 'sitLegs đưa hông tới mặt ghế + 6 cm');
+console.log('di-chuyen ok: điểm tiếp xúc ghế, bàn, sàn');

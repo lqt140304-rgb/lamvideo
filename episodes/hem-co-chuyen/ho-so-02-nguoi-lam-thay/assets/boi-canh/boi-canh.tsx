@@ -72,6 +72,12 @@ export const placeOn = (view: RoomView, at: [number, number], heightCm = 168, mo
 };
 
 /**
+ * Điểm 3D của cảnh (cm, chiều cao theo ĐÚNG hình đã vẽ: ghế mặt 40, mặt bàn 65 sau khi hạ thấp theo chân ngắn của rig) → toạ độ ảnh.
+ * Dùng để khoá điểm tiếp xúc của người vào đồ: hông–mặt ghế, bàn tay–mặt bàn.
+ */
+export const screenOf = (view: RoomView, p: [number, number, number], move?: CameraMove): [number, number] => camera(moved(VIEWS[view], move)).project(p);
+
+/**
  * Hướng một người đi trên sàn nhìn từ máy của shot. `dir` = hướng đi trên sàn (x, z). Trả về góc φ (độ, −180…180]:
  * 0 = đi thẳng về phía máy (nhìn chính diện), ±90 = đi ngang (nghiêng; + sang phải màn hình), 180 = đi xa khỏi máy (quay lưng).
  */

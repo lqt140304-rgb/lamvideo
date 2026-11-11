@@ -1,5 +1,6 @@
 import React from 'react';
-import { JointPose, solveRig, STAND_POSE, StudentTwinBody, TWIN_POSES, turnAt } from './nhan-vat';
+import { armHint } from './tay-ik';
+import { JointPose, STAND_POSE, StudentTwinBody, TWIN_POSES, turnAt } from './nhan-vat';
 import { EXTRA_POSES } from './bo-sung-15p/nhan-vat-va-tu-the';
 import { Sheet, Label } from './bo-sung-15p/common';
 import { easePose } from './song-dong';
@@ -14,22 +15,8 @@ import type { StoryFaceKey } from '../../../../what-if-studio/library/expression
  * Tư thế dựng trên rig gốc (`nhan-vat.tsx`), dùng được cho bản 2D và 2.5D (`Nam25D`, `LivingNam25D`, `NamSongVatLy`).
  */
 const B: JointPose = { ...STAND_POSE, view: 'three', facing: 1, frontR: true, frontL: true };
-/**
- * Đặt bàn tay vào `hand` với khuỷu tay gần `elbow` nhất (toạ độ rig: vai gần máy ≈ (-68, 232), vai xa ≈ (62, 232),
- * tâm đầu ≈ (10, 105), miệng ≈ (10, 145), tai ≈ (-70, 112), hông ≈ y 345). Khác `armTo` cũ: cho phép khuỷu nâng cao hơn vai
- * và chọn đúng phía khuỷu, nên tay đưa lên đầu/mặt không bị gập ngược hay vắt chéo người.
- */
-const arm = (p: JointPose, side: 'R' | 'L', hand: [number, number], elbow: [number, number], w = 0.35): JointPose => {
-  const k = side === 'R' ? 'armR' : 'armL';
-  let best = { s: Infinity, a: 0, b: 0, rot: 1 as 1 | -1 };
-  for (let a = -180; a <= 180; a += 3) for (let b = 0; b <= 150; b += 3) for (const rot of [1, -1] as const) {
-    const r = solveRig({ ...p, [k]: { a, b, rot } })[k];
-    const s = Math.hypot(r.end.x - hand[0], r.end.y - hand[1]) + w * Math.hypot(r.mid.x - elbow[0], r.mid.y - elbow[1]);
-    if (s < best.s) best = { s, a, b, rot };
-  }
-  return { ...p, [k]: { a: best.a, b: best.b, rot: best.rot } };
-};
 type ArmSpec = { hand: [number, number]; elbow: [number, number]; w?: number };
+const arm = armHint;
 const pose2 = (p: JointPose, R?: ArmSpec, L?: ArmSpec) => { let q = p; if (R) q = arm(q, 'R', R.hand, R.elbow, R.w); if (L) q = arm(q, 'L', L.hand, L.elbow, L.w); return q; };
 const DOWN = { frontL: false } as const;
 
