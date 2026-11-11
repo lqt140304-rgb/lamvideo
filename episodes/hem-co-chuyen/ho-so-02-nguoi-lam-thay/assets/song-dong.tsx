@@ -60,14 +60,14 @@ export const lifePose = (pose: JointPose, frame: number, o: LifeOpts = {}): Join
   const standing = !lying && !sitting;
   const sway = o.sway === false || !standing ? 0 : drift(frame, seed + 9, 210);
   const out: JointPose = { ...pose };
-  out.tilt = pose.tilt + amt * (br * 0.45 + sway * 0.9);
-  out.neck = pose.neck + amt * (lying ? br * 0.3 : dr * 1.4 - br * 0.25);
-  const shoulder = br * 0.9 * amt;
-  out.armR = addLimb(pose.armR, shoulder + sway * 0.8 * amt, br * 0.5 * amt);
-  out.armL = addLimb(pose.armL, shoulder - sway * 0.8 * amt, br * 0.5 * amt);
+  out.tilt = pose.tilt + amt * (br * 0.8 + sway * 1.5);
+  out.neck = pose.neck + amt * (lying ? br * 0.5 : dr * 2 - br * 0.4);
+  const shoulder = br * 1.5 * amt;
+  out.armR = addLimb(pose.armR, shoulder + sway * 1.3 * amt, br * 0.8 * amt);
+  out.armL = addLimb(pose.armL, shoulder - sway * 1.3 * amt, br * 0.8 * amt);
   if (standing) {
     // trọng tâm dồn dần sang một chân rồi sang chân kia
-    const w = sway * 1.6 * amt;
+    const w = sway * 2.6 * amt;
     out.legR = { ...pose.legR, a: pose.legR.a + w };
     out.legL = { ...pose.legL, a: pose.legL.a - w };
   }
@@ -122,7 +122,8 @@ export const easePose = (a: JointPose, b: JointPose, t: number, o: EaseOpts = {}
   const ov = o.overshoot ?? 0.5, s = 1.35 * ov * 2;
   const at = (lag: number) => { const u = clamp((t - lag) / (1 - lag)); return s > 0 ? outBack(u, s) : smooth(u); };
   const num = (x: number, y: number, lag: number) => lerp(x, y, at(lag));
-  const limb = (x: Limb, y: Limb, lagA: number, lagB: number): Limb => ({ ...(t < 0.5 ? x : y), a: num(x.a, y.a, lagA), b: Math.max(0, num(x.b, y.b, lagB)) });
+  const soft = (x: number, y: number, lag: number) => { const u = clamp((t - lag) / (1 - lag)), full = lerp(x, y, outBack(u, s * 0.45)); const d = Math.max(-9, Math.min(9, full - lerp(x, y, smooth(u)))); return lerp(x, y, smooth(u)) + d; };
+  const limb = (x: Limb, y: Limb, lagA: number, lagB: number): Limb => ({ ...(t < 0.5 ? x : y), a: soft(x.a, y.a, lagA), b: Math.max(0, soft(x.b, y.b, lagB)) });
   const tiltAnt = o.anticipate ? -Math.sign(b.tilt - a.tilt || 1) * o.anticipate * Math.sin(Math.PI * clamp(t / 0.25)) * (t < 0.25 ? 1 : 0) : 0;
   const late = t >= 0.5 ? b : a;
   return {

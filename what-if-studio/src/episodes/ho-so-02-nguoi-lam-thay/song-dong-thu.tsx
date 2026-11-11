@@ -27,7 +27,7 @@ const Pane: React.FC<{ f: number; live: boolean; title: string }> = ({ f, live, 
   };
   return (
     <div style={{ position: 'relative', width: 960, height: 540, overflow: 'hidden' }}>
-      <svg width={960} height={540} viewBox="1000 330 960 540" style={{ position: 'absolute', inset: 0 }}>
+      <svg width={960} height={540} viewBox="800 230 1120 630" style={{ position: 'absolute', inset: 0 }}>
         <RoomScene night phone="desk" kitchen="clean" chair="desk" view="desk" frame={live ? f : null} actors={[actor]} />
       </svg>
       <div style={{ position: 'absolute', left: 18, top: 14, fontFamily: FONT.title, fontSize: 26, color: '#f1ead9', textShadow: '0 2px 6px #000', letterSpacing: 2 }}>{title}</div>
@@ -44,7 +44,7 @@ export const HoSo02SongDongThu: React.FC = () => {
   );
 };
 
-// --- Bản khung rộng: hai người đứng trong phòng, thấy thở ở vai, dịch trọng tâm, đổi dáng có đà. `amount` 1,8 để thấy được ở khung xa. ---
+// --- Bản khung rộng: hai người đứng trong phòng, thấy thở ở vai, dịch trọng tâm, đổi dáng có đà. `amount` 1,3. ---
 export const SONGDONG_WIDE_TOTAL = 210;
 const STAND = { ...STAND_POSE, view: 'three' as const, facing: 1 as const };
 const REACH = { ...TWIN_POSES.stop, view: 'three' as const, facing: 1 as const };
@@ -53,13 +53,13 @@ const PaneWide: React.FC<{ f: number; live: boolean; title: string }> = ({ f, li
   const nam = {
     at: [200, 240] as [number, number],
     render: (p: { x: number; y: number; scale: number }) => live
-      ? <LivingTwin {...LOOK} {...p} frame={f} seed={2} life={{ amount: 1.8 }} mood="sleepy" pose={easePose(easePose(STAND, REACH, t, { anticipate: 3 }), STAND, back)} talk={speak(f, 40, 100, 2)} {...faceBlend(f, 100, 'buon-01', 'tuc-gian-01')} />
+      ? <LivingTwin {...LOOK} {...p} frame={f} seed={2} life={{ amount: 1.3 }} mood="sleepy" pose={easePose(easePose(STAND, REACH, t, { anticipate: 3 }), STAND, back)} talk={speak(f, 40, 100, 2)} {...faceBlend(f, 100, 'buon-01', 'tuc-gian-01')} />
       : <StudentTwinBody {...LOOK} {...p} mood="sleepy" pose={mixPose(mixPose(STAND, REACH, t), STAND, back)} talk={f >= 40 && f < 100 && f % 10 < 5 ? { shape: 'closed' as const, open: 0.25 } : undefined} face={f >= 100 ? 'tuc-gian-01' : 'buon-01'} />,
   };
   const tung = {
     at: [300, 250] as [number, number],
     render: (p: { x: number; y: number; scale: number }) => live
-      ? <LivingTung {...p} frame={f} life={{ amount: 1.8 }} mood="annoyed" />
+      ? <LivingTung {...p} frame={f} life={{ amount: 1.3 }} mood="annoyed" />
       : <TungSoccer {...p} mood="annoyed" />,
   };
   return (

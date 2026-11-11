@@ -898,15 +898,15 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     const L = lightFor(view, a.at, SRC, move), dist = Math.hypot(a.at[0] - SRC[0], a.at[1] - SRC[2]);
     const near = clamp(1 - dist / (REACH + 120), 0, 1);
     const sunE = !night && !inHall ? sunExposure(a.at, 20, 160, sun) : 0;
-    const litA = Math.min(1, night ? 0.7 * near : inHall ? 0.4 * near : 0.12 + 0.28 * sunE), shadeA = night ? 0.5 - 0.3 * near : 0.16;
+    const litA = Math.min(1, night ? 0.7 * near : inHall ? 0.4 * near : 0.12 + 0.28 * sunE), shadeA = night ? 0.5 - 0.3 * near : 0.08;
     const cx = p.x, cy = p.y + 295 * p.scale, h = 150 * p.scale, id = `${uid}-act${key++}`;
     const lit = night ? '#ffc878' : '#fff0c8', dark = night ? '#101a36' : '#4a587a';
     sink.push(
       <g key={key++}>
         <defs>
           <mask id={`${id}-m`} maskUnits="userSpaceOnUse" x={0} y={0} width={1920} height={1080} style={{ maskType: 'alpha' }}>{node}</mask>
-          <linearGradient id={`${id}-l`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset="0" stopColor={lit} stopOpacity={litA} /><stop offset=".42" stopColor={lit} stopOpacity={litA} /><stop offset=".5" stopColor={lit} stopOpacity="0" /></linearGradient>
-          <linearGradient id={`${id}-d`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset=".5" stopColor={dark} stopOpacity="0" /><stop offset=".58" stopColor={dark} stopOpacity={shadeA} /><stop offset="1" stopColor={dark} stopOpacity={shadeA} /></linearGradient>
+          <linearGradient id={`${id}-l`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset="0" stopColor={lit} stopOpacity={litA} /><stop offset=".3" stopColor={lit} stopOpacity={litA} /><stop offset=".62" stopColor={lit} stopOpacity="0" /></linearGradient>
+          <linearGradient id={`${id}-d`} gradientUnits="userSpaceOnUse" x1={cx + L.x * h} y1={cy + L.y * h} x2={cx - L.x * h} y2={cy - L.y * h}><stop offset=".4" stopColor={dark} stopOpacity="0" /><stop offset=".75" stopColor={dark} stopOpacity={shadeA} /><stop offset="1" stopColor={dark} stopOpacity={shadeA} /></linearGradient>
         </defs>
         {node}
         <g mask={`url(#${id}-m)`}>

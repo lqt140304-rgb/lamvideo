@@ -26,7 +26,7 @@ for (const [name, pose] of [...Object.entries(r.TWIN_POSES), ['tung', r.TUNG_POS
     assert.ok(p.armR.b >= 0 && p.armL.b >= 0, `${name} khuỷu gập ngược`);
   }
 }
-assert.ok(maxDTilt < 2 && maxDNeck < 3.5, `biên độ quá lớn: tilt ${maxDTilt} neck ${maxDNeck}`);
+assert.ok(maxDTilt < 3.6 && maxDNeck < 5.5, `biên độ quá lớn: tilt ${maxDTilt} neck ${maxDNeck}`);
 
 // Thở: có đổi dấu trong ~4 s, chu kỳ 3–4 s
 let flips = 0, prev = Math.sign(s.breath(0, 4));
