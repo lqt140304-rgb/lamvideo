@@ -1,6 +1,7 @@
 import React from 'react';
 import { HairSway, JointPose, Limb, StudentTwinBody, TungSoccer, STAND_POSE, TUNG_POSE, type Talk } from './nhan-vat';
 import { SupportingActor, type Role } from './bo-sung-15p/nhan-vat-va-tu-the';
+import { Nam25D } from './thiet-ke/thu-2-5d/nam-2-5d';
 
 /**
  * LỚP "DÁNG SỐNG" cho nhân vật Hồ sơ 02 (11/11/2026).
@@ -166,4 +167,13 @@ export const castIdle = (role: Role, pose: JointPose, frame: number, seed = 0): 
 };
 export const LivingCast: React.FC<React.ComponentProps<typeof SupportingActor> & { frame: number; seed?: number }> = ({ frame, seed = 0, role, pose, ...rest }) => (
   <SupportingActor {...rest} role={role} pose={castIdle(role, pose ?? STAND_POSE, frame, seed)} />
+);
+
+/**
+ * Nam 2.5D sống: cùng lớp thở/chớp/trôi/lắc tóc của `LivingTwin` nhưng vẽ bằng `Nam25D` (kiểu sáng theo cảnh, tách lớp, bóng mềm).
+ * Nhận mọi prop của `Nam25D` (`lighting`, `lightDir` từ `lightFor`, `dang`, `hemSway`…). Muốn thêm quán tính/va chạm, dùng `NamVatLy` với
+ * `base={(f) => lifePose(dáng(f), f, { seed })}` thay cho dáng gốc; đã kiểm tra hai lớp chồng không NaN trong tests/ho-so-02-song-dong.cjs.
+ */
+export const LivingNam25D: React.FC<React.ComponentProps<typeof Nam25D> & { frame: number; seed?: number; life?: LifeOpts }> = ({ frame, seed = 0, life, pose, blink, hair, ...rest }) => (
+  <Nam25D {...rest} pose={lifePose(pose ?? STAND_POSE, frame, { seed, ...life })} blink={blink ?? blinkAt(frame, seed)} hair={hair ?? ((life?.amount ?? 1) > 0 ? hairLife(frame, seed, life?.amount ?? 1) : undefined)} />
 );

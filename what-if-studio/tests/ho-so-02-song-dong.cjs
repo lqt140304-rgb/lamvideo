@@ -59,4 +59,10 @@ const html = (f) => renderToStaticMarkup(React.createElement('svg', null, React.
 assert.ok(!html(30).includes('NaN')); assert.notEqual(html(10), html(60));
 assert.ok(!renderToStaticMarkup(React.createElement('svg', null, React.createElement(s.LivingTung, { frame: 20 }))).includes('NaN'));
 assert.ok(!renderToStaticMarkup(React.createElement('svg', null, React.createElement(s.LivingCast, { frame: 100, role: 'giang-vien' }))).includes('NaN'));
+// Nam 2.5D sống: dựng được, không NaN, đổi giữa hai khung; lớp sống động chồng lên vật lý thứ cấp (NamVatLy) vẫn hợp lệ
+const n25 = (f) => renderToStaticMarkup(React.createElement('svg', null, React.createElement(s.LivingNam25D, { frame: f, seed: 1, pose: r.TWIN_POSES.stand, lighting: 'den-vang' })));
+assert.ok(!n25(20).includes('NaN')); assert.notEqual(n25(10), n25(70));
+const vl = require(A + 'thiet-ke/thu-2-5d/vat-ly');
+const track = vl.simulate((f) => s.lifePose(r.TWIN_POSES.stand, f, { seed: 1 }), [{ f: 40, kind: 'va', dir: 1 }], 120);
+assert.ok(track.length === 120 && !JSON.stringify(track).includes('NaN'), 'vật lý chồng lớp sống động');
 console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà');
