@@ -243,7 +243,8 @@ export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway)
   // Góc nghiêng dựng lại theo ảnh tham chiếu: lưng gần thẳng, ngực dốc chéo ra trước từ cổ áo rồi mới phình (khuôn thân áo nghiêng đã chốt là mái vòm đối xứng).
   vs.side = {
     // vai sau tròn nhỏ rồi lưng thẳng, hơi lõm ở thắt lưng (bản trước lồi ở vai sau trông gù)
-    torso: 'M -26 184 Q -39 185 -44 195 Q -47 204 -46 228 Q -45 268 -50 302 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z',
+    // vai sau dốc thoải từ chân cổ xuống lưng (mép áo sau không nhô cao hơn gáy — trước đó tạo cục gù)
+    torso: 'M -24 194 Q -38 197 -44 212 Q -47 222 -46 240 Q -45 270 -50 302 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 195 -8 197 Q -16 197 -24 194 Z',
     hem: swayHem([[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]], sway),
     detail: <path d="M 33 262 Q 38 292 36 330" fill="none" style={{ strokeWidth: lw(2.5) }} />,
   };

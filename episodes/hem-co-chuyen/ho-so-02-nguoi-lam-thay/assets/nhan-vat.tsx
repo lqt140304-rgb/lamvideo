@@ -1157,7 +1157,7 @@ const namSkinPath = (d: number) => {
   return catmull([...NAM_SIDE.back, ...NAM_SIDE.front.slice(0, -1), ...lower], true);
 };
 // đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
-const NAM_NECK_D = 'M -26 120 L -27 172 Q -27 180 -26 184 Q -18 192 -8 196 Q 8 195 22 198 Q 11 180 7 160 L 6 120 Z';
+const NAM_NECK_D = 'M -26 120 L -27 172 Q -27 186 -24 194 Q -16 197 -8 197 Q 8 195 22 198 Q 11 180 7 160 L 6 120 Z';
 const NAM_HEAD_T = 'translate(8 31) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
 const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, mole, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
@@ -1186,7 +1186,7 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         </g>
         <g filter={`url(#${clip}-soft)`}><g transform={NAM_HEAD_T}><path d={skin} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
       </g>
-      <path d="M -26 184 Q -18 192 -8 196 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} />
+      <path d="M -24 194 Q -16 197 -8 197 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} />
       <g transform={NAM_HEAD_T}>
         <path d={skin} fill={PALETTE.skin} {...o(PALETTE.skin)} />
         <g clipPath={`url(#${clip}-face)`} stroke="none" data-shadow="drawn-face">
