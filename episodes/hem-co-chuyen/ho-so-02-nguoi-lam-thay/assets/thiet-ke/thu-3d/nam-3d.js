@@ -7,7 +7,7 @@
 // (Bản toon đầu tiên giữ ở `nam-3d-toon.js` để so sánh.)
 
 export const NAM_COLORS = {
-  skin: '#e9a87b', skinDeep: '#c98762', lip: '#c47a62', hair: '#2a2928', shirt: '#6f6c6a', pants: '#424140', pantsHem: '#383736',
+  skin: '#e9a87b', skinDeep: '#c98762', lip: '#c47a62', hair: '#2a2928', shirt: '#6f6c6a', pants: '#4a4948', pantsHem: '#403f3e',
   slippers: '#2d4a3b', sole: '#22302a', ink: '#1c1a19', eyeWhite: '#f3efe7', mouthIn: '#5e2724', tongue: '#c2675f', teeth: '#f4efe6',
 };
 
@@ -107,7 +107,7 @@ export function createBaseCharacter(THREE, spec = {}) {
     mesh(sph(8.2), shirtM, J['shoulder' + k], [-1.8 * s, -2.0, 0], [0, 0, 0], [0.92, 0.85, 0.9]);             // vai tròn
     const SL = sp.arm.sleeve, L2 = SL.len / 2;
     // ống tay áo: Lathe liền một mảnh. Đỉnh nhỏ hơn cầu vai (cắm sâu vào cầu, không hở), nở dần ra gấu rồi bo vào trong ~1.5 cm
-    const slProf = [[SL.top - 0.8, L2 + 2.6], [SL.top, L2 + 0.4], [SL.top + (SL.bottom - SL.top) * 0.45, 0], [SL.bottom - 0.12, -L2 + 1.2], [SL.bottom, -L2 + 0.3], [SL.bottom - 0.35, -L2 - 0.15], [SL.bottom - SL.curl * 0.7, -L2 - 0.1], [SL.bottom - SL.curl, -L2 + 0.35]];
+    const slProf = [[SL.top - 1.0, L2 + 2.6], [SL.top - 0.7, L2 + 0.4], [SL.top + (SL.bottom - SL.top) * 0.45, 0], [SL.bottom - 0.12, -L2 + 1.2], [SL.bottom, -L2 + 0.3], [SL.bottom - 0.35, -L2 - 0.15], [SL.bottom - SL.curl * 0.7, -L2 - 0.1], [SL.bottom - SL.curl, -L2 + 0.35]];
     mesh(new THREE.LatheGeometry(slProf.slice().reverse().map(([r, y]) => new THREE.Vector2(r, y)), 56), shirtM, J['shoulder' + k], [0.5 * s, -(1.75 + L2), 0], [0, 0, SL.flare * s]);
     mesh(new THREE.CylinderGeometry(SL.bottom - SL.curl, SL.bottom - SL.curl, 0.4, 32), M('#3f3d3c', 0.95), J['shoulder' + k], [(0.5 + L2 * Math.sin(SL.flare)) * s, -(1.75 + SL.len) + 0.9, 0], [0, 0, SL.flare * s]); // lòng tay áo tối
     // tay: bắp tay, cẳng tay mập
@@ -254,7 +254,7 @@ export function createBaseCharacter(THREE, spec = {}) {
       const wing = Math.exp(-((y - 0.35) ** 2) / 0.04) * Math.exp(-((A - 1.1) ** 2) / 0.08);
       const back = smooth(1.6, 2.6, A) * Math.exp(-((y - 0.25) ** 2) / 0.25);
       let k = sp.hair.base + 0.07 * up + 0.08 * wing + sp.hair.back * back + 0.08 * Math.exp(-((y - 0.55) ** 2) / 0.05) - 0.07 * smooth(0.78, 1, y) - 0.06 * smooth(0.25, -0.15, y) * smooth(0.7, 1.2, A); // đỉnh rộng bằng, hai bên dưới thu vào
-      for (const [g0, sw, dep = 0.04] of GROOVES) { const ag = g0 + sw * (y - hairline(g0)); k -= dep * Math.exp(-(((az - ag) / 0.035) ** 2)) * smooth(line - 0.02, line + 0.12, y) * smooth(1.0, 0.75, y); }
+      for (const [g0, sw, dep = 0.04] of GROOVES) { const back = Math.abs(g0) > 1.7; const ag = g0 + sw * (y - hairline(g0)); k -= dep * Math.exp(-(((az - ag) / 0.035) ** 2)) * (back ? smooth(line + 0.25, line + 0.45, y) : smooth(line - 0.02, line + 0.12, y)) * smooth(1.0, 0.75, y); }
       // mép tóc: không ép đỉnh về một vòng (gây tam giác dài mảnh/răng cưa); dưới chân tóc cho co dần vào trong sọ, mép dày bo tròn
       if (y < line) k = 1.02 * Math.max(0.78, 1 - 4.0 * (line - y));
       else { const e = smooth(line, line + 0.14, y); k = 1.02 + (k - 1.02) * e; }
