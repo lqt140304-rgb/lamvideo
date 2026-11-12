@@ -80,13 +80,14 @@ def head_cage():
         p.x *= 1.0 + 0.03 * cheek                                            # má phính nhẹ, nối liền thái dương thành oval mềm
         low = smooth01(-0.35, -0.95, h)                                      # cằm ngắn, bầu tròn, hơi đưa ra trước
         # đáy cằm: không thu hẹp, bo chữ U đầy
-        p.y -= 0.10 * low * front
-        if h < -0.75: p.z = -0.75 + (h + 0.75) * 0.88                         # đáy cằm bầu, ít ép phẳng
+        p.y -= 0.05 * low * front
+        p.y -= 0.11 * front * smooth01(0.05, 0.65, h) * (1.0 - smooth01(0.75, 1.0, h))   # trán đứng hơn: phần mặt trên đẩy ra trước, đỉnh cao nhất ở giữa
+        if h < -0.62: p.z = -0.62 + (h + 0.62) * (0.88 - 0.50 * smooth01(0.05, 0.6, w))   # đáy hàm phẳng dần về phía cổ; cằm trước vẫn bầu chữ U
         p.y *= 1.0 - 0.06 * front * smooth01(-0.2, 0.6, h)                   # trán–mặt hơi phẳng phía trước, không hốc mắt sâu
-        p.y *= 1.0 + 0.08 * smooth01(0.0, 0.8, w) * math.exp(-((h + 0.05) / 0.6) ** 2)   # chẩm sau đầu cầu tròn, dốc ôm xuống cổ (không nhô dài)
+        p.y *= 1.0 - 0.145 * smooth01(0.0, 0.7, w)                           # sau gáy thu ~9% bề sâu (so với viền mẫu), sọ sau vẫn là cầu tròn
         vong = math.exp(-((h + 0.45) / 0.33) ** 2) * front                    # nửa dưới mặt (dưới mắt → cằm) vồng tròn ra trước
-        shear = -0.052 * smooth01(0.0, -1.0, h) ** 1.4 + 0.018 * smooth01(0.1, 1.0, h)   # trục quả xoài: cằm vươn trước 5,2 cm, đỉnh ngả nhẹ ra sau 1,8 cm
-        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.025 * low * front - 0.022 * vong + shear, p.z * HEAD[2])) + C   # + cụm môi–mũi–cằm vồng ra trước, cằm U
+        shear = -0.030 * smooth01(0.0, -1.0, h) ** 1.4                       # trục quả xoài: cằm vươn trước 3,0 cm (tổng cụm cằm ~5,6 cm)
+        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.010 * low * front - 0.016 * vong + shear, p.z * HEAD[2])) + C   # + cụm môi–mũi–cằm vồng ra trước, cằm U
     return bm
 
 
@@ -257,7 +258,7 @@ def build_hair(coll, M, cage, S):
     bmesh.ops.delete(bm, geom=kill, context='FACES')
     for v in bm.verts:   # nở 1,02× + phồng thêm ở đỉnh cho khối tóc đầy
         d = v.co - C; up = max(0.0, d.z / HEAD[2]); back = max(0.0, d.y / HEAD[1])
-        v.co = C + Vector((d.x * (1.02 + 0.06 * up), d.y * (1.02 + 0.07 * up), d.z * (1.02 + 0.10 * up)))   # không nở thêm phía sau gáy
+        v.co = C + Vector((d.x * (1.02 + 0.06 * up), d.y * (1.02 + 0.03 * up), d.z * (1.02 + 0.10 * up)))   # không nở thêm phía sau gáy
     cap = new_obj('Hair_Cap', bm, coll, M['toc'])
     so = cap.modifiers.new('Solidify', 'SOLIDIFY'); so.thickness = 0.022; so.offset = 1.0; so.use_rim = True
     subsurf(cap, 2, 2)
@@ -311,6 +312,15 @@ def studio(sc):
     return cams
 
 
+def build_neck(coll, M):
+    """Trụ cổ dày theo viền mẫu: bắt đầu ngay sau cằm, đi thẳng xuống (elip 14 × 12,4 cm). Đầu trên chìm trong hộp sọ."""
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=40, radius1=1.0, radius2=1.0, depth=1.0)
+    for v in bm.verts: v.co = Vector((v.co.x * 0.070, v.co.y * 0.062 - 0.029, 1.02 + v.co.z * 0.34))
+    ob = new_obj('Neck', bm, coll, M['da'])
+    bv = ob.modifiers.new('Bevel', 'BEVEL'); bv.width = 0.02; bv.segments = 4; bv.limit_method = 'ANGLE'
+    return ob
+
+
 def build():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene; top = bpy.data.collections.new('Nam_Dau'); sc.collection.children.link(top)
@@ -319,6 +329,7 @@ def build():
     head, cage = build_head(cf, M)
     S = build_face(cf, M, head)
     build_hair(ch, M, cage, S)
+    build_neck(cf, M)
     return sc
 
 
