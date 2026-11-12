@@ -64,7 +64,7 @@ def mottled(name, color, rough=0.85, scale=3.0, vary=0.08, bump=0.15, bump_scale
 
 def wall_plaster(name='tuong_voi', color='#ece1cb'):
     """Tường vôi: loang ẩm nhẹ gần trần/chân tường, hạt mịn."""
-    m = mottled(name, color, rough=0.92, scale=1.6, vary=0.10, bump=0.12, bump_scale=120)
+    m = mottled(name, color, rough=0.92, scale=1.6, vary=0.14, bump=0.24, bump_scale=90)
     nt = m.node_tree; b = next(n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED')
     # vệt ẩm: nhiễu lớn làm tối màu theo độ cao (đậm hơn gần sàn)
     tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sep.inputs['Vector'])

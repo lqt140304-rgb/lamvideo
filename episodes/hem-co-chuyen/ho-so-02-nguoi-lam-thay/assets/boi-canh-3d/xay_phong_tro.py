@@ -275,8 +275,9 @@ def desk_and_chair(m, coll, chair_pos=None, chair_rot=0.0):
     # laptop (màn hình là nguồn sáng ban đêm — vật liệu `man_hinh` đổi theo chế độ)
     lx, ly = 2.66, 0.32
     box('laptop_day', lx - 0.17, lx + 0.17, ly - 0.115, ly + 0.115, 0.75, 0.765, m['laptop'], bevel=0.005, coll=coll)
-    scr = box('laptop_manhinh', lx - 0.17, lx + 0.17, ly + 0.10, ly + 0.115, 0.765, 0.765 + 0.23, m['laptop'], bevel=0.005, coll=coll, rot=(math.radians(-14), 0, 0), pivot=(lx, ly + 0.11, 0.765))
-    face = box('laptop_mat', lx - 0.158, lx + 0.158, ly + 0.083, ly + 0.0865, 0.775, 0.765 + 0.215, m['man_hinh'], coll=coll, rot=(math.radians(-14), 0, 0), pivot=(lx, ly + 0.11, 0.765))
+    # Bản lề ở mép sau (y nhỏ, phía tường); người ngồi ở y lớn. Màn hình dựng lên, ngả về phía tường; mặt hiển thị quay về người.
+    scr = box('laptop_manhinh', lx - 0.17, lx + 0.17, ly - 0.12, ly - 0.105, 0.765, 0.765 + 0.23, m['laptop'], bevel=0.005, coll=coll, rot=(math.radians(14), 0, 0), pivot=(lx, ly - 0.11, 0.765))
+    face = box('laptop_mat', lx - 0.158, lx + 0.158, ly - 0.1045, ly - 0.1005, 0.775, 0.765 + 0.215, m['man_hinh'], coll=coll, rot=(math.radians(14), 0, 0), pivot=(lx, ly - 0.11, 0.765))
     for i in range(3):  # sổ và giấy
         box(f'giay{i}', 2.80 + i * 0.01, 2.92 + i * 0.01, 0.33, 0.52, 0.75 + i * 0.004, 0.754 + i * 0.004, M.solid(f'giay{i}', '#ece3cf', 0.8), rot=(0, 0, math.radians(8 * i - 6)), coll=coll)
     # đèn bàn
@@ -325,6 +326,39 @@ def fan(m, coll, x=0.42, y=3.72, yaw=0.0, blade=0.0):
         a = blade + i * 2 * math.pi / 3
         b = box(f'quat_canh{i}', x + 0.09, x + 0.097, y - 0.02, y + 0.02, 1.12 + 0.01, 1.12 + 0.17, M.solid('canh_quat', '#8fb0a2', 0.5), bevel=0.003, coll=coll, rot=(a, 0, 0), pivot=(x + 0.09, y, 1.12))
     sphere('quat_tam', x + 0.1, y, 1.12, 0.022, m['nhua_trang'], coll=coll)
+
+
+def wire(name, p1, p2, r, mat, coll=None):
+    """Dây điện mảnh giữa hai điểm (toạ độ thiết kế, hàm tự phản chiếu)."""
+    a = Vector((mx(p1[0]), p1[1], p1[2])); b = Vector((mx(p2[0]), p2[1], p2[2]))
+    d = b - a; ln = d.length
+    bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=r, depth=ln, location=(a + b) / 2)
+    ob = bpy.context.object; ob.name = name; ob.rotation_mode = 'QUATERNION'
+    ob.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(d.normalized())
+    ob.data.materials.append(mat); _link(ob, coll or bpy.context.scene.collection)
+    return ob
+
+
+def wall_details(m, coll):
+    """Chi tiết sinh hoạt: giấy note cạnh kệ bàn học, ổ điện + dây sạc laptop, lịch treo đầu nệm, công tắc đèn đầu giường,
+    móc khăn/muôi cạnh bếp, thảm chùi chân trước cửa, chai nước và lọ gia vị trên kệ bếp. Toạ độ thiết kế."""
+    for i, (x, z, c, rot) in enumerate([(2.22, 1.45, '#f4e7a1', 4), (2.40, 1.22, '#bfe3d6', -3), (2.58, 1.50, '#f7c9b6', 2)]):
+        box(f'note{i}', x, x + 0.11, 0.0, 0.003, z, z + 0.14, M.solid(f'note_{i}', c, 0.9), coll=coll, rot=(0, 0, math.radians(rot)), pivot=(x, 0, z))
+    box('tkb', 2.66, 2.84, 0.0, 0.003, 1.02, 1.30, M.solid('tkb', '#efeee6', 0.9), coll=coll)
+    box('o_dien_ban', 2.02, 2.12, 0.0, 0.012, 0.80, 0.88, m['viền'], bevel=0.003, coll=coll)
+    wire('day_sac', (2.07, 0.012, 0.80), (2.81, 0.20, 0.765), 0.0045, m['den'], coll=coll)
+    box('lich_khung', 0.0, 0.012, 2.55, 2.85, 1.25, 1.55, m['go_toi'], bevel=0.004, coll=coll)
+    box('lich_giay', 0.012, 0.016, 2.60, 2.80, 1.28, 1.52, M.solid('lich', '#f4f1e6', 0.9), coll=coll)
+    box('cong_tac_giuong', 0.0, 0.012, 2.20, 2.27, 1.02, 1.09, m['viền'], bevel=0.003, coll=coll)
+    box('thanh_khan', 0.10, 0.45, 0.0, 0.02, 1.12, 1.13, m['inox'], bevel=0.004, coll=coll)
+    box('khan_treo', 0.14, 0.22, 0.0, 0.006, 0.86, 1.10, M.solid('khan_bep', '#e9d3a4', 0.95), bevel=0.005, coll=coll)
+    box('muoi_moc', 0.30, 0.34, 0.0, 0.015, 1.12, 1.15, m['inox'], coll=coll)
+    cyl('muoi_can', 0.32, 0.12, 1.05, 0.006, 0.20, m['inox'], coll=coll, rot=(math.radians(-90), 0, 0))
+    cyl('muoi_dau', 0.32, 0.24, 1.03, 0.028, 0.012, m['inox'], axis='Y', coll=coll)
+    box('tham_chui', 0.10, 0.60, 2.10, 2.80, 0.0, 0.015, M.mottled('tham', '#7c6f5a', rough=1.0, scale=40, vary=0.12, bump=0.6, bump_scale=300), bevel=0.006, coll=coll)
+    for i, (x, c, r) in enumerate([(0.56, '#c9e0ea', 0.034), (0.66, '#d9b48a', 0.030), (0.76, '#b84a3c', 0.026)]):
+        cyl(f'lo_gia_vi{i}', x, 0.07, 1.545 + 0.06, r, 0.12, M.solid(f'gia_vi{i}', c, 0.25), coll=coll, bevel=0.004)
+    cyl('chai_nuoc', 0.9, 0.09, 1.545 + 0.12, 0.05, 0.24, M.solid('chai_nuoc_nh', '#dfeef4', 0.15), coll=coll)
 
 
 def mirror(m, coll):
@@ -453,7 +487,7 @@ def lighting(mode, coll):
         add_area('hat_cua_so', (W - 0.2, 2.0, 1.5), 1.2, 60, '#fff3dc', rot=(0, math.radians(90), 0), size_y=1.1, coll=coll)
     else:
         # nguồn chính ban đêm: màn hình laptop xanh lạnh 6500K (LAPTOP_LIGHT) + đèn tuýp hành lang ấm 4000K; đèn tuýp phòng tắt
-        add_area('laptop_sang', (2.66, 0.42, 0.98), 0.3, 55, '#8fd0ff', rot=(math.radians(100), 0, 0), size_y=0.2, coll=coll)
+        add_area('laptop_sang', (2.66, 0.20, 0.95), 0.3, 55, '#8fd0ff', rot=(math.radians(-80), 0, 0), size_y=0.2, coll=coll)
         add_area('hat_laptop_chan', (2.5, 0.5, 0.78), 0.8, 8, '#8fd0ff', rot=(0, 0, 0), coll=coll)
     add_area('tuyp_hanh_lang_1', (-0.7, 2.32, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
     add_area('tuyp_hanh_lang_2', (-0.7, 7.22, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
@@ -494,7 +528,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     m['den_tuyp_hl'] = M.emission('den_tuyp_hl', '#fff1d6', 14.0 if mode == 'night' else 2.5)
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
     shell(m, coll, door_open, cutaway=(cam in ('TOP',)), hide_front=(CAMERAS[cam][0][1] > D)); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
-    mirror(m, coll); clutter(m, coll, dep_san=dep_san); lights_fixture(m, coll); hallway(m, coll, mode == 'night')
+    mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); hallway(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
     co = add_camera(cam); sc.camera = co
     sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 96; sc.cycles.use_denoising = True
