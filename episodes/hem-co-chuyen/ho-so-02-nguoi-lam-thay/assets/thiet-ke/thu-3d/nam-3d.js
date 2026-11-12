@@ -135,16 +135,16 @@ export function buildNam(THREE, { colors = {} } = {}) {
 
   // ---------- cổ + đầu ----------
   mesh(cap(7.4, 4), skinM, J.neck, [0, 2.5, 0.4]);
-  const RX = 19.0, RY = 27.5, RZ = 21.0, HC = 27.0;            // bán kính sọ; tâm sọ cao HC trên cằm
+  const RX = 20.5, RY = 24.0, RZ = 21.0, HC = 22.0;            // bán kính sọ; tâm sọ cao HC trên cằm
   const head = new THREE.Group(); head.name = 'headShape'; head.position.set(0, HC, 0); J.head.add(head);
   const skullGeo = sph(1, 96, 72);
   {
     const p = skullGeo.attributes.position;
     for (let i = 0; i < p.count; i++) {
       let x = p.getX(i), y = p.getY(i), z = p.getZ(i);
-      const fx = 0.86 + 0.3 * Math.exp(-((y + 0.5) ** 2) / 0.14) - 0.06 * smooth(0.3, 1, y); // má–hàm đầy, đỉnh thu
-      const fz = z > 0 ? 0.94 + 0.08 * Math.exp(-((y + 0.35) ** 2) / 0.2) : 1.04;               // mặt trước hơi phẳng, gáy tròn
-      if (y < -0.72) y = -0.72 + (y + 0.72) * 0.8;                                               // đáy cằm bầu, rộng
+      const fx = 0.86 + 0.36 * Math.exp(-((y + 0.45) ** 2) / 0.12) - 0.06 * smooth(0.3, 1, y); // má–hàm đầy, đỉnh thu
+      const fz = z > 0 ? 0.94 + 0.08 * Math.exp(-((y + 0.35) ** 2) / 0.2) + 0.05 * Math.exp(-((y + 0.62) ** 2) / 0.05) : 1.04; // môi–cằm đẩy nhẹ ra trước               // mặt trước hơi phẳng, gáy tròn
+      if (y < -0.68) y = -0.68 + (y + 0.68) * 0.55;                                               // đáy cằm bầu, rộng
       p.setXYZ(i, x * RX * fx, y * RY, z * RZ * fz);
     }
     skullGeo.computeVertexNormals();
@@ -165,7 +165,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
   };
 
   // mắt: viền đậm (khối tối lớn hơn phía sau) + tròng trắng + mí trên sụp + con ngươi nhỏ sát mí
-  const EYE = { x: 8.4, y: -2.0, w: 6.0, h: 5.2 };
+  const EYE = { x: 8.6, y: -1.4, w: 6.0, h: 5.2 };
   for (const s of [1, -1]) {
     const g = onFace(head, s * EYE.x, EYE.y, -1.4);
     g.rotateY(-s * 0.08);
@@ -182,24 +182,24 @@ export function buildNam(THREE, { colors = {} } = {}) {
   }
   // mày dày bo tròn
   for (const s of [1, -1]) {
-    const pts = [[s * 3.4, 7.0], [s * 8.6, 7.9], [s * 13.6, 7.2]].map(([x, y]) => { const { p, n } = surf(x, y); return p.clone().addScaledVector(n, 0.6).toArray(); });
+    const pts = [[s * 3.4, 6.5], [s * 8.8, 7.3], [s * 14.0, 6.6]].map(([x, y]) => { const { p, n } = surf(x, y); return p.clone().addScaledVector(n, 0.6).toArray(); });
     mesh(tube(THREE, pts, (u) => 1.55 * Math.sqrt(Math.sin(Math.PI * Math.min(1, Math.max(0, (u * 0.9 + 0.05))))) + 0.2, { seg: 24, rad: 16 }), M(C.hair, 0.85), head, [0, 0, 0], [0, 0, 0], [1, 1, 1]);
   }
   // nốt ruồi trên đuôi mày phải (trái màn hình)
-  { const g = onFace(head, -6.2, 10.4, 0.3); mesh(sph(1.1, 16, 12), inkM, g, [0, 0, 0], [0, 0, 0], [1, 1, 0.6]); }
+  { const g = onFace(head, -6.4, 9.6, 0.3); mesh(sph(1.1, 16, 12), inkM, g, [0, 0, 0], [0, 0, 0], [1, 1, 0.6]); }
   // mũi cục tròn nhô + nét cánh mũi
-  { const g = onFace(head, 0.6, -8.4, 0.4);
+  { const g = onFace(head, 0.6, -7.0, 0.4);
     mesh(sph(3.5), skinM, g, [0, 0, 0.6], [0, 0, 0], [1, 0.95, 1.05]);
     mesh(new THREE.TorusGeometry(1.5, 0.2, 8, 32, Math.PI * 1.1), inkM, g, [2.0, -0.4, 2.3], [0, 0.85, -Math.PI * 0.55]); }
   // miệng hé tròn: lòng miệng tối, răng trên, lưỡi, môi bo
-  { const g = onFace(head, 0, -17.6, -0.6);
+  { const g = onFace(head, 0, -14.2, -0.6);
     mesh(sph(1), M(C.mouthIn, 0.7), g, [0, 0, 0], [0, 0, 0], [3.3, 2.3, 1.2]);
     mesh(sph(1, 24, 12), M(C.teeth, 0.4), g, [0, 1.4, 0.55], [0, 0, 0], [2.3, 0.6, 0.45]);
     mesh(sph(1, 24, 12), M(C.tongue, 0.6), g, [0, -1.1, 0.5], [0, 0, 0], [2.1, 0.9, 0.5]);
     mesh(new THREE.TorusGeometry(1, 0.17, 12, 64), M(C.lip, 0.6), g, [0, 0, 0.65], [0, 0, 0], [3.45, 2.45, 1]); }
   // tai to
   for (const s of [1, -1]) {
-    const { p } = surf(s * 30, -6.5, [-s, 0, 0]);
+    const { p } = surf(s * 30, -5.2, [-s, 0, 0]);
     const ear = new THREE.Group(); ear.position.copy(p); ear.position.z = -1.5; ear.rotation.set(0, s * 0.35, s * 0.05); head.add(ear);
     mesh(sph(1), skinM, ear, [s * 2.2, 0, 0], [0, 0, 0], [3.0, 6.8, 5.4]);
     mesh(sph(1), M(C.skinDeep, 0.7), ear, [s * 3.9, -0.35, 0.7], [0, 0, 0], [1.2, 3.9, 2.9]);
@@ -211,10 +211,10 @@ export function buildNam(THREE, { colors = {} } = {}) {
   // trên tai cắt gọn để lộ tai, sau gáy phủ thấp. Các mảng mỏng đắp lên tạo rãnh giữa các lọn.
   const HS = { kx: 0.98, ky: 0.92, kz: 1.02, dy: 2.5 };
   const shell = (az, el, k = 1.18) => [Math.sin(az) * Math.cos(el) * RX * k * HS.kx, Math.sin(el) * RY * k * HS.ky + HS.dy, Math.cos(az) * Math.cos(el) * RZ * k * HS.kz];
-  const TIPS = [-0.6, 0.0, 0.52];                                // phương vị các mũi mái (mảng rủ chéo sang phải màn hình)
+  const TIPS = [[-0.8, 0.2], [-0.05, 0.2], [0.5, 0.12]];        // [phương vị, nửa bề rộng] các mũi mái: ngắn, bo tròn, chừa khoảng hở trái để lộ nốt ruồi
   const hairline = (az) => {                                     // độ cao chân tóc (tỉ lệ) theo phương vị quanh đầu
     const A = Math.abs(az);
-    const fringe = 0.52 - TIPS.reduce((m, t) => { const d = az - t; return Math.max(m, 0.24 * (d < 0 ? Math.max(0, 1 + d / 0.3) ** 1.6 : Math.exp(-d / 0.04))); }, 0); // sườn dài bên trái, cắt gắt bên phải
+    const fringe = 0.66 - TIPS.reduce((m, [t, w]) => Math.max(m, 0.21 * Math.sqrt(Math.max(0, 1 - ((az - t) / w) ** 2))), 0); // chân tóc cao hơn mày, mũi mái bo tròn (nửa elip)
     const side = -0.3, overEar = 0.06, nape = -0.6;
     let v = fringe;
     v += (side - v) * smooth(0.92, 1.06, A);                     // tóc mai hẹp trước tai
@@ -223,7 +223,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
     return v;
   };
   // rãnh giữa các lọn: đường chéo trên mái (giữa các mũi) và vài rãnh toả từ đỉnh ra sau
-  const GROOVES = [[-0.54, -0.55], [0.06, -0.55], [0.58, -0.5], [1.05, -0.3], [-1.05, -0.35], [1.7, 0.15], [-1.7, -0.15], [2.4, 0.12], [-2.4, -0.12]]; // [phương vị ở mép, độ chéo khi lên đỉnh]
+  const GROOVES = [[-0.8, -0.5], [-0.05, -0.5], [0.5, -0.45], [1.05, -0.3], [-1.05, -0.35], [1.7, 0.15], [-1.7, -0.15], [2.4, 0.12], [-2.4, -0.12]]; // [phương vị ở mép, độ chéo khi lên đỉnh]
   const capGeo = sph(1, 160, 120);
   {
     const p = capGeo.attributes.position;
@@ -244,10 +244,24 @@ export function buildNam(THREE, { colors = {} } = {}) {
   }
   mesh(capGeo, hairM, head);
 
-  // lọn xoắn to trên đỉnh: dựng lên rồi cong về trước–sang phải màn hình
+  // lọn đất sét đắp lên vỏ (dùng lobe): mỗi lọn là một mảng dẹt phồng, dày giữa, ngọn bo tròn
+  const lock = (path, W, T, tipW = 0.3) => {
+    const pts = path.map(([az, el, k]) => shell(az, el, k ?? 1.17));
+    const wf = (u) => W * (u < 0.35 ? 0.8 + 0.2 * u / 0.35 : Math.max(tipW, Math.sqrt(Math.max(0, 1 - ((u - 0.35) / 0.65) ** 2.2))));
+    const tf = (u) => T * (0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, u * 0.9 + 0.1)));
+    mesh(lobe(THREE, pts, wf, tf, [0, HS.dy, 0], { seg: 36, rad: 28 }), hairM, head);
+  };
+  // 4 lọn mái hất chéo sang phải màn hình (từ trái–đỉnh xuống phải–trán)
+  lock([[-0.95, 1.18], [-0.5, 1.02], [-0.02, 0.84], [0.32, 0.7]], 6.4, 3.0);
+  lock([[-0.45, 1.34], [0.0, 1.12], [0.45, 0.92], [0.78, 0.76]], 6.0, 3.0);
+  lock([[0.2, 1.38], [0.62, 1.16], [0.98, 0.94], [1.22, 0.78]], 5.6, 2.8);
+  lock([[-1.35, 1.0], [-1.1, 0.88], [-0.82, 0.76]], 5.2, 2.7);
+  // hai cánh tóc nhô nhẹ ở thái dương
+  for (const s of [1, -1]) lock([[s * 1.0, 0.86], [s * 1.28, 0.6], [s * 1.42, 0.38], [s * 1.46, 0.24]], 5.0, 3.0, 0.4);
+  // lọn xoắn trên đỉnh: dày hơn, cong vòng về trước–sang phải màn hình
   const top = shell(0.05, 1.36, 1.06);
-  mesh(tube(THREE, [top, [top[0] + 0.4, top[1] + 4.6, top[2] + 0.4], [top[0] + 2.0, top[1] + 8.2, top[2] + 2.8], [top[0] + 4.4, top[1] + 8.4, top[2] + 6.0], [top[0] + 5.6, top[1] + 6.0, top[2] + 7.6]],
-    (u) => 4.8 * Math.pow(1 - u, 0.85) + 0.6, { seg: 40, rad: 22 }), hairM, head); // to, cong về trước–sang phải màn hình
+  mesh(tube(THREE, [top, [top[0] + 0.3, top[1] + 4.4, top[2] + 0.2], [top[0] + 1.6, top[1] + 8.0, top[2] + 2.0], [top[0] + 4.2, top[1] + 9.6, top[2] + 5.0], [top[0] + 7.0, top[1] + 8.0, top[2] + 7.6], [top[0] + 7.4, top[1] + 5.0, top[2] + 7.0]],
+    (u) => 5.8 * Math.pow(1 - u, 0.8) + 0.8, { seg: 48, rad: 24 }), hairM, head);
 
   // ---------- dáng ----------
   const rest = Object.fromEntries(Object.entries(J).map(([k, g]) => [k, g.rotation.clone()]));
