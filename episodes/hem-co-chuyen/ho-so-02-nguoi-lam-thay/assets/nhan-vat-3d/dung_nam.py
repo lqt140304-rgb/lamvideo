@@ -27,12 +27,19 @@ from mathutils.bvhtree import BVHTree
 
 SPEC = {
     'mau': {  # màu
-        'da': '#e9a87b', 'da_sau': '#c98762', 'toc': '#2a2928', 'ao': '#6f6c6a', 'co_ao': '#646160', 'quan': '#4a4948',
+        'da': '#df9668', 'da_sau': '#b97a55', 'toc': '#2a2928', 'ao': '#63605e', 'co_ao': '#595654', 'quan': '#3d3c3b',
         'dep': '#2d4a3b', 'de_dep': '#22302a', 'muc': '#1c1a19', 'long_trang': '#f3efe7', 'trong_mieng': '#5e2724', 'luoi': '#c2675f', 'rang': '#f4efe6',
     },
-    'vat_lieu': {'da_rough': 0.88, 'da_sss': 0.06, 'toc_rough': 0.92, 'vai_rough': 0.92, 'vai_sheen': 0.40},
+    'vat_lieu': {'da_rough': 0.88, 'da_sss': 0.08, 'toc_rough': 0.92, 'vai_rough': 0.92, 'vai_sheen': 0.40},
     'luoi': {'than': 0.0065, 'ao': 0.009, 'toc': 0.008},   # độ phân giải metaball (m)
 }
+
+# Tỉ lệ chibi (áp SAU khi dựng khối gốc, bằng biến đổi theo trọng số xương để lưới vẫn liền mạch)
+ANKLE_Z, HIP_Z = 0.088, 0.585
+LEG_K, ARM_K = 0.85, 0.85            # chân (đùi+cẳng) và cẳng tay ngắn lại 15%
+HEAD_K, HAND_K, FOOT_K = 1.35, 1.25, 1.25   # đầu–tóc–mặt 1,35×; bàn tay và bàn chân 1,25×
+DROP = (HIP_Z - ANKLE_Z) * (1 - LEG_K)
+HEIGHT = 1.65                          # chiều cao cuối (m), tính cả chỏm tóc: rig được co đều về số này
 
 R_MB = lambda s, t=0.6: math.sqrt(1.0 - (t / s) ** (1.0 / 3.0))   # bán kính mặt / bán kính phần tử metaball (đo được: s=2 → 0,575)
 
@@ -65,6 +72,11 @@ class MB:
     def ell(self, p, ax, s=2.0, rot=(0, 0, 0), neg=False):
         e = self.d.elements.new(type='ELLIPSOID'); e.co = p; e.radius = 1.0 / R_MB(s); e.stiffness = s; e.use_negative = neg
         e.size_x, e.size_y, e.size_z = ax; e.rotation = Matrix.Rotation(rot[2], 3, 'Z').to_quaternion() @ Matrix.Rotation(rot[1], 3, 'Y').to_quaternion() @ Matrix.Rotation(rot[0], 3, 'X').to_quaternion(); return e
+
+    def basis(self, p, ax, x, y, z, s=2.0, neg=False):
+        """Ellipsoid theo hệ trục (x, y, z) tuỳ ý: ax = nửa kích thước theo từng trục (mảng dẹt: z là bề dày)."""
+        e = self.d.elements.new(type='ELLIPSOID'); e.co = p; e.radius = 1.0 / R_MB(s); e.stiffness = s; e.use_negative = neg
+        e.size_x, e.size_y, e.size_z = ax; e.rotation = Matrix((x, y, z)).transposed().to_quaternion(); return e
 
     def cap(self, p0, p1, r, s=2.0, neg=False):
         p0, p1 = Vector(p0), Vector(p1); d = p1 - p0
@@ -154,14 +166,56 @@ for s, k in ((1, 'L'), (-1, 'R')):
     })
 
 
-def build_rig(c):
+def fz_arr(z):
+    z = np.asarray(z, float)
+    return np.where(z <= ANKLE_Z, z, np.where(z <= HIP_Z, ANKLE_Z + (z - ANKLE_Z) * LEG_K, z - DROP))
+
+
+def fz(z): return float(fz_arr(z))
+
+
+def bones_a():
+    return {n: ((h[0], h[1], fz(h[2])), (t[0], t[1], fz(t[2])), p, d) for n, (h, t, p, d) in BONES.items()}
+
+
+def head_pivot(): return np.array([0.0, -0.012, fz(1.085)])
+
+
+def make_xforms(BA):
+    """Biến đổi theo xương trên toạ độ đã co chân: cẳng tay ngắn 15% (neo ở khuỷu), bàn tay 1,25× (neo ở cổ tay),
+    đầu 1,35× (neo ở cằm/cổ), bàn chân 1,25× theo x–y (neo ở cổ chân để không đổi chiều cao)."""
+    X = {}; P = head_pivot()
+    for k, sg in (('L', 1), ('R', -1)):
+        e = np.array(BA[f'forearm.{k}'][0]); w = np.array(BA[f'hand.{k}'][0]); wn = e + (w - e) * np.array([1, 1, ARM_K])
+        X[f'forearm.{k}'] = lambda p, e=e: e + (np.asarray(p) - e) * np.array([1, 1, ARM_K])
+        X[f'hand.{k}'] = lambda p, w=w, wn=wn: wn + (np.asarray(p) - w) * HAND_K
+        c = np.array([sg * ANKLE_X, 0.008, 0.0])
+        f = lambda p, c=c: c + (np.asarray(p) - c) * np.array([FOOT_K, FOOT_K, 1.0])
+        X[f'foot.{k}'] = X[f'toe.{k}'] = X[f'foot_ik.{k}'] = f
+    X['head'] = lambda p: P + (np.asarray(p) - P) * HEAD_K
+    return X
+
+
+ANKLE_X = 0.088
+
+
+def bones_final(BA, X):
+    out = {}
+    for n, (h, t, p, d) in BA.items():
+        if n in X: h = tuple(float(v) for v in X[n](np.array(h))); t = tuple(float(v) for v in X[n](np.array(t)))
+        out[n] = (h, t, p, d)
+    return out
+
+
+def build_rig(c, bones=None):
+    bones = bones or BONES
     arm = bpy.data.armatures.new('Nam_Rig'); ob = bpy.data.objects.new('Nam_Rig', arm); c.objects.link(ob)
     arm.display_type = 'STICK'; ob.show_in_front = True
     bpy.context.view_layer.objects.active = ob
     bpy.ops.object.mode_set(mode='EDIT')
-    for n, (h, t, p, d) in BONES.items():
+    for n, (h, t, p, d) in bones.items():
         b = arm.edit_bones.new(n); b.head = h; b.tail = t; b.use_deform = d
-    for n, (h, t, p, d) in BONES.items():
+    for n, (h, t, p, d) in bones.items():
         if p:
             b = arm.edit_bones[n]; b.parent = arm.edit_bones[p]
             b.use_connect = (Vector(arm.edit_bones[p].tail) - Vector(h)).length < 1e-6 and n.split('.')[0] in ('forearm', 'hand', 'shin', 'foot', 'toe', 'spine', 'chest', 'neck', 'head')
@@ -173,19 +227,31 @@ def build_rig(c):
     return ob
 
 
-def skin_weights(ob, rig, extra=None):
-    """Trọng số theo khoảng cách tới đoạn xương (3 xương gần nhất, luỹ thừa 4) — ổn định, không cần bone heat."""
-    me = ob.data; co = np.array([v.co for v in me.vertices]); mw = np.array(ob.matrix_world)
-    co = co @ mw[:3, :3].T + mw[:3, 3]
-    names = [n for n, b in BONES.items() if b[3]]
+def compute_weights(ob, BA, extra=None, exclude=()):
+    """Trọng số theo khoảng cách tới đoạn xương (3 xương gần nhất, luỹ thừa 4), tính trên toạ độ đã co chân.
+    `exclude`: tên xương bị loại hẳn (trọng số 0), ví dụ áo không theo đùi."""
+    me = ob.data; co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3)
+    mw = np.array(ob.matrix_world); co = co @ mw[:3, :3].T + mw[:3, 3]; co[:, 2] = fz_arr(co[:, 2])
+    names = [n for n, b in BA.items() if b[3]]
     D = np.zeros((len(co), len(names)))
     for j, n in enumerate(names):
-        h, t = np.array(BONES[n][0]), np.array(BONES[n][1]); d = t - h; L2 = (d @ d)
+        h, t = np.array(BA[n][0]), np.array(BA[n][1]); d = t - h; L2 = (d @ d)
         u = np.clip(((co - h) @ d) / L2, 0, 1); D[:, j] = np.linalg.norm(co - (h + u[:, None] * d), axis=1)
+    for n in exclude: D[:, names.index(n)] = 9.0
     if extra: extra(co, D, names)
     W = 1.0 / np.maximum(D, 0.004) ** 4
     keep = np.argsort(D, axis=1)[:, :3]; M3 = np.zeros_like(W); np.put_along_axis(M3, keep, 1, axis=1); W *= M3
     W /= W.sum(axis=1, keepdims=True)
+    return co, W, names
+
+
+def reshape_by_weights(ob, co, W, names, X):
+    new = np.zeros_like(co)
+    for j, n in enumerate(names): new += W[:, [j]] * (X[n](co) if n in X else co)
+    ob.data.vertices.foreach_set('co', new.ravel()); ob.data.update()
+
+
+def skin_groups(ob, rig, W, names):
     for j, n in enumerate(names):
         idx = np.nonzero(W[:, j] > 0.01)[0]
         if len(idx) == 0: continue
@@ -197,8 +263,14 @@ def skin_weights(ob, rig, extra=None):
 
 def head_only(co, D, names):
     """Đầu (trên cằm) chỉ theo xương đầu; tay không ăn vào thân và ngược lại."""
-    hj = names.index('head'); above = co[:, 2] > 1.075
+    hj = names.index('head'); above = co[:, 2] > fz(1.075)
     D[above, :] = 9; D[above, hj] = 0.001
+
+
+def reshape_sandal(ob, k, X):
+    me = ob.data; co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3)
+    mw = np.array(ob.matrix_world); co = co @ mw[:3, :3].T + mw[:3, 3]; co[:, 2] = fz_arr(co[:, 2]); co = X[f'foot.{k}'](co)
+    me.vertices.foreach_set('co', co.ravel()); me.update(); ob.location = (0, 0, 0); ob.rotation_euler = (0, 0, 0); ob.scale = (1, 1, 1)
 
 
 def parent_bone(ob, rig, bone):
@@ -331,27 +403,39 @@ def build_sandals(c, mats, body):
 
 # ------------------------------------------------------------------ tóc (04_Hair): đất sét, cụm lọn dày tròn
 def build_hair(c, mats):
-    """Lõi tóc nhỏ + các cụm lọn dày tròn toả từ đỉnh xuống (độ cứng 3 để từng múi còn đọc được), mái hất chéo, cánh thái dương, gáy phủ tròn."""
-    mb = MB('NamToc', SPEC['luoi']['toc'], c)
-    mb.ell((0, 0.032, 1.40), (0.196, 0.196, 0.150))                    # lõi
-    crown = Vector((0, 0.03, 1.545))
-    for az_deg, zend, rr, reach in ((55, 1.325, 0.050, 0.212), (80, 1.33, 0.052, 0.214), (105, 1.33, 0.054, 0.212), (130, 1.28, 0.056, 0.205),
-                                    (155, 1.17, 0.058, 0.190), (180, 1.145, 0.060, 0.180), (205, 1.17, 0.058, 0.190), (230, 1.28, 0.056, 0.205),
-                                    (255, 1.33, 0.054, 0.212), (280, 1.33, 0.052, 0.214), (305, 1.325, 0.050, 0.212)):
+    """Khối tóc chính phồng ôm sọ tròn mềm + các MẢNG DẸT bo tròn đầu (dày/rộng ≈ 0,5) cho mái, cánh thái dương, múi sau và chỏm xoắn.
+    Không dùng chuỗi cầu nối khúc. Chân tóc sau gáy phủ thấp sát cổ."""
+    bm = bmesh.new(); HC = Vector((0, 0.032, 1.40))
+    def blob(cen, ax, xv=(1, 0, 0), yv=(0, 1, 0), zv=(0, 0, 1)):
+        """Cầu dẹt bo tròn riêng từng mảng (không hoà vào nhau như metaball): giao nhau thành nếp lõm, giữ ranh giới từng múi."""
+        Rm = Matrix((xv, yv, zv)).transposed().to_4x4(); Sm = Matrix.Diagonal((ax[0], ax[1], ax[2], 1.0))
+        bmesh.ops.create_uvsphere(bm, u_segments=40, v_segments=26, radius=1.0, matrix=Matrix.Translation(cen) @ Rm @ Sm)
+    blob((0, 0.032, 1.40), (0.200, 0.200, 0.150))                       # khối chính phồng ôm sọ
+    blob((0, 0.095, 1.275), (0.160, 0.125, 0.125))                      # sau gáy phủ thấp, tròn
+    def plate(p0, p1, W, normal=None, k_len=1.15, ratio=0.5):
+        p0, p1 = Vector(p0), Vector(p1); d = p1 - p0; dv = d.normalized(); cen = (p0 + p1) / 2
+        n = Vector(normal) if normal is not None else (cen - HC)
+        n = (n - dv * n.dot(dv)).normalized(); wv = n.cross(dv).normalized()
+        blob(cen, (d.length / 2 * k_len, W, W * ratio), dv, wv, n)   # mảng dẹt: dày/rộng = ratio
+    # mái: ba dải bản rộng hất chéo sang phải màn hình, đầu bo tròn dừng trên mày; chừa trán phải nhân vật lộ nốt ruồi
+    plate((-0.10, -0.12, 1.53), (0.02, -0.188, 1.425), 0.074)
+    plate((-0.02, -0.13, 1.54), (0.095, -0.180, 1.418), 0.072)
+    plate((0.05, -0.12, 1.53), (0.155, -0.150, 1.408), 0.066)
+    plate((-0.16, -0.08, 1.50), (-0.15, -0.155, 1.445), 0.056)
+    for s_ in (1, -1):   # cánh tóc thái dương: gốc cắm vào khối chính, chĩa nhẹ ra ngoài, dừng trên tai
+        plate((s_ * 0.15, -0.07, 1.47), (s_ * 0.214, -0.10, 1.385), 0.066)
+    crown = Vector((0, 0.03, 1.50))
+    for az_deg, zend, wd, reach in ((55, 1.325, 0.074, 0.212), (80, 1.33, 0.076, 0.214), (105, 1.33, 0.078, 0.212), (130, 1.28, 0.080, 0.205),
+                                    (155, 1.17, 0.082, 0.190), (180, 1.145, 0.084, 0.180), (205, 1.17, 0.082, 0.190), (230, 1.28, 0.080, 0.205),
+                                    (255, 1.33, 0.078, 0.212), (280, 1.33, 0.076, 0.214), (305, 1.325, 0.074, 0.212)):   # múi quanh đầu từ đỉnh xuống
         a = math.radians(az_deg); d = Vector((math.sin(a), -math.cos(a), 0))
-        mid = Vector((0, 0.03, 1.47)) + d * (reach * 0.92); end = Vector((0, 0.03, zend)) + d * (reach * 0.93)
-        mb.cap(crown + d * 0.05, mid, rr * 0.92, s=3.0); mb.cap(mid, end, rr, s=3.0)
-    for s in (1, -1):   # cánh tóc thái dương bo tròn, chĩa nhẹ ra ngoài, dừng trên tai
-        mb.cap((s * 0.15, -0.07, 1.47), (s * 0.214, -0.10, 1.385), 0.040, s=3.0)
-    # mái: ba lọn dày hất chéo sang phải màn hình (trái nhân vật, +X), đầu bo tròn dừng trên mày; chừa trán bên phải nhân vật lộ nốt ruồi
-    mb.cap((-0.10, -0.12, 1.53), (0.02, -0.188, 1.425), 0.040, s=3.0)
-    mb.cap((-0.02, -0.13, 1.54), (0.095, -0.180, 1.418), 0.039, s=3.0)
-    mb.cap((0.05, -0.12, 1.53), (0.155, -0.150, 1.408), 0.036, s=3.0)
-    mb.cap((-0.16, -0.08, 1.50), (-0.15, -0.155, 1.445), 0.032, s=3.0)
-    # chỏm xoắn to cong về trước
-    tuft = [(0.0, 0.02, 1.54), (0.002, 0.016, 1.60), (0.014, 0.0, 1.645), (0.036, -0.024, 1.66), (0.058, -0.044, 1.645), (0.066, -0.052, 1.615)]
-    mb.chain(tuft, [0.034, 0.030, 0.025, 0.020, 0.015, 0.011], s=2.5)
-    ob = mb.to_mesh('Nam_Toc', c, mats['toc']); subsurf(ob, 1, 1)
+        plate(crown + d * 0.05, Vector((0, 0.03, zend)) + d * (reach * 0.93), wd, k_len=1.0)
+    # chỏm xoắn to cong về trước: ba mảng dẹt (mỏng theo trục X), đầu bo tròn
+    tuft = [Vector(v) for v in ((0.0, 0.02, 1.54), (0.002, 0.016, 1.60), (0.014, 0.0, 1.645), (0.036, -0.024, 1.66), (0.058, -0.044, 1.645), (0.066, -0.052, 1.615))]
+    for (i0, i1), wd in (((0, 2), 0.056), ((1, 3), 0.052), ((2, 4), 0.046), ((3, 5), 0.038)):   # chồng lên nhau để chỏm liền một mạch
+        plate(tuft[i0], tuft[i1], wd, normal=(1, 0, 0), k_len=1.5, ratio=0.5)
+    me = bpy.data.meshes.new('Nam_Toc'); bm.to_mesh(me); bm.free(); me.shade_smooth(); me.materials.append(mats['toc'])
+    ob = bpy.data.objects.new('Nam_Toc', me); c.objects.link(ob)
     return ob
 
 
@@ -435,12 +519,11 @@ class FaceBuilder:
 
 
 def build_face(c, mats, body):
-    fb = FaceBuilder(body); TH = math.radians(80)           # mí trên phủ 66° tính từ đỉnh: sụp dày
+    fb = FaceBuilder(body); TH = math.radians(78.5)         # mí trên sụp phủ ~40% chiều cao tròng trắng: (1 − cos 78,5°)/2 = 0,40
     for s in (1, -1):
         p, r, u, n = fb.frame(s * 0.086, 1.262, sink=0.001)
         rr = r if s > 0 else -r                                   # trục ngang hướng ra ngoài mặt (để đối xứng)
         W, Hh, Dp = 0.050, 0.045, 0.011
-        fb.ellipsoid(p - n * 0.0015, r, u, n, (W + 0.0042, Hh + 0.0042, Dp * 0.98), mats['muc'])          # viền mắt đậm
         fb.ellipsoid(p, r, u, n, (W, Hh, Dp), mats['trang'])                                           # lòng trắng
         lid, par = fb.ellipsoid(p, r, u, n, (W * 1.05, Hh * 1.05, Dp * 1.10), mats['da'], theta_max=TH)  # mí trên
         line, lpar = fb.ellipsoid(p, r, u, n, (W * 1.07, Hh * 1.07, Dp * 1.18), mats['muc'], nv=3, theta_min=TH - math.radians(9), theta_max=TH)  # mép mí đậm (dải hẹp)
@@ -454,13 +537,14 @@ def build_face(c, mats, body):
         pc = p + r * (math.sin(thp) * math.sin(php) * W) + u * (math.cos(thp) * Hh) + n * (math.sin(thp) * math.cos(php) * Dp)
         pup, _ = fb.ellipsoid(pc, r, u, n, (0.0095, 0.0105, 0.0035), mats['muc'], nu=16, nv=10)
         hl, _ = fb.ellipsoid(pc + u * 0.004 + r * 0.003 + n * 0.0031, r, u, n, (0.0024, 0.0024, 0.001), mats['sang'], nu=10, nv=6)
+        fb.key('chop_mat', pup + hl, lambda i, v, pc=pc: pc.copy())    # chớp: con ngươi thu về 0 (không lòi qua mí)
         for k, dx in (('liec_trai', 0.016), ('liec_phai', -0.016)):
             fb.key(k, pup + hl, lambda i, v, dx=dx: v + r * dx)
         # mày dày bo tròn
         pts = []
         for x, z in ((0.030, 1.343), (0.084, 1.354), (0.136, 1.342)):
             q, nq = fb.surf(s * x, z); pts.append(q + nq * 0.004)
-        brow = fb.tube(pts, lambda t: 0.0115 * math.sqrt(max(0.05, math.sin(math.pi * (0.06 + 0.88 * t)))), mats['toc'], nseg=24, nring=12, flat=0.62)
+        brow = fb.tube(pts, lambda t: 0.0150 * math.sqrt(max(0.05, math.sin(math.pi * (0.06 + 0.88 * t)))), mats['toc'], nseg=24, nring=12, flat=0.62)
         inner = pts[0]
         def frown(i, v, inner=inner, s=s):
             w = max(0.0, 1.0 - abs(v.x - inner.x) / 0.09)
@@ -486,28 +570,41 @@ def build_nam(root_coll=None, location=(0, 0, 0), rot_z=0.0):
     top = coll('Nam', root_coll)
     C = {k: coll(k, top) for k in ('01_Rig', '02_Body_Base', '03_Face', '04_Hair', '05_Outfit', '06_Props')}
     mats = make_mats()
-    rig = build_rig(C['01_Rig'])
+    # 1) dựng khối gốc (tỉ lệ nguyên bản, chưa có rig)
     body = build_body(C['02_Body_Base'], mats)
     face = build_face(C['03_Face'], mats, body)
     hair = build_hair(C['04_Hair'], mats)
     shirt, collar = build_shirt(C['05_Outfit'], mats); pants = build_pants(C['05_Outfit'], mats)
     sand = build_sandals(C['05_Outfit'], mats, body)
-    skin_weights(body, rig, head_only); skin_weights(shirt, rig); skin_weights(pants, rig); skin_weights(collar, rig)
+    # 2) tỉ lệ chibi: co chân, cẳng tay ngắn, đầu 1,35×, tay–chân 1,25×
+    BA = bones_a(); X = make_xforms(BA); BF = bones_final(BA, X)
+    skinned = []
+    for ob, extra, excl in ((body, head_only, ()), (shirt, None, ('thigh.L', 'thigh.R')), (pants, None, ()), (collar, None, ())):
+        co, W, names = compute_weights(ob, BA, extra, excl); reshape_by_weights(ob, co, W, names, X); skinned.append((ob, W, names))
+    P = Vector(head_pivot()); Mh = Matrix.Translation(P) @ Matrix.Scale(HEAD_K, 4) @ Matrix.Translation(-P) @ Matrix.Translation((0, 0, -DROP))
+    for ob in (face, hair): ob.data.transform(Mh, shape_keys=True); ob.data.update()
+    for k, obs in sand:
+        for ob in obs: reshape_sandal(ob, k, X)
+    # 3) khung xương theo vị trí cuối + trọng số
+    rig = build_rig(C['01_Rig'], BF)
+    for ob, W, names in skinned: skin_groups(ob, rig, W, names)
     for ob in (face, hair): parent_bone(ob, rig, 'head')
     for k, obs in sand:
         for ob in obs: parent_bone(ob, rig, f'foot.{k}')
     for ob in (body, shirt, pants, collar):
         ob.parent = rig
+    top_z = max(v.co.z for v in hair.data.vertices) + 0.004
+    kk = HEIGHT / top_z; rig.scale = (kk, kk, kk)
     rig.location = location; rig.rotation_euler = (0, 0, rot_z)
     bpy.context.view_layer.update()
+    print(f'cao {top_z:.3f} m → co đều ×{kk:.3f} = {HEIGHT} m; đầu {(top_z - fz(1.085)) / top_z:.0%} chiều cao (cằm→đỉnh tóc, gồm chỏm)')
     return rig, dict(body=body, face=face, hair=hair, shirt=shirt, collar=collar, pants=pants)
 
 
 def setup_render(sc, samples=48, gpu=True):
     sc.render.engine = 'CYCLES'; sc.cycles.samples = samples; sc.cycles.use_denoising = True; sc.cycles.denoiser = 'OPENIMAGEDENOISE'
     sc.view_settings.view_transform = 'AgX'
-    try: sc.view_settings.look = 'AgX - Punchy'
-    except TypeError: pass
+    sc.view_settings.exposure = -1.0   # đèn Key/Fill mạnh để sáng–tối nổi khối; hạ phơi sáng để AgX không phai màu (bản bpy không có look Punchy)
     if gpu:  # RTX 3050 6GB: OptiX; máy không có GPU thì tự lùi về CPU
         try:
             pr = bpy.context.preferences.addons['cycles'].preferences; pr.compute_device_type = 'OPTIX'; pr.refresh_devices()
@@ -526,8 +623,8 @@ def studio(sc):
         d = bpy.data.lights.new(name, 'AREA'); d.size = size; d.energy = energy; d.color = hexc(col)[:3]
         o = bpy.data.objects.new(name, d); sc.collection.objects.link(o); o.location = loc
         o.rotation_euler = (Vector(tgt) - Vector(loc)).to_track_quat('-Z', 'Y').to_euler(); return o
-    area('key', (-1.4, -2.2, 3.0), (0, 0, 0.9), 2.0, 170, '#fff3e4')
-    area('fill', (2.2, -1.8, 1.4), (0, 0, 1.0), 2.4, 45, '#eef2ff')
+    area('key', (-1.4, -2.2, 3.0), (0, 0, 0.9), 2.0, 380, '#fff3e4')
+    area('fill', (2.2, -1.8, 1.4), (0, 0, 1.0), 2.4, 120, '#eef2ff')
     area('rim', (0.6, 2.6, 2.4), (0, 0, 1.2), 1.2, 110, '#ffffff')
     me = bpy.data.meshes.new('san'); bm = bmesh.new(); bmesh.ops.create_grid(bm, x_segments=1, y_segments=1, size=4); bm.to_mesh(me); bm.free()
     fl = bpy.data.objects.new('san', me); sc.collection.objects.link(fl); fl.is_shadow_catcher = True
