@@ -15,6 +15,7 @@ _cache = {}
 
 
 def build(X, m, coll, night, hl_y1):
+    _cache.clear()  # vật liệu cũ có thể đã bị xoá khi dựng lại cảnh
     box, cyl, sphere, torus, M = X.box, X.cyl, X.sphere, X.torus, X.M
     W, D, H, T = X.W, X.D, X.H, X.T
     GZ = -2.92            # mặt sân (tầng 1)
@@ -225,7 +226,7 @@ def build(X, m, coll, night, hl_y1):
 
     # ------------------------------------------------------------ hẻm bên cửa sổ phòng Nam (x > W): nhà hàng xóm cách 2,2 m
     AX = W + T + 2.2
-    B('hem_san', W + T, AX + 0.4, -12, 16, GZ - 0.2, GZ, M.tiles('env_hem', '#8f8c82', '#6e6b62', 0.8), coll=coll)
+    B('hem_san', W + T, AX + 0.4, -12, 16, GZ - 0.2, GZ, M.tiles('env_hem', '#6c6a61', '#4a4841', 0.8), coll=coll)
     B('hem_tuong_nha_ben', AX, AX + 0.4, -12, 16, GZ, GZ + FL * 4 + 1.5, plaster('#c7b997'), coll=coll)
     B('hem_tuong_nha_ben_chan', AX - 0.03, AX, -12, 16, GZ, GZ + 1.1, plaster('#8c8a7a'), coll=coll)
     for fl in range(4):

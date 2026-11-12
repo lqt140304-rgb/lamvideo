@@ -60,32 +60,50 @@ def box(name, x0, x1, y0, y1, z0, z1, mat, bevel=0.0, coll=None, rot=None, pivot
     return ob
 
 
+def _mesh_obj(name, bm, loc, mat, smooth, coll, rot=None, scale=None, quat=None):
+    """Tạo đối tượng từ bmesh KHÔNG dùng bpy.ops (mỗi bpy.ops cập nhật depsgraph toàn cảnh → rất chậm khi có hàng nghìn vật)."""
+    me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+    if smooth:
+        for p in me.polygons: p.use_smooth = True
+    ob = bpy.data.objects.new(name, me); ob.location = loc
+    if quat is not None: ob.rotation_mode = 'QUATERNION'; ob.rotation_quaternion = quat
+    elif rot is not None: ob.rotation_euler = rot
+    if scale is not None: ob.scale = scale
+    me.materials.append(mat)
+    (coll or bpy.context.scene.collection).objects.link(ob)
+    return ob
+
+
 def cyl(name, x, y, z, r, h, mat, axis='Z', verts=28, coll=None, rot=None, bevel=0.0, smooth=True):
-    bpy.ops.mesh.primitive_cylinder_add(vertices=verts, radius=r, depth=h, location=(mx(x), y, z))
-    ob = bpy.context.object; ob.name = name
-    if axis == 'X': ob.rotation_euler = (0, math.pi / 2, 0)
-    elif axis == 'Y': ob.rotation_euler = (math.pi / 2, 0, 0)
-    if rot: ob.rotation_euler = mrot(rot)
-    ob.data.materials.append(mat)
-    if smooth: bpy.ops.object.shade_smooth()
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=False, segments=verts, radius1=r, radius2=r, depth=h)
+    e = None
+    if axis == 'X': e = (0, math.pi / 2, 0)
+    elif axis == 'Y': e = (math.pi / 2, 0, 0)
+    if rot: e = mrot(rot)
+    ob = _mesh_obj(name, bm, (mx(x), y, z), mat, smooth, coll, rot=e)
     if bevel > 0:
         md = ob.modifiers.new('bevel', 'BEVEL'); md.width = bevel; md.segments = 2
-    _link(ob, coll or bpy.context.scene.collection)
     return ob
 
 
 def sphere(name, x, y, z, r, mat, scale=(1, 1, 1), coll=None):
-    bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=r, location=(mx(x), y, z))
-    ob = bpy.context.object; ob.name = name; ob.scale = scale; ob.data.materials.append(mat); bpy.ops.object.shade_smooth()
-    _link(ob, coll or bpy.context.scene.collection)
-    return ob
+    bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=32, v_segments=16, radius=r)
+    return _mesh_obj(name, bm, (mx(x), y, z), mat, True, coll, scale=scale)
 
 
-def torus(name, x, y, z, R, r, mat, rot=(0, 0, 0), coll=None):
-    bpy.ops.mesh.primitive_torus_add(major_segments=48, minor_segments=10, major_radius=R, minor_radius=r, location=(mx(x), y, z), rotation=mrot(rot))
-    ob = bpy.context.object; ob.name = name; ob.data.materials.append(mat); bpy.ops.object.shade_smooth()
-    _link(ob, coll or bpy.context.scene.collection)
-    return ob
+def torus(name, x, y, z, R, r, mat, rot=(0, 0, 0), coll=None, major=48, minor=10):
+    bm = bmesh.new(); verts = []
+    for i in range(major):
+        a = 2 * math.pi * i / major; ca, sa = math.cos(a), math.sin(a); ring = []
+        for j in range(minor):
+            b = 2 * math.pi * j / minor; rr = R + r * math.cos(b)
+            ring.append(bm.verts.new((rr * ca, rr * sa, r * math.sin(b))))
+        verts.append(ring)
+    for i in range(major):
+        for j in range(minor):
+            bm.faces.new((verts[i][j], verts[(i + 1) % major][j], verts[(i + 1) % major][(j + 1) % minor], verts[i][(j + 1) % minor]))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    return _mesh_obj(name, bm, (mx(x), y, z), mat, True, coll, rot=mrot(rot))
 
 
 def rounded(ob, level=2, width=0.03):
@@ -180,7 +198,16 @@ def shell(m, coll, door_open, cutaway=False, hide_front=False):
     for nm, a, b2, z0, z1 in [('khuon_a', DOOR['y0'] - 0.06, DOOR['y0'], 0, DOOR['top'] + 0.06), ('khuon_b', DOOR['y1'], DOOR['y1'] + 0.06, 0, DOOR['top'] + 0.06), ('khuon_tren', DOOR['y0'] - 0.06, DOOR['y1'] + 0.06, DOOR['top'], DOOR['top'] + 0.06)]:
         box(nm, -0.04, 0.03, a, b2, z0, z1, m['viền'], bevel=0.004, coll=coll)
     ang = math.radians(door_open)
-    leaf = box('canh_cua', -0.02, 0.02, DOOR['y0'], DOOR['y1'], 0.0, DOOR['top'], m['cua'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=(0, DOOR['y1'], 0))
+    # cánh cửa chia 3 phần: thân dưới, KHE THÔNG GIÓ bằng nan ngang (z 1,66–1,96, có khe hở nhìn xuyên), thân trên
+    VZ0, VZ1 = 1.66, 1.96
+    pv = (0, DOOR['y1'], 0)
+    leaf = box('canh_cua', -0.02, 0.02, DOOR['y0'], DOOR['y1'], 0.0, VZ0, m['cua'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=pv)
+    box('canh_cua_tren', -0.02, 0.02, DOOR['y0'], DOOR['y1'], VZ1, DOOR['top'], m['cua'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=pv)
+    box('canh_cua_khung_trai', -0.02, 0.02, DOOR['y0'], DOOR['y0'] + 0.05, VZ0, VZ1, m['cua'], coll=coll, rot=(0, 0, ang), pivot=pv)
+    box('canh_cua_khung_phai', -0.02, 0.02, DOOR['y1'] - 0.05, DOOR['y1'], VZ0, VZ1, m['cua'], coll=coll, rot=(0, 0, ang), pivot=pv)
+    for k in range(8):  # nan: dày 1,6 cm, cách 3,75 cm → khe hở 2,1 cm
+        zz = VZ0 + 0.01 + k * 0.0375
+        box(f'nan_thong_gio{k}', -0.015, 0.015, DOOR['y0'] + 0.05, DOOR['y1'] - 0.05, zz, zz + 0.016, m['cua'], coll=coll, rot=(0, 0, ang), pivot=pv)
     # tay nắm, then sắt gỉ, mắt thần — gắn theo cánh (xoay cùng pivot)
     piv = (0, DOOR['y1'], 0)
     # Khóa cửa: thân khóa dán trên mặt trong cánh gần mép tự do, núm xoay, chốt đẩy vào ổ chốt trên khung.
@@ -339,11 +366,8 @@ def wire(name, p1, p2, r, mat, coll=None):
     """Dây điện mảnh giữa hai điểm (toạ độ thiết kế, hàm tự phản chiếu)."""
     a = Vector((mx(p1[0]), p1[1], p1[2])); b = Vector((mx(p2[0]), p2[1], p2[2]))
     d = b - a; ln = d.length
-    bpy.ops.mesh.primitive_cylinder_add(vertices=8, radius=r, depth=ln, location=(a + b) / 2)
-    ob = bpy.context.object; ob.name = name; ob.rotation_mode = 'QUATERNION'
-    ob.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(d.normalized())
-    ob.data.materials.append(mat); _link(ob, coll or bpy.context.scene.collection)
-    return ob
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=False, segments=8, radius1=r, radius2=r, depth=ln)
+    return _mesh_obj(name, bm, (a + b) / 2, mat, False, coll, quat=Vector((0, 0, 1)).rotation_difference(d.normalized()))
 
 
 def wall_details(m, coll):

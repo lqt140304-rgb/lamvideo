@@ -69,7 +69,7 @@ Bảng dưới ghi "Camera Blender" theo lens gốc; muốn toàn thân của c�
 ## 4b. Kiểm khung hình lần đầu (`xem-thu/SHOT-BANG.jpg`, 16 máy, ngày, chưa nhân vật)
 - **Đạt:** A01, A02, A02B, A03, A05, C05, C06, P203, ORBIT_A/B/C, GUONG_XIEN, GUONG_POV (đúng vật cần thấy, gương hiện đúng phòng).
 - **Mới là phông nền:** A04 (kệ gia vị trên bồn rửa — Người Kia sẽ đứng trước), A04B (tường góc nệm — Nam ngồi mép nệm). Cần nhân vật để chốt lại cao độ/độ lệch.
-- **Chưa dùng được:** `P201VENT` ra mảng tường phẳng vì chưa dựng khe thông gió cửa và cửa đang mở 10°; cần nan cửa + `--door 0`.
+- `P201VENT`: đã dựng khe thông gió (8 nan ngang trên cánh cửa, z 1,66–1,96) và camera nhìn xuyên khe ra hành lang với `--door 0` (ảnh `xem-thu/P201VENT_day.png`).
 - C05 là cụm khoá hiện có (khối đơn giản); nếu giữ macro 85 mm cần tạo hình lại ổ then + vân kim loại.
 
 ## 4c. Camera chuyển động đã dựng (`camera_dong.py`, ảnh: `xem-thu/chuyen-dong/*.jpg`)
@@ -81,7 +81,8 @@ Mỗi camera = Empty `rig` (chuyển động chính) + camera con (Noise handhel
 | `VERTIGO_GUONG` | P3.03_03 | **Dolly Zoom** 28→85 mm, lùi 1,1→3,3 m giữ cỡ gương; tường cửa sổ ẩn khỏi camera | Chạy; xem KIEM-GOC-QUAY.md (vượt 3 m phòng) |
 | `RACK_FOCUS_BAN` | rack 3D-5 | **Rack focus** 65 mm f/1.4 từ lưng ghế → màn hình laptop (focus object keyframe) | Chạy; khung đầu chưa thấy lưng ghế (lệch khung, cần chỉnh khi có nhân vật) |
 | `HANDHELD_A04` | 3D-0 | **Noise handheld** 0,12° + **xung va chạm** ở khung 24 (tắt dần 0,2 s) | Chạy |
-| `KINH_NUOC` | P3.05 | **Liquid Glass** (`kinh_nuoc.py`): gương → gợn sóng vòng đồng tâm → kính nước (Glass 3 kênh IOR 1,31/1,33/1,36 → sắc sai) | Chạy phía phòng; **bản camera trong gương (Submersion) chưa chạy**: lưng kính còn đen |
+| `KINH_NUOC` | P3.05 | **Liquid Glass** (`kinh_nuoc.py`): gương → gợn sóng vòng đồng tâm → kính nước (Glass 3 kênh IOR 1,31/1,33/1,36 → sắc sai); Nam đi xuyên kính (cắt theo mặt phẳng gương) | Chạy (hình nhân tạm) |
+| `KINH_NUOC_POV` | P3.05 Submersion | Camera trong gương nhìn ra qua màng nước: phòng thật thấy qua sóng + sắc sai; Nam lọt về phía camera | Chạy (hình nhân tạm) |
 
 ## 5. Việc còn lại để khung hình thành shot quay được
 1. Nhân vật Modular (Nam, Người Kia, Tùng) vào cảnh để chấm lại tỉ lệ khung (camera đặt theo mắt 1,50/1,15 m, chưa kiểm trên người thật).

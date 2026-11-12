@@ -68,3 +68,8 @@ Vì góc quay giờ rộng hơn nên mọi hướng đều phải có cảnh đ�
 - **Chân trời:** 3 lớp nhà cao tầng xa mờ sương; bầu trời gradient + mây (ngày) / sao (đêm); ban đêm cửa sổ sáng, đèn sân, đèn lồng.
 - Camera mới: `TOAN_CANH` (từ đầu sân nhìn dọc nhà), `SAN_THUONG` (từ hành lang tầng 2 nhìn dãy đối diện), `CUA_SO` (ra hẻm qua cửa sổ). Ảnh: `xem-thu/moi-truong/`. Mọi đối tượng bắt đầu `env_` để camera ngoài phòng không ẩn chúng.
 - Chưa làm: cây cao hơn có cành chi tiết, xe cộ trên đường ngoài, người/vật chuyển động, bầu trời có mặt trời/mặt trăng thấy được, mặt đường và nhà phía sau hẻm.
+
+## 13/11 sáng: tăng tốc dựng cảnh, rà soát camera, hoàn thiện kính nước
+- **Dựng cảnh nhanh gấp ~40 lần** (182 s → 4,8 s): `cyl/sphere/torus/wire` đổi từ `bpy.ops` (mỗi lệnh cập nhật depsgraph toàn cảnh, 65 ms × hàng nghìn vật) sang bmesh trực tiếp (`_mesh_obj`). Nhờ đó rà soát 39 camera chạy được: `chay_ra_soat.sh` → ảnh nhỏ `/tmp/ra-soat`.
+- Khe thông gió cửa phòng Nam (P201VENT). Sàn hẻm tối hơn (hết cháy sáng). `moi_truong.build` xoá cache vật liệu mỗi lần dựng lại.
+- Kính hóa nước hoàn chỉnh (`KINH_NUOC`, `KINH_NUOC_POV`) — xem KE-HOACH-CONG-GUONG.md.

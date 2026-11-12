@@ -46,3 +46,12 @@ def pov_trong_guong(coll, world_x_min=2.7):
         if min((o.matrix_world @ v.co).x for v in o.data.vertices) > world_x_min:
             o.visible_camera = False; n += 1
     return n
+
+
+def mirror_plane(glass):
+    """(điểm, pháp tuyến hướng vào phòng) của mặt kính `mat_guong` (đỉnh đã ở toạ độ thế giới). Dùng cho cắt Nam xuyên kính, đặt Người Kia."""
+    best = max(glass.data.polygons, key=lambda p: p.area)
+    n = (glass.matrix_world.to_3x3() @ best.normal).normalized()
+    c = glass.matrix_world @ best.center
+    if n.x > 0: n = -n  # phòng nằm về −x thế giới
+    return c, n

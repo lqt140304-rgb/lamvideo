@@ -171,24 +171,51 @@ def _nam_truoc_guong(sc, x=0.9, y=3.26):
     return X.figure_proxy('nam_proxy', x, y, nam, coll)
 
 
-def _liquid(sc, N=72):
-    import kinh_nuoc
+def _liquid(sc, N=72, pov=False, tran0=0.0):
+    import kinh_nuoc, cong_guong
     g = bpy.data.objects['mat_guong']
-    kinh_nuoc.apply(g, wp((0.14, 3.26, 0.7)), N)
+    kinh_nuoc.apply(g, wp((0.14, 3.26, 0.7)), N, pov=pov, tran0=tran0)
+    fr = bpy.data.objects.get('khung_guong')
+    if fr: fr.data.materials.clear(); fr.data.materials.append(kinh_nuoc.nen_nuoc_material())
+    return kinh_nuoc, cong_guong.mirror_plane(g)
+
+
+def _nam_chim(sc, objs, x0, x1, f0, f1, kn, plane, keep_front):
+    """Nam đi xuyên mặt kính: x thiết kế x0 → x1 trong khung f0..f1; phần qua mặt phẳng gương trong suốt (cắt bằng shader)."""
+    p0, n = plane
+    for o in objs:
+        for sl in o.material_slots:
+            base = sl.material; sl.link = 'OBJECT'; sl.material = kn.plane_cut(base, p0, n, keep_front)
+        o.location.x = X.mx(x0); o.keyframe_insert('location', frame=1); o.keyframe_insert('location', frame=f0)
+        o.location.x = X.mx(x1); o.keyframe_insert('location', frame=f1); o.keyframe_insert('location', frame=sc.frame_end if sc.frame_end > f1 else f1)
+        for fc in _fcurves(o):
+            for kp in fc.keyframe_points: kp.interpolation = 'BEZIER'
 
 
 def shot_kinh_nuoc(sc):
-    """P3.05 (bản camera phía phòng): Nam đứng trước gương, mặt kính hóa nước từ tâm; 50 mm f/2.0, đẩy vào chậm."""
+    """P3.05 (camera phía phòng): Nam bước vào mặt kính; kính hóa nước từ điểm chạm, phần thân đã qua kính biến mất; 50 mm f/2.0 đẩy chậm."""
     rig, cam = new_rig('KINH_NUOC', 50, 2.0); fo = focus_empty(cam); N = 72
-    _nam_truoc_guong(sc, 1.5, 2.2); _liquid(sc, N)
+    objs = _nam_truoc_guong(sc, 0.9, 3.26); kn, plane = _liquid(sc, N)
+    sc.frame_end = N; _nam_chim(sc, objs, 0.9, -0.1, 14, 58, kn, plane, True)
     for f in range(1, N + 1):
-        t = smooth((f - 1) / (N - 1)); key_pose(rig, f, (1.8 - 0.4 * t, 2.6 - 0.2 * t, 1.3), (0.14, 3.3, 0.9))
-        fo.location = wp((0.14, 3.26, 0.8)); fo.keyframe_insert('location', frame=f)
+        t = smooth((f - 1) / (N - 1)); key_pose(rig, f, (2.2 - 0.4 * t, 2.0 - 0.1 * t, 1.25), (0.14, 3.3, 0.9))
+        fo.location = wp((0.14, 3.3, 0.8)); fo.keyframe_insert('location', frame=f)
     handheld(cam, 0.05, 0.002, f1=N); set_range(sc, 1, N)
     return dict(build=dict(hide_front=False), proxy=False)
 
 
-SHOTS = {'KINH_NUOC': shot_kinh_nuoc, 'ORBIT_GUONG': shot_orbit, 'VERTIGO_GUONG': shot_vertigo, 'STEADI_RA_HL': shot_steadicam, 'RACK_FOCUS_BAN': shot_rack, 'HANDHELD_A04': shot_handheld}
+def shot_kinh_nuoc_pov(sc):
+    """P3.05 Submersion: camera BÊN TRONG thế giới gương nhìn ra qua mặt kính hóa nước; Nam lọt qua kính về phía camera (thấy phần đã qua)."""
+    rig, cam = new_rig('KINH_NUOC_POV', 35, 2.0); fo = focus_empty(cam); N = 72
+    objs = _nam_truoc_guong(sc, 0.9, 3.26); kn, plane = _liquid(sc, N, pov=True, tran0=0.9)
+    sc.frame_end = N; _nam_chim(sc, objs, 0.9, -0.25, 14, 58, kn, plane, False)
+    for f in range(1, N + 1):
+        key_pose(rig, f, (-0.9, 3.26, 1.2), (1.2, 3.26, 1.0)); fo.location = wp((0.0, 3.26, 1.0)); fo.keyframe_insert('location', frame=f)
+    handheld(cam, 0.05, 0.002, f1=N); set_range(sc, 1, N)
+    return dict(build=dict(hide_front=False, guong='pov'), proxy=False, hide_prefix=('khung_guong',))
+
+
+SHOTS = {'KINH_NUOC': shot_kinh_nuoc, 'KINH_NUOC_POV': shot_kinh_nuoc_pov, 'ORBIT_GUONG': shot_orbit, 'VERTIGO_GUONG': shot_vertigo, 'STEADI_RA_HL': shot_steadicam, 'RACK_FOCUS_BAN': shot_rack, 'HANDHELD_A04': shot_handheld}
 
 
 if __name__ == '__main__':
