@@ -61,10 +61,21 @@ Chạy 1 máy: `python xay_phong_tro.py --mode day|night --cam <TÊN> --out ản
 - **Chưa dùng được:** `P201VENT` ra mảng tường phẳng vì chưa dựng khe thông gió cửa và cửa đang mở 10°; cần nan cửa + `--door 0`.
 - C05 là cụm khoá hiện có (khối đơn giản); nếu giữ macro 85 mm cần tạo hình lại ổ then + vân kim loại.
 
+## 4c. Camera chuyển động đã dựng (`camera_dong.py`, ảnh: `xem-thu/chuyen-dong/*.jpg`)
+Mỗi camera = Empty `rig` (chuyển động chính) + camera con (Noise handheld, xung va chạm, DoF). Chạy: `python camera_dong.py --shot <TÊN> --frames 1,24,48 --out thư_mục`.
+| Shot | Mã gốc | Kỹ thuật | Trạng thái |
+|---|---|---|---|
+| `STEADI_RA_HL` | C01–C03 | **Follow Path** (Bézier) xuyên cửa ra hành lang + Track To theo mục tiêu đi trước, 28 mm f/2.8, handheld nhẹ | Chạy; đường đã tránh cánh cửa mở 85° |
+| `ORBIT_GUONG` | P3.04 | **Orbit 180°** bán kính 1,0 m quanh người trước gương (nằm trọn trong phòng), Dutch tối đa 12°, 35 mm f/2.0, DoF bám tâm | Chạy; xuất hiện Người Kia chỉ trong gương |
+| `VERTIGO_GUONG` | P3.03_03 | **Dolly Zoom** 28→85 mm, lùi 1,1→3,3 m giữ cỡ gương; tường cửa sổ ẩn khỏi camera | Chạy; xem KIEM-GOC-QUAY.md (vượt 3 m phòng) |
+| `RACK_FOCUS_BAN` | rack 3D-5 | **Rack focus** 65 mm f/1.4 từ lưng ghế → màn hình laptop (focus object keyframe) | Chạy; khung đầu chưa thấy lưng ghế (lệch khung, cần chỉnh khi có nhân vật) |
+| `HANDHELD_A04` | 3D-0 | **Noise handheld** 0,12° + **xung va chạm** ở khung 24 (tắt dần 0,2 s) | Chạy |
+| `KINH_NUOC` | P3.05 | **Liquid Glass** (`kinh_nuoc.py`): gương → gợn sóng vòng đồng tâm → kính nước (Glass 3 kênh IOR 1,31/1,33/1,36 → sắc sai) | Chạy phía phòng; **bản camera trong gương (Submersion) chưa chạy**: lưng kính còn đen |
+
 ## 5. Việc còn lại để khung hình thành shot quay được
 1. Nhân vật Modular (Nam, Người Kia, Tùng) vào cảnh để chấm lại tỉ lệ khung (camera đặt theo mắt 1,50/1,15 m, chưa kiểm trên người thật).
-2. Camera chuyển động: Empty + Follow Path/Track To cho Steadicam, Dolly Arc, Orbit, Vertigo, Top-down xoay; thêm Noise handheld.
-3. DoF thật (`dof.use_dof`, `aperture_fstop`, `focus_object`) cho các shot f/1.4–2.0.
+2. Camera chuyển động còn lại: Dolly Arc A03, Pan 120° P2.03_01, Top-down xoay P2.05, Crane Down (giảng đường — ngoài phạm vi). Đã có: Steadicam, Orbit, Vertigo, Rack focus, Handheld (mục 4c).
+3. **Khung toàn thân chưa đủ rộng ở nhiều shot** — xem [KIEM-GOC-QUAY.md](KIEM-GOC-QUAY.md); cần chủ repo chọn hướng A/B.
 4. Gương: nốt ruồi, nứt, hóa nước (xem [KE-HOACH-CONG-GUONG.md](KE-HOACH-CONG-GUONG.md)).
 5. Đạo cụ có điểm gắn tay: búa, thẻ, bát, đũa, điện thoại (Child-Of/bone constraint).
 6. Cờ phụ: then sắt trượt, cửa/bản lề keyframe, quạt quay, rèm lay, khe thông gió cửa.

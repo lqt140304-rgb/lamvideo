@@ -53,3 +53,8 @@ Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2
 ## Cổng gương và danh sách shot (12/11, sau chốt nhân vật Blender Modular 1,60 m)
 - Gương sửa lại (cũ nghiêng ngược, nửa trên xuyên tường): chân cách tường 16 cm, đỉnh tựa tường. Gương thật Cycles + cờ Ray Visibility cho Người Kia/Nam; `--guong real|pov`, `--proxy` (hình nhân tạm). Xem [KE-HOACH-CONG-GUONG.md](KE-HOACH-CONG-GUONG.md).
 - 14 camera theo shot (A01…C06, P203, ORBIT_A/B/C, GUONG, GUONG_XIEN, GUONG_VAI, GUONG_POV…) và bảng gán shot → camera tại [DANH-SACH-SHOT.md](DANH-SACH-SHOT.md); `chay_shot.sh` xuất bảng khung (`xem-thu/SHOT-BANG.jpg`).
+
+## Hoạt cảnh camera, kính hóa nước, kiểm tra góc quay (12/11)
+- `camera_dong.py`: Follow Path, Orbit, Vertigo, Rack Focus, Handheld + xung va chạm; ảnh khung trong `xem-thu/chuyen-dong/`.
+- `kinh_nuoc.py`: shader kính hóa nước (gợn sóng, sắc sai, keyframe).
+- `kiem_goc_quay.py` → [KIEM-GOC-QUAY.md](KIEM-GOC-QUAY.md): **khung 2.39:1 trên sensor 36 mm chưa đủ rộng cho toàn thân 1,6 m trong phòng 3×4 m ở lens ≥ 28 mm.**

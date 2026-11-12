@@ -680,7 +680,7 @@ def proxies(m, coll, room_objs):
     G.only_in_mirror(kia_o)
 
 
-def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False):
+def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     coll = bpy.data.collections.new('Phong_tro_3D'); sc.collection.children.link(coll)
@@ -689,7 +689,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     m['den_tuyp'] = M.solid('den_tuyp_tat', '#f4f1e6', 0.35)  # đèn tuýp trần đang tắt: sứ mờ, không đen
     m['den_tuyp_hl'] = M.emission('den_tuyp_hl', '#fff1d6', 14.0 if mode == 'night' else 2.5)
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
-    shell(m, coll, door_open, cutaway=(cam in ('TOP',)), hide_front=(CAMERAS[cam][0][1] > D)); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
+    shell(m, coll, door_open, cutaway=(cam in ('TOP',)) if cutaway is None else cutaway, hide_front=(CAMERAS[cam][0][1] > D) if hide_front is None else hide_front); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
     mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); room_objs = set(coll.objects); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
     if proxy: proxies(m, coll, room_objs)

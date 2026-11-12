@@ -31,7 +31,7 @@ Bằng chứng: `xem-thu/GUONG_XIEN_day.png` — gương dựng lại phòng (qu
 | `pov` | **Inside-Mirror POV** (camera sau kính nhìn ra: P2.04, P3.05) | `pov_trong_guong` ẩn khỏi camera mọi vật nằm hoàn toàn sau mặt gương (tường cửa, hành lang); sàn, trần, tường đối diện giữ nguyên nên vẫn thấy cả phòng thật. Ảnh: `GUONG_POV_day.png`. |
 
 ## 4. Việc còn lại cho gương
-1. **Liquid Glass (P3.05):** shader mặt kính hóa nước: Displacement gợn sóng đồng tâm (Noise/Wave texture theo `Object` + keyframe), refraction IOR 1,33→1,5, Chromatic Aberration xanh buốt (tách kênh RGB trong compositor hoặc 3 lần IOR). Cần hoàn thành sau khi có Nam 3D để chắc cảnh "chìm".
+1. **Liquid Glass (P3.05):** đã có `kinh_nuoc.py` (Bump từ Wave Texture vòng đồng tâm + 3 Glass BSDF IOR lệch cho sắc sai; keyframe `tran`, `bien`, `pha`) và shot `KINH_NUOC` (ảnh `xem-thu/chuyen-dong/KINH_NUOC.jpg`). Còn lại: (a) cảnh Nam chìm xuyên kính cần nhân vật + cắt lát theo mặt kính; (b) camera BÊN TRONG nhìn ra qua kính nước chưa chạy (lưng kính còn đen: cần xử lý mặt sau của khối kính); (c) màu nền sau kính: hiện là gỗ khung nâu đục, nên thay bằng lớp tối lạnh có chiều sâu; (d) vòng sóng hơi cứng, cần làm mềm khi có đồ họa thật.
 2. **Gương nứt/mờ sương (P2.04):** texture mask nứt góc phải + roughness cục bộ.
 3. **Vertigo (P3.03_03):** camera lùi trục Z đồng thời tăng tiêu cự 35→85 mm hướng vào gương; kiểm tra phản xạ ổn định không nhấp nháy ở 85 mm.
 4. **Thay hình nhân bằng nhân vật Modular:** Nam (ẩn trong glossy khi cần) và Người Kia (chỉ glossy). Chốt vị trí đặt `Armature` và quy ước đặt tên để keyframe cờ hiển thị.
