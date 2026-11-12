@@ -7,7 +7,7 @@ import { LEG } from './nam-3d.js';
 const LEG_LEN = LEG.thigh + LEG.shin;
 
 export const BASE_POSE = {
-  spine: [0.02, 0, 0], chest: [0, 0, 0], neck: [0.07, 0, 0], head: [-0.03, 0, 0], hips: [0, 0, 0],
+  spine: [0.02, 0, 0], chest: [0, 0, 0], neck: [0.03, 0, 0], head: [-0.01, 0, 0], hips: [0, 0, 0],
   shoulderL: [0.03, 0, 0.12], shoulderR: [0.03, 0, -0.12], elbowL: [-0.1, 0, -0.04], elbowR: [-0.1, 0, 0.04],
   wristL: [0, 0, 0], wristR: [0, 0, 0],
   hipL: [0, 0, 0.02], hipR: [0, 0, -0.02], kneeL: [0, 0, -0.02], kneeR: [0, 0, 0.02], ankleL: [0, 0.12, 0], ankleR: [0, -0.12, 0],

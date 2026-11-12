@@ -98,8 +98,20 @@ export function createBaseCharacter(THREE, spec = {}) {
   }
 
   // ---------- áo thun ----------
-  const prof = [[0, -2.6], [18.7, -2.6], [19.4, -1.3], [19.8, 0.6], [19.9, 8], [19.8, 20], [19.6, 30], [18.8, 37], [16.2, 41.2], [11.5, 44], [8.6, 45], [0, 45.3]];
-  mesh(new THREE.LatheGeometry(prof.map(([r, y]) => new THREE.Vector2(r, y)), 72), shirtM, J.spine, [0, 0, 0], [0, 0, 0], [1, 1, 0.8]);
+  const prof = [[0, -2.6], [19.2, -2.6], [19.8, -1.3], [19.9, 0.6], [19.9, 8], [19.8, 20], [19.6, 30], [18.8, 37], [16.2, 41.2], [11.5, 44], [8.6, 45], [0, 45.3]];
+  const torsoGeo = new THREE.LatheGeometry(prof.map(([r, y]) => new THREE.Vector2(r, y)), 72);
+  { // thân áo không đối xứng trước–sau: ngực phồng nhẹ về +z, ngực–vai (y 30..40) gọn lại, gấu rủ xòe mềm
+    const tp = torsoGeo.attributes.position;
+    for (let i = 0; i < tp.count; i++) {
+      const x = tp.getX(i), y = tp.getY(i), z = tp.getZ(i);
+      const chest = smooth(16, 32, y) * (1 - smooth(40, 45, y));            // vùng ngực
+      const shoulder = smooth(30, 36, y) * (1 - smooth(41, 45, y));         // ngực–vai
+      const front = z > 0 ? 1 : 0.4;
+      tp.setXYZ(i, x * (1 - 0.045 * shoulder), y, z * (1 + 0.1 * chest * front) + 1.0 * chest * (z > 0 ? 1 : 0.3));
+    }
+    torsoGeo.computeVertexNormals();
+  }
+  mesh(torsoGeo, shirtM, J.spine, [0, 0, 0], [0, 0, 0], [1, 1, 0.8]);
   mesh(new THREE.TorusGeometry(8.6, 1.05, 14, 56), M('#646160', 0.95), J.chest, [0, 21.6, -0.4], [Math.PI / 2 - 0.1, 0, 0], [1, 0.86, 1]); // cổ áo bo
   mesh(new THREE.TorusGeometry(19.3, 0.6, 10, 72), M('#676462', 0.95), J.spine, [0, -2.1, 0], [Math.PI / 2, 0, 0], [1, 0.8, 1]);          // gấu áo (hạ 2.6 cm: trùm qua mép nối đùi)
   for (const k of ['L', 'R']) {
@@ -164,7 +176,7 @@ export function createBaseCharacter(THREE, spec = {}) {
       const fx = 0.86 + 0.36 * Math.exp(-((y + 0.45) ** 2) / 0.12) - 0.06 * smooth(0.3, 1, y); // má–hàm đầy, đỉnh thu
       const fz = z > 0 ? 0.94 + 0.08 * Math.exp(-((y + 0.35) ** 2) / 0.2) + 0.12 * Math.exp(-((y + 0.38) ** 2) / 0.14) + 0.05 * Math.exp(-((y + 0.62) ** 2) / 0.05) : 1.04; // môi–cằm đẩy nhẹ ra trước               // mặt trước hơi phẳng, gáy tròn
       if (y < -0.68) y = -0.68 + (y + 0.68) * 0.65;                                               // đáy cằm bầu, rộng
-      const chinPush = z > 0 ? 0.20 * smooth(-0.18, -0.72, y) * smooth(0.95, 0.2, Math.abs(x)) : 0; // tịnh tiến +z ở hàm–cằm: cằm nhô ra trước khi nhìn nghiêng
+      const chinPush = z > 0 ? 0.20 * smooth(-0.32, -0.88, y) * smooth(0.95, 0.2, Math.abs(x)) : 0; // tịnh tiến +z ở hàm–cằm: cằm nhô ra trước khi nhìn nghiêng
       p.setXYZ(i, x * RX * fx, y * RY, z * RZ * fz + chinPush * RZ);
     }
     skullGeo.computeVertexNormals();
@@ -266,17 +278,18 @@ export function createBaseCharacter(THREE, spec = {}) {
   mesh(capGeo, hairM, head);
 
   // lọn đất sét đắp lên vỏ (dùng lobe): mỗi lọn là một mảng dẹt phồng, dày giữa, ngọn bo tròn
-  const lock = (path, W, T, tipW = 0.3, fade = false) => {
+  const lock = (path, W, T, tipW = 0.3, fade = false, taper = false) => {
     const pts = path.map(([az, el, k]) => shell(az, el, k ?? 1.17));
-    const wf = (u) => W * (u < 0.35 ? 0.8 + 0.2 * u / 0.35 : Math.max(tipW, Math.sqrt(Math.max(0, 1 - ((u - 0.35) / 0.65) ** 2.2))));
-    const tf = (u) => T * (0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, u * 0.9 + 0.1))) * (fade ? (u < 0.5 ? 1 : Math.pow(1 - (u - 0.5) / 0.5, 1.5)) : 1); // fade: vuốt dày về 0 êm ở đoạn cuối (mất vạch bóng ngang)
+    const wf = taper ? (u) => W * (u < 0.3 ? 0.85 + 0.15 * u / 0.3 : Math.max(0.03, Math.pow(Math.max(0, 1 - (u - 0.3) / 0.7), 0.85))) // ngọn thuôn nhọn mềm về 0
+      : (u) => W * (u < 0.35 ? 0.8 + 0.2 * u / 0.35 : Math.max(tipW, Math.sqrt(Math.max(0, 1 - ((u - 0.35) / 0.65) ** 2.2))));
+    const tf = (u) => T * (0.55 + 0.45 * Math.sin(Math.PI * Math.min(1, u * 0.9 + 0.1))) * (fade ? (u < 0.5 ? 1 : Math.pow(1 - (u - 0.5) / 0.5, 1.5)) : 1) * (taper ? (0.1 + 0.9 * Math.pow(1 - u, 0.7)) : 1); // fade: vuốt dày về 0 êm ở đoạn cuối (mất vạch bóng ngang)
     mesh(lobe(THREE, pts, wf, tf, [0, HS.dy, 0], { seg: 36, rad: 28 }), hairM, head);
   };
-  // 4 lọn mái hất chéo sang phải màn hình (từ trái–đỉnh xuống phải–trán)
-  lock([[-0.95, 1.18], [-0.5, 1.02], [-0.02, 0.84], [0.32, 0.7]], 6.6, 3.6, 0.5);
-  lock([[-0.45, 1.34], [0.0, 1.12], [0.45, 0.92], [0.78, 0.76]], 6.2, 3.6, 0.5);
-  lock([[0.2, 1.38], [0.62, 1.16], [0.98, 0.94], [1.22, 0.78]], 5.8, 3.4, 0.5);
-  lock([[-1.35, 1.0], [-1.1, 0.88], [-0.82, 0.76]], 5.4, 3.2, 0.5);
+  // 3 dải mái bản to hất chéo sang phải màn hình (ngọn vuốt thuôn mềm), thêm 1 dải bên trái ôm xuống thái dương
+  lock([[-0.95, 1.2], [-0.5, 1.04], [-0.05, 0.86], [0.42, 0.7]], 8.6, 3.8, 0.3, false, true);
+  lock([[-0.35, 1.36], [0.15, 1.14], [0.62, 0.94], [0.98, 0.78]], 8.0, 3.8, 0.3, false, true);
+  lock([[0.4, 1.38], [0.8, 1.16], [1.1, 0.96], [1.28, 0.78]], 7.0, 3.4, 0.3, false, true);
+  lock([[-1.35, 1.0], [-1.1, 0.88], [-0.82, 0.76]], 5.6, 3.2, 0.3, false, true);
   // hai cánh tóc nhô nhẹ ở thái dương
   for (const s of [1, -1]) lock([[s * 1.0, 0.86], [s * 1.28, 0.6], [s * 1.42, 0.38], [s * 1.46, 0.24]], 5.0, 3.0, 0.4);
   // cánh tóc thái dương: gốc cắm sâu vào khối tóc, ôm dọc sọ (nhô ~55%), đầu tù tròn, nhích cao lên trên tai
@@ -296,7 +309,7 @@ export function createBaseCharacter(THREE, spec = {}) {
   const rest = Object.fromEntries(Object.entries(J).map(([k, g]) => [k, g.rotation.clone()]));
   const pose = (P = {}) => {
     for (const [k, g] of Object.entries(J)) g.rotation.copy(rest[k]);
-    const base = { shoulderL: [0.03, 0, 0.12], shoulderR: [0.03, 0, -0.12], elbowL: [-0.1, 0, -0.04], elbowR: [-0.1, 0, 0.04], neck: [0.06, 0, 0], head: [-0.02, 0, 0], ankleL: [0, 0.1, 0], ankleR: [0, -0.1, 0] };
+    const base = { shoulderL: [0.03, 0, 0.12], shoulderR: [0.03, 0, -0.12], elbowL: [-0.1, 0, -0.04], elbowR: [-0.1, 0, 0.04], neck: [0.025, 0, 0], head: [-0.01, 0, 0], ankleL: [0, 0.1, 0], ankleR: [0, -0.1, 0] };
     for (const [k, r] of Object.entries({ ...base, ...P })) if (J[k]) J[k].rotation.set(...r);
   };
   pose();
