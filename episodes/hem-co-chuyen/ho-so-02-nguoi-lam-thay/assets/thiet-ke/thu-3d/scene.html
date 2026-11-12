@@ -8,7 +8,8 @@ const { buildNam } = await import('./' + (q0.get('model') === 'toon' ? 'nam-3d-t
 const q = new URLSearchParams(location.search);
 const W = +(q.get('w') || 900), H = +(q.get('h') || 1200);
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-renderer.setPixelRatio(1); renderer.setSize(W, H);
+const SS = +(q.get('ss') || 1);   // siêu lấy mẫu: ss=2 vẽ ở độ phân giải gấp đôi rồi hạ mẫu chất lượng cao (xoá răng cưa viền cằm, tai, mắt, tóc)
+renderer.setPixelRatio(SS); renderer.setSize(W, H);
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.VSMShadowMap;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 if (q0.get('model') !== 'toon') { renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; }
@@ -47,6 +48,12 @@ window.show = ({ az = 0, el = 0.04, dist = 760, ty = 86, t = 0, pose = null } = 
   cam.lookAt(0, ty, 0);
   renderer.render(scene, cam);
   return true;
+};
+// ảnh PNG cuối: nếu ss>1 thì hạ mẫu bằng drawImage (imageSmoothingQuality = high) về W×H
+window.snap = () => {
+  if (SS === 1) return renderer.domElement.toDataURL('image/png');
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
+  g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.drawImage(renderer.domElement, 0, 0, W, H); return c.toDataURL('image/png');
 };
 window.ready = true;
 </script></body></html>

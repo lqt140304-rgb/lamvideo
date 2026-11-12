@@ -21,14 +21,16 @@ const srv = http.createServer((req, res) => {
   const canvas = await page.$('canvas');
   if (!seq) {
     await page.evaluate((o) => window.show(o), JSON.parse(a[1] || '{}'));
-    await canvas.screenshot({ path: a[0] });
+    const url = await page.evaluate(() => window.snap());
+    fs.writeFileSync(a[0], Buffer.from(url.split(',')[1], 'base64'));  // ss=2 (Q="&ss=2") → siêu lấy mẫu rồi hạ mẫu
   } else {
     fs.mkdirSync(a[1], { recursive: true });
     const n = +a[2];
     for (let i = 0; i < n; i++) {
       const t = i / 30;
       await page.evaluate((o) => window.show(o), { az: (i / n) * Math.PI * 2, t });
-      await canvas.screenshot({ path: path.join(a[1], `f${String(i).padStart(4, '0')}.png`) });
+      const u = await page.evaluate(() => window.snap());
+      fs.writeFileSync(path.join(a[1], `f${String(i).padStart(4, '0')}.png`), Buffer.from(u.split(',')[1], 'base64'));
     }
   }
   await browser.close(); srv.close();

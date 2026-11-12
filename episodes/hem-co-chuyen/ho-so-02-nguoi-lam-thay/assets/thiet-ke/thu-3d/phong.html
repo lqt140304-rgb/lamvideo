@@ -10,7 +10,8 @@ import { motionAt } from './dong-tac.js';
 const VIEWS = { wide: { pos: [228, 152, 800], target: [228, 0], mm: 34, horizon: 395 } }; // chép từ boi-canh.tsx VIEWS
 const W = 1920, H = 1080, q = new URLSearchParams(location.search), V = VIEWS[q.get('view') || 'wide'];
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true, premultipliedAlpha: false });
-renderer.setPixelRatio(1); renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
+const SS = +(q.get('ss') || 1);   // ss=2: vẽ gấp đôi rồi hạ mẫu (tốn ~4x thời gian)
+renderer.setPixelRatio(SS); renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.VSMShadowMap; renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
 document.body.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
@@ -54,7 +55,9 @@ window.show = (t) => {
   sun.position.set(560, 260, 240); sun.target.position.set(230, 60, 390);
   rim.target.position.set(m.x, 90, m.z);
   renderer.render(scene, cam);
-  return renderer.domElement.toDataURL('image/png');
+  if (SS === 1) return renderer.domElement.toDataURL('image/png');
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+  g.drawImage(renderer.domElement, 0, 0, W, H); return c.toDataURL('image/png');
 };
 window.ready = true;
 </script></body></html>
