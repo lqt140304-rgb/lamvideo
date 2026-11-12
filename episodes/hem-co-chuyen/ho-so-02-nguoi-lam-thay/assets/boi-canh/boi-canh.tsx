@@ -120,6 +120,9 @@ const segHitsBox = (a: V3, b: V3, [x0, x1, z0, z1, h]: [number, number, number, 
 };
 
 /** Nguồn sáng trong phòng (cm): tâm cửa sổ tường phải cho ban ngày, bóng đèn bàn cho ban đêm. */
+/** Quạt đứng: tâm cánh (cm) và hướng quay theo khung (radian). Dùng chung cho hình quạt và gió thổi lên nhân vật. */
+export const FAN_HEAD: V3 = [32, 108, 388];
+export const fanYaw = (frame: number | null) => 0.62 + (frame === null ? 0 : 0.2 * Math.sin(frame / 70));
 export const LIGHT_SOURCES = { window: [W, 150, 155] as V3, lamp: [418, 100, 37] as V3 };
 /**
  * Nguồn sáng chính ban đêm là màn hình laptop trên bàn học nên ánh sáng màu XANH lạnh (trước đây tô vàng ấm như đèn bàn):
@@ -215,6 +218,8 @@ export type RoomProps = {
   chair?: keyof typeof SEATS;
   /** Xoay thêm ghế quanh tâm (radian). Mặc định 0 = hướng cũ; dùng khi cần thấy người ngồi quay ra máy. */
   chairTurn?: number;
+  /** Ghế bị xô (cm, radian), cộng vào vị trí/hướng ghế; dùng cho tương tác nhân vật–đồ vật. Bỏ trống = ghế đứng yên như cũ. */
+  chairPush?: { dx: number; dz: number; rot: number };
   phone?: 'mat' | 'desk' | 'hidden';
   /** messy: chén chất trong bồn, vụn mì cạnh bếp; clean: chén úp trên giá, sàn sạch. */
   kitchen?: 'messy' | 'clean';
@@ -244,7 +249,7 @@ type FaceOpt = { n?: V3; cull?: boolean; stroke?: string; w?: number; op?: numbe
 
 const SHOT_LABEL: Record<RoomView, string> = { wide: 'Toàn phòng', kitchen: 'Góc bếp', desk: 'Góc bàn học', door: 'Cửa phòng và chốt', hallway: 'Hành lang trước cửa', corridor: 'Hành lang dãy trọ nhìn xiên', bed: 'Góc nệm', mirror: 'Góc gương cạnh tủ', stairs: 'Hành lang và cầu thang', giveaway: 'Góc đồ cho tặng', pov: 'Mắt Nam trên gối' };
 
-export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, layers = false, frame = null, door = 'closed', chair = 'desk', chairTurn = 0, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], floorTilt = 0, move, sleeper, children }: RoomProps) {
+export function RoomScene({ className = '', view = 'wide', night = false, sun = 0, rays = 0, falloff = 0, grade = true, layers = false, frame = null, door = 'closed', chair = 'desk', chairTurn = 0, chairPush, phone = 'mat', kitchen = 'messy', drawerOpen = false, wallet = true, mirror = false, giveaway = false, clockMinutes = null, actors = [], floorTilt = 0, move, sleeper, children }: RoomProps) {
   const uid = 'room' + useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const cam = camera(moved(VIEWS[view], move));
   const inHall = view === 'hallway' || view === 'corridor' || view === 'stairs' || view === 'giveaway';
@@ -841,8 +846,8 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     if (phone === 'desk') box({ x: [416, 424], y: [77, 78], z: [50, 65], c: '#3a4a47' });
   };
 
-  const seat = SEATS[chair];
-  const ca = seat.a + chairTurn;
+  const seat = chairPush ? { ...SEATS[chair], x: SEATS[chair].x + chairPush.dx, z: SEATS[chair].z + chairPush.dz } : SEATS[chair];
+  const ca = seat.a + chairTurn + (chairPush?.rot ?? 0);
   const chairT = (p: V3): V3 => [seat.x + p[0] * Math.cos(ca) + p[2] * Math.sin(ca), p[1], seat.z - p[0] * Math.sin(ca) + p[2] * Math.cos(ca)];
   const chairSeat = () => {
     const T = chairT;
@@ -897,7 +902,7 @@ export function RoomScene({ className = '', view = 'wide', night = false, sun = 
     cyl(c, 16, 3, '#7c9586', { top: '#8fa698' });
     tube([[c[0], 3, c[2]], [c[0], 92, c[2]]], 3, '#9fb1a5');
     const head: V3 = [c[0], 108, c[2]];
-    const spin = frame === null ? 0 : frame * 0.55, yaw = 0.62 + (frame === null ? 0 : 0.2 * Math.sin(frame / 70)), r: V3 = [Math.cos(yaw), 0, -Math.sin(yaw)], n: V3 = [Math.sin(yaw), 0, Math.cos(yaw)], up: V3 = [0, 1, 0];
+    const spin = frame === null ? 0 : frame * 0.55, yaw = fanYaw(frame), r: V3 = [Math.cos(yaw), 0, -Math.sin(yaw)], n: V3 = [Math.sin(yaw), 0, Math.cos(yaw)], up: V3 = [0, 1, 0];
     const at = (u: number, v: number, off = 0) => add(add(add(head, mul(r, u)), mul(up, v)), mul(n, off));
     const circ = (R: number, off = 0) => Array.from({ length: 18 }, (_, i) => at(Math.cos((i / 18) * 6.283) * R, Math.sin((i / 18) * 6.283) * R, off));
     soft(circ(24, -6), '#d8e2d4', { n, op: 0.75, w: 2 });

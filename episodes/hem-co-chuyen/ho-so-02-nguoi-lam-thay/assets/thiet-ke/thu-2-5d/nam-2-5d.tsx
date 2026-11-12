@@ -250,7 +250,9 @@ export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway)
     detail: <path d="M 33 262 Q 38 292 36 330" fill="none" style={{ strokeWidth: lw(2.5) }} />,
   };
   // khối mông: phồng sau hông dưới vạt áo rồi thu vào đùi
-  return { ...nb, hem: swayHem(nb.hem, sway), views: vs, sleeveFold: true, seatSide: 'M -26 336 C -40 340 -47 358 -46 378 C -45 398 -36 414 -24 424 L -14 424 L -14 336 Z' };
+  // dải áo quanh cổ vẽ đè lên đầu (đứng yên theo thân) + đường cổ áo: che phần cổ dư khi ngửng/cúi, không hở
+  const collarCover = { side: <g><path d="M -24 194 Q -38 197 -44 212 L -46 228 L 22 228 L 22 198 Q 8 195 -8 197 Q -16 197 -24 194 Z" fill={shirt} stroke="none" /> {/* chỉ phủ dưới cổ, không lấn ra trước nên cúi sâu không đè cằm */}<path d="M -24 194 Q -16 197 -8 197 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} /></g> };
+  return { ...nb, hem: swayHem(nb.hem, sway), views: vs, collarCover, sleeveFold: true, seatSide: 'M -26 336 C -40 340 -46 354 -45 370 C -44 386 -37 396 -25 401 L -14 401 L -14 336 Z' }; // gọn quanh hông: gối gập (ngồi, khựng) không còn thòi 'đuôi' sau đùi
 };
 /** Đầu thon lại (ngang ×0,9) và hạ thấp (cổ ngắn, cằm sát vai) như ảnh tham chiếu; tâm phóng ở chân cổ. */
 const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';

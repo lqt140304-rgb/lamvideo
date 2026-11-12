@@ -97,6 +97,10 @@ Hạn mức của trợ lý chủ yếu tốn vào việc **xem ảnh**, **đọ
   - **Opus 5.5, effort trung bình:** dựng cảnh, bối cảnh, nhân vật, hệ thống hay thiết kế mới.
   - **Sonnet 5.5, effort trung bình:** vòng chỉnh nhỏ theo góp ý, sửa lỗi đã rõ nguyên nhân, cập nhật tài liệu sau khi có quyết định.
   - Một việc vừa tìm vừa dựng thì tách: Haiku tìm, Opus dựng, Sonnet sửa.
+  - **Push và các lệnh git cơ học → Haiku** (commit từng đường dẫn, chạy kiểm tra trước, không `git add .`, không `--force`, dừng khi `origin` có commit mới). Lý do: chúng tốn lượt gọi nhưng không cần phán đoán; Haiku làm đúng quy trình và báo ngắn.
+  - **Lượt đầu giao Opus, đừng để lượt sau gánh lỗi lớn:** sửa nhiều vòng bằng model nhỏ vẫn tốn hơn một lượt đầu làm kỹ. Lượt đầu phải chạy kiểm tra và so mẫu; lỗi nhỏ còn lại ghi rõ cho Sonnet.
+  - **Giao việc cho agent phải tự đủ** (agent bắt đầu từ trắng, không thấy cuộc trò chuyện): đường dẫn, việc cần làm, tiêu chí xong, lệnh kiểm tra; yêu cầu báo ngắn (kết quả → bằng chứng → điều cần quyết). Báo cáo của agent không thay việc kiểm lại bằng lệnh hoặc ảnh.
+  - Agent được định nghĩa ở `.claude/agents/` (mỗi tệp một model cố định); đổi model của cả phiên thì dùng `/model`.
   - Phiên không tự đổi model của chính nó được: nhắc chủ repo đổi bằng `/model` và `/effort medium`.
 - **Phiên ngắn, ghi chép rõ:** phiên càng dài thì mỗi lượt càng tốn. Hết một mốc thì cập nhật `LOI-TON-DONG.md` và README của tập, commit, push, rồi mở phiên mới đọc từ các file đó thay vì kéo dài phiên cũ.
 - **Không gửi lại file nặng mỗi vòng:** chỉ gửi video khi đã gom đủ thay đổi. Giữa chừng gửi bảng ảnh.

@@ -97,6 +97,14 @@ const useClipId = (id: string) => `${id}-${React.useId().replace(/[^a-zA-Z0-9]/g
 export type Talk = { shape: Exclude<MouthShape, 'auto'>; open?: number };
 /** Tóc đung đưa (vật lý thứ cấp): xoay (độ) và dịch (đơn vị rig) quanh da đầu; bỏ trống = tóc đứng yên như mẫu đã chốt. */
 export type HairSway = { rot: number; dx: number; dy: number };
+/**
+ * Góc cúi/ngửng hiện tại (độ) do rig truyền xuống đầu. Rig xoay cả khối đầu quanh gốc cổ; đầu nào hỗ trợ "tách cổ–đầu" thì
+ * xoay ngược lại phần cổ để cổ chỉ nghiêng NECK_SHARE góc quanh gốc cổ, còn sọ–mặt xoay đủ góc quanh đỉnh cổ (khớp dưới tai).
+ */
+const NeckAngleCtx = React.createContext(0);
+const NECK_SHARE = 0.3;
+const neckWrap = (th: number) => (th ? `rotate(${(-th).toFixed(3)} -6 180) rotate(${(NECK_SHARE * th).toFixed(3)} -6 196)` : undefined);
+const headWrap = (th: number, pivot: [number, number]) => (th ? `${neckWrap(th)} rotate(${((1 - NECK_SHARE) * th).toFixed(3)} ${pivot[0]} ${pivot[1]})` : undefined);
 const SCALP = { x: 0, y: 60 };
 const hairSway = (h?: HairSway) => (h && (h.rot || h.dx || h.dy) ? `translate(${h.dx.toFixed(2)} ${h.dy.toFixed(2)}) rotate(${h.rot.toFixed(2)} ${SCALP.x} ${SCALP.y})` : undefined);
 type HairKit = { color: string; side: string; back: string; quarter: string };
@@ -190,30 +198,36 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
   );
 };
 
-const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, x, y, scale, sway }) => {
+const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number; sway?: HairSway; split?: boolean }> = ({ hair, x, y, scale, sway, split }) => {
   const o = useHeadLine();
+  const ctx = React.useContext(NeckAngleCtx), th = split ? ctx : 0;
   return (
     <g {...headFrame(x, y, scale)}>
-      <path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <g transform={neckWrap(th)}><path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} /></g>
+      <g transform={headWrap(th, [0, 150])}>
       <path d="M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 56 87 Q 84 72 86 99 Q 87 121 59 125" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 60 140 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -60 140 -60 108 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={hair.back} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
+      </g>
     </g>
   );
 };
 
 // 1/4: thấy gáy, tai phía gần và một dải má; mũi, miệng đã khuất.
-const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, mole, x, y, scale, sway }) => {
+const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number; sway?: HairSway; split?: boolean }> = ({ hair, mole, x, y, scale, sway, split }) => {
   const o = useHeadLine();
+  const ctx = React.useContext(NeckAngleCtx), th = split ? ctx : 0;
   return (
   <g {...headFrame(x, y, scale)}>
-    <path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+    <g transform={neckWrap(th)}><path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} /></g>
+    <g transform={headWrap(th, [0, 150])}>
     <path d="M -56 70 Q -50 24 4 24 Q 56 24 62 70 L 64 112 Q 64 140 44 156 Q 20 170 -8 166 Q -46 158 -56 120 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d={hair.quarter} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
     <path d="M 24 88 Q 50 76 50 100 Q 50 122 26 124 Q 14 106 24 88 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M 44 98 Q 36 92 32 106" fill="none" style={{ strokeWidth: lw(2.4) }} />
     <path d="M 50 80 L 58 77" fill="none" style={{ strokeWidth: lw(5.5) }} />
     {mole && <circle cx={57} cy={92} r={2.2} fill={PALETTE.ink} stroke="none" />}
+    </g>
   </g>
   );
 };
@@ -261,19 +275,23 @@ export const StudentTwinHead: React.FC<{
   const eyeRyL = isShocked ? 22 : isStare ? 20 : isScared ? 19 : isAgitated ? 16 : 14;
   const clip = useClipId(id);
   const o = useHeadLine();
-  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} sway={sway} />;
-  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} sway={sway} split={sideNew} />;
+  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} sway={sway} split={sideNew} />;
   if (view === 'side' && sideNew) return <NamSoftProfileHead mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
   if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
   const front = view === 'front';
+  const neckCtx = React.useContext(NeckAngleCtx), th = sideNew ? neckCtx : 0; // cổ nghiêng ít, đầu gập nhiều (dáng mới)
   const rxR = front ? 15 : 17;
   const rxL = front ? 15 : 15;
 
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} style={{ strokeWidth: lw(3.5) }} strokeLinejoin="round" strokeLinecap="round">
       {/* Cổ & Khối bóng đổ cằm */}
+      <g transform={neckWrap(th)}>
       <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -28 141 L -28 182 Q -8 201 16 181 L 19 138'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -21 155 Q 0 171 21 155 L 21 175 Q 0 188 -21 175 Z' : 'M -26 155 Q -8 171 17 153 L 16 175 Q -7 187 -27 174 Z'} fill={PALETTE.skinShadow} stroke="none" />
+      </g>
+      <g transform={headWrap(th, [0, 150])}>
 
       {/* Hộp sọ & Đường cằm bo tròn hữu cơ (chuẩn mẫu B) */}
       <path d={front ? 'M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 62 138 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -62 138 -60 108 Z' : 'M -55 60 Q -50 25 -9 25 Q 42 24 53 66 L 55 111 Q 72 130 54 146 Q 38 166 6 165 Q -30 163 -45 138 L -58 100 Z'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
@@ -440,6 +458,7 @@ export const StudentTwinHead: React.FC<{
       </>)}
       </g>
       )}
+      </g>
     </g>
   );
 };
@@ -681,6 +700,8 @@ export type Outfit = {
   sleeveFold?: boolean;
   /** Góc nghiêng: khối mông (màu quần) sau hông, hệ toạ độ chân (bỏ trống = như đã chốt). */
   seatSide?: string;
+  /** Dải áo quanh cổ vẽ ĐÈ lên đầu, đứng yên theo thân (hệ toạ độ thân): che phần cổ kéo dài xuống dưới cổ áo nên đầu ngửng/cúi không hở. Bỏ trống = như đã chốt. */
+  collarCover?: Partial<Record<View, React.ReactNode>>;
 };
 const normalOf = (a: P, b: P): P => { const l = Math.max(0.001, Math.hypot(b.x - a.x, b.y - a.y)); return { x: -(b.y - a.y) / l, y: (b.x - a.x) / l }; };
 const across = (a: P, b: P, t: number, r: number, off = 0) => { const p = mix(a, b, t), n = normalOf(a, b); return `M ${p.x + n.x * (off - r)} ${p.y + n.y * (off - r)} L ${p.x + n.x * (off + r)} ${p.y + n.y * (off + r)}`; };
@@ -916,7 +937,8 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             <g style={{ stroke: 'var(--inner-ink, #2b2b2b)' }}>{typeof o.detail === 'function' ? o.detail(facing) : o.detail}</g>
           </Shade>
           {/* data-part="head": nhãn để lớp 2.5D tách da đầu khỏi da tay khi cắt mảng; không ảnh hưởng hình vẽ */}
-          <g data-part="head" transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}>{head}</OutlineCtx.Provider></Shade></g>
+          <g data-part="head" transform={`rotate(${r.neck} ${NECK.x} ${NECK.y})`}><Shade l={l} facing={facing} size={2.2}><OutlineCtx.Provider value={headOutline ?? outline}><NeckAngleCtx.Provider value={r.neck}>{head}</NeckAngleCtx.Provider></OutlineCtx.Provider></Shade></g>
+          {outfit.collarCover?.[view] && <g data-part="collar">{outfit.collarCover[view]}</g>}
           {pose.prop === 'phoneLandscape' && <g data-prop="phone-landscape" transform={`translate(${(r.armR.end.x+r.armL.end.x)/2} ${(r.armR.end.y+r.armL.end.y)/2})`}>
             <rect x={-49} y={-16} width={98} height={51} rx={8} fill="#34434a" />
             <rect x={-40} y={-10} width={80} height={38} rx={4} fill="#80978d" />
@@ -1126,7 +1148,7 @@ const tungSkinPath = (d: number) => {
   const pts = [...TUNG_SIDE.back, ...TUNG_SIDE.front.slice(0, -1), ...lower, [-12, 142] as [number, number]];
   return catmull(pts, true);
 };
-const NECK_D = 'M -22 112 L -23 172 Q -24 181 -29 186 Q -8 196 16 191 Q 8 180 4 160 L 3 112 Z';
+const NECK_D = 'M -22 112 L -23 172 Q -24 181 -29 186 L -30 206 Q -6 214 20 208 L 16 191 Q 8 180 4 160 L 3 112 Z'; // đáy kéo dài dưới cổ áo, phần dư bị `collarCover` che
 const NECK_T = 'translate(0 184) skewX(-8) translate(0 -184)';
 const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?: Talk; blink?: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ mood, clip, talk, blink, x, y, scale, sway }) => {
   const f = SIDE_FACE[mood];
@@ -1135,6 +1157,7 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
   const ang = mood === 'annoyed';
   const brow = ang ? 'M 25 80.5 Q 37 82.5 45 88.5' : 'M 24 78 Q 36 74.5 47.5 77';
   const mouth = drop > 0 ? undefined : ang ? 'M 47 131.6 Q 42.5 130.6 38 133' : 'M 47 131.6 Q 42.5 132 38 132.6';
+  const th = React.useContext(NeckAngleCtx);
   return (
     <g {...headFrame(x, y, scale)}>
       {/* Cổ dày, chếch ra trước, LOE ở gốc: sau gáy thoải xuống vai, trước dốc ra cổ áo thấp hơn → da ngực/vai đỡ chân cổ. Cổ áo vẽ ĐÈ lên chân cổ. */}
@@ -1144,6 +1167,7 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
         <clipPath id={`${clip}-neck`}><path d={NECK_D} transform={NECK_T} /></clipPath>
         <clipPath id={`${clip}-face`}><path d={tungSkinPath(drop)} /></clipPath>
       </defs>
+      <g transform={neckWrap(th)}>
       <path d={NECK_D} transform={NECK_T} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       {/* bóng vẽ tay, MỀM: làm mờ riêng bản dịch (mép trong chuyển dần), mép ngoài vẫn cắt theo hình bao nhờ clip; data-shadow để lớp 2.5D bỏ qua */}
       <g clipPath={`url(#${clip}-neck)`} stroke="none" data-shadow="drawn-neck">
@@ -1153,7 +1177,8 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
         </g>
         <g filter={`url(#${clip}-soft)`}><g transform="translate(5 8) rotate(5 -8 150) scale(1.1)"><path d={tungSkinPath(drop)} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
       </g>
-      <path d="M -31 183 Q -10 199 17 190" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6.5) }} strokeLinecap="butt" />
+      </g>
+      <g transform={headWrap(th, [0, 150])}>
       <g transform="translate(5 8) rotate(5 -8 150) scale(1.1)">
       {drop > 0 && <path d={`M 48 130 L 38 ${131 + 0.4 * drop} L ${44 - 0.3 * drop} ${133 + drop} Z`} fill={PALETTE.mouthDark} stroke="none" />}
       <path d={tungSkinPath(drop)} fill={PALETTE.skin} {...o(PALETTE.skin)} />
@@ -1177,6 +1202,7 @@ const TungProfileHead: React.FC<{ mood: 'annoyed' | 'calm'; clip: string; talk?:
       {blink && <path d="M 26 100 Q 36 106 47 100" fill="none" style={{ strokeWidth: lw(3) }} />}
       <path d={brow} fill="none" style={{ strokeWidth: lw(5.5) }} />
       {mouth && <path d={mouth} fill="none" style={{ strokeWidth: lw(2.6) }} />}
+      </g>
       </g>
     </g>
   );
@@ -1204,7 +1230,7 @@ const namSkinPath = (d: number) => {
 };
 // đáy cổ trùng mép trên thân áo nghiêng (TWIN/NAM side torso: -26 184 → 22 198) để không hở trắng, không lòi da lên vai
 // mỗi mép cổ là MỘT đường cong liền, chếch ra trước (không ghép đoạn thẳng + nghiêng cả khối nên không gãy khúc); đáy trùng mép trên áo
-const NAM_NECK_D = 'M -12 112 C -12 150 -21 177 -24 194 Q -16 197 -8 197 Q 8 195 22 198 C 13 186 12 158 18 112 Z';
+const NAM_NECK_D = 'M -12 112 C -12 150 -21 177 -24 194 L -28 214 Q -6 220 12 216 L 22 198 C 13 186 12 158 18 112 Z'; // đáy kéo dài xuống dưới cổ áo (y≈214), phần dư bị dải áo `collarCover` che
 const NAM_HEAD_T = 'translate(13 36) rotate(4 -8 150) translate(-8 150) scale(1.2) translate(8 -150)'; // đầu to hơn, chồm ra trước vai như mẫu
 // cổ chếch ra trước rõ hơn cổ Tùng, đầu đưa theo (mẫu: cổ cong nhẹ hướng về trước)
 const NAM_NECK_T = ''; // độ chếch đã nằm trong đường cong của NAM_NECK_D
@@ -1218,6 +1244,7 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
   const mouth = drop > 0 ? undefined : sour ? 'M 47.8 127 Q 44.5 125.6 41 127.4' : smile ? 'M 47.8 125.4 Q 44.5 128.4 41 125.6' : mood === 'hesitant' ? 'M 47.8 126.6 Q 45 128.4 43 126.4 Q 41.6 125.6 40.4 127' : 'M 47.8 126.4 Q 44.5 127.4 41 126.6';
   const ry = Math.min(f.ry - 3, 16);
   const skin = namSkinPath(drop);
+  const th = React.useContext(NeckAngleCtx);
   return (
     <g {...headFrame(x, y, scale)}>
       <defs>
@@ -1227,6 +1254,7 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         <clipPath id={`${clip}-face`}><path d={skin} /></clipPath>
       </defs>
       {/* Cổ ngắn dày, loe ở gốc; cổ áo tròn vẽ đè lên chân cổ */}
+      <g transform={neckWrap(th)}>
       <path d={NAM_NECK_D} transform={NAM_NECK_T} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <g clipPath={`url(#${clip}-neck)`} stroke="none" data-shadow="drawn-neck">
         <g filter={`url(#${clip}-soft2)`}>
@@ -1235,7 +1263,8 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         </g>
         <g filter={`url(#${clip}-soft)`}><g transform={NAM_HEAD_T}><path d={skin} transform="translate(0 16)" fill={PALETTE.skinShadow} opacity={0.55} /></g></g>
       </g>
-      <path d="M -24 194 Q -16 197 -8 197 Q 8 195 22 198" fill="none" style={{ strokeWidth: lw(2.2), stroke: 'var(--inner-ink, #2b2b2b)' }} />
+      </g>
+      <g transform={headWrap(th, [2, 150])}>
       <g transform={NAM_HEAD_T}>
         <path d={skin} fill={PALETTE.skin} {...o(PALETTE.skin)} />
         <g clipPath={`url(#${clip}-face)`} stroke="none" data-shadow="drawn-face">
@@ -1268,6 +1297,7 @@ const NamSoftProfileHead: React.FC<{ mood: NamMood; clip: string; mole: boolean;
         {/* miệng mở: lỗ tròn nhỏ hơi lùi vào trong môi như mẫu (không phải nêm ở mép) */}
         {drop > 0 && <ellipse cx={44.2} cy={127 + 0.25 * drop} rx={2.6 + 0.08 * drop} ry={1.7 + 0.42 * drop} transform={`rotate(-10 44.2 ${127 + 0.25 * drop})`} fill={PALETTE.mouthDark} stroke="none" />}
       </g>
+      </g>
     </g>
   );
 };
@@ -1284,28 +1314,34 @@ export const TungHead: React.FC<{
   scale?: number;
   /** Tóc đung đưa theo vật lý; bỏ trống = tóc đứng yên. */
   hair?: HairSway;
+  /** Tách cổ–đầu khi cúi/ngửng (dáng mới); mặc định tắt = như đã chốt. */
+  splitNeck?: boolean;
   /** Mặt 2.5D tham số (cùng hệ với Nam). */
   expr?: Expr;
   exprLight?: [number, number];
-}> = ({ mood: mood0 = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1, hair: sway, expr, exprLight }) => {
+}> = ({ mood: mood0 = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1, hair: sway, splitNeck = false, expr, exprLight }) => {
   const clip = useClipId(id);
   const o = useHeadLine();
   const em = expr ? moodOfExpr(expr) : undefined;
   const mood: TungMood = em ? (em === 'annoyed' || em === 'agitated' || em === 'suspicious' ? 'annoyed' : 'normal') : mood0;
   const isAnnoyed = mood === 'annoyed';
   const isFocused = mood === 'focused';
-  if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} sway={sway} />;
-  if (view === 'quarter') return <QuarterHead hair={TUNG_HAIR} mole={false} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} sway={sway} split={splitNeck} />;
+  if (view === 'quarter') return <QuarterHead hair={TUNG_HAIR} mole={false} x={x} y={y} scale={scale} sway={sway} split={splitNeck} />;
   if (view === 'side') return <TungProfileHead mood={isAnnoyed ? 'annoyed' : 'calm'} clip={clip} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
   const front = view === 'front';
+  const neckCtx = React.useContext(NeckAngleCtx), th = splitNeck ? neckCtx : 0;
   const rxR = front ? 15 : 16;
   const rxL = front ? 15 : 14.5;
 
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} style={{ strokeWidth: lw(3.5) }} strokeLinejoin="round" strokeLinecap="round">
       {/* Cổ khỏe khoắn */}
+      <g transform={neckWrap(th)}>
       <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -26 142 L -26 182 Q -6 200 18 181 L 20 138'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -21 155 Q 0 171 21 155 L 21 175 Q 0 188 -21 175 Z' : 'M -24 156 Q -6 172 19 154 L 18 174 Q -6 186 -25 174 Z'} fill={PALETTE.skinShadow} stroke="none" />
+      </g>
+      <g transform={headWrap(th, [0, 150])}>
 
       {/* Đầu & Cằm thể thao sáng sủa, gọn gàng */}
       <path d={front ? 'M -56 62 Q -50 25 0 25 Q 50 25 56 62 L 58 104 Q 58 132 38 152 Q 18 165 0 164 Q -18 165 -38 152 Q -58 132 -58 104 Z' : 'M -54 62 Q -50 25 -9 24 Q 40 24 51 64 L 53 108 Q 62 126 48 144 Q 34 162 4 163 Q -28 162 -42 138 L -55 100 Z'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
@@ -1379,6 +1415,7 @@ export const TungHead: React.FC<{
       </g>
       </g>
       )}
+      </g>
     </g>
   );
 };
@@ -1446,10 +1483,12 @@ const TUNG_VIEWS: Outfit['views'] = {
     torso: 'M -26 184 Q -38 185 -45 200 Q -50 214 -50 260 L -52 352 Q -8 360 46 352 Q 52 322 50 290 Q 49 258 44 238 Q 38 212 22 198 Q 8 194 -8 196 Q -18 192 -26 184 Z',
     hem: [[-46, 322], [44, 322], [48, 350], [20, 358], [-8, 358], [-30, 358], [-50, 352]],
     detail: <path d="M 33 262 Q 38 292 36 330" {...JERSEY_FOLD} />,
+    // dải áo quanh cổ + viền cổ trắng, vẽ đè lên đầu (che phần cổ dư khi ngửng/cúi)
   },
 };
 
 export const TUNG_OUTFIT: Outfit = {
+  collarCover: { side: <g><path d="M -26 184 Q -38 185 -45 200 L -47 226 L 20 226 L 20 195 Q 8 194 -8 196 Q -18 192 -26 184 Z" fill={PALETTE.tung.jersey} stroke="none" /><path d="M -31 183 Q -10 199 17 190" fill="none" stroke={PALETTE.tung.jerseyTrim} style={{ strokeWidth: lw(6.5) }} strokeLinecap="butt" /></g> },
   shirt: PALETTE.tung.jersey, sleeveEnd: 0.5, hem: [[-46, 318], [46, 318], [60, 340], [36, 354], [12, 347], [-20, 360], [-58, 344]], cuff: PALETTE.tung.jerseyTrim,
   torso: 'M -24 176 Q -56 178 -84 210 L -56 256 Q -60 306 -56 342 Q -20 358 12 345 Q 36 352 58 338 Q 52 300 50 256 L 76 210 Q 62 190 16 177 Q -6 192 -24 176 Z',
   pants: PALETTE.tung.shorts, pantsLen: 'short', stripe: PALETTE.tung.shortsStripe,
