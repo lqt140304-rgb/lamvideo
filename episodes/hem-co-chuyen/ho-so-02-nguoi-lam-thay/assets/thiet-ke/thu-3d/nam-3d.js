@@ -91,14 +91,14 @@ export function buildNam(THREE, { colors = {} } = {}) {
   mesh(new THREE.TorusGeometry(19.3, 0.6, 10, 72), M('#676462', 0.95), J.spine, [0, 0.5, 0], [Math.PI / 2, 0, 0], [1, 0.8, 1]);          // gấu áo
   for (const k of ['L', 'R']) {
     const s = k === 'L' ? 1 : -1;
-    mesh(sph(8.2), shirtM, J['shoulder' + k], [-1.2 * s, -1.8, 0], [0, 0, 0], [1, 0.9, 0.92]);             // vai tròn
+    mesh(sph(8.2), shirtM, J['shoulder' + k], [-1.8 * s, -2.0, 0], [0, 0, 0], [0.92, 0.85, 0.9]);             // vai tròn
     mesh(new THREE.CylinderGeometry(7.6, 8.3, 11, 40), shirtM, J['shoulder' + k], [0.4 * s, -7.5, 0], [0, 0, 0.06 * s]); // tay áo rộng
     mesh(new THREE.TorusGeometry(8.1, 0.55, 10, 48), M('#676462', 0.95), J['shoulder' + k], [0.75 * s, -13, 0], [Math.PI / 2, 0.06 * s, 0]);
     mesh(new THREE.CylinderGeometry(7.6, 7.6, 0.4, 32), M('#3f3d3c', 0.95), J['shoulder' + k], [0.75 * s, -12.95, 0], [0, 0, 0.06 * s]);
     // tay: bắp tay, cẳng tay mập
-    mesh(cap(5.7, 8.5), skinM, J['shoulder' + k], [0, -11.5, 0]);
+    mesh(cap(5.6, 8.5), skinM, J['shoulder' + k], [0, -11.5, 0]);
     mesh(sph(5.5), skinM, J['elbow' + k], [0, 0, 0]);
-    mesh(cap(5.2, 8.5), skinM, J['elbow' + k], [0, -7.2, 0]);
+    mesh(cap(5.4, 8.5), skinM, J['elbow' + k], [0, -7.2, 0]);
     // bàn tay tròn: lòng bàn tay + 4 ngón cong + ngón cái
     const H = J['wrist' + k]; H.scale.setScalar(1.25);
     mesh(sph(1), skinM, H, [0, -4.4, 0.3], [0, 0, 0], [3.4, 5.0, 4.6]);
@@ -186,7 +186,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
     mesh(tube(THREE, pts, (u) => 1.55 * Math.sqrt(Math.sin(Math.PI * Math.min(1, Math.max(0, (u * 0.9 + 0.05))))) + 0.2, { seg: 24, rad: 16 }), M(C.hair, 0.85), head, [0, 0, 0], [0, 0, 0], [1, 1, 1]);
   }
   // nốt ruồi trên đuôi mày phải (trái màn hình)
-  { const g = onFace(head, -13.4, 10.4, 0.1); mesh(sph(1.1, 16, 12), inkM, g, [0, 0, 0], [0, 0, 0], [1, 1, 0.6]); }
+  { const g = onFace(head, -6.2, 10.4, 0.3); mesh(sph(1.1, 16, 12), inkM, g, [0, 0, 0], [0, 0, 0], [1, 1, 0.6]); }
   // mũi cục tròn nhô + nét cánh mũi
   { const g = onFace(head, 0.6, -8.4, 0.4);
     mesh(sph(3.5), skinM, g, [0, 0, 0.6], [0, 0, 0], [1, 0.95, 1.05]);
@@ -202,8 +202,8 @@ export function buildNam(THREE, { colors = {} } = {}) {
     const { p } = surf(s * 30, -6.5, [-s, 0, 0]);
     const ear = new THREE.Group(); ear.position.copy(p); ear.position.z = -1.5; ear.rotation.set(0, s * 0.35, s * 0.05); head.add(ear);
     mesh(sph(1), skinM, ear, [s * 2.2, 0, 0], [0, 0, 0], [3.0, 6.8, 5.4]);
-    mesh(sph(1), M(C.skinDeep, 0.7), ear, [s * 4.6, -0.4, 0.8], [0, 0, 0], [1.4, 4.6, 3.4]);
-    mesh(tube(THREE, [[s * 5.0, 4.6, -1.2], [s * 5.6, 5.4, 2.4], [s * 5.3, 1.0, 4.2], [s * 4.8, -2.4, 3.0]], () => 0.75, { seg: 20, rad: 10 }), skinM, ear);
+    mesh(sph(1), M(C.skinDeep, 0.7), ear, [s * 3.9, -0.35, 0.7], [0, 0, 0], [1.2, 3.9, 2.9]);
+    mesh(tube(THREE, [[s * 4.25, 3.9, -1.0], [s * 4.75, 4.6, 2.0], [s * 4.5, 0.85, 3.55], [s * 4.1, -2.0, 2.55]], () => 0.64, { seg: 20, rad: 10 }), skinM, ear);
   }
 
   // ---------- tóc ----------
