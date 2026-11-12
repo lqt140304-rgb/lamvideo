@@ -45,4 +45,5 @@ Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2
 ## Hành lang (lượt 12/11 tối)
 - Thêm `hallway_details`: dây điện có kẹp, dầm mái, đèn cửa, kệ giày + dép, dây phơi có cột và móc, bình chữa cháy + bảng, bảng thông báo, xô/chậu/chổi, vệt ố chân tường, rãnh nước.
 - Camera mới: `HALL_FACE` (nhìn về cửa phòng Nam), `HALL_END`, `HALL_STAIR`. Ảnh trong `xem-thu/`.
-- Chưa làm: ánh sáng ngoại cảnh ban đêm (dãy trọ đối diện chưa sáng đèn đủ), người/đồ chuyển động, âm thanh.
+- Ban đêm: dãy trọ đối diện có cửa sổ sáng/tắt xen kẽ, rèm, vài bóng người, ánh hắt vào hành lang; chao đèn tuýp hành lang; trời có chuyển sắc.
+- Chưa làm: chuyển động (đồ phơi lay, người đi lại), âm thanh.

@@ -457,8 +457,24 @@ def hallway(m, coll, night):
         for i in range(9):
             y = -4.5 + i * 2.5
             box(f'cua_dd{fl}_{i}', bx + 1.3 - 0.0, bx + 1.32, y, y + 0.85, zb, zb + 2.0, M.solid(f'cua_dd{fl}_{i}', ['#6d887c', '#8aa099', '#b7a98a'][i % 3], 0.6), coll=coll)
-            win = box(f'cua_so_dd{fl}_{i}', bx + 1.3, bx + 1.33, y + 1.2, y + 2.0, zb + 0.9, zb + 1.9, m['dd_cua_so'], coll=coll)
+            if night:
+                r = (fl * 9 + i) * 2654435761 % 100
+                st = 'tat' if r < 30 else ('lanh' if r < 50 else 'am')
+                wm = {'tat': M.solid('dd_cs_tat', '#1d2535', 0.2), 'lanh': M.emission(f'dd_cs_l{fl}_{i}', '#cfe6ff', 1.6), 'am': M.emission(f'dd_cs_a{fl}_{i}', '#ffd089', 2.2)}[st]
+            else:
+                st = 'tat'; wm = m['dd_cua_so']
+            win = box(f'cua_so_dd{fl}_{i}', bx + 1.3, bx + 1.33, y + 1.2, y + 2.0, zb + 0.9, zb + 1.9, wm, coll=coll)
+            if night and st != 'tat':
+                box(f'dd_ram{fl}_{i}', bx + 1.33, bx + 1.345, y + 1.2, y + 1.38, zb + 0.9, zb + 1.9, M.solid('dd_rem', '#7a8a9a' if st == 'lanh' else '#a86a4a', 0.9), coll=coll)
+                if r % 3 == 0:  # bóng người đứng sau cửa sổ
+                    sphere(f'dd_dau{fl}_{i}', bx + 1.36, y + 1.6, zb + 1.62, 0.1, M.solid('dd_bong', '#1a1a1f', 0.9), coll=coll)
+                    box(f'dd_than{fl}_{i}', bx + 1.34, bx + 1.38, y + 1.45, y + 1.75, zb + 0.9, zb + 1.52, M.solid('dd_bong2', '#1a1a1f', 0.9), bevel=0.03, coll=coll)
         box(f'ld_lancan{fl}', bx + 1.2, bx + 1.3, -6, 20, zb, zb + 1.0, m['tuong'], coll=coll)
+    if night:
+        for k, (yy, zz) in enumerate([(2.0, 3.8), (7.5, 3.8), (4.5, 1.0), (10.0, 1.0)]):
+            add_area(f'hat_dd{k}', (bx + 1.8, yy, zz), 1.6, 160, '#ffd9a0', rot=(0, math.radians(90), 0), coll=coll)
+        box('chao_den_hl', -1.04, -0.36, 2.28, 2.36, H - 0.06, H - 0.04, m['viền'], coll=coll)
+        box('chao_den_hl2', -1.04, -0.36, 7.18, 7.26, H - 0.06, H - 0.04, m['viền'], coll=coll)
     box('phan_xa_toa_nha', -60, -20, -30, 60, -2.5, 22, M.mottled('toa_nha_xa', '#9aa3a6', rough=1.0, scale=0.3, vary=0.1, bump=0.0), coll=coll)
 
 
@@ -525,6 +541,11 @@ def world_and_lights(mode, coll):
         _link(sun, coll)
     else:
         bg.inputs['Color'].default_value = M._hex('#243456'); bg.inputs['Strength'].default_value = 0.55
+        tc = nt.nodes.new('ShaderNodeTexCoord'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); cr = nt.nodes.new('ShaderNodeValToRGB')
+        nt.links.new(tc.outputs['Generated'], sp.inputs['Vector']); nt.links.new(sp.outputs['Z'], cr.inputs['Fac'])
+        cr.color_ramp.elements[0].position = 0.45; cr.color_ramp.elements[0].color = M._hex('#4a5f8c')
+        cr.color_ramp.elements[1].position = 0.85; cr.color_ramp.elements[1].color = M._hex('#0c1530')
+        nt.links.new(cr.outputs['Color'], bg.inputs['Color'])
         bpy.ops.object.light_add(type='SUN', location=(8, 2, 6)); mo = bpy.context.object; mo.name = 'trang'
         mo.data.energy = 0.6; mo.data.color = M._hex('#6f8fd6')[:3]; mo.rotation_euler = mrot((0, math.radians(-40), math.radians(-12))); _link(mo, coll)
 
