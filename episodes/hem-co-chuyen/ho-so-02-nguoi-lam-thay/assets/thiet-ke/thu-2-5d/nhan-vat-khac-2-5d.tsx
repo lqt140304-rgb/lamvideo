@@ -31,7 +31,7 @@ type TungProps = React.ComponentProps<typeof TungSoccer>;
 /** Tùng dáng theo ảnh tham chiếu (2D, chưa có lớp sáng). */
 export const TungDangMoi: React.FC<TungProps & { hemSway?: HemSway }> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose, talk, blink, light, hair, hemSway }) => (
   <Rigged pose={pose ?? STAND_POSE} outfit={tungOutfitDang(hemSway)} x={x} y={y} scale={scale} light={light as Light | undefined}
-    head={<TungHead mood={mood as TungMood} id="tung-dang-moi" view={pose?.view} facing={pose?.facing} talk={talk} blink={blink} hair={hair} />} />
+    head={<TungHead mood={mood as TungMood} id="tung-dang-moi" view={pose?.view} facing={pose?.facing} talk={talk} blink={blink} hair={hair} splitNeck />} />
 );
 /** Tùng 2.5D: cùng props `TungSoccer`, thêm `lighting`, `lightDir`, `dang` ('moi' mặc định | 'chot'), `hemSway`. `volume={false}` = 2D. */
 export const Tung25D: React.FC<TungProps & { volume?: boolean; lighting?: Light25; lightDir?: [number, number]; dang?: 'moi' | 'chot'; hemSway?: HemSway }> = ({ volume = true, lighting = 'ngay', lightDir, dang = 'moi', hemSway, ...props }) => {

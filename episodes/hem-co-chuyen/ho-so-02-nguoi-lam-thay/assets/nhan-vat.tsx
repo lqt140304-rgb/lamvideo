@@ -197,30 +197,36 @@ const ProfileHead: React.FC<{ hair: HairKit; mood: NamMood; clip: string; mole: 
   );
 };
 
-const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, x, y, scale, sway }) => {
+const BackHead: React.FC<{ hair: HairKit; x: number; y: number; scale: number; sway?: HairSway; split?: boolean }> = ({ hair, x, y, scale, sway, split }) => {
   const o = useHeadLine();
+  const ctx = React.useContext(NeckAngleCtx), th = split ? ctx : 0;
   return (
     <g {...headFrame(x, y, scale)}>
-      <path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+      <g transform={neckWrap(th)}><path d="M -22 150 L -22 184 Q 0 196 22 184 L 22 150" fill={PALETTE.skin} {...o(PALETTE.skin)} /></g>
+      <g transform={headWrap(th, [0, 150])}>
       <path d="M -56 87 Q -84 72 -86 99 Q -87 121 -59 125 M 56 87 Q 84 72 86 99 Q 87 121 59 125" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d="M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 60 140 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -60 140 -60 108 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={hair.back} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
+      </g>
     </g>
   );
 };
 
 // 1/4: thấy gáy, tai phía gần và một dải má; mũi, miệng đã khuất.
-const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number; sway?: HairSway }> = ({ hair, mole, x, y, scale, sway }) => {
+const QuarterHead: React.FC<{ hair: HairKit; mole: boolean; x: number; y: number; scale: number; sway?: HairSway; split?: boolean }> = ({ hair, mole, x, y, scale, sway, split }) => {
   const o = useHeadLine();
+  const ctx = React.useContext(NeckAngleCtx), th = split ? ctx : 0;
   return (
   <g {...headFrame(x, y, scale)}>
-    <path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} />
+    <g transform={neckWrap(th)}><path d="M -24 150 L -24 184 Q 0 196 24 184 L 26 150" fill={PALETTE.skin} {...o(PALETTE.skin)} /></g>
+    <g transform={headWrap(th, [0, 150])}>
     <path d="M -56 70 Q -50 24 4 24 Q 56 24 62 70 L 64 112 Q 64 140 44 156 Q 20 170 -8 166 Q -46 158 -56 120 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d={hair.quarter} fill={hair.color} {...o(hair.color)} visibility="visible" transform={hairSway(sway)} />
     <path d="M 24 88 Q 50 76 50 100 Q 50 122 26 124 Q 14 106 24 88 Z" fill={PALETTE.skin} {...o(PALETTE.skin)} />
     <path d="M 44 98 Q 36 92 32 106" fill="none" style={{ strokeWidth: lw(2.4) }} />
     <path d="M 50 80 L 58 77" fill="none" style={{ strokeWidth: lw(5.5) }} />
     {mole && <circle cx={57} cy={92} r={2.2} fill={PALETTE.ink} stroke="none" />}
+    </g>
   </g>
   );
 };
@@ -263,19 +269,23 @@ export const StudentTwinHead: React.FC<{
   const eyeRyL = isShocked ? 22 : isStare ? 20 : isScared ? 19 : isAgitated ? 16 : 14;
   const clip = useClipId(id);
   const o = useHeadLine();
-  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} sway={sway} />;
-  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'back') return <BackHead hair={NAM_HAIR} x={x} y={y} scale={scale} sway={sway} split={sideNew} />;
+  if (view === 'quarter') return <QuarterHead hair={NAM_HAIR} mole={markNear} x={x} y={y} scale={scale} sway={sway} split={sideNew} />;
   if (view === 'side' && sideNew) return <NamSoftProfileHead mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
   if (view === 'side') return <ProfileHead hair={NAM_HAIR} mood={mood} clip={clip} mole={markNear} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />; // nửa mặt thấy dấu phụ thuộc Nam/Người Kia, không chỉ hướng nhìn
   const front = view === 'front';
+  const neckCtx = React.useContext(NeckAngleCtx), th = sideNew ? neckCtx : 0; // cổ nghiêng ít, đầu gập nhiều (dáng mới)
   const rxR = front ? 15 : 17;
   const rxL = front ? 15 : 15;
 
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} style={{ strokeWidth: lw(3.5) }} strokeLinejoin="round" strokeLinecap="round">
       {/* Cổ & Khối bóng đổ cằm */}
+      <g transform={neckWrap(th)}>
       <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -28 141 L -28 182 Q -8 201 16 181 L 19 138'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -21 155 Q 0 171 21 155 L 21 175 Q 0 188 -21 175 Z' : 'M -26 155 Q -8 171 17 153 L 16 175 Q -7 187 -27 174 Z'} fill={PALETTE.skinShadow} stroke="none" />
+      </g>
+      <g transform={headWrap(th, [0, 150])}>
 
       {/* Hộp sọ & Đường cằm bo tròn hữu cơ (chuẩn mẫu B) */}
       <path d={front ? 'M -58 60 Q -52 25 0 25 Q 52 25 58 60 L 60 108 Q 62 138 38 156 Q 18 168 0 167 Q -18 168 -38 156 Q -62 138 -60 108 Z' : 'M -55 60 Q -50 25 -9 25 Q 42 24 53 66 L 55 111 Q 72 130 54 146 Q 38 166 6 165 Q -30 163 -45 138 L -58 100 Z'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
@@ -435,6 +445,7 @@ export const StudentTwinHead: React.FC<{
       )}
       </g>
       </>)}
+      </g>
       </g>
     </g>
   );
@@ -1257,23 +1268,29 @@ export const TungHead: React.FC<{
   scale?: number;
   /** Tóc đung đưa theo vật lý; bỏ trống = tóc đứng yên. */
   hair?: HairSway;
-}> = ({ mood = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1, hair: sway }) => {
+  /** Tách cổ–đầu khi cúi/ngửng (dáng mới); mặc định tắt = như đã chốt. */
+  splitNeck?: boolean;
+}> = ({ mood = 'annoyed', id = 'tung-head', view = 'three', talk, blink, x = 0, y = 0, scale = 1, hair: sway, splitNeck = false }) => {
   const clip = useClipId(id);
   const o = useHeadLine();
   const isAnnoyed = mood === 'annoyed';
   const isFocused = mood === 'focused';
-  if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} sway={sway} />;
-  if (view === 'quarter') return <QuarterHead hair={TUNG_HAIR} mole={false} x={x} y={y} scale={scale} sway={sway} />;
+  if (view === 'back') return <BackHead hair={TUNG_HAIR} x={x} y={y} scale={scale} sway={sway} split={splitNeck} />;
+  if (view === 'quarter') return <QuarterHead hair={TUNG_HAIR} mole={false} x={x} y={y} scale={scale} sway={sway} split={splitNeck} />;
   if (view === 'side') return <TungProfileHead mood={isAnnoyed ? 'annoyed' : 'calm'} clip={clip} talk={talk} blink={blink} x={x} y={y} scale={scale} sway={sway} />;
   const front = view === 'front';
+  const neckCtx = React.useContext(NeckAngleCtx), th = splitNeck ? neckCtx : 0;
   const rxR = front ? 15 : 16;
   const rxL = front ? 15 : 14.5;
 
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={PALETTE.ink} style={{ strokeWidth: lw(3.5) }} strokeLinejoin="round" strokeLinecap="round">
       {/* Cổ khỏe khoắn */}
+      <g transform={neckWrap(th)}>
       <path d={front ? 'M -22 141 L -22 182 Q 0 197 22 182 L 22 141' : 'M -26 142 L -26 182 Q -6 200 18 181 L 20 138'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
       <path d={front ? 'M -21 155 Q 0 171 21 155 L 21 175 Q 0 188 -21 175 Z' : 'M -24 156 Q -6 172 19 154 L 18 174 Q -6 186 -25 174 Z'} fill={PALETTE.skinShadow} stroke="none" />
+      </g>
+      <g transform={headWrap(th, [0, 150])}>
 
       {/* Đầu & Cằm thể thao sáng sủa, gọn gàng */}
       <path d={front ? 'M -56 62 Q -50 25 0 25 Q 50 25 56 62 L 58 104 Q 58 132 38 152 Q 18 165 0 164 Q -18 165 -38 152 Q -58 132 -58 104 Z' : 'M -54 62 Q -50 25 -9 24 Q 40 24 51 64 L 53 108 Q 62 126 48 144 Q 34 162 4 163 Q -28 162 -42 138 L -55 100 Z'} fill={PALETTE.skin} {...o(PALETTE.skin)} />
@@ -1339,6 +1356,7 @@ export const TungHead: React.FC<{
       ) : (
         <path d="M 0 141 Q 12 146 25 141" fill="none" style={{ strokeWidth: lw(2.6) }} />
       )}
+      </g>
       </g>
       </g>
     </g>
