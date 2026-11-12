@@ -29,6 +29,8 @@ PROFILE_PX = [0.19282, 0.19348, 0.19414, 0.1948, 0.19447, 0.19414, 0.19447, 0.19
 PROFILE_M_PER_PX = 1.0                             # PROFILE_PX đã tính sẵn bằng mét
 PROFILE_CENTER = (0.0, 1.2643)                      # (y, z) tâm sọ
 HAIR_INSET = 0.0                                   # sọ trần: không thụt cho tóc
+# Độ rộng sọ theo độ cao (z, nửa rộng) đo từ ảnh chính diện + sau lưng của khuôn (`mau-dau-tran-front/back`), tai đã được nội suy bỏ đi.
+WIDTH_TAB = [[1.465, 0.0366], [1.4469, 0.0952], [1.4288, 0.1242], [1.4106, 0.1435], [1.3925, 0.1586], [1.3744, 0.1703], [1.3563, 0.1779], [1.3381, 0.1846], [1.32, 0.1892], [1.3019, 0.1911], [1.2838, 0.1914], [1.2656, 0.1888], [1.2475, 0.1884], [1.2294, 0.1873], [1.2113, 0.1859], [1.1931, 0.1842], [1.175, 0.1827], [1.1569, 0.1814], [1.1388, 0.1806], [1.1206, 0.1803], [1.1025, 0.1582], [1.0844, 0.1476], [1.0663, 0.131], [1.0481, 0.1069], [1.03, 0.1069]]
 MOLE_SIDE = -1   # nốt ruồi theo ảnh mẫu: đuôi mày PHẢI nhân vật (−X, bên TRÁI ảnh chính diện). Đổi thành +1 nếu muốn đuôi mày trái.
 
 COL = {'da': '#d57d4a', 'toc': '#121110', 'trang': '#f3efe7', 'muc': '#1c1a19', 'khoang_mieng': '#4a1c1a', 'luoi': '#c2675f', 'rang': '#f4efe6'}
@@ -105,13 +107,36 @@ def warp_to_profile(bm, iters=3):
             v.co.y = ys + (v.co.y - ys) * fac; v.co.z = zs + (v.co.z - zs) * fac
 
 
+def warp_width(bm, iters=3):
+    """Kéo độ rộng sọ về đúng hình bóng chính diện/sau lưng của khuôn: theo từng độ cao nhân x với (nửa rộng mẫu / nửa rộng hiện tại)."""
+    zs = [t[0] for t in WIDTH_TAB]; ws = [t[1] for t in WIDTH_TAB]
+    def interp(tab_z, tab_v, z):                       # tab_z giảm dần
+        if z >= tab_z[0]: return tab_v[0]
+        if z <= tab_z[-1]: return tab_v[-1]
+        for i in range(len(tab_z) - 1):
+            if tab_z[i] >= z >= tab_z[i + 1]:
+                t = (tab_z[i] - z) / (tab_z[i] - tab_z[i + 1]); return tab_v[i] + (tab_v[i + 1] - tab_v[i]) * t
+    for _ in range(iters):
+        cur = []
+        for z0 in zs:
+            xs = [abs(v.co.x) for v in bm.verts if abs(v.co.z - z0) < 0.016]
+            cur.append(max(xs) if xs else None)
+        for i in range(len(cur)):                      # bin trống: nội suy từ lân cận
+            if cur[i] is None:
+                a = next((cur[j] for j in range(i - 1, -1, -1) if cur[j] is not None), None); b = next((cur[j] for j in range(i + 1, len(cur)) if cur[j] is not None), None)
+                cur[i] = a if b is None else (b if a is None else (a + b) / 2)
+        f = [ws[i] / max(1e-6, cur[i]) for i in range(len(zs))]
+        f = [(f[max(i - 1, 0)] + 2 * f[i] + f[min(i + 1, len(f) - 1)]) / 4 for i in range(len(f))]
+        for v in bm.verts: v.co.x *= interp(zs, f, v.co.z)
+
+
 def head_cage():
-    """Lồng điều khiển đầu: cube chia 8 đoạn/cạnh (có vòng cạnh giữa x = 0 cho Mirror) → bo về cầu 78% → má phính, cằm ngắn bầu tròn."""
+    """Lồng điều khiển đầu: cube chia 16 đoạn/cạnh (có vòng cạnh giữa x = 0 cho Mirror) → bo về cầu 78% → má phính, cằm ngắn bầu tròn."""
     bm = bmesh.new(); bmesh.ops.create_cube(bm, size=2.0)
-    bmesh.ops.subdivide_edges(bm, edges=bm.edges[:], cuts=7, use_grid_fill=True)
+    bmesh.ops.subdivide_edges(bm, edges=bm.edges[:], cuts=15, use_grid_fill=True)   # 16×16 mỗi mặt: đủ đỉnh để hình bóng chính diện/sau tròn, không nhọn như lều
     bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)
     for v in bm.verts:
-        p = v.co.copy(); s = p.normalized(); p = p.lerp(s, 0.78 + 0.17 * smooth01(-0.2, 0.6, p.y))   # hộp bo tròn; sau đầu tròn hẳn (không vách phẳng)
+        p = v.co.copy(); s = p.normalized(); p = p.lerp(s, 0.97)                                    # gần như cầu hoàn toàn: sọ tròn trơn như khuôn, không còn mặt phẳng kiểu hộp
         u, w, h = p.x, p.y, p.z                                              # w < 0 là mặt trước
         front = smooth01(0.1, -0.7, w)
         cheek = math.exp(-((h + 0.38) / 0.32) ** 2) * (0.35 + 0.65 * front)  # má phính ở nửa dưới
@@ -127,6 +152,7 @@ def head_cage():
         shear = -0.030 * smooth01(0.0, -1.0, h) ** 1.4                       # trục quả xoài: cằm vươn trước 3,0 cm (tổng cụm cằm ~5,6 cm)
         v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.010 * low * front - 0.016 * vong + shear, p.z * HEAD[2])) + C   # + cụm môi–mũi–cằm vồng ra trước, cằm U
     warp_to_profile(bm)
+    warp_width(bm)
     return bm
 
 
@@ -338,7 +364,9 @@ def studio(sc):
     area('Rim', (0.4, 1.6, 2.0), 1.0, 70, '#ffffff')
     cams = {}
     for name, loc, rot in (('Cam_Front', (0, -3, C.z + 0.04), (math.radians(90), 0, 0)), ('Cam_Right', (3, 0, C.z + 0.04), (math.radians(90), 0, math.radians(90))),
-                           ('Cam_34', (2.12, -2.12, C.z + 0.04), (math.radians(90), 0, math.radians(45)))):
+                           ('Cam_34', (2.12, -2.12, C.z + 0.04), (math.radians(90), 0, math.radians(45))),
+                           ('Cam_Back', (0, 3, C.z + 0.04), (math.radians(90), 0, math.radians(180))),
+                           ('Cam_14sau', (2.12, 2.12, C.z + 0.04), (math.radians(90), 0, math.radians(135)))):
         cd = bpy.data.cameras.new(name); cd.type = 'ORTHO'; cd.ortho_scale = 0.86
         o = bpy.data.objects.new(name, cd); sc.collection.objects.link(o); o.location = loc; o.rotation_euler = rot; cams[name] = o
     sc.render.engine = 'CYCLES'; sc.cycles.samples = 32; sc.cycles.use_denoising = True; sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = -0.5
@@ -351,10 +379,21 @@ def studio(sc):
     return cams
 
 
+def fuse_neck(head, neck):
+    """Hợp nhất cổ vào hộp sọ thành MỘT bề mặt liền: Boolean union → Remesh voxel (lưới đều) → Smooth làm tròn chỗ lõm hàm–cổ thành đường cong liền.
+    Thứ tự: Mirror, Subsurf, [Union, Remesh, Smooth], Mouth (khoét miệng vẫn ở cuối)."""
+    bo = head.modifiers.new('Neck_Union', 'BOOLEAN'); bo.operation = 'UNION'; bo.object = neck; bo.solver = 'EXACT'
+    rm = head.modifiers.new('Neck_Remesh', 'REMESH'); rm.mode = 'VOXEL'; rm.voxel_size = 0.0035; rm.use_smooth_shade = True
+    sm = head.modifiers.new('Neck_Smooth', 'SMOOTH'); sm.factor = 0.6; sm.iterations = 14
+    n = len(head.modifiers); names = [m.name for m in head.modifiers]
+    if 'Mouth' in names: head.modifiers.move(names.index('Mouth'), n - 1)
+    neck.hide_render = True; neck.hide_viewport = True
+
+
 def build_neck(coll, M):
     """Trụ cổ theo khuôn: dày 15,8 cm theo chiều sâu, rộng ~13 cm, đi thẳng xuống từ sau hàm. Đầu trên chìm trong hộp sọ."""
     bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=40, radius1=1.0, radius2=1.0, depth=1.0)
-    for v in bm.verts: v.co = Vector((v.co.x * 0.066, v.co.y * 0.079 - 0.006, 1.02 + v.co.z * 0.34))
+    for v in bm.verts: v.co = Vector((v.co.x * 0.078, v.co.y * 0.079 - 0.006, 1.02 + v.co.z * 0.34))
     ob = new_obj('Neck', bm, coll, M['da'])
     bv = ob.modifiers.new('Bevel', 'BEVEL'); bv.width = 0.02; bv.segments = 4; bv.limit_method = 'ANGLE'
     return ob
@@ -368,7 +407,7 @@ def build():
     head, cage = build_head(cf, M)
     S = build_face(cf, M, head)
     build_hair(ch, M, cage, S)
-    build_neck(cf, M)
+    neck = build_neck(cf, M); fuse_neck(head, neck)
     return sc
 
 
