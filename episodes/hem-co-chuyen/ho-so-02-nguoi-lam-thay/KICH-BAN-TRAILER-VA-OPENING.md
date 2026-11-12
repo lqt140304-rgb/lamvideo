@@ -4,6 +4,8 @@
 
 Tài liệu này quy chuẩn toàn bộ thông số kỹ thuật điện ảnh cấp cao (Góc máy, Tiêu cự ống kính Anamorphic, Chuyển động Camera người đóng, Ánh sáng Chiaroscuro, Mô phỏng chất phim nhựa 35mm, VFX Shaders, Thiết kế âm thanh SFX đa tầng, Subliminal Flash-frames và các Manh mối kích thích tò mò tột đỉnh) cho **Opening (48 giây)** và **Trailer chính thức (60 giây)** của dự án **"Người trong gương"** thuộc vũ trụ **The Crack in Reality**.
 
+> **Cập nhật Pipeline 3D (12/11/2026):** Toàn bộ các cú máy Anamorphic, Dolly Zoom, Mirror Reflection trễ nhịp và ánh sáng Chiaroscuro dưới đây được dựng trực tiếp bằng **Nhân vật 3D, Bối cảnh 3D 360° & Camera 3D vật lý** theo [QUY-CHUAN-3D.md](../../../docs/QUY-CHUAN-3D.md) (bản `opening.tsx` 2D hiện có đóng vai trò bản dựng thử animatic chốt nhịp).
+
 ---
 
 # MỤC 0: BỘ QUY CHUẨN HIỆU ỨNG ĐIỆN ẢNH NGƯỜI ĐÓNG (LIVE-ACTION CINEMATIC SUITE)

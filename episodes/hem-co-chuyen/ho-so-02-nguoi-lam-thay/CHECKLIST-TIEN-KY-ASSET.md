@@ -1,8 +1,8 @@
 # Bảng Kê Tổng Duyệt Asset Tiền Kỳ (Pre-Production Breakdown Sheet)
 ## The Crack in Reality — Hồ sơ 02: Người trong gương
 
-> **Mục đích tài liệu:** Bảng kiểm tra toàn diện (Checklist) dành cho Đạo diễn, Họa sĩ vẽ Background, Rigging Artist và Animator trước khi tiến hành dựng cảnh (Staging) và Render phim hoạt hình điện ảnh 15 phút.
-> **Quy chuẩn mỹ thuật:** Style B (Đường nét cong mềm, không viền ngoài, tách khối bằng mảng sáng–tối tự vẽ, ánh sáng Chiaroscuro David Fincher, tỉ lệ điện ảnh 2.39:1).
+> **Mục đích tài liệu:** Bảng kiểm tra toàn diện (Checklist) dành cho Đạo diễn, 3D Artist (Modeling/Rigging/Lighting) và Animator trước khi tiến hành dựng cảnh (Staging) và Render phim hoạt hình điện ảnh 15 phút.
+> **Quy chuẩn mỹ thuật (Cập nhật 12/11/2026):** Chuyển hướng sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** theo [QUY-CHUAN-3D.md](../../../docs/QUY-CHUAN-3D.md), giữ nguyên tinh thần tạo hình khối tròn mềm mại của Style B làm Model Sheet tham chiếu, ánh sáng vật lý Chiaroscuro David Fincher, tỉ lệ điện ảnh 2.39:1.
 
 ---
 
@@ -251,3 +251,30 @@ Các bối cảnh `bo-sung-15p` dựng bằng mô hình 3D theo cm ([`kit3d.tsx`
 
 ### Biểu cảm
 - [x] Ma trận 3 cấp: 6 nhóm × 3 mức (`bang-cam-xuc-01`, `bang-cam-xuc-02`)
+
+---
+
+## 8. Tiến độ chuyển thể lên Full 3D (cập nhật 12/11/2026)
+
+Theo quyết định chuyển hướng sang **Nhân vật 3D & Bối cảnh 3D** ([QUY-CHUAN-3D.md](../../../docs/QUY-CHUAN-3D.md)), toàn bộ danh mục 2D đã tick `[x]` ở Mục 7 phía trên trở thành **bộ Concept & Reference hoàn chỉnh**. Bảng dưới đây theo dõi tiến độ sản xuất tài sản 3D thực tế (đánh dấu `[x]` khi hoàn thiện từng hạng mục, không xóa mục cũ):
+
+### A. Nhân vật 3D (Modeling, Armature Rig IK/FK & Facial Blendshapes)
+- [ ] **3D_CHAR_NAM:** Mô hình 3D Nam (tạo hình tròn mềm Stylized 3D theo `nhan-vat.svg`), nốt ruồi bên trái, 2 bộ trang phục (áo ngủ xám & áo xanh rêu), Armature Rig IK/FK tay–chân bám sàn.
+- [ ] **3D_CHAR_NGUOIKIA:** Mô hình 3D Người Kia (bản sao Nam), nốt ruồi đối xứng bên phải, set animation mặc định thuận tay trái.
+- [ ] **3D_CHAR_TUNG:** Mô hình 3D Tùng (tóc layer gọn, đồ thể thao số 7), Armature Rig IK/FK đầy đủ.
+- [ ] **3D_CHAR_SUPPORT:** Các vai phụ 3D (Giảng viên, Mẹ, Bác Hai, Sinh viên nam/nữ) — ưu tiên tạo hình stylized nhẹ dùng chung Base Mesh.
+- [ ] **3D_FACIAL_SHAPES:** Bộ Blendshapes / Shape Keys biểu cảm 3 cấp độ (ngái ngủ, kiệt sức, tự ái, hoảng loạn, điềm tĩnh, `eerie_smirk`) + Visemes khẩu hình tiếng Việt khớp ElevenLabs.
+
+### B. Bối cảnh 3D (Full 360° Environments & Real Lighting)
+- [ ] **3D_SET_PHONGTRO:** Không gian phòng trọ $12\text{m}^2$ khép kín 4 tường & trần nhà (hỗ trợ Top-down $90^\circ$), có 4 trạng thái ánh sáng vật lý: Sáng sớm, Trưa gắt, Chiều tà Golden Hour, Đêm Chiaroscuro (Đèn bàn 3200K + Laptop 6500K).
+- [ ] **3D_SET_HANHLANG:** Hành lang dãy trọ tầng 2 (lan can sắt, cầu thang, đèn tuýp vàng lập lòe, cửa phòng có then cài trượt vật lý).
+- [ ] **3D_SET_GIANGDUONG:** Đại giảng đường bậc thang (bảng phấn, màn chiếu, bục giảng, hệ thống đèn tuýp trắng lạnh).
+- [ ] **3D_SET_LAB402 & TRUONG:** Phòng máy tính Lab 402 và Hành lang sân trường.
+- [ ] **3D_SET_MAMCOM:** Không gian mâm cơm gia đình ở quê ấm cúng.
+- [ ] **3D_SET_MIRROR_REALM:** Thế giới trong gương lật ngược $180^\circ$ chìm trong sương mù Deep Teal và mặt sàn nước phản chiếu.
+
+### C. Đạo cụ 3D & Shader Kỹ Xảo Đặc Biệt
+- [ ] **3D_PROP_MIRROR_PORTAL:** Chiếc gương soi khung gỗ 3D + **Planar Reflection Shader** (cho phép điều khiển bóng Người Kia tách biệt hoàn toàn với Nam) + **Liquid Water Displacement Shader** (mặt kính hóa nước ở Phần 3).
+- [ ] **3D_PROPS_HERO:** Bộ đạo cụ cầm nắm 3D có điểm neo Bone Constraint (Búa đinh cán gỗ, Điện thoại + Plane màn hình UI sắc nét, Laptop, Thẻ CCCD & Thẻ sinh viên, Phong bì 3 triệu, Bát sứ bồn rửa, Cơm sườn, Bún chả, Xôi gấc, Phấn gãy).
+- [ ] **3D_CAMERA_RIG:** Thiết lập Virtual Cine Camera 36mm Full-Frame (24/35/50/85mm), Handheld Breathing Noise (`0.2Hz`), DoF Bokeh vật lý và Keyframe Vertigo Dolly Zoom chuẩn cho cả 3 Phần.
+

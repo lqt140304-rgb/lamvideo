@@ -1,6 +1,8 @@
-# The Crack in Reality (Hẻm Có Chuyện) — hướng thiết kế nhân vật
+# The Crack in Reality (Hẻm Có Chuyện) — hướng thiết kế nhân vật (2D Concept $\to$ Stylized 3D)
 
-**Nhân vật xuyên series — 10/11/2026:** [mẫu truy vết và bộ biểu cảm đã duyệt](assets/nguoi-truy-vet/README.md): nam khoảng 20 tuổi, đen/than với điểm đỏ trầm; toàn thân V7 hiện hành, 27 nét theo 3 mức và mặt trung tính. Đây là mẫu của nhân vật đại diện chủ repo, chưa phải rig chung hoặc lệnh đổi các vai đã có.
+**Chuyển hướng lên 3D — 12/11/2026:** Toàn bộ dàn nhân vật được nâng cấp từ 2D SVG sang **Nhân vật 3D (Stylized 3D Characters)** theo [Quy chuẩn 3D](../../docs/QUY-CHUAN-3D.md). Các mẫu SVG/TSX Style B dưới đây giữ nguyên làm **Concept Art, Model Sheet & Turnaround Reference** để giữ trọn tỷ lệ, hình khối và tính cách nhân vật khi dựng lưới 3D và gắn xương (Armature + Facial Blendshapes).
+
+**Nhân vật xuyên series — 10/11/2026:** [mẫu truy vết và bộ biểu cảm đã duyệt](assets/nguoi-truy-vet/README.md): nam khoảng 20 tuổi, đen/than với điểm đỏ trầm; toàn thân V7 hiện hành, 27 nét theo 3 mức và mặt trung tính. Đây là mẫu thiết kế làm chuẩn dựng nhân vật đại diện cho series.
 
 **Mở rộng phạm vi 10/11/2026:** hướng Style B dưới đây áp dụng cùng [quy chuẩn mỹ thuật chung](../../docs/PHONG-CACH-MY-THUAT.md) cho **cả nhân vật, nội thất, đạo cụ, nhà cửa, đường phố và thiên nhiên**. Ưu tiên nét cong mềm và khối tròn đầy; tránh người mềm nhưng nền ghép hộp cứng. Tên file được giữ để bảo toàn liên kết; chi tiết nhân vật bên dưới vẫn là tham chiếu riêng của series.
 

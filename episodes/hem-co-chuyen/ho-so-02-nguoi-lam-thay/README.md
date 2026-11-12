@@ -1,5 +1,7 @@
 # The Crack in Reality — Hồ sơ 02: Người trong gương
 
+**CHUYỂN HƯỚNG SẢN XUẤT FULL 3D — 12/11/2026:** Chủ repo chính thức quyết định chuyển đổi phương thức dựng phim Hồ sơ 02 sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** theo [Quy chuẩn 3D](../../../docs/QUY-CHUAN-3D.md). Toàn bộ bộ SVG/TSX Style B (`nhan-vat.tsx`, `bo-sung-15p/`, `boi-canh/`, `opening.tsx`) đã thực hiện trước đó **được bảo toàn làm Concept Art, Turnaround Model Sheet, Layout Blocking và 2D Animatic Timing Guide** cho đội ngũ 3D Modeling, Rigging, Lighting và Animation.
+
 **Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
 
 **Asset bổ sung 11/11/2026:** [47 SVG và hướng dẫn](assets/bo-sung-15p/README.md), [bảng bối cảnh](assets/bo-sung-15p/bang-boi-canh.png), [vai phụ/dáng](assets/bo-sung-15p/bang-vai-phu-tu-the.png), [đạo cụ](assets/bo-sung-15p/bang-dao-cu.png). Bóng rig/phòng đã chuyển sang mảng tự vẽ; bản hình tĩnh mới chưa phải motion đã duyệt. Claude dùng nguồn và manifest để lắp cảnh, không ghép nguyên bảng duyệt vào phim.

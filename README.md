@@ -2,18 +2,21 @@
 
 Những chuyện giả định đặt người bình thường vào một lựa chọn khó, để người xem tự hỏi: **nếu là mình thì sao?** Ưu tiên đời sống Việt Nam, mâu thuẫn có chiều sâu, kết thúc có hệ quả và cách sản xuất vừa sức.
 
-**Thông báo mỹ thuật — 10/11/2026:** phong cách cartoon Style B dùng đường cong mềm, hình khối tròn đầy và nét liền mạch cho **cả nhân vật, nội thất, đạo cụ, kiến trúc, đường phố và môi trường**. Đọc [quy chuẩn mỹ thuật chung](docs/PHONG-CACH-MY-THUAT.md) trước khi thiết kế. [Bộ nhân vật hiện có](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg) là tham chiếu Style B; quy chuẩn mới không đồng nghĩa toàn bộ nền/asset cũ đã được vẽ lại hoặc rig/timeline đã hoàn thiện.
+**Thông báo chuyển hướng sản xuất sang Full 3D — 12/11/2026:** Chủ repo chính thức quyết định nâng cấp pipeline sản xuất sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** cho các sản phẩm chính thức (bắt đầu từ Hồ sơ 02: *Người trong gương*). Toàn bộ các file thiết kế SVG/TSX theo phong cách Style B hiện có (`nhan-vat.svg`, `boi-canh.png`, `bo-sung-15p/`, `opening.tsx`) được giữ nguyên làm **Concept Art, Turnaround Model Sheet và Animatic 2D tham chiếu** để dựng mô hình 3D. Đọc quy chuẩn chi tiết tại **[QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md)** và [quy chuẩn mỹ thuật chung](docs/PHONG-CACH-MY-THUAT.md).
 
-**Quyết định tạo hình mới — 10/11/2026:** nhân vật không viền ngoài, tay–chân giản lược bằng khối mềm; xem [quy chuẩn và ảnh so sánh](docs/PHONG-CACH-MY-THUAT.md). Đã chốt hướng thiết kế; chưa đồng nghĩa rig và toàn bộ preview đã cập nhật.
+**Quyết định tạo hình cốt lõi (giữ tinh thần Style B khi lên 3D):** hình khối tròn đầy, đường cong mềm mại, tay–chân tối giản giàu tính biểu cảm, kết hợp ánh sáng vật lý Chiaroscuro và góc quay điện ảnh 3D thực thụ; xem [quy chuẩn và ảnh so sánh](docs/PHONG-CACH-MY-THUAT.md).
 
 ## Bắt đầu ở đây
 
-**Thư viện biểu cảm dùng chung:** [bộ nét mặt tách lớp](what-if-studio/library/expressions/cartoon-soft/README.md) có 27 mức biểu cảm + trung tính, không tóc/khung đầu, để căn vào nhân vật mới; xem giới hạn góc nhìn và cách ghép trong hướng dẫn.
+**Quy chuẩn sản xuất 3D mới (12/11/2026):** [QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md) hướng dẫn dựng hình nhân vật 3D, rig xương & Blendshapes, bối cảnh 3D 360°, shader gương hóa nước và tích hợp render Blender / `@remotion/three` vào Remotion Studio.
 
-**Asset xuyên series mới — 10/11/2026:** [Nhân vật truy vết](episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) có mẫu toàn thân hiện hành và 27 biểu cảm theo 3 mức + trung tính đã duyệt. Lưu riêng ở asset chung của The Crack in Reality (Hẻm Có Chuyện); chưa rig hoặc ghép vào tập.
+**Thư viện biểu cảm tham chiếu:** [bộ nét mặt tách lớp](what-if-studio/library/expressions/cartoon-soft/README.md) có 27 mức biểu cảm + trung tính, dùng làm chuẩn dựng Blendshapes/Shape Keys cho nhân vật 3D.
+
+**Asset xuyên series:** [Nhân vật truy vết](episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) có mẫu toàn thân hiện hành và 27 biểu cảm theo 3 mức + trung tính đã duyệt. Lưu riêng ở asset chung của The Crack in Reality (Hẻm Có Chuyện); sẵn sàng làm concept sheet để dựng 3D.
 
 | File | Tác dụng và nội dung cần có | Khi đọc hoặc cập nhật |
 |---|---|---|
+| [QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md) | **Mới (12/11):** Quy chuẩn dựng Nhân vật 3D, Bối cảnh 3D, ánh sáng Chiaroscuro, shader gương và pipeline Blender $\to$ Remotion | Đọc trước khi model, rig, lighting hoặc setup camera 3D |
 | [MUC-TIEU.md](docs/MUC-TIEU.md) | Hướng nội dung, khán giả, phạm vi thử và tiêu chí chọn đề tài; dùng để quyết định một ý tưởng có phù hợp kênh hay không | Đọc trước khi chọn đề tài; sửa khi chủ repo thay đổi định hướng |
 | [KINH-NGHIEM.md](docs/KINH-NGHIEM.md) | Những nguyên tắc dùng lại được để nâng chất lượng và tiết kiệm thời gian/chi phí; không chứa cốt truyện hoặc nhật ký riêng của tập | Đọc trước khi làm; bổ sung bài học mới sau công việc theo quy tắc bên dưới |
 | [NGON-NGU-DIEN-ANH-2-5D.md](docs/NGON-NGU-DIEN-ANH-2-5D.md) | Nghiên cứu góc máy, lens, lấy nét, chuyển động và cách tạo chiều sâu cho hình 2D; có mẫu shot, nguồn và giới hạn kỹ thuật | Đọc khi lập storyboard hoặc chọn phong cách; các đề xuất cần dựng thử trước khi coi là khả năng đã có của studio |
