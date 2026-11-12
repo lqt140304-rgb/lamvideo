@@ -96,9 +96,12 @@ export function buildNam(THREE, { colors = {} } = {}) {
     mesh(new THREE.TorusGeometry(8.1, 0.55, 10, 48), M('#676462', 0.95), J['shoulder' + k], [0.75 * s, -13, 0], [Math.PI / 2, 0.06 * s, 0]);
     mesh(new THREE.CylinderGeometry(7.6, 7.6, 0.4, 32), M('#3f3d3c', 0.95), J['shoulder' + k], [0.75 * s, -12.95, 0], [0, 0, 0.06 * s]);
     // tay: bắp tay, cẳng tay mập
-    mesh(cap(5.6, 8.5), skinM, J['shoulder' + k], [0, -11.5, 0]);
-    mesh(sph(5.5), skinM, J['elbow' + k], [0, 0, 0]);
-    mesh(cap(5.4, 8.5), skinM, J['elbow' + k], [0, -7.2, 0]);
+    // tay liền mạch: thân ống cùng bán kính tại khuỷu + một khối cầu chung đúng tâm khớp, không đổi bán kính ở chỗ nối (hết ngấn thắt)
+    const R_ELBOW = 5.5;
+    mesh(new THREE.CylinderGeometry(R_ELBOW, R_ELBOW, 16.5, 40, 1, true), skinM, J['shoulder' + k], [0, -9.75, 0]);          // bắp tay: vai → khuỷu
+    mesh(sph(R_ELBOW, 40, 28), skinM, J['elbow' + k], [0, 0, 0]);                                                         // khớp khuỷu
+    mesh(new THREE.CylinderGeometry(R_ELBOW, 4.7, 15, 40, 1, true), skinM, J['elbow' + k], [0, -7.5, 0]);                  // cẳng tay thon dần về cổ tay
+    mesh(sph(4.7, 32, 24), skinM, J['wrist' + k], [0, 0, 0]);
     // bàn tay tròn: lòng bàn tay + 4 ngón cong + ngón cái
     const H = J['wrist' + k]; H.scale.setScalar(1.25);
     mesh(sph(1), skinM, H, [0, -4.4, 0.3], [0, 0, 0], [3.4, 5.0, 4.6]);
@@ -215,11 +218,12 @@ export function buildNam(THREE, { colors = {} } = {}) {
   const hairline = (az) => {                                     // độ cao chân tóc (tỉ lệ) theo phương vị quanh đầu
     const A = Math.abs(az);
     const fringe = 0.66 - TIPS.reduce((m, [t, w]) => Math.max(m, 0.21 * Math.sqrt(Math.max(0, 1 - ((az - t) / w) ** 2))), 0); // chân tóc cao hơn mày, mũi mái bo tròn (nửa elip)
-    const side = -0.3, overEar = 0.06, nape = -0.6;
+    const side = -0.3, nape = -0.6;
     let v = fringe;
     v += (side - v) * smooth(0.92, 1.06, A);                     // tóc mai hẹp trước tai
-    v += (overEar - v) * smooth(1.12, 1.24, A);                  // trên tai: cắt gọn
-    v += (nape - v) * smooth(1.8, 2.15, A);                      // sau gáy phủ thấp
+    const overEar = 0.16 - 0.38 * smooth(1.25, 2.0, A);          // trên tai: cao ở trước tai rồi lượn mềm xuống sau tai (không cắt ngang)
+    v += (overEar - v) * smooth(1.12, 1.26, A);
+    v += (nape - v) * smooth(2.0, 2.4, A);                       // sau gáy phủ thấp
     return v;
   };
   // rãnh giữa các lọn: đường chéo trên mái (giữa các mũi) và vài rãnh toả từ đỉnh ra sau
