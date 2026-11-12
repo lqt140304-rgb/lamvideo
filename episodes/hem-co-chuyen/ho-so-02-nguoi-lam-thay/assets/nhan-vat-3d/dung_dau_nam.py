@@ -22,6 +22,13 @@ from mathutils.bvhtree import BVHTree
 
 C = Vector((0.0, 0.0, 1.25))                       # tâm hộp sọ
 HEAD = (0.200, 0.198, 0.228)                       # nửa rộng (x), nửa sâu (y), nửa cao (z): sọ tròn đều, mặt không dẹt bè
+# Khuôn hộp sọ trần của chủ repo (ảnh profile xám `../thiet-ke/thu-3d/mau-dau-tran-profile.webp`, mặt hướng trái): bán kính hình bóng nghiêng theo góc
+# quanh tâm sọ, mỗi 5° bắt đầu từ hướng nhìn ra trước (−Y), ngược chiều kim đồng hồ (lên trên → sau gáy → cổ → cằm). Đơn vị mét (đỉnh sọ → đáy cằm = 0,435 m).
+# Hộp sọ được kéo về đúng hình bóng này (warp_to_profile); mũ tóc nằm phía ngoài.
+PROFILE_PX = [0.19282, 0.19348, 0.19414, 0.1948, 0.19447, 0.19414, 0.19447, 0.19414, 0.19414, 0.19512, 0.19512, 0.19578, 0.19644, 0.1971, 0.19743, 0.19809, 0.19842, 0.1994, 0.19973, 0.20072, 0.20171, 0.20368, 0.20368, 0.20368, 0.20467, 0.20533, 0.20598, 0.2073, 0.20598, 0.20598, 0.20598, 0.20598, 0.20631, 0.20631, 0.20631, 0.20664, 0.20631, 0.20664, 0.20697, 0.20697, 0.20697, 0.20664, 0.20664, 0.20631, 0.20631, 0.20631, 0.20664, 0.20697, 0.20796, 0.20829, 0.21487, 0.24255, 0.2379, 0.23518, 0.23428, 0.23518, 0.2379, 0.24255, 0.24932, 0.25699, 0.26719, 0.27607, 0.28068, 0.27969, 0.27311, 0.26258, 0.24843, 0.23, 0.20993, 0.19809, 0.19348, 0.19216]
+PROFILE_M_PER_PX = 1.0                             # PROFILE_PX đã tính sẵn bằng mét
+PROFILE_CENTER = (0.0, 1.2643)                      # (y, z) tâm sọ
+HAIR_INSET = 0.0                                   # sọ trần: không thụt cho tóc
 MOLE_SIDE = -1   # nốt ruồi theo ảnh mẫu: đuôi mày PHẢI nhân vật (−X, bên TRÁI ảnh chính diện). Đổi thành +1 nếu muốn đuôi mày trái.
 
 COL = {'da': '#d57d4a', 'toc': '#121110', 'trang': '#f3efe7', 'muc': '#1c1a19', 'khoang_mieng': '#4a1c1a', 'luoi': '#c2675f', 'rang': '#f4efe6'}
@@ -67,6 +74,37 @@ def smooth01(a, b, x):
 
 
 # ------------------------------------------------------------------ Head_Base: hộp bo tròn
+def warp_to_profile(bm, iters=3):
+    """Kéo hình bóng nghiêng của hộp sọ về đúng viền mẫu: theo từng góc quanh tâm viền, nhân (y, z) với R_mẫu / R_hiện_tại (nội suy mượt giữa các góc).
+    R_hiện_tại đo bằng hàm đỡ max(r·cos Δ) (không phụ thuộc đỉnh nào rơi vào góc nào); lặp vài lượt cho hội tụ."""
+    ys, zs = PROFILE_CENTER; N = len(PROFILE_PX); two = 2 * math.pi
+    def ang(v): return math.atan2(v.co.z - zs, -(v.co.y - ys)) % two
+    def inset_w(deg):
+        d = deg % 360
+        if 20 <= d <= 200: return 1.0
+        if 200 < d < 250: return 1.0 - smooth01(200, 250, d)
+        if d <= 20: return smooth01(-10, 20, d)
+        if d > 340: return smooth01(-10, 20, d - 360)
+        return 0.0
+    tar = [(PROFILE_PX[k] * PROFILE_M_PER_PX - HAIR_INSET * inset_w(k * 360 / N)) * 1.025 for k in range(N)]   # ×1,025: bù phần co của Subsurf trên lồng điều khiển
+    for _ in range(iters):
+        # bán kính hiện tại theo góc: nội suy tuyến tính giữa các đỉnh nằm trên lát cắt giữa (x = 0), sắp theo góc (hình lõm như cằm nhô vẫn đúng)
+        pts = sorted((ang(v), math.hypot(v.co.y - ys, v.co.z - zs)) for v in bm.verts if abs(v.co.x) < 1e-6)
+        pts = [(a - two, r) for a, r in pts[-1:]] + pts + [(a + two, r) for a, r in pts[:1]]
+        cur = []; j = 0
+        for k in range(N):
+            ph = k * two / N
+            while pts[j + 1][0] < ph: j += 1
+            (a0, r0), (a1, r1) = pts[j], pts[j + 1]; cur.append(r0 + (r1 - r0) * (ph - a0) / max(1e-9, a1 - a0))
+        f = [tar[k] / cur[k] for k in range(N)]
+        for _ in range(2):   # làm mượt hệ số kéo (±2 góc) để không sinh gờ/nếp trên mặt sọ
+            w = (1, 2, 3, 2, 1); f = [sum(w[j + 2] * f[(k + j) % N] for j in range(-2, 3)) / 9 for k in range(N)]
+        for v in bm.verts:
+            a = ang(v) / two * N - 0.5; k0 = int(math.floor(a)) % N; k1 = (k0 + 1) % N; t = a - math.floor(a)
+            fac = f[k0] * (1 - t) + f[k1] * t
+            v.co.y = ys + (v.co.y - ys) * fac; v.co.z = zs + (v.co.z - zs) * fac
+
+
 def head_cage():
     """Lồng điều khiển đầu: cube chia 8 đoạn/cạnh (có vòng cạnh giữa x = 0 cho Mirror) → bo về cầu 78% → má phính, cằm ngắn bầu tròn."""
     bm = bmesh.new(); bmesh.ops.create_cube(bm, size=2.0)
@@ -88,6 +126,7 @@ def head_cage():
         vong = math.exp(-((h + 0.45) / 0.33) ** 2) * front                    # nửa dưới mặt (dưới mắt → cằm) vồng tròn ra trước
         shear = -0.030 * smooth01(0.0, -1.0, h) ** 1.4                       # trục quả xoài: cằm vươn trước 3,0 cm (tổng cụm cằm ~5,6 cm)
         v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.010 * low * front - 0.016 * vong + shear, p.z * HEAD[2])) + C   # + cụm môi–mũi–cằm vồng ra trước, cằm U
+    warp_to_profile(bm)
     return bm
 
 
@@ -313,9 +352,9 @@ def studio(sc):
 
 
 def build_neck(coll, M):
-    """Trụ cổ dày theo viền mẫu: bắt đầu ngay sau cằm, đi thẳng xuống (elip 14 × 12,4 cm). Đầu trên chìm trong hộp sọ."""
+    """Trụ cổ theo khuôn: dày 15,8 cm theo chiều sâu, rộng ~13 cm, đi thẳng xuống từ sau hàm. Đầu trên chìm trong hộp sọ."""
     bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=40, radius1=1.0, radius2=1.0, depth=1.0)
-    for v in bm.verts: v.co = Vector((v.co.x * 0.070, v.co.y * 0.062 - 0.029, 1.02 + v.co.z * 0.34))
+    for v in bm.verts: v.co = Vector((v.co.x * 0.066, v.co.y * 0.079 - 0.006, 1.02 + v.co.z * 0.34))
     ob = new_obj('Neck', bm, coll, M['da'])
     bv = ob.modifiers.new('Bevel', 'BEVEL'); bv.width = 0.02; bv.segments = 4; bv.limit_method = 'ANGLE'
     return ob
