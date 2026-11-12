@@ -2,6 +2,8 @@ import { Build, DEFAULT_BUILD, JointPose, Limb, solveRig, STAND_POSE, View } fro
 import { armHint } from './tay-ik';
 import { CameraMove, placeOn, RoomView, screenOf, SEATS, tiltCos } from './boi-canh/boi-canh';
 import { facingFor, Pt } from './di-chuyen';
+import { easePose } from './song-dong';
+import { mixPose, TWIN_POSES } from './nhan-vat';
 
 /**
  * ĐIỂM TIẾP XÚC CỐ ĐỊNH (11/11/2026): chân–sàn, hông–ghế, bàn tay–mặt bàn/đồ vật. Mỗi điểm là một toạ độ 3D của cảnh (cm);
@@ -19,10 +21,12 @@ export const SURFACES = {
   /** mặt bàn học */ deskTop: 65,
   /** mặt nệm */ mattress: 24,
 };
-/** Chỗ ngồi: vị trí sàn của người ngồi và hướng nhìn (về phía mặt bàn là −z). */
-export const seatAnchor = (chair: keyof typeof SEATS): { at: Pt; top: number; facing: Pt } => {
-  const s = SEATS[chair];
-  return { at: [s.x, s.z], top: SURFACES.seatTop, facing: [Math.sin(s.a + Math.PI), Math.cos(s.a + Math.PI)] };
+/** Trạng thái ghế so với chỗ gốc trong `SEATS`: trượt `dx`, `dz` (cm) và xoay `rot` (rad) — cùng giá trị truyền cho `RoomScene chairPush`. */
+export type ChairState = { dx: number; dz: number; rot: number };
+/** Chỗ ngồi: vị trí sàn của người ngồi và hướng nhìn (ghế gốc quay về phía mặt bàn là −z). Ghế bị kéo/xoay thì truyền `st`. */
+export const seatAnchor = (chair: keyof typeof SEATS, st?: ChairState): { at: Pt; top: number; facing: Pt } => {
+  const s = SEATS[chair], ca = s.a + (st?.rot ?? 0); // ca: góc của ghế trong RoomScene (lưng ghế ở (sin ca, cos ca) × 19,5 cm)
+  return { at: [s.x + (st?.dx ?? 0), s.z + (st?.dz ?? 0)], top: SURFACES.seatTop, facing: [Math.sin(ca + Math.PI), Math.cos(ca + Math.PI)] };
 };
 
 const PELVIS = { x: 0, y: 345 };
@@ -95,12 +99,67 @@ export type Seated = { at: Pt; pose: JointPose };
  * Người ngồi trên `chair`, hai bàn tay đặt lên mặt bàn tại `hands` (toạ độ 3D, mặc định gõ phím trước chỗ ngồi):
  * hông đúng mặt ghế, chân chạm sàn, mặt/thân quay đúng về phía bàn theo máy `view`.
  */
-export const seatedAt = (view: RoomView, chair: keyof typeof SEATS, o: FrameOpts & { hands?: { R?: V3; L?: V3 }; lean?: number; base?: JointPose } = {}): Seated => {
-  const s = seatAnchor(chair), { view: v, facing } = facingFor(view, s.facing, o.move);
+export const seatedAt = (view: RoomView, chair: keyof typeof SEATS, o: FrameOpts & { hands?: { R?: V3; L?: V3 }; lean?: number; base?: JointPose; /** ghế đang bị kéo/xoay */ chairState?: ChairState; /** hai tay để trong lòng (ngồi không dùng bàn) thay vì đặt lên mặt bàn */ lap?: boolean } = {}): Seated => {
+  const s = seatAnchor(chair, o.chairState), { view: v, facing } = facingFor(view, s.facing, o.move);
   const legs = sitLegs(s.top, { heightCm: (o.heightCm ?? 168) * tiltCos(view, s.at, o.floorTilt, o.move), view: v as View, build: o.build });
   const hands = o.hands ?? { R: [SEATS[chair].x - 8, SURFACES.deskTop + 2, SEATS[chair].z - 48] as V3, L: [SEATS[chair].x + 14, SURFACES.deskTop + 2, SEATS[chair].z - 47] as V3 };
   let pose: JointPose = { ...(o.base ?? STAND_POSE), view: v as View, facing, ...legs, tilt: o.lean ?? 8, neck: -5, handR: 'type', handL: 'type', frontR: true, frontL: true };
+  if (o.lap) {
+    const sit = TWIN_POSES.sit;
+    return { at: s.at, pose: { ...pose, armR: sit.armR, armL: sit.armL, handR: sit.handR, handL: sit.handL, tilt: o.lean ?? 5, neck: 0 } };
+  }
   if (hands.R) pose = reachWorld(view, s.at, pose, 'R', hands.R, o);
   if (hands.L) pose = reachWorld(view, s.at, pose, 'L', hands.L, o);
   return { at: s.at, pose };
+};
+
+// ---------------------------------------------------------------------------
+// NGỒI VÀO GHẾ ĐANG KÉO RA, XOAY GHẾ VỀ PHÍA BÀN, KÉO GHẾ VÀO
+// ---------------------------------------------------------------------------
+export type SeatingPlan = {
+  chair: keyof typeof SEATS;
+  /** chỗ đứng cạnh ghế (sàn, cm) trước khi ngồi: lưng quay về phía ghế, nhìn cùng hướng với người ngồi */
+  standAt: Pt;
+  /** ghế đang bị kéo ra / xoay lúc bắt đầu ngồi */
+  pulled: ChairState;
+  /** khung bắt đầu ngồi xuống */
+  t0: number;
+  /** số khung ngồi xuống (mặc định 24), nghỉ (mặc định 12), xoay + kéo ghế vào (mặc định 34) */
+  sit?: number; hold?: number; swivel?: number;
+};
+const smooth = (t: number) => t * t * (3 - 2 * t);
+const c01 = (v: number) => Math.min(1, Math.max(0, v));
+/** Khung kết thúc của kế hoạch ngồi (đã ngồi vào bàn). */
+export const seatingEnd = (p: SeatingPlan) => p.t0 + (p.sit ?? 24) + (p.hold ?? 12) + (p.swivel ?? 34);
+/**
+ * Người ngồi xuống ghế đang kéo ra rồi quay ghế về bàn và kéo ghế vào:
+ *  1. ngồi xuống: lùi từ `standAt` vào mặt ghế, dáng đứng → ngồi (hai tay trong lòng), hông đúng mặt ghế đang ở chỗ kéo;
+ *  2. nghỉ một nhịp;
+ *  3. xoay ghế (`rot` về 0) và trượt ghế vào (`dx`, `dz` về 0, chậm dần): góc nhìn của người đổi theo hướng ghế qua các góc trung gian, chân giải lại theo góc,
+ *     hai tay rời lòng đặt lên mặt bàn khi ghế đã gần quay về phía bàn;
+ *  4. ngồi gõ phím.
+ * Trả về trạng thái ghế (truyền cho `RoomScene chairPush`), vị trí sàn và dáng người. Tất định theo số khung.
+ */
+/**
+ * Người ngồi trên ghế ở trạng thái `st` bất kỳ (kéo/xoay): hông đúng mặt ghế, góc nhìn theo hướng ghế, chân giải theo góc;
+ * tay đặt lên mặt bàn khi ghế quay về phía bàn (`rot` → 0) và về lòng khi ghế quay đi (trộn dần, khuỷu duỗi qua thẳng khi đổi chiều gập).
+ */
+export const seatedBlend = (view: RoomView, chair: keyof typeof SEATS, st: ChairState, o: FrameOpts = {}): Seated => {
+  const lap = seatedAt(view, chair, { ...o, chairState: st, lap: true }), desk = seatedAt(view, chair, { ...o, chairState: st });
+  const w = smooth(c01((1.2 - Math.abs(st.rot)) / 1.2)), m = mixPose(lap.pose, desk.pose, w);
+  return { at: lap.at, pose: { ...lap.pose, armR: m.armR, armL: m.armL, handR: w > 0.5 ? desk.pose.handR : lap.pose.handR, handL: w > 0.5 ? desk.pose.handL : lap.pose.handL, tilt: lap.pose.tilt + (desk.pose.tilt - lap.pose.tilt) * w, neck: lap.pose.neck + (desk.pose.neck - lap.pose.neck) * w } };
+};
+export const seating = (view: RoomView, plan: SeatingPlan, frame: number, o: FrameOpts = {}): { chair: ChairState; at: Pt; pose: JointPose; phase: 'sit' | 'hold' | 'swivel' | 'seated' } => {
+  const sit = plan.sit ?? 24, hold = plan.hold ?? 12, sw = plan.swivel ?? 34, t1 = plan.t0 + sit, t2 = t1 + hold;
+  const u = c01((frame - t2) / sw), uRot = smooth(u), uSlide = 1 - Math.pow(1 - c01((frame - t2 - 4) / (sw + 4)), 3); // ghế quay trước, trượt vào chậm dần
+  const chair: ChairState = { dx: plan.pulled.dx * (1 - uSlide), dz: plan.pulled.dz * (1 - uSlide), rot: plan.pulled.rot * (1 - uRot) };
+  const lap = seatedAt(view, plan.chair, { ...o, chairState: chair, lap: true });
+  if (frame < t1) {
+    const k = c01((frame - plan.t0) / sit), seat = lap.at, fromView = facingFor(view, seatAnchor(plan.chair, plan.pulled).facing, o.move);
+    const stand = { ...STAND_POSE, view: fromView.view, facing: fromView.facing };
+    return { chair, at: [plan.standAt[0] + (seat[0] - plan.standAt[0]) * smooth(k), plan.standAt[1] + (seat[1] - plan.standAt[1]) * smooth(k)], pose: easePose(stand, lap.pose, k, { anticipate: 2 }), phase: 'sit' };
+  }
+  if (frame < t2) return { chair, at: lap.at, pose: lap.pose, phase: 'hold' };
+  const { pose } = seatedBlend(view, plan.chair, chair, o);
+  return { chair, at: lap.at, pose, phase: u >= 1 ? 'seated' : 'swivel' };
 };

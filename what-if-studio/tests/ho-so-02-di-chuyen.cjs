@@ -127,4 +127,28 @@ for (const floorTilt of [1]) {
   for (let t = 0; t <= 1.0001; t += 0.05) { const p = sg.easePose(a, b, t), p2 = r.mixPose(a, b, t); assert.ok(Math.abs(p.armL.b - prevB) < 25, `easePose khuỷu nhảy ở t=${t.toFixed(2)}`); prevB = p.armL.b; assert.ok(p2.armL.b <= 60.001 && p2.armL.b >= 0, 'mixPose khuỷu hợp lệ'); }
   assert.ok(Math.min(...[0.4, 0.5, 0.6].map((t) => r.mixPose(a, b, t).armL.b)) < 15, 'mixPose duỗi gần thẳng ở giữa chặng đổi chiều gập');
 }
-console.log('di-chuyen ok: điểm tiếp xúc ghế, bàn, sàn, ngả theo mặt sàn');
+// Ngồi vào ghế kéo ra, xoay ghế về bàn, kéo ghế vào: liên tục, hông luôn đúng mặt ghế đang ở chỗ đó, góc nhìn đi qua góc trung gian.
+{
+  const plan = { chair: 'desk', standAt: [372, 146], pulled: { dx: 0, dz: 34, rot: Math.PI / 2 }, t0: 10 };
+  const end = ct.seatingEnd(plan) + 10, seen = new Set(), keys = ['legR.a', 'legR.b', 'legL.a', 'legL.b', 'armR.a', 'armR.b', 'armL.a', 'armL.b', 'tilt', 'neck'];
+  const get = (p, k) => k.split('.').reduce((o, q) => o[q], p);
+  let prev = null, maxJump = 0, worstHip = 0, worst = '';
+  for (let f = plan.t0; f <= end; f++) {
+    const st = ct.seating('wide', plan, f), seat = ct.seatAnchor('desk', st.chair);
+    seen.add(`${st.pose.view}/${st.pose.facing}`);
+    assert.ok(!JSON.stringify(st.pose).includes('NaN') && Number.isFinite(st.at[0]), `NaN ở khung ${f}`);
+    // hông đúng mặt ghế: sau khi ngồi, vị trí người = vị trí ghế đang trượt
+    if (f >= plan.t0 + 24) assert.ok(Math.hypot(st.at[0] - seat.at[0], st.at[1] - seat.at[1]) < 0.01, `người rời ghế ở khung ${f}`);
+    const hipY = ct.rigToScreen('wide', st.at, st.pose, [0, 345])[1], seatTop = room.screenOf('wide', [seat.at[0], seat.top, seat.at[1]])[1], k = room.placeOn('wide', st.at).scale;
+    if (f >= plan.t0 + 26) { const e = Math.abs(seatTop - hipY - 6 * (590 / 168) * k); if (e > worstHip) { worstHip = e; worst = `f${f}`; } }
+    if (prev && !(prev.pose.view !== st.pose.view || prev.pose.facing !== st.pose.facing)) for (const q of keys) maxJump = Math.max(maxJump, Math.abs(get(st.pose, q) - get(prev.pose, q)));
+    prev = st;
+  }
+  console.log(`  ngồi: góc ${[...seen].join(' → ')}; khớp nhảy tối đa ${maxJump.toFixed(1)}°/khung; hông lệch tối đa ${worstHip.toFixed(1)} px (${worst})`);
+  assert.ok(seen.size >= 3 && seen.has('side/-1') && seen.has('quarter/-1') && seen.has('back/1'), 'xoay đi qua góc trung gian từ nghiêng tới sau lưng');
+  assert.ok(maxJump < 24, `khớp nhảy ${maxJump}`);
+  assert.ok(worstHip < 14, `hông lệch mặt ghế ${worstHip}px`);
+  const last = ct.seating('wide', plan, end);
+  assert.ok(Math.abs(last.chair.dx) + Math.abs(last.chair.dz) + Math.abs(last.chair.rot) < 1e-6 && last.phase === 'seated', 'ghế về chỗ cũ, đã ngồi vào bàn');
+}
+console.log('di-chuyen ok: điểm tiếp xúc ghế, bàn, sàn, ngả theo mặt sàn, ngồi kéo/xoay ghế');

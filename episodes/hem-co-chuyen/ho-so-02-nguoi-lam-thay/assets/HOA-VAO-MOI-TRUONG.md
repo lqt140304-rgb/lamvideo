@@ -20,12 +20,14 @@ Kiểm tra: `node what-if-studio/tests/ho-so-02-di-chuyen.cjs` (đường đi t�
 - **Vóc dáng**: `seatedAt`/`reachWorld`/`sitLegs` nhận `build` (dáng tham chiếu của Nam 2.5D), `armHint` nhận `build`; `walker` nhận `leg` — dùng sai độ dài chân thì chân lơ lửng hoặc lún.
 - Kiểm tra bằng số trong `tests/ho-so-02-di-chuyen.cjs`: tốc độ và gia tốc đổi của mọi khớp qua đứng→tăng tốc→bước→rẽ→dừng, tỉ lệ trượt của chân trụ.
 
+## Ngồi vào ghế kéo ra, xoay ghế, kéo ghế vào (12/11)
+`seating(view, plan, frame, opts)` trong [`diem-tiep-xuc.tsx`](diem-tiep-xuc.tsx): ghế bắt đầu bị kéo ra và xoay về phía cửa (`ChairState` = `dx`, `dz`, `rot`, cùng giá trị truyền `RoomScene chairPush`). Người đứng cạnh ghế, lùi người ngồi xuống (hông đúng mặt ghế đang ở chỗ kéo), nghỉ một nhịp, rồi xoay ghế về bàn (`rot` → 0) và trượt ghế vào (chậm dần). Góc nhìn của người đi theo hướng ghế qua các góc trung gian (nghiêng → 1/4 → sau lưng), chân giải lại theo từng góc, hai tay rời lòng đặt lên bàn khi ghế quay về phía bàn. `seatedBlend` cho ghế ở trạng thái bất kỳ (vd. xoay ghế về phía người đang đi tới). Kiểm tra: hông lệch mặt ghế < 1 px suốt chuỗi, người luôn ở đúng chỗ ghế đang trượt, khớp không nhảy.
+
 ## Ví dụ ngắn gom tất cả
-`HoSo02VdHoaMoiTruong` ([`vd-hoa-moi-truong.tsx`](../../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/vd-hoa-moi-truong.tsx), ~13,5 s, ban ngày, một cú máy toàn phòng): Nam đi từ cửa tới bàn, ngồi, gõ phím; Tùng bước vào, đi chéo về phía máy (che khuất sau nệm, bóng, ngả theo sàn), dừng lại vẫy tay; Nam quay ghế lại (góc 1/4 → nghiêng → 3/4) và đổi nét mặt bình thản → suy luận → bất ngờ → vui. Dùng mặt 2.5D tham số, dáng sống, môi trường chuyển động. Video local `what-if-studio/out/ho-so-02-nguoi-lam-thay/vd-hoa-moi-truong.mp4`, không commit.
+`HoSo02VdHoaMoiTruong` ([`vd-hoa-moi-truong.tsx`](../../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/vd-hoa-moi-truong.tsx), ~13,5 s, ban ngày, một cú máy toàn phòng): Nam đi từ cửa tới bàn, đứng cạnh ghế đang kéo ra, ngồi xuống, xoay ghế về bàn và kéo ghế vào, gõ phím; Tùng bước vào, đi chéo về phía máy (che khuất sau nệm, bóng, ngả theo sàn), dừng lại vẫy tay; Nam xoay ghế lại (ghế quay thật, góc 1/4 → nghiêng → 3/4) và đổi nét mặt bình thản → suy luận → bất ngờ → vui. Dùng mặt 2.5D tham số, dáng sống, môi trường chuyển động. Video local `what-if-studio/out/ho-so-02-nguoi-lam-thay/vd-hoa-moi-truong.mp4`, không commit.
 
 ## Giới hạn (nói rõ khi báo cáo)
 - Rig 2D không biểu diễn tay đưa tới trước theo chiều sâu khi nhìn thẳng hoặc sau lưng: ngồi quay lưng về máy thì kiểm tra hông/chân, không kiểm tra tay.
 - Khối che chỉ có 4 món lớn (nệm, bàn, tủ, bếp); đồ nhỏ và đồ mới thêm vào cần khai báo thêm trong `OCCLUDERS`.
 - `floorTilt` chỉ co chiều cao (không có méo hình thang ở đỉnh đầu) vì SVG chỉ có biến đổi affine.
-- Chưa có kéo ghế: ghế đứng yên, người ngồi vào theo `SEATS`. Đứng→ngồi dùng `easePose` giữa dáng đứng và dáng ngồi đã giải, chưa có cú xoay người quanh ghế.
 - Bước chân đi chéo (3/4, 1/4) chỉ xấp xỉ: chân vung trong mặt phẳng ảnh nên pha bước theo thành phần ngang của quãng đi. Ảnh tĩnh không chứng minh được độ mượt; xem video.
