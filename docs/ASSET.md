@@ -1,13 +1,14 @@
 # Danh mục asset dùng chung
 
-**Bộ tư thế/khớp The Crack in Reality — Hồ sơ 02 (Người trong gương):** rig chính ở [nhan-vat.tsx](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx), đủ 8 góc quay cho Nam–Người Kia–Tùng; [cách dùng](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md). [Rig cũ](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/rig/RIG-NHAN-VAT.md) chỉ để đối chiếu. Lưu trong hồ sơ; chưa chuyển thành rig chung hoặc coi là motion toàn phim đã duyệt.
+**Chuyển hướng sản xuất Full 3D (12/11/2026):** Theo [Quy chuẩn 3D](QUY-CHUAN-3D.md), các sản phẩm mới (từ Hồ sơ 02: *Người trong gương*) chuyển sang **Nhân vật 3D & Bối cảnh 3D** (Stylized 3D). Toàn bộ bộ tư thế/khớp 2D tại [nhan-vat.tsx](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx), [bo-sung-15p/](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/README.md) và [boi-canh/](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/BOI-CANH.md) hiện đóng vai trò **Concept Art, Model Sheet và Animatic Layout tham chiếu** để đội ngũ 3D Modeling/Rigging dựng chính xác nhân diện và tỷ lệ.
 
-**Mỹ thuật khi tạo/sửa asset:** đọc [quy chuẩn chung](PHONG-CACH-MY-THUAT.md). Cả nhân vật lẫn nền và đạo cụ dùng nét cong mềm, khối tròn đầy; kiểm tra cùng khung, không mặc định asset cũ đã đạt chỉ vì được ghi trong danh mục.
+**Mỹ thuật khi tạo/sửa asset:** đọc [Quy chuẩn 3D](QUY-CHUAN-3D.md) và [quy chuẩn chung](PHONG-CACH-MY-THUAT.md). Cả nhân vật lẫn nền và đạo cụ giữ tinh thần khối tròn mềm, dễ đọc và tương phản Chiaroscuro vật lý.
 
-Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng tập. Nhân vật, đạo cụ hoặc hình thử dành riêng một tập phải được ghi trong `ASSET.md` của tập đó.
+Chỉ lưu tài nguyên dùng lại được và đường dẫn tới từng tập. Nhân vật, đạo cụ, mô hình `.glb`/`.blend` hoặc hình thử dành riêng một tập phải được ghi trong `ASSET.md` của tập đó.
 
 | Nhóm | Vị trí | Trạng thái / lưu ý |
 |---|---|---|
+| Quy chuẩn sản xuất 3D | [QUY-CHUAN-3D.md](QUY-CHUAN-3D.md) | **Chuẩn hiện hành (12/11):** Quy chuẩn Modeling, Armature Rig, Facial Blendshapes, 3D Sets, Mirror Shader & Pipeline Blender/Three.js $\to$ Remotion |
 | Mẫu tay–chân cartoon tối giản | [Quy chuẩn và ảnh so sánh](PHONG-CACH-MY-THUAT.md) | Ảnh AI tạo trong chat theo yêu cầu chủ repo, duyệt hướng bên phải ngày 10/11/2026; tham chiếu dùng chung, chưa phải rig SVG hoặc kiểm chứng chuyển động |
 | Nét mặt cartoon dùng chung | [EXP-CARTOON-SOFT-01](../what-if-studio/library/expressions/cartoon-soft/README.md) | 27 nét theo 3 mức + trung tính, nền trong suốt, 6 lớp chỉnh riêng; không tóc/đầu/da/tai/cổ. Đã rà tĩnh; cần căn theo nhận diện và góc đầu từng nhân vật, chưa tự gắn mọi rig |
 | Nhân vật truy vết xuyên series | [Mẫu và biểu cảm](../episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) | Toàn thân V7 hiện hành, 27 biểu cảm theo 3 mức + mặt trung tính; chủ repo duyệt bộ nét mặt 10/11/2026. SVG/PNG đã rà tĩnh; chưa rig hoặc ghép cảnh. Tên chính thức và cơ chế thu giữ còn mở |

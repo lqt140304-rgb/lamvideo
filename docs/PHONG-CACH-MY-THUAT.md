@@ -1,8 +1,8 @@
-# Phong cách mỹ thuật chung — cartoon mềm, tròn, có chiều sâu
+# Phong cách mỹ thuật chung — Stylized 3D mềm mại & Điện ảnh
 
-**Cập nhật 11/11/2026 theo lựa chọn của chủ repo.** Style B áp dụng thống nhất cho thiết kế mới và các asset được giao chỉnh sửa: nhân vật, trang phục, đạo cụ, nội thất, kiến trúc, đường phố, cây cối và môi trường. Không chỉ đổi nhân vật rồi để nền theo lối ghép hộp cứng. Đây là quy chuẩn thiết kế, chưa xác nhận toàn bộ asset hiện có đã được vẽ lại.
+**Cập nhật chuyển hướng Full 3D — 12/11/2026:** Chủ repo chính thức chuyển đổi định hướng sản xuất từ 2D/2.5D SVG sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** theo [Quy chuẩn 3D](QUY-CHUAN-3D.md). Các quy tắc tạo hình Style B (đường cong mềm, khối tròn đầy, đường nét tối giản) vẫn được giữ nguyên làm **chuẩn thiết kế hình khối (Silhouette & Proportions)** khi chuyển thể sang mô hình 3D; còn bộ SVG/TSX hiện tại đóng vai trò Concept Art và Model Sheet tham chiếu.
 
-## Ngôn ngữ hình và nét
+## Ngôn ngữ hình và nét (Giữ tinh thần khi lên 3D)
 
 - Ưu tiên đường cong mềm, khối tròn đầy và đường bao liền mạch. Nét cong có chủ đích, không rung ngẫu nhiên hoặc uốn méo mọi vật.
 - Vai–thân–hông–đùi nối tự nhiên; tay chân có khối, trang phục rủ theo cơ thể. Tóc, mắt, miệng và cử chỉ giữ tính cartoon, không chuyển sang tỉ lệ người thật.
@@ -52,11 +52,9 @@ Mô hình không gian 3D, phối cảnh và camera vẫn được dùng để b�
 
 Đường thẳng vẫn cần cho mặt bàn, cột nhà, bản lề, khung cửa và màn hình. Mềm mại không đồng nghĩa biến mọi vật thành viên nang, làm tường chảy hoặc làm mất cấu trúc. Phân biệt gỗ, kim loại, kính và vải qua hình, mảng sáng/tối và vài chi tiết chọn lọc.
 
-## Chiều sâu và chuyển động
+## Chiều sâu và chuyển động (Full 3D Spatial Depth)
 
-**Quyết định 11/11/2026 (chủ repo): dùng 2.5D cho nhân vật Hồ sơ 02 dựng mới.** Nhân vật 2.5D = nhân vật đã chốt + lớp ánh sáng theo cảnh (mảng tối/bóng đổ giữa lớp mềm chuyển dần, viền sáng và ánh hắt theo nguồn sáng của bối cảnh 3D) + dáng theo ảnh tham chiếu + vật lý thứ cấp. Chi tiết, số liệu và giới hạn: [thu-2-5d/README](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/README.md). Chưa render lại video, chưa áp cho Người Kia/Tùng, không tự thay bộ Hồ sơ 1.
-
-Giữ hình 2D có chiều sâu 2.5D bằng phối cảnh, tỉ lệ gần–xa, lớp chồng, bóng tiếp xúc và ánh sáng. Không dùng khối hộp cứng làm phương tiện duy nhất để tạo thể tích. Tách nền xa, khối phòng, đồ cố định, người/đồ cầm và lớp che gần theo [hướng dẫn điện ảnh](NGON-NGU-DIEN-ANH-2-5D.md) và DUNG-CANH của hồ sơ. Đồ nằm trên bàn phải có điểm đỡ; tay cầm bám vật; bóng không tách khỏi nguồn.
+Trong pipeline 3D mới ([QUY-CHUAN-3D.md](QUY-CHUAN-3D.md)), chiều sâu không còn phải giả lập bằng multiplane 2.5D mà được tạo ra trực tiếp từ **không gian 3D khép kín 360°**, ánh sáng vật lý thực tế (Real 3D Area/Spot Lights, Soft Shadows, Ambient Occlusion) và Camera 3D có tiêu cự, khẩu độ DoF vật lý. Các bản thử 2.5D ngày 11/11 ([thu-2-5d/README](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/README.md) và [hướng dẫn điện ảnh 2.5D](NGON-NGU-DIEN-ANH-2-5D.md)) vẫn được giữ nguyên làm **tài liệu tham chiếu Lookdev (cách chuyển sáng–tối, viền hắt sáng từ nguồn đèn 3D, vật lý thứ cấp)** và hỗ trợ dựng Animatic thử nghiệm. Đồ nằm trên bàn phải có mặt đỡ/va chạm vật lý đúng chuẩn; tay cầm bám chặt vật theo Bone Constraint; bóng đổ tự động khớp với hướng đèn 3D.
 
 ## Hòa sắc điện ảnh & Lớp phủ màu (Cinematic Color Grading)
 

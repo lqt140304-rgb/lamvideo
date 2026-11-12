@@ -1,5 +1,7 @@
 # Ngôn ngữ điện ảnh cho What If 2D có chiều sâu
 
+> **Cập nhật 12/11/2026:** Dự án đã chính thức chuyển hướng sản xuất cuối sang **Nhân vật 3D & Bối cảnh 3D** theo [QUY-CHUAN-3D.md](QUY-CHUAN-3D.md). Tài liệu 2.5D dưới đây được giữ lại làm tham chiếu lý thuyết ống kính/bố cục điện ảnh và hỗ trợ bước dựng **Animatic 2D thử nghiệm** trước khi sang 3D.
+
 Ngày nghiên cứu: 07/11/2026. Đây là nghiên cứu và đề xuất mỹ thuật, chưa phải chức năng đã triển khai trong studio hoặc kết quả thử với khán giả. Không tạo audio/video trả phí trong bước này.
 
 ## Hướng phù hợp với dự án

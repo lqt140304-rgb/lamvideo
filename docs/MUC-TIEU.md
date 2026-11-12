@@ -11,7 +11,7 @@ Một chuyện giả định gần đời sống, có tò mò, đối đầu và
 - Xây một thế giới nhỏ đủ dùng: nơi chốn, những người liên quan, luật bất thường, cái giá và giới hạn. Mở rộng khi tập mới cần, không viết một mùa dài trước tập thử.
 - Thử truyện khoảng 6–8 phút với vài nhân vật và ít bối cảnh. Đây là giả thuyết sản xuất để đo và chỉnh, không phải thời lượng được thuật toán bảo đảm.
 - Mỗi tập có đầu–đuôi và hoàn thành lựa chọn chính. Có thể dùng lại thế giới, địa điểm và dấu vết, nhưng người xem không bị buộc xem tập sau mới nhận được lời giải cơ bản.
-- Dùng hình minh họa, chuyển động chọn lọc và âm thanh khi chúng kể chuyện tốt. Không mặc định phải tạo video AI liên tục cho mọi giây.
+- Dùng **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** kết hợp góc quay điện ảnh và âm thanh chân thực để kể chuyện sống động, đạt chất lượng phim ngắn hiện đại (xem [QUY-CHUAN-3D.md](QUY-CHUAN-3D.md)). Trước khi render 3D cuối, sử dụng asset 2D/animatic để chốt nhịp kể nhằm tối ưu chi phí và thời gian sản xuất. Không mặc định phải tạo video AI liên tục cho mọi giây.
 - Đo phản hồi thật trước khi tăng độ dài, số tập hay chi phí. Một tập khó hiểu cần sửa nguyên nhân, không mặc định thêm lời dẫn hoặc thêm cảnh.
 
 **Định dạng hiện tại:** giữ người dẫn chuyện kết hợp thoại nhân vật. Lời dẫn làm rõ phần thông tin/cảm giác/hệ quả khó nhìn thấy; hình và âm thanh thể hiện hành động, diễn xuất, bối cảnh. Cân đối để tránh kể lặp hình. Việc cải tiến thư viện asset không tự đổi định dạng sang chỉ thoại.

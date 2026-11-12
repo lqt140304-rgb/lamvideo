@@ -1,6 +1,13 @@
 # Asset — Hồ sơ 02: Người trong gương
 
-## Nhu cầu theo kịch bản mới — đồng bộ 11/11/2026
+## Chuyển hướng sản xuất sang Full 3D — cập nhật 12/11/2026
+
+Theo quyết định mới của chủ repo, toàn bộ Hồ sơ 02 chuyển từ dựng hình 2D/SVG sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** theo [Quy chuẩn 3D](../../../docs/QUY-CHUAN-3D.md):
+- **Tài sản 2D hiện có (`63 SVG rời`, `bo-sung-15p/`, `nhan-vat.tsx`):** Giữ nguyên toàn bộ làm **Concept Art, Model Sheet 2D, Bảng màu và Layout tham chiếu** để dựng mô hình 3D chuẩn tạo hình Style B (khối tròn mềm, nốt ruồi đúng bên, thuận tay trái).
+- **Bối cảnh 3D (`kit3d.tsx` & 3D Sets mới):** Sáu bối cảnh bổ sung đã bước đầu được dựng hình học không gian 3D trong [`kit3d.tsx`](assets/bo-sung-15p/kit3d.tsx); bước tiếp theo là hoàn thiện **Full 3D Environments & 3D Characters** (Blender/Three.js) có vật liệu Stylized PBR/Toon, đèn Chiaroscuro vật lý, Blendshapes khuôn mặt 3D và Shader gương phản chiếu thực.
+- **Theo dõi tiến độ dựng 3D:** Xem Mục 8 trong **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md#8-tiến-độ-chuyển-thể-lên-full-3d-cập-nhật-12112026)**.
+
+## Nhu cầu theo kịch bản mới — đồng bộ 11/11/2026 (Bộ Concept 2D đã hoàn thành)
 
 Nguồn: [KICH-BAN.md](KICH-BAN.md), mục tiêu khoảng 15 phút. Bảng kê tổng duyệt chi tiết trước khi dựng xem tại **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md)** (phân loại bối cảnh, đạo cụ hero props, dáng rig, ma trận biểu cảm 3 cấp độ). Đã tạo [bộ bổ sung](assets/bo-sung-15p/README.md): **63 SVG rời, 12 bảng duyệt, 22 PNG**, kèm nguồn TSX, manifest và [trình xem](assets/bo-sung-15p/xem-asset.html). Đây là hình tĩnh để duyệt, chưa xác nhận motion, khẩu hình, âm thanh hoặc timeline đã đủ.
 

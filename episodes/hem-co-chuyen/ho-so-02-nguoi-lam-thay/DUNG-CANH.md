@@ -1,4 +1,8 @@
-# Hồ sơ 2 — Dựng cảnh và góc máy
+# Hồ sơ 2 — Dựng cảnh và góc máy (Hỗ trợ Full 3D Camera)
+
+**CHUYỂN HƯỚNG FULL 3D — 12/11/2026:** Toàn bộ quy trình sản xuất chuyển sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** theo [Quy chuẩn 3D](../../../docs/QUY-CHUAN-3D.md). Các bảng góc máy bên dưới được mở khóa toàn phần trong không gian 3D 360°:
+- **Camera 3D vật lý thực:** Cảm biến 36mm Full-Frame, thay đổi tiêu cự (24mm/35mm/50mm/85mm), Depth of Field Bokeh vật lý, góc trần vuông góc $90^\circ$ (Top-down), góc thấp (Low-Angle) và cú **Hitchcock Vertigo Dolly Zoom** thực thụ (tăng FOV đồng thời lùi trục Z) mà không còn bị giới hạn bởi góc vẽ phẳng 2D hay hở nền khi dịch máy.
+- **Ánh sáng & Phản chiếu thực:** Đèn bàn 3200K, ánh nắng cửa sổ, Screen Glow từ laptop và mặt gương phản chiếu sai lệch dùng đèn/shader 3D vật lý thật.
 
 **Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
 
