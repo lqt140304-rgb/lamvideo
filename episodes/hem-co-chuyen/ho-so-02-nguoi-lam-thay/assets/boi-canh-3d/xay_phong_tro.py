@@ -160,7 +160,7 @@ def shell(m, coll, door_open, cutaway=False, hide_front=False):
     wall = m['tuong']
     box('san_phong', 0, W, 0, D + 3.0, -0.10, 0.0, m['gach'], coll=coll)  # sàn kéo dài ra ngoài tường trước (ẩn với camera) để góc máy đứng ngoài không thấy khoảng trống
     ceil = box('tran_phong', -0.12, W + 0.12, -0.12, D + 0.12, H, H + 0.1, m['tran'], coll=coll)
-    if cutaway: ceil.visible_camera = False; ceil.visible_shadow = False  # góc từ trên xuống: ẩn trần (và bỏ bóng của trần) để thấy cả phòng sáng
+    if cutaway: ceil.visible_camera = False; ceil.visible_shadow = False; ceil.visible_diffuse = False; ceil.visible_glossy = False; ceil.visible_transmission = False  # góc từ trên xuống: ẩn trần (và bỏ bóng của trần) để thấy cả phòng sáng
     box('tuong_sau', -T, W + T, -T, 0, -0.1, H, wall, coll=coll)
     front = box('tuong_truoc', 0, W, D, D + T, -0.1, H, wall, coll=coll); front.visible_camera = not hide_front  # camera ngoài tường trước mới ẩn tường này
     box('tuong_truoc_goc_trai', -T, 0, D, D + T, -0.1, H, wall, coll=coll)  # hai đầu tường là mặt ngoài của hành lang / tường phải: luôn hiện

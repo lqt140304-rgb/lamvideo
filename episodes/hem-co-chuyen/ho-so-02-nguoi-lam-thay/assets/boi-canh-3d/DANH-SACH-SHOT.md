@@ -91,3 +91,26 @@ Mỗi camera = Empty `rig` (chuyển động chính) + camera con (Noise handhel
 4. Gương: nốt ruồi, nứt, hóa nước (xem [KE-HOACH-CONG-GUONG.md](KE-HOACH-CONG-GUONG.md)).
 5. Đạo cụ có điểm gắn tay: búa, thẻ, bát, đũa, điện thoại (Child-Of/bone constraint).
 6. Cờ phụ: then sắt trượt, cửa/bản lề keyframe, quạt quay, rèm lay, khe thông gió cửa.
+
+## 6. Danh sách shot cuối + chuyển động camera (chốt 13/11 05:30, `camera_dong.py` → `SEQUENCE`)
+Mọi shot chạy bằng `python camera_dong.py --shot <TÊN> [--all --step N | --frames 1,24,48] --out thư_mục` và đã xem khung rời ở ảnh nhỏ. `render_chuoi.sh` render cả chuỗi thành MP4 (chưa chạy; giao việc 10:30).
+| # | Shot | Cỡ cảnh | Lens | Chuyển động | Khung (24 fps) | Cảnh/ghi chú |
+|---|---|---|---|---|---|---|
+| 1 | `ESTABLISH_SAN` | toàn cảnh | 20→24 | đẩy lên dọc sân (Dolly) | 96 | Mở: nhà trọ ban ngày, dây điện, đèn lồng |
+| 2 | `TOAN_CANH_DEM` | toàn cảnh | 20 | đẩy vào sân (đêm) | 72 | Cửa sổ sáng, đèn sân |
+| 3 | `HL_DOLLY` | trung rộng | 28 | Steadicam thẳng dọc hành lang | 96 | 24 m, mỗi cửa một cảnh |
+| 4 | `STEADI_RA_HL` | trung | 28 | **Follow Path** + Track To, qua cửa ra hành lang | 96 | C01–C03 |
+| 5 | `TT_CUA_PUSH` | toàn thân | 22 | đẩy nhẹ + handheld | 72 | Người ở ngưỡng cửa (người chuẩn 1,6 m) |
+| 6 | `A03_ARC` | trung (OTS) | 50 f/1.4 | **Dolly Arc** 30° sau vai Nam về bếp | 72 | A03 |
+| 7 | `PAN_BEP_CUA` | trung | 35 | **Pan ~90°** + Dutch 8° | 72 | P2.03_01: then cửa → bếp (phòng 3 m chỉ cho ~90°, không phải 120°) |
+| 8 | `TT_BEP_PUSH` | toàn thân | 22 | đẩy nhẹ | 72 | Người Kia ở bồn rửa |
+| 9 | `RACK_FOCUS_BAN` | cận | 65 f/1.4 | **Rack focus** ghế → laptop | 60 | DoF |
+| 10 | `HANDHELD_A04` | cận | 65 | **Handheld** + xung va chạm khung 24 | 48 | 3D-0 |
+| 11 | `SAN_VAP` | cận/thấp | 35 | sàn 15 cm + xung va chạm khung 30 | 60 | A05 / P2.07 |
+| 12 | `TT_GIUONG_PUSH` | toàn thân | 22 | đẩy nhẹ, máy ngoài tường cửa sổ | 72 | Nam cạnh nệm |
+| 13 | `TOP_XOAY` | toàn cảnh trên cao | 24 | **Top-down xoay** 180° (trần ẩn) | 96 | P2.05 |
+| 14 | `ORBIT_GUONG` | trung | 35 f/2.0 | **Orbit** 180° + Dutch tới 12° | 72 | P3.04 |
+| 15 | `VERTIGO_GUONG` | trung | 28→85 | **Dolly Zoom** (máy ra ngoài tường cửa sổ) | 72 | P3.03_03 |
+| 16 | `KINH_NUOC` | trung | 50 | đẩy chậm; kính hóa nước, Nam chìm vào kính | 72 | P3.05 |
+| 17 | `KINH_NUOC_POV` | trung | 35 | cố định trong gương; Nam lọt qua | 72 | P3.05 Submersion |
+Tổng 1272 khung ≈ 53 giây ở 24 fps. Hạn chế: người trong cảnh là hình nhân tạm cao 1,6 m; chưa có tiếng; Pan chỉ ~90° vì phòng nhỏ; các camera `A01/A02/A02B/A04/A04B/C05/C06/P203/ORBIT_*/DOOR/KITCHEN` (tĩnh) vẫn có trong `CAMERAS` cho khung cố định.

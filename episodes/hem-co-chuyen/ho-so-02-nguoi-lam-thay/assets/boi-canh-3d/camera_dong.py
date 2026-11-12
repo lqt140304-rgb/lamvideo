@@ -215,14 +215,62 @@ def shot_kinh_nuoc_pov(sc):
     return dict(build=dict(hide_front=False, guong='pov'), proxy=False, hide_prefix=('khung_guong',))
 
 
+
+# ------------------------------------------------------------------ shot khai báo (đẩy/trượt/pan/xoay): p0→p1, t0→t1, lens, roll
+def lerp3(a, b, t): return tuple(a[i] + (b[i] - a[i]) * t for i in range(3))
+
+
+GEN = {
+    'ESTABLISH_SAN': dict(doc='Mở: máy từ đầu sân đẩy chậm lên dọc nhà trọ (dây điện, đèn lồng), 20→24 mm', p0=(-3.2, -10.5, 3.6), t0=(-3.0, 12.0, 3.2), p1=(-3.0, -5.5, 3.6), t1=(-3.0, 12.0, 3.0), lens=(20, 24), f=4.0, N=96, build=dict(hide_front=False)),
+    'HL_DOLLY': dict(doc='Steadicam thẳng dọc hành lang 24 m (HALL_LONG), 28 mm, handheld nhẹ', p0=(-0.75, 0.3, 1.5), t0=(-0.75, 24.0, 1.4), p1=(-0.75, 9.0, 1.5), t1=(-0.75, 24.0, 1.4), lens=(28, 28), f=2.8, N=96, hh=(0.03, 0.002), build=dict(hide_front=False)),
+    'A03_ARC': dict(doc='A03 Dolly Arc 30° sau vai Nam nhìn về bếp, 50 mm f/1.4', arc=dict(c=(1.9, 2.7, 1.25), r=0.8, a0=56, a1=86, z=1.3, look=(0.4, 0.45, 1.2)), lens=(50, 50), f=1.4, N=72, hh=(0.08, 0.003), figure=(1.9, 2.7, 1.2), build=dict(hide_front=False)),
+    'PAN_BEP_CUA': dict(doc='P2.03_01 Pan ~90° không cắt: then cửa → bếp, Dutch 8°, 35 mm', p0=(0.95, 1.9, 1.4), t0=(0.0, 2.15, 1.2), p1=(0.95, 1.9, 1.4), t1=(0.4, 0.45, 1.2), lens=(35, 35), f=2.8, N=72, roll=8, hh=(0.06, 0.003), build=dict(hide_front=False)),
+    'TOP_XOAY': dict(doc='P2.05 Top-down 90° xoay chậm quanh nệm, 24 mm (trần ẩn)', p0=(1.5, 2.0, 5.4), t0=(1.5, 2.001, 0.0), p1=(1.5, 2.0, 5.4), t1=(1.5, 2.001, 0.0), lens=(24, 24), f=4.0, N=96, spin=180, build=dict(hide_front=False, cutaway=True), hide=('env_mai_t3', 'env_mai_ton', 'env_tuong_t3', 'env_lancan_t3', 'env_tay_vin_t3', 'env_song_t3', 'env_be_', 'env_angten')),
+    'SAN_VAP': dict(doc='A05/P2.07 Sàn thấp, xung va chạm ở khung 30, 35 mm', p0=(1.9, 1.7, 0.15), t0=(2.3, 0.85, 0.35), p1=(1.9, 1.7, 0.15), t1=(2.3, 0.85, 0.35), lens=(35, 35), f=2.8, N=60, hh=(0.1, 0.004), impact=30, build=dict(hide_front=False)),
+    'TT_GIUONG_PUSH': dict(doc='Toàn thân Nam cạnh nệm, đẩy nhẹ 22 mm', p0=(4.0, 0.6, 1.5), t0=(2.3, 3.0, 0.8), p1=(3.7, 1.0, 1.5), t1=(2.3, 3.0, 0.8), lens=(22, 22), f=4.0, N=72, hh=(0.04, 0.002), figure=(2.3, 3.0), build=dict(hide_front=False), hide_walls=True),
+    'TT_BEP_PUSH': dict(doc='Toàn thân Người Kia ở bồn rửa, đẩy nhẹ 22 mm', p0=(2.6, 2.2, 1.5), t0=(0.4, 0.45, 0.8), p1=(2.3, 1.9, 1.5), t1=(0.4, 0.45, 0.8), lens=(22, 22), f=4.0, N=72, hh=(0.04, 0.002), figure=(0.4, 0.45), build=dict(hide_front=False)),
+    'TT_CUA_PUSH': dict(doc='Toàn thân người ở ngưỡng cửa, 22 mm', p0=(2.9, 3.7, 1.5), t0=(0.4, 2.5, 0.8), p1=(2.6, 3.4, 1.5), t1=(0.4, 2.5, 0.8), lens=(22, 22), f=4.0, N=72, hh=(0.04, 0.002), figure=(0.4, 2.5), build=dict(hide_front=False)),
+    'TOAN_CANH_DEM': dict(doc='Toàn cảnh đêm: đẩy vào sân, đèn lồng + cửa sổ sáng', p0=(-3.2, -10.5, 4.2), t0=(-3.0, 12.0, 3.2), p1=(-3.1, -6.0, 3.8), t1=(-3.0, 12.0, 3.0), lens=(20, 20), f=4.0, N=72, mode='night', build=dict(hide_front=False)),
+}
+
+
+def shot_generic(name):
+    g = GEN[name]
+    def fn(sc):
+        rig, cam = new_rig(name, g['lens'][0], g['f']); fo = focus_empty(cam); N = g['N']
+        if g.get('figure'):
+            fig = X.figure_proxy('nguoi_chuan', g['figure'][0], g['figure'][1], X.M.solid('nguoi_chuan', '#4f7fb0', 0.6), bpy.data.collections['Phong_tro_3D'], h=g['figure'][2] if len(g['figure']) > 2 else 1.6)
+        for f in range(1, N + 1):
+            t = smooth((f - 1) / (N - 1))
+            if 'arc' in g:
+                a = math.radians(g['arc']['a0'] + (g['arc']['a1'] - g['arc']['a0']) * t); c = g['arc']['c']; r = g['arc']['r']
+                pos = (c[0] + r * math.cos(a), c[1] + r * math.sin(a), g['arc']['z']); tgt = g['arc'].get('look', c)
+            else:
+                pos = lerp3(g['p0'], g['p1'], t); tgt = lerp3(g['t0'], g['t1'], t)
+            roll = g.get('roll', 0.0) + g.get('spin', 0.0) * t
+            key_pose(rig, f, pos, tgt, roll_deg=roll)
+            cam.data.lens = g['lens'][0] + (g['lens'][1] - g['lens'][0]) * t; cam.data.keyframe_insert('lens', frame=f)
+            fo.location = wp(tgt); fo.keyframe_insert('location', frame=f)
+        if g.get('hide_walls'): X.an_tuong_theo_camera(bpy.data.collections['Phong_tro_3D'], g['p0'])
+        hh = g.get('hh', (0.0, 0.0))
+        if hh[0] > 0: handheld(cam, hh[0], hh[1], f1=N)
+        if g.get('impact'): impact(cam, g['impact'])
+        set_range(sc, 1, N)
+        return dict(build=g.get('build', {}), proxy=False, mode=g.get('mode'), hide_prefix=g.get('hide', ()))
+    return fn
+
+
+for _n in GEN: pass
+
 SHOTS = {'KINH_NUOC': shot_kinh_nuoc, 'KINH_NUOC_POV': shot_kinh_nuoc_pov, 'ORBIT_GUONG': shot_orbit, 'VERTIGO_GUONG': shot_vertigo, 'STEADI_RA_HL': shot_steadicam, 'RACK_FOCUS_BAN': shot_rack, 'HANDHELD_A04': shot_handheld}
+for _n in GEN: SHOTS[_n] = shot_generic(_n)
 
 
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--shot', required=True); ap.add_argument('--mode', default='day')
     ap.add_argument('--frames', default='1'); ap.add_argument('--out', default='/tmp/camdong'); ap.add_argument('--samples', type=int, default=32); ap.add_argument('--width', type=int, default=720)
-    ap.add_argument('--blend', default='')
+    ap.add_argument('--blend', default=''); ap.add_argument('--all', action='store_true'); ap.add_argument('--step', type=int, default=1)
     a = ap.parse_args(argv)
     res = (a.width, round(a.width / 2.39))
     # lượt 1: dựng thử để lấy yêu cầu dựng của shot (tham số build, hình nhân, vật ẩn)
@@ -230,7 +278,8 @@ if __name__ == '__main__':
     info = SHOTS[a.shot](sc0)
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bp = dict(info.get('build', {})); bp.setdefault('hide_front', False)
-    sc = X.build(a.mode, cam='WIDE', res=res, proxy=info.get('proxy', False), **bp)
+    mode = info.get('mode') or a.mode
+    sc = X.build(mode, cam='WIDE', res=res, proxy=info.get('proxy', False), **bp)
     for o in list(bpy.data.objects):
         if o.type == 'CAMERA': bpy.data.objects.remove(o)
     info = SHOTS[a.shot](sc)
@@ -239,5 +288,12 @@ if __name__ == '__main__':
     sc.cycles.samples = a.samples
     os.makedirs(a.out, exist_ok=True)
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=a.blend)
-    for f in [int(x) for x in a.frames.split(',') if x]:
+    frs = list(range(sc.frame_start, sc.frame_end + 1, a.step)) if a.all else [int(x) for x in a.frames.split(',') if x]
+    for f in frs:
         sc.frame_set(f); sc.render.filepath = f'{a.out}/{a.shot}_{f:03d}.png'; bpy.ops.render.render(write_still=True)
+
+
+# ------------------------------------------------------------------ chuỗi shot cuối (dùng cho video): (shot, số khung 24 fps)
+SEQUENCE = [('ESTABLISH_SAN', 96), ('TOAN_CANH_DEM', 72), ('HL_DOLLY', 96), ('STEADI_RA_HL', 96), ('TT_CUA_PUSH', 72), ('A03_ARC', 72), ('PAN_BEP_CUA', 72),
+            ('TT_BEP_PUSH', 72), ('RACK_FOCUS_BAN', 60), ('HANDHELD_A04', 48), ('SAN_VAP', 60), ('TT_GIUONG_PUSH', 72), ('TOP_XOAY', 96), ('ORBIT_GUONG', 72),
+            ('VERTIGO_GUONG', 72), ('KINH_NUOC', 72), ('KINH_NUOC_POV', 72)]

@@ -73,3 +73,7 @@ Vì góc quay giờ rộng hơn nên mọi hướng đều phải có cảnh đ�
 - **Dựng cảnh nhanh gấp ~40 lần** (182 s → 4,8 s): `cyl/sphere/torus/wire` đổi từ `bpy.ops` (mỗi lệnh cập nhật depsgraph toàn cảnh, 65 ms × hàng nghìn vật) sang bmesh trực tiếp (`_mesh_obj`). Nhờ đó rà soát 39 camera chạy được: `chay_ra_soat.sh` → ảnh nhỏ `/tmp/ra-soat`.
 - Khe thông gió cửa phòng Nam (P201VENT). Sàn hẻm tối hơn (hết cháy sáng). `moi_truong.build` xoá cache vật liệu mỗi lần dựng lại.
 - Kính hóa nước hoàn chỉnh (`KINH_NUOC`, `KINH_NUOC_POV`) — xem KE-HOACH-CONG-GUONG.md.
+
+## 13/11 05:30: danh sách shot cuối và chuyển động camera
+- `camera_dong.py`: thêm 10 shot khai báo (`GEN`): ESTABLISH_SAN, TOAN_CANH_DEM, HL_DOLLY, A03_ARC, PAN_BEP_CUA, TOP_XOAY, SAN_VAP, TT_*_PUSH; `SEQUENCE` (17 shot, 1272 khung). Bảng ở DANH-SACH-SHOT.md mục 6. `render_chuoi.sh` render chuỗi thành MP4 (chưa chạy).
+- Cutaway (TOP) ẩn trần khỏi mọi loại tia để mép tường không đen; tường hẻm tối hơn.
