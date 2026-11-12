@@ -1,4 +1,5 @@
 import { STORY_GROUPS, type StoryFaceKey } from '../../../../../what-if-studio/library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat';
+import { CamXucAnhSangBoard, CamXucBoard, CamXucSongBoard } from '../cam-xuc-2-5d-bang';
 import React from 'react';
 import { Sheet, Label, C, Contact } from './common';
 import { Mirror, Hammer, MoneyEnvelope, IdentityCard, RiceBox, BunCha, XoiGac, FruitBag, Computer, LaundryBasin, Football, Scissors, Chalk } from './dao-cu';
@@ -6,6 +7,7 @@ import { LectureHall, ComputerLab, UniversityCorridor, FamilyGathering, MirrorRe
 import { SupportingActor, FormalTwin, PoseActor, EXTRA_POSES, POSE_INFO, gripAt, type Role } from './nhan-vat-va-tu-the';
 import { PhonePanel, FaceComparison, LaptopScreen, type ScreenKind } from './giao-dien';
 import { StudentTwinBody, StudentTwinHead } from '../nhan-vat';
+import { GestureBoard, TransitionBoard } from '../cu-chi';
 
 type Item={id:string;name:string;scenes:string[];w:number;h:number;node:()=>React.ReactNode;kind:'prop'|'set'|'cast'|'pose'|'ui'|'mirror'};
 const prop=(id:string,name:string,scenes:string[],node:()=>React.ReactNode,w=440,h=330):Item=>({id,name,scenes,w,h,kind:'prop',node});
@@ -55,7 +57,7 @@ export const RestPosesBoard=()=> <Sheet w={2000} h={1030} title="NAM / DÁNG CH�
  <Label x={35} y={986} size={20}>Key pose tĩnh để duyệt; chưa phải diễn hoạt. Không xoay ngang rig đứng để thay cho dáng nằm.</Label>
  </Sheet>;
 export const StoryEmotionBoard=({page}:{page:number})=><Sheet w={1800} h={1280} title="NAM / NGƯỜI KIA · BIỂU CẢM THEO CỐT TRUYỆN" subtitle="Mức 1: thoáng · mức 2: rõ · mức 3: cao trào. Giữ tóc, màu da, mũi và nốt ruồi của nhân vật.">
- {STORY_GROUPS.slice(page*3,page*3+3).map((group,row)=>[1,2,3].map(n=>{const x=25+(n-1)*590,y=120+row*365,key=`${group.id}-0${n}` as StoryFaceKey;return <g key={key}><rect x={x} y={y} width={570} height={345} rx={22} fill="#faf6ed"/><StudentTwinHead x={x+278} y={y+22} scale={1.25} face={key} identity={group.id==='cuoi-che-giau'?'nguoi-kia':'nam'} mood="calm"/><Label x={x+24} y={y+286} size={23}>{group.name} · mức {n}</Label><Label x={x+24} y={y+319} size={17}>{group.levels[n-1]}</Label></g>;}))}
+ {STORY_GROUPS.slice(page*3,page*3+3).map((group,row)=>[1,2,3].map(n=>{const x=25+(n-1)*590,y=120+row*365,key=`${group.id}-0${n}` as StoryFaceKey;return <g key={key}><rect x={x} y={y} width={570} height={345} rx={22} fill="#faf6ed"/><StudentTwinHead x={x+278} y={y+22} scale={1.25} face={key} identity={group.id==='cuoi-che-giau'||group.id==='khinh-thuong'?'nguoi-kia':'nam'} mood="calm"/><Label x={x+24} y={y+286} size={23}>{group.name} · mức {n}</Label><Label x={x+24} y={y+319} size={17}>{group.levels[n-1]}</Label></g>;}))}
  <Label x={30} y={1260} size={17}>Ghép tĩnh để kiểm tra, chưa duyệt motion. Không dùng nét lạnh/cười lệch của Người Kia sớm trong truyện.</Label>
  </Sheet>;
 const ANGLE_SETS:{name:string;node:(v:SetView)=>React.ReactNode}[]=[
@@ -77,4 +79,4 @@ export const MultiAngleBoard=()=> <Sheet w={2000} h={110+ANGLE_SETS.length*310+2
 export const SunsetBoard=()=> <Sheet w={2000} h={1290} title="HỒ SƠ 02 / PHÒNG TRỌ CHIỀU TÀ (S03)" subtitle="LIGHT_LAYER tách riêng: vệt nắng cam trườn từ mép bàn qua nệm, leo lên tường rồi tắt · prop t của RoomSunset / SunsetLight">
  {[0,0.35,0.7,0.95].map((t,i)=>{const x=20+i%2*990,y=110+Math.floor(i/2)*585;return <g key={t}><svg x={x} y={y} width={960} height={540} viewBox="0 0 1920 1080" overflow="hidden"><RoomSunset t={t}/></svg><Label x={x+4} y={y+568} size={20}>t = {t}</Label></g>;})}
 </Sheet>;
-export const BOARDS=[{id:'bang-cam-xuc-01',node:()=> <StoryEmotionBoard page={0}/>,w:1800,h:1280},{id:'bang-cam-xuc-02',node:()=> <StoryEmotionBoard page={1}/>,w:1800,h:1280},{id:'bang-dang-nghi',node:RestPosesBoard,w:2000,h:1030},{id:'bang-dang-checklist',node:ChecklistPosesBoard,w:1800,h:1150},{id:'bang-dao-cu',node:PropsBoard,w:1600,h:1380},{id:'bang-boi-canh',node:SetsBoard,w:1600,h:110+Math.ceil(SETS().length/2)*477+10},{id:'bang-vai-phu-tu-the',node:CastBoard,w:1800,h:1120},{id:'bang-giao-dien',node:UIBoard,w:2110,h:1060},{id:'bang-guong',node:MirrorBoard,w:1600,h:1000},{id:'bang-tiep-xuc',node:InteractionBoard,w:1200,h:800},{id:'bang-boi-canh-nhieu-goc',node:MultiAngleBoard,w:2000,h:110+ANGLE_SETS.length*310+20},{id:'bang-nang-chieu-ta',node:SunsetBoard,w:2000,h:1290}];
+export const BOARDS=[{id:'bang-cam-xuc-01',node:()=> <CamXucBoard page={0}/>,w:1800,h:1950},{id:'bang-cam-xuc-02',node:()=> <CamXucBoard page={1}/>,w:1800,h:1950},{id:'bang-cam-xuc-03',node:CamXucAnhSangBoard,w:1720,h:1360},{id:'bang-cam-xuc-04',node:CamXucSongBoard,w:1840,h:990},{id:'bang-cu-chi',node:GestureBoard,w:1500,h:2140},{id:'bang-chuyen-trang-thai',node:TransitionBoard,w:1560,h:2050},{id:'bang-dang-nghi',node:RestPosesBoard,w:2000,h:1030},{id:'bang-dang-checklist',node:ChecklistPosesBoard,w:1800,h:1150},{id:'bang-dao-cu',node:PropsBoard,w:1600,h:1380},{id:'bang-boi-canh',node:SetsBoard,w:1600,h:110+Math.ceil(SETS().length/2)*477+10},{id:'bang-vai-phu-tu-the',node:CastBoard,w:1800,h:1120},{id:'bang-giao-dien',node:UIBoard,w:2110,h:1060},{id:'bang-guong',node:MirrorBoard,w:1600,h:1000},{id:'bang-tiep-xuc',node:InteractionBoard,w:1200,h:800},{id:'bang-boi-canh-nhieu-goc',node:MultiAngleBoard,w:2000,h:110+ANGLE_SETS.length*310+20},{id:'bang-nang-chieu-ta',node:SunsetBoard,w:2000,h:1290}];

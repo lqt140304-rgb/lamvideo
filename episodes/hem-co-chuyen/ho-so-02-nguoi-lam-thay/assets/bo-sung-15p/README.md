@@ -10,7 +10,10 @@ Mở [xem-asset.html](xem-asset.html) ở máy sau khi tải repo, hoặc xem PN
 
 | Bảng | Nội dung |
 |---|---|
-| [Cảm xúc 1](bang-cam-xuc-01.png) / [Cảm xúc 2](bang-cam-xuc-02.png) | 18 nét mới ghép lên Nam/Người Kia, mỗi nhóm ba mức; SVG nét mặt dùng chung nằm ở thư viện |
+| [Cảm xúc 1](bang-cam-xuc-01.png) / [Cảm xúc 2](bang-cam-xuc-02.png) | Bộ cảm xúc 2.5D dựng mới (11/11): 24 nhóm × 3 mức, mặt tham số cartoon (`../cam-xuc-2-5d.tsx`), thay các nét thư viện cũ |
+| [Cảm xúc 3](bang-cam-xuc-03.png) / [Cảm xúc 4](bang-cam-xuc-04.png) | Cảm xúc dưới 6 kiểu sáng, chính diện, Người Kia, Tùng, khẩu hình; dải khung chuyển cảm xúc và mặt sống (chớp, liếc, run môi) |
+| [Cử chỉ theo cảm xúc](bang-cu-chi.png) | Ba mức nét mặt mới đi kèm ba tư thế (`GESTURES` trong `../cu-chi.tsx`) |
+| [Chuyển trạng thái](bang-chuyen-trang-thai.png) | Sáu chuỗi dáng: đứng → ngồi, ngồi → đứng, giật lùi, quay lưng, gục xuống, lao tới (`TRANSITIONS`, `transitionPose`) |
 | [Dáng nghỉ của Nam](bang-dang-nghi.png) | Ngồi chơi game, nằm chơi game, suy sụp và nằm ngửa nhìn trần; có mặt đỡ |
 | [Đạo cụ](bang-dao-cu.png) | 13 đạo cụ: búa, tiền ăn, hai thẻ hư cấu, ba món ăn, túi quả, PC, thau đồ, bóng, kéo, viên phấn |
 | [Bối cảnh](bang-boi-canh.png) | Mười bối cảnh, góc chính: giảng đường bậc thang, Lab 402, hành lang trường, mâm cơm gia đình, sân bóng, góc cắt tóc, thế giới gương, góc đồ cho tặng, hành lang trọ đêm, phòng trọ chiều tà |

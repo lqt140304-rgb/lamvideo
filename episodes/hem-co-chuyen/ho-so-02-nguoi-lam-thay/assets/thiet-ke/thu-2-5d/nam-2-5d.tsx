@@ -2,6 +2,7 @@ import React from 'react';
 import { Build, JointPose, lw, NAM_OUTFITS, NamMood, Outfit, PALETTE, Rigged, solveRig, STAND_POSE, StudentTwinBody, StudentTwinHead, TWIN_OUTFIT, TWIN_POSES } from '../../nhan-vat';
 import { Mirror } from '../../bo-sung-15p/dao-cu';
 import { LIGHT_SOURCES, lightFor, RoomScene, RoomView } from '../../boi-canh/boi-canh';
+import { Expr, exprFrom, shiftExpr } from '../../cam-xuc-2-5d';
 
 /**
  * THỬ NGHIỆM 11/11/2026 (vòng 2, theo ảnh tham chiếu 2,5D trong ./tham-khao/) — Nam 2D → 2.5D, giữ nguyên tạo hình.
@@ -257,10 +258,21 @@ export const namOutfitDang = (shirt: string = PALETTE.nam.shirt, sway?: HemSway)
 const HEAD_FIT = 'translate(-6 180) scale(0.9 0.99) translate(6 -172)';
 
 /** Nam 2D với dáng tham chiếu (cùng props StudentTwinBody; `outfit` khác áo thun chưa hỗ trợ ở bản thử). */
-export const NamDangMoi: React.FC<BodyProps & { hemSway?: HemSway }> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, hair, hemSway }) => (
+export const NamDangMoi: React.FC<BodyProps & { hemSway?: HemSway }> = ({ mood = 'sleepy', identity = 'nam', x = 0, y = 0, scale = 1, pose = STAND_POSE, shirt = PALETTE.nam.shirt, talk, blink, light, face, faceFrom, faceMix, outline, headOutline, hair, hemSway, expr, exprLight }) => (
   <Rigged pose={pose} outfit={namOutfitDang(shirt, hemSway)} x={x} y={y} scale={scale} light={light} outline={outline} headOutline={headOutline}
-    head={<g transform={pose.view === 'side' ? undefined : HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} sideNew /></g>} />
+    head={<g transform={pose.view === 'side' ? undefined : HEAD_FIT}><StudentTwinHead identity={identity} mood={mood} id="nam-dang-moi" view={pose.view} facing={pose.facing} talk={talk} blink={blink} face={face} faceFrom={faceFrom} faceMix={faceMix} hair={hair} sideNew expr={expr} exprLight={exprLight} /></g>} />
 );
+
+/**
+ * Nét mặt 2.5D mặc định cho nhân vật 2.5D: `expr` nếu có; không thì đổi `face`/`faceFrom`/`faceMix`/`mood` cũ sang bộ cảm xúc mới
+ * (`cam-xuc-2-5d.tsx`, cùng tên nhóm và mức), chuyển dần bằng `shiftExpr`. `matCu` = giữ mặt thư viện cũ.
+ */
+export const expr25For = (p: Pick<BodyProps, 'expr' | 'face' | 'faceFrom' | 'faceMix' | 'mood'>, matCu?: boolean): Expr | undefined => {
+  if (matCu) return p.expr;
+  if (p.expr) return p.expr;
+  const to = exprFrom(p.face, p.mood);
+  return p.faceFrom && p.faceFrom !== p.face && (p.faceMix ?? 1) < 1 ? shiftExpr(exprFrom(p.faceFrom, p.mood), to, p.faceMix ?? 1) : to;
+};
 
 const NAM_HAIR_HEX = PALETTE.nam.hair;
 const palOf = (p: Pick<BodyProps, 'outfit' | 'shirt'>): Pal25 => {
@@ -275,7 +287,8 @@ export const supports25D = (_: Pick<BodyProps, 'pose' | 'outfit'>) => true;
  * 'moi' (mặc định, dáng theo ảnh tham chiếu) hoặc 'chot' (dáng Style B đã chốt). `volume={false}` = bản 2D.
  * Bộ đồ `outfit` khác áo thun tự dùng dáng đã chốt.
  */
-export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25; dang?: 'moi' | 'chot'; lightDir?: [number, number]; hemSway?: HemSway }> = ({ volume = true, lighting = 'ngay', dang = 'moi', lightDir, hemSway, ...props }) => {
+export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25; dang?: 'moi' | 'chot'; lightDir?: [number, number]; hemSway?: HemSway; matCu?: boolean }> = ({ volume = true, lighting = 'ngay', dang = 'moi', lightDir, hemSway, matCu, ...props0 }) => {
+  const props = { ...props0, expr: expr25For(props0, matCu), exprLight: props0.exprLight ?? lightDir ?? LIGHTS_25D[lighting].dir };
   const Body: React.FC<BodyProps> = dang === 'moi' && !props.outfit ? (q) => <NamDangMoi {...q} hemSway={hemSway} /> : StudentTwinBody;
   if (!volume) return <Body {...props} />;
   const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;
@@ -288,9 +301,9 @@ export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25
 };
 
 /** Đầu Nam 2.5D (bảng biểu cảm). */
-export const Nam25DHead: React.FC<React.ComponentProps<typeof StudentTwinHead> & { lighting?: Light25 }> = ({ lighting = 'ngay', ...p }) => (
+export const Nam25DHead: React.FC<React.ComponentProps<typeof StudentTwinHead> & { lighting?: Light25; lightDir?: [number, number]; matCu?: boolean }> = ({ lighting = 'ngay', lightDir, matCu, ...p }) => (
   <g transform={`translate(${p.x ?? 0} ${p.y ?? 0}) scale(${p.scale ?? 1})`}>
-    <Volume25 subject={<g data-part="head"><StudentTwinHead {...p} x={0} y={0} scale={1} /></g>} light={lighting} pal={{ shirt: ['#000001'], pants: ['#000002'], hair: NAM_HAIR_HEX }} />
+    <Volume25 subject={<g data-part="head"><StudentTwinHead {...p} expr={expr25For(p, matCu)} exprLight={p.exprLight ?? lightDir ?? LIGHTS_25D[lighting].dir} x={0} y={0} scale={1} /></g>} light={lighting} dir={lightDir} pal={{ shirt: ['#000001'], pants: ['#000002'], hair: NAM_HAIR_HEX }} />
   </g>
 );
 

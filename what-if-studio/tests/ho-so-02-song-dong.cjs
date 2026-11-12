@@ -65,4 +65,56 @@ assert.ok(!n25(20).includes('NaN')); assert.notEqual(n25(10), n25(70));
 const vl = require(A + 'thiet-ke/thu-2-5d/vat-ly');
 const track = vl.simulate((f) => s.lifePose(r.TWIN_POSES.stand, f, { seed: 1 }), [{ f: 40, kind: 'va', dir: 1 }], 120);
 assert.ok(track.length === 120 && !JSON.stringify(track).includes('NaN'), 'vật lý chồng lớp sống động');
-console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà');
+// Người Kia 2.5D, Tùng 2.5D, và gói dáng sống + vật lý thành một thành phần
+const html2 = (el) => renderToStaticMarkup(React.createElement('svg', null, el));
+const nk = html2(React.createElement(s.LivingNguoiKia25D, { frame: 30, seed: 3, pose: r.TWIN_POSES.stand, lighting: 'dem-xanh' }));
+assert.ok(!nk.includes('NaN') && nk.length > 1000, 'Người Kia 2.5D');
+const tg = html2(React.createElement(s.LivingTung25D, { frame: 30, lighting: 'den-vang' }));
+assert.ok(!tg.includes('NaN') && tg.includes('data-volume'), 'Tùng 2.5D có lớp sáng');
+assert.notEqual(tg, html2(React.createElement(s.LivingTung25D, { frame: 80, lighting: 'den-vang' })));
+const sv = (f, extra = {}) => html2(React.createElement(s.NamSongVatLy, { frame: f, total: 120, base: () => r.TWIN_POSES.stand, impacts: [{ f: 40, kind: 'va', dir: 1 }], seed: 1, ...extra }));
+assert.ok(!sv(10).includes('NaN') && !sv(44).includes('NaN') && !sv(100).includes('NaN'));
+assert.notEqual(sv(38), sv(46), 'cú va phải đổi hình');
+assert.notEqual(sv(44), sv(44, { physics: false }), 'physics=false khác có vật lý');
+// Tùng có vật lý thứ cấp: cú va đổi hình, vạt áo đấu lệch, physics=false khác, không NaN
+const tv = (f, extra = {}) => html2(React.createElement(s.TungSongVatLy, { frame: f, total: 120, impacts: [{ f: 40, kind: 'giat-minh', mag: 1.6, dir: 1 }], seed: 4, ...extra }));
+assert.ok(!tv(10).includes('NaN') && !tv(44).includes('NaN') && !tv(100).includes('NaN'));
+assert.notEqual(tv(38), tv(45), 'giật mình phải đổi hình Tùng');
+assert.notEqual(tv(45), tv(45, { physics: false }));
+const tgOutfit = require(A + 'thiet-ke/thu-2-5d/tung-2-5d').tungOutfitSway;
+assert.deepEqual(tgOutfit(undefined).hem, r.TUNG_OUTFIT.hem); assert.notDeepEqual(tgOutfit({ dx: 6, dy: 4 }).hem, r.TUNG_OUTFIT.hem);
+assert.deepEqual(tgOutfit({ dx: 6, dy: 4 }).hem.slice(0, 2), r.TUNG_OUTFIT.hem.slice(0, 2), 'hai điểm trên eo giữ nguyên');
+// Cử chỉ theo cảm xúc và dáng chuyển trạng thái: không NaN, đầu/cuối đúng khoá, nét mặt mới có trong thư viện
+const cc = require(A + 'cu-chi'), nm = require('../library/expressions/cartoon-soft/bo-sung-cot-truyen/net-mat');
+for (const [g, poses] of Object.entries(cc.GESTURES)) {
+  assert.equal(poses.length, 3, g);
+  poses.forEach((p, i) => { assert.ok(nm.STORY_FACES[`${g}-0${i + 1}`], `thiếu nét mặt ${g}-0${i + 1}`); assert.ok(!JSON.stringify(r.solveRig(p)).includes('NaN'), `${g} mức ${i + 1}`); });
+}
+for (const tr of cc.TRANSITIONS) {
+  for (let t = 0; t <= 1.0001; t += 0.05) { const p = cc.transitionPose(tr.id, t); assert.ok(!JSON.stringify(r.solveRig(p)).includes('NaN'), `${tr.id} t=${t}`); }
+  assert.equal(cc.transitionPose(tr.id, 1).tilt, tr.keys[tr.keys.length - 1].pose.tilt, `${tr.id} kết thúc đúng khoá cuối`);
+}
+assert.equal(nm.STORY_GROUPS.length, 12);
+
+// Cảm xúc 2.5D tham số: 24 nhóm × 3 mức, trộn/chuyển/sống tất định, khoá cũ đổi sang mặt mới, vẽ không NaN, ID không trùng.
+const cx = require(A + 'cam-xuc-2-5d');
+assert.equal(cx.FAMILY_IDS.length, 24);
+const finite = (e) => Object.values(e).every((v) => typeof v !== 'number' || Number.isFinite(v));
+for (const f of cx.FAMILY_IDS) for (const lv of [1, 2, 3]) assert.ok(finite(cx.exprOf(f, lv)), `${f}-${lv}`);
+assert.deepEqual(cx.exprAmount('vui', 1), cx.exprOf('vui', 3));
+assert.deepEqual(cx.shiftExpr(cx.exprOf('vui', 1), cx.exprOf('so-hai', 3), 1), cx.exprOf('so-hai', 3));
+assert.deepEqual(cx.liveExpr(cx.exprOf('buon', 2), 50, { amount: 0 }), cx.exprOf('buon', 2));
+assert.deepEqual(cx.liveExpr(cx.NEUTRAL, 333, { seed: 4 }), cx.liveExpr(cx.NEUTRAL, 333, { seed: 4 }));
+assert.deepEqual(cx.exprFrom('so-hai-03'), cx.exprOf('so-hai', 3));
+assert.deepEqual(cx.exprFrom(undefined, 'scared'), cx.exprOf('so-hai', 2));
+let blinked = 0; for (let f = 0; f < 900; f++) { const b = cx.blinkAmount(f, 2); assert.ok(b >= 0 && b <= 1); if (b > 0.9) blinked++; }
+assert.ok(blinked > 10, 'có chớp mắt trong 30 s');
+for (let t = 0; t <= 1; t += 0.05) assert.ok(finite(cx.shiftExpr(cx.exprOf('buon', 3), cx.exprOf('vui', 3), t)));
+for (const f of cx.FAMILY_IDS) for (const view of ['three', 'front']) {
+  const html = renderToStaticMarkup(React.createElement('svg', null, React.createElement(require(A + 'thiet-ke/thu-2-5d/nam-2-5d').Nam25DHead, { expr: cx.liveExpr(cx.exprOf(f, 3), 37, { seed: 1 }), view, id: `t-${f}-${view}` })));
+  assert.ok(!/NaN|Infinity|undefined/.test(html), `${f} ${view}`);
+  const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(ids.length, new Set(ids).size, `${f} ${view} trùng id`);
+  assert.ok(html.includes('data-face25d'), `${f} dùng mặt mới`);
+}
+console.log('song-dong ok: thở, chớp, trôi, khẩu hình, chuyển dáng có đà, cảm xúc 2.5D 24×3');

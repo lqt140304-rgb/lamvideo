@@ -215,7 +215,7 @@ export const makeScene = (cam: Cam, light: Light, frame: number | null = null, l
     if (pts.length > 2) shadows.push(<path key={key++} d={path(pts)} fill="#1d231f" opacity={op} />);
   };
   /** Vệt nắng: chiếu ô cửa (4 góc trên tường) dọc theo hướng nắng xuống mặt sàn y = floorY. */
-  const sunPatch = (win: V3[], op = 0.32, col = '#fff2c4', floorY = 0) => {
+  const sunPatch = (win: V3[], op = 0.24, col = '#fff2c4', floorY = 0) => {
     const sun = light.sun; if (sun[1] >= 0) return;
     const hit = win.map((p) => { const t = (p[1] - floorY) / -sun[1]; return add(p, mul(sun, t)); });
     const pts = clip(hit); if (pts.length > 2) glows.push(<path key={key++} d={path(pts)} fill={col} opacity={op} />);
@@ -224,7 +224,7 @@ export const makeScene = (cam: Cam, light: Light, frame: number | null = null, l
   const glow = (p: V3, rCm: number, col: string, op = 0.35) => {
     if (cam.depth(p) < NEAR) return;
     const [x, y] = cam.project(p), r = rCm * cam.pxcm(p);
-    glows.push(<circle key={key++} cx={x} cy={y} r={r} fill={col} opacity={op} />);
+    glows.push(<circle key={key++} cx={x} cy={y} r={r} fill={col} opacity={op * 0.72} />);
   };
 
   /** Nhóm 2D phẳng dán lên một mặt phẳng (biển chữ, bảng): toạ độ cục bộ x sang phải theo u, y xuống theo v (đơn vị cm/đơn vị). */

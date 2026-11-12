@@ -2,6 +2,7 @@ import React from 'react';
 import { Build, HairSway, JointPose, Light, NamMood, Outfit, PALETTE, Rigged, STAND_POSE, StudentTwinBody, TungHead, TungMood, TungSoccer, TUNG_OUTFIT } from '../../nhan-vat';
 import { HemSway, Light25, LIGHTS_25D, Nam25D, Pal25, swayHem, Volume25 } from './nam-2-5d';
 import { LIGHT_SOURCES, lightFor, RoomScene, RoomView } from '../../boi-canh/boi-canh';
+import { exprFrom } from '../../cam-xuc-2-5d';
 
 /**
  * 2.5D cho các nhân vật chính còn lại của Hồ sơ 02 (11/11/2026): NGƯỜI KIA và TÙNG. Cùng lớp ánh sáng/tách lớp/bóng mềm/vật lý như Nam
@@ -29,12 +30,14 @@ export const tungOutfitDang = (sway?: HemSway): Outfit => ({
 
 type TungProps = React.ComponentProps<typeof TungSoccer>;
 /** Tùng dáng theo ảnh tham chiếu (2D, chưa có lớp sáng). */
-export const TungDangMoi: React.FC<TungProps & { hemSway?: HemSway }> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose, talk, blink, light, hair, hemSway }) => (
+export const TungDangMoi: React.FC<TungProps & { hemSway?: HemSway }> = ({ mood = 'annoyed', x = 0, y = 0, scale = 1, pose, talk, blink, light, hair, hemSway, expr, exprLight }) => (
   <Rigged pose={pose ?? STAND_POSE} outfit={tungOutfitDang(hemSway)} x={x} y={y} scale={scale} light={light as Light | undefined}
-    head={<TungHead mood={mood as TungMood} id="tung-dang-moi" view={pose?.view} facing={pose?.facing} talk={talk} blink={blink} hair={hair} splitNeck />} />
+    head={<TungHead mood={mood as TungMood} id="tung-dang-moi" view={pose?.view} facing={pose?.facing} talk={talk} blink={blink} hair={hair} expr={expr} exprLight={exprLight} splitNeck />} />
 );
 /** Tùng 2.5D: cùng props `TungSoccer`, thêm `lighting`, `lightDir`, `dang` ('moi' mặc định | 'chot'), `hemSway`. `volume={false}` = 2D. */
-export const Tung25D: React.FC<TungProps & { volume?: boolean; lighting?: Light25; lightDir?: [number, number]; dang?: 'moi' | 'chot'; hemSway?: HemSway }> = ({ volume = true, lighting = 'ngay', lightDir, dang = 'moi', hemSway, ...props }) => {
+export const Tung25D: React.FC<TungProps & { volume?: boolean; lighting?: Light25; lightDir?: [number, number]; dang?: 'moi' | 'chot'; hemSway?: HemSway; matCu?: boolean }> = ({ volume = true, lighting = 'ngay', lightDir, dang = 'moi', hemSway, matCu, ...props0 }) => {
+  // mặt 2.5D tham số mặc định (mood cũ đổi sang bộ cảm xúc mới); `matCu` giữ mặt cũ
+  const props = { ...props0, expr: props0.expr ?? (matCu ? undefined : exprFrom(undefined, props0.mood ?? 'annoyed')), exprLight: props0.exprLight ?? lightDir ?? LIGHTS_25D[lighting].dir };
   const Body: React.FC<TungProps> = dang === 'moi' ? (q) => <TungDangMoi {...q} hemSway={hemSway} /> : TungSoccer;
   if (!volume) return <Body {...props} />;
   const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;

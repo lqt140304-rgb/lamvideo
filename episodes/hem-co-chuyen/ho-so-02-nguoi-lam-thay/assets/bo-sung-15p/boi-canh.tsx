@@ -5,6 +5,7 @@ import { SupportingActor, FormalTwin } from './nhan-vat-va-tu-the';
 import { RoomScene, type RoomProps } from '../boi-canh/boi-canh';
 import { TWIN_POSES } from '../nhan-vat';
 import { camera, CamSpec, Finish, Light, makeScene, Scope, V3 } from './kit3d';
+import { barberPole, Birds, cat, ceilingFan, Clouds, laundry, moths, ripples, smoke, walker, wallClock } from './chi-tiet';
 
 /**
  * Bối cảnh bổ sung Hồ sơ 02 — đại tu 11/11/2026: dựng bằng mô hình 3D theo cm (kit3d), camera phối cảnh thật,
@@ -155,6 +156,10 @@ export const LectureHall = ({ children, failed = false, students = true, view = 
   for (const [x, y, c] of [[-290, 210, '#f2efe2'], [-230, 190, '#e9d79b'], [-160, 215, '#cfe0d5'], [-120, 170, '#f2efe2']] as const) S.box({ x: [x, x + 40], y: [y - 40 + top, y + top], z: [-195, -194], c });
   // Dàn đèn tuýp trắng lạnh phủ kín trần
   for (let z = 0; z <= 1400; z += 280) for (const x of [-330, 0, 330]) tubeLight(S, x, z, H, 130, '#f6fbff', '#eef7ff');
+  // Quạt trần quay và đồng hồ treo tường (kim giây chạy)
+  ([[-170, 420], [170, 700], [-170, 980], [170, 1260]] as [number, number][]).forEach((c) => ceilingFan(S, c, H, frame));
+  wallClock(S, [-420, 372, 1496], [1, 0, 0], 44, frame);
+  wallClock(S, [-220, 372, -199], [-1, 0, 0], 44, frame);
   // Dãy bàn ghế dài trên từng bậc. Sinh viên có hai mặt: lưng (nhìn từ cuối phòng) và mặt (nhìn từ bục); camera chỉ thấy một mặt.
   const shirts = ['#83968d', '#ad9e87', '#8497a0', '#a58d7e', '#9aa58a', '#8d8aa0'];
   LECTURE_ROWS.forEach((z, r) => [[-470, -70], [70, 470]].forEach(([a, b], side) => {
@@ -207,7 +212,7 @@ const monitor = (S: ReturnType<typeof makeScene>, x: number, y: number, z: numbe
   S.quad([[x - 25, y + 14, z - 0.4], [x + 25, y + 14, z - 0.4], [x + 25, y + 44, z - 0.4], [x - 25, y + 44, z - 0.4]], i % 3 ? '#cfe1e3' : '#bcd6cc', { n: [0, 0, -1], emit: true, edge: false });
   // Màn hình chẵn hiện hạn nộp bài tập lớn (P2.04: áp lực thời gian); màn lẻ là giao diện làm việc chung.
   if (i % 2 === 0 && S.cam.pos[2] < z) S.plane([x - 25, y + 44, z - 0.8], [0.25, 0, 0], [0, -0.25, 0], <DeadlineScreen variant={i} frame={frame} />, 2, 3);
-  else for (let k = 0; k < 3; k++) S.quad([[x - 20, y + 38 - k * 8, z - 0.6], [x + 6 - k * 4, y + 38 - k * 8, z - 0.6], [x + 6 - k * 4, y + 35 - k * 8, z - 0.6], [x - 20, y + 35 - k * 8, z - 0.6]], '#8ea9a2', { n: [0, 0, -1], emit: true, edge: false });
+  else for (let k = 0; k < 4; k++) { const w = 8 - k * 3 + (frame === null ? 0 : 7 * Math.sin(frame / (11 + k * 4) + i * 1.3 + k)); S.quad([[x - 20, y + 38 - k * 8, z - 0.6], [x + w, y + 38 - k * 8, z - 0.6], [x + w, y + 35 - k * 8, z - 0.6], [x - 20, y + 35 - k * 8, z - 0.6]], '#8ea9a2', { n: [0, 0, -1], emit: true, edge: false }); }
   S.glow([x, y + 29, z - 4], 26, '#d9f1ee', 0.14);
   S.box({ x: [x - 21, x + 21], y: [y, y + 2], z: [z - 30, z - 16], c: '#5c6766', top: '#7c8786' });
 };
@@ -232,6 +237,9 @@ export const ComputerLab = ({ children, view = 'chinh', frame = null, layers = f
   S.castShadow([80, 400], [-200, -150], 190, 0.14);
   S.plane([-180, 250, -199], [-0.4, 0, 0], [0, -0.4, 0], <g><rect width={260} height={140} rx={8} fill="#f2eedf" /><text x={20} y={46} fontFamily="Arial, sans-serif" fontWeight={700} fontSize={32} fill="#3f5f57">LỊCH PHÒNG</text>{[0, 1, 2].map((k) => <rect key={k} x={20} y={66 + k * 22} width={200 - k * 30} height={8} rx={4} fill="#a9b8a8" />)}</g>);
   for (let z = 150; z <= 1150; z += 330) for (const x of [-250, 250]) tubeLight(S, x, z, H);
+  ceilingFan(S, [0, 520], H, frame); ceilingFan(S, [0, 1080], H, frame);
+  wallClock(S, [330, 262, 1244], [1, 0, 0], 40, frame);
+  wallClock(S, [-200, 272, -199], [-1, 0, 0], 40, frame);
   // Ba dãy bàn máy, mỗi dãy hai cụm, ghế phía camera
   [330, 620, 910].forEach((z) => [[-430, -50], [50, 430]].forEach(([a, b], side) => {
     S.box({ x: [a, b], y: [72, 76], z: [z, z + 70], c: '#d4d6c9', top: '#e2e3d8' });
@@ -302,8 +310,16 @@ export const UniversityCorridor = ({ children, view = 'chinh', frame = null, lay
   S.cyl([115, 0, 260], 22, 38, '#a3765a', { r2: 26, n: 14 });
   for (const [dx, dy, dz, r] of [[0, 62, 0, 30], [-18, 88, 8, 24], [16, 86, -6, 22], [2, 112, 4, 18]] as const) S.sphere([115 + dx, dy, 260 + dz], r, dy > 80 ? K.leaf : K.leafDark, { sy: 0.9, n: 20, bands: 10 });
   S.castShadow([95, 135], [240, 280], 120, 0.18);
+  // Bảng tin giữa hai cửa lớp, bình chữa cháy, thùng rác; sinh viên đi lại dọc hành lang; chim ngoài sân
+  S.plane([W0 + 4, 236, 1150], [0, 0, 0.55], [0, -0.55, 0], <g><rect width={360} height={190} rx={8} fill="#8a6a46" /><rect x={10} y={10} width={340} height={170} rx={5} fill="#d8c8a2" />{[[24, 24, 90, 70, '#f4efe0'], [128, 22, 70, 96, '#c9e0d4'], [212, 30, 110, 64, '#f2d9a0'], [30, 108, 120, 56, '#e7e2d2'], [166, 126, 86, 44, '#cfd9ef'], [268, 108, 62, 62, '#f4efe0']].map(([x, y, w, h, c], i) => <g key={i}><rect x={x as number} y={y as number} width={w as number} height={h as number} fill={c as string} /><rect x={(x as number) + 8} y={(y as number) + 10} width={(w as number) - 28} height={5} fill="#9aa59a" /><rect x={(x as number) + 8} y={(y as number) + 24} width={(w as number) - 16} height={4} fill="#b9c2b8" /></g>)}</g>);
+  S.cyl([W0 + 12, 98, 1420], 8, 36, '#c4443a', { n: 10 }); S.box({ x: [W0 + 4, W0 + 8], y: [70, 140], z: [1412, 1428], c: '#d8d2bc' });
+  S.cyl([128, 0, 1380], 15, 46, '#6f7d77', { r2: 17, n: 12 });
+  walker(S, { from: [-70, 0, 3000], to: [-60, 0, 420], speed: 1.1, phase: 0.1, shirt: '#c97f6e', pants: '#4b5560', frame });
+  walker(S, { from: [60, 0, 500], to: [70, 0, 3100], speed: 1.3, phase: 0.45, shirt: '#7aa0b8', pants: '#3d4642', frame });
+  walker(S, { from: [-20, 0, 3100], to: [-30, 0, 900], speed: 1.0, phase: 0.7, shirt: '#e0d4a2', pants: '#5a5047', hair: '#4a3a2c', frame });
+  walker(S, { from: [90, 0, 900], to: [80, 0, 2800], speed: 1.5, phase: 0.25, shirt: '#9bb58a', pants: '#3d3b46', frame });
   S.sprite([10, 0, 620], S.litActors(id, [10, 0, 620], <g data-layer="actors">{children}</g>));
-  const out = wrap(id, 'hanh-lang-dai-hoc', S.render(id, sky('#b9d8d6', '#e7efe0', id)));
+  const out = wrap(id, 'hanh-lang-dai-hoc', S.render(id, <>{sky('#b9d8d6', '#e7efe0', id)}<Clouds frame={frame} y={90} /><Birds frame={frame} y={170} n={4} /></>));
   return scope ? <g>{out}<Scope /></g> : out;
 };
 
@@ -409,6 +425,9 @@ export const FamilyGathering = ({ children, cast = true, view = 'chinh', frame =
       S.sprite([x, 30, z], <g><clipPath id={`${id}-sit${i}`}><rect x={-4000} y={-4000} width={8000} height={cut + 4000} /></clipPath><g clipPath={`url(#${id}-sit${i})`}>{S.litActors(`${id}-f${i}`, [x, 40, z], node)}</g></g>, 2, [0, 0, -1]);
     });
   }
+  smoke(S, [-30, 131, 765], frame, 42);
+  cat(S, [340, 0, 150], frame, '#d6a15e', -1);
+  ceilingFan(S, [-260, 300], H, frame, 50);
   S.sprite([0, 0, 520], S.litActors(id, [0, 0, 520], <g data-layer="actors">{children}</g>));
   const out = wrap(id, 'mam-com-gia-dinh', S.render(id, <rect width={1920} height={1080} fill="#d8c7aa" />), '#ffcf8a', 0.38);
   return scope ? <g>{out}<Scope /></g> : out;
@@ -529,6 +548,8 @@ export const DonationCorner = ({ children, view = 'chinh', cam, frame = null, la
   for (const [x, z, rx, rz] of [[120, 120, 90, 34], [-160, 40, 60, 22], [330, -60, 140, 50], [380, 260, 80, 28]]) S.plane([x - rx, 0.5, z + rz], [1, 0, 0], [0, 0, -1], <ellipse cx={rx} cy={rz} rx={rx} ry={rz} fill="#c4ccc8" opacity={0.22} />, 0.55);
   if (frame !== null) for (let k = 0; k < 9; k++) { const ph = (frame * 0.035 + k * 0.381) % 1, x = XR + 8 + (k % 3) * 3, z = -230 + k * 62, y = 284 - ph * 280; S.line([x, y, z], [x, y + 16, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.75 * Math.min(1, (1 - ph) * 5) }); }
   else for (const [x, z] of [[XR + 10, -200], [XR + 14, 40], [XR + 8, 230]]) S.line([x, 280, z], [x, 262, z], '#dfe8e6', 0.5, { cm: true, layer: 2.4, op: 0.7 });
+  cat(S, [228, 34, 326], frame, '#a09a8e');
+  for (const [x, z, r] of [[120, 120, 40], [-160, 40, 28], [330, -60, 50], [380, 260, 34]] as const) ripples(S, [x, 0, z], frame, r);
   S.sprite([-170, 0, 170], S.litActors(id, [-170, 0, 170], <g data-layer="actors">{children}</g>));
   const out = wrap(id, 'goc-do-cho-tang', S.render(id, sky('#aeb8b6', '#e1dccb', id)), '#e8c48f', 0.42);
   return scope ? <g>{out}<Scope /></g> : out;
@@ -567,8 +588,13 @@ export const MiniPitch = ({ children, view = 'chinh', cam, frame = null, layers 
   const ball = S.cam.project([-260, 0, 980]), bs = (22 * S.cam.pxcm([-260, 0, 980])) / 170;
   S.contact([-272, -248], [968, 992], 0.3);
   S.sprite([-260, 11, 980], <g transform={`translate(${ball[0]} ${ball[1] - 85 * bs}) scale(${bs})`}><Football /></g>);
+  // Hai đội chạy trên sân, chim và mây trên trời
+  walker(S, { from: [-600, 0, 700], to: [500, 0, 3000], speed: 3.4, phase: 0.0, shirt: '#d9533f', pants: '#2a3350', frame, run: true });
+  walker(S, { from: [500, 0, 3400], to: [-500, 0, 1200], speed: 3.0, phase: 0.35, shirt: '#3f6fc0', pants: '#e8e8dc', frame, run: true });
+  walker(S, { from: [0, 0, 1000], to: [600, 0, 3600], speed: 3.6, phase: 0.6, shirt: '#d9533f', pants: '#2a3350', hair: '#3a2c20', frame, run: true });
+  walker(S, { from: [-300, 0, 3600], to: [200, 0, 900], speed: 3.2, phase: 0.8, shirt: '#3f6fc0', pants: '#e8e8dc', frame, run: true });
   S.sprite([-120, 0, 900], S.litActors(id, [-120, 0, 900], <g data-layer="actors">{children}</g>));
-  const out = wrap(id, 'san-bong-mini', S.render(id, sky('#a9d0d4', '#e9efdf', id)), '#ffe7b0');
+  const out = wrap(id, 'san-bong-mini', S.render(id, <>{sky('#a9d0d4', '#e9efdf', id)}<Clouds frame={frame} y={150} /><Birds frame={frame} y={230} n={6} /></>), '#ffe7b0');
   return scope ? <g>{out}<Scope /></g> : out;
 };
 
@@ -615,6 +641,8 @@ export const BarberCorner = ({ turn = 0, view = 'chinh', frame = null, layers = 
   S.line([40, H, 300], [40, 262, 300], '#4a4a42', 0.8, { cm: true, layer: 2 });
   S.cyl([40, 250, 300], 22, 12, '#d8c18e', { r2: 8, n: 14 });
   S.glow([40, 244, 300], 30, '#ffe8b8', 0.22);
+  barberPole(S, [-259, 218, 270], frame, id);
+  ceilingFan(S, [40, 150], H, frame, 48);
   const out = wrap(id, 'goc-cat-toc', S.render(id, <rect width={1920} height={1080} fill="#d9d5c2" />), '#ffe2b0');
   return scope ? <g>{out}<Scope /></g> : out;
 };
@@ -656,7 +684,9 @@ export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = 
     S.box({ x: [7, 11], y: [96, 100], z: [z + 76, z + 84], c: '#c9b47c' });
     if (S.cam.depth([4.5, 180, z + 45]) > 160) S.plane([4.5, 192, z + 30], [0, 0, 0.12], [0, -0.12, 0], <g><rect width={240} height={90} rx={10} fill="#e9e2cf" /><text x={120} y={66} textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight={700} fontSize={60} fill="#3f4a46">{`20${i + 1}`}</text></g>, 2, 2);
     const lit = i === 2 || i === 4;
-    S.quad([[0.6, 120, z + 230], [0.6, 120, z + 140], [0.6, 195, z + 140], [0.6, 195, z + 230]], lit ? '#d8b56c' : '#28312f', { n: [1, 0, 0], emit: lit, edge: false });
+    const tvN = frame === null ? 0.5 : 0.5 + 0.5 * Math.sin(frame / 6) * Math.sin(frame / 17), hx = (v: number) => Math.round(v).toString(16).padStart(2, '0');
+    const tv = i === 2 && frame !== null ? `#${hx(120 + 110 * tvN)}${hx(160 + 80 * tvN)}${hx(230 + 20 * tvN)}` : '#d8b56c';
+    S.quad([[0.6, 120, z + 230], [0.6, 120, z + 140], [0.6, 195, z + 140], [0.6, 195, z + 230]], lit ? tv : '#28312f', { n: [1, 0, 0], emit: lit, edge: false });
     for (let k = 1; k < 6; k++) S.line([1.4, 120, z + 140 + k * 15], [1.4, 195, z + 140 + k * 15], '#59615e', 1.2, { cm: true, layer: 1.6 });
     if (i === 3) { S.cyl([22, 0, z + 120], 9, 14, '#a65d4a', { r2: 11, n: 10 }); S.sphere([22, 26, z + 120], 12, '#4f6e4f', { sy: 0.9, n: 8, bands: 4 }); }
     S.box({ x: [6, 46], y: [0, 1.5], z: [z + 10, z + 80], c: '#6b7468' });
@@ -672,7 +702,12 @@ export const DormHallNight = ({ children, view = 'chinh', flicker, cam, frame = 
     S.box({ x: [0, 4], y: [227, 237], z: [z - 64, z + 64], c: '#cfc8b4' });
     if (on > 0.05) S.glow([20, 226, z], 46 * on, '#ffdb8a', 0.32 * on);
     if (on > 0.05) S.glow([60, 6, z + 40], 110, '#ffd27a', 0.1 * on);
+    if (on > 0.3) moths(S, [22, 224, z], frame, 3, 24);
   });
+  // Quần áo phơi ngoài lan can, mèo ngồi ở góc hành lang
+  laundry(S, [XW + 8, 215, 880], [XW + 8, 215, 1500], frame);
+  laundry(S, [XW + 8, 205, 1620], [XW + 8, 205, 2000], frame, ['#c4776a', '#e6dfc9', '#5f87a8']);
+  cat(S, [150, 0, 1180], frame, '#8a847a');
   // Cuối dãy: bậc cầu thang lên tầng, tay vịn
   for (let i = 0; i < 10; i++) S.box({ x: [30, XW - 14], y: [0, (i + 1) * 17], z: [1980 + i * 27, 1980 + (i + 1) * 27], c: '#aaa48f', top: '#c2bca6', front: '#9d977f' });
   S.line([XW - 18, 95, 1980], [XW - 18, 95 + 170, 2250], '#3a4240', 2.6, { cm: true, layer: 2.4 });

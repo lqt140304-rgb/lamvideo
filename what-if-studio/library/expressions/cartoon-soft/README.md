@@ -1,5 +1,7 @@
 # Bộ nét mặt cartoon mềm — dùng chung
 
+> **11/11/2026:** Hồ sơ 02 không dùng bộ này cho nhân vật 2.5D nữa; thay bằng mặt tham số `episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/cam-xuc-2-5d.tsx`. Giữ lại cho rig 2D và cảnh đã dựng.
+
 Phiên bản 1, 10/11/2026. Tách từ bộ biểu cảm đã duyệt của [nhân vật truy vết](../../../../episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md), theo yêu cầu giữ **chỉ nét mặt, không tóc, sọ/đường bao đầu, da nền, tai hoặc cổ**. Đây là thư viện mới; bộ nhân vật nguồn vẫn được giữ để đối chiếu.
 
 ## Có gì và mỗi file dùng làm gì
