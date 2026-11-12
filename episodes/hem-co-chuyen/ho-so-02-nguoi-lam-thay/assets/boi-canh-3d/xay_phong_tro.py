@@ -182,7 +182,7 @@ def shell(m, coll, door_open, cutaway=False, hide_front=False):
     leaf = box('canh_cua', -0.02, 0.02, DOOR['y0'], DOOR['y1'], 0.0, DOOR['top'], m['cua'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=(0, DOOR['y1'], 0))
     # tay nắm, then sắt gỉ, mắt thần — gắn theo cánh (xoay cùng pivot)
     piv = (0, DOOR['y1'], 0)
-    box('tay_nam', 0.02, 0.07, DOOR['y0'] + 0.07, DOOR['y0'] + 0.11, 1.0, 1.03, m['inox'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=piv)
+    box('tay_nam', 0.02, 0.07, DOOR['y0'] + 0.07, DOOR['y0'] + 0.11, 1.18, 1.21, m['inox'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=piv)  # núm cùng tầm với thanh chốt
     box('then_sat', 0.02, 0.05, DOOR['y0'] + 0.1, DOOR['y0'] + 0.36, 1.18, 1.205, m['gi'], bevel=0.004, coll=coll, rot=(0, 0, ang), pivot=piv)
     box('then_dau', 0.02, 0.05, DOOR['y0'] + 0.34, DOOR['y0'] + 0.36, 1.16, 1.23, m['gi'], bevel=0.003, coll=coll, rot=(0, 0, ang), pivot=piv)
     box('o_then', 0.0, 0.03, DOOR['y0'] - 0.03, DOOR['y0'], 1.15, 1.25, m['gi'], bevel=0.003, coll=coll)
@@ -273,7 +273,7 @@ def desk_and_chair(m, coll, chair_pos=None, chair_rot=0.0):
     for i in range(6):
         box(f'sach_t{i}', x0 + 0.04 + i * 0.05, x0 + 0.08 + i * 0.05, y0 + 0.02, y0 + 0.17, 1.02, 1.2, m['bia'][(i + 2) % 5], bevel=0.002, coll=coll)
     # laptop (màn hình là nguồn sáng ban đêm — vật liệu `man_hinh` đổi theo chế độ)
-    lx, ly = 2.66, 0.32
+    lx, ly = 2.79, 0.33  # đặt sát mép phải bàn, cách kệ sách 3 cm
     box('laptop_day', lx - 0.17, lx + 0.17, ly - 0.115, ly + 0.115, 0.75, 0.765, m['laptop'], bevel=0.005, coll=coll)
     # Bản lề ở mép sau (y nhỏ, phía tường); người ngồi ở y lớn. Màn hình dựng lên, ngả về phía tường; mặt hiển thị quay về người.
     scr = box('laptop_manhinh', lx - 0.17, lx + 0.17, ly - 0.12, ly - 0.105, 0.765, 0.765 + 0.23, m['laptop'], bevel=0.005, coll=coll, rot=(math.radians(14), 0, 0), pivot=(lx, ly - 0.11, 0.765))
@@ -281,9 +281,9 @@ def desk_and_chair(m, coll, chair_pos=None, chair_rot=0.0):
     for i in range(3):  # sổ và giấy
         box(f'giay{i}', 2.80 + i * 0.01, 2.92 + i * 0.01, 0.33, 0.52, 0.75 + i * 0.004, 0.754 + i * 0.004, M.solid(f'giay{i}', '#ece3cf', 0.8), rot=(0, 0, math.radians(8 * i - 6)), coll=coll)
     # đèn bàn
-    cyl('den_de', 2.38, 0.46, 0.76, 0.07, 0.02, M.solid('den_de', '#c7826a', 0.5), coll=coll)
-    cyl('den_than', 2.38, 0.46, 0.93, 0.008, 0.34, M.solid('den_than', '#c7826a', 0.5), coll=coll)
-    sphere('den_chup', 2.38, 0.46, 1.12, 0.07, M.solid('den_chup', '#d99379', 0.45), scale=(1, 1, 0.8), coll=coll)
+    cyl('den_de', 2.66, 0.12, 0.76, 0.06, 0.02, M.solid('den_de', '#c7826a', 0.5), coll=coll)
+    cyl('den_than', 2.66, 0.12, 0.93, 0.008, 0.34, M.solid('den_than', '#c7826a', 0.5), coll=coll)
+    sphere('den_chup', 2.66, 0.12, 1.12, 0.07, M.solid('den_chup', '#d99379', 0.45), scale=(1, 1, 0.8), coll=coll)
     # ghế làm việc (mặt ghế thật 0,46 m) — quay mặt vào bàn (−y); tâm (x, y) chỗ ngồi
     cx, cy = chair_pos or (SEAT['x'], SEAT['y'])
     chair(m, coll, cx, cy, chair_rot)
@@ -346,7 +346,7 @@ def wall_details(m, coll):
         box(f'note{i}', x, x + 0.11, 0.0, 0.003, z, z + 0.14, M.solid(f'note_{i}', c, 0.9), coll=coll, rot=(0, 0, math.radians(rot)), pivot=(x, 0, z))
     box('tkb', 2.66, 2.84, 0.0, 0.003, 1.02, 1.30, M.solid('tkb', '#efeee6', 0.9), coll=coll)
     box('o_dien_ban', 2.02, 2.12, 0.0, 0.012, 0.80, 0.88, m['viền'], bevel=0.003, coll=coll)
-    wire('day_sac', (2.07, 0.012, 0.80), (2.81, 0.20, 0.765), 0.0045, m['den'], coll=coll)
+    wire('day_sac', (2.07, 0.012, 0.80), (2.84, 0.22, 0.765), 0.0045, m['den'], coll=coll)
     box('lich_khung', 0.0, 0.012, 2.55, 2.85, 1.25, 1.55, m['go_toi'], bevel=0.004, coll=coll)
     box('lich_giay', 0.012, 0.016, 2.60, 2.80, 1.28, 1.52, M.solid('lich', '#f4f1e6', 0.9), coll=coll)
     box('cong_tac_giuong', 0.0, 0.012, 2.20, 2.27, 1.02, 1.09, m['viền'], bevel=0.003, coll=coll)
