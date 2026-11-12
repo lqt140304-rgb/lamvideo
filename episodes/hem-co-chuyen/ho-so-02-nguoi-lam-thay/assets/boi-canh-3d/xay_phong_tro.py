@@ -182,10 +182,16 @@ def shell(m, coll, door_open, cutaway=False, hide_front=False):
     leaf = box('canh_cua', -0.02, 0.02, DOOR['y0'], DOOR['y1'], 0.0, DOOR['top'], m['cua'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=(0, DOOR['y1'], 0))
     # tay nắm, then sắt gỉ, mắt thần — gắn theo cánh (xoay cùng pivot)
     piv = (0, DOOR['y1'], 0)
-    box('tay_nam', 0.02, 0.07, DOOR['y0'] + 0.07, DOOR['y0'] + 0.11, 1.18, 1.21, m['inox'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=piv)  # núm cùng tầm với thanh chốt
-    box('then_sat', 0.02, 0.05, DOOR['y0'] + 0.1, DOOR['y0'] + 0.36, 1.18, 1.205, m['gi'], bevel=0.004, coll=coll, rot=(0, 0, ang), pivot=piv)
-    box('then_dau', 0.02, 0.05, DOOR['y0'] + 0.34, DOOR['y0'] + 0.36, 1.16, 1.23, m['gi'], bevel=0.003, coll=coll, rot=(0, 0, ang), pivot=piv)
-    box('o_then', 0.0, 0.03, DOOR['y0'] - 0.03, DOOR['y0'], 1.15, 1.25, m['gi'], bevel=0.003, coll=coll)
+    # Khóa cửa: thân khóa dán trên mặt trong cánh gần mép tự do, núm xoay, chốt đẩy vào ổ chốt trên khung.
+    # Cửa mở (góc ≠ 0) thì chốt thu vào thân khóa, không còn đâm vào khung.
+    bolt = 0.07 if abs(door_open) < 1 else 0.0
+    box('than_khoa', 0.02, 0.04, DOOR['y0'] + 0.04, DOOR['y0'] + 0.16, 1.12, 1.27, m['inox'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=piv)
+    box('nap_khoa', 0.04, 0.05, DOOR['y0'] + 0.06, DOOR['y0'] + 0.14, 1.15, 1.24, m['gi'], bevel=0.004, coll=coll, rot=(0, 0, ang), pivot=piv)
+    box('nu_xoay', 0.05, 0.085, DOOR['y0'] + 0.08, DOOR['y0'] + 0.12, 1.175, 1.215, m['inox'], bevel=0.008, coll=coll, rot=(0, 0, ang), pivot=piv)
+    if bolt:
+        box('chot_day', 0.02, 0.03, DOOR['y0'] - 0.05, DOOR['y0'] + 0.01, 1.18, 1.21, m['inox'], bevel=0.003, coll=coll, rot=(0, 0, ang), pivot=piv)
+    box('o_then', 0.0, 0.03, DOOR['y0'] - 0.03, DOOR['y0'], 1.15, 1.25, m['gi'], bevel=0.003, coll=coll)  # ổ chốt trên khung
+    box('o_then_lo', 0.0, 0.03, DOOR['y0'] - 0.035, DOOR['y0'] - 0.03, 1.13, 1.27, m['gi'], bevel=0.002, coll=coll)  # viền ổ chốt
     # ----- cửa sổ: khuôn, kính, song sắt, rèm
     for nm, y0, y1, z0, z1 in [('so_duoi', WIN['y0'] - 0.04, WIN['y1'] + 0.04, WIN['z0'] - 0.05, WIN['z0']), ('so_tren', WIN['y0'] - 0.04, WIN['y1'] + 0.04, WIN['z1'], WIN['z1'] + 0.05), ('so_trai', WIN['y0'] - 0.04, WIN['y0'], WIN['z0'], WIN['z1']), ('so_phai', WIN['y1'], WIN['y1'] + 0.04, WIN['z0'], WIN['z1'])]:
         box(nm, W - 0.06, W + 0.02, y0, y1, z0, z1, m['viền'], bevel=0.004, coll=coll)
