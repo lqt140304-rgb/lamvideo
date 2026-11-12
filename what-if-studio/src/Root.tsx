@@ -25,6 +25,7 @@ import { allTotal, BOARD_SIZE, HoSo02NamGiuaKhung, HoSo02TrailerBoard } from './
 import { HoSo02Opening, OPENING_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/opening';
 import { HoSo02Opening25D } from './episodes/ho-so-02-nguoi-lam-thay/opening-2-5d';
 import { HoSo02TuongTac, TUONG_TAC_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/tuong-tac-thu';
+import { HoSo02TongHop, TONG_HOP_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/tong-hop-thu';
 import { HoSo02Trailer, TRAILER_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/trailer';
 import { FREESTYLE_TOTAL, HoSo02TrailerFreestyle } from './episodes/ho-so-02-nguoi-lam-thay/trailer-freestyle';
 import { HoSo02Trailer3D, TRAILER3D_TOTAL } from './episodes/ho-so-02-nguoi-lam-thay/trailer-3d';
@@ -73,6 +74,7 @@ export const Root: React.FC = () => {
       <Composition id="HoSo02Opening" component={HoSo02Opening} durationInFrames={OPENING_TOTAL} {...common} />
       <Composition id="HoSo02Opening25D" component={HoSo02Opening25D} durationInFrames={OPENING_TOTAL} {...common} />
       <Composition id="HoSo02TuongTac" component={HoSo02TuongTac} durationInFrames={TUONG_TAC_TOTAL} {...common} />
+      <Composition id="HoSo02TongHop" component={HoSo02TongHop} durationInFrames={TONG_HOP_TOTAL} {...common} />
       <Composition id="HoSo02Trailer" component={HoSo02Trailer} durationInFrames={TRAILER_TOTAL} {...common} />
       <Composition id="HoSo02TrailerFreestyle" component={HoSo02TrailerFreestyle} durationInFrames={FREESTYLE_TOTAL} {...common} />
       <Composition id="HoSo02Trailer3D" component={HoSo02Trailer3D} durationInFrames={TRAILER3D_TOTAL} {...common} />
