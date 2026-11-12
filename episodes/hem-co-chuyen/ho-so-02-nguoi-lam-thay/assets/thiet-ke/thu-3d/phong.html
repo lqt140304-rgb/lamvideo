@@ -15,10 +15,16 @@ renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.VSMShadowMap;
 document.body.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 // camera khớp phòng
-const F = (V.mm / 36) * 1920, near = 10, far = 4000;
-const cam = new THREE.PerspectiveCamera();
-cam.position.set(...V.pos); cam.lookAt(V.target[0], V.pos[1], V.target[1]); cam.updateMatrixWorld();
-cam.projectionMatrix.makePerspective(-960 / F * near, 960 / F * near, V.horizon / F * near, -(H - V.horizon) / F * near, near, far);
+// Camera: mặc định lấy VIEWS (khớp boi-canh.tsx). `?cam=<url json>` đọc camera từ file thông số xuất từ Blender/.blend:
+// { "pos":[x,y,z] (cm, y lên), "target":[x,y,z] hoặc "euler":[rx,ry,rz] (độ), "lens_mm":34, "sensor_width":36, "width":1920, "height":1080, "horizon_px":395 (tuỳ chọn, bỏ = tâm ảnh) }
+const near = 10, far = 4000, cam = new THREE.PerspectiveCamera();
+let camSpec = { pos: V.pos, target: [V.target[0], V.pos[1], V.target[1]], lens_mm: V.mm, sensor_width: 36, width: W, height: H, horizon_px: V.horizon };
+if (q.get('cam')) { const j = await (await fetch(q.get('cam'))).json(); camSpec = { ...camSpec, ...j, target: j.target || null }; }
+const Fpx = (camSpec.lens_mm / camSpec.sensor_width) * camSpec.width, hz = camSpec.horizon_px ?? camSpec.height / 2;
+cam.position.set(...camSpec.pos);
+if (camSpec.target) cam.lookAt(...camSpec.target); else cam.rotation.set(...camSpec.euler.map((d) => d * Math.PI / 180), 'XYZ');
+cam.updateMatrixWorld();
+cam.projectionMatrix.makePerspective(-(camSpec.width / 2) / Fpx * near, (camSpec.width / 2) / Fpx * near, hz / Fpx * near, -(camSpec.height - hz) / Fpx * near, near, far);
 cam.projectionMatrixInverse.copy(cam.projectionMatrix).invert();
 // ánh sáng ban ngày: nắng từ cửa sổ tường phải (LIGHT_SOURCES.window = [460,150,155]), trời ấm dịu, hắt sàn
 scene.add(new THREE.HemisphereLight('#fff6ea', '#d8c6aa', 1.6));
