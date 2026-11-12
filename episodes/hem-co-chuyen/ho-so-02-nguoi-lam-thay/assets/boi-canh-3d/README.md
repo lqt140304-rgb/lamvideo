@@ -47,8 +47,7 @@ Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2
 - Camera mới: `HALL_FACE` (nhìn về cửa phòng Nam), `HALL_END`, `HALL_STAIR`. Ảnh trong `xem-thu/`.
 - Ban đêm: dãy trọ đối diện có cửa sổ sáng/tắt xen kẽ, rèm, vài bóng người, ánh hắt vào hành lang; chao đèn tuýp hành lang; trời có chuyển sắc.
 - Chưa làm: chuyển động (đồ phơi lay, người đi lại), âm thanh.
-- Hành lang dài 36,6 m (`HL_Y1`): lặp cửa phòng mỗi 2,2 m, đèn/dầm mái mỗi 4,9 m, cụm đồ (kệ giày, dây phơi, chậu cây) mỗi 9,6 m (`_repeat`), dãy trọ đối diện kéo dài theo. Camera `HALL_LONG` nhìn dọc toàn bộ. Đổi độ dài bằng `HL_Y1`.
-- Mỗi lần lặp là một biến thể: bỏ ngẫu nhiên 2 nhóm đồ (dây phơi, kệ giày, chậu cây, xô chậu, bảng tin), lệch vị trí ±1,2 m, đổi màu đồ nhỏ; cửa phòng đổi 5 màu.
+- (Đã thay thế 12/11 tối bằng `moi_truong.py`, xem mục cuối.) Camera `HALL_LONG` nhìn dọc hành lang; độ dài `HL_Y1` = 24 m.
 
 ## Cổng gương và danh sách shot (12/11, sau chốt nhân vật Blender Modular 1,60 m)
 - Gương sửa lại (cũ nghiêng ngược, nửa trên xuyên tường): chân cách tường 16 cm, đỉnh tựa tường. Gương thật Cycles + cờ Ray Visibility cho Người Kia/Nam; `--guong real|pov`, `--proxy` (hình nhân tạm). Xem [KE-HOACH-CONG-GUONG.md](KE-HOACH-CONG-GUONG.md).
@@ -58,3 +57,14 @@ Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2
 - `camera_dong.py`: Follow Path, Orbit, Vertigo, Rack Focus, Handheld + xung va chạm; ảnh khung trong `xem-thu/chuyen-dong/`.
 - `kinh_nuoc.py`: shader kính hóa nước (gợn sóng, sắc sai, keyframe).
 - `kiem_goc_quay.py` → [KIEM-GOC-QUAY.md](KIEM-GOC-QUAY.md): **khung 2.39:1 trên sensor 36 mm chưa đủ rộng cho toàn thân 1,6 m trong phòng 3×4 m ở lens ≥ 28 mm.**
+
+## Không gian xung quanh dựng mới (12/11 tối, `moi_truong.py`) — thay bản lặp mô-đun
+Vì góc quay giờ rộng hơn nên mọi hướng đều phải có cảnh đẹp, không lặp:
+- **Nhà trọ 4 tầng quanh sân:** tầng trệt (cột, 4 cửa cuốn + bảng hiệu tạp hóa/cà phê/giặt ủi/sửa xe, ghế nhựa), tầng 2 (phòng Nam), tầng 3 (cửa, lan can, dây phơi), mái (bể nước, ăng-ten, mái tôn).
+- **Hành lang phòng Nam:** 8 cửa, mỗi cửa một cảnh riêng (giày dép + thảm, máy giặt + xô, xe đạp + bình gas, ghế nhựa + bàn nhỏ + chậu hoa, bàn thờ treo tường đèn đỏ, thùng carton + khóa, giàn phơi + quạt, chậu cây + khóa). Đèn cửa mỗi phòng.
+- **Dãy trọ đối diện 4 tầng:** mỗi phòng sinh bằng hạt giống riêng (màu cửa, cửa mở/đóng, cửa sổ lồng sắt, rèm, đồ trước cửa khác nhau: xe đạp, cây, quần áo, máy giặt, giày, ghế, quạt, bình, thùng), bể nước trên mái.
+- **Sân:** gạch lát, bồn cây, 3 cây lớn + cau, 20 xe máy đủ màu, thùng rác, 4 cột điện + dây (chính và rẽ), đèn lồng đỏ + cờ tam giác giăng ngang sân, cổng sắt.
+- **Hẻm bên cửa sổ phòng Nam:** nhà hàng xóm cách 2,2 m, 4 tầng cửa sổ lồng sắt, máy lạnh, quần áo, ống nước, dây điện, xe máy.
+- **Chân trời:** 3 lớp nhà cao tầng xa mờ sương; bầu trời gradient + mây (ngày) / sao (đêm); ban đêm cửa sổ sáng, đèn sân, đèn lồng.
+- Camera mới: `TOAN_CANH` (từ đầu sân nhìn dọc nhà), `SAN_THUONG` (từ hành lang tầng 2 nhìn dãy đối diện), `CUA_SO` (ra hẻm qua cửa sổ). Ảnh: `xem-thu/moi-truong/`. Mọi đối tượng bắt đầu `env_` để camera ngoài phòng không ẩn chúng.
+- Chưa làm: cây cao hơn có cành chi tiết, xe cộ trên đường ngoài, người/vật chuyển động, bầu trời có mặt trời/mặt trăng thấy được, mặt đường và nhà phía sau hẻm.

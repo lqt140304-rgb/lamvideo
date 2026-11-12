@@ -51,13 +51,16 @@ Bảng dưới ghi "Camera Blender" theo lens gốc; muốn toàn thân của c�
 | P3.05_01–03 | Mặt kính hóa nước, camera **từ trong thế giới gương** | `GUONG_POV` (lùi sâu) | 35/65 | 3D-6 | Liquid Glass shader (chưa làm); Nam chìm vào kính |
 | P3.06 | Kết: Rack focus qua tay trái Người Kia, then sắt đóng | `A04`/`C05` | 35 → 85 | 3D-5 | Tùng + bún chả (nhân vật) |
 
-## 4. Hành lang (đã dựng, dài 36,6 m, lặp mô-đun)
+## 4. Hành lang và không gian xung quanh (dựng mới 12/11 tối: hành lang 24,6 m, mỗi cửa một cảnh; sân, nhà đối diện 4 tầng, hẻm, chân trời — xem README)
 | Mã shot | Ý đồ | Camera Blender | Tiêu cự | Ghi chú |
 |---|---|---|---|---|
 | Mở "Một tuần trước" | Hành lang ban ngày, Nam ôm gương vào phòng | `HALL_FACE` (day) | 22 | Tùng giữ cửa; kệ giày, đồ phơi |
 | C01–C03 (ra ngoài) | Dẫn Người Kia ra hành lang, xoay 45° né tường | `HALL_FACE`, `HALL_END` | 22–28 | Đêm: ánh hắt dãy trọ đối diện |
 | P2.01_05 | Xuyên khe thông gió cửa gỗ nhìn hành lang đêm | `P201VENT` (cửa đóng, `--door 0`) | 50 | Cần nan cửa (khe thông gió chưa dựng) |
-| Chạy/đuổi dọc hành lang | Steadicam dài | `HALL_LONG` | 28 | 36,6 m đủ cho oner ~10 s ở bước đi thường |
+| Chạy/đuổi dọc hành lang | Steadicam dài | `HALL_LONG` | 28 | 24,6 m đủ oner ~8 s ở bước đi thường |
+| Toàn cảnh nhà trọ | Từ đầu sân nhìn dọc nhà, dây điện, đèn lồng | `TOAN_CANH` | 20 | Ngày/đêm |
+| Nhìn sang dãy đối diện | Từ lan can tầng 2 | `SAN_THUONG` | 20 | 4 tầng mỗi phòng khác nhau |
+| Nhìn ra hẻm | Qua cửa sổ phòng Nam | `CUA_SO` | 24 | Nhà hàng xóm 2,2 m |
 | Cầu thang | Nhìn xuống bậc | `HALL_STAIR` | 24 | 14 bậc |
 | Đêm cửa phòng | Cửa nhìn từ hành lang | `HALL_DOOR` (night) | 28 | Khoá, hộp điện, số phòng |
 
