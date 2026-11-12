@@ -40,6 +40,11 @@ Phòng chỉ 3 × 4 m, đường chéo 5 m: trục dài nhất đặt máy sát 
 | ORBIT_B | 35 | trong | 1.5 | 0.67 | 37% | 4.2 | 1.4 | 0% | 1% | THIẾU rộng: người chỉ lọt 37%; trong phòng chỉ đủ ≤ 24 mm; hoặc ẩn tường/đổi cỡ cảnh |
 | ORBIT_C | 35 | ngoài | 2.1 | 0.91 | 51% | 4.2 | 0.0 | 0% | 9% | THIẾU rộng: người chỉ lọt 51%; trong phòng chỉ đủ ≤ 17 mm; hoặc ẩn tường/đổi cỡ cảnh; máy ngoài phòng (ẩn tường) |
 | LOW | 24 | trong | 3.4 | 2.13 | 100% | 2.9 | 0.3 | 5% | 22% | đủ toàn thân |
+| TT_GIUONG | 22 | ngoài | 3.0 | 2.07 | 100% | 2.6 | 0.0 | 0% | 0% | đủ toàn thân; máy ngoài phòng (ẩn tường) |
+| TT_BEP | 22 | trong | 2.9 | 1.98 | 100% | 2.6 | 0.5 | 5% | 11% | đủ toàn thân |
+| TT_GUONG | 22 | ngoài | 2.8 | 1.91 | 100% | 2.6 | 0.0 | 0% | 0% | đủ toàn thân; máy ngoài phòng (ẩn tường) |
+| TT_CUA | 22 | trong | 2.9 | 1.96 | 100% | 2.6 | 0.1 | 28% | 22% | đủ toàn thân |
+| TT_BAN | 22 | trong | 2.5 | 1.69 | 94% | 2.6 | 0.5 | 12% | 8% | THIẾU rộng: người chỉ lọt 94%; lùi 0.2 m là đủ |
 
 ## Máy trong phòng cho khung rộng nhất (mắt 1,5 m, hướng về tâm phòng)
 | Vị trí máy (x,y) | Tiêu cự | Sàn thấy | Tường thấy |
@@ -68,6 +73,11 @@ Phòng chỉ 3 × 4 m, đường chéo 5 m: trục dài nhất đặt máy sát 
 4. **Máy trong phòng cho khung rộng nhất:** góc phòng (2,85; 3,85) hoặc (2,85; 0,15) ở 14 mm — vẫn chỉ thấy khoảng 36–48% sàn và 31–39% tường vì nội thất che; không có vị trí nào thấy cả phòng.
 5. **Vertigo 28→85 mm** cần lùi thêm 2,2 m (tổng 3,3 m từ gương), vượt tường cửa sổ; chỉ làm được khi ẩn tường cửa sổ khỏi camera (đã làm trong `VERTIGO_GUONG`) hoặc rút còn 24→~70 mm trong phòng.
 
-### Đề xuất (cần chủ repo chọn)
+### Đã áp dụng hướng A (chủ repo chọn 12/11)
+- Quy ước cỡ cảnh: **toàn thân = ≤ 22–24 mm, máy cách ≥ 2,6–2,9 m (thường đặt ngoài tường, tường chắn ẩn khỏi camera); 28–40 mm = trung (đầu gối/hông trở lên); ≥ 50 mm = cận/vật thể.** Ghi cột "Cỡ cảnh" trong DANH-SACH-SHOT.md.
+- Thêm 5 camera toàn thân (`TT_GIUONG`, `TT_BEP`, `TT_GUONG`, `TT_CUA`, `TT_BAN`), đều đạt ở 22 mm (TT_BAN là cảnh ngồi cao ≈ 1,2 m nên 94% theo ngưỡng người đứng vẫn đủ). Ảnh: `xem-thu/TT-BANG.jpg`. Máy ngoài tường dùng `an_tuong_theo_camera` (ẩn mọi vật nằm hẳn phía tường chắn, chỉ với tia camera). Cột "Sàn/Tường thấy" = 0% của máy ngoài phòng là do phép thử tia vẫn bị tường chắn, không phản ánh ảnh.
+- Orbit, A01, A02B, A03, C06, GUONG, KITCHEN, DOOR giữ lens cũ nhưng được coi là **trung cận**, không đòi toàn thân.
+
+### Phương án đã cân nhắc (không chọn)
 - **A (khuyên dùng):** giữ 2.39:1 nhưng **đổi cỡ cảnh trong kịch bản**: toàn thân dùng ≤ 24 mm với tường ẩn (máy ngoài tường trước/tường cửa sổ); các shot 35–65 mm là trung cận (ngang ngực trở lên), ghi rõ trong bảng shot. Thêm camera **toàn thân** cho từng cảnh chính (BED/LOW/WIDE kiểu).
 - **B:** nới phòng trong cảnh quay (tường ẩn/di chuyển) cho vài shot — đã có cơ chế `visible_camera = False` cho tường.

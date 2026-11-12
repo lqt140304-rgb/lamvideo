@@ -2,13 +2,21 @@
 
 Nguồn nội dung: [DUNG-CANH.md](../../DUNG-CANH.md) (bảng MAY-A…H, MAY-P2, MAY-P3) + [QUY-CHUAN-3D.md](../../../../../docs/QUY-CHUAN-3D.md). File này **gắn từng shot vào một camera Blender có tên** trong `xay_phong_tro.py` (`CAMERAS`) để dựng/kiểm khung hình ngay khi chưa có nhân vật. Phạm vi theo quyết định 12/11: **phòng trọ 3 × 4 m + hành lang**; shot ở giảng đường/hành lang trường nằm ngoài phạm vi (mục 4).
 
-Chạy 1 máy: `python xay_phong_tro.py --mode day|night --cam <TÊN> --out ảnh.png [--guong real|pov] [--proxy]`. Bảng khung hình: `chay_shot.sh` (→ `xem-thu/shot/`). Người đóng (1,60 m) chưa có nên khung chỉ để kiểm bố cục; mắt đứng 1,50 m, mắt ngồi 1,15 m.
+Chạy 1 máy (thêm `--figure x,y[,cao]` để đặt người chuẩn 1,60 m kiểm khung): `python xay_phong_tro.py --mode day|night --cam <TÊN> --out ảnh.png [--guong real|pov] [--proxy]`. Bảng khung hình: `chay_shot.sh` (→ `xem-thu/shot/`). Người đóng (1,60 m) chưa có nên khung chỉ để kiểm bố cục; mắt đứng 1,50 m, mắt ngồi 1,15 m.
 
 ## 1. Chuẩn máy chung
 - Sensor 36 mm full-frame, khung **2.39:1** (1280 × 536 xem thử). Tiêu cự ghi trong bảng; chuyển động/handheld/DoF thêm ở bước hoạt cảnh.
 - **3D-0 handheld:** Noise `0,2 Hz`, xoay `0,05°–0,15°`; xung va chạm tắt dần 0,2 s. **Dutch:** nghiêng 5°–15° bằng Roll của camera. **Rack focus:** keyframe `Focus Distance` theo toạ độ vật (chênh ≥ 0,5 m).
 - Camera gương dùng `--guong real`; camera POV trong gương (`GUONG_POV`) dùng `--guong pov`.
 - Ánh sáng: ngày = nắng cửa sổ + hắt; đêm = laptop xanh 6500 K là nguồn chính + tuýp hành lang ấm 4000 K (tuýp phòng tắt).
+
+## 1b. Quy ước cỡ cảnh (hướng A, chốt 12/11)
+| Cỡ cảnh | Tiêu cự | Ghi chú |
+|---|---|---|
+| **Toàn thân** | ≤ 22–24 mm, máy cách ≥ 2,6–2,9 m | Máy thường ngoài tường (tường chắn ẩn khỏi camera). Camera: `TT_GIUONG`, `TT_BEP`, `TT_GUONG`, `TT_CUA`, `TT_BAN`, `WIDE`, `BED`, `LOW`. |
+| **Trung** (đầu gối/hông trở lên) | 28–40 mm | A01, A02B, A03, C06, GUONG, KITCHEN, DOOR, ORBIT_*: giữ lens cũ nhưng không đòi trọn người. |
+| **Cận/vật thể** | ≥ 50 mm | A02, A04, A04B, C05, P203, GUONG_VAI. |
+Bảng dưới ghi "Camera Blender" theo lens gốc; muốn toàn thân của cùng cảnh thì thêm camera `TT_*` tương ứng.
 
 ## 2. Shot trong phòng trọ
 | Mã shot | Cảnh / ý đồ | Camera Blender | Tiêu cự | Chế độ máy | Cần gì thêm |

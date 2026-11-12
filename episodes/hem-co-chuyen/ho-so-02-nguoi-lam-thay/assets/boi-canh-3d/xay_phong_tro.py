@@ -645,6 +645,12 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'ORBIT_A': ((1.9, 2.2, 1.45), (0.12, 3.26, 1.0), 35),   # vòng cung quanh gương, góc 1
     'ORBIT_B': ((1.6, 3.26, 1.45), (0.12, 3.26, 1.0), 35),  # góc 2 (thẳng góc)
     'ORBIT_C': ((1.9, 4.3, 1.45), (0.12, 3.26, 1.0), 35),   # góc 3
+    # ---- máy TOÀN THÂN (hướng A): ≤ 24 mm, máy ngoài tường (tường chắn ẩn). Người 1,60 m đứng ở điểm nhìn.
+    'TT_GIUONG': ((4.0, 0.6, 1.5), (2.3, 3.0, 0.8), 22),    # A01/A02B: Nam trên/cạnh nệm
+    'TT_BEP': ((2.6, 2.2, 1.5), (0.4, 0.45, 0.8), 22),      # A04: Người Kia ở bồn rửa
+    'TT_GUONG': ((3.6, 3.26, 1.5), (0.9, 3.26, 0.8), 22),   # đứng trước gương nhìn xuyên tường cửa sổ
+    'TT_CUA': ((2.9, 3.7, 1.5), (0.4, 2.5, 0.8), 22),       # C: người ở cửa/ngưỡng
+    'TT_BAN': ((0.4, 2.2, 1.2), (2.48, 0.98, 0.7), 22),     # Nam ngồi bàn (người ngồi cao ≈ 1,2 m)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
     'LOW': ((1.0, 3.7, 0.35), (2.2, 0.6, 1.0), 24),
 }
@@ -660,6 +666,21 @@ def add_camera(name, mm=28, w=1280, h=536):
     d = Vector(tgt) - Vector(pos); ob.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler()
     if name == 'TOP': ob.rotation_euler = (0, 0, math.radians(-90))
     return ob
+
+
+def an_tuong_theo_camera(coll, pos):
+    """Camera đặt ngoài phòng thì ẩn (chỉ với tia camera; bóng/phản xạ giữ nguyên) mọi vật nằm hẳn ở phía tường chắn:
+    cửa sổ (x > W), cửa (x < 0), sau (y < 0), trước (y > D). Dùng hộp bao theo toạ độ thiết kế; giữ sàn/trần/gương."""
+    keep = ('san_', 'tran_', 'mat_guong', 'khung_guong', 'nguoi_chuan', 'proxy')
+    def design_bbox(o):
+        vs = [o.matrix_world @ v.co for v in o.data.vertices]
+        xs = [W - v.x for v in vs]; ys = [v.y for v in vs]
+        return min(xs), max(xs), min(ys), max(ys)
+    for o in coll.objects:
+        if o.type != 'MESH' or not o.data.vertices or o.name.startswith(keep): continue
+        x0, x1, y0, y1 = design_bbox(o)
+        hide = (pos[0] > W and x0 >= W - 0.13) or (pos[0] < 0 and x1 <= 0.03) or (pos[1] < 0 and y1 <= 0.03) or (pos[1] > D and y0 >= D - 0.03)
+        if hide: o.visible_camera = False
 
 
 def figure_proxy(name, x, y, mat, coll, h=1.6):
@@ -680,7 +701,7 @@ def proxies(m, coll, room_objs):
     G.only_in_mirror(kia_o)
 
 
-def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None):
+def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None, figure=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     coll = bpy.data.collections.new('Phong_tro_3D'); sc.collection.children.link(coll)
@@ -693,6 +714,8 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); room_objs = set(coll.objects); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
     if proxy: proxies(m, coll, room_objs)
+    if figure: figure_proxy('nguoi_chuan', figure[0], figure[1], M.solid('nguoi_chuan', '#4f7fb0', 0.6), coll, h=figure[2] if len(figure) > 2 else 1.6)
+    an_tuong_theo_camera(coll, CAMERAS[cam][0])
     if guong == 'pov':
         import cong_guong; cong_guong.pov_trong_guong(coll)
     co = add_camera(cam); sc.camera = co
@@ -709,9 +732,9 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--mode', default='day'); ap.add_argument('--cam', default='WIDE'); ap.add_argument('--out', default='/tmp/phong_tro.png')
     ap.add_argument('--blend', default=''); ap.add_argument('--door', type=float, default=10.0); ap.add_argument('--chair-rot', type=float, default=0.0)
-    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--guong', default='real'); ap.add_argument('--proxy', action='store_true'); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
+    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--guong', default='real'); ap.add_argument('--proxy', action='store_true'); ap.add_argument('--figure', default=''); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
     a = ap.parse_args(argv)
-    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san, guong=a.guong, proxy=a.proxy)
+    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san, guong=a.guong, proxy=a.proxy, figure=tuple(float(v) for v in a.figure.split(',')) if a.figure else None)
     sc.cycles.samples = a.samples
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=a.blend)
     if not a.no_render:
