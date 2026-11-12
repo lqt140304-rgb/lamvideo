@@ -1,0 +1,6 @@
+{
+  "name": "ho-so-02-thu-3d",
+  "private": true,
+  "description": "Thử dựng Nam bằng 3D (three.js), render bằng Chromium có sẵn. Không thuộc studio chung.",
+  "dependencies": { "three": "0.170.0" }
+}
