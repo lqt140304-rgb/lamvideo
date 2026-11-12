@@ -86,7 +86,7 @@ const Shot3: React.FC<{ g: number }> = ({ g }) => {
 };
 
 // ------------------------------------------------------------------ CẢNH 4: đêm, Tùng vào, hai người nói chuyện
-const Z4 = 306, NAM4: At = [252, 300], TUNG_X0 = 40, TUNG_X1 = 168; // sàn bên trái giường: đủ gần ánh laptop, không bị giường che chân
+const Z4 = 306, NAM4: At = [205, 290], TUNG_X0 = 30, TUNG_X1 = 135; // sàn trống bên trái giường (đệm từ x=252, đồ vứt sàn ở 215,355): không dẫm lên vật thể
 const tungX = (g: number) => { const t = ramp(g, 8, 78); return TUNG_X0 + (TUNG_X1 - TUNG_X0) * ((t < 0.2 ? (t * t) / 0.4 : t - 0.1) / 0.9); };
 const tungPhase = (g: number) => Math.max(0, (tungX(g) - TUNG_X0) / 52);
 const TUNG_STAND = { ...STAND_POSE, view: 'three' as const, facing: 1 as const };
@@ -118,7 +118,7 @@ const Shot4: React.FC<{ g: number }> = ({ g }) => {
 // ------------------------------------------------------------------ CẢNH 5: ban ngày, cả ba đứng cạnh nhau
 const Shot5: React.FC<{ g: number }> = ({ g }) => {
   const move = { truck: -40, push: -170 - 30 * ramp(g, 0, 90) }; // lùi máy chậm
-  const P: Record<'nam' | 'kia' | 'tung', At> = { nam: [170, 340], kia: [248, 318], tung: [330, 345] };
+  const P: Record<'nam' | 'kia' | 'tung', At> = { nam: [95, 275], kia: [150, 268], tung: [205, 276] };
   const L = (a: At) => lightFor('wide', a, LIGHT_SOURCES.window, move);
   const dn = L(P.nam), dk = L(P.kia), dt = L(P.tung);
   return (
