@@ -926,7 +926,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
             {cutR || cutL ? (
               <>
                 {/* tay giơ lên: thân áo vẽ sẵn mẩu tay áo buông xuống ở vai; cắt mẩu đó đi để vai không lệch khỏi cánh tay đã giơ */}
-                <clipPath id={stumpClip}><path clipRule="evenodd" d={`M -400 -200 H 400 V 800 H -400 Z${cutR ? ` M -400 150 H ${r.armR.root.x + 10} V 268 H -400 Z` : ''}${cutL ? ` M ${r.armL.root.x - 10} 150 H 400 V 268 H ${r.armL.root.x - 10} Z` : ''}`} /></clipPath>
+                <clipPath id={stumpClip}><path clipRule="evenodd" d={`M -400 -200 H 400 V 800 H -400 Z${cutR ? ` M -400 ${r.armR.root.y - 24} H ${r.armR.root.x + 10} V ${r.armR.root.y + 22} H -400 Z` : ''}${cutL ? ` M ${r.armL.root.x - 10} ${r.armL.root.y - 24} H 400 V ${r.armL.root.y + 22} H ${r.armL.root.x - 10} Z` : ''}`} /></clipPath>
                 <g clipPath={`url(#${stumpClip})`}><Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt)]} /></g>
                 <Blob fill={o.shirt} d={[...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
               </>
