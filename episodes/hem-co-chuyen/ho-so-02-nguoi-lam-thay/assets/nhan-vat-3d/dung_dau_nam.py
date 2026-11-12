@@ -57,7 +57,7 @@ def mat(name, col, rough, sss=0.0, spec=None, sss_radius=(0.9, 0.35, 0.2)):
 
 
 def make_mats():
-    return {'da': mat('Da', COL['da'], 0.65, 0.08, sss_radius=(0.1, 0.05, 0.03)), 'toc': mat('Toc', COL['toc'], 0.90, spec=0.15), 'trang': mat('Mat_Trang', COL['trang'], 0.3),
+    return {'da': mat('Da', COL['da'], 0.65, 0.08, sss_radius=(0.1, 0.05, 0.03)), 'toc': mat('Toc', COL['toc'], 0.72, spec=0.15), 'trang': mat('Mat_Trang', COL['trang'], 0.3),
             'muc': mat('Muc', COL['muc'], 0.5), 'khoang': mat('Khoang_Mieng', COL['khoang_mieng'], 0.8), 'luoi': mat('Luoi', COL['luoi'], 0.55),
             'rang': mat('Rang', COL['rang'], 0.3)}
 
@@ -219,7 +219,7 @@ def uv_sphere(name, coll, m, seg=(40, 24)):
 
 
 # ------------------------------------------------------------------ dải quét (mày, lọn tóc giọt nước)
-def sweep(name, coll, pts, wfun, tfun, nref, m, nseg=36, nring=20):
+def sweep(name, coll, pts, wfun, tfun, nref, m, nseg=36, nring=20, fb=1.0):
     """Quét tiết diện elip dọc đường Catmull–Rom qua `pts`; bề rộng w(t), bề dày t(t) theo pháp tuyến nref(c) (mảng dẹt ôm mặt)."""
     P = [Vector(p) for p in pts]; curve = []
     for k in range(nseg + 1):
@@ -230,7 +230,7 @@ def sweep(name, coll, pts, wfun, tfun, nref, m, nseg=36, nring=20):
     for k, c in enumerate(curve):
         T = (curve[min(k + 1, nseg)] - curve[max(k - 1, 0)]).normalized(); N = nref(c); N = (N - T * N.dot(T)).normalized(); B = T.cross(N)
         u = k / nseg; W, Th = wfun(u), tfun(u)
-        rings.append([bm.verts.new(c + B * math.cos(2 * math.pi * j / nring) * W + N * math.sin(2 * math.pi * j / nring) * Th) for j in range(nring)])
+        rings.append([bm.verts.new(c + B * math.cos(2 * math.pi * j / nring) * W + N * math.sin(2 * math.pi * j / nring) * Th * (fb if math.sin(2 * math.pi * j / nring) < 0 else 1.0)) for j in range(nring)])
     for a, b in zip(rings, rings[1:]):
         for j in range(nring): bm.faces.new((a[j], a[(j + 1) % nring], b[(j + 1) % nring], b[j]))
     for ring, rev in ((rings[0], True), (rings[-1], False)):
@@ -349,14 +349,14 @@ HAIRLINE = [(0, 34), (36, 33), (56, 22), (68, 4), (74, -4), (80, 6), (90, 13), (
 
 def hairline_el(az):
     """Chân tóc theo phương vị (0 = trước, đối xứng hai bên): trán cao → mai tóc đi xuống trước tai (thái dương) → vòng trên vành tai → ôm sau tai → xuống phủ gáy."""
-    a = min(abs(az), 180.0)
+    a = abs(((az + 180.0) % 360.0) - 180.0)
     for (a0, e0), (a1, e1) in zip(HAIRLINE, HAIRLINE[1:]):
         if a <= a1:
             t = smooth01(a0, a1, a); return e0 + (e1 - e0) * t
     return HAIRLINE[-1][1]
 
 
-def hair_base(coll, M, S, N=200, K=40):
+def hair_base_v1(coll, M, S, N=200, K=40):
     """H00 – khối nền: lưới phủ từ chân tóc tới đỉnh, dựng theo (phương vị, độ cao) chiếu lên da đầu nên mép tóc cắt đúng đường chân tóc (không bậc thang), ôm gáy và vòng qua tai tạo mai tóc."""
     bm = bmesh.new(); rows = []
     for i in range(N):
@@ -382,7 +382,7 @@ def hair_base(coll, M, S, N=200, K=40):
 
 # Mảng tóc theo bảng thiết kế (H01–H08): đường đi = các điểm (phương vị°, độ cao°, độ nổi so với da, m). Gốc mỗi mảng nằm lọt trong khối nền (nổi < bề dày nền 0,028 m) nên không hở;
 # ngọn dài tới tận trán/thái dương, thân dẹt bo tròn, ngọn không nhọn.
-LOCKS = [
+LOCKS_V1 = [
     # (tên, đường đi, nửa rộng tối đa, tỉ lệ dày/rộng, tip)
     ('H01_MaiChinh',  [(-62, 82, 0.016), (-34, 66, 0.022), (-2, 50, 0.028), (30, 36, 0.032), (54, 26, 0.032)], 0.092, 0.36, 0.22),   # mảng lớn ~50%: từ đỉnh trái quét xuống phủ trán sang phải
     ('H02_MaiPhu',    [(6, 84, 0.026), (32, 68, 0.034), (56, 50, 0.038), (76, 34, 0.036), (90, 20, 0.032)], 0.080, 0.34, 0.22),      # mảng thứ hai ~30%: chồng lên H01, rủ xuống thái dương phải
@@ -393,11 +393,12 @@ LOCKS = [
 ]
 
 
-def build_hair(coll, M, cage, S):
+def build_hair_v1(coll, M, cage, S):
+    """Bản tóc cũ (đề xuất 1) — giữ trong collection 04_Hair_cu, ẩn khi render."""
     cage.free()
-    hair_base(coll, M, S)                                    # H00
+    hair_base_v1(coll, M, S)                                    # H00
     nref = lambda c: (c - C).normalized()
-    for name, path, W, th, tip in LOCKS:
+    for name, path, W, th, tip in LOCKS_V1:
         pts = [S.at(az, el, o)[0] for az, el, o in path]
         wf = drop_w(W, tip, 0.62)
         sweep('Hair_' + name, coll, pts, wf, lambda u, wf=wf, th=th: wf(u) * th, nref, M['toc'], 48, 28)
@@ -412,6 +413,134 @@ def build_hair(coll, M, cage, S):
     for bp, p_, r in zip(sp.bezier_points, pts, rad): bp.co = p_; bp.radius = r; bp.handle_left_type = bp.handle_right_type = 'AUTO'
     tuft = bpy.data.objects.new('Hair_H07_LonDinh', cu); coll.objects.link(tuft); cu.materials.append(M['toc'])
     tip = uv_sphere('Hair_H07_Ngon', coll, M['toc'], (24, 16)); r_ = 0.036 * 0.78; place(tip, pts[-1], Matrix.Identity(3), (r_, r_, r_))
+
+
+# ================================================================== TÓC v2 (bảng kích thước & lớp tóc 3D)
+W_SKULL = 0.376   # W = ngang hộp sọ vùng thái dương (đo từ Head_Base: ±0,188), không tính tai/tóc
+HAIR_MATS = {}
+
+
+def hair_mat(M, name, lift):
+    """Cùng một vật liệu đen than lì; mỗi mảng chỉ lệch sắc độ rất nhẹ."""
+    if name not in HAIR_MATS:
+        m = M['toc'].copy(); m.name = 'Toc_' + name; b = m.node_tree.nodes['Principled BSDF']; c = list(b.inputs['Base Color'].default_value)
+        b.inputs['Base Color'].default_value = (c[0] + lift, c[1] + lift, c[2] + lift, 1.0); HAIR_MATS[name] = m
+    return HAIR_MATS[name]
+
+
+def _prof(knots, u):
+    for (a0, v0), (a1, v1) in zip(knots, knots[1:]):
+        if u <= a1: return v0 + (v1 - v0) * smooth01(a0, a1, u)
+    return knots[-1][1]
+
+
+def _cr(P, t):
+    i = min(int(t), len(P) - 2); f = t - i; p0, p1, p2, p3 = P[max(i - 1, 0)], P[i], P[i + 1], P[min(i + 2, len(P) - 1)]
+    return tuple(0.5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * f + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * f * f + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * f ** 3) for k in range(2))
+
+
+def h00_bump(el): return 0.004 + 0.010 * max(0.0, math.sin(math.radians(el))) ** 2
+def h00_outer(az, el): return 0.004 + h00_bump(el) + 0.009          # mặt ngoài vỏ nền H00 so với da (m)
+
+
+def skin_path(S, knots, L, nseg):
+    """Đường (phương vị, độ cao) → đường trên da đầu, cắt/kéo dài đúng chiều dài L (m) đo THEO MẶT DA; trả về nseg+1 mẫu cách đều (az, el, điểm da, pháp tuyến) + chiều dài gốc."""
+    P = list(knots); P.append((2 * P[-1][0] - P[-2][0], min(89.5, 2 * P[-1][1] - P[-2][1]))); n = len(P) - 1; dense = []
+    for i in range(301):
+        az, el = _cr(P, i / 300 * n); p, nn = S.at(az, min(el, 89.5), 0.0); dense.append((az, el, p, nn))
+    cum = [0.0]
+    for a, b in zip(dense, dense[1:]): cum.append(cum[-1] + (b[2] - a[2]).length)
+    out = []
+    for k in range(nseg + 1):
+        sk = min(L, cum[-1]) * k / nseg; j = max(1, next((i for i, c in enumerate(cum) if c >= sk), len(cum) - 1)); f = (sk - cum[j - 1]) / max(1e-9, cum[j] - cum[j - 1])
+        a, b = dense[j - 1], dense[j]; out.append((a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2].lerp(b[2], f), a[3].lerp(b[3], f).normalized()))
+    return out, cum[-1]
+
+
+WPROF = [(0, 0.65), (0.35, 1.0), (0.55, 1.0), (0.8, 0.40), (1.0, 0.12)]        # bề ngang theo chiều dài (bảng 03/06)
+TPROF = [(0, 1.0), (0.6, 1.0), (0.75, 0.70), (1.0, 0.30)]                          # bề dày: ba phần tư đầu đầy, phần tư cuối còn ~0,02W
+REPORT = []
+
+
+def make_lock(name, S, coll, M, knots, L, W, T, rank, fb=0.45, sink=0.008, lift=0.0, tone=0.0, nseg=24, nring=18, wprof=WPROF, tprof=TPROF):
+    """Một mảng tóc: tiết diện oval dẹt (mặt trên lồi, mặt dưới phẳng ôm đầu), quét dọc đường trên da. L,W,T là kích thước TOÀN PHẦN (dài theo cong / rộng / dày); rank = tầng (0 trong cùng … 2 ngoài cùng)."""
+    path, Lraw = skin_path(S, knots, L, nseg); Th0 = T / (1 + fb)
+    ht = lambda u: Th0 * _prof(tprof, u)
+    pts = []
+    for k, (az, el, p, n) in enumerate(path):
+        u = k / nseg
+        off = h00_outer(az, el) - 0.002 + 0.004 * rank - sink * (1 - smooth01(0, 0.25, u)) + fb * ht(u) + lift * smooth01(0.55, 1.0, u)
+        pts.append(p + n * off)
+    ob = sweep('Hair_' + name, coll, pts, lambda u: 0.5 * W * _prof(wprof, u), ht, lambda c: (c - C).normalized(), hair_mat(M, name, tone), nseg, nring, fb)
+    subsurf(ob, 1, 2)
+    REPORT.append((name, round(Lraw, 3), round(L, 3), round(L / W_SKULL, 2), round(W / W_SKULL, 2), round(T / W_SKULL, 3)))
+    return ob
+
+
+def hair_base_v2(coll, M, S, N=240, K=36):
+    """H00 – vỏ nền ôm hộp sọ: mặt trong cách da 0,004 m, vỏ dày 0,009 m (mỏng dần còn 0,003 m ở mép chân tóc), dựng hai lớp kín theo (phương vị, độ cao) chiếu lên chính Head_Base."""
+    bm = bmesh.new(); top, bot = [], []
+    for i in range(N):
+        az = -180 + 360 * i / N; e0 = hairline_el(az); ct, cb = [], []
+        for j in range(K + 1):
+            el = e0 + (90.0 - e0) * (j / K) ** 0.9; p, n = S.at(az, el, 0.0); off = 0.004 + h00_bump(el)
+            th = 0.003 + 0.006 * smooth01(0, 14, el - e0)
+            cb.append(bm.verts.new(p + n * off)); ct.append(bm.verts.new(p + n * (off + th)))
+        top.append(ct); bot.append(cb)
+    for i in range(N):
+        i2 = (i + 1) % N
+        for j in range(K):
+            bm.faces.new((top[i][j], top[i2][j], top[i2][j + 1], top[i][j + 1])); bm.faces.new((bot[i][j], bot[i][j + 1], bot[i2][j + 1], bot[i2][j]))
+        bm.faces.new((top[i][0], bot[i][0], bot[i2][0], top[i2][0]))
+    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-6); bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    ob = new_obj('Hair_H00_KhoiNen', bm, coll, hair_mat(M, 'H00', 0.0)); subsurf(ob, 2, 2); return ob
+
+
+def hair_back_patch(coll, M, S, N=40, K=30):
+    """H06 – khối tóc sau/gáy: mảng rộng phủ ~80% bề ngang phía sau, dày thêm 0,014 m ở giữa, mép mỏng 0,006 m; hai lớp kín dựng trên chính Head_Base."""
+    bm = bmesh.new(); top, bot = [], []
+    for i in range(N + 1):
+        s = -1 + 2 * i / N; ct, cb = [], []
+        for j in range(K + 1):
+            t = j / K; az = 180 + 56 * s; e0 = hairline_el(az) + 4; el = e0 + (56 - e0) * t
+            p, n = S.at(az, el, 0.0); base = h00_outer(az, el) - 0.002
+            prof = (math.sin(math.pi * t) * math.cos(math.pi / 2 * s)) ** 1.5; wav = 0.004 * math.sin(2.2 * math.pi * s) * prof
+            cb.append(bm.verts.new(p + n * base)); ct.append(bm.verts.new(p + n * (base + 0.002 + 0.018 * prof + wav)))
+        top.append(ct); bot.append(cb)
+    for i in range(N):
+        for j in range(K):
+            bm.faces.new((top[i][j], top[i + 1][j], top[i + 1][j + 1], top[i][j + 1])); bm.faces.new((bot[i][j], bot[i][j + 1], bot[i + 1][j + 1], bot[i + 1][j]))
+    for i in range(N):
+        bm.faces.new((top[i][0], bot[i][0], bot[i + 1][0], top[i + 1][0])); bm.faces.new((top[i][K], top[i + 1][K], bot[i + 1][K], bot[i][K]))
+    for j in range(K):
+        bm.faces.new((top[0][j], top[0][j + 1], bot[0][j + 1], bot[0][j])); bm.faces.new((top[N][j], bot[N][j], bot[N][j + 1], top[N][j + 1]))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    ob = new_obj('Hair_H06_KhoiGay', bm, coll, hair_mat(M, 'H06', 0.004)); subsurf(ob, 1, 2); return ob
+
+
+def hair_curl(coll, M, S):
+    """H07 – lọn cong chữ C: mọc lên từ đỉnh rồi cong về trước; dài ~0,125 m (0,33W), cao ~0,06 m, gốc rộng 0,04 m dày 0,028 m, ngọn còn 30%."""
+    p, n = S.at(0, 87, 0.0); anchor = p + n * 0.022
+    loc = [(0.0, -0.014), (0.0, 0.012), (0.004, 0.036), (0.014, 0.056), (0.032, 0.062), (0.046, 0.048), (0.050, 0.030)]   # (về trước, lên) so với điểm bám
+    pts = [anchor + Vector((0.0004 * i, -f, h)) for i, (f, h) in enumerate(loc)]
+    prof = [(0, 1.35), (0.25, 1.0), (0.55, 1.05), (1.0, 0.32)]
+    ob = sweep('Hair_H07_LonDinh', coll, pts, lambda u: 0.0155 * _prof(prof, u), lambda u: 0.022 * _prof(prof, u), lambda c: Vector((1, 0, 0)), hair_mat(M, 'H07', 0.002), 36, 18)
+    subsurf(ob, 1, 2)
+    L = sum((Vector(a) - Vector(b)).length for a, b in zip(pts, pts[1:])); REPORT.append(('H07_LonDinh', round(L, 3), '-', round(L / W_SKULL, 2), 0.106, 0.074)); return ob
+
+
+def build_hair_v2(coll, M, S):
+    REPORT.clear(); HAIR_MATS.clear()
+    hair_base_v2(coll, M, S)                                                                                                         # H00
+    hair_back_patch(coll, M, S)                                                                                                      # H06
+    # trái ảnh = −X = phía phương vị âm; H01 chạy chéo từ đỉnh (hơi lệch phải ảnh) về trái ảnh, đầu nằm trên chân mày trái ảnh
+    make_lock('H04_ThaiDuong_TraiAnh', S, coll, M, [(-62, 46), (-71, 32), (-75, 18), (-73, 6)], 0.119, 0.053, 0.013, 0, tone=0.003)  # thái dương bên trái ảnh, lộ rõ hơn
+    make_lock('H05_ThaiDuong_PhaiAnh', S, coll, M, [(62, 46), (71, 32), (75, 18), (73, 6)], 0.110, 0.049, 0.013, 0, tone=0.002)
+    make_lock('H03_MaiNho', S, coll, M, [(30, 55), (42, 49), (54, 43)], 0.090, 0.052, 0.015, 0, lift=0.007, tone=0.004)                # mái nhỏ: nối mái với thái dương phải ảnh, ngọn vểnh
+    make_lock('H02_MaiPhu', S, coll, M, [(18, 78), (20, 64), (18, 50), (14, 40)], 0.145, 0.088, 0.022, 1, tone=0.006)
+    make_lock('H01_MaiChinh', S, coll, M, [(8, 74), (-2, 60), (-12, 46), (-20, 33), (-24, 24)], 0.200, 0.138, 0.030, 2, tone=0.008)
+    make_lock('H08_ChopPhu', S, coll, M, [(-22, 82), (-34, 76), (-46, 70)], 0.062, 0.034, 0.0125, 0, lift=0.020, tone=0.005)       # chóp phụ trên trái ảnh, vểnh ngang-chếch lên
+    hair_curl(coll, M, S)                                                                                                            # H07
 
 
 # ------------------------------------------------------------------ ánh sáng + camera trực giao
@@ -445,17 +574,75 @@ def studio(sc):
 def build():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene; top = bpy.data.collections.new('Nam_Dau'); sc.collection.children.link(top)
-    cf = bpy.data.collections.new('03_Head_And_Face'); ch = bpy.data.collections.new('04_Hair'); top.children.link(cf); top.children.link(ch)
+    cf = bpy.data.collections.new('03_Head_And_Face'); ch = bpy.data.collections.new('04_Hair'); cold = bpy.data.collections.new('04_Hair_cu'); top.children.link(cf); top.children.link(ch); top.children.link(cold)
     M = make_mats()
     head, cage = build_head(cf, M)
     S = build_face(cf, M, head)
-    build_hair(ch, M, cage, S)
+    build_hair_v1(cold, M, cage, S); cold.hide_render = True; cold.hide_viewport = True
+    build_hair_v2(ch, M, S)
     return sc
+
+
+def hair_report(sc):
+    """Kiểm tra số đo: bảng kích thước từng mảng; tỉ lệ tia nhìn lọt tới da đầu phía trên chân tóc (hở); khoảng cách tóc–tai."""
+    dg = bpy.context.evaluated_depsgraph_get(); print('--- Bảng mảng tóc: tên | dài gốc (m) | dài dùng | dài/W | rộng/W | dày/W')
+    for r in REPORT: print('   ', r)
+    hits = skin = 0; bad = []
+    for az in range(0, 360, 3):
+        for el in range(int(hairline_el(az)) + 4, 90, 4):
+            a, e = math.radians(az), math.radians(el); d = Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e)))
+            ok, loc, nor, idx, ob, mat = sc.ray_cast(dg, C + d * 1.5, -d)
+            if ok:
+                hits += 1
+                if ob.name == 'Head_Base': skin += 1; bad.append((az, el))
+    print(f'--- Phủ tóc: {hits} tia, {skin} tia chạm da đầu phía trên chân tóc ({100 * skin / max(1, hits):.2f}%)', bad[:12])
+    ears = []
+    for o in bpy.data.objects:
+        if o.name.startswith('Ear.'):
+            ev = o.evaluated_get(dg); me = ev.to_mesh(); ears.append(BVHTree.FromPolygons([ev.matrix_world @ v.co for v in me.vertices], [tuple(pl.vertices) for pl in me.polygons])); ev.to_mesh_clear()
+    mn = 9.0; cnt = 0
+    for o in bpy.data.collections['04_Hair'].objects:
+        ev = o.evaluated_get(dg); me = ev.to_mesh()
+        for v in me.vertices:
+            w = ev.matrix_world @ v.co
+            for bv in ears:
+                r = bv.find_nearest(w)
+                if r[0] is not None:
+                    mn = min(mn, r[3]); cnt += r[3] < 0.0015
+        ev.to_mesh_clear()
+    print(f'--- Tóc–tai: khoảng cách nhỏ nhất {mn * 1000:.1f} mm, {cnt} đỉnh tóc cách tai < 1,5 mm')
+
+
+def render_views(sc, cams, out, prefix=''):
+    for name, o in cams.items():
+        sc.camera = o; sc.render.filepath = os.path.join(out, f'{prefix}{name}.png'); bpy.ops.render.render(write_still=True)
+
+
+EXPLODE = {'H00': (0, 0.10, 0.30), 'H01': (-0.30, -0.22, 0.12), 'H02': (-0.02, -0.30, 0.30), 'H03': (0.30, -0.22, 0.10), 'H04': (-0.38, 0.0, -0.05),
+           'H05': (0.38, 0.0, -0.05), 'H06': (0.0, 0.38, -0.05), 'H07': (0.0, -0.05, 0.42), 'H08': (-0.28, 0.08, 0.30)}
+EXPLODE_COL = {'H00': '#6aa7e8', 'H01': '#ea6a6a', 'H02': '#f0b24a', 'H03': '#f2e26b', 'H04': '#7cc27c', 'H05': '#5fd0d6', 'H06': '#a98ad8', 'H07': '#d85f7e', 'H08': '#f0902c'}
+
+
+def render_explode(sc, out):
+    """Ảnh tách rời (exploded) có nhãn H00–H08: mỗi mảng dời ra xa, tô màu riêng, nhãn là chữ 3D xoay theo camera."""
+    from bpy_extras.object_utils import world_to_camera_view
+    cd = bpy.data.cameras.new('ex'); cd.type = 'ORTHO'; cd.ortho_scale = 2.3; cam = bpy.data.objects.new('ex', cd); sc.collection.objects.link(cam)
+    tg = Vector((0, 0.0, 1.38)); cam.location = Vector((1.6, -2.7, 1.9)); cam.rotation_euler = (tg - cam.location).to_track_quat('-Z', 'Y').to_euler(); sc.camera = cam
+    sc.render.resolution_x, sc.render.resolution_y = 1500, 1100
+    for ob in list(bpy.data.collections['04_Hair'].objects):
+        key = ob.name.split('_')[1]
+        if key not in EXPLODE: continue
+        ob.location += Vector(EXPLODE[key]); bpy.context.view_layer.update(); m = mat('Ex_' + key, EXPLODE_COL[key], 0.7); ob.data.materials.clear(); ob.data.materials.append(m)
+        bb = [ob.matrix_world @ Vector(c) for c in ob.bound_box]; ctr = sum(bb, Vector()) / 8
+        t = bpy.data.curves.new('lbl_' + key, 'FONT'); t.body = key; t.size = 0.075; t.align_x = 'CENTER'; t.extrude = 0.002
+        to = bpy.data.objects.new('lbl_' + key, t); sc.collection.objects.link(to); to.rotation_euler = cam.rotation_euler; to.location = ctr + (cam.matrix_world.to_quaternion() @ Vector((0, 0.11, 0.25)))
+        lm = mat('Lbl', '#222222', 0.9); t.materials.append(lm)
+    sc.render.filepath = os.path.join(out, 'exploded.png'); bpy.ops.render.render(write_still=True)
 
 
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
-    ap = argparse.ArgumentParser(); ap.add_argument('--section', default='A_trung', choices=['goc', 'A_trung', 'B_ma']); ap.add_argument('--render', default=''); ap.add_argument('--blend', default=''); ap.add_argument('--no-hair', action='store_true', help='ẩn collection 04_Hair để soi riêng hộp sọ')
+    ap = argparse.ArgumentParser(); ap.add_argument('--section', default='A_trung', choices=['goc', 'A_trung', 'B_ma']); ap.add_argument('--render', default=''); ap.add_argument('--clay', action='store_true'); ap.add_argument('--explode', action='store_true'); ap.add_argument('--blend', default=''); ap.add_argument('--no-hair', action='store_true', help='ẩn collection 04_Hair để soi riêng hộp sọ')
     a = ap.parse_args(argv)
     SECTION_MODE = a.section
     sc = build(); cams = studio(sc)
@@ -463,6 +650,9 @@ if __name__ == '__main__':
         for c in bpy.data.collections['04_Hair'].objects: c.hide_render = True; c.hide_viewport = True
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
     if a.render:
-        os.makedirs(a.render, exist_ok=True)
+        os.makedirs(a.render, exist_ok=True); hair_report(sc)
         for name, o in cams.items():
             sc.camera = o; sc.render.filepath = os.path.join(a.render, f'{name}.png'); bpy.ops.render.render(write_still=True)
+        if a.clay:
+            cm = mat('Clay', '#c9c5be', 0.85); sc.view_layers[0].material_override = cm; render_views(sc, cams, a.render, 'clay_'); sc.view_layers[0].material_override = None
+        if a.explode: render_explode(sc, a.render)
