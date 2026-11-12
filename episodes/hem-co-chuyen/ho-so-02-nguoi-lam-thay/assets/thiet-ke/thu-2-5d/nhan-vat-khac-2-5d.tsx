@@ -43,7 +43,7 @@ export const Tung25D: React.FC<TungProps & { volume?: boolean; lighting?: Light2
   const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} pal={TUNG_PAL} dir={lightDir}
+      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} pal={TUNG_PAL} dir={lightDir} cx={pose.x ?? 0} cy={pose.y ?? 0}
         armsFront={!!(pose.frontR || pose.frontL)} depth={pose.view === 'three' || pose.view === 'side' || pose.view === 'quarter' || pose.view === undefined} />
     </g>
   );

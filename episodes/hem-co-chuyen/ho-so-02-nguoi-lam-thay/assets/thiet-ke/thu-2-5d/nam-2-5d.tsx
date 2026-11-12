@@ -84,6 +84,12 @@ const RIM_BOTTOM = 350; // y hông trong hệ rig; viền sáng dừng ở đây
 /** Độ mềm mép trong của mảng (tỉ lệ theo bề rộng mảng). 0 = sắc cạnh như quy chuẩn cũ. Chủ repo chọn mềm (11/11). */
 const SOFT = 0.5;
 const BOX = { x: -500, y: -400, width: 1000, height: 1300 };
+/**
+ * Vùng phủ của mọi mask/bộ lọc trong lớp 2.5D, theo hệ toạ độ của nhân vật. Dáng đi dịch cả người bằng `pose.x` (hàng trăm đơn vị rig),
+ * nên vùng phải đi theo độ dịch đó (`Volume25 cx/cy`); cố định ±500 thì thân bị cắt thẳng đứng ở mép vùng (nửa trong có sáng–tối, nửa ngoài trơ).
+ */
+const BoxCtx = React.createContext(BOX);
+const boxAround = (cx = 0, cy = 0) => ({ x: cx - 500, y: cy - 400, width: 1000, height: 1300 });
 const useUid = (p: string) => `${p}-${React.useId().replace(/[^a-zA-Z0-9]/g, '')}`;
 
 /** Bộ chọn CSS cho phần tử của một khối (chính nó và con cháu). */
@@ -111,8 +117,10 @@ const lum = (h: string) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(h.s
  * Mask dựng từ chính nhân vật. `vis`: khối trắng, mọi phần khác đen (đen của phần vẽ sau che đúng chỗ bị che).
  * `onlyW`/`onlyB`: chỉ khối đó trắng/đen, phần khác trong suốt. `shift`: dịch bản dựng.
  */
-const SubjectMask: React.FC<{ id: string; subject: React.ReactNode; cols: Pal25; layers: Layer[] }> = ({ id, subject, cols, layers }) => (
-  <mask id={id} maskUnits="userSpaceOnUse" {...BOX}>
+const SubjectMask: React.FC<{ id: string; subject: React.ReactNode; cols: Pal25; layers: Layer[] }> = ({ id, subject, cols, layers }) => {
+  const box = React.useContext(BoxCtx);
+  return (
+  <mask id={id} maskUnits="userSpaceOnUse" {...box}>
     {layers.map((l, i) => {
       const c = `${id}-${i}`;
       const on = l.mode === 'onlyB' ? '#000' : '#fff';
@@ -123,24 +131,27 @@ const SubjectMask: React.FC<{ id: string; subject: React.ReactNode; cols: Pal25;
       return (
         <g key={i} transform={l.shift ? `translate(${l.shift[0].toFixed(2)} ${l.shift[1].toFixed(2)})` : undefined}>
           <style>{css}</style>
-          {l.blur ? <filter id={`${c}-soft`} filterUnits="userSpaceOnUse" {...BOX}><feGaussianBlur stdDeviation={l.blur.toFixed(1)} /></filter> : null}
+          {l.blur ? <filter id={`${c}-soft`} filterUnits="userSpaceOnUse" {...box}><feGaussianBlur stdDeviation={l.blur.toFixed(1)} /></filter> : null}
           <g className={c} filter={l.blur ? `url(#${c}-soft)` : undefined}>{subject}</g>
         </g>
       );
     })}
   </mask>
-);
+  );
+};
 
-const Fill: React.FC<{ mask: string; color: string; opacity?: number }> = ({ mask, color, opacity }) => (
-  <g mask={`url(#${mask})`}><rect {...BOX} fill={color} opacity={opacity} /></g>
-);
+const Fill: React.FC<{ mask: string; color: string; opacity?: number }> = ({ mask, color, opacity }) => {
+  const box = React.useContext(BoxCtx);
+  return <g mask={`url(#${mask})`}><rect {...box} fill={color} opacity={opacity} /></g>;
+};
 
 /**
  * Lớp ánh sáng 2.5D phủ lên một nhân vật bất kỳ dùng bảng màu Nam (cùng hệ toạ độ với `subject`).
  * `dir`: hướng tới nguồn sáng trên màn hình, ưu tiên lấy từ bối cảnh (`lightFor` của phòng 3D) để nhân vật cùng nguồn sáng với nền.
  * `armsFront`: có tay đưa ra trước thân (đổi chiều bóng đổ tay ↔ áo). `depth`: tách tay/chân phía xa (góc 3/4, nghiêng).
  */
-export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; pal: Pal25; head?: boolean; dir?: [number, number]; armsFront?: boolean; depth?: boolean }> = ({ subject, light = 'ngay', pal, head = true, dir, armsFront = false, depth = false }) => {
+export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; pal: Pal25; head?: boolean; dir?: [number, number]; armsFront?: boolean; depth?: boolean; cx?: number; cy?: number }> = ({ subject, light = 'ngay', pal, head = true, dir, armsFront = false, depth = false, cx = 0, cy = 0 }) => {
+  const box = boxAround(cx, cy);
   const L = LIGHTS_25D[light];
   const uid = useUid('v25');
   const cols: Pal25 = { shirt: pal.shirt.map((c) => c.toLowerCase()), pants: pal.pants.map((c) => c.toLowerCase()), hair: pal.hair.toLowerCase() };
@@ -178,10 +189,11 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
   const sil = { id: id('sil'), layers: [{ mode: 'vis', part: 'all' }] as Layer[] };
   const masks = [sil, ...shadows.map((s) => s.m), ...(hairHL ? [hairHL] : []), ...(rim ? [rim] : []), ...glows, ...(far ? [far] : [])];
   return (
+    <BoxCtx.Provider value={box}>
     <g data-volume={light} stroke="none">
       {subject}
       <defs>
-        <clipPath id={id('rimclip')}><rect x={-500} y={-400} width={1000} height={RIM_BOTTOM + 400} /></clipPath>
+        <clipPath id={id('rimclip')}><rect x={box.x} y={box.y} width={box.width} height={RIM_BOTTOM + 400 + cy} /></clipPath>
         {masks.map((m) => <SubjectMask key={m.id} id={m.id} subject={subject} cols={cols} layers={m.layers} />)}
         {casts.map((c, i) => (
           <React.Fragment key={i}>
@@ -207,6 +219,7 @@ export const Volume25: React.FC<{ subject: React.ReactElement; light?: Light25; 
       {/* viền sáng chỉ phần thân trên (đầu, vai, tay): ở chân nó chạy vào khe giữa hai ống và quanh dép, rối hình */}
       {rim && <g clipPath={`url(#${id('rimclip')})`} style={SCREEN}><Fill mask={rim.id} color={L.rim!.color} opacity={L.rim!.opacity} /></g>}
     </g>
+    </BoxCtx.Provider>
   );
 };
 
@@ -294,7 +307,7 @@ export const Nam25D: React.FC<BodyProps & { volume?: boolean; lighting?: Light25
   const { x = 0, y = 0, scale = 1, pose = STAND_POSE } = props;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} pal={palOf(props)} dir={lightDir}
+      <Volume25 subject={<Body {...props} x={0} y={0} scale={1} />} light={lighting} pal={palOf(props)} dir={lightDir} cx={pose.x ?? 0} cy={pose.y ?? 0}
         armsFront={!!(pose.frontR || pose.frontL)} depth={pose.view === 'three' || pose.view === 'side' || pose.view === 'quarter' || pose.view === undefined} />
     </g>
   );

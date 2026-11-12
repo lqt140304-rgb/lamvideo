@@ -44,7 +44,7 @@ const Shot1: React.FC<{ g: number }> = ({ g }) => {
   return (
     <RoomScene view="wide" frame={S[0] + g} rays={0.9} falloff={0.9} door="ajar" chair="door" phone="hidden" kitchen="clean" move={move}
       chairPush={{ dx: CHAIR1.dx + chair.dx, dz: CHAIR1.dz + chair.dz, rot: chair.rot }}
-      actors={[{ at: [X0, Z1], render: (p) => (
+      actors={[{ at: [X0, Z1], lit: false, render: (p) => (
         <NamSongVatLy frame={g} total={S[1] - S[0]} seed={2} base={base1} impacts={[{ f: HIT, kind: 'khung', mag: 1.3, dir: 1 }]} wind={wind}
           lighting="ngay" lightDir={[d.x, d.y]} shirt={PALETTE.nam.sleepShirt}
           expr={exprTrack(g, [[0, 'buon-ngu-1'], [HIT, 'so-hai-3'], [HIT + 26, 'tuc-gian-2'], [HIT + 62, 'binh-than-1']])} x={p.x} y={p.y} scale={p.scale} />
@@ -62,7 +62,7 @@ const Shot2: React.FC<{ g: number }> = ({ g }) => {
   const d = lightFor('kitchen', KIA2, LIGHT_SOURCES.window, move);
   return (
     <RoomScene view="kitchen" frame={S[1] + g} rays={0.9} falloff={0.9} door="ajar" chair="bed" phone="hidden" kitchen="messy" move={move}
-      actors={[{ at: KIA2, render: (p) => (
+      actors={[{ at: KIA2, lit: false, render: (p) => (
         <NamSongVatLy identity="nguoi-kia" frame={g} total={S[2] - S[1]} seed={5} base={base} lighting="ngay" lightDir={[d.x, d.y]}
           expr={exprTrack(g, [[0, 'binh-than-1'], [64, 'bat-ngo-1'], [86, 'cuoi-che-giau-2']], 14)} x={p.x} y={p.y} scale={p.scale} />
       ) }]} />
@@ -78,7 +78,7 @@ const Shot3: React.FC<{ g: number }> = ({ g }) => {
   const base = (k: number) => easePose(TYPE, LEAN, ramp(k, 70, 100), { anticipate: 3 });
   return (
     <RoomScene view="desk" night phone="desk" kitchen="clean" chair="desk" frame={S[2] + g} move={move}
-      actors={[{ at, render: (p) => (
+      actors={[{ at, lit: false, render: (p) => (
         <NamSongVatLy frame={g} total={S[3] - S[2]} seed={2} base={base} lighting="man-hinh" lightDir={[d.x, d.y]} shirt={PALETTE.nam.sleepShirt}
           talk={speak(g, 108, 146, 2)} expr={exprTrack(g, [[0, 'suy-luan-2'], [58, 'lo-lang-2'], [104, 'kiet-suc-3']], 16)} x={p.x} y={p.y} scale={p.scale} />
       ) }]} />
@@ -101,11 +101,11 @@ const Shot4: React.FC<{ g: number }> = ({ g }) => {
   return (
     <RoomScene view="wide" night phone="desk" kitchen="clean" door="ajar" chair="desk" frame={S[3] + g} move={move}
       actors={[
-        { at: NAM4, render: (p) => (
+        { at: NAM4, lit: false, render: (p) => (
           <NamSongVatLy frame={g} total={S[4] - S[3]} seed={2} base={namBase} lighting="man-hinh" lightDir={[dN.x, dN.y]} shirt={PALETTE.nam.sleepShirt}
             talk={speak(g, 116, 146, 2)} expr={exprTrack(g, [[0, 'buon-ngu-1'], [88, 'toi-loi-2'], [118, 'ngai-ngu-2']], 16)} x={p.x} y={p.y} scale={p.scale} />
         ) },
-        { at: [TUNG_X0, Z4], render: (p) => (
+        { at: [TUNG_X0, Z4], lit: false, render: (p) => (
           <TungSongVatLy frame={g} total={S[4] - S[3]} seed={11} base={tungBase} wind={wind} lighting="man-hinh" lightDir={[dT.x, dT.y]}
             talk={speak(g, 84, 112, 11)} expr={exprTrack(g, [[0, 'binh-than-1'], [80, 'tuc-gian-2'], [116, 'nghi-ngo-2']], 14)} x={p.x} y={p.y} scale={p.scale} />
         ) },
@@ -124,9 +124,9 @@ const Shot5: React.FC<{ g: number }> = ({ g }) => {
   return (
     <RoomScene view="wide" frame={S[4] + g} rays={0.9} falloff={0.9} door="ajar" chair="door" phone="hidden" kitchen="clean" move={move}
       actors={[
-        { at: P.nam, render: (p) => <LivingNam25D frame={g} seed={2} lighting="ngay" lightDir={[dn.x, dn.y]} shirt={PALETTE.nam.sleepShirt} pose={{ ...STAND_POSE, view: 'three', facing: 1 }} expr={exprTrack(g, [[0, 'buon-1'], [50, 'binh-than-1']])} x={p.x} y={p.y} scale={p.scale} /> },
-        { at: P.kia, render: (p) => <LivingNguoiKia25D frame={g} seed={5} lighting="ngay" lightDir={[dk.x, dk.y]} pose={{ ...STAND_POSE, view: 'three', facing: -1 }} expr={exprTrack(g, [[0, 'cuoi-che-giau-1'], [50, 'tu-man-2']])} x={p.x} y={p.y} scale={p.scale} /> },
-        { at: P.tung, render: (p) => <LivingTung25D frame={g} seed={11} lighting="ngay" lightDir={[dt.x, dt.y]} pose={{ ...STAND_POSE, view: 'three', facing: -1 }} expr={exprTrack(g, [[0, 'nghi-ngo-1'], [50, 'vui-1']])} x={p.x} y={p.y} scale={p.scale} /> },
+        { at: P.nam, lit: false, render: (p) => <LivingNam25D frame={g} seed={2} lighting="ngay" lightDir={[dn.x, dn.y]} shirt={PALETTE.nam.sleepShirt} pose={{ ...STAND_POSE, view: 'three', facing: 1 }} expr={exprTrack(g, [[0, 'buon-1'], [50, 'binh-than-1']])} x={p.x} y={p.y} scale={p.scale} /> },
+        { at: P.kia, lit: false, render: (p) => <LivingNguoiKia25D frame={g} seed={5} lighting="ngay" lightDir={[dk.x, dk.y]} pose={{ ...STAND_POSE, view: 'three', facing: -1 }} expr={exprTrack(g, [[0, 'cuoi-che-giau-1'], [50, 'tu-man-2']])} x={p.x} y={p.y} scale={p.scale} /> },
+        { at: P.tung, lit: false, render: (p) => <LivingTung25D frame={g} seed={11} lighting="ngay" lightDir={[dt.x, dt.y]} pose={{ ...STAND_POSE, view: 'three', facing: -1 }} expr={exprTrack(g, [[0, 'nghi-ngo-1'], [50, 'vui-1']])} x={p.x} y={p.y} scale={p.scale} /> },
       ]} />
   );
 };
