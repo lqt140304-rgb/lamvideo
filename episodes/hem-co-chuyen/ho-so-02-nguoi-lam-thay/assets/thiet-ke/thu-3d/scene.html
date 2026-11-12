@@ -3,24 +3,27 @@
 <script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script></head>
 <body><script type="module">
 import * as THREE from 'three';
-import { buildNam } from './nam-3d.js';
+const q0 = new URLSearchParams(location.search);
+const { buildNam } = await import(q0.get('model') === 'toon' ? './nam-3d-toon.js' : './nam-3d.js');
 const q = new URLSearchParams(location.search);
 const W = +(q.get('w') || 900), H = +(q.get('h') || 1200);
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(1); renderer.setSize(W, H);
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.VSMShadowMap;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+if (q0.get('model') !== 'toon') { renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; }
 document.body.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
-const bg = q.get('bg') || '#f5f0e8'; scene.background = new THREE.Color(bg);
+const bg = q.get('bg') || '#f7f1ee'; scene.background = new THREE.Color(bg);
 const cam = new THREE.PerspectiveCamera(16, W / H, 10, 5000);
 // ánh sáng: nắng chính ấm chéo trước–trái–trên, trời dịu, viền sáng sau lưng (quy chuẩn 4.0 cho phép viền/ánh hắt)
-scene.add(new THREE.HemisphereLight('#fff6e8', '#b9b0a2', 1.25));
+scene.add(new THREE.HemisphereLight('#fff8ef', '#cbb8a4', 1.5));
+const fillL = new THREE.DirectionalLight('#f3f1ff', 0.7); fillL.position.set(-260, 140, 220); scene.add(fillL);
 const key = new THREE.DirectionalLight('#fff1dc', 2.1); key.position.set(110, 420, 230); key.castShadow = true;
 key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 10; key.shadow.blurSamples = 20; key.shadow.bias = -0.0006; key.shadow.normalBias = 0.6;
 Object.assign(key.shadow.camera, { left: -200, right: 200, top: 260, bottom: -120, near: 10, far: 900 });
 scene.add(key);
-const rim = new THREE.DirectionalLight('#ffffff', 0.9); rim.position.set(-220, 160, -260); scene.add(rim);
+const rim = new THREE.DirectionalLight('#ffffff', 1.2); rim.position.set(-220, 160, -260); scene.add(rim);
 const ground = new THREE.Mesh(new THREE.CircleGeometry(220, 64), new THREE.ShadowMaterial({ opacity: 0.16 }));
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; if (q.has('groundShadow')) scene.add(ground); // mặc định chỉ bóng tiếp xúc mềm như bảng 2.5D
 // bóng tiếp xúc mềm dưới chân
@@ -30,7 +33,7 @@ g.fillStyle = rg; g.fillRect(0, 0, 128, 128);
 const blob = new THREE.Mesh(new THREE.PlaneGeometry(70, 40), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false }));
 blob.rotation.x = -Math.PI / 2; blob.position.y = 0.05; scene.add(blob);
 
-const nam = buildNam(THREE, { shirt: q.get('shirt') || undefined });
+const nam = buildNam(THREE, {});
 scene.add(nam.root);
 if (q.has('nohair')) nam.root.traverse((o) => { if (o.isMesh && o.material.color && o.material.color.getHexString() === '292a29' && o.material.isMeshToonMaterial) o.visible = false; });
 

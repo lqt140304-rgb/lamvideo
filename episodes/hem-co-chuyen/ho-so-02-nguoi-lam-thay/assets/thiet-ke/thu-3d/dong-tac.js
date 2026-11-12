@@ -3,9 +3,12 @@
 // dy nâng/hạ hông, pose = góc khớp (rad) truyền vào `nam.pose()`.
 // Quy ước khớp (trục x): chân/tay xoay x âm = đưa ra trước; gối x dương = gập; thân x dương = cúi tới.
 
+import { LEG } from './nam-3d.js';
+const LEG_LEN = LEG.thigh + LEG.shin;
+
 export const BASE_POSE = {
-  spine: [0.03, 0, 0], chest: [0, 0, 0], neck: [0.16, 0, 0], head: [-0.1, 0, 0], hips: [0, 0, 0],
-  shoulderL: [0.04, 0, 0.1], shoulderR: [0.04, 0, -0.1], elbowL: [-0.12, 0, -0.02], elbowR: [-0.12, 0, 0.02],
+  spine: [0.02, 0, 0], chest: [0, 0, 0], neck: [0.07, 0, 0], head: [-0.03, 0, 0], hips: [0, 0, 0],
+  shoulderL: [0.03, 0, 0.12], shoulderR: [0.03, 0, -0.12], elbowL: [-0.1, 0, -0.04], elbowR: [-0.1, 0, 0.04],
   wristL: [0, 0, 0], wristR: [0, 0, 0],
   hipL: [0, 0, 0.02], hipR: [0, 0, -0.02], kneeL: [0, 0, -0.02], kneeR: [0, 0, 0.02], ankleL: [0, 0.12, 0], ankleR: [0, -0.12, 0],
 };
@@ -30,7 +33,7 @@ export function walkPose(phase, amt = 1) {
   add(P, 'elbowL', [-0.22 * amt * (1 + s) * 0.5, 0, 0]); add(P, 'elbowR', [-0.22 * amt * (1 - s) * 0.5, 0, 0]);
   add(P, 'hips', [0, 0.09 * s * amt, 0.02 * Math.cos(a) * amt]); add(P, 'chest', [0, -0.12 * s * amt, 0]);
   add(P, 'spine', [0.05 * amt, 0, 0]);
-  return { P, dy: amt * (1.3 * Math.cos(2 * a) - 1.3) * 0.5 };
+  return { P, dy: amt * (1.0 * Math.cos(2 * a) - 1.0) * 0.5 };
 }
 
 /** Ngồi xổm/nhún theo góc đùi th (0 = đứng). Giữ bàn chân bám sàn: hạ hông đúng theo độ dài đùi + cẳng. */
@@ -39,12 +42,12 @@ export function squatPose(th, P0 = BASE_POSE) {
   for (const k of ['L', 'R']) { add(P, 'hip' + k, [-th, 0, 0]); add(P, 'knee' + k, [2 * th, 0, 0]); add(P, 'ankle' + k, [-th, 0, 0]); }
   add(P, 'spine', [0.38 * th, 0, 0]); add(P, 'neck', [-0.15 * th, 0, 0]);
   add(P, 'shoulderL', [-0.85 * th, 0, 0]); add(P, 'shoulderR', [-0.85 * th, 0, 0]); // tay đưa trước giữ thăng bằng
-  return { P, dy: -52.5 * (1 - Math.cos(th)) };
+  return { P, dy: -LEG_LEN * (1 - Math.cos(th)) };
 }
 
 // ---------------- Kịch bản 14 s ----------------
 export const DURATION = 14;
-const X0 = 55, X1 = 200, Z = 300, CYCLE = 72; // đi ngang trước giường bên trái, mỗi chu kỳ 2 bước ~72 cm
+const X0 = 55, X1 = 200, Z = 300, CYCLE = 50; // đi ngang trước giường bên trái, mỗi chu kỳ 2 bước ~50 cm (chân ngắn theo mẫu 3D)
 const T = { look: [0, 2.2], turn1: [2.2, 2.7], walk: [2.7, 6.2], turn2: [6.2, 6.8], wave: [6.8, 9.0], stretch: [9.0, 11.0], squat: [11.0, 12.6], jump: [12.6, 14] };
 
 const walkDist = (t) => { // quãng đi (cm) có tăng/giảm tốc
@@ -80,8 +83,8 @@ export function motionAt(t) {
   // 6. vươn vai
   if (t >= T.stretch[0] && t < T.stretch[1]) {
     const k = ramp(t, T.stretch[0], T.stretch[0] + 0.7) * (1 - ramp(t, T.stretch[1] - 0.6, T.stretch[1]));
-    add(P, 'shoulderL', [-0.15 * k, 0, 2.75 * k]); add(P, 'shoulderR', [-0.15 * k, 0, -2.75 * k]);
-    add(P, 'elbowL', [0, 0, 0.25 * k]); add(P, 'elbowR', [0, 0, -0.25 * k]);
+    add(P, 'shoulderL', [-0.1 * k, 0, 2.25 * k]); add(P, 'shoulderR', [-0.1 * k, 0, -2.25 * k]); // tay chibi ngắn: dang chéo lên thành chữ V
+    add(P, 'elbowL', [0, 0, 0.12 * k]); add(P, 'elbowR', [0, 0, -0.12 * k]);
     add(P, 'spine', [-0.14 * k, 0, 0]); add(P, 'neck', [-0.2 * k, 0, 0]); add(P, 'head', [-0.25 * k, 0, 0]);
     dy += 1.2 * k;
   }

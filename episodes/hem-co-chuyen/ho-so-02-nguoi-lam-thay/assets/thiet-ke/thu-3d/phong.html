@@ -11,7 +11,7 @@ const VIEWS = { wide: { pos: [228, 152, 800], target: [228, 0], mm: 34, horizon:
 const W = 1920, H = 1080, q = new URLSearchParams(location.search), V = VIEWS[q.get('view') || 'wide'];
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true, premultipliedAlpha: false });
 renderer.setPixelRatio(1); renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
-renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.VSMShadowMap; renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.VSMShadowMap; renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
 document.body.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 // camera khớp phòng
@@ -21,12 +21,12 @@ cam.position.set(...V.pos); cam.lookAt(V.target[0], V.pos[1], V.target[1]); cam.
 cam.projectionMatrix.makePerspective(-960 / F * near, 960 / F * near, V.horizon / F * near, -(H - V.horizon) / F * near, near, far);
 cam.projectionMatrixInverse.copy(cam.projectionMatrix).invert();
 // ánh sáng ban ngày: nắng từ cửa sổ tường phải (LIGHT_SOURCES.window = [460,150,155]), trời ấm dịu, hắt sàn
-scene.add(new THREE.HemisphereLight('#fff6e6', '#d8c8aa', 1.75));
-const sun = new THREE.DirectionalLight('#ffe9c8', 2.0); sun.castShadow = true;
+scene.add(new THREE.HemisphereLight('#fff6ea', '#d8c6aa', 1.6));
+const sun = new THREE.DirectionalLight('#ffe7c4', 2.4); sun.castShadow = true;
 sun.shadow.mapSize.set(2048, 2048); sun.shadow.radius = 9; sun.shadow.blurSamples = 20; sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.6;
 Object.assign(sun.shadow.camera, { left: -150, right: 150, top: 200, bottom: -150, near: 10, far: 1200 });
 scene.add(sun, sun.target);
-const fill = new THREE.DirectionalLight('#dfe8ff', 0.35); fill.position.set(-300, 200, 600); scene.add(fill);
+const fill = new THREE.DirectionalLight('#e8eeff', 0.7); fill.position.set(-300, 200, 600); scene.add(fill);
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(460, 780), new THREE.ShadowMaterial({ opacity: 0.18 }));
 floor.rotation.x = -Math.PI / 2; floor.position.set(230, 0.2, 390); floor.receiveShadow = true; scene.add(floor);
 // bóng tiếp xúc mềm

@@ -1,13 +1,14 @@
 # Nam 3D — bản thử (12/11/2026)
 
-Thử đưa Nam (Hồ sơ 02) từ 2D/2.5D sang **3D thật** để so sánh hướng dựng. Đây là thử nghiệm, **chưa phải quyết định**: hướng đã chốt cho Hồ sơ 02 vẫn là 2.5D (`../thu-2-5d/`).
+Thử đưa Nam (Hồ sơ 02) sang **3D thật**. Đây là thử nghiệm, **chưa phải quyết định**: hướng đã chốt cho Hồ sơ 02 vẫn là 2.5D (`../thu-2-5d/`).
 
-- `nam-3d.js` — mô hình dựng thủ tục bằng three.js (r170), đơn vị cm, cao 168 cm. Có khung xương (`hips, spine, chest, neck, head, shoulder/elbow/wrist, hip/knee/ankle` L/R) và `pose({...})` đặt góc khớp. Đầu phóng `HEAD_SCALE = 1.2` cho đúng tỉ lệ mẫu.
-- `scene.html` — cảnh xem: nắng chính ấm, trời dịu, viền sáng sau lưng; bóng VSM mềm; bóng tiếp xúc dưới chân. `?groundShadow` bật bóng đổ dài trên sàn, `?nohair` ẩn tóc để soi mặt.
-- `render.cjs` — render bằng Chromium có sẵn (WebGL qua SwiftShader), máy chủ tĩnh cục bộ:
-  - `node render.cjs <out.png> '{"az":0.6,"dist":780,"ty":86}' 420 820` — một góc (`az` rad quanh người, `dist` cm, `ty` độ cao nhìn).
-  - `node render.cjs --seq <thư mục> 180 720 960` — 180 khung xoay vòng + thở (~1 s/khung), ghép bằng `npx remotion ffmpeg` trong `what-if-studio`.
-- `nam-3d-cac-goc.png` — bảng 5 góc: 2.5D đã chốt / 3D / cận đầu 3D.
+**Ảnh mẫu 3D do chủ repo đưa (12/11):** `mau-3d-xoay.webp` (6 góc), `mau-3d-dau.webp` (cận đầu). Mô hình hiện tại `nam-3d.js` dựng theo mẫu này: không kính; mắt to tròng trắng viền đậm, mí trên sụp, con ngươi nhỏ sát mí; mày dày bo tròn; mũi cục tròn; miệng hé thấy răng, lưỡi; tai to; nốt ruồi trên đuôi mày phải; tóc khối đầy mềm, mái rủ chéo có mũi nhọn dừng trên mày, tóc mai hẹp, lọn xoắn to cong về trước; tỉ lệ chibi (cao 165 cm, đầu ~1/3); vật liệu mờ kiểu đất sét, tone mapping ACES, sáng studio dịu.
+Bản toon đầu tiên (có kính, theo 2.5D) giữ ở `nam-3d-toon.js` (`scene.html?model=toon`).
+
+- `nam-3d.js` — mô hình thủ tục three.js (r170), đơn vị cm. Khung xương `hips, spine, chest, neck, head, shoulder/elbow/wrist, hip/knee/ankle` L/R, `pose({...})`; `LEG` (độ dài đùi/cẳng) cho động tác. Chi tiết mặt đặt bằng **bắn tia lên mặt sọ** (`surf`/`onFace`) nên bám đúng mặt cong. Tóc: vỏ trơn có đường chân tóc theo phương vị (`hairline`: mũi mái lệch, tóc mai, cắt gọn trên tai, gáy), đỉnh mép được dồn về đúng đường chân tóc để mép trơn; rãnh lọn khắc nông (`GROOVES`).
+- `scene.html` — cảnh xem trên nền trơn; `?model=toon` mở bản cũ; `?nohair` ẩn tóc.
+- `render.cjs` — `node render.cjs <out.png> '{"az":0.6,"dist":720,"ty":84}' 420 560` (một góc) hoặc `--seq <thư mục> <số khung> w h` (xoay vòng).
+- `nam-3d-cac-goc.png` — bảng của bản toon đầu (so với 2.5D).
 - Cài: `npm install` trong thư mục này (chỉ `three`; không thêm vào studio chung).
 
 ## Đặt vào phòng + động tác cơ bản (12/11/2026)
