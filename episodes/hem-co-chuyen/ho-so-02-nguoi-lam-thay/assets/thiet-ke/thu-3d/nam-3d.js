@@ -16,7 +16,7 @@ export const NAM_SPEC = {
   colors: NAM_COLORS,
   head: { RX: 20.5, RY: 24.0, RZ: 21.0, HC: 22.0 },                       // bán kính sọ; tâm sọ cao HC trên cằm
   eye: { x: 8.6, y: -1.4, w: 6.0, h: 5.8, lidTH: 0.35 },                   // lidTH: góc phủ mí trên (× π)
-  mouth: { inner: [2.5, 2.4, 1.2], lip: [2.65, 2.55, 1], teeth: [1.9, 0.6, 0.45], tongue: [1.6, 0.9, 0.5] }, // miệng chữ o nhỏ
+  mouth: { inner: [2.5, 2.4, 1.2], lip: null, teeth: [1.9, 0.6, 0.45], tongue: [1.6, 0.9, 0.5] }, // miệng chữ o nhỏ
   arm: { upper: [5.5, 5.2], fore: [5.2, 4.3], elbow: 5.2, wrist: 4.2, upperLen: 18, foreLen: 15,
          sleeve: { top: 7.1, bottom: 8.2, len: 11, flare: 0.045, hem: 8.2, curl: 1.5 } }, // bán kính liên tục 5.5 → 5.2 → 4.3, không ngấn khuỷu
   hair: { HS: { kx: 1.05, ky: 0.92, kz: 1.06, dy: 2.5 }, base: 1.17, back: 0.12, nape: -0.75, napeFrom: 1.6, napeTo: 2.35 },
@@ -104,7 +104,7 @@ export function createBaseCharacter(THREE, spec = {}) {
   mesh(new THREE.TorusGeometry(19.3, 0.6, 10, 72), M('#676462', 0.95), J.spine, [0, -2.1, 0], [Math.PI / 2, 0, 0], [1, 0.8, 1]);          // gấu áo (hạ 2.6 cm: trùm qua mép nối đùi)
   for (const k of ['L', 'R']) {
     const s = k === 'L' ? 1 : -1;
-    mesh(sph(8.2), shirtM, J['shoulder' + k], [-1.8 * s, -2.0, 0], [0, 0, 0], [0.92, 0.85, 0.9]);             // vai tròn
+    mesh(sph(8.2), shirtM, J['shoulder' + k], [-1.8 * s, -2.2, 0], [0, 0, 0], [0.92, 0.85, 0.9]);             // vai tròn
     const SL = sp.arm.sleeve, L2 = SL.len / 2;
     // ống tay áo: Lathe liền một mảnh. Đỉnh nhỏ hơn cầu vai (cắm sâu vào cầu, không hở), nở dần ra gấu rồi bo vào trong ~1.5 cm
     const slProf = [[SL.top - 1.0, L2 + 2.6], [SL.top - 0.7, L2 + 0.4], [SL.top + (SL.bottom - SL.top) * 0.45, 0], [SL.bottom - 0.12, -L2 + 1.2], [SL.bottom, -L2 + 0.3], [SL.bottom - 0.35, -L2 - 0.15], [SL.bottom - SL.curl * 0.7, -L2 - 0.1], [SL.bottom - SL.curl, -L2 + 0.35]];
@@ -215,7 +215,7 @@ export function createBaseCharacter(THREE, spec = {}) {
     mesh(sph(1), M(C.mouthIn, 0.7), g, [0, 0, 0], [0, 0, 0], sp.mouth.inner);
     mesh(sph(1, 24, 12), M(C.teeth, 0.4), g, [0, 1.4, 0.55], [0, 0, 0], sp.mouth.teeth);
     mesh(sph(1, 24, 12), M(C.tongue, 0.6), g, [0, -1.1, 0.5], [0, 0, 0], sp.mouth.tongue);
-    mesh(new THREE.TorusGeometry(1, 0.17, 12, 64), M(C.lip, 0.6), g, [0, 0, 0.65], [0, 0, 0], sp.mouth.lip); }
+    if (sp.mouth.lip) mesh(new THREE.TorusGeometry(1, 0.17, 12, 64), M(C.lip, 0.6), g, [0, 0, 0.65], [0, 0, 0], sp.mouth.lip); } // theo file thiết kế: bỏ vòng môi (đặt spec.mouth.lip = [rx, ry, 1] nếu cần lại)
   // tai to
   for (const s of [1, -1]) {
     const { p } = surf(s * 30, -5.2, [-s, 0, 0]);
