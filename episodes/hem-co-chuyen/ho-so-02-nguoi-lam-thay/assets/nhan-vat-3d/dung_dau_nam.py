@@ -356,7 +356,7 @@ def hairline_el(az):
     return HAIRLINE[-1][1]
 
 
-def hair_base(coll, M, S, N=288, K=44):
+def hair_base(coll, M, S, N=200, K=40):
     """H00 – khối nền: lưới phủ từ chân tóc tới đỉnh, dựng theo (phương vị, độ cao) chiếu lên da đầu nên mép tóc cắt đúng đường chân tóc (không bậc thang), ôm gáy và vòng qua tai tạo mai tóc."""
     bm = bmesh.new(); rows = []
     for i in range(N):
@@ -380,31 +380,38 @@ def hair_base(coll, M, S, N=288, K=44):
     return cap
 
 
+# Mảng tóc theo bảng thiết kế (H01–H08): đường đi = các điểm (phương vị°, độ cao°, độ nổi so với da, m). Gốc mỗi mảng nằm lọt trong khối nền (nổi < bề dày nền 0,028 m) nên không hở;
+# ngọn dài tới tận trán/thái dương, thân dẹt bo tròn, ngọn không nhọn.
+LOCKS = [
+    # (tên, đường đi, nửa rộng tối đa, tỉ lệ dày/rộng, tip)
+    ('H01_MaiChinh',  [(-62, 82, 0.016), (-34, 66, 0.022), (-2, 50, 0.028), (30, 36, 0.032), (54, 26, 0.032)], 0.092, 0.36, 0.22),   # mảng lớn ~50%: từ đỉnh trái quét xuống phủ trán sang phải
+    ('H02_MaiPhu',    [(6, 84, 0.026), (32, 68, 0.034), (56, 50, 0.038), (76, 34, 0.036), (90, 20, 0.032)], 0.080, 0.34, 0.22),      # mảng thứ hai ~30%: chồng lên H01, rủ xuống thái dương phải
+    ('H03_MaiNho',    [(-92, 64, 0.016), (-76, 50, 0.024), (-62, 38, 0.028), (-52, 28, 0.028)], 0.052, 0.36, 0.25),                 # mảng ngắn cân bằng bên trái, chừa nốt ruồi
+    ('H04_ThaiDuongP', [(60, 56, 0.020), (76, 38, 0.026), (84, 16, 0.026), (80, -2, 0.022)], 0.050, 0.34, 0.20),                    # thái dương phải: móng cong ôm trước tai
+    ('H05_ThaiDuongT', [(-60, 54, 0.020), (-76, 38, 0.026), (-84, 16, 0.026), (-80, -2, 0.022)], 0.050, 0.34, 0.20),                 # thái dương trái
+    ('H08_ChopPhu',   [(-46, 76, 0.018), (-36, 68, 0.032), (-26, 62, 0.046), (-18, 60, 0.050)], 0.032, 0.40, 0.25),                  # chóp ngắn vểnh nhẹ ra ngoài
+]
+
+
 def build_hair(coll, M, cage, S):
     cage.free()
-    hair_base(coll, M, S)
+    hair_base(coll, M, S)                                    # H00
     nref = lambda c: (c - C).normalized()
-    def lobe(name, path, W, off=None):
-        off = off or ((0.010, 0.024, 0.020, 0.012) if len(path) == 4 else (0.012, 0.042, 0.030))   # bám sát độ cong trán, không dựng như răng lược
-        pts = [S.at(az, el, o)[0] for (az, el), o in zip(path, off)]
-        return sweep(name, coll, pts, drop_w(W), lambda u, W=W: drop_w(W)(u) * 0.5, nref, M['toc'], 40, 24)
-    # mái: lọn giọt nước dẹt, gốc chìm vào mũ tóc, thân đầy, ngọn bo tròn, uốn chéo sang phải màn hình (+X)
-    lobe('Hair_Lobe.1', [(-36, 70), (-16, 56), (4, 44), (20, 34)], 0.072)
-    lobe('Hair_Lobe.2', [(-10, 72), (10, 58), (28, 46), (42, 36)], 0.070)
-    lobe('Hair_Lobe.3', [(16, 70), (36, 58), (52, 46), (64, 37)], 0.064)
-    lobe('Hair_Lobe.4', [(-64, 66), (-58, 55), (-50, 47), (-44, 42)], 0.056)   # chừa khoảng trán lộ nốt ruồi
-    lobe('Hair_Lobe.5', [(44, 68), (62, 56), (76, 46), (86, 38)], 0.058)
-    for s, k in ((1, 'L'), (-1, 'R')):   # cánh tóc thái dương vểnh nhẹ ra ngoài
-        lobe(f'Hair_Wing.{k}', [(s * 72, 48), (s * 90, 32), (s * 100, 22)], 0.052, (0.014, 0.042, 0.050))
-    # chỏm xoắn: Bézier + Bevel, giữa phình to, uốn cong vòng về trước, ngọn tròn dày
+    for name, path, W, th, tip in LOCKS:
+        pts = [S.at(az, el, o)[0] for az, el, o in path]
+        wf = drop_w(W, tip, 0.62)
+        sweep('Hair_' + name, coll, pts, wf, lambda u, wf=wf, th=th: wf(u) * th, nref, M['toc'], 48, 28)
+    # H06 khối gáy: ụ tròn dẹt bám sau đầu, lọt trong khối nền, làm gáy gọn và đầy
+    q, n = S.at(180, -6, 0.002); gay = uv_sphere('Hair_H06_KhoiGay', coll, M['toc'], (40, 24)); place(gay, q, frame(n, 0.0), (0.095, 0.040, 0.070))
+    # H07 lọn đỉnh hình chữ C: gốc cắm vào đỉnh nền, vòng lên rồi cong về trước/phải, ngọn bo tròn dày
     top, _ = S.at(0, 88, 0.0)
-    pts = [top + Vector(v) for v in ((0, 0.012, -0.01), (0.004, 0.008, 0.045), (0.020, -0.012, 0.080), (0.050, -0.036, 0.086), (0.070, -0.054, 0.064))]
-    rad = [1.0, 1.25, 1.15, 0.95, 0.80]
-    cu = bpy.data.curves.new('Hair_Tuft', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 0.031; cu.bevel_resolution = 6; cu.use_fill_caps = True; cu.resolution_u = 16
+    pts = [top + Vector(v) for v in ((0, 0.016, -0.014), (0.002, 0.014, 0.030), (0.012, 0.000, 0.078), (0.036, -0.030, 0.108), (0.066, -0.060, 0.098), (0.082, -0.080, 0.062))]
+    rad = [1.0, 1.15, 1.25, 1.10, 0.92, 0.78]
+    cu = bpy.data.curves.new('Hair_H07_LonDinh', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 0.036; cu.bevel_resolution = 8; cu.use_fill_caps = True; cu.resolution_u = 20
     sp = cu.splines.new('BEZIER'); sp.bezier_points.add(len(pts) - 1)
-    for bp, p, r in zip(sp.bezier_points, pts, rad): bp.co = p; bp.radius = r; bp.handle_left_type = bp.handle_right_type = 'AUTO'
-    tuft = bpy.data.objects.new('Hair_Tuft', cu); coll.objects.link(tuft); cu.materials.append(M['toc'])
-    tip = uv_sphere('Hair_Tuft_Tip', coll, M['toc'], (24, 16)); place(tip, pts[-1], Matrix.Identity(3), (0.025, 0.025, 0.025))   # ngọn tròn dày, không nhọn
+    for bp, p_, r in zip(sp.bezier_points, pts, rad): bp.co = p_; bp.radius = r; bp.handle_left_type = bp.handle_right_type = 'AUTO'
+    tuft = bpy.data.objects.new('Hair_H07_LonDinh', cu); coll.objects.link(tuft); cu.materials.append(M['toc'])
+    tip = uv_sphere('Hair_H07_Ngon', coll, M['toc'], (24, 16)); r_ = 0.036 * 0.78; place(tip, pts[-1], Matrix.Identity(3), (r_, r_, r_))
 
 
 # ------------------------------------------------------------------ ánh sáng + camera trực giao
