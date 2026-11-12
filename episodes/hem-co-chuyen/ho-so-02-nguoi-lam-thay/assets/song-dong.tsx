@@ -127,7 +127,14 @@ export const easePose = (a: JointPose, b: JointPose, t: number, o: EaseOpts = {}
   const at = (lag: number) => { const u = clamp((t - lag) / (1 - lag)); return s > 0 ? outBack(u, s) : smooth(u); };
   const num = (x: number, y: number, lag: number) => lerp(x, y, at(lag));
   const soft = (x: number, y: number, lag: number) => { const u = clamp((t - lag) / (1 - lag)), full = lerp(x, y, outBack(u, s * 0.45)); const d = Math.max(-9, Math.min(9, full - lerp(x, y, smooth(u)))); return lerp(x, y, smooth(u)) + d; };
-  const limb = (x: Limb, y: Limb, lagA: number, lagB: number): Limb => ({ ...(t < 0.5 ? x : y), a: soft(x.a, y.a, lagA), b: Math.max(0, soft(x.b, y.b, lagB)) });
+  const limb = (x: Limb, y: Limb, lagA: number, lagB: number): Limb => {
+    // khác chiều gập: duỗi thẳng rồi gập sang chiều mới, không lật cẳng tay qua bên kia ở giữa chặng
+    if ((x.rot ?? 1) !== (y.rot ?? 1)) {
+      const k = clamp((t - lagB) / (1 - lagB)), a = soft(x.a, y.a, lagA);
+      return k < 0.5 ? { ...x, a, b: x.b * (1 - smooth(Math.min(1, k * 2))) } : { ...y, a, b: y.b * smooth((k - 0.5) * 2) };
+    }
+    return { ...(t < 0.5 ? x : y), a: soft(x.a, y.a, lagA), b: Math.max(0, soft(x.b, y.b, lagB)) };
+  };
   const tiltAnt = o.anticipate ? -Math.sign(b.tilt - a.tilt || 1) * o.anticipate * Math.sin(Math.PI * clamp(t / 0.25)) * (t < 0.25 ? 1 : 0) : 0;
   const late = t >= 0.5 ? b : a;
   return {

@@ -1,4 +1,8 @@
-# Hồ sơ 2 — Dựng cảnh và góc máy
+# Hồ sơ 2 — Dựng cảnh và góc máy (Hỗ trợ Full 3D Camera)
+
+**CHUYỂN HƯỚNG FULL 3D — 12/11/2026:** Toàn bộ quy trình sản xuất chuyển sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** theo [Quy chuẩn 3D](../../../docs/QUY-CHUAN-3D.md). Các bảng góc máy bên dưới được mở khóa toàn phần trong không gian 3D 360°:
+- **Camera 3D vật lý thực:** Cảm biến 36mm Full-Frame, thay đổi tiêu cự (24mm/35mm/50mm/85mm), Depth of Field Bokeh vật lý, góc trần vuông góc $90^\circ$ (Top-down), góc thấp (Low-Angle) và cú **Hitchcock Vertigo Dolly Zoom** thực thụ (tăng FOV đồng thời lùi trục Z) mà không còn bị giới hạn bởi góc vẽ phẳng 2D hay hở nền khi dịch máy.
+- **Ánh sáng & Phản chiếu thực:** Đèn bàn 3200K, ánh nắng cửa sổ, Screen Glow từ laptop và mặt gương phản chiếu sai lệch dùng đèn/shader 3D vật lý thật.
 
 **Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
 
@@ -95,246 +99,181 @@ phải: cửa sổ; tiền cảnh phải là chỗ ngủ Nam
 
 Hai điểm nhấn: **cận phản ứng trước cú lộ mặt**, và **khung bàn làm việc ban ngày được nhắc lại khi người kia ngồi vào buổi tối**. Giữ máy yên ở các đoạn giữa để diễn xuất có trọng lượng. Chưa dùng góc quái vật, mắt đỏ hoặc ánh sáng xác nhận nguồn gốc người kia.
 
-## Quay layer
+## Hệ Thống Dựng Cảnh & Góc Quay 3D (Full 3D Cinematography & Virtual Camera)
 
-**Bổ sung ngày 10/11/2026:** dùng nhiều lớp để thấy thay đổi gần–xa và che/lộ khi máy đi, không chỉ phóng cả một bức tranh. Phần này là chỉ đạo tách và quay lớp cho bảng máy A–H, **chưa phải các SVG đã được tách xong hoặc chuyển động đã chạy thử**.
+**Cập nhật nâng cấp 12/11/2026 (Full 3D Pipeline):** Khi chuyển sang **Nhân vật 3D & Bối cảnh 3D** ([QUY-CHUAN-3D.md](../../../docs/QUY-CHUAN-3D.md)), toàn bộ các giới hạn của việc tách layer 2D (`XA/PHÒNG/CHE-GẦN`), kéo dịch pixel giả lập (`-30px/-18px`), hay cấm xoay góc sau/góc trần **đã được gỡ bỏ hoàn toàn**.
 
-### Những lớp cần chuẩn bị
+### Ưu thế không gian 3D & Nguyên tắc dàn cảnh
 
-| Nhóm | Nội dung của Hồ sơ 2 | Đi theo gì / che gì |
+| Yếu tố kỹ thuật | Cách xử lý trong không gian 3D | Điểm kiểm tra thực tế |
 |---|---|---|
-| XA | Phố ngoài cửa sổ, phần cuối hành lang | Nằm sau cửa sổ/ô cửa và bị cắt đúng khẩu độ cửa; mask bám khung cửa, không bám lớp phố đang dịch. Không đặt phố phủ lên khung cửa hoặc người trong phòng. |
-| PHÒNG | Khối tường, sàn, trần và vùng sáng nền | Giữ phối cảnh, đường chân tường và điểm tiếp đất liên tục. Không cho sàn chạy một nhịp còn chân bàn/chân người chạy một nhịp khác. |
-| ĐỒ-CỐ-ĐỊNH | Chỗ ngủ đã lập, bếp, bàn, tủ quần áo, khung cửa | Có thể tách nhóm theo độ sâu và mặt trước/sau; những phần cùng một khối giữ liên kết. Đèn và laptop đặt trên bàn đi cùng hệ bàn, không tự lướt trên mặt bàn khi máy dịch. |
-| NGƯỜI/VẬT | Nam, Người Kia, ghế di chuyển, bát, điện thoại, căn cước | Mỗi người/vật có độ sâu riêng theo vị trí, không gom cả hai người vào một mặt phẳng bắt buộc. Vật đang cầm bám tay; bóng tiếp xúc/điểm tì theo người hoặc vật có quan hệ tương ứng. |
-| CHE-GẦN | Mép nệm, mép bàn, mặt trước bồn rửa, khung/cánh cửa, vai người gần | Tạo che khuất có lý do. Vật dùng làm tiền cảnh phải thật sự nằm gần máy của shot ấy; không kéo một mép bàn ở xa lên trước mặt Nam chỉ để có parallax. |
-| SÁNG/FX | Vệt nắng, vùng sáng đèn bàn, ánh laptop; bụi nếu dùng | Ánh trên mặt người bám người, vệt trên sàn bám sàn, vùng phát sáng bám nguồn. Không trượt mọi ánh sáng cùng một tốc độ tùy ý hoặc dùng hạt chuyển động thay diễn xuất. |
-| CHỮ | Tin nhắn, tài liệu, biểu tượng Không làm phiền; phụ đề nếu có | Chữ trong truyện bám mặt màn hình/thẻ và clip theo vật. Phụ đề ngoài truyện là lớp xuất riêng. Hai loại này không dùng chung cách giữ cố định theo khung hình. |
+| **Che khuất & Chiều sâu (Z-Buffer)** | Tự nhiên tuyệt đối qua mô hình 3D thực (`1 unit = 1m`). Vai tiền cảnh, mép bàn, bồn rửa và cánh cửa tự động che đúng phần cơ thể phía sau khi camera dịch chuyển 360°. | Không có lỗi xuyên lưới (Mesh Clipping) giữa tay–bàn, chân–ghế, chân–sàn. |
+| **Ánh sáng & Bóng đổ vật lý** | Dùng nguồn đèn 3D thật: Area Light cửa sổ, Spot Light đèn bàn `3200K`, Screen Light `6500K` từ laptop/điện thoại (đặc biệt ban đêm lấy ánh sáng xanh laptop làm nguồn chính `LAPTOP_LIGHT`). | Bóng đổ mềm (Soft Shadow) và Contact Shadow bám sát chân ghế, chân giường, đáy bát sứ. |
+| **Chiếc gương & Phản chiếu** | Dùng **Planar Reflection / Dual Render Camera** mặt kính gương: phản chiếu căn phòng thật theo đúng góc camera 3D, nhưng kiểm soát riêng pose/nốt ruồi/độ trễ của Người Kia bên trong kính. | Không dùng thủ thuật lật ngược toàn khung hình làm đảo chữ trên thẻ/đồng hồ. |
+| **Độ sâu trường ảnh (Physical DoF)** | Mô phỏng thấu kính 36mm Full-Frame (`f/1.4 – f/2.8`) bằng Focus Distance thực theo tọa độ vật thể (mm/m), tạo Bokeh elip tự nhiên cho đèn và khe cửa. | Rack Focus Pull chuyển nét giữa 2 mặt phẳng cách nhau $\ge 0.5\text{m}$ mượt mà, đọc rõ chữ UI/thẻ. |
 
-Đây là **vai trò lớp**, không phải bảy tấm luôn xếp cố định cho mọi góc. Ví dụ thân người sau bàn thuộc NGƯỜI nhưng mặt bàn CHE-GẦN che chân; tay đặt lên bàn cần hiện trước mặt bàn. Sắp thứ tự hoặc mask theo vị trí thực và động tác, không sửa bằng cách cho toàn bộ người nổi lên trước mọi đồ.
+### Bảy chế độ máy quay điện ảnh 3D (3D Cine Camera Modes)
 
-### Sáu chế độ máy quay điện ảnh (Cine Camera Modes)
-
-| Mã | Tên chế độ | Ứng dụng & Ý đồ điện ảnh | Kỹ thuật chuyển động & Thông số kiểm tra |
+| Mã | Tên chế độ máy 3D | Ứng dụng & Ý đồ tâm lý | Thông số & Kỹ thuật thực thi |
 |---|---|---|---|
-| **P0** | **Handheld Organic Breathing**<br>(Rung thở cầm tay) | Mặc định cho mọi cảnh hội thoại và diễn xuất thay cho máy tĩnh chết. | Máy quay vác vai mô phỏng DOP cầm máy thật: Dao động hữu cơ tần số $0.2\text{Hz}$, biên độ vi mô $0.3 - 0.8\text{px}$. Giữ nhân vật sống động mà không gây chóng mặt. Khi có va chạm hoặc hoảng loạn, biên độ giật tăng lên $2.0 - 3.5\text{px}$ rồi tắt nhanh trong $0.2\text{s}$. |
-| **P1** | **Parallax Lateral Track**<br>(Dịch ngang tách lớp) | C02, E02, P2.01, P3.02; lia máy theo chuyển động nhân vật. | Máy dịch ngang với độ trễ (damping) hữu cơ: Lớp tiền cảnh (mép cửa, vai) dịch nhanh ($-30\text{px}$), lớp nhân vật dịch vừa ($-18\text{px}$), hậu cảnh dịch chậm ($-6\text{px}$). Tạo chiều sâu không gian quang học chân thực. |
-| **P2** | **Slow Creeping Push-In**<br>(Dolly tiến chậm) | H09, P2.03, P2.06, P3.01, P3.04; thắt chặt không gian tâm lý. | Máy quay trườn từ từ vào gương mặt nhân vật với vận tốc $1.0 - 1.5\text{px/s}$. Tiêu cự giữ nguyên hoặc khẽ siết DoF. Bắt buộc lớp gần nở tương quan với lớp xa, tạo cảm giác nghẹt thở khi Nam đối mặt với sự thật hoặc lòng tham trỗi dậy. |
-| **P3** | **Macro Insert & UI Tracking**<br>(Cận màn hình / Thẻ) | D01, D03, E01, E03, G02, H05, H07, P2.06, P3.03. | Ống kính Macro 85mm f/1.4: Chữ, vết nứt, nốt ruồi và UI hiển thị sắc nét. Chữ gắn chặt vào bề mặt thiết bị (planar tracking), nghiêng theo góc xoay của tay cầm. Hiệu ứng quét sáng màn hình điện thoại (Screen Glow) phản chiếu lên mắt nhân vật. |
-| **P4** | **Dutch Angle & Power Tilt**<br>(Góc nghiêng tâm lý & Góc thấp/cao) | A04, H03, P2.03, P3.01, P3.04; bẻ cong thực tại & quyền lực. | Trục chân trời nghiêng lệch $5^\circ - 15^\circ$ biểu thị sự bất an hoặc tâm lý đảo điên. Kết hợp **Low-Angle** (hếch từ dưới lên Người Kia để tôn vị thế áp đảo) và **High-Angle / Top-Down** (nhìn từ trên trần xuống dìm Nam vào cảm giác bị giam cầm như côn trùng mắc kẹt). |
-| **P5** | **Vertigo Dolly Zoom & Water Ripple**<br>(Quang học dị thường & Kính hóa nước) | P3.03, P3.04, P3.05, Trailer. | • **Hitchcock Vertigo Zoom:** Zoom in tiêu cự từ 35mm lên 85mm đồng thời Dolly lùi máy quay, giữ nguyên kích thước Nam nhưng hút sâu hậu cảnh phòng trọ.<br>• **Water Refraction Shader:** Khi mặt gương hóa nước, shader khúc xạ ánh sáng (Chromatic Aberration xanh/đỏ) và gợn sóng lỏng nuốt trọn nhân vật. |
+| **3D-0** | **Handheld Shoulder Rig**<br>(Vác vai rung thở hữu cơ) | Mặc định cho đối thoại, căng thẳng đời thực thay cho tripod chết cứng. | Gắn Noise Modifier (`0.2Hz`, biên độ xoay $0.05^\circ - 0.15^\circ$) lên trục Camera 3D. Khi có cú va chạm/giật mình (va ghế, hất xôi, rơi búa), kích xung động tắt dần trong $0.2\text{s}$. |
+| **3D-1** | **Steadicam Follow & Leading**<br>(Bám đuôi / Dẫn hướng mượt) | Theo chân nhân vật xuyên phòng trọ $\to$ hành lang $\to$ giảng đường (Oner / Long take). | Camera 3D trượt theo spline gắn damping mượt mà (cùng hoặc ngược hướng đi), giữ không gian 360° liên tục mà không gãy trục quay. |
+| **3D-2** | **3D Dolly Arc / Orbit**<br>(Trượt vòng cung quanh chủ thể) | Bộc lộ thế đối đầu tâm lý, khoảng cách quyền lực giữa Nam và Người Kia. | Camera di chuyển vòng cung $30^\circ - 180^\circ$ quanh bàn học hoặc mặt gương (Look-at Constraint khóa vào mắt nhân vật), phô diễn ánh sáng Chiaroscuro quét qua khuôn mặt. |
+| **3D-3** | **Extreme Verticality**<br>(Góc sàn thấp & Góc trần $90^\circ$) | Góc sàn ($10-15\text{cm}$) tạo áp lực vật lý; Top-Down $90^\circ$ dìm Nam vào chiếc hộp cô lập. | Tận dụng phòng trọ có đủ 4 tường và trần tháo rời (Backface Culling trần) để đặt camera sát sàn nhà hoặc vuông góc trên trần nhìn xuống nệm. |
+| **3D-4** | **Inside-Mirror Reverse POV**<br>(Góc quay TỪ BÊN TRONG mặt gương) | Đặt khán giả vào vị trí "bên kia thế giới" đang quan sát Nam. | Đặt Virtual Camera ngay phía sau lớp kính bán mạ của chiếc gương nhìn ngược ra phòng, thấy hơi sương/vết nứt ở tiền cảnh và toàn bộ cử chỉ lúng túng của Nam. |
+| **3D-5** | **Macro Insert & True Rack Focus**<br>(Đặc tả vật thể & Chuyển nét Z-Depth) | Then sắt, giọt nước, nốt ruồi trên CCCD, màn hình UI `LAPTOP_LIGHT`. | Ống kính 85mm Macro `f/1.4`, rút ngắn khoảng lấy nét từ $0.2\text{m}$ (tiền cảnh) kéo ra $1.8\text{m}$ (mắt nhân vật). Mọi màn hình là Texture phát sáng (Emission Shader) gắn chặt trên mặt kính thiết bị 3D. |
+| **3D-6** | **True Vertigo Zoom & Liquid Glass**<br>(Dolly Zoom vật lý & Khúc xạ nước) | Cao trào bóc trần bí mật gương & cảnh nuốt chửng Nam. | • **Vertigo Dolly Zoom:** Keyframe đồng thời Camera lùi dọc trục Z và Focal Length tăng từ `35mm` lên `85mm`.<br>• **Liquid Glass Shader:** Displacement Wave + Refraction IOR `1.33` trên bề mặt kính 3D. |
 
-### Áp vào từng nhóm góc máy
+### Ba tương tác vật lý 3D cần khóa chặt
 
-| Nhóm/mã | Tiền cảnh → hành động → hậu cảnh | Cách chạy và điều phải đọc được |
-|---|---|---|
-| A01–A05 — Phòng sáng | Mép nệm/đồ gần nếu đúng góc → Nam và người ở bếp → tường, bàn, cửa sổ và phố | P0. Quay mặt bằng pose/góc vẽ thích hợp, không xoay một tấm người như cánh cửa. A03 giữ phản ứng Nam trước A04 lộ mặt; không kéo lớp che tự chạy để tiết lộ sớm. Ở bếp, thân dưới có thể bị mặt trước bồn che; tay cầm bát hiện trước mép bồn khi hành động cần. |
-| B01–B03 — Cuộc gọi | Khung cửa/vai Nam → Nam và điện thoại → phòng/người kia | P0; cửa tạo ranh giới thật, không đè lên tay đang giữ cánh cửa sai phía. Điện thoại bám tay phải. Tùng chỉ là giọng qua máy, không phát sinh một lớp nhân vật đứng trong phòng hoặc cảnh lớp học mới. |
-| C01–C06 — Đổi chỗ | Khuôn/cánh cửa → hai người và đường đi → hành lang, cầu thang | C02 mới dùng P1; các shot còn lại P0. Người chỉ bị mép cửa che khi đã đi đúng phía sau mép đó. Bản lề là điểm quay của cánh cửa, không phải mép khung hình. C05 tách rõ ổ, lưỡi chốt và bàn tay để thấy gài thật. |
-| D01–D05 — Kiểm tra đồ | Mép ngăn kéo/bàn → tay, ví, căn cước, điện thoại → Nam/cửa | P0, các cận đọc theo P3. Đồ trong ngăn bị mặt ngăn che tới khi kéo ra; căn cước đã vào tay thì theo tay, không còn một bản thứ hai trong ngăn hoặc dính trên bàn. D03 chuyển điểm nét trên cùng bố cục, không đẩy hai lớp ảnh thẻ/mặt chạy thành hai hướng. |
-| E01–E04 — Bí bài | Cạnh bàn → Nam, ghế làm việc, laptop → cửa/tường và các mốc phòng | E02 dùng P1 theo ghế, còn lại P0/P3 cho chữ. Bánh/chân ghế bám sàn khi di chuyển có chủ ý; máy dịch không khiến chân ghế trượt riêng. Cạnh bàn có thể che đùi Nam, nhưng tay gõ nằm đúng phía trước mặt phím. Không dùng lớp che để xóa hành động kéo ghế từ cửa về bàn. |
-| F01–F04 — Quên chốt | Mép cửa → tay trái/chốt, tay phải/điện thoại → khe cửa/hành lang | P0. F04 phải giữ được cả tín hiệu điện thoại và lưỡi chốt còn rút; không cho blur/ánh sáng che mất bằng chứng. Phần hành lang lộ qua cửa dùng mask theo độ mở thật; không trượt cảnh ngoài xuyên qua cánh cửa đã đóng. |
-| G01–G04 — Game, ngủ | Bàn/đồ gần → Nam và điện thoại, laptop → nệm/tường, vệt nắng | P0, G02 dùng P3. Điện thoại theo tay lúc chơi; sau đặt xuống, đổi sang hệ bàn đúng thời điểm nhả. Nam rời bàn không kéo điện thoại theo. Ánh nắng đổi theo thời gian trên cùng mặt sàn/tường, không tạo một camera trôi chỉ để giả thời gian. |
-| H01–H10 — Buổi tối | Cạnh bàn/màn hình gần → Nam đứng, người kia ngồi, tay gõ/lấy điện thoại → phòng tối, nệm/cửa | P0; H09 tùy chọn P2, H05/H07 dùng P3. Mặt trước bàn che thân dưới người ngồi; tay gõ ở trên phím. Ghế có phần trước/sau phù hợp cơ thể, không phủ cả lưng ghế lên ngực. H04 phải thấy tay chạm rồi nhấc điện thoại; H10 bàn phím và tay chờ vẫn rõ. |
+- **Bồn rửa & Bát sứ:** Tủ bếp 3D và bồn inox giữ nguyên vị trí không gian; tay trái Người Kia gắn Bone Constraint nâng/úp bát sứ lên giá inox; nước chảy dùng Particle / Fluid Mesh nhẹ kèm giọt tiếp xúc.
+- **Cửa chính & Then sắt:** Cánh cửa xoay quanh trục bản lề Z thật; thanh then sắt có Animation trượt ngang chính xác vào tai khóa; camera có thể soi sát từ cả mặt trong lẫn góc nhìn xuyên khe thông gió ra hành lang 3D đêm.
+- **Bàn học, Ghế 4 chân, Laptop & Điện thoại:** Ghế 4 chân đặt chuẩn mặt sàn (`z = 0`), diễn kéo/lùi có ma sát thật. Điện thoại/CCCD chuyển tiếp mượt từ `Parent: Desk` sang `Parent: Hand_R/Hand_L` tại đúng frame ngón tay khép vào cạnh vật.
 
-### Ba tương tác phải tách đúng
+## Bảng góc máy 3D chi tiết theo từng phân cảnh
 
-**Bồn rửa:** tường/bếp sau → phần thân người ở sau bồn → mặt trước tủ/bồn che thân dưới → tay/bát và mép bồn theo vị trí tiếp xúc. Tay vẫn thuộc rig người, có thể chia pass/mask để đi trước–sau vật; không thành hai cánh tay độc lập chạy parallax khác thân. Khi đặt bát: bát theo tay tới khi chạm giá/mặt đỡ, rồi mới chuyển sang hệ bếp; tránh một bát trong tay và một bát đã nằm dưới cùng lúc.
+Toàn bộ các nhóm shot dưới đây được thiết kế để khai thác tối đa **Camera 3D không gian $360^\circ$**, ánh sáng Chiaroscuro thực và biểu cảm Facial Blendshapes.
 
-**Cửa và chốt:** hành lang sau → người ở đúng phía → khuôn/cánh cửa gần; tay giữ mép cửa nằm theo phía tay tiếp xúc. Lớp cánh cửa có góc mở và điểm bản lề riêng, lớp chốt có trạng thái gài/rút, người qua ngưỡng có thứ tự che đổi theo đường đi. Chỉ di chuyển camera không được đổi trạng thái khóa. Khi cần góc ngược từ ngoài hành lang, chuẩn bị góc hình tương ứng; tách layer không tự sinh mặt sau của đồ.
+### MAY-A — Nhận mặt & Cú sốc trùng giọng (Góc 3D đa chiều)
 
-**Bàn/laptop/điện thoại:** nền phòng → lưng ghế/phần thân phía sau bàn → mặt trước bàn che phần dưới → phần tay, bàn phím và đồ trên mặt theo điểm chạm. Laptop có thân, màn và lớp chữ cùng một hệ mặt bàn; biểu tượng/tin nhắn đi cùng màn. Điện thoại đổi từ mặt bàn sang tay Nam **sau khi** tay chạm/nhấc; bóng đặt bàn giảm hoặc rời theo khoảng nâng. Giữ gốc người, bàn và ghế nhất quán, không chạy tốc độ lớp chỉ theo tên “người”/“đồ”.
+**Đạo diễn 3D:** Thay vì giữ một góc toàn phẳng lặp lại, tận dụng không gian 3D để đi từ **cận vật thể bồn rửa $\to$ Rack Focus sang nệm $\to$ Dolly Arc sau vai $\to$ Góc sàn $15\text{cm}$ va ghế**.
 
-### Mức sẵn sàng và kiểm tra
-
-- Nền hiện là một mô hình 3D trong `boi-canh.tsx`: đồ đạc xếp lớp theo khoảng cách tới máy, nên không cần tách tay từng lớp cho các cú dịch máy nhỏ.
-- `RoomScene` có `view`, `move` (dịch máy cho C02, E02, H09), `actors` và các trạng thái cửa, chốt, ghế, bếp, nắng; xem [BOI-CANH.md](assets/boi-canh/BOI-CANH.md). Tay che/lộ theo mặt bàn, mép bồn và người qua ngưỡng cửa vẫn cần chia lớp theo shot.
-- Chỉ tách lớp và vẽ bù vùng bị khuất cho các shot cần P1/P2 hoặc tương tác che/lộ. Phần nền mới lộ phải có hình đủ tới vị trí máy cực hạn cộng vùng blur; kiểm tra đầu–giữa–cuối để không hở nền. Nếu chưa đủ, dùng phương án P0 của shot trước khi mở rộng chuyển động.
-- Kiểm tra ở tốc độ thường: chân/bánh ghế có điểm tì, bóng không trôi, tay và vật cùng đi, cửa che đúng người, chữ bám mặt thiết bị. Mặt và tay quan trọng phải đọc được ở cỡ điện thoại. Chưa xem animatic nên chưa kết luận chuyển động đã đạt hoặc hứa một mức tiết kiệm quota.
-
-## Bảng góc máy theo đoạn
-
-Các nhóm A–H là nhóm máy của phần hiện có, không phải viết thêm Cảnh 3–8 trong khung truyện tương lai. Chi tiết bên dưới được biên tập cùng GPT-6.1 Sol.
-
-### MAY-A — Nhận mặt & Cú sốc trùng giọng
-
-**Quay lớp & Hiệu ứng:** P0 Handheld Breathing ($0.4\text{px}$ nhịp thở hữu cơ), P4 Dutch Angle nhẹ khi nhận ra giọng; tách thân/tay và mặt trước bồn. Xem [CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md).
-
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| A01 | Toàn phòng góc A (`VIEWS.wide`), 35mm Cine Anamorphic 2.39:1 | P0 Handheld Breathing nhẹ ($0.4\text{px}$, nhịp $0.2\text{Hz}$); DoF sâu toàn cảnh | Nam ngủ trên nệm phải, bóng Người Kia quay lưng ở bồn rửa sau–trái. Tiếng báo thức reo chói tai, tiếng nước chảy và tiếng bát sứ cọ rửa vang vọng trong không gian tĩnh mịch. Khung 5–8s. |
-| A02 | Cận bàn tay tắt báo thức & nửa mặt Nam, 65mm Cine Macro, DoF mỏng f/2.0 | P3 Macro Insert; nét trượt từ ngón tay ấn tắt màn hình $\to$ mí mắt Nam đang nhắm nghiền | Nam thò tay tắt báo thức rồi kéo chăn trùm đầu ngái ngủ. Tiếng cọ bát sứ vẫn tiếp diễn đều đặn dẫn dắt sự chú ý. |
-| A02B | Trung rộng nệm ngủ & lối đi, 40mm Cine Prime | P0 Handheld Breathing; nét giữ trên Nam, hậu cảnh bếp mờ nhẹ | Nam càu nhàu, lật chăn, chống tay ngồi dậy, dịch hông xoay ra mép nệm xỏ dép lê. Âm vải xột xoạt bám trọng lượng cơ thể. |
-| A03 | Trung cận Nam ba phần tư, 50mm f/1.4 Cine Prime | P2 Slow Push-in nhẹ ($1.0\text{px/s}$) vào mắt Nam khi câu nói bị nghẹn ứ | Nam tưởng là Tùng càu nhàu: *"Ê, áo đó..."*. Khi Người Kia bắt đầu quay đầu lại, máy đẩy chậm vào đồng tử Nam giãn to kinh ngạc. |
-| A04 | Cận mặt Người Kia ngoảnh lại, 65mm Cine Prime, ngang tầm mắt | P4 Dutch Angle lệch nhẹ $5^\circ$ sang phải (thực tại rạn nứt); DoF f/1.8 xóa mờ bếp | Khán giả và Nam cùng đối diện gương mặt giống hệt Nam nhưng nốt ruồi nằm ở đuôi mày BÊN PHẢI. Ánh mắt Người Kia trong veo, không chớp, nụ cười nhẹ lịch thiệp. |
-| A04B | Lặp bố cục A03 trên Nam, 50mm Prime | P0 Handheld; nét mắt Nam | Nam dụi mắt, nhìn trân trân không tin vào mắt mình. Khoảng lặng 2s nghẹt thở không tiếng động, chỉ có tiếng quạt trần quay chậm rì rì. |
-| A05 | Trung rộng Nam tại nệm & ghế cạnh đó, 35mm Anamorphic | P4 Low-Angle hếch nhẹ kết hợp P0 Handheld; khi đầu gối va ghế va chạm rung giật $3.2\text{px}$ tắt nhanh trong $0.15\text{s}$ | Nam lắp bắp sờ mặt, nghe Người Kia cất tiếng trùng khớp 100% tần số giọng mình thì hoảng loạn giật lùi, gối đập mạnh vào cạnh ghế gỗ kêu *"CỘP"*, vơ vội điện thoại tháo chạy ra cửa. |
+| A01 | **Góc qua vai từ bồn rửa** (35mm Anamorphic 2.39:1, máy đặt cạnh giá bát hướng chéo sang nệm) | **3D-0** Handheld + **3D-5** Rack Focus f/1.8 | Tiền cảnh mờ là bờ vai & bọt xà phòng bồn rửa của Người Kia (quay lưng); hậu cảnh nét là Nam đang ngủ say trên nệm bên phải. Tiếng báo thức reo, tiếng nước và tiếng bát sứ có vị trí âm 3D rõ rệt. |
+| A02 | **Low-Angle sát mặt gối nệm** (65mm Macro f/2.0) | **3D-5** Macro Insert; focus trượt từ màn hình báo thức sát ống kính $\to$ mí mắt Nam | Nam thò tay ấn tắt báo thức rồi kéo chăn trùm lên vai. Bóng đổ mềm từ ánh sáng khe cửa sổ vắt ngang mặt gối 3D. |
+| A02B | **Trung rộng góc chéo $45^\circ$ từ chân giường** (40mm Cine Prime) | **3D-0** Handheld + dịch nhẹ qua phải theo trọng lượng Nam | Nam càu nhàu, lật chăn, chống tay ngồi dậy, xoay hông đặt chân xuống dép lê. Độ lún nhẹ của nệm và bóng tiếp đất chân dép hiện rõ trên sàn 3D. |
+| A03 | **OTS Dolly Arc (Trượt vòng cung sau vai Nam)** (50mm f/1.4) | **3D-2** Dolly Arc trườn vòng $30^\circ$ sang phải khi Nam ngẩng nhìn về bếp | Nam tưởng Tùng: *"Ê, áo đó..."*. Camera trượt nhẹ sang bên bộc lộ đồng thời nét mặt ngái ngủ chuyển sang ngỡ ngàng của Nam và dáng Người Kia bắt đầu xoay cổ. |
+| A04 | **Reverse Close-up ngang tầm mắt Người Kia** (65mm f/1.8 + Dutch $5^\circ$) | **3D-0** Handheld + **Chế độ nghiêng $5^\circ$**; đèn cửa sổ tạo Rim Light viền tóc 3D thật | Cú cắt ngược trục $180^\circ$ hoàn hảo (chỉ 3D mới quay mượt từ phía Nam sang góc bếp ngược lại): Người Kia quay hẳn mặt, nốt ruồi bên phải, nụ cười nhẹ điềm tĩnh, ánh sáng rim cắt viền má. |
+| A04B | **Tight Close-Up Nam** (65mm f/1.4) | **3D-0** Handheld; hậu cảnh căn phòng xóa mờ thành Bokeh | Nam dụi mắt, nhìn trân trân. Nhịp lặng 2s chỉ còn tiếng quạt trần xoay bóng nhẹ trên tường. |
+| A05 | **Floor-Level Low Angle (Sát mặt sàn $15\text{cm}$ cạnh chân ghế gỗ)** (35mm Anamorphic) | **3D-3** Góc sàn thấp + xung va chạm `0.15s` khi đầu gối va ghế | Nghe giọng trùng khớp 100%, Nam giật lùi khỏi nệm; máy quay đặt sát sàn bắt trọn đôi chân loạng choạng đập mạnh vào chân ghế gỗ 4 chân kêu *"CỘP"*, ghế trượt xê dịch thật trên sàn, Nam vơ điện thoại lùi về cửa. |
 
 ### MAY-B — Cố thủ ngưỡng cửa & Cuộc gọi cho Tùng
 
-**Quay lớp & Hiệu ứng:** P0 Handheld, OTS (Over-The-Shoulder qua khung cửa), âm thanh điện thoại lọc tần số hẹp (Telephone EQ Filter).
+**Đạo diễn 3D:** Camera 3D giữ chiều sâu hành lang–ngưỡng cửa–bếp trong cùng một trục đường chéo dài nhất của căn phòng.
 
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| B01 | Trung rộng nhìn chéo qua cửa, 35mm Cine Prime | P0 Handheld; khung cửa làm tiền cảnh che nhẹ mép trái | Nam lùi sát mép cửa quát: *"Mày là ai?! Đứng yên đó!"*. Người Kia dừng tay, đặt bát sứ chạm đáy giá bồn rửa kêu *"LÁCH CÁCH"* rồi giơ hai bàn tay trống ngang bụng tuân thủ. |
-| B02 | Trung cận Nam ở ngưỡng cửa, 50mm f/1.4 Prime | P0 Handheld nhịp thở gấp gáp; nét dán chặt vào mắt và tay cầm máy run rẩy | Nam bấm gọi Tùng, mắt không rời Người Kia. Giọng Tùng càu nhàu qua loa thoại: *"Gì đấy con zời? Đang trên giảng đường..."*. |
-| B03 | Cận mặt Nam, 65mm Cine Prime | P2 Creeping Push-in nhẹ; hậu cảnh phòng tối sâu Chiaroscuro | Tùng gạt phắt: *"Mày ngủ mơ à? Thằng song sinh cái đầu mày!"* rồi cúp máy *"TÚT TÚT"*. Nam hạ điện thoại, siết chặt nắm tay, đồng tử co giật vì tuyệt vọng. |
+| B01 | **Deep Focus chéo từ khe cửa mở** (35mm Cine Prime, f/4.0) | **3D-0** Handheld + cánh cửa mở làm tiền cảnh nén chặt không gian | Nam ép lưng sát mép cửa quát lớn; tận sâu bên bếp, Người Kia dừng tay úp bát sứ lên giá *"LÁCH CÁCH"* rồi giơ hai tay trống ngang bụng, ánh sáng cửa sổ đổ bóng dài nối 2 người. |
+| B02 | **Cận OTS từ góc trên vai phải Nam** (50mm f/1.4) | **3D-0** Handheld hơi gấp; Focus ở mặt Nam & màn hình điện thoại | Nam ghì điện thoại gọi Tùng, mắt cảnh giác liếc chéo sâu vào phòng. Âm thoại Tùng lọc Telephone EQ. |
+| B03 | **Slow Push-In mặt Nam trong bóng tối khung cửa** (65mm Prime) | **3D-2** Dolly tiến chậm $15\text{cm}$ vào ánh mắt tuyệt vọng | Tùng cúp máy *"TÚT TÚT"*. Nam hạ điện thoại, bóng khung cửa đổ dọc cắt nửa khuôn mặt Nam. |
 
 ### MAY-C — Đổi chỗ hành lang & Gài chốt then sắt
 
-**Quay lớp & Hiệu ứng:** C02 dùng P1 Parallax Lateral Track, C05 Macro P3 đặc tả then cài; âm thanh kim loại đanh chắc.
+**Đạo diễn 3D:** Tận dụng **Steadicam 3D Leading Shot** nối liền phòng trọ ra hành lang dài tầng 2 mà không bị đứt gãy không gian.
 
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| C01 | Toàn hành lang dãy trọ tầng 2, 28mm Anamorphic | P0 Handheld vác vai; ánh đèn tuýp vàng vọt nhấp nháy mờ ảo | Tái lập không gian: Cửa phòng Nam ở giữa, lan can sắt rỉ bên phải, cầu thang bên trái. Người Kia từ trong phòng bước ra ngoài hành lang. |
-| C02 | Trung rộng ngang tầm ngực dọc hành lang, 40mm Cine | P1 Parallax Lateral Track (tiền cảnh mép cửa trượt $-30\text{px}$, Nam $-18\text{px}$, tường $-6\text{px}$) | Nam né người dán lưng vào tường hoa tiêu, quát Người Kia đứng lùi xa ra đầu dãy trọ. Người Kia ngoan ngoãn đi đến điểm chỉ định rồi đứng im. |
-| C03 | Toàn hành lang như C01, 28mm | P0 Handheld; giữ rõ cả hai nhân vật ở hai đầu khung hình | Nam nhanh như cắt lách người qua ngưỡng cửa thụt vào trong phòng. |
-| C04 | Trung Nam phía trong nhìn về cửa, 50mm Prime | P0 Handheld; cánh cửa dập sầm lại che kín khung hình | Nam giật mạnh cánh cửa gỗ khép sầm. Tiếng gió hành lang bị ngắt hoàn toàn, âm thanh phòng kín nghẹt thở. |
-| C05 | Đặc tả then sắt cài cửa, 85mm Macro Lens | P3 Macro Insert; lưỡi then sắt trượt sâu vào ổ đón | Bàn tay Nam gạt thanh then sắt, tiếng kim loại kêu lên một tiếng đanh gọn: *"CẠCH"*. Bằng chứng xác nhận cửa ĐÃ KHÓA CHẶT BÊN TRONG. |
-| C06 | Trung Nam ngồi ghế đối diện cửa, 50mm Prime | P0 Handheld nhịp thở chậm dần; cửa đóng chiếm $1/3$ khung hình | Nam kéo chiếc ghế gỗ 4 chân ra ngồi đối diện cánh cửa canh chừng. Tiếng Người Kia từ ngoài vọng vào qua khe thông gió: *"Tao đứng đây rồi"*. Nam quát: *"Câm mồm!"*. |
+| C01–C03 | **Steadicam 3D Leading & Orbit dọc hành lang** (28mm Anamorphic) | **3D-1** Camera 3D đi giật lùi dẫn đường qua ngưỡng cửa ra hành lang, xoay $45^\circ$ theo Nam né vào tường | Chuỗi chuyển động 3D liên tục: Người Kia bước ra cửa dưới ánh đèn tuýp hành lang $\to$ Nam nép lưng vào lan can chỉ Người Kia lùi ra đầu dãy $\to$ Nam lách nhanh qua ngưỡng cửa vào lại phòng. |
+| C04 | **Reverse POV từ bên trong phòng nhìn cửa dập vào ống kính** (50mm Prime) | **3D-0** Handheld + cửa đóng tạo xung tối sầm khung hình | Cánh cửa gỗ xoay trục bản lề 3D đóng sầm lại trước ống kính, cắt phăng nguồn sáng và tiếng ồn hành lang. |
+| C05 | **Extreme Macro 3D sát ổ then sắt ($10\text{cm}$)** (85mm Macro f/2.0) | **3D-5** Macro Insert; ánh sáng hắt từ khe cửa lộ rõ vân kim loại | Bàn tay trái Nam đẩy thanh then sắt trượt sâu vào ổ khóa thép *"CẠCH"*. Cú cận vật lý siêu thực khẳng định cửa đã khóa chặt. |
+| C06 | **High-Angle $30^\circ$ từ góc trần bàn học nhìn xuống Nam & Cửa** (35mm Prime) | **3D-0** Handheld; Nam ngồi lọt thỏm trên ghế đối diện cánh cửa đóng kín | Nam kéo ghế gỗ 4 chân ngồi canh cửa, nhỏ bé giữa căn phòng kín. Tiếng Người Kia vọng vào qua khe thông gió. |
 
 ### MAY-D — Đối chiếu căn cước & Tra khảo qua cửa
 
-**Quay lớp & Hiệu ứng:** P3 Macro Insert tài liệu & màn hình; Rack Focus chuyển nét.
+**Đạo diễn 3D:** Dùng góc nhìn POV từ trong ngăn kéo bàn và Rack Focus 3D qua mặt thẻ CCCD.
 
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| D01 | Cận màn hình điện thoại, 85mm Macro | P3 Macro; chữ tin nhắn gửi Tùng rõ nét | Nam nhắn tin giục Tùng về phòng gấp. Màn hình báo "Đã nhận", chưa có phản hồi. |
-| D02 | Cận vừa mặt bàn & ngăn kéo tủ, 65mm Prime | P0 Handheld; góc chéo nhìn xuống bàn | Nam kéo ngăn kéo bàn học, lôi ví tiền và rút tấm thẻ Căn cước công dân ra soi. Tiếng gỗ ngăn kéo kẽo kẹt. |
-| D03 | Cận mặt Nam & Thẻ căn cước ngang cằm, 65mm f/1.4 | Rack Focus Pull mượt mà: Nét từ ảnh thẻ CCCD (nốt ruồi bên trái) $\to$ Đôi mắt Nam đang nhìn trân trân | Nam đối chiếu khuôn mặt mình trên thẻ với bóng hình Người Kia vừa gặp. Cậu rùng mình nhận ra sự trùng khớp kỳ dị. |
-| D04 | Trung Nam ngồi ghế đối diện cửa, 50mm Prime | P0 Handheld; ánh sáng cửa sổ rọi xiên | Nam gặng hỏi qua cửa: *"Sao mày có chìa khóa? Sao mặc áo của tao?"*. Cửa vẫn đóng im lìm. |
-| D05 | Trung Người Kia ngoài hành lang, 50mm Prime | P0 Handheld; Người Kia đứng tựa lan can ngược sáng điềm tĩnh | Người Kia trả lời mạch lạc về việc áo vắt trên ghế, chổi dựng góc cửa. Sự bình thản của nó khiến Nam càng thêm hoang mang. |
+| D01 | **OTS góc cao qua vai Nam xuống màn hình điện thoại** (65mm Prime) | **3D-5** Macro; màn hình phát sáng phản chiếu nhẹ lên đầu ngón tay | Nam nhắn tin giục Tùng, chờ đợi trong im lặng. |
+| D02 | **Inside-Drawer POV (Góc máy từ bên trong ngăn kéo bàn nhìn hếch lên)** (28mm Wide) | **3D-3** Góc máy thấp trong hộc tủ khi Nam kéo mở ngăn kéo | Ngăn kéo trượt mở ra sát mặt ống kính, ánh sáng phòng ùa vào, bàn tay trái Nam thò xuống nhặt ví & rút thẻ CCCD, lộ rõ vẻ mặt căng thẳng ở phía trên. |
+| D03 | **Split-Distance Rack Focus CCCD $\to$ Mắt Nam** (85mm f/1.4) | **3D-5** Rack Focus Pull từ $0.25\text{m}$ (ảnh thẻ CCCD) sang $0.9\text{m}$ (mắt Nam) | Nam giơ thẻ sát cằm đối chiếu; tiêu điểm trượt mượt từ nốt ruồi bên trái trên thẻ ra ánh mắt kinh ngạc của Nam. |
+| D04–D05 | **Cross-Cut qua hai mặt cánh cửa 3D** (50mm Prime đối xứng trục) | **3D-0** Handheld | Cắt qua lại giữa Nam ngồi ghế trong nhà (ánh sáng xiên cửa sổ) và Người Kia đứng tựa lan can hành lang (ngược sáng đèn tuýp ấm/lạnh), tạo đối lập rạch ròi giữa 2 thế giới bị ngăn bởi cánh cửa. |
 
 ### MAY-E — Bí bài tập lớn & Toan tính vụ lợi
 
-**Quay lớp & Hiệu ứng:** P1 dịch chuyển ngang theo ghế, P2 Slow Push-in vào mắt Nam; ánh nắng dịch chuyển theo thời gian.
+**Đạo diễn 3D:** Dùng **Dolly Arc vòng quanh bàn học** kết hợp tua sáng vệt nắng 3D di chuyển vật lý trên mặt bàn và tường.
 
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| E01 | Cận điện thoại rung bần bật trên bàn, 85mm Macro | P3 Macro; tin nhắn nhóm Zalo đòi bài tập lớn | Chuông Zalo réo giục hạn nộp bài 17h chiều nay. Nam vò đầu bứt tai. |
-| E01B | Toàn phòng góc A, 35mm Cine Anamorphic | P0 Handheld; góc máy rộng bao quát căn phòng | Nam đứng dậy kéo ghế từ cửa về bàn học. Tiếng chân ghế bốn chân miết trên sàn gạch men *"két"*. |
-| E02 | Trung rộng bàn học cạnh tủ quần áo, 35mm Cine | P1 Parallax Track theo Nam ngồi xuống mở laptop Asus/Dell cắm sạc | Nam ngồi vào bàn, cắm sạc laptop. Xác lập vị trí các đồ vật: Cốc nước đá tan chảy, chồng sách vở lộn xộn. |
-| E03 | Cận màn hình Word bài tập lớn, 65mm Cine Prime | P3 Macro; con trỏ chuột nhấp nháy trên trang giấy trắng trơn | Nam gõ vài chữ $\to$ khựng lại $\to$ nhấn Backspace xóa sạch. Áp lực bài vở đè nặng, thời gian trôi qua vệt nắng dịch dần từ bàn sang sàn. |
-| E04 | Trung cận Nam ba phần tư, 65mm f/1.4 Cine Prime | P2 Slow Push-in ($1.2\text{px/s}$) vào khóe mắt Nam đang liếc nhìn về phía cánh cửa | Nội tâm Nam trỗi dậy: *"Nếu nó thông minh giống mình... hay là nhờ nó làm hộ?"*. Nhưng rồi cậu lập tức lắc đầu tự bác bỏ vì xấu hổ và sợ hãi. |
+| E01–E01B | **Steadicam Follow theo chiếc ghế** (35mm Anamorphic) | **3D-1** Bám theo Nam đứng dậy kéo chiếc ghế 4 chân băng qua phòng về bàn | Cảm nhận trọng lượng ma sát ghế gỗ trên sàn gạch 3D; nối mượt sang bàn học mở laptop cắm sạc. |
+| E02–E03 | **Side-Profile OTS qua mép màn hình Laptop** (65mm f/1.8) | **3D-2** Dolly trượt ngang thật chậm từ trái sang phải ngang bàn học | Vừa thấy màn hình Word trắng trơn ở rìa phải, vừa thấy Nam vò đầu cắn móng tay; vệt nắng Area Light 3D dịch chuyển vật lý qua tường báo hiệu hàng giờ trôi qua. |
+| E04 | **Tight 3/4 Push-In & Gaze Line tới cánh cửa** (65mm f/1.4) | **3D-2** Dolly Push-In chậm vào đồng tử Nam; hậu cảnh là cánh cửa đóng mờ Bokeh | Nam liếc nhìn về phía cửa khi ý nghĩ nhờ vả lóe lên, rồi lắc đầu tự bác bỏ. |
 
 ### MAY-F — Rút then đi vệ sinh & Sai lầm chí mạng
 
-**Quay lớp & Hiệu ứng:** P0 Handheld; F04 giữ nét đồng thời then cửa rút và điện thoại rung; âm thanh then cài không phát ra.
+**Đạo diễn 3D:** Khóa chặt bằng chứng then sắt chưa gài bằng góc **Tight Split-Plane (Tiền cảnh then sắt – Hậu cảnh Nam)**.
 
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| F01 | Trung cận cửa phòng & bàn tay Nam, 65mm Prime | P0 Handheld; tay trái rút then sắt kêu *"CẠCH"* | Nam mở chốt, hé mắt nhìn qua khe cửa: Người Kia vẫn đứng yên ở đầu dãy trọ. Nam giơ điện thoại chụp một tấm ảnh mờ ngược sáng gửi Tùng làm bằng chứng. |
-| F02 | Toàn hành lang dãy trọ, 28mm Anamorphic | P0 Handheld bao quát hành lang | Nam chỉ tay ra lệnh Người Kia đứng yên, rồi cậu rảo bước đi vệ sinh ở cuối hành lang đối diện. |
-| F03 | Toàn hành lang khi Nam trở về, 28mm | P0 Handheld; ánh nắng chiều đã ngả vàng cam | Nam quay về phòng, Người Kia vẫn đứng nguyên chỗ cũ. Nam bước vào trong phòng khép cửa lại. |
-| F04 | Cận mép cửa, tay trái Nam trên then sắt & tay phải cầm máy, 65mm | P0 Handheld; Giữ nét đồng thời lưỡi then sắt và màn hình điện thoại rung bần bật | **Sai lầm cốt lõi:** Tay Nam vừa chạm vào then định gài thì điện thoại rung chuông tin nhắn mới. Nam phân tâm chuyển sang bấm điện thoại, buông tay khỏi then sắt. **LƯỠI THEN SẮT VẪN RÚT HOÀN TOÀN TRÊN KHUNG CỬA.** Cửa khép hờ nhưng KHÔNG HỀ ĐƯỢC KHÓA. |
+| F01–F03 | **Leading Steadicam ra hành lang** (28mm–50mm Cine) | **3D-1** Theo Nam mở cửa, chụp ảnh qua khe cửa, chỉ Người Kia ra xa rồi rảo bước cuối hành lang và quay về | Tận dụng không gian hành lang 3D đầy đủ góc khuất: thấy rõ Người Kia vẫn đứng bất động dưới bóng đèn vàng tận cuối dãy khi Nam quay vào phòng. |
+| F04 | **Tight Foreground-Background Frame tại chốt cửa** (50mm f/2.8, góc nghiêng dọc theo cánh cửa) | **3D-5** Tiền cảnh nét cực gần là thanh then sắt; trung cảnh là Nam quay lưng bấm máy | **Góc máy đắt giá của 3D:** Camera gắn sát cạnh khung cửa chỉ cách chốt $20\text{cm}$. Bàn tay Nam đặt lên then chuẩn bị gài $\to$ điện thoại rung tin nhắn $\to$ Nam buông tay đi thẳng vào phòng. **Thanh then sắt lộ rõ ở tiền cảnh vẫn thụt vào trong, chưa hề gài vào tai khóa!** |
 
 ### MAY-G — Cày game buông thả & Chiều tà buông xuống
 
-**Quay lớp & Hiệu ứng:** P4 Top-Down Claustrophobic View, P3 Macro bật DND; vệt nắng Golden Hour rút dần sang tối.
+**Đạo diễn 3D:** Khai thác góc **True Top-Down $90^\circ$ (trần phòng tháo trần)** và chuyển động vệt nắng hoàng hôn 3D.
 
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| G01 | Trung Nam ngồi ở bàn học, 50mm Cine Prime | P0 Handheld; tài liệu Word dang dở trên màn hình laptop | Nam tự nhủ *"nghỉ tí cày một trận game đã"*. Cậu ngả lưng cầm điện thoại xoay ngang. Tiếng game chiến thuật nổ giòn giã. |
-| G02 | Cận màn hình điện thoại, 85mm Macro | P3 Macro Insert; ngón tay Nam gạt bật icon vầng trăng khuyết tím | Nam bật chế độ **Không làm phiền (Do Not Disturb)** để chặn mọi tin nhắn giục bài của nhóm. |
-| G03 | Lặp trung G01 qua 3 lát cắt thời gian (Jump Cuts) | P0 Handheld ổn định; vệt nắng cam dịch chuyển từ mặt bàn xuống sàn rồi tắt hẳn | Nam miệt mài chơi hết trận này sang trận khác. Ánh hoàng hôn tắt dần, căn phòng chìm vào bóng tối nhờ nhợ. |
-| G04 | Toàn phòng góc A, 35mm Cine Anamorphic | P0 Handheld bao quát căn phòng lúc chập tối | Nam ném điện thoại cạnh laptop, nhìn ra cửa hỏi vọng: *"Còn đó không?"*. Không có tiếng đáp. Nam ngáp dài sang nệm nằm ngủ thiếp đi. |
+| G01–G02 | **Screen-Reflection Close-Up** (85mm Macro) | **3D-5** Đặt máy sát bên hông mặt kính điện thoại | Thấy rõ ánh sáng icon *Không làm phiền (DND)* hắt sắc tím lên ngón tay cái và tròng mắt Nam khi cậu gạt bật. |
+| G03 | **3D Dolly Timelapse quanh bàn học** (35mm Anamorphic) | **3D-2** Máy xoay vòng nhẹ $25^\circ$ qua 3 cú cắt chuyển thời gian | Nắng chiều 3D vàng cam rút nhanh khỏi bàn học qua bức tường rồi tắt lịm; tư thế Nam càng lúc càng còng xuống, tách biệt dần với laptop bài tập. |
+| G04 | **True Top-Down $90^\circ$ Bird's Eye trên giường** (24mm Wide) | **3D-3** Góc trần nhìn thẳng vuông góc xuống toàn bộ phòng đang tối sầm | Nam quẳng máy sang bên cạnh laptop, hỏi vọng ra cửa rồi thả mình nằm co quắp trên nệm trong căn phòng tối dần như một cái lồng kín. |
 
 ### MAY-H — Tỉnh giấc ban đêm & Bản hợp đồng ma quỷ
 
-**Quay lớp & Hiệu ứng:** Ánh sáng Chiaroscuro David Fincher (Đèn bàn vàng ấm 3200K + Màn hình laptop xanh lạnh 6500K); P2 Slow Push-in; DoF nông f/1.4.
+**Đạo diễn 3D:** Thực thi tuyệt đối phong cách **Ánh sáng Chiaroscuro David Fincher 3D**: Nguồn sáng chính là ánh xanh lạnh laptop (`LAPTOP_LIGHT`) kết hợp đèn bàn `3200K`.
 
-| Mã | Cỡ / Góc / Lens điện ảnh | Máy, Rung, Focus & Hiệu ứng | Diễn xuất, Điểm cắt và Âm thanh điện ảnh |
+| Mã | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D, Rung & Focus | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| H01 | Trung cận Nam trên nệm ngủ, 50mm f/1.4 Prime | P0 Handheld; ánh đèn bàn rọi xiên cắt nửa khuôn mặt Nam | Tiếng gõ bàn phím lách cách ròn rã đánh thức Nam dậy. Cậu mở mắt nhìn sang nửa nệm của Tùng vẫn trống không. Đồng hồ góc phòng chỉ 19h30. |
-| H02 | Toàn phòng góc A đêm tối, 35mm Anamorphic | P0 Handheld; Nguồn sáng duy nhất từ bàn học rọi bóng đen dài lên tường | **Cú sốc thị giác:** Căn phòng tối om, Người Kia đang ngồi ngay ngắn trên chiếc ghế của Nam, hai tay gõ phím thoăn thoắt trước laptop. |
-| H03 | Trung đôi chéo góc $45^\circ$, 40mm Cine Prime | P4 Dutch Angle nhẹ $7^\circ$ biểu thị sự hoảng hốt | Nam bật dậy quát: *"Mày vào đây bằng cách nào?!"*. Người Kia dừng gõ, điềm tĩnh đáp: *"Cửa mày không chốt"*. Người Kia lùi ghế lại 40cm, đặt hai bàn tay úp ngay ngắn lên đùi. |
-| H04 | Cận mặt bàn học & tay Nam với lấy máy, 65mm Prime | P0 Handheld; DoF mỏng f/1.8 | Nam tiến lại gần bàn, với lấy điện thoại kiểm tra trong sự đề phòng cao độ. |
-| H05 | Cận màn hình điện thoại, 85mm Macro | P3 Macro; mở danh sách cuộc gọi nhỡ và tin nhắn Tùng | Hàng loạt cuộc gọi nhỡ của Tùng và nhóm lớp hiện lên. Tin nhắn Tùng: *"Thằng trong ảnh mờ quá, tao nhìn không rõ..."*. |
-| H06 | Cận mặt Nam bên bàn học, 65mm f/1.4 Prime | P2 Slow Push-in chậm rãi ($1.0\text{px/s}$) | Ánh mắt Nam chuyển từ tức giận sang hoang mang rồi tò mò liếc nhìn sang màn hình laptop. |
-| H07 | Cận màn hình laptop bài tập lớn, 65mm Cine Macro | P3 Macro; tay trái Nam cuộn trackpad xem văn bản | **Bằng chứng năng lực:** File Word đã được viết trọn vẹn 10 trang, lập luận sắc bén, biểu đồ hoàn hảo vượt xa khả năng của Nam. |
-| H08 | Trung Người Kia ngồi ghế lùi lại, 50mm Prime | P0 Handheld; ánh đèn bàn vàng ấm bao phủ khuôn mặt điềm đạm | Người Kia cất giọng trầm ấm, mời mọc: *"Mày mệt rồi. Cứ để tao làm hộ cho, mày không phải thức khuya nữa"*. |
-| H09 | Cận mặt Nam, 65mm f/1.4 Cine Prime | P2 Slow Push-in sát khóe mắt $\to$ Nụ cười nhếch mép tự luyến | Cảm xúc Nam chuyển biến: Tự ái bị thói lười biếng đánh bại. Cậu tự tâng bốc: *"Thằng này giống mình nên mới giỏi thế..."*. Nam khẽ cười thỏa mãn. |
-| H10 | Trung đôi bàn học đêm, 40mm Cine Anamorphic | P0 Handheld; bố cục chiều sâu chia đôi hai nhân vật | Nam nói: *"Để tao đọc lại đã, cấm mày bấm gửi"*. Người Kia khẽ gật đầu, tay giữ ngoài bàn phím. Âm quạt trần và ánh đèn bàn vàng ấm khép lại Phần 1. |
+| H01–H02 | **Pillow-Level Low Angle (Sát mặt gối nệm của Nam)** (35mm Anamorphic) | **3D-3** Máy đặt sát mặt nệm của Nam nhìn xuyên qua bóng tối về phía bàn học phát sáng | Nam hé mắt tỉnh dậy: nửa gối của Tùng sát ống kính trống không; sâu trong hậu cảnh phòng tối om, **chiếc laptop phát luồng sáng xanh hắt lên bóng lưng Người Kia đang ngồi thẳng tắp gõ phím** trên ghế của Nam! |
+| H03 | **3D Dolly Orbit $90^\circ$ vòng qua bàn học** (40mm Cine Prime + Dutch $7^\circ$) | **3D-2** Camera trượt vòng cung nối từ mép nệm sang cạnh bàn khi Nam quát & Người Kia lùi ghế | Xác lập cực rõ khoảng cách 3D trên sàn: Người Kia đứng lên kéo ghế lùi $40\text{cm}$, ngồi ngay ngắn, hai bàn tay úp lên đùi dưới ánh sáng xanh rọi từ laptop. |
+| H04–H07 | **OTS qua vai Người Kia hướng vào Nam & Màn hình** (65mm f/1.8) | **3D-5** Rack Focus giữa biểu cảm Nam, điện thoại nhiều cuộc gọi nhỡ và 10 trang Word hoàn chỉnh | Người Kia ở tiền cảnh ngoài nét tĩnh lặng như tượng; Nam tự nhặt máy đọc tin Tùng rồi kéo trackpad soi bài làm hoàn hảo. Ánh xanh laptop chiếu rọi vẻ thèm thuồng dần hiện lên mặt Nam. |
+| H08–H10 | **Chiaroscuro Two-Shot đối xứng chiều sâu** (50mm Prime) | **3D-2** Push-in nhẹ vào mắt Nam ở H09 $\to$ giữ tĩnh hai shot đối xứng ở H10 | Nam đứng phía ngoài vùng tối (có Rim Light xanh cắt viền vai) tự mãn mỉm cười trước lời đề nghị; Người Kia ngồi gọn trong quầng sáng đèn bàn, hai tay thu khỏi phím. |
 
 ---
 
-### MAY-P2 — Bảng máy điện ảnh Phần 2: Quen được làm thay (~6:25)
+### MAY-P2 — Bảng máy điện ảnh 3D Phần 2: Quen được làm thay (~6:25)
 
-**Chủ đề hình ảnh:** Từ hài hước sinh viên, lười biếng buông thả $\to$ Xâm lấn hiện sinh ngột ngạt. Bổ sung các góc máy độc đáo: Top-Down Claustrophobic, Mirror OTS, Rack Focus kép.
+**Đạo diễn 3D:** Nâng tầm với **3D Camera Inside-Mirror (Từ trong mặt kính nhìn ra)**, **Reveal Pan $120^\circ$ không cắt**, và **Top-Down Rotating Orbit** lúc cày game.
 
-| Mã cảnh & Shot | Cỡ / Góc / Lens điện ảnh | Chế độ máy & Hiệu ứng điện ảnh | Diễn xuất, Chi tiết bối cảnh & Âm thanh |
+| Mã cảnh & Shot | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D & Hiệu ứng | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| **P2.01_01**<br>Nộp bài | Cận mặt bàn laptop & ngón tay Nam, 65mm Macro | P3 Macro Insert; DoF f/1.4; ánh xanh màn hình rọi mắt Nam | Nam bấm nút "Gửi file" vào nhóm chat lớp. Tiếng click chuột đanh gọn. Cậu ngả lưng thở phào khoan khoái. |
-| **P2.01_02**<br>Mưa lời khen | Cận màn hình điện thoại reo dồn dập, 85mm Macro | P3 Macro; thanh thông báo Zalo nhảy liên hồi | Trưởng nhóm nhắn: *"U là trời! Đoạn mở đầu Nam viết đỉnh chóp thế! Quả này nhóm mình out trình chắc!"*. Nam đắc chí cười tươi. |
-| **P2.01_03**<br>Đuổi Người Kia | Trung đôi qua vai (OTS Nam $\to$ Người Kia), 50mm Prime | P0 Handheld; Chiaroscuro tương phản gắt | Nụ cười Nam tắt ngấm khi chạm ánh mắt Người Kia. Nam chỉ tay ra cửa: *"Xong việc rồi. Ra khỏi phòng tao"*. Người Kia lẳng lặng đứng dậy bước ra. |
-| **P2.01_04**<br>Gài then cửa | Cận then cài cửa sắt, 85mm Macro | P3 Macro; âm thanh then cài đanh gọn | Nam sập cửa gài then sắt đánh *"CẠCH"*. Tiếng kim loại khóa chặt căn phòng. |
-| **P2.01_05**<br>Hành lang bốc hơi | Nhìn qua khe thông gió cửa chính, 50mm Anamorphic | P2 Creeping Push-In chậm rãi vào bóng đêm hành lang | **Chi tiết kỳ dị:** Nam áp mắt nhìn ra khe cửa: Hành lang tầng 2 hoàn toàn trống không, im phăng phắc dưới ánh đèn tuýp vàng vọt. Không tiếng dép lê, Người Kia như bốc hơi vào không khí. |
-| **P2.02_01**<br>Tùng xách cơm | Trung rộng cửa chính mở toang, 35mm Cine Anamorphic | P0 Handheld; ánh đèn ấm phòng trọ | Tùng xách 2 hộp cơm sườn bốc khói đá cửa bước vào, cười lớn: *"Cơm sườn 35 cành đây bạn ơi! Sáng réo có thằng song sinh chui vào phòng, rồi nó đâu rồi? Bay màu rồi à?"*. |
-| **P2.02_02**<br>Bóc đũa lấp liếm | Trung cận Nam ngồi mép nệm, 50mm Prime | P0 Handheld; DoF mỏng | Nam bóc đôi đũa tre lấp liếm: *"À... tao ngủ mơ sảng tí thôi..."*. Cậu cắm cúi ăn để né tránh ánh mắt dò xét của bạn thân. |
-| **P2.03_01**<br>Sáng Ngày 2 | Toàn phòng góc A, 35mm Cine Anamorphic | P4 Dutch Angle lệch $8^\circ$ (Cú sốc phi lý) | Sáng hôm sau, Nam tỉnh dậy nhìn thấy: **Then cửa sắt bên trong vẫn đang cài chặt**, nhưng **Người Kia đã đứng rửa bát trong bếp từ bao giờ!** |
-| **P2.03_02**<br>Thử lòng 3 củ | Cận mặt bàn học & phong bì tiền, 65mm Macro | P3 Macro; phong bì 3 triệu thò ra tiền polyme 500k | Nam đặt phong bì 3 triệu tiền ăn lên bàn thử lòng. Người Kia lau khô tay, không màng liếc nhìn cọc tiền một giây nào. |
-| **P2.03_03**<br>Thị uy ông chủ | Góc thấp (Low-Angle) hếch lên Nam, 40mm Cine Prime | P4 Power Tilt; Nam đứng thẳng vỗ ngực thị uy | **Phản kháng 1:** Nam đập bàn ra oai: *"Ở đây tao là chủ phòng! Cấm mày đụng vào PC hay đồ đạc của tao nghe chưa?!"*. Người Kia khẽ cúi đầu: *"Ừ, tao biết rồi"*. |
-| **P2.04_01**<br>Lab 402 réo | Cận màn hình Lab 402 & Zalo, 85mm Macro | P3 Macro; chuông reo dồn dập | Tùng nhắn: *"Chiến thần gánh team đâu rồi? Lên thuyết trình Lab 402 mau không mất 2 củ rưỡi học lại cả lũ!"*. Nam toát mồ hôi hột. |
-| **P2.04_02**<br>Tập nói trước gương | Góc máy nhìn qua mặt chiếc gương soi (`VIEW_MIRROR`), 50mm f/1.4 | Mirror OTS: DoF nông rọi vào Nam trong gương cầm sách lúng búng | **Phản kháng 2:** Nam mở giáo trình đứng trước gương tập thuyết trình nhưng não bị "lag", đọc ngắc ngứ lí nhí, vò đầu bất lực. |
-| **P2.04_03**<br>Trao thẻ sinh viên | Cận hai bàn tay trao đổi thẻ sinh viên, 65mm Cine | P3 Macro Insert; nhấn mạnh tay thuận | Nam tặc lưỡi đưa thẻ sinh viên bằng tay phải. **Người Kia đón lấy thẻ bằng TAY TRÁI.** Ánh mắt Người Kia thoáng vẻ đắc thắng lạnh lùng. |
-| **P2.05_01**<br>Top-Down Cày Game | **Góc máy trần vuông góc $90^\circ$ (Top-Down Claustrophobic)**, 24mm | Góc nhìn từ trên cao đè nén xuống nệm ngủ | Nam nằm co quắp cày rank thâu đêm, ánh sáng xanh tím của điện thoại chớp giật trên gương mặt hốc hác, xung quanh là vỏ hộp cơm và chai nước rỗng. |
-| **P2.05_02**<br>Banter cày game | Trung cận Người Kia ngồi học ở bàn, 50mm Prime | P0 Handheld; ánh đèn bàn Chiaroscuro | Người Kia cất giọng rót mật: *"Mày thấy mệt mỏi với cuộc sống người lớn thì cứ nằm chơi game đi... Để tao sống thay cho"*. Nam cười hờ hững: *"Ừ, mày gánh được thì cứ gánh"*. |
-| **P2.05_03**<br>Comic Panels leo thang | 3 lát cắt khung hình dạng Comic Split-Screen | Jump Cuts dồn dập với âm thanh pop-up | • **Phản kháng 3:** Nam cáu vụ dọn bàn rồi lại sai đi mua đồ.<br>• **Phản kháng 4:** Đặt báo thức 6h tự đi học nhưng rồi tắt máy ngủ nướng.<br>• **Bảng điểm 9.5:** Snap Zoom vào con số 9.5 đỏ rực rỡ cổng đào tạo. |
-| **P2.06_01**<br>Clip Zalo gia đình | Cận màn hình điện thoại xem clip Zalo, 85mm Macro | P3 Macro; video clip phát hình ảnh mâm cơm quê | Mẹ và bác Hai khen ngợi Nam hết cắm mặt vào game. Clip quay rõ Người Kia ngồi gắp thức ăn cho mẹ bằng **TAY TRÁI**, nốt ruồi lộ rõ **BÊN PHẢI**. |
-| **P2.06_02**<br>Rack Focus bàng hoàng | Trung cận Nam trong phòng tối, 50mm f/1.4 Prime | **Rack Focus Pull:** Nét từ màn hình điện thoại $\to$ Đôi mắt Nam đang trừng trừng run rẩy | Nam lạnh toát sống lưng nhận ra: Người thân của mình đang yêu quý bản sao hơn chính bản thân mình. |
-| **P2.06_03**<br>Soi gương tàn tạ | Cận mặt Nam trước chiếc gương soi toàn thân, 50mm Prime | P2 Slow Push-in chậm rãi ($1.2\text{px/s}$) vào tấm gương | Nam nhìn vào gương: Một kẻ mắt trũng sâu thâm quầng, tóc tai bù xù, người ngợm hôi hám rách rưới. Một cảm giác khủng hoảng hiện sinh rợn tóc gáy. |
-| **P2.07_01**<br>Gói xôi gấc | Trung Người Kia mở cửa xách gói xôi gấc về đặt lên bàn, 35mm | P0 Handheld; Người Kia mặc áo sơ mi trắng bảnh bao | Người Kia mỉm cười: *"Mẹ gửi xôi gấc lên cho mày này, ăn đi cho nóng"*. |
-| **P2.07_02**<br>Hất tung gói xôi | Cận bàn tay Nam hất văng gói xôi gấc, 65mm Cine | **Crash Zoom & Rung giật $3.5\text{px}$** | Gói xôi gấc văng tung tóe xuống nền gạch men. Nam gào thét: *"Cút đi! Tao không cần mày sống thay! Ngày mai tao sẽ tự đi học, tự giành lại mọi thứ!"*. Khép lại Phần 2. |
+| **P2.01_01–04** | **OTS bàn phím $\to$ Macro then sắt** (50mm/85mm) | **3D-5** + **3D-0** Handheld | Cú bấm gửi file, thông báo Zalo nhảy sáng mặt Nam, OTS đuổi Người Kia ra hành lang và Macro quay sát then sắt gài đanh *"CẠCH"*. |
+| **P2.01_05**<br>Hành lang bốc hơi | **Through-Door-Vent Camera (Camera xuyên khe thông gió cửa gỗ)**, 50mm | **3D-2** Push-in sát qua nan khe thông gió nhìn dọc hành lang đêm 3D | Khung hình bị kẹp bởi hai nan gỗ cửa tiền cảnh, mắt người xem xuyên thẳng dọc hành lang dài vàng vọt đèn tuýp: **Hoàn toàn trống rỗng, không tiếng bước chân.** |
+| **P2.02_01–02** | **Dynamic Door Reveal & OTS ăn cơm** (35mm/50mm) | **3D-1** Theo Tùng đá cửa vào đặt 2 hộp cơm sườn xuống bàn | Không gian phòng trọ sạch bóng bất thường; Nam cúi mặt bóc đũa né ánh mắt Tùng. |
+| **P2.03_01**<br>Sáng Ngày 2 | **120° Uncut Reveal Pan (Lia không cắt từ Then Cửa $\to$ Bếp)**, 35mm + Dutch $8^\circ$ | **3D-2** Khởi đầu ở cận then sắt đang GÀI CHẶT $\to$ Pan lia mượt $120^\circ$ xuyên qua phòng tới bếp | Một cú lia 3D liền mạch khẳng định sự phi lý kinh hoàng: **Then cửa bên trong vẫn đang khóa chặt, nhưng Người Kia đã đứng rửa bát trong bếp bằng tay trái!** |
+| **P2.03_02–03** | **Low-Angle Power Shot từ mặt bàn học** (40mm Cine) | **3D-3** Máy đặt sát mặt bàn ngay cạnh phong bì 3 triệu nhìn hếch lên | Nam đập tay xuống bàn sát ống kính thị uy làm "ông chủ", Người Kia đứng thẳng điềm tĩnh đối diện, không thèm liếc phong bì tiền. |
+| **P2.04_01–02**<br>Tập nói trước gương | **Inside-Mirror Two-Way POV (Từ BÊN TRONG mặt gương nhìn ra)**, 50mm f/1.4 | **3D-4** Camera đặt sau mặt kính hơi mờ sương góc phòng nhìn thẳng vào Nam | Thấy trọn vẹn bộ dạng lúng túng, vò đầu "lag não" của Nam trong ánh sáng phòng trọ qua lớp kính có vết nứt góc phải (dấu hiệu thị giác âm thầm của thế giới gương). |
+| **P2.04_03**<br>Trao thẻ sinh viên | **Top-Angle Close-Up hai bàn tay trên bàn/ngưỡng**, 65mm Macro | **3D-5** Focus dồn vào bàn tay Người Kia nhận thẻ bằng **TAY TRÁI** | Nhấn mạnh bằng chứng nghịch đảo tay thuận rõ nét 100%. |
+| **P2.05_01–03**<br>Cày game & Comic | **Top-Down $90^\circ$ Rotating Orbit** trên trần (24mm) + **Split-Screen 3D** | **3D-3** Camera trên trần xoay vòng thật chậm ngược chiều kim đồng hồ quanh nệm ngủ | Nam nằm co quắp giữa đống vỏ hộp cơm, ánh sáng xanh tím điện thoại nhấp nháy trên mặt trong khi xung quanh dường như quay cuồng; xen kẽ nhanh nhịp nhảy điểm **9.5**. |
+| **P2.06_01–03**<br>Clip Zalo & Soi gương | **Rack Focus từ màn hình điện thoại $\to$ Gương soi tàn tạ**, 50mm f/1.4 | **3D-5** + **3D-4** Dolly Push-in sát mặt gương | Clip Zalo lộ rõ Người Kia gắp đồ cho mẹ bằng tay trái & nốt ruồi bên phải $\to$ Nam bước tới đối diện gương: Góc máy đi từ sau gáy Nam tiến sát vào mặt kính, thấy hình ảnh Nam phờ phạc thảm hại. |
+| **P2.07_01–02** | **Floor-Level Impact Shot** lúc hất gói xôi gấc (35mm) | **3D-3** Máy thấp sát sàn bắt trọn gói xôi văng thẳng về phía ống kính + rung $3.5\text{px}$ | Xôi đỏ lá chuối tung tóe trên gạch men; góc thấp tôn Nam gào thét dữ dội quyết tâm tự đi học. |
 
 ---
 
-### MAY-P3 — Bảng máy điện ảnh Phần 3: Người bị thay thế (~3:45)
+### MAY-P3 — Bảng máy điện ảnh 3D Phần 3: Người bị thay thế (~3:45)
 
-**Chủ đề hình ảnh:** Cao trào bi kịch, đối chất tâm lý bóc trần bản chất $\to$ Kỹ xảo quang học Vertigo Dolly Zoom & Mặt kính hóa nước $\to$ Đoạn kết rợn ngáy Quiet Horror.
+**Đạo diễn 3D:** Đỉnh cao ngôn ngữ điện ảnh 3D — **3D Crane Down giảng đường**, **True Hitchcock Vertigo Dolly Zoom**, **$180^\circ$ Combat Orbit trước gương**, và **Inside-Mirror Water Submersion**.
 
-| Mã cảnh & Shot | Cỡ / Góc / Lens điện ảnh | Chế độ máy & Hiệu ứng điện ảnh | Diễn xuất, Chi tiết bối cảnh & Âm thanh |
+| Mã cảnh & Shot | Cỡ / Góc dựng 3D / Lens | Chế độ máy 3D & Hiệu ứng | Diễn xuất, Bố cục 3D & Âm thanh |
 |---|---|---|---|
-| **P3.01_01**<br>Đại giảng đường | **Extreme Wide High-Angle (Góc toàn trên cao nhìn xuống bục giảng)**, 24mm Anamorphic | Ánh sáng Cold Neon trắng bệch công nghiệp; P0 Handheld nhẹ | Nam mặc áo quần chỉnh tề đứng đơn độc trên bục giảng gỗ rộng thênh thang. Phía sau là màn chiếu khổng lồ dày đặc công thức, phía trước là 100 sinh viên đang đổ dồn ánh mắt phán xét. |
-| **P3.01_02**<br>Não trắng xóa | Cận mặt Nam toát mồ hôi hột, 85mm Cine Prime | P2 Slow Push-in ($1.5\text{px/s}$) vào đôi mắt đờ đẫn | Não Nam trắng xóa, không một chữ kiến thức. Giọt mồ hôi chảy ròng ròng từ thái dương xuống cằm. Bàn tay cậu run bần bật bẻ gãy đôi viên phấn, bột phấn rơi lả tả xuống sàn gỗ. |
-| **P3.01_03**<br>Trừ điểm nhục nhã | Trung giảng viên & OTS qua vai Tùng, 50mm Prime | P0 Handheld; tiếng gõ thước côm cốp xuống bàn | Giảng viên nhíu mày quát: *"Hôm trước trả lời lưu loát lắm cơ mà? Sao hôm nay đứng như người mất hồn thế này?! Trừ 2 điểm chuyên cần!"*. Cả lớp xì xào mỉa mai. Nam nhìn Tùng: Ánh mắt Tùng nhìn cậu lạnh ngắt, đầy sự thất vọng. |
-| **P3.02_01**<br>Hành lang nắng gắt | Toàn cảnh hành lang đại học, 35mm Cine Anamorphic | P1 Parallax Lateral Track theo bước chân Nam | Nam cúi gằm mặt tháo chạy dọc hành lang nắng gắt chói chang. Tùng đi ngang qua, buông tiếng thở dài ngao ngán: *"Mày tụt dốc quá rồi..."*. |
-| **P3.02_02**<br>Kẻ thừa thãi | Trung Nam nép mình sau cột bê tông, 50mm f/1.4 Prime | DoF nông xóa mờ đám đông sinh viên cười đùa phía sau | Nam nhận ra sự thật cay đắng: Bạn bè, thầy cô, gia đình... tất cả đều chuộng bản sao hoàn hảo kia hơn là một kẻ lười biếng, ăn hại như cậu. Cậu là kẻ thừa thãi. |
-| **P3.03_01**<br>Soi nốt ruồi | Cận mặt bàn học tối om & hai tấm thẻ / màn hình, 85mm Macro | P3 Macro Insert; đèn bàn rọi luồng sáng hẹp | Nam vội vã lôi thẻ CCCD và clip Zalo gia đình ra đối chiếu. Cậu run rẩy dí sát hai hình ảnh vào nhau. |
-| **P3.03_02**<br>Khám phá bí mật | Cận cực đại (ECU) nốt ruồi trên thẻ & trên clip Zalo | **Snap Zoom kép dứt khoát** | • Zoom giật vào nốt ruồi **BÊN TRÁI** trên ảnh thẻ chính chủ.<br>• Zoom giật vào nốt ruồi **BÊN PHẢI** trên clip Zalo.<br>Nam trợn trừng mắt: Kẻ kia không phải người song sinh, nó là hình ảnh phản chiếu bước ra từ chiếc gương! |
-| **P3.03_03**<br>Vertigo Chiếc Gương | Toàn phòng hướng về chiếc gương soi góc phòng, 35mm $\to$ 85mm | **P5 Hitchcock Vertigo Dolly Zoom** (Zoom In kết hợp Dolly Out lùi máy) | Không gian căn phòng trọ bị bẻ cong, kéo dài hút sâu hun hút vào bóng tối kỳ dị. Chiếc gương soi góc phòng sừng sững lơ lửng như một cánh cổng tử thần. |
-| **P3.04_01**<br>Vác búa đối chất | Trung Nam vác chiếc búa đinh cán gỗ, 35mm Cine Prime | **P4 Extreme Dutch Angle $12^\circ$** nghiêng lệch trục chân trời | Nam gào thét nước mắt giàn giụa, giơ cao chiếc búa đinh định đập nát tấm gương: *"Mày chui từ gương ra đúng không?! Tao sẽ đập nát mày!"*. |
-| **P3.04_02**<br>Người Kia chặn búa | Cận mặt gương & Bàn tay trái Người Kia, 50mm f/1.4 | OTS qua vai Nam; ánh sáng Chiaroscuro sắc lạnh | Người Kia xuất hiện trong gương, giơ bàn **TAY TRÁI** nhẹ nhàng đón lấy đầu búa sắt mà không hề biến sắc. Ánh mắt nó nhìn Nam đầy vẻ thương hại. |
-| **P3.04_03**<br>Đòn tâm lý tàn nhẫn | Cận mặt Người Kia trong gương, 65mm Cine Prime | P2 Slow Push-in chậm rãi vào con ngươi đen thẳm | Người Kia cất giọng lạnh lùng bóc trần: *"Mày đập gương làm gì? Tao chính là những gì mày từng muốn trở thành: Chăm chỉ, giỏi giang, được mọi người yêu quý. Mày đã nhường cuộc sống này cho tao từ lúc mày nằm cày game rồi..."*. |
-| **P3.04_04**<br>Buông rơi chiếc búa | Cận bàn tay Nam & Chiếc búa rơi xuống sàn, 65mm Prime | P0 Handheld; cú va đập rung giật $3.0\text{px}$ | Từng câu chữ của Người Kia đánh gục ý chí Nam. Bàn tay Nam run rẩy buông lỏng. Chiếc búa đinh rơi cộp xuống sàn gạch men lạnh ngắt. |
-| **P3.05_01**<br>Khuỵu gối buông xuôi | Toàn cảnh góc cao (High-Angle) nhìn xuống Nam, 35mm | P0 Handheld tĩnh lặng | Nam khuỵu hai đầu gối xuống sàn nhà, cúi gằm đầu buông xuôi hoàn toàn. Ý chí phản kháng tan thành mây khói. |
-| **P3.05_02**<br>Bàn tay chạm kính | Cận bàn tay Nam áp vào mặt gương, 65mm Cine Macro | Slow Motion $60\text{fps}$; DoF siêu mỏng f/1.2 | Các đầu ngón tay Nam chạm vào mặt kính. Không có tiếng chạm kính cứng. Mặt kính khẽ gợn sóng lỏng lăn tăn như mặt hồ đêm. |
-| **P3.05_03**<br>Mặt kính hóa nước | Toàn phòng góc chiếc gương phát quang xanh thẫm, 35mm | **P5 Liquid Water Distortion Shader & Chromatic Aberration** | Mặt kính gương hóa lỏng thành dòng nước xanh buốt nuốt chửng toàn bộ cơ thể Nam vào bên trong cõi hư vô câm lặng. Mặt gương phẳng lặng trở lại như chưa từng có chuyện gì xảy ra. |
-| **P3.06_01**<br>Tùng mua bún chả | Trung rộng cửa chính mở ra, 35mm Cine Anamorphic | P0 Handheld; ánh đèn đêm ấm áp | Tối hôm đó, Tùng xách bọc bún chả nem thơm phức mở cửa vào: *"Nam ơi! Nay tao mua bún chả nem nướng tạ lỗi vụ ban sáng nhé!"*. |
-| **P3.06_02**<br>Dấu hiệu nghịch đảo | Cận Tùng khựng người & Người Kia ngồi ở bàn, 50mm f/1.4 | **Rack Focus Pull:** Nét chuyển từ nụ cười của Tùng sang Người Kia | Người Kia quay đầu lại mỉm cười nhẹ. Tùng khựng người, đôi mắt nheo lại hoài nghi dán chặt vào: Người Kia đang cầm đôi đũa bằng **TAY TRÁI** và nốt ruồi lộ rõ ở đuôi mày **BÊN PHẢI**. |
-| **P3.06_03**<br>Cài then sắt kết phim | Đặc tả bàn tay trái Người Kia gài then sắt cửa, 85mm Macro | P3 Macro Insert; âm thanh then cài đanh thép | Người Kia bước ra cửa, dùng bàn tay trái đẩy thanh then sắt cài chốt đánh *"CẠCH"*. Tiếng kim loại khóa chặt số phận của Nam bên trong chiếc gương. |
-| **P3.06_04**<br>Ending Shot | Cận mặt Người Kia, 65mm Cine Prime | Ánh sáng Chiaroscuro David Fincher cắt nửa mặt Người Kia trong bóng tối | Người Kia nhìn thẳng vào mắt Tùng, khóe môi khẽ nhếch một nụ cười bí hiểm: *"Mày nhìn nhầm rồi... Tao là Nam mà."* Màn hình sập đen hoàn toàn (Cut to Black). Hết phim. |
+| **P3.01_01**<br>Đại giảng đường | **3D Crane Down (Hạ cần cẩu từ trần bậc thang $\to$ Bục giảng)**, 24mm Anamorphic | **3D-1** Bắt đầu ở góc High-Angle cực cao sau lưng hàng trăm sinh viên $\to$ hạ sà xuống sát bục giảng | Ánh sáng Cold Neon trắng bệch soi rọi sự nhỏ bé, trơ trọi của Nam trước 100 ánh mắt phán xét và màn chiếu khổng lồ sau lưng. |
+| **P3.01_02–03**<br>Gãy phấn & Trừ điểm | **Slow Push-In** 85mm + **Low-Angle bên dưới bục gỗ** | **3D-2** + **3D-0** Handheld | Giọt mồ hôi 3D lăn từ thái dương Nam; cận tay run rẩy bẻ gãy viên phấn rơi vụn xuống sàn; OTS qua vai Tùng nhìn Nam đầy thất vọng. |
+| **P3.02_01–02** | **Steadicam Follow hành lang nắng gắt**, 35mm | **3D-1** Chạy lùi theo Nam cúi gằm mặt chạy khỏi Tùng | Bóng cột bê tông hành lang cắt đôi người Nam khi cậu nép vào góc tối nhìn bạn bè quay lưng. |
+| **P3.03_01–02**<br>Soi nốt ruồi | **Macro Split-Comparison** trên mặt bàn tối, 85mm Macro | **3D-5** Đèn bàn `3200K` rọi thẳng xuống thẻ CCCD và màn hình clip Zalo đặt cạnh nhau | Zoom giật từ nốt ruồi **BÊN TRÁI** trên thẻ CCCD $\to$ nốt ruồi **BÊN PHẢI** trên clip Zalo; ánh mắt Nam mở trừng khi ghép xong mảnh ghép sự thật. |
+| **P3.03_03**<br>Vertigo Chiếc Gương | **True 3D Vertigo Dolly Zoom**, $35\text{mm} \to 85\text{mm}$ | **3D-6** Camera lùi vật lý dọc trục Z đồng thời phóng đại tiêu cự hướng về chiếc gương | Bốn bức tường phòng trọ 3D biến dạng hút dài vào sâu trong bóng tối, biến khung gương gỗ cũ kỹ thành cánh cổng không đáy. |
+| **P3.04_01–04**<br>Đối chất vác búa | **180° Dolly Orbit quanh trục gương & Floor Impact**, 35mm/50mm + Dutch $12^\circ$ | **3D-2** + **3D-3** Trượt vòng cung ngang mép kính gương lúc Người Kia giơ tay trái đỡ đầu búa | Góc máy vượt qua đường biên giữa phòng thật và hình phản chiếu: Thấy rõ đầu búa nặng dừng khựng trong lòng **TAY TRÁI** Người Kia; khi Người Kia bóc trần bản chất, Nam buông búa $\to$ Floor-Level bắt trọn chiếc búa rơi cộp sát ống kính. |
+| **P3.05_01–03**<br>Mặt kính hóa nước | **Submersion 3D Shot (Từ BÊN TRONG mặt kính hóa nước nhìn ra)**, 35mm/65mm | **3D-6** Liquid Glass Displacement Shader + Chromatic Aberration xanh buốt | **Cú máy đắt nhất phim:** Camera 3D đặt lùi bên trong Thế giới Gương nhìn xuyên qua mặt nước kính đang gợn sóng lăn tăn: thấy bàn tay và thân thể Nam chìm dần xuyên qua làn nước lạnh buốt trôi vào vực thẳm câm lặng rồi mặt nước phẳng lặng đóng băng lại. |
+| **P3.06_01–04**<br>Kết phim Quiet Horror | **Rack Focus OTS & Closing Latch Darkening Shot**, 35mm $\to$ 85mm | **3D-5** + Chiaroscuro Lighting cắt nửa khuôn mặt | Tùng xách bún chả vào $\to$ Rack Focus từ nét mặt Tùng khựng lại sang **tay trái Người Kia cầm đũa & nốt ruồi bên phải** $\to$ Camera lùi ra ngoài khe cửa khi tay trái Người Kia đẩy then sắt *"CẠCH"* khép khe sáng cuối cùng che khuất 50% khuôn mặt trong bóng tối, thì thầm: *"Mày nhìn nhầm rồi... Tao là Nam mà"*. Cut to Black. |
 
 ## Ánh sáng, âm và nhịp nối
 
-- **Sáng:** cửa sổ là nguồn chính, phòng đủ sáng để nhận mặt và đường thoát. Không phủ vàng viền mọi người hoặc thêm sương chỉ để có vẻ điện ảnh.
-- **Làm bài → game:** cùng cửa sổ, vệt sáng dịch trên bàn/tường và tư thế thay đổi. Đèn/laptop chưa tự đổi thành nguồn chính giữa một cảnh ban ngày.
-- **Tối:** khoảng 19h30, đồng hồ theo mốc này; đèn bàn và laptop; giữ sắc da, màu áo, vị trí cửa và vùng tối có thể đọc. Đèn bàn bật là trạng thái đã có khi Nam tỉnh; không cần thêm một cảnh ai bật đèn để giải thích mọi thao tác nhỏ.
-- **Cắt:** dùng ánh mắt, tay chạm đồ, người ngừng nói hoặc người đổi hướng. Giữ âm phòng nối qua các góc cùng thời điểm; tiếng nước ngừng đúng lúc nguồn ghi. Cửa đóng làm âm người kia ở ngoài bớt trực tiếp, không biến thành giọng nội tâm.
-- **Chuyển thời gian:** cắt cùng bố cục với nắng/tư thế/trạng thái bài đổi; sang tối có thể dùng dissolve ngắn trên phòng/nệm. Không hòa hai khuôn mặt lên nhau khi đối thoại hoặc dùng một giọng nói mơ hồ để báo thời gian trôi.
-- **Chữ:** thông báo, tin hứa hôm qua, Không làm phiền, tin Tùng và cuộc gọi nhỡ là các lớp đọc riêng. Cận đủ lớn ở cỡ điện thoại; tăng thời gian giữ trước khi tăng số hiệu ứng. Chữ và viền khung không rung theo camera.
-- **Nội tâm:** Nam không mấp máy miệng để nói thành tiếng; người kia không cắt phản ứng đúng nhịp những suy nghĩ thầm. Phần lời dẫn/nội tâm vẫn theo nguồn, không thêm giọng diễn giải kỹ thuật.
+- **Sáng:** Area Light cửa sổ là nguồn chính, phòng đủ sáng tự nhiên để đọc mặt và đường thoát.
+- **Làm bài → game:** di chuyển góc chiếu mặt trời (Sun Angle) qua cửa sổ 3D và chuyển nhiệt độ màu từ trắng trưa sang vàng cam chiều tà.
+- **Tối:** khoảng 19h30; nguồn sáng chính ban đêm gồm ánh sáng xanh lạnh màn hình laptop (`LAPTOP_LIGHT`) kết hợp đèn bàn `3200K`; giữ sắc da sống của Nam để tương phản với làn da lạnh của Người Kia.
+- **Cắt:** ưu tiên cắt theo ánh mắt (Eyeline Match), chuyển động vật lý (Action Match) hoặc giữ nhịp dài Steadicam/Arc 3D để tăng áp lực tâm lý thật.
+- **Chữ UI:** giữ lớp màn hình điện thoại/laptop dưới dạng Texture phát sáng rõ nét trong không gian 3D, đồng bộ qua bước compositing cuối trong Remotion cùng `CinematicGradeOverlay`.
 
 ## Chuẩn bị asset và kiểm tra trước khi dựng dài
 
-Đọc bảng kê tổng duyệt tiền kỳ chi tiết tại **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md)** (bao gồm đầy đủ 12 Bối cảnh bóc tách layer, 12 Đạo cụ tương tác Hero Props & 7 UI màn hình, 24 Dáng rig tư thế nhân vật, cùng ma trận biểu cảm 3 cấp độ). Tham chiếu bộ nhân vật ở [ASSET.md](ASSET.md), theo [hướng Style B](../THIET-KE-NHAN-VAT.md). Bảng SVG có biểu cảm/pose chưa chứng minh mọi góc và động tác trong bảng máy đã sẵn sàng.
+Đọc bảng kê tổng duyệt tiền kỳ chi tiết tại **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md)** (Mục 8 theo dõi tiến độ **Full 3D Assets**: Nhân vật 3D, Rig IK/FK, Blendshapes 3 cấp, 6 Bối cảnh 3D 360°, Planar Reflection Mirror Shader và Đạo cụ 3D).
 
-1. Dùng mặt bằng mới một cửa trái, bếp trái, bàn phải làm mốc; dùng nền hành lang B và trạng thái cửa/ghế đã có; kiểm tra đường qua ngưỡng và che/lộ khi dựng. Có lớp nền được vẽ đủ cho các dịch máy nhỏ; không cần orbit hoặc góc trần mới.
-2. Kiểm tra/tạo bổ sung khi được giao: Nam ngủ/bật dậy, gõ–xóa, cầm điện thoại/căn cước, chơi game, mở/gài chốt; người kia quay mặt từ bồn rửa, đặt chén, đi rồi ngồi gõ. Chỉ bổ sung pose/góc thực sự được dùng, không tự nhận có sẵn cả rig ngồi/gõ từ một bảng tĩnh.
-3. Mặt ba phần tư, bàn tay/điểm cầm, cận nốt ruồi, chốt và màn hình phải đủ chi tiết cho cỡ gần. Không phóng SVG toàn cảnh để thay mọi cận. Bát được đặt xuống trước khi nhân vật để hai tay trống.
-4. Duyệt storyboard theo thứ tự câu chuyện, đặc biệt A03–A05, C01–C05, F03–F04 và G04–H04. Đối chiếu trạng thái chốt/điện thoại/ghế, hướng mắt, tay đang giữ và nguồn sáng.
-5. Khi chủ repo giao bước dựng, thử animatic với âm tạm cho một tương tác và đoạn sáng–tối trước khi mở rộng. Kiểm tra chuyển động thật, cỡ xem điện thoại và các điểm nối; bảng góc này chưa phải bằng chứng đã diễn/render đạt. Claude phụ trách dựng khi được giao.
+1. **Dựng đủ không gian 360°:** Phòng trọ 3D, Hành lang tầng 2, Giảng đường và Thế giới Gương phải dựng kín 4 tường + trần (cho phép tháo trần khi quay Top-Down $90^\circ$) và hành lang kéo dài để Steadicam chạy mượt không bị hở mép.
+2. **Khóa tiếp xúc vật lý (Zero Clipping):** Kiểm tra kỹ Bone Constraints khi cầm búa đinh, cầm điện thoại, kéo ghế 4 chân trên sàn và đẩy then sắt cửa 3D.
+3. **Kiểm tra Shader chiếc gương:** Thử nghiệm trước Planar Reflection tách biệt pose giữa Nam và Người Kia, cùng chuyển tiếp Liquid Glass Shader ở P3.05 để đảm bảo không lỗi phản chiếu chữ/nốt ruồi.
+4. **Quy trình 2 bước (2D/Animatic Previs $\to$ 3D Final Render):** Dùng bản 2D/2.5D hiện có (`opening.tsx`, `canh-01-demo.tsx`) hoặc 3D Playblast Viewport thô để duyệt nhịp cắt, tiêu cự và thoại ElevenLabs trước khi kích hoạt render 3D chất lượng cao.
 
-Nguồn nguyên tắc nội bộ: [Ngôn ngữ điện ảnh 2.5D](../../../docs/NGON-NGU-DIEN-ANH-2-5D.md), [quy trình duyệt hình](../../../docs/WHAT-IF-QUY-TRINH.md), [hướng diễn xuất và continuity](../../../.claude/skills/what-if-animation/references/look.md). Đây là quyết định sáng tạo cho Hồ sơ 2, không phải nghiên cứu mới hoặc kết quả thử nghiệm chi phí.
+Nguồn nguyên tắc nội bộ: [Quy chuẩn sản xuất 3D](../../../docs/QUY-CHUAN-3D.md), [Ngôn ngữ điện ảnh 2.5D (tham chiếu Previs)](../../../docs/NGON-NGU-DIEN-ANH-2-5D.md), [quy trình duyệt hình](../../../docs/WHAT-IF-QUY-TRINH.md).
 
 ## Rà chuyển động liên tục A–H — 10/11/2026
 
