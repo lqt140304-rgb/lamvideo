@@ -100,7 +100,9 @@ def make_materials():
     m['tran'] = M.mottled('tran', '#e6decb', rough=0.95, scale=1.2, vary=0.06, bump=0.08)
     m['gach'] = M.tiles('gach', '#d6ccb6', '#b3a890', 0.4)
     m['gach_hl'] = M.tiles('gach_hanh_lang', '#cfc7b3', '#a89d86', 0.3)
-    m['gach_op'] = M.wall_tiles('gach_op', '#f1ede0', '#c9c3b2', 0.2)
+    m['gach_op'] = M.solid('gach_op', '#f1ede0', 0.28)
+    m['gach_op2'] = M.solid('gach_op2', '#ebe6d6', 0.28)
+    m['gach_op_mach'] = M.solid('gach_op_mach', '#c9c3b2', 0.7)
     m['viền'] = M.solid('vien_tuong', '#f3ead6', 0.7)
     m['cua'] = M.mottled('cua_xanh', '#6d887c', rough=0.55, scale=3, vary=0.05, bump=0.05)
     m['kim_loai_cu'] = M.solid('kim_loai_cu', '#6f6b63', rough=0.5, metal=0.85)
@@ -139,9 +141,11 @@ def shell(m, coll, door_open, cutaway=False):
     wall = m['tuong']
     box('san_phong', 0, W, 0, D + 3.0, -0.10, 0.0, m['gach'], coll=coll)  # sàn kéo dài ra ngoài tường trước (ẩn với camera) để góc máy đứng ngoài không thấy khoảng trống
     ceil = box('tran_phong', -0.12, W + 0.12, -0.12, D + 0.12, H, H + 0.1, m['tran'], coll=coll)
-    if cutaway: ceil.visible_camera = False  # góc từ trên xuống: ẩn trần với camera, trần vẫn che sáng
+    if cutaway: ceil.visible_camera = False; ceil.visible_shadow = False  # góc từ trên xuống: ẩn trần (và bỏ bóng của trần) để thấy cả phòng sáng
     box('tuong_sau', -T, W + T, -T, 0, -0.1, H, wall, coll=coll)
-    front = box('tuong_truoc', -T, W + T, D, D + T, -0.1, H, wall, coll=coll); front.visible_camera = False  # ẩn với camera, vẫn che sáng/bóng
+    front = box('tuong_truoc', 0, W, D, D + T, -0.1, H, wall, coll=coll); front.visible_camera = False  # ẩn với camera, vẫn che sáng/bóng
+    box('tuong_truoc_goc_trai', -T, 0, D, D + T, -0.1, H, wall, coll=coll)  # hai đầu tường là mặt ngoài của hành lang / tường phải: luôn hiện
+    box('tuong_truoc_goc_phai', W, W + T, D, D + T, -0.1, H, wall, coll=coll)
     # tường trái (cửa chính): chừa ô cửa 0,85 × 2,10
     box('tuong_trai_a', -T, 0, 0, DOOR['y0'], -0.1, H, wall, coll=coll)
     box('tuong_trai_b', -T, 0, DOOR['y1'], D, -0.1, H, wall, coll=coll)
@@ -156,7 +160,7 @@ def shell(m, coll, door_open, cutaway=False):
     box('op_sau', 0, W, e - 0.0, e + 0.0 + 0.001, 0, 0.001, None, coll=coll)  # giữ tên; bỏ qua
     bpy.data.objects.remove(bpy.data.objects['op_sau'], do_unlink=True)
     box('op_sau', 0, W, 0, e, 0, 1.1, lo, coll=coll)
-    box('op_truoc', 0, W, D - e, D, 0, 1.1, lo, coll=coll)
+    box('op_truoc', 0, W, D - e, D, 0, 1.1, lo, coll=coll).visible_camera = False
     box('op_trai_a', 0, e, 0, DOOR['y0'], 0, 1.1, lo, coll=coll)
     box('op_trai_b', 0, e, DOOR['y1'], D, 0, 1.1, lo, coll=coll)
     box('op_phai_a', W - e, W, 0, WIN['y0'], 0, 1.1, lo, coll=coll)
@@ -167,7 +171,7 @@ def shell(m, coll, door_open, cutaway=False):
     box('phao_sau', 0, W, 0, 0.012, 1.1, 1.13, m['viền'], coll=coll)
     box('phao_phai_a', W - 0.012, W, 0, WIN['y0'], 1.1, 1.13, m['viền'], coll=coll)
     box('phao_phai_b', W - 0.012, W, WIN['y1'], D, 1.1, 1.13, m['viền'], coll=coll)
-    box('phao_truoc', 0, W, D - 0.012, D, 1.1, 1.13, m['viền'], coll=coll)
+    box('phao_truoc', 0, W, D - 0.012, D, 1.1, 1.13, m['viền'], coll=coll).visible_camera = False
     # chân tường
     box('chan_sau', 0, W, 0, 0.012, 0, 0.09, m['viền'], coll=coll)
     # ----- cửa chính: khuôn + cánh xanh rêu, bản lề ở y = DOOR['y1'], mở vào phòng
@@ -214,7 +218,12 @@ def kitchen(m, coll):
     cyl('voi_dung', 0.4, 0.07, h + 0.15, 0.011, 0.3, m['inox'], coll=coll)
     cyl('voi_ngang', 0.4, 0.16, h + 0.295, 0.011, 0.19, m['inox'], axis='Y', coll=coll)
     cyl('voi_dau', 0.4, 0.25, h + 0.275, 0.014, 0.04, m['inox'], coll=coll)
-    box('gach_op_bep', x0, x1, 0, 0.012, h + 0.036, 1.5, m['gach_op'], coll=coll)
+    box('nen_gach_op', x0, x1, 0, 0.004, h + 0.036, 1.5, m['gach_op_mach'], coll=coll)
+    nx, nz = 5, 3  # ốp gạch 20 × 20 cm: từng viên là khối riêng, có vát cạnh, hai tông màu xen kẽ
+    tw, th = (x1 - x0) / nx, (1.5 - h - 0.036) / nz
+    for i in range(nx):
+        for j in range(nz):
+            box(f'gach_op{i}_{j}', x0 + i * tw + 0.003, x0 + (i + 1) * tw - 0.003, 0.004, 0.012, h + 0.036 + j * th + 0.003, h + 0.036 + (j + 1) * th - 0.003, m['gach_op'] if (i + j) % 2 else m['gach_op2'], bevel=0.002, coll=coll)
     box('ke_bep', x0, x1, 0, 0.16, 1.5, 1.525, m['go_ban_cu'], bevel=0.004, coll=coll)
     for i, c in enumerate(['#d5b46a', '#a83f3a', '#efeadc', '#7ca87a']):  # cốc trên kệ
         cyl(f'coc{i}', 0.2 + i * 0.1, 0.08, 1.525 + 0.045, 0.032, 0.09, M.solid(f'coc{i}', c, 0.45), coll=coll)
