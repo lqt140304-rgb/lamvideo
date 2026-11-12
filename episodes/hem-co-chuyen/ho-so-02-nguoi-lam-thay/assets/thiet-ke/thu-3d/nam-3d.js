@@ -64,7 +64,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
   const joint = (parent, at, name) => { const g = new THREE.Group(); g.position.set(...at); g.name = name; parent.add(g); return g; };
   const sph = (r = 1, w = 48, h = 32) => new THREE.SphereGeometry(r, w, h);
   const cap = (r, len) => new THREE.CapsuleGeometry(r, len, 12, 28);
-  const skinM = M(C.skin, 0.62), hairM = M(C.hair, 0.88), shirtM = M(C.shirt, 0.95), pantsM = M(C.pants, 0.95), inkM = M(C.ink, 0.5);
+  const skinM = M(C.skin, 0.88), hairM = M(C.hair, 0.92), shirtM = M(C.shirt, 0.95), pantsM = M(C.pants, 0.95), inkM = M(C.ink, 0.5);
 
   // ---------- khung xương ----------
   const root = new THREE.Group(); root.name = 'nam';
@@ -169,7 +169,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
   for (const s of [1, -1]) {
     const g = onFace(head, s * EYE.x, EYE.y, -1.4);
     g.rotateY(-s * 0.08);
-    mesh(sph(1), inkM, g, [0, 0, -0.25], [0, 0, 0], [EYE.w + 0.55, EYE.h + 0.55, 3.0]);
+    mesh(sph(1), inkM, g, [0, 0, -0.3], [0, 0, 0], [EYE.w + 0.3, EYE.h + 0.3, 2.6]); // viền sau tròng: mỏng, không lộ dày khi nghiêng
     mesh(sph(1), M(C.eyeWhite, 0.35), g, [0, 0, 0.2], [0, 0, 0], [EYE.w, EYE.h, 3.0]);
     // mí trên: chỏm cầu màu da phủ ~42% trên, mép mí là nét đậm
     const lid = new THREE.Group(); lid.position.set(0, 0, 0.32); lid.scale.set(EYE.w * 1.02, EYE.h * 1.02, 3.1); lid.rotation.set(0.18, 0, s * 0.05); g.add(lid);
@@ -186,7 +186,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
     mesh(tube(THREE, pts, (u) => 1.55 * Math.sqrt(Math.sin(Math.PI * Math.min(1, Math.max(0, (u * 0.9 + 0.05))))) + 0.2, { seg: 24, rad: 16 }), M(C.hair, 0.85), head, [0, 0, 0], [0, 0, 0], [1, 1, 1]);
   }
   // nốt ruồi trên đuôi mày phải (trái màn hình)
-  { const g = onFace(head, -13.4, 10.4, 0.1); mesh(sph(0.75, 16, 12), inkM, g, [0, 0, 0], [0, 0, 0], [1, 1, 0.6]); }
+  { const g = onFace(head, -13.4, 10.4, 0.1); mesh(sph(1.1, 16, 12), inkM, g, [0, 0, 0], [0, 0, 0], [1, 1, 0.6]); }
   // mũi cục tròn nhô + nét cánh mũi
   { const g = onFace(head, 0.6, -8.4, 0.4);
     mesh(sph(3.5), skinM, g, [0, 0, 0.6], [0, 0, 0], [1, 0.95, 1.05]);
@@ -201,7 +201,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
   for (const s of [1, -1]) {
     const { p } = surf(s * 30, -6.5, [-s, 0, 0]);
     const ear = new THREE.Group(); ear.position.copy(p); ear.position.z = -1.5; ear.rotation.set(0, s * 0.35, s * 0.05); head.add(ear);
-    mesh(sph(1), skinM, ear, [s * 2.4, 0, 0], [0, 0, 0], [3.4, 8.0, 6.2]);
+    mesh(sph(1), skinM, ear, [s * 2.2, 0, 0], [0, 0, 0], [3.0, 6.8, 5.4]);
     mesh(sph(1), M(C.skinDeep, 0.7), ear, [s * 4.6, -0.4, 0.8], [0, 0, 0], [1.4, 4.6, 3.4]);
     mesh(tube(THREE, [[s * 5.0, 4.6, -1.2], [s * 5.6, 5.4, 2.4], [s * 5.3, 1.0, 4.2], [s * 4.8, -2.4, 3.0]], () => 0.75, { seg: 20, rad: 10 }), skinM, ear);
   }
