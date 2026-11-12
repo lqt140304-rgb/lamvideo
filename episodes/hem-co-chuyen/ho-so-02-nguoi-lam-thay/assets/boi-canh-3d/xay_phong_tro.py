@@ -137,13 +137,13 @@ def make_materials():
 
 
 # ------------------------------------------------------------------ vỏ phòng + cửa + cửa sổ
-def shell(m, coll, door_open, cutaway=False):
+def shell(m, coll, door_open, cutaway=False, hide_front=False):
     wall = m['tuong']
     box('san_phong', 0, W, 0, D + 3.0, -0.10, 0.0, m['gach'], coll=coll)  # sàn kéo dài ra ngoài tường trước (ẩn với camera) để góc máy đứng ngoài không thấy khoảng trống
     ceil = box('tran_phong', -0.12, W + 0.12, -0.12, D + 0.12, H, H + 0.1, m['tran'], coll=coll)
     if cutaway: ceil.visible_camera = False; ceil.visible_shadow = False  # góc từ trên xuống: ẩn trần (và bỏ bóng của trần) để thấy cả phòng sáng
     box('tuong_sau', -T, W + T, -T, 0, -0.1, H, wall, coll=coll)
-    front = box('tuong_truoc', 0, W, D, D + T, -0.1, H, wall, coll=coll); front.visible_camera = False  # ẩn với camera, vẫn che sáng/bóng
+    front = box('tuong_truoc', 0, W, D, D + T, -0.1, H, wall, coll=coll); front.visible_camera = not hide_front  # camera ngoài tường trước mới ẩn tường này
     box('tuong_truoc_goc_trai', -T, 0, D, D + T, -0.1, H, wall, coll=coll)  # hai đầu tường là mặt ngoài của hành lang / tường phải: luôn hiện
     box('tuong_truoc_goc_phai', W, W + T, D, D + T, -0.1, H, wall, coll=coll)
     # tường trái (cửa chính): chừa ô cửa 0,85 × 2,10
@@ -160,7 +160,7 @@ def shell(m, coll, door_open, cutaway=False):
     box('op_sau', 0, W, e - 0.0, e + 0.0 + 0.001, 0, 0.001, None, coll=coll)  # giữ tên; bỏ qua
     bpy.data.objects.remove(bpy.data.objects['op_sau'], do_unlink=True)
     box('op_sau', 0, W, 0, e, 0, 1.1, lo, coll=coll)
-    box('op_truoc', 0, W, D - e, D, 0, 1.1, lo, coll=coll).visible_camera = False
+    box('op_truoc', 0, W, D - e, D, 0, 1.1, lo, coll=coll).visible_camera = not hide_front
     box('op_trai_a', 0, e, 0, DOOR['y0'], 0, 1.1, lo, coll=coll)
     box('op_trai_b', 0, e, DOOR['y1'], D, 0, 1.1, lo, coll=coll)
     box('op_phai_a', W - e, W, 0, WIN['y0'], 0, 1.1, lo, coll=coll)
@@ -171,7 +171,7 @@ def shell(m, coll, door_open, cutaway=False):
     box('phao_sau', 0, W, 0, 0.012, 1.1, 1.13, m['viền'], coll=coll)
     box('phao_phai_a', W - 0.012, W, 0, WIN['y0'], 1.1, 1.13, m['viền'], coll=coll)
     box('phao_phai_b', W - 0.012, W, WIN['y1'], D, 1.1, 1.13, m['viền'], coll=coll)
-    box('phao_truoc', 0, W, D - 0.012, D, 1.1, 1.13, m['viền'], coll=coll).visible_camera = False
+    box('phao_truoc', 0, W, D - 0.012, D, 1.1, 1.13, m['viền'], coll=coll).visible_camera = not hide_front
     # chân tường
     box('chan_sau', 0, W, 0, 0.012, 0, 0.09, m['viền'], coll=coll)
     # ----- cửa chính: khuôn + cánh xanh rêu, bản lề ở y = DOOR['y1'], mở vào phòng
@@ -218,12 +218,12 @@ def kitchen(m, coll):
     cyl('voi_dung', 0.4, 0.07, h + 0.15, 0.011, 0.3, m['inox'], coll=coll)
     cyl('voi_ngang', 0.4, 0.16, h + 0.295, 0.011, 0.19, m['inox'], axis='Y', coll=coll)
     cyl('voi_dau', 0.4, 0.25, h + 0.275, 0.014, 0.04, m['inox'], coll=coll)
-    box('nen_gach_op', x0, x1, 0, 0.004, h + 0.036, 1.5, m['gach_op_mach'], coll=coll)
+    box('nen_gach_op', x0, x1, 0, 0.008, h + 0.036, 1.5, m['gach_op_mach'], coll=coll)
     nx, nz = 5, 3  # ốp gạch 20 × 20 cm: từng viên là khối riêng, có vát cạnh, hai tông màu xen kẽ
     tw, th = (x1 - x0) / nx, (1.5 - h - 0.036) / nz
     for i in range(nx):
         for j in range(nz):
-            box(f'gach_op{i}_{j}', x0 + i * tw + 0.003, x0 + (i + 1) * tw - 0.003, 0.004, 0.012, h + 0.036 + j * th + 0.003, h + 0.036 + (j + 1) * th - 0.003, m['gach_op'] if (i + j) % 2 else m['gach_op2'], bevel=0.002, coll=coll)
+            box(f'gach_op{i}_{j}', x0 + i * tw + 0.003, x0 + (i + 1) * tw - 0.003, 0.012, 0.02, h + 0.036 + j * th + 0.003, h + 0.036 + (j + 1) * th - 0.003, m['gach_op'] if (i + j) % 2 else m['gach_op2'], bevel=0.002, coll=coll)
     box('ke_bep', x0, x1, 0, 0.16, 1.5, 1.525, m['go_ban_cu'], bevel=0.004, coll=coll)
     for i, c in enumerate(['#d5b46a', '#a83f3a', '#efeadc', '#7ca87a']):  # cốc trên kệ
         cyl(f'coc{i}', 0.2 + i * 0.1, 0.08, 1.525 + 0.045, 0.032, 0.09, M.solid(f'coc{i}', c, 0.45), coll=coll)
@@ -310,8 +310,8 @@ def bed(m, coll):
     box('nem', x0, x1, y0, y1, 0.0, 0.24, m['nem'], bevel=0.05, coll=coll)
     box('ga_giuong', x0 + 0.01, x1 - 0.01, y0 + 0.01, y1 - 0.01, 0.235, 0.25, m['ga'], bevel=0.012, coll=coll)
     for i, x in enumerate([2.0, 2.52]):
-        p = box(f'goi{i}', x - 0.25, x + 0.25, y0 + 0.06, y0 + 0.42, 0.25, 0.34, m['goi'], bevel=0.035, coll=coll, rot=(math.radians(3), 0, math.radians(2 - 4 * i)), pivot=(x, y0 + 0.2, 0.25))
-    cb = box('chan_nem', x0 + 0.02, x1 - 0.02, y0 + 0.75, y1 - 0.12, 0.25, 0.31, m['chan'], bevel=0.04, coll=coll, rot=(0, 0, math.radians(2)), pivot=((x0 + x1) / 2, (y0 + y1) / 2, 0.25))
+        p = box(f'goi{i}', x - 0.25, x + 0.25, y1 - 0.42, y1 - 0.06, 0.25, 0.34, m['goi'], bevel=0.035, coll=coll, rot=(math.radians(3), 0, math.radians(2 - 4 * i)), pivot=(x, y1 - 0.24, 0.25))
+    cb = box('chan_nem', x0 + 0.02, x1 - 0.02, y0 + 0.75, y1 - 0.45, 0.25, 0.31, m['chan'], bevel=0.04, coll=coll, rot=(0, 0, math.radians(2)), pivot=((x0 + x1) / 2, (y0 + y1) / 2, 0.25))
     box('chan_cuon', x0 + 0.05, x0 + 0.55, y0 + 0.62, y0 + 0.88, 0.25, 0.37, m['chan'], bevel=0.05, coll=coll, rot=(0, 0, math.radians(12)), pivot=(x0 + 0.3, y0 + 0.75, 0.25))
 
 
@@ -333,7 +333,7 @@ def mirror(m, coll):
     box('mat_guong', 0.058, 0.062, 3.025, 3.495, 0.03, 1.19, m['guong'], coll=coll, rot=(0, math.radians(-6), 0), pivot=(0.03, 3.26, 0))
 
 
-def clutter(m, coll):
+def clutter(m, coll, dep_san=False):
     # bình nước 20 L
     cyl('binh_nuoc', 1.17, 0.2, 0.2, 0.125, 0.4, m['nhua_xanh'], coll=coll)
     cyl('binh_co', 1.17, 0.2, 0.43, 0.05, 0.07, m['nhua_xanh'], coll=coll)
@@ -344,7 +344,7 @@ def clutter(m, coll):
     # thùng gạo/rác nhựa trắng
     cyl('thung', 1.5, 0.75, 0.15, 0.14, 0.3, m['nhua_trang'], coll=coll)
     # dép
-    for i, (x, y, r) in enumerate([(0.4, 2.55, 20), (0.5, 2.7, 25)]):
+    for i, (x, y, r) in enumerate([(0.4, 2.55, 20), (0.5, 2.7, 25)] if dep_san else []):
         box(f'dep{i}', x - 0.05, x + 0.05, y - 0.13, y + 0.13, 0.0, 0.025, M.solid('dep', '#425850', 0.7), bevel=0.01, coll=coll, rot=(0, 0, math.radians(r)))
     # tô mì trên sàn cạnh nệm
     cyl('to_mi', 1.35, 3.25, 0.05, 0.1, 0.1, m['nhua_trang'], coll=coll)
@@ -354,8 +354,8 @@ def clutter(m, coll):
 
 
 def lights_fixture(m, coll):
-    tube = box('den_tuyp', 1.0, 2.2, 1.9, 1.94, H - 0.04, H - 0.01, m['den_tuyp'], bevel=0.004, coll=coll)
-    box('den_tuyp_de', 0.98, 2.22, 1.88, 1.96, H - 0.012, H, m['nhua_trang'], coll=coll)
+    tube = box('den_tuyp', 1.0, 2.2, 1.9, 1.94, H - 0.09, H - 0.05, m['den_tuyp'], bevel=0.004, coll=coll)  # ống tuýp treo dưới trần 5 cm, không chạm mặt trần
+    box('den_tuyp_chup', 0.98, 2.22, 1.88, 1.96, H - 0.05, H - 0.04, m['nhua_trang'], coll=coll)  # chụp nhựa mỏng dưới trần, không trùng mặt
 
 
 # ------------------------------------------------------------------ hành lang (ngoài tường cửa, x < 0)
@@ -368,9 +368,9 @@ def hallway(m, coll, night):
     # tường dọc hành lang (các phòng khác) + cửa phòng bên cạnh
     wall = m['tuong']; lo = m['tuong_duoi']
     box('tuong_hl_a', ex - 0.0, 0.0, Y0, 0.0, -0.1, H, wall, coll=coll)  # nối góc sau của phòng Nam
-    box('tuong_hl_b', ex, 0.0, D, Y1, -0.1, H, wall, coll=coll)
+    box('tuong_hl_b', ex, 0.0, D + T, Y1, -0.1, H, wall, coll=coll)  # từ sau góc trước (tránh trùng mặt với tuong_truoc_goc_trai → vệt đen)
     box('tuong_hl_a_duoi', ex - 0.004, ex, Y0, 0.0, 0, 1.1, lo, coll=coll)
-    box('tuong_hl_b_duoi', ex - 0.004, ex, D, Y1, 0, 1.1, lo, coll=coll)
+    box('tuong_hl_b_duoi', ex - 0.004, ex, D + T, Y1, 0, 1.1, lo, coll=coll)
     box('tuong_hl_ngoai_phong_nam_duoi', ex - 0.004, ex, 0, DOOR['y0'], 0, 1.1, lo, coll=coll)
     box('tuong_hl_ngoai_phong_nam_duoi2', ex - 0.004, ex, DOOR['y1'], D, 0, 1.1, lo, coll=coll)
     for nm, a in [('cua_phong_b', 4.35), ('cua_phong_c', 6.55)]:
@@ -386,9 +386,9 @@ def hallway(m, coll, night):
     box('lancan_thap', X0, X0 + 0.14, Y0, Y1, 0.0, 0.5, m['tuong'], bevel=0.008, coll=coll)
     box('lancan_tay_vin', X0 - 0.01, X0 + 0.15, Y0, Y1, 1.0, 1.04, m['thep'], bevel=0.006, coll=coll)
     for i in range(int((Y1 - Y0) / 0.13)):
-        cyl(f'lc_song{i}', X0 + 0.07, Y0 + 0.07 + i * 0.13, 0.77, 0.009, 0.5, m['thep'], coll=coll)
+        cyl(f'lc_song{i}', X0 + 0.07, Y0 + 0.07 + i * 0.13, 0.75, 0.009, 0.5, m['thep'], coll=coll)
     for i in range(6):
-        box(f'lc_tru{i}', X0, X0 + 0.14, Y0 + i * 2.0, Y0 + i * 2.0 + 0.1, 0.5, 1.04, m['tuong'], bevel=0.005, coll=coll)
+        box(f'lc_tru{i}', X0, X0 + 0.14, Y0 + i * 2.0, Y0 + i * 2.0 + 0.1, 0.5, 1.0, m['tuong'], bevel=0.005, coll=coll)
     # cầu thang xuống (y < Y0): 12 bậc 0,28 × 0,17, thành thang hai bên
     for i in range(14):
         box(f'bac{i}', X0 + 0.14, ex, Y0 - 0.28 * (i + 1), Y0 - 0.28 * i, -0.17 * (i + 1) - 0.06, -0.17 * i, m['gach_hl'], bevel=0.004, coll=coll)
@@ -400,8 +400,12 @@ def hallway(m, coll, night):
     box('den_tuyp_hl', -1.0, -0.4, 2.3, 2.34, H - 0.04, H - 0.01, m['den_tuyp_hl'], bevel=0.004, coll=coll)
     box('den_tuyp_hl2', -1.0, -0.4, 7.2, 7.24, H - 0.04, H - 0.01, m['den_tuyp_hl'], bevel=0.004, coll=coll)
     # đồ phơi + chậu cây + giày dép đặt dọc hành lang
-    cyl('chau_cay', -1.15, 5.2, 0.14, 0.15, 0.28, M.solid('chau', '#b0605a', 0.6), coll=coll)
-    sphere('cay_la', -1.15, 5.2, 0.5, 0.2, m['cay'], scale=(1, 1, 1.2), coll=coll)
+    cyl('chau_cay', -1.15, 5.2, 0.16, 0.15, 0.3, M.solid('chau', '#b0605a', 0.6), coll=coll, bevel=0.012)
+    cyl('dat_chau', -1.15, 5.2, 0.31, 0.13, 0.02, M.solid('dat', '#5a4a3a', 0.95), coll=coll, smooth=False)
+    import random; rnd = random.Random(7)
+    for i in range(11):
+        a = rnd.uniform(0, 6.283); r = rnd.uniform(0.0, 0.12); h = 0.46 + rnd.uniform(0.0, 0.2)
+        sphere(f'la{i}', -1.15 + r * math.cos(a), 5.2 + r * math.sin(a), h, rnd.uniform(0.08, 0.12), m['cay'], scale=(1.0, 1.0, 0.55), coll=coll)
     for i in range(3):
         box(f'giay{i}', -0.45, -0.25, 4.7 + i * 0.22, 4.86 + i * 0.22, 0.0, 0.08, M.solid('giay_hl', '#8a8783', 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(10 * i)))
     # ---- ngoại cảnh: sân dưới (z = −2,4), dãy trọ đối diện, bầu trời
@@ -429,9 +433,9 @@ def world_and_lights(mode, coll):
         sun.rotation_euler = mrot((math.radians(0), math.radians(-52), math.radians(-12)))  # từ +x chiếu vào −x, hơi dốc xuống
         _link(sun, coll)
     else:
-        bg.inputs['Color'].default_value = M._hex('#0b1226'); bg.inputs['Strength'].default_value = 0.12
+        bg.inputs['Color'].default_value = M._hex('#243456'); bg.inputs['Strength'].default_value = 0.55
         bpy.ops.object.light_add(type='SUN', location=(8, 2, 6)); mo = bpy.context.object; mo.name = 'trang'
-        mo.data.energy = 0.12; mo.data.color = M._hex('#6f8fd6')[:3]; mo.rotation_euler = mrot((0, math.radians(-40), math.radians(-12))); _link(mo, coll)
+        mo.data.energy = 0.6; mo.data.color = M._hex('#6f8fd6')[:3]; mo.rotation_euler = mrot((0, math.radians(-40), math.radians(-12))); _link(mo, coll)
 
 
 def add_area(name, loc, size, energy, color, rot=(0, 0, 0), shape='RECTANGLE', size_y=None, coll=None):
@@ -480,17 +484,17 @@ def add_camera(name, mm=28, w=1280, h=536):
     return ob
 
 
-def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536)):
+def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     coll = bpy.data.collections.new('Phong_tro_3D'); sc.collection.children.link(coll)
     m = make_materials()
     m['man_hinh'] = M.emission('man_hinh', '#a9dcff' if mode == 'night' else '#7e8d9a', 6.0 if mode == 'night' else 0.9)
-    m['den_tuyp'] = M.emission('den_tuyp', '#fff6e0', 0.0 if mode == 'night' else 0.15)
+    m['den_tuyp'] = M.solid('den_tuyp_tat', '#f4f1e6', 0.35)  # đèn tuýp trần đang tắt: sứ mờ, không đen
     m['den_tuyp_hl'] = M.emission('den_tuyp_hl', '#fff1d6', 14.0 if mode == 'night' else 2.5)
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
-    shell(m, coll, door_open, cutaway=(cam in ('TOP',))); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
-    mirror(m, coll); clutter(m, coll); lights_fixture(m, coll); hallway(m, coll, mode == 'night')
+    shell(m, coll, door_open, cutaway=(cam in ('TOP',)), hide_front=(CAMERAS[cam][0][1] > D)); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
+    mirror(m, coll); clutter(m, coll, dep_san=dep_san); lights_fixture(m, coll); hallway(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
     co = add_camera(cam); sc.camera = co
     sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 96; sc.cycles.use_denoising = True
@@ -506,9 +510,9 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--mode', default='day'); ap.add_argument('--cam', default='WIDE'); ap.add_argument('--out', default='/tmp/phong_tro.png')
     ap.add_argument('--blend', default=''); ap.add_argument('--door', type=float, default=10.0); ap.add_argument('--chair-rot', type=float, default=0.0)
-    ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
+    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
     a = ap.parse_args(argv)
-    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)))
+    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san)
     sc.cycles.samples = a.samples
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=a.blend)
     if not a.no_render:

@@ -15,7 +15,7 @@ python3.11 -m venv v && v/bin/pip install bpy          # Blender dạng module P
 v/bin/python xay_phong_tro.py --mode night --cam DESK --out desk_night.png
 v/bin/python xay_phong_tro.py --mode day --cam WIDE --blend phong.blend --no-render   # lưu .blend để mở trong Blender
 ```
-Tham số: `--mode day|night`, `--cam WIDE|DESK|BED|DOOR|KITCHEN|HALL|HALL_DOOR|TOP|LOW`, `--door <độ mở cửa>`, `--chair-rot <rad>`, `--samples`, `--width`.
+Tham số: `--mode day|night`, `--cam WIDE|DESK|BED|DOOR|KITCHEN|HALL|HALL_DOOR|TOP|LOW`, `--door <độ mở cửa>`, `--chair-rot <rad>`, `--dep-san` (bật đôi dép trên sàn, chỉ dùng cho cảnh không có người), `--samples`, `--width`.
 Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2 phút/ảnh 1280 px ở 64 mẫu (4 lõi).
 
 ## Quy ước
@@ -26,6 +26,16 @@ Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2
 - Hành lang chạy dọc ngoài tường cửa (rộng 1,3 m, lan can song sắt, mái hiên, đèn tuýp), cầu thang 14 bậc xuống sân ở đầu sau, hai cửa phòng bên cạnh, dãy trọ đối diện 3 tầng, toà nhà xa. Đóng kín 360° cho camera tự do (phòng có đủ 4 tường, trần, ngoại cảnh ngoài cửa sổ và hành lang).
 - **Ánh sáng:** ngày = mặt trời qua cửa sổ + trời; đêm = **laptop xanh 6500K** (`LAPTOP_LIGHT`, nguồn chính) + đèn tuýp hành lang ấm. Đèn tuýp phòng tắt ban đêm. Không còn mảng sáng/bóng vẽ tay.
 - Điểm neo thật cho nhân vật 3D: `ANCHORS` trong script; ghế làm việc ở `SEAT`.
+
+## Đã sửa (lượt 12/11 chiều)
+- **Vệt đen trên trần/tường (TOP, HALL_DOOR_night):** thanh đèn tuýp trần được tô màu đen khi tắt (vật liệu phát sáng có cường độ 0); nay là sứ mờ. Nắp đèn trùng mặt đáy trần đã bỏ, đèn lùi xuống 5 cm dưới trần. Tường hành lang từ góc trước trùng mặt với tường góc gây z-fighting; nay tường bắt đầu sau góc.
+- **Vệt đen ngang tường bếp:** thanh viền 1,1 m trùng mặt với các viên gạch ốp; gạch nay đứng trước viền, nền gạch lùi sau.
+- **Khoảng trống ngoài phòng (BED):** tường trước chỉ ẩn khi camera ở phía ngoài phòng (y > 4 m). Camera trong phòng thấy đủ bốn tường.
+- **Lan can hành lang:** trụ dừng dưới mặt tay vịn, song sắt không xuyên qua tay vịn (hết ô vuông đen).
+- **Nệm:** đầu giường (gối) chuyển về phía trong phòng, không còn ngay lối cửa; chăn trải không che gối.
+- **Trời đêm:** nền trời xanh đêm nhẹ thay vì đen đặc.
+- **Cây trong chậu hành lang:** chậu thon có mép, đất, và các lá là khối cầu dẹt.
+- **Dép:** mặc định không đặt trên sàn; Nam sẽ mang dép trên chân.
 
 ## Đã có / chưa có
 - Có: vỏ phòng, cửa (mở được, then sắt gỉ, tay nắm), cửa sổ (kính, song sắt, rèm nếp), bếp (chậu, vòi, giá đĩa, kệ cốc), tủ quần áo mở, bàn học (hộc kéo, giá sách, laptop, đèn bàn), ghế (xoay được `--chair-rot`), nệm đôi (gối, chăn), quạt đứng, gương đứng, bình nước, carton, chổi, thùng, dép, bát; hành lang đầy đủ; ngày và đêm.
