@@ -47,3 +47,4 @@ Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2
 - Camera mới: `HALL_FACE` (nhìn về cửa phòng Nam), `HALL_END`, `HALL_STAIR`. Ảnh trong `xem-thu/`.
 - Ban đêm: dãy trọ đối diện có cửa sổ sáng/tắt xen kẽ, rèm, vài bóng người, ánh hắt vào hành lang; chao đèn tuýp hành lang; trời có chuyển sắc.
 - Chưa làm: chuyển động (đồ phơi lay, người đi lại), âm thanh.
+- Hành lang dài 36,6 m (`HL_Y1`): lặp cửa phòng mỗi 2,2 m, đèn/dầm mái mỗi 4,9 m, cụm đồ (kệ giày, dây phơi, chậu cây) mỗi 9,6 m (`_repeat`), dãy trọ đối diện kéo dài theo. Camera `HALL_LONG` nhìn dọc toàn bộ. Đổi độ dài bằng `HL_Y1`.

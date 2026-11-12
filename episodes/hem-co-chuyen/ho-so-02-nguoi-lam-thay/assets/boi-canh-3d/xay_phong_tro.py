@@ -15,6 +15,7 @@ sys.path.insert(0, __import__('os').path.dirname(__import__('os').path.abspath(_
 import vat_lieu as M
 
 W, D, H, T = 3.0, 4.0, 2.8, 0.12
+HL_Y1 = 36.0  # hành lang dài 36,6 m (lặp mô-đun cửa/đèn/đồ đạc để có chiều dài cho cảnh đi, đuổi)
 DOOR = dict(y0=2.05, y1=2.90, top=2.10)      # cửa chính 0,85 × 2,10 m trên tường x = 0
 WIN = dict(y0=0.75, y1=2.00, z0=0.95, z1=2.05)  # cửa sổ trên tường x = W
 SEAT = dict(x=2.48, y=0.98)                    # chỗ ghế làm việc
@@ -399,10 +400,20 @@ def lights_fixture(m, coll):
 
 
 # ------------------------------------------------------------------ hành lang (ngoài tường cửa, x < 0)
+def _repeat(coll, before, y1, period=9.6, start=0.0):
+    """Nhân bản các vật vừa tạo (so với `before`) dọc hành lang mỗi `period` mét cho tới y1."""
+    new = [o for o in coll.objects if o not in before]
+    k = 1
+    while start + period * k < y1 - 1.0:
+        for o in new:
+            c = o.copy(); c.name = f'{o.name}_r{k}'; c.location.y += period * k; coll.objects.link(c)
+        k += 1
+
+
 def hallway(m, coll, night):
     ex = -T  # mặt ngoài tường cửa
     X0 = -1.45  # mép ngoài lan can
-    Y0, Y1 = -0.6, 9.5  # hành lang chạy dọc y; cầu thang xuống ở y < Y0
+    Y0, Y1 = -0.6, HL_Y1  # hành lang chạy dọc y; cầu thang xuống ở y < Y0
     box('san_hl', X0, ex, Y0, Y1, -0.1, 0.0, m['gach_hl'], coll=coll)
     box('mai_hl', X0 - 0.15, ex, Y0 - 1.3, Y1, H, H + 0.12, m['tran'], coll=coll)
     # tường dọc hành lang (các phòng khác) + cửa phòng bên cạnh
@@ -413,7 +424,7 @@ def hallway(m, coll, night):
     box('tuong_hl_b_duoi', ex - 0.004, ex, D + T, Y1, 0, 1.1, lo, coll=coll)
     box('tuong_hl_ngoai_phong_nam_duoi', ex - 0.004, ex, 0, DOOR['y0'], 0, 1.1, lo, coll=coll)
     box('tuong_hl_ngoai_phong_nam_duoi2', ex - 0.004, ex, DOOR['y1'], D, 0, 1.1, lo, coll=coll)
-    for nm, a in [('cua_phong_b', 4.35), ('cua_phong_c', 6.55)]:
+    for nm, a in [(f'cua_phong_{k}', 4.35 + 2.2 * k) for k in range(int((Y1 - 5.5) / 2.2))]:
         box(nm + '_khuon', ex - 0.03, ex + 0.02, a - 0.06, a + 0.91, 0, 2.16, m['viền'], bevel=0.004, coll=coll)
         box(nm, ex - 0.04, ex - 0.0, a, a + 0.85, 0, 2.10, m['cua'], bevel=0.006, coll=coll)
         box(nm + '_tay', ex - 0.07, ex - 0.04, a + 0.07, a + 0.11, 1.0, 1.03, m['inox'], bevel=0.005, coll=coll)
@@ -427,7 +438,7 @@ def hallway(m, coll, night):
     box('lancan_tay_vin', X0 - 0.01, X0 + 0.15, Y0, Y1, 1.0, 1.04, m['thep'], bevel=0.006, coll=coll)
     for i in range(int((Y1 - Y0) / 0.13)):
         cyl(f'lc_song{i}', X0 + 0.07, Y0 + 0.07 + i * 0.13, 0.75, 0.009, 0.5, m['thep'], coll=coll)
-    for i in range(6):
+    for i in range(int((Y1 - Y0) / 2.0) + 1):
         box(f'lc_tru{i}', X0, X0 + 0.14, Y0 + i * 2.0, Y0 + i * 2.0 + 0.1, 0.5, 1.0, m['tuong'], bevel=0.005, coll=coll)
     # cầu thang xuống (y < Y0): 12 bậc 0,28 × 0,17, thành thang hai bên
     for i in range(14):
@@ -437,9 +448,10 @@ def hallway(m, coll, night):
     box('thanh_thang_phai', ex - 0.12, ex, Y0 - 0.28 * 14, Y0, -2.4, 1.1, m['tuong'], coll=coll)
     box('lancan_cau_thang', X0 - 0.01, X0 + 0.15, Y0 - 0.28 * 14, Y0, 1.0, 1.04, m['thep'], coll=coll, rot=(0, math.radians(0), 0))
     # đèn tuýp hành lang
-    box('den_tuyp_hl', -1.0, -0.4, 2.3, 2.34, H - 0.04, H - 0.01, m['den_tuyp_hl'], bevel=0.004, coll=coll)
-    box('den_tuyp_hl2', -1.0, -0.4, 7.2, 7.24, H - 0.04, H - 0.01, m['den_tuyp_hl'], bevel=0.004, coll=coll)
+    for k in range(int((Y1 - 2.3) / 4.9) + 1):
+        box(f'den_tuyp_hl{k}', -1.0, -0.4, 2.3 + 4.9 * k, 2.34 + 4.9 * k, H - 0.04, H - 0.01, m['den_tuyp_hl'], bevel=0.004, coll=coll)
     # đồ phơi + chậu cây + giày dép đặt dọc hành lang
+    _snap = set(coll.objects)
     cyl('chau_cay', -1.15, 5.2, 0.16, 0.15, 0.3, M.solid('chau', '#b0605a', 0.6), coll=coll, bevel=0.012)
     cyl('dat_chau', -1.15, 5.2, 0.31, 0.13, 0.02, M.solid('dat', '#5a4a3a', 0.95), coll=coll, smooth=False)
     import random; rnd = random.Random(7)
@@ -448,13 +460,14 @@ def hallway(m, coll, night):
         sphere(f'la{i}', -1.15 + r * math.cos(a), 5.2 + r * math.sin(a), h, rnd.uniform(0.08, 0.12), m['cay'], scale=(1.0, 1.0, 0.55), coll=coll)
     for i in range(3):
         box(f'giay{i}', -0.45, -0.25, 4.7 + i * 0.22, 4.86 + i * 0.22, 0.0, 0.08, M.solid('giay_hl', '#8a8783', 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(10 * i)))
+    _repeat(coll, _snap, Y1)
     # ---- ngoại cảnh: sân dưới (z = −2,4), dãy trọ đối diện, bầu trời
     box('san_duoi', -40, -1.6, -20, 30, -2.5, -2.4, M.tiles('san_duoi', '#b9b3a2', '#8c867a', 0.5), coll=coll)
     bx = -9.0
-    box('day_tro_doi_dien', -14, bx, -6, 20, -2.4, 7.6, M.mottled('tuong_doi_dien', '#d7c8a4', rough=0.95, scale=0.7, vary=0.12, bump=0.1), coll=coll)
+    box('day_tro_doi_dien', -14, bx, -6, HL_Y1 + 12, -2.4, 7.6, M.mottled('tuong_doi_dien', '#d7c8a4', rough=0.95, scale=0.7, vary=0.12, bump=0.1), coll=coll)
     for fl, zb in enumerate([-2.4, 0.4, 3.2]):  # 3 tầng, mỗi tầng một dãy cửa
-        box(f'ld_san{fl}', bx, bx + 1.3, -6, 20, zb - 0.1, zb, m['tuong'], coll=coll)
-        for i in range(9):
+        box(f'ld_san{fl}', bx, bx + 1.3, -6, HL_Y1 + 12, zb - 0.1, zb, m['tuong'], coll=coll)
+        for i in range(int((HL_Y1 + 12) / 2.5)):
             y = -4.5 + i * 2.5
             box(f'cua_dd{fl}_{i}', bx + 1.3 - 0.0, bx + 1.32, y, y + 0.85, zb, zb + 2.0, M.solid(f'cua_dd{fl}_{i}', ['#6d887c', '#8aa099', '#b7a98a'][i % 3], 0.6), coll=coll)
             if night:
@@ -469,18 +482,18 @@ def hallway(m, coll, night):
                 if r % 3 == 0:  # bóng người đứng sau cửa sổ
                     sphere(f'dd_dau{fl}_{i}', bx + 1.36, y + 1.6, zb + 1.62, 0.1, M.solid('dd_bong', '#1a1a1f', 0.9), coll=coll)
                     box(f'dd_than{fl}_{i}', bx + 1.34, bx + 1.38, y + 1.45, y + 1.75, zb + 0.9, zb + 1.52, M.solid('dd_bong2', '#1a1a1f', 0.9), bevel=0.03, coll=coll)
-        box(f'ld_lancan{fl}', bx + 1.2, bx + 1.3, -6, 20, zb, zb + 1.0, m['tuong'], coll=coll)
+        box(f'ld_lancan{fl}', bx + 1.2, bx + 1.3, -6, HL_Y1 + 12, zb, zb + 1.0, m['tuong'], coll=coll)
     if night:
-        for k, (yy, zz) in enumerate([(2.0, 3.8), (7.5, 3.8), (4.5, 1.0), (10.0, 1.0)]):
+        for k, (yy, zz) in enumerate([(yy, zz) for yy in range(2, int(HL_Y1) + 4, 6) for zz in (3.8, 1.0)]):
             add_area(f'hat_dd{k}', (bx + 1.8, yy, zz), 1.6, 160, '#ffd9a0', rot=(0, math.radians(90), 0), coll=coll)
-        box('chao_den_hl', -1.04, -0.36, 2.28, 2.36, H - 0.06, H - 0.04, m['viền'], coll=coll)
-        box('chao_den_hl2', -1.04, -0.36, 7.18, 7.26, H - 0.06, H - 0.04, m['viền'], coll=coll)
+        for k in range(int((HL_Y1 - 2.3) / 4.9) + 1):
+            box(f'chao_den_hl{k}', -1.04, -0.36, 2.28 + 4.9 * k, 2.36 + 4.9 * k, H - 0.06, H - 0.04, m['viền'], coll=coll)
     box('phan_xa_toa_nha', -60, -20, -30, 60, -2.5, 22, M.mottled('toa_nha_xa', '#9aa3a6', rough=1.0, scale=0.3, vary=0.1, bump=0.0), coll=coll)
 
 
 def hallway_details(m, coll, night):
     """Chi tiết đời sống hành lang: dây điện, kệ giày, dây phơi, bình chữa cháy, bảng thông báo, đèn cửa, dầm mái."""
-    ex = -T; X0 = -1.45; Y0, Y1 = -0.6, 9.5
+    ex = -T; X0 = -1.45; Y0, Y1 = -0.6, HL_Y1
     dark = M.solid('day_dien', '#2a2a2a', 0.5); red = M.solid('binh_cc', '#b3362c', 0.45)
     paper = M.solid('giay_tb', '#efe9d8', 0.8); cork = M.solid('bang_tb', '#b78c5a', 0.9)
     # dây điện chạy dọc tường, kẹp mỗi 0,6 m, rẽ xuống hộp điện
@@ -489,12 +502,13 @@ def hallway_details(m, coll, night):
         box(f'kep_day{i}', ex - 0.016, ex, Y0 + 0.3 + i * 0.6, Y0 + 0.33 + i * 0.6, 2.50, 2.555, m['viền'], coll=coll)
     box('day_dien_xuong', ex - 0.012, ex, DOOR['y0'] - 0.4, DOOR['y0'] - 0.385, 1.75, 2.52, dark, coll=coll)
     # dầm mái ngang mỗi 2,4 m
-    for i in range(5):
+    for i in range(int((Y1 - Y0 - 1.2) / 2.4)):
         y = Y0 + 1.2 + i * 2.4
         box(f'dam_mai{i}', X0 - 0.15, ex, y, y + 0.18, H - 0.2, H, m['tuong'], bevel=0.006, coll=coll)
     # bóng đèn cầu chì trên cửa phòng Nam
     cyl('den_cua_de', -0.2, 2.47, H - 0.08, 0.03, 0.05, m['inox'], coll=coll)
     sphere('den_cua', -0.2, 2.47, H - 0.16, 0.06, m['den_tuyp_hl'], coll=coll)
+    _snap = set(coll.objects)
     # kệ giày cạnh cửa phòng Nam (y 3.1–3.8), 2 tầng
     for k, z in enumerate([0.0, 0.32]):
         box(f'ke_giay{k}', ex - 0.30, ex - 0.02, 3.1, 3.8, z + 0.02, z + 0.04, m['go_ban'] if 'go_ban' in m else M.solid('ke_giay', '#8a6a46', 0.7), bevel=0.004, coll=coll)
@@ -524,6 +538,7 @@ def hallway_details(m, coll, night):
     cyl('xo_nuoc', -0.35, 4.1, 0.14, 0.12, 0.28, M.solid('xo_nuoc', '#4f86b5', 0.5), coll=coll, bevel=0.01)
     cyl('chau_nhua', -0.62, 4.0, 0.06, 0.22, 0.12, M.solid('chau_nhua', '#d9806a', 0.5), coll=coll, bevel=0.01)
     cyl('choi_hl', ex - 0.06, 3.95, 0.7, 0.01, 1.4, M.solid('choi_hl', '#8a6a46', 0.7), coll=coll, rot=(0, math.radians(4), 0))
+    _repeat(coll, _snap, Y1)
     # vết ố chân tường + rãnh thoát nước sát lan can
     box('o_chan_tuong', ex - 0.006, ex, Y0, Y1, 0.0, 0.07, M.solid('o_chan', '#a89f8a', 0.9), coll=coll)
     box('ranh_nuoc', X0 + 0.14, X0 + 0.22, Y0, Y1, 0.0, 0.012, M.solid('ranh', '#8c8576', 0.8), coll=coll)
@@ -567,8 +582,8 @@ def lighting(mode, coll):
         # nguồn chính ban đêm: màn hình laptop xanh lạnh 6500K (LAPTOP_LIGHT) + đèn tuýp hành lang ấm 4000K; đèn tuýp phòng tắt
         add_area('laptop_sang', (2.66, 0.20, 0.95), 0.3, 55, '#8fd0ff', rot=(math.radians(-80), 0, 0), size_y=0.2, coll=coll)
         add_area('hat_laptop_chan', (2.5, 0.5, 0.78), 0.8, 8, '#8fd0ff', rot=(0, 0, 0), coll=coll)
-    add_area('tuyp_hanh_lang_1', (-0.7, 2.32, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
-    add_area('tuyp_hanh_lang_2', (-0.7, 7.22, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
+    for k in range(int((HL_Y1 - 2.3) / 4.9) + 1):
+        add_area(f'tuyp_hanh_lang_{k}', (-0.7, 2.32 + 4.9 * k, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
 
 
 CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
@@ -582,6 +597,7 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'HALL_FACE': ((-1.3, 0.2, 1.5), (-0.05, 3.6, 1.2), 22),  # nhìn dọc hành lang về cửa phòng Nam từ phía cầu thang
     'HALL_STAIR': ((-0.7, 1.4, 1.6), (-0.7, -1.6, 0.2), 24),
     'HALL_END': ((-0.7, 0.1, 1.55), (-0.75, 9.0, 1.4), 22),
+    'HALL_LONG': ((-0.75, 0.3, 1.5), (-0.75, 36.0, 1.4), 28),  # trục dài toàn hành lang
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
     'LOW': ((1.0, 3.7, 0.35), (2.2, 0.6, 1.0), 24),
 }
