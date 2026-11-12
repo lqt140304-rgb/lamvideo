@@ -21,7 +21,7 @@ from mathutils import Vector, Matrix
 from mathutils.bvhtree import BVHTree
 
 C = Vector((0.0, 0.0, 1.25))                       # tâm hộp sọ
-HEAD = (0.210, 0.225, 0.215)                       # nửa rộng (x), nửa sâu (y), nửa cao (z): sọ chibi tròn bè, sâu gáy, không nhọn dài
+HEAD = (0.200, 0.198, 0.228)                       # nửa rộng (x), nửa sâu (y), nửa cao (z): sọ tròn đều, mặt không dẹt bè
 MOLE_SIDE = -1   # nốt ruồi theo ảnh mẫu: đuôi mày PHẢI nhân vật (−X, bên TRÁI ảnh chính diện). Đổi thành +1 nếu muốn đuôi mày trái.
 
 COL = {'da': '#df9668', 'toc': '#2a2928', 'trang': '#f3efe7', 'muc': '#1c1a19', 'khoang_mieng': '#4a1c1a', 'luoi': '#c2675f', 'rang': '#f4efe6'}
@@ -82,8 +82,9 @@ def head_cage():
         p.y -= 0.10 * low * front
         if h < -0.75: p.z = -0.75 + (h + 0.75) * 0.65                         # đáy cằm bầu, không nhọn
         p.y *= 1.0 - 0.06 * front * smooth01(-0.2, 0.6, h)                   # trán–mặt hơi phẳng phía trước, không hốc mắt sâu
-        p.y *= 1.0 + 0.20 * smooth01(0.0, 0.8, w) * math.exp(-((h + 0.05) / 0.6) ** 2)   # chẩm sau đầu phồng tròn lẳn, ôm xuống cổ
-        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.025 * low * front, p.z * HEAD[2])) + C   # cằm dưới đẩy ra trước 2,5 cm: cong môi–cằm rõ khi nhìn nghiêng
+        p.y *= 1.0 + 0.08 * smooth01(0.0, 0.8, w) * math.exp(-((h + 0.05) / 0.6) ** 2)   # chẩm sau đầu cầu tròn, dốc ôm xuống cổ (không nhô dài)
+        vong = math.exp(-((h + 0.45) / 0.33) ** 2) * front                    # nửa dưới mặt (dưới mắt → cằm) vồng tròn ra trước
+        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.025 * low * front - 0.022 * vong, p.z * HEAD[2])) + C   # cụm môi–mũi–cằm vồng ra trước 2,2 cm, cằm cong chữ U dưới môi
     return bm
 
 
@@ -205,7 +206,7 @@ def build_face(coll, M, head):
     # mũi: khối bầu tròn nhỏ nhô nhẹ
     p, n = S.front(0.0, C.z - 0.068); no = uv_sphere('Nose', coll, M['da'], (32, 20)); place(no, p - n * 0.011, frame(n, 0.7), (0.035, 0.030, 0.031)); subsurf(no, 1, 1)
     # miệng: khoét hốc (Boolean) + khoang tối + răng trên + lưỡi + viền môi cực mảnh màu da
-    p, n = S.front(0.0, C.z - 0.135); R3 = frame(n, 0.8); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]
+    p, n = S.front(0.0, C.z - 0.142); p = p + n * 0.002   # miệng nhô nhẹ theo độ vồng môi; R3 = frame(n, 0.8); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]
     cut = uv_sphere('Mouth_Cutter', coll, None, (24, 16)); place(cut, p, R3, (0.021, 0.026, 0.021)); cut.display_type = 'WIRE'; cut.hide_render = True
     cav = uv_sphere('Mouth_Cavity', coll, M['khoang'], (24, 16)); place(cav, p + Y * 0.014, R3, (0.024, 0.019, 0.023))
     te = uv_sphere('Teeth', coll, M['rang'], (20, 10)); place(te, p + Y * 0.005 + Z * 0.0135, R3, (0.0145, 0.005, 0.0045))
@@ -252,22 +253,23 @@ def build_hair(coll, M, cage, S):
         c = f.calc_center_median() - C; az = math.degrees(math.atan2(c.x, -c.y)); el = math.degrees(math.asin(max(-1, min(1, c.z / c.length))))
         if el < hairline_el(az): kill.append(f)
     bmesh.ops.delete(bm, geom=kill, context='FACES')
-    for v in bm.verts:   # nở 1,02× + phồng thêm ở đỉnh và sau đầu cho khối tóc đầy
+    for v in bm.verts:   # nở 1,02× + phồng thêm ở đỉnh cho khối tóc đầy
         d = v.co - C; up = max(0.0, d.z / HEAD[2]); back = max(0.0, d.y / HEAD[1])
-        v.co = C + Vector((d.x * (1.02 + 0.06 * up), d.y * (1.02 + 0.07 * up + 0.10 * back), d.z * (1.02 + 0.10 * up)))
+        v.co = C + Vector((d.x * (1.02 + 0.06 * up), d.y * (1.02 + 0.07 * up), d.z * (1.02 + 0.10 * up)))   # không nở thêm phía sau gáy
     cap = new_obj('Hair_Cap', bm, coll, M['toc'])
     so = cap.modifiers.new('Solidify', 'SOLIDIFY'); so.thickness = 0.022; so.offset = 1.0; so.use_rim = True
     subsurf(cap, 2, 2)
     nref = lambda c: (c - C).normalized()
-    def lobe(name, path, W, off=(0.012, 0.042, 0.030)):
+    def lobe(name, path, W, off=None):
+        off = off or ((0.010, 0.024, 0.020, 0.012) if len(path) == 4 else (0.012, 0.042, 0.030))   # bám sát độ cong trán, không dựng như răng lược
         pts = [S.at(az, el, o)[0] for (az, el), o in zip(path, off)]
         return sweep(name, coll, pts, drop_w(W), lambda u, W=W: drop_w(W)(u) * 0.5, nref, M['toc'], 40, 24)
     # mái: lọn giọt nước dẹt, gốc chìm vào mũ tóc, thân đầy, ngọn bo tròn, uốn chéo sang phải màn hình (+X)
-    lobe('Hair_Lobe.1', [(-38, 64), (-8, 46), (16, 30)], 0.066)
-    lobe('Hair_Lobe.2', [(-12, 68), (14, 48), (36, 32)], 0.064)
-    lobe('Hair_Lobe.3', [(14, 66), (38, 48), (56, 34)], 0.060)
-    lobe('Hair_Lobe.4', [(-62, 60), (-52, 48), (-38, 39)], 0.054)
-    lobe('Hair_Lobe.5', [(42, 62), (62, 46), (76, 34)], 0.056)
+    lobe('Hair_Lobe.1', [(-36, 70), (-16, 56), (4, 44), (20, 34)], 0.072)
+    lobe('Hair_Lobe.2', [(-10, 72), (10, 58), (28, 46), (42, 36)], 0.070)
+    lobe('Hair_Lobe.3', [(16, 70), (36, 58), (52, 46), (64, 37)], 0.064)
+    lobe('Hair_Lobe.4', [(-64, 66), (-58, 55), (-50, 47), (-44, 42)], 0.056)   # chừa khoảng trán lộ nốt ruồi
+    lobe('Hair_Lobe.5', [(44, 68), (62, 56), (76, 46), (86, 38)], 0.058)
     for s, k in ((1, 'L'), (-1, 'R')):   # cánh tóc thái dương vểnh nhẹ ra ngoài
         lobe(f'Hair_Wing.{k}', [(s * 72, 48), (s * 90, 32), (s * 100, 22)], 0.052, (0.014, 0.042, 0.050))
     # chỏm xoắn: Bézier + Bevel, giữa phình to, uốn cong vòng về trước, ngọn tròn dày
