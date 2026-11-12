@@ -7,9 +7,21 @@
 // (Bản toon đầu tiên giữ ở `nam-3d-toon.js` để so sánh.)
 
 export const NAM_COLORS = {
-  skin: '#e9a87b', skinDeep: '#c98762', lip: '#c47a62', hair: '#2a2928', shirt: '#6f6c6a', pants: '#333332',
+  skin: '#e9a87b', skinDeep: '#c98762', lip: '#c47a62', hair: '#2a2928', shirt: '#6f6c6a', pants: '#424140', pantsHem: '#383736',
   slippers: '#2d4a3b', sole: '#22302a', ink: '#1c1a19', eyeWhite: '#f3efe7', mouthIn: '#5e2724', tongue: '#c2675f', teeth: '#f4efe6',
 };
+
+/** Tham số khung mẫu: mọi số chỉnh được đặt ở đây; nhân vật mới chỉ cần ghi đè nhóm cần đổi (khung xương và tên khớp giữ nguyên). */
+export const NAM_SPEC = {
+  colors: NAM_COLORS,
+  head: { RX: 20.5, RY: 24.0, RZ: 21.0, HC: 22.0 },                       // bán kính sọ; tâm sọ cao HC trên cằm
+  eye: { x: 8.6, y: -1.4, w: 6.0, h: 5.8, lidTH: 0.35 },                   // lidTH: góc phủ mí trên (× π)
+  mouth: { inner: [2.5, 2.4, 1.2], lip: [2.65, 2.55, 1], teeth: [1.9, 0.6, 0.45], tongue: [1.6, 0.9, 0.5] }, // miệng chữ o nhỏ
+  arm: { upper: [5.5, 5.2], fore: [5.2, 4.3], elbow: 5.2, wrist: 4.2, upperLen: 18, foreLen: 15,
+         sleeve: { top: 7.6, bottom: 8.8, len: 11.5, flare: 0.09, hem: 8.6 } }, // bán kính liên tục 5.5 → 5.2 → 4.3, không ngấn khuỷu
+  hair: { HS: { kx: 1.05, ky: 0.92, kz: 1.06, dy: 2.5 }, base: 1.17, back: 0.12, nape: -0.75, napeFrom: 1.6, napeTo: 2.35 },
+};
+const mergeSpec = (base, over = {}) => Object.fromEntries(Object.keys({ ...base, ...over }).map((k) => [k, (base[k] && typeof base[k] === 'object' && !Array.isArray(base[k])) ? mergeSpec(base[k], over[k]) : (over[k] ?? base[k])]));
 
 /** Chiều dài chân (cm) cho động tác: hông → gối → cổ chân. */
 export const LEG = { thigh: 15, shin: 14.5 };
@@ -54,8 +66,9 @@ export function tube(THREE, pts, r, { seg = 32, rad = 16 } = {}) {
   return g;
 }
 
-export function buildNam(THREE, { colors = {} } = {}) {
-  const C = { ...NAM_COLORS, ...colors }, mats = {};
+/** Khung nhân vật dùng chung. Tên khớp cố định: hips, spine, chest, neck, head, shoulder/elbow/wrist L|R, hip/knee/ankle L|R. */
+export function createBaseCharacter(THREE, spec = {}) {
+  const sp = mergeSpec(NAM_SPEC, spec), C = sp.colors, mats = {};
   const M = (hex, rough = 0.78, extra = {}) => (mats[hex + rough] ||= new THREE.MeshStandardMaterial({ color: hex, roughness: rough, metalness: 0, ...extra }));
   const mesh = (geo, mat, parent, at = [0, 0, 0], rot = [0, 0, 0], scl = [1, 1, 1]) => {
     const m = new THREE.Mesh(geo, mat); m.position.set(...at); m.rotation.set(...rot); m.scale.set(...scl);
@@ -92,16 +105,17 @@ export function buildNam(THREE, { colors = {} } = {}) {
   for (const k of ['L', 'R']) {
     const s = k === 'L' ? 1 : -1;
     mesh(sph(8.2), shirtM, J['shoulder' + k], [-1.8 * s, -2.0, 0], [0, 0, 0], [0.92, 0.85, 0.9]);             // vai tròn
-    mesh(new THREE.CylinderGeometry(7.6, 8.3, 11, 40), shirtM, J['shoulder' + k], [0.4 * s, -7.5, 0], [0, 0, 0.06 * s]); // tay áo rộng
-    mesh(new THREE.TorusGeometry(8.1, 0.55, 10, 48), M('#676462', 0.95), J['shoulder' + k], [0.75 * s, -13, 0], [Math.PI / 2, 0.06 * s, 0]);
-    mesh(new THREE.CylinderGeometry(7.6, 7.6, 0.4, 32), M('#3f3d3c', 0.95), J['shoulder' + k], [0.75 * s, -12.95, 0], [0, 0, 0.06 * s]);
+    const SL = sp.arm.sleeve;
+    mesh(new THREE.CylinderGeometry(SL.top, SL.bottom, SL.len, 40), shirtM, J['shoulder' + k], [0.5 * s, -(1.75 + SL.len / 2), 0], [0, 0, SL.flare * s]); // tay áo xòe, rủ thoải mái
+    mesh(new THREE.TorusGeometry(SL.hem, 0.55, 10, 48), M('#676462', 0.95), J['shoulder' + k], [(0.5 + SL.len / 2 * Math.sin(SL.flare)) * s, -(1.75 + SL.len) , 0], [Math.PI / 2, SL.flare * s, 0]);
+    mesh(new THREE.CylinderGeometry(SL.hem - 0.2, SL.hem - 0.2, 0.4, 32), M('#3f3d3c', 0.95), J['shoulder' + k], [(0.5 + SL.len / 2 * Math.sin(SL.flare)) * s, -(1.75 + SL.len) + 0.05, 0], [0, 0, SL.flare * s]);
     // tay: bắp tay, cẳng tay mập
     // tay liền mạch: thân ống cùng bán kính tại khuỷu + một khối cầu chung đúng tâm khớp, không đổi bán kính ở chỗ nối (hết ngấn thắt)
-    const R_ELBOW = 5.5;
-    mesh(new THREE.CylinderGeometry(R_ELBOW, R_ELBOW, 16.5, 40, 1, true), skinM, J['shoulder' + k], [0, -9.75, 0]);          // bắp tay: vai → khuỷu
-    mesh(sph(R_ELBOW, 40, 28), skinM, J['elbow' + k], [0, 0, 0]);                                                         // khớp khuỷu
-    mesh(new THREE.CylinderGeometry(R_ELBOW, 4.7, 15, 40, 1, true), skinM, J['elbow' + k], [0, -7.5, 0]);                  // cẳng tay thon dần về cổ tay
-    mesh(sph(4.7, 32, 24), skinM, J['wrist' + k], [0, 0, 0]);
+    const AR = sp.arm;
+    mesh(new THREE.CylinderGeometry(AR.upper[0], AR.upper[1], AR.upperLen, 40, 1, true), skinM, J['shoulder' + k], [0, -AR.upperLen / 2, 0]); // bắp tay: vai → khuỷu
+    mesh(sph(AR.elbow, 40, 28), skinM, J['elbow' + k], [0, 0, 0]);                                                                          // khớp khuỷu (bằng bán kính đáy bắp tay và đỉnh cẳng tay)
+    mesh(new THREE.CylinderGeometry(AR.fore[0], AR.fore[1], AR.foreLen, 40, 1, true), skinM, J['elbow' + k], [0, -AR.foreLen / 2, 0]);        // cẳng tay thon dần về cổ tay
+    mesh(sph(AR.wrist, 32, 24), skinM, J['wrist' + k], [0, 0, 0]);
     // bàn tay tròn: lòng bàn tay + 4 ngón cong + ngón cái
     const H = J['wrist' + k]; H.scale.setScalar(1.25);
     mesh(sph(1), skinM, H, [0, -4.4, 0.3], [0, 0, 0], [3.4, 5.0, 4.6]);
@@ -120,7 +134,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
     mesh(new THREE.CylinderGeometry(9.2, 9.3, LEG.thigh, 40, 1, true), pantsM, J['hip' + k], [0, -LEG.thigh / 2, 0]);
     mesh(sph(9.2), pantsM, J['knee' + k], [0, 0, 0]);
     mesh(new THREE.CylinderGeometry(9.2, 9.6, 12.6, 40, 1, true), pantsM, J['knee' + k], [0, -6.3, 0]);
-    mesh(new THREE.TorusGeometry(9.5, 0.55, 10, 48), M('#2c2c2b', 0.95), J['knee' + k], [0, -12.6, 0], [Math.PI / 2, 0, 0]);
+    mesh(new THREE.TorusGeometry(9.5, 0.55, 10, 48), M(C.pantsHem, 0.95), J['knee' + k], [0, -12.6, 0], [Math.PI / 2, 0, 0]);
     mesh(new THREE.CylinderGeometry(9.2, 9.2, 0.4, 36), M('#151515', 0.95), J['knee' + k], [0, -12.55, 0]);
     // cổ chân, bàn chân mập, ngón
     const A = J['ankle' + k];
@@ -138,7 +152,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
 
   // ---------- cổ + đầu ----------
   mesh(cap(7.4, 4), skinM, J.neck, [0, 2.5, 0.4]);
-  const RX = 20.5, RY = 24.0, RZ = 21.0, HC = 22.0;            // bán kính sọ; tâm sọ cao HC trên cằm
+  const { RX, RY, RZ, HC } = sp.head;
   const head = new THREE.Group(); head.name = 'headShape'; head.position.set(0, HC, 0); J.head.add(head);
   const skullGeo = sph(1, 96, 72);
   {
@@ -168,7 +182,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
   };
 
   // mắt: viền đậm (khối tối lớn hơn phía sau) + tròng trắng + mí trên sụp + con ngươi nhỏ sát mí
-  const EYE = { x: 8.6, y: -1.4, w: 6.0, h: 5.2 };
+  const EYE = sp.eye;
   for (const s of [1, -1]) {
     const g = onFace(head, s * EYE.x, EYE.y, -1.4);
     g.rotateY(-s * 0.08);
@@ -176,7 +190,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
     mesh(sph(1), M(C.eyeWhite, 0.35), g, [0, 0, 0.2], [0, 0, 0], [EYE.w, EYE.h, 3.0]);
     // mí trên: chỏm cầu màu da phủ ~42% trên, mép mí là nét đậm
     const lid = new THREE.Group(); lid.position.set(0, 0, 0.32); lid.scale.set(EYE.w * 1.02, EYE.h * 1.02, 3.1); lid.rotation.set(0.18, 0, s * 0.05); g.add(lid);
-    const TH = Math.PI * 0.4;
+    const TH = Math.PI * EYE.lidTH;
     mesh(new THREE.SphereGeometry(1, 48, 18, 0, Math.PI * 2, 0, TH), M(C.skin, 0.6), lid);
     mesh(new THREE.TorusGeometry(Math.sin(TH), 0.085, 10, 64, Math.PI), inkM, lid, [0, Math.cos(TH), 0], [Math.PI / 2, 0, 0]);
     // con ngươi: chấm đen nhỏ ngay dưới mép mí, lệch nhẹ vào trong
@@ -196,10 +210,10 @@ export function buildNam(THREE, { colors = {} } = {}) {
     mesh(new THREE.TorusGeometry(1.5, 0.2, 8, 32, Math.PI * 1.1), inkM, g, [2.0, -0.4, 2.3], [0, 0.85, -Math.PI * 0.55]); }
   // miệng hé tròn: lòng miệng tối, răng trên, lưỡi, môi bo
   { const g = onFace(head, 0, -14.2, -0.6);
-    mesh(sph(1), M(C.mouthIn, 0.7), g, [0, 0, 0], [0, 0, 0], [3.3, 2.3, 1.2]);
-    mesh(sph(1, 24, 12), M(C.teeth, 0.4), g, [0, 1.4, 0.55], [0, 0, 0], [2.3, 0.6, 0.45]);
-    mesh(sph(1, 24, 12), M(C.tongue, 0.6), g, [0, -1.1, 0.5], [0, 0, 0], [2.1, 0.9, 0.5]);
-    mesh(new THREE.TorusGeometry(1, 0.17, 12, 64), M(C.lip, 0.6), g, [0, 0, 0.65], [0, 0, 0], [3.45, 2.45, 1]); }
+    mesh(sph(1), M(C.mouthIn, 0.7), g, [0, 0, 0], [0, 0, 0], sp.mouth.inner);
+    mesh(sph(1, 24, 12), M(C.teeth, 0.4), g, [0, 1.4, 0.55], [0, 0, 0], sp.mouth.teeth);
+    mesh(sph(1, 24, 12), M(C.tongue, 0.6), g, [0, -1.1, 0.5], [0, 0, 0], sp.mouth.tongue);
+    mesh(new THREE.TorusGeometry(1, 0.17, 12, 64), M(C.lip, 0.6), g, [0, 0, 0.65], [0, 0, 0], sp.mouth.lip); }
   // tai to
   for (const s of [1, -1]) {
     const { p } = surf(s * 30, -5.2, [-s, 0, 0]);
@@ -212,18 +226,18 @@ export function buildNam(THREE, { colors = {} } = {}) {
   // ---------- tóc ----------
   // Khối chính là một vỏ trơn đầy (như mẫu): mép mái lượn có mũi nhọn dừng trên mày, tóc mai xuống trước tai,
   // trên tai cắt gọn để lộ tai, sau gáy phủ thấp. Các mảng mỏng đắp lên tạo rãnh giữa các lọn.
-  const HS = { kx: 0.98, ky: 0.92, kz: 1.02, dy: 2.5 };
+  const HS = sp.hair.HS;
   const shell = (az, el, k = 1.18) => [Math.sin(az) * Math.cos(el) * RX * k * HS.kx, Math.sin(el) * RY * k * HS.ky + HS.dy, Math.cos(az) * Math.cos(el) * RZ * k * HS.kz];
   const TIPS = [[-0.8, 0.2], [-0.05, 0.2], [0.5, 0.12]];        // [phương vị, nửa bề rộng] các mũi mái: ngắn, bo tròn, chừa khoảng hở trái để lộ nốt ruồi
   const hairline = (az) => {                                     // độ cao chân tóc (tỉ lệ) theo phương vị quanh đầu
     const A = Math.abs(az);
     const fringe = 0.66 - TIPS.reduce((m, [t, w]) => Math.max(m, 0.21 * Math.sqrt(Math.max(0, 1 - ((az - t) / w) ** 2))), 0); // chân tóc cao hơn mày, mũi mái bo tròn (nửa elip)
-    const side = -0.3, nape = -0.6;
+    const side = -0.3, nape = sp.hair.nape;
     let v = fringe;
     v += (side - v) * smooth(0.92, 1.06, A);                     // tóc mai hẹp trước tai
     const overEar = 0.16 - 0.38 * smooth(1.25, 2.0, A);          // trên tai: cao ở trước tai rồi lượn mềm xuống sau tai (không cắt ngang)
     v += (overEar - v) * smooth(1.12, 1.26, A);
-    v += (nape - v) * smooth(2.0, 2.4, A);                       // sau gáy phủ thấp
+    v += (nape - v) * smooth(sp.hair.napeFrom, sp.hair.napeTo, A);                       // sau gáy phủ thấp
     return v;
   };
   // rãnh giữa các lọn: đường chéo trên mái (giữa các mũi) và vài rãnh toả từ đỉnh ra sau
@@ -237,7 +251,7 @@ export function buildNam(THREE, { colors = {} } = {}) {
       const up = smooth(-0.1, 0.9, y);
       const wing = Math.exp(-((y - 0.35) ** 2) / 0.04) * Math.exp(-((A - 1.1) ** 2) / 0.08);
       const back = smooth(1.6, 2.6, A) * Math.exp(-((y - 0.25) ** 2) / 0.25);
-      let k = 1.13 + 0.07 * up + 0.08 * wing + 0.08 * back + 0.08 * Math.exp(-((y - 0.55) ** 2) / 0.05) - 0.07 * smooth(0.78, 1, y) - 0.06 * smooth(0.25, -0.15, y) * smooth(0.7, 1.2, A); // đỉnh rộng bằng, hai bên dưới thu vào
+      let k = sp.hair.base + 0.07 * up + 0.08 * wing + sp.hair.back * back + 0.08 * Math.exp(-((y - 0.55) ** 2) / 0.05) - 0.07 * smooth(0.78, 1, y) - 0.06 * smooth(0.25, -0.15, y) * smooth(0.7, 1.2, A); // đỉnh rộng bằng, hai bên dưới thu vào
       for (const [g0, sw] of GROOVES) { const ag = g0 + sw * (y - hairline(g0)); k -= 0.04 * Math.exp(-(((az - ag) / 0.035) ** 2)) * smooth(line - 0.02, line + 0.12, y) * smooth(1.0, 0.75, y); }
       // mép tóc trơn: đỉnh dưới chân tóc dồn về đúng đường chân tóc, chìm vào trong; mép bo tròn dày
       if (y < line) { const ny = line - (line - y) * 0.03, r0 = Math.sqrt(Math.max(1e-6, 1 - y * y)), r1 = Math.sqrt(Math.max(0, 1 - ny * ny)); x *= r1 / r0; z *= r1 / r0; y = ny; k = 0.97; }
@@ -262,6 +276,8 @@ export function buildNam(THREE, { colors = {} } = {}) {
   lock([[-1.35, 1.0], [-1.1, 0.88], [-0.82, 0.76]], 5.2, 2.7);
   // hai cánh tóc nhô nhẹ ở thái dương
   for (const s of [1, -1]) lock([[s * 1.0, 0.86], [s * 1.28, 0.6], [s * 1.42, 0.38], [s * 1.46, 0.24]], 5.0, 3.0, 0.4);
+  // cánh tóc thái dương: lọn đối xứng vểnh nhẹ ra ngoài (nhìn rõ ở góc chính diện và sau lưng)
+  for (const s of [1, -1]) lock([[s * 1.05, 0.35, 1.2], [s * 1.2, 0.22, 1.28], [s * 1.3, 0.1, 1.36]], 4.6, 3.2, 0.4);
   // lọn xoắn trên đỉnh: dày hơn, cong vòng về trước–sang phải màn hình
   const top = shell(0.05, 1.36, 1.06);
   mesh(tube(THREE, [top, [top[0] + 0.3, top[1] + 4.4, top[2] + 0.2], [top[0] + 1.6, top[1] + 8.0, top[2] + 2.0], [top[0] + 4.2, top[1] + 9.6, top[2] + 5.0], [top[0] + 7.0, top[1] + 8.0, top[2] + 7.6], [top[0] + 7.4, top[1] + 5.0, top[2] + 7.0]],
@@ -288,3 +304,6 @@ function slab(THREE, w, d, h, r) {
   g.rotateX(-Math.PI / 2); g.computeVertexNormals();
   return g;
 }
+
+/** Tương thích: Nam là khung mẫu với thông số mặc định `NAM_SPEC`. */
+export const buildNam = (THREE, spec = {}) => createBaseCharacter(THREE, spec);
