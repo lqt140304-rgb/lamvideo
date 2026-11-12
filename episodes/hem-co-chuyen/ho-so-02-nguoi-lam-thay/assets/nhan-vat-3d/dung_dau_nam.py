@@ -647,6 +647,102 @@ def render_coverage(sc, out):
     mix.inputs[6].default_value = old
 
 
+# ================================================================== TÓC v4: KHỐI TÓC THEO HÌNH BAO ẢNH MẪU
+# Mặt ngoài lấy từ một hình bao (siêu elip) dựng theo silhouette ảnh mẫu, KHÔNG lấy bằng cách nở đều từ da đầu;
+# Head_Base chỉ là giới hạn trong (mặt trong cách da 4 mm, bề dày tối thiểu 8 mm). Mái là phần trước của chính khối, kéo xuống trán.
+ENV = dict(c=(0.0, 0.012, 1.300), ax=0.228, ay_f=0.222, ay_b=0.232, az_t=0.212, az_b=0.200, n=2.35)
+V4_LOBES = [(-35, 14, 50, 18.0), (22, 10, 26, 10.0)]          # mảng mái lớn quét chéo về trái ảnh + mảng phụ ngắn bên phải ảnh: (tâm°, nửa rộng trái°, nửa rộng phải°, độ hạ°)
+V4_DETAIL = True                                               # rãnh nông/gờ mảng (bật sau khi khối lớn đã đạt)
+V4_FLOWS = [([(18, 72), (2, 54), (-18, 34), (-33, 18)], 0.007, 9.0), ([(30, 64), (26, 46), (22, 26)], 0.005, 6.0)]
+V4_GROOVES = [([(26, 58), (18, 44), (12, 32)], 1.0), ([(10, 60), (-2, 44), (-14, 28)], 0.5)]   # rãnh ngắn, tắt dần về gốc
+
+
+def env_dist(d):
+    """Khoảng cách từ tâm sọ C theo hướng d tới hình bao tóc."""
+    cx, cy, cz = ENV['c']; n = ENV['n']
+    def f(t):
+        p = C + d * t; x, y, z = abs(p.x - cx), p.y - cy, p.z - cz
+        return (x / ENV['ax']) ** n + (abs(y) / (ENV['ay_f'] if y < 0 else ENV['ay_b'])) ** n + (abs(z) / (ENV['az_t'] if z > 0 else ENV['az_b'])) ** n
+    lo, hi = 0.0, 0.6
+    for _ in range(40):
+        mid = 0.5 * (lo + hi)
+        if f(mid) < 1: lo = mid
+        else: hi = mid
+    return lo
+
+
+HAIRLINE_V4 = [(0, 34), (36, 33), (56, 22), (68, 4), (74, -4), (80, 3), (90, 7), (108, 7), (118, -2), (128, -14), (142, -28), (158, -36), (180, -38)]   # chân tóc v4: sát đỉnh vành tai hơn
+
+
+def hairline_v4(az):
+    a = abs(((az + 180.0) % 360.0) - 180.0)
+    for (a0, e0), (a1, e1) in zip(HAIRLINE_V4, HAIRLINE_V4[1:]):
+        if a <= a1: return e0 + (e1 - e0) * smooth01(a0, a1, a)
+    return HAIRLINE_V4[-1][1]
+
+
+def v4_edge_el(az):
+    """Mép khối: phía trước hạ thành các mũi mái vuốt chéo về trái ảnh — sườn trái dốc tròn, sườn phải chéo thẳng (mũi nhọn về dưới-trái)."""
+    a = ((az + 180.0) % 360.0) - 180.0; dip = 0.0
+    for c, hl, hr, D in V4_LOBES:
+        if c - hl < a <= c: dip = max(dip, D * math.sqrt(max(0.0, 1 - ((a - c) / hl) ** 2)))
+        elif c < a < c + hr: dip = max(dip, D * (1 - (a - c) / hr) ** 1.15)
+    return hairline_v4(az) - dip
+
+
+def hair_mass_v4(coll, M, S, N=288, K=60):
+    G = [([_cr(p_, i / 40 * (len(p_) - 1)) for i in range(41)], g) for p_, g in V4_GROOVES] if V4_DETAIL else []
+    F = [([_cr(p_, i / 40 * (len(p_) - 1)) for i in range(41)], A, sg) for p_, A, sg in V4_FLOWS] if V4_DETAIL else []
+    bm = bmesh.new(); top, bot = [], []
+    for i in range(N):
+        az = -180 + 360 * i / N; e0 = v4_edge_el(az); hl = hairline_v4(az); a_ = abs(((az + 180) % 360) - 180); wf = smooth01(70, 20, a_); ct, cb = [], []
+        for j in range(K + 1):
+            el = e0 + (90.0 - e0) * (j / K) ** 0.85; ar, er = math.radians(az), math.radians(el)
+            d = Vector((math.sin(ar) * math.cos(er), -math.cos(ar) * math.cos(er), math.sin(er)))
+            p, n = S.at(az, el, 0.0); t_skin = (p - C).length
+            gap = 0.004 + 0.010 * smooth01(0, 14, hl - el)                    # mái trên trán nhấc khỏi da, đầu mái chìa ra
+            t_in = t_skin + gap
+            t_env = env_dist(d); cap = 0.055 - 0.040 * smooth01(0, -38, el)      # gáy thu gọn: phía dưới không phồng theo hình bao
+            t_out = min(max(t_env, t_in + 0.008), t_in + cap)
+            T_edge = 0.005 + 0.007 * wf; span = 20 - 8 * wf                   # mép bo tròn kiểu cung lồi (không thành vành/bậc)
+            x_ = min(1.0, max(0.0, (el - e0) / span)); T = T_edge + (t_out - t_in - T_edge) * math.sqrt(max(0.0, 1 - (1 - x_) ** 2))
+            if V4_DETAIL:
+                bul = 0.0
+                for smp, A, sg in F:
+                    d2, tt = _near(smp, az, el); bul = max(bul, A * math.exp(-d2 / sg ** 2) * smooth01(0.0, 0.4, tt))
+                dep = 0.0
+                for smp, g in G:
+                    d2, tt = _near(smp, az, el); dep = max(dep, g * 0.005 * math.exp(-d2 / 2.6 ** 2) * smooth01(0.0, 0.7, tt))
+                T += bul * smooth01(0, 6, el - e0); T -= min(dep, 0.5 * max(0.0, T - 0.004))
+            cb.append(bm.verts.new(p + n * gap)); ct.append(bm.verts.new(p + n * gap + d * T))
+        top.append(ct); bot.append(cb)
+    for i in range(N):
+        i2 = (i + 1) % N
+        for j in range(K):
+            bm.faces.new((top[i][j], top[i2][j], top[i2][j + 1], top[i][j + 1])); bm.faces.new((bot[i][j], bot[i][j + 1], bot[i2][j + 1], bot[i2][j]))
+        bm.faces.new((top[i][0], bot[i][0], bot[i2][0], top[i2][0]))
+    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-6); bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    ob = new_obj('Hair_KhoiChinh', bm, coll, M['toc'])
+    if V4_DETAIL: subsurf(ob, 1, 2)
+    return ob
+
+
+def hair_curl_v4(coll, M, S):
+    """Lọn đỉnh riêng: tiết diện đổi dọc thân — gốc loe rộng chìm trong khối đỉnh, thân cong đầy hình lưỡi liềm, ngọn nhỏ dần bo mềm; cong về trước, hơi chếch sang phải ảnh."""
+    tz = C.z + env_dist(Vector((0, 0, 1)))                                      # đỉnh khối tóc
+    anchor = Vector((0.0, 0.012, tz))
+    loc = [(0.0, 0.030, -0.022), (0.0, 0.026, 0.008), (0.004, 0.010, 0.040), (0.012, -0.016, 0.060), (0.024, -0.046, 0.060), (0.034, -0.068, 0.044), (0.038, -0.076, 0.024)]   # gốc sau đỉnh → vòng lên → cong về trước, ngọn chúc xuống
+    pts = [anchor + Vector(v) for v in loc]
+    prof = [(0, 1.6), (0.16, 1.1), (0.45, 1.25), (0.78, 0.8), (1.0, 0.30)]
+    ob = sweep('Hair_LonDinh', coll, pts, lambda u: 0.027 * _prof(prof, u), lambda u: 0.025 * _prof(prof, u), lambda c: Vector((1, 0, 0)), M['toc'], 48, 22)
+    if V4_DETAIL: subsurf(ob, 1, 2)
+    return ob
+
+
+def build_hair_v4(coll, M, S):
+    REPORT.clear(); hair_mass_v4(coll, M, S); hair_curl_v4(coll, M, S)
+
+
 # ------------------------------------------------------------------ ánh sáng + camera trực giao
 def studio(sc):
     w = bpy.data.worlds.new('studio'); sc.world = w; w.use_nodes = True
@@ -678,14 +774,15 @@ def studio(sc):
 def build():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene; top = bpy.data.collections.new('Nam_Dau'); sc.collection.children.link(top)
-    cf = bpy.data.collections.new('03_Head_And_Face'); ch = bpy.data.collections.new('04_Hair'); cv2 = bpy.data.collections.new('04_Hair_v2'); cold = bpy.data.collections.new('04_Hair_cu')
-    for c_ in (cf, ch, cv2, cold): top.children.link(c_)
+    cf = bpy.data.collections.new('03_Head_And_Face'); ch = bpy.data.collections.new('04_Hair'); cv3 = bpy.data.collections.new('04_Hair_v3'); cv2 = bpy.data.collections.new('04_Hair_v2'); cold = bpy.data.collections.new('04_Hair_cu')
+    for c_ in (cf, ch, cv3, cv2, cold): top.children.link(c_)
     M = make_mats()
     head, cage = build_head(cf, M)
     S = build_face(cf, M, head)
     build_hair_v1(cold, M, cage, S); cold.hide_render = True; cold.hide_viewport = True
     build_hair_v2(cv2, M, S); cv2.hide_render = True; cv2.hide_viewport = True   # bản mảng lá (đề xuất 2), giữ để đối chiếu
-    build_hair_v3(ch, M, S)
+    build_hair_v3(cv3, M, S); cv3.hide_render = True; cv3.hide_viewport = True   # bản khối liền ôm sọ (đề xuất 3), giữ để đối chiếu
+    build_hair_v4(ch, M, S)
     return sc
 
 
