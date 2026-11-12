@@ -671,7 +671,7 @@ def env_dist(d):
     return lo
 
 
-HAIRLINE_V4 = [(0, 34), (36, 33), (56, 22), (68, 4), (74, -4), (80, 3), (90, 7), (108, 7), (118, -2), (128, -18), (142, -34), (158, -44), (180, -48)]   # chân tóc v4: sát đỉnh vành tai hơn
+HAIRLINE_V4 = [(0, 34), (36, 33), (56, 22), (68, 4), (74, -4), (80, 3), (90, 7), (108, 7), (118, -2), (124, -16), (134, -30), (146, -38), (160, -42), (180, -43)]   # chân tóc v4: gáy là cung tròn nông, không nhọn chữ V: sát đỉnh vành tai hơn
 
 
 def hairline_v4(az):
@@ -702,7 +702,7 @@ def hair_mass_v4(coll, M, S, N=288, K=60):
             p, n = S.at(az, el, 0.0); t_skin = (p - C).length
             gap = 0.004 + 0.016 * smooth01(0, 14, hl - el)                    # mái trên trán nhấc khỏi da, đầu mái chìa ra trước
             t_in = t_skin + gap
-            t_env = env_dist(d); cap = 0.055 - 0.040 * smooth01(0, -38, el)      # gáy thu gọn: phía dưới không phồng theo hình bao
+            t_env = env_dist(d); cap = 0.055 - 0.030 * smooth01(0, -40, el)      # gáy thu gọn: phía dưới không phồng theo hình bao
             t_out = min(max(t_env, t_in + 0.008), t_in + cap)
             # mép: mái trước dày, bo cung lồi; hai bên và gáy mỏng dần đều tới gần 0 trên một đoạn dài (ôm đầu, không gấp khúc)
             T_edge = 0.0015 + 0.0125 * wf; span = 34 - 22 * wf
