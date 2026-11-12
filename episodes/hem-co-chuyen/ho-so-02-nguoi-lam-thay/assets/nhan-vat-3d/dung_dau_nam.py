@@ -543,6 +543,110 @@ def build_hair_v2(coll, M, S):
     hair_curl(coll, M, S)                                                                                                            # H07
 
 
+# ================================================================== TÓC v3: MỘT KHỐI LIỀN + LỌN ĐỈNH RIÊNG
+# Khối tóc chính là một thể tích kín hai lớp (mặt trong ôm da, mặt ngoài tạo dáng, thành mép nối hai lớp ở chân tóc).
+# Mái tạo thẳng trên khối: đường mép hạ xuống trán thành các mũi mái lệch; rãnh nông chia mảng, tắt dần về gốc, đáy rãnh còn tóc.
+FRINGE_LOBES = [(-30, 15, 32, 16.0), (8, 11, 15, 11.0), (34, 9, 12, 7.0)]   # mũi mái: (phương vị tâm°, nửa rộng phía trái ảnh°, nửa rộng phía phải ảnh°, độ hạ dưới chân tóc°)
+GROOVES = [([(18, 82), (10, 66), (3, 50), (-2, 33)], 1.0),                     # rãnh giữa mũi mái lớn và mũi giữa
+           ([(28, 78), (27, 62), (25, 48), (24, 36)], 1.0),                    # rãnh giữa mũi giữa và mũi nhỏ phải ảnh
+           ([(4, 84), (-10, 68), (-24, 52), (-34, 37)], 0.55)]                 # rãnh nông chuyển mặt trên thân mái lớn
+GROOVE_DEPTH, GROOVE_SIGMA = 0.006, 3.0
+LOCK_FLOWS = [([(16, 84), (4, 66), (-14, 48), (-30, 30)], 0.008, 8.0),            # thân mảng mái: gờ lồi mềm dọc hướng vuốt, từ đỉnh xuống mũi mái
+              ([(22, 80), (16, 62), (10, 46), (8, 30)], 0.006, 6.0),
+              ([(32, 76), (34, 60), (34, 44), (34, 33)], 0.004, 5.0),
+              ([(52, 72), (64, 52), (71, 32), (73, 12)], 0.004, 7.0), ([(-52, 72), (-64, 52), (-71, 32), (-73, 12)], 0.004, 7.0)]                                     # sâu tối đa (m), bề rộng (độ)
+
+
+def mass_edge_el(az):
+    """Mép dưới khối tóc: chân tóc thật ở thái dương/tai/gáy; phía trước hạ thêm thành ba mũi mái lệch (trái ảnh dài nhất)."""
+    a = ((az + 180.0) % 360.0) - 180.0; dip = 0.0
+    for c, hl, hr, D in FRINGE_LOBES:
+        x = (a - c) / (hl if a < c else hr)
+        if abs(x) < 1: dip = max(dip, D * (1 - x * x) ** 2.2)
+    return hairline_el(az) - dip
+
+
+def mass_thickness(az, el):
+    """Bề dày khối (m) trước khi trừ rãnh: đỉnh dày, thái dương thu vào, mái trước và sau đầu đầy hơn."""
+    a = abs(((az + 180.0) % 360.0) - 180.0); up = max(0.0, math.sin(math.radians(el)))
+    wf = smooth01(70, 20, a); wb = smooth01(105, 160, a)
+    return 0.013 + 0.021 * up + 0.012 * wf * (1 - 0.5 * up) + 0.008 * wb * (1 - abs(up - 0.35))
+
+
+def _groove_samples():
+    out = []
+    for pts, g in GROOVES:
+        smp = [_cr(pts, i / 40 * (len(pts) - 1)) for i in range(41)]; out.append((smp, g))
+    return out
+
+
+def _near(smp, az, el):
+    ce = math.cos(math.radians(el)); best, kb = 1e9, 0
+    for k, (ga, ge) in enumerate(smp):
+        d = ((((az - ga) + 180) % 360 - 180) * ce) ** 2 + (el - ge) ** 2
+        if d < best: best, kb = d, k
+    return best, kb / (len(smp) - 1)
+
+
+def hair_mass(coll, M, S, N=288, K=56):
+    G = _groove_samples(); F = [([_cr(pts, i / 40 * (len(pts) - 1)) for i in range(41)], A, sg) for pts, A, sg in LOCK_FLOWS]; bm = bmesh.new(); top, bot = [], []
+    for i in range(N):
+        az = -180 + 360 * i / N; e0 = mass_edge_el(az); hl = hairline_el(az); ct, cb = [], []
+        for j in range(K + 1):
+            el = e0 + (90.0 - e0) * (j / K) ** 0.85; p, n = S.at(az, el, 0.0)
+            gap = 0.004 + 0.005 * smooth01(0, 10, hl - el)                      # trên trán (dưới chân tóc thật) mái nhấc khỏi da một chút
+            wf_ = smooth01(70, 20, abs(az)); span = 10 - 3 * wf_; T0 = 0.004 + 0.008 * wf_   # mép mái dày, bo tròn; mép gáy/thái dương mỏng
+            T = T0 + (mass_thickness(az, el) - T0) * smooth01(0, span, el - e0) ** 0.7
+            dep = 0.0
+            for smp, g in G:
+                ce = math.cos(math.radians(el)); best, kb = 1e9, 0
+                for k, (ga, ge) in enumerate(smp):
+                    d = ((az - ga) * ce) ** 2 + (el - ge) ** 2
+                    if d < best: best, kb = d, k
+                dep = max(dep, g * GROOVE_DEPTH * math.exp(-best / GROOVE_SIGMA ** 2) * smooth01(0.0, 0.5, kb / 40))
+            dep = min(dep, 0.6 * max(0.0, T - 0.003))                           # đáy rãnh luôn còn tóc
+            bul = 0.0
+            for smp, A, sg in F:
+                d2, t = _near(smp, az, el); bul = max(bul, A * math.exp(-d2 / sg ** 2) * smooth01(0.0, 0.35, t))
+            T += bul * smooth01(0, 6, el - e0)
+            cb.append(bm.verts.new(p + n * gap)); ct.append(bm.verts.new(p + n * (gap + T - dep)))
+        top.append(ct); bot.append(cb)
+    for i in range(N):
+        i2 = (i + 1) % N
+        for j in range(K):
+            bm.faces.new((top[i][j], top[i2][j], top[i2][j + 1], top[i][j + 1])); bm.faces.new((bot[i][j], bot[i][j + 1], bot[i2][j + 1], bot[i2][j]))
+        bm.faces.new((top[i][0], bot[i][0], bot[i2][0], top[i2][0]))                # thành mép nối mặt ngoài với mặt trong
+    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-6); bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    ob = new_obj('Hair_KhoiChinh', bm, coll, M['toc']); subsurf(ob, 1, 2); return ob
+
+
+def hair_curl_v3(coll, M, S):
+    """Lọn đỉnh riêng hình lưỡi liềm chữ C: gốc rộng chìm sâu ~1,4 cm trong khối chính, thân cong đầy, ngọn thuôn."""
+    p, n = S.at(0, 86, 0.0); anchor = p + n * 0.028                              # mặt ngoài khối ở đỉnh ≈ 0,038 m trên da
+    loc = [(0.0, -0.016), (0.0, 0.010), (0.004, 0.034), (0.016, 0.054), (0.034, 0.062), (0.050, 0.052), (0.058, 0.034)]
+    pts = [anchor + Vector((0.0005 * i, -f, h)) for i, (f, h) in enumerate(loc)]
+    prof = [(0, 1.35), (0.18, 1.0), (0.5, 1.25), (0.8, 0.85), (1.0, 0.30)]
+    ob = sweep('Hair_LonDinh', coll, pts, lambda u: 0.019 * _prof(prof, u), lambda u: 0.024 * _prof(prof, u), lambda c: Vector((1, 0, 0)), M['toc'], 40, 20)
+    subsurf(ob, 1, 2); return ob
+
+
+def build_hair_v3(coll, M, S):
+    REPORT.clear(); hair_mass(coll, M, S); hair_curl_v3(coll, M, S)
+
+
+def render_coverage(sc, out):
+    """Kiểm tra phủ: tạm tô da đầu màu hồng sáng; chụp chính diện, hai 3/4, sau đầu, từ trên và góc thấp nhìn lên dưới mái."""
+    da = bpy.data.materials['Da']; mix = next(n_ for n_ in da.node_tree.nodes if n_.bl_idname == 'ShaderNodeMix'); old = tuple(mix.inputs[6].default_value)
+    mix.inputs[6].default_value = hexc('#ff4fd8')
+    cd = bpy.data.cameras.new('kt'); cd.type = 'ORTHO'; cd.ortho_scale = 0.62; cam = bpy.data.objects.new('kt', cd); sc.collection.objects.link(cam); sc.camera = cam
+    sc.render.resolution_x = sc.render.resolution_y = 700; tg = Vector((0, 0.0, 1.36))
+    for name, loc in (('phu_truoc', (0, -3, 1.36)), ('phu_34trai', (-2.1, -2.1, 1.5)), ('phu_34phai', (2.1, -2.1, 1.5)), ('phu_sau', (0, 3, 1.4)),
+                      ('phu_tren', (0.0, -0.4, 4.0)), ('phu_duoimai', (0.3, -2.4, 0.2))):
+        cam.location = loc; cam.rotation_euler = (tg - Vector(loc)).to_track_quat('-Z', 'Y').to_euler()
+        sc.render.filepath = os.path.join(out, name + '.png'); bpy.ops.render.render(write_still=True)
+    mix.inputs[6].default_value = old
+
+
 # ------------------------------------------------------------------ ánh sáng + camera trực giao
 def studio(sc):
     w = bpy.data.worlds.new('studio'); sc.world = w; w.use_nodes = True
@@ -574,12 +678,14 @@ def studio(sc):
 def build():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene; top = bpy.data.collections.new('Nam_Dau'); sc.collection.children.link(top)
-    cf = bpy.data.collections.new('03_Head_And_Face'); ch = bpy.data.collections.new('04_Hair'); cold = bpy.data.collections.new('04_Hair_cu'); top.children.link(cf); top.children.link(ch); top.children.link(cold)
+    cf = bpy.data.collections.new('03_Head_And_Face'); ch = bpy.data.collections.new('04_Hair'); cv2 = bpy.data.collections.new('04_Hair_v2'); cold = bpy.data.collections.new('04_Hair_cu')
+    for c_ in (cf, ch, cv2, cold): top.children.link(c_)
     M = make_mats()
     head, cage = build_head(cf, M)
     S = build_face(cf, M, head)
     build_hair_v1(cold, M, cage, S); cold.hide_render = True; cold.hide_viewport = True
-    build_hair_v2(ch, M, S)
+    build_hair_v2(cv2, M, S); cv2.hide_render = True; cv2.hide_viewport = True   # bản mảng lá (đề xuất 2), giữ để đối chiếu
+    build_hair_v3(ch, M, S)
     return sc
 
 
@@ -642,7 +748,7 @@ def render_explode(sc, out):
 
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
-    ap = argparse.ArgumentParser(); ap.add_argument('--section', default='A_trung', choices=['goc', 'A_trung', 'B_ma']); ap.add_argument('--render', default=''); ap.add_argument('--clay', action='store_true'); ap.add_argument('--explode', action='store_true'); ap.add_argument('--blend', default=''); ap.add_argument('--no-hair', action='store_true', help='ẩn collection 04_Hair để soi riêng hộp sọ')
+    ap = argparse.ArgumentParser(); ap.add_argument('--section', default='A_trung', choices=['goc', 'A_trung', 'B_ma']); ap.add_argument('--render', default=''); ap.add_argument('--clay', action='store_true'); ap.add_argument('--phu', action='store_true'); ap.add_argument('--explode', action='store_true'); ap.add_argument('--blend', default=''); ap.add_argument('--no-hair', action='store_true', help='ẩn collection 04_Hair để soi riêng hộp sọ')
     a = ap.parse_args(argv)
     SECTION_MODE = a.section
     sc = build(); cams = studio(sc)
@@ -656,3 +762,4 @@ if __name__ == '__main__':
         if a.clay:
             cm = mat('Clay', '#c9c5be', 0.85); sc.view_layers[0].material_override = cm; render_views(sc, cams, a.render, 'clay_'); sc.view_layers[0].material_override = None
         if a.explode: render_explode(sc, a.render)
+        if a.phu: render_coverage(sc, a.render)
