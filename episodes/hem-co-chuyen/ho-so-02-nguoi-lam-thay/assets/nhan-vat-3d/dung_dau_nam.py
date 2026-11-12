@@ -651,10 +651,11 @@ def render_coverage(sc, out):
 # Mặt ngoài lấy từ một hình bao (siêu elip) dựng theo silhouette ảnh mẫu, KHÔNG lấy bằng cách nở đều từ da đầu;
 # Head_Base chỉ là giới hạn trong (mặt trong cách da 4 mm, bề dày tối thiểu 8 mm). Mái là phần trước của chính khối, kéo xuống trán.
 ENV = dict(c=(0.0, 0.012, 1.300), ax=0.228, ay_f=0.230, ay_b=0.232, az_t=0.212, az_b=0.200, n=2.35)
-V4_LOBES = [(-35, 14, 50, 18.0), (22, 10, 26, 10.0)]          # mảng mái lớn quét chéo về trái ảnh + mảng phụ ngắn bên phải ảnh: (tâm°, nửa rộng trái°, nửa rộng phải°, độ hạ°)
+V4_LOBES = [(-35, 14, 50, 18.0), (-8, 9, 18, 13.0), (22, 10, 26, 10.0), (46, 8, 12, 8.0)]   # mảng lớn, đầu lọn giữa chồng trên mảng lớn, mảng phụ, đầu lọn nhỏ ở thái dương phải ảnh          # mảng mái lớn quét chéo về trái ảnh + mảng phụ ngắn bên phải ảnh: (tâm°, nửa rộng trái°, nửa rộng phải°, độ hạ°)
 V4_DETAIL = True                                               # rãnh nông/gờ mảng (bật sau khi khối lớn đã đạt)
-V4_FLOWS = [([(18, 72), (2, 54), (-18, 34), (-33, 18)], 0.011, 10.0), ([(30, 64), (26, 46), (22, 26)], 0.007, 7.0)]
-V4_GROOVES = [([(26, 58), (18, 44), (12, 32)], 1.0), ([(10, 60), (-2, 44), (-14, 28)], 0.5)]   # rãnh ngắn, tắt dần về gốc
+V4_FLOWS = [([(18, 72), (2, 54), (-18, 34), (-33, 18)], 0.011, 10.0), ([(30, 64), (26, 46), (22, 26)], 0.007, 7.0),
+            ([(12, 66), (0, 48), (-8, 24)], 0.008, 6.0), ([(44, 64), (46, 44), (46, 28)], 0.005, 5.0)]
+V4_GROOVES = [([(26, 58), (18, 44), (12, 32)], 1.0), ([(8, 58), (-6, 44), (-17, 27)], 0.9), ([(38, 56), (37, 44), (35, 33)], 0.7)]   # rãnh ngắn, tắt dần về gốc
 
 
 def env_dist(d):
