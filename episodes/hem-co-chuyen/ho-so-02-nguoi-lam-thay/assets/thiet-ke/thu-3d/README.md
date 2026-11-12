@@ -10,6 +10,13 @@ Thử đưa Nam (Hồ sơ 02) từ 2D/2.5D sang **3D thật** để so sánh hư
 - `nam-3d-cac-goc.png` — bảng 5 góc: 2.5D đã chốt / 3D / cận đầu 3D.
 - Cài: `npm install` trong thư mục này (chỉ `three`; không thêm vào studio chung).
 
+## Đặt vào phòng + động tác cơ bản (12/11/2026)
+- `phong.html` — Nam 3D trong phòng Hồ sơ 02, **nền trong suốt**. Camera dựng lại đúng phép chiếu của `boi-canh.tsx` (máy nhìn ngang, `lookAt` theo `pos`/`target`, tiêu cự `F = mm/36·1920` px, tâm ảnh dịch xuống `horizon` bằng ma trận chiếu lệch tâm) nên đặt nhân vật bằng toạ độ cm của phòng là khớp phối cảnh. Nắng ban ngày lấy từ cửa sổ tường phải; bóng VSM đổ lên mặt sàn trong suốt + bóng tiếp xúc (thu nhỏ khi nhảy).
+- `dong-tac.js` — động tác tất định theo giây: nhìn quanh (đầu xoay nhiều, cổ ít), quay người, đi (chu kỳ 2 bước ~72 cm, tăng/giảm tốc, nhún hông, vung tay ngược chân), dừng quay về máy, vẫy tay, vươn vai, ngồi xổm (hạ hông đúng độ dài đùi + cẳng để bàn chân bám sàn), nhảy nhẹ (lấy đà – bật – tiếp đất nhún). Kịch bản 14 s, đi dọc sàn trống bên trái giường (x 55→200, z 300).
+- `render-phong.cjs <thư mục> <từ> <đến>` — xuất PNG trong suốt từng khung (~1,5 s/khung trên SwiftShader).
+- Nền phòng: composition `HoSo02Thu3DNen` (`what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/thu-3d-nen.tsx`, toàn phòng ban ngày, không người). Ghép: `npx remotion ffmpeg -i nen.mp4 -framerate 30 -i <thư mục>/f%04d.png -filter_complex overlay ...`.
+- Giới hạn khi ghép đè: lớp 3D luôn nằm trên mọi đồ trong phòng (không có che khuất), nên đường đi phải chọn chỗ không có đồ phía trước. Muốn che khuất thật cần dựng phòng 3D hoặc tách lớp tiền cảnh.
+
 ## Cách dựng giữ đúng quy chuẩn
 - Không viền ngoài; tách khối bằng sáng–tối: `MeshToonMaterial` với dải 4 bậc chuyển mềm (`toonRamp`).
 - Nét mặt (mày, mí, gọng kính, nốt ruồi, miệng) là khối mảnh màu phẳng, không nhận sáng.
@@ -21,5 +28,5 @@ Thử đưa Nam (Hồ sơ 02) từ 2D/2.5D sang **3D thật** để so sánh hư
 
 ## Còn thiếu / chưa đạt
 - Mặt nghiêng chưa nhô như mẫu (mũi, miệng ít thấy); sau lưng tóc còn khối vuông; tay gồm hai khúc tách ở khuỷu; bàn tay là khối nắm đơn giản.
-- Chưa có cảm xúc 3D (mặt tham số), chưa đặt vào phòng (phòng hiện là phép chiếu riêng trong SVG), chưa có vật lý.
+- Chưa có cảm xúc 3D (mặt tham số), chưa có vật lý; bàn tay là khối nắm nên vẫy tay trông như giơ nắm tay (cần bàn tay xòe).
 - Không thuộc pipeline Remotion: muốn dùng trong video cần tích hợp (`@remotion/three` hoặc render khung rồi ghép) — là thay đổi engine, cần chủ repo quyết.

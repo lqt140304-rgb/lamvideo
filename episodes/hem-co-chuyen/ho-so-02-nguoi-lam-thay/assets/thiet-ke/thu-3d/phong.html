@@ -1,0 +1,50 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script></head>
+<body><script type="module">
+// Nam 3D đặt vào phòng Hồ sơ 02: camera dựng lại đúng phép chiếu của `boi-canh.tsx` (nhìn ngang, tâm ảnh dịch theo horizon,
+// tiêu cự F = mm/36·1920 px), toạ độ phòng tính bằng cm. Nền trong suốt để ghép đè lên video phòng.
+import * as THREE from 'three';
+import { buildNam } from './nam-3d.js';
+import { motionAt } from './dong-tac.js';
+const VIEWS = { wide: { pos: [228, 152, 800], target: [228, 0], mm: 34, horizon: 395 } }; // chép từ boi-canh.tsx VIEWS
+const W = 1920, H = 1080, q = new URLSearchParams(location.search), V = VIEWS[q.get('view') || 'wide'];
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true, premultipliedAlpha: false });
+renderer.setPixelRatio(1); renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.VSMShadowMap; renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+// camera khớp phòng
+const F = (V.mm / 36) * 1920, near = 10, far = 4000;
+const cam = new THREE.PerspectiveCamera();
+cam.position.set(...V.pos); cam.lookAt(V.target[0], V.pos[1], V.target[1]); cam.updateMatrixWorld();
+cam.projectionMatrix.makePerspective(-960 / F * near, 960 / F * near, V.horizon / F * near, -(H - V.horizon) / F * near, near, far);
+cam.projectionMatrixInverse.copy(cam.projectionMatrix).invert();
+// ánh sáng ban ngày: nắng từ cửa sổ tường phải (LIGHT_SOURCES.window = [460,150,155]), trời ấm dịu, hắt sàn
+scene.add(new THREE.HemisphereLight('#fff6e6', '#d8c8aa', 1.75));
+const sun = new THREE.DirectionalLight('#ffe9c8', 2.0); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048); sun.shadow.radius = 9; sun.shadow.blurSamples = 20; sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.6;
+Object.assign(sun.shadow.camera, { left: -150, right: 150, top: 200, bottom: -150, near: 10, far: 1200 });
+scene.add(sun, sun.target);
+const fill = new THREE.DirectionalLight('#dfe8ff', 0.35); fill.position.set(-300, 200, 600); scene.add(fill);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(460, 780), new THREE.ShadowMaterial({ opacity: 0.18 }));
+floor.rotation.x = -Math.PI / 2; floor.position.set(230, 0.2, 390); floor.receiveShadow = true; scene.add(floor);
+// bóng tiếp xúc mềm
+const cv = document.createElement('canvas'); cv.width = cv.height = 128; const g = cv.getContext('2d');
+const rg = g.createRadialGradient(64, 64, 0, 64, 64, 64); rg.addColorStop(0, 'rgba(70,52,36,0.42)'); rg.addColorStop(1, 'rgba(70,52,36,0)'); g.fillStyle = rg; g.fillRect(0, 0, 128, 128);
+const blob = new THREE.Mesh(new THREE.PlaneGeometry(60, 34), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false }));
+blob.rotation.x = -Math.PI / 2; scene.add(blob);
+const nam = buildNam(THREE, {}); scene.add(nam.root);
+
+window.show = (t) => {
+  const m = motionAt(t);
+  nam.pose(m.pose);
+  nam.root.position.set(m.x, m.dy, m.z); nam.root.rotation.y = m.yaw;
+  nam.joints.chest.scale.set(1 + 0.008 * m.breath, 1 + 0.006 * m.breath, 1 + 0.012 * m.breath);
+  blob.position.set(m.x, 0.3, m.z); blob.scale.setScalar(1 / (1 + Math.max(0, m.dy) / 25)); blob.material.opacity = 1 / (1 + Math.max(0, m.dy) / 12);
+  sun.position.set(m.x + 330, 260, m.z - 150); sun.target.position.set(m.x, 60, m.z);
+  renderer.render(scene, cam);
+  return renderer.domElement.toDataURL('image/png');
+};
+window.ready = true;
+</script></body></html>
