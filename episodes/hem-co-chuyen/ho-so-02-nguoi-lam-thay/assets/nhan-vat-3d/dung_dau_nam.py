@@ -344,30 +344,45 @@ def build_face(coll, M, head):
 
 
 # ------------------------------------------------------------------ tóc
+HAIRLINE = [(0, 34), (36, 33), (56, 22), (68, 4), (74, -4), (80, 6), (90, 13), (108, 13), (118, 4), (128, -10), (142, -26), (158, -36), (180, -38)]   # (phương vị°, độ cao chân tóc°): trán · thái dương · sát tai trước · vòng trên tai · sau tai · gáy
+
+
 def hairline_el(az):
-    """Độ cao chân tóc (độ) theo phương vị (0 = trước): trán cao, trên tai, sau gáy phủ thấp sát cổ."""
-    a = abs(az)
-    if a < 40: return 34
-    if a < 70: return 34 - 22 * smooth01(40, 70, a)
-    if a < 112: return 12
-    if a < 150: return 12 - 62 * smooth01(112, 150, a)
-    return -50
+    """Chân tóc theo phương vị (0 = trước, đối xứng hai bên): trán cao → mai tóc đi xuống trước tai (thái dương) → vòng trên vành tai → ôm sau tai → xuống phủ gáy."""
+    a = min(abs(az), 180.0)
+    for (a0, e0), (a1, e1) in zip(HAIRLINE, HAIRLINE[1:]):
+        if a <= a1:
+            t = smooth01(a0, a1, a); return e0 + (e1 - e0) * t
+    return HAIRLINE[-1][1]
+
+
+def hair_base(coll, M, S, N=288, K=44):
+    """H00 – khối nền: lưới phủ từ chân tóc tới đỉnh, dựng theo (phương vị, độ cao) chiếu lên da đầu nên mép tóc cắt đúng đường chân tóc (không bậc thang), ôm gáy và vòng qua tai tạo mai tóc."""
+    bm = bmesh.new(); rows = []
+    for i in range(N):
+        az = -180 + 360 * i / N; e0 = hairline_el(az); col = []
+        for j in range(K + 1):
+            el = e0 + (90.0 - e0) * (j / K) ** 0.9
+            p, n = S.at(az, el, 0.004); d = p - C
+            up = max(0.0, d.z / HEAD[2]); fr = max(0.0, -d.y / HEAD[1]); nape = max(0.0, d.y / HEAD[1]) * (1 - smooth01(0.0, 0.22, d.z + 0.05))   # d.z>0 trên đỉnh
+            sc = Vector((1.02 + 0.06 * up, 1.02 + 0.03 * up + 0.02 * fr * up, 1.02 + 0.10 * up))
+            q = C + Vector((d.x * sc.x, d.y * sc.y, d.z * sc.z))
+            q += (p - C).normalized() * (0.010 * nape)               # khối gáy dày hơn, bo tròn
+            col.append(bm.verts.new(q))
+        rows.append(col)
+    for i in range(N):
+        a, b = rows[i], rows[(i + 1) % N]
+        for j in range(K): bm.faces.new((a[j], b[j], b[j + 1], a[j + 1]))
+    bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-5); bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    cap = new_obj('Hair_H00_KhoiNen', bm, coll, M['toc'])
+    so = cap.modifiers.new('Solidify', 'SOLIDIFY'); so.thickness = 0.024; so.offset = 1.0; so.use_rim = True
+    subsurf(cap, 2, 2)
+    return cap
 
 
 def build_hair(coll, M, cage, S):
-    # mũ tóc: nhân bản lồng sọ, chỉ giữ phần trên chân tóc, nở 1,02×, Solidify ra ngoài
-    bm = cage
-    kill = []
-    for f in bm.faces:
-        c = f.calc_center_median() - C; az = math.degrees(math.atan2(c.x, -c.y)); el = math.degrees(math.asin(max(-1, min(1, c.z / c.length))))
-        if el < hairline_el(az): kill.append(f)
-    bmesh.ops.delete(bm, geom=kill, context='FACES')
-    for v in bm.verts:   # nở 1,02× + phồng thêm ở đỉnh cho khối tóc đầy
-        d = v.co - C; up = max(0.0, d.z / HEAD[2]); back = max(0.0, d.y / HEAD[1])
-        v.co = C + Vector((d.x * (1.02 + 0.06 * up), d.y * (1.02 + 0.03 * up), d.z * (1.02 + 0.10 * up)))   # không nở thêm phía sau gáy
-    cap = new_obj('Hair_Cap', bm, coll, M['toc'])
-    so = cap.modifiers.new('Solidify', 'SOLIDIFY'); so.thickness = 0.022; so.offset = 1.0; so.use_rim = True
-    subsurf(cap, 2, 2)
+    cage.free()
+    hair_base(coll, M, S)
     nref = lambda c: (c - C).normalized()
     def lobe(name, path, W, off=None):
         off = off or ((0.010, 0.024, 0.020, 0.012) if len(path) == 4 else (0.012, 0.042, 0.030))   # bám sát độ cong trán, không dựng như răng lược
