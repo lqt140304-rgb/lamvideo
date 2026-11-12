@@ -49,3 +49,7 @@ Trên Linux không màn hình cần `libegl1`. Render Cycles CPU, khoảng 1–2
 - Chưa làm: chuyển động (đồ phơi lay, người đi lại), âm thanh.
 - Hành lang dài 36,6 m (`HL_Y1`): lặp cửa phòng mỗi 2,2 m, đèn/dầm mái mỗi 4,9 m, cụm đồ (kệ giày, dây phơi, chậu cây) mỗi 9,6 m (`_repeat`), dãy trọ đối diện kéo dài theo. Camera `HALL_LONG` nhìn dọc toàn bộ. Đổi độ dài bằng `HL_Y1`.
 - Mỗi lần lặp là một biến thể: bỏ ngẫu nhiên 2 nhóm đồ (dây phơi, kệ giày, chậu cây, xô chậu, bảng tin), lệch vị trí ±1,2 m, đổi màu đồ nhỏ; cửa phòng đổi 5 màu.
+
+## Cổng gương và danh sách shot (12/11, sau chốt nhân vật Blender Modular 1,60 m)
+- Gương sửa lại (cũ nghiêng ngược, nửa trên xuyên tường): chân cách tường 16 cm, đỉnh tựa tường. Gương thật Cycles + cờ Ray Visibility cho Người Kia/Nam; `--guong real|pov`, `--proxy` (hình nhân tạm). Xem [KE-HOACH-CONG-GUONG.md](KE-HOACH-CONG-GUONG.md).
+- 14 camera theo shot (A01…C06, P203, ORBIT_A/B/C, GUONG, GUONG_XIEN, GUONG_VAI, GUONG_POV…) và bảng gán shot → camera tại [DANH-SACH-SHOT.md](DANH-SACH-SHOT.md); `chay_shot.sh` xuất bảng khung (`xem-thu/SHOT-BANG.jpg`).

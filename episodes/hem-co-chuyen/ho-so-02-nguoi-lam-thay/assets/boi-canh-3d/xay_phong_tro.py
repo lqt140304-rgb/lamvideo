@@ -370,8 +370,8 @@ def wall_details(m, coll):
 
 def mirror(m, coll):
     # gương đứng khung gỗ 0,5 × 1,2, dựa tường trái, nghiêng nhẹ
-    box('khung_guong', 0.03, 0.06, 3.0, 3.52, 0.0, 1.22, m['go_toi'], bevel=0.008, coll=coll, rot=(0, math.radians(-6), 0), pivot=(0.03, 3.26, 0))
-    box('mat_guong', 0.058, 0.062, 3.025, 3.495, 0.03, 1.19, m['guong'], coll=coll, rot=(0, math.radians(-6), 0), pivot=(0.03, 3.26, 0))
+    box('khung_guong', 0.16, 0.19, 3.0, 3.52, 0.0, 1.22, m['go_toi'], bevel=0.008, coll=coll, rot=(0, math.radians(-6), 0), pivot=(0.16, 3.26, 0))  # chân gương cách tường 16 cm, đỉnh tựa tường
+    box('mat_guong', 0.188, 0.192, 3.025, 3.495, 0.03, 1.19, m['guong'], coll=coll, rot=(0, math.radians(-6), 0), pivot=(0.16, 3.26, 0))
 
 
 def clutter(m, coll, dep_san=False):
@@ -626,6 +626,25 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'HALL_STAIR': ((-0.7, 1.4, 1.6), (-0.7, -1.6, 0.2), 24),
     'HALL_END': ((-0.7, 0.1, 1.55), (-0.75, 9.0, 1.4), 22),
     'HALL_LONG': ((-0.75, 0.3, 1.5), (-0.75, 36.0, 1.4), 28),  # trục dài toàn hành lang
+    'GUONG': ((1.8, 3.26, 1.35), (0.12, 3.26, 0.9), 28),  # đứng trước gương nhìn thẳng
+    'GUONG_XIEN': ((1.7, 2.3, 1.35), (0.12, 3.3, 0.9), 30),  # nhìn xiên: gương hiện phần phòng đối diện + Người Kia
+    'GUONG_VAI': ((1.3, 2.7, 1.45), (0.05, 3.26, 1.05), 40),  # qua vai Nam, thấy cả mặt gương
+    'GUONG_POV': ((0.05, 3.26, 1.2), (2.0, 2.6, 1.0), 34),  # camera trong gương nhìn ra phòng
+    # ---- máy theo danh sách shot (DUNG-CANH.md); mắt đứng ≈ 1,50 m, mắt ngồi ≈ 1,15 m cho nhân vật 1,60 m
+    'A01': ((0.95, 0.35, 1.45), (2.3, 3.0, 0.55), 35),   # OTS từ bồn rửa sang nệm
+    'A02': ((2.25, 3.0, 0.45), (2.1, 3.75, 0.33), 65),   # sát gối nệm
+    'A02B': ((1.2, 1.4, 1.25), (2.3, 3.0, 0.7), 40),     # chéo 45° từ chân giường
+    'A03': ((2.35, 3.75, 1.3), (0.5, 0.5, 1.2), 50),     # sau vai Nam nhìn về bếp
+    'A04': ((1.35, 1.7, 1.5), (0.45, 0.35, 1.5), 65),    # reverse cận Người Kia ở bồn rửa
+    'A04B': ((1.15, 1.9, 1.2), (1.95, 2.6, 1.1), 65),    # cận Nam ngồi mép nệm
+    'A05': ((1.9, 1.7, 0.15), (2.3, 0.85, 0.35), 35),    # sàn thấp cạnh chân ghế
+    'C05': ((0.55, 2.35, 1.22), (0.0, 2.15, 1.2), 85),   # macro then cửa
+    'C06': ((2.9, 0.2, 2.25), (1.0, 2.4, 0.8), 35),      # cao 30° từ góc bàn xuống Nam và cửa
+    'P203': ((1.7, 1.1, 0.82), (2.5, 0.3, 0.85), 40),    # thấp sát mặt bàn
+    'P201VENT': ((0.25, 2.5, 1.85), (-1.4, 3.2, 1.6), 50),  # qua khe thông gió cửa nhìn hành lang
+    'ORBIT_A': ((1.9, 2.2, 1.45), (0.12, 3.26, 1.0), 35),   # vòng cung quanh gương, góc 1
+    'ORBIT_B': ((1.6, 3.26, 1.45), (0.12, 3.26, 1.0), 35),  # góc 2 (thẳng góc)
+    'ORBIT_C': ((1.9, 4.3, 1.45), (0.12, 3.26, 1.0), 35),   # góc 3
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
     'LOW': ((1.0, 3.7, 0.35), (2.2, 0.6, 1.0), 24),
 }
@@ -643,7 +662,25 @@ def add_camera(name, mm=28, w=1280, h=536):
     return ob
 
 
-def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False):
+def figure_proxy(name, x, y, mat, coll, h=1.6):
+    """Hình nhân tạm cao 1,60 m (để thử bố cục/gương trước khi có nhân vật modular)."""
+    o1 = cyl(name + '_than', x, y, h * 0.42, 0.17, h * 0.84, mat, coll=coll, bevel=0.02)
+    o2 = sphere(name + '_dau', x, y, h - 0.12, 0.11, mat, coll=coll)
+    return [o1, o2]
+
+
+def proxies(m, coll, room_objs):
+    """Nam (thật, ẩn khỏi phản xạ gương) và Người Kia (chỉ hiện trong gương, đặt ở điểm đối xứng của chỗ muốn hiện)."""
+    import cong_guong as G
+    nam = M.solid('proxy_nam', '#4f7fb0', 0.6); kia = M.solid('proxy_kia', '#b0504f', 0.6)
+    nam_o = figure_proxy('nam_proxy', 1.3, 1.5, nam, coll)
+    G.hide_from_mirror(nam_o)  # gương không phản chiếu Nam: Người Kia chiếm kính
+    kx, ky, _ = G.reflect_point(-0.8, 4.0, 0)  # muốn hiện ở (x, y) = (−0,8, 4,0) sau kính
+    kia_o = figure_proxy('kia_proxy', kx, ky, kia, coll)
+    G.only_in_mirror(kia_o)
+
+
+def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     coll = bpy.data.collections.new('Phong_tro_3D'); sc.collection.children.link(coll)
@@ -653,8 +690,11 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     m['den_tuyp_hl'] = M.emission('den_tuyp_hl', '#fff1d6', 14.0 if mode == 'night' else 2.5)
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
     shell(m, coll, door_open, cutaway=(cam in ('TOP',)), hide_front=(CAMERAS[cam][0][1] > D)); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
-    mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
+    mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); room_objs = set(coll.objects); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
+    if proxy: proxies(m, coll, room_objs)
+    if guong == 'pov':
+        import cong_guong; cong_guong.pov_trong_guong(coll)
     co = add_camera(cam); sc.camera = co
     sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 96; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 6; sc.cycles.diffuse_bounces = 4; sc.cycles.glossy_bounces = 3; sc.cycles.transmission_bounces = 4; sc.cycles.transparent_max_bounces = 8
@@ -669,9 +709,9 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--mode', default='day'); ap.add_argument('--cam', default='WIDE'); ap.add_argument('--out', default='/tmp/phong_tro.png')
     ap.add_argument('--blend', default=''); ap.add_argument('--door', type=float, default=10.0); ap.add_argument('--chair-rot', type=float, default=0.0)
-    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
+    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--guong', default='real'); ap.add_argument('--proxy', action='store_true'); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
     a = ap.parse_args(argv)
-    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san)
+    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san, guong=a.guong, proxy=a.proxy)
     sc.cycles.samples = a.samples
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=a.blend)
     if not a.no_render:
