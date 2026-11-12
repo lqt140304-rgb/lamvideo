@@ -7,6 +7,9 @@ import { easePose, LivingNam25D, LivingTung25D, speak } from '../../../../episod
 import { exprTrack } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/cam-xuc-2-5d';
 import { walkEnd, walker, WalkPlan } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/di-chuyen';
 import { seatAnchor, seatedAt, sitLegs, SURFACES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/diem-tiep-xuc';
+import { DANG_THAM_CHIEU } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/nam-2-5d';
+import { TUNG_DANG } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/thiet-ke/thu-2-5d/nhan-vat-khac-2-5d';
+import { DEFAULT_BUILD } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { armHint } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/tay-ik';
 
 /**
@@ -17,6 +20,7 @@ import { armHint } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-t
  *  - Dáng sống (thở, chớp, trôi), môi trường chuyển động (quạt, rèm, bụi trong nắng), ánh sáng theo từng mặt, ngả người theo mặt sàn.
  */
 const VIEW = 'wide' as const, TILT = 1;
+const NAM_LEG = { thigh: DANG_THAM_CHIEU.thigh ?? 105, shin: DANG_THAM_CHIEU.shin ?? 105 }, TUNG_LEG = { thigh: TUNG_DANG.thigh ?? 105, shin: TUNG_DANG.shin ?? 105 };
 const NAM: WalkPlan = { points: [[28, 218], [150, 175], [330, 140], [396, 160]], speed: 90, start: 12, endFacing: [0, -1] };
 const NAM_END = walkEnd(NAM), SIT0 = NAM_END + 8, SIT1 = SIT0 + 30, TYPE1 = SIT1 + 120;
 const TUNG: WalkPlan = { points: [[24, 236], [110, 300], [200, 350]], speed: 100, start: SIT1 + 24, endFacing: [1, 1] };
@@ -24,13 +28,13 @@ const TUNG_END = walkEnd(TUNG);
 export const VD_TOTAL = TUNG_END + 120;
 const SWIVEL0 = TUNG_END - 46, SWIVEL1 = SWIVEL0 + 22;
 const seat = seatAnchor('desk');
-const SEATED = seatedAt(VIEW, 'desk', { hands: { R: [388, SURFACES.deskTop + 2, 64], L: [410, SURFACES.deskTop + 2, 65] }, floorTilt: TILT });
+const SEATED = seatedAt(VIEW, 'desk', { build: DANG_THAM_CHIEU, hands: { R: [388, SURFACES.deskTop + 2, 64], L: [410, SURFACES.deskTop + 2, 65] }, floorTilt: TILT });
 const ph = (t: number) => t * t * (3 - 2 * t);
 const cl = (v: number) => Math.min(1, Math.max(0, v));
 
 const namAt = (f: number): { at: [number, number]; pose: JointPose; walking: boolean } => {
-  if (f < SIT0) { const w = walker(VIEW, NAM, f); return { at: w.at, pose: w.pose, walking: w.moving }; }
-  const end = walker(VIEW, NAM, NAM_END).pose;
+  if (f < SIT0) { const w = walker(VIEW, NAM, f, { leg: NAM_LEG }); return { at: w.at, pose: w.pose, walking: w.moving }; }
+  const end = walker(VIEW, NAM, NAM_END, { leg: NAM_LEG }).pose;
   if (f < SIT1) {
     const u = cl((f - SIT0) / (SIT1 - SIT0)), from: [number, number] = [396, 160];
     return { at: [from[0] + (seat.at[0] - from[0]) * ph(u), from[1] + (seat.at[1] - from[1]) * ph(u)], pose: easePose({ ...STAND_POSE, view: end.view, facing: end.facing }, SEATED.pose, u, { anticipate: 2 }), walking: false };
@@ -48,13 +52,13 @@ const namAt = (f: number): { at: [number, number]; pose: JointPose; walking: boo
 };
 
 const tungAt = (f: number): { at: [number, number]; pose: JointPose; waving: boolean; moving: boolean } => {
-  const w = walker(VIEW, TUNG, f, { idle: TUNG_POSE });
+  const w = walker(VIEW, TUNG, f, { idle: TUNG_POSE, leg: TUNG_LEG });
   let pose = w.pose;
   const wave = cl((f - TUNG_END - 6) / 14);
   if (wave > 0 && !w.moving) {
     // vẫy tay phải (bên trái màn hình khi nhìn chính diện) lên cao, lắc cổ tay
     const wig = Math.sin((f - TUNG_END) * 0.55) * 14 * wave;
-    pose = armHint({ ...pose, handR: 'open', frontR: false }, 'R', [-96 + wig, 232 - 170 * wave], [-132, 232 - 80 * wave], 0.3);
+    pose = armHint({ ...pose, handR: 'open', frontR: false }, 'R', [-96 + wig, 232 - 170 * wave], [-132, 232 - 80 * wave], 0.3, { ...DEFAULT_BUILD, ...TUNG_DANG });
     pose = { ...pose, wristR: wig * 1.2 };
   }
   return { at: w.at, pose, waving: wave > 0, moving: w.moving };

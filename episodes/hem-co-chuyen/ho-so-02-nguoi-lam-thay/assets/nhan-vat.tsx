@@ -596,7 +596,15 @@ export const TWIN_POSES: Record<'stand' | 'sit' | 'stride' | 'crouch' | 'reach' 
   lie: { ...STAND_POSE, tilt: -4, neck: -6, armR: { a: 18, b: 24 }, armL: { a: 10, b: 20, rot: -1 }, legR: { a: 36, b: 40 }, legL: { a: 30, b: 30 } },
 };
 
-const mixLimb = (a: Limb, b: Limb, t: number): Limb => ({ a: a.a + (b.a - a.a) * t, b: a.b + (b.b - a.b) * t, rot: b.rot ?? a.rot });
+/**
+ * Trộn hai tay/chân. Hai đầu khác chiều gập (`rot` ±1) thì không đảo chiều khuỷu đột ngột giữa chặng (cẳng tay lật qua bên kia):
+ * nửa đầu duỗi dần về thẳng giữ chiều cũ, nửa sau gập dần sang chiều mới.
+ */
+const mixLimb = (a: Limb, b: Limb, t: number): Limb => {
+  const aa = a.a + (b.a - a.a) * t;
+  if ((a.rot ?? 1) === (b.rot ?? 1)) return { a: aa, b: a.b + (b.b - a.b) * t, rot: b.rot ?? a.rot };
+  return t < 0.5 ? { a: aa, b: a.b * (1 - 2 * t), rot: a.rot } : { a: aa, b: b.b * (2 * t - 1), rot: b.rot };
+};
 /** Trộn hai dáng theo góc khớp; trạng thái rời (kiểu tay, đạo cụ, lớp vẽ) lấy theo dáng đích. */
 export const mixPose = (a: JointPose, b: JointPose, t: number): JointPose => ({
   ...b,
@@ -823,6 +831,7 @@ const Shade: React.FC<{ l?: Light; facing: 1 | -1; behind?: React.ReactNode; siz
 export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.ReactNode; x: number; y: number; scale: number; light?: Light; outline?: Outline; headOutline?: Outline }> = ({ pose: raw, outfit: outfit, head, x, y, scale, light: l, outline = 'none', headOutline }) => {
   const awayClip = useClipId('away');
   const hemClip = useClipId('drawn-hem');
+  const stumpClip = useClipId('stump');
   // Quy tắc 11/11: không tô tối/sáng nguyên chi để tách lớp; tách bằng che khuất và mảng bóng tự vẽ. Giữ hàm để không đổi cấu trúc.
   const back = (n: React.ReactNode) => n;
   const front = (n: React.ReactNode) => n;
@@ -849,6 +858,9 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   const whole = (a: { one: React.ReactNode }) => a.one; // tay sau thân/không có tay áo đè: một khối liền, không tách
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
   const phoneOnL = facing === -1;
+  // tay sau thân giơ lên cao (cánh tay chỉ lên/ngang): bỏ mẩu tay áo buông sẵn của thân áo ở vai đó
+  const upArm = (c: typeof r.armR) => c.mid.y < c.root.y + 25;
+  const cutR = !side && !away && !frontR && upArm(r.armR), cutL = !side && !away && !frontL && upArm(r.armL);
   const frontSleeve = (c: typeof r.armR) => [...sleeveShapes(c, o), ...(side ? [] : [circle(c.root, B.sleeve[0] + 4)])]; // bọc góc vai của thân áo, khỏi lòi một mẩu khi giơ tay
   const held = pose.prop === 'bowl' ? <Bowl at={mix(r.armR.end, r.armL.end, 0.5)} />
     : pose.prop === 'phone' ? <Phone at={(phoneOnL ? r.armL : r.armR).end} deg={(phoneOnL ? r.armL : r.armR).deg + lim(phoneOnL ? pose.wristL : pose.wristR, 'wrist')} /> : null;
@@ -878,7 +890,14 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
           {!frontL && !side && !away && <g data-limb="L">{back(<Shade l={l} facing={facing} size={0.6}>{whole(armL)}</Shade>)}</g>}
           {!frontR && !away && back(<Shade l={l} facing={facing} size={0.6}>{whole(armR)}</Shade>)}
           <Shade l={l} facing={facing} size={1.3}>
-            <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
+            {cutR || cutL ? (
+              <>
+                {/* tay giơ lên: thân áo vẽ sẵn mẩu tay áo buông xuống ở vai; cắt mẩu đó đi để vai không lệch khỏi cánh tay đã giơ */}
+                <clipPath id={stumpClip}><path clipRule="evenodd" d={`M -400 -200 H 400 V 800 H -400 Z${cutR ? ` M -400 150 H ${r.armR.root.x + 10} V 268 H -400 Z` : ''}${cutL ? ` M ${r.armL.root.x - 10} 150 H 400 V 268 H ${r.armL.root.x - 10} Z` : ''}`} /></clipPath>
+                <g clipPath={`url(#${stumpClip})`}><Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt)]} /></g>
+                <Blob fill={o.shirt} d={[...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />
+              </>
+            ) : <Blob fill={o.shirt} d={[o.torso, hemDrape(o, r.tilt), ...(frontR ? [] : sleeveShapes(r.armR, o)), ...(frontL ? [] : sleeveShapes(r.armL, o))]} />}
             {!frontR && <Cuff c={r.armR} o={o} />}
             {!frontL && !side && <Cuff c={r.armL} o={o} />}
             {(view === 'three' || view === 'front') && <g><defs><clipPath id={hemClip}><path d={[o.torso, hemDrape(o, r.tilt)].join(' ')} /></clipPath></defs><path data-shadow="drawn-hem" clipPath={`url(#${hemClip})`} d="M-49 337Q-19 350 12 341Q36 348 56 337L56 348Q35 360 13 355Q-20 365-58 351Z" fill="#253f37" opacity={0.2} stroke="none" />{/* mặt hông phía xa của thân áo (quay khỏi máy): một mảng tự vẽ để thân có khối, không theo đèn */}<path data-shadow="drawn-side" clipPath={`url(#${hemClip})`} d={view === 'front' ? 'M78 268Q56 276 52 300Q48 340 54 366H110V268Z' : 'M70 268Q48 276 42 300Q38 340 42 366H110V268Z'} fill="#253f37" opacity={0.12} stroke="none" /></g>}

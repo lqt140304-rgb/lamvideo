@@ -14,6 +14,12 @@ Mục tiêu: nhân vật là một phần của phòng, không phải hình dán
 
 Kiểm tra: `node what-if-studio/tests/ho-so-02-di-chuyen.cjs` (đường đi tất định và không nhanh hơn tốc độ khai báo; góc theo hướng; chân trụ trượt < 20% tốc độ thân; thứ tự che khuất; bóng theo vị trí; tay chạm mặt bàn < 8 px, hông đúng mặt ghế, chân chạm sàn).
 
+## Ổn định khớp (sửa 12/11)
+- **Đổi chiều gập khuỷu** (`rot` ±1) khi trộn dáng (`mixPose`, `easePose`): trước đây chiều gập đảo đột ngột giữa chặng (cẳng tay lật sang bên kia, rõ nhất ở các chuyển đứng↔ngồi); nay duỗi dần về thẳng rồi gập sang chiều mới.
+- **Vai khi giơ tay** (vẫy tay): thân áo vẽ sẵn mẩu tay áo buông xuống ở vai nên khi tay giơ lên mẩu đó nằm lệch khỏi cánh tay. Rig cắt mẩu đó đi khi tay sau thân giơ cao (`upArm`), tay áo đi theo cánh tay.
+- **Vóc dáng**: `seatedAt`/`reachWorld`/`sitLegs` nhận `build` (dáng tham chiếu của Nam 2.5D), `armHint` nhận `build`; `walker` nhận `leg` — dùng sai độ dài chân thì chân lơ lửng hoặc lún.
+- Kiểm tra bằng số trong `tests/ho-so-02-di-chuyen.cjs`: tốc độ và gia tốc đổi của mọi khớp qua đứng→tăng tốc→bước→rẽ→dừng, tỉ lệ trượt của chân trụ.
+
 ## Ví dụ ngắn gom tất cả
 `HoSo02VdHoaMoiTruong` ([`vd-hoa-moi-truong.tsx`](../../../../what-if-studio/src/episodes/ho-so-02-nguoi-lam-thay/vd-hoa-moi-truong.tsx), ~13,5 s, ban ngày, một cú máy toàn phòng): Nam đi từ cửa tới bàn, ngồi, gõ phím; Tùng bước vào, đi chéo về phía máy (che khuất sau nệm, bóng, ngả theo sàn), dừng lại vẫy tay; Nam quay ghế lại (góc 1/4 → nghiêng → 3/4) và đổi nét mặt bình thản → suy luận → bất ngờ → vui. Dùng mặt 2.5D tham số, dáng sống, môi trường chuyển động. Video local `what-if-studio/out/ho-so-02-nguoi-lam-thay/vd-hoa-moi-truong.mp4`, không commit.
 
