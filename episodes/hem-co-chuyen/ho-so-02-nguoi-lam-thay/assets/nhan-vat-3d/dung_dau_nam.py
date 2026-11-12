@@ -24,7 +24,7 @@ C = Vector((0.0, 0.0, 1.25))                       # tâm hộp sọ
 HEAD = (0.200, 0.198, 0.228)                       # nửa rộng (x), nửa sâu (y), nửa cao (z): sọ tròn đều, mặt không dẹt bè
 MOLE_SIDE = -1   # nốt ruồi theo ảnh mẫu: đuôi mày PHẢI nhân vật (−X, bên TRÁI ảnh chính diện). Đổi thành +1 nếu muốn đuôi mày trái.
 
-COL = {'da': '#df9668', 'toc': '#2a2928', 'trang': '#f3efe7', 'muc': '#1c1a19', 'khoang_mieng': '#4a1c1a', 'luoi': '#c2675f', 'rang': '#f4efe6'}
+COL = {'da': '#d57d4a', 'toc': '#121110', 'trang': '#f3efe7', 'muc': '#1c1a19', 'khoang_mieng': '#4a1c1a', 'luoi': '#c2675f', 'rang': '#f4efe6'}
 
 
 def hexc(h):
@@ -32,16 +32,17 @@ def hexc(h):
     return tuple(((x / 12.92) if x <= 0.04045 else ((x + 0.055) / 1.055) ** 2.4) for x in c) + (1.0,)
 
 
-def mat(name, col, rough, sss=0.0):
+def mat(name, col, rough, sss=0.0, spec=None, sss_radius=(0.9, 0.35, 0.2)):
     m = bpy.data.materials.new(name); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
     b.inputs['Base Color'].default_value = hexc(col); b.inputs['Roughness'].default_value = rough
+    if spec is not None: b.inputs['Specular IOR Level'].default_value = spec
     if sss:
-        b.inputs['Subsurface Weight'].default_value = sss; b.inputs['Subsurface Radius'].default_value = (0.9, 0.35, 0.2); b.inputs['Subsurface Scale'].default_value = 0.01
+        b.inputs['Subsurface Weight'].default_value = sss; b.inputs['Subsurface Radius'].default_value = sss_radius; b.inputs['Subsurface Scale'].default_value = 0.01   # Blender 5: màu tán xạ = Base Color (không còn Subsurface Color)
     return m
 
 
 def make_mats():
-    return {'da': mat('Da', COL['da'], 0.65, 0.05), 'toc': mat('Toc', COL['toc'], 0.75), 'trang': mat('Mat_Trang', COL['trang'], 0.3),
+    return {'da': mat('Da', COL['da'], 0.65, 0.08, sss_radius=(0.1, 0.05, 0.03)), 'toc': mat('Toc', COL['toc'], 0.90, spec=0.15), 'trang': mat('Mat_Trang', COL['trang'], 0.3),
             'muc': mat('Muc', COL['muc'], 0.5), 'khoang': mat('Khoang_Mieng', COL['khoang_mieng'], 0.8), 'luoi': mat('Luoi', COL['luoi'], 0.55),
             'rang': mat('Rang', COL['rang'], 0.3)}
 
@@ -78,13 +79,14 @@ def head_cage():
         cheek = math.exp(-((h + 0.38) / 0.32) ** 2) * (0.35 + 0.65 * front)  # má phính ở nửa dưới
         p.x *= 1.0 + 0.03 * cheek                                            # má phính nhẹ, nối liền thái dương thành oval mềm
         low = smooth01(-0.35, -0.95, h)                                      # cằm ngắn, bầu tròn, hơi đưa ra trước
-        p.x *= 1.0 - 0.08 * low * low                                       # đáy cằm rộng, bầu
+        # đáy cằm: không thu hẹp, bo chữ U đầy
         p.y -= 0.10 * low * front
-        if h < -0.75: p.z = -0.75 + (h + 0.75) * 0.65                         # đáy cằm bầu, không nhọn
+        if h < -0.75: p.z = -0.75 + (h + 0.75) * 0.88                         # đáy cằm bầu, ít ép phẳng
         p.y *= 1.0 - 0.06 * front * smooth01(-0.2, 0.6, h)                   # trán–mặt hơi phẳng phía trước, không hốc mắt sâu
         p.y *= 1.0 + 0.08 * smooth01(0.0, 0.8, w) * math.exp(-((h + 0.05) / 0.6) ** 2)   # chẩm sau đầu cầu tròn, dốc ôm xuống cổ (không nhô dài)
         vong = math.exp(-((h + 0.45) / 0.33) ** 2) * front                    # nửa dưới mặt (dưới mắt → cằm) vồng tròn ra trước
-        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.025 * low * front - 0.022 * vong, p.z * HEAD[2])) + C   # cụm môi–mũi–cằm vồng ra trước 2,2 cm, cằm cong chữ U dưới môi
+        shear = -0.052 * smooth01(0.0, -1.0, h) ** 1.4 + 0.018 * smooth01(0.1, 1.0, h)   # trục quả xoài: cằm vươn trước 5,2 cm, đỉnh ngả nhẹ ra sau 1,8 cm
+        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.025 * low * front - 0.022 * vong + shear, p.z * HEAD[2])) + C   # + cụm môi–mũi–cằm vồng ra trước, cằm U
     return bm
 
 
@@ -204,9 +206,9 @@ def build_face(coll, M, head):
     # nốt ruồi
     p, n = S.front(MOLE_SIDE * 0.140, C.z + 0.120, 0.001); mo = uv_sphere('Mole', coll, M['muc'], (16, 10)); place(mo, p, frame(n, 0), (0.0068, 0.0028, 0.0068))
     # mũi: khối bầu tròn nhỏ nhô nhẹ
-    p, n = S.front(0.0, C.z - 0.068); no = uv_sphere('Nose', coll, M['da'], (32, 20)); place(no, p - n * 0.011, frame(n, 0.7), (0.035, 0.030, 0.031)); subsurf(no, 1, 1)
+    p, n = S.front(0.0, C.z - 0.068); no = uv_sphere('Nose', coll, M['da'], (32, 20)); place(no, p + n * 0.017, frame(n, 0.7), (0.038, 0.036, 0.037))   # nhô hẳn khỏi mặt: tiến ra trước ~2,8 cm so với bản cũ, bán kính 1,1×; subsurf(no, 1, 1)
     # miệng: khoét hốc (Boolean) + khoang tối + răng trên + lưỡi + viền môi cực mảnh màu da
-    p, n = S.front(0.0, C.z - 0.142); p = p + n * 0.002   # miệng nhô nhẹ theo độ vồng môi; R3 = frame(n, 0.8); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]
+    p, n = S.front(0.0, C.z - 0.142); p = p + n * 0.002; R3 = frame(n, 0.8); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]   # miệng nằm trên phần nhô ra trước của môi
     cut = uv_sphere('Mouth_Cutter', coll, None, (24, 16)); place(cut, p, R3, (0.021, 0.026, 0.021)); cut.display_type = 'WIRE'; cut.hide_render = True
     cav = uv_sphere('Mouth_Cavity', coll, M['khoang'], (24, 16)); place(cav, p + Y * 0.014, R3, (0.024, 0.019, 0.023))
     te = uv_sphere('Teeth', coll, M['rang'], (20, 10)); place(te, p + Y * 0.005 + Z * 0.0135, R3, (0.0145, 0.005, 0.0045))
