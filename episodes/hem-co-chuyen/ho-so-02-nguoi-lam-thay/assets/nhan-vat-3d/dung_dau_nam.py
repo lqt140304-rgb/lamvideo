@@ -21,7 +21,7 @@ from mathutils import Vector, Matrix
 from mathutils.bvhtree import BVHTree
 
 C = Vector((0.0, 0.0, 1.25))                       # tâm hộp sọ
-HEAD = (0.192, 0.190, 0.238)                       # nửa rộng (x), nửa sâu (y), nửa cao (z)
+HEAD = (0.210, 0.225, 0.215)                       # nửa rộng (x), nửa sâu (y), nửa cao (z): sọ chibi tròn bè, sâu gáy, không nhọn dài
 MOLE_SIDE = -1   # nốt ruồi theo ảnh mẫu: đuôi mày PHẢI nhân vật (−X, bên TRÁI ảnh chính diện). Đổi thành +1 nếu muốn đuôi mày trái.
 
 COL = {'da': '#df9668', 'toc': '#2a2928', 'trang': '#f3efe7', 'muc': '#1c1a19', 'khoang_mieng': '#4a1c1a', 'luoi': '#c2675f', 'rang': '#f4efe6'}
@@ -76,14 +76,14 @@ def head_cage():
         u, w, h = p.x, p.y, p.z                                              # w < 0 là mặt trước
         front = smooth01(0.1, -0.7, w)
         cheek = math.exp(-((h + 0.38) / 0.32) ** 2) * (0.35 + 0.65 * front)  # má phính ở nửa dưới
-        p.x *= 1.0 + 0.08 * cheek
+        p.x *= 1.0 + 0.03 * cheek                                            # má phính nhẹ, nối liền thái dương thành oval mềm
         low = smooth01(-0.35, -0.95, h)                                      # cằm ngắn, bầu tròn, hơi đưa ra trước
-        p.x *= 1.0 - 0.20 * low * low
+        p.x *= 1.0 - 0.08 * low * low                                       # đáy cằm rộng, bầu
         p.y -= 0.10 * low * front
         if h < -0.75: p.z = -0.75 + (h + 0.75) * 0.65                         # đáy cằm bầu, không nhọn
         p.y *= 1.0 - 0.06 * front * smooth01(-0.2, 0.6, h)                   # trán–mặt hơi phẳng phía trước, không hốc mắt sâu
-        p.y *= 1.0 + 0.10 * smooth01(0.1, 0.8, w) * math.exp(-((h - 0.15) / 0.5) ** 2)   # chẩm sau đầu bầu tròn
-        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1], p.z * HEAD[2])) + C
+        p.y *= 1.0 + 0.20 * smooth01(0.0, 0.8, w) * math.exp(-((h + 0.05) / 0.6) ** 2)   # chẩm sau đầu phồng tròn lẳn, ôm xuống cổ
+        v.co = Vector((p.x * HEAD[0], p.y * HEAD[1] - 0.025 * low * front, p.z * HEAD[2])) + C   # cằm dưới đẩy ra trước 2,5 cm: cong môi–cằm rõ khi nhìn nghiêng
     return bm
 
 
@@ -164,14 +164,14 @@ def drop_w(wmax, tip=0.18, root=0.55):
 def build_face(coll, M, head):
     S = Surf(head); parts = {}
     TH = math.acos(0.2)                      # mí trên che 40% chiều cao nhãn cầu: (1 − cos θ)/2 = 0,40
-    EYE = (0.049, 0.026, 0.045)              # nửa rộng, nửa sâu, nửa cao nhãn cầu
+    EYE = (0.049 * 1.2, 0.026 * 1.2, 0.045 * 1.2)              # nửa rộng, nửa sâu, nửa cao nhãn cầu
     for s, k in ((1, 'L'), (-1, 'R')):
-        p, n = S.front(s * 0.088, C.z - 0.012); R3 = frame(n, 0.55); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]
+        p, n = S.front(s * 0.094, C.z); R3 = frame(n, 0.55); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]
         ce = p + Y * (EYE[1] * 0.35)             # nhãn cầu nhô nửa trên mặt, không khoét hốc sâu
         eb = uv_sphere(f'Eyeball.{k}', coll, M['trang'], (48, 32)); place(eb, ce, R3, EYE)
         # con ngươi: đĩa cong nhỏ sát mặt nhãn cầu, ngay dưới mép mí (mép mí che phần trên con ngươi)
         hz = EYE[2] * 0.12; yz = EYE[1] * math.sqrt(max(0.0, 1 - (hz / EYE[2]) ** 2))
-        pu = uv_sphere(f'Pupil.{k}', coll, M['muc'], (24, 14)); place(pu, ce - Y * (yz * 0.985) + Z * hz - X * s * 0.004, R3, (0.0115, 0.0035, 0.0125))
+        pu = uv_sphere(f'Pupil.{k}', coll, M['muc'], (24, 14)); place(pu, ce - Y * (yz * 0.985) + Z * hz - X * s * 0.004, R3, (0.0115 * 1.2, 0.0035 * 1.2, 0.0125 * 1.2))
         bpy.context.view_layer.update(); pu.parent = eb; pu.matrix_parent_inverse = eb.matrix_world.inverted()
         # mí trên: dải chỏm elip ôm nhãn cầu từ đỉnh xuống θ (Solidify + Subsurf); hàng cuối là mép mí đậm
         bm = bmesh.new(); nu, nv = 48, 12; rows = []
@@ -196,16 +196,16 @@ def build_face(coll, M, head):
             for j in range(nr): bm.faces.new((a[j], a[(j + 1) % nr], b[(j + 1) % nr], b[j]))
         bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:]); new_obj(f'Eyeline.{k}', bm, coll, M['muc'])
         # mày: giọt nước dẹt cong ôm trán, dày, đầu trong to, hai đầu bo tròn
-        pts = [S.front(s * x, z, 0.004)[0] for x, z in ((0.030, C.z + 0.060), (0.086, C.z + 0.071), (0.138, C.z + 0.058))]
+        pts = [S.front(s * x, z, 0.004)[0] for x, z in ((0.032, C.z + 0.084), (0.094, C.z + 0.096), (0.152, C.z + 0.082))]
         sweep(f'Eyebrow.{k}', coll, pts, lambda u: 0.0145 * (1 - 0.35 * u) * math.sin(math.pi * (0.03 + 0.94 * u)) ** 0.35,
               lambda u: 0.0080 * (1 - 0.3 * u) * math.sin(math.pi * (0.03 + 0.94 * u)) ** 0.35, lambda c: (c - C).normalized(), M['toc'], 32, 16)
         parts[k] = (eb, ce, R3)
     # nốt ruồi
-    p, n = S.front(MOLE_SIDE * 0.128, C.z + 0.094, 0.001); mo = uv_sphere('Mole', coll, M['muc'], (16, 10)); place(mo, p, frame(n, 0), (0.0068, 0.0028, 0.0068))
+    p, n = S.front(MOLE_SIDE * 0.140, C.z + 0.120, 0.001); mo = uv_sphere('Mole', coll, M['muc'], (16, 10)); place(mo, p, frame(n, 0), (0.0068, 0.0028, 0.0068))
     # mũi: khối bầu tròn nhỏ nhô nhẹ
-    p, n = S.front(0.0, C.z - 0.058); no = uv_sphere('Nose', coll, M['da'], (32, 20)); place(no, p - n * 0.011, frame(n, 0.7), (0.035, 0.030, 0.031)); subsurf(no, 1, 1)
+    p, n = S.front(0.0, C.z - 0.068); no = uv_sphere('Nose', coll, M['da'], (32, 20)); place(no, p - n * 0.011, frame(n, 0.7), (0.035, 0.030, 0.031)); subsurf(no, 1, 1)
     # miệng: khoét hốc (Boolean) + khoang tối + răng trên + lưỡi + viền môi cực mảnh màu da
-    p, n = S.front(0.0, C.z - 0.142); R3 = frame(n, 0.8); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]
+    p, n = S.front(0.0, C.z - 0.135); R3 = frame(n, 0.8); X, Y, Z = R3.col[0], R3.col[1], R3.col[2]
     cut = uv_sphere('Mouth_Cutter', coll, None, (24, 16)); place(cut, p, R3, (0.021, 0.026, 0.021)); cut.display_type = 'WIRE'; cut.hide_render = True
     cav = uv_sphere('Mouth_Cavity', coll, M['khoang'], (24, 16)); place(cav, p + Y * 0.014, R3, (0.024, 0.019, 0.023))
     te = uv_sphere('Teeth', coll, M['rang'], (20, 10)); place(te, p + Y * 0.005 + Z * 0.0135, R3, (0.0145, 0.005, 0.0045))
@@ -229,7 +229,7 @@ def build_face(coll, M, head):
             if v.co.x > 0 and r2 < 0.62: v.co.x -= 1.15 * (1 - r2 / 0.62) * v.co.x
         ear = new_obj(f'Ear.{k}', bm, coll, M['da'])
         R3 = Matrix.Rotation(s * math.radians(-28), 3, 'Z') @ Matrix(((s, 0, 0), (0, 1, 0), (0, 0, 1))) @ Matrix.Rotation(math.radians(8), 3, 'Y')
-        place(ear, p + Vector((s * 0.010, 0.008, 0)), R3, (0.030, 0.052, 0.068)); subsurf(ear, 1, 2)
+        place(ear, Vector((p.x + s * 0.010, 0.02, p.z)), R3, (0.030, 0.052, 0.068)); subsurf(ear, 1, 2)
     return S
 
 
