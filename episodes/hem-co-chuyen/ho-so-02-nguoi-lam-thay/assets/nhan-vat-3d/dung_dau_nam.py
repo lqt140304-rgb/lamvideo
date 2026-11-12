@@ -57,7 +57,7 @@ def mat(name, col, rough, sss=0.0, spec=None, sss_radius=(0.9, 0.35, 0.2)):
 
 
 def make_mats():
-    return {'da': mat('Da', COL['da'], 0.65, 0.08, sss_radius=(0.1, 0.05, 0.03)), 'toc': mat('Toc', COL['toc'], 0.72, spec=0.15), 'trang': mat('Mat_Trang', COL['trang'], 0.3),
+    return {'da': mat('Da', COL['da'], 0.65, 0.08, sss_radius=(0.1, 0.05, 0.03)), 'toc': mat('Toc', COL['toc'], 0.66, spec=0.32), 'trang': mat('Mat_Trang', COL['trang'], 0.3),
             'muc': mat('Muc', COL['muc'], 0.5), 'khoang': mat('Khoang_Mieng', COL['khoang_mieng'], 0.8), 'luoi': mat('Luoi', COL['luoi'], 0.55),
             'rang': mat('Rang', COL['rang'], 0.3)}
 
@@ -650,10 +650,10 @@ def render_coverage(sc, out):
 # ================================================================== TÓC v4: KHỐI TÓC THEO HÌNH BAO ẢNH MẪU
 # Mặt ngoài lấy từ một hình bao (siêu elip) dựng theo silhouette ảnh mẫu, KHÔNG lấy bằng cách nở đều từ da đầu;
 # Head_Base chỉ là giới hạn trong (mặt trong cách da 4 mm, bề dày tối thiểu 8 mm). Mái là phần trước của chính khối, kéo xuống trán.
-ENV = dict(c=(0.0, 0.012, 1.300), ax=0.228, ay_f=0.222, ay_b=0.232, az_t=0.212, az_b=0.200, n=2.35)
+ENV = dict(c=(0.0, 0.012, 1.300), ax=0.228, ay_f=0.230, ay_b=0.232, az_t=0.212, az_b=0.200, n=2.35)
 V4_LOBES = [(-35, 14, 50, 18.0), (22, 10, 26, 10.0)]          # mảng mái lớn quét chéo về trái ảnh + mảng phụ ngắn bên phải ảnh: (tâm°, nửa rộng trái°, nửa rộng phải°, độ hạ°)
 V4_DETAIL = True                                               # rãnh nông/gờ mảng (bật sau khi khối lớn đã đạt)
-V4_FLOWS = [([(18, 72), (2, 54), (-18, 34), (-33, 18)], 0.007, 9.0), ([(30, 64), (26, 46), (22, 26)], 0.005, 6.0)]
+V4_FLOWS = [([(18, 72), (2, 54), (-18, 34), (-33, 18)], 0.011, 10.0), ([(30, 64), (26, 46), (22, 26)], 0.007, 7.0)]
 V4_GROOVES = [([(26, 58), (18, 44), (12, 32)], 1.0), ([(10, 60), (-2, 44), (-14, 28)], 0.5)]   # rãnh ngắn, tắt dần về gốc
 
 
@@ -671,7 +671,7 @@ def env_dist(d):
     return lo
 
 
-HAIRLINE_V4 = [(0, 34), (36, 33), (56, 22), (68, 4), (74, -4), (80, 3), (90, 7), (108, 7), (118, -2), (128, -14), (142, -28), (158, -36), (180, -38)]   # chân tóc v4: sát đỉnh vành tai hơn
+HAIRLINE_V4 = [(0, 34), (36, 33), (56, 22), (68, 4), (74, -4), (80, 3), (90, 7), (108, 7), (118, -2), (128, -18), (142, -34), (158, -44), (180, -48)]   # chân tóc v4: sát đỉnh vành tai hơn
 
 
 def hairline_v4(az):
@@ -700,12 +700,15 @@ def hair_mass_v4(coll, M, S, N=288, K=60):
             el = e0 + (90.0 - e0) * (j / K) ** 0.85; ar, er = math.radians(az), math.radians(el)
             d = Vector((math.sin(ar) * math.cos(er), -math.cos(ar) * math.cos(er), math.sin(er)))
             p, n = S.at(az, el, 0.0); t_skin = (p - C).length
-            gap = 0.004 + 0.010 * smooth01(0, 14, hl - el)                    # mái trên trán nhấc khỏi da, đầu mái chìa ra
+            gap = 0.004 + 0.016 * smooth01(0, 14, hl - el)                    # mái trên trán nhấc khỏi da, đầu mái chìa ra trước
             t_in = t_skin + gap
             t_env = env_dist(d); cap = 0.055 - 0.040 * smooth01(0, -38, el)      # gáy thu gọn: phía dưới không phồng theo hình bao
             t_out = min(max(t_env, t_in + 0.008), t_in + cap)
-            T_edge = 0.005 + 0.007 * wf; span = 20 - 8 * wf                   # mép bo tròn kiểu cung lồi (không thành vành/bậc)
-            x_ = min(1.0, max(0.0, (el - e0) / span)); T = T_edge + (t_out - t_in - T_edge) * math.sqrt(max(0.0, 1 - (1 - x_) ** 2))
+            # mép: mái trước dày, bo cung lồi; hai bên và gáy mỏng dần đều tới gần 0 trên một đoạn dài (ôm đầu, không gấp khúc)
+            T_edge = 0.0015 + 0.0125 * wf; span = 34 - 22 * wf
+            x_ = min(1.0, max(0.0, (el - e0) / span))
+            prof_ = wf * math.sqrt(max(0.0, 1 - (1 - x_) ** 2)) + (1 - wf) * (x_ * x_ * (3 - 2 * x_)) ** 0.85
+            T = T_edge + (t_out - t_in - T_edge) * prof_
             if V4_DETAIL:
                 bul = 0.0
                 for smp, A, sg in F:
@@ -731,10 +734,10 @@ def hair_curl_v4(coll, M, S):
     """Lọn đỉnh riêng: tiết diện đổi dọc thân — gốc loe rộng chìm trong khối đỉnh, thân cong đầy hình lưỡi liềm, ngọn nhỏ dần bo mềm; cong về trước, hơi chếch sang phải ảnh."""
     tz = C.z + env_dist(Vector((0, 0, 1)))                                      # đỉnh khối tóc
     anchor = Vector((0.0, 0.012, tz))
-    loc = [(0.0, 0.030, -0.022), (0.0, 0.026, 0.008), (0.004, 0.010, 0.040), (0.012, -0.016, 0.060), (0.024, -0.046, 0.060), (0.034, -0.068, 0.044), (0.038, -0.076, 0.024)]   # gốc sau đỉnh → vòng lên → cong về trước, ngọn chúc xuống
+    loc = [(0.0, 0.036, -0.024), (0.0, 0.030, 0.006), (0.004, 0.012, 0.032), (0.014, -0.016, 0.047), (0.026, -0.048, 0.047), (0.036, -0.072, 0.033), (0.040, -0.082, 0.015)]   # gốc sau đỉnh → vòng lên → cong về trước, ngọn chúc xuống
     pts = [anchor + Vector(v) for v in loc]
     prof = [(0, 1.6), (0.16, 1.1), (0.45, 1.25), (0.78, 0.8), (1.0, 0.30)]
-    ob = sweep('Hair_LonDinh', coll, pts, lambda u: 0.027 * _prof(prof, u), lambda u: 0.025 * _prof(prof, u), lambda c: Vector((1, 0, 0)), M['toc'], 48, 22)
+    ob = sweep('Hair_LonDinh', coll, pts, lambda u: 0.031 * _prof(prof, u), lambda u: 0.029 * _prof(prof, u), lambda c: Vector((1, 0, 0)), M['toc'], 48, 22)
     if V4_DETAIL: subsurf(ob, 1, 2)
     return ob
 
@@ -753,7 +756,8 @@ def studio(sc):
         o.rotation_euler = (C - Vector(loc)).to_track_quat('-Z', 'Y').to_euler()
     area('Key', (-1.0, -1.6, 2.2), 1.4, 120, '#fff3e4')
     area('Fill', (1.4, -1.2, 1.4), 1.8, 45, '#eef2ff')
-    area('Rim', (0.4, 1.6, 2.0), 1.0, 70, '#ffffff')
+    area('Rim', (0.4, 1.6, 2.0), 1.0, 150, '#ffffff')
+    area('Top', (0.0, -0.3, 2.6), 1.2, 70, '#fff8f0')   # đèn đỉnh: để khối tóc đen đọc được mặt trên
     cams = {}
     for name, loc, rot in (('Cam_Front', (0, -3, C.z + 0.04), (math.radians(90), 0, 0)), ('Cam_Right', (3, 0, C.z + 0.04), (math.radians(90), 0, math.radians(90))),
                            ('Cam_34', (2.12, -2.12, C.z + 0.04), (math.radians(90), 0, math.radians(45))),
