@@ -110,6 +110,13 @@ export function createBaseCharacter(THREE, spec = {}) {
       tp.setXYZ(i, x * (1 - 0.045 * shoulder), y, z * (1 + 0.1 * chest * front) + 1.0 * chest * (z > 0 ? 1 : 0.3));
     }
     torsoGeo.computeVertexNormals();
+    // LatheGeometry nhân đôi đỉnh ở đường nối (phi = 0 và 2π): trộn pháp tuyến hai bên để không còn vạch dọc giữa ngực
+    const nn = torsoGeo.attributes.normal, NP = prof.length, SEG = 72;
+    for (let j = 0; j < NP; j++) {
+      const i0 = j, i1 = SEG * NP + j;
+      const nx = nn.getX(i0) + nn.getX(i1), ny = nn.getY(i0) + nn.getY(i1), nz = nn.getZ(i0) + nn.getZ(i1), L = Math.hypot(nx, ny, nz) || 1;
+      nn.setXYZ(i0, nx / L, ny / L, nz / L); nn.setXYZ(i1, nx / L, ny / L, nz / L);
+    }
   }
   mesh(torsoGeo, shirtM, J.spine, [0, 0, 0], [0, 0, 0], [1, 1, 0.8]);
   mesh(new THREE.TorusGeometry(8.6, 1.05, 14, 56), M('#646160', 0.95), J.chest, [0, 21.6, -0.4], [Math.PI / 2 - 0.1, 0, 0], [1, 0.86, 1]); // cổ áo bo
