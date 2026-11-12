@@ -8,28 +8,28 @@
     {
       "id": "bang-cam-xuc-01",
       "w": 1800,
-      "h": 1280,
+      "h": 1950,
       "svg": "bang-cam-xuc-01.svg",
       "png": "bang-cam-xuc-01.png"
     },
     {
       "id": "bang-cam-xuc-02",
       "w": 1800,
-      "h": 1280,
+      "h": 1950,
       "svg": "bang-cam-xuc-02.svg",
       "png": "bang-cam-xuc-02.png"
     },
     {
       "id": "bang-cam-xuc-03",
-      "w": 1800,
-      "h": 1280,
+      "w": 1720,
+      "h": 1360,
       "svg": "bang-cam-xuc-03.svg",
       "png": "bang-cam-xuc-03.png"
     },
     {
       "id": "bang-cam-xuc-04",
-      "w": 1800,
-      "h": 1280,
+      "w": 1840,
+      "h": 990,
       "svg": "bang-cam-xuc-04.svg",
       "png": "bang-cam-xuc-04.png"
     },

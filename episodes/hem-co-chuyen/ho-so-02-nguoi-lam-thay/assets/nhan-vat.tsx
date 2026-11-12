@@ -750,24 +750,26 @@ const armBend = (c: ReturnType<typeof solveRig>['armR']) => {
   const u = Math.atan2(c.mid.y - c.root.y, c.mid.x - c.root.x), f = Math.atan2(c.end.y - c.mid.y, c.end.x - c.mid.x);
   return Math.abs(((((f - u) * 180) / Math.PI + 540) % 360) - 180);
 };
-const armWidths = (c: ReturnType<typeof solveRig>['armR'], w0: [number, number, number] = DEFAULT_BUILD.arm): [number, number, number] => {
+/** Nửa bề ngang chân bàn tay (HAND_OUTLINE: x = ±13) nhân cỡ tay: cổ tay cẳng tay phải đúng bằng số này để bàn tay liền với cẳng tay, không bậc thang. */
+const wristHalf = (hand: number) => 13 * hand;
+const armWidths = (c: ReturnType<typeof solveRig>['armR'], w0: [number, number, number] = DEFAULT_BUILD.arm, endW?: number): [number, number, number] => {
   const k = clamp((armBend(c) - 30) / 60);
-  return [w0[0] + 1.5 * k, w0[1] + 4 * k, w0[2] + 3.5 * k];
+  return [w0[0] + 1.5 * k, w0[1] + 4 * k, endW ?? w0[2] + 3.5 * k];
 };
-const armShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number]) => {
-  const w = armWidths(c, w0);
-  return [limbContour(c, w), circle(c.mid, w[1]), circle(c.root, w[0])];
+const armShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number], endW?: number) => {
+  const w = armWidths(c, w0, endW);
+  return [limbContour(c, w), circle(c.mid, w[1]), circle(c.root, w[0]), ...(endW ? [circle(c.end, endW)] : [])]; // vòng ở cổ tay che góc hở khi bàn tay xoay lệch cẳng tay
 };
 // Tay gập mạnh (cẳng tay quặt ngược lên ngực): tách bắp tay (nằm dưới tay áo) và cẳng tay (đè lên tay áo),
 // nếu vẽ chung một khối rồi phủ tay áo lên thì mép áo cắt ngang cẳng tay thành răng cưa.
 const FOLD_BEND = 95;
-const upperArmShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number]) => {
-  const w = armWidths(c, w0);
+const upperArmShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number], endW?: number) => {
+  const w = armWidths(c, w0, endW);
   return [limbContour({ root: c.root, mid: mix(c.root, c.mid, 0.5), end: c.mid }, [w[0], (w[0] + w[1]) / 2, w[1]]), circle(c.root, w[0]), circle(c.mid, w[1])];
 };
-const foreArmShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number]) => {
-  const w = armWidths(c, w0);
-  return [limbContour({ root: c.mid, mid: mix(c.mid, c.end, 0.5), end: c.end }, [w[1], (w[1] + w[2]) / 2, w[2]]), circle(c.mid, w[1])];
+const foreArmShapes = (c: ReturnType<typeof solveRig>['armR'], w0?: [number, number, number], endW?: number) => {
+  const w = armWidths(c, w0, endW);
+  return [limbContour({ root: c.mid, mid: mix(c.mid, c.end, 0.5), end: c.end }, [w[1], (w[1] + w[2]) / 2, w[2]]), circle(c.mid, w[1]), ...(endW ? [circle(c.end, endW)] : [])];
 };
 const sleeveShapes = (c: ReturnType<typeof solveRig>['armR'], o: Outfit) => {
   const end = mix(c.root, c.mid, o.sleeveEnd);
@@ -832,6 +834,7 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   const awayClip = useClipId('away');
   const hemClip = useClipId('drawn-hem');
   const stumpClip = useClipId('stump');
+  const shR = useClipId('slsh-r'), shL = useClipId('slsh-l');
   // Quy tắc 11/11: không tô tối/sáng nguyên chi để tách lớp; tách bằng che khuất và mảng bóng tự vẽ. Giữ hàm để không đổi cấu trúc.
   const back = (n: React.ReactNode) => n;
   const front = (n: React.ReactNode) => n;
@@ -850,10 +853,19 @@ export const Rigged: React.FC<{ pose: JointPose; outfit: Outfit; head: React.Rea
   // under: vẽ dưới tay áo; over: vẽ đè lên tay áo (chỉ có khi tay gập mạnh).
   const arm = (c: typeof r.armR, s: 1 | -1, wrist: number, kind: HandKind, held?: React.ReactNode) => {
     const hand = handShapes(c.end, c.deg + lim(wrist, 'wrist'), s, kind, B.hand);
-    const sleeveSh = <path d={sleeveShadow(c, o.sleeveEnd)} fill={PALETTE.skinShadow} opacity={0.55} stroke="none" />;
-    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c, B.arm), ...hand]} />{sleeveSh}</g>;
+    const endW = kind === 'none' ? undefined : wristHalf(B.hand); // cổ tay khớp chân bàn tay
+    const sid = c === r.armR ? shR : shL;
+    const sa = mix(c.root, c.mid, o.sleeveEnd), sb = mix(c.root, c.mid, Math.min(0.95, o.sleeveEnd + 0.17));
+    // bóng tay áo: mờ dần xuống bắp tay (gradient), không còn dải nâu có mép thẳng cắt ngang cánh tay; data-shadow để lớp 2.5D bỏ qua
+    const sleeveSh = (
+      <g data-shadow="drawn-sleeve">
+        <defs><linearGradient id={sid} gradientUnits="userSpaceOnUse" x1={sa.x} y1={sa.y} x2={sb.x} y2={sb.y}><stop offset="0" stopColor={PALETTE.skinShadow} stopOpacity={0.6} /><stop offset="1" stopColor={PALETTE.skinShadow} stopOpacity={0} /></linearGradient></defs>
+        <path d={sleeveShadow(c, o.sleeveEnd)} fill={`url(#${sid})`} stroke="none" />
+      </g>
+    );
+    const one = <g>{held}<Blob fill={PALETTE.skin} d={[...armShapes(c, B.arm, endW), ...hand]} />{sleeveSh}</g>;
     if (armBend(c) < FOLD_BEND) return { one, under: one, over: null };
-    return { one, under: <g><Blob fill={PALETTE.skin} d={upperArmShapes(c, B.arm)} />{sleeveSh}</g>, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c, B.arm), ...hand]} /></g> };
+    return { one, under: <g><Blob fill={PALETTE.skin} d={upperArmShapes(c, B.arm, endW)} />{sleeveSh}</g>, over: <g>{held}<Blob fill={PALETTE.skin} d={[...foreArmShapes(c, B.arm, endW), ...hand]} /></g> };
   };
   const whole = (a: { one: React.ReactNode }) => a.one; // tay sau thân/không có tay áo đè: một khối liền, không tách
   // Đạo cụ vẽ ngay trước cánh tay cầm nó, nên luôn nằm dưới ngón tay và cùng lớp với tay. Quay trái thì tay phải giải phẫu ở vế L.
