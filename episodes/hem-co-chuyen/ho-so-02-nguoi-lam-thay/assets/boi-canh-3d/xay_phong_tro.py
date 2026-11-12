@@ -400,13 +400,41 @@ def lights_fixture(m, coll):
 
 
 # ------------------------------------------------------------------ hành lang (ngoài tường cửa, x < 0)
+def _tint(mat, rnd):
+    """Bản sao vật liệu với màu gốc xoay sắc độ ngẫu nhiên (chỉ khi Base Color là giá trị thẳng)."""
+    import colorsys
+    mc = mat.copy()
+    for n in mc.node_tree.nodes:
+        if n.type == 'BSDF_PRINCIPLED' and not n.inputs['Base Color'].is_linked:
+            r, g, b, al = n.inputs['Base Color'].default_value
+            h, sa, v = colorsys.rgb_to_hsv(r, g, b)
+            r, g, b = colorsys.hsv_to_rgb((h + rnd.uniform(0.08, 0.5)) % 1.0, min(1.0, sa * rnd.uniform(0.8, 1.2) + 0.05), v * rnd.uniform(0.85, 1.1))
+            n.inputs['Base Color'].default_value = (r, g, b, al)
+    return mc
+
+
 def _repeat(coll, before, y1, period=9.6, start=0.0):
-    """Nhân bản các vật vừa tạo (so với `before`) dọc hành lang mỗi `period` mét cho tới y1."""
+    """Nhân bản các vật vừa tạo (so với `before`) dọc hành lang mỗi `period` mét cho tới y1, mỗi lần một biến thể:
+    bỏ/đổi nhóm đồ, lệch vị trí, đổi màu đồ nhỏ."""
+    import random
     new = [o for o in coll.objects if o not in before]
+    groups = {'phoi': ('day_phoi', 'cot_phoi', 'moc_phoi', 'phoi_'), 'giay': ('ke_giay', 'dep'), 'chau': ('chau_cay', 'dat_chau', 'la', 'giay'),
+              'xo': ('xo_nuoc', 'chau_nhua', 'choi_hl'), 'bang': ('bang_tb', 'tb_giay')}
+    tintable = ('phoi_', 'dep', 'xo_nuoc', 'chau_nhua', 'chau_cay', 'la')
     k = 1
     while start + period * k < y1 - 1.0:
+        rnd = random.Random(100 + k)
+        drop = set(rnd.sample(sorted(groups), 2))
+        jitter = rnd.uniform(-1.2, 1.2)
         for o in new:
-            c = o.copy(); c.name = f'{o.name}_r{k}'; c.location.y += period * k; coll.objects.link(c)
+            nm = o.name.split('.')[0]
+            if any(nm.startswith(pre) for g in drop for pre in groups[g]) and not (nm.startswith('giay') and 'giay' not in groups['chau'] and False):
+                continue
+            c = o.copy(); c.name = f'{nm}_r{k}'; c.location.y += period * k + jitter
+            if any(nm.startswith(t) for t in tintable) and o.data is not None and o.material_slots:
+                c.data = o.data  # lưới dùng chung
+                c.material_slots[0].link = 'OBJECT'; c.material_slots[0].material = _tint(o.material_slots[0].material, rnd)
+            coll.objects.link(c)
         k += 1
 
 
@@ -426,7 +454,7 @@ def hallway(m, coll, night):
     box('tuong_hl_ngoai_phong_nam_duoi2', ex - 0.004, ex, DOOR['y1'], D, 0, 1.1, lo, coll=coll)
     for nm, a in [(f'cua_phong_{k}', 4.35 + 2.2 * k) for k in range(int((Y1 - 5.5) / 2.2))]:
         box(nm + '_khuon', ex - 0.03, ex + 0.02, a - 0.06, a + 0.91, 0, 2.16, m['viền'], bevel=0.004, coll=coll)
-        box(nm, ex - 0.04, ex - 0.0, a, a + 0.85, 0, 2.10, m['cua'], bevel=0.006, coll=coll)
+        box(nm, ex - 0.04, ex - 0.0, a, a + 0.85, 0, 2.10, M.mottled(nm + '_mau', ['#6d887c', '#8a7a62', '#6b7f95', '#9a6f5e', '#7f8c70'][int(round((a - 4.35) / 2.2)) % 5], rough=0.55, scale=3, vary=0.05, bump=0.05), bevel=0.006, coll=coll)
         box(nm + '_tay', ex - 0.07, ex - 0.04, a + 0.07, a + 0.11, 1.0, 1.03, m['inox'], bevel=0.005, coll=coll)
         box(nm + '_so', ex - 0.045, ex - 0.04, a + 0.33, a + 0.52, 1.7, 1.82, M.solid('so_cua', '#efeadc', 0.5), coll=coll)
     # biển số phòng Nam + đồng hồ điện bên cạnh cửa
