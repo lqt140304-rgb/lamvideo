@@ -4,7 +4,7 @@
 <body><script type="module">
 import * as THREE from 'three';
 const q0 = new URLSearchParams(location.search);
-const { buildNam } = await import(q0.get('model') === 'toon' ? './nam-3d-toon.js' : './nam-3d.js');
+const { buildNam } = await import('./' + (q0.get('model') === 'toon' ? 'nam-3d-toon' : (q0.get('model') || 'nam-3d')) + '.js');
 const q = new URLSearchParams(location.search);
 const W = +(q.get('w') || 900), H = +(q.get('h') || 1200);
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
