@@ -462,6 +462,57 @@ def hallway(m, coll, night):
     box('phan_xa_toa_nha', -60, -20, -30, 60, -2.5, 22, M.mottled('toa_nha_xa', '#9aa3a6', rough=1.0, scale=0.3, vary=0.1, bump=0.0), coll=coll)
 
 
+def hallway_details(m, coll, night):
+    """Chi tiết đời sống hành lang: dây điện, kệ giày, dây phơi, bình chữa cháy, bảng thông báo, đèn cửa, dầm mái."""
+    ex = -T; X0 = -1.45; Y0, Y1 = -0.6, 9.5
+    dark = M.solid('day_dien', '#2a2a2a', 0.5); red = M.solid('binh_cc', '#b3362c', 0.45)
+    paper = M.solid('giay_tb', '#efe9d8', 0.8); cork = M.solid('bang_tb', '#b78c5a', 0.9)
+    # dây điện chạy dọc tường, kẹp mỗi 0,6 m, rẽ xuống hộp điện
+    box('day_dien_hl', ex - 0.012, ex, Y0, Y1, 2.52, 2.535, dark, coll=coll)
+    for i in range(int((Y1 - Y0) / 0.6)):
+        box(f'kep_day{i}', ex - 0.016, ex, Y0 + 0.3 + i * 0.6, Y0 + 0.33 + i * 0.6, 2.50, 2.555, m['viền'], coll=coll)
+    box('day_dien_xuong', ex - 0.012, ex, DOOR['y0'] - 0.4, DOOR['y0'] - 0.385, 1.75, 2.52, dark, coll=coll)
+    # dầm mái ngang mỗi 2,4 m
+    for i in range(5):
+        y = Y0 + 1.2 + i * 2.4
+        box(f'dam_mai{i}', X0 - 0.15, ex, y, y + 0.18, H - 0.2, H, m['tuong'], bevel=0.006, coll=coll)
+    # bóng đèn cầu chì trên cửa phòng Nam
+    cyl('den_cua_de', -0.2, 2.47, H - 0.08, 0.03, 0.05, m['inox'], coll=coll)
+    sphere('den_cua', -0.2, 2.47, H - 0.16, 0.06, m['den_tuyp_hl'], coll=coll)
+    # kệ giày cạnh cửa phòng Nam (y 3.1–3.8), 2 tầng
+    for k, z in enumerate([0.0, 0.32]):
+        box(f'ke_giay{k}', ex - 0.30, ex - 0.02, 3.1, 3.8, z + 0.02, z + 0.04, m['go_ban'] if 'go_ban' in m else M.solid('ke_giay', '#8a6a46', 0.7), bevel=0.004, coll=coll)
+    for xx in (ex - 0.30, ex - 0.04):
+        for yy in (3.1, 3.77):
+            box(f'ke_giay_chan_{xx:.2f}_{yy:.2f}', xx, xx + 0.03, yy, yy + 0.03, 0.0, 0.64, M.solid('ke_giay_c', '#8a6a46', 0.7), coll=coll)
+    box('ke_giay_tren', ex - 0.30, ex - 0.02, 3.1, 3.8, 0.62, 0.65, M.solid('ke_giay_t', '#8a6a46', 0.7), bevel=0.004, coll=coll)
+    cols = ['#3d4a6b', '#9a6a4a', '#d8d2c2', '#5b7a5e', '#a84a4a']
+    for i in range(5):
+        for k, z in enumerate([0.04, 0.34]):
+            box(f'dep{k}_{i}', ex - 0.25, ex - 0.1, 3.16 + i * 0.13, 3.16 + i * 0.13 + 0.09, z, z + 0.07, M.solid(f'dep_{k}_{i}', cols[(i + k) % 5], 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(8 * ((i + k) % 3) - 8)))
+    # dây phơi ngang hành lang (y = 6.0) + vài món đồ treo
+    box('day_phoi', X0 + 0.07, ex - 0.02, 5.99, 6.01, 2.15, 2.17, dark, coll=coll)
+    cyl('cot_phoi', X0 + 0.07, 6.0, 1.6, 0.012, 1.1, m['thep'], coll=coll)  # cột dựng từ tay vịn lan can
+    box('moc_phoi', ex - 0.03, ex, 5.98, 6.02, 2.13, 2.19, m['thep'], coll=coll)
+    for nm, y0, c, w, h in [('ao1', 6.03, '#9bb4c8', 0.42, 0.62), ('quan1', 6.50, '#586a8a', 0.30, 0.82), ('ao2', 6.92, '#e1c27a', 0.40, 0.58)]:
+        box('phoi_' + nm, -0.95, -0.62, y0, y0 + 0.03, 2.17 - h, 2.17, M.solid('phoi_' + nm, c, 0.9), coll=coll)
+    # bình chữa cháy + bảng thông báo gần cầu thang
+    cyl('binh_cc', ex - 0.09, 0.15, 0.33, 0.07, 0.55, red, coll=coll, bevel=0.01)
+    cyl('binh_cc_co', ex - 0.09, 0.15, 0.66, 0.03, 0.07, m['inox'], coll=coll)
+    box('bang_cc', ex - 0.015, ex, 0.04, 0.26, 1.15, 1.45, M.solid('bang_cc', '#d9d3c0', 0.7), coll=coll)
+    box('bang_cc_do', ex - 0.02, ex - 0.015, 0.04, 0.26, 1.35, 1.45, red, coll=coll)
+    box('bang_tb', ex - 0.02, ex, 5.7, 6.5, 1.35, 1.95, cork, bevel=0.004, coll=coll)
+    for i, (a, b, z) in enumerate([(5.74, 5.98, 1.65), (6.04, 6.28, 1.70), (5.80, 6.05, 1.40), (6.12, 6.42, 1.45)]):
+        box(f'tb_giay{i}', ex - 0.026, ex - 0.02, a, b, z, z + 0.24, paper, coll=coll)
+    # xô + chậu giặt + chổi trước phòng B
+    cyl('xo_nuoc', -0.35, 4.1, 0.14, 0.12, 0.28, M.solid('xo_nuoc', '#4f86b5', 0.5), coll=coll, bevel=0.01)
+    cyl('chau_nhua', -0.62, 4.0, 0.06, 0.22, 0.12, M.solid('chau_nhua', '#d9806a', 0.5), coll=coll, bevel=0.01)
+    cyl('choi_hl', ex - 0.06, 3.95, 0.7, 0.01, 1.4, M.solid('choi_hl', '#8a6a46', 0.7), coll=coll, rot=(0, math.radians(4), 0))
+    # vết ố chân tường + rãnh thoát nước sát lan can
+    box('o_chan_tuong', ex - 0.006, ex, Y0, Y1, 0.0, 0.07, M.solid('o_chan', '#a89f8a', 0.9), coll=coll)
+    box('ranh_nuoc', X0 + 0.14, X0 + 0.22, Y0, Y1, 0.0, 0.012, M.solid('ranh', '#8c8576', 0.8), coll=coll)
+
+
 # ------------------------------------------------------------------ ánh sáng, thế giới, camera
 def world_and_lights(mode, coll):
     w = bpy.data.worlds.new('troi'); bpy.context.scene.world = w; w.use_nodes = True
@@ -507,6 +558,9 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'KITCHEN': ((1.1, 2.1, 1.45), (0.45, 0.25, 1.0), 28),
     'HALL': ((-0.75, 9.3, 1.5), (-0.75, -1.8, 1.0), 24),
     'HALL_DOOR': ((-1.25, 5.2, 1.45), (-0.05, 2.5, 1.2), 28),
+    'HALL_FACE': ((-1.3, 0.2, 1.5), (-0.05, 3.6, 1.2), 22),  # nhìn dọc hành lang về cửa phòng Nam từ phía cầu thang
+    'HALL_STAIR': ((-0.7, 1.4, 1.6), (-0.7, -1.6, 0.2), 24),
+    'HALL_END': ((-0.7, 0.1, 1.55), (-0.75, 9.0, 1.4), 22),
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
     'LOW': ((1.0, 3.7, 0.35), (2.2, 0.6, 1.0), 24),
 }
@@ -534,7 +588,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     m['den_tuyp_hl'] = M.emission('den_tuyp_hl', '#fff1d6', 14.0 if mode == 'night' else 2.5)
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
     shell(m, coll, door_open, cutaway=(cam in ('TOP',)), hide_front=(CAMERAS[cam][0][1] > D)); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
-    mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); hallway(m, coll, mode == 'night')
+    mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
     co = add_camera(cam); sc.camera = co
     sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 96; sc.cycles.use_denoising = True
