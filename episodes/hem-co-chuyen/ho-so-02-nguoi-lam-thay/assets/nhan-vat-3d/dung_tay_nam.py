@@ -29,8 +29,8 @@ PALM_HW = 0.070       # nửa bề ngang lòng tay ở khớp gốc ngón
 PALM_HT = 0.027       # nửa bề dày lòng tay
 WRIST_R = 0.033       # bán kính đoạn cổ tay (khớp cẳng tay Nam ≈ 0,034)
 #            v (ngang)  dài    r gốc   r đầu
-FINGER_DEF = {'index': (-0.051, 0.068, 0.0172, 0.0155), 'middle': (-0.017, 0.074, 0.0177, 0.0158),
-              'ring':  (0.017, 0.070, 0.0172, 0.0155), 'pinky':  (0.050, 0.058, 0.0158, 0.0143)}
+FINGER_DEF = {'index': (-0.054, 0.068, 0.0158, 0.0145), 'middle': (-0.018, 0.074, 0.0162, 0.0148),   # tâm cách nhau 36 mm, ngón Ø ~31–32 mm → khe ~4–5 mm
+              'ring':  (0.018, 0.070, 0.0158, 0.0145), 'pinky':  (0.053, 0.058, 0.0148, 0.0136)}           # (bản đầu Ø 34 mm cách 34 mm → các ngón dính nhau)
 SEG = (0.40, 0.32, 0.28)          # tỉ lệ 3 đốt
 KNUCKLE_U = 0.076                 # khớp gốc ngón nằm hơi lùi trong lòng tay
 # ngón cái: khối gốc + 3 điểm khớp (u, v, w) — lệch ra trước mặt lòng tay (w > 0), không cắm ngang
@@ -289,7 +289,7 @@ def fist_contact_fn(ob, arm, side='L'):
     fing = {f: _region(ob, (f'{f}2', f'{f}3')) for f in FINGERS}
     def contact(f):
         P = _verts(ob); bp = _bvh_sub(P, ob, palm); bt = _bvh_sub(P, ob, tip[f])
-        pen = len(bp.overlap(bt)) + len(_bvh_sub(P, ob, thumb).overlap(_bvh_sub(P, ob, fing[f])))   # không xuyên lòng tay, không xuyên ngón cái
+        pen = len(bp.overlap(bt))                    # không xuyên lòng tay (ngón cái được dò sau, tránh bốn ngón)
         return min(bp.find_nearest(Vector(P[i]))[3] for i in tip[f][::2]), pen
     return contact
 
@@ -325,7 +325,7 @@ def calibrate(ob, arm, cup, side='L'):
     b1 = pb[f'thumb1.{side}']; _set(arm, {}, side); Q0 = _verts(ob); ed = np.array([e.vertices[:] for e in ob.data.edges])
     l0 = np.linalg.norm(Q0[ed[:, 0]] - Q0[ed[:, 1]], axis=1); ok_e = l0 > 0.5 * np.median(l0)
     def n_stretch(P): return int((np.where(ok_e, np.linalg.norm(P[ed[:, 0]] - P[ed[:, 1]], axis=1) / l0.clip(1e-9), 0) > 2.0).sum())
-    th = _region(ob, ('thumb2', 'thumb3')); th3 = _region(ob, ('thumb3',)); rest = _region(ob, ('hand', 'index', 'middle', 'ring', 'pinky'))
+    th = _region(ob, ('thumb2', 'thumb3')); th3 = _region(ob, ('thumb3',)); fingers4 = _region(ob, FINGERS); palm_only = _region(ob, ('hand',))
     at, st, acr, sa = int(b1['ax_curl']), b1['sg_curl'], int(b1['ax_across']), b1['sg_across']
     tb = [pb[f'thumb{i + 1}.{side}'] for i in range(3)]
     # cầm cốc: dò lưới (độ cuộn × góc quay ngang) — không xuyên cốc, sát cốc nhất, ít kéo da
@@ -342,30 +342,22 @@ def calibrate(ob, arm, cup, side='L'):
             if best is None or score < best[0]: best = (score, k, a, pen, dm, ns, [list(t['grip_rot']) for t in tb])
     for i in range(3): tb[i]['grip_rot'] = best[6][i]
     print(f'    hiệu chỉnh ngón cái cầm cốc: k={best[1]} quay={best[2]} xuyên {best[3]} khe {best[4] * 1000:.1f} mm, cạnh giãn {best[5]}')
-    # nắm tay: IK tạm cho chuỗi ngón cái với tới mặt ngoài đốt giữa ngón trỏ/giữa, ghi góc giải được vào fist_rot
-    for t in tb: t['fist_rot'] = [0.0, 0.0, 0.0]
-    _set(arm, {'fist': 1.0}, side); mw = arm.matrix_world
-    n = Vector((_N.x * sx, _N.y, _N.z))
-    mid = sum(((mw @ pb[f'{f}2.{side}'].head + mw @ pb[f'{f}2.{side}'].tail) / 2 for f in ('index', 'middle')), Vector()) / 2
-    r_f = (FINGER_DEF['index'][2] + FINGER_DEF['middle'][2]) / 2
-    emp = bpy.data.objects.new('ik_thumb', None); bpy.context.scene.collection.objects.link(emp)
-    c = tb[2].constraints.new('IK'); c.target = emp; c.chain_count = 3; c.use_tail = True
-    sol = None
-    for extra in (0.000, 0.003, 0.006, 0.009, 0.012):
-        emp.location = mid + n * (r_f + THUMB_R[3] + extra); _set(arm, {'fist': 1.0}, side)
-        mats = [arm.convert_space(pose_bone=t, matrix=t.matrix, from_space='POSE', to_space='LOCAL').to_euler('XYZ') for t in tb]
-        c.mute = True
-        for i in range(3): tb[i]['fist_rot'] = list(mats[i])
-        _set(arm, {'fist': 1.0}, side); P = _verts(ob); pen = len(_bvh_sub(P, ob, th).overlap(_bvh_sub(P, ob, rest)))
-        dm = min(_bvh_sub(P, ob, _region(ob, ('index2', 'middle2'))).find_nearest(Vector(P[i]))[3] for i in th3[::2])
-        print(f'    ngón cái nắm: đích +{extra * 1000:.0f} mm → xuyên {pen}, khe {dm * 1000:.1f} mm, cạnh giãn {n_stretch(P)}')
-        sol = [list(m) for m in mats]
-        if pen == 0: break
-        c.mute = False
-        for t in tb: t['fist_rot'] = [0.0, 0.0, 0.0]
-    tb[2].constraints.remove(c); bpy.data.objects.remove(emp)
-    for i in range(3): tb[i]['fist_rot'] = sol[i]
-    fit_fist_fingers()                               # lượt 2: chỉnh lại bốn ngón khi ngón cái đã vắt ngang
+    # nắm tay: dò lưới (độ cuộn × quay ngang) sau khi bốn ngón đã cuộn — không xuyên bốn ngón, đốt cuối không xuyên lòng tay,
+    # đốt cuối áp gần đốt giữa ngón trỏ/giữa nhất. (Đã thử IK tới mặt ngoài đốt giữa: ngón cái nằm dọc, chặn ngón trỏ/giữa cuộn.)
+    mid2 = _region(ob, ('index2', 'middle2')); best = None
+    for k in (0.2, 0.5, 0.8, 1.1, 1.4, 1.7):
+        for a in (0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0):
+            for i in range(3):
+                r = [0.0, 0.0, 0.0]; r[at] = st * math.radians(THUMB_CURL['fist'][i]) * k
+                if i == 0: r[acr] += sa * math.radians(THUMB_ACROSS['fist']) * a
+                tb[i]['fist_rot'] = r
+            _set(arm, {'fist': 1.0}, side); P = _verts(ob)
+            pen = len(_bvh_sub(P, ob, th).overlap(_bvh_sub(P, ob, fingers4))) + len(_bvh_sub(P, ob, th3).overlap(_bvh_sub(P, ob, palm_only)))
+            bm2 = _bvh_sub(P, ob, mid2); dm = min(bm2.find_nearest(Vector(P[i]))[3] for i in th3[::3]); ns = n_stretch(P)
+            score = pen * 1.0 + dm * 100 + ns * 0.002
+            if best is None or score < best[0]: best = (score, k, a, pen, dm, ns, [list(t['fist_rot']) for t in tb])
+    for i in range(3): tb[i]['fist_rot'] = best[6][i]
+    print(f'    hiệu chỉnh ngón cái nắm: k={best[1]} quay={best[2]} xuyên {best[3]} khe {best[4] * 1000:.1f} mm, cạnh giãn {best[5]}')
     _set(arm, {}, side)
 
 
@@ -458,9 +450,28 @@ def _region(ob, prefixes):
     return np.array(out, dtype=np.int64)
 
 
+_POLY_CACHE = {}
+
+
+def _polys(ob):
+    key = (ob.data.name, len(ob.data.polygons))
+    if key not in _POLY_CACHE:
+        n = len(ob.data.polygons); tot = np.zeros(n, dtype=np.int32); ob.data.polygons.foreach_get('loop_total', tot)
+        lv = np.zeros(len(ob.data.loops), dtype=np.int32); ob.data.loops.foreach_get('vertex_index', lv)
+        if (tot == 4).all(): arr = lv.reshape(-1, 4)
+        else:
+            st = np.zeros(n, dtype=np.int32); ob.data.polygons.foreach_get('loop_start', st)
+            arr = np.array([lv[a:a + 4] if t == 4 else np.r_[lv[a:a + 3], lv[a + 2]] for a, t in zip(st, tot)])   # tam giác → tứ giác suy biến
+        _POLY_CACHE[key] = arr
+    return _POLY_CACHE[key]
+
+
 def _bvh_sub(P, ob, idx):
-    s = set(idx.tolist()); polys = [list(p.vertices) for p in ob.data.polygons if all(i in s for i in p.vertices)]
-    return BVHTree.FromPolygons([Vector(p) for p in P], polys, all_triangles=False) if polys else None
+    """BVH của các mặt có đủ đỉnh nằm trong idx (lọc bằng numpy, nhanh)."""
+    arr = _polys(ob); m = np.zeros(len(P), dtype=bool); m[idx] = True; sel = arr[m[arr].all(1)]
+    if not len(sel): return None
+    used, inv = np.unique(sel, return_inverse=True)
+    return BVHTree.FromPolygons(P[used].tolist(), inv.reshape(sel.shape).tolist(), all_triangles=False)
 
 
 def check_hand(ob, arm, cup=None):
