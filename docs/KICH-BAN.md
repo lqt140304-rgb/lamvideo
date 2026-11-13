@@ -5,7 +5,7 @@ Kịch bản được lưu theo từng tập, không chép nội dung tập vào
 | Series / tập | Hồ sơ | Trạng thái |
 |---|---|---|
 | The Crack in Reality (Hẻm Có Chuyện) — Hồ sơ 1: Tin nhắn chưa gửi | [Hồ sơ tập](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) | **Bản 14:** mở 14 giây, diễn rõ nghịch đồng hồ → bị quát → hỏi sửa rồi báo giá; lời dẫn gia cảnh gọn. [Chỉ đạo diễn/FX](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/BIEN-TAP-V14.md), 40 cue, 89 lượt lời. Giữ ba giao kèo và hé lộ bản 13; animatic v3 bản 13 chưa duyệt, chưa dựng bản 14. |
-| The Crack in Reality — Hồ sơ 02: Người trong gương | [Kịch bản mới đủ ba phần](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/KICH-BAN.md) | **Cập nhật 12/11/2026 — Chuyển hướng sản xuất Full 3D (Nhân vật 3D & Bối cảnh 3D):** Mục tiêu ~15 phút (trước đây: Người làm thay). Đã hoàn thiện kịch bản 3 phần, Trailer/Opening điện ảnh, Voiceover Cue Sheet 86 câu thoại, bộ Concept/Model Sheet 2D & mô hình bước đầu `kit3d.tsx`; sẵn sàng chuyển thể sang Full 3D theo [QUY-CHUAN-3D.md](QUY-CHUAN-3D.md). |
+| The Crack in Reality — Hồ sơ 02: Người trong gương | [Kịch bản mới đủ ba phần](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/KICH-BAN.md) | **Cập nhật 12/11/2026 — Chuyển hướng sản xuất Full 3D (Nhân vật 3D & Bối cảnh 3D):** Mục tiêu ~15 phút (trước đây: Người làm thay). Đã hoàn thiện kịch bản 3 phần, Trailer/Opening điện ảnh, Voiceover Cue Sheet 86 câu thoại, nguồn Blender hiện hành trong ASSET của hồ sơ; trạng thái rig/diễn hoạt cần đối chiếu riêng theo [QUY-CHUAN-3D.md](QUY-CHUAN-3D.md). |
 | Tập độc lập — Mưa liên tục 100 ngày | [Mở thư mục tập](../episodes/doc-lap/mua-100-ngay/README.md) | Nhập bản v7 và dữ liệu dựng 10 cảnh trước đây; chưa xem/nghe lại phim trong lượt nhập |
 
 ## Quy tắc thêm tập

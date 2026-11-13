@@ -41,21 +41,17 @@ Thư viện cũ: [SFX](../../../what-if-studio/library/sfx/). Pack [KORBANN](../
 
 Nền quạt phòng tắm [Felipe-Vareschi](https://freesound.org/people/Felipe-Vareschi/sounds/728586/) cũng ghi CC0 nhưng mô tả phòng tắm và file 543.5 MB: chưa ưu tiên tải, dễ sai âm phòng và tốn dung lượng. Cần nền phòng trọ thật hoặc take gọn phù hợp hơn.
 
-## VFX/diễn hoạt cần trước
+## VFX và diễn hoạt 3D
 
-| Cảnh/nhu cầu | Tái sử dụng / còn phải làm | Ràng buộc |
-|---|---|---|
-| Thở, chớp mắt, mí ngái ngủ / A, H | Có blink/breathe trong engine; rig Hồ sơ 2 có điều khiển blink/talk, cần căn đúng API của nhánh Claude | Nhịp lệch giữa hai người; thở không đẩy chân/hông trượt. Không chạy khẩu hình khi là nội tâm |
-| Chăn lật, nệm lún và hồi / A02B, G04 | Chưa xác nhận có rig/mask đáp ứng, cần kiểm hoặc làm lớp riêng | Đổi điểm tì tay–hông, chăn không xuyên chân; không vẽ mô phỏng vải toàn phần nếu vài pose/lớp đủ |
-| Nước vòi/giọt tay/chạm bát / A–B | `WaterRipple` đã có; dòng vòi và giọt tay cần kiểm/làm riêng | Nước tắt đúng nguồn; giọt sau tắt tàn dần, không chảy mãi. Ripple chỉ có khi có mặt nước và điểm chạm |
-| Bụi trong nắng / phòng sáng | Có `Dust` trong light.tsx | Ít, khu trú vệt sáng; không hạt bay khắp hình hoặc che mặt/chữ |
-| Rèm/gió ngoài cửa / nếu có trong nền | Có `windAt`, `WindSway` | Gốc treo cố định, nhẹ; không thêm gió mạnh trong phòng kín chỉ để mọi thứ chuyển động |
-| Nắng dịch, sang chiều–tối / E–G–H | Bối cảnh có trạng thái nắng/đèn; cần cue ánh theo thời gian | Ánh bám mặt phòng; đổi tư thế/trạng thái bài cùng montage, không làm đèn nhấp nháy báo quỷ |
-| Rung điện thoại, màn hình/trackpad / E–H | Cần lớp trạng thái/cue theo shot | Rung máy cầm truyền rất nhẹ sang tay; đặt bàn không trôi. Chữ bám màn và vẫn đọc được |
-| Va gối ghế / A05 | Có `ImpactBurst`, nhưng mặc định không cần dùng | Cú va đời thường ưu tiên thân phản ứng và SFX; không bùng bụi/sao hoạt hình hoặc rung lớn để che khớp |
-| Gương/biến đổi cuối truyện | Hoãn tới khi phần 3 chốt cơ chế | Chưa thêm glitch, mắt sáng, bóng tự chuyển, lật toàn hình hoặc tan hạt vào A–H. Nốt ruồi đối bên đã là manh mối kín |
+| Nhu cầu | Nguồn / việc cần kiểm |
+|---|---|
+| Chớp mắt, thở, khẩu hình | Armature/shape keys của nhân vật Blender; không chạy miệng cho lời nội tâm; kiểm trong shot |
+| Chăn, nệm và ngồi/đứng | Mesh và pose có tiếp xúc; animatic kiểm biến dạng, không xuyên chân/hông; chưa tự bật mô phỏng vải toàn cảnh |
+| Nước, giọt, bụi, rèm | Đặt trong không gian theo nguồn/lực thật; gốc rèm cố định, hạt không che diễn xuất; kiểm từng hiệu ứng trước ghi đã có |
+| Điện thoại và UI | Vật bám tay/bàn, chữ bám màn, cue rung/hiển thị khớp hành động |
+| Gương và mặt kính hóa nước | Nguồn và trạng thái ở kế hoạch gương, giữ bí mật đầu phim theo master hiện hành |
 
-Nguồn code và tình trạng thử: [ASSET-VFX.md](../../../docs/ASSET-VFX.md). Có helper không đồng nghĩa đã tương thích hoặc đã ghép vào rig/shot mới. Claude phụ trách triển khai khi được giao; danh mục này không phải lệnh render toàn phim.
+Đọc [ASSET.md](ASSET.md), [kế hoạch gương](assets/boi-canh-3d/KE-HOACH-CONG-GUONG.md) và [checklist 3D](CHECKLIST-TIEN-KY-ASSET.md). Danh mục nhu cầu không phải chứng nhận đã tích hợp VFX toàn phim.
 
 ## Trộn và kiểm tra
 

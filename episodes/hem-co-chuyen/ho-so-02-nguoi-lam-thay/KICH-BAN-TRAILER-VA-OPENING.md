@@ -1,5 +1,5 @@
 # The Crack in Reality — Hồ sơ 02: Người trong gương
-> **Bản thực thi opening cập nhật 11/11:** xem [OPENING-AM-THANH.md](OPENING-AM-THANH.md). Runtime giữ 48 giây ở 30fps, lời đã rút để đọc kịp, dấu tay đỏ máu; có nhạc/SFX nhưng chưa có giọng. Các tham số 24fps, chớp/flare và câu dài dưới đây là bản ý tưởng trước chỉnh, không ghi đè bản runtime mới. Trailer 60 giây chưa thực hiện.
+> **Phạm vi hiện hành:** tài liệu này mô tả ý đồ opening/trailer cho pipeline Blender 3D. Demo Remotion 48 giây/30 fps trước đây không phải bản production hiện hành; cần chốt timing và âm thanh trên animatic 3D trước khi render cuối.
 
 ## BẢNG PHÂN CẢNH KỸ THUẬT ĐIỆN ẢNH: OPENING & TRAILER
 *(Cinematic Storyboard, Live-Action Film Aesthetics, Psychological Suspense, VFX & SFX Production Bible)*

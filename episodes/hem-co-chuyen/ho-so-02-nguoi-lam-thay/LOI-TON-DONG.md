@@ -27,35 +27,18 @@ Toàn bộ 7 điểm phản biện logic sâu sắc và các chi tiết sinh ho�
 
 ---
 
-## Bảng kiểm tra Asset & Rigging kỹ thuật
+## Bảng kiểm tra kỹ thuật 3D
 
-### Nhân vật
+Trạng thái nguồn xem [ASSET.md](ASSET.md), [checklist](CHECKLIST-TIEN-KY-ASSET.md) và [báo cáo bối cảnh](assets/boi-canh-3d/RA-SOAT-13-11.md). Các trạng thái pose SVG cũ đã bỏ, không coi là tiến độ Blender.
 
-| Mức | Việc | Chi tiết |
-|---|---|---|
-| Vừa | Dáng `crouch` | Đã có dáng cơ bản, cần tinh chỉnh chân khi bưng thau nước ấm |
-| Vừa | Bốn dáng `wary`, `phone`, `offer`, `type` | Đã dựng và soi ở góc 3/4; bổ sung góc nghiêng cho cảnh cầm thẻ sinh viên |
-| Vừa | Tay khi bước ở 3/4 trái và 1/4 | Pha hai tay vung vào giữa cần độ mở mềm mại tự nhiên |
-| Nhỏ | Mũi 3/4 khi mắt mở to | Đảm bảo viền mắt không đè lẹm vào sống mũi khi biểu cảm hoảng hốt |
-| Nhỏ | Dáng nằm `lie`, ngồi thấp `sitLow` | Đã dựng demo; bổ sung lớp chăn trùm kín đầu cho Nam thật ở Cảnh 2.2 |
-| Nhỏ | Nét mặt phân mức (`face`) | Phóng to từng mắt quanh tâm, chuyển 4 frame mượt mà |
-| Nhỏ | Miệng góc nghiêng | Hàm hạ mở khe giữa hai môi, lòng miệng sau da |
-| Chốt | Khẩu hình Người Kia | Thoại máy ở Hồi 1 cộc lốc; chuyển giọng ngọt ngào ấm áp ở Cảnh 2.3 cuộc gọi Zalo |
+| Phần | Việc cần kiểm tiếp |
+|---|---|
+| Nhân vật | Ghép đầu/tóc modular với thân/rig được duyệt; kiểm cổ tay, vai, hông, miệng, ba mức cảm xúc và đổi hướng trong shot |
+| Tay–vật, chân–sàn, hông–ghế | Constraint/IK giữ tiếp xúc khi cầm/trao/đặt, đi/ngồi/đứng; không dùng thứ tự layer để che sai vị trí |
+| Chăn và nội thất | Bản tĩnh đã kiểm chăn với nệm/ga/viền và chiều tựa ghế; tiếp tục kiểm khi người nằm/ngồi/lật chăn |
+| Đạo cụ/UI | Đối chiếu các món và trạng thái màn hình với master, đúng tay và vị trí trước/sau hành động |
+| Gương | Thử với nhân vật thật: phản chiếu độc lập, tay trái/nốt ruồi, vết nứt và mặt kính hóa nước theo nhịp truyện |
+| Ánh sáng và camera | Kiểm khi thêm người vào scene; máy cận, đường đi, cutaway và màu da ngày/đêm |
+| Âm thanh và bản ráp | Nghe take từng vai, căn khoảng nghỉ/khẩu hình/Foley và xem animatic trước render cuối |
 
-### Bối cảnh & Đạo cụ
-
-| Mức | Việc | Chi tiết |
-|---|---|---|
-| Lớn | Tay che/lộ theo mặt bàn và mép bồn | Chia layer mép bàn, mép bồn rửa chén và thân người chính xác |
-| Lớn | Người đi qua ngưỡng cửa | Thứ tự z-index khi Nam đẩy Người Kia ra ngoài hành lang ở Cảnh 1.3 |
-| Vừa | Cận đạo cụ Hero Props | - Hộp thuốc bổ khớp Glucosamine + tờ giấy note chữ viết tay của mẹ (Cảnh 1.1 & 1.4)<br>- Búa sắt cán cao su đen (Cảnh 1.1, Cảnh 3.2, Cảnh 3.3)<br>- Dao gọt hoa quả cán nhựa vàng (Cảnh 1.3, Cảnh 2.1)<br>- Màn hình điện thoại: Báo thức, Deadline portal, Zalo mẹ gọi video, Clip họ hàng<br>- Căn cước công dân (so sánh nốt ruồi trái - phải) |
-| Nhỏ | Đời thường phòng trọ | Nồi cơm điện con voi có cháy, thùng mì Hảo Hảo, dép tổ ong, hóa đơn tiền điện kẹp cửa |
-
-### Dựng phim & VFX
-
-| Mức | Việc | Chi tiết |
-|---|---|---|
-| Lớn | Hiệu ứng mặt kính hóa nước (Point of No Return) | Mặt kính gợn sóng, hóa thủy ngân lỏng cuốn chặt cổ tay Nam như còng số 8, lực hút chìm vào gương |
-| Lớn | Vết nứt thủy tinh rỉ nước lạnh | - Cảnh 2.3: Chỉ thấy ở sau lưng/gáy Người Kia (khuất mắt Nam)<br>- Cảnh 3.3: Vỡ toang ra cổ, má, ngực trước ánh hoàng hôn, rỉ nước lạnh đầm đìa khi thực thể suy thoái |
-| Vừa | Cú sốc thân nhiệt (Thermal shock) | Bàn tay Nam tái nhợt lạnh buốt, bàn tay Người Kia ửng hồng sắc máu người sống |
-| Nhỏ | Then sắt cửa phòng trọ | Âm thanh "CẠCH" đanh thép ở Cảnh 1.3 và Cảnh kết 3.5 |
+Chưa có xác nhận nghiệm thu toàn phim. Không chuyển trạng thái “có source/ảnh” thành “đã kiểm chuyển động”.
