@@ -266,11 +266,12 @@ Theo quyết định chuyển hướng sang **Nhân vật 3D & Bối cảnh 3D**
 - [ ] **3D_FACIAL_SHAPES:** Bộ Blendshapes / Shape Keys biểu cảm 3 cấp độ (ngái ngủ, kiệt sức, tự ái, hoảng loạn, điềm tĩnh, `eerie_smirk`) + Visemes khẩu hình tiếng Việt khớp ElevenLabs.
 
 ### B. Bối cảnh 3D (Full 360° Environments & Real Lighting)
-- [ ] **3D_SET_PHONGTRO:** *(13/11: hình học + 2 chế độ sáng ngày/đêm đã có trong Blender `assets/boi-canh-3d/`; còn 2 trạng thái sáng sớm và chiều tà, đèn bàn thật — xem BOI-CANH-CAN-CHUAN-BI.md)* Không gian phòng trọ $12\text{m}^2$ khép kín 4 tường & trần nhà (hỗ trợ Top-down $90^\circ$), có 4 trạng thái ánh sáng vật lý: Sáng sớm, Trưa gắt, Chiều tà Golden Hour, Đêm Chiaroscuro (Đèn bàn 3200K + Laptop 6500K).
+- [x] **3D_SET_PHONGTRO:** *(13/11: hình học + 2 chế độ sáng ngày/đêm đã có trong Blender `assets/boi-canh-3d/`; 13/11 chiều: thêm sáng sớm, trưa gắt, chiều tà, đèn bàn thật; còn tinh chỉnh vệt nắng — xem BOI-CANH-CAN-CHUAN-BI.md)* Không gian phòng trọ $12\text{m}^2$ khép kín 4 tường & trần nhà (hỗ trợ Top-down $90^\circ$), có 4 trạng thái ánh sáng vật lý: Sáng sớm, Trưa gắt, Chiều tà Golden Hour, Đêm Chiaroscuro (Đèn bàn 3200K + Laptop 6500K).
 - [x] **3D_SET_HANHLANG:** Hành lang dãy trọ tầng 2 (lan can sắt, cầu thang, đèn tuýp vàng lập lòe, cửa phòng có then cài trượt vật lý).
 - [ ] **3D_SET_GIANGDUONG:** Đại giảng đường bậc thang (bảng phấn, màn chiếu, bục giảng, hệ thống đèn tuýp trắng lạnh).
 - [ ] **3D_SET_LAB402 & TRUONG:** Phòng máy tính Lab 402 và Hành lang sân trường.
 - [ ] **3D_SET_MAMCOM:** Không gian mâm cơm gia đình ở quê ấm cúng.
+- [ ] **3D_SET_GOCDO_S07:** *(13/11: bản đầu góc đồ cho tặng chiều muộn sau mưa đã dựng — `goc_cho_tang.py`, `--mode rain`)* Gương cũ bụi, "Ai cần cứ lấy", đồ cũ, sàn ướt, mưa.
 - [ ] **3D_SET_MIRROR_REALM:** Thế giới trong gương lật ngược $180^\circ$ chìm trong sương mù Deep Teal và mặt sàn nước phản chiếu.
 
 ### C. Đạo cụ 3D & Shader Kỹ Xảo Đặc Biệt

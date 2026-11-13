@@ -46,7 +46,11 @@ def build(X, m, coll, night, hl_y1):
     inox = mat('#b9bdbb', 0.35, 0.8); steel = mat('#2b2d2e', 0.45, 0.7); white = mat('#ece8dc', 0.6); concrete = plaster('#a9a69b')
 
     # ------------------------------------------------------------ sân + sàn các tầng của nhà trọ
-    B('san_tang1', -30, EX, -14, 96, GZ - 0.2, GZ, M.tiles('env_san', '#b3ad9b', '#8a8577', 0.6), coll=coll)
+    if getattr(X, 'MODE_HIEN_TAI', 'day') == 'rain':
+        _wet = M.tiles('env_san_uot', '#7d7a6c', '#575448', 0.6)
+        for _n in _wet.node_tree.nodes:
+            if _n.type == 'BSDF_PRINCIPLED': _n.inputs['Roughness'].default_value = 0.1
+    B('san_tang1', -30, EX, -14, 96, GZ - 0.2, GZ, (M.tiles('env_san_uot', '#7d7a6c', '#575448', 0.6) if getattr(X, 'MODE_HIEN_TAI', 'day') == 'rain' else M.tiles('env_san', '#b3ad9b', '#8a8577', 0.6)), coll=coll)
     for (x0, x1, y0, y1, c) in [(-7.0, -6.0, 4, 9, '#7b9a5b'), (-3.2, -2.1, 11, 14, '#6f9455'), (-6.8, -5.4, 17, 21, '#7b9a5b'), (-3.0, -2.0, -2.2, 0.8, '#6f9455')]:
         B('bon_cay', x0, x1, y0, y1, GZ, GZ + 0.28, plaster('#8a8272'), bevel=0.01, coll=coll)
         B('dat_bon', x0 + 0.06, x1 - 0.06, y0 + 0.06, y1 - 0.06, GZ + 0.26, GZ + 0.3, mat(c, 0.95), coll=coll)
@@ -349,14 +353,17 @@ def build(X, m, coll, night, hl_y1):
         sphere(f'env_rieng_bong{k}', EX - 0.06, a + 0.4, 2.12, 0.05, glow('#fff1d6', 12.0 if night else 1.5), coll=coll)
 
 
-def sky(nt, bg, night):
+def sky(nt, bg, night, mode='day'):
     """Bầu trời: gradient chân trời → thiên đỉnh + mây (ngày) hoặc sao + ánh phố (đêm). Ghi đè màu nền của world."""
     N, L = nt.nodes, nt.links
     tc = N.new('ShaderNodeTexCoord'); sp = N.new('ShaderNodeSeparateXYZ'); L.new(tc.outputs['Generated'], sp.inputs['Vector'])
     ramp = N.new('ShaderNodeValToRGB'); L.new(sp.outputs['Z'], ramp.inputs['Fac'])
     e = ramp.color_ramp.elements
     if not night:
-        e[0].position = 0.5; e[0].color = (0.86, 0.91, 0.94, 1); e[1].position = 0.95; e[1].color = (0.36, 0.58, 0.82, 1)
+        pal = {'day': ((0.86, 0.91, 0.94, 1), (0.36, 0.58, 0.82, 1)), 'noon': ((0.88, 0.93, 0.96, 1), (0.30, 0.54, 0.86, 1)),
+               'dawn': ((0.98, 0.86, 0.78, 1), (0.45, 0.58, 0.82, 1)), 'sunset': ((1.0, 0.62, 0.36, 1), (0.42, 0.38, 0.58, 1)),
+               'rain': ((0.62, 0.66, 0.70, 1), (0.40, 0.44, 0.50, 1))}[mode]
+        e[0].position = 0.5; e[0].color = pal[0]; e[1].position = 0.95; e[1].color = pal[1]
         nz = N.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 2.2; nz.inputs['Detail'].default_value = 7.0; nz.inputs['Roughness'].default_value = 0.62
         mp = N.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1.0, 1.0, 2.4); L.new(tc.outputs['Generated'], mp.inputs['Vector']); L.new(mp.outputs['Vector'], nz.inputs['Vector'])
         cr = N.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].position = 0.52; cr.color_ramp.elements[1].position = 0.68; L.new(nz.outputs['Fac'], cr.inputs['Fac'])
@@ -622,10 +629,11 @@ def tranh_tuong(X, coll, night=False):
                 ('e', 0.37, 0.57, 0.035, 0.045, '#222222'), ('e', 0.63, 0.57, 0.035, 0.045, '#222222'), ('e', 0.5, 0.33, 0.2, 0.08, '#c8352a'), ('e', 0.5, 0.36, 0.2, 0.045, '#f6d7a8'),
                 ('e', 0.28, 0.4, 0.06, 0.05, '#f2a08a'), ('e', 0.72, 0.4, 0.06, 0.05, '#f2a08a'), ('e', 0.5, 0.88, 0.3, 0.1, '#3a2a1a')]
     # tường hướng sân phía đầu nhà (x = 0, nhìn về −x): hai tranh lớn
-    mural('lang_que', '-x', 0.0, -8.6, GZ + 0.2, 5.2, 2.5, LANG_QUE)
+    if getattr(X, 'MODE_HIEN_TAI', 'day') != 'rain':   # cảnh S07 (một tuần trước): tường góc đồ cho tặng còn trơ, chưa có tranh
+        mural('lang_que', '-x', 0.0, -8.6, GZ + 0.2, 5.2, 2.5, LANG_QUE)
+        mural('graffiti', '-x', 0.0, -3.4, GZ + 0.25, 2.2, 1.8, GRAFFITI)
     mural('pho_xe', '-x', 0.0, -8.6, 0.35, 4.6, 2.2, PHO_XE)
     mural('mat_cuoi', '-x', 0.0, -3.4, 0.45, 2.1, 2.1, MAT_CUOI)
-    mural('graffiti', '-x', 0.0, -3.4, GZ + 0.25, 2.2, 1.8, GRAFFITI)
     # tường rào đầu sân phía y âm (y = −14,5, hướng +y)
     mural('hoa_sen', '+y', -14.2, -8.5, GZ + 0.2, 3.2, 2.2, HOA_SEN)
     mural('graffiti2', '+y', -14.2, -4.6, GZ + 0.2, 3.0, 2.0, GRAFFITI)

@@ -88,3 +88,6 @@ Xem [RA-SOAT-13-11.md](RA-SOAT-13-11.md): 14 lỗi đã biết → 6 sửa hẳn
 
 ## 13/11 chiều: render lại video với các sửa mới
 - `xem-thu/video/chuoi-shot.mp4`: bản mới (12 fps, 640×268, 53 s, 14 mẫu); `chuoi-shot-24fps.mp4`: cùng video nội suy lên 24 fps bằng `minterpolate` (không render thêm). Thời gian render thật: 83,6 phút (5.014 s) trên 4 lõi CPU, bật persistent data; không shot nào lỗi. Log: `xem-thu/video/thoi-gian.log`.
+
+## 13/11 chiều: ánh sáng theo giờ + đèn bàn thật + góc đồ cho tặng (S07)
+Chế độ `--mode dawn|noon|sunset|rain|night|day`, `--den-ban on|off`, `--goc-do`; xem BOI-CANH-CAN-CHUAN-BI.md mục 6. Ảnh: `xem-thu/ANH-SANG-BANG.jpg`, `xem-thu/anh-sang/`, `xem-thu/goc-do/`.

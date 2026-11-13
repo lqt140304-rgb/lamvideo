@@ -5,10 +5,10 @@ Nguồn đối chiếu: [KICH-BAN.md](../../KICH-BAN.md), [PHAN-01](../../PHAN-0
 ## 1. Bối cảnh (S01–S12)
 | Mã | Cảnh trong kịch bản | Trạng thái Blender | Còn cần |
 |---|---|---|---|
-| S01–S04 | Phòng trọ: sáng sớm / trưa gắt / chiều tà / đêm Fincher | **Đã có hình học đủ 4 tường + trần**, 2 chế độ sáng (ngày, đêm laptop xanh) | **2 trạng thái ánh sáng còn thiếu:** sáng sớm (nắng xiên xanh lạnh qua khe rèm) và chiều tà Golden Hour (vệt cam trườn từ bàn sang nệm). Trưa gắt: vệt nắng hình chữ nhật lên mặt bàn/phím (cần kiểm hướng sun). Đèn bàn 3200K (đã có thân đèn, chưa có nguồn sáng thật). Chuyển cảnh giữa các giờ (keyframe màu/hướng sun, `visible` của đèn) |
+| S01–S04 | Phòng trọ: sáng sớm / trưa gắt / chiều tà / đêm Fincher | **Đã có đủ 4 trạng thái + đèn bàn thật (13/11)**: `--mode dawn|noon|sunset|night|day|rain`, `--den-ban on|off` | Còn tinh chỉnh: vệt nắng sớm qua khe rèm còn nhỏ; trưa gắt chưa đổ đúng hình chữ nhật lên mặt bàn (đang rơi xuống sàn gần nệm); chuyển cảnh giữa các giờ (keyframe màu/hướng sun) chưa làm. Ảnh: `xem-thu/ANH-SANG-BANG.jpg` |
 | S05 | Góc cửa + **then sắt** | Cửa, khoá + tay nắm thật; then sắt chỉ có chốt nhỏ cũ | **Then sắt trượt 2 trạng thái** (rút / tra sâu vào tai khóa): đã dựng mô hình ở `dao_cu_3d.then_sat`, cần gắn lên cánh cửa thật và keyframe trượt + âm. Mắt thần/khe thông gió: khe đã có |
 | S06 | Hành lang trọ tầng 2, đêm tuýp vàng lập lòe | **Đã có** (24,6 m + 66 m giảm chi tiết, 8 cửa riêng, cầu thang, lan can, sân, dãy đối diện, hẻm, chân trời, ngày/đêm) | Đèn tuýp **lập lòe** (keyframe cường độ), sương ẩm đêm (volume nhẹ), âm vang hành lang |
-| S07 | **Góc đồ cho tặng** (chân cầu thang, chiều muộn sau mưa) — nơi Nam nhặt chiếc gương | **Chưa dựng** | Đống đồ cũ (ghế gãy, chậu vỡ, bạt nhựa) + tờ "Ai cần cứ lấy" + gương cũ bụi dựa tường; sàn ướt (vũng nước, bóng loáng), mưa thưa, trời xám. Dựng ở chân cầu thang có sẵn (y ≈ −5, x ≈ −1,5…0) |
+| S07 | **Góc đồ cho tặng** (chân cầu thang, chiều muộn sau mưa) — nơi Nam nhặt chiếc gương | **Đã dựng bản đầu (13/11)** `goc_cho_tang.py`, `--mode rain` | Gương gỗ cũ bám bụi + vết nứt dựa tường, tờ giấy dán "Ai cần cứ lấy" (chữ thật có dấu), ghế gãy, chậu hoa vỡ + cây héo + lá rụng, bạt nhựa xanh, thùng carton + quần áo cũ, xô có nước mưa, quạt cũ, giá gỗ, bó tre, sàn ướt + vũng nước, mưa thưa, trời u ám. Còn: mưa chuyển động, nước chảy từ mép cầu thang, độ ẩm mặt tường, nhân vật Nam, ghế/cây chi tiết hơn |
 | S08 | **Giảng đường bậc thang** (đèn tuýp trắng lạnh), bục giảng, bảng phấn, màn chiếu | **Chưa dựng** (ngoài phạm vi 12/11: chỉ phòng + hành lang) | Bậc ghế sinh viên, bục gỗ, bảng, máy chiếu; đèn tuýp trắng 6500K; camera crane từ trần (P3.01); viên phấn gãy (có sẵn) |
 | S09 | **Lab 402** (máy tính, màn LCD) | **Chưa dựng** | Dãy bàn + màn hình có UI "hạn nộp"; ánh sáng văn phòng |
 | S10 | **Hành lang trường** nắng gắt, cột bê tông | **Chưa dựng** | Cột bê tông + bóng vuông, sân trường; camera Steadicam chạy lùi (P3.02) |
@@ -60,3 +60,9 @@ Nam / Người Kia / Tùng (Modular) chưa vào cảnh nên chưa kiểm đượ
 - **Túi quả:** nhãn, nếp gấp giấy, miệng vênh, quả có cuống + lá + điểm sáng.
 - **Phấn:** mảnh vụn nhọn, bột, giẻ lau bảng. **Then sắt:** đinh vít + rãnh, lỗ xỏ thanh, vệt mòn sáng, gỉ, lỗ tai khóa.
 - **Lưu ý toạ độ:** vì thế giới là phản chiếu của toạ độ thiết kế (x đảo) và camera phòng nhìn về −y, chữ/giao diện phải lật y (`lat_y`) thì mới đọc xuôi khi nhìn từ ghế ngồi; đã áp dụng cho thẻ, phong bì, điện thoại trong bảng trưng bày. Khi đặt vào cảnh, bọc bằng `lat_y` như `bang_dao_cu`.
+
+## 6. Ánh sáng theo giờ + góc đồ cho tặng (13/11 chiều)
+- **Chế độ thời gian** (`TIME_MODES` trong `xay_phong_tro.py`): `day`, `dawn` (06:30, nắng xanh lạnh qua khe rèm `rem_khe`), `noon` (nắng cao gắt), `sunset` (Golden Hour cam thẫm), `rain` (u ám, chiều muộn sau mưa), `night`. Mỗi chế độ có sun (màu, năng lượng, hướng), nền trời gradient/mây (`moi_truong.sky(…, mode)`), ánh hắt cửa sổ và phơi sáng riêng.
+- **Phát hiện quan trọng:** hẻm hẹp bị nhà hàng xóm 4 tầng cách 2,2 m che sạch nắng trực tiếp (đúng thực tế); sun cũ của `day` còn đi **ngược chiều** (ra khỏi phòng). Đã sửa chiều và cho các khối nhà bên hẻm/đồ xa không đổ bóng *của mặt trời* (ánh sáng điện ảnh) ở các giờ nắng; nắng sớm/chiều chạy xiên dọc hẻm (`dirw`).
+- **Đèn bàn thật:** chao nón hở đáy + bóng phát sáng + Spot 3200K (40 W) + ánh hắt; mặc định bật ban đêm, `--den-ban on` để bật ở giờ khác.
+- **Camera mới:** `TUONG_CUA`, `GOC_DO`, `GOC_DO_GUONG`, `GOC_DO_TO_GIAY`.

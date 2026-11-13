@@ -324,7 +324,15 @@ def desk_and_chair(m, coll, chair_pos=None, chair_rot=0.0):
     # đèn bàn
     cyl('den_de', 2.66, 0.12, 0.76, 0.06, 0.02, M.solid('den_de', '#c7826a', 0.5), coll=coll)
     cyl('den_than', 2.66, 0.12, 0.93, 0.008, 0.34, M.solid('den_than', '#c7826a', 0.5), coll=coll)
-    sphere('den_chup', 2.66, 0.12, 1.12, 0.07, M.solid('den_chup', '#d99379', 0.45), scale=(1, 1, 0.8), coll=coll)
+    # chao đèn hình nón hở đáy (ánh sáng chiếu xuống), bóng đèn phát sáng khi bật
+    bm_ = bmesh.new(); seg = 28; rg = [(0.035, 0.0), (0.085, -0.075)]
+    rings_ = [[bm_.verts.new((r_ * math.cos(2 * math.pi * i / seg), r_ * math.sin(2 * math.pi * i / seg), h_)) for i in range(seg)] for (r_, h_) in rg]
+    for i in range(seg):
+        bm_.faces.new((rings_[0][i], rings_[0][(i + 1) % seg], rings_[1][(i + 1) % seg], rings_[1][i]))
+    bmesh.ops.recalc_face_normals(bm_, faces=bm_.faces)
+    shade = _mesh_obj('den_chup', bm_, (mx(2.66), 0.12, 1.14), M.solid('den_chup', '#d99379', 0.45), True, coll)
+    md_ = shade.modifiers.new('day', 'SOLIDIFY'); md_.thickness = 0.004
+    sphere('den_bong', 2.66, 0.12, 1.085, 0.022, M.emission('den_bong', '#ffc890', 25.0) if DEN_BAN_ON else M.solid('den_bong_tat', '#f2e6d0', 0.3), coll=coll)
     # ghế làm việc (mặt ghế thật 0,46 m) — quay mặt vào bàn (−y); tâm (x, y) chỗ ngồi
     cx, cy = chair_pos or (SEAT['x'], SEAT['y'])
     chair(m, coll, cx, cy, chair_rot)
@@ -564,15 +572,31 @@ def hallway_details(m, coll, night):
 
 
 # ------------------------------------------------------------------ ánh sáng, thế giới, camera
+# Chế độ thời gian: ang = góc tia nắng lệch khỏi phương thẳng đứng (độ), az = hướng ngang (độ)
+TIME_MODES = {
+    'day':    dict(energy=4.5, color='#fff0cf', ang=52, az=-12, bg='#cfe2ee', bgs=1.1, hat=60, exp=0.0),
+    'dawn':   dict(energy=3.2, color='#d9e4ff', dirw=(0.55, 0.80, -0.22), bg='#a8bfe0', bgs=0.5, hat=22, exp=0.35),   # 06:30: nắng xiên xanh lơ lạnh pha vàng nhạt
+    'noon':   dict(energy=8.0, color='#fffaf0', ang=22, az=-58, bg='#d6e8f4', bgs=1.25, hat=70, exp=-0.15),  # trưa gắt: vệt nắng vuông lên mặt bàn
+    'sunset': dict(energy=6.0, color='#ff9a48', dirw=(0.62, -0.74, -0.25), bg='#f0b484', bgs=0.45, hat=38, exp=0.2),   # Golden Hour: cam thẫm trườn từ bàn sang nệm
+    'rain':   dict(energy=0.35, color='#c8d4dc', ang=60, az=0, bg='#8e99a2', bgs=0.95, hat=30, exp=0.3),   # chiều muộn sau mưa: u ám, không nắng
+}
+MODE_HIEN_TAI = 'day'
+DEN_BAN_ON = False
+
+
 def world_and_lights(mode, coll):
     w = bpy.data.worlds.new('troi'); bpy.context.scene.world = w; w.use_nodes = True
     nt = w.node_tree; bg = nt.nodes['Background']
-    if mode == 'day':
-        bg.inputs['Color'].default_value = M._hex('#cfe2ee'); bg.inputs['Strength'].default_value = 1.1
-        import moi_truong; moi_truong.sky(nt, bg, False)
+    if mode != 'night':
+        T = TIME_MODES[mode]
+        bg.inputs['Color'].default_value = M._hex(T['bg']); bg.inputs['Strength'].default_value = T['bgs']
+        import moi_truong; moi_truong.sky(nt, bg, False, mode)
         bpy.ops.object.light_add(type='SUN', location=(mx(8), 2, 6)); sun = bpy.context.object; sun.name = 'nang_cua_so'
-        sun.data.energy = 4.5; sun.data.color = M._hex('#fff0cf')[:3]; sun.data.angle = math.radians(1.2)
-        sun.rotation_euler = mrot((math.radians(0), math.radians(-52), math.radians(-12)))  # từ +x chiếu vào −x, hơi dốc xuống
+        sun.data.energy = T['energy']; sun.data.color = M._hex(T['color'])[:3]; sun.data.angle = math.radians(1.2 if mode != 'rain' else 12)
+        if 'dirw' in T:  # hướng nắng cho trước trong toạ độ THẾ GIỚI (nắng sớm/chiều chạy xiên dọc hẻm, lọt cửa sổ chéo)
+            sun.rotation_euler = Vector(T['dirw']).normalized().to_track_quat('-Z', 'Y').to_euler()
+        else:
+            sun.rotation_euler = mrot((0, math.radians(T['ang']), math.radians(T['az'])))  # ang>0 (thiết kế): nắng từ phía cửa sổ (+x) đi vào phòng
         _link(sun, coll)
     else:
         bg.inputs['Color'].default_value = M._hex('#243456'); bg.inputs['Strength'].default_value = 0.55
@@ -596,15 +620,35 @@ def add_area(name, loc, size, energy, color, rot=(0, 0, 0), shape='RECTANGLE', s
 
 
 def lighting(mode, coll):
-    if mode == 'day':
+    if mode != 'night':
         # đèn tuýp phòng tắt ban ngày; bổ sung ánh hắt mềm từ cửa sổ cho vùng khuất
-        add_area('hat_cua_so', (W - 0.2, 2.0, 1.5), 1.2, 60, '#fff3dc', rot=(0, math.radians(90), 0), size_y=1.1, coll=coll)
+        add_area('hat_cua_so', (W - 0.2, 2.0, 1.5), 1.2, TIME_MODES[mode]['hat'], '#ffe6c8' if mode == 'sunset' else ('#dfe8ff' if mode in ('dawn', 'rain') else '#fff3dc'), rot=(0, math.radians(90), 0), size_y=1.1, coll=coll)
     else:
         # nguồn chính ban đêm: màn hình laptop xanh lạnh 6500K (LAPTOP_LIGHT) + đèn tuýp hành lang ấm 4000K; đèn tuýp phòng tắt
         add_area('laptop_sang', (2.66, 0.20, 0.95), 0.3, 55, '#8fd0ff', rot=(math.radians(-80), 0, 0), size_y=0.2, coll=coll)
         add_area('hat_laptop_chan', (2.5, 0.5, 0.78), 0.8, 8, '#8fd0ff', rot=(0, 0, 0), coll=coll)
+    if DEN_BAN_ON: den_ban_that(coll)
     for k in range(int((HL_Y1 - 2.3) / 4.9) + 1):
         add_area(f'tuyp_hanh_lang_{k}', (-0.7, 2.32 + 4.9 * k, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
+
+
+def rem_khe(m, coll):
+    """Rèm kéo gần kín, chừa khe hẹp giữa cửa sổ để nắng sớm lọt thành vệt xiên (06:30)."""
+    cloth = M.solid('rem_sang_som', '#cdbfa6', 0.95)
+    box('rem_khe_trai', W - 0.07, W - 0.04, WIN['y0'] - 0.05, 1.56, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
+    box('rem_khe_phai', W - 0.07, W - 0.04, 1.70, WIN['y1'] + 0.05, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
+    for i in range(7):  # nếp rèm
+        yy = WIN['y0'] + i * 0.09
+        box(f'rem_nep{i}', W - 0.075, W - 0.07, yy, yy + 0.012, WIN['z0'] - 0.1, WIN['z1'] + 0.12, M.solid('rem_nep', '#bfb094', 0.95), coll=coll)
+
+
+def den_ban_that(coll):
+    """Đèn bàn thật: đèn Spot 3200K chiếu từ chao xuống mặt bàn/bàn phím + bóng đèn phát sáng."""
+    bpy.ops.object.light_add(type='SPOT', location=(mx(2.66), 0.12, 1.08)); sp = bpy.context.object; sp.name = 'den_ban_spot'
+    sp.data.energy = 40; sp.data.color = M._hex('#ffa84a')[:3]; sp.data.spot_size = math.radians(95); sp.data.spot_blend = 0.55; sp.data.shadow_soft_size = 0.04
+    tgt = Vector((mx(2.62), 0.38, 0.72)); sp.rotation_euler = (tgt - Vector((mx(2.66), 0.12, 1.08))).to_track_quat('-Z', 'Y').to_euler()
+    _link(sp, coll)
+    add_area('den_ban_hat', (2.5, 0.3, 1.0), 1.4, 6, '#ffa84a', rot=(0, 0, 0), coll=coll)   # ánh hắt mềm lên trần/tường quanh bàn
 
 
 CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
@@ -654,6 +698,10 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'CAY': ((-0.9, 1.0, -0.4), (-4.2, 6.5, 0.2), 28),    # cây lớn ở sân (thân, cành, tán)
     'CAU': ((-3.4, 2.0, -1.8), (-6.5, 5.0, -1.2), 35),    # cau cảnh + bồn cây
     'CHAU_HL': ((-0.6, 3.6, 1.0), (-1.15, 5.2, 0.4), 35),  # chậu cây hành lang
+    'GOC_DO': ((-3.3, -2.2, -1.45), (-0.7, -7.0, -2.0), 28),   # S07: góc đồ cho tặng ở chân cầu thang, nhìn từ sân
+    'GOC_DO_TO_GIAY': ((-1.2, -6.4, -1.5), (0.0, -6.4, -1.4), 50),   # cận tờ giấy "Ai cần cứ lấy"
+    'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
+    'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
     'LOW': ((1.0, 3.7, 0.35), (2.2, 0.6, 1.0), 24),
 }
@@ -731,7 +779,9 @@ def _thiet_bi(sc):
         print('[render] không bật được GPU, dùng CPU:', e)
 
 
-def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None, figure=None):
+def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None, figure=None, den_ban=None, goc_do=None):
+    global MODE_HIEN_TAI, DEN_BAN_ON
+    MODE_HIEN_TAI = mode; DEN_BAN_ON = (mode == 'night') if den_ban is None else bool(den_ban)
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     coll = bpy.data.collections.new('Phong_tro_3D'); sc.collection.children.link(coll)
@@ -741,8 +791,24 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     m['den_tuyp_hl'] = M.emission('den_tuyp_hl', '#fff1d6', 14.0 if mode == 'night' else 2.5)
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
     shell(m, coll, door_open, cutaway=(cam in ('TOP',)) if cutaway is None else cutaway, hide_front=(CAMERAS[cam][0][1] > D) if hide_front is None else hide_front); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
+    if MODE_HIEN_TAI == 'dawn': rem_khe(m, coll)
     mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); room_objs = set(coll.objects); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
+    if mode != 'night' and mode != 'rain':
+        # Hẻm hẹp bị nhà hàng xóm 4 tầng che hết nắng trực tiếp (đúng thực tế); để có vệt nắng điện ảnh qua cửa sổ, các khối nhà bên hẻm không đổ bóng của MẶT TRỜI
+        for o in coll.objects:
+            if o.name.startswith(('env_hem_tuong', 'env_hem_san', 'env_khoi_', 'env_nha_doi_dien', 'env_nha_dd', 'env_dd_', 'env_dd2', 'env_hem_long', 'env_hc_hien', 'env_hc_bc_san', 'env_xa_toa', 'env_hem_ong')):
+                o.visible_shadow = False
+        # đồ xa (nhà cao tầng chân trời, cần cẩu, tháp, cây xa, cột điện…) cũng không đổ bóng nắng thấp vào phòng
+        ctr = Vector((mx(1.5), 2.0, 1.0))
+        for o in coll.objects:
+            if o.name.startswith('env_') and o.type == 'MESH' and (o.matrix_world.translation - ctr).length > 7.0 and not o.name.startswith(('env_hc_', 'env_hem_')):
+                o.visible_shadow = False
+            elif o.name.startswith('env_') and o.type == 'MESH' and o.data.vertices:
+                bb = [o.matrix_world @ v.co for v in list(o.data.vertices)[:40]]
+                if min((b - ctr).length for b in bb) > 14.0: o.visible_shadow = False
+    if goc_do or (goc_do is None and mode == 'rain'):
+        import goc_cho_tang; goc_cho_tang.build(sys.modules[__name__], coll, mua=(mode == 'rain'))
     if proxy: proxies(m, coll, room_objs)
     if figure: figure_proxy('nguoi_chuan', figure[0], figure[1], M.solid('nguoi_chuan', '#4f7fb0', 0.6), coll, h=figure[2] if len(figure) > 2 else 1.6)
     _hf = (CAMERAS[cam][0][1] > D) if hide_front is None else hide_front
@@ -756,7 +822,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     sc.render.engine = 'CYCLES'; _thiet_bi(sc); sc.cycles.samples = 96; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 6; sc.cycles.diffuse_bounces = 4; sc.cycles.glossy_bounces = 3; sc.cycles.transmission_bounces = 4; sc.cycles.transparent_max_bounces = 8
     sc.render.resolution_x, sc.render.resolution_y = res; sc.render.resolution_percentage = 100
-    sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = 0.4 if mode == 'night' else 0.0
+    sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = 0.4 if mode == 'night' else TIME_MODES[mode]['exp']
     sc.render.image_settings.file_format = 'PNG'
     return sc
 
@@ -766,9 +832,9 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--mode', default='day'); ap.add_argument('--cam', default='WIDE'); ap.add_argument('--out', default='/tmp/phong_tro.png')
     ap.add_argument('--blend', default=''); ap.add_argument('--door', type=float, default=10.0); ap.add_argument('--chair-rot', type=float, default=0.0)
-    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--guong', default='real'); ap.add_argument('--proxy', action='store_true'); ap.add_argument('--figure', default=''); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
+    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--guong', default='real'); ap.add_argument('--den-ban', default=None, choices=['on', 'off']); ap.add_argument('--goc-do', action='store_true', default=None); ap.add_argument('--proxy', action='store_true'); ap.add_argument('--figure', default=''); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
     a = ap.parse_args(argv)
-    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san, guong=a.guong, proxy=a.proxy, figure=tuple(float(v) for v in a.figure.split(',')) if a.figure else None)
+    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san, guong=a.guong, proxy=a.proxy, den_ban=(None if a.den_ban is None else a.den_ban == 'on'), goc_do=a.goc_do, figure=tuple(float(v) for v in a.figure.split(',')) if a.figure else None)
     sc.cycles.samples = a.samples
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=a.blend)
     if not a.no_render:
