@@ -266,15 +266,15 @@ Theo quyết định chuyển hướng sang **Nhân vật 3D & Bối cảnh 3D**
 - [ ] **3D_FACIAL_SHAPES:** Bộ Blendshapes / Shape Keys biểu cảm 3 cấp độ (ngái ngủ, kiệt sức, tự ái, hoảng loạn, điềm tĩnh, `eerie_smirk`) + Visemes khẩu hình tiếng Việt khớp ElevenLabs.
 
 ### B. Bối cảnh 3D (Full 360° Environments & Real Lighting)
-- [ ] **3D_SET_PHONGTRO:** Không gian phòng trọ $12\text{m}^2$ khép kín 4 tường & trần nhà (hỗ trợ Top-down $90^\circ$), có 4 trạng thái ánh sáng vật lý: Sáng sớm, Trưa gắt, Chiều tà Golden Hour, Đêm Chiaroscuro (Đèn bàn 3200K + Laptop 6500K).
-- [ ] **3D_SET_HANHLANG:** Hành lang dãy trọ tầng 2 (lan can sắt, cầu thang, đèn tuýp vàng lập lòe, cửa phòng có then cài trượt vật lý).
+- [ ] **3D_SET_PHONGTRO:** *(13/11: hình học + 2 chế độ sáng ngày/đêm đã có trong Blender `assets/boi-canh-3d/`; còn 2 trạng thái sáng sớm và chiều tà, đèn bàn thật — xem BOI-CANH-CAN-CHUAN-BI.md)* Không gian phòng trọ $12\text{m}^2$ khép kín 4 tường & trần nhà (hỗ trợ Top-down $90^\circ$), có 4 trạng thái ánh sáng vật lý: Sáng sớm, Trưa gắt, Chiều tà Golden Hour, Đêm Chiaroscuro (Đèn bàn 3200K + Laptop 6500K).
+- [x] **3D_SET_HANHLANG:** Hành lang dãy trọ tầng 2 (lan can sắt, cầu thang, đèn tuýp vàng lập lòe, cửa phòng có then cài trượt vật lý).
 - [ ] **3D_SET_GIANGDUONG:** Đại giảng đường bậc thang (bảng phấn, màn chiếu, bục giảng, hệ thống đèn tuýp trắng lạnh).
 - [ ] **3D_SET_LAB402 & TRUONG:** Phòng máy tính Lab 402 và Hành lang sân trường.
 - [ ] **3D_SET_MAMCOM:** Không gian mâm cơm gia đình ở quê ấm cúng.
 - [ ] **3D_SET_MIRROR_REALM:** Thế giới trong gương lật ngược $180^\circ$ chìm trong sương mù Deep Teal và mặt sàn nước phản chiếu.
 
 ### C. Đạo cụ 3D & Shader Kỹ Xảo Đặc Biệt
-- [ ] **3D_PROP_MIRROR_PORTAL:** Chiếc gương soi khung gỗ 3D + **Planar Reflection Shader** (cho phép điều khiển bóng Người Kia tách biệt hoàn toàn với Nam) + **Liquid Water Displacement Shader** (mặt kính hóa nước ở Phần 3).
-- [ ] **3D_PROPS_HERO:** Bộ đạo cụ cầm nắm 3D có điểm neo Bone Constraint (Búa đinh cán gỗ, Điện thoại + Plane màn hình UI sắc nét, Laptop, Thẻ CCCD & Thẻ sinh viên, Phong bì 3 triệu, Bát sứ bồn rửa, Cơm sườn, Bún chả, Xôi gấc, Phấn gãy).
-- [ ] **3D_CAMERA_RIG:** Thiết lập Virtual Cine Camera 36mm Full-Frame (24/35/50/85mm), Handheld Breathing Noise (`0.2Hz`), DoF Bokeh vật lý và Keyframe Vertigo Dolly Zoom chuẩn cho cả 3 Phần.
+- [ ] **3D_PROP_MIRROR_PORTAL:** *(13/11: gương thật + cờ tia cho Người Kia, kính hóa nước, Submersion đã chạy với hình nhân tạm; còn nứt/mờ sương và nhân vật thật)* Chiếc gương soi khung gỗ 3D + **Planar Reflection Shader** (cho phép điều khiển bóng Người Kia tách biệt hoàn toàn với Nam) + **Liquid Water Displacement Shader** (mặt kính hóa nước ở Phần 3).
+- [ ] **3D_PROPS_HERO:** *(13/11: đã dựng búa, thẻ CCCD/sinh viên, phong bì, điện thoại, bát+đũa, hộp cơm, bún chả, xôi gấc, túi quả, phấn, then sắt — `dao_cu_3d.py`; còn gắn xương tay + texture chữ/UI)* Bộ đạo cụ cầm nắm 3D có điểm neo Bone Constraint (Búa đinh cán gỗ, Điện thoại + Plane màn hình UI sắc nét, Laptop, Thẻ CCCD & Thẻ sinh viên, Phong bì 3 triệu, Bát sứ bồn rửa, Cơm sườn, Bún chả, Xôi gấc, Phấn gãy).
+- [ ] **3D_CAMERA_RIG:** *(13/11: 17 shot camera chuyển động chạy được trong `camera_dong.py`: Follow Path, orbit, vertigo, rack focus, handheld; còn shot cho bối cảnh S07–S12)* Thiết lập Virtual Cine Camera 36mm Full-Frame (24/35/50/85mm), Handheld Breathing Noise (`0.2Hz`), DoF Bokeh vật lý và Keyframe Vertigo Dolly Zoom chuẩn cho cả 3 Phần.
 
