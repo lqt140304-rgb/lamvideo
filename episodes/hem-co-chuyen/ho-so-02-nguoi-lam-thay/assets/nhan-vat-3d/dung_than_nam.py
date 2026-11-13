@@ -18,14 +18,15 @@ import dung_dau_nam as D
 
 M_CT = 32
 RING_Z0 = min((r[0] for r in D.LOFT_TAB), key=lambda z: abs(z - 1.0))   # vòng cắt cổ của bản sao đầu ở ~1,00 m (ngay dưới hàm); phần cổ dài của nguồn đầu bỏ, cổ do thân đảm nhiệm
-HEAD_K = 1.10                                  # cụm đầu–mặt–tai–tóc phóng ĐỀU 1,15× (mẫu: đầu to hơn đầu gốc ~13% chiều cao, ~21% bề ngang); đỉnh tóc vẫn 1,6003 m
+HEAD_K = 1.13                                  # cụm đầu–mặt–tai–tóc phóng ĐỀU 1,15× (mẫu: đầu to hơn đầu gốc ~13% chiều cao, ~21% bề ngang); đỉnh tóc vẫn 1,6003 m
 CHIN0, TOP0 = 1.032, 1.6003
 ZCH = TOP0 - (TOP0 - CHIN0) * HEAD_K            # cằm mới ≈ 0,947 m
-KZ = 0.94                                      # thân nén theo chiều cao (mẫu: cổ ở ~0,93 m, vai ~0,88 m); bề ngang giữ nguyên theo bảng đo
+KZ = None                                      # thân nén theo chiều cao (mẫu: cổ ở ~0,93 m, vai ~0,88 m); bề ngang giữ nguyên theo bảng đo
 def hz(z): return ZCH + (z - CHIN0) * HEAD_K   # z đầu gốc → z sau phóng
 NECK_AXIS_Y, NECK_SCALE = -0.007, 0.80   # cổ bản sao đầu thu nhỏ đều 18% quanh trục cổ (a 0,090 → 0,074) cho khớp tỉ lệ thân; nguồn Head_Base không đổi
 NECK_BLEND_TOP = 1.048
 RING_Z = hz(RING_Z0)                   # vòng cổ của đầu SAU khi phóng
+KZ = RING_Z / RING_Z0                  # hệ số nén thân: cổ thân gặp đúng vòng cổ đầu
 CUT_Z = RING_Z - 0.0055 * HEAD_K       # mặt cắt thân (dải nối cao ~6 mm)
 
 
@@ -129,15 +130,15 @@ ARM = [(0.112, 0.002, 0.950, 0.040, 0.044), (0.126, 0.002, 0.928, 0.052, 0.054),
        (0.179, 0.002, 0.760, 0.050, 0.050), (0.190, 0.004, 0.720, 0.049, 0.049), (0.200, 0.002, 0.680, 0.048, 0.048), (0.210, -0.002, 0.640, 0.046, 0.046), (0.220, -0.005, 0.600, 0.043, 0.043),
        (0.230, -0.008, 0.560, 0.038, 0.038), (0.236, -0.008, 0.540, 0.034, 0.034)]
 # bàn tay to, mềm: lòng bàn tay dẹt theo x, 4 ngón ngắn đầy cong nhẹ về trước, ngón cái có khối gốc
-PALM = [(0.232, -0.008, 0.570, 0.037, 0.037), (0.242, -0.010, 0.545, 0.034, 0.060), (0.251, -0.012, 0.500, 0.036, 0.086), (0.256, -0.013, 0.462, 0.032, 0.070)]
+PALM = [(0.232, -0.008, 0.570, 0.037, 0.037), (0.242, -0.010, 0.545, 0.034, 0.060), (0.251, -0.012, 0.500, 0.036, 0.086), (0.256, -0.013, 0.462, 0.032, 0.070), (0.249, -0.013, 0.447, 0.022, 0.062), (0.249, -0.013, 0.436, 0.010, 0.030)]
 FINGERS = [(-0.0645, 0.062, 0.0165), (-0.0215, 0.070, 0.0170), (0.0215, 0.064, 0.0165), (0.0645, 0.052, 0.0150)]   # (dy so với tâm bàn, độ dài, bán kính): ngón mập, khe ~10 mm
 THUMB = [(0.244, -0.038, 0.548, 0.033, 0.033), (0.241, -0.064, 0.508, 0.030, 0.030), (0.241, -0.079, 0.470, 0.025, 0.025), (0.242, -0.084, 0.446, 0.021, 0.021)]
 LEG = [(0.086, 0.000, 0.660, 0.0482, 0.0602), (0.090, 0.000, 0.600, 0.0654, 0.0740), (0.0925, 0.000, 0.500, 0.0688, 0.0757), (0.0925, -0.002, 0.400, 0.0667, 0.0774), (0.0925, -0.003, 0.290, 0.0670, 0.0733),
        (0.0925, 0.000, 0.200, 0.0662, 0.0657), (0.0925, 0.002, 0.140, 0.0698, 0.0684), (0.0925, 0.004, 0.105, 0.0689, 0.0684)]
 #      x       y      z     rx(ngang)  ry(cao): bàn chân dày, rộng, dài ≈ 0,27 m (đo ảnh mẫu), vòng đứng dọc theo y
 FOOT = [(0.098, 0.098, 0.025, 0.030, 0.026), (0.098, 0.090, 0.040, 0.048, 0.040), (0.098, 0.078, 0.055, 0.062, 0.055), (0.098, 0.050, 0.065, 0.072, 0.065), (0.098, 0.010, 0.064, 0.0745, 0.064),
-        (0.098, -0.035, 0.056, 0.078, 0.056), (0.098, -0.075, 0.048, 0.088, 0.048), (0.098, -0.105, 0.040, 0.092, 0.040), (0.098, -0.122, 0.034, 0.094, 0.034)]
-TOES = [(-0.0745, 0.056, 0.0215, 0.0220), (-0.0310, 0.048, 0.0180, 0.0185), (0.0070, 0.044, 0.0165, 0.0170), (0.0405, 0.040, 0.0152, 0.0157), (0.0715, 0.036, 0.0138, 0.0143)]   # (dx so với tâm chân, dài, bán kính, z): khe ~6 mm giữa các ngón chân
+        (0.098, -0.035, 0.054, 0.078, 0.054), (0.098, -0.072, 0.044, 0.086, 0.044), (0.098, -0.098, 0.036, 0.092, 0.036), (0.098, -0.116, 0.029, 0.094, 0.029)]
+TOES = [(-0.0745, 0.056, 0.0235, 0.0240), (-0.0300, 0.048, 0.0200, 0.0205), (0.0075, 0.044, 0.0185, 0.0190), (0.0420, 0.040, 0.0170, 0.0175), (0.0740, 0.036, 0.0155, 0.0160)]   # (dx so với tâm chân, dài, bán kính, z): ngón tròn, khe ~6 mm
 
 
 def mir(knots): return [(-k[0],) + tuple(k[1:]) for k in knots]
@@ -184,7 +185,7 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
             parts.append(tube('ngon', kn, coll, step=0.003))
         for dx, L, r, zc in TOES:
             xc = (0.098 + dx) * s
-            kn = [(xc, -0.108, zc, r, r), (xc, -0.108 - L * 0.55, zc, r, r), (xc, -0.108 - L * 0.9, zc, r * 0.97, r * 0.97), (xc, -0.108 - L - 0.004, zc, r * 0.82, r * 0.82), (xc, -0.108 - L - 0.010, zc, r * 0.55, r * 0.55), (xc, -0.108 - L - 0.015, zc, r * 0.25, r * 0.25)]
+            kn = [(xc, -0.104, zc, r, r), (xc, -0.104 - L * 0.55, zc, r, r), (xc, -0.104 - L * 0.9, zc, r * 0.97, r * 0.97), (xc, -0.104 - L - 0.004, zc, r * 0.82, r * 0.82), (xc, -0.104 - L - 0.010, zc, r * 0.55, r * 0.55), (xc, -0.104 - L - 0.015, zc, r * 0.25, r * 0.25)]
             parts.append(tube('ngon_chan', kn, coll, along='y', step=0.003))
     body = join(parts, 'Nam_Than_goc'); body.data.materials.append(mat); remesh(body, voxel, smooth)
     smooth_zone(body, lambda c: 0.78 < c.z < 1.0 and abs(c.x) > 0.06, 70)                     # vai–nách
@@ -192,11 +193,11 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
     smooth_zone(body, lambda c: 0.93 < c.z < 1.0, 8)                                           # chân cổ–vai
     smooth_zone(body, lambda c: 0.34 < c.z < 0.70 and abs(c.x) < 0.17, 40, 0.5)   # hông–háng–mông (bỏ mép bụng dưới)
     smooth_zone(body, lambda c: 0.06 < c.z < 0.20 and abs(c.x) < 0.2 and c.y > -0.10, 16, 0.45)   # cổ chân (không đụng ngón chân)
-    smooth_zone(body, lambda c: 0.50 < c.z < 0.60 and abs(c.x) > 0.20, 8)                    # cổ tay–lòng bàn tay (bỏ góc vuông)
+    smooth_zone(body, lambda c: 0.48 < c.z < 0.62 and abs(c.x) > 0.19, 24, 0.5)                    # cổ tay–lòng bàn tay (bỏ góc vuông)
     smooth_zone(body, lambda c: 0.40 < c.z < 0.50 and abs(c.x) > 0.20, 2, 0.3)               # gốc ngón tay + ngón (đầu ngón tròn, nối mượt)
     smooth_zone(body, lambda c: 0.10 < c.z < 0.66 and 0.04 < abs(c.x) < 0.20 and c.y > -0.07, 12, 0.4)   # đùi–gối–bắp chân–cổ chân liền mượt
     smooth_zone(body, lambda c: c.z < 0.14 and c.y > -0.07 and abs(c.x) < 0.2, 10, 0.45)    # gót–mu bàn chân
-    smooth_zone(body, lambda c: c.z < 0.075 and c.y < -0.07 and abs(c.x) < 0.2, 2, 0.3)     # gốc ngón chân + đầu ngón
+    smooth_zone(body, lambda c: c.z < 0.075 and -0.125 < c.y < -0.07 and abs(c.x) < 0.2, 8, 0.45)     # gốc ngón chân + đầu ngón
     carve_details(body)
     for v in body.data.vertices: v.co.z *= KZ                                               # nén thân theo tỉ lệ mẫu (KZ)
     body.data.update(); body.data.shade_smooth(); return body
@@ -372,8 +373,10 @@ def render_silhouettes(sc, out, scale_m_px=0.00233):
 
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
-    ap = argparse.ArgumentParser(); ap.add_argument('--render', default=''); ap.add_argument('--blend', default=''); ap.add_argument('--samples', type=int, default=24); ap.add_argument('--sil', default=''); ap.add_argument('--voxel', type=float, default=0.0025)
+    ap = argparse.ArgumentParser(); ap.add_argument('--render', default=''); ap.add_argument('--blend', default=''); ap.add_argument('--samples', type=int, default=24); ap.add_argument('--sil', default=''); ap.add_argument('--voxel', type=float, default=0.0025); ap.add_argument('--headk', type=float, default=0)
     a = ap.parse_args(argv)
+    if a.headk:
+        HEAD_K = a.headk; ZCH = TOP0 - (TOP0 - CHIN0) * HEAD_K; RING_Z = hz(RING_Z0); CUT_Z = RING_Z - 0.0055 * HEAD_K; KZ = RING_Z / RING_Z0
     sc = build_scene(a.voxel)
     for c in list(sc.objects):
         if c.type in ('LIGHT', 'CAMERA'): bpy.data.objects.remove(c, do_unlink=True)
