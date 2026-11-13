@@ -74,7 +74,8 @@ def main():
     for m in (14, 18, 22, 24, 28, 35, 50, 65, 85):
         print(f'| {m} mm | {dist_full_body(m):.2f} m |')
     print('\nPhòng chỉ 3 × 4 m, đường chéo 5 m: trục dài nhất đặt máy sát tường vẫn chỉ ~3,6–4,5 m.\n')
-    TOAN_THAN = {'WIDE', 'BED', 'DOOR', 'KITCHEN', 'GUONG', 'GUONG_XIEN', 'ORBIT_A', 'ORBIT_B', 'ORBIT_C', 'A01', 'A02B', 'A03', 'C06', 'LOW', 'TT_GIUONG', 'TT_BEP', 'TT_GUONG', 'TT_CUA', 'TT_BAN'}
+    TOAN_THAN = {'WIDE', 'BED', 'LOW', 'TT_GIUONG', 'TT_BEP', 'TT_GUONG', 'TT_CUA'}  # cỡ toàn thân (hướng A); TT_BAN là người ngồi
+    TRUNG = {'DOOR', 'KITCHEN', 'GUONG', 'GUONG_XIEN', 'A01', 'A02B', 'A03', 'C06', 'ORBIT_A', 'ORBIT_B', 'ORBIT_C', 'TT_BAN'}
     print('| Camera | Tiêu cự | Máy | Cách điểm nhìn (m) | Khung cao tại điểm nhìn (m) | Người 1,6 m lọt dọc | Cần ≥ (m) | Lùi thêm được (m) | Sàn thấy | Tường thấy | Nhận xét |\n|---|---|---|---|---|---|---|---|---|---|---|')
     names = [n for n in X.CAMERAS if n not in ('TOP', 'HALL', 'HALL_DOOR', 'HALL_FACE', 'HALL_STAIR', 'HALL_END', 'HALL_LONG', 'P201VENT')]
     for n in names:
@@ -93,6 +94,8 @@ def main():
                 if back + dist >= need: note.append('lùi %.1f m là đủ' % (need - dist))
                 else: note.append('trong phòng chỉ đủ ≤ %d mm; hoặc ẩn tường/đổi cỡ cảnh' % math.floor(lens_full_body(dist + back)))
             else: note.append('đủ toàn thân')
+        elif n in TRUNG:
+            note.append('cỡ trung (hướng A): người lọt %d%% khung dọc, không đòi toàn thân' % round(pct * 100))
         else:
             note.append('cận/vật thể (không kiểm toàn thân)')
         if not inside: note.append('máy ngoài phòng (ẩn tường)')

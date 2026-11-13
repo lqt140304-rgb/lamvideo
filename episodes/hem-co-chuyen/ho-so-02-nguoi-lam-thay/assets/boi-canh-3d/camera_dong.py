@@ -146,7 +146,7 @@ def shot_steadicam(sc):
 def shot_rack(sc):
     """Rack Focus 65 mm f/1.4: lưng ghế (gần, 0,7 m) → màn hình laptop (xa, 1,4 m) trong 1,5 s rồi giữ. Hai vật gần như thẳng hàng trước ống kính."""
     rig, cam = new_rig('RACK_FOCUS_BAN', 65, 1.4); fo = focus_empty(cam)
-    pos = (2.15, 1.55, 1.05); tgt = (2.65, 0.62, 0.9)
+    pos = (2.05, 1.6, 1.0); tgt = (2.62, 0.6, 0.9)
     A = (2.48, 0.98, 0.9); B = (2.79, 0.33, 0.88); N = 60
     for f in range(1, N + 1):
         t = smooth((f - 14) / 36.0)

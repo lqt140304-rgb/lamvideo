@@ -273,9 +273,9 @@ def wardrobe(m, coll):
     wood = m['go_tu']
     box('tu_trai', x0, x0 + 0.025, y0, y1, 0, 1.92, wood, bevel=0.004, coll=coll)
     box('tu_phai', x1 - 0.025, x1, y0, y1, 0, 1.92, wood, bevel=0.004, coll=coll)
-    box('tu_lung', x0, x1, y0, y0 + 0.012, 0, 1.92, m['go_toi'], coll=coll)
+    box('tu_lung', x0 + 0.025, x1 - 0.025, y0, y0 + 0.012, 0, 1.92, m['go_toi'], coll=coll)
     for i, z in enumerate([0.0, 0.5, 1.0, 1.45, 1.89]):
-        box(f'ke_tu{i}', x0, x1, y0, y1, z, z + 0.025, wood, bevel=0.003, coll=coll)
+        box(f'ke_tu{i}', x0, x1, y0 + 0.012, y1 - 0.004, z, z + 0.025, wood, bevel=0.003, coll=coll)
     cyl('thanh_ao', (x0 + x1) / 2, 0.3, 1.62, 0.009, x1 - x0 - 0.05, m['inox'], axis='X', coll=coll)
     for i in range(5):  # áo treo
         c = m['ao'][i % 4]
@@ -295,12 +295,12 @@ def desk_and_chair(m, coll, chair_pos=None, chair_rot=0.0):
     for i, z in enumerate([0.07, 0.40]):
         box(f'ngan_keo{i}', x1 - 0.40, x1 - 0.025, y1, y1 + 0.02, z, z + 0.28, m['go_ban'], bevel=0.006, coll=coll)
         box(f'nam_keo{i}', x1 - 0.30, x1 - 0.13, y1 + 0.02, y1 + 0.035, z + 0.21, z + 0.23, m['inox'], bevel=0.004, coll=coll)
-    box('hoc_lung', x0, x1 - 0.42, y0, y0 + 0.012, 0.0, 0.71, m['go_toi'], coll=coll)
+    box('hoc_lung', x0 + 0.04, x1 - 0.42, y0, y0 + 0.012, 0.0, 0.71, m['go_toi'], coll=coll)
     # giá sách trên bàn
     box('ke_sach_trai', x0 + 0.0, x0 + 0.02, y0, y0 + 0.2, 0.75, 1.25, m['go_toi'], coll=coll)
     box('ke_sach_phai', x0 + 0.46, x0 + 0.48, y0, y0 + 0.2, 0.75, 1.25, m['go_toi'], coll=coll)
     for i, z in enumerate([0.75, 1.0, 1.24]):
-        box(f'ke_sach_t{i}', x0, x0 + 0.48, y0, y0 + 0.2, z, z + 0.02, m['go_toi'], coll=coll)
+        box(f'ke_sach_t{i}', x0, x0 + 0.48, y0 + 0.003, y0 + 0.197, z, z + 0.02, m['go_toi'], coll=coll)
     for i in range(9):
         w = 0.025 + 0.01 * (i % 3); xx = x0 + 0.04 + sum(0.03 + 0.008 * (j % 3) for j in range(i))
         box(f'sach{i}', xx, xx + w, y0 + 0.02, y0 + 0.17, 0.77, 0.77 + 0.17 + 0.03 * (i % 2), m['bia'][i % 5], bevel=0.002, coll=coll)

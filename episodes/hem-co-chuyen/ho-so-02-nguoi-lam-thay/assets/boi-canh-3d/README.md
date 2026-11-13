@@ -77,3 +77,6 @@ Vì góc quay giờ rộng hơn nên mọi hướng đều phải có cảnh đ�
 ## 13/11 05:30: danh sách shot cuối và chuyển động camera
 - `camera_dong.py`: thêm 10 shot khai báo (`GEN`): ESTABLISH_SAN, TOAN_CANH_DEM, HL_DOLLY, A03_ARC, PAN_BEP_CUA, TOP_XOAY, SAN_VAP, TT_*_PUSH; `SEQUENCE` (17 shot, 1272 khung). Bảng ở DANH-SACH-SHOT.md mục 6. `render_chuoi.sh` render chuỗi thành MP4 (chưa chạy).
 - Cutaway (TOP) ẩn trần khỏi mọi loại tia để mép tường không đen; tường hẻm tối hơn.
+
+## 13/11 08:00: rà soát lỗi
+Xem [RA-SOAT-13-11.md](RA-SOAT-13-11.md): 14 lỗi đã biết → 6 sửa hẳn, 4 sửa một phần, 4 còn. Sửa thêm: chấm đen kệ/tủ, cây có cành, trăng đêm, `kiem_goc_quay.py` tách cỡ toàn thân/trung.

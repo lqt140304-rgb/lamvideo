@@ -158,12 +158,24 @@ def build(X, m, coll, night, hl_y1):
         cyl(f'env_dd_be{k}', -11.5 - rnd.uniform(0, 1.5), y, rz + 0.18 + 0.55 + rnd.uniform(0, 0.1), rnd.uniform(0.5, 0.72), 1.3, mat(rnd.choice(['#2f6fb0', '#b9bdbb', '#c9c2ae']), 0.4), coll=coll, bevel=0.02)
 
     # ------------------------------------------------------------ sân: cây, xe máy, cột điện, dây
+    def canh(x, y, z, dx, dy, dz, r=0.05):
+        L = math.sqrt(dx * dx + dy * dy + dz * dz)
+        bm_ = None
+        ob = cyl(f'env_canh{x:.0f}{y:.0f}{z:.1f}', x + dx / 2, y + dy / 2, z + dz / 2, r, L, mat('#5a4636', 0.95), coll=coll)
+        ob.rotation_mode = 'QUATERNION'; ob.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(Vector((-dx, dy, dz)).normalized())
     def tree(x, y, h, tint='#4f7a4a'):
+        for k in range(4):  # cành chính toả ra từ thân
+            a = k * 1.57 + rnd.uniform(0, 0.6); canh(x, y, GZ + h * 0.5, 0.9 * math.cos(a), 0.9 * math.sin(a), h * 0.22, 0.07)
+        for k in range(14):  # cụm lá nhỏ ở đầu cành, nhiều tông xanh
+            a = rnd.uniform(0, 6.283); rr = rnd.uniform(0.4, 1.4)
+            sphere(f'env_cum_la{x:.0f}{y:.0f}{k}', x + rr * math.cos(a), y + rr * math.sin(a), GZ + h * 0.7 + rnd.uniform(-0.4, 0.9), rnd.uniform(0.38, 0.6), mat(rnd.choice(['#5f8d54', '#7aa35f', '#4a7a47', '#8db36a']), 0.85), scale=(1, 1, 0.75), coll=coll)
+    def tree_old(x, y, h, tint='#4f7a4a'):
         cyl(f'env_than_cay{x:.0f}{y:.0f}', x, y, GZ + h * 0.3, 0.16, h * 0.6, mat('#5a4636', 0.95), coll=coll, bevel=0.02)
         for k in range(9):
             a = rnd.uniform(0, 6.283); rr = rnd.uniform(0.0, 1.1)
             sphere(f'env_tan{x:.0f}{y:.0f}{k}', x + rr * math.cos(a), y + rr * math.sin(a), GZ + h * 0.72 + rnd.uniform(-0.3, 1.0), rnd.uniform(0.7, 1.15), mat(rnd.choice([tint, '#5f8d54', '#44704a']), 0.85), scale=(1, 1, 0.8), coll=coll)
     tree(-4.2, 6.5, 6.5); tree(-5.2, 18.0, 7.5); tree(-2.6, 12.6, 3.2, '#6f9455')
+    tree_old = None
     for (x, y, h) in [(-6.5, 5.0, 2.0), (-6.4, 19.0, 2.4)]:  # cau/dừa cảnh
         cyl(f'env_cau{x:.0f}{y:.0f}', x, y, GZ + h / 2, 0.07, h, mat('#7a6a4a', 0.9), coll=coll)
         for k in range(6): sphere(f'env_cau_la{x:.0f}{y:.0f}{k}', x + 0.55 * math.cos(k), y + 0.55 * math.sin(k), GZ + h, 0.5, mat('#4a8a4a', 0.8), scale=(1, 0.25, 0.25), coll=coll)
@@ -273,6 +285,8 @@ def build(X, m, coll, night, hl_y1):
                     if rnd.random() < 0.5:
                         px = cx - w1 / 2 + rnd.uniform(1, w1 - 2)
                         B(f'chan_so{li}_{k}_{z}', px, px + 1.2, cy - d1 / 2 - 0.05, cy - d1 / 2, GZ + 3 + z * 4, GZ + 4.5 + z * 4, glow('#ffd79a', 3.0), coll=coll)
+    # trăng thấy được (đêm): đĩa phát sáng ở chân trời phía dãy đối diện
+    if night: sphere('env_trang', -70, 40, 55, 4.0, glow('#fff3d2', 6.0), coll=coll)
     # ------------------------------------------------------------ ánh sáng ban đêm từ môi trường
     if night:
         for k, (yy, zz, xx) in enumerate([(2.0, 3.8, -8.5), (9.0, 3.8, -8.5), (16.0, 3.8, -8.5), (5.0, 0.9, -8.5), (13.0, 0.9, -8.5), (21.0, 0.9, -8.5), (6.0, -1.6, -8.5)]):
