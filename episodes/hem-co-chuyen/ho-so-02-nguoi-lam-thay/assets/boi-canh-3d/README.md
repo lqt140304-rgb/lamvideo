@@ -85,3 +85,6 @@ Xem [RA-SOAT-13-11.md](RA-SOAT-13-11.md): 14 lỗi đã biết → 6 sửa hẳn
 - `xem-thu/video/chuoi-shot.mp4`: 17 shot (SEQUENCE), 640×268, **12 fps** (render mỗi 2 khung, `STEP=2`), 636 khung = 53 giây, Cycles CPU 14 mẫu/khung, 2.39:1, hình nhân tạm, không tiếng. Thumbnail: `xem-thu/video/chuoi-shot-thumb.jpg`; thời gian: `xem-thu/video/thoi-gian.log`.
 - Thời gian thật: tổng ≈ 80 phút trên 4 lõi CPU (≈ 7 s/khung gồm dựng cảnh ≈ 10 s/shot); không shot nào lỗi. Muốn bản 24 fps/độ phân giải cao hơn: `STEP=1 WIDTH=960 SAMPLES=24 ./render_chuoi.sh` (ước tính vài giờ).
 - Lệnh: `PY=/tmp/bpyenv/bin/python STEP=2 WIDTH=640 SAMPLES=14 OUT=/tmp/chuoi ./render_chuoi.sh`.
+
+## 13/11 chiều: render lại video với các sửa mới
+- `xem-thu/video/chuoi-shot.mp4`: bản mới (12 fps, 640×268, 53 s, 14 mẫu); `chuoi-shot-24fps.mp4`: cùng video nội suy lên 24 fps bằng `minterpolate` (không render thêm). Thời gian render thật: 83,6 phút (5.014 s) trên 4 lõi CPU, bật persistent data; không shot nào lỗi. Log: `xem-thu/video/thoi-gian.log`.
