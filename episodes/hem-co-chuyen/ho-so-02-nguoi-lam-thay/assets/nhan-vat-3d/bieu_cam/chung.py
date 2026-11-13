@@ -2,7 +2,7 @@
 import os, sys
 from dataclasses import dataclass, field
 import bpy
-from mathutils import Vector
+from mathutils import Vector, Matrix
 
 AQ = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if AQ not in sys.path: sys.path.insert(0, AQ)
@@ -74,6 +74,9 @@ def dung_nam(mole_side=None, x_scale=1.0):
             D.FACE['eye_x'] *= x_scale; D.FACE['mole_x'] *= x_scale; D.FACE['brow_x'] = tuple(x * x_scale for x in D.FACE['brow_x'])
         D.build()
         head = bpy.data.objects['Head_Base']; parts = {n: bpy.data.objects[n] for n in TEN_VAT}
+        for ob in parts.values():            # đưa toàn bộ phép biến đổi vào lưới: hình học thế giới giữ nguyên, vật nằm ở gốc với scale 1, không xoay.
+            if ob.matrix_world != Matrix.Identity(4):   # Displace tính theo đơn vị cục bộ, Shrinkwrap PROJECT theo trục cục bộ → cần ma trận đơn vị
+                ob.data.transform(ob.matrix_world); ob.matrix_world = Matrix.Identity(4)
         bpy.context.view_layer.update()
         S = D.Surf(head); neo = lay_neo(head, parts, S)      # neo phải tính khi FACE còn là bản của đầu này
     finally:

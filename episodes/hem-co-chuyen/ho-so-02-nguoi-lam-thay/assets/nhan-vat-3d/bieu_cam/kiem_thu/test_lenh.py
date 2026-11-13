@@ -14,7 +14,8 @@ def test_lenh_anh_va_bang():
     with tempfile.TemporaryDirectory() as t:
         r = subprocess.run([sys.executable, LENH, '--anh', t], capture_output=True, text=True, timeout=900)
         assert r.returncode == 0, r.stdout[-600:] + r.stderr[-600:]
-        pngs = sorted(f for f in os.listdir(t) if f.endswith('.png')); assert len(pngs) == 7 * 3, pngs
+        pngs = sorted(f for f in os.listdir(t) if f.endswith('.png')); from bieu_cam import tao_key
+        assert len(pngs) == (len(tao_key.nap_dinh_nghia()) + 1) * 3, pngs
         assert 'nghi__chinh_dien.png' in pngs and 'kinh_hoang__nghieng.png' in pngs
         from bieu_cam import bang_anh
         ra = os.path.join(t, 'bang.png'); bang_anh.ghep(t, ra)

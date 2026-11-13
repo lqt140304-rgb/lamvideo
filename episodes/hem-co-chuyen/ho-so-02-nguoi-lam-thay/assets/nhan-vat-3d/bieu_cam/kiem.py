@@ -119,6 +119,18 @@ def kiem_de(dau):
     return loi
 
 
+def kiem_nhin(dau):
+    """Con ngươi nằm trong khe mắt (dưới mí trên, trên mí dưới) và trong elip tròng trắng thu nhỏ một bán kính con ngươi."""
+    import dung_dau_nam as D
+    loi = []; n = neo_hien_tai(dau); rx = D.EYE_R[0] * D.WHITE_R2 ** 0.5; rz = D.EYE_R[1] * D.WHITE_R2 ** 0.5; bk = 0.012
+    for k in 'LR':
+        c = _cen(_verts(dau.parts[f'Pupil.{k}'])); e = n[f'eye_c.{k}']
+        in_khe = n[f'lid_low.{k}'].z <= c.z <= n[f'lid_up.{k}'].z
+        e2 = ((c.x - e.x) / (rx - bk)) ** 2 + ((c.z - e.z) / (rz - bk)) ** 2
+        if not in_khe or e2 > 1.0: loi.append(Loi('nhin', f'Pupil.{k}', max(e2 - 1.0, 0.0), chi_tiet='con ngươi ngoài khe mắt'))
+    return loi
+
+
 def kiem_nhan_dien(dau):
     """Nốt ruồi không trôi khỏi da (đo so với chuyển động của da dưới nó) và không đổi bên; khi mọi key = 0 thì lưới đầu trùng bản nghỉ từng đỉnh."""
     loi = []; m = _cen(_verts(dau.parts['Mole'])); r = dau.nghi['mole']

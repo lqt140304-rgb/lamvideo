@@ -216,5 +216,41 @@
     ]
    }
   }
+ },
+ {
+  "ten": "mo_mat",
+  "nhom": "cong_cu",
+  "muc": 2,
+  "ban_kinh": 0.3,
+  "ghi_chu": "Mắt mở to: mí trên nâng nhiều (nhân elip hẹp để con ngươi không bị kéo theo), mày nâng đủ cao để không chạm viền mắt. Công cụ cho nhìn lên, bất ngờ, sợ hãi.",
+  "dich": {
+   "lid_up.*": {
+    "d": [
+     0,
+     0,
+     0.09
+    ],
+    "r": [
+     0.25,
+     0.2,
+     0.05
+    ]
+   },
+   "brow_in.*": [
+    0,
+    0,
+    0.06
+   ],
+   "brow_mid.*": [
+    0,
+    0,
+    0.07
+   ],
+   "brow_out.*": [
+    0,
+    0,
+    0.05
+   ]
+  }
  }
 ]
