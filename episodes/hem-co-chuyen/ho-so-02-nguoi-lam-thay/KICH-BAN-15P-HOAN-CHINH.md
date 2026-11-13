@@ -1,19 +1,22 @@
 # Kịch bản Điện ảnh Hoàn chỉnh (15 Phút) — Hồ sơ 02: Người Trong Gương
 > **Vũ trụ:** *The Crack in Reality (Hẻm Có Chuyện)*  
-> **Thời lượng chuẩn:** 15:00 (Cấu trúc 3 Hồi điện ảnh chặt chẽ)  
+> **Thời lượng chuẩn:** 15:00 (Cấu trúc 3 Hồi điện ảnh chặt chẽ, đầy đủ bước chuyển cảnh & chuyển hồi)  
 > **Tỉ lệ khung hình:** 2.39:1 Cinemascope Anamorphic  
 > **Phong cách:** Kinh dị tâm lý (Psychological Suspense), đời thực, ngôn ngữ sinh viên Việt Nam hiện đại, tự nhiên, nhịp điệu dồn dập, cài cắm manh mối nhiều tầng (Layered Clues).  
+> **Quy chuẩn chuyển cảnh (Scene Transitions):** Mọi điểm giao thoa giữa các cảnh đều có bước chuyển rời rạc rõ ràng: Kỹ thuật thị giác (Match Cut, Whip Pan, Time-lapse, Dissolve), Cầu nối âm thanh (J-Cut, L-Cut, Sound Bridge), và Nhịp đệm tâm lý / dòng thời gian thực tế.  
 > **Bản Master chuẩn:** Khóa bản dựng (Locked Master Script) — Nguồn tham chiếu duy nhất cho toàn bộ khâu tiền kỳ, asset, animation và voiceover.
 
 ---
 
-## BẢNG PHÂN BỔ THỜI LƯỢNG 3 HỒI
+## BẢNG PHÂN BỔ THỜI LƯỢNG & CÁC BƯỚC CHUYỂN HỒI
 
-| Hồi | Phân đoạn | Thời lượng | Nội dung trọng tâm & Bước chuyển tâm lý |
+| Hồi | Phân đoạn | Thời lượng | Bước chuyển tiếp chính (Transition Beats) |
 |:---:|---|:---:|---|
-| **HỒI 1** | **Người trong phòng** | 00:00 – 04:30 | Tiếng còi xe & Báo thức dí sát nút $\to$ Đóng chân gương lung lay bằng búa sắt $\to$ Gặp kẻ song sinh ở bồn rửa bát $\to$ Cuộc gọi cãi cọ với Tùng $\to$ Đẩy ra ngoài & Cài then sắt $\to$ Giấu dao gọt hoa quả dưới nệm $\to$ Kẻ kia lén đọc note thuốc khớp của mẹ & gõ hộ tiểu luận Triết 15 trang $\to$ Cám dỗ tiện lợi đầu tiên. |
-| **HỒI 2** | **Quen được sống thay** | 04:30 – 10:30 | Mở mắt thấy dao dưới gối $\to$ Thị uy 3 củ tiền ăn bị từ chối $\to$ Nhờ vắt đồ ngâm, đùn trắc nghiệm 10 câu online & Nhờ đi thực hành Lab 402 $\to$ Điểm 9.5 kỷ lục $\to$ Tùng đau chân, Nam trùm chăn giả ngủ, Người Kia nẫng tay trên chăm sóc $\to$ Căn giờ Tùng vắng $\to$ Cốc nước dời sang trái & Vải gương tuột dần $\to$ Góc máy sau lưng: Vết nứt rỉ nước lạnh (Nam không thấy) $\to$ Nghe Zalo video mẹ gọi cực ngọt $\to$ Clip Zalo ăn giỗ họ hàng $\to$ Nam thức tỉnh trong phẫn uất. |
-| **HỒI 3** | **Người bị thay thế** | 10:30 – 15:00 | Nam thức trắng tự học $\to$ Lên bảng trả lời tốt câu đầu nhưng sụp đổ trước thuật toán đa luồng do Người Kia tự ý đăng ký $\to$ Tùng thất vọng $\to$ Soi CCCD & Clip Zalo phát hiện nốt ruồi đảo bên $\to$ Lôi búa sắt dưới gầm giường định đập gương $\to$ Người Kia suy thoái rỉ nước lạnh trước hoàng hôn $\to$ Đòn tâm lý bóc trần sự lười biếng $\to$ Buông búa $\to$ **Khế ước hoán đổi: Chấp thuận bằng lời & Áp tay trao thân nhiệt (Point of No Return)** $\to$ Kính hóa nước nuốt chửng $\to$ Đoạn kết bún chả rợn tóc gáy. |
+| **HỒI 1** | **Người trong phòng** | 00:00 – 04:30 | **Mở đầu:** Báo thức & đóng chân gương $\to$ *[J-Cut tiếng nước rửa chén]* $\to$ Đối mặt bản sao $\to$ *[Smash Cut & thở dốc]* $\to$ Đẩy ra ngoài khóa then sắt & giấu dao dưới nệm $\to$ *[Match Cut mở laptop & Time-lapse chiều]* $\to$ Đọc note thuốc khớp & nộp tiểu luận Triết $\to$ Cám dỗ tiện lợi. |
+| **BƯỚC CHUYỂN HỒI 1 $\to$ 2** | *Đêm trọ sang Bình minh* | *Khoảng lặng* | **Fade to Black (21h30 đêm) $\to$ Soundscape đêm trọ (tiếng rao bánh khúc, quạt cây, kẻng xe rác 5h sáng) $\to$ Fade-in nắng sớm Ngày 2 chiếu then sắt còn khóa nguyên.** |
+| **HỒI 2** | **Quen được sống thay** | 04:30 – 10:30 | Mở mắt rút dao $\to$ Thị uy tiền bị từ chối $\to$ Nhờ vắt đồ ngâm, đùn trắc nghiệm 10 câu online & nhờ đi Lab 402 $\to$ *[Breather Beat & Time-lapse trưa sang tối]* $\to$ Tùng về khen 9.5, Nam trùm chăn giả ngủ, Người Kia nẫng tay trên chăm bạn $\to$ *[Dissolve ánh trăng khuya 02:00]* $\to$ Vải gương tuột, góc sau lưng thấy vết nứt rỉ nước $\to$ Cuộc gọi Zalo mẹ cực ngọt $\to$ *[Sound Bridge chuông Zalo]* $\to$ Clip ăn giỗ họ hàng $\to$ Nam hất xôi uất ức. |
+| **BƯỚC CHUYỂN HỒI 2 $\to$ 3** | *Quyết tâm trong đêm* | *Khoảng lặng* | **Montage nỗ lực muộn màng: Nam rửa mặt nước lạnh $\to$ cà phê đặc $\to$ lật tung giáo trình C++ thâu đêm $\to$ tập thuyết trình trước gương $\to$ Match Cut gập sách sang bục giảng đại học.** |
+| **HỒI 3** | **Người bị thay thế** | 10:30 – 15:00 | Giảng đường: trả lời tốt câu đầu nhưng sụp đổ trước thuật toán đa luồng Người Kia nhận làm $\to$ Tùng thất vọng $\to$ *[Running Montage & Lang thang bờ kè 12:00 $\to$ 17h45]* $\to$ Về phòng soi CCCD & clip Zalo phát hiện nốt ruồi đảo bên $\to$ Lôi búa sắt dưới gầm giường $\to$ *[Whip Pan & Nắng hoàng hôn máu 18h00]* $\to$ Người Kia suy thoái rỉ nước đầm đìa $\to$ Đòn tâm lý buông búa $\to$ **Khế ước hoán đổi: Lời chấp thuận & Áp tay trao hơi ấm (Point of No Return)** $\to$ Kính hóa nước nuốt chửng $\to$ *[The Chilling Void 3s & vệt đèn pha 19h30]* $\to$ Tùng xách bún chả về, phát hiện nốt ruồi bên phải $\to$ Cài then sắt kết thúc. |
 
 ---
 
@@ -48,6 +51,13 @@ Nam cúi rạp người xuống gầm giường gỗ, lôi ra một **chiếc b�
 
 Nam đi ngang qua cửa nhà vệ sinh, nhìn vào góc sàn: Một chậu quần áo ngâm bột giặt từ ba hôm trước đã nổi váng đục ngầu, bốc mùi chua nồng. Nam nhăn mũi định xắn tay áo vắt phơi, nhưng điện thoại trong túi bỗng reo "ting ting" thông báo một video ngắn hài hước. Nam dán mắt vào màn hình cười khúc khích, tặc lưỡi:
 > Thôi... tí trưa nắng to rồi giặt phơi một thể, giờ vắt đồ lạnh cóng cả tay.
+
+---
+
+> 🎬 **BƯỚC CHUYỂN CẢNH 1.1 $\to$ 1.2 (SOUND BRIDGE & J-CUT):**  
+> * **Kỹ thuật thị giác:** Máy quay giữ tĩnh khung nệm trống và góc gương cũ phủ vải hoa $\to$ Pan máy mượt mà theo bước chân lê dép tổ ong của Nam tiến về phía góc bồn rửa.  
+> * **Âm thanh & Cầu nối:** Tiếng cười khúc khích của Nam tắt dần. **J-Cut âm thanh:** Tiếng nước chảy róc rách từ vòi nước bồn rửa chén và tiếng bát đĩa sứ va chạm lách cách *"xoong... keng..."* tràn vào từ cuối Cảnh 1.1 khi Nam còn đang cầm điện thoại.  
+> * **Nhịp đệm tâm lý:** Nam khựng lại một nhịp ở ngưỡng cửa, cất điện thoại vào túi, hơi bất ngờ vì tưởng bạn cùng phòng Tùng đổi ca làm về sớm.
 
 ---
 
@@ -96,6 +106,13 @@ Tùng cúp máy. Nam nuốt nước bọt cái ực. Kẻ trước mặt là ng�
 
 ---
 
+> 🎬 **BƯỚC CHUYỂN CẢNH 1.2 $\to$ 1.3 (SMASH CUT & BREATHING JITTER):**  
+> * **Kỹ thuật thị giác:** Cú giật zoom cực nhanh (Smash Push-in) vào đôi mắt trừng trừng vô hồn của Người Kia $\to$ Máy quay vác vai rung giật theo nhịp thở dồn dập (Handheld Breathing Jitter) của Nam.  
+> * **Âm thanh & Cầu nối:** Sau tiếng "Tút... tút..." cúp máy của Tùng, không gian rơi vào khoảng lặng ngột ngạt kéo dài đúng 1.5 giây. Chỉ có tiếng quạt trần quay lạch cạch và tiếng nuốt nước bọt khô khốc của Nam.  
+> * **Nhịp đệm tâm lý:** Nam nhận ra không thể trông cậy vào ai, bản năng sinh tồn trỗi dậy, ánh mắt dồn về phía cửa thoát hiểm duy nhất.
+
+---
+
 ### CẢNH 1.3: ĐẨY NGƯỜI, KHÓA THEN SẮT & GIẤU DAO DƯỚI NỆM (02:40 – 03:30)
 Nam thủ thế cây kéo, chỉ thẳng ra cửa:
 
@@ -115,11 +132,17 @@ Nam lau vội lưỡi dao vào vạt áo, bước lại góc nệm ngủ, cẩn 
 
 ---
 
-### CẢNH 1.4: MẨU TIN THU THẬP & CÁM DỖ TIỆN LỢI ĐẦU TIÊN (03:30 – 04:30)
-Nam ngồi sụp xuống bàn học, mở laptop gõ tiểu luận Triết nhưng đầu óc hoảng loạn, tay run bần bật gõ sai liên tục. Càng sợ, Nam càng mở game lướt mạng trốn tránh. Đến 16h00 chiều, đói và kiệt sức vì thức trắng nhiều đêm, Nam gục mặt thiếp đi trên bàn học bừa bộn.
+> 🎬 **BƯỚC CHUYỂN CẢNH 1.3 $\to$ 1.4 (MATCH CUT & TIME-LAPSE BUỔI CHIỀU):**  
+> * **Kỹ thuật thị giác:** **Match Cut âm thanh & hành động:** Tiếng gài then sắt *"CẠCH"* ở cửa phòng trọ được lặp lại bằng tiếng bấm mở nắp laptop *"CẠCH"* khi Nam ngồi vào bàn học.  
+> * **Cú máy Time-lapse (08:30 $\to$ 16:00 chiều):** Góc máy tĩnh toàn cảnh căn phòng trọ. Vệt nắng xiên trên vách tường nhạt dần rồi chuyển sang màu lam chiều tà. Ánh sáng xanh lạnh lẽo từ màn hình laptop hắt lên gương mặt hốc hác, căng thẳng của Nam. Nam gõ vài chữ rồi lại xóa liên tục, đầu gục dần xuống cánh tay ngủ thiếp đi lúc 16h00.  
+> * **Âm thanh & Cầu nối:** Tiếng gõ phím lộc cộc đứt quãng $\to$ tiếng ve râm ran trưa hè $\to$ tiếng thở dài mệt mỏi rồi chìm vào im lặng.  
+> * **Cross-dissolve sang 21:00 đêm:** Căn phòng chìm vào bóng tối đặc quánh, chỉ còn đèn nền bàn phím nhấp nháy trong tĩnh lặng rợn người.
 
+---
+
+### CẢNH 1.4: MẨU TIN THU THẬP & CÁM DỖ TIỆN LỢI ĐẦU TIÊN (03:30 – 04:30)
 * **Cú máy lén lút (Vết chân thực thể):**  
-Trong lúc Nam ngủ say li bì, bóng đen từ chiếc gương lẳng lặng bước ra.  
+Trong lúc Nam ngủ say li bì trên bàn, bóng đen từ chiếc gương lẳng lặng bước ra.  
 **Cận cảnh Insert:** Bàn tay Người Kia nhặt **hộp thuốc bổ xương khớp Glucosamine** lên. Đôi mắt nó quét qua dòng chữ viết tay trên tờ note của mẹ: *"mẹ dạo này uống thuốc này khớp gối đỡ đau nhức mỗi khi trời trở lạnh"*. Nó dừng lại 3 giây, ghi nhớ sâu vào ký ức. Sau đó, ánh mắt nó lia sang mẩu note lịch thực hành Lab 402 dán cạnh màn hình.  
 Nó kéo ghế ngồi xuống, những ngón tay gõ phím lướt đi thoăn thoắt trong tĩnh lặng.
 
@@ -134,6 +157,13 @@ Nam ngả lưng ra ghế, thở phào một hơi khoan khoái. Nỗi sợ hãi b
 
 **NAM [lẩm bẩm, khóe môi khẽ nhếch lên nụ cười tự mãn]:**
 > Ảo thật đấy... Dù là ma hay quỷ, thì quả này nó cũng vừa cứu mình một bàn thua trông thấy. Tự nhiên đỡ phải thức đêm cày cuốc.
+
+---
+
+> 🎬 **BƯỚC CHUYỂN HỒI 1 $\to$ HỒI 2 (CINEMATIC SOUNDSCAPE TRANSITION & NẮNG SỚM NGÀY 2):**  
+> * **Kỹ thuật thị giác:** Màn hình từ từ hạ tối (Fade to Black) cùng nụ cười nhếch mép của Nam lúc 21h30 đêm. Màn đen lưu lại 2 giây.  
+> * **Cầu nối âm thanh đêm trọ:** Trong màn đen, âm thanh đêm khuya ngõ trọ cất lên: tiếng rao bánh khúc kéo dài xa xăm (*"Ai... bánh khúc nóng đây..."*), tiếng quạt cây quay vù vù, tiếng chuông đồng hồ điện tử tích tắc $\to$ chuyển dần sang tiếng kẻng sắt xe rác 5h sáng $\to$ tiếng còi xe máy giờ cao điểm đầu ngõ.  
+> * **Khai sáng Hồi 2 (Fade-in 06:30 sáng Ngày 2):** Ánh bình minh rọi thẳng vào then sắt cửa phòng — then sắt vẫn gài chặt chẽ nguyên vẹn. Máy quay Dolly ngang từ then sắt sang bàn học: Người Kia đã ngồi ngay ngắn ở đó từ bao giờ!
 
 ---
 
@@ -176,6 +206,13 @@ Người Kia đón lấy điện thoại, ngón tay thao tác thoăn thoắt: 10
 
 ---
 
+> 🎬 **BƯỚC CHUYỂN CẢNH 2.1 $\to$ 2.2 (BREATHER BEAT & TIME-LAPSE TRƯA SANG TỐI):**  
+> * **Kỹ thuật thị giác & Nhịp đệm cô độc:** Cánh cửa phòng khép lại sau khi Người Kia cầm thẻ bước đi. Căn phòng chỉ còn lại một mình Nam. Nam đứng ngơ ngác giữa phòng 3 giây. Cảm giác tội lỗi thoáng qua trong mắt, nhưng rồi cậu thở phào, nhảy tót lên nệm mở máy cày game.  
+> * **Cú máy Time-lapse góc cao (13h00 $\to$ 19h45):** Máy quay đặt từ trên trần nhìn xuống nệm. Nam cày game hết nằm nghiêng sang nằm ngửa, đống vỏ bánh mì và chai nước rỗng tăng dần. Vệt nắng ngoài ban công tắt lịm, đèn đường ngoài ngõ bật sáng hắt vệt vàng qua nan rèm.  
+> * **J-Cut âm thanh & Động tác hoảng hốt:** Điện thoại Nam rung ting tin nhắn portal: `Điểm thực hành Lab 402: 9.5`. Nam trợn tròn mắt mừng rỡ. Liền sau đó là tiếng bước chân nặng nhọc của Tùng và tiếng sột soạt của túi cơm hộp leo cầu thang sắt ngoài hành lang $\to$ Nam hoảng hốt kéo chăn trùm kín đầu giả vờ ngủ say!
+
+---
+
 ### CẢNH 2.2: TÙNG ĐAU CHÂN & ĐẢM BẢO KHÔNG GIAN PHÒNG TRỌ (06:00 – 07:30)
 * **Manh mối ngầm 1 (Nâng trần kỳ vọng & Nụ cười gượng gạo):**  
 Người Kia đi học về mang theo con điểm 9.5 kiểm tra thực hành Lab 402 — điểm cao nhất khoa.
@@ -195,6 +232,13 @@ Người Kia đi học về mang theo con điểm 9.5 kiểm tra thực hành La
     > Ngâm nước ấm đi cho đỡ nhức cơ. Mai ca làm bên kho của mày mấy giờ mới về tới phòng?  
     > **TÙNG:** Mai kiểm kê hàng cuối tháng, chắc phải tầm 19h30 tao mới lết xác về được.  
   * Góc máy cận bắt khóe môi Người Kia: một thoáng hài lòng cực nhẹ lướt qua rồi biến mất ngay lập tức. Nó đã nắm được khung giờ vàng để hành động.
+
+---
+
+> 🎬 **BƯỚC CHUYỂN CẢNH 2.2 $\to$ 2.3 (DISSOLVE ÁNH TRĂNG KHUYA 02:00 SÁNG):**  
+> * **Kỹ thuật thị giác:** Ánh đèn tuýp trắng chớp nháy rồi tắt phụt. Chuyển mờ (Dissolve) sang góc quay chiếc gương đứng dưới ánh trăng khuya: Tấm vải hoa cũ che trên gương đã bị kéo tụt xuống ngang ngực kính một cách ma mị.  
+> * **Âm thanh & Cầu nối:** Tiếng thở đều mệt mỏi và tiếng ngáy nhẹ của Tùng sau ca làm việc nặng nhọc. Tiếng quạt trần quay lạch cạch đều đặn trong đêm tĩnh mịch. Tiếng tích tắc của đồng hồ trôi chậm rãi điểm đúng 02:00 sáng.  
+> * **Nhịp đệm tâm lý:** Nam trằn trọc không ngủ được, cổ họng khô khốc vì tội lỗi và bất an, lồm cồm bò dậy tìm nước uống.
 
 ---
 
@@ -230,6 +274,13 @@ Người Kia đi học về mang theo con điểm 9.5 kiểm tra thực hành La
 
 ---
 
+> 🎬 **BƯỚC CHUYỂN CẢNH 2.3 $\to$ 2.4 (SOUND BRIDGE THỨC GIẤC & CLIP ZALO BAN NGÀY):**  
+> * **Kỹ thuật thị giác:** Máy quay đẩy chậm (Slow Push-in) vào đôi mắt mở to mất ngủ của Nam trong bóng tối căn phòng $\to$ Cắt sang màn hình điện thoại rực sáng ban ngày lúc 08:30 sáng hôm sau.  
+> * **Sound Bridge & J-Cut:** Chuông thông báo Zalo reo vang *"Ting... Ting... Ting..."* dồn dập. Tiếng loa điện thoại phát tiếng cười nói rôm rả, chúc tụng của họ hàng trong bữa tiệc giỗ ở quê: *"Bác Hai gửi 1 video vào nhóm Họ Nguyễn..."*.  
+> * **Nhịp đệm tâm lý:** Nam thức giấc trong cơn choáng váng, chộp lấy điện thoại và đối mặt với sự thật cay đắng: người ta đang tung hô bản sao, còn bản thể thật đang bị đào thải.
+
+---
+
 ### CẢNH 2.4: GIỌT NƯỚC TRÀN LY (09:00 – 10:30)
 * Sáng hôm sau, clip ăn giỗ gia đình ở quê được bác Hai đăng lên nhóm Zalo họ hàng: Người Kia trong clip sơ mi trắng tinh tươm, lễ phép chào hỏi từng bậc trưởng bối, được cả họ khen nức nở là sinh viên gương mẫu ngoan ngoãn.
 * Nam thật soi mặt mình vào gương: mắt thâm quầng, râu ria lởm chởm, người bốc mùi ẩm mốc như một bóng ma vô hình.
@@ -239,6 +290,16 @@ Người Kia đi học về mang theo con điểm 9.5 kiểm tra thực hành La
 > Cút đi! Mày cướp hết mọi thứ của tao rồi đúng không?! Ngày mai tao sẽ tự đi học, tao không cần mày sống thay tao nữa!
 
 Người Kia chỉ nhìn Nam, không cãi lại nửa lời, lẳng lặng cúi xuống nhặt từng hạt xôi bị đổ. Nhưng khi Nam quay lưng đi, ánh mắt Người Kia nhìn vào gáy Nam sắc lạnh như lưỡi dao cạo.
+
+---
+
+> 🎬 **BƯỚC CHUYỂN HỒI 2 $\to$ HỒI 3 (MONTAGE ĐÊM TRẮNG NỖ LỰC & MATCH CUT GIẢNG ĐƯỜNG):**  
+> * **Kỹ thuật thị giác:** **Montage nỗ lực muộn màng của Nam trong đêm:**  
+>   * *Shot 1:* Nam vỗ nước lạnh bôm bốp vào mặt trong nhà vệ sinh, ánh mắt hằn lên tia máu quyết tâm.  
+>   * *Shot 2:* Ngọn đèn bàn vàng vọt, ly cà phê đen đặc bốc khói, Nam cắn đầu bút, lật tung cuốn giáo trình C++ dày cộp, gõ code trên laptop đến 04:30 sáng.  
+>   * *Shot 3:* Nam soi gương tập nói trước chiếc gương phủ vải hoa: *"Thưa thầy, sau đây em xin trình bày..."*.  
+> * **Match Cut bùng nổ sang Giảng đường (08:00 sáng):** Bàn tay Nam gập mạnh cuốn giáo trình lại *"BẸP"* $\to$ **Match Cut ngay lập tức** sang bàn tay Giảng viên đập tập bài giảng lên bục gỗ của giảng đường đại học đông nghẹt hàng trăm sinh viên!  
+> * **Âm thanh & Cầu nối:** Tiếng lật sách sột soạt đêm khuya chuyển đột ngột sang tiếng xì xào, bàn tán ồn ào của sinh viên trong hội trường lớn.
 
 ---
 
@@ -271,7 +332,17 @@ Nam ôm chặt ba lô, nước mắt trào ra vì nhục nhã, cắm đầu bỏ
 
 ---
 
-### CẢNH 3.2: SOI CĂN CƯỚC & MANH MỐI NỐT RUỒI ĐẢO BÊN (12:00 – 13:00)
+> 🎬 **BƯỚC CHUYỂN CẢNH 3.1 $\to$ 3.2 (RUNNING MONTAGE & LANG THANG BỜ KÈ 12:00 $\to$ 17h45 CHIỀU TÀ):**  
+> * **Kỹ thuật thị giác:**  
+>   * *Shot 1 (Chạy trốn):* Cú máy Steadicam chạy giật lùi theo Nam khi cậu lao ra khỏi cửa giảng đường. Tiếng xì xào chế giễu của bạn bè nhòa dần sau lưng. Nam chạy băng qua sân trường nắng chang chang.  
+>   * *Shot 2 (Lang thang bờ kè 12:30 $\to$ 17h30):* Nam không dám về phòng vì sợ đối mặt Người Kia và sợ chạm mặt Tùng. Cậu ngồi thụp ở bậc cầu thang ven bờ kè sông vắng đầu ngõ, ôm đầu gối khóc nấc lên trong nhục nhã suốt cả buổi chiều. Mặt trời từ từ lặn xuống, bầu trời chuyển từ xanh gắt sang cam đỏ rồi tím thẫm.  
+>   * *Shot 3 (17h45 về dãy trọ):* Cú máy POV theo bóng lưng kiệt quệ của Nam leo từng bậc cầu thang sắt rung rinh cọt kẹt. Bàn tay run rẩy tra chìa khóa vào ổ, đẩy cửa bước vào phòng trọ tối mờ.  
+> * **Âm thanh & Cầu nối:** Tiếng xì xào giảng đường nhòa thành tiếng còi xe inh ỏi $\to$ tiếng gió thổi hiu hắt bên bờ kè $\to$ tiếng xích sắt cầu thang cọt kẹt khi Nam bước về phòng.  
+> * **Ý nghĩa kịch bản:** Giải thích hoàn hảo bước nhảy thời gian từ trưa sang chiều tà, biến nỗi xấu hổ thành sự cùng quẫn, dẫn dắt tự nhiên đến hành động vác búa sinh tử lúc 18h00 hoàng hôn.
+
+---
+
+### CẢNH 3.2: SOI CĂN CƯỚC & MANH MỐI NỐT RUỒI ĐẢO BÊN (12:00 – 13:00 / 17:45 CHIỀU)
 Về tới phòng trọ, Nam đóng sầm cửa, ngồi sụp xuống sàn thở dốc. Tờ hóa đơn tiền điện nước kẹp ở cửa và tiếng ve râm ran ngoài ngõ như bóp nghẹt không khí.  
 Trong cơn bấn loạn, Nam rút thẻ Căn cước công dân ra đối chiếu với clip Zalo gia đình hôm qua:
 * Thẻ CCCD thật của Nam: **Nốt ruồi duyên nằm ở đuôi mắt TRÁI.**
@@ -284,6 +355,13 @@ Nam lập tức cúi người xuống gầm giường, lôi mạnh chiếc **bú
 
 **NAM [gầm lên, giơ búa]:**
 > Mày là thứ quỷ trong gương... Tao sẽ đập nát cái gương này!
+
+---
+
+> 🎬 **BƯỚC CHUYỂN CẢNH 3.2 $\to$ 3.3 (WHIP PAN & ÁNH HOÀNG HÔN MÁU 18h00):**  
+> * **Kỹ thuật thị giác:** Cú quét máy cực nhanh (Whip Pan) theo hướng vung búa sắt của Nam về phía tấm gương.  
+> * **Ánh sáng bùng nổ:** Đúng 18h00, vệt nắng hoàng hôn cuối cùng đỏ quạch như máu rọi xuyên qua khe rèm nan rách, nhuộm đỏ rực căn phòng. Người Kia từ trong bóng tối bước ra chắn ngang trước gương, để lộ những vết nứt vỡ toang rỉ nước đầm đìa dưới ánh sáng đỏ ma quái.  
+> * **Âm thanh & Cầu nối:** Tiếng rít gió của lưỡi búa xé không khí đột ngột khựng lại giữa chừng. Tiếng nước rỉ tong tong lạnh buốt từ cơ thể Người Kia rơi xuống sàn gạch.
 
 ---
 
@@ -353,6 +431,13 @@ Bàn tay Người Kia lúc này ấm nóng nhưng siết chặt lấy cổ tay N
 Lực hút khổng lồ từ lòng gương kéo giật trọn cơ thể Nam chìm lỉm vào làn nước đen thẳm bên trong!  
 Mặt kính phẳng lặng đông cứng trở lại ngay lập tức. Căn phòng trọ trở lại vẻ yên ắng chết chóc.  
 Người Kia đứng giữa phòng, hít một hơi thật sâu lồng ngực ấm nóng, nở một nụ cười trọn vẹn của một con người bằng xương bằng thịt.
+
+---
+
+> 🎬 **BƯỚC CHUYỂN CẢNH 3.4 $\to$ 3.5 (THE CHILLING VOID & VỆT ĐÈN PHA 19h30 TỐI):**  
+> * **Khoảng lặng rợn người (The Chilling Void):** Máy quay giữ tĩnh toàn cảnh phòng trọ trong đúng 3 giây. Những giọt nước rỉ trên sàn nhà bốc hơi không còn một vết tích. Nắng hoàng hôn đỏ quạch tắt ngấm, căn phòng chìm vào bóng tối đen kịt.  
+> * **Chuyển thời gian sang 19h30 tối:** Ánh đèn pha xe máy từ dưới ngõ hắt một vệt sáng chéo quét qua trần nhà. Tiếng còi xe giờ tan tầm ồn ã ngoài đường lớn.  
+> * **J-Cut âm thanh:** Tiếng bước chân quen thuộc và tiếng huýt sáo yêu đời của Tùng bước lên cầu thang, tiếng túi nilon đựng thức ăn kêu lạt sạt. Tiếng chìa khóa tra vào ổ lách cách $\to$ Cánh cửa mở ra, ánh đèn hành lang hắt vệt sáng vàng vọt vào phòng.
 
 ---
 
