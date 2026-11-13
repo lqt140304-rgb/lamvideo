@@ -1,5 +1,9 @@
 # The Crack in Reality — Hồ sơ 2: Người trong gương · Phần 1: Người trong phòng
 
+> [!IMPORTANT]
+> **TÀI LIỆU LƯU TRỮ LỊCH SỬ:** File này là bản phân đoạn nháp trong quá trình phát triển ý tưởng ban đầu.  
+> Bản kịch bản chính thức khóa bản dựng (Locked Master Screenplay) của toàn bộ tập phim là **[KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md)** (thời lượng 15:00, giải quyết toàn bộ 7 lỗi logic và chi tiết đời thường). Toàn bộ khâu dựng phim, âm thanh và asset tuân thủ theo file Master.
+
 **Kịch bản chi tiết V1 — 10/11/2026.** File này hiện chứa **lời nguồn của phần 1**, gồm hồi tưởng giới thiệu Nam mới và toàn bộ A–H chuyển từ THAO-LUAN-CANH. Các đoạn đã duyệt giữ nguyên lời; phần mới và các đoạn từng chờ duyệt vẫn là đề xuất. Hướng thêm giới thiệu ngắn bằng giọng đọc do chủ repo yêu cầu. Cơ chế/kết mới xem [luật bản nháp](LUAT-BAN-NHAP-V1.md), không đọc tài liệu đó thành lời.
 
 Đọc nối [phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [phần 3](PHAN-03-NGUOI-BI-THAY-THE.md). [KICH-BAN.md](KICH-BAN.md) là mục lục bản đầy đủ; [THAO-LUAN-CANH.md](THAO-LUAN-CANH.md) giữ quyết định và mức duyệt. Máy/layer A–H ở [DUNG-CANH.md](DUNG-CANH.md); chỉ đạo mở đầu O01–O05 nằm ngay trong cảnh dưới đây.

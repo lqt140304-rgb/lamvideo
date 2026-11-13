@@ -37,3 +37,6 @@ what-if-studio/library/sfx-packs/*/media/
 .remotion/
 what-if-studio/.remotion/
 
+
+# Rebuild opening mix from credited sources
+what-if-studio/public/ho-so-02-nguoi-lam-thay/opening-audio/mix.wav

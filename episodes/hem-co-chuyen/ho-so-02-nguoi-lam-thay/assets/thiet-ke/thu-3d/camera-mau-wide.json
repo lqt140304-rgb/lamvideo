@@ -1,0 +1,18 @@
+{
+  "_note": "Mẫu: tái hiện camera 'wide' của boi-canh.tsx. Dùng: phong.html?cam=camera-mau-wide.json",
+  "pos": [
+    228,
+    152,
+    800
+  ],
+  "target": [
+    228,
+    152,
+    0
+  ],
+  "lens_mm": 34,
+  "sensor_width": 36,
+  "width": 1920,
+  "height": 1080,
+  "horizon_px": 395
+}

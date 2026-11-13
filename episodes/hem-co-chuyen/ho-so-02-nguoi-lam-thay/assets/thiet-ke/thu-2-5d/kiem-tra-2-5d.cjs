@@ -27,4 +27,10 @@ for (const [name, C] of Object.entries(who)) for (const view of ['front', 'three
 // bảng màu khối: Tùng chọn được áo/quần/tóc theo màu của chính Tùng
 const tungSvg = renderToStaticMarkup(React.createElement('svg', null, React.createElement(Tung25D, {pose: {...STAND_POSE, view: 'three'}})));
 ok(tungSvg.includes('[fill="#1d4e89"]') && tungSvg.includes('[fill="#142842"]') && tungSvg.includes('[fill="#252728"]'), 'Tùng: bộ chọn khối theo màu áo, quần, tóc của Tùng');
+// hồi quy: vùng mask/filter phải đi theo nhân vật khi pose.x/pose.y dịch (trước đây cố định ±500 nên người đi xa bị cắt dải màu)
+for (const [name, C] of Object.entries(who)) for (const [px, py] of [[0, 0], [450, 0], [-450, 60]]) {
+  const svg = renderToStaticMarkup(React.createElement('svg', null, React.createElement(C, {pose: {...STAND_POSE, view: 'three', x: px, y: py}, lighting: 'dem-xanh'})));
+  const xs = [...svg.matchAll(/<mask [^>]*?\bx="(-?[\d.]+)"/g)].map((m) => +m[1]);
+  ok(xs.length >= 8 && xs.every((x) => Math.abs(x - (px - 500)) < 1e-6), `${name}: mask bám theo pose.x=${px} (x=${xs[0]})`);
+}
 console.log(`ho-so-02 2.5D ok (${n} kiểm tra, ${Object.keys(who).length} nhân vật)`);

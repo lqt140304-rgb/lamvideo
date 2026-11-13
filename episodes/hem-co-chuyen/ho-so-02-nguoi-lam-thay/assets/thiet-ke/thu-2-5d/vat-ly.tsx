@@ -153,19 +153,23 @@ export const simulate = (base: (f: number) => JointPose, impacts: Impact[], tota
 export const usePhysics = (base: (f: number) => JointPose, impacts: Impact[], total: number, P: PhysParams = DEFAULT_PHYS) =>
   React.useMemo(() => simulate(base, impacts, total, P), [total]); // eslint-disable-line react-hooks/exhaustive-deps
 
+/** Gió từ môi trường (xem `tuong-tac.tsx` `windSway`): cộng thẳng vào tóc và vạt áo của bản mô phỏng. Bỏ trống = không gió. */
+export type WindSway = { hair: HairSway; hem: { dx: number; dy: number } };
+export const addWindHair = (h: HairSway, w?: WindSway): HairSway => (w ? { rot: h.rot + w.hair.rot, dx: h.dx + w.hair.dx, dy: h.dy + w.hair.dy } : h);
+export const addWindHem = (h: { dx: number; dy: number }, w?: WindSway) => (w ? { dx: h.dx + w.hem.dx, dy: h.dy + w.hem.dy } : h);
 type NamProps = React.ComponentProps<typeof Nam25D>;
 /**
  * Nam 2.5D có vật lý: nhận `frame` (số khung hiện tại) và bản mô phỏng; dẹt–vươn quanh bàn chân, tóc, vạt áo, khớp lấy từ `PhysFrame`.
  * `physics={false}` hiển thị đúng tư thế gốc để so sánh.
  */
-export const NamVatLy: React.FC<Omit<NamProps, 'pose' | 'hair'> & { track: PhysFrame[]; frame: number; base: (f: number) => JointPose; physics?: boolean; groundY?: number; Body?: React.ComponentType<any> }> = ({ track, frame, base, physics = true, x = 0, y = 0, scale = 1, groundY = 589, Body = Nam25D, ...rest }) => {
+export const NamVatLy: React.FC<Omit<NamProps, 'pose' | 'hair'> & { track: PhysFrame[]; frame: number; base: (f: number) => JointPose; physics?: boolean; groundY?: number; Body?: React.ComponentType<any>; wind?: WindSway }> = ({ track, frame, base, physics = true, wind, x = 0, y = 0, scale = 1, groundY = 589, Body = Nam25D, ...rest }) => {
   const fr = track[clampN(Math.round(frame), 0, track.length - 1)];
   if (!physics) return <Body {...rest} x={x} y={y} scale={scale} pose={base(frame)} />;
   const { sx, sy } = fr.squash;
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <g transform={`translate(0 ${groundY}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(0 ${-groundY})`}>
-        <Body {...rest} x={0} y={0} scale={1} pose={fr.pose} hair={fr.hair} hemSway={fr.hem} />
+        <Body {...rest} x={0} y={0} scale={1} pose={fr.pose} hair={addWindHair(fr.hair, wind)} hemSway={addWindHem(fr.hem, wind)} />
       </g>
     </g>
   );
