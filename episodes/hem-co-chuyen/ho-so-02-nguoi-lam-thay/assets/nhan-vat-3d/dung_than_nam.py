@@ -136,9 +136,9 @@ THUMB = [(0.244, -0.038, 0.548, 0.033, 0.033), (0.241, -0.064, 0.508, 0.030, 0.0
 LEG = [(0.086, 0.000, 0.660, 0.0434, 0.0542), (0.090, 0.000, 0.600, 0.0589, 0.0666), (0.0925, 0.000, 0.500, 0.0619, 0.0681), (0.0925, -0.002, 0.400, 0.0600, 0.0697), (0.0925, -0.003, 0.290, 0.0623, 0.0682),
        (0.0925, 0.000, 0.200, 0.0616, 0.0611), (0.0925, 0.002, 0.140, 0.0677, 0.0663), (0.0925, 0.004, 0.105, 0.0668, 0.0663)]
 #      x       y      z     rx(ngang)  ry(cao): bàn chân dày, rộng, dài ≈ 0,27 m (đo ảnh mẫu), vòng đứng dọc theo y
-FOOT = [(0.098, 0.098, 0.025, 0.030, 0.026), (0.098, 0.090, 0.040, 0.048, 0.040), (0.098, 0.078, 0.055, 0.062, 0.055), (0.098, 0.050, 0.065, 0.072, 0.065), (0.098, 0.010, 0.064, 0.0745, 0.064),
-        (0.098, -0.035, 0.054, 0.078, 0.054), (0.098, -0.072, 0.044, 0.086, 0.044), (0.098, -0.098, 0.036, 0.092, 0.036), (0.098, -0.116, 0.029, 0.094, 0.029)]
-TOES = [(-0.0745, 0.056, 0.0235, 0.0240), (-0.0300, 0.048, 0.0200, 0.0205), (0.0075, 0.044, 0.0185, 0.0190), (0.0420, 0.040, 0.0170, 0.0175), (0.0740, 0.036, 0.0155, 0.0160)]   # (dx so với tâm chân, dài, bán kính, z): ngón tròn, khe ~6 mm
+FOOT = [(0.106, 0.098, 0.025, 0.030, 0.026), (0.106, 0.090, 0.040, 0.048, 0.040), (0.106, 0.078, 0.055, 0.062, 0.055), (0.106, 0.050, 0.065, 0.072, 0.065), (0.106, 0.010, 0.064, 0.0745, 0.064),
+        (0.106, -0.035, 0.054, 0.078, 0.054), (0.106, -0.072, 0.044, 0.082, 0.044), (0.106, -0.098, 0.036, 0.082, 0.036), (0.106, -0.116, 0.029, 0.080, 0.029)]
+TOES = [(-0.0655, 0.056, 0.0235, 0.0240), (-0.0210, 0.048, 0.0200, 0.0205), (0.0155, 0.044, 0.0185, 0.0190), (0.0500, 0.040, 0.0170, 0.0175), (0.0820, 0.036, 0.0155, 0.0160)]   # (dx so với tâm chân, dài, bán kính, z): ngón tròn, khe ~6 mm
 
 
 def mir(knots): return [(-k[0],) + tuple(k[1:]) for k in knots]
@@ -167,7 +167,7 @@ def carve_details(ob):
         elif c.z < 0.075 and c.y < -0.062 and 0.015 < ax < 0.21:                                # bàn chân: ngón
             s_ = 1.0 if c.x > 0 else -1.0
             for i in range(4):                                                                  # rãnh giữa hai ngón liền kề
-                xg = s_ * (0.098 + 0.5 * (TOES[i][0] + TOES[i + 1][0]))
+                xg = s_ * (0.106 + 0.5 * (TOES[i][0] + TOES[i + 1][0]))
                 d += 0.0020 * _g(c.x - xg, 0.0032) * D.smooth01(-0.090, -0.108, c.y) * (1 - D.smooth01(-0.150, -0.185, c.y))
         if d > 1e-6: v.co -= v.normal * min(d, 0.0022); n_hit += 1
     bm.to_mesh(ob.data); bm.free(); ob.data.update(); print(f'    khắc chỉ ngón/khớp: {n_hit} đỉnh')
@@ -184,7 +184,7 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
             z0 = 0.460; kn = [(x0, y0 + dy, z0, r, r), (x0 - s * 0.004, y0 + dy - 0.003, z0 - L * 0.5, r * 0.99, r * 0.99), (x0 - s * 0.014, y0 + dy - 0.006, z0 - L * 0.88, r * 0.9, r * 0.9), (x0 - s * 0.022, y0 + dy - 0.008, z0 - L * 0.98 + 0.004, r * 0.85, r * 0.85), (x0 - s * 0.024, y0 + dy - 0.009, z0 - L * 0.98 - 0.002, r * 0.80, r * 0.80), (x0 - s * 0.025, y0 + dy - 0.009, z0 - L * 0.98 - 0.0075, r * 0.56, r * 0.56), (x0 - s * 0.0255, y0 + dy - 0.009, z0 - L * 0.98 - 0.0115, r * 0.28, r * 0.28)]   # ngón cong vào phía lòng bàn tay (như mẫu), đầu bo tròn
             parts.append(tube('ngon', kn, coll, step=0.003))
         for dx, L, r, zc in TOES:
-            xc = (0.098 + dx) * s
+            xc = (0.106 + dx) * s
             rz = r * 1.38; zc = rz * 0.97   # tiết diện elip đứng: ngón cao hơn rộng, đáy chạm sàn
             kn = [(xc, -0.104, zc, r, rz), (xc, -0.104 - L * 0.55, zc, r, rz), (xc, -0.104 - L * 0.9, zc, r * 0.97, rz * 0.97), (xc, -0.104 - L - 0.004, zc, r * 0.82, rz * 0.82), (xc, -0.104 - L - 0.010, zc, r * 0.55, rz * 0.55), (xc, -0.104 - L - 0.015, zc, r * 0.25, rz * 0.25)]
             parts.append(tube('ngon_chan', kn, coll, along='y', step=0.003))
@@ -264,11 +264,26 @@ def scale_head_cluster(sc):
         c = bpy.data.collections.get(cn)
         if c:
             for o in c.objects: o.parent = em; o.matrix_parent_inverse = Matrix.Translation((0, 0, -CHIN0))
-    # mặt nạ tròng trắng trong vật liệu da dùng toạ độ vật thể gốc → thêm Mapping đưa toạ độ của mesh đã phóng về toạ độ gốc: q = p/HEAD_K + (0,0,CHIN0 − ZCH/HEAD_K)
-    nt = bpy.data.materials['Da'].node_tree; tc = next(n for n in nt.nodes if n.bl_idname == 'ShaderNodeTexCoord')
-    mp = nt.nodes.new('ShaderNodeMapping'); mp.vector_type = 'POINT'; mp.inputs['Scale'].default_value = (1 / HEAD_K,) * 3; mp.inputs['Location'].default_value = (0, 0, CHIN0 - ZCH / HEAD_K)
-    for l in list(tc.outputs['Object'].links): nt.links.new(mp.outputs['Vector'], l.to_socket)
-    nt.links.new(tc.outputs['Object'], mp.inputs['Vector'])
+
+
+def bake_eye_mask(asm):
+    """Tròng trắng mắt: mặt nạ tính TRÊN ĐỈNH (thuộc tính `eye_mask`, tính ở dáng nghỉ trong toạ độ đầu gốc) → biến dạng theo mesh khi xương/đầu chuyển động (trước đây dùng toạ độ vật thể nên trượt ra ngoài viền).
+    Giá trị 0,5 là đường biên (khoảng cách có dấu tới mép tròng trắng/đường mí, ±6 mm); shader ngưỡng ở 0,5 bằng ColorRamp nên đường biên vẫn sắc và mượt."""
+    import numpy as np
+    me = asm.data; n = len(me.vertices); co = np.zeros(n * 3, dtype=np.float32); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3).astype(np.float64)
+    P0 = np.stack([co[:, 0] / HEAD_K, co[:, 1] / HEAD_K, (co[:, 2] - ZCH) / HEAD_K + CHIN0], axis=1)    # về toạ độ đầu gốc
+    Rx, Rz = D.EYE_R; rw = math.sqrt(D.WHITE_R2) * Rx; best = np.full(n, -1.0)
+    for sgn in (1, -1):
+        p0, f, X, Z = D.EYE_FRAMES[sgn]; d = P0 - np.array(p0); u = d @ np.array(X); w = d @ np.array(Z); h = d @ np.array(f)
+        r = np.sqrt((u / Rx) ** 2 + (w / Rz) ** 2) * Rx; margin_r = rw - r; lid = D.W_LID0 - 0.0006 + 0.004 * (u / Rx) ** 2; margin_l = lid - w
+        m = np.minimum(margin_r, margin_l); m = np.where((h > -0.09) & (P0[:, 1] < 0.03), m, -1.0); best = np.maximum(best, m)
+    mask = np.clip(0.5 + best / 0.012, 0.0, 1.0).astype(np.float32)
+    at = me.attributes.get('eye_mask') or me.attributes.new('eye_mask', 'FLOAT', 'POINT'); at.data.foreach_set('value', mask)
+    nt = bpy.data.materials['Da'].node_tree; mix = next(x for x in nt.nodes if x.bl_idname == 'ShaderNodeMix')
+    an = nt.nodes.new('ShaderNodeAttribute'); an.attribute_name = 'eye_mask'; an.attribute_type = 'GEOMETRY'
+    cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].position = 0.485; cr.color_ramp.elements[1].position = 0.515
+    nt.links.new(an.outputs['Fac'], cr.inputs['Fac']); nt.links.new(cr.outputs['Color'], mix.inputs[0])    # Color → Factor (ColorRamp đen/trắng)
+    print(f'    mặt nạ tròng trắng trên đỉnh: {int((mask > 0.5).sum())} đỉnh trắng')
 
 
 def build_scene(voxel=0.003, smooth=4):
@@ -281,7 +296,7 @@ def build_scene(voxel=0.003, smooth=4):
     # đưa Nam_Than_goc (đã có vật liệu da) vào collection 02_Body_Base, lắp ráp
     for c in list(body.users_collection): c.objects.unlink(body)
     cb.objects.link(body)
-    asm = assemble(head, body, skin)
+    asm = assemble(head, body, skin); bake_eye_mask(asm)
     for c in list(asm.users_collection): c.objects.unlink(asm)
     cb.objects.link(asm)
     head.hide_render = True; head.hide_viewport = True; body.hide_render = True; body.hide_viewport = True
