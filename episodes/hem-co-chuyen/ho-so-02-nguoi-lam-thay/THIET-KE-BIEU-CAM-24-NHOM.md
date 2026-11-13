@@ -34,6 +34,7 @@ Các bảng là **ảnh phác 2D của một đầu có tóc, tỉ lệ khác** 
 
 - Một **bộ công cụ** đủ để diễn đạt mọi biểu cảm trong 3 bảng: hướng nhìn, nhắm mắt, răng/lưỡi/các dạng miệng, nước mắt/mồ hôi/má ửng, nhăn mũi và đẩy má.
 - Mọi công cụ **điều khiển được bằng giá trị 0–1 hoặc hai trục** và hòa trộn được giữa các biểu cảm theo thời gian.
+- **Tổ hợp biểu cảm** để suy ra `tu_ai`, `thi_uy` và các biểu cảm tương tự từ các key đã có, không dựng key riêng.
 - **Chứng minh từng công cụ** bằng ít nhất một biểu cảm mẫu lấy từ chính 3 bảng, kiểm tự động và so với ảnh mẫu.
 - Mở rộng bộ kiểm tự động theo từng công cụ.
 - Mỗi biểu cảm mẫu có **bảng so sánh** (ảnh mẫu bên trái, đầu 3D bên phải) để chủ repo duyệt.
@@ -74,12 +75,14 @@ Các bảng là **ảnh phác 2D của một đầu có tóc, tỉ lệ khác** 
 1. Cả 24 nhóm × 2 mức đều cần cho phim; 3 bảng là đích.
 2. Làm **công cụ trước** (cách 2).
 3. Chủ repo tự tạo 3 bảng làm chuẩn tham khảo; giữ nguyên làm chuẩn.
+4. **Lưu cả 3 bảng vào repo**: [assets/tham-chieu-bieu-cam/](assets/tham-chieu-bieu-cam/README.md) (đã làm, WebP nén, mỗi ảnh khoảng 170–184 KB).
+5. **`tu_ai` và `thi_uy` không làm key riêng**: tạo bằng cách suy diễn (pha trộn) từ các key khác.
 
 ## Lựa chọn của trợ lý (chưa duyệt)
 
 1. **Tên key theo bảng** (`binh_than`, `buon_ngu`, ...). `ngai_ngu` cũ (ngái ngủ) đổi thành `buon_ngu`, nhường `ngai_ngu` cho "ngại ngùng".
 2. **"Rõ = mức 3" trong chú thích bảng** hiểu là đích mạnh nhất; hệ thống gọi đó là **mức 2** (Nhẹ = mức 1, Rõ = mức 2).
-3. **`tu_ai`, `thi_uy`** không có trong bảng; giữ nguyên, chủ repo quyết giữ hay bỏ khi làm các bảng.
+3. **Tổ hợp biểu cảm (preset pha trộn)** là một công cụ nhỏ để thực hiện quyết định 5: khai báo trong JSON dạng `{"ten": "tu_ai", "pha": {"khinh_thuong": 0.6, "kim_nen": 0.4}}`, đặt giá trị cho các key nguồn. Gợi ý điểm xuất phát: `tu_ai` ≈ `kim_nen` + `khinh_thuong`; `thi_uy` ≈ `quyet_tam` + `khinh_thuong`. Người dựng chốt công thức bằng ảnh và kiểm. Bốn key code cũ `tu_ai`/`thi_uy` (và `ngai_ngu`, `hoang_mang`, `kinh_hoang` tương ứng) được thay khi làm các bảng, không xóa trước.
 4. **Công cụ chứng minh bằng 9 nhóm biểu cảm mẫu** lấy từ bảng (`nghi_ngo`, `suy_luan`, `buon_ngu`, `vui`, `tuc_gian`, `tui_than`, `lo_lang`, `ngai_ngu`, `ghe_so`), mỗi nhóm ở mức Rõ (mức Nhẹ làm kèm):
 
    | Công cụ | Biểu cảm mẫu (mức Rõ trừ khi ghi) |
@@ -95,7 +98,7 @@ Các bảng là **ảnh phác 2D của một đầu có tóc, tỉ lệ khác** 
    `vui` và `buon_ngu` dùng cho hai công cụ mỗi nhóm. Người dựng chốt danh sách cuối nếu thấy cần thêm nhóm để chứng minh một công cụ.
 5. **Hướng nhìn là điều khiển độc lập** (hai trục `nhin_x`, `nhin_y`), đồng thời mỗi biểu cảm có thể mang hướng nhìn mặc định; cả hai cộng lại và giới hạn trong khe mắt.
 6. **Hiệu ứng (nước mắt, mồ hôi, má ửng, răng, lưỡi) điều khiển bằng giá trị shape key**, khai báo trong định nghĩa JSON (`hieu_ung`), không phải cờ bật tắt riêng.
-7. **Ảnh mẫu lưu vào hồ sơ tập** dạng nén tại `assets/tham-chieu-bieu-cam/`; cắt từng ô bằng lưới đều. Bảng 1/3 = `cbea6ebe`, 2/3 = `6cdd3f4e`, 3/3 = `e0add81a` (tên tệp tải lên).
+7. **Cắt ảnh mẫu từng ô** bằng lưới đều (xem README thư mục ảnh); ảnh đã lưu theo quyết định 4.
 8. **Chia dự án:** (0) bản thiết kế này (công cụ + biểu cảm mẫu); (1) điền bảng 1; (2) điền bảng 2; (3) điền bảng 3 kèm Người Kia. Mỗi dự án có thiết kế và kế hoạch riêng, chạy tuần tự.
 
 ## Yêu cầu từng công cụ và nghiệm thu
@@ -111,6 +114,7 @@ Mọi công cụ qua kiểm ở 5 góc (chính diện, 3/4 trái, 3/4 phải, ng
 | **Mồ hôi** | Giọt mồ hôi nằm trên thái dương hoặc trán | Như trên |
 | **Má ửng** | Vùng má hồng mềm, thuộc về da, không có viền gắt | Chỉ trên vùng má; không lan sang mắt, mũi, miệng |
 | **Nhăn mũi, đẩy má** | Nhăn sống mũi và đẩy má lên khi ghê sợ, khinh thường | Kiểm hình học chung vẫn qua |
+| **Tổ hợp biểu cảm** | Một tên (ví dụ `tu_ai`) đặt giá trị cho nhiều key nguồn theo công thức; điều khiển bằng một giá trị 0–1 | Mọi tổ hợp qua cùng bộ kiểm hình học ở giá trị 1,0 và 0,5; bảng so sánh với ảnh mẫu tương ứng nếu có |
 
 Nghiệm thu chung:
 - Bộ kiểm hiện có (bám, lòi viền, đè, nhận diện, mặt nghỉ trùng) chạy cho mọi key mới và hiệu ứng mới mà không nới ngưỡng.
@@ -130,4 +134,4 @@ Nghiệm thu chung:
 
 - **Đã trả lời bằng bối cảnh:** tên tệp ảnh tải lên ↔ bảng 1/2/3; bố cục lưới 2 cột × 4 hàng, mỗi ô hai đầu (Nhẹ, Rõ).
 - **Quyết nhỏ, ghi ở "Lựa chọn của trợ lý":** quy tắc đặt tên, mức 2 = Rõ, 9 nhóm biểu cảm mẫu, hướng nhìn là điều khiển độc lập.
-- **Chỉ chủ repo trả lời được:** có lưu ảnh mẫu vào repo không (mỗi ảnh nén khoảng vài trăm KB); và `tu_ai`/`thi_uy` giữ hay bỏ (có thể hoãn đến lúc làm bảng).
+- **Chỉ chủ repo trả lời được:** không còn câu hỏi mở. Hai câu trước (lưu ảnh mẫu, số phận `tu_ai`/`thi_uy`) đã được trả lời ở mục Quyết định.
