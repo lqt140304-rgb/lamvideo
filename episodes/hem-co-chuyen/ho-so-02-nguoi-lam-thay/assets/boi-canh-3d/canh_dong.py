@@ -106,9 +106,9 @@ def build(X, coll, night, mode):
         return root
     cols = ['#b3362c', '#1f3a5f', '#d8d2c2', '#2f2f2f', '#e0a030', '#3d6e5a']
     hel = ['#e8e8e0', '#d83a30', '#2a4a8a', '#f0c030', '#1a1a1a']
-    for k in range(5):   # sân: làn xe máy phía đông đi +y (x=-3,9), tốc độ đều để không đuổi kịp nhau
-        bike(f'env_cd_xm_san{k}', -3.45, k * 12.0, 0.24, 62.0, cols[k % 6], hel[k % 5], 1)
-    bike('env_cd_xm_san_nam', -5.55, 30.0, 0.2, 62.0, cols[2], hel[3], -1)   # làn phía tây đi −y
+    # sân: đường 2 làn rộng 3,45 m — làn đông (x=−3,65) đi +y, làn tây (x=−5,35) đi −y; mỗi làn chạy cùng tốc độ, cách nhau ≥ 9 m nên không chồng lên nhau
+    for k, yy in enumerate((16.0, 26.0, 36.0, 46.0)): bike(f'env_cd_xm_san{k}', -3.65, yy, 0.2, 62.0, cols[k % 6], hel[k % 5], 1)
+    for k, yy in enumerate((40.0, 58.0)): bike(f'env_cd_xm_san_nam{k}', -5.35, yy, 0.16, 62.0, cols[(k + 2) % 6], hel[(k + 3) % 5], -1)
     for k in range(3):   # hẻm bên cửa sổ phòng Nam
         bike(f'env_cd_xm_hem{k}', W + T + 1.85, k * 17.0, 0.2 + 0.04 * k, 56.0, cols[(k + 2) % 6], hel[(k + 1) % 5], 1)
 
@@ -131,8 +131,8 @@ def build(X, coll, night, mode):
         _drv(root, 'location', 1, f'{-12 if direction > 0 else 55}+{direction}*fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})')
         _fade(root, f'fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})', span, 4.0)
         root.location[1] = y_start
-    oto('env_cd_oto0', -4.55, 6.0, 0.1, 66.0, '#c9c9c4', 1)
-    oto('env_cd_oto1', -4.55, 39.0, 0.1, 66.0, '#7a2a2a', 1)
+    oto('env_cd_oto0', -3.65, 4.0, 0.2, 62.0, '#c9c9c4', 1)
+    oto('env_cd_oto1', -5.35, 12.0, 0.16, 62.0, '#7a2a2a', -1)
 
     # ------------------------------------------------------------ người đi bộ: thân, đầu, 2 chân + 2 tay đung đưa (driver sin theo khung hình)
     def nguoi(name, lane_x, y0, speed, span, shirt, trouser, direction=1, kid=False):
@@ -162,7 +162,7 @@ def build(X, coll, night, mode):
         _fade(root, f'fmod({y0:.1f}+frame*{speed:.4f},{span:.1f})', span, 2.0)
         root.location[1] = y0
     shirts = ['#4a78a8', '#c4503a', '#6a9a5a', '#e0c050', '#7a5a8a', '#eeeeee']; tr = ['#2a2a3a', '#4a4a50', '#3a4a6a']
-    for k in range(6): nguoi(f'env_cd_nguoi{k}', -6.5 if k % 2 == 0 else -6.25, k * 7.0, 0.05, 41.0, shirts[k % 6], tr[k % 3], 1 if k % 2 == 0 else -1, kid=(k == 3))
+    for k in range(5): nguoi(f'env_cd_nguoi{k}', -6.5, k * 8.0, 0.05, 41.0, shirts[k % 6], tr[k % 3], 1, kid=(k == 3))
     for k in range(2): nguoi(f'env_cd_nguoi_hem{k}', W + T + 1.3, 10 + k * 14, 0.05, 36.0, shirts[(k + 3) % 6], tr[k], 1)
 
     # ------------------------------------------------------------ chim bay ngang bầu trời (thân + 2 cánh vỗ)

@@ -137,20 +137,19 @@ def build(X, coll, night, mode):
 
     # ------------------------------------------------------------ PHÂN LÀN: vỉa hè phía tây cho người đi bộ, lòng đường nhựa có vạch kẻ, vạch qua đường
     YA, YB = -12.6, 56.0
-    B('via_he', -7.55, -6.05, YA, YB, GZ, GZ + 0.08, mat('#c9b88a', 0.85), coll=coll)                                  # vỉa hè nâng 8 cm, rộng 1,5 m
-    B('via_he_bo', -6.08, -6.05, YA, YB, GZ, GZ + 0.085, mat('#a8a496', 0.8), coll=coll)                               # bó vỉa
-    B('long_duong', -6.05, -3.1, YA, YB, GZ, GZ + 0.006, mat('#4a4a4c', 0.9), coll=coll)                                # mặt đường nhựa
+    B('via_he', -7.55, -6.25, YA, YB, GZ, GZ + 0.08, mat('#c9b88a', 0.85), coll=coll)                                  # vỉa hè nâng 8 cm, rộng 1,3 m
+    B('via_he_bo', -6.28, -6.25, YA, YB, GZ, GZ + 0.085, mat('#a8a496', 0.8), coll=coll)                               # bó vỉa
+    B('long_duong', -6.25, -2.8, YA, YB, GZ, GZ + 0.006, mat('#4a4a4c', 0.9), coll=coll)                                # mặt đường nhựa rộng 3,45 m (2 làn)
     wl = mat('#f0eee4', 0.7)
-    for xl in (-6.0, -3.15): B(f'vach_bien{xl}', xl - 0.03, xl + 0.03, YA, YB, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch biên liền
-    for xl in (-5.3, -3.75):
-        for k in range(int((YB - YA) / 2.0)): B(f'vach_phan_lan{xl}_{k}', xl - 0.03, xl + 0.03, YA + 0.2 + k * 2.0, YA + 1.2 + k * 2.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đứt phân làn
-    for k in range(5): B(f'vach_qua_duong{k}', -5.85 + k * 0.58, -5.6 + k * 0.58, -6.4, -4.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đi bộ qua đường
+    for xl in (-6.2, -2.85): B(f'vach_bien{xl}', xl - 0.03, xl + 0.03, YA, YB, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch biên liền
+    for k in range(int((YB - YA) / 2.0)): B(f'vach_phan_lan_{k}', -4.53, -4.47, YA + 0.2 + k * 2.0, YA + 1.2 + k * 2.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đứt tim đường
+    for k in range(5): B(f'vach_qua_duong{k}', -6.1 + k * 0.66, -5.75 + k * 0.66, -6.4, -4.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đi bộ qua đường
     # ------------------------------------------------------------ quán trà đá vỉa hè: bàn thấp, ghế nhựa, ô dù, ấm, bình thuỷ, cốc
-    qx, qy = -2.4, -8.0
+    qx, qy = -2.1, -8.0
     B('quan_ban', qx - 0.3, qx + 0.3, qy - 0.4, qy + 0.4, GZ + 0.5, GZ + 0.54, mat('#6a4a30', 0.8), bevel=0.01, coll=coll)
     for sx in (-0.26, 0.26):
         for sy in (-0.36, 0.36): B(f'quan_chan{sx}{sy}', qx + sx - 0.02, qx + sx + 0.02, qy + sy - 0.02, qy + sy + 0.02, GZ, GZ + 0.5, mat('#4a3320', 0.8), coll=coll)
-    for k, (dx, dy) in enumerate([(-0.55, -0.2), (-0.55, 0.3), (0.55, -0.1), (0.55, 0.4)]):
+    for k, (dx, dy) in enumerate([(-0.4, -0.2), (-0.4, 0.3), (0.45, -0.1), (0.45, 0.4)]):
         cyl(f'env_ktt_ghe_thap{k}', qx + dx, qy + dy, GZ + 0.15, 0.17, 0.3, mat(rnd.choice(['#c24a3a', '#3b6ea5', '#e3b84a']), 0.55), coll=coll, bevel=0.02)
     cyl('env_ktt_binh_thuy', qx - 0.1, qy - 0.1, GZ + 0.54 + 0.17, 0.08, 0.34, mat('#c8402e', 0.4), coll=coll); sphere('env_ktt_am_tra', qx + 0.12, qy + 0.1, GZ + 0.54 + 0.09, 0.07, mat('#ddd8c8', 0.4), coll=coll)
     for k in range(4): cyl(f'env_ktt_coc{k}', qx - 0.15 + k * 0.1, qy + 0.25, GZ + 0.54 + 0.04, 0.025, 0.08, mat('#a8c4c0', 0.1), coll=coll)
@@ -158,7 +157,7 @@ def build(X, coll, night, mode):
     bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=16, radius1=1.1, radius2=0.03, depth=0.4); X._mesh_obj('env_ktt_du', bm, (X.mx(qx), qy, GZ + 2.35), mat('#2f9a6a', 0.7), True, coll)
 
     # ------------------------------------------------------------ xe đẩy bánh mì (tủ kính, mái, biển)
-    cx, cy = -2.4, -5.2
+    cx, cy = -2.35, -5.2
     B('xe_banh_mi_than', cx - 0.4, cx + 0.4, cy - 0.7, cy + 0.7, GZ + 0.45, GZ + 0.95, mat('#d8d0b8', 0.6), bevel=0.02, coll=coll)
     B('xe_banh_mi_kinh', cx - 0.38, cx + 0.38, cy - 0.65, cy + 0.65, GZ + 0.95, GZ + 1.4, M.glass() if hasattr(M, 'glass') else mat('#a8c4c0', 0.05), coll=coll)
     for xx, yy in ((cx - 0.38, cy - 0.65), (cx + 0.36, cy - 0.65), (cx - 0.38, cy + 0.63), (cx + 0.36, cy + 0.63)): B(f'xe_bm_khung{xx}{yy}', xx, xx + 0.02, yy, yy + 0.02, GZ + 0.95, GZ + 1.4, steel, coll=coll)

@@ -131,3 +131,6 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 ### Sửa xuyên vật thể / quầy rong chìa ra đường (13/11 tối)
 - Mặt cắt sân (x thiết kế, đơn vị m): vỉa hè −7,55…−6,05 (người bán ngồi và đồ nằm trọn trong −7,5…−6,7; lối đi bộ −6,5/−6,25); đường nhựa −6,05…−3,1 gồm xe máy làn tây −5,55, ô tô −4,55 (rộng 1,5 m), xe máy làn đông −3,45; hè đông (xe đỗ, bồn cây, quán trà, xe bánh mì) từ −3,0 trở vào.
 - Bỏ xe đỗ trên vỉa hè phía tây; bồn cây thu hẹp (−3,0…−2,1); vạch đứt −5,3 và −3,75, vạch đi bộ −5,85…−3,25.
+
+### Mở rộng đường cho ô tô (13/11 tối)
+- Mặt cắt mới (x thiết kế): vỉa hè −7,55…−6,25; **đường nhựa −6,25…−2,8 (rộng 3,45 m, 2 làn, vạch tim đứt −4,5)**; hè đông (bồn cây −2,8…−2,1, xe đỗ, quán, xe bánh mì) từ −2,8 trở vào. Làn đông x = −3,65 đi +y, làn tây x = −5,35 đi −y; ô tô (rộng 1,5 m) và xe máy dùng chung làn, cùng tốc độ trong mỗi làn, cách nhau ≥ 9 m nên không chồng nhau. Người đi bộ cùng một chiều trên lối −6,5.
