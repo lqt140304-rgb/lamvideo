@@ -87,12 +87,13 @@ def remesh(ob, voxel, smooth, factor=0.5):
 # ================================================================== SỐ ĐO v2 (m) — lấy từ đo ảnh mẫu NAM — 3D TURNAROUND (chuẩn hoá theo cằm: z_ta = z_mẫu × 1,13; bề ngang × 0,88)
 #     z      a      bf     bb     yc     n     (vòng ngang: nửa rộng, nửa sâu trước/sau)
 TORSO = [(0.44, 0.052, 0.058, 0.068, 0.000, 2.0), (0.47, 0.105, 0.088, 0.098, 0.000, 2.2), (0.50, 0.166, 0.108, 0.118, 0.000, 2.3), (0.565, 0.166, 0.146, 0.132, 0.000, 2.3),
-         (0.63, 0.154, 0.158, 0.118, 0.000, 2.3), (0.70, 0.131, 0.136, 0.098, 0.000, 2.2), (0.79, 0.118, 0.128, 0.098, 0.000, 2.2), (0.85, 0.140, 0.118, 0.096, 0.000, 2.1), (0.90, 0.146, 0.114, 0.094, -0.001, 2.1),
-         (0.935, 0.130, 0.110, 0.092, -0.002, 2.1), (0.955, 0.113, 0.100, 0.085, -0.004, 2.0), (0.970, 0.095, 0.086, 0.076, -0.006, 2.0), (0.980, 0.083, 0.074, 0.069, -0.007, 2.0),
-         (0.990, 0.077, 0.068, 0.065, -0.007, 2.0), (1.000, 0.0745, 0.0655, 0.0655, -0.007, 2.0), (1.012, 0.0737, 0.0653, 0.0653, -0.007, 2.0)]
+         (0.63, 0.154, 0.158, 0.118, 0.000, 2.3), (0.70, 0.131, 0.146, 0.104, 0.000, 2.2), (0.79, 0.118, 0.138, 0.106, 0.000, 2.2), (0.85, 0.140, 0.130, 0.104, -0.001, 2.1), (0.90, 0.144, 0.126, 0.102, -0.001, 2.1),
+         (0.93, 0.144, 0.122, 0.100, -0.002, 2.1), (0.95, 0.140, 0.114, 0.095, -0.003, 2.1), (0.965, 0.130, 0.102, 0.088, -0.005, 2.0), (0.975, 0.114, 0.089, 0.080, -0.006, 2.0),
+         (0.983, 0.092, 0.077, 0.071, -0.007, 2.0), (0.991, 0.079, 0.069, 0.066, -0.007, 2.0), (1.000, 0.0745, 0.0655, 0.0655, -0.007, 2.0), (1.012, 0.0737, 0.0653, 0.0653, -0.007, 2.0)]
 #      x      y       z     rx     ry   (tay TRÁI nhân vật = +X; tay phải lấy đối xứng) — thả xuôi hơi toè ra như mẫu
-ARM = [(0.124, 0.002, 0.914, 0.034, 0.038), (0.138, 0.002, 0.892, 0.046, 0.048), (0.147, 0.001, 0.862, 0.049, 0.050), (0.160, 0.000, 0.815, 0.050, 0.050), (0.180, 0.000, 0.755, 0.049, 0.049),
-       (0.198, 0.004, 0.682, 0.048, 0.048), (0.217, -0.004, 0.620, 0.045, 0.044), (0.232, -0.008, 0.570, 0.037, 0.037)]
+ARM = [(0.126, 0.002, 0.940, 0.024, 0.028), (0.134, 0.002, 0.918, 0.043, 0.046), (0.144, 0.001, 0.885, 0.049, 0.049), (0.156, 0.000, 0.840, 0.050, 0.050), (0.168, 0.000, 0.800, 0.050, 0.050),
+       (0.179, 0.002, 0.760, 0.050, 0.050), (0.190, 0.004, 0.720, 0.049, 0.049), (0.200, 0.002, 0.680, 0.048, 0.048), (0.210, -0.002, 0.640, 0.046, 0.046), (0.220, -0.005, 0.600, 0.043, 0.043),
+       (0.230, -0.008, 0.560, 0.038, 0.038), (0.236, -0.008, 0.540, 0.034, 0.034)]
 # bàn tay to, mềm: lòng bàn tay dẹt theo x, 4 ngón ngắn đầy cong nhẹ về trước, ngón cái có khối gốc
 PALM = [(0.232, -0.008, 0.570, 0.037, 0.037), (0.242, -0.010, 0.545, 0.034, 0.060), (0.251, -0.012, 0.500, 0.036, 0.076), (0.256, -0.013, 0.462, 0.032, 0.070)]
 FINGERS = [(-0.0525, 0.062, 0.0172), (-0.0175, 0.070, 0.0178), (0.0175, 0.064, 0.0172), (0.0525, 0.052, 0.0155)]   # (dy so với tâm bàn, độ dài, bán kính): ngắn, mập, nắm cong vào lòng bàn tay như mẫu
@@ -115,6 +116,28 @@ def smooth_zone(ob, test, iters, factor=0.5):
     bm.to_mesh(ob.data); bm.free(); ob.data.update()
 
 
+FINGER_Z0 = 0.460
+FINGER_Y0 = -0.013
+
+
+def _g(x, sig): return math.exp(-(x / sig) ** 2)
+
+
+def carve_details(ob):
+    """Khắc chỉ lên mặt thân (dịch đỉnh vào trong theo pháp tuyến, rãnh Gauss nông): rãnh giữa các ngón tay / ngón chân, nếp khớp ngón (2 nếp mỗi ngón tay, 1 nếp mỗi ngón chân), nếp gốc ngón."""
+    bm = bmesh.new(); bm.from_mesh(ob.data); bm.normal_update(); n_hit = 0
+    for v in bm.verts:
+        c = v.co; ax = abs(c.x); d = 0.0
+        if False: pass
+        elif c.z < 0.075 and c.y < -0.062 and 0.015 < ax < 0.21:                                # bàn chân: ngón
+            s_ = 1.0 if c.x > 0 else -1.0
+            for i in range(4):                                                                  # rãnh giữa hai ngón liền kề
+                xg = s_ * (0.098 + 0.5 * (TOES[i][0] + TOES[i + 1][0]))
+                d += 0.0020 * _g(c.x - xg, 0.0032) * D.smooth01(-0.090, -0.108, c.y) * (1 - D.smooth01(-0.150, -0.185, c.y))
+        if d > 1e-6: v.co -= v.normal * min(d, 0.0022); n_hit += 1
+    bm.to_mesh(ob.data); bm.free(); ob.data.update(); print(f'    khắc chỉ ngón/khớp: {n_hit} đỉnh')
+
+
 def build_body(coll, mat, voxel=0.003, smooth=4):
     parts = [torso('t', TORSO, coll)]
     for s in (1, -1):
@@ -130,11 +153,14 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
             kn = [(xc, -0.108, zc, r, r), (xc, -0.108 - L * 0.55, zc, r, r), (xc, -0.108 - L * 0.9, zc, r * 0.97, r * 0.97), (xc, -0.108 - L - 0.003, zc, r * 0.78, r * 0.78)]
             parts.append(tube('ngon_chan', kn, coll, along='y', step=0.003))
     body = join(parts, 'Nam_Than_goc'); body.data.materials.append(mat); remesh(body, voxel, smooth)
-    smooth_zone(body, lambda c: 0.80 < c.z < 0.97 and abs(c.x) > 0.07, 30)                     # vai–nách
+    smooth_zone(body, lambda c: 0.80 < c.z < 1.0 and abs(c.x) > 0.07, 30)                     # vai–nách
     smooth_zone(body, lambda c: 0.55 < c.z < 0.86 and 0.08 < abs(c.x) < 0.21 and abs(c.y) < 0.07, 14, 0.45)  # chỗ tay chạm thân (bỏ răng cưa voxel)
     smooth_zone(body, lambda c: 0.93 < c.z < 1.0, 8)                                           # chân cổ–vai
     smooth_zone(body, lambda c: 0.36 < c.z < 0.68 and abs(c.x) < 0.17, 14, 0.45)   # hông–háng–mông (bỏ mép bụng dưới)
     smooth_zone(body, lambda c: 0.06 < c.z < 0.20 and abs(c.x) < 0.2 and c.y > -0.10, 16, 0.45)   # cổ chân (không đụng ngón chân)
+    smooth_zone(body, lambda c: 0.50 < c.z < 0.60 and abs(c.x) > 0.20, 8)                    # cổ tay–lòng bàn tay (bỏ góc vuông)
+    smooth_zone(body, lambda c: c.z < 0.14 and c.y > -0.07 and abs(c.x) < 0.2, 10, 0.45)    # gót–mu bàn chân
+    carve_details(body)
     body.data.shade_smooth(); return body
 
 
