@@ -1,6 +1,7 @@
 """Chạy mọi hàm test_* trong kiem_thu/test_*.py. In PASS/FAIL từng test, thoát khác 0 nếu có FAIL.
   /tmp/bpyenv/bin/python assets/nhan-vat-3d/bieu_cam/kiem_thu/chay.py [lọc theo tên file/test]"""
 import sys, os, importlib, traceback, glob
+import bpy  # phải nạp trước để có mathutils
 AQ = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 if AQ not in sys.path: sys.path.insert(0, AQ)
 

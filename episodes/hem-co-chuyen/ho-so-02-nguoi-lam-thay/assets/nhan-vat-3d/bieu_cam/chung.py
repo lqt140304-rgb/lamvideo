@@ -18,6 +18,7 @@ class Dau:
     surf: object
     neo: dict
     ten: str = 'Nam'
+    nghi: dict = None   # ảnh chụp trạng thái nghỉ (kiem.chup_nghi)
 
 
 def _mat_x(x, z, surf):
