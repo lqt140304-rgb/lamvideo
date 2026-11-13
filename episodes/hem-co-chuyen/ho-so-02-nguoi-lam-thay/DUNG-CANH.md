@@ -4,11 +4,11 @@
 - **Camera 3D vật lý thực:** Cảm biến 36mm Full-Frame, thay đổi tiêu cự (24mm/35mm/50mm/85mm), Depth of Field Bokeh vật lý, góc trần vuông góc $90^\circ$ (Top-down), góc thấp (Low-Angle) và cú **Hitchcock Vertigo Dolly Zoom** thực thụ (tăng FOV đồng thời lùi trục Z) mà không còn bị giới hạn bởi góc vẽ phẳng 2D hay hở nền khi dịch máy.
 - **Ánh sáng & Phản chiếu thực:** Đèn bàn 3200K, ánh nắng cửa sổ, Screen Glow từ laptop và mặt gương phản chiếu sai lệch dùng đèn/shader 3D vật lý thật.
 
-**Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
+**Đồng bộ 13/11/2026:** Kịch bản chính thức khóa bản dựng tại [KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md).  
+> 📋 **BẢNG SHOT LIST & TIMELINE THỰC THI 15 PHÚT (KHÓA DỰNG TOÀN TẬP):**  
+> Toàn bộ 96 shot máy 3D chi tiết từng giây (00:00 – 15:00), tiêu cự lens, thời lượng, chuyển cảnh điện ảnh và camera mode đã được hoàn thiện tại **[SHOTLIST-VA-TIMELINE-15P.md](SHOTLIST-VA-TIMELINE-15P.md)**. Bảng này là tài liệu thực thi cho toàn bộ 3 Hồi.
 
-**Phạm vi bảng máy dưới đây:** A–H dành cho P1.01–P1.08, giữ bố cục/rig/phòng đã cập nhật. Hồi tưởng O01–O05 có hướng máy/âm trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00). Phần 2 và 3 đã có bối cảnh, cỡ cảnh, điểm nhìn, hành động/âm ngay dưới từng cảnh trong [phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [phần 3](PHAN-03-NGUOI-BI-THAY-THE.md); chưa tách thành shot list/timeline thực thi toàn tập. Không coi A–H đủ để dựng cả ba phần.
-
-Nguồn lời phần 1 chuyển từ THAO-LUAN sang PHAN-01, các đoạn đã duyệt bảo toàn câu chữ. Gương và các pose/đạo cụ mới xem [ASSET.md](ASSET.md); cơ chế mới là đề xuất trong [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa render hay tạo âm thanh.
+**Phạm vi bảng máy dưới đây:** A–H và các phần tham khảo kỹ thuật, thông số lens, visual direction và phân lớp máy 3D.
 
 ## Cách dùng & Bộ quy chuẩn máy quay điện ảnh người đóng (Live-Action Cine Suite)
 

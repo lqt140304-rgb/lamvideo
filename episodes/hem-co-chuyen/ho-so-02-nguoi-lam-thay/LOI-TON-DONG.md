@@ -3,6 +3,7 @@
 > **THỐNG NHẤT NGUỒN CHÂN LÝ DUY NHẤT (SINGLE SOURCE OF TRUTH):**  
 > Bản kịch bản khóa bản dựng chính thức duy nhất của tập phim là:  
 > 📄 **[KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md)** (Thời lượng chuẩn 15:00, cấu trúc 3 hồi điện ảnh).  
+> 🎬 **Bảng Shot List & Timeline thực thi 15 phút (96 shot 3D chi tiết từng giây):** **[SHOTLIST-VA-TIMELINE-15P.md](SHOTLIST-VA-TIMELINE-15P.md)**.  
 > Các file `PHAN-01`, `PHAN-02`, `PHAN-03` và `LUAT-BAN-NHAP-V1.md` là tài liệu tham khảo phân đoạn lịch sử trong quá trình phát triển ý tưởng ban đầu, **không dùng để trích xuất mốc thời lượng hay tình huống đối chất cũ khi dựng phim**.
 
 ---
