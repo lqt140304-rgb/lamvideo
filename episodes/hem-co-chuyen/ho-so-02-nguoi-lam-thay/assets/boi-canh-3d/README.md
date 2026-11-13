@@ -171,3 +171,8 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - Tối hơn, đúng tinh thần vực thẳm: đèn trần 4,5 / quầng gương 4 / lân tinh hắt lên 3 (từ 9 / 7 / 5), nền trời 0,12, phơi sáng 0,7.
 - Thêm **Người Kia** (hình nhân tạm cao 1,6 m, màu đỏ gạch) đứng yên trên mặt nước, **tay trái** đưa về cổ tay Nam, không làm mặt nước gợn (khác Nam); sẽ thay bằng nhân vật modular có nốt ruồi bên phải.
 - Nam chìm: mặt nước đục nên phần dưới mặt nước tự biến mất, không cần mặt phẳng cắt như `kinh_nuoc.py` (chỉ cần khi cắt qua kính trong phòng thật).
+
+### Nối phòng thật → thế giới gương (13/11 đêm): shot `XUYEN`
+- `the_gioi_guong.py --cam XUYEN` dùng **đúng đường máy của `KINH_NUOC`** (50 mm f/2,0, đẩy (2,2→1,8 ; 2,0→1,9 ; 1,25), nhìn mặt gương) trong phòng đảo (toạ độ thiết kế − W), 72 khung: Nam trồi ra ngay mặt gương rồi bị hút chìm xuống mặt nước. Quạt ở bên trái trong phòng thật, bên phải trong phòng đảo → khớp bố cục khi cắt nối.
+- Video thử nối (12 fps, 640×268, 3,75 s, 24 khung `KINH_NUOC` + 24 khung `XUYEN`, hoà mờ 0,3 s): `xem-thu/video/xuyen-guong-noi-the-gioi.mp4`; ảnh ghép khung: `xem-thu/the-gioi-guong/noi-xuyen-guong-bang-khung.png`. Người Kia không đưa vào shot này (tay che khung máy).
+- Lệnh: `F=$(python3 -c "print(','.join(str(i) for i in range(1,73,3)))")`; `camera_dong.py --shot KINH_NUOC --frames $F ...` rồi `the_gioi_guong.py --cam XUYEN --frames $F ...`; ghép bằng `ffmpeg … xfade`.

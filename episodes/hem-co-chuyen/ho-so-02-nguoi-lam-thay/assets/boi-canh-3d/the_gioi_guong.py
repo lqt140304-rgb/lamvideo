@@ -132,8 +132,8 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
             bb = bmesh.new(); bmesh.ops.create_uvsphere(bb, u_segments=10, v_segments=6, radius=rnd.uniform(0.012, 0.03))
             ob = _wobj(coll, f'bot{k}', bb, (NAM[0] + rnd.uniform(-0.3, 0.3), NAM[1] + rnd.uniform(-0.3, 0.3), 0.0), bub); ob.visible_shadow = False
             drv(ob, 'location', 2, f'-0.5+fmod(frame*{rnd.uniform(0.01, 0.025):.3f}+{rnd.uniform(0, 3):.2f},3.0)*0.6')
-    # ---- NGƯỜI KIA: đứng yên trên mặt nước (hình nhân tạm, cao 1,6 m), nốt ruồi bên PHẢI sẽ gắn khi có nhân vật modular; tay TRÁI đưa về phía Nam (đúng luật thuận tay trái)
-    if nam:
+    # ---- NGƯỜI KIA (không đưa vào shot XUYEN: tay che khung máy): đứng yên trên mặt nước (hình nhân tạm, cao 1,6 m), nốt ruồi bên PHẢI sẽ gắn khi có nhân vật modular; tay TRÁI đưa về phía Nam (đúng luật thuận tay trái)
+    if nam and cam != 'XUYEN':
         kk = M.solid('gt_kia', '#b0504f', 0.6)
         kx, ky = NAM[0], NAM[1] - 1.25
         kb = bmesh.new(); bmesh.ops.create_cone(kb, cap_ends=True, segments=24, radius1=0.17, radius2=0.17, depth=1.35); _wobj(coll, 'kia_than', kb, (kx, ky, 0.675 + 0.0), kk)
@@ -145,6 +145,7 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
         rk = M.emission('gt_kia_vong', '#7ae8e0', 0.9)   # một vòng sóng đứng yên quanh chân (Người Kia không làm mặt nước gợn như Nam)
     # ---- camera + render
     CAMS = {k: ((v[0][0] - X.W, v[0][1], v[0][2]), (v[1][0] - X.W, v[1][1], v[1][2]), v[2], 3.0) for k, v in X.CAMERAS.items()}   # toạ độ thiết kế − W = toạ độ thế giới sau khi lật gương
+    CAMS['XUYEN'] = ((2.2 - X.W, 2.0, 1.25), (0.14 - X.W, 3.3, 0.9), 50, 2.0)   # cùng máy với KINH_NUOC trong phòng thật (toạ độ thiết kế − W): cắt nối khớp khung hình
     CAMS['NAM_CHIM'] = ((-0.7, 2.3, 1.45), (-2.2, 3.26, 0.9), 32, 2.0); CAMS['TOP'] = ((-1.5, 2.0, 9.0), (-1.5, 2.0, 0.0), 24, 9.0); CAMS['GUONG_CAN'] = ((-1.2, 3.0, 1.25), (-2.8, 3.26, 0.9), 40, 1.6)
     pos, tgt, mm, fd = CAMS[cam]
     if cam in ('WIDE',) or pos[1] > X.D:   # đứng ngoài tường trước → ẩn tường trước với camera (như phòng thật)
@@ -155,6 +156,28 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
     cd = bpy.data.cameras.new('cam_' + cam); cd.lens = mm; cd.sensor_width = 36; cd.dof.use_dof = True; cd.dof.aperture_fstop = 2.8
     co = bpy.data.objects.new('cam_' + cam, cd); coll.objects.link(co); co.location = pos
     co.rotation_euler = (Vector(tgt) - Vector(pos)).to_track_quat('-Z', 'Y').to_euler(); cd.dof.focus_distance = (Vector(tgt) - Vector(pos)).length; sc.camera = co
+    if cam == 'XUYEN':
+        # NỐI với shot KINH_NUOC (camera_dong.py, 72 khung): máy đi cùng đường (2,2→1,8 ; 2,0→1,9 ; z 1,25) 50 mm f/2,0, nhìn mặt gương. Trong phòng thật Nam bước vào kính (khung 14–58);
+        # ở đây Nam trồi ra ngay mặt gương (x ≈ −2,8) rồi bị hút chìm xuống mặt nước phía trước gương.
+        tg = bpy.data.objects.new('xuyen_tg', None); coll.objects.link(tg); tg.location = tgt
+        tc_ = co.constraints.new('TRACK_TO'); tc_.target = tg; tc_.track_axis = 'TRACK_NEGATIVE_Z'; tc_.up_axis = 'UP_Y'; co.rotation_euler = (0, 0, 0)
+        nr = bpy.data.objects.get('nam_chim')
+        if nr and nr.animation_data: nr.animation_data_clear()
+        for f in range(1, 73):
+            t = (f - 1) / 71.0; t = t * t * (3 - 2 * t)
+            co.location = (2.2 - 0.4 * t - X.W, 2.0 - 0.1 * t, 1.25); co.keyframe_insert('location', frame=f)
+            if nr:
+                nr.location = (-2.78 + 0.7 * t, NAM[1], 0.28 - 0.9 * t); nr.keyframe_insert('location', frame=f)
+        if co.animation_data and co.animation_data.action:
+            ac_ = co.animation_data.action; fcs = []
+            try: fcs = list(ac_.fcurves)
+            except Exception:
+                for ly in ac_.layers:
+                    for st in ly.strips:
+                        for cb in st.channelbags: fcs += list(cb.fcurves)
+            for fc in fcs:
+                md = fc.modifiers.new('NOISE'); md.scale = 25.0; md.strength = 0.004; md.phase = fc.array_index * 7.0   # rung tay nhẹ như KINH_NUOC
+        sc.frame_start, sc.frame_end = 1, 72
     sc.render.engine = 'CYCLES'; X._thiet_bi(sc); sc.cycles.samples = 64; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 8; sc.cycles.glossy_bounces = 6; sc.cycles.volume_bounces = 2; sc.cycles.volume_step_rate = 1.5; sc.cycles.volume_max_steps = 256
     sc.render.resolution_x, sc.render.resolution_y = res; sc.render.resolution_percentage = 100
