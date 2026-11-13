@@ -17,10 +17,16 @@ from mathutils import Vector
 import dung_dau_nam as D
 
 M_CT = 32
-RING_Z = min((r[0] for r in D.LOFT_TAB), key=lambda z: abs(z - 1.0))   # vòng cắt cổ của bản sao đầu ở ~1,00 m (ngay dưới hàm); phần cổ dài của nguồn đầu bỏ, cổ do thân đảm nhiệm
-NECK_AXIS_Y, NECK_SCALE = -0.007, 0.82   # cổ bản sao đầu thu nhỏ đều 18% quanh trục cổ (a 0,090 → 0,074) cho khớp tỉ lệ thân; nguồn Head_Base không đổi
+RING_Z0 = min((r[0] for r in D.LOFT_TAB), key=lambda z: abs(z - 1.0))   # vòng cắt cổ của bản sao đầu ở ~1,00 m (ngay dưới hàm); phần cổ dài của nguồn đầu bỏ, cổ do thân đảm nhiệm
+HEAD_K = 1.15                                  # cụm đầu–mặt–tai–tóc phóng ĐỀU 1,15× (mẫu: đầu to hơn đầu gốc ~13% chiều cao, ~21% bề ngang); đỉnh tóc vẫn 1,6003 m
+CHIN0, TOP0 = 1.032, 1.6003
+ZCH = TOP0 - (TOP0 - CHIN0) * HEAD_K            # cằm mới ≈ 0,947 m
+KZ = 0.91                                      # thân nén theo chiều cao (mẫu: cổ ở ~0,93 m, vai ~0,88 m); bề ngang giữ nguyên theo bảng đo
+def hz(z): return ZCH + (z - CHIN0) * HEAD_K   # z đầu gốc → z sau phóng
+NECK_AXIS_Y, NECK_SCALE = -0.007, 0.80   # cổ bản sao đầu thu nhỏ đều 18% quanh trục cổ (a 0,090 → 0,074) cho khớp tỉ lệ thân; nguồn Head_Base không đổi
 NECK_BLEND_TOP = 1.048
-CUT_Z = RING_Z - 0.0055             # mặt cắt thân (dải nối cao ~5,5 mm)
+RING_Z = hz(RING_Z0)                   # vòng cổ của đầu SAU khi phóng
+CUT_Z = RING_Z - 0.0055 * HEAD_K       # mặt cắt thân (dải nối cao ~6 mm)
 
 
 def sg(v): return 1.0 if v >= 0 else -1.0
@@ -89,7 +95,7 @@ def remesh(ob, voxel, smooth, factor=0.5):
 TORSO = [(0.44, 0.052, 0.058, 0.068, 0.000, 2.0), (0.47, 0.105, 0.088, 0.098, 0.000, 2.2), (0.50, 0.166, 0.108, 0.118, 0.000, 2.3), (0.565, 0.166, 0.146, 0.132, 0.000, 2.3),
          (0.63, 0.154, 0.158, 0.118, 0.000, 2.3), (0.70, 0.131, 0.146, 0.104, 0.000, 2.2), (0.79, 0.118, 0.138, 0.106, 0.000, 2.2), (0.85, 0.140, 0.130, 0.104, -0.001, 2.1), (0.90, 0.144, 0.126, 0.102, -0.001, 2.1),
          (0.93, 0.144, 0.122, 0.100, -0.002, 2.1), (0.95, 0.140, 0.114, 0.095, -0.003, 2.1), (0.965, 0.130, 0.102, 0.088, -0.005, 2.0), (0.975, 0.114, 0.089, 0.080, -0.006, 2.0),
-         (0.983, 0.092, 0.077, 0.071, -0.007, 2.0), (0.991, 0.079, 0.069, 0.066, -0.007, 2.0), (1.000, 0.0745, 0.0655, 0.0655, -0.007, 2.0), (1.012, 0.0737, 0.0653, 0.0653, -0.007, 2.0)]
+         (0.983, 0.1058, 0.0886, 0.0817, -0.008, 2.0), (0.991, 0.0909, 0.0794, 0.0759, -0.008, 2.0), (1.000, 0.0857, 0.0753, 0.0753, -0.008, 2.0), (1.012, 0.0848, 0.0751, 0.0751, -0.008, 2.0)]
 #      x      y       z     rx     ry   (tay TRÁI nhân vật = +X; tay phải lấy đối xứng) — thả xuôi hơi toè ra như mẫu
 ARM = [(0.126, 0.002, 0.940, 0.024, 0.028), (0.134, 0.002, 0.918, 0.043, 0.046), (0.144, 0.001, 0.885, 0.049, 0.049), (0.156, 0.000, 0.840, 0.050, 0.050), (0.168, 0.000, 0.800, 0.050, 0.050),
        (0.179, 0.002, 0.760, 0.050, 0.050), (0.190, 0.004, 0.720, 0.049, 0.049), (0.200, 0.002, 0.680, 0.048, 0.048), (0.210, -0.002, 0.640, 0.046, 0.046), (0.220, -0.005, 0.600, 0.043, 0.043),
@@ -146,11 +152,11 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
                   tube('leg', sx(LEG), coll), tube('foot', sx(FOOT), coll, along='y', step=0.006)]
         x0, y0 = s * 0.256, -0.013
         for dy, L, r in FINGERS:
-            z0 = 0.460; kn = [(x0, y0 + dy, z0, r, r), (x0 - s * 0.004, y0 + dy - 0.003, z0 - L * 0.5, r * 0.99, r * 0.99), (x0 - s * 0.014, y0 + dy - 0.006, z0 - L * 0.88, r * 0.9, r * 0.9), (x0 - s * 0.022, y0 + dy - 0.008, z0 - L * 0.98 + 0.004, r * 0.85, r * 0.85), (x0 - s * 0.025, y0 + dy - 0.009, z0 - L * 0.98 - 0.004, r * 0.5, r * 0.5)]   # ngón cong vào phía lòng bàn tay (như mẫu), đầu bo tròn
+            z0 = 0.460; kn = [(x0, y0 + dy, z0, r, r), (x0 - s * 0.004, y0 + dy - 0.003, z0 - L * 0.5, r * 0.99, r * 0.99), (x0 - s * 0.014, y0 + dy - 0.006, z0 - L * 0.88, r * 0.9, r * 0.9), (x0 - s * 0.022, y0 + dy - 0.008, z0 - L * 0.98 + 0.004, r * 0.85, r * 0.85), (x0 - s * 0.024, y0 + dy - 0.009, z0 - L * 0.98 - 0.002, r * 0.80, r * 0.80), (x0 - s * 0.025, y0 + dy - 0.009, z0 - L * 0.98 - 0.0075, r * 0.56, r * 0.56), (x0 - s * 0.0255, y0 + dy - 0.009, z0 - L * 0.98 - 0.0115, r * 0.28, r * 0.28)]   # ngón cong vào phía lòng bàn tay (như mẫu), đầu bo tròn
             parts.append(tube('ngon', kn, coll, step=0.003))
         for dx, L, r, zc in TOES:
             xc = (0.098 + dx) * s
-            kn = [(xc, -0.108, zc, r, r), (xc, -0.108 - L * 0.55, zc, r, r), (xc, -0.108 - L * 0.9, zc, r * 0.97, r * 0.97), (xc, -0.108 - L - 0.003, zc, r * 0.78, r * 0.78)]
+            kn = [(xc, -0.108, zc, r, r), (xc, -0.108 - L * 0.55, zc, r, r), (xc, -0.108 - L * 0.9, zc, r * 0.97, r * 0.97), (xc, -0.108 - L - 0.004, zc, r * 0.82, r * 0.82), (xc, -0.108 - L - 0.010, zc, r * 0.55, r * 0.55), (xc, -0.108 - L - 0.015, zc, r * 0.25, r * 0.25)]
             parts.append(tube('ngon_chan', kn, coll, along='y', step=0.003))
     body = join(parts, 'Nam_Than_goc'); body.data.materials.append(mat); remesh(body, voxel, smooth)
     smooth_zone(body, lambda c: 0.80 < c.z < 1.0 and abs(c.x) > 0.07, 30)                     # vai–nách
@@ -159,9 +165,13 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
     smooth_zone(body, lambda c: 0.36 < c.z < 0.68 and abs(c.x) < 0.17, 14, 0.45)   # hông–háng–mông (bỏ mép bụng dưới)
     smooth_zone(body, lambda c: 0.06 < c.z < 0.20 and abs(c.x) < 0.2 and c.y > -0.10, 16, 0.45)   # cổ chân (không đụng ngón chân)
     smooth_zone(body, lambda c: 0.50 < c.z < 0.60 and abs(c.x) > 0.20, 8)                    # cổ tay–lòng bàn tay (bỏ góc vuông)
+    smooth_zone(body, lambda c: 0.40 < c.z < 0.50 and abs(c.x) > 0.20, 5, 0.4)               # gốc ngón tay + ngón (đầu ngón tròn, nối mượt)
+    smooth_zone(body, lambda c: 0.10 < c.z < 0.66 and 0.04 < abs(c.x) < 0.20 and c.y > -0.07, 12, 0.4)   # đùi–gối–bắp chân–cổ chân liền mượt
     smooth_zone(body, lambda c: c.z < 0.14 and c.y > -0.07 and abs(c.x) < 0.2, 10, 0.45)    # gót–mu bàn chân
+    smooth_zone(body, lambda c: c.z < 0.075 and c.y < -0.07 and abs(c.x) < 0.2, 5, 0.4)     # gốc ngón chân + đầu ngón
     carve_details(body)
-    body.data.shade_smooth(); return body
+    for v in body.data.vertices: v.co.z *= KZ                                               # nén thân theo tỉ lệ mẫu (KZ)
+    body.data.update(); body.data.shade_smooth(); return body
 
 
 # ================================================================== lắp ráp đầu–cổ–thân bằng dải bridge
@@ -169,14 +179,15 @@ def cut_open_head_copy(head):
     """Bản sao Head_Base: bỏ phần dưới vòng cổ RING_Z (nón đáy cổ) → vòng cổ trở thành biên hở; phía trên giữ nguyên từng đỉnh."""
     me = head.data.copy(); ob = bpy.data.objects.new('Nam_Dau_Than', me); head.users_collection[0].objects.link(ob)
     bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table()
-    kill = [f for f in bm.faces if max(v.co.z for v in f.verts) <= RING_Z + 1e-6]
+    kill = [f for f in bm.faces if max(v.co.z for v in f.verts) <= RING_Z0 + 1e-6]
     bmesh.ops.delete(bm, geom=kill, context='FACES')
     # thu nhỏ cổ (chỉ trên bản sao): hệ số chuyển mượt từ 1 ở NECK_BLEND_TOP (dưới hàm) đến NECK_SCALE ở vòng cắt; chỉ các đỉnh gần trục cổ (không đụng cằm/mặt)
     for v in bm.verts:
         r = math.hypot(v.co.x, v.co.y - NECK_AXIS_Y)
         if v.co.z < NECK_BLEND_TOP and r < 0.13:
-            w = D.smooth01(NECK_BLEND_TOP, RING_Z, v.co.z) * D.smooth01(0.13, 0.105, r)
+            w = D.smooth01(NECK_BLEND_TOP, RING_Z0, v.co.z) * D.smooth01(0.13, 0.105, r)
             k = 1.0 - (1.0 - NECK_SCALE) * w; v.co.x *= k; v.co.y = NECK_AXIS_Y + (v.co.y - NECK_AXIS_Y) * k
+    for v in bm.verts: v.co = Vector((v.co.x * HEAD_K, v.co.y * HEAD_K, hz(v.co.z)))   # phóng đều cả bản sao đầu
     bm.to_mesh(me); bm.free(); return ob
 
 
@@ -205,7 +216,7 @@ def assemble(head, body, skin):
     for f in res['faces']: f.material_index = skin_idx; f.smooth = True
     # làm mượt cục bộ quanh dải nối: phía thân + cổ của bản sao đầu (cao ≤ 3 cm trên vòng cắt, cách trục < 10,5 cm); mặt, cằm, tóc không bị đụng
     zone = [v for v in bm.verts if v.index >= nh and v.co.z > CUT_Z - 0.006 and v.co.z < RING_Z - 1e-6] + [v for v in res['faces'] for v in v.verts if v.index >= nh and v.co.z < RING_Z - 1e-6]
-    zone += [v for v in bm.verts if v.index < nh and RING_Z - 1e-6 <= v.co.z < RING_Z + 0.040 and math.hypot(v.co.x, v.co.y - NECK_AXIS_Y) < 0.105]   # cổ của bản sao đầu phía trên vòng cắt (được phép chỉnh theo yêu cầu thu cổ)
+    zone += [v for v in bm.verts if v.index < nh and RING_Z - 1e-6 <= v.co.z < RING_Z + 0.040 * HEAD_K and math.hypot(v.co.x, v.co.y - NECK_AXIS_Y * HEAD_K) < 0.105 * HEAD_K]   # cổ của bản sao đầu phía trên vòng cắt (được phép chỉnh theo yêu cầu thu cổ)
     zone = list({v.index: v for v in zone}.values())
     for _ in range(40): bmesh.ops.smooth_vert(bm, verts=zone, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
@@ -215,12 +226,28 @@ def assemble(head, body, skin):
 
 
 # ================================================================== scene, đo, render
+def scale_head_cluster(sc):
+    """Đầu–mặt–tai–tóc phóng ĐỀU HEAD_K quanh cằm gốc rồi hạ cằm về ZCH: Empty `Cum_Dau` làm cha (Head_Base ẩn cũng theo để Shrinkwrap tai đúng). Nguồn dung_dau_nam.py không đổi."""
+    from mathutils import Matrix
+    em = bpy.data.objects.new('Cum_Dau', None); sc.collection.objects.link(em); em.location = (0, 0, ZCH); em.scale = (HEAD_K, HEAD_K, HEAD_K)
+    for cn in ('03_Head_And_Face', '04_Hair', '04_Hair_v3', '04_Hair_v2', '04_Hair_cu'):
+        c = bpy.data.collections.get(cn)
+        if c:
+            for o in c.objects: o.parent = em; o.matrix_parent_inverse = Matrix.Translation((0, 0, -CHIN0))
+    # mặt nạ tròng trắng trong vật liệu da dùng toạ độ vật thể gốc → thêm Mapping đưa toạ độ của mesh đã phóng về toạ độ gốc: q = p/HEAD_K + (0,0,CHIN0 − ZCH/HEAD_K)
+    nt = bpy.data.materials['Da'].node_tree; tc = next(n for n in nt.nodes if n.bl_idname == 'ShaderNodeTexCoord')
+    mp = nt.nodes.new('ShaderNodeMapping'); mp.vector_type = 'POINT'; mp.inputs['Scale'].default_value = (1 / HEAD_K,) * 3; mp.inputs['Location'].default_value = (0, 0, CHIN0 - ZCH / HEAD_K)
+    for l in list(tc.outputs['Object'].links): nt.links.new(mp.outputs['Vector'], l.to_socket)
+    nt.links.new(tc.outputs['Object'], mp.inputs['Vector'])
+
+
 def build_scene(voxel=0.003, smooth=4):
     sc = D.build()
     cb = bpy.data.collections.new('02_Body_Base'); sc.collection.children.link(cb)
     skin = D.mat('Da_Than', D.COL['da'], 0.65, 0.08, sss_radius=(0.1, 0.05, 0.03))
     head = bpy.data.objects['Head_Base']
     body = build_body(cb, skin, voxel, smooth)
+    scale_head_cluster(sc)
     # đưa Nam_Than_goc (đã có vật liệu da) vào collection 02_Body_Base, lắp ráp
     for c in list(body.users_collection): c.objects.unlink(body)
     cb.objects.link(body)
