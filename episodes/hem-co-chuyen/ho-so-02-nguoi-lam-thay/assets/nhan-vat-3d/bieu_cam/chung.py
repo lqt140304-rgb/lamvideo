@@ -56,15 +56,18 @@ def ty_le_mat(neo):
 
 
 def dung_nam(mole_side=None, x_scale=1.0):
-    """Dựng đầu Nam (có tóc, vì build() dựng chung). mole_side đổi bên nốt ruồi; x_scale nhân nửa rộng đầu (đầu khác để thử tái sử dụng)."""
-    old_side, old_tab = D.MOLE_SIDE, D.LOFT_TAB
+    """Dựng đầu Nam (có tóc, vì build() dựng chung). mole_side đổi bên nốt ruồi. x_scale nhân bề rộng đầu VÀ khoảng cách
+    hai mắt/mày/nốt ruồi (đầu khác để thử tái sử dụng: ty_le_mat đổi theo)."""
+    old_side, old_tab, old_face = D.MOLE_SIDE, D.LOFT_TAB, dict(D.FACE)
     try:
         if mole_side is not None: D.MOLE_SIDE = mole_side
-        if x_scale != 1.0: D.LOFT_TAB = [[r[0], r[1], r[2], r[3] * x_scale] for r in old_tab]
+        if x_scale != 1.0:
+            D.LOFT_TAB = [[r[0], r[1], r[2], r[3] * x_scale] for r in old_tab]
+            D.FACE['eye_x'] *= x_scale; D.FACE['mole_x'] *= x_scale; D.FACE['brow_x'] = tuple(x * x_scale for x in D.FACE['brow_x'])
         D.build()
+        head = bpy.data.objects['Head_Base']; parts = {n: bpy.data.objects[n] for n in TEN_VAT}
+        bpy.context.view_layer.update()
+        S = D.Surf(head); neo = lay_neo(head, parts, S)      # neo phải tính khi FACE còn là bản của đầu này
     finally:
-        D.MOLE_SIDE, D.LOFT_TAB = old_side, old_tab
-    head = bpy.data.objects['Head_Base']; parts = {n: bpy.data.objects[n] for n in TEN_VAT}
-    bpy.context.view_layer.update()
-    S = D.Surf(head)
-    return Dau(head, parts, S, lay_neo(head, parts, S), 'Nam' if mole_side is None else f'Nam(ruoi={mole_side:+d},x={x_scale})')
+        D.MOLE_SIDE, D.LOFT_TAB = old_side, old_tab; D.FACE.clear(); D.FACE.update(old_face)
+    return Dau(head, parts, S, neo, 'Nam' if mole_side is None and x_scale == 1.0 else f'Nam(ruoi={mole_side},x={x_scale})')
