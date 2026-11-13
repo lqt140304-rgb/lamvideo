@@ -108,8 +108,25 @@ def build(X, coll, mua=True, seed=7):
         pud = mat('#27323a', 0.02, 0.0)
         for k, (px_, py_, r) in enumerate([(-0.9, Y0 - 0.3, 0.45), (-0.45, Y0 + 1.5, 0.35), (-1.2, Y0 + 1.4, 0.3), (-0.6, Y0 - 1.5, 0.4)]):
             sphere(f'env_gct_vung{k}', px_, py_, GZ + 0.003, r, pud, scale=(1.2, 1, 0.003), coll=coll)
-        # mưa thưa: vệt dài mảnh nghiêng
+        # mưa thưa: vệt dài mảnh nghiêng, RƠI THEO KHUNG HÌNH bằng driver (frame × tốc độ, quay vòng) — không tốn khung khoá
         rain = X.M.emission('gct_mua', '#dde8f0', 0.55)
+        def fall(ob, spd, off, H):
+            d = ob.driver_add('location', 2).driver; d.type = 'SCRIPTED'; d.expression = f'-fmod(frame*{spd:.4f}+{off:.4f},{H:.3f})'
         for k in range(170):
             x_ = rnd.uniform(-4.5, 0.0); y_ = rnd.uniform(Y0 - 3.0, Y0 + 3.5); z_ = GZ + rnd.uniform(0.3, 6.0)
-            B(f'hat_mua{k}', x_, x_ + 0.0016, y_, y_ + 0.0016, z_, z_ + rnd.uniform(0.35, 0.7), rain, coll=coll, rot=(math.radians(7), 0, 0), pivot=(x_, y_, z_)).visible_shadow = False
+            ob = B(f'hat_mua{k}', x_, x_ + 0.0016, y_, y_ + 0.0016, z_, z_ + rnd.uniform(0.35, 0.7), rain, coll=coll, rot=(math.radians(7), 0, 0), pivot=(x_, y_, z_))
+            ob.visible_shadow = False; fall(ob, rnd.uniform(0.27, 0.33), rnd.uniform(0, 6.5), 6.5)
+        # nước chảy thành sợi từ mép sàn tầng 3 / mái hiên trên cầu thang xuống sân (chuỗi giọt rơi nhanh hơn mưa)
+        wt = X.M.emission('gct_nuoc_chay', '#cfe4f2', 0.9)
+        for k in range(9):
+            yy = -1.9 + 0.16 * k + rnd.uniform(-0.02, 0.02); xx = -1.62
+            for j in range(10):
+                ob = sphere(f'env_gct_giot{k}_{j}', xx, yy, GZ + 5.7, 0.012, wt, scale=(1, 1, 3.5), coll=coll); ob.visible_shadow = False
+                d = ob.driver_add('location', 2).driver; d.type = 'SCRIPTED'
+                d.expression = f'-fmod(frame*0.36+{j * 0.58 + k * 0.21:.3f},5.800)'
+        # vòng gợn lan trên vũng nước (torus dẹt nở dần rồi biến mất)
+        for k, (px_, py_) in enumerate([(-0.9, Y0 - 0.3), (-0.45, Y0 + 1.5), (-1.2, Y0 + 1.4), (-0.6, Y0 - 1.5), (-0.8, Y0 - 0.1)]):
+            X.torus(f'env_gct_gon{k}', px_, py_, GZ + 0.004, 0.18, 0.004, mat('#9fb4c0', 0.1), coll=coll)
+            ob = bpy.data.objects[f'env_gct_gon{k}']; ob.visible_shadow = False
+            for ax in (0, 1):
+                dr = ob.driver_add('scale', ax).driver; dr.type = 'SCRIPTED'; dr.expression = f'0.15+fmod(frame*0.045+{k * 0.37:.2f},1.0)*1.3'

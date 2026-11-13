@@ -575,8 +575,8 @@ def hallway_details(m, coll, night):
 # Chế độ thời gian: ang = góc tia nắng lệch khỏi phương thẳng đứng (độ), az = hướng ngang (độ)
 TIME_MODES = {
     'day':    dict(energy=4.5, color='#fff0cf', ang=52, az=-12, bg='#cfe2ee', bgs=1.1, hat=60, exp=0.0),
-    'dawn':   dict(energy=3.2, color='#d9e4ff', dirw=(0.55, 0.80, -0.22), bg='#a8bfe0', bgs=0.5, hat=22, exp=0.35),   # 06:30: nắng xiên xanh lơ lạnh pha vàng nhạt
-    'noon':   dict(energy=8.0, color='#fffaf0', ang=22, az=-58, bg='#d6e8f4', bgs=1.25, hat=70, exp=-0.15),  # trưa gắt: vệt nắng vuông lên mặt bàn
+    'dawn':   dict(energy=4.5, color='#d9e4ff', dirw=(0.55, 0.80, -0.22), bg='#a8bfe0', bgs=0.5, hat=22, exp=0.35),   # 06:30: nắng xiên xanh lơ lạnh pha vàng nhạt
+    'noon':   dict(energy=8.0, color='#fffaf0', dirw=(0.30, -0.80, -0.56), bg='#d6e8f4', bgs=1.25, hat=70, exp=-0.15),  # trưa gắt: vệt nắng vuông lên mặt bàn
     'sunset': dict(energy=6.0, color='#ff9a48', dirw=(0.62, -0.74, -0.25), bg='#f0b484', bgs=0.45, hat=38, exp=0.2),   # Golden Hour: cam thẫm trườn từ bàn sang nệm
     'rain':   dict(energy=0.35, color='#c8d4dc', ang=60, az=0, bg='#8e99a2', bgs=0.95, hat=30, exp=0.3),   # chiều muộn sau mưa: u ám, không nắng
 }
@@ -635,8 +635,8 @@ def lighting(mode, coll):
 def rem_khe(m, coll):
     """Rèm kéo gần kín, chừa khe hẹp giữa cửa sổ để nắng sớm lọt thành vệt xiên (06:30)."""
     cloth = M.solid('rem_sang_som', '#cdbfa6', 0.95)
-    box('rem_khe_trai', W - 0.07, W - 0.04, WIN['y0'] - 0.05, 1.56, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
-    box('rem_khe_phai', W - 0.07, W - 0.04, 1.70, WIN['y1'] + 0.05, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
+    box('rem_khe_trai', W - 0.07, W - 0.04, WIN['y0'] - 0.05, 1.45, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
+    box('rem_khe_phai', W - 0.07, W - 0.04, 1.80, WIN['y1'] + 0.05, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
     for i in range(7):  # nếp rèm
         yy = WIN['y0'] + i * 0.09
         box(f'rem_nep{i}', W - 0.075, W - 0.07, yy, yy + 0.012, WIN['z0'] - 0.1, WIN['z1'] + 0.12, M.solid('rem_nep', '#bfb094', 0.95), coll=coll)

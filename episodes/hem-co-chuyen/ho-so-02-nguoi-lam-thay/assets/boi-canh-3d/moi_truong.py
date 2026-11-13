@@ -169,6 +169,10 @@ def build(X, m, coll, night, hl_y1):
         ob = cyl(f'env_canh{x:.0f}{y:.0f}{z:.1f}', x + dx / 2, y + dy / 2, z + dz / 2, r, L, mat('#5a4636', 0.95), coll=coll)
         ob.rotation_mode = 'QUATERNION'; ob.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(Vector((-dx, dy, dz)).normalized())
     def tree(x, y, h, tint='#4f7a4a'):
+        cyl(f'env_than_cay{x:.0f}{y:.0f}', x, y, GZ + h * 0.4, 0.16, h * 0.8, mat('#5a4636', 0.95), coll=coll, bevel=0.02)          # THÂN cây (đã thiếu sau lần thêm cành)
+        cyl(f'env_goc_cay{x:.0f}{y:.0f}', x, y, GZ + 0.18, 0.24, 0.36, mat('#4a3a2c', 0.95), coll=coll, bevel=0.03)                 # gốc loe
+        for k in range(5):  # rễ nổi
+            a_ = k * 1.26; canh(x + 0.2 * math.cos(a_), y + 0.2 * math.sin(a_), GZ + 0.12, 0.28 * math.cos(a_), 0.28 * math.sin(a_), -0.1, 0.05)
         for k in range(4):  # cành chính toả ra từ thân
             a = k * 1.57 + rnd.uniform(0, 0.6); canh(x, y, GZ + h * 0.5, 0.9 * math.cos(a), 0.9 * math.sin(a), h * 0.22, 0.07)
         sphere(f'env_tan_chinh{x:.0f}{y:.0f}', x, y, GZ + h * 0.72, 0.95, mat(tint, 0.85), scale=(1, 1, 0.8), coll=coll)  # tán chính ôm đỉnh thân
@@ -245,7 +249,7 @@ def build(X, m, coll, night, hl_y1):
     # ------------------------------------------------------------ hẻm bên cửa sổ phòng Nam (x > W): nhà hàng xóm cách 2,2 m
     AX = W + T + 2.2
     B('hem_san', W + T, AX + 0.4, -12, 16, GZ - 0.2, GZ, M.tiles('env_hem', '#6c6a61', '#4a4841', 0.8), coll=coll)
-    B('hem_tuong_nha_ben', AX, AX + 0.4, -12, 16, GZ, GZ + FL * 4 + 1.5, plaster('#a89c7c'), coll=coll)
+    B('hem_tuong_nha_ben', AX, AX + 0.4, -13, 16, GZ, GZ + FL * 4 + 1.5, plaster('#a89c7c'), coll=coll)
     B('hem_tuong_nha_ben_chan', AX - 0.03, AX, -12, 16, GZ, GZ + 1.1, plaster('#8c8a7a'), coll=coll)
     for fl in range(4):
         zb = GZ + fl * FL
@@ -357,7 +361,7 @@ def sky(nt, bg, night, mode='day'):
     """Bầu trời: gradient chân trời → thiên đỉnh + mây (ngày) hoặc sao + ánh phố (đêm). Ghi đè màu nền của world."""
     N, L = nt.nodes, nt.links
     tc = N.new('ShaderNodeTexCoord'); sp = N.new('ShaderNodeSeparateXYZ'); L.new(tc.outputs['Generated'], sp.inputs['Vector'])
-    ramp = N.new('ShaderNodeValToRGB'); L.new(sp.outputs['Z'], ramp.inputs['Fac'])
+    ramp = N.new('ShaderNodeValToRGB'); ramp.label = 'sky_ramp'; L.new(sp.outputs['Z'], ramp.inputs['Fac'])
     e = ramp.color_ramp.elements
     if not night:
         pal = {'day': ((0.86, 0.91, 0.94, 1), (0.36, 0.58, 0.82, 1)), 'noon': ((0.88, 0.93, 0.96, 1), (0.30, 0.54, 0.86, 1)),
@@ -413,11 +417,11 @@ def mo_rong(X, m, coll, night, hl_y1):
     def B(name, *a, **kw): return box('env_' + name, *a, **kw)
     glass_dark = mat('#5d727c', 0.5); steel = mat('#2b2d2e', 0.45, 0.7); white = mat('#ece8dc', 0.6)
     # ---- khối nhà trọ phía sau/trước phòng Nam (đặc, có mặt tiền hướng hẻm)
-    B('khoi_sau', 0.0, W + T, -9.0, -T, GZ, ZT + 0.15, plaster('#d4c8a8'), coll=coll)
+    B('khoi_sau', 0.0, W + T, -13.0, -T, GZ, ZT + 0.15, plaster('#d4c8a8'), coll=coll)   # kéo tới tường rào đầu sân (hết hụt khoảng trống)
     B('khoi_truoc', 0.0, W + T, D + T, YF + 2, GZ, ZT + 0.15, plaster('#d4c8a8'), coll=coll)
-    B('khoi_mai', 0.0, W + T + 0.25, -9.0, YF + 2, ZT + 0.15, ZT + 0.3, plaster('#b9b5a8'), coll=coll)
+    B('khoi_mai', 0.0, W + T + 0.25, -13.0, YF + 2, ZT + 0.15, ZT + 0.3, plaster('#b9b5a8'), coll=coll)
     AXF = W + T
-    for (ya, yb) in [(-9.0 + 0.6, -T - 0.6), (D + T + 0.6, YF)]:
+    for (ya, yb) in [(-13.0 + 0.6, -T - 0.6), (D + T + 0.6, YF)]:
         y = ya
         while y < yb:
             r = random.Random(int(y * 10) + 31)
@@ -469,6 +473,32 @@ def mo_rong(X, m, coll, night, hl_y1):
     B('hl_cuoi', X0 - 0.3, 0.0, YF, YF + 0.25, GZ, ZT + 0.15, plaster('#d8cdb0'), coll=coll)
     B('hl_cuoi_so', X0 + 0.2, EX - 0.2, YF - 0.03, YF, 0.9, 2.3, X.M.emission('e_cuoi', '#cfe6ff' if not night else '#243456', 4.0 if not night else 0.8), coll=coll)
     B('hl_cuoi_bien', -0.8, -0.4, YF - 0.03, YF, 2.45, 2.65, X.M.emission('e_exit', '#3aff7a', 3.0), coll=coll)
+    # ---- khối nhà cuối sân (sau tường rào đầu sân, y < −13): mặt tiền có cửa sổ, ban công, cổng, tranh — che chỗ trống phía xa
+    YR = -13.1
+    B('khoi_cuoi', -16.5, W + T, -28, YR, GZ, GZ + FL * 4 + 0.2, plaster('#d8ccb0'), coll=coll)
+    B('khoi_cuoi_mai', -16.7, W + T + 0.2, -28, YR + 0.2, GZ + FL * 4 + 0.2, GZ + FL * 4 + 0.4, plaster('#b9b5a8'), coll=coll)
+    for fl in range(4):
+        zb = GZ + fl * FL
+        B(f'kc_ban_cong{fl}', -15.0, 2.0, YR, YR + 0.9, zb - 0.1, zb, plaster('#cfc9b6'), coll=coll) if fl > 0 else None
+        if fl > 0:
+            B(f'kc_lan_can{fl}', -15.0, 2.0, YR + 0.86, YR + 0.9, zb, zb + 1.0, steel, coll=coll)
+            for i in range(int(17 / 0.16)): B(f'kc_song{fl}_{i}', -15.0 + i * 0.16, -14.985 + i * 0.16, YR + 0.86, YR + 0.9, zb, zb + 1.0, steel, coll=coll) if False else None
+        xx = -14.6
+        while xx < 1.6:
+            r = random.Random(int(xx * 10) + fl * 77)
+            wdt = r.choice([0.9, 1.1, 1.3]); lit = night and r.random() < 0.5
+            if fl == 0 and -5.8 < xx < -2.5: xx += 3.6; continue   # chỗ cổng sắt
+            B(f'kc_so{fl}_{xx:.1f}', xx, xx + wdt, YR, YR + 0.05, zb + 1.0, zb + 2.0, X.M.emission('e_lskc', '#ffd79a', 0.9) if lit else glass_dark, coll=coll)
+            B(f'kc_khung{fl}_{xx:.1f}', xx - 0.05, xx + wdt + 0.05, YR + 0.05, YR + 0.08, zb + 0.95, zb + 2.05, white, coll=coll)
+            if r.random() < 0.6: B(f'kc_rem{fl}_{xx:.1f}', xx, xx + wdt * r.uniform(0.3, 0.5), YR + 0.02, YR + 0.04, zb + 1.0, zb + 2.0, mat(r.choice(['#b88a6a', '#8aa0b8', '#c9b07a']), 0.9), coll=coll)
+            xx += wdt + r.uniform(0.8, 1.6)
+    B('kc_cong', -5.5, -2.8, YR, YR + 0.06, GZ, GZ + 2.4, mat('#4f7a62', 0.5, 0.4), coll=coll)           # cổng sắt xanh rêu
+    for i in range(9): B(f'kc_cong_thanh{i}', -5.4 + i * 0.3, -5.38 + i * 0.3, YR + 0.06, YR + 0.1, GZ, GZ + 2.4, steel, coll=coll)
+    B('kc_bien', -5.2, -3.1, YR, YR + 0.05, GZ + 2.6, GZ + 3.2, mat('#2f6fb0', 0.5), coll=coll)
+    for k in range(6): B(f'kc_bien_chu{k}', -5.0 + 0.3 * k, -4.88 + 0.3 * k, YR + 0.05, YR + 0.06, GZ + 2.75, GZ + 3.05, white, coll=coll)
+    for k in range(7):  # bụi cây + chậu dọc chân tường rào
+        px = -14 + k * 2.3 + rnd.uniform(-0.3, 0.3)
+        X.sphere(f'env_kc_bui{k}', px, -12.5, GZ + 0.5, rnd.uniform(0.6, 0.9), mat(rnd.choice(['#4a7a47', '#5f8d54', '#3f6e45']), 0.85), scale=(1, 1, 0.8), coll=coll)
     # ---- dãy đối diện kéo dài (đơn giản)
     YA, YB = 36.0, 76.0
     B('nha_dd_dai', -16, BACK, YA, YB, GZ, GZ + FL * 4 + 0.2, plaster('#d9cba5'), coll=coll)

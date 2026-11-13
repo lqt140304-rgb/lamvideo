@@ -262,7 +262,29 @@ def shot_generic(name):
 
 for _n in GEN: pass
 
-SHOTS = {'KINH_NUOC': shot_kinh_nuoc, 'KINH_NUOC_POV': shot_kinh_nuoc_pov, 'ORBIT_GUONG': shot_orbit, 'VERTIGO_GUONG': shot_vertigo, 'STEADI_RA_HL': shot_steadicam, 'RACK_FOCUS_BAN': shot_rack, 'HANDHELD_A04': shot_handheld}
+def shot_doi_gio(sc):
+    """Chuyển giờ mượt: sáng sớm → trưa → chiều tà → tối (đèn bàn bật, laptop sáng), camera DESK đứng yên + handheld nhẹ."""
+    import chuyen_gio
+    rig, cam = new_rig('DOI_GIO', 32, 2.8); fo = focus_empty(cam); N = 96
+    pos, tgt, f = X.CAMERAS['DESK']
+    for fr in range(1, N + 1):
+        key_pose(rig, fr, pos, tgt); fo.location = wp((2.6, 0.35, 0.9)); fo.keyframe_insert('location', frame=fr)
+    chuyen_gio.ap_dung(X, sc, N)
+    handheld(cam, 0.04, 0.002, f1=N); set_range(sc, 1, N)
+    return dict(build=dict(hide_front=False, den_ban=True), proxy=False, mode='dawn')
+
+
+def shot_mua_goc_do(sc):
+    """S07: góc đồ cho tặng chiều muộn sau mưa; mưa rơi, nước chảy từ mép sàn, vũng gợn; đẩy chậm vào gương cũ."""
+    rig, cam = new_rig('MUA_GOC_DO', 26, 2.8); fo = focus_empty(cam); N = 72
+    for fr in range(1, N + 1):
+        t = smooth((fr - 1) / (N - 1)); key_pose(rig, fr, lerp3((-3.0, -10.5, -1.6), (-2.4, -8.4, -1.7), t), lerp3((-0.5, -6.6, -2.2), (-0.2, -7.0, -1.9), t))
+        fo.location = wp((-0.3, -7.0, -2.0)); fo.keyframe_insert('location', frame=fr)
+    handheld(cam, 0.05, 0.002, f1=N); set_range(sc, 1, N)
+    return dict(build=dict(hide_front=False, goc_do=True), proxy=False, mode='rain')
+
+
+SHOTS = {'DOI_GIO': shot_doi_gio, 'MUA_GOC_DO': shot_mua_goc_do, 'KINH_NUOC': shot_kinh_nuoc, 'KINH_NUOC_POV': shot_kinh_nuoc_pov, 'ORBIT_GUONG': shot_orbit, 'VERTIGO_GUONG': shot_vertigo, 'STEADI_RA_HL': shot_steadicam, 'RACK_FOCUS_BAN': shot_rack, 'HANDHELD_A04': shot_handheld}
 for _n in GEN: SHOTS[_n] = shot_generic(_n)
 
 
