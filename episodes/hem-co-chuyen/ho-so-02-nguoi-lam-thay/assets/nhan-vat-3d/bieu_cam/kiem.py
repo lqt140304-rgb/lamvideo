@@ -67,7 +67,8 @@ def chup_nghi(dau):
     """Chụp trạng thái nghỉ (mọi shape key = 0). Gọi một lần ngay sau khi dựng; lưu vào dau.nghi."""
     sk = dau.head.data.shape_keys
     if sk:
-        for kb in sk.key_blocks: kb.value = 0.0
+        for kb in sk.key_blocks:
+            if kb != sk.reference_key: kb.value = 0.0
     bvh = _bvh(dau); bam = {}; vs_all = {}
     for ten, ob in dau.parts.items():
         vs = _verts(ob); sd = sorted(_sd(bvh, v) for v in vs); vs_all[ten] = vs
@@ -121,7 +122,7 @@ def kiem_nhan_dien(dau):
     if (m - r).length > NGUONG_RUOI: loi.append(Loi('nhan_dien', 'Mole', (m - r).length, chi_tiet='nốt ruồi trôi'))
     if m.x * r.x < 0: loi.append(Loi('nhan_dien', 'Mole', abs(m.x - r.x), chi_tiet='nốt ruồi đổi bên'))
     sk = dau.head.data.shape_keys
-    if not sk or all(kb.value == 0 for kb in sk.key_blocks):
+    if not sk or all(kb.value == 0 for kb in sk.key_blocks if kb != sk.reference_key):
         if _hash(_verts(dau.head)) != dau.nghi['hash']: loi.append(Loi('nhan_dien', 'Head_Base', 1.0, chi_tiet='mặt nghỉ khác bản đã chụp'))
     return loi
 
@@ -130,7 +131,8 @@ def chay_kiem(dau, ten_keys, gia_tris=(1.0, 0.5), gocs=GOCS):
     """Đặt từng key ở từng giá trị, chạy mọi kiểm ở mọi góc. Trả danh sách Loi; rỗng = đạt."""
     if dau.nghi is None: chup_nghi(dau)
     kb = dau.head.data.shape_keys.key_blocks if dau.head.data.shape_keys else {}; tat = []
-    for k in list(kb): k.value = 0.0
+    for k in list(kb):
+        if k != dau.head.data.shape_keys.reference_key: k.value = 0.0
     for ten in ten_keys:
         for gt in gia_tris:
             kb[ten].value = gt; ds = kiem_bam(dau) + kiem_de(dau) + kiem_nhan_dien(dau)

@@ -1,0 +1,9 @@
+[
+  {"ten": "ngai_ngu", "nhom": "ngai_ngu_kiet_suc", "muc": 1, "ban_kinh": 0.30,
+   "ghi_chu": "Mí mắt hơi sụp, khóe miệng trễ nhẹ. Độ dời theo tỉ lệ khuôn mặt (khoảng cách hai tâm mắt); x +X (trái nhân vật), y +Y (vào trong đầu), z lên; '.*' = hai bên, x lật dấu bên R.",
+   "dich": {"lid_up.*": [0, 0, -0.05], "mouth_corner.*": [0, 0, -0.02]}},
+  {"ten": "kiet_suc", "nhom": "ngai_ngu_kiet_suc", "muc": 2, "ban_kinh": 0.30,
+   "ghi_chu": "Mí sụp nhiều, mi dưới nâng, đầu mày trong nâng (nét mệt buồn), khóe miệng trễ sâu, cằm hạ.",
+   "dich": {"lid_up.*": [0, 0, -0.09], "lid_low.*": [0, 0, 0.02], "brow_in.*": [0, 0, 0.05], "brow_out.*": [0, 0, -0.03],
+            "mouth_corner.*": [-0.01, 0, -0.06], "chin": [0, 0, -0.03]}}
+]
