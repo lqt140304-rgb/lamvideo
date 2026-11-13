@@ -51,7 +51,7 @@ def build(X, m, coll, night, hl_y1):
         for _n in _wet.node_tree.nodes:
             if _n.type == 'BSDF_PRINCIPLED': _n.inputs['Roughness'].default_value = 0.1
     B('san_tang1', -30, EX, -14, 96, GZ - 0.2, GZ, (M.tiles('env_san_uot', '#7d7a6c', '#575448', 0.6) if getattr(X, 'MODE_HIEN_TAI', 'day') == 'rain' else M.tiles('env_san', '#b3ad9b', '#8a8577', 0.6)), coll=coll)
-    for (x0, x1, y0, y1, c) in [(-7.0, -6.0, 4, 9, '#7b9a5b'), (-3.2, -2.1, 11, 14, '#6f9455'), (-6.8, -5.4, 17, 21, '#7b9a5b'), (-3.0, -2.0, -2.2, 0.8, '#6f9455')]:
+    for (x0, x1, y0, y1, c) in [(-3.2, -2.1, 4, 9, '#7b9a5b'), (-3.2, -2.1, 11, 14, '#6f9455'), (-3.2, -2.1, 17, 21, '#7b9a5b'), (-3.0, -2.0, -2.2, 0.8, '#6f9455')]:
         B('bon_cay', x0, x1, y0, y1, GZ, GZ + 0.28, plaster('#8a8272'), bevel=0.01, coll=coll)
         B('dat_bon', x0 + 0.06, x1 - 0.06, y0 + 0.06, y1 - 0.06, GZ + 0.26, GZ + 0.3, mat(c, 0.95), coll=coll)
     # cột + dầm tầng trệt dưới hành lang, tường tầng trệt có cửa cuốn
@@ -184,7 +184,7 @@ def build(X, m, coll, night, hl_y1):
         for k in range(9):
             a = rnd.uniform(0, 6.283); rr = rnd.uniform(0.0, 1.1)
             sphere(f'env_tan{x:.0f}{y:.0f}{k}', x + rr * math.cos(a), y + rr * math.sin(a), GZ + h * 0.72 + rnd.uniform(-0.3, 1.0), rnd.uniform(0.7, 1.15), mat(rnd.choice([tint, '#5f8d54', '#44704a']), 0.85), scale=(1, 1, 0.8), coll=coll)
-    tree(-4.2, 6.5, 6.5); tree(-5.2, 18.0, 7.5); tree(-2.6, 12.6, 3.2, '#6f9455')
+    tree(-2.65, 6.5, 6.5); tree(-2.65, 19.0, 7.5); tree(-2.6, 12.6, 3.2, '#6f9455')
     tree_old = None
     for (x, y, h) in [(-6.5, 5.0, 2.0), (-6.4, 19.0, 2.4)]:  # cau/dừa cảnh
         cyl(f'env_cau{x:.0f}{y:.0f}', x, y, GZ + h / 2, 0.07, h, mat('#7a6a4a', 0.9), coll=coll)
@@ -199,13 +199,13 @@ def build(X, m, coll, night, hl_y1):
             px, py = p(dx); cyl(f'env_xm_b{x:.1f}{y:.1f}{dx}', px, py, (z0 + z1) / 2, 0.16, z1 - z0, mat(cc, 0.45), rot=(0, 0, 0), coll=coll, bevel=0.03)
         px, py = p(0.55); B(f'xm_ghi_dong{x:.1f}{y:.1f}', px - 0.2, px + 0.2, py - 0.03, py + 0.03, GZ + 1.0, GZ + 1.03, steel, coll=coll)
     colors = ['#b3362c', '#1f3a5f', '#d8d2c2', '#2f2f2f', '#e0a030', '#3d6e5a', '#8a2f5a']
-    for i in range(14):
-        xe_may(rnd.uniform(-3.4, -1.9), 1.0 + i * 1.15 + rnd.uniform(-0.2, 0.2), rnd.choice([math.pi / 2, math.pi / 2, 1.2]), colors[i % 7])
-    for i in range(6): xe_may(-7.0 + rnd.uniform(-0.3, 0.4), 4 + i * 3.1, math.pi / 2, colors[(i + 2) % 7])
+    for i, yp in enumerate([1.2, 2.5, 3.8, 9.6, 10.9, 14.5, 15.8]):   # xe đỗ sát hè phía nhà trọ, chừa làn đường giữa sân
+        xe_may(-2.5 + rnd.uniform(-0.1, 0.1), yp, math.pi / 2, colors[i % 7])
+    for i, yp in enumerate([10.2, 13.3]): xe_may(-7.3, yp, math.pi / 2, colors[(i + 2) % 7])
     for i in range(5):  # thùng rác, chậu, xô
         cyl(f'env_thung_rac{i}', -2.2, 19.5 + i * 0.5, GZ + 0.4, 0.28, 0.8, mat(rnd.choice(['#3b6e4b', '#2b4a7a', '#8a8a8a']), 0.55), coll=coll, bevel=0.02)
     # cột điện + dây
-    def pole(y, x=-4.8):
+    def pole(y, x=-1.75):
         cyl(f'env_cot_dien{y:.0f}', x, y, GZ + 4.8, 0.14, 9.6, mat('#8a8780', 0.9), coll=coll)
         B(f'xa_dien{y:.0f}', x - 1.0, x + 1.0, y - 0.05, y + 0.05, GZ + 9.0, GZ + 9.12, steel, coll=coll)
         B(f'xa_dien2{y:.0f}', x - 0.8, x + 0.8, y - 0.05, y + 0.05, GZ + 8.5, GZ + 8.62, steel, coll=coll)

@@ -120,3 +120,10 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - **Ô tô:** 2 chiếc nhỏ (thân, cabin kính, cột, 4 bánh, đèn trước/sau, cản) chạy chậm hai chiều giữa sân, làn x = −4,2.
 - **Người/xe thêm chi tiết:** người có cổ, vai, hông, bàn tay, giày, tóc nhiều màu; xe máy có yên, chắn bùn, chóa đèn, gương chiếu hậu, ống pô. Làn đường tách nhau (xe máy −6,4/−6,0; người −5,5…−5,2; ô tô −4,2). Camera kiểm tra `SAN_XE`.
 - Người/xe vẫn là khối đơn giản, chưa dùng bộ nhân vật modular của nhân vật chính (chủ ý: chỉ là người đi đường nền).
+
+## 13/11 tối: khu tập thể Hà Nội, phân làn, người bán ngồi ven đường (`ktt_ha_noi.py`)
+- **Tường nhà:** vết ố nước mưa chảy dọc (mờ dần, mép loang bằng noise), rêu sát chân tường, mảng tường gạch lộ do bong vữa (vật liệu Brick theo mét) trên tường nhà trọ (tầng trệt + tầng 3), nhà đối diện và nhà cuối sân.
+- **Chi tiết KTT:** chuồng cọp bọc lưới sắt + mái tôn dốc ở nhà cuối sân, sào phơi đồ thò ra cửa sổ, điều hoà cục nóng, hộp công tơ điện, ống nước PVC, biển số nhà (A5, P.12), loa phường, hoa giấy trong chậu trên lan can, cờ đỏ sao vàng, quán trà đá (bàn thấp, ghế nhựa, ô dù, bình thuỷ), xe đẩy bánh mì.
+- **Phân làn (sân dài 68 m):** vỉa hè nâng 8 cm ở phía tây cho người đi bộ (x −7,55…−6,5); lòng đường nhựa x −6,5…−3,4, vạch biên liền, vạch đứt phân làn, vạch đi bộ qua đường; làn tây −6,3 đi −y (xe máy, xe cộ chậm), làn giữa −5,1 ô tô đi +y, làn đông −3,9 xe máy đi +y; xe đỗ và bồn cây dồn về hè đông (x > −3,2), cột điện chuyển sát hè đông (x = −1,75) nên ô tô không còn đâm vào cột và cây.
+- **Người bán hàng rong ngồi ven đường (3 người, đứng yên, mỗi người một kiểu):** bà bán rau (nón lá, rổ rau, ô che nắng, chiếu), cô bán trái cây (khăn trùm đầu, ghế nhựa, đôi thúng + quang gánh đặt xuống), chú bán bánh mì (mũ lưỡi trai, ngồi sau xe đẩy). Bỏ gánh/xe đạp hoa đi bộ.
+- Camera kiểm tra: `VIA_HE`, `VIA_HE_2`; ảnh `xem-thu/ktt/`.
