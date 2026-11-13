@@ -296,6 +296,17 @@ def smooth_weights(asm, iters, alpha, head_z):
         for j in range(ng):
             acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
         W[crotch] = 0.4 * W[crotch] + 0.6 * (acc[crotch] / deg[crotch, None])
+    # da ngực sát nách (|x| 0,05–0,12, z 0,62–0,84) còn dính ~70% xương bắp tay nên bị kéo vút lên thành nếp bóp chữ V khi giơ tay cao → trả 85% phần đó về xương ngực rồi khuếch tán nhẹ cho dàn đều
+    ch_i = names.index('chest')
+    m_ch = (sm(0.03, 0.05, xs) * sm(0.14, 0.12, xs) * sm(0.59, 0.62, zs) * sm(0.87, 0.84, zs)).astype(np.float32)
+    for k_, sg in (('L', 1.0), ('R', -1.0)):
+        ua = names.index(f'upper_arm.{k_}'); mv = W[:, ua] * m_ch * (xr * sg > 0) * 0.85; W[:, ua] -= mv; W[:, ch_i] += mv
+    mz = (sm(0.00, 0.03, xs) * sm(0.17, 0.14, xs) * sm(0.56, 0.59, zs) * sm(0.90, 0.87, zs)).astype(np.float32)[:, None] * 0.6
+    for it in range(80):
+        acc = np.zeros_like(W)
+        for j in range(ng):
+            acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
+        W = (1 - mz) * W + mz * (acc / deg[:, None])
     W[~free] = 0; W[~free, hi] = 1.0
     # tối đa 4 xương, chuẩn hoá
     W[W < 0.002] = 0.0; W /= W.sum(axis=1, keepdims=True).clip(min=1e-9)   # KHÔNG ép tối đa 4 xương: cắt top-4 trên trường trơn tạo bước nhảy → nứt khi tạo dáng
