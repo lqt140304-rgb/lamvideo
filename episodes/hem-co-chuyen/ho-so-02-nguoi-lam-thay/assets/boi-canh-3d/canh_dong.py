@@ -119,7 +119,7 @@ def build(X, coll, night, mode):
     for k, yy in enumerate((16.0, 26.0, 36.0, 46.0)): bike(f'env_cd_xm_san{k}', -3.65, yy, 0.2, 62.0, cols[k % 6], hel[k % 5], 1)
     for k, yy in enumerate((40.0, 58.0)): bike(f'env_cd_xm_san_nam{k}', -5.35, yy, 0.16, 62.0, cols[(k + 2) % 6], hel[(k + 3) % 5], -1)
     for k in range(3):   # hẻm bên cửa sổ phòng Nam
-        bike(f'env_cd_xm_hem{k}', W + T + 1.85, k * 17.0, 0.2 + 0.04 * k, 56.0, cols[(k + 2) % 6], hel[(k + 1) % 5], 1)
+        bike(f'env_cd_xm_hem{k}', W + T + 1.85, k * 17.0, 0.22, 56.0, cols[(k + 2) % 6], hel[(k + 1) % 5], 1)
 
     # ------------------------------------------------------------ ô tô nhỏ chạy chậm giữa sân (thân, cabin kính, 4 bánh, đèn, cản)
     def oto(name, lane_x, y_start, speed, span, color, direction=1, van=False):
@@ -175,7 +175,7 @@ def build(X, coll, night, mode):
         _fade(root, f'fmod({y0:.1f}+frame*{speed:.4f},{span:.1f})', span, 2.0)
         root.location[1] = y0
     shirts = ['#4a78a8', '#c4503a', '#6a9a5a', '#e0c050', '#7a5a8a', '#eeeeee']; tr = ['#2a2a3a', '#4a4a50', '#3a4a6a']
-    for k in range(5): nguoi(f'env_cd_nguoi{k}', -6.5, k * 8.0, 0.05, 41.0, shirts[k % 6], tr[k % 3], 1, kid=(k == 3))
+    for k in range(5): nguoi(f'env_cd_nguoi{k}', -6.43, k * 8.0, 0.05, 41.0, shirts[k % 6], tr[k % 3], 1, kid=(k == 3))
     for k in range(2): nguoi(f'env_cd_nguoi_hem{k}', W + T + 1.3, 10 + k * 14, 0.05, 36.0, shirts[(k + 3) % 6], tr[k], 1)
 
     # ------------------------------------------------------------ chim bay ngang bầu trời (thân + 2 cánh vỗ)

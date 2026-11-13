@@ -214,11 +214,8 @@ def build(X, m, coll, night, hl_y1):
         for k in range(9):
             a = rnd.uniform(0, 6.283); rr = rnd.uniform(0.0, 1.1)
             sphere(f'env_tan{x:.0f}{y:.0f}{k}', x + rr * math.cos(a), y + rr * math.sin(a), GZ + h * 0.72 + rnd.uniform(-0.3, 1.0), rnd.uniform(0.7, 1.15), mat(rnd.choice([tint, '#5f8d54', '#44704a']), 0.85), scale=(1, 1, 0.8), coll=coll)
-    tree(-2.45, 6.5, 6.5); tree(-2.45, 19.0, 7.0, '#7a9a4a', 'phuong'); tree(-2.45, 12.6, 4.2, '#6f9455', 'cau')
+    tree(-2.3, 6.5, 6.5); tree(-2.3, 19.0, 7.0, '#7a9a4a', 'phuong'); tree(-2.3, 12.6, 4.2, '#6f9455', 'cau')
     tree_old = None
-    for (x, y, h) in [(-6.5, 5.0, 2.0), (-6.4, 19.0, 2.4)]:  # cau/dừa cảnh
-        cyl(f'env_cau{x:.0f}{y:.0f}', x, y, GZ + h / 2, 0.07, h, mat('#7a6a4a', 0.9), coll=coll)
-        for k in range(6): sphere(f'env_cau_la{x:.0f}{y:.0f}{k}', x + 0.55 * math.cos(k), y + 0.55 * math.sin(k), GZ + h, 0.5, mat('#4a8a4a', 0.8), scale=(1, 0.25, 0.25), coll=coll)
 
     def xe_may(x, y, yaw, color):
         c = math.cos(yaw); s = math.sin(yaw)
@@ -229,10 +226,10 @@ def build(X, m, coll, night, hl_y1):
             px, py = p(dx); cyl(f'env_xm_b{x:.1f}{y:.1f}{dx}', px, py, (z0 + z1) / 2, 0.16, z1 - z0, mat(cc, 0.45), rot=(0, 0, 0), coll=coll, bevel=0.03)
         px, py = p(0.55); B(f'xm_ghi_dong{x:.1f}{y:.1f}', px - 0.2, px + 0.2, py - 0.03, py + 0.03, GZ + 1.0, GZ + 1.03, steel, coll=coll)
     colors = ['#b3362c', '#1f3a5f', '#d8d2c2', '#2f2f2f', '#e0a030', '#3d6e5a', '#8a2f5a']
-    for i, yp in enumerate([1.2, 2.5, 3.8, 9.6, 10.9, 14.5, 15.8]):   # xe đỗ sát hè phía nhà trọ, chừa làn đường giữa sân
+    for i, yp in enumerate([1.9, 10.0, 15.5]):   # xe đỗ sát hè phía nhà trọ, chừa làn đường giữa sân
         xe_may(-2.3 + rnd.uniform(-0.05, 0.05), yp, math.pi / 2, colors[i % 7])
     for i in range(5):  # thùng rác, chậu, xô
-        cyl(f'env_thung_rac{i}', -2.2, 19.5 + i * 0.5, GZ + 0.4, 0.28, 0.8, mat(rnd.choice(['#3b6e4b', '#2b4a7a', '#8a8a8a']), 0.55), coll=coll, bevel=0.02)
+        cyl(f'env_thung_rac{i}', -2.2, 21.5 + i * 0.5, GZ + 0.4, 0.28, 0.8, mat(rnd.choice(['#3b6e4b', '#2b4a7a', '#8a8a8a']), 0.55), coll=coll, bevel=0.02)
     # cột điện + dây
     def pole(y, x=-1.75):
         cyl(f'env_cot_dien{y:.0f}', x, y, GZ + 4.8, 0.14, 9.6, mat('#8a8780', 0.9), coll=coll)

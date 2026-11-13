@@ -81,7 +81,7 @@ def build(X, coll, night, mode):
 
     # ------------------------------------------------------------ chuồng cọp ở nhà cuối sân (ban công bọc lưới sắt, mái tôn dốc)
     steel = mat('#2e3234', 0.5, 0.7); ton = mat('#8c8f86', 0.55, 0.6); rust = mat('#7a4a30', 0.8, 0.4)
-    for k, (xc, fl) in enumerate([(-12.5, 1), (-9.0, 2), (-6.4, 3), (-1.0, 1), (-10.0, 3), (-7.0, 1)]):
+    for k, (xc, fl) in enumerate([(-7.0, 1), (-4.5, 2), (-2.0, 3), (-6.0, 3), (-3.3, 1), (-1.2, 2)]):
         zb = GZ + fl * FL; wd = rnd.choice([1.6, 2.0, 2.4]); x0 = xc - wd / 2; yf = YR + 0.95
         B(f'cg_trai{k}', x0, x0 + 0.03, YR, yf, zb, zb + 1.9, steel, coll=coll); B(f'cg_phai{k}', x0 + wd - 0.03, x0 + wd, YR, yf, zb, zb + 1.9, steel, coll=coll)
         for i in range(int(wd / 0.13) + 1): B(f'cg_song{k}_{i}', x0 + i * 0.13, x0 + i * 0.13 + 0.02, yf, yf + 0.02, zb, zb + 1.85, steel, coll=coll)
@@ -166,12 +166,12 @@ def build(X, coll, night, mode):
     B('quan_ban', qx - 0.3, qx + 0.3, qy - 0.4, qy + 0.4, GZ + 0.5, GZ + 0.54, mat('#6a4a30', 0.8), bevel=0.01, coll=coll)
     for sx in (-0.26, 0.26):
         for sy in (-0.36, 0.36): B(f'quan_chan{sx}{sy}', qx + sx - 0.02, qx + sx + 0.02, qy + sy - 0.02, qy + sy + 0.02, GZ, GZ + 0.5, mat('#4a3320', 0.8), coll=coll)
-    for k, (dx, dy) in enumerate([(-0.4, -0.2), (-0.4, 0.3), (0.45, -0.1), (0.45, 0.4)]):
+    for k, (dx, dy) in enumerate([(-0.5, -0.1), (-0.5, 0.3), (0.5, -0.1), (0.5, 0.3)]):
         cyl(f'env_ktt_ghe_thap{k}', qx + dx, qy + dy, GZ + 0.15, 0.17, 0.3, mat(rnd.choice(['#c24a3a', '#3b6ea5', '#e3b84a']), 0.55), coll=coll, bevel=0.02)
     cyl('env_ktt_binh_thuy', qx - 0.1, qy - 0.1, GZ + 0.54 + 0.17, 0.08, 0.34, mat('#c8402e', 0.4), coll=coll); sphere('env_ktt_am_tra', qx + 0.12, qy + 0.1, GZ + 0.54 + 0.09, 0.07, mat('#ddd8c8', 0.4), coll=coll)
     for k in range(4): cyl(f'env_ktt_coc{k}', qx - 0.15 + k * 0.1, qy + 0.25, GZ + 0.54 + 0.04, 0.025, 0.08, mat('#a8c4c0', 0.1), coll=coll)
-    cyl('env_ktt_du_cot', qx, qy, GZ + 1.1, 0.02, 2.2, mat('#6a6a64', 0.5, 0.6), coll=coll)
-    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=16, radius1=1.1, radius2=0.03, depth=0.4); X._mesh_obj('env_ktt_du', bm, (X.mx(qx), qy, GZ + 2.35), mat('#2f9a6a', 0.7), True, coll)
+    cyl('env_ktt_du_cot', qx, qy - 0.75, GZ + 1.1, 0.02, 2.2, mat('#6a6a64', 0.5, 0.6), coll=coll)
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=16, radius1=1.1, radius2=0.03, depth=0.4); X._mesh_obj('env_ktt_du', bm, (X.mx(qx), qy - 0.75, GZ + 2.35), mat('#2f9a6a', 0.7), True, coll)
 
     # ------------------------------------------------------------ xe đẩy bánh mì (tủ kính, mái, biển)
     cx, cy = -2.35, -5.2
@@ -181,7 +181,7 @@ def build(X, coll, night, mode):
     for k in range(6): cyl(f'env_ktt_banh_mi{k}', cx, cy - 0.5 + 0.2 * k, GZ + 1.07, 0.06, 0.28, mat('#c8903a', 0.7), axis='Y' if False else 'X', coll=coll, bevel=0.01)
     B('xe_bm_mai', cx - 0.5, cx + 0.5, cy - 0.8, cy + 0.8, GZ + 1.88, GZ + 1.92, mat('#b3452f', 0.6), coll=coll); B('xe_bm_bien', cx - 0.52, cx - 0.48, cy - 0.7, cy + 0.7, GZ + 1.5, GZ + 1.85, mat('#f0c030', 0.5), coll=coll)
     for xx, yy in ((cx - 0.45, cy - 0.78), (cx + 0.45, cy - 0.78), (cx - 0.45, cy + 0.78), (cx + 0.45, cy + 0.78)): cyl(f'env_ktt_xe_bm_cot{xx}{yy}', xx, yy, GZ + 1.4, 0.012, 0.9, steel, coll=coll)
-    for xx in (cx - 0.3, cx + 0.3): torus(f'env_ktt_xe_bm_banh{xx}', xx, cy, GZ + 0.25, 0.25, 0.03, mat('#1a1a1a', 0.8), rot=(0, math.pi / 2, 0), coll=coll)
+    for xx in (cx - 0.47, cx + 0.47): torus(f'env_ktt_xe_bm_banh{xx}', xx, cy, GZ + 0.25, 0.25, 0.03, mat('#1a1a1a', 0.8), rot=(0, math.pi / 2, 0), coll=coll)
     chu('xe_bm_chu', 'BÁNH MÌ', 0.14, cx - 0.53, cy, GZ + 1.6, '#b32a20')
 
     # ------------------------------------------------------------ hàng rong chuyển động: gánh hoa quả + xe đạp chở hoa
@@ -260,8 +260,8 @@ def build(X, coll, night, mode):
         cy_ = -1.5 - 0.4 + 0.8 * k
         cyl(f'env_ktt_ro_rau{k}', -6.95, cy_, zv + 0.09, 0.24, 0.16, mat('#b08a4a', 0.9), coll=coll)
         for j in range(9): sphere(f'env_ktt_rau{k}_{j}', -6.95 + rnd.uniform(-0.17, 0.17), cy_ + rnd.uniform(-0.17, 0.17), zv + 0.2 + rnd.uniform(0, 0.08), rnd.uniform(0.06, 0.1), mat(rnd.choice(['#4f8a3a', '#6aa04a', '#3a7a3a', '#8ab04a']), 0.8), scale=(1, 1, 0.6), coll=coll)
-    cyl('env_ktt_du_rau_cot', -7.5, -1.5, zv + 1.15, 0.02, 2.3, mat('#6a6a64', 0.5, 0.6), coll=coll)
-    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=16, radius1=1.0, radius2=0.03, depth=0.35); X._mesh_obj('env_ktt_du_rau', bm, (X.mx(-7.5), -1.5, zv + 2.3), mat('#d8a02a', 0.7), True, coll)
+    cyl('env_ktt_du_rau_cot', -7.5, -2.05, zv + 1.15, 0.02, 2.3, mat('#6a6a64', 0.5, 0.6), coll=coll)
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=16, radius1=1.0, radius2=0.03, depth=0.35); X._mesh_obj('env_ktt_du_rau', bm, (X.mx(-7.5), -2.05, zv + 2.3), mat('#d8a02a', 0.7), True, coll)
     # 2) cô bán trái cây: khăn trùm đầu, ghế nhựa thấp, đôi thúng + quang gánh đặt xuống đất
     nguoi_ngoi('ban_trai_cay', -7.3, 14.0, zv, False, '#c4503a', '#3a4a6a', 'khan', ghe='#c24a3a')
     cyl('env_ktt_quang_ganh', -6.95, 14.0, zv + 0.2, 0.014, 1.7, mat('#a8905a', 0.7), axis='Y', coll=coll)
@@ -270,7 +270,7 @@ def build(X, coll, night, mode):
         for j in range(10): sphere(f'env_ktt_trai{k}_{j}', -6.95 + rnd.uniform(-0.17, 0.17), 14.0 + dy + rnd.uniform(-0.17, 0.17), zv + 0.24 + rnd.uniform(0, 0.08), 0.07, mat(rnd.choice(['#e8a020', '#c83a2a', '#6a9a3a', '#e0c030', '#d85a8a']), 0.5), coll=coll)
     B('trai_chieu', -7.5, -6.72, 12.9, 15.1, zv, zv + 0.01, mat('#2f66a8', 0.5), coll=coll)
     # 3) chú bán bánh mì: mũ lưỡi trai, ngồi sau xe đẩy
-    nguoi_ngoi('ban_banh_mi', -1.75, -5.2, GZ, True, '#e8e4d8', '#2a2a2a', 'mu', ghe='#e3b84a')
+    nguoi_ngoi('ban_banh_mi', -1.4, -5.2, GZ, True, '#e8e4d8', '#2a2a2a', 'mu', ghe='#e3b84a')
 
     # ================================================================ ƯU TIÊN: chuồng cọp nhà đối diện + téc inox, búi dây/cột điện tổ chim, quán chè chén, thùng xốp rau, stencil
     inox = mat('#c8cbca', 0.2, 0.9)

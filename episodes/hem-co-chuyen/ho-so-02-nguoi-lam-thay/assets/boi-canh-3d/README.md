@@ -149,3 +149,8 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - Chữ đọc được ở cận cảnh: "BÁNH MÌ", "A5", "P.12", "KHOAN CẮT BÊ TÔNG 0912 345 678". Đã dời biển số/stencil khỏi cửa cuốn, công tơ và cột (cột X0 che khi nhìn thẳng); stencil nằm trước mảng gạch lộ (EX−0,02). Camera kiểm: `BIEN_SO_NHA`, `STENCIL_T1`, `BIEN_BANH_MI`, `STENCIL_HL`.
 - Cảnh qua cửa sổ phòng Nam (`CUA_SO`): chuồng cọp nhà hàng xóm đua ra 14 cm (trước 30 cm), song cách 22 cm → thoáng hơn, thấy rõ quần áo phơi phía sau.
 - Rêu trên tường: giảm cường độ (`phong_tran(reu=0.5, z_reu=-2.0)`), chỉ còn viền xanh nhạt sát chân tường.
+
+### Kiểm tra xuyên/che lấp (13/11 đêm) — `kiem_xuyen.py`
+- Công cụ quét AABB (lấy mẫu 58 khung trong 700 khung): xe/người chuyển động vs đồ tĩnh, xe vs xe, đồ tĩnh vs đồ tĩnh, đồ gắn tường nhúng sâu vào khối nhà. Chạy: `/tmp/bpyenv/bin/python kiem_xuyen.py`.
+- Đã sửa: 2 cây cau cũ đứng giữa vỉa hè (người đi bộ xuyên, lá chạm nóc xe van) → xoá; rễ cây chìa ra làn xe → dời cây vào giữa bồn; xe đỗ chồng lên bồn cây, thùng rác chồng lên bồn → dời; cột ô quán trà xuyên qua bàn, cột ô bà bán rau xuyên qua nón → dời sang bên; ghế quán chạm chân bàn; chú bánh mì ngồi cắm chân vào xe đẩy, bánh xe đẩy nằm lọt trong thân xe → dời; xe máy trong hẻm đuổi kịp nhau → cùng tốc độ; người đi bộ chạm rổ người bán → lối đi dời −6,43; 3 chuồng cọp nhà cuối sân cắm vào khối nhà đối diện → dời vào đúng mặt tiền.
+- Kết quả sau sửa: 0 va chạm xe/người với đồ tĩnh, 0 xe-xe; còn lại chỉ là các bộ phận của cùng một nhân vật/xe (đùi–hông, bánh mì trong tủ kính, cây trong bồn).
