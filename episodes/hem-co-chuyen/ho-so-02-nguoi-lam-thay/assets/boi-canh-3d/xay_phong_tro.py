@@ -712,6 +712,7 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'CHAU_HL': ((-0.6, 3.6, 1.0), (-1.15, 5.2, 0.4), 35),  # chậu cây hành lang
     'GOC_DO': ((-3.6, -12.4, -1.2), (-0.6, -8.0, -2.0), 22),   # S07: góc đồ cho tặng ở chân cầu thang, nhìn từ sân
     'GOC_DO_TO_GIAY': ((-1.2, -6.4, -1.5), (0.0, -6.4, -1.4), 50),   # cận tờ giấy "Ai cần cứ lấy"
+    'GOC_DO_QUAY': ((-2.4, -12.0, -1.9), (-0.5, -10.4, -2.3), 32),   # cận bàn nhận đồ
     'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
     'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),

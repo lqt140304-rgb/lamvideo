@@ -95,3 +95,15 @@ Chế độ `--mode dawn|noon|sunset|rain|night|day`, `--den-ban on|off`, `--goc
 ## Đồ dùng tinh chỉnh — cập nhật 13/11
 
 Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đồ dùng mới trên bối cảnh hiện tại: tựa ghế đúng chiều, chăn ôm ngoài mép nệm và chân cao su laptop đặt trên mặt bàn. Xem [hướng dẫn tích hợp và giới hạn](README-CHI-TIET.md), [ảnh sửa tiếp xúc](sua-tiep-xuc/DA-SUA.png). Entry gốc vẫn giữ nguyên; cần gọi entry tinh chỉnh hoặc gọi `refine()` sau `build()` để nhận đồ dùng mới.
+
+## 13/11 chiều muộn: nắng trưa chữ nhật, quầy nhận đồ S07 chi tiết, chuyển giờ, mưa chuyển động
+- **Nắng trưa** (`--mode noon`): `khung_nang_ban` (xay_phong_tro.py) là khung chắn sáng vô hình với camera, đặt sau cửa sổ vuông góc tia nắng, ô 0,46 × 0,30 m → nắng in thành mảng sáng có rìa rõ lên mặt bàn (tâm 0,55; 0,36), vạch chéo của song cửa sổ chạy qua. Nắng trưa 14, ánh hắt cửa sổ 32, độ nhoè mặt trời 0,5°. Ảnh: `xem-thu/anh-sang/trua-mat-ban-chu-nhat.png`.
+- **Chuyển giờ mượt** (`chuyen_gio.py`, shot `DOI_GIO`, 96 khung): keyframe nắng (hướng, màu, độ mạnh), gradient bầu trời, ánh hắt cửa sổ, đèn bàn + bóng, màn hình laptop, phơi sáng; rèm khe chỉ có lúc sáng sớm.
+- **Mưa chuyển động** (`goc_cho_tang.py`, shot `MUA_GOC_DO`): hạt mưa rơi bằng driver theo khung hình, 9 sợi nước nhỏ giọt từ mép sàn tầng 3, vòng gợn trên vũng nước.
+- **Quầy nhận đồ S07** (camera `GOC_DO`, `GOC_DO_QUAY` cận bàn; ảnh `xem-thu/goc-do/quay-nhan-do-*.png`):
+  - Mái bạt đỏ trắng, 2 cột, dây 9 đèn lồng, đèn điểm ấm hắt xuống bàn; biển gỗ "ĐỒ CHO TẶNG".
+  - Bàn gỗ khăn trải thả mép: chồng 4 áo gấp (sọc, nếp gấp), chồng 5 sách (gáy vàng, mép giấy, nhãn, dây đánh dấu), ấm kim loại (vòi, quai, nút), lọ thủy tinh (nắp, nhãn, kẹo), đôi dép (đế, quai chéo), gấu bông cũ, đồng hồ báo thức, thẻ "Lấy tùy tâm", hộp ủng hộ đỏ (khe, băng keo, chữ "ỦNG HỘ").
+  - Dưới bàn: rổ mây đựng 3 quả bóng, đôi giày cũ.
+  - Giá treo áo 7 áo (tay áo, móc, thẻ giá buộc dây).
+  - Góc đồ cũ: quạt (vành lồng, 3 cánh, nan, trục), ghế gãy thêm đệm đỏ, thùng carton băng keo + chữ "SÁCH CŨ", gương bám bụi có vết ngón tay.
+- Mọi đối tượng bắt đầu `env_gct_`. Chưa render lại `chuoi-shot.mp4`.
