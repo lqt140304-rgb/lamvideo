@@ -134,3 +134,13 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 
 ### Mở rộng đường cho ô tô (13/11 tối)
 - Mặt cắt mới (x thiết kế): vỉa hè −7,55…−6,25; **đường nhựa −6,25…−2,8 (rộng 3,45 m, 2 làn, vạch tim đứt −4,5)**; hè đông (bồn cây −2,8…−2,1, xe đỗ, quán, xe bánh mì) từ −2,8 trở vào. Làn đông x = −3,65 đi +y, làn tây x = −5,35 đi −y; ô tô (rộng 1,5 m) và xe máy dùng chung làn, cùng tốc độ trong mỗi làn, cách nhau ≥ 9 m nên không chồng nhau. Người đi bộ cùng một chiều trên lối −6,5.
+
+## 13/11 đêm: chi tiết Hà Nội theo bảng ưu tiên
+- **Ưu tiên 1:** chuồng cọp sắt đua ra 30 cm ngoài ban công nhà hàng xóm trong hẻm + téc inox nằm trên mái chuồng (`moi_truong.hem_chi_tiet`; nhìn từ `CUA_SO`); 7 chuồng cọp đua ra 65 cm ở nhà đối diện, một nửa có téc inox (`ktt_ha_noi.py`); cột điện "tổ chim": 3 cuộn cáp quấn cột, hộp cáp, mớ dây rối quanh xà, tổ chim, biến áp ở cột y = 8.
+- **Ưu tiên 2:** công tơ điện cơ **đĩa xoay** (kính, đĩa nhôm quay bằng driver) + cầu dao cạnh cửa phòng Nam (`hallway_details`), dép tổ ong (xanh rêu/nâu/be) ở kệ giày; chữ stencil "KHOAN CẮT BÊ TÔNG 0912 345 678" ở tường hành lang và tường tầng trệt; shader `vat_lieu.phong_tran` (nền vôi loang + mảng vàng ố + rêu theo cao độ) áp cho mọi tường môi trường (`moi_truong.plaster`).
+- **Ưu tiên 3:** quán nước chè chén tầng 1 (khay chén, ấm, bếp than, ghế nhựa), 4 thùng xốp trồng rau chân nhà trọ.
+- Ảnh: `xem-thu/ktt/toan-canh-chuong-cop-cot-dien.png`, `hanh-lang-cong-to.png`. Chữ stencil và chữ biển chưa kiểm tận mắt ở độ phân giải cao.
+
+### Giảm lặp (cùng đợt)
+- Tầng 3 nhà trọ: cửa không đều (rộng 0,8–0,95, cách nhau 0,9–2,4 m), màu không trùng liên tiếp, 30% cửa lưới sắt / 20% rèm ô thoáng, cửa sổ nhỏ có song, giày dép, chậu cây, ghế, biển số ngẫu nhiên; sào phơi/điều hoà đặt ở khe giữa các cửa, bỏ trống nhiều chỗ; chậu lan can 4 loại (hoa giấy, lá, sen đá, thùng xốp rau) cách nhau ngẫu nhiên.
+- Đường phố: xe máy mỗi xe một kiểu (thùng giao hàng, chở thêm người, giỏ trước, kích cỡ), người đi bộ khác chiều cao + túi/mũ, ô tô 1 sedan + 1 van có giá nóc, 3 kiểu cây (tròn, phượng tán dẹt có hoa, cau mảnh).

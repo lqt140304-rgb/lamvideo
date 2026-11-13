@@ -32,7 +32,7 @@ def build(X, m, coll, night, hl_y1):
 
     def plaster(color, name=None):
         k = ('p', color)
-        if k not in _cache: _cache[k] = M.mottled('ep_' + color.strip('#'), color, rough=0.95, scale=0.8, vary=0.1, bump=0.12)
+        if k not in _cache: _cache[k] = M.phong_tran('ep_' + color.strip('#'), color)
         return _cache[k]
 
     def glow(color, s):
@@ -78,11 +78,32 @@ def build(X, m, coll, night, hl_y1):
     B('tay_vin_t3', X0 - 0.01, X0 + 0.15, Y0, Y1, z3 + 1.0, z3 + 1.04, steel, coll=coll)
     for i in range(int((Y1 - Y0) / 0.14)): B(f'song_t3_{i}', X0 + 0.05, X0 + 0.09, Y0 + 0.05 + i * 0.14, Y0 + 0.07 + i * 0.14, z3 + 0.5, z3 + 1.0, steel, coll=coll)
     cols3 = ['#7f9a6f', '#a65a4a', '#5c7b9c', '#c4a259', '#6d6b78', '#8a6a4a', '#4f8a80', '#b88a8a']
-    for i in range(9):
-        a = 1.0 + i * 2.55 + rnd.uniform(-0.15, 0.15)
-        B(f'cua_t3_{i}', EX - 0.04, EX, a, a + 0.85, z3, z3 + 2.1, mat(cols3[i % 8], 0.55), bevel=0.006, coll=coll)
-        B(f'khuon_t3_{i}', EX - 0.03, EX + 0.02, a - 0.06, a + 0.91, z3, z3 + 2.16, white, coll=coll)
-        if i % 3 == 1: B(f'phoi_t3_{i}', X0 + 0.1, X0 + 0.9, a - 0.2, a + 0.5, z3 + 1.9, z3 + 1.94, mat('#3a3a3a', 0.5), coll=coll)
+    X.DOORS3 = []; a = 1.0 + rnd.uniform(0, 0.6); prev = -1
+    while a < Y1 - 2.0:   # cửa không đều nhau: bề rộng, khoảng cách, màu, lưới sắt, cửa sổ nhỏ, giày dép, chậu cây, ghế, biển số — mỗi nhà một kiểu
+        w = rnd.choice([0.8, 0.85, 0.9, 0.95]); ci = rnd.randrange(8)
+        while ci == prev: ci = rnd.randrange(8)
+        prev = ci; X.DOORS3.append((a - 0.1, a + w + 0.1)); tg = f'{a:.1f}'
+        B(f'cua_t3_{tg}', EX - 0.04, EX, a, a + w, z3, z3 + rnd.choice([2.05, 2.1, 2.15]), mat(cols3[ci], 0.55), bevel=0.006, coll=coll)
+        B(f'khuon_t3_{tg}', EX - 0.03, EX + 0.02, a - 0.06, a + w + 0.06, z3, z3 + 2.16, rnd.choice([white, mat('#cfc4a4', 0.6), mat('#a8a08a', 0.6)]), coll=coll)
+        v = rnd.random()
+        if v < 0.3:   # cửa lưới sắt bên ngoài
+            B(f'luoi_khung_t3_{tg}', EX - 0.09, EX - 0.07, a - 0.02, a + w + 0.02, z3, z3 + 2.12, steel, coll=coll)
+            for j in range(7): B(f'luoi_t3_{tg}_{j}', EX - 0.09, EX - 0.07, a + 0.03 + j * (w - 0.06) / 6, a + 0.045 + j * (w - 0.06) / 6, z3, z3 + 2.12, steel, coll=coll)
+        elif v < 0.5:  # rèm hoa phía trên cửa (ô thoáng)
+            B(f'rem_t3_{tg}', EX - 0.07, EX - 0.06, a + 0.05, a + w - 0.05, z3 + 1.2, z3 + 1.95, mat(rnd.choice(['#d8b8b8', '#b8c8d8', '#d8d0a0']), 0.95), coll=coll)
+        if rnd.random() < 0.45:   # cửa sổ nhỏ bên cạnh có song sắt
+            sa = a + w + rnd.uniform(0.18, 0.35); sw = rnd.choice([0.45, 0.55])
+            B(f'sonho_t3_{tg}', EX - 0.03, EX, sa, sa + sw, z3 + 1.0, z3 + 1.65, glass_dark, coll=coll)
+            for j in range(3): B(f'sonho_song_{tg}_{j}', EX - 0.05, EX - 0.04, sa + 0.08 + j * (sw - 0.16) / 2, sa + 0.1 + j * (sw - 0.16) / 2, z3 + 1.0, z3 + 1.65, steel, coll=coll)
+        if rnd.random() < 0.4:   # giày dép trước cửa
+            for j in range(rnd.randint(2, 4)): B(f'giay_t3_{tg}_{j}', EX - 0.32 + 0.05 * (j % 2), EX - 0.2 + 0.05 * (j % 2), a + 0.05 + j * 0.2, a + 0.13 + j * 0.2, z3, z3 + 0.07, mat(rnd.choice(['#3a3a3a', '#8a4a3a', '#2a4a6a', '#d8d0b0']), 0.8), coll=coll, rot=(0, 0, rnd.uniform(-0.3, 0.3)))
+        if rnd.random() < 0.3:   # chậu cây trước cửa
+            cyl(f'env_chau_t3_{tg}', EX - 0.3, a + w + 0.1, z3 + 0.14, 0.13, 0.28, mat('#b0623a', 0.85), coll=coll)
+            for j in range(4): sphere(f'env_la_chau_t3_{tg}_{j}', EX - 0.3 + rnd.uniform(-0.08, 0.08), a + w + 0.1 + rnd.uniform(-0.08, 0.08), z3 + 0.4 + 0.1 * j, rnd.uniform(0.1, 0.16), mat(rnd.choice(['#4f7a3a', '#6a9a4a', '#3a6a3a']), 0.85), coll=coll)
+        if rnd.random() < 0.25: cyl(f'env_ghe_t3_{tg}', EX - 0.4, a - 0.25, z3 + 0.15, 0.15, 0.3, mat(rnd.choice(['#c24a3a', '#3b6ea5', '#e3b84a']), 0.55), coll=coll, bevel=0.02)
+        if rnd.random() < 0.5: B(f'so_phong_t3_{tg}', EX - 0.03, EX, a + w / 2 - 0.07, a + w / 2 + 0.07, z3 + 2.2, z3 + 2.32, mat(rnd.choice(['#2f5f9a', '#d8d4c8', '#8a2a2a']), 0.5), coll=coll)
+        if rnd.random() < 0.3: B(f'phoi_t3_{tg}', X0 + 0.1, X0 + rnd.uniform(0.5, 1.2), a - 0.2, a + rnd.uniform(0.3, 0.8), z3 + 1.9, z3 + 1.94, mat('#3a3a3a', 0.5), coll=coll)
+        a += w + rnd.uniform(0.9, 2.4)
     # mái: bể nước, ăng-ten, giàn năng lượng mặt trời
     rt = z3 + 3.12
     for k, (y, r) in enumerate([(4.0, 0.62), (11.0, 0.55), (19.0, 0.62)]):
@@ -168,14 +189,23 @@ def build(X, m, coll, night, hl_y1):
         bm_ = None
         ob = cyl(f'env_canh{x:.0f}{y:.0f}{z:.1f}', x + dx / 2, y + dy / 2, z + dz / 2, r, L, mat('#5a4636', 0.95), coll=coll)
         ob.rotation_mode = 'QUATERNION'; ob.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(Vector((-dx, dy, dz)).normalized())
-    def tree(x, y, h, tint='#4f7a4a'):
+    def tree(x, y, h, tint='#4f7a4a', kind='tron'):
+        if kind == 'cau':   # cau/dừa cảnh: thân mảnh cao, tán lá dài toả ra
+            cyl(f'env_than_cay{x:.0f}{y:.0f}', x, y, GZ + h * 0.45, 0.08, h * 0.9, mat('#8a7a5a', 0.9), coll=coll)
+            for k in range(8):
+                a_ = k * 0.785; canh(x, y, GZ + h * 0.9, 1.2 * math.cos(a_), 1.2 * math.sin(a_), -0.25, 0.025)
+                sphere(f'env_la_cau{x:.0f}{y:.0f}{k}', x + 1.0 * math.cos(a_), y + 1.0 * math.sin(a_), GZ + h * 0.9 - 0.2, 0.55, mat('#5a8a3a', 0.85), scale=(1, 0.25, 0.12), coll=coll)
+            return
         cyl(f'env_than_cay{x:.0f}{y:.0f}', x, y, GZ + h * 0.4, 0.16, h * 0.8, mat('#5a4636', 0.95), coll=coll, bevel=0.02)          # THÂN cây (đã thiếu sau lần thêm cành)
         cyl(f'env_goc_cay{x:.0f}{y:.0f}', x, y, GZ + 0.18, 0.24, 0.36, mat('#4a3a2c', 0.95), coll=coll, bevel=0.03)                 # gốc loe
         for k in range(5):  # rễ nổi
             a_ = k * 1.26; canh(x + 0.2 * math.cos(a_), y + 0.2 * math.sin(a_), GZ + 0.12, 0.28 * math.cos(a_), 0.28 * math.sin(a_), -0.1, 0.05)
         for k in range(4):  # cành chính toả ra từ thân
             a = k * 1.57 + rnd.uniform(0, 0.6); canh(x, y, GZ + h * 0.5, 0.9 * math.cos(a), 0.9 * math.sin(a), h * 0.22, 0.07)
-        sphere(f'env_tan_chinh{x:.0f}{y:.0f}', x, y, GZ + h * 0.72, 0.95, mat(tint, 0.85), scale=(1, 1, 0.8), coll=coll)  # tán chính ôm đỉnh thân
+        wide = 1.7 if kind == 'phuong' else 1.0
+        sphere(f'env_tan_chinh{x:.0f}{y:.0f}', x, y, GZ + h * (0.66 if kind == 'phuong' else 0.72), 0.95 * wide, mat(tint, 0.85), scale=(1, 1, 0.5 if kind == 'phuong' else 0.8), coll=coll)  # tán chính ôm đỉnh thân
+        if kind == 'phuong':
+            for k in range(14): a = rnd.uniform(0, 6.283); rr = rnd.uniform(0.3, 1.5); sphere(f'env_hoa_phuong{x:.0f}{y:.0f}{k}', x + rr * math.cos(a), y + rr * math.sin(a), GZ + h * 0.66 + rnd.uniform(0.1, 0.35), 0.16, mat('#d8402a', 0.7), coll=coll)
         for k in range(14):  # cụm lá nhỏ ở đầu cành, nhiều tông xanh
             a = rnd.uniform(0, 6.283); rr = rnd.uniform(0.2, 0.95)
             sphere(f'env_cum_la{x:.0f}{y:.0f}{k}', x + rr * math.cos(a), y + rr * math.sin(a), GZ + h * 0.7 + rnd.uniform(-0.3, 0.7), rnd.uniform(0.38, 0.6), mat(rnd.choice(['#5f8d54', '#7aa35f', '#4a7a47', '#8db36a']), 0.85), scale=(1, 1, 0.75), coll=coll)
@@ -184,7 +214,7 @@ def build(X, m, coll, night, hl_y1):
         for k in range(9):
             a = rnd.uniform(0, 6.283); rr = rnd.uniform(0.0, 1.1)
             sphere(f'env_tan{x:.0f}{y:.0f}{k}', x + rr * math.cos(a), y + rr * math.sin(a), GZ + h * 0.72 + rnd.uniform(-0.3, 1.0), rnd.uniform(0.7, 1.15), mat(rnd.choice([tint, '#5f8d54', '#44704a']), 0.85), scale=(1, 1, 0.8), coll=coll)
-    tree(-2.45, 6.5, 6.5); tree(-2.45, 19.0, 7.5); tree(-2.45, 12.6, 3.2, '#6f9455')
+    tree(-2.45, 6.5, 6.5); tree(-2.45, 19.0, 7.0, '#7a9a4a', 'phuong'); tree(-2.45, 12.6, 4.2, '#6f9455', 'cau')
     tree_old = None
     for (x, y, h) in [(-6.5, 5.0, 2.0), (-6.4, 19.0, 2.4)]:  # cau/dừa cảnh
         cyl(f'env_cau{x:.0f}{y:.0f}', x, y, GZ + h / 2, 0.07, h, mat('#7a6a4a', 0.9), coll=coll)
@@ -411,7 +441,7 @@ def mo_rong(X, m, coll, night, hl_y1):
         return _cache[k]
     def plaster(color):
         k = ('p2', color)
-        if k not in _cache: _cache[k] = M.mottled('ep2_' + color.strip('#'), color, rough=0.95, scale=0.8, vary=0.1, bump=0.1)
+        if k not in _cache: _cache[k] = M.phong_tran('ep2_' + color.strip('#'), color)
         return _cache[k]
     def B(name, *a, **kw): return box('env_' + name, *a, **kw)
     glass_dark = mat('#5d727c', 0.5); steel = mat('#2b2d2e', 0.45, 0.7); white = mat('#ece8dc', 0.6)
@@ -547,6 +577,20 @@ def hem_chi_tiet(X, coll, night, rnd_seed=303):
         ob = bpy.data.objects.new('env_hc_' + nm, cu); ob.data.materials.append(mat('#1a1a1a', 0.6)); bpy.context.scene.collection.objects.link(ob); X._link(ob, coll)
     # ---- ban công đối diện cửa sổ (tầng 2, cùng cao độ z = 0), rộng y 0,0 → 2,9
     zb = 0.0; y0, y1 = 0.0, 2.9; d = 0.95
+    # ---- CHUỒNG CỌP sắt đua ra ngoài + TÉC NƯỚC INOX trên mái (nhìn qua cửa sổ phòng Nam là nhận ra khu tập thể Hà Nội)
+    cx0 = AX - d - 0.3; cy0, cy1 = y0 - 0.12, y1 + 0.12
+    B('cg_san', cx0, AX - d, cy0, cy1, zb - 0.1, zb, mat('#9a948a', 0.9), coll=coll)
+    for i in range(int((cy1 - cy0) / 0.16) + 1): B(f'cg_song{i}', cx0, cx0 + 0.02, cy0 + i * 0.16, cy0 + i * 0.16 + 0.02, zb, zb + 2.0, steel, coll=coll)
+    for z_ in (zb + 0.55, zb + 1.1, zb + 1.7, zb + 2.0): B(f'cg_ngang{z_:.2f}', cx0, cx0 + 0.025, cy0, cy1, z_, z_ + 0.025, steel, coll=coll)
+    for yy_ in (cy0, cy1 - 0.02):
+        for z_ in (zb + 1.0, zb + 2.0): B(f'cg_hong{yy_:.2f}_{z_:.1f}', cx0, AX - d, yy_, yy_ + 0.02, z_, z_ + 0.025, steel, coll=coll)
+        B(f'cg_cot{yy_:.2f}', cx0, cx0 + 0.03, yy_, yy_ + 0.03, zb, zb + 2.05, steel, coll=coll)
+    B('cg_mai', cx0 - 0.1, AX - 0.1, cy0 - 0.1, cy1 + 0.1, zb + 2.02, zb + 2.05, mat('#8c8f86', 0.55, 0.6), coll=coll)
+    inox = mat('#c8cbca', 0.2, 0.9)
+    cyl('env_hc_tec_inox', AX - 0.55, (y0 + y1) / 2, zb + 2.05 + 0.4, 0.4, 1.3, inox, axis='Y', coll=coll)
+    for sg in (-1, 1): sphere(f'env_hc_tec_nap{sg}', AX - 0.55, (y0 + y1) / 2 + sg * 0.65, zb + 2.45, 0.4, inox, scale=(1, 0.18, 1), coll=coll)
+    for yy_ in (0.9, 2.0): B(f'tec_chan{yy_}', AX - 0.75, AX - 0.35, yy_, yy_ + 0.05, zb + 2.05, zb + 2.15, steel, coll=coll)
+    cyl('env_hc_tec_ong', AX - 0.2, (y0 + y1) / 2, zb + 2.5, 0.025, 1.1, mat('#d8d4c8', 0.5), coll=coll)
     B('bc_san', AX - d, AX, y0, y1, zb - 0.12, zb, mat('#b9b2a0', 0.9), bevel=0.01, coll=coll)
     B('bc_tay_vin', AX - d, AX - d + 0.04, y0, y1, zb + 0.95, zb + 0.99, steel, coll=coll)
     B('bc_tay_vin_s1', AX - d, AX, y0, y0 + 0.04, zb + 0.95, zb + 0.99, steel, coll=coll); B('bc_tay_vin_s2', AX - d, AX, y1 - 0.04, y1, zb + 0.95, zb + 0.99, steel, coll=coll)

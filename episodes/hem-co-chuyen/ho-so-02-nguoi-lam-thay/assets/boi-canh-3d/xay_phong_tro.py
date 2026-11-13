@@ -546,10 +546,35 @@ def hallway_details(m, coll, night):
         for yy in (3.1, 3.77):
             box(f'ke_giay_chan_{xx:.2f}_{yy:.2f}', xx, xx + 0.03, yy, yy + 0.03, 0.0, 0.64, M.solid('ke_giay_c', '#8a6a46', 0.7), coll=coll)
     box('ke_giay_tren', ex - 0.30, ex - 0.02, 3.1, 3.8, 0.62, 0.65, M.solid('ke_giay_t', '#8a6a46', 0.7), bevel=0.004, coll=coll)
-    cols = ['#3d4a6b', '#9a6a4a', '#d8d2c2', '#5b7a5e', '#a84a4a']
+    cols = ['#6b7a3a', '#a8844a', '#4a6a3a', '#8a6a3a', '#b09060']   # dép tổ ong (xanh rêu / nâu / be)
     for i in range(5):
         for k, z in enumerate([0.04, 0.34]):
             box(f'dep{k}_{i}', ex - 0.25, ex - 0.1, 3.16 + i * 0.13, 3.16 + i * 0.13 + 0.09, z, z + 0.07, M.solid(f'dep_{k}_{i}', cols[(i + k) % 5], 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(8 * ((i + k) % 3) - 8)))
+    # công tơ điện cơ đĩa xoay (kính, đĩa nhôm quay chậm) + cầu dao, cạnh cửa phòng Nam
+    my, mz = 3.95, 1.55
+    box('cong_to_vo', ex - 0.09, ex, my, my + 0.26, mz, mz + 0.34, M.solid('cong_to_vo', '#8f9490', 0.5, 0.3), bevel=0.01, coll=coll)
+    box('cong_to_kinh', ex - 0.095, ex - 0.09, my + 0.02, my + 0.24, mz + 0.03, mz + 0.31, M.solid('cong_to_kinh', '#2a3434', 0.08), coll=coll)
+    box('cong_to_tem', ex - 0.097, ex - 0.095, my + 0.05, my + 0.21, mz + 0.22, mz + 0.29, M.solid('cong_to_tem', '#e8e0c0', 0.8), coll=coll)
+    piv = bpy.data.objects.new('cong_to_piv', None); coll.objects.link(piv); piv.location = (mx(ex - 0.099), my + 0.13, mz + 0.12)
+    dk = cyl('cong_to_dia', W, 0, 0, 0.055, 0.004, M.solid('cong_to_dia', '#cfd2d0', 0.3, 0.9), axis='X', coll=coll); dk.parent = piv
+    mk = box('cong_to_dau_do', W - 0.002, W + 0.002, -0.004, 0.004, 0.0, 0.05, M.solid('cong_to_do', '#c8281e', 0.5), coll=coll); mk.parent = piv
+    d_ = piv.driver_add('rotation_euler', 0).driver; d_.type = 'SCRIPTED'; d_.expression = 'frame*0.07'
+    box('cau_dao', ex - 0.08, ex, my + 0.32, my + 0.5, mz + 0.05, mz + 0.3, M.solid('cau_dao', '#1c1c1c', 0.5), bevel=0.01, coll=coll)
+    box('cau_dao_can', ex - 0.095, ex - 0.08, my + 0.38, my + 0.44, mz + 0.18, mz + 0.26, M.solid('cau_dao_can', '#b3362c', 0.5), coll=coll)
+    # chữ stencil "KHOAN CẮT BÊ TÔNG" + số điện thoại phun sơn trên tường hành lang
+    try:
+        import os
+        from mathutils import Matrix
+        font = None
+        for fp in ('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 'C:/Windows/Fonts/arialbd.ttf'):
+            if os.path.exists(fp): font = bpy.data.fonts.load(fp); break
+        for li, (txt, size, zz, col) in enumerate([('KHOAN CẮT BÊ TÔNG', 0.11, 1.05, '#b3231a'), ('0912 345 678', 0.09, 0.9, '#1a1a1a')]):
+            cu = bpy.data.curves.new(f'stencil{li}', 'FONT'); cu.body = txt; cu.size = size; cu.extrude = 0.0004; cu.align_x = 'CENTER'
+            if font: cu.font = font
+            ob = bpy.data.objects.new(f'stencil{li}', cu); ob.data.materials.append(M.solid(f'stencil_{li}', col, 0.9))
+            ob.rotation_euler = Matrix(((0, 0, 1), (1, 0, 0), (0, 1, 0))).to_euler(); ob.location = (mx(ex - 0.002), 7.6, zz); coll.objects.link(ob)
+    except Exception as e:
+        print('stencil lỗi:', e)
     # dây phơi ngang hành lang (y = 6.0) + vài món đồ treo
     box('day_phoi', X0 + 0.07, ex - 0.02, 5.99, 6.01, 2.15, 2.17, dark, coll=coll)
     cyl('cot_phoi', X0 + 0.07, 6.0, 1.6, 0.012, 1.1, m['thep'], coll=coll)  # cột dựng từ tay vịn lan can
@@ -720,6 +745,8 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'SAN_XE': ((-7.0, -12.0, -1.6), (-4.8, 0.0, -2.4), 30),   # ngang tầm mắt nhìn dọc sân: xe, ô tô, người
     'VIA_HE': ((-5.0, 3.2, -1.9), (-7.1, -1.5, -2.5), 30),   # nhìn dọc vỉa hè: người bán ngồi ven đường
     'VIA_HE_2': ((-5.2, 8.0, -1.9), (-7.0, 16.0, -2.5), 30),
+    'MAT_TIEN': ((-6.8, 6.0, 4.6), (0.0, 12.0, 4.4), 30),   # nhìn mặt tiền tầng 3 nhà trọ
+    'CUA_SO_HEM': ((2.4, 1.4, 1.35), (4.6, 1.4, 1.55), 28),   # nhìn qua cửa sổ phòng Nam: chuồng cọp + téc inox nhà hàng xóm
     'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
     'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),

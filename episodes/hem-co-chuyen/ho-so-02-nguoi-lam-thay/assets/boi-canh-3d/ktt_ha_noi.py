@@ -90,18 +90,27 @@ def build(X, coll, night, mode):
         for i in range(3): B(f'cg_dohu{k}_{i}', x0 + 0.2 + i * (wd / 3), x0 + 0.5 + i * (wd / 3), yf - 0.4, yf - 0.1, zb + 0.0, zb + 0.35, mat(rnd.choice(['#b3452f', '#3b6ea5', '#d8d0b0']), 0.6), bevel=0.02, coll=coll)   # đồ đạc chất trong lồng
         if rnd.random() < 0.7:  # chậu cây cảnh treo
             sphere(f'env_ktt_cg_cay{k}', x0 + wd * 0.5, yf - 0.15, zb + 1.5, 0.17, mat('#4f7a3a', 0.9), scale=(1, 1, 0.8), coll=coll)
-    # sào phơi đồ thò ra từ cửa sổ tầng 3 + áo quần treo
-    for k in range(5):
-        a = 1.0 + (2 * k + 1) * 2.55 + 1.0 if (1.0 + (2 * k + 1) * 2.55 + 1.0) < Y1 - 1 else 2.0 + k; zz = z3 + 2.35
-        cyl(f'env_ktt_sao{k}', EX - 0.6, a, zz, 0.014, 1.3, mat('#a8905a', 0.7), axis='X', coll=coll)
-        for j in range(4):
-            c_ = rnd.choice(['#4a78a8', '#c4503a', '#d8d0b0', '#6a9a5a', '#e0c050', '#7a5a8a'])
-            B(f'ao_phoi{k}_{j}', EX - 1.1 + j * 0.28, EX - 0.84 + j * 0.28, a - 0.01, a + 0.01, zz - 0.62, zz, mat(c_, 0.95), coll=coll)
-    # điều hoà cục nóng, hộp công tơ điện, ống nước PVC, biển số nhà
-    for k in range(4):
-        a = 1.0 + k * 2 * 2.55 + 1.35; zz = z3 + 1.9
-        B(f'dh{k}', EX - 0.34, EX, a, a + 0.75, zz, zz + 0.5, mat('#d8d6cc', 0.5), bevel=0.02, coll=coll)
-        cyl(f'env_ktt_dh_quat{k}', EX - 0.345, a + 0.3, zz + 0.25, 0.17, 0.01, mat('#2a2a2a', 0.5), axis='X', coll=coll)
+    # khe giữa các cửa tầng 3 (cửa không đều nhau) → đặt sào phơi / điều hoà ở khe đủ rộng, mỗi chỗ một kiểu, bỏ trống nhiều chỗ
+    doors = getattr(X, 'DOORS3', []) or [(1.0 + i * 2.55, 1.9 + i * 2.55) for i in range(9)]
+    gaps = [(doors[i][1], doors[i + 1][0]) for i in range(len(doors) - 1) if doors[i + 1][0] - doors[i][1] > 0.95]
+    rnd.shuffle(gaps)
+    sao_n = ac_n = 0
+    for g0, g1 in gaps:
+        gw = g1 - g0; r_ = rnd.random()
+        if r_ < 0.3 and sao_n < 4:   # sào phơi + đồ phơi (khác nhau mỗi chỗ)
+            sao_n += 1; a = g0 + gw * rnd.uniform(0.3, 0.7); zz = z3 + rnd.choice([2.3, 2.4]); ln = rnd.uniform(0.9, 1.5)
+            cyl(f'env_ktt_sao{sao_n}', EX - ln / 2 - 0.05, a, zz, 0.014, ln, mat('#a8905a', 0.7), axis='X', coll=coll)
+            kind = rnd.choice(['ao', 'ga', 'quan', 'khan'])
+            if kind == 'ga': B(f'ga_phoi{sao_n}', EX - ln - 0.05, EX - 0.1, a - 0.01, a + 0.01, zz - 0.95, zz, mat(rnd.choice(['#a8c4d8', '#e0b8c0', '#d8d8b8']), 0.95), coll=coll)
+            else:
+                for j in range(rnd.randint(2, 5)):
+                    c_ = rnd.choice(['#4a78a8', '#c4503a', '#d8d0b0', '#6a9a5a', '#e0c050', '#7a5a8a']) if kind != 'quan' else rnd.choice(['#3a5a8a', '#2a3a5a', '#5a7aa8'])
+                    hh = {'ao': 0.62, 'quan': 0.85, 'khan': 0.4}[kind]; ww = {'ao': 0.28, 'quan': 0.18, 'khan': 0.3}[kind]
+                    xx = EX - 0.2 - j * (ln / max(rnd.randint(2, 5), 2)); B(f'phoi{sao_n}_{j}', xx - ww, xx, a - 0.01, a + 0.01, zz - hh, zz, mat(c_, 0.95), coll=coll)
+        elif r_ < 0.55 and ac_n < 3 and gw > 1.1:   # điều hoà cục nóng (kích thước/màu khác nhau)
+            ac_n += 1; aw = rnd.uniform(0.6, 0.85); a = g0 + (gw - aw) * rnd.uniform(0.2, 0.8); zz = z3 + rnd.choice([1.7, 1.9, 2.1])
+            B(f'dh{ac_n}', EX - rnd.uniform(0.28, 0.4), EX, a, a + aw, zz, zz + rnd.uniform(0.45, 0.6), mat(rnd.choice(['#d8d6cc', '#c8c8c0', '#e8e4d8']), 0.5), bevel=0.02, coll=coll)
+            cyl(f'env_ktt_dh_quat{ac_n}', EX - 0.345, a + aw * 0.45, zz + 0.25, 0.17, 0.01, mat('#2a2a2a', 0.5), axis='X', coll=coll)
     for k in range(6):
         B(f'cong_to{k}', EX - 0.1, EX, 7.0 + 0.22 * k, 7.0 + 0.22 * k + 0.17, GZ + 1.9, GZ + 2.2, mat('#9aa0a0', 0.5, 0.2), bevel=0.01, coll=coll)
         B(f'cong_to_kinh{k}', EX - 0.105, EX - 0.1, 7.02 + 0.22 * k, 7.0 + 0.22 * k + 0.15, GZ + 2.0, GZ + 2.12, mat('#2a3a3a', 0.1), coll=coll)
@@ -124,10 +133,18 @@ def build(X, coll, night, mode):
     for yy in (5.0, 17.0): # loa phường
         cyl(f'env_ktt_loa{yy}', EX - 0.15, yy, z3 + 2.5, 0.12, 0.3, mat('#8a8e8a', 0.4, 0.6), axis='X', coll=coll); B(f'loa_gia{yy}', EX - 0.04, EX, yy - 0.04, yy + 0.04, z3 + 2.4, z3 + 2.6, steel, coll=coll)
     # hoa giấy + chậu trên lan can tầng 3, cờ đỏ sao vàng
-    for k in range(7):
-        yy = 1.2 + k * 3.3 + rnd.uniform(-0.3, 0.3); zt = z3 + 1.04
-        cyl(f'env_ktt_chau{k}', X0 + 0.08, yy, zt + 0.12, 0.13, 0.24, mat('#b0623a', 0.85), coll=coll)
-        for j in range(8): sphere(f'env_ktt_hoagiay{k}_{j}', X0 + 0.08 + rnd.uniform(-0.15, 0.2), yy + rnd.uniform(-0.28, 0.28), zt + 0.3 + rnd.uniform(-0.15, 0.28), rnd.uniform(0.06, 0.1), mat(rnd.choice(['#d8387a', '#e0508a', '#4f7a3a']), 0.8), coll=coll)
+    yy = rnd.uniform(1.0, 2.0)
+    while yy < Y1 - 1.5:   # chậu cây trên lan can: khoảng cách và loại cây ngẫu nhiên, có chỗ để trống
+        yy += rnd.uniform(1.4, 4.5)
+        if rnd.random() < 0.35: continue
+        zt = z3 + 1.04; kind = rnd.choice(['hoa_giay', 'la', 'sen_da', 'thung_rau']); xp = X0 + rnd.uniform(0.05, 0.1)
+        if kind == 'thung_rau':   # thùng xốp trồng rau
+            B(f'thung_xop{yy:.1f}', xp - 0.2, xp + 0.2, yy - 0.15, yy + 0.15, zt, zt + 0.2, mat('#e8e4d8', 0.7), coll=coll)
+            for j in range(6): sphere(f'env_ktt_rau_lan{yy:.1f}_{j}', xp + rnd.uniform(-0.15, 0.15), yy + rnd.uniform(-0.1, 0.1), zt + 0.24, 0.07, mat('#5a9a3a', 0.8), coll=coll)
+            continue
+        cyl(f'env_ktt_chau{yy:.1f}', xp, yy, zt + 0.12, 0.13 if kind != 'sen_da' else 0.09, 0.24 if kind != 'sen_da' else 0.16, mat(rnd.choice(['#b0623a', '#8a8a82', '#3a6a8a']), 0.85), coll=coll)
+        cols_ = {'hoa_giay': ['#d8387a', '#e0508a', '#4f7a3a'], 'la': ['#4f7a3a', '#6aa04a', '#3a6a3a'], 'sen_da': ['#8aa86a', '#a8c08a']}[kind]
+        for j in range(8 if kind == 'hoa_giay' else 5): sphere(f'env_ktt_cay{yy:.1f}_{j}', xp + rnd.uniform(-0.15, 0.2), yy + rnd.uniform(-0.25, 0.25), zt + 0.3 + rnd.uniform(-0.12, 0.3 if kind != 'sen_da' else 0.0), rnd.uniform(0.06, 0.1 if kind != 'la' else 0.14), mat(rnd.choice(cols_), 0.8), coll=coll)
     for k, yy in enumerate((4.2, 15.5)):
         cyl(f'env_ktt_co_cot{k}', X0 - 0.25, yy + 0.5, z3 + 1.4, 0.015, 1.0, mat('#6a6a64', 0.5, 0.6), axis='Y', coll=coll)
         B(f'co{k}', X0 - 0.27, X0 - 0.265, yy, yy + 0.95, z3 + 0.75, z3 + 1.38, mat('#c8281e', 0.7), coll=coll)
@@ -254,3 +271,49 @@ def build(X, coll, night, mode):
     B('trai_chieu', -7.5, -6.72, 12.9, 15.1, zv, zv + 0.01, mat('#2f66a8', 0.5), coll=coll)
     # 3) chú bán bánh mì: mũ lưỡi trai, ngồi sau xe đẩy
     nguoi_ngoi('ban_banh_mi', -1.75, -5.2, GZ, True, '#e8e4d8', '#2a2a2a', 'mu', ghe='#e3b84a')
+
+    # ================================================================ ƯU TIÊN: chuồng cọp nhà đối diện + téc inox, búi dây/cột điện tổ chim, quán chè chén, thùng xốp rau, stencil
+    inox = mat('#c8cbca', 0.2, 0.9)
+    r2 = random.Random(77)
+    # chuồng cọp sắt đua ra ngoài ở nhà đối diện (tầng 2–4), một số có téc inox trên mái chuồng
+    for k, (fl, yc) in enumerate([(1, 3.0), (2, 8.5), (3, 13.5), (1, 19.0), (2, 22.5), (3, 28.0), (1, -4.0)]):
+        zb = GZ + fl * FL; wd = r2.choice([1.6, 2.0, 2.4]); y0_ = yc - wd / 2; y1_ = yc + wd / 2; xo = BX + 0.65   # đua ra 65 cm khỏi lan can
+        B(f'dd_cg_san{k}', BX, xo, y0_, y1_, zb - 0.08, zb, mat('#9a948a', 0.9), coll=coll)
+        for i in range(int(wd / 0.11) + 1): B(f'dd_cg_song{k}_{i}', xo - 0.02, xo, y0_ + i * 0.11, y0_ + i * 0.11 + 0.02, zb, zb + 1.95, steel, coll=coll)
+        for z in (zb + 0.6, zb + 1.2, zb + 1.95): B(f'dd_cg_ngang{k}_{z:.1f}', xo - 0.025, xo, y0_, y1_, z, z + 0.025, steel, coll=coll)
+        for yy in (y0_, y1_ - 0.02):
+            B(f'dd_cg_hong{k}_{yy:.1f}', BX, xo, yy, yy + 0.02, zb + 1.0, zb + 1.025, steel, coll=coll); B(f'dd_cg_cot{k}_{yy:.1f}', xo - 0.03, xo, yy, yy + 0.03, zb, zb + 2.0, steel, coll=coll)
+        B(f'dd_cg_mai{k}', BX - 0.1, xo + 0.1, y0_ - 0.1, y1_ + 0.1, zb + 1.97, zb + 2.0, mat('#8c8f86', 0.55, 0.6), coll=coll)
+        for j in range(r2.randint(1, 3)): B(f'dd_cg_do{k}_{j}', BX + 0.1 + j * 0.15, BX + 0.35 + j * 0.15, y0_ + 0.2 + j * 0.5, y0_ + 0.55 + j * 0.5, zb, zb + r2.uniform(0.3, 0.6), mat(r2.choice(['#b3452f', '#3b6ea5', '#d8d0b0', '#6a9a5a']), 0.7), bevel=0.02, coll=coll)
+        if k % 2 == 0:   # téc nước inox nằm ngang trên mái chuồng
+            cyl(f'env_ktt_dd_tec{k}', BX + 0.3, yc, zb + 2.0 + 0.36, 0.36, 1.1, inox, axis='Y', coll=coll)
+            for sg in (-1, 1): sphere(f'env_ktt_dd_tec_nap{k}{sg}', BX + 0.3, yc + sg * 0.55, zb + 2.36, 0.36, inox, scale=(1, 0.18, 1), coll=coll)
+            for sg in (-0.35, 0.35): B(f'dd_tec_chan{k}_{sg}', BX + 0.15, BX + 0.45, yc + sg, yc + sg + 0.04, zb + 2.0, zb + 2.1, steel, coll=coll)
+    # cột điện tổ chim: búi dây cuộn tròn, hộp cáp, biến áp, mớ dây rối quanh xà
+    dk = mat('#1a1a1a', 0.55)
+    for pi, py in enumerate((-3.0, 8.0, 19.0, 30.0)):
+        px = -1.75
+        for j in range(3):   # cuộn cáp dự phòng quấn quanh cột
+            torus(f'env_ktt_cuon{pi}_{j}', px, py, GZ + 5.4 + 0.22 * j, 0.24 - 0.02 * j, 0.025, dk, rot=(r2.uniform(-0.2, 0.2), r2.uniform(-0.2, 0.2), 0), coll=coll)
+        B(f'hop_cap{pi}', px - 0.17, px + 0.17, py - 0.1, py + 0.1, GZ + 4.2, GZ + 4.75, mat('#5a5e5a', 0.5, 0.4), coll=coll)
+        for j in range(26):   # mớ dây rối ('tổ chim') quanh xà ngang
+            a_ = r2.uniform(0, math.pi * 2); zc = GZ + r2.uniform(8.3, 9.3)
+            cyl(f'env_ktt_roi{pi}_{j}', px + r2.uniform(-0.9, 0.9), py + r2.uniform(-0.25, 0.25), zc, 0.008, r2.uniform(0.7, 1.7), dk, coll=coll, rot=(r2.uniform(0, 3.14), r2.uniform(0, 3.14), a_))
+        sphere(f'env_ktt_to_chim{pi}', px + 0.5, py, GZ + 9.2, 0.14, mat('#6a5030', 0.95), scale=(1, 1, 0.55), coll=coll)
+        if pi == 1:   # biến áp treo trên cột
+            cyl('env_ktt_bien_ap', px, py + 0.28, GZ + 7.6, 0.24, 0.65, mat('#7a7e7a', 0.45, 0.5), coll=coll); B('bien_ap_nap', px - 0.26, px + 0.26, py + 0.04, py + 0.52, GZ + 7.9, GZ + 7.95, steel, coll=coll)
+    # quán nước chè chén ở tầng 1: khay chén, ấm đun, ghế nhựa thấp, bếp than
+    gx, gy = -2.1, -11.2
+    B('che_ban', gx - 0.3, gx + 0.3, gy - 0.45, gy + 0.45, GZ + 0.55, GZ + 0.58, mat('#7a5a3a', 0.8), coll=coll)
+    for sx in (-0.25, 0.25):
+        for sy in (-0.4, 0.4): B(f'che_chan{sx}{sy}', gx + sx - 0.02, gx + sx + 0.02, gy + sy - 0.02, gy + sy + 0.02, GZ, GZ + 0.55, mat('#4a3320', 0.8), coll=coll)
+    for k in range(10): cyl(f'env_ktt_che_chen{k}', gx - 0.15 + 0.1 * (k % 4), gy - 0.3 + 0.1 * (k // 4) * 2 + 0.08 * (k % 2), GZ + 0.58 + 0.03, 0.04, 0.06, mat(rnd.choice(['#d8e0e0', '#c8a860', '#b8d0b8']), 0.3), coll=coll)
+    cyl('env_ktt_che_am', gx + 0.1, gy + 0.3, GZ + 0.58 + 0.15, 0.13, 0.3, mat('#2a2a2a', 0.4, 0.7), coll=coll); cyl('env_ktt_che_bep', gx + 0.55, gy + 0.3, GZ + 0.18, 0.18, 0.36, mat('#5a3a2a', 0.8), coll=coll)
+    for k, (dx, dy) in enumerate([(-0.45, -0.3), (-0.45, 0.35), (0.0, -0.75)]): cyl(f'env_ktt_che_ghe{k}', gx + dx, gy + dy, GZ + 0.15, 0.17, 0.3, mat(rnd.choice(['#c24a3a', '#3b6ea5', '#2f9a6a']), 0.55), coll=coll, bevel=0.02)
+    # thùng xốp trồng rau dọc chân nhà trọ (tầng 1)
+    for k, yy in enumerate((5.6, 12.4, 15.2, 20.6)):
+        B(f'thung_xop_t1_{k}', -1.95, -1.55, yy, yy + 0.55, GZ, GZ + 0.22, mat('#e8e4d8', 0.7), coll=coll)
+        B(f'dat_xop_t1_{k}', -1.93, -1.57, yy + 0.02, yy + 0.53, GZ + 0.2, GZ + 0.225, mat('#3a2a1a', 0.95), coll=coll)
+        for j in range(8): sphere(f'env_ktt_rau_t1_{k}_{j}', -1.9 + rnd.uniform(-0.0, 0.3), yy + 0.05 + rnd.uniform(0, 0.45), GZ + 0.27 + rnd.uniform(0, 0.08), rnd.uniform(0.06, 0.1), mat(rnd.choice(['#4f8a3a', '#6aa04a', '#8ab04a']), 0.8), scale=(1, 1, 0.7), coll=coll)
+    # stencil khoan cắt bê tông trên tường tầng trệt phía sân
+    chu('stencil_khoan', 'KHOAN CẮT BÊ TÔNG', 0.13, EX - 0.007, 12.9, GZ + 1.25, '#b3231a'); chu('stencil_sdt', '0912 345 678', 0.1, EX - 0.007, 12.9, GZ + 1.05, '#1a1a1a')

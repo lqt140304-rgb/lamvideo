@@ -98,6 +98,15 @@ def build(X, coll, night, mode):
         X.sphere(f'{name}_non', W, 0.05, 1.46, 0.115, sh, scale=(1, 1, 0.85), coll=coll).parent = root
         for sx in (-0.17, 0.17): X.cyl(f'{name}_tay{sx}', W + sx, 0.25, 1.1, 0.04, 0.5, sk, coll=coll, rot=(math.radians(-60), 0, 0)).parent = root
         for sx in (-0.12, 0.12): X.cyl(f'{name}_dui{sx}', W + sx, 0.12, 0.78, 0.06, 0.45, mat('#2a3a5a', 0.9), coll=coll, rot=(math.radians(-70), 0, 0)).parent = root
+        v = rnd.random()
+        if v < 0.28:   # thùng giao hàng sau yên
+            X.box(f'{name}_thung', W - 0.22, W + 0.22, -0.95, -0.45, 0.78, 1.2, mat(rnd.choice(['#d84a30', '#2f8a4a', '#e0a020']), 0.5), bevel=0.02, coll=coll).parent = root
+        elif v < 0.5:   # chở thêm một người phía sau
+            X.cyl(f'{name}_than2', W, -0.45, 1.05, 0.13, 0.5, mat(rnd.choice(['#a85a6a', '#5a7aa8', '#d8d0b0']), 0.9), coll=coll, rot=(math.radians(8), 0, 0)).parent = root
+            X.sphere(f'{name}_dau2', W, -0.42, 1.4, 0.1, sk, coll=coll).parent = root; X.sphere(f'{name}_toc2', W, -0.44, 1.43, 0.105, mat('#1a1410', 0.9), scale=(1, 1, 0.8), coll=coll).parent = root
+        elif v < 0.65:   # giỏ trước + áo mưa
+            X.box(f'{name}_gio', W - 0.16, W + 0.16, 0.42, 0.62, 0.78, 0.95, mat('#8a6a3a', 0.9), coll=coll).parent = root
+        if rnd.random() < 0.3: root.scale = (1.0, rnd.uniform(0.95, 1.08), rnd.uniform(0.95, 1.1))
         if direction < 0: root.rotation_euler = (0, 0, math.pi)
         for ob in root.children: ob.visible_shadow = False
         _drv(root, 'location', 1, f'{-12 if direction > 0 else 55}+{direction}*fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})')
@@ -113,13 +122,14 @@ def build(X, coll, night, mode):
         bike(f'env_cd_xm_hem{k}', W + T + 1.85, k * 17.0, 0.2 + 0.04 * k, 56.0, cols[(k + 2) % 6], hel[(k + 1) % 5], 1)
 
     # ------------------------------------------------------------ ô tô nhỏ chạy chậm giữa sân (thân, cabin kính, 4 bánh, đèn, cản)
-    def oto(name, lane_x, y_start, speed, span, color, direction=1):
+    def oto(name, lane_x, y_start, speed, span, color, direction=1, van=False):
         root = bpy.data.objects.new(name, None); coll.objects.link(root); root.location = (X.mx(lane_x), y_start, GZ)
         body, glass, blk = mat(color, 0.3, 0.3), mat('#1c2630', 0.05), mat('#1a1a1a', 0.7)
         def P(nm, ob): ob.parent = root; ob.visible_shadow = True; return ob
         P('than', X.box(f'{name}_than', W - 0.75, W + 0.75, -2.0, 2.0, 0.3, 0.95, body, bevel=0.06, coll=coll))
-        P('cabin', X.box(f'{name}_cabin', W - 0.7, W + 0.7, -1.1, 0.95, 0.95, 1.5, body, bevel=0.08, coll=coll))
-        P('kinh', X.box(f'{name}_kinh', W - 0.72, W + 0.72, -1.0, 0.85, 1.02, 1.42, glass, bevel=0.03, coll=coll))
+        P('cabin', X.box(f'{name}_cabin', W - 0.7, W + 0.7, -1.95 if van else -1.1, 0.95, 0.95, 1.85 if van else 1.5, body, bevel=0.08, coll=coll))
+        P('kinh', X.box(f'{name}_kinh', W - 0.72, W + 0.72, -1.0 if not van else -0.2, 0.85, 1.02, 1.42 if not van else 1.5, glass, bevel=0.03, coll=coll))
+        if van: P('ke_hang', X.box(f'{name}_ke', W - 0.6, W + 0.6, -1.9, -0.3, 1.86, 1.92, mat('#555555', 0.5, 0.6), coll=coll))
         P('cot', X.box(f'{name}_cot', W - 0.73, W + 0.73, -0.12, 0.0, 1.0, 1.44, body, coll=coll))
         P('can_t', X.box(f'{name}_can_t', W - 0.78, W + 0.78, 1.9, 2.08, 0.34, 0.5, blk, bevel=0.03, coll=coll)); P('can_s', X.box(f'{name}_can_s', W - 0.78, W + 0.78, -2.08, -1.9, 0.34, 0.5, blk, bevel=0.03, coll=coll))
         for sx in (-0.7, 0.7):
@@ -132,17 +142,20 @@ def build(X, coll, night, mode):
         _fade(root, f'fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})', span, 4.0)
         root.location[1] = y_start
     oto('env_cd_oto0', -3.65, 4.0, 0.2, 62.0, '#c9c9c4', 1)
-    oto('env_cd_oto1', -5.35, 12.0, 0.16, 62.0, '#7a2a2a', -1)
+    oto('env_cd_oto1', -5.35, 12.0, 0.16, 62.0, '#3a5a7a', -1, van=True)
 
     # ------------------------------------------------------------ người đi bộ: thân, đầu, 2 chân + 2 tay đung đưa (driver sin theo khung hình)
     def nguoi(name, lane_x, y0, speed, span, shirt, trouser, direction=1, kid=False):
-        sc = 0.72 if kid else 1.0
+        sc = (0.72 if kid else rnd.uniform(0.93, 1.07))
         root = bpy.data.objects.new(name, None); coll.objects.link(root); root.location = (X.mx(lane_x), y0, GZ + (0.08 if lane_x < -6 else 0.0))
         sk = mat('#d9a67c', 0.7)
         def part(nm, fn, *a, **kw): ob = fn(f'{name}_{nm}', *a, **kw); ob.parent = root; ob.visible_shadow = False; return ob
         part('than', X.cyl, W, 0, (0.95) * sc, 0.15 * sc, 0.55 * sc, mat(shirt, 0.9), coll=coll)
         part('dau', X.sphere, W, 0, 1.4 * sc, 0.11 * sc, sk, coll=coll)
         part('toc', X.sphere, W, -0.01, 1.43 * sc, 0.115 * sc, mat(rnd.choice(['#1a1410', '#3a2a1a', '#5a4a3a', '#8a8a8a']), 0.9), scale=(1, 1, 0.8), coll=coll)
+        r_ = rnd.random()
+        if r_ < 0.35: part('tui', X.box, W + 0.13 * sc, W + 0.2 * sc, -0.1, 0.12, 0.7 * sc, 1.05 * sc, mat(rnd.choice(['#8a3a2a', '#2a4a6a', '#d8c070']), 0.7), coll=coll)   # túi đeo
+        elif r_ < 0.55: part('non_luoi_trai', X.sphere, W, 0, 1.47 * sc, 0.12 * sc, mat(rnd.choice(['#d83a30', '#2a3a5a', '#e8e0c0']), 0.8), scale=(1, 1, 0.5), coll=coll)   # mũ lưỡi trai
         part('co', X.cyl, W, 0, 1.26 * sc, 0.045 * sc, 0.09 * sc, sk, coll=coll)
         part('hong', X.box, W - 0.15 * sc, W + 0.15 * sc, -0.08 * sc, 0.08 * sc, 0.64 * sc, 0.76 * sc, mat(trouser, 0.85), bevel=0.01, coll=coll)
         for sd in (-1, 1): part(f'vai{sd}', X.sphere, W + sd * 0.17 * sc, 0, 1.17 * sc, 0.06 * sc, mat(shirt, 0.9), coll=coll)
