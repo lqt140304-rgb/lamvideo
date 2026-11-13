@@ -704,6 +704,33 @@ def proxies(m, coll, room_objs):
     G.only_in_mirror(kia_o)
 
 
+def _thiet_bi(sc):
+    """Chọn thiết bị Cycles: mặc định CPU; đặt biến môi trường BLENDER_DEVICE=GPU để dùng GPU (thử OPTIX → CUDA → HIP → METAL → ONEAPI).
+    Không có GPU thì tự quay về CPU và in cảnh báo."""
+    import os
+    want = os.environ.get('BLENDER_DEVICE', 'CPU').upper()
+    sc.cycles.device = 'CPU'
+    if want == 'CPU': return
+    try:
+        try: bpy.ops.preferences.addon_enable(module='cycles')
+        except Exception: pass
+        prefs = bpy.context.preferences.addons['cycles'].preferences
+        for t in ('OPTIX', 'CUDA', 'HIP', 'METAL', 'ONEAPI'):
+            try:
+                prefs.compute_device_type = t; prefs.get_devices()
+            except Exception:
+                continue
+            gpus = [d for d in prefs.devices if d.type == t]
+            if gpus:
+                for d in prefs.devices: d.use = (d.type == t)
+                sc.cycles.device = 'GPU'
+                print(f'[render] dùng GPU {t}: ' + ', '.join(d.name for d in gpus))
+                return
+        print('[render] không thấy GPU, dùng CPU')
+    except Exception as e:
+        print('[render] không bật được GPU, dùng CPU:', e)
+
+
 def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None, figure=None):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
@@ -726,7 +753,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     if guong == 'pov':
         import cong_guong; cong_guong.pov_trong_guong(coll)
     co = add_camera(cam); sc.camera = co
-    sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 96; sc.cycles.use_denoising = True
+    sc.render.engine = 'CYCLES'; _thiet_bi(sc); sc.cycles.samples = 96; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 6; sc.cycles.diffuse_bounces = 4; sc.cycles.glossy_bounces = 3; sc.cycles.transmission_bounces = 4; sc.cycles.transparent_max_bounces = 8
     sc.render.resolution_x, sc.render.resolution_y = res; sc.render.resolution_percentage = 100
     sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = 0.4 if mode == 'night' else 0.0
