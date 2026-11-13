@@ -119,15 +119,16 @@ def add_drivers_and_controls(ob):
         try:
             hb.id_properties_ui('fist').update(min=0.0, max=1.0, soft_min=0.0, soft_max=1.0, description='Nắm tay 0–1')
         except Exception: pass
+        sgn = 1.0 if k == 'L' else -1.0       # đo trên rig: quay quanh Z cục bộ (+ cho tay trái, − cho tay phải) mới gập ngón VÀO lòng bàn tay; quanh X là bẻ ngón ra sau
         for nm in ('index', 'middle', 'ring', 'pinky'):
             for i, deg in ((1, 70), (2, 85)):
-                d = pb[f'{nm}{i}.{k}'].driver_add('rotation_euler', 0).driver; d.type = 'SCRIPTED'
+                d = pb[f'{nm}{i}.{k}'].driver_add('rotation_euler', 2).driver; d.type = 'SCRIPTED'
                 v = d.variables.new(); v.name = 'f'; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
-                d.expression = f'f*{math.radians(deg):.4f}'
-        for i, deg in ((1, 5), (2, 8)):
-            d = pb[f'thumb{i}.{k}'].driver_add('rotation_euler', 0).driver; d.type = 'SCRIPTED'
+                d.expression = f'f*{sgn * math.radians(deg):.4f}'
+        for i, deg in ((1, 25), (2, 35)):
+            d = pb[f'thumb{i}.{k}'].driver_add('rotation_euler', 2).driver; d.type = 'SCRIPTED'
             v = d.variables.new(); v.name = 'f'; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
-            d.expression = f'f*{math.radians(deg):.4f}'
+            d.expression = f'f*{sgn * math.radians(deg):.4f}'
     # nhóm xương
     ad = ob.data; groups = {'Than': ('pelvis', 'spine1', 'spine2', 'chest', 'neck', 'neck2', 'head'), 'Tay': tuple(f'{n}.{k}' for k in 'LR' for n in ('clavicle', 'upper_arm', 'forearm', 'hand')),
                             'Ngon': tuple(f'{n}{i}.{k}' for k in 'LR' for n in ('index', 'middle', 'ring', 'pinky', 'thumb') for i in (1, 2)), 'Chan_IK': tuple(f'{n}.{k}' for k in 'LR' for n in ('ik_foot', 'pole_knee')) + ('root',),
@@ -253,6 +254,21 @@ def smooth_weights(asm, iters, alpha, head_z):
         for i, dy in fing.items():                  # idempotent: xoá trọng số ngón nào lan sang ngón khác (không nhân cộng dồn)
             yc = -0.013 + dy; far = (np.abs(ys - yc) > 0.030) & (zs < palm_z + 0.004) & hand; W[far, i] = 0.0
         sh = W[hand].sum(axis=1, keepdims=True); W[hand] = np.where(sh > 1e-6, W[hand] / np.maximum(sh, 1e-6), W[hand])
+    # ngón cái ↔ ngón trỏ: đỉnh gần đường ngón cái hơn thì bỏ trọng số các ngón dài (và ngược lại) → khi nắm tay ngón cái không bị ngón trỏ kéo thành móc
+    def seg_dist(P, pts):
+        d = np.full(len(P), 9.0)
+        for a_, b_ in zip(pts, pts[1:]):
+            a_ = np.array(a_); b_ = np.array(b_); ab = b_ - a_; t_ = np.clip(((P - a_) @ ab) / max(ab @ ab, 1e-12), 0, 1); d = np.minimum(d, np.linalg.norm(P - (a_ + t_[:, None] * ab), axis=1))
+        return d
+    Ph = np.stack([xs, ys, zs], axis=1)[hand]
+    th_pts = [(t[0], t[1], t[2] * KZ) for t in T.THUMB]
+    dy_i = T.FINGERS[0][0]; L_i = T.FINGERS[0][1]; ix_pts = [(0.256, -0.013 + dy_i, 0.460 * KZ), (0.256 - 0.0075, -0.013 + dy_i - 0.003, (0.460 - 0.5 * L_i) * KZ), (0.256 - 0.022, -0.013 + dy_i - 0.008, (0.460 - L_i) * KZ)]
+    d_th = seg_dist(Ph, th_pts); d_ix = seg_dist(Ph, ix_pts)
+    th_i = [i for i, n in enumerate(names) if n.startswith('thumb')]; fl_i = [i for i, n in enumerate(names) if n.startswith(('index', 'middle', 'ring', 'pinky'))]
+    Wh = W[hand]; near_th = (d_th < d_ix - 0.004) & (d_th < 0.035); near_ix = (d_ix < d_th - 0.004) & (zs[hand] < 0.47 * KZ)
+    Wh[np.ix_(near_th, fl_i)] = 0.0; Wh[np.ix_(near_ix, th_i)] = 0.0
+    sh = Wh.sum(axis=1, keepdims=True); Wh = np.where(sh > 1e-6, Wh / np.maximum(sh, 1e-6), Wh); W[hand] = Wh
+    print(f'    ngón cái: {int(near_th.sum())} đỉnh chỉ theo ngón cái/bàn tay, {int(near_ix.sum())} đỉnh ngón trỏ bỏ trọng số ngón cái')
     # cổ: đầu chuyển dần từ chân cổ lên (thay vì nhảy trong vài mm) → cúi/ngửa/quay đầu không giãn ở chân cổ
     ch_i, n1_i, n2_i = names.index('chest'), names.index('neck'), names.index('neck2'); z0, z1 = T.RING_Z - 0.052, head_z
     band = free & (zs > z0 - 0.02) & (xs < 0.12)
@@ -318,7 +334,7 @@ POSES = {
     'nghieng_than': {'spine1': ('Z', 12), 'spine2': ('Z', 12), 'chest': ('Z', 8), 'neck': ('Z', 6)},
     'gap_hong': {'pelvis': ('X', 40), 'spine1': ('X', -12)},
     'quay_vai': {'upper_arm.L': ('Y', 70), 'upper_arm.R': ('Y', -70)},
-    'nam_tay': {**{f'{n}{i}.{k}': ('X', 70 if i == 1 else 80) for n in ('index', 'middle', 'ring', 'pinky') for i in (1, 2) for k in ('L', 'R')}, 'thumb1.L': ('X', 30), 'thumb1.R': ('X', 30)},
+    'nam_tay': {**{f'{n}{i}.{k}': ('Z', (1 if k == 'L' else -1) * (45 if i == 1 else 55)) for n in ('index', 'middle', 'ring', 'pinky') for i in (1, 2) for k in ('L', 'R')}},   # nắm hờ (đặt tay trực tiếp, không qua driver)
     'quay_dau': {'head': ('Y', 30), 'neck2': ('Y', 10), 'neck': ('Y', 10)},
     'nghieng_dau': {'head': ('Z', 20), 'neck2': ('Z', 8), 'neck': ('Z', 6)},
     'ngua_dau': {'head': ('X', -25), 'neck2': ('X', -5), 'neck': ('X', -5)},
@@ -342,7 +358,9 @@ def apply_pose(arm, name):
         bpy.context.view_layer.update(); return
     if spec == 'sit':
         pb['pelvis'].matrix = Matrix.Translation((0, 0.22, -0.255)) @ pb['pelvis'].bone.matrix_local; bpy.context.view_layer.update()   # hông lùi ra sau + hạ ngang mặt ghế (~0,31 m), đùi ngang, cẳng chân thẳng đứng
-        for k in 'LR': pb[f'ik_foot.{k}'].location = (0, 0, 0)
+        for k in 'LR':
+            pb[f'ik_foot.{k}'].location = (0, 0, 0)
+            pb[f'upper_arm.{k}'].rotation_euler = (math.radians(-28), 0, 0); pb[f'forearm.{k}'].rotation_euler = (math.radians(-62), 0, 0)   # bàn tay đặt lên đùi
         bpy.context.view_layer.update(); return
     if spec == 'step':
         pb['ik_foot.L'].location = (0, -0.10, 0.06)        # chân trái bước ra trước + nhấc
@@ -381,11 +399,20 @@ def render_poses(sc, arm, out):
         if name == 'ngoi':
             import numpy as np
             dg = bpy.context.evaluated_depsgraph_get(); ev = asm.evaluated_get(dg); me = ev.to_mesh(); a = np.zeros(len(me.vertices) * 3, dtype=np.float32); me.vertices.foreach_get('co', a); ev.to_mesh_clear(); a = a.reshape(-1, 3)
-            zmin = float(a[(np.abs(a[:, 0]) < 0.14) & (a[:, 1] > 0.12) & (a[:, 1] < 0.32) & (a[:, 2] < 0.5) & (a[:, 2] > 0.22)][:, 2].min())          # điểm thấp nhất của mông/đùi
-            bm = bmesh.new(); bmesh.ops.create_cube(bm, size=1.0)
-            for v in bm.verts: v.co = Vector((v.co.x * 0.55, 0.22 + v.co.y * 0.46, zmin - 0.015 + v.co.z * 0.03))
+            r = np.zeros(len(asm.data.vertices) * 3, dtype=np.float32); asm.data.vertices.foreach_get('co', r); r = r.reshape(-1, 3)
+            sel = (np.abs(r[:, 0]) < 0.17) & (r[:, 2] > 0.33) & (r[:, 2] < 0.60) & (r[:, 1] > -0.02)     # mông + mặt sau đùi ở dáng nghỉ
+            q = a[sel]; zmin = float(q[:, 2].min()); y0, y1 = float(q[:, 1].min()), float(q[:, 1].max()); xw = float(np.abs(q[:, 0]).max())
+            yb, yf = y1 + 0.03, max(y0 + 0.06, -0.02)                                                     # mép sau ghế sau mông 3 cm; mép trước lùi sau khoeo
+            bm = bmesh.new()
+            def box(x0_, x1_, y0_, y1_, z0_, z1_):
+                v = [bm.verts.new((x, y, z)) for x in (x0_, x1_) for y in (y0_, y1_) for z in (z0_, z1_)]
+                for f in ((0, 1, 3, 2), (4, 6, 7, 5), (0, 4, 5, 1), (2, 3, 7, 6), (0, 2, 6, 4), (1, 5, 7, 3)): bm.faces.new([v[i] for i in f])
+            sw = xw + 0.05; box(-sw, sw, yf, yb, zmin - 0.04, zmin)                                       # mặt ghế dày 4 cm, rộng hơn hông 5 cm mỗi bên
+            for lx in (-sw + 0.02, sw - 0.04):
+                for ly in (yf + 0.01, yb - 0.03): box(lx, lx + 0.02, ly, ly + 0.02, 0.0, zmin - 0.04)
+            bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
             m2 = bpy.data.meshes.new('ghe'); bm.to_mesh(m2); ghe = bpy.data.objects.new('Ghe', m2); sc.collection.objects.link(ghe); ghe.data.materials.append(D.mat('ghe', '#7a8c70', 0.8))
-            print(f'    ghế: mặt ghế ở z = {zmin:.3f} m (điểm thấp nhất của mông/đùi)')
+            over = int(((a[sel][:, 2] < zmin - 0.002)).sum()); print(f'    ghế: mặt ghế z = {zmin:.3f} m, sâu {yf:.2f}→{yb:.2f}, rộng ±{sw:.2f}; đỉnh mông/đùi lún dưới mặt ghế: {over}')
         for view, loc in (('truoc', (0, -6, 0.8)), ('nghieng', (6, 0, 0.8))):
             sc.camera = T.cam(sc, f'c_{name}_{view}', loc, (0, 0, 0.8), 1.75); sc.render.filepath = os.path.join(out, f'{name}_{view}.png'); bpy.ops.render.render(write_still=True)
         if ghe is not None: bpy.data.objects.remove(ghe, do_unlink=True)
