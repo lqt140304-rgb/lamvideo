@@ -88,3 +88,7 @@ Xem [RA-SOAT-13-11.md](RA-SOAT-13-11.md): 14 lỗi đã biết → 6 sửa hẳn
 
 ## 13/11 chiều: render lại video với các sửa mới
 - `xem-thu/video/chuoi-shot.mp4`: bản mới (12 fps, 640×268, 53 s, 14 mẫu); `chuoi-shot-24fps.mp4`: cùng video nội suy lên 24 fps bằng `minterpolate` (không render thêm). Thời gian render thật: 83,6 phút (5.014 s) trên 4 lõi CPU, bật persistent data; không shot nào lỗi. Log: `xem-thu/video/thoi-gian.log`.
+
+## Đồ dùng tinh chỉnh — cập nhật 13/11
+
+Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đồ dùng mới trên bối cảnh hiện tại: tựa ghế đúng chiều, chăn ôm ngoài mép nệm và chân cao su laptop đặt trên mặt bàn. Xem [hướng dẫn tích hợp và giới hạn](README-CHI-TIET.md), [ảnh sửa tiếp xúc](sua-tiep-xuc/DA-SUA.png). Entry gốc vẫn giữ nguyên; cần gọi entry tinh chỉnh hoặc gọi `refine()` sau `build()` để nhận đồ dùng mới.
