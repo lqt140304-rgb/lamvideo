@@ -17,8 +17,8 @@ from . import luoi
 
 DONG = 0.30                 # đường nhắm: tỉ lệ chiều cao tính từ mép dưới
 VUOT = math.radians(0.6)    # mỗi mí vượt đường nhắm để hai mí chồng nhau
-WIDE_TREN, WIDE_DUOI = math.radians(7.0), math.radians(2.5)
-SQ_TREN, SQ_DUOI = math.radians(2.5), math.radians(9.0)
+WIDE_TREN, WIDE_DUOI = math.radians(10.0), math.radians(3.5)
+SQ_TREN, SQ_DUOI = math.radians(3.5), math.radians(13.0)
 
 KEYS = ['blink_L', 'blink_R', 'eye_wide_L', 'eye_wide_R', 'squint_L', 'squint_R',
         'brow_inner_up_L', 'brow_inner_up_R', 'brow_outer_up_L', 'brow_outer_up_R', 'brow_down_L', 'brow_down_R', 'brow_knit',
@@ -95,7 +95,7 @@ def _dai_may(co, s, kieu, cao):
     doc = np.clip(1 - ((co[:, 2] - (D.FACE['brow_z'] - 0.002)) / 0.022) ** 2, 0, 1) ** 2
     dau = np.clip(1 - np.maximum(x0 - 0.012 - sx, sx - x1 - 0.020).clip(0) / 0.020, 0, 1)
     truoc = np.clip((-co[:, 1] - 0.08) / 0.05, 0, 1)
-    w = {'trong': 1 - t, 'ngoai': t, 'deu': np.ones_like(t)}[kieu] * doc * dau * truoc * (sx > 0)
+    w = {'trong': (1 - t) ** 1.6, 'ngoai': t ** 1.3, 'deu': np.ones_like(t)}[kieu] * doc * dau * truoc * (sx > 0)   # đầu mày trong nâng dốc (mày buồn xếch)
     return w[:, None] * np.array(cao)
 
 
@@ -130,7 +130,7 @@ def tao_key(r):
     nguon_mep = {}
     for i in np.nonzero(mi)[0]: nguon_mep[(A['nguon'][i], A['phia'][i])] = i
     trong = np.nonzero(np.isin(A['vung'], (32, 33)))[0]
-    he_trong = {-1: 1.0, -2: 1.0, -3: 1.0, -11: 0.7, -12: 0.5, -13: 0.35, -14: 0.2, -20: 0.0}
+    he_trong = {-1: 1.0, -2: 1.0, -3: 0.8, -11: 0.3, -12: 0.15, -13: 0.05, -14: 0.0, -20: 0.0}   # khoang gần như đứng yên (răng trên cố định)
 
     def theo_mep(disp):
         for i in trong:
@@ -145,19 +145,19 @@ def tao_key(r):
         D_[f'blink_{k}'] = M.xoay(M.goc_nham())
         D_[f'eye_wide_{k}'] = M.xoay(np.where(M.phia0 == 1, WIDE_TREN, -WIDE_DUOI) * M.prof)
         D_[f'squint_{k}'] = M.xoay(np.where(M.phia0 == 1, -SQ_TREN, SQ_DUOI) * M.prof)
-        D_[f'brow_inner_up_{k}'] = _dai_may(co, s, 'trong', (0, 0, 0.008)) * ngoai_mi
-        D_[f'brow_outer_up_{k}'] = _dai_may(co, s, 'ngoai', (0, 0, 0.008)) * ngoai_mi
-        D_[f'brow_down_{k}'] = _dai_may(co, s, 'deu', (0, 0, -0.006)) * ngoai_mi
-        D_[f'smile_{k}'] = theo_mep(_nhan(co, neo[f'khoe.{k}'], (0.030, 0.04, 0.028), (s * 0.003, 0.002, 0.006)) * dz_mieng_ngoai)
-        D_[f'frown_{k}'] = theo_mep(_nhan(co, neo[f'khoe.{k}'], (0.030, 0.04, 0.028), (s * 0.001, 0.0, -0.006)) * dz_mieng_ngoai)
+        D_[f'brow_inner_up_{k}'] = _dai_may(co, s, 'trong', (0, 0, 0.016)) * ngoai_mi
+        D_[f'brow_outer_up_{k}'] = _dai_may(co, s, 'ngoai', (0, 0, 0.012)) * ngoai_mi
+        D_[f'brow_down_{k}'] = _dai_may(co, s, 'deu', (0, 0, -0.009)) * ngoai_mi
+        D_[f'smile_{k}'] = theo_mep(_nhan(co, neo[f'khoe.{k}'], (0.034, 0.04, 0.030), (s * 0.004, 0.002, 0.010)) * dz_mieng_ngoai)
+        D_[f'frown_{k}'] = theo_mep(_nhan(co, neo[f'khoe.{k}'], (0.034, 0.04, 0.030), (s * 0.001, 0.0, -0.009)) * dz_mieng_ngoai)
         ben_tren = np.where(phia > 0, 1.0, np.where(phia == 0, 0.3, 0.0))[:, None]
-        D_[f'upper_lip_raise_{k}'] = theo_mep(_nhan(co, neo[f'moi_tren.{k}'], (0.016, 0.04, 0.020), (0, 0, 0.0035)) * ben_tren * dz_mieng_ngoai)
+        D_[f'upper_lip_raise_{k}'] = theo_mep(_nhan(co, neo[f'moi_tren.{k}'], (0.018, 0.04, 0.020), (0, 0, 0.0050)) * ben_tren * dz_mieng_ngoai)
         sq_duoi = M.xoay(np.where(M.phia0 == -1, SQ_DUOI, 0.0) * M.prof)
-        D_[f'cheek_raise_{k}'] = _nhan(co, neo[f'cheek.{k}'], (0.030, 0.04, 0.026), (0, -0.002, 0.005)) * ngoai_mi + 0.35 * sq_duoi
-    D_['brow_knit'] = (_nhan(co, neo['brow_in.L'], (0.022, 0.04, 0.018), (-0.005, 0, -0.002)) + _nhan(co, neo['brow_in.R'], (0.022, 0.04, 0.018), (0.005, 0, -0.002))) * ngoai_mi
+        D_[f'cheek_raise_{k}'] = _nhan(co, neo[f'cheek.{k}'], (0.032, 0.04, 0.028), (0, -0.003, 0.008)) * ngoai_mi + 0.35 * sq_duoi
+    D_['brow_knit'] = (_nhan(co, neo['brow_in.L'], (0.024, 0.04, 0.018), (-0.007, 0, -0.003)) + _nhan(co, neo['brow_in.R'], (0.024, 0.04, 0.018), (0.007, 0, -0.003))) * ngoai_mi
     hai_khoe = lambda vec_fn, rad: sum(_nhan(co, neo[f'khoe.{k}'], rad, vec_fn(s)) for s, k in ((1, 'L'), (-1, 'R')))
-    D_['mouth_wide'] = theo_mep(hai_khoe(lambda s: (s * 0.006, 0.001, 0.0), (0.026, 0.04, 0.022)) * dz_mieng_ngoai)
-    D_['mouth_pucker'] = theo_mep((hai_khoe(lambda s: (-s * 0.008, -0.002, 0.0), (0.026, 0.04, 0.022)) + _nhan(co, neo['mieng'], (0.030, 0.03, 0.022), (0, -0.004, 0))) * dz_mieng_ngoai)
+    D_['mouth_wide'] = theo_mep(hai_khoe(lambda s: (s * 0.009, 0.001, 0.0), (0.028, 0.04, 0.024)) * dz_mieng_ngoai)
+    D_['mouth_pucker'] = theo_mep((hai_khoe(lambda s: (-s * 0.010, -0.002, 0.0), (0.028, 0.04, 0.024)) + _nhan(co, neo['mieng'], (0.030, 0.03, 0.022), (0, -0.005, 0))) * dz_mieng_ngoai)
     vong_mieng = np.where(A['vung'] == 31, A['vong'], np.where(np.isin(A['vung'], (32, 33)), 0, 99))
     nen = np.where((vong_mieng >= 1), 1.0, 0.0)[:, None]                      # mép (vòng 0) và mặt trong không bị ép dọc → khe vẫn khép
     D_['lip_press'] = theo_mep(_nhan(co, neo['mieng'], (0.034, 0.03, 0.014), (0, 0.002, 0)) * dz_mieng_ngoai) + \

@@ -15,7 +15,7 @@ from . import luoi
 
 KHE_VA_CHAM = 0.0010           # m: mặt cầu va chạm = nhãn cầu + 1 mm (tay áo mí 1,3 mm, mép mí 2,5 mm: lúc nghỉ không bị đẩy)
 JAW_PIVOT = Vector((0.0, 0.0, 1.170))
-JAW_MAX = 0.10                 # rad ở jaw_open = 1 (môi dưới hạ ≈ 2 cm)
+JAW_MAX = 0.16                 # rad ở jaw_open = 1 (môi dưới hạ ≈ 3,5 cm, miệng há như mẫu RÕ)
 LIEC_NGANG_MM, LIEC_LEN_MM, LIEC_XUONG_MM = 0.020, 0.010, 0.016   # m: quãng con ngươi đi ở |look| = 1
 GAN = ['Eyebrow_Rig.L', 'Eyebrow_Rig.R', 'Mole_Rig', 'Vien_Mat.L', 'Vien_Mat.R']
 

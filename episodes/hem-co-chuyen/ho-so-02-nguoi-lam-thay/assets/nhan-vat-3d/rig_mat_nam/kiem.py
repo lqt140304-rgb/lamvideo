@@ -99,7 +99,7 @@ def khe_sang(r, k, luoi_n=(11, 9)):
 
 
 # GIỚI HẠN ĐÃ BIẾT (ghi trong README rig): lỗ mắt gần tròn nên sát khoé độ cao lỗ đổi rất dốc; khi nhắm hẳn còn tối đa 3 mặt
-# da nhỏ ở khoé mỗi mắt bị nén gập và ống viền chồng thành mảng tối ở khoé trong. Chỉ cho phép khi mí khép từ 40 % (blink ≥ 0,4).
+# da nhỏ ở khoé mỗi mắt bị nén gập và ống viền chồng thành mảng tối ở khoé trong. Chỉ cho phép khi mí khép từ 30 % (blink ≥ 0,3; đo được: bắt đầu ở ≈ 0,33).
 GAP_CHO_PHEP_KHI_NHAM = 3
 
 
@@ -134,7 +134,7 @@ def loi_bien_dang(r, mieng_dong=False):
     for pp in ps:
         a_, b_, c_ = V[pp[0]], V[pp[1]], V[pp[2]]; n = np.cross(b_ - a_, c_ - a_); l = np.linalg.norm(n); n_now.append(n / l if l > 1e-14 else n)
     n_now = np.array(n_now); lat = int(np.sum(((n_now * r._n0).sum(1) < -0.2) & r._da))
-    kb = r.head.data.shape_keys.key_blocks; nham = sum(1 for k in 'LR' if kb[f'blink_{k}'].value >= 0.4)
+    kb = r.head.data.shape_keys.key_blocks; nham = sum(1 for k in 'LR' if kb[f'blink_{k}'].value >= 0.3)
     if lat > GAP_CHO_PHEP_KHI_NHAM * nham: loi.append(f'{lat} mặt da lật/gấp')
     # mày trôi khỏi da
     for k in 'LR':
