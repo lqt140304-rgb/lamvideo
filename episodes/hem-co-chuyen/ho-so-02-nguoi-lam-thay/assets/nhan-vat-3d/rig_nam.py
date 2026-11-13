@@ -1,0 +1,223 @@
+"""NAM — RIG cơ bản (Blender bpy 5.x) cho thân nhẵn v2.x của `dung_than_nam.py` + đầu/tóc của `dung_dau_nam.py`.
+
+Chạy:  python rig_nam.py --blend Nam_rig.blend [--test <thư mục ảnh>] [--proxy 0.2]
+Armature `Nam_Rig` (đơn vị m, mặt −Y, trái nhân vật = +X ⇒ đuôi .L):
+  root → pelvis → spine1 → spine2 → chest → neck → head
+  chest → clavicle.L/R → upper_arm → forearm → hand → ngón (index/middle/ring/pinky 2 đốt, thumb 2 đốt)
+  pelvis → thigh.L/R → shin.L/R → foot.L/R → toe.L/R
+  Điều khiển (không biến dạng): ik_foot.L/R (IK chân: bàn chân + gót), pole_knee.L/R (hướng gối), root.
+Trọng số: tự động (bone heat) trên bản decimate của mesh rồi chuyển sang mesh gốc (Data Transfer); vùng từ vòng cổ trở lên ép 100% xương head.
+Cụm đầu (Cum_Dau: Head_Base ẩn, mắt, mày, tai, tóc…) làm con của xương head.
+Chưa quần áo. Chuyển động chỉ kiểm bằng các dáng thử (--test): xem ảnh để đánh giá, không phải bằng chứng cho mọi chuyển động.
+"""
+import sys, os, math, argparse, time
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bpy, bmesh
+from mathutils import Vector, Matrix, Euler
+import dung_dau_nam as D
+import dung_than_nam as T
+
+KZ = T.KZ
+
+
+def P(x, y, z): return Vector((x, y, z * KZ))      # toạ độ thân gốc (z trước nén) → thế giới
+
+
+def bone_table():
+    """(tên, cha, đầu, đuôi, deform) — toạ độ lấy từ các bảng ARM/LEG/FINGERS của dung_than_nam.py."""
+    B = []
+    A = lambda n, par, h, t, d=True: B.append((n, par, h, t, d))
+    A('root', None, Vector((0, 0.0, 0.0)), Vector((0, 0.0, 0.10)), False)
+    A('pelvis', 'root', P(0, 0.0, 0.50), P(0, 0.0, 0.62))
+    A('spine1', 'pelvis', P(0, 0.0, 0.62), P(0, 0.0, 0.74))
+    A('spine2', 'spine1', P(0, 0.0, 0.74), P(0, 0.0, 0.86))
+    A('chest', 'spine2', P(0, 0.0, 0.86), P(0, -0.004, 0.94))
+    A('neck', 'chest', P(0, -0.004, 0.94), Vector((0, -0.008, T.RING_Z + 0.004)))
+    A('head', 'neck', Vector((0, -0.008, T.RING_Z + 0.004)), Vector((0, -0.008, 1.6003)))
+    for s, k in ((1, 'L'), (-1, 'R')):
+        X = lambda x: s * x
+        A(f'clavicle.{k}', 'chest', P(X(0.020), -0.004, 0.935), P(X(0.140), 0.0, 0.905))
+        A(f'upper_arm.{k}', f'clavicle.{k}', P(X(0.150), 0.001, 0.895), P(X(0.203), 0.002, 0.680))
+        A(f'forearm.{k}', f'upper_arm.{k}', P(X(0.203), 0.002, 0.680), P(X(0.236), -0.008, 0.545))
+        A(f'hand.{k}', f'forearm.{k}', P(X(0.236), -0.008, 0.545), P(X(0.250), -0.013, 0.462))
+        x0, y0, z0 = 0.256, -0.013, 0.460
+        for nm, (dy, L, r) in zip(('index', 'middle', 'ring', 'pinky'), T.FINGERS):
+            p0 = P(X(x0), y0 + dy, z0); p1 = P(X(x0 - 0.0075), y0 + dy - 0.003, z0 - 0.5 * L); p2 = P(X(x0 - 0.022), y0 + dy - 0.008, z0 - L)
+            A(f'{nm}1.{k}', f'hand.{k}', p0, p1); A(f'{nm}2.{k}', f'{nm}1.{k}', p1, p2)
+        th = T.THUMB
+        A(f'thumb1.{k}', f'hand.{k}', P(X(th[0][0]), th[0][1], th[0][2]), P(X(th[1][0]), th[1][1], th[1][2]))
+        A(f'thumb2.{k}', f'thumb1.{k}', P(X(th[1][0]), th[1][1], th[1][2]), P(X(th[3][0]), th[3][1], th[3][2]))
+        # chân
+        A(f'thigh.{k}', 'pelvis', P(X(0.0925), 0.0, 0.600), P(X(0.0925), -0.002, 0.310))
+        A(f'shin.{k}', f'thigh.{k}', P(X(0.0925), -0.002, 0.310), P(X(0.0925), 0.004, 0.118))
+        A(f'foot.{k}', f'shin.{k}', P(X(0.0925), 0.004, 0.118), P(X(0.0980), -0.100, 0.035))
+        A(f'toe.{k}', f'foot.{k}', P(X(0.0980), -0.100, 0.035), P(X(0.0980), -0.190, 0.032))
+        # điều khiển
+        A(f'ik_foot.{k}', 'root', P(X(0.0925), 0.004, 0.118), P(X(0.0980), -0.100, 0.035), False)   # cùng hướng/độ dài xương foot ⇒ Copy Rotation = đồng nhất ở dáng nghỉ
+        A(f'pole_knee.{k}', 'root', Vector((s * 0.0925, -0.45, 0.31 * KZ)), Vector((s * 0.0925, -0.50, 0.31 * KZ)), False)
+    return B
+
+
+def build_armature(sc):
+    ad = bpy.data.armatures.new('Nam_Rig'); ob = bpy.data.objects.new('Nam_Rig', ad); sc.collection.objects.link(ob)
+    bpy.context.view_layer.objects.active = ob; ob.select_set(True); bpy.ops.object.mode_set(mode='EDIT')
+    eb = ad.edit_bones
+    for n, par, h, t, d in bone_table():
+        b = eb.new(n); b.head = h; b.tail = t; b.use_deform = d
+        if (t - h).length < 1e-4: b.tail = h + Vector((0, 0, 0.01))
+    for n, par, h, t, d in bone_table():
+        if par:
+            eb[n].parent = eb[par]
+            if n not in ('pelvis',) and not n.startswith(('ik_', 'pole_', 'thigh')): eb[n].use_connect = (eb[n].head - eb[par].tail).length < 1e-4
+    # roll: cạnh hông/cánh tay quay quanh trục dọc — mặc định 0 là đủ cho mô hình tay thả; trục gập khuỷu/gối chọn lúc tạo dáng
+    bpy.ops.object.mode_set(mode='OBJECT')
+    # ràng buộc IK chân
+    bpy.ops.object.mode_set(mode='POSE'); pb = ob.pose.bones
+    for k in ('L', 'R'):
+        c = pb[f'shin.{k}'].constraints.new('IK'); c.target = ob; c.subtarget = f'ik_foot.{k}'; c.chain_count = 2
+        c.pole_target = ob; c.pole_subtarget = f'pole_knee.{k}'; c.pole_angle = math.radians(-90)
+        cf = pb[f'foot.{k}'].constraints.new('COPY_ROTATION'); cf.target = ob; cf.subtarget = f'ik_foot.{k}'
+        for pn in (f'thigh.{k}', f'shin.{k}'): pb[pn].lock_ik_y = True
+    bpy.ops.object.mode_set(mode='OBJECT')
+    return ob
+
+
+def bind_weights(sc, arm, asm, proxy_ratio):
+    """Bone heat trên bản decimate rồi chuyển sang mesh gốc."""
+    t0 = time.time()
+    me = asm.data.copy(); px = bpy.data.objects.new('proxy_w', me); sc.collection.objects.link(px)
+    d = px.modifiers.new('Dec', 'DECIMATE'); d.ratio = proxy_ratio
+    bpy.context.view_layer.objects.active = px
+    bpy.ops.object.select_all(action='DESELECT'); px.select_set(True); bpy.ops.object.modifier_apply(modifier=d.name)
+    print(f'    proxy: {len(px.data.vertices)} đỉnh')
+    bpy.ops.object.select_all(action='DESELECT'); px.select_set(True); arm.select_set(True); bpy.context.view_layer.objects.active = arm
+    bpy.ops.object.parent_set(type='ARMATURE_AUTO')
+    print(f'    bone heat xong sau {time.time() - t0:.1f}s; nhóm đỉnh proxy: {len(px.vertex_groups)}')
+    # chuyển trọng số sang mesh gốc
+    for vg in px.vertex_groups:
+        if vg.name not in asm.vertex_groups: asm.vertex_groups.new(name=vg.name)
+    dt = asm.modifiers.new('DT', 'DATA_TRANSFER'); dt.object = px; dt.use_vert_data = True; dt.data_types_verts = {'VGROUP_WEIGHTS'}
+    dt.vert_mapping = 'POLYINTERP_NEAREST'; dt.layers_vgroup_select_src = 'ALL'; dt.layers_vgroup_select_dst = 'NAME'
+    bpy.context.view_layer.objects.active = asm; bpy.ops.object.select_all(action='DESELECT'); asm.select_set(True)
+    bpy.ops.object.modifier_apply(modifier=dt.name)
+    bpy.data.objects.remove(px, do_unlink=True)
+    print(f'    chuyển trọng số sang mesh gốc xong sau {time.time() - t0:.1f}s')
+    # đầu = 100% xương head; làm sạch
+    gh = asm.vertex_groups.get('head'); ztop = T.RING_Z + 0.012
+    others = [g for g in asm.vertex_groups if g.name != 'head']
+    for v in asm.data.vertices:
+        if v.co.z > ztop:
+            for g in others:
+                try: g.remove([v.index])
+                except RuntimeError: pass
+            gh.add([v.index], 1.0, 'REPLACE')
+    bpy.ops.object.mode_set(mode='OBJECT')
+    smooth_weights(asm, iters=40, alpha=0.5, head_z=ztop)
+    m = asm.modifiers.new('Armature', 'ARMATURE'); m.object = arm; asm.parent = arm
+    for g in list(asm.vertex_groups):
+        if g.name not in arm.data.bones: asm.vertex_groups.remove(g)
+
+
+def smooth_weights(asm, iters, alpha, head_z):
+    """Làm mượt trọng số theo kề đỉnh bằng numpy (khuếch tán Laplace), giữ nguyên vùng đầu = 1,0 xương head; chuẩn hoá lại (không giới hạn số xương)."""
+    import numpy as np
+    me = asm.data; nv = len(me.vertices); names = [g.name for g in asm.vertex_groups]; ng = len(names); gi = {g.index: i for i, g in enumerate(asm.vertex_groups)}
+    W = np.zeros((nv, ng), dtype=np.float32)
+    for v in me.vertices:
+        for g in v.groups: W[v.index, gi[g.group]] = g.weight
+    ed = np.zeros(len(me.edges) * 2, dtype=np.int32); me.edges.foreach_get('vertices', ed); ea, eb = ed[0::2], ed[1::2]
+    deg = np.bincount(np.concatenate([ea, eb]), minlength=nv).astype(np.float32).clip(min=1)
+    co = np.zeros(nv * 3, dtype=np.float32); me.vertices.foreach_get('co', co); zs = co[2::3]
+    free = zs <= head_z; hi = names.index('head')
+    xs = np.abs(co[0::3]); ys = co[1::3]
+    arm_names = ('clavicle', 'upper_arm', 'forearm', 'hand', 'index', 'middle', 'ring', 'pinky', 'thumb'); leg_names = ('thigh', 'shin', 'foot', 'toe')
+    arm_i = [i for i, n in enumerate(names) if n.startswith(arm_names)]; leg_i = [i for i, n in enumerate(names) if n.startswith(leg_names)]; clav_i = [i for i, n in enumerate(names) if n.startswith('clavicle')]
+    sp2 = names.index('spine2'); pel = names.index('pelvis')
+
+    sm = lambda e0, e1, x: np.clip((x - e0) / (e1 - e0), 0.0, 1.0) ** 2 * (3 - 2 * np.clip((x - e0) / (e1 - e0), 0.0, 1.0))
+    # mặt nạ mềm theo giải phẫu (nhân, không cắt cứng): chân không với lên thân trên hông; tay không với vào giữa thân (trừ xương đòn gần vai)
+    f_leg = sm(0.68, 0.58, zs).astype(np.float32)                                    # =1 dưới 0,58; =0 trên 0,68
+    f_arm_core = (1 - (sm(0.085, 0.125, xs) * 0 + 1 - sm(0.085, 0.125, xs)) * (1 - sm(0.84, 0.76, zs) * 0)).astype(np.float32)   # =sm(x): 0 ở giữa thân, 1 khi |x| ≥ 0,125
+    f_arm_core = sm(0.085, 0.125, xs).astype(np.float32); f_clav = np.maximum(f_arm_core, sm(0.78, 0.86, zs)).astype(np.float32)
+
+    def rules():
+        W[:, leg_i] *= f_leg[:, None]
+        for i in arm_i: W[:, i] *= (f_clav if i in clav_i else f_arm_core)
+        z0 = W.sum(axis=1) < 1e-6; W[z0, sp2] = 1.0
+
+    for it in range(iters):
+        acc = np.zeros_like(W)
+        for j in range(ng):
+            acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
+        W[free] = (1 - alpha) * W[free] + alpha * (acc[free] / deg[free, None])
+    W[W < 0.04] = 0.0; W[free & (W.sum(axis=1) < 1e-6), sp2] = 1.0
+    for it in range(14):   # làm mượt lại sau khi cắt trọng số nhỏ để không để lại bước nhảy
+        acc = np.zeros_like(W)
+        for j in range(ng):
+            acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
+        W[free] = 0.5 * W[free] + 0.5 * (acc[free] / deg[free, None])
+    W[~free] = 0; W[~free, hi] = 1.0
+    # tối đa 4 xương, chuẩn hoá
+    W[W < 0.002] = 0.0; W /= W.sum(axis=1, keepdims=True).clip(min=1e-9)   # KHÔNG ép tối đa 4 xương: cắt top-4 trên trường trơn tạo bước nhảy → nứt khi tạo dáng
+    for g in asm.vertex_groups: g.remove(list(range(nv)))
+    nz = np.nonzero(W > 1e-4)
+    for vi, gj in zip(nz[0].tolist(), nz[1].tolist()): asm.vertex_groups[gj].add([vi], float(W[vi, gj]), 'REPLACE')
+    print(f'    làm mượt trọng số: {iters} vòng, {len(nz[0]) / nv:.2f} xương/đỉnh')
+
+
+def attach_head(arm, sc):
+    """Cụm đầu làm con của xương head (giữ nguyên toạ độ thế giới ở dáng nghỉ)."""
+    em = bpy.data.objects['Cum_Dau']; b = arm.data.bones['head']
+    em.parent = arm; em.parent_type = 'BONE'; em.parent_bone = 'head'
+    pm = arm.matrix_world @ b.matrix_local @ Matrix.Translation((0, b.length, 0)); em.matrix_parent_inverse = pm.inverted()
+
+
+POSES = {
+    'nghi': {},
+    'tay_nang_45': {'upper_arm.L': ('Z', -45), 'upper_arm.R': ('Z', 45)},
+    'tay_truoc': {'upper_arm.L': ('X', -80), 'upper_arm.R': ('X', -80), 'forearm.L': ('X', -20), 'forearm.R': ('X', -20)},
+    'khuyu_gap': {'upper_arm.L': ('X', -30), 'forearm.L': ('X', -90), 'upper_arm.R': ('X', -30), 'forearm.R': ('X', -90)},
+    'cui_dau': {'neck': ('X', 20), 'head': ('X', 15), 'spine1': ('X', 18), 'spine2': ('X', 12)},
+    'buoc_chan': 'step',
+}
+
+
+def apply_pose(arm, name):
+    pb = arm.pose.bones
+    for b in pb: b.rotation_mode = 'XYZ'; b.rotation_euler = (0, 0, 0); b.location = (0, 0, 0)
+    spec = POSES[name]
+    if spec == 'step':
+        pb['ik_foot.L'].location = (0, -0.10, 0.06)        # chân trái bước ra trước + nhấc
+        pb['ik_foot.R'].location = (0, 0.04, 0.0)           # chân phải lùi sau
+        pb['pelvis'].location = (0, -0.03, -0.012); pb['pelvis'].rotation_euler = (0, 0, math.radians(5))
+        pb['spine2'].rotation_euler = (0, 0, math.radians(-6))
+        pb['upper_arm.L'].rotation_euler = (math.radians(25), 0, 0); pb['upper_arm.R'].rotation_euler = (math.radians(-25), 0, 0)
+    else:
+        for bn, (ax, deg) in spec.items():
+            e = list(pb[bn].rotation_euler); e['XYZ'.index(ax)] = math.radians(deg); pb[bn].rotation_euler = e
+    bpy.context.view_layer.update()
+
+
+def render_poses(sc, arm, out):
+    os.makedirs(out, exist_ok=True); sc.render.resolution_x, sc.render.resolution_y = 520, 900
+    for name in POSES:
+        apply_pose(arm, name)
+        for view, loc in (('truoc', (0, -6, 0.8)), ('nghieng', (6, 0, 0.8))):
+            sc.camera = T.cam(sc, f'c_{name}_{view}', loc, (0, 0, 0.8), 1.75); sc.render.filepath = os.path.join(out, f'{name}_{view}.png'); bpy.ops.render.render(write_still=True)
+    apply_pose(arm, 'nghi')
+
+
+if __name__ == '__main__':
+    argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
+    ap = argparse.ArgumentParser(); ap.add_argument('--blend', default=''); ap.add_argument('--test', default=''); ap.add_argument('--proxy', type=float, default=0.5); ap.add_argument('--samples', type=int, default=16)
+    a = ap.parse_args(argv)
+    sc = T.build_scene(a.voxel if hasattr(a, 'voxel') else 0.0025)
+    for c in list(sc.objects):
+        if c.type in ('LIGHT', 'CAMERA'): bpy.data.objects.remove(c, do_unlink=True)
+    T.lights(sc); sc.cycles.samples = a.samples
+    asm = bpy.data.objects['Nam_Dau_Than']
+    arm = build_armature(sc); bind_weights(sc, arm, asm, a.proxy); attach_head(arm, sc)
+    # chất vấn trọng số: số đỉnh không có trọng số
+    bad = sum(1 for v in asm.data.vertices if sum(g.weight for g in v.groups) < 0.99); print(f'    đỉnh thiếu trọng số: {bad}/{len(asm.data.vertices)}')
+    if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
+    if a.test: render_poses(sc, arm, a.test)
