@@ -653,8 +653,8 @@ def render_coverage(sc, out):
 ENV = dict(c=(0.0, 0.012, 1.300), ax=0.228, ay_f=0.230, ay_b=0.232, az_t=0.212, az_b=0.200, n=2.35)
 V4_LOBES = [(-35, 14, 50, 18.0), (-8, 9, 18, 13.0), (22, 10, 26, 10.0), (46, 8, 12, 8.0)]   # mảng lớn, đầu lọn giữa chồng trên mảng lớn, mảng phụ, đầu lọn nhỏ ở thái dương phải ảnh          # mảng mái lớn quét chéo về trái ảnh + mảng phụ ngắn bên phải ảnh: (tâm°, nửa rộng trái°, nửa rộng phải°, độ hạ°)
 V4_DETAIL = True                                               # rãnh nông/gờ mảng (bật sau khi khối lớn đã đạt)
-V4_FLOWS = [([(18, 72), (2, 54), (-18, 34), (-33, 18)], 0.011, 10.0), ([(30, 64), (26, 46), (22, 26)], 0.007, 7.0),
-            ([(12, 66), (0, 48), (-8, 24)], 0.008, 6.0), ([(44, 64), (46, 44), (46, 28)], 0.005, 5.0)]
+V4_FLOWS = [([(18, 72), (2, 54), (-18, 34), (-33, 18)], 0.016, 10.0), ([(30, 64), (26, 46), (22, 26)], 0.010, 7.0),
+            ([(12, 66), (0, 48), (-8, 24)], 0.012, 6.0), ([(44, 64), (46, 44), (46, 28)], 0.008, 5.0)]
 V4_GROOVES = [([(26, 58), (18, 44), (12, 32)], 1.0), ([(8, 58), (-6, 44), (-17, 27)], 0.9), ([(38, 56), (37, 44), (35, 33)], 0.7)]   # rãnh ngắn, tắt dần về gốc
 
 
@@ -706,7 +706,7 @@ def hair_mass_v4(coll, M, S, N=288, K=60):
             t_env = env_dist(d); cap = 0.055 - 0.030 * smooth01(0, -40, el)      # gáy thu gọn: phía dưới không phồng theo hình bao
             t_out = min(max(t_env, t_in + 0.008), t_in + cap)
             # mép: mái trước dày, bo cung lồi; hai bên và gáy mỏng dần đều tới gần 0 trên một đoạn dài (ôm đầu, không gấp khúc)
-            T_edge = 0.0015 + 0.0125 * wf; span = 34 - 22 * wf
+            T_edge = 0.0015 + 0.019 * wf; span = 34 - 20 * wf
             x_ = min(1.0, max(0.0, (el - e0) / span))
             prof_ = wf * math.sqrt(max(0.0, 1 - (1 - x_) ** 2)) + (1 - wf) * (x_ * x_ * (3 - 2 * x_)) ** 0.85
             T = T_edge + (t_out - t_in - T_edge) * prof_
@@ -737,7 +737,7 @@ def hair_curl_v4(coll, M, S):
     anchor = Vector((0.0, 0.012, tz))
     loc = [(0.0, 0.036, -0.024), (0.0, 0.030, 0.006), (0.004, 0.012, 0.032), (0.014, -0.016, 0.047), (0.026, -0.048, 0.047), (0.036, -0.072, 0.033), (0.040, -0.082, 0.015)]   # gốc sau đỉnh → vòng lên → cong về trước, ngọn chúc xuống
     pts = [anchor + Vector(v) for v in loc]
-    prof = [(0, 1.6), (0.16, 1.1), (0.45, 1.25), (0.78, 0.8), (1.0, 0.30)]
+    prof = [(0, 1.6), (0.16, 1.15), (0.45, 1.4), (0.78, 0.95), (1.0, 0.34)]
     ob = sweep('Hair_LonDinh', coll, pts, lambda u: 0.031 * _prof(prof, u), lambda u: 0.029 * _prof(prof, u), lambda c: Vector((1, 0, 0)), M['toc'], 48, 22)
     if V4_DETAIL: subsurf(ob, 1, 2)
     return ob
