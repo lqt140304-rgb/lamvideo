@@ -20,7 +20,7 @@ Hệ quả: nếu biến dạng mặt mà không gắn các vật rời, chúng 
 ## Quyết định (chủ repo)
 
 1. Làm theo **cách A**: shape key trên `Head_Base`, gắn các chi tiết mặt vào đầu, có script kiểm tự động.
-2. **Chỉ 2 mức độ** mỗi nhóm cảm xúc (thay vì 3 mức trong checklist).
+2. **Tối thiểu 2 mức độ** mỗi nhóm cảm xúc; **không bắt buộc 3 mức** như checklist. Có thêm mức nào thì chỉ khi cần, không phải điều kiện đạt.
 3. Tiêu chí đạt: người xem nhận ra biểu cảm chính; không chi tiết nào lòi ra ngoài viền hay đè lên; chi tiết bám sát khuôn mặt, không lệch.
 4. **Biểu cảm phải tái sử dụng được** cho Người Kia, Tùng, Mẹ, các vai phụ và các tập sau, không dựng lại từ đầu cho mỗi nhân vật.
 
@@ -34,7 +34,7 @@ Hệ quả: nếu biến dạng mặt mà không gắn các vật rời, chúng 
 ## Không làm (lần này)
 
 - Khẩu hình tiếng Việt (visemes) khớp ElevenLabs. Thiết kế không được chặn việc thêm sau.
-- Mức cực điểm (cấp 3) trong checklist: mồ hôi, tĩnh mạch, đổi màu da. Đây là hiệu ứng shader, làm riêng nếu cần.
+- Mức cực điểm (cấp 3) trong checklist: mồ hôi, tĩnh mạch, đổi màu da. Không bắt buộc; đây là hiệu ứng shader, làm riêng nếu một cảnh cần. Thiết kế không được chặn việc thêm mức sau.
 - Rig toàn thân, IK/FK, tay cầm đạo cụ.
 - Người Kia, Tùng, Mẹ. Làm sau khi Nam đạt, tái dùng cách làm.
 - Sửa nhận diện đã duyệt của Nam.
@@ -63,7 +63,7 @@ Hệ quả: nếu biến dạng mặt mà không gắn các vật rời, chúng 
 
 ## Lựa chọn của trợ lý (chưa duyệt)
 
-1. **Hai mức = Cấp 1 (thoáng qua) + Cấp 2 (rõ nét)** trong ma trận của [checklist](CHECKLIST-TIEN-KY-ASSET.md#4-bảng-ma-trận-biểu-cảm-3-cấp-độ-3-level-emotion-matrix). Bỏ Cấp 3 vì đó là hiệu ứng shader.
+1. **Hai mức tối thiểu = Cấp 1 (thoáng qua) + Cấp 2 (rõ nét)** trong ma trận của [checklist](CHECKLIST-TIEN-KY-ASSET.md#4-bảng-ma-trận-biểu-cảm-3-cấp-độ-3-level-emotion-matrix). Chưa làm Cấp 3 vì đó là hiệu ứng shader; thêm sau nếu cảnh cần.
 2. **Danh sách shape key cho Nam (6):** `ngai_ngu` / `kiet_suc`, `tu_ai` / `thi_uy`, `hoang_mang` / `kinh_hoang`. Trạng thái nghỉ là `neutral` (không shape key).
 3. **Danh sách cho Người Kia (2, làm sau):** `neutral_smile` / `eerie_smirk`. `calm` là tư thế nghỉ, không cần shape key riêng.
 4. **Khoang miệng tối giản** (khoang tối, răng, lưỡi) để `hoang_mang`, `kinh_hoang`, `thi_uy` có miệng há. Thêm như phần phụ, không đổi lưới nghỉ.
