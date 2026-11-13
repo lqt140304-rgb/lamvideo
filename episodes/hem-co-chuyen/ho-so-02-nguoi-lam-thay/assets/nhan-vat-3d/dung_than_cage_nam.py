@@ -167,7 +167,6 @@ def _section(bm, center, normal, X, Y):
 
 def split_hands_feet(old_body, coll):
     """Cắt bàn chân cũ (giữ nguyên hình, kèm đoạn cổ STUB) thành vật riêng; đặt lại vòng mat_ca của cage theo mặt cắt. Trả dict vật + 'mat_cat'."""
-    # cắt ngay chỗ bàn tay/chân cũ bắt đầu loe (tay: z 0,55 trước nén, giữa hai nút cuối của ARM; chân: z 0,10 — trên đó ống chân cũ đều r ≈ 6,7 cm)
     # Chỉ bàn chân: bàn tay mới do chủ repo dựng riêng, chưa ghép (14/11/2026). Chân cắt ở z 0,10 — trên đó ống chân cũ đều r ≈ 6,7 cm, dưới là mu/gót loe ra.
     ln = T.LEG[-1]
     cuts = {'Nam_BanChan': (Vector((ln[0], ln[1], 0.100)), Vector((0, 0, -1)), Vector((0.106, -0.05, 0.03)))}
@@ -221,7 +220,7 @@ def neck_strip(bm, body_loop, head_loop):
 
 
 def assemble_cage(head, cage, skin):
-    """Bản sao đầu (cắt ở vòng cổ) + cage đã áp Mirror + Subdivision 2, nối bằng neck_strip; chỉ làm mượt dải 10 mm phía thân quanh mối nối."""
+    """Bản sao đầu (cắt ở vòng cổ) + cage đã áp Mirror + Subdivision 2, nối bằng neck_strip; trước khi nối chỉ làm mượt theo phương ngang các đỉnh thân trong 16 mm dưới vòng cắt (không đụng đầu)."""
     body = cage.copy(); body.data = cage.data.copy(); bpy.context.scene.collection.objects.link(body)
     body.modifiers['Subsurf'].levels = 2
     for md in list(body.modifiers): T.apply_mod(body, md)
