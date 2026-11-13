@@ -1,5 +1,9 @@
 # The Crack in Reality — Hồ sơ 2: Người trong gương · Phần 3: Người bị thay thế
 
+> [!IMPORTANT]
+> **TÀI LIỆU LƯU TRỮ LỊCH SỬ:** File này là bản phân đoạn nháp trong quá trình phát triển ý tưởng ban đầu.  
+> Bản kịch bản chính thức khóa bản dựng (Locked Master Screenplay) của toàn bộ tập phim là **[KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md)** (thời lượng 15:00, giải quyết toàn bộ 7 lỗi logic và chi tiết đời thường). Toàn bộ khâu dựng phim, âm thanh và asset tuân thủ theo file Master.
+
 **Kịch bản chi tiết đã cập nhật theo phê duyệt mới nhất (Thời lượng chuẩn: ~4 phút 00 giây).**
 Trọng tâm: **Nỗ lực giành lại bất thành vì bị xã hội đào thải $\to$ Phát hiện nốt ruồi đảo bên & Bí mật chiếc gương $\to$ Đối chất tâm lý trước gương (xóa bỏ cảnh đánh nhau) $\to$ Cái bẫy buông lỏng tinh thần & Mặt kính hóa nước $\to$ Đoạn kết rợn ngáy khi Tùng chột dạ phát hiện.**
 

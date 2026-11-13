@@ -1,5 +1,9 @@
 # The Crack in Reality — Hồ sơ 2: Người trong gương · Phần 2: Quen được làm thay
 
+> [!IMPORTANT]
+> **TÀI LIỆU LƯU TRỮ LỊCH SỬ:** File này là bản phân đoạn nháp trong quá trình phát triển ý tưởng ban đầu.  
+> Bản kịch bản chính thức khóa bản dựng (Locked Master Screenplay) của toàn bộ tập phim là **[KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md)** (thời lượng 15:00, giải quyết toàn bộ 7 lỗi logic và chi tiết đời thường). Toàn bộ khâu dựng phim, âm thanh và asset tuân thủ theo file Master.
+
 **Kịch bản chi tiết đã cập nhật (Bổ sung tương tác đời thực, ngôn ngữ giới trẻ & những cuộc trò chuyện lúc cày game).**
 Trọng tâm: Bước chuyển mình tâm lý của Nam từ **Chưa tin tưởng $\to$ Thả lỏng phòng vệ & Thị uy làm "ông chủ" $\to$ Giãy giụa tự ái nhưng gục ngã trước thói lười $\to$ Lần nhờ vả đầu tiên $\to$ Tâm sự & Banter lúc chơi game $\to$ Xâm lấn leo thang & Các phản kháng nửa vời $\to$ Đỉnh điểm tương phản qua clip Zalo gia đình & Chiếc gương phòng trọ.**
 

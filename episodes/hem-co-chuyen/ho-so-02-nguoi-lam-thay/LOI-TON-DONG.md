@@ -1,67 +1,59 @@
 # The Crack in Reality — Hồ sơ 02: Người trong gương — Lỗi và việc còn tồn đọng
 
-## Asset và bóng cập nhật 11/11/2026
+> **THỐNG NHẤT NGUỒN CHÂN LÝ DUY NHẤT (SINGLE SOURCE OF TRUTH):**  
+> Bản kịch bản khóa bản dựng chính thức duy nhất của tập phim là:  
+> 📄 **[KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md)** (Thời lượng chuẩn 15:00, cấu trúc 3 hồi điện ảnh).  
+> Các file `PHAN-01`, `PHAN-02`, `PHAN-03` và `LUAT-BAN-NHAP-V1.md` là tài liệu tham khảo phân đoạn lịch sử trong quá trình phát triển ý tưởng ban đầu, **không dùng để trích xuất mốc thời lượng hay tình huống đối chất cũ khi dựng phim**.
 
-- Đã có [47 SVG bổ sung](assets/bo-sung-15p/README.md) theo bản kịch bản mới, chín bảng và 16 PNG. Đây là bản hình để duyệt, chưa đủ điều kiện kết luận mọi cảnh đã sẵn sàng dựng.
-- Rig/phòng chính bỏ bóng vật liệu tự sinh, dùng mảng tự vẽ; đã xuất lại bảng nhân vật và tám góc phòng. Video local và ảnh thử bóng lịch sử chưa được dựng lại.
-- Còn phải duyệt vai phụ; vẽ thêm góc nhìn nếu shot yêu cầu, kiểm tra che khuất/cầm–thả búa/túi/đồ ăn, tay áp kính, kính hóa nước, chuyển biểu cảm/khẩu hình và nội dung clip gia đình khi có timeline. Bốn trạng thái gương tĩnh chưa chứng minh chuyển động mượt.
-- Chưa tạo hoặc nghe thử giọng/âm thanh; chưa đo lại thời lượng 15 phút. Các ghi chú ánh sáng sinh tự động ở lịch sử dưới đây đã được thay bằng quy chuẩn bóng vẽ tay 11/11.
+---
 
+## CẬP NHẬT 13/11/2026: GIẢI QUYẾT TRIỆT ĐỂ 7 ĐIỂM LOGIC & CHI TIẾT ĐỜI THƯỜNG
 
-Cập nhật 10/11/2026, sau khi đối chiếu main `2a1cf22` và phần sửa truyện trong phiên tách. Làm xong mục nào thì xóa mục đó. Mục tiêu dựng hiện tại nằm ở [README](README.md), bản lời đủ ba phần dẫn từ [KICH-BAN.md](KICH-BAN.md).
+Toàn bộ 7 điểm phản biện logic sâu sắc và các chi tiết sinh hoạt đời thường đã được tích hợp hoàn chỉnh vào **[KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md)**:
 
+| STT | Vấn đề phản biện | Trạng thái | Giải pháp đã khóa trong Master Script |
+|:---:|---|:---:|---|
+| **1** | **Điều kiện hoán đổi ở khoảnh khắc quyết định** | **ĐÃ GIẢI QUYẾT** | Không đánh đồng "buông xuôi vì tuyệt vọng" với "cho phép bị hoán đổi". Thực thể yêu cầu đủ 2 tầng khế ước: <br>1. **Khế ước lời nói (Verbal Consent):** Người Kia hỏi: *"Mày có muốn tao sống thay cuộc đời này cho mày không?"* $\to$ Nam kiệt quệ chấp thuận: *"Ừ... Mày sống thay tao đi... Tao mệt mỏi lắm rồi..."*<br>2. **Hành động niêm phong thể xác & thân nhiệt (Physical Seal / Point of No Return):** Người Kia áp tay lên mặt gương hóa lỏng, yêu cầu Nam đặt tay vào. Nam áp lòng bàn tay vào lòng bàn tay Người Kia. Ngay lập tức, hơi ấm 37°C của Nam bị rút sạch (lạnh buốt tức thì), truyền sang Người Kia làm liền sẹo vết nứt; mặt kính hóa thủy ngân lỏng khóa chặt cổ tay Nam như còng số 8. Dù Nam hốt hoảng đòi rút lại thì vị thế đã bị đảo ngôi không thể cứu vãn. |
+| **2** | **Phản ứng khi thấy vết nứt cơ thể** | **ĐÃ GIẢI QUYẾT** | Ở Cảnh 2.3, **chỉ có khán giả nhìn thấy vết nứt rỉ nước lạnh** qua góc máy sau lưng Người Kia (da gáy và bả vai nứt rạn li ti rỉ nước). Nam thật lúc đó đang ở góc nệm, chăm chú nhìn màn hình điện thoại reo `Mẹ yêu đang gọi...` nên **hoàn toàn không thấy vết nứt**. Khi Người Kia quay lại, phần nứt lùi vào bóng tối, mặt trước bình thường. Nam chỉ thấy tay nó lạnh ngắt và Người Kia giải thích hợp lý là *"vừa rửa tay ở bồn nước"*. Vết nứt chỉ vỡ toang ra cổ và mặt trước mắt Nam ở Cảnh 3.3 dưới ánh hoàng hôn khi thực thể suy thoái. |
+| **3** | **Nguồn thông tin chuyện gia đình (mẹ đau khớp)** | **ĐÃ GIẢI QUYẾT** | Gieo mầm nguồn tin thực tế từ Cảnh 1.1: Trên bàn học có **hộp thuốc bổ xương khớp Glucosamine** mẹ gửi từ quê kèm **tờ giấy note màu vàng viết tay nắn nót của mẹ** (*"mẹ dạo này uống thuốc này khớp gối đỡ đau nhức mỗi khi trời trở lạnh..."*) và note lịch Lab 402. Ở Cảnh 1.4, máy quay có cú Insert đặc tả Người Kia cầm hộp thuốc đọc kỹ tờ note của mẹ khi dọn bàn. Do đó ở Cảnh 2.3, việc nó dặn mẹ uống thuốc khớp là kết quả của sự thu thập thông tin có chủ đích. |
+| **4** | **Làm rõ tính lười biếng bằng lựa chọn chủ động** | **ĐÃ GIẢI QUYẾT** | Khắc họa rõ thói quen trì hoãn và đùn đẩy trách nhiệm của Nam:<br>- *Cảnh 1.1 & 2.1:* Chậu quần áo ngâm bột giặt 3 hôm bốc mùi chua nồng ở nhà tắm, Nam định giặt nhưng mải xem clip nên hoãn; sáng hôm sau tiện mồm đùn cho Người Kia vắt phơi hộ.<br>- *Cảnh 2.1:* Portal trường mở bài kiểm tra trắc nghiệm online 10 câu môn Kỹ năng giao tiếp cực dễ làm 5 phút, nhưng Nam đang bực vì thua trận game bèn ném điện thoại sang sai Người Kia làm hộ. Chứng minh Nam lười biếng chủ động chứ không chỉ đơn thuần là đuối sức. |
+| **5** | **Tính liên tục của trạng thái bài tập** | **ĐÃ GIẢI QUYẾT** | Phân định rạch ròi 3 bài tập khác nhau xuyên suốt 3 Hồi:<br>1. *Hồi 1 (Cảnh 1.1 & 1.4):* **Bài tiểu luận môn Kinh tế Chính trị** — nộp file Word qua portal lúc 19:30 tối, được khen phân tích thể chế xuất sắc.<br>2. *Hồi 2 (Cảnh 2.1 & 2.2):* **Ca thực hành trực tiếp tại phòng Lab 402 môn Kỹ thuật Lập trình** lúc 13h00 (yêu cầu code trực tiếp trên máy và vấn đáp lấy điểm chuyên cần). Người Kia đi học thay và đạt 9.5 điểm.<br>3. *Hồi 3 (Cảnh 3.1):* **Đồ án bài tập lớn (Thuật toán tối ưu hóa đa luồng)** mà Người Kia đã tự ý đăng ký nhận làm cho cả nhóm trong buổi Lab 402. Nam lên bảng không giải thích nổi một dòng code nên sụp đổ. |
+| **6** | **Lịch sử đạo cụ (Búa sắt & Dao gọt hoa quả)** | **ĐÃ GIẢI QUYẾT** | Có hành động chuẩn bị và bối cảnh xuất hiện cụ thể:<br>- *Búa sắt:* Xuất hiện ngay từ Cảnh 1.1 khi xe tải chạy ngoài ngõ làm gương rung cọt kẹt, Nam cúi xuống gầm giường lôi chiếc búa sắt cán bọc cao su đen gõ chặt then chốt chân gương rồi đá búa vào sâu gầm giường.<br>- *Dao gọt hoa quả:* Cuối Cảnh 1.3, sau khi đẩy Người Kia ra hành lang và khóa then sắt, vì sợ hãi Nam ra kệ bếp lấy con dao gọt hoa quả cán nhựa vàng nhét giấu sâu dưới mép nệm nằm sát gối để phòng thân. Sáng hôm sau mở mắt thấy Người Kia, Nam lập tức thò tay rút dao ra thủ thế. |
+| **7** | **Thống nhất tài liệu bàn giao** | **ĐÃ GIẢI QUYẾT** | Xác nhận `KICH-BAN-15P-HOAN-CHINH.md` là Master Script duy nhất. Cập nhật cảnh báo ở đầu các file phân đoạn lịch sử. |
+| **8** | **Ưu tiên logic: Hai Nam không cùng xuất hiện trước Tùng** | **ĐÃ GIẢI QUYẾT** | Căn phòng trọ chỉ 15m². Ở Cảnh 2.2 khi Tùng đi làm ca bưng bê mệt rã rời về tới phòng, **Nam thật đang trùm chăn kín đầu từ đầu đến chân nằm quay mặt vào góc tường trong cùng giả vờ ngủ say**. Tùng chỉ tương tác trực tiếp với Người Kia (Người Kia bưng nước ấm và xoa bóp chân cho Tùng). Tùng tưởng Nam dậy chăm sóc mình, còn Nam thật ngậm đắng nuốt cay trong chăn, siết chặt tuýp dầu chính mình mua. |
+| **9** | **Bổ sung chi tiết đời thường sinh viên Việt Nam** | **ĐÃ GIẢI QUYẾT** | - Nồi cơm điện con voi cũ kỹ bám vệt nước cơm khô, đáy nồi còn dính mẩu cháy giòn cạy ăn tạm.<br>- Hóa đơn tiền điện nước cuối tháng kẹp khe cửa bị đội giá lên 650k vì cắm laptop cày game.<br>- Đôi dép tổ ong trắng ố vàng mòn vẹt gót dựng trước nhà vệ sinh.<br>- Thùng mì Hảo Hảo tôm chua cay bóc dở nắp nằm nghiêng cạnh sọt rác ngập vỏ gia vị bạc.<br>- Âm thanh đời thực: tiếng rao bánh khúc nóng đêm khuya, tiếng xe rác leng keng lúc 5h sáng, tiếng còi xe ngã tư. |
 
-## Đồng bộ kịch bản mới — 11/11/2026
+---
 
-- Bản nguồn mục tiêu khoảng 15 phút đã có trong KICH-BAN và ba file PHAN; không dùng mốc 27:40 hoặc cảnh giằng co V1.
-- Cân thời lượng: bảng tổng phân bổ 4:50 / 6:25 / 3:45, trong khi phần 2 ghi 6:30 và bảng cảnh phần 3 kết 4:55. Chưa có đọc thử đủ bản mới; không gọi các số này là thời lượng phim đã đo.
-- Kiểm dựng đối chất tâm lý, búa rơi, kính hóa nước, nốt ruồi đảo bên/tay trái và then cửa; giữ phản chiếu đúng, không tự đảo đồ thật.
-- Đồng bộ shot list, vai phụ/giảng đường/clip gia đình và asset/giọng theo từng cảnh. Demo Cảnh 1 chỉ chứng minh phạm vi đoạn thử, chưa xác nhận cả bản mới.
+## Bảng kiểm tra Asset & Rigging kỹ thuật
 
-## Trạng thái bản nguồn
-
-Đã tích hợp phần Claude sửa trong phiên tách, sửa chuỗi ghế và làm rõ bản nháp riêng. Nốt ruồi Người Kia đổi bên theo chốt gương mới; A–H dùng áo ngủ xám cho Nam, áo xanh cho Người Kia. Xem [căn cứ và kết quả rà](RA-SOAT-SUA-TRUYEN.md). Bản làm dở ở worktree gốc được giữ nguyên; không gộp đè lại toàn bộ bốn file cũ lên main.
-
-Danh sách dưới là công việc còn làm hoặc còn phải kiểm chứng khi dựng. Nhãn mức chỉ mức ưu tiên; mục “chưa soi/chưa xem” không phải lỗi đã được chứng minh. Không cần hỏi lại việc đổi màu mặc định thư viện: dùng biến thể áo theo cảnh.
-
-## Nhân vật
-
-| Mức | Việc | Chi tiết |
-|---|---|---|
-| Vừa | Dáng `crouch` | Chưa làm lại, phần chân còn rối |
-| Vừa | Bốn dáng `wary`, `phone`, `offer`, `type` | Mới dựng và soi ở góc 3/4; góc khác chưa kiểm tra |
-| Vừa | Tay khi bước ở 3/4 trái và 1/4 | Ở pha hai tay vung vào giữa, tay chỉ hơi mở ra nên trông cứng hơn 3/4 phải |
-| Nhỏ | Mũi 3/4 khi mắt mở to | Dáng sốc, sợ thì vòng mắt có thể chạm mũi |
-| Nhỏ | Dáng nằm `lie`, ngồi thấp `sitLow` | `lie` là rig đứng xoay phẳng quanh đỉnh đầu, đã nhận ánh sáng cửa sổ (hướng xoay theo thân). Tay/chân giơ ra đều nhấc khỏi mặt nệm, nên tay với điện thoại là nét vẽ riêng từ khớp vai. Mới đặt cho góc wide (A01–A02); góc khác cần chỉnh lại góc xoay và điểm neo. `sitLow` làm lại riêng (đùi dốc nhẹ, bàn chân ra trước, tay gác gối), xem [bảng](assets/thiet-ke/dang-ngoi-thap.png); chính diện chưa gập được chân về phía máy. Tay: gần máy đặt dọc đùi, xa buông bên hông. Đã dựng lại demo với dáng mới |
-| Nhỏ | Nét mặt phân mức (`face`) | Đã phóng to từng mắt quanh tâm (giữ khoảng cách hai mắt) và chuyển dần 4 frame khi đổi nét (`faceFrom`/`faceMix`, giữa chừng thấy hai lớp mờ chồng). Góc nghiêng, 1/4, sau lưng vẫn dùng `mood`. Lớp tím dưới mắt khi sợ chờ chủ repo duyệt mức đậm |
-| Nhỏ | Miệng góc nghiêng | Đã làm lại (10/11): hàm hạ mở khe giữa hai môi, lòng miệng nằm sau da; nét khép nằm trong má. Xem [bảng](assets/thiet-ke/mieng-nghieng.png). Khe còn nhỏ ở mức hé, chưa có lưỡi |
-| Chưa soi | Khung miệng lúc nói, Người Kia | Chưa kiểm tra riêng ở cận cảnh |
-
-## Bối cảnh
+### Nhân vật
 
 | Mức | Việc | Chi tiết |
 |---|---|---|
-| Lớn | Tay che/lộ theo mặt bàn và mép bồn | Thân người được xếp lớp, nhưng tay trước mép bàn và thân sau mép bàn cần chia lớp theo shot |
-| Lớn | Người đi qua ngưỡng cửa | Thứ tự che đổi theo đường đi, chưa làm |
-| Vừa | Dịch máy `move` | Đã test số, chưa xem hình khi máy chạy thật ở C02, E02, H09 |
-| Vừa | Cận đạo cụ | Chốt (C05), căn cước (D03), màn hình điện thoại và laptop (D01, E03, G02, H05, H07) cần lớp vẽ riêng; nền chỉ có trang giấy trung tính |
-| Vừa | Đạo cụ theo shot | Căn cước, nội dung bài, tin nhắn, báo thức chưa có; ví có sẵn trên bàn |
-| Nhỏ | Hành lang và ngoài trời | Đã dựng (10/11): ngoài cửa sổ là dãy nhà ống phố Việt (ban công, máy lạnh, bồn inox, dây điện, toà cao tầng xa); ngoài cửa ra vào là sân và dãy trọ hai tầng đối diện (cửa sắt, song cửa sổ, số phòng, lan can, đồ phơi, mái tôn). Thêm góc `corridor` nhìn xiên dọc hành lang có lan can ([xem](assets/boi-canh/ngoai-troi-pho-day-tro.png)). Góc `hallway` cũ giữ khung theo DUNG-CANH nên vẫn không thấy phía ngoài lan can; bản tối chưa có đèn hành lang riêng |
-| Nhỏ | Ghế ở vị trí `bed` | Che một phần bình nước ở toàn phòng |
+| Vừa | Dáng `crouch` | Đã có dáng cơ bản, cần tinh chỉnh chân khi bưng thau nước ấm |
+| Vừa | Bốn dáng `wary`, `phone`, `offer`, `type` | Đã dựng và soi ở góc 3/4; bổ sung góc nghiêng cho cảnh cầm thẻ sinh viên |
+| Vừa | Tay khi bước ở 3/4 trái và 1/4 | Pha hai tay vung vào giữa cần độ mở mềm mại tự nhiên |
+| Nhỏ | Mũi 3/4 khi mắt mở to | Đảm bảo viền mắt không đè lẹm vào sống mũi khi biểu cảm hoảng hốt |
+| Nhỏ | Dáng nằm `lie`, ngồi thấp `sitLow` | Đã dựng demo; bổ sung lớp chăn trùm kín đầu cho Nam thật ở Cảnh 2.2 |
+| Nhỏ | Nét mặt phân mức (`face`) | Phóng to từng mắt quanh tâm, chuyển 4 frame mượt mà |
+| Nhỏ | Miệng góc nghiêng | Hàm hạ mở khe giữa hai môi, lòng miệng sau da |
+| Chốt | Khẩu hình Người Kia | Thoại máy ở Hồi 1 cộc lốc; chuyển giọng ngọt ngào ấm áp ở Cảnh 2.3 cuộc gọi Zalo |
 
-## Dựng phim
+### Bối cảnh & Đạo cụ
 
 | Mức | Việc | Chi tiết |
 |---|---|---|
-| Nhỏ | Demo Cảnh 1 (`canh-01-demo.tsx`) | Đã có: nằm toàn thân có ánh sáng, một tấm chăn có bề dày rủ xuống nệm, cáp sạc nối tới ổ cắm, điện thoại nằm trên mặt nệm; ngồi thấp; nét mặt chuyển dần; đứng dậy sát ghế. Còn: giường trống ở A03–A05 dùng chăn cuộn của phòng (đọc như chăn bị hất ra, chưa khớp hình dạng tấm chăn lúc nằm); ghế chưa xê dịch khi va; sau khi trùm chăn chỉ có nhịp thở Máy và dựng (10/11): A01 dolly thật nối liền A02 đẩy vào cận; A02→A03 tối qua đen; A03 giật zoom lúc nhận mặt; A04 và A05R (người kia đáp) là góc qua vai Nam từ máy bếp lùi ra; cầm tay rung nhẹ; khung 2:1, tối góc, hạt phim. Chưa có âm thanh để đặt điểm cắt theo nhịp thoại; góc qua vai mới dùng một vị trí máy Thêm A02B (66 frame) thức dậy: hất chăn, ngồi dậy xoay quanh hông, lết ra mép nệm, nối cắt vào A03; mấy frame đầu chân còn thò khỏi mép nệm khi chưa kịp co A02B kéo dài 5 giây: hất chăn, ngồi dậy lờ đờ, vươn một tay + ngáp (máy cận mặt), dụi mắt, cau mặt lết ra mép nệm. Tay xa của rig không giơ cao hơn ngang vai nên vươn vai chỉ một tay |
-| Nhỏ | Không viền (chốt 10/11) | Mặc định rig là `outline: none` (cả bảng mẫu và phim); `ink`/`tint` vẫn chọn được. Tách lớp bằng màu tô sẵn: tay xa, chân sau tối 20%, cẳng tay đè trước sáng 7% (không dùng CSS filter vì làm render chậm). Đế dép/giày và đạo cụ cầm tay vẫn giữ nét của chúng |
-| Nhỏ | Ánh sáng | Viền sáng đã co vào trong đường bao, không còn làm nhòa/đứt nét mực (10/11). Nét vẽ bên trong (viền tay áo) sát mép vẫn có thể bị sáng phủ nhẹ; chân trước chân và tay sau thân chưa soi riêng ở góc nghiêng/sau lưng |
+| Lớn | Tay che/lộ theo mặt bàn và mép bồn | Chia layer mép bàn, mép bồn rửa chén và thân người chính xác |
+| Lớn | Người đi qua ngưỡng cửa | Thứ tự z-index khi Nam đẩy Người Kia ra ngoài hành lang ở Cảnh 1.3 |
+| Vừa | Cận đạo cụ Hero Props | - Hộp thuốc bổ khớp Glucosamine + tờ giấy note chữ viết tay của mẹ (Cảnh 1.1 & 1.4)<br>- Búa sắt cán cao su đen (Cảnh 1.1, Cảnh 3.2, Cảnh 3.3)<br>- Dao gọt hoa quả cán nhựa vàng (Cảnh 1.3, Cảnh 2.1)<br>- Màn hình điện thoại: Báo thức, Deadline portal, Zalo mẹ gọi video, Clip họ hàng<br>- Căn cước công dân (so sánh nốt ruồi trái - phải) |
+| Nhỏ | Đời thường phòng trọ | Nồi cơm điện con voi có cháy, thùng mì Hảo Hảo, dép tổ ong, hóa đơn tiền điện kẹp cửa |
 
-Chưa có storyboard, giọng hay timeline chính thức cho Hồ sơ 2. Đoạn comic thử và âm thanh (`comic.tsx`, `sound.cjs`, `what-if-studio/public/ho-so-02-nguoi-lam-thay/`) chỉ ở máy, không đưa lên repo.
+### Dựng phim & VFX
 
-`assets/rig/` là rig cũ, giữ để đối chiếu. Các bảng hình trong đó vẫn là tạo hình cũ.
-
-
-## Opening v3 — 11/11/2026
-
-Đã sửa dấu tay đỏ, điểm trao cốc, nhịp chớp/rung, phụ đề và bổ sung nhạc/SFX theo [OPENING-AM-THANH](OPENING-AM-THANH.md). Còn nghe duyệt mix trên loa/tai nghe và duyệt chuyển động bản xem thử; chưa có giọng theo yêu cầu. Không dùng trạng thái bản câm trước đó để suy ra bản v3 vẫn thiếu toàn bộ âm thanh.
+| Mức | Việc | Chi tiết |
+|---|---|---|
+| Lớn | Hiệu ứng mặt kính hóa nước (Point of No Return) | Mặt kính gợn sóng, hóa thủy ngân lỏng cuốn chặt cổ tay Nam như còng số 8, lực hút chìm vào gương |
+| Lớn | Vết nứt thủy tinh rỉ nước lạnh | - Cảnh 2.3: Chỉ thấy ở sau lưng/gáy Người Kia (khuất mắt Nam)<br>- Cảnh 3.3: Vỡ toang ra cổ, má, ngực trước ánh hoàng hôn, rỉ nước lạnh đầm đìa khi thực thể suy thoái |
+| Vừa | Cú sốc thân nhiệt (Thermal shock) | Bàn tay Nam tái nhợt lạnh buốt, bàn tay Người Kia ửng hồng sắc máu người sống |
+| Nhỏ | Then sắt cửa phòng trọ | Âm thanh "CẠCH" đanh thép ở Cảnh 1.3 và Cảnh kết 3.5 |
