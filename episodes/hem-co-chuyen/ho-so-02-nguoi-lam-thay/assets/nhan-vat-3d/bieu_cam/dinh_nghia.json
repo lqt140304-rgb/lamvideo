@@ -1,9 +1,201 @@
 [
-  {"ten": "ngai_ngu", "nhom": "ngai_ngu_kiet_suc", "muc": 1, "ban_kinh": 0.30,
-   "ghi_chu": "Mí mắt hơi sụp, khóe miệng trễ nhẹ. Độ dời theo tỉ lệ khuôn mặt (khoảng cách hai tâm mắt); x +X (trái nhân vật), y +Y (vào trong đầu), z lên; '.*' = hai bên, x lật dấu bên R.",
-   "dich": {"lid_up.*": [0, 0, -0.05], "mouth_corner.*": [0, 0, -0.02]}},
-  {"ten": "kiet_suc", "nhom": "ngai_ngu_kiet_suc", "muc": 2, "ban_kinh": 0.30,
-   "ghi_chu": "Mí sụp nhiều, mi dưới nâng, đầu mày trong nâng (nét mệt buồn), khóe miệng trễ sâu, cằm hạ.",
-   "dich": {"lid_up.*": [0, 0, -0.09], "lid_low.*": [0, 0, 0.02], "brow_in.*": [0, 0, 0.05], "brow_out.*": [0, 0, -0.03],
-            "mouth_corner.*": [-0.01, 0, -0.06], "chin": [0, 0, -0.03]}}
+ {
+  "ten": "ngai_ngu",
+  "nhom": "ngai_ngu_kiet_suc",
+  "muc": 1,
+  "ban_kinh": 0.3,
+  "ghi_chu": "Mí mắt hơi sụp, khóe miệng trễ nhẹ. Độ dời theo tỉ lệ khuôn mặt (khoảng cách hai tâm mắt); x +X (trái nhân vật), y +Y (vào trong đầu), z lên; '.*' = hai bên, x lật dấu bên R.",
+  "dich": {
+   "lid_up.*": [
+    0,
+    0,
+    -0.05
+   ],
+   "mouth_corner.*": [
+    0,
+    0,
+    -0.02
+   ]
+  }
+ },
+ {
+  "ten": "kiet_suc",
+  "nhom": "ngai_ngu_kiet_suc",
+  "muc": 2,
+  "ban_kinh": 0.3,
+  "ghi_chu": "Mí sụp nhiều, mi dưới nâng, đầu mày trong nâng (nét mệt buồn), khóe miệng trễ sâu, cằm hạ.",
+  "dich": {
+   "lid_up.*": [
+    0,
+    0,
+    -0.09
+   ],
+   "lid_low.*": [
+    0,
+    0,
+    0.02
+   ],
+   "brow_in.*": [
+    0,
+    0,
+    0.05
+   ],
+   "brow_out.*": [
+    0,
+    0,
+    -0.03
+   ],
+   "mouth_corner.*": [
+    -0.01,
+    0,
+    -0.06
+   ],
+   "chin": [
+    0,
+    0,
+    -0.03
+   ]
+  }
+ },
+ {
+  "ten": "tu_ai",
+  "nhom": "tu_ai_thi_uy",
+  "muc": 1,
+  "ban_kinh": 0.3,
+  "ghi_chu": "Đầu lông mày hơi nhướn, môi bặm lại tỏ vẻ không phục.",
+  "dich": {
+   "brow_in.*": [
+    0,
+    0,
+    0.07
+   ],
+   "brow_mid.*": [
+    0,
+    0,
+    0.03
+   ],
+   "mouth_corner.*": [
+    -0.03,
+    0,
+    -0.03
+   ],
+   "mouth_c": [
+    0,
+    0.0,
+    0.0
+   ]
+  }
+ },
+ {
+  "ten": "thi_uy",
+  "nhom": "tu_ai_thi_uy",
+  "muc": 2,
+  "ban_kinh": 0.3,
+  "ghi_chu": "Lông mày cau bất đối xứng, mắt nheo xéo, môi bặm, cằm hất lên (ra trước).",
+  "dich": {
+   "brow_in.L": [
+    -0.04,
+    0,
+    -0.09
+   ],
+   "brow_in.R": [
+    0.03,
+    0,
+    -0.045
+   ],
+   "brow_out.*": [
+    0,
+    0,
+    0.02
+   ],
+   "lid_up.*": [
+    0,
+    0,
+    -0.03
+   ],
+   "mouth_corner.*": [
+    -0.02,
+    0,
+    -0.035
+   ],
+   "chin": [
+    0,
+    -0.03,
+    0.01
+   ]
+  }
+ },
+ {
+  "ten": "hoang_mang",
+  "nhom": "hoang_mang_kinh_hoang",
+  "muc": 1,
+  "ban_kinh": 0.3,
+  "ghi_chu": "Mắt mở nhẹ, mày nhướn thoáng (đồng tử giật chưa mô phỏng được: con ngươi là vật rời cố định kích thước).",
+  "dich": {
+   "lid_up.*": [
+    0,
+    0,
+    0.05
+   ],
+   "brow_in.*": [
+    0,
+    0,
+    0.04
+   ],
+   "brow_mid.*": [
+    0,
+    0,
+    0.05
+   ],
+   "brow_out.*": [
+    0,
+    0,
+    0.04
+   ]
+  }
+ },
+ {
+  "ten": "kinh_hoang",
+  "nhom": "hoang_mang_kinh_hoang",
+  "muc": 2,
+  "ban_kinh": 0.4,
+  "ghi_chu": "Mắt mở trừng, mày nâng cao, hàm hạ (miệng há cần khoang miệng ở Task 6).",
+  "dich": {
+   "lid_up.*": [
+    0,
+    0,
+    0.08
+   ],
+   "lid_low.*": [
+    0,
+    0,
+    -0.04
+   ],
+   "brow_in.*": [
+    0,
+    0,
+    0.07
+   ],
+   "brow_mid.*": [
+    0,
+    0,
+    0.07
+   ],
+   "brow_out.*": [
+    0,
+    0,
+    0.06
+   ],
+   "mouth_corner.*": [
+    0.01,
+    0,
+    -0.01
+   ],
+   "chin": [
+    0,
+    0,
+    -0.12
+   ]
+  }
+ }
 ]

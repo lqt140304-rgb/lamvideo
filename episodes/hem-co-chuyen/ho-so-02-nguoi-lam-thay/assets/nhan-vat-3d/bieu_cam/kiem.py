@@ -74,6 +74,9 @@ def chup_nghi(dau):
         vs = _verts(ob); sd = sorted(_sd(bvh, v) for v in vs); vs_all[ten] = vs
         bam[ten] = (sd[0], sd[len(sd) // 2], sd[-1])
     dau.nghi = {'hash': _hash(_verts(dau.head)), 'mole': _cen(vs_all['Mole']), 'bam': bam}
+    co = dau.head.data.vertices; kd = KDTree(len(co))
+    for i, v in enumerate(co): kd.insert(v.co, i)
+    kd.balance(); dau.nghi['mole_vi'] = kd.find(dau.nghi['mole'])[1]; dau.nghi['mole_da0'] = co[dau.nghi['mole_vi']].co.copy()
     n = neo_hien_tai(dau); dau.nghi['pupil_top'] = {}
     for k in 'LR':
         dau.nghi['pupil_top'][k] = max(v.z for v in vs_all[f'Pupil.{k}']) - n[f'lid_up.{k}'].z
@@ -117,9 +120,11 @@ def kiem_de(dau):
 
 
 def kiem_nhan_dien(dau):
-    """Nốt ruồi không trôi và không đổi bên; khi mọi key = 0 thì lưới đầu trùng bản nghỉ từng đỉnh."""
+    """Nốt ruồi không trôi khỏi da (đo so với chuyển động của da dưới nó) và không đổi bên; khi mọi key = 0 thì lưới đầu trùng bản nghỉ từng đỉnh."""
     loi = []; m = _cen(_verts(dau.parts['Mole'])); r = dau.nghi['mole']
-    if (m - r).length > NGUONG_RUOI: loi.append(Loi('nhan_dien', 'Mole', (m - r).length, chi_tiet='nốt ruồi trôi'))
+    da = _verts(dau.head)[dau.nghi['mole_vi']] - dau.nghi['mole_da0']      # vùng da dưới nốt ruồi đã dịch bao nhiêu
+    troi = ((m - r) - da).length                                          # nốt ruồi đi theo da là đúng; lệch khỏi da mới là trôi
+    if troi > NGUONG_RUOI: loi.append(Loi('nhan_dien', 'Mole', troi, chi_tiet='nốt ruồi trôi khỏi vị trí trên da'))
     if m.x * r.x < 0: loi.append(Loi('nhan_dien', 'Mole', abs(m.x - r.x), chi_tiet='nốt ruồi đổi bên'))
     sk = dau.head.data.shape_keys
     if not sk or all(kb.value == 0 for kb in sk.key_blocks if kb != sk.reference_key):
