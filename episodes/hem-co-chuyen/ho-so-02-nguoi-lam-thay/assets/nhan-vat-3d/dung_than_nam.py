@@ -1,11 +1,14 @@
-"""NAM — THÂN NHẴN (02_Body_Base), tỉ lệ chibi, nối vào đầu của `dung_dau_nam.py` (đầu/tóc/mặt giữ nguyên, không scale).
+"""NAM — THÂN NHẴN v2 (02_Body_Base), cartoon hơi chibi, nối vào đầu của `dung_dau_nam.py` (đầu/tóc/mặt giữ nguyên, KHÔNG scale, KHÔNG sửa nguồn).
 
-Chạy:  python dung_than_nam.py --render <thư mục> [--blend file.blend]
-Đơn vị mét, sàn Z = 0, nhân vật quay mặt −Y, trái nhân vật = +X.
+Chạy:  python dung_than_nam.py [--render <thư mục>] [--blend file.blend] [--samples N]
+Đơn vị mét, sàn Z = 0, nhân vật quay mặt −Y, trái nhân vật = +X. Chiều cao toàn thân giữ ≈ 1,6004 m (gồm lọn đỉnh).
 
-Cấu trúc: collection `02_Body_Base` gồm `Nam_Than` — MỘT mesh liền: cổ → vai → ngực/lưng → bụng → hông/mông → đùi → gối → cẳng → cổ chân → bàn chân 5 ngón;
-vai → bắp tay → khuỷu → cẳng tay → cổ tay → bàn tay 4 ngón + ngón cái. Dựng từ các ống/vòng cắt chồng nhau rồi gộp bằng voxel remesh (liền khối, không cầu/trụ rời), làm mượt.
-Dùng cùng màu da với Head_Base. Chưa có quần áo, chưa gắn rig.
+Cấu trúc
+  Nam_Dau_Than (collection 02_Body_Base): MỘT mesh lắp ráp = bản SAO của Head_Base (cắt hở ở vòng cổ z = 0,9771, không đổi gì phía trên) + dải nối + thân.
+      Thân dựng từ các vòng cắt/ống rồi voxel remesh để nối khối (vai–nách–háng liền), sau đó cắt phẳng ở cổ và NỐI BẰNG dải bridge vào vòng cổ của bản sao đầu —
+      không còn hai bề mặt gần trùng nhau. Head_Base gốc, tóc, tai, mặt giữ nguyên (Head_Base chỉ bị ẩn khỏi render vì bản sao đã thay vào).
+  Nam_Than_v1 (ẩn): thân bản f557769 để đối chiếu (dung_than_nam_v1.py).
+Chưa quần áo, chưa rig: chỉ đạt hình khối; CHƯA kiểm chứng biến dạng.
 """
 import sys, os, math, argparse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -14,13 +17,15 @@ from mathutils import Vector
 import dung_dau_nam as D
 
 M_CT = 32
+RING_Z = min((r[0] for r in D.LOFT_TAB), key=lambda z: abs(z - 0.9771))   # vòng cổ của Head_Base ở ~0,977 (phía trên nón đáy cổ); cắt hở tại đây
+CUT_Z = RING_Z - 0.0055             # mặt cắt thân (dải nối cao ~5,5 mm)
 
 
 def sg(v): return 1.0 if v >= 0 else -1.0
 
 
 def ring(c, a, bf, bb, n, X=Vector((1, 0, 0)), Y=Vector((0, 1, 0)), m=M_CT):
-    """Vòng siêu elip quanh c cùng quy ước điểm với Head_Base: θ = 0 ở phía TRƯỚC (−Y), x = a·sin; bf/bb = nửa sâu phía trước/sau."""
+    """Vòng siêu elip quanh c theo quy ước điểm của Head_Base: θ = 0 ở phía TRƯỚC (−Y), x = a·sin; bf/bb = nửa sâu trước/sau."""
     pts = []; e = 2.0 / n
     for k in range(m):
         th = 2 * math.pi * k / m; cs, sn = math.cos(th), math.sin(th)
@@ -45,21 +50,20 @@ def _cr(P, t):
     return [0.5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * f + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * f * f + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * f ** 3) for k in range(len(p1))]
 
 
-def tube(name, knots, coll, step=0.008, n=2.0, along='z'):
-    """Ống theo các nút (x,y,z,rx,ry). along='z': vòng nằm ngang. along='y': vòng thẳng đứng, (rx = nửa ngang, ry = nửa cao)."""
+def tube(name, knots, coll, step=0.006, n=2.0, along='z'):
+    """Ống theo các nút (x,y,z,rx,ry). along='z': vòng nằm ngang. along='y': vòng thẳng đứng theo y (rx = nửa ngang, ry = nửa cao)."""
     ax = 2 if along == 'z' else 1
     N = max(8, int(abs(knots[-1][ax] - knots[0][ax]) / step)); rings = []
     for i in range(N + 1):
         v = _cr(knots, i / N * (len(knots) - 1)); c = Vector(v[:3])
-        rings.append(ring(c, v[3], v[4], v[4], n, m=24) if along == 'z' else ring(c, v[3], v[4], v[4], n, X=Vector((1, 0, 0)), Y=Vector((0, 0, 1)), m=24))
+        rings.append(ring(c, v[3], v[4], v[4], n, m=28) if along == 'z' else ring(c, v[3], v[4], v[4], n, X=Vector((1, 0, 0)), Y=Vector((0, 0, 1)), m=28))
     return loft_obj(name, rings, coll)
 
 
-def torso(name, table, coll, step=0.008, extra=()):
+def torso(name, table, coll, step=0.006):
     zs = [t[0] for t in table]; N = int((zs[-1] - zs[0]) / step); rings = []
     for i in range(N + 1):
         v = _cr(table, i / N * (len(table) - 1)); rings.append(ring(Vector((0, v[4], v[0])), v[1], v[2], v[3], v[5], m=96))
-    rings += list(extra)
     return loft_obj(name, rings, coll)
 
 
@@ -73,78 +77,120 @@ def apply_mod(ob, mod):
     bpy.context.view_layer.objects.active = ob; bpy.ops.object.modifier_apply(modifier=mod.name)
 
 
-def remesh(ob, voxel, smooth):
+def remesh(ob, voxel, smooth, factor=0.5):
     r = ob.modifiers.new('Remesh', 'REMESH'); r.mode = 'VOXEL'; r.voxel_size = voxel; apply_mod(ob, r)
-    s = ob.modifiers.new('Smooth', 'SMOOTH'); s.factor = 0.55; s.iterations = smooth; apply_mod(ob, s); ob.data.shade_smooth()
+    s = ob.modifiers.new('Smooth', 'SMOOTH'); s.factor = factor; s.iterations = smooth; apply_mod(ob, s); ob.data.shade_smooth()
 
 
-# ---------------------------------------------------------------- số đo (m), chibi: đầu+tóc ≈ 34% chiều cao
-#           z      a      bf     bb     yc     n     (vòng ngang theo độ cao)
-TORSO = [(0.52, 0.112, 0.084, 0.100, 0.000, 2.3), (0.58, 0.128, 0.094, 0.122, 0.000, 2.3), (0.65, 0.128, 0.114, 0.098, 0.000, 2.2), (0.74, 0.124, 0.100, 0.084, 0.000, 2.2),
-         (0.83, 0.130, 0.090, 0.080, 0.000, 2.2), (0.90, 0.142, 0.086, 0.078, 0.000, 2.2), (0.935, 0.126, 0.084, 0.076, -0.002, 2.1), (0.948, 0.106, 0.086, 0.080, -0.005, 2.1),
-         (0.958, 0.0985, 0.0855, 0.0855, -0.007, 2.0), (0.968, 0.0950, 0.0850, 0.0850, -0.007, 2.0)]
-NECK_Z = (0.976, 0.984, 0.992, 1.000, 1.010, 1.024)
-NECK_SHRINK = [(0.976, -0.0020), (0.984, -0.0020), (0.992, -0.0020), (1.000, -0.0020), (1.010, -0.0020), (1.024, -0.0020)]   # thân trùm ra ngoài cổ của đầu 2 mm suốt chiều dài cổ → chỉ còn nếp tự nhiên dưới hàm, không gờ ở chân cổ
+# ================================================================== SỐ ĐO v2 (m) — lấy từ đo ảnh mẫu NAM — 3D TURNAROUND (chuẩn hoá theo cằm: z_ta = z_mẫu × 1,13; bề ngang × 0,88)
+#     z      a      bf     bb     yc     n     (vòng ngang: nửa rộng, nửa sâu trước/sau)
+TORSO = [(0.44, 0.052, 0.058, 0.068, 0.000, 2.0), (0.47, 0.105, 0.088, 0.098, 0.000, 2.2), (0.50, 0.166, 0.108, 0.118, 0.000, 2.3), (0.565, 0.172, 0.146, 0.132, 0.000, 2.3),
+         (0.63, 0.160, 0.158, 0.118, 0.000, 2.3), (0.70, 0.138, 0.136, 0.098, 0.000, 2.2), (0.79, 0.120, 0.128, 0.096, 0.000, 2.2), (0.85, 0.148, 0.118, 0.092, -0.001, 2.1), (0.885, 0.147, 0.108, 0.086, -0.002, 2.1),
+         (0.915, 0.134, 0.096, 0.080, -0.004, 2.1), (0.935, 0.116, 0.092, 0.081, -0.005, 2.0), (0.950, 0.105, 0.089, 0.082, -0.006, 2.0), (0.958, 0.0975, 0.0855, 0.0855, -0.007, 2.0), (0.968, 0.0938, 0.0836, 0.0836, -0.007, 2.0),
+         (0.985, 0.0930, 0.0833, 0.0833, -0.007, 2.0)]
+#      x      y       z     rx     ry   (tay TRÁI nhân vật = +X; tay phải lấy đối xứng) — thả xuôi hơi toè ra như mẫu
+ARM = [(0.150, 0.002, 0.884, 0.020, 0.024), (0.152, 0.002, 0.862, 0.040, 0.044), (0.158, 0.001, 0.835, 0.047, 0.048), (0.168, 0.000, 0.790, 0.051, 0.051), (0.185, 0.000, 0.740, 0.050, 0.050), (0.205, 0.004, 0.680, 0.047, 0.047),
+       (0.225, -0.004, 0.620, 0.044, 0.043), (0.240, -0.008, 0.570, 0.036, 0.036)]
+# bàn tay to, mềm: lòng bàn tay dẹt theo x, 4 ngón ngắn đầy cong nhẹ về trước, ngón cái có khối gốc
+PALM = [(0.240, -0.008, 0.570, 0.036, 0.036), (0.250, -0.010, 0.545, 0.029, 0.054), (0.260, -0.012, 0.500, 0.030, 0.066), (0.265, -0.013, 0.468, 0.027, 0.061)]
+FINGERS = [(-0.047, 0.072, 0.0145), (-0.016, 0.082, 0.0150), (0.016, 0.075, 0.0145), (0.046, 0.060, 0.0132)]   # (dy so với tâm bàn, độ dài, bán kính)
+THUMB = [(0.252, -0.034, 0.545, 0.025, 0.025), (0.250, -0.055, 0.505, 0.022, 0.022), (0.252, -0.066, 0.470, 0.018, 0.018), (0.253, -0.070, 0.450, 0.012, 0.012)]
+LEG = [(0.086, 0.000, 0.66, 0.056, 0.070), (0.090, 0.000, 0.60, 0.076, 0.086), (0.0925, 0.000, 0.50, 0.080, 0.088), (0.0925, -0.002, 0.40, 0.0775, 0.090), (0.0925, -0.003, 0.29, 0.0745, 0.0815), (0.0925, 0.000, 0.20, 0.0735, 0.073),
+       (0.0925, 0.002, 0.135, 0.0630, 0.062), (0.0925, 0.003, 0.105, 0.0560, 0.056)]
+#      x       y      z     rx(ngang)  ry(cao): bàn chân dày, rộng, dài ≈ 0,27 m (đo ảnh mẫu), vòng đứng dọc theo y
+FOOT = [(0.0945, 0.122, 0.041, 0.018, 0.018), (0.0945, 0.115, 0.041, 0.032, 0.030), (0.0945, 0.105, 0.041, 0.044, 0.040), (0.0945, 0.060, 0.049, 0.052, 0.048), (0.0945, 0.010, 0.063, 0.064, 0.062), (0.0945, -0.045, 0.047, 0.068, 0.046), (0.0945, -0.105, 0.041, 0.081, 0.040),
+        (0.0945, -0.150, 0.034, 0.084, 0.033), (0.0945, -0.185, 0.028, 0.070, 0.027)]
+TOES = [(-0.051, 0.058, 0.0225, 0.0272), (-0.020, 0.050, 0.0185, 0.0225), (0.011, 0.045, 0.0168, 0.0205), (0.038, 0.040, 0.0152, 0.0185), (0.063, 0.035, 0.0136, 0.0167)]   # (dx so với tâm chân, dài, bán kính, z)
 
-
-def neck_rings(m=96):
-    t = D.LOFT_TAB; out = []
-    for z in NECK_Z:
-        for (z0, f0, b0, w0), (z1, f1, b1, w1) in zip(t[::-1], t[::-1][1:]):
-            if z0 <= z <= z1:
-                u = (z - z0) / (z1 - z0); yf, yb, w = f0 + (f1 - f0) * u, b0 + (b1 - b0) * u, w0 + (w1 - w0) * u; break
-        shrink = next(v for zz, v in NECK_SHRINK if abs(zz - z) < 1e-6)
-        mm, nf, nb = D.section_params(z, D.SECTION_MODE); ym = yf + mm * (yb - yf); af, ab = ym - yf - shrink, yb - ym - shrink; w -= shrink; pts = []
-        for j in range(m):
-            th = 2 * math.pi * j / m; c, s_ = math.cos(th), math.sin(th); n = nf if c >= 0 else nb; e = 2.0 / n
-            y = ym - af * abs(c) ** e if c >= 0 else ym + ab * abs(c) ** e
-            pts.append(Vector((w * math.copysign(abs(s_) ** e, s_), y, z)))
-        out.append(pts)
-    return out
-
-
-#         x      y       z     rx     ry   (tay TRÁI nhân vật = +X; tay phải lấy đối xứng)
-ARM = [(0.118, 0.002, 0.940, 0.036, 0.040), (0.142, 0.002, 0.905, 0.047, 0.049), (0.154, 0.000, 0.84, 0.047, 0.047), (0.162, 0.000, 0.76, 0.044, 0.044), (0.168, 0.002, 0.67, 0.037, 0.037),
-       (0.172, -0.002, 0.585, 0.034, 0.033), (0.175, -0.004, 0.515, 0.027, 0.025)]
-# bàn tay: lòng bàn tay hướng vào đùi (dẹt theo x), 4 ngón buông rủ, ngón cái ở cạnh trước (−Y) chúc xuống
-PALM = [(0.175, -0.004, 0.515, 0.027, 0.025), (0.175, -0.006, 0.490, 0.020, 0.039), (0.175, -0.007, 0.455, 0.019, 0.042), (0.175, -0.007, 0.435, 0.015, 0.038)]
-FINGERS = [  # (dy so với tâm bàn, độ dài, bán kính)
-    (-0.0285, 0.058, 0.0108), (-0.0095, 0.068, 0.0112), (0.0095, 0.060, 0.0108), (0.0280, 0.047, 0.0098)]
-THUMB = [(0.169, -0.030, 0.495, 0.015, 0.015), (0.168, -0.043, 0.468, 0.0135, 0.0135), (0.169, -0.050, 0.440, 0.0115, 0.0115), (0.169, -0.052, 0.424, 0.008, 0.008)]
-LEG = [(0.068, 0.002, 0.585, 0.064, 0.070), (0.069, 0.000, 0.50, 0.064, 0.068), (0.070, -0.002, 0.40, 0.056, 0.058), (0.069, -0.006, 0.29, 0.046, 0.048), (0.069, 0.004, 0.20, 0.047, 0.049),
-       (0.069, 0.002, 0.12, 0.035, 0.036), (0.069, 0.000, 0.085, 0.032, 0.033)]
-#           x     y      z    rx(ngang) ry(cao): bàn chân (vòng đứng dọc theo y), đế ở z = 0
-FOOT = [(0.069, 0.058, 0.026, 0.026, 0.026), (0.069, 0.040, 0.034, 0.033, 0.034), (0.069, 0.010, 0.058, 0.035, 0.050), (0.069, -0.035, 0.036, 0.041, 0.034), (0.069, -0.075, 0.025, 0.046, 0.025),
-        (0.069, -0.100, 0.020, 0.047, 0.020)]
-TOES = [  # (dx so với tâm chân; ngón cái ở trong = âm), độ dài, bán kính, độ cao z)
-    (-0.028, 0.050, 0.0125, 0.0148), (-0.007, 0.042, 0.0095, 0.0125), (0.010, 0.037, 0.0088, 0.0118), (0.025, 0.033, 0.0082, 0.0110), (0.038, 0.028, 0.0075, 0.0102)]
 
 def mir(knots): return [(-k[0],) + tuple(k[1:]) for k in knots]
 
 
-def build_body(coll, mat):
-    parts = [torso('t', TORSO, coll, extra=neck_rings())]
+def smooth_zone(ob, test, iters, factor=0.5):
+    """Làm mượt thêm CỤC BỘ ở những đỉnh thoả test(v) (chỗ nối khối: vai–nách, hông–háng, cổ chân) — không đụng ngón tay/ngón chân."""
+    bm = bmesh.new(); bm.from_mesh(ob.data); vs = [v for v in bm.verts if test(v.co)]
+    for _ in range(iters): bmesh.ops.smooth_vert(bm, verts=vs, factor=factor, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    bm.to_mesh(ob.data); bm.free(); ob.data.update()
+
+
+def build_body(coll, mat, voxel=0.003, smooth=4):
+    parts = [torso('t', TORSO, coll)]
     for s in (1, -1):
         sx = lambda kn: kn if s > 0 else mir(kn)
-        parts += [tube('arm', sx(ARM), coll), tube('palm', sx(PALM), coll, step=0.006), tube('thumb', sx(THUMB), coll, step=0.005),
-                  tube('leg', sx(LEG), coll), tube('foot', sx(FOOT), coll, along='y', step=0.008)]
-        x0, y0 = s * 0.175, -0.007
-        for dy, L, r in FINGERS:   # ngón tay: ống nhỏ, hơi cong về trước ở đầu ngón
-            z0 = 0.452; kn = [(x0, y0 + dy, z0, r, r), (x0, y0 + dy - 0.002, z0 - L * 0.5, r * 0.97, r * 0.97), (x0, y0 + dy - 0.006, z0 - L, r * 0.78, r * 0.78), (x0, y0 + dy - 0.007, z0 - L - 0.003, r * 0.4, r * 0.4)]
-            parts.append(tube('ngon', kn, coll, step=0.004))
-        for dx, L, r, zc in TOES:   # ngón chân: ống ngắn dọc theo −Y, ngón cái ở phía trong (hướng vào trục đối xứng)
-            xc = (0.069 + dx) * s
-            kn = [(xc, -0.090, zc, r, r), (xc, -0.090 - L * 0.55, zc - 0.001, r * 1.0, r * 0.95), (xc, -0.090 - L, zc - 0.003, r * 0.88, r * 0.82), (xc, -0.090 - L - 0.004, zc - 0.004, r * 0.45, r * 0.45)]
-            parts.append(tube('ngon_chan', kn, coll, along='y', step=0.004))
-    body = join(parts, 'Nam_Than'); body.data.materials.append(mat); remesh(body, 0.0035, 6); return body
+        parts += [tube('arm', sx(ARM), coll), tube('palm', sx(PALM), coll, step=0.004), tube('thumb', sx(THUMB), coll, step=0.004),
+                  tube('leg', sx(LEG), coll), tube('foot', sx(FOOT), coll, along='y', step=0.006)]
+        x0, y0 = s * 0.265, -0.013
+        for dy, L, r in FINGERS:
+            z0 = 0.470; kn = [(x0, y0 + dy, z0, r, r), (x0, y0 + dy - 0.004, z0 - L * 0.5, r * 0.98, r * 0.98), (x0, y0 + dy - 0.012, z0 - L, r * 0.84, r * 0.84), (x0, y0 + dy - 0.016, z0 - L - 0.005, r * 0.45, r * 0.45)]
+            parts.append(tube('ngon', kn, coll, step=0.003))
+        for dx, L, r, zc in TOES:
+            xc = (0.0945 + dx) * s
+            zc += 0.001; kn = [(xc, -0.150, zc, r, r), (xc, -0.150 - L * 0.55, zc - 0.001, r, r * 0.95), (xc, -0.150 - L, zc - 0.003, r * 0.88, r * 0.82), (xc, -0.150 - L - 0.004, zc - 0.004, r * 0.45, r * 0.45)]
+            parts.append(tube('ngon_chan', kn, coll, along='y', step=0.003))
+    body = join(parts, 'Nam_Than_goc'); body.data.materials.append(mat); remesh(body, voxel, smooth)
+    smooth_zone(body, lambda c: 0.80 < c.z < 0.96 and abs(c.x) > 0.09, 8)                      # vai–nách
+    smooth_zone(body, lambda c: 0.36 < c.z < 0.68 and abs(c.x) < 0.17, 14, 0.45)   # hông–háng–mông (bỏ mép bụng dưới)
+    smooth_zone(body, lambda c: 0.06 < c.z < 0.19 and abs(c.x) < 0.2, 16, 0.45)                 # cổ chân
+    body.data.shade_smooth(); return body
 
 
-# ---------------------------------------------------------------- lắp ráp + render
-def build_scene():
+# ================================================================== lắp ráp đầu–cổ–thân bằng dải bridge
+def cut_open_head_copy(head):
+    """Bản sao Head_Base: bỏ phần dưới vòng cổ RING_Z (nón đáy cổ) → vòng cổ trở thành biên hở; phía trên giữ nguyên từng đỉnh."""
+    me = head.data.copy(); ob = bpy.data.objects.new('Nam_Dau_Than', me); head.users_collection[0].objects.link(ob)
+    bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table()
+    kill = [f for f in bm.faces if max(v.co.z for v in f.verts) <= RING_Z + 1e-6]
+    bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.to_mesh(me); bm.free(); return ob
+
+
+def cut_body_top(body, z):
+    """Cắt phẳng thân ở z, bỏ phần trên (không đổ đầy) → biên hở là vòng cổ thân."""
+    bm = bmesh.new(); bm.from_mesh(body.data)
+    res = bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=Vector((0, 0, z)), plane_no=Vector((0, 0, 1)), clear_outer=True, clear_inner=False)
+    bm.to_mesh(body.data); bm.free()
+
+
+def assemble(head, body, skin):
+    """Gộp bản sao đầu + thân thành MỘT mesh; nối hai vòng biên bằng bridge_loops; chuẩn lại pháp tuyến."""
+    ob = cut_open_head_copy(head); cut_body_top(body, CUT_Z)
+    bm = bmesh.new(); bm.from_mesh(ob.data); nh = len(bm.verts)
+    bm.from_mesh(body.data)   # thêm đỉnh/mặt thân
+    bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.faces.ensure_lookup_table()
+    mats = list(ob.data.materials)
+    skin_idx = len(mats); ob.data.materials.append(skin)
+    nf_head = sum(1 for f in bm.faces if all(v.index < nh for v in f.verts))
+    for f in bm.faces:
+        if all(v.index >= nh for v in f.verts): f.material_index = skin_idx
+    bnd = [e for e in bm.edges if len(e.link_faces) == 1]
+    A = [e for e in bnd if all(v.index < nh for v in e.verts)]; B = [e for e in bnd if all(v.index >= nh for v in e.verts)]
+    print(f'    biên hở: vòng cổ đầu {len(A)} cạnh, vòng cổ thân {len(B)} cạnh')
+    res = bmesh.ops.bridge_loops(bm, edges=A + B, use_pairs=False, use_cyclic=True, use_merge=False)
+    for f in res['faces']: f.material_index = skin_idx; f.smooth = True
+    # làm mượt cục bộ CHỈ phía thân quanh dải nối (z < vòng cổ đầu); vòng cổ đầu và mọi đỉnh của đầu không bị đụng
+    zone = [v for v in bm.verts if v.index >= nh and v.co.z > CUT_Z - 0.006 and v.co.z < RING_Z - 1e-6] + [v for v in res['faces'] for v in v.verts if v.index >= nh and v.co.z < RING_Z - 1e-6]
+    zone = list({v.index: v for v in zone}.values())
+    for _ in range(6): bmesh.ops.smooth_vert(bm, verts=zone, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    for f in bm.faces: f.smooth = True
+    bm.to_mesh(ob.data); bm.free(); ob.data.update()
+    return ob
+
+
+# ================================================================== scene, đo, render
+def build_scene(voxel=0.003, smooth=4):
     sc = D.build()
     cb = bpy.data.collections.new('02_Body_Base'); sc.collection.children.link(cb)
     skin = D.mat('Da_Than', D.COL['da'], 0.65, 0.08, sss_radius=(0.1, 0.05, 0.03))
-    build_body(cb, skin); return sc
+    head = bpy.data.objects['Head_Base']
+    body = build_body(cb, skin, voxel, smooth)
+    # đưa Nam_Than_goc (đã có vật liệu da) vào collection 02_Body_Base, lắp ráp
+    for c in list(body.users_collection): c.objects.unlink(body)
+    cb.objects.link(body)
+    asm = assemble(head, body, skin)
+    for c in list(asm.users_collection): c.objects.unlink(asm)
+    cb.objects.link(asm)
+    head.hide_render = True; head.hide_viewport = True; body.hide_render = True; body.hide_viewport = True
+    return sc
 
 
 def visible(o): return not o.hide_render and not any(c.hide_render for c in o.users_collection)
@@ -162,13 +208,31 @@ def bbox(objs, dg):
     return lo, hi
 
 
+def mesh_checks(ob):
+    """Kiểm tra topology: cạnh biên, cạnh >2 mặt, tự giao (đếm gần đúng bằng BVH), pháp tuyến lật."""
+    bm = bmesh.new(); bm.from_mesh(ob.data); bm.edges.ensure_lookup_table()
+    open_e = sum(1 for e in bm.edges if len(e.link_faces) == 1); nm = sum(1 for e in bm.edges if len(e.link_faces) > 2)
+    # thể tích dương ⇒ pháp tuyến hướng ra ngoài (phần thân kín)
+    vol = sum(f.calc_area() * f.normal.dot(f.calc_center_median()) / 3.0 for f in bm.faces)
+    from mathutils.bvhtree import BVHTree
+    bm.faces.ensure_lookup_table(); bm.verts.ensure_lookup_table(); bvh = BVHTree.FromBMesh(bm); ov = bvh.overlap(bvh); selfi = sum(1 for a, b in ov if a != b and not set(v.index for v in bm.faces[a].verts) & set(v.index for v in bm.faces[b].verts))
+    bm.free(); return open_e, nm, vol, selfi
+
+
 def measure(sc):
     dg = bpy.context.evaluated_depsgraph_get(); objs = [o for o in sc.objects if o.type in ('MESH', 'CURVE') and visible(o) and o.name != 'San']
-    lo, hi = bbox(objs, dg); print(f'--- Chiều cao thực đo: đáy {lo.z:.4f} → đỉnh {hi.z:.4f} m = {hi.z - lo.z:.4f} m')
-    lo2, hi2 = bbox([bpy.data.objects['Nam_Than']], dg); print(f'    thân: z {lo2.z:.4f} → {hi2.z:.4f}, rộng x {lo2.x:.3f} → {hi2.x:.3f}, sâu y {lo2.y:.3f} → {hi2.y:.3f}')
-    ev = bpy.data.objects['Nam_Than'].evaluated_get(dg); me = ev.to_mesh(); vs = [v.co for v in me.vertices]
-    def wid(z, tol=0.004): xs = [v.x for v in vs if abs(v.z - z) < tol]; return (round(min(xs), 3), round(max(xs), 3)) if xs else None
-    print('    bề ngang theo độ cao: vai z0.91', wid(0.91), '| ngực 0.80', wid(0.80), '| eo 0.70', wid(0.70), '| hông 0.58', wid(0.58), '| gối 0.29', wid(0.29), '| cổ chân 0.085', wid(0.085)); ev.to_mesh_clear(); print(f'    số đỉnh thân: {len(vs)}')
+    lo, hi = bbox(objs, dg); print(f'--- Chiều cao thực đo (bounding box thế giới, đã đánh giá modifier): đáy {lo.z:.4f} → đỉnh {hi.z:.4f} m = {hi.z - lo.z:.4f} m')
+    asm = bpy.data.objects['Nam_Dau_Than']; ev = asm.evaluated_get(dg); me = ev.to_mesh(); vs = [v.co.copy() for v in me.vertices]
+    def wid(z, tol=0.004, xmin=-1, xmax=1):
+        xs = [v.x for v in vs if abs(v.z - z) < tol and xmin < v.x < xmax]; return (round(min(xs), 3), round(max(xs), 3)) if xs else None
+    def dep(z, tol=0.004):
+        ys = [v.y for v in vs if abs(v.z - z) < tol]; return (round(min(ys), 3), round(max(ys), 3)) if ys else None
+    print('    bề ngang (gồm tay) theo z:', {z: wid(z) for z in (0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.30, 0.10)})
+    print('    độ sâu thân theo z:', {z: dep(z) for z in (0.90, 0.80, 0.70, 0.63, 0.56, 0.50, 0.30, 0.10)})
+    print('    bề rộng vai (gồm cánh tay) z0.92:', wid(0.92), '| hông (thân, không tay) z0.52:', wid(0.52, xmin=-0.165, xmax=0.165), '| chân (mỗi bên) z0.30: bên trái x', wid(0.30, xmin=0.0, xmax=1), '| bàn chân: dài y', dep(0.03))
+    ev.to_mesh_clear()
+    o_e, nm, vol, selfi = mesh_checks(asm)
+    print(f'    kiểm tra mesh lắp ráp: cạnh hở {o_e}, cạnh >2 mặt {nm}, thể tích có dấu {vol:.4f} m³ ({"pháp tuyến ra ngoài" if vol > 0 else "PHÁP TUYẾN LẬT"}), cặp mặt tự giao (gần đúng) {selfi}, đỉnh {len(asm.data.vertices)}')
 
 
 def lights(sc):
@@ -186,22 +250,41 @@ def cam(sc, name, loc, target, scale):
     o.location = loc; o.rotation_euler = (Vector(target) - Vector(loc)).to_track_quat('-Z', 'Y').to_euler(); return o
 
 
+def render_all(sc, out):
+    os.makedirs(out, exist_ok=True); zc = 0.80; R = 6.0
+    full = {'truoc': (0, -R), 'goc34_phai': (R * 0.7071, -R * 0.7071), 'nghieng_phai': (R, 0), 'sau': (0, R), 'nghieng_trai': (-R, 0), 'goc34_trai': (-R * 0.7071, -R * 0.7071)}
+    sc.render.resolution_x, sc.render.resolution_y = 560, 900
+    for n, (x, y) in full.items():
+        sc.camera = cam(sc, n, (x, y, zc), (0, 0, zc), 1.72); sc.render.filepath = os.path.join(out, f'{n}.png'); bpy.ops.render.render(write_still=True)
+    sc.render.resolution_x = sc.render.resolution_y = 700
+    for n, loc, tg, scl in (('can_co_vai_truoc', (0, -4, 0.97), (0, 0, 0.97), 0.62), ('can_co_vai_34', (2.8, -2.8, 0.97), (0, 0, 0.97), 0.62), ('can_co_vai_sau', (0, 4, 0.97), (0, 0, 0.97), 0.62),
+                            ('can_ban_tay', (4, -2, 0.50), (0.19, 0, 0.50), 0.36), ('can_ban_tay_nghieng', (4, 0, 0.50), (0.19, 0, 0.50), 0.36), ('can_hong_hang', (0, -4, 0.52), (0, 0, 0.52), 0.55), ('can_hong_hang_sau', (0, 4, 0.52), (0, 0, 0.52), 0.55),
+                            ('can_hong_hang_34', (2.8, -2.8, 0.52), (0, 0, 0.52), 0.55), ('can_ban_chan', (3, -3, 0.07), (0.084, -0.04, 0.06), 0.40), ('can_ban_chan_nghieng', (4, 0, 0.07), (0.084, -0.04, 0.06), 0.40), ('can_than_nghieng', (4, 0, 0.74), (0, 0, 0.74), 0.62)):
+        sc.camera = cam(sc, n, loc, tg, scl); sc.render.filepath = os.path.join(out, f'{n}.png'); bpy.ops.render.render(write_still=True)
+
+
+def render_silhouettes(sc, out, scale_m_px=0.00233):
+    """Silhouette nền trong suốt cho ảnh đối chiếu với mẫu: cùng tỉ lệ (m/px) với ảnh mẫu, tâm tại trục thân; trục thân nghiêng = trục cổ chân (y = 0)."""
+    os.makedirs(out, exist_ok=True); sc.render.film_transparent = True
+    for o in list(sc.objects):
+        if o.name == 'San': o.hide_render = True
+    W, H = 400, 760; sc.render.resolution_x, sc.render.resolution_y = W, H
+    top = 1.6004; px_top = 41; floor_px = px_top + top / scale_m_px
+    # camera: pixel hàng px_top ↔ z = top; chiều cao ảnh H px = H*scale m. Tâm ảnh ở hàng H/2 ↔ z = top - (H/2 - px_top)*scale
+    zc = top - (H / 2 - px_top) * scale_m_px
+    for n, loc in (('truoc', (0, -6, zc)), ('nghieng', (6, 0, zc)), ('sau', (0, 6, zc))):
+        c = cam(sc, 'sil_' + n, loc, (0, 0, zc), H * scale_m_px); sc.camera = c; sc.render.filepath = os.path.join(out, f'sil_{n}.png'); bpy.ops.render.render(write_still=True)
+    sc.render.film_transparent = False
+
+
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
-    ap = argparse.ArgumentParser(); ap.add_argument('--render', default=''); ap.add_argument('--blend', default=''); ap.add_argument('--samples', type=int, default=24)
+    ap = argparse.ArgumentParser(); ap.add_argument('--render', default=''); ap.add_argument('--blend', default=''); ap.add_argument('--samples', type=int, default=24); ap.add_argument('--sil', default=''); ap.add_argument('--voxel', type=float, default=0.003)
     a = ap.parse_args(argv)
-    sc = build_scene()
+    sc = build_scene(a.voxel)
     for c in list(sc.objects):
         if c.type in ('LIGHT', 'CAMERA'): bpy.data.objects.remove(c, do_unlink=True)
+    if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))   # file Blender của Nam (chưa đèn/sàn/camera) để đưa vào cảnh khác
     lights(sc); sc.cycles.samples = a.samples; measure(sc)
-    if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
-    if a.render:
-        os.makedirs(a.render, exist_ok=True); zc = 0.80; R = 6.0
-        full = {'truoc': (0, -R), 'goc34_phai': (R * 0.7071, -R * 0.7071), 'nghieng_phai': (R, 0), 'sau': (0, R), 'nghieng_trai': (-R, 0), 'goc34_trai': (-R * 0.7071, -R * 0.7071)}
-        sc.render.resolution_x, sc.render.resolution_y = 560, 900
-        for n, (x, y) in full.items():
-            sc.camera = cam(sc, n, (x, y, zc), (0, 0, zc), 1.72); sc.render.filepath = os.path.join(a.render, f'{n}.png'); bpy.ops.render.render(write_still=True)
-        sc.render.resolution_x = sc.render.resolution_y = 700
-        for n, loc, tg, scl in (('can_co_vai_truoc', (0, -4, 0.98), (0, 0, 0.98), 0.62), ('can_co_vai_34', (2.8, -2.8, 0.98), (0, 0, 0.98), 0.62), ('can_ban_tay', (4, -2, 0.50), (0.17, 0, 0.48), 0.34),
-                                ('can_ban_chan', (3, -3, 0.07), (0.067, -0.04, 0.06), 0.34), ('can_than_nghieng', (4, 0, 0.74), (0, 0, 0.74), 0.62)):
-            sc.camera = cam(sc, n, loc, tg, scl); sc.render.filepath = os.path.join(a.render, f'{n}.png'); bpy.ops.render.render(write_still=True)
+    if a.sil: render_silhouettes(sc, a.sil)
+    if a.render: render_all(sc, a.render)
