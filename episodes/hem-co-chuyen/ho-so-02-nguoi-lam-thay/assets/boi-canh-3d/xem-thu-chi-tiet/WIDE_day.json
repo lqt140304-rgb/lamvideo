@@ -1,0 +1,95 @@
+{
+  "source": "xay_do_dung_chi_tiet.py",
+  "camera": "WIDE",
+  "mode": "day",
+  "resolution": [
+    1280,
+    536
+  ],
+  "samples": 32,
+  "device": "GPU",
+  "groups": [
+    {
+      "asset_id": "HS02_PROP_ghe",
+      "objects": 14,
+      "anchors": [
+        "seat",
+        "back"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_laptop",
+      "objects": 62,
+      "anchors": [
+        "screen",
+        "keyboard",
+        "grip"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_sach",
+      "objects": 90,
+      "anchors": [
+        "shelf"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_den_ban",
+      "objects": 5,
+      "anchors": [
+        "switch"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_bep",
+      "objects": 48,
+      "anchors": [
+        "water_outlet",
+        "drain",
+        "dish_grip"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_quan_ao",
+      "objects": 22,
+      "anchors": [
+        "rail"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_chan_goi",
+      "objects": 8,
+      "anchors": [
+        "pillow_left",
+        "pillow_right",
+        "mattress_top"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_quat",
+      "objects": 83,
+      "anchors": [
+        "rotor",
+        "switch"
+      ]
+    },
+    {
+      "asset_id": "HS02_PROP_sinh_hoat",
+      "objects": 18,
+      "anchors": [
+        "bowl_grip",
+        "bucket_grip"
+      ]
+    }
+  ],
+  "contact_checks": [
+    "blanket vs mattress/sheet/piping: no mesh intersection",
+    "backrest concavity faces sitter",
+    "both laptop feet rest at desktop z=0.75m"
+  ],
+  "limits": [
+    "Static preview only",
+    "Mirror portal and cloth/prop animation not verified",
+    "Original room/characters kept; no production film rendered"
+  ]
+}

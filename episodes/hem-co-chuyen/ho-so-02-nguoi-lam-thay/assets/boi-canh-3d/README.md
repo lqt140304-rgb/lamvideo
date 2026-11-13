@@ -91,3 +91,7 @@ Xem [RA-SOAT-13-11.md](RA-SOAT-13-11.md): 14 lỗi đã biết → 6 sửa hẳn
 
 ## 13/11 chiều: ánh sáng theo giờ + đèn bàn thật + góc đồ cho tặng (S07)
 Chế độ `--mode dawn|noon|sunset|rain|night|day`, `--den-ban on|off`, `--goc-do`; xem BOI-CANH-CAN-CHUAN-BI.md mục 6. Ảnh: `xem-thu/ANH-SANG-BANG.jpg`, `xem-thu/anh-sang/`, `xem-thu/goc-do/`.
+
+## Đồ dùng tinh chỉnh — cập nhật 13/11
+
+Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đồ dùng mới trên bối cảnh hiện tại: tựa ghế đúng chiều, chăn ôm ngoài mép nệm và chân cao su laptop đặt trên mặt bàn. Xem [hướng dẫn tích hợp và giới hạn](README-CHI-TIET.md), [ảnh sửa tiếp xúc](sua-tiep-xuc/DA-SUA.png). Entry gốc vẫn giữ nguyên; cần gọi entry tinh chỉnh hoặc gọi `refine()` sau `build()` để nhận đồ dùng mới.
