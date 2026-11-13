@@ -107,8 +107,8 @@ def build(X, coll, night, mode):
     cols = ['#b3362c', '#1f3a5f', '#d8d2c2', '#2f2f2f', '#e0a030', '#3d6e5a']
     hel = ['#e8e8e0', '#d83a30', '#2a4a8a', '#f0c030', '#1a1a1a']
     for k in range(5):   # sân: làn xe máy phía đông đi +y (x=-3,9), tốc độ đều để không đuổi kịp nhau
-        bike(f'env_cd_xm_san{k}', -3.9, k * 12.0, 0.24, 62.0, cols[k % 6], hel[k % 5], 1)
-    bike('env_cd_xm_san_nam', -6.3, 30.0, 0.2, 62.0, cols[2], hel[3], -1)   # làn phía tây đi −y
+        bike(f'env_cd_xm_san{k}', -3.45, k * 12.0, 0.24, 62.0, cols[k % 6], hel[k % 5], 1)
+    bike('env_cd_xm_san_nam', -5.55, 30.0, 0.2, 62.0, cols[2], hel[3], -1)   # làn phía tây đi −y
     for k in range(3):   # hẻm bên cửa sổ phòng Nam
         bike(f'env_cd_xm_hem{k}', W + T + 1.85, k * 17.0, 0.2 + 0.04 * k, 56.0, cols[(k + 2) % 6], hel[(k + 1) % 5], 1)
 
@@ -117,12 +117,12 @@ def build(X, coll, night, mode):
         root = bpy.data.objects.new(name, None); coll.objects.link(root); root.location = (X.mx(lane_x), y_start, GZ)
         body, glass, blk = mat(color, 0.3, 0.3), mat('#1c2630', 0.05), mat('#1a1a1a', 0.7)
         def P(nm, ob): ob.parent = root; ob.visible_shadow = True; return ob
-        P('than', X.box(f'{name}_than', W - 0.8, W + 0.8, -2.0, 2.0, 0.3, 0.95, body, bevel=0.06, coll=coll))
-        P('cabin', X.box(f'{name}_cabin', W - 0.74, W + 0.74, -1.1, 0.95, 0.95, 1.5, body, bevel=0.08, coll=coll))
-        P('kinh', X.box(f'{name}_kinh', W - 0.76, W + 0.76, -1.0, 0.85, 1.02, 1.42, glass, bevel=0.03, coll=coll))
-        P('cot', X.box(f'{name}_cot', W - 0.77, W + 0.77, -0.12, 0.0, 1.0, 1.44, body, coll=coll))
-        P('can_t', X.box(f'{name}_can_t', W - 0.82, W + 0.82, 1.9, 2.08, 0.34, 0.5, blk, bevel=0.03, coll=coll)); P('can_s', X.box(f'{name}_can_s', W - 0.82, W + 0.82, -2.08, -1.9, 0.34, 0.5, blk, bevel=0.03, coll=coll))
-        for sx in (-0.74, 0.74):
+        P('than', X.box(f'{name}_than', W - 0.75, W + 0.75, -2.0, 2.0, 0.3, 0.95, body, bevel=0.06, coll=coll))
+        P('cabin', X.box(f'{name}_cabin', W - 0.7, W + 0.7, -1.1, 0.95, 0.95, 1.5, body, bevel=0.08, coll=coll))
+        P('kinh', X.box(f'{name}_kinh', W - 0.72, W + 0.72, -1.0, 0.85, 1.02, 1.42, glass, bevel=0.03, coll=coll))
+        P('cot', X.box(f'{name}_cot', W - 0.73, W + 0.73, -0.12, 0.0, 1.0, 1.44, body, coll=coll))
+        P('can_t', X.box(f'{name}_can_t', W - 0.78, W + 0.78, 1.9, 2.08, 0.34, 0.5, blk, bevel=0.03, coll=coll)); P('can_s', X.box(f'{name}_can_s', W - 0.78, W + 0.78, -2.08, -1.9, 0.34, 0.5, blk, bevel=0.03, coll=coll))
+        for sx in (-0.7, 0.7):
             for dy in (-1.2, 1.25):
                 P('banh', X.cyl(f'{name}_banh{sx}{dy}', W + sx, dy, 0.32, 0.32, 0.22, blk, axis='X', coll=coll))
             P('den_t', X.sphere(f'{name}_den_t{sx}', W + sx * 0.7, 2.0, 0.7, 0.09, M.emission('cd_den_truoc', '#fff0c0', 40.0 if night else 1.2), coll=coll, scale=(1, 0.5, 0.7)))
@@ -131,8 +131,8 @@ def build(X, coll, night, mode):
         _drv(root, 'location', 1, f'{-12 if direction > 0 else 55}+{direction}*fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})')
         _fade(root, f'fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})', span, 4.0)
         root.location[1] = y_start
-    oto('env_cd_oto0', -5.1, 6.0, 0.1, 66.0, '#c9c9c4', 1)
-    oto('env_cd_oto1', -5.1, 39.0, 0.1, 66.0, '#7a2a2a', 1)
+    oto('env_cd_oto0', -4.55, 6.0, 0.1, 66.0, '#c9c9c4', 1)
+    oto('env_cd_oto1', -4.55, 39.0, 0.1, 66.0, '#7a2a2a', 1)
 
     # ------------------------------------------------------------ người đi bộ: thân, đầu, 2 chân + 2 tay đung đưa (driver sin theo khung hình)
     def nguoi(name, lane_x, y0, speed, span, shirt, trouser, direction=1, kid=False):
@@ -162,7 +162,7 @@ def build(X, coll, night, mode):
         _fade(root, f'fmod({y0:.1f}+frame*{speed:.4f},{span:.1f})', span, 2.0)
         root.location[1] = y0
     shirts = ['#4a78a8', '#c4503a', '#6a9a5a', '#e0c050', '#7a5a8a', '#eeeeee']; tr = ['#2a2a3a', '#4a4a50', '#3a4a6a']
-    for k in range(6): nguoi(f'env_cd_nguoi{k}', -6.9 if k % 2 == 0 else -6.65, k * 7.0, 0.05, 41.0, shirts[k % 6], tr[k % 3], 1 if k % 2 == 0 else -1, kid=(k == 3))
+    for k in range(6): nguoi(f'env_cd_nguoi{k}', -6.5 if k % 2 == 0 else -6.25, k * 7.0, 0.05, 41.0, shirts[k % 6], tr[k % 3], 1 if k % 2 == 0 else -1, kid=(k == 3))
     for k in range(2): nguoi(f'env_cd_nguoi_hem{k}', W + T + 1.3, 10 + k * 14, 0.05, 36.0, shirts[(k + 3) % 6], tr[k], 1)
 
     # ------------------------------------------------------------ chim bay ngang bầu trời (thân + 2 cánh vỗ)

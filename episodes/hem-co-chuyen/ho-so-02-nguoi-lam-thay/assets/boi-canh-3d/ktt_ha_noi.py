@@ -137,15 +137,14 @@ def build(X, coll, night, mode):
 
     # ------------------------------------------------------------ PHÂN LÀN: vỉa hè phía tây cho người đi bộ, lòng đường nhựa có vạch kẻ, vạch qua đường
     YA, YB = -12.6, 56.0
-    B('via_he', -7.55, -6.5, YA, YB, GZ, GZ + 0.08, mat('#c9b88a', 0.85), coll=coll)                                  # vỉa hè nâng 8 cm
-    B('via_he_bo', -6.53, -6.5, YA, YB, GZ, GZ + 0.085, mat('#a8a496', 0.8), coll=coll)                               # bó vỉa
-    B('long_duong', -6.5, -3.4, YA, YB, GZ, GZ + 0.006, mat('#4a4a4c', 0.9), coll=coll)                                # mặt đường nhựa
+    B('via_he', -7.55, -6.05, YA, YB, GZ, GZ + 0.08, mat('#c9b88a', 0.85), coll=coll)                                  # vỉa hè nâng 8 cm, rộng 1,5 m
+    B('via_he_bo', -6.08, -6.05, YA, YB, GZ, GZ + 0.085, mat('#a8a496', 0.8), coll=coll)                               # bó vỉa
+    B('long_duong', -6.05, -3.1, YA, YB, GZ, GZ + 0.006, mat('#4a4a4c', 0.9), coll=coll)                                # mặt đường nhựa
     wl = mat('#f0eee4', 0.7)
-    for xl in (-6.45, -3.45): B(f'vach_bien{xl}', xl - 0.04, xl + 0.04, YA, YB, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch biên liền
-    for xl in (-5.75, -4.45):
-        for k in range(int((YB - YA) / 2.0)): B(f'vach_phan_lan{xl}_{k}', xl - 0.04, xl + 0.04, YA + 0.2 + k * 2.0, YA + 1.2 + k * 2.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đứt phân làn
-    for k in range(5): B(f'vach_qua_duong{k}', -6.3 + k * 0.62, -6.0 + k * 0.62, -6.4, -4.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đi bộ qua đường
-    for k in range(4): B(f'vach_dung{k}', -6.45 + k * 0.75, -5.9 + k * 0.75, -3.6, -3.45, GZ + 0.006, GZ + 0.0085, wl, coll=coll) if False else None
+    for xl in (-6.0, -3.15): B(f'vach_bien{xl}', xl - 0.03, xl + 0.03, YA, YB, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch biên liền
+    for xl in (-5.3, -3.75):
+        for k in range(int((YB - YA) / 2.0)): B(f'vach_phan_lan{xl}_{k}', xl - 0.03, xl + 0.03, YA + 0.2 + k * 2.0, YA + 1.2 + k * 2.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đứt phân làn
+    for k in range(5): B(f'vach_qua_duong{k}', -5.85 + k * 0.58, -5.6 + k * 0.58, -6.4, -4.0, GZ + 0.006, GZ + 0.0085, wl, coll=coll)   # vạch đi bộ qua đường
     # ------------------------------------------------------------ quán trà đá vỉa hè: bàn thấp, ghế nhựa, ô dù, ấm, bình thuỷ, cốc
     qx, qy = -2.4, -8.0
     B('quan_ban', qx - 0.3, qx + 0.3, qy - 0.4, qy + 0.4, GZ + 0.5, GZ + 0.54, mat('#6a4a30', 0.8), bevel=0.01, coll=coll)
@@ -238,20 +237,21 @@ def build(X, coll, night, mode):
         else: P(sphere(f'env_ktt_{name}_toc', W - 0.05, 0, 1.06, 0.11, mat(toc, 0.9), scale=(1, 1, 0.8), coll=coll)) if non == 'khan' else None
         return root
     zv = GZ + 0.08
-    # 1) bà bán rau: ngồi trên vỉa hè, nón lá, rổ rau + cân đòn, ô che nắng
-    nguoi_ngoi('ban_rau', -7.0, -1.5, zv, False, '#7a5a8a', '#2a2a2a', 'non')
-    B('rau_chieu', -6.75, -5.9 - 0.2, -2.2, -0.8, zv, zv + 0.012, mat('#a8905a', 0.9), coll=coll)
-    for k, dy in enumerate((-0.2, 0.75)):
-        cyl(f'env_ktt_ro_rau{k}', -6.4, -1.5 + dy - 0.4 + 0.45 * k, zv + 0.09, 0.28, 0.16, mat('#b08a4a', 0.9), coll=coll)
-        for j in range(9): sphere(f'env_ktt_rau{k}_{j}', -6.4 + rnd.uniform(-0.2, 0.2), -1.5 + dy - 0.4 + 0.45 * k + rnd.uniform(-0.2, 0.2), zv + 0.2 + rnd.uniform(0, 0.08), rnd.uniform(0.07, 0.11), mat(rnd.choice(['#4f8a3a', '#6aa04a', '#3a7a3a', '#8ab04a']), 0.8), scale=(1, 1, 0.6), coll=coll)
-    cyl('env_ktt_du_rau_cot', -7.3, -1.5, zv + 1.15, 0.02, 2.3, mat('#6a6a64', 0.5, 0.6), coll=coll)
-    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=16, radius1=1.2, radius2=0.03, depth=0.35); X._mesh_obj('env_ktt_du_rau', bm, (X.mx(-7.3), -1.5, zv + 2.3), mat('#d8a02a', 0.7), True, coll)
-    # 2) cô bán trái cây: khăn trùm đầu, ghế nhựa thấp, đôi thúng + quang gánh đặt xuống đất, cân
-    nguoi_ngoi('ban_trai_cay', -7.0, 14.0, zv, False, '#c4503a', '#3a4a6a', 'khan', ghe='#c24a3a')
-    cyl('env_ktt_quang_ganh', -6.55, 14.0, zv + 0.2, 0.014, 1.9, mat('#a8905a', 0.7), axis='Y', coll=coll)
-    for k, dy in enumerate((-0.85, 0.85)):
-        cyl(f'env_ktt_thung_qua{k}', -6.55, 14.0 + dy, zv + 0.1, 0.3, 0.2, mat('#8a6a3a', 0.9), coll=coll)
-        for j in range(10): sphere(f'env_ktt_trai{k}_{j}', -6.55 + rnd.uniform(-0.2, 0.2), 14.0 + dy + rnd.uniform(-0.2, 0.2), zv + 0.24 + rnd.uniform(0, 0.08), 0.07, mat(rnd.choice(['#e8a020', '#c83a2a', '#6a9a3a', '#e0c030', '#d85a8a']), 0.5), coll=coll)
-    B('trai_chieu', -6.85, -6.4, 12.9, 15.1, zv, zv + 0.01, mat('#2f66a8', 0.5), coll=coll)
+    # 1) bà bán rau: ngồi sát tường, nón lá, rổ rau + ô che nắng, tất cả trong x −7,5…−6,7
+    nguoi_ngoi('ban_rau', -7.3, -1.5, zv, False, '#7a5a8a', '#2a2a2a', 'non')
+    B('rau_chieu', -7.5, -6.72, -2.2, -0.8, zv, zv + 0.012, mat('#a8905a', 0.9), coll=coll)
+    for k in range(2):
+        cy_ = -1.5 - 0.4 + 0.8 * k
+        cyl(f'env_ktt_ro_rau{k}', -6.95, cy_, zv + 0.09, 0.24, 0.16, mat('#b08a4a', 0.9), coll=coll)
+        for j in range(9): sphere(f'env_ktt_rau{k}_{j}', -6.95 + rnd.uniform(-0.17, 0.17), cy_ + rnd.uniform(-0.17, 0.17), zv + 0.2 + rnd.uniform(0, 0.08), rnd.uniform(0.06, 0.1), mat(rnd.choice(['#4f8a3a', '#6aa04a', '#3a7a3a', '#8ab04a']), 0.8), scale=(1, 1, 0.6), coll=coll)
+    cyl('env_ktt_du_rau_cot', -7.5, -1.5, zv + 1.15, 0.02, 2.3, mat('#6a6a64', 0.5, 0.6), coll=coll)
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=16, radius1=1.0, radius2=0.03, depth=0.35); X._mesh_obj('env_ktt_du_rau', bm, (X.mx(-7.5), -1.5, zv + 2.3), mat('#d8a02a', 0.7), True, coll)
+    # 2) cô bán trái cây: khăn trùm đầu, ghế nhựa thấp, đôi thúng + quang gánh đặt xuống đất
+    nguoi_ngoi('ban_trai_cay', -7.3, 14.0, zv, False, '#c4503a', '#3a4a6a', 'khan', ghe='#c24a3a')
+    cyl('env_ktt_quang_ganh', -6.95, 14.0, zv + 0.2, 0.014, 1.7, mat('#a8905a', 0.7), axis='Y', coll=coll)
+    for k, dy in enumerate((-0.75, 0.75)):
+        cyl(f'env_ktt_thung_qua{k}', -6.95, 14.0 + dy, zv + 0.1, 0.26, 0.2, mat('#8a6a3a', 0.9), coll=coll)
+        for j in range(10): sphere(f'env_ktt_trai{k}_{j}', -6.95 + rnd.uniform(-0.17, 0.17), 14.0 + dy + rnd.uniform(-0.17, 0.17), zv + 0.24 + rnd.uniform(0, 0.08), 0.07, mat(rnd.choice(['#e8a020', '#c83a2a', '#6a9a3a', '#e0c030', '#d85a8a']), 0.5), coll=coll)
+    B('trai_chieu', -7.5, -6.72, 12.9, 15.1, zv, zv + 0.01, mat('#2f66a8', 0.5), coll=coll)
     # 3) chú bán bánh mì: mũ lưỡi trai, ngồi sau xe đẩy
     nguoi_ngoi('ban_banh_mi', -1.75, -5.2, GZ, True, '#e8e4d8', '#2a2a2a', 'mu', ghe='#e3b84a')

@@ -127,3 +127,7 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - **Phân làn (sân dài 68 m):** vỉa hè nâng 8 cm ở phía tây cho người đi bộ (x −7,55…−6,5); lòng đường nhựa x −6,5…−3,4, vạch biên liền, vạch đứt phân làn, vạch đi bộ qua đường; làn tây −6,3 đi −y (xe máy, xe cộ chậm), làn giữa −5,1 ô tô đi +y, làn đông −3,9 xe máy đi +y; xe đỗ và bồn cây dồn về hè đông (x > −3,2), cột điện chuyển sát hè đông (x = −1,75) nên ô tô không còn đâm vào cột và cây.
 - **Người bán hàng rong ngồi ven đường (3 người, đứng yên, mỗi người một kiểu):** bà bán rau (nón lá, rổ rau, ô che nắng, chiếu), cô bán trái cây (khăn trùm đầu, ghế nhựa, đôi thúng + quang gánh đặt xuống), chú bán bánh mì (mũ lưỡi trai, ngồi sau xe đẩy). Bỏ gánh/xe đạp hoa đi bộ.
 - Camera kiểm tra: `VIA_HE`, `VIA_HE_2`; ảnh `xem-thu/ktt/`.
+
+### Sửa xuyên vật thể / quầy rong chìa ra đường (13/11 tối)
+- Mặt cắt sân (x thiết kế, đơn vị m): vỉa hè −7,55…−6,05 (người bán ngồi và đồ nằm trọn trong −7,5…−6,7; lối đi bộ −6,5/−6,25); đường nhựa −6,05…−3,1 gồm xe máy làn tây −5,55, ô tô −4,55 (rộng 1,5 m), xe máy làn đông −3,45; hè đông (xe đỗ, bồn cây, quán trà, xe bánh mì) từ −3,0 trở vào.
+- Bỏ xe đỗ trên vỉa hè phía tây; bồn cây thu hẹp (−3,0…−2,1); vạch đứt −5,3 và −3,75, vạch đi bộ −5,85…−3,25.
