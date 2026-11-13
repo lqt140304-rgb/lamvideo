@@ -102,14 +102,14 @@ ARM = [(0.126, 0.002, 0.940, 0.024, 0.028), (0.134, 0.002, 0.918, 0.043, 0.046),
        (0.230, -0.008, 0.560, 0.038, 0.038), (0.236, -0.008, 0.540, 0.034, 0.034)]
 # bàn tay to, mềm: lòng bàn tay dẹt theo x, 4 ngón ngắn đầy cong nhẹ về trước, ngón cái có khối gốc
 PALM = [(0.232, -0.008, 0.570, 0.037, 0.037), (0.242, -0.010, 0.545, 0.034, 0.060), (0.251, -0.012, 0.500, 0.036, 0.076), (0.256, -0.013, 0.462, 0.032, 0.070)]
-FINGERS = [(-0.0525, 0.062, 0.0172), (-0.0175, 0.070, 0.0178), (0.0175, 0.064, 0.0172), (0.0525, 0.052, 0.0155)]   # (dy so với tâm bàn, độ dài, bán kính): ngắn, mập, nắm cong vào lòng bàn tay như mẫu
+FINGERS = [(-0.0575, 0.062, 0.0138), (-0.0195, 0.070, 0.0142), (0.0195, 0.064, 0.0138), (0.0575, 0.052, 0.0126)]   # (dy so với tâm bàn, độ dài, bán kính): khe giữa hai ngón ~10 mm → các ngón tách hẳn
 THUMB = [(0.244, -0.036, 0.548, 0.030, 0.030), (0.241, -0.060, 0.508, 0.027, 0.027), (0.241, -0.074, 0.470, 0.022, 0.022), (0.242, -0.078, 0.446, 0.019, 0.019)]
 LEG = [(0.086, 0.000, 0.66, 0.056, 0.070), (0.090, 0.000, 0.60, 0.076, 0.086), (0.0925, 0.000, 0.50, 0.080, 0.088), (0.0925, -0.002, 0.40, 0.0775, 0.090), (0.0925, -0.003, 0.29, 0.0745, 0.0815),
        (0.0925, 0.000, 0.20, 0.0735, 0.073), (0.0925, 0.002, 0.14, 0.0735, 0.072), (0.0925, 0.004, 0.105, 0.0725, 0.072)]
 #      x       y      z     rx(ngang)  ry(cao): bàn chân dày, rộng, dài ≈ 0,27 m (đo ảnh mẫu), vòng đứng dọc theo y
 FOOT = [(0.098, 0.098, 0.025, 0.030, 0.026), (0.098, 0.090, 0.040, 0.048, 0.040), (0.098, 0.078, 0.055, 0.062, 0.055), (0.098, 0.050, 0.065, 0.072, 0.065), (0.098, 0.010, 0.064, 0.0745, 0.064),
-        (0.098, -0.035, 0.056, 0.078, 0.056), (0.098, -0.075, 0.048, 0.082, 0.048), (0.098, -0.105, 0.040, 0.082, 0.040), (0.098, -0.122, 0.034, 0.080, 0.034)]
-TOES = [(-0.050, 0.056, 0.0315, 0.0320), (-0.015, 0.048, 0.0265, 0.0270), (0.020, 0.044, 0.0245, 0.0250), (0.048, 0.040, 0.0225, 0.0230), (0.073, 0.036, 0.0205, 0.0210)]   # (dx so với tâm chân, dài, bán kính, z): 5 ngón tròn to, nổi rõ, hai bàn chân không dính nhau
+        (0.098, -0.035, 0.056, 0.078, 0.056), (0.098, -0.075, 0.048, 0.088, 0.048), (0.098, -0.105, 0.040, 0.092, 0.040), (0.098, -0.122, 0.034, 0.094, 0.034)]
+TOES = [(-0.0745, 0.056, 0.0215, 0.0220), (-0.0310, 0.048, 0.0180, 0.0185), (0.0070, 0.044, 0.0165, 0.0170), (0.0405, 0.040, 0.0152, 0.0157), (0.0715, 0.036, 0.0138, 0.0143)]   # (dx so với tâm chân, dài, bán kính, z): khe ~6 mm giữa các ngón chân
 
 
 def mir(knots): return [(-k[0],) + tuple(k[1:]) for k in knots]
@@ -165,10 +165,10 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
     smooth_zone(body, lambda c: 0.36 < c.z < 0.68 and abs(c.x) < 0.17, 14, 0.45)   # hông–háng–mông (bỏ mép bụng dưới)
     smooth_zone(body, lambda c: 0.06 < c.z < 0.20 and abs(c.x) < 0.2 and c.y > -0.10, 16, 0.45)   # cổ chân (không đụng ngón chân)
     smooth_zone(body, lambda c: 0.50 < c.z < 0.60 and abs(c.x) > 0.20, 8)                    # cổ tay–lòng bàn tay (bỏ góc vuông)
-    smooth_zone(body, lambda c: 0.40 < c.z < 0.50 and abs(c.x) > 0.20, 5, 0.4)               # gốc ngón tay + ngón (đầu ngón tròn, nối mượt)
+    smooth_zone(body, lambda c: 0.40 < c.z < 0.50 and abs(c.x) > 0.20, 2, 0.3)               # gốc ngón tay + ngón (đầu ngón tròn, nối mượt)
     smooth_zone(body, lambda c: 0.10 < c.z < 0.66 and 0.04 < abs(c.x) < 0.20 and c.y > -0.07, 12, 0.4)   # đùi–gối–bắp chân–cổ chân liền mượt
     smooth_zone(body, lambda c: c.z < 0.14 and c.y > -0.07 and abs(c.x) < 0.2, 10, 0.45)    # gót–mu bàn chân
-    smooth_zone(body, lambda c: c.z < 0.075 and c.y < -0.07 and abs(c.x) < 0.2, 5, 0.4)     # gốc ngón chân + đầu ngón
+    smooth_zone(body, lambda c: c.z < 0.075 and c.y < -0.07 and abs(c.x) < 0.2, 2, 0.3)     # gốc ngón chân + đầu ngón
     carve_details(body)
     for v in body.data.vertices: v.co.z *= KZ                                               # nén thân theo tỉ lệ mẫu (KZ)
     body.data.update(); body.data.shade_smooth(); return body
@@ -344,7 +344,7 @@ def render_silhouettes(sc, out, scale_m_px=0.00233):
 
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
-    ap = argparse.ArgumentParser(); ap.add_argument('--render', default=''); ap.add_argument('--blend', default=''); ap.add_argument('--samples', type=int, default=24); ap.add_argument('--sil', default=''); ap.add_argument('--voxel', type=float, default=0.003)
+    ap = argparse.ArgumentParser(); ap.add_argument('--render', default=''); ap.add_argument('--blend', default=''); ap.add_argument('--samples', type=int, default=24); ap.add_argument('--sil', default=''); ap.add_argument('--voxel', type=float, default=0.0025)
     a = ap.parse_args(argv)
     sc = build_scene(a.voxel)
     for c in list(sc.objects):
