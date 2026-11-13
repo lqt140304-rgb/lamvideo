@@ -37,14 +37,14 @@ def build_old():
 # Mức 'co' lấy đúng vòng cổ của đầu (neck_target) để dải nối ngắn và thẳng. Số đo mẫu: ảnh NAM — 3D TURNAROUND, 1 px = 2,326 mm, sàn ở hàng 730.
 CAGE_LEVELS = [
     dict(ten='co',        z=None,  w=None,  f=None,  b=None,  n=2.0, yc=None),
-    dict(ten='chan_co',   z=0.880, w=0.135, f=0.098, b=0.092, n=2.0),
-    dict(ten='vai',       z=0.835, w=0.160, f=0.128, b=0.100, n=2.2),
-    dict(ten='nguc',      z=0.775, w=0.155, f=0.145, b=0.098, n=2.2),
-    dict(ten='duoi_nguc', z=0.690, w=0.150, f=0.168, b=0.095, n=2.2),
-    dict(ten='bung',      z=0.630, w=0.160, f=0.178, b=0.108, n=2.2),
-    dict(ten='eo',        z=0.580, w=0.168, f=0.172, b=0.128, n=2.2),
-    dict(ten='chau',      z=0.525, w=0.175, f=0.158, b=0.136, n=2.3),
-    dict(ten='day_chau',  z=0.475, w=0.172, f=0.125, b=0.120, n=2.3),
+    dict(ten='chan_co',   z=0.880, w=0.174, f=0.095, b=0.100, n=2.0),
+    dict(ten='vai',       z=0.835, w=0.201, f=0.123, b=0.100, n=2.2),
+    dict(ten='nguc',      z=0.775, w=0.160, f=0.140, b=0.098, n=2.2),
+    dict(ten='duoi_nguc', z=0.690, w=0.146, f=0.163, b=0.092, n=2.2),
+    dict(ten='bung',      z=0.630, w=0.155, f=0.176, b=0.104, n=2.2),
+    dict(ten='eo',        z=0.580, w=0.163, f=0.170, b=0.128, n=2.2),
+    dict(ten='chau',      z=0.525, w=0.170, f=0.153, b=0.133, n=2.3),
+    dict(ten='day_chau',  z=0.475, w=0.172, f=0.121, b=0.117, n=2.3),
 ]
 CO_K = 1.08                                     # vòng 'co' của cage rộng hơn vòng cổ đầu: biên Subdivision co lại ~8%
 LIMB_K = 1.06                                    # vòng cổ tay/mắt cá của cage = tiết diện cũ; Subdivision làm ống nhỏ hơn mép cũ chút ít → mép cũ chui vào ống, không thành gờ
@@ -54,9 +54,10 @@ Z_HANG = 0.025                                   # đỉnh háng thấp hơn m�
 CAGE_OVERRIDE = {}                               # (tên mức, chỉ số đỉnh 0..6) → (dx, dy, dz): chỉnh riêng một đỉnh
 ARM_RINGS = [   # tâm (x, y, z), rx nửa ngang (ra ngoài), ry nửa sâu; vòng 8 đỉnh vuông góc trục tay; 'ax' = trục ép tay (vòng gốc nghiêng 45° để mặt trong không gập ở nách)
     dict(ten='dau_bap_tay',   c=(0.188, 0.000, 0.718), rx=0.056, ry=0.056, ax=(0.7071, 0.0, -0.7071)),
-    dict(ten='giua_bap_tay',  c=(0.200, 0.000, 0.660), rx=0.053, ry=0.053),
-    dict(ten='khuyu',         c=(0.210, -0.003, 0.608), rx=0.050, ry=0.050),
-    dict(ten='co_tay',        c=(0.236, -0.008, 0.540 * KZ), rx=0.038, ry=0.038),   # cổ tay cũ; ống đóng nắp tròn — chờ bàn tay mới (chủ repo đang dựng, chưa ghép)
+    dict(ten='giua_bap_tay',  c=(0.196, 0.000, 0.660), rx=0.056, ry=0.054),
+    dict(ten='khuyu',         c=(0.214, -0.003, 0.605), rx=0.053, ry=0.051),
+    dict(ten='giua_cang_tay', c=(0.225, -0.005, 0.550), rx=0.050, ry=0.048),
+    dict(ten='co_tay',        c=(0.236, -0.008, 0.540 * KZ), rx=0.047, ry=0.045),   # cổ tay cũ; ống đóng nắp tròn — chờ bàn tay mới (chủ repo đang dựng, chưa ghép)
 ]
 LEG_RINGS = [
     dict(ten='dau_dui',  c=(0.097, 0.000, 0.405), rx=0.072, ry=0.076),
@@ -407,6 +408,71 @@ def report(res):
     return all(ok for ok, _ in res.values())
 
 
+# ================================================================== đối chiếu ảnh mẫu
+# Ảnh mẫu NAM — 3D TURNAROUND (1376×768): đỉnh tóc hàng 42, sàn hàng 730 → 1 px = 1,6004/688 m; trục: trước x 281,5, nghiêng (trục cổ chân) x 703, sau x 1096,5.
+MAU = dict(top=42, floor=730, axes={'truoc': 281.5, 'nghieng': 703.0, 'sau': 1096.5})
+MAU_S = H_TARGET / (MAU['floor'] - MAU['top'])
+SIL_W, SIL_H, SIL_TOP = 400, 760, 41
+
+
+def _img_np(path):
+    import numpy as np
+    im = bpy.data.images.load(path, check_existing=False); w, h = im.size; a = np.empty(w * h * 4, dtype=np.float32); im.pixels.foreach_get(a)
+    bpy.data.images.remove(im); return a.reshape(h, w, 4)[::-1].copy()     # hàng 0 = trên
+
+
+def _save_np(arr, path):
+    import numpy as np
+    h, w, _ = arr.shape; im = bpy.data.images.new('tmp_ov', w, h, alpha=True); im.pixels.foreach_set(np.ascontiguousarray(arr[::-1]).astype(np.float32).ravel())
+    im.filepath_raw = path; im.file_format = 'PNG'; im.save(); bpy.data.images.remove(im)
+
+
+def _mau_mask(ref):
+    """Mặt nạ nhân vật trong ảnh mẫu: da cam (r − b lớn) hoặc tóc tối; bóng đổ xám bị loại."""
+    r, g, b = ref[..., 0], ref[..., 1], ref[..., 2]; return ((r - b) > 45 / 255) | ((r + g + b) < 300 / 255)
+
+
+def _run_at(mask_row, cx):
+    """Đoạn liền chứa cột cx (hoặc gần cx nhất) của một hàng mặt nạ: (trái, phải)."""
+    import numpy as np
+    xs = np.flatnonzero(mask_row)
+    if xs.size == 0: return None
+    cx = int(round(cx)); c = cx if mask_row[cx] else int(xs[np.argmin(abs(xs - cx))]); l = r_ = c
+    while l - 1 >= 0 and mask_row[l - 1]: l -= 1
+    while r_ + 1 < mask_row.size and mask_row[r_ + 1]: r_ += 1
+    return l, r_
+
+
+def overlay_ref(sil_dir, mau_path, out):
+    """Chồng silhouette bản mới (viền đỏ, nền xanh nhạt) lên ảnh mẫu mờ 50%, cùng tỉ lệ và mốc sàn; in bảng lệch (mm) ở các mức cage."""
+    import numpy as np
+    if not mau_path or not os.path.exists(mau_path): print('CHƯA ĐỐI CHIẾU MẪU: thiếu ảnh'); return {}
+    ref = _img_np(os.path.abspath(mau_path)); mref = _mau_mask(ref); dy = MAU['top'] - SIL_TOP; table = {}
+    for v in ('truoc', 'nghieng', 'sau'):
+        sil = _img_np(os.path.join(sil_dir, f'sil_{v}.png')); ms = sil[..., 3] > 0.5; ax = MAU['axes'][v]; x0 = int(round(ax - SIL_W / 2))
+        crop = ref[dy:dy + SIL_H, x0:x0 + SIL_W, :3]; mc = mref[dy:dy + SIL_H, x0:x0 + SIL_W]
+        o = np.ones((SIL_H, SIL_W, 4), dtype=np.float32); o[..., :3] = 0.5 + 0.5 * crop
+        o[ms, :3] = o[ms, :3] * 0.75 + np.array([0.55, 0.75, 1.0]) * 0.25
+        er = ms.copy(); er[1:] &= ms[:-1]; er[:-1] &= ms[1:]; er[:, 1:] &= ms[:, :-1]; er[:, :-1] &= ms[:, 1:]; edge = ms & ~er
+        o[edge, :3] = (0.85, 0.05, 0.05); _save_np(o, os.path.join(out, f'so_mau_{v}.png'))
+        rows = {}
+        for name, z in body_levels():
+            row = int(round(SIL_TOP + (H_TARGET - z) / MAU_S)); a_ = _run_at(mc[row], SIL_W / 2); b_ = _run_at(ms[row], SIL_W / 2)
+            if a_ and b_: rows[name] = (round(z, 3), round((SIL_W / 2 - a_[0]) * MAU_S * 1000), round((SIL_W / 2 - b_[0]) * MAU_S * 1000), round((a_[1] - SIL_W / 2) * MAU_S * 1000), round((b_[1] - SIL_W / 2) * MAU_S * 1000))
+        if v == 'truoc':                                                       # cánh tay trái ảnh (tay phải nhân vật): mép ngoài/trong
+            for z in (0.75, 0.70, 0.65, 0.60, 0.55, 0.50):
+                row = int(round(SIL_TOP + (H_TARGET - z) / MAU_S)); arm = []
+                for m_ in (mc, ms):
+                    t_ = _run_at(m_[row], SIL_W / 2); a2 = _run_at(m_[row], (t_[0] - 3) if t_ else 0) if t_ and t_[0] > 3 else None
+                    arm.append(a2 if a2 and a2 != t_ else None)
+                if all(arm): rows[f'tay_{z:.2f}'] = (z, round((SIL_W / 2 - arm[0][0]) * MAU_S * 1000), round((SIL_W / 2 - arm[1][0]) * MAU_S * 1000), round((SIL_W / 2 - arm[0][1]) * MAU_S * 1000), round((SIL_W / 2 - arm[1][1]) * MAU_S * 1000))
+        table[v] = rows
+    print('--- đối chiếu mẫu (mm từ trục: trái mẫu/mới, phải mẫu/mới; nghiêng: trái = phía trước):')
+    for v, rows in table.items():
+        for n, (z, lm, ln, rm, rn) in rows.items(): print(f'    {v:8s} {n:10s} z {z:.3f}  trái {lm:4d}/{ln:4d} ({ln - lm:+d})  phải {rm:4d}/{rn:4d} ({rn - rm:+d})')
+    return table
+
+
 # ================================================================== render
 CLAY = '#b8b0a8'
 
@@ -466,6 +532,8 @@ if __name__ == '__main__':
     if a.render:
         T.lights(sc); print('ảnh cage:', render_cage(sc, os.path.join(a.render, 'cage'), a.samples))
         print('ảnh:', render_views(sc, a.render, list(VIEWS), a.samples))
+        if a.mau:
+            sc.cycles.samples = 4; sil = os.path.join(a.render, 'sil'); T.render_silhouettes(sc, sil, MAU_S); overlay_ref(sil, a.mau, a.render)
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
     if a.check:
         ok = report(check_all(sc)); print('KẾT QUẢ:', 'TẤT CẢ PASS' if ok else 'CÒN FAIL'); sys.stdout.flush(); os._exit(0 if ok else 1)
