@@ -503,8 +503,9 @@ def hallway(m, coll, night):
     cyl('chau_cay', -1.15, 5.2, 0.16, 0.15, 0.3, M.solid('chau', '#b0605a', 0.6), coll=coll, bevel=0.012)
     cyl('dat_chau', -1.15, 5.2, 0.31, 0.13, 0.02, M.solid('dat', '#5a4a3a', 0.95), coll=coll, smooth=False)
     import random; rnd = random.Random(7)
+    cyl('chau_cay_than', -1.15, 5.2, 0.4, 0.014, 0.26, M.solid('than_cay', '#5a4a2a', 0.9), coll=coll)  # thân/cành nối đất với tán lá
     for i in range(11):
-        a = rnd.uniform(0, 6.283); r = rnd.uniform(0.0, 0.12); h = 0.46 + rnd.uniform(0.0, 0.2)
+        a = rnd.uniform(0, 6.283); r = rnd.uniform(0.0, 0.12); h = 0.38 + rnd.uniform(0.0, 0.14)
         sphere(f'la{i}', -1.15 + r * math.cos(a), 5.2 + r * math.sin(a), h, rnd.uniform(0.08, 0.12), m['cay'], scale=(1.0, 1.0, 0.55), coll=coll)
     for i in range(3):
         box(f'giay{i}', -0.45, -0.25, 4.7 + i * 0.22, 4.86 + i * 0.22, 0.0, 0.08, M.solid('giay_hl', '#8a8783', 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(10 * i)))
@@ -650,6 +651,9 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'DAU_NHA': ((-5.5, -7.0, 1.8), (-1.0, -0.5, 1.2), 22),   # đầu hành lang/cầu thang nhìn từ sân
     'TAY_NAM': ((1.0, 2.55, 1.15), (0.0, 2.12, 1.02), 50),   # nhìn tay nắm + ổ khóa cửa từ trong phòng
     'TAY_NAM_NGOAI': ((-0.8, 2.3, 1.15), (0.0, 2.12, 1.0), 50),  # tay nắm từ hành lang (cửa đóng: --door 0)
+    'CAY': ((-0.9, 1.0, -0.4), (-4.2, 6.5, 0.2), 28),    # cây lớn ở sân (thân, cành, tán)
+    'CAU': ((-3.4, 2.0, -1.8), (-6.5, 5.0, -1.2), 35),    # cau cảnh + bồn cây
+    'CHAU_HL': ((-0.6, 3.6, 1.0), (-1.15, 5.2, 0.4), 35),  # chậu cây hành lang
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
     'LOW': ((1.0, 3.7, 0.35), (2.2, 0.6, 1.0), 24),
 }

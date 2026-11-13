@@ -51,3 +51,7 @@ Chưa xác định được chỗ "vạch trắng thẳng" ở ảnh thu nhỏ t
 - **Cầu thang tầng 1:** chủ repo xác nhận tốt, giữ nguyên.
 - **Tầng 2/3, phần hở đầu nhà:** thêm lan can che — mép sàn tầng 3 nhô ra trên cầu thang (thành thấp + tay vịn + con tiện, 3 mặt), chiếu nghỉ tầng 2 (trụ hai bên + dầm cổng). Camera `DAU_NHA`.
 - **Tường ngoài trống:** thêm 5 kiểu tranh đường phố (`tranh_tuong` trong `moi_truong.py`): làng quê (mặt trời, đồi, sông, thuyền, diều), hoa sen, phố xe máy, graffiti trừu tượng, mặt cười. Đặt ở tường đầu nhà hướng sân (4 tranh), tường rào đầu sân (2) và tường nhà hàng xóm bên hẻm (3). Mỗi tranh là các hình phẳng xếp lớp (chưa phải ảnh thật; muốn tranh thật thì cần cung cấp ảnh/texture có quyền sử dụng).
+
+## Vòng rà thứ năm
+- **Chi tiết xa (`xa_chi_tiet`):** 54 toà nhà xa ở 3 lớp (90/150/230 m) có lưới cửa sổ (Checker theo ô, ban đêm mỗi ô sáng/tối riêng), mái có gờ + bể nước/ăng-ten/hộp kỹ thuật, 2 cần cẩu công trường (đèn đỏ), tháp phát sóng đèn đỏ, 40 lùm cây xa, đàn chim ban ngày.
+- **Cây/chậu lơ lửng (chủ repo báo):** xác nhận lá chậu cây hành lang hở khỏi miệng chậu 15 cm không có thân; lá chậu hẻm/ban công/phòng đối diện cũng hở. Đã hạ lá xuống ôm miệng chậu + thêm thân; cây lớn thêm tán chính ôm đỉnh thân và thu bán kính cụm lá để không còn cụm lá rời xa cành. Camera `CAY`, `CAU`, `CHAU_HL`.
