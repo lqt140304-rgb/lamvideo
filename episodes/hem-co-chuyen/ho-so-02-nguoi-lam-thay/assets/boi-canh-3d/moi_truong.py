@@ -296,6 +296,7 @@ def build(X, m, coll, night, hl_y1):
             B(f'den_san_vo{k}', -4.5, -3.9, y - 0.2, y + 0.2, GZ + 3.3, GZ + 3.4, glow('#ffe9c0', 8.0), coll=coll)
 
     mo_rong(X, m, coll, night, hl_y1)
+    hem_chi_tiet(X, coll, night)
     # ------------------------------------------------------------ cửa hành lang phòng Nam: mỗi cửa một cảnh riêng
     items = ['giay', 'may_giat', 'xe_dap', 'ghe_ban', 'ban_tho', 'carton', 'phoi_quat', 'khoa_cay']
     for k, kind in enumerate(items):
@@ -419,7 +420,7 @@ def mo_rong(X, m, coll, night, hl_y1):
                 if y < 30 and r.random() < 0.3:
                     B(f'khoi_ml{fl}_{y:.1f}', AXF, AXF + 0.35, y + ww + 0.15, y + ww + 0.95, zb + 2.15, zb + 2.55, mat('#e6e3da', 0.4), bevel=0.02, coll=coll)
             y += ww + r.uniform(0.8, 2.2)
-    if not night: X.add_area('env_hat_hem', (4.2, 6.0, 9.0), 7.0, 3500, '#fff0d8', rot=(0, 0, 0), coll=coll)  # ánh hắt xuống hẻm hẹp (nhà 4 tầng che sáng)
+    if not night: X.add_area('env_hat_hem', (4.2, 6.0, 9.0), 7.0, 2500, '#fff0d8', rot=(0, 0, 0), coll=coll); X.add_area('env_hat_hem2', (3.9, 1.5, 1.8), 2.5, 25, '#fff0d8', rot=(0, math.radians(90), 0), coll=coll)  # ánh hắt xuống hẻm hẹp (nhà 4 tầng che sáng)
     # ---- hành lang kéo dài: LOD
     B('hl_far_san', X0, EX, Y1, YF, -0.1, 0.0, mat('#c4bca8', 0.4), coll=coll)
     B('hl_far_mai', X0 - 0.15, EX, Y1, YF, H, H + 0.12, plaster('#d8cdb0'), coll=coll)
@@ -479,3 +480,92 @@ def mo_rong(X, m, coll, night, hl_y1):
     for k in range(10):
         cx = rnd.uniform(-30, 12); cy = rnd.uniform(90, 140); hh = rnd.uniform(15, 55)
         B(f'chan_troi_cuoi{k}', cx - 7, cx + 7, cy - 7, cy + 7, GZ - 1, GZ + hh, mat('#a9b2b7', 1.0), coll=coll)
+
+
+def hem_chi_tiet(X, coll, night, rnd_seed=303):
+    """Ngoại cảnh qua cửa sổ phòng Nam: ban công nhà hàng xóm đối diện cùng độ cao (cây, quần áo phơi, ghế, mèo, cửa kính có rèm), mái hiên tôn,
+    biển cho thuê phòng, chảo ăng-ten, bể nước, dây điện/dây đèn chằng ngang hẻm, lồng chim, chậu treo, xe máy và thùng rác dưới hẻm."""
+    box, cyl, sphere, M = X.box, X.cyl, X.sphere, X.M
+    W, T = X.W, X.T; GZ, FL = -2.92, 2.92; AX = W + T + 2.2; XB = W + T
+    rnd = random.Random(rnd_seed)
+    def mat(color, rough=0.7, metal=0.0):
+        k = ('h', color, rough, metal)
+        if k not in _cache: _cache[k] = M.solid('eh_' + color.strip('#') + f'_{int(rough*10)}', color, rough, metal)
+        return _cache[k]
+    def glow(color, st):
+        k = ('hg', color, st)
+        if k not in _cache: _cache[k] = M.emission('ehg_' + color.strip('#') + str(st), color, st)
+        return _cache[k]
+    def B(name, *a, **kw): return box('env_hc_' + name, *a, **kw)
+    steel = mat('#2b2d2e', 0.45, 0.7); white = mat('#ece8dc', 0.6); rust = mat('#8a5a3a', 0.8)
+    def wire(p0, p1, sag=0.5, r=0.008, nm='w'):
+        cu = bpy.data.curves.new('env_hc_' + nm, 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = r; cu.bevel_resolution = 1
+        sp = cu.splines.new('BEZIER'); sp.bezier_points.add(2)
+        mid = tuple((p0[i] + p1[i]) / 2 for i in range(3)); mid = (mid[0], mid[1], mid[2] - sag)
+        for b_, p_ in zip(sp.bezier_points, (p0, mid, p1)):
+            b_.co = (X.mx(p_[0]), p_[1], p_[2]); b_.handle_left_type = b_.handle_right_type = 'AUTO'
+        ob = bpy.data.objects.new('env_hc_' + nm, cu); ob.data.materials.append(mat('#1a1a1a', 0.6)); bpy.context.scene.collection.objects.link(ob); X._link(ob, coll)
+    # ---- ban công đối diện cửa sổ (tầng 2, cùng cao độ z = 0), rộng y 0,0 → 2,9
+    zb = 0.0; y0, y1 = 0.0, 2.9; d = 0.95
+    B('bc_san', AX - d, AX, y0, y1, zb - 0.12, zb, mat('#b9b2a0', 0.9), bevel=0.01, coll=coll)
+    B('bc_tay_vin', AX - d, AX - d + 0.04, y0, y1, zb + 0.95, zb + 0.99, steel, coll=coll)
+    B('bc_tay_vin_s1', AX - d, AX, y0, y0 + 0.04, zb + 0.95, zb + 0.99, steel, coll=coll); B('bc_tay_vin_s2', AX - d, AX, y1 - 0.04, y1, zb + 0.95, zb + 0.99, steel, coll=coll)
+    for i in range(int((y1 - y0) / 0.12)): B(f'bc_song{i}', AX - d + 0.01, AX - d + 0.03, y0 + 0.04 + i * 0.12, y0 + 0.055 + i * 0.12, zb + 0.1, zb + 0.95, steel, coll=coll)
+    for i in range(int(d / 0.14)):
+        B(f'bc_song_s{i}', AX - d + 0.06 + i * 0.14, AX - d + 0.075 + i * 0.14, y0 + 0.01, y0 + 0.03, zb + 0.1, zb + 0.95, steel, coll=coll)
+        B(f'bc_song_t{i}', AX - d + 0.06 + i * 0.14, AX - d + 0.075 + i * 0.14, y1 - 0.03, y1 - 0.01, zb + 0.1, zb + 0.95, steel, coll=coll)
+    # cửa kính trượt + rèm (sáng đèn nếu ban đêm)
+    B('bc_cua_khung', AX - 0.06, AX, y0 + 0.3, y1 - 0.3, zb, zb + 2.1, white, coll=coll)
+    B('bc_cua_kinh', AX - 0.07, AX - 0.06, y0 + 0.36, y1 - 0.36, zb + 0.06, zb + 2.04, glow('#ffd79a', 1.1) if night else mat('#7d95a0', 0.15), coll=coll)
+    B('bc_rem', AX - 0.09, AX - 0.07, y0 + 0.36, y0 + 1.0, zb + 0.06, zb + 2.04, mat('#c9a98a', 0.9), coll=coll)
+    B('bc_rem2', AX - 0.09, AX - 0.07, y1 - 0.7, y1 - 0.36, zb + 0.06, zb + 2.04, mat('#c9a98a', 0.9), coll=coll)
+    # chậu cây dọc lan can + giàn hoa treo
+    for i in range(6):
+        yy = y0 + 0.25 + i * 0.45
+        cyl(f'env_hc_chau{i}', AX - d + 0.14, yy, zb + 0.18, 0.12, 0.3, mat(rnd.choice(['#b0605a', '#c8a15a', '#6a8aa6']), 0.7), coll=coll, bevel=0.01)
+        for q in range(4): sphere(f'env_hc_la{i}_{q}', AX - d + 0.14 + 0.08 * math.cos(q * 1.6), yy + 0.08 * math.sin(q * 1.6), zb + 0.5 + 0.06 * q % 3 * 0.3, 0.12, mat(rnd.choice(['#4f7a4a', '#6f9a55']), 0.8), scale=(1, 1, 1.2), coll=coll)
+        if i % 2 == 0:
+            for q in range(3): sphere(f'env_hc_hoa{i}_{q}', AX - d + 0.14 + 0.05 * q, yy + 0.04 * q, zb + 0.62, 0.05, mat(rnd.choice(['#e86a8a', '#f2d24a', '#e8e4d8']), 0.7), coll=coll)
+    # dây phơi ngang ban công + quần áo (khác nhau)
+    B('bc_day_phoi', AX - d + 0.1, AX - 0.1, y0 + 0.2, y0 + 0.215, zb + 1.9, zb + 1.915, steel, coll=coll)
+    for q in range(5):
+        yy = y0 + 0.5 + q * 0.5 + rnd.uniform(-0.05, 0.05)
+        B(f'bc_ao{q}', AX - 0.55, AX - 0.53, yy, yy + rnd.uniform(0.28, 0.4), zb + 1.25, zb + 1.9, mat(rnd.choice(['#e8e4d8', '#7fa0c0', '#d8a05a', '#8a6a9a', '#c24a3a', '#5a8a5a']), 0.9), coll=coll)
+    B('bc_day_phoi2', AX - d + 0.2, AX - d + 0.215, y0 + 0.2, y1 - 0.2, zb + 1.9, zb + 1.915, steel, coll=coll)
+    # ghế nhựa + bàn nhỏ + lồng chim + mèo
+    B('bc_ghe', AX - 0.5, AX - 0.15, y1 - 0.9, y1 - 0.5, zb, zb + 0.45, mat('#c24a3a', 0.55), bevel=0.03, coll=coll)
+    B('bc_ghe_lung', AX - 0.5, AX - 0.46, y1 - 0.9, y1 - 0.5, zb + 0.45, zb + 0.85, mat('#c24a3a', 0.55), bevel=0.02, coll=coll)
+    cyl('env_hc_long_chim', AX - 0.4, y0 + 2.0, zb + 1.75, 0.13, 0.28, mat('#d8c8a0', 0.5), coll=coll); sphere('env_hc_long_chim_nap', AX - 0.4, y0 + 2.0, zb + 1.93, 0.13, mat('#d8c8a0', 0.5), scale=(1, 1, 0.6), coll=coll)
+    cyl('env_hc_long_moc', AX - 0.4, y0 + 2.0, zb + 2.02, 0.005, 0.2, steel, coll=coll)
+    sphere('env_hc_meo_than', AX - 0.35, y0 + 0.45, zb + 0.2, 0.16, mat('#d8a860', 0.9), scale=(0.9, 1.5, 0.8), coll=coll)
+    sphere('env_hc_meo_dau', AX - 0.35, y0 + 0.65, zb + 0.34, 0.1, mat('#d8a860', 0.9), coll=coll)
+    for sg in (-1, 1): sphere(f'env_hc_meo_tai{sg}', AX - 0.35 + sg * 0.06, y0 + 0.66, zb + 0.43, 0.035, mat('#d8a860', 0.9), scale=(1, 0.5, 1.4), coll=coll)
+    cyl('env_hc_meo_duoi', AX - 0.35, y0 + 0.15, zb + 0.18, 0.025, 0.4, mat('#d8a860', 0.9), rot=(math.radians(80), 0, 0), coll=coll)
+    # mái hiên tôn trên ban công + biển cho thuê phòng + chảo ăng-ten + bể nước + máy lạnh nhỏ
+    B('hien_ton', AX - 1.2, AX, y0 - 0.2, y1 + 0.2, zb + 2.4, zb + 2.45, mat('#8c8f86', 0.55, 0.6), coll=coll, rot=(0, math.radians(-8), 0), pivot=(AX, 0, zb + 2.45))
+    B('bien_cho_thue', AX - 0.04, AX, y1 + 0.3, y1 + 1.5, zb + 2.55, zb + 3.2, mat('#2f6fb0', 0.5), coll=coll)
+    for k in range(6): B(f'bien_chu{k}', AX - 0.06, AX - 0.04, y1 + 0.4 + k * 0.17, y1 + 0.5 + k * 0.17, zb + 2.7 + (k % 2) * 0.1, zb + 3.0, white, coll=coll)
+    sphere('env_hc_chao', AX - 0.3, y0 - 0.8, zb + 3.3, 0.34, mat('#d8d8d0', 0.5), scale=(0.5, 1, 1), coll=coll)
+    cyl('env_hc_chao_can', AX - 0.2, y0 - 0.8, zb + 3.0, 0.015, 0.6, steel, coll=coll)
+    B('may_lanh_n', AX - 0.4, AX, y0 - 2.4, y0 - 1.5, zb + 2.5, zb + 2.95, mat('#e6e3da', 0.4), bevel=0.02, coll=coll)
+    cyl('env_hc_be_nuoc', AX - 0.8, y1 + 2.2, zb + 8.9, 0.6, 1.4, mat('#b9bdbb', 0.35, 0.3), coll=coll, bevel=0.02)
+    B('be_nuoc_dung', AX - 1.1, AX - 0.4, y1 + 1.8, y1 + 2.6, zb + 7.2, zb + 8.2, mat('#8a8780', 0.8), coll=coll)
+    # dây điện + dây đèn chằng ngang hẻm
+    for k in range(6): wire((XB + 0.1, 0.3 + k * 0.55, 3.2 + k * 0.1), (AX - 0.15, 0.1 + k * 0.45, 3.7 + (k % 3) * 0.2), 0.7, nm=f'ngang{k}')
+    for k in range(2):
+        yy = 1.0 + k * 3.5; p0 = (XB + 0.1, yy, 4.0); p1 = (AX - 0.15, yy + 0.2, 4.1)
+        wire(p0, p1, 0.8, nm=f'den_hem{k}')
+        for i in range(1, 9):
+            t = i / 9; x = p0[0] + (p1[0] - p0[0]) * t; z = p0[2] + (p1[2] - p0[2]) * t - 0.8 * 2 * t * (1 - t) * 0.5
+            sphere(f'env_hc_bong{k}_{i}', x, yy + 0.2 * t, z - 0.05, 0.045, glow(rnd.choice(['#ffd79a', '#ffa860', '#fff1c8']), 5.0 if night else 0.8), coll=coll)
+    # dưới hẻm: xe máy, thùng rác, chậu cây, ống nước, vũng nước
+    for k, (yy, col) in enumerate([(0.6, '#b3362c'), (2.4, '#1f3a5f'), (4.8, '#3d6e5a')]):
+        cyl(f'env_hc_bxm{k}a', W + T + 1.4, yy - 0.5, GZ + 0.28, 0.27, 0.12, mat('#202020', 0.8), rot=(0, math.pi / 2, 0) if False else None, coll=coll)
+        B(f'xm{k}', W + T + 1.1, W + T + 1.6, yy - 0.4, yy + 0.4, GZ + 0.3, GZ + 0.75, mat(col, 0.45), bevel=0.05, coll=coll)
+        B(f'xm_yen{k}', W + T + 1.15, W + T + 1.55, yy - 0.1, yy + 0.35, GZ + 0.75, GZ + 0.85, mat('#222222', 0.6), bevel=0.04, coll=coll)
+    for k in range(3): cyl(f'env_hc_thung{k}', W + T + 1.9, -2.0 + k * 0.6, GZ + 0.4, 0.26, 0.8, mat(rnd.choice(['#3b6e4b', '#2b4a7a', '#8a8a8a']), 0.55), coll=coll, bevel=0.02)
+    for k in range(5):
+        cyl(f'env_hc_chau_hem{k}', W + T + 0.4, -3.5 + k * 1.1, GZ + 0.15, 0.17, 0.3, mat(rnd.choice(['#b0605a', '#c8a15a']), 0.7), coll=coll, bevel=0.01)
+        for q in range(4): sphere(f'env_hc_la_hem{k}_{q}', W + T + 0.4 + 0.09 * math.cos(q * 1.6), -3.5 + k * 1.1 + 0.09 * math.sin(q * 1.6), GZ + 0.45 + 0.05 * q, 0.14, mat('#4f7a4a', 0.8), scale=(1, 1, 1.3), coll=coll)
+    B('vung_nuoc', W + T + 0.5, W + T + 1.5, 1.0, 2.6, GZ + 0.002, GZ + 0.006, mat('#6f8590', 0.05), coll=coll)
+    B('ong_thoat_nuoc', W + T + 0.02, W + T + 0.08, 4.2, 4.26, GZ, GZ + FL * 3, mat('#cfd3cf', 0.45), coll=coll)

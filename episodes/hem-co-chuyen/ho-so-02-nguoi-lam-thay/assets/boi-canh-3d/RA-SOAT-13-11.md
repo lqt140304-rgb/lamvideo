@@ -37,3 +37,12 @@ Cách rà: `chay_ra_soat.sh` render 39 camera ở 480 px/12 mẫu (≈4 phút nh
 | 4 | Toàn cảnh: hành lang tầng 3/mái "lơ lửng trong tường nhà", tường thiếu một mảng | Cùng gốc với #2: thân nhà bên cạnh phòng Nam không tồn tại, thấy xuyên sang nhà hẻm | Khối nhà đặc ở #2 lấp phần thiếu; tầng 1 và 3 phía hành lang kéo dài theo |
 
 Còn lại (chưa xử lý): mép trắng cháy sáng nhẹ ở mặt tiền hẻm khi nhìn sát (TT_GIUONG_PUSH); video `xem-thu/video/chuoi-shot.mp4` **chưa render lại** sau các sửa này.
+
+## Vòng rà thứ ba (chủ repo, ảnh chụp video ~12:17)
+| # | Góp ý | Xử lý |
+|---|---|---|
+| 1 | Khối đen (mũi tên đỏ) ở tường phải khung rộng | Là mặt sau tờ lịch gắn tường trước (tường trước ẩn khi máy ngoài phòng): ẩn lịch cùng tường. Đã xử lý ở vòng 2; **video chưa render lại** nên vẫn còn trong bản cũ |
+| 2 | Cầu thang/lan can chỉ là một đường thẳng, thiếu phần lan can "nổ" từ tường ra | Cầu thang làm lại: 17 bậc chạm sân (z −2,92), thành thấp bậc thang hai bên, thành sát tường, tay vịn **dốc** theo bậc + trụ + con tiện, trụ đầu/cuối thang (camera `DAU_NHA`) |
+| 3 | Tay nắm cửa hơi cao, làm giống tay nắm hơn | Tay gạt cao 0,98 m (cũ 1,2 m): hoa bo tròn + cổ + cần gạt hai mặt cánh; ổ khóa phụ cao 1,12 m với tay vặn bên trong và ổ chìa bên ngoài; chốt hạ theo. Cửa các phòng hành lang cũng thành hoa + cần gạt. Camera `TAY_NAM`, `TAY_NAM_NGOAI`, `C05` |
+| 4 | Ngoài cửa sổ cũng thế, làm chi tiết hơn | Dựng ban công nhà hàng xóm **đối diện cùng độ cao** (lan can có con tiện, chậu cây + hoa, dây phơi + quần áo 5 màu, ghế nhựa, lồng chim, mèo, cửa kính trượt có rèm), mái hiên tôn, biển "cho thuê phòng", chảo ăng-ten, bể nước, máy lạnh, dây điện và dây đèn chằng ngang hẻm, xe máy/thùng rác/chậu cây/vũng nước dưới hẻm. Kính cửa sổ trong hơn (93%) để nhìn ra thấy rõ. Camera `CUA_SO` |
+Chưa xác định được chỗ "vạch trắng thẳng" ở ảnh thu nhỏ thứ hai (một dải đứng có vạch trắng giữa) — cần tên camera/giây trong video.

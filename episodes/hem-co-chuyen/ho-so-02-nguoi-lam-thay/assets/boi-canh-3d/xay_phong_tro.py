@@ -213,13 +213,20 @@ def shell(m, coll, door_open, cutaway=False, hide_front=False):
     # Khóa cửa: thân khóa dán trên mặt trong cánh gần mép tự do, núm xoay, chốt đẩy vào ổ chốt trên khung.
     # Cửa mở (góc ≠ 0) thì chốt thu vào thân khóa, không còn đâm vào khung.
     bolt = 0.07 if abs(door_open) < 1 else 0.0
-    box('than_khoa', 0.02, 0.04, DOOR['y0'] + 0.04, DOOR['y0'] + 0.16, 1.12, 1.27, m['inox'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=piv)
-    box('nap_khoa', 0.04, 0.05, DOOR['y0'] + 0.06, DOOR['y0'] + 0.14, 1.15, 1.24, m['gi'], bevel=0.004, coll=coll, rot=(0, 0, ang), pivot=piv)
-    box('nu_xoay', 0.05, 0.085, DOOR['y0'] + 0.08, DOOR['y0'] + 0.12, 1.175, 1.215, m['inox'], bevel=0.008, coll=coll, rot=(0, 0, ang), pivot=piv)
+    HZ = 0.98  # tay gạt cao ≈ 1,0 m
+    for side, (xa, xb) in (('trong', (0.02, 0.032)), ('ngoai', (-0.032, -0.02))):  # hoa tay nắm (đế tròn bo) hai mặt cánh
+        box(f'hoa_tay_{side}', xa, xb, DOOR['y0'] + 0.04, DOOR['y0'] + 0.1, HZ - 0.03, HZ + 0.03, m['inox'], bevel=0.025, coll=coll, rot=(0, 0, ang), pivot=piv)
+        sg = 1 if side == 'trong' else -1
+        box(f'co_tay_{side}', (0.032 if sg > 0 else -0.05), (0.05 if sg > 0 else -0.032), DOOR['y0'] + 0.065, DOOR['y0'] + 0.08, HZ - 0.008, HZ + 0.008, m['inox'], bevel=0.005, coll=coll, rot=(0, 0, ang), pivot=piv)
+        box(f'can_gat_{side}', (0.045 if sg > 0 else -0.075), (0.06 if sg > 0 else -0.045), DOOR['y0'] + 0.058, DOOR['y0'] + 0.2, HZ - 0.012, HZ + 0.012, m['inox'], bevel=0.007, coll=coll, rot=(0, 0, ang), pivot=piv)  # cần gạt hướng về phía bản lề
+    # ổ khóa chốt phụ (hoa + tay vặn bên trong, ổ chìa bên ngoài) ở cao 1,12 m
+    box('hoa_khoa_trong', 0.02, 0.03, DOOR['y0'] + 0.055, DOOR['y0'] + 0.095, 1.09, 1.15, m['inox'], bevel=0.015, coll=coll, rot=(0, 0, ang), pivot=piv)
+    box('tay_van_khoa', 0.03, 0.05, DOOR['y0'] + 0.065, DOOR['y0'] + 0.085, 1.105, 1.135, m['inox'], bevel=0.006, coll=coll, rot=(0, 0, ang), pivot=piv)
+    box('o_chia_ngoai', -0.03, -0.02, DOOR['y0'] + 0.06, DOOR['y0'] + 0.09, 1.1, 1.14, m['gi'], bevel=0.008, coll=coll, rot=(0, 0, ang), pivot=piv)
     if bolt:
-        box('chot_day', 0.02, 0.03, DOOR['y0'] - 0.05, DOOR['y0'] + 0.01, 1.18, 1.21, m['inox'], bevel=0.003, coll=coll, rot=(0, 0, ang), pivot=piv)
-    box('o_then', 0.0, 0.03, DOOR['y0'] - 0.03, DOOR['y0'], 1.15, 1.25, m['gi'], bevel=0.003, coll=coll)  # ổ chốt trên khung
-    box('o_then_lo', 0.0, 0.03, DOOR['y0'] - 0.035, DOOR['y0'] - 0.03, 1.13, 1.27, m['gi'], bevel=0.002, coll=coll)  # viền ổ chốt
+        box('chot_day', 0.0, 0.015, DOOR['y0'] - 0.05, DOOR['y0'] + 0.01, 1.11, 1.13, m['inox'], bevel=0.003, coll=coll, rot=(0, 0, ang), pivot=piv)
+    box('o_then', 0.0, 0.03, DOOR['y0'] - 0.03, DOOR['y0'], 1.08, 1.16, m['gi'], bevel=0.003, coll=coll)  # ổ chốt trên khung
+    box('o_then_lo', 0.0, 0.03, DOOR['y0'] - 0.035, DOOR['y0'] - 0.03, 1.06, 1.18, m['gi'], bevel=0.002, coll=coll)  # viền ổ chốt
     # ----- cửa sổ: khuôn, kính, song sắt, rèm
     for nm, y0, y1, z0, z1 in [('so_duoi', WIN['y0'] - 0.04, WIN['y1'] + 0.04, WIN['z0'] - 0.05, WIN['z0']), ('so_tren', WIN['y0'] - 0.04, WIN['y1'] + 0.04, WIN['z1'], WIN['z1'] + 0.05), ('so_trai', WIN['y0'] - 0.04, WIN['y0'], WIN['z0'], WIN['z1']), ('so_phai', WIN['y1'], WIN['y1'] + 0.04, WIN['z0'], WIN['z1'])]:
         box(nm, W - 0.06, W + 0.02, y0, y1, z0, z1, m['viền'], bevel=0.004, coll=coll)
@@ -441,7 +448,8 @@ def hallway(m, coll, night):
     for nm, a in [(f'cua_phong_{k}', 4.35 + 2.2 * k) for k in range(int((Y1 - 5.5) / 2.2))]:
         box(nm + '_khuon', ex - 0.03, ex + 0.02, a - 0.06, a + 0.91, 0, 2.16, m['viền'], bevel=0.004, coll=coll)
         box(nm, ex - 0.04, ex - 0.0, a, a + 0.85, 0, 2.10, M.mottled(nm + '_mau', ['#6d887c', '#8a7a62', '#6b7f95', '#9a6f5e', '#b0954f', '#6d6a7e', '#a3503f', '#4f857a'][int(round((a - 4.35) / 2.2)) % 8], rough=0.55, scale=3, vary=0.05, bump=0.05), bevel=0.006, coll=coll)
-        box(nm + '_tay', ex - 0.07, ex - 0.04, a + 0.07, a + 0.11, 1.0, 1.03, m['inox'], bevel=0.005, coll=coll)
+        box(nm + '_hoa', ex - 0.055, ex - 0.04, a + 0.04, a + 0.1, 0.96, 1.02, m['inox'], bevel=0.02, coll=coll)
+        box(nm + '_tay', ex - 0.08, ex - 0.055, a + 0.065, a + 0.2, 0.985, 1.005, m['inox'], bevel=0.006, coll=coll)
         box(nm + '_so', ex - 0.045, ex - 0.04, a + 0.33, a + 0.52, 1.7, 1.82, M.solid('so_cua', '#efeadc', 0.5), coll=coll)
     # biển số phòng Nam + đồng hồ điện bên cạnh cửa
     box('so_phong_nam', ex - 0.012, ex, DOOR['y1'] + 0.12, DOOR['y1'] + 0.3, 1.78, 1.9, M.solid('so_nam', '#efeadc', 0.5), coll=coll)
@@ -454,13 +462,23 @@ def hallway(m, coll, night):
         cyl(f'lc_song{i}', X0 + 0.07, Y0 + 0.07 + i * 0.13, 0.75, 0.009, 0.5, m['thep'], coll=coll)
     for i in range(int((Y1 - Y0) / 2.0) + 1):
         box(f'lc_tru{i}', X0, X0 + 0.14, Y0 + i * 2.0, Y0 + i * 2.0 + 0.1, 0.5, 1.0, m['tuong'], bevel=0.005, coll=coll)
-    # cầu thang xuống (y < Y0): 12 bậc 0,28 × 0,17, thành thang hai bên
-    for i in range(14):
-        box(f'bac{i}', X0 + 0.14, ex, Y0 - 0.28 * (i + 1), Y0 - 0.28 * i, -0.17 * (i + 1) - 0.06, -0.17 * i, m['gach_hl'], bevel=0.004, coll=coll)
-        box(f'bac_gio{i}', X0 + 0.14, ex, Y0 - 0.28 * (i + 1), Y0 - 0.28 * i - 0.27, -0.17 * (i + 1) - 0.02, -0.17 * (i + 1) + 0.01, m['viền'], coll=coll)
-    box('thanh_thang_trai', X0, X0 + 0.14, Y0 - 0.28 * 14, Y0, -2.4, 0.5, m['tuong'], bevel=0.005, coll=coll)
-    box('thanh_thang_phai', ex - 0.12, ex, Y0 - 0.28 * 14, Y0, -2.4, 1.1, m['tuong'], coll=coll)
-    box('lancan_cau_thang', X0 - 0.01, X0 + 0.15, Y0 - 0.28 * 14, Y0, 1.0, 1.04, m['thep'], coll=coll, rot=(0, math.radians(0), 0))
+    # cầu thang xuống (y < Y0): 17 bậc 0,28 × 0,1718 chạm sân (z = −2,92); thành thấp bậc thang hai bên, tay vịn dốc + trụ + con tiện
+    NB = 17; RI = 2.92 / NB; TR = 0.28; GZ = -2.92
+    for i in range(NB):
+        top = -RI * (i + 1); ya, yb = Y0 - TR * (i + 1), Y0 - TR * i
+        box(f'bac{i}', X0 + 0.14, ex, ya, yb, top - 0.35, top, m['gach_hl'], bevel=0.004, coll=coll)
+        box(f'bac_gio{i}', X0 + 0.14, ex, ya, ya + 0.012, top, top + RI, m['viền'], coll=coll)
+        box(f'thang_ngoai{i}', X0, X0 + 0.14, ya, yb, GZ, top + 0.5, m['tuong'], bevel=0.004, coll=coll)   # thành ngoài bậc thang
+        box(f'thang_trong{i}', ex - 0.12, ex, ya, yb, GZ, top + 1.1, m['tuong'], coll=coll)              # thành sát tường nhà
+        if i % 2 == 0:  # con tiện tay vịn
+            box(f'thang_contien{i}', X0 + 0.05, X0 + 0.08, ya + 0.1, ya + 0.13, top + 0.5, top + 0.98, m['thep'], coll=coll)
+    ang_t = math.atan(RI / TR); Lr = math.hypot(TR * NB, RI * NB)
+    box('lancan_cau_thang', X0 - 0.01, X0 + 0.15, Y0 - Lr, Y0, 1.0, 1.04, m['thep'], bevel=0.006, coll=coll, rot=(ang_t, 0, 0), pivot=(X0 + 0.07, Y0, 1.0))
+    for i in (0, 4, 8, 12, 16):  # trụ đỡ tay vịn dốc
+        ya = Y0 - TR * i - 0.12
+        box(f'thang_tru{i}', X0 + 0.01, X0 + 0.13, ya, ya + 0.1, -RI * (i + 1) + 0.5, -RI * (i + 1) + 1.0 + 0.05, m['tuong'], bevel=0.005, coll=coll)
+    box('thang_tru_cuoi', X0 - 0.01, X0 + 0.15, Y0 - TR * NB - 0.02, Y0 - TR * NB + 0.14, GZ, GZ + 1.1, m['tuong'], bevel=0.006, coll=coll)
+    box('lancan_t1_cau_thang_chan', X0 - 0.02, X0 + 0.16, Y0 - 0.1, Y0 + 0.1, 0.5, 1.06, m['tuong'], bevel=0.006, coll=coll)  # trụ đầu thang
     # đèn tuýp hành lang
     for k in range(int((Y1 - 2.3) / 4.9) + 1):
         box(f'den_tuyp_hl{k}', -1.0, -0.4, 2.3 + 4.9 * k, 2.34 + 4.9 * k, H - 0.04, H - 0.01, m['den_tuyp_hl'], bevel=0.004, coll=coll)
@@ -595,7 +613,7 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'A04': ((1.35, 1.7, 1.5), (0.45, 0.35, 1.5), 65),    # reverse cận Người Kia ở bồn rửa
     'A04B': ((1.15, 1.9, 1.2), (1.95, 2.6, 1.1), 65),    # cận Nam ngồi mép nệm
     'A05': ((1.9, 1.7, 0.15), (2.3, 0.85, 0.35), 35),    # sàn thấp cạnh chân ghế
-    'C05': ((0.55, 2.35, 1.22), (0.0, 2.15, 1.2), 85),   # macro then cửa
+    'C05': ((0.6, 2.4, 1.1), (0.0, 2.15, 1.04), 85),   # macro then cửa
     'C06': ((2.9, 0.2, 2.25), (1.0, 2.4, 0.8), 35),      # cao 30° từ góc bàn xuống Nam và cửa
     'P203': ((1.7, 1.1, 0.82), (2.5, 0.3, 0.85), 40),    # thấp sát mặt bàn
     'P201VENT': ((0.25, 2.5, 1.85), (-1.4, 3.2, 1.6), 50),  # qua khe thông gió cửa nhìn hành lang
@@ -609,8 +627,12 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'TT_CUA': ((2.9, 3.7, 1.5), (0.4, 2.5, 0.8), 22),       # C: người ở cửa/ngưỡng
     'TT_BAN': ((0.4, 2.2, 1.2), (2.48, 0.98, 0.7), 22),     # Nam ngồi bàn (người ngồi cao ≈ 1,2 m)
     'TOAN_CANH': ((-3.2, -10.5, 4.2), (-3.0, 12.0, 3.2), 20),  # từ sân nhìn lên nhà trọ + hành lang tầng 2
-    'CUA_SO': ((2.8, 1.4, 1.5), (5.0, 1.4, 1.6), 24),     # nhìn ra hẻm qua cửa sổ phòng Nam
+    'CUA_SO': ((2.55, 1.375, 1.5), (5.0, 1.375, 1.35), 24),     # nhìn ra hẻm qua cửa sổ phòng Nam
     'SAN_THUONG': ((-1.3, 9.0, 4.2), (-9.0, 14.0, 2.5), 20),
+    'MAT_TIEN': ((-6.4, 7.0, 3.2), (-1.4, 7.0, 3.8), 24),   # nhìn thẳng mặt tiền nhà trọ từ sân (tầng 1–3, lan can, sàn)
+    'DAU_NHA': ((-5.5, -7.0, 1.8), (-1.0, -0.5, 1.2), 22),   # đầu hành lang/cầu thang nhìn từ sân
+    'TAY_NAM': ((1.0, 2.55, 1.15), (0.0, 2.12, 1.02), 50),   # nhìn tay nắm + ổ khóa cửa từ trong phòng
+    'TAY_NAM_NGOAI': ((-0.8, 2.3, 1.15), (0.0, 2.12, 1.0), 50),  # tay nắm từ hành lang (cửa đóng: --door 0)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
     'LOW': ((1.0, 3.7, 0.35), (2.2, 0.6, 1.0), 24),
 }

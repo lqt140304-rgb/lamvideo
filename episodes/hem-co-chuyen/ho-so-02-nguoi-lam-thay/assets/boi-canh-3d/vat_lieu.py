@@ -120,7 +120,8 @@ def glass(name='kinh'):
     g = nt.nodes.new('ShaderNodeBsdfGlass'); g.inputs['Color'].default_value = (0.85, 0.95, 0.97, 1); g.inputs['Roughness'].default_value = 0.03; g.inputs['IOR'].default_value = 1.45
     t = nt.nodes.new('ShaderNodeBsdfTransparent'); lp = nt.nodes.new('ShaderNodeLightPath')
     mix = nt.nodes.new('ShaderNodeMixShader')
-    nt.links.new(lp.outputs['Is Shadow Ray'], mix.inputs['Fac']); nt.links.new(g.outputs[0], mix.inputs[1]); nt.links.new(t.outputs[0], mix.inputs[2]); nt.links.new(mix.outputs[0], out.inputs[0])
+    mx_ = nt.nodes.new('ShaderNodeMath'); mx_.operation = 'MAXIMUM'; mx_.inputs[1].default_value = 0.93  # kính trong ~93% với mọi tia (nhìn ra ngoài rõ), chỉ còn chút phản xạ
+    nt.links.new(lp.outputs['Is Shadow Ray'], mx_.inputs[0]); nt.links.new(mx_.outputs[0], mix.inputs['Fac']); nt.links.new(g.outputs[0], mix.inputs[1]); nt.links.new(t.outputs[0], mix.inputs[2]); nt.links.new(mix.outputs[0], out.inputs[0])
     return m
 
 
