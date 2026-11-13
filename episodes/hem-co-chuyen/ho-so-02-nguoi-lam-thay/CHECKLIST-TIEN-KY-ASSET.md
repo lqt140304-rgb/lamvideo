@@ -272,7 +272,7 @@ Theo quyết định chuyển hướng sang **Nhân vật 3D & Bối cảnh 3D**
 - [ ] **3D_SET_LAB402 & TRUONG:** Phòng máy tính Lab 402 và Hành lang sân trường.
 - [ ] **3D_SET_MAMCOM:** Không gian mâm cơm gia đình ở quê ấm cúng.
 - [ ] **3D_SET_GOCDO_S07:** *(13/11: bản đầu góc đồ cho tặng chiều muộn sau mưa đã dựng — `goc_cho_tang.py`, `--mode rain`)* Gương cũ bụi, "Ai cần cứ lấy", đồ cũ, sàn ướt, mưa.
-- [ ] **3D_SET_MIRROR_REALM:** Thế giới trong gương lật ngược $180^\circ$ chìm trong sương mù Deep Teal và mặt sàn nước phản chiếu.
+- [x] **3D_SET_MIRROR_REALM:** *(13/11 đêm: bản đầu trong `assets/boi-canh-3d/the_gioi_guong.py` — Deep Teal, sàn nước lân tinh, gương lơ lửng, Nam chìm, phòng đảo dạng khung dây; còn nhân vật thật + Người Kia)* Thế giới trong gương lật ngược $180^\circ$ chìm trong sương mù Deep Teal và mặt sàn nước phản chiếu.
 
 ### C. Đạo cụ 3D & Shader Kỹ Xảo Đặc Biệt
 - [ ] **3D_PROP_MIRROR_PORTAL:** *(13/11: gương thật + cờ tia cho Người Kia, kính hóa nước, Submersion đã chạy với hình nhân tạm; còn nứt/mờ sương và nhân vật thật)* Chiếc gương soi khung gỗ 3D + **Planar Reflection Shader** (cho phép điều khiển bóng Người Kia tách biệt hoàn toàn với Nam) + **Liquid Water Displacement Shader** (mặt kính hóa nước ở Phần 3).
