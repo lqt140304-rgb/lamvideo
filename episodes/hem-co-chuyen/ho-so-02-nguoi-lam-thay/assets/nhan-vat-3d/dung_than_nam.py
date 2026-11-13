@@ -264,11 +264,26 @@ def scale_head_cluster(sc):
         c = bpy.data.collections.get(cn)
         if c:
             for o in c.objects: o.parent = em; o.matrix_parent_inverse = Matrix.Translation((0, 0, -CHIN0))
-    # mặt nạ tròng trắng trong vật liệu da dùng toạ độ vật thể gốc → thêm Mapping đưa toạ độ của mesh đã phóng về toạ độ gốc: q = p/HEAD_K + (0,0,CHIN0 − ZCH/HEAD_K)
-    nt = bpy.data.materials['Da'].node_tree; tc = next(n for n in nt.nodes if n.bl_idname == 'ShaderNodeTexCoord')
-    mp = nt.nodes.new('ShaderNodeMapping'); mp.vector_type = 'POINT'; mp.inputs['Scale'].default_value = (1 / HEAD_K,) * 3; mp.inputs['Location'].default_value = (0, 0, CHIN0 - ZCH / HEAD_K)
-    for l in list(tc.outputs['Object'].links): nt.links.new(mp.outputs['Vector'], l.to_socket)
-    nt.links.new(tc.outputs['Object'], mp.inputs['Vector'])
+
+
+def bake_eye_mask(asm):
+    """Tròng trắng mắt: mặt nạ tính TRÊN ĐỈNH (thuộc tính `eye_mask`, tính ở dáng nghỉ trong toạ độ đầu gốc) → biến dạng theo mesh khi xương/đầu chuyển động (trước đây dùng toạ độ vật thể nên trượt ra ngoài viền).
+    Giá trị 0,5 là đường biên (khoảng cách có dấu tới mép tròng trắng/đường mí, ±6 mm); shader ngưỡng ở 0,5 bằng ColorRamp nên đường biên vẫn sắc và mượt."""
+    import numpy as np
+    me = asm.data; n = len(me.vertices); co = np.zeros(n * 3, dtype=np.float32); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3).astype(np.float64)
+    P0 = np.stack([co[:, 0] / HEAD_K, co[:, 1] / HEAD_K, (co[:, 2] - ZCH) / HEAD_K + CHIN0], axis=1)    # về toạ độ đầu gốc
+    Rx, Rz = D.EYE_R; rw = math.sqrt(D.WHITE_R2) * Rx; best = np.full(n, -1.0)
+    for sgn in (1, -1):
+        p0, f, X, Z = D.EYE_FRAMES[sgn]; d = P0 - np.array(p0); u = d @ np.array(X); w = d @ np.array(Z); h = d @ np.array(f)
+        r = np.sqrt((u / Rx) ** 2 + (w / Rz) ** 2) * Rx; margin_r = rw - r; lid = D.W_LID0 - 0.0006 + 0.004 * (u / Rx) ** 2; margin_l = lid - w
+        m = np.minimum(margin_r, margin_l); m = np.where((h > -0.09) & (P0[:, 1] < 0.03), m, -1.0); best = np.maximum(best, m)
+    mask = np.clip(0.5 + best / 0.012, 0.0, 1.0).astype(np.float32)
+    at = me.attributes.get('eye_mask') or me.attributes.new('eye_mask', 'FLOAT', 'POINT'); at.data.foreach_set('value', mask)
+    nt = bpy.data.materials['Da'].node_tree; mix = next(x for x in nt.nodes if x.bl_idname == 'ShaderNodeMix')
+    an = nt.nodes.new('ShaderNodeAttribute'); an.attribute_name = 'eye_mask'; an.attribute_type = 'GEOMETRY'
+    cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].position = 0.485; cr.color_ramp.elements[1].position = 0.515
+    nt.links.new(an.outputs['Fac'], cr.inputs['Fac']); nt.links.new(cr.outputs['Color'], mix.inputs[0])    # Color → Factor (ColorRamp đen/trắng)
+    print(f'    mặt nạ tròng trắng trên đỉnh: {int((mask > 0.5).sum())} đỉnh trắng')
 
 
 def build_scene(voxel=0.003, smooth=4):
@@ -281,7 +296,7 @@ def build_scene(voxel=0.003, smooth=4):
     # đưa Nam_Than_goc (đã có vật liệu da) vào collection 02_Body_Base, lắp ráp
     for c in list(body.users_collection): c.objects.unlink(body)
     cb.objects.link(body)
-    asm = assemble(head, body, skin)
+    asm = assemble(head, body, skin); bake_eye_mask(asm)
     for c in list(asm.users_collection): c.objects.unlink(asm)
     cb.objects.link(asm)
     head.hide_render = True; head.hide_viewport = True; body.hide_render = True; body.hide_viewport = True

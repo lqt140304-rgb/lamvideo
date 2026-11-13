@@ -198,6 +198,8 @@ POSES = {
     'gap_hong': {'pelvis': ('X', 40), 'spine1': ('X', -12)},
     'quay_vai': {'upper_arm.L': ('Y', 70), 'upper_arm.R': ('Y', -70), 'upper_arm.L ': ('X', 0)},
     'nam_tay': {**{f'{n}{i}.{k}': ('X', 70 if i == 1 else 80) for n in ('index', 'middle', 'ring', 'pinky') for i in (1, 2) for k in ('L', 'R')}, 'thumb1.L': ('X', 30), 'thumb1.R': ('X', 30)},
+    'quay_dau': {'head': ('Z', 35), 'neck': ('Z', 15)},
+    'ngua_dau': {'head': ('X', -25), 'neck': ('X', -10)},
     'gio_tay_cao': {'upper_arm.L': ('Z', -150), 'upper_arm.R': ('Z', 150)},
 }
 
