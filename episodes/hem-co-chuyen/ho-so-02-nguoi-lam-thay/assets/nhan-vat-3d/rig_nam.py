@@ -50,10 +50,10 @@ def bone_table():
         # chân
         A(f'thigh.{k}', 'pelvis', P(X(0.0925), 0.0, 0.600), P(X(0.0925), -0.002, 0.310))
         A(f'shin.{k}', f'thigh.{k}', P(X(0.0925), -0.002, 0.310), P(X(0.0925), 0.004, 0.118))
-        A(f'foot.{k}', f'shin.{k}', P(X(0.0925), 0.004, 0.118), P(X(0.0980), -0.100, 0.035))
-        A(f'toe.{k}', f'foot.{k}', P(X(0.0980), -0.100, 0.035), P(X(0.0980), -0.190, 0.032))
+        A(f'foot.{k}', f'shin.{k}', P(X(0.0925), 0.004, 0.118), P(X(0.1060), -0.100, 0.035))
+        A(f'toe.{k}', f'foot.{k}', P(X(0.1060), -0.100, 0.035), P(X(0.1060), -0.190, 0.032))
         # điều khiển
-        A(f'ik_foot.{k}', 'root', P(X(0.0925), 0.004, 0.118), P(X(0.0980), -0.100, 0.035), False)   # cùng hướng/độ dài xương foot ⇒ Copy Rotation = đồng nhất ở dáng nghỉ
+        A(f'ik_foot.{k}', 'root', P(X(0.0925), 0.004, 0.118), P(X(0.1060), -0.100, 0.035), False)   # cùng hướng/độ dài xương foot ⇒ Copy Rotation = đồng nhất ở dáng nghỉ
         A(f'pole_knee.{k}', 'root', Vector((s * 0.0925, -0.45, 0.31 * KZ)), Vector((s * 0.0925, -0.50, 0.31 * KZ)), False)
     return B
 
@@ -138,9 +138,18 @@ def smooth_weights(asm, iters, alpha, head_z):
     # mặt nạ mềm theo giải phẫu (nhân, không cắt cứng): chân không với lên thân trên hông; tay không với vào giữa thân (trừ xương đòn gần vai)
     f_leg = sm(0.68, 0.58, zs).astype(np.float32)                                    # =1 dưới 0,58; =0 trên 0,68
     f_arm_core = (1 - (sm(0.085, 0.125, xs) * 0 + 1 - sm(0.085, 0.125, xs)) * (1 - sm(0.84, 0.76, zs) * 0)).astype(np.float32)   # =sm(x): 0 ở giữa thân, 1 khi |x| ≥ 0,125
-    f_arm_core = sm(0.085, 0.125, xs).astype(np.float32); f_clav = np.maximum(f_arm_core, sm(0.78, 0.86, zs)).astype(np.float32)
+    f_arm_core = np.maximum(sm(0.125, 0.15, xs), sm(0.80, 0.86, zs) * sm(0.085, 0.125, xs)).astype(np.float32); f_clav = np.maximum(f_arm_core, sm(0.78, 0.86, zs)).astype(np.float32)
+
+    xr = co[0::3]; fL = sm(-0.012, 0.012, xr).astype(np.float32); fLc = sm(-0.06, 0.06, xr).astype(np.float32)   # =1 bên trái nhân vật (+X)
+    side_i = {i: ('L' if n.endswith('.L') else 'R') for i, n in enumerate(names) if n.endswith(('.L', '.R'))}
+    fing = {i: T.FINGERS['index middle ring pinky'.split().index(n[:-3] if n[:-3] in ('index', 'middle', 'ring', 'pinky') else n[:-4])][0] for i, n in enumerate(names) if n.startswith(('index', 'middle', 'ring', 'pinky'))}
+    palm_z = 0.462 * KZ
 
     def rules():
+        for i, sd in side_i.items():
+            f = (fLc if names[i].startswith('clavicle') else fL); W[:, i] *= (f if sd == 'L' else 1 - f)       # bên nào xương bên đó: chân/tay trái không kéo da bên phải
+        for i, dy in fing.items():
+            yc = -0.013 + dy; fy = sm(0.032, 0.019, np.abs(ys - yc)); fz = np.where(zs < palm_z + 0.004, fy, 1.0); W[:, i] *= fz.astype(np.float32)   # mỗi ngón chỉ kéo da quanh ngón đó
         W[:, leg_i] *= f_leg[:, None]
         for i in arm_i: W[:, i] *= (f_clav if i in clav_i else f_arm_core)
         z0 = W.sum(axis=1) < 1e-6; W[z0, sp2] = 1.0
@@ -156,6 +165,12 @@ def smooth_weights(asm, iters, alpha, head_z):
         for j in range(ng):
             acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
         W[free] = 0.5 * W[free] + 0.5 * (acc[free] / deg[free, None])
+    reg = free & (zs > 0.52) & (xs < 0.15)          # cả thân trên (hông→cổ): làm mượt thêm để xoá nếp chéo trên ngực khi tạo dáng
+    for it in range(160):
+        acc = np.zeros_like(W)
+        for j in range(ng):
+            acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
+        W[reg] = 0.4 * W[reg] + 0.6 * (acc[reg] / deg[reg, None])
     W[~free] = 0; W[~free, hi] = 1.0
     # tối đa 4 xương, chuẩn hoá
     W[W < 0.002] = 0.0; W /= W.sum(axis=1, keepdims=True).clip(min=1e-9)   # KHÔNG ép tối đa 4 xương: cắt top-4 trên trường trơn tạo bước nhảy → nứt khi tạo dáng
@@ -179,6 +194,11 @@ POSES = {
     'khuyu_gap': {'upper_arm.L': ('X', -30), 'forearm.L': ('X', -90), 'upper_arm.R': ('X', -30), 'forearm.R': ('X', -90)},
     'cui_dau': {'neck': ('X', 20), 'head': ('X', 15), 'spine1': ('X', 18), 'spine2': ('X', 12)},
     'buoc_chan': 'step',
+    'xoay_thun': {'spine1': ('Z', 18), 'spine2': ('Z', 18), 'chest': ('Z', 14)},
+    'gap_hong': {'pelvis': ('X', 40), 'spine1': ('X', -12)},
+    'quay_vai': {'upper_arm.L': ('Y', 70), 'upper_arm.R': ('Y', -70), 'upper_arm.L ': ('X', 0)},
+    'nam_tay': {**{f'{n}{i}.{k}': ('X', 70 if i == 1 else 80) for n in ('index', 'middle', 'ring', 'pinky') for i in (1, 2) for k in ('L', 'R')}, 'thumb1.L': ('X', 30), 'thumb1.R': ('X', 30)},
+    'gio_tay_cao': {'upper_arm.L': ('Z', -150), 'upper_arm.R': ('Z', 150)},
 }
 
 
@@ -194,8 +214,23 @@ def apply_pose(arm, name):
         pb['upper_arm.L'].rotation_euler = (math.radians(25), 0, 0); pb['upper_arm.R'].rotation_euler = (math.radians(-25), 0, 0)
     else:
         for bn, (ax, deg) in spec.items():
+            bn = bn.strip()
             e = list(pb[bn].rotation_euler); e['XYZ'.index(ax)] = math.radians(deg); pb[bn].rotation_euler = e
     bpy.context.view_layer.update()
+
+
+def stretch_report(arm, asm, names=None, thr=2.0):
+    """Đo độ kéo giãn cạnh (dài sau / dài nghỉ) ở mỗi dáng: số cạnh > thr, max, vùng; không thay cho việc nhìn ảnh."""
+    import numpy as np
+    def pos():
+        dg = bpy.context.evaluated_depsgraph_get(); ev = asm.evaluated_get(dg); me = ev.to_mesh(); a = np.zeros(len(me.vertices) * 3, dtype=np.float32); me.vertices.foreach_get('co', a); ev.to_mesh_clear(); return a.reshape(-1, 3)
+    apply_pose(arm, 'nghi'); p0 = pos(); ed = np.zeros(len(asm.data.edges) * 2, dtype=np.int32); asm.data.edges.foreach_get('vertices', ed); ea, eb = ed[0::2], ed[1::2]
+    l0 = np.linalg.norm(p0[ea] - p0[eb], axis=1).clip(min=1e-6); res = {}
+    for nm in (names or POSES):
+        apply_pose(arm, nm); p = pos(); st = np.linalg.norm(p[ea] - p[eb], axis=1) / l0; bad = np.where(st > thr)[0]
+        reg = '-' if not len(bad) else f'z {p0[ea[bad], 2].min():.2f}-{p0[ea[bad], 2].max():.2f}, |x| {np.abs(p0[ea[bad], 0]).min():.2f}-{np.abs(p0[ea[bad], 0]).max():.2f}'
+        res[nm] = (len(bad), float(st.max()), reg); print(f'    {nm:14s} cạnh giãn > {thr}×: {len(bad):5d}  max {st.max():.2f}×  vùng {reg}')
+    apply_pose(arm, 'nghi'); return res
 
 
 def render_poses(sc, arm, out):
@@ -220,4 +255,5 @@ if __name__ == '__main__':
     # chất vấn trọng số: số đỉnh không có trọng số
     bad = sum(1 for v in asm.data.vertices if sum(g.weight for g in v.groups) < 0.99); print(f'    đỉnh thiếu trọng số: {bad}/{len(asm.data.vertices)}')
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
+    stretch_report(arm, asm)
     if a.test: render_poses(sc, arm, a.test)
