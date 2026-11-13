@@ -177,6 +177,17 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
                         for cb in st.channelbags: fcs += list(cb.fcurves)
             for fc in fcs:
                 md = fc.modifiers.new('NOISE'); md.scale = 25.0; md.strength = 0.004; md.phase = fc.array_index * 7.0   # rung tay nhẹ như KINH_NUOC
+        # CHUYỂN MÀU MƯỢT: đầu shot cùng độ sáng/nhiệt màu với phòng thật (trần trắng ấm, sương mỏng, phơi sáng cao) → cuối shot Deep Teal vực thẳm
+        lt_ = {n_: bpy.data.objects[n_].data for n_ in ('gt_tran', 'gt_glow_guong', 'gt_nuoc_phat')}
+        K = {1:  dict(tran=(40, (1.0, 0.95, 0.86)), glow=(14, (1.0, 0.9, 0.72)), nuoc=(8, (0.8, 0.95, 0.9)), bg=0.5, exp=1.15, den=0.006),
+             30: dict(tran=(14, (0.65, 0.92, 0.9)), glow=(8, (0.5, 0.95, 0.9)), nuoc=(5, (0.35, 0.92, 0.88)), bg=0.25, exp=0.95, den=0.02),
+             72: dict(tran=(4.5, (0.3, 0.8, 0.9)), glow=(4, (0.35, 0.95, 0.95)), nuoc=(3, (0.2, 0.9, 0.85)), bg=0.12, exp=0.7, den=0.035)}
+        for fr_, kv in K.items():
+            for nm_, key_ in (('gt_tran', 'tran'), ('gt_glow_guong', 'glow'), ('gt_nuoc_phat', 'nuoc')):
+                d_ = lt_[nm_]; d_.energy = kv[key_][0]; d_.color = kv[key_][1]; d_.keyframe_insert('energy', frame=fr_); d_.keyframe_insert('color', frame=fr_)
+            bg.inputs['Strength'].default_value = kv['bg']; bg.inputs['Strength'].keyframe_insert('default_value', frame=fr_)
+            vs.inputs['Density'].default_value = kv['den']; vs.inputs['Density'].keyframe_insert('default_value', frame=fr_)
+            sc.view_settings.exposure = kv['exp']; sc.view_settings.keyframe_insert('exposure', frame=fr_)
         sc.frame_start, sc.frame_end = 1, 72
     sc.render.engine = 'CYCLES'; X._thiet_bi(sc); sc.cycles.samples = 64; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 8; sc.cycles.glossy_bounces = 6; sc.cycles.volume_bounces = 2; sc.cycles.volume_step_rate = 1.5; sc.cycles.volume_max_steps = 256

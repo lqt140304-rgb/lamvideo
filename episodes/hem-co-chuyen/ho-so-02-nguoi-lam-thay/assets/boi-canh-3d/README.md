@@ -176,3 +176,8 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - `the_gioi_guong.py --cam XUYEN` dùng **đúng đường máy của `KINH_NUOC`** (50 mm f/2,0, đẩy (2,2→1,8 ; 2,0→1,9 ; 1,25), nhìn mặt gương) trong phòng đảo (toạ độ thiết kế − W), 72 khung: Nam trồi ra ngay mặt gương rồi bị hút chìm xuống mặt nước. Quạt ở bên trái trong phòng thật, bên phải trong phòng đảo → khớp bố cục khi cắt nối.
 - Video thử nối (12 fps, 640×268, 3,75 s, 24 khung `KINH_NUOC` + 24 khung `XUYEN`, hoà mờ 0,3 s): `xem-thu/video/xuyen-guong-noi-the-gioi.mp4`; ảnh ghép khung: `xem-thu/the-gioi-guong/noi-xuyen-guong-bang-khung.png`. Người Kia không đưa vào shot này (tay che khung máy).
 - Lệnh: `F=$(python3 -c "print(','.join(str(i) for i in range(1,73,3)))")`; `camera_dong.py --shot KINH_NUOC --frames $F ...` rồi `the_gioi_guong.py --cam XUYEN --frames $F ...`; ghép bằng `ffmpeg … xfade`.
+
+### Nối gương nâng cấp (13/11 đêm)
+- **Chuyển màu mượt:** shot `XUYEN` keyframe ánh sáng suốt 72 khung — đầu shot trần trắng ấm 40, sương mỏng, phơi sáng 1,15 (gần tông phòng thật) → khung 30 giữa chừng → khung 72 Deep Teal (trần 4,5, quầng gương 4, lân tinh 3, nền 0,12, phơi sáng 0,7, sương 0,035).
+- **Sóng nước lan thay cho hoà mờ:** `ghep_xuyen_guong.sh a.mp4 b.mp4 ra.mp4 [giây] [fps]` — vòng sóng nở ra từ tâm mặt gương (CX, CY = 0,56 ; 0,50), phòng thật méo theo hướng bán kính trước mép sóng, phòng đảo hiện sau mép, mép sáng lân tinh cyan, vài vòng sóng tàn dư phía sau (ffmpeg `xfade` custom; P chạy 1→0 nên dùng 1−P; bắt buộc `-filter_threads 1` vì `st()/ld()` dùng chung giữa luồng, không thì ra nhiễu).
+- Video thử mới: `xem-thu/video/xuyen-guong-noi-the-gioi.mp4` (3,0 s, 12 fps, 640×268, sóng 1,0 s). Ảnh ghép: `xem-thu/the-gioi-guong/noi-xuyen-guong-bang-khung.png`.
