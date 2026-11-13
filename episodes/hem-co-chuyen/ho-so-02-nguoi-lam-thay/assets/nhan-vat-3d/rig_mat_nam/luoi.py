@@ -27,7 +27,8 @@ if AQ not in sys.path: sys.path.insert(0, AQ)
 import dung_dau_nam as D
 
 # ---------------------------------------------------------------- hằng số mắt
-N_TREN, N_DUOI = 15, 25                  # đỉnh mép mí trên / dưới (không kể hai khoé)
+N_TREN, N_DUOI = 15, 27                  # đỉnh trên đường mí (không kể hai điểm gặp cung) / đỉnh cung dưới
+N_CUNG = 3                               # đỉnh trên mỗi cung bên của mí trên (giữa khoé và điểm gặp đường mí)
 K_MAT = 8                                # số vòng da quanh lỗ mắt (vòng K_MAT cố định khi mí chuyển động)
 D_TREN, D_DUOI, D_BEN = 0.032, 0.026, 0.008   # m: mảng da kéo lên trên / xuống dưới / sang ngang tính từ mép mí
 VIEN_ONG_NOI = 0.0009                   # m: ống viền mắt nằm ngoài mép mí (theo bán kính nhãn cầu)
@@ -62,6 +63,7 @@ class Rig:
     goc_mat: dict = field(default_factory=dict)    # 'L'/'R' → empty gốc nhãn cầu (tâm, hướng nghỉ)
     n_mat: int = 0
     info: dict = field(default_factory=dict)
+    arm: object = None
 
 
 # ---------------------------------------------------------------- tiện ích hình học
@@ -205,7 +207,9 @@ def _xoa_trong(bm, poly, goc, f, X, Z, gioi, vung):
 
 # ---------------------------------------------------------------- mắt
 def _vien_mo_mat():
-    """Đường mép lỗ mắt (u, w) đúng hình mắt nhìn thấy ở tư thế nghỉ: trên là đường mí, dưới là cung elip tròng trắng."""
+    """Đường mép lỗ mắt (u, w) đúng hình mắt nhìn thấy ở tư thế nghỉ: trên là đường mí, hai bên và dưới là cung elip tròng trắng.
+    KHOÉ MẮT (chỗ mí trên gặp mí dưới, phia = 0) đặt ở hai điểm rộng nhất hai bên (u = ±a, w = 0): mí trên = cung trên hai bên +
+    đường mí, mí dưới = cung dưới. Nhờ vậy chiều cao lỗ giảm dần về 0 ở khoé và mí đóng không bị cắt chéo ở góc."""
     a = D.EYE_R[0] * D.WHITE_R2 ** 0.5
     top = D.lid_line; ell = lambda u: a * math.sqrt(max(0.0, 1 - (u / a) ** 2))
     lo, hi = 0.0, a
@@ -213,13 +217,18 @@ def _vien_mo_mat():
         mi = (lo + hi) / 2
         if ell(mi) > top(mi): lo = mi
         else: hi = mi
-    uc = lo; wc = top(uc); pts = [(-uc, wc)]; phia = [0]
-    for i in range(1, N_TREN + 1):
+    uc = lo; wc = top(uc); psic = math.atan2(wc, uc)
+    pts = [(-a, 0.0)]; phia = [0]
+    for i in range(1, N_CUNG + 1):                                     # cung trái từ khoé lên chỗ gặp đường mí
+        p = math.pi - psic * i / (N_CUNG + 1)
+        pts.append((a * math.cos(p), a * math.sin(p))); phia.append(1)
+    for i in range(0, N_TREN + 2):                                     # đường mí (gồm hai điểm gặp cung)
         u = -uc + 2 * uc * i / (N_TREN + 1); pts.append((u, top(u))); phia.append(1)
-    pts.append((uc, wc)); phia.append(0)
-    psic = math.atan2(wc, uc)
-    for i in range(1, N_DUOI + 1):
-        p = psic - (math.pi + 2 * psic) * i / (N_DUOI + 1); pts.append((a * math.cos(p), a * math.sin(p))); phia.append(-1)
+    for i in range(1, N_CUNG + 1):                                     # cung phải từ đường mí xuống khoé
+        p = psic - psic * i / (N_CUNG + 1); pts.append((a * math.cos(p), a * math.sin(p))); phia.append(1)
+    pts.append((a, 0.0)); phia.append(0)
+    for i in range(1, N_DUOI + 1):                                     # cung dưới từ khoé phải về khoé trái
+        p = -math.pi * i / (N_DUOI + 1); pts.append((a * math.cos(p), a * math.sin(p))); phia.append(-1)
     return pts, phia, (0.0, (top(0.0) - a) / 2)
 
 
