@@ -114,3 +114,9 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - **Xe máy** có người lái (mũ bảo hiểm, đèn trước/sau sáng ban đêm): 5 chiếc chạy 2 chiều giữa sân, 3 chiếc trong hẻm cạnh cửa sổ phòng Nam. **Người đi bộ** (thân, đầu, tay chân đung đưa theo khung): 5 người ở sân (có 1 trẻ em), 2 người ở hẻm. **7 con chim** bay ngang trời, cánh vỗ.
 - Camera kiểm tra: `TROI_NANG`, `TROI_TRANG` (từ mái nhìn lên). Ảnh: `xem-thu/troi/`.
 - Hạn chế: người/xe là hình khối đơn giản (chưa phải nhân vật modular); xe vòng lặp có thể "nhảy" ở hai đầu sân ngoài khung hình; chưa có ô tô; chưa render lại `chuoi-shot.mp4`.
+
+### Sửa cơ bản canh_dong (13/11 tối)
+- **Hết "nhảy" ở hai đầu vòng:** mọi xe/người/ô tô/chim/mây thu nhỏ dần về 0 ở đầu và cuối vòng lặp (`_fade`, driver scale), nên mọc/biến mất êm.
+- **Ô tô:** 2 chiếc nhỏ (thân, cabin kính, cột, 4 bánh, đèn trước/sau, cản) chạy chậm hai chiều giữa sân, làn x = −4,2.
+- **Người/xe thêm chi tiết:** người có cổ, vai, hông, bàn tay, giày, tóc nhiều màu; xe máy có yên, chắn bùn, chóa đèn, gương chiếu hậu, ống pô. Làn đường tách nhau (xe máy −6,4/−6,0; người −5,5…−5,2; ô tô −4,2). Camera kiểm tra `SAN_XE`.
+- Người/xe vẫn là khối đơn giản, chưa dùng bộ nhân vật modular của nhân vật chính (chủ ý: chỉ là người đi đường nền).

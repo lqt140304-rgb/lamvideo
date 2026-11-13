@@ -12,6 +12,11 @@ def _vis(ob, shadow=False, diffuse=False, glossy=False):
     ob.visible_shadow = shadow; ob.visible_diffuse = diffuse; ob.visible_glossy = glossy; ob.visible_transmission = False
 
 
+def _fade(root, u, span, edge=3.0):
+    """Thu nhỏ dần về 0 ở hai đầu vòng lặp để xe/người không 'nhảy' (mọc/biến mất êm thay vì teleport)."""
+    for ax in range(3): _drv(root, 'scale', ax, f'max(0.001,min(1,{u}/{edge},({span:.1f}-{u})/{edge}))')
+
+
 def build(X, coll, night, mode):
     M = X.M; W, T = X.W, X.T; GZ = -2.92
     rnd = random.Random(2026)
@@ -66,7 +71,7 @@ def build(X, coll, night, mode):
         root = bpy.data.objects.new(f'env_cd_may{k}', None); root.location = (x0, y, z); coll.objects.link(root)
         for j in range(rnd.randint(7, 11)):
             ob = wsphere(f'env_cd_may{k}_{j}', (rnd.uniform(-1.4, 1.4) * sz, rnd.uniform(-0.5, 0.5) * sz, rnd.uniform(-0.1, 0.25) * sz), sz * rnd.uniform(0.3, 0.6), cl, (1.0, 0.7, 0.22)); _vis(ob); ob.parent = root
-        _drv(root, 'location', 0, f'-300+fmod({x0 + 300:.1f}+frame*0.22,600)')
+        _drv(root, 'location', 0, f'-300+fmod({x0 + 300:.1f}+frame*0.22,600)'); _fade(root, f'fmod({x0 + 300:.1f}+frame*0.22,600)', 600.0, 40.0)
 
     # ------------------------------------------------------------ xe máy chạy (thân + bánh + người lái), chạy dọc +y rồi lặp
     def bike(name, lane_x, y_start, speed, span, color, helmet, direction=1):
@@ -76,6 +81,13 @@ def build(X, coll, night, mode):
         for dy, z0, z1, wd, cc in [(0.0, 0.35, 0.62, 0.34, color), (-0.1, 0.62, 0.72, 0.3, '#222222'), (0.5, 0.5, 1.0, 0.18, color)]:
             X.cyl(f'{name}_b{dy}', W, dy, (z0 + z1) / 2, 0.16 if wd > 0.3 else 0.07, z1 - z0, mat(cc, 0.45), coll=coll, bevel=0.02).parent = root
         X.box(f'{name}_ghi', W - 0.25, W + 0.25, 0.5, 0.55, 1.0, 1.03, mat('#555555', 0.4, 0.8), coll=coll).parent = root   # ghi đông
+        dk = mat('#1c1c1c', 0.6); met = mat('#8a8a86', 0.35, 0.8)
+        X.box(f'{name}_yen', W - 0.12, W + 0.12, -0.5, 0.05, 0.68, 0.76, dk, bevel=0.02, coll=coll).parent = root                  # yên
+        X.box(f'{name}_ch_bun_t', W - 0.07, W + 0.07, 0.45, 0.85, 0.5, 0.53, mat(color, 0.45), bevel=0.01, coll=coll).parent = root     # chắn bùn trước
+        X.box(f'{name}_ch_bun_s', W - 0.1, W + 0.1, -0.85, -0.3, 0.55, 0.58, mat(color, 0.45), bevel=0.01, coll=coll).parent = root     # chắn bùn sau
+        X.sphere(f'{name}_choa', W, 0.6, 0.86, 0.08, mat(color, 0.4), scale=(1, 0.8, 0.9), coll=coll).parent = root                    # chóa đèn
+        for sx in (-0.24, 0.24): X.box(f'{name}_guong{sx}', W + sx - 0.03, W + sx + 0.03, 0.5, 0.52, 1.03, 1.2, met, coll=coll).parent = root   # gương chiếu hậu
+        X.cyl(f'{name}_po', W + 0.17, -0.5, 0.34, 0.035, 0.7, met, coll=coll, rot=(math.radians(90), 0, 0)).parent = root              # ống pô
         rd = mat('#c03020', 0.4)
         X.sphere(f'{name}_den_sau', W, -0.62, 0.62, 0.03, M.emission('cd_den_sau', '#ff3020', 3.0 if night else 0.6), coll=coll).parent = root
         X.sphere(f'{name}_den_truoc', W, 0.66, 0.78, 0.045, M.emission('cd_den_truoc', '#fff0c0', 25.0 if night else 1.0), coll=coll).parent = root
@@ -89,14 +101,37 @@ def build(X, coll, night, mode):
         if direction < 0: root.rotation_euler = (0, 0, math.pi)
         for ob in root.children: ob.visible_shadow = False
         _drv(root, 'location', 1, f'{-12 if direction > 0 else 55}+{direction}*fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})')
+        _fade(root, f'fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})', span)
         root.location[1] = y_start
         return root
     cols = ['#b3362c', '#1f3a5f', '#d8d2c2', '#2f2f2f', '#e0a030', '#3d6e5a']
     hel = ['#e8e8e0', '#d83a30', '#2a4a8a', '#f0c030', '#1a1a1a']
     for k in range(5):   # sân: làn giữa, 2 chiều
-        bike(f'env_cd_xm_san{k}', -4.7 + (0.5 if k % 2 else -0.5), k * 13.0, 0.22 + 0.03 * (k % 3), 62.0, cols[k % 6], hel[k % 5], 1 if k % 2 == 0 else -1)
+        bike(f'env_cd_xm_san{k}', -6.0 if k % 2 else -6.4, k * 13.0, 0.22 + 0.03 * (k % 3), 62.0, cols[k % 6], hel[k % 5], 1 if k % 2 == 0 else -1)
     for k in range(3):   # hẻm bên cửa sổ phòng Nam
         bike(f'env_cd_xm_hem{k}', W + T + 1.85, k * 17.0, 0.2 + 0.04 * k, 56.0, cols[(k + 2) % 6], hel[(k + 1) % 5], 1)
+
+    # ------------------------------------------------------------ ô tô nhỏ chạy chậm giữa sân (thân, cabin kính, 4 bánh, đèn, cản)
+    def oto(name, lane_x, y_start, speed, span, color, direction=1):
+        root = bpy.data.objects.new(name, None); coll.objects.link(root); root.location = (X.mx(lane_x), y_start, GZ)
+        body, glass, blk = mat(color, 0.3, 0.3), mat('#1c2630', 0.05), mat('#1a1a1a', 0.7)
+        def P(nm, ob): ob.parent = root; ob.visible_shadow = True; return ob
+        P('than', X.box(f'{name}_than', W - 0.85, W + 0.85, -2.0, 2.0, 0.3, 0.95, body, bevel=0.06, coll=coll))
+        P('cabin', X.box(f'{name}_cabin', W - 0.78, W + 0.78, -1.1, 0.95, 0.95, 1.5, body, bevel=0.08, coll=coll))
+        P('kinh', X.box(f'{name}_kinh', W - 0.8, W + 0.8, -1.0, 0.85, 1.02, 1.42, glass, bevel=0.03, coll=coll))
+        P('cot', X.box(f'{name}_cot', W - 0.81, W + 0.81, -0.12, 0.0, 1.0, 1.44, body, coll=coll))
+        P('can_t', X.box(f'{name}_can_t', W - 0.88, W + 0.88, 1.9, 2.08, 0.34, 0.5, blk, bevel=0.03, coll=coll)); P('can_s', X.box(f'{name}_can_s', W - 0.88, W + 0.88, -2.08, -1.9, 0.34, 0.5, blk, bevel=0.03, coll=coll))
+        for sx in (-0.82, 0.82):
+            for dy in (-1.2, 1.25):
+                P('banh', X.cyl(f'{name}_banh{sx}{dy}', W + sx, dy, 0.32, 0.32, 0.22, blk, axis='X', coll=coll))
+            P('den_t', X.sphere(f'{name}_den_t{sx}', W + sx * 0.7, 2.0, 0.7, 0.09, M.emission('cd_den_truoc', '#fff0c0', 40.0 if night else 1.2), coll=coll, scale=(1, 0.5, 0.7)))
+            P('den_s', X.sphere(f'{name}_den_s{sx}', W + sx * 0.7, -2.0, 0.7, 0.08, M.emission('cd_den_sau', '#ff3020', 5.0 if night else 0.7), coll=coll, scale=(1, 0.5, 0.7)))
+        if direction < 0: root.rotation_euler = (0, 0, math.pi)
+        _drv(root, 'location', 1, f'{-12 if direction > 0 else 55}+{direction}*fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})')
+        _fade(root, f'fmod({y_start:.1f}+frame*{speed:.3f},{span:.1f})', span, 4.0)
+        root.location[1] = y_start
+    oto('env_cd_oto0', -4.2, 6.0, 0.10, 66.0, '#c9c9c4', 1)
+    oto('env_cd_oto1', -4.2, 40.0, 0.09, 66.0, '#7a2a2a', -1)
 
     # ------------------------------------------------------------ người đi bộ: thân, đầu, 2 chân + 2 tay đung đưa (driver sin theo khung hình)
     def nguoi(name, lane_x, y0, speed, span, shirt, trouser, direction=1, kid=False):
@@ -106,19 +141,27 @@ def build(X, coll, night, mode):
         def part(nm, fn, *a, **kw): ob = fn(f'{name}_{nm}', *a, **kw); ob.parent = root; ob.visible_shadow = False; return ob
         part('than', X.cyl, W, 0, (0.95) * sc, 0.15 * sc, 0.55 * sc, mat(shirt, 0.9), coll=coll)
         part('dau', X.sphere, W, 0, 1.4 * sc, 0.11 * sc, sk, coll=coll)
-        part('toc', X.sphere, W, -0.01, 1.43 * sc, 0.115 * sc, mat('#1a1410', 0.9), scale=(1, 1, 0.8), coll=coll)
+        part('toc', X.sphere, W, -0.01, 1.43 * sc, 0.115 * sc, mat(rnd.choice(['#1a1410', '#3a2a1a', '#5a4a3a', '#8a8a8a']), 0.9), scale=(1, 1, 0.8), coll=coll)
+        part('co', X.cyl, W, 0, 1.26 * sc, 0.045 * sc, 0.09 * sc, sk, coll=coll)
+        part('hong', X.box, W - 0.15 * sc, W + 0.15 * sc, -0.08 * sc, 0.08 * sc, 0.64 * sc, 0.76 * sc, mat(trouser, 0.85), bevel=0.01, coll=coll)
+        for sd in (-1, 1): part(f'vai{sd}', X.sphere, W + sd * 0.17 * sc, 0, 1.17 * sc, 0.06 * sc, mat(shirt, 0.9), coll=coll)
         for side, ph in ((-1, 0.0), (1, math.pi)):
             for nm, w, zc, ln, cc in (('chan', 0.07, 0.35, 0.7, trouser), ('tay', 0.045, 1.0, 0.55, shirt)):
                 hip_z = (0.72 if nm == 'chan' else 1.18) * sc
                 piv = bpy.data.objects.new(f'{name}_{nm}{side}_piv', None); coll.objects.link(piv); piv.parent = root; piv.location = (side * 0.1 * sc * (1 if nm == 'chan' else 1.8), 0, hip_z)
                 ob = X.cyl(f'{name}_{nm}{side}', 0, 0, 0, w * sc, ln * sc, (mat(cc, 0.8) if nm == 'chan' else sk), coll=coll); ob.parent = piv
                 ob.location = (0.0, 0.0, -ln * sc / 2); ob.visible_shadow = False
+                if nm == 'chan':
+                    ft = X.box(f'{name}_chan{side}_giay', W - 0.045 * sc, W + 0.045 * sc, -0.05 * sc, 0.14 * sc, -ln * sc - 0.01, -ln * sc + 0.06, mat('#222222', 0.8), bevel=0.01, coll=coll); ft.parent = piv; ft.visible_shadow = False
+                else:
+                    hd = X.sphere(f'{name}_tay{side}_ban', W, 0, -ln * sc, 0.04 * sc, sk, coll=coll); hd.parent = piv; hd.visible_shadow = False
                 piv.rotation_mode = 'XYZ'; _drv(piv, 'rotation_euler', 0, f'{0.5 if nm == "chan" else 0.35}*sin(frame*{0.36 * speed / 0.058:.3f}+{ph:.2f}+{y0:.1f})')
         if direction < 0: root.rotation_euler = (0, 0, math.pi)
         _drv(root, 'location', 1, f'{-11 if direction > 0 else 30}+{direction}*fmod({y0:.1f}+frame*{speed:.4f},{span:.1f})')
+        _fade(root, f'fmod({y0:.1f}+frame*{speed:.4f},{span:.1f})', span, 2.0)
         root.location[1] = y0
     shirts = ['#4a78a8', '#c4503a', '#6a9a5a', '#e0c050', '#7a5a8a', '#eeeeee']; tr = ['#2a2a3a', '#4a4a50', '#3a4a6a']
-    for k in range(5): nguoi(f'env_cd_nguoi{k}', -5.6 + 0.35 * (k % 3), k * 9.0, 0.045 + 0.01 * (k % 3), 41.0, shirts[k % 6], tr[k % 3], 1 if k % 2 == 0 else -1, kid=(k == 3))
+    for k in range(5): nguoi(f'env_cd_nguoi{k}', -5.5 + 0.15 * (k % 3), k * 9.0, 0.045 + 0.01 * (k % 3), 41.0, shirts[k % 6], tr[k % 3], 1 if k % 2 == 0 else -1, kid=(k == 3))
     for k in range(2): nguoi(f'env_cd_nguoi_hem{k}', W + T + 1.3, 10 + k * 14, 0.05, 36.0, shirts[(k + 3) % 6], tr[k], 1)
 
     # ------------------------------------------------------------ chim bay ngang bầu trời (thân + 2 cánh vỗ)
@@ -135,4 +178,4 @@ def build(X, coll, night, mode):
             w = _wobj(f'env_cd_chim{k}_canh{side}', wb, (0, 0, 0), bm_mat, (1, 1, 1), piv); piv.rotation_mode = 'XYZ'
             _drv(piv, 'rotation_euler', 1, f'{side}*0.7*sin(frame*0.55+{k})')
         for o in [b] + list(root.children): _vis(o)
-        _drv(root, 'location', 0, f'-70+fmod({x0 + 70:.1f}+frame*{0.18 + 0.02 * k:.3f},140)')
+        _drv(root, 'location', 0, f'-70+fmod({x0 + 70:.1f}+frame*{0.18 + 0.02 * k:.3f},140)'); _fade(root, f'fmod({x0 + 70:.1f}+frame*{0.18 + 0.02 * k:.3f},140)', 140.0, 10.0)

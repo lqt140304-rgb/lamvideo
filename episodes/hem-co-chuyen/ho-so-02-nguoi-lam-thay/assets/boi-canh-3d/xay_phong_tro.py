@@ -716,6 +716,7 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'GOC_DO_QUAY': ((-2.4, -12.0, -1.9), (-0.5, -10.4, -2.3), 32),   # cận bàn nhận đồ
     'TROI_NANG': ((-4.7, 0.0, 22.0), (20.8, 39.0, 62.0), 24),   # ngước nhìn mặt trời + mây
     'TROI_TRANG': ((-4.7, 0.0, 22.0), (-22.0, -30.0, 71.0), 24),   # ngước nhìn trăng
+    'SAN_XE': ((-7.0, -12.0, -1.6), (-4.8, 0.0, -2.4), 30),   # ngang tầm mắt nhìn dọc sân: xe, ô tô, người
     'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
     'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
