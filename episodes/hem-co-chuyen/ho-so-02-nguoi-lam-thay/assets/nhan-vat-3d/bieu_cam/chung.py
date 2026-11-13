@@ -47,6 +47,14 @@ def lay_neo(head, parts, surf):
             for s, k in ((1, 'L'), (-1, 'R')):
                 neo[f'lip_{tn}_{idx}.{k}'] = _mat_x(s * xm, D.FACE['mouth_z'] - 0.003 * (xm / 0.030) ** 2 + dz, surf)
     neo['chin'] = _mat_x(0.0, D.FACE['chin_z'], surf)
+    # neo cho nhắm mắt, má, mũi, thái dương
+    Rx = D.EYE_R[0] * D.WHITE_R2 ** 0.5
+    for s, k in ((1, 'L'), (-1, 'R')):
+        p0 = D.EYE_FRAMES[s][0]
+        neo[f'eye_in.{k}'] = _mat_x(p0.x - s * Rx, p0.z, surf); neo[f'eye_out.{k}'] = _mat_x(p0.x + s * Rx, p0.z, surf)
+        neo[f'cheek.{k}'] = _mat_x(s * 0.100, 1.150, surf); neo[f'nose_wing.{k}'] = _mat_x(s * 0.028, 1.162, surf)
+        neo[f'temple.{k}'] = _mat_x(s * 0.165, D.FACE['eye_z'] + 0.030, surf)
+    neo['nose_bridge'] = _mat_x(0.0, 1.205, surf)
     return neo
 
 
