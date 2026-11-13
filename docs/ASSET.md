@@ -11,6 +11,10 @@ Sản xuất mới dùng nhân vật và bối cảnh Blender 3D theo [quy chu�
 | Âm thanh | [library/sfx](../what-if-studio/library/sfx/), [pack KORBANN](../what-if-studio/library/sfx-packs/korbann/README.md) | Kiểm tra nghe và giấy phép từng clip; có file không đồng nghĩa được phép phát hành |
 | Hình thể tham khảo | [Tư liệu](tham-khao/hinh-the-nguoi/README.md) | Ảnh chủ repo gửi để nghiên cứu tư thế, không tự coi là asset được cấp quyền xuất phim |
 
+## Ưu tiên dùng lại
+
+Trước khi tạo asset mới, tra bảng trên và ASSET của các tập trước để tiết kiệm chi phí và thời gian. Thứ tự: dùng nguyên → chỉnh nhẹ → ghép module có sẵn → tạo mới. Asset mới phải ghi lý do không dùng lại được, và nên thiết kế sẵn để tập sau dùng lại (modular, mã ổn định). Nguyên tắc đầy đủ: [KINH-NGHIEM](KINH-NGHIEM.md#tiết-kiệm-chi-phí-và-lượt-sửa).
+
 ## Khi thêm hoặc dùng lại
 
 Ghi mã, loại, đường dẫn nguồn, tác giả/quyền dùng, phiên bản, nơi sử dụng và trạng thái: có tệp / đã kiểm ảnh / đã kiểm chuyển động / chưa tạo. Asset riêng đặt trong thư mục tập; chỉ đưa lên thư viện chung khi thực sự tái sử dụng được.
