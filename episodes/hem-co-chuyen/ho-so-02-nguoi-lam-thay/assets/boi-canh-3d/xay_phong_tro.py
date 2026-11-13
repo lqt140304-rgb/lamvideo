@@ -518,6 +518,8 @@ def hallway(m, coll, night):
     for i in range(3):
         box(f'giay{i}', -0.45, -0.25, 4.7 + i * 0.22, 4.86 + i * 0.22, 0.0, 0.08, M.solid('giay_hl', '#8a8783', 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(10 * i)))
     import moi_truong; moi_truong.build(sys.modules[__name__], m, coll, night, HL_Y1)
+    import canh_dong; canh_dong.build(sys.modules[__name__], coll, night, MODE_HIEN_TAI)   # trời (mặt trời/trăng/mây), xe chạy, người đi, chim
+    import ktt_ha_noi; ktt_ha_noi.build(sys.modules[__name__], coll, night, MODE_HIEN_TAI)   # chi tiết khu tập thể Hà Nội + hàng rong
 
 
 def hallway_details(m, coll, night):
@@ -544,10 +546,35 @@ def hallway_details(m, coll, night):
         for yy in (3.1, 3.77):
             box(f'ke_giay_chan_{xx:.2f}_{yy:.2f}', xx, xx + 0.03, yy, yy + 0.03, 0.0, 0.64, M.solid('ke_giay_c', '#8a6a46', 0.7), coll=coll)
     box('ke_giay_tren', ex - 0.30, ex - 0.02, 3.1, 3.8, 0.62, 0.65, M.solid('ke_giay_t', '#8a6a46', 0.7), bevel=0.004, coll=coll)
-    cols = ['#3d4a6b', '#9a6a4a', '#d8d2c2', '#5b7a5e', '#a84a4a']
+    cols = ['#6b7a3a', '#a8844a', '#4a6a3a', '#8a6a3a', '#b09060']   # dép tổ ong (xanh rêu / nâu / be)
     for i in range(5):
         for k, z in enumerate([0.04, 0.34]):
             box(f'dep{k}_{i}', ex - 0.25, ex - 0.1, 3.16 + i * 0.13, 3.16 + i * 0.13 + 0.09, z, z + 0.07, M.solid(f'dep_{k}_{i}', cols[(i + k) % 5], 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(8 * ((i + k) % 3) - 8)))
+    # công tơ điện cơ đĩa xoay (kính, đĩa nhôm quay chậm) + cầu dao, cạnh cửa phòng Nam
+    my, mz = 3.95, 1.55
+    box('cong_to_vo', ex - 0.09, ex, my, my + 0.26, mz, mz + 0.34, M.solid('cong_to_vo', '#8f9490', 0.5, 0.3), bevel=0.01, coll=coll)
+    box('cong_to_kinh', ex - 0.095, ex - 0.09, my + 0.02, my + 0.24, mz + 0.03, mz + 0.31, M.solid('cong_to_kinh', '#2a3434', 0.08), coll=coll)
+    box('cong_to_tem', ex - 0.097, ex - 0.095, my + 0.05, my + 0.21, mz + 0.22, mz + 0.29, M.solid('cong_to_tem', '#e8e0c0', 0.8), coll=coll)
+    piv = bpy.data.objects.new('cong_to_piv', None); coll.objects.link(piv); piv.location = (mx(ex - 0.099), my + 0.13, mz + 0.12)
+    dk = cyl('cong_to_dia', W, 0, 0, 0.055, 0.004, M.solid('cong_to_dia', '#cfd2d0', 0.3, 0.9), axis='X', coll=coll); dk.parent = piv
+    mk = box('cong_to_dau_do', W - 0.002, W + 0.002, -0.004, 0.004, 0.0, 0.05, M.solid('cong_to_do', '#c8281e', 0.5), coll=coll); mk.parent = piv
+    d_ = piv.driver_add('rotation_euler', 0).driver; d_.type = 'SCRIPTED'; d_.expression = 'frame*0.07'
+    box('cau_dao', ex - 0.08, ex, my + 0.32, my + 0.5, mz + 0.05, mz + 0.3, M.solid('cau_dao', '#1c1c1c', 0.5), bevel=0.01, coll=coll)
+    box('cau_dao_can', ex - 0.095, ex - 0.08, my + 0.38, my + 0.44, mz + 0.18, mz + 0.26, M.solid('cau_dao_can', '#b3362c', 0.5), coll=coll)
+    # chữ stencil "KHOAN CẮT BÊ TÔNG" + số điện thoại phun sơn trên tường hành lang
+    try:
+        import os
+        from mathutils import Matrix
+        font = None
+        for fp in ('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 'C:/Windows/Fonts/arialbd.ttf'):
+            if os.path.exists(fp): font = bpy.data.fonts.load(fp); break
+        for li, (txt, size, zz, col) in enumerate([('KHOAN CẮT BÊ TÔNG', 0.11, 1.05, '#b3231a'), ('0912 345 678', 0.09, 0.9, '#1a1a1a')]):
+            cu = bpy.data.curves.new(f'stencil{li}', 'FONT'); cu.body = txt; cu.size = size; cu.extrude = 0.0004; cu.align_x = 'CENTER'
+            if font: cu.font = font
+            ob = bpy.data.objects.new(f'stencil{li}', cu); ob.data.materials.append(M.solid(f'stencil_{li}', col, 0.9))
+            ob.rotation_euler = Matrix(((0, 0, 1), (1, 0, 0), (0, 1, 0))).to_euler(); ob.location = (mx(ex - 0.002), 7.6, zz); coll.objects.link(ob)
+    except Exception as e:
+        print('stencil lỗi:', e)
     # dây phơi ngang hành lang (y = 6.0) + vài món đồ treo
     box('day_phoi', X0 + 0.07, ex - 0.02, 5.99, 6.01, 2.15, 2.17, dark, coll=coll)
     cyl('cot_phoi', X0 + 0.07, 6.0, 1.6, 0.012, 1.1, m['thep'], coll=coll)  # cột dựng từ tay vịn lan can
@@ -575,8 +602,8 @@ def hallway_details(m, coll, night):
 # Chế độ thời gian: ang = góc tia nắng lệch khỏi phương thẳng đứng (độ), az = hướng ngang (độ)
 TIME_MODES = {
     'day':    dict(energy=4.5, color='#fff0cf', ang=52, az=-12, bg='#cfe2ee', bgs=1.1, hat=60, exp=0.0),
-    'dawn':   dict(energy=3.2, color='#d9e4ff', dirw=(0.55, 0.80, -0.22), bg='#a8bfe0', bgs=0.5, hat=22, exp=0.35),   # 06:30: nắng xiên xanh lơ lạnh pha vàng nhạt
-    'noon':   dict(energy=8.0, color='#fffaf0', ang=22, az=-58, bg='#d6e8f4', bgs=1.25, hat=70, exp=-0.15),  # trưa gắt: vệt nắng vuông lên mặt bàn
+    'dawn':   dict(energy=4.5, color='#d9e4ff', dirw=(0.55, 0.80, -0.22), bg='#a8bfe0', bgs=0.5, hat=22, exp=0.35),   # 06:30: nắng xiên xanh lơ lạnh pha vàng nhạt
+    'noon':   dict(energy=14.0, color='#fffaf0', dirw=(0.30, -0.80, -0.56), bg='#d6e8f4', bgs=1.25, hat=32, exp=-0.15),  # trưa gắt: vệt nắng vuông lên mặt bàn
     'sunset': dict(energy=6.0, color='#ff9a48', dirw=(0.62, -0.74, -0.25), bg='#f0b484', bgs=0.45, hat=38, exp=0.2),   # Golden Hour: cam thẫm trườn từ bàn sang nệm
     'rain':   dict(energy=0.35, color='#c8d4dc', ang=60, az=0, bg='#8e99a2', bgs=0.95, hat=30, exp=0.3),   # chiều muộn sau mưa: u ám, không nắng
 }
@@ -592,7 +619,7 @@ def world_and_lights(mode, coll):
         bg.inputs['Color'].default_value = M._hex(T['bg']); bg.inputs['Strength'].default_value = T['bgs']
         import moi_truong; moi_truong.sky(nt, bg, False, mode)
         bpy.ops.object.light_add(type='SUN', location=(mx(8), 2, 6)); sun = bpy.context.object; sun.name = 'nang_cua_so'
-        sun.data.energy = T['energy']; sun.data.color = M._hex(T['color'])[:3]; sun.data.angle = math.radians(1.2 if mode != 'rain' else 12)
+        sun.data.energy = T['energy']; sun.data.color = M._hex(T['color'])[:3]; sun.data.angle = math.radians(0.5 if mode == 'noon' else 1.2 if mode != 'rain' else 12)
         if 'dirw' in T:  # hướng nắng cho trước trong toạ độ THẾ GIỚI (nắng sớm/chiều chạy xiên dọc hẻm, lọt cửa sổ chéo)
             sun.rotation_euler = Vector(T['dirw']).normalized().to_track_quat('-Z', 'Y').to_euler()
         else:
@@ -632,11 +659,23 @@ def lighting(mode, coll):
         add_area(f'tuyp_hanh_lang_{k}', (-0.7, 2.32 + 4.9 * k, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
 
 
+def khung_nang_ban(coll, w=0.46, h=0.30, tam=(0.55, 0.36, 0.75), s=1.2):
+    """Khung chắn nắng (chỉ cản sáng, camera không thấy) vuông góc tia nắng, đặt ngay sau cửa sổ: nắng trưa lọt qua ô chữ nhật w×h → in thành HÌNH CHỮ NHẬT đúng lên mặt bàn (tâm `tam`)."""
+    d = Vector(TIME_MODES['noon']['dirw']).normalized(); q = d.to_track_quat('-Z', 'Y')
+    c = Vector(tam) - d * s; bm = bmesh.new(); R = 1.2; t = 0.01
+    for (a0, a1, b0, b1) in [(-R, R, h / 2, R), (-R, R, -R, -h / 2), (-R, -w / 2, -h / 2, h / 2), (w / 2, R, -h / 2, h / 2)]:
+        g = bmesh.ops.create_cube(bm, size=1.0)
+        for v in g['verts']: v.co = Vector((a1 if v.co.x > 0 else a0, b1 if v.co.y > 0 else b0, t if v.co.z > 0 else -t))
+    ob = _mesh_obj('khung_nang_ban', bm, c, M.solid('khung_nang', '#222222', 0.9), False, coll, quat=q)
+    ob.visible_camera = False; ob.visible_diffuse = False; ob.visible_glossy = False; ob.visible_transmission = False
+    return ob
+
+
 def rem_khe(m, coll):
     """Rèm kéo gần kín, chừa khe hẹp giữa cửa sổ để nắng sớm lọt thành vệt xiên (06:30)."""
     cloth = M.solid('rem_sang_som', '#cdbfa6', 0.95)
-    box('rem_khe_trai', W - 0.07, W - 0.04, WIN['y0'] - 0.05, 1.56, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
-    box('rem_khe_phai', W - 0.07, W - 0.04, 1.70, WIN['y1'] + 0.05, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
+    box('rem_khe_trai', W - 0.07, W - 0.04, WIN['y0'] - 0.05, 1.45, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
+    box('rem_khe_phai', W - 0.07, W - 0.04, 1.80, WIN['y1'] + 0.05, WIN['z0'] - 0.1, WIN['z1'] + 0.12, cloth, coll=coll)
     for i in range(7):  # nếp rèm
         yy = WIN['y0'] + i * 0.09
         box(f'rem_nep{i}', W - 0.075, W - 0.07, yy, yy + 0.012, WIN['z0'] - 0.1, WIN['z1'] + 0.12, M.solid('rem_nep', '#bfb094', 0.95), coll=coll)
@@ -698,8 +737,20 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'CAY': ((-0.9, 1.0, -0.4), (-4.2, 6.5, 0.2), 28),    # cây lớn ở sân (thân, cành, tán)
     'CAU': ((-3.4, 2.0, -1.8), (-6.5, 5.0, -1.2), 35),    # cau cảnh + bồn cây
     'CHAU_HL': ((-0.6, 3.6, 1.0), (-1.15, 5.2, 0.4), 35),  # chậu cây hành lang
-    'GOC_DO': ((-3.3, -2.2, -1.45), (-0.7, -7.0, -2.0), 28),   # S07: góc đồ cho tặng ở chân cầu thang, nhìn từ sân
+    'GOC_DO': ((-3.6, -12.4, -1.2), (-0.6, -8.0, -2.0), 22),   # S07: góc đồ cho tặng ở chân cầu thang, nhìn từ sân
     'GOC_DO_TO_GIAY': ((-1.2, -6.4, -1.5), (0.0, -6.4, -1.4), 50),   # cận tờ giấy "Ai cần cứ lấy"
+    'GOC_DO_QUAY': ((-2.4, -12.0, -1.9), (-0.5, -10.4, -2.3), 32),   # cận bàn nhận đồ
+    'TROI_NANG': ((-4.7, 0.0, 22.0), (20.8, 39.0, 62.0), 24),   # ngước nhìn mặt trời + mây
+    'TROI_TRANG': ((-4.7, 0.0, 22.0), (-22.0, -30.0, 71.0), 24),   # ngước nhìn trăng
+    'SAN_XE': ((-7.0, -12.0, -1.6), (-4.8, 0.0, -2.4), 30),   # ngang tầm mắt nhìn dọc sân: xe, ô tô, người
+    'VIA_HE': ((-5.0, 3.2, -1.9), (-7.1, -1.5, -2.5), 30),   # nhìn dọc vỉa hè: người bán ngồi ven đường
+    'VIA_HE_2': ((-5.2, 8.0, -1.9), (-7.0, 16.0, -2.5), 30),
+    'MAT_TIEN': ((-6.8, 6.0, 4.6), (0.0, 12.0, 4.4), 30),   # nhìn mặt tiền tầng 3 nhà trọ
+    'CUA_SO_HEM': ((2.4, 1.4, 1.35), (4.6, 1.4, 1.55), 28),   # nhìn qua cửa sổ phòng Nam: chuồng cọp + téc inox nhà hàng xóm
+    'STENCIL_HL': ((-1.1, 6.0, 1.15), (0.0, 7.6, 1.0), 40),   # chữ stencil + công tơ ở hành lang
+    'BIEN_SO_NHA': ((-4.2, 7.65, -1.3), (-0.1, 7.65, -1.3), 45),   # biển số nhà A5 từ lòng đường
+    'STENCIL_T1': ((-3.6, 12.0, -1.6), (-0.1, 12.0, -1.6), 40),   # stencil khoan cắt bê tông tầng trệt
+    'BIEN_BANH_MI': ((-4.6, -5.2, -1.3), (-2.9, -5.2, -1.3), 40),   # biển xe bánh mì
     'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
     'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
@@ -792,6 +843,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
     shell(m, coll, door_open, cutaway=(cam in ('TOP',)) if cutaway is None else cutaway, hide_front=(CAMERAS[cam][0][1] > D) if hide_front is None else hide_front); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
     if MODE_HIEN_TAI == 'dawn': rem_khe(m, coll)
+    if MODE_HIEN_TAI == 'noon': khung_nang_ban(coll)
     mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); room_objs = set(coll.objects); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
     if mode != 'night' and mode != 'rain':

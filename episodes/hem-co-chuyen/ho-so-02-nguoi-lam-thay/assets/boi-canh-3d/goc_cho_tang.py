@@ -99,6 +99,135 @@ def build(X, coll, mua=True, seed=7):
         B(f'gia_go{k}', -1.35, -1.05, Y0 + 0.9 + 0.55 * k * 0.0, Y0 + 1.25, GZ + 0.05 + 0.3 * k, GZ + 0.07 + 0.3 * k, mat('#7a5a38', 0.85), coll=coll) if k < 3 else None
     for k in range(4): B(f'gia_chan{k}', -1.35 + 0.28 * (k % 2), -1.32 + 0.28 * (k % 2), Y0 + 0.9 + 0.33 * (k // 2), Y0 + 0.93 + 0.33 * (k // 2), GZ, GZ + 0.65, mat('#7a5a38', 0.85), coll=coll)
     for k in range(6): cyl(f'env_gct_tre{k}', -1.32 + 0.03 * k, Y0 + 2.4 + 0.02 * (k % 2), GZ + 0.8, 0.014, 1.6, mat('#a8a050', 0.7), coll=coll, rot=(math.radians(8), math.radians(-6), 0))
+    # ---------------------------------------------------------------- QUẦY NHẬN ĐỒ: mái bạt + bàn trải khăn + giá treo áo + hộp ủng hộ + biển gỗ
+    ys = Y0 - 3.4                    # tâm quầy (dọc tường, về phía cuối sân)
+    wd = mat('#8a6a42', 0.8); wd2 = mat('#5a3e22', 0.85); cloth = mat('#e8dcc0', 0.95)
+    # mái bạt dốc ra ngoài, hai cột trước, vài sợi dây đèn lồng nhỏ
+    awn_r, awn_b = mat('#b3453a', 0.7), mat('#e9e2d0', 0.7)
+    for k in range(7):
+        y0_ = ys - 1.4 + 0.4 * k
+        B(f'mai_bat{k}', -1.45, 0.0, y0_, y0_ + 0.4, GZ + 2.08, GZ + 2.1, awn_r if k % 2 == 0 else awn_b, coll=coll, rot=(0, math.radians(-7), 0), pivot=(0.0, y0_ + 0.2, GZ + 2.2))
+    B('mai_diem', -1.5, -1.42, ys - 1.4, ys + 1.4, GZ + 1.88, GZ + 2.0, mat('#b3453a', 0.7), coll=coll)
+    for yy in (ys - 1.35, ys + 1.35):
+        cyl(f'env_gct_cot_mai{yy:.1f}', -1.42, yy, GZ + 0.98, 0.025, 1.96, wd2, coll=coll)
+    lan = X.M.emission('gct_den_long', '#ffcf80', 5.0)
+    for k in range(9):
+        sphere(f'env_gct_den_long{k}', -1.42, ys - 1.3 + 0.325 * k, GZ + 1.8 - 0.02 * abs(k - 4) + 0.0, 0.035, lan, coll=coll).visible_shadow = False
+    ld = bpy.data.lights.new('env_gct_den_quay', 'POINT'); ld.energy = 30; ld.color = (1.0, 0.8, 0.5); ld.shadow_soft_size = 0.25
+    lo = bpy.data.objects.new('env_gct_den_quay', ld); lo.location = (X.mx(-0.85), ys, GZ + 1.75); coll.objects.link(lo)   # ánh đèn lồng hắt xuống bàn
+    # bàn trải khăn
+    tx0, tx1, ty0, ty1, th = -0.85, -0.2, ys - 0.8, ys + 0.8, 0.76
+    B('ban_mat', tx0, tx1, ty0, ty1, GZ + th - 0.04, GZ + th, wd, bevel=0.006, coll=coll)
+    for i, (xx, yy) in enumerate([(tx0 + 0.03, ty0 + 0.03), (tx1 - 0.06, ty0 + 0.03), (tx0 + 0.03, ty1 - 0.06), (tx1 - 0.06, ty1 - 0.06)]):
+        B(f'ban_chan{i}', xx, xx + 0.04, yy, yy + 0.04, GZ, GZ + th - 0.04, wd2, coll=coll)
+    B('khan_ban', tx0 - 0.02, tx1 + 0.01, ty0 + 0.15, ty1 - 0.15, GZ + th - 0.001, GZ + th + 0.004, cloth, coll=coll)
+    B('khan_rua1', tx0 - 0.02, tx0 - 0.005, ty0 + 0.15, ty1 - 0.15, GZ + th - 0.28, GZ + th + 0.004, cloth, coll=coll)
+    # hàng hoá trên bàn: chồng áo gấp, chồng sách, ấm, lọ, đôi dép
+    for k in range(4): B(f'ao_gap{k}', tx0 + 0.08, tx0 + 0.3, ty0 + 0.08, ty0 + 0.36, GZ + th + 0.004 + 0.03 * k, GZ + th + 0.03 * (k + 1), mat(['#4f7ea8', '#e0c070', '#a05a64', '#6aa07a'][k], 0.95), bevel=0.006, coll=coll)
+    for k in range(5): B(f'sach_ban{k}', tx0 + 0.08, tx0 + 0.28, ty0 + 0.5, ty0 + 0.76, GZ + th + 0.004 + 0.035 * k, GZ + th + 0.035 * (k + 1), mat(['#c46a3a', '#3a5a8a', '#d0b060', '#5a8a5a', '#8a4a6a'][k], 0.8), bevel=0.003, coll=coll, rot=(0, 0, math.radians(3 * k)), pivot=(tx0 + 0.18, ty0 + 0.63, GZ + th))
+    X.cyl('env_gct_am', tx0 + 0.32, ty0 + 1.18, GZ + th + 0.09, 0.075, 0.16, mat('#9aa6a8', 0.35, 0.6), coll=coll); X.sphere('env_gct_am_nap', tx0 + 0.32, ty0 + 1.18, GZ + th + 0.18, 0.03, mat('#6a7678', 0.4, 0.6), coll=coll)
+    X.cyl('env_gct_lo_thuy_tinh', tx0 + 0.15, ty0 + 1.35, GZ + th + 0.08, 0.05, 0.16, mat('#a8c4c0', 0.1), coll=coll)
+    for k, dy_ in enumerate((0, 0.1)): B(f'dep{k}', tx0 + 0.4, tx0 + 0.55, ty0 + 0.12 + dy_ * 1.2, ty0 + 0.2 + dy_ * 1.2 + 0.03, GZ + th + 0.004, GZ + th + 0.03, mat('#2f6a8a', 0.7), bevel=0.01, coll=coll)
+    # hộp ủng hộ có khe bỏ vào
+    B('hop_ung_ho', tx1 - 0.3, tx1 - 0.06, ty1 - 0.55, ty1 - 0.28, GZ + th + 0.004, GZ + th + 0.3, mat('#c6472f', 0.6), bevel=0.01, coll=coll)
+    B('hop_khe', tx1 - 0.3 + 0.07, tx1 - 0.3 + 0.17, ty1 - 0.5, ty1 - 0.33, GZ + th + 0.296, GZ + th + 0.302, mat('#1a1a1a', 0.5), coll=coll)
+    # giá treo áo + áo treo
+    rk = ys - 2.2; ra = mat('#6a6a66', 0.5, 0.6)
+    for yy in (rk - 0.7, rk + 0.7): cyl(f'env_gct_rk_cot{yy:.1f}', -0.35, yy, GZ + 0.8, 0.018, 1.6, ra, coll=coll); B(f'rk_chan{yy:.1f}', -0.5, -0.2, yy - 0.025, yy + 0.025, GZ, GZ + 0.03, ra, coll=coll)
+    cyl('env_gct_rk_thanh', -0.35, rk, GZ + 1.58, 0.014, 1.5, ra, axis='Y', coll=coll)
+    for k in range(7):
+        yy = rk - 0.55 + 0.18 * k; hh = rnd.uniform(0.55, 0.85); wdt = rnd.uniform(0.11, 0.15)
+        B(f'rk_ao{k}', -0.35 - wdt / 2, -0.35 + wdt / 2, yy - 0.025, yy + 0.025, GZ + 1.56 - hh, GZ + 1.52, mat(rnd.choice(['#5a7aa8', '#c47a50', '#7a9a6a', '#a85a6a', '#d0c080', '#4a4a5a']), 0.95), bevel=0.01, coll=coll, rot=(0, rnd.uniform(-0.1, 0.1), 0), pivot=(-0.35, yy, GZ + 1.52))
+        B(f'rk_moc{k}', -0.352, -0.348, yy - 0.05, yy + 0.05, GZ + 1.52, GZ + 1.58, mat('#888888', 0.4, 0.8), coll=coll)
+    # biển gỗ treo trên tường + chữ
+    B('bien_go', -0.03, -0.012, ys - 0.62, ys + 0.62, GZ + 1.52, GZ + 1.86, wd2, bevel=0.008, coll=coll)
+    B('bien_vien', -0.031, -0.013, ys - 0.58, ys + 0.58, GZ + 1.56, GZ + 1.82, mat('#e2d2a8', 0.8), coll=coll)
+    try:
+        for li, (txt, size, dz) in enumerate([('ĐỒ CHO TẶNG', 0.12, 1.66)]):
+            cu = bpy.data.curves.new(f'env_gct_bien_chu{li}', 'FONT'); cu.body = txt; cu.size = size; cu.extrude = 0.0008; cu.align_x = 'CENTER'
+            if font: cu.font = font
+            ob = bpy.data.objects.new(f'env_gct_bien_chu{li}', cu); ob.data.materials.append(mat('#3a2410', 0.6))
+            R = Matrix(((0, 0, 1), (1, 0, 0), (0, 1, 0))); ob.rotation_euler = R.to_euler(); ob.location = (X.mx(-0.036), ys, GZ + dz - 0.05)
+            coll.objects.link(ob)
+    except Exception as e:
+        print('chữ biển lỗi:', e)
+    # ---------------------------------------------------------------- CHI TIẾT BỔ SUNG cho các món đồ ở quầy và góc đồ cũ
+    def chu(name, txt, size, x, y, z, col='#2a2a2a'):
+        try:
+            cu = bpy.data.curves.new('env_gct_' + name, 'FONT'); cu.body = txt; cu.size = size; cu.extrude = 0.0006; cu.align_x = 'CENTER'
+            if font: cu.font = font
+            ob = bpy.data.objects.new('env_gct_' + name, cu); ob.data.materials.append(mat(col, 0.6))
+            ob.rotation_euler = Matrix(((0, 0, 1), (1, 0, 0), (0, 1, 0))).to_euler(); ob.location = (X.mx(x), y, z); coll.objects.link(ob)
+        except Exception as e:
+            print('chữ lỗi:', name, e)
+    # sách: gáy vàng, nhãn tên, dây đánh dấu trang
+    for k in range(5):
+        z0_ = GZ + th + 0.004 + 0.035 * k
+        B(f'sach_gay{k}', tx0 + 0.075, tx0 + 0.285, ty0 + 0.5, ty0 + 0.512, z0_ + 0.004, z0_ + 0.031, mat('#d9b85a', 0.5, 0.4), coll=coll)
+        B(f'sach_trang{k}', tx0 + 0.09, tx0 + 0.27, ty0 + 0.512, ty0 + 0.745, z0_ + 0.006, z0_ + 0.029, mat('#efe6cf', 0.95), coll=coll)   # mép giấy
+    B('sach_nhan', tx0 + 0.12, tx0 + 0.24, ty0 + 0.56, ty0 + 0.7, GZ + th + 0.18, GZ + th + 0.1855, mat('#f1ead0', 0.8), coll=coll)
+    B('sach_day', tx0 + 0.15, tx0 + 0.155, ty0 + 0.68, ty0 + 0.83, GZ + th + 0.08, GZ + th + 0.085, mat('#a8322a', 0.6), coll=coll)
+    # áo gấp: sọc và nhãn giặt
+    for k in range(4):
+        z0_ = GZ + th + 0.004 + 0.03 * k
+        B(f'ao_soc{k}', tx0 + 0.08, tx0 + 0.3, ty0 + 0.08 + 0.05 * k, ty0 + 0.1 + 0.05 * k, z0_ + 0.0285, z0_ + 0.0305, mat('#f2f2ea', 0.9), coll=coll)
+        B(f'ao_mep{k}', tx0 + 0.09, tx0 + 0.29, ty0 + 0.355, ty0 + 0.362, z0_ + 0.004, z0_ + 0.026, mat('#00000010'[:7] if False else '#303030', 0.9), coll=coll)
+    # ấm: vòi, quai, nút nắp, nước sôi cũ
+    kx, ky, kz = tx0 + 0.32, ty0 + 1.18, GZ + th
+    X.cyl('env_gct_am_voi', kx, ky + 0.115, kz + 0.1, 0.012, 0.13, mat('#9aa6a8', 0.35, 0.6), coll=coll, rot=(math.radians(-55), 0, 0))
+    X.torus('env_gct_am_quai', kx, ky - 0.085, kz + 0.1, 0.05, 0.008, mat('#4a3a2a', 0.7), rot=(0, math.pi / 2, 0), coll=coll)
+    X.sphere('env_gct_am_nut', kx, ky, kz + 0.2, 0.014, mat('#4a3a2a', 0.7), coll=coll)
+    # lọ: nắp kim loại, nhãn, kẹo bên trong
+    jx, jy = tx0 + 0.15, ty0 + 1.35
+    X.cyl('env_gct_lo_nap', jx, jy, kz + 0.17, 0.052, 0.02, mat('#c0a050', 0.4, 0.8), coll=coll)
+    X.cyl('env_gct_lo_ruot', jx, jy, kz + 0.07, 0.043, 0.12, mat('#d9a04a', 0.6), coll=coll)
+    X.cyl('env_gct_lo_nhan', jx, jy, kz + 0.085, 0.0515, 0.05, mat('#f1e6c8', 0.8), coll=coll)
+    # dép: đế, quai chéo
+    for k, dy_ in enumerate((0, 0.12)):
+        yb = ty0 + 0.12 + dy_
+        B(f'dep_quai{k}', tx0 + 0.43, tx0 + 0.52, yb + 0.002, yb + 0.012, GZ + th + 0.03, GZ + th + 0.04, mat('#e8c458', 0.6), coll=coll, rot=(0, math.radians(18), 0), pivot=(tx0 + 0.475, yb + 0.007, GZ + th + 0.03))
+        B(f'dep_de{k}', tx0 + 0.385, tx0 + 0.555, yb - 0.01, yb + 0.07, GZ + th + 0.0, GZ + th + 0.01, mat('#1f4a63', 0.8), bevel=0.003, coll=coll)
+    # hộp ủng hộ: chữ + dải băng keo
+    chu('chu_ung_ho', 'ỦNG HỘ', 0.045, tx1 - 0.302, ty1 - 0.415, GZ + th + 0.13, '#f4ecd8')
+    B('hop_bang_keo', tx1 - 0.3, tx1 - 0.06, ty1 - 0.425, ty1 - 0.405, GZ + th + 0.296, GZ + th + 0.306, mat('#d8c890', 0.5), coll=coll)
+    # gấu bông cũ + đồng hồ báo thức + thẻ "lấy tùy tâm"
+    bx, by = tx0 + 0.47, ty0 + 0.72; bz = GZ + th; bt = mat('#c9965a', 0.95)
+    X.sphere('env_gct_gau_than', bx, by, bz + 0.07, 0.055, bt, scale=(1, 1, 1.15), coll=coll); X.sphere('env_gct_gau_dau', bx, by, bz + 0.165, 0.042, bt, coll=coll)
+    for sgn in (-1, 1):
+        X.sphere(f'env_gct_gau_tai{sgn}', bx, by + sgn * 0.034, bz + 0.2, 0.014, bt, coll=coll); X.sphere(f'env_gct_gau_tay{sgn}', bx, by + sgn * 0.065, bz + 0.09, 0.02, bt, coll=coll)
+        X.sphere(f'env_gct_gau_mat{sgn}', bx - 0.036, by + sgn * 0.016, bz + 0.175, 0.006, mat('#1a1a1a', 0.4), coll=coll)
+    X.sphere('env_gct_gau_mui', bx - 0.04, by, bz + 0.162, 0.01, mat('#3a2616', 0.5), coll=coll)
+    X.cyl('env_gct_dong_ho', tx0 + 0.52, ty0 + 0.98, bz + 0.05, 0.045, 0.03, mat('#b84a3a', 0.4, 0.3), axis='X', coll=coll)
+    X.cyl('env_gct_dong_ho_mat', tx0 + 0.505, ty0 + 0.98, bz + 0.05, 0.036, 0.004, mat('#f4f0e0', 0.5), axis='X', coll=coll)
+    B('the_lay', tx0 + 0.58, tx0 + 0.585, ty0 + 0.25, ty0 + 0.5, bz + 0.0, bz + 0.12, mat('#f2e8c4', 0.85), coll=coll, rot=(0, math.radians(-8), 0), pivot=(tx0 + 0.58, ty0 + 0.37, bz))
+    chu('chu_the_lay', 'Lấy tùy tâm', 0.022, tx0 + 0.574, ty0 + 0.375, bz + 0.055, '#5a2a18')
+    # rổ mây dưới bàn đựng đồ chơi
+    wk = mat('#b08a4a', 0.9)
+    X.cyl('env_gct_ro', -0.55, ys - 0.15, GZ + 0.13, 0.17, 0.26, wk, coll=coll); X.torus('env_gct_ro_vanh', -0.55, ys - 0.15, GZ + 0.26, 0.17, 0.012, mat('#8a6a34', 0.9), coll=coll)
+    for k, c_ in enumerate(['#d84a4a', '#4a8ad8', '#e8c030']): X.sphere(f'env_gct_ro_bong{k}', -0.55 + 0.07 * math.cos(k * 2.1), ys - 0.15 + 0.07 * math.sin(k * 2.1), GZ + 0.28, 0.06, mat(c_, 0.5), coll=coll)
+    # đôi giày cũ dưới bàn
+    for k, dy_ in enumerate((0, 0.14)):
+        B(f'giay_cu{k}', -0.42, -0.2, ys + 0.3 + dy_, ys + 0.38 + dy_, GZ, GZ + 0.05, mat('#4a4036', 0.85), bevel=0.012, coll=coll)
+        B(f'giay_mu{k}', -0.42, -0.31, ys + 0.3 + dy_, ys + 0.38 + dy_, GZ + 0.05, GZ + 0.085, mat('#5a4e42', 0.85), bevel=0.012, coll=coll)
+    # giá treo áo: tay áo + thẻ giá
+    for k in range(7):
+        yy = rk - 0.55 + 0.18 * k
+        for sg in (-1, 1): B(f'rk_tay{k}_{sg}', -0.35 + sg * 0.085, -0.35 + sg * 0.125, yy - 0.02, yy + 0.02, GZ + 1.26, GZ + 1.5, mat(['#5a7aa8', '#c47a50', '#7a9a6a', '#a85a6a', '#d0c080', '#4a4a5a', '#5a7aa8'][k], 0.95), coll=coll, rot=(0, sg * math.radians(14), 0), pivot=(-0.35 + sg * 0.1, yy, GZ + 1.5))
+        if k % 2 == 0:
+            B(f'rk_the{k}', -0.47, -0.465, yy - 0.015, yy + 0.015, GZ + 1.28, GZ + 1.33, mat('#f0e8c8', 0.8), coll=coll); B(f'rk_day{k}', -0.4745, -0.4725, yy - 0.001, yy + 0.001, GZ + 1.33, GZ + 1.51, mat('#8a2a20', 0.6), coll=coll)
+    # quạt: lồng, cánh, nút chỉnh
+    fx, fy, fz = -0.3, Y0 - 1.3, GZ + 0.95
+    X.torus('env_gct_quat_long_vanh', fx, fy, fz, 0.19, 0.006, mat('#9a9a94', 0.4, 0.7), rot=(0, math.pi / 2, 0), coll=coll)
+    for k in range(3): B(f'quat_canh{k}', fx - 0.012, fx - 0.004, fy - 0.025, fy + 0.025, fz + 0.01, fz + 0.16, mat('#b8c4cc', 0.3), coll=coll, rot=(k * 2 * math.pi / 3, 0, 0), pivot=(fx - 0.008, fy, fz))
+    X.sphere('env_gct_quat_truc', fx - 0.01, fy, fz, 0.03, mat('#555550', 0.5, 0.5), coll=coll)
+    for k in range(6): B(f'quat_song{k}', fx - 0.018, fx - 0.016, fy - 0.19, fy + 0.19, fz - 0.005, fz + 0.005, mat('#9a9a94', 0.4, 0.7), coll=coll, rot=(k * math.pi / 6, 0, 0), pivot=(fx - 0.017, fy, fz))
+    # ghế gãy: đệm đỏ cũ + dây buộc tạm chân gãy
+    B('ghe_dem', cx - 0.19, cx + 0.19, cy - 0.19, cy + 0.19, GZ + 0.45, GZ + 0.49, mat('#9a3a30', 0.95), bevel=0.012, coll=coll, rot=(math.radians(9), 0, math.radians(14)), pivot=(cx, cy, GZ + 0.43))
+    # thùng carton: băng keo + chữ viết tay
+    B('thung_keo1', -0.5, -0.15, Y0 + 0.76, Y0 + 0.8, GZ + 0.701, GZ + 0.706, mat('#c8a060', 0.4), coll=coll, rot=(0, 0, math.radians(10)), pivot=(-0.33, Y0 + 0.78, GZ + 0.7))
+    chu('chu_thung', 'SÁCH CŨ', 0.07, -0.556, Y0 + 0.78, GZ + 0.19, '#2a2018')
+    # gương: dấu bàn tay trên lớp bụi
+    for k in range(5): B(f'guong_ngon{k}', X0 - 0.0092, X0 - 0.0088, Y0 - 0.09 + 0.04 * k, Y0 - 0.07 + 0.04 * k, GZ + 0.62 + 0.03 * (k % 2) + 0.05 * (k == 0) * -1, GZ + 0.8 + 0.03 * (k % 2) + (0.0 if k else -0.1), mat('#6a6a64', 0.3), coll=coll, rot=(0, math.radians(6), 0), pivot=pv)
     # ---------------------------------------------------------------- sàn ướt: vệt nước + vũng phản chiếu
     if mua:
         wet = mat('#3e4540', 0.12)
@@ -108,8 +237,25 @@ def build(X, coll, mua=True, seed=7):
         pud = mat('#27323a', 0.02, 0.0)
         for k, (px_, py_, r) in enumerate([(-0.9, Y0 - 0.3, 0.45), (-0.45, Y0 + 1.5, 0.35), (-1.2, Y0 + 1.4, 0.3), (-0.6, Y0 - 1.5, 0.4)]):
             sphere(f'env_gct_vung{k}', px_, py_, GZ + 0.003, r, pud, scale=(1.2, 1, 0.003), coll=coll)
-        # mưa thưa: vệt dài mảnh nghiêng
+        # mưa thưa: vệt dài mảnh nghiêng, RƠI THEO KHUNG HÌNH bằng driver (frame × tốc độ, quay vòng) — không tốn khung khoá
         rain = X.M.emission('gct_mua', '#dde8f0', 0.55)
+        def fall(ob, spd, off, H):
+            d = ob.driver_add('location', 2).driver; d.type = 'SCRIPTED'; d.expression = f'-fmod(frame*{spd:.4f}+{off:.4f},{H:.3f})'
         for k in range(170):
             x_ = rnd.uniform(-4.5, 0.0); y_ = rnd.uniform(Y0 - 3.0, Y0 + 3.5); z_ = GZ + rnd.uniform(0.3, 6.0)
-            B(f'hat_mua{k}', x_, x_ + 0.0016, y_, y_ + 0.0016, z_, z_ + rnd.uniform(0.35, 0.7), rain, coll=coll, rot=(math.radians(7), 0, 0), pivot=(x_, y_, z_)).visible_shadow = False
+            ob = B(f'hat_mua{k}', x_, x_ + 0.0016, y_, y_ + 0.0016, z_, z_ + rnd.uniform(0.35, 0.7), rain, coll=coll, rot=(math.radians(7), 0, 0), pivot=(x_, y_, z_))
+            ob.visible_shadow = False; fall(ob, rnd.uniform(0.27, 0.33), rnd.uniform(0, 6.5), 6.5)
+        # nước chảy thành sợi từ mép sàn tầng 3 / mái hiên trên cầu thang xuống sân (chuỗi giọt rơi nhanh hơn mưa)
+        wt = X.M.emission('gct_nuoc_chay', '#cfe4f2', 0.9)
+        for k in range(9):
+            yy = -1.9 + 0.16 * k + rnd.uniform(-0.02, 0.02); xx = -1.62
+            for j in range(10):
+                ob = sphere(f'env_gct_giot{k}_{j}', xx, yy, GZ + 5.7, 0.012, wt, scale=(1, 1, 3.5), coll=coll); ob.visible_shadow = False
+                d = ob.driver_add('location', 2).driver; d.type = 'SCRIPTED'
+                d.expression = f'-fmod(frame*0.36+{j * 0.58 + k * 0.21:.3f},5.800)'
+        # vòng gợn lan trên vũng nước (torus dẹt nở dần rồi biến mất)
+        for k, (px_, py_) in enumerate([(-0.9, Y0 - 0.3), (-0.45, Y0 + 1.5), (-1.2, Y0 + 1.4), (-0.6, Y0 - 1.5), (-0.8, Y0 - 0.1)]):
+            X.torus(f'env_gct_gon{k}', px_, py_, GZ + 0.004, 0.18, 0.004, mat('#9fb4c0', 0.1), coll=coll)
+            ob = bpy.data.objects[f'env_gct_gon{k}']; ob.visible_shadow = False
+            for ax in (0, 1):
+                dr = ob.driver_add('scale', ax).driver; dr.type = 'SCRIPTED'; dr.expression = f'0.15+fmod(frame*0.045+{k * 0.37:.2f},1.0)*1.3'

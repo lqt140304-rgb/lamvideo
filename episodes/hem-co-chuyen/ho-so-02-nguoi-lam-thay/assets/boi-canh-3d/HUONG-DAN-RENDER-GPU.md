@@ -30,3 +30,8 @@ Môi trường làm việc của trợ lý (container) **không có GPU**, nên 
 | Thay mọi vật liệu bằng màu phẳng (giới hạn trên của việc bake texture thủ tục) | 5,0 s | thêm ~20% nếu bake |
 | Giảm một nửa số mẫu (7) | 3,6 s | tỉ lệ thuận với số mẫu (≈ 0,35 s/mẫu + 1,3 s cố định) |
 Vì vậy "chỉ render phần trong khung" và "đưa phần còn lại thành ảnh tĩnh" cho lợi ích nhỏ ở cảnh này; hiệu quả lớn đến từ **GPU**, **ít mẫu hơn + khử nhiễu**, **ít khung hơn** (nội suy) và **tái dùng nền cho shot camera đứng yên** (xem trao đổi).
+
+## Đoạn nối phòng thật → thế giới gương (`render_xuyen_guong_gpu.ps1`)
+- Thử đo thời gian trước (3 khung mỗi đoạn): `.\render_xuyen_guong_gpu.ps1 -Test` → xem `D:\render\xuyen\thoi-gian.log` (có dòng xác nhận GPU/CPU), nhân thời gian với 72/3 để biết cả đoạn.
+- Bản cuối 24 fps, 1280 px, 64 mẫu: `.\render_xuyen_guong_gpu.ps1 -Out D:\render\xuyen`; nhẹ hơn: `-Step 2 -Width 960 -Samples 48` (12 khung thật/giây, ffmpeg nội suy lên 24).
+- Ra `xuyen-guong-noi-the-gioi.mp4` đã ghép sóng nước lan. Cảnh thế giới gương có sương thể tích: nếu hết VRAM 6 GB thì giảm `-Width` hoặc `-Samples`; Blender tự chuyển về CPU nếu GPU lỗi (xem log).

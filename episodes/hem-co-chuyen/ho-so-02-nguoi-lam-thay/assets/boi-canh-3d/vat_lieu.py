@@ -77,6 +77,26 @@ def wall_plaster(name='tuong_voi', color='#ece1cb'):
     return m
 
 
+def phong_tran(name, color, rough=0.95, scale=0.8, vary=0.1, bump=0.12, vang=0.6, reu=0.5, z_reu=-2.0):
+    """Tường phong trần kiểu khu tập thể: nền vôi loang + mảng vàng ố lớn (nhiễu tần số thấp) + rêu xanh sát chân tường (theo cao độ Object-Z) + hạt mịn."""
+    m = mottled(name, color, rough=rough, scale=scale, vary=vary, bump=bump)
+    nt = m.node_tree; b = next(n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'); N, L = nt.nodes, nt.links
+    src = next(l.from_socket for l in nt.links if l.to_socket == b.inputs['Base Color'])
+    tc = N.new('ShaderNodeTexCoord'); sep = N.new('ShaderNodeSeparateXYZ'); L.new(tc.outputs['Object'], sep.inputs['Vector'])
+    n = N.new('ShaderNodeTexNoise'); n.inputs['Scale'].default_value = 0.55; n.inputs['Detail'].default_value = 4; L.new(tc.outputs['Object'], n.inputs['Vector'])
+    rp = N.new('ShaderNodeValToRGB'); rp.color_ramp.elements[0].position = 0.42; rp.color_ramp.elements[0].color = (1, 1, 1, 1); rp.color_ramp.elements[1].position = 0.68
+    rp.color_ramp.elements[1].color = (1 - 0.14 * vang * 1.4, 1 - 0.26 * vang * 1.4, 1 - 0.5 * vang * 1.4, 1); L.new(n.outputs['Fac'], rp.inputs['Fac'])
+    m1 = N.new('ShaderNodeMix'); m1.data_type = 'RGBA'; m1.blend_type = 'MULTIPLY'; m1.inputs['Factor'].default_value = 1.0
+    L.new(src, m1.inputs['A']); L.new(rp.outputs['Color'], m1.inputs['B'])
+    n2 = N.new('ShaderNodeTexNoise'); n2.inputs['Scale'].default_value = 4.0; n2.inputs['Detail'].default_value = 6; L.new(tc.outputs['Object'], n2.inputs['Vector'])
+    zr = N.new('ShaderNodeMapRange'); zr.inputs['From Min'].default_value = z_reu + 0.9; zr.inputs['From Max'].default_value = z_reu - 0.3; zr.inputs['To Min'].default_value = 0.0; zr.inputs['To Max'].default_value = 1.0; zr.clamp = True; L.new(sep.outputs['Z'], zr.inputs['Value'])
+    mm = N.new('ShaderNodeMath'); mm.operation = 'MULTIPLY'; L.new(zr.outputs['Result'], mm.inputs[0]); L.new(n2.outputs['Fac'], mm.inputs[1])
+    cr = N.new('ShaderNodeMath'); cr.operation = 'MULTIPLY'; cr.inputs[1].default_value = 1.8 * reu; L.new(mm.outputs[0], cr.inputs[0])
+    m2 = N.new('ShaderNodeMix'); m2.data_type = 'RGBA'; m2.inputs['B'].default_value = (0.26, 0.36, 0.17, 1); L.new(cr.outputs[0], m2.inputs['Factor']); L.new(m1.outputs['Result'], m2.inputs['A'])
+    L.new(m2.outputs['Result'], b.inputs['Base Color'])
+    return m
+
+
 def wood(name, color, dark=None, rough=0.6, scale=14.0):
     """Gỗ ép/gỗ tự nhiên: vân sóng + nhiễu, hơi sờn."""
     m = _new(name); nt, b = _bsdf(m)

@@ -266,7 +266,7 @@ def scale_head_cluster(sc):
             for o in c.objects: o.parent = em; o.matrix_parent_inverse = Matrix.Translation((0, 0, -CHIN0))
 
 
-def bake_eye_mask(asm):
+def bake_eye_mask(asm, setup_shader=True):
     """Tròng trắng mắt: mặt nạ tính TRÊN ĐỈNH (thuộc tính `eye_mask`, tính ở dáng nghỉ trong toạ độ đầu gốc) → biến dạng theo mesh khi xương/đầu chuyển động (trước đây dùng toạ độ vật thể nên trượt ra ngoài viền).
     Giá trị 0,5 là đường biên (khoảng cách có dấu tới mép tròng trắng/đường mí, ±6 mm); shader ngưỡng ở 0,5 bằng ColorRamp nên đường biên vẫn sắc và mượt."""
     import numpy as np
@@ -279,6 +279,7 @@ def bake_eye_mask(asm):
         m = np.minimum(margin_r, margin_l); m = np.where((h > -0.09) & (P0[:, 1] < 0.03), m, -1.0); best = np.maximum(best, m)
     mask = np.clip(0.5 + best / 0.012, 0.0, 1.0).astype(np.float32)
     at = me.attributes.get('eye_mask') or me.attributes.new('eye_mask', 'FLOAT', 'POINT'); at.data.foreach_set('value', mask)
+    if not setup_shader: return   # shader đã đọc thuộc tính `eye_mask` theo tên (bản lắp ráp thứ hai dùng chung vật liệu Da)
     nt = bpy.data.materials['Da'].node_tree; mix = next(x for x in nt.nodes if x.bl_idname == 'ShaderNodeMix')
     an = nt.nodes.new('ShaderNodeAttribute'); an.attribute_name = 'eye_mask'; an.attribute_type = 'GEOMETRY'
     cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].position = 0.485; cr.color_ramp.elements[1].position = 0.515
