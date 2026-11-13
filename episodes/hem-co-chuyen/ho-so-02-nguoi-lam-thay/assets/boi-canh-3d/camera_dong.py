@@ -171,10 +171,10 @@ def _nam_truoc_guong(sc, x=0.9, y=3.26):
     return X.figure_proxy('nam_proxy', x, y, nam, coll)
 
 
-def _liquid(sc, N=72, pov=False, tran0=0.0):
+def _liquid(sc, N=72, pov=False, tran0=0.0, cham=False):
     import kinh_nuoc, cong_guong
     g = bpy.data.objects['mat_guong']
-    kinh_nuoc.apply(g, wp((0.14, 3.26, 0.7)), N, pov=pov, tran0=tran0)
+    kinh_nuoc.apply(g, wp((0.14, 3.26, 0.7)), N, pov=pov, tran0=tran0, cham=cham)
     fr = bpy.data.objects.get('khung_guong')
     if fr: fr.data.materials.clear(); fr.data.materials.append(kinh_nuoc.nen_nuoc_material())
     return kinh_nuoc, cong_guong.mirror_plane(g)
@@ -202,6 +202,41 @@ def shot_kinh_nuoc(sc):
         fo.location = wp((0.14, 3.3, 0.8)); fo.keyframe_insert('location', frame=f)
     handheld(cam, 0.05, 0.002, f1=N); set_range(sc, 1, N)
     return dict(build=dict(hide_front=False), proxy=False)
+
+
+def shot_kinh_nuoc_cham(sc):
+    """P3.05 BẢN CHẬM KINH DỊ (192 khung = 8 s): đêm, chỉ còn ánh laptop xanh; đèn chập chờn; Nam đi CHẬM, khựng lại hai lần trước gương rồi mới bước vào mặt kính;
+    mặt gương im lặng, gợn lăn tăn nổi lên trước khi chạm; quầng sáng lạnh trong gương lớn dần; máy bò chậm từ xa, rung tay tăng dần; 50 mm f/2,0."""
+    rig, cam = new_rig('KINH_NUOC_CHAM', 50, 2.0); fo = focus_empty(cam); N = 192
+    objs = _nam_truoc_guong(sc, 0.9, 3.26); kn, plane = _liquid(sc, N, cham=True)
+    sc.frame_end = N
+    p0, n = plane
+    for o in objs:   # phần thân qua mặt phẳng gương trong suốt như bản cũ nhưng đường đi tự keyframe (chậm, có khựng)
+        for sl in o.material_slots:
+            base = sl.material; sl.link = 'OBJECT'; sl.material = kn.plane_cut(base, p0, n, True)
+    path = [(1, 0.95), (30, 0.95), (62, 0.62), (84, 0.6), (112, 0.3), (132, 0.27), (186, -0.12), (N, -0.12)]   # (khung, x thiết kế): đứng yên → bước → khựng → bước → khựng → bước xuyên
+    for o in objs:
+        for fr, xx in path:
+            o.location.x = X.mx(xx); o.keyframe_insert('location', index=0, frame=fr)
+        for fc in _fcurves(o):
+            if fc.data_path == 'location' and fc.array_index == 0:
+                for kp in fc.keyframe_points: kp.interpolation = 'BEZIER'
+    for o in objs:   # nhấp nhô bước đi nhẹ (chỉ khi đang di chuyển)
+        d = o.driver_add('delta_location', 2).driver; d.type = 'SCRIPTED'; d.expression = '0.012*sin(frame*0.28)*(1 if (frame>30 and frame<62) or (frame>84 and frame<112) or (frame>132 and frame<186) else 0)'
+    for f in range(1, N + 1):
+        t = smooth((f - 1) / (N - 1)); key_pose(rig, f, (2.5 - 0.95 * t, 2.1 - 0.2 * t, 1.3 - 0.06 * t), (0.14, 3.3, 0.9))
+        fo.location = wp((0.14, 3.3, 0.8)); fo.keyframe_insert('location', frame=f)
+    handheld(cam, 0.03, 0.0015, f1=N)
+    # quầng sáng lạnh phía trước gương lớn dần + đèn phòng chập chờn
+    ld = bpy.data.lights.new('guong_quang', 'POINT'); ld.color = (0.35, 0.95, 0.95); ld.shadow_soft_size = 0.3
+    lo = bpy.data.objects.new('guong_quang', ld); lo.location = wp((0.55, 3.26, 0.8)); bpy.data.collections['Phong_tro_3D'].objects.link(lo)
+    for fr, e in ((1, 0), (int(0.4 * N), 1.5), (int(0.62 * N), 6), (int(0.85 * N), 14), (N, 14)): ld.energy = e; ld.keyframe_insert('energy', frame=fr)
+    for o in bpy.data.objects:
+        if o.type == 'LIGHT' and o.data.type != 'SUN' and o is not lo and not o.name.startswith('guong_quang'):
+            e0 = o.data.energy; d = o.data.driver_add('energy').driver; d.type = 'SCRIPTED'
+            d.expression = f'{e0:.3f}*(0.45+0.55*abs(sin(frame*0.11)*sin(frame*0.047+1.0)))*(1-0.85*max(fmod(frame,53)<4,fmod(frame,97)<2))'
+    set_range(sc, 1, N)
+    return dict(build=dict(hide_front=False, den_ban=False), proxy=False, mode='night')
 
 
 def shot_kinh_nuoc_pov(sc):
@@ -284,7 +319,7 @@ def shot_mua_goc_do(sc):
     return dict(build=dict(hide_front=False, goc_do=True), proxy=False, mode='rain')
 
 
-SHOTS = {'DOI_GIO': shot_doi_gio, 'MUA_GOC_DO': shot_mua_goc_do, 'KINH_NUOC': shot_kinh_nuoc, 'KINH_NUOC_POV': shot_kinh_nuoc_pov, 'ORBIT_GUONG': shot_orbit, 'VERTIGO_GUONG': shot_vertigo, 'STEADI_RA_HL': shot_steadicam, 'RACK_FOCUS_BAN': shot_rack, 'HANDHELD_A04': shot_handheld}
+SHOTS = {'DOI_GIO': shot_doi_gio, 'MUA_GOC_DO': shot_mua_goc_do, 'KINH_NUOC': shot_kinh_nuoc, 'KINH_NUOC_CHAM': shot_kinh_nuoc_cham, 'KINH_NUOC_POV': shot_kinh_nuoc_pov, 'ORBIT_GUONG': shot_orbit, 'VERTIGO_GUONG': shot_vertigo, 'STEADI_RA_HL': shot_steadicam, 'RACK_FOCUS_BAN': shot_rack, 'HANDHELD_A04': shot_handheld}
 for _n in GEN: SHOTS[_n] = shot_generic(_n)
 
 

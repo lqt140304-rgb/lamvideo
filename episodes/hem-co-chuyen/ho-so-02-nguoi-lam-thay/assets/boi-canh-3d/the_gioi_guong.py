@@ -133,7 +133,19 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
             ob = _wobj(coll, f'bot{k}', bb, (NAM[0] + rnd.uniform(-0.3, 0.3), NAM[1] + rnd.uniform(-0.3, 0.3), 0.0), bub); ob.visible_shadow = False
             drv(ob, 'location', 2, f'-0.5+fmod(frame*{rnd.uniform(0.01, 0.025):.3f}+{rnd.uniform(0, 3):.2f},3.0)*0.6')
     # ---- NGƯỜI KIA (không đưa vào shot XUYEN: tay che khung máy): đứng yên trên mặt nước (hình nhân tạm, cao 1,6 m), nốt ruồi bên PHẢI sẽ gắn khi có nhân vật modular; tay TRÁI đưa về phía Nam (đúng luật thuận tay trái)
-    if nam and cam != 'XUYEN':
+    XC = cam in ('XUYEN', 'XUYEN_CHAM')
+    if False and nam and cam == 'XUYEN_CHAM':   # (tắt: bóng đen che gương; sự rùng rợn đến từ nhịp chậm, đèn chập chờn, chuyển màu)
+        # NGƯỜI KIA: bóng sẫm đứng im ở rìa trái khung hình, nhoè (f/2 lấy nét vào gương), hiện dần từ 55% shot — chỉ là mảng tối đứng nhìn Nam chìm
+        kk = M.solid('gt_kia', '#1c1214', 0.5); kroot = bpy.data.objects.new('kia_root', None); coll.objects.link(kroot); kroot.location = (-2.3, 2.55, 0.0)
+        drv(kroot, 'scale', 0, 'min(1,max(0.001,(frame-105)/30))'); drv(kroot, 'scale', 1, 'min(1,max(0.001,(frame-105)/30))'); drv(kroot, 'scale', 2, 'min(1,max(0.001,(frame-105)/30))')
+        parts = []
+        kb = bmesh.new(); bmesh.ops.create_cone(kb, cap_ends=True, segments=24, radius1=0.17, radius2=0.17, depth=1.35); parts.append(_wobj(coll, 'kia_than', kb, (0, 0, 0.675), kk))
+        kd = bmesh.new(); bmesh.ops.create_uvsphere(kd, u_segments=24, v_segments=12, radius=0.11); parts.append(_wobj(coll, 'kia_dau', kd, (0, 0, 1.5), kk))
+        for sg in (-1, 1):
+            ta = bmesh.new(); bmesh.ops.create_cone(ta, cap_ends=True, segments=12, radius1=0.04, radius2=0.04, depth=0.7); parts.append(_wobj(coll, f'kia_tay{sg}', ta, (0, sg * 0.21, 0.9), kk))
+        for o_ in parts:
+            o_.parent = kroot; o_.visible_shadow = False
+    if nam and cam != 'XUYEN' and cam != 'XUYEN_CHAM':
         kk = M.solid('gt_kia', '#b0504f', 0.6)
         kx, ky = NAM[0], NAM[1] - 1.25
         kb = bmesh.new(); bmesh.ops.create_cone(kb, cap_ends=True, segments=24, radius1=0.17, radius2=0.17, depth=1.35); _wobj(coll, 'kia_than', kb, (kx, ky, 0.675 + 0.0), kk)
@@ -145,6 +157,7 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
         rk = M.emission('gt_kia_vong', '#7ae8e0', 0.9)   # một vòng sóng đứng yên quanh chân (Người Kia không làm mặt nước gợn như Nam)
     # ---- camera + render
     CAMS = {k: ((v[0][0] - X.W, v[0][1], v[0][2]), (v[1][0] - X.W, v[1][1], v[1][2]), v[2], 3.0) for k, v in X.CAMERAS.items()}   # toạ độ thiết kế − W = toạ độ thế giới sau khi lật gương
+    CAMS['XUYEN_CHAM'] = ((2.5 - X.W, 2.1, 1.3), (0.14 - X.W, 3.3, 0.9), 50, 2.0)   # cùng máy với KINH_NUOC_CHAM (192 khung)
     CAMS['XUYEN'] = ((2.2 - X.W, 2.0, 1.25), (0.14 - X.W, 3.3, 0.9), 50, 2.0)   # cùng máy với KINH_NUOC trong phòng thật (toạ độ thiết kế − W): cắt nối khớp khung hình
     CAMS['NAM_CHIM'] = ((-0.7, 2.3, 1.45), (-2.2, 3.26, 0.9), 32, 2.0); CAMS['TOP'] = ((-1.5, 2.0, 9.0), (-1.5, 2.0, 0.0), 24, 9.0); CAMS['GUONG_CAN'] = ((-1.2, 3.0, 1.25), (-2.8, 3.26, 0.9), 40, 1.6)
     pos, tgt, mm, fd = CAMS[cam]
@@ -156,18 +169,23 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
     cd = bpy.data.cameras.new('cam_' + cam); cd.lens = mm; cd.sensor_width = 36; cd.dof.use_dof = True; cd.dof.aperture_fstop = 2.8
     co = bpy.data.objects.new('cam_' + cam, cd); coll.objects.link(co); co.location = pos
     co.rotation_euler = (Vector(tgt) - Vector(pos)).to_track_quat('-Z', 'Y').to_euler(); cd.dof.focus_distance = (Vector(tgt) - Vector(pos)).length; sc.camera = co
-    if cam == 'XUYEN':
-        # NỐI với shot KINH_NUOC (camera_dong.py, 72 khung): máy đi cùng đường (2,2→1,8 ; 2,0→1,9 ; z 1,25) 50 mm f/2,0, nhìn mặt gương. Trong phòng thật Nam bước vào kính (khung 14–58);
-        # ở đây Nam trồi ra ngay mặt gương (x ≈ −2,8) rồi bị hút chìm xuống mặt nước phía trước gương.
+    if XC:
+        # NỐI với shot KINH_NUOC / KINH_NUOC_CHAM (camera_dong.py): máy đi cùng đường, nhìn mặt gương. Phòng thật: Nam bước vào kính. Ở đây Nam trồi ra ngay mặt gương rồi bị hút chìm xuống mặt nước.
+        slow = cam == 'XUYEN_CHAM'; NN = 192 if slow else 72
         tg = bpy.data.objects.new('xuyen_tg', None); coll.objects.link(tg); tg.location = tgt
         tc_ = co.constraints.new('TRACK_TO'); tc_.target = tg; tc_.track_axis = 'TRACK_NEGATIVE_Z'; tc_.up_axis = 'UP_Y'; co.rotation_euler = (0, 0, 0)
         nr = bpy.data.objects.get('nam_chim')
         if nr and nr.animation_data: nr.animation_data_clear()
-        for f in range(1, 73):
-            t = (f - 1) / 71.0; t = t * t * (3 - 2 * t)
-            co.location = (2.2 - 0.4 * t - X.W, 2.0 - 0.1 * t, 1.25); co.keyframe_insert('location', frame=f)
-            if nr:
-                nr.location = (-2.78 + 0.7 * t, NAM[1], 0.28 - 0.9 * t); nr.keyframe_insert('location', frame=f)
+        for f in range(1, NN + 1):
+            t = (f - 1) / (NN - 1.0); t = t * t * (3 - 2 * t)
+            co.location = ((2.5 - 0.95 * t - X.W, 2.1 - 0.2 * t, 1.3 - 0.06 * t) if slow else (2.2 - 0.4 * t - X.W, 2.0 - 0.1 * t, 1.25)); co.keyframe_insert('location', frame=f)
+        if nr:
+            if slow:   # trồi ra chậm, khựng, rồi chìm dần (z) — ngược nhịp bước của phòng thật
+                for fr, xx, zz in ((1, -2.78, 0.3), (50, -2.7, 0.22), (80, -2.55, 0.1), (110, -2.45, 0.0), (150, -2.3, -0.3), (192, -2.1, -0.62)):
+                    nr.location = (xx, NAM[1], zz); nr.keyframe_insert('location', frame=fr)
+            else:
+                for f in range(1, 73):
+                    t = (f - 1) / 71.0; t = t * t * (3 - 2 * t); nr.location = (-2.78 + 0.7 * t, NAM[1], 0.28 - 0.9 * t); nr.keyframe_insert('location', frame=f)
         if co.animation_data and co.animation_data.action:
             ac_ = co.animation_data.action; fcs = []
             try: fcs = list(ac_.fcurves)
@@ -176,19 +194,27 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
                     for st in ly.strips:
                         for cb in st.channelbags: fcs += list(cb.fcurves)
             for fc in fcs:
-                md = fc.modifiers.new('NOISE'); md.scale = 25.0; md.strength = 0.004; md.phase = fc.array_index * 7.0   # rung tay nhẹ như KINH_NUOC
-        # CHUYỂN MÀU MƯỢT: đầu shot cùng độ sáng/nhiệt màu với phòng thật (trần trắng ấm, sương mỏng, phơi sáng cao) → cuối shot Deep Teal vực thẳm
+                md = fc.modifiers.new('NOISE'); md.scale = 25.0; md.strength = 0.003 if slow else 0.004; md.phase = fc.array_index * 7.0   # rung tay nhẹ
+        # CHUYỂN MÀU MƯỢT: đầu shot cùng độ sáng/nhiệt màu với phòng thật → cuối shot Deep Teal vực thẳm
         lt_ = {n_: bpy.data.objects[n_].data for n_ in ('gt_tran', 'gt_glow_guong', 'gt_nuoc_phat')}
-        K = {1:  dict(tran=(40, (1.0, 0.95, 0.86)), glow=(14, (1.0, 0.9, 0.72)), nuoc=(8, (0.8, 0.95, 0.9)), bg=0.5, exp=1.15, den=0.006),
-             30: dict(tran=(14, (0.65, 0.92, 0.9)), glow=(8, (0.5, 0.95, 0.9)), nuoc=(5, (0.35, 0.92, 0.88)), bg=0.25, exp=0.95, den=0.02),
-             72: dict(tran=(4.5, (0.3, 0.8, 0.9)), glow=(4, (0.35, 0.95, 0.95)), nuoc=(3, (0.2, 0.9, 0.85)), bg=0.12, exp=0.7, den=0.035)}
+        if slow:   # đầu shot: bóng đêm ánh laptop xanh như cuối KINH_NUOC_CHAM (tối, lạnh) rồi vực thẳm
+            K = {1: dict(tran=(10, (0.55, 0.9, 0.9)), glow=(10, (0.4, 0.95, 0.95)), nuoc=(5, (0.3, 0.9, 0.9)), bg=0.3, exp=1.0, den=0.012),
+                 int(0.4 * NN): dict(tran=(6, (0.35, 0.85, 0.9)), glow=(6, (0.35, 0.95, 0.95)), nuoc=(3.5, (0.2, 0.9, 0.85)), bg=0.18, exp=0.85, den=0.025),
+                 NN: dict(tran=(2.5, (0.25, 0.75, 0.9)), glow=(3, (0.35, 0.95, 0.95)), nuoc=(2, (0.2, 0.9, 0.85)), bg=0.08, exp=0.6, den=0.045)}
+        else:
+            K = {1: dict(tran=(40, (1.0, 0.95, 0.86)), glow=(14, (1.0, 0.9, 0.72)), nuoc=(8, (0.8, 0.95, 0.9)), bg=0.5, exp=1.15, den=0.006),
+                 30: dict(tran=(14, (0.65, 0.92, 0.9)), glow=(8, (0.5, 0.95, 0.9)), nuoc=(5, (0.35, 0.92, 0.88)), bg=0.25, exp=0.95, den=0.02),
+                 72: dict(tran=(4.5, (0.3, 0.8, 0.9)), glow=(4, (0.35, 0.95, 0.95)), nuoc=(3, (0.2, 0.9, 0.85)), bg=0.12, exp=0.7, den=0.035)}
         for fr_, kv in K.items():
             for nm_, key_ in (('gt_tran', 'tran'), ('gt_glow_guong', 'glow'), ('gt_nuoc_phat', 'nuoc')):
                 d_ = lt_[nm_]; d_.energy = kv[key_][0]; d_.color = kv[key_][1]; d_.keyframe_insert('energy', frame=fr_); d_.keyframe_insert('color', frame=fr_)
             bg.inputs['Strength'].default_value = kv['bg']; bg.inputs['Strength'].keyframe_insert('default_value', frame=fr_)
             vs.inputs['Density'].default_value = kv['den']; vs.inputs['Density'].keyframe_insert('default_value', frame=fr_)
             sc.view_settings.exposure = kv['exp']; sc.view_settings.keyframe_insert('exposure', frame=fr_)
-        sc.frame_start, sc.frame_end = 1, 72
+        if slow:   # đèn quầng chập chờn nhẹ như tim đập
+            for nm_ in ('gt_tran', 'gt_glow_guong'):
+                dd = lt_[nm_].driver_add('energy').driver if False else None
+        sc.frame_start, sc.frame_end = 1, NN
     sc.render.engine = 'CYCLES'; X._thiet_bi(sc); sc.cycles.samples = 64; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 8; sc.cycles.glossy_bounces = 6; sc.cycles.volume_bounces = 2; sc.cycles.volume_step_rate = 1.5; sc.cycles.volume_max_steps = 256
     sc.render.resolution_x, sc.render.resolution_y = res; sc.render.resolution_percentage = 100
