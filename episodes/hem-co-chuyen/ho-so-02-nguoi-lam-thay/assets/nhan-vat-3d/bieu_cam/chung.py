@@ -40,6 +40,12 @@ def lay_neo(head, parts, surf):
         xm = 0.032; zm = D.FACE['mouth_z'] - 0.003 * (xm / 0.030) ** 2
         neo[f'mouth_corner.{k}'] = _mat_x(s * xm, zm, surf)
     neo['mouth_c'] = _mat_x(0.0, D.FACE['mouth_z'], surf)
+    # điểm neo môi: trên/dưới rãnh miệng 5 mm, tại giữa (c), x = 15 mm (1) và 26 mm (2) mỗi bên
+    for tn, dz in (('up', 0.005), ('low', -0.005)):
+        neo[f'lip_{tn}_c'] = _mat_x(0.0, D.FACE['mouth_z'] + dz, surf)
+        for idx, xm in (('1', 0.015), ('2', 0.026)):
+            for s, k in ((1, 'L'), (-1, 'R')):
+                neo[f'lip_{tn}_{idx}.{k}'] = _mat_x(s * xm, D.FACE['mouth_z'] - 0.003 * (xm / 0.030) ** 2 + dz, surf)
     neo['chin'] = _mat_x(0.0, D.FACE['chin_z'], surf)
     return neo
 

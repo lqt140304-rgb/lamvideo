@@ -13,10 +13,12 @@ def nap_dinh_nghia(duong_dan=None):
 def _mo_rong(dich):
     """'ten.*' → hai neo .L/.R; bên .R lật dấu x."""
     out = {}
-    for ten, (dx, dy, dz) in dich.items():
+    for ten, v in dich.items():
+        v, r = (v['d'], v.get('r')) if isinstance(v, dict) else (v, None)      # v = [dx,dy,dz] hoặc {"d": [...], "r": hệ số bán kính riêng}
+        dx, dy, dz = v
         if ten.endswith('.*'):
-            b = ten[:-2]; out[b + '.L'] = (dx, dy, dz); out[b + '.R'] = (-dx, dy, dz)
-        else: out[ten] = (dx, dy, dz)
+            b = ten[:-2]; out[b + '.L'] = ((dx, dy, dz), r); out[b + '.R'] = ((-dx, dy, dz), r)
+        else: out[ten] = ((dx, dy, dz), r)
     return out
 
 
@@ -32,8 +34,9 @@ def ap_dung(dau, dinh_nghia=None):
     ty = chung.ty_le_mat(dau.neo); ten = []
     for d in dn:
         disp = np.zeros_like(co); R = d['ban_kinh'] * ty
-        for neo, v in _mo_rong(d['dich']).items():
-            p = np.array(dau.neo[neo]); w = _w(np.linalg.norm(co - p, axis=1) / R)
+        for neo, (v, r) in _mo_rong(d['dich']).items():
+            rad = np.full(3, R) if r is None else np.array(r if isinstance(r, list) else [r] * 3, dtype=float) * ty   # bán kính: số hoặc [rx, ry, rz] (nhân elip)
+            p = np.array(dau.neo[neo]); w = _w(np.linalg.norm((co - p) / rad, axis=1))
             disp += w[:, None] * (np.array(v) * ty)
         kb = head.data.shape_keys.key_blocks.get(d['ten']) or head.shape_key_add(name=d['ten'], from_mix=False)
         kb.data.foreach_set('co', (co + disp).ravel()); kb.value = 0.0; ten.append(d['ten'])

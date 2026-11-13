@@ -159,7 +159,7 @@
   "nhom": "hoang_mang_kinh_hoang",
   "muc": 2,
   "ban_kinh": 0.4,
-  "ghi_chu": "Mắt mở trừng, mày nâng cao, hàm hạ (miệng há cần khoang miệng ở Task 6).",
+  "ghi_chu": "Mắt mở trừng, mày nâng cao, hàm hạ; miệng há bằng hai neo môi giữa với nhân kéo elip (rộng ngang, hẹp dọc) tách hai mép rãnh miệng; khoang tối do khoang_mieng.py.",
   "dich": {
    "lid_up.*": [
     0,
@@ -186,16 +186,35 @@
     0,
     0.06
    ],
-   "mouth_corner.*": [
-    0.01,
-    0,
-    -0.01
-   ],
    "chin": [
     0,
     0,
-    -0.12
-   ]
+    -0.1
+   ],
+   "lip_up_c": {
+    "d": [
+     0,
+     0,
+     0.02
+    ],
+    "r": [
+     0.24,
+     0.2,
+     0.07
+    ]
+   },
+   "lip_low_c": {
+    "d": [
+     0,
+     0,
+     -0.17
+    ],
+    "r": [
+     0.24,
+     0.2,
+     0.07
+    ]
+   }
   }
  }
 ]
