@@ -27,3 +27,13 @@ Cách rà: `chay_ra_soat.sh` render 39 camera ở 480 px/12 mẫu (≈4 phút nh
 
 ## Ghi chú kỹ thuật
 - Dựng cảnh 182 s → ~6 s (bỏ `bpy.ops`); cache vật liệu `moi_truong` xoá mỗi lần dựng.
+
+## Vòng rà thứ hai (chủ repo xem video 13/11 ~12:17) — 4 lỗi
+| # | Lỗi (thời điểm video) | Nguyên nhân | Sửa |
+|---|---|---|---|
+| 1 | 0:11 `STEADI_RA_HL`: có khung nâu + giấy trắng "dính" lơ lửng ngay chỗ cánh cửa mở | Tờ lịch treo tường (`lich_khung`) đặt ở y 2,55–2,85 trên tường cửa, **lọt đúng khung cửa** (y 2,05–2,90) | Dời lên tường trước đầu giường; ẩn cùng tường trước khi máy ngoài phòng (hết hộp đen khi nhìn từ ngoài, ví dụ `WIDE`) |
+| 2 | 0:35 `TT_GIUONG_PUSH`: nhìn xuyên tường thấy khoảng trống cạnh phòng | Hai bên phòng (y < 0 và y > 4) **không có nhà**, chỉ có tường hành lang | Dựng khối nhà đặc `env_khoi_sau/truoc` có mặt tiền hướng hẻm (cửa sổ, lồng sắt, máy lạnh); khối nào chứa camera thì ẩn khỏi tia camera (`an_khoi`); thêm ánh hắt xuống hẻm |
+| 3 | 0:10 `HL_DOLLY`: hành lang ngắn, cuối bị cắt | Hành lang dừng ở y = 24, ngoài đó trống | Kéo dài tới y = 66 **giảm dần chi tiết** (`mo_rong`): ≤ 24 m đủ chi tiết; 24–40 m cửa + khuôn + tay nắm + song lan can + đèn; 40–66 m cửa/đèn đơn giản, lan can đặc; dãy đối diện tới y = 76 (cửa + cửa sổ phẳng); cột điện xa; tường cuối hành lang có cửa sổ lớn phát sáng + biển thoát hiểm; tường rào cuối sân dời tới y = 78; nhà cao tầng xa phía cuối sân |
+| 4 | Toàn cảnh: hành lang tầng 3/mái "lơ lửng trong tường nhà", tường thiếu một mảng | Cùng gốc với #2: thân nhà bên cạnh phòng Nam không tồn tại, thấy xuyên sang nhà hẻm | Khối nhà đặc ở #2 lấp phần thiếu; tầng 1 và 3 phía hành lang kéo dài theo |
+
+Còn lại (chưa xử lý): mép trắng cháy sáng nhẹ ở mặt tiền hẻm khi nhìn sát (TT_GIUONG_PUSH); video `xem-thu/video/chuoi-shot.mp4` **chưa render lại** sau các sửa này.

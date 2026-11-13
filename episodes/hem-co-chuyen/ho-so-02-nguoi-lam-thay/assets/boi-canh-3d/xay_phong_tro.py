@@ -378,8 +378,8 @@ def wall_details(m, coll):
     box('tkb', 2.66, 2.84, 0.0, 0.003, 1.02, 1.30, M.solid('tkb', '#efeee6', 0.9), coll=coll)
     box('o_dien_ban', 2.02, 2.12, 0.0, 0.012, 0.80, 0.88, m['viền'], bevel=0.003, coll=coll)
     wire('day_sac', (2.07, 0.012, 0.80), (2.84, 0.22, 0.765), 0.0045, m['den'], coll=coll)
-    box('lich_khung', 0.0, 0.012, 2.55, 2.85, 1.25, 1.55, m['go_toi'], bevel=0.004, coll=coll)
-    box('lich_giay', 0.012, 0.016, 2.60, 2.80, 1.28, 1.52, M.solid('lich', '#f4f1e6', 0.9), coll=coll)
+    box('lich_khung', 2.15, 2.45, D - 0.012, D, 1.25, 1.55, m['go_toi'], bevel=0.004, coll=coll)  # trên tường đầu giường (trước đây nằm lọt khung cửa)
+    box('lich_giay', 2.19, 2.41, D - 0.016, D - 0.012, 1.28, 1.52, M.solid('lich', '#f4f1e6', 0.9), coll=coll)
     box('cong_tac_giuong', 0.0, 0.012, 2.20, 2.27, 1.02, 1.09, m['viền'], bevel=0.003, coll=coll)
     box('thanh_khan', 0.10, 0.45, 0.0, 0.02, 1.12, 1.13, m['inox'], bevel=0.004, coll=coll)
     box('khan_treo', 0.14, 0.22, 0.0, 0.006, 0.86, 1.10, M.solid('khan_bep', '#e9d3a4', 0.95), bevel=0.005, coll=coll)
@@ -675,7 +675,11 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     world_and_lights(mode, coll); lighting(mode, coll)
     if proxy: proxies(m, coll, room_objs)
     if figure: figure_proxy('nguoi_chuan', figure[0], figure[1], M.solid('nguoi_chuan', '#4f7fb0', 0.6), coll, h=figure[2] if len(figure) > 2 else 1.6)
+    _hf = (CAMERAS[cam][0][1] > D) if hide_front is None else hide_front
+    for _n in ('lich_khung', 'lich_giay'):
+        if _n in bpy.data.objects: bpy.data.objects[_n].visible_camera = not _hf  # gắn trên tường trước: ẩn cùng tường khi máy ở ngoài
     if cam.startswith('TT_'): an_tuong_theo_camera(coll, CAMERAS[cam][0])
+    import moi_truong; moi_truong.an_khoi(coll, CAMERAS[cam][0], sys.modules[__name__])
     if guong == 'pov':
         import cong_guong; cong_guong.pov_trong_guong(coll)
     co = add_camera(cam); sc.camera = co

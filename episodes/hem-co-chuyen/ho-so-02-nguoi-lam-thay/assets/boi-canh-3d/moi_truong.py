@@ -46,7 +46,7 @@ def build(X, m, coll, night, hl_y1):
     inox = mat('#b9bdbb', 0.35, 0.8); steel = mat('#2b2d2e', 0.45, 0.7); white = mat('#ece8dc', 0.6); concrete = plaster('#a9a69b')
 
     # ------------------------------------------------------------ sân + sàn các tầng của nhà trọ
-    B('san_tang1', -30, EX, -14, Y1 + 14, GZ - 0.2, GZ, M.tiles('env_san', '#b3ad9b', '#8a8577', 0.6), coll=coll)
+    B('san_tang1', -30, EX, -14, 96, GZ - 0.2, GZ, M.tiles('env_san', '#b3ad9b', '#8a8577', 0.6), coll=coll)
     for (x0, x1, y0, y1, c) in [(-7.0, -6.0, 4, 9, '#7b9a5b'), (-3.2, -2.1, 11, 14, '#6f9455'), (-6.8, -5.4, 17, 21, '#7b9a5b'), (-3.0, -2.0, -2.2, 0.8, '#6f9455')]:
         B('bon_cay', x0, x1, y0, y1, GZ, GZ + 0.28, plaster('#8a8272'), bevel=0.01, coll=coll)
         B('dat_bon', x0 + 0.06, x1 - 0.06, y0 + 0.06, y1 - 0.06, GZ + 0.26, GZ + 0.3, mat(c, 0.95), coll=coll)
@@ -231,9 +231,9 @@ def build(X, m, coll, night, hl_y1):
                 B(f'co{y:.0f}_{i}', x - 0.1, x + 0.1, y - 0.01, y + 0.01, z - 0.25, z - 0.02, mat(rnd.choice(['#d8a030', '#c24a3a', '#3b6ea5', '#e8e4d8', '#5a8a5a']), 0.8), coll=coll)
     day_treo(8.0, z3 + 1.6, GZ + FL * 2 + 2.2, 'long'); day_treo(15.0, z3 + 1.5, GZ + FL * 2 + 2.1, 'co'); day_treo(20.5, z3 + 1.6, GZ + FL * 2 + 2.2, 'long')
     # cổng + tường rào đầu sân
-    B('rao_cuoi', -16, EX, Y1 + 2.0, Y1 + 2.3, GZ, GZ + 2.2, plaster('#cfc9b6'), coll=coll)
-    B('cong_sat', -5.5, -3.0, Y1 + 1.95, Y1 + 2.05, GZ, GZ + 1.9, mat('#3b3d3e', 0.5, 0.6), coll=coll)
-    for i in range(14): B(f'cong_thanh{i}', -5.45 + i * 0.18, -5.42 + i * 0.18, Y1 + 1.9, Y1 + 2.1, GZ, GZ + 1.95, steel, coll=coll)
+    B('rao_cuoi', -16, EX, 78.0, 78.3, GZ, GZ + 2.2, plaster('#cfc9b6'), coll=coll)
+    B('cong_sat', -5.5, -3.0, 77.95, 78.05, GZ, GZ + 1.9, mat('#3b3d3e', 0.5, 0.6), coll=coll)
+    for i in range(14): B(f'cong_thanh{i}', -5.45 + i * 0.18, -5.42 + i * 0.18, 77.9, 78.1, GZ, GZ + 1.95, steel, coll=coll)
     B('rao_dau', -16, EX, Y0 - 12.5, Y0 - 12.2, GZ, GZ + 2.2, plaster('#cfc9b6'), coll=coll)
 
     # ------------------------------------------------------------ hẻm bên cửa sổ phòng Nam (x > W): nhà hàng xóm cách 2,2 m
@@ -243,7 +243,7 @@ def build(X, m, coll, night, hl_y1):
     B('hem_tuong_nha_ben_chan', AX - 0.03, AX, -12, 16, GZ, GZ + 1.1, plaster('#8c8a7a'), coll=coll)
     for fl in range(4):
         zb = GZ + fl * FL
-        B(f'hem_san_tang{fl}', AX - 0.5, AX, -12, 16, zb - 0.1, zb, plaster('#bcb6a3'), coll=coll)
+        B(f'hem_san_tang{fl}', AX - 0.5, AX, -12, 16, zb - 0.1, zb, plaster('#9c9684'), coll=coll)
         y = -10.0
         while y < 14.5:
             r = random.Random(7000 + int(y * 10) + fl * 977)
@@ -295,6 +295,7 @@ def build(X, m, coll, night, hl_y1):
             X.add_area(f'env_den_san{k}', (-4.2, y, GZ + 3.4), 1.2, 400, '#ffe3b0', rot=(math.pi, 0, 0), coll=coll)
             B(f'den_san_vo{k}', -4.5, -3.9, y - 0.2, y + 0.2, GZ + 3.3, GZ + 3.4, glow('#ffe9c0', 8.0), coll=coll)
 
+    mo_rong(X, m, coll, night, hl_y1)
     # ------------------------------------------------------------ cửa hành lang phòng Nam: mỗi cửa một cảnh riêng
     items = ['giay', 'may_giat', 'xe_dap', 'ghe_ban', 'ban_tho', 'carton', 'phoi_quat', 'khoa_cay']
     for k, kind in enumerate(items):
@@ -368,3 +369,113 @@ def sky(nt, bg, night):
         mul = N.new('ShaderNodeMath'); mul.operation = 'MULTIPLY'; L.new(st.outputs['Color'], mul.inputs[0]); L.new(zz.outputs['Result'], mul.inputs[1])
         mix = N.new('ShaderNodeMix'); mix.data_type = 'RGBA'; mix.inputs['B'].default_value = (1.4, 1.4, 1.6, 1)
         L.new(ramp.outputs['Color'], mix.inputs['A']); L.new(mul.outputs[0], mix.inputs['Factor']); L.new(mix.outputs['Result'], bg.inputs['Color'])
+
+
+def an_khoi(coll, pos, X):
+    """Camera nằm trong khối nhà trước/sau phòng (ngoài tường trước/sau) thì ẩn khối đó VÀ cửa sổ/lồng sắt/máy lạnh của nó khỏi tia camera."""
+    W, D = X.W, X.D
+    front = pos[1] > D and 0 <= pos[0] <= W + 0.12
+    back = pos[1] < 0 and 0 <= pos[0] <= W + 0.12
+    if not (front or back): return
+    for o in coll.objects:
+        if not o.name.startswith('env_khoi_') or o.type != 'MESH' or not o.data.vertices: continue
+        ys = [(o.matrix_world @ v.co).y for v in o.data.vertices]
+        if (front and min(ys) >= D - 0.01) or (back and max(ys) <= 0.01): o.visible_camera = False
+
+
+def mo_rong(X, m, coll, night, hl_y1):
+    """Mở rộng giảm dần chi tiết: khối nhà trọ (hết cảnh hành lang 'lơ lửng'), hành lang dài tới y = 66 (LOD: đủ chi tiết ≤ 24 m, đơn giản 24–40 m,
+    tấm phẳng 40–66 m), dãy đối diện kéo dài, cột điện, kết thúc bằng tường đầu hành lang có cửa sổ lớn."""
+    box = X.box; M = X.M; W, D, H, T = X.W, X.D, X.H, X.T
+    GZ, FL = -2.92, 2.92; X0, EX = -1.45, -T; Y1 = hl_y1; YF = 66.0; BX = -7.6; BACK = -9.2
+    z3 = H + 0.12; ZT = z3 + 2.8
+    rnd = random.Random(77)
+    def mat(color, rough=0.7, metal=0.0):
+        k = ('m2', color, rough, metal)
+        if k not in _cache: _cache[k] = M.solid('e2_' + color.strip('#') + f'_{int(rough*10)}', color, rough, metal)
+        return _cache[k]
+    def plaster(color):
+        k = ('p2', color)
+        if k not in _cache: _cache[k] = M.mottled('ep2_' + color.strip('#'), color, rough=0.95, scale=0.8, vary=0.1, bump=0.1)
+        return _cache[k]
+    def B(name, *a, **kw): return box('env_' + name, *a, **kw)
+    glass_dark = mat('#5d727c', 0.5); steel = mat('#2b2d2e', 0.45, 0.7); white = mat('#ece8dc', 0.6)
+    # ---- khối nhà trọ phía sau/trước phòng Nam (đặc, có mặt tiền hướng hẻm)
+    B('khoi_sau', 0.0, W + T, -9.0, -T, GZ, ZT + 0.15, plaster('#d4c8a8'), coll=coll)
+    B('khoi_truoc', 0.0, W + T, D + T, YF + 2, GZ, ZT + 0.15, plaster('#d4c8a8'), coll=coll)
+    B('khoi_mai', 0.0, W + T + 0.25, -9.0, YF + 2, ZT + 0.15, ZT + 0.3, plaster('#b9b5a8'), coll=coll)
+    AXF = W + T
+    for (ya, yb) in [(-9.0 + 0.6, -T - 0.6), (D + T + 0.6, YF)]:
+        y = ya
+        while y < yb:
+            r = random.Random(int(y * 10) + 31)
+            ww = r.choice([0.9, 1.1, 1.3])
+            for fl in range(3):
+                zb = GZ + fl * FL
+                lit = night and r.random() < 0.45
+                B(f'khoi_so{fl}_{y:.1f}', AXF, AXF + 0.05, y, y + ww, zb + 1.0, zb + 2.0, X.M.emission('e_ls', '#ffd79a', 0.9) if lit else glass_dark, coll=coll)
+                if y < 40 and r.random() < 0.7:
+                    for k in range(5): B(f'khoi_long{fl}_{y:.1f}_{k}', AXF + 0.18, AXF + 0.2, y + k * ww / 4, y + 0.02 + k * ww / 4, zb + 0.95, zb + 2.05, steel, coll=coll)
+                if y < 30 and r.random() < 0.3:
+                    B(f'khoi_ml{fl}_{y:.1f}', AXF, AXF + 0.35, y + ww + 0.15, y + ww + 0.95, zb + 2.15, zb + 2.55, mat('#e6e3da', 0.4), bevel=0.02, coll=coll)
+            y += ww + r.uniform(0.8, 2.2)
+    if not night: X.add_area('env_hat_hem', (4.2, 6.0, 9.0), 7.0, 3500, '#fff0d8', rot=(0, 0, 0), coll=coll)  # ánh hắt xuống hẻm hẹp (nhà 4 tầng che sáng)
+    # ---- hành lang kéo dài: LOD
+    B('hl_far_san', X0, EX, Y1, YF, -0.1, 0.0, mat('#c4bca8', 0.4), coll=coll)
+    B('hl_far_mai', X0 - 0.15, EX, Y1, YF, H, H + 0.12, plaster('#d8cdb0'), coll=coll)
+    B('hl_far_tuong', EX, 0.0, Y1, YF, -0.1, H, plaster('#d8cdb0'), coll=coll)
+    B('hl_far_duoi', EX - 0.004, EX, Y1, YF, 0, 1.1, plaster('#b9c4a8'), coll=coll)
+    B('hl_far_lancan', X0, X0 + 0.14, Y1, YF, 0, 0.5, plaster('#d8cdb0'), coll=coll)
+    B('hl_far_tayvin', X0 - 0.01, X0 + 0.15, Y1, YF, 1.0, 1.04, steel, coll=coll)
+    y = Y1 + 0.1
+    while y < 40: B(f'hl_far_song{y:.2f}', X0 + 0.05, X0 + 0.09, y, y + 0.025, 0.5, 1.0, steel, coll=coll); y += 0.28
+    y = 40.0
+    while y < YF: B(f'hl_far_song_l{y:.1f}', X0 + 0.05, X0 + 0.09, y, y + 0.05, 0.5, 1.0, steel, coll=coll); y += 0.9
+    cols = ['#6d887c', '#8a7a62', '#6b7f95', '#9a6f5e', '#b0954f', '#6d6a7e', '#a3503f', '#4f857a']
+    y = 4.35 + 2.2 * 8
+    k = 0
+    while y < YF - 1:
+        B(f'hl_far_cua{k}', EX - 0.03, EX, y, y + 0.85, 0, 2.1, mat(cols[(k + 3) % 8], 0.55), coll=coll)
+        if y < 40:
+            B(f'hl_far_khuon{k}', EX - 0.02, EX + 0.02, y - 0.05, y + 0.9, 0, 2.15, white, coll=coll)
+            B(f'hl_far_tay{k}', EX - 0.06, EX - 0.03, y + 0.07, y + 0.1, 1.0, 1.03, mat('#b9bdbb', 0.35, 0.8), coll=coll)
+            if k % 2 == 0: B(f'hl_far_giay{k}', EX - 0.45, EX - 0.25, y + 0.1, y + 0.4, 0, 0.1, mat(rnd.choice(['#3d4a6b', '#9a6a4a', '#d8d2c2']), 0.7), bevel=0.02, coll=coll)
+        y += 2.2; k += 1
+    y = 2.3 + 4.9 * 5
+    while y < YF - 1:
+        B(f'hl_far_den{y:.0f}', -1.0, -0.4, y, y + 0.04, H - 0.04, H - 0.01, X.M.emission('e_dh', '#fff1d6', 14.0 if night else 2.5) if y < 45 else mat('#e8e4d8', 0.4), coll=coll); y += 4.9
+    # tầng 1 và 3 phía hành lang kéo dài (đơn giản)
+    for z0, z1, nm in [(GZ, -0.1, 't1'), (z3, ZT, 't3')]:
+        B(f'hl_far_{nm}', EX, 0.0, Y1, YF, z0, z1, plaster('#d4c6a4'), coll=coll)
+    B('hl_far_mai3', X0 - 0.3, 0.0, Y1, YF, ZT, ZT + 0.15, plaster('#b9b5a8'), coll=coll)
+    B('hl_far_lc3', X0, X0 + 0.14, Y1, YF, z3, z3 + 0.9, plaster('#d4c6a4'), coll=coll)
+    y = Y1
+    while y < YF:
+        B(f'hl_far_cot{y:.0f}', X0, X0 + 0.28, y, y + 0.28, GZ, -0.1, plaster('#c8c3b2'), coll=coll); y += 3.3
+    B('hl_far_dam', X0 - 0.02, X0 + 0.3, Y1, YF, -0.5, -0.1, plaster('#c8c3b2'), coll=coll)
+    # tường cuối hành lang: cửa sổ lớn + biển thoát hiểm
+    B('hl_cuoi', X0 - 0.3, 0.0, YF, YF + 0.25, GZ, ZT + 0.15, plaster('#d8cdb0'), coll=coll)
+    B('hl_cuoi_so', X0 + 0.2, EX - 0.2, YF - 0.03, YF, 0.9, 2.3, X.M.emission('e_cuoi', '#cfe6ff' if not night else '#243456', 4.0 if not night else 0.8), coll=coll)
+    B('hl_cuoi_bien', -0.8, -0.4, YF - 0.03, YF, 2.45, 2.65, X.M.emission('e_exit', '#3aff7a', 3.0), coll=coll)
+    # ---- dãy đối diện kéo dài (đơn giản)
+    YA, YB = 36.0, 76.0
+    B('nha_dd_dai', -16, BACK, YA, YB, GZ, GZ + FL * 4 + 0.2, plaster('#d9cba5'), coll=coll)
+    for fl in range(4):
+        zb = GZ + fl * FL
+        B(f'dd2_san{fl}', BACK, BX, YA, YB, zb - 0.12, zb, plaster('#cfc9b6'), coll=coll)
+        B(f'dd2_thap{fl}', BX - 0.14, BX, YA, YB, zb, zb + 1.06, plaster('#d8d0b8'), coll=coll)
+        y = YA + 0.3; k = 0
+        while y < YB - 1:
+            r = random.Random(900 + fl * 100 + k)
+            B(f'dd2_cua{fl}_{k}', BACK, BACK + 0.04, y, y + 0.85, zb, zb + 2.05, mat(r.choice(cols), 0.55), coll=coll)
+            B(f'dd2_so{fl}_{k}', BACK, BACK + 0.03, y + 1.1, y + 1.9, zb + 0.95, zb + 1.9, X.M.emission('e_ls2', '#ffc88a', 0.8) if (night and r.random() < 0.5) else glass_dark, coll=coll)
+            y += 2.6 + r.uniform(0, 0.6); k += 1
+    B('dd2_mai', -16, BACK + 0.1, YA, YB, GZ + FL * 4 + 0.2, GZ + FL * 4 + 0.38, plaster('#b4b0a2'), coll=coll)
+    # cột điện + dây phía xa
+    for yy in (41.0, 52.0, 63.0):
+        X.cyl(f'env_cot_dien_xa{yy:.0f}', -4.8, yy, GZ + 4.8, 0.14, 9.6, mat('#8a8780', 0.9), coll=coll)
+        B(f'xa_dien_xa{yy:.0f}', -5.8, -3.8, yy - 0.05, yy + 0.05, GZ + 9.0, GZ + 9.12, steel, coll=coll)
+    # lớp nhà cao tầng xa phía cuối sân
+    for k in range(10):
+        cx = rnd.uniform(-30, 12); cy = rnd.uniform(90, 140); hh = rnd.uniform(15, 55)
+        B(f'chan_troi_cuoi{k}', cx - 7, cx + 7, cy - 7, cy + 7, GZ - 1, GZ + hh, mat('#a9b2b7', 1.0), coll=coll)
