@@ -576,7 +576,7 @@ def hallway_details(m, coll, night):
 TIME_MODES = {
     'day':    dict(energy=4.5, color='#fff0cf', ang=52, az=-12, bg='#cfe2ee', bgs=1.1, hat=60, exp=0.0),
     'dawn':   dict(energy=4.5, color='#d9e4ff', dirw=(0.55, 0.80, -0.22), bg='#a8bfe0', bgs=0.5, hat=22, exp=0.35),   # 06:30: nắng xiên xanh lơ lạnh pha vàng nhạt
-    'noon':   dict(energy=8.0, color='#fffaf0', dirw=(0.30, -0.80, -0.56), bg='#d6e8f4', bgs=1.25, hat=70, exp=-0.15),  # trưa gắt: vệt nắng vuông lên mặt bàn
+    'noon':   dict(energy=14.0, color='#fffaf0', dirw=(0.30, -0.80, -0.56), bg='#d6e8f4', bgs=1.25, hat=32, exp=-0.15),  # trưa gắt: vệt nắng vuông lên mặt bàn
     'sunset': dict(energy=6.0, color='#ff9a48', dirw=(0.62, -0.74, -0.25), bg='#f0b484', bgs=0.45, hat=38, exp=0.2),   # Golden Hour: cam thẫm trườn từ bàn sang nệm
     'rain':   dict(energy=0.35, color='#c8d4dc', ang=60, az=0, bg='#8e99a2', bgs=0.95, hat=30, exp=0.3),   # chiều muộn sau mưa: u ám, không nắng
 }
@@ -592,7 +592,7 @@ def world_and_lights(mode, coll):
         bg.inputs['Color'].default_value = M._hex(T['bg']); bg.inputs['Strength'].default_value = T['bgs']
         import moi_truong; moi_truong.sky(nt, bg, False, mode)
         bpy.ops.object.light_add(type='SUN', location=(mx(8), 2, 6)); sun = bpy.context.object; sun.name = 'nang_cua_so'
-        sun.data.energy = T['energy']; sun.data.color = M._hex(T['color'])[:3]; sun.data.angle = math.radians(1.2 if mode != 'rain' else 12)
+        sun.data.energy = T['energy']; sun.data.color = M._hex(T['color'])[:3]; sun.data.angle = math.radians(0.5 if mode == 'noon' else 1.2 if mode != 'rain' else 12)
         if 'dirw' in T:  # hướng nắng cho trước trong toạ độ THẾ GIỚI (nắng sớm/chiều chạy xiên dọc hẻm, lọt cửa sổ chéo)
             sun.rotation_euler = Vector(T['dirw']).normalized().to_track_quat('-Z', 'Y').to_euler()
         else:
@@ -630,6 +630,18 @@ def lighting(mode, coll):
     if DEN_BAN_ON: den_ban_that(coll)
     for k in range(int((HL_Y1 - 2.3) / 4.9) + 1):
         add_area(f'tuyp_hanh_lang_{k}', (-0.7, 2.32 + 4.9 * k, H - 0.1), 0.6, 120 if mode == 'night' else 40, '#ffe9c8' if mode == 'night' else '#fff4e0', rot=(math.pi, 0, 0), size_y=0.05, coll=coll)
+
+
+def khung_nang_ban(coll, w=0.46, h=0.30, tam=(0.55, 0.36, 0.75), s=1.2):
+    """Khung chắn nắng (chỉ cản sáng, camera không thấy) vuông góc tia nắng, đặt ngay sau cửa sổ: nắng trưa lọt qua ô chữ nhật w×h → in thành HÌNH CHỮ NHẬT đúng lên mặt bàn (tâm `tam`)."""
+    d = Vector(TIME_MODES['noon']['dirw']).normalized(); q = d.to_track_quat('-Z', 'Y')
+    c = Vector(tam) - d * s; bm = bmesh.new(); R = 1.2; t = 0.01
+    for (a0, a1, b0, b1) in [(-R, R, h / 2, R), (-R, R, -R, -h / 2), (-R, -w / 2, -h / 2, h / 2), (w / 2, R, -h / 2, h / 2)]:
+        g = bmesh.ops.create_cube(bm, size=1.0)
+        for v in g['verts']: v.co = Vector((a1 if v.co.x > 0 else a0, b1 if v.co.y > 0 else b0, t if v.co.z > 0 else -t))
+    ob = _mesh_obj('khung_nang_ban', bm, c, M.solid('khung_nang', '#222222', 0.9), False, coll, quat=q)
+    ob.visible_camera = False; ob.visible_diffuse = False; ob.visible_glossy = False; ob.visible_transmission = False
+    return ob
 
 
 def rem_khe(m, coll):
@@ -698,7 +710,7 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'CAY': ((-0.9, 1.0, -0.4), (-4.2, 6.5, 0.2), 28),    # cây lớn ở sân (thân, cành, tán)
     'CAU': ((-3.4, 2.0, -1.8), (-6.5, 5.0, -1.2), 35),    # cau cảnh + bồn cây
     'CHAU_HL': ((-0.6, 3.6, 1.0), (-1.15, 5.2, 0.4), 35),  # chậu cây hành lang
-    'GOC_DO': ((-3.3, -2.2, -1.45), (-0.7, -7.0, -2.0), 28),   # S07: góc đồ cho tặng ở chân cầu thang, nhìn từ sân
+    'GOC_DO': ((-3.6, -12.4, -1.2), (-0.6, -8.0, -2.0), 22),   # S07: góc đồ cho tặng ở chân cầu thang, nhìn từ sân
     'GOC_DO_TO_GIAY': ((-1.2, -6.4, -1.5), (0.0, -6.4, -1.4), 50),   # cận tờ giấy "Ai cần cứ lấy"
     'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
     'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
@@ -792,6 +804,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     m['dd_cua_so'] = M.emission('dd_cua_so', '#ffd89a', 3.0) if mode == 'night' else M.solid('dd_cua_so_ngay', '#4f6670', 0.2)
     shell(m, coll, door_open, cutaway=(cam in ('TOP',)) if cutaway is None else cutaway, hide_front=(CAMERAS[cam][0][1] > D) if hide_front is None else hide_front); kitchen(m, coll); wardrobe(m, coll); desk_and_chair(m, coll, chair_rot=chair_rot); bed(m, coll); fan(m, coll, blade=fan_angle)
     if MODE_HIEN_TAI == 'dawn': rem_khe(m, coll)
+    if MODE_HIEN_TAI == 'noon': khung_nang_ban(coll)
     mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); room_objs = set(coll.objects); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
     if mode != 'night' and mode != 'rain':
