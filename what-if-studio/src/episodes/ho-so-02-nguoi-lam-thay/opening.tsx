@@ -1,7 +1,7 @@
 import React from 'react';
-import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame } from 'remotion';
 import { FONT } from '../../engine/fonts';
-import { JointPose, mixPose, NguoiKia, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, StudentTwinHead, TungSoccer, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
+import { JointPose, mirrorPose, mixPose, NguoiKia, PALETTE, sampleWalk, STAND_POSE, StudentTwinBody, StudentTwinHead, TungSoccer, TWIN_POSES } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat';
 import { placeOn, RoomScene } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/boi-canh/boi-canh';
 import { Mirror } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/dao-cu';
 import { EXTRA_POSES, gripAt } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/bo-sung-15p/nhan-vat-va-tu-the';
@@ -10,10 +10,11 @@ import { LaptopScreen } from '../../../../episodes/hem-co-chuyen/ho-so-02-nguoi-
 import { Camera, FilmLook, HEAD_AT, lerpLens, Lens, LOOK, RAYS, seg, Sleeper, wideMove } from './canh-01-demo';
 
 /**
- * The Crack in Reality — Hồ sơ 02: Người trong gương — OPENING 48 giây, bản dựng thử câm.
+ * The Crack in Reality — Hồ sơ 02: Người trong gương — OPENING 48 giây, bản hình + nhạc/SFX; chưa có giọng.
  * Nguồn: episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/KICH-BAN-TRAILER-VA-OPENING.md (Phần 1, Shot 0–5).
  * Kịch bản viết cho 24 fps; studio chạy 30 fps nên mốc giây giữ nguyên, số frame nhân 1,25.
- * Lời dẫn và độc thoại hiện bằng phụ đề tạm; chưa có giọng, nhạc, SFX.
+ * Lời dẫn và độc thoại hiện bằng phụ đề tạm; chưa tạo giọng theo yêu cầu.
+ * Âm thanh dựng bằng tools/opening-audio.py, nguồn/quyền ghi trong OPENING-AM-THANH.md.
  */
 const S = [0, 150, 450, 780, 1140, 1320, 1440]; // mốc đầu mỗi shot (frame @30fps)
 export const OPENING_TOTAL = S[6];
@@ -33,7 +34,7 @@ const Caption: React.FC<{ f: number; from: number; to: number; who?: string; chi
   return (
     <div style={{ position: 'absolute', left: 0, right: 0, bottom: BAR + 26, textAlign: 'center', opacity: o, fontFamily: FONT.title, color: tone === 'cold' ? '#bfe9e2' : '#f1ead9', textShadow: '0 2px 6px #000' }}>
       {who && <div style={{ fontSize: 22, letterSpacing: 3, opacity: 0.75, marginBottom: 6 }}>{who}</div>}
-      <div style={{ fontSize: 36, lineHeight: 1.35, padding: '0 220px', fontStyle: tone === 'cold' ? 'italic' : 'normal' }}>{children}</div>
+      <div style={{ fontSize: 43, lineHeight: 1.3, padding: '0 300px', fontStyle: tone === 'cold' ? 'italic' : 'normal' }}>{children}</div>
     </div>
   );
 };
@@ -41,17 +42,9 @@ const Caption: React.FC<{ f: number; from: number; to: number; who?: string; chi
 // Vệt lóa ngang (anamorphic streak) quét qua khung.
 /** Chớp rồi vụt tắt trong `len` frame cuối trước khi cắt cảnh. */
 const FlickerOut: React.FC<{ f: number; end: number; len?: number }> = ({ f, end, len = 20 }) => {
-  const k = f - (end - len);
-  if (k < 0) return null;
-  const pattern = [0, 0.75, 0, 0, 0.9, 0.2, 0, 1, 1, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-  const dark = k >= len - 6 ? 1 : pattern[Math.min(pattern.length - 1, Math.floor((k / len) * pattern.length))];
-  const flash = k === 3 || k === 9 ? 0.35 : 0;
-  return (
-    <AbsoluteFill style={{ pointerEvents: 'none' }}>
-      <AbsoluteFill style={{ background: '#cffcff', opacity: flash, mixBlendMode: 'screen' }} />
-      <AbsoluteFill style={{ background: '#000', opacity: dark }} />
-    </AbsoluteFill>
-  );
+  // Một nhịp tối có đà, thay chuỗi chớp trắng/đen liên tiếp che mất diễn xuất.
+  const opacity = 0.7 * seg(f, end - Math.min(len, 10), end);
+  return <AbsoluteFill style={{ pointerEvents: 'none', background: '#000', opacity }} />;
 };
 // Bụi lơ lửng trôi chậm trong vệt sáng, đèn chập chờn: không khí ma mị cho cận gương.
 const Dust: React.FC<{ f: number }> = ({ f }) => (
@@ -127,8 +120,8 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
   const z = interpolate(f, [0, 150], [1.55, 1.85]);
   // hơi thở từ trong kính: mép vải phồng ra rồi xẹp (hai nhịp, nhịp sau mạnh hơn), mặt kính dưới vải mờ hơi sương
   const breath = 0.9 * Math.sin(Math.PI * seg(f, 30, 62)) + 1.6 * Math.sin(Math.PI * seg(f, 92, 134));
-  const palm = seg(f, 100, 110) * (1 - seg(f, 140, 150)); // dấu bàn tay áp từ phía trong kính, giữ lâu
-  const drip = seg(f, 112, 140); // vệt nước chảy xuống từ dấu tay
+  const palm = seg(f, 68, 90); // dấu bàn tay áp từ phía trong kính, giữ lâu
+  const drip = seg(f, 96, 146); // vệt nước chảy xuống từ dấu tay
   const mist = Math.max(seg(f, 34, 56) * (1 - seg(f, 64, 88)), seg(f, 96, 114) * (1 - seg(f, 140, 150)));
   return (
     <AbsoluteFill style={{ background: '#0e1517' }}>
@@ -140,31 +133,58 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
             <path d={`M0 ${MH * 0.62}L${MW} ${MH * 0.5}V${MH * 0.58}L0 ${MH * 0.72}Z`} fill="#7fb7c4" opacity={0.18} />
             <filter id="suong" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation={22} /></filter><rect width={MW} height={MH} fill="#5ff0dc" opacity={0.1 * Math.max(0, breath)} />
             <g filter="url(#suong)" opacity={0.6 * mist}><ellipse cx={MW * 0.52} cy={MH * 0.56} rx={120 + 60 * mist} ry={56 + 24 * mist} fill="#d6ebe8" /><ellipse cx={MW * 0.38} cy={MH * 0.6} rx={50} ry={26} fill="#d6ebe8" /><ellipse cx={MW * 0.66} cy={MH * 0.6} rx={46} ry={22} fill="#d6ebe8" /></g>
-            {palm > 0 && (
-              <g transform={`translate(${MW * 0.55} ${MH * 0.74}) rotate(-8) scale(1.3)`}>
-                {/* quầng sương sáng quanh dấu tay để dấu tay nổi rõ */}
-                <ellipse cx={0} cy={-6} rx={78} ry={84} fill="#e6f6f3" opacity={0.45 * palm} filter="url(#suong)" />
-                <g fill="#08100f" opacity={0.92 * palm}>
-                  <ellipse cx={0} cy={18} rx={30} ry={34} />
-                  {[[-24, -30, -14], [-9, -48, -4], [7, -50, 4], [22, -40, 14]].map(([x, y, r], i) => <ellipse key={i} cx={x} cy={y} rx={7.5} ry={23} transform={`rotate(${r} ${x} ${y})`} />)}
-                  <ellipse cx={-36} cy={10} rx={7.5} ry={19} transform="rotate(-40 -36 10)" />
-                </g>
-                {/* vệt nước chảy xuống từ đầu ngón và lòng bàn tay */}
-                <g stroke="#08100f" strokeLinecap="round" opacity={0.75 * palm}>
-                  {[[-9, -26, 70], [7, -28, 52], [-2, 50, 90], [16, 46, 60]].map(([x, y, l], i) => <path key={i} d={`M${x} ${y}V${y + l * drip}`} strokeWidth={3.2 - (i % 2)} />)}
-                </g>
+            {/* Bàn tay ép từ phía trong: đầu ngón → đốt ngón → lòng bàn tay.
+                Dấu in giữ cố định trên kính; chỉ máu chảy, không trượt theo camera. */}
+            <g transform={`translate(${MW * 0.55} ${MH * 0.73}) rotate(-8) scale(0.98)`}>
+              <g fill="#a51f29">
+                {[
+                  {x:-25, y:-30, h:39, r:-13, at:53},
+                  {x:-9, y:-46, h:55, r:-4, at:48},
+                  {x:8, y:-50, h:59, r:5, at:50},
+                  {x:24, y:-34, h:43, r:16, at:57},
+                ].map(({x,y,h,r,at},i) => {
+                  const pressure=seg(f,at,at+22);
+                  return <g key={i} transform={`rotate(${r} ${x} ${y})`} opacity={pressure}>
+                    <path d={`M${x-6} ${y+8}Q${x-7} ${y-3} ${x} ${y-4}Q${x+7} ${y-3} ${x+6} ${y+8}L${x+7} ${y+h}H${x-7}Z`} />
+                    <path d={`M${x-3} ${y+2}Q${x} ${y-1} ${x+3} ${y+2}`} stroke="#e36660" strokeWidth={1.6} fill="none" opacity={0.65} />
+                    <path d={`M${x-5} ${y+24}l9 1`} stroke="#4a111b" strokeWidth={1.5} opacity={0.6} />
+                  </g>;
+                })}
+                <path d="M-29-1Q-33-12-40-16Q-49-18-48-7L-37 22Q-33 43-20 51Q0 60 23 45Q36 25 30-1L19-3Q0 3-29-1Z" opacity={palm} />
               </g>
-            )}
+              <g fill="none" stroke="#511019" strokeWidth={2.4} opacity={0.75*palm} strokeLinecap="round">
+                <path d="M-24 6Q-9 15 17 9M-25 12Q-9 27-16 43M-8 34Q5 27 20 31" />
+              </g>
+              <g fill="none" stroke="#a51f29" strokeLinecap="round" opacity={palm}>
+                {[[-12,52,52],[12,51,32],[27,26,20]].map(([x,y,l],i)=><g key={i}>
+                  <path d={`M${x} ${y}q${i-1} ${l*drip/2} 0 ${l*drip}`} strokeWidth={3-i*.6}/>
+                  <ellipse cx={x} cy={y+l*drip} rx={2.4-i*.4} ry={3.2} fill="#b82c31" stroke="none"/>
+                </g>)}
+              </g>
+              <path d="M-33 15Q-29 34-23 38" fill="none" stroke="#ef8980" strokeWidth={1.5} opacity={palm*.5}/>
+            </g>
+            {/* Giọt sương mai chảy ngược dị thường trên mặt kính (Curiosity Hook #1):
+                Ngừng ở frame 65, chảy ngược từ dưới lên trên 24px ở frame 75-98, rồi mới xuôi xuống */}
+            {(() => {
+              const rY = interpolate(f, [40, 65, 88, 108, 145], [0, 0, -25, -25, 52], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+              const rO = seg(f, 30, 45) * (1 - seg(f, 142, 150));
+              return rO > 0 ? (
+                <g transform={`translate(${MW * 0.32} ${MH * 0.64 + rY})`} opacity={rO}>
+                  <ellipse cx={0} cy={0} rx={3} ry={4.2} fill="#7de8e0" opacity={0.85} />
+                  <ellipse cx={-1} cy={-1.5} rx={1.2} ry={1.8} fill="#ffffff" opacity={0.95} />
+                  {f > 88 && f <= 108 && <path d="M0 3L0 14" stroke="#60d0cb" strokeWidth={1.6} opacity={0.65} />}
+                </g>
+              ) : null;
+            })()}
           </Mirror>
           <Cloth w={MW} h={MH} sway={Math.sin(f / 18) * 3} breath={breath} />
         </g>
       </svg>
       <Dust f={f} />
       {/* ánh xanh chạng vạng từ khe cửa sổ chập chờn; phần còn lại chìm sâu trong tối */}
-      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 40% 50% at 40% 46%, rgba(120,190,200,.12), rgba(0,0,0,.78) 100%)' }} />
+      <AbsoluteFill style={{ background: 'radial-gradient(ellipse 40% 50% at 40% 46%, rgba(120,190,200,.12), rgba(0,0,0,.48) 100%)' }} />
       <AbsoluteFill style={{ background: '#000', opacity: 0.12 + 0.1 * Math.max(0, Math.sin(f / 3.1) * Math.sin(f / 7.7)) }} />
-      <FlickerOut f={f} end={150} />
-      <StreakBig t={seg(f, 70, 104)} y={480} />
+      <FlickerOut f={f} end={150} len={5} />
     </AbsoluteFill>
   );
 };
@@ -258,7 +278,7 @@ const Shot1: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const lens = a ? close : lerpLens(close, mid, seg(f, 188, 300));
   return (
     <AbsoluteFill>
-      <Camera lens={lens} f={g} hand={0.4} shake={a && f < 84 ? (Math.sin(f * 2.7) * 9 + Math.sin(f * 5.3) * 4) * (0.6 + 0.4 * Math.abs(Math.sin(f * 0.9))) : 0}>
+      <Camera lens={lens} f={g} hand={0.4} shake={a && f < 84 ? (Math.sin(f * 2.7) * 3 + Math.sin(f * 5.3) * 1.2) * (0.6 + 0.4 * Math.abs(Math.sin(f * 0.9))) : 0}>
         <RoomScene rays={RAYS} falloff={0.9} view="wide" door="ajar" chair="bed" phone="hidden" mirror move={move} sleeper={Sleeper({ cover, breath: !a && f > 188 ? Math.sin(f / 15) * 5 : 0, reach, carry: 0, alarm: a && f < 84, f, phone: true })} />
       </Camera>
       {a && f < 90 && <PhoneAlarm f={f} />}
@@ -292,9 +312,9 @@ const Slice2B: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const nam = { at: [x, 66] as [number, number], render: (p: { x: number; y: number; scale: number }) => <StudentTwinBody {...LOOK} {...p} mood="annoyed" face="tuc-gian-01" talk={wave > 0.5 && f % 8 < 4 ? { shape: 'a', open: 0.6 } : undefined} pose={{ ...pose, view: 'three', facing: -1 }} /> };
   const whip = seg(f, 92, 110);
   return (
-    <AbsoluteFill style={{ filter: whip > 0 ? `blur(${whip * 14}px)` : undefined }}>
-      <div style={{ position: 'absolute', inset: 0, transform: `rotate(10deg) scale(1.12) translateX(${-whip * 600}px)` }}>
-        <Camera lens={{ cx: 960, cy: 540, z: 1 }} f={g} hand={1.2}>
+    <AbsoluteFill style={{ filter: whip > 0 ? `blur(${whip * 5}px)` : undefined }}>
+      <div style={{ position: 'absolute', inset: 0, transform: `rotate(3deg) scale(1.06) translateX(${-whip * 600}px)` }}>
+        <Camera lens={{ cx: 960, cy: 540, z: 1 }} f={g} hand={0.5}>
           <RoomScene sun={0.2} view="kitchen" kitchen="messy" actors={[nam]} />
         </Camera>
       </div>
@@ -320,10 +340,18 @@ const Slice2C: React.FC<{ f: number; g: number }> = ({ f, g }) => {
   const bring = seg(f, 70, 92);
   const namPose = mixPose(STAND_POSE, OFFER_CUP, handed ? 1 - seg(f, 70, 90) : offer);
   // sau khi trao, Tùng giữ nguyên tay đón đang cầm cốc (cốc đứng yên đúng chỗ hai tay gặp nhau), Nam rút tay về
-  const tungPose = handed ? { ...TUNG_TAKE, neck: TUNG_TAKE.neck - 4 * bring } : mixPose(mixPose(STAND_POSE, TUNG_TIRED, 1 - seg(f, 30, 44)), TUNG_TAKE, take);
-  const pn = placeOn('wide', NAM_2C), pt = placeOn('wide', TUNG_2C);
-  const gN = gripAt(handed ? OFFER_CUP : namPose, 'L');
-  const cup = { x: pn.x + gN.x * pn.scale, y: pn.y + gN.y * pn.scale, s: pn.scale };
+  const tungPose = handed ? mixPose(TUNG_TAKE, {...TUNG_TAKE, neck: 0, armR: {a: 30, b: 85}}, bring) : mixPose(mixPose(STAND_POSE, TUNG_TIRED, 1 - seg(f, 30, 44)), TUNG_TAKE, take);
+  const pn = placeOn('wide', NAM_2C), baseT = placeOn('wide', TUNG_2C);
+  const offerGrip = gripAt(OFFER_CUP, 'L');
+  const receiveGrip = gripAt(mirrorPose(TUNG_TAKE), 'L');
+  // Align both palms at handoff before animation, preserve the receiver's floor height.
+  const target = {x: pn.x + offerGrip.x*pn.scale, y: pn.y + offerGrip.y*pn.scale};
+  const receiverScale = (target.y - baseT.y) / receiveGrip.y;
+  const pt = {...baseT, scale: receiverScale, x: target.x + receiveGrip.x*receiverScale};
+  const gN = gripAt(namPose, 'L'), gT = gripAt(mirrorPose(tungPose), 'L');
+  const cup = handed
+    ? {x: pt.x - gT.x*pt.scale, y: pt.y + gT.y*pt.scale, s: pn.scale}
+    : {x: pn.x + gN.x*pn.scale, y: pn.y + gN.y*pn.scale, s: pn.scale};
   const nam = { at: NAM_2C, render: () => <StudentTwinBody {...LOOK} {...pn} shirt={PALETTE.nam.sleepShirt} mood="calm" face={offer > 0.5 ? 'nhe-nhom-02' : 'buon-01'} blink={f % 80 < 3} pose={{ ...namPose, handL: handed ? 'rest' : 'hold', view: 'three', facing: 1 }} /> };
   const tung = { at: TUNG_2C, render: () => <TungSoccer {...pt} mood={handed ? 'normal' : 'annoyed'} blink={f % 64 < 3} pose={{ ...tungPose, view: 'three', facing: -1 }} /> };
   const mid = { cx: (pn.x + pt.x) / 2, cy: pn.y + 280 * pn.scale };
@@ -415,8 +443,9 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const turn = seg(f, 14, 28);
   // Nam đi dọc đường sàn về phía máy: chậm lúc tay đặt lên vai, nhanh dần sau khi tay rút
   const walk = interpolate(f, [28, 112, 178], [0, 0.16, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const feet = { x: 1060 + (560 - 1060) * walk, y: 792 + (1040 - 792) * walk };
   const ns = 0.74 + 0.48 * walk;
+  const bob = f > 28 ? Math.abs(Math.sin(((f - 28) / 18) * Math.PI * 2)) * 5.2 * ns : 0;
+  const feet = { x: 1060 + (560 - 1060) * walk, y: 792 + (1040 - 792) * walk - bob };
   const walkP = f > 28 ? sampleWalk((f - 28) / 18) : STAND_POSE;
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
@@ -449,6 +478,18 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
           </g>
           {/* Nam: quay lưng nhìn gương → quay lại → đi thẳng về phía máy, không hay biết */}
           <StudentTwinBody {...LOOK} x={feet.x} y={feet.y - 589 * ns} scale={ns} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'three', facing: -1 }} />
+          {/* Bóng tiếp xúc của bàn tay ma úp lên vai áo Nam */}
+          {reach > 0.4 && (
+            <ellipse
+              cx={feet.x + 36 * ns}
+              cy={feet.y - 482 * ns}
+              rx={18 * ns}
+              ry={8 * ns}
+              fill="#000"
+              opacity={0.45 * reach}
+              style={{ filter: 'blur(3px)' }}
+            />
+          )}
           {/* tay cái bóng thò ra khỏi kính, vẽ sau Nam: bàn tay úp lên vai */}
           <g transform={MIR}>{shadowOut}</g>
         </svg>
@@ -509,19 +550,20 @@ export const HoSo02Opening: React.FC = () => {
   const vo = g - S[1];
   return (
     <AbsoluteFill style={{ background: '#000' }}>
+      <Audio src={staticFile("ho-so-02-nguoi-lam-thay/opening-audio/mix.wav")} />
       {shot}
       {g < S[5] + 30 && <FilmLook f={g} total={S[5] + 30} />}
       <Letterbox />
-      <Caption f={vo} from={176} to={300} who="LỜI DẪN">Đây là Nam. Sinh viên năm hai, đang “tạm trú” ở một phòng trọ nhỏ cùng Tùng — thằng bạn thân nghiêm túc đến phát mệt.</Caption>
+      <Caption f={vo} from={176} to={300} who="LỜI DẪN">Nam, sinh viên năm hai. Ở trọ cùng thằng bạn thân tên Tùng.</Caption>
       <Caption f={g} from={S[2] + 40} to={S[2] + 96} who="NAM">Chờ nốt combat này!</Caption>
       <Caption f={g} from={S[2] + 128} to={S[2] + 196} who="NAM">Tí nữa tao rửa!</Caption>
       <Caption f={g} from={S[2] + 262} to={S[2] + 326} who="NAM">Uống đi cho đỡ mệt.</Caption>
-      <Caption f={g} from={S[2] + 2} to={S[2] + 38} who="LỜI DẪN">Nam không phải người xấu. Cậu chỉ mắc một căn bệnh của tuổi trẻ: trì hoãn.</Caption>
-      <Caption f={g} from={S[2] + 200} to={S[2] + 258} who="LỜI DẪN">Nhưng ở cùng một thằng lười như Nam… thi thoảng cũng thấy dễ chịu.</Caption>
-      <Caption f={g} from={S[3] + 40} to={S[3] + 200} who="NAM · ĐỘC THOẠI">Làm người lớn mệt mỏi vãi chưởng… Deadline dí, học lại, áp lực gia đình…</Caption>
-      <Caption f={g} from={S[3] + 200} to={S[3] + 350} who="NAM · ĐỘC THOẠI">Ước gì có ai đó gánh hết phiền toái, sống hộ mình cái cuộc đời này…</Caption>
-      <Caption f={g} from={S[4] + 70} to={S[4] + 178} who="NGƯỜI TRONG GƯƠNG · THÌ THẦM" tone="cold">Mày thấy mệt mỏi rồi đúng không?… Cuộc đời ngoài kia… để tao sống thay cho.</Caption>
-      <div style={{ position: 'absolute', right: 26, top: BAR + 14, fontFamily: FONT.title, fontSize: 16, letterSpacing: 2, color: 'rgba(255,255,255,.45)' }}>OPENING · BẢN DỰNG THỬ · CÂM</div>
+      <Caption f={g} from={S[2]} to={S[2] + 40} who="LỜI DẪN">Nam có một tật: hay để mai.</Caption>
+      <Caption f={g} from={S[2] + 200} to={S[2] + 258} who="LỜI DẪN">Được cái, vẫn biết lo cho bạn.</Caption>
+      <Caption f={g} from={S[3] + 40} to={S[3] + 200} who="NAM · ĐỘC THOẠI">Bài chưa xong… mai còn thi lại. Mệt thật.</Caption>
+      <Caption f={g} from={S[3] + 200} to={S[3] + 350} who="NAM · ĐỘC THOẠI">Giá mà có ai sống thay mình một bữa…</Caption>
+      <Caption f={g} from={S[4] + 70} to={S[4] + 178} who="NGƯỜI TRONG GƯƠNG · THÌ THẦM" tone="cold">Mệt rồi hả?… Để tao sống thay cho.</Caption>
+      <div style={{ position: 'absolute', right: 26, top: BAR + 14, fontFamily: FONT.title, fontSize: 16, letterSpacing: 2, color: 'rgba(255,255,255,.45)' }}>OPENING · NHẠC / SFX · CHƯA CÓ GIỌNG</div>
     </AbsoluteFill>
   );
 };

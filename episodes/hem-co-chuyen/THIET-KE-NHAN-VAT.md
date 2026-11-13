@@ -1,31 +1,20 @@
-# The Crack in Reality (Hẻm Có Chuyện) — hướng thiết kế nhân vật (2D Concept $\to$ Stylized 3D)
+# The Crack in Reality — nhận diện nhân vật 3D
 
-**Chuyển hướng lên 3D — 12/11/2026:** Toàn bộ dàn nhân vật được nâng cấp từ 2D SVG sang **Nhân vật 3D (Stylized 3D Characters)** theo [Quy chuẩn 3D](../../docs/QUY-CHUAN-3D.md). Các mẫu SVG/TSX Style B dưới đây giữ nguyên làm **Concept Art, Model Sheet & Turnaround Reference** để giữ trọn tỷ lệ, hình khối và tính cách nhân vật khi dựng lưới 3D và gắn xương (Armature + Facial Blendshapes).
+Dùng cùng [quy chuẩn 3D](../../docs/QUY-CHUAN-3D.md) và [mỹ thuật chung](../../docs/PHONG-CACH-MY-THUAT.md). Đây là hướng tạo hình, không phải xác nhận mọi rig đã hoàn thành.
 
-**Nhân vật xuyên series — 10/11/2026:** [mẫu truy vết và bộ biểu cảm đã duyệt](assets/nguoi-truy-vet/README.md): nam khoảng 20 tuổi, đen/than với điểm đỏ trầm; toàn thân V7 hiện hành, 27 nét theo 3 mức và mặt trung tính. Đây là mẫu thiết kế làm chuẩn dựng nhân vật đại diện cho series.
+## Những nét phải giữ
 
-**Mở rộng phạm vi 10/11/2026:** hướng Style B dưới đây áp dụng cùng [quy chuẩn mỹ thuật chung](../../docs/PHONG-CACH-MY-THUAT.md) cho **cả nhân vật, nội thất, đạo cụ, nhà cửa, đường phố và thiên nhiên**. Ưu tiên nét cong mềm và khối tròn đầy; tránh người mềm nhưng nền ghép hộp cứng. Tên file được giữ để bảo toàn liên kết; chi tiết nhân vật bên dưới vẫn là tham chiếu riêng của series.
+- Cartoon trẻ, khối mềm; vai–thân–hông–đùi nối liền, áo có cơ thể bên trong. Tay có ngón cái đúng bên, cổ tay khớp cẳng tay; bàn chân có thể tích và mặt đỡ.
+- Tóc theo mẫu đã duyệt, phủ sọ/gáy; không đổi tóc Nam khi chỉ sửa nhân vật khác hoặc sửa rig. Dùng vài khối lớn rõ hơn nhiều lọn nhỏ rối.
+- Mắt, mí, mày, miệng cùng tư thế đầu/vai thể hiện tâm lý; ba mức cảm xúc nhưng giữ nhận diện riêng, không một mặt áp cho mọi người.
+- Da đầu–cổ–tay cùng màu nền, vật liệu mờ; không biến bóng cằm thành râu hoặc bóng mắt thành quầng trang điểm quá mức.
 
-**Đã chọn ngày 09/11/2026:** chủ repo thích cách vẽ thứ 2 trong [bảng SVG thử](ho-so-02-nguoi-lam-thay/assets/thiet-ke/character-svg-v1.png), phía phải, và yêu cầu cập nhật GitHub. Dùng đây làm hướng mỹ thuật cho thiết kế mới; lựa chọn này không đồng nghĩa toàn bộ dàn nhân vật đã được vẽ lại hoặc hoàn thiện rig.
+## Hồ sơ 02
 
-**Bộ thiết kế mới đã có tệp:** [Nam, Người Kia và Tùng — bảng SVG](ho-so-02-nguoi-lam-thay/assets/nhan-vat.svg), [nguồn React/SVG](ho-so-02-nguoi-lam-thay/assets/nhan-vat.tsx), [bảng asset/biểu cảm](ho-so-02-nguoi-lam-thay/ASSET.md). Dùng các tệp này để phát triển Hồ sơ 2 theo Style B; bảng so sánh cũ vẫn là tham chiếu hướng đã chọn. Chưa xác nhận chuyển động, khẩu hình hoặc tương tác đạt chỉ từ việc có bảng thiết kế.
+[ASSET hiện hành](ho-so-02-nguoi-lam-thay/ASSET.md) chỉ nguồn Blender. Nam có nốt ruồi phía trái trong hình trực diện; Người Kia đối bên và thao tác tay trái theo luật truyện. Không lật chữ trên đồ thật để tạo khác biệt.
 
-**Làm nhân vật mới:** theo [cách vẽ đã chốt ngày 10/11/2026](ho-so-02-nguoi-lam-thay/assets/thiet-ke/QUY-CHUAN-THIET-KE-SVG.md#4-cách-vẽ-đã-chốt-để-làm-tiếp): nét, tỉ lệ, khớp, cách ghép bằng rig và bước kiểm tra.
+## Nhân vật truy vết xuyên series
 
-**Chốt tay–chân tối giản 10/11/2026:** áp dụng [quy chuẩn và ảnh so sánh dùng chung](../../docs/PHONG-CACH-MY-THUAT.md): ngón cái riêng, nhóm ngón mềm, chân liền khối không tách ngón, khớp liền mạch; không viền ngoài. Đây là lựa chọn tạo hình, chưa xác nhận rig hiện có đã được sửa theo mẫu.
+[Mẫu nhận diện](assets/nguoi-truy-vet/nhan-vat.png): nam khoảng 20 tuổi, đen/than chủ đạo với điểm đỏ trầm, hơi bụi bặm và bí hiểm; áo khoác ngoài thân, quần hơi rộng, thắt lưng ôm có túi bên hông. Thế mạnh là suy luận/truy vết; tên chính thức, năng lực siêu nhiên và cơ chế thu giữ thực thể chưa chốt. Xem [vũ trụ](VU-TRU.md).
 
-## Nét cần giữ
-
-- Cartoon ít chi tiết, dễ nhận diện và dễ vẽ lại; không viền ngoài theo lựa chọn mới, mảng màu gọn, đường bao mềm; giữ nét trong cần cho diễn xuất.
-- Vai nối thân tự nhiên; áo đi theo khối người, hông nối với đùi có bề dày; tránh thân hình hộp và chân như que.
-- Tóc bằng vài mảng lớn. Mắt, mí, lông mày và miệng đảm nhiệm diễn xuất, thay vì thêm nhiều nếp mặt hoặc chi tiết trang trí.
-- Màu da tự nhiên được cách điệu; mảng sáng/tối đơn giản. Giữ nền tảng để dùng với bối cảnh 2.5D của series.
-- Mỗi người có dáng, mặt, tóc và tư thế riêng; cùng ngôn ngữ nét vẽ không có nghĩa dùng một khuôn mặt cho cả dàn.
-
-The Simpsons chỉ là tham chiếu về sự đơn giản và khả năng nhận diện mà chủ repo nêu. Không lấy nguyên nhân vật hoặc áp diện mạo của bộ phim đó vào series.
-
-## Phạm vi và cách áp dụng
-
-Mẫu được chọn đang nằm trong [asset Hồ sơ 2](ho-so-02-nguoi-lam-thay/ASSET.md); nguồn React/SVG được giữ ở đó để sửa. Không sao chép mẫu riêng của tập vào nhiều thư mục rồi tạo các bản lệch nhau. Chỉ chuyển thành thư viện rig chung sau khi đã tách phần tái sử dụng và kiểm tra.
-
-Đã kiểm tra ảnh tĩnh với ba biểu cảm. Chưa kiểm tra khẩu hình khi nói, chuyển góc, khớp, cầm nắm hoặc tương tác. Khi được giao sản xuất, kiểm tra storyboard rồi animatic theo quy trình repo; không xem ảnh đẹp là bằng chứng motion đã đạt. Các thiết kế và bản dựng Hồ sơ 1 giữ nguyên cho tới khi có yêu cầu thay đổi cụ thể.
+Mẫu ảnh hiện có chưa phải mô hình/rig 3D. Giữ các thiết kế của hồ sơ trước; không tự thay dàn nhân vật khác khi chỉnh Hồ sơ 02.

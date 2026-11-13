@@ -1,14 +1,14 @@
 # Hồ sơ 2 — Dựng cảnh và góc máy (Hỗ trợ Full 3D Camera)
 
 **CHUYỂN HƯỚNG FULL 3D — 12/11/2026:** Toàn bộ quy trình sản xuất chuyển sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** theo [Quy chuẩn 3D](../../../docs/QUY-CHUAN-3D.md). Các bảng góc máy bên dưới được mở khóa toàn phần trong không gian 3D 360°:
-- **Camera 3D vật lý thực:** Cảm biến 36mm Full-Frame, thay đổi tiêu cự (24mm/35mm/50mm/85mm), Depth of Field Bokeh vật lý, góc trần vuông góc $90^\circ$ (Top-down), góc thấp (Low-Angle) và cú **Hitchcock Vertigo Dolly Zoom** thực thụ (tăng FOV đồng thời lùi trục Z) mà không còn bị giới hạn bởi góc vẽ phẳng 2D hay hở nền khi dịch máy.
+- **Camera 3D vật lý thực:** Cảm biến 36mm Full-Frame, thay đổi tiêu cự (24mm/35mm/50mm/85mm), Depth of Field Bokeh vật lý, góc trần vuông góc $90^\circ$ (Top-down), góc thấp (Low-Angle) và cú **Hitchcock Vertigo Dolly Zoom** thực thụ (đổi tiêu cự đồng thời đổi khoảng cách dọc hướng nhìn của máy) mà không còn bị giới hạn bởi góc vẽ phẳng 2D hay hở nền khi dịch máy.
 - **Ánh sáng & Phản chiếu thực:** Đèn bàn 3200K, ánh nắng cửa sổ, Screen Glow từ laptop và mặt gương phản chiếu sai lệch dùng đèn/shader 3D vật lý thật.
 
-**Đồng bộ 11/11/2026:** dùng bản kịch bản mới trong KICH-BAN.md và ba file PHAN, mục tiêu khoảng 15 phút. Bản 27:40 và cảnh giằng co cưỡng ép vào gương đã được thay thế. Cơ chế hiện hành là đối chất tâm lý, Nam buông xuôi và mặt kính hóa nước; kết mở với Nam trong thế giới gương, Tùng bắt đầu nhận ra dấu khác biệt và Người Kia cài then cửa. Thời lượng là mục tiêu biên tập, chưa đo audio/animatic.
+**Đồng bộ 13/11/2026:** Kịch bản chính thức khóa bản dựng tại [KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md).  
+> 📋 **BẢNG SHOT LIST & TIMELINE THỰC THI 15 PHÚT (KHÓA DỰNG TOÀN TẬP):**  
+> Toàn bộ 96 shot máy 3D chi tiết từng giây (00:00 – 15:00), tiêu cự lens, thời lượng, chuyển cảnh điện ảnh và camera mode đã được hoàn thiện tại **[SHOTLIST-VA-TIMELINE-15P.md](SHOTLIST-VA-TIMELINE-15P.md)**. Bảng này là tài liệu thực thi cho toàn bộ 3 Hồi.
 
-**Phạm vi bảng máy dưới đây:** A–H dành cho P1.01–P1.08, giữ bố cục/rig/phòng đã cập nhật. Hồi tưởng O01–O05 có hướng máy/âm trong [P1.00](PHAN-01-NGUOI-TRONG-PHONG.md#p1-00). Phần 2 và 3 đã có bối cảnh, cỡ cảnh, điểm nhìn, hành động/âm ngay dưới từng cảnh trong [phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md) và [phần 3](PHAN-03-NGUOI-BI-THAY-THE.md); chưa tách thành shot list/timeline thực thi toàn tập. Không coi A–H đủ để dựng cả ba phần.
-
-Nguồn lời phần 1 chuyển từ THAO-LUAN sang PHAN-01, các đoạn đã duyệt bảo toàn câu chữ. Gương và các pose/đạo cụ mới xem [ASSET.md](ASSET.md); cơ chế mới là đề xuất trong [LUAT-BAN-NHAP-V1.md](LUAT-BAN-NHAP-V1.md). Chưa render hay tạo âm thanh.
+**Phạm vi bảng máy dưới đây:** A–H và các phần tham khảo kỹ thuật, thông số lens, visual direction và phân lớp máy 3D.
 
 ## Cách dùng & Bộ quy chuẩn máy quay điện ảnh người đóng (Live-Action Cine Suite)
 
@@ -74,7 +74,7 @@ Lấy các cue NHỊP ở bản nguồn và bảng này làm một bộ chỉ d�
 
 ## Mặt bằng và trục nhìn theo bộ bối cảnh mới
 
-Đã đối chiếu [bảng PNG hiện có](assets/boi-canh/boi-canh.png) và [hồ sơ bối cảnh](assets/boi-canh/BOI-CANH.md) ngày 10/11/2026 tới `09e7616`; bản đại tu ngày 10/11 sau đó nằm trong hồ sơ bối cảnh. Mặt bằng mới thay mô tả trái/phải từ nền cũ: chỉ một cửa chính ở tường trái; khối cạnh bàn là tủ quần áo, không phải cửa thứ hai. Không đổi vị trí đồ để rút đường đi cho vừa số giây.
+Đã đối chiếu [bảng PNG hiện có](assets/boi-canh/boi-canh.png) và [hướng dẫn 3D hiện hành](assets/boi-canh-3d/README.md) ngày 10/11/2026 tới `09e7616`; bản đại tu ngày 10/11 sau đó nằm trong hồ sơ bối cảnh. Mặt bằng mới thay mô tả trái/phải từ nền cũ: chỉ một cửa chính ở tường trái; khối cạnh bàn là tủ quần áo, không phải cửa thứ hai. Không đổi vị trí đồ để rút đường đi cho vừa số giây.
 
 ```text
 NHÌN THEO NỀN PHÒNG TRỌ HIỆN HÀNH
@@ -266,14 +266,14 @@ Toàn bộ các nhóm shot dưới đây được thiết kế để khai thác 
 
 ## Chuẩn bị asset và kiểm tra trước khi dựng dài
 
-Đọc bảng kê tổng duyệt tiền kỳ chi tiết tại **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md)** (Mục 8 theo dõi tiến độ **Full 3D Assets**: Nhân vật 3D, Rig IK/FK, Blendshapes 3 cấp, 6 Bối cảnh 3D 360°, Planar Reflection Mirror Shader và Đạo cụ 3D).
+Đọc bảng kê tổng duyệt tiền kỳ chi tiết tại **[CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md)** (phần nghiệm thu theo dõi **Full 3D Assets**: Nhân vật 3D, Rig IK/FK, Blendshapes 3 cấp, 6 Bối cảnh 3D 360°, Planar Reflection Mirror Shader và Đạo cụ 3D).
 
 1. **Dựng đủ không gian 360°:** Phòng trọ 3D, Hành lang tầng 2, Giảng đường và Thế giới Gương phải dựng kín 4 tường + trần (cho phép tháo trần khi quay Top-Down $90^\circ$) và hành lang kéo dài để Steadicam chạy mượt không bị hở mép.
 2. **Khóa tiếp xúc vật lý (Zero Clipping):** Kiểm tra kỹ Bone Constraints khi cầm búa đinh, cầm điện thoại, kéo ghế 4 chân trên sàn và đẩy then sắt cửa 3D.
 3. **Kiểm tra Shader chiếc gương:** Thử nghiệm trước Planar Reflection tách biệt pose giữa Nam và Người Kia, cùng chuyển tiếp Liquid Glass Shader ở P3.05 để đảm bảo không lỗi phản chiếu chữ/nốt ruồi.
-4. **Quy trình 2 bước (2D/Animatic Previs $\to$ 3D Final Render):** Dùng bản 2D/2.5D hiện có (`opening.tsx`, `canh-01-demo.tsx`) hoặc 3D Playblast Viewport thô để duyệt nhịp cắt, tiêu cự và thoại ElevenLabs trước khi kích hoạt render 3D chất lượng cao.
+4. **Quy trình hai bước:** render storyboard và animatic/playblast từ nguồn Blender hiện hành, duyệt nhịp/tiếp xúc rồi mới render cuối; không dùng demo SVG cũ làm bản production.
 
-Nguồn nguyên tắc nội bộ: [Quy chuẩn sản xuất 3D](../../../docs/QUY-CHUAN-3D.md), [Ngôn ngữ điện ảnh 2.5D (tham chiếu Previs)](../../../docs/NGON-NGU-DIEN-ANH-2-5D.md), [quy trình duyệt hình](../../../docs/WHAT-IF-QUY-TRINH.md).
+Nguồn nguyên tắc nội bộ: [Quy chuẩn sản xuất 3D](../../../docs/QUY-CHUAN-3D.md), [hướng dẫn 3D hiện hành](../../../docs/NGON-NGU-DIEN-ANH-3D.md), [quy trình duyệt hình](../../../docs/WHAT-IF-QUY-TRINH.md).
 
 ## Rà chuyển động liên tục A–H — 10/11/2026
 

@@ -1,4 +1,6 @@
 # The Crack in Reality — Hồ sơ 02: Người trong gương
+> **Phạm vi hiện hành:** tài liệu này mô tả ý đồ opening/trailer cho pipeline Blender 3D. Demo Remotion 48 giây/30 fps trước đây không phải bản production hiện hành; cần chốt timing và âm thanh trên animatic 3D trước khi render cuối.
+
 ## BẢNG PHÂN CẢNH KỸ THUẬT ĐIỆN ẢNH: OPENING & TRAILER
 *(Cinematic Storyboard, Live-Action Film Aesthetics, Psychological Suspense, VFX & SFX Production Bible)*
 
