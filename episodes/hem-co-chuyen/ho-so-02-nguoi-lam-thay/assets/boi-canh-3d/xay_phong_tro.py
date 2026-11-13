@@ -479,6 +479,23 @@ def hallway(m, coll, night):
         box(f'thang_tru{i}', X0 + 0.01, X0 + 0.13, ya, ya + 0.1, -RI * (i + 1) + 0.5, -RI * (i + 1) + 1.0 + 0.05, m['tuong'], bevel=0.005, coll=coll)
     box('thang_tru_cuoi', X0 - 0.01, X0 + 0.15, Y0 - TR * NB - 0.02, Y0 - TR * NB + 0.14, GZ, GZ + 1.1, m['tuong'], bevel=0.006, coll=coll)
     box('lancan_t1_cau_thang_chan', X0 - 0.02, X0 + 0.16, Y0 - 0.1, Y0 + 0.1, 0.5, 1.06, m['tuong'], bevel=0.006, coll=coll)  # trụ đầu thang
+    # lan can che phần hở ở đầu nhà: (1) mép sàn tầng 3 nhô ra trên cầu thang, (2) chiếu nghỉ tầng 2 bên mép sân, (3) mép sàn đầu hành lang tầng 3
+    z3_ = H + 0.12; yE = Y0 - 1.3
+    def rail_h(nm, xa, xb, ya, yb, zf):  # tay vịn + thành thấp + con tiện trên mặt sàn z = zf
+        box(nm + '_thap', xa, xb, ya, yb, zf, zf + 0.5, m['tuong'], bevel=0.005, coll=coll)
+        box(nm + '_tay', xa - 0.01, xb + 0.01, ya - 0.01, yb + 0.01, zf + 1.0, zf + 1.04, m['thep'], bevel=0.005, coll=coll)
+    rail_h('lc_dau_t3_ngang', X0 - 0.15, ex, yE, yE + 0.12, z3_)
+    rail_h('lc_dau_t3_ngoai', X0 - 0.15, X0 - 0.03, yE, Y0, z3_)
+    for i in range(int((ex - X0 + 0.15) / 0.14)):
+        xx = X0 - 0.14 + i * 0.14
+        box(f'lc_dau_t3_song_n{i}', xx, xx + 0.025, yE + 0.04, yE + 0.065, z3_ + 0.5, z3_ + 1.0, m['thep'], coll=coll)
+    for i in range(int((Y0 - yE) / 0.14)):
+        yy = yE + 0.14 + i * 0.14
+        box(f'lc_dau_t3_song_o{i}', X0 - 0.10, X0 - 0.075, yy, yy + 0.025, z3_ + 0.5, z3_ + 1.0, m['thep'], coll=coll)
+    # chiếu nghỉ tầng 2: lan can chắn ngang miệng cầu thang (chừa lối xuống ở giữa) + trụ góc
+    box('lc_chieu_nghi_trai', X0, X0 + 0.14, Y0 - 0.02, Y0 + 0.06, 0.0, 1.06, m['tuong'], bevel=0.006, coll=coll)
+    box('lc_chieu_nghi_phai', ex - 0.12, ex, Y0 - 0.02, Y0 + 0.06, 0.0, 1.06, m['tuong'], coll=coll)
+    box('lc_chieu_nghi_dam', X0, ex, Y0 + 0.0, Y0 + 0.03, 2.25, 2.3, m['viền'], coll=coll)  # dầm cổng chiếu nghỉ
     # đèn tuýp hành lang
     for k in range(int((Y1 - 2.3) / 4.9) + 1):
         box(f'den_tuyp_hl{k}', -1.0, -0.4, 2.3 + 4.9 * k, 2.34 + 4.9 * k, H - 0.04, H - 0.01, m['den_tuyp_hl'], bevel=0.004, coll=coll)

@@ -46,3 +46,8 @@ Còn lại (chưa xử lý): mép trắng cháy sáng nhẹ ở mặt tiền h�
 | 3 | Tay nắm cửa hơi cao, làm giống tay nắm hơn | Tay gạt cao 0,98 m (cũ 1,2 m): hoa bo tròn + cổ + cần gạt hai mặt cánh; ổ khóa phụ cao 1,12 m với tay vặn bên trong và ổ chìa bên ngoài; chốt hạ theo. Cửa các phòng hành lang cũng thành hoa + cần gạt. Camera `TAY_NAM`, `TAY_NAM_NGOAI`, `C05` |
 | 4 | Ngoài cửa sổ cũng thế, làm chi tiết hơn | Dựng ban công nhà hàng xóm **đối diện cùng độ cao** (lan can có con tiện, chậu cây + hoa, dây phơi + quần áo 5 màu, ghế nhựa, lồng chim, mèo, cửa kính trượt có rèm), mái hiên tôn, biển "cho thuê phòng", chảo ăng-ten, bể nước, máy lạnh, dây điện và dây đèn chằng ngang hẻm, xe máy/thùng rác/chậu cây/vũng nước dưới hẻm. Kính cửa sổ trong hơn (93%) để nhìn ra thấy rõ. Camera `CUA_SO` |
 Chưa xác định được chỗ "vạch trắng thẳng" ở ảnh thu nhỏ thứ hai (một dải đứng có vạch trắng giữa) — cần tên camera/giây trong video.
+
+## Vòng rà thứ tư
+- **Cầu thang tầng 1:** chủ repo xác nhận tốt, giữ nguyên.
+- **Tầng 2/3, phần hở đầu nhà:** thêm lan can che — mép sàn tầng 3 nhô ra trên cầu thang (thành thấp + tay vịn + con tiện, 3 mặt), chiếu nghỉ tầng 2 (trụ hai bên + dầm cổng). Camera `DAU_NHA`.
+- **Tường ngoài trống:** thêm 5 kiểu tranh đường phố (`tranh_tuong` trong `moi_truong.py`): làng quê (mặt trời, đồi, sông, thuyền, diều), hoa sen, phố xe máy, graffiti trừu tượng, mặt cười. Đặt ở tường đầu nhà hướng sân (4 tranh), tường rào đầu sân (2) và tường nhà hàng xóm bên hẻm (3). Mỗi tranh là các hình phẳng xếp lớp (chưa phải ảnh thật; muốn tranh thật thì cần cung cấp ảnh/texture có quyền sử dụng).

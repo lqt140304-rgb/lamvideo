@@ -297,6 +297,7 @@ def build(X, m, coll, night, hl_y1):
 
     mo_rong(X, m, coll, night, hl_y1)
     hem_chi_tiet(X, coll, night)
+    tranh_tuong(X, coll, night)
     # ------------------------------------------------------------ cửa hành lang phòng Nam: mỗi cửa một cảnh riêng
     items = ['giay', 'may_giat', 'xe_dap', 'ghe_ban', 'ban_tho', 'carton', 'phoi_quat', 'khoa_cay']
     for k, kind in enumerate(items):
@@ -569,3 +570,64 @@ def hem_chi_tiet(X, coll, night, rnd_seed=303):
         for q in range(4): sphere(f'env_hc_la_hem{k}_{q}', W + T + 0.4 + 0.09 * math.cos(q * 1.6), -3.5 + k * 1.1 + 0.09 * math.sin(q * 1.6), GZ + 0.45 + 0.05 * q, 0.14, mat('#4f7a4a', 0.8), scale=(1, 1, 1.3), coll=coll)
     B('vung_nuoc', W + T + 0.5, W + T + 1.5, 1.0, 2.6, GZ + 0.002, GZ + 0.006, mat('#6f8590', 0.05), coll=coll)
     B('ong_thoat_nuoc', W + T + 0.02, W + T + 0.08, 4.2, 4.26, GZ, GZ + FL * 3, mat('#cfd3cf', 0.45), coll=coll)
+
+
+def tranh_tuong(X, coll, night=False):
+    """Tranh vẽ đường phố (mural) trên các mảng tường ngoài còn trống: làng quê, hoa sen, phố xe máy, graffiti trừu tượng, mặt cười.
+    Mỗi tranh gồm các hình phẳng xếp lớp (chữ nhật + elip dẹt), không dùng ảnh nền."""
+    box, sphere, M = X.box, X.sphere, X.M
+    GZ = -2.92
+    def mat(c):
+        k = ('mu', c)
+        if k not in _cache: _cache[k] = M.solid('emu_' + c.strip('#'), c, 0.85)
+        return _cache[k]
+    cnt = [0]
+
+    def mural(name, face, wall, u0, v0, w, h, shapes):
+        cnt[0] += 1
+        for i, sh in enumerate(shapes):
+            d = 0.01 + 0.003 * i
+            if sh[0] == 'r':
+                _, ua, ub, va, vb, c = sh
+                if face == '-x': box(f'env_mu_{name}_{i}', wall - d - 0.003, wall - d, u0 + ua * w, u0 + ub * w, v0 + va * h, v0 + vb * h, mat(c), coll=coll)
+                elif face == '+x': box(f'env_mu_{name}_{i}', wall + d, wall + d + 0.003, u0 + ua * w, u0 + ub * w, v0 + va * h, v0 + vb * h, mat(c), coll=coll)
+                else: box(f'env_mu_{name}_{i}', u0 + ua * w, u0 + ub * w, wall + d, wall + d + 0.003, v0 + va * h, v0 + vb * h, mat(c), coll=coll)
+            else:
+                _, cu, cv, ru, rv, c = sh
+                U = u0 + cu * w; V = v0 + cv * h; RU = ru * w; RV = rv * h
+                if face == '-x': sphere(f'env_mu_{name}_{i}', wall - d - 0.0015, U, V, 1.0, mat(c), scale=(0.0015, RU, RV), coll=coll)
+                elif face == '+x': sphere(f'env_mu_{name}_{i}', wall + d + 0.0015, U, V, 1.0, mat(c), scale=(0.0015, RU, RV), coll=coll)
+                else: sphere(f'env_mu_{name}_{i}', U, wall + d + 0.0015, V, 1.0, mat(c), scale=(RU, 0.0015, RV), coll=coll)
+
+    # u, v chuẩn hoá 0..1 theo chiều rộng/cao tranh. 'r' = chữ nhật (u0,u1,v0,v1), 'e' = elip (cu,cv,ru,rv)
+    LANG_QUE = [('r', 0, 1, 0, 1, '#8fd0e8'), ('e', 0.78, 0.78, 0.07, 0.15, '#f4c542'), ('e', 0.22, 0.4, 0.55, 0.32, '#4f9a5a'), ('e', 0.65, 0.38, 0.5, 0.28, '#3f8a4f'),
+                ('e', 0.9, 0.36, 0.3, 0.22, '#5aa860'), ('r', 0, 1, 0, 0.28, '#4a9fc8'), ('e', 0.3, 0.13, 0.12, 0.03, '#ffffff'), ('e', 0.7, 0.1, 0.1, 0.025, '#ffffff'),
+                ('e', 0.5, 0.2, 0.13, 0.05, '#c24a3a'), ('r', 0.495, 0.505, 0.2, 0.5, '#4a3a2a'), ('e', 0.55, 0.38, 0.05, 0.1, '#f2f2f2'),
+                ('e', 0.2, 0.85, 0.03, 0.045, '#e8506a'), ('e', 0.4, 0.9, 0.025, 0.04, '#f2d24a'), ('e', 0.12, 0.7, 0.02, 0.03, '#ffffff'), ('e', 0.33, 0.8, 0.02, 0.03, '#ffffff')]
+    HOA_SEN = [('r', 0, 1, 0, 1, '#2a7f86'), ('e', 0.25, 0.25, 0.22, 0.18, '#3fa060'), ('e', 0.75, 0.2, 0.25, 0.17, '#35905a'), ('e', 0.5, 0.12, 0.3, 0.1, '#58b070'),
+               ('r', 0.495, 0.505, 0.1, 0.55, '#2f6a3a'), ('e', 0.5, 0.62, 0.17, 0.2, '#f08aa8'), ('e', 0.4, 0.58, 0.1, 0.17, '#f4a6bc'), ('e', 0.6, 0.58, 0.1, 0.17, '#f4a6bc'),
+               ('e', 0.5, 0.68, 0.08, 0.14, '#f8c4d2'), ('e', 0.5, 0.56, 0.05, 0.06, '#f4c542'), ('e', 0.15, 0.7, 0.05, 0.08, '#f4a6bc'), ('e', 0.86, 0.66, 0.04, 0.07, '#f08aa8'),
+               ('e', 0.2, 0.9, 0.025, 0.04, '#ffffff'), ('e', 0.78, 0.88, 0.03, 0.05, '#f2f2f2')]
+    PHO_XE = [('r', 0, 1, 0, 1, '#f2c14e'), ('e', 0.85, 0.82, 0.08, 0.16, '#e8743c'), ('r', 0.03, 0.17, 0.2, 0.7, '#c24a3a'), ('r', 0.17, 0.3, 0.2, 0.55, '#3b6ea5'), ('r', 0.3, 0.46, 0.2, 0.82, '#6a4a8a'),
+              ('r', 0.46, 0.58, 0.2, 0.6, '#2f8a6a'), ('r', 0.58, 0.74, 0.2, 0.75, '#c8504a'), ('r', 0.74, 0.97, 0.2, 0.5, '#4a7ab0'), ('r', 0, 1, 0, 0.22, '#3a3a3a'),
+              ('r', 0.0, 1.0, 0.09, 0.105, '#f2f2f2'), ('e', 0.3, 0.2, 0.05, 0.1, '#111111'), ('e', 0.43, 0.2, 0.05, 0.1, '#111111'), ('r', 0.31, 0.43, 0.2, 0.3, '#d8352a'), ('e', 0.37, 0.4, 0.035, 0.09, '#f2d0a8'),
+              ('e', 0.68, 0.2, 0.05, 0.1, '#111111'), ('e', 0.81, 0.2, 0.05, 0.1, '#111111'), ('r', 0.69, 0.81, 0.2, 0.3, '#2f5f9a'), ('e', 0.75, 0.4, 0.035, 0.09, '#f2d0a8'), ('e', 0.75, 0.47, 0.06, 0.03, '#d8c060')]
+    GRAFFITI = [('r', 0, 1, 0, 1, '#1b1b22'), ('e', 0.3, 0.5, 0.22, 0.4, '#ff4f8b'), ('e', 0.55, 0.45, 0.18, 0.33, '#34d1bf'), ('e', 0.78, 0.55, 0.15, 0.3, '#ffd23f'),
+                ('r', 0.05, 0.95, 0.12, 0.2, '#6a5acd'), ('r', 0.1, 0.9, 0.83, 0.9, '#ff7a2f'), ('e', 0.3, 0.5, 0.09, 0.16, '#1b1b22'), ('e', 0.55, 0.45, 0.07, 0.13, '#ffffff'),
+                ('e', 0.78, 0.55, 0.06, 0.12, '#ff4f8b'), ('r', 0.2, 0.25, 0.3, 0.75, '#34d1bf'), ('r', 0.7, 0.74, 0.25, 0.8, '#ffd23f'), ('e', 0.9, 0.2, 0.04, 0.08, '#ffffff'), ('e', 0.08, 0.8, 0.04, 0.08, '#ff4f8b')]
+    MAT_CUOI = [('r', 0, 1, 0, 1, '#f08a3c'), ('e', 0.5, 0.5, 0.42, 0.42, '#f6d7a8'), ('e', 0.36, 0.58, 0.07, 0.09, '#ffffff'), ('e', 0.64, 0.58, 0.07, 0.09, '#ffffff'),
+                ('e', 0.37, 0.57, 0.035, 0.045, '#222222'), ('e', 0.63, 0.57, 0.035, 0.045, '#222222'), ('e', 0.5, 0.33, 0.2, 0.08, '#c8352a'), ('e', 0.5, 0.36, 0.2, 0.045, '#f6d7a8'),
+                ('e', 0.28, 0.4, 0.06, 0.05, '#f2a08a'), ('e', 0.72, 0.4, 0.06, 0.05, '#f2a08a'), ('e', 0.5, 0.88, 0.3, 0.1, '#3a2a1a')]
+    # tường hướng sân phía đầu nhà (x = 0, nhìn về −x): hai tranh lớn
+    mural('lang_que', '-x', 0.0, -8.6, GZ + 0.2, 5.2, 2.5, LANG_QUE)
+    mural('pho_xe', '-x', 0.0, -8.6, 0.35, 4.6, 2.2, PHO_XE)
+    mural('mat_cuoi', '-x', 0.0, -3.4, 0.45, 2.1, 2.1, MAT_CUOI)
+    mural('graffiti', '-x', 0.0, -3.4, GZ + 0.25, 2.2, 1.8, GRAFFITI)
+    # tường rào đầu sân phía y âm (y = −14,5, hướng +y)
+    mural('hoa_sen', '+y', -14.2, -8.5, GZ + 0.2, 3.2, 2.2, HOA_SEN)
+    mural('graffiti2', '+y', -14.2, -4.6, GZ + 0.2, 3.0, 2.0, GRAFFITI)
+    # tường nhà hàng xóm bên hẻm (hướng −x): chỗ trống tầng trệt + giữa hai tầng
+    AX = X.W + X.T + 2.2
+    mural('hem_hoa_sen', '-x', AX, -9.0, GZ + 0.3, 3.4, 2.3, HOA_SEN)
+    mural('hem_pho_xe', '-x', AX, 5.2, GZ + 0.3, 4.4, 2.1, PHO_XE)
+    mural('hem_mat_cuoi', '-x', AX, -4.6, GZ + 0.3, 1.9, 1.9, MAT_CUOI)
