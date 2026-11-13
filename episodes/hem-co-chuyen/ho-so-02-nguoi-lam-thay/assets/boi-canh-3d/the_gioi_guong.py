@@ -10,7 +10,7 @@ import xay_phong_tro as X
 import vat_lieu as M
 
 TEAL = (0.02, 0.094, 0.141)        # #051824
-NAM = (1.25, 0.15)                 # vị trí Nam chìm (x, y)
+NAM = (-1.9, 3.26)                 # Nam chìm trước chiếc gương đứng (phòng đảo: gương ở x ≈ −2,8, y 3,0–3,5)
 KHOANG = 14.0                      # khoảng cách bóng phòng đảo ngược phía sau gương (+y)
 
 
@@ -73,38 +73,36 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
     rnd = random.Random(12)
     # ---- trời/vực: màu nền Deep Teal + sương thể tích (Volume Scatter trong World)
     w = bpy.data.worlds.new('vuc'); sc.world = w; w.use_nodes = True; nt = w.node_tree
-    bg = nt.nodes['Background']; bg.inputs['Color'].default_value = (*TEAL, 1); bg.inputs['Strength'].default_value = 0.35
+    bg = nt.nodes['Background']; bg.inputs['Color'].default_value = (*TEAL, 1); bg.inputs['Strength'].default_value = 0.12
     vs = nt.nodes.new('ShaderNodeVolumeScatter'); vs.inputs['Color'].default_value = (0.08, 0.45, 0.52, 1); vs.inputs['Density'].default_value = 0.035; vs.inputs['Anisotropy'].default_value = 0.45
     wo = nt.nodes['World Output']; nt.links.new(vs.outputs['Volume'], wo.inputs['Volume'])
     # ---- mặt nước vô tận
     bm = bmesh.new(); bmesh.ops.create_grid(bm, x_segments=2, y_segments=2, size=600)
     water = _wobj(coll, 'nuoc_vuc', bm, (0, 0, 0), water_material((NAM[0], NAM[1])), False)
-    # ---- khung gương gỗ lơ lửng (cao 1,22 × rộng 0,52 như S01 nhưng bay cách mặt nước 0,55 m, nghiêng nhẹ, nhấp nhô)
-    wood = M.wood('gt_go', '#5a3e24', '#3a2616', rough=0.7)
-    root = bpy.data.objects.new('guong_troi', None); coll.objects.link(root); root.location = (0, 0, 1.15); root.rotation_euler = (0, math.radians(-4), 0)
-    def part(nm, x0, x1, y0, y1, z0, z1, mat):
-        bmx = bmesh.new(); bmesh.ops.create_cube(bmx, size=1.0)
-        for v in bmx.verts: v.co = Vector((x1 if v.co.x > 0 else x0, y1 if v.co.y > 0 else y0, z1 if v.co.z > 0 else z0))
-        ob = _wobj(coll, nm, bmx, (0, 0, 0), mat, False); ob.parent = root; return ob
-    W_, H_, T_ = 0.52, 1.22, 0.05
-    part('gg_trai', -0.03, 0.0, -W_ / 2 - 0.03, W_ / 2 + 0.03, -H_ / 2 - 0.03, H_ / 2 + 0.03, wood)
-    for nm, y0, y1 in (('gg_t', -W_ / 2 - 0.03, -W_ / 2), ('gg_p', W_ / 2, W_ / 2 + 0.03)): part(nm, -0.03, 0.02, y0, y1, -H_ / 2 - 0.03, H_ / 2 + 0.03, wood)
-    for nm, z0, z1 in (('gg_d', -H_ / 2 - 0.03, -H_ / 2), ('gg_tr', H_ / 2, H_ / 2 + 0.03)): part(nm, -0.03, 0.02, -W_ / 2 - 0.03, W_ / 2 + 0.03, z0, z1, wood)
-    # mặt kính: gương phản xạ lạnh + viền sáng lân tinh (mặt hướng +x nhìn về phía camera WIDE)
-    gm = bpy.data.materials.new('gt_kinh'); gm.use_nodes = True; gnt = gm.node_tree
-    for n_ in list(gnt.nodes): gnt.nodes.remove(n_)
-    g1 = gnt.nodes.new('ShaderNodeBsdfGlossy'); g1.inputs['Roughness'].default_value = 0.03; g1.inputs['Color'].default_value = (0.16, 0.34, 0.38, 1)
-    e1 = gnt.nodes.new('ShaderNodeEmission'); e1.inputs['Color'].default_value = (0.1, 0.55, 0.6, 1); e1.inputs['Strength'].default_value = 0.35
-    ad = gnt.nodes.new('ShaderNodeAddShader'); gnt.links.new(g1.outputs[0], ad.inputs[0]); gnt.links.new(e1.outputs[0], ad.inputs[1])
-    go = gnt.nodes.new('ShaderNodeOutputMaterial'); gnt.links.new(ad.outputs[0], go.inputs['Surface'])
-    part('gg_kinh', -0.004, 0.0, -W_ / 2, W_ / 2, -H_ / 2, H_ / 2, gm)
-    drv(root, 'location', 2, '1.15+0.035*sin(frame*0.09)'); drv(root, 'rotation_euler', 0, '0.025*sin(frame*0.06)')
-    # ---- quầng sáng lạnh quanh gương
+    # ---- PHÒNG TRỌ ĐẢO NGƯỢC HOÀN CHỈNH: dựng đúng phòng thật (vỏ, cửa, cửa sổ, bếp, tủ, bàn học, ghế, nệm, quạt, gương, đồ lặt vặt) rồi lật gương qua mặt phẳng x = 0
+    #     (parent scale x = −1): đồ vật đảo trái–phải 100%, chữ trên đồ vật cũng đảo; sàn gạch bỏ, thay bằng mặt nước vô tận; mọi đèn của phòng thật bị gỡ, chỉ còn ánh Deep Teal.
+    X.MODE_HIEN_TAI = 'night'; X.DEN_BAN_ON = False
+    m = X.make_materials()
+    m['man_hinh'] = M.emission('man_hinh', '#2a6a70', 1.2); m['den_tuyp'] = M.solid('den_tuyp_tat', '#9ab8b8', 0.35)
+    m['den_tuyp_hl'] = M.emission('den_tuyp_hl', '#7fe0d8', 1.0); m['dd_cua_so'] = M.solid('dd_cua_so_gt', '#051824', 0.2)
+    croom = bpy.data.collections.new('Phong_dao'); sc.collection.children.link(croom)
+    X.shell(m, croom, 10.0, cutaway=False, hide_front=False); X.kitchen(m, croom); X.wardrobe(m, croom); X.desk_and_chair(m, croom, chair_rot=0.0); X.bed(m, croom); X.fan(m, croom, blade=0.0)
+    X.mirror(m, croom); X.clutter(m, croom, dep_san=False); X.wall_details(m, croom); X.lights_fixture(m, croom)
+    for o in list(croom.objects):
+        if o.type == 'LIGHT': bpy.data.objects.remove(o, do_unlink=True)
+    sp_ = bpy.data.objects.get('san_phong')
+    if sp_: sp_.hide_render = True; sp_.hide_viewport = True   # sàn gạch → mặt nước
+    flip = bpy.data.objects.new('phong_dao', None); croom.objects.link(flip); flip.scale = (-1, 1, 1)
+    for o in croom.objects:
+        if o is not flip and o.parent is None: o.parent = flip
+    ceil_ = bpy.data.objects.get('tran_phong'); front_ = bpy.data.objects.get('tuong_truoc')
+    # ánh sáng Deep Teal thay đèn phòng: trần mờ lạnh + quầng sáng quanh gương
     def area(nm, loc, rot, size, e, col):
         ld = bpy.data.lights.new(nm, 'AREA'); ld.energy = e; ld.color = col; ld.shape = 'RECTANGLE'; ld.size = size[0]; ld.size_y = size[1]
         o = bpy.data.objects.new(nm, ld); o.location = loc; o.rotation_euler = rot; coll.objects.link(o); return o
-    area('gt_glow_guong', (0.6, 0, 1.15), (0, math.radians(90), 0), (0.9, 1.5), 35, (0.35, 0.95, 0.95))      # ánh phát ra từ mặt gương về phía +x
-    area('gt_ve_dinh', (0.0, 0.0, 6.0), (0, 0, 0), (4, 4), 220, (0.35, 0.8, 0.95))                          # ánh trời mờ từ trên cao
+    area('gt_tran', (-1.5, 2.0, 2.6), (0, 0, 0), (2.2, 3.2), 9, (0.3, 0.8, 0.9))
+    area('gt_glow_guong', (-2.3, 3.26, 1.0), (0, math.radians(-90), 0), (0.9, 1.4), 7, (0.35, 0.95, 0.95))
+    area('gt_nuoc_phat', (-1.5, 2.0, 0.15), (math.radians(180), 0, 0), (2.5, 3.5), 5, (0.2, 0.9, 0.85))   # lân tinh hắt ngược lên từ mặt nước
     # ---- Nam chìm dần: hình nhân tạm (thân + đầu + 2 tay giơ về phía gương) hạ thấp bằng driver, vòng sóng lan quanh người, bọt khí nổi
     if nam:
         sk = M.solid('gt_nam', '#4f7fb0', 0.6)
@@ -115,7 +113,7 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
         bh = bmesh.new(); bmesh.ops.create_uvsphere(bh, u_segments=24, v_segments=12, radius=0.11); np_('dau', _wobj(coll, 'nam_dau', bh, (0, 0, 0.98), sk))
         for sg in (-1, 1):
             ba = bmesh.new(); bmesh.ops.create_cone(ba, cap_ends=True, segments=12, radius1=0.04, radius2=0.04, depth=0.62)
-            ao = _wobj(coll, f'nam_tay{sg}', ba, (-0.12, sg * 0.2, 0.9), sk); ao.rotation_euler = (math.radians(sg * 8), math.radians(-35), 0); np_('tay', ao)
+            ao = _wobj(coll, f'nam_tay{sg}', ba, (-0.12, sg * 0.2, 0.9), sk); ao.rotation_euler = (math.radians(sg * 8), math.radians(35), 0); np_('tay', ao)
         ring = M.emission('gt_vong_song', '#7ae8e0', 1.2)
         for k in range(4):   # vòng sóng nở dần quanh Nam (torus dẹt, scale quay vòng)
             bm_ = bmesh.new(); verts = []
@@ -134,33 +132,21 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
             bb = bmesh.new(); bmesh.ops.create_uvsphere(bb, u_segments=10, v_segments=6, radius=rnd.uniform(0.012, 0.03))
             ob = _wobj(coll, f'bot{k}', bb, (NAM[0] + rnd.uniform(-0.3, 0.3), NAM[1] + rnd.uniform(-0.3, 0.3), 0.0), bub); ob.visible_shadow = False
             drv(ob, 'location', 2, f'-0.5+fmod(frame*{rnd.uniform(0.01, 0.025):.3f}+{rnd.uniform(0, 3):.2f},3.0)*0.6')
-    # ---- bóng phòng trọ đảo ngược 180° (khung dây sáng mờ: phòng 3×4×2,8 m, giường, bàn học, cửa) ở xa trong sương
-    if phong:
-        wf = M.emission('gt_khung_phong', '#3fc7c2', 0.5)
-        def box_edges(tag, x0, x1, y0, y1, z0, z1, ww=0.035):
-            pts = [(x, y, z) for x in (x0, x1) for y in (y0, y1) for z in (z0, z1)]
-            for i, a in enumerate(pts):
-                for b in pts[i + 1:]:
-                    if sum(1 for u, v in zip(a, b) if abs(u - v) > 1e-6) == 1: beam(coll, f'gt_ph_{tag}_{len([1 for o in coll.objects]) }', a, b, ww, wf).visible_shadow = False
-        oy = KHOANG; ox = -1.5   # phòng đảo: trục x lật 180° so với phòng thật (cửa nằm bên phải thay vì bên trái)
-        box_edges('phong', ox, ox + 3.0, oy, oy + 4.0, 0.0, 2.8)
-        box_edges('giuong', ox + 0.1, ox + 1.5, oy + 2.0, oy + 3.9, 0.0, 0.24, 0.025)       # nệm đôi
-        box_edges('ban', ox + 2.1, ox + 2.98, oy + 0.02, oy + 0.57, 0.0, 0.75, 0.025)        # bàn học (đảo bên)
-        box_edges('cua', ox + 0.0, ox + 0.05, oy + 2.05, oy + 2.9, 0.0, 2.1, 0.03)
-        box_edges('guong_dung', ox + 0.12, ox + 0.2, oy + 3.0, oy + 3.52, 0.0, 1.22, 0.025)
-        # một chiếc gương nhỏ trong phòng đảo, sáng lạnh (đối xứng với gương ở đây)
-        area('gt_phong_dao', (ox + 1.5, oy + 2.0, 1.4), (0, 0, 0), (2.5, 2.5), 60, (0.3, 0.9, 0.9))
     # ---- camera + render
-    CAMS = {'WIDE': ((5.8, -5.2, 1.55), (0.3, 0.5, 1.05), 28, 6.0), 'FORE': ((3.6, -2.6, 0.2), (0.4, 0.3, 1.05), 32, 2.0), 'MID': ((3.2, -1.2, 1.3), (0.6, 0.05, 1.0), 45, 3.0),
-            'BACK': ((-0.9, 0.0, 1.3), (-8.0, 7.0, 1.6), 24, 12.0), 'TOP': ((0.2, 0.1, 9.5), (0.2, 0.1, 0.0), 24, 9.0), 'CAN_GUONG': ((1.9, 0.9, 1.3), (0.0, 0.0, 1.15), 50, 1.8)}
+    CAMS = {k: ((v[0][0] - X.W, v[0][1], v[0][2]), (v[1][0] - X.W, v[1][1], v[1][2]), v[2], 3.0) for k, v in X.CAMERAS.items()}   # toạ độ thiết kế − W = toạ độ thế giới sau khi lật gương
+    CAMS['NAM_CHIM'] = ((-0.7, 2.3, 1.45), (-2.2, 3.26, 0.9), 32, 2.0); CAMS['TOP'] = ((-1.5, 2.0, 9.0), (-1.5, 2.0, 0.0), 24, 9.0); CAMS['GUONG_CAN'] = ((-1.2, 3.0, 1.25), (-2.8, 3.26, 0.9), 40, 1.6)
     pos, tgt, mm, fd = CAMS[cam]
+    if cam in ('WIDE',) or pos[1] > X.D:   # đứng ngoài tường trước → ẩn tường trước với camera (như phòng thật)
+        if front_: front_.visible_camera = False
+    if cam == 'TOP' and ceil_:
+        for fl in ('visible_camera', 'visible_shadow', 'visible_diffuse', 'visible_glossy', 'visible_transmission'): setattr(ceil_, fl, False)
     cd = bpy.data.cameras.new('cam_' + cam); cd.lens = mm; cd.sensor_width = 36; cd.dof.use_dof = True; cd.dof.aperture_fstop = 2.8
     co = bpy.data.objects.new('cam_' + cam, cd); coll.objects.link(co); co.location = pos
     co.rotation_euler = (Vector(tgt) - Vector(pos)).to_track_quat('-Z', 'Y').to_euler(); cd.dof.focus_distance = (Vector(tgt) - Vector(pos)).length; sc.camera = co
     sc.render.engine = 'CYCLES'; X._thiet_bi(sc); sc.cycles.samples = 64; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 8; sc.cycles.glossy_bounces = 6; sc.cycles.volume_bounces = 2; sc.cycles.volume_step_rate = 1.5; sc.cycles.volume_max_steps = 256
     sc.render.resolution_x, sc.render.resolution_y = res; sc.render.resolution_percentage = 100
-    sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = 0.6
+    sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = 0.9
     sc.render.image_settings.file_format = 'PNG'; sc.frame_start, sc.frame_end = 1, 96
     return sc
 
