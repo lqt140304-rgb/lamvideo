@@ -163,6 +163,19 @@ const Shot0: React.FC<{ f: number }> = ({ f }) => {
               </g>
               <path d="M-33 15Q-29 34-23 38" fill="none" stroke="#ef8980" strokeWidth={1.5} opacity={palm*.5}/>
             </g>
+            {/* Giọt sương mai chảy ngược dị thường trên mặt kính (Curiosity Hook #1):
+                Ngừng ở frame 65, chảy ngược từ dưới lên trên 24px ở frame 75-98, rồi mới xuôi xuống */}
+            {(() => {
+              const rY = interpolate(f, [40, 65, 88, 108, 145], [0, 0, -25, -25, 52], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+              const rO = seg(f, 30, 45) * (1 - seg(f, 142, 150));
+              return rO > 0 ? (
+                <g transform={`translate(${MW * 0.32} ${MH * 0.64 + rY})`} opacity={rO}>
+                  <ellipse cx={0} cy={0} rx={3} ry={4.2} fill="#7de8e0" opacity={0.85} />
+                  <ellipse cx={-1} cy={-1.5} rx={1.2} ry={1.8} fill="#ffffff" opacity={0.95} />
+                  {f > 88 && f <= 108 && <path d="M0 3L0 14" stroke="#60d0cb" strokeWidth={1.6} opacity={0.65} />}
+                </g>
+              ) : null;
+            })()}
           </Mirror>
           <Cloth w={MW} h={MH} sway={Math.sin(f / 18) * 3} breath={breath} />
         </g>
@@ -430,8 +443,9 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
   const turn = seg(f, 14, 28);
   // Nam đi dọc đường sàn về phía máy: chậm lúc tay đặt lên vai, nhanh dần sau khi tay rút
   const walk = interpolate(f, [28, 112, 178], [0, 0.16, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const feet = { x: 1060 + (560 - 1060) * walk, y: 792 + (1040 - 792) * walk };
   const ns = 0.74 + 0.48 * walk;
+  const bob = f > 28 ? Math.abs(Math.sin(((f - 28) / 18) * Math.PI * 2)) * 5.2 * ns : 0;
+  const feet = { x: 1060 + (560 - 1060) * walk, y: 792 + (1040 - 792) * walk - bob };
   const walkP = f > 28 ? sampleWalk((f - 28) / 18) : STAND_POSE;
   const shake = heartbeat(f, 40, 18) * 6 + (reach > 0.9 ? Math.sin(f * 3) * 3 : 0);
   const reflPose: JointPose = { ...REACH_ARM(reach), neck: 16 * (1 - lift), view: 'three', facing: -1 };
@@ -464,6 +478,18 @@ const Shot4: React.FC<{ f: number }> = ({ f }) => {
           </g>
           {/* Nam: quay lưng nhìn gương → quay lại → đi thẳng về phía máy, không hay biết */}
           <StudentTwinBody {...LOOK} x={feet.x} y={feet.y - 589 * ns} scale={ns} mood="sleepy" face={reach > 0.6 ? 'nghi-ngo-01' : 'buon-02'} blink={f % 70 < 3} pose={{ ...walkP, view: turn < 0.5 ? 'back' : 'three', facing: -1 }} />
+          {/* Bóng tiếp xúc của bàn tay ma úp lên vai áo Nam */}
+          {reach > 0.4 && (
+            <ellipse
+              cx={feet.x + 36 * ns}
+              cy={feet.y - 482 * ns}
+              rx={18 * ns}
+              ry={8 * ns}
+              fill="#000"
+              opacity={0.45 * reach}
+              style={{ filter: 'blur(3px)' }}
+            />
+          )}
           {/* tay cái bóng thò ra khỏi kính, vẽ sau Nam: bàn tay úp lên vai */}
           <g transform={MIR}>{shadowOut}</g>
         </svg>
