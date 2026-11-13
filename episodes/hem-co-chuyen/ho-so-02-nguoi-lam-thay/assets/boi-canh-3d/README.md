@@ -165,3 +165,9 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - Sàn gạch bỏ, thay bằng **mặt nước vô tận** (sóng lan, lân tinh); đèn phòng thật gỡ hết, chỉ còn ánh Deep Teal (trần mờ, quầng quanh gương, lân tinh hắt lên); cửa sổ và cửa mở ra vực tối; sương thể tích mỏng. Nam (hình nhân tạm) chìm dần trước chiếc gương đứng (đã đảo sang tường kia), có vòng sóng + bọt khí.
 - Camera: mọi camera phòng thật (`WIDE`, `DESK`, `BED`, `DOOR`, `KITCHEN`, …) dùng lại với toạ độ thiết kế − W nên cùng bố cục với phòng thật (dễ dựng cắt ghép trước/sau gương) + `NAM_CHIM`, `GUONG_CAN`, `TOP`. Ảnh: `xem-thu/the-gioi-guong/phong-dao-*.png`.
 - Hạn chế: Nam hình nhân tạm; chưa có Người Kia; vài đồ ngoài phòng (bóng đen phía dưới ở `WIDE` là mặt nước tối ngoài tường trước); chưa render video.
+
+### S12 sửa lỗi còn lại (13/11 đêm)
+- Hết mảng đen ở `WIDE`: nguyên nhân là lịch treo + ốp tường + khung ốp của tường trước (không ẩn cùng tường trước khi camera đứng ngoài) → ẩn với camera như phòng thật.
+- Tối hơn, đúng tinh thần vực thẳm: đèn trần 4,5 / quầng gương 4 / lân tinh hắt lên 3 (từ 9 / 7 / 5), nền trời 0,12, phơi sáng 0,7.
+- Thêm **Người Kia** (hình nhân tạm cao 1,6 m, màu đỏ gạch) đứng yên trên mặt nước, **tay trái** đưa về cổ tay Nam, không làm mặt nước gợn (khác Nam); sẽ thay bằng nhân vật modular có nốt ruồi bên phải.
+- Nam chìm: mặt nước đục nên phần dưới mặt nước tự biến mất, không cần mặt phẳng cắt như `kinh_nuoc.py` (chỉ cần khi cắt qua kính trong phòng thật).

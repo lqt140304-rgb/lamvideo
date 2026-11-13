@@ -100,9 +100,9 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
     def area(nm, loc, rot, size, e, col):
         ld = bpy.data.lights.new(nm, 'AREA'); ld.energy = e; ld.color = col; ld.shape = 'RECTANGLE'; ld.size = size[0]; ld.size_y = size[1]
         o = bpy.data.objects.new(nm, ld); o.location = loc; o.rotation_euler = rot; coll.objects.link(o); return o
-    area('gt_tran', (-1.5, 2.0, 2.6), (0, 0, 0), (2.2, 3.2), 9, (0.3, 0.8, 0.9))
-    area('gt_glow_guong', (-2.3, 3.26, 1.0), (0, math.radians(-90), 0), (0.9, 1.4), 7, (0.35, 0.95, 0.95))
-    area('gt_nuoc_phat', (-1.5, 2.0, 0.15), (math.radians(180), 0, 0), (2.5, 3.5), 5, (0.2, 0.9, 0.85))   # lân tinh hắt ngược lên từ mặt nước
+    area('gt_tran', (-1.5, 2.0, 2.6), (0, 0, 0), (2.2, 3.2), 4.5, (0.3, 0.8, 0.9))
+    area('gt_glow_guong', (-2.3, 3.26, 1.0), (0, math.radians(-90), 0), (0.9, 1.4), 4, (0.35, 0.95, 0.95))
+    area('gt_nuoc_phat', (-1.5, 2.0, 0.15), (math.radians(180), 0, 0), (2.5, 3.5), 3, (0.2, 0.9, 0.85))   # lân tinh hắt ngược lên từ mặt nước
     # ---- Nam chìm dần: hình nhân tạm (thân + đầu + 2 tay giơ về phía gương) hạ thấp bằng driver, vòng sóng lan quanh người, bọt khí nổi
     if nam:
         sk = M.solid('gt_nam', '#4f7fb0', 0.6)
@@ -132,12 +132,24 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
             bb = bmesh.new(); bmesh.ops.create_uvsphere(bb, u_segments=10, v_segments=6, radius=rnd.uniform(0.012, 0.03))
             ob = _wobj(coll, f'bot{k}', bb, (NAM[0] + rnd.uniform(-0.3, 0.3), NAM[1] + rnd.uniform(-0.3, 0.3), 0.0), bub); ob.visible_shadow = False
             drv(ob, 'location', 2, f'-0.5+fmod(frame*{rnd.uniform(0.01, 0.025):.3f}+{rnd.uniform(0, 3):.2f},3.0)*0.6')
+    # ---- NGƯỜI KIA: đứng yên trên mặt nước (hình nhân tạm, cao 1,6 m), nốt ruồi bên PHẢI sẽ gắn khi có nhân vật modular; tay TRÁI đưa về phía Nam (đúng luật thuận tay trái)
+    if nam:
+        kk = M.solid('gt_kia', '#b0504f', 0.6)
+        kx, ky = NAM[0], NAM[1] - 1.25
+        kb = bmesh.new(); bmesh.ops.create_cone(kb, cap_ends=True, segments=24, radius1=0.17, radius2=0.17, depth=1.35); _wobj(coll, 'kia_than', kb, (kx, ky, 0.675 + 0.0), kk)
+        kd = bmesh.new(); bmesh.ops.create_uvsphere(kd, u_segments=24, v_segments=12, radius=0.11); _wobj(coll, 'kia_dau', kd, (kx, ky, 1.5), kk)
+        # tay trái (nhìn từ Nam: bên −y) đưa ngang về phía −x chỗ Nam; tay phải buông thõng
+        ta = bmesh.new(); bmesh.ops.create_cone(ta, cap_ends=True, segments=12, radius1=0.04, radius2=0.04, depth=0.75); o_ = _wobj(coll, 'kia_tay_trai', ta, (kx + 0.0, ky + 0.38, 1.05), kk); o_.rotation_euler = (math.radians(-90 + 12), 0, 0)
+        tb = bmesh.new(); bmesh.ops.create_cone(tb, cap_ends=True, segments=12, radius1=0.04, radius2=0.04, depth=0.7); _wobj(coll, 'kia_tay_phai', tb, (kx, ky - 0.21, 0.9), kk)
+        chan_ = bmesh.new(); bmesh.ops.create_cone(chan_, cap_ends=True, segments=12, radius1=0.05, radius2=0.05, depth=0.05)
+        rk = M.emission('gt_kia_vong', '#7ae8e0', 0.9)   # một vòng sóng đứng yên quanh chân (Người Kia không làm mặt nước gợn như Nam)
     # ---- camera + render
     CAMS = {k: ((v[0][0] - X.W, v[0][1], v[0][2]), (v[1][0] - X.W, v[1][1], v[1][2]), v[2], 3.0) for k, v in X.CAMERAS.items()}   # toạ độ thiết kế − W = toạ độ thế giới sau khi lật gương
     CAMS['NAM_CHIM'] = ((-0.7, 2.3, 1.45), (-2.2, 3.26, 0.9), 32, 2.0); CAMS['TOP'] = ((-1.5, 2.0, 9.0), (-1.5, 2.0, 0.0), 24, 9.0); CAMS['GUONG_CAN'] = ((-1.2, 3.0, 1.25), (-2.8, 3.26, 0.9), 40, 1.6)
     pos, tgt, mm, fd = CAMS[cam]
     if cam in ('WIDE',) or pos[1] > X.D:   # đứng ngoài tường trước → ẩn tường trước với camera (như phòng thật)
-        if front_: front_.visible_camera = False
+        for ob_ in list(croom.objects):
+            if ob_.name.startswith(('tuong_truoc', 'op_truoc', 'phao_truoc', 'lich_')): ob_.visible_camera = False   # tường trước + ốp + lịch treo ở mặt ngoài
     if cam == 'TOP' and ceil_:
         for fl in ('visible_camera', 'visible_shadow', 'visible_diffuse', 'visible_glossy', 'visible_transmission'): setattr(ceil_, fl, False)
     cd = bpy.data.cameras.new('cam_' + cam); cd.lens = mm; cd.sensor_width = 36; cd.dof.use_dof = True; cd.dof.aperture_fstop = 2.8
@@ -146,7 +158,7 @@ def build(cam='WIDE', res=(1280, 536), nam=True, phong=True):
     sc.render.engine = 'CYCLES'; X._thiet_bi(sc); sc.cycles.samples = 64; sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 8; sc.cycles.glossy_bounces = 6; sc.cycles.volume_bounces = 2; sc.cycles.volume_step_rate = 1.5; sc.cycles.volume_max_steps = 256
     sc.render.resolution_x, sc.render.resolution_y = res; sc.render.resolution_percentage = 100
-    sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = 0.9
+    sc.view_settings.view_transform = 'AgX'; sc.view_settings.exposure = 0.7
     sc.render.image_settings.file_format = 'PNG'; sc.frame_start, sc.frame_end = 1, 96
     return sc
 
