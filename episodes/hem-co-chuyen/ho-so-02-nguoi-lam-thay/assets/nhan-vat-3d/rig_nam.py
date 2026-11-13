@@ -124,7 +124,7 @@ def add_drivers_and_controls(ob):
                 d = pb[f'{nm}{i}.{k}'].driver_add('rotation_euler', 0).driver; d.type = 'SCRIPTED'
                 v = d.variables.new(); v.name = 'f'; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
                 d.expression = f'f*{math.radians(deg):.4f}'
-        for i, deg in ((1, 12), (2, 22)):
+        for i, deg in ((1, 5), (2, 8)):
             d = pb[f'thumb{i}.{k}'].driver_add('rotation_euler', 0).driver; d.type = 'SCRIPTED'
             v = d.variables.new(); v.name = 'f'; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
             d.expression = f'f*{math.radians(deg):.4f}'
@@ -174,8 +174,20 @@ def bind_weights(sc, arm, asm, proxy_ratio):
     bpy.ops.object.mode_set(mode='OBJECT')
     smooth_weights(asm, iters=40, alpha=0.5, head_z=ztop)
     m = asm.modifiers.new('Armature', 'ARMATURE'); m.object = arm; asm.parent = arm
+    add_corrective_smooth(asm)
     for g in list(asm.vertex_groups):
         if g.name not in arm.data.bones: asm.vertex_groups.remove(g)
+
+
+def add_corrective_smooth(asm):
+    """Corrective Smooth sau Armature (tham chiếu ORCO): làm mượt phần da bị kéo giãn do biến dạng ở nách–vai, háng–đùi (250 vòng) và kẽ ngón/bàn tay (60 vòng, nhẹ để không làm mất hình ngón)."""
+    import numpy as np
+    me = asm.data; n = len(me.vertices); co = np.zeros(n * 3, dtype=np.float32); me.vertices.foreach_get('co', co); xs = np.abs(co[0::3]); zs = co[2::3]
+    body = ((zs > 0.64) & (zs < 0.92) & (xs > 0.05) & (xs < 0.22)) | ((zs > 0.26) & (zs < 0.58) & (xs < 0.16)); hand = (zs > 0.30) & (zs < 0.58) & (xs > 0.19)
+    for nm, reg, it in (('corr_body', body, 250), ('corr_hand', hand, 60)):
+        vg = asm.vertex_groups.new(name=nm)
+        for i in np.nonzero(reg)[0].tolist(): vg.add([i], 1.0, 'REPLACE')
+        m = asm.modifiers.new('CS_' + nm, 'CORRECTIVE_SMOOTH'); m.factor = 1.0; m.iterations = it; m.smooth_type = 'LENGTH_WEIGHTED'; m.rest_source = 'ORCO'; m.vertex_group = nm
 
 
 def smooth_weights(asm, iters, alpha, head_z):
@@ -365,9 +377,18 @@ SHEET = ('nghi', 'tay_nang_45', 'gio_tay_cao', 'nam_tay_chat', 'cui_dau', 'quay_
 def render_poses(sc, arm, out):
     os.makedirs(out, exist_ok=True); sc.render.resolution_x, sc.render.resolution_y = 520, 900
     for name in SHEET:
-        apply_pose(arm, name)
+        apply_pose(arm, name); ghe = None
+        if name == 'ngoi':
+            import numpy as np
+            dg = bpy.context.evaluated_depsgraph_get(); ev = asm.evaluated_get(dg); me = ev.to_mesh(); a = np.zeros(len(me.vertices) * 3, dtype=np.float32); me.vertices.foreach_get('co', a); ev.to_mesh_clear(); a = a.reshape(-1, 3)
+            zmin = float(a[(np.abs(a[:, 0]) < 0.14) & (a[:, 1] > 0.12) & (a[:, 1] < 0.32) & (a[:, 2] < 0.5) & (a[:, 2] > 0.22)][:, 2].min())          # điểm thấp nhất của mông/đùi
+            bm = bmesh.new(); bmesh.ops.create_cube(bm, size=1.0)
+            for v in bm.verts: v.co = Vector((v.co.x * 0.55, 0.22 + v.co.y * 0.46, zmin - 0.015 + v.co.z * 0.03))
+            m2 = bpy.data.meshes.new('ghe'); bm.to_mesh(m2); ghe = bpy.data.objects.new('Ghe', m2); sc.collection.objects.link(ghe); ghe.data.materials.append(D.mat('ghe', '#7a8c70', 0.8))
+            print(f'    ghế: mặt ghế ở z = {zmin:.3f} m (điểm thấp nhất của mông/đùi)')
         for view, loc in (('truoc', (0, -6, 0.8)), ('nghieng', (6, 0, 0.8))):
             sc.camera = T.cam(sc, f'c_{name}_{view}', loc, (0, 0, 0.8), 1.75); sc.render.filepath = os.path.join(out, f'{name}_{view}.png'); bpy.ops.render.render(write_still=True)
+        if ghe is not None: bpy.data.objects.remove(ghe, do_unlink=True)
     apply_pose(arm, 'nghi')
 
 
