@@ -80,3 +80,8 @@ Vì góc quay giờ rộng hơn nên mọi hướng đều phải có cảnh đ�
 
 ## 13/11 08:00: rà soát lỗi
 Xem [RA-SOAT-13-11.md](RA-SOAT-13-11.md): 14 lỗi đã biết → 6 sửa hẳn, 4 sửa một phần, 4 còn. Sửa thêm: chấm đen kệ/tủ, cây có cành, trăng đêm, `kiem_goc_quay.py` tách cỡ toàn thân/trung.
+
+## 13/11 10:30: video từ các góc quay
+- `xem-thu/video/chuoi-shot.mp4`: 17 shot (SEQUENCE), 640×268, **12 fps** (render mỗi 2 khung, `STEP=2`), 636 khung = 53 giây, Cycles CPU 14 mẫu/khung, 2.39:1, hình nhân tạm, không tiếng. Thumbnail: `xem-thu/video/chuoi-shot-thumb.jpg`; thời gian: `xem-thu/video/thoi-gian.log`.
+- Thời gian thật: tổng ≈ 80 phút trên 4 lõi CPU (≈ 7 s/khung gồm dựng cảnh ≈ 10 s/shot); không shot nào lỗi. Muốn bản 24 fps/độ phân giải cao hơn: `STEP=1 WIDTH=960 SAMPLES=24 ./render_chuoi.sh` (ước tính vài giờ).
+- Lệnh: `PY=/tmp/bpyenv/bin/python STEP=2 WIDTH=640 SAMPLES=14 OUT=/tmp/chuoi ./render_chuoi.sh`.
