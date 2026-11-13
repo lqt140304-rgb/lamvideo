@@ -107,3 +107,10 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
   - Giá treo áo 7 áo (tay áo, móc, thẻ giá buộc dây).
   - Góc đồ cũ: quạt (vành lồng, 3 cánh, nan, trục), ghế gãy thêm đệm đỏ, thùng carton băng keo + chữ "SÁCH CŨ", gương bám bụi có vết ngón tay.
 - Mọi đối tượng bắt đầu `env_gct_`. Chưa render lại `chuoi-shot.mp4`.
+
+## 13/11 tối: trời, xe cộ, người, chim chuyển động (`canh_dong.py`)
+- Gọi từ `hallway()` sau `moi_truong.build`; mọi chuyển động bằng **driver theo khung hình** (lặp vòng, không keyframe), đối tượng `env_cd_*`.
+- **Mặt trời** (ngày/sáng sớm/chiều tà, theo `dirw` của chế độ) và **mặt trăng** (đêm): đĩa phát sáng ở xa chỉ camera thấy, có quầng mềm; **mây** là cụm cầu dẹt trôi theo +x (16 cụm, 26 khi mưa; màu đổi theo giờ, rìa mờ bằng Layer Weight).
+- **Xe máy** có người lái (mũ bảo hiểm, đèn trước/sau sáng ban đêm): 5 chiếc chạy 2 chiều giữa sân, 3 chiếc trong hẻm cạnh cửa sổ phòng Nam. **Người đi bộ** (thân, đầu, tay chân đung đưa theo khung): 5 người ở sân (có 1 trẻ em), 2 người ở hẻm. **7 con chim** bay ngang trời, cánh vỗ.
+- Camera kiểm tra: `TROI_NANG`, `TROI_TRANG` (từ mái nhìn lên). Ảnh: `xem-thu/troi/`.
+- Hạn chế: người/xe là hình khối đơn giản (chưa phải nhân vật modular); xe vòng lặp có thể "nhảy" ở hai đầu sân ngoài khung hình; chưa có ô tô; chưa render lại `chuoi-shot.mp4`.

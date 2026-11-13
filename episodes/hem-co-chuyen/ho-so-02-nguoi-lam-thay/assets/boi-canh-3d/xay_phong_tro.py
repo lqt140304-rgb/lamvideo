@@ -518,6 +518,7 @@ def hallway(m, coll, night):
     for i in range(3):
         box(f'giay{i}', -0.45, -0.25, 4.7 + i * 0.22, 4.86 + i * 0.22, 0.0, 0.08, M.solid('giay_hl', '#8a8783', 0.7), bevel=0.02, coll=coll, rot=(0, 0, math.radians(10 * i)))
     import moi_truong; moi_truong.build(sys.modules[__name__], m, coll, night, HL_Y1)
+    import canh_dong; canh_dong.build(sys.modules[__name__], coll, night, MODE_HIEN_TAI)   # trời (mặt trời/trăng/mây), xe chạy, người đi, chim
 
 
 def hallway_details(m, coll, night):
@@ -713,6 +714,8 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'GOC_DO': ((-3.6, -12.4, -1.2), (-0.6, -8.0, -2.0), 22),   # S07: góc đồ cho tặng ở chân cầu thang, nhìn từ sân
     'GOC_DO_TO_GIAY': ((-1.2, -6.4, -1.5), (0.0, -6.4, -1.4), 50),   # cận tờ giấy "Ai cần cứ lấy"
     'GOC_DO_QUAY': ((-2.4, -12.0, -1.9), (-0.5, -10.4, -2.3), 32),   # cận bàn nhận đồ
+    'TROI_NANG': ((-4.7, 0.0, 22.0), (20.8, 39.0, 62.0), 24),   # ngước nhìn mặt trời + mây
+    'TROI_TRANG': ((-4.7, 0.0, 22.0), (-22.0, -30.0, 71.0), 24),   # ngước nhìn trăng
     'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
     'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),
