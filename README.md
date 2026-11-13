@@ -2,7 +2,7 @@
 
 Những chuyện giả định đặt người bình thường vào một lựa chọn khó, để người xem tự hỏi: **nếu là mình thì sao?** Ưu tiên đời sống Việt Nam, mâu thuẫn có chiều sâu, kết thúc có hệ quả và cách sản xuất vừa sức.
 
-**Thông báo chuyển hướng sản xuất sang Full 3D — 12/11/2026:** Chủ repo chính thức quyết định nâng cấp pipeline sản xuất sang **Nhân vật 3D & Bối cảnh 3D (Stylized 3D Cinema)** cho các sản phẩm chính thức (bắt đầu từ Hồ sơ 02: *Người trong gương*). Toàn bộ các file thiết kế SVG/TSX theo phong cách Style B hiện có (`nhan-vat.svg`, `boi-canh.png`, `bo-sung-15p/`, `opening.tsx`) được giữ nguyên làm **Concept Art, Turnaround Model Sheet và Animatic 2D tham chiếu** để dựng mô hình 3D. Đọc quy chuẩn chi tiết tại **[QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md)** và [quy chuẩn mỹ thuật chung](docs/PHONG-CACH-MY-THUAT.md).
+**Sản xuất hiện hành: nhân vật và bối cảnh Blender 3D.** Đọc [QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md), [mỹ thuật](docs/PHONG-CACH-MY-THUAT.md) và [ASSET Hồ sơ 02](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md). Đã gỡ các Markdown hướng dẫn 2D/2,5D cũ; ảnh và mã cũ còn lại chỉ là tư liệu, không phải pipeline dựng mới.
 
 **Quyết định tạo hình cốt lõi (giữ tinh thần Style B khi lên 3D):** hình khối tròn đầy, đường cong mềm mại, tay–chân tối giản giàu tính biểu cảm, kết hợp ánh sáng vật lý Chiaroscuro và góc quay điện ảnh 3D thực thụ; xem [quy chuẩn và ảnh so sánh](docs/PHONG-CACH-MY-THUAT.md).
 
@@ -10,7 +10,7 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 
 **Quy chuẩn sản xuất 3D mới (12/11/2026):** [QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md) hướng dẫn dựng hình nhân vật 3D, rig xương & Blendshapes, bối cảnh 3D 360°, shader gương hóa nước và tích hợp render Blender / `@remotion/three` vào Remotion Studio.
 
-**Thư viện biểu cảm tham chiếu:** [bộ nét mặt tách lớp](what-if-studio/library/expressions/cartoon-soft/README.md) có 27 mức biểu cảm + trung tính, dùng làm chuẩn dựng Blendshapes/Shape Keys cho nhân vật 3D.
+**Biểu cảm:** thiết kế ba mức cảm xúc theo [mỹ thuật chung](docs/PHONG-CACH-MY-THUAT.md), triển khai bằng rig mặt/shape keys phù hợp mỗi nhân vật. Bảng nét mặt cũ không phải rig 3D đã tích hợp.
 
 **Asset xuyên series:** [Nhân vật truy vết](episodes/hem-co-chuyen/assets/nguoi-truy-vet/README.md) có mẫu toàn thân hiện hành và 27 biểu cảm theo 3 mức + trung tính đã duyệt. Lưu riêng ở asset chung của The Crack in Reality (Hẻm Có Chuyện); sẵn sàng làm concept sheet để dựng 3D.
 
@@ -19,7 +19,7 @@ Những chuyện giả định đặt người bình thường vào một lựa 
 | [QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md) | **Mới (12/11):** Quy chuẩn dựng Nhân vật 3D, Bối cảnh 3D, ánh sáng Chiaroscuro, shader gương và pipeline Blender $\to$ Remotion | Đọc trước khi model, rig, lighting hoặc setup camera 3D |
 | [MUC-TIEU.md](docs/MUC-TIEU.md) | Hướng nội dung, khán giả, phạm vi thử và tiêu chí chọn đề tài; dùng để quyết định một ý tưởng có phù hợp kênh hay không | Đọc trước khi chọn đề tài; sửa khi chủ repo thay đổi định hướng |
 | [KINH-NGHIEM.md](docs/KINH-NGHIEM.md) | Những nguyên tắc dùng lại được để nâng chất lượng và tiết kiệm thời gian/chi phí; không chứa cốt truyện hoặc nhật ký riêng của tập | Đọc trước khi làm; bổ sung bài học mới sau công việc theo quy tắc bên dưới |
-| [NGON-NGU-DIEN-ANH-2-5D.md](docs/NGON-NGU-DIEN-ANH-2-5D.md) | Nghiên cứu góc máy, lens, lấy nét, chuyển động và cách tạo chiều sâu cho hình 2D; có mẫu shot, nguồn và giới hạn kỹ thuật | Đọc khi lập storyboard hoặc chọn phong cách; các đề xuất cần dựng thử trước khi coi là khả năng đã có của studio |
+| [NGON-NGU-DIEN-ANH-3D](docs/NGON-NGU-DIEN-ANH-3D.md) | Bố cục, camera/lens, focus, chuyển động và tiếp xúc trong không gian Blender 3D | Đọc khi lập storyboard hoặc chọn phong cách; các đề xuất cần dựng thử trước khi coi là khả năng đã có của studio |
 | [PHONG-CACH-MY-THUAT.md](docs/PHONG-CACH-MY-THUAT.md) | Quy chuẩn nét cong, khối mềm và sự đồng nhất người–đạo cụ–bối cảnh | Đọc trước thiết kế hoặc sửa hình; kiểm tra trong một khung ghép |
 | [ASSET.md](docs/ASSET.md) | Danh mục tài nguyên dùng chung và liên kết tới bảng asset từng tập; giúp tìm thứ đã có trước khi tạo mới | Đọc khi lập kế hoạch hình/âm; cập nhật khi có tài nguyên dùng chung hoặc hồ sơ tập mới |
 | [KICH-BAN.md](docs/KICH-BAN.md) | Mục lục tập, trạng thái và đường dẫn bản nguồn; không chứa toàn bộ lời của các tập | Đọc để tìm đúng hồ sơ; cập nhật khi thêm tập hoặc đổi trạng thái |
@@ -59,7 +59,7 @@ Nghiên cứu hoặc tài nguyên mới cũng đặt trong thư mục tập tư�
 
 **Đang làm:** Series **The Crack in Reality** (tiền thân Hẻm Có Chuyện) mở thành [vũ trụ các thực thể / hiện thực rạn nứt có khả năng riêng](episodes/hem-co-chuyen/VU-TRU.md). [Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) bản 13 giữ lời gọn bản 12 và thêm cameo/tiệm biến mất/nguyên hình Lộc/kho lọ: 40 cue, ước tính 7:45–8:58. Chưa dựng hoặc tạo asset phần mới; animatic hiện có vẫn bản lời 11. Đọc bàn giao Claude trong hồ sơ tập trước khi dựng.
 
-**Đang phát triển văn bản:** [The Crack in Reality — Hồ sơ 02: Người trong gương](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) (trước đây: *Người làm thay*) đã hoàn thiện kịch bản 15 phút, kịch bản Trailer & Opening điện ảnh, và Voiceover Cue Sheet 86 câu thoại chuẩn. Bộ nhân vật Nam, Người Kia, Tùng đã có rig khớp với 8 góc quay và 11 dáng; xem README của hồ sơ. [Quy ước Hồ sơ 1, Hồ sơ 2](episodes/hem-co-chuyen/README.md#cách-gọi-các-truyện) giữ các slug kỹ thuật cũ.
+**Đang phát triển văn bản:** [The Crack in Reality — Hồ sơ 02: Người trong gương](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/README.md) (trước đây: *Người làm thay*) đã hoàn thiện kịch bản 15 phút, kịch bản Trailer & Opening điện ảnh, và Voiceover Cue Sheet 86 câu thoại chuẩn. Nguồn nhân vật/bối cảnh Blender và trạng thái kiểm chứng xem ASSET của hồ sơ; không suy ra rig cả ba vai đã hoàn thiện từ bộ mẫu trước đây. [Quy ước Hồ sơ 1, Hồ sơ 2](episodes/hem-co-chuyen/README.md#cách-gọi-các-truyện) giữ các slug kỹ thuật cũ.
 
 Hồ sơ đã sắp xếp: [The Crack in Reality — Hồ sơ 1: Tin nhắn chưa gửi](episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/README.md) và [Mưa liên tục 100 ngày](episodes/doc-lap/mua-100-ngay/README.md). Tập mưa giữ bản dựng cũ trong `production/` của chính tập để bảo toàn engine và dữ liệu từng cảnh; không tự nhập các thay đổi cũ đó vào engine chung.
 
@@ -114,7 +114,7 @@ Các đường dẫn dưới đây tính từ `.claude/skills/what-if-animation/
 | [README.md](.claude/skills/what-if-animation/README.md) | Giới thiệu skill, nguồn kế thừa và những điều đã điều chỉnh cho repo |
 | [references/formula.md](.claude/skills/what-if-animation/references/formula.md) | Phát triển tiền đề, nhu cầu nhân vật, xung đột, lựa chọn, twist và kết thúc |
 | [references/research.md](.claude/skills/what-if-animation/references/research.md) | Cách tìm/đối chiếu web–YouTube–TikTok, phân tích nguyên nhân/hệ quả và tách sự thật khỏi sáng tác |
-| [references/kit.md](.claude/skills/what-if-animation/references/kit.md) | Tra API và cấu trúc bộ dựng: rig, pose, camera, set, tọa độ phòng, đạo cụ, ánh sáng và UI |
+| [references/kit.md](.claude/skills/what-if-animation/references/kit.md) | Nguồn Blender, tọa độ, camera, điểm tiếp xúc và cách nối sang hậu kỳ |
 | [references/look.md](.claude/skills/what-if-animation/references/look.md) | Tham khảo ngôn ngữ hình ảnh, cỡ cảnh, ánh sáng và kiểm tra storyboard/chuyển động; các định mức clip ngắn cũ không áp bắt buộc cho truyện dài |
 | [references/sound.md](.claude/skills/what-if-animation/references/sound.md) | Giọng, khoảng nghỉ, chọn thư viện, cue tiếng động, trộn âm và ghi chi phí |
 | [references/traps.md](.claude/skills/what-if-animation/references/traps.md) | Tra lỗi kỹ thuật từng gặp khi vẽ/dựng/mix; kiểm tra phiên bản trước khi áp thông số mẫu |
@@ -140,66 +140,18 @@ Chạy scripts từ đúng thư mục studio theo quy trình; chúng cần dữ 
 
 Snapshot `production/tools/` của tập mưa giữ phiên bản cũ riêng của các công cụ trên. Nó còn có `sheets.py` để chia storyboard thành trang và `review.py` để ghép ảnh kiểm tra từ video; đó không phải các file đã có trong skill chung.
 
-## Tác dụng từng phần trong studio
+## Nguồn sản xuất và studio hậu kỳ
 
-Các đường dẫn sau tính từ `what-if-studio/`; snapshot `production/` có cách tổ chức tương tự nhưng dùng phiên bản riêng.
-
-| File / thư mục | Tác dụng |
+| Nơi | Vai trò hiện hành |
 |---|---|
-| `package.json` | Khai báo thư viện và lệnh npm (`studio`, `typecheck`) |
-| `package-lock.json` | Khóa cây phiên bản thư viện để cài lại nhất quán bằng `npm ci` |
-| `tsconfig.json` | Cấu hình kiểm tra/biên dịch TypeScript; không chứa nội dung câu chuyện |
-| `remotion.config.ts` | Cấu hình Remotion như entry point và cách xuất hình |
-| `.gitignore` | Quy tắc bỏ qua file local/phát sinh trong phạm vi studio |
-| `src/index.ts` | Entry point đăng ký Root với Remotion |
-| `src/Root.tsx` | Đăng ký các composition phim, board và bảng mẫu để Studio/CLI nhận diện |
-| `src/studio.config.ts` | Kích thước khung, fps, ngôn ngữ và font; thay có thể ảnh hưởng nhiều tập |
-| `src/CastSheet.tsx` | Bảng nhìn tổng các mẫu nhân vật để kiểm tra tạo hình |
-| `src/episodes/index.ts` | Danh sách tập được đăng ký trong studio; thêm hồ sơ Markdown chưa tự thêm được composition |
-| `src/episodes/<slug-tap>/` | Mã và dữ liệu dựng riêng của tập; tên file được giải thích ở bảng tiếp theo |
-| `src/engine/` | Các thành phần dựng dùng chung; sửa cần kiểm tra các tập phụ thuộc |
-| `public/<slug-tap>/` | Media để Remotion đọc cho tập tương ứng; file sinh ra có thể chỉ giữ local |
-| `library/sfx/` | Clip âm thanh nguồn để dùng lại khi phối; cần kiểm tra nguồn và mức phù hợp |
-| `library/sfx-packs/` | Các pack âm dùng chung có danh mục riêng; [KORBANN](what-if-studio/library/sfx-packs/korbann/README.md) đã nhập local. Media giữ ngoài Git; kiểm tra quyền và nghe chọn trước khi dùng |
-| `out/<slug-tap>/` | Ảnh kiểm tra, storyboard, shotlist, video, báo cáo và log sinh ra; không phải nguồn kịch bản |
-| `node_modules/` | Thư viện đã cài trên máy; được bỏ qua bởi Git, có thể cài lại |
+| `episodes/<series>/<slug>/assets/nhan-vat-3d/` | Nguồn Blender nhân vật; xem ASSET để chọn đúng bản đầu/tóc/thân/rig |
+| `episodes/<series>/<slug>/assets/boi-canh-3d/` | Nguồn scene, vật liệu, camera và đạo cụ; entry tinh chỉnh được ghi riêng trong README |
+| `what-if-studio/src/episodes/<slug>/` | Timeline, lắp render, UI và hậu kỳ khi cần; không phải nơi lưu bản kịch bản thứ hai |
+| `what-if-studio/public/<slug>/` | Media phục vụ hậu kỳ theo hồ sơ |
+| `what-if-studio/out/<slug>/` | Đầu ra local; không tự push video nặng |
+| Engine/ví dụ cũ trong studio và snapshot `production/` | Mã lịch sử để xem bản cũ, không là hướng dẫn dựng mới nhân vật/bối cảnh Hồ sơ 02 |
 
-### Mã và dữ liệu một tập trong studio
-
-| File | Tác dụng / cách cập nhật |
-|---|---|
-| `episode.json` | Cấu hình lời, voice, shot, cue, hiệu ứng và âm thanh cho engine; phải đồng bộ từ kịch bản nguồn khi sửa |
-| `index.tsx` | Nối timeline, các shot và hiệu ứng riêng thành episode/composition |
-| `shots.tsx` | Vẽ nhân vật, bối cảnh, đạo cụ, camera và chuyển động theo thời gian của từng shot |
-| `words.json` | Mốc bắt đầu/kết thúc từng đơn vị lời từ bước xử lý giọng; thay giọng có thể làm mốc đổi |
-| `timeline.json` | Timeline dựng đã giải cue; được công cụ tạo lại, không giữ sửa tay thiếu ghi nhận |
-| `captions.json` nếu engine hỗ trợ | Các dòng chữ bổ sung, cue và thời lượng; snapshot mưa có hỗ trợ này, không mặc định engine chung đã có |
-| `nguon-am-thanh.md` khi có | Nguồn, tác giả/giấy phép và phần âm thanh dùng lại hoặc chưa rõ của cảnh/tập |
-
-### Các file engine
-
-| File trong `src/engine/` | Tác dụng |
-|---|---|
-| `index.ts` | Điểm xuất các thành phần để shot import từ một nơi |
-| `episode.tsx` | Ghép shot/timeline/media thành phim và board |
-| `anim.ts` | Hàm nội suy, easing, thời gian và chuyển động dùng chung |
-| `rig.tsx` | Bộ xương/tạo hình nhân vật, trang phục, pose, biểu cảm và vị trí khớp |
-| `room.tsx` | Phối cảnh phòng, đổi tọa độ không gian và vị trí đứng |
-| `furnish.tsx` | Nội thất, bề mặt, cửa/đèn và các thành phần trang trí phòng |
-| `props.tsx` | Đạo cụ vẽ sẵn để shot tái sử dụng |
-| `kit.tsx` | Thành phần SVG, lớp hoàn thiện và các tiện ích hình ảnh cơ bản |
-| `light.tsx` | Ánh sáng, lớp tối, glow, khí quyển và hiệu ứng không gian |
-| `ui.tsx` | Tiêu đề, nhãn, đồng hồ, gauge và ký hiệu trên hình |
-| `fonts.ts` | Nạp và cấu hình font mà các thành phần hình sử dụng |
-| `sets/study.tsx` | Phòng làm việc/học mẫu |
-| `sets/stairwell.tsx` | Cầu thang mẫu và mốc đứng/di chuyển trên bậc |
-| `sets/classroom.tsx` | Lớp học mẫu |
-| `sets/rooftop.tsx` | Sân thượng, thành phố và các trạng thái đèn/trời |
-| `sets/kitchen.tsx` | Bếp mẫu và vị trí đảo bếp/đạo cụ |
-| `sets/bedroom.tsx` | Phòng ngủ mẫu, giường và trạng thái đèn/lịch |
-| `sets/schematic.tsx` | Nền sơ đồ, ký hiệu và hình giải thích khi câu chuyện cần |
-
-Snapshot mưa giữ các phiên bản riêng của `src/ModelSheet.tsx`, tay cận, đạo cụ đời sống và các set mở rộng. Studio chung nay cũng có `engine/hands.tsx`, `props_life.tsx`, `vehicles.tsx` và `sets/tin_nhan_chua_gui.tsx` từ đợt nâng cấp asset. Đọc đúng phiên bản/API trong studio trước khi tái dùng; các set life/benlau/school của snapshot không tự được nhập lên engine chung.
+Sản xuất bắt đầu bằng nguồn Blender được ASSET chỉ định. TypeScript/Remotion checks chỉ kiểm phần mã hậu kỳ tương ứng; không thay render kiểm geometry hoặc xem animatic.
 
 ## Cấu hình local và tiện ích Windows
 

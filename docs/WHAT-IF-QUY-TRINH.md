@@ -32,28 +32,11 @@ Backend hiện có có những giới hạn đã đọc từ mã:
 
 Kiểm tra quota/model và chi phí thực trên tài khoản khi thực sự tạo; không dùng hệ số giá cũ. Không ghi khóa vào repo hoặc log. Đặt `ELEVENLABS_API_KEY` trong môi trường hay `.env` local được bỏ qua bởi Git.
 
-## 5. Dựng bằng studio khi cần
+## 5. Dựng trong Blender, hậu kỳ khi cần
 
-Từ gốc repo:
+Đọc [quy chuẩn 3D](QUY-CHUAN-3D.md), [mỹ thuật](PHONG-CACH-MY-THUAT.md), [camera](NGON-NGU-DIEN-ANH-3D.md) và ASSET của tập. Nhân vật, đồ dùng và bối cảnh cùng không gian Blender; dùng entry/đơn vị của nguồn hiện hành. Không dựng mới theo rig/layer SVG hoặc ghép nhân vật lên nền 2,5D cũ.
 
-```powershell
-cd what-if-studio
-npm ci
-npm run studio
-```
-
-Các công cụ Python cần môi trường có `numpy`, `Pillow`, cùng `ffmpeg`/`ffprobe` trên PATH; những engine khác có phụ thuộc riêng. `tools/what-if-setup.bat` là tiện ích cũ có cài VieNeu/Edge, không phải bước bắt buộc cho quy trình ElevenLabs.
-
-Giữ nguyên engine chung; mã tập ở `src/episodes/<slug-tap>/`, media ở `public/<slug-tap>/`, output ở `out/<slug-tap>/` tính từ studio. Đọc [kit](../.claude/skills/what-if-animation/references/kit.md) trước khi thêm bối cảnh/nhân vật. Xem hai tập mẫu để hiểu schema, nhưng không sao chép số cảnh, nhịp cắt hoặc cliffhanger thành luật cho truyện mới.
-
-Khi đã có episode JSON, mã shot và audio được kiểm tra, công cụ kỹ thuật hỗ trợ:
-
-```powershell
-python ../.claude/skills/what-if-animation/scripts/plan.py <slug-tap>
-npm run typecheck
-node ../.claude/skills/what-if-animation/scripts/stills.mjs <slug-tap>
-python ../.claude/skills/what-if-animation/scripts/board.py <slug-tap>
-```
+Xuất ảnh preview từ Blender để duyệt bố cục, chất liệu và tiếp xúc; sau đó animatic/playblast có máy và diễn hoạt. Remotion có thể dùng để ráp render, giọng, SFX, UI và hậu kỳ. Scripts schema cũ chỉ dùng khi dữ liệu đầu vào tương thích; không coi Markdown là timeline chạy được.
 
 ### Duyệt hình qua hai bước: storyboard → animatic
 
@@ -64,7 +47,7 @@ python ../.claude/skills/what-if-animation/scripts/board.py <slug-tap>
 
 Animatic dùng lại asset đã duyệt, độ phân giải và chất lượng preview vừa đủ đọc mắt, bàn tay và điểm tiếp xúc; có thể dùng lời đọc tạm/âm thanh tạm hoặc mốc lời ước tính. Chưa cần giọng ElevenLabs, nhạc/SFX mới trả phí hay hiệu ứng hoàn thiện chỉ để duyệt hình. Nếu đã có audio được kiểm tra thì dùng lại; không tạo lại. Sau khi có giọng chính thức, cập nhật timing và kiểm tra những phần phụ thuộc, không coi thời lượng tạm là số đo cuối.
 
-**Chuyển hướng sản xuất 3D (12/11/2026):** Với các dự án chính thức theo [Quy chuẩn 3D](QUY-CHUAN-3D.md), thay cho 2.5D multiplane thuần túy, toàn bộ nhân vật và bối cảnh được dựng trong **không gian 3D hoàn chỉnh** (Blender / Three.js `.glb`), cho phép xoay camera 360°, đánh đèn Chiaroscuro vật lý và chạy Vertigo Dolly Zoom / Shallow DoF thực thụ; đồng thời giữ các bước 2D/animatic thử nghiệm để chốt timing trước khi render 3D nặng. Đồ đang cầm bám tay qua Bone/Child-Of Constraint; kiểm tra va chạm (collision), xuyên lưới (clipping), trượt chân trên mặt sàn (floor contact) trước khi render cuối.
+Nhân vật và bối cảnh ở cùng scene 3D. Đồ cầm bám tay qua constraint; kiểm mặt đỡ, xuyên lưới, trượt chân và che khuất sau modifier trước render cuối. Previs ưu tiên Blender viewport/preview cùng nguồn với bản hoàn thiện.
 
 Chỉ chuyển sang hoàn thiện và render chất lượng cuối khi hai bước trên đạt. Đây là lựa chọn quy trình nhằm giảm sửa muộn, chưa có số đo để cam kết giảm bao nhiêu quota. Trích hình và chạy preview local không cần tạo lại mỗi frame bằng dịch vụ AI; vẫn có thời gian render, tài nguyên máy và quota trợ lý nếu cần viết/sửa mã.
 

@@ -58,7 +58,7 @@ Không đi theo hướng tả thực cực đoan (Hyper-realistic) dễ gây hi�
 Khi chuyển sang 3D, toàn bộ hệ thống máy quay mô tả trong [DUNG-CANH.md](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/DUNG-CANH.md) được thực thi bằng **Camera 3D vật lý thật**:
 
 - **Thông số cảm biến & Ống kính:** Virtual Sensor Size `36mm Full-Frame`, tỷ lệ khung hình **2.39:1 Anamorphic**. Hỗ trợ đầy đủ dải ống kính Cine Primes (24mm, 35mm, 50mm f/1.4, 85mm f/1.2) với **Depth of Field (Bokeh vật lý)** và Rack Focus động theo khoảng cách vật thể.
-- **Hitchcock Vertigo Dolly Zoom thật:** Keyframe đồng thời Camera Position lùi dọc trục Z và Camera Focal Length phóng từ `35mm` lên `85mm` (biến dạng phối cảnh 3D thật sự).
+- **Hitchcock Vertigo Dolly Zoom thật:** Keyframe đồng thời Camera Position lùi dọc hướng nhìn của máy và Camera Focal Length phóng từ `35mm` lên `85mm` (biến dạng phối cảnh 3D thật sự).
 - **Handheld Breathing Camera:** Gắn Noise Modifier (`0.2Hz` tần số, biên độ góc quay vi mô `0.05° - 0.15°`) vào Rig Camera để tạo cảm giác người quay phim cầm tay chân thực.
 - **Lớp phủ hòa sắc điện ảnh (Compositing):** Render qua Blender Compositor hoặc chèn qua `CinematicGradeOverlay` trong Remotion để giữ tone màu nhất quán (`fincher_night`, `morning`, `mirror_realm`), hạt phim 35mm và Anamorphic Vignette.
 
@@ -78,7 +78,7 @@ Quá trình dựng 3D có thể triển khai theo hai luồng kỹ thuật song 
 
 ---
 
-## 6. Nguyên Tắc Bảo Toàn Tư Liệu Cũ
+## 6. Nguồn hiện hành và tư liệu cũ
 
-- **KHÔNG xóa bỏ** thư mục asset 2D hiện tại (`nhan-vat.tsx`, `boi-canh/`, `bo-sung-15p/`, `opening.tsx`). Chúng đóng vai trò là **Tài liệu thiết kế trực quan (Visual Bible)** và **2D Animatic Timing Guide**.
+- Ảnh và mã asset cũ còn giữ để bảo toàn tạo hình; các Markdown hướng dẫn 2D/2,5D đã xóa theo yêu cầu chủ repo. Không dùng các file cũ làm API/pipeline sản xuất. Lịch sử đầy đủ vẫn tra được bằng Git.
 - Khi một mô hình 3D, bối cảnh 3D hoặc cảnh quay 3D hoàn thành, tiến hành **đánh dấu tích `[x]` hoàn thành** vào bảng kiểm tra [CHECKLIST-TIEN-KY-ASSET.md](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/CHECKLIST-TIEN-KY-ASSET.md).

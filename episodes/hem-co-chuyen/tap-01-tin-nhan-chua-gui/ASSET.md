@@ -119,7 +119,7 @@ Nhận tiếp `279dae2` trong lúc bàn giao tài liệu: thu hẹp ngõ, bổ s
 
 ## Cập nhật rig/VFX và cánh đồng — 08/11/2026
 
-- Theo phản hồi mới nhất: giữ tỉ lệ cartoon cũ. Rig dùng chung đã sửa đường vai/tay áo, các khớp cong, tư thế tay buông; hông nối đùi, chân và quần đầy hơn, khối hông co theo góc đùi khi ngồi. Xem [bộ thử rig và VFX](../../../docs/ASSET-VFX.md). Chưa coi mọi shot có tương tác đã đạt.
+- Theo phản hồi mới nhất: giữ tỉ lệ cartoon cũ. Rig dùng chung đã sửa đường vai/tay áo, các khớp cong, tư thế tay buông; hông nối đùi, chân và quần đầy hơn, khối hông co theo góc đùi khi ngồi. Xem [hướng dẫn 3D hiện hành](../../../docs/ASSET.md). Chưa coi mọi shot có tương tác đã đạt.
 - `SET-CANHDONG` chuyển phần triển khai sang [sunset_field.tsx](../../../what-if-studio/src/engine/sets/sunset_field.tsx); API `SunsetRiceField(t, whiteout)` và `SunsetMeadowForeground(t, shiftX)` vẫn được export từ file set cũ. Giữ tọa độ bờ đất để tái dùng các shot. Hoàng hôn tím hồng–cam ấm, mặt trời thấp trái, lớp làng xa/mái nhà/cây/cột điện, khói bếp, lúa có bông–hạt, mương phản chiếu/gợn, bờ ngồi có mặt đỡ, đất/cỏ tiền cảnh rõ hơn; gió lệch nhịp từng cụm.
 - [Ảnh preview cánh đồng mới](assets/boi-canh/preview_meadow_vfx.png) được tạo từ `MeadowMotionLab`, frame 128. Đây là bài thử set/rig, không phải một shot phim đã duyệt, không thay các still cũ cùng tên. Ảnh cũ giữ để đối chiếu lịch sử.
 - Clip thử 12 giây, H.264 960×540/30 fps: `what-if-studio/out/tin-nhan-chua-gui/asset-preview/meadow-motion.mp4` (local). Đã xuất và soi khung, chờ duyệt chuyển động; chưa có giọng/mix và khẩu hình khớp lời. Mẫu miệng của mẹ chỉ minh họa kỹ thuật.

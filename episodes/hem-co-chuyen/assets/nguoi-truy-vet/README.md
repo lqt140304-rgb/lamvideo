@@ -1,12 +1,14 @@
-# Nhân vật truy vết — asset dùng chung của The Crack in Reality (Hẻm Có Chuyện)
+# Nhân vật truy vết — mẫu nhận diện xuyên series
 
-**Bản nét mặt không tóc/đầu để dùng cho vai khác:** [thư viện EXP-CARTOON-SOFT-01](../../../../what-if-studio/library/expressions/cartoon-soft/README.md). Bộ ở đây giữ nguyên làm mẫu nhận diện của nhân vật truy vết; thư viện chung chỉ chứa các nét và lớp cảm xúc đã tách.
+**Phạm vi:** ảnh và biểu cảm ở đây là tư liệu thiết kế đã duyệt, chưa phải mô hình/rig 3D. Sản xuất theo [nhận diện series](../../THIET-KE-NHAN-VAT.md) và ASSET hiện hành của tập.
+
+**Bản nét mặt không tóc/đầu để dùng cho vai khác:** [hướng dẫn 3D hiện hành](../../../../docs/PHONG-CACH-MY-THUAT.md). Bộ ở đây giữ nguyên làm mẫu nhận diện của nhân vật truy vết; thư viện chung chỉ chứa các nét và lớp cảm xúc đã tách.
 
 Cập nhật 10/11/2026 theo thiết kế và biểu cảm được chủ repo duyệt trong chat. **“Người truy vết” là nhãn làm việc, chưa phải tên chính thức.** Nhân vật dành cho tuyến xuyên series, không thuộc riêng Hồ sơ 1 hoặc Hồ sơ 2.
 
 ## Mẫu hiện hành
 
-- Nam khoảng 20 tuổi, trẻ, không râu, hơi bụi bặm; phong cách cartoon mềm, có khối sáng–tối và chiều sâu 2.5D.
+- Nam khoảng 20 tuổi, trẻ, không râu, hơi bụi bặm; mẫu cartoon mềm, dùng làm tham chiếu tạo hình khi dựng 3D.
 - Trang phục đen/than chủ đạo, điểm đỏ trầm; áo khoác ngoài thân và áo thun, quần hơi rộng, thắt lưng có túi bên hông. Sổ là đạo cụ của bản mẫu, chưa xác lập chức năng siêu nhiên.
 - Thế mạnh đã chọn: suy luận và truy vết. Cơ chế thu giữ thực thể, năng lực siêu nhiên, giới hạn, quá khứ và thời điểm ra mắt còn mở; xem [VU-TRU.md](../../VU-TRU.md).
 - Mẫu toàn thân V7 đang giữ làm bản hiện hành sau các lượt chỉnh tỷ lệ, cổ áo, tay–cổ tay, thắt lưng và quần. Bộ 9 nhóm × 3 mức biểu cảm đã được chủ repo đồng ý và yêu cầu đưa lên main. Không dùng các bản thử V1–V6 làm nguồn mới.

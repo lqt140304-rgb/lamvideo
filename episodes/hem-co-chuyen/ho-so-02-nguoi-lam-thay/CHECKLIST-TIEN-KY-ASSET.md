@@ -8,13 +8,13 @@
 
 ## 1. Danh mục Bối cảnh (Sets & Environments)
 
-Tất cả bối cảnh được thiết kế ở định dạng **2.39:1 Anamorphic Canvas** (hoặc 16:9 với vùng an toàn cho letterbox), bóc tách thành các lớp độc lập để chạy Parallax và Camera Depth.
+Bối cảnh được dựng trong cùng không gian Blender 3D, camera 2.39:1. Các nhãn FORE/MID/BACK dưới đây chỉ các vùng bố cục trong không gian, không phải lớp ảnh parallax.
 
-| STT | Tên bối cảnh & Mã cảnh | Trục nhìn / Góc máy chính | Trạng thái ánh sáng & Thời gian | Các lớp bóc tách bắt buộc (Layers) | Ghi chú mỹ thuật & Trọng tâm |
+| STT | Tên bối cảnh & Mã cảnh | Trục nhìn / Góc máy chính | Trạng thái ánh sáng & Thời gian | Vật thể và vùng bố cục 3D cần có | Ghi chú mỹ thuật & Trọng tâm |
 |:---:|---|---|---|---|---|
 | **S01** | **Phòng trọ — Sáng sớm**<br>*(P1.01–P1.08, P2.03)* | `VIEW_WIDE_A`<br>Toàn phòng nhìn chéo từ nệm sang bếp & cửa chính. | **Sáng sớm (06:30 - 07:15)**<br>Ánh nắng xiên xanh lơ lạnh pha vàng nhạt hắt qua khe rèm cửa sổ. | • `FORE`: Mép nệm, góc dép lê.<br>• `MID`: Nệm ngủ, ghế 4 chân, bàn học, tủ quần áo, bồn rửa.<br>• `BACK`: Mảng tường rêu ẩm mốc, khung cửa ra vào, đồng hồ treo tường.<br>• `SKY`: Phố xá mờ ảo ngoài cửa sổ. | Sàn nhà sạch sẽ, chăn gối hơi xộc xệch. Nguồn sáng tự nhiên từ cửa sổ là chủ đạo. |
 | **S02** | **Phòng trọ — Bàn học ngày**<br>*(P1.05, P2.04)* | `VIEW_DESK_DAY`<br>Cận vừa góc bàn học, tủ quần áo cạnh bàn. | **Ban ngày gắt (11:30 - 14:00)**<br>Vệt nắng hình chữ nhật chiếu thẳng vào mặt bàn và bàn phím. | • `FORE`: Cạnh trước mặt bàn gỗ ép.<br>• `MID`: Laptop Asus/Dell, đèn bàn tắt, cốc nước đá tan chảy mồ hôi, ghế ngồi.<br>• `BACK`: Khung tủ quần áo, tường loang lổ. | Thể hiện sự ngột ngạt, bí bách của Nam khi vật lộn với bài tập lớn. |
-| **S03** | **Phòng trọ — Chiều tà**<br>*(P1.07)* | `VIEW_SUNSET`<br>Cùng góc toàn phòng A. | **Hoàng hôn (17:30 - 18:15)**<br>Nắng cam thẫm (Golden Hour) trườn từ mép bàn sang nệm rồi rút dần lên trần. | • `LIGHT_LAYER`: Vệt sáng cam tách rời để animate dịch chuyển độ dài và giảm opacity khi trời tối. | Đánh dấu sự chuyển dịch thời gian khi Nam cày game quên học. |
+| **S03** | **Phòng trọ — Chiều tà**<br>*(P1.07)* | `VIEW_SUNSET`<br>Cùng góc toàn phòng A. | **Hoàng hôn (17:30 - 18:15)**<br>Nắng cam thẫm (Golden Hour) trườn từ mép bàn sang nệm rồi rút dần lên trần. | • `LIGHT_LAYER`: Nguồn sáng mặt trời/cửa sổ đổi hướng và cường độ theo thời gian; bóng theo vật thể thật. | Đánh dấu sự chuyển dịch thời gian khi Nam cày game quên học. |
 | **S04** | **Phòng trọ — Đêm Fincher**<br>*(P1.08, P2.01, P2.05, P3.03)* | `VIEW_DESK_NIGHT`<br>`VIEW_ROOM_NIGHT`<br>Góc bàn và toàn phòng đêm. | **Đêm Chiaroscuro (19:30 - 23:00)**<br>Phòng tối om; chỉ có 2 nguồn sáng thực (Motivated Light): Đèn bàn vàng ấm 3200K và Màn hình laptop xanh lạnh 6500K. | • `FORE`: Mép bàn hắt sáng, bóng lưng người ngồi.<br>• `MID`: Bàn phím sáng đèn LED, ghế xoay lùi.<br>• `BACK`: Vùng tối sâu (Crushed Blacks), bóng đổ sắc nét trên tường.<br>• `LIGHT`: Volumetric Cone của đèn bàn. | Phong cách điện ảnh David Fincher: Tương phản gắt gao giữa vùng sáng rọi và bóng tối bao trùm. |
 | **S05** | **Góc cửa chính & Then sắt**<br>*(P1.03, P1.06, P2.01, P3.06)* | `VIEW_DOOR_LOCK`<br>Chính diện hoặc góc xiên $45^\circ$ vào ổ then cài cửa. | Ban ngày & Đêm đèn tuýp hành lang. | • `FORE`: Bàn tay thao tác.<br>• `MID`: Cánh cửa gỗ dán, then sắt trượt, tai khóa.<br>• `BACK`: Khe cửa hé lộ hành lang mờ ảo. | Then sắt phải có 2 trạng thái vật lý rõ rệt: Rút then (mở) và Gài chốt (khóa đanh). |
 | **S06** | **Hành lang dãy trọ tầng 2**<br>*(P1.03, P1.06, P2.01)* | `VIEW_HALLWAY`<br>Nhìn dọc hành lang, lan can sắt bên phải, cửa các phòng bên trái. | **Đêm đèn tuýp (Night Fluorescent)**<br>Bóng đèn tuýp dài vàng vọt, ánh sáng lập lòe, sương ẩm đêm. | • `FORE`: Khung cửa phòng Nam.<br>• `MID`: Hành lang gạch men bạc màu, bậc cầu thang.<br>• `BACK`: Hút sâu hun hút vào bóng tối cuối dãy trọ. | Cảm giác rợn ngợp, cô lập. Khi Người Kia bước ra, hành lang phải trống rỗng đến kỳ dị. |
@@ -33,19 +33,19 @@ Từng đạo cụ phải có điểm neo khớp (`gripAt`), hướng cầm rõ 
 
 ### A. Đạo cụ tương tác cốt truyện (Hero Interactive Props)
 
-| STT | Tên đạo cụ | File Component / SVG | Điểm neo khớp & Hướng tay | Các trạng thái trực quan bắt buộc | Cảnh sử dụng |
+| STT | Tên đạo cụ | Yêu cầu mô hình 3D | Điểm neo khớp & Hướng tay | Các trạng thái trực quan bắt buộc | Cảnh sử dụng |
 |:---:|---|---|---|---|:---:|
-| **P01** | **Chiếc gương soi toàn thân**<br>*(The Mirror)* | `guong-trang-thai-*.svg`<br>`MirrorPortal.tsx` | Đứng tựa tường góc phòng / Lơ lửng khi hóa dị | **4 trạng thái biến dị:**<br>1. *Khung gỗ cũ, kính sáng phẳng, vết nứt nhỏ góc phải*.<br>2. *Mặt kính mờ sương, bóng Người Kia không trùng động tác*.<br>3. *Mặt kính gợn sóng lỏng (Water surface ripple)*.<br>4. *Mặt kính hóa lỏng trong suốt nuốt chửng Nam*. | P1.00, P2.04, P2.06, P3.03, P3.04, P3.05 |
-| **P02** | **Chiếc búa đinh cán gỗ** | `bua-dong-dinh.svg`<br>`Hammer.tsx` | Điểm neo chuôi cán `(0, 0)`.<br>Nam cầm 2 tay / Người Kia đỡ bằng tay trái. | • Cán gỗ sờn mòn vân tự nhiên, đầu búa sắt đúc xám chì có vết rỉ nâu.<br>• Trọng lượng cảm giác đầm nặng ($1.2\text{kg}$), rơi xuống sàn có tiếng cộp vang đanh. | P3.03, P3.04, P3.05 |
-| **P03** | **Thẻ Căn cước công dân** | `the-doi-chieu.svg`<br>`CitizenCard.tsx` | Kẹp giữa ngón cái và ngón trỏ tay trái/phải. | • Thẻ nhựa chip điện tử hư cấu, có ảnh chân dung Nam với **nốt ruồi đuôi lông mày bên trái**.<br>• Chi tiết chữ sắc nét, không bị nhòe khi zoom cận cảnh. | P1.04, P3.03 |
-| **P04** | **Thẻ sinh viên Đại học** | `the-sinh-vien.svg`<br>`StudentCard.tsx` | Nam đưa bằng tay phải, Người Kia nhận bằng **tay trái**. | • Thẻ đeo dây xanh navy, logo trường đại học, ảnh chụp nghiêm túc. | P2.04, P3.03 |
-| **P05** | **Then sắt cài cửa** | `goc-cua-va-chot.svg`<br>`DoorLatch.tsx` | Bám trên khung cửa gỗ, ngón tay gạt chốt. | **2 trạng thái:**<br>1. *Chốt rút ngang (Mở hờ/Khép chưa khóa)*.<br>2. *Lưỡi chốt tra sâu vào lỗ đón then trên khung sắt (Khóa đanh)*. | P1.03, P1.06, P2.01, P3.06 |
-| **P06** | **Phong bì tiền ăn 3 triệu** | `phong-bi-tien-an.svg` | Kẹp trên mặt bàn / Cầm mép phong bì. | • Phong bì giấy trắng nhăn mép, thò ra 6 tờ tiền polyme màu xanh 500.000đ. | P2.03 |
-| **P07** | **Bát sứ & Đũa bồn rửa** | `goc-bep-bon-rua.svg` | Người Kia rửa bằng **tay trái**, úp lên giá bát. | • Bát sứ trắng viền hoa xanh cũ, bọt xà phòng bám viền, giọt nước rỏ tí tách. | P1.01, P1.02 |
-| **P08** | **Hộp cơm sườn trứng ốp la** | `com-suon-trung.svg` | Tùng xách túi ni-lông đặt cộp xuống bàn. | • Hộp xốp/giấy trắng, miếng sườn nướng cháy cạnh, trứng ốp la lòng đào vàng ươm, mỡ hành xanh. | P2.02 |
-| **P09** | **Bọc bún chả & Nem rán** | `bun-cha-nem.svg` | Tùng xách về ở cảnh kết, cầm hộp nước mắm. | • Túi bún tươi trắng, hộp thịt nướng than hoa sém cạnh, chả nem giòn rụm, bát nước mắm cà rốt ớt đỏ. | P3.06 |
-| **P10** | **Gói xôi gấc lá chuối** | `xoi-gac.svg` | Người Kia xách về đặt trên bàn, Nam hất tung. | • Xôi đỏ thắm bọc trong tàu lá chuối hơ lửa, kèm miếng giò lụa thái vát. | P2.07 |
-| **P11** | **Túi hoa quả biếu** | `tui-hoa-qua.svg` | Người Kia cầm xách bằng tay trái. | • Túi quà quả cam vàng, táo đỏ đóng gói cẩn thận. | P2.05 |
+| **P01** | **Chiếc gương soi toàn thân**<br>*(The Mirror)* | mesh 3D theo yêu cầu<br>`MirrorPortal.tsx` | Đứng tựa tường góc phòng / Lơ lửng khi hóa dị | **4 trạng thái biến dị:**<br>1. *Khung gỗ cũ, kính sáng phẳng, vết nứt nhỏ góc phải*.<br>2. *Mặt kính mờ sương, bóng Người Kia không trùng động tác*.<br>3. *Mặt kính gợn sóng lỏng (Water surface ripple)*.<br>4. *Mặt kính hóa lỏng trong suốt nuốt chửng Nam*. | P1.00, P2.04, P2.06, P3.03, P3.04, P3.05 |
+| **P02** | **Chiếc búa đinh cán gỗ** | mesh 3D theo yêu cầu<br>`Hammer.tsx` | Điểm neo chuôi cán `(0, 0)`.<br>Nam cầm 2 tay / Người Kia đỡ bằng tay trái. | • Cán gỗ sờn mòn vân tự nhiên, đầu búa sắt đúc xám chì có vết rỉ nâu.<br>• Trọng lượng cảm giác đầm nặng ($1.2\text{kg}$), rơi xuống sàn có tiếng cộp vang đanh. | P3.03, P3.04, P3.05 |
+| **P03** | **Thẻ Căn cước công dân** | mesh 3D theo yêu cầu<br>`CitizenCard.tsx` | Kẹp giữa ngón cái và ngón trỏ tay trái/phải. | • Thẻ nhựa chip điện tử hư cấu, có ảnh chân dung Nam với **nốt ruồi đuôi lông mày bên trái**.<br>• Chi tiết chữ sắc nét, không bị nhòe khi zoom cận cảnh. | P1.04, P3.03 |
+| **P04** | **Thẻ sinh viên Đại học** | mesh 3D theo yêu cầu<br>`StudentCard.tsx` | Nam đưa bằng tay phải, Người Kia nhận bằng **tay trái**. | • Thẻ đeo dây xanh navy, logo trường đại học, ảnh chụp nghiêm túc. | P2.04, P3.03 |
+| **P05** | **Then sắt cài cửa** | mesh 3D theo yêu cầu<br>`DoorLatch.tsx` | Bám trên khung cửa gỗ, ngón tay gạt chốt. | **2 trạng thái:**<br>1. *Chốt rút ngang (Mở hờ/Khép chưa khóa)*.<br>2. *Lưỡi chốt tra sâu vào lỗ đón then trên khung sắt (Khóa đanh)*. | P1.03, P1.06, P2.01, P3.06 |
+| **P06** | **Phong bì tiền ăn 3 triệu** | mesh 3D theo yêu cầu | Kẹp trên mặt bàn / Cầm mép phong bì. | • Phong bì giấy trắng nhăn mép, thò ra 6 tờ tiền polyme màu xanh 500.000đ. | P2.03 |
+| **P07** | **Bát sứ & Đũa bồn rửa** | mesh 3D theo yêu cầu | Người Kia rửa bằng **tay trái**, úp lên giá bát. | • Bát sứ trắng viền hoa xanh cũ, bọt xà phòng bám viền, giọt nước rỏ tí tách. | P1.01, P1.02 |
+| **P08** | **Hộp cơm sườn trứng ốp la** | mesh 3D theo yêu cầu | Tùng xách túi ni-lông đặt cộp xuống bàn. | • Hộp xốp/giấy trắng, miếng sườn nướng cháy cạnh, trứng ốp la lòng đào vàng ươm, mỡ hành xanh. | P2.02 |
+| **P09** | **Bọc bún chả & Nem rán** | mesh 3D theo yêu cầu | Tùng xách về ở cảnh kết, cầm hộp nước mắm. | • Túi bún tươi trắng, hộp thịt nướng than hoa sém cạnh, chả nem giòn rụm, bát nước mắm cà rốt ớt đỏ. | P3.06 |
+| **P10** | **Gói xôi gấc lá chuối** | mesh 3D theo yêu cầu | Người Kia xách về đặt trên bàn, Nam hất tung. | • Xôi đỏ thắm bọc trong tàu lá chuối hơ lửa, kèm miếng giò lụa thái vát. | P2.07 |
+| **P11** | **Túi hoa quả biếu** | mesh 3D theo yêu cầu | Người Kia cầm xách bằng tay trái. | • Túi quà quả cam vàng, táo đỏ đóng gói cẩn thận. | P2.05 |
 | **P12** | **Viên phấn giảng đường** | Props nhỏ | Nam cầm trên bục giảng, tay run bẻ gãy vụn. | • Viên phấn trắng gãy đôi, bột phấn rơi lả tả xuống sàn gỗ. | P3.01 |
 
 ### B. Đạo cụ công nghệ & Màn hình hiển thị (Tech & Screen UI)
@@ -66,7 +66,7 @@ Tất cả màn hình UI đều được thiết kế ở layer riêng biệt, s
 
 ## 3. Danh mục Dáng nhân vật & Tư thế Rig (Character Poses & Stances)
 
-Dựa trên rig chuẩn của Style B (`nhan-vat.tsx`), kết hợp các điểm neo tiếp xúc vật lý (`support`, `gripAt`).
+Dùng Armature/shape keys Blender; các mã pose là yêu cầu diễn xuất, chưa phải API hoặc động tác đã được nghiệm thu. Khóa tiếp xúc theo mặt đỡ và constraint thực tế.
 
 ### A. Nhân vật Nam (Sinh viên — Sa sút & Bi kịch)
 
@@ -129,134 +129,29 @@ Dựa trên rig chuẩn của Style B (`nhan-vat.tsx`), kết hợp các điểm
 
 ---
 
-## 5. Danh Sách Kiểm Tra Sẵn Sàng Tiền Kỳ (Pre-Flight Readiness Checklist)
+## 5. Nghiệm thu tiền kỳ 3D
 
-Trước khi kích hoạt render bất kỳ shot nào, Animator cần tick đủ 6 tiêu chí kỹ thuật:
+Danh mục phía trên là yêu cầu theo truyện, không phải bảng xác nhận tất cả asset đã làm. Trạng thái thực và nguồn xem [ASSET.md](ASSET.md), [việc bối cảnh còn thiếu](assets/boi-canh-3d/BOI-CANH-CAN-CHUAN-BI.md).
 
-- [ ] **1. Đồng bộ Nốt Ruồi (Mole Continuity)**: Kiểm tra 100% khung hình có Nam (nốt ruồi luôn ở **bên trái** đuôi mày theo hướng nhìn máy quay) và Người Kia (luôn ở **bên phải**).
-- [ ] **2. Đồng bộ Tay Thuận (Handedness Continuity)**: Người Kia rửa bát, nhận thẻ, nhấc búa, cài then **100% bằng tay trái**.
-- [ ] **3. Trạng thái Then Cửa (Door Latch State)**: P1.03 gài chốt $\to$ P1.06 rút chốt $\to$ P1.06 về khép quên gài (chốt vẫn rút) $\to$ P2.01 gài chốt $\to$ P3.06 Người Kia gài chốt.
-- [ ] **4. Điểm tì đỡ Vật lý (Support Grounds)**: Không có nhân vật trôi nổi trong không trung; bàn chân phải tiếp xúc mặt sàn (`floor`), mông tiếp xúc nệm (`bed`) hoặc ghế (`chair`).
-- [ ] **5. Ánh sáng Motivated Lighting**: Vùng sáng rọi của đèn bàn và laptop phải đổ bóng đúng hướng đối diện trên tường và sàn nhà.
-- [ ] **6. Âm thanh Nguồn (Motivated Sound)**: Mọi tiếng rơi (búa, đũa, then cài, bát sứ) phải khớp frame với điểm tiếp xúc vật lý trên hình ảnh.
-- [ ] **7. Lớp phủ hòa sắc điện ảnh (Cinematic Grade Overlay)**: Áp dụng component `CinematicGradeOverlay` với `mix-blend-mode: soft-light`, opacity nhẹ $8\% - 14\%$ theo đúng mood của từng phân đoạn (`morning`, `fincher_night`, `mirror_realm`), bảo vệ 100% màu da nhân vật.
+- [ ] Tạo hình và rig 3D từng vai được duyệt, gồm góc trước/nghiêng/ba phần tư/sau.
+- [ ] IK/FK, khẩu hình, cảm xúc ba mức và chuyển pose đã chạy trong shot thật.
+- [ ] Mỗi bối cảnh đủ đường máy, mặt đỡ và ngoại cảnh cần lộ; proxy không thay nhân vật hoàn thiện.
+- [ ] Đạo cụ cầm–thả–trao đổi giữ tiếp xúc; chăn/quần áo không xuyên; chân trụ không trượt.
+- [ ] Gương, Người Kia, nốt ruồi đối bên và tay trái giữ đúng qua cắt.
+- [ ] UI đọc được và khớp thời gian truyện; không bê chữ/cue cũ sang shot mới.
+- [ ] Storyboard và animatic được duyệt, thoại/âm được nghe và đồng bộ trước render cuối.
 
-> Bảy tiêu chí trên được kiểm tra **cho từng shot khi dựng**, không phải asset. Chưa tick vì chưa có shot nào qua bước render.
+## 6. Những phần đã có kiểm tra riêng
 
----
+- Bộ bối cảnh/camera có nguồn và báo cáo thử ở [boi-canh-3d](assets/boi-canh-3d/README.md); không suy ra phim đã hoàn tất.
+- Bộ đồ dùng có kiểm tra riêng: chăn không cắt nệm/ga/viền, mặt tựa ghế đúng chiều, chân cao su laptop nằm trên bàn. Xem [hướng dẫn và giới hạn](assets/boi-canh-3d/README-CHI-TIET.md).
+- Bộ đầu/tóc Nam có nguồn Blender trong ASSET; chưa đánh dấu đạt toàn bộ rig/tương tác từ việc có mã.
 
-## 6. Quy Chuẩn Lớp Phủ Hòa Sắc Điện Ảnh (Cinematic Color Grading)
+Không chuyển các dấu hoàn thành SVG của bản cũ sang checklist 3D. Chỉ đánh dấu sau kiểm chứng tương ứng, kèm bản nguồn và loại kiểm tra.
 
-Áp dụng component `CinematicGradeOverlay` (`what-if-studio/src/engine/CinematicGradeOverlay.tsx`) trên đỉnh khung hình:
+## 7. Tiến độ 3D được cập nhật từ nhánh bối cảnh — 13/11/2026
 
-| Phân đoạn & Cảnh | Mood Preset | Tone màu chủ đạo | Chế độ hòa trộn & Opacity | Hiệu quả thị giác |
-|---|---|---|---|---|
-| **Sáng sớm (P1.01–P1.04, P2.03)** | `morning` | `#1a2b3c` (Xanh lơ lạnh) | `soft-light`, $8\%$ | Tươi tắn nhưng lạnh, cảm giác ngái ngủ đầu ngày. |
-| **Trưa gắt (P1.05, P2.04)** | `noon_harsh` | `#2e2518` (Vàng mù tạt) | `soft-light`, $9\%$ | Ngột ngạt, bí bách, áp lực deadline bài tập lớn. |
-| **Chiều tà (P1.07)** | `sunset_golden` | `#3d200a` (Cam thẫm) | `soft-light`, $12\%$ | Golden hour buông thả, thời gian trôi nhanh khi cày game. |
-| **Đêm phòng trọ (P1.08, P2.01, P2.05, P3.03)** | `fincher_night` | `#0d1f18` (Xanh rêu đen) | `soft-light`, $12\%$ | Đậm chất Chiaroscuro David Fincher, rùng rợn, bí ẩn. |
-| **Đại giảng đường (P3.01)** | `lecture_cold` | `#16252b` (Trắng lạnh công nghiệp) | `soft-light`, $10\%$ | Lạnh lùng, trơ trọi, cô lập trước đám đông phán xét. |
-| **Cõi hư vô gương (P3.05, Trailer)** | `mirror_realm` | `#051824` (Deep Teal Abyss) | `color`, $18\%$ | Vực thẳm không đáy, vô thực, câm lặng tuyệt đối. |
-
-### Cách Dùng Nhanh Khi Dựng Video (Quick Integration Guide)
-
-Trong bất kỳ Composition, Scene hoặc Shot nào của Remotion, Animator chỉ cần import từ engine và đặt component này ở lớp trên cùng của khung hình:
-
-```tsx
-import React from 'react';
-import { CinematicGradeOverlay } from '../../../../what-if-studio/src/engine';
-// hoặc nếu đang ở trong what-if-studio/src: import { CinematicGradeOverlay } from './engine';
-
-export const SceneDemo: React.FC = () => {
-  return (
-    <div style={{ position: 'relative', width: 1920, height: 1080, overflow: 'hidden' }}>
-      {/* 1. Các layer bối cảnh nền, nhân vật, animation, đạo cụ... */}
-      <RoomBackground view="desk" />
-      <NamCharacter pose="desk_slump" />
-
-      {/* 2. Lớp phủ hòa sắc điện ảnh tự động (Tự có tone màu, hạt phim 35mm và vignette) */}
-      <CinematicGradeOverlay mood="fincher_night" vignetteStrength={0.45} />
-    </div>
-  );
-};
-```
-
-## 7. Tiến độ asset (rà ngày 11/11/2026)
-
-Đánh dấu `[x]` khi đã có bản tĩnh dùng được trong repo. Dáng mới chỉ được duyệt bằng ảnh tĩnh, chưa kiểm chứng chuyển động. Đường dẫn tính từ `assets/`.
-
-### Bối cảnh
-Các bối cảnh `bo-sung-15p` dựng bằng mô hình 3D theo cm ([`kit3d.tsx`](assets/bo-sung-15p/kit3d.tsx)), mỗi cảnh có bốn góc `view` (`chinh · nguoc · cheo · cao`). Bản bổ sung 11/11/2026 còn chờ chủ repo duyệt. Tách lớp và khung 2.39:1: bối cảnh 3D có tuỳ chọn `layers` (nhóm SKY/BACK/MID/FORE) và `scope` (hai thanh đen 2.39:1); mặc định tắt, ảnh tĩnh xuất vẫn là một khối 16:9. Phòng trọ gốc (`RoomScene layers`) và thế giới gương cũng đã tách lớp. Chuyển động máy hiện làm bằng camera 3D.
-- [x] S01 Phòng trọ sáng sớm: `boi-canh/boi-canh.tsx` `RoomMorning`
-- [x] S02 Bàn học ngày: `StudyCornerMorning`
-- [x] S03 Phòng trọ chiều tà *(mới, chờ duyệt)*: `bo-sung-15p` `RoomSunset t={0..1}`, lớp ánh sáng tách riêng `SunsetLight` (`data-layer="LIGHT_LAYER"`). Vệt nắng cam được tính bằng tia qua ô cửa sổ, rơi lên mép bàn, nệm, sàn rồi leo lên tường đối diện và tắt; phòng tối và xanh dần ([bảng](assets/bo-sung-15p/bang-nang-chieu-ta.png))
-- [x] S04 Phòng trọ đêm: `RoomNight`, `StudyDeskNight`
-- [x] S05 Góc cửa và then sắt: `DoorInside` (`door: 'ajar' | 'latched'`)
-- [x] S06 Hành lang dãy trọ: ban ngày dùng `HallwayDoor`, view `corridor`. Bản đêm *(mới, chờ duyệt)*: `DormHallNight`, có cửa phòng 201–205, lan can tường lửng và song sắt, ba đèn tuýp vàng, một bóng chập chờn theo `flicker` 0–1. Có thêm sương ẩm và bậc cầu thang cuối dãy chìm vào bóng tối. Vị trí đứng: `dormSpot()`
-- [x] S07 Góc đồ cho tặng *(dựng lại, chờ duyệt)*: `DonationCorner` (thay `GiftCorner`). Đặt ở chân cầu thang tầng trệt, chiều muộn sau mưa, có vũng nước và vệt ẩm. Đồ gồm ghế gãy chân, chậu hoa nứt, đống đồ phủ bạt xanh, gương gỗ bám bụi dựa tường và bìa các-tông viết tay "Góc đồ cho tặng – Ai cần thì lấy". Vị trí đứng: `donationSpot()`
-- [x] S08 Giảng đường *(đã bổ sung, chờ duyệt)*: `LectureHall` có năm bậc (mỗi bậc 34 cm), đèn tuýp trắng lạnh phủ trần, bục đứng của Nam và bàn giảng viên đều có micro cổ ngỗng. Màn chiếu slide đầy công thức. `view="nguoc"` nhìn từ bục lên các bậc, sinh viên quay mặt về camera; `cheo` là góc ngang bục giảng
-- [x] S09 Lab 402: `ComputerLab`. Màn hình xen kẽ hiện hạn nộp bài tập lớn (`23:59`, đếm ngược `02:14:08`)
-- [x] S10 Hành lang đại học: `UniversityCorridor`
-- [x] S11 Mâm cơm gia đình *(dựng lại, chờ duyệt)*: `FamilyGathering`. Chiếu hoa cói viền đỏ–xanh, mâm nhôm tròn có canh cua, nem rán, rau luộc, bát cơm, đũa và nồi cơm; cả nhà ngồi bệt. Tường quét vôi bong lộ gạch, có bàn thờ, cửa gỗ mở ra sân nắng. Góc chính đặt như điện thoại cầm tay chĩa xuống mâm
-- [x] S12 Thế giới trong gương *(dựng lại, chờ duyệt)*: `MirrorRealm`. Phòng trọ lật ngang hoàn toàn, chìm trong vực xanh thẫm; sàn hóa mặt nước phát sáng lân tinh, phản chiếu mờ căn phòng lật. Có gợn sóng theo `ripple`/`at`, khung gương trôi lơ lửng; người chìm truyền qua `children`, giữa hai lớp nước
-
-### Đạo cụ (`bo-sung-15p/dao-cu.tsx`, bảng `bang-dao-cu`)
-- [x] P01 Gương, 4 trạng thái: `Mirror` (`guong-trang-thai-0..3`)
-- [x] P02 Búa đinh: `Hammer`
-- [x] P03 Thẻ căn cước (hư cấu): `IdentityCard student={false}`
-- [x] P04 Thẻ sinh viên: `IdentityCard`
-- [x] P05 Then sắt cửa: trong phòng gốc, trạng thái `ajar`/`latched`
-- [x] P06 Phong bì tiền ăn: `MoneyEnvelope`
-- [x] P07 Bát sứ và bồn rửa: góc bếp phòng gốc và đạo cụ `bowl` của rig
-- [x] P08 Cơm sườn trứng: `RiceBox`
-- [x] P09 Bún chả và nem: `BunCha`
-- [x] P10 Xôi gấc: `XoiGac`
-- [x] P11 Túi hoa quả: `FruitBag`
-- [x] P12 Viên phấn (nguyên và gãy đôi): `Chalk` *(mới)*
-
-### Màn hình UI (`bo-sung-15p/giao-dien.tsx`, bảng `bang-giao-dien`)
-- [x] UI-01 Báo thức: `bao-thuc`
-- [x] UI-02 Không làm phiền: `khong-lam-phien` *(mới)*
-- [x] UI-03 Nhóm Zalo: `han-bai`. Nội dung đang là lịch họp Lab 402; nếu cần câu khen "đỉnh chóp" thì sửa chữ khi chốt thoại.
-- [x] UI-04 Điểm 9.5: `diem-95`
-- [x] UI-05 Mẹ gọi và tiền về: `me-goi`, `tien-ve`. Số tiền đã chốt 3.000.000 đ.
-- [x] UI-06 Clip gia đình: `clip-gia-dinh`
-- [x] UI-07 Laptop bài tập lớn: `LaptopScreen` 1920×1080 *(mới)*
-
-### Dáng nhân vật (`bo-sung-15p/nhan-vat-va-tu-the.tsx` `EXTRA_POSES`, bảng `bang-dang-checklist`)
-- [x] NAM_P01 Nằm ngủ: `TWIN_POSES.lie`
-- [x] NAM_P02 Bật dậy co rúm: `bat-day` *(mới)*
-- [x] NAM_P03 Lùi va ghế: `lui-va-ghe` *(mới)*
-- [x] NAM_P04 Gài then: `gai-then` *(mới)*
-- [x] NAM_P05 Cày game: `choi-game`, `nam-choi-game`
-- [x] NAM_P06 Thị uy: `thi-uy`
-- [x] NAM_P07 Tập nói trước gương: `tap-noi` *(mới)*
-- [x] NAM_P08 Bục giảng hoảng loạn: `buc-giang` *(mới)*
-- [x] NAM_P09 Vác búa: `giu-bua`
-- [x] NAM_P10 Quỳ gục: `quy-guc` *(mới; bản ngồi ghế là `suy-sup`)*
-- [x] NAM_P11 Chạm tay vào gương: `ap-kinh`
-- [x] GUE_P01 Rửa chén: `TWIN_POSES.holdBowl`
-- [ ] GUE_P02 Ngoảnh đầu 90°: rig chưa xoay riêng đầu so với thân; làm khi dựng shot P1.02
-- [x] GUE_P03 Gõ phím: `TWIN_POSES.type`
-- [x] GUE_P04 Chờ đợi: `nk-cho-doi` *(mới)*
-- [x] GUE_P05 Đỡ đầu búa: `nk-do-bua` *(mới)*
-- [x] GUE_P06 Gài then kết phim: `nk-gai-then` *(mới)*
-- [x] TUNG_P01 Xách cơm, đá cửa: `tung-xach-com` *(mới)*
-- [x] TUNG_P02 Khoanh tay: `tung-khoanh-tay` *(mới)*
-- [x] TUNG_P03 Khựng đũa: `tung-cam-dua` *(mới)*
-
-### Vai phụ (`SupportingActor`, bảng `bang-vai-phu-tu-the`)
-- [x] Tạo hình Giảng viên, Mẹ, Bác Hai, Sinh viên nam và nữ (đã có thêm Bố)
-- [ ] Dáng riêng GV_P01 (gõ thước), HAI_P01 (nâng chén), SV_P01/02 (thì thầm): hiện chỉ có dáng đứng; làm khi dựng shot
-
-### Biểu cảm
-- [x] Ma trận 3 cấp: 6 nhóm × 3 mức (`bang-cam-xuc-01`, `bang-cam-xuc-02`)
-
----
-
-## 8. Tiến độ chuyển thể lên Full 3D (cập nhật 12/11/2026)
-
-Theo quyết định chuyển hướng sang **Nhân vật 3D & Bối cảnh 3D** ([QUY-CHUAN-3D.md](../../../docs/QUY-CHUAN-3D.md)), toàn bộ danh mục 2D đã tick `[x]` ở Mục 7 phía trên trở thành **bộ Concept & Reference hoàn chỉnh**. Bảng dưới đây theo dõi tiến độ sản xuất tài sản 3D thực tế (đánh dấu `[x]` khi hoàn thiện từng hạng mục, không xóa mục cũ):
+Giữ trạng thái riêng của nguồn Blender mới nhất; đây là tiến độ từng hạng mục, không phải chứng nhận nghiệm thu cả phim.
 
 ### A. Nhân vật 3D (Modeling, Armature Rig IK/FK & Facial Blendshapes)
 - [ ] **3D_CHAR_NAM:** Mô hình 3D Nam (tạo hình tròn mềm Stylized 3D theo `nhan-vat.svg`), nốt ruồi bên trái, 2 bộ trang phục (áo ngủ xám & áo xanh rêu), Armature Rig IK/FK tay–chân bám sàn.
