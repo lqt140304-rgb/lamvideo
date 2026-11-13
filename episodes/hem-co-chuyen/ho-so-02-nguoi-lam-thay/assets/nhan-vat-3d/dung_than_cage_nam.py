@@ -32,6 +32,103 @@ def build_old():
     return sc
 
 
+# ================================================================== CAGE (toạ độ thế giới, m; nửa x ≥ 0)
+# Mỗi mức thân: z, w nửa ngang, f nhô trước, b nhô sau (tính từ trục yc), n độ vuông tiết diện (2 = elip). Nửa vòng 7 đỉnh: 0 giữa trước … 3 bên … 6 giữa sau.
+# Mức 'co' lấy đúng vòng cổ của đầu (neck_target) để dải nối ngắn và thẳng. Số đo mẫu: ảnh NAM — 3D TURNAROUND, 1 px = 2,326 mm, sàn ở hàng 730.
+CAGE_LEVELS = [
+    dict(ten='co',        z=None,  w=None,  f=None,  b=None,  n=2.0, yc=None),
+    dict(ten='chan_co',   z=0.880, w=0.120, f=0.085, b=0.080, n=2.0),
+    dict(ten='vai',       z=0.840, w=0.165, f=0.110, b=0.092, n=2.2),
+    dict(ten='nguc',      z=0.785, w=0.160, f=0.135, b=0.095, n=2.2),
+    dict(ten='duoi_nguc', z=0.715, w=0.150, f=0.150, b=0.092, n=2.2),
+    dict(ten='bung',      z=0.650, w=0.150, f=0.168, b=0.095, n=2.2),
+    dict(ten='eo',        z=0.590, w=0.158, f=0.165, b=0.118, n=2.2),
+    dict(ten='chau',      z=0.530, w=0.168, f=0.150, b=0.128, n=2.3),
+    dict(ten='day_chau',  z=0.475, w=0.162, f=0.112, b=0.110, n=2.3),
+]
+Z_HANG = 0.025                                   # đỉnh háng thấp hơn mức day_chau
+CAGE_OVERRIDE = {}                               # (tên mức, chỉ số đỉnh 0..6) → (dx, dy, dz): chỉnh riêng một đỉnh
+ARM_RINGS = [   # tâm (x, y, z), rx nửa ngang (ra ngoài), ry nửa sâu; vòng 8 đỉnh vuông góc trục tay
+    dict(ten='dau_bap_tay',   c=(0.178, 0.000, 0.785), rx=0.056, ry=0.056),
+    dict(ten='giua_bap_tay',  c=(0.193, 0.000, 0.700), rx=0.054, ry=0.054),
+    dict(ten='khuyu',         c=(0.206, -0.002, 0.625), rx=0.050, ry=0.051),
+    dict(ten='giua_cang_tay', c=(0.220, -0.005, 0.560), rx=0.046, ry=0.046),
+    dict(ten='co_tay',        c=(0.236, -0.008, 0.540 * KZ), rx=0.036, ry=0.036),
+]
+LEG_RINGS = [
+    dict(ten='dau_dui',  c=(0.094, 0.000, 0.405), rx=0.072, ry=0.076),
+    dict(ten='giua_dui', c=(0.097, 0.000, 0.320), rx=0.068, ry=0.072),
+    dict(ten='goi',      c=(0.097, -0.002, 0.235), rx=0.063, ry=0.065),
+    dict(ten='bap_chan', c=(0.095, 0.002, 0.160), rx=0.062, ry=0.064),
+    dict(ten='mat_ca',   c=(0.0925, 0.004, 0.105 * KZ), rx=0.050, ry=0.052),
+]
+
+
+def _levels():
+    """CAGE_LEVELS đã điền mức 'co' theo vòng cổ của đầu (sau phóng HEAD_K và thu cổ)."""
+    A, BF, BB, YC, nf, nb = T.neck_target(); out = []
+    for L in CAGE_LEVELS:
+        L = dict(L)
+        if L['ten'] == 'co': L.update(z=T.RING_Z - 0.006, w=A, f=BF, b=BB, yc=YC)
+        L.setdefault('yc', 0.0); out.append(L)
+    return out
+
+
+def level_ring(L):
+    """Nửa vòng 7 đỉnh của một mức (siêu elip; nửa trước dùng f, nửa sau dùng b), đã cộng CAGE_OVERRIDE."""
+    e = 2.0 / L['n']; pts = []
+    for k in range(7):
+        th = math.pi * k / 6; s, c = math.sin(th), math.cos(th)
+        x = 0.0 if k in (0, 6) else L['w'] * abs(s) ** e
+        y = L['yc'] - L['f'] * abs(c) ** e if c >= 0 else L['yc'] + L['b'] * abs(c) ** e
+        d = CAGE_OVERRIDE.get((L['ten'], k), (0, 0, 0)); pts.append(Vector((x + d[0], y + d[1], L['z'] + d[2])))
+    return pts
+
+
+def limb_ring(c, prev_c, next_c, rx, ry):
+    """Vòng 8 đỉnh vuông góc trục chi (trục = next − prev): 0 ngoài, 2 trước (−Y), 4 trong, 6 sau."""
+    ax = (Vector(next_c) - Vector(prev_c)).normalized(); X = ax.cross(Vector((0, 1, 0))).normalized(); Y = X.cross(ax).normalized()
+    if Y.y < 0: Y = -Y
+    return [Vector(c) + X * (rx * math.cos(math.pi * j / 4)) - Y * (ry * math.sin(math.pi * j / 4)) for j in range(8)]
+
+
+def build_cage(coll):
+    lv = _levels(); names = [L['ten'] for L in lv]; iv, ing, idn, idc = names.index('vai'), names.index('nguc'), names.index('duoi_nguc'), names.index('day_chau')
+    bm = bmesh.new(); mid = bm.verts.layers.float.new('duong_giua'); tay = bm.verts.layers.float.new('tay'); chan = bm.verts.layers.float.new('chan')
+    V = []
+    for i, L in enumerate(lv):
+        row = []
+        for k, p in enumerate(level_ring(L)):
+            if i == ing and k == 3: row.append(None); continue          # đỉnh bên của mức ngực nằm trong lỗ nách
+            v = bm.verts.new(p); v[mid] = 1.0 if k in (0, 6) else 0.0; row.append(v)
+        V.append(row)
+    def quad(a, b, c, d): bm.faces.new((a, d, c, b))                    # a,b trên; d,c dưới → pháp tuyến ra ngoài
+    for i in range(len(lv) - 1):
+        for k in range(6):
+            if i in (iv, ing) and k in (2, 3): continue                    # 4 mặt lỗ nách
+            quad(V[i][k], V[i][k + 1], V[i + 1][k + 1], V[i + 1][k])
+    def limb(loop, rings, layer, start):
+        cs = [start] + [Vector(r['c']) for r in rings]; prev = loop
+        for n_, r in enumerate(rings):
+            nxt = cs[n_ + 2] if n_ + 2 < len(cs) else cs[n_ + 1] + (cs[n_ + 1] - cs[n_])
+            ring = [bm.verts.new(p) for p in limb_ring(r['c'], cs[n_], nxt, r['rx'], r['ry'])]
+            for v in ring: v[layer] = 1.0
+            for j in range(8): bm.faces.new((prev[j], ring[j], ring[(j + 1) % 8], prev[(j + 1) % 8]))
+            prev = ring
+    hole = [V[iv][3], V[iv][2], V[ing][2], V[idn][2], V[idn][3], V[idn][4], V[ing][4], V[iv][4]]
+    limb(hole, ARM_RINGS, tay, sum((v.co for v in hole), Vector()) / 8)
+    L = lv[idc]; hang = bm.verts.new((0.0, (L['b'] - L['f']) / 2 + L['yc'], L['z'] - Z_HANG)); hang[mid] = 1.0
+    loop = [V[idc][3], V[idc][2], V[idc][1], V[idc][0], hang, V[idc][6], V[idc][5], V[idc][4]]
+    limb(loop, LEG_RINGS, chan, sum((v.co for v in loop), Vector()) / 8)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    ob = D.new_obj('Nam_Than_Cage', bm, coll, None)
+    m = ob.modifiers.new('Mirror', 'MIRROR'); m.use_axis = (True, False, False); m.use_clip = True; m.use_mirror_merge = True; m.merge_threshold = 1e-4
+    s = ob.modifiers.new('Subsurf', 'SUBSURF'); s.levels = 1; s.render_levels = 1
+    ob['z_nach'] = lv[idn]['z']; ob['z_hang'] = L['z'] - Z_HANG
+    for p in ob.data.polygons: p.use_smooth = True
+    return ob
+
+
 # ================================================================== đo
 def _mesh_world(ob, dg=None):
     dg = dg or bpy.context.evaluated_depsgraph_get(); ev = ob.evaluated_get(dg); me = ev.to_mesh()
@@ -45,10 +142,8 @@ def _attr(me, name):
 
 
 def body_levels():
-    """Các mức đo thân (tên, z thế giới): theo CAGE_LEVELS nếu có, không thì theo bảng TORSO của v2.11."""
-    lv = globals().get('CAGE_LEVELS')
-    if lv: return [(l['ten'], l['z']) for l in lv]
-    return [(n, z * KZ) for n, z in (('chan_co', 0.95), ('vai', 0.90), ('nguc', 0.85), ('duoi_nguc', 0.79), ('bung', 0.70), ('eo', 0.63), ('chau', 0.565), ('day_chau', 0.50))]
+    """Các mức đo thân (tên, z thế giới) theo CAGE_LEVELS."""
+    return [(L['ten'], L['z']) for L in _levels()]
 
 
 def widths_table(ob):
@@ -166,14 +261,39 @@ def report(res):
     return all(ok for ok, _ in res.values())
 
 
+# ================================================================== render
+CLAY = '#b8b0a8'
+
+
+def render_cage(sc, out, samples=8):
+    """Trực giao trước/nghiêng/sau: cage dây (chỉ Mirror) và bản Subdivision 1, đất sét trung tính; bản cũ ẩn."""
+    os.makedirs(out, exist_ok=True); cage = bpy.data.objects['Nam_Than_Cage']; clay = D.mat('Dat_Set', CLAY, 0.7)
+    cage.data.materials.clear(); cage.data.materials.append(clay)
+    wire = cage.copy(); wire.data = cage.data.copy(); wire.name = 'Cage_Day'; cage.users_collection[0].objects.link(wire)
+    wire.modifiers.remove(wire.modifiers['Subsurf']); w = wire.modifiers.new('Day', 'WIREFRAME'); w.thickness = 0.0025; w.use_replace = True
+    wire.data.materials.clear(); wire.data.materials.append(D.mat('Day_Den', '#202020', 0.8))
+    sc.cycles.samples = samples; sc.render.resolution_x, sc.render.resolution_y = 560, 900; zc = 0.80; R = 6.0; files = []
+    sub = cage.modifiers['Subsurf']
+    for mode in ('day', 'min'):
+        sub.show_render = (mode == 'min'); wire.hide_render = (mode == 'min')
+        for n, (x, y) in {'truoc': (0, -R), 'nghieng': (R, 0), 'sau': (0, R)}.items():
+            sc.camera = T.cam(sc, f'c_{mode}_{n}', (x, y, zc), (0, 0, zc), 1.72); f = os.path.join(out, f'cage_{mode}_{n}.png'); sc.render.filepath = f
+            bpy.ops.render.render(write_still=True); files.append(f)
+    sub.show_render = True; bpy.data.objects.remove(wire, do_unlink=True); return files
+
+
 # ================================================================== chạy
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
     ap = argparse.ArgumentParser(); ap.add_argument('--check', action='store_true'); ap.add_argument('--render', default=''); ap.add_argument('--blend', default='')
     ap.add_argument('--samples', type=int, default=24); ap.add_argument('--mau', default=''); ap.add_argument('--phong-dir', default='')
-    a = ap.parse_args(argv)
+    a = ap.parse_args(argv); a.render = os.path.abspath(a.render) if a.render else ''
     sc = build_old()
     print('--- bản cũ v2.11:', widths_table(bpy.data.objects['Nam_Dau_Than_v211']))
+    cage = build_cage(bpy.data.collections[NEW_COLL])
+    print('--- cage (Mirror + Subdivision 1):', widths_table(cage))
+    if a.render:
+        T.lights(sc); print('ảnh cage:', render_cage(sc, os.path.join(a.render, 'cage'), a.samples))
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
     if a.check:
         ok = report(check_all(sc)); print('KẾT QUẢ:', 'TẤT CẢ PASS' if ok else 'CÒN FAIL'); sys.stdout.flush(); os._exit(0 if ok else 1)
