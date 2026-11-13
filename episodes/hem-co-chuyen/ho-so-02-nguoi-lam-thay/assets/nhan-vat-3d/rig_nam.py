@@ -122,7 +122,7 @@ def add_drivers_and_controls(ob):
                 d = pb[f'{nm}{i}.{k}'].driver_add('rotation_euler', 0).driver; d.type = 'SCRIPTED'
                 v = d.variables.new(); v.name = 'f'; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
                 d.expression = f'f*{math.radians(deg):.4f}'
-        for i, deg in ((1, 28), (2, 45)):
+        for i, deg in ((1, 12), (2, 22)):
             d = pb[f'thumb{i}.{k}'].driver_add('rotation_euler', 0).driver; d.type = 'SCRIPTED'
             v = d.variables.new(); v.name = 'f'; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
             d.expression = f'f*{math.radians(deg):.4f}'
@@ -250,6 +250,12 @@ def smooth_weights(asm, iters, alpha, head_z):
         for j in range(ng):
             acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
         W[band] = 0.5 * W[band] + 0.5 * (acc[band] / deg[band, None])
+    crotch = free & (zs > 0.28) & (zs < 0.56) & (xs < 0.14)      # háng–đùi trên: làm mượt thêm để ngồi/gập hông không kéo giãn
+    for it in range(120):
+        acc = np.zeros_like(W)
+        for j in range(ng):
+            acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
+        W[crotch] = 0.4 * W[crotch] + 0.6 * (acc[crotch] / deg[crotch, None])
     W[~free] = 0; W[~free, hi] = 1.0
     # tối đa 4 xương, chuẩn hoá
     W[W < 0.002] = 0.0; W /= W.sum(axis=1, keepdims=True).clip(min=1e-9)   # KHÔNG ép tối đa 4 xương: cắt top-4 trên trường trơn tạo bước nhảy → nứt khi tạo dáng
@@ -275,6 +281,8 @@ def attach_head(arm, sc):
     pm = arm.matrix_world @ b.matrix_local @ Matrix.Translation((0, b.length, 0)); em.matrix_parent_inverse = pm.inverted()
 
 
+# Quy ước trục cục bộ của xương thân/cổ/đầu (xương hướng lên): X = gập trước/sau, Y = XOAY quanh trục dọc (quay người/quay đầu), Z = nghiêng sang bên.
+# Xương tay: Z = dạng ra/khép vào, X = đưa trước/sau, Y = xoay dọc cánh tay.
 POSES = {
     'nghi': {},
     'tay_nang_45': {'upper_arm.L': ('Z', -45), 'upper_arm.R': ('Z', 45)},
@@ -282,15 +290,17 @@ POSES = {
     'khuyu_gap': {'upper_arm.L': ('X', -30), 'forearm.L': ('X', -90), 'upper_arm.R': ('X', -30), 'forearm.R': ('X', -90)},
     'cui_dau': {'neck': ('X', 20), 'head': ('X', 15), 'spine1': ('X', 18), 'spine2': ('X', 12)},
     'buoc_chan': 'step',
-    'xoay_thun': {'spine1': ('Z', 18), 'spine2': ('Z', 18), 'chest': ('Z', 14)},
+    'xoay_thun': {'spine1': ('Y', 18), 'spine2': ('Y', 18), 'chest': ('Y', 14)},
+    'nghieng_than': {'spine1': ('Z', 12), 'spine2': ('Z', 12), 'chest': ('Z', 8), 'neck': ('Z', 6)},
     'gap_hong': {'pelvis': ('X', 40), 'spine1': ('X', -12)},
-    'quay_vai': {'upper_arm.L': ('Y', 70), 'upper_arm.R': ('Y', -70), 'upper_arm.L ': ('X', 0)},
+    'quay_vai': {'upper_arm.L': ('Y', 70), 'upper_arm.R': ('Y', -70)},
     'nam_tay': {**{f'{n}{i}.{k}': ('X', 70 if i == 1 else 80) for n in ('index', 'middle', 'ring', 'pinky') for i in (1, 2) for k in ('L', 'R')}, 'thumb1.L': ('X', 30), 'thumb1.R': ('X', 30)},
-    'quay_dau': {'head': ('Z', 35), 'neck': ('Z', 15)},
+    'quay_dau': {'head': ('Y', 32), 'neck': ('Y', 14)},
+    'nghieng_dau': {'head': ('Z', 25), 'neck': ('Z', 10)},
     'ngua_dau': {'head': ('X', -25), 'neck': ('X', -10)},
     'ngoi': 'sit',
     'gap_hong_sau': {'pelvis': ('X', 75), 'spine1': ('X', 12)},
-    'xoay_thun_manh': {'spine1': ('Z', 35), 'spine2': ('Z', 35), 'chest': ('Z', 20), 'neck': ('Z', 10)},
+    'xoay_thun_manh': {'spine1': ('Y', 30), 'spine2': ('Y', 30), 'chest': ('Y', 20), 'neck': ('Y', 10)},
     'nam_tay_chat': 'fist',
     'gio_tay_cao': {'upper_arm.L': ('Z', -150), 'upper_arm.R': ('Z', 150)},
 }
@@ -307,8 +317,8 @@ def apply_pose(arm, name):
         for k in 'LR': pb[f'hand.{k}']['fist'] = 1.0
         bpy.context.view_layer.update(); return
     if spec == 'sit':
-        pb['pelvis'].matrix = Matrix.Translation((0, 0.02, -0.23)) @ pb['pelvis'].bone.matrix_local; bpy.context.view_layer.update()
-        pb['spine1'].rotation_euler = (math.radians(-6), 0, 0)
+        pb['pelvis'].matrix = Matrix.Translation((0, 0.22, -0.255)) @ pb['pelvis'].bone.matrix_local; bpy.context.view_layer.update()   # hông lùi ra sau + hạ ngang mặt ghế (~0,31 m), đùi ngang, cẳng chân thẳng đứng
+        for k in 'LR': pb[f'ik_foot.{k}'].location = (0, 0, 0)
         bpy.context.view_layer.update(); return
     if spec == 'step':
         pb['ik_foot.L'].location = (0, -0.10, 0.06)        # chân trái bước ra trước + nhấc
@@ -337,7 +347,7 @@ def stretch_report(arm, asm, names=None, thr=2.0):
     apply_pose(arm, 'nghi'); return res
 
 
-SHEET = ('nghi', 'tay_nang_45', 'gio_tay_cao', 'nam_tay_chat', 'cui_dau', 'quay_dau', 'ngoi', 'gap_hong_sau', 'xoay_thun_manh', 'buoc_chan')
+SHEET = ('nghi', 'tay_nang_45', 'gio_tay_cao', 'nam_tay_chat', 'cui_dau', 'quay_dau', 'xoay_thun', 'ngoi', 'gap_hong_sau', 'buoc_chan')
 
 
 def render_poses(sc, arm, out):
