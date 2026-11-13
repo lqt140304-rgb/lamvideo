@@ -5,7 +5,7 @@ Toạ độ trùng tay trái của Nam (+X, cổ tay ≈ (0.236, -0.008, 0.545),
 
 Chạy:  bpyv/bin/python dung_tay_nam.py --blend OUT.blend --render DIR --samples 24 --check
 """
-import sys, os, math, argparse
+import sys, os, math, argparse, itertools
 import bpy, bmesh
 import numpy as np
 from mathutils import Vector, Matrix
@@ -34,8 +34,8 @@ FINGER_DEF = {'index': (-0.054, 0.068, 0.0158, 0.0145), 'middle': (-0.018, 0.074
 SEG = (0.40, 0.32, 0.28)          # tỉ lệ 3 đốt
 KNUCKLE_U = 0.076                 # khớp gốc ngón nằm hơi lùi trong lòng tay
 # ngón cái: khối gốc + 3 điểm khớp (u, v, w) — lệch ra trước mặt lòng tay (w > 0), không cắm ngang
-THUMB_PTS = [(0.012, -0.045, 0.010), (0.036, -0.074, 0.024), (0.054, -0.090, 0.036), (0.070, -0.098, 0.044)]
-THUMB_R = (0.022, 0.0210, 0.0190, 0.0172)
+THUMB_PTS = [(0.012, -0.045, 0.010), (0.035, -0.071, 0.022), (0.051, -0.085, 0.032), (0.065, -0.092, 0.039)]   # gọn hơn bản đầu ~10%
+THUMB_R = (0.020, 0.0190, 0.0172, 0.0156)
 
 
 def L(u, v, w, sx=1.0):
@@ -114,7 +114,7 @@ def build_shape(side='L', voxel=0.0012):
     _loft_sections(bm, SEC, sx, cap_end=0.008)
     # gò ngón cái: khối elip phồng ở cạnh lòng tay phía trước, lệch về mặt lòng tay
     p0, p1 = Vector(THUMB_PTS[0]), Vector(THUMB_PTS[1]); pm = p0 * 0.45 + p1 * 0.55
-    _ellipsoid(bm, L(pm.x, pm.y, pm.z, sx), (p1 - p0), (0.030, 0.021, 0.019), sx)
+    _ellipsoid(bm, L(pm.x, pm.y, pm.z, sx), (p1 - p0), (0.027, 0.019, 0.017), sx)
     bm.to_mesh(me); bm.free()
     # (2) bốn ngón + hai đốt ngoài ngón cái: ống tròn đầu bo
     bm = bmesh.new(); bm.from_mesh(me)
@@ -283,13 +283,14 @@ def _tip_index(ob, P0, f, sx):
     return idx[np.argmax(U[:, 0])]
 
 
-def fist_contact_fn(ob, arm, side='L'):
-    """contact(f) → (khoảng cách nhỏ nhất đốt cuối ngón f tới lòng tay + gò ngón cái [m], số cặp tam giác xuyên). Dùng chung calibrate/check."""
-    _set(arm, {}, side); palm = _region(ob, ('hand', 'thumb1')); thumb = _region(ob, ('thumb2', 'thumb3')); tip = {f: _region(ob, (f'{f}3',)) for f in FINGERS}
+def fist_contact_fn(ob, arm, side='L', with_thumb=(True,)):
+    """contact(f) → (khoảng cách nhỏ nhất đốt cuối ngón f tới lòng tay [m], số cặp tam giác xuyên). Dùng chung calibrate/check."""
+    _set(arm, {}, side); palm = _region(ob, ('hand',)); thumb = _region(ob, ('thumb1', 'thumb2', 'thumb3')); tip = {f: _region(ob, (f'{f}3',)) for f in FINGERS}
+    # đích là LÒNG TAY, không tính gò ngón cái (gò dịch khi ngón cái vắt ngang)
     fing = {f: _region(ob, (f'{f}2', f'{f}3')) for f in FINGERS}
     def contact(f):
         P = _verts(ob); bp = _bvh_sub(P, ob, palm); bt = _bvh_sub(P, ob, tip[f])
-        pen = len(bp.overlap(bt))                    # không xuyên lòng tay (ngón cái được dò sau, tránh bốn ngón)
+        pen = len(bp.overlap(bt)) + (len(_bvh_sub(P, ob, thumb).overlap(_bvh_sub(P, ob, fing[f]))) if with_thumb[0] else 0)   # không xuyên lòng tay; lượt 2 không xuyên ngón cái
         return min(bp.find_nearest(Vector(P[i]))[3] for i in tip[f][::2]), pen
     return contact
 
@@ -298,7 +299,7 @@ def calibrate(ob, arm, cup, side='L'):
     """Dò hệ số cuộn từng ngón: nắm tay → đầu ngón cách mặt lòng tay +1 mm; cầm cốc → ngón vừa chạm cốc (≤1 mm) không xuyên;
     ngón cái dò lưới (cuộn × quay ngang) để không xuyên ngón trỏ/giữa (nắm) / cốc (cầm) và nằm sát nhất."""
     sx = 1.0 if side == 'L' else -1.0; pb = arm.pose.bones
-    _set(arm, {}, side); contact = fist_contact_fn(ob, arm, side)
+    wt = [False]; _set(arm, {}, side); contact = fist_contact_fn(ob, arm, side, wt)
     def scan(fn, lo, hi, step):                  # fn(k) → (khe, xuyên); tăng k tới khi chạm (≤1 mm) hoặc vừa xuyên thì lùi lại
         k = lo; last_ok = lo
         while k <= hi:
@@ -311,7 +312,7 @@ def calibrate(ob, arm, cup, side='L'):
     def fit_fist_fingers():
         for f in FINGERS:
             def g(k): pb[f'{f}1.{side}']['k_fist'] = k; _set(arm, {'fist': 1.0}, side); return contact(f)
-            k = scan(g, 0.5, 1.7, 0.02); pb[f'{f}1.{side}']['k_fist'] = k; d, pen = g(k); print(f'    hiệu chỉnh nắm {f}: k={k:.3f} khe {d * 1000:.1f} mm, xuyên {pen}')
+            k = scan(g, 0.5, 2.0, 0.02); pb[f'{f}1.{side}']['k_fist'] = k; d, pen = g(k); print(f'    hiệu chỉnh nắm {f}: k={k:.3f} khe {d * 1000:.1f} mm, xuyên {pen}')
     fit_fist_fingers()                               # lượt 1: chốt độ cuộn bốn ngón (ngón cái chưa vắt ngang)
     # cầm cốc
     Pc = _verts(cup); bvc = BVHTree.FromPolygons([Vector(p) for p in Pc], [list(p.vertices) for p in cup.data.polygons], all_triangles=False)
@@ -341,23 +342,42 @@ def calibrate(ob, arm, cup, side='L'):
             score = pen * 1.0 + dm * 100 + ns * 0.002
             if best is None or score < best[0]: best = (score, k, a, pen, dm, ns, [list(t['grip_rot']) for t in tb])
     for i in range(3): tb[i]['grip_rot'] = best[6][i]
-    print(f'    hiệu chỉnh ngón cái cầm cốc: k={best[1]} quay={best[2]} xuyên {best[3]} khe {best[4] * 1000:.1f} mm, cạnh giãn {best[5]}')
-    # nắm tay: dò lưới (độ cuộn × quay ngang) sau khi bốn ngón đã cuộn — không xuyên bốn ngón, đốt cuối không xuyên lòng tay,
-    # đốt cuối áp gần đốt giữa ngón trỏ/giữa nhất. (Đã thử IK tới mặt ngoài đốt giữa: ngón cái nằm dọc, chặn ngón trỏ/giữa cuộn.)
-    mid2 = _region(ob, ('index2', 'middle2')); best = None
-    for k in (0.2, 0.5, 0.8, 1.1, 1.4, 1.7):
-        for a in (0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0):
-            for i in range(3):
-                r = [0.0, 0.0, 0.0]; r[at] = st * math.radians(THUMB_CURL['fist'][i]) * k
-                if i == 0: r[acr] += sa * math.radians(THUMB_ACROSS['fist']) * a
-                tb[i]['fist_rot'] = r
-            _set(arm, {'fist': 1.0}, side); P = _verts(ob)
-            pen = len(_bvh_sub(P, ob, th).overlap(_bvh_sub(P, ob, fingers4))) + len(_bvh_sub(P, ob, th3).overlap(_bvh_sub(P, ob, palm_only)))
-            bm2 = _bvh_sub(P, ob, mid2); dm = min(bm2.find_nearest(Vector(P[i]))[3] for i in th3[::3]); ns = n_stretch(P)
-            score = pen * 1.0 + dm * 100 + ns * 0.002
-            if best is None or score < best[0]: best = (score, k, a, pen, dm, ns, [list(t['fist_rot']) for t in tb])
-    for i in range(3): tb[i]['fist_rot'] = best[6][i]
-    print(f'    hiệu chỉnh ngón cái nắm: k={best[1]} quay={best[2]} xuyên {best[3]} khe {best[4] * 1000:.1f} mm, cạnh giãn {best[5]}')
+    # tinh chỉnh 3 trục gốc ngón cái (±20°) để bớt kéo da kẽ ngón cái–trỏ mà vẫn không xuyên cốc, vẫn sát cốc
+    g0 = list(best[6][0]); gb = (best[0], g0)
+    for d in itertools.product((-0.35, -0.17, 0, 0.17, 0.35), repeat=3):
+        r1 = [g0[j] + d[j] for j in range(3)]; tb[0]['grip_rot'] = r1; _set(arm, {'grip': 1.0}, side); P = _verts(ob)
+        pen = len(_bvh_sub(P, ob, th).overlap(bvc)); dm = min(bvc.find_nearest(Vector(P[i]))[3] for i in th3[::2]); ns = n_stretch(P)
+        sc_ = pen * 1.0 + dm * 100 + ns * 0.01
+        if sc_ < gb[0]: gb = (sc_, r1, pen, dm, ns)
+    tb[0]['grip_rot'] = gb[1]
+    print(f'    hiệu chỉnh ngón cái cầm cốc: k={best[1]} quay={best[2]} → tinh chỉnh 3 trục: ' + (f'xuyên {gb[2]} khe {gb[3] * 1000:.1f} mm, cạnh giãn {gb[4]}' if len(gb) > 2 else 'giữ nguyên'))
+    # nắm tay: quét 3 trục xoay đốt gốc ngón cái (cuộn / xoắn dọc / ngả) × độ cuộn 2 đốt ngoài, sau khi bốn ngón đã cuộn.
+    # Điều kiện: không xuyên bốn ngón, đốt cuối không xuyên lòng tay; chọn đốt cuối áp sát đốt giữa ngón trỏ/giữa nhất, ít kéo da.
+    # (Quét 2 trục cũ không có tư thế hợp lệ: ngón cái phải XOẮN ~40° quanh trục dọc mới vắt lên được đốt giữa.)
+    mid2 = _region(ob, ('index2', 'middle2')); best = None; deg = [-60, -40, -20, 0, 20, 40, 60]
+    def try_fist(r1, k2):
+        tb[0]['fist_rot'] = r1
+        for i in (1, 2):
+            r = [0.0, 0.0, 0.0]; r[at] = st * math.radians(THUMB_CURL['fist'][i]) * k2; tb[i]['fist_rot'] = r
+        _set(arm, {'fist': 1.0}, side); P = _verts(ob)
+        pen = len(_bvh_sub(P, ob, th).overlap(_bvh_sub(P, ob, fingers4))) + len(_bvh_sub(P, ob, th3).overlap(_bvh_sub(P, ob, palm_only)))
+        if pen: return None
+        bm2 = _bvh_sub(P, ob, mid2); dm = min(bm2.find_nearest(Vector(P[i]))[3] for i in th3[::3]); ns = n_stretch(P)
+        return dm * 100 + ns * 0.002, dm, ns
+    for k2 in (0.6, 1.0):
+        for a_ in deg:
+            for b_ in deg:
+                for c_ in deg:
+                    r1 = [math.radians(a_), math.radians(b_), math.radians(c_)]; v = try_fist(r1, k2)
+                    if v and (best is None or v[0] < best[0]): best = (v[0], v[1], v[2], r1, k2)
+    for _ in range(2):                                   # tinh chỉnh ±10° quanh nghiệm tốt nhất
+        r0, k2 = best[3], best[4]
+        for d in itertools.product((-0.17, 0, 0.17), repeat=3):
+            r1 = [r0[j] + d[j] for j in range(3)]; v = try_fist(r1, k2)
+            if v and v[0] < best[0]: best = (v[0], v[1], v[2], r1, k2)
+    try_fist(best[3], best[4])
+    print(f'    hiệu chỉnh ngón cái nắm: gốc {[round(math.degrees(x)) for x in best[3]]}° cuộn đốt ngoài ×{best[4]} khe {best[1] * 1000:.1f} mm, cạnh giãn {best[2]}')
+    wt[0] = True; fit_fist_fingers()                # lượt 2: bốn ngón cuộn lại khi gò ngón cái đã dịch, không xuyên ngón cái
     _set(arm, {}, side)
 
 
@@ -493,8 +513,11 @@ def check_hand(ob, arm, cup=None):
         worst[p] = (int((st > 2.0).sum()), float(st.max()))
     rec('gian_canh', all(n == 0 for n, _ in worst.values()), ', '.join(f'{p} {n} cạnh/max {m:.2f}×' for p, (n, m) in worst.items()))
     # (b1) nắm tay: đầu ngón chạm lòng tay ≤ 3 mm, không lún vào
-    contact = fist_contact_fn(ob, arm, sfx); apply_hand_pose(arm, 'nam_tay'); ct = [contact(f) for f in FINGERS]; P = _verts(ob)
-    rec('nam_tay_dau_ngon', all(d <= 0.003 and pen == 0 for d, pen in ct), 'đốt cuối→lòng tay (mm/cặp xuyên): ' + ', '.join(f'{d * 1000:.1f}/{pen}' for d, pen in ct))
+    contact = fist_contact_fn(ob, arm, sfx); apply_hand_pose(arm, 'nam_tay'); P = _verts(ob)
+    bh = _bvh_sub(P, ob, _region(ob, ('hand', 'thumb'))); ct = []
+    for f in FINGERS:                                # chạm = đốt cuối sát lòng tay HOẶC gò/ngón cái (ngón trỏ tì vào gò ngón cái như nắm thật); xuyên chỉ tính với lòng tay
+        d_palm, pen = contact(f); tipv = _region(ob, (f'{f}3',)); ct.append((min(d_palm, min(bh.find_nearest(Vector(P[i]))[3] for i in tipv[::2])), pen))
+    rec('nam_tay_dau_ngon', all(d <= 0.003 and pen == 0 for d, pen in ct), 'đốt cuối→lòng tay/ngón cái (mm/cặp xuyên): ' + ', '.join(f'{d * 1000:.1f}/{pen}' for d, pen in ct))
     # (b2) ngón cái không xuyên ngón trỏ/giữa
     th = _region(ob, ('thumb2', 'thumb3')); ix = _region(ob, ('index', 'middle'))
     a_, b_ = _bvh_sub(P, ob, th), _bvh_sub(P, ob, ix); n_ov = len(a_.overlap(b_)) if a_ and b_ else -1
