@@ -34,8 +34,10 @@ def bone_table():
     A('spine1', 'pelvis', P(0, 0.0, 0.62), P(0, 0.0, 0.74))
     A('spine2', 'spine1', P(0, 0.0, 0.74), P(0, 0.0, 0.86))
     A('chest', 'spine2', P(0, 0.0, 0.86), P(0, -0.004, 0.94))
-    A('neck', 'chest', P(0, -0.004, 0.94), Vector((0, -0.008, T.RING_Z + 0.004)))
-    A('head', 'neck', Vector((0, -0.008, T.RING_Z + 0.004)), Vector((0, -0.008, 1.6003)))
+    n0 = P(0, -0.004, 0.94); n1 = Vector((0, -0.008, T.RING_Z + 0.004)); nm = (n0 + n1) / 2
+    A('neck', 'chest', n0, nm)
+    A('neck2', 'neck', nm, n1)
+    A('head', 'neck2', n1, Vector((0, -0.008, 1.6003)))
     hz0 = T.RING_Z + 0.004
     for s, k in ((1, 'L'), (-1, 'R')):
         hw = lambda x, y, z: Vector((x * T.HEAD_K, y * T.HEAD_K, T.hz(z)))      # toạ độ đầu gốc → thế giới (đầu đã phóng)
@@ -127,7 +129,7 @@ def add_drivers_and_controls(ob):
             v = d.variables.new(); v.name = 'f'; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
             d.expression = f'f*{math.radians(deg):.4f}'
     # nhóm xương
-    ad = ob.data; groups = {'Than': ('pelvis', 'spine1', 'spine2', 'chest', 'neck', 'head'), 'Tay': tuple(f'{n}.{k}' for k in 'LR' for n in ('clavicle', 'upper_arm', 'forearm', 'hand')),
+    ad = ob.data; groups = {'Than': ('pelvis', 'spine1', 'spine2', 'chest', 'neck', 'neck2', 'head'), 'Tay': tuple(f'{n}.{k}' for k in 'LR' for n in ('clavicle', 'upper_arm', 'forearm', 'hand')),
                             'Ngon': tuple(f'{n}{i}.{k}' for k in 'LR' for n in ('index', 'middle', 'ring', 'pinky', 'thumb') for i in (1, 2)), 'Chan_IK': tuple(f'{n}.{k}' for k in 'LR' for n in ('ik_foot', 'pole_knee')) + ('root',),
                             'Chan_deform': tuple(f'{n}.{k}' for k in 'LR' for n in ('thigh', 'shin', 'foot', 'toe')), 'Mat': tuple(f'{n}.{k}' for k in 'LR' for n in ('brow', 'eye'))}
     try:
@@ -231,7 +233,7 @@ def smooth_weights(asm, iters, alpha, head_z):
         W[reg] = 0.4 * W[reg] + 0.6 * (acc[reg] / deg[reg, None])
     # bàn tay: làm mượt dọc từng ngón (có áp lại luật tách ngón) để khi nắm không giãn ở kẽ/đầu ngón
     hand = free & (zs < 0.56 * KZ + 0.05) & (xs > 0.19)
-    for it in range(60):
+    for it in range(120):
         acc = np.zeros_like(W)
         for j in range(ng):
             acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
@@ -240,16 +242,26 @@ def smooth_weights(asm, iters, alpha, head_z):
             yc = -0.013 + dy; far = (np.abs(ys - yc) > 0.030) & (zs < palm_z + 0.004) & hand; W[far, i] = 0.0
         sh = W[hand].sum(axis=1, keepdims=True); W[hand] = np.where(sh > 1e-6, W[hand] / np.maximum(sh, 1e-6), W[hand])
     # cổ: đầu chuyển dần từ chân cổ lên (thay vì nhảy trong vài mm) → cúi/ngửa/quay đầu không giãn ở chân cổ
-    neck_c = names.index('neck'); z0, z1 = T.RING_Z - 0.052, head_z
-    band = free & (zs > z0) & (xs < 0.12)
-    h = (sm(z0, z1, zs[band]) * (1 - sm(0.070, 0.105, xs[band]))).astype(np.float32)     # đầu chuyển dần theo chiều cao, tắt dần về phía vai (không nhảy ở mép cổ)
-    Wb = W[band].copy(); Wb[:, hi] = 0.0; sb = Wb.sum(axis=1); Wb[sb < 1e-6, sp2] = 1.0; Wb /= Wb.sum(axis=1, keepdims=True)
-    Wb = Wb * (1 - h)[:, None]; Wb[:, hi] = h; W[band] = Wb
+    ch_i, n1_i, n2_i = names.index('chest'), names.index('neck'), names.index('neck2'); z0, z1 = T.RING_Z - 0.052, head_z
+    band = free & (zs > z0 - 0.02) & (xs < 0.12)
+    t = np.clip((zs[band] - z0) / (z1 - z0), 0.0, 1.0); hat = lambda a_, b_, c_: np.clip(np.minimum((t - a_) / (b_ - a_), (c_ - t) / (c_ - b_)), 0.0, 1.0)
+    Wexp = np.zeros((len(t), ng), dtype=np.float32); sm_t = lambda x: x * x * (3 - 2 * x)
+    Wexp[:, ch_i] = np.where(t < 1 / 3, sm_t(np.clip(1 - 3 * t, 0, 1)), 0.0); Wexp[:, n1_i] = np.where(t < 1 / 3, sm_t(np.clip(3 * t, 0, 1)), sm_t(np.clip(2 - 3 * t, 0, 1)))
+    Wexp[:, n2_i] = np.where(t < 2 / 3, sm_t(np.clip(3 * t - 1, 0, 1)), sm_t(np.clip(3 - 3 * t, 0, 1))) * (t > 1 / 3); Wexp[:, hi] = np.where(t > 2 / 3, sm_t(np.clip(3 * t - 2, 0, 1)), 0.0)
+    Wexp /= Wexp.sum(axis=1, keepdims=True).clip(min=1e-6)
+    fx = ((1 - sm(0.070, 0.105, xs[band])) * np.clip((zs[band] - (z0 - 0.02)) / 0.02, 0, 1)).astype(np.float32)[:, None]     # chỉ vùng cổ; tắt dần về phía vai
+    W[band] = (1 - fx) * W[band] + fx * Wexp
     for it in range(30):     # làm mượt lại chỗ vừa pha trộn
         acc = np.zeros_like(W)
         for j in range(ng):
             acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
         W[band] = 0.5 * W[band] + 0.5 * (acc[band] / deg[band, None])
+    armpit = free & (xs > 0.09) & (xs < 0.19) & (zs > 0.66) & (zs < 0.88)
+    for it in range(120):
+        acc = np.zeros_like(W)
+        for j in range(ng):
+            acc[:, j] = np.bincount(ea, weights=W[eb, j], minlength=nv) + np.bincount(eb, weights=W[ea, j], minlength=nv)
+        W[armpit] = 0.4 * W[armpit] + 0.6 * (acc[armpit] / deg[armpit, None])
     crotch = free & (zs > 0.28) & (zs < 0.56) & (xs < 0.14)      # háng–đùi trên: làm mượt thêm để ngồi/gập hông không kéo giãn
     for it in range(120):
         acc = np.zeros_like(W)
@@ -288,16 +300,16 @@ POSES = {
     'tay_nang_45': {'upper_arm.L': ('Z', -45), 'upper_arm.R': ('Z', 45)},
     'tay_truoc': {'upper_arm.L': ('X', -80), 'upper_arm.R': ('X', -80), 'forearm.L': ('X', -20), 'forearm.R': ('X', -20)},
     'khuyu_gap': {'upper_arm.L': ('X', -30), 'forearm.L': ('X', -90), 'upper_arm.R': ('X', -30), 'forearm.R': ('X', -90)},
-    'cui_dau': {'neck': ('X', 20), 'head': ('X', 15), 'spine1': ('X', 18), 'spine2': ('X', 12)},
+    'cui_dau': {'neck': ('X', 10), 'neck2': ('X', 10), 'head': ('X', 15), 'spine1': ('X', 18), 'spine2': ('X', 12)},
     'buoc_chan': 'step',
     'xoay_thun': {'spine1': ('Y', 18), 'spine2': ('Y', 18), 'chest': ('Y', 14)},
     'nghieng_than': {'spine1': ('Z', 12), 'spine2': ('Z', 12), 'chest': ('Z', 8), 'neck': ('Z', 6)},
     'gap_hong': {'pelvis': ('X', 40), 'spine1': ('X', -12)},
     'quay_vai': {'upper_arm.L': ('Y', 70), 'upper_arm.R': ('Y', -70)},
     'nam_tay': {**{f'{n}{i}.{k}': ('X', 70 if i == 1 else 80) for n in ('index', 'middle', 'ring', 'pinky') for i in (1, 2) for k in ('L', 'R')}, 'thumb1.L': ('X', 30), 'thumb1.R': ('X', 30)},
-    'quay_dau': {'head': ('Y', 32), 'neck': ('Y', 14)},
-    'nghieng_dau': {'head': ('Z', 25), 'neck': ('Z', 10)},
-    'ngua_dau': {'head': ('X', -25), 'neck': ('X', -10)},
+    'quay_dau': {'head': ('Y', 30), 'neck2': ('Y', 10), 'neck': ('Y', 10)},
+    'nghieng_dau': {'head': ('Z', 20), 'neck2': ('Z', 8), 'neck': ('Z', 6)},
+    'ngua_dau': {'head': ('X', -25), 'neck2': ('X', -5), 'neck': ('X', -5)},
     'ngoi': 'sit',
     'gap_hong_sau': {'pelvis': ('X', 75), 'spine1': ('X', 12)},
     'xoay_thun_manh': {'spine1': ('Y', 30), 'spine2': ('Y', 30), 'chest': ('Y', 20), 'neck': ('Y', 10)},
