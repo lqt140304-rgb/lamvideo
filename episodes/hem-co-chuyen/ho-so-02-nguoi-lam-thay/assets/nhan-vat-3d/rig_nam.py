@@ -381,9 +381,9 @@ def stretch_report(arm, asm, names=None, thr=2.0):
     def pos():
         dg = bpy.context.evaluated_depsgraph_get(); ev = asm.evaluated_get(dg); me = ev.to_mesh(); a = np.zeros(len(me.vertices) * 3, dtype=np.float32); me.vertices.foreach_get('co', a); ev.to_mesh_clear(); return a.reshape(-1, 3)
     apply_pose(arm, 'nghi'); p0 = pos(); ed = np.zeros(len(asm.data.edges) * 2, dtype=np.int32); asm.data.edges.foreach_get('vertices', ed); ea, eb = ed[0::2], ed[1::2]
-    l0 = np.linalg.norm(p0[ea] - p0[eb], axis=1).clip(min=1e-6); res = {}
+    l0 = np.linalg.norm(p0[ea] - p0[eb], axis=1).clip(min=1e-6); ok = l0 > 0.0015; res = {}   # bỏ cạnh <1,5 mm (đỉnh gần trùng): tỉ lệ của chúng bị thổi phồng, không nhìn thấy được
     for nm in (names or POSES):
-        apply_pose(arm, nm); p = pos(); st = np.linalg.norm(p[ea] - p[eb], axis=1) / l0; bad = np.where(st > thr)[0]
+        apply_pose(arm, nm); p = pos(); st = np.where(ok, np.linalg.norm(p[ea] - p[eb], axis=1) / l0, 0.0); bad = np.where(st > thr)[0]
         reg = '-' if not len(bad) else f'z {p0[ea[bad], 2].min():.2f}-{p0[ea[bad], 2].max():.2f}, |x| {np.abs(p0[ea[bad], 0]).min():.2f}-{np.abs(p0[ea[bad], 0]).max():.2f}'
         res[nm] = (len(bad), float(st.max()), reg); print(f'    {nm:14s} cạnh giãn > {thr}×: {len(bad):5d}  max {st.max():.2f}×  vùng {reg}')
     apply_pose(arm, 'nghi'); return res
