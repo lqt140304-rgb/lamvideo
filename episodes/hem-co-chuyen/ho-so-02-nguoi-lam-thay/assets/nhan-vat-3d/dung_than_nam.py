@@ -18,10 +18,10 @@ import dung_dau_nam as D
 
 M_CT = 32
 RING_Z0 = min((r[0] for r in D.LOFT_TAB), key=lambda z: abs(z - 1.0))   # vòng cắt cổ của bản sao đầu ở ~1,00 m (ngay dưới hàm); phần cổ dài của nguồn đầu bỏ, cổ do thân đảm nhiệm
-HEAD_K = 1.22                                  # cụm đầu–mặt–tai–tóc phóng ĐỀU 1,15× (mẫu: đầu to hơn đầu gốc ~13% chiều cao, ~21% bề ngang); đỉnh tóc vẫn 1,6003 m
+HEAD_K = 1.10                                  # cụm đầu–mặt–tai–tóc phóng ĐỀU 1,15× (mẫu: đầu to hơn đầu gốc ~13% chiều cao, ~21% bề ngang); đỉnh tóc vẫn 1,6003 m
 CHIN0, TOP0 = 1.032, 1.6003
 ZCH = TOP0 - (TOP0 - CHIN0) * HEAD_K            # cằm mới ≈ 0,947 m
-KZ = 0.87                                      # thân nén theo chiều cao (mẫu: cổ ở ~0,93 m, vai ~0,88 m); bề ngang giữ nguyên theo bảng đo
+KZ = 0.94                                      # thân nén theo chiều cao (mẫu: cổ ở ~0,93 m, vai ~0,88 m); bề ngang giữ nguyên theo bảng đo
 def hz(z): return ZCH + (z - CHIN0) * HEAD_K   # z đầu gốc → z sau phóng
 NECK_AXIS_Y, NECK_SCALE = -0.007, 0.80   # cổ bản sao đầu thu nhỏ đều 18% quanh trục cổ (a 0,090 → 0,074) cho khớp tỉ lệ thân; nguồn Head_Base không đổi
 NECK_BLEND_TOP = 1.048
@@ -68,11 +68,40 @@ def tube(name, knots, coll, step=0.006, n=2.0, along='z'):
     return loft_obj(name, rings, coll)
 
 
-def torso(name, table, coll, step=0.006):
+def torso(name, table, coll, step=0.006, extra=()):
     zs = [t[0] for t in table]; N = int((zs[-1] - zs[0]) / step); rings = []
     for i in range(N + 1):
         v = _cr(table, i / N * (len(table) - 1)); rings.append(ring(Vector((0, v[4], v[0])), v[1], v[2], v[3], v[5], m=96))
+    rings += list(extra)
     return loft_obj(name, rings, coll)
+
+
+def neck_target():
+    """Vòng cổ của đầu (sau thu cổ NECK_SCALE và phóng HEAD_K) tính đúng công thức Head_Base: (nửa rộng, nửa sâu trước, nửa sâu sau, tâm y, n trước, n sau)."""
+    t = D.LOFT_TAB[::-1]; z = RING_Z0
+    for (z0, f0, b0, w0), (z1, f1, b1, w1) in zip(t, t[1:]):
+        if z0 <= z <= z1:
+            u = (z - z0) / (z1 - z0); yf, yb, w = f0 + (f1 - f0) * u, b0 + (b1 - b0) * u, w0 + (w1 - w0) * u; break
+    mm, nf, nb = D.section_params(z, D.SECTION_MODE); ym = yf + mm * (yb - yf)
+    k = NECK_SCALE * HEAD_K; yc = (NECK_AXIS_Y + (ym - NECK_AXIS_Y) * NECK_SCALE) * HEAD_K
+    return w * k, (ym - yf) * k, (yb - ym) * k, yc, nf, nb
+
+
+def neck_rings(last_row, m=96, shrink=0.0004):
+    """Các vòng nối từ hàng vai cuối của bảng thân tới ĐÚNG vòng cổ của đầu (z sau nén KZ), chuyển dần bằng smoothstep → không nếp, không gờ ở chỗ nối."""
+    A, BF, BB, YC, nf, nb = neck_target(); A -= shrink; BF -= shrink; BB -= shrink; out = []
+    z_last = last_row[0]
+    zs = [RING_Z - 0.030, RING_Z - 0.019, RING_Z - 0.010, RING_Z - 0.003, RING_Z + 0.006]
+    for zc in zs:
+        t = D.smooth01(zs[0] - 0.012, RING_Z - 0.003, zc); z = zc / KZ
+        a_ = last_row[1] + (A - last_row[1]) * t; bf_ = last_row[2] + (BF - last_row[2]) * t; bb_ = last_row[3] + (BB - last_row[3]) * t; yc_ = last_row[4] + (YC - last_row[4]) * t
+        pts = []; e_f, e_b = 2.0 / nf, 2.0 / nb
+        for j in range(m):
+            th = 2 * math.pi * j / m; cs, sn = math.cos(th), math.sin(th); e = e_f if cs >= 0 else e_b
+            py = -bf_ * abs(cs) ** e if cs >= 0 else bb_ * abs(cs) ** e
+            pts.append(Vector((a_ * sg(sn) * abs(sn) ** e, yc_ + py, z)))
+        out.append(pts)
+    return out
 
 
 def join(objs, name):
@@ -94,8 +123,7 @@ def remesh(ob, voxel, smooth, factor=0.5):
 #     z      a      bf     bb     yc     n     (vòng ngang: nửa rộng, nửa sâu trước/sau)
 TORSO = [(0.44, 0.052, 0.058, 0.068, 0.000, 2.0), (0.47, 0.105, 0.088, 0.098, 0.000, 2.2), (0.50, 0.166, 0.108, 0.118, 0.000, 2.3), (0.565, 0.166, 0.146, 0.132, 0.000, 2.3),
          (0.63, 0.154, 0.158, 0.118, 0.000, 2.3), (0.70, 0.131, 0.146, 0.104, 0.000, 2.2), (0.79, 0.118, 0.138, 0.106, 0.000, 2.2), (0.85, 0.140, 0.130, 0.104, -0.001, 2.1), (0.90, 0.144, 0.126, 0.102, -0.001, 2.1),
-         (0.93, 0.144, 0.122, 0.100, -0.002, 2.1), (0.95, 0.140, 0.114, 0.095, -0.003, 2.1), (0.965, 0.130, 0.102, 0.088, -0.005, 2.0), (0.975, 0.114, 0.089, 0.080, -0.006, 2.0),
-         (0.983, 0.1122, 0.0939, 0.0866, -0.008, 2.0), (0.991, 0.0964, 0.0842, 0.0805, -0.008, 2.0), (1.000, 0.0909, 0.0799, 0.0799, -0.008, 2.0), (1.012, 0.0899, 0.0797, 0.0797, -0.008, 2.0)]
+         (0.93, 0.144, 0.122, 0.100, -0.002, 2.1), (0.95, 0.140, 0.114, 0.095, -0.003, 2.1)]
 #      x      y       z     rx     ry   (tay TRÁI nhân vật = +X; tay phải lấy đối xứng) — thả xuôi hơi toè ra như mẫu
 ARM = [(0.112, 0.002, 0.950, 0.040, 0.044), (0.126, 0.002, 0.928, 0.052, 0.054), (0.140, 0.001, 0.895, 0.054, 0.054), (0.156, 0.000, 0.840, 0.050, 0.050), (0.168, 0.000, 0.800, 0.050, 0.050),
        (0.179, 0.002, 0.760, 0.050, 0.050), (0.190, 0.004, 0.720, 0.049, 0.049), (0.200, 0.002, 0.680, 0.048, 0.048), (0.210, -0.002, 0.640, 0.046, 0.046), (0.220, -0.005, 0.600, 0.043, 0.043),
@@ -145,7 +173,7 @@ def carve_details(ob):
 
 
 def build_body(coll, mat, voxel=0.003, smooth=4):
-    parts = [torso('t', TORSO, coll)]
+    parts = [torso('t', TORSO, coll, extra=neck_rings(TORSO[-1]))]
     for s in (1, -1):
         sx = lambda kn: kn if s > 0 else mir(kn)
         parts += [tube('arm', sx(ARM), coll), tube('palm', sx(PALM), coll, step=0.004), tube('thumb', sx(THUMB), coll, step=0.004),
@@ -162,7 +190,7 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
     smooth_zone(body, lambda c: 0.78 < c.z < 1.0 and abs(c.x) > 0.06, 70)                     # vai–nách
     smooth_zone(body, lambda c: 0.55 < c.z < 0.86 and 0.08 < abs(c.x) < 0.21 and abs(c.y) < 0.07, 14, 0.45)  # chỗ tay chạm thân (bỏ răng cưa voxel)
     smooth_zone(body, lambda c: 0.93 < c.z < 1.0, 8)                                           # chân cổ–vai
-    smooth_zone(body, lambda c: 0.36 < c.z < 0.68 and abs(c.x) < 0.17, 14, 0.45)   # hông–háng–mông (bỏ mép bụng dưới)
+    smooth_zone(body, lambda c: 0.34 < c.z < 0.70 and abs(c.x) < 0.17, 40, 0.5)   # hông–háng–mông (bỏ mép bụng dưới)
     smooth_zone(body, lambda c: 0.06 < c.z < 0.20 and abs(c.x) < 0.2 and c.y > -0.10, 16, 0.45)   # cổ chân (không đụng ngón chân)
     smooth_zone(body, lambda c: 0.50 < c.z < 0.60 and abs(c.x) > 0.20, 8)                    # cổ tay–lòng bàn tay (bỏ góc vuông)
     smooth_zone(body, lambda c: 0.40 < c.z < 0.50 and abs(c.x) > 0.20, 2, 0.3)               # gốc ngón tay + ngón (đầu ngón tròn, nối mượt)
