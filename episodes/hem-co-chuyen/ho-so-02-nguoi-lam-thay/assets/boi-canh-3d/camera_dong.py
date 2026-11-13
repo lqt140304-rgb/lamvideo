@@ -286,6 +286,7 @@ if __name__ == '__main__':
     for o in bpy.data.objects:
         if any(o.name.startswith(p) for p in info.get('hide_prefix', ())): o.visible_camera = False
     sc.cycles.samples = a.samples
+    sc.render.use_persistent_data = True  # giữ BVH/dữ liệu giữa các khung (cảnh tĩnh, chỉ camera/vật liệu keyframe đổi): ≈ −20% thời gian/khung
     os.makedirs(a.out, exist_ok=True)
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=a.blend)
     frs = list(range(sc.frame_start, sc.frame_end + 1, a.step)) if a.all else [int(x) for x in a.frames.split(',') if x]
