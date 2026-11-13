@@ -34,6 +34,7 @@ Quần áo, rig/trọng số, dáng đi/ngồi, mặt, tóc, tai, bàn tay, bàn
 - Nặn tay trong giao diện: loại, vì làm qua script và `.blend` không commit.
 
 Phạm vi cage (chủ repo chọn): phủ thân và tay/chân **tới cổ tay, mắt cá**. Bàn tay/bàn chân tạm lấy hình cũ thành vật riêng (đúng hướng cách B của kế hoạch tay/chân).
+**Đổi 14/11/2026 (chủ repo):** "đang tạo tay mới, đừng ghép tay vội" → không ghép bàn tay cũ; cẳng tay đóng nắp ở cổ tay chờ tay mới. Bàn chân cũ vẫn nối tạm. Kết quả: [KET-QUA-THAN-CAGE.md](KET-QUA-THAN-CAGE.md).
 
 ## Nhánh và nguồn
 - Làm trên `claude/nam-body-mesh-rebuild-dda859`, trước hết gộp `origin/claude/elegant-knuth-w1im6b` (bản Nam mới nhất: mặt nạ tròng trắng trên đỉnh, chỉnh bàn chân, rig, kế hoạch tay/chân). Không đẩy `main`.

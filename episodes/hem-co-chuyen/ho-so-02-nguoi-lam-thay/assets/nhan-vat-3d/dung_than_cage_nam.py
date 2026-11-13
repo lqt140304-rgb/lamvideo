@@ -480,6 +480,9 @@ CLAY = '#b8b0a8'
 def render_cage(sc, out, samples=8):
     """Trực giao trước/nghiêng/sau: cage dây (chỉ Mirror) và bản Subdivision 1, đất sét trung tính; bản cũ ẩn."""
     os.makedirs(out, exist_ok=True); cage = bpy.data.objects['Nam_Than_Cage']; clay = D.mat('Dat_Set', CLAY, 0.7)
+    others = [o for o in bpy.data.collections[NEW_COLL].objects if o is not cage and not o.hide_render]
+    for o in others: o.hide_render = True
+    cage.hide_render = False
     cage.data.materials.clear(); cage.data.materials.append(clay)
     wire = cage.copy(); wire.data = cage.data.copy(); wire.name = 'Cage_Day'; cage.users_collection[0].objects.link(wire)
     wire.modifiers.remove(wire.modifiers['Subsurf']); w = wire.modifiers.new('Day', 'WIREFRAME'); w.thickness = 0.0025; w.use_replace = True
@@ -491,7 +494,18 @@ def render_cage(sc, out, samples=8):
         for n, (x, y) in {'truoc': (0, -R), 'nghieng': (R, 0), 'sau': (0, R)}.items():
             sc.camera = T.cam(sc, f'c_{mode}_{n}', (x, y, zc), (0, 0, zc), 1.72); f = os.path.join(out, f'cage_{mode}_{n}.png'); sc.render.filepath = f
             bpy.ops.render.render(write_still=True); files.append(f)
-    sub.show_render = True; bpy.data.objects.remove(wire, do_unlink=True); return files
+    sub.show_render = True; bpy.data.objects.remove(wire, do_unlink=True); cage.hide_render = True
+    for o in others: o.hide_render = False
+    return files
+
+
+def render_old_new(sc, out, samples=24):
+    """Bản cũ v2.11 và bản mới, cùng máy, cùng tỉ lệ, cùng sàn (đất sét): cu_<góc>.png / moi_<góc>.png."""
+    old, new = bpy.data.collections[OLD_COLL], bpy.data.collections[NEW_COLL]; files = []
+    for tag, show_old in (('cu_', True), ('moi_', False)):
+        old.hide_render, new.hide_render = not show_old, show_old
+        files += render_views(sc, out, ['truoc', 'nghieng', 'sau'], samples, prefix=tag)
+    old.hide_render, new.hide_render = True, False; return files
 
 
 VIEWS = {   # tên: (vị trí máy, điểm nhìn, ortho_scale, cỡ ảnh)
@@ -532,6 +546,7 @@ if __name__ == '__main__':
     if a.render:
         T.lights(sc); print('ảnh cage:', render_cage(sc, os.path.join(a.render, 'cage'), a.samples))
         print('ảnh:', render_views(sc, a.render, list(VIEWS), a.samples))
+        print('ảnh cũ/mới:', render_old_new(sc, a.render, a.samples))
         if a.mau:
             sc.cycles.samples = 4; sil = os.path.join(a.render, 'sil'); T.render_silhouettes(sc, sil, MAU_S); overlay_ref(sil, a.mau, a.render)
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
