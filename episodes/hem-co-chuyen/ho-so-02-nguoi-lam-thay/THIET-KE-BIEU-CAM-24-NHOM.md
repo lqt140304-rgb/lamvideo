@@ -129,5 +129,5 @@ Nghiệm thu chung:
 ## Rà soát của người dựng (đã làm, tự rà)
 
 - **Đã trả lời bằng bối cảnh:** tên tệp ảnh tải lên ↔ bảng 1/2/3; bố cục lưới 2 cột × 4 hàng, mỗi ô hai đầu (Nhẹ, Rõ).
-- **Quyết nhỏ, ghi ở "Lựa chọn của trợ lý":** quy tắc đặt tên, mức 2 = Rõ, 8 biểu cảm mẫu, hướng nhìn là điều khiển độc lập.
+- **Quyết nhỏ, ghi ở "Lựa chọn của trợ lý":** quy tắc đặt tên, mức 2 = Rõ, 9 nhóm biểu cảm mẫu, hướng nhìn là điều khiển độc lập.
 - **Chỉ chủ repo trả lời được:** có lưu ảnh mẫu vào repo không (mỗi ảnh nén khoảng vài trăm KB); và `tu_ai`/`thi_uy` giữ hay bỏ (có thể hoãn đến lúc làm bảng).
