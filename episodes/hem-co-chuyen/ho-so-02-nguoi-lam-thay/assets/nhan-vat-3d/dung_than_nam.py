@@ -17,7 +17,9 @@ from mathutils import Vector
 import dung_dau_nam as D
 
 M_CT = 32
-RING_Z = min((r[0] for r in D.LOFT_TAB), key=lambda z: abs(z - 0.9771))   # vòng cổ của Head_Base ở ~0,977 (phía trên nón đáy cổ); cắt hở tại đây
+RING_Z = min((r[0] for r in D.LOFT_TAB), key=lambda z: abs(z - 1.0))   # vòng cắt cổ của bản sao đầu ở ~1,00 m (ngay dưới hàm); phần cổ dài của nguồn đầu bỏ, cổ do thân đảm nhiệm
+NECK_AXIS_Y, NECK_SCALE = -0.007, 0.82   # cổ bản sao đầu thu nhỏ đều 18% quanh trục cổ (a 0,090 → 0,074) cho khớp tỉ lệ thân; nguồn Head_Base không đổi
+NECK_BLEND_TOP = 1.048
 CUT_Z = RING_Z - 0.0055             # mặt cắt thân (dải nối cao ~5,5 mm)
 
 
@@ -85,16 +87,16 @@ def remesh(ob, voxel, smooth, factor=0.5):
 # ================================================================== SỐ ĐO v2 (m) — lấy từ đo ảnh mẫu NAM — 3D TURNAROUND (chuẩn hoá theo cằm: z_ta = z_mẫu × 1,13; bề ngang × 0,88)
 #     z      a      bf     bb     yc     n     (vòng ngang: nửa rộng, nửa sâu trước/sau)
 TORSO = [(0.44, 0.052, 0.058, 0.068, 0.000, 2.0), (0.47, 0.105, 0.088, 0.098, 0.000, 2.2), (0.50, 0.166, 0.108, 0.118, 0.000, 2.3), (0.565, 0.172, 0.146, 0.132, 0.000, 2.3),
-         (0.63, 0.160, 0.158, 0.118, 0.000, 2.3), (0.70, 0.138, 0.136, 0.098, 0.000, 2.2), (0.79, 0.120, 0.128, 0.096, 0.000, 2.2), (0.85, 0.148, 0.118, 0.092, -0.001, 2.1), (0.885, 0.147, 0.108, 0.086, -0.002, 2.1),
-         (0.915, 0.134, 0.096, 0.080, -0.004, 2.1), (0.935, 0.116, 0.092, 0.081, -0.005, 2.0), (0.950, 0.105, 0.089, 0.082, -0.006, 2.0), (0.958, 0.0975, 0.0855, 0.0855, -0.007, 2.0), (0.968, 0.0938, 0.0836, 0.0836, -0.007, 2.0),
-         (0.985, 0.0930, 0.0833, 0.0833, -0.007, 2.0)]
+         (0.63, 0.160, 0.158, 0.118, 0.000, 2.3), (0.70, 0.138, 0.136, 0.098, 0.000, 2.2), (0.79, 0.122, 0.128, 0.098, 0.000, 2.2), (0.85, 0.140, 0.118, 0.096, 0.000, 2.1), (0.90, 0.146, 0.114, 0.094, -0.001, 2.1),
+         (0.935, 0.140, 0.110, 0.092, -0.002, 2.1), (0.955, 0.126, 0.102, 0.086, -0.004, 2.0), (0.970, 0.106, 0.090, 0.078, -0.006, 2.0), (0.980, 0.087, 0.075, 0.069, -0.007, 2.0),
+         (0.990, 0.077, 0.068, 0.065, -0.007, 2.0), (1.000, 0.0745, 0.0655, 0.0655, -0.007, 2.0), (1.012, 0.0737, 0.0653, 0.0653, -0.007, 2.0)]
 #      x      y       z     rx     ry   (tay TRÁI nhân vật = +X; tay phải lấy đối xứng) — thả xuôi hơi toè ra như mẫu
-ARM = [(0.150, 0.002, 0.884, 0.020, 0.024), (0.152, 0.002, 0.862, 0.040, 0.044), (0.158, 0.001, 0.835, 0.047, 0.048), (0.168, 0.000, 0.790, 0.051, 0.051), (0.185, 0.000, 0.740, 0.050, 0.050), (0.205, 0.004, 0.680, 0.047, 0.047),
-       (0.225, -0.004, 0.620, 0.044, 0.043), (0.240, -0.008, 0.570, 0.036, 0.036)]
+ARM = [(0.136, 0.002, 0.918, 0.022, 0.026), (0.143, 0.002, 0.896, 0.040, 0.043), (0.150, 0.001, 0.866, 0.047, 0.048), (0.161, 0.000, 0.815, 0.050, 0.050), (0.181, 0.000, 0.755, 0.050, 0.050),
+       (0.202, 0.004, 0.680, 0.047, 0.047), (0.222, -0.004, 0.620, 0.044, 0.043), (0.238, -0.008, 0.570, 0.036, 0.036)]
 # bàn tay to, mềm: lòng bàn tay dẹt theo x, 4 ngón ngắn đầy cong nhẹ về trước, ngón cái có khối gốc
-PALM = [(0.240, -0.008, 0.570, 0.036, 0.036), (0.250, -0.010, 0.545, 0.029, 0.054), (0.260, -0.012, 0.500, 0.030, 0.066), (0.265, -0.013, 0.468, 0.027, 0.061)]
+PALM = [(0.238, -0.008, 0.570, 0.036, 0.036), (0.248, -0.010, 0.545, 0.029, 0.054), (0.258, -0.012, 0.500, 0.030, 0.066), (0.263, -0.013, 0.468, 0.027, 0.061)]
 FINGERS = [(-0.047, 0.072, 0.0145), (-0.016, 0.082, 0.0150), (0.016, 0.075, 0.0145), (0.046, 0.060, 0.0132)]   # (dy so với tâm bàn, độ dài, bán kính)
-THUMB = [(0.252, -0.034, 0.545, 0.025, 0.025), (0.250, -0.055, 0.505, 0.022, 0.022), (0.252, -0.066, 0.470, 0.018, 0.018), (0.253, -0.070, 0.450, 0.012, 0.012)]
+THUMB = [(0.250, -0.034, 0.545, 0.025, 0.025), (0.248, -0.055, 0.505, 0.022, 0.022), (0.250, -0.066, 0.470, 0.018, 0.018), (0.251, -0.070, 0.450, 0.012, 0.012)]
 LEG = [(0.086, 0.000, 0.66, 0.056, 0.070), (0.090, 0.000, 0.60, 0.076, 0.086), (0.0925, 0.000, 0.50, 0.080, 0.088), (0.0925, -0.002, 0.40, 0.0775, 0.090), (0.0925, -0.003, 0.29, 0.0745, 0.0815), (0.0925, 0.000, 0.20, 0.0735, 0.073),
        (0.0925, 0.002, 0.135, 0.0630, 0.062), (0.0925, 0.003, 0.105, 0.0560, 0.056)]
 #      x       y      z     rx(ngang)  ry(cao): bàn chân dày, rộng, dài ≈ 0,27 m (đo ảnh mẫu), vòng đứng dọc theo y
@@ -119,7 +121,7 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
         sx = lambda kn: kn if s > 0 else mir(kn)
         parts += [tube('arm', sx(ARM), coll), tube('palm', sx(PALM), coll, step=0.004), tube('thumb', sx(THUMB), coll, step=0.004),
                   tube('leg', sx(LEG), coll), tube('foot', sx(FOOT), coll, along='y', step=0.006)]
-        x0, y0 = s * 0.265, -0.013
+        x0, y0 = s * 0.263, -0.013
         for dy, L, r in FINGERS:
             z0 = 0.470; kn = [(x0, y0 + dy, z0, r, r), (x0, y0 + dy - 0.004, z0 - L * 0.5, r * 0.98, r * 0.98), (x0, y0 + dy - 0.012, z0 - L, r * 0.84, r * 0.84), (x0, y0 + dy - 0.016, z0 - L - 0.005, r * 0.45, r * 0.45)]
             parts.append(tube('ngon', kn, coll, step=0.003))
@@ -128,7 +130,8 @@ def build_body(coll, mat, voxel=0.003, smooth=4):
             zc += 0.001; kn = [(xc, -0.150, zc, r, r), (xc, -0.150 - L * 0.55, zc - 0.001, r, r * 0.95), (xc, -0.150 - L, zc - 0.003, r * 0.88, r * 0.82), (xc, -0.150 - L - 0.004, zc - 0.004, r * 0.45, r * 0.45)]
             parts.append(tube('ngon_chan', kn, coll, along='y', step=0.003))
     body = join(parts, 'Nam_Than_goc'); body.data.materials.append(mat); remesh(body, voxel, smooth)
-    smooth_zone(body, lambda c: 0.80 < c.z < 0.96 and abs(c.x) > 0.09, 8)                      # vai–nách
+    smooth_zone(body, lambda c: 0.80 < c.z < 0.97 and abs(c.x) > 0.09, 22)                     # vai–nách
+    smooth_zone(body, lambda c: 0.93 < c.z < 1.0, 8)                                           # chân cổ–vai
     smooth_zone(body, lambda c: 0.36 < c.z < 0.68 and abs(c.x) < 0.17, 14, 0.45)   # hông–háng–mông (bỏ mép bụng dưới)
     smooth_zone(body, lambda c: 0.06 < c.z < 0.19 and abs(c.x) < 0.2, 16, 0.45)                 # cổ chân
     body.data.shade_smooth(); return body
@@ -140,7 +143,14 @@ def cut_open_head_copy(head):
     me = head.data.copy(); ob = bpy.data.objects.new('Nam_Dau_Than', me); head.users_collection[0].objects.link(ob)
     bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table()
     kill = [f for f in bm.faces if max(v.co.z for v in f.verts) <= RING_Z + 1e-6]
-    bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.to_mesh(me); bm.free(); return ob
+    bmesh.ops.delete(bm, geom=kill, context='FACES')
+    # thu nhỏ cổ (chỉ trên bản sao): hệ số chuyển mượt từ 1 ở NECK_BLEND_TOP (dưới hàm) đến NECK_SCALE ở vòng cắt; chỉ các đỉnh gần trục cổ (không đụng cằm/mặt)
+    for v in bm.verts:
+        r = math.hypot(v.co.x, v.co.y - NECK_AXIS_Y)
+        if v.co.z < NECK_BLEND_TOP and r < 0.13:
+            w = D.smooth01(NECK_BLEND_TOP, RING_Z, v.co.z) * D.smooth01(0.13, 0.105, r)
+            k = 1.0 - (1.0 - NECK_SCALE) * w; v.co.x *= k; v.co.y = NECK_AXIS_Y + (v.co.y - NECK_AXIS_Y) * k
+    bm.to_mesh(me); bm.free(); return ob
 
 
 def cut_body_top(body, z):
@@ -166,10 +176,11 @@ def assemble(head, body, skin):
     print(f'    biên hở: vòng cổ đầu {len(A)} cạnh, vòng cổ thân {len(B)} cạnh')
     res = bmesh.ops.bridge_loops(bm, edges=A + B, use_pairs=False, use_cyclic=True, use_merge=False)
     for f in res['faces']: f.material_index = skin_idx; f.smooth = True
-    # làm mượt cục bộ CHỈ phía thân quanh dải nối (z < vòng cổ đầu); vòng cổ đầu và mọi đỉnh của đầu không bị đụng
+    # làm mượt cục bộ quanh dải nối: phía thân + cổ của bản sao đầu (cao ≤ 3 cm trên vòng cắt, cách trục < 10,5 cm); mặt, cằm, tóc không bị đụng
     zone = [v for v in bm.verts if v.index >= nh and v.co.z > CUT_Z - 0.006 and v.co.z < RING_Z - 1e-6] + [v for v in res['faces'] for v in v.verts if v.index >= nh and v.co.z < RING_Z - 1e-6]
+    zone += [v for v in bm.verts if v.index < nh and RING_Z - 1e-6 <= v.co.z < RING_Z + 0.040 and math.hypot(v.co.x, v.co.y - NECK_AXIS_Y) < 0.105]   # cổ của bản sao đầu phía trên vòng cắt (được phép chỉnh theo yêu cầu thu cổ)
     zone = list({v.index: v for v in zone}.values())
-    for _ in range(6): bmesh.ops.smooth_vert(bm, verts=zone, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    for _ in range(40): bmesh.ops.smooth_vert(bm, verts=zone, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
     for f in bm.faces: f.smooth = True
     bm.to_mesh(ob.data); bm.free(); ob.data.update()
