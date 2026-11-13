@@ -144,3 +144,8 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 ### Giảm lặp (cùng đợt)
 - Tầng 3 nhà trọ: cửa không đều (rộng 0,8–0,95, cách nhau 0,9–2,4 m), màu không trùng liên tiếp, 30% cửa lưới sắt / 20% rèm ô thoáng, cửa sổ nhỏ có song, giày dép, chậu cây, ghế, biển số ngẫu nhiên; sào phơi/điều hoà đặt ở khe giữa các cửa, bỏ trống nhiều chỗ; chậu lan can 4 loại (hoa giấy, lá, sen đá, thùng xốp rau) cách nhau ngẫu nhiên.
 - Đường phố: xe máy mỗi xe một kiểu (thùng giao hàng, chở thêm người, giỏ trước, kích cỡ), người đi bộ khác chiều cao + túi/mũ, ô tô 1 sedan + 1 van có giá nóc, 3 kiểu cây (tròn, phượng tán dẹt có hoa, cau mảnh).
+
+### Kiểm lại chữ / cửa sổ / rêu (13/11 đêm)
+- Chữ đọc được ở cận cảnh: "BÁNH MÌ", "A5", "P.12", "KHOAN CẮT BÊ TÔNG 0912 345 678". Đã dời biển số/stencil khỏi cửa cuốn, công tơ và cột (cột X0 che khi nhìn thẳng); stencil nằm trước mảng gạch lộ (EX−0,02). Camera kiểm: `BIEN_SO_NHA`, `STENCIL_T1`, `BIEN_BANH_MI`, `STENCIL_HL`.
+- Cảnh qua cửa sổ phòng Nam (`CUA_SO`): chuồng cọp nhà hàng xóm đua ra 14 cm (trước 30 cm), song cách 22 cm → thoáng hơn, thấy rõ quần áo phơi phía sau.
+- Rêu trên tường: giảm cường độ (`phong_tran(reu=0.5, z_reu=-2.0)`), chỉ còn viền xanh nhạt sát chân tường.

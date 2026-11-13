@@ -127,9 +127,9 @@ def build(X, coll, night, mode):
             ob = bpy.data.objects.new('env_ktt_' + name, cu); ob.data.materials.append(mat(col, 0.6))
             ob.rotation_euler = Matrix(((0, 0, 1), (1, 0, 0), (0, 1, 0))).to_euler(); ob.location = (X.mx(x), y, z); coll.objects.link(ob)
         except Exception as e: print('chữ lỗi', name, e)
-    for k, (yy, tx) in enumerate([(7.6, 'A5'), (12.2, 'P.12')]):   # biển số nhà xanh viền trắng
-        B(f'bien_so{k}', EX - 0.03, EX, yy - 0.2, yy + 0.2, GZ + 1.8, GZ + 2.1, mat('#2f5f9a', 0.5), bevel=0.01, coll=coll)
-        chu(f'bien_so_chu{k}', tx, 0.12, EX - 0.035, yy, GZ + 1.88, '#f4f4ea')
+    for k, (yy, tx) in enumerate([(7.65, 'A5'), (12.2, 'P.12')]):   # biển số nhà xanh viền trắng
+        B(f'bien_so{k}', EX - 0.03, EX, yy - 0.2, yy + 0.2, GZ + 1.4, GZ + 1.7, mat('#2f5f9a', 0.5), bevel=0.01, coll=coll)
+        chu(f'bien_so_chu{k}', tx, 0.12, EX - 0.035, yy, GZ + 1.48, '#f4f4ea')
     for yy in (5.0, 17.0): # loa phường
         cyl(f'env_ktt_loa{yy}', EX - 0.15, yy, z3 + 2.5, 0.12, 0.3, mat('#8a8e8a', 0.4, 0.6), axis='X', coll=coll); B(f'loa_gia{yy}', EX - 0.04, EX, yy - 0.04, yy + 0.04, z3 + 2.4, z3 + 2.6, steel, coll=coll)
     # hoa giấy + chậu trên lan can tầng 3, cờ đỏ sao vàng
@@ -316,4 +316,4 @@ def build(X, coll, night, mode):
         B(f'dat_xop_t1_{k}', -1.93, -1.57, yy + 0.02, yy + 0.53, GZ + 0.2, GZ + 0.225, mat('#3a2a1a', 0.95), coll=coll)
         for j in range(8): sphere(f'env_ktt_rau_t1_{k}_{j}', -1.9 + rnd.uniform(-0.0, 0.3), yy + 0.05 + rnd.uniform(0, 0.45), GZ + 0.27 + rnd.uniform(0, 0.08), rnd.uniform(0.06, 0.1), mat(rnd.choice(['#4f8a3a', '#6aa04a', '#8ab04a']), 0.8), scale=(1, 1, 0.7), coll=coll)
     # stencil khoan cắt bê tông trên tường tầng trệt phía sân
-    chu('stencil_khoan', 'KHOAN CẮT BÊ TÔNG', 0.13, EX - 0.007, 12.9, GZ + 1.25, '#b3231a'); chu('stencil_sdt', '0912 345 678', 0.1, EX - 0.007, 12.9, GZ + 1.05, '#1a1a1a')
+    chu('stencil_khoan', 'KHOAN CẮT BÊ TÔNG', 0.125, EX - 0.02, 12.0, GZ + 1.25, '#d8281a'); chu('stencil_sdt', '0912 345 678', 0.1, EX - 0.02, 12.0, GZ + 1.05, '#1a1a1a')

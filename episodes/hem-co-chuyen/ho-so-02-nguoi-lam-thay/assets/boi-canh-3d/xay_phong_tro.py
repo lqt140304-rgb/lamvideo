@@ -747,6 +747,10 @@ CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'VIA_HE_2': ((-5.2, 8.0, -1.9), (-7.0, 16.0, -2.5), 30),
     'MAT_TIEN': ((-6.8, 6.0, 4.6), (0.0, 12.0, 4.4), 30),   # nhìn mặt tiền tầng 3 nhà trọ
     'CUA_SO_HEM': ((2.4, 1.4, 1.35), (4.6, 1.4, 1.55), 28),   # nhìn qua cửa sổ phòng Nam: chuồng cọp + téc inox nhà hàng xóm
+    'STENCIL_HL': ((-1.1, 6.0, 1.15), (0.0, 7.6, 1.0), 40),   # chữ stencil + công tơ ở hành lang
+    'BIEN_SO_NHA': ((-4.2, 7.65, -1.3), (-0.1, 7.65, -1.3), 45),   # biển số nhà A5 từ lòng đường
+    'STENCIL_T1': ((-3.6, 12.0, -1.6), (-0.1, 12.0, -1.6), 40),   # stencil khoan cắt bê tông tầng trệt
+    'BIEN_BANH_MI': ((-4.6, -5.2, -1.3), (-2.9, -5.2, -1.3), 40),   # biển xe bánh mì
     'GOC_DO_GUONG': ((-1.6, -5.2, -1.9), (-0.15, -7.0, -1.9), 40),   # cận chiếc gương cũ bám bụi
     'TUONG_CUA': ((2.5, 1.2, 1.3), (0.0, 1.2, 0.9), 28),   # nhìn tường cửa từ phía cửa sổ (kiểm vệt nắng sớm/chiều)
     'TOP': ((1.5, 2.0, 5.6), (1.5, 2.0, 0.0), 24),

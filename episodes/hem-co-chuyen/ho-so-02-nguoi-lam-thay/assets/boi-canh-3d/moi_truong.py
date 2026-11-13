@@ -578,9 +578,9 @@ def hem_chi_tiet(X, coll, night, rnd_seed=303):
     # ---- ban công đối diện cửa sổ (tầng 2, cùng cao độ z = 0), rộng y 0,0 → 2,9
     zb = 0.0; y0, y1 = 0.0, 2.9; d = 0.95
     # ---- CHUỒNG CỌP sắt đua ra ngoài + TÉC NƯỚC INOX trên mái (nhìn qua cửa sổ phòng Nam là nhận ra khu tập thể Hà Nội)
-    cx0 = AX - d - 0.3; cy0, cy1 = y0 - 0.12, y1 + 0.12
+    cx0 = AX - d - 0.14; cy0, cy1 = y0 - 0.12, y1 + 0.12
     B('cg_san', cx0, AX - d, cy0, cy1, zb - 0.1, zb, mat('#9a948a', 0.9), coll=coll)
-    for i in range(int((cy1 - cy0) / 0.16) + 1): B(f'cg_song{i}', cx0, cx0 + 0.02, cy0 + i * 0.16, cy0 + i * 0.16 + 0.02, zb, zb + 2.0, steel, coll=coll)
+    for i in range(int((cy1 - cy0) / 0.22) + 1): B(f'cg_song{i}', cx0, cx0 + 0.016, cy0 + i * 0.22, cy0 + i * 0.22 + 0.016, zb, zb + 2.0, steel, coll=coll)
     for z_ in (zb + 0.55, zb + 1.1, zb + 1.7, zb + 2.0): B(f'cg_ngang{z_:.2f}', cx0, cx0 + 0.025, cy0, cy1, z_, z_ + 0.025, steel, coll=coll)
     for yy_ in (cy0, cy1 - 0.02):
         for z_ in (zb + 1.0, zb + 2.0): B(f'cg_hong{yy_:.2f}_{z_:.1f}', cx0, AX - d, yy_, yy_ + 0.02, z_, z_ + 0.025, steel, coll=coll)
