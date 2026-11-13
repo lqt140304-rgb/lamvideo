@@ -21,47 +21,58 @@ ANKLE_R = 0.065                                # bán kính ống chân tại m�
 
 # ---------------------------------------------------------------- hình dáng
 X0 = 0.100                                     # trục dọc bàn chân (hơi lệch ra ngoài so với mắt cá 0.0925, như chân Nam)
-BALL_Y = -0.105                                # đường gập ngón (khớp gốc ngón)
-BALL = Vector((X0, BALL_Y, 0.040))
 #        y       nửa ngang   đỉnh z   (khối nêm: gót nhỏ cao dần lên mắt cá, mũi rộng thấp)
-SECTIONS = [(0.103, 0.014, 0.016), (0.097, 0.030, 0.046), (0.087, 0.045, 0.080), (0.070, 0.056, 0.110), (0.045, 0.063, 0.126), (0.010, 0.069, 0.114),
-            (-0.030, 0.077, 0.094), (-0.065, 0.083, 0.080), (-0.090, 0.085, 0.070), (-0.108, 0.081, 0.060), (-0.121, 0.070, 0.046)]
-#          x lệch   dài (tới tâm nắp)   bán kính   (ngón cái → ngón út; ngón cái ở phía TRONG = phía thân; ngón mập, ngắn, chia nông bằng chồng lấn)
-TOES = [(-0.050, 0.030, 0.0265), (-0.020, 0.024, 0.0205), (0.005, 0.021, 0.0185), (0.027, 0.018, 0.0165), (0.046, 0.015, 0.0148)]
-TOE_Y0 = -0.108
+#   Quét các elip nhỏ dọc chiều dài chân theo đường cong kích thước mượt (gót nhỏ → mu cao → mũi rộng, thấp), hợp bằng voxel remesh rồi làm mượt Taubin.
+#   Không dùng mặt cắt vuông: mỗi lát là elip → gót, mu, mũi chân đều tròn; đáy cắt phẳng ở sàn z=0.
+#   y: từ gót (+Y) tới đầu mũi bàn chân (−Y); top = chiều cao đỉnh mu chân so với sàn; hw = nửa bề ngang
+PROFILE_Y = [0.087, 0.077, 0.063, 0.044, 0.022, 0.000, -0.022, -0.045, -0.065, -0.080, -0.090]      # (cộng bán trục y của elip đầu/cuối → gót sau ~0,117, mũi bàn chân ~−0,120)
+PROFILE_TOP = [0.050, 0.080, 0.104, 0.118, 0.122, 0.112, 0.098, 0.086, 0.074, 0.062, 0.052]
+PROFILE_HW = [0.036, 0.048, 0.056, 0.062, 0.066, 0.069, 0.073, 0.078, 0.080, 0.078, 0.072]
+NECK = [dict(c=(ANKLE.x, ANKLE.y + 0.004, 0.138), r=(0.050, 0.054, 0.050)), dict(c=(ANKLE.x, ANKLE.y, 0.176), r=(0.047, 0.050, 0.040))]   # cổ chân: tiếp mu chân, thon dần vào ống chân
+#          x lệch   y     bán kính   (ngón cái → ngón út; ngón cái ở PHÍA TRONG = phía thân; ngón như nụ tròn, mập, ngắn dần)
+TOES = [(-0.050, -0.129, 0.0265), (-0.020, -0.122, 0.0205), (0.005, -0.118, 0.0185), (0.027, -0.114, 0.0165), (0.046, -0.110, 0.0148)]
+BALL_Y = -0.105
+BALL = Vector((X0, BALL_Y, 0.040))
+SWEEP_STEP = 0.003
+SWEEP_RY = 0.030
 
 
-def _section_ring(bm, y, hw, top, e=2.0, nseg=40, sx=1.0, e_bot=3.4):
-    """Lát cắt ngang kiểu siêu elip: nửa trên mềm (e), nửa dưới e_bot lớn → đế phẳng ở z=0."""
-    zc = top / 2; out = []
-    for j in range(nseg):
-        t = 2 * math.pi * j / nseg; c, si = math.cos(t), math.sin(t)
-        ee = e if si >= 0 else e_bot; x = hw * math.copysign(abs(c) ** (2 / ee), c); z = zc + zc * math.copysign(abs(si) ** (2 / ee), si)
-        out.append(bm.verts.new(Vector((sx * (X0 + x * 1.0), y, z))))
-    return out
+def _smooth_curve(arr, n=3):
+    a = np.array(arr, dtype=float)
+    for _ in range(n): a[1:-1] = 0.25 * a[:-2] + 0.5 * a[1:-1] + 0.25 * a[2:]
+    return a
+
+
+def _ellipsoid(bm, c, r):
+    res = bmesh.ops.create_uvsphere(bm, u_segments=28, v_segments=18, radius=1.0)
+    for v in res['verts']: v.co = Vector((c[0] + r[0] * v.co.x, c[1] + r[1] * v.co.y, c[2] + r[2] * v.co.z))
+
+
+def _taubin(bm, verts, n, lam=0.5, mu=-0.53):
+    for _ in range(n):
+        bmesh.ops.smooth_vert(bm, verts=verts, factor=lam, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+        bmesh.ops.smooth_vert(bm, verts=verts, factor=mu, use_axis_x=True, use_axis_y=True, use_axis_z=True)
 
 
 def build_shape(side='L', voxel=0.0015):
     me = bpy.data.meshes.new(f'Chan_Nam.{side}'); ob = bpy.data.objects.new(f'Chan_Nam.{side}', me); bpy.context.scene.collection.objects.link(ob)
-    bm = bmesh.new(); rings = [_section_ring(bm, y, hw, top) for y, hw, top in SECTIONS]
-    for r0, r1 in zip(rings, rings[1:]):
-        for j in range(len(r0)): bm.faces.new((r0[j], r0[(j + 1) % len(r0)], r1[(j + 1) % len(r0)], r1[j]))
-    bm.faces.new(rings[0]); bm.faces.new(list(reversed(rings[-1])))
-    for dx, ln, r in TOES:                                       # ngón: ống bo tròn nằm trên sàn, gốc chôn trong khối
-        pts = [Vector((X0 + dx, TOE_Y0 + 0.012, r)), Vector((X0 + dx, TOE_Y0 - ln * 0.5, r)), Vector((X0 + dx, TOE_Y0 - ln, r))]
-        H._loft(bm, pts, [r, r, r * 0.96])
-    # cổ chân: trụ đứng lồng vào ống chân (khít bán kính ống, nhỏ hơn 7 mm)
-    cr = ANKLE_R - 0.009; c = Vector((ANKLE.x, ANKLE.y, 0))
-    H._loft(bm, [Vector((c.x, c.y + 0.010, 0.085)), Vector((c.x, c.y, 0.128)), Vector((c.x, c.y, 0.170))], [cr * 0.96, cr, cr * 0.98])
+    bm = bmesh.new()
+    ys = np.arange(PROFILE_Y[0], PROFILE_Y[-1] - 1e-9, -SWEEP_STEP); py = np.array(PROFILE_Y)[::-1]
+    top = np.interp(ys, py, np.array(PROFILE_TOP)[::-1]); hw = np.interp(ys, py, np.array(PROFILE_HW)[::-1])
+    top, hw = _smooth_curve(top, 4), _smooth_curve(hw, 4)
+    for y, t, w in zip(ys, top, hw):                                      # mỗi elip: đáy chìm 4 mm dưới sàn để cắt phẳng
+        _ellipsoid(bm, (X0, y, (t - 0.004) / 2), (w, SWEEP_RY, (t + 0.004) / 2))
+    for b in NECK: _ellipsoid(bm, b['c'], b['r'])
+    for dx, y, r in TOES: _ellipsoid(bm, (X0 + dx, y, r - 0.002), (r, r * 1.45, r))               # ngón: elip dài theo y, nằm trên sàn
     bm.to_mesh(me); bm.free()
     md = ob.modifiers.new('rm', 'REMESH'); md.mode = 'VOXEL'; md.voxel_size = voxel; md.use_smooth_shade = True
     bpy.context.view_layer.objects.active = ob; ob.select_set(True); bpy.ops.object.modifier_apply(modifier='rm')
     bm = bmesh.new(); bm.from_mesh(me)
-    for _ in range(3): bmesh.ops.smooth_vert(bm, verts=bm.verts, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
-    zone = [v for v in bm.verts if 0.045 < v.co.z < 0.150]        # chỗ cổ chân gặp mu chân/gót: mượt thêm cho liền khối
-    for _ in range(6): bmesh.ops.smooth_vert(bm, verts=zone, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
-    for v in bm.verts:                                           # không để đế lõm/gồ: ép đáy phẳng về z=0
-        if v.co.z < 0.004: v.co.z = max(0.0, v.co.z * 0.5)
+    for v in bm.verts: v.co.z = max(0.0, v.co.z)                          # cắt phẳng đế tại sàn
+    body = [v for v in bm.verts if v.co.y > BALL_Y - 0.004]; toes = [v for v in bm.verts if v.co.y <= BALL_Y - 0.004]
+    _taubin(bm, body, 40); _taubin(bm, toes, 5)                           # thân mượt mạnh, ngón nhẹ để giữ hình
+    for v in bm.verts:
+        if v.co.z < 0.0035: v.co.z = 0.0                                  # đế phẳng sau khi mượt (mép đế vẫn bo)
     bm.to_mesh(me); bm.free()
     for p in me.polygons: p.use_smooth = True
     return ob
