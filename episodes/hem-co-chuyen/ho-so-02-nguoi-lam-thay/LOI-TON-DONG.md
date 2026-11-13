@@ -42,3 +42,22 @@ Trạng thái nguồn xem [ASSET.md](ASSET.md), [checklist](CHECKLIST-TIEN-KY-AS
 | Âm thanh và bản ráp | Nghe take từng vai, căn khoảng nghỉ/khẩu hình/Foley và xem animatic trước render cuối |
 
 Chưa có xác nhận nghiệm thu toàn phim. Không chuyển trạng thái “có source/ảnh” thành “đã kiểm chuyển động”.
+
+---
+
+## Biểu cảm khuôn mặt (13/11/2026) — còn tồn đọng
+
+Đã làm: 6 shape key 2 mức cho đầu Nam, chi tiết mặt gắn vào đầu, bộ kiểm tự động, thử trên 2 đầu khác. Xem [THIET-KE-BIEU-CAM.md](THIET-KE-BIEU-CAM.md).
+
+| Việc | Trạng thái |
+|---|---|
+| Chủ repo duyệt bảng ảnh (`bieu_cam_nam.py --anh` rồi `bieu_cam/bang_anh.py`) | Chờ duyệt. Độ dời 6 key là bản thử đã chỉnh một vòng; sửa số trong `bieu_cam/dinh_nghia.json` |
+| Miệng há (`kinh_hoang`) | Nhỏ, màu nâu tím, chưa có răng/lưỡi/độ sâu; nếu có cảnh quay cận miệng cần khoang hình học |
+| Đồng tử giật/co ở mức hoảng loạn | Chưa làm: con ngươi là vật rời cố định kích thước |
+| Khẩu hình tiếng Việt (visemes) khớp ElevenLabs | Chưa làm |
+| Người Kia (`neutral_smile`, `eerie_smirk`), Tùng, Mẹ | Chưa làm. Bộ áp dụng đã thử trên đầu đối xứng và đầu rộng hơn |
+| Lưới đầu khác hẳn Nam | Chưa thử: Data Transfer/Surface Deform giữa hai lưới khác topology chưa kiểm |
+| Quy chuẩn 3D ghi tối thiểu 18 shape key 3 cấp | Lệch theo quyết định chủ repo (2 cấp); chưa sửa quy chuẩn chung |
+| Ghép đầu vào rig toàn thân, kiểm trong shot thật | Chưa làm |
+| Ảnh duyệt 3 góc (chính diện, 3/4 phải, nghiêng phải) | Studio chưa có camera 3/4 trái và nghiêng trái; kiểm hình học vẫn chạy 5 góc |
+

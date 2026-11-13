@@ -23,6 +23,7 @@ Mục tiêu khoảng 15 phút là kế hoạch biên tập, chưa phải thời 
 | [CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md) | Yêu cầu theo cảnh và các bước kiểm tiền kỳ 3D |
 | [DUNG-CANH.md](DUNG-CANH.md) | Ý đồ bố cục, máy, nét, tiếp xúc, âm và nhịp |
 | [SHOTLIST-VA-TIMELINE-15P.md](SHOTLIST-VA-TIMELINE-15P.md) | Bảng shot và mốc thời gian sản xuất |
+| [THIET-KE-BIEU-CAM.md](THIET-KE-BIEU-CAM.md), [KE-HOACH-BIEU-CAM.md](KE-HOACH-BIEU-CAM.md), [bieu_cam_nam.py](assets/nhan-vat-3d/bieu_cam_nam.py) | Biểu cảm khuôn mặt: thiết kế đã duyệt, kế hoạch, lệnh kiểm/ảnh (`--kiem`, `--anh`), cách áp lên đầu khác ([ap_dung_bo.py](assets/nhan-vat-3d/bieu_cam/ap_dung_bo.py)) |
 | [Bối cảnh Blender](assets/boi-canh-3d/README.md) | Phòng trọ, hành lang, nguồn sáng và cách xuất ảnh/video thử |
 | [Đồ dùng tinh chỉnh](assets/boi-canh-3d/README-CHI-TIET.md) | Entry mới, điểm neo và giới hạn của bộ đồ dùng |
 | [Đo góc máy](DO-LUONG-GOC-MAY-3D.md) | FOV, độ bao phủ và các góc cần kiểm khi ghép nhân vật |

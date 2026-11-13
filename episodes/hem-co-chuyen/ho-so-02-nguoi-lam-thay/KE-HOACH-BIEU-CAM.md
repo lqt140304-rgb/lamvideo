@@ -20,7 +20,7 @@
 - Tên shape key (6 của Nam): `ngai_ngu`, `kiet_suc`, `tu_ai`, `thi_uy`, `hoang_mang`, `kinh_hoang`.
 - Ngưỡng đề xuất: bám ≤ 1 mm; nốt ruồi trôi ≤ 3 mm; góc kiểm `chinh_dien 0°`, `3q_trai 45°`, `3q_phai −45°`, `nghieng_trai 90°`, `nghieng_phai −90°`; giá trị kiểm 1,0 và 0,5.
 - Chỉ ảnh tĩnh nhỏ (≤ 360 px, ít mẫu). Không render video. Không commit `.blend`, ảnh nặng, cache.
-- Môi trường: container làm việc **không có `bpy`**. Chạy trên máy có Blender 5.0.x: `blender -b -P <file> -- <đối số>`. Mốc kiểm "xong" chỉ tính khi lệnh chạy thật và in `PASS`.
+- Môi trường: `bpy` 5.0.1 cài được vào môi trường Python 3.11 riêng (`uv venv --python 3.11 /tmp/bpyenv`; ghi chú ban đầu "container không có bpy" là sai, đã sửa 13/11). Trên máy có Blender dùng `blender -b -P <file> -- <đối số>`. Mốc kiểm "xong" chỉ tính khi lệnh chạy thật và in `PASS`.
 
 ## Cần soi kỹ (ngoài các test của từng Task)
 
@@ -168,3 +168,8 @@
 - **Phủ thiết kế:** cách A, 2 mức, anti-goals (lưới nghỉ, nốt ruồi) → Task 2–4; 6 key → Task 3, 5; khoang miệng → Task 6; kiểm tự động và bảng ảnh → Task 2, 7; tái sử dụng + thử đầu thứ hai → Task 3, 8; hồ sơ và KINH-NGHIEM → Task 9. Người Kia (`neutral_smile`/`eerie_smirk`), khẩu hình ngoài phạm vi, đúng như thiết kế.
 - **Nhất quán tên:** `Dau`, `dung_nam`, `ap_dung`, `gan_chi_tiet`, `chay_kiem`, `GOCS` dùng như nhau ở các Task.
 - **Rủi ro chưa kiểm:** chưa ai chạy `bpy` trong phiên này nên cách gắn Surface Deform và mặt nạ `Attribute` là đề xuất; Task 4 và 6 có thể phải đổi cách làm, các test giữ nguyên.
+
+## Ghi chú thực hiện (13/11/2026)
+
+Task 1–8 đã chạy, 25 test qua. Chênh lệch so với kế hoạch (chi tiết ở [THIET-KE-BIEU-CAM.md](THIET-KE-BIEU-CAM.md#kết-quả-thực-hiện-và-chênh-lệch-so-với-thiết-kế)): khoang miệng bằng mặt nạ thay cho vật `Mouth_Cavity`; chưa răng/lưỡi; kiểm đo so với trạng thái nghỉ; nốt ruồi đo theo da; thêm `ap_dung_bo.py`; ảnh 3 góc. Lệnh chạy dùng module `bpy` (`python <file>`) thay cho `blender -b -P`.
+

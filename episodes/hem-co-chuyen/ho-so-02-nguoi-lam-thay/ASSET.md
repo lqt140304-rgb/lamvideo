@@ -11,7 +11,8 @@
 | Đạo cụ cốt truyện | [dao_cu_3d.py](assets/boi-canh-3d/dao_cu_3d.py), [nhu cầu còn lại](assets/boi-canh-3d/BOI-CANH-CAN-CHUAN-BI.md) | Đối chiếu từng món với shot; có mesh không đồng nghĩa đã có constraint bàn tay |
 | Gương và mặt kính hóa nước | [kế hoạch gương](assets/boi-canh-3d/KE-HOACH-CONG-GUONG.md), [cong_guong.py](assets/boi-canh-3d/cong_guong.py), [kinh_nuoc.py](assets/boi-canh-3d/kinh_nuoc.py) | Có nguồn/thử nghiệm riêng; cần kiểm với nhân vật, tay trái, nốt ruồi và shot cuối |
 | Camera, khoảng nhìn | [danh sách máy](assets/boi-canh-3d/DANH-SACH-SHOT.md), [đo góc máy](DO-LUONG-GOC-MAY-3D.md) | Xác nhận lại khi ghép người thật thay proxy và khi sửa đồ lớn |
-| Biểu cảm, khẩu hình và tương tác | [checklist 3D](CHECKLIST-TIEN-KY-ASSET.md) | Chưa xác nhận toàn bộ nhân vật/shape keys/IK đã nghiệm thu |
+| Biểu cảm khuôn mặt (đầu Nam) | [bieu_cam_nam.py](assets/nhan-vat-3d/bieu_cam_nam.py), [bieu_cam/](assets/nhan-vat-3d/bieu_cam/), [thiết kế](THIET-KE-BIEU-CAM.md), [kế hoạch](KE-HOACH-BIEU-CAM.md) | Đầu Nam có 6 shape key 2 mức, miệng há, chi tiết mặt gắn vào đầu; qua kiểm tự động ở 5 góc và đã thử trên 2 đầu khác. **Chưa**: khẩu hình, Người Kia/Tùng/Mẹ, ghép rig toàn thân, răng/lưỡi; miệng há còn nhỏ, chờ chủ repo duyệt bảng ảnh |
+| Khẩu hình và tương tác (tay–vật, chân–sàn) | [checklist 3D](CHECKLIST-TIEN-KY-ASSET.md) | Chưa xác nhận |
 | Âm thanh | [SFX-VFX.md](SFX-VFX.md), [VOICEOVER-CUE-SHEET.md](VOICEOVER-CUE-SHEET.md) | Cue và nguồn ứng viên; kiểm tra take, giấy phép và timing trước dùng |
 
 ## Cách dùng

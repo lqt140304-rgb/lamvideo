@@ -158,7 +158,7 @@ Giữ trạng thái riêng của nguồn Blender mới nhất; đây là tiến 
 - [ ] **3D_CHAR_NGUOIKIA:** Mô hình 3D Người Kia (bản sao Nam), nốt ruồi đối xứng bên phải, set animation mặc định thuận tay trái.
 - [ ] **3D_CHAR_TUNG:** Mô hình 3D Tùng (tóc layer gọn, đồ thể thao số 7), Armature Rig IK/FK đầy đủ.
 - [ ] **3D_CHAR_SUPPORT:** Các vai phụ 3D (Giảng viên, Mẹ, Bác Hai, Sinh viên nam/nữ) — ưu tiên tạo hình stylized nhẹ dùng chung Base Mesh.
-- [ ] **3D_FACIAL_SHAPES:** Bộ Blendshapes / Shape Keys biểu cảm 3 cấp độ (ngái ngủ, kiệt sức, tự ái, hoảng loạn, điềm tĩnh, `eerie_smirk`) + Visemes khẩu hình tiếng Việt khớp ElevenLabs.
+- [ ] **3D_FACIAL_SHAPES:** *(13/11: đầu Nam đã có 6 shape key 2 mức + miệng há, qua kiểm tự động và thử trên 2 đầu khác, xem [THIET-KE-BIEU-CAM.md](THIET-KE-BIEU-CAM.md); chưa khẩu hình, chưa Người Kia/Tùng/Mẹ, chưa ghép rig toàn thân nên chưa tick)*  Bộ Blendshapes / Shape Keys biểu cảm 3 cấp độ (ngái ngủ, kiệt sức, tự ái, hoảng loạn, điềm tĩnh, `eerie_smirk`) + Visemes khẩu hình tiếng Việt khớp ElevenLabs.
 
 ### B. Bối cảnh 3D (Full 360° Environments & Real Lighting)
 - [x] **3D_SET_PHONGTRO:** *(13/11: hình học + 2 chế độ sáng ngày/đêm đã có trong Blender `assets/boi-canh-3d/`; 13/11 chiều: thêm sáng sớm, trưa gắt, chiều tà, đèn bàn thật; còn tinh chỉnh vệt nắng — xem BOI-CANH-CAN-CHUAN-BI.md)* Không gian phòng trọ $12\text{m}^2$ khép kín 4 tường & trần nhà (hỗ trợ Top-down $90^\circ$), có 4 trạng thái ánh sáng vật lý: Sáng sớm, Trưa gắt, Chiều tà Golden Hour, Đêm Chiaroscuro (Đèn bàn 3200K + Laptop 6500K).

@@ -1,6 +1,6 @@
 # Thiết kế biểu cảm khuôn mặt 3D — Hồ sơ 02
 
-Trạng thái: **bản thiết kế chờ chủ repo duyệt. Chưa dựng gì.** Mục "Quyết định" là lời chủ repo; mục "Lựa chọn của trợ lý" là đề xuất, chưa ai duyệt.
+Trạng thái: **đã duyệt (13/11/2026) và đã thực hiện Task 1–8 của [kế hoạch](KE-HOACH-BIEU-CAM.md) cho đầu Nam; chờ chủ repo duyệt bảng ảnh.** Mục "Quyết định" là lời chủ repo; mục "Lựa chọn của trợ lý" là đề xuất đã được duyệt cùng bản thiết kế. Phần cuối ghi chỗ khác với thiết kế khi làm thật.
 
 ## Ý đồ
 
@@ -110,3 +110,28 @@ Kết quả ghi vào `LOI-TON-DONG.md` và [CHECKLIST](CHECKLIST-TIEN-KY-ASSET.m
 ## Cách chia việc theo model (theo CLAUDE.md)
 
 Phiên chính dựng lượt đầu. Sửa lỗi đã rõ nguyên nhân giao cho Sonnet. Tìm, kiểm, push giao cho Haiku. Kết quả agent chỉ là báo cáo; phiên chính kiểm lại bằng lệnh và ảnh.
+
+## Kết quả thực hiện và chênh lệch so với thiết kế
+
+Mã: [bieu_cam_nam.py](assets/nhan-vat-3d/bieu_cam_nam.py) và [bieu_cam/](assets/nhan-vat-3d/bieu_cam/). Không sửa `dung_dau_nam.py`.
+
+**Cách chạy** (cần `bpy` 5.0.x; trong container dựng bằng `uv venv --python 3.11 /tmp/bpyenv` rồi `uv pip install --python /tmp/bpyenv/bin/python bpy==5.0.1 pillow`; trên máy có Blender dùng `blender -b -P ... -- <đối số>`):
+
+```bash
+python assets/nhan-vat-3d/bieu_cam/kiem_thu/chay.py            # toàn bộ test
+python assets/nhan-vat-3d/bieu_cam_nam.py --kiem               # kiểm 6 key × 2 giá trị × 5 góc
+python assets/nhan-vat-3d/bieu_cam_nam.py --anh <thư_mục>      # ảnh nhỏ 7 trạng thái × 3 góc
+python assets/nhan-vat-3d/bieu_cam/bang_anh.py <thư_mục> bang.png
+```
+
+**Áp lên đầu khác:** `bieu_cam.ap_dung_bo.dung_va_ap_dung(mole_side, x_scale)` dựng và áp; hoặc `ap_dung_bo(dau)` trên một `Dau` có sẵn (`chung.Dau`: `head`, `parts`, `surf`, `neo`). Đã thử trên đầu đối xứng và đầu rộng hơn 8% (kèm khoảng cách mắt); cả hai qua cùng bộ kiểm, không sửa mã. Chưa thử trên lưới khác topology.
+
+**Khác với thiết kế:**
+- **Khoang miệng** không phải vật riêng. Đầu là mặt kín, nên shape key kéo giãn dải da quanh rãnh miệng và mặt nạ thuộc tính `khoang` trong vật liệu da tô dải đó màu khoang miệng (tắt SSS). **Răng và lưỡi chưa làm.** Miệng há (`kinh_hoang`) còn nhỏ và màu nâu tím.
+- **Kiểm bám, lòi viền, đè** đo so với trạng thái nghỉ, không đo khoảng cách tuyệt đối (lông mày dày ~8 mm).
+- **Nốt ruồi "trôi ≤ 3 mm"** đo so với chuyển động của da dưới nó; nốt ruồi đi theo da là đúng (da quanh đuôi mày kéo nó 5 mm khi mày nâng 9 mm).
+- **Định nghĩa** thêm nhân kéo elip `[rx, ry, rz]` (miệng há cần kéo rộng ngang, hẹp dọc) và điểm neo môi `lip_up_*`/`lip_low_*`.
+- **Mặt nạ tròng trắng** đi theo mặt nhờ thuộc tính `toa_do_nghi` thay cho `TexCoord › Object`.
+- **Ảnh duyệt** 3 góc (chính diện, 3/4 phải, nghiêng phải), vì studio của đầu Nam chưa có camera trái; kiểm hình học vẫn chạy 5 góc. Ảnh ẩn tóc.
+- **Chưa làm:** khẩu hình, Người Kia/Tùng/Mẹ, đồng tử co/giật, ghép rig toàn thân. Xem [LOI-TON-DONG.md](LOI-TON-DONG.md).
+
