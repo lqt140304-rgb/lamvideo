@@ -24,14 +24,14 @@ X0 = 0.100                                     # trục dọc bàn chân (hơi l
 BALL_Y = -0.105                                # đường gập ngón (khớp gốc ngón)
 BALL = Vector((X0, BALL_Y, 0.040))
 #        y       nửa ngang   đỉnh z   (khối nêm: gót nhỏ cao dần lên mắt cá, mũi rộng thấp)
-SECTIONS = [(0.124, 0.012, 0.014), (0.118, 0.026, 0.038), (0.108, 0.040, 0.068), (0.092, 0.052, 0.098), (0.070, 0.060, 0.120), (0.044, 0.065, 0.124), (0.010, 0.070, 0.105),
-            (-0.030, 0.078, 0.080), (-0.065, 0.084, 0.060), (-0.095, 0.086, 0.046), (-0.118, 0.083, 0.040), (-0.134, 0.071, 0.030)]
-#          x lệch   dài    bán kính   (ngón cái → ngón út; ngón cái ở phía TRONG = phía thân; ngón ngắn, chia nông)
-TOES = [(-0.052, 0.040, 0.0235), (-0.022, 0.032, 0.0185), (0.006, 0.028, 0.0170), (0.031, 0.024, 0.0155), (0.053, 0.020, 0.0140)]   # dài tính tới tâm nắp bo tròn
-TOE_Y0 = -0.112
+SECTIONS = [(0.103, 0.014, 0.016), (0.097, 0.030, 0.046), (0.087, 0.045, 0.080), (0.070, 0.056, 0.110), (0.045, 0.063, 0.126), (0.010, 0.069, 0.114),
+            (-0.030, 0.077, 0.094), (-0.065, 0.083, 0.080), (-0.090, 0.085, 0.070), (-0.108, 0.081, 0.060), (-0.121, 0.070, 0.046)]
+#          x lệch   dài (tới tâm nắp)   bán kính   (ngón cái → ngón út; ngón cái ở phía TRONG = phía thân; ngón mập, ngắn, chia nông bằng chồng lấn)
+TOES = [(-0.050, 0.030, 0.0265), (-0.020, 0.024, 0.0205), (0.005, 0.021, 0.0185), (0.027, 0.018, 0.0165), (0.046, 0.015, 0.0148)]
+TOE_Y0 = -0.108
 
 
-def _section_ring(bm, y, hw, top, e=2.1, nseg=40, sx=1.0, e_bot=4.0):
+def _section_ring(bm, y, hw, top, e=2.0, nseg=40, sx=1.0, e_bot=3.4):
     """Lát cắt ngang kiểu siêu elip: nửa trên mềm (e), nửa dưới e_bot lớn → đế phẳng ở z=0."""
     zc = top / 2; out = []
     for j in range(nseg):
@@ -58,6 +58,8 @@ def build_shape(side='L', voxel=0.0015):
     bpy.context.view_layer.objects.active = ob; ob.select_set(True); bpy.ops.object.modifier_apply(modifier='rm')
     bm = bmesh.new(); bm.from_mesh(me)
     for _ in range(3): bmesh.ops.smooth_vert(bm, verts=bm.verts, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    zone = [v for v in bm.verts if 0.045 < v.co.z < 0.150]        # chỗ cổ chân gặp mu chân/gót: mượt thêm cho liền khối
+    for _ in range(6): bmesh.ops.smooth_vert(bm, verts=zone, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
     for v in bm.verts:                                           # không để đế lõm/gồ: ép đáy phẳng về z=0
         if v.co.z < 0.004: v.co.z = max(0.0, v.co.z * 0.5)
     bm.to_mesh(me); bm.free()
@@ -162,7 +164,7 @@ def check_foot(ob, arm):
     rec('dung_de_phang', abs(P[:, 2].min()) <= 0.001 and down > 0 and on / down >= 0.6, f'đáy thấp nhất z={P[:, 2].min() * 1000:.1f} mm, diện tích đế chạm sàn {on / max(down, 1e-9) * 100:.0f}% (≥60%)')
     # (c) kích thước
     L_ = P[:, 1].max() - P[:, 1].min(); ball = P[(P[:, 1] > -0.115) & (P[:, 1] < -0.095)]; W_ = ball[:, 0].max() - ball[:, 0].min() if len(ball) else 0
-    rec('kich_thuoc', 0.26 <= L_ <= 0.30 and 0.14 <= W_ <= 0.19, f'dài {L_ * 1000:.0f} mm (260–300), rộng ở mũi {W_ * 1000:.0f} mm (140–190)')
+    rec('kich_thuoc', 0.24 <= L_ <= 0.285 and 0.14 <= W_ <= 0.19, f'dài {L_ * 1000:.0f} mm (240–285), rộng ở mũi {W_ * 1000:.0f} mm (140–190)')
     # (d) cổ chân nằm trong ống chân
     top = P[P[:, 2] > ANKLE.z + 0.012]; rad = np.linalg.norm(top[:, :2] - np.array([ANKLE.x, ANKLE.y]), axis=1).max() if len(top) else 9
     rec('co_chan_trong_ong', len(top) > 0 and top[:, 2].max() >= ANKLE.z + 0.03 and rad <= ANKLE_R - 0.003, f'đoạn cổ cao tới z={P[:, 2].max() * 1000:.0f} mm (≥159), bán kính lớn nhất {rad * 1000:.0f} mm (≤{(ANKLE_R - 0.003) * 1000:.0f})')
@@ -183,15 +185,20 @@ def render_sheet(sc, ob, arm, out, side='L'):
     os.makedirs(out, exist_ok=True)
     bpy.ops.mesh.primitive_plane_add(size=1.2, location=(0.1, 0, -0.0005)); fl = bpy.context.object; fl.name = 'San'
     m = bpy.data.materials.new('san'); m.use_nodes = True; m.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (0.42, 0.46, 0.40, 1); fl.data.materials.append(m)
-    c = Vector((0.100, -0.02, 0.07)); views = {'tren': c + Vector((0, -0.2, 2)), 'ben': c + Vector((2, 0, 0.1)), 'cheo_truoc': c + Vector((1.1, -1.6, 0.9)),
+    bpy.ops.mesh.primitive_cylinder_add(vertices=64, radius=ANKLE_R, depth=0.24, location=(ANKLE.x, ANKLE.y, 0.118 + 0.12)); leg = bpy.context.object; leg.name = 'Ong_chan_thu'
+    leg.data.materials.append(ob.data.materials[0]); [setattr(p_, 'use_smooth', True) for p_ in leg.data.polygons]
+    vg = leg.vertex_groups.new(name=f'shin.{side}'); vg.add(list(range(len(leg.data.vertices))), 1.0, 'REPLACE')     # ống chân giả đi theo xương shin
+    am = leg.modifiers.new('Armature', 'ARMATURE'); am.object = arm
+    c = Vector((0.100, -0.02, 0.09)); views = {'tren': c + Vector((0, -0.2, 2)), 'ben': c + Vector((2, 0, 0.1)), 'cheo_truoc': c + Vector((1.1, -1.6, 0.9)),
                                                'cheo_sau': c + Vector((-1.2, 1.5, 0.9)), 'de': c + Vector((0, -0.2, -2))}
+    leg.hide_render = False
     files = []
     for p in FOOT_POSES:
         apply_foot_pose(arm, p)
         for vn, loc in views.items():
             if vn == 'de' and p != 'dung': continue
-            fl.hide_render = (vn == 'de')
-            sc.camera = H._cam(sc, f'{p}_{vn}', loc, c, 0.40); sc.render.filepath = os.path.join(out, f'{p}_{vn}.png'); bpy.ops.render.render(write_still=True); files.append(sc.render.filepath)
+            fl.hide_render = (vn == 'de'); leg.hide_render = (vn == 'de')
+            sc.camera = H._cam(sc, f'{p}_{vn}', loc, c, 0.55); sc.render.filepath = os.path.join(out, f'{p}_{vn}.png'); bpy.ops.render.render(write_still=True); files.append(sc.render.filepath)
     apply_foot_pose(arm, 'dung'); return files
 
 
