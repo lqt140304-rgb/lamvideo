@@ -22,11 +22,13 @@ Hệ quả: nếu biến dạng mặt mà không gắn các vật rời, chúng 
 1. Làm theo **cách A**: shape key trên `Head_Base`, gắn các chi tiết mặt vào đầu, có script kiểm tự động.
 2. **Chỉ 2 mức độ** mỗi nhóm cảm xúc (thay vì 3 mức trong checklist).
 3. Tiêu chí đạt: người xem nhận ra biểu cảm chính; không chi tiết nào lòi ra ngoài viền hay đè lên; chi tiết bám sát khuôn mặt, không lệch.
+4. **Biểu cảm phải tái sử dụng được** cho Người Kia, Tùng, Mẹ, các vai phụ và các tập sau, không dựng lại từ đầu cho mỗi nhân vật.
 
 ## Mục tiêu
 
 - Bộ shape key biểu cảm cho đầu Nam, điều khiển được bằng thanh trượt 0–1 và chuyển mượt giữa các trạng thái theo lời thoại.
 - Mọi chi tiết mặt đi theo mặt ở mọi biểu cảm và góc nhìn.
+- **Tái sử dụng:** định nghĩa biểu cảm tách khỏi đầu Nam, có thể áp lên đầu khác bằng một lệnh, và bước kiểm tự động dùng lại nguyên cho đầu đó (xem mục Tái sử dụng).
 - Có bước kiểm tự động và bảng ảnh nhỏ để duyệt, để không phải render video.
 
 ## Không làm (lần này)
@@ -67,8 +69,20 @@ Hệ quả: nếu biến dạng mặt mà không gắn các vật rời, chúng 
 4. **Khoang miệng tối giản** (khoang tối, răng, lưỡi) để `hoang_mang`, `kinh_hoang`, `thi_uy` có miệng há. Thêm như phần phụ, không đổi lưới nghỉ.
 5. **Tên mã và vị trí file:** mã mới `assets/nhan-vat-3d/bieu_cam_nam.py` gọi dựng đầu từ `dung_dau_nam.py`, không sửa file đã duyệt.
 6. **Chuyển giữa hai mức của một nhóm:** hai shape key riêng, pha trộn bằng thanh trượt; chuyển giữa hai nhóm khác nhau bằng keyframe trên timeline.
-7. Số liệu ngưỡng ở mục Nghiệm thu là **đề xuất**, người dựng có thể chỉnh nếu đo thấy không hợp lý.
-8. Quy chuẩn 3D ghi "tối thiểu 18 shape key 3 cấp". Thiết kế này giảm theo lời chủ repo; **chưa sửa** quy chuẩn hay checklist chung, cần cập nhật khi nghiệm thu.
+7. Số liệu ngưỡng ở mục Nghiệm thu là **đề xuất**, người dựng có thể chỉnh nếu đo thấy không hợp lý.8. **Thử tái sử dụng ngay trong lượt này** trên một đầu thứ hai (bản đối xứng của Nam), không để đến khi làm Người Kia mới biết có dùng lại được hay không.
+9. Quy chuẩn 3D ghi "tối thiểu 18 shape key 3 cấp". Thiết kế này giảm theo lời chủ repo; **chưa sửa** quy chuẩn hay checklist chung, cần cập nhật khi nghiệm thu.
+
+## Tái sử dụng
+
+Mục đích: dựng một lần, dùng cho nhiều nhân vật và nhiều tập. Đây là **đề xuất của trợ lý**, người dựng quyết cách làm cụ thể miễn đạt các yêu cầu sau.
+
+1. **Tách dữ liệu khỏi đầu.** Mỗi biểu cảm là một bản mô tả (tên, mức, độ dời của các điểm neo mặt như mí trên, mí dưới, mày trong, mày ngoài, khóe miệng, cằm), không dính vào lưới của đầu Nam.
+2. **Dùng điểm neo mặt chung** thay vì chỉ số đỉnh của lưới Nam. Mỗi đầu khai báo vị trí các điểm neo; biểu cảm tính theo tỉ lệ khuôn mặt, nên đầu rộng hơn, dài hơn vẫn đọc đúng.
+3. **Một lệnh áp dụng:** nhận đầu đích, tạo shape key cùng tên, gắn các chi tiết mặt, rồi chạy kiểm. Nếu đầu đích có lưới khác hẳn thì dùng chuyển shape key (Data Transfer hoặc Surface Deform) rồi vẫn qua cùng bước kiểm.
+4. **Tên shape key cố định,** ví dụ `ngai_ngu`, `kiet_suc`, để thanh trượt, timeline và kịch bản dùng chung giữa các nhân vật.
+5. **Hỗ trợ đối xứng:** Người Kia là bản đối xứng của Nam (nốt ruồi phải, thuận tay trái). Biểu cảm áp được bằng lật đối xứng; nốt ruồi và các nét không đối xứng khai báo riêng theo nhân vật, không nằm trong định nghĩa biểu cảm.
+6. **Kiểm dùng lại nguyên:** cùng script và cùng ngưỡng cho mọi đầu. Mỗi nhân vật mới chỉ cần chạy lại, không viết kiểm riêng.
+7. **Ghi tài liệu dùng lại:** cách áp biểu cảm lên đầu mới ghi ở README của tập. Nguyên tắc chung (không dính tên nhân vật, tập) ghi vào `docs/KINH-NGHIEM.md` khi đã chạy thật trên ít nhất hai đầu. Chỉ đưa lên thư viện chung `docs/ASSET.md` khi có nguồn và quyền rõ.
 
 ## Nghiệm thu
 
@@ -81,6 +95,7 @@ Chạy cho **từng shape key ở giá trị 1,0 và 0,5**, ở 5 góc: chính d
 | Không đè nhau | Lông mày không cắt viền mắt; con ngươi nằm trong tròng trắng |
 | Nhận diện | Nốt ruồi vẫn bên trái, lệch vị trí nghỉ không quá vài mm; mặt nghỉ trùng bản đã duyệt |
 | Đọc được | Bảng ảnh nhỏ (kích thước điện thoại) cho cả bộ để chủ repo duyệt bằng mắt |
+| Tái sử dụng | Áp bộ biểu cảm lên **một đầu thứ hai** (đề xuất: bản đối xứng của đầu Nam, gần với Người Kia) bằng lệnh áp dụng, rồi qua cùng các kiểm trên. Chưa qua thì chưa tính là tái sử dụng được |
 
 Kết quả ghi vào `LOI-TON-DONG.md` và [CHECKLIST](CHECKLIST-TIEN-KY-ASSET.md) theo đúng trạng thái đo được. Không ghi `[x]` khi chưa chạy.
 
