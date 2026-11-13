@@ -26,11 +26,11 @@ X0 = 0.100                                     # trục dọc bàn chân (hơi l
 #   Không dùng mặt cắt vuông: mỗi lát là elip → gót, mu, mũi chân đều tròn; đáy cắt phẳng ở sàn z=0.
 #   y: từ gót (+Y) tới đầu mũi bàn chân (−Y); top = chiều cao đỉnh mu chân so với sàn; hw = nửa bề ngang
 PROFILE_Y = [0.087, 0.077, 0.063, 0.044, 0.022, 0.000, -0.022, -0.045, -0.065, -0.080, -0.090]      # (cộng bán trục y của elip đầu/cuối → gót sau ~0,117, mũi bàn chân ~−0,120)
-PROFILE_TOP = [0.050, 0.080, 0.104, 0.118, 0.122, 0.112, 0.098, 0.086, 0.074, 0.062, 0.052]
-PROFILE_HW = [0.036, 0.048, 0.056, 0.062, 0.066, 0.069, 0.073, 0.078, 0.080, 0.078, 0.072]
+PROFILE_TOP = [0.044, 0.072, 0.097, 0.110, 0.114, 0.105, 0.092, 0.080, 0.069, 0.059, 0.050]       # gót thấp, bo; mu chân giảm ~6%
+PROFILE_HW = [0.033, 0.046, 0.056, 0.062, 0.066, 0.068, 0.072, 0.077, 0.080, 0.078, 0.072]            # gót tròn (không vuông, không nhọn)
 NECK = [dict(c=(ANKLE.x, ANKLE.y + 0.004, 0.138), r=(0.050, 0.054, 0.050)), dict(c=(ANKLE.x, ANKLE.y, 0.176), r=(0.047, 0.050, 0.040))]   # cổ chân: tiếp mu chân, thon dần vào ống chân
 #          x lệch   y     bán kính   (ngón cái → ngón út; ngón cái ở PHÍA TRONG = phía thân; ngón như nụ tròn, mập, ngắn dần)
-TOES = [(-0.050, -0.129, 0.0265), (-0.020, -0.122, 0.0205), (0.005, -0.118, 0.0185), (0.027, -0.114, 0.0165), (0.046, -0.110, 0.0148)]
+TOES = [(-0.053, -0.129, 0.0262), (-0.021, -0.122, 0.0200), (0.006, -0.118, 0.0180), (0.031, -0.114, 0.0160), (0.053, -0.110, 0.0142)]   # dàn rộng hơn để ngón không dính nhau
 BALL_Y = -0.105
 BALL = Vector((X0, BALL_Y, 0.040))
 SWEEP_STEP = 0.003
@@ -54,6 +54,19 @@ def _taubin(bm, verts, n, lam=0.5, mu=-0.53):
         bmesh.ops.smooth_vert(bm, verts=verts, factor=mu, use_axis_x=True, use_axis_y=True, use_axis_z=True)
 
 
+def _carve_toe_grooves(bm, depth=0.0030, sigma=0.0050):
+    """Khắc rãnh giữa các ngón (dịch đỉnh vào trong theo pháp tuyến, Gauss nông): ngón tách nhau rõ nhưng vẫn mềm."""
+    bm.normal_update(); n_hit = 0
+    for i in range(len(TOES) - 1):
+        (d0, _, r0), (d1, _, r1) = TOES[i], TOES[i + 1]; xg = X0 + d0 + (d1 - d0) * r0 / (r0 + r1)
+        for v in bm.verts:
+            if v.co.z < 0.006 or v.co.y > BALL_Y - 0.004: continue
+            ramp = min(1.0, max(0.0, (-0.106 - v.co.y) / 0.014))
+            d = depth * ramp * math.exp(-((v.co.x - xg) / sigma) ** 2)
+            if d > 1e-6: v.co -= v.normal * d; n_hit += 1
+    return n_hit
+
+
 def build_shape(side='L', voxel=0.0015):
     me = bpy.data.meshes.new(f'Chan_Nam.{side}'); ob = bpy.data.objects.new(f'Chan_Nam.{side}', me); bpy.context.scene.collection.objects.link(ob)
     bm = bmesh.new()
@@ -61,16 +74,18 @@ def build_shape(side='L', voxel=0.0015):
     top = np.interp(ys, py, np.array(PROFILE_TOP)[::-1]); hw = np.interp(ys, py, np.array(PROFILE_HW)[::-1])
     top, hw = _smooth_curve(top, 4), _smooth_curve(hw, 4)
     for y, t, w in zip(ys, top, hw):                                      # mỗi elip: đáy chìm 4 mm dưới sàn để cắt phẳng
-        _ellipsoid(bm, (X0, y, (t - 0.004) / 2), (w, SWEEP_RY, (t + 0.004) / 2))
+        _ellipsoid(bm, (X0, y, (t - 0.0025) / 2), (w, SWEEP_RY, (t + 0.0025) / 2))
     for b in NECK: _ellipsoid(bm, b['c'], b['r'])
-    for dx, y, r in TOES: _ellipsoid(bm, (X0 + dx, y, r - 0.002), (r, r * 1.45, r))               # ngón: elip dài theo y, nằm trên sàn
+    for dx, y, r in TOES: _ellipsoid(bm, (X0 + dx, y, r - 0.002), (r * 0.92, r * 1.45, r))        # ngón: elip dài theo y, hơi thon bề ngang, nằm trên sàn
     bm.to_mesh(me); bm.free()
     md = ob.modifiers.new('rm', 'REMESH'); md.mode = 'VOXEL'; md.voxel_size = voxel; md.use_smooth_shade = True
     bpy.context.view_layer.objects.active = ob; ob.select_set(True); bpy.ops.object.modifier_apply(modifier='rm')
     bm = bmesh.new(); bm.from_mesh(me)
     for v in bm.verts: v.co.z = max(0.0, v.co.z)                          # cắt phẳng đế tại sàn
     body = [v for v in bm.verts if v.co.y > BALL_Y - 0.004]; toes = [v for v in bm.verts if v.co.y <= BALL_Y - 0.004]
-    _taubin(bm, body, 40); _taubin(bm, toes, 5)                           # thân mượt mạnh, ngón nhẹ để giữ hình
+    _taubin(bm, body, 40); _taubin(bm, toes, 3)                           # thân mượt mạnh, ngón nhẹ để giữ hình
+    _carve_toe_grooves(bm)
+    toes = [v for v in bm.verts if v.co.y <= BALL_Y - 0.004]; _taubin(bm, toes, 22)      # làm mượt lại sau khi khắc rãnh: bỏ gợn gai do pháp tuyến lưới không đều
     for v in bm.verts:
         if v.co.z < 0.0035: v.co.z = 0.0                                  # đế phẳng sau khi mượt (mép đế vẫn bo)
     bm.to_mesh(me); bm.free()
@@ -196,7 +211,10 @@ def render_sheet(sc, ob, arm, out, side='L'):
     os.makedirs(out, exist_ok=True)
     bpy.ops.mesh.primitive_plane_add(size=1.2, location=(0.1, 0, -0.0005)); fl = bpy.context.object; fl.name = 'San'
     m = bpy.data.materials.new('san'); m.use_nodes = True; m.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = (0.42, 0.46, 0.40, 1); fl.data.materials.append(m)
-    bpy.ops.mesh.primitive_cylinder_add(vertices=64, radius=ANKLE_R, depth=0.24, location=(ANKLE.x, ANKLE.y, 0.118 + 0.12)); leg = bpy.context.object; leg.name = 'Ong_chan_thu'
+    me_l = bpy.data.meshes.new('Ong_chan_thu'); leg = bpy.data.objects.new('Ong_chan_thu', me_l); bpy.context.scene.collection.objects.link(leg)
+    bml = bmesh.new()                                              # ống chân giả: trụ đầu dưới bán cầu (vòng mắt cá của cage đóng nắp tròn), không bậc cứng
+    H._loft(bml, [Vector((ANKLE.x, ANKLE.y, 0.118 + ANKLE_R)), Vector((ANKLE.x, ANKLE.y, 0.30)), Vector((ANKLE.x, ANKLE.y, 0.34))], [ANKLE_R, ANKLE_R, ANKLE_R], nseg=64)
+    bml.to_mesh(me_l); bml.free()
     leg.data.materials.append(ob.data.materials[0]); [setattr(p_, 'use_smooth', True) for p_ in leg.data.polygons]
     vg = leg.vertex_groups.new(name=f'shin.{side}'); vg.add(list(range(len(leg.data.vertices))), 1.0, 'REPLACE')     # ống chân giả đi theo xương shin
     am = leg.modifiers.new('Armature', 'ARMATURE'); am.object = arm
@@ -206,6 +224,9 @@ def render_sheet(sc, ob, arm, out, side='L'):
     files = []
     for p in FOOT_POSES:
         apply_foot_pose(arm, p)
+        if p == 'dung':
+            fl.hide_render = False; leg.hide_render = True; tg = Vector((X0, -0.135, 0.025))
+            sc.camera = H._cam(sc, 'dung_ngon', tg + Vector((0.5, -1.4, 0.9)), tg, 0.20); sc.render.filepath = os.path.join(out, 'dung_ngon.png'); bpy.ops.render.render(write_still=True); files.append(sc.render.filepath)
         for vn, loc in views.items():
             if vn == 'de' and p != 'dung': continue
             fl.hide_render = (vn == 'de'); leg.hide_render = (vn == 'de')
