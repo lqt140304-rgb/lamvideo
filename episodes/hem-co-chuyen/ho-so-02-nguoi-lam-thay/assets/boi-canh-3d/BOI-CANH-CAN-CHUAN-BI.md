@@ -46,3 +46,17 @@ Chưa làm cho đạo cụ: vật liệu chi tiết (chữ trên thẻ, tem, log
 
 ## 4. Việc phụ thuộc nhân vật 3D
 Nam / Người Kia / Tùng (Modular) chưa vào cảnh nên chưa kiểm được: chiều cao 1,60 m so với cửa/ghế, điểm neo đạo cụ, va chạm tay–đồ vật, khung hình có người thật.
+
+## 5. Chi tiết đạo cụ đã thêm (13/11 chiều) — `dao_cu_3d.py`
+- **Chữ/UI thật:** chữ số 7 đoạn (`digit`, `text_line`) cho "2007" trên thẻ, "500" trên tờ tiền, màn hình điện thoại **06:30** (nút Báo lại/Dừng, viền rung đỏ), **Zalo** (tiêu đề xanh, 5 bong bóng chat, ô nhập), **điểm 9.5**.
+- **Thẻ CCCD/SV:** quốc huy hoặc logo trường, dải tiêu đề, chip + vân chip, ảnh chân dung (vai, đầu, tóc), nốt ruồi trái/phải đúng kích thước, QR/vạch, dải ánh kim; thẻ SV có dây đeo + kẹp.
+- **Búa:** vân gỗ + chỗ cầm mòn bóng, đuôi cán, nêm chốt đầu, mặt đập sáng, khe móng, gỉ lốm đốm.
+- **Phong bì:** tiền polyme có cửa sổ trong suốt + dải đỏ + mệnh giá, mép nhăn, dải keo, dòng chữ viết tay.
+- **Điện thoại:** viền kim loại, đảo camera, cụm 4 ống kính, nút nguồn/âm lượng.
+- **Bát sứ:** chân đế, 10 bông hoa xanh (5 cánh + nhụy), mẻ miệng, 12 bọt xà phòng, giọt nước chảy.
+- **Hộp cơm:** nắp mở, ngăn, hạt cơm, sườn có vết cháy + đầu xương, trứng có rìa vàng giòn + bóng sáng, dưa chuột/chua, mỡ hành.
+- **Bún chả:** sợi bún, rau thơm, chả cháy, cà rốt/su hào ngâm, tỏi ớt, nem cắt đôi thấy nhân.
+- **Xôi gấc:** gân lá chuối, mép hơ lửa xém, ~40 hạt xôi, hạt gấc, dây lạt buộc, giò lụa có lớp lá bọc.
+- **Túi quả:** nhãn, nếp gấp giấy, miệng vênh, quả có cuống + lá + điểm sáng.
+- **Phấn:** mảnh vụn nhọn, bột, giẻ lau bảng. **Then sắt:** đinh vít + rãnh, lỗ xỏ thanh, vệt mòn sáng, gỉ, lỗ tai khóa.
+- **Lưu ý toạ độ:** vì thế giới là phản chiếu của toạ độ thiết kế (x đảo) và camera phòng nhìn về −y, chữ/giao diện phải lật y (`lat_y`) thì mới đọc xuôi khi nhìn từ ghế ngồi; đã áp dụng cho thẻ, phong bì, điện thoại trong bảng trưng bày. Khi đặt vào cảnh, bọc bằng `lat_y` như `bang_dao_cu`.
