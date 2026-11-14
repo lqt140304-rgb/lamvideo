@@ -22,7 +22,7 @@ import dung_than_nam as T
 
 ss = N.ss
 ANKLE_Z = 0.085            # tâm khớp mắt cá (trong khối, trên đế 8,5 cm; lượt 1 đặt 9,5 cm → nếp gót 91° khi gập xuống)
-WRIST_W = 0.020            # nửa bề rộng dải chuyển weight cổ tay (m) (lượt 1: 0,012 → co < 0,5 mặt trong khi gập 30°)
+WRIST_W = 0.024            # nửa bề rộng dải chuyển weight cổ tay (m) (lượt 1: 0,012 → co < 0,5; cổ tay thon 7% cần 0,024)
 ANKLE_W = (0.040, 0.050)   # dải chuyển weight mắt cá: dưới / trên ANKLE_Z
 TOE_W = 0.020              # nửa dải chuyển weight gốc ngón chân (lượt 1–2: 0,012 → nhấc gót tự giao ở nếp gốc ngón)
 
