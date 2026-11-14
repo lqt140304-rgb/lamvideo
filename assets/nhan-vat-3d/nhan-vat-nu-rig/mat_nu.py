@@ -942,7 +942,7 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
     dk = {
         'cuoi': vec(0.005 * s * c, 0.003 * c, 0.012 * c),
         'meu': vec(0.001 * s * c, -0.002 * D, -0.010 * c),
-        'chu_moi': vec(-0.35 * du * g, -0.006 * g, z0),
+        'chu_moi': vec(-0.5 * du * g, -0.009 * g, 0.0015 * T - 0.0015 * D),  # chu: thu hẹp, đẩy ra trước, hé tròn
         'mim_moi': vec(z0, 0.002 * moi, -0.0015 * T + 0.0015 * D),
         'keo_khoe.L': vec(0.006 * c * L, z0, 0.001 * c * L), 'keo_khoe.R': vec(-0.006 * c * R, z0, 0.001 * c * R),
         'ha_khoe.L': vec(z0, z0, -0.006 * c * L), 'ha_khoe.R': vec(z0, z0, -0.006 * c * R),

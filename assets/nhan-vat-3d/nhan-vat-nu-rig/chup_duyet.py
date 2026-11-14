@@ -1,6 +1,6 @@
 """Chụp 12 ảnh duyệt từ file rig đã lưu (không sửa file).
 
-D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư mục ra>
+D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư mục ra> [--mieng]
 Ảnh: mặt (nghỉ, liếc, chớp, A, O, MBP, cười, buồn), toàn thân, cổ–cổ tay, chỉ tay, nắm tay.
 """
 import json
@@ -11,7 +11,9 @@ from pathlib import Path
 import bpy
 from mathutils import Matrix, Vector
 
-OUT = Path(sys.argv[sys.argv.index('--') + 1])
+THAM = sys.argv[sys.argv.index('--') + 1:]
+OUT = Path(next(a for a in THAM if not a.startswith('--')))
+MIENG = '--mieng' in THAM  # chỉ chụp cận miệng (thẳng + 3/4), 11 dáng
 sc = bpy.context.scene
 R, B = bpy.data.objects['Nu_Rig'], bpy.data.objects['Nu_Than']
 pb, kb = R.pose.bones, B.data.shape_keys.key_blocks
@@ -64,6 +66,19 @@ def khau(k):
     kb[bang[k]['shape_key']].value = 1
     pb['jaw'].rotation_euler.x = math.radians(bang[k]['jaw_do'])
 
+
+if MIENG:
+    dang = [('ngam', None, 0), ('he', None, 6), ('ha', None, 18), ('cuoi', 'cuoi', 0), ('meu', 'meu', 0),
+            ('chu', 'chu_moi', 0)] + [(k, bang[k]['shape_key'], bang[k]['jaw_do']) for k in ('A', 'O', 'U', 'MBP', 'E')]
+    for i, (ten, sk, do) in enumerate(dang):
+        nghi()
+        if sk:
+            kb[sk].value = 1
+        pb['jaw'].rotation_euler.x = math.radians(do)
+        chup(f'm{i:02d}a_{ten}', (0, -0.75, 1.31), (0, 0, 1.30), 130)
+        chup(f'm{i:02d}b_{ten}_34', (0.38, -0.62, 1.31), (0, -0.2, 1.30), 130)
+    print('PASS: ảnh miệng ở', OUT)
+    raise SystemExit(0)
 
 nghi(); chup('01_mat_nghi', *MAT)
 nghi(); doi('look', (0.3, 0, 0)); chup('02_liec', *MAT)

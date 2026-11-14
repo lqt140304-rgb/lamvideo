@@ -19,6 +19,15 @@ Mở `nhan-vat-nu-rig.blend`. Texture da liền màu nằm trong `texture/` (đ�
 
 Nhân vật nhìn về −Y. `.L` là bên trái nhân vật (+X).
 
+## Miệng kiểu phim hoạt hình 3D
+
+Theo [thiết kế](../../../docs/superpowers/specs/2026-11-15-mieng-hoat-hinh-design.md):
+
+- **Môi:** có độ dày. Vòng mặt môi nhô 1–2 mm so với da, môi trên có cung nhẹ, màu `Nu_Moi` hồng nhạt. Lưới miệng gồm 40 đoạn mỗi vòng, dồn về khóe.
+- **Mở hàm không gấp:** trọng số hàm được làm trơn trên vùng `MIENG_MUOT`. Modifier `CorrectiveSmooth` chỉ chạy trên vùng này, đứng giữa Armature và Subdivision.
+- **Khẩu hình mượt:** độ dời tắt dần mềm ra má; gần khóe, môi trên và môi dưới hòa vào nhau nên khe khép mềm. Mỗi khẩu hình được làm trơn 3 lượt.
+- **Bên trong miệng:** răng và lợi uốn hình chữ U, răng trên thòng ngay dưới mép môi trên, lưỡi thuôn đầu.
+
 ## Điều khiển
 
 | Muốn | Làm |
@@ -61,8 +70,8 @@ Chạy trong thư mục này:
 py -I da_lien_mau.py                                                   # texture da liền màu → texture/
 D:/blender/blender.exe -b --factory-startup --python rig_nu.py         # dựng nhan-vat-nu-rig.blend
 py -I test_da_lien_mau.py                                               # kiểm texture
-D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 29 kiểm trên file đã lưu
-D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư mục ảnh>
+D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 37 kiểm trên file đã lưu
+D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư mục ảnh> [--mieng]   # --mieng: 22 ảnh cận miệng
 ```
 
 `kiem_rig_nu.py` kiểm các nhóm sau:
@@ -85,7 +94,11 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 - **Chưa "mở to" mắt được:** mí mở dừng đúng theo nét mắt vẽ, nên không mở rộng hơn hốc đã khoét. Muốn có, phải nới hốc mắt và thêm shape key `mo_to`.
 - **Dáng nghỉ của mắt:** nhìn thẳng, con ngươi giữa hốc. Ảnh mẫu thì đang liếc sang bên; muốn giống ảnh mẫu thì kéo `look`.
 - **Nâng mày cao:** thấy vệt mảnh của dải mày cũ trên trán.
-- **Miệng:** bên phải miệng có vệt răng cưa mảnh do đường nối UV gốc chạy qua.
+- **Miệng:**
+  - Còn vệt texture nâu mảnh từ cánh mũi xuống và dưới môi phải, do texture gốc.
+  - Ở khẩu hình `vs_MBP` thấy một vạch hồng mảnh dưới khe.
+  - Răng trong khoang miệng hơi tối vì bóng.
+  - Chu môi còn nhẹ.
 - **Shape key:** độ lớn mới chỉnh sơ bộ, chưa thử với audio thật.
 - **Da:** cổ tay hơi chênh sáng (bàn tay giữ vân da gốc); cổ chân còn sợi đường nối rất mờ khi cận.
 - **Độ mượt:** Subdivision làm thân mượt hơn nhưng không thêm chi tiết điêu khắc như base Nam (220 nghìn đỉnh). Muốn chi tiết đó phải dựng lại lưới dày rồi làm lại rig.
