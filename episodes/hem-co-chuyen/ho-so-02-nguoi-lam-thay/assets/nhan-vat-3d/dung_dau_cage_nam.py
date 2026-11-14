@@ -43,7 +43,7 @@ RINGS = [
     dict(ten='chan_mui',   z=1.147, zb=1.172, sx=1.02),
     dict(ten='mieng_tren', z=1.122, zb=1.150, sx=1.03),
     dict(ten='mieng',      z=1.099, zb=1.130, sx=1.04),
-    dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.04),
+    dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.00),
     dict(ten='cam',        z=1.052, zb=1.094, sx=1.08, sf=1.06),
     dict(ten='day_cam',    z=1.038, zb=1.066, w=0.090, yc=-0.046, f=0.128, b=0.128, n=2.0),
     dict(ten='duoi_ham',   z=1.030, zb=1.050, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
@@ -386,6 +386,22 @@ def surf_front(bvh, x, z, off):
     n = hp[1].normalized(); n = n if n.y < 0 else -n; return hp[0] + n * off, n
 
 
+NOSE_BALL = dict(r=0.030, nho=0.45, dep=(1.0, 0.85, 0.92))   # cục mũi tròn như mẫu: bán kính (hệ đầu gốc), phần nhô ra khỏi da theo r, tỉ lệ dẹt (ngang, sâu, cao)
+
+
+def build_nose_ball(coll, bvh, skin):
+    """Cục mũi tròn riêng (vật liệu da) cắm một phần vào đỉnh mũi của lưới mặt: lưới chỉ cho gờ, mẫu là cục cầu rõ khối."""
+    best = None
+    for i in range(41):
+        z = D.FACE['nose_base_z'] - 0.02 + i * 0.0015
+        hp = bvh.ray_cast(Vector((0, -1.5, z)), Vector((0, 1, 0)))
+        if hp[0] is not None and (best is None or hp[0].y < best[0].y): best = hp
+    p = best[0]; n = Vector((0, -1, 0)); r = NOSE_BALL['r']
+    ob = D.uv_sphere('Mui_Tron', coll, skin, (32, 20))
+    D.place(ob, p + n * (r * (NOSE_BALL['nho'] - 1.0)) + Vector((0, 0, -0.25 * r)), D.frame(n, 0), tuple(r * k for k in NOSE_BALL['dep']))
+    for f in ob.data.polygons: f.use_smooth = True
+
+
 def build_brows_mole(coll, bvh, M):
     for s, k in ((1, 'L'), (-1, 'R')):
         pts = [surf_front(bvh, s * x, z, 0.0012)[0] for x, z in zip(D.FACE['brow_x'], (D.FACE['brow_z'] - 0.004, D.FACE['brow_z'] + 0.005, D.FACE['brow_z'] - 0.006))]
@@ -523,6 +539,7 @@ def build(args):
     bvh_new = mesh_bvh(head)[0]
     eyes = build_eyes(nc, ef, M['trang'], M['muc'], None)
     build_brows_mole(nc, bvh_new, M)
+    build_nose_ball(nc, bvh_new, skin)
     for k in ('L', 'R'):
         e = bpy.data.objects[f'Ear.{k}_cu'].copy(); e.data = e.data.copy(); e.name = f'Ear.{k}'; nc.objects.link(e)
         e.data.materials.clear(); e.data.materials.append(skin)
