@@ -90,7 +90,62 @@ def kiem_fist():
     assert not it, f'fist=1 mà các ngón dời ít {it}'
 
 
+def dau_xuong(n):
+    RIG.update_tag()
+    bpy.context.view_layer.update()
+    return np.array(RIG.matrix_world @ RIG.pose.bones[n].head)
+
+
+def doi_the_gioi(n, delta):
+    """Dời xương n một đoạn delta theo trục thế giới (ghi vào pose)."""
+    from mathutils import Matrix, Vector
+    p = RIG.pose.bones[n]
+    p.matrix = Matrix.Translation(Vector(delta)) @ p.matrix
+    bpy.context.view_layer.update()
+
+
+def kiem_ik_tay_bam():
+    RIG.pose.bones['hand.L']['ik_fk'] = 1.0
+    doi_the_gioi('ik_hand.L', (0, -0.15, 0.15))
+    d = np.linalg.norm(dau_xuong('hand.L') - dau_xuong('ik_hand.L'))
+    assert d < 0.01, f'Cổ tay cách ik_hand {d:.3f} m'
+
+
+def kiem_ik_tay_nghi():
+    m0 = np.array(RIG.pose.bones['forearm.L'].matrix)
+    RIG.pose.bones['hand.L']['ik_fk'] = 1.0
+    eval_co()
+    lech = np.abs(np.array(RIG.pose.bones['forearm.L'].matrix) - m0).sum()
+    assert lech < 0.02, f'Bật IK làm lệch dáng nghỉ {lech:.3f}'
+
+
+def kiem_ik_fk_tat():
+    h0 = dau_xuong('hand.L')
+    doi_the_gioi('ik_hand.L', (0, -0.15, 0.15))
+    d = np.linalg.norm(dau_xuong('hand.L') - h0)
+    assert d < 1e-4, f'ik_fk=0 mà tay vẫn theo ik_hand ({d:.3f} m)'
+    RIG.pose.bones['forearm.L'].rotation_euler.x = 0.5
+    eval_co()
+    d = np.linalg.norm(np.array(RIG.matrix_world @ RIG.pose.bones['hand.L'].tail) - np.array(RIG.matrix_world @ RIG.data.bones['hand.L'].tail_local))
+    assert d > 0.05, f'FK xoay khuỷu mà bàn tay chỉ dời {d:.3f} m'
+
+
+def kiem_fist_khi_ik():
+    tip = dinh_dau_ngon()  # đo ở dáng nghỉ, trước khi dời tay
+    RIG.pose.bones['hand.L']['ik_fk'] = 1.0
+    doi_the_gioi('ik_hand.L', (0, -0.1, 0.1))
+    base = eval_co()
+    RIG.pose.bones['hand.L']['fist'] = 1.0
+    d = np.linalg.norm(eval_co() - base, axis=1)
+    it = {n: round(float(d[tip[n]]), 3) for n in NGON if d[tip[n]] <= 0.03}
+    assert not it, f'IK + fist=1 mà ngón dời ít {it}'
+
+
 KIEM = {
+    'kiem_ik_tay_bam': kiem_ik_tay_bam,
+    'kiem_ik_tay_nghi': kiem_ik_tay_nghi,
+    'kiem_ik_fk_tat': kiem_ik_fk_tat,
+    'kiem_fist_khi_ik': kiem_fist_khi_ik,
     'kiem_vat_lieu_da': kiem_vat_lieu_da,
     'kiem_ngon_rieng': kiem_ngon_rieng,
     'kiem_fist': kiem_fist,

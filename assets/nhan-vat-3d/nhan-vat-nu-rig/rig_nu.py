@@ -7,7 +7,8 @@ Armature `Nu_Rig` (mét, nhân vật nhìn −Y, trái nhân vật = +X ⇒ đu�
   root → pelvis → spine1 → spine2 → chest → neck → head
   chest → clavicle.L/R → upper_arm → forearm → hand → {thumb,index,middle,ring,pinky}1→2→3 (dò từ lưới)
   pelvis → thigh.L/R → shin.L/R → foot.L/R → toe.L/R
-  Điều khiển (không biến dạng): ik_foot.L/R (IK chân), pole_knee.L/R (hướng gối).
+  Điều khiển (không biến dạng): ik_hand/pole_elbow (IK tay), ik_foot/pole_knee (IK chân).
+  Thuộc tính `ik_fk` (0 = FK, 1 = IK) trên hand.L/R (mặc định 0) và foot.L/R (mặc định 1).
   Thuộc tính `fist` (0–1) trên hand.L/R: nắm tay (driver cho 15 đốt). Ngón: X+ gập vào lòng bàn tay.
 Trọng số: bone heat, rồi tách vùng tay/thân dưới nách (tay buông sát hông), đầu 100% xương head.
 Lưới thưa (2.043 đỉnh): ngón có 3 đốt nhưng ít vòng lưới, khi gập còn góc cạnh.
@@ -132,6 +133,8 @@ for s, k in ((1, 'L'), (-1, 'R')):
     A(f'shin.{k}', f'thigh.{k}', (X(0.10), -0.018, 0.33), (X(0.108), 0.0, 0.09))
     A(f'foot.{k}', f'shin.{k}', (X(0.108), 0.0, 0.09), (X(0.115), -0.12, 0.03))
     A(f'toe.{k}', f'foot.{k}', (X(0.115), -0.12, 0.03), (X(0.12), -0.19, 0.02))
+    A(f'ik_hand.{k}', 'root', (X(0.255), 0.005, 0.645), (X(0.265), -0.005, 0.575), False)
+    A(f'pole_elbow.{k}', 'root', (X(0.222), 0.45, 0.80), (X(0.222), 0.50, 0.80), False)
     A(f'ik_foot.{k}', 'root', (X(0.108), 0.0, 0.09), (X(0.115), -0.12, 0.03), False)
     A(f'pole_knee.{k}', 'root', (X(0.10), -0.45, 0.33), (X(0.10), -0.50, 0.33), False)
 
@@ -162,7 +165,7 @@ bpy.ops.object.mode_set(mode='OBJECT')
 # bone collections
 groups = {'Than': ['root', 'pelvis', 'spine1', 'spine2', 'chest', 'neck', 'head'],
           'Tay': ['clavicle', 'upper_arm', 'forearm', 'hand'], 'Ngon': [f'{n}{j}' for n in NGON for j in (1, 2, 3)],
-          'Chan_IK': ['ik_foot', 'pole_knee'], 'Chan_deform': ['thigh', 'shin', 'foot', 'toe'], 'MCH': ['MCH_fist']}
+          'Tay_IK': ['ik_hand', 'pole_elbow'], 'Chan_IK': ['ik_foot', 'pole_knee'], 'Chan_deform': ['thigh', 'shin', 'foot', 'toe'], 'MCH': ['MCH_fist']}
 for g, names in groups.items():
     bc = arm_d.collections.new(g)
     for b in arm_d.bones:
@@ -171,15 +174,33 @@ for g, names in groups.items():
 arm_d.collections['Chan_deform'].is_visible = False
 arm_d.collections['MCH'].is_visible = False
 
-# --- IK chân, nắm tay ---
+# --- IK tay/chân với công tắc ik_fk (0 = FK, 1 = IK), nắm tay ---
 pb = rig.pose.bones
+
+
+def them_ik(chi, dau, ik, pole, mac_dinh):
+    """IK 2 đoạn cho `chi` (forearm/shin) + bàn xoay theo `ik`; ik_fk trên xương `dau` lái độ ảnh hưởng."""
+    c = pb[chi].constraints.new('IK')
+    c.target, c.subtarget = rig, ik
+    c.pole_target, c.pole_subtarget = rig, pole
+    c.chain_count = 2
+    cr = pb[dau].constraints.new('COPY_ROTATION')
+    cr.target, cr.subtarget = rig, ik
+    pb[dau]['ik_fk'] = mac_dinh
+    pb[dau].id_properties_ui('ik_fk').update(min=0.0, max=1.0, soft_min=0.0, soft_max=1.0)
+    for con in (c, cr):
+        fc = con.driver_add('influence')
+        v = fc.driver.variables.new()
+        v.name = 'k'
+        v.targets[0].id = rig
+        v.targets[0].data_path = f'pose.bones["{dau}"]["ik_fk"]'
+        fc.driver.expression = 'k'
+    return c
+
+
 for k in 'LR':
-    ik = pb[f'shin.{k}'].constraints.new('IK')
-    ik.target, ik.subtarget = rig, f'ik_foot.{k}'
-    ik.pole_target, ik.pole_subtarget = rig, f'pole_knee.{k}'
-    ik.chain_count = 2
-    cr = pb[f'foot.{k}'].constraints.new('COPY_ROTATION')
-    cr.target, cr.subtarget = rig, f'ik_foot.{k}'
+    them_ik(f'shin.{k}', f'foot.{k}', f'ik_foot.{k}', f'pole_knee.{k}', 1.0)
+    them_ik(f'forearm.{k}', f'hand.{k}', f'ik_hand.{k}', f'pole_elbow.{k}', 0.0)
     pb[f'shin.{k}'].ik_min_x, pb[f'shin.{k}'].use_ik_limit_x = 0, True  # gối chỉ gập ra sau
     h = pb[f'hand.{k}']
     h['fist'] = 0.0
@@ -205,19 +226,31 @@ for k in 'LR':
         c.to_min_x_rot, c.to_max_x_rot = 0.0, amt
         c.mix_mode_rot = 'ADD'
 
-# chọn pole_angle để dáng nghỉ của chân giữ nguyên (thử 4 góc, lấy sai lệch nhỏ nhất)
-bpy.context.view_layer.update()
-rest = {k: rig.data.bones[f'shin.{k}'].matrix_local.copy() for k in 'LR'}
-for k in 'LR':
+# chọn pole_angle để dáng nghỉ giữ nguyên khi bật IK (thử 4 góc, lấy sai lệch nhỏ nhất)
+def chon_pole_angle(chi, dau):
+    pb[dau]['ik_fk'] = 1.0
+    rig.update_tag()
+    bpy.context.view_layer.update()
+    rest = rig.data.bones[chi].matrix_local.copy()
     best = None
     for ang in (-90, 0, 90, 180):
-        pb[f'shin.{k}'].constraints['IK'].pole_angle = math.radians(ang)
+        pb[chi].constraints['IK'].pole_angle = math.radians(ang)
+        rig.update_tag()
         bpy.context.view_layer.update()
-        err = sum(abs(a - b) for ra, rb in zip(pb[f'shin.{k}'].matrix, rest[k]) for a, b in zip(ra, rb))
+        err = sum(abs(a - b) for ra, rb in zip(pb[chi].matrix, rest) for a, b in zip(ra, rb))
         if best is None or err < best[0]:
             best = (err, ang)
-    pb[f'shin.{k}'].constraints['IK'].pole_angle = math.radians(best[1])
-    assert best[0] < 0.02, f'IK chân {k} làm lệch dáng nghỉ: {best}'
+    pb[chi].constraints['IK'].pole_angle = math.radians(best[1])
+    assert best[0] < 0.02, f'IK {chi} làm lệch dáng nghỉ: {best}'
+    return best[1]
+
+
+for k in 'LR':
+    chon_pole_angle(f'shin.{k}', f'foot.{k}')
+    chon_pole_angle(f'forearm.{k}', f'hand.{k}')
+    pb[f'hand.{k}']['ik_fk'] = 0.0
+rig.update_tag()
+bpy.context.view_layer.update()
 
 # --- gắn lưới + trọng số ---
 for o in sc.objects:
