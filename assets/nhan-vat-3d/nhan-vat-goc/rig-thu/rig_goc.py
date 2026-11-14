@@ -525,6 +525,26 @@ def rebuild_armpit(body, cut):
     print(f'  nách: vá {len(newv)} đỉnh mới; lưới còn {len(me.vertices)} đỉnh')
 
 
+def mixamo_map():
+    """tên trong script → tên Mixamo (chỉ xương biến dạng; root, vai_phu, ik_*, pole_* giữ tên)."""
+    m = {'pelvis': 'Hips', 'spine1': 'Spine', 'spine2': 'Spine1', 'chest': 'Spine2', 'neck': 'Neck', 'head': 'Head'}
+    fn = {'thumb': 'Thumb', 'index': 'Index', 'middle': 'Middle', 'ring': 'Ring', 'pinky': 'Pinky'}
+    for k, S in (('L', 'Left'), ('R', 'Right')):
+        m.update({f'clavicle.{k}': f'{S}Shoulder', f'upper_arm.{k}': f'{S}Arm', f'forearm.{k}': f'{S}ForeArm', f'hand.{k}': f'{S}Hand',
+                  f'thigh.{k}': f'{S}UpLeg', f'shin.{k}': f'{S}Leg', f'foot.{k}': f'{S}Foot', f'toe.{k}': f'{S}ToeBase'})
+        for a_, b_ in fn.items():
+            for i in (1, 2, 3): m[f'{a_}{i}.{k}'] = f'{S}Hand{b_}{i}'
+    return m
+
+
+def rename_mixamo(arm):
+    """Đổi tên qua RNA: Blender tự sửa nhóm đỉnh, ràng buộc và đường dẫn driver theo tên mới."""
+    for old, new in mixamo_map().items():
+        if old in arm.data.bones: arm.data.bones[old].name = new
+    arm['ten_xuong'] = 'Mixamo'
+    print('  đã đổi tên xương sang chuẩn Mixamo')
+
+
 def rig_once(sc, body):
     proxy = bpy.data.objects.new('proxy_w', body.data.copy()); sc.collection.objects.link(proxy)   # bản thưa cho bone heat
     dm = proxy.modifiers.new('Dec', 'DECIMATE'); dm.ratio = 0.125
@@ -596,6 +616,7 @@ def to_a_pose(sc, body, arm, deg):
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--out', required=True); ap.add_argument('--anh'); ap.add_argument('--src', default=SRC)
+    ap.add_argument('--ten-mixamo', action='store_true', help='đổi tên xương biến dạng sang chuẩn Mixamo (Hips, LeftArm, …) để dùng animation Mixamo')
     ap.add_argument('--chu-a', type=float, default=0.0, help='dang tay (độ) để làm dáng nghỉ mới trước khi rig; 0 = giữ tay buông')
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.src)); sc = bpy.context.scene
@@ -615,6 +636,7 @@ def main():
     arm.users_collection[0].objects.unlink(arm); body.users_collection[0].objects.link(arm)
     stretch(arm, body)
     if a.anh: render_sheet(sc, arm, os.path.abspath(a.anh))
+    if a.ten_mixamo: rename_mixamo(arm)
     sc['ma_asset'] = 'NHAN-VAT-GOC-001 / RIG-THU'
     sc['trang_thai'] = 'Rig thử: thân/tay/chân/ngón, IK chân, IK/FK tay; chưa mặt, shape key; chưa nghiệm thu'
     bpy.ops.object.select_all(action='DESELECT'); arm.select_set(True); bpy.context.view_layer.objects.active = arm
