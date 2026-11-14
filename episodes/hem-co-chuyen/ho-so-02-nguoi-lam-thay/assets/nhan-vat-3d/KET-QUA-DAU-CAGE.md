@@ -118,3 +118,12 @@ D:/blender/blender.exe -b --factory-startup --python dat_nam_vao_phong.py -- --p
 4. **Tai mẫu thấp hơn khoảng 1 cm:** chưa dời, xem phần mốc.
 5. **Chưa có răng.** Kiểm "răng không xuyên môi" chưa áp dụng.
 6. **Chưa rig mặt;** `rig_nam.py` cũ không khớp lưới mới. Shape key chỉ là phép thử.
+
+## Cập nhật: vùng mặt theo ảnh mẫu (2026-11-14, chờ cổng 1)
+
+Thiết kế [THIET-KE-DAU-THEO-MAU.md](../../THIET-KE-DAU-THEO-MAU.md), kế hoạch [KE-HOACH-DAU-THEO-MAU.md](../../KE-HOACH-DAU-THEO-MAU.md), số đo và quyết định ở [GHI-CHU.md](../../GHI-CHU.md).
+
+- Đã làm: bảng mốc từ `mau-3d-dau.webp` và hàm đo (`do_mau_nam.py`); chỉnh cụm mắt (`EYE_TUNE`: tỉ lệ 1,11, dịch ngang 6,5 mm, dịch dọc 15 mm, xoay khung 9°), mũi lên 13,5 mm và lùi 4,4 mm, cằm hạ 10 mm, nốt ruồi vào giữa 6,5 mm (`FACE_TUNE`); kiểm mới `vung_mat`, `khau_lien`, `mat_dung_mau`, `khung_dung_mau`, `not_ruoi_tren_da`. `--check`: TẤT CẢ PASS.
+- Mép khâu với sọ liền (pháp tuyến mặt giới hạn đổi ≤ 25,7°, giãn khi mở hàm ≤ 8,3%), tóc v4 vẫn đạt (`so_sat_toc` −2,6…+1,1 mm). Không phải chuyển sang hướng dựng lại sọ.
+- **Chưa giống mẫu ở hình dạng chi tiết** (xem bảng ảnh chồng bằng `bang_cong1_nam.py`): mắt vẫn là nửa đĩa phẳng, thiếu viền tròn đen dày và mí da dày trùm của mẫu; mũi chỉ là gờ nhạt, chưa là cục tròn; hàm vuông và dài hơn mẫu, mẫu tròn kiểu quả lê; mắt mở to hơn mẫu (mẫu mặc định mí rủ nửa mắt). Số đo mốc đạt vì chỉ đo vị trí.
+- Đã thử và hoàn lại: tăng độ lồi nhãn cầu (APEX/DD ×1,7 và ×2,4) làm hỏng kiểm tự giao và lọt hốc.
