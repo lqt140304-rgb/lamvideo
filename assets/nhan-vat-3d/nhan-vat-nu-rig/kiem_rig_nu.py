@@ -321,7 +321,7 @@ def kiem_ham_mo():
         assert dd > 0.01, f'{ten} chỉ dời {dd:.4f} khi mở hàm'
 
 
-TRONG_MIENG = ('Nu_KhoangMieng', 'Nu_RangTren', 'Nu_RangDuoi', 'Nu_Luoi')
+TRONG_MIENG = ('Nu_KhoangMieng', 'Nu_RangTren', 'Nu_RangDuoi', 'Nu_Luoi', 'Nu_LoiTren', 'Nu_LoiDuoi')
 
 
 def kiem_mieng_khong_xuyen(tu=None):
@@ -613,12 +613,26 @@ def kiem_khau_hinh_khong_gap():
     kiem_khong_gap([(v['shape_key'], v['jaw_do']) for v in b.values()])
 
 
+def kiem_rang_cong():
+    """Răng trên/dưới là dải cong chữ U: hai đầu lùi sau giữa ≥ 6 mm. Có lợi trên/dưới."""
+    m = np.array(bpy.context.scene['tam_mieng'])
+    for ten in ('Nu_RangTren', 'Nu_RangDuoi', 'Nu_LoiTren', 'Nu_LoiDuoi'):
+        assert ten in bpy.data.objects, f'Thiếu {ten}'
+    for ten in ('Nu_RangTren', 'Nu_RangDuoi'):
+        co = eval_co(bpy.data.objects[ten])
+        x = co[:, 0] - m[0]
+        giua = co[np.abs(x) < 0.003, 1].min()
+        dau = co[np.abs(x) > 0.85 * np.abs(x).max(), 1].min()
+        assert dau - giua >= 0.006, f'{ten}: hai đầu chỉ lùi {(dau - giua) * 1000:.1f} mm'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_rang_cong': kiem_rang_cong,
     'kiem_khau_hinh_muot': kiem_khau_hinh_muot,
     'kiem_khau_hinh_khong_gap': kiem_khau_hinh_khong_gap,
     'kiem_khong_gap': kiem_khong_gap,

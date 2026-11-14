@@ -562,6 +562,45 @@ def _ss(a, b, x):
     return t * t * (3 - 2 * t)
 
 
+def _dai_cong(ten, C, ax, nua_rong, lui, cao, day, mat, n=24):
+    """Dải cong chữ U (răng, lợi): đường giữa x ∈ [−nua_rong, nua_rong], lùi −w·lui·(x/nua_rong)², tiết diện cao × dày;
+    Subdivision 2 cho bo tròn kiểu hoạt hình."""
+    u, w, v = ax
+    bm = bmesh.new()
+    secs = []
+    for x in np.linspace(-nua_rong, nua_rong, n):
+        P = C + u * x - w * (lui * (x / nua_rong) ** 2)
+        secs.append([bm.verts.new(P + w * (sw * day / 2) + v * (sv * cao / 2))
+                     for sw, sv in ((1, 1), (1, -1), (-1, -1), (-1, 1))])
+    for a_, b_ in zip(secs, secs[1:]):
+        for i in range(4):
+            bm.faces.new((a_[i], a_[(i + 1) % 4], b_[(i + 1) % 4], b_[i]))
+    bm.faces.new(secs[0][::-1])
+    bm.faces.new(secs[-1])
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    me = bpy.data.meshes.new(ten)
+    bm.to_mesh(me)
+    bm.free()
+    me.materials.append(mat)
+    for f in me.polygons:
+        f.use_smooth = True
+    ob = bpy.data.objects.new(ten, me)
+    sd = ob.modifiers.new('Subdivision', 'SUBSURF')
+    sd.levels = sd.render_levels = 2
+    return ob
+
+
+def _luoi(ten, C, ax, R, mat):
+    """Lưỡi: elip dẹt, nửa trước thuôn thành đầu lưỡi."""
+    ob = _hop(ten, C, ax, R, mat)
+    u, w, v = ax
+    for p in ob.data.vertices:
+        d = p.co - C
+        t = max(0.0, d.dot(w) / R[1])  # 0 ở giữa → 1 ở đầu lưỡi
+        p.co = C + u * (d.dot(u) * (1 - 0.45 * t)) + w * d.dot(w) + v * (d.dot(v) * (1 - 0.3 * t))
+    return ob
+
+
 def _hop(ten, C, ax, R, mat, n=(24, 12)):
     """Elip đặc tâm C, trục ax=(u, w, v), bán kính R=(ru, rw, rv)."""
     bm = bmesh.new()
@@ -836,11 +875,14 @@ def dung_mieng(body, rig, coll):
     ax = (Vector(u), Vector(w), Vector(v))
     mr = mat_phang('Nu_Rang', (0.93, 0.92, 0.88, 1), 0.3)
     ml = mat_phang('Nu_LuoiMat', (0.75, 0.3, 0.32, 1), 0.45)
+    mg = mat_phang('Nu_Loi', (0.85, 0.45, 0.47, 1), 0.4)
     obs = {
         'Nu_KhoangMieng': (_hop('Nu_KhoangMieng', C - Vector(w) * 0.016 - Vector(v) * 0.004, ax, (a * 0.82, 0.009, 0.017), mat_trong), 'head'),
-        'Nu_RangTren': (_hop('Nu_RangTren', C - Vector(w) * 0.007 + Vector(v) * 0.002, ax, (a * 0.75, 0.0025, 0.0035), mr), 'head'),
-        'Nu_RangDuoi': (_hop('Nu_RangDuoi', C - Vector(w) * 0.008 - Vector(v) * 0.006, ax, (a * 0.7, 0.0025, 0.003), mr), 'jaw'),
-        'Nu_Luoi': (_hop('Nu_Luoi', C - Vector(w) * 0.012 - Vector(v) * 0.011, ax, (a * 0.65, 0.011, 0.004), ml), 'jaw'),
+        'Nu_RangTren': (_dai_cong('Nu_RangTren', C - Vector(w) * 0.0045 - Vector(v) * 0.0005, ax, a * 0.8, 0.008, 0.0035, 0.0025, mr), 'head'),
+        'Nu_LoiTren': (_dai_cong('Nu_LoiTren', C - Vector(w) * 0.0053 + Vector(v) * 0.0027, ax, a * 0.84, 0.008, 0.003, 0.003, mg), 'head'),
+        'Nu_RangDuoi': (_dai_cong('Nu_RangDuoi', C - Vector(w) * 0.0055 - Vector(v) * 0.0035, ax, a * 0.75, 0.008, 0.003, 0.0025, mr), 'jaw'),
+        'Nu_LoiDuoi': (_dai_cong('Nu_LoiDuoi', C - Vector(w) * 0.0063 - Vector(v) * 0.0065, ax, a * 0.79, 0.008, 0.003, 0.003, mg), 'jaw'),
+        'Nu_Luoi': (_luoi('Nu_Luoi', C - Vector(w) * 0.013 - Vector(v) * 0.011, ax, (a * 0.62, 0.012, 0.004), ml), 'jaw'),
     }
     for ten, (ob, xg) in obs.items():
         coll.objects.link(ob)
