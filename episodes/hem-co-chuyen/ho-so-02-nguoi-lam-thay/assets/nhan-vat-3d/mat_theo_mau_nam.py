@@ -1,6 +1,6 @@
-"""Dựng lại vùng mặt đầu Nam theo ảnh mẫu (Hồ sơ 02): định vùng mặt, đường khâu với sọ cũ, rồi mắt / mũi / má / miệng / cằm.
+"""Vùng mặt đầu Nam theo ảnh mẫu (Hồ sơ 02): định vùng mặt, đường khâu với sọ cũ, nội suy Shepard kéo lưới lân cận và các kiểm hình học.
 Dùng chỉ số HEAD_IDX của dung_dau_cage_nam (grid 13 hàng × 9 cột: hàng 0 đỉnh sọ … 12 dưới hàm; cột 0 giữa trước … 8 giữa sau).
-Vùng mặt chỉ gồm lưới trán dưới → cằm, phần trước; sọ, tai, cổ, tóc không đụng."""
+Vùng mặt chỉ gồm lưới trán dưới → cằm, phần trước; sọ, tai, cổ, tóc không đụng. Các đòn bẩy chỉnh (EYE_TUNE, FACE_TUNE) nằm ở dung_dau_cage_nam.py."""
 import math
 
 HANG_MAT = range(3, 11)        # 'mi_tren' … 'cam' (hàng 2 'tran' là hàng khâu dưới chân tóc; hàng 11–12 là đáy cằm/hàm giữ nguyên)

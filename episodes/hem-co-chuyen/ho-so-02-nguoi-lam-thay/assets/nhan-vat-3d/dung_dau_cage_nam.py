@@ -700,7 +700,7 @@ def check_all(sc, head, asm, amap):
     res['khau_lien'] = MT.kiem_khau(head, HEAD_IDX)
     res['vung_mat'] = MT.kiem_vung_mat(head, HEAD_IDX, to_world, jaw_weights(head, HEAD_IDX), bpy.data.objects['Ear.L'].matrix_world.translation.copy())
 
-    # đo bám ảnh mẫu (mắt trước; mũi/miệng/cằm ở Task sau): sai lệch hình dạng sau khi khớp tỉ lệ + tịnh tiến, % chiều cao mặt
+    # đo bám ảnh mẫu (mắt, khe mắt; mũi, miệng, cằm, nốt ruồi): sai lệch hình dạng sau khi khớp tỉ lệ + tịnh tiến, % chiều cao mặt
     set_keys(asm); vs_m, ps_m, _ = ev_mesh(asm); kq_m = DM.sai_lech(DM.lay_moc_cage(head, vs_m, ps_m, to_world, HEAD_IDX)); vuot = DM.vuot_nguong(kq_m)
     for nhom, ten in (('mat', ('mat_', 'khe_')), ('khung', ('mui', 'mieng', 'cam', 'not_ruoi'))):
         # đạt = trung vị nhóm ≤ ngưỡng của góc + sai số đọc ảnh (SAI_SO_DOC), và không mốc nào quá 2,5 × ngưỡng (ảnh mẫu là phối cảnh, mắt xa lệch cả khi mắt gần khớp)
