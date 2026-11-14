@@ -30,6 +30,17 @@ body.name = 'Nu_Than'
 coll = body.users_collection[0]
 coll.name = 'NU_RIG'
 
+# texture da liền màu (tạo bằng `py -I da_lien_mau.py`), thay cho texture bộ đồ của base
+for im in bpy.data.images:
+    stem = Path(im.name).stem  # texture_diffuse …
+    p = HERE / 'texture' / f'{stem}_da.png'
+    assert p.is_file(), f'Thiếu {p.name}: chạy `py -I da_lien_mau.py` trước'
+    if im.packed_file:
+        im.unpack(method='REMOVE')
+    im.filepath = str(p)
+    im.reload()
+    assert im.size[0] == 2048, im.name
+
 # --- bảng xương (tên, cha, đầu, đuôi, deform), đo bằng tia cắt ngang lưới ---
 B = []
 
@@ -304,7 +315,7 @@ if soi:
     shot('3_dang', loc=(0, -3.6, 1.0))
     raise SystemExit(0)
 
-# --- lưu: texture trỏ sang nguon/ của base, không đóng gói lại ---
+# --- lưu: texture trỏ sang texture/ của thư mục rig, không đóng gói ---
 for o in sc.objects:
     o.select_set(False)
 rig.select_set(True)
@@ -314,13 +325,7 @@ sc['nguon'] = 'nhan-vat-nu-goc.blend (NHAN-VAT-NU-GOC-001)'
 sc['trang_thai'] = 'Rig cơ bản: thân/tay FK, chân IK, nắm tay; chưa mặt, chưa nghiệm thu chuyển động'
 for t in list(bpy.data.texts):
     bpy.data.texts.remove(t)
-for im in bpy.data.images:
-    if im.packed_file:
-        name = im.name  # tên ảnh trùng tên tệp trong nguon/
-        assert (SRC.parent / 'nguon' / name).is_file(), f'{name} {im.filepath}'
-        im.unpack(method='REMOVE')
-        im.filepath = '//../nhan-vat-nu-goc/nguon/' + name
-        im.reload()
-        assert im.size[0] == 2048, name
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT), compress=True)
+bpy.ops.file.make_paths_relative()  # texture/… tương đối với file rig
+bpy.ops.wm.save_mainfile(compress=True)
 print('PASS: đã lưu', OUT.name)
