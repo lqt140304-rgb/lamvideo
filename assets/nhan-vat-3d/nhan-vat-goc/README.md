@@ -1,6 +1,10 @@
-# Nhân vật gốc 001
+# Nhân vật gốc 001 — bản gốc chính thức
 
-Mốc nguồn do chủ repo chọn ngày 14/11/2026 để phát triển mô hình nền dùng chung cho các nhân vật sau này. Đây là **mẫu tĩnh nguyên trạng, còn tóc**. Chưa phải bản đầu trọc, bộ rig hay nhân vật đã sẵn sàng diễn hoạt.
+**Chủ repo xác nhận ngày 14/11/2026: bản mới đưa lên `main` tại commit `f0a6b9c` là bản gốc chính thức để phát triển mô hình nền và các nhân vật về sau.** File chuẩn là `nhan-vat-goc.blend`, mã `NHAN-VAT-GOC-001`; FBX/texture trong `nguon/` là nguồn đi kèm của cùng bản này.
+
+Các bản 3D đã có trước vẫn được giữ để tham khảo, đối chiếu và tiếp tục dùng ở những cảnh đã dựng; không mặc định lấy chúng làm bản gốc cho nhân vật mới. Việc xác nhận nguồn mới chưa thay thế tự động asset/rig đã duyệt trong từng tập.
+
+Đây là **mẫu tĩnh nguyên trạng, còn tóc**. Chưa phải bản đầu trọc, bộ rig hay nhân vật đã sẵn sàng diễn hoạt.
 
 ![Mẫu gốc](xem-truoc.webp)
 
