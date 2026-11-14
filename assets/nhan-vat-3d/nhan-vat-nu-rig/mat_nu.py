@@ -227,8 +227,23 @@ def dung_mat(body, rig, coll):
     bm0.free()
     xuong = [('look', 'head', (0, -0.55, 1.46), (0, -0.60, 1.46), (0, 0, 1))]
     cho_sau = []
+    G = np.array([-1.0, 1, 1])
+    trai = _do_mat(body, px, 1)
+    tam_trai = [np.array(body.data.polygons[i].center) for i in trai[0]]
     for k, sg in (('L', 1), ('R', -1)):
-        faces, tam_ve, r_mong, mat_ve = _do_mat(body, px, sg)
+        if k == 'L':
+            faces, tam_ve, r_mong, mat_ve = trai
+        else:
+            # mắt phải = ảnh gương mắt trái (dò riêng thì hốc phải hẹp và tròn hơn hẳn); lưới đầu gần đối xứng
+            P = np.array([p.center[:] for p in body.data.polygons])
+            faces = []
+            for c in tam_trai:
+                d = np.linalg.norm(P - c * G, axis=1)
+                i = int(np.argmin(d))
+                assert d[i] < 0.006, f'Không có mặt gương cho hốc mắt phải ({d[i]:.4f} m)'
+                faces.append(i)
+            faces = sorted(set(faces))
+            tam_ve, r_mong, mat_ve = trai[1] * G, trai[2], trai[3] * G
         sc[f'tam_mong_mat_ve_{k}'] = tuple(float(v) for v in tam_ve)  # mống mắt vẽ trong mẫu (đang liếc)
         # khoét hốc, lấy viền
         bm = bmesh.new()

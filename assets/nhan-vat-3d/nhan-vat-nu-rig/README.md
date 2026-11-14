@@ -61,7 +61,7 @@ Chạy trong thư mục này:
 py -I da_lien_mau.py                                                   # texture da liền màu → texture/
 D:/blender/blender.exe -b --factory-startup --python rig_nu.py         # dựng nhan-vat-nu-rig.blend
 py -I test_da_lien_mau.py                                               # kiểm texture
-D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 26 kiểm trên file đã lưu
+D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 27 kiểm trên file đã lưu
 D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư mục ảnh>
 ```
 
@@ -71,7 +71,7 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 - **Texture:** vật liệu dùng texture da.
 - **Ngón tay:** từng ngón cong riêng; tay trái và phải gập như nhau; nắm tay có tác dụng, kể cả khi đang bật IK.
 - **IK:** cổ tay bám `ik_hand`; bật IK không làm lệch dáng nghỉ; tắt IK thì FK chạy.
-- **Mắt:** nhìn theo `look`; chớp che kín lòng trắng, kể cả khi đang nhìn lên.
+- **Mắt:** nhìn theo `look`; chớp che kín lòng trắng, kể cả khi đang nhìn lên; hai mắt đối xứng.
 - **Mày:** tách khỏi thân và nâng được; trán liền, không hở.
 - **Miệng:** vùng lưới dày, không có viền hở; mở hàm kéo theo môi dưới, răng dưới, lưỡi; khi mở hàm 20° và cười, 135 tia quanh miệng (bật Subdivision) không thấy răng hay khoang miệng xuyên da. Màu vùng miệng mới chỉ duyệt bằng mắt, chưa có kiểm tự động.
 - **Shape key:** đủ tên; chỉ dời vùng miệng; các khẩu hình khác nhau; kéo khóe hai bên đối xứng; bảng âm đầy đủ.
@@ -81,10 +81,8 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 ## Giới hạn đã biết
 
 - **Quanh mắt và mày:** còn mảnh vạt mi cũ màu đen ở khóe trên ngoài, và mép rách ở chỗ khoét. Subdivision làm các chỗ này lộ rõ hơn khi quay cận. Cần nặn tay vùng mí trước khi quay cận mặt.
-- **Mắt nhắm:** còn một vệt đen nhỏ ở khóe trong mắt phải.
-- **Hai mắt khác hình:** hốc mắt phải khoét hẹp hơn mắt trái, nên lúc nghỉ mắt phải tròn và hẹp, mắt trái hình hạnh nhân (lòng trắng lộ ở mắt phải chỉ bằng khoảng một nửa). Cần nặn lại hốc mắt phải trước khi quay cận.
+- **Hai mắt:** mắt phải dựng bằng cách lật gương mắt trái (hốc khoét, tâm, mống mắt), nên hai mắt cùng hình; `kiem_mat_doi_xung` kiểm tâm hốc, diện tích lòng trắng lộ và chớp kín mắt phải.
 - **Chưa "mở to" mắt được:** mí mở dừng đúng theo nét mắt vẽ, nên không mở rộng hơn hốc đã khoét. Muốn có, phải nới hốc mắt và thêm shape key `mo_to`.
-- **Kiểm mắt và chớp** mới chạy trên mắt trái; mắt phải mới xem bằng ảnh.
 - **Dáng nghỉ của mắt:** nhìn thẳng, con ngươi giữa hốc. Ảnh mẫu thì đang liếc sang bên; muốn giống ảnh mẫu thì kéo `look`.
 - **Nâng mày cao:** thấy vệt mảnh của dải mày cũ trên trán.
 - **Miệng:** bên phải miệng có vệt răng cưa mảnh do đường nối UV gốc chạy qua.

@@ -447,12 +447,26 @@ def kiem_ngon_doi_xung():
         assert abs(d['L'] - d['R']) < 0.15 * max(d.values()), f'{n}: tay trái dời {d["L"]:.3f}, phải {d["R"]:.3f}'
 
 
+def kiem_mat_doi_xung():
+    """Hai mắt cùng hình: tâm hốc đối xứng (< 3 mm), lòng trắng lộ lúc nghỉ chênh < 20 %, chớp kín cả mắt phải."""
+    sc = bpy.context.scene
+    l, r = np.array(sc['tam_hoc_mat_L']), np.array(sc['tam_hoc_mat_R'])
+    lech = np.linalg.norm(l * np.array([-1, 1, 1]) - r)
+    assert lech < 0.003, f'Tâm hốc mắt lệch gương {lech * 1000:.1f} mm'
+    n = {k: dem_long_trang(k) for k in 'LR'}
+    assert abs(n['L'] - n['R']) < 0.2 * max(n.values()), f'Lòng trắng lộ: trái {n["L"]}, phải {n["R"]} điểm ảnh'
+    RIG.pose.bones['head']['blink_R'] = 1.0
+    RIG.update_tag()
+    assert dem_long_trang('R') == 0, 'blink_R=1 vẫn lộ lòng trắng mắt phải'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_mat_doi_xung': kiem_mat_doi_xung,
     'kiem_ngon_doi_xung': kiem_ngon_doi_xung,
     'kiem_file_o_dang_nghi': kiem_file_o_dang_nghi,
     'kiem_muot': kiem_muot,
