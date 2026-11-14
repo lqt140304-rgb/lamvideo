@@ -24,6 +24,10 @@ ss = N.ss
 ANKLE_Z = 0.085            # tâm khớp mắt cá (trong khối, trên đế 8,5 cm; lượt 1 đặt 9,5 cm → nếp gót 91° khi gập xuống)
 WRIST_W = 0.024            # nửa bề rộng dải chuyển weight cổ tay (m) (lượt 1: 0,012 → co < 0,5; cổ tay thon 7% cần 0,024)
 ANKLE_W = (0.040, 0.050)   # dải chuyển weight mắt cá: dưới / trên ANKLE_Z
+MOUND_R, MOUND_R0, MOUND_W = 0.032, 0.012, 0.8   # gò ngón cái: bán kính ảnh hưởng của thumb1 lên lòng tay, vùng đầy, mức
+STRETCH_PEN = 0.0005       # phạt mỗi cạnh giãn > 2× khi dò ngón cái lúc nắm (m tương đương); phạt mạnh hơn → chọn tư thế làm gò ngón cái tự gập
+STRETCH_PEN_GRIP = 0.003   # cầm cốc: phạt mạnh (0,0005 → tư thế kéo kẽ ngón cái 3,75×)
+CS_ITER, CS_T2, CS_PALM = 80, 0.6, 0.7   # Corrective Smooth vùng gò ngón cái (thumb1 ×3, thumb2 ×0,6) + đáy lòng tay: nếp gò tự gập & đáy lòng nắm co mạnh mà weights không gỡ được
 TOE_W = 0.020              # nửa dải chuyển weight gốc ngón chân (lượt 1–2: 0,012 → nhấc gót tự giao ở nếp gốc ngón)
 
 
@@ -97,8 +101,8 @@ def skin(ob, arm, F):
         Wh -= (ws[0] + ws[1] + ws[2]) * m
     tp = F['thumb']; s, dist = _arc(P, tp[:4] + [tp[4]]); seg = [(tp[i + 1] - tp[i]).length for i in range(3)]
     ws = _chain_w(s, [0.0, seg[0] + 0.006, seg[0] + seg[1]], [0.012, 0.009, 0.006])          # lượt 1: thumb1 gần như không có dải → lòng tay–thumb2 giãn 7×
-    near = hand * ((lab == 'thumb') | ((lab == 'palm') & (dist < 0.032)))       # gò ngón cái theo thumb1 một phần
-    mound = np.where(lab == 'thumb', 1.0, 0.8 * ss(0.032, 0.012, dist))
+    near = hand * ((lab == 'thumb') | ((lab == 'palm') & (dist < MOUND_R)))       # gò ngón cái theo thumb1 một phần
+    mound = np.where(lab == 'thumb', 1.0, MOUND_W * ss(MOUND_R, MOUND_R0, dist))
     for i in range(3): W[f'thumb{i + 1}'] += ws[i] * near * mound
     Wh -= (ws[0] + ws[1] + ws[2]) * near * mound
     W['ban_tay'] = np.clip(Wh, 0, 1)
@@ -122,6 +126,12 @@ def skin(ob, arm, F):
         g = ob.vertex_groups.new(name=k); nz = np.nonzero(M[:, j] > 0.001)[0]
         for vi in nz.tolist(): g.add([vi], float(M[vi, j]), 'REPLACE')
     md = ob.modifiers.new('Armature', 'ARMATURE'); md.object = arm
+    # Corrective Smooth CỤC BỘ (sau Armature, tham chiếu ORCO): chỉ gò ngón cái + đáy lòng tay; không đổi hình lúc nghỉ, không phải shape key.
+    col = {k: M[:, j] for j, k in enumerate(names)}; dm = np.array(names)[np.argmax(M, 1)]; u_ = (P - np.array(F['c_w'])) @ np.array(F['d'])
+    wcs = np.maximum(np.clip(col['thumb1'] * 3 + col['thumb2'] * CS_T2, 0, 1), ((dm == 'ban_tay') & (u_ > 0.03)).astype(float) * CS_PALM)
+    g = ob.vertex_groups.new(name='cs_tay')
+    for vi in np.nonzero(wcs > 0.01)[0].tolist(): g.add([vi], float(wcs[vi]), 'REPLACE')
+    cs = ob.modifiers.new('CS_tay', 'CORRECTIVE_SMOOTH'); cs.vertex_group = 'cs_tay'; cs.iterations = CS_ITER; cs.factor = 0.0;   # bật theo mức nắm tay; cs.rest_source = 'ORCO'; cs.smooth_type = 'LENGTH_WEIGHTED'
     return M, names
 
 
@@ -225,6 +235,7 @@ class HandFit:
     def __init__(self, Ms, M, names):
         self.Ms = Ms; col = {k: M[:, j] for j, k in enumerate(names)}
         self.tip = {f: np.nonzero(col[f'{f}3'] > 0.5)[0] for f in HT.FINGERS}; self.mid = {f: np.nonzero(col[f'{f}2'] > 0.5)[0] for f in HT.FINGERS}
+        dmn = np.array(names)[np.argmax(M, 1)]; self.hand_mask = np.isin(dmn, [n for n in names if n.startswith(('ban_tay', 'thumb')) or n[:-1] in HT.FINGERS]); self.base = {f: np.nonzero((dmn == f'{f}1') | (dmn == f'{f}2'))[0] for f in HT.FINGERS}   # theo xương chi phối (ngưỡng > 0,5 bỏ sót đỉnh nếp chia 3 xương)
         dom = np.array(names)[np.argmax(M, 1)]; self.palm = np.nonzero(dom == 'ban_tay')[0];   # lòng tay = mọi đỉnh do ban_tay chi phối (gồm gò ngón cái; lượt trước > 0,9 bỏ sót → ngón trỏ chọc gò)
         self.th = np.nonzero((col['thumb2'] + col['thumb3']) > 0.5)[0]; self.th3 = np.nonzero(col['thumb3'] > 0.5)[0]
         self.fing = np.nonzero(sum(col[f'{f}{i}'] for f in HT.FINGERS for i in (1, 2, 3)) > 0.5)[0]
@@ -236,14 +247,17 @@ class HandFit:
         return BVHTree.FromPolygons(P.tolist(), fs, all_triangles=False) if fs else None
 
     def contact(self, P, f, other_bvh):
-        bt = self.bvh(P, self.tip[f]); d = min(other_bvh.find_nearest(Vector(P[i]))[3] for i in self.tip[f][::3]); return d, (len(bt.overlap(other_bvh)) if bt else 0)
+        bt = self.bvh(P, self.tip[f]); d = min(other_bvh.find_nearest(Vector(P[i]))[3] for i in self.tip[f]); return d, (len(bt.overlap(other_bvh)) if bt else 0)   # mọi đỉnh đốt cuối (lấy mẫu 1/3 đỉnh từng báo khe ngón trỏ 5,5 mm khi thật ra 1,4 mm)
 
 
 def calibrate_hand(arm, A, F, Ms, HF, cup):
     """Dò hệ số cuộn từng ngón (nắm: chạm lòng tay; cầm cốc: chạm cốc) không xuyên; ngón cái quét 3 trục: không xuyên ngón/cốc, sát nhất."""
     res = {'fist': {}, 'grip': {}}; P0 = Ms.coords()
+    cs = HF.Ms.ob.modifiers.get('CS_tay')
     def set_curl(kind, ks, thumb=None):
         reset(arm)
+        for o_ in bpy.data.objects:                                # Corrective Smooth theo mức nắm tay (rig thật: driver từ thuộc tính nắm); cả bản sao wireframe
+            if o_.type == 'MESH' and 'CS_tay' in o_.modifiers: o_.modifiers['CS_tay'].factor = 1.0 if kind == 'fist' else 0.0
         for f, k in ks.items():
             for i in (1, 2, 3): rot(arm, f'{f}{i}', A[f'{f}{i}'], CURL[kind][i - 1] * k)
         if thumb:
@@ -251,18 +265,21 @@ def calibrate_hand(arm, A, F, Ms, HF, cup):
             for i in (2, 3): rot(arm, f'thumb{i}', A[f'thumb{i}'], thumb[1][i - 2])
         bpy.context.view_layer.update()
     bc = BVHTree.FromPolygons([tuple(cup.matrix_world @ v.co) for v in cup.data.vertices], [list(p.vertices) for p in cup.data.polygons], all_triangles=False)
-    for kind in ('fist', 'grip'):
-        ks = {f: 0.0 for f in HT.FINGERS}
-        for f in HT.FINGERS:
-            k = 0.3; last = 0.3
+    def fit_fingers(kind, ks, thumb=None, k0=0.3, only=HT.FINGERS):
+        for f in only:
+            k = k0 if thumb is None else max(0.3, ks[f] - 0.04); last = k
             while k <= 2.2:
-                ks[f] = k; set_curl(kind, ks); P = Ms.coords(); other = HF.bvh(P, HF.palm) if kind == 'fist' else bc
+                ks[f] = k; set_curl(kind, ks, thumb); P = Ms.coords(); other = HF.bvh(P, HF.palm) if kind == 'fist' else bc
                 d, pen = HF.contact(P, f, other)
+                if thumb is not None: pen += len(HF.bvh(P, HF.tip[f]).overlap(HF.bvh(P, HF.th))) + HF.Ms.self_hits(P, HF.hand_mask)   # lượt 2: không xuyên ngón cái, không tự giao ở đâu trên bàn tay (nếp lòng tay dưới gốc ngón)
                 if pen: break
                 last = k
                 if d <= 0.0015: break
                 k += 0.02
             ks[f] = last
+        return ks
+    for kind in ('fist', 'grip'):
+        ks = fit_fingers(kind, {f: 0.0 for f in HT.FINGERS})
         set_curl(kind, ks); P = Ms.coords(); best = None
         targ = HF.bvh(P, np.concatenate([HF.mid['index'], HF.mid['middle']])) if kind == 'fist' else bc
         obst = HF.bvh(P, HF.notthumb)
@@ -276,8 +293,9 @@ def calibrate_hand(arm, A, F, Ms, HF, cup):
                     pen = len(bt.overlap(obst)) + (len(bt.overlap(bc)) if kind == 'grip' else 0)   # không xuyên phần nào của bàn tay (trừ chính ngón cái) / cốc
                     if pen: continue
                     d = min(targ.find_nearest(Vector(P[i]))[3] for i in HF.th3[::3]); st = np.linalg.norm(P[Ms.ed[:, 0]] - P[Ms.ed[:, 1]], axis=1) / Ms.l0.clip(1e-9)
-                    sc_ = d + 0.0005 * int((st[HF.th_e] > 2.0).sum())                       # sát đích, ít kéo da gò ngón cái
+                    sc_ = d + (STRETCH_PEN if kind == 'fist' else STRETCH_PEN_GRIP) * int((st[HF.th_e] > 2.0).sum())   # sát đích, ít kéo da gò ngón cái
                     if best is None or sc_ < best[2]: best = (d, th, sc_)
+        if kind == 'fist' and best: ks = fit_fingers(kind, ks, best[1], only=('index', 'middle'))   # lượt 2 (chỉ ngón trỏ): ngón cái vắt ngang kéo gò đi → ngón trỏ cuộn lại tới khi chạm lòng tay/ngón cái (cả 4 ngón → nếp lòng tay gập vào gốc ngón giữa/áp út)
         res[kind] = dict(ks=ks, thumb=best[1] if best else None, khe_ngon_cai=best[0] if best else None)
         print(f'    hiệu chỉnh {kind}: ' + ', '.join(f'{f} {k:.2f}' for f, k in ks.items()) + (f'; ngón cái {[round(math.degrees(x)) for x in best[1][0]]}° khe {best[0] * 1000:.1f} mm' if best else '; ngón cái: không tìm được tư thế không xuyên'))
     reset(arm); return res, set_curl
@@ -417,10 +435,12 @@ def main():
         HF = HandFit(Ms, M_w, names); cup = make_cup(F); cup.hide_render = True; cal, set_curl = calibrate_hand(arm, A, F, Ms, HF, cup)
         hz = (Ms.P0[:, 0] > 0) & (tay > 0.5) & ((Ms.P0 - np.array(F['c_w'])) @ np.array(F['d']) > 0.0)
         for kind, nm in (('fist', 'nam_tay'), ('grip', 'cam_coc')):
-            set_curl(kind, cal[kind]['ks'], cal[kind]['thumb']); m = Ms.measure(hz); P = m['P']; hits = Ms.self_hits(P, hz)
+            set_curl(kind, cal[kind]['ks'], cal[kind]['thumb']); m = Ms.measure(hz); P = m['P']; hits = Ms.self_hits(P, hz)   # set_curl đặt hệ số Corrective Smooth theo nắm
             pen_cup = len(HF.bvh(P, np.nonzero(hz)[0]).overlap(BVHTree.FromPolygons([tuple(cup.matrix_world @ v.co) for v in cup.data.vertices], [list(p.vertices) for p in cup.data.polygons], all_triangles=False))) if kind == 'grip' else 0
             other = HF.bvh(P, HF.palm) if kind == 'fist' else BVHTree.FromPolygons([tuple(cup.matrix_world @ v.co) for v in cup.data.vertices], [list(p.vertices) for p in cup.data.polygons], all_triangles=False)
             ct = {f: round(HF.contact(P, f, other)[0] * 1000, 1) for f in HT.FINGERS}
+            if kind == 'fist':                                                # chạm = sát lòng tay HOẶC tì vào ngón cái đang vắt ngang (nắm thật: đầu ngón trỏ nằm dưới ngón cái)
+                bth = HF.bvh(P, HF.th); ct = {f: round(min(v / 1000, min(bth.find_nearest(Vector(P[i]))[3] for i in HF.tip[f])) * 1000, 1) for f, v in ct.items()}
             ez = hz[Ms.ed[:, 0]] & hz[Ms.ed[:, 1]]; big = np.nonzero(ez & (m['r'] > 2.0))[0]
             dom = lambda vi: names[int(np.argmax(M_w[vi]))]
             from collections import Counter
@@ -435,6 +455,7 @@ def main():
             _strain_colors(ob, Ms, m); ob.data.materials[0] = gmat; wire.hide_render = True
             render_pose(sc, ob, wire, os.path.join(out, 'gian'), nm, 'ban_tay', F, views=('long', 'ut')); ob.data.materials[0] = clay; wire.hide_render = False
         cup.hide_render = True; reset(arm)
+        for o_ in (ob, wire): o_.modifiers['CS_tay'].factor = 0.0
     with open(os.path.join(out, 'ket_qua.json'), 'w') as fh: json.dump(res, fh, ensure_ascii=False, indent=1)
     if a.clip:
         sc.render.resolution_x = sc.render.resolution_y = 360; sc.cycles.samples = max(8, a.samples // 2)

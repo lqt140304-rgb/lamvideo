@@ -3,6 +3,14 @@
 Thiết kế: [THIET-KE-NOI-TAY-CHAN.md](THIET-KE-NOI-TAY-CHAN.md) · Kế hoạch: [KE-HOACH-NOI-TAY-CHAN.md](KE-HOACH-NOI-TAY-CHAN.md)
 Nguồn: [dung_cage_tay_chan.py](dung_cage_tay_chan.py) · [rig_thu_tay_chan.py](rig_thu_tay_chan.py). Bản cũ để đối chiếu: [gan_tay_chan_nam.py](gan_tay_chan_nam.py) (commit 538aef4).
 
+## Đợt 3 (14/11): sửa nốt nắm tay
+- **Weights** gò ngón cái thử 4 cấu hình (rộng/hẹp/nhẹ): chỉ đổi lỗi chỗ này sang chỗ khác → giữ như cũ.
+- **Corrective Smooth cục bộ** (sau Armature, rest ORCO, 80 vòng) trên gò ngón cái (thumb1 ×3, thumb2 ×0,6) + đáy lòng tay; **hệ số theo mức nắm** (nắm = 1, cầm cốc/mở = 0; rig thật: driver từ thuộc tính nắm). Không đổi hình lúc nghỉ, không phải shape key.
+- **Hiệu chỉnh**: lượt 2 cho ngón trỏ + ngón giữa sau khi ngón cái đã vắt ngang, chặn bằng kiểm tự giao toàn bàn tay; phạt giãn khi dò ngón cái tách riêng nắm (0,0005) / cầm cốc (0,003).
+- **Sửa phép đo**: khe đầu ngón đo trên mọi đỉnh đốt cuối (lấy mẫu 1/3 từng báo ngón trỏ 5,5 mm khi thật ra 1,4 mm); khi nắm, "chạm" = sát lòng tay hoặc tì vào ngón cái.
+- **Kết quả nắm tay**: 0 tự giao (trước 2–84), **0 cạnh giãn > 2×** (max 1,89×; trước 2,93×), khe: trỏ 0,2 (tì ngón cái) · giữa 3,6 · áp út 2,0 · út 0,8 mm. Ngón giữa cuộn thêm 1 nấc thì nếp lòng tay gập vào gốc ngón → dừng ở 3,6 mm (vượt ngưỡng 3 mm 0,6 mm). Còn điểm co mạnh (0,06×) ở đáy lòng nắm, nằm trong lòng nắm.
+- Cầm cốc vẫn đạt (0 xuyên, 0 tự giao, max 1,82×). Ảnh: `render-than/noi/nam_tay_cam_coc.png`.
+
 ## Đợt 2 (14/11): cổ tay cân với cánh tay, nắm tay, ngón chân
 Chủ repo chọn "cả hai một chút": **bàn tay ×1,07** (`HAND_K`, cả cage lẫn hình đích) và **cổ tay thon 7%** (`WRIST_THIN`: vòng cổ tay cage ×0,93, vòng giữa cẳng tay ×0,965 → thon dần). Ngón chân: 5 cột ở mũi bàn chân dàn theo bề rộng ngón bản duyệt (ngón út → ngón cái), mỗi ngón chiếm 94% cột, cao ×1,12 → **mập lại**, không chồng nhau. Ảnh trước/sau cùng camera: `render-than/noi/so_sanh_dot2.png`.
 - Kiểm topology + hình 15/15 đạt (tay lệch TB 0,05 mm; chân TB 0,21 mm; 0 tự giao). Vùng "thân ngoài chi" nới thêm 2 cm trên khuỷu (vòng giữa cẳng tay thu lan qua Subdivision); thân, vai, bắp tay lệch 0,033 mm.
