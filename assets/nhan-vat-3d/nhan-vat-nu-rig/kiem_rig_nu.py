@@ -217,7 +217,55 @@ def kiem_nhin_thang_giong_mau():
         assert lech < 0.004, f'Dáng nghỉ: con ngươi {k} lệch tâm hốc {lech * 1000:.1f} mm (XZ)'
 
 
+def hop_may(k):
+    co = eval_co(bpy.data.objects[f'Nu_May.{k}'])
+    return co.min(0), co.max(0), co
+
+
+def kiem_may_tach():
+    from mathutils.bvhtree import BVHTree
+    from mathutils import Vector
+    bvh = BVHTree.FromObject(BODY, bpy.context.evaluated_depsgraph_get())
+    for k in 'LR':
+        lo, hi, co = hop_may(k)
+        # đáy mày tách: dưới mỗi đỉnh mày, da trán liền (không còn vạt mày nổi trên thân)
+        for x in np.linspace(lo[0] + 0.004, hi[0] - 0.004, 6):
+            z = co[np.abs(co[:, 0] - x) <= np.sort(np.abs(co[:, 0] - x))[3], 2].mean()  # mày cong: lấy cao độ mày tại cột
+            hit = bvh.ray_cast(Vector((x, -1.0, z)), Vector((0, 1, 0)), 2.0)
+            assert hit[0] is not None, f'Mày {k}: tia ở x={x:.3f} lọt qua thân'
+            cot = np.abs(co[:, 0] - x) <= np.sort(np.abs(co[:, 0] - x))[3]  # 4 đỉnh gần cột nhất (lưới thưa)
+            may_y = co[cot, 1].min()  # mặt trước của mày ở cột này (đỉnh chân mày nằm trên da)
+            assert hit[0].y > may_y + 0.0002, f'Mày {k}: thân còn nổi ngang mày ở x={x:.3f}'
+
+
+def kiem_may_nang():
+    _, _, l0 = hop_may('L')
+    _, _, r0 = hop_may('R')
+    doi_the_gioi('brow_mid.L', (0, 0, 0.01))
+    _, _, l1 = hop_may('L')
+    _, _, r1 = hop_may('R')
+    dl, dr = np.linalg.norm(l1 - l0, axis=1), np.linalg.norm(r1 - r0, axis=1)
+    giua = np.argmin(np.abs(l0[:, 0] - (l0[:, 0].min() + l0[:, 0].max()) / 2))
+    assert dl[giua] > 0.007, f'Giữa mày trái chỉ dời {dl[giua]:.4f}'
+    assert dr.max() < 0.001, f'Mày phải dời theo {dr.max():.4f}'
+
+
+def kiem_tran_lien():
+    from mathutils.bvhtree import BVHTree
+    from mathutils import Vector
+    bvh = BVHTree.FromObject(BODY, bpy.context.evaluated_depsgraph_get())
+    for k in 'LR':
+        lo, hi, _ = hop_may(k)
+        for x in np.linspace(lo[0], hi[0], 10):
+            for z in np.linspace(lo[2] - 0.004, hi[2] + 0.004, 4):
+                hit = bvh.ray_cast(Vector((x, -1.0, z)), Vector((0, 1, 0)), 2.0)
+                assert hit[0] is not None and hit[0].y < -0.1, f'Trán {k} hở ở ({x:.3f}, {z:.3f})'
+
+
 KIEM = {
+    'kiem_may_tach': kiem_may_tach,
+    'kiem_may_nang': kiem_may_nang,
+    'kiem_tran_lien': kiem_tran_lien,
     'kiem_nhin_theo_look': kiem_nhin_theo_look,
     'kiem_chop': kiem_chop,
     'kiem_chop_khi_nhin_len': kiem_chop_khi_nhin_len,

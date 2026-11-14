@@ -384,6 +384,7 @@ assert np.linalg.norm(moved[foot], axis=1).mean() > 0.05, 'IK chân không kéo 
 
 # --- mặt: mắt (sau các kiểm thân vì khoét hốc làm đổi chỉ số đỉnh) ---
 mat_nu.dung_mat(body, rig, coll)
+mat_nu.dung_may(body, rig, coll)
 rig.update_tag()
 bpy.context.view_layer.update()
 

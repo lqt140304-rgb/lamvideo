@@ -101,15 +101,15 @@ def mat_phang(ten, rgba, rough=0.4):
     return m
 
 
-def tao_xuong(rig, ds):
-    """ds: [(tên, cha, đầu, đuôi, roll_z_vec)] — thêm xương không biến dạng vào rig."""
+def tao_xuong(rig, ds, deform=False):
+    """ds: [(tên, cha, đầu, đuôi, roll_z_vec)] — thêm xương vào rig (mặc định không biến dạng)."""
     bpy.context.view_layer.objects.active = rig
     bpy.ops.object.mode_set(mode='EDIT')
     eb = rig.data.edit_bones
     for ten, cha, h, t, up in ds:
         e = eb.new(ten)
         e.head, e.tail = Vector(h), Vector(t)
-        e.use_deform = False
+        e.use_deform = deform
         if cha:
             e.parent = eb[cha]
         e.align_roll(Vector(up))
@@ -409,3 +409,101 @@ def _mat_mong(r):
     nt.links.new(cr.outputs['Color'], mx.inputs['A'])
     nt.links.new(mx.outputs['Result'], b.inputs['Base Color'])
     return m
+
+
+# ---------- lông mày ----------
+
+def dung_may(body, rig, coll):
+    """Tách dải mày nổi thành Nu_May.L/R (3 xương mỗi bên), dồn phẳng chỗ cũ về mặt trán, tô da."""
+    px = anh_diffuse(body)
+    me = body.data
+    xuong, cho = [], []
+    for k, sg in (('L', 1), ('R', -1)):
+        F = []
+        for p in me.polygons:
+            c = p.center
+            if 1.47 < c.z < 1.58 and 0.01 < sg * c.x < 0.2 and c.y < -0.08:
+                _, col = mau_mat_luoi(body, px, p)
+                l, s_ = lum_sat(col)
+                if ((l < 0.35) & (s_ > 0.3)).mean() > 0.5:
+                    F.append(p.index)
+        assert len(F) >= 4, f'Không thấy mày {k}: {len(F)} mặt'
+        Fs = set(F)
+        bm = bmesh.new()  # thêm 2 vòng mặt sát dải mày còn tối (thành bên của dải mày)
+        bm.from_mesh(me)
+        bm.faces.ensure_lookup_table()
+        for _ in range(2):
+            vong = {g.index for i in Fs for e in bm.faces[i].edges for g in e.link_faces} - Fs
+            for i in vong:
+                _, col = mau_mat_luoi(body, px, me.polygons[i])
+                l, s_ = lum_sat(col)
+                if ((l < 0.35) & (s_ > 0.3)).mean() > 0.4:  # 0.25 gom cả mặt da lớn
+                    Fs.add(i)
+        bm.free()
+        # object mày riêng: bản sao các mặt mày (giữ UV, vật liệu)
+        bm = bmesh.new()
+        bm.from_mesh(me)
+        bm.faces.ensure_lookup_table()
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.index not in Fs], context='FACES')
+        me_may = bpy.data.meshes.new(f'Nu_May.{k}')
+        bm.to_mesh(me_may)
+        bm.free()
+        for m in me.materials:
+            me_may.materials.append(m)
+        may = bpy.data.objects.new(f'Nu_May.{k}', me_may)
+        coll.objects.link(may)
+        # thân: dồn đỉnh mày (trừ đỉnh chung với da) về mặt cầu khớp vòng da quanh mày; tô UV da trán
+        bm = bmesh.new()
+        bm.from_mesh(me)
+        bm.faces.ensure_lookup_table()
+        bm.verts.ensure_lookup_table()
+        vm = {v for i in Fs for v in bm.faces[i].verts}
+        bien = {v for v in vm if any(f.index not in Fs for f in v.link_faces)}
+        vong = {w for v in bien for e in v.link_edges for w in (e.other_vert(v),) if w not in vm} | bien
+        P = np.array([v.co[:] for v in vong])
+        A = np.c_[2 * P, np.ones(len(P))]
+        sol = np.linalg.lstsq(A, (P ** 2).sum(1), rcond=None)[0]
+        tam, R = sol[:3], math.sqrt(sol[3] + sol[:3] @ sol[:3])
+        for v in vm - bien:
+            d = np.array(v.co) - tam
+            v.co = Vector(tam + d / np.linalg.norm(d) * (R - 0.0025))  # lùi dưới mày: mặt cầu khớp vòng có thể nhô ở giữa
+        uvb = bm.loops.layers.uv[0]
+        cen = np.array([v.co[:] for v in vm]).mean(0)
+        goc_uv, best = None, 9.0
+        dich = Vector(cen) + Vector((0, 0, 0.035))
+        for f in bm.faces:  # mặt da gần điểm ngay trên mày nhất
+            c = f.calc_center_median()
+            if f.index in Fs or c.y > 0 or not (0.01 < c.z - cen[2] < 0.09) or (c - dich).length >= best:
+                continue
+            _, col = mau_mat_luoi(body, px, me.polygons[f.index], 2)
+            l, s_ = lum_sat(col)
+            if l.mean() > 0.55 and s_.mean() > 0.25:
+                goc_uv, best = f.loops[0][uvb].uv.copy(), (c - dich).length
+        assert goc_uv is not None, f'Không tìm được da trên mày {k}'
+        for i in Fs:
+            for l in bm.faces[i].loops:
+                l[uvb].uv = goc_uv
+        bm.to_mesh(me)
+        bm.free()
+        # xương: đầu / giữa / đuôi mày theo trục X
+        co = np.array([v.co[:] for v in me_may.vertices])
+        x0, x1 = (co[:, 0].min(), co[:, 0].max()) if sg > 0 else (co[:, 0].max(), co[:, 0].min())
+        ten3 = (f'brow_in.{k}', f'brow_mid.{k}', f'brow_out.{k}')
+        xs = (x0, (x0 + x1) / 2, x1)
+        for ten, x in zip(ten3, xs):
+            m = np.abs(co[:, 0] - x) < 0.015
+            p0 = Vector((x, co[m, 1].min(), co[m, 2].mean()))
+            xuong.append((ten, 'head', tuple(p0), tuple(p0 + Vector((0, -0.02, 0))), (0, 0, 1)))
+        cho.append((may, co, ten3, xs))
+    tao_xuong(rig, xuong, deform=True)
+    for may, co, ten3, xs in cho:
+        t = (co[:, 0] - xs[0]) / (xs[2] - xs[0])  # 0 đầu mày → 1 đuôi mày
+        w = (np.clip(1 - 2 * t, 0, 1), 1 - np.abs(2 * t - 1).clip(0, 1), np.clip(2 * t - 1, 0, 1))
+        for ten, wi in zip(ten3, w):
+            vg = may.vertex_groups.new(name=ten)
+            for i in np.where(wi > 1e-3)[0]:
+                vg.add([int(i)], float(wi[i]), 'REPLACE')
+        may.parent = rig
+        md = may.modifiers.new('Armature', 'ARMATURE')
+        md.object = rig
+    bo_suu_tap(rig, 'Mat', [n for _, _, t3, _ in cho for n in t3])
