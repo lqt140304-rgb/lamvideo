@@ -626,9 +626,12 @@ def dung_mieng(body, rig, coll):
         return ((c.x - m0[0]) / (A * k)) ** 2 + ((c.z - m0[2]) / (bb * k)) ** 2
 
     sc['so_dinh_mieng_goc'] = int(sum(1 for q in me.vertices if q.co.y < -0.1 and trong_elip(q.co) < 1))
-    N = 32
-    tt = np.linspace(0, 2 * np.pi, N, endpoint=False)
-    f_k = [0.0, 0.12, 0.25, 0.42, 0.6, 0.8, 1.0]
+    N = 40
+    t0 = np.linspace(0, 2 * np.pi, N, endpoint=False)
+    tt = t0 + 0.25 * np.sin(2 * t0)  # dồn đoạn về hai khóe
+    # tiết diện: (dời ra từ khe m, nhô ra trước m) — 0 khe, 1–2 mặt môi, 3 mép môi; 4–8 da (chiếu lên mặt)
+    MOI = [(0.0, 0.0), (0.001, 0.0010), (0.003, 0.0020), (0.005, 0.0010)]
+    f_da = [0.25, 0.42, 0.6, 0.8, 1.0]
     bm = bmesh.new()
     bm.from_mesh(me)
     deform = bm.verts.layers.deform.verify()
@@ -651,26 +654,40 @@ def dung_mieng(body, rig, coll):
     vien = list(vien)
     assert len(vien) < 200, f'Viền lỗ miệng nối vào lỗ khác ({len(vien)} cạnh)'
     rings = []
-    for k, f in enumerate(f_k):
-        ak = a + (A - a) * f
+    for k in range(len(MOI) + len(f_da)):
         ring = []
         for t in tt:
-            bk = (B_up if math.sin(t) > 0 else B_dn) * f
+            tren = math.sin(t) > 0
+            if k < len(MOI):
+                d, nho = MOI[k]
+                ak, bk = a + d, d
+            else:
+                f = f_da[k - len(MOI)]
+                ak, bk, nho = a + (A - a) * f, (B_up if tren else B_dn) * f, 0.0
             p = m0 + u * (ak * math.cos(t)) + v * (bk * math.sin(t))
-            if k == 0:  # khe môi cong nhẹ như nét cười vẽ
-                p = p + v * (0.004 * (math.cos(t) ** 2))
-            ring.append(bm.verts.new(len_mat(p)))
+            if k < len(MOI):  # môi theo nét cười; môi trên có cung nhẹ
+                p = p + v * (0.004 * math.cos(t) ** 2)
+                if k == 3 and tren:
+                    p = p + v * (0.0012 * math.cos(3 * t) ** 2 * math.sin(t) ** 2)
+            ring.append(bm.verts.new(len_mat(p) + Vector(w) * nho))
         rings.append(ring)
     trong = [bm.verts.new(q.co - Vector(w) * 0.004) for q in rings[0]]
     mat_trong = bpy.data.materials.get('Nu_TrongMieng') or mat_phang('Nu_TrongMieng', (0.35, 0.06, 0.07, 1), 0.5)
     if 'Nu_TrongMieng' not in [x.name for x in me.materials]:
         me.materials.append(mat_trong)
     mi_trong = [x.name for x in me.materials].index('Nu_TrongMieng')
+    mat_moi = bpy.data.materials.get('Nu_Moi') or mat_phang('Nu_Moi', tuple(float(x) for x in np.median(Cc[l > 0.55], 0) * np.array([1.0, 0.82, 0.82])) + (1,), 0.45)
+    if 'Nu_Moi' not in [x.name for x in me.materials]:
+        me.materials.append(mat_moi)
+    mi_moi = [x.name for x in me.materials].index('Nu_Moi')
     moi = []
     for k in range(len(rings) - 1):
         for j in range(N):
             j2 = (j + 1) % N
-            moi.append(bm.faces.new((rings[k][j], rings[k][j2], rings[k + 1][j2], rings[k + 1][j])))
+            f = bm.faces.new((rings[k][j], rings[k][j2], rings[k + 1][j2], rings[k + 1][j]))
+            if k < len(MOI) - 1:
+                f.material_index = mi_moi
+            moi.append(f)
     for j in range(N):  # thành trong môi; bỏ mặt ở khóe (khe khép)
         j2 = (j + 1) % N
         if j in (0, N // 2 - 1, N // 2, N - 1):
@@ -718,10 +735,21 @@ def dung_mieng(body, rig, coll):
             for q in f.loops:
                 q[uvl].uv = uv_goc(rings[0][0].co)
     gi = {g.name: g.index for g in body.vertex_groups}
-    for ten in ('MIENG_VUNG', 'MIENG_LO', 'MIENG_MOI_TREN', 'MIENG_MOI_DUOI', 'MIENG_TREN', 'MIENG_DUOI', 'jaw'):
+    for ten in ('MIENG_VUNG', 'MIENG_LO', 'MIENG_MOI_TREN', 'MIENG_MOI_DUOI', 'MIENG_TREN', 'MIENG_DUOI',
+                'MIENG_MOI_BE', 'MIENG_DA_TRONG', 'MIENG_MUOT', 'jaw'):
         if ten not in gi:
             gi[ten] = body.vertex_groups.new(name=ten).index
-    nhan = (gi['MIENG_VUNG'], gi['MIENG_LO'], gi['MIENG_MOI_TREN'], gi['MIENG_MOI_DUOI'], gi['MIENG_TREN'], gi['MIENG_DUOI'])
+    nhan = tuple(gi[t] for t in ('MIENG_VUNG', 'MIENG_LO', 'MIENG_MOI_TREN', 'MIENG_MOI_DUOI', 'MIENG_TREN',
+                                  'MIENG_DUOI', 'MIENG_MOI_BE', 'MIENG_DA_TRONG', 'MIENG_MUOT'))
+    for q in rings[2]:
+        q[deform][gi['MIENG_MOI_BE']] = 1.0
+    for q in rings[4]:
+        q[deform][gi['MIENG_DA_TRONG']] = 1.0
+    muot = set(q for r in rings for q in r) | set(trong) | {q for f in lap_f for q in f.verts}
+    for _ in range(2):  # thêm 2 vòng mặt lưới quanh vùng lấp
+        muot |= {w_ for q in list(muot) for e in q.link_edges for w_ in (e.other_vert(q),)}
+    for q in muot:
+        q[deform][gi['MIENG_MUOT']] = 1.0
     for vong in rings + [trong]:  # nửa trên / dưới của mọi vòng (khe: hai đỉnh trùng vị trí)
         for j, q in enumerate(vong):
             if 0 < j < N // 2:

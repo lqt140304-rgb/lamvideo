@@ -497,12 +497,41 @@ def kiem_mieng_mo_tron():
         assert abs(x0) - abs(x1) >= 0.0015, f'Khóe chỉ kéo vào {(abs(x0) - abs(x1)) * 1000:.1f} mm'
 
 
+def kiem_moi_day():
+    """Môi nhô 1.5–2.5 mm: ở x≈0, mặt môi (MIENG_MOI_BE) trước đường nối khe ↔ vòng da đầu (MIENG_DA_TRONG)."""
+    co = np.array([v.co for v in BODY.data.vertices])
+    be, da = nhom_dinh('MIENG_MOI_BE'), nhom_dinh('MIENG_DA_TRONG')
+    for khe_ten, tren in (('MIENG_MOI_TREN', True), ('MIENG_MOI_DUOI', False)):
+        khe = nhom_dinh(khe_ten)
+        chon = lambda ids: ids[np.argmin(np.abs(co[ids, 0]) + np.where((co[ids, 2] > co[khe, 2].mean()) == tren, 0, 1))]
+        b, d, k = chon(be), chon(da), khe[np.argmin(np.abs(co[khe, 0]))]
+        t = (co[b, 2] - co[k, 2]) / (co[d, 2] - co[k, 2])
+        nen = co[k, 1] + t * (co[d, 1] - co[k, 1])
+        nho = nen - co[b, 1]
+        assert 0.0015 <= nho <= 0.0025, f'Môi {"trên" if tren else "dưới"} nhô {nho * 1000:.2f} mm'
+
+
+def kiem_ngam_kin():
+    co = eval_co()
+    t, d = nhom_dinh('MIENG_MOI_TREN'), nhom_dinh('MIENG_MOI_DUOI')
+    xa = max(np.linalg.norm(co[d] - co[i], axis=1).min() for i in t)
+    assert xa < 0.0005, f'Ngậm miệng còn hở {xa * 1000:.2f} mm'
+
+
+def kiem_mieng_can_giua():
+    x = bpy.context.scene['tam_mieng'][0]
+    assert abs(x) < 0.002, f'Tâm miệng lệch trục giữa {x * 1000:.1f} mm'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_moi_day': kiem_moi_day,
+    'kiem_ngam_kin': kiem_ngam_kin,
+    'kiem_mieng_can_giua': kiem_mieng_can_giua,
     'kiem_da_min': kiem_da_min,
     'kiem_mieng_mo_tron': kiem_mieng_mo_tron,
     'kiem_mat_doi_xung': kiem_mat_doi_xung,
