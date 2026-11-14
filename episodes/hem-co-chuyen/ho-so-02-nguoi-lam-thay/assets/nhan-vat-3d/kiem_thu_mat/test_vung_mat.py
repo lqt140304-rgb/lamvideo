@@ -16,7 +16,7 @@ def idx_gia():
 def test_vung_mat_khong_chua_co_va_hang_ngoai():
     I = idx_gia(); V = MT.vung_mat(I)
     assert V.isdisjoint(set(I['neck'][0]) | set(I['neck'][1]))
-    for r in (0, 1, 2, 11, 12):                          # trán trên/chân tóc, đáy cằm và dưới: không thuộc vùng dựng lại
+    for r in (0, 1, 2, 12):                              # trán trên/chân tóc và hàng dưới hàm (hàng khâu với cổ): không thuộc vùng dựng lại
         assert V.isdisjoint({i for i in I['grid'][r] if i is not None})
     for r in range(13):                                  # cột 5 trở ra (gò tai, thái dương, sau): ngoài vùng
         for k in range(5, 9): assert I['grid'][r][k] not in V
@@ -25,11 +25,11 @@ def test_vung_mat_khong_chua_co_va_hang_ngoai():
 
 def test_duong_khau_lien_ke_va_ngoai_vung():
     I = idx_gia(); V = MT.vung_mat(I); K = MT.duong_khau(I); G = I['grid']
-    assert len(K) >= 20 and len(set(K)) == len(K) and V.isdisjoint(K)
+    assert len(K) >= 21 and len(set(K)) == len(K) and V.isdisjoint(K)
     pos = {G[r][k]: (r, k) for r in range(13) for k in range(9) if G[r][k] is not None}
     for a, b in zip(K, K[1:]):
         (r0, k0), (r1, k1) = pos[a], pos[b]; assert abs(r0 - r1) + abs(k0 - k1) == 1, (a, b)   # hai đỉnh liền nhau trên lưới
-    assert pos[K[0]] == (2, 0) and pos[K[-1]] == (11, 0)   # hai đầu nằm ở mặt phẳng đối xứng
+    assert pos[K[0]] == (2, 0) and pos[K[-1]] == (12, 0)   # hai đầu nằm ở mặt phẳng đối xứng
 
 
 def test_shepard_dich_deu_va_ghim():

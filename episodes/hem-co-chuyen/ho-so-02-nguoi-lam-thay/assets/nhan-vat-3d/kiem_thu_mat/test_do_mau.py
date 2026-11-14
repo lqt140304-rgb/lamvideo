@@ -65,3 +65,15 @@ def test_goi_y_dich_phuc_hoi():
     lech = dict(pts); lech['f'] = (0.01 + 0.006, -0.18, 1.12 - 0.004)
     gy = DM.goi_y_dich({'f': lech['f'], **{k: pts[k] for k in pts if k != 'f'}}, dst, 0.0)
     dx, dz = gy['f']; assert abs(dx + 5.0) < 0.15 and abs(dz - 4.0 * 5 / 6) < 0.15, gy['f']      # dung sai: tỉ lệ cũng được khớp lại
+
+
+def test_be_rong_theo_do_cao():
+    """Bề ngang chiếu của các đỉnh trong lớp z ± dz: hai điểm x = ±0,1 ở z = 1,0 và một điểm lạc ở z = 1,2 → rộng 0,2."""
+    vs = [(0.1, -0.1, 1.0), (-0.1, -0.1, 1.0), (0.0, -0.1, 1.2)]
+    assert abs(DM.be_rong(vs, 1.0, 0.0) - 0.2) < 1e-9
+    assert DM.be_rong(vs, 0.5, 0.0) is None
+
+
+def test_ham_mau_giam_dan_xuong_cam():
+    w = [DM.HAM_MAU[r] for r in sorted(DM.HAM_MAU)]
+    assert all(a > b for a, b in zip(w, w[1:]))       # hàm thon dần xuống cằm

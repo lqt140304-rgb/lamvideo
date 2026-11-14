@@ -85,3 +85,9 @@ Kết luận: mắt xa (L) và mũi, cằm, nốt ruồi lệch rõ nhất; mắ
 - Cằm chỉ đo ở mặt trước và nghiêng (ở 3/4 là điểm thấp nhất của đường viền, không so được).
 - Tiêu chí nhóm mũi/miệng/cằm/nốt ruồi như nhóm mắt: trung vị ≤ ngưỡng + 1,3%, lớn nhất ≤ 2,5 × ngưỡng. Kết quả: trước 2,5 / 6,3; 3/4 3,1 / 7,6; nghiêng 3,2 / 4,3.
 - Chưa làm (ghi cho cổng 1): mũi chưa thành "cục tròn" nổi như mẫu, mí chưa dày trùm như mẫu, má chưa bầu quả lê, viền mắt chưa đen dày. Số đo mốc chỉ nói vị trí đúng chưa; hình dạng chi tiết duyệt bằng ảnh chồng.
+
+### Vòng 2 (cổng 1): viền mắt, mí dày, cằm
+
+- Mắt: đường mí hạ từ 13,5 mm xuống 9 mm trên tâm (`W_LID`, chỉ cage; 8,5 mm làm nhắm mắt tự giao), mí dày 3,5 mm (`T_LID`); mép dưới mắt là mực đen dày (dải vòng ngoài → khe mắt), cung trên là đường mảnh nâu sẫm (vật liệu `Vien_Mi`, chỉ số 5). Mí rủ che nửa con ngươi như mẫu.
+- Cằm: các vòng đáy hàm thon lại và tròn hơn (`day_cam` w 0,124→0,090, `duoi_ham` w 0,099→0,074, mũ superellipse 2,5/2,2→2,0; `cam` sx 1,10→1,14, `mieng_duoi` sx 1,06→1,04). Đo bề ngang hàm theo 5 hàng ảnh mẫu (`HAM_MAU`, kiểm `ham_tron`): trung vị ≤ 4,5% và lớn nhất ≤ 7,5% HF (cơ sở: hàng y680 rộng 213 px so với mẫu 143).
+- Đường khâu dưới dời xuống hàng 12 (cằm gồm cả hàng 11); kiểm độ gập chỉ tính cạnh trên và cạnh bên đến hàng 9 vì góc hàm cong gắt vốn có.

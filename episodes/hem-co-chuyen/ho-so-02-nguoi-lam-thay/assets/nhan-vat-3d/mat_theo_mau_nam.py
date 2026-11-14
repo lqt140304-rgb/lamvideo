@@ -3,9 +3,9 @@ Dùng chỉ số HEAD_IDX của dung_dau_cage_nam (grid 13 hàng × 9 cột: hà
 Vùng mặt chỉ gồm lưới trán dưới → cằm, phần trước; sọ, tai, cổ, tóc không đụng. Các đòn bẩy chỉnh (EYE_TUNE, FACE_TUNE) nằm ở dung_dau_cage_nam.py."""
 import math
 
-HANG_MAT = range(3, 11)        # 'mi_tren' … 'cam' (hàng 2 'tran' là hàng khâu dưới chân tóc; hàng 11–12 là đáy cằm/hàm giữ nguyên)
+HANG_MAT = range(3, 12)        # 'mi_tren' … 'day_cam' (hàng 2 'tran' là hàng khâu dưới chân tóc; hàng 12 'duoi_ham' là hàng khâu với cổ; cằm gồm cả hàng 11)
 COT_MAT = range(0, 5)          # cột 0 (giữa trước) … 4 (góc 68°, má/thái dương); cột 5 là cột khâu ở ngoài vùng
-HANG_KHAU_TREN, HANG_KHAU_DUOI, COT_KHAU = 2, 11, 5
+HANG_KHAU_TREN, HANG_KHAU_DUOI, COT_KHAU = 2, 12, 5
 
 
 def vung_mat(idx):
@@ -16,7 +16,7 @@ def vung_mat(idx):
 
 
 def duong_khau(idx):
-    """Chuỗi đỉnh có thứ tự bao quanh vùng mặt (ngoài vùng, nơi mặt mới khâu vào sọ cũ): hàng 2 từ cột 0 → 5, cột 5 từ hàng 3 → 10, hàng 11 từ cột 5 → 0.
+    """Chuỗi đỉnh có thứ tự bao quanh vùng mặt (ngoài vùng, nơi mặt mới khâu vào sọ cũ): hàng 2 từ cột 0 → 5, cột 5 từ hàng 3 → 11, hàng 12 từ cột 5 → 0.
     Hai đầu nằm ở mặt phẳng đối xứng (cột 0)."""
     G = idx['grid']; ds = [G[HANG_KHAU_TREN][k] for k in range(0, COT_KHAU + 1)]
     ds += [G[r][COT_KHAU] for r in range(HANG_KHAU_TREN + 1, HANG_KHAU_DUOI)]
@@ -56,13 +56,14 @@ def shepard(pos, movers, ghim, tu_do, mu=2.0, eps=1e-6):
 
 def kiem_khau(head, idx, ten_key='Mo_Ham'):
     """Mép khâu mặt/sọ trên cage đầu. Trả (ok, mô tả). Đo trên MẶT GIỚI HẠN (sau Subdivision) vì góc cạnh của lưới điều khiển (mép cằm–đáy hàm ≈ 95–119°) là hình dạng tự nhiên chứ không phải nếp.
-    • pháp tuyến mặt giới hạn đổi ≤ 35° giữa hai đỉnh khâu liền nhau;
+    • pháp tuyến mặt giới hạn đổi ≤ 35° giữa hai đỉnh khâu liền nhau (cạnh trên và cạnh bên đến hàng 9; góc hàm, đáy hàm không tính);
     • trung bình ≤ 27° giữa mỗi đỉnh khâu và đỉnh vùng mặt kề nó (đường cơ sở của cage cũ đo được 24,9°: độ cong tự nhiên giữa các ô; ngưỡng = cơ sở + 2°, tức mép khâu không được xấu đi);
     • khi mở hàm (shape key `ten_key` = 1): chiều dài cạnh dọc đường khâu và cạnh nối khâu–vùng mặt đổi ≤ 15% so với lúc nghỉ."""
     import bpy
     K = duong_khau(idx); V = vung_mat(idx); me = head.data; kv = set(K)
     dg = bpy.context.evaluated_depsgraph_get(); ev = head.evaluated_get(dg); em = ev.to_mesh(); nrm = {i: em.vertices[i].normal.copy() for i in range(len(me.vertices))}; ev.to_mesh_clear()
-    gap = [math.degrees(nrm[a].angle(nrm[b])) for a, b in zip(K, K[1:])]
+    G = idx['grid']; day = {G[r][k] for r in range(10, 13) for k in range(0, COT_KHAU + 1)}   # góc hàm và đáy hàm (hàng 10–12): chỗ tạo hình cằm và hàm quặt vào cổ, cong gắt vốn có; đã có kiểm tự giao và mở hàm
+    gap = [math.degrees(nrm[a].angle(nrm[b])) for a, b in zip(K, K[1:]) if a not in day and b not in day]
     cheo = []
     for e in me.edges:
         a, b = e.vertices

@@ -164,3 +164,24 @@ def goi_y_tu_cage(moc_cage):
             if k.startswith(('mat_', 'khe_')) or k in CHAN_DOAN: continue
             kq.setdefault(k, {})[g] = (-(s * anh[k][0] + tx - dst[k][0]) / s * 1000.0, (s * anh[k][1] + ty - dst[k][1]) / s * 1000.0)
     return kq
+
+
+# bề ngang toàn phần của khuôn mặt (px) ở hàng ảnh y của hình 1 (mặt trước) — đọc trên lưới 20 px; đường viền hàm của mẫu tròn rộng, không nhọn
+HAM_MAU = {580: 347.0, 620: 317.0, 640: 291.0, 660: 238.0, 680: 143.0}
+NGUONG_HAM = 4.5                         # % HF, trung vị các hàng (3,0 + sai số đọc 1,3 + 0,2 làm tròn)
+
+
+def be_rong(vs, z, yaw_deg, dz=0.0015):
+    """Bề ngang (m) trong ảnh của các đỉnh có |z − z0| < dz; None nếu không có."""
+    us = [chieu(p, yaw_deg)[0] for p in vs if abs(p[2] - z) < dz]
+    return (max(us) - min(us)) if us else None
+
+
+def do_rong_ham(moc_cage, vs):
+    """{hàng ảnh: (rộng cage px, rộng mẫu px, sai lệch % HF)} ở mặt trước, theo phép khớp của mặt trước. vs: đỉnh bề mặt đã đánh giá (thế giới, chỉ vùng đầu)."""
+    anh, dst = _anh_dst(moc_cage, MOC_MAU['truoc'], YAW['truoc']); kh = [k for k in anh if k.split('.')[0] not in CHAN_DOAN]
+    s, tx, ty = _khop([anh[k] for k in kh], [dst[k] for k in kh]); out = {}
+    for hang, wm in HAM_MAU.items():
+        w = be_rong(vs, -(hang - ty) / s, YAW['truoc'])
+        if w is not None: out[hang] = (w * s, wm, 100.0 * abs(w * s - wm) / HF_PX['truoc'])
+    return out

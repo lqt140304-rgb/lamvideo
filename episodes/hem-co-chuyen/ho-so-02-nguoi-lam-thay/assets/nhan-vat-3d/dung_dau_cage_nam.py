@@ -43,10 +43,10 @@ RINGS = [
     dict(ten='chan_mui',   z=1.147, zb=1.172, sx=1.02),
     dict(ten='mieng_tren', z=1.122, zb=1.150, sx=1.03),
     dict(ten='mieng',      z=1.099, zb=1.130, sx=1.04),
-    dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.06),
-    dict(ten='cam',        z=1.052, zb=1.094, sx=1.10, sf=1.02),
-    dict(ten='day_cam',    z=1.034, zb=1.074, w=0.124, yc=-0.046, f=0.128, b=0.128, n=2.5),
-    dict(ten='duoi_ham',   z=1.024, zb=1.047, w=0.099, yc=-0.022, f=0.096, b=0.094, n=2.2),
+    dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.04),
+    dict(ten='cam',        z=1.052, zb=1.094, sx=1.14, sf=1.02),
+    dict(ten='day_cam',    z=1.034, zb=1.074, w=0.090, yc=-0.046, f=0.128, b=0.128, n=2.0),
+    dict(ten='duoi_ham',   z=1.024, zb=1.047, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
 ]
 OVERRIDE = {}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
 NECK_N0_K = 1.04       # vòng cổ trên (7 đỉnh) rộng hơn vòng cổ thân một chút, chuyển mềm vào hàm
@@ -60,7 +60,8 @@ ES = EYE_TUNE['es']
 # Chỉnh mũi / cằm / nốt ruồi theo ảnh mẫu (Task 5; đọc bằng do_mau_nam.goi_y_tu_cage): độ dịch (m, thế giới: x ngang, y sâu — dương ra sau, z lên) của các đỉnh mũi và đáy cằm; mole_dx = dịch nốt ruồi vào giữa mặt.
 FACE_TUNE = dict(mui=(0.0, 0.0044, 0.0135), cam=(0.0, 0.0, -0.010), mole_dx=0.0065)
 EYE_FLAT = 1.0         # mặt da quanh mắt của đầu cũ là yên ngựa (±8–13 mm trong r 5 cm): vòng biên mắt làm phẳng theo mặt phẳng khớp nhất; 0 = giữ nguyên yên ngựa
-T_LID = 0.0025         # bề dày mí trên
+T_LID = 0.0035         # bề dày mí trên (mẫu: mí dày trùm; trước 0,0025)
+W_LID = 0.0090         # độ cao đường mí trên so với tâm mắt (mẫu ≈ 8,6 mm; đầu cũ D.W_LID0 = 13,5 mm); chỉ cage này, không đổi đầu cũ
 RO = 0.0487            # bán kính khe mắt phía dưới (mép tròng trắng)
 PUPIL_DEG = 14.5       # nửa góc chỏm con ngươi trên nhãn cầu đơn vị
 PUPIL_REST = (-0.004, -0.003)   # tâm con ngươi lúc nghỉ (u về phía mũi, w hơi thấp) như đầu cũ
@@ -158,7 +159,7 @@ def eyeball_h(u, w):
     return EYE_APEX - EYE_DD + (EYE_DD * math.sqrt(1 - r2) if r2 < 1 else 0.0)
 
 
-def lid_w(u): return D.W_LID0 + 0.004 * (u / D.EYE_R[0]) ** 2
+def lid_w(u): return W_LID + 0.004 * (u / D.EYE_R[0]) ** 2
 def wline(u): return -0.003 * (u / 0.030) ** 2
 
 
@@ -245,7 +246,7 @@ def build_head_cage(coll, mats, S_old, S_nen):
             if (r, k) not in skip: cg.f((G[r][k], G[r][k + 1], G[r + 1][k + 1], G[r + 1][k]))
 
     # --- MẮT: vòng viền mắt (ngoài, mực) → vành mí → vòm mí → nét mí → khe mắt → mặt trong mí → hốc ôm nhãn cầu → đáy hốc (kín)
-    c0 = math.degrees(math.asin(D.W_LID0 / RO)); AM = [c0, None, None, None, 180 - c0, 217, 270, 323]; ANG = [0, 45, 90, 135, 180, 225, 270, 315]
+    c0 = math.degrees(math.asin(W_LID / RO)); AM = [c0, None, None, None, 180 - c0, 217, 270, 323]; ANG = [0, 45, 90, 135, 180, 225, 270, 315]
     def circ(r, a): a = math.radians(a); return r * math.cos(a), r * math.sin(a)
     up_u = [0.034, 0.0, -0.034]
     def loop(spec): return [cg.v(ept(*s_)) for s_ in spec]
@@ -279,7 +280,7 @@ def build_head_cage(coll, mats, S_old, S_nen):
     hc = EYE_APEX - EYE_DD
     L.append(loop(ring_spec(EYE_A * 1.04, ANG, lambda u, w: hc - 0.002)))           # L6 hốc: ôm quanh xích đạo nhãn cầu
     L.append(loop(ring_spec(EYE_A * 0.60, ANG, lambda u, w: hc - 1.35 * EYE_DD)))   # L7 đáy hốc, sau nhãn cầu
-    MAT = {0: [0] * 8, 1: [0] * 4 + [1] * 4, 2: [0] * 4 + [1] * 4, 3: [1] * 8, 4: [1] * 8, 5: [2] * 8, 6: [2] * 8, 7: [2] * 8}
+    MAT = {0: [5] * 4 + [1] * 4, 1: [0] * 4 + [1] * 4, 2: [0] * 4 + [1] * 4, 3: [1] * 8, 4: [1] * 8, 5: [2] * 8, 6: [2] * 8, 7: [2] * 8}
     for b in range(len(L) - 1):
         A_, B_ = L[b], L[b + 1]
         for j in range(8): cg.f((A_[j], A_[(j + 1) % 8], B_[(j + 1) % 8], B_[j]), MAT[b][j])
@@ -512,7 +513,8 @@ def build(args):
     # vật liệu
     M = {k: bpy.data.materials[n] for k, n in (('toc', 'Toc'), ('trang', 'Mat_Trang'), ('muc', 'Muc'), ('khoang', 'Khoang_Mieng'), ('luoi', 'Luoi'))}
     hoc = D.mat('Hoc_Mat', '#2a1a18', 0.9)
-    mats = [skin, M['muc'], hoc, M['khoang'], M['luoi']]
+    vien_mi = D.mat('Vien_Mi', '#5a3524', 0.7)                     # cung mí phía trên: đường mảnh nâu sẫm như mẫu (mép dưới mới là mực đen dày)
+    mats = [skin, M['muc'], hoc, M['khoang'], M['luoi'], vien_mi]
     nc = bpy.data.collections.new(NEW_COLL); bpy.data.collections['Nam_Dau'].children.link(nc)
     S_old = old_head_bvh()
     S_nen = plain_loft_bvh()
@@ -702,6 +704,8 @@ def check_all(sc, head, asm, amap):
 
     # đo bám ảnh mẫu (mắt, khe mắt; mũi, miệng, cằm, nốt ruồi): sai lệch hình dạng sau khi khớp tỉ lệ + tịnh tiến, % chiều cao mặt
     set_keys(asm); vs_m, ps_m, _ = ev_mesh(asm); kq_m = DM.sai_lech(DM.lay_moc_cage(head, vs_m, ps_m, to_world, HEAD_IDX)); vuot = DM.vuot_nguong(kq_m)
+    rh = DM.do_rong_ham(DM.lay_moc_cage(head, vs_m, ps_m, to_world, HEAD_IDX), [p for p in vs_m if p.z > 0.93 and abs(p.x) < 0.3])
+    res['ham_tron'] = ok(bool(rh) and sorted(e for _, _, e in rh.values())[len(rh) // 2] <= DM.NGUONG_HAM and max(e for _, _, e in rh.values()) <= 7.5, 'bề ngang hàm cage|mẫu px (sai lệch %HF; trung vị ≤ ' + f'{DM.NGUONG_HAM:.1f}, lớn nhất ≤ 7,5): ' + ', '.join(f'y{h}: {w:.0f}|{wm:.0f} ({e:.1f}%)' for h, (w, wm, e) in sorted(rh.items())))
     for nhom, ten in (('mat', ('mat_', 'khe_')), ('khung', ('mui', 'mieng', 'cam', 'not_ruoi'))):
         # đạt = trung vị nhóm ≤ ngưỡng của góc + sai số đọc ảnh (SAI_SO_DOC), và không mốc nào quá 2,5 × ngưỡng (ảnh mẫu là phối cảnh, mắt xa lệch cả khi mắt gần khớp)
         loi, tom = [], []
