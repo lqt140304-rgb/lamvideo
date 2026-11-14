@@ -486,7 +486,7 @@ def rebuild_armpit(body, cut):
         f = bmesh.ops.triangulate(bm, faces=f)['faces']
         for x_ in f: x_[fl] = 2 if is_arm else 1
     pf = lambda: [f for f in bm.faces if f[fl]]
-    edge_len = 0.004
+    edge_len = 0.003
     for rnd in range(6):
         long_e = list({e for f in pf() for e in f.edges if e.calc_length() > edge_len * 1.4})
         if long_e:
@@ -566,6 +566,40 @@ def rig_once(sc, body):
     return arm
 
 
+TAY_PHINH = 0.05       # tay mập hơn bản gốc (tỉ lệ bán kính)
+TAY_TAPER = 0.08       # giảm hệ số phình về 0 trong tỉ lệ chiều dài này gần vai và gần cổ tay
+
+
+def _polydist(Q, poly):
+    """Khoảng cách tới đường gấp khúc và độ dài dọc, cùng điểm gần nhất."""
+    P_ = np.asarray(poly, float); seg = np.diff(P_, axis=0); ln = np.linalg.norm(seg, axis=1); cum = np.r_[0, np.cumsum(ln)]
+    dmin = np.full(len(Q), 9.0); u = np.zeros(len(Q)); cp = np.zeros_like(Q)
+    for j in range(len(seg)):
+        t = np.clip(((Q - P_[j]) @ seg[j]) / ln[j] ** 2, 0, 1); c = P_[j] + t[:, None] * seg[j]; d = np.linalg.norm(Q - c, axis=1)
+        b = d < dmin; dmin[b] = d[b]; u[b] = cum[j] + t[b] * ln[j]; cp[b] = c[b]
+    return dmin, u, cp, cum[-1]
+
+
+def thicken_arm(P, co0, arm_mask, poly0, poly1, he_so=TAY_PHINH):
+    """Đắp lại và phình cánh tay (vai → cổ tay) trên lưới đã dang tay.
+    Mỗi đỉnh vùng tay giữ hướng từ trục (poly1, khung đã dang), bán kính = bán kính gốc đo trên lưới tay buông (poly0, cùng chỉ số đỉnh)
+    × (1 + he_so·w), w giảm mượt về 0 trong TAY_TAPER chiều dài gần vai và gần cổ tay. Chỉ trước cổ tay. Bên phải dùng gương x."""
+    out = P.copy(); sm = lambda t: np.clip(t, 0, 1) ** 2 * (3 - 2 * np.clip(t, 0, 1))
+    for sx in (1, -1):
+        m = arm_mask & (sx * co0[:, 0] > 0); idx = np.nonzero(m)[0]; mir = np.array([sx, 1, 1])
+        r0, u0, _, L0 = _polydist(co0[idx] * mir, poly0); r1, u1, cp1, L1 = _polydist(P[idx] * mir, poly1)
+        ok = (u0 < L0 - 1e-6) & (u1 < L1 - 1e-6) & (r0 < 0.10) & (r1 > 0.004)
+        t = u1 / L1; w = sm(t / TAY_TAPER) * sm((1 - t) / TAY_TAPER)
+        rn = r0 * (1 + he_so * w); q = (P[idx] * mir - cp1) / r1[:, None]
+        newp = (cp1 + q * rn[:, None]) * mir
+        fade = sm(t / 0.30) * sm((1 - t) / TAY_TAPER)       # sửa dần từ vai (0) tới đủ ở 30% chiều dài, để không có mép thẳng ở chỗ gắn vai
+        newp = P[idx] + (newp - P[idx]) * fade[:, None]; out[idx[ok]] = newp[ok]
+        seg = np.minimum((t * 10).astype(int), 9)
+        print(f'  tay {"TP"[sx < 0]}: tỉ lệ bán kính mới/gốc theo 10 đoạn: ' + ' '.join(f'{np.median((rn / r0)[ok & (seg == k)]):.2f}' if (ok & (seg == k)).any() else '-' for k in range(10)))
+        print(f'            hiện tại/gốc (trước đắp):               ' + ' '.join(f'{np.median((r1 / r0)[ok & (seg == k)]):.2f}' if (ok & (seg == k)).any() else '-' for k in range(10)))
+    return out
+
+
 def to_a_pose(sc, body, arm, deg):
     """Đổi dáng nghỉ: dang hai tay `deg`°, nướng vào lưới, làm mượt Taubin vùng nách–vai, rồi dựng lại rig từ dáng mới.
     Mốc khớp tay (J) và đường tâm ngón (CH) được xoay theo; AP giữ phép ngược để đo bàn tay trong khung cũ."""
@@ -596,8 +630,10 @@ def to_a_pose(sc, body, arm, deg):
         for i in np.nonzero(src & (z > 0.50) & (z < 0.95) & (x > 0.08))[0]:
             for p_, j, d in kd.find_n(co0[i], 8):
                 if nrm[i] @ nrm[di[j]] < -0.3: dist[i] = min(dist[i], d)
+    Tm_ = Matrix([list(r) for r in T]); poly0 = [J['shoulder'], J['elbow'], J['wrist']]; poly1 = [tuple(Tm_ @ Vector(q)) for q in poly0]
+    P = thicken_arm(P, co0, ar, poly0, poly1)          # đắp + phình trước, làm mượt sau (làm mượt không được rút lại độ dày)
     f = np.clip((CONTACT_D - dist) / 0.015, 0, 1)
-    f = np.maximum(f, 0.35 * np.clip(np.minimum.reduce([(x - 0.07) / 0.04, (0.30 - x) / 0.04, (z - 0.60) / 0.06, (0.97 - z) / 0.04]), 0, 1))
+    f = np.maximum(f, 0.15 * np.clip(np.minimum.reduce([(x - 0.07) / 0.04, (0.30 - x) / 0.04, (z - 0.60) / 0.06, (0.97 - z) / 0.04]), 0, 1))
     R = f > 0
     for it in range(CONTACT_IT):
         for lam in (0.5, -0.53):
@@ -612,7 +648,7 @@ def to_a_pose(sc, body, arm, deg):
             acc = (np.bincount(ea, c[eb], nv) + np.bincount(eb, c[ea], nv)) / dn[:, 0]; c = np.maximum(c, 0.8 * acc).astype(np.float32)
         at.data.foreach_set('value', np.maximum(v, c))
     print(f'  vùng tiếp xúc nách: {int((dist < CONTACT_D).sum())} đỉnh; vùng làm mượt {int(R.sum())} đỉnh')
-    rebuild_armpit(body, (dist < CUT_D) & (z > 0.62) & (z < 0.90))
+    rebuild_armpit(body, (dist < CUT_D + 0.008 * (co0[:, 1] < 0)) & (z > 0.62) & (z < 0.95))
     print(f'  dáng chữ A {deg:.0f}°: nướng lưới, làm mượt {int(R.sum())} đỉnh nách–vai')
     # xoay mốc tay và ngón theo
     Tm = Matrix([list(r) for r in T])
