@@ -1,0 +1,410 @@
+[
+ {
+  "id": "C1.1_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "ngái ngủ, giọng cáu bẳn",
+  "loi": "Mới chợp mắt có tí mà đã 7 giờ rồi á?... Cái deadline dí tới đít rồi! 11 giờ đêm nay không nộp bài thì xác định học lại hai củ rưỡi, tiền đâu mà đóng trời ơi...",
+  "canh": "1.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.1_NAM_02",
+  "vai": "NAM",
+  "cam_xuc": "nhăn mặt bực bội",
+  "loi": "Lại rung, điếc cả tai!",
+  "canh": "1.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.1_NAM_03",
+  "vai": "NAM",
+  "cam_xuc": "tặc lưỡi, cười khúc khích",
+  "loi": "Thôi... tí trưa nắng to rồi giặt phơi một thể, giờ vắt đồ lạnh cóng cả tay.",
+  "canh": "1.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.2_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "cười trừ",
+  "loi": "Ủa Tùng? Nay đổi ca làm sớm hả mày? Tốt tính thế, còn rửa chén hộ tao nữa...",
+  "canh": "1.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.2_NAM_02",
+  "vai": "NAM",
+  "cam_xuc": "giọng lạc đi, run lẩy bẩy",
+  "loi": "Cái... cái đệt... Mày là thằng nào?! Sao mặt mày... giống hệt tao vậy?! Mày vào đây bằng cách nào?!",
+  "canh": "1.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.2_NGUOI_KIA_01",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng phẳng lì, ngắt quãng từng nhịp",
+  "loi": "Bát đĩa ngâm hai ngày. Bẩn. Tao rửa sạch rồi.",
+  "canh": "1.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.2_NAM_03",
+  "vai": "NAM",
+  "cam_xuc": "thét lên, tay run bần bật",
+  "loi": "Bẩn cái đầu mày á! Mày trộm chìa khóa phòng tao đúng không?! Đừng có giở trò ma mãnh!",
+  "canh": "1.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.2_TUNG_01",
+  "vai": "TÙNG",
+  "cam_xuc": "trong điện thoại, gắt gỏng",
+  "loi": "Gì đấy bạn êi? Tao đang kẹt xe ở ngã tư muốn khùng đây, gọi cháy máy có vụ gì?",
+  "canh": "1.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.2_NAM_04",
+  "vai": "NAM",
+  "cam_xuc": "thì thào, mắt không rời Người Kia",
+  "loi": "Tùng... mày đang ở đâu đấy? Có thằng nào... mặt y chang tao đang đứng trong phòng nè mày ơi!",
+  "canh": "1.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.2_TUNG_02",
+  "vai": "TÙNG",
+  "cam_xuc": "bật cười chế giễu",
+  "loi": "Mày lại thức đêm leo rank xong ngáo đá rồi đúng không con zời? Bớt xem phim kinh dị lại giùm tao! Tao đang xách hai suất cơm tấm về đây, ở đấy mà nhảm nhí!",
+  "canh": "1.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.3_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "gằn giọng",
+  "loi": "Tao không cần biết mày là ai hay trò đùa của đứa nào. Bước ra khỏi phòng tao ngay, tao đếm đến ba không tao hô cả xóm trọ lên bây giờ! Một... Hai...",
+  "canh": "1.3",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.3_NGUOI_KIA_01",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng không cảm xúc, cộc lốc",
+  "loi": "Mày bảo đi. Tao đi.",
+  "canh": "1.3",
+  "ra_soat": false
+ },
+ {
+  "id": "C1.4_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "lẩm bẩm, khóe môi khẽ nhếch lên nụ cười tự mãn",
+  "loi": "Ảo thật đấy... Dù là ma hay quỷ, thì quả này nó cũng vừa cứu mình một bàn thua trông thấy. Tự nhiên đỡ phải thức đêm cày cuốc.",
+  "canh": "1.4",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.1_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "cố tỏ ra gắt gỏng để che nỗi sợ",
+  "loi": "Nè, ba củ tiền ăn mẹ tao mới gửi đấy. Cầm lấy rồi lượn đi, đừng có lởn vởn quanh phòng tao nữa, tao rén lắm rồi đấy!",
+  "canh": "2.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.1_NGUOI_KIA_01",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng chuẩn ngữ pháp nhưng thiếu hơi ấm con người",
+  "loi": "Đây là ba triệu đồng. Tao không có nhu cầu dùng tiền. Một giờ chiều nay, mày có ca thực hành trực tiếp tại phòng Lab 402 môn Kỹ thuật Lập trình. Giảng viên yêu cầu code trực tiếp trên máy và vấn đáp tại chỗ. Mày chưa ôn một dòng code nào. Nếu không đi, mày sẽ bị trừ hai điểm chuyên cần và cấm thi cuối kỳ.",
+  "canh": "2.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.1_NAM_02",
+  "vai": "NAM",
+  "cam_xuc": "tự ái",
+  "loi": "Mắc mớ gì mày quản?! Việc học của tao, tao tự lo được!",
+  "canh": "2.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.1_NAM_03",
+  "vai": "NAM",
+  "cam_xuc": "tặc lưỡi, giọng trịch thượng",
+  "loi": "Ê... bấm hộ tao 10 câu trắc nghiệm kỹ năng trên web trường đi, tao đang dở trận. Với lại... trong nhà tắm có chậu đồ ngâm mấy hôm bốc mùi rồi đấy, rảnh thì giặt vắt đem phơi ra ban công luôn hộ tao!",
+  "canh": "2.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.1_NAM_04",
+  "vai": "NAM",
+  "cam_xuc": "nói nhanh, quay mặt đi chỗ khác",
+  "loi": "Cầm lấy... Lên phòng Lab 402 trả lời xong bài thực hành thì về phòng ngay, cấm có lượn lờ lung tung ngoài trường đấy!",
+  "canh": "2.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.1_NGUOI_KIA_02",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng phẳng lì",
+  "loi": "Thẻ sinh viên. Tao đi học thay cho mày. Chiều xong việc tao về.",
+  "canh": "2.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.2_TUNG_01",
+  "vai": "TÙNG",
+  "cam_xuc": "mệt rã rời, bóp bắp chân",
+  "loi": "Ê Nam, ca hôm nay bưng đồ gãy cả lưng, bắp chuối nhức muốn rụng luôn á mày.",
+  "canh": "2.2",
+  "ra_soat": false
+ },
+ {
+  "canh": "2.2",
+  "vai": "NAM",
+  "cam_xuc": "thì thào dưới chăn, định nhỏm dậy, bị cắt ngang",
+  "loi": "Ê Tùng, tao có tuýp dầu—",
+  "ra_soat": false,
+  "id": "C2.2_NAM_01"
+ },
+ {
+  "id": "C2.2_TUNG_02",
+  "vai": "TÙNG",
+  "cam_xuc": "ngạc nhiên, cười tít mắt, cảm động",
+  "loi": "Ủa, nãy tao thấy mày nằm trùm chăn tưởng ngủ say rồi chứ, hóa ra dậy đi lấy nước ấm hả? Trời ơi nay bạn tôi chu đáo dữ vậy trời! Cảm động rơi nước mắt luôn á!",
+  "canh": "2.2",
+  "ra_soat": false
+ },
+ {
+  "canh": "2.2",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "tập dùng ngữ điệu quan tâm",
+  "loi": "Ngâm nước ấm đi cho đỡ nhức cơ. Mai ca làm bên kho của mày mấy giờ mới về tới phòng?",
+  "ra_soat": false,
+  "id": "C2.2_NGUOI_KIA_01"
+ },
+ {
+  "canh": "2.2",
+  "vai": "TÙNG",
+  "cam_xuc": "mệt, thật thà",
+  "loi": "Mai kiểm kê hàng cuối tháng, chắc phải tầm 19h30 tao mới lết xác về được.",
+  "ra_soat": false,
+  "id": "C2.2_TUNG_03"
+ },
+ {
+  "canh": "2.3",
+  "vai": "NAM",
+  "cam_xuc": "lẩm bẩm, ngái ngủ",
+  "loi": "Dọn dẹp kiểu gì gượng tay thế không biết...",
+  "ra_soat": false,
+  "id": "C2.3_NAM_01"
+ },
+ {
+  "id": "C2.3_NGUOI_KIA_01",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "rành rọt, phẳng",
+  "loi": "Mày nghe máy, mẹ sẽ thấy mắt thâm quầng và la rầy. Đưa máy đây. Tao trả lời thay cho.",
+  "canh": "2.3",
+  "ra_soat": false
+ },
+ {
+  "id": "C2.3_NAM_02",
+  "vai": "NAM",
+  "cam_xuc": "giật mình, lẩm bẩm",
+  "loi": "Ủa... sao tay mày lạnh ngắt như cục đá vậy?",
+  "canh": "2.3",
+  "ra_soat": false
+ },
+ {
+  "canh": "2.3",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "thản nhiên",
+  "loi": "Tao vừa rửa tay ở bồn nước.",
+  "ra_soat": false,
+  "id": "C2.3_NGUOI_KIA_02"
+ },
+ {
+  "id": "C2.3_NGUOI_KIA_03",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng ngọt ngào, ấm áp, có tiếng cười giòn tan",
+  "loi": "Dạ con nghe nè mẹ ơi! Hôm nay con kiểm tra thực hành được 9 điểm rưỡi lận đó mẹ... Dạ, mẹ nhớ uống thuốc khớp đều đặn nha, đừng có tiếc tiền rồi ráng nhịn đau đó... Con trên này ăn uống đầy đủ mà, mẹ đừng lo nha!",
+  "canh": "2.3",
+  "ra_soat": false
+ },
+ {
+  "canh": "2.3",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng phẳng lì",
+  "loi": "Mẹ mày bảo hôm nay giọng mày nghe ấm hơn mọi ngày.",
+  "ra_soat": false,
+  "id": "C2.3_NGUOI_KIA_04"
+ },
+ {
+  "id": "C2.4_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "gào lên trong nước mắt uất ức",
+  "loi": "Cút đi! Mày cướp hết mọi thứ của tao rồi đúng không?! Ngày mai tao sẽ tự đi học, tao không cần mày sống thay tao nữa!",
+  "canh": "2.4",
+  "ra_soat": false
+ },
+ {
+  "canh": "2.4",
+  "vai": "NAM",
+  "cam_xuc": "tập nói trước gương, run run",
+  "loi": "Thưa thầy, sau đây em xin trình bày...",
+  "ra_soat": false,
+  "id": "C2.4_NAM_02"
+ },
+ {
+  "id": "C3.1_GIANG_VIEN_01",
+  "vai": "GIẢNG VIÊN",
+  "cam_xuc": "gọi tên, bình thường",
+  "loi": "Mời bạn Nam lên bảng trình bày tiếp đồ án hôm trước.",
+  "canh": "3.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.1_GIANG_VIEN_02",
+  "vai": "GIẢNG VIÊN",
+  "cam_xuc": "hài lòng, rồi đặt câu hỏi khó",
+  "loi": "Rất tốt. Bây giờ mời em giải thích tiếp phần mã nguồn thuật toán tối ưu hóa đa luồng mà hôm trước em đã chủ động đăng ký nhận làm cho cả nhóm trong buổi thực hành Lab 402.",
+  "canh": "3.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.1_GIANG_VIEN_03",
+  "vai": "GIẢNG VIÊN",
+  "cam_xuc": "cau mày, giọng đanh lại",
+  "loi": "Em nhận làm phần này mà em không giải thích nổi một dòng code là sao?! Có phải bài hôm trước là em nhờ ai làm hộ rồi hôm nay lên đây học vẹt không?! Trừ 2 điểm chuyên cần cả nhóm!",
+  "canh": "3.1",
+  "ra_soat": false
+ },
+ {
+  "canh": "3.1",
+  "vai": "SINH VIÊN",
+  "cam_xuc": "xì xào dưới lớp",
+  "loi": "Ủa nay Nam bị lag mạng à?",
+  "ra_soat": false,
+  "id": "C3.1_SINH_VIEN_01"
+ },
+ {
+  "canh": "3.1",
+  "vai": "SINH VIÊN",
+  "cam_xuc": "xì xào, mỉa",
+  "loi": "Hôm trước nổ to lắm mà?",
+  "ra_soat": false,
+  "id": "C3.1_SINH_VIEN_02"
+ },
+ {
+  "id": "C3.1_TUNG_01",
+  "vai": "TÙNG",
+  "cam_xuc": "thất vọng cùng cực, nói khẽ",
+  "loi": "Nam... sao mày cứ lúc nọ lúc kia thế hả mày?",
+  "canh": "3.1",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.2_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "gầm lên, giơ búa",
+  "loi": "Mày là thứ quỷ trong gương... Tao sẽ đập nát cái gương này!",
+  "canh": "3.2",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.3_NGUOI_KIA_01",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng trầm, chậm rãi từng nhát dao đâm xuyên tâm can",
+  "loi": "Mày đập đi. Rồi ngày mai mày sẽ tự đối diện với cuộc đời ngoài kia thế nào? Mày sẽ nói gì với thầy giáo? Mày sẽ ăn nói sao với mẹ mày? Mày định vác cái bộ mặt thất bại, trốn tránh này ra để làm thằng Tùng thất vọng thêm lần nữa à?",
+  "canh": "3.3",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.3_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "thét lên, hai tay giữ búa run bần bật",
+  "loi": "Hồi sáng tao đã cố học! Tao đã trả lời được câu đầu cơ mà!",
+  "canh": "3.3",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.3_NGUOI_KIA_02",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "tiến lên nửa bước, mắt trừng trừng không chớp",
+  "loi": "Nhưng mày có gánh nổi cả cuộc đời này không?! Mày muốn điểm cao, muốn được khen, muốn bố mẹ tự hào... nhưng việc gì khó một tí là mày lại đùn đẩy! Từ bài tập, giặt chậu đồ ngâm, dọn phòng, đến nghe máy của mẹ... **từng thứ một đều là do chính tay mày nhường cho tao mà!** Vào trong đó đi. Trong đó không có deadline, không có ai chê bai mày nữa. Buông xuôi đi Nam... để tao sống thay cho.",
+  "canh": "3.3",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.4_NGUOI_KIA_01",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "hạ giọng thì thầm",
+  "loi": "Mày có thực sự muốn tao sống thay cuộc đời này cho mày không? Nói đi. Chỉ cần một câu của mày thôi, tao sẽ gánh hết mọi nhục nhã, thất bại ngoài kia thay mày.",
+  "canh": "3.4",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.4_NAM_01",
+  "vai": "NAM",
+  "cam_xuc": "giọng nghẹn ngào, chấp thuận khế ước",
+  "loi": "...Ừ. Mày sống thay tao đi... Tao mệt mỏi lắm rồi... Tao không gánh nổi nữa...",
+  "canh": "3.4",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.4_NGUOI_KIA_02",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "thì thầm, dụ dỗ",
+  "loi": "Áp bàn tay mày vào tay tao trên mặt kính. Trao hơi ấm của mày cho tao. Cuộc đời mày sẽ thuộc về tao.",
+  "canh": "3.4",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.4_NAM_02",
+  "vai": "NAM",
+  "cam_xuc": "vùng vẫy giật tay lại, gào lên hoảng loạn",
+  "loi": "Không... đau quá... lạnh quá... Tao đổi ý rồi! Thả tao ra...! TÙNG ƠI CỨU TAO VỚI...!",
+  "canh": "3.4",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.4_NGUOI_KIA_03",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "thì thầm",
+  "loi": "Muộn rồi bạn tôi ơi. Hơi ấm của mày... giờ là của tao.",
+  "canh": "3.4",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.5_TUNG_01",
+  "vai": "TÙNG",
+  "cam_xuc": "giọng hồ hởi, chân thành",
+  "loi": "Nam ơi! Tao mua bún chả full topping có nem rán giòn rụm thơm nức mũi đây! Ăn đi rồi tối tao kèm lại cái đống code thuật toán hồi sáng cho, có gì đâu mà phải trốn về phòng overthinking hả bạn êi!",
+  "canh": "3.5",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.5_NGUOI_KIA_01",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng Nam ấm áp giả tạo",
+  "loi": "Cảm ơn mày nha Tùng.",
+  "canh": "3.5",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.5_TUNG_02",
+  "vai": "TÙNG",
+  "cam_xuc": "chột dạ, nụ cười trên môi đông cứng",
+  "loi": "Ủa Nam... nốt ruồi bên mắt mày... sao tự nhiên nay lại nằm bên phải?",
+  "canh": "3.5",
+  "ra_soat": false
+ },
+ {
+  "id": "C3.5_NGUOI_KIA_02",
+  "vai": "NGƯỜI KIA",
+  "cam_xuc": "giọng trầm, rợn người",
+  "loi": "Mày nhìn nhầm rồi... Tao là Nam mà.",
+  "canh": "3.5",
+  "ra_soat": false
+ }
+]
