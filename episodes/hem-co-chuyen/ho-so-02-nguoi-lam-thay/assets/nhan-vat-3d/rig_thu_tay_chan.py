@@ -92,13 +92,13 @@ def skin(ob, arm, F):
     lab = N.label_hand(P); Wh = np.zeros(n) + hand
     for fn in HT.FINGERS:
         pts = F['fing'][fn]; s, _ = _arc(P, pts); seg = [np.linalg.norm(np.array(tuple(pts[i + 1] - pts[i]))) for i in range(3)]
-        joints = [0.0, seg[0], seg[0] + seg[1]]; ws = _chain_w(s, joints, [0.007, 0.004, 0.004]); m = hand * (lab == fn)
+        joints = [0.0, seg[0], seg[0] + seg[1]]; ws = _chain_w(s, joints, [0.009, 0.008, 0.007]); m = hand * (lab == fn)   # lượt 1: ±4 mm ở khớp ngón → mặt trong khớp tự giao khi nắm
         for i in range(3): W[f'{fn}{i + 1}'] += ws[i] * m
         Wh -= (ws[0] + ws[1] + ws[2]) * m
     tp = F['thumb']; s, dist = _arc(P, tp[:4] + [tp[4]]); seg = [(tp[i + 1] - tp[i]).length for i in range(3)]
-    ws = _chain_w(s, [0.0, seg[0], seg[0] + seg[1]], [0.010, 0.005, 0.005])
-    near = hand * ((lab == 'thumb') | ((lab == 'palm') & (dist < 0.022)))       # gò ngón cái theo thumb1 một phần
-    mound = np.where(lab == 'thumb', 1.0, 0.6 * ss(0.022, 0.010, dist))
+    ws = _chain_w(s, [0.0, seg[0] + 0.006, seg[0] + seg[1]], [0.012, 0.009, 0.006])          # lượt 1: thumb1 gần như không có dải → lòng tay–thumb2 giãn 7×
+    near = hand * ((lab == 'thumb') | ((lab == 'palm') & (dist < 0.032)))       # gò ngón cái theo thumb1 một phần
+    mound = np.where(lab == 'thumb', 1.0, 0.8 * ss(0.032, 0.012, dist))
     for i in range(3): W[f'thumb{i + 1}'] += ws[i] * near * mound
     Wh -= (ws[0] + ws[1] + ws[2]) * near * mound
     W['ban_tay'] = np.clip(Wh, 0, 1)
@@ -227,6 +227,8 @@ class HandFit:
         self.tip = {f: np.nonzero(col[f'{f}3'] > 0.5)[0] for f in HT.FINGERS}; self.mid = {f: np.nonzero(col[f'{f}2'] > 0.5)[0] for f in HT.FINGERS}
         self.palm = np.nonzero(col['ban_tay'] > 0.9)[0]; self.th = np.nonzero((col['thumb2'] + col['thumb3']) > 0.5)[0]; self.th3 = np.nonzero(col['thumb3'] > 0.5)[0]
         self.fing = np.nonzero(sum(col[f'{f}{i}'] for f in HT.FINGERS for i in (1, 2, 3)) > 0.5)[0]
+        self.notthumb = np.nonzero((col['thumb1'] + col['thumb2'] + col['thumb3'] < 0.05) & (sum(col[k] for k in col if k not in ('khoa', 'cang_tay', 'cang_chan', 'ban_chan', 'ngon_chan')) > 0.5))[0]
+        tz = (col['thumb1'] + col['thumb2'] + col['ban_tay'] * (col['thumb1'] > 0.05)) > 0.3; self.th_e = np.nonzero(tz[Ms.ed[:, 0]] & tz[Ms.ed[:, 1]])[0]
 
     def bvh(self, P, idx):
         m = np.zeros(len(P), bool); m[idx] = True; fs = [f for f in self.Ms.polys if all(m[i] for i in f)]
@@ -258,21 +260,23 @@ def calibrate_hand(arm, A, F, Ms, HF, cup):
                 if pen: break
                 last = k
                 if d <= 0.0015: break
-                k += 0.04
+                k += 0.02
             ks[f] = last
         set_curl(kind, ks); P = Ms.coords(); best = None
         targ = HF.bvh(P, np.concatenate([HF.mid['index'], HF.mid['middle']])) if kind == 'fist' else bc
-        obst = HF.bvh(P, HF.fing) if kind == 'fist' else bc
+        obst = HF.bvh(P, HF.notthumb)
         for a_ in (-60, -40, -20, 0, 20, 40):
             for b_ in (-40, -20, 0, 20, 40):
                 for c_ in (-40, -20, 0, 20, 40):
                     th = ((math.radians(a_), math.radians(b_), math.radians(c_)), (30, 35) if kind == 'fist' else (15, 15))
                     set_curl(kind, ks, th); P = Ms.coords(); bt = HF.bvh(P, HF.th)
-                    if kind == 'fist': obst = HF.bvh(P, HF.fing); targ = HF.bvh(P, np.concatenate([HF.mid['index'], HF.mid['middle']]))
-                    pen = len(bt.overlap(obst)) + len(bt.overlap(HF.bvh(P, HF.palm)) if False else [])
+                    obst = HF.bvh(P, HF.notthumb)
+                    if kind == 'fist': targ = HF.bvh(P, np.concatenate([HF.mid['index'], HF.mid['middle']]))
+                    pen = len(bt.overlap(obst)) + (len(bt.overlap(bc)) if kind == 'grip' else 0)   # không xuyên phần nào của bàn tay (trừ chính ngón cái) / cốc
                     if pen: continue
-                    d = min(targ.find_nearest(Vector(P[i]))[3] for i in HF.th3[::3])
-                    if best is None or d < best[0]: best = (d, th)
+                    d = min(targ.find_nearest(Vector(P[i]))[3] for i in HF.th3[::3]); st = np.linalg.norm(P[Ms.ed[:, 0]] - P[Ms.ed[:, 1]], axis=1) / Ms.l0.clip(1e-9)
+                    sc_ = d + 0.0005 * int((st[HF.th_e] > 2.0).sum())                       # sát đích, ít kéo da gò ngón cái
+                    if best is None or sc_ < best[2]: best = (d, th, sc_)
         res[kind] = dict(ks=ks, thumb=best[1] if best else None, khe_ngon_cai=best[0] if best else None)
         print(f'    hiệu chỉnh {kind}: ' + ', '.join(f'{f} {k:.2f}' for f, k in ks.items()) + (f'; ngón cái {[round(math.degrees(x)) for x in best[1][0]]}° khe {best[0] * 1000:.1f} mm' if best else '; ngón cái: không tìm được tư thế không xuyên'))
     reset(arm); return res, set_curl
@@ -308,7 +312,7 @@ class Meas:
         if not fs: return 0
         bv = BVHTree.FromPolygons(P.tolist(), [self.polys[i] for i in fs], all_triangles=False); fv = [set(self.polys[i]) for i in fs]
         hits = [(a_, b_) for a_, b_ in bv.overlap(bv) if a_ < b_ and not (fv[a_] & fv[b_])]
-        self.hit_pts = [tuple(np.round(P[self.polys[fs[a_]]].mean(0), 3)) for a_, _ in hits]; return len(hits)
+        self.hit_pts = [tuple(np.round(P[self.polys[fs[a_]]].mean(0), 3)) for a_, _ in hits]; self.hit_v = [(self.polys[fs[a_]][0], self.polys[fs[b_]][0]) for a_, b_ in hits]; return len(hits)
 
     def section_area(self, P, mask, c, n, rmax=0.09):
         """Diện tích tiết diện (m²) tại mặt phẳng (c, n): giao các cạnh trong `mask` cắt mặt phẳng (gần c), xếp theo góc, shoelace."""
@@ -340,7 +344,7 @@ def criteria(name, m, area_ratio, hits):
 def cam_for(grp, F, view):
     if grp == 'ban_tay':
         c = F['K'] + F['d'] * 0.01
-        return c, {'long': c + F['N'] * 2.0, 'ut': c + F['S'] * 2.0, 'cheo': c + (F['N'] + F['S'] * 0.7 - F['d'] * 0.4).normalized() * 2.0, 'ben': c - F['S'] * 2.0}[view], 0.20
+        return c, {'long': c + (F['N'] * 0.5 + Vector((0, -1.0, 0)) - F['d'] * 0.3).normalized() * 2.0, 'ut': c + F['S'] * 2.0, 'cheo': c + (F['N'] + F['S'] * 0.7 - F['d'] * 0.4).normalized() * 2.0, 'ben': c - F['S'] * 2.0}[view], 0.20
     if grp == 'co_tay':
         c = F['c_w'] + F['d'] * 0.03
         return c, {'ben': c + F['S'] * 2.0, 'truoc': c - F['N'] * 0.4 + Vector((0, -2.0, 0)), 'cheo': c + (F['S'] - F['N']).normalized() * 2.0 + Vector((0, 0, 0.5))}[view], 0.22
@@ -416,7 +420,11 @@ def main():
             pen_cup = len(HF.bvh(P, np.nonzero(hz)[0]).overlap(BVHTree.FromPolygons([tuple(cup.matrix_world @ v.co) for v in cup.data.vertices], [list(p.vertices) for p in cup.data.polygons], all_triangles=False))) if kind == 'grip' else 0
             other = HF.bvh(P, HF.palm) if kind == 'fist' else BVHTree.FromPolygons([tuple(cup.matrix_world @ v.co) for v in cup.data.vertices], [list(p.vertices) for p in cup.data.polygons], all_triangles=False)
             ct = {f: round(HF.contact(P, f, other)[0] * 1000, 1) for f in HT.FINGERS}
-            ez = hz[Ms.ed[:, 0]] & hz[Ms.ed[:, 1]]; big = np.nonzero(ez & (m['r'] > 2.0))[0]; where = sorted({N.label_hand(P[Ms.ed[i:i + 1, 0]])[0] for i in big})
+            ez = hz[Ms.ed[:, 0]] & hz[Ms.ed[:, 1]]; big = np.nonzero(ez & (m['r'] > 2.0))[0]
+            dom = lambda vi: names[int(np.argmax(M_w[vi]))]
+            from collections import Counter
+            where = dict(Counter(dom(Ms.ed[i, 0]) for i in big).most_common(6))
+            print(f'       tự giao theo cặp xương: {dict(Counter(tuple(sorted((dom(a_), dom(b_)))) for a_, b_ in Ms.hit_v).most_common(6)) if hits else {}}')
             res[nm] = dict(nhom='ban_tay', gian_max=round(m['gian_max'], 2), n_gian=m['n_gian'], co_min=round(m['co_min'], 2), tu_giao=hits, xuyen_coc=pen_cup, khe_mm=ct,
                            vung_gian_2x=where, hieu_chinh={k: round(v, 2) for k, v in cal[kind]['ks'].items()}, dat=(hits == 0 and pen_cup == 0 and max(ct.values()) <= 3.0))
             print(f'    {"PASS" if res[nm]["dat"] else "FAIL"}  {nm}: khe đốt cuối→{"lòng tay" if kind == "fist" else "cốc"} (mm) {ct}; tự giao {hits}; xuyên cốc {pen_cup}; '
