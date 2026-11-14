@@ -48,7 +48,7 @@ RINGS = [
     dict(ten='day_cam',    z=1.038, zb=1.066, w=0.090, yc=-0.046, f=0.128, b=0.128, n=2.0),
     dict(ten='duoi_ham',   z=1.030, zb=1.050, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
 ]
-OVERRIDE = {}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
+OVERRIDE = {('mieng_duoi', 4): (-0.003, 0, 0), ('cam', 3): (-0.003, 0, 0), ('cam', 4): (-0.004, 0, 0.002)}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
 NECK_N0_K = 1.04       # vòng cổ trên (7 đỉnh) rộng hơn vòng cổ thân một chút, chuyển mềm vào hàm
 
 # Mắt (hệ khung EYE_FRAMES của đầu cũ: u ngang, w dọc, h hướng ra khỏi mặt). Nhãn cầu là elip tròn xoay A × A × DD, đỉnh nhô APEX trước mặt phẳng tâm mắt.
