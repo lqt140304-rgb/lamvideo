@@ -45,10 +45,17 @@ RINGS = [
     dict(ten='mieng',      z=1.099, zb=1.130, sx=1.04),
     dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.04),
     dict(ten='cam',        z=1.058, zb=1.078, sx=1.06, sf=1.08),
-    dict(ten='day_cam',    z=1.042, zb=1.060, w=0.090, yc=-0.046, f=0.130, b=0.128, n=2.0),
+    dict(ten='day_cam',    z=1.042, zb=1.060, w=0.088, yc=-0.046, f=0.130, b=0.128, n=2.0),
     dict(ten='duoi_ham',   z=1.030, zb=1.050, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
 ]
-OVERRIDE = {('mieng_duoi', 4): (0.002, 0, 0), ('cam', 4): (-0.002, 0, 0)}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
+# Đầu cằm nâng nhẹ, đáy đầy theo cung tròn; bù bề ngang hai bên để không thành cằm nhọn.
+# (tên vòng, cột k) → (dx, dy, dz), mét trong hệ đầu gốc.
+OVERRIDE = {
+    ('mieng_duoi', 4): (0.002, 0, 0),
+    ('cam', 0): (0, 0.002, 0.004), ('cam', 1): (0, 0.002, 0.004), ('cam', 2): (0, 0.001, 0.002), ('cam', 3): (0.008, 0, -0.002), ('cam', 4): (0.003, 0, -0.002),
+    ('day_cam', 0): (0, -0.008, -0.004), ('day_cam', 1): (0, -0.008, -0.004), ('day_cam', 2): (0, -0.006, -0.003), ('day_cam', 3): (0.003, 0, -0.002), ('day_cam', 4): (0.003, 0, -0.002),
+    ('duoi_ham', 0): (0, -0.02, 0.002), ('duoi_ham', 1): (0, -0.02, 0.002), ('duoi_ham', 2): (0, -0.015, 0.001), ('duoi_ham', 3): (0, -0.008, 0),
+}
 NECK_N0_K = 1.04       # vòng cổ trên (7 đỉnh) rộng hơn vòng cổ thân một chút, chuyển mềm vào hàm
 
 # Mắt (hệ khung EYE_FRAMES của đầu cũ: u ngang, w dọc, h hướng ra khỏi mặt). Nhãn cầu là elip tròn xoay A × A × DD, đỉnh nhô APEX trước mặt phẳng tâm mắt.
