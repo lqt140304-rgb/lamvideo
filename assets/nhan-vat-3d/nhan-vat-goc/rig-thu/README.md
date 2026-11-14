@@ -98,3 +98,9 @@ Sau khi cắt nách, bắp tay chỉ còn khoảng 0,90–0,96 độ dày gốc 
 [Ảnh](tay-day.webp): trái trên là dáng nghỉ dang 80°, phải trên giơ 105°, trái dưới giơ 140°, phải dưới tay buông. Số đo sau đắp: bán kính tay mới/gốc = 1,05 ở các đoạn giữa và 1,03 ở cổ tay. Số cạnh giãn quá 2× ở giơ 140° là 41 (tối đa 2,58×), nhiều hơn mức 16 của bản trước, do lưới tay dày thêm; dáng tay buông 1 cạnh (1,98×), khuỷu gập 2 cạnh.
 
 Còn lại: một nếp mảnh ở mặt thân sát nách khi tay buông và một vết nhỏ ở đỉnh vai.
+
+## Đỉnh khe nách và đường ngang chân vai (thử lần 2)
+
+Đã thêm: dải làm mượt quanh ranh giới vùng tay (`BAND_RINGS` = 7 vòng), vùng tay cao hơn (`CUT_ZVAI` = 0,95) chỉ để phân loại khi cắt, nới điều kiện hướng pháp tuyến gần vai (`NEAR_SHOULDER_D`). Đường ngang ở chân vai mờ đi nhiều. [Ảnh cận](vai-can-canh.webp): trái trên dang 80°, phải trên giơ 140°, hai ảnh dưới tay buông.
+
+**Chưa đạt:** đỉnh khe nách vẫn kết thúc bằng một đoạn cụt (z ≈ 0,78) và còn một gờ nhỏ ở đỉnh vai. Lý do: sát vai da liền một khối, không có hai mặt quay vào nhau nên dò theo khoảng cách và pháp tuyến không nhận ra chỗ dính. Thử rạch thêm 3 cm dọc ranh giới tay–thân (`SLIT_EXT` = 0,03) làm lỗ vá tách thành nhiều mảnh và các lỗ ở đầu khe nối nhầm tay với thân, tay giãn tới 42×, nên đã tắt (`SLIT_EXT` = 0). Hướng tiếp theo: rạch theo một đường kẻ tay (chọn các đỉnh dọc khe) hoặc dời hai mép đoạn cụt ra xa nhau bằng biến dạng mượt thay vì xóa đỉnh.

@@ -43,6 +43,10 @@ FINGER_CURL = {'index': (50, 70, 45), 'middle': (50, 70, 45), 'ring': (50, 70, 4
 A_DEG = 0.0
 CONTACT_D = 0.03       # đỉnh tay/thân cách phía bên kia dưới mức này = vùng tiếp xúc nách
 CONTACT_IT = 150
+SLIT_EXT = 0.0           # rạch kéo dài khe lên phía vai: thử 0,03 làm lỗ vá tách mảnh và nối nhầm tay–thân (tay giãn 42×), nên tắt
+CUT_ZVAI = 0.95          # trần z của vùng tay dùng khi phân loại để cắt
+NEAR_SHOULDER_D = 0.014   # gần vai (z > 0,78): chấp nhận hai mặt gần như vuông góc nếu cách nhau dưới 14 mm, để cắt tiếp đoạn cụt của khe
+BAND_RINGS = 7         # độ rộng (vòng đỉnh) của dải làm mượt quanh ranh giới vùng tay
 CUT_D = 0.028          # bỏ hẳn dải dính tay–thân (cách phía bên kia < 28 mm, z 0,62–0,90) rồi vá màng da mới
 AP = np.eye(4)                          # khung dáng chữ A → khung tay buông (bên L); đơn vị nếu không chuyển dáng
 CH = {}                                 # tên ngón → 4 điểm (bên L): gốc, khớp 1, khớp 2, đầu ngón
@@ -280,9 +284,9 @@ CH0 = {}              # đường tâm ngón ở khung tay buông (dùng cho tr�
 ARM_FIXED = None      # vùng tay tính trên lưới tay buông, dùng lại sau khi đổi dáng chữ A (chỉ số đỉnh giữ nguyên)
 
 
-def arm_region(co, ea, eb):
-    if ARM_FIXED is not None: return ARM_FIXED.copy()
-    x, z = co[:, 0], co[:, 2]; keep = ~((np.abs(x) < ARM_CUT[0]) | (z > ARM_CUT[1])); A = np.zeros(len(co), bool)
+def arm_region(co, ea, eb, zcut=None):
+    if ARM_FIXED is not None and zcut is None: return ARM_FIXED.copy()
+    x, z = co[:, 0], co[:, 2]; keep = ~((np.abs(x) < ARM_CUT[0]) | (z > (zcut if zcut is not None else ARM_CUT[1]))); A = np.zeros(len(co), bool)
     for s in (1, -1):
         A[np.argmin(np.where((s * x > 0.2) & (z > 0.3), z, 9))] = True
     while True:
@@ -611,7 +615,7 @@ def to_a_pose(sc, body, arm, deg):
     dg = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(dg); m2 = ev.to_mesh()
     P = np.zeros(len(m2.vertices) * 3); m2.vertices.foreach_get('co', P); ev.to_mesh_clear(); P = P.reshape(-1, 3)
     co0 = mesh_co(body)
-    global ARM_FIXED; e0, e1 = edges_np(body.data); ARM_FIXED = arm_region(co0, e0, e1)
+    e0, e1 = edges_np(body.data); global ARM_FIXED; ARM_FIXED = arm_region(co0, e0, e1)
     # gỡ rig cũ
     body.parent = None
     for m in list(body.modifiers): body.modifiers.remove(m)
@@ -621,19 +625,27 @@ def to_a_pose(sc, body, arm, deg):
     # đỉnh cách "phía bên kia" < CONTACT_D ⇒ làm mượt Taubin mạnh trên lưới đã dang tay + phủ màu da (pha_da)
     me = body.data; nv = len(me.vertices); ea, eb = edges_np(me); dn = np.bincount(np.concatenate([ea, eb]), minlength=nv).clip(1)[:, None]
     ar = ARM_FIXED; x, z = np.abs(co0[:, 0]), co0[:, 2]
+    ar_cut = arm_region(co0, e0, e1, CUT_ZVAI)      # vùng tay cao hơn (tới sát vai) chỉ để phân loại khi cắt: đoạn cụt của khe nằm ở ranh giới z = 0,86
+    print(f'  vùng tay: {int(ar.sum())} đỉnh; vùng tay cao (z<{CUT_ZVAI}): {int(ar_cut.sum())} đỉnh; thêm {int((ar_cut & ~ar).sum())}')
     nrm = np.zeros(nv * 3); me.vertices.foreach_get('normal', nrm); nrm = nrm.reshape(-1, 3)
     dist = np.full(nv, 9.0)
-    for src, dst in ((ar, ~ar), (~ar, ar)):      # chỉ tính bề mặt "đối diện": gần nhau VÀ pháp tuyến ngược chiều (bỏ qua ranh giới liền kề)
+    for src, dst in ((ar_cut, ~ar_cut), (~ar_cut, ar_cut)):      # chỉ tính bề mặt "đối diện": gần nhau VÀ pháp tuyến ngược chiều (bỏ qua ranh giới liền kề)
         kd = KDTree(int(dst.sum())); di = np.nonzero(dst)[0]
         for j, i in enumerate(di): kd.insert(co0[i], j)
         kd.balance()
-        for i in np.nonzero(src & (z > 0.50) & (z < 0.95) & (x > 0.08))[0]:
+        for i in np.nonzero(src & (z > 0.50) & (z < 1.03) & (x > 0.06))[0]:
             for p_, j, d in kd.find_n(co0[i], 8):
-                if nrm[i] @ nrm[di[j]] < -0.3: dist[i] = min(dist[i], d)
+                if nrm[i] @ nrm[di[j]] < -0.3 or (co0[i, 2] > 0.78 and d < NEAR_SHOULDER_D and nrm[i] @ nrm[di[j]] < 0.45): dist[i] = min(dist[i], d)
     Tm_ = Matrix([list(r) for r in T]); poly0 = [J['shoulder'], J['elbow'], J['wrist']]; poly1 = [tuple(Tm_ @ Vector(q)) for q in poly0]
     P = thicken_arm(P, co0, ar, poly0, poly1)          # đắp + phình trước, làm mượt sau (làm mượt không được rút lại độ dày)
     f = np.clip((CONTACT_D - dist) / 0.015, 0, 1)
     f = np.maximum(f, 0.15 * np.clip(np.minimum.reduce([(x - 0.07) / 0.04, (0.30 - x) / 0.04, (z - 0.60) / 0.06, (0.97 - z) / 0.04]), 0, 1))
+    ring = np.zeros(nv, int) - 1                          # số vòng đỉnh tính từ ranh giới vùng tay (làm mượt đường ngang ở chân vai)
+    bd = (ar[ea] != ar[eb]); ring[ea[bd]] = 0; ring[eb[bd]] = 0
+    for r_ in range(1, BAND_RINGS + 1):
+        nx = np.zeros(nv, bool); nx[eb[(ring[ea] == r_ - 1)]] = True; nx[ea[(ring[eb] == r_ - 1)]] = True; ring[nx & (ring < 0)] = r_
+    band = (ring >= 0) & (z > 0.70) & (z < 1.0) & (x > 0.06)
+    f = np.maximum(f, np.where(band, 0.7 * (1 - ring / (BAND_RINGS + 1)), 0.0))
     R = f > 0
     for it in range(CONTACT_IT):
         for lam in (0.5, -0.53):
@@ -648,7 +660,15 @@ def to_a_pose(sc, body, arm, deg):
             acc = (np.bincount(ea, c[eb], nv) + np.bincount(eb, c[ea], nv)) / dn[:, 0]; c = np.maximum(c, 0.8 * acc).astype(np.float32)
         at.data.foreach_set('value', np.maximum(v, c))
     print(f'  vùng tiếp xúc nách: {int((dist < CONTACT_D).sum())} đỉnh; vùng làm mượt {int(R.sum())} đỉnh')
-    rebuild_armpit(body, (dist < CUT_D + 0.008 * (co0[:, 1] < 0)) & (z > 0.62) & (z < 0.95))
+    ARM_FIXED = ar_cut
+    cut = (dist < CUT_D + 0.008 * (co0[:, 1] < 0) + 0.010 * (z > 0.85)) & (z > 0.62) & (z < 1.0)
+    # kéo dài khe lên phía vai: ở sát vai da liền một khối nên không có mặt đối diện; rạch dọc ranh giới tay–thân (1 vòng đỉnh mỗi bên)
+    bd2 = ar_cut[ea] != ar_cut[eb]; rim = np.zeros(nv, bool); rim[ea[bd2]] = True; rim[eb[bd2]] = True
+    apex = float(np.percentile(z[cut & (x > 0.12)], 98)) if (cut & (x > 0.12)).any() else 0.85
+    ext = rim & (z > apex - 0.01) & (z < apex + SLIT_EXT) & (x < 0.21) & (x > 0.12) if SLIT_EXT > 0 else np.zeros(nv, bool)
+    print(f'  khe nách: đỉnh trên cùng z = {apex:.3f}; rạch thêm {int(ext.sum())} đỉnh lên tới z = {apex + SLIT_EXT:.3f}')
+    cut = cut | ext
+    rebuild_armpit(body, cut)
     print(f'  dáng chữ A {deg:.0f}°: nướng lưới, làm mượt {int(R.sum())} đỉnh nách–vai')
     # xoay mốc tay và ngón theo
     Tm = Matrix([list(r) for r in T])
