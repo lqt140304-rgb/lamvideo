@@ -23,7 +23,7 @@ Nhân vật nhìn về −Y. `.L` là bên trái nhân vật (+X).
 
 Theo [thiết kế](../../../docs/superpowers/specs/2026-11-15-mieng-hoat-hinh-design.md):
 
-- **Môi:** có độ dày. Vòng mặt môi nhô 1–2 mm so với da, môi trên có cung nhẹ, màu `Nu_Moi` hồng nhạt. Lưới miệng gồm 40 đoạn mỗi vòng, dồn về khóe.
+- **Không có môi riêng (theo chủ repo):** các vòng quanh khe nằm sát da, cùng màu da; lúc ngậm miệng là một nét mảnh như nét cười của mẫu. Lưới miệng gồm 40 đoạn mỗi vòng, dồn về khóe. Độ sâu các vòng trong được lấy đối xứng hai bên (mặt gốc lệch tới ~8 mm), hòa dần về da thật ở vòng ngoài.
 - **Mở hàm không gấp:** trọng số hàm được làm trơn trên vùng `MIENG_MUOT`. Modifier `CorrectiveSmooth` chỉ chạy trên vùng này, đứng giữa Armature và Subdivision.
 - **Khẩu hình mượt:** độ dời tắt dần mềm ra má; gần khóe, môi trên và môi dưới hòa vào nhau nên khe khép mềm. Mỗi khẩu hình được làm trơn 3 lượt.
 - **Bên trong miệng:** răng và lợi uốn hình chữ U, răng trên thòng ngay dưới mép môi trên, lưỡi thuôn đầu.

@@ -498,8 +498,8 @@ def kiem_mieng_mo_tron():
         assert abs(x0) - abs(x1) >= 0.0015, f'Khóe chỉ kéo vào {(abs(x0) - abs(x1)) * 1000:.1f} mm'
 
 
-def kiem_moi_day():
-    """Môi nhô 1.5–2.5 mm: ở x≈0, mặt môi (MIENG_MOI_BE) trước đường nối khe ↔ vòng da đầu (MIENG_DA_TRONG)."""
+def kiem_khong_moi():
+    """Chủ repo bỏ phần môi: các vòng môi nằm sát da (nhô < 0.3 mm), không mặt nào dùng vật liệu Nu_Moi."""
     co = np.array([v.co for v in BODY.data.vertices])
     be, da = nhom_dinh('MIENG_MOI_BE'), nhom_dinh('MIENG_DA_TRONG')
     for khe_ten, tren in (('MIENG_MOI_TREN', True), ('MIENG_MOI_DUOI', False)):
@@ -507,9 +507,13 @@ def kiem_moi_day():
         chon = lambda ids: ids[np.argmin(np.abs(co[ids, 0]) + np.where((co[ids, 2] > co[khe, 2].mean()) == tren, 0, 1))]
         b, d, k = chon(be), chon(da), khe[np.argmin(np.abs(co[khe, 0]))]
         t = (co[b, 2] - co[k, 2]) / (co[d, 2] - co[k, 2])
-        nen = co[k, 1] + t * (co[d, 1] - co[k, 1])
-        nho = nen - co[b, 1]
-        assert 0.0015 <= nho <= 0.0025, f'Môi {"trên" if tren else "dưới"} nhô {nho * 1000:.2f} mm'
+        nho = co[k, 1] + t * (co[d, 1] - co[k, 1]) - co[b, 1]
+        assert nho < 0.0003, f'Môi {"trên" if tren else "dưới"} còn nhô {nho * 1000:.2f} mm'
+    mats = [m.name for m in BODY.data.materials]
+    if 'Nu_Moi' in mats:
+        i = mats.index('Nu_Moi')
+        n = sum(1 for f in BODY.data.polygons if f.material_index == i)
+        assert n == 0, f'{n} mặt còn dùng vật liệu môi'
 
 
 def kiem_ngam_kin():
@@ -637,7 +641,7 @@ KIEM = {
     'kiem_khau_hinh_khong_gap': kiem_khau_hinh_khong_gap,
     'kiem_khong_gap': kiem_khong_gap,
     'kiem_cs_chi_mieng': kiem_cs_chi_mieng,
-    'kiem_moi_day': kiem_moi_day,
+    'kiem_khong_moi': kiem_khong_moi,
     'kiem_ngam_kin': kiem_ngam_kin,
     'kiem_mieng_can_giua': kiem_mieng_can_giua,
     'kiem_da_min': kiem_da_min,

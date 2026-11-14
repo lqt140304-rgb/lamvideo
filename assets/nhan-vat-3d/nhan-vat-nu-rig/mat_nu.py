@@ -669,7 +669,7 @@ def dung_mieng(body, rig, coll):
     t0 = np.linspace(0, 2 * np.pi, N, endpoint=False)
     tt = t0 + 0.25 * np.sin(2 * t0)  # dồn đoạn về hai khóe
     # tiết diện: (dời ra từ khe m, nhô ra trước m) — 0 khe, 1–2 mặt môi, 3 mép môi; 4–8 da (chiếu lên mặt)
-    MOI = [(0.0, 0.0), (0.001, 0.0010), (0.003, 0.0020), (0.005, 0.0010)]
+    MOI = [(0.0, 0.0), (0.001, 0.0), (0.003, 0.0), (0.005, 0.0)]  # chủ repo bỏ phần môi: vòng môi nằm sát da
     f_da = [0.25, 0.42, 0.6, 0.8, 1.0]
     bm = bmesh.new()
     bm.from_mesh(me)
@@ -704,28 +704,28 @@ def dung_mieng(body, rig, coll):
                 f = f_da[k - len(MOI)]
                 ak, bk, nho = a + (A - a) * f, (B_up if tren else B_dn) * f, 0.0
             p = m0 + u * (ak * math.cos(t)) + v * (bk * math.sin(t))
-            if k < len(MOI):  # môi theo nét cười; môi trên có cung nhẹ
+            if k < len(MOI):  # các vòng sát khe theo nét cười
                 p = p + v * (0.004 * math.cos(t) ** 2)
-                if k == 3 and tren:
-                    p = p + v * (0.0012 * math.cos(3 * t) ** 2 * math.sin(t) ** 2)
             ring.append(bm.verts.new(len_mat(p) + Vector(w) * nho))
         rings.append(ring)
+    # mặt gốc lệch hai bên tới ~8 mm theo chiều sâu: lấy trung bình độ sâu với đỉnh đối xứng ở các vòng trong,
+    # hòa dần về độ sâu thật ở vòng ngoài để vẫn bám da (miệng đối xứng, khẩu hình không gấp riêng một bên)
+    hoa_vong = [1, 1, 1, 1, 1, 1, 0.66, 0.33, 0.0]
+    for k, ring in enumerate(rings):
+        ys = [q.co.y for q in ring]
+        for j, q in enumerate(ring):
+            j_g = (N // 2 - j) % N
+            q.co.y = ys[j] + hoa_vong[k] * ((ys[j] + ys[j_g]) / 2 - ys[j])
     trong = [bm.verts.new(q.co - Vector(w) * 0.004) for q in rings[0]]
     mat_trong = bpy.data.materials.get('Nu_TrongMieng') or mat_phang('Nu_TrongMieng', (0.35, 0.06, 0.07, 1), 0.5)
     if 'Nu_TrongMieng' not in [x.name for x in me.materials]:
         me.materials.append(mat_trong)
     mi_trong = [x.name for x in me.materials].index('Nu_TrongMieng')
-    mat_moi = bpy.data.materials.get('Nu_Moi') or mat_phang('Nu_Moi', tuple(float(x) for x in np.median(Cc[l > 0.55], 0) * np.array([1.0, 0.82, 0.82])) + (1,), 0.45)
-    if 'Nu_Moi' not in [x.name for x in me.materials]:
-        me.materials.append(mat_moi)
-    mi_moi = [x.name for x in me.materials].index('Nu_Moi')
     moi = []
     for k in range(len(rings) - 1):
         for j in range(N):
             j2 = (j + 1) % N
             f = bm.faces.new((rings[k][j], rings[k][j2], rings[k + 1][j2], rings[k + 1][j]))
-            if k < len(MOI) - 1:
-                f.material_index = mi_moi
             moi.append(f)
     for j in range(N):  # thành trong môi; bỏ mặt ở khóe (khe khép)
         j2 = (j + 1) % N
