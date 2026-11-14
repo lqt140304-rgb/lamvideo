@@ -1,14 +1,22 @@
-"""NAM — QUẦN ÁO 3D DÁNG RỘNG (OVERSIZED / RELAXED STREETWEAR FIT).
+"""NAM & TÙNG — QUẦN ÁO 3D DÁNG RỘNG (OVERSIZED / RELAXED STREETWEAR FIT — 10 BỘ).
 
 Thiết kế: THIET-KE-QUAN-AO.md · Kế hoạch: KE-HOACH-QUAN-AO.md
 Thân cơ sở: dung_than_cage_nam.py (Control Cage 1,60 m).
 
 Chạy:
-  D:/blender/blender.exe -b --factory-startup --python dung_quan_ao_nam.py -- [--outfit xanh|ngu|xam-tui|dong-phuc|the-thao|all] [--check] [--render DIR] [--blend FILE] [--samples N]
+  D:/blender/blender.exe -b --factory-startup --python dung_quan_ao_nam.py -- [--outfit <tên|all>] [--check] [--render DIR] [--blend FILE] [--samples N]
 
-Cấu trúc:
-  03_Clothes: Nam_Ao, Nam_CoAo, Nam_Quan, Nam_Dep.L/.R (+ chi tiết theo bộ đồ: Nam_TuiAo, Nam_NepCuc, Nam_PhuHieu, Nam_VienTay, Nam_SocQuan).
-  Dáng áo boxy/drop-shoulder rộng thoải mái, tay lửng rộng; quần ống suông rộng (hoặc quần đùi rộng cho bộ ngủ/thể thao).
+Danh sách 10 bộ trang phục (--outfit):
+  1. xanh         : Áo phông xanh rêu boxy + Quần dài suông xám (Nam chính)
+  2. ngu          : Áo ngủ xám nhạt cổ rộng + Quần đùi rộng
+  3. xam-tui      : Áo phông xám có túi ngực trái + Quần dài suông
+  4. dong-phuc    : Sơ mi trắng cổ bẻ, nẹp 4 cúc, phù hiệu + Quần âu xanh than
+  5. the-thao     : Áo cam cổ tim viền trắng + Quần đùi sọc trắng
+  6. hoodie       : Hoodie oversized tay dài, mũ trùm, túi kangaroo + Quần jogger rộng
+  7. khoac-gio    : Áo khoác gió oversized 2 lớp phối màu + Áo thun trong + Quần suông
+  8. so-mi-khoac  : Layering sơ mi đũi khoác mở ngoài áo thun trắng + Quần kaki suông kem
+  9. sweatshirt   : Áo nỉ Sweatshirt oversized tay dài màu be + Quần ống rộng nâu đậm
+ 10. tung-bong-da : Đồ đá bóng Tùng (Jersey xanh navy viền trắng + Quần đùi sọc + Tất cao)
 """
 import sys, os, math, argparse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -22,42 +30,77 @@ import dung_than_cage_nam as C
 CLOTH_COLL = '03_Clothes'
 SOLE_H = 0.015  # chiều cao đế dép (m)
 
-# ================================================================== 5 BỘ TRANG PHỤC CHUẨN
+# ================================================================== 10 BỘ TRANG PHỤC CHUẨN
 OUTFITS = {
     'xanh': dict(
         ten='Thường nhật (Áo xanh rêu + Quần xám ống rộng)',
         shirt='#5c7a70', collar='#4f6960', pants='#515451',
         sandal='#425850', sole='#353937',
-        collar_type='crew', pants_len='long',
-        pocket=False, badge=False, placket=False, sleeve_trim=None, stripe=None,
+        collar_type='crew', sleeve_len='short', pants_len='long',
+        pocket=False, badge=False, placket=False,
     ),
     'ngu': dict(
         ten='Đồ ngủ ở phòng (Áo xám nhạt + Quần đùi rộng)',
         shirt='#8a8783', collar='#7c7975', pants='#454746',
         sandal='#425850', sole='#353937',
-        collar_type='wide_crew', pants_len='short',
-        pocket=False, badge=False, placket=False, sleeve_trim=None, stripe=None,
+        collar_type='wide_crew', sleeve_len='short', pants_len='short',
+        pocket=False, badge=False, placket=False,
     ),
     'xam-tui': dict(
         ten='Áo xám túi ngực + Quần dài suông',
         shirt='#a7a8a0', collar='#96978f', pants='#515451',
         sandal='#425850', sole='#353937',
-        collar_type='crew', pants_len='long',
-        pocket=True, badge=False, placket=False, sleeve_trim=None, stripe=None,
+        collar_type='crew', sleeve_len='short', pants_len='long',
+        pocket=True, badge=False, placket=False,
     ),
     'dong-phuc': dict(
         ten='Đồng phục giảng đường (Sơ mi trắng + Quần âu xanh than)',
         shirt='#f3f0e6', collar='#eae6da', pants='#2f3b53',
         sandal='#3b4048', sole='#26292e',
-        collar_type='polo_shirt', pants_len='long',
-        pocket=True, badge='#3f6aa1', placket=True, sleeve_trim=None, stripe=None,
+        collar_type='polo_shirt', sleeve_len='short', pants_len='long',
+        pocket=True, badge='#3f6aa1', placket=True,
     ),
     'the-thao': dict(
         ten='Đồ thể thao (Áo cam viền trắng + Quần đùi sọc)',
         shirt='#d4673f', collar='#f6efe0', pants='#2c3138',
         sandal='#3a3f47', sole='#22252a',
-        collar_type='vneck', pants_len='short',
+        collar_type='vneck', sleeve_len='short', pants_len='short',
         pocket=False, badge=False, placket=False, sleeve_trim='#f6efe0', stripe='#f6efe0',
+    ),
+    'hoodie': dict(
+        ten='Hoodie Oversized tay dài (Mũ trùm + Túi kangaroo + Jogger rộng)',
+        shirt='#3a434d', collar='#313942', pants='#2b2d30',
+        sandal='#2f3337', sole='#1d2023',
+        collar_type='hoodie', sleeve_len='long', pants_len='jogger',
+        hood=True, kangaroo=True, cuff_rib=True,
+    ),
+    'khoac-gio': dict(
+        ten='Áo khoác gió Oversized 2 lớp + Áo thun trong + Quần suông',
+        shirt='#3b4d44', collar='#2f3d36', inner_shirt='#ebe8df', pants='#36383a',
+        sandal='#353937', sole='#1f2120',
+        collar_type='stand_zip', sleeve_len='long', pants_len='long',
+        open_jacket=True, zipper='#c8ccd0', cuff_rib=True,
+    ),
+    'so-mi-khoac': dict(
+        ten='Layering Sơ mi đũi khoác mở + Áo thun trắng + Quần kaki kem',
+        shirt='#8b735b', collar='#7a644e', inner_shirt='#f2efe8', pants='#c8bfa8',
+        sandal='#4e4237', sole='#2f2821',
+        collar_type='polo_shirt', sleeve_len='short', pants_len='long',
+        open_jacket=True, pocket=True,
+    ),
+    'sweatshirt': dict(
+        ten='Sweatshirt Oversized tay dài màu be + Quần ống rộng nâu đậm',
+        shirt='#d6cbb9', collar='#c4b8a5', pants='#403a35',
+        sandal='#423c36', sole='#26221f',
+        collar_type='crew', sleeve_len='long', pants_len='long',
+        cuff_rib=True,
+    ),
+    'tung-bong-da': dict(
+        ten='Đồ đá bóng Tùng (Jersey xanh navy viền trắng + Quần đùi + Tất cao)',
+        shirt='#1d4e89', collar='#f8f3e7', pants='#142842',
+        sandal='#f8f3e7', sole='#1a1c1e',
+        collar_type='vneck', sleeve_len='short', pants_len='short',
+        sleeve_trim='#f8f3e7', stripe='#f8f3e7', high_socks='#1d4e89',
     ),
 }
 
@@ -127,24 +170,33 @@ def _ensure_coll(sc, name):
 
 
 # ================================================================== THÔNG SỐ CAGE DÁNG RỘNG (OVERSIZED)
-def _shirt_levels(wide_neck=False):
+def _shirt_levels(wide_neck=False, extra_margin=0.0):
     """Lát cắt thân áo dáng boxy / drop-shoulder (mở rộng từ CAGE_LEVELS)."""
     d_neck = 0.012 if wide_neck else 0.0
+    m = extra_margin
     return [
-        dict(ten='co_ao',     z=0.892 - d_neck * 0.5, w=0.095 + d_neck, f=0.092 + d_neck, b=0.072, n=2.0, yc=-0.012),
-        dict(ten='vai_ao',    z=0.842, w=0.224, f=0.142, b=0.120, n=2.2, yc=0.0),
-        dict(ten='nguc_ao',   z=0.775, w=0.190, f=0.160, b=0.120, n=2.2, yc=0.0),
-        dict(ten='duoi_nguc', z=0.690, w=0.184, f=0.188, b=0.126, n=2.2, yc=0.0),
-        dict(ten='bung_ao',   z=0.630, w=0.192, f=0.204, b=0.136, n=2.2, yc=0.0),
-        dict(ten='eo_ao',     z=0.560, w=0.198, f=0.204, b=0.156, n=2.2, yc=0.0),
-        dict(ten='gau_ao',    z=0.485, w=0.204, f=0.196, b=0.162, n=2.2, yc=0.0),
+        dict(ten='co_ao',     z=0.892 - d_neck * 0.5, w=0.095 + d_neck + m * 0.4, f=0.092 + d_neck + m * 0.4, b=0.072 + m * 0.4, n=2.0, yc=-0.012),
+        dict(ten='vai_ao',    z=0.842 + m * 0.2, w=0.224 + m, f=0.142 + m, b=0.120 + m, n=2.2, yc=0.0),
+        dict(ten='nguc_ao',   z=0.775, w=0.190 + m, f=0.160 + m, b=0.120 + m, n=2.2, yc=0.0),
+        dict(ten='duoi_nguc', z=0.690, w=0.184 + m, f=0.188 + m, b=0.126 + m, n=2.2, yc=0.0),
+        dict(ten='bung_ao',   z=0.630, w=0.192 + m, f=0.204 + m, b=0.136 + m, n=2.2, yc=0.0),
+        dict(ten='eo_ao',     z=0.560, w=0.198 + m, f=0.204 + m, b=0.156 + m, n=2.2, yc=0.0),
+        dict(ten='gau_ao',    z=0.485, w=0.204 + m, f=0.196 + m, b=0.162 + m, n=2.2, yc=0.0),
     ]
 
 
-SLEEVE_RINGS = [
+SLEEVE_RINGS_SHORT = [
     dict(ten='tay_vai',  c=(0.202, 0.000, 0.720), rx=0.080, ry=0.082, ax=(0.7071, 0.0, -0.7071)),
     dict(ten='tay_giua', c=(0.214, -0.002, 0.665), rx=0.082, ry=0.082),
     dict(ten='tay_gau',  c=(0.224, -0.004, 0.625), rx=0.084, ry=0.084),
+]
+
+SLEEVE_RINGS_LONG = [
+    dict(ten='tay_vai',   c=(0.202, 0.000, 0.720), rx=0.084, ry=0.086, ax=(0.7071, 0.0, -0.7071)),
+    dict(ten='tay_giua',  c=(0.214, -0.002, 0.665), rx=0.084, ry=0.084),
+    dict(ten='tay_khuyu', c=(0.224, -0.004, 0.610), rx=0.080, ry=0.080),
+    dict(ten='tay_cang',  c=(0.232, -0.006, 0.560), rx=0.074, ry=0.074),
+    dict(ten='tay_bo',    c=(0.236, -0.008, 0.515), rx=0.062, ry=0.062),
 ]
 
 
@@ -159,7 +211,6 @@ def _level_ring_custom(L):
         y = L['yc'] - L['f'] * abs(c) ** e if c >= 0 else L['yc'] + L['b'] * abs(c) ** e
         z = L['z']
         if L['ten'] == 'co_ao':
-            # Cổ trước (-Y, k=0) trễ xuống 2.2 cm, cổ sau (k=6) cao hơn 0.8 cm
             z += -0.022 * max(0.0, c) + 0.008 * max(0.0, -c)
         pts.append(Vector((x, y, z)))
     return pts
@@ -178,18 +229,16 @@ def _apply_cloth_mods(ob, thickness=0.003, levels=2):
 
     sol = ob.modifiers.new('Solidify', 'SOLIDIFY')
     sol.thickness = thickness
-    sol.offset = 1.0  # dày hướng ra ngoài để không bao giờ ăn vào da
+    sol.offset = 1.0
     sol.use_rim = True
     for p in ob.data.polygons:
         p.use_smooth = True
 
 
-# ================================================================== DỰNG ÁO & CHI TIẾT
-def build_shirt(coll, cfg, mats):
-    """Áo dáng rộng boxy / drop-shoulder, tay lửng rộng."""
-    wide_neck = (cfg['collar_type'] == 'wide_crew')
-    lv = _shirt_levels(wide_neck=wide_neck)
-    iv, ing, idn = 1, 2, 3  # vai_ao, nguc_ao, duoi_nguc
+def _build_shirt_shell(name, coll, mat, wide_neck=False, sleeve_len='short', extra_margin=0.0, open_front=False):
+    """Hàm lõi dựng một lớp áo từ Control Cage (dùng cho áo đơn và áo khoác mở ngoài)."""
+    lv = _shirt_levels(wide_neck=wide_neck, extra_margin=extra_margin)
+    iv, ing, idn = 1, 2, 3
 
     bm = bmesh.new()
     V = []
@@ -199,47 +248,70 @@ def build_shirt(coll, cfg, mats):
             if i == ing and k == 3:
                 row.append(None)
                 continue
-            row.append(bm.verts.new(p))
+            # Nếu là áo khoác mở cúc (open_front), tách nhẹ cột k=0 ra khỏi trục giữa x=0 thành x = 0.024 m
+            co = p.copy()
+            if open_front and k == 0:
+                co.x = 0.024
+            row.append(bm.verts.new(co))
         V.append(row)
-
-    def quad(a, b, c, d):
-        bm.faces.new((a, d, c, b))
 
     for i in range(len(lv) - 1):
         for k in range(6):
             if i in (iv, ing) and k in (2, 3):
                 continue
-            quad(V[i][k], V[i][k + 1], V[i + 1][k + 1], V[i + 1][k])
+            bm.faces.new((V[i][k], V[i + 1][k], V[i + 1][k + 1], V[i][k + 1]))
 
-    # Ống tay áo rộng (mở ở gấu tay)
+    rings_src = SLEEVE_RINGS_LONG if sleeve_len == 'long' else SLEEVE_RINGS_SHORT
     hole = [V[iv][3], V[iv][2], V[ing][2], V[idn][2], V[idn][3], V[idn][4], V[ing][4], V[iv][4]]
-    cs = [sum((v.co for v in hole), Vector()) / 8] + [Vector(r['c']) for r in SLEEVE_RINGS]
+    cs = [sum((v.co for v in hole), Vector()) / 8] + [Vector(r['c']) for r in rings_src]
     prev = hole
     sleeve_end = None
-    for n_, r in enumerate(SLEEVE_RINGS):
+    for n_, r in enumerate(rings_src):
         nxt = cs[n_ + 2] if n_ + 2 < len(cs) else cs[n_ + 1] + (cs[n_ + 1] - cs[n_])
-        ring = [bm.verts.new(p) for p in C.limb_ring(r['c'], cs[n_], nxt, r['rx'], r['ry'], r.get('ax'))]
+        ring = [bm.verts.new(p) for p in C.limb_ring(r['c'], cs[n_], nxt, r['rx'] + extra_margin, r['ry'] + extra_margin, r.get('ax'))]
         for j in range(8):
             bm.faces.new((prev[j], ring[j], ring[(j + 1) % 8], prev[(j + 1) % 8]))
         prev = ring
         sleeve_end = ring
 
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
-    ob = D.new_obj('Nam_Ao', bm, coll, mats['shirt'])
+    ob = D.new_obj(name, bm, coll, mat)
     _apply_cloth_mods(ob, thickness=0.003, levels=2)
+    return ob, lv, sleeve_end
 
+
+# ================================================================== DỰNG ÁO & CHI TIẾT
+def build_shirt(coll, cfg, mats):
+    """Dựng áo (đơn hoặc layering 2 lớp) + cổ áo, mũ hoodie, túi kangaroo, khóa kéo, nẹp cúc."""
     extras = []
+    open_front = bool(cfg.get('open_jacket'))
+    extra_m = 0.011 if open_front else 0.0
+
+    # Nếu là áo khoác mở (khoac-gio, so-mi-khoac), dựng thêm áo thun lót bên trong
+    if open_front and mats.get('inner'):
+        inner_ob, _, _ = _build_shirt_shell(
+            'Nam_AoTrong', coll, mats['inner'],
+            wide_neck=False, sleeve_len='short', extra_margin=0.0, open_front=False,
+        )
+        extras.append(inner_ob)
+
+    ob, lv, sleeve_end = _build_shirt_shell(
+        'Nam_Ao', coll, mats['shirt'],
+        wide_neck=(cfg['collar_type'] == 'wide_crew'),
+        sleeve_len=cfg.get('sleeve_len', 'short'),
+        extra_margin=extra_m,
+        open_front=open_front,
+    )
 
     # 1. Cổ áo
-    if cfg['collar_type'] in ('crew', 'wide_crew', 'vneck'):
+    ctype = cfg['collar_type']
+    if ctype in ('crew', 'wide_crew', 'vneck', 'hoodie'):
         bm_c = bmesh.new()
         L0 = lv[0]
         pts = _level_ring_custom(L0)
-        # Dựng vành bo cổ ôm sát miệng cổ áo
         n_seg, m_seg, r_tube = len(pts), 8, 0.0075
         ring_verts = []
         for idx, p in enumerate(pts):
-            # Hướng hướng tâm từ trục cổ
             rad = Vector((p.x, p.y - L0['yc'], 0.0)).normalized()
             if rad.length < 1e-4:
                 rad = Vector((0, -1 if idx == 0 else 1, 0))
@@ -266,13 +338,16 @@ def build_shirt(coll, cfg, mats):
             p.use_smooth = True
         extras.append(co)
 
-    elif cfg['collar_type'] == 'polo_shirt':
-        # Cổ bẻ sơ mi cho đồng phục
+    elif ctype in ('polo_shirt', 'stand_zip'):
+        # Cổ bẻ sơ mi hoặc cổ đứng áo khoác
         bm_c = bmesh.new()
         L0 = lv[0]
         pts = _level_ring_custom(L0)
-        top_v = [bm_c.verts.new(p + Vector((0, 0, 0.018))) for p in pts]
-        out_v = [bm_c.verts.new(p + Vector((p.x * 0.28, (p.y - L0['yc']) * 0.28, -0.012))) for p in pts]
+        h_top = 0.032 if ctype == 'stand_zip' else 0.018
+        h_out = 0.028 if ctype == 'stand_zip' else -0.012
+        out_k = 0.06 if ctype == 'stand_zip' else 0.28
+        top_v = [bm_c.verts.new((Vector((0.024, p.y, p.z)) if (open_front and idx == 0) else p) + Vector((0, 0, h_top))) for idx, p in enumerate(pts)]
+        out_v = [bm_c.verts.new((Vector((0.024, p.y, p.z)) if (open_front and idx == 0) else p) + Vector((p.x * out_k, (p.y - L0['yc']) * out_k, h_out))) for idx, p in enumerate(pts)]
         for i in range(len(pts) - 1):
             bm_c.faces.new((top_v[i], out_v[i], out_v[i + 1], top_v[i + 1]))
         bmesh.ops.recalc_face_normals(bm_c, faces=bm_c.faces[:])
@@ -280,10 +355,39 @@ def build_shirt(coll, cfg, mats):
         _apply_cloth_mods(co, thickness=0.0025, levels=1)
         extras.append(co)
 
-    # 2. Viền gấu tay áo (đồ thể thao)
-    if cfg.get('sleeve_trim') and sleeve_end:
+    # 2. Mũ trùm đầu Hoodie rủ sau gáy
+    if cfg.get('hood'):
+        bm_h = bmesh.new()
+        bmesh.ops.create_uvsphere(bm_h, u_segments=16, v_segments=10, radius=1.0)
+        for v in bm_h.verts:
+            # Ép thành khối mũ vải rủ mềm sau gáy (y > 0.04, z = 0.85..1.04)
+            v.co = Vector((v.co.x * 0.135, 0.125 + v.co.y * 0.075, 0.935 + v.co.z * 0.085))
+        hood = D.new_obj('Nam_MuHoodie', bm_h, coll, mats['shirt'])
+        s = hood.modifiers.new('Subsurf', 'SUBSURF')
+        s.levels = 1
+        s.render_levels = 1
+        for p in hood.data.polygons:
+            p.use_smooth = True
+        extras.append(hood)
+
+    # 3. Túi Kangaroo trước bụng Hoodie
+    if cfg.get('kangaroo'):
+        bm_k = bmesh.new()
+        bmesh.ops.create_cube(bm_k, size=1.0)
+        for v in bm_k.verts:
+            v.co = Vector((v.co.x * 0.240, -0.205 + v.co.y * 0.018, 0.560 + v.co.z * 0.115))
+        kg = D.new_obj('Nam_TuiKangaroo', bm_k, coll, mats['collar'])
+        bv = kg.modifiers.new('Bevel', 'BEVEL')
+        bv.width = 0.006
+        bv.segments = 3
+        for p in kg.data.polygons:
+            p.use_smooth = True
+        extras.append(kg)
+
+    # 4. Viền gấu tay áo (đồ thể thao / bo tay áo dài)
+    if (cfg.get('sleeve_trim') or cfg.get('cuff_rib')) and sleeve_end:
         bm_t = bmesh.new()
-        r_trim = 0.005
+        r_trim = 0.006 if cfg.get('cuff_rib') else 0.005
         ring_v = []
         c_end = sum((v.co for v in sleeve_end), Vector()) / 8
         for v in sleeve_end:
@@ -300,19 +404,20 @@ def build_shirt(coll, cfg, mats):
                 jn = (j + 1) % 8
                 bm_t.faces.new((ring_v[i][j], ring_v[inxt][j], ring_v[inxt][jn], ring_v[i][jn]))
         bmesh.ops.recalc_face_normals(bm_t, faces=bm_t.faces[:])
-        vt = D.new_obj('Nam_VienTay', bm_t, coll, mats['trim'])
+        vt = D.new_obj('Nam_VienTay', bm_t, coll, mats.get('trim') or mats['collar'])
         m = vt.modifiers.new('Mirror', 'MIRROR')
         m.use_axis = (True, False, False)
         for p in vt.data.polygons:
             p.use_smooth = True
         extras.append(vt)
 
-    # 3. Túi ngực trái (+X, -Y) cho xam-tui & dong-phuc
+    # 5. Túi ngực trái (+X, -Y) cho xam-tui, dong-phuc, so-mi-khoac
     if cfg.get('pocket'):
         bm_p = bmesh.new()
         bmesh.ops.create_cube(bm_p, size=1.0)
+        y_off = -0.184 if open_front else -0.172
         for v in bm_p.verts:
-            v.co = Vector((0.088 + v.co.x * 0.058, -0.172 + v.co.y * 0.006, 0.725 + v.co.z * 0.068))
+            v.co = Vector((0.088 + v.co.x * 0.058, y_off + v.co.y * 0.006, 0.725 + v.co.z * 0.068))
         tui = D.new_obj('Nam_TuiAo', bm_p, coll, mats['collar'])
         bv = tui.modifiers.new('Bevel', 'BEVEL')
         bv.width = 0.002
@@ -327,7 +432,7 @@ def build_shirt(coll, cfg, mats):
             ph = D.new_obj('Nam_PhuHieu', bm_b, coll, mats['badge'])
             extras.append(ph)
 
-    # 4. Nẹp cúc áo sơ mi (dong-phuc)
+    # 6. Nẹp cúc áo sơ mi (dong-phuc)
     if cfg.get('placket'):
         bm_k = bmesh.new()
         bmesh.ops.create_cube(bm_k, size=1.0)
@@ -364,6 +469,14 @@ PANTS_LEG_LONG = [
     dict(ten='gau_quan', c=(0.094, 0.002, 0.120), rx=0.095, ry=0.098),
 ]
 
+PANTS_LEG_JOGGER = [
+    dict(ten='dui_tren', c=(0.097, 0.000, 0.400), rx=0.108, ry=0.110),
+    dict(ten='dui_giua', c=(0.099, 0.000, 0.320), rx=0.104, ry=0.106),
+    dict(ten='goi_quan', c=(0.099, -0.002, 0.240), rx=0.096, ry=0.098),
+    dict(ten='ong_duoi', c=(0.096, 0.002, 0.165), rx=0.086, ry=0.088),
+    dict(ten='bo_co_chan', c=(0.094, 0.002, 0.120), rx=0.074, ry=0.076),
+]
+
 PANTS_LEG_SHORT = [
     dict(ten='dui_tren', c=(0.097, 0.000, 0.400), rx=0.106, ry=0.108),
     dict(ten='dui_giua', c=(0.099, 0.000, 0.325), rx=0.104, ry=0.106),
@@ -372,7 +485,7 @@ PANTS_LEG_SHORT = [
 
 
 def build_pants(coll, cfg, mats):
-    """Quần ống suông rộng (dài hoặc đùi), mở cạp và mở gấu hai ống."""
+    """Quần ống suông rộng (dài, jogger hoặc đùi), mở cạp và mở gấu hai ống."""
     lv = _pants_levels()
     bm = bmesh.new()
     V = []
@@ -383,12 +496,12 @@ def build_pants(coll, cfg, mats):
         for k in range(6):
             bm.faces.new((V[i][k], V[i + 1][k], V[i + 1][k + 1], V[i][k + 1]))
 
-    # Đũng quần hạ thấp (z = 0.425 m, thấp hơn đũng thật 2.5 cm)
     L_bot = lv[-1]
     hang = bm.verts.new((0.0, (L_bot['b'] - L_bot['f']) / 2, 0.425))
     loop = [V[-1][3], V[-1][2], V[-1][1], V[-1][0], hang, V[-1][6], V[-1][5], V[-1][4]]
 
-    rings = PANTS_LEG_LONG if cfg['pants_len'] == 'long' else PANTS_LEG_SHORT
+    plen = cfg.get('pants_len', 'long')
+    rings = PANTS_LEG_SHORT if plen == 'short' else (PANTS_LEG_JOGGER if plen == 'jogger' else PANTS_LEG_LONG)
     cs = [sum((v.co for v in loop), Vector()) / 8] + [Vector(r['c']) for r in rings]
     prev = loop
     for n_, r in enumerate(rings):
@@ -404,7 +517,6 @@ def build_pants(coll, cfg, mats):
 
     extras = []
     if cfg.get('stripe'):
-        # Sọc trắng hai bên hông quần thể thao
         bm_s = bmesh.new()
         bmesh.ops.create_cube(bm_s, size=1.0)
         for v in bm_s.verts:
@@ -413,6 +525,28 @@ def build_pants(coll, cfg, mats):
         m = st.modifiers.new('Mirror', 'MIRROR')
         m.use_axis = (True, False, False)
         extras.append(st)
+
+    if cfg.get('high_socks') and mats.get('socks'):
+        # Tất cao cổ bóng đá cho Tùng (z = 0.105..0.240)
+        bm_t = bmesh.new()
+        sock_rings = [
+            dict(c=(0.098, -0.001, 0.240), rx=0.070, ry=0.070),
+            dict(c=(0.097, 0.002, 0.180), rx=0.069, ry=0.070),
+            dict(c=(0.094, 0.002, 0.110), rx=0.068, ry=0.069),
+        ]
+        cs_s = [Vector((0.098, -0.001, 0.280))] + [Vector(r['c']) for r in sock_rings]
+        prev_s = None
+        for n_, r in enumerate(sock_rings):
+            nxt = cs_s[n_ + 2] if n_ + 2 < len(cs_s) else cs_s[n_ + 1] + (cs_s[n_ + 1] - cs_s[n_])
+            ring = [bm_t.verts.new(p) for p in C.limb_ring(r['c'], cs_s[n_], nxt, r['rx'], r['ry'])]
+            if prev_s:
+                for j in range(8):
+                    bm_t.faces.new((prev_s[j], ring[j], ring[(j + 1) % 8], prev_s[(j + 1) % 8]))
+            prev_s = ring
+        bmesh.ops.recalc_face_normals(bm_t, faces=bm_t.faces[:])
+        sk = D.new_obj('Nam_TatCao', bm_t, coll, mats['socks'])
+        _apply_cloth_mods(sk, thickness=0.002, levels=1)
+        extras.append(sk)
 
     return ob, extras
 
@@ -487,7 +621,7 @@ def build_sandals(coll, mats, feet_objs):
     return out
 
 
-# ================================================================== HÀM DỰNG CHÍNH
+# ================================================================== HÀM DỰNG CHÍNH & GẮN RIG
 def build_clothes(sc, outfit='xanh', lift_for_sandals=True):
     """Dựng đầy đủ bộ quần áo cho thân Control Cage trong scene `sc`."""
     if outfit not in OUTFITS:
@@ -501,9 +635,11 @@ def build_clothes(sc, outfit='xanh', lift_for_sandals=True):
         'pants': mat_cloth(f'Nam_Quan_{outfit}', cfg['pants']),
         'sandal': mat_simple(f'Nam_Dep_{outfit}', cfg['sandal'], rough=0.78),
         'sole': mat_simple(f'Nam_DeDep_{outfit}', cfg['sole'], rough=0.88),
+        'inner': mat_cloth(f'Nam_AoTrong_{outfit}', cfg['inner_shirt']) if cfg.get('inner_shirt') else None,
         'badge': mat_cloth('Nam_PhuHieu', cfg['badge']) if cfg.get('badge') else None,
-        'trim': mat_cloth('Nam_VienTheThao', cfg['sleeve_trim']) if cfg.get('sleeve_trim') else None,
-        'stripe': mat_cloth('Nam_SocQuan', cfg['stripe']) if cfg.get('stripe') else None,
+        'trim': mat_cloth(f'Nam_Vien_{outfit}', cfg['sleeve_trim']) if cfg.get('sleeve_trim') else None,
+        'stripe': mat_cloth(f'Nam_Soc_{outfit}', cfg['stripe']) if cfg.get('stripe') else None,
+        'socks': mat_cloth(f'Nam_Tat_{outfit}', cfg['high_socks']) if cfg.get('high_socks') else None,
     }
 
     shirt, shirt_extras = build_shirt(coll, cfg, mats)
@@ -512,7 +648,6 @@ def build_clothes(sc, outfit='xanh', lift_for_sandals=True):
     sandals = build_sandals(coll, mats, feet)
 
     if lift_for_sandals:
-        # Nâng nhân vật và áo quần lên bằng độ dày đế dép để mặt dưới đế chạm sàn Z=0
         to_lift = [bpy.data.objects.get('Nam_Dau_Than'), feet.get('Nam_BanChan.L'), feet.get('Nam_BanChan.R'),
                    shirt, pants] + shirt_extras + pants_extras
         for ob in to_lift:
@@ -529,7 +664,6 @@ def bind_clothes_to_rig(rig_ob, body_ob, clothes):
     for ob in cloth_objs:
         if not ob:
             continue
-        # Áp Mirror và Subsurf trước khi chuyển trọng số; giữ Solidify sau Armature để vải không mất độ dày
         for mod_name in ('Mirror', 'Subsurf'):
             md = ob.modifiers.get(mod_name)
             if md:
@@ -547,14 +681,12 @@ def bind_clothes_to_rig(rig_ob, body_ob, clothes):
         arm = ob.modifiers.new('Armature', 'ARMATURE')
         arm.object = rig_ob
         arm.use_vertex_groups = True
-        # Đưa Armature lên trước Solidify
         if 'Solidify' in ob.modifiers:
             bpy.ops.object.modifier_move_to_index(modifier=arm.name, index=0)
         cs = ob.modifiers.new('CorrectiveSmooth', 'CORRECTIVE_SMOOTH')
         cs.smooth_type = 'LENGTH_WEIGHTED'
         cs.iterations = 4
 
-    # Gắn dép theo xương foot.L / foot.R
     for ob in clothes.get('sandals', []):
         side = 'L' if ob.name.endswith('.L') else ('R' if ob.name.endswith('.R') else None)
         if side and f'foot.{side}' in rig_ob.data.bones:
@@ -587,7 +719,6 @@ def check_clothes(sc):
     bvh_body = BVHTree.FromObject(body, dg)
 
     def is_inside_body(pt):
-        # Đếm số lần giao tia hướng +X (ray parity) để biết điểm có nằm bên trong mesh kín Nam_Dau_Than không
         hits, p = 0, pt.copy()
         d = Vector((1.0, 0.0, 0.0))
         while True:
@@ -636,7 +767,7 @@ def report(res):
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
     ap = argparse.ArgumentParser()
-    ap.add_argument('--outfit', default='xanh', help='xanh | ngu | xam-tui | dong-phuc | the-thao | all')
+    ap.add_argument('--outfit', default='xanh', help='Tên bộ đồ hoặc "all" để dựng cả 10 bộ')
     ap.add_argument('--check', action='store_true')
     ap.add_argument('--render', default='')
     ap.add_argument('--blend', default='')
@@ -644,7 +775,6 @@ if __name__ == '__main__':
     ap.add_argument('--no-sandal-lift', action='store_true')
     a = ap.parse_args(argv)
 
-    # Dựng nhân vật Control Cage cơ sở
     sc = C.build_old()
     cb = bpy.data.collections[C.NEW_COLL]
     C.split_hands_feet(bpy.data.objects['Nam_Than_goc'], cb)
@@ -656,7 +786,6 @@ if __name__ == '__main__':
     all_ok = True
     for idx, name in enumerate(targets):
         print(f'\n=== DỰNG TRANG PHỤC: {name} ({OUTFITS[name]["ten"]}) ===')
-        # Chỉ nâng đế dép ở lượt đầu nếu chạy 'all'
         build_clothes(sc, outfit=name, lift_for_sandals=(not a.no_sandal_lift and idx == 0))
         if a.check:
             ok = report(check_clothes(sc))

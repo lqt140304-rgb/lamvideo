@@ -107,11 +107,15 @@ def test_shirt_over_pants_hem():
 def test_outfits_hex():
     with open('dung_quan_ao_nam.py', 'r', encoding='utf-8') as f:
         src = f.read()
-    for name in ('xanh', 'ngu', 'xam-tui', 'dong-phuc', 'the-thao'):
+    expected = (
+        'xanh', 'ngu', 'xam-tui', 'dong-phuc', 'the-thao',
+        'hoodie', 'khoac-gio', 'so-mi-khoac', 'sweatshirt', 'tung-bong-da',
+    )
+    for name in expected:
         assert f"'{name}': dict(" in src, f'Missing outfit {name}'
     hexes = re.findall(r'#[0-9a-fA-F]{6}', src)
-    assert len(hexes) >= 20, 'Expected full hex palette for 5 outfits'
-    print(f'[PASS] All 5 outfits defined with {len(hexes)} valid hex colors')
+    assert len(hexes) >= 45, f'Expected full hex palette for 10 outfits, got {len(hexes)}'
+    print(f'[PASS] All {len(expected)} outfits defined with {len(hexes)} valid hex colors')
 
 
 if __name__ == '__main__':
