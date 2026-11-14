@@ -24,6 +24,10 @@ Tạo bản sao riêng khi phát triển nhân vật. Giữ mốc nguồn này �
 
 Kích thước nhập khoảng 0,648 × 0,586 × 1,723 m. Có UV và texture 2048 × 2048. LOD0 là một thành phần lưới liên thông: tóc, đầu và thân chưa tách riêng. Chưa có armature, vertex group, animation hoặc shape key.
 
+## Bản đầu trọc (không tóc)
+
+[`nhan-vat-goc-troc.blend`](nhan-vat-goc-troc.blend) (khoảng 16 MB) là lưới nền **bỏ tóc**, có hộp sọ kín, vẫn giữ texture và nốt ruồi. File tạo bằng [`rig-thu/dau_troc.py`](rig-thu/README.md) từ `nhan-vat-goc.blend` và khuôn `nguon/dau-troc-tham-chieu.fbx`; tay buông, chưa rig. Texture đã đóng gói trong file. Ảnh kiểm: [rig-thu/dau-troc.webp](rig-thu/dau-troc.webp). Giấy phép của khuôn chưa xác minh, như bản gốc.
+
 ## Tệp nguồn và truy vết
 
 - ZIP do chủ repo cung cấp: `10349138-1e95-4c55-b7d6-0080f58fc6f9.zip`.
