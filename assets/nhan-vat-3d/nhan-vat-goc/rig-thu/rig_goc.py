@@ -26,12 +26,51 @@ J = dict(
     pelvis=(0, -0.010, 0.50), spine1=(0, -0.005, 0.60), spine2=(0, 0.000, 0.70), chest=(0, 0.005, 0.80),
     neck=(0, 0.010, 0.93), head=(0, 0.005, 1.015), head_top=(0, 0.005, 1.45),
     clav=(0.025, 0.010, 0.905), shoulder=(0.172, 0.018, 0.875), elbow=(0.250, 0.024, 0.705),
-    wrist=(0.279, -0.025, 0.525), hand_end=(0.276, -0.050, 0.400),
+    wrist=(0.279, -0.025, 0.525), hand_end=(0.284, -0.045, 0.462),
     hip=(0.100, -0.015, 0.530), knee=(0.124, -0.030, 0.285), ankle=(0.130, -0.005, 0.100),
     ball=(0.135, -0.150, 0.030), toe=(0.135, -0.250, 0.030),
 )
+VAI_PHU = 0.5           # tỉ lệ góc bắp tay truyền cho xương phụ vai
 HEAD_Z = 1.035          # trên mức này (và cằm) = 100% xương head
 ARM_CUT = (0.17, 0.86)  # loang từ đầu ngón tay, không qua |x|<0,17 hay z>0,86 ⇒ vùng tay (tay chỉ dính thân từ nách z≈0,70 trở lên)
+
+
+# ---- ngón tay: tâm từng ngón theo trục y (đo bằng lát cắt bàn tay; ngón cái đứng riêng ở mặt trong, phía trước) ----
+FINGER_Y = {'index': -0.113, 'middle': -0.061, 'ring': -0.022, 'pinky': 0.019}
+FINGER_SPLIT = (0.42, 0.32, 0.26)      # tỉ lệ chiều dài 3 đốt (gốc → đầu ngón)
+FINGER_CURL = {'index': (50, 70, 45), 'middle': (50, 70, 45), 'ring': (50, 70, 45), 'pinky': (50, 70, 45), 'thumb': (12, 30, 40)}   # độ gập khi nam = 1
+CH = {}                                 # tên ngón → 4 điểm (bên L): gốc, khớp 1, khớp 2, đầu ngón
+
+
+def split_poly(P, fr):
+    P = np.asarray(P, float); L = np.r_[0, np.cumsum(np.linalg.norm(np.diff(P, axis=0), axis=1))]
+    out = []
+    for f in np.r_[0, np.cumsum(fr)]:
+        t = min(f, 1.0) * L[-1]; j = min(np.searchsorted(L, t, side='right') - 1, len(P) - 2)
+        u = (t - L[j]) / max(L[j + 1] - L[j], 1e-9); out.append(P[j] + u * (P[j + 1] - P[j]))
+    return [Vector(p) for p in out]
+
+
+def measure_fingers(co, arm_reg):
+    """Đường tâm 4 ngón và ngón cái bên trái (+X) từ lưới: tâm lát cắt theo z, thêm đầu ngón = đỉnh thấp nhất."""
+    x, y, z = co.T
+    for nm, yc in FINGER_Y.items():
+        band = arm_reg & (x > 0.228) & (np.abs(y - yc) < 0.016) & (z < 0.47) & (z > 0.30)
+        pts = []
+        for zz in np.arange(0.466, 0.380, -0.004):
+            m = band & (np.abs(z - zz) < 0.0018)
+            if m.sum() >= 6: pts.append((x[m].mean(), y[m].mean(), zz))
+        tip = co[band & (np.abs(y - yc) < 0.012)][np.argmin(z[band & (np.abs(y - yc) < 0.012)])]
+        CH[nm] = split_poly(pts + [tuple(tip)], FINGER_SPLIT)
+    band = arm_reg & (x > 0.17) & (x < 0.228) & (y < -0.10) & (z > 0.405) & (z < 0.50)
+    pts = [(0.252, -0.078, 0.505)]
+    for zz in np.arange(0.482, 0.416, -0.004):
+        m = band & (np.abs(z - zz) < 0.0018)
+        if m.sum() >= 6: pts.append((x[m].mean(), y[m].mean(), zz))
+    tip = co[band][np.argmin(z[band])]
+    CH['thumb'] = split_poly(pts + [tuple(tip)], (0.40, 0.32, 0.28))
+    for nm, P in CH.items():
+        print(f'  ngón {nm:6s}: gốc ({P[0].x:.3f},{P[0].y:.3f},{P[0].z:.3f}) → đầu ({P[3].x:.3f},{P[3].y:.3f},{P[3].z:.3f}), dài {sum((P[i + 1] - P[i]).length for i in range(3)) * 1000:.0f} mm')
 
 
 def V(name, s=1):
@@ -51,8 +90,13 @@ def bone_table():
     for s, k in ((1, 'L'), (-1, 'R')):
         A(f'clavicle.{k}', 'chest', V('clav', s), V('shoulder', s))
         A(f'upper_arm.{k}', f'clavicle.{k}', V('shoulder', s), V('elbow', s))
+        A(f'vai_phu.{k}', f'clavicle.{k}', V('shoulder', s), V('shoulder', s).lerp(V('elbow', s), 0.35))
         A(f'forearm.{k}', f'upper_arm.{k}', V('elbow', s), V('wrist', s))
         A(f'hand.{k}', f'forearm.{k}', V('wrist', s), V('hand_end', s))
+        for nm, P in CH.items():
+            M = lambda v: Vector((s * v.x, v.y, v.z))
+            for i in range(3):
+                A(f'{nm}{i + 1}.{k}', f'hand.{k}' if i == 0 else f'{nm}{i}.{k}', M(P[i]), M(P[i + 1]))
         A(f'thigh.{k}', 'pelvis', V('hip', s), V('knee', s))
         A(f'shin.{k}', f'thigh.{k}', V('knee', s), V('ankle', s))
         A(f'foot.{k}', f'shin.{k}', V('ankle', s), V('ball', s))
@@ -77,8 +121,12 @@ def build_armature(sc):
             eb[n].use_connect = (not n.startswith(('thigh', 'clavicle', 'ik_', 'pole_'))) and (eb[n].head - eb[par].tail).length < 1e-5
     # roll: gập khuỷu/gối quanh trục X cục bộ ⇒ đặt trục Z cục bộ của xương tay/chân về −Y (phía trước)
     for k in 'LR':
-        for n in (f'upper_arm.{k}', f'forearm.{k}', f'hand.{k}', f'ik_hand.{k}', f'thigh.{k}', f'shin.{k}'):
+        for n in (f'upper_arm.{k}', f'vai_phu.{k}', f'forearm.{k}', f'hand.{k}', f'ik_hand.{k}', f'thigh.{k}', f'shin.{k}'):
             eb[n].align_roll(Vector((0, -1, 0)))
+        sx = 1 if k == 'L' else -1
+        for nm in CH:
+            for i in (1, 2, 3):        # trục Z cục bộ hướng vào lòng bàn tay (ngón cái: hướng về các ngón)
+                eb[f'{nm}{i}.{k}'].align_roll(Vector((sx, 0.7, 0)) if nm == 'thumb' else Vector((-sx, 0, 0)))
     bpy.ops.object.mode_set(mode='POSE'); pb = ob.pose.bones
     for b in pb: b.rotation_mode = 'XYZ'
     for k in 'LR':
@@ -96,15 +144,44 @@ def build_armature(sc):
             v = d.variables.new(); v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["ik_hand.{k}"]["ik"]'
     bpy.ops.object.mode_set(mode='OBJECT')
     calibrate_poles(ob)
+    finger_drivers(ob)
+    for k in 'LR':      # xương phụ vai: theo một nửa góc xoay của bắp tay ⇒ khớp vai gập trên dải rộng hơn
+        c = ob.pose.bones[f'vai_phu.{k}'].constraints.new('COPY_ROTATION'); c.target = ob; c.subtarget = f'upper_arm.{k}'
+        c.owner_space = c.target_space = 'LOCAL'; c.influence = VAI_PHU
     groups = {'Than': ('root', 'pelvis', 'spine1', 'spine2', 'chest', 'neck', 'head'),
-              'Tay_FK': tuple(f'{n}.{k}' for k in 'LR' for n in ('clavicle', 'upper_arm', 'forearm', 'hand')),
+              'Tay_FK': tuple(f'{n}.{k}' for k in 'LR' for n in ('clavicle', 'upper_arm', 'forearm', 'hand', 'vai_phu')),
               'Tay_IK': tuple(f'{n}.{k}' for k in 'LR' for n in ('ik_hand', 'pole_elbow')),
               'Chan_IK': tuple(f'{n}.{k}' for k in 'LR' for n in ('ik_foot', 'pole_knee')),
-              'Chan_deform': tuple(f'{n}.{k}' for k in 'LR' for n in ('thigh', 'shin', 'foot', 'toe'))}
+              'Chan_deform': tuple(f'{n}.{k}' for k in 'LR' for n in ('thigh', 'shin', 'foot', 'toe')),
+              'Ngon': tuple(f'{n}{i}.{k}' for k in 'LR' for n in CH for i in (1, 2, 3))}
     for nm, bones in groups.items():
         c = ad.collections.new(nm)
         for b in bones: c.assign(ad.bones[b])
     return ob
+
+
+FINGER_PROPS = {'index': 'nam_tro', 'middle': 'nam_giua', 'ring': 'nam_ap', 'pinky': 'nam_ut', 'thumb': 'nam_cai'}
+
+
+def finger_drivers(ob):
+    """Thuộc tính trên hand.L/R: `nam` (cả bàn tay) và nam_tro/giua/ap/ut/cai (từng ngón), 0–1; độ gập = min(1, nam + nam_<ngón>).
+    Chiều quay dò bằng thử: xoay +X phải đưa đầu xương về phía lòng bàn tay (ngón cái: về phía các ngón)."""
+    pb = ob.pose.bones
+    for k, sx in (('L', 1), ('R', -1)):
+        hb = pb[f'hand.{k}']
+        for pr in ('nam',) + tuple(FINGER_PROPS.values()):
+            hb[pr] = 0.0; hb.id_properties_ui(pr).update(min=0.0, max=1.0, description='Nắm 0–1')
+        for nm, angs in FINGER_CURL.items():
+            want = Vector((sx, 0.7, 0)).normalized() if nm == 'thumb' else Vector((-sx, 0, 0))
+            for i, deg in enumerate(angs, 1):
+                b = pb[f'{nm}{i}.{k}']; b.rotation_euler = (0, 0, 0); bpy.context.view_layer.update(); t0 = b.tail.copy()
+                b.rotation_euler = (0.3, 0, 0); bpy.context.view_layer.update(); sg = 1 if (b.tail - t0).dot(want) > 0 else -1
+                b.rotation_euler = (0, 0, 0)
+                d = b.driver_add('rotation_euler', 0).driver; d.type = 'SCRIPTED'
+                for vn, pr in (('n', 'nam'), ('m', FINGER_PROPS[nm])):
+                    v = d.variables.new(); v.name = vn; v.type = 'SINGLE_PROP'; v.targets[0].id = ob; v.targets[0].data_path = f'pose.bones["hand.{k}"]["{pr}"]'
+                d.expression = f'{sg * math.radians(deg):.4f}*min(1.0, n + m)'
+    bpy.context.view_layer.update()
 
 
 def calibrate_poles(ob):
@@ -123,6 +200,10 @@ def calibrate_poles(ob):
             if ctl: pb[ctl]['ik'] = 0.0
             print(f'  pole {chain[1]}: {fine:.2f}°, sai lệch {e:.5f}')
     bpy.context.view_layer.update()
+
+
+def edges_np(me):
+    ed = np.zeros(len(me.edges) * 2, np.int64); me.edges.foreach_get('vertices', ed); return ed[0::2], ed[1::2]
 
 
 def mesh_co(ob):
@@ -144,7 +225,48 @@ def bind(sc, arm, body, proxy):
     clean_weights(body)
     m = body.modifiers.new('Armature', 'ARMATURE'); m.object = arm
     body.parent = arm
-    cs = body.modifiers.new('CorrectiveSmooth', 'CORRECTIVE_SMOOTH'); cs.iterations = 8; cs.smooth_type = 'LENGTH_WEIGHTED'; cs.rest_source = 'ORCO'
+    vg = body.vertex_groups.new(name='cs_vung'); zz = mesh_co(body)[:, 2]
+    vg.add(np.nonzero(zz < 1.0)[0].tolist(), 1.0, 'REPLACE')      # đầu đi cứng: không làm mượt (lưới vá da đầu có mặt méo làm CS lệch)
+    cs = body.modifiers.new('CorrectiveSmooth', 'CORRECTIVE_SMOOTH'); cs.iterations = 8; cs.smooth_type = 'LENGTH_WEIGHTED'; cs.rest_source = 'ORCO'; cs.vertex_group = 'cs_vung'
+
+
+def shoulder_split(W, co, I):
+    """Chuyển một phần trọng số upper_arm gần khớp vai sang vai_phu (nhiều nhất 70 % ngay khớp, về 0 ở 40 % chiều dài bắp tay)."""
+    sm = lambda e0, e1, t: (lambda u: u * u * (3 - 2 * u))(np.clip((t - e0) / (e1 - e0), 0, 1))
+    for k, sx in (('L', 1), ('R', -1)):
+        a = np.array(V('shoulder', sx)); b = np.array(V('elbow', sx)); ab = b - a
+        t = ((co - a) @ ab) / (ab @ ab); f = 0.7 * sm(0.40, 0.0, t) * (sx * co[:, 0] > 0)
+        u, v = I[f'upper_arm.{k}'], I[f'vai_phu.{k}']; mv = W[:, u] * f; W[:, u] -= mv; W[:, v] += mv
+    return W
+
+
+def finger_weights(W, co, I, arm_reg, sigma=0.004, blend=0.007):
+    """Bàn tay dưới z = 0,50: trọng số hình học. Mỗi đỉnh chia mềm cho các ngón theo khoảng cách tới đường tâm
+    (exp(-(d/sigma)^2)); trong một ngón chia cho 3 đốt theo vị trí dọc ngón (pha ±blend ở khớp); phía trên gốc ngón thuộc hand."""
+    sm = lambda e0, e1, t: (lambda u: u * u * (3 - 2 * u))(np.clip((t - e0) / (e1 - e0), 0, 1))
+    for k, sx in (('L', 1), ('R', -1)):
+        H = arm_reg & (sx * co[:, 0] > 0.17) & (co[:, 2] < 0.50)
+        P = co[H] * np.array([sx, 1, 1]); n = len(P); Wn = np.zeros((n, W.shape[1]), np.float32)
+        D = []; S0 = []; U = []
+        for nm, pts in CH.items():
+            Q = np.array([p[:] for p in pts]); seg = np.diff(Q, axis=0); ln = np.linalg.norm(seg, axis=1); cum = np.r_[0, np.cumsum(ln)]
+            dmin = np.full(n, 9.0); u = np.zeros(n)
+            for j in range(3):
+                t = np.clip(((P - Q[j]) @ seg[j]) / ln[j] ** 2, 0, 1); d = np.linalg.norm(P - (Q[j] + t[:, None] * seg[j]), axis=1)
+                better = d < dmin; dmin[better] = d[better]; u[better] = cum[j] + t[better] * ln[j]
+            D.append(dmin); U.append((u, cum)); S0.append(((P - Q[0]) @ seg[0]) / ln[0])
+        D = np.array(D); A = np.exp(-(D / sigma) ** 2) + 1e-12; A /= A.sum(0)
+        for c, nm in enumerate(CH):
+            u, cum = U[c]
+            inside = sm(-0.022 if nm != 'thumb' else -0.006, 0.006, S0[c]) * (D[c] < 0.03)
+            wb = [sm(cum[1] + blend, cum[1] - blend, u), None, sm(cum[2] - blend, cum[2] + blend, u)]
+            wb[1] = 1 - wb[0] - wb[2]
+            for i in range(3):
+                Wn[:, I[f'{nm}{i + 1}.{k}']] += A[c] * inside * wb[i]
+        Wn[:, I[f'hand.{k}']] += 1 - Wn.sum(1)
+        al = sm(0.50, 0.475, co[H, 2])[:, None]
+        W[H] = (1 - al) * W[H] + al * Wn
+    return W
 
 
 def arm_region(co, ea, eb):
@@ -167,11 +289,11 @@ def clean_weights(body):
     I = {n: i for i, n in enumerate(names)}
     sm = lambda e0, e1, t: (lambda u: u * u * (3 - 2 * u))(np.clip((t - e0) / (e1 - e0), 0, 1))
     head = (z > HEAD_Z) | ((z > 0.985) & (y < -0.10))
-    arm_i = [i for n, i in I.items() if n.startswith(('clavicle', 'upper_arm', 'forearm', 'hand'))]
+    arm_i = [i for n, i in I.items() if n.startswith(('clavicle', 'upper_arm', 'vai_phu', 'forearm', 'hand', 'index', 'middle', 'ring', 'pinky', 'thumb'))]
     leg_i = [i for n, i in I.items() if n.startswith(('thigh', 'shin', 'foot', 'toe'))]
     trunk_i = [I[n] for n in ('pelvis', 'spine1', 'spine2', 'chest') if n in I]
     arm_reg = arm_region(co, ea, eb)
-    shoulder = (z > 0.68) & (ax > 0.10)                 # vùng pha vai–ngực–nách
+    shoulder = (z > 0.62) & (ax > 0.09)                 # vùng pha vai–ngực–nách
     print(f'  vùng tay (loang): {int(arm_reg.sum())} đỉnh')
 
     def rules(W):
@@ -180,9 +302,9 @@ def clean_weights(body):
             if n.endswith('.L'): W[:, i] *= fL
             elif n.endswith('.R'): W[:, i] *= 1 - fL
         W[np.ix_(arm_reg, leg_i)] = 0                        # bàn tay buông cạnh đùi: không theo chân
-        W[np.ix_(arm_reg & (z < 0.78), trunk_i)] = 0          # tay dưới nách: không theo thân
+        W[np.ix_(arm_reg & (z < 0.68), trunk_i)] = 0          # tay dưới nách: không theo thân
         W[np.ix_(~arm_reg & ~shoulder, arm_i)] = 0            # thân/đùi: không theo tay (trừ vùng vai)
-        W[np.ix_(~arm_reg, [I[n] for n in names if n.startswith(('forearm', 'hand'))])] = 0
+        W[np.ix_(~arm_reg, [I[n] for n in names if n.startswith(('forearm', 'hand', 'index', 'middle', 'ring', 'pinky', 'thumb'))])] = 0
         W[np.ix_(z < 0.40, trunk_i)] *= 0                   # dưới đùi giữa không theo thân
         W[np.ix_(z > 0.70, leg_i)] = 0
         W[head] = 0; W[head, I['head']] = 1
@@ -204,8 +326,10 @@ def clean_weights(body):
     f = (1 - sm(0.07, 0.11, ax[band]))[:, None]; W[band] = (1 - f) * W[band] + f * Wn
     W = lap(W, ~head, 20, 0.5)
     W = lap(W, (~head) & (z > 0.40) & (z < 0.62) & (ax < 0.20), 60, 0.6)     # háng
-    W = lap(W, (~head) & (z > 0.72) & (z < 0.95) & (ax > 0.08) & (ax < 0.22), 60, 0.6)   # nách–vai
+    W = shoulder_split(W, co, I)
+    W = lap(W, (~head) & (z > 0.64) & (z < 0.98) & (ax > 0.05) & (ax < 0.26), 120, 0.6)   # nách–vai, dải rộng
     W = rules(W)
+    W = finger_weights(W, co, I, arm_reg)
     W[W < 0.01] = 0; W /= W.sum(1, keepdims=True)
     for g in body.vertex_groups: g.remove(list(range(nv)))
     nz = np.nonzero(W > 1e-4)
@@ -224,6 +348,9 @@ POSES = {
     'xoay_than': {'spine1': ('Y', 15), 'spine2': ('Y', 15), 'chest': ('Y', 10)},
     'buoc_chan': 'step',
     'ngoi_xom': 'squat',
+    'nam_tay': 'fist',
+    'chi_tay': 'point',
+    'xoe_tay': {'index1.L': ('Z', -14), 'middle1.L': ('Z', -4), 'ring1.L': ('Z', 6), 'pinky1.L': ('Z', 16), 'thumb1.L': ('Z', -25)},
 }
 
 
@@ -243,8 +370,16 @@ def apply_pose(arm, name):
     for b in pb:
         b.location = (0, 0, 0)
         b.rotation_euler = (0, 0, 0)
+    for k in 'LR':
+        for pr in ('nam',) + tuple(FINGER_PROPS.values()): pb[f'hand.{k}'][pr] = 0.0
     spec = POSES[name]
-    if spec == 'step':
+    if spec == 'fist':
+        for k in 'LR': pb[f'hand.{k}']['nam'] = 1.0
+    elif spec == 'point':
+        for k in 'LR':
+            for pr in ('nam_giua', 'nam_ap', 'nam_ut', 'nam_cai'): pb[f'hand.{k}'][pr] = 1.0
+        set_rot(pb, 'forearm.L', ('X', 70)); set_rot(pb, 'forearm.R', ('X', 70))
+    elif spec == 'step':
         move_world(pb['ik_foot.L'], (0, -0.13, 0.05)); move_world(pb['ik_foot.R'], (0, 0.07, 0.0))
         move_world(pb['pelvis'], (0, -0.03, -0.025))
         set_rot(pb, 'upper_arm.L', ('X', -20)); set_rot(pb, 'upper_arm.R', ('X', 20))
@@ -268,7 +403,7 @@ def stretch(arm, body):
         dg = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(dg); me = ev.to_mesh()
         a = np.zeros(len(me.vertices) * 3, np.float32); me.vertices.foreach_get('co', a); ev.to_mesh_clear(); return a.reshape(-1, 3)
     apply_pose(arm, 'nghi'); p0 = pos()
-    r0 = mesh_co(body); print(f'  dáng nghỉ lệch so với lưới gốc: tối đa {np.linalg.norm(p0 - r0, axis=1).max() * 1000:.2f} mm')
+    r0 = mesh_co(body); dv = np.linalg.norm(p0 - r0, axis=1); print(f'  dáng nghỉ lệch so với lưới gốc: tối đa {dv.max() * 1000:.2f} mm tại {np.round(r0[dv.argmax()], 3)}')
     ed = np.zeros(len(body.data.edges) * 2, np.int32); body.data.edges.foreach_get('vertices', ed); ea, eb = ed[0::2], ed[1::2]
     l0 = np.linalg.norm(p0[ea] - p0[eb], axis=1); ok = l0 > 1e-3
     for nm in POSES:
@@ -303,9 +438,14 @@ def main():
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.src)); sc = bpy.context.scene
     if bpy.context.object and bpy.context.object.mode != 'OBJECT': bpy.ops.object.mode_set(mode='OBJECT')
-    body = bpy.data.objects['model_LOD0']; proxy = bpy.data.objects['model_LOD3']
+    body = bpy.data.objects['model_LOD0']
     for o in list(sc.objects):
-        if o.type == 'MESH' and o not in (body, proxy): bpy.data.objects.remove(o, do_unlink=True)
+        if o.type == 'MESH' and o is not body: bpy.data.objects.remove(o, do_unlink=True)
+    proxy = bpy.data.objects.new('proxy_w', body.data.copy()); sc.collection.objects.link(proxy)   # bản thưa cho bone heat
+    dm = proxy.modifiers.new('Dec', 'DECIMATE'); dm.ratio = 0.125
+    bpy.context.view_layer.objects.active = proxy; bpy.ops.object.select_all(action='DESELECT'); proxy.select_set(True)
+    bpy.ops.object.modifier_apply(modifier=dm.name)
+    bco = mesh_co(body); bea, beb = edges_np(body.data); measure_fingers(bco, arm_region(bco, bea, beb))
     proxy.hide_set(False); body.hide_set(False); body.hide_render = False
     arm = build_armature(sc)
     bind(sc, arm, body, proxy)
@@ -316,7 +456,7 @@ def main():
     stretch(arm, body)
     if a.anh: render_sheet(sc, arm, os.path.abspath(a.anh))
     sc['ma_asset'] = 'NHAN-VAT-GOC-001 / RIG-THU'
-    sc['trang_thai'] = 'Rig thử: thân/tay/chân, IK chân, IK/FK tay; chưa ngón, mặt, shape key; chưa nghiệm thu'
+    sc['trang_thai'] = 'Rig thử: thân/tay/chân/ngón, IK chân, IK/FK tay; chưa mặt, shape key; chưa nghiệm thu'
     bpy.ops.object.select_all(action='DESELECT'); arm.select_set(True); bpy.context.view_layer.objects.active = arm
     bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.out), compress=True)
     print('PASS: đã lưu', a.out)

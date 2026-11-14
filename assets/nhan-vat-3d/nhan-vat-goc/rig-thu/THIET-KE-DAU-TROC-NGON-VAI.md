@@ -1,6 +1,6 @@
 # Thiết kế: đầu trọc, xương ngón tay, sửa vai — NHAN-VAT-GOC-001
 
-Trạng thái: **bản đề xuất, chờ chủ repo duyệt** (14/11/2026).
+Trạng thái: **đã duyệt và đã dựng** (14/11/2026). Kết quả xem trong README.md.
 
 ## Mục đích
 
