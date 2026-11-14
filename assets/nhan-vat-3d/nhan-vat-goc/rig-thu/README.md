@@ -61,3 +61,14 @@ Số đo của bản chữ A tính so với dáng nghỉ chữ A, nên không so
 - Chưa có tóc. Lưới nền đã trọc, tóc sẽ làm riêng cho từng nhân vật.
 - Lưới nguồn chưa retopology. Vòng lưới ở vai, háng và mặt chưa được chuẩn hóa cho diễn hoạt, nên nếp gấp còn lại chủ yếu đến từ đây.
 - Tay IK ở dáng nghỉ còn lệch nhẹ khi bật `ik = 1`. Sai lệch ma trận là 0,013 vì cánh tay gần như thẳng; hãy kiểm khi dùng.
+
+## Tên xương Mixamo và chép động tác
+
+- `rig_goc.py --ten-mixamo` đổi tên xương biến dạng sang chuẩn Mixamo (`Hips`, `Spine`, `LeftArm`, `LeftHandIndex1`…). Nhóm đỉnh, ràng buộc và driver đi theo tên mới. Xương điều khiển giữ tên cũ (`root`, `ik_foot`, `pole_knee`, `ik_hand`, `vai_phu`).
+- `chep_dong.py` chép một động tác từ file rig chuẩn Mixamo (GLB/FBX) sang `Goc_Rig`: lấy độ xoay thế giới của từng xương nguồn so với dáng nghỉ rồi áp lên dáng nghỉ xương cùng tên, nên không phụ thuộc trục riêng của hai rig. Hông dời theo tỉ lệ chiều cao. Chân đặt qua IK theo bàn chân và gối FK.
+
+```powershell
+D:/blender/blender.exe -b --factory-startup --python chep_dong.py -- --rig nhan-vat-goc-rig-thu.blend --nguon base.glb --out co-dong.blend --buoc 3 --anh xem-dong
+```
+
+[Ảnh 6 khung đoạn bò](chep-dong-bo.webp): đoạn `human_000070` (123 khung) trong file `base.glb` của chủ repo, chép bước 3 khung. Chưa kiểm xuyên lưới, trượt chân hay chạm sàn từng khung. File `base.glb` không đưa lên repo vì lưới và rig là bản khác.
