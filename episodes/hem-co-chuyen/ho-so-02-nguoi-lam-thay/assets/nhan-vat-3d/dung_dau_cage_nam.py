@@ -697,6 +697,7 @@ def check_all(sc, head, asm, amap):
     hit_n = bv_n.find_nearest(mp_); mv_ = [mo_.matrix_world @ v.co for v in mo_.data.vertices]; sau = min((p - hit_n[0]).dot(hit_n[1]) for p in mv_)
     res['not_ruoi_tren_da'] = ok(hit_n[3] < 0.004 and sau > -0.0015, f'tâm nốt ruồi cách da {hit_n[3] * 1000:.2f} mm; đỉnh chìm sâu nhất dưới da {max(0.0, -sau) * 1000:.2f} mm (≤ 1,5)')
     res['tai_dan_dau'] = ear_test(asm)
+    res['khau_lien'] = MT.kiem_khau(head, HEAD_IDX)
     res['vung_mat'] = MT.kiem_vung_mat(head, HEAD_IDX, to_world, jaw_weights(head, HEAD_IDX), bpy.data.objects['Ear.L'].matrix_world.translation.copy())
 
     # đo bám ảnh mẫu (mắt trước; mũi/miệng/cằm ở Task sau): sai lệch hình dạng sau khi khớp tỉ lệ + tịnh tiến, % chiều cao mặt

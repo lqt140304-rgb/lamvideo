@@ -1,6 +1,7 @@
 """Dựng lại vùng mặt đầu Nam theo ảnh mẫu (Hồ sơ 02): định vùng mặt, đường khâu với sọ cũ, rồi mắt / mũi / má / miệng / cằm.
 Dùng chỉ số HEAD_IDX của dung_dau_cage_nam (grid 13 hàng × 9 cột: hàng 0 đỉnh sọ … 12 dưới hàm; cột 0 giữa trước … 8 giữa sau).
 Vùng mặt chỉ gồm lưới trán dưới → cằm, phần trước; sọ, tai, cổ, tóc không đụng."""
+import math
 
 HANG_MAT = range(3, 11)        # 'mi_tren' … 'cam' (hàng 2 'tran' là hàng khâu dưới chân tóc; hàng 11–12 là đáy cằm/hàm giữ nguyên)
 COT_MAT = range(0, 5)          # cột 0 (giữa trước) … 4 (góc 68°, má/thái dương); cột 5 là cột khâu ở ngoài vùng
@@ -51,3 +52,29 @@ def shepard(pos, movers, ghim, tu_do, mu=2.0, eps=1e-6):
             sw += w; s[0] += w * d[0]; s[1] += w * d[1]; s[2] += w * d[2]
         out[i] = (s[0] / sw, s[1] / sw, s[2] / sw)
     return out
+
+
+def kiem_khau(head, idx, ten_key='Mo_Ham'):
+    """Mép khâu mặt/sọ trên cage đầu. Trả (ok, mô tả). Đo trên MẶT GIỚI HẠN (sau Subdivision) vì góc cạnh của lưới điều khiển (mép cằm–đáy hàm ≈ 95–119°) là hình dạng tự nhiên chứ không phải nếp.
+    • pháp tuyến mặt giới hạn đổi ≤ 35° giữa hai đỉnh khâu liền nhau;
+    • trung bình ≤ 27° giữa mỗi đỉnh khâu và đỉnh vùng mặt kề nó (đường cơ sở của cage cũ đo được 24,9°: độ cong tự nhiên giữa các ô; ngưỡng = cơ sở + 2°, tức mép khâu không được xấu đi);
+    • khi mở hàm (shape key `ten_key` = 1): chiều dài cạnh dọc đường khâu và cạnh nối khâu–vùng mặt đổi ≤ 15% so với lúc nghỉ."""
+    import bpy
+    K = duong_khau(idx); V = vung_mat(idx); me = head.data; kv = set(K)
+    dg = bpy.context.evaluated_depsgraph_get(); ev = head.evaluated_get(dg); em = ev.to_mesh(); nrm = {i: em.vertices[i].normal.copy() for i in range(len(me.vertices))}; ev.to_mesh_clear()
+    gap = [math.degrees(nrm[a].angle(nrm[b])) for a, b in zip(K, K[1:])]
+    cheo = []
+    for e in me.edges:
+        a, b = e.vertices
+        if (a in kv and b in V) or (b in kv and a in V): cheo.append(math.degrees(nrm[a].angle(nrm[b])))
+    kb = me.shape_keys.key_blocks.get(ten_key); gian = 0.0
+    if kb:
+        base = me.shape_keys.key_blocks['Basis'].data
+        for e in me.edges:
+            a, b = e.vertices
+            if (a in kv or b in kv) and (a in kv or a in V) and (b in kv or b in V):
+                l0 = (base[a].co - base[b].co).length; l1 = (kb.data[a].co - kb.data[b].co).length
+                if l0 > 1e-6: gian = max(gian, abs(l1 / l0 - 1.0))
+    gm = max(gap) if gap else 0.0; cm = sum(cheo) / len(cheo) if cheo else 0.0
+    ok = gm <= 35.0 and cm <= 27.0 and gian <= 0.15
+    return ok, f'đường khâu (mặt giới hạn): pháp tuyến đổi lớn nhất {gm:.1f}° giữa hai đỉnh liền nhau (≤ 35), trung bình qua cạnh khâu–mặt {cm:.1f}° (≤ 27; cơ sở 24,9); khi {ten_key} cạnh giãn tối đa {gian * 100:.1f}% (≤ 15)'
