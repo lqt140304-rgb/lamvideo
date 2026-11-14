@@ -523,6 +523,47 @@ def build_clothes(sc, outfit='xanh', lift_for_sandals=True):
     return dict(coll=coll, shirt=shirt, pants=pants, extras=shirt_extras + pants_extras, sandals=sandals, cfg=cfg)
 
 
+def bind_clothes_to_rig(rig_ob, body_ob, clothes):
+    """Chuyển trọng số xương (Data Transfer) từ thân đã rig sang quần áo và gắn dép vào xương foot.L/.R."""
+    cloth_objs = [clothes['shirt'], clothes['pants']] + clothes.get('extras', [])
+    for ob in cloth_objs:
+        if not ob:
+            continue
+        # Áp Mirror và Subsurf trước khi chuyển trọng số; giữ Solidify sau Armature để vải không mất độ dày
+        for mod_name in ('Mirror', 'Subsurf'):
+            md = ob.modifiers.get(mod_name)
+            if md:
+                bpy.context.view_layer.objects.active = ob
+                bpy.ops.object.modifier_apply(modifier=mod_name)
+        dt = ob.modifiers.new('TransferWeights', 'DATA_TRANSFER')
+        dt.object = body_ob
+        dt.use_vert_data = True
+        dt.data_types_verts = {'VGROUP_WEIGHTS'}
+        dt.vert_mapping = 'POLYINTERP_NEAREST'
+        bpy.context.view_layer.objects.active = ob
+        bpy.ops.object.datalayout_transfer(modifier=dt.name)
+        bpy.ops.object.modifier_apply(modifier=dt.name)
+
+        arm = ob.modifiers.new('Armature', 'ARMATURE')
+        arm.object = rig_ob
+        arm.use_vertex_groups = True
+        # Đưa Armature lên trước Solidify
+        if 'Solidify' in ob.modifiers:
+            bpy.ops.object.modifier_move_to_index(modifier=arm.name, index=0)
+        cs = ob.modifiers.new('CorrectiveSmooth', 'CORRECTIVE_SMOOTH')
+        cs.smooth_type = 'LENGTH_WEIGHTED'
+        cs.iterations = 4
+
+    # Gắn dép theo xương foot.L / foot.R
+    for ob in clothes.get('sandals', []):
+        side = 'L' if ob.name.endswith('.L') else ('R' if ob.name.endswith('.R') else None)
+        if side and f'foot.{side}' in rig_ob.data.bones:
+            ob.parent = rig_ob
+            ob.parent_type = 'BONE'
+            ob.parent_bone = f'foot.{side}'
+            ob.matrix_parent_inverse = (rig_ob.matrix_world @ rig_ob.data.bones[f'foot.{side}'].matrix_local).inverted()
+
+
 # ================================================================== KIỂM TRA TỰ ĐỘNG (--check)
 def _eval_mesh(ob, dg):
     bm = bmesh.new()
