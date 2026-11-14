@@ -246,13 +246,15 @@ def add_foot(bm, lay):
     for y in Ys:
         hw = float(np.interp(-y, -np.array(FT.PROFILE_Y), FT.PROFILE_HW)) * K; top = float(np.interp(-y, -np.array(FT.PROFILE_Y), FT.PROFILE_TOP)) * K
         if y == Ys[0]: hw *= 0.75; top *= 0.8
-        xs = [FT.X0 + hw * t for t in (1.0, 0.6, 0.2, -0.2, -0.6, -1.0)]
+        even = np.array((1.0, 0.6, 0.2, -0.2, -0.6, -1.0)); wide = np.array((1.0, 0.80, 0.0, -0.80, -0.91, -1.0))   # vòng dưới mắt cá: ô nối rộng ~ống chân
+        a_ = float(np.interp(y, [-0.104, -0.052, -0.022, 0.046, 0.078, 0.100], [0.0, 0.0, 1.0, 1.0, 0.5, 0.0])); ts = even * (1 - a_) + wide * a_
+        xs = [FT.X0 + hw * t + (cx - FT.X0) * (1 - t * t) * a_ for t in ts]
         topr = [V((x, y, top * (0.80 if abs(x - FT.X0) > hw * 0.9 else 1.0))) for x in xs]
         bot = [V((x, y, -0.006)) for x in xs]
         rings.append(dict(top=topr, bot=bot))
     q = lambda a, b, c, d: faces.append(bm.faces.new((a, b, c, d)))
     patch_rows = (2, 3, 4)                                         # vòng y 0,046 / 0,012 / −0,022: ô mặt trên dưới mắt cá
-    xs0 = [v.co.x for v in rings[3]['top']]; k0 = int(np.argmin([abs((xs0[i] + xs0[i + 2]) / 2 - cx) for i in range(4)]))   # 3 đỉnh trên liên tiếp gần tâm mắt cá nhất
+    k0 = 1                                                          # ô nối: 3 đỉnh trên (t 0,80 / 0 / −0,80) của các vòng dưới mắt cá
     for i in range(len(rings) - 1):
         r0, r1 = rings[i], rings[i + 1]
         for k in range(5):
@@ -266,10 +268,13 @@ def add_foot(bm, lay):
     r0 = rings[0]                                                   # nắp gót 5×1
     for k in range(5): q(r0['top'][k + 1], r0['top'][k], r0['bot'][k], r0['bot'][k + 1])
     rl = rings[-1]; toes = sorted(FT.TOES, key=lambda t: -t[0])     # cột ngón theo x giảm (ngoài → trong): ngón út … ngón cái
+    dxs = [t[0] for t in toes]
     for k, (dx, y, r) in enumerate(toes):
         base = [rl['top'][k], rl['top'][k + 1], rl['bot'][k + 1], rl['bot'][k]]; prev = base; xc = FT.X0 + dx
-        for yy, rr in ((y + r * 0.3, 1.05), (y - r * 0.7, 0.85)):
-            ring = [V((xc + r * rr * sx_, yy, r + r * rr * sz)) for sx_, sz in ((1, 1), (-1, 1), (-1, -1.1), (1, -1.1))]
+        gap = min([abs(dx - o) for o in dxs if o != dx]); rx = min(r * 1.05, 0.45 * gap)      # ngón không chồng ngón bên cạnh (cage cũ: chồng → tự giao)
+        y1 = min(y + r * 0.3, Ys[-1] - 0.010)                                               # vòng đầu ngón luôn ở trước vòng mũi bàn chân
+        for yy, rr, kx in ((y1, 1.05, rx / r), (min(y - r * 0.7, y1 - 0.010), 0.85, 0.85 * rx / r)):
+            ring = [V((xc + r * kx * sx_, yy, r + r * rr * sz)) for sx_, sz in ((1, 1), (-1, 1), (-1, -1.1), (1, -1.1))]
             prev = connect(bm, prev, ring, faces)
         faces.append(bm.faces.new((prev[0], prev[1], prev[2], prev[3])))
     return len(faces)
@@ -284,6 +289,155 @@ def build_cage_full(coll):
     for p in cage.data.polygons: p.use_smooth = True
     print(f'    cage: thêm {nh} mặt tay, {nf} mặt chân')
     return cage
+
+
+# ================================================================== hình đích + kiểm hình
+import gan_tay_chan_nam as G
+
+
+def _to_hand(P):
+    """Toạ độ thế giới (tay trái) → toạ độ bàn tay dung_tay_nam (ngược hand_xf) → (u, v, w)."""
+    c_w, d, _ = arm_frame(); R = np.array(HT._D.normalized().rotation_difference(d).to_matrix())
+    Q = (P - np.array(c_w)) @ R / KZ + np.array(HT.WRIST); W = np.array(HT.WRIST)
+    D_, S_, N_ = (np.array(x) for x in (HT._D, HT._S, HT._N)); rel = Q - W
+    return rel @ D_, rel @ S_, rel @ N_, Q
+
+
+def _seg_d(Q, pts):
+    best = np.full(len(Q), np.inf)
+    for a_, b_ in zip(pts, pts[1:]):
+        a_, b_ = np.array(a_), np.array(b_); ab = b_ - a_; t = np.clip(((Q - a_) @ ab) / (ab @ ab), 0, 1)
+        best = np.minimum(best, np.linalg.norm(Q - (a_ + t[:, None] * ab), axis=1))
+    return best
+
+
+def label_hand(P):
+    """Nhãn từng đỉnh (tay trái, toạ độ thế giới): 'thumb', 'palm', hoặc tên ngón — cùng quy tắc cho lưới và hình đích."""
+    u, v, w, Q = _to_hand(P); lab = np.full(len(P), 'palm', dtype=object)
+    fd = np.stack([_seg_d(Q, [tuple(p) for p in HT.finger_pts(f)[0]]) for f in HT.FINGERS], 1); fl = np.array(HT.FINGERS, dtype=object)[np.argmin(fd, 1)]
+    lab = np.where(u > 0.074, fl, lab)
+    td = _seg_d(Q, [tuple(HT.L(*t)) for t in HT.THUMB_PTS[1:]] + [tuple(Vector(HT.L(*HT.THUMB_PTS[3])) + (Vector(HT.L(*HT.THUMB_PTS[3])) - Vector(HT.L(*HT.THUMB_PTS[2]))).normalized() * 0.02)])
+    lab = np.where((td < 0.026) & (v < -0.058), 'thumb', lab); return lab
+
+
+def label_foot(P):
+    """Nhãn bàn chân trái: 'foot' hoặc 'toe0'..'toe4' (phía trước đường gốc ngón, theo tâm ngón gần nhất)."""
+    lab = np.full(len(P), 'foot', dtype=object); xs = np.array([FT.X0 + t[0] for t in FT.TOES])
+    k = np.argmin(np.abs(P[:, 0:1] - xs[None, :]), 1); front = P[:, 1] < -0.110
+    return np.where(front, np.array([f'toe{i}' for i in range(len(FT.TOES))], dtype=object)[k], lab)
+
+
+def _bvh_by_label(ob, labfn):
+    P = _world(ob); lab = labfn(P); out = {}
+    polys = [list(p.vertices) for p in ob.data.polygons]
+    for L_ in set(lab.tolist()):
+        fs = [f for f in polys if sum(lab[i] == L_ for i in f) >= 3]
+        if fs: out[L_] = BVHTree.FromPolygons(P.tolist(), fs, all_triangles=False)
+    return out
+
+
+def targets(asm):
+    """Bàn tay / bàn chân đã duyệt, đặt đúng chỗ (như gan_tay_chan_nam); BVH theo từng phần (lòng tay, từng ngón, ngón cái, thân bàn chân, từng ngón chân)."""
+    hand = HT.build_shape('L'); X = hand_xf()                        # bàn tay đã duyệt NGUYÊN GỐC (chỉ co KZ, xoay, dời) — không dùng bản đã vá chỗ nối của gan_tay_chan_nam
+    Ph = np.array([tuple(X(v.co)) for v in hand.data.vertices]); hand.data.vertices.foreach_set('co', Ph.astype(np.float32).ravel()); hand.data.update()
+    foot, _ = G.place_foot(asm, verbose=False)
+    out = {'tay': _bvh_by_label(hand, label_hand), 'chan': _bvh_by_label(foot, label_foot)}
+    out['tay_all'] = BVHTree.FromPolygons(_world(hand).tolist(), [list(p.vertices) for p in hand.data.polygons], all_triangles=False)
+    out['chan_all'] = BVHTree.FromPolygons(_world(foot).tolist(), [list(p.vertices) for p in foot.data.polygons], all_triangles=False)
+    for ob in (hand, foot): bpy.data.objects.remove(ob, do_unlink=True)
+    return out
+
+
+_ATTR = {}
+
+
+def fit_weights(P, asm=None):
+    """Trọng số ép (0–1) và vùng theo NHÃN TOPOLOGY của cage (thuộc tính 'tay'/'chan' qua Subdivision): tay theo u dọc trục cẳng tay
+    (0 tại u ≤ 0, 1 tại u ≥ 0,03); chân theo z (1 dưới 0,075, 0 trên 0,105). Đùi/thân không bao giờ bị ép (lần đầu chọn theo khoảng cách → kéo đùi vào tay)."""
+    if asm is not None:
+        for n in ('tay', 'chan'):
+            a_ = np.zeros(len(asm.data.vertices)); asm.data.attributes[n].data.foreach_get('value', a_); _ATTR[n] = a_
+    c_w, d, _ = arm_frame(); w = np.zeros(len(P)); reg = np.full(len(P), '', dtype=object)
+    for sg in (1.0, -1.0):
+        cw = np.array((sg * c_w.x, c_w.y, c_w.z)); dd = np.array((sg * d.x, d.y, d.z)); u = (P - cw) @ dd; side = (P[:, 0] * sg > 0)
+        m = side & (_ATTR['tay'] > 0.5) & (u > -0.01)
+        Pl = P.copy(); Pl[:, 0] *= sg; uh, vh, wh, _ = _to_hand(Pl)
+        crotch = ss(0.068, 0.078, uh) * ss(0.102, 0.092, uh) * ss(0.014, 0.008, np.abs(wh))     # kẽ ngón (giữa mu và lòng): ép nhẹ, tránh hai ngón cắt chéo
+        w = np.where(m, np.maximum(w, ss(0.0, 0.05, u) * (1 - 0.85 * crotch)), w); reg[m] = 'tay'     # dải chuyển cổ tay 5 cm
+        f = side & (_ATTR['chan'] > 0.5) & (P[:, 2] < 0.13)
+        wf = (1 - ss(0.060, 0.120, P[:, 2])) * (1 - ss(-0.088, -0.104, P[:, 1]))                # dải chuyển mắt cá rộng; ngón chân giữ hình cage (ép → tự giao ở kẽ)
+        w = np.where(f, np.maximum(w, wf), w); reg[f] = 'chan'
+    return w, reg
+
+
+def ss(e0, e1, x):
+    t = np.clip((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t)
+
+
+def _nearest(bvh, P, mirror, labfn=None):
+    """Điểm gần nhất trên bề mặt đích; nếu bvh là dict theo nhãn thì chỉ tìm trong cùng phần (ngón ↔ ngón đó)."""
+    Q = P.copy()
+    if mirror: Q[:, 0] = -Q[:, 0]
+    if isinstance(bvh, dict):
+        lab = labfn(Q); out = np.zeros_like(Q)
+        for i, q in enumerate(Q):
+            b_ = bvh.get(lab[i]) or bvh.get('palm') or bvh.get('foot'); out[i] = tuple(b_.find_nearest(Vector(q))[0])
+    else:
+        out = np.array([tuple(bvh.find_nearest(Vector(q))[0]) for q in Q])
+    if mirror: out[:, 0] = -out[:, 0]
+    return out
+
+
+def check_shape(asm, tg):
+    res = {}
+    def rec(k, ok, msg): res[k] = (bool(ok), msg); print(f'    {"PASS" if ok else "FAIL"}  {k}: {msg}')
+    P = _world(asm); w, reg = fit_weights(P, asm)
+    for k in ('tay', 'chan'):
+        m = (reg == k) & (w > 0.99) & (P[:, 0] > 0); near = _nearest(tg[k + '_all'], P[m], False); dist = np.linalg.norm(P[m] - near, axis=1)
+        rec(f'sai_lech_{k}', dist.mean() <= 0.0015 and dist.max() <= 0.004, f'cách bề mặt đích TB {dist.mean() * 1000:.2f} mm, max {dist.max() * 1000:.2f} mm (≤1,5 / ≤4)')
+    bm = bmesh.new(); bm.from_mesh(asm.data); bm.transform(asm.matrix_world); bm.normal_update(); zs = _zones(P); worst = {}
+    for e in bm.edges:
+        if len(e.link_faces) != 2: continue
+        i0, i1 = e.verts[0].index, e.verts[1].index
+        for k, m in zs.items():
+            if m[i0] and m[i1]: worst[k] = max(worst.get(k, 0.0), math.degrees(e.link_faces[0].normal.angle(e.link_faces[1].normal, 0.0)))
+    lim = {k: (40 if k.startswith('co_tay') else 35) for k in worst}      # cổ tay 40°: lõm giải phẫu kẽ gò ngón cái / mép lòng tay phía ngón út (đã soi cận: không bậc)
+    rec('goc_gay_vung_noi', all(v <= lim[k] for k, v in worst.items()), 'góc nhị diện lớn nhất (°): ' + ', '.join(f'{k} {v:.0f}/≤{lim[k]}' for k, v in worst.items()))
+    vs = [v for v in bm.verts if reg[v.index] in ('tay', 'chan') and v.co.x > 0]; fs = list({f for v in vs for f in v.link_faces})
+    sub = BVHTree.FromPolygons([tuple(v.co) for v in bm.verts], [[v.index for v in f.verts] for f in fs], all_triangles=False)
+    pairs = sub.overlap(sub); fv = [set(v.index for v in f.verts) for f in fs]; n_x = sum(1 for a_, b_ in pairs if a_ < b_ and not (fv[a_] & fv[b_]))
+    rec('tu_giao_tay_chan', n_x == 0, f'{n_x} cặp mặt tự giao vùng tay/chân (trái)')
+    from mathutils.kdtree import KDTree
+    L_ = P[(reg != '') & (P[:, 0] > 0)]; R_ = P[(reg != '') & (P[:, 0] < 0)]; kd = KDTree(len(R_))
+    for i, p in enumerate(R_): kd.insert(Vector(p), i)
+    kd.balance(); dm = max(kd.find(Vector((-p[0], p[1], p[2])))[2] for p in L_[::11]) if len(R_) else 9
+    rec('guong', dm <= 0.0001, f'lệch gương lớn nhất {dm * 1000:.3f} mm')
+    lo, hi = C._height(bpy.context.scene); rec('chieu_cao', abs(lo) <= 0.001 and abs(hi - C.H_TARGET) <= C.H_TOL, f'đáy {lo * 1000:.1f} mm, đỉnh {hi:.4f} m')
+    bm.free(); return res
+
+
+def fit_shape(asm, tg, n_iter=3, smooth=2):
+    """Ép vùng tay/chân bám bề mặt đích: P += w·(gần nhất − P), xen Taubin nhẹ chỉ trong vùng ép (w > 0,02); đế chân không dưới sàn."""
+    me = asm.data
+    for it in range(n_iter):
+        P = _world(asm); w, reg = fit_weights(P, asm); Pn = P.copy()
+        for k in ('tay', 'chan'):
+            for sg in (1.0, -1.0):
+                m = (reg == k) & (w > 0) & (P[:, 0] * sg > 0)
+                if m.any(): Pn[m] = P[m] + w[m, None] * (_nearest(tg[k], P[m], sg < 0, label_hand if k == 'tay' else label_foot) - P[m])
+        me.vertices.foreach_set('co', Pn.astype(np.float32).ravel()); me.update()
+        bm = bmesh.new(); bm.from_mesh(me); bm.verts.ensure_lookup_table(); band = [bm.verts[i] for i in np.nonzero(w > 0.02)[0]]
+        for _ in range(smooth if it < n_iter - 1 else 3):
+            bmesh.ops.smooth_vert(bm, verts=band, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+            bmesh.ops.smooth_vert(bm, verts=band, factor=-0.53, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+        for v in bm.verts:
+            if reg[v.index] == 'chan' and v.co.z < 0.0: v.co.z = 0.0
+        bm.to_mesh(me); bm.free(); me.update()
+    P = _world(asm); w, reg = fit_weights(P, asm); m = (reg == 'chan') & (P[:, 2] < 0.0015); P[m, 2] = 0.0
+    me.vertices.foreach_set('co', P.astype(np.float32).ravel()); me.update()
+    bm = bmesh.new(); bm.from_mesh(me); bm.verts.ensure_lookup_table(); low = [bm.verts[i] for i in np.nonzero((reg == 'chan') & (P[:, 2] < 0.004))[0]]
+    for _ in range(6): bmesh.ops.smooth_vert(bm, verts=low, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=False)   # gỡ nếp gập ở gót do ép đế về sàn (chỉ ngang)
+    bm.to_mesh(me); bm.free(); me.update()
 
 
 # ================================================================== ảnh: clay / wireframe / ánh sáng xiên
@@ -301,22 +455,26 @@ def close_views():
 
 
 def render_close(sc, asm, out, samples, tag, wire=True, raking=True):
-    """Ảnh cận: clay (vật liệu xám đều) + wireframe chồng; ánh sáng xiên (đèn thấp, gắt) để lộ bậc. Không đổi shading của lưới."""
+    """Ảnh cận: clay (vật liệu xám đều) + wireframe chồng; ánh sáng xiên (đèn thấp, gắt) để lộ bậc. Không đổi shading của lưới.
+    `asm` có thể là danh sách vật (bản cũ: thân + bàn tay/chân rời)."""
+    objs = asm if isinstance(asm, (list, tuple)) else [asm]
     os.makedirs(out, exist_ok=True); sc.cycles.samples = samples; sc.render.resolution_x = sc.render.resolution_y = 600
-    old = list(asm.data.materials); clay = _mat('clay', (0.62, 0.60, 0.58)); asm.data.materials.clear(); asm.data.materials.append(clay)
+    clay = _mat('clay', (0.62, 0.60, 0.58)); day = _mat('day', (0.05, 0.05, 0.08), 0.9); keep = []; wos = []
+    for o in objs:
+        keep.append((o, list(o.data.materials))); o.data.materials.clear(); o.data.materials.append(clay)
+        if wire:
+            wo = o.copy(); wo.data = o.data; sc.collection.objects.link(wo); wo.name = 'wire_' + o.name
+            m = wo.modifiers.new('wf', 'WIREFRAME'); m.thickness = 0.0005; m.use_replace = True; m.material_offset = 1; o.data.materials.append(day); wos.append(wo)
     wo = None
-    if wire:
-        wo = asm.copy(); wo.data = asm.data; sc.collection.objects.link(wo); wo.name = 'wire_chong'
-        m = wo.modifiers.new('wf', 'WIREFRAME'); m.thickness = 0.0005; m.use_replace = True; m.material_offset = 1
-        wo.data.materials.append(_mat('day', (0.05, 0.05, 0.08), 0.9))
     if raking:
         ld = bpy.data.lights.new('xien', 'SUN'); ld.energy = 4.0; lo = bpy.data.objects.new('xien', ld); sc.collection.objects.link(lo); lo.rotation_euler = (math.radians(78), 0, math.radians(60))
     files = []
     for nm, (tg, off, scl) in close_views().items():
         sc.camera = T.cam(sc, nm, tg + off, tg, scl); sc.render.filepath = os.path.join(out, f'{tag}_{nm}.png'); bpy.ops.render.render(write_still=True); files.append(sc.render.filepath)
-    if wo: bpy.data.objects.remove(wo, do_unlink=True); asm.data.materials.pop()
-    asm.data.materials.clear()
-    for m in old: asm.data.materials.append(m)
+    for wo in wos: bpy.data.objects.remove(wo, do_unlink=True)
+    for o, mats in keep:
+        o.data.materials.clear()
+        for m in mats: o.data.materials.append(m)
     if raking: bpy.data.objects.remove(lo, do_unlink=True)
     return files
 
@@ -339,15 +497,19 @@ def main():
     a = ap.parse_args(argv)
     sc, cb, cage, skin = build_base()
     if a.ban_cu:                                  # bản cũ: cage gốc có nắp, không tay/chân trong lưới
-        asm = C.assemble_cage(bpy.data.objects['Head_Base'], cage, skin); cage.hide_render = True; base = None
+        asm = C.assemble_cage(bpy.data.objects['Head_Base'], cage, skin); cage.hide_render = True; base = None; r2 = {}
     else:
         base = C.assemble_cage(bpy.data.objects['Head_Base'], cage, skin); base.name = 'Nam_Dau_Than_cu'; base.hide_render = True; base.hide_set(True)
         cage_f = build_cage_full(cb); asm = C.assemble_cage(bpy.data.objects['Head_Base'], cage_f, skin); cage_f.hide_render = True; cage.hide_render = True
+    tg = targets(asm)
+    if not a.chua_ep and not a.ban_cu: fit_shape(asm, tg)
+    if a.check:
+        print('KIỂM HÌNH'); r2 = check_shape(asm, tg)
     if a.render:
         T.lights(sc); print('ảnh cận:', len(render_close(sc, asm, os.path.join(a.render, 'can'), a.samples, 'chua_ep' if a.chua_ep else 'moi')))
     if a.blend: os.makedirs(os.path.dirname(os.path.abspath(a.blend)), exist_ok=True); bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
     if a.check:
-        print('KIỂM TOPOLOGY'); ok = ok_all(check_topology(asm, base)); print('KẾT QUẢ:', 'PASS' if ok else 'FAIL'); sys.stdout.flush(); os._exit(0 if ok else 1)
+        print('KIỂM TOPOLOGY'); r1 = check_topology(asm, base); ok = ok_all(r1) and ok_all(r2); print('KẾT QUẢ:', 'PASS' if ok else 'FAIL'); sys.stdout.flush(); os._exit(0 if ok else 1)
 
 
 if __name__ == '__main__':
