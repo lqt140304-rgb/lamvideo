@@ -1,0 +1,49 @@
+{
+  "asset_id": "NHAN-VAT-GOC-001",
+  "supplied_by": "Chủ repo",
+  "supplied_date": "2026-11-14",
+  "archive": {
+    "name": "10349138-1e95-4c55-b7d6-0080f58fc6f9.zip",
+    "bytes": 100236985,
+    "sha256": "d5a750d4ac865ebdcb83d2ce9f31de2bb37c1adeab1d019e8c83cd4f1ddbff04"
+  },
+  "license": "Không có giấy phép trong ZIP; chưa xác minh",
+  "retained_files": [
+    {
+      "path": "nguon/lod_basic_pbr.fbx",
+      "bytes": 33069580,
+      "sha256": "6a17b69944ef79169aa93ac2286073eca8848b4fc9fe027475270f8364ade04d"
+    },
+    {
+      "path": "nguon/texture_diffuse.png",
+      "bytes": 2213049,
+      "sha256": "e99e79ea82347ab0bcdf7d98407fb29499f7cf8028996dc1ccfe7040ad67650a"
+    },
+    {
+      "path": "nguon/texture_metallic.png",
+      "bytes": 508099,
+      "sha256": "ac0c47eca1a08c826903c6806e04cb4dbc4487d52bf06efec6edcbe991687377"
+    },
+    {
+      "path": "nguon/texture_normal.png",
+      "bytes": 2426203,
+      "sha256": "cf95dde9bf8fa0cad1d26d68e017fd0ead45145e0ec71a2b54d536d9a25f5b41"
+    },
+    {
+      "path": "nguon/texture_pbr.png",
+      "bytes": 1737665,
+      "sha256": "93fbac71ff80b982a45bf0fc02900625ccb0aaa7c1ab0a3769345d2687e1535f"
+    },
+    {
+      "path": "nguon/texture_roughness.png",
+      "bytes": 834748,
+      "sha256": "0202210d1763f1b8b17a811d5db040e7b0796fe59434b5201505abccbb953fbc"
+    }
+  ],
+  "archive_variants_not_copied": [
+    "lod.fbx",
+    "lod_basic_shaded.fbx",
+    "shaded.png"
+  ],
+  "status": "Nguồn tĩnh có tóc, chưa rig, chưa nghiệm thu chuyển động"
+}
