@@ -13,7 +13,7 @@ Nguồn đối chiếu: [KICH-BAN.md](../../KICH-BAN.md), [PHAN-01](../../PHAN-0
 | S09 | **Lab 402** (máy tính, màn LCD) | **Chưa dựng** | Dãy bàn + màn hình có UI "hạn nộp"; ánh sáng văn phòng |
 | S10 | **Hành lang trường** nắng gắt, cột bê tông | **Chưa dựng** | Cột bê tông + bóng vuông, sân trường; camera Steadicam chạy lùi (P3.02) |
 | S11 | **Mâm cơm quê** (clip Zalo trong điện thoại) | **Chưa dựng** | Chiếu hoa, mâm nhôm, nem, canh cua; ghi qua camera điện thoại (texture video trên màn hình điện thoại) |
-| S12 | **Thế giới trong gương** (Deep Teal Abyss, sàn nước) | **Cơ chế đã có**: gương thật + cờ tia, kính hóa nước, camera Submersion; **chưa có "phòng gương"** riêng | Sương Deep Teal (volume), sàn nước phản chiếu (Glossy + Wave bump), bản phòng đối xứng cho Người Kia đứng; cân nhắc dùng chính phòng trọ đảo gương |
+| S12 | **Thế giới trong gương** (Deep Teal Abyss, sàn nước) | **Đã dựng bản đầu 13/11 (`the_gioi_guong.py`)**; cơ chế đã có: gương thật + cờ tia, kính hóa nước, camera Submersion; **chưa có "phòng gương"** riêng | Sương Deep Teal (volume), sàn nước phản chiếu (Glossy + Wave bump), bản phòng đối xứng cho Người Kia đứng; cân nhắc dùng chính phòng trọ đảo gương |
 | (khác) | Sân bóng, góc cắt tóc (chuỗi Comic P2.05) | **Chưa dựng** | Nếu giữ trong cut 15 phút: 2 cảnh đơn giản, có thể là panel 2D |
 
 Thứ tự khuyên dựng tiếp (đúng độ ưu tiên kịch bản): **S01–S04 ánh sáng (4 trạng thái)** → **S07 góc đồ cho tặng** (mở truyện, gieo chiếc gương) → **S12 thế giới gương** (P3.05) → **S08 giảng đường** (P3.01) → S10 → S09 → S11.

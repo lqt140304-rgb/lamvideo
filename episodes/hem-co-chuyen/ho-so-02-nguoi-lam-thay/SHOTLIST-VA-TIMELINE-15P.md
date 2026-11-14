@@ -1,41 +1,41 @@
-# Bảng Shot List & Timeline Chi Tiết (15 Phút) — Hồ sơ 02: Người Trong Gương
+# Bảng Shot List & Timeline Chi Tiết (Nhịp thở mở rộng) — Hồ sơ 02: Người Trong Gương
 > **Vũ trụ:** *The Crack in Reality (Hẻm Có Chuyện)*  
-> **Thời lượng chuẩn:** 15:00 (900 giây) — Chuẩn từng giây (Frame-Accurate Timeline)  
+> **Thời lượng:** Không gò bó cứng nhắc 15:00 — Thời lượng điện ảnh mở tự nhiên (~18:00 – 22:00+), tối ưu khoảng lặng và chuyển cảnh giữ lâu để tạo chiều sâu  
 > **Tỉ lệ khung hình:** 2.39:1 Cinemascope Anamorphic (Cảm biến 36mm Full-Frame 3D)  
 > **Công nghệ thực thi:** Full 3D Camera Pipeline (Blender / Unreal / Remotion 3D Engine) theo [QUY-CHUAN-3D](../../../docs/QUY-CHUAN-3D.md)  
-> **Kịch bản gốc đồng bộ:** Khóa bản dựng theo [KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md)
+> **Kịch bản gốc đồng bộ:** Khóa bản dựng theo [KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md) (Master Script mở rộng)
 
 ---
 
-## TỔNG HỢP PHÂN BỔ THỜI LƯỢNG & SỐ LƯỢNG SHOT 3D
+## TỔNG HỢP PHÂN BỔ THỜI LƯỢNG & SỐ LƯỢNG SHOT 3D (NHỊP THỞ MỞ RỘNG)
 
-| Phân đoạn | Cảnh kịch bản | Thời gian Timeline | Thời lượng | Số Shot 3D | Ghi chú chuyển tiếp & Điểm nhấn kỹ thuật |
+| Phân đoạn | Cảnh kịch bản | Thời gian Timeline | Thời lượng ước tính | Số Shot 3D | Ghi chú chuyển tiếp & Khoảng giữ chiều sâu |
 |---|---|:---:|:---:|:---:|---|
-| **HỒI 1** | **Cảnh 1.1:** Phòng trọ, đóng chân gương & hoãn việc | 00:00 – 01:20 | 80s | 8 shots | Macro báo thức nứt màn hình, lôi búa gõ then chân gương |
-| | **Chuyển cảnh 1.1 $\to$ 1.2:** Cầu nối âm thanh nước | 01:20 – 01:25 | 5s | 1 shot | J-Cut tiếng nước róc rách & tiếng bát sứ tràn vào |
-| | **Cảnh 1.2:** Bồn rửa bát & Đối mặt bản sao | 01:25 – 02:40 | 75s | 7 shots | Cú quay mặt $180^\circ$, cú sốc trùng giọng, gọi Tùng |
-| | **Chuyển cảnh 1.2 $\to$ 1.3:** Khoảng lặng chết chóc | 02:40 – 02:45 | 5s | 1 shot | Smash Push-in mắt vô hồn & Handheld Breathing Jitter |
-| | **Cảnh 1.3:** Đẩy người, gài then & giấu dao | 02:45 – 03:30 | 45s | 6 shots | Steadicam Leading hành lang, Macro then sắt, giấu dao dưới nệm |
-| | **Chuyển cảnh 1.3 $\to$ 1.4:** Match Cut & Time-lapse chiều | 03:30 – 03:40 | 10s | 1 shot | Match Cut đóng then $\to$ mở laptop, nắng chiều lặn |
-| | **Cảnh 1.4:** Đọc note thuốc khớp & tiểu luận 15 trang | 03:40 – 04:30 | 50s | 6 shots | Cận Insert hộp Glucosamine, gõ bài hộ, Nam tự mãn |
-| **CHUYỂN HỒI 1 $\to$ 2** | **Đêm trọ sang Bình minh Ngày 2** | **04:30 – 04:45** | **15s** | **2 shots** | **Fade to Black $\to$ Soundscape đêm trọ $\to$ Nắng chiếu then sắt còn khóa** |
-| **HỒI 2** | **Cảnh 2.1:** Thị uy tiền, đùn trắc nghiệm & nhờ đi Lab | 04:45 – 06:15 | 90s | 8 shots | Rút dao dưới nệm, 3 triệu tiền mặt, đùn 10 câu online & đồ ngâm |
-| | **Chuyển cảnh 2.1 $\to$ 2.2:** Cô độc & Time-lapse trưa sang tối | 06:15 – 06:30 | 15s | 2 shots | Nam trơ trọi $\to$ cày game $\to$ chuông ting 9.5 $\to$ tiếng bước chân Tùng |
-| | **Cảnh 2.2:** Tùng đau chân, trùm chăn & nẫng tay trên | 06:30 – 07:45 | 75s | 8 shots | Nam trùm chăn kín đầu góc nệm, Người Kia xoa bóp, căn giờ 19h30 |
-| | **Chuyển cảnh 2.2 $\to$ 2.3:** Ánh trăng khuya 02:00 sáng | 07:45 – 07:55 | 10s | 1 shot | Dissolve đèn tắt $\to$ ánh trăng bàng bạc chiếu vải gương tụt ngang ngực |
-| | **Cảnh 2.3:** Vết nứt sau lưng & cuộc gọi Zalo của mẹ | 07:55 – 09:15 | 80s | 8 shots | OTS sau lưng thấy nứt rỉ nước (Nam không thấy), nghe Zalo cực ngọt |
-| | **Chuyển cảnh 2.3 $\to$ 2.4:** Mắt mất ngủ $\to$ Clip Zalo ngày | 09:15 – 09:25 | 10s | 1 shot | Push-in mắt mất ngủ $\to$ Sound Bridge chuông Zalo đánh thức ban ngày |
-| | **Cảnh 2.4:** Clip giỗ họ hàng & Giọt nước tràn ly | 09:25 – 10:30 | 65s | 7 shots | Soi gương thấy tiều tụy, hất tung hộp xôi, ánh mắt dao cạo nhìn gáy |
-| **CHUYỂN HỒI 2 $\to$ 3** | **Đêm trắng nỗ lực & Quyết tâm muộn màng** | **10:30 – 10:50** | **20s** | **3 shots** | **Montage: Rửa mặt $\to$ Cà phê đặc $\to$ lật sách C++ $\to$ Match Cut sang bục giảng** |
-| **HỒI 3** | **Cảnh 3.1:** Giảng đường & Sụp đổ trước thuật toán | 10:50 – 12:05 | 75s | 7 shots | 3D Crane bục giảng, trả lời tốt câu 1, đứng hình code đa luồng, gãy phấn |
-| | **Chuyển cảnh 3.1 $\to$ 3.2:** Trốn chạy & Lang thang bờ kè | 12:05 – 12:25 | 20s | 3 shots | Running Montage $\to$ ngồi khóc ở bờ kè 12:30–17:30 $\to$ 17h45 về dãy trọ |
-| | **Cảnh 3.2:** Về phòng, soi CCCD phát hiện nốt ruồi đảo | 12:25 – 13:15 | 50s | 5 shots | Macro CCCD nốt ruồi trái vs Clip phải $\to$ lôi búa sắt dưới gầm giường |
-| | **Chuyển cảnh 3.2 $\to$ 3.3:** Whip Pan & Hoàng hôn máu 18h00 | 13:15 – 13:20 | 5s | 1 shot | Whip Pan vung búa $\to$ nắng đỏ rực rọi vết nứt vỡ toang rỉ nước đầm đìa |
-| | **Cảnh 3.3:** Đối chất sinh tử & Đòn thao túng tâm lý | 13:20 – 14:10 | 50s | 6 shots | Người Kia suy thoái rỉ nước, bóc trần sự lười biếng $\to$ Nam buông rơi búa |
-| | **Cảnh 3.4:** Khế ước hoán đổi & Điểm không thể quay đầu | 14:10 – 14:40 | 30s | 5 shots | Verbal consent $\to$ áp tay trao nhiệt $\to$ kính hóa thủy ngân lỏng nuốt trọn |
-| | **Chuyển cảnh 3.4 $\to$ 3.5:** The Chilling Void & Đèn pha 19h30 | 14:40 – 14:50 | 10s | 1 shot | Khoảng lặng 3s, nước bốc hơi $\to$ đèn pha quét trần $\to$ tiếng huýt sáo Tùng |
-| | **Cảnh 3.5:** Đoạn kết ám ảnh — Quiet Horror bún chả | 14:50 – 15:00 | 10s | 4 shots | Tùng nhận ra nốt ruồi bên phải $\to$ then sắt gài CẠCH $\to$ Nam đập kính |
-| **TỔNG CỘNG** | **3 HỒI ĐIỆN ẢNH HOÀN CHỈNH** | **00:00 – 15:00** | **900s** | **96 SHOTS** | **CHUẨN PHIM HOẠT HÌNH 3D CHIẾU MẠNG CAO CẤP** |
+| **HỒI 1** | **Cảnh 1.1:** Phòng trọ, đóng chân gương & hoãn việc | 00:00 – 01:45 | 105s | 8 shots | Cú máy tĩnh mở đầu 12s ngột ngạt, Macro báo thức, búa gõ then chân gương & khoảng giữ sau tiếng búa |
+| | **Chuyển cảnh 1.1 $\to$ 1.2:** Cầu nối âm thanh nước & Khựng lại | 01:45 – 01:55 | 10s | 1 shot | J-Cut tiếng nước róc rách & tiếng bát sứ, Nam đứng sững 5s ở ngưỡng cửa |
+| | **Cảnh 1.2:** Bồn rửa bát & Đối mặt bản sao | 01:55 – 03:25 | 90s | 7 shots | Cú quay mặt $180^\circ$ chậm rãi, giọt nước inox rỏ chậm, khoảng lặng đông cứng 5s, gọi Tùng & khoảng lặng cúp máy 4s |
+| | **Chuyển cảnh 1.2 $\to$ 1.3:** Khoảng lặng chết chóc | 03:25 – 03:35 | 10s | 1 shot | Smash Push-in mắt vô hồn & Handheld Breathing Jitter, nhịp tim dội vang |
+| | **Cảnh 1.3:** Đẩy người, gài then & giấu dao | 03:35 – 04:45 | 70s | 6 shots | Steadicam Leading hành lang, Macro then sắt CẠCH, **giữ lâu 8s hành lang hun hút vắng lặng**, giấu dao dưới nệm |
+| | **Chuyển cảnh 1.3 $\to$ 1.4:** Match Cut & Time-lapse chiều sang đêm | 04:45 – 05:00 | 15s | 1 shot | Match Cut đóng then $\to$ mở laptop, Time-lapse chiều tà sang đêm đen đặc |
+| | **Cảnh 1.4:** Đọc note thuốc khớp & tiểu luận 15 trang | 05:00 – 05:45 | 45s | 6 shots | Cận Insert hộp Glucosamine dừng đọc 4s, gõ bài hộ trong đêm, Nam thức dậy tự mãn |
+| **CHUYỂN HỒI 1 $\to$ 2** | **Đêm trọ sang Bình minh Ngày 2** | **05:45 – 06:45** | **60s** | **3 shots** | **Fade to Black sâu 5s $\to$ Soundscape đêm trọ Hà Nội đầy ám ảnh (bánh khúc, quạt cây, còi tàu, kẻng xe rác 5h) $\to$ Nắng chiếu then sắt còn khóa nguyên** |
+| **HỒI 2** | **Cảnh 2.1:** Thị uy tiền, đùn trắc nghiệm & nhờ đi Lab | 06:45 – 08:30 | 105s | 8 shots | Khoảng lặng đối đầu 5s, rút dao dưới nệm, 3 triệu tiền mặt, đùn việc, cửa khép Nam chơ vơ 8s |
+| | **Chuyển cảnh 2.1 $\to$ 2.2:** Cô độc & Time-lapse trưa sang tối | 08:30 – 08:50 | 20s | 2 shots | Time-lapse Top-down cày game, bát mì nguội ngắt đóng váng mỡ $\to$ chuông ting 9.5 $\to$ tiếng bước chân Tùng |
+| | **Cảnh 2.2:** Tùng đau chân, trùm chăn & nẫng tay trên | 08:50 – 10:15 | 85s | 8 shots | **Khoảng lặng cay đắng dưới lớp chăn mỏng (Nam siết chặt tuýp dầu trong túi quần)**, Người Kia xoa bóp, căn giờ 19h30 |
+| | **Chuyển cảnh 2.2 $\to$ 2.3:** Ánh trăng khuya 02:00 sáng | 10:15 – 10:30 | 15s | 1 shot | Slow Dissolve đèn tắt $\to$ ánh trăng bàng bạc chiếu vải gương tụt ngang ngực |
+| | **Cảnh 2.3:** Vết nứt sau lưng & cuộc gọi Zalo của mẹ | 10:30 – 12:15 | 105s | 8 shots | **OTS sau gáy Người Kia giữ lâu 8s thấy nứt rạn rỉ nước lạnh đầm đìa**, nghe Zalo cực ngọt $\to$ Nụ cười tắt lịm, phòng đóng băng 5s |
+| | **Chuyển cảnh 2.3 $\to$ 2.4:** Mắt mất ngủ $\to$ Clip Zalo ngày | 12:15 – 12:30 | 15s | 1 shot | Push-in mắt mất ngủ $\to$ Sound Bridge chuông Zalo đánh thức ban ngày |
+| | **Cảnh 2.4:** Clip giỗ họ hàng & Giọt nước tràn ly | 12:30 – 14:15 | 105s | 7 shots | Soi gương thấy tiều tụy, hất tung hộp xôi, **khoảng lặng nhặt từng hạt xôi & ánh mắt dao cạo nhìn gáy giữ 6s** |
+| **CHUYỂN HỒI 2 $\to$ 3** | **Đêm trắng dằn vặt & Quyết tâm muộn màng** | **14:15 – 15:00** | **45s** | **3 shots** | **Montage giữ nhịp chậm: Rửa mặt nước buốt $\to$ Cà phê đặc leng keng $\to$ lật sách C++ $\to$ bóng in lên tường $\to$ Match Cut sang bục giảng** |
+| **HỒI 3** | **Cảnh 3.1:** Giảng đường & Sụp đổ trước thuật toán | 15:00 – 16:45 | 105s | 7 shots | 3D Crane bục giảng, trả lời tốt câu 1, đứng hình code đa luồng, phấn gãy đôi, **khoảng lặng chết chóc 6s trước toàn hội trường** |
+| | **Chuyển cảnh 3.1 $\to$ 3.2:** Trốn chạy & Khoảng lặng bờ kè sông | 16:45 – 17:45 | 60s | 3 shots | Running Montage $\to$ **Toàn cảnh cực rộng bờ kè sông Hồng / hồ nước (12:30–17:30, giữ tĩnh 15–20s thấm nỗi tuyệt vọng)** $\to$ 17h45 về dãy trọ |
+| | **Cảnh 3.2:** Về phòng, soi CCCD phát hiện nốt ruồi đảo | 17:45 – 18:45 | 60s | 5 shots | Macro CCCD nốt ruồi trái vs Clip phải $\to$ nhịp tim dội vang $\to$ lôi búa sắt dưới gầm giường |
+| | **Chuyển cảnh 3.2 $\to$ 3.3:** Whip Pan & Hoàng hôn máu 18h00 | 18:45 – 18:55 | 10s | 1 shot | Whip Pan khựng lại giữa không trung $\to$ nắng đỏ rực rọi vết nứt vỡ toang rỉ nước đầm đìa |
+| | **Cảnh 3.3:** Đối chất sinh tử & Đòn thao túng tâm lý | 18:55 – 20:00 | 65s | 6 shots | Người Kia suy thoái rỉ nước, bóc trần sự lười biếng $\to$ Búa rơi KENG ngân dài $\to$ Khoảng lặng buông xuôi 5s |
+| | **Cảnh 3.4:** Khế ước hoán đổi & Cú xuyên gương chậm | 20:00 – 21:15 | 75s | 5 shots | Verbal consent $\to$ Khựng lại do dự 3s $\to$ **Áp tay xuyên gương chậm (đồng bộ 192 frames render Blender: sương mực loang, mất màu sắc, hạt phim, tim đập chậm)** |
+| | **Chuyển cảnh 3.4 $\to$ 3.5:** The Chilling Void & Đèn pha 19h30 | 21:15 – 21:30 | 15s | 1 shot | **Khoảng lặng chân không 6s, nước bốc hơi xèo** $\to$ đèn pha quét trần $\to$ tiếng huýt sáo Tùng |
+| | **Cảnh 3.5:** Đoạn kết ám ảnh — Quiet Horror bún chả | 21:30 – 22:00+ | 45s | 4 shots | Tùng nhận ra nốt ruồi bên phải $\to$ **Khoảng lặng im phăng phắc** $\to$ then sắt gài CẠCH $\to$ Khung hình cuối giữ cực lâu mặt gương Nam đập tay câm lặng $\to$ Cut to Black 5s |
+| **TỔNG CỘNG** | **3 HỒI ĐIỆN ẢNH HOÀN CHỈNH** | **00:00 – 22:00+** | **~1320s** | **96 SHOTS** | **CHUẨN PHIM HOẠT HÌNH 3D ĐIỆN ẢNH — NHỊP THỞ CHẬM RÃI & CHIỀU SÂU TÂM LÝ** |
 
 ---
 

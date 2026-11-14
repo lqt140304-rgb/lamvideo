@@ -26,8 +26,14 @@ for c in dst.collections:
         for o in col.objects: objs.append(o)
         for ch in col.children: walk(ch)
     walk(c)
+tops = set()
 for o in objs:
-    if o.parent is None: o.parent = root
+    t = o
+    while t.parent: t = t.parent
+    tops.add(t)
+for t in tops:   # gốc của cây cha (cả empty Cum_Dau của cụm đầu nằm ngoài các collection đã nạp) phải theo root, không thì tóc/tai đứng lại ở gốc toạ độ
+    if t.name not in sc.collection.objects and not any(t.name in c.objects for c in dst.collections): sc.collection.objects.link(t)
+    t.parent = root
 x, y = (float(v) for v in a.pos.split(','))
 root.location = (R.mx(x), y, 0.0); root.rotation_euler = (0, 0, math.radians(a.yaw))
 sc.cycles.samples = a.samples

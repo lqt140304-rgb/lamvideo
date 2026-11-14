@@ -95,3 +95,102 @@ Chế độ `--mode dawn|noon|sunset|rain|night|day`, `--den-ban on|off`, `--goc
 ## Đồ dùng tinh chỉnh — cập nhật 13/11
 
 Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đồ dùng mới trên bối cảnh hiện tại: tựa ghế đúng chiều, chăn ôm ngoài mép nệm và chân cao su laptop đặt trên mặt bàn. Xem [hướng dẫn tích hợp và giới hạn](README-CHI-TIET.md), [ảnh sửa tiếp xúc](sua-tiep-xuc/DA-SUA.png). Entry gốc vẫn giữ nguyên; cần gọi entry tinh chỉnh hoặc gọi `refine()` sau `build()` để nhận đồ dùng mới.
+
+## 13/11 chiều muộn: nắng trưa chữ nhật, quầy nhận đồ S07 chi tiết, chuyển giờ, mưa chuyển động
+- **Nắng trưa** (`--mode noon`): `khung_nang_ban` (xay_phong_tro.py) là khung chắn sáng vô hình với camera, đặt sau cửa sổ vuông góc tia nắng, ô 0,46 × 0,30 m → nắng in thành mảng sáng có rìa rõ lên mặt bàn (tâm 0,55; 0,36), vạch chéo của song cửa sổ chạy qua. Nắng trưa 14, ánh hắt cửa sổ 32, độ nhoè mặt trời 0,5°. Ảnh: `xem-thu/anh-sang/trua-mat-ban-chu-nhat.png`.
+- **Chuyển giờ mượt** (`chuyen_gio.py`, shot `DOI_GIO`, 96 khung): keyframe nắng (hướng, màu, độ mạnh), gradient bầu trời, ánh hắt cửa sổ, đèn bàn + bóng, màn hình laptop, phơi sáng; rèm khe chỉ có lúc sáng sớm.
+- **Mưa chuyển động** (`goc_cho_tang.py`, shot `MUA_GOC_DO`): hạt mưa rơi bằng driver theo khung hình, 9 sợi nước nhỏ giọt từ mép sàn tầng 3, vòng gợn trên vũng nước.
+- **Quầy nhận đồ S07** (camera `GOC_DO`, `GOC_DO_QUAY` cận bàn; ảnh `xem-thu/goc-do/quay-nhan-do-*.png`):
+  - Mái bạt đỏ trắng, 2 cột, dây 9 đèn lồng, đèn điểm ấm hắt xuống bàn; biển gỗ "ĐỒ CHO TẶNG".
+  - Bàn gỗ khăn trải thả mép: chồng 4 áo gấp (sọc, nếp gấp), chồng 5 sách (gáy vàng, mép giấy, nhãn, dây đánh dấu), ấm kim loại (vòi, quai, nút), lọ thủy tinh (nắp, nhãn, kẹo), đôi dép (đế, quai chéo), gấu bông cũ, đồng hồ báo thức, thẻ "Lấy tùy tâm", hộp ủng hộ đỏ (khe, băng keo, chữ "ỦNG HỘ").
+  - Dưới bàn: rổ mây đựng 3 quả bóng, đôi giày cũ.
+  - Giá treo áo 7 áo (tay áo, móc, thẻ giá buộc dây).
+  - Góc đồ cũ: quạt (vành lồng, 3 cánh, nan, trục), ghế gãy thêm đệm đỏ, thùng carton băng keo + chữ "SÁCH CŨ", gương bám bụi có vết ngón tay.
+- Mọi đối tượng bắt đầu `env_gct_`. Chưa render lại `chuoi-shot.mp4`.
+
+## 13/11 tối: trời, xe cộ, người, chim chuyển động (`canh_dong.py`)
+- Gọi từ `hallway()` sau `moi_truong.build`; mọi chuyển động bằng **driver theo khung hình** (lặp vòng, không keyframe), đối tượng `env_cd_*`.
+- **Mặt trời** (ngày/sáng sớm/chiều tà, theo `dirw` của chế độ) và **mặt trăng** (đêm): đĩa phát sáng ở xa chỉ camera thấy, có quầng mềm; **mây** là cụm cầu dẹt trôi theo +x (16 cụm, 26 khi mưa; màu đổi theo giờ, rìa mờ bằng Layer Weight).
+- **Xe máy** có người lái (mũ bảo hiểm, đèn trước/sau sáng ban đêm): 5 chiếc chạy 2 chiều giữa sân, 3 chiếc trong hẻm cạnh cửa sổ phòng Nam. **Người đi bộ** (thân, đầu, tay chân đung đưa theo khung): 5 người ở sân (có 1 trẻ em), 2 người ở hẻm. **7 con chim** bay ngang trời, cánh vỗ.
+- Camera kiểm tra: `TROI_NANG`, `TROI_TRANG` (từ mái nhìn lên). Ảnh: `xem-thu/troi/`.
+- Hạn chế: người/xe là hình khối đơn giản (chưa phải nhân vật modular); xe vòng lặp có thể "nhảy" ở hai đầu sân ngoài khung hình; chưa có ô tô; chưa render lại `chuoi-shot.mp4`.
+
+### Sửa cơ bản canh_dong (13/11 tối)
+- **Hết "nhảy" ở hai đầu vòng:** mọi xe/người/ô tô/chim/mây thu nhỏ dần về 0 ở đầu và cuối vòng lặp (`_fade`, driver scale), nên mọc/biến mất êm.
+- **Ô tô:** 2 chiếc nhỏ (thân, cabin kính, cột, 4 bánh, đèn trước/sau, cản) chạy chậm hai chiều giữa sân, làn x = −4,2.
+- **Người/xe thêm chi tiết:** người có cổ, vai, hông, bàn tay, giày, tóc nhiều màu; xe máy có yên, chắn bùn, chóa đèn, gương chiếu hậu, ống pô. Làn đường tách nhau (xe máy −6,4/−6,0; người −5,5…−5,2; ô tô −4,2). Camera kiểm tra `SAN_XE`.
+- Người/xe vẫn là khối đơn giản, chưa dùng bộ nhân vật modular của nhân vật chính (chủ ý: chỉ là người đi đường nền).
+
+## 13/11 tối: khu tập thể Hà Nội, phân làn, người bán ngồi ven đường (`ktt_ha_noi.py`)
+- **Tường nhà:** vết ố nước mưa chảy dọc (mờ dần, mép loang bằng noise), rêu sát chân tường, mảng tường gạch lộ do bong vữa (vật liệu Brick theo mét) trên tường nhà trọ (tầng trệt + tầng 3), nhà đối diện và nhà cuối sân.
+- **Chi tiết KTT:** chuồng cọp bọc lưới sắt + mái tôn dốc ở nhà cuối sân, sào phơi đồ thò ra cửa sổ, điều hoà cục nóng, hộp công tơ điện, ống nước PVC, biển số nhà (A5, P.12), loa phường, hoa giấy trong chậu trên lan can, cờ đỏ sao vàng, quán trà đá (bàn thấp, ghế nhựa, ô dù, bình thuỷ), xe đẩy bánh mì.
+- **Phân làn (sân dài 68 m):** vỉa hè nâng 8 cm ở phía tây cho người đi bộ (x −7,55…−6,5); lòng đường nhựa x −6,5…−3,4, vạch biên liền, vạch đứt phân làn, vạch đi bộ qua đường; làn tây −6,3 đi −y (xe máy, xe cộ chậm), làn giữa −5,1 ô tô đi +y, làn đông −3,9 xe máy đi +y; xe đỗ và bồn cây dồn về hè đông (x > −3,2), cột điện chuyển sát hè đông (x = −1,75) nên ô tô không còn đâm vào cột và cây.
+- **Người bán hàng rong ngồi ven đường (3 người, đứng yên, mỗi người một kiểu):** bà bán rau (nón lá, rổ rau, ô che nắng, chiếu), cô bán trái cây (khăn trùm đầu, ghế nhựa, đôi thúng + quang gánh đặt xuống), chú bán bánh mì (mũ lưỡi trai, ngồi sau xe đẩy). Bỏ gánh/xe đạp hoa đi bộ.
+- Camera kiểm tra: `VIA_HE`, `VIA_HE_2`; ảnh `xem-thu/ktt/`.
+
+### Sửa xuyên vật thể / quầy rong chìa ra đường (13/11 tối)
+- Mặt cắt sân (x thiết kế, đơn vị m): vỉa hè −7,55…−6,05 (người bán ngồi và đồ nằm trọn trong −7,5…−6,7; lối đi bộ −6,5/−6,25); đường nhựa −6,05…−3,1 gồm xe máy làn tây −5,55, ô tô −4,55 (rộng 1,5 m), xe máy làn đông −3,45; hè đông (xe đỗ, bồn cây, quán trà, xe bánh mì) từ −3,0 trở vào.
+- Bỏ xe đỗ trên vỉa hè phía tây; bồn cây thu hẹp (−3,0…−2,1); vạch đứt −5,3 và −3,75, vạch đi bộ −5,85…−3,25.
+
+### Mở rộng đường cho ô tô (13/11 tối)
+- Mặt cắt mới (x thiết kế): vỉa hè −7,55…−6,25; **đường nhựa −6,25…−2,8 (rộng 3,45 m, 2 làn, vạch tim đứt −4,5)**; hè đông (bồn cây −2,8…−2,1, xe đỗ, quán, xe bánh mì) từ −2,8 trở vào. Làn đông x = −3,65 đi +y, làn tây x = −5,35 đi −y; ô tô (rộng 1,5 m) và xe máy dùng chung làn, cùng tốc độ trong mỗi làn, cách nhau ≥ 9 m nên không chồng nhau. Người đi bộ cùng một chiều trên lối −6,5.
+
+## 13/11 đêm: chi tiết Hà Nội theo bảng ưu tiên
+- **Ưu tiên 1:** chuồng cọp sắt đua ra 30 cm ngoài ban công nhà hàng xóm trong hẻm + téc inox nằm trên mái chuồng (`moi_truong.hem_chi_tiet`; nhìn từ `CUA_SO`); 7 chuồng cọp đua ra 65 cm ở nhà đối diện, một nửa có téc inox (`ktt_ha_noi.py`); cột điện "tổ chim": 3 cuộn cáp quấn cột, hộp cáp, mớ dây rối quanh xà, tổ chim, biến áp ở cột y = 8.
+- **Ưu tiên 2:** công tơ điện cơ **đĩa xoay** (kính, đĩa nhôm quay bằng driver) + cầu dao cạnh cửa phòng Nam (`hallway_details`), dép tổ ong (xanh rêu/nâu/be) ở kệ giày; chữ stencil "KHOAN CẮT BÊ TÔNG 0912 345 678" ở tường hành lang và tường tầng trệt; shader `vat_lieu.phong_tran` (nền vôi loang + mảng vàng ố + rêu theo cao độ) áp cho mọi tường môi trường (`moi_truong.plaster`).
+- **Ưu tiên 3:** quán nước chè chén tầng 1 (khay chén, ấm, bếp than, ghế nhựa), 4 thùng xốp trồng rau chân nhà trọ.
+- Ảnh: `xem-thu/ktt/toan-canh-chuong-cop-cot-dien.png`, `hanh-lang-cong-to.png`. Chữ stencil và chữ biển chưa kiểm tận mắt ở độ phân giải cao.
+
+### Giảm lặp (cùng đợt)
+- Tầng 3 nhà trọ: cửa không đều (rộng 0,8–0,95, cách nhau 0,9–2,4 m), màu không trùng liên tiếp, 30% cửa lưới sắt / 20% rèm ô thoáng, cửa sổ nhỏ có song, giày dép, chậu cây, ghế, biển số ngẫu nhiên; sào phơi/điều hoà đặt ở khe giữa các cửa, bỏ trống nhiều chỗ; chậu lan can 4 loại (hoa giấy, lá, sen đá, thùng xốp rau) cách nhau ngẫu nhiên.
+- Đường phố: xe máy mỗi xe một kiểu (thùng giao hàng, chở thêm người, giỏ trước, kích cỡ), người đi bộ khác chiều cao + túi/mũ, ô tô 1 sedan + 1 van có giá nóc, 3 kiểu cây (tròn, phượng tán dẹt có hoa, cau mảnh).
+
+### Kiểm lại chữ / cửa sổ / rêu (13/11 đêm)
+- Chữ đọc được ở cận cảnh: "BÁNH MÌ", "A5", "P.12", "KHOAN CẮT BÊ TÔNG 0912 345 678". Đã dời biển số/stencil khỏi cửa cuốn, công tơ và cột (cột X0 che khi nhìn thẳng); stencil nằm trước mảng gạch lộ (EX−0,02). Camera kiểm: `BIEN_SO_NHA`, `STENCIL_T1`, `BIEN_BANH_MI`, `STENCIL_HL`.
+- Cảnh qua cửa sổ phòng Nam (`CUA_SO`): chuồng cọp nhà hàng xóm đua ra 14 cm (trước 30 cm), song cách 22 cm → thoáng hơn, thấy rõ quần áo phơi phía sau.
+- Rêu trên tường: giảm cường độ (`phong_tran(reu=0.5, z_reu=-2.0)`), chỉ còn viền xanh nhạt sát chân tường.
+
+### Kiểm tra xuyên/che lấp (13/11 đêm) — `kiem_xuyen.py`
+- Công cụ quét AABB (lấy mẫu 58 khung trong 700 khung): xe/người chuyển động vs đồ tĩnh, xe vs xe, đồ tĩnh vs đồ tĩnh, đồ gắn tường nhúng sâu vào khối nhà. Chạy: `/tmp/bpyenv/bin/python kiem_xuyen.py`.
+- Đã sửa: 2 cây cau cũ đứng giữa vỉa hè (người đi bộ xuyên, lá chạm nóc xe van) → xoá; rễ cây chìa ra làn xe → dời cây vào giữa bồn; xe đỗ chồng lên bồn cây, thùng rác chồng lên bồn → dời; cột ô quán trà xuyên qua bàn, cột ô bà bán rau xuyên qua nón → dời sang bên; ghế quán chạm chân bàn; chú bánh mì ngồi cắm chân vào xe đẩy, bánh xe đẩy nằm lọt trong thân xe → dời; xe máy trong hẻm đuổi kịp nhau → cùng tốc độ; người đi bộ chạm rổ người bán → lối đi dời −6,43; 3 chuồng cọp nhà cuối sân cắm vào khối nhà đối diện → dời vào đúng mặt tiền.
+- Kết quả sau sửa: 0 va chạm xe/người với đồ tĩnh, 0 xe-xe; còn lại chỉ là các bộ phận của cùng một nhân vật/xe (đùi–hông, bánh mì trong tủ kính, cây trong bồn).
+
+## 13/11 đêm: S12 Thế giới trong gương (`the_gioi_guong.py`)
+- Bản dựng riêng (không dùng phòng trọ): **Deep Teal Abyss #051824** + sương thể tích (Volume Scatter trong World); **mặt nước vô tận** phản chiếu (Fresnel Glossy ↔ Diffuse tối, Wave rings + noise làm gợn, phase chạy theo khung → sóng lan; đốm lân tinh Voronoi); **khung gương gỗ lơ lửng** cách mặt nước ~0,6 m, nhấp nhô; **Nam chìm dần** (hình nhân tạm, hạ theo khung 1→96, 2 tay giơ về gương), 4 vòng sóng nở quanh Nam, 16 bọt khí nổi; **bóng phòng trọ đảo ngược 180°** (khung dây sáng mờ: phòng 3×4×2,8 m, nệm, bàn học đảo bên, cửa, gương) ở xa 14 m phía sau.
+- Camera: `WIDE` (FORE gợn sóng – MID gương + Nam – BACK bóng tối), `FORE` (thấp sát mặt nước), `MID`, `BACK` (nhìn vào bóng tối, không lối thoát), `CAN_GUONG`, `TOP`. Chạy: `/tmp/bpyenv/bin/python the_gioi_guong.py --cam WIDE --frames 1,48,96 --out ảnh.png`. Ảnh: `xem-thu/the-gioi-guong/`.
+- Chưa làm: Nam là hình nhân tạm (chưa nhân vật modular, chưa có chìm theo mặt phẳng cắt như `kinh_nuoc.py`); mặt gương còn nhạt/trắng do phản xạ sương; chưa nối với shot `KINH_NUOC` trong phòng thật; chưa có Người Kia trong thế giới gương; chưa render video; Cycles thể tích hơi chậm (xem thời gian ở dưới nếu đo).
+
+### S12 bản hoàn chỉnh: phòng trọ đảo ngược 100% (13/11 đêm)
+- `the_gioi_guong.py` giờ **dựng đúng phòng thật** (cùng hàm `shell/kitchen/wardrobe/desk_and_chair/bed/fan/mirror/clutter/wall_details`) rồi **lật gương qua mặt phẳng x = 0** (parent scale x = −1): bàn học chuyển sang bên đối diện, cửa và cửa sổ đổi tường, bếp/tủ/nệm/quạt/gương đảo trái–phải, chữ trên đồ vật cũng đảo như phản chiếu thật. Không còn khung dây.
+- Sàn gạch bỏ, thay bằng **mặt nước vô tận** (sóng lan, lân tinh); đèn phòng thật gỡ hết, chỉ còn ánh Deep Teal (trần mờ, quầng quanh gương, lân tinh hắt lên); cửa sổ và cửa mở ra vực tối; sương thể tích mỏng. Nam (hình nhân tạm) chìm dần trước chiếc gương đứng (đã đảo sang tường kia), có vòng sóng + bọt khí.
+- Camera: mọi camera phòng thật (`WIDE`, `DESK`, `BED`, `DOOR`, `KITCHEN`, …) dùng lại với toạ độ thiết kế − W nên cùng bố cục với phòng thật (dễ dựng cắt ghép trước/sau gương) + `NAM_CHIM`, `GUONG_CAN`, `TOP`. Ảnh: `xem-thu/the-gioi-guong/phong-dao-*.png`.
+- Hạn chế: Nam hình nhân tạm; chưa có Người Kia; vài đồ ngoài phòng (bóng đen phía dưới ở `WIDE` là mặt nước tối ngoài tường trước); chưa render video.
+
+### S12 sửa lỗi còn lại (13/11 đêm)
+- Hết mảng đen ở `WIDE`: nguyên nhân là lịch treo + ốp tường + khung ốp của tường trước (không ẩn cùng tường trước khi camera đứng ngoài) → ẩn với camera như phòng thật.
+- Tối hơn, đúng tinh thần vực thẳm: đèn trần 4,5 / quầng gương 4 / lân tinh hắt lên 3 (từ 9 / 7 / 5), nền trời 0,12, phơi sáng 0,7.
+- Thêm **Người Kia** (hình nhân tạm cao 1,6 m, màu đỏ gạch) đứng yên trên mặt nước, **tay trái** đưa về cổ tay Nam, không làm mặt nước gợn (khác Nam); sẽ thay bằng nhân vật modular có nốt ruồi bên phải.
+- Nam chìm: mặt nước đục nên phần dưới mặt nước tự biến mất, không cần mặt phẳng cắt như `kinh_nuoc.py` (chỉ cần khi cắt qua kính trong phòng thật).
+
+### Nối phòng thật → thế giới gương (13/11 đêm): shot `XUYEN`
+- `the_gioi_guong.py --cam XUYEN` dùng **đúng đường máy của `KINH_NUOC`** (50 mm f/2,0, đẩy (2,2→1,8 ; 2,0→1,9 ; 1,25), nhìn mặt gương) trong phòng đảo (toạ độ thiết kế − W), 72 khung: Nam trồi ra ngay mặt gương rồi bị hút chìm xuống mặt nước. Quạt ở bên trái trong phòng thật, bên phải trong phòng đảo → khớp bố cục khi cắt nối.
+- Video thử nối (12 fps, 640×268, 3,75 s, 24 khung `KINH_NUOC` + 24 khung `XUYEN`, hoà mờ 0,3 s): `xem-thu/video/xuyen-guong-noi-the-gioi.mp4`; ảnh ghép khung: `xem-thu/the-gioi-guong/noi-xuyen-guong-bang-khung.png`. Người Kia không đưa vào shot này (tay che khung máy).
+- Lệnh: `F=$(python3 -c "print(','.join(str(i) for i in range(1,73,3)))")`; `camera_dong.py --shot KINH_NUOC --frames $F ...` rồi `the_gioi_guong.py --cam XUYEN --frames $F ...`; ghép bằng `ffmpeg … xfade`.
+
+### Nối gương nâng cấp (13/11 đêm)
+- **Chuyển màu mượt:** shot `XUYEN` keyframe ánh sáng suốt 72 khung — đầu shot trần trắng ấm 40, sương mỏng, phơi sáng 1,15 (gần tông phòng thật) → khung 30 giữa chừng → khung 72 Deep Teal (trần 4,5, quầng gương 4, lân tinh 3, nền 0,12, phơi sáng 0,7, sương 0,035).
+- **Sóng nước lan thay cho hoà mờ:** `ghep_xuyen_guong.sh a.mp4 b.mp4 ra.mp4 [giây] [fps]` — vòng sóng nở ra từ tâm mặt gương (CX, CY = 0,56 ; 0,50), phòng thật méo theo hướng bán kính trước mép sóng, phòng đảo hiện sau mép, mép sáng lân tinh cyan, vài vòng sóng tàn dư phía sau (ffmpeg `xfade` custom; P chạy 1→0 nên dùng 1−P; bắt buộc `-filter_threads 1` vì `st()/ld()` dùng chung giữa luồng, không thì ra nhiễu).
+- Video thử mới: `xem-thu/video/xuyen-guong-noi-the-gioi.mp4` (3,0 s, 12 fps, 640×268, sóng 1,0 s). Ảnh ghép: `xem-thu/the-gioi-guong/noi-xuyen-guong-bang-khung.png`.
+
+### Chuyển cảnh kinh dị huyền bí (13/11 đêm) — thay sóng neon
+- `ghep_xuyen_guong.sh` (và khối ghép trong `render_xuyen_guong_gpu.ps1`) viết lại: **(1)** 1,3 s trước khi chuyển, phòng thật bị "hút" dần — mất màu (−55% bão hoà), tối, tương phản tăng, vignette siết lại; **(2)** từ tâm mặt gương, **màn sương đen loang ra như mực** (mép gồ ghề bằng sóng theo góc, không còn vòng tròn đều), phía trước mép tối sầm; **(3)** mép có quầng xanh nhạt lạnh, gợn sóng méo mạnh theo bán kính, vài vòng gợn tàn dư; **(4)** phòng đảo hiện sau mép; toàn đoạn phủ hạt phim, vignette, lệch màu nhẹ (rgbashift), nhịp "tim đập" sáng tối ~1,15 Hz. Mặc định chồng 1,6 s.
+- Lưu ý kỹ thuật: sau các bộ lọc `eq`/`vignette` phải ép lại `format=gbrp` trước xfade (nếu không các plane thành Y/U/V và ra mảng xanh lục).
+- Video thử: `xem-thu/video/xuyen-guong-noi-the-gioi.mp4` (2,4 s, 12 fps, 640×268). Mọi thông số có thể chỉnh trong biểu thức (độ gồ ghề mép `0.12/0.07`, độ tối `0.9`, tốc độ gợn `34`).
+
+## 13/11 đêm: remake cảnh xuyên gương — CHẬM + KINH DỊ HƠN
+- **Shot `KINH_NUOC_CHAM`** (`camera_dong.py`, 192 khung = 8 s, thay cho 72 khung quá nhanh): **đêm**, chỉ còn ánh laptop xanh; **đèn chập chờn** (energy qua driver, giật tắt ngắn mỗi ~53/97 khung); Nam **đi từ từ**, khựng lại hai lần trước gương (khung 62–84 và 112–132) rồi mới bước xuyên mặt kính (khung 132–186), nhấp nhô bước đi nhẹ; mặt gương **im lặng nửa đầu**, gợn lăn tăn nhỏ nổi lên trước khi Nam chạm, hoá nước lúc bước vào (`kinh_nuoc.animate_cham`); **quầng sáng lạnh** trước gương lớn dần (1,5 → 14 W); máy bò chậm từ xa (2,5 → 1,55 m), rung tay nhẹ; 50 mm f/2,0.
+- **Shot `XUYEN_CHAM`** (`the_gioi_guong.py --cam XUYEN_CHAM`, 192 khung, cùng đường máy): Nam trồi chậm ngay mặt gương, khựng, rồi chìm dần; chuyển màu từ bóng đêm laptop (lạnh, tối) → Deep Teal sâu hơn (phơi sáng 1,0 → 0,6, sương 0,012 → 0,045).
+- **Ghép:** `ghep_xuyen_guong.sh a.mp4 b.mp4 ra.mp4 2.2 24` (chồng mặc định 2,2 s ở bản 24 fps thật; bản xem thử bên dưới là 12 fps lấy mẫu mỗi 4 khung nên chạy **nhanh gấp 2**, chồng 1,4 s).
+- **Xem thử:** `xem-thu/video/xuyen-guong-cham-kinh-di.mp4` (6,6 s ở tốc độ ×2 ⇒ ≈ 13 s thật; 640×268; 20 mẫu); ảnh ghép khung `xem-thu/the-gioi-guong/xuyen-guong-cham-bang-khung.png`.
+- **Render GPU:** `.\render_xuyen_guong_gpu.ps1 -Test` (đo thời gian) rồi `.\render_xuyen_guong_gpu.ps1 -Out D:\render\xuyen` (mặc định đã là bản chậm 192 khung, chồng 2,2 s; `-Nhanh` để quay về bản 72 khung cũ).
+- Thử và bỏ: bóng Người Kia đứng rìa trái khung (che gương) và Người Kia chỉ hiện trong phản chiếu (từ góc máy này mặt gương chỉ phản chiếu tường trước nên không thấy) — nên Người Kia không có trong cảnh này.

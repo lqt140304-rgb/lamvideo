@@ -5,6 +5,8 @@
 | Nhóm | Nguồn hiện hành | Trạng thái / giới hạn |
 |---|---|---|
 | Đầu và tóc Nam modular | [dung_dau_nam.py](assets/nhan-vat-3d/dung_dau_nam.py) | Nguồn Blender đầu/tóc; giữ bản nhận diện đã duyệt. Chưa suy ra rig toàn thân đã hoàn thiện |
+| Đầu Nam (control cage) | [dung_dau_cage_nam.py](assets/nhan-vat-3d/dung_dau_cage_nam.py), [kết quả](assets/nhan-vat-3d/KET-QUA-DAU-CAGE.md) | Cage nửa 242 đỉnh, chung một lưới với thân; nhãn cầu riêng, mí và khoang miệng kín; 4 shape key **thử** (nhắm/mở mắt, mở hàm, cười nhẹ), chưa phải rig mặt. Đầu cũ giữ ở collection `00_Dau_Cu` |
+| Thân Nam (control cage) | [dung_than_cage_nam.py](assets/nhan-vat-3d/dung_than_cage_nam.py), [kết quả](assets/nhan-vat-3d/KET-QUA-THAN-CAGE.md) | Đạt hình khối tĩnh, khớp ảnh mẫu ±5 mm (trước/nghiêng). Chưa ghép bàn tay (chờ tay mới), bàn chân cũ nối tạm, chưa rig; `dung_than_nam.py` v2.11 giữ làm bản đối chiếu |
 | Nhân vật mẫu Nam | [dung_nam.py](assets/nhan-vat-3d/dung_nam.py) | Mẫu metaball/rig trước hướng đầu modular; dùng có chủ đích, không trộn hai bộ đầu thành một nhân vật |
 | Phòng trọ, hành lang, ngoại cảnh | [hướng dẫn bối cảnh](assets/boi-canh-3d/README.md), [xay_phong_tro.py](assets/boi-canh-3d/xay_phong_tro.py) | Nguồn cảnh Blender, đơn vị mét; xem báo cáo rà của bối cảnh |
 | Đồ dùng tinh chỉnh | [entry tinh chỉnh](assets/boi-canh-3d/xay_do_dung_chi_tiet.py), [cách dùng](assets/boi-canh-3d/README-CHI-TIET.md), [ảnh kiểm tra](assets/boi-canh-3d/sua-tiep-xuc/DA-SUA.png) | Có nguồn và ảnh; đã kiểm chăn–nệm/ga/viền, chiều tựa ghế, chân cao su laptop. Chưa kiểm va chạm mọi cặp hoặc chuyển động |

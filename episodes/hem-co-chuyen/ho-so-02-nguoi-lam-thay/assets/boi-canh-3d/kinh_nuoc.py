@@ -72,11 +72,19 @@ def animate(ctl, N=72, tran0=0.0):
     key(ctl['pha'], [(1, 0.0), (N, 22.0)])
 
 
-def apply(glass_obj, center_world, N=72, pov=False, tran0=0.0):
+def animate_cham(ctl, N):
+    """Bản CHẬM, rùng rợn: mặt gương im lặng suốt nửa đầu, gợn lăn tăn nhỏ nổi lên trước khi Nam chạm (0,45N), hoá nước lúc Nam bước vào (0,62N–0,8N), rồi phẳng lặng."""
+    key(ctl['tran'], [(1, 0.0), (int(0.6 * N), 0.0), (int(0.8 * N), 1.0), (N, 1.0)])
+    key(ctl['bien'], [(1, 0.0), (int(0.35 * N), 0.04), (int(0.55 * N), 0.2), (int(0.72 * N), 0.75), (int(0.92 * N), 0.2), (N, 0.0)])
+    key(ctl['pha'], [(1, 0.0), (N, 60.0)])
+
+
+def apply(glass_obj, center_world, N=72, pov=False, tran0=0.0, cham=False):
     mat, ctl = build_material(center_world, pov=pov)
     glass_obj.data.materials.clear(); glass_obj.data.materials.append(mat)
-    animate(ctl, N, tran0)
-    if 'tint' in ctl: key(ctl['tint'], [(1, 0.0), (22, 0.0), (46, 0.55), (N, 0.55)])
+    if cham: animate_cham(ctl, N)
+    else: animate(ctl, N, tran0)
+    if 'tint' in ctl: key(ctl['tint'], [(1, 0.0), (int(0.6 * N), 0.0), (int(0.8 * N), 0.55), (N, 0.55)] if cham else [(1, 0.0), (22, 0.0), (46, 0.55), (N, 0.55)])
     return mat, ctl
 
 
