@@ -47,3 +47,25 @@ Máy: RTX 3050 6 GB, chạy `BLENDER_DEVICE=GPU` (xem `assets/boi-canh-3d/HUONG-
 | Cảnh | Số khung | Giây/khung | Tổng thời gian | Trạng thái |
 |---|---|---|---|---|
 | (chưa đo) | | | | |
+
+## Dựng lại vùng mặt đầu Nam theo ảnh mẫu — đường cơ sở (2026-11-14)
+
+Thiết kế: [THIET-KE-DAU-THEO-MAU.md](THIET-KE-DAU-THEO-MAU.md); kế hoạch: [KE-HOACH-DAU-THEO-MAU.md](KE-HOACH-DAU-THEO-MAU.md).
+
+- Nguồn mẫu có mặt: chỉ `assets/thiet-ke/thu-3d/mau-3d-dau.webp` (ba góc quay liên tiếp). `mau-dau-tran-*` và `mau-dau-luoi-*` là sọ trọc: dùng so sọ, không có mốc mắt/mũi/miệng. Bảng mốc: `assets/nhan-vat-3d/do_mau_nam.py` (`MOC_MAU`).
+- Cách đo: chiếu trực giao mốc cage ở góc quay ƯỚC LƯỢNG (15°, 40°, 90° — chưa đo, cổng 1 kiểm bằng ảnh chồng), khớp tỉ lệ + tịnh tiến với mốc mẫu, sai lệch tính theo % chiều cao mặt (cằm → mí trên, ≈ 236 px). Ngưỡng 3% (trước, nghiêng) / 4% (3/4).
+- Tai là mốc chẩn đoán (không tính vào khớp và ngưỡng, vì tai giữ nguyên theo thiết kế).
+- Mốc cằm là điểm thấp nhất trong 10 cm sau mặt miệng: nhạy với độ phẳng đáy hàm (đường cơ sở 4,8–14,4% tuỳ góc), đọc kèm ảnh chứ không chỉ theo số.
+
+Đường cơ sở của cage đầu `da0da83` (% sai lệch; `!` = vượt ngưỡng):
+
+| mốc | trước | 3/4 | nghiêng |
+|---|---|---|---|
+| mắt R: trái / phải / trên / dưới | 6,5! / 2,8 / 10,6! / 7,1! | 4,5! / 2,5 / 10,1! / 6,2! | 3,6! / 1,1 / 9,8! / 7,6! |
+| mắt L: trái / phải / trên / dưới | 7,6! / 9,3! / 9,1! / 9,0! | 5,7! / 12,0! / 9,3! / 12,0! | — |
+| mũi | 9,4! | 7,0! | 5,9! |
+| miệng | 0,5 | 6,1! | 4,9! |
+| cằm | 7,6! | 14,4! | 4,8! |
+| nốt ruồi | 4,6! | 5,1! | 2,4 |
+
+Kết luận: mắt (mọi góc) và mũi lệch rõ nhất, miệng gần đúng ở mặt trước — khớp với nhận xét của chủ repo (mặt biến dạng chủ yếu ở mắt/mũi).
