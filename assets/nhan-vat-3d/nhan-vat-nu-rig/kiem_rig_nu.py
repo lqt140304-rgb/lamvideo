@@ -262,7 +262,86 @@ def kiem_tran_lien():
                 assert hit[0] is not None and hit[0].y < -0.1, f'Trán {k} hở ở ({x:.3f}, {z:.3f})'
 
 
+def nhom_dinh(ten):
+    g = BODY.vertex_groups.get(ten)
+    assert g is not None, f'Thiếu nhóm đỉnh {ten}'
+    return np.array([v.index for v in BODY.data.vertices if any(x.group == g.index and x.weight > 0.5 for x in v.groups)])
+
+
+def kiem_vung_mieng_day():
+    sc = bpy.context.scene
+    vung = nhom_dinh('MIENG_VUNG')
+    assert len(vung) >= 4 * sc['so_dinh_mieng_goc'], f'Vùng miệng {len(vung)} đỉnh < 4 × {sc["so_dinh_mieng_goc"]}'
+    assert len(vung) >= 6 * 32, f'Vùng miệng chỉ {len(vung)} đỉnh (< 6 vòng × 32)'
+
+
+def kiem_vien_lien():
+    import bmesh
+    lo_ = set(nhom_dinh('MIENG_LO').tolist())
+    khe = np.array([BODY.data.vertices[i].co[:] for i in np.r_[nhom_dinh('MIENG_MOI_TREN'), nhom_dinh('MIENG_MOI_DUOI')]])
+    lo_ |= {v.index for v in BODY.data.vertices if np.linalg.norm(khe - np.array(v.co), axis=1).min() < 0.004}  # khóe khe môi
+    vung = set(nhom_dinh('MIENG_VUNG').tolist())
+    bm = bmesh.new()
+    bm.from_mesh(BODY.data)
+    m = np.array([BODY.data.vertices[i].co[:] for i in vung])
+    lo, hi = m.min(0) - 0.01, m.max(0) + 0.01
+    ho = [v.index for v in bm.verts if v.is_boundary and all(lo[a] <= v.co[a] <= hi[a] for a in range(3)) and v.index not in lo_]
+    bm.free()
+    assert not ho, f'{len(ho)} đỉnh hở quanh miệng ngoài khe môi'
+
+
+def diem_moi(tren):
+    """Đỉnh giữa môi trên/dưới ở khe (nhóm MIENG_MOI_TREN/DUOI), gần x=0 nhất."""
+    idx = nhom_dinh('MIENG_MOI_TREN' if tren else 'MIENG_MOI_DUOI')
+    co = np.array([BODY.data.vertices[i].co[:] for i in idx])
+    return int(idx[np.argmin(np.abs(co[:, 0]))])
+
+
+def mo_ham(do=20):
+    RIG.pose.bones['jaw'].rotation_euler.x = math.radians(do)
+
+
+def kiem_ham_mo():
+    t, d = diem_moi(True), diem_moi(False)
+    base = eval_co()
+    r0 = eval_co(bpy.data.objects['Nu_RangDuoi']).mean(0)
+    l0 = eval_co(bpy.data.objects['Nu_Luoi']).mean(0)
+    mo_ham()
+    co = eval_co()
+    assert np.linalg.norm(co[d] - base[d]) > 0.012 and co[d][2] < base[d][2], f'Môi dưới dời {np.linalg.norm(co[d] - base[d]):.4f}'
+    assert np.linalg.norm(co[t] - base[t]) < 0.003, f'Môi trên dời theo hàm {np.linalg.norm(co[t] - base[t]):.4f}'
+    for ten, c0 in (('Nu_RangDuoi', r0), ('Nu_Luoi', l0)):
+        dd = np.linalg.norm(eval_co(bpy.data.objects[ten]).mean(0) - c0)
+        assert dd > 0.01, f'{ten} chỉ dời {dd:.4f} khi mở hàm'
+
+
+def kiem_mieng_khong_xuyen():
+    from mathutils import Vector
+    mo_ham()
+    if BODY.data.shape_keys and 'cuoi' in BODY.data.shape_keys.key_blocks:
+        BODY.data.shape_keys.key_blocks['cuoi'].value = 1.0
+    RIG.update_tag()
+    bpy.context.view_layer.update()
+    dg = bpy.context.evaluated_depsgraph_get()
+    sc = bpy.context.scene
+    m = Vector(sc['tam_mieng'])
+    for dx, dz in ((0.06, 0.0), (-0.06, 0.0), (0.05, -0.03), (-0.05, -0.03), (0.0, -0.05), (0.03, -0.055), (-0.03, -0.055)):
+        goc = m + Vector((dx, -0.3, dz))
+        ok, loc, nor, idx, ob, _ = sc.ray_cast(dg, goc, Vector((0, 1, 0)))
+        assert ok and ob.name == 'Nu_Than', f'Tia tại ({dx:+.2f}, {dz:+.3f}) chạm {ob.name if ok else "không gì"} trước da'
+
+
+def kiem_ngam_giong_mau():
+    lech = bpy.context.scene['lech_mau_mieng']
+    assert lech < 0.04, f'Màu vùng miệng mới lệch mẫu {lech:.3f}'
+
+
 KIEM = {
+    'kiem_vung_mieng_day': kiem_vung_mieng_day,
+    'kiem_vien_lien': kiem_vien_lien,
+    'kiem_ham_mo': kiem_ham_mo,
+    'kiem_mieng_khong_xuyen': kiem_mieng_khong_xuyen,
+    'kiem_ngam_giong_mau': kiem_ngam_giong_mau,
     'kiem_may_tach': kiem_may_tach,
     'kiem_may_nang': kiem_may_nang,
     'kiem_tran_lien': kiem_tran_lien,

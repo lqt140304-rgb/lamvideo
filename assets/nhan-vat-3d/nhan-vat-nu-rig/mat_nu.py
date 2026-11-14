@@ -507,3 +507,225 @@ def dung_may(body, rig, coll):
         md = may.modifiers.new('Armature', 'ARMATURE')
         md.object = rig
     bo_suu_tap(rig, 'Mat', [n for _, _, t3, _ in cho for n in t3])
+
+
+# ---------- miệng ----------
+
+def _ss(a, b, x):
+    t = np.clip((np.asarray(x) - a) / (b - a), 0, 1)
+    return t * t * (3 - 2 * t)
+
+
+def _hop(ten, C, ax, R, mat, n=(24, 12)):
+    """Elip đặc tâm C, trục ax=(u, w, v), bán kính R=(ru, rw, rv)."""
+    bm = bmesh.new()
+    bmesh.ops.create_uvsphere(bm, u_segments=n[0], v_segments=n[1], radius=1.0)
+    u, w, v = ax
+    for p in bm.verts:
+        x, y, z = p.co
+        p.co = C + u * (x * R[0]) + w * (y * R[1]) + v * (z * R[2])
+    me = bpy.data.meshes.new(ten)
+    bm.to_mesh(me)
+    bm.free()
+    me.materials.append(mat)
+    for f in me.polygons:
+        f.use_smooth = True
+    return bpy.data.objects.new(ten, me)
+
+
+def dung_mieng(body, rig, coll):
+    """Lưới miệng dày quanh khe môi, xương jaw, khoang miệng, răng, lưỡi. Trả {'tam_mieng', 'vung_dinh'}."""
+    from mathutils.bvhtree import BVHTree
+    from mathutils.geometry import barycentric_transform
+    sc = bpy.context.scene
+    me = body.data
+    px = anh_diffuse(body)
+    # nét miệng vẽ: tâm và bề ngang
+    P, Cc = [], []
+    for p in me.polygons:
+        c = p.center
+        if 1.27 < c.z < 1.35 and abs(c.x) < 0.09 and c.y < -0.12:
+            pos, col = mau_mat_luoi(body, px, p, 10)
+            P.append(pos)
+            Cc.append(col)
+    P, Cc = np.concatenate(P), np.concatenate(Cc)
+    l, _ = lum_sat(Cc)
+    m = (l < 0.5) & (Cc[:, 0] > Cc[:, 2] + 0.05) & (P[:, 2] > 1.285) & (P[:, 2] < 1.335)
+    assert m.sum() > 20, 'Không thấy nét miệng vẽ'
+    a = (P[m][:, 0].max() - P[m][:, 0].min()) / 2 + 0.003
+    m0 = np.array([0.0, P[m][:, 1].mean(), P[m][:, 2].mean()])
+    u, v, w = np.array([1.0, 0, 0]), np.array([0, 0, 1.0]), np.array([0, -1.0, 0])  # w: ra trước
+    A, B_up, B_dn = a + 0.03, 0.028, 0.034
+    # lưới gốc (UV, mặt da) trước khi sửa
+    bm0 = bmesh.new()
+    bm0.from_mesh(me)
+    bmesh.ops.triangulate(bm0, faces=bm0.faces[:])
+    bm0.faces.ensure_lookup_table()
+    uv0 = bm0.loops.layers.uv[0]
+    bvh0 = BVHTree.FromBMesh(bm0)
+
+    def len_mat(p):  # chiếu lên da gốc theo hướng −w
+        hit = bvh0.ray_cast(Vector(p + w * 0.05), Vector(-w), 0.2)
+        return hit[0].copy() if hit[0] is not None else Vector(p)
+
+    def uv_goc(p):
+        _, _, fi, _ = bvh0.find_nearest(Vector(p))
+        f = bm0.faces[fi]
+        A_, B_, C_ = (q.vert.co for q in f.loops)
+        ua, ub, uc = (q[uv0].uv.to_3d() for q in f.loops)
+        return barycentric_transform(Vector(p), A_, B_, C_, ua, ub, uc).to_2d()
+
+    def trong_elip(c, k=1.0):
+        bb = B_up if c.z > m0[2] else B_dn
+        return ((c.x - m0[0]) / (A * k)) ** 2 + ((c.z - m0[2]) / (bb * k)) ** 2
+
+    sc['so_dinh_mieng_goc'] = int(sum(1 for q in me.vertices if q.co.y < -0.1 and trong_elip(q.co) < 1))
+    N = 32
+    tt = np.linspace(0, 2 * np.pi, N, endpoint=False)
+    f_k = [0.0, 0.12, 0.25, 0.42, 0.6, 0.8, 1.0]
+    bm = bmesh.new()
+    bm.from_mesh(me)
+    deform = bm.verts.layers.deform.verify()
+    # khoét rộng hơn vòng ngoài cùng (1.0): viền lỗ luôn nằm ngoài, khoảng lấp không bị lật
+    xoa = [f for f in bm.faces if f.calc_center_median().y < -0.1
+           and min(trong_elip(q.co) for q in f.verts) < 1.08]
+    bmesh.ops.delete(bm, geom=xoa, context='FACES')
+    bmesh.ops.delete(bm, geom=[q for q in bm.verts if not q.link_faces], context='VERTS')
+    # viền lỗ: đi dọc các cạnh hở liền nhau, bắt đầu từ cạnh hở gần tâm miệng nhất (đủ vòng kín)
+    hob = [e for e in bm.edges if e.is_boundary]
+    e0 = min(hob, key=lambda e: (((e.verts[0].co + e.verts[1].co) / 2) - Vector(m0)).length)
+    vien, st = {e0}, [e0]
+    while st:
+        e = st.pop()
+        for q in e.verts:
+            for e2 in q.link_edges:
+                if e2.is_boundary and e2 not in vien:
+                    vien.add(e2)
+                    st.append(e2)
+    vien = list(vien)
+    assert len(vien) < 200, f'Viền lỗ miệng nối vào lỗ khác ({len(vien)} cạnh)'
+    rings = []
+    for k, f in enumerate(f_k):
+        ak = a + (A - a) * f
+        ring = []
+        for t in tt:
+            bk = (B_up if math.sin(t) > 0 else B_dn) * f
+            p = m0 + u * (ak * math.cos(t)) + v * (bk * math.sin(t))
+            if k == 0:  # khe môi cong nhẹ như nét cười vẽ
+                p = p + v * (0.004 * (math.cos(t) ** 2))
+            ring.append(bm.verts.new(len_mat(p)))
+        rings.append(ring)
+    trong = [bm.verts.new(q.co - Vector(w) * 0.004) for q in rings[0]]
+    mat_trong = bpy.data.materials.get('Nu_TrongMieng') or mat_phang('Nu_TrongMieng', (0.35, 0.06, 0.07, 1), 0.5)
+    if 'Nu_TrongMieng' not in [x.name for x in me.materials]:
+        me.materials.append(mat_trong)
+    mi_trong = [x.name for x in me.materials].index('Nu_TrongMieng')
+    moi = []
+    for k in range(len(rings) - 1):
+        for j in range(N):
+            j2 = (j + 1) % N
+            moi.append(bm.faces.new((rings[k][j], rings[k][j2], rings[k + 1][j2], rings[k + 1][j])))
+    for j in range(N):  # thành trong môi; bỏ mặt ở khóe (khe khép)
+        j2 = (j + 1) % N
+        if j in (0, N // 2 - 1, N // 2, N - 1):
+            continue
+        f = bm.faces.new((rings[0][j2], rings[0][j], trong[j], trong[j2]))
+        f.material_index = mi_trong
+    ngoai = [bm.edges.get((rings[-1][j], rings[-1][(j + 1) % N])) for j in range(N)]
+    lap = bmesh.ops.triangle_fill(bm, edges=vien + ngoai, use_beauty=True, normal=Vector(w))
+    lap_f = [g for g in lap['geom'] if isinstance(g, bmesh.types.BMFace)]
+    bo = [f for f in lap_f if trong_elip(f.calc_center_median(), 1.9) >= 1 or trong_elip(f.calc_center_median()) < 0.97]
+    for f in bo:
+        bm.faces.remove(f)
+    lap_f = [f for f in lap_f if f not in bo]
+    for f in moi + lap_f:
+        f.smooth = True
+        if f.normal.y > 0:
+            f.normal_flip()
+    uvl = bm.loops.layers.uv[0]
+    for f in moi + lap_f:
+        for q in f.loops:
+            q[uvl].uv = uv_goc(q.vert.co)
+    for f in bm.faces:
+        if f.material_index == mi_trong:
+            for q in f.loops:
+                q[uvl].uv = uv_goc(rings[0][0].co)
+    gi = {g.name: g.index for g in body.vertex_groups}
+    for ten in ('MIENG_VUNG', 'MIENG_LO', 'MIENG_MOI_TREN', 'MIENG_MOI_DUOI', 'jaw'):
+        if ten not in gi:
+            gi[ten] = body.vertex_groups.new(name=ten).index
+    nhan = (gi['MIENG_VUNG'], gi['MIENG_LO'], gi['MIENG_MOI_TREN'], gi['MIENG_MOI_DUOI'])
+    for ring in rings:
+        for q in ring:
+            q[deform][gi['MIENG_VUNG']] = 1.0
+    for q in trong:
+        q[deform][gi['MIENG_LO']] = 1.0
+    for j, q in enumerate(rings[0]):
+        if 0 < j < N // 2:
+            q[deform][gi['MIENG_MOI_TREN']] = 1.0
+        elif j > N // 2:
+            q[deform][gi['MIENG_MOI_DUOI']] = 1.0
+    duoi = {q for ring in rings for j, q in enumerate(ring) if j > N // 2}
+    duoi |= {trong[j] for j in range(N // 2 + 1, N)}
+    khe = set(rings[0]) | set(trong)
+    hd = gi['head']
+    for q in bm.verts:
+        p = np.array(q.co)
+        if p[2] < 1.215 or p[1] > 0.05:
+            continue
+        du, dv = abs(p[0] - m0[0]), p[2] - m0[2]
+        if q in duoi:
+            wj = 1.0 - 0.5 * float(_ss(a * 0.7, a, du))
+        elif q in khe:
+            wj = 0.5 if (q is rings[0][0] or q is rings[0][N // 2]) else 0.0
+        else:
+            wj = float(_ss(-0.002, -0.012, dv)) * (1 - float(_ss(A * 0.9, A * 1.5, du)))
+        wj *= float(_ss(1.215, 1.235, p[2]))
+        for g in list(q[deform].keys()):
+            if g not in nhan:
+                del q[deform][g]
+        if wj > 1e-3:
+            q[deform][gi['jaw']] = wj
+        if wj < 1 - 1e-3:
+            q[deform][hd] = 1 - wj
+    lech = []
+    for f in moi:
+        for q in f.loops:
+            c1 = mau_tai(px, np.array([q[uvl].uv]))[0]
+            c0 = mau_tai(px, np.array([uv_goc(q.vert.co)]))[0]
+            lech.append(np.abs(c1 - c0).mean())
+    sc['lech_mau_mieng'] = float(np.mean(lech))
+    bm.to_mesh(me)
+    bm.free()
+    bm0.free()
+    sc['tam_mieng'] = tuple(float(x) for x in m0)
+    goc_ham = Vector((0, m0[1] + 0.075, m0[2] + 0.02))
+    cam = Vector((0, m0[1] + 0.005, 1.245))
+    tao_xuong(rig, [('jaw', 'head', tuple(goc_ham), tuple(cam), (0, -1, 0))], deform=True)
+    pj = rig.pose.bones['jaw']
+    pj.rotation_mode = 'XYZ'
+    pj.rotation_euler.x = 0.3
+    bpy.context.view_layer.update()
+    xuong_cam = (rig.matrix_world @ pj.tail).z < cam.z
+    pj.rotation_euler.x = 0
+    if not xuong_cam:  # X+ phải mở hàm
+        bpy.context.view_layer.objects.active = rig
+        bpy.ops.object.mode_set(mode='EDIT')
+        rig.data.edit_bones['jaw'].roll += math.pi
+        bpy.ops.object.mode_set(mode='OBJECT')
+    C = Vector(m0)
+    ax = (Vector(u), Vector(w), Vector(v))
+    mr = mat_phang('Nu_Rang', (0.93, 0.92, 0.88, 1), 0.3)
+    ml = mat_phang('Nu_LuoiMat', (0.75, 0.3, 0.32, 1), 0.45)
+    obs = {
+        'Nu_KhoangMieng': (_hop('Nu_KhoangMieng', C - Vector(w) * 0.016 - Vector(v) * 0.004, ax, (a * 0.82, 0.009, 0.017), mat_trong), 'head'),
+        'Nu_RangTren': (_hop('Nu_RangTren', C - Vector(w) * 0.007 + Vector(v) * 0.002, ax, (a * 0.75, 0.0025, 0.0035), mr), 'head'),
+        'Nu_RangDuoi': (_hop('Nu_RangDuoi', C - Vector(w) * 0.008 - Vector(v) * 0.006, ax, (a * 0.7, 0.0025, 0.003), mr), 'jaw'),
+        'Nu_Luoi': (_hop('Nu_Luoi', C - Vector(w) * 0.012 - Vector(v) * 0.011, ax, (a * 0.65, 0.011, 0.004), ml), 'jaw'),
+    }
+    for ten, (ob, xg) in obs.items():
+        coll.objects.link(ob)
+        gan_vao_xuong(ob, rig, xg)
+    bo_suu_tap(rig, 'Mat', ['jaw'])
+    vung = [q.index for q in me.vertices if any(x.group == gi['MIENG_VUNG'] for x in q.groups)]
+    return {'tam_mieng': C, 'vung_dinh': vung}
