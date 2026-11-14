@@ -1,5 +1,7 @@
 # Thân Nam dựng bằng control cage — kết quả (14/11/2026)
 
+**Vòng sửa nách mới:** [thay đổi và kiểm tra](SUA-NACH-CAGE.md) trên bản đã gắn tay/chân `538aef4`; vòng 3 cân bằng lại vai/tay, thu đường bao bắp tay và làm khe hẹp gần vai, vẫn giữ nách cao. Giữ hình học tay/chân mới. Các bảng đo mẫu bên dưới giữ làm kết quả lịch sử trước vòng sửa nách, chưa đo overlay lại.
+
 Thiết kế: [THIET-KE-THAN-CAGE.md](THIET-KE-THAN-CAGE.md) · Kế hoạch: [KE-HOACH-THAN-CAGE.md](KE-HOACH-THAN-CAGE.md) · Nguồn: [dung_than_cage_nam.py](dung_than_cage_nam.py)
 
 **Trạng thái: đạt hình khối tĩnh.** Chưa rig, chưa kiểm biến dạng. Chưa ghép bàn tay: chủ repo đang dựng tay mới.

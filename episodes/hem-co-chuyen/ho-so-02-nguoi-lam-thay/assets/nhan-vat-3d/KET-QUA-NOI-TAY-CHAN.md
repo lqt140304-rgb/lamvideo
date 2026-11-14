@@ -3,6 +3,9 @@
 Thiết kế: [THIET-KE-NOI-TAY-CHAN.md](THIET-KE-NOI-TAY-CHAN.md) · Kế hoạch: [KE-HOACH-NOI-TAY-CHAN.md](KE-HOACH-NOI-TAY-CHAN.md)
 Nguồn: [dung_cage_tay_chan.py](dung_cage_tay_chan.py) · [rig_thu_tay_chan.py](rig_thu_tay_chan.py). Bản cũ để đối chiếu: [gan_tay_chan_nam.py](gan_tay_chan_nam.py) (commit 538aef4).
 
+## Cập nhật: dựng trên thân nách mới (nhánh `fix/nam-cage-armpit`, 2b5abce)
+Gộp nhánh sửa nách (vòng 3: hõm nách cao, gốc bắp tay thu, `inner_relief`, nếp nách `crease_edge` 0,12; giữ vòng khuỷu/cổ tay). Dựng lại lưới liền da trên thân này: 15/15 kiểm topology + hình đạt, số liệu cổ tay/mắt cá **y hệt** bản trước (vòng khuỷu/cổ tay/mắt cá không đổi); nếp nách giữ nguyên (2 cạnh, 0,12); rig thử cổ tay/mắt cá cho cùng kết quả bảng dưới. Ảnh toàn thân: `render-than/noi/toan_than_nach_moi.png`; file: `render-than/noi/Nam_lien_da_nach_moi.blend` (không commit).
+
 ## Lệnh chạy
 ```
 bpyv/bin/python dung_cage_tay_chan.py --check --render DIR --blend OUT.blend          # ~2,5 phút
