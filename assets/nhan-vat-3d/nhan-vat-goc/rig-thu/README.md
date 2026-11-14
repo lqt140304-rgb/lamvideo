@@ -90,3 +90,11 @@ D:/blender/blender.exe -b --factory-startup --python walk.py -- --rig nhan-vat-g
 ```
 
 Chân đặt bằng IK: chân đứng trượt ngược ra sau đúng tốc độ thân, chân vung nhấc 7 cm. Hông nhún và đảo, vai quay ngược hông, tay đánh ngược chân (kiểm bằng số: khi chân trái ra trước tối đa thì tay trái ra sau). [Ảnh 8 khung nhìn bên](di-bo.webp). Mắt cá thấp nhất 0,102 m. Chưa kiểm trượt chân đứng bằng số cho từng khung, chưa có bước tiến thật (đi tại chỗ), chưa có xoay bàn chân lúc gót chạm/mũi nhấc.
+
+## Tay đầy hơn
+
+Sau khi cắt nách, bắp tay chỉ còn khoảng 0,90–0,96 độ dày gốc (đo bán kính theo 10 đoạn từ vai tới cổ tay, cùng chỉ số đỉnh giữa lưới tay buông và lưới dang 80°). `thicken_arm()` trong `rig_goc.py` đắp lại bán kính gốc rồi **phình cả cánh tay thêm 5%** (`TAY_PHINH`), giảm dần về 0 gần vai và gần cổ tay, không đụng bàn tay. Phần sửa được tăng dần từ vai tới 30% chiều dài để không có mép thẳng ở chỗ gắn vai. Làm mượt chỉ chạy sau khi đắp, tập trung ở vùng tiếp xúc nách (cả vùng vai chỉ còn 15% thay vì 35%). Lớp vá chia mịn hơn (cạnh 3 mm), vùng cắt nới thêm 8 mm ở mặt trước nách và lên tới z = 0,95.
+
+[Ảnh](tay-day.webp): trái trên là dáng nghỉ dang 80°, phải trên giơ 105°, trái dưới giơ 140°, phải dưới tay buông. Số đo sau đắp: bán kính tay mới/gốc = 1,05 ở các đoạn giữa và 1,03 ở cổ tay. Số cạnh giãn quá 2× ở giơ 140° là 41 (tối đa 2,58×), nhiều hơn mức 16 của bản trước, do lưới tay dày thêm; dáng tay buông 1 cạnh (1,98×), khuỷu gập 2 cạnh.
+
+Còn lại: một nếp mảnh ở mặt thân sát nách khi tay buông và một vết nhỏ ở đỉnh vai.
