@@ -1,6 +1,8 @@
-# Nhân vật gốc 001 — bản gốc chính thức
+# Nhân vật gốc 001 — bản gốc nam chính thức
 
 **Chủ repo xác nhận ngày 14/11/2026: bản mới đưa lên `main` tại commit `f0a6b9c` là bản gốc chính thức để phát triển mô hình nền và các nhân vật về sau.** File chuẩn là `nhan-vat-goc.blend`, mã `NHAN-VAT-GOC-001`; FBX/texture trong `nguon/` là nguồn đi kèm của cùng bản này.
+
+Từ khi có mẫu nữ riêng, bản này là nguồn nền cho **nhân vật nam**; các nhân vật nữ dùng [base nữ chính thức](../nhan-vat-nu-goc/README.md). Hai nguồn được giữ độc lập.
 
 Các bản 3D đã có trước vẫn được giữ để tham khảo, đối chiếu và tiếp tục dùng ở những cảnh đã dựng; không mặc định lấy chúng làm bản gốc cho nhân vật mới. Việc xác nhận nguồn mới chưa thay thế tự động asset/rig đã duyệt trong từng tập.
 
