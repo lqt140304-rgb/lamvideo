@@ -882,12 +882,14 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
     B = np.where(dv > 0, dv[dong].max(), -dv[dong].min())
     rho = np.sqrt((du / a) ** 2 + (dv / np.maximum(B, 1e-6)) ** 2)
     g = (1 - _ss(0.35, 0.97, rho)) * dong                   # vòng ngoài (ρ≈1) đứng yên
-    moi = (1 - _ss(0.05, 0.55, rho)) * dong                 # sát khe môi
+    moi = (1 - _ss(0.05, 0.8, rho)) * dong                  # sát khe môi, tắt dần mềm ra má
     khe = trong_nhom('MIENG_MOI_TREN') | trong_nhom('MIENG_MOI_DUOI')
     ak = np.abs(du[khe]).max() + 0.002                      # nửa bề ngang khe môi
     c = np.clip(np.abs(du) / ak, 0, 1) ** 2 * g             # trọng số khóe
     s = np.sign(du)
-    T, D = tren * moi, duoi * moi                           # môi trên / dưới
+    hoa = _ss(0.8, 1.05, np.abs(du) / ak)                   # gần khóe: trên/dưới hòa về 0.5 → khe khép mềm ở khóe
+    T = (tren * (1 - hoa) + 0.5 * hoa * (tren | duoi | (np.abs(dv) < 0.004))) * moi
+    D = (duoi * (1 - hoa) + 0.5 * hoa * (tren | duoi | (np.abs(dv) < 0.004))) * moi
     X, Y, Z = (np.eye(3)[i] for i in range(3))
 
     def vec(dx=0, dy=0, dz=0):
@@ -903,7 +905,7 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         'keo_khoe.L': vec(0.006 * c * L, z0, 0.001 * c * L), 'keo_khoe.R': vec(-0.006 * c * R, z0, 0.001 * c * R),
         'ha_khoe.L': vec(z0, z0, -0.006 * c * L), 'ha_khoe.R': vec(z0, z0, -0.006 * c * R),
         'nhech.L': vec(0.002 * c * L, z0, 0.007 * c * L), 'nhech.R': vec(-0.002 * c * R, z0, 0.007 * c * R),
-        'vs_A': vec(-0.05 * du * g, z0, 0.004 * T - 0.014 * D),        # mở to
+        'vs_A': vec(-0.05 * du * g, z0, 0.003 * T - 0.006 * D),        # mở to (hàm 18° làm phần chính)
         'vs_E': vec(0.25 * du * g, z0, 0.002 * T - 0.004 * D),
         'vs_I': vec(0.3 * du * g, z0, 0.001 * T - 0.002 * D + 0.002 * c),
         'vs_O': vec(-0.4 * du * g, -0.005 * g, (0.006 * T - 0.009 * D) * (1 - 0.7 * np.clip(du / ak, -1, 1) ** 2)),
@@ -912,15 +914,25 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         'vs_PHV': vec(z0, 0.004 * D, 0.001 * T + 0.002 * D),
         'vs_NT': vec(0.18 * du * g, z0, 0.0005 * T - 0.0015 * D),      # răng gần khép, môi hé, bè
         'vs_CH': vec(0.1 * du * g, -0.002 * g, 0.003 * T - 0.004 * D),
-        'vs_KG': vec(-0.08 * du * g, z0, 0.003 * T - 0.008 * D),       # mở, hơi tròn (âm cuối lưỡi)
+        'vs_KG': vec(0.12 * du * g, z0, 0.002 * T - 0.003 * D),        # hé, bè ngang (âm cuối lưỡi)
         'vs_nghi': vec(z0, 0.0005 * moi, -0.0005 * T + 0.0005 * D),
         # sửa dáng khi mở hàm (driver theo jaw): khóe trễ xuống, kéo vào; môi trên cong nhẹ → miệng mở tròn
-        'mo_ham_khoe': vec(-0.004 * s * c, z0, -0.008 * c - 0.003 * c * D + 0.004 * T * (1 - c)),
+        'mo_ham_khoe': vec(-0.004 * s * c, z0, -0.006 * c - 0.002 * c * D + 0.0025 * T * (1 - c)),
     }
     if not me.shape_keys:
         body.shape_key_add(name='Basis', from_mix=False)
+    # làm trơn độ dời 3 lượt theo cạnh lưới (trong vùng miệng) → không chỗ chuyển gắt
+    E_ = np.array([e.vertices[:] for e in me.edges])
+    E_ = E_[dong[E_[:, 0]] & dong[E_[:, 1]]]
+    deg = np.bincount(E_.ravel(), minlength=len(co)).astype(float)
     for ten, d in dk.items():
         d = d * dong[:, None]
+        for _ in range(3):
+            tong = np.zeros_like(d)
+            np.add.at(tong, E_[:, 0], d[E_[:, 1]])
+            np.add.at(tong, E_[:, 1], d[E_[:, 0]])
+            tb = np.where(deg[:, None] > 0, tong / np.maximum(deg, 1)[:, None], d)
+            d = np.where(dong[:, None], 0.5 * d + 0.5 * tb, 0)
         kb = body.shape_key_add(name=ten, from_mix=False)
         kb.data.foreach_set('co', (co + d).astype(np.float32).ravel())
         kb.slider_min, kb.slider_max = 0.0, 1.0

@@ -592,12 +592,35 @@ def kiem_cs_chi_mieng():
     assert d < 0.0001, f'Corrective Smooth dời đỉnh ngoài vùng miệng {d * 1000:.2f} mm'
 
 
+def kiem_khau_hinh_muot():
+    """Mỗi shape key: chênh độ dời giữa hai đỉnh kề nhau ≤ 40 % độ dời lớn nhất của key (không gãy)."""
+    E = np.array([e.vertices[:] for e in BODY.data.edges])
+    xau = {}
+    for t in SK_NEN + SK_VS + ['mo_ham_khoe']:
+        d = lech_sk(t)
+        lon = np.linalg.norm(d, axis=1).max()
+        if lon < 1e-5:
+            continue
+        chenh = np.linalg.norm(d[E[:, 0]] - d[E[:, 1]], axis=1).max() / lon
+        if chenh > 0.4:
+            xau[t] = round(float(chenh), 2)
+    assert not xau, f'Shape key gãy (chênh/lớn nhất): {xau}'
+
+
+def kiem_khau_hinh_khong_gap():
+    import json
+    b = json.loads((Path(bpy.data.filepath).parent / 'khau-hinh.json').read_text(encoding='utf-8'))
+    kiem_khong_gap([(v['shape_key'], v['jaw_do']) for v in b.values()])
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_khau_hinh_muot': kiem_khau_hinh_muot,
+    'kiem_khau_hinh_khong_gap': kiem_khau_hinh_khong_gap,
     'kiem_khong_gap': kiem_khong_gap,
     'kiem_cs_chi_mieng': kiem_cs_chi_mieng,
     'kiem_moi_day': kiem_moi_day,
