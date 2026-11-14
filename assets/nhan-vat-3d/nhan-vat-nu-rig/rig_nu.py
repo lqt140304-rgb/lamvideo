@@ -44,6 +44,9 @@ for im in bpy.data.images:
     im.filepath = str(p)
     im.reload()
     assert im.size[0] == 2048, im.name
+for n_ in body.data.materials[0].node_tree.nodes:  # da mịn stylized: vân lỗ chân lông gốc làm mặt sần
+    if n_.type == 'NORMAL_MAP':
+        n_.inputs['Strength'].default_value = 0.2
 
 # --- dò ngón tay trên lưới: hạ mặt cắt tới khi phần dưới bàn tay tách thành ≥5 mảng rời ---
 NGON = ('thumb', 'index', 'middle', 'ring', 'pinky')

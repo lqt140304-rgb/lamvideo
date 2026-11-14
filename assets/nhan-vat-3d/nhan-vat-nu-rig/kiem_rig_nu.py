@@ -315,7 +315,7 @@ def kiem_ham_mo():
     mo_ham()
     co = eval_co()
     assert np.linalg.norm(co[d] - base[d]) > 0.012 and co[d][2] < base[d][2], f'Môi dưới dời {np.linalg.norm(co[d] - base[d]):.4f}'
-    assert np.linalg.norm(co[t] - base[t]) < 0.003, f'Môi trên dời theo hàm {np.linalg.norm(co[t] - base[t]):.4f}'
+    assert base[t][2] - co[t][2] < 0.001, f'Môi trên bị hàm kéo xuống {base[t][2] - co[t][2]:.4f}'  # được cong lên (mo_ham_khoe)
     for ten, c0 in (('Nu_RangDuoi', r0), ('Nu_Luoi', l0)):
         dd = np.linalg.norm(eval_co(bpy.data.objects[ten]).mean(0) - c0)
         assert dd > 0.01, f'{ten} chỉ dời {dd:.4f} khi mở hàm'
@@ -460,12 +460,51 @@ def kiem_mat_doi_xung():
     assert dem_long_trang('R') == 0, 'blink_R=1 vẫn lộ lòng trắng mắt phải'
 
 
+def kiem_da_min():
+    """Da mịn kiểu stylized: normal map yếu (vân lỗ chân lông gốc làm mặt sần)."""
+    nm = [n for n in BODY.data.materials[0].node_tree.nodes if n.type == 'NORMAL_MAP']
+    assert nm and all(n.inputs['Strength'].default_value <= 0.3 for n in nm),         f'Normal map mạnh {[round(n.inputs["Strength"].default_value, 2) for n in nm]}'
+
+
+def khe_moi(x):
+    """Độ hở dọc giữa môi trên và môi dưới ở hoành độ x (theo đỉnh khe gần x nhất)."""
+    co = eval_co()
+    t, d = nhom_dinh('MIENG_MOI_TREN'), nhom_dinh('MIENG_MOI_DUOI')
+    it = t[np.argmin(np.abs(co[t, 0] - x))]
+    id_ = d[np.argmin(np.abs(co[d, 0] - x))]
+    return co[it, 2] - co[id_, 2]
+
+
+def dinh_khoe():
+    """Hai đỉnh khóe miệng: đỉnh vùng miệng ngoài cùng hai bên, cùng độ cao khe."""
+    co = np.array([v.co for v in BODY.data.vertices])
+    t = nhom_dinh('MIENG_MOI_TREN')
+    z = co[t, 2].mean()
+    v = nhom_dinh('MIENG_VUNG')
+    gan = v[np.abs(co[v, 2] - z) < 0.006]
+    ak = np.abs(co[t, 0]).max()
+    return [int(gan[np.argmin(np.abs(co[gan, 0] - s * ak) + np.where(np.abs(co[gan, 0]) >= ak, 0, 1))]) for s in (1, -1)]
+
+
+def kiem_mieng_mo_tron():
+    """Mở hàm 18°: hai khóe miệng trễ xuống ≥ 4 mm và kéo vào ≥ 1.5 mm (miệng mở tròn, không như vết cắt)."""
+    kh = dinh_khoe()
+    c0 = eval_co()[kh]
+    mo_ham(18)
+    c1 = eval_co()[kh]
+    for (x0, _, z0), (x1, _, z1) in zip(c0, c1):
+        assert z0 - z1 >= 0.004, f'Khóe chỉ trễ {(z0 - z1) * 1000:.1f} mm'
+        assert abs(x0) - abs(x1) >= 0.0015, f'Khóe chỉ kéo vào {(abs(x0) - abs(x1)) * 1000:.1f} mm'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_da_min': kiem_da_min,
+    'kiem_mieng_mo_tron': kiem_mieng_mo_tron,
     'kiem_mat_doi_xung': kiem_mat_doi_xung,
     'kiem_ngon_doi_xung': kiem_ngon_doi_xung,
     'kiem_file_o_dang_nghi': kiem_file_o_dang_nghi,

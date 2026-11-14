@@ -26,7 +26,7 @@ Nhân vật nhìn về −Y. `.L` là bên trái nhân vật (+X).
 | Nhìn | Kéo `look` (trước mặt). Hai mắt nhìn theo `look.L/R`; chỉnh riêng từng mắt bằng `look.L`/`look.R` |
 | Chớp / nheo | Thuộc tính `blink_L`, `blink_R`, `squint_L`, `squint_R` (0–1) trên xương `head` |
 | Lông mày | Xương `brow_in`, `brow_mid`, `brow_out` (.L/.R): dời lên/xuống, vào trong |
-| Mở hàm | Xương `jaw`, xoay X+ |
+| Mở hàm | Xương `jaw`, xoay X+. Shape key `mo_ham_khoe` tự bật theo góc hàm (18° = bật hết): khóe trễ xuống, kéo vào, môi trên cong lên |
 | Biểu cảm miệng | Shape key `cuoi`, `meu`, `chu_moi`, `mim_moi`, `keo_khoe.L/R`, `ha_khoe.L/R`, `nhech.L/R` |
 | Khẩu hình nói | Shape key `vs_*` kết hợp với độ mở hàm gợi ý (bảng dưới, cũng có trong `khau-hinh.json`) |
 | Tay IK / FK | Thuộc tính `ik_fk` trên `hand.L/R` (mặc định 0 = FK). Khi IK: kéo `ik_hand`, `pole_elbow` chỉnh khuỷu |
@@ -61,7 +61,7 @@ Chạy trong thư mục này:
 py -I da_lien_mau.py                                                   # texture da liền màu → texture/
 D:/blender/blender.exe -b --factory-startup --python rig_nu.py         # dựng nhan-vat-nu-rig.blend
 py -I test_da_lien_mau.py                                               # kiểm texture
-D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 27 kiểm trên file đã lưu
+D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 29 kiểm trên file đã lưu
 D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư mục ảnh>
 ```
 
@@ -89,4 +89,5 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 - **Shape key:** độ lớn mới chỉnh sơ bộ, chưa thử với audio thật.
 - **Da:** cổ tay hơi chênh sáng (bàn tay giữ vân da gốc); cổ chân còn sợi đường nối rất mờ khi cận.
 - **Độ mượt:** Subdivision làm thân mượt hơn nhưng không thêm chi tiết điêu khắc như base Nam (220 nghìn đỉnh). Muốn chi tiết đó phải dựng lại lưới dày rồi làm lại rig.
+- **Da mặt:** normal map đặt cường độ 0,2 cho da mịn (bản gốc có vân lỗ chân lông làm mặt sần). Mảnh mi/mày cũ đã tô màu da nhưng vẫn lộ nhẹ thành mảng phẳng quanh mày khi quay cận.
 - **Khác:** chưa có quần áo, tóc, 18 cảm xúc; chưa nghiệm thu chuyển động. Mới duyệt bằng ảnh tĩnh.

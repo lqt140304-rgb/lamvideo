@@ -522,6 +522,37 @@ def dung_may(body, rig, coll):
         md = may.modifiers.new('Armature', 'ARMATURE')
         md.object = rig
     bo_suu_tap(rig, 'Mat', [n for _, _, t3, _ in cho for n in t3])
+    _to_da_manh_vun(body, px)
+
+
+def _to_da_manh_vun(body, px):
+    """Mảnh mi/mày cũ (nâu đen) còn lại quanh mắt và mày trên thân: tô UV da trán cùng bên."""
+    me = body.data
+    uvl = me.uv_layers[0].data
+    uv_tran = {}
+    for sg in (1, -1):
+        best = None
+        for p in me.polygons:
+            c = p.center
+            if 0.04 < sg * c.x < 0.1 and 1.57 < c.z < 1.62 and c.y < 0:
+                _, col = mau_mat_luoi(body, px, p, 2)
+                l, s_ = lum_sat(col)
+                if l.mean() > 0.55 and s_.mean() > 0.25:
+                    best = uvl[p.loop_indices[0]].uv.copy()
+                    break
+        assert best is not None, 'Không tìm được da trán'
+        uv_tran[sg] = best
+    n = 0
+    for p in me.polygons:
+        c = p.center
+        if 1.38 < c.z < 1.58 and abs(c.x) < 0.19 and c.y < -0.08:
+            _, col = mau_mat_luoi(body, px, p, 3)
+            l, s_ = lum_sat(col)
+            if ((l < 0.35) & (s_ > 0.3)).mean() > 0.1:
+                for li in p.loop_indices:
+                    uvl[li].uv = uv_tran[1 if c.x > 0 else -1]
+                n += 1
+    print(f'tô da {n} mảnh mi/mày cũ')
 
 
 # ---------- miệng ----------
@@ -662,15 +693,26 @@ def dung_mieng(body, rig, coll):
         for j in range(N):
             e = bm.edges.get((vong[j], vong[(j + 1) % N]))
             if e:
-                e[cr] = 1.0
+                e[cr] = 0.7  # 0.7: môi vẫn khép, khóe được bo tròn khi mở
     for j in range(N):
         e = bm.edges.get((rings[0][j], trong[j]))
         if e:
-            e[cr] = 1.0
+            e[cr] = 0.7
     uvl = bm.loops.layers.uv[0]
+    moi_vien = set(rings[0]) | set(rings[1])
+
+    def uv_da_quanh(p):
+        """Da quanh môi: lấy màu ở vành elip 1.35 cùng hướng (đường nối UV gốc chạy qua vùng miệng gây vệt gợn)."""
+        e = math.sqrt(trong_elip(p))
+        if e >= 1.35:
+            return uv_goc(p)
+        d = Vector((p.x - m0[0], 0, p.z - m0[2]))
+        k = 1.35 / max(e, 1e-3)
+        return uv_goc(len_mat(np.array((m0[0] + d.x * k, m0[1], m0[2] + d.z * k))))
+
     for f in moi + lap_f:
         for q in f.loops:
-            q[uvl].uv = uv_goc(q.vert.co)
+            q[uvl].uv = uv_goc(q.vert.co) if q.vert in moi_vien else uv_da_quanh(q.vert.co)
     for f in bm.faces:
         if f.material_index == mi_trong:
             for q in f.loops:
@@ -826,6 +868,8 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         'vs_CH': vec(0.1 * du * g, -0.002 * g, 0.003 * T - 0.004 * D),
         'vs_KG': vec(-0.08 * du * g, z0, 0.003 * T - 0.008 * D),       # mở, hơi tròn (âm cuối lưỡi)
         'vs_nghi': vec(z0, 0.0005 * moi, -0.0005 * T + 0.0005 * D),
+        # sửa dáng khi mở hàm (driver theo jaw): khóe trễ xuống, kéo vào; môi trên cong nhẹ → miệng mở tròn
+        'mo_ham_khoe': vec(-0.004 * s * c, z0, -0.008 * c - 0.003 * c * D + 0.004 * T * (1 - c)),
     }
     if not me.shape_keys:
         body.shape_key_add(name='Basis', from_mix=False)
@@ -835,6 +879,14 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         kb.data.foreach_set('co', (co + d).astype(np.float32).ravel())
         kb.slider_min, kb.slider_max = 0.0, 1.0
         kb.value = 0.0  # shape key mới mặc định 1.0: phải tắt để file ở dáng nghỉ
+    rig = body.find_armature()
+    if rig:
+        fc = me.shape_keys.key_blocks['mo_ham_khoe'].driver_add('value')
+        v = fc.driver.variables.new()
+        v.name, v.type = 'r', 'TRANSFORMS'
+        t = v.targets[0]
+        t.id, t.bone_target, t.transform_type, t.transform_space = rig, 'jaw', 'ROT_X', 'LOCAL_SPACE'
+        fc.driver.expression = 'max(0.0, min(1.5, r / 0.314))'  # 18° = bật hết
     if out_json:
         Path_ = __import__('pathlib').Path
         Path_(out_json).write_text(json.dumps({k: {'am': v[0], 'shape_key': v[1], 'jaw_do': v[2]}
