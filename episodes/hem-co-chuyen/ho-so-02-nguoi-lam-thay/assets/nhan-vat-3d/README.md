@@ -66,6 +66,7 @@ Cả hai nhân vật dùng chung 100% hình khối thân và đầu, nhưng phâ
 | Tệp nguồn | Vai trò chính | Trạng thái hiện hành |
 |---|---|---|
 | [dung_than_cage_nam.py](dung_than_cage_nam.py) | Dựng thân bằng Control Cage 9 mức, ráp với bản sao đầu, xuất `Nam_Dau_Than` | **Hoàn thành (Đạt hình khối tĩnh)**, vượt qua toàn bộ test `check_all` |
+| [dung_quan_ao_nam.py](dung_quan_ao_nam.py) | Dựng 5 bộ quần áo 3D dáng rộng (`xanh`, `ngu`, `xam-tui`, `dong-phuc`, `the-thao`) + dép lê bọc ngoài thân cage | **Mới hoàn thành**, kiểm tra tự động chống xuyên thân bằng BVH (`--check`) |
 | [dung_dau_nam.py](dung_dau_nam.py) | Dựng đầu, tóc lọn, mắt, mí, mày, miệng theo hướng modular | **Đã duyệt**, tròng mắt dùng mặt nạ mesh-deform chống tràn |
 | [dung_tay_nam.py](dung_tay_nam.py) | Dựng bàn tay riêng 5 ngón, kiểm tra va chạm ngón khi nắm | **Hoàn thành**, hỗ trợ tư thế mở tay và nắm đấm (`fist`) |
 | [rig_nam.py](rig_nam.py) | Tạo Armature toàn thân, IK chân, Corrective Smooth, test 6 tư thế | **Đang hoàn thiện**, đã sửa nách chữ V và khớp xoay cổ |
