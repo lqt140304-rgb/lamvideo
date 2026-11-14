@@ -51,19 +51,22 @@ LIMB_K = 1.06                                    # vòng cổ tay/mắt cá củ
 CAP_LEN = 0.015                                  # ống tay/chân đi tiếp vào trong bàn tay/chân rồi đóng nắp (giấu trong khối)
 STUB = 0.012                                     # đoạn cổ của bàn tay/chân cũ lồng vào trong ống
 Z_HANG = 0.025                                   # đỉnh háng thấp hơn mức day_chau
-# Lõm gốc nách và mặt ngực kề bên; không đổi vòng cổ tay/mắt cá.
+# Nâng hõm nách về gần vai; độ lõm mạnh ở gốc rồi chuyển mềm xuống bắp tay.
+# Giữ vị trí khuỷu/cổ tay; chuyển tiếp độ cong phía trên, không đổi tay/chân rời.
 CAGE_OVERRIDE = {                                # (tên mức, chỉ số đỉnh 0..6) → (dx, dy, dz), mét
-    ('nguc', 2): (-0.002, 0.006, -0.002),
-    ('nguc', 4): (-0.002, -0.004, -0.002),
-    ('duoi_nguc', 2): (0.0, 0.004, 0.003),
-    ('duoi_nguc', 3): (-0.005, 0.0, 0.008),
-    ('duoi_nguc', 4): (0.0, -0.003, 0.003),
+    ('nguc', 2): (-0.006, 0.012, 0.004),
+    ('nguc', 4): (-0.006, -0.008, 0.004),
+    ('duoi_nguc', 2): (-0.006, 0.012, 0.046),
+    ('duoi_nguc', 3): (-0.012, 0.0, 0.065),
+    ('duoi_nguc', 4): (-0.006, -0.010, 0.046),
 }
-AXILLA_CREASE = 0.28                             # bán sắc nhẹ ở đáy nách, không làm rãnh xuyên hoặc góc gãy
-ARM_RINGS = [   # tâm (x, y, z), rx nửa ngang (ra ngoài), ry nửa sâu; vòng 8 đỉnh vuông góc trục tay; 'ax' = trục ép tay (vòng gốc nghiêng 45° để mặt trong không gập ở nách)
-    dict(ten='dau_bap_tay',   c=(0.188, 0.000, 0.718), rx=0.056, ry=0.056, ax=(0.7071, 0.0, -0.7071)),
-    dict(ten='giua_bap_tay',  c=(0.196, 0.000, 0.660), rx=0.056, ry=0.054),
-    dict(ten='khuyu',         c=(0.214, -0.003, 0.605), rx=0.053, ry=0.051),
+AXILLA_CREASE = 0.18                             # hõm do hình khối; giảm giữ cạnh để không thành đường cắt tay áo
+ARM_RINGS = [   # tâm (x, y, z), rx nửa ngang, ry nửa sâu; 'ax' chỉnh riêng trục vòng gốc để hõm nách không bị kéo thấp
+    dict(ten='dau_bap_tay',   c=(0.188, 0.000, 0.770), rx=0.056, ry=0.052, ax=(0.3000, 0.0, -0.953939)),
+    dict(ten='giua_bap_tay',  c=(0.204, 0.000, 0.660), rx=0.056, ry=0.054),
+    # Trục nghỉ cũ = c(giua_cang_tay) - c(giua_bap_tay cũ): giữ vòng khuỷu
+    # để thay đổi gốc tay không truyền qua Subdivision tới cổ tay đã gắn.
+    dict(ten='khuyu',         c=(0.214, -0.003, 0.605), rx=0.053, ry=0.051, ax=(0.029, -0.005, -0.110)),
     dict(ten='giua_cang_tay', c=(0.225, -0.005, 0.550), rx=0.050, ry=0.048),
     dict(ten='co_tay',        c=(0.236, -0.008, 0.540 * KZ), rx=0.047, ry=0.045),   # cổ tay cũ; ống đóng nắp tròn — chờ bàn tay mới (chủ repo đang dựng, chưa ghép)
 ]
@@ -141,10 +144,11 @@ def build_cage(coll):
     loop = [V[idc][3], V[idc][2], V[idc][1], V[idc][0], hang, V[idc][6], V[idc][5], V[idc][4]]
     limb(loop, LEG_RINGS, chan, sum((v.co for v in loop), Vector()) / 8)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    z_nach = V[idn][3].co.z                      # giữ số trước khi new_obj giải phóng BMesh
     ob = D.new_obj('Nam_Than_Cage', bm, coll, None)
     m = ob.modifiers.new('Mirror', 'MIRROR'); m.use_axis = (True, False, False); m.use_clip = True; m.use_mirror_merge = True; m.merge_threshold = 1e-4
     s = ob.modifiers.new('Subsurf', 'SUBSURF'); s.levels = 1; s.render_levels = 1
-    ob['z_nach'] = lv[idn]['z']; ob['z_hang'] = L['z'] - Z_HANG
+    ob['z_nach'] = z_nach; ob['z_hang'] = L['z'] - Z_HANG
     for p in ob.data.polygons: p.use_smooth = True
     return ob
 
