@@ -12,6 +12,13 @@ Repo này dành cho nội dung What If. Đọc [mục tiêu](docs/MUC-TIEU.md), 
 - Thêm tập chỉ sửa thư mục của tập và mục lục cần thiết. Thay đổi engine, skill hoặc kinh nghiệm chung phải có lý do áp dụng cho nhiều tập. Không dùng `git add .` thiếu kiểm tra; xem từng đường dẫn trong diff trước khi commit/push.
 - Không commit `.env`, API key, cache, `node_modules`, audio thử hay bản render nặng. Khi cần giữ đầu ra local, vẫn chia thư mục theo slug tập và ghi đường dẫn trong hồ sơ tập.
 
+## Bắt đầu mỗi yêu cầu — ưu tiên Superpowers
+
+- Với mỗi yêu cầu mới của người dùng, ưu tiên đọc và áp dụng `superpowers:using-superpowers` trước khi phân tích, hỏi làm rõ hoặc thao tác repo; không chỉ áp dụng ở đầu phiên chat.
+- Sau đó chọn skill Superpowers phù hợp với công việc, chẳng hạn `brainstorming` khi thiết kế mới, `systematic-debugging` khi sửa lỗi, `writing-plans` khi cần kế hoạch nhiều bước và `verification-before-completion` trước khi báo hoàn tất. Đọc hướng dẫn của skill đang có thay vì chỉ dựa vào tên hoặc trí nhớ.
+- Thông báo ngắn skill đang dùng và mục đích. Áp dụng đúng phạm vi yêu cầu; việc dùng Superpowers không tự mở rộng quyền sửa, tạo media, push hoặc merge.
+- Nếu môi trường chưa có Superpowers hoặc thiếu skill cần dùng, nói rõ giới hạn, không nhận đã gọi skill. Tiếp tục phần đã được giao và có thể thực hiện bằng quy trình tương đương; không tự cài thêm plugin hoặc thay cấu hình toàn máy chỉ vì quy tắc này.
+
 ## Cách làm
 
 - Không tự mặc định zombie, tận thế hay giải thích khoa học. Đánh giá đề tài theo đồng cảm, lựa chọn khó, tính mới, khả năng kể trọn và chi phí dựng.
