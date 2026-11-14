@@ -811,8 +811,9 @@ def render_all(sc, out, samples):
     # cận mắt, miệng, nối cổ (có màu, có tóc)
     set_version('moi', True)
     eL = to_world(D.EYE_FRAMES[1][0]); mz = to_world(Vector((0, 0, D.FACE['mouth_z']))).z
+    mo = to_world(Vector(D.MOUTH_FRAME['p']))   # miệng thật (thế giới, y ≈ −0,243); nhắm y = −0,15 thì miệng ra ngoài khung ±8,5 cm
     close = {'can_mat_truoc': ((eL.x, -3, eL.z), (eL.x, 0, eL.z), 0.17), 'can_mat_34': ((eL.x + 2.0, -2.6, eL.z), (eL.x, eL.y, eL.z), 0.19),
-             'can_mieng_truoc': ((0, -3, mz), (0, 0, mz), 0.15), 'can_mieng_nghieng': ((-3, -0.15, mz), (0, -0.15, mz), 0.17),
+             'can_mieng_truoc': ((0, -3, mz), (0, 0, mz), 0.15), 'can_mieng_nghieng': ((-3, mo.y + 0.03, mo.z), (0, mo.y + 0.03, mo.z), 0.17),
              'can_co_truoc': ((0, -3, 0.93), (0, 0, 0.93), 0.30), 'can_co_nghieng': ((-3, 0, 0.93), (0, 0, 0.93), 0.30), 'can_co_sau': ((0, 3, 0.93), (0, 0, 0.93), 0.30)}
     for n, (loc, tg, scl) in close.items(): files.append(shot(sc, out, n, loc, tg, scl, (600, 600)))
     for ver in ('cu', 'moi'):
