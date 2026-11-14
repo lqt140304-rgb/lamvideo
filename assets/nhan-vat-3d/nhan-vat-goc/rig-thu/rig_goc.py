@@ -43,7 +43,7 @@ FINGER_CURL = {'index': (50, 70, 45), 'middle': (50, 70, 45), 'ring': (50, 70, 4
 A_DEG = 0.0
 CONTACT_D = 0.03       # đỉnh tay/thân cách phía bên kia dưới mức này = vùng tiếp xúc nách
 CONTACT_IT = 150
-CUT_D = 0.012          # bỏ hẳn dải dính tay–thân (cách phía bên kia < 12 mm, z 0,62–0,90) rồi vá màng da mới
+CUT_D = 0.028          # bỏ hẳn dải dính tay–thân (cách phía bên kia < 28 mm, z 0,62–0,90) rồi vá màng da mới
 AP = np.eye(4)                          # khung dáng chữ A → khung tay buông (bên L); đơn vị nếu không chuyển dáng
 CH = {}                                 # tên ngón → 4 điểm (bên L): gốc, khớp 1, khớp 2, đầu ngón
 
@@ -627,7 +627,7 @@ def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--out', required=True); ap.add_argument('--anh'); ap.add_argument('--src', default=SRC)
     ap.add_argument('--ten-mixamo', action='store_true', help='đổi tên xương biến dạng sang chuẩn Mixamo (Hips, LeftArm, …) để dùng animation Mixamo')
-    ap.add_argument('--chu-a', type=float, default=0.0, help='dang tay (độ) để làm dáng nghỉ mới trước khi rig; 0 = giữ tay buông')
+    ap.add_argument('--chu-a', type=float, default=80.0, help='dang tay (độ) để làm dáng nghỉ mới trước khi rig; 0 = giữ tay buông (khuyến nghị 80: khe nách mở rộng để cắt dính thân–tay)')
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.src)); sc = bpy.context.scene
     if bpy.context.object and bpy.context.object.mode != 'OBJECT': bpy.ops.object.mode_set(mode='OBJECT')

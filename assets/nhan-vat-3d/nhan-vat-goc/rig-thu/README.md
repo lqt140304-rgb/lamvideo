@@ -12,7 +12,7 @@ Chạy trong thư mục này, mỗi lệnh khoảng 1–2 phút. File `.blend` t
 
 ```powershell
 D:/blender/blender.exe -b --factory-startup --python dau_troc.py -- --out nhan-vat-goc-troc.blend
-D:/blender/blender.exe -b --factory-startup --python rig_goc.py -- --src nhan-vat-goc-troc.blend --out nhan-vat-goc-rig-thu.blend --chu-a 35 --anh xem-thu
+D:/blender/blender.exe -b --factory-startup --python rig_goc.py -- --src nhan-vat-goc-troc.blend --out nhan-vat-goc-rig-thu.blend --chu-a 80 --anh xem-thu
 ```
 
 `dau_troc.py` tạo lưới nền đầu trọc ([ảnh](dau-troc.webp)). Script bỏ tóc theo màu texture, rồi ghép hộp sọ theo khuôn `../nguon/dau-troc-tham-chieu.fbx`, căn bằng ICP lệch trung vị 5,5 mm. Đường nối được làm mượt và có dải pha màu da (thuộc tính đỉnh `pha_da`). Nốt ruồi vẫn giữ. Trên lông mày trái còn một gờ rất nhỏ. Thiếu `--src` thì `rig_goc.py` rig bản gốc còn tóc.
@@ -22,7 +22,7 @@ D:/blender/blender.exe -b --factory-startup --python rig_goc.py -- --src nhan-va
 - Armature `Goc_Rig`: mặt hướng −Y, bên trái nhân vật là +X và mang đuôi `.L`. Xương thân, tay, chân như bản trước. IK chân dùng `ik_foot`/`pole_knee`. Tay chạy FK, muốn IK thì đặt `ik` = 1 trên `ik_hand`.
 - **Ngón tay** (bone collection `Ngon`): `index/middle/ring/pinky/thumb` 1–3, mỗi ngón ba đốt. Đường tâm từng ngón được đo tự động trên lưới. Trên `hand.L/R` có thuộc tính `nam` (nắm cả bàn tay) và `nam_tro`, `nam_giua`, `nam_ap`, `nam_ut`, `nam_cai` (nắm từng ngón), mỗi thuộc tính từ 0 đến 1. Ví dụ chỉ tay: đặt bốn ngón kia = 1. [Ảnh bàn tay](ban-tay.webp), từ trái sang: nghỉ, nắm, nửa nắm, chỉ, xòe.
 - **Vai**: xương phụ `vai_phu.L/R` theo 50% góc xoay của bắp tay, cộng thêm làm mượt rộng ở nách và vai. [Ảnh giơ tay 90° và 140°](vai-gio-tay.webp).
-- **Dáng nghỉ chữ A** (`--chu-a 35`): script rig một lượt ở dáng tay buông, dang hai tay 35° rồi cố định dáng đó vào lưới. Sau đó làm mượt Taubin vùng nách–vai và rig lại từ dáng mới. Vùng tay và đường tâm ngón vẫn lấy theo lưới tay buông. Các dáng thử tính góc so với tay buông: `tay_buong` = 0°, `tay_dang_60`, `gio_tay_cao` = 140°. Bỏ `--chu-a` thì rig ở dáng tay buông như bản trước.
+- **Dáng nghỉ chữ A** (`--chu-a 80`, mặc định): script rig một lượt ở dáng tay buông, dang hai tay 35° rồi cố định dáng đó vào lưới. Sau đó làm mượt Taubin vùng nách–vai và rig lại từ dáng mới. Vùng tay và đường tâm ngón vẫn lấy theo lưới tay buông. Các dáng thử tính góc so với tay buông: `tay_buong` = 0°, `tay_dang_60`, `gio_tay_cao` = 140°. Bỏ `--chu-a` thì rig ở dáng tay buông như bản trước.
 - Lưới sau khi gắn rig khớp với lưới nền chữ A, lệch tối đa 0,13 mm.
 
 ## Cách gán trọng số
@@ -72,3 +72,21 @@ D:/blender/blender.exe -b --factory-startup --python chep_dong.py -- --rig nhan-
 ```
 
 [Ảnh 6 khung đoạn bò](chep-dong-bo.webp): đoạn `human_000070` (123 khung) trong file `base.glb` của chủ repo, chép bước 3 khung. Chưa kiểm xuyên lưới, trượt chân hay chạm sàn từng khung. File `base.glb` không đưa lên repo vì lưới và rig là bản khác.
+
+## Cắt dính nách và dáng nghỉ 80°
+
+Lưới gốc nối tay vào thân bằng một dải da hẹp ở nách nên giơ tay là nứt hoặc gập thành nếp tối. Cách xử lý sau cùng: **dang tay 80° trước khi cắt** để khe nách lộ rõ. Sau đó tìm các đỉnh tay và thân cách nhau dưới 28 mm *và* có pháp tuyến ngược chiều (tức hai mặt áp vào nhau, tránh cắt nhầm ranh giới liền kề), bỏ các đỉnh đó, và vá mỗi bên thành mặt riêng, chia mịn rồi làm mượt Laplace, phủ màu da qua `pha_da`. Khe giữa tay và thân là khe thật, không còn màng dính.
+
+[Ảnh](vai-nach-80.webp): trái là dáng nghỉ 80°, phải là giơ tay 105°. Giơ tay 105° và 140° chỉ còn nếp tự nhiên ở hõm nách. Số đo (so với dáng nghỉ 80°): tay buông 0 cạnh giãn >2× (tối đa 1,87×), dạng tay 60° tối đa 1,18×, giơ tay cao 140° còn 16 cạnh giãn >2× (tối đa 3,08×). Thử trước đó ở dáng 35° bị hỏng (tay giãn 19×), nên đã bỏ.
+
+Dáng nghỉ của file rig là tay dang 80°. Các dáng thử vẫn tính góc so với tay buông.
+
+## Đi bộ
+
+`walk.py` tạo action `di_bo`: chu kỳ 28 khung ở 24 fps (≈ 1,17 s), đi tại chỗ hướng −Y, bước 0,40 m.
+
+```powershell
+D:/blender/blender.exe -b --factory-startup --python walk.py -- --rig nhan-vat-goc-rig-thu.blend --out di-bo.blend --anh xem-di
+```
+
+Chân đặt bằng IK: chân đứng trượt ngược ra sau đúng tốc độ thân, chân vung nhấc 7 cm. Hông nhún và đảo, vai quay ngược hông, tay đánh ngược chân (kiểm bằng số: khi chân trái ra trước tối đa thì tay trái ra sau). [Ảnh 8 khung nhìn bên](di-bo.webp). Mắt cá thấp nhất 0,102 m. Chưa kiểm trượt chân đứng bằng số cho từng khung, chưa có bước tiến thật (đi tại chỗ), chưa có xoay bàn chân lúc gót chạm/mũi nhấc.
