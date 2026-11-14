@@ -34,7 +34,10 @@ def kiem_vung_mat(head, idx, to_world, jaw_w, tam_tai):
     for e in head.data.edges:
         a, b = e.vertices
         if (a in kv and b in V) or (b in kv and a in V): gmax = max(gmax, abs(jaw_w.get(a, 0.0) - jaw_w.get(b, 0.0)))
-    dmin = min((to_world(hv[i].co) - tam_tai).length for i in V)
+    sau = {i for ring in list(idx['eye'])[7:] for i in ring}            # vòng hốc sâu nằm trong đầu, không phải mặt da: không tính khoảng cách tới tai
+    import bpy                                                           # đo trên mặt đã đánh giá (bù co Subdivision dời đỉnh điều khiển nhưng giữ mặt đúng chỗ)
+    dg = bpy.context.evaluated_depsgraph_get(); ev = head.evaluated_get(dg); em = ev.to_mesh(); ep = {i: em.vertices[i].co.copy() for i in V}; ev.to_mesh_clear()
+    dmin = min((to_world(ep[i]) - tam_tai).length for i in V if i not in sau)
     dau = [abs(hv[K[0]].co.x), abs(hv[K[-1]].co.x)]
     ok = len(K) >= 20 and max(dau) < 1e-6 and gmax <= 0.35 and dmin >= 0.06
     return ok, f'vùng mặt {len(V)} đỉnh, đường khâu {len(K)} đỉnh (đầu cuối x {max(dau):.1e}); chênh trọng số hàm qua mép khâu {gmax:.2f} (≤ 0,35); cách tâm tai gần nhất {dmin * 100:.1f} cm (≥ 6)'

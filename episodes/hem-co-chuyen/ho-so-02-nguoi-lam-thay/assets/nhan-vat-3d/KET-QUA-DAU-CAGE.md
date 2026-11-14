@@ -112,7 +112,7 @@ D:/blender/blender.exe -b --factory-startup --python dat_nam_vao_phong.py -- --p
 - Hướng nhìn: xoay `Nhan_Cau.L/R`.
 
 ## Còn chưa đạt / cần chủ repo xem
-1. **Nhãn cầu thu đều ×0,824** để vừa dưới mí sau Subdivision. Bán kính ngang còn 49,4 mm, vẫn lớn hơn khe mắt 48,7 mm. Viền dưới tròng trắng có cạnh hơi gãy, do vòng mắt chỉ có 8 đỉnh; muốn tròn hơn thì tăng lên 12 đỉnh, việc này cần đổi lưới quanh mắt.
+1. **(Đã xử lý phần góc cạnh: vòng mắt 16 đỉnh, xem GHI-CHU vòng 8)** **Nhãn cầu thu đều ×0,824** để vừa dưới mí sau Subdivision. Bán kính ngang còn 49,4 mm, vẫn lớn hơn khe mắt 48,7 mm. Viền dưới tròng trắng có cạnh hơi gãy, do vòng mắt chỉ có 8 đỉnh; muốn tròn hơn thì tăng lên 12 đỉnh, việc này cần đổi lưới quanh mắt.
 2. **Vùng quanh mắt đã làm phẳng** (`EYE_FLAT = 1`). Mặt đầu cũ quanh mắt là yên ngựa: má và trán cao hơn 7 mm, thái dương thấp hơn 8 mm trong bán kính 5 cm, nên cầu mắt lồi không thể ôm. Vòng biên mắt giờ nằm trên mặt phẳng khớp nhất, khác đầu cũ tới ±8 mm ở mép mắt.
 3. **Mắt trông to và rõ hơn đầu cũ:** vòm mí là khối thật, không còn là mặt nạ tô.
 4. **Tai mẫu thấp hơn khoảng 1 cm:** chưa dời, xem phần mốc.

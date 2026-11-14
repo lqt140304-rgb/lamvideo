@@ -44,11 +44,11 @@ RINGS = [
     dict(ten='mieng_tren', z=1.122, zb=1.150, sx=1.03),
     dict(ten='mieng',      z=1.099, zb=1.130, sx=1.04),
     dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.00),
-    dict(ten='cam',        z=1.052, zb=1.094, sx=1.08, sf=1.06),
+    dict(ten='cam',        z=1.052, zb=1.094, sx=1.11, sf=1.06),
     dict(ten='day_cam',    z=1.038, zb=1.066, w=0.090, yc=-0.046, f=0.128, b=0.128, n=2.0),
     dict(ten='duoi_ham',   z=1.030, zb=1.050, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
 ]
-OVERRIDE = {('mieng_duoi', 4): (-0.003, 0, 0), ('cam', 3): (-0.003, 0, 0), ('cam', 4): (-0.004, 0, 0.002)}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
+OVERRIDE = {('mieng_duoi', 4): (-0.003, 0, 0), ('cam', 4): (0.0, 0, 0.002)}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
 NECK_N0_K = 1.04       # vòng cổ trên (7 đỉnh) rộng hơn vòng cổ thân một chút, chuyển mềm vào hàm
 
 # Mắt (hệ khung EYE_FRAMES của đầu cũ: u ngang, w dọc, h hướng ra khỏi mặt). Nhãn cầu là elip tròn xoay A × A × DD, đỉnh nhô APEX trước mặt phẳng tâm mắt.
@@ -58,7 +58,12 @@ EYE_A, EYE_DD, EYE_APEX = 0.060, 0.0192, 0.008       # cầu dẹt: ngang mặt 
 EYE_TUNE = dict(es=1.11, du=0.0065, dw=0.015, yaw=9.0)
 ES = EYE_TUNE['es']
 # Chỉnh mũi / cằm / nốt ruồi theo ảnh mẫu (Task 5; đọc bằng do_mau_nam.goi_y_tu_cage): độ dịch (m, thế giới: x ngang, y sâu — dương ra sau, z lên) của các đỉnh mũi và đáy cằm; mole_dx = dịch nốt ruồi vào giữa mặt.
-FACE_TUNE = dict(mui=(0.0, 0.0044, 0.0135), cam=(0.0, 0.0, -0.010), mole_dx=0.0065)
+FACE_TUNE = dict(mui=(0.0, 0.0044, 0.0135), cam=(0.0, 0.0, -0.013), mole_dx=0.0065)
+H1_DUOI = 0.0035       # độ cao vành mí L1 ở cung dưới (cung trên vẫn T_LID / +3 mm)
+R1_DUOI = 1.0        # hệ số bán kính cung dưới của vành mí L1 (≤ 0,052/0,0505)
+HOC_R = 1.04           # bán kính vòng hốc theo EYE_A (bản 8 đỉnh 1,04 nhưng bát giác nội tiếp; vòng 16 đỉnh tròn hơn nên thu lại để không chạm da ở khoé)
+NE_TRI = 8               # tam giác ở 8 ô lưới mặt kề vòng mắt (chèn đỉnh giữa vòng ngoài)
+EYE_N = 16             # số đỉnh mỗi vòng trong của mắt (vòng ngoài vẫn 8, nối lưới mặt)
 EYE_FLAT = 1.0         # mặt da quanh mắt của đầu cũ là yên ngựa (±8–13 mm trong r 5 cm): vòng biên mắt làm phẳng theo mặt phẳng khớp nhất; 0 = giữ nguyên yên ngựa
 T_LID = 0.0035         # bề dày mí trên (mẫu: mí dày trùm; trước 0,0025)
 W_LID = 0.0090         # độ cao đường mí trên so với tâm mắt (mẫu ≈ 8,6 mm; đầu cũ D.W_LID0 = 13,5 mm); chỉ cage này, không đổi đầu cũ
@@ -170,7 +175,7 @@ def ear_bump(p):
     return Vector((p.x + sg_ * m, p.y, p.z))
 
 
-NOSE_DISP = {(4, 0): 0.008, (5, 0): 0.034, (6, 0): 0.021, (5, 1): 0.010, (6, 1): 0.008}   # mũi = chỗ nhô của chính lưới mặt (đỉnh mũi ở hàng 5), không thêm vòng riêng
+NOSE_DISP = {(4, 0): 0.008, (5, 0): 0.034, (6, 0): 0.021, (6, 1): 0.008}   # (5,1) là góc vòng mắt: bỏ (cục mũi tròn riêng đã lo khối mũi)   # mũi = chỗ nhô của chính lưới mặt (đỉnh mũi ở hàng 5), không thêm vòng riêng
 EYE_MAP = [(4, 3), (3, 3), (3, 2), (3, 1), (4, 1), (5, 1), (5, 2), (5, 3)]              # j: E NE N NW W SW S SE — 8 đỉnh biên của ô 3×3, tâm (4,2) bỏ
 MOUTH_MAP = [(7, 0), (7, 1), (7, 2), (8, 2), (9, 2), (9, 1), (9, 0)]                      # nửa vòng miệng: trên giữa … khoé … dưới giữa; (8,0),(8,1) bỏ
 EYE_R0 = 0.052                                                                           # bán kính vòng biên mắt = vòng viền mắt thật
@@ -214,7 +219,7 @@ def build_head_cage(coll, mats, S_old, S_nen):
     # --- kéo các đỉnh lưới lân cận theo độ dịch của vòng viền mắt (khung mắt đã chỉnh), ghim đường khâu và vòng miệng đứng yên
     mov = {rk: tuple(over[rk] - over0[rk]) for rk in over0}
     kk = 1.0 / K; ro = {}                                           # độ dịch tường minh (hệ đầu gốc) của mũi và đáy cằm
-    for rk, f in (((5, 0), 1.0), ((6, 0), 1.0), ((5, 1), 1.0), ((6, 1), 1.0), ((4, 0), 0.5)): ro[rk] = Vector(FACE_TUNE['mui']) * kk * f
+    for rk, f in (((5, 0), 1.0), ((6, 0), 1.0), ((6, 1), 1.0), ((4, 0), 0.5)): ro[rk] = Vector(FACE_TUNE['mui']) * kk * f   # (5,1) là góc vòng mắt, không kéo theo mũi
     for r in (10, 11, 12):
         for k, f in zip(range(5), (1.0, 1.0, 1.0, 0.8, 0.5)): ro[(r, k)] = Vector(FACE_TUNE['cam']) * kk * f
     mov.update({rk: tuple(d) for rk, d in ro.items()})
@@ -246,46 +251,77 @@ def build_head_cage(coll, mats, S_old, S_nen):
             if (r, k) not in skip: cg.f((G[r][k], G[r][k + 1], G[r + 1][k + 1], G[r + 1][k]))
 
     # --- MẮT: vòng viền mắt (ngoài, mực) → vành mí → vòm mí → nét mí → khe mắt → mặt trong mí → hốc ôm nhãn cầu → đáy hốc (kín)
+    # Vòng ngoài L0 = 8 đỉnh biên của khối lưới 3×3 quanh mắt; mọi vòng trong có NE = EYE_N đỉnh.
+    # Dựng đúng 8 điểm của bản cũ (đã đạt kiểm), rồi chèn điểm lẻ = trung điểm (u, w) của hai điểm kề và tính lại độ cao theo luật của vòng → vòng tròn hơn mà không xoắn.
+    # Chỉ số vòng 16: 0 = khoé ngoài (E), 1…7 cung trên, 8 = khoé trong (W), 9…15 cung dưới.
+    NE = EYE_N; H = NE // 2
     c0 = math.degrees(math.asin(W_LID / RO)); AM = [c0, None, None, None, 180 - c0, 217, 270, 323]; ANG = [0, 45, 90, 135, 180, 225, 270, 315]
     def circ(r, a): a = math.radians(a); return r * math.cos(a), r * math.sin(a)
     up_u = [0.034, 0.0, -0.034]
-    def loop(spec): return [cg.v(ept(*s_)) for s_ in spec]
     def ring_spec(r, angs, hfun):
         out = []
         for a in angs: u, w = circ(r, a); out.append((u, w, hfun(u, w)))
         return out
-    L = [[G[r][k] for r, k in EYE_MAP]]
-    angs3 = [AM[j] if AM[j] is not None else [0, 48, 90, 132][j] for j in range(8)]
-    L.append(loop(ring_spec(0.0505, angs3, lambda u, w: max(eyeball_h(u, w) + T_LID, eface(u, w) + 0.003))))   # L1 vành mí
-    def lid_loop(r_low, off_low, up_w, up_h, r_corner=None):
+    def lid_spec(r_low, off_low, up_w, up_h, r_corner=None):
         spec = []
         for j in range(8):
             if j in (1, 2, 3):
-                u = [0.036, 0.0, -0.036][j - 1] if up_w == "dome" else up_u[j - 1]
+                u = [0.036, 0.0, -0.036][j - 1] if up_w == 'dome' else up_u[j - 1]
                 w = (math.sqrt(max(0.0, 0.0505 ** 2 - u * u)) + lid_w(u)) / 2 if up_w == 'dome' else lid_w(u) + up_w
                 spec.append((u, w, eyeball_h(u, w) + up_h))
             else:
                 u, w = circ(r_corner if (r_corner and j in (0, 4)) else r_low, AM[j]); spec.append((u, w, eyeball_h(u, w) + off_low))
-        return loop(spec)
-    L.append(lid_loop(0.0498, 0.0016, 'dome', T_LID))           # L2 vòm mí
-    L.append(lid_loop(0.0492, 0.0011, 0.0032, T_LID))            # L3 mép trên nét mí đậm
-    L.append(lid_loop(RO, 0.0006, 0.0, 0.6 * T_LID))             # L4 khe mắt (mép mí)
-    L.append(lid_loop(RO + 0.0028, 0.0006, 0.0035, 0.0006, RO + 0.0025))   # L5 mặt trong mí, nằm trên nhãn cầu
+        return spec
+    def day(spec8, hrule, wup=None):                                       # 8 → NE điểm; wup(u): công thức w của cung trên (đường mí) nếu có
+        if NE == 8: return spec8
+        out = []
+        for j in range(8):
+            out.append(spec8[j]); u0, w0, _ = spec8[j]; u1, w1, _ = spec8[(j + 1) % 8]
+            a0, a1 = math.atan2(w0, u0), math.atan2(w1, u1); a1 = a0 + ((a1 - a0 + math.pi) % (2 * math.pi) - math.pi)   # nội suy cực: góc giữa, bán kính trung bình (trung điểm dây cung làm vòng lõm răng cưa)
+            r = (math.hypot(u0, w0) + math.hypot(u1, w1)) / 2; am = (a0 + a1) / 2; u, w = r * math.cos(am), r * math.sin(am)
+            if wup is not None and 1 <= j <= 2: u = (u0 + u1) / 2; w = wup(u)                 # giữa các điểm cung trên: bám đúng đường mí, không lồi
+            out.append((u, w, hrule(u, w, j < 4)))
+        return out
+    def loop(spec): return [cg.v(ept(*s_)) for s_ in spec]
+    hl = lambda off_low, up_h: (lambda u, w, tren: eyeball_h(u, w) + (up_h if tren else off_low))
+    h1 = lambda u, w: max(eyeball_h(u, w) + T_LID, eface(u, w) + 0.003)
+    hc = EYE_APEX - EYE_DD
+    L0 = [G[r][k] for r, k in EYE_MAP]
+    if NE == 16:                                                           # chèn 8 đỉnh giữa trên vòng ngoài, chia đôi ô lưới mặt kề mỗi cạnh (1 tam giác / ô)
+        L0n = []
+        for j in range(8):
+            A0, A1 = L0[j], L0[(j + 1) % 8]; u, w = circ(EYE_R0, 45.0 * j + 22.5); Mv = cg.v(ept(u, w, eface(u, w)))
+            fq = [f_ for f_ in A0.link_faces if A1 in f_.verts][0]; vv = list(fq.verts); n_ = len(vv); i0 = vv.index(A0)
+            if vv[(i0 + 1) % n_] is A1: X_, Y_ = vv[(i0 - 1) % n_], vv[(i0 + 2) % n_]; tri, quad = (X_, A0, Mv), (X_, Mv, A1, Y_)
+            else: X_, Y_ = vv[(i0 + 1) % n_], vv[(i0 - 2) % n_]; tri, quad = (Mv, A0, X_), (Y_, A1, Mv, X_)
+            mt = fq.material_index; bm.faces.remove(fq); cg.f(tri, mt); cg.f(quad, mt)
+            L0n += [A0, Mv]
+        L0 = L0n
+    L = [L0]
+    angs3 = [AM[j] if AM[j] is not None else [0, 48, 90, 132][j] for j in range(8)]
+    s1 = ring_spec(0.0505, angs3, h1)
+    h1d = lambda u, w: max(eyeball_h(u, w) + H1_DUOI, eface(u, w) + H1_DUOI)        # cung dưới: vành mí thấp hơn (vòng 16 đỉnh bám lưới sát nên gờ cao 3 mm tự chạm)
+    s1 = [(sp_[0] * R1_DUOI, sp_[1] * R1_DUOI, h1d(sp_[0] * R1_DUOI, sp_[1] * R1_DUOI)) if j > 4 else sp_ for j, sp_ in enumerate(s1)]
+    L.append(loop(day(s1, lambda u, w, t: h1(u, w) if t else h1d(u, w))))                     # L1 vành mí
+    L.append(loop(day(lid_spec(0.0498, 0.0016, 'dome', T_LID), hl(0.0016, T_LID), lambda u: (math.sqrt(max(0.0, 0.0505 ** 2 - u * u)) + lid_w(u)) / 2)))                 # L2 vòm mí
+    L.append(loop(day(lid_spec(0.0492, 0.0011, 0.0032, T_LID), hl(0.0011, T_LID), lambda u: lid_w(u) + 0.0032)))                 # L3 mép trên nét mí đậm
+    L.append(loop(day(lid_spec(RO, 0.0006, 0.0, 0.6 * T_LID), hl(0.0006, 0.6 * T_LID), lambda u: lid_w(u))))            # L4 khe mắt (mép mí)
+    L.append(loop(day(lid_spec(RO + 0.0028, 0.0006, 0.0035, 0.0006, RO + 0.0025), hl(0.0006, 0.0006), lambda u: lid_w(u) + 0.0035)))   # L5 mặt trong mí
     spec = []
-    for j in range(8):                                                             # L6 mặt trong mí đi tiếp sát nhãn cầu lên dưới vòm mí (dải sau không cắt qua cầu)
+    for j in range(8):                                                             # L6 mặt trong mí đi tiếp sát nhãn cầu lên dưới vòm mí
         if j in (1, 2, 3): u = [0.030, 0.0, -0.030][j - 1]; w = 0.046 - 0.008 * (u / 0.03) ** 2
         else: u, w = circ(RO + 0.0065, AM[j])
         spec.append((u, w, eyeball_h(u, w) + 0.0008))
-    L.append(loop(spec))
-    hc = EYE_APEX - EYE_DD
-    L.append(loop(ring_spec(EYE_A * 1.04, ANG, lambda u, w: hc - 0.002)))           # L6 hốc: ôm quanh xích đạo nhãn cầu
-    L.append(loop(ring_spec(EYE_A * 0.60, ANG, lambda u, w: hc - 1.35 * EYE_DD)))   # L7 đáy hốc, sau nhãn cầu
-    MAT = {0: [5] * 4 + [1] * 4, 1: [0] * 4 + [1] * 4, 2: [0] * 4 + [1] * 4, 3: [1] * 8, 4: [1] * 8, 5: [2] * 8, 6: [2] * 8, 7: [2] * 8}
-    for b in range(len(L) - 1):
+    L.append(loop(day(spec, lambda u, w, t: eyeball_h(u, w) + 0.0008, lambda u: 0.046 - 0.008 * (u / 0.03) ** 2)))
+    L.append(loop(day(ring_spec(EYE_A * HOC_R, ANG, lambda u, w: hc - 0.002), lambda u, w, t: hc - 0.002)))           # L7 hốc
+    L.append(loop(day(ring_spec(EYE_A * 0.60, ANG, lambda u, w: hc - 1.35 * EYE_DD), lambda u, w, t: hc - 1.35 * EYE_DD)))   # L8 đáy hốc
+    MAT = {1: [0] * H + [1] * H, 2: [0] * H + [1] * H, 3: [1] * NE, 4: [1] * NE, 5: [2] * NE, 6: [2] * NE, 7: [2] * NE}
+    MAT[0] = [5] * H + [1] * H
+    for b in range(0, len(L) - 1):
         A_, B_ = L[b], L[b + 1]
-        for j in range(8): cg.f((A_[j], A_[(j + 1) % 8], B_[(j + 1) % 8], B_[j]), MAT[b][j])
-    Lc = L[-1]
-    for q in ((0, 1, 2, 3), (0, 3, 4, 7), (4, 5, 6, 7)): cg.f(tuple(Lc[i] for i in q[::-1]), 2)
+        for j in range(NE): cg.f((A_[j], A_[(j + 1) % NE], B_[(j + 1) % NE], B_[j]), MAT[b][j])
+    Lc = L[-1]; cc = cg.v(sum((x.co for x in Lc), Vector()) / NE + fe * (-0.004))     # đáy hốc: tâm + 8 quad
+    for i in range(0, NE, 2): cg.f((Lc[(i + 2) % NE], Lc[i + 1], Lc[i], cc), 2)
     cg.idx['eye'] = L
     for x in L[0]: cg.fit.discard(x); cg.design.pop(x, None)       # vòng biên mắt giữ đúng vị trí thiết kế (bù co ở đây kéo vòng vào 18 mm, chồng lên mí)
 
@@ -475,13 +511,14 @@ def add_shape_keys(ob, idx, ef, mf):
     # mí trên xoay quanh trục ngang của nhãn cầu (trong không gian elip chuẩn hoá → trượt trên mặt nhãn cầu, không xuyên); vòng ngoài theo tỉ lệ
     for name, tw, fr in (('Nham_Mat', lower, {1: 0.15, 2: 0.62, 3: 0.95, 4: 1.0, 5: 1.0, 6: 1.0, 7: 1.0, 8: 1.0}), ('Mo_Mat', upper, {1: 0.25, 2: 0.72, 3: 0.96, 4: 1.0, 5: 1.0, 6: 1.0, 7: 1.0, 8: 0.0})):
         kb = ob.shape_key_add(name=name, from_mix=False)
-        for j in (1, 2, 3):
+        H = len(mg) // 2
+        for j in range(1, H):
             q = nq(base[mg[j]]); a = rot_to(q, tw(q.x * EYE_A * ES))
             for li, f_ in fr.items():
-                vi = L[li][j]; kc = CORNER_K if (j != 2 and li >= 5) else 1.0; kb.data[vi].co = dq(rot(nq(base[vi]), a * f_ * kc))
-            if j == 2:                                                       # đỉnh khoé (E, W) của vòm mí trượt theo một phần nhỏ, dải góc không cắt chéo qua cầu
+                vi = L[li][j]; kc = CORNER_K if (j != H // 2 and li >= 5) else 1.0; kb.data[vi].co = dq(rot(nq(base[vi]), a * f_ * kc))
+            if j == H // 2:                                                  # đỉnh khoé (E, W) của vòm mí trượt theo một phần nhỏ, dải góc không cắt chéo qua cầu
                 for li, f_ in ((1, 0.10), (2, 0.22), (3, 0.22)):
-                    for jc in (0, 4): vi = L[li][jc]; kb.data[vi].co = dq(rot(nq(base[vi]), a * f_))
+                    for jc in (0, H): vi = L[li][jc]; kb.data[vi].co = dq(rot(nq(base[vi]), a * f_))
     # hàm: xoay quanh trục X qua JAW_PIVOT, trọng số theo vùng
     w = jaw_weights(ob, idx); piv = Vector(JAW_PIVOT); a = math.radians(JAW_DEG)
     R = Matrix.Rotation(a, 3, 'X')
@@ -683,7 +720,7 @@ def check_all(sc, head, asm, amap):
     bad = sum(1 for x, m in zip(xs, md) if m > 0.5 and abs(x) > 1e-6); neg = sum(1 for x in xs if x < -1e-6)
     res['cage_duong_giua'] = ok(bad == 0 and neg == 0, f'{len(xs)} đỉnh nửa cage, {int(sum(md))} đỉnh giữa, lệch {bad}, x âm {neg}')
     nf = len(head.data.polygons); nq = sum(1 for p in head.data.polygons if len(p.vertices) == 4); ntri = sum(1 for p in head.data.polygons if len(p.vertices) == 3)
-    res['cage_quad'] = ok(nf - nq - ntri == 0 and ntri <= 2, f'{nf} mặt: {nq} quad, {ntri} tam giác (đáy túi miệng), n-gon {nf - nq - ntri}')
+    res['cage_quad'] = ok(nf - nq - ntri == 0 and ntri <= 2 + 8 + NE_TRI, f'{nf} mặt: {nq} quad, {ntri} tam giác ({NE_TRI} ở ô lưới kề vòng mắt 16 đỉnh, còn lại ở đáy túi miệng), n-gon {nf - nq - ntri}')
     # lưới lắp ráp (đã đánh giá Mirror + Subdivision 2)
     set_keys(asm); vs, ps, mi = ev_mesh(asm); oe, nm = open_edges(vs, ps)
     res['asm_kin'] = ok(oe == 0 and nm == 0, f'{len(vs)} đỉnh sau Subdivision; cạnh hở {oe}, cạnh >2 mặt {nm}')
