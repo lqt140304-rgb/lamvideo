@@ -209,13 +209,13 @@ def apply_pose(arm, A, F, name, t=1.0):
 
 
 # ================================================================== bàn tay: nắm, cầm cốc (hiệu chỉnh trên lưới liền da)
-CURL = {'fist': (62, 72, 54), 'grip': (40, 50, 35)}
+CURL = {'fist': (72, 62, 52), 'grip': (40, 50, 35)}     # nắm: dồn góc sang khớp gốc ngón (lượt trước 62/72/54 → nếp khớp giữa ngón trỏ tự giao)
 
 
 def make_cup(F):
     """Cốc thử (bán kính 38 mm × KZ) áp lòng tay như dung_tay_nam.make_cup, đặt theo khung cổ tay cage."""
-    X = F['X']; r = 0.038 * N.KZ; c = X(HT.L(0.066, 0.010, HT.PALM_HT + 0.038 + 0.010)); ax = (X(HT.L(0.066, 1.0, 0)) - X(HT.L(0.066, 0.0, 0))).normalized()
-    bpy.ops.mesh.primitive_cylinder_add(vertices=48, radius=r, depth=0.100 * N.KZ, location=c); cup = bpy.context.object; cup.name = 'Coc_thu'
+    X = F['X']; r = 0.038 * N.KZ * N.HAND_K; c = X(HT.L(0.066, 0.010, HT.PALM_HT + 0.038 + 0.010)); ax = (X(HT.L(0.066, 1.0, 0)) - X(HT.L(0.066, 0.0, 0))).normalized()
+    bpy.ops.mesh.primitive_cylinder_add(vertices=48, radius=r, depth=0.100 * N.KZ * N.HAND_K, location=c); cup = bpy.context.object; cup.name = 'Coc_thu'
     cup.rotation_euler = ax.to_track_quat('Z', 'Y').to_euler(); bpy.context.view_layer.update(); bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
     cup.data.materials.append(N._mat('coc', (0.85, 0.85, 0.88))); return cup
 
@@ -225,7 +225,8 @@ class HandFit:
     def __init__(self, Ms, M, names):
         self.Ms = Ms; col = {k: M[:, j] for j, k in enumerate(names)}
         self.tip = {f: np.nonzero(col[f'{f}3'] > 0.5)[0] for f in HT.FINGERS}; self.mid = {f: np.nonzero(col[f'{f}2'] > 0.5)[0] for f in HT.FINGERS}
-        self.palm = np.nonzero(col['ban_tay'] > 0.9)[0]; self.th = np.nonzero((col['thumb2'] + col['thumb3']) > 0.5)[0]; self.th3 = np.nonzero(col['thumb3'] > 0.5)[0]
+        dom = np.array(names)[np.argmax(M, 1)]; self.palm = np.nonzero(dom == 'ban_tay')[0];   # lòng tay = mọi đỉnh do ban_tay chi phối (gồm gò ngón cái; lượt trước > 0,9 bỏ sót → ngón trỏ chọc gò)
+        self.th = np.nonzero((col['thumb2'] + col['thumb3']) > 0.5)[0]; self.th3 = np.nonzero(col['thumb3'] > 0.5)[0]
         self.fing = np.nonzero(sum(col[f'{f}{i}'] for f in HT.FINGERS for i in (1, 2, 3)) > 0.5)[0]
         self.notthumb = np.nonzero((col['thumb1'] + col['thumb2'] + col['thumb3'] < 0.05) & (sum(col[k] for k in col if k not in ('khoa', 'cang_tay', 'cang_chan', 'ban_chan', 'ngon_chan')) > 0.5))[0]
         tz = (col['thumb1'] + col['thumb2'] + col['ban_tay'] * (col['thumb1'] > 0.05)) > 0.3; self.th_e = np.nonzero(tz[Ms.ed[:, 0]] & tz[Ms.ed[:, 1]])[0]
