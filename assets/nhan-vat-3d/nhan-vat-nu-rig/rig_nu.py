@@ -15,12 +15,15 @@ Lưới thưa (2.043 đỉnh): ngón có 3 đốt nhưng ít vòng lưới, khi 
 """
 import math
 import os
+import sys
 from pathlib import Path
 import bpy
 import numpy as np
 from mathutils import Vector
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import mat_nu  # noqa: E402  (module bpy cạnh script)
 SRC = HERE.parent / 'nhan-vat-nu-goc' / 'nhan-vat-nu-goc.blend'
 OUT = HERE / 'nhan-vat-nu-rig.blend'
 
@@ -378,6 +381,11 @@ pb['ik_foot.L'].location.z = 0
 foot = (co[:, 0] > 0.05) & (co[:, 2] < 0.08)
 print(f'IK: bàn chân trái đi {np.linalg.norm(moved[foot], axis=1).mean():.3f} m')
 assert np.linalg.norm(moved[foot], axis=1).mean() > 0.05, 'IK chân không kéo bàn chân'
+
+# --- mặt: mắt (sau các kiểm thân vì khoét hốc làm đổi chỉ số đỉnh) ---
+mat_nu.dung_mat(body, rig, coll)
+rig.update_tag()
+bpy.context.view_layer.update()
 
 # --- ảnh dáng thử (tùy chọn) ---
 soi = os.environ.get('SOI_DIR')

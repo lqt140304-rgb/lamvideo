@@ -34,7 +34,7 @@ def dat_lai():
         p.rotation_euler = (0, 0, 0)
         p.scale = (1, 1, 1)
         for k in list(p.keys()):
-            if k in ('fist', 'blink_L', 'blink_R'):
+            if k in ('fist', 'blink_L', 'blink_R', 'squint_L', 'squint_R'):
                 p[k] = 0.0
             if k == 'ik_fk':
                 p[k] = 1.0 if p.name.startswith('foot') else 0.0
@@ -141,7 +141,87 @@ def kiem_fist_khi_ik():
     assert not it, f'IK + fist=1 mà ngón dời ít {it}'
 
 
+def huong_mat(k):
+    RIG.update_tag()
+    bpy.context.view_layer.update()
+    p = RIG.pose.bones[f'eye.{k}']
+    return np.array((RIG.matrix_world @ p.tail) - (RIG.matrix_world @ p.head))
+
+
+def kiem_nhin_theo_look():
+    d0 = {k: huong_mat(k) for k in 'LR'}
+    doi_the_gioi('look', (0.2, 0, 0))
+    for k in 'LR':
+        d1 = huong_mat(k)
+        goc = math.degrees(math.atan2(d1[0], -d1[1]) - math.atan2(d0[k][0], -d0[k][1]))
+        assert goc > 8, f'Mắt {k} chỉ xoay {goc:.1f}° khi look dời 0.2 m sang +X'
+
+
+def dem_long_trang(k='L'):
+    """Render Workbench màu phẳng trước mắt k; đếm điểm ảnh của lòng trắng còn lộ."""
+    from mathutils import Vector
+    sc = bpy.context.scene
+    cam = bpy.data.objects.get('_kiem_cam') or bpy.data.objects.new('_kiem_cam', bpy.data.cameras.new('_kiem_cam'))
+    if cam.name not in sc.collection.objects:
+        sc.collection.objects.link(cam)
+    p = RIG.matrix_world @ RIG.pose.bones[f'eye.{k}'].head
+    cam.location = p + Vector((0, -0.35, 0))
+    cam.rotation_euler = (p - cam.location).to_track_quat('-Z', 'Y').to_euler()
+    cam.data.lens = 120
+    sc.camera = cam
+    sc.render.engine = 'BLENDER_WORKBENCH'
+    sh = sc.display.shading
+    sh.light, sh.color_type = 'FLAT', 'OBJECT'
+    sc.render.resolution_x = sc.render.resolution_y = 256
+    for o in sc.objects:
+        o.color = (0, 0, 0, 1)
+    bpy.data.objects[f'Nu_LongTrang.{k}'].color = (1, 0, 0, 1)
+    out = str(Path(bpy.app.tempdir) / 'kiem_mat.png')
+    sc.render.filepath = out
+    bpy.ops.render.render(write_still=True)
+    im = bpy.data.images.load(out, check_existing=False)
+    a = np.array(im.pixels[:]).reshape(-1, 4)
+    bpy.data.images.remove(im)
+    return int(((a[:, 0] > 0.8) & (a[:, 1] < 0.2)).sum())
+
+
+def kiem_chop():
+    mo = dem_long_trang('L')
+    assert mo > 80, f'Mắt mở mà chỉ thấy {mo} điểm lòng trắng'
+    RIG.pose.bones['head']['blink_L'] = 1.0
+    RIG.update_tag()
+    nham = dem_long_trang('L')
+    assert nham == 0, f'blink_L=1 vẫn lộ {nham} điểm lòng trắng'
+
+
+def kiem_chop_khi_nhin_len():
+    doi_the_gioi('look', (0, 0, 0.25))
+    RIG.pose.bones['head']['blink_L'] = 1.0
+    RIG.update_tag()
+    n = dem_long_trang('L')
+    assert n == 0, f'Nhìn lên rồi chớp vẫn lộ {n} điểm lòng trắng'
+
+
+def kiem_nhin_thang_giong_mau():
+    sc = bpy.context.scene
+    for k in 'LR':
+        RIG.update_tag()
+        bpy.context.view_layer.update()
+        dg = bpy.context.evaluated_depsgraph_get()
+        o = bpy.data.objects[f'Nu_ConNguoi.{k}'].evaluated_get(dg)
+        m = o.to_mesh()
+        c = np.array([o.matrix_world @ v.co for v in m.vertices]).mean(0)
+        o.to_mesh_clear()
+        hoc = np.array(sc[f'tam_hoc_mat_{k}'])
+        lech = np.linalg.norm((c - hoc)[[0, 2]])
+        assert lech < 0.004, f'Dáng nghỉ: con ngươi {k} lệch tâm hốc {lech * 1000:.1f} mm (XZ)'
+
+
 KIEM = {
+    'kiem_nhin_theo_look': kiem_nhin_theo_look,
+    'kiem_chop': kiem_chop,
+    'kiem_chop_khi_nhin_len': kiem_chop_khi_nhin_len,
+    'kiem_nhin_thang_giong_mau': kiem_nhin_thang_giong_mau,
     'kiem_ik_tay_bam': kiem_ik_tay_bam,
     'kiem_ik_tay_nghi': kiem_ik_tay_nghi,
     'kiem_ik_fk_tat': kiem_ik_fk_tat,
