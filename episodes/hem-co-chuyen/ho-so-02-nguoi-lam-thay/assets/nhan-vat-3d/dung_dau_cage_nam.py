@@ -19,6 +19,7 @@ from mathutils.bvhtree import BVHTree
 import dung_dau_nam as D
 import dung_than_nam as T
 import dung_than_cage_nam as B
+import mat_theo_mau_nam as MT
 
 K, ZCH, C0 = T.HEAD_K, T.ZCH, T.CHIN0
 OLD_COLL, NEW_COLL = '00_Dau_Cu', '03_Dau_Cage'
@@ -660,6 +661,7 @@ def check_all(sc, head, asm, amap):
     res['not_ruoi_dung_ben'] = ok((bpy.data.objects['Mole'].matrix_world.translation.x < 0) == (D.MOLE_SIDE < 0), f'Mole x = {bpy.data.objects["Mole"].matrix_world.translation.x:.4f} (bên phải nhân vật = −X)')
     res['may_bam_tran'] = brow_test(asm)
     res['tai_dan_dau'] = ear_test(asm)
+    res['vung_mat'] = MT.kiem_vung_mat(head, HEAD_IDX, to_world, jaw_weights(head, HEAD_IDX), bpy.data.objects['Ear.L'].matrix_world.translation.copy())
     set_keys(asm); return res
 
 
