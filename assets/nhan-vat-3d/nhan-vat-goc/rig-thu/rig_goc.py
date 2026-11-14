@@ -43,6 +43,8 @@ FINGER_CURL = {'index': (50, 70, 45), 'middle': (50, 70, 45), 'ring': (50, 70, 4
 A_DEG = 0.0
 CONTACT_D = 0.03       # đỉnh tay/thân cách phía bên kia dưới mức này = vùng tiếp xúc nách
 CONTACT_IT = 150
+XUAT_NACH = None
+SRC_CUT_GROUP = {}       # nhóm đỉnh chọn tay trong file nguồn (vd. cat_them), đọc lúc mở file
 SLIT_EXT = 0.0           # rạch kéo dài khe lên phía vai: thử 0,03 làm lỗ vá tách mảnh và nối nhầm tay–thân (tay giãn 42×), nên tắt
 CUT_ZVAI = 0.95          # trần z của vùng tay dùng khi phân loại để cắt
 NEAR_SHOULDER_D = 0.014   # gần vai (z > 0,78): chấp nhận hai mặt gần như vuông góc nếu cách nhau dưới 14 mm, để cắt tiếp đoạn cụt của khe
@@ -668,6 +670,19 @@ def to_a_pose(sc, body, arm, deg):
     ext = rim & (z > apex - 0.01) & (z < apex + SLIT_EXT) & (x < 0.21) & (x > 0.12) if SLIT_EXT > 0 else np.zeros(nv, bool)
     print(f'  khe nách: đỉnh trên cùng z = {apex:.3f}; rạch thêm {int(ext.sum())} đỉnh lên tới z = {apex + SLIT_EXT:.3f}')
     cut = cut | ext
+    vg_them = SRC_CUT_GROUP.get('cat_them')
+    if vg_them is not None:
+        ex = np.zeros(nv, bool); ex[vg_them] = True
+        mir = KDTree(nv)
+        for i in range(nv): mir.insert(Vector((-co0[i, 0], co0[i, 1], co0[i, 2])), i)
+        mir.balance()
+        for i in vg_them: ex[mir.find(co0[i])[1]] = True        # đối xứng sang tay bên kia
+        print(f'  cắt thêm theo nhóm đỉnh cat_them: {len(vg_them)} đỉnh chọn tay, {int(ex.sum())} sau đối xứng')
+        cut = cut | ex
+    if XUAT_NACH:
+        g = body.vertex_groups.new(name='da_cat'); g.add(np.nonzero(cut)[0].tolist(), 1.0, 'REPLACE')
+        body.vertex_groups.new(name='cat_them')
+        bpy.ops.wm.save_as_mainfile(filepath=XUAT_NACH, compress=True); print('PASS: đã xuất lưới dang tay', XUAT_NACH); sys.exit(0)
     rebuild_armpit(body, cut)
     print(f'  dáng chữ A {deg:.0f}°: nướng lưới, làm mượt {int(R.sum())} đỉnh nách–vai')
     # xoay mốc tay và ngón theo
@@ -682,12 +697,25 @@ def to_a_pose(sc, body, arm, deg):
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--out', required=True); ap.add_argument('--anh'); ap.add_argument('--src', default=SRC)
+    ap.add_argument('--nhom-cat', help='file .blend (xuất từ --xuat-nach) có nhóm đỉnh cat_them do chủ repo chọn tay')
+    ap.add_argument('--xuat-nach', help='chỉ xuất lưới đã dang tay (trước khi cắt) ra file này để chọn tay đỉnh cần cắt, rồi dừng')
     ap.add_argument('--ten-mixamo', action='store_true', help='đổi tên xương biến dạng sang chuẩn Mixamo (Hips, LeftArm, …) để dùng animation Mixamo')
     ap.add_argument('--chu-a', type=float, default=80.0, help='dang tay (độ) để làm dáng nghỉ mới trước khi rig; 0 = giữ tay buông (khuyến nghị 80: khe nách mở rộng để cắt dính thân–tay)')
     a = ap.parse_args(argv)
+    if a.nhom_cat:
+        bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.nhom_cat)); ob_ = bpy.data.objects['model_LOD0']; g = ob_.vertex_groups.get('cat_them')
+        SRC_CUT_GROUP['cat_them'] = [v.index for v in ob_.data.vertices if g and any(x.group == g.index and x.weight > 0.5 for x in v.groups)]
+        print(f'  đọc nhóm cat_them: {len(SRC_CUT_GROUP["cat_them"])} đỉnh từ {a.nhom_cat}')
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.src)); sc = bpy.context.scene
     if bpy.context.object and bpy.context.object.mode != 'OBJECT': bpy.ops.object.mode_set(mode='OBJECT')
     body = bpy.data.objects['model_LOD0']
+    global XUAT_NACH; XUAT_NACH = os.path.abspath(a.xuat_nach) if a.xuat_nach else None
+    for gname in ('cat_them',):
+        g = body.vertex_groups.get(gname)
+        if g:
+            SRC_CUT_GROUP[gname] = [v.index for v in body.data.vertices if any(x.group == g.index and x.weight > 0.5 for x in v.groups)]
+            body.vertex_groups.remove(g)
+    for g in [g for g in body.vertex_groups if g.name == 'da_cat']: body.vertex_groups.remove(g)
     for o in list(sc.objects):
         if o.type == 'MESH' and o is not body: bpy.data.objects.remove(o, do_unlink=True)
     bco = mesh_co(body); bea, beb = edges_np(body.data); measure_fingers(bco, arm_region(bco, bea, beb))
