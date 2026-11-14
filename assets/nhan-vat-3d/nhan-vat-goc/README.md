@@ -45,5 +45,6 @@ Script giữ hình khối/UV/vật liệu nguồn, bố trí collection theo LOD
 
 - Đã nhập bản PBR trong Blender 5.2.3, kiểm texture và render ảnh tĩnh một LOD.
 - Đã chọn làm nguồn phát triển mô hình nền chung. Chưa nghiệm thu biến dạng/chuyển động.
+- 14/11/2026: có [rig thử thân/tay/chân](rig-thu/README.md) dựng trực tiếp trên LOD0 còn tóc (script, không sửa file nguồn); chưa ngón, mặt, shape key; chưa nghiệm thu.
 - Việc tiếp theo: trên bản sao, bỏ tóc liền lưới và dựng da đầu kín; kiểm hình khối đầu trọc trước khi làm lại topology và rig.
 - Sau đó mới tách/chuẩn hóa mắt, miệng, tóc, quần áo và các biến thể nhân vật. Các bước này chưa được thực hiện trong mốc nguồn hiện tại.
