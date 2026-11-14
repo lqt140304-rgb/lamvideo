@@ -17,6 +17,7 @@ import sys, os, math, argparse, time
 import bpy
 import numpy as np
 from mathutils import Vector, Matrix
+from mathutils.kdtree import KDTree
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, '..', 'nhan-vat-goc.blend')
@@ -40,6 +41,9 @@ FINGER_Y = {'index': -0.113, 'middle': -0.061, 'ring': -0.022, 'pinky': 0.019}
 FINGER_SPLIT = (0.42, 0.32, 0.26)      # tỉ lệ chiều dài 3 đốt (gốc → đầu ngón)
 FINGER_CURL = {'index': (50, 70, 45), 'middle': (50, 70, 45), 'ring': (50, 70, 45), 'pinky': (50, 70, 45), 'thumb': (12, 30, 40)}   # độ gập khi nam = 1
 A_DEG = 0.0
+CONTACT_D = 0.03       # đỉnh tay/thân cách phía bên kia dưới mức này = vùng tiếp xúc nách
+CONTACT_IT = 150
+CUT_D = 0.012          # bỏ hẳn dải dính tay–thân (cách phía bên kia < 12 mm, z 0,62–0,90) rồi vá màng da mới
 AP = np.eye(4)                          # khung dáng chữ A → khung tay buông (bên L); đơn vị nếu không chuyển dáng
 CH = {}                                 # tên ngón → 4 điểm (bên L): gốc, khớp 1, khớp 2, đầu ngón
 
@@ -444,6 +448,83 @@ def render_sheet(sc, arm, out_dir):
     return files
 
 
+def rebuild_armpit(body, cut):
+    """Cắt dải lưới dính tay–thân ở nách, lấp bằng màng da mới (chia mịn + thư giãn Laplace, mép cố định), UV/màu da như da đầu.
+    Vùng tay (ARM_FIXED) được mang theo bằng thuộc tính; đỉnh mới thuộc thân."""
+    global ARM_FIXED
+    import bmesh
+    me = body.data
+    a = me.attributes.new('vung_tay', 'INT', 'POINT'); a.data.foreach_set('value', ARM_FIXED.astype(np.int32))
+    if 'pha_da' not in me.attributes: me.attributes.new('pha_da', 'FLOAT', 'POINT')
+    bm = bmesh.new(); bm.from_mesh(me); bm.verts.ensure_lookup_table()
+    bmesh.ops.delete(bm, geom=[bm.verts[i] for i in np.nonzero(cut)[0]], context='VERTS')
+    for _ in range(10):
+        bad = [v for v in bm.verts if sum(e.is_boundary for e in v.link_edges) > 2 or (v.is_boundary and len(v.link_faces) < 2) or not v.link_faces]
+        if not bad: break
+        bmesh.ops.delete(bm, geom=bad, context='VERTS')
+    gl = bm.verts.layers.int.new('dinh_goc')
+    for v in bm.verts: v[gl] = 1
+    bnd = [e for e in bm.edges if e.is_boundary]
+    # chỉ các lỗ ở vùng nách (không đụng lỗ khác nếu có)
+    loops = []; seen = set(); adj = {}
+    for e in bnd:
+        for v in e.verts: adj.setdefault(v, []).append(e)
+    for e in bnd:
+        if e in seen: continue
+        st = [e]; comp = []
+        while st:
+            x_ = st.pop()
+            if x_ in seen: continue
+            seen.add(x_); comp.append(x_); [st.append(y) for v in x_.verts for y in adj[v] if y not in seen]
+        loops.append(comp)
+    loops = [L for L in loops if 0.5 < np.mean([v.co.z for e in L for v in e.verts]) < 1.0 and abs(np.mean([v.co.x for e in L for v in e.verts])) > 0.1]
+    print(f'  nách: cắt {int(cut.sum())} đỉnh; lỗ vá {[len(L) for L in loops]}; phía tay: {[int(np.mean([v[bm.verts.layers.int.get("vung_tay")] for e in L for v in e.verts]) > 0.5) for L in loops]}')
+    fl = bm.faces.layers.int.new('va_nach'); vt = bm.verts.layers.int.get('vung_tay')
+    for L in loops:
+        is_arm = np.mean([v[vt] for e in L for v in e.verts]) > 0.5      # lỗ phía tay hay phía thân
+        f = bmesh.ops.holes_fill(bm, edges=L, sides=0)['faces']
+        f = bmesh.ops.triangulate(bm, faces=f)['faces']
+        for x_ in f: x_[fl] = 2 if is_arm else 1
+    pf = lambda: [f for f in bm.faces if f[fl]]
+    edge_len = 0.004
+    for rnd in range(6):
+        long_e = list({e for f in pf() for e in f.edges if e.calc_length() > edge_len * 1.4})
+        if long_e:
+            r_ = bmesh.ops.subdivide_edges(bm, edges=long_e, cuts=1, use_grid_fill=False)
+            for g in r_['geom_inner'] + r_['geom_split']:
+                if isinstance(g, bmesh.types.BMVert): g[gl] = 0
+        tri = [f for f in bm.faces if len(f.verts) > 3 and f[fl]]
+        if tri: bmesh.ops.triangulate(bm, faces=tri)
+        P_ = pf()
+        bmesh.ops.beautify_fill(bm, faces=P_, edges=list({e for f in P_ for e in f.edges if all(not v[gl] for v in e.verts)}))
+        newv = [v for v in bm.verts if not v[gl]]
+        for it in range(40):
+            np_ = {v: sum((e.other_vert(v).co for e in v.link_edges), Vector()) / len(v.link_edges) for v in newv if v.link_edges}
+            for v, p_ in np_.items(): v.co = v.co.lerp(p_, 0.7)
+    newv = [v for v in bm.verts if not v[gl]]
+    for it in range(200):
+        np_ = {v: sum((e.other_vert(v).co for e in v.link_edges), Vector()) / len(v.link_edges) for v in newv if v.link_edges}
+        for v, p_ in np_.items(): v.co = v.co.lerp(p_, 0.7)
+    patch = pf()
+    # UV & màu da
+    mat = me.materials[0]; cxyz = next((n for n in mat.node_tree.nodes if n.type == 'COMBXYZ'), None)
+    suv = Vector((cxyz.inputs[0].default_value, cxyz.inputs[1].default_value)) if cxyz else None
+    uvl = bm.loops.layers.uv.active; pl = bm.verts.layers.float.get('pha_da')
+    for f in patch:
+        if suv is not None:
+            for l in f.loops: l[uvl].uv = suv
+        f.smooth = True
+    for v in newv:
+        v[pl] = 1.0; v[vt] = int(any(f[fl] == 2 for f in v.link_faces))
+    ring = {u for L in loops for e in L for u in e.verts if u.is_valid}
+    for r in range(8):
+        for v in ring: v[pl] = max(v[pl], 1 - r / 8)
+        ring = {e.other_vert(v) for v in ring for e in v.link_edges if e.other_vert(v)[gl]}
+    bm.normal_update(); bm.to_mesh(me); me.update(); bm.free()
+    v = np.zeros(len(me.vertices), np.int32); me.attributes['vung_tay'].data.foreach_get('value', v); ARM_FIXED = v.astype(bool)
+    print(f'  nách: vá {len(newv)} đỉnh mới; lưới còn {len(me.vertices)} đỉnh')
+
+
 def rig_once(sc, body):
     proxy = bpy.data.objects.new('proxy_w', body.data.copy()); sc.collection.objects.link(proxy)   # bản thưa cho bone heat
     dm = proxy.modifiers.new('Dec', 'DECIMATE'); dm.ratio = 0.125
@@ -472,16 +553,36 @@ def to_a_pose(sc, body, arm, deg):
     for m in list(body.modifiers): body.modifiers.remove(m)
     body.vertex_groups.clear()
     bpy.data.objects.remove(arm, do_unlink=True)
-    # làm mượt vùng nách–vai trên lưới mới (Taubin: không co thể tích)
+    # vùng tiếp xúc tay–thân (lưới gốc: tay ép vào sườn, có gờ hình khối và vệt tối vẽ sẵn trên texture):
+    # đỉnh cách "phía bên kia" < CONTACT_D ⇒ làm mượt Taubin mạnh trên lưới đã dang tay + phủ màu da (pha_da)
     me = body.data; nv = len(me.vertices); ea, eb = edges_np(me); dn = np.bincount(np.concatenate([ea, eb]), minlength=nv).clip(1)[:, None]
-    x, z = np.abs(co0[:, 0]), co0[:, 2]
-    f = np.clip(np.minimum.reduce([(x - 0.07) / 0.04, (0.30 - x) / 0.04, (z - 0.60) / 0.06, (0.97 - z) / 0.04]), 0, 1)
+    ar = ARM_FIXED; x, z = np.abs(co0[:, 0]), co0[:, 2]
+    nrm = np.zeros(nv * 3); me.vertices.foreach_get('normal', nrm); nrm = nrm.reshape(-1, 3)
+    dist = np.full(nv, 9.0)
+    for src, dst in ((ar, ~ar), (~ar, ar)):      # chỉ tính bề mặt "đối diện": gần nhau VÀ pháp tuyến ngược chiều (bỏ qua ranh giới liền kề)
+        kd = KDTree(int(dst.sum())); di = np.nonzero(dst)[0]
+        for j, i in enumerate(di): kd.insert(co0[i], j)
+        kd.balance()
+        for i in np.nonzero(src & (z > 0.50) & (z < 0.95) & (x > 0.08))[0]:
+            for p_, j, d in kd.find_n(co0[i], 8):
+                if nrm[i] @ nrm[di[j]] < -0.3: dist[i] = min(dist[i], d)
+    f = np.clip((CONTACT_D - dist) / 0.015, 0, 1)
+    f = np.maximum(f, 0.35 * np.clip(np.minimum.reduce([(x - 0.07) / 0.04, (0.30 - x) / 0.04, (z - 0.60) / 0.06, (0.97 - z) / 0.04]), 0, 1))
     R = f > 0
-    for it in range(40):
+    for it in range(CONTACT_IT):
         for lam in (0.5, -0.53):
             acc = np.stack([np.bincount(ea, P[eb, j], nv) + np.bincount(eb, P[ea, j], nv) for j in range(3)], 1) / dn
             P[R] += (lam * f[R])[:, None] * (acc[R] - P[R])
     me.vertices.foreach_set('co', P.ravel()); me.update()
+    at = me.attributes.get('pha_da')
+    if at:
+        v = np.zeros(nv, np.float32); at.data.foreach_get('value', v)
+        c = np.clip((CONTACT_D + 0.005 - dist) / 0.02, 0, 1).astype(np.float32)
+        for _ in range(4):
+            acc = (np.bincount(ea, c[eb], nv) + np.bincount(eb, c[ea], nv)) / dn[:, 0]; c = np.maximum(c, 0.8 * acc).astype(np.float32)
+        at.data.foreach_set('value', np.maximum(v, c))
+    print(f'  vùng tiếp xúc nách: {int((dist < CONTACT_D).sum())} đỉnh; vùng làm mượt {int(R.sum())} đỉnh')
+    rebuild_armpit(body, (dist < CUT_D) & (z > 0.62) & (z < 0.90))
     print(f'  dáng chữ A {deg:.0f}°: nướng lưới, làm mượt {int(R.sum())} đỉnh nách–vai')
     # xoay mốc tay và ngón theo
     Tm = Matrix([list(r) for r in T])
