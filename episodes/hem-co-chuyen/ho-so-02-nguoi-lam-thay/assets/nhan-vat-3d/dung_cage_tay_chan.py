@@ -16,6 +16,9 @@ import dung_than_cage_nam as C
 import dung_than_nam as T
 
 KZ = T.KZ
+HAND_K = 1.07              # bàn tay to thêm 7% cho cân với cẳng tay (chủ repo 14/11: "cả hai một chút")
+WRIST_THIN = 0.93          # vòng cổ tay cage thu 7%; vòng giữa cẳng tay thu một nửa mức đó → cổ tay thon dần
+TOE_W = (0.0148, 0.0165, 0.0185, 0.0205, 0.0265)   # bề rộng tương đối cột ngón (ngón út → ngón cái), theo bán kính ngón bản duyệt
 
 
 # ================================================================== kiểm topology
@@ -70,12 +73,12 @@ def check_topology(asm, base_asm=None):
     if base_asm is not None:
         Q = _world(base_asm); _, _, c_e = arm_frame()
         u_e = np.abs(Q[:, 0]) > 0.0                                   # mọi đỉnh
-        arm = (np.abs(Q[:, 0]) > 0.16) & (Q[:, 2] < c_e.z + 0.01); leg = Q[:, 2] < 0.26
+        arm = (np.abs(Q[:, 0]) > 0.16) & (Q[:, 2] < c_e.z + 0.03); leg = Q[:, 2] < 0.26     # +3 cm trên khuỷu: vòng giữa cẳng tay thu (cổ tay thon dần) lan qua Subdivision tới sát trên khuỷu
         keep = ~(arm | leg); from mathutils.kdtree import KDTree
         kd = KDTree(len(P))
         for i, p in enumerate(P): kd.insert(Vector(p), i)
         kd.balance(); dmax = max(kd.find(Vector(q))[2] for q in Q[keep][::5])
-        rec('than_ngoai_chi_khong_doi', dmax <= 0.0001, f'lệch lớn nhất {dmax * 1000:.3f} mm (trên khuỷu, trên gối)')
+        rec('than_ngoai_chi_khong_doi', dmax <= 0.0001, f'lệch lớn nhất {dmax * 1000:.3f} mm (thân, vai, bắp tay trên khuỷu 3 cm, trên gối)')
     bm.free(); return res
 
 
@@ -92,7 +95,7 @@ CAGE_K_CHAN = 1.10
 def hand_xf():
     """Biến đổi toạ độ bàn tay (dung_tay_nam, chưa nén) → thế giới cổ tay cage: co KZ, xoay trục ngón theo trục cẳng tay, dời về tâm cổ tay."""
     c_w, d, _ = arm_frame(); R = HT._D.normalized().rotation_difference(d).to_matrix()
-    return lambda p: c_w + R @ ((Vector(p) - HT.WRIST) * KZ)
+    return lambda p: c_w + R @ ((Vector(p) - HT.WRIST) * (KZ * HAND_K))
 
 
 def _ring_uvw(u, cv, cw, av, aw, n=8, e=2.0):
@@ -134,6 +137,16 @@ def _boundary_loop(bm, verts):
         if nxt is start: break
         loop.append(nxt); prev, cur = cur, nxt
     return loop
+
+
+def thin_wrist(bm, lay):
+    """Thu vòng cổ tay của cage WRIST_THIN quanh tâm (vòng giữa cẳng tay thu một nửa mức đó): cổ tay thon dần, không đụng khuỷu và phía trên."""
+    c_w, d, _ = arm_frame(); c_m = Vector(C.ARM_RINGS[-2]['c']); d_m = (c_w - Vector(C.ARM_RINGS[-3]['c'])).normalized()
+    for c, ax, k in ((c_w, d, WRIST_THIN), (c_m, d_m, 1 - (1 - WRIST_THIN) / 2)):
+        for v in bm.verts:
+            if v[lay['tay']] < 0.5: continue
+            r = v.co - c; u = r.dot(ax)
+            if abs(u) < 0.006 and (r - ax * u).length < 0.08: v.co = c + ax * u + (r - ax * u) * k
 
 
 def add_hand(bm, lay):
@@ -248,6 +261,7 @@ def add_foot(bm, lay):
         if y == Ys[0]: hw *= 0.75; top *= 0.8
         even = np.array((1.0, 0.6, 0.2, -0.2, -0.6, -1.0)); wide = np.array((1.0, 0.80, 0.0, -0.80, -0.91, -1.0))   # vòng dưới mắt cá: ô nối rộng ~ống chân
         a_ = float(np.interp(y, [-0.104, -0.052, -0.022, 0.046, 0.078, 0.100], [0.0, 0.0, 1.0, 1.0, 0.5, 0.0])); ts = even * (1 - a_) + wide * a_
+        cw = np.cumsum((0.0,) + TOE_W); toe_t = 1 - 2 * cw / cw[-1]; b_ = float(np.interp(y, [-0.104, -0.080], [1.0, 0.0])); ts = ts * (1 - b_) + toe_t * b_   # mũi: cột theo bề rộng ngón
         xs = [FT.X0 + hw * t + (cx - FT.X0) * (1 - t * t) * a_ for t in ts]
         topr = [V((x, y, top * (0.80 if abs(x - FT.X0) > hw * 0.9 else 1.0))) for x in xs]
         bot = [V((x, y, -0.006)) for x in xs]
@@ -268,13 +282,13 @@ def add_foot(bm, lay):
     r0 = rings[0]                                                   # nắp gót 5×1
     for k in range(5): q(r0['top'][k + 1], r0['top'][k], r0['bot'][k], r0['bot'][k + 1])
     rl = rings[-1]; toes = sorted(FT.TOES, key=lambda t: -t[0])     # cột ngón theo x giảm (ngoài → trong): ngón út … ngón cái
-    dxs = [t[0] for t in toes]
     for k, (dx, y, r) in enumerate(toes):
-        base = [rl['top'][k], rl['top'][k + 1], rl['bot'][k + 1], rl['bot'][k]]; prev = base; xc = FT.X0 + dx
-        gap = min([abs(dx - o) for o in dxs if o != dx]); rx = min(r * 1.05, 0.45 * gap)      # ngón không chồng ngón bên cạnh (cage cũ: chồng → tự giao)
+        base = [rl['top'][k], rl['top'][k + 1], rl['bot'][k + 1], rl['bot'][k]]; prev = base
+        xa, xb = rl['top'][k].co.x, rl['top'][k + 1].co.x; xc = (xa + xb) / 2; rx = 0.47 * abs(xa - xb)   # ngón chiếm gần trọn cột của nó: mập như bản duyệt, không chồng ngón bên
+        rz = r * 1.12                                                                        # ngón cao, tròn hơn
         y1 = min(y + r * 0.3, Ys[-1] - 0.010)                                               # vòng đầu ngón luôn ở trước vòng mũi bàn chân
-        for yy, rr, kx in ((y1, 1.05, rx / r), (min(y - r * 0.7, y1 - 0.010), 0.85, 0.85 * rx / r)):
-            ring = [V((xc + r * kx * sx_, yy, r + r * rr * sz)) for sx_, sz in ((1, 1), (-1, 1), (-1, -1.1), (1, -1.1))]
+        for yy, rr, kx in ((y1, 1.05, 1.0), (min(y - r * 0.7, y1 - 0.010), 0.85, 0.85)):
+            ring = [V((xc + rx * kx * sx_, yy, rz + rz * rr * sz)) for sx_, sz in ((1, 1), (-1, 1), (-1, -1.1), (1, -1.1))]
             prev = connect(bm, prev, ring, faces)
         faces.append(bm.faces.new((prev[0], prev[1], prev[2], prev[3])))
     return len(faces)
@@ -284,7 +298,7 @@ def build_cage_full(coll):
     """Nửa cage thân (C.build_cage) + cage tay/chân trái; Mirror + Subsurf giữ nguyên."""
     cage = C.build_cage(coll); bm = bmesh.new(); bm.from_mesh(cage.data)
     lay = {k: bm.verts.layers.float.get(k) for k in ('tay', 'chan')}; lay['moi'] = bm.verts.layers.float.get('moi') or bm.verts.layers.float.new('moi')
-    nh = add_hand(bm, lay); nf = add_foot(bm, lay)
+    thin_wrist(bm, lay); nh = add_hand(bm, lay); nf = add_foot(bm, lay)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:]); bm.to_mesh(cage.data); bm.free(); cage.data.update()
     for p in cage.data.polygons: p.use_smooth = True
     print(f'    cage: thêm {nh} mặt tay, {nf} mặt chân')
@@ -298,7 +312,7 @@ import gan_tay_chan_nam as G
 def _to_hand(P):
     """Toạ độ thế giới (tay trái) → toạ độ bàn tay dung_tay_nam (ngược hand_xf) → (u, v, w)."""
     c_w, d, _ = arm_frame(); R = np.array(HT._D.normalized().rotation_difference(d).to_matrix())
-    Q = (P - np.array(c_w)) @ R / KZ + np.array(HT.WRIST); W = np.array(HT.WRIST)
+    Q = (P - np.array(c_w)) @ R / (KZ * HAND_K) + np.array(HT.WRIST); W = np.array(HT.WRIST)
     D_, S_, N_ = (np.array(x) for x in (HT._D, HT._S, HT._N)); rel = Q - W
     return rel @ D_, rel @ S_, rel @ N_, Q
 
