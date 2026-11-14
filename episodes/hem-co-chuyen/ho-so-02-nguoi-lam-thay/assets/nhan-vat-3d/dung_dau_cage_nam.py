@@ -386,10 +386,11 @@ def surf_front(bvh, x, z, off):
     n = hp[1].normalized(); n = n if n.y < 0 else -n; return hp[0] + n * off, n
 
 
+NOSE_LINE = dict(r=0.93, cung=(95.0, -115.0), day=0.055)   # nét viền mũi: bán kính cung trên mặt cầu đơn vị, góc đầu/cuối (độ, 0 = phía +X, 90 = trên), độ dày theo r
 NOSE_BALL = dict(r=0.030, nho=0.45, dep=(1.0, 0.85, 0.92))   # cục mũi tròn như mẫu: bán kính (hệ đầu gốc), phần nhô ra khỏi da theo r, tỉ lệ dẹt (ngang, sâu, cao)
 
 
-def build_nose_ball(coll, bvh, skin):
+def build_nose_ball(coll, bvh, skin, muc=None):
     """Cục mũi tròn riêng (vật liệu da) cắm một phần vào đỉnh mũi của lưới mặt: lưới chỉ cho gờ, mẫu là cục cầu rõ khối."""
     best = None
     for i in range(41):
@@ -400,6 +401,17 @@ def build_nose_ball(coll, bvh, skin):
     ob = D.uv_sphere('Mui_Tron', coll, skin, (32, 20))
     D.place(ob, p + n * (r * (NOSE_BALL['nho'] - 1.0)) + Vector((0, 0, -0.25 * r)), D.frame(n, 0), tuple(r * k for k in NOSE_BALL['dep']))
     for f in ob.data.polygons: f.use_smooth = True
+    if muc is None: return ob
+    # nét viền mũi như mẫu: cung mực ôm cạnh +X (bên trái nhân vật = bên phải ảnh) từ đỉnh xuống đáy, cong vào ở cuối
+    bpy.context.view_layer.update(); mw = ob.matrix_world.copy()
+    cu = bpy.data.curves.new('Vien_Mui', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = NOSE_LINE['day'] * r; cu.bevel_resolution = 3; cu.use_fill_caps = True
+    sp = cu.splines.new('POLY'); n_ = 24; t0, t1 = NOSE_LINE['cung']; sp.points.add(n_ - 1)
+    for i in range(n_):
+        t = math.radians(t0 + (t1 - t0) * i / (n_ - 1)); rr = NOSE_LINE['r']
+        x, z = rr * math.cos(t), rr * math.sin(t); y = -math.sqrt(max(0.0, 1.0 - x * x - z * z))
+        q = mw @ (Vector((x, y, z)) * 1.02); sp.points[i].co = (q.x, q.y, q.z, 1.0)
+    lo = bpy.data.objects.new('Vien_Mui', cu); coll.objects.link(lo); cu.materials.append(muc)
+    return ob
 
 
 def build_brows_mole(coll, bvh, M):
@@ -539,7 +551,7 @@ def build(args):
     bvh_new = mesh_bvh(head)[0]
     eyes = build_eyes(nc, ef, M['trang'], M['muc'], None)
     build_brows_mole(nc, bvh_new, M)
-    build_nose_ball(nc, bvh_new, skin)
+    build_nose_ball(nc, bvh_new, skin, M['muc'])
     for k in ('L', 'R'):
         e = bpy.data.objects[f'Ear.{k}_cu'].copy(); e.data = e.data.copy(); e.name = f'Ear.{k}'; nc.objects.link(e)
         e.data.materials.clear(); e.data.materials.append(skin)
