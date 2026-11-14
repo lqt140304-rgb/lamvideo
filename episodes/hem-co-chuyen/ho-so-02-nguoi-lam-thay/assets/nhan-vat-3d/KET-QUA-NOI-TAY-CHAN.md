@@ -3,6 +3,12 @@
 Thiết kế: [THIET-KE-NOI-TAY-CHAN.md](THIET-KE-NOI-TAY-CHAN.md) · Kế hoạch: [KE-HOACH-NOI-TAY-CHAN.md](KE-HOACH-NOI-TAY-CHAN.md)
 Nguồn: [dung_cage_tay_chan.py](dung_cage_tay_chan.py) · [rig_thu_tay_chan.py](rig_thu_tay_chan.py). Bản cũ để đối chiếu: [gan_tay_chan_nam.py](gan_tay_chan_nam.py) (commit 538aef4).
 
+## Đợt 2 (14/11): cổ tay cân với cánh tay, nắm tay, ngón chân
+Chủ repo chọn "cả hai một chút": **bàn tay ×1,07** (`HAND_K`, cả cage lẫn hình đích) và **cổ tay thon 7%** (`WRIST_THIN`: vòng cổ tay cage ×0,93, vòng giữa cẳng tay ×0,965 → thon dần). Ngón chân: 5 cột ở mũi bàn chân dàn theo bề rộng ngón bản duyệt (ngón út → ngón cái), mỗi ngón chiếm 94% cột, cao ×1,12 → **mập lại**, không chồng nhau. Ảnh trước/sau cùng camera: `render-than/noi/so_sanh_dot2.png`.
+- Kiểm topology + hình 15/15 đạt (tay lệch TB 0,05 mm; chân TB 0,21 mm; 0 tự giao). Vùng "thân ngoài chi" nới thêm 2 cm trên khuỷu (vòng giữa cẳng tay thu lan qua Subdivision); thân, vai, bắp tay lệch 0,033 mm.
+- Rig thử: dải chuyển weight cổ tay ±24 mm (cổ tay thon cần rộng hơn). Cổ tay 30° / nghiêng 18° đạt (co min 0,55–0,63), gập bàn chân & nhấc gót đạt, cầm cốc đạt.
+- **Nắm tay** (lỗi weights → sửa): lượt trước ngón trỏ chọc gò ngón cái (15 cặp) vì vùng lòng tay chỉ tính đỉnh có weight `ban_tay` > 0,9 → nay theo xương chi phối; góc nắm dồn về khớp gốc ngón (72/62/52°) → hết tự giao ở nếp khớp ngón trỏ. Còn: **ngón trỏ cách lòng tay 4,7 mm** (cuộn thêm thì sườn ngón xuyên gò ngón cái), **2 cặp tự giao + 6 cạnh giãn 2,9× ở kẽ gò ngón cái**, co mạnh ở đáy lòng nắm. Ngón út khép sát 0,5 mm.
+
 ## Cập nhật: dựng trên thân nách mới (nhánh `fix/nam-cage-armpit`, 2b5abce)
 Gộp nhánh sửa nách (vòng 3: hõm nách cao, gốc bắp tay thu, `inner_relief`, nếp nách `crease_edge` 0,12; giữ vòng khuỷu/cổ tay). Dựng lại lưới liền da trên thân này: 15/15 kiểm topology + hình đạt, số liệu cổ tay/mắt cá **y hệt** bản trước (vòng khuỷu/cổ tay/mắt cá không đổi); nếp nách giữ nguyên (2 cạnh, 0,12); rig thử cổ tay/mắt cá cho cùng kết quả bảng dưới. Ảnh toàn thân: `render-than/noi/toan_than_nach_moi.png`; file: `render-than/noi/Nam_lien_da_nach_moi.blend` (không commit).
 
