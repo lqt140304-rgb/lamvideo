@@ -57,6 +57,8 @@ EYE_A, EYE_DD, EYE_APEX = 0.060, 0.0192, 0.008       # cầu dẹt: ngang mặt 
 # Giá trị do tìm tối ưu trên hàm đo do_mau_nam (mat_*/khe_*) — xem GHI-CHU.md. es=1, du=dw=yaw=0 là đầu cage cũ.
 EYE_TUNE = dict(es=1.11, du=0.0065, dw=0.015, yaw=9.0)
 ES = EYE_TUNE['es']
+# Chỉnh mũi / cằm / nốt ruồi theo ảnh mẫu (Task 5; đọc bằng do_mau_nam.goi_y_tu_cage): độ dịch (m, thế giới: x ngang, y sâu — dương ra sau, z lên) của các đỉnh mũi và đáy cằm; mole_dx = dịch nốt ruồi vào giữa mặt.
+FACE_TUNE = dict(mui=(0.0, 0.0044, 0.0135), cam=(0.0, 0.0, -0.010), mole_dx=0.0065)
 EYE_FLAT = 1.0         # mặt da quanh mắt của đầu cũ là yên ngựa (±8–13 mm trong r 5 cm): vòng biên mắt làm phẳng theo mặt phẳng khớp nhất; 0 = giữ nguyên yên ngựa
 T_LID = 0.0025         # bề dày mí trên
 RO = 0.0487            # bán kính khe mắt phía dưới (mép tròng trắng)
@@ -210,10 +212,16 @@ def build_head_cage(coll, mats, S_old, S_nen):
     cg.idx['grid'] = G
     # --- kéo các đỉnh lưới lân cận theo độ dịch của vòng viền mắt (khung mắt đã chỉnh), ghim đường khâu và vòng miệng đứng yên
     mov = {rk: tuple(over[rk] - over0[rk]) for rk in over0}
+    kk = 1.0 / K; ro = {}                                           # độ dịch tường minh (hệ đầu gốc) của mũi và đáy cằm
+    for rk, f in (((5, 0), 1.0), ((6, 0), 1.0), ((5, 1), 1.0), ((6, 1), 1.0), ((4, 0), 0.5)): ro[rk] = Vector(FACE_TUNE['mui']) * kk * f
+    for r in (10, 11, 12):
+        for k, f in zip(range(5), (1.0, 1.0, 1.0, 0.8, 0.5)): ro[(r, k)] = Vector(FACE_TUNE['cam']) * kk * f
+    mov.update({rk: tuple(d) for rk, d in ro.items()})
     pos = {(r, k): tuple(G[r][k].co) for r in range(NR) for k in range(9) if G[r][k] is not None}
-    ghim = [(2, k) for k in range(6)] + [(r, 5) for r in range(3, 11)] + [(11, k) for k in range(6)] + [rk for rk in over if rk not in mov]
-    tu_do = [(r, k) for r in MT.HANG_MAT for k in MT.COT_MAT if G[r][k] is not None and (r, k) not in over]
-    for rk, d in MT.shepard(pos, mov, ghim, tu_do).items():
+    ghim = [(2, k) for k in range(6)] + [(r, 5) for r in range(3, 13)] + [(11, 5)] + [rk for rk in over if rk not in mov]
+    tu_do = [(r, k) for r in MT.HANG_MAT for k in MT.COT_MAT if G[r][k] is not None and (r, k) not in over and (r, k) not in ro]
+    dd = MT.shepard(pos, mov, ghim, tu_do); dd.update({rk: tuple(d) for rk, d in ro.items() if G[rk[0]][rk[1]] is not None})
+    for rk, d in dd.items():
         v = G[rk[0]][rk[1]]; dv = Vector(d)
         if rk[1] == 0: dv.x = 0.0
         v.co += dv
@@ -382,7 +390,7 @@ def build_brows_mole(coll, bvh, M):
         pts = [surf_front(bvh, s * x, z, 0.0012)[0] for x, z in zip(D.FACE['brow_x'], (D.FACE['brow_z'] - 0.004, D.FACE['brow_z'] + 0.005, D.FACE['brow_z'] - 0.006))]
         D.sweep(f'Eyebrow.{k}', coll, pts, lambda u: 0.0145 * (1 - 0.35 * u) * math.sin(math.pi * (0.03 + 0.94 * u)) ** 0.35,
                 lambda u: 0.0080 * (1 - 0.3 * u) * math.sin(math.pi * (0.03 + 0.94 * u)) ** 0.35, lambda c: (c - D.C).normalized(), M['toc'], 32, 16, fb=0.2)
-    p, n = surf_front(bvh, D.MOLE_SIDE * D.FACE['mole_x'], D.FACE['mole_z'], 0.001); mo = D.uv_sphere('Mole', coll, M['muc'], (16, 10)); D.place(mo, p, D.frame(n, 0), (0.0068, 0.0028, 0.0068))
+    p, n = surf_front(bvh, D.MOLE_SIDE * (D.FACE['mole_x'] - FACE_TUNE['mole_dx'] / K), D.FACE['mole_z'], 0.0022); mo = D.uv_sphere('Mole', coll, M['muc'], (16, 10)); D.place(mo, p, D.frame(n, 0), (0.0068, 0.0028, 0.0068))
 
 
 # ================================================================== BẢN LẮP RÁP ĐẦU + THÂN (một lưới)
@@ -685,12 +693,15 @@ def check_all(sc, head, asm, amap):
     # phụ kiện
     res['not_ruoi_dung_ben'] = ok((bpy.data.objects['Mole'].matrix_world.translation.x < 0) == (D.MOLE_SIDE < 0), f'Mole x = {bpy.data.objects["Mole"].matrix_world.translation.x:.4f} (bên phải nhân vật = −X)')
     res['may_bam_tran'] = brow_test(asm)
+    set_keys(asm); vs_n, ps_n, _ = ev_mesh(asm); mo_ = bpy.data.objects['Mole']; bv_n = BVHTree.FromPolygons(vs_n, ps_n); mp_ = mo_.matrix_world.translation
+    hit_n = bv_n.find_nearest(mp_); mv_ = [mo_.matrix_world @ v.co for v in mo_.data.vertices]; sau = min((p - hit_n[0]).dot(hit_n[1]) for p in mv_)
+    res['not_ruoi_tren_da'] = ok(hit_n[3] < 0.004 and sau > -0.0015, f'tâm nốt ruồi cách da {hit_n[3] * 1000:.2f} mm; đỉnh chìm sâu nhất dưới da {max(0.0, -sau) * 1000:.2f} mm (≤ 1,5)')
     res['tai_dan_dau'] = ear_test(asm)
     res['vung_mat'] = MT.kiem_vung_mat(head, HEAD_IDX, to_world, jaw_weights(head, HEAD_IDX), bpy.data.objects['Ear.L'].matrix_world.translation.copy())
 
     # đo bám ảnh mẫu (mắt trước; mũi/miệng/cằm ở Task sau): sai lệch hình dạng sau khi khớp tỉ lệ + tịnh tiến, % chiều cao mặt
     set_keys(asm); vs_m, ps_m, _ = ev_mesh(asm); kq_m = DM.sai_lech(DM.lay_moc_cage(head, vs_m, ps_m, to_world, HEAD_IDX)); vuot = DM.vuot_nguong(kq_m)
-    for nhom, ten in (('mat', ('mat_', 'khe_')),):
+    for nhom, ten in (('mat', ('mat_', 'khe_')), ('khung', ('mui', 'mieng', 'cam', 'not_ruoi'))):
         # đạt = trung vị nhóm ≤ ngưỡng của góc + sai số đọc ảnh (SAI_SO_DOC), và không mốc nào quá 2,5 × ngưỡng (ảnh mẫu là phối cảnh, mắt xa lệch cả khi mắt gần khớp)
         loi, tom = [], []
         for g, e in kq_m.items():

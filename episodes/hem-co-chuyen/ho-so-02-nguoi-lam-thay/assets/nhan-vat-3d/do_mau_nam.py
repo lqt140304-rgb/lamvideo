@@ -22,7 +22,7 @@ MOC_MAU = {
     'goc34': {     # hình 2 (x 600–1100)
         'mat_R': (840, 421, 952, 521), 'mat_L': (980, 412, 1051, 508),
         'khe_R': (840, 460, 952, 521), 'khe_L': (980, 457, 1051, 508),
-        'mui': (988, 535), 'mieng': (995, 611), 'cam': (900, 692), 'not_ruoi': (810, 395),
+        'mui': (988, 535), 'mieng': (995, 611), 'not_ruoi': (810, 395),   # không có 'cam': ở 3/4 cằm là điểm thấp nhất của đường viền, không phải điểm cố định trên mặt
         'tai_R_tren': (690, 438), 'tai_R_duoi': (700, 581),
     },
     'nghieng': {   # hình 3 (x 1140–1672)
@@ -127,3 +127,40 @@ def bang(kq):
     for g, e in kq.items():
         d.append(f'{g} (ngưỡng {NGUONG[g]}%):  ' + '  '.join(f'{k} {v:.1f}{"!" if v > NGUONG[g] and k.split(".")[0] not in CHAN_DOAN else ""}' for k, v in sorted(e.items())))
     return '\n'.join(d)
+
+
+def goi_y_dich(pts_world, dst_px, yaw_deg, bo_khop=()):
+    """Sai lệch CÓ DẤU sau khi khớp tương đồng, đổi sang mm trong mặt phẳng ảnh để sửa: trả tên → (dx_mm, dz_mm), dx theo +x ảnh (phải), dz theo +z (lên).
+    Gợi ý dịch cage = −(cage − mẫu): cage lệch phải thì dịch trái; cage thấp hơn mẫu thì dịch lên."""
+    anh = {k: chieu(p, yaw_deg) for k, p in pts_world.items() if k in dst_px}
+    kh = [k for k in anh if k.split('.')[0] not in bo_khop]
+    s, tx, ty = _khop([anh[k] for k in kh], [dst_px[k] for k in kh]); out = {}
+    for k, (u, v) in anh.items():
+        rx, ry = s * u + tx - dst_px[k][0], s * v + ty - dst_px[k][1]       # px, + = cage ở bên phải / thấp hơn
+        out[k] = (-rx / s * 1000.0, ry / s * 1000.0)
+    return out
+
+
+def _anh_dst(moc_cage, tab, yaw):
+    """Gom mốc cage (chiếu trong ảnh, mét) và mốc mẫu (px) của một góc: mắt/khe thành 4 điểm cực, mốc điểm chiếu thẳng."""
+    anh, dst = {}, {}
+    for ten, val in tab.items():
+        if ten not in moc_cage: continue
+        if ten.startswith(('mat_', 'khe_')):
+            cuc = _cuc_mat(moc_cage[ten], yaw)
+            for c, q in diem_tu_hop(val).items(): anh[f'{ten}.{c}'] = cuc[c]; dst[f'{ten}.{c}'] = q
+        else: anh[ten] = chieu(moc_cage[ten], yaw); dst[ten] = val
+    return anh, dst
+
+
+def goi_y_tu_cage(moc_cage):
+    """{mốc điểm: {góc: (dx_mm, dz_mm)}}: lượng cần dịch cage (theo +x ảnh phải và +z lên) để hết lệch ở góc đó; khớp tỉ lệ + tịnh tiến dùng cả mắt làm điểm neo.
+    Mặt nghiêng: ảnh phải = −y, nên dx của mặt nghiêng là −dy thế giới."""
+    kq = {}
+    for g, tab in MOC_MAU.items():
+        anh, dst = _anh_dst(moc_cage, tab, YAW[g]); kh = [k for k in anh if k.split('.')[0] not in CHAN_DOAN]
+        s, tx, ty = _khop([anh[k] for k in kh], [dst[k] for k in kh])
+        for k in anh:
+            if k.startswith(('mat_', 'khe_')) or k in CHAN_DOAN: continue
+            kq.setdefault(k, {})[g] = (-(s * anh[k][0] + tx - dst[k][0]) / s * 1000.0, (s * anh[k][1] + ty - dst[k][1]) / s * 1000.0)
+    return kq

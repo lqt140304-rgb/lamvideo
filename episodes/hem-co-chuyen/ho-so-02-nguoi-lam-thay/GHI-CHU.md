@@ -77,3 +77,11 @@ Kết luận: mắt xa (L) và mũi, cằm, nốt ruồi lệch rõ nhất; mắ
 - Đòn bẩy trong `dung_dau_cage_nam.py`: `EYE_TUNE = dict(es=1.11, du=0.0065, dw=0.015, yaw=9.0)` = tỉ lệ cụm mắt, dịch ngang/dọc (m), xoay khung mắt quanh trục dọc (độ). Tìm bằng cách mô phỏng phép biến đổi lên đỉnh viền mắt và cực tiểu hoá hàm đo; xoay 13° tốt nhất cho mặt trước/3-4 nhưng làm xấu mặt nghiêng, chọn 9° để cân. Lưới lân cận kéo theo bằng nội suy Shepard (`mat_theo_mau_nam.shepard`), đường khâu và vòng miệng ghim.
 - Đã thử tăng độ lồi nhãn cầu (APEX/DD ×1,7 và ×2,4): số đo mắt không đổi, kiểm tự giao và lọt hốc FAIL → hoàn lại. Vòng 8 đỉnh giữ nguyên (topology lưới cố định); độ tròn kiểm bằng mắt ở cổng 1.
 - Số đo sau chỉnh (trung vị / lớn nhất của nhóm mắt): trước 3,1 / 7,0; 3/4 4,1 / 8,8; nghiêng 3,3 / 5,4 (ngưỡng 3 / 4 / 3 cộng sai số đọc ảnh 1,3).
+
+### Task 5 — mũi, cằm, nốt ruồi (FACE_TUNE)
+
+- `FACE_TUNE = dict(mui=(0, +4,4 mm, +13,5 mm), cam=(0, 0, −10 mm), mole_dx=6,5 mm)` trong `dung_dau_cage_nam.py` (đọc từ `do_mau_nam.goi_y_tu_cage`, đổi thành độ dịch các đỉnh mũi (hàng 4–6, cột 0–1) và đáy cằm (hàng 10–12, cột 0–4); lưới lân cận theo bằng Shepard). Nốt ruồi dịch 6,5 mm vào giữa mặt và nâng 2,2 mm lên khỏi da để mép không chìm (kiểm `not_ruoi_tren_da`).
+- Miệng giữ nguyên: sai lệch ≤ 4,2% ở cả 3 góc (độ chu môi của mẫu là biểu cảm, không phải hình dạng nền).
+- Cằm chỉ đo ở mặt trước và nghiêng (ở 3/4 là điểm thấp nhất của đường viền, không so được).
+- Tiêu chí nhóm mũi/miệng/cằm/nốt ruồi như nhóm mắt: trung vị ≤ ngưỡng + 1,3%, lớn nhất ≤ 2,5 × ngưỡng. Kết quả: trước 2,5 / 6,3; 3/4 3,1 / 7,6; nghiêng 3,2 / 4,3.
+- Chưa làm (ghi cho cổng 1): mũi chưa thành "cục tròn" nổi như mẫu, mí chưa dày trùm như mẫu, má chưa bầu quả lê, viền mắt chưa đen dày. Số đo mốc chỉ nói vị trí đúng chưa; hình dạng chi tiết duyệt bằng ảnh chồng.

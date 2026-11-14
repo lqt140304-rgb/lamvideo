@@ -4,7 +4,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import do_mau_nam as DM
 
 GOC = ('truoc', 'goc34', 'nghieng')
-TEN_MOC = {'mat_R', 'khe_R', 'mui', 'mieng', 'cam', 'not_ruoi'}
+TEN_MOC = {'mat_R', 'khe_R', 'mui', 'mieng', 'not_ruoi'}
 
 
 def test_moc_day_du():
@@ -12,6 +12,11 @@ def test_moc_day_du():
     for g in GOC:
         assert TEN_MOC <= set(DM.MOC_MAU[g]), (g, set(DM.MOC_MAU[g]))
     for g in ('truoc', 'goc34'): assert 'mat_L' in DM.MOC_MAU[g] and 'khe_L' in DM.MOC_MAU[g]
+
+
+def test_cam_chi_o_mat_truoc_va_nghieng():
+    """Ở 3/4 cằm là điểm thấp nhất của ĐƯỜNG VIỀN (đổi vị trí trên mặt theo góc nhìn), không so được giữa cage và ảnh: chỉ đo ở mặt trước và nghiêng."""
+    assert 'cam' in DM.MOC_MAU['truoc'] and 'cam' in DM.MOC_MAU['nghieng'] and 'cam' not in DM.MOC_MAU['goc34']
 
 
 def test_khe_nam_trong_vong_mat():
@@ -50,3 +55,13 @@ def test_khop_phuc_hoi_va_do_lech():
     dst['c'] = (dst['c'][0] + 0.10 * 236.0, dst['c'][1])
     err = DM.sai_lech_diem(pts, dst, 40.0, hf_px=236.0)
     assert 7.0 < err['c'] < 11.0, err
+
+
+def test_goi_y_dich_phuc_hoi():
+    """Điểm 3D giả đặt lệch 6 mm về +X và 4 mm xuống (−Z) so với nơi mẫu cần: gợi ý phải bảo dịch ngược lại. Phép khớp tịnh tiến hấp thụ 1/N độ lệch của điểm ngoại lai (N = 6) nên giá trị là (−6, +4) mm × 5/6 = (−5,0; +3,33)."""
+    pts = {'a': (0.03, -0.1, 1.2), 'b': (-0.04, -0.12, 1.15), 'c': (0.0, -0.2, 1.1), 'd': (0.05, -0.15, 1.0), 'e': (-0.02, -0.05, 1.25), 'f': (0.01, -0.18, 1.12)}
+    s, tx, ty = 2500.0, 700.0, 300.0
+    dst = {k: (s * DM.chieu(p, 0.0)[0] + tx, s * DM.chieu(p, 0.0)[1] + ty) for k, p in pts.items()}
+    lech = dict(pts); lech['f'] = (0.01 + 0.006, -0.18, 1.12 - 0.004)
+    gy = DM.goi_y_dich({'f': lech['f'], **{k: pts[k] for k in pts if k != 'f'}}, dst, 0.0)
+    dx, dz = gy['f']; assert abs(dx + 5.0) < 0.15 and abs(dz - 4.0 * 5 / 6) < 0.15, gy['f']      # dung sai: tỉ lệ cũng được khớp lại
