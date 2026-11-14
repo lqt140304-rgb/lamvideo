@@ -162,7 +162,7 @@ def bind(sc, arm, asm, F, proxy):
     for m in list(asm.modifiers): asm.modifiers.remove(m)
     md = asm.modifiers.new('Armature', 'ARMATURE'); md.object = arm; asm.parent = arm
     xs, zs = np.abs(Pw[:, 0]), Pw[:, 2]
-    body_cs = ((zs > 0.62) & (zs < 0.92) & (xs > 0.05) & (xs < 0.22)) | ((zs > 0.26) & (zs < 0.58) & (xs < 0.16))
+    body_cs = (zs > 0.26) & (zs < 0.58) & (xs < 0.16)          # chỉ háng: ở nách lớp này tự sinh vạt/nếp gấp (đo 14/11) → nách sửa bằng shape key
     g = asm.vertex_groups.new(name='corr_body'); g.add(np.nonzero(body_cs)[0].tolist(), 1.0, 'REPLACE')
     cs = asm.modifiers.new('CS_corr_body', 'CORRECTIVE_SMOOTH'); cs.factor = 1.0; cs.iterations = 250; cs.smooth_type = 'LENGTH_WEIGHTED'; cs.rest_source = 'ORCO'; cs.vertex_group = 'corr_body'
     col = {nm: np.zeros(n) for nm in [g.name for g in asm.vertex_groups]}
@@ -229,9 +229,103 @@ def controls(arm, asm, F):
     bpy.context.view_layer.update()
 
 
+# ================================================================== shape key sửa nếp nách
+# (tên, xương lái, trục, góc đích °, tư thế đo). Key = 1 ở góc đích, tuyến tính từ 0; mỗi bên một key.
+# + cách làm mượt hình đích: ('taubin', số vòng, bán kính đủ/0) giữ khối; ('lap', …) Laplace thường — lấp rãnh mạnh hơn, chỉ dùng vùng nhỏ quanh đáy khe
+SUA_NEP = (('sua_nach_nang_90', 'Z', -90, 'nang_90', ('taubin', 250, 0.03, 0.09), (0.0, 999.0)),
+           ('sua_nach_gio_cao', 'Z', -130, 'gio_tay_cao', ('taubin', 250, 0.03, 0.09), (90 / 130, 999.0)),
+           ('sua_nach_tay_truoc', 'X', -80, 'tay_truoc', ('taubin', 250, 0.03, 0.09), (0.0, 999.0)))
+# (lo, hi) theo tỉ lệ góc đích u = góc/đích: key tăng từ u = lo tới 1 rồi giảm về 0 ở u = hi (999 = giữ 1). Key 90° giảm dần khi key 130° bật:
+SUA_NEP_HI = {'sua_nach_nang_90': 130 / 90}
+NACH_C = (0.150, 0.0, 0.765)     # tâm vùng sửa: giữa đáy khe (z 0,742) và nếp trước/sau nách (z ≈ 0,78) — nơi gập > 60° khi giơ/đưa tay
+
+
+def _eval(asm):
+    dg = bpy.context.evaluated_depsgraph_get(); ev = asm.evaluated_get(dg); me = ev.to_mesh(); a = np.zeros(len(me.vertices) * 3); me.vertices.foreach_get('co', a); ev.to_mesh_clear(); return a.reshape(-1, 3)
+
+
+def _taubin(X, ed, m, it, mu=0.53):
+    n = len(X); deg = np.bincount(ed.ravel(), minlength=n).clip(1)[:, None]
+    def lap(Y):
+        acc = np.zeros_like(Y)
+        for j in range(3): acc[:, j] = np.bincount(ed[:, 0], weights=Y[ed[:, 1], j], minlength=n) + np.bincount(ed[:, 1], weights=Y[ed[:, 0], j], minlength=n)
+        return acc / deg - Y
+    Y = X.copy()
+    for _ in range(it):
+        Y = Y + 0.5 * m[:, None] * lap(Y)
+        if mu: Y = Y - mu * m[:, None] * lap(Y)
+    return Y
+
+
+def _dh(X, fv, pairs):
+    N = np.array([np.cross(X[f[2]] - X[f[0]], X[f[3]] - X[f[1]]) if len(f) > 3 else np.cross(X[f[1]] - X[f[0]], X[f[2]] - X[f[0]]) for f in fv])
+    N /= np.linalg.norm(N, axis=1, keepdims=True).clip(1e-12); return np.degrees(np.arccos(np.clip((N[pairs[:, 2]] * N[pairs[:, 3]]).sum(1), -1, 1)))
+
+
+def _fold_verts(X, fv, pairs, n, a0, lim=100.0, them=40.0):
+    """Đỉnh của cạnh gập ngược do tư thế: góc nhị diện > lim và tăng > them so với lúc nghỉ (a0) — nếp tự nhiên lúc nghỉ không tính."""
+    ang = _dh(X, fv, pairs); b = np.zeros(n, bool); bad = pairs[(ang > lim) & (ang - a0 > them)]; b[bad[:, 0]] = True; b[bad[:, 1]] = True; return b
+
+
+def _skin_mats(arm, asm):
+    """Ma trận 3×3 biến dạng tuyến tính mỗi đỉnh (tổng weight × ma trận xương) — để đưa sai lệch ở tư thế về toạ độ nghỉ."""
+    n = len(asm.data.vertices); Mv = np.zeros((n, 3, 3)); ws = np.zeros(n)
+    G = {pb.name: np.array((pb.matrix @ pb.bone.matrix_local.inverted()).to_3x3()) for pb in arm.pose.bones}
+    names = {g.index: g.name for g in asm.vertex_groups}
+    for v in asm.data.vertices:
+        for g in v.groups:
+            nm = names[g.group]
+            if nm in G: Mv[v.index] += g.weight * G[nm]; ws[v.index] += g.weight
+    Mv[ws < 1e-6] = np.eye(3); return Mv
+
+
+def corrective_keys(arm, asm, F):
+    me = asm.data; n = len(me.vertices); ed = np.array([e.vertices[:] for e in me.edges]); P0 = np.array([v.co[:] for v in me.vertices])
+    if not me.shape_keys: asm.shape_key_add(name='Basis', from_mix=False)
+    # bản đồ gương đỉnh (trái ↔ phải)
+    from mathutils.kdtree import KDTree
+    kd = KDTree(n)
+    for i, p in enumerate(P0): kd.insert(p, i)
+    kd.balance(); mir = np.array([kd.find((-p[0], p[1], p[2]))[1] for p in P0])
+    fv_ = [list(p.vertices) for p in me.polygons]; ef = {}
+    for fi, p in enumerate(me.polygons):
+        for ek in p.edge_keys: ef.setdefault(ek, []).append(fi)
+    pairs = np.array([(k_[0], k_[1], f[0], f[1]) for k_, f in ef.items() if len(f) == 2]); a0 = _dh(P0, fv_, pairs)
+    out = {}; cs = [md for md in asm.modifiers if md.type == 'CORRECTIVE_SMOOTH']
+    for md in cs: md.show_viewport = False                    # tính key trên biến dạng xương thuần (tuyến tính, hội tụ 1–2 vòng); Corrective Smooth chạy sau key như thường
+    for name, ax, deg, pose, (cach, it_, r1, r0), (lo, hi) in SUA_NEP:
+        hi = SUA_NEP_HI.get(name, hi)
+        m = ss(r0, r1, np.linalg.norm(P0 - np.array(NACH_C), axis=1)) * (P0[:, 0] > 0)
+        apply_pose(arm, pose, F)                              # đo bên trái (tư thế đối xứng); bên phải = lật gương
+        E0 = _eval(asm); Tg = _taubin(E0, ed, m, it_, mu=0.53 if cach == 'taubin' else 0.0); Tg = E0 + m[:, None] * (Tg - E0)
+        # chỗ gập ngược do tư thế (nhị diện > 100° và tăng > 40° so với nghỉ): Laplace thường trên mảng nhỏ quanh đó để mở nếp — Taubin giữ nguyên nếp gập
+        for _ in range(3):
+            fold = _fold_verts(Tg, fv_, pairs, n, a0) * (m > 0.05)
+            if not fold.any(): break
+            fm = np.clip(_diffuse(fold.astype(float), ed, 6) * 6, 0, 1); Tg = _taubin(Tg, ed, fm, 15, mu=0.0)
+        print(f'    {name}: chỗ gập ngược trước/sau làm mượt: {int(_fold_verts(E0, fv_, pairs, n, a0)[m > 0.05].sum())}/{int(_fold_verts(Tg, fv_, pairs, n, a0)[m > 0.05].sum())} đỉnh')
+        print(f'    {name}: hình đích lệch tư thế gốc tối đa {np.linalg.norm(Tg - E0, axis=1).max() * 1000:.1f} mm')
+        Mi = np.linalg.inv(_skin_mats(arm, asm))
+        kb = asm.shape_key_add(name=f'{name}.L', from_mix=False); kb.value = 1.0; D = np.zeros((n, 3))
+        for it in range(5):
+            r = (Tg - _eval(asm)) * (m > 1e-4)[:, None]; D += np.einsum('nij,nj->ni', Mi, r)
+            kb.data.foreach_set('co', (P0 + D).ravel()); asm.data.update()
+        err = np.linalg.norm(Tg - _eval(asm), axis=1)[m > 0.01].max()
+        kb.value = 0.0
+        Dr = D[mir] * np.array((-1, 1, 1)); kr = asm.shape_key_add(name=f'{name}.R', from_mix=False); kr.data.foreach_set('co', (P0 + Dr).ravel())
+        for k, sg in (('L', 1), ('R', -1)):
+            kk = me.shape_keys.key_blocks[f'{name}.{k}']; kk.slider_min = 0.0; kk.slider_max = 1.0
+            a_ = math.radians(deg) * (sg if ax == 'Z' else 1)
+            _drv(kk, 'value', -1, f'max(0.0, min(1.0, (v/{a_:.4f} - {lo:.4f})/{1 - lo:.4f}, ({hi:.4f} - v/{a_:.4f})/{hi - 1:.4f}))', {'v': (arm, f'pose.bones["upper_arm.{k}"].rotation_euler[{"XYZ".index(ax)}]')})
+        out[name] = dict(dich_max_mm=round(float(np.abs(D).max() * 1000), 1), sai_lech_con_mm=round(float(err * 1000), 2))
+        print(f'    key {name}: dịch lớn nhất {out[name]["dich_max_mm"]} mm, còn lệch đích {out[name]["sai_lech_con_mm"]} mm')
+    for md in cs: md.show_viewport = True
+    apply_pose(arm, 'nghi', F); return out
+
+
 # ================================================================== tư thế thử
 POSES = {k: v for k, v in RN.POSES.items() if k not in ('nam_tay', 'nam_tay_chat')}
-POSES.update({'nam_tay_chat': 'fist', 'cam_coc': 'grip',
+POSES.update({'nam_tay_chat': 'fist', 'cam_coc': 'grip', 'nang_90': {'upper_arm.L': ('Z', -90), 'upper_arm.R': ('Z', 90)},
               'gio_tay_cao': {'upper_arm.L': ('Z', -130), 'upper_arm.R': ('Z', 130)},   # bắp tay nghỉ đã nghiêng ~20°: 130° ⇒ tay gần thẳng đứng
               'gap_co_tay': {'hand.L': ('Z', 0), 'hand.R': ('Z', 0)}})      # đặt trục thật lúc chạy (gập về lòng tay 45°); nhấc gót đã kiểm ở rig thử cục bộ
 SHEET = ('nghi', 'tay_nang_45', 'gio_tay_cao', 'tay_truoc', 'khuyu_gap', 'nam_tay_chat', 'cam_coc', 'cui_dau', 'quay_dau', 'xoay_thun', 'gap_hong', 'ngoi', 'buoc_chan', 'gap_co_tay')
@@ -286,7 +380,7 @@ def render_sheet(sc, arm, F, out, samples):
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--nguon', required=True); ap.add_argument('--blend', default=''); ap.add_argument('--test', default='')
-    ap.add_argument('--samples', type=int, default=16); ap.add_argument('--proxy', type=float, default=0.5)
+    ap.add_argument('--samples', type=int, default=16); ap.add_argument('--khong-sua-nep', action='store_true'); ap.add_argument('--proxy', type=float, default=0.5)
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.nguon)); sc = bpy.context.scene
     for o in list(sc.objects):
@@ -295,6 +389,7 @@ def main():
     asm = bpy.data.objects['Nam_Dau_Than']; F = RT.frames()
     arm = build_armature(sc, F); bind(sc, arm, asm, F, a.proxy); controls(arm, asm, F)
     RN.attach_head(arm, sc); RN.attach_face_controls(arm)
+    if not a.khong_sua_nep: corrective_keys(arm, asm, F)
     if a.blend: os.makedirs(os.path.dirname(os.path.abspath(a.blend)), exist_ok=True); bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.blend))
     if a.test:
         res = stretch(arm, asm, list(POSES), F)
