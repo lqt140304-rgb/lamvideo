@@ -44,9 +44,9 @@ RINGS = [
     dict(ten='mieng_tren', z=1.122, zb=1.150, sx=1.03),
     dict(ten='mieng',      z=1.099, zb=1.130, sx=1.04),
     dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.04),
-    dict(ten='cam',        z=1.052, zb=1.094, sx=1.14, sf=1.02),
-    dict(ten='day_cam',    z=1.034, zb=1.074, w=0.090, yc=-0.046, f=0.128, b=0.128, n=2.0),
-    dict(ten='duoi_ham',   z=1.024, zb=1.047, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
+    dict(ten='cam',        z=1.052, zb=1.094, sx=1.08, sf=1.06),
+    dict(ten='day_cam',    z=1.038, zb=1.066, w=0.090, yc=-0.046, f=0.128, b=0.128, n=2.0),
+    dict(ten='duoi_ham',   z=1.030, zb=1.050, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
 ]
 OVERRIDE = {}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
 NECK_N0_K = 1.04       # vòng cổ trên (7 đỉnh) rộng hơn vòng cổ thân một chút, chuyển mềm vào hàm
