@@ -494,8 +494,24 @@ def render_close(sc, asm, out, samples, tag, wire=True, raking=True):
 
 
 # ================================================================== dựng thân cage gốc
-def build_base(sc=None):
+# Mở khe nách (14/11): bản thân nách mới để khe giữa mặt trong bắp tay và sườn chỉ 2–5 mm, đáy nhọn ở z ≈ 0,742 → khi đưa tay
+# trước/giơ cao, đáy khe giãn 7–14×. Sửa trong lúc dựng (không sửa dung_than_cage_nam.py): bỏ nếp sắc, thu mặt trong gốc bắp tay,
+# lùi sườn dưới nách vào trong ⇒ đáy khe tròn chữ U, rộng ~1,5 cm ở z 0,70. Vai, ngực trước/sau và đường bao ngoài tay không đổi.
+KHE_NACH = dict(crease=0.0, relief=(0.014, 0.016), suon_dx=-0.014, suon_dx_ben=-0.006)
+
+
+def mo_khe_nach(k=KHE_NACH):
+    if getattr(C, '_khe_nach_mo', False): return
+    C.AXILLA_CREASE = k['crease']; C.ARM_RINGS[0]['inner_relief'], C.ARM_RINGS[1]['inner_relief'] = k['relief']
+    o = C.CAGE_OVERRIDE[('duoi_nguc', 3)]; C.CAGE_OVERRIDE[('duoi_nguc', 3)] = (o[0] + k['suon_dx'], o[1], o[2])
+    for j in (2, 4):
+        o = C.CAGE_OVERRIDE[('duoi_nguc', j)]; C.CAGE_OVERRIDE[('duoi_nguc', j)] = (o[0] + k['suon_dx_ben'], o[1], o[2])
+    C._khe_nach_mo = True
+
+
+def build_base(sc=None, khe_cu=False):
     """Cảnh như dung_than_cage_nam (bản cũ v2.11 + cage + lắp ráp). Trả (sc, cb, cage, asm, skin)."""
+    if not khe_cu: mo_khe_nach()
     sc = C.build_old(); cb = bpy.data.collections[C.NEW_COLL]; parts = C.split_hands_feet(bpy.data.objects['Nam_Than_goc'], cb)
     for nm in ('Nam_BanChan.L', 'Nam_BanChan.R'):
         o = bpy.data.objects.get(nm)
@@ -507,9 +523,9 @@ def build_base(sc=None):
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--check', action='store_true'); ap.add_argument('--render', default=''); ap.add_argument('--blend', default='')
-    ap.add_argument('--samples', type=int, default=24); ap.add_argument('--chua-ep', action='store_true'); ap.add_argument('--ban-cu', action='store_true')
+    ap.add_argument('--samples', type=int, default=24); ap.add_argument('--chua-ep', action='store_true'); ap.add_argument('--ban-cu', action='store_true'); ap.add_argument('--khe-cu', action='store_true')
     a = ap.parse_args(argv)
-    sc, cb, cage, skin = build_base()
+    sc, cb, cage, skin = build_base(khe_cu=a.khe_cu)
     if a.ban_cu:                                  # bản cũ: cage gốc có nắp, không tay/chân trong lưới
         asm = C.assemble_cage(bpy.data.objects['Head_Base'], cage, skin); cage.hide_render = True; base = None; r2 = {}
     else:

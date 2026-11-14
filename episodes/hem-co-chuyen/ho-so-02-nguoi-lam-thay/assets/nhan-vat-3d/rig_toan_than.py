@@ -1,6 +1,6 @@
 """NAM — RIG TOÀN THÂN trên lưới liền da (thân cage nách mới + tay/chân nối liền: dung_cage_tay_chan.py).
 
-Chạy:  bpyv/bin/python rig_toan_than.py --nguon Nam_lien_da.blend --blend Nam_RigToanThan.blend [--test DIR] [--samples 16]
+Chạy:  bpyv/bin/python rig_toan_than.py --nguon Nam_lien_da.blend (dung_cage_tay_chan.py --blend, khe nách đã mở) --blend Nam_RigToanThan.blend [--test DIR] [--samples 16]
 Armature `Nam_Rig` (m, mặt −Y, trái nhân vật = +X ⇒ .L):
   root → pelvis → spine1 → spine2 → chest → neck → neck2 → head (+ brow/eye điều khiển mày, con ngươi)
   chest → clavicle → upper_arm → forearm → hand → index/middle/ring/pinky 1–3, thumb 1–3
