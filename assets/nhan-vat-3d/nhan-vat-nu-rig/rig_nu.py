@@ -105,7 +105,22 @@ def chuoi_ngon(s):
     return out
 
 
-NGON_LR = {'L': chuoi_ngon(1), 'R': chuoi_ngon(-1)}
+def lat_guong(ds):
+    """Chuỗi ngón tay phải = lật gương tay trái (dò riêng tay phải cắt lệch ~2 cm); đỉnh = đỉnh gần ảnh gương nhất."""
+    G = np.array([-1.0, 1, 1])
+    out = {}
+    for n, (pts, idx) in ds.items():
+        anh = co0[idx] * G
+        idx_r = np.array([int(np.argmin(np.linalg.norm(co0 - p, axis=1))) for p in anh])
+        lech = np.linalg.norm(co0[idx_r] - anh, axis=1).max()
+        print(f'ngón {n}: tay phải lệch gương tối đa {lech * 1000:.1f} mm')
+        assert lech < 0.01, f'Tay phải không đối xứng ở ngón {n} ({lech:.4f} m)'
+        out[n] = ([np.array(p) * G for p in pts], idx_r)
+    return out
+
+
+_TRAI = chuoi_ngon(1)
+NGON_LR = {'L': _TRAI, 'R': lat_guong(_TRAI)}
 
 # --- bảng xương (tên, cha, đầu, đuôi, deform), đo bằng tia cắt ngang lưới ---
 B = []

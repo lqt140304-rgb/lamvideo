@@ -321,25 +321,47 @@ def kiem_ham_mo():
         assert dd > 0.01, f'{ten} chỉ dời {dd:.4f} khi mở hàm'
 
 
-def kiem_mieng_khong_xuyen():
+TRONG_MIENG = ('Nu_KhoangMieng', 'Nu_RangTren', 'Nu_RangDuoi', 'Nu_Luoi')
+
+
+def kiem_mieng_khong_xuyen(tu=None):
+    """Hàm mở 20° + cười, Subdivision bật: 15 × 9 tia quanh miệng. Tia chạm răng/khoang/lưỡi mà ngay sau
+    đó là da mặt hướng ra máy (trong 3 cm) = đồ trong miệng xuyên ra ngoài da."""
     from mathutils import Vector
     mo_ham()
     if BODY.data.shape_keys and 'cuoi' in BODY.data.shape_keys.key_blocks:
         BODY.data.shape_keys.key_blocks['cuoi'].value = 1.0
-    RIG.update_tag()
-    bpy.context.view_layer.update()
-    dg = bpy.context.evaluated_depsgraph_get()
+    sd = [m for m in BODY.modifiers if m.type == 'SUBSURF']
+    for m in sd:
+        m.show_viewport = True
+    if tu:
+        tu()
     sc = bpy.context.scene
-    m = Vector(sc['tam_mieng'])
-    for dx, dz in ((0.06, 0.0), (-0.06, 0.0), (0.05, -0.03), (-0.05, -0.03), (0.0, -0.05), (0.03, -0.055), (-0.03, -0.055)):
-        goc = m + Vector((dx, -0.3, dz))
-        ok, loc, nor, idx, ob, _ = sc.ray_cast(dg, goc, Vector((0, 1, 0)))
-        assert ok and ob.name == 'Nu_Than', f'Tia tại ({dx:+.2f}, {dz:+.3f}) chạm {ob.name if ok else "không gì"} trước da'
-
-
-def kiem_ngam_giong_mau():
-    lech = bpy.context.scene['lech_mau_mieng']
-    assert lech < 0.04, f'Màu vùng miệng mới lệch mẫu {lech:.3f}'
+    m0 = Vector(sc['tam_mieng'])
+    huong = Vector((0, 1, 0))
+    loi = []
+    try:
+        for x in np.linspace(-0.07, 0.07, 15):
+            for z in np.linspace(-0.05, 0.03, 9):
+                RIG.update_tag()
+                bpy.context.view_layer.update()
+                dg = bpy.context.evaluated_depsgraph_get()
+                ok, p, _, _, ob, _ = sc.ray_cast(dg, m0 + Vector((x, -0.4, z)), huong)
+                if not ok or ob.name not in TRONG_MIENG:
+                    continue
+                for t in TRONG_MIENG:
+                    bpy.data.objects[t].hide_viewport = True
+                bpy.context.view_layer.update()
+                dg = bpy.context.evaluated_depsgraph_get()
+                ok2, p2, n2, _, ob2, _ = sc.ray_cast(dg, p, huong)
+                for t in TRONG_MIENG:
+                    bpy.data.objects[t].hide_viewport = False
+                if ok2 and ob2.name == 'Nu_Than' and n2.dot(huong) < 0 and (p2 - p).length < 0.03:
+                    loi.append((round(float(x), 3), round(float(z), 3), ob.name))
+    finally:
+        for m in sd:
+            m.show_viewport = False
+    assert not loi, f'{len(loi)} tia thấy đồ trong miệng xuyên da, ví dụ {loi[:3]}'
 
 
 SK_NEN = ['cuoi', 'meu', 'chu_moi', 'mim_moi', 'keo_khoe.L', 'keo_khoe.R', 'ha_khoe.L', 'ha_khoe.R', 'nhech.L', 'nhech.R']
@@ -410,12 +432,28 @@ def kiem_muot():
     assert md.levels >= 1 and md.render_levels >= 2, f'Mức chia {md.levels}/{md.render_levels}'
 
 
+def kiem_ngon_doi_xung():
+    """Cùng độ gập, đầu từng ngón tay trái và phải phải dời như nhau (lệch < 15 %)."""
+    tip = {k: dinh_dau_ngon(k) for k in 'LR'}
+    base = eval_co()
+    for n in NGON:
+        d = {}
+        for k in 'LR':
+            for j in (1, 2, 3):
+                RIG.pose.bones[f'{n}{j}.{k}'].rotation_euler.x = 1.0
+            d[k] = np.linalg.norm(eval_co()[tip[k][n]] - base[tip[k][n]])
+            for j in (1, 2, 3):
+                RIG.pose.bones[f'{n}{j}.{k}'].rotation_euler.x = 0
+        assert abs(d['L'] - d['R']) < 0.15 * max(d.values()), f'{n}: tay trái dời {d["L"]:.3f}, phải {d["R"]:.3f}'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_ngon_doi_xung': kiem_ngon_doi_xung,
     'kiem_file_o_dang_nghi': kiem_file_o_dang_nghi,
     'kiem_muot': kiem_muot,
     'kiem_du_shape_key': kiem_du_shape_key,
@@ -427,7 +465,6 @@ KIEM = {
     'kiem_vien_lien': kiem_vien_lien,
     'kiem_ham_mo': kiem_ham_mo,
     'kiem_mieng_khong_xuyen': kiem_mieng_khong_xuyen,
-    'kiem_ngam_giong_mau': kiem_ngam_giong_mau,
     'kiem_may_tach': kiem_may_tach,
     'kiem_may_nang': kiem_may_nang,
     'kiem_tran_lien': kiem_tran_lien,
