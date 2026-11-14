@@ -30,3 +30,12 @@ def test_duong_khau_lien_ke_va_ngoai_vung():
     for a, b in zip(K, K[1:]):
         (r0, k0), (r1, k1) = pos[a], pos[b]; assert abs(r0 - r1) + abs(k0 - k1) == 1, (a, b)   # hai đỉnh liền nhau trên lưới
     assert pos[K[0]] == (2, 0) and pos[K[-1]] == (11, 0)   # hai đầu nằm ở mặt phẳng đối xứng
+
+
+def test_shepard_dich_deu_va_ghim():
+    """Không có điểm ghim: mọi điểm tự do dịch đúng bằng độ dịch chung. Có điểm ghim đứng yên: điểm sát ghim ≈ 0, điểm sát mover ≈ độ dịch của mover."""
+    P = {1: (0.0, 0, 0), 2: (0.05, 0, 0), 3: (0.10, 0, 0), 4: (0.30, 0, 0)}
+    d = MT.shepard(P, {1: (0.0, 0.0, 0.01)}, [], [2, 3, 4])
+    assert all(abs(v[2] - 0.01) < 1e-9 for v in d.values())
+    d = MT.shepard({**P, 5: (0.31, 0, 0)}, {1: (0.0, 0.0, 0.01)}, [5], [2, 3, 4])
+    assert d[2][2] > 0.8 * 0.01 and d[4][2] < 0.2 * 0.01 and d[2][2] > d[3][2] > d[4][2]

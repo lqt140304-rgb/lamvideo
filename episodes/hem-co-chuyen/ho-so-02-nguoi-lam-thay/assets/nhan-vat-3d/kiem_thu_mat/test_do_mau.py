@@ -4,14 +4,23 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import do_mau_nam as DM
 
 GOC = ('truoc', 'goc34', 'nghieng')
-TEN_MOC = {'mat_R', 'mui', 'mieng', 'cam', 'not_ruoi'}
+TEN_MOC = {'mat_R', 'khe_R', 'mui', 'mieng', 'cam', 'not_ruoi'}
 
 
 def test_moc_day_du():
     assert set(DM.MOC_MAU) == set(GOC)
     for g in GOC:
         assert TEN_MOC <= set(DM.MOC_MAU[g]), (g, set(DM.MOC_MAU[g]))
-    for g in ('truoc', 'goc34'): assert 'mat_L' in DM.MOC_MAU[g]
+    for g in ('truoc', 'goc34'): assert 'mat_L' in DM.MOC_MAU[g] and 'khe_L' in DM.MOC_MAU[g]
+
+
+def test_khe_nam_trong_vong_mat():
+    """Khe mắt hở (đường mí → viền dưới) nằm trong vòng mắt đầy đủ và dưới đường mí: cùng cạnh dưới, cạnh trên thấp hơn."""
+    for g, tab in DM.MOC_MAU.items():
+        for s in 'RL':
+            if f'mat_{s}' not in tab: continue
+            m, k = tab[f'mat_{s}'], tab[f'khe_{s}']
+            assert m[0] <= k[0] + 1 and k[2] <= m[2] + 1 and m[1] < k[1] and abs(m[3] - k[3]) <= 3, (g, s, m, k)
 
 
 def test_not_ruoi_ben_trai_anh():

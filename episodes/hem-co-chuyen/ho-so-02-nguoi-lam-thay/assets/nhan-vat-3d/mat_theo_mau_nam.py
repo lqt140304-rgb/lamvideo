@@ -37,3 +37,17 @@ def kiem_vung_mat(head, idx, to_world, jaw_w, tam_tai):
     dau = [abs(hv[K[0]].co.x), abs(hv[K[-1]].co.x)]
     ok = len(K) >= 20 and max(dau) < 1e-6 and gmax <= 0.35 and dmin >= 0.06
     return ok, f'vùng mặt {len(V)} đỉnh, đường khâu {len(K)} đỉnh (đầu cuối x {max(dau):.1e}); chênh trọng số hàm qua mép khâu {gmax:.2f} (≤ 0,35); cách tâm tai gần nhất {dmin * 100:.1f} cm (≥ 6)'
+
+
+def shepard(pos, movers, ghim, tu_do, mu=2.0, eps=1e-6):
+    """Nội suy độ dịch kiểu Shepard (trọng số nghịch đảo khoảng cách^mu): pos id → (x, y, z); movers id → độ dịch (dx, dy, dz); ghim = id đứng yên (độ dịch 0);
+    tu_do = id cần tính. Trả id → độ dịch. Không ghim thì mọi điểm tự do dịch đúng bằng trung bình có trọng số của movers; có ghim thì giảm về 0 gần ghim."""
+    nguon = [(pos[i], movers[i]) for i in movers] + [(pos[i], (0.0, 0.0, 0.0)) for i in ghim]
+    out = {}
+    for i in tu_do:
+        p = pos[i]; sw = 0.0; s = [0.0, 0.0, 0.0]
+        for q, d in nguon:
+            w = 1.0 / (((p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2) + eps) ** (mu / 2)
+            sw += w; s[0] += w * d[0]; s[1] += w * d[1]; s[2] += w * d[2]
+        out[i] = (s[0] / sw, s[1] / sw, s[2] / sw)
+    return out

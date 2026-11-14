@@ -10,27 +10,33 @@ Toạ độ ảnh mẫu là pixel của mau-3d-dau.webp (đọc trên lưới 20
 """
 import math
 
-# toạ độ pixel (x, y) trong mau-3d-dau.webp; 'mat_*' là hộp (x0, y0, x1, y1) của KHE MẮT HỞ (đường mí trên → viền dưới), bên R = bên phải nhân vật = bên trái ảnh = −X
+# toạ độ pixel (x, y) trong mau-3d-dau.webp. 'mat_*' = hộp (x0, y0, x1, y1) của VÒNG MẮT ĐẦY ĐỦ (vòm mí → viền dưới) ↔ cage idx['eye'][0];
+# 'khe_*' = hộp KHE HỞ (đường mí trên đậm → viền dưới) ↔ cage idx['eye'][4]. Bên R = bên phải nhân vật = bên trái ảnh = −X
 MOC_MAU = {
     'truoc': {     # hình 1 (x 40–560)
-        'mat_R': (200, 466, 317, 526), 'mat_L': (351, 463, 460, 521),
+        'mat_R': (200, 422, 317, 526), 'mat_L': (351, 419, 460, 521),
+        'khe_R': (200, 466, 317, 526), 'khe_L': (351, 463, 460, 521),
         'mui': (341, 535), 'mieng': (344, 620), 'cam': (340, 700), 'not_ruoi': (181, 396),
         'tai_R_tren': (110, 442), 'tai_R_duoi': (115, 582),
     },
     'goc34': {     # hình 2 (x 600–1100)
-        'mat_R': (840, 460, 952, 521), 'mat_L': (980, 457, 1051, 508),
+        'mat_R': (840, 421, 952, 521), 'mat_L': (980, 412, 1051, 508),
+        'khe_R': (840, 460, 952, 521), 'khe_L': (980, 457, 1051, 508),
         'mui': (988, 535), 'mieng': (995, 611), 'cam': (900, 692), 'not_ruoi': (810, 395),
         'tai_R_tren': (690, 438), 'tai_R_duoi': (700, 581),
     },
     'nghieng': {   # hình 3 (x 1140–1672)
-        'mat_R': (1530, 457, 1595, 517),
+        'mat_R': (1530, 416, 1595, 517), 'khe_R': (1530, 457, 1595, 517),
         'mui': (1636, 533), 'mieng': (1620, 610), 'cam': (1535, 694), 'not_ruoi': (1495, 391),
         'tai_R_tren': (1360, 435), 'tai_R_duoi': (1365, 580),
     },
 }
-YAW = {'truoc': 15.0, 'goc34': 40.0, 'nghieng': 90.0}              # độ, ƯỚC LƯỢNG; 0 = nhìn thẳng vào mặt, 90 = camera ở −X
+# độ, ƯỚC LƯỢNG từ chính ảnh mẫu: mũi lệch khỏi đường giữa hai mắt (+10 px ở hình 1, +33 px ở hình 2; mũi nhô ≈ 5 cm trước mặt phẳng mắt, 1 px ≈ 1,06 mm)
+# → sin θ ≈ 0,21 và 0,70. 0 = nhìn thẳng vào mặt, 90 = camera ở −X. Ảnh mẫu là phối cảnh còn phép đo là trực giao: mắt xa (L) ở hai góc quay kém tin cậy hơn mắt gần.
+YAW = {'truoc': 12.0, 'goc34': 44.0, 'nghieng': 90.0}
 HF_PX = {'truoc': 236.0, 'goc34': 234.0, 'nghieng': 237.0}         # cằm → đường mí trên trong ảnh mẫu (px)
 NGUONG = {'truoc': 3.0, 'nghieng': 3.0, 'goc34': 4.0}              # % HF
+SAI_SO_DOC = 1.3                                                   # % HF: sai số đọc toạ độ mốc trên lưới 20 px (±3 px); cộng vào ngưỡng khi gộp theo trung vị
 CHAN_DOAN = {'tai_R_tren', 'tai_R_duoi'}                           # đo để báo, không tính vào khớp và ngưỡng (tai giữ nguyên theo thiết kế)
 
 
@@ -73,14 +79,14 @@ def _cuc_mat(pts_world, yaw_deg):
 
 
 def sai_lech(moc_cage):
-    """moc_cage: {'mat_R': [điểm thế giới…], 'mat_L': […], 'mui': p, 'mieng': p, 'cam': p, 'not_ruoi': p, 'tai_R_tren': p, 'tai_R_duoi': p} (m, thế giới).
-    Trả {góc: {mốc: % sai lệch}}; mắt thành 4 mốc 'mat_R.trai/phai/tren/duoi'."""
+    """moc_cage: {'mat_R': [điểm thế giới…], 'mat_L': […], 'khe_R': […], 'khe_L': […], 'mui': p, 'mieng': p, 'cam': p, 'not_ruoi': p, 'tai_R_tren': p, 'tai_R_duoi': p} (m, thế giới).
+    Trả {góc: {mốc: % sai lệch}}; mắt và khe thành 4 mốc mỗi cái: 'mat_R.trai/phai/tren/duoi', 'khe_R.…'."""
     kq = {}
     for g, tab in MOC_MAU.items():
         yaw = YAW[g]; anh, dst = {}, {}
         for ten, val in tab.items():
             if ten not in moc_cage: continue
-            if ten.startswith('mat_'):
+            if ten.startswith(('mat_', 'khe_')):
                 cuc = _cuc_mat(moc_cage[ten], yaw)
                 for c, q in diem_tu_hop(val).items(): anh[f'{ten}.{c}'] = cuc[c]; dst[f'{ten}.{c}'] = q
             else: anh[ten] = chieu(moc_cage[ten], yaw); dst[ten] = val
@@ -102,14 +108,15 @@ def lay_moc_cage(head, ev_vs, ev_ps, to_world, idx):
     bvh = BVHTree.FromPolygons(ev_vs, ev_ps); hv = head.data.vertices
     snap = lambda i: Vector(bvh.find_nearest(to_world(hv[i].co))[0])
     mir = lambda p: Vector((-p.x, p.y, p.z))
-    vong = [snap(i) for i in idx['eye'][0]]                                   # 8 đỉnh biên khe mắt (nửa L)
+    vong = [snap(i) for i in idx['eye'][0]]                                   # 8 đỉnh viền mắt đầy đủ (nửa L)
+    khe = [snap(i) for i in idx['eye'][4]]                                    # 8 đỉnh khe mắt hở (mép mí, nửa L)
     M = [snap(i) for i in idx['mouth'][3]]                                    # vòng khe môi (7 đỉnh nửa): giữa trên … khoé … giữa dưới
     tam_mieng = (M[0] + M[6]) / 2
     zm, ze = tam_mieng.z, sum(p.z for p in vong) / len(vong)
     mui = min((p for p in ev_vs if abs(p.x) < 0.015 and zm + 0.02 < p.z < ze - 0.02), key=lambda p: p.y)
     cam = min((p for p in ev_vs if p.y < tam_mieng.y + 0.10 and abs(p.x) < 0.02 and p.z > zm - 0.12), key=lambda p: p.z)   # điểm thấp nhất của cằm, trong 10 cm sau mặt miệng (loại cổ và thân; mẫu: cùng quy ước)
     ear = [p for p in (bpy.data.objects['Ear.R'].matrix_world @ v.co for v in bpy.data.objects['Ear.R'].data.vertices)]
-    return {'mat_L': vong, 'mat_R': [mir(p) for p in vong], 'mui': mui, 'mieng': tam_mieng, 'cam': cam,
+    return {'mat_L': vong, 'mat_R': [mir(p) for p in vong], 'khe_L': khe, 'khe_R': [mir(p) for p in khe], 'mui': mui, 'mieng': tam_mieng, 'cam': cam,
             'not_ruoi': bpy.data.objects['Mole'].matrix_world.translation.copy(),
             'tai_R_tren': max(ear, key=lambda p: p.z), 'tai_R_duoi': min(ear, key=lambda p: p.z)}
 

@@ -57,15 +57,23 @@ Thiết kế: [THIET-KE-DAU-THEO-MAU.md](THIET-KE-DAU-THEO-MAU.md); kế hoạch
 - Tai là mốc chẩn đoán (không tính vào khớp và ngưỡng, vì tai giữ nguyên theo thiết kế).
 - Mốc cằm là điểm thấp nhất trong 10 cm sau mặt miệng: nhạy với độ phẳng đáy hàm (đường cơ sở 4,8–14,4% tuỳ góc), đọc kèm ảnh chứ không chỉ theo số.
 
-Đường cơ sở của cage đầu `da0da83` (% sai lệch; `!` = vượt ngưỡng):
+Đường cơ sở của cage đầu `da0da83` (% chiều cao mặt; sau khi tách `mat_*` = cả vòng mắt và `khe_*` = khe hở; góc quay ước lượng 12°/44°/90°):
 
 | mốc | trước | 3/4 | nghiêng |
 |---|---|---|---|
-| mắt R: trái / phải / trên / dưới | 6,5! / 2,8 / 10,6! / 7,1! | 4,5! / 2,5 / 10,1! / 6,2! | 3,6! / 1,1 / 9,8! / 7,6! |
-| mắt L: trái / phải / trên / dưới | 7,6! / 9,3! / 9,1! / 9,0! | 5,7! / 12,0! / 9,3! / 12,0! | — |
-| mũi | 9,4! | 7,0! | 5,9! |
-| miệng | 0,5 | 6,1! | 4,9! |
-| cằm | 7,6! | 14,4! | 4,8! |
-| nốt ruồi | 4,6! | 5,1! | 2,4 |
+| mắt gần (R) — vòng mắt trái/phải/trên/dưới | 3,1 / 3,6 / 0,3 / 1,5 | 2,1 / 0,8 / 2,7 / 1,3 | 2,8 / 1,8 / 1,1 / 3,4 |
+| mắt gần (R) — khe trái/phải/trên/dưới | 4,8 / 5,8 / 2,5 / 0,7 | 4,4 / 2,9 / 3,0 / 0,8 | 3,8 / 2,2 / 1,2 / 2,3 |
+| mắt xa (L) — vòng mắt trái/phải/trên/dưới | 8,5 / 5,8 / 2,0 / 3,8 | 8,5 / 12,4 / 2,5 / 6,8 | — |
+| mắt xa (L) — khe trái/phải/trên/dưới | 9,8 / 6,3 / 2,1 / 3,1 | 8,2 / 11,5 / 2,3 / 5,7 | — |
+| mũi | 4,7 | 8,7 | 3,0 |
+| miệng | 3,8 | 4,2 | 4,2 |
+| cằm | 8,0 | 12,9 | 5,3 |
+| nốt ruồi | 8,8 | 12,8 | 6,6 |
 
-Kết luận: mắt (mọi góc) và mũi lệch rõ nhất, miệng gần đúng ở mặt trước — khớp với nhận xét của chủ repo (mặt biến dạng chủ yếu ở mắt/mũi).
+Kết luận: mắt xa (L) và mũi, cằm, nốt ruồi lệch rõ nhất; mắt gần gần đúng. Nguyên nhân mắt xa: khung mắt của cage xoay 31° quanh trục dọc (mắt bọc quanh mặt hơn mẫu), nên mắt xa hẹp hơn mẫu ở mặt trước và 3/4. (Bảng đầu tiên trong ngày này đo lẫn khe và vòng mắt nên không dùng.)
+
+### Task 4 — mắt (EYE_TUNE)
+
+- Đòn bẩy trong `dung_dau_cage_nam.py`: `EYE_TUNE = dict(es=1.11, du=0.0065, dw=0.015, yaw=9.0)` = tỉ lệ cụm mắt, dịch ngang/dọc (m), xoay khung mắt quanh trục dọc (độ). Tìm bằng cách mô phỏng phép biến đổi lên đỉnh viền mắt và cực tiểu hoá hàm đo; xoay 13° tốt nhất cho mặt trước/3-4 nhưng làm xấu mặt nghiêng, chọn 9° để cân. Lưới lân cận kéo theo bằng nội suy Shepard (`mat_theo_mau_nam.shepard`), đường khâu và vòng miệng ghim.
+- Đã thử tăng độ lồi nhãn cầu (APEX/DD ×1,7 và ×2,4): số đo mắt không đổi, kiểm tự giao và lọt hốc FAIL → hoàn lại. Vòng 8 đỉnh giữ nguyên (topology lưới cố định); độ tròn kiểm bằng mắt ở cổng 1.
+- Số đo sau chỉnh (trung vị / lớn nhất của nhóm mắt): trước 3,1 / 7,0; 3/4 4,1 / 8,8; nghiêng 3,3 / 5,4 (ngưỡng 3 / 4 / 3 cộng sai số đọc ảnh 1,3).
