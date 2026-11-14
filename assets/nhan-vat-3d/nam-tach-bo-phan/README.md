@@ -2,7 +2,7 @@
 
 Bản sao từ [nhân vật gốc 001](../nhan-vat-goc/README.md) (chỉ LOD0), dùng để thử tách bộ phận và điều khiển mặt. **Đây là bản thử để duyệt hướng, chưa phải asset nghiệm thu.** Bản này không sửa file gốc, cũng không thay rig hay asset đã duyệt của các tập.
 
-![Gốc · điều khiển · bỏ tóc](xem-truoc.webp)
+![Gốc · điều khiển · bỏ tóc · sau gáy bỏ tóc](xem-truoc.webp)
 
 ## Có gì
 
@@ -10,7 +10,7 @@ Bản sao từ [nhân vật gốc 001](../nhan-vat-goc/README.md) (chỉ LOD0), 
 |---|---|
 | `NAM_DAU_THAN` | Lưới đầu và thân gốc, đã khoét hốc mắt và bỏ phần tóc |
 | `NAM_TOC` | Tóc tách thành object riêng, có thể ẩn hoặc thay |
-| `NAM_DA_DAU_TAM` | Da đầu tạm hình elip nằm dưới tóc, để khi ẩn tóc không thấy lỗ |
+| `NAM_DA_DAU_TAM` | Da đầu lấp kín lỗ tóc: mép khớp chân tóc, vòm nằm dưới tóc, dùng chung vật liệu và màu da trán |
 | `NAM_LONG_TRANG.L/R` | Lòng trắng mắt cố định |
 | `NAM_CON_NGUOI.L/R` | Con ngươi riêng, bám trên bề mặt lòng trắng (Shrinkwrap) |
 | `NAM_TRUC_MAT.L/R` | Trục xoay của từng mắt, tự hướng về `DK_NHIN` |
@@ -37,8 +37,8 @@ Script đọc `../nhan-vat-goc/nhan-vat-goc.blend`. Vị trí mắt, mũi, miệ
 
 ## Giới hạn đã biết
 
-- Tóc được tách theo màu texture. Dọc chân tóc và chỗ mái chạm trán, mép cắt còn răng cưa, và khi ẩn tóc thì trán lộ vài lỗ nhỏ.
-- Da đầu tạm chỉ là một hình elip, chưa có hình hộp sọ thật, màu cũng chưa khớp hẳn với da mặt. Muốn dùng cảnh đầu trọc thì phải dựng lại.
+- Tóc được tách theo màu texture, rồi nới thêm 4 vòng lưới để không sót vệt tóc ở chân tóc. Phần trán dưới mái được cắt thẳng ngang.
+- Da đầu được dựng tự động. Để không lộ da qua kẽ tóc, vòm bị hạ xuống, nên đầu trọc hơi thấp và dẹt ở sau gáy. Chỗ nối với gáy và đường cắt ngang trán vẫn còn thấy một gờ mảnh. Cảnh nào cần quay cận đầu trọc thì vẫn phải nặn lại.
 - Mép hốc mắt chưa có mí riêng: mí trên vẫn liền với mặt và mép cắt hơi răng cưa. Con ngươi chỉ là hình đĩa một màu, chưa có mống mắt hay điểm sáng.
 - Mũi và miệng mới đổi được vị trí và kích thước. Chưa có shape key biểu cảm, viseme hay hàm mở; muốn làm phải retopology vùng mặt trước.
 - Chưa có rig thân, chưa nghiệm thu chuyển động.

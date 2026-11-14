@@ -4,7 +4,8 @@ D:/blender/blender.exe -b --factory-startup --python tao_ban_tach.py
 Tùy chọn: đặt biến môi trường SOI_DIR=<thư mục> để chụp ảnh kiểm tra vào đó.
 
 Kết quả nam-tach-bo-phan.blend:
-- NAM_TOC tách khỏi đầu (loang từ đỉnh đầu qua mặt lưới màu tóc); NAM_DA_DAU_TAM là da đầu tạm hình elip.
+- NAM_TOC tách khỏi đầu (loang từ đỉnh đầu qua mặt lưới màu tóc, nới 4 vòng); NAM_DA_DAU_TAM lấp lỗ tóc,
+  mép khớp chân tóc, vòm dưới tóc, cùng vật liệu da trán.
 - Hốc mắt khoét theo vùng lòng trắng/con ngươi vẽ trên texture; thay bằng NAM_LONG_TRANG.L/R và NAM_CON_NGUOI.L/R.
   Di chuyển empty DK_NHIN để hai con ngươi nhìn theo.
 - DK_MUI, DK_MIENG: empty điều khiển hook mũi/miệng (di chuyển, xoay, co giãn).
@@ -126,6 +127,9 @@ mm = front & (np.abs(co[:, 0]) < 0.06) & (co[:, 2] > 1.03) & (co[:, 2] < nose[2]
 assert mm.sum() > 30, 'Không thấy miệng'
 mouth = co[mm].mean(0)
 mouth[1] = co[mm][:, 1].min()
+fl = front[lv] & is_skin[lv] & (np.abs(co[lv, 0]) < 0.03) & (co[lv, 2] > 1.30) & (co[lv, 2] < 1.36)
+assert fl.sum() > 10, 'Không thấy da trán'
+skin_uv = np.median(uv[fl], 0)
 skin_rgba = mean_col(front & is_skin & (co[:, 2] > 1.1) & (co[:, 2] < 1.3))
 
 # --- phân mặt lưới: tóc (loang từ đỉnh qua mặt lưới tối) và hốc mắt ---
@@ -147,6 +151,17 @@ while stack:
             if not hair[g.index] and dark_f[g.index]:
                 hair[g.index] = True
                 stack.append(g.index)
+# nới 4 vòng sang mặt lưới lẫn màu tóc ở chân tóc (bỏ vệt tối sót), chừa vùng mày/mắt
+fmin = np.array([lum[i].min() for i in fv])
+fc = np.array([co[i].mean(0) for i in fv])
+guard = (fc[:, 1] < -0.15) & (fc[:, 2] < 1.37) & (np.abs(fc[:, 0]) < 0.2)
+for _ in range(4):
+    grow = [g.index for f in bm.faces if hair[f.index] for e in f.edges for g in e.link_faces
+            if not hair[g.index] and fmin[g.index] < 0.5 and not guard[g.index]]
+    hair[grow] = True
+# trán dưới mái: cắt thẳng ngang để da đầu phủ trơn, bỏ vệt răng cưa in hình mái
+z_cut = max(e['hi'][2] for e in eyes.values()) + 0.105
+hair |= (fc[:, 1] < -0.1) & (np.abs(fc[:, 0]) < 0.2) & (fc[:, 2] > z_cut)
 assert 0.05 < hair.mean() < 0.6, f'Tỷ lệ mặt tóc bất thường: {hair.mean():.2f}'
 
 eye_hole = np.zeros(len(bm.faces), bool)
@@ -182,27 +197,71 @@ me.vertices.foreach_get('co', co)
 co = co.reshape(-1, 3)
 hair_ob = new_obj('NAM_TOC', hair_me, ob)
 
-# --- da đầu tạm: elip (tâm x=0) khớp chân tóc, đỉnh thấp hơn vòm tóc ~5 cm ---
+# --- da đầu: lấp lỗ tóc bằng mặt cầu biến dạng quanh tâm sọ ---
+# Hướng nào tia từ tâm không chạm da (lỗ tóc) thì có da đầu; bán kính nội suy từ chân tóc
+# để mép khớp da, đỉnh nằm dưới tóc. Hai vòng tràn sang vùng da được nhét sâu dưới da để kín mép.
 assert len(rim) > 50, 'Không thấy chân tóc'
-hp = np.array([tuple(v.co) for v in hair_me.vertices])
-fh = co[(np.abs(co[:, 0]) < 0.02) & (co[:, 2] > 1.30) & (co[:, 2] < 1.36) & (co[:, 1] < 0)]
-y_front = fh[:, 1].min() + 0.015  # mặt trán, lùi vào 1,5 cm
-y_back = hp[:, 1].max() - 0.05  # bỏ độ dày tóc sau gáy
-cz = float(np.median(rim[:, 2]))
-c0 = np.array([0.0, (y_front + y_back) / 2, cz])
-r0 = np.array([np.abs(rim[:, 0]).max() * 0.88, (y_back - y_front) / 2, np.percentile(hp[:, 2], 95) - 0.05 - cz])  # bỏ lọn xoăn đỉnh
-scalp_me = bpy.data.meshes.new('NAM_DA_DAU_TAM')
+C = Vector((0.0, float((rim[:, 1].min() + rim[:, 1].max()) / 2), 1.40))
+bvh_head = BVHTree.FromObject(ob, bpy.context.evaluated_depsgraph_get())
+bvh_hair = BVHTree.FromObject(hair_ob, bpy.context.evaluated_depsgraph_get())
+rd = rim - np.array(C)
+rr = np.linalg.norm(rd, axis=1)
+ru = rd / rr[:, None]
 sb = bmesh.new()
-bmesh.ops.create_uvsphere(sb, u_segments=48, v_segments=32, radius=1.0)
-bmesh.ops.delete(sb, geom=[v for v in sb.verts if v.co.z < -0.7], context='VERTS')
-for v in sb.verts:
-    v.co = Vector(c0 + r0 * np.array(v.co))
+bmesh.ops.create_uvsphere(sb, u_segments=128, v_segments=96, radius=1.0)
+sb.verts.ensure_lookup_table()
+dirs = np.array([tuple(v.co.normalized()) for v in sb.verts])
+skin_d = np.full(len(dirs), np.inf)
+hair_d = np.full(len(dirs), np.inf)
+for i, d in enumerate(dirs):
+    hit = bvh_head.ray_cast(C, Vector(d), 0.6)
+    if hit[0] is not None:
+        skin_d[i] = hit[3]
+    hit = bvh_hair.ray_cast(C, Vector(d), 0.6)
+    if hit[0] is not None:
+        hair_d[i] = hit[3]
+hole = ~np.isfinite(skin_d)
+for i in np.where(hole)[0]:
+    q = np.array(C) + dirs[i] * 0.3
+    if q[1] < -0.1 and in_eye(q):  # chỉ hốc mắt phía trước
+        hole[i] = False
+keep = hole.copy()
+for _ in range(2):
+    keep[[w.index for i in np.where(keep)[0] for e in sb.verts[int(i)].link_edges for w in [e.other_vert(sb.verts[int(i)])]]] = True
+# bán kính: nội suy IDW làm giá trị đầu, rồi làm trơn điều hòa (vòng tràn giữ cố định sát mặt trong của da)
+nb = [[e.other_vert(v).index for e in v.link_edges] for v in sb.verts]
+ang = np.arccos(np.clip(dirs @ ru.T, -1, 1))
+w = 1 / (ang ** 3 + 1e-6)
+R = (w @ rr) / w.sum(1)
+ring = keep & ~hole
+R[ring] = np.minimum(R[ring], skin_d[ring] - 0.0015)
+free = np.where(hole)[0]
+maxn = max(len(n) for n in nb)
+NB = np.array([n + [n[0]] * (maxn - len(n)) for n in nb])[free]
+MK = np.array([[1.0] * len(n) + [0.0] * (maxn - len(n)) for n in nb])[free]
+MK *= keep[NB]
+for _ in range(600):
+    R[free] = (R[NB] * MK).sum(1) / MK.sum(1)
+# hạ đều phần giữa đầu cho nằm dưới tóc (0 ở chân tóc, lớn nhất ở xa chân tóc)
+t = ang.min(1)
+t = np.clip(t / t[hole].max(), 0, 1)
+need = np.where(hole & np.isfinite(hair_d), 1 - (hair_d - 0.012) / R, 0) / np.maximum(t, 0.25)
+s_ = float(np.clip(np.percentile(need[hole], 99.5), 0, 0.3))
+R[hole] *= 1 - s_ * np.sqrt(t[hole])
+print(f'hạ da đầu {s_:.3f}, còn {int((R[hole] > hair_d[hole] - 0.004).sum())} điểm sát tóc')
+r = R[keep]
+for v, d, rad in zip([sb.verts[int(i)] for i in np.where(keep)[0]], dirs[keep], r):
+    v.co = Vector(np.array(C) + d * rad)
+bmesh.ops.delete(sb, geom=[sb.verts[int(i)] for i in np.where(~keep)[0]], context='VERTS')
+scalp_me = bpy.data.meshes.new('NAM_DA_DAU_TAM')
 sb.to_mesh(scalp_me)
 sb.free()
-scalp_me.materials.append(mat('NAM_DA_DAU_TAM', tuple(v * 0.8 for v in skin_rgba[:3]) + (1,)))
+scalp_me.materials.append(me.materials[0])
+scalp_me.uv_layers.new(name='UVMap').data.foreach_set('uv', np.tile(skin_uv, len(scalp_me.loops)).astype(np.float32))
 for p in scalp_me.polygons:
     p.use_smooth = True
-new_obj('NAM_DA_DAU_TAM', scalp_me, ob)
+scalp = new_obj('NAM_DA_DAU_TAM', scalp_me, ob)
+print('da đầu', int(hole.sum()), 'hướng lỗ,', len(scalp_me.vertices), 'đỉnh')
 
 # --- nhãn cầu (lòng trắng cố định) + con ngươi trượt trên bề mặt ---
 m_sclera = mat('NAM_LONG_TRANG', sclera_rgba, 0.35)
@@ -307,7 +366,7 @@ bpy.context.view_layer.update()
 after = bpy.data.objects['NAM_CON_NGUOI.L'].evaluated_get(bpy.context.evaluated_depsgraph_get()).matrix_world.translation
 assert after.x - before.x > 0.005, 'Con ngươi không đi theo DK_NHIN'
 dk_nhin.location.x -= 0.3
-print(f'elip {c0.round(3)} {r0.round(3)}; tóc {int(hair.sum())} mặt, hốc mắt {int(eye_hole.sum())} mặt, mũi {nose.round(3)}, miệng {mouth.round(3)}, nốt ruồi {tuple(round(v, 3) for v in hit)}')
+print(f'tóc {int(hair.sum())} mặt, hốc mắt {int(eye_hole.sum())} mặt, mũi {nose.round(3)}, miệng {mouth.round(3)}, nốt ruồi {tuple(round(v, 3) for v in hit)}')
 
 # --- ảnh kiểm tra (tùy chọn) ---
 soi = os.environ.get('SOI_DIR')
