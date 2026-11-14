@@ -1,0 +1,100 @@
+{
+ "A": {
+  "am": [
+   "a",
+   "ă",
+   "â"
+  ],
+  "shape_key": "vs_A",
+  "jaw_do": 18
+ },
+ "E": {
+  "am": [
+   "e",
+   "ê"
+  ],
+  "shape_key": "vs_E",
+  "jaw_do": 8
+ },
+ "I": {
+  "am": [
+   "i",
+   "y"
+  ],
+  "shape_key": "vs_I",
+  "jaw_do": 5
+ },
+ "O": {
+  "am": [
+   "o",
+   "ô",
+   "ơ"
+  ],
+  "shape_key": "vs_O",
+  "jaw_do": 14
+ },
+ "U": {
+  "am": [
+   "u",
+   "ư"
+  ],
+  "shape_key": "vs_U",
+  "jaw_do": 6
+ },
+ "MBP": {
+  "am": [
+   "m",
+   "b",
+   "p"
+  ],
+  "shape_key": "vs_MBP",
+  "jaw_do": 0
+ },
+ "PHV": {
+  "am": [
+   "ph",
+   "v"
+  ],
+  "shape_key": "vs_PHV",
+  "jaw_do": 3
+ },
+ "NT": {
+  "am": [
+   "n",
+   "t",
+   "đ",
+   "d",
+   "l"
+  ],
+  "shape_key": "vs_NT",
+  "jaw_do": 6
+ },
+ "CH": {
+  "am": [
+   "ch",
+   "tr",
+   "s",
+   "x",
+   "gi"
+  ],
+  "shape_key": "vs_CH",
+  "jaw_do": 6
+ },
+ "KG": {
+  "am": [
+   "c",
+   "k",
+   "g",
+   "ng",
+   "nh",
+   "kh"
+  ],
+  "shape_key": "vs_KG",
+  "jaw_do": 12
+ },
+ "nghi": {
+  "am": [],
+  "shape_key": "vs_nghi",
+  "jaw_do": 0
+ }
+}

@@ -651,10 +651,16 @@ def dung_mieng(body, rig, coll):
             for q in f.loops:
                 q[uvl].uv = uv_goc(rings[0][0].co)
     gi = {g.name: g.index for g in body.vertex_groups}
-    for ten in ('MIENG_VUNG', 'MIENG_LO', 'MIENG_MOI_TREN', 'MIENG_MOI_DUOI', 'jaw'):
+    for ten in ('MIENG_VUNG', 'MIENG_LO', 'MIENG_MOI_TREN', 'MIENG_MOI_DUOI', 'MIENG_TREN', 'MIENG_DUOI', 'jaw'):
         if ten not in gi:
             gi[ten] = body.vertex_groups.new(name=ten).index
-    nhan = (gi['MIENG_VUNG'], gi['MIENG_LO'], gi['MIENG_MOI_TREN'], gi['MIENG_MOI_DUOI'])
+    nhan = (gi['MIENG_VUNG'], gi['MIENG_LO'], gi['MIENG_MOI_TREN'], gi['MIENG_MOI_DUOI'], gi['MIENG_TREN'], gi['MIENG_DUOI'])
+    for vong in rings + [trong]:  # nửa trên / dưới của mọi vòng (khe: hai đỉnh trùng vị trí)
+        for j, q in enumerate(vong):
+            if 0 < j < N // 2:
+                q[deform][gi['MIENG_TREN']] = 1.0
+            elif j > N // 2:
+                q[deform][gi['MIENG_DUOI']] = 1.0
     for ring in rings:
         for q in ring:
             q[deform][gi['MIENG_VUNG']] = 1.0
@@ -729,3 +735,81 @@ def dung_mieng(body, rig, coll):
     bo_suu_tap(rig, 'Mat', ['jaw'])
     vung = [q.index for q in me.vertices if any(x.group == gi['MIENG_VUNG'] for x in q.groups)]
     return {'tam_mieng': C, 'vung_dinh': vung}
+
+
+# ---------- shape key miệng ----------
+
+# (nhóm âm, shape key, độ mở hàm gợi ý — độ)
+KHAU_HINH = {
+    'A': (['a', 'ă', 'â'], 'vs_A', 18), 'E': (['e', 'ê'], 'vs_E', 8), 'I': (['i', 'y'], 'vs_I', 5),
+    'O': (['o', 'ô', 'ơ'], 'vs_O', 14), 'U': (['u', 'ư'], 'vs_U', 6), 'MBP': (['m', 'b', 'p'], 'vs_MBP', 0),
+    'PHV': (['ph', 'v'], 'vs_PHV', 3), 'NT': (['n', 't', 'đ', 'd', 'l'], 'vs_NT', 6),
+    'CH': (['ch', 'tr', 's', 'x', 'gi'], 'vs_CH', 6), 'KG': (['c', 'k', 'g', 'ng', 'nh', 'kh'], 'vs_KG', 12),
+    'nghi': ([], 'vs_nghi', 0),
+}
+
+
+def dung_shape_key_mieng(body, vung, tam, out_json=None):
+    """10 shape key nền + 11 khẩu hình; chỉ dời đỉnh vùng miệng (MIENG_VUNG ∪ MIENG_LO), vòng ngoài cùng đứng yên."""
+    import json
+    me = body.data
+    gi = {g.name: g.index for g in body.vertex_groups}
+
+    def trong_nhom(ten):
+        g = gi[ten]
+        return np.array([any(x.group == g and x.weight > 0.5 for x in v.groups) for v in me.vertices])
+
+    dong = trong_nhom('MIENG_VUNG') | trong_nhom('MIENG_LO')
+    tren, duoi = trong_nhom('MIENG_TREN'), trong_nhom('MIENG_DUOI')
+    co = np.array([v.co[:] for v in me.vertices])
+    m = np.array(tam)
+    du, dv = co[:, 0] - m[0], co[:, 2] - m[2]
+    q = co[dong]
+    a = np.abs(q[:, 0] - m[0]).max()                       # nửa bề ngang vòng ngoài
+    B = np.where(dv > 0, dv[dong].max(), -dv[dong].min())
+    rho = np.sqrt((du / a) ** 2 + (dv / np.maximum(B, 1e-6)) ** 2)
+    g = (1 - _ss(0.35, 0.97, rho)) * dong                   # vòng ngoài (ρ≈1) đứng yên
+    moi = (1 - _ss(0.05, 0.55, rho)) * dong                 # sát khe môi
+    khe = trong_nhom('MIENG_MOI_TREN') | trong_nhom('MIENG_MOI_DUOI')
+    ak = np.abs(du[khe]).max() + 0.002                      # nửa bề ngang khe môi
+    c = np.clip(np.abs(du) / ak, 0, 1) ** 2 * g             # trọng số khóe
+    s = np.sign(du)
+    T, D = tren * moi, duoi * moi                           # môi trên / dưới
+    X, Y, Z = (np.eye(3)[i] for i in range(3))
+
+    def vec(dx=0, dy=0, dz=0):
+        return dx[:, None] * X + (dy if np.ndim(dy) else np.full(len(co), dy))[:, None] * Y + (dz if np.ndim(dz) else np.full(len(co), dz))[:, None] * Z
+
+    z0 = np.zeros(len(co))
+    L, R = (du > 0).astype(float), (du < 0).astype(float)
+    dk = {
+        'cuoi': vec(0.005 * s * c, 0.003 * c, 0.012 * c),
+        'meu': vec(0.001 * s * c, -0.002 * D, -0.010 * c),
+        'chu_moi': vec(-0.35 * du * g, -0.006 * g, z0),
+        'mim_moi': vec(z0, 0.002 * moi, -0.0015 * T + 0.0015 * D),
+        'keo_khoe.L': vec(0.006 * c * L, z0, 0.001 * c * L), 'keo_khoe.R': vec(-0.006 * c * R, z0, 0.001 * c * R),
+        'ha_khoe.L': vec(z0, z0, -0.006 * c * L), 'ha_khoe.R': vec(z0, z0, -0.006 * c * R),
+        'nhech.L': vec(0.002 * c * L, z0, 0.007 * c * L), 'nhech.R': vec(-0.002 * c * R, z0, 0.007 * c * R),
+        'vs_A': vec(-0.05 * du * g, z0, 0.004 * T - 0.014 * D),        # mở to
+        'vs_E': vec(0.25 * du * g, z0, 0.002 * T - 0.004 * D),
+        'vs_I': vec(0.3 * du * g, z0, 0.001 * T - 0.002 * D + 0.002 * c),
+        'vs_O': vec(-0.4 * du * g, -0.005 * g, (0.006 * T - 0.009 * D) * (1 - 0.7 * np.clip(du / ak, -1, 1) ** 2)),
+        'vs_U': vec(-0.4 * du * g, -0.007 * g, 0.0015 * T - 0.002 * D),
+        'vs_MBP': vec(z0, 0.003 * moi, -0.0025 * T + 0.0025 * D),  # mím chặt, cuộn vào
+        'vs_PHV': vec(z0, 0.004 * D, 0.001 * T + 0.002 * D),
+        'vs_NT': vec(0.18 * du * g, z0, 0.0005 * T - 0.0015 * D),      # răng gần khép, môi hé, bè
+        'vs_CH': vec(0.1 * du * g, -0.002 * g, 0.003 * T - 0.004 * D),
+        'vs_KG': vec(-0.08 * du * g, z0, 0.003 * T - 0.008 * D),       # mở, hơi tròn (âm cuối lưỡi)
+        'vs_nghi': vec(z0, 0.0005 * moi, -0.0005 * T + 0.0005 * D),
+    }
+    if not me.shape_keys:
+        body.shape_key_add(name='Basis', from_mix=False)
+    for ten, d in dk.items():
+        d = d * dong[:, None]
+        kb = body.shape_key_add(name=ten, from_mix=False)
+        kb.data.foreach_set('co', (co + d).astype(np.float32).ravel())
+        kb.slider_min, kb.slider_max = 0.0, 1.0
+    if out_json:
+        Path_ = __import__('pathlib').Path
+        Path_(out_json).write_text(json.dumps({k: {'am': v[0], 'shape_key': v[1], 'jaw_do': v[2]}
+                                               for k, v in KHAU_HINH.items()}, ensure_ascii=False, indent=1), encoding='utf-8')

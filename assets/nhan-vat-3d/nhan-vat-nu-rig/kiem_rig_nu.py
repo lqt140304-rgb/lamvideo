@@ -336,7 +336,72 @@ def kiem_ngam_giong_mau():
     assert lech < 0.04, f'Màu vùng miệng mới lệch mẫu {lech:.3f}'
 
 
+SK_NEN = ['cuoi', 'meu', 'chu_moi', 'mim_moi', 'keo_khoe.L', 'keo_khoe.R', 'ha_khoe.L', 'ha_khoe.R', 'nhech.L', 'nhech.R']
+SK_VS = ['vs_A', 'vs_E', 'vs_I', 'vs_O', 'vs_U', 'vs_MBP', 'vs_PHV', 'vs_NT', 'vs_CH', 'vs_KG', 'vs_nghi']
+AM = {'A': 'a ă â', 'E': 'e ê', 'I': 'i y', 'O': 'o ô ơ', 'U': 'u ư', 'MBP': 'm b p', 'PHV': 'ph v',
+      'NT': 'n t đ d l', 'CH': 'ch tr s x gi', 'KG': 'c k g ng nh kh'}
+
+
+def lech_sk(ten):
+    kb = BODY.data.shape_keys.key_blocks
+    co0 = np.array([v.co for v in kb['Basis'].data])
+    return np.array([v.co for v in kb[ten].data]) - co0
+
+
+def kiem_du_shape_key():
+    kb = BODY.data.shape_keys.key_blocks if BODY.data.shape_keys else {}
+    thieu = [t for t in SK_NEN + SK_VS if t not in kb]
+    assert not thieu, f'Thiếu shape key {thieu}'
+
+
+def kiem_shape_key_chi_o_mieng():
+    vung = set(np.r_[nhom_dinh('MIENG_VUNG'), nhom_dinh('MIENG_LO')].tolist())
+    ngoai = np.array([i for i in range(len(BODY.data.vertices)) if i not in vung])
+    for t in SK_NEN + SK_VS:
+        d = np.linalg.norm(lech_sk(t)[ngoai], axis=1).max()
+        assert d < 0.0005, f'{t} dời đỉnh ngoài miệng {d:.4f}'
+
+
+def kiem_khau_hinh_khac_nhau():
+    L = {t: lech_sk(t) for t in SK_VS}
+    for i, a in enumerate(SK_VS):
+        for b in SK_VS[i + 1:]:
+            dong = (np.linalg.norm(L[a], axis=1) > 1e-5) | (np.linalg.norm(L[b], axis=1) > 1e-5)
+            d = np.linalg.norm(L[a][dong] - L[b][dong], axis=1).mean() if dong.any() else 0
+            assert d > 0.001, f'{a} và {b} gần như trùng ({d:.4f})'
+
+
+def kiem_doi_xung():
+    co = np.array([v.co for v in BODY.data.shape_keys.key_blocks['Basis'].data])
+    for g in ('keo_khoe', 'ha_khoe', 'nhech'):
+        dl, dr = lech_sk(f'{g}.L'), lech_sk(f'{g}.R')
+        for vung in (nhom_dinh('MIENG_VUNG'), nhom_dinh('MIENG_LO')):  # ghép cặp theo x, z cùng loại; mặt gốc lệch nhẹ theo y
+          xz = co[vung][:, [0, 2]]
+          for i, p in zip(vung, xz * np.array([-1, 1])):
+            j = vung[np.argmin(np.linalg.norm(xz - p, axis=1))]
+            sai = np.abs(dl[i] * np.array([-1, 1, 1]) - dr[j]).max()
+            assert sai < 0.0005, f'{g}.L/R không đối xứng ({sai:.4f})'
+
+
+def kiem_bang_khau_hinh():
+    import json
+    b = json.loads((Path(bpy.data.filepath).parent / 'khau-hinh.json').read_text(encoding='utf-8'))
+    assert len(b) == 11, f'Bảng có {len(b)} mục'
+    kb = BODY.data.shape_keys.key_blocks
+    am_bang = [x for v in b.values() for x in v['am']]
+    for k, v in b.items():
+        assert v['shape_key'] in kb, f'{k}: thiếu {v["shape_key"]}'
+    for k, s in AM.items():
+        for x in s.split():
+            assert am_bang.count(x) == 1, f'Âm "{x}" xuất hiện {am_bang.count(x)} lần'
+
+
 KIEM = {
+    'kiem_du_shape_key': kiem_du_shape_key,
+    'kiem_shape_key_chi_o_mieng': kiem_shape_key_chi_o_mieng,
+    'kiem_khau_hinh_khac_nhau': kiem_khau_hinh_khac_nhau,
+    'kiem_doi_xung': kiem_doi_xung,
+    'kiem_bang_khau_hinh': kiem_bang_khau_hinh,
     'kiem_vung_mieng_day': kiem_vung_mieng_day,
     'kiem_vien_lien': kiem_vien_lien,
     'kiem_ham_mo': kiem_ham_mo,
