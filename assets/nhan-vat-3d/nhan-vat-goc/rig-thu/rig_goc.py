@@ -39,6 +39,8 @@ ARM_CUT = (0.17, 0.86)  # loang từ đầu ngón tay, không qua |x|<0,17 hay z
 FINGER_Y = {'index': -0.113, 'middle': -0.061, 'ring': -0.022, 'pinky': 0.019}
 FINGER_SPLIT = (0.42, 0.32, 0.26)      # tỉ lệ chiều dài 3 đốt (gốc → đầu ngón)
 FINGER_CURL = {'index': (50, 70, 45), 'middle': (50, 70, 45), 'ring': (50, 70, 45), 'pinky': (50, 70, 45), 'thumb': (12, 30, 40)}   # độ gập khi nam = 1
+A_DEG = 0.0
+AP = np.eye(4)                          # khung dáng chữ A → khung tay buông (bên L); đơn vị nếu không chuyển dáng
 CH = {}                                 # tên ngón → 4 điểm (bên L): gốc, khớp 1, khớp 2, đầu ngón
 
 
@@ -245,10 +247,11 @@ def finger_weights(W, co, I, arm_reg, sigma=0.004, blend=0.007):
     (exp(-(d/sigma)^2)); trong một ngón chia cho 3 đốt theo vị trí dọc ngón (pha ±blend ở khớp); phía trên gốc ngón thuộc hand."""
     sm = lambda e0, e1, t: (lambda u: u * u * (3 - 2 * u))(np.clip((t - e0) / (e1 - e0), 0, 1))
     for k, sx in (('L', 1), ('R', -1)):
-        H = arm_reg & (sx * co[:, 0] > 0.17) & (co[:, 2] < 0.50)
-        P = co[H] * np.array([sx, 1, 1]); n = len(P); Wn = np.zeros((n, W.shape[1]), np.float32)
+        Uc = (co * np.array([sx, 1, 1])) @ AP[:3, :3].T + AP[:3, 3]      # về khung tay buông (đo ngón) nếu đã chuyển dáng chữ A
+        H = arm_reg & (sx * co[:, 0] > 0.0) & (Uc[:, 0] > 0.17) & (Uc[:, 2] < 0.50)
+        P = Uc[H]; n = len(P); Wn = np.zeros((n, W.shape[1]), np.float32)
         D = []; S0 = []; U = []
-        for nm, pts in CH.items():
+        for nm, pts in (CH0 or CH).items():
             Q = np.array([p[:] for p in pts]); seg = np.diff(Q, axis=0); ln = np.linalg.norm(seg, axis=1); cum = np.r_[0, np.cumsum(ln)]
             dmin = np.full(n, 9.0); u = np.zeros(n)
             for j in range(3):
@@ -264,12 +267,17 @@ def finger_weights(W, co, I, arm_reg, sigma=0.004, blend=0.007):
             for i in range(3):
                 Wn[:, I[f'{nm}{i + 1}.{k}']] += A[c] * inside * wb[i]
         Wn[:, I[f'hand.{k}']] += 1 - Wn.sum(1)
-        al = sm(0.50, 0.475, co[H, 2])[:, None]
+        al = sm(0.50, 0.475, P[:, 2])[:, None]
         W[H] = (1 - al) * W[H] + al * Wn
     return W
 
 
+CH0 = {}              # đường tâm ngón ở khung tay buông (dùng cho trọng số ngón sau khi đổi dáng chữ A)
+ARM_FIXED = None      # vùng tay tính trên lưới tay buông, dùng lại sau khi đổi dáng chữ A (chỉ số đỉnh giữ nguyên)
+
+
 def arm_region(co, ea, eb):
+    if ARM_FIXED is not None: return ARM_FIXED.copy()
     x, z = co[:, 0], co[:, 2]; keep = ~((np.abs(x) < ARM_CUT[0]) | (z > ARM_CUT[1])); A = np.zeros(len(co), bool)
     for s in (1, -1):
         A[np.argmin(np.where((s * x > 0.2) & (z > 0.3), z, 9))] = True
@@ -340,8 +348,9 @@ def clean_weights(body):
 # ---- dáng thử ----
 POSES = {
     'nghi': {},
-    'tay_dang_60': {'upper_arm.L': ('Y', 0, 'Z', 60)},
-    'gio_tay_cao': {'upper_arm.L': ('Y', 0, 'Z', 140)},
+    'tay_buong': 'down',
+    'tay_dang_60': 'abd60',
+    'gio_tay_cao': 'abd140',
     'khuyu_gap': {'upper_arm.L': ('X', 30), 'forearm.L': ('X', 100), 'upper_arm.R': ('X', 30), 'forearm.R': ('X', 100)},
     'quay_dau': {'head': ('Y', 35), 'neck': ('Y', 10)},
     'cui_dau': {'head': ('X', 20), 'neck': ('X', 10), 'spine2': ('X', 10)},
@@ -373,7 +382,10 @@ def apply_pose(arm, name):
     for k in 'LR':
         for pr in ('nam',) + tuple(FINGER_PROPS.values()): pb[f'hand.{k}'][pr] = 0.0
     spec = POSES[name]
-    if spec == 'fist':
+    if spec in ('down', 'abd60', 'abd140'):       # góc so với tay buông thẳng (trừ góc dáng nghỉ chữ A)
+        g = {'down': 0, 'abd60': 60, 'abd140': 140}[spec] - A_DEG
+        set_rot(pb, 'upper_arm.L', ('Z', g)); set_rot(pb, 'upper_arm.R', ('Z', -g))
+    elif spec == 'fist':
         for k in 'LR': pb[f'hand.{k}']['nam'] = 1.0
     elif spec == 'point':
         for k in 'LR':
@@ -432,24 +444,71 @@ def render_sheet(sc, arm, out_dir):
     return files
 
 
+def rig_once(sc, body):
+    proxy = bpy.data.objects.new('proxy_w', body.data.copy()); sc.collection.objects.link(proxy)   # bản thưa cho bone heat
+    dm = proxy.modifiers.new('Dec', 'DECIMATE'); dm.ratio = 0.125
+    bpy.context.view_layer.objects.active = proxy; bpy.ops.object.select_all(action='DESELECT'); proxy.select_set(True)
+    bpy.ops.object.modifier_apply(modifier=dm.name)
+    arm = build_armature(sc)
+    bind(sc, arm, body, proxy)
+    bpy.data.objects.remove(proxy, do_unlink=True)
+    return arm
+
+
+def to_a_pose(sc, body, arm, deg):
+    """Đổi dáng nghỉ: dang hai tay `deg`°, nướng vào lưới, làm mượt Taubin vùng nách–vai, rồi dựng lại rig từ dáng mới.
+    Mốc khớp tay (J) và đường tâm ngón (CH) được xoay theo; AP giữ phép ngược để đo bàn tay trong khung cũ."""
+    global AP
+    pb = arm.pose.bones
+    for k, sx in (('L', 1), ('R', -1)): pb[f'upper_arm.{k}'].rotation_euler = (0, 0, math.radians(sx * deg))
+    body.modifiers['CorrectiveSmooth'].show_viewport = False; bpy.context.view_layer.update()
+    T = np.array(arm.matrix_world @ pb['upper_arm.L'].matrix @ pb['upper_arm.L'].bone.matrix_local.inverted())
+    dg = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(dg); m2 = ev.to_mesh()
+    P = np.zeros(len(m2.vertices) * 3); m2.vertices.foreach_get('co', P); ev.to_mesh_clear(); P = P.reshape(-1, 3)
+    co0 = mesh_co(body)
+    global ARM_FIXED; e0, e1 = edges_np(body.data); ARM_FIXED = arm_region(co0, e0, e1)
+    # gỡ rig cũ
+    body.parent = None
+    for m in list(body.modifiers): body.modifiers.remove(m)
+    body.vertex_groups.clear()
+    bpy.data.objects.remove(arm, do_unlink=True)
+    # làm mượt vùng nách–vai trên lưới mới (Taubin: không co thể tích)
+    me = body.data; nv = len(me.vertices); ea, eb = edges_np(me); dn = np.bincount(np.concatenate([ea, eb]), minlength=nv).clip(1)[:, None]
+    x, z = np.abs(co0[:, 0]), co0[:, 2]
+    f = np.clip(np.minimum.reduce([(x - 0.07) / 0.04, (0.30 - x) / 0.04, (z - 0.60) / 0.06, (0.97 - z) / 0.04]), 0, 1)
+    R = f > 0
+    for it in range(40):
+        for lam in (0.5, -0.53):
+            acc = np.stack([np.bincount(ea, P[eb, j], nv) + np.bincount(eb, P[ea, j], nv) for j in range(3)], 1) / dn
+            P[R] += (lam * f[R])[:, None] * (acc[R] - P[R])
+    me.vertices.foreach_set('co', P.ravel()); me.update()
+    print(f'  dáng chữ A {deg:.0f}°: nướng lưới, làm mượt {int(R.sum())} đỉnh nách–vai')
+    # xoay mốc tay và ngón theo
+    Tm = Matrix([list(r) for r in T])
+    for n in ('elbow', 'wrist', 'hand_end'): J[n] = tuple(Tm @ Vector(J[n]))
+    CH0.update({nm: list(P) for nm, P in CH.items()})
+    for nm in CH: CH[nm] = [Tm @ p for p in CH[nm]]
+    AP = np.linalg.inv(T)
+    return rig_once(sc, body)
+
+
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--out', required=True); ap.add_argument('--anh'); ap.add_argument('--src', default=SRC)
+    ap.add_argument('--chu-a', type=float, default=0.0, help='dang tay (độ) để làm dáng nghỉ mới trước khi rig; 0 = giữ tay buông')
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.src)); sc = bpy.context.scene
     if bpy.context.object and bpy.context.object.mode != 'OBJECT': bpy.ops.object.mode_set(mode='OBJECT')
     body = bpy.data.objects['model_LOD0']
     for o in list(sc.objects):
         if o.type == 'MESH' and o is not body: bpy.data.objects.remove(o, do_unlink=True)
-    proxy = bpy.data.objects.new('proxy_w', body.data.copy()); sc.collection.objects.link(proxy)   # bản thưa cho bone heat
-    dm = proxy.modifiers.new('Dec', 'DECIMATE'); dm.ratio = 0.125
-    bpy.context.view_layer.objects.active = proxy; bpy.ops.object.select_all(action='DESELECT'); proxy.select_set(True)
-    bpy.ops.object.modifier_apply(modifier=dm.name)
     bco = mesh_co(body); bea, beb = edges_np(body.data); measure_fingers(bco, arm_region(bco, bea, beb))
-    proxy.hide_set(False); body.hide_set(False); body.hide_render = False
-    arm = build_armature(sc)
-    bind(sc, arm, body, proxy)
-    bpy.data.objects.remove(proxy, do_unlink=True)
+    body.hide_set(False); body.hide_render = False
+    arm = rig_once(sc, body)
+    if a.chu_a:
+        arm = to_a_pose(sc, body, arm, a.chu_a)
+        sc['dang_nghi'] = f'chữ A, tay dang {a.chu_a:.0f}°'
+        global A_DEG; A_DEG = a.chu_a
     for c in list(bpy.data.collections):
         if c.name.startswith('LOD') and not c.objects: bpy.data.collections.remove(c)
     arm.users_collection[0].objects.unlink(arm); body.users_collection[0].objects.link(arm)

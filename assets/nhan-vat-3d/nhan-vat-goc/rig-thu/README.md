@@ -12,7 +12,7 @@ Chạy trong thư mục này, mỗi lệnh khoảng 1–2 phút. File `.blend` t
 
 ```powershell
 D:/blender/blender.exe -b --factory-startup --python dau_troc.py -- --out nhan-vat-goc-troc.blend
-D:/blender/blender.exe -b --factory-startup --python rig_goc.py -- --src nhan-vat-goc-troc.blend --out nhan-vat-goc-rig-thu.blend --anh xem-thu
+D:/blender/blender.exe -b --factory-startup --python rig_goc.py -- --src nhan-vat-goc-troc.blend --out nhan-vat-goc-rig-thu.blend --chu-a 35 --anh xem-thu
 ```
 
 `dau_troc.py` tạo lưới nền đầu trọc ([ảnh](dau-troc.webp)). Script bỏ tóc theo màu texture, rồi ghép hộp sọ theo khuôn `../nguon/dau-troc-tham-chieu.fbx`, căn bằng ICP lệch trung vị 5,5 mm. Đường nối được làm mượt và có dải pha màu da (thuộc tính đỉnh `pha_da`). Nốt ruồi vẫn giữ. Trên lông mày trái còn một gờ rất nhỏ. Thiếu `--src` thì `rig_goc.py` rig bản gốc còn tóc.
@@ -22,7 +22,8 @@ D:/blender/blender.exe -b --factory-startup --python rig_goc.py -- --src nhan-va
 - Armature `Goc_Rig`: mặt hướng −Y, bên trái nhân vật là +X và mang đuôi `.L`. Xương thân, tay, chân như bản trước. IK chân dùng `ik_foot`/`pole_knee`. Tay chạy FK, muốn IK thì đặt `ik` = 1 trên `ik_hand`.
 - **Ngón tay** (bone collection `Ngon`): `index/middle/ring/pinky/thumb` 1–3, mỗi ngón ba đốt. Đường tâm từng ngón được đo tự động trên lưới. Trên `hand.L/R` có thuộc tính `nam` (nắm cả bàn tay) và `nam_tro`, `nam_giua`, `nam_ap`, `nam_ut`, `nam_cai` (nắm từng ngón), mỗi thuộc tính từ 0 đến 1. Ví dụ chỉ tay: đặt bốn ngón kia = 1. [Ảnh bàn tay](ban-tay.webp), từ trái sang: nghỉ, nắm, nửa nắm, chỉ, xòe.
 - **Vai**: xương phụ `vai_phu.L/R` theo 50% góc xoay của bắp tay, cộng thêm làm mượt rộng ở nách và vai. [Ảnh giơ tay 90° và 140°](vai-gio-tay.webp).
-- Dáng nghỉ lệch tối đa 0,13 mm so với lưới nền.
+- **Dáng nghỉ chữ A** (`--chu-a 35`): script rig một lượt ở dáng tay buông, dang hai tay 35° rồi cố định dáng đó vào lưới. Sau đó làm mượt Taubin vùng nách–vai và rig lại từ dáng mới. Vùng tay và đường tâm ngón vẫn lấy theo lưới tay buông. Các dáng thử tính góc so với tay buông: `tay_buong` = 0°, `tay_dang_60`, `gio_tay_cao` = 140°. Bỏ `--chu-a` thì rig ở dáng tay buông như bản trước.
+- Lưới sau khi gắn rig khớp với lưới nền chữ A, lệch tối đa 0,13 mm.
 
 ## Cách gán trọng số
 
@@ -37,17 +38,20 @@ Mốc khớp được đo bằng lát cắt lưới LOD0 và ghi trong bảng `J
 
 Bảng dưới đếm số cạnh lưới bị kéo dài hơn 2 lần so với dáng nghỉ. Số này dùng để so các lần chạy, không thay cho việc xem ảnh.
 
-| Dáng | Cạnh giãn > 2× | Tối đa | Bản trước |
+| Dáng | Cạnh giãn > 2× (chữ A 35°) | Tối đa | Tay buông, bản trước |
 |---|---:|---:|---|
-| dạng tay 60° | 190 | 4,08× | 801 / 4,81× |
-| giơ tay cao 140° | 2.326 | 7,06× | 3.421 / 8,33× |
-| gập khuỷu | 15 | 2,33× | 36 / 2,71× |
-| quay đầu | 55 | 5,11× | 119 / 2,98× |
-| ngồi xổm | 1.235 | 6,12× | 1.794 / 7,75× |
-| nắm tay | 4.336 | 12,07× | — |
-| xòe tay | 375 | 3,81× | — |
+| tay buông (về 0°) | 0 | 1,25× | — |
+| dạng tay 60° | 0 | 1,50× | 190 / 4,08× |
+| giơ tay cao 140° | 509 | 2,72× | 2.326 / 7,06× |
+| gập khuỷu | 0 | 1,77× | 15 / 2,33× |
+| quay đầu | 54 | 5,11× | 55 / 5,11× |
+| ngồi xổm | 819 | 3,64× | 1.235 / 6,12× |
+| nắm tay | 4.306 | 12,08× | 4.336 / 12,07× |
+| xòe tay | 339 | 5,21× | 375 / 3,81× |
 
-- **Vai:** giơ tay 90° đã gọn. Giơ tay 140° vẫn còn nếp ở hõm nách, và trên sườn thân lộ ra một đường kẻ dọc ở vùng nằm khuất dưới cánh tay khi đứng nghỉ. Trong lưới gốc, cánh tay dính vào thân từ z ≈ 0,70 trở lên, đây là giới hạn của lưới chứ không riêng của rig. Đã thử thêm shape key sửa dáng tự tính (làm mượt Taubin rồi quy về dáng nghỉ): độ dời tới 30 mm nhưng ảnh chỉ đỡ chút ít, nên đã bỏ. Xương đòn tự nâng cũng đã thử và bỏ.
+Số đo của bản chữ A tính so với dáng nghỉ chữ A, nên không so ngang được hoàn toàn với bản trước. Các ảnh dáng thử vẫn chụp đúng góc so với tay buông.
+
+- **Vai (bản chữ A):** giơ tay 90° và 140° không còn bị ép hay gập ở mặt trên và sau vai. Ngay hõm nách còn một nếp nhỏ, khi người thật giơ tay cũng có nếp ở đây. Ghi chú bản tay buông trước đó: giơ tay 90° đã gọn. Giơ tay 140° vẫn còn nếp ở hõm nách, và trên sườn thân lộ ra một đường kẻ dọc ở vùng nằm khuất dưới cánh tay khi đứng nghỉ. Trong lưới gốc, cánh tay dính vào thân từ z ≈ 0,70 trở lên, đây là giới hạn của lưới chứ không riêng của rig. Đã thử thêm shape key sửa dáng tự tính (làm mượt Taubin rồi quy về dáng nghỉ): độ dời tới 30 mm nhưng ảnh chỉ đỡ chút ít, nên đã bỏ. Xương đòn tự nâng cũng đã thử và bỏ.
 - **Nắm tay:** độ giãn cao nằm ở kẽ ngón, vì các ngón trong lưới gốc dính liền nhau. Nhìn ảnh thì nắm tay gọn. Mu bàn tay còn một vệt ngang mờ ở dải pha giữa vùng cổ tay và vùng ngón.
 - **Quay đầu:** giá trị tối đa tăng ở vài cạnh vá gần gáy. Số cạnh vượt ngưỡng vẫn giảm.
 
