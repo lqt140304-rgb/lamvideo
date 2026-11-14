@@ -5,12 +5,12 @@ Tùy chọn: SOI_DIR=<thư mục> để chụp các dáng thử thay vì lưu fi
 
 Armature `Nu_Rig` (mét, nhân vật nhìn −Y, trái nhân vật = +X ⇒ đuôi .L), cùng tên xương với rig_nam.py:
   root → pelvis → spine1 → spine2 → chest → neck → head
-  chest → clavicle.L/R → upper_arm → forearm → hand → fingers1 → fingers2 (4 ngón chung, 2 đốt), thumb
+  chest → clavicle.L/R → upper_arm → forearm → hand → {thumb,index,middle,ring,pinky}1→2→3 (dò từ lưới)
   pelvis → thigh.L/R → shin.L/R → foot.L/R → toe.L/R
   Điều khiển (không biến dạng): ik_foot.L/R (IK chân), pole_knee.L/R (hướng gối).
-  Thuộc tính `fist` (0–1) trên hand.L/R: nắm tay (driver cho fingers1/2 + thumb).
+  Thuộc tính `fist` (0–1) trên hand.L/R: nắm tay (driver cho 15 đốt). Ngón: X+ gập vào lòng bàn tay.
 Trọng số: bone heat, rồi tách vùng tay/thân dưới nách (tay buông sát hông), đầu 100% xương head.
-Lưới thưa (2.043 đỉnh): ngón tay chỉ cong chung, chưa có mắt/miệng điều khiển riêng.
+Lưới thưa (2.043 đỉnh): ngón có 3 đốt nhưng ít vòng lưới, khi gập còn góc cạnh.
 """
 import math
 import os
@@ -41,6 +41,68 @@ for im in bpy.data.images:
     im.reload()
     assert im.size[0] == 2048, im.name
 
+# --- dò ngón tay trên lưới: hạ mặt cắt tới khi phần dưới bàn tay tách thành ≥5 mảng rời ---
+NGON = ('thumb', 'index', 'middle', 'ring', 'pinky')
+co0 = np.array([v.co for v in body.data.vertices])
+E0 = np.array([e.vertices[:] for e in body.data.edges])
+
+
+def manh(mask):
+    """Các mảng liền cạnh trong tập đỉnh mask (≥6 đỉnh), xếp theo y tăng (trước → sau)."""
+    adj = {i: [] for i in np.where(mask)[0]}
+    for a, b in E0:
+        if mask[a] and mask[b]:
+            adj[a].append(b)
+            adj[b].append(a)
+    seen, out = set(), []
+    for s0 in adj:
+        if s0 in seen:
+            continue
+        st, c = [s0], []
+        seen.add(s0)
+        while st:
+            x = st.pop()
+            c.append(x)
+            for w in adj[x]:
+                if w not in seen:
+                    seen.add(w)
+                    st.append(w)
+        if len(c) >= 6:
+            out.append(np.array(c))
+    return sorted(out, key=lambda c: co0[c][:, 1].mean())
+
+
+def lat_cat(P, z, h):
+    m = np.abs(P[:, 2] - z) <= h
+    return P[m].mean(0) if m.any() else P[np.argmin(np.abs(P[:, 2] - z))]
+
+
+def chuoi_ngon(s):
+    """{ngón: (4 điểm khớp, chỉ số đỉnh của ngón)} cho tay dấu s (+1 trái, −1 phải)."""
+    tay = (s * co0[:, 0] > 0.19) & (co0[:, 2] < 0.66) & (co0[:, 2] > 0.45)
+    thumb = manh(tay & (co0[:, 2] < 0.60))[0]  # ngón cái tách sớm, nằm trước nhất
+    for cut in np.arange(0.60, 0.52, -0.005):
+        cs = [c for c in manh(tay & (co0[:, 2] < cut)) if not set(c) <= set(thumb)]
+        if len(cs) >= 4:
+            break
+    assert len(cs) >= 4, f'Không tách được 4 ngón (tay {s:+d})'
+    out = {}
+    for n, c in zip(NGON[1:], cs[:4]):
+        P = co0[c]
+        top, bot = P[:, 2].max(), P[:, 2].min()
+        L = top - bot
+        h0 = lat_cat(P, top, 0.004) + np.array([0, 0, 0.008])
+        out[n] = ([h0, lat_cat(P, top - L / 3, L / 8), lat_cat(P, top - 2 * L / 3, L / 8), P[np.argmin(P[:, 2])]], c)
+    P = co0[thumb]
+    goc = np.array([s * 0.248, -0.03, 0.625])
+    xa = P[np.argmax(np.linalg.norm(P - goc, axis=1))]
+    top = P[:, 2].max()
+    out['thumb'] = ([goc, lat_cat(P, top, 0.006), (lat_cat(P, top, 0.006) + xa) / 2, xa], thumb)
+    return out
+
+
+NGON_LR = {'L': chuoi_ngon(1), 'R': chuoi_ngon(-1)}
+
 # --- bảng xương (tên, cha, đầu, đuôi, deform), đo bằng tia cắt ngang lưới ---
 B = []
 
@@ -62,9 +124,10 @@ for s, k in ((1, 'L'), (-1, 'R')):
     A(f'upper_arm.{k}', f'clavicle.{k}', (X(0.165), 0.02, 1.03), (X(0.222), 0.025, 0.80))
     A(f'forearm.{k}', f'upper_arm.{k}', (X(0.222), 0.025, 0.80), (X(0.255), 0.005, 0.645))
     A(f'hand.{k}', f'forearm.{k}', (X(0.255), 0.005, 0.645), (X(0.265), -0.005, 0.575))
-    A(f'fingers1.{k}', f'hand.{k}', (X(0.265), -0.005, 0.575), (X(0.258), -0.01, 0.537))
-    A(f'fingers2.{k}', f'fingers1.{k}', (X(0.258), -0.01, 0.537), (X(0.248), -0.015, 0.50))
-    A(f'thumb.{k}', f'hand.{k}', (X(0.248), -0.03, 0.625), (X(0.245), -0.06, 0.57))
+    A(f'MCH_fist.{k}', f'hand.{k}', (X(0.255), 0.005, 0.645), (X(0.255), 0.005, 0.625), False)  # xương phụ cho fist
+    for n, (pts, _) in NGON_LR[k].items():
+        for j in range(3):
+            A(f'{n}{j + 1}.{k}', f'hand.{k}' if j == 0 else f'{n}{j}.{k}', pts[j], pts[j + 1])
     A(f'thigh.{k}', 'pelvis', (X(0.09), -0.01, 0.58), (X(0.10), -0.018, 0.33))
     A(f'shin.{k}', f'thigh.{k}', (X(0.10), -0.018, 0.33), (X(0.108), 0.0, 0.09))
     A(f'foot.{k}', f'shin.{k}', (X(0.108), 0.0, 0.09), (X(0.115), -0.12, 0.03))
@@ -86,19 +149,27 @@ for n, par, h, t, d in B:
         e.parent = arm_d.edit_bones[par]
         e.use_connect = (e.head - arm_d.edit_bones[par].tail).length < 1e-4
     # trục Z của xương hướng ra trước (−Y): gập khớp quanh trục X cục bộ
-    e.align_roll(Vector((0, 0, 1)) if n.split('.')[0] in ('foot', 'toe', 'ik_foot', 'root', 'pole_knee') else Vector((0, -1, 0)))
+    goc_ten = n.split('.')[0].rstrip('123')
+    sg = 1 if n.endswith('.L') else -1
+    if goc_ten in ('foot', 'toe', 'ik_foot', 'root', 'pole_knee'):
+        e.align_roll(Vector((0, 0, 1)))
+    elif goc_ten in NGON:  # X+ gập ngón vào lòng bàn tay
+        e.align_roll(Vector((-sg, 0.8, 0)) if goc_ten == 'thumb' else Vector((-sg, 0, 0)))
+    else:
+        e.align_roll(Vector((0, -1, 0)))
 bpy.ops.object.mode_set(mode='OBJECT')
 
 # bone collections
 groups = {'Than': ['root', 'pelvis', 'spine1', 'spine2', 'chest', 'neck', 'head'],
-          'Tay': ['clavicle', 'upper_arm', 'forearm', 'hand'], 'Ngon': ['fingers1', 'fingers2', 'thumb'],
-          'Chan_IK': ['ik_foot', 'pole_knee'], 'Chan_deform': ['thigh', 'shin', 'foot', 'toe']}
+          'Tay': ['clavicle', 'upper_arm', 'forearm', 'hand'], 'Ngon': [f'{n}{j}' for n in NGON for j in (1, 2, 3)],
+          'Chan_IK': ['ik_foot', 'pole_knee'], 'Chan_deform': ['thigh', 'shin', 'foot', 'toe'], 'MCH': ['MCH_fist']}
 for g, names in groups.items():
     bc = arm_d.collections.new(g)
     for b in arm_d.bones:
         if b.name.split('.')[0] in names:
             bc.assign(b)
 arm_d.collections['Chan_deform'].is_visible = False
+arm_d.collections['MCH'].is_visible = False
 
 # --- IK chân, nắm tay ---
 pb = rig.pose.bones
@@ -113,15 +184,26 @@ for k in 'LR':
     h = pb[f'hand.{k}']
     h['fist'] = 0.0
     h.id_properties_ui('fist').update(min=0.0, max=1.0, soft_min=0.0, soft_max=1.0)
-    for bn, amt in ((f'fingers1.{k}', 1.1), (f'fingers2.{k}', 1.3), (f'thumb.{k}', 0.7)):
+    # fist → xương phụ MCH_fist (driver vị trí Y) → ràng buộc Transformation CỘNG độ gập vào từng đốt.
+    # Không đặt driver thẳng lên kênh xoay của ngón, để người diễn hoạt vẫn xoay từng ngón được.
+    fc = pb[f'MCH_fist.{k}'].driver_add('location', 1)
+    v = fc.driver.variables.new()
+    v.name = 'f'
+    v.targets[0].id = rig
+    v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
+    fc.driver.expression = 'f'
+    for bn, amt in [(f'{n}{j}.{k}', a) for n in NGON for j, a in zip((1, 2, 3), (0.5, 0.6, 0.5) if n == 'thumb' else (1.0, 1.2, 0.9))]:
         p = pb[bn]
         p.rotation_mode = 'XYZ'
-        fc = p.driver_add('rotation_euler', 0)
-        v = fc.driver.variables.new()
-        v.name = 'f'
-        v.targets[0].id = rig
-        v.targets[0].data_path = f'pose.bones["hand.{k}"]["fist"]'
-        fc.driver.expression = f'f*{amt}'
+        c = p.constraints.new('TRANSFORM')
+        c.name = 'NAM_TAY'
+        c.target, c.subtarget = rig, f'MCH_fist.{k}'
+        c.target_space = c.owner_space = 'LOCAL'
+        c.map_from, c.map_to = 'LOCATION', 'ROTATION'
+        c.from_min_y, c.from_max_y = 0.0, 1.0
+        c.map_to_x_from = 'Y'
+        c.to_min_x_rot, c.to_max_x_rot = 0.0, amt
+        c.mix_mode_rot = 'ADD'
 
 # chọn pole_angle để dáng nghỉ của chân giữ nguyên (thử 4 góc, lấy sai lệch nhỏ nhất)
 bpy.context.view_layer.update()
@@ -159,7 +241,7 @@ def dist(n):
 
 D = np.stack([dist(n) for n in deform], 1)
 near = np.array(deform)[D.argmin(1)]
-ARM = ('upper_arm', 'forearm', 'hand', 'fingers1', 'fingers2', 'thumb')
+ARM = ('upper_arm', 'forearm', 'hand') + tuple(f'{n}{j}' for n in NGON for j in (1, 2, 3))
 is_arm_bone = lambda n: n.split('.')[0] in ARM
 W = np.zeros((len(co), len(deform)))
 for j, n in enumerate(deform):
@@ -194,26 +276,34 @@ for k, sg in (('L', 1), ('R', -1)):
     assert 30 < m.sum() < len(co) * 0.2, f'Vùng tay {k} bất thường: {m.sum()} đỉnh'
     arm_v[k] = m
     W[np.ix_(m, ~(arm_cols & (side == k)))] = 0  # đỉnh tay chỉ theo xương tay cùng bên
-# ngón: gán lại theo khoảng cách dọc bàn tay từ khớp đốt (bone heat bỏ sót ngón ngoài), chừa ngón cái
+# ngón: mỗi mảng ngón dò ở trên chỉ theo 3 đốt của nó, chuyển mềm quanh khớp (bone heat lẫn ngón)
 def sstep(a, b, x):
     t = np.clip((x - a) / (b - a), 0, 1)
     return t * t * (3 - 2 * t)
 
 
 for k in 'LR':
-    kn, mid = seg[f'fingers1.{k}']
-    d = seg[f'fingers2.{k}'][1] - kn
-    d /= np.linalg.norm(d)
-    sd = (co - kn) @ d
-    m = arm_v[k] & (sd > -0.01) & (dist(f'thumb.{k}') > np.minimum(dist(f'fingers1.{k}'), dist(f'fingers2.{k}')))
-    L1 = (mid - kn) @ d
-    f1 = sstep(-0.006, 0.008, sd[m])
-    f2 = sstep(L1 - 0.008, L1 + 0.008, sd[m])
-    cols = {n: deform.index(f'{n}.{k}') for n in ('hand', 'fingers1', 'fingers2')}
-    W[m] = 0
-    W[m, cols['hand']] = 1 - f1
-    W[m, cols['fingers1']] = f1 - f2
-    W[m, cols['fingers2']] = f2
+    for n, (pts, idx) in NGON_LR[k].items():
+        P = co[idx]
+        best = np.full(len(P), np.inf)
+        arc = np.zeros(len(P))
+        acc = 0.0
+        J = []
+        for j in range(3):
+            a, b = pts[j], pts[j + 1]
+            L = np.linalg.norm(b - a)
+            t = np.clip(((P - a) @ (b - a)) / max(L * L, 1e-9), 0, 1)
+            dd = np.linalg.norm(P - (a + t[:, None] * (b - a)), axis=1)
+            m = dd < best
+            best[m], arc[m] = dd[m], acc + t[m] * L
+            acc += L
+            J.append(acc)
+        e = 0.004
+        w1 = 1 - sstep(J[0] - e, J[0] + e, arc)
+        w3 = sstep(J[1] - e, J[1] + e, arc)
+        W[idx] = 0
+        for j, w in enumerate((w1, 1 - w1 - w3, w3)):
+            W[idx, deform.index(f'{n}{j + 1}.{k}')] = w
 not_arm = below & ~arm_v['L'] & ~arm_v['R']
 W[np.ix_(not_arm, arm_cols)] = 0  # hông/đùi không theo tay
 head_j = deform.index('head')
