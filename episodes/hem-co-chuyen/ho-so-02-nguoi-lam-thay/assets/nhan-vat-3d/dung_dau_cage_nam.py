@@ -410,7 +410,7 @@ def build_nose_ball(coll, bvh, skin, muc=None):
         t = math.radians(t0 + (t1 - t0) * i / (n_ - 1)); rr = NOSE_LINE['r']
         x, z = rr * math.cos(t), rr * math.sin(t); y = -math.sqrt(max(0.0, 1.0 - x * x - z * z))
         q = mw @ (Vector((x, y, z)) * 1.02); sp.points[i].co = (q.x, q.y, q.z, 1.0)
-    lo = bpy.data.objects.new('Vien_Mui', cu); coll.objects.link(lo); cu.materials.append(muc)
+    lo = bpy.data.objects.new('Vien_Mui', cu); coll.objects.link(lo); cu.materials.append(bpy.data.materials['Vien_Den'])
     return ob
 
 
@@ -444,7 +444,7 @@ def assemble(head, body_cage, mats):
     for m in mats: me.materials.append(m)
     ob = bpy.data.objects.new('Nam_Dau_Than', me); body_cage.users_collection[0].objects.link(ob)
     m = ob.modifiers.new('Mirror', 'MIRROR'); m.use_axis = (True, False, False); m.use_clip = True; m.use_mirror_merge = True; m.merge_threshold = 1e-4
-    s = ob.modifiers.new('Subsurf', 'SUBSURF'); s.levels = 2; s.render_levels = 2
+    s = ob.modifiers.new('Subsurf', 'SUBSURF'); s.levels = 2; s.render_levels = 3      # render mịn hơn một mức: mép viền mắt bớt góc cạnh
     amap = {hi: nb + n for n, hi in enumerate(order)}          # chỉ số đầu → chỉ số bản lắp ráp
     for j, i in enumerate(N1): amap[i] = j
     if hm.shape_keys:
@@ -542,14 +542,15 @@ def build(args):
     M = {k: bpy.data.materials[n] for k, n in (('toc', 'Toc'), ('trang', 'Mat_Trang'), ('muc', 'Muc'), ('khoang', 'Khoang_Mieng'), ('luoi', 'Luoi'))}
     hoc = D.mat('Hoc_Mat', '#2a1a18', 0.9)
     vien_mi = D.mat('Vien_Mi', '#5a3524', 0.7)                     # cung mí phía trên: đường mảnh nâu sẫm như mẫu (mép dưới mới là mực đen dày)
-    mats = [skin, M['muc'], hoc, M['khoang'], M['luoi'], vien_mi]
+    vien_den = D.mat('Vien_Den', '#0d0b0a', 0.95)                  # viền mắt/nét mí: đen nhám (mực cũ xám bóng nên viền nhòe)
+    mats = [skin, vien_den, hoc, M['khoang'], M['luoi'], vien_mi]
     nc = bpy.data.collections.new(NEW_COLL); bpy.data.collections['Nam_Dau'].children.link(nc)
     S_old = old_head_bvh()
     S_nen = plain_loft_bvh()
     head, HEAD_IDX, ef, mf = build_head_cage(nc, mats, S_old, S_nen)
     add_shape_keys(head, HEAD_IDX, ef, mf)
     bvh_new = mesh_bvh(head)[0]
-    eyes = build_eyes(nc, ef, M['trang'], M['muc'], None)
+    eyes = build_eyes(nc, ef, M['trang'], bpy.data.materials['Vien_Den'], None)
     build_brows_mole(nc, bvh_new, M)
     build_nose_ball(nc, bvh_new, skin, M['muc'])
     for k in ('L', 'R'):
