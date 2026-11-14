@@ -51,7 +51,15 @@ LIMB_K = 1.06                                    # vòng cổ tay/mắt cá củ
 CAP_LEN = 0.015                                  # ống tay/chân đi tiếp vào trong bàn tay/chân rồi đóng nắp (giấu trong khối)
 STUB = 0.012                                     # đoạn cổ của bàn tay/chân cũ lồng vào trong ống
 Z_HANG = 0.025                                   # đỉnh háng thấp hơn mức day_chau
-CAGE_OVERRIDE = {}                               # (tên mức, chỉ số đỉnh 0..6) → (dx, dy, dz): chỉnh riêng một đỉnh
+# Lõm gốc nách và mặt ngực kề bên; không đổi vòng cổ tay/mắt cá.
+CAGE_OVERRIDE = {                                # (tên mức, chỉ số đỉnh 0..6) → (dx, dy, dz), mét
+    ('nguc', 2): (-0.002, 0.006, -0.002),
+    ('nguc', 4): (-0.002, -0.004, -0.002),
+    ('duoi_nguc', 2): (0.0, 0.004, 0.003),
+    ('duoi_nguc', 3): (-0.005, 0.0, 0.008),
+    ('duoi_nguc', 4): (0.0, -0.003, 0.003),
+}
+AXILLA_CREASE = 0.28                             # bán sắc nhẹ ở đáy nách, không làm rãnh xuyên hoặc góc gãy
 ARM_RINGS = [   # tâm (x, y, z), rx nửa ngang (ra ngoài), ry nửa sâu; vòng 8 đỉnh vuông góc trục tay; 'ax' = trục ép tay (vòng gốc nghiêng 45° để mặt trong không gập ở nách)
     dict(ten='dau_bap_tay',   c=(0.188, 0.000, 0.718), rx=0.056, ry=0.056, ax=(0.7071, 0.0, -0.7071)),
     dict(ten='giua_bap_tay',  c=(0.196, 0.000, 0.660), rx=0.056, ry=0.054),
@@ -126,6 +134,9 @@ def build_cage(coll):
             bm.faces.new((prev[j], cap[j], cap[(j + 1) % 8], prev[(j + 1) % 8])); bm.faces.new((cap[j], tip, cap[(j + 1) % 8]))
     hole = [V[iv][3], V[iv][2], V[ing][2], V[idn][2], V[idn][3], V[idn][4], V[ing][4], V[iv][4]]
     limb(hole, ARM_RINGS, tay, sum((v.co for v in hole), Vector()) / 8)
+    crease = bm.edges.layers.float.new('crease_edge')
+    for a, b in ((hole[3], hole[4]), (hole[4], hole[5])):
+        bm.edges.get((a, b))[crease] = AXILLA_CREASE
     L = lv[idc]; hang = bm.verts.new((0.0, (L['b'] - L['f']) / 2 + L['yc'], L['z'] - Z_HANG)); hang[mid] = 1.0
     loop = [V[idc][3], V[idc][2], V[idc][1], V[idc][0], hang, V[idc][6], V[idc][5], V[idc][4]]
     limb(loop, LEG_RINGS, chan, sum((v.co for v in loop), Vector()) / 8)
