@@ -408,6 +408,8 @@ mat_nu.dung_shape_key_mieng(body, MIENG['vung_dinh'], MIENG['tam_mieng'], HERE /
 # --- độ mượt: Subdivision sau Armature (rig, shape key vẫn trên lưới thưa) ---
 for p_ in body.data.polygons:
     p_.use_smooth = True
+cs = body.modifiers.new('CorrectiveSmooth', 'CORRECTIVE_SMOOTH')  # chỉ vùng miệng: xóa nếp gấp khi há
+cs.vertex_group, cs.rest_source, cs.smooth_type, cs.iterations = 'MIENG_MUOT', 'ORCO', 'LENGTH_WEIGHTED', 10
 sd = body.modifiers.new('Subdivision', 'SUBSURF')
 sd.levels, sd.render_levels = 1, 2
 sd.uv_smooth = 'PRESERVE_BOUNDARIES'

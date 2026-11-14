@@ -789,6 +789,24 @@ def dung_mieng(body, rig, coll):
             q[deform][gi['jaw']] = wj
         if wj < 1 - 1e-3:
             q[deform][hd] = 1 - wj
+    # làm trơn trọng số hàm trong vùng MIENG_MUOT (giữ cố định khe môi và viền vùng): hết nếp gấp khi há
+    jg = gi['jaw']
+    W_ = {q: q[deform].get(jg, 0.0) for q in muot}
+    co_dinh = {q for q in muot if q in khe or any(e.other_vert(q) not in muot for e in q.link_edges)}
+    co_dinh |= {q for r in rings[:4] for q in r}  # 4 vòng môi giữ trọng số (môi trên 0); chỉ làm trơn da
+    for _ in range(15):
+        W_ = {q: (W_[q] if q in co_dinh else
+                  sum(W_[e.other_vert(q)] for e in q.link_edges) / len(q.link_edges)) for q in muot}
+    for q, wj in W_.items():
+        if q.co.z < 1.215:
+            continue
+        for g in (jg, hd):
+            if g in q[deform]:
+                del q[deform][g]
+        if wj > 1e-3:
+            q[deform][jg] = wj
+        if wj < 1 - 1e-3:
+            q[deform][hd] = 1 - wj
     lech = []
     for f in moi:
         for q in f.loops:

@@ -428,6 +428,7 @@ def kiem_muot():
     mods = [m.type for m in BODY.modifiers]
     assert 'SUBSURF' in mods, f'Nu_Than chưa có Subdivision: {mods}'
     assert mods.index('SUBSURF') > mods.index('ARMATURE'), f'Subdivision phải sau Armature: {mods}'
+    assert 'CORRECTIVE_SMOOTH' in mods and mods.index('ARMATURE') < mods.index('CORRECTIVE_SMOOTH') < mods.index('SUBSURF'),         f'Thứ tự phải Armature → CorrectiveSmooth → Subdivision: {mods}'
     md = next(m for m in BODY.modifiers if m.type == 'SUBSURF')
     assert md.levels >= 1 and md.render_levels >= 2, f'Mức chia {md.levels}/{md.render_levels}'
 
@@ -523,12 +524,82 @@ def kiem_mieng_can_giua():
     assert abs(x) < 0.002, f'Tâm miệng lệch trục giữa {x * 1000:.1f} mm'
 
 
+def _goc_canh_mieng(chon=None):
+    """Góc (độ) giữa pháp tuyến hai mặt kề nhau ở vùng miệng (lưới đã chia mịn); chon = chỉ số cạnh cố định."""
+    import bmesh
+    RIG.update_tag()
+    bpy.context.view_layer.update()
+    dg = bpy.context.evaluated_depsgraph_get()
+    e = BODY.evaluated_get(dg)
+    bm = bmesh.new()
+    bm.from_mesh(e.to_mesh())
+    e.to_mesh_clear()
+    m = np.array(bpy.context.scene['tam_mieng'])
+    bm.edges.ensure_lookup_table()
+    if chon is None:
+        chon = []
+        for ed in bm.edges:
+            c = np.array((ed.verts[0].co + ed.verts[1].co) / 2)
+            if len(ed.link_faces) == 2 and abs(c[0] - m[0]) < 0.08 and -0.06 < c[2] - m[2] < 0.035                     and c[1] < m[1] + 0.002:  # cạnh nhìn thấy từ phía trước
+                chon.append(ed.index)
+    out = [math.degrees(bm.edges[i].link_faces[0].normal.angle(bm.edges[i].link_faces[1].normal, 0.0)) for i in chon]
+    bm.free()
+    return np.array(out), chon
+
+
+def kiem_khong_gap(cac_dang=None):
+    """Mở hàm (và khẩu hình): mọi cạnh nhìn thấy quanh miệng (gồm môi) không gấp thêm quá 30° so với lúc nghỉ."""
+    import json
+    sd = [m for m in BODY.modifiers if m.type == 'SUBSURF']
+    for m in sd:
+        m.show_viewport = True
+    try:
+        g0, chon = _goc_canh_mieng()
+        dang = [(None, 20)]
+        if cac_dang:
+            dang += cac_dang
+        for sk, do in dang:
+            for kb in (BODY.data.shape_keys.key_blocks[1:] if BODY.data.shape_keys else []):
+                if kb.name != 'mo_ham_khoe':
+                    kb.value = 0
+            if sk:
+                BODY.data.shape_keys.key_blocks[sk].value = 1
+            mo_ham(do)
+            g1, _ = _goc_canh_mieng(chon)
+            tang = (g1 - g0).max()
+            assert tang <= 30, f'{sk or "hàm"} {do}°: nếp gấp tăng {tang:.0f}°'
+    finally:
+        for m in sd:
+            m.show_viewport = False
+
+
+def kiem_cs_chi_mieng():
+    cs = [m for m in BODY.modifiers if m.type == 'CORRECTIVE_SMOOTH']
+    assert cs, 'Chưa có Corrective Smooth'
+    pb = RIG.pose.bones
+    pb['upper_arm.L'].rotation_euler.x = math.radians(80)
+    pb['forearm.L'].rotation_euler.x = math.radians(60)
+    doi_the_gioi('ik_foot.L', (0, 0, 0.15))
+    mo_ham(20)
+    co1 = eval_co()
+    for m in cs:
+        m.show_viewport = False
+    co0 = eval_co()
+    for m in cs:
+        m.show_viewport = True
+    ngoai = np.setdiff1d(np.arange(len(co0)), nhom_dinh('MIENG_MUOT'))
+    d = np.linalg.norm(co1[ngoai] - co0[ngoai], axis=1).max()
+    assert d < 0.0001, f'Corrective Smooth dời đỉnh ngoài vùng miệng {d * 1000:.2f} mm'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_khong_gap': kiem_khong_gap,
+    'kiem_cs_chi_mieng': kiem_cs_chi_mieng,
     'kiem_moi_day': kiem_moi_day,
     'kiem_ngam_kin': kiem_ngam_kin,
     'kiem_mieng_can_giua': kiem_mieng_can_giua,
