@@ -387,6 +387,12 @@ mat_nu.dung_mat(body, rig, coll)
 mat_nu.dung_may(body, rig, coll)
 MIENG = mat_nu.dung_mieng(body, rig, coll)
 mat_nu.dung_shape_key_mieng(body, MIENG['vung_dinh'], MIENG['tam_mieng'], HERE / 'khau-hinh.json')
+# --- độ mượt: Subdivision sau Armature (rig, shape key vẫn trên lưới thưa) ---
+for p_ in body.data.polygons:
+    p_.use_smooth = True
+sd = body.modifiers.new('Subdivision', 'SUBSURF')
+sd.levels, sd.render_levels = 1, 2
+sd.uv_smooth = 'PRESERVE_BOUNDARIES'
 rig.update_tag()
 bpy.context.view_layer.update()
 

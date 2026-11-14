@@ -640,8 +640,18 @@ def dung_mieng(body, rig, coll):
     lap_f = [f for f in lap_f if f not in bo]
     for f in moi + lap_f:
         f.smooth = True
-        if f.normal.y > 0:
-            f.normal_flip()
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])  # pháp tuyến nhất quán toàn lưới (lật từng mặt gây khía khi chia mịn)
+    # crease khe môi + thành trong: Subdivision không bo tròn mép môi (môi khép khít khi ngậm)
+    cr = bm.edges.layers.float.get('crease_edge') or bm.edges.layers.float.new('crease_edge')
+    for vong in (rings[0], trong):
+        for j in range(N):
+            e = bm.edges.get((vong[j], vong[(j + 1) % N]))
+            if e:
+                e[cr] = 1.0
+    for j in range(N):
+        e = bm.edges.get((rings[0][j], trong[j]))
+        if e:
+            e[cr] = 1.0
     uvl = bm.loops.layers.uv[0]
     for f in moi + lap_f:
         for q in f.loops:
@@ -809,6 +819,7 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         kb = body.shape_key_add(name=ten, from_mix=False)
         kb.data.foreach_set('co', (co + d).astype(np.float32).ravel())
         kb.slider_min, kb.slider_max = 0.0, 1.0
+        kb.value = 0.0  # shape key mới mặc định 1.0: phải tắt để file ở dáng nghỉ
     if out_json:
         Path_ = __import__('pathlib').Path
         Path_(out_json).write_text(json.dumps({k: {'am': v[0], 'shape_key': v[1], 'jaw_do': v[2]}

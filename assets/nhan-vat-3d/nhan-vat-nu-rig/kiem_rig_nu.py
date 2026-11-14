@@ -12,6 +12,8 @@ import numpy as np
 
 RIG = bpy.data.objects.get('Nu_Rig')
 BODY = bpy.data.objects.get('Nu_Than')
+# trạng thái lúc vừa mở file (trước mọi dat_lai): file giao phải ở dáng nghỉ
+LUC_MO = {kb.name: kb.value for kb in BODY.data.shape_keys.key_blocks[1:]} if BODY and BODY.data.shape_keys else {}
 
 
 def eval_co(ob=None):
@@ -27,7 +29,11 @@ def eval_co(ob=None):
 
 
 def dat_lai():
-    """Đưa mọi xương về dáng nghỉ và thuộc tính về mặc định."""
+    """Đưa mọi xương về dáng nghỉ và thuộc tính về mặc định. Tắt Subdivision ở viewport để chỉ số đỉnh ổn định."""
+    for ob in bpy.data.objects:
+        for md in ob.modifiers:
+            if md.type == 'SUBSURF':
+                md.show_viewport = False
     for p in RIG.pose.bones:
         p.location = (0, 0, 0)
         p.rotation_mode = 'XYZ'
@@ -396,7 +402,22 @@ def kiem_bang_khau_hinh():
             assert am_bang.count(x) == 1, f'Âm "{x}" xuất hiện {am_bang.count(x)} lần'
 
 
+def kiem_muot():
+    mods = [m.type for m in BODY.modifiers]
+    assert 'SUBSURF' in mods, f'Nu_Than chưa có Subdivision: {mods}'
+    assert mods.index('SUBSURF') > mods.index('ARMATURE'), f'Subdivision phải sau Armature: {mods}'
+    md = next(m for m in BODY.modifiers if m.type == 'SUBSURF')
+    assert md.levels >= 1 and md.render_levels >= 2, f'Mức chia {md.levels}/{md.render_levels}'
+
+
+def kiem_file_o_dang_nghi():
+    bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
+    assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
+
+
 KIEM = {
+    'kiem_file_o_dang_nghi': kiem_file_o_dang_nghi,
+    'kiem_muot': kiem_muot,
     'kiem_du_shape_key': kiem_du_shape_key,
     'kiem_shape_key_chi_o_mieng': kiem_shape_key_chi_o_mieng,
     'kiem_khau_hinh_khac_nhau': kiem_khau_hinh_khac_nhau,
