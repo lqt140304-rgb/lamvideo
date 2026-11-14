@@ -539,8 +539,18 @@ def mixamo_map():
 
 def rename_mixamo(arm):
     """Đổi tên qua RNA: Blender tự sửa nhóm đỉnh, ràng buộc và đường dẫn driver theo tên mới."""
-    for old, new in mixamo_map().items():
+    mp = mixamo_map()
+    for old, new in mp.items():
         if old in arm.data.bones: arm.data.bones[old].name = new
+    ad = arm.animation_data      # đường dẫn driver là chuỗi: sửa tay các tên xương cũ (và các thuộc tính của hand.L/R)
+    for d in (ad.drivers if ad else []):
+        for v in d.driver.variables:
+            for t in v.targets:
+                for old, new in sorted(mp.items(), key=lambda kv: -len(kv[0])):
+                    t.data_path = t.data_path.replace(f'pose.bones["{old}"]', f'pose.bones["{new}"]')
+        d.data_path = d.data_path.replace('pose.bones["', 'pose.bones["')
+        for old, new in sorted(mp.items(), key=lambda kv: -len(kv[0])):
+            d.data_path = d.data_path.replace(f'pose.bones["{old}"]', f'pose.bones["{new}"]')
     arm['ten_xuong'] = 'Mixamo'
     print('  đã đổi tên xương sang chuẩn Mixamo')
 
