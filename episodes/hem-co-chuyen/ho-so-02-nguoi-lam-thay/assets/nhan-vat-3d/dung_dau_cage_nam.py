@@ -43,12 +43,12 @@ RINGS = [
     dict(ten='chan_mui',   z=1.147, zb=1.172, sx=1.02),
     dict(ten='mieng_tren', z=1.122, zb=1.150, sx=1.03),
     dict(ten='mieng',      z=1.099, zb=1.130, sx=1.04),
-    dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.00),
-    dict(ten='cam',        z=1.052, zb=1.094, sx=1.08, sf=1.06),
-    dict(ten='day_cam',    z=1.038, zb=1.066, w=0.090, yc=-0.046, f=0.128, b=0.128, n=2.0),
+    dict(ten='mieng_duoi', z=1.076, zb=1.110, sx=1.04),
+    dict(ten='cam',        z=1.058, zb=1.078, sx=1.06, sf=1.08),
+    dict(ten='day_cam',    z=1.042, zb=1.060, w=0.090, yc=-0.046, f=0.130, b=0.128, n=2.0),
     dict(ten='duoi_ham',   z=1.030, zb=1.050, w=0.074, yc=-0.022, f=0.096, b=0.094, n=2.0),
 ]
-OVERRIDE = {('mieng_duoi', 4): (-0.003, 0, 0), ('cam', 3): (-0.003, 0, 0), ('cam', 4): (-0.004, 0, 0.002)}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
+OVERRIDE = {('mieng_duoi', 4): (0.002, 0, 0), ('cam', 4): (-0.002, 0, 0)}          # (tên vòng, cột k) → (dx, dy, dz): chỉnh riêng một đỉnh của bảng
 NECK_N0_K = 1.04       # vòng cổ trên (7 đỉnh) rộng hơn vòng cổ thân một chút, chuyển mềm vào hàm
 
 # Mắt (hệ khung EYE_FRAMES của đầu cũ: u ngang, w dọc, h hướng ra khỏi mặt). Nhãn cầu là elip tròn xoay A × A × DD, đỉnh nhô APEX trước mặt phẳng tâm mắt.
@@ -58,7 +58,7 @@ EYE_A, EYE_DD, EYE_APEX = 0.060, 0.0192, 0.008       # cầu dẹt: ngang mặt 
 EYE_TUNE = dict(es=1.11, du=0.0065, dw=0.015, yaw=9.0)
 ES = EYE_TUNE['es']
 # Chỉnh mũi / cằm / nốt ruồi theo ảnh mẫu (Task 5; đọc bằng do_mau_nam.goi_y_tu_cage): độ dịch (m, thế giới: x ngang, y sâu — dương ra sau, z lên) của các đỉnh mũi và đáy cằm; mole_dx = dịch nốt ruồi vào giữa mặt.
-FACE_TUNE = dict(mui=(0.0, 0.0044, 0.0135), cam=(0.0, 0.0, -0.010), mole_dx=0.0065)
+FACE_TUNE = dict(mui=(0.0, 0.0044, 0.0135), cam=(0.0, 0.0, -0.012), mole_dx=0.0065)
 EYE_FLAT = 1.0         # mặt da quanh mắt của đầu cũ là yên ngựa (±8–13 mm trong r 5 cm): vòng biên mắt làm phẳng theo mặt phẳng khớp nhất; 0 = giữ nguyên yên ngựa
 T_LID = 0.0035         # bề dày mí trên (mẫu: mí dày trùm; trước 0,0025)
 W_LID = 0.0090         # độ cao đường mí trên so với tâm mắt (mẫu ≈ 8,6 mm; đầu cũ D.W_LID0 = 13,5 mm); chỉ cage này, không đổi đầu cũ
