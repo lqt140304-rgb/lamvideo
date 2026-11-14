@@ -2,7 +2,33 @@
 
 Thực hiện trên nhánh `fix/nam-cage-armpit`, từ `860807d` của `claude/elegant-knuth-w1im6b` (đã có bản gắn tay/chân `538aef4`). Không sửa thân voxel v2.11, không thay bàn tay/bàn chân mới hoặc nguồn đầu.
 
-## Vòng 2 — nâng hõm, sâu phía trên và chuyển mềm xuống tay
+## Vòng 3 — cân bằng vai/tay, hẹp gần vai
+
+Theo góp ý vòng 2 làm tay bị kênh: đưa vòng gốc bắp tay vào trong 5 mm và hạ 12 mm, giảm bán kính ngang vòng gốc 4 mm; đưa vòng giữa bắp tay vào trong 10 mm. Giữ trục nghỉ của khuỷu, vị trí cổ tay và bốn object tay/chân mới. Giảm crease từ 0,18 xuống 0,12.
+
+Thu riêng mặt trong bắp tay giữa 4 mm bằng `inner_relief` có trọng số theo góc của vòng cage: lớn nhất ở cạnh trong, giảm về 0 ở phía trước/sau, không đổi mép ngoài. Kết hợp đẩy điểm đáy nách phía thân ra ngoài 2 mm so với vòng 2 để khe hẹp ở đầu và mở mềm phía dưới, thay vì đẩy cả cánh tay ra xa để giữ khe.
+
+Kiểm trên bản lắp ráp so với vòng 2:
+
+- Đầu khe chiếu trước từ z 0,744 xuống 0,739 m, chỉ hạ 5 mm; vẫn cao hơn vòng 1 khoảng 50 mm.
+- Khe chiếu trước tại 8 / 25 / 50 mm dưới đầu khe rộng khoảng **3 / 4 / 4 mm** (lấy mẫu ngang 0,5 mm): phía gần vai hẹp hơn bên dưới. Không coi đây là độ sâu da.
+- Mép ngoài bắp tay trong vùng z 0,64–0,79 m thu từ x 256,90 xuống 251,74 mm, khoảng 5,15 mm mỗi bên. Không scale toàn thân.
+- Vòng cổ tay trên thân giữ nguyên; `Head_Base` và bốn object tay/chân giữ nguyên dữ liệu vertex. Thân đối xứng; 12 kiểm cage/assembly và 9 kiểm nối đạt, chưa kiểm biến dạng.
+
+File local mới nhất: `what-if-studio/out/ho-so-02-nguoi-lam-thay/armpit-v3/Nam_Cage_Nach_CanBang.blend`. Ảnh trước–sau ở `armpit-v3/doi-chieu/`, JSON kiểm cân bằng ở `armpit-v3/kiem-tra/`. Giữ các snapshot vòng 1/2 riêng.
+
+Lệnh dựng và soi nguồn hiện tại:
+
+```bash
+blender -b -t 4 --python-exit-code 1 --python episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat-3d/gan_tay_chan_nam.py -- --check --blend what-if-studio/out/ho-so-02-nguoi-lam-thay/armpit-v3/Nam_Cage_Nach_CanBang.blend
+blender -b -t 4 --python-exit-code 1 --python episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat-3d/soi_nach_nam.py -- --before what-if-studio/out/ho-so-02-nguoi-lam-thay/armpit-v2/Nam_Cage_Nach_Cao.blend --after what-if-studio/out/ho-so-02-nguoi-lam-thay/armpit-v3/Nam_Cage_Nach_CanBang.blend --arm-falloff-z .50 --min-gap-rise -.02 --check-balance --out what-if-studio/out/ho-so-02-nguoi-lam-thay/armpit-v3/kiem-tra --render --samples 16
+```
+
+`--min-gap-rise -.02` cho phép hạ nhẹ tối đa 20 mm để cân bằng; số đo thực là 5 mm. `--check-balance` yêu cầu hình chiếu khe gần vai hẹp hơn phía dưới và mép ngoài bắp tay thu vào ít nhất 3 mm, đồng thời giữ các kiểm bảo toàn và nối.
+
+## Vòng 2 — lịch sử `d9d0649`
+
+Các lệnh dựng trong phần vòng 2 bên dưới dùng với nguồn tại `d9d0649`; nguồn mới nhất dùng phần vòng 3 để không ghi đè snapshot cũ.
 
 Theo góp ý nách còn thấp, làm vai/tay có cảm giác như tay áo: nâng vùng `duoi_nguc` tại nách lên 46–65 mm trên cage, thu vào trong và đưa vòng gốc bắp tay từ z 0,718 lên 0,770 m. Điều chỉnh trục vòng gốc và vị trí vòng giữa bắp tay để chuyển tiếp xuống dưới; giữ nguyên vị trí khuỷu và vòng cổ tay. Cố định trục nghỉ cũ của vòng khuỷu để thay đổi bắp tay không truyền tới chỗ gắn bàn tay qua Subdivision.
 

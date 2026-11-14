@@ -51,19 +51,21 @@ LIMB_K = 1.06                                    # vòng cổ tay/mắt cá củ
 CAP_LEN = 0.015                                  # ống tay/chân đi tiếp vào trong bàn tay/chân rồi đóng nắp (giấu trong khối)
 STUB = 0.012                                     # đoạn cổ của bàn tay/chân cũ lồng vào trong ống
 Z_HANG = 0.025                                   # đỉnh háng thấp hơn mức day_chau
-# Nâng hõm nách về gần vai; độ lõm mạnh ở gốc rồi chuyển mềm xuống bắp tay.
+# Giữ hõm nách cao, miệng khe hẹp gần vai và chuyển mềm xuống bắp tay.
 # Giữ vị trí khuỷu/cổ tay; chuyển tiếp độ cong phía trên, không đổi tay/chân rời.
 CAGE_OVERRIDE = {                                # (tên mức, chỉ số đỉnh 0..6) → (dx, dy, dz), mét
     ('nguc', 2): (-0.006, 0.012, 0.004),
     ('nguc', 4): (-0.006, -0.008, 0.004),
     ('duoi_nguc', 2): (-0.006, 0.012, 0.046),
-    ('duoi_nguc', 3): (-0.012, 0.0, 0.065),
+    ('duoi_nguc', 3): (-0.010, 0.0, 0.065),
     ('duoi_nguc', 4): (-0.006, -0.010, 0.046),
 }
-AXILLA_CREASE = 0.18                             # hõm do hình khối; giảm giữ cạnh để không thành đường cắt tay áo
+AXILLA_CREASE = 0.12                             # nếp mềm; hõm do hình khối, không tạo mép sắc như tay áo
 ARM_RINGS = [   # tâm (x, y, z), rx nửa ngang, ry nửa sâu; 'ax' chỉnh riêng trục vòng gốc để hõm nách không bị kéo thấp
-    dict(ten='dau_bap_tay',   c=(0.188, 0.000, 0.770), rx=0.056, ry=0.052, ax=(0.3000, 0.0, -0.953939)),
-    dict(ten='giua_bap_tay',  c=(0.204, 0.000, 0.660), rx=0.056, ry=0.054),
+    # Thu phần ngoài của gốc tay và hạ nhẹ: vai không bị đội lên; mép trong
+    # vẫn gặp đáy nách cao. Bắp tay giữa về gần thân, giữ khuỷu/cổ tay đã khớp.
+    dict(ten='dau_bap_tay',   c=(0.183, 0.000, 0.758), rx=0.052, ry=0.052, ax=(0.3000, 0.0, -0.953939)),
+    dict(ten='giua_bap_tay',  c=(0.194, 0.000, 0.660), rx=0.056, ry=0.054, inner_relief=0.004),
     # Trục nghỉ cũ = c(giua_cang_tay) - c(giua_bap_tay cũ): giữ vòng khuỷu
     # để thay đổi gốc tay không truyền qua Subdivision tới cổ tay đã gắn.
     dict(ten='khuyu',         c=(0.214, -0.003, 0.605), rx=0.053, ry=0.051, ax=(0.029, -0.005, -0.110)),
@@ -126,7 +128,12 @@ def build_cage(coll):
         cs = [start] + [Vector(r['c']) for r in rings]; prev = loop
         for n_, r in enumerate(rings):
             nxt = cs[n_ + 2] if n_ + 2 < len(cs) else cs[n_ + 1] + (cs[n_ + 1] - cs[n_])
-            ring = [bm.verts.new(p) for p in limb_ring(r['c'], cs[n_], nxt, r['rx'], r['ry'], r.get('ax'))]
+            points = limb_ring(r['c'], cs[n_], nxt, r['rx'], r['ry'], r.get('ax'))
+            # Chỉ thu mặt trong tay (nửa cage +X), không đẩy đường bao ngoài ra:
+            # khe mở dần xuống dưới trong khi bắp tay vẫn thả gần thân.
+            for j, p in enumerate(points):
+                p.x += r.get('inner_relief', 0.0) * max(0.0, -math.cos(math.pi * j / 4)) ** 2
+            ring = [bm.verts.new(p) for p in points]
             for v in ring: v[layer] = 1.0
             for j in range(8): bm.faces.new((prev[j], ring[j], ring[(j + 1) % 8], prev[(j + 1) % 8]))
             prev = ring

@@ -46,6 +46,23 @@ def front_gap_top(ob):
     raise AssertionError('Không đo được khe tay–thân có da hai bên trong vùng nách')
 
 
+def front_gap_widths(ob, heights):
+    """Bề rộng khe chiếu trước ở các cao độ; không đo bóng hoặc độ sâu da."""
+    bv = BVHTree.FromObject(ob, bpy.context.evaluated_depsgraph_get())
+    widths = []
+    for z in heights:
+        seen, missing, largest = False, 0, 0
+        for x in np.arange(.07, .2901, .0005):
+            hit = bv.ray_cast((float(x), -1., float(z)), (0., 1., 0.))[0]
+            if hit is not None:
+                if seen: largest = max(largest, missing)
+                seen, missing = True, 0
+            elif seen:
+                missing += 1
+        widths.append(largest * .0005)
+    return widths
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--before', required=True)
@@ -55,7 +72,8 @@ def main():
     ap.add_argument('--samples', type=int, default=48)
     ap.add_argument('--arm-falloff-z', type=float, default=.58,
                     help='Giới hạn dưới vùng tay được chỉnh: .58 cho vòng 1, .50 cho chuyển tiếp sâu vòng 2; mét')
-    ap.add_argument('--min-gap-rise', type=float, default=0., help='Độ nâng tối thiểu của đầu khe chiếu trước; mét')
+    ap.add_argument('--min-gap-rise', type=float, default=0., help='Độ nâng tối thiểu; số âm cho phép hạ nhẹ để cân bằng, mét')
+    ap.add_argument('--check-balance', action='store_true', help='Kiểm tay thu vào và khe hẹp dần về phía vai ở vòng cân bằng')
     args = ap.parse_args(sys.argv[sys.argv.index('--') + 1:])
     if not .50 <= args.arm_falloff_z <= .58:
         ap.error('--arm-falloff-z phải trong khoảng .50–.58 m, không bao gồm vòng cổ tay')
@@ -89,9 +107,19 @@ def main():
         'chi_thay_doi_vung_nach_va_nguc_ke_can': bool((d[~local] < 1e-7).all()),
         'than_doi_xung': symmetry < 1e-6,
         'vong_co_tay_tren_than_giu_nguyen': bool((d[wrist_zone] < 1e-7).all()),
-        'dau_khe_duoc_nang': after_top - before_top >= args.min_gap_rise - 1e-7,
+        'dau_khe_trong_gioi_han': after_top - before_top >= args.min_gap_rise - 1e-7,
         **{'giu_nguyen_' + n: bool(ok) for n, ok in preserved.items()},
     }
+    balance = None
+    if args.check_balance:
+        heights = [after_top - dz for dz in (.008, .025, .050)]
+        widths = front_gap_widths(asm, heights)
+        zone = (A[:, 0] > .16) & (A[:, 2] > .64) & (A[:, 2] < .79)
+        outer_old, outer_new = float(A[zone, 0].max()), float(B[zone, 0].max())
+        check['khe_gan_vai_hep_hon_phia_duoi'] = 0 < widths[0] < widths[-1]
+        check['bap_tay_thu_vao'] = outer_new < outer_old - .003
+        balance = {'cao_do_m': heights, 'rong_khe_mm': [w * 1000 for w in widths],
+                   'mep_ngoai_tay_mm': {'truoc': outer_old * 1000, 'sau': outer_new * 1000}}
     cage_checks = C.check_all(bpy.context.scene)
     # Kiểm cũ đòi bàn chân có biên hở vì lấy từ thân voxel cũ.
     # Tay/chân mới của 538aef4 là mesh kín; dùng 9 check_seams của chính entry gắn thay thế.
@@ -107,6 +135,7 @@ def main():
         'sai_so_doi_xung_mm': symmetry * 1000,
         'vung_chuyen_tiep_tay_toi_z': args.arm_falloff_z,
         'dau_khe_chieu_truoc_m': {'truoc': before_top, 'sau': after_top, 'nang_mm': (after_top - before_top) * 1000},
+        'can_bang_vai_tay': balance,
         'cage': cage_checks, 'noi_tay_chan_moi': seams,
         'kiem_cu_khong_ap_dung': 'tay_chan_trong_ong đòi vòng cắt chân cũ; thay bằng check_seams của gan_tay_chan_nam.py',
         'gioi_han': 'Chỉ kiểm hình tĩnh; chưa rig hoặc kiểm biến dạng vai/nách.',
