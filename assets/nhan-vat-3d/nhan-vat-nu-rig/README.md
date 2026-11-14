@@ -69,11 +69,11 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 
 - **File giao:** file đang ở dáng nghỉ; thân có Subdivision.
 - **Texture:** vật liệu dùng texture da.
-- **Ngón tay:** từng ngón cong riêng; nắm tay có tác dụng, kể cả khi đang bật IK.
+- **Ngón tay:** từng ngón cong riêng; tay trái và phải gập như nhau; nắm tay có tác dụng, kể cả khi đang bật IK.
 - **IK:** cổ tay bám `ik_hand`; bật IK không làm lệch dáng nghỉ; tắt IK thì FK chạy.
 - **Mắt:** nhìn theo `look`; chớp che kín lòng trắng, kể cả khi đang nhìn lên.
 - **Mày:** tách khỏi thân và nâng được; trán liền, không hở.
-- **Miệng:** vùng lưới dày, không có viền hở; mở hàm kéo theo môi dưới, răng dưới, lưỡi; răng và khoang miệng không xuyên da; màu vùng miệng mới khớp mẫu.
+- **Miệng:** vùng lưới dày, không có viền hở; mở hàm kéo theo môi dưới, răng dưới, lưỡi; khi mở hàm 20° và cười, 135 tia quanh miệng (bật Subdivision) không thấy răng hay khoang miệng xuyên da. Màu vùng miệng mới chỉ duyệt bằng mắt, chưa có kiểm tự động.
 - **Shape key:** đủ tên; chỉ dời vùng miệng; các khẩu hình khác nhau; kéo khóe hai bên đối xứng; bảng âm đầy đủ.
 
 Đường nối UV (`duong-noi-uv.json`) được xuất bằng `xuat_duong_noi_uv.py` từ base gốc. `da_lien_mau.py` dùng file này để chuyển màu hai phía đường nối ở cổ tay và cổ chân.
@@ -82,6 +82,9 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 
 - **Quanh mắt và mày:** còn mảnh vạt mi cũ màu đen ở khóe trên ngoài, và mép rách ở chỗ khoét. Subdivision làm các chỗ này lộ rõ hơn khi quay cận. Cần nặn tay vùng mí trước khi quay cận mặt.
 - **Mắt nhắm:** còn một vệt đen nhỏ ở khóe trong mắt phải.
+- **Hai mắt khác hình:** hốc mắt phải khoét hẹp hơn mắt trái, nên lúc nghỉ mắt phải tròn và hẹp, mắt trái hình hạnh nhân (lòng trắng lộ ở mắt phải chỉ bằng khoảng một nửa). Cần nặn lại hốc mắt phải trước khi quay cận.
+- **Chưa "mở to" mắt được:** mí mở dừng đúng theo nét mắt vẽ, nên không mở rộng hơn hốc đã khoét. Muốn có, phải nới hốc mắt và thêm shape key `mo_to`.
+- **Kiểm mắt và chớp** mới chạy trên mắt trái; mắt phải mới xem bằng ảnh.
 - **Dáng nghỉ của mắt:** nhìn thẳng, con ngươi giữa hốc. Ảnh mẫu thì đang liếc sang bên; muốn giống ảnh mẫu thì kéo `look`.
 - **Nâng mày cao:** thấy vệt mảnh của dải mày cũ trên trán.
 - **Miệng:** bên phải miệng có vệt răng cưa mảnh do đường nối UV gốc chạy qua.
