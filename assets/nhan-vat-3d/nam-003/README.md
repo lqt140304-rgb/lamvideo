@@ -128,3 +128,8 @@ Làm mượt trọng số (Laplace, chỉ nhóm xương biến dạng, bỏ nhó
 | Gối gập, khuỷu gập | co nếp | không đổi (co nếp tự nhiên; mặt cắt gối 71% ở 145°) |
 
 Chuyển động (đo lại, Corrective Smooth bật): đi bộ 0 cạnh >2× (max 1,71×), chạy 0 (1,95×), ngồi 0 (1,73×), nằm lăn 0 (1,58×), bò 0 (1,94×), trườn 1 cạnh (2,18×). 17/17 bài kiểm cổ vẫn đạt. Video trong `chuyen-dong/` đã dựng lại trên rig mới. Còn lại: cạnh co <0,4× ở bò/trườn/ngồi (600–800, phần lớn ở nếp háng/gối, chưa soi ảnh cận); háng gập tối đa nên giữ ≤110°.
+
+### Tay buông, nách và dáng chạy (15/11/2026, vòng 2)
+
+- **Tay buông:** góc cũ 78° để lại khe 4 cm ở nách tới 10 cm ở cổ tay (chữ V, thừa chỗ ở nách). Đo khe tay–thân theo độ cao rồi chọn vai hạ 6°, bắp tay 86°, cẳng tay hất ra 20°, dời bắp tay vào 2 cm (`ARM_DOWN`, `tay_vao` trong `chuyen_dong_nam003.py`): khe ≈ 2 cm nách, 1 cm khuỷu, 4 cm cổ tay (thu hẹp dần về phía nách). Tạm là chỉnh ở tư thế; chưa đưa thành driver trong rig, chưa chỉnh lưới/trọng số vai.
+- **Chạy/đi:** đích cổ chân vượt tầm với của chân (đi 1,045·L, chạy 1,08·L, L=0,802 m): gối khoá thẳng, IK lệch đích 4–6 cm = chân méo. Nay hạ hông khi cần để tầm ≤ 0,97·L (`REACH`), chạy bước ±0,36 m thay vì ±0,475 m (chân sau không còn duỗi thẳng ngang), nâng đích cổ chân 4 cm để bàn chân không lún sàn (trước −3,6 cm khi đích với được, nay +0,4 cm). Lệch đích còn 0 cm.

@@ -103,6 +103,7 @@ def ap_dung(c, P, floor=0.0):
     def run(dz):
         c.reset()
         for bn, ax, deg in P.get('fk', []): c.rot(bn, ax, deg)
+        if any(b == 'LeftArm' and a == Y and abs(d - 86) < 1e-6 for b, a, d in P.get('fk', [])): tay_vao(c)   # tay buông chuẩn thì dời bắp tay vào
         for S in ('Left', 'Right'):
             for pr, v in P.get('ngon', {}).items(): c.pb[f'{S}Hand'][pr] = v
         loc, eul = P['root']; c.place('root', (loc[0], loc[1], loc[2] + dz), eul)
@@ -130,9 +131,12 @@ def phase_foot(phi, S, H, ground_frac=0.6, lift_pow=1.3):
     return dy, dz, -25 * (1 - t) ** 2 + 12 * t ** 3
 
 
+REACH = 0.97     # tầm với tối đa của chân khi đi/chạy (tỉ lệ chiều dài chân)
+
+
 def dong_di(c, f, tong, chay=False):
     N = tong; phi0 = (f % N) / N
-    S, H = (0.95, 0.20) if chay else (0.70, 0.09)
+    S, H = (0.72, 0.24) if chay else (0.70, 0.09)   # chạy: bước ±0,36 m (cũ 0,95 → ±0,475 m là dạng chân bổ nhào, chân sau duỗi thẳng ngang)
     stance_x = 0.095 if not chay else 0.085            # bàn chân đặt gần trục giữa (mắt cá nghỉ ở x 0,148 là dạng chân quá rộng)
     gf = 0.38 if chay else 0.6
     c.reset()
@@ -142,10 +146,18 @@ def dong_di(c, f, tong, chay=False):
     bob = (-0.05 if chay else -0.025) - bob_amp * math.cos(4 * math.pi * phi0)
     sway = (0.012 if chay else 0.022) * math.sin(2 * math.pi * phi0)
     root_loc = Vector((0, fwd, 0)); c.place('root', root_loc)
+    tg = {}
     for k, off, sx in (('L', 0.0, 1), ('R', 0.5, -1)):
         phi = (phi0 + off) % 1.0; dy, dz, pit = phase_foot(phi, S, H, gf)
-        a = Vector((sx * stance_x, ankle0[k].y + dy + fwd, ankle0[k].z + dz + 0.0)); foot(c, k, a, pit)
-    hp = c.head['Hips'] + Vector((sway, fwd, bob)); yaw = (9 if chay else 7) * math.cos(2 * math.pi * phi0)
+        tg[k] = (Vector((sx * stance_x, ankle0[k].y + dy + fwd, ankle0[k].z + dz + 0.04)), pit)
+    hp = c.head['Hips'] + Vector((sway, fwd, bob))
+    # chân không được duỗi quá tầm: chân dài L, đích cổ chân cách hông ≤ REACH·L, nếu hơn thì hạ hông (đo 15/11: đi bộ tầm 1,045·L, chạy 1,08·L → gối khoá thẳng, IK kéo lệch đích 4–6 cm = chân méo)
+    L_leg = (c.head['LeftLeg'] - c.head['LeftUpLeg']).length + (c.head['LeftFoot'] - c.head['LeftLeg']).length
+    for k, sx in (('L', 1), ('R', -1)):
+        hj = c.head[f'{"Left" if k == "L" else "Right"}UpLeg'] + (hp - c.head['Hips']); a, _ = tg[k]; r2 = (REACH * L_leg) ** 2 - (a.x - hj.x) ** 2 - (a.y - hj.y) ** 2
+        if hj.z > a.z + math.sqrt(max(r2, 0.0)): hp.z -= hj.z - (a.z + math.sqrt(max(r2, 0.0)))
+    for k in 'LR': foot(c, k, tg[k][0], tg[k][1])
+    yaw = (9 if chay else 7) * math.cos(2 * math.pi * phi0)
     c.place('Hips', hp, euler_deg=(0, -3 * math.cos(2 * math.pi * phi0), yaw))
     lean = 14 if chay else 3
     c.rot('Spine', X, -lean * 0.4 if chay else 0); c.rot('Spine', Z, -yaw * 0.5); c.rot('Spine1', Z, -yaw * 0.4); c.rot('Spine2', Z, -yaw * 0.4)
@@ -154,7 +166,8 @@ def dong_di(c, f, tong, chay=False):
     c.rot('Neck', Z, yaw * 0.3); c.rot('Head', Z, yaw * 0.3); c.rot('Head', X, (lean * 0.9) if chay else -2)
     swing = (46 if chay else 24) * math.cos(2 * math.pi * phi0)
     for S_, s in (('Left', 1), ('Right', -1)):
-        c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 78); c.g['rot_world'](c.arm, f'{S_}Arm', X, s * swing)
+        c.g['rot_world'](c.arm, f'{S_}Shoulder', (0, 1, 0), s * 6); c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 86); c.g['rot_world'](c.arm, f'{S_}ForeArm', (0, 1, 0), -s * 20)
+        c.g['move_world'](c.arm, f'{S_}Arm', (-s * 0.02, 0, 0)); c.g['rot_world'](c.arm, f'{S_}Arm', X, s * swing)
         elbow = (80 + 25 * max(0.0, -s * math.cos(2 * math.pi * phi0))) if chay else (18 + 12 * max(0.0, -s * math.cos(2 * math.pi * phi0)))
         c.g['rot_world'](c.arm, f'{S_}ForeArm', X, -elbow); c.g['rot_world'](c.arm, f'{S_}Hand', Z, -s * 8)
         hb = c.pb[f'{S_}Hand']; base = 0.55 if chay else 0.24
@@ -162,7 +175,12 @@ def dong_di(c, f, tong, chay=False):
     return root_loc
 
 
-ARM_DOWN = [('LeftArm', Y, 78), ('RightArm', Y, -78)]
+# Tay buông (chọn 15/11 bằng khe tay–thân đo theo độ cao, xem README): vai hạ 6°, bắp tay 86°, cẳng tay hất ra 20°, dời bắp tay vào 2 cm
+# → khe ~2 cm ở nách, ~1 cm ở khuỷu, ~4 cm ở cổ tay (trước: 4 → 10 cm với 78°).
+TAY_DX = 0.02
+ARM_DOWN = [('LeftShoulder', Y, 6), ('RightShoulder', Y, -6), ('LeftArm', Y, 86), ('RightArm', Y, -86), ('LeftForeArm', Y, -20), ('RightForeArm', Y, 20)]
+def tay_vao(c):
+    for S_, s in (('Left', 1), ('Right', -1)): c.g['move_world'](c.arm, f'{S_}Arm', (-s * TAY_DX, 0, 0))
 
 
 def dong_ngoi_ghe(c, f, N):
@@ -173,7 +191,7 @@ def dong_ngoi_ghe(c, f, N):
     ank_y = lerp(0.05, -0.30, sit)
     arm_fwd = 28 * sit; elbow = 55 * sit
     P = {'fk': [('Spine', X, lean * 0.4), ('Spine1', X, lean * 0.35), ('Spine2', X, lean * 0.25), ('Head', X, -lean * 0.5),
-                ('LeftArm', Y, 78), ('RightArm', Y, -78), ('LeftArm', X, arm_fwd), ('RightArm', X, arm_fwd), ('LeftForeArm', X, -elbow), ('RightForeArm', X, -elbow)],
+                *ARM_DOWN, ('LeftArm', X, arm_fwd), ('RightArm', X, arm_fwd), ('LeftForeArm', X, -elbow), ('RightForeArm', X, -elbow)],
          'root': ((0, 0, 0), (0, 0, 0)), 'hips': tuple(hp),
          'ik_foot': {'L': (0.11, ank_y, 0.08), 'R': (-0.11, ank_y, 0.08)}, 'ngon': {'nam_tro': 0.3, 'nam_giua': 0.35, 'nam_ap': 0.4, 'nam_cai': 0.2}}
     return ap_dung(c, P)
@@ -183,7 +201,7 @@ def dong_nam_lan(c, f, N):
     """Nằm ngửa → lăn 360° sang một bên (ngửa → nghiêng → sấp → nghiêng → ngửa) → nằm ngửa."""
     th = 360.0 * ss((f - 20) / 76.0) if f >= 20 else 0.0
     th = min(360.0, th)
-    arms = [('LeftArm', Y, 78), ('RightArm', Y, -78)]
+    arms = list(ARM_DOWN)
     P = {'fk': arms, 'root': ((-math.radians(th) * 0.16, -0.95, 0.0), (-90, th, 0)), 'ground': True,
          'ngon': {'nam_tro': 0.2, 'nam_giua': 0.25, 'nam_ap': 0.3, 'nam_cai': 0.2}}
     return ap_dung(c, P)
