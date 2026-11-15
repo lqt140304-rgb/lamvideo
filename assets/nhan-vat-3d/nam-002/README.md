@@ -97,3 +97,5 @@ Mắt vẽ trên texture đã được thay bằng mắt 3D, phần này nằm t
 Viền mắt được vẽ lại thành nét tối đều, dày 4 mm, chạy theo đúng mép hốc. Các mẩu nét cũ và mảng trắng sót trong khoảng 1,3 lần bán kính ngoài viền được tô lại bằng màu da (chừa vùng lông mày).
 
 Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn một gờ mờ do khối mắt cũ trên lưới. Chưa có mí dưới. Lông mày vẫn là hình vẽ trên texture, chưa cử động được.
+
+**Viền mắt 3D (15/11/2026):** bỏ nét viền vẽ trên texture, dải đó được tô lại màu da. Thay vào đó là một ống NURBS khép kín, nét dày khoảng 2,2 mm, chạy qua 64 điểm trên da ngay ngoài mép lỗ, gắn theo xương `Head`. Viền trơn ở mọi góc nhìn và mảnh hơn trước. Mặt trước nhãn cầu nhô 6 mm (trước là 2 mm), sâu 21 mm, nên cong phồng hơn. Còn vài chấm tối li ti ở mép dưới hốc (mép lưới da khoét).

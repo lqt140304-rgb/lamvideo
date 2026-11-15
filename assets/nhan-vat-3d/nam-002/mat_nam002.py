@@ -114,7 +114,7 @@ def _hemi(R, ang):
     return bm
 
 
-LOI = 0.002      # mặt trước nhãn cầu nhô trước mặt phẳng mép hốc
+LOI = 0.006      # mặt trước nhãn cầu nhô trước mặt phẳng mép hốc
 KHIT = 1.02      # nhãn cầu rộng hơn lỗ 2 % (vừa đủ che khe, không lấn nét viền vẽ)
 NGHIENG_DUOI = 0.0  # độ: ngả nhãn cầu quanh trục ngang để nửa dưới nhô ra (da gò má dưới mắt cao hơn)
 LUI_MEP = 0.0025 # ở mép lỗ, mặt nhãn cầu nằm sau mặt phẳng mép hốc chừng này
@@ -149,6 +149,24 @@ def _uon(co, ax_, az_):
     th = math.atan2(z / az_, x / ax_); w = min(1.0, (x / ax_) ** 2 + (z / az_) ** 2)
     h = float(np.interp(th, th0, h0, period=2 * np.pi))
     return Vector((x, y - h * w, z))
+
+
+VIEN_R = 0.0011   # bán kính ống viền 3D (nét ≈ 2,2 mm)
+
+
+def _vien_3d(sc, body, cx, k):
+    """Đường viền 3D trơn ôm mép hốc: NURBS khép kín qua 64 điểm trên da ngay ngoài mép lỗ, tiết diện tròn."""
+    a_, b_ = RX - VIEN + 0.0006, RZ - VIEN + 0.0006
+    pts = []
+    for th in np.linspace(0, 2 * np.pi, 64, endpoint=False):
+        x = cx + a_ * math.cos(th); z = EYE_Z + b_ * math.sin(th); pts.append((x, _surface_y(body, x, z) - 0.0002, z))
+    cu = bpy.data.curves.new(f'Vien.{k}', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = VIEN_R; cu.bevel_resolution = 4; cu.resolution_u = 6
+    sp = cu.splines.new('NURBS'); sp.points.add(len(pts) - 1)
+    for p_, q in zip(sp.points, pts): p_.co = (*q, 1)
+    sp.use_cyclic_u = True; sp.order_u = 4
+    ob = bpy.data.objects.new(f'Vien.{k}', cu); sc.collection.objects.link(ob)
+    m = bpy.data.materials.get('vien_mat') or _mat('vien_mat', (0.18, 0.11, 0.08), 0.6); cu.materials.append(m)
+    return ob
 
 
 def tao_mat(sc, body):
@@ -186,7 +204,7 @@ def tao_mat(sc, body):
         sol = l.modifiers.new('day', 'SOLIDIFY'); sol.thickness = 0.0012; sol.offset = 1
         lme.materials.append(lm)
         for p in lme.polygons: p.use_smooth = True
-        objs[k] = (e, l, ctr.copy())
+        objs[k] = (e, l, ctr.copy(), _vien_3d(sc, body, cx, k))
         tilt = math.degrees(math.acos(max(-1, min(1, -n.y))))
         print(f'  mắt {k}: mép hốc nghiêng {tilt:.1f}° so với nhìn thẳng; nhãn cầu {2 * ax_ * 1000:.0f} × {2 * az_ * 1000:.0f} mm, sâu {2 * dep * 1000:.0f} mm, nhô {LOI * 1000:.0f} mm trước mép')
     return objs
@@ -204,8 +222,8 @@ def gan_mat(arm, objs):
     bpy.ops.object.mode_set(mode='OBJECT')
     hb = arm.data.bones['Head']
     for k in ('L', 'R'):
-        e, l, c = objs[k]
-        for ob in (e, l):
+        e, l, c, vn = objs[k]
+        for ob in (e, l, vn):
             w = ob.matrix_world.copy(); ob.parent = arm; ob.parent_type = 'BONE'; ob.parent_bone = 'Head'
             bpy.context.view_layer.update(); ob.matrix_world = w
         # liếc: góc = atan(dời / 0,45 m) theo hai trục (dời ngang thế giới X → quay quanh Z; dời dọc Z → quay quanh X)
