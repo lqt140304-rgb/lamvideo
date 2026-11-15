@@ -86,7 +86,7 @@ def chuyen_trong_so(ob, body, arm, loai: str, che_do: str = 'tho') -> None:
             W = _lap(W, i0, i1, mask, 35, 0.5)
         s_ = W.sum(1, keepdims=True); s_[s_ < 1e-6] = 1; W = W / s_
         _write(ob, W, names)
-    bpy.context.view_layer.objects.active = ob
+    bpy.context.view_layer.objects.active = ob      # 'ALL' là đủ: nhóm phụ cs_* đã bị bỏ ở trên (BONE_DEFORM chưa dùng được khi chưa có modifier Armature)
     bpy.ops.object.vertex_group_limit_total(group_select_mode='ALL', limit=4); bpy.ops.object.vertex_group_normalize_all(group_select_mode='ALL', lock_active=False)
     if not any(m.type == 'ARMATURE' for m in ob.modifiers):
         m = ob.modifiers.new('arm', 'ARMATURE'); m.object = arm

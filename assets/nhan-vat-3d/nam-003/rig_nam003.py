@@ -5,9 +5,9 @@
 Mô hình: người lớn T-pose cao 1,824 m, sải tay 1,774 m, lưới tam giác ~44,6 nghìn đỉnh sau khi hàn đỉnh trùng ở đường nối UV, KHÔNG có texture, mặt chưa có mắt/mày/miệng.
 BÀN TAY 4 NGÓN (3 ngón dài + ngón cái) theo mô hình gốc: dùng tên Mixamo Index, Middle, Ring, Thumb (không có Pinky).
 Không viết lại thuật toán: đọc ../nam-002/rig_nam002.py, bỏ dòng gọi main(), vá hằng số rồi chạy lại các hàm build_armature / bind / stretch.
-Hai chỗ là ƯỚC LƯỢNG, không phải đo chắc: (1) khuỷu, gối, cổ chân (tay chân duỗi thẳng nên không có điểm nổi bật); khuỷu và gối đã được chọn bằng cách thử nhiều vị trí và đo biến dạng (README), cổ chân vẫn ước;
+Hai chỗ là XẤP XỈ, không phải đo chắc: (1) khuỷu, gối, cổ chân (tay chân duỗi thẳng nên không có điểm nổi bật) đã được chọn bằng cách thử nhiều vị trí và đo biến dạng (README);
 (2) clean_weights của nam-002 có ngưỡng theo tọa độ riêng, nên ở đây tọa độ được ánh xạ tuyến tính từng đoạn (MAPCO) về khung của nam-002 chỉ để tính trọng số.
-Chưa có: mắt, mày, miệng, biểu cảm; trọng số cổ cần chỉnh (quay đầu 35° nếp dưới hàm, đo thử dài thêm ~13 mm).
+Cổ: xương phụ NeckBlend1/2 + Corrective Smooth riêng (co_nam003.py, đo bằng kiem_co_nam003.py). Chưa có: mắt, mày, miệng, biểu cảm.
 """
 import sys, os, math, time, argparse
 import numpy as np, bpy, bmesh
@@ -78,8 +78,8 @@ def main():
     import co_nam003 as CO; CO.add_neck_bones(arm); CO.set_neck_weights(body); CO.add_neck_cs(body)   # xương phụ cổ + trọng số gradient (thiết kế 15/11)
     print(f'  rig xong {time.time() - t0:.1f}s; {len(body.vertex_groups)} nhóm trọng số')
     # tối đa 4 xương/đỉnh (giới hạn Unity/Unreal/web)
-    bpy.context.view_layer.objects.active = body; bpy.ops.object.vertex_group_limit_total(group_select_mode='ALL', limit=4)
-    bpy.ops.object.vertex_group_normalize_all(group_select_mode='ALL', lock_active=False)
+    bpy.context.view_layer.objects.active = body; bpy.ops.object.vertex_group_limit_total(group_select_mode='BONE_DEFORM', limit=4)
+    bpy.ops.object.vertex_group_normalize_all(group_select_mode='BONE_DEFORM', lock_active=False)
     g['stretch'](arm, body)
     if a.anh: g['render_sheet'](sc, arm, os.path.abspath(a.anh))
     bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.out), compress=True)
