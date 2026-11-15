@@ -27,7 +27,19 @@ BIEU_CAM = {
     'mo_mang': {'may_ha': 0.5, 'meu': 0.2},
 }
 PROPS_MAY = ('may_nhuong', 'may_ha', 'may_cau', 'may_buon', 'may_trai_nhuong', 'may_phai_nhuong')
-PROPS_MIENG = ('mieng_ha', 'mieng_hep', 'mieng_rong', 'cuoi', 'meu')
+PROPS_MIENG = ('mieng_ha', 'mieng_hep', 'mieng_rong', 'cuoi', 'meu', 'mieng_khep')
+
+# KHẨU HÌNH (viseme) cho lip-sync tiếng Việt: nguyên âm + nhóm phụ âm; đặt bằng dung_viseme(arm, 'a')
+VISEME = {
+    'nghi': {},
+    'a': {'mieng_ha': 1.0, 'mieng_rong': 0.3},            # a, ă, â
+    'e': {'mieng_ha': 0.45, 'mieng_rong': 0.7},           # e, ê
+    'i': {'mieng_ha': 0.12, 'mieng_rong': 0.9},           # i, y
+    'o': {'mieng_ha': 0.55, 'mieng_hep': 0.55},           # o, ô, ơ
+    'u': {'mieng_ha': 0.1, 'mieng_hep': 0.9},             # u, ư
+    'mbp': {'mieng_khep': 1.0, 'mieng_rong': 0.2},        # m, b, p: môi khép
+    'khac': {'mieng_ha': 0.25, 'mieng_rong': 0.35},       # phụ âm còn lại: hé nhẹ
+}
 
 
 def _sm(e0, e1, t):
@@ -76,24 +88,33 @@ def _mieng(arm, body):
         'mieng_rong': (x * 0.55 * w, 0.0 * z),
         'cuoi': (x * 0.18 * w, 0.011 * _sm(0.004, 0.024, ax) * w),                                   # khóe kéo lên và ra
         'meu': (-x * 0.08 * w, -0.010 * _sm(0.004, 0.024, ax) * w),
+        'mieng_khep': (x * 0.22 * w, -z * 0.82 * w),                                                 # ép hình O thành đường mảnh (âm môi m, b, p)
     }
     for nm, (dx, dz) in out.items():
         kb = body.shape_key_add(name=nm, from_mix=False)
         newp = co.copy(); newp[:, 0] += dx; newp[:, 2] += dz
         kb.data.foreach_set('co', newp.ravel())
         _driver(kb, arm, [('a', nm)], 'a')
-    print(f'  miệng: {int((w > 0).sum())} đỉnh chịu kéo, 5 shape key')
+    print(f'  miệng: {int((w > 0).sum())} đỉnh chịu kéo, 6 shape key')
 
 
 def tao_bieu_cam(arm, body, may):
     _props(arm)
     for side, ob in may.items(): _may(arm, ob, side)
     _mieng(arm, body)
-    print('  biểu cảm: 4 shape key mày × 2 bên, 5 shape key miệng')
+    print('  biểu cảm: 4 shape key mày × 2 bên, 6 shape key miệng')
 
 
 def dung_bieu_cam(arm, ten):
     h = arm.pose.bones['Head']
     for pr in PROPS_MAY + PROPS_MIENG: h[pr] = 0.0
     for pr, v in BIEU_CAM[ten].items(): h[pr] = v
+    bpy.context.view_layer.update()
+
+
+def dung_viseme(arm, ten):
+    """Đặt khẩu hình: ten ∈ VISEME. Chỉ đổi các thuộc tính miệng, giữ nguyên lông mày."""
+    h = arm.pose.bones['Head']
+    for pr in PROPS_MIENG: h[pr] = 0.0
+    for pr, v in VISEME[ten].items(): h[pr] = v
     bpy.context.view_layer.update()

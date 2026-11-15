@@ -135,7 +135,25 @@ Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn m
 | Miệng | `mieng_ha` | há dọc (hình O cao ra, môi dưới xuống) |
 | | `mieng_hep`, `mieng_rong` | chúm / rộng ngang |
 | | `cuoi`, `meu` | khóe lên / xuống |
+| | `mieng_khep` | ép hình O thành đường mảnh (môi khép) |
 
 Miệng chữ O là hình vẽ dính lưới da nên biến dạng theo lưới quanh miệng (vùng bán kính 5 cm, tắt dần ra ngoài). Lông mày là tấm 3D `LongMay.L/R` có shape key riêng. Hàm `dung_bieu_cam(arm, ten)` đặt nhanh 8 biểu cảm: mac_dinh, ngac_nhien, tuc_gian, buon, vui, nghi_ngo, so_hai, mo_mang. [Ảnh 8 biểu cảm](bieu-cam.webp).
 
 Giới hạn: hình miệng vẽ chỉ co giãn và cong theo lưới, không đổi được sang hình miệng khác (ví dụ lộ răng, đường miệng thẳng). Muốn khẩu hình đủ phải thay miệng vẽ bằng miệng 3D như đã làm với mắt.
+
+## Khẩu hình (lip-sync)
+
+Bảng `VISEME` trong `bieu_cam_nam002.py` có 8 khẩu hình tiếng Việt, đặt bằng `dung_viseme(arm, ten)`. Hàm này chỉ đổi thuộc tính miệng, giữ nguyên lông mày:
+
+| Khẩu hình | Dùng cho | Pha các thuộc tính |
+|---|---|---|
+| `nghi` | im lặng | không có |
+| `a` | a, ă, â | `mieng_ha` 1,0 · `mieng_rong` 0,3 |
+| `e` | e, ê | `mieng_ha` 0,45 · `mieng_rong` 0,7 |
+| `i` | i, y | `mieng_ha` 0,12 · `mieng_rong` 0,9 |
+| `o` | o, ô, ơ | `mieng_ha` 0,55 · `mieng_hep` 0,55 |
+| `u` | u, ư | `mieng_ha` 0,1 · `mieng_hep` 0,9 |
+| `mbp` | m, b, p | `mieng_khep` 1,0 · `mieng_rong` 0,2 |
+| `khac` | phụ âm còn lại | `mieng_ha` 0,25 · `mieng_rong` 0,35 |
+
+[Ảnh 8 khẩu hình](khau-hinh.webp). Chưa có bộ máy tự đồng bộ với audio: việc ghép âm tiết với thời gian của file ElevenLabs phải làm sau khi có bản audio. Miệng vẫn là hình vẽ, chưa có răng hay lưỡi.
