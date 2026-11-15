@@ -52,15 +52,6 @@ def giang_duong(m, c, so_hang=14, y_hang0=4.2, sau_hang=0.95, cao_bac=0.32, cum_
                     K.inst(f'ct_gd_{k}_{r}_{j}_{s}', me, (x + rnd.uniform(-0.1, 0.1), y0 + 0.2 + rnd.uniform(-0.05, 0.05), z + 0.75), c, rot=(0, 0, math.radians(rnd.uniform(-25, 25)))); n += 1
                 if rnd.random() < 0.3:    # cặp sách dựng dưới chân / trên ghế trống
                     K.inst(f'ct_gd_cap_{r}_{j}_{s}', mau['cap'][rnd.randrange(4)], (x, y0 + 0.62, z + (0.47 if rnd.random() < 0.4 else 0.0)), c, rot=(0, 0, rnd.uniform(-0.4, 0.4))); n += 1
-    # chữ phấn trên bảng: nét phấn là hộp mỏng vật liệu thường (KHÔNG phát sáng); vài dòng công thức + khung hình vẽ
-    phan = _mat('ct_net_phan', '#b9c7bb', 0.95)
-    for dong in range(6):
-        x = -6.2; zc = 2.55 - dong * 0.2
-        while x < -1.4 - rnd.uniform(0, 2.0):
-            w = rnd.uniform(0.015, 0.06); h = rnd.uniform(0.012, 0.05); zz = zc + rnd.uniform(-0.012, 0.012)
-            K.box(f'ct_chu_{dong}_{x:.2f}', x, x + w, -0.917, -0.915, zz, zz + h, phan, c); x += w + (rnd.uniform(0.1, 0.22) if rnd.random() < 0.18 else rnd.uniform(0.008, 0.02)); n += 1
-    for (a, b, z0, z1) in ((-3.1, -1.2, 1.45, 1.47), (-3.1, -3.08, 1.45, 2.0), (-1.22, -1.2, 1.45, 2.0), (-3.1, -1.2, 1.98, 2.0)):
-        K.box(f'ct_khung_ve_{a}_{z0}', a, b, -0.917, -0.915, z0, z1, phan, c)
     # loa treo tường, dây điện + ổ cắm, đồng hồ, tờ thông báo, thùng rác, khăn lau bảng
     loa = _mau('ct_loa', lambda t: [K.box('v', -0.15, 0.15, -0.12, 0.12, -0.22, 0.22, den, t), K.box('g', -0.03, 0.03, -0.03, 0.03, 0.22, 0.32, _mat('ct_gia_sat', '#555a5f', 0.4, 0.7), t)])
     for k, (x, y) in enumerate(((-xw + 0.15, 3.0), (xw - 0.15, 3.5), (-xw + 0.15, 11.5), (xw - 0.15, 11.5))):

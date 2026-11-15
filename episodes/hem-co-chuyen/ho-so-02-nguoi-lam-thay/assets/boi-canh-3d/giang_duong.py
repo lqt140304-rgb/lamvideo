@@ -24,6 +24,7 @@ CAMS = {
     'GD_SV':    ((-1.25, Y_HANG0 + 0.45, 1.25), (0.2, 1.4, 1.55), 50),
     'GD_PHAN':  ((-1.4, 2.4, 1.75), (-3.2, -0.9, 1.25), 45),
     'GD_CUA':   ((2.0, 2.0, 1.6), (XW, 2.2, 1.3), 28),
+    'GD_BANG':  ((-0.05, 9.0, 2.9), (-0.05, -0.9, 2.75), 22),   # góc duyệt chính diện bảng + màn chiếu
     'GD_NAM':   ((-0.6, 1.3, 1.6), (0.0, 14.0, 3.6), 24),
 }
 
@@ -49,36 +50,11 @@ def vat_lieu(mode):
     m['den_may'] = M.solid('gd_den_may', '#26292c', 0.4)
     m['rem'] = M.mottled('gd_rem', '#c9b27c', rough=0.95)
     m['cua'] = M.wood('gd_cua', '#7c5532', scale=6)
-    m['man'] = man_chieu_code(); m['man'].cycles.emission_sampling = 'NONE'
+    m['man'] = M.emission('gd_man_nen', '#1e1e1e', 2.2); m['man'].cycles.emission_sampling = 'NONE'   # nền IDE tối; chữ code ở noi_dung_bang.man_chieu
     m['ao'] = [M.solid(f'gd_ao_{i}', c, 0.85) for i, c in enumerate(('#f2f2ee', '#3b5b8a', '#2e2e33', '#8a3b3b', '#d7c9a0', '#5f7f5a'))]
     m['da'] = M.solid('gd_da', '#d6a57e', 0.6, sss=0.1)
     m['toc'] = M.solid('gd_toc', '#1b1712', 0.7)
     return m
-
-
-def man_chieu_code():
-    """Màn chiếu phát sáng hiện 'hàng trăm dòng code': các vạch ngang dài ngắn so le (Brick + Noise), nền tối kiểu IDE."""
-    mt = bpy.data.materials.new('gd_man_code'); mt.use_nodes = True; nt = mt.node_tree; N, L = nt.nodes, nt.links
-    for n in list(N): N.remove(n)
-    out = N.new('ShaderNodeOutputMaterial'); em = N.new('ShaderNodeEmission'); em.inputs['Strength'].default_value = 3.2
-    tc = N.new('ShaderNodeTexCoord'); mp = N.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (1.0, 1.0, 1.0)
-    L.new(tc.outputs['UV'], mp.inputs['Vector'])
-    br = N.new('ShaderNodeTexBrick'); br.inputs['Scale'].default_value = 1.0
-    br.inputs['Brick Width'].default_value = 0.09; br.inputs['Row Height'].default_value = 0.022; br.inputs['Mortar Size'].default_value = 0.006
-    br.offset = 0.37; br.squash = 1.0
-    br.inputs['Color1'].default_value = M._hex('#9cdcfe'); br.inputs['Color2'].default_value = M._hex('#ce9178'); br.inputs['Mortar'].default_value = M._hex('#1e1e1e')
-    L.new(mp.outputs['Vector'], br.inputs['Vector'])
-    # thụt lề + dòng ngắn: nhiễu theo hàng che bớt phần phải của mỗi dòng
-    sp = N.new('ShaderNodeSeparateXYZ'); L.new(mp.outputs['Vector'], sp.inputs['Vector'])
-    rowq = N.new('ShaderNodeMath'); rowq.operation = 'SNAP'; rowq.inputs[1].default_value = 0.022; L.new(sp.outputs['Y'], rowq.inputs[0])
-    wn = N.new('ShaderNodeTexWhiteNoise'); wn.noise_dimensions = '1D'; L.new(rowq.outputs[0], wn.inputs['W'])
-    lim = N.new('ShaderNodeMath'); lim.operation = 'MULTIPLY_ADD'; lim.inputs[1].default_value = 0.75; lim.inputs[2].default_value = 0.15
-    L.new(wn.outputs['Value'], lim.inputs[0])
-    lt = N.new('ShaderNodeMath'); lt.operation = 'LESS_THAN'; L.new(sp.outputs['X'], lt.inputs[0]); L.new(lim.outputs[0], lt.inputs[1])
-    mix = N.new('ShaderNodeMix'); mix.data_type = 'RGBA'; mix.inputs['A'].default_value = M._hex('#1e1e1e')
-    L.new(lt.outputs[0], mix.inputs['Factor']); L.new(br.outputs['Color'], mix.inputs['B'])
-    L.new(mix.outputs['Result'], em.inputs['Color']); L.new(em.outputs[0], out.inputs['Surface'])
-    return mt
 
 
 def vo_phong(m, c):
@@ -180,7 +156,7 @@ def buc_bang_man(m, c):
     B('gd_mang_phan', -6.5, -0.7, -0.94, -0.84, 1.18, 1.22, m['vien'], c)
     for i, x in enumerate((-5.9, -5.8, -2.3)): K.cyl(f'gd_phan_{i}', x, -0.89, 1.22, 0.006, 0.07, m['phan'], c, seg=8, rot=(0, math.radians(90), 0.3 * i))
     # nét phấn mờ (công thức cũ chưa xoá sạch)
-    for i in range(7): B(f'gd_net_phan_{i}', -6.2 + 0.7 * i, -5.7 + 0.7 * i + random.Random(i).uniform(0.2, 0.8), -0.919, -0.918, 2.4 - 0.13 * i, 2.42 - 0.13 * i, M.emission('gd_net_phan', '#9fb3a6', 0.15), c)
+    import noi_dung_bang; noi_dung_bang.bang(c)   # chữ phấn, sơ đồ, góc meme (bố cục 3 vùng không đè)
     # màn chiếu (lệch phải) hiện code + hộp cuộn màn
     B('gd_hop_man', 0.6, 6.6, -0.95, -0.8, 4.4, 4.55, m['nhua'], c)
     sc = B('gd_man_chieu', 0.8, 6.4, -0.86, -0.85, 1.4, 4.4, m['man'], c)
@@ -190,6 +166,7 @@ def buc_bang_man(m, c):
             co = me.vertices[me.loops[li].vertex_index].co
             me.uv_layers[0].data[li].uv = ((co.x - 0.8) / 5.6, (co.z - 1.4) / 3.0)
     sc['giu_chi_tiet'] = True
+    noi_dung_bang.man_chieu(c)
     # máy chiếu treo trần + vệt sáng mềm lên màn
     B('gd_may_chieu', 3.3, 3.9, 8.4, 8.8, TRAN - 0.8, TRAN - 0.55, m['nhua'], c, bevel=0.02)
     K.cyl('gd_can_may_chieu', 3.6, 8.6, TRAN - 0.55, 0.03, 0.55, m['sat'], c, seg=8)
