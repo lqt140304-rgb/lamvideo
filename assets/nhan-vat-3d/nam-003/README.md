@@ -28,4 +28,4 @@ Dựng trong khoảng 2 phút. Tên xương theo Mixamo; ngón dùng Index, Midd
 - **Cổ:** quay đầu 35° tạo nếp gấp dưới hàm ở góc nghiêng; đo thử dài thêm khoảng 13 mm (so với ~5 mm của `nam-002`). Cần chỉnh trọng số cổ.
 - Chưa có: mắt, mày, miệng, biểu cảm, khẩu hình; áo quần; chu kỳ đi bộ; nốt ruồi; chiều cao 1,60 m (Nam) và 1,70 m (Tùng); kiểm các tư thế đi, ngồi sâu.
 - Chưa kiểm ngón tay khi nắm trên lưới 4 ngón bằng cận cảnh nhiều góc; chưa đặt góc cuộn riêng cho lưới này.
-- File `.blend`/`.glb` đã rig không đưa lên repo (dựng lại bằng lệnh trên).
+- [nam-003-rig.blend](nam-003-rig.blend) (4 MB, **v1**, chưa có mặt, vị trí khuỷu/gối/cổ chân còn ước lượng) để bên làm mặt có file mở ngay; dựng lại bằng lệnh trên. Giao việc làm mặt: [BAN-GIAO-MAT.md](BAN-GIAO-MAT.md). Chưa đưa `.glb` đã rig lên repo.

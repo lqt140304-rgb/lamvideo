@@ -44,6 +44,9 @@ def patched_namespace():
         hips=(0, 0.02, 0.96), spine=(0, 0.025, 1.06), spine1=(0, 0.015, 1.18), spine2=(0, 0.02, 1.31), neck=(0, 0.04, 1.50), head=(0, 0.04, 1.58), head_top=(0, 0.02, 1.824),
         clav=(0.03, 0.04, 1.46), shoulder=(0.21, 0.045, 1.452), elbow=(0.47, 0.058, 1.447), wrist=(0.66, 0.04, 1.452), hand_end=(0.79, 0.03, 1.455),
         hip=(0.09, 0.02, 0.88), knee=(0.132, 0.02, 0.46), ankle=(0.148, 0.05, 0.105), ball=(0.155, -0.07, 0.03), toe=(0.16, -0.14, 0.02)))
+    if os.environ.get('NAM003_J'):   # thử vị trí khớp khác: NAM003_J='{"elbow":[0.44,0.058,1.447]}'
+        import json
+        g['J'].update({k: tuple(v) for k, v in json.loads(os.environ['NAM003_J']).items()})
     V3 = Vector
     CH = g['CH']; CH.clear()
     CH['Index'] = [V3(p) for p in [(0.79, 0.025, 1.497), (0.822, 0.024, 1.499), (0.852, 0.022, 1.500), (0.887, 0.021, 1.501)]]
