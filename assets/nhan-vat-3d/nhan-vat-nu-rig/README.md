@@ -118,4 +118,4 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 
 **Làm trơn lưới mí (15/11/2026):** lưới mí (dáng mở và shape key `dong`) được làm trơn 30 vòng, giữ hàng mép mi và vòng ngoài cùng, nên khóe trên–ngoài hết bậc và mắt nhắm hết nếp gãy. Lòng trắng dọc dưới thu về 1,0. Còn lại: dưới mắt có một vệt tối mảnh; khi chớp nửa chừng còn mũi tối nhỏ ở hai đầu mép mi và góc lòng trắng lộ.
 
-**Dáng mí nửa nhắm (15/11/2026):** mí trên/dưới có thêm shape key `nua` (dáng nửa nhắm tính riêng). Driver: `nua` = 1 − |2b − 1|, `dong` = max(0, 2b − 1), nên blink 0 → 0,5 → 1 đi qua dáng nửa thay vì nội suy thẳng; hết mũi tối ở hai khóe khi lim dim. Còn: góc lòng trắng vẫn lộ chút ở hai khóe khi nửa nhắm.
+**Dáng mí nửa nhắm (15/11/2026):** mí trên/dưới có thêm shape key `nua` (dáng nửa nhắm tính riêng). Driver: `nua` = 1 − |2b − 1|, `dong` = max(0, 2b − 1), nên blink 0 → 0,5 → 1 đi qua dáng nửa thay vì nội suy thẳng; hết mũi tối ở hai khóe khi lim dim. Lòng trắng có thêm shape key `goc` (hai góc lùi 7 mm, driver min(1, 2b)) nên góc lòng trắng không lộ ngoài khe mí khi khép dần; đã chụp các mức blink 0,25 / 0,5 / 0,75 / 1.

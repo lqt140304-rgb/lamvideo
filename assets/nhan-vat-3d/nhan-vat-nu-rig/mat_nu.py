@@ -476,6 +476,13 @@ def dung_mat(body, rig, coll):
         for i_, v_ in enumerate(lt.data.vertices):
             sk_lt.data[i_].co = (v_.co.x, v_.co.y + 0.009, v_.co.z)
         them_driver(sk_lt, 'value', None, rig, bien, 'min(1.0, max(0.0, (b - 0.6) / 0.4))')
+        xs_ = np.array([v_.co.x for v_ in lt.data.vertices])
+        cx_, hw_ = (xs_.max() + xs_.min()) / 2, (xs_.max() - xs_.min()) / 2
+        sk_g = lt.shape_key_add(name='goc', from_mix=False)  # khi mí khép dần, hai góc lòng trắng lùi 7 mm: không lộ ngoài khe mí ở khóe
+        for i_, v_ in enumerate(lt.data.vertices):
+            g_ = _ss(0.6, 0.95, abs(v_.co.x - cx_) / hw_)
+            sk_g.data[i_].co = (v_.co.x, v_.co.y + 0.007 * g_, v_.co.z)
+        them_driver(sk_g, 'value', None, rig, bien, 'min(1.0, 2*b)')
         them_driver(mi['Duoi'].data.shape_keys.key_blocks['dong'], 'value', None, rig, bien, 'max(0.0, 2*max(b, s*0.6) - 1)')
         them_driver(mi['Duoi'].data.shape_keys.key_blocks['nua'], 'value', None, rig, bien, 'max(0.0, 1 - abs(2*max(b, s*0.6) - 1))')
     bo_suu_tap(rig, 'Mat', ['look', 'look.L', 'look.R', 'eye.L', 'eye.R'])
