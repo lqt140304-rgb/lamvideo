@@ -185,6 +185,7 @@ def build(mode='trua', cam='ST_STEADICAM', muc='duyet', nguoi=True):
     bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene
     c = K.coll('San_truong'); m = vat_lieu()
     khoi_giang_duong(m, c); san(m, c); nam = nam_proxy(m, c) if nguoi else None
+    import chi_tiet_hoi3; print('[chi_tiet]', chi_tiet_hoi3.san_truong(m, c), 'vật')
     K.troi('#e4eef4', '#7fb0dc', 1.0)
     if mode == 'trua': K.sun('st_nang', (-0.42, 0.22, -0.88), 7.0, '#fff6e2', 0.6, c)   # gần đỉnh đầu, hơi xiên ra sân → bóng cột vuông trên sàn hành lang
     else: K.sun('st_nang', (-0.7, 0.3, -0.62), 6.0, '#ffe9c4', 0.8, c)
