@@ -1,0 +1,494 @@
+{
+  "lod.fbx": {
+    "meshes": [
+      {
+        "name": "model_LOD0",
+        "vertices": 2043,
+        "faces": 2170,
+        "triangles": 4082,
+        "components": [
+          2043
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.11311885377791601,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.0006843395465683218,
+        "mirror_vertex_error_max_m": 0.013058483600616455
+      },
+      {
+        "name": "model_LOD1",
+        "vertices": 1022,
+        "faces": 1513,
+        "triangles": 2040,
+        "components": [
+          1022
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.1128560057351505,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 8,
+        "bvh_sample_pairs": [
+          [
+            1557,
+            1997
+          ],
+          [
+            1557,
+            1982
+          ],
+          [
+            1557,
+            1562
+          ],
+          [
+            1557,
+            1561
+          ],
+          [
+            523,
+            1993
+          ],
+          [
+            523,
+            1557
+          ],
+          [
+            359,
+            1557
+          ],
+          [
+            521,
+            1557
+          ]
+        ],
+        "mirror_vertex_error_mean_m": 0.006244455438127528,
+        "mirror_vertex_error_max_m": 0.05271696671843529
+      },
+      {
+        "name": "model_LOD2",
+        "vertices": 512,
+        "faces": 879,
+        "triangles": 1020,
+        "components": [
+          512
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.11190359482608835,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.011927713402542395,
+        "mirror_vertex_error_max_m": 0.05690950155258179
+      },
+      {
+        "name": "model_LOD3",
+        "vertices": 257,
+        "faces": 466,
+        "triangles": 510,
+        "components": [
+          257
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.1090114194611272,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.01925440676599118,
+        "mirror_vertex_error_max_m": 0.08711988478899002
+      },
+      {
+        "name": "model_LOD4",
+        "vertices": 129,
+        "faces": 237,
+        "triangles": 254,
+        "components": [
+          129
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.10593489987296767,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.03027444107136725,
+        "mirror_vertex_error_max_m": 0.10857702791690826
+      }
+    ],
+    "actions": [],
+    "armatures": [],
+    "images": []
+  },
+  "lod_basic_pbr.fbx": {
+    "meshes": [
+      {
+        "name": "model_LOD0",
+        "vertices": 2043,
+        "faces": 2170,
+        "triangles": 4082,
+        "components": [
+          2043
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.11311885377791601,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.0006843395465683218,
+        "mirror_vertex_error_max_m": 0.013058483600616455
+      },
+      {
+        "name": "model_LOD1",
+        "vertices": 1022,
+        "faces": 1513,
+        "triangles": 2040,
+        "components": [
+          1022
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.1128560057351505,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 8,
+        "bvh_sample_pairs": [
+          [
+            1557,
+            1997
+          ],
+          [
+            1557,
+            1982
+          ],
+          [
+            1557,
+            1562
+          ],
+          [
+            1557,
+            1561
+          ],
+          [
+            523,
+            1993
+          ],
+          [
+            523,
+            1557
+          ],
+          [
+            359,
+            1557
+          ],
+          [
+            521,
+            1557
+          ]
+        ],
+        "mirror_vertex_error_mean_m": 0.006244455438127528,
+        "mirror_vertex_error_max_m": 0.05271696671843529
+      },
+      {
+        "name": "model_LOD2",
+        "vertices": 512,
+        "faces": 879,
+        "triangles": 1020,
+        "components": [
+          512
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.11190359482608835,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.011927713402542395,
+        "mirror_vertex_error_max_m": 0.05690950155258179
+      },
+      {
+        "name": "model_LOD3",
+        "vertices": 257,
+        "faces": 466,
+        "triangles": 510,
+        "components": [
+          257
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.1090114194611272,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.01925440676599118,
+        "mirror_vertex_error_max_m": 0.08711988478899002
+      },
+      {
+        "name": "model_LOD4",
+        "vertices": 129,
+        "faces": 237,
+        "triangles": 254,
+        "components": [
+          129
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.10593489987296767,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.03027444107136725,
+        "mirror_vertex_error_max_m": 0.10857702791690826
+      }
+    ],
+    "actions": [],
+    "armatures": [],
+    "images": [
+      {
+        "name": "texture_diffuse.png",
+        "space": "sRGB",
+        "size": [
+          2048,
+          2048
+        ]
+      },
+      {
+        "name": "texture_metallic.png",
+        "space": "Non-Color",
+        "size": [
+          2048,
+          2048
+        ]
+      },
+      {
+        "name": "texture_normal.png",
+        "space": "Non-Color",
+        "size": [
+          2048,
+          2048
+        ]
+      },
+      {
+        "name": "texture_roughness.png",
+        "space": "Non-Color",
+        "size": [
+          2048,
+          2048
+        ]
+      }
+    ]
+  },
+  "lod_basic_shaded.fbx": {
+    "meshes": [
+      {
+        "name": "model_LOD0",
+        "vertices": 2043,
+        "faces": 2170,
+        "triangles": 4082,
+        "components": [
+          2043
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.11311885377791601,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.0006843395465683218,
+        "mirror_vertex_error_max_m": 0.013058483600616455
+      },
+      {
+        "name": "model_LOD1",
+        "vertices": 1022,
+        "faces": 1513,
+        "triangles": 2040,
+        "components": [
+          1022
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.1128560057351505,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 8,
+        "bvh_sample_pairs": [
+          [
+            1557,
+            1997
+          ],
+          [
+            1557,
+            1982
+          ],
+          [
+            1557,
+            1562
+          ],
+          [
+            1557,
+            1561
+          ],
+          [
+            523,
+            1993
+          ],
+          [
+            523,
+            1557
+          ],
+          [
+            359,
+            1557
+          ],
+          [
+            521,
+            1557
+          ]
+        ],
+        "mirror_vertex_error_mean_m": 0.006244455438127528,
+        "mirror_vertex_error_max_m": 0.05271696671843529
+      },
+      {
+        "name": "model_LOD2",
+        "vertices": 512,
+        "faces": 879,
+        "triangles": 1020,
+        "components": [
+          512
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.11190359482608835,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.011927713402542395,
+        "mirror_vertex_error_max_m": 0.05690950155258179
+      },
+      {
+        "name": "model_LOD3",
+        "vertices": 257,
+        "faces": 466,
+        "triangles": 510,
+        "components": [
+          257
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.1090114194611272,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.01925440676599118,
+        "mirror_vertex_error_max_m": 0.08711988478899002
+      },
+      {
+        "name": "model_LOD4",
+        "vertices": 129,
+        "faces": 237,
+        "triangles": 254,
+        "components": [
+          129
+        ],
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "wire_edges": 0,
+        "inconsistent_winding_edges": 0,
+        "zero_area_faces": 0,
+        "short_edges": 0,
+        "signed_volume": 0.10593489987296767,
+        "uv_degenerate_triangles": 0,
+        "uv_loops_outside_0_1": 0,
+        "bvh_nonadjacent_overlap_candidates": 0,
+        "bvh_sample_pairs": [],
+        "mirror_vertex_error_mean_m": 0.03027444107136725,
+        "mirror_vertex_error_max_m": 0.10857702791690826
+      }
+    ],
+    "actions": [],
+    "armatures": [],
+    "images": [
+      {
+        "name": "shaded.png",
+        "space": "sRGB",
+        "size": [
+          2048,
+          2048
+        ]
+      }
+    ]
+  }
+}

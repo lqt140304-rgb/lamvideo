@@ -9,11 +9,12 @@ Nguồn đối chiếu: [KICH-BAN.md](../../KICH-BAN.md), [PHAN-01](../../PHAN-0
 | S05 | Góc cửa + **then sắt** | Cửa, khoá + tay nắm thật; then sắt chỉ có chốt nhỏ cũ | **Then sắt trượt 2 trạng thái** (rút / tra sâu vào tai khóa): đã dựng mô hình ở `dao_cu_3d.then_sat`, cần gắn lên cánh cửa thật và keyframe trượt + âm. Mắt thần/khe thông gió: khe đã có |
 | S06 | Hành lang trọ tầng 2, đêm tuýp vàng lập lòe | **Đã có** (24,6 m + 66 m giảm chi tiết, 8 cửa riêng, cầu thang, lan can, sân, dãy đối diện, hẻm, chân trời, ngày/đêm) | Đèn tuýp **lập lòe** (keyframe cường độ), sương ẩm đêm (volume nhẹ), âm vang hành lang |
 | S07 | **Góc đồ cho tặng** (chân cầu thang, chiều muộn sau mưa) — nơi Nam nhặt chiếc gương | **Đã dựng bản đầu (13/11)** `goc_cho_tang.py`, `--mode rain` | Gương gỗ cũ bám bụi + vết nứt dựa tường, tờ giấy dán "Ai cần cứ lấy" (chữ thật có dấu), ghế gãy, chậu hoa vỡ + cây héo + lá rụng, bạt nhựa xanh, thùng carton + quần áo cũ, xô có nước mưa, quạt cũ, giá gỗ, bó tre, sàn ướt + vũng nước, mưa thưa, trời u ám. Còn: mưa chuyển động, nước chảy từ mép cầu thang, độ ẩm mặt tường, nhân vật Nam, ghế/cây chi tiết hơn |
-| S08 | **Giảng đường bậc thang** (đèn tuýp trắng lạnh), bục giảng, bảng phấn, màn chiếu | **Chưa dựng** (ngoài phạm vi 12/11: chỉ phòng + hành lang) | Bậc ghế sinh viên, bục gỗ, bảng, máy chiếu; đèn tuýp trắng 6500K; camera crane từ trần (P3.01); viên phấn gãy (có sẵn) |
+| S08 | **Giảng đường bậc thang** (cảnh 3.1) | **Đã dựng bản đầu 15/11 (`giang_duong.py`)**: 336 chỗ, 235 hình nhân instance, bục, bảng phấn, màn chiếu code, máy chiếu, đèn tuýp 6500K, quạt, cửa sổ nắng 8h; 7 camera GD_* | Thay hình nhân bằng nhân vật thật; camera crane chuyển động (P3.01) chưa keyframe; viên phấn gãy (đạo cụ sẵn) chưa đặt vào tay |
 | S09 | **Lab 402** (máy tính, màn LCD) | **Chưa dựng** | Dãy bàn + màn hình có UI "hạn nộp"; ánh sáng văn phòng |
-| S10 | **Hành lang trường** nắng gắt, cột bê tông | **Chưa dựng** | Cột bê tông + bóng vuông, sân trường; camera Steadicam chạy lùi (P3.02) |
+| S10 | **Hành lang trường + sân trường** nắng gắt | **Đã dựng bản đầu 15/11 (`san_truong.py`)**: hành lang cột bê tông đổ bóng vuông, sân gạch, cây bàng/phượng, cột cờ, nhà xe, khu nhà B; Steadicam chạy lùi 144 khung (`ST_STEADICAM`) | Người chạy thật thay hình nhân; rung tay máy (F-curve noise) bị bỏ qua nếu API action Blender 5 khác |
 | S11 | **Mâm cơm quê** (clip Zalo trong điện thoại) | **Chưa dựng** | Chiếu hoa, mâm nhôm, nem, canh cua; ghi qua camera điện thoại (texture video trên màn hình điện thoại) |
 | S12 | **Thế giới trong gương** (Deep Teal Abyss, sàn nước) | **Đã dựng bản đầu 13/11 (`the_gioi_guong.py`)**; cơ chế đã có: gương thật + cờ tia, kính hóa nước, camera Submersion; **chưa có "phòng gương"** riêng | Sương Deep Teal (volume), sàn nước phản chiếu (Glossy + Wave bump), bản phòng đối xứng cho Người Kia đứng; cân nhắc dùng chính phòng trọ đảo gương |
+| (3.1→3.2) | **Bờ kè sông Hồng chiều tà** (EWS 15–20 s) | **Đã dựng bản đầu 15/11 (`bo_ke.py`)**: đê, 12 bậc kè đá, nước phù sa gợn chảy, bãi bồi, phố xa, cầu giàn thép nhiều nhịp (gợi cầu cổ, không sao chép); trời chieu/hoang_hon/do, `--chuyen` 480 khung | Hình nhân Nam tạm; chưa có chim/thuyền/xe trên cầu |
 | (khác) | Sân bóng, góc cắt tóc (chuỗi Comic P2.05) | **Chưa dựng** | Nếu giữ trong cut 15 phút: 2 cảnh đơn giản, có thể là panel 2D |
 
 Thứ tự khuyên dựng tiếp (đúng độ ưu tiên kịch bản): **S01–S04 ánh sáng (4 trạng thái)** → **S07 góc đồ cho tặng** (mở truyện, gieo chiếc gương) → **S12 thế giới gương** (P3.05) → **S08 giảng đường** (P3.01) → S10 → S09 → S11.
@@ -23,18 +24,19 @@ Bảng trưng bày: `xem-thu/DAO-CU-3D.png` (script `dao_cu_3d.py`; mỗi vật 
 | Mã | Đạo cụ | Trạng thái |
 |---|---|---|
 | P01 | Chiếc gương (4 trạng thái) | Gương + khung + cổng gương + kính nước **có**; còn mờ sương/nứt góc phải (trạng thái 2), lớp cảnh cuối |
-| P02 | Búa đinh cán gỗ | **Mới dựng** (cán gỗ, đầu búa, móng nhổ đinh, gỉ) |
+| P02 | Búa sắt **cán bọc cao su đen** (master 1.1) | **Đã thay 15/11**: `dao_cu_ban_moi.bua_cao_su`. Búa cán gỗ cũ trong `dao_cu_3d.hammer` lệch kịch bản, không dùng nữa |
 | P03, P04 | Thẻ CCCD, thẻ sinh viên | **Mới dựng** (khung thẻ, chip, ảnh, nốt ruồi trái/phải, dây đeo) — còn chữ thật + ảnh chân dung (texture) |
 | P05 | Then sắt | **Mới dựng**, 2 trạng thái |
 | P06 | Phong bì 3 triệu | **Mới dựng** (phong bì + 6 tờ xanh) |
 | P07 | Bát sứ + đũa bồn rửa | **Mới dựng** (bát viền xanh, họa tiết hoa, bọt xà phòng, đũa); bồn rửa/giá bát đã có; còn nước chảy, giọt rỏ |
 | P08 | Hộp cơm sườn trứng ốp la | **Mới dựng** |
 | P09 | Bún chả + nem + nước mắm | **Mới dựng** |
-| P10 | Gói xôi gấc lá chuối + giò | **Mới dựng** |
+| P10 | **Hộp xôi trắng hành phi** (master 2.4) | **Đã thay 15/11**: `dao_cu_ban_moi.hop_xoi` có 2 trạng thái, nguyên và hất văng xuống sàn. Gói xôi gấc cũ lệch kịch bản |
 | P11 | Túi hoa quả | **Mới dựng** |
 | P12 | Viên phấn gãy | **Mới dựng** (+ bột phấn) |
-| (13 đạo cụ khác) | PC, thau đồ, bóng, kéo, góc đồ cho/tặng | Chưa dựng |
-| UI-01…07 | Màn hình điện thoại/laptop | Điện thoại + màn hình **có** (khung + phát sáng); **chưa gắn ảnh UI** — dùng PNG sẵn có trong `assets/bo-sung-15p/` làm texture phát sáng; Laptop đã có màn hình |
+| P13–P25 | Hộp thuốc bổ khớp + note vàng của mẹ, note Lab 402, hoá đơn 650k, dép tổ ong, nồi cơm điện, thùng mì + sọt vỏ gia vị, chậu đồ ngâm, dao gọt cán vàng, tuýp dầu, chìa khoá, ba lô, giáo trình + 3 trang ghi chép | **Đã dựng 15/11** (`dao_cu_ban_moi.py`, mỗi món có `grip_*`). Ảnh: `xem-thu/THE-DAO-CU.jpg` (mỗi món một thẻ, `--the`), `xem-thu/DAO-CU-MOI.png` |
+| (bỏ) | Phong bì 3 triệu, hộp cơm sườn, bún chả, túi hoa quả | Không còn trong master; giữ trong `dao_cu_3d.py` để tham khảo |
+| UI | Màn hình điện thoại/laptop | **Đã làm lại 15/11 đúng câu chữ master** (`ui_man_hinh.py` → `ui/*.png`, bảng `ui/BANG-UI.png`): UI-01 báo thức 06:30 + hạn nộp đỏ, UI-03 nhóm lớp khen, UI-08 trắc nghiệm 10 câu, UI-09 game MOBA thua (máy cầm ngang, 1040×624), UI-04 điểm Lab 402: 9.5, UI-05 Mẹ yêu gọi video, UI-06 nhóm Họ Nguyễn (ô video tạm), UI-07 Word tiểu luận + đã nộp 19:30, UI-10 IDE C++. Gắn vào `dao_cu_ban_moi.dien_thoai(ui=…)` / `laptop(ui=…)`. Giao diện tự thiết kế, không logo ứng dụng thật. **Còn:** clip ăn giỗ thật trong UI-06 (cần nhân vật) |
 Chưa làm cho đạo cụ: vật liệu chi tiết (chữ trên thẻ, tem, logo), điểm neo `Child-Of` vào xương tay (cần nhân vật Modular), trọng lượng/vật lý rơi (búa rơi, xôi hất, phấn gãy).
 
 ## 3. Hoạt cảnh và kỹ xảo bối cảnh cần chuẩn bị
