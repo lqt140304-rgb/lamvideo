@@ -114,31 +114,60 @@ def _hemi(R, ang):
     return bm
 
 
+LOI = 0.002      # mặt trước nhãn cầu nhô trước mặt phẳng mép hốc
+KHIT = 1.02      # nhãn cầu rộng hơn lỗ 2 % (vừa đủ che khe, không lấn nét viền vẽ)
+LUI_MEP = 0.0025 # ở mép lỗ, mặt nhãn cầu nằm sau mặt phẳng mép hốc chừng này
+
+
+def _khung_mep(body, cx):
+    """Mặt phẳng khớp với mép lỗ hốc (bắn tia lên da theo elip lỗ) → (tâm, pháp tuyến hướng ra ngoài, ma trận khung)."""
+    a_, b_ = RX - VIEN, RZ - VIEN; P = []
+    for th in np.linspace(0, 2 * np.pi, 48, endpoint=False):
+        x = cx + a_ * math.cos(th); z = EYE_Z + b_ * math.sin(th); P.append((x, _surface_y(body, x, z), z))
+    P = np.array(P); c = P.mean(0); _, _, Vt = np.linalg.svd(P - c); n = Vt[2]
+    if n[1] > 0: n = -n                                         # hướng ra trước (−Y)
+    n = Vector(n); up = Vector((0, 0, 1)); xa = up.cross(-n).normalized() if False else (Vector((0, 0, 1)).cross(n)).normalized()
+    za = n.cross(xa).normalized()                                # khung: x ngang, −y = n (ra ngoài), z lên
+    M = Matrix((xa, -n, za)).transposed()
+    if M.determinant() < 0: xa = -xa; M = Matrix((xa, -n, za)).transposed()
+    return Vector(c), n, M, a_, b_
+
+
 def tao_mat(sc, body):
     objs = {}; lm = _lid_material()
     for s, k in ((1, 'L'), (-1, 'R')):
-        cx = s * EYE_X; ys = _surface_y(body, cx, EYE_Z); cy = ys + HO + R_NHAN * FLAT
+        cx = s * EYE_X
+        c, n, M, a_, b_ = _khung_mep(body, cx)
+        ax_, az_ = KHIT * a_, KHIT * b_
+        dep = (LOI + LUI_MEP) / (1 - math.sqrt(1 - 1 / KHIT ** 2))      # bán trục sâu để mép lỗ lùi LUI_MEP sau mặt phẳng
+        Ek = (ax_ / R_NHAN, dep / R_NHAN, az_ / R_NHAN)
+        ctr = c + n * (LOI - dep)
         me = bpy.data.meshes.new(f'NhanCau.{k}'); bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=64, v_segments=40, radius=R_NHAN)
-        for v in bm.verts: v.co.x *= E[0]; v.co.y *= E[1]; v.co.z *= E[2]
-        bm.to_mesh(me); bm.free(); e = bpy.data.objects.new(f'NhanCau.{k}', me); sc.collection.objects.link(e); e.location = (cx, cy, EYE_Z)
-        me.materials.append(_eye_material(k))
+        for v in bm.verts: v.co.x *= Ek[0]; v.co.y *= Ek[1]; v.co.z *= Ek[2]
+        bm.to_mesh(me); bm.free(); e = bpy.data.objects.new(f'NhanCau.{k}', me); sc.collection.objects.link(e)
+        e.matrix_world = Matrix.Translation(ctr) @ M.to_4x4()
+        mat = _eye_material(k); mat.node_tree.nodes['Vector Math'].inputs[1].default_value = (1 / Ek[0], 1 / Ek[1], 1 / Ek[2])
+        me.materials.append(mat)
         for p in me.polygons: p.use_smooth = True
-        # mí: lưới gốc = nửa cầu trên (mép mí ngang qua tâm); shape key cho từng góc quay; dẹt theo Y sau khi quay
-        bm = _hemi(R_MI, 0); edge = [v.co.z < 0.004 for v in bm.verts]; base = [v.co.copy() for v in bm.verts]
-        for v in bm.verts: v.co.x *= E[0]; v.co.y *= E[1]; v.co.z *= E[2]
+        Rm = R_NHAN + 0.0012; El = ((ax_ + 0.0012) / Rm, (dep + 0.0012) / Rm, (az_ + 0.0012) / Rm)
+        bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=48, v_segments=32, radius=Rm)
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z < -1e-6], context='VERTS')
+        edge = [v.co.z < 0.004 for v in bm.verts]; base = [v.co.copy() for v in bm.verts]
+        for v in bm.verts: v.co.x *= El[0]; v.co.y *= El[1]; v.co.z *= El[2]
         lme = bpy.data.meshes.new(f'Mi.{k}'); bm.to_mesh(lme); bm.free()
         at = lme.attributes.new('mep_mi', 'FLOAT', 'POINT'); at.data.foreach_set('value', np.array(edge, np.float32))
-        l = bpy.data.objects.new(f'Mi.{k}', lme); sc.collection.objects.link(l); l.location = (cx, cy, EYE_Z)
+        l = bpy.data.objects.new(f'Mi.{k}', lme); sc.collection.objects.link(l); l.matrix_world = Matrix.Translation(ctr) @ M.to_4x4()
         l.shape_key_add(name='Basis')
         for ang in GOC_MI[1:] + (-32.0,):
             kb = l.shape_key_add(name=f'mi_{int(ang):+d}', from_mix=False); R = Matrix.Rotation(math.radians(ang), 3, 'X')
             for i, p0 in enumerate(base):
-                q = R @ Vector((p0.x, p0.y, p0.z)); kb.data[i].co = Vector((q.x * E[0], q.y * E[1], q.z * E[2]))
+                q = R @ p0; kb.data[i].co = Vector((q.x * El[0], q.y * El[1], q.z * El[2]))
         sol = l.modifiers.new('day', 'SOLIDIFY'); sol.thickness = 0.0012; sol.offset = 1
         lme.materials.append(lm)
         for p in lme.polygons: p.use_smooth = True
-        objs[k] = (e, l, Vector((cx, cy, EYE_Z)))
-        print(f'  mắt {k}: tâm ({cx:+.3f}, {cy:+.3f}, {EYE_Z:.3f}), mặt da y = {ys:+.3f}, nhãn cầu {2 * R_NHAN * E[0] * 1000:.0f} × {2 * R_NHAN * E[2] * 1000:.0f} mm, sâu {2 * R_NHAN * E[1] * 1000:.0f} mm')
+        objs[k] = (e, l, ctr.copy())
+        tilt = math.degrees(math.acos(max(-1, min(1, -n.y))))
+        print(f'  mắt {k}: mép hốc nghiêng {tilt:.1f}° so với nhìn thẳng; nhãn cầu {2 * ax_ * 1000:.0f} × {2 * az_ * 1000:.0f} mm, sâu {2 * dep * 1000:.0f} mm, nhô {LOI * 1000:.0f} mm trước mép')
     return objs
 
 
