@@ -91,13 +91,26 @@ def tron_xoay(ten, pts, m, c, seg=36, x=0, y=0, z=0, dong_day=True):
     ob = bpy.data.objects.new(ten, me); c.objects.link(ob); return ob
 
 
+def _w_dep(y):
+    """Nửa bề rộng nền đế theo y, đổi mượt: gót 0,040 → eo 0,034 → mũi 0,046 (chưa nhân hệ số bo tròn đầu mũi/gót)."""
+    ss = lambda a: a * a * (3 - 2 * a)
+    if y <= -0.06: return 0.040
+    if y <= 0.0: return 0.040 - 0.006 * ss((y + 0.06) / 0.06)
+    if y <= 0.06: return 0.034 + 0.012 * ss(y / 0.06)
+    return 0.046
+
+
+def _r_quai(y):
+    """Bán kính quai tại y: bám đúng bề rộng đế tại y đó (nhỏ hơn 4 mm) nên quai ngồi lên đế, không chìa ra ngoài."""
+    return _w_dep(y) * math.sqrt(max(0.0, 1 - (y / 0.125) ** 2)) - 0.004
+
+
 def de_dep(ten, dx, m, c, day=0.024):
     """Đế dép hình bàn chân: mũi tròn rộng, eo thắt, gót tròn (đùn từ đường viền)."""
     bm = bmesh.new(); pts = []
     for i in range(40):
         t_ = 2 * math.pi * i / 40; y = 0.125 * math.sin(t_)
-        w = 0.046 if y > 0.03 else 0.034 if y > -0.06 else 0.04          # mũi rộng, eo, gót
-        pts.append((dx + w * math.cos(t_), y))
+        pts.append((dx + _w_dep(y) * math.cos(t_), y))                  # mũi rộng, eo, gót (đổi mượt)
     vb = [bm.verts.new((x_, y_, 0)) for x_, y_ in pts]; vt = [bm.verts.new((x_, y_, day)) for x_, y_ in pts]
     bm.faces.new(list(reversed(vb))); bm.faces.new(vt)
     for i in range(40): bm.faces.new((vb[i], vb[(i + 1) % 40], vt[(i + 1) % 40], vt[i]))
@@ -146,14 +159,15 @@ def hop_xoi(c, at, rz=0.0, do=False):
     """Hộp xôi trắng hành phi (hộp xốp nắp liền). do=True: hộp lật nghiêng trên sàn, xôi + hành văng tung toé (cảnh 2.4)."""
     rnd = random.Random(8)
     with _tao(c) as t:
-        xop = matt('#f4f2ec', 0.9, 0.05, 0.35, 90); xoi = mat('#f3efe2', 0.75); hanh = mat('#9a5a22', 0.6); mo = mat('#e9c46a', 0.4)
+        xop = matt('#e8ebed', 0.9, 0.05, 0.35, 90); xoi = mat('#e6d49a', 0.38); hanh = mat('#9a5a22', 0.6); mo = mat('#e9c46a', 0.4)
         L, Wd, Hh = 0.17, 0.13, 0.05
         if not do:
             K.box('dc_xoi_hop', -L / 2, L / 2, -Wd / 2, Wd / 2, 0, Hh, xop, c, bevel=0.006)
             K.box('dc_xoi_long', -L / 2 + 0.006, L / 2 - 0.006, -Wd / 2 + 0.006, Wd / 2 - 0.006, Hh - 0.004, Hh + 0.001, xoi, c)
             K.sphere('dc_xoi_u', 0, 0, Hh, 0.06, xoi, c, scale=(1.3, 1, 0.35), seg=16)
-            K.box('dc_xoi_nap', -L / 2, L / 2, Wd / 2 + 0.002, Wd / 2 + Wd, 0, 0.012, xop, c, bevel=0.004)   # nắp liền lật ngửa ra sau
-            K.box('dc_xoi_ban_le', -L / 2, L / 2, Wd / 2 - 0.002, Wd / 2 + 0.004, 0.0, Hh, xop, c)
+            K.box('dc_xoi_ban_le', -L / 2, L / 2, Wd / 2 - 0.003, Wd / 2 + 0.003, Hh - 0.008, Hh + 0.002, xop, c)      # bản lề liền thân hộp
+            al = math.radians(62); nap = K.box('dc_xoi_nap', -L / 2, L / 2, -Wd / 2, Wd / 2, -0.0035, 0.0035, xop, c, bevel=0.003, rot=(al, 0, 0))   # nắp lật dựng ra sau, xoay quanh đúng mép bản lề
+            nap.location = (0, Wd / 2 + 0.002 + math.cos(al) * Wd / 2, Hh - 0.002 + math.sin(al) * Wd / 2)
             for i in range(40):
                 a = rnd.uniform(0, 6.28); r = rnd.uniform(0, 0.06)
                 K.box(f'dc_xoi_hanh_{i}', -0.005, 0.005, -0.003, 0.003, 0, 0.002, hanh, c, rot=(0, 0, a)).location = (r * math.cos(a) * 1.2, r * math.sin(a) * 0.8, Hh + 0.018 + rnd.uniform(0, 0.004))
@@ -253,7 +267,7 @@ def dep_to_ong(c, at, rz=0.0):
     """Đôi dép tổ ong: đế hình bàn chân (mũi rộng, eo, gót), quai liền mũi khum tròn phủ 2/3 trước, lưới lỗ lục giác 4 hàng,
     nhựa trắng ố vàng, gót mòn vẹt (đế mỏng hẳn + sẫm màu), mép quai bẩn."""
     with _tao(c) as t:
-        nhua = mat('#efe9cc', 0.7); o = mat('#cdbf86', 0.85); lo = mat('#4a4535', 0.95); ban = mat('#9c9070', 0.9)
+        nhua = mat('#efe9cc', 0.7); o = mat('#ddd2aa', 0.85); lo = mat('#4a4535', 0.95); ban = mat('#9c9070', 0.9)
         for s_, dx, goc in (('trai', -0.058, 0), ('phai', 0.058, 0)):
             de = de_dep(f'dc_dep_de_{s_}', dx, nhua, c)
             g_ = K.cyl(f'dc_dep_got_mon_{s_}', dx, -0.088, 0.0245, 0.026, 0.0012, o, c, seg=20); g_.scale = (1, 1.35, 1)   # vệt gót mòn sẫm màu trên mặt đế
@@ -262,9 +276,9 @@ def dep_to_ong(c, at, rz=0.0):
             for k, y_ in enumerate(ys):
                 sc_ = 1.0 if y_ < 0.08 else max(0.35, 1 - (y_ - 0.08) / 0.06)
                 for side in (0, 1):
-                    r = 0.046 * sc_ - side * 0.004
+                    r = _r_quai(y_) - side * 0.004
                     for i in range(seg + 1):
-                        a_ = math.pi * i / seg; bm.verts.new((dx + r * math.cos(a_), y_, 0.022 + 0.042 * sc_ * math.sin(a_) * (1 - side * 0.08)))
+                        a_ = math.pi * i / seg; bm.verts.new((dx + r * math.cos(a_), y_, 0.016 + 0.042 * sc_ * math.sin(a_) * (1 - side * 0.08)))
             bm.verts.ensure_lookup_table(); n_ = seg + 1
             def V(k, side, i): return bm.verts[(k * 2 + side) * n_ + i]
             for k in range(len(ys) - 1):
@@ -277,10 +291,9 @@ def dep_to_ong(c, at, rz=0.0):
             for hang in range(4):          # lỗ lục giác (tổ ong) trên lưng quai
                 for j in range(5 if hang % 2 == 0 else 4):
                     a_ = math.radians(35 + 27.5 * j + (13.75 if hang % 2 else 0)); y_ = 0.005 + 0.019 * hang
-                    r = 0.0462
-                    h_ = K.cyl(f'dc_dep_lo_{s_}_{hang}_{j}', dx + r * math.cos(a_), y_, 0.022 + 0.042 * math.sin(a_), 0.0062, 0.0015, lo, c, seg=6)
-                    h_.rotation_euler = (0, math.pi / 2 - a_, 0); h_.rotation_mode = 'XYZ'
-                    h_.rotation_euler = (Vector((math.cos(a_), 0, math.sin(a_))).to_track_quat('Z', 'Y')).to_euler()
+                    r = _r_quai(y_) + 0.0004
+                    h_ = K.cyl(f'dc_dep_lo_{s_}_{hang}_{j}', dx + r * math.cos(a_), y_, 0.016 + 0.042 * math.sin(a_), 0.0058, 0.0015, lo, c, seg=6)
+                    h_.rotation_euler = (Vector((math.cos(a_) / r, 0, math.sin(a_) / 0.042)).normalized().to_track_quat('Z', 'Y')).to_euler()
             for o_ in (de, q): o_.rotation_euler = (0, 0, math.radians(goc)); o_.location = (dx * (1 - math.cos(math.radians(goc))), 0, 0)
     return _nhom('dep_to_ong', at, rz, t.moi, c)
 
@@ -379,23 +392,45 @@ def chau_quan_ao(c, at, rz=0.0):
     return _nhom('chau_quan_ao', at, rz, t.moi, c)
 
 
+def _loft(ten, st, m, c, n=16, mem=True):
+    """Đùn mặt cắt elip theo các trạm st=[(y, cx, cz, rx, rz)] dọc trục y (hai đầu bịt kín) → khối tròn liền, không ghép hộp."""
+    bm = bmesh.new()
+    for (y, cx, cz, rx, rz_) in st:
+        for i in range(n): a_ = 2 * math.pi * i / n; bm.verts.new((cx + rx * math.cos(a_), y, cz + rz_ * math.sin(a_)))
+    bm.verts.ensure_lookup_table()
+    for k in range(len(st) - 1):
+        for i in range(n): bm.faces.new((bm.verts[k * n + i], bm.verts[k * n + (i + 1) % n], bm.verts[(k + 1) * n + (i + 1) % n], bm.verts[(k + 1) * n + i]))
+    bm.faces.new([bm.verts[i] for i in reversed(range(n))]); bm.faces.new([bm.verts[(len(st) - 1) * n + i] for i in range(n)])
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    me = bpy.data.meshes.new(ten); bm.to_mesh(me); bm.free(); me.materials.append(m)
+    for p_ in me.polygons: p_.use_smooth = mem
+    ob = bpy.data.objects.new(ten, me); c.objects.link(ob); return ob
+
+
 def dao_got(c, at, rz=0.0):
-    """Dao gọt hoa quả cán nhựa vàng (giấu dưới mép nệm). Nằm dọc y, mũi dao ở +y."""
+    """Dao gọt hoa quả cán nhựa vàng (giấu dưới mép nệm). Nằm dọc y, mũi dao ở +y. Cán tròn bầu + khâu thép + lưỡi cong cùng một trục (z = 0,009)."""
     with _tao(c) as t:
-        vang = mat('#f2b705', 0.45); thep = mat('#b9bec4', 0.2, 0.95)
-        K.box('dc_dao_can', -0.011, 0.011, 0.0, 0.1, 0.0, 0.016, vang, c, bevel=0.005)
-        for i in range(2): K.cyl(f'dc_dao_dinh_{i}', 0, 0.03 + 0.04 * i, 0.016, 0.003, 0.001, thep, c, seg=8)
-        bm = bmesh.new()
-        v = [bm.verts.new(p) for p in ((-0.009, 0.1, 0.002), (0.009, 0.1, 0.002), (0.004, 0.19, 0.002), (-0.009, 0.2, 0.002),
-                                      (-0.009, 0.1, 0.004), (0.009, 0.1, 0.004), (0.004, 0.19, 0.004), (-0.009, 0.2, 0.004))]
-        for f in ((0, 1, 2, 3), (7, 6, 5, 4), (0, 4, 5, 1), (1, 5, 6, 2), (2, 6, 7, 3), (3, 7, 4, 0)): bm.faces.new([v[i] for i in f])
+        vang = mat('#f2b705', 0.4); thep = mat('#c9ced3', 0.22, 0.95); khau = mat('#9aa0a6', 0.3, 0.9); gi = mat('#7a4a28', 0.9)
+        ZC = 0.009
+        _loft('dc_dao_can', [(0.0, 0, ZC, 0.003, 0.003), (0.004, 0, ZC, 0.0090, 0.0078), (0.02, 0, ZC, 0.0112, 0.0090), (0.05, 0, ZC, 0.0122, 0.0094),
+                             (0.08, 0, ZC, 0.0112, 0.0088), (0.095, 0, ZC, 0.0100, 0.0078)], vang, c)                    # cán: đuôi bo tròn, giữa phình, cổ thon
+        _loft('dc_dao_khau', [(0.094, 0, ZC, 0.0104, 0.0082), (0.106, 0, ZC, 0.0104, 0.0082)], khau, c)                    # khâu thép nối cán–lưỡi (ôm sát đầu cán)
+        ys = [0.105, 0.115, 0.13, 0.145, 0.16, 0.172, 0.183, 0.192, 0.2]
+        xe = [0.0100, 0.0105, 0.0108, 0.0104, 0.0092, 0.0072, 0.0046, 0.0018, -0.0080]; xs = -0.0080
+        bm = bmesh.new(); st = []
+        for y, e in zip(ys, xe):
+            h = 0.0017 - 0.0013 * (y - 0.105) / 0.095
+            st.append((bm.verts.new((xs, y, ZC + h)), bm.verts.new((xs, y, ZC - h)), bm.verts.new((e, y, ZC))))
+        for (A0, B0, C0), (A1, B1, C1) in zip(st[:-1], st[1:]):
+            for q in ((A0, A1, C1, C0), (C0, C1, B1, B0), (B0, B1, A1, A0)):
+                try: bm.faces.new(q)
+                except ValueError: bm.faces.new([v for i, v in enumerate(q) if v not in q[:i]])
+        bm.faces.new(st[0]); bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
         me = bpy.data.meshes.new('dc_dao_luoi'); bm.to_mesh(me); bm.free(); me.materials.append(thep)
-        ob = bpy.data.objects.new('dc_dao_luoi', me); c.objects.link(ob)
-        K.box('dc_dao_luoi_vat', -0.0005, 0.009, 0.1, 0.188, 0.0041, 0.0043, mat('#e3e6ea', 0.1, 1.0), c)           # dải lưỡi vát mài sáng
-        K.box('dc_dao_khau', -0.011, 0.011, 0.097, 0.103, 0.0, 0.016, mat('#9aa0a6', 0.3, 0.9), c)                  # khâu nối cán–lưỡi
-        for i in range(5): K.box(f'dc_dao_ranh_{i}', -0.0112, 0.0112, 0.008 + 0.017 * i, 0.010 + 0.017 * i, 0.0, 0.0165, mat('#d49a04', 0.5), c)   # rãnh cầm trên cán
-        for i in range(4): K.sphere(f'dc_dao_gi_{i}', -0.006 + 0.004 * i, 0.12 + 0.012 * i, 0.0041, 0.0015, mat('#7a4a28', 0.9), c, seg=6)
-        grip('dao', 0, 0.05, 0.008, c)
+        c.objects.link(bpy.data.objects.new('dc_dao_luoi', me))                                                               # lưỡi: sống dày, mép mỏng, mũi nhọn
+        for i in range(2): K.sphere(f'dc_dao_dinh_{i}', 0, 0.032 + 0.036 * i, ZC + 0.0090, 0.0034, khau, c, scale=(1, 1, 0.35), seg=10)   # đinh tán nằm trên mặt cán
+        for i in range(4): K.sphere(f'dc_dao_gi_{i}', -0.003 + 0.003 * i, 0.125 + 0.012 * i, ZC + 0.0016 - 0.0002 * i, 0.0013, gi, c, seg=6)
+        grip('dao', 0, 0.05, ZC, c)
     return _nhom('dao_got', at, rz, t.moi, c)
 
 
