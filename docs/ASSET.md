@@ -5,6 +5,7 @@ Sản xuất mới dùng nhân vật và bối cảnh Blender 3D theo [quy chu�
 | Nhóm | Nơi đọc | Lưu ý |
 |---|---|---|
 | **Nhân vật gốc chính thức — 001** | [Nguồn mô hình dùng chung](../assets/nhan-vat-3d/nhan-vat-goc/README.md) | **Bản mới tại `f0a6b9c` được chủ repo chọn làm gốc cho nhân vật về sau**; có tóc/texture, chưa bỏ tóc; có [rig thử + lưới nền đầu trọc](../assets/nhan-vat-3d/nhan-vat-goc/rig-thu/README.md) (thân, tay, ngón, chân), chưa nghiệm thu |
+| **Nam trưởng thành — NAM-002** | [Mô hình + rig thử](../assets/nhan-vat-3d/nam-002/README.md) | Bản chủ repo gửi 14/11/2026 (chữ T, 1,70 m), đã sửa màu/mắt/miệng; rig thử Mixamo + IK, chưa rig mặt, chưa nghiệm thu |
 | Hồ sơ 02 | [ASSET của hồ sơ](../episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md) | Nguồn Blender nhân vật, phòng, đồ dùng, gương và trạng thái kiểm tra |
 | Truy vết xuyên series | [Nhận diện](../episodes/hem-co-chuyen/THIET-KE-NHAN-VAT.md) | Mẫu thiết kế đã duyệt, chưa mặc định có mô hình/rig 3D |
 | Hồ sơ 1 — Tin nhắn chưa gửi | [ASSET riêng](../episodes/hem-co-chuyen/tap-01-tin-nhan-chua-gui/ASSET.md) | Dự án cũ, không lấy quy trình dựng của nó làm mặc định cho Hồ sơ 02 |
