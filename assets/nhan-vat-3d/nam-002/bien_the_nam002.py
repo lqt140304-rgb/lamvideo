@@ -9,6 +9,7 @@
 --day   phồng thân/bụng theo pháp tuyến (m; 0,012 ≈ người đầy hơn)
 --toc   ngan | dai | xu | khong ; --mau-toc r,g,b
 --may-day nhân độ dày lông mày (1,3 = dày hơn)   --mat-mau r,g,b màu mống mắt (tuyến tính)
+--moi   tung: gỡ viền mắt/miệng cũ, vẽ lại mí trên đậm + nếp mí đôi + miệng bầu dục rộng–thấp (shader)
 --bop   tên bộ nắn mặt (BOP['tung']: tai nhỏ, hàm vuông, cằm dài, mũi thấp–thon, má hóp)   --bop-he-so cường độ (1 = chuẩn)
 --ruoi  trai (Nam, +X) | phai (Người Kia, −X) | khong: nốt ruồi dưới đuôi mắt, vẽ bằng shader theo tọa độ rest
 Dáng người được NƯỚNG vào lưới gốc và mọi shape key (miệng) — file biến thể là bản riêng, không phải thanh trượt.
@@ -126,6 +127,67 @@ def nut_ruoi(ben):
     nt.links.new(src, mx.inputs[6]); nt.links.new(mx.outputs[2], bsdf.inputs['Base Color'])
 
 
+def mat_moi(kieu, da_rgb):
+    """Thay viền mắt + miệng kiểu mới cho biến thể (kieu='tung'): gỡ nét viền vẽ sẵn trên texture quanh mắt và miệng
+    (phủ màu da bằng shader, tọa độ rest nên dính mặt), ẩn đường cong Vien/VanhDa, rồi vẽ lại: mí trên đậm có đuôi, nếp mí đôi,
+    miệng bầu dục rộng–thấp, môi hồng. Vẽ bằng shader nên co giãn theo lưới khi đổi biểu cảm, nhưng KHÔNG có khoang miệng thật."""
+    mt = bpy.data.materials['model']; nt = mt.node_tree; N = nt.nodes; L = nt.links
+    for o in bpy.data.objects:
+        if o.name.startswith(('Vien.', 'VanhDa.')): o.hide_render = True; o.hide_viewport = True
+    tc = N.new('ShaderNodeTexCoord'); sp = N.new('ShaderNodeSeparateXYZ'); L.new(tc.outputs['Object'], sp.inputs[0])
+
+    def M(op, a, b=None, v=None):
+        n = N.new('ShaderNodeMath'); n.operation = op
+        for i, t in enumerate((a, b)):
+            if t is None: continue
+            if isinstance(t, (int, float)): n.inputs[i].default_value = float(t)
+            else: L.new(t, n.inputs[i])
+        return n.outputs[0]
+
+    def SS(e0, e1, t):      # smoothstep 0→1 giữa e0..e1 (e0>e1 thì đảo chiều)
+        r = N.new('ShaderNodeMapRange'); L.new(t, r.inputs[0]); r.inputs[1].default_value = e0; r.inputs[2].default_value = e1
+        r.inputs[3].default_value = 0.0; r.inputs[4].default_value = 1.0; r.interpolation_type = 'SMOOTHSTEP'; r.clamp = True; return r.outputs[0]
+
+    X = sp.outputs['X']; Y = sp.outputs['Y']; Z = sp.outputs['Z']; AX = M('ABSOLUTE', X)
+    front_m = SS(0.0, -0.02, Y); front = M('MULTIPLY', front_m, SS(0.012, 0.026, AX))   # chỉ mặt trước và không vẽ ở giữa hai mắt (vòng của hai mắt chồng nhau ở x≈0)
+
+    def ell(cx, cz, rx, rz):                                       # ρ = bán kính chuẩn hóa của bầu dục (1 = mép)
+        dx = M('SUBTRACT', AX if cx is not None and cx > 0 else X, abs(cx) if cx else 0.0); dz = M('SUBTRACT', Z, cz)
+        return M('SQRT', M('ADD', M('POWER', M('DIVIDE', dx, rx), 2.0), M('POWER', M('DIVIDE', dz, rz), 2.0))), dz
+
+    def band(rho, a0, a1, f=0.04):                                 # 1 trong [a0, a1], mép mềm f
+        return M('MULTIPLY', SS(a0 - f, a0, rho), SS(a1 + f, a1, rho))
+    bsdf = N['Principled BSDF']; cur = [bsdf.inputs['Base Color'].links[0].from_socket]
+
+    def paint(mask, rgb, mieng=False):
+        mx = N.new('ShaderNodeMix'); mx.data_type = 'RGBA'; L.new(M('MULTIPLY', mask, front_m if mieng else front), mx.inputs[0])
+        L.new(cur[0], mx.inputs[6]); mx.inputs[7].default_value = (*rgb, 1.0); L.new(mx.outputs[2], bsdf.inputs['Base Color']); cur[0] = mx.outputs[2]
+    # màu da quanh mắt / quanh miệng lấy từ texture (trung bình quanh vùng, đã đổi sang tuyến tính), nhân màu da biến thể
+    skin = tuple(min(1.0, c * t) for c, t in zip((0.879, 0.410, 0.201), da_rgb))
+    skin_m = tuple(min(1.0, c * t) for c, t in zip((0.974, 0.462, 0.222), da_rgb))
+    # mí mắt (vật liệu riêng) phải cùng màu da biến thể, nếu không lộ mảng sáng trong hốc
+    mm = bpy.data.materials.get('mi_mat')
+    if mm and mm.node_tree:
+        for n_ in mm.node_tree.nodes:
+            if n_.type == 'BSDF_PRINCIPLED': n_.inputs['Base Color'].default_value = (*skin, 1.0)
+            if n_.type == 'VALTORGB':                      # màu mí thật nằm ở Color Ramp: đổi các mốc sáng (da) sang da biến thể, giữ mốc tối (mép mí)
+                for e_ in n_.color_ramp.elements:
+                    if sum(e_.color[:3]) > 0.8: e_.color = (*skin, 1.0)
+    # --- mắt (đối xứng theo |x|) ---
+    rho, dz = ell(0.052, 1.5268, 0.0415, 0.0435)
+    paint(band(rho, 0.97, 1.55, 0.10), skin)                                         # gỡ nét viền vẽ + quầng quanh mắt
+    up = SS(0.0, 0.30 * 0.0435, dz)                                                  # chỉ nửa trên mí (không loang xuống đuôi mắt)
+    wing = SS(0.042, 0.062, AX)                                                      # đuôi mắt (ra ngoài) đậm dần
+    paint(M('MULTIPLY', band(rho, 0.99, 1.10, 0.02), M('MULTIPLY', up, M('ADD', 0.75, M('MULTIPLY', wing, 0.25)))), (0.05, 0.03, 0.025))   # mí trên đậm
+    paint(M('MULTIPLY', band(rho, 1.30, 1.37, 0.04), SS(0.05 * 0.0435, 0.45 * 0.0435, dz)), tuple(c * 0.55 for c in skin))               # nếp mí đôi
+    # --- miệng ---
+    rm, dzm = ell(0.0, 1.4295, 0.019, 0.022)
+    paint(SS(1.55, 1.30, rm), skin_m, mieng=True)                                                  # gỡ miệng O cũ + viền
+    rn = M('SQRT', M('ADD', M('POWER', M('DIVIDE', X, 0.0185), 2.0), M('POWER', M('DIVIDE', M('SUBTRACT', Z, 1.4295), 0.0105), 2.0)))
+    paint(SS(1.28, 1.10, rn), (0.52, 0.12, 0.12), mieng=True)                                    # môi hồng
+    paint(SS(0.85, 0.65, rn), (0.10, 0.015, 0.02), mieng=True)                                  # trong miệng
+
+
 def mat_may(may_day, mat_rgb):
     """may_day: nhân độ dày lông mày (1 = giữ). mat_rgb: màu mống mắt (r,g,b tuyến tính) hoặc None."""
     if abs(may_day - 1.0) > 1e-6:
@@ -174,7 +236,7 @@ def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--in', dest='inp', required=True); ap.add_argument('--out', required=True)
     ap.add_argument('--cao', type=float, default=1.70); ap.add_argument('--da', default='1,1,1'); ap.add_argument('--vai', type=float, default=0.0); ap.add_argument('--day', type=float, default=0.0)
-    ap.add_argument('--bop', default='khong', help='tên bộ bóp mặt trong BOP (vd tung) hoặc khong'); ap.add_argument('--bop-he-so', type=float, default=1.0); ap.add_argument('--may-day', type=float, default=1.0); ap.add_argument('--mat-mau', default=''); ap.add_argument('--ruoi', default='khong', help='trai (Nam) | phai (Người Kia) | khong'); ap.add_argument('--toc', default='khong'); ap.add_argument('--mau-toc', default='0.03,0.02,0.02'); ap.add_argument('--anh')
+    ap.add_argument('--moi', default='khong', help='kiểu viền mắt/miệng mới (tung) hoặc khong'); ap.add_argument('--bop', default='khong', help='tên bộ bóp mặt trong BOP (vd tung) hoặc khong'); ap.add_argument('--bop-he-so', type=float, default=1.0); ap.add_argument('--may-day', type=float, default=1.0); ap.add_argument('--mat-mau', default=''); ap.add_argument('--ruoi', default='khong', help='trai (Nam) | phai (Người Kia) | khong'); ap.add_argument('--toc', default='khong'); ap.add_argument('--mau-toc', default='0.03,0.02,0.02'); ap.add_argument('--anh')
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.inp)); sc = bpy.context.scene
     arm = bpy.data.objects['Nam_Rig']; body = bpy.data.objects['Nam_Body']
@@ -183,6 +245,7 @@ def main():
     dang_nguoi(arm, body, a.vai, a.day)
     if a.bop != 'khong': bop(body, BOP[a.bop], a.bop_he_so)
     mau_da(tuple(float(v) for v in a.da.split(',')))
+    if a.moi != 'khong': mat_moi(a.moi, tuple(float(v) for v in a.da.split(',')))
     if a.ruoi != 'khong': nut_ruoi(a.ruoi)
     mat_may(a.may_day, tuple(float(v) for v in a.mat_mau.split(',')) if a.mat_mau else None)
     ob = toc(arm, body, a.toc, tuple(float(v) for v in a.mau_toc.split(',')), sc)
