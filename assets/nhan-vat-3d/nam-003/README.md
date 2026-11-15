@@ -114,3 +114,17 @@ Quét từng khớp, đo cạnh lưới giãn >2× / co <0,35× và mặt cắt 
 **Đính chính lỗi bài đo:** thuộc tính tuỳ biến (`nam`, `nam_tro`…) đặt bằng script không tự kích driver; phải gọi `arm.update_tag()` trước `view_layer.update()`. Trước 15/11 `Ctx.upd()` thiếu dòng này nên **ngón tay đứng yên trong các video chuyển động thử và các số đo ngón cũ** (không phải lỗi rig). Đã sửa trong `chuyen_dong_nam003.py`; video cũ chưa dựng lại.
 
 **Chưa sửa:** trọng số háng/bẹn, cổ chân, bàn tay chỉ mới được đo, chưa chỉnh. Chưa soi ảnh cận cho háng, gối, cổ chân.
+
+### Sửa trọng số toàn rig (15/11/2026, `trong_so_nam003.py`)
+
+Làm mượt trọng số (Laplace, chỉ nhóm xương biến dạng, bỏ nhóm `cs_*`, giữ tối đa 4 xương) sau khi dựng rig, theo vùng: háng (40 lần, 0,5), cổ chân (40, 0,5), gối (10, 0,5), bàn tay x>0,62 (25, 0,5). Chọn bằng `kiem_rom_nam003.py`: làm mượt nhiều hơn (100 lần) làm **tệ hơn** (nắm tay 54 cạnh >2×, gối co nhiều hơn), nên giữ mức vừa.
+
+| Đo | Trước | Sau |
+|---|---|---|
+| Nắm tay hết cỡ, cạnh >2× | 90 (giãn 8,5×) | 2 (2,2×) |
+| Ngón gập 0,5 | 2–4 cạnh, 2,2–2,5× | 0 cạnh, ≤1,6× |
+| Háng gập −130° | 22–41 cạnh | 5 (2,18×); −110° còn 0 |
+| Cổ chân duỗi 55° | 7 cạnh | 0 (1,85×) |
+| Gối gập, khuỷu gập | co nếp | không đổi (co nếp tự nhiên; mặt cắt gối 71% ở 145°) |
+
+Chuyển động (đo lại, Corrective Smooth bật): đi bộ 0 cạnh >2× (max 1,71×), chạy 0 (1,95×), ngồi 0 (1,73×), nằm lăn 0 (1,58×), bò 0 (1,94×), trườn 1 cạnh (2,18×). 17/17 bài kiểm cổ vẫn đạt. Video trong `chuyen-dong/` đã dựng lại trên rig mới. Còn lại: cạnh co <0,4× ở bò/trườn/ngồi (600–800, phần lớn ở nếp háng/gối, chưa soi ảnh cận); háng gập tối đa nên giữ ≤110°.

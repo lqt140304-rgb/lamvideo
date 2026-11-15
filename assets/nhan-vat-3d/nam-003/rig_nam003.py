@@ -78,6 +78,7 @@ def main():
     t0 = time.time(); arm = g['build_armature'](sc); g['bind'](sc, arm, body)
     import co_nam003 as CO; CO.add_neck_bones(arm); CO.set_neck_weights(body); CO.add_neck_cs(body)   # xương phụ cổ + trọng số gradient (thiết kế 15/11)
     print(f'  rig xong {time.time() - t0:.1f}s; {len(body.vertex_groups)} nhóm trọng số')
+    import trong_so_nam003 as TS; TS.lam_muot(body)   # làm mượt trọng số háng/cổ chân/gối/bàn tay (đo bằng kiem_rom_nam003.py)
     # tối đa 4 xương/đỉnh (giới hạn Unity/Unreal/web)
     bpy.context.view_layer.objects.active = body; bpy.ops.object.vertex_group_limit_total(group_select_mode='BONE_DEFORM', limit=4)
     bpy.ops.object.vertex_group_normalize_all(group_select_mode='BONE_DEFORM', lock_active=False)
