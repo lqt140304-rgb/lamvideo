@@ -294,7 +294,7 @@ def dung_mat(body, rig, coll):
         # lòng trắng cố định: chỉ giữ phần sau hốc (elip rộng hơn hốc sẽ xuyên da ở thái dương)
         bm = bmesh.new()
         bm.from_mesh(me_lt)
-        D_LT, D_LV = 0.94, 1.15  # ngang sát khóe (hở khóe khi nhắm), dọc nới cho mống mắt lớn
+        D_LT, D_LV = 1.08, 1.15  # ngang sát khóe (hở khóe khi nhắm), dọc nới cho mống mắt lớn
         qm_ = mat_ve - c
         am_, tp_, bt_ = np.abs(qm_ @ u).max(), (qm_ @ up).max(), abs((qm_ @ up).min())
         bo = [v for v in bm.verts if abs((np.array(v.co) - c) @ u) > ru0 * 1.2
@@ -303,7 +303,7 @@ def dung_mat(body, rig, coll):
         for v in bm.verts:  # lòng trắng chỉ cần lộ qua khe mí: phần xa cung mắt hạnh nhân dồn về cung (không xoá: lưới thưa sẽ thành ô vuông)
             q_ = np.array(v.co) - c
             a_, b_ = q_ @ u, q_ @ up
-            d_ = math.hypot(a_ / (am_ * D_LT), b_ / (tp_ * 1.04 if b_ > 0 else bt_ * D_LV))
+            d_ = math.hypot(a_ / (am_ * D_LT), b_ / (tp_ * 0.95 if b_ > 0 else bt_ * D_LV))
             if d_ > 1.0:
                 s_ = 1.0 / d_
                 v.co = Vector(c + u * (a_ * s_) + up * (b_ * s_) + n * (q_ @ n - 0.002))
@@ -424,7 +424,7 @@ def dung_mat(body, rig, coll):
         rot = Vector(n).to_track_quat('-Y', 'Z').to_matrix().to_4x4()
         cn.matrix_world = Matrix.Translation(Vector(C) + Vector(n) * rf) @ rot
         sw = cn.modifiers.new('BAM_LONG_TRANG', 'SHRINKWRAP')
-        sw.target, sw.wrap_method, sw.wrap_mode, sw.offset = lt, 'NEAREST_SURFACEPOINT', 'OUTSIDE_SURFACE', 0.0004
+        sw.target, sw.wrap_method, sw.wrap_mode, sw.offset = lt, 'NEAREST_SURFACEPOINT', 'OUTSIDE_SURFACE', 0.0015
         sc[f'tam_hoc_mat_{k}'] = tuple(float(v) for v in c)
         cho_sau.append((k, lt, mi, cn))
         ket['tam'][k] = Vector(C)
@@ -1283,8 +1283,9 @@ def vien_mat_3d(body, rig, coll, r=0.0022, ra=0.0012, so_diem=96):
         L = np.r_[0, np.cumsum(np.linalg.norm(np.diff(np.r_[P, P[:1]], axis=0), axis=1))]
         t = np.linspace(0, L[-1], so_diem, endpoint=False)
         Q = np.stack([np.interp(t, L, np.r_[P[:, a], P[0, a]]) for a in range(3)], 1)
-        for _ in range(6):  # trơn dọc vòng: hết răng cưa của lưới
-            Q = 0.5 * Q + 0.25 * (np.roll(Q, 1, 0) + np.roll(Q, -1, 0))
+        for i_ in range(40):  # Taubin dọc vòng (λ>0 rồi μ<0): hết răng cưa của lưới mà vòng không co lại
+            lam_ = 0.5 if i_ % 2 == 0 else -0.53
+            Q = Q + lam_ * (0.5 * (np.roll(Q, 1, 0) + np.roll(Q, -1, 0)) - Q)
         cen = Q.mean(0)
         pts = []
         for p in Q:
