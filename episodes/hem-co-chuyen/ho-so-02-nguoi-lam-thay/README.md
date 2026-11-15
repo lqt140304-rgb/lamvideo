@@ -11,7 +11,9 @@
 | [Phần 1](PHAN-01-NGUOI-TRONG-PHONG.md), [Phần 2](PHAN-02-QUEN-DUOC-LAM-THAY.md), [Phần 3](PHAN-03-NGUOI-BI-THAY-THE.md) | Chi tiết theo phần để đối chiếu; khi khác master, rà và chốt trước dựng, không tự trộn lời |
 | [Luật truyện](LUAT-BAN-NHAP-V1.md), [thảo luận](THAO-LUAN-CANH.md) | Giới hạn bản sao/gương và các quyết định biên tập |
 | [Opening & trailer](KICH-BAN-TRAILER-VA-OPENING.md) | Kịch bản riêng cho phần giới thiệu/quảng bá |
+| [Opening chia đoạn thử Veo 3](OPENING-THU-VEO3.md) | 6 đoạn khoảng 8–12 giây, prompt hình và lời ghép sau; bản thử khoảng 60 giây, chưa tạo video |
 | [Cue giọng](VOICEOVER-CUE-SHEET.md), [SFX/VFX](SFX-VFX.md) | Phân vai ElevenLabs, âm thanh và điểm đồng bộ |
+| [Bàn giao audio local](AUDIO-BAN-GIAO.md) | Hai cue rút gọn, 10 bản FX giọng; 28 SFX V2 và 2 bản phối minh họa được chủ repo duyệt 16/11/2026, giữ V1 để so A/B; chưa ghép timeline phim |
 
 Thời lượng kịch bản mở tự nhiên (~18–22 phút), không gò bó cứng nhắc 15 phút: dành không gian cho các khoảng lặng chết chóc, cú giữ máy tĩnh và bước chuyển cảnh chiều sâu (soundscape đêm trọ, cô độc bờ kè sông Hồng, cú xuyên gương chậm 192 khung hình Blender, The Chilling Void). Giữ kết Nam bị nhốt trong gương, Người Kia thay thế; không đổi truyện trong lượt dọn tài liệu.
 

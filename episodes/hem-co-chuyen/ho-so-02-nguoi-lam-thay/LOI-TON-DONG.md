@@ -45,3 +45,7 @@ Trạng thái nguồn xem [ASSET.md](ASSET.md), [checklist](CHECKLIST-TIEN-KY-AS
 | Âm thanh và bản ráp | Nghe take từng vai, căn khoảng nghỉ/khẩu hình/Foley và xem animatic trước render cuối |
 
 Chưa có xác nhận nghiệm thu toàn phim. Không chuyển trạng thái “có source/ảnh” thành “đã kiểm chuyển động”.
+
+## Audio — mốc duyệt 16/11/2026
+
+Chủ repo đã duyệt **28 SFX V2 và hai bản phối minh họa không gian**. Xem [bàn giao audio](AUDIO-BAN-GIAO.md) cho đường dẫn local, phí và trạng thái; bộ cũ vẫn giữ để đối chiếu. Việc tiếp theo là đặt Foley theo tiếp xúc/hành động, căn nền và khoảng nghỉ theo bản dựng, cân với thoại rồi nghe bản mix. Hai cue rút gọn đã được tạo lại, không dùng thời lượng cũ để đặt FX. Chưa nghiệm thu bản mix/khẩu hình/toàn phim; mốc duyệt SFX không tự mở rộng sang các phần này.

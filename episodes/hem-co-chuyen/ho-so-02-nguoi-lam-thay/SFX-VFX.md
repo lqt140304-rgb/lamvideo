@@ -1,5 +1,8 @@
 # Hồ sơ 2 — SFX/VFX và hành động cần đồng bộ
 
+> Cập nhật audio local 16/11/2026: xem [AUDIO-BAN-GIAO.md](AUDIO-BAN-GIAO.md) cho 28 SFX mới, 10 bản FX giọng và hai cue rút gọn. Các bảng ứng viên bên dưới là hồ sơ rà cũ; không phải danh sách đã nghe duyệt hay timeline toàn tập.
+> Lượt chỉnh tiếp: 28 SFX **V2** được tạo lại theo lớp không gian/chất liệu, nằm riêng ở `public/<slug>/sfx-v2/`; có so A/B với V1 và hai bản phối không gian. **Chủ repo đã duyệt V2 và hai bản phối ngày 16/11/2026**; chưa gắn timeline phim.
+
 Rà ngày 10/11/2026 theo THAO-LUAN-CANH và DUNG-CANH hiện hành. Phạm vi chi tiết: A–H / phần 1 đã viết; phần 2–3 còn đề cương nên chỉ lập nhu cầu sau khi chốt cảnh. Đây là danh mục ứng viên và chỉ dẫn, chưa tải/nghe duyệt, chưa nhập timeline hoặc render. Tra tên file chỉ xác nhận có tệp, không xác nhận nội dung phù hợp.
 
 ## SFX cần trước

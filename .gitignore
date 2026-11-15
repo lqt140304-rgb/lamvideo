@@ -40,3 +40,7 @@ what-if-studio/.remotion/
 
 # Rebuild opening mix from credited sources
 what-if-studio/public/ho-so-02-nguoi-lam-thay/opening-audio/mix.wav
+
+# Per-cue processed voice audio stays local; reproduce from the episode script.
+what-if-studio/public/ho-so-02-nguoi-lam-thay/thoai-fx/
+what-if-studio/public/ho-so-02-nguoi-lam-thay/sfx-v2/
