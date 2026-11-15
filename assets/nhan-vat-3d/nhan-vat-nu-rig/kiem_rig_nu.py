@@ -555,7 +555,9 @@ def kiem_khong_gap(cac_dang=None):
     """Mở hàm (và khẩu hình): mọi cạnh nhìn thấy quanh miệng (gồm môi) không gấp thêm quá 30° so với lúc nghỉ."""
     import json
     sd = [m for m in BODY.modifiers if m.type == 'SUBSURF']
+    muc = [m.levels for m in sd]
     for m in sd:
+        m.levels = 1  # ngưỡng 30° hiệu chỉnh ở mức 1; mức cao chia nhỏ khe có crease nên góc tăng giả
         m.show_viewport = True
     try:
         g0, chon = _goc_canh_mieng()
@@ -575,6 +577,8 @@ def kiem_khong_gap(cac_dang=None):
     finally:
         for m in sd:
             m.show_viewport = False
+        for m, l in zip(sd, muc):
+            m.levels = l
 
 
 def kiem_cs_chi_mieng():

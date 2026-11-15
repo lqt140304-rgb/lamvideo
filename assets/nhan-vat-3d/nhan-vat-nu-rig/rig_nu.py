@@ -411,7 +411,7 @@ for p_ in body.data.polygons:
 cs = body.modifiers.new('CorrectiveSmooth', 'CORRECTIVE_SMOOTH')  # chỉ vùng miệng: xóa nếp gấp khi há
 cs.vertex_group, cs.rest_source, cs.smooth_type, cs.iterations = 'MIENG_MUOT', 'ORCO', 'LENGTH_WEIGHTED', 10
 sd = body.modifiers.new('Subdivision', 'SUBSURF')
-sd.levels, sd.render_levels = 1, 2
+sd.levels, sd.render_levels = 2, 3  # mặt mịn hơn (chủ repo yêu cầu tăng LOD)
 sd.uv_smooth = 'PRESERVE_BOUNDARIES'
 rig.update_tag()
 bpy.context.view_layer.update()
