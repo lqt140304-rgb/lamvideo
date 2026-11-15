@@ -404,7 +404,7 @@ assert np.linalg.norm(moved[foot], axis=1).mean() > 0.05, 'IK chân không kéo 
 mat_nu.dung_mat(body, rig, coll)
 mat_nu.dung_may(body, rig, coll)
 mat_nu.la_phang_quanh_mat(body)
-mat_nu.dan_mi_vao_da(body)
+# mat_nu.dan_mi_vao_da(body)  # bỏ: mí nằm gọn trong hốc, không còn tấm phủ ngoài da
 MIENG = mat_nu.dung_mieng(body, rig, coll)
 mat_nu.dung_shape_key_mieng(body, MIENG['vung_dinh'], MIENG['tam_mieng'], HERE / 'khau-hinh.json')
 mat_nu.da_mat_tron(body)

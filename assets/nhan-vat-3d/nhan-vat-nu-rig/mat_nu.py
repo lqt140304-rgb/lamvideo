@@ -251,11 +251,10 @@ def dung_mat(body, rig, coll):
         bm.faces.ensure_lookup_table()
         bmesh.ops.delete(bm, geom=[bm.faces[i] for i in faces], context='FACES_ONLY')
         bm.verts.ensure_lookup_table()
-        vien = np.array([v.co[:] for v in bm.verts if v.is_boundary and v.link_faces  # khóe ngoài lùi sau: lọc theo khoảng cách
-                         and (v.co - Vector(tam_ve)).length < 0.1 and sg * v.co.x > 0.02])
+        vv = [v for v in bm.verts if v.is_boundary and v.link_faces  # khóe ngoài lùi sau: lọc theo khoảng cách
+              and (v.co - Vector(tam_ve)).length < 0.1 and sg * v.co.x > 0.02]
+        vien = np.array([v.co[:] for v in vv])
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
-        bm.to_mesh(body.data)
-        bm.free()
         assert len(vien) >= 6, f'Viền hốc mắt {k} quá ít đỉnh: {len(vien)}'
         c = vien.mean(0)
         _, _, vt = np.linalg.svd(vien - c)
@@ -264,6 +263,22 @@ def dung_mat(body, rig, coll):
         up /= np.linalg.norm(up)
         u = np.cross(n, up) * -1                        # trục ngang (+X)
         u *= np.sign(u[0]) or 1
+        # viền hốc trơn: bán kính theo hướng được thay bằng đường Fourier bậc 3 (hết gai nhọn ở khóe, viền lởm chởm và méo);
+        # đỉnh viền trượt trong mặt phẳng hốc, giữ nguyên độ sâu
+        q0 = vien - c
+        a0, b0 = q0 @ u, q0 @ up
+        sa, sb = np.abs(a0).max(), np.abs(b0).max()
+        th0 = np.arctan2(b0 / sb, a0 / sa)
+        r0 = np.hypot(a0 / sa, b0 / sb)
+        A = np.stack([np.ones_like(th0)] + [f(h * th0) for h in (1, 2, 3) for f in (np.cos, np.sin)], 1)
+        coef = np.linalg.lstsq(A, r0, rcond=None)[0]
+        rs = A @ coef
+        for v, a_, b_, r_, rs_ in zip(vv, a0, b0, r0, rs):
+            f_ = rs_ / max(r_, 1e-6)
+            v.co = Vector(c + u * (a_ * f_) + up * (b_ * f_) + n * ((np.array(v.co[:]) - c) @ n))
+        vien = np.array([v.co[:] for v in vv])
+        bm.to_mesh(body.data)
+        bm.free()
         q = vien - c
         ru0, rz0 = np.abs(q @ u).max() + 0.002, np.abs(q @ up).max() + 0.002
         # elip nông: mũi lồi 3 mm trước mặt phẳng hốc, mặt cắt tại mặt phẳng hốc vẫn rộng hơn viền
@@ -341,6 +356,14 @@ def dung_mat(body, rig, coll):
                 if d > 1.0:
                     s = min(1.0, D_KEP / d)
                     a, b, dn = a * s, b * s, min(dn, -0.0008)
+                # vỏ elip cong về sau ở hai khóe: nâng sàn theo độ sâu viền hốc để mí không võng thành rãnh tối ở đuôi mắt
+                rd_ = float(np.interp(math.atan2(b / rz0, a / ru0), th_v, dn_v, period=2 * math.pi)) - 0.0008
+                dn = max(dn, rd_)
+                # ngoài cung mắt hạnh nhân, vỏ elip còn nhô lên thành gờ ngang ở hai khóe (rãnh tối ở đuôi mắt): hạ dần về độ sâu viền
+                da_ = math.hypot(a / am_, b / (tp_ if b > 0 else bt_))
+                f_ = min(1.0, max(0.0, (da_ - 1.0) / 0.5))
+                f_ = f_ * f_ * (3 - 2 * f_)
+                dn = dn * (1 - f_) + min(dn, rd_ + 0.0012) * f_
                 return Vector(c + u * a + up * b + n * dn)
 
             dn_v = (qv_ @ n)[od_]
