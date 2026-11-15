@@ -86,4 +86,5 @@ def main():
     print('PASS: đã lưu', a.out)
 
 
-main()
+if '--out' in sys.argv:   # import rig_nam003 (vd từ kiem_co_nam003.py) không dựng rig
+    main()
