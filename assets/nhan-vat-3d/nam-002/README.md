@@ -187,3 +187,23 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 - [`nam-002-rig.blend`](nam-002-rig.blend) (35 MB, texture nhúng sẵn): đầy đủ rig Mixamo + IK + ngón tay + mắt/mày + biểu cảm + khẩu hình (shape key và driver), dáng chữ T, tối đa 4 xương/đỉnh. Đây là bản nên mở khi mặc đồ. Dựng bằng `rig_nam002.py` (khoảng 6 phút). Lúc mở file hoạt ảnh trống; chu kỳ đi bộ nằm trong `di_bo_nam002.py`.
 - [`nam-002-rig.glb`](nam-002-rig.glb) (31 MB): cùng bộ xương và shape key để dùng ở nơi khác. **GLB không mang driver**, nên biểu cảm/khẩu hình phải đặt trực tiếp qua shape key (`mieng_ha`, `mieng_hep`, `mieng_rong`, `cuoi`, `meu`, `mieng_khep`, `may_*`), không qua thuộc tính xương `Head`.
 - Cảnh thử áo phông và các file trung gian không đưa lên repo.
+
+## Thử biến thể từ khuôn mẫu (15/11/2026)
+
+`bien_the_nam002.py` dựng biến thể từ `nam-002-rig.blend`: chiều cao, màu da, mở vai, độ đầy, tóc. Ví dụ đã chạy:
+
+```
+--cao 1.62 --da 0.62,0.42,0.30 --vai -0.012 --day -0.006 --toc ngan --mau-toc 0.02,0.015,0.012   # A: thấp, da sẫm, gầy
+--cao 1.82 --da 0.86,0.66,0.55 --vai 0.025 --day 0.012 --toc dai --mau-toc 0.35,0.20,0.08        # B: cao, da sáng, vai rộng, đầy
+```
+
+Ảnh: [bien-the-thu.webp](bien-the-thu.webp) (A: hai hàng trên, B: hai hàng dưới; chữ T, mặt mặc định/vui/ngạc nhiên/liếc, rồi 8 khung đi bộ).
+
+**Kết quả đo/xem:** chiều cao đúng 1,62 m và 1,82 m, chân chạm sàn (thấp nhất 0,0000 m); chu kỳ đi bộ, biểu cảm, khẩu hình và liếc mắt chạy bình thường trên cả hai, không phải làm lại gì; mắt/mày đi theo đầu khi scale. Dáng người được nướng vào lưới và các shape key miệng, xương vai–tay dịch theo (không lệch khi đi).
+
+**Hạn chế đã thấy:**
+- Tóc thử chỉ là vỏ úp bát copy từ da đầu: kiểu dài hở ở gáy/hai bên và nhìn như mũ. Tóc thật cần làm riêng (thư viện tóc).
+- Màu da chỉ nhân màu lên texture nướng: đổi tông được, nhưng môi, má, vùng đỏ cố định theo texture, nên da quá sẫm hay quá nhạt sẽ lệch chi tiết. Muốn tốt hơn phải tách texture thành lớp da + lớp chi tiết.
+- Scale giữ ở mức object (Nam_Rig = chiều cao/1,70), chưa áp; bước đi theo tỉ lệ nhưng chưa tính độ dài chân khác nhau.
+- Dáng người nướng cố định, không phải thanh trượt; áo quần làm cho bản gốc phải làm lại theo từng biến thể (Data Transfer từ thân biến thể).
+- Chưa thử áo quần lên biến thể; chưa thử thay đổi khuôn mặt (mũi, hàm, khoảng cách mắt).
