@@ -1,0 +1,59 @@
+{
+ "NAM": {
+  "id": "6adFm46eyy74snVn6YrT",
+  "ten": "Nhật Phong",
+  "settings": {
+   "stability": 0.5,
+   "similarity_boost": 0.75
+  }
+ },
+ "TÙNG": {
+  "id": "RxhjHDfpO54FYotYtKpw",
+  "ten": "Phong",
+  "settings": {
+   "stability": 0.5,
+   "similarity_boost": 0.75
+  }
+ },
+ "GIẢNG VIÊN": {
+  "id": "BUPPIXeDaJWBz696iXRS",
+  "ten": "Viet Dung",
+  "settings": {
+   "stability": 0.5,
+   "similarity_boost": 0.75
+  }
+ },
+ "SINH VIÊN": {
+  "id": "RxhjHDfpO54FYotYtKpw",
+  "ten": "Phong",
+  "settings": {
+   "stability": 0.0,
+   "similarity_boost": 0.75
+  }
+ },
+ "NGƯỜI KIA 1": {
+  "id": "6adFm46eyy74snVn6YrT",
+  "ten": "Nhật Phong",
+  "settings": {
+   "stability": 1.0,
+   "similarity_boost": 0.9
+  }
+ },
+ "NGƯỜI KIA 2": {
+  "id": "6adFm46eyy74snVn6YrT",
+  "ten": "Nhật Phong",
+  "settings": {
+   "stability": 0.5,
+   "similarity_boost": 0.75
+  }
+ },
+ "NGƯỜI KIA 3": {
+  "id": "6adFm46eyy74snVn6YrT",
+  "ten": "Nhật Phong",
+  "settings": {
+   "stability": 0.5,
+   "similarity_boost": 0.75
+  },
+  "ghi_chu": "Hồi 3: thuần thục như người thật, cùng giọng Nam"
+ }
+}
