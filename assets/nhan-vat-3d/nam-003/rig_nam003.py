@@ -13,7 +13,7 @@ import sys, os, math, time, argparse
 import numpy as np, bpy, bmesh
 from mathutils import Vector
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 SRC_GLB = os.path.join(HERE, 'nguon', 'base_2.glb')
 RIG002 = os.path.join(HERE, '..', 'nam-002', 'rig_nam002.py')
 
@@ -39,11 +39,11 @@ def patched_namespace():
         c2 = np.array(c, float).copy(); c2[:, 2] = np.interp(c[:, 2], zr, zn); c2[:, 0] = np.sign(c[:, 0]) * np.interp(np.abs(c[:, 0]), xr, xn); return c2
     g['MAPCO'] = MAPCO
     exec(compile(src, 'rig_nam002_vá', 'exec'), g)
-    # mốc khớp bên +X (m). Khuỷu x=0,50 và gối y=0,04 chọn bằng đo biến dạng 15/11 (thử khuỷu 0,41–0,56, gối y 0,02–0,056, hông x 0,09–0,105: xem README). Đo chắc: trục tay z≈1,45, cổ tay x≈0,66, đáy háng z≈0,90, đỉnh đầu 1,824. Ước: khuỷu, gối, cổ chân (xem docstring).
+    # mốc khớp bên +X (m). Khuỷu x=0,50 và gối y=0,04 chọn bằng đo biến dạng 15/11 (thử khuỷu 0,41–0,56, gối y 0,02–0,056, hông x 0,09–0,105: xem README). Cổ chân chọn 15/11 bằng chon_co_chan_nam003.py (z 0,08–0,14 × y 0,04–0,06). Đo chắc: trục tay z≈1,45, cổ tay x≈0,66, đáy háng z≈0,90, đỉnh đầu 1,824. Ước: khuỷu, gối, cổ chân (xem docstring).
     g['J'].update(dict(
         hips=(0, 0.02, 0.96), spine=(0, 0.025, 1.06), spine1=(0, 0.015, 1.18), spine2=(0, 0.02, 1.31), neck=(0, 0.04, 1.50), head=(0, 0.04, 1.58), head_top=(0, 0.02, 1.824),
         clav=(0.03, 0.04, 1.46), shoulder=(0.21, 0.045, 1.452), elbow=(0.50, 0.058, 1.447), wrist=(0.66, 0.04, 1.452), hand_end=(0.79, 0.03, 1.455),
-        hip=(0.09, 0.02, 0.88), knee=(0.132, 0.04, 0.46), ankle=(0.148, 0.05, 0.105), ball=(0.155, -0.07, 0.03), toe=(0.16, -0.14, 0.02)))
+        hip=(0.09, 0.02, 0.88), knee=(0.132, 0.04, 0.46), ankle=(0.148, 0.04, 0.14), ball=(0.155, -0.07, 0.03), toe=(0.16, -0.14, 0.02)))
     if os.environ.get('NAM003_J'):   # thử vị trí khớp khác: NAM003_J='{"elbow":[0.44,0.058,1.447]}'
         import json
         g['J'].update({k: tuple(v) for k, v in json.loads(os.environ['NAM003_J']).items()})
@@ -75,6 +75,7 @@ def main():
     g = patched_namespace(); sc = bpy.context.scene
     body = nap_mo_hinh(); sc = bpy.context.scene
     t0 = time.time(); arm = g['build_armature'](sc); g['bind'](sc, arm, body)
+    import co_nam003 as CO; CO.add_neck_bones(arm); CO.set_neck_weights(body); CO.add_neck_cs(body)   # xương phụ cổ + trọng số gradient (thiết kế 15/11)
     print(f'  rig xong {time.time() - t0:.1f}s; {len(body.vertex_groups)} nhóm trọng số')
     # tối đa 4 xương/đỉnh (giới hạn Unity/Unreal/web)
     bpy.context.view_layer.objects.active = body; bpy.ops.object.vertex_group_limit_total(group_select_mode='ALL', limit=4)
@@ -86,4 +87,5 @@ def main():
     print('PASS: đã lưu', a.out)
 
 
-main()
+if '--out' in sys.argv:   # import rig_nam003 (vd từ kiem_co_nam003.py) không dựng rig
+    main()
