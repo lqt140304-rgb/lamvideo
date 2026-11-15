@@ -186,20 +186,24 @@ def _uon(co, ax_, az_):
 
 _VANH = {}
 _ONG = {}
-VIEN_R = 0.0014   # bán kính ống viền 3D (nét ≈ 2,6 mm)
+VIEN_R = 0.0009   # bán kính ống viền 3D (nét ≈ 1,8 mm)
 
 
 def _vien_3d(sc, body, cx, k):
     """Đường viền 3D trơn ôm mép hốc: NURBS khép kín qua 64 điểm trên da ngay ngoài mép lỗ, tiết diện tròn."""
-    a_, b_ = RX - VIEN + 0.0010, RZ - VIEN + 0.0010     # lệch ra ngoài 1 mm ⇒ ống viền phủ lên gờ mép cắt
+    a_, b_ = RX - VIEN + 0.0006, RZ - VIEN + 0.0006     # lệch ra ngoài 1 mm ⇒ ống viền phủ lên gờ mép cắt
     pts = []
     for th in np.linspace(0, 2 * np.pi, 64, endpoint=False):
         x = cx + a_ * math.cos(th); z = EYE_Z + b_ * math.sin(th); pts.append((x, _surface_y(body, x, z) - 0.0002, z))
-    cu = bpy.data.curves.new(f'Vien.{k}', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = VIEN_R; cu.bevel_resolution = 4; cu.resolution_u = 6
+    cu = bpy.data.curves.new(f'Vien.{k}', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = VIEN_R; cu.bevel_resolution = 6; cu.resolution_u = 12
     sp = cu.splines.new('NURBS'); sp.points.add(len(pts) - 1)
     for p_, q in zip(sp.points, pts): p_.co = (*q, 1)
     sp.use_cyclic_u = True; sp.order_u = 4
     ob = bpy.data.objects.new(f'Vien.{k}', cu); sc.collection.objects.link(ob)
+    # lọc mượt độ sâu y theo vòng (bỏ gợn của da) rồi cập nhật điểm NURBS
+    Y = np.array([p_.co[1] for p_ in sp.points]); F = np.fft.rfft(Y); F[6:] = 0; Ys = np.fft.irfft(F, len(Y))
+    for p_, yv in zip(sp.points, Ys): p_.co = (p_.co[0], float(min(yv, p_.co[1])), p_.co[2], 1)   # không lún xuống dưới da
+    pts = [tuple(p_.co[:3]) for p_ in sp.points]
     # ống lót hốc: nối kín mép hốc với vòng nhỏ phía sau nhãn cầu (che khe tường hốc)
     P0 = np.array(pts); c0 = P0.mean(0); bm_ = bmesh.new(); rings = []
     for f, dy in ((1.0, 0.0), (0.97, 0.004), (0.88, 0.014), (0.70, 0.030)):

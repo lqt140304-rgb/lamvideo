@@ -117,3 +117,5 @@ Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn m
 - Viền 3D lệch ra ngoài mép lỗ 1 mm, dày 2,8 mm, phủ lên gờ mép cắt. Hai đầu vành da thon dần về 0, nên hết chấm cụt.
 - Thêm ống lót kín `OngHoc.L/R` (màu da tối) từ mép hốc vào sâu 30 mm sau nhãn cầu, nên nhìn từ trên hay dưới không còn khe đen. Tường hốc sâu 30 mm.
 - Còn lại: ở khóe ngoài mắt phải còn một vạch tối rất nhỏ khi nhìn gần.
+
+**Viền mảnh (15/11/2026):** nét viền mắt giảm còn khoảng 1,8 mm (bán kính 0,9 mm), lệch ra ngoài mép lỗ 0,6 mm. Độ sâu của viền theo da được lọc mượt quanh vòng (giữ 6 hài bậc thấp, không lún dưới da), và tăng độ phân giải đường cong, nên nét đều, hết gợn lem. Còn lại: ở hai khóe mắt, mép mí đôi khi lộ một vạch nhỏ ngoài viền.
