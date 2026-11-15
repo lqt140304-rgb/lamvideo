@@ -436,6 +436,8 @@ def main():
     arm = build_armature(sc)
     bind(sc, arm, body)
     MAT.gan_mat(arm, eyes)
+    import bieu_cam_nam002 as BC
+    BC.tao_bieu_cam(arm, body, MAT._MAY)
     stretch(arm, body)
     if a.anh: render_sheet(sc, arm, os.path.abspath(a.anh))
     sc['ma_asset'] = 'NAM-002 / RIG'; sc['trang_thai'] = 'Rig thân/tay/ngón/chân, IK chân, IK/FK tay, tên Mixamo; chưa rig mặt; chưa nghiệm thu'

@@ -60,7 +60,7 @@ Dáng nghỉ lệch tối đa 0,02 mm so với lưới gốc. Ảnh kiểm tra: 
 
 ## Chưa làm
 
-- Chưa có biểu cảm mày/miệng (shape key) hay khẩu hình (viseme). Mắt 3D đã có (xem mục Mắt).
+- Chưa có khẩu hình (viseme) và chưa có đủ 18 biểu cảm theo quy chuẩn 3D. Mắt 3D và biểu cảm mày/miệng cơ bản đã có (xem hai mục dưới).
 - Mặt sau vai còn vài nếp nhỏ khi hạ tay.
 - `chep_dong.py` (chép động tác Mixamo) chưa chạy thử trên rig này.
 - Đi bộ mới có một nhịp (đi thường). Chưa có đi chậm, đi nhanh hay rẽ, và chưa đo độ trượt của chân đứng.
@@ -121,3 +121,21 @@ Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn m
 **Viền mảnh (15/11/2026):** nét viền mắt giảm còn khoảng 1,8 mm (bán kính 0,9 mm), lệch ra ngoài mép lỗ 0,6 mm. Độ sâu của viền theo da được lọc mượt quanh vòng (giữ 6 hài bậc thấp, không lún dưới da), và tăng độ phân giải đường cong, nên nét đều, hết gợn lem. Còn lại: ở hai khóe mắt, mép mí đôi khi lộ một vạch nhỏ ngoài viền.
 
 **Sửa lỗi khóe mắt (15/11/2026):** mí co lại nằm gọn trong viền (hết mũi nhọn nhô ra ngoài ở hai khóe); tường hốc cũ trên lưới bị bỏ, ống lót `OngHoc` che thay; ống lót bắt đầu sát ngoài viền. Vành da `VanhDa` dùng vật liệu màu da riêng (trước dùng vật liệu thân nên ra màu đen). Còn lại: ở khóe trong mắt trái còn một khe đen hẹp giữa viền và nhãn cầu, và một mảnh đen nhỏ ở khóe ngoài mắt phải khi nhìn rất gần.
+
+## Biểu cảm mày và miệng
+
+`bieu_cam_nam002.py` (gọi từ `rig_nam002.py`) thêm shape key điều khiển bằng thuộc tính 0–1 trên xương `Head`:
+
+| Nhóm | Thuộc tính | Tác dụng |
+|---|---|---|
+| Lông mày | `may_nhuong`, `may_ha` | nhướn / hạ cả hai mày (biên độ 9 mm) |
+| | `may_cau` | đầu trong hạ, đuôi nhướn (tức giận) |
+| | `may_buon` | đầu trong nhướn, đuôi hạ (buồn) |
+| | `may_trai_nhuong`, `may_phai_nhuong` | nhướn riêng một bên |
+| Miệng | `mieng_ha` | há dọc (hình O cao ra, môi dưới xuống) |
+| | `mieng_hep`, `mieng_rong` | chúm / rộng ngang |
+| | `cuoi`, `meu` | khóe lên / xuống |
+
+Miệng chữ O là hình vẽ dính lưới da nên biến dạng theo lưới quanh miệng (vùng bán kính 5 cm, tắt dần ra ngoài). Lông mày là tấm 3D `LongMay.L/R` có shape key riêng. Hàm `dung_bieu_cam(arm, ten)` đặt nhanh 8 biểu cảm: mac_dinh, ngac_nhien, tuc_gian, buon, vui, nghi_ngo, so_hai, mo_mang. [Ảnh 8 biểu cảm](bieu-cam.webp).
+
+Giới hạn: hình miệng vẽ chỉ co giãn và cong theo lưới, không đổi được sang hình miệng khác (ví dụ lộ răng, đường miệng thẳng). Muốn khẩu hình đủ phải thay miệng vẽ bằng miệng 3D như đã làm với mắt.
