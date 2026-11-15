@@ -418,7 +418,7 @@ sd.levels, sd.render_levels = 2, 3  # mặt mịn hơn (chủ repo yêu cầu t�
 sd.uv_smooth = 'PRESERVE_BOUNDARIES'
 rig.update_tag()
 bpy.context.view_layer.update()
-mat_nu.vien_mat_3d(body, rig, coll)  # sau Subdivision: viền theo da đã chia mịn
+# mat_nu.vien_mat_3d(body, rig, coll)  # chủ repo bỏ viền mắt 3D (15/11/2026); hàm giữ lại trong mat_nu.py
 
 # --- ảnh dáng thử (tùy chọn) ---
 soi = os.environ.get('SOI_DIR')
