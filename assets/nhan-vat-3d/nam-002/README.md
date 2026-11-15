@@ -94,4 +94,6 @@ Mắt vẽ trên texture đã được thay bằng mắt 3D, phần này nằm t
 
 [Ảnh kiểm tra](mat-3d.webp): mặc định, nhìn trái, nhìn phải, nhìn lên, nhìn xuống, mở to, nhắm nửa, nhắm, nháy trái, và nhìn chéo.
 
-Còn lại: góc dưới của hốc lộ một vệt trắng mảnh (mép nhãn cầu). Bên phải hốc mắt phải còn một mẩu viền vẽ nhỏ. Chưa có mí dưới. Lông mày vẫn là hình vẽ trên texture, chưa cử động được.
+Viền mắt được vẽ lại thành nét tối đều, dày 4 mm, chạy theo đúng mép hốc. Các mẩu nét cũ và mảng trắng sót trong khoảng 1,3 lần bán kính ngoài viền được tô lại bằng màu da (chừa vùng lông mày).
+
+Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn một gờ mờ do khối mắt cũ trên lưới. Chưa có mí dưới. Lông mày vẫn là hình vẽ trên texture, chưa cử động được.
