@@ -3,10 +3,18 @@
 > **Thời lượng:** Không gò bó cứng nhắc 15:00 — Thời lượng điện ảnh mở tự nhiên (~18:00 – 22:00+), nhịp thở chậm rãi, lớp lang tâm lý dày dặn.  
 > **Tỉ lệ khung hình:** 2.39:1 Cinemascope Anamorphic  
 > **Phong cách:** Kinh dị tâm lý (Psychological Suspense & Slow-burn Horror), hiện thực xã hội sinh viên Việt Nam, nỗi sợ lạnh lẽo từ sự buông xuôi và tha hóa tự thân.  
-> **Định hướng đạo diễn & Nhịp điệu (Director's Pacing Directive):**  
+>> - **Định hướng đạo diễn & Nhịp điệu (Director's Pacing Directive):**  
 > - **TUYỆT ĐỐI KHÔNG ÉP NHỊP DỒN DẬP ĐỂ GIỮ MỐC 15 PHÚT.** Mỗi phân cảnh và bước chuyển giao đều cần khoảng thở để khán giả thẩm thấu sức nặng tâm lý của nhân vật.  
 > - **Khoảng lặng điện ảnh (Dramatic Silences):** Sau mỗi cú sốc hoặc lời nói bóc trần, không gian phải được chìm vào im lặng thật sự — chỉ còn tiếng kim đồng hồ, tiếng nước rỉ, tiếng quạt trần, nhịp thở đứt quãng hay tiếng tim đập dội vang.  
 > - **Khoảng giữ lâu trong chuyển cảnh (Lingering Holds & Breather Beats):** Những cú máy tĩnh giữ lâu (Static Lingering Shots) ở căn phòng trọ ngột ngạt, soundscape đêm khuya Hà Nội, hoàng hôn bờ kè sông vắng mênh mông, và mặt kính hóa lỏng Deep Teal phải có đủ thời lượng để tạo chiều sâu điện ảnh.  
+> - **Hệ thống Ngôn ngữ Điện ảnh Đào sâu Tâm lý (Psychological Visual & Optical Suite):**  
+>   Không chỉ dùng thoại hay diễn xuất, các cú máy và hiệu ứng quang học 3D phải chủ động bóc trần nội tâm hỗn loạn của nhân vật:  
+>   * **Fisheye Lens (12–16mm Ultra-Wide Close-Up — 3D-7):** Dí sát mặt (<15cm), Barrel Distortion bóp méo trung tâm phồng to, hút 4 góc vào bóng tối vô tận. Lột tả Paranoia (hoang tưởng), ngột ngạt giam cầm và sự méo mó trong nhận thức thực tại khi Nam sụp đổ hoặc phát hiện ra quy luật nghịch đảo của Người Trong Gương.  
+>   * **Snorricam (Body-Mounted Rig — 3D-8):** Camera gắn chặt trên ngực chĩa thẳng mặt Nam. Khi Nam tháo chạy hoảng loạn khỏi giảng đường, gương mặt Nam đứng yên tuyệt đối ở tâm khung hình đẫm lệ, trong khi toàn bộ thế giới hậu cảnh rung lắc, xoay cuồng chao đảo. Lột tả sự hoảng loạn tột độ và phân ly thực tại (Dissociation / Derealization).  
+>   * **Split-Diopter (Ống kính lưỡng tiêu cự — 3D-9):** Kính chia đôi thị trường quang học. Tiền cảnh (mặt Nam cực cận) và Hậu cảnh (Người Kia hoặc mặt gương ở xa) ĐỀU NÉT ĐANH 100% cùng lúc, không bị mờ nhòe DoF. Tạo cảm giác đối đầu nghẹt thở, không lối thoát, sự xâm lấn không gian của Kẻ Song Trùng (Doppelgänger).  
+>   * **Tunnel Vision & Tinnitus Effect (Thị giác đường hầm + Ù tai tần số cao):** Viền khung hình sập tối (Dark Vignette cực mạnh) và Radial Blur ngoại vi. Toàn bộ âm thanh xung quanh bị bóp nghẹt dưới nước (Low-pass filter 400Hz), đè lên đó là tiếng rít ù tai 4000Hz nhức nhối khi chịu sang chấn tinh thần (viên phấn gãy, phát hiện CCCD đảo bên).  
+>   * **Top-Down 90° God's Eye (3D-3):** Góc máy từ trần thẳng đứng nhìn xuống sàn phòng trọ 15m² như một chiếc hộp kính thí nghiệm thu nhỏ, giam cầm Nam co ro như con bọ mắc bẫy giữa đống rác rưởi, sự trì hoãn và cô độc tuyệt đối.  
+>   * **Slow Shutter Ghosting:** Tốc độ màn trập mở 360°, vệt bóng ma trượt nhịp thời gian, thể hiện sự lệch pha giữa thế giới thực và bản sao từ gương.  
 > **Bản Master chuẩn:** Khóa bản dựng (Locked Master Script) — Nguồn tham chiếu duy nhất cho toàn bộ khâu tiền kỳ, asset, Blender 3D animation và voiceover.
 
 ---
@@ -14,12 +22,12 @@
 ## BẢNG PHÂN BỔ THỜI LƯỢNG & CÁC BƯỚC CHUYỂN HỒI (NHỊP THỞ MỞ RỘNG)
 
 | Hồi | Phân đoạn | Thời lượng ước tính | Bước chuyển tiếp chính & Khoảng giữ chiều sâu (Lingering Holds & Transition Beats) |
-|:---:|---|:---:|---|
+|---|---|:---:|---|
 | **HỒI 1** | **Người trong phòng** | ~00:00 – 05:45 | **Mở đầu tĩnh lặng:** Cú máy tĩnh giữ lâu ngột ngạt $\to$ Báo thức & đóng chân gương $\to$ Dư âm tiếng búa chìm vào tĩnh mịch $\to$ *[J-Cut tiếng nước & Bước chân chậm rãi]* $\to$ Khựng lại ở ngưỡng cửa $\to$ Đối mặt bản sao (cú quay đầu chậm & khoảng lặng đông cứng) $\to$ *[Smash Cut & thở dốc kéo dài]* $\to$ Đẩy ra ngoài khóa then sắt & khe cửa hun hút vắng lặng $\to$ Giấu dao dưới nệm $\to$ *[Match Cut mở laptop & Time-lapse chiều sang đêm lưu giữ]* $\to$ Đọc note thuốc khớp & nộp tiểu luận $\to$ Cám dỗ tiện lợi. |
-| **BƯỚC CHUYỂN HỒI 1 $\to$ 2** | *Đêm trọ sang Bình minh* | *~05:45 – 06:45<br>(Khoảng giữ sâu)* | **Fade to Black sâu (lưu màn đen 4s) $\to$ Toàn cảnh âm thanh (Soundscape) đêm trọ Hà Nội sâu thẳm (tiếng rao bánh khúc ngân dài xa xăm, tiếng quạt cây rít gió, tiếng còi tàu đêm, tiếng kẻng sắt xe rác 5h sáng lách cách) $\to$ Fade-in chậm nắng sớm Ngày 2 rọi then sắt còn khóa nguyên.** |
-| **HỒI 2** | **Quen được sống thay** | ~06:45 – 14:15 | Mở mắt rút dao (khoảng lặng đối đầu 5s) $\to$ Thị uy tiền bị từ chối $\to$ Nhờ vắt đồ ngâm, đùn trắc nghiệm 10 câu online & nhờ đi Lab 402 $\to$ Cửa đóng, Nam chơ vơ giữa phòng $\to$ *[Breather Beat & Time-lapse trưa sang tối góc Top-down kéo dài]* $\to$ Tùng về khen 9.5, **Nam trùm kín chăn trong góc tối nệm (khoảng lặng cay đắng, siết chặt tuýp dầu)**, Người Kia nẫng tay trên chăm bạn $\to$ *[Dissolve ánh trăng khuya 02:00 bàng bạc]* $\to$ Vải gương tuột, góc sau lưng thấy vết nứt rỉ nước lạnh đầm đìa (giữ máy cực lâu) $\to$ Cuộc gọi Zalo mẹ cực ngọt $\to$ Nụ cười tắt lịm đóng băng $\to$ *[Sound Bridge chuông Zalo]* $\to$ Clip ăn giỗ họ hàng $\to$ Nam hất xôi uất ức $\to$ Khoảng lặng nhặt từng hạt xôi & ánh mắt dao cạo nhìn gáy. |
+| **BƯỚC CHUYỂN HỒI 1 $\to$ 2** | *Đêm trọ sang Bình minh* | *~05:45 – 06:45<br>(Khoảng giữ sâu)* | **Fade to Black sâu (lưu màn đen 5s) $\to$ Toàn cảnh âm thanh (Soundscape) đêm trọ Hà Nội sâu thẳm (tiếng rao bánh khúc ngân dài xa xăm, tiếng quạt cây rít gió, tiếng còi tàu đêm, tiếng kẻng sắt xe rác 5h sáng lách cách) $\to$ Fade-in chậm nắng sớm Ngày 2 rọi then sắt còn khóa nguyên.** |
+| **HỒI 2** | **Quen được sống thay** | ~06:45 – 14:15 | Mở mắt rút dao (khoảng lặng đối đầu 5s) $\to$ Thị uy tiền bị từ chối $\to$ Nhờ vắt đồ ngâm, đùn trắc nghiệm 10 câu online & nhờ đi Lab 402 $\to$ Cửa đóng, Nam chơ vơ giữa phòng $\to$ *[Breather Beat & Time-lapse trưa sang tối góc Top-Down 90° God's Eye kéo dài]* $\to$ Tùng về khen 9.5, **Nam trùm kín chăn trong góc tối nệm (khoảng lặng cay đắng, siết chặt tuýp dầu)**, Người Kia nẫng tay trên chăm bạn $\to$ *[Dissolve ánh trăng khuya 02:00 bàng bạc]* $\to$ Vải gương tuột, góc sau lưng thấy vết nứt rỉ nước lạnh đầm đìa (giữ máy cực lâu) $\to$ Cuộc gọi Zalo mẹ cực ngọt $\to$ Nụ cười tắt lịm đóng băng $\to$ *[Sound Bridge chuông Zalo]* $\to$ Clip ăn giỗ họ hàng $\to$ Nam hất xôi uất ức $\to$ Khoảng lặng nhặt từng hạt xôi & ánh mắt dao cạo nhìn gáy. |
 | **BƯỚC CHUYỂN HỒI 2 $\to$ 3** | *Quyết tâm trong đêm* | *~14:15 – 15:00<br>(Khoảng giữ lâu)* | **Montage nỗ lực muộn màng giữ nhịp chậm dằn vặt: Nam rửa mặt nước lạnh tê buốt $\to$ thìa khuấy cà phê đặc leng keng $\to$ lật từng trang giáo trình C++ thâu đêm $\to$ bóng in lên tường tập thuyết trình trước gương $\to$ Match Cut gập sách sang bục giảng đại học.** |
-| **HỒI 3** | **Người bị thay thế** | ~15:00 – 22:00+ | Giảng đường: trả lời tốt câu đầu nhưng sụp đổ trước thuật toán đa luồng $\to$ Viên phấn gãy đôi, **khoảng lặng chết chóc trước cả hội trường** $\to$ Ánh mắt thất vọng của Tùng $\to$ *[Running Montage trốn chạy]* $\to$ **Khoảng lặng mênh mông ở bờ kè sông/hồ (12:30 $\to$ 17h30 chiều tà, giữ khung hình rộng rất lâu để thấm nỗi tuyệt vọng)** $\to$ 17h45 về phòng soi CCCD & clip Zalo phát hiện nốt ruồi đảo bên $\to$ Nhịp tim đập dội lồng ngực $\to$ Lôi búa sắt dưới gầm giường $\to$ *[Whip Pan khựng lại & Nắng hoàng hôn máu 18h00]* $\to$ Người Kia suy thoái nứt toang rỉ nước đầm đìa $\to$ Đòn tâm lý buông búa $\to$ Tiếng búa "KENG" ngân dài trong tĩnh lặng $\to$ **Khế ước hoán đổi: Lời chấp thuận & Cú áp tay xuyên gương chậm (đồng bộ 192 frames render: đèn chập chờn, khựng lại, sương mực loang, mất màu sắc, mặt kính Deep Teal hóa hồ nước lỏng nuốt trọn)** $\to$ *[The Chilling Void 6s tĩnh mịch & vệt đèn pha quét trần 19h30]* $\to$ Tùng xách bún chả về, chột dạ phát hiện nốt ruồi bên phải $\to$ Khoảng lặng im phăng phắc $\to$ Cài then sắt kết thúc $\to$ Khung hình cuối giữ lâu trên mặt gương tối tăm: Nam đập tay câm lặng bên trong. |
+| **HỒI 3** | **Người bị thay thế** | ~15:00 – 22:15+ | Giảng đường: trả lời tốt câu đầu nhưng sụp đổ trước thuật toán đa luồng $\to$ Viên phấn gãy đôi, **Tunnel Vision & Tinnitus 4000Hz (khoảng lặng chết chóc 6s trước toàn hội trường)** $\to$ Ánh mắt thất vọng của Tùng $\to$ *[3D-8 Snorricam tháo chạy hoảng loạn]* $\to$ **Khoảng lặng mênh mông ở bờ kè sông/hồ (12:30 $\to$ 17h30 chiều tà, giữ khung hình rộng rất lâu để thấm nỗi tuyệt vọng)** $\to$ 17h45 về phòng soi CCCD & clip Zalo phát hiện nốt ruồi đảo bên $\to$ Vertigo Dolly Zoom kết hợp Fisheye 16mm gương sâu thẳm $\to$ Lôi búa sắt dưới gầm giường $\to$ *[Whip Pan khựng lại & Nắng hoàng hôn máu 18h00]* $\to$ Người Kia suy thoái nứt toang rỉ nước đầm đìa $\to$ 3D-9 Split-Diopter đối chất tàn nhẫn $\to$ 3D-7 Fisheye gào khóc tuyệt vọng $\to$ Búa rơi KENG ngân dài $\to$ 3D-3 Top-Down 90° buông xuôi 5s $\to$ **Khế ước hoán đổi: Lời chấp thuận & Cú áp tay xuyên gương chậm (đồng bộ 192 frames render: đèn chập chờn, khựng lại, sương mực loang, mất màu sắc, mặt kính Deep Teal hóa hồ nước lỏng nuốt trọn)** $\to$ *[The Chilling Void 6s tĩnh mịch & vệt đèn pha quét trần 19h30]* $\to$ Tùng xách bún chả về, chột dạ phát hiện nốt ruồi bên phải qua 3D-9 Split-Diopter $\to$ Khoảng lặng im phăng phắc $\to$ Cài then sắt kết thúc $\to$ Khung hình cuối giữ lâu trên mặt gương tối tăm: Nam đập tay câm lặng bên trong. |
 
 ---
 
@@ -84,7 +92,8 @@ Người kia khóa vòi nước, từ từ quay đầu lại.
 * **Cú quay đầu chậm rãi & Khoảng lặng đông cứng (Slow Turn & Frozen Stare):**  
   Cử động quay đầu chậm đến rợn người, từng góc cạnh khuôn mặt hiện ra dưới ánh sáng trắng lạnh lẽo. Hai bàn tay ướt sũng của Người Kia buông thõng, giọt nước từ đầu ngón tay nhỏ xuống đáy bồn inox: *"Tách... tách... tách..."*. Giữ cú máy đối mặt hai người trong **im lặng tuyệt đối suốt 5 giây nghẹt thở** trước khi Nam kịp nhận thức được điều quái dị đang diễn ra.
 
-**[CÚ SHOT ĐẶC TẢ CON NGƯƠI NAM CO RÚT LẠI]:**  
+**[CÚ SHOT ĐẶC TẢ CON NGƯƠI NAM CO RÚT LẠI — FISHEYE 14MM ULTRA-WIDE (3D-7)]:**  
+Thấu kính Fisheye 14mm dí sát <15cm, biến dạng cầu lồi cực mạnh (Barrel Distortion): con ngươi Nam co rút lại cực độ vì kinh hãi. Đồng tử rung giật phản chiếu bóng Người Kia méo mó ở trung tâm; 4 góc khung hình tối sầm hút sâu vào bóng tối.  
 Gương mặt, sống mũi, mái tóc rẽ ngôi bù xù, thậm chí cả nốt mụn nhỏ bên má... **GIỐNG HỆT NAM 100%!**
 
 Nam giật bắn người, thụt lùi ba bước, lưng đập mạnh vào mép bàn học, tay quờ quạng vớ vội chiếc kéo gọt giấy chĩa về phía trước:
@@ -112,8 +121,8 @@ Nam lập tức móc điện thoại bấm gọi cho Tùng. Đầu dây bên kia
 > Mày lại thức đêm leo rank xong ngáo đá rồi đúng không con zời? Bớt xem phim kinh dị lại giùm tao! Tao đang xách hai suất cơm tấm về đây, ở đấy mà nhảm nhí!
 
 Tùng cúp máy. Nam nuốt nước bọt cái ực.  
-* **Khoảng lặng chết chóc sau tiếng cúp máy (The Dreadful Pause):**  
-  Tiếng *"Tút... tút... tút..."* từ điện thoại ngắt hẳn. Không gian căn phòng rơi vào khoảng lặng ngột ngạt kéo dài đúng 4 giây. Chỉ có tiếng quạt trần quay lạch cạch, tiếng giọt nước bồn rửa chén rỏ chậm rãi từng nhịp *"tách... tách..."* và tiếng thở run rẩy của Nam. Kẻ trước mặt là người thật bằng xương bằng thịt, đứng sừng sững như một tảng băng không hề chớp mắt.
+* **Two-Shot Đối Đầu Split-Diopter & Khoảng lặng chết chóc (3D-9 Deep Focus):**  
+  Thấu kính lưỡng tiêu cự Split-Diopter chia đôi khung hình: Tiền cảnh nửa trái là khuôn mặt Nam tái mét run rẩy nét đanh; Hậu cảnh nửa phải là Người Kia đứng sừng sững như pho tượng đá cũng nét đanh 100%! Không có vùng mờ DoF, tạo thế đối đầu bế tắc không lối thoát. Tiếng *"Tút... tút... tút..."* từ điện thoại ngắt hẳn. Không gian căn phòng rơi vào khoảng lặng ngột ngạt kéo dài đúng 4 giây. Chỉ có tiếng quạt trần quay lạch cạch, tiếng giọt nước bồn rửa chén rỏ chậm rãi từng nhịp *"tách... tách..."* và tiếng thở run rẩy của Nam. Kẻ trước mặt là người thật bằng xương bằng thịt, đứng sừng sững như một tảng băng không hề chớp mắt.
 
 ---
 
@@ -347,8 +356,9 @@ Giảng viên lật trang slide tiếp theo:
 Màn chiếu bật sáng: Hàng trăm dòng code thuật toán đa luồng cực kỳ phức tạp hiện lên — phần việc vượt cấp mà Người Kia đã cố tình nhận làm để nâng trần kỳ vọng!  
 Nam đứng hình. Cậu hoàn toàn mù tịt về đoạn code này. Viên phấn trên tay run bần bật rồi gãy đôi rơi xuống bục gỗ *"tách"*.
 
-* **Khoảng lặng chết chóc trước toàn thể giảng đường (The Hall of Stunned Silence):**  
-  Máy quay giữ tĩnh bục giảng trong **6 giây nghẹt thở**. Cả hội trường hàng trăm sinh viên im phăng phắc. Không một tiếng động nào phát ra ngoài tiếng quạt thông gió ù ù trên trần và tiếng thở nghẹn ứ của Nam. Từng ánh mắt dưới lớp đổ dồn lên Nam như những mũi kim. Tùng sững sờ, nụ cười tắt ngấm, ánh mắt chuyển sang thất vọng cùng cực.
+* **Hiệu ứng Tunnel Vision, Tiếng Ù Tai 4000Hz & Khoảng lặng chết chóc (The Paralyzing Void):**  
+  Cú máy cận chặt (Tight Close-Up 85mm f/1.4): Viền khung hình sập tối dần (**Dark Vignette cực mạnh** kết hợp **Radial Blur** làm mờ nhòe toàn bộ hội trường xung quanh). Toàn bộ tiếng ồn ào của giảng đường bị bóp nghẹt dưới màng lọc âm tần thấp (**Low-pass filter 400Hz**) như ngập chìm dưới đáy nước sâu. Đè lên đó là tiếng rít ù tai tần số cao **4000Hz Tinnitus** nhức nhối xé toạc màng nhĩ.  
+  Máy quay giữ tĩnh bục giảng trong **6 giây nghẹt thở**. Cả hội trường hàng trăm sinh viên im phăng phắc. Từng ánh mắt dưới lớp đổ dồn lên Nam như những mũi kim. Tùng sững sờ, nụ cười tắt ngấm, ánh mắt chuyển sang thất vọng cùng cực.
 
 **GIẢNG VIÊN [cau mày, giọng đanh lại]:**
 > Em nhận làm phần này mà em không giải thích nổi một dòng code là sao?! Có phải bài hôm trước là em nhờ ai làm hộ rồi hôm nay lên đây học vẹt không?! Trừ 2 điểm chuyên cần cả nhóm!
@@ -356,14 +366,15 @@ Nam đứng hình. Cậu hoàn toàn mù tịt về đoạn code này. Viên ph�
 Dưới lớp xì xào: *"Ủa nay Nam bị lag mạng à?", "Hôm trước nổ to lắm mà?"*.  
 Tùng nhìn Nam với ánh mắt thất vọng cùng cực: *"Nam... sao mày cứ lúc nọ lúc kia thế hả mày?"*.
 
-Nam ôm chặt ba lô, nước mắt trào ra vì nhục nhã, cắm đầu bỏ chạy thục mạng khỏi giảng đường.
+* **Cú máy Snorricam — Tháo chạy trong sự phân ly thực tại (3D-8 Dissociation Rig):**  
+  Nam ôm chặt ba lô, nước mắt trào ra vì nhục nhã, cắm đầu bỏ chạy thục mạng. Camera ngực (Snorricam) gắn chặt chĩa thẳng vào mặt Nam: Gương mặt Nam đứng yên tuyệt đối ở tâm khung hình, run rẩy và đẫm lệ, trong khi toàn bộ giảng đường, hàng trăm sinh viên và hành lang xung quanh chao đảo, xoay cuồng rung lắc dữ dội như một cơn ác mộng phi thực tế.
 
 ---
 
 > 🎬 **BƯỚC CHUYỂN CẢNH 3.1 $\to$ 3.2 (RUNNING MONTAGE & KHOẢNG LẶNG MÊNH MÔNG BỜ KÈ SÔNG 12:30 $\to$ 17h30 CHIỀU TÀ):**  
 > * **Kỹ thuật thị giác & Khoảng giữ mênh mông (~16:45 – 17:45):**  
->   * *Shot 1 (Chạy trốn):* Cú máy Steadicam chạy giật lùi theo Nam khi cậu lao ra khỏi cửa giảng đường. Tiếng xì xào chế giễu của bạn bè nhòa dần sau lưng. Nam chạy băng qua sân trường nắng chang chang gay gắt.  
->   * *Shot 2 (Khoảng lặng mênh mông bờ kè sông vắng 12:30 $\to$ 17h30 chiều):* Nam không dám về phòng vì sợ đối mặt Người Kia và sợ chạm mặt Tùng. Cú máy **Extreme Wide Shot (Toàn cảnh cực rộng)**: Nam ngồi thu lu bó gối trên bậc đá bờ kè sông Hồng / hồ nước Hà Nội. Bóng Nam nhỏ bé, trơ trọi giữa không gian mênh mông tĩnh lặng. Tiếng sóng nước vỗ ì oạp vào bờ đá, tiếng gió chiều thổi tạt qua mái tóc rối bù, tiếng còi xe giờ tan tầm trên cây cầu xa xa mờ nhạt như vọng lại từ một thế giới mà Nam không còn thuộc về. Bầu trời chuyển từ xám nhạt sang vàng cam rồi đỏ quạch như máu của hoàng hôn. **Giữ cú máy tĩnh này trong 15–20 giây điện ảnh** để khán giả cùng Nam ngấm trọn nỗi tuyệt vọng, cảm giác bị cả xã hội đào thải và cô độc cùng cực.  
+>   * *Shot 1 (Chạy trốn — 3D-8 Snorricam tiếp nối):* Cú máy Snorricam tiếp nối khi Nam lao ra khỏi cửa giảng đường chạy băng qua sân trường nắng chang chang gay gắt. Khuôn mặt Nam tái mét thở dốc kiệt quệ ở giữa khung hình, thế giới xung quanh quay cuồng nghiêng ngả. Tiếng xì xào chế giễu nhòa dần vào tiếng còi xe ngoài đường lớn.  
+>   * *Shot 2 (Khoảng lặng mênh mông bờ kè sông vắng 12:30 $\to$ 17h30 chiều — 3D-2 Toàn cảnh cực rộng):* Nam không dám về phòng vì sợ đối mặt Người Kia và sợ chạm mặt Tùng. Cú máy **Extreme Wide Shot (Toàn cảnh cực rộng)**: Nam ngồi thu lu bó gối trên bậc đá bờ kè sông Hồng / hồ nước Hà Nội. Bóng Nam nhỏ bé, trơ trọi giữa không gian mênh mông tĩnh lặng. Tiếng sóng nước vỗ ì oạp vào bờ đá, tiếng gió chiều thổi tạt qua mái tóc rối bù, tiếng còi xe giờ tan tầm trên cây cầu xa xa mờ nhạt như vọng lại từ một thế giới mà Nam không còn thuộc về. Bầu trời chuyển từ xám nhạt sang vàng cam rồi đỏ quạch như máu của hoàng hôn. **Giữ cú máy tĩnh này trong 20 giây điện ảnh** để khán giả cùng Nam ngấm trọn nỗi tuyệt vọng, cảm giác bị cả xã hội đào thải và cô độc cùng cực.  
 >   * *Shot 3 (17h45 về dãy trọ):* Cú máy POV theo bóng lưng kiệt quệ của Nam leo từng bậc cầu thang sắt rung rinh cọt kẹt. Bàn tay run rẩy tra chìa khóa vào ổ, đẩy cửa bước vào phòng trọ tối mờ.  
 > * **Âm thanh & Cầu nối:** Tiếng xì xào giảng đường nhòa thành tiếng còi xe inh ỏi $\to$ tiếng gió thổi hiu hắt bên bờ kè $\to$ tiếng xích sắt cầu thang cọt kẹt khi Nam bước về phòng.
 
@@ -375,10 +386,10 @@ Trong cơn bấn loạn, Nam rút thẻ Căn cước công dân ra đối chiế
 * Thẻ CCCD thật của Nam: **Nốt ruồi duyên nằm ở đuôi mắt TRÁI.**
 * Gương mặt Người Kia trong clip: **Nốt ruồi nằm ở đuôi mắt PHẢI!**
 
-* **Khoảng lặng dựng tóc gáy & Nhịp tim dội vang (The Horrific Realization):**  
-  Hai bức ảnh đối nghịch đặt cạnh nhau. Căn phòng im phăng phắc. Tiếng tim đập dội vang thình thịch trong lồng ngực Nam (*sub-bass heartbeat* 50Hz dồn dập).  
+* **Khoảng lặng dựng tóc gáy, Nhịp tim dội vang & Cú Vertigo Fisheye (3D-6 + 3D-7):**  
+  Hai bức ảnh đối nghịch đặt cạnh nhau dưới ánh flash. Căn phòng im phăng phắc. Tiếng tim đập dội vang thình thịch trong lồng ngực Nam (*sub-bass heartbeat* 50Hz dồn dập kèm hiệu ứng Tunnel Vision tối sầm viền mắt).  
   Nam rùng mình dựng tóc gáy: **Đó là hình ảnh phản chiếu qua gương!**  
-  Cậu quay đầu nhìn sang chiếc gương đứng: Tấm vải hoa đã tuột hẳn xuống chân gương, để lộ mặt kính đen thẳm. Kẻ sống cùng phòng bấy lâu nay chính là bóng ma bước ra từ chiếc gương này!
+  Cậu quay đầu nhìn sang chiếc gương đứng: Tấm vải hoa đã tuột hẳn xuống chân gương, để lộ mặt kính đen thẳm. Camera thực hiện cú **True Vertigo Dolly Zoom kết hợp thấu kính Fisheye 16mm**: Toàn bộ không gian 4 bức tường phòng trọ bị kéo giãn, méo mó bẻ cong và hút sâu vào bóng tối vô tận của chiếc gương đứng! Kẻ sống cùng phòng bấy lâu nay chính là bóng ma bước ra từ chiếc gương này!
 
 Nam lập tức cúi người xuống gầm giường, lôi mạnh chiếc **búa sắt cán bọc cao su đen** (chiếc búa Nam dùng đóng chân gương ở Cảnh 1.1). Mắt Nam đỏ ngầu căm hận:
 
@@ -389,7 +400,7 @@ Nam lập tức cúi người xuống gầm giường, lôi mạnh chiếc **bú
 
 > 🎬 **BƯỚC CHUYỂN CẢNH 3.2 $\to$ 3.3 (WHIP PAN KHỰNG LẠI & ÁNH HOÀNG HÔN MÁU 18h00):**  
 > * **Kỹ thuật thị giác:** Cú quét máy cực nhanh (Whip Pan) theo hướng vung búa sắt của Nam về phía tấm gương $\to$ khựng sững lại giữa không trung.  
-> * **Ánh sáng bùng nổ:** Đúng 18h00, vệt nắng hoàng hôn cuối cùng đỏ quạch như máu rọi xuyên qua khe rèm nan rách, nhuộm đỏ rực căn phòng. Người Kia từ trong bóng tối bước ra chắn ngang trước gương, để lộ những vết nứt vỡ toang rỉ nước đầm đìa dưới ánh sáng đỏ ma quái.  
+> * **Ánh sáng bùng nổ:** Đúng 18h00, vệt nắng hoàng hôn cuối cùng đỏ quạch như máu rọi xuyên qua khe rèm nan rách, nhuộm đỏ rực căn phòng `SUNSET_BLOOD`. Người Kia từ trong bóng tối bước ra chắn ngang trước gương, để lộ những vết nứt vỡ toang rỉ nước đầm đìa dưới ánh sáng đỏ ma quái.  
 > * **Âm thanh & Cầu nối:** Tiếng rít gió của lưỡi búa xé không khí đột ngột khựng lại. Tiếng nước rỉ tong tong lạnh buốt từ cơ thể Người Kia rơi xuống sàn gạch trong im lặng nghẹt thở.
 
 ---
@@ -403,9 +414,15 @@ Cơ thể Người Kia đang **run rẩy dữ dội, những vết nứt thủy 
 
 Nhưng Người Kia không hề né tránh, nó dùng vũ khí tàn độc nhất — đánh thẳng vào sự hèn nhát và thói lười biếng của Nam:
 
+* **Màn Đối Chất Split-Diopter Tàn Nhẫn (3D-9 Deep Focus):**  
+  Thấu kính lưỡng tiêu cự chia đôi khung hình: Tiền cảnh là nửa gương mặt Người Kia nở nụ cười băng tuyết lạnh buốt nét đanh; Hậu cảnh là Nam đang run lẩy bẩy giơ cao búa sắt cũng nét đanh 100%! Ánh nắng hoàng hôn đỏ máu cắt chéo hai số phận đối lập:
+
 **NGƯỜI KIA [giọng trầm, chậm rãi từng nhát dao đâm xuyên tâm can]:**
 > Mày đập đi. Rồi ngày mai mày sẽ tự đối diện với cuộc đời ngoài kia thế nào?  
 > Mày sẽ nói gì với thầy giáo? Mày sẽ ăn nói sao với mẹ mày? Mày định vác cái bộ mặt thất bại, trốn tránh này ra để làm thằng Tùng thất vọng thêm lần nữa à?
+
+* **Fisheye 14mm Nam Gào Khóc Hoang Tưởng (3D-7 Ultra-Wide):**  
+  Thấu kính Fisheye dí sát mặt Nam: Gương mặt Nam méo mó hoang tưởng trong tuyệt vọng tột cùng, hai mắt mở to giàn giụa nước mắt:
 
 **NAM [thét lên, hai tay giữ búa run bần bật]:**
 > Hồi sáng tao đã cố học! Tao đã trả lời được câu đầu cơ mà!
@@ -417,8 +434,8 @@ Nhưng Người Kia không hề né tránh, nó dùng vũ khí tàn độc nhấ
 Từng câu nói như những nhát dao băng bóp nghẹt ý chí của Nam. Nỗi tự ti và sự hèn nhát đã khiến Nam mù quáng tin rằng mình chỉ là một kẻ thừa thãi, một gánh nặng của mọi người.  
 Chiếc búa sắt tuột khỏi tay Nam, rơi xuống sàn kêu lên tiếng khô khốc vang dội: **"KENG"**.  
 
-* **Khoảng lặng buông xuôi sau tiếng búa rơi (The Echo of Surrender):**  
-  Tiếng búa sắt *"KENG"* ngân vang rồi chìm dần vào sự im lặng tuyệt đối kéo dài **5 giây**. Cú máy cận đặc tả chiếc búa nằm trơ trọi trên nền gạch men cũ. Nam quỳ sụp xuống sàn gạch lạnh ngắt, hai bàn tay buông thõng rồi ôm lấy mặt khóc nấc lên trong tuyệt vọng tột cùng.
+* **Top-Down 90° God's Eye & Khoảng lặng buông xuôi (3D-3 Extreme Verticality):**  
+  Tiếng búa sắt *"KENG"* ngân vang dội rồi chìm dần vào sự im lặng tuyệt đối. Máy quay đặt vuông góc $90^\circ$ từ trên trần nhìn thẳng xuống sàn gạch men cũ: Chiếc búa sắt nằm trơ trọi cạnh vũng nước rỉ. Nam quỳ sụp ôm mặt buông xuôi suốt **5 giây câm lặng**, cơ thể co ro nhỏ bé như một con bọ mắc kẹt, hoàn toàn đầu hàng số phận.
 
 ---
 
@@ -478,7 +495,7 @@ Người Kia đứng giữa phòng, hít một hơi thật sâu lồng ngực �
 
 ---
 
-### CẢNH 3.5: ĐOẠN KẾT ÁM ẢNH — CÚ CHỘT DẠ RỢN TÓC GÁY (~21:15 – 22:00+)
+### CẢNH 3.5: ĐOẠN KẾT ÁM ẢNH — CÚ CHỘT DẠ RỢN TÓC GÁY (~21:30 – 22:15+)
 * **Thời gian:** 19h30 tối. Đúng giờ Tùng tan ca kiểm kho.
 * **Âm thanh:** Tiếng khóa lách cách mở cửa ngoài, tiếng dép loẹt xoẹt.
 
@@ -497,7 +514,8 @@ Tùng khựng lại một nhịp. Ánh mắt Tùng nhìn bàn tay trái của b�
 **TÙNG [chột dạ, nụ cười trên môi đông cứng]:**
 > Ủa Nam... nốt ruồi bên mắt mày... sao tự nhiên nay lại nằm bên phải?
 
-* **Khoảng lặng đóng băng tột cùng (The Paralyzing Silence):**  
+* **Khoảng lặng đóng băng tột cùng qua Split-Diopter (3D-9 Deep Focus):**  
+  Thấu kính lưỡng tiêu cự Split-Diopter: Tiền cảnh là khuôn mặt Tùng khựng lại, nụ cười đông cứng nghi hoặc nét đanh 100%; Hậu cảnh là Người Kia với đôi mắt sâu hoắm như băng tuyết và nốt ruồi bên má phải cũng nét đanh 100%! Cả hai đóng băng đối diện nhau trong sự thật rợn người.  
   Không gian căn phòng bỗng chốc im phăng phắc kéo dài. Tiếng quạt trần quay lạch cạch *"cạch... cạch... cạch..."* trở nên chói tai đến nhức óc. Tiếng rao bánh khúc ngoài ngõ vọng vào xa xăm (*"Ai... bánh khúc nóng đây..."*).  
   Nụ cười trên môi Người Kia từ từ biến mất. Đôi mắt nó trở nên sâu hoắm, phẳng lặng như băng tuyết:
 
