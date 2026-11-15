@@ -109,3 +109,5 @@ Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn m
 - Lưới da quanh hai hốc (tới 1,7 lần bán kính hốc) được làm mượt bằng Taubin, và texture da vùng mắt–mày được làm mịn.
 
 **Khoét theo nếp hốc (15/11/2026):** lỗ khoét giờ theo nếp hốc mắt có sẵn trên lưới (chủ repo khoanh), không theo viền vẽ trên texture nữa. Elip mới có tâm z = 1,5268 m, bán trục 41,5 × 43,5 mm, tức rộng hơn viền vẽ 22% và trễ xuống dưới. Nhãn cầu (77 × 81 mm), mí và viền 3D đều theo elip này. Dải da lõm giữa viền vẽ và nếp, cùng các gai ở mép cắt, đã hết.
+
+**Gờ trên hốc mắt (15/11/2026):** gờ nổi giữa đỉnh viền mắt và lông mày (đỉnh khối mắt cũ trên lưới) đã được san phẳng bằng 150 vòng Laplace, chỉ ở nửa trên quanh hốc. Vành da `VanhDa` giờ chỉ chạy ở nửa dưới, chỗ cần che mép cắt, nên không còn tạo gờ phía trên. Còn lại: hai đầu vành da ở hai bên mắt có chấm nhỏ khi nhìn gần.

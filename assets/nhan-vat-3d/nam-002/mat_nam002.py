@@ -52,6 +52,14 @@ def lam_muot_may(body, it=90):
         for lam in (0.5, -0.53):
             acc = np.stack([np.bincount(a, co[b, j], n) + np.bincount(b, co[a, j], n) for j in range(3)], 1) / dg
             co[R] += (lam * w[R])[:, None] * (acc[R] - co[R])
+    # san phẳng gờ phía trên hốc mắt (đỉnh khối mắt cũ, giữa viền và lông mày)
+    for sx in (1, -1):
+        q = np.sqrt(((x - sx * EYE_X) / RX) ** 2 + ((z - EYE_Z) / RZ) ** 2)
+        wt = np.clip((1.55 - q) / 0.2, 0, 1) * np.clip((q - 0.85) / 0.1, 0, 1) * np.clip((z - EYE_Z) / 0.012, 0, 1) * (y < -0.03)
+        Rt = wt > 0
+        for _ in range(150):
+            acc = np.stack([np.bincount(a, co[b, j], n) + np.bincount(b, co[a, j], n) for j in range(3)], 1) / dg
+            co[Rt] += (0.5 * wt[Rt])[:, None] * (acc[Rt] - co[Rt])
     # san phẳng khối lông mày cũ (Laplace thường: co bớt chỗ lồi), chỉ trong dải lông mày
     wb = np.clip(np.minimum.reduce([(z - 1.552) / 0.006, (1.675 - z) / 0.008, (-0.04 - y) / 0.01, (0.118 - np.abs(x)) / 0.010, (np.abs(x) - 0.010) / 0.006]), 0, 1)
     Rb = wb > 0
@@ -193,10 +201,10 @@ def _vien_3d(sc, body, cx, k):
     ob = bpy.data.objects.new(f'Vien.{k}', cu); sc.collection.objects.link(ob)
     # vành da mỏng ngay ngoài nét viền: che mép cắt lởm chởm của lưới da
     a2, b2 = a_ + 0.0026, b_ + 0.0026; cu2 = bpy.data.curves.new(f'VanhDa.{k}', 'CURVE'); cu2.dimensions = '3D'; cu2.bevel_depth = 0.0017; cu2.bevel_resolution = 4; cu2.resolution_u = 6
-    sp2 = cu2.splines.new('NURBS'); sp2.points.add(63)
-    for p_, th in zip(sp2.points, np.linspace(0, 2 * np.pi, 64, endpoint=False)):
+    sp2 = cu2.splines.new('NURBS'); sp2.points.add(39)                 # chỉ nửa dưới (mép cắt lởm chởm ở dưới); phía trên bỏ để không tạo gờ
+    for p_, th in zip(sp2.points, np.linspace(np.pi * 0.95, np.pi * 2.05, 40)):
         xx = cx + a2 * math.cos(th); zz = EYE_Z + b2 * math.sin(th); p_.co = (xx, _surface_y(body, xx, zz) + 0.0009, zz, 1)
-    sp2.use_cyclic_u = True; sp2.order_u = 4
+    sp2.use_cyclic_u = False; sp2.use_endpoint_u = True; sp2.order_u = 4
     ob2 = bpy.data.objects.new(f'VanhDa.{k}', cu2); sc.collection.objects.link(ob2)
     cu2.materials.append(body.data.materials[0]); _VANH[k] = ob2
     m = bpy.data.materials.get('vien_mat') or _mat('vien_mat', (0.18, 0.11, 0.08), 0.6); cu.materials.append(m)
