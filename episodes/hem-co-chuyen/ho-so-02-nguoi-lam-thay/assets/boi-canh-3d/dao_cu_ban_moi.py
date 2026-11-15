@@ -38,6 +38,13 @@ def mat(mau, r=0.6, mt=0.0):
     return _m[k]
 
 
+def matt(mau, r=0.8, vary=0.12, bump=0.2, scale=40.0):
+    """Vật liệu có loang màu + vân sần (xốp, carton, vải, nhựa cũ) → bề mặt có chất liệu, không phẳng lì."""
+    k = ('t', mau, r, vary, bump)
+    if k not in _m or _m[k].name not in bpy.data.materials: _m[k] = M.mottled(f'dc2t_{mau.strip("#")}_{int(r * 10)}_{int(bump * 100)}', mau, rough=r, vary=vary, bump=bump, bump_scale=scale)
+    return _m[k]
+
+
 def _nhom(ten, at, rz, objs, c):
     """Gom các vật vừa tạo dưới một Empty gốc `dc_<tên>` đặt tại `at`, quay rz → di chuyển/quay cả đạo cụ một lần."""
     goc = bpy.data.objects.new(f'dc_{ten}', None); goc.empty_display_size = 0.05; c.objects.link(goc)
@@ -114,15 +121,27 @@ def bua_cao_su(c, at, rz=0.0):
         K.box('dc_bua_mong', -0.012, 0.012, 0.275, 0.305, -0.1, -0.04, thep, c, rot=(math.radians(-12), 0, 0))
         K.box('dc_bua_khe_mong', -0.003, 0.003, 0.27, 0.31, -0.1, -0.06, mat('#0a0a0c', 0.8), c)
         K.box('dc_bua_gi', -0.017, 0.017, 0.275, 0.29, 0.02, 0.05, gi, c)
+        K.cyl('dc_bua_vat_mat', 0, 0.29, 0.08, 0.019, 0.006, thep, c, seg=8, r2=0.017)                       # vát mép mặt đập
+        K.box('dc_bua_co', -0.012, 0.012, 0.272, 0.308, 0.04, 0.062, thep, c, bevel=0.003)                       # cổ búa thắt
+        for sx in (-1, 1):   # móng nhổ đinh: 2 nhánh cong tách đôi
+            for k in range(4):
+                z0 = -0.04 - 0.017 * k; yy = 0.29 - 0.006 * k * k
+                K.box(f'dc_bua_nhanh_{sx}_{k}', sx * 0.0035, sx * 0.011, yy - 0.012, yy + 0.012, z0 - 0.018, z0, thep, c)
+        K.box('dc_bua_nem', -0.0125, 0.0125, 0.284, 0.296, 0.085, 0.088, mat('#3b3f44', 0.4, 0.8), c)           # nêm chốt đầu cán
+        K.cyl('dc_bua_duoi_loe', 0, 0.0, 0.019, 0.022, 0.012, cao_su, c, seg=16, rot=(math.radians(-90), 0, 0))  # đuôi cán loe chống tuột
+        chu('dc_bua_chu', 'STEEL 500g', 0, 0.1, 0.0392, 0.009, mat('#2a2a2a', 0.7), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(0, 0, math.radians(90)))
+        for i in range(5): K.sphere(f'dc_bua_gi_dom_{i}', random.Random(i).uniform(-0.017, 0.017), 0.276 + 0.006 * i, random.Random(i + 9).uniform(-0.03, 0.07), 0.0035, gi, c, seg=6)
         grip('bua', 0, 0.08, 0.02, c)
-    return _nhom('bua_cao_su', at, rz, t.moi, c)
+    g = _nhom('bua_cao_su', at, rz, t.moi, c)
+    g.rotation_euler = (0, math.radians(-90), rz); g.location = (at[0], at[1], at[2] + 0.022)   # nằm nghiêng như búa đặt trên sàn: đầu búa nằm ngang
+    return g
 
 
 def hop_xoi(c, at, rz=0.0, do=False):
     """Hộp xôi trắng hành phi (hộp xốp nắp liền). do=True: hộp lật nghiêng trên sàn, xôi + hành văng tung toé (cảnh 2.4)."""
     rnd = random.Random(8)
     with _tao(c) as t:
-        xop = mat('#f4f2ec', 0.85); xoi = mat('#f3efe2', 0.75); hanh = mat('#9a5a22', 0.6); mo = mat('#e9c46a', 0.4)
+        xop = matt('#f4f2ec', 0.9, 0.05, 0.35, 90); xoi = mat('#f3efe2', 0.75); hanh = mat('#9a5a22', 0.6); mo = mat('#e9c46a', 0.4)
         L, Wd, Hh = 0.17, 0.13, 0.05
         if not do:
             K.box('dc_xoi_hop', -L / 2, L / 2, -Wd / 2, Wd / 2, 0, Hh, xop, c, bevel=0.006)
@@ -134,6 +153,20 @@ def hop_xoi(c, at, rz=0.0, do=False):
                 a = rnd.uniform(0, 6.28); r = rnd.uniform(0, 0.06)
                 K.box(f'dc_xoi_hanh_{i}', -0.005, 0.005, -0.003, 0.003, 0, 0.002, hanh, c, rot=(0, 0, a)).location = (r * math.cos(a) * 1.2, r * math.sin(a) * 0.8, Hh + 0.018 + rnd.uniform(0, 0.004))
             K.sphere('dc_xoi_mo_hanh', 0.02, -0.01, Hh + 0.02, 0.012, mo, c, scale=(1.5, 1, 0.3), seg=10)
+            hat = K.coll('_hat2'); me_h = K.gop('dc_mau_hat_xoi_mat', [K.sphere('h', 0, 0, 0, 0.0042, xoi, hat, scale=(1.7, 1, 0.8), seg=6)]); bpy.data.collections.remove(hat)
+            for i in range(120):   # hạt nếp rời trên mặt xôi (mặt không còn là khối trơn)
+                a = rnd.uniform(0, 6.28); r = 0.06 * math.sqrt(rnd.random())
+                K.inst(f'dc_xoi_hat_mat_{i}', me_h, (1.25 * r * math.cos(a), 0.85 * r * math.sin(a), Hh + 0.019 * (1 - (r / 0.06) ** 2) + 0.002), c, rot=(rnd.uniform(-0.4, 0.4), 0, rnd.uniform(0, 6.3)))
+            for i in range(10):    # hành phi khoanh tròn
+                a = rnd.uniform(0, 6.28); r = rnd.uniform(0, 0.045)
+                h_ = bpy.data.curves.new(f'dc_xoi_khoanh_{i}', 'CURVE'); h_.dimensions = '3D'; h_.bevel_depth = 0.0012; sp = h_.splines.new('POLY'); sp.points.add(9); sp.use_cyclic_u = True
+                for j, p_ in enumerate(sp.points): b_ = 2 * math.pi * j / 10; p_.co = (r * math.cos(a) + 0.005 * math.cos(b_), r * math.sin(a) + 0.004 * math.sin(b_), Hh + 0.021, 1)
+                h_.materials.append(hanh); c.objects.link(bpy.data.objects.new(f'dc_xoi_khoanh_{i}', h_))
+            thia = mat('#f7f4ee', 0.3)
+            K.box('dc_xoi_can_thia', 0.03, 0.11, 0.06, 0.068, 0.051, 0.054, thia, c, rot=(0, 0, 0.35))
+            K.sphere('dc_xoi_long_thia', 0.025, 0.045, Hh + 0.012, 0.012, thia, c, scale=(1.3, 1, 0.3), seg=12)
+            K.box('dc_xoi_chun', L / 2 - 0.004, L / 2 + 0.002, -Wd / 2 - 0.002, Wd / 2 + 0.002, 0.018, 0.022, mat('#d93b3b', 0.5), c)   # dây chun đỏ tuột xuống thành hộp
+            K.box('dc_xoi_giay_an', -L / 2 - 0.07, -L / 2 - 0.005, -0.04, 0.03, 0, 0.002, matt('#fbfaf6', 0.95, 0.05, 0.4, 120), c, rot=(0, 0, 0.2))
             grip('xoi', 0, -Wd / 2, Hh / 2, c)
         else:
             hop = K.box('dc_xoi_hop_do', -L / 2, L / 2, -Wd / 2, Wd / 2, 0, Hh, xop, c, bevel=0.006); hop.rotation_euler = (0, math.radians(100), math.radians(25)); hop.location = (0.05, 0.02, 0.06)
@@ -166,6 +199,17 @@ def hop_thuoc_khop(c, at, rz=0.0):
         tx = chu('dc_note_me_chu', NOTE_ME, -0.05, 0.044, 0.1318, 0.0078, muc, c, align='LEFT', w=0.1)
         tx.rotation_euler = (0, 0, math.radians(-8)); tx.location = Matrix.Rotation(math.radians(-8), 3, 'Z') @ Vector((-0.05, 0.044, 0.1318))
         tx.data.align_y = 'TOP'
+        K.box('dc_thuoc_nap_gai', -0.06, 0.06, -0.0352, -0.034, 0.122, 0.13, mat('#2f6f3d', 0.5), c)           # mép nắp gài
+        K.box('dc_thuoc_dai', -0.06, 0.06, -0.0355, -0.035, 0.0, 0.025, mat('#f2c230', 0.5), c)                  # dải vàng chân hộp
+        for i in range(16): K.box(f'dc_thuoc_vach_{i}', 0.035 + 0.0012 * i * (1 + i % 3 * 0.5), 0.0355 + 0.0012 * i * (1 + i % 3 * 0.5), 0.0352, 0.0356, 0.02, 0.04, mat('#111111', 0.6), c)  # mã vạch mặt sau
+        K.box('dc_thuoc_ma_vach_nen', 0.03, 0.058, 0.0351, 0.0352, 0.015, 0.045, trang, c)
+        bac = mat('#c9ccd0', 0.25, 0.9)
+        K.box('dc_vi_thuoc', 0.075, 0.155, -0.04, 0.01, 0, 0.002, bac, c, rot=(0, 0, 0.25))                       # vỉ thuốc bóc dở cạnh hộp
+        for i in range(2):
+            for j in range(5):
+                v_ = Matrix.Rotation(0.25, 3, 'Z') @ Vector((0.087 + 0.014 * j, -0.028 + 0.025 * i, 0)); da_boc = (i == 0 and j < 2)
+                K.sphere(f'dc_vien_{i}_{j}', v_.x, v_.y, 0.002, 0.0055, mat('#e9e3cf', 0.5) if not da_boc else mat('#7d8896', 0.9), c, scale=(1.4, 1, 0.5), seg=10)
+        K.box('dc_bang_dinh_note', -0.012, 0.012, -0.06, -0.04, 0.131, 0.1322, mat('#e8e2c8', 0.2), c, rot=(0, 0, -0.14))
         grip('thuoc', 0, 0, 0.065, c)
     return _nhom('hop_thuoc_khop', at, rz, t.moi, c)
 
@@ -173,6 +217,8 @@ def hop_thuoc_khop(c, at, rz=0.0):
 def note_lab402(c, at, rz=0.0):
     with _tao(c) as t:
         K.box('dc_note_lab', -0.045, 0.045, -0.045, 0.045, 0, 0.0008, mat('#ffb3c7', 0.95), c)
+        K.box('dc_note_lab_bang_dinh', -0.02, 0.02, 0.038, 0.052, 0.0008, 0.0011, mat('#e8e2c8', 0.2), c, rot=(0, 0, 0.08))
+        K.box('dc_note_lab_goc', 0.03, 0.045, -0.045, -0.03, 0.0008, 0.0016, mat('#f095ad', 0.95), c, rot=(0, math.radians(-25), math.radians(45)))
         tx = chu('dc_note_lab_chu', '13h00 Chiều Thứ 5:\nThực hành Lab 402 -\nKỹ thuật Lập trình\n(Có mặt ký tên\n& nộp code)', -0.04, 0.036, 0.001, 0.0105, mat('#1d2a6a', 0.8), c); tx.data.align_y = 'TOP'
     return _nhom('note_lab402', at, rz, t.moi, c)
 
@@ -186,6 +232,11 @@ def hoa_don(c, at, rz=0.0, dung=False):
         chu('dc_hd_2', 'Phòng 201 · Tháng 11', 0, 0.045, 0.0008, 0.007, den, c, 'LiberationSans-Bold.ttf', 'CENTER')
         for i, (a, b) in enumerate((('Điện: 162 số × 4.000đ', '648.000đ'), ('Nước: khoán', '…'), ('Rác + mạng', '…'))):
             chu(f'dc_hd_l{i}', a, -0.044, 0.02 - 0.016 * i, 0.0008, 0.0065, den, c, 'LiberationSans-Bold.ttf'); chu(f'dc_hd_r{i}', b, 0.044, 0.02 - 0.016 * i, 0.0008, 0.0065, den, c, 'LiberationSans-Bold.ttf', 'RIGHT')
+        for i in range(4): K.box(f'dc_hd_ke_{i}', -0.045, 0.045, 0.028 - 0.016 * i, 0.0285 - 0.016 * i, 0.0006, 0.0007, mat('#8fb2c4', 0.9), c)
+        K.box('dc_hd_nep_gap', -0.05, 0.05, -0.001, 0.001, 0.0006, 0.0008, mat('#b5d0de', 0.95), c)                    # nếp gấp đôi
+        K.box('dc_hd_ghim', -0.04, -0.03, 0.068, 0.0695, 0.0006, 0.0014, mat('#b0b4b8', 0.3, 0.9), c)
+        K.cyl('dc_hd_dau', 0.03, -0.022, 0.0006, 0.013, 0.0002, mat('#d24a4a', 0.8), c, seg=24)
+        chu('dc_hd_chu_dau', 'ĐÃ GHI SỐ', 0.03, -0.024, 0.00085, 0.0045, mat('#f6e3e3', 0.8), c, 'LiberationSans-Bold.ttf', 'CENTER')
         chu('dc_hd_tong', 'TIỀN ĐIỆN: 650.000đ', 0, -0.045, 0.0008, 0.0095, do, c, 'LiberationSans-Bold.ttf', 'CENTER')
         chu('dc_hd_ghi', 'Tháng này dùng nhiều quá nha em!', 0, -0.064, 0.0008, 0.0075, mat('#2a3a8a', 0.8), c, align='CENTER')
     g = _nhom('hoa_don', at, rz, t.moi, c)
@@ -261,7 +312,7 @@ def thung_mi(c, at, rz=0.0):
     """Thùng carton mì gói (nhãn tự chế, không hãng thật) bóc dở nắp, vài gói lộ ra; cạnh sọt rác đầy vỏ gói gia vị bạc."""
     rnd = random.Random(3)
     with _tao(c) as t:
-        cart = mat('#c49a62', 0.85); do = mat('#d8352a', 0.6); bac = mat('#c9ccd0', 0.25, 0.9); vang = mat('#f6c945', 0.6)
+        cart = matt('#c49a62', 0.9, 0.12, 0.25, 30); do = mat('#d8352a', 0.6); bac = mat('#c9ccd0', 0.25, 0.9); vang = mat('#f6c945', 0.6)
         K.box('dc_mi_thung', -0.2, 0.2, -0.13, 0.13, 0, 0.26, cart, c)
         for ten, (x0, x1, y0, y1), (rx, ry) in (('sau', (-0.2, 0.2, 0.13, 0.25), (-35, 0)), ('truoc', (-0.2, 0.2, -0.25, -0.13), (30, 0)),
                                                 ('trai', (-0.32, -0.2, -0.13, 0.13), (0, -40)), ('phai', (0.2, 0.32, -0.13, 0.13), (0, 25))):   # 4 nắp bung
@@ -274,8 +325,15 @@ def thung_mi(c, at, rz=0.0):
         chu('dc_mi_chu', 'MÌ TÔM\nCHUA CAY', 0, -0.1315, 0.15, 0.04, vang, c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
         chu('dc_mi_chu_2', '30 gói × 75g', 0, -0.1315, 0.075, 0.016, mat('#ffffff', 0.6), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
         for i in range(5): K.box(f'dc_mi_goi_{i}', -0.18 + 0.075 * i, -0.12 + 0.075 * i, -0.1, 0.1, 0.2, 0.235 + 0.01 * (i % 2), do, c, rot=(0, math.radians(rnd.uniform(-8, 8)), 0))
+        for i in range(40): K.box(f'dc_mi_song_{i}', -0.2 + 0.01 * i, -0.196 + 0.01 * i, -0.1312, -0.13, 0.255, 0.26, mat('#a37d4c', 0.9), c)   # sóng carton mép trên
+        K.cyl('dc_mi_hinh_to', -0.09, -0.1312, 0.12, 0.035, 0.0005, mat('#f2f2ee', 0.6), c, seg=24, rot=(math.radians(90), 0, 0))
+        K.cyl('dc_mi_hinh_soi', -0.09, -0.1318, 0.125, 0.026, 0.0005, mat('#e9c46a', 0.6), c, seg=24, rot=(math.radians(90), 0, 0))
+        for i in range(3): K.sphere(f'dc_mi_hinh_tom_{i}', -0.105 + 0.015 * i, -0.132, 0.13, 0.006, mat('#f08a5d', 0.5), c, scale=(1.4, 0.3, 1), seg=8)
+        chu('dc_mi_hsd', 'HSD: 05/2027', 0.15, -0.1315, 0.035, 0.009, mat('#3a2a1a', 0.8), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
         goi = K.box('dc_mi_goi_le', -0.08, 0.08, -0.055, 0.055, 0, 0.022, do, c, bevel=0.008); goi.location = (-0.05, -0.27, 0); goi.rotation_euler = (0, 0, 0.3)   # 1 gói rơi ra
         tx = chu('dc_mi_goi_chu', 'TÔM CHUA CAY', 0, 0, 0, 0.016, vang, c, 'LiberationSans-Bold.ttf', 'CENTER'); tx.location = (-0.05, -0.27, 0.0235); tx.rotation_euler = (0, 0, 0.3)
+        K.box('dc_mi_goi_rach', -0.13, -0.05, -0.31, -0.24, 0.0225, 0.024, mat('#f6c945', 0.6), c, rot=(0, 0, 0.3))
+        for i in range(12): K.cyl(f'dc_mi_soi_{i}', -0.12 + 0.006 * i, -0.3 + 0.004 * i, 0.024, 0.0018, 0.03, mat('#e3c27a', 0.6), c, seg=4, rot=(math.radians(90), 0, 0.3 + 0.2 * math.sin(i)))
         K.cyl('dc_mi_sot_rac', 0.33, -0.02, 0, 0.12, 0.28, mat('#4a7a5a', 0.6), c, seg=20, r2=0.14)
         for i in range(22):
             a = rnd.uniform(0, 6.28); r = rnd.uniform(0, 0.11)
@@ -287,7 +345,7 @@ def chau_quan_ao(c, at, rz=0.0):
     """Chậu nhựa đỏ đựng quần áo ngâm bột giặt 3 hôm: nước xám đục, bọt váng, mép áo ướt sẫm thò ra ngoài."""
     rnd = random.Random(5)
     with _tao(c) as t:
-        nhua = mat('#c8342b', 0.4); nuoc = mat('#8d8b7a', 0.08); bot = mat('#e6e3d8', 0.7)
+        nhua = mat('#c8342b', 0.4); nuoc = mat('#8d8b7a', 0.35); bot = mat('#e6e3d8', 0.7)
         bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=False, segments=36, radius1=0.17, radius2=0.25, depth=0.2)   # thành chậu hở miệng
         for v in bm.verts: v.co.z += 0.1
         bmesh.ops.solidify(bm, geom=bm.faces[:], thickness=0.006)
@@ -300,11 +358,18 @@ def chau_quan_ao(c, at, rz=0.0):
         bmesh.ops.solidify(bm, geom=bm.faces[:], thickness=0.012); me = bpy.data.meshes.new('dc_chau_vanh'); bm.to_mesh(me); bm.free(); me.materials.append(nhua); c.objects.link(bpy.data.objects.new('dc_chau_vanh', me))
         K.cyl('dc_chau_nuoc', 0, 0, 0.12, 0.23, 0.045, nuoc, c, seg=32)
         for i, mau in enumerate(('#2b3a55', '#4a4a4a', '#6b3a3a', '#3f5e45')):
-            K.sphere(f'dc_chau_ao_{i}', rnd.uniform(-0.1, 0.1), rnd.uniform(-0.1, 0.1), 0.16, 0.09, mat(mau, 0.5), c, scale=(1.3, 1, 0.3), seg=12)
+            ao = K.box(f'dc_chau_ao_{i}', -0.09, 0.09, -0.06, 0.06, -0.012, 0.012, mat(mau, 0.55), c); ao.location = (rnd.uniform(-0.08, 0.08), rnd.uniform(-0.08, 0.08), 0.155 + 0.008 * i)
+            ao.rotation_euler = (rnd.uniform(-0.3, 0.3), rnd.uniform(-0.3, 0.3), rnd.uniform(0, 3)); _mem(ao, 2)
+            for v in ao.data.vertices: v.co.z += 0.008 * math.sin(v.co.x * 60) * math.cos(v.co.y * 50)   # nếp nhăn vải
         K.box('dc_chau_tay_ao', 0.2, 0.36, -0.03, 0.03, 0.17, 0.19, mat('#2b3a55', 0.5), c, rot=(0, math.radians(35), 0))
         for i in range(24):
             a = rnd.uniform(0, 6.28); r = rnd.uniform(0.05, 0.22)
             K.sphere(f'dc_chau_bot_{i}', r * math.cos(a), r * math.sin(a), 0.166, rnd.uniform(0.008, 0.02), bot, c, seg=8)
+        for sx in (-1, 1): K.box(f'dc_chau_quai_{sx}', sx * 0.255 - 0.012, sx * 0.255 + 0.012, -0.05, 0.05, 0.17, 0.2, nhua, c, bevel=0.005)
+        bot_giat = _mem(K.box('dc_bot_giat', 0.3, 0.42, -0.05, 0.05, 0.0, 0.2, matt('#2a6fd6', 0.5, 0.08, 0.1, 50), c), 1)
+        chu('dc_bot_giat_chu', 'BỘT GIẶT\n3kg', 0.36, -0.0515, 0.13, 0.016, mat('#ffffff', 0.5), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
+        K.box('dc_ban_chai', -0.06, 0.06, -0.34, -0.3, 0.0, 0.02, mat('#f2b705', 0.5), c, bevel=0.006)
+        for i in range(10): K.cyl(f'dc_long_chai_{i}', -0.05 + 0.011 * i, -0.32, 0.02, 0.003, 0.012, mat('#f2f2ee', 0.6), c, seg=4)
         grip('chau_mieng', 0.25, 0, 0.2, c)
     return _nhom('chau_quan_ao', at, rz, t.moi, c)
 
@@ -321,6 +386,10 @@ def dao_got(c, at, rz=0.0):
         for f in ((0, 1, 2, 3), (7, 6, 5, 4), (0, 4, 5, 1), (1, 5, 6, 2), (2, 6, 7, 3), (3, 7, 4, 0)): bm.faces.new([v[i] for i in f])
         me = bpy.data.meshes.new('dc_dao_luoi'); bm.to_mesh(me); bm.free(); me.materials.append(thep)
         ob = bpy.data.objects.new('dc_dao_luoi', me); c.objects.link(ob)
+        K.box('dc_dao_luoi_vat', -0.0005, 0.009, 0.1, 0.188, 0.0041, 0.0043, mat('#e3e6ea', 0.1, 1.0), c)           # dải lưỡi vát mài sáng
+        K.box('dc_dao_khau', -0.011, 0.011, 0.097, 0.103, 0.0, 0.016, mat('#9aa0a6', 0.3, 0.9), c)                  # khâu nối cán–lưỡi
+        for i in range(5): K.box(f'dc_dao_ranh_{i}', -0.0112, 0.0112, 0.008 + 0.017 * i, 0.010 + 0.017 * i, 0.0, 0.0165, mat('#d49a04', 0.5), c)   # rãnh cầm trên cán
+        for i in range(4): K.sphere(f'dc_dao_gi_{i}', -0.006 + 0.004 * i, 0.12 + 0.012 * i, 0.0041, 0.0015, mat('#7a4a28', 0.9), c, seg=6)
         grip('dao', 0, 0.05, 0.008, c)
     return _nhom('dao_got', at, rz, t.moi, c)
 
@@ -332,6 +401,11 @@ def tuyp_dau(c, at, rz=0.0):
         K.box('dc_tuyp_duoi', -0.019, 0.019, 0.1, 0.112, 0.008, 0.016, xanh, c)
         K.cyl('dc_tuyp_nap', 0, 0, 0.012, 0.01, 0.022, trang, c, seg=12, rot=(math.radians(90), 0, 0))
         chu('dc_tuyp_chu', 'DẦU XOA BÓP', 0.0, 0.05, 0.0285, 0.0075, trang, c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(0, 0, math.radians(90)))
+        for i in range(9): K.box(f'dc_tuyp_rang_{i}', -0.019 + 0.0042 * i, -0.017 + 0.0042 * i, 0.108, 0.113, 0.0075, 0.0165, mat('#24735a', 0.4), c)   # mép đuôi răng cưa
+        K.cyl('dc_tuyp_bang_nhan', 0, 0.035, 0.012, 0.0162, 0.035, trang, c, seg=16, rot=(math.radians(-90), 0, 0))
+        chu('dc_tuyp_chu2', 'Xoa bóp · Nhức mỏi', 0.0, 0.052, 0.0285, 0.0055, xanh, c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(0, 0, math.radians(90)))
+        for i in range(10): a_ = 2 * math.pi * i / 10; K.box(f'dc_tuyp_gan_{i}', -0.0008, 0.0008, -0.022, -0.001, -0.0008, 0.0008, trang, c).location = (0.0102 * math.cos(a_), 0, 0.012 + 0.0102 * math.sin(a_))
+        K.box('dc_tuyp_bop_lom', -0.017, 0.017, 0.07, 0.09, 0.022, 0.025, mat('#24735a', 0.4), c)               # chỗ bóp lõm
         grip('tuyp', 0, 0.05, 0.012, c)
     return _nhom('tuyp_dau', at, rz, t.moi, c)
 
@@ -405,6 +479,13 @@ def giao_trinh(c, at, rz=0.0):
             tx = chu(f'dc_gt_ghi_{k}', '\n'.join(rnd.sample(dong, 8)) if k < 2 else '\n'.join(dong[:8]), -0.068, 0.095, 0.0005 * k + 0.0006, 0.0072, muc, c)
             tx.data.align_y = 'TOP'; tx.location = Vector((dx, dy, 0)) + Matrix.Rotation(a, 3, 'Z') @ Vector((-0.068, 0.095, 0.0005 * k + 0.0006)); tx.rotation_euler = (0, 0, a)
             chu(f'dc_gt_trang_{k}', f'{k + 1}/3', 0, 0, 0, 0.007, muc, c).location = Vector((dx, dy, 0)) + Matrix.Rotation(a, 3, 'Z') @ Vector((0.055, -0.098, 0.0005 * k + 0.0006))
+        for i in range(6): K.box(f'dc_gt_mep_giay_{i}', 0.0872, 0.0874, -0.116, 0.116, 0.005 + 0.004 * i, 0.0055 + 0.004 * i, mat('#d8d2c2', 0.9), c)   # vân mép giấy
+        K.box('dc_gt_gay', -0.087, -0.083, -0.12, 0.12, 0.0, 0.032, mat('#163d6c', 0.6), c, bevel=0.002)
+        K.box('dc_gt_ruy_bang', 0.03, 0.036, -0.12, -0.085, 0.031, 0.0325, mat('#c62828', 0.6), c)
+        K.cyl('dc_but_bi', 0.15, -0.14, 0.006, 0.005, 0.14, mat('#2a6fd6', 0.4), c, seg=10, rot=(0, math.radians(90), 0.4))
+        K.cyl('dc_but_da_quang', 0.3, 0.02, 0.009, 0.009, 0.12, mat('#e8f23a', 0.45), c, seg=12, rot=(math.radians(90), 0, 0.2))
+        K.cyl('dc_vet_ca_phe', 0.24, 0.06, 0.0014, 0.03, 0.0002, mat('#b08a5a', 0.9), c, seg=28)
+        K.cyl('dc_vet_ca_phe_trong', 0.24, 0.06, 0.0015, 0.026, 0.0002, mat('#f3efe4', 0.9), c, seg=28)
         grip('giao_trinh', 0, -0.12, 0.016, c)
     return _nhom('giao_trinh', at, rz, t.moi, c)
 
@@ -443,6 +524,12 @@ def dien_thoai(c, at, rz=0.0, ui='UI-01_bao-thuc-0630.png', sang=2.2):
         else:
             K.box('dc_dt_than', -0.037, 0.037, -0.076, 0.076, 0, 0.008, mat('#2b2d31', 0.35, 0.6), c, bevel=0.004)
             _mat_phang_uv('dc_dt_man', -0.0345, 0.0345, -0.0725, 0.0725, 0.0082, m_, c)
+        if ngang:
+            for i, x_ in enumerate((-0.02, 0.01)): K.box(f'dc_dt_nut_{i}', x_, x_ + 0.02, 0.037, 0.039, 0.003, 0.006, mat('#5d6166', 0.3, 0.9), c)
+            K.cyl('dc_dt_loa', 0.074, 0, 0.0081, 0.0008, 0.0002, mat('#111111', 0.5), c, seg=6)
+        else:
+            for i, y_ in enumerate((0.02, 0.045)): K.box(f'dc_dt_nut_{i}', 0.037, 0.039, y_, y_ + 0.018, 0.003, 0.006, mat('#5d6166', 0.3, 0.9), c)
+        K.box('dc_dt_vien', -0.0375 if not ngang else -0.0765, 0.0375 if not ngang else 0.0765, -0.0765 if not ngang else -0.0375, 0.0765 if not ngang else 0.0375, 0.0035, 0.0045, mat('#9aa0a6', 0.25, 0.95), c)
         grip('dien_thoai', 0, -0.03, 0.004, c)
     return _nhom('dien_thoai_' + ui.split('_')[0], at, rz, t.moi, c)
 
@@ -459,6 +546,11 @@ def laptop(c, at, rz=0.0, ui='UI-07_laptop-tieu-luan.png', mo=105, sang=2.0):
         man = _mat_phang_uv('dc_lt_man', -0.15, 0.15, 0.01, 0.1788, 0.0004, _mat_anh(ui.split('.')[0], ui, sang), c, rot=(math.radians(90), 0, 0)); man.parent = np
         man.location = (0, 0, 0)
         np.rotation_euler = (math.radians(-(mo - 90)), 0, 0)
+        for r_ in range(5):
+            for k_ in range(14): K.box(f'dc_lt_phim_{r_}_{k_}', -0.133 + 0.0192 * k_, -0.118 + 0.0192 * k_, 0.07 - 0.019 * r_, 0.085 - 0.019 * r_, 0.0165, 0.0185, mat('#1b1c1f', 0.55), c)
+        K.box('dc_lt_space', -0.05, 0.05, -0.025, -0.012, 0.0165, 0.0185, mat('#1b1c1f', 0.55), c)
+        for i, (x_, mau) in enumerate(((0.08, '#e94f37'), (0.11, '#44bba4'))): K.cyl(f'dc_lt_sticker_{i}', x_, -0.085, 0.0162, 0.012, 0.0003, mat(mau, 0.6), c, seg=16)
+        K.sphere('dc_lt_den_nguon', 0.14, -0.105, 0.012, 0.002, M.emission('dc2_den_lt', '#7fffb0', 3.0), c, seg=6)
         grip('laptop_nap', 0, 0.11, 0.2, c)
     return _nhom('laptop_' + ui.split('_')[0], at, rz, t.moi, c)
 
