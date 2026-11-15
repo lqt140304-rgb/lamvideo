@@ -174,3 +174,10 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 **Ngón tay khi đi (đã sửa):** trước đây cả bàn tay nắm cố định 0,25 nên các ngón gập giống hệt nhau và đứng yên. Giờ mỗi ngón gập khác nhau (trỏ 0,14 · giữa 0,24 · áp út 0,34 · út 0,44 · cái 0,12) và cộng thêm ±0,07 theo nhịp đánh tay: tay ra sau thì gập nhiều hơn, ra trước thì duỗi hơn. [Ảnh bàn tay trái ở 4 khung](ngon-khi-di.webp).
 
 **Còn lại:** mặt chỉ nhỏ trong khung nên chưa soi được chi tiết mắt ở đoạn này; chưa có audio để kiểm khẩu hình theo lời; chưa đo trượt chân đứng.
+
+## Kiểm trước khi mặc đồ (15/11/2026)
+
+- **Giới hạn 4 xương/đỉnh:**  giữ 4 trọng số lớn nhất rồi chuẩn hóa lại (trước đó tối đa 7 xương, 6.843 đỉnh vượt 4). Kiểm: tối đa 4, không đỉnh nào mất trọng số; bảng kéo giãn gần như giữ nguyên (bước chân 5 cạnh >2×, ngồi xổm 675).
+- **Lưới hở:** 202 cạnh biên, trong đó 164 là hai hốc mắt (có chủ ý); còn lại là mảnh vụn nhỏ quanh miệng và vài chỗ sau đầu từ lưới gốc Hyper3D, 9 đỉnh rời. Chưa xóa để khỏi đổi chỉ số đỉnh của bản đang dùng.
+- **Thử áo phông** (thân phồng 12 mm, chuyển trọng số từ thân bằng Data Transfer, giới hạn 4 xương): giơ tay cao, gập khuỷu, cúi, xoay thân trông ổn ([ảnh](thu-ao-phong.webp)). Số đo "da lòi ngoài áo" còn lẫn điểm sát mép áo nên chỉ dùng tham khảo; chưa thử áo thật, chưa thử ngồi xổm.
+- **Còn nguy cơ:** ngồi xổm (675 cạnh giãn >2×) nên áo/quần ôm sẽ nhăn hoặc xuyên ở khoeo và háng; miệng chưa có răng/lưỡi.
