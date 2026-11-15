@@ -572,6 +572,12 @@ def la_phang_quanh_mat(body, lan=40):
         moi = [v.co + lam * (sum((w.co for w in ws), Vector()) / len(ws) - v.co) for v, ws in zip(chay, ke)]
         for v, c in zip(chay, moi):
             v.co = c
+    for _ in range(10):  # gọt đỉnh còn nhô (cục cạnh sống mũi): kéo hẳn về trung bình láng giềng
+        for v in vung:
+            if not v.is_boundary:
+                m = sum((e.other_vert(v).co for e in v.link_edges), Vector()) / len(v.link_edges)
+                if (v.co - m).length > 0.002:
+                    v.co = m
     bm.to_mesh(body.data)
     bm.free()
     print(f'là phẳng {len(chay)} đỉnh quanh mắt/mày')
@@ -601,6 +607,10 @@ def _to_da_manh_vun(body, px):
             for li in p.loop_indices:  # cả dải mắt–mày một màu da trơn: texture gốc ở đây là các mảng lệch màu, vân mày cũ
                 uvl[li].uv = uv_tran[1]
             n += 1
+    for o in bpy.data.objects:  # mí dùng chung texture thân: vân mi cũ thành vết tối ở đuôi mắt, dưới mày
+        if o.name.startswith(('Nu_MiTren', 'Nu_MiDuoi')) and o.data.uv_layers:
+            for l in o.data.uv_layers[0].data:
+                l.uv = uv_tran[1]
     print(f'tô da {n} mảnh mi/mày cũ')
 
 
