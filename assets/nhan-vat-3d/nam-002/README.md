@@ -157,3 +157,18 @@ Bảng `VISEME` trong `bieu_cam_nam002.py` có 8 khẩu hình tiếng Việt, đ
 | `khac` | phụ âm còn lại | `mieng_ha` 0,25 · `mieng_rong` 0,35 |
 
 [Ảnh 8 khẩu hình](khau-hinh.webp). Chưa có bộ máy tự đồng bộ với audio: việc ghép âm tiết với thời gian của file ElevenLabs phải làm sau khi có bản audio. Miệng vẫn là hình vẽ, chưa có răng hay lưỡi.
+
+## Đoạn thử 4 giây (15/11/2026)
+
+`clip_thu_nam002.py` dựng một đoạn 96 khung ở 24 fps trên rig đầy đủ: đi tiến 3 chu kỳ (`di_bo_nam002.py --tien --chu-ky 3`), cùng lúc chớp mắt (khung 18 và 62), liếc trái rồi phải (26–68), biểu cảm mặc định → vui (31–58) → ngạc nhiên (59–80), và chuỗi khẩu hình a–e–i–o–u–m/b/p–a–phụ âm (40–88). Camera bám hông, khóa từng khung.
+
+```powershell
+D:/blender/blender.exe -b --factory-startup --python di_bo_nam002.py -- --rig nam-002-rig.blend --out walk3.blend --tien --chu-ky 3
+D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in walk3.blend --out clip-thu.blend --anh khung-clip
+```
+
+[Video](clip-thu.mp4) (360 × 480, Cycles 6 mẫu, chưa khử nhiễu) và [bảng 12 khung](clip-thu.webp). Đây chỉ là kiểm tra rig, không phải cảnh dựng.
+
+**Lỗi tìm ra nhờ đoạn thử:** khi khoét hốc mắt *trước* bước gán trọng số, bone heat cho trọng số chân sai (đỉnh cổ chân nhận `Spine1`), nên chân bị xé ở gối khi đi. Đi tại chỗ không thấy vì chỉ lộ khi `root` tịnh tiến. Đã sửa: gán trọng số trước, khoét hốc sau. Số đo chân trở lại như bản cũ (bước chân 4 cạnh giãn quá 2×, ngồi xổm 675).
+
+**Còn lại:** ngón tay hơi cứng khi đi (nắm 0,25 cố định); mặt chỉ nhỏ trong khung nên chưa soi được chi tiết mắt ở đoạn này; chưa có audio để kiểm khẩu hình theo lời; chưa đo trượt chân đứng.

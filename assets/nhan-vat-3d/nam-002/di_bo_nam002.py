@@ -15,7 +15,7 @@ from mathutils import Vector, Matrix, Quaternion
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--rig', required=True); ap.add_argument('--out', required=True); ap.add_argument('--anh')
-    ap.add_argument('--khung', type=int, default=32); ap.add_argument('--buoc', type=float, default=0.62); ap.add_argument('--tien', action='store_true')
+    ap.add_argument('--khung', type=int, default=32); ap.add_argument('--buoc', type=float, default=0.62); ap.add_argument('--tien', action='store_true'); ap.add_argument('--chu-ky', type=int, default=1, help='số chu kỳ liên tiếp (dùng với --tien để đi liên tục)')
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.rig)); sc = bpy.context.scene
     arm = bpy.data.objects['Nam_Rig']; pb = arm.pose.bones
@@ -51,12 +51,12 @@ def main():
         return dy, dz, pitch
 
     act = bpy.data.actions.new('di_bo'); arm.animation_data_create(); arm.animation_data.action = act
-    sc.frame_start, sc.frame_end = 1, N; sc.render.fps = 24
-    for f in range(N + 1):
+    sc.frame_start, sc.frame_end = 1, N * a.chu_ky; sc.render.fps = 24
+    for f in range(N * a.chu_ky + 1):
         phi = (f % N) / N; fr = f + 1
         for b in pb: b.location = (0, 0, 0); b.rotation_quaternion = (1, 0, 0, 0)
         bpy.context.view_layer.update()
-        fwd = -(S * 2) * (f / N) if a.tien else 0.0
+        fwd = -(S * 2) * (f / N) if a.tien else 0.0      # tiến đều: mỗi chu kỳ đi 2 bước = 1,24 m
         move_loc('root', (0, fwd, 0))
         for k, off in (('L', 0.0), ('R', 0.5)):
             dy, dz, pitch = foot((phi + off) % 1.0)

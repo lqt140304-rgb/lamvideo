@@ -431,10 +431,10 @@ def main():
     MAT.lam_muot_may(body)                          # san phẳng da trước, rồi mới đo da để dựng mắt/mày
     MAT.tao_may(sc, body)
     eyes = MAT.tao_mat(sc, body)                   # đo mặt da (đã phẳng) trước khi khoét
-    MAT.khoet_hoc(body)
     measure_fingers(mesh_co(body))
     arm = build_armature(sc)
-    bind(sc, arm, body)
+    bind(sc, arm, body)                            # gán trọng số TRƯỚC khi khoét hốc: lưới thủng làm bone heat cho trọng số chân sai
+    MAT.khoet_hoc(body)
     MAT.gan_mat(arm, eyes)
     import bieu_cam_nam002 as BC
     BC.tao_bieu_cam(arm, body, MAT._MAY)
