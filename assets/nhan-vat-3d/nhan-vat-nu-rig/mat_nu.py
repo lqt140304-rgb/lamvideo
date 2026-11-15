@@ -465,6 +465,7 @@ def dung_may(body, rig, coll):
         bm.free()
         _may_tron(me_may, goc, sg)
         may = bpy.data.objects.new(f'Nu_May.{k}', me_may)
+        may.visible_shadow = False  # bóng mày lên trán thành răng cưa (EEVEE) và vệt tối dưới mày
         coll.objects.link(may)
         # thân: dồn đỉnh mày (trừ đỉnh chung với da) về mặt cầu khớp vòng da quanh mày; tô UV da trán
         bm = bmesh.new()
@@ -478,7 +479,7 @@ def dung_may(body, rig, coll):
         A = np.c_[2 * P, np.ones(len(P))]
         sol = np.linalg.lstsq(A, (P ** 2).sum(1), rcond=None)[0]
         tam, R = sol[:3], math.sqrt(sol[3] + sol[:3] @ sol[:3])
-        for v in vm - bien:
+        for v in vm:  # cả đỉnh viền: thành dưới mày cũ còn thành bậc răng cưa
             d = np.array(v.co) - tam
             v.co = Vector(tam + d / np.linalg.norm(d) * (R - 0.001))  # mày mới là dải nổi, chỉ lùi nhẹ
         uvb = bm.loops.layers.uv[0]
@@ -499,6 +500,7 @@ def dung_may(body, rig, coll):
                 l[uvb].uv = goc_uv
         bm.to_mesh(me)
         bm.free()
+        _dan_may(me_may, me)
         # xương: đầu / giữa / đuôi mày theo trục X
         co = np.array([v.co[:] for v in me_may.vertices])
         x0, x1 = (co[:, 0].min(), co[:, 0].max()) if sg > 0 else (co[:, 0].max(), co[:, 0].min())
@@ -543,8 +545,8 @@ def _may_tron(me_may, P, sg, n=28):
         u = i / n
         x = x0 + (x1 - x0) * u
         nho = math.sin(math.pi * min(1.0, 0.15 + 0.85 * u)) ** 0.35 if u > 0.5 else (0.55 + 0.45 * math.sin(math.pi * u / 1.0)) ** 0.5
-        h = max(np.polyval(fh, u), 0.004) * 0.5 * nho
-        zc, yc = np.polyval(fz, u), np.polyval(fy, u) + 0.001
+        h = max(np.polyval(fh, u), 0.004) * 0.62 * nho  # phủ kín chỗ mày cũ (thành dưới còn lộ bậc tối)
+        zc, yc = np.polyval(fz, u) - 0.0025, np.polyval(fy, u) + 0.001
         for j in range(vong):
             g = 2 * math.pi * j / vong
             V.append((x, yc - 0.0018 * (1 + math.sin(g)) * nho, zc + h * math.cos(g)))
@@ -557,6 +559,25 @@ def _may_tron(me_may, P, sg, n=28):
     for p in me_may.polygons:
         p.use_smooth = True
     me_may.materials.append(bpy.data.materials.get('Nu_MauMay') or mat_phang('Nu_MauMay', (0.06, 0.035, 0.025, 1), 0.6))
+
+
+def _dan_may(me_may, me, vong=8):
+    """Dán mày lên da: mỗi lát mày dời theo Y để mép sau nằm sát 0,3 mm trước mặt da (không nổi khe đổ bóng)."""
+    from mathutils.bvhtree import BVHTree
+    bvh = BVHTree.FromPolygons([v.co[:] for v in me.vertices], [p.vertices[:] for p in me.polygons])
+    co = np.array([v.co[:] for v in me_may.vertices])
+    for i in range(0, len(co) - vong + 1, vong):
+        lat = co[i:i + vong]
+        lui = lat[:, 1].max()  # mép sau của lát
+        sau = []
+        for x, _, z in lat:
+            hit = bvh.ray_cast(Vector((x, -1.0, z)), Vector((0, 1, 0)), 2.0)
+            if hit[0] is not None:
+                sau.append(hit[0].y)
+        if sau:
+            lat[:, 1] += min(sau) - 0.0003 - lui
+    for v, c in zip(me_may.vertices, co):
+        v.co = c
 
 
 def la_phang_quanh_mat(body, lan=40):
