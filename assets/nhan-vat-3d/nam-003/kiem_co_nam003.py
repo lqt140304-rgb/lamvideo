@@ -14,6 +14,7 @@ import rig_nam003 as R
 NGUONG_MM = 6.0
 NGUONG_GIAN = 1.5
 MIN_VISIBLE_MM = 3.0
+REST_TOL_MM = 0.05     # dung sai dáng nghỉ (IK chân cho sai số ~0,01 mm)
 B_ALONE_MM = 12.9      # không tệ hơn nền trước khi làm cổ khi tắt Corrective Smooth
 Z_LO, Z_HI = 1.40, 1.66
 X, Y, Z = (1, 0, 0), (0, 1, 0), (0, 0, 1)
@@ -26,7 +27,7 @@ NECK_POSES = {
     'kq1': [('Head', Z, 35), ('Head', X, 15)],
     'kq2': [('Head', Z, -35), ('Head', X, -15)],
     'kq3': [('Head', Y, 20), ('Head', Z, 25)],
-    'kq4': [('Spine', Z, 30), ('Head', Z, 25)],
+    'kq4': [('Neck', Z, 15), ('Head', Z, 25)],      # xoay riêng xương Neck rồi Head (xoay Spine làm cả thân trên xoay cứng nên không thử được cổ)
 }
 
 
@@ -165,6 +166,69 @@ def test_b_alone_no_worse(arm, body, g):
     return r['quay+35']['max_mm'] <= B_ALONE_MM
 
 
+def _local_pos_at(arm, body, g, pose, sc3):
+    arm.scale = tuple(sc3); g['reset'](arm)
+    for bn, ax, deg in NECK_POSES[pose]: g['rot_world'](arm, bn, ax, deg)
+    bpy.context.view_layer.update(); p = _pos(body); arm.scale = (1.0,) * 3; g['reset'](arm); bpy.context.view_layer.update(); return p
+
+
+def _rest_error_mm(arm, body, do_reset=True):
+    g = R.patched_namespace()
+    if do_reset: g['reset'](arm)
+    bpy.context.view_layer.update(); base = np.array([v.co[:] for v in body.data.vertices]); return float(np.abs(_pos(body) - base).max()) * 1000
+
+
+def _scale_error_mm(arm, body, sc3, poses=('quay+35', 'kq1')):
+    g = R.patched_namespace(); e = 0.0
+    for pose in poses:
+        p1 = _local_pos_at(arm, body, g, pose, (1.0, 1.0, 1.0)); e = max(e, float(np.abs(_local_pos_at(arm, body, g, pose, sc3) - p1).max()) * 1000)
+    return e
+
+
+def test_rest_matches_basis(arm, body):
+    """Ở dáng nghỉ, lưới biến dạng (Armature + Corrective Smooth) trùng lưới gốc: sai lệch < 0,05 mm (IK ở chân gây sai số số học cỡ 0,01 mm). Hỏng nếu bind/rest lệch."""
+    return _rest_error_mm(arm, body) < REST_TOL_MM
+
+
+def test_scale_consistent(arm, body):
+    """Scale 0,877 (1,60 m) và 0,932 (1,70 m) cho cùng hình dạng biến dạng như scale 1: sai lệch toạ độ cục bộ < 0,5 mm ở quay+35 và kq1."""
+    return all(_scale_error_mm(arm, body, (s_,) * 3) < 0.5 for s_ in (0.877, 0.932))
+
+
+def test_tests_detect_breakage(arm, body):
+    """Kiểm hai test trên CÓ THỂ FAIL: để Head xoay (không reset) → lỗi dáng nghỉ phải > ngưỡng; scale không đều (1,1,0,8) → lỗi scale phải >= 0,5 mm."""
+    pb = arm.pose.bones['Head']; old = tuple(pb.rotation_euler)
+    pb.rotation_euler = (0, 0, 0.1); bpy.context.view_layer.update(); a = _rest_error_mm(arm, body, do_reset=False) > REST_TOL_MM * 10
+    pb.rotation_euler = old; R.patched_namespace()['reset'](arm); bpy.context.view_layer.update()
+    b = _scale_error_mm(arm, body, (1.0, 1.0, 0.8)) >= 0.5
+    return a and b
+
+
+def test_env_warning():
+    """Khi NAM003_NECK hoặc NAM003_J còn đặt trong môi trường, import/chạy in cảnh báo (rig dựng ra khác mặc định)."""
+    import subprocess
+    env = dict(os.environ, NAM003_NECK='{"iter":5}', NAM003_J='{"ankle":[0.148,0.04,0.10]}')
+    code = f"import sys; sys.path.insert(0, {HERE!r}); import co_nam003, rig_nam003 as R; R.patched_namespace()"
+    out = subprocess.run([sys.executable, '-c', code], env=env, capture_output=True, text=True); txt = out.stdout + out.stderr
+    return 'CẢNH BÁO' in txt and 'NAM003_NECK' in txt and 'NAM003_J' in txt
+
+
+def test_shape_key_survives_cs(arm, body):
+    """Shape key hàm/cằm giả (dịch tới 8 mm ở y < −0,05, z 1,58–1,72) không bị Corrective Smooth cổ làm mềm: bật/tắt CS sai khác < 0,2 mm."""
+    me = body.data; co = np.array([v.co[:] for v in me.vertices]); x, y, z = co[:, 0], co[:, 1], co[:, 2]
+    m = (y < -0.05) & (z >= 1.58) & (z <= 1.72) & (np.abs(x) < 0.06)
+    if not m.any(): return False
+    g = R.patched_namespace(); g['reset'](arm)
+    body.shape_key_add(name='Basis'); sk = body.shape_key_add(name='test_ham'); w = np.zeros(len(co)); w[m] = 1.0
+    new = co.copy(); new[:, 1] -= 0.008 * w; new[:, 2] -= 0.006 * w; sk.data.foreach_set('co', new.ravel()); sk.value = 1.0
+    mods = [mm for mm in body.modifiers if mm.type == 'CORRECTIVE_SMOOTH']; bpy.context.view_layer.update(); on = _pos(body)
+    for mm in mods: mm.show_viewport = False
+    bpy.context.view_layer.update(); off = _pos(body)
+    for mm in mods: mm.show_viewport = True
+    body.shape_key_clear(); bpy.context.view_layer.update()
+    return float(np.abs(on - off)[m].max()) * 1000 < 0.2
+
+
 def test_symmetry(res): return abs(res['quay+35']['max_mm'] - res['quay-35']['max_mm']) <= 1.0
 def test_thresholds(res): return all(v['max_mm'] <= NGUONG_MM and v['n_giang_moi_canh'] == 0 for k, v in res.items() if k != 'nghi')     # đúng chữ của thiết kế: 0 cạnh giãn >1,5× (mọi cạnh)
 
@@ -177,7 +241,7 @@ def main():
     res = measure_neck(a.rig, a.scale, ctx=(arm, body))
     print(f'{"tư thế":12s} {"dài thêm max (mm)":>18s} {"giãn>1,5× & >3 mm":>18s} {"giãn>1,5× (mọi cạnh)":>21s}')
     for k, v in res.items(): print(f'{k:12s} {v["max_mm"]:18.2f} {v["n_giang_nhin_thay"]:18d} {v["n_giang_moi_canh"]:21d}')
-    tests = [('test_rest_is_zero', lambda: test_rest_is_zero(res)), ('test_symmetry', lambda: test_symmetry(res)), ('test_thresholds', lambda: test_thresholds(res)),
+    tests = [('test_rest_is_zero', lambda: test_rest_is_zero(res)), ('test_rest_matches_basis', lambda: test_rest_matches_basis(arm, body)), ('test_scale_consistent', lambda: test_scale_consistent(arm, body)), ('test_tests_detect_breakage', lambda: test_tests_detect_breakage(arm, body)), ('test_env_warning', test_env_warning), ('test_shape_key_survives_cs', lambda: test_shape_key_survives_cs(arm, body)), ('test_symmetry', lambda: test_symmetry(res)), ('test_thresholds', lambda: test_thresholds(res)),
              ('test_helper_bones', lambda: test_helper_bones(arm)), ('test_cs_modifier', lambda: test_cs_modifier(body)), ('test_cs_spares_face', lambda: test_cs_spares_face(body)), ('test_cs_groups_intact', lambda: test_cs_groups_intact(body)), ('test_jaw_untouched', lambda: test_jaw_untouched(body)), ('test_b_alone_no_worse', lambda: test_b_alone_no_worse(arm, body, None)), ('test_head_unchanged', lambda: test_head_unchanged(arm, body)), ('test_four_influence', lambda: test_four_influence(arm, body))]
     bad = 0
     for nm, f in tests:

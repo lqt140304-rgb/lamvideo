@@ -4,11 +4,12 @@ Hai xương phụ NeckBlend1/2 là con của Neck, đặt dọc xương Neck, Co
 như LeftArmBlend ở rig_nam002.py. Trọng số đỉnh vùng cổ theo hàm mũ (piecewise tuyến tính, tổng 1) giữa Spine2 → Neck → NeckBlend1 → NeckBlend2 → Head.
 Xương Head và đỉnh z >= z_hi (trọng số Head = 1) KHÔNG đổi: bên làm mặt gắn 100 % Head.
 """
-import os, json
+import os, sys, json
 import numpy as np
 import bpy
 
 _P = json.loads(os.environ.get('NAM003_NECK', '{}'))   # chỉ để thử tham số: NAM003_NECK='{"inf":[0.4,0.75],"zlo":1.40,"iter":80}'
+if _P: print(f'CẢNH BÁO: NAM003_NECK đang đặt ({_P}) → rig dựng ra KHÁC mặc định. Bỏ biến này (unset NAM003_NECK) nếu không cố ý thử tham số.', file=sys.stderr)
 NECK_INFLUENCE = tuple(_P.get('inf', (0.33, 0.66)))
 NODE_T = tuple(_P.get('t', (0.0, 0.2, 0.45, 0.7, 0.95)))                         # vị trí các nút trọng số trong [z_lo, z_hi]
 JAW_SHIFT = _P.get('jaw_shift', 0.03)

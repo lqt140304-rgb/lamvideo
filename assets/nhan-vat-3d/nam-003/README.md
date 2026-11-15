@@ -23,7 +23,7 @@ Dựng trong khoảng 2 phút. Tên xương theo Mixamo; ngón dùng Index, Midd
 **Số đo kéo giãn cạnh (cạnh giãn >2×; max)** trên 11 tư thế của `rig_nam002.py` (bản rig v3, 15/11/2026): **0 cạnh giãn >2× ở mọi tư thế**; giãn tối đa 1,35–1,59× ở các tư thế trên người và tay, ngồi xổm 1,80×. Lưu ý: `nam-002` có rất nhiều cạnh ngắn dưới 3 mm nên con số của hai lưới không so trực tiếp được.
 
 ## Chưa chắc / chưa làm
-- **Cổ chân** chọn bằng đo biến dạng (z 0,14, y 0,04; mục "Cổ và cổ chân"). Khuỷu và gối cũng chọn bằng thử nhiều vị trí rồi đo (mục dưới).
+- **Cổ chân** chọn bằng đo biến dạng (z 0,08, y 0,05; mục "Cổ và cổ chân"). Khuỷu và gối cũng chọn bằng thử nhiều vị trí rồi đo (mục dưới).
 - **Trọng số dùng ánh xạ tọa độ** về khung của `nam-002` (hàm `MAPCO`): mốc ngưỡng của `clean_weights` vẫn là của lưới kia. Đây là xấp xỉ.
 - **Cổ** đã làm lại (xương phụ `NeckBlend1/2` + Corrective Smooth riêng, mục "Cổ và cổ chân"); chưa có shape key sửa theo góc, và chỉ chạy trong Blender (GLB không mang ràng buộc).
 - Chưa có: mắt, mày, miệng, biểu cảm, khẩu hình; áo quần; chu kỳ đi bộ; nốt ruồi; chiều cao 1,60 m (Nam) và 1,70 m (Tùng); kiểm các tư thế đi, ngồi sâu.
@@ -49,7 +49,7 @@ Thiết kế: [spec](../../../docs/superpowers/specs/2026-11-15-nam003-co-va-co-
 **Cách làm (B + C):**
 - Hai xương phụ `NeckBlend1/2` (con của `Neck`, Copy Rotation LOCAL từ `Head`, ảnh hưởng 0,33 và 0,66) chia xoắn dọc cổ. Trọng số `Spine2` → `Neck` → `NeckBlend1` → `NeckBlend2` → `Head` theo gradient z (1,46–1,60, làm mượt 10 vòng), chỉ động tới các nhóm xương (nhóm phụ `cs_*` giữ nguyên). Vùng hàm/cằm (y < −0,05, z ≥ 1,55) cho `Head` đạt 1 sớm hơn 3 cm để cằm gắn chặt vào đầu (từ z 1,565 `Head` ≥ 0,75).
 - Corrective Smooth thứ hai `CorrectiveSmoothCo` (nhóm `cs_co`, 150 vòng, hệ số 1,0), tắt hẳn từ z 1,61 và không phủ vùng hàm/cằm, để không làm mềm shape key miệng/cằm của bên làm mặt.
-- Xương `Head`, trọng số đầu (z ≥ 1,60) và vị trí `Head` không đổi (đã kiểm: 0/4026 đỉnh z ≥ 1,60 đổi trọng số so với v2). Mã: `co_nam003.py`; đo: `kiem_co_nam003.py --rig nam-003-rig.blend [--scale S] [--anh dir]` (11 test).
+- Xương `Head`, trọng số đầu (z ≥ 1,60) và vị trí `Head` không đổi (đã kiểm: 0/4026 đỉnh z ≥ 1,60 đổi trọng số so với v2). Mã: `co_nam003.py`; đo: `kiem_co_nam003.py --rig nam-003-rig.blend [--scale S] [--anh dir]` (16 test).
 
 **Số đo (cạnh dài thêm max, mm; vùng cổ z 1,40–1,66):**
 | Tư thế | Trước (v2) | Rig v3 |
@@ -60,16 +60,20 @@ Thiết kế: [spec](../../../docs/superpowers/specs/2026-11-15-nam003-co-va-co-
 | quay 35° + cúi 15° | 14,07 | 3,75 |
 Mọi tư thế ≤ 3,75 mm (ngưỡng 6 mm; `nam-002` ~5,4 mm) và **0 cạnh giãn >1,5×** (mọi cạnh, đúng chữ thiết kế). Dựng lại hai lần cho số đo giống hệt. Lưu ý: đo ở scale 0,877 và 0,932 luôn ra cùng số vì đo trong toạ độ cục bộ của lưới; chúng chỉ chứng minh scale không phá rig, không phải bằng chứng độc lập.
 
-**Khi tắt Corrective Smooth (ví dụ khi xuất sang engine không có nó):** quay +35° còn 8,97 mm, tối đa 10,12 mm (tắt mọi Corrective Smooth, giữ ràng buộc `NeckBlend`), tốt hơn nền 12,90 mm khoảng 30 %. Đây là kết quả của gradient trọng số; phần còn lại đến từ Corrective Smooth. Reviewer độc lập từng đo bản đầu (gradient cũ) cho 20,8 mm khi tắt mọi Corrective Smooth, tệ hơn v2; vì vậy trọng số đã được sửa (nhóm phụ không bị chuẩn hóa, vùng hàm xử lý bằng dịch z, không loại khỏi gradient). **GLB xuất ra không mang ràng buộc `NeckBlend` nên xoắn cổ phải bake animation**; tương thích engine khác chưa kiểm.
+**Xuất GLB (đã xuất và nhập lại thật bằng `kiem_xuat_nam003.py`):** GLB không mang ràng buộc `NeckBlend` và Corrective Smooth. Đo cạnh dài thêm max ở vùng cổ trong GLB nhập lại: chỉ xoay `Head`: quay +35° **9,70 mm**, cúi +25° 6,65 mm, quay 35° + cúi 15° 9,24 mm; xoay `Head` kèm `NeckBlend1/2` theo 33 %/66 % (engine tái tạo ràng buộc hoặc bake animation): 9,12 / 6,80 / 10,18 mm. So với rig cũ trước khi làm cổ (12,90 / 10,76 / 14,07 mm) vẫn tốt hơn, nhưng không đạt mức 3,75 mm của Blender: **trong engine khác cổ sẽ kém sạch hơn trong Blender** và xương phụ gần như không giúp thêm. Đã xử lý lỗi bản đầu (khi tắt mọi Corrective Smooth và giữ ràng buộc cho 20,8 mm, theo reviewer): nhóm phụ không còn bị chuẩn hóa, vùng hàm xử lý bằng dịch z. Tắt mọi Corrective Smooth trong Blender: quay +35° 8,97 mm. Chưa thử trong một engine thật.
+
+**Tốc độ:** đổi tư thế rồi tính biến dạng lưới thân (44,6 nghìn đỉnh) mất **303 ms** khi bật hết Corrective Smooth, 64 ms khi tắt riêng `CorrectiveSmoothCo` (cổ, 150 vòng), 2,5 ms khi tắt mọi Corrective Smooth (đo trên CPU của máy dựng này, một thread). Nghĩa là Corrective Smooth cổ tốn khoảng 240 ms mỗi lần đổi tư thế: không đáng kể khi render (mỗi khung mất hàng giây) nhưng làm xem tư thế trong viewport chậm (khoảng 3 khung/giây).
+
+**Shape key mặt dưới Corrective Smooth cổ:** thử bằng một shape key hàm/cằm giả (dịch tới 8 mm ở y < −0,05, z 1,58–1,72): bật/tắt Corrective Smooth sai khác < 0,2 mm (`test_shape_key_survives_cs`); đối chứng trên rig cũ (Corrective Smooth phủ tới z 1,64) test này FAIL. Chưa thử với shape key miệng thật của bên làm mặt.
 
 ![Ảnh cận cổ/cằm: quay +35°, quay 35° + cúi 15°, cúi +25°; 1,60 m rồi 1,70 m (tay hạ, đèn phụ)](co-thu.webp)
 
 **Ảnh cận:** cổ liền mạch ở cả 1,60 m và 1,70 m, không thấy rách hay thắt; mặt dưới cằm khi cúi mịn hơn v2. Dải sáng ở đường nối cổ-vai (ảnh bên) có ở cả v2, không do rig mới. Hai chiều cao là cùng một lưới scale đều nên không phải hai bằng chứng độc lập. Chưa khẳng định "không tì vết": chủ repo duyệt ảnh.
 
-**Cổ chân:** 12 tổ hợp z 0,08–0,14 × y 0,04–0,06 qua buoc_chan, ngoi_xom, nhac_chan_IK, mui_chan (`chon_co_chan_nam003.py`): tổng cạnh giãn+co 1945–2563, y 0,04 luôn tốt nhất, z ít khác biệt (z 0,08: 1945; 0,10: 2006; 0,12: 2071; 0,14: 2182; chênh nhỏ so với nhiễu). Chọn **z 0,14, y 0,04** vì ngưỡng ngồi xổm ≤ 1,89× của thiết kế (z 0,10 cho 1,93×); script tự chọn thuần theo tổng giãn+co sẽ in z 0,08, khác giá trị đang dùng. Biên lưới thử là z 0,14 (z 0,16 chưa thử).
-**Hồi quy 11 tư thế:** 0 cạnh giãn >2× ở mọi tư thế; ngồi xổm max 1,80×.
+**Cổ chân:** 12 tổ hợp z 0,08–0,14 × y 0,04–0,06 qua buoc_chan, ngoi_xom, nhac_chan_IK, mui_chan (`chon_co_chan_nam003.py`, chạy lại trên rig hiện tại ngày 15/11): tổng cạnh giãn+co 1907–2527. Quy tắc chọn: tổng nhỏ nhất **trong các tổ hợp thỏa ngồi xổm giãn tối đa ≤ 1,89×** (ràng buộc của thiết kế; 7/12 tổ hợp thỏa). Kết quả **z 0,08, y 0,05** (tổng 1922; ngồi xổm 1,88×). Trước đó mình dùng z 0,14, y 0,04 (tổng 2154) — chọn thủ công trên rig cũ trước khi sửa trọng số cổ, nay script cho kết quả khác nên đã đổi theo script. Chênh giữa các tổ hợp tốt nhất nhỏ (vài phần trăm), nên đây là lựa chọn hợp lý chứ không phải tối ưu tuyệt đối. Biên lưới thử: z 0,08 và 0,14.
+**Hồi quy 11 tư thế (rig hiện tại):** 0 cạnh giãn >2× ở mọi tư thế; ngồi xổm max 1,88× (sát ngưỡng 1,89×).
 
-**Hạn chế còn lại:** chỉ đo trên mô hình trơn; chưa thử áo quần cổ cao, tóc, mặt (shape key mặt thật dưới `CorrectiveSmoothCo` chưa kiểm); chưa xuất GLB thật; Corrective Smooth 150 vòng nặng hơn khi tính biến dạng (chưa đo tốc độ); chọn cổ chân dựa trên số cạnh giãn/co, chưa xem ảnh cận bàn chân.
+**Hạn chế còn lại:** chỉ đo trên mô hình trơn; chưa thử áo quần cổ cao, tóc, mặt (shape key mặt thật dưới `CorrectiveSmoothCo` chưa kiểm, mới thử bằng shape key giả); chưa thử GLB trong một engine thật; chọn cổ chân dựa trên số cạnh giãn/co, chưa xem ảnh cận bàn chân; kq4 xoay riêng `Neck` + `Head` (xoay `Spine` làm cả thân trên xoay cứng nên không thử được cổ).
 
 ## Mặc đồ (15/11/2026)
 `mac_do_nam003.py` có `chuyen_trong_so(ob, body, arm, loai, che_do='tho')` và bài đo (`<bpy-python> mac_do_nam003.py --rig nam-003-rig.blend`). Đo trên áo phông và quần dài thử qua 8 tư thế: tổng đỉnh xuyên mới so với dáng nghỉ: Data Transfer thô 358, thêm làm mượt chọn lọc 365, cách 1B của phiên thử quần áo độc lập 369: **không cách nào hơn rõ rệt, nên dùng thô**. Còn xuyên: áo ở khuỷu gập (107 đỉnh, sâu 7,5 mm); quần khi nhấc chân (49) và ngồi xổm (193, sâu 7,8 mm). Cùng cách đo, `nam-002` cho quần nhấc chân 856 và ngồi xổm 1669, tức rig v3 của `nam-003` tốt hơn nhiều cho áo quần. Chưa thử áo quần thật; hướng dẫn chung ở [../nam-002/HUONG-DAN-MAC-DO.md](../nam-002/HUONG-DAN-MAC-DO.md) (tên xương và tư thế giống).
