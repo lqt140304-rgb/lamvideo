@@ -185,6 +185,7 @@ def build(mode='hoang_hon', cam='BK_EWS', muc='duyet', nguoi=True, chuyen=False)
     bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene
     c = K.coll('Bo_ke'); m = vat_lieu(); rnd = random.Random(11)
     de_va_ke(m, c, rnd); song_va_bo_ben_kia(m, c, rnd); n = cau_sat(m, c)
+    import chi_tiet_hoi3; print('[chi_tiet]', chi_tiet_hoi3.bo_ke(m, c), 'vật')
     if nguoi: nam_ngoi(m, c)
     for k, (p, t, f) in CAMS.items(): K.camera(k, p, t, f)
     sc.camera = bpy.data.objects[cam]

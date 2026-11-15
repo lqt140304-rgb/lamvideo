@@ -222,3 +222,22 @@ Tham số chung (`hinh_khoi.py`): `--cam --mode --muc nhap|duyet|cuoi --width --
 Lưu ý: các cảnh này còn nhẹ nên LOD giảm nhiều lưới nhưng ít thời gian. Lợi lớn nhất khi render chuỗi khung là persistent data và render cách khung. Steadicam 24 khung ở 480 px mất 36 s, khoảng 1,4 s/khung (`xem-thu/hoi-3/san-truong-steadicam-nhap.mp4`).
 
 **Chưa có:** nhân vật thật (đang dùng hình nhân tạm); camera crane GD_CRANE chưa chuyển động; Lab 402 và mâm cơm quê (kịch bản không có cảnh quay); render chất lượng cuối.
+
+### 15/11 chiều: thêm chi tiết đời sống (`chi_tiet_hoi3.py`)
+- **Giảng đường** (494 vật):
+  - trên bàn có sách, vở mở kèm bút, chai nước, laptop, điện thoại; dưới chân hoặc trên ghế có cặp sách;
+  - bảng có chữ phấn và khung hình vẽ;
+  - trên tường có loa, dây điện, ổ cắm, đồng hồ, tờ thông báo ở cửa, biển phòng;
+  - thêm thùng rác và khăn lau bảng.
+- **Sân trường** (479 vật): lá rụng quanh gốc cây và chân hành lang, ghế đá, thùng rác, biển chỉ dẫn, vết ố chân cột, bảng tin dán giấy, bình chữa cháy, sinh viên ngồi, xe đạp.
+- **Bờ kè** (173 vật): lục bình và rác trôi theo dòng, rác dạt chân kè, cỏ lau hai đầu kè, 3 thuyền chạy chậm, đàn chim bay, cột mốc đê, đôi dép tổ ong bỏ quên dưới chỗ Nam ngồi.
+- **Cách giữ tốc độ:** mọi vật lặp lại đều là instance. Không thêm đèn, không thêm vật phát sáng hay kính. Vật trôi/bay chuyển động bằng driver theo khung, không mô phỏng.
+- **Đo lại** (cùng máy, 960 px, mức `duyet`):
+
+  | Góc máy | Trước | Sau |
+  |---|---|---|
+  | GD_TOAN | 119 s | 116 s |
+  | ST_HANH_LANG | 96 s | 74 s |
+  | BK_EWS | 45 s | 46 s |
+
+  Chênh lệch nằm trong dao động đo của máy, tức là **không thấy chậm đi**.

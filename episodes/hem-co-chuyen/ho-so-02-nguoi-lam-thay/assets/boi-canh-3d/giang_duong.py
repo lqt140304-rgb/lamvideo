@@ -222,6 +222,7 @@ def build(mode='sang', cam='GD_TOAN', muc='duyet', nguoi=True):
     c = K.coll('Giang_duong')
     m = vat_lieu(mode)
     vo_phong(m, c); so_ghe, so_nguoi = bac_va_ghe(m, c, nguoi); buc_bang_man(m, c); tran_den_quat(m, c, mode)
+    import chi_tiet_hoi3; print('[chi_tiet]', chi_tiet_hoi3.giang_duong(m, c), 'vật')
     # ngoài cửa sổ: trời sáng + vài khối cây/toà nhà xa (để kính không trống)
     K.troi('#dfe9ef', '#9fc0dc', 1.0 if mode == 'sang' else 0.6)
     for i in range(6):
