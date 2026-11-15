@@ -82,26 +82,27 @@ def _mep(u, U, V, tan_ng, side, tren):
 
 def _luoi_mi(C, Rm, U, V, tan_ng, side, tren, mep_fn, p):
     """Trả (co, faces, vien) của vỏ mí. Hàng t=0 là mép; t=1 là rìa ngoài (thụt sâu vào trong)."""
-    Umax = U * 1.55; Vmax = V * 2.0
+    Umax = U * 1.35; Vmax = V * 1.55
     us = np.linspace(-Umax, Umax, NU)
     ts = np.concatenate([[0.0, 0.035, 0.08], np.linspace(0.14, 1.0, NT - 3)])
     rows = []; vien = []
     for t in ts:
         e = mep_fn(us)
         far = (Vmax if tren else -Vmax) + tan_ng * us * side
-        v = e + (far - e) * t
-        uu = us * (1 + 0.25 * t)                                   # rìa ngoài loe ra
-        s = np.clip((t - 0.35) / 0.65, 0, 1); s = s * s * (3 - 2 * s)
-        r = Rm - s * 0.009                                         # thụt vào để vùi dưới da
+        sg = 1 if tren else -1; w0 = p['mat_vien'] / Rm
+        v = e + sg * {0.0: 0.0, 0.035: 0.45 * w0, 0.08: 1.6 * w0}[t] if t < 0.1 else e + (far - e) * t   # 3 hàng đầu cách mép theo góc cố định: nét mi không dày lên khi nhắm
+        uu = us * (1 + 0.10 * t)                                   # rìa ngoài loe ra
+        sa = np.sqrt((uu / U) ** 2 + (v / V) ** 2); s = np.clip((sa - 1.08) / 0.40, 0, 1); s = s * s * (3 - 2 * s)   # thụt theo vị trí, ngoài khe mắt
+        r = Rm - s * 0.014                                         # thụt vào để vùi dưới da
         pass
         rows.append(np.asarray(C) + r[..., None] * _dir(uu, v) if np.ndim(r) else np.asarray(C) + r * _dir(uu, v))
         w = p['mat_vien'] / Rm                                     # bề rộng nét viền theo góc
         if tren:
-            band = 1.0 if t * (Vmax - V) < w * 1.4 else 0.0
+            band = 1.0 if t < 0.05 else 0.0
             if p['mi_doi'] and abs(t - 0.22) < 0.035: band = max(band, 0.55)   # nếp mí đôi
         else:
-            band = 0.35 if t * (Vmax - V) < w * 0.7 else 0.0
-        vien.append(band * (np.abs(us) < U * 1.06))
+            band = 0.12 if t < 0.01 else 0.0
+        vien.append(band * np.clip((1 - np.abs(us) / U) / 0.30, 0, 1))   # nét thon và ngắn dần về hai khóe
     co = np.concatenate(rows); vien = np.concatenate(vien)
     faces = [(i * NU + j, i * NU + j + 1, (i + 1) * NU + j + 1, (i + 1) * NU + j) for i in range(len(ts) - 1) for j in range(NU - 1)]
     if not tren: faces = [f[::-1] for f in faces]
