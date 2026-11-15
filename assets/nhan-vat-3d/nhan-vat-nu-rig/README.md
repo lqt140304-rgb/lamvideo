@@ -11,7 +11,7 @@ Mở `nhan-vat-nu-rig.blend`. Texture da liền màu nằm trong `texture/` (đ�
 | Object | Vai trò |
 |---|---|
 | `Nu_Rig` | Armature |
-| `Nu_Than` | Lưới thân: Armature → CorrectiveSmooth → Subdivision (viewport 2, render 3) |
+| `Nu_Than` | Lưới thân: Armature → CorrectiveSmooth → Subdivision (viewport 2, render 3). Da mặt một màu trơn: thuộc tính `mat_tron` (1 trên cằm → 0 ở cổ) và `ma_hong` (má hồng) trộn trong vật liệu |
 | `Nu_LongTrang.L/R`, `Nu_ConNguoi.L/R` | Lòng trắng (cố định theo đầu), đĩa mống mắt (bám lòng trắng, xoay theo `eye`) |
 | `Nu_MiTren/Duoi.L/R` | Mí trên, mí dưới |
 | `Nu_May.L/R` | Lông mày dựng lại thành dải cong trơn, thuôn hai đầu |
@@ -70,7 +70,7 @@ Chạy trong thư mục này:
 py -I da_lien_mau.py                                                   # texture da liền màu → texture/
 D:/blender/blender.exe -b --factory-startup --python rig_nu.py         # dựng nhan-vat-nu-rig.blend
 py -I test_da_lien_mau.py                                               # kiểm texture
-D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 39 kiểm trên file đã lưu
+D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python kiem_rig_nu.py # 40 kiểm trên file đã lưu
 D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư mục ảnh> [--mieng]   # --mieng: 22 ảnh cận miệng
 ```
 

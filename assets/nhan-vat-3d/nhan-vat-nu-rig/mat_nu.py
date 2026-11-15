@@ -593,6 +593,16 @@ def la_phang_quanh_mat(body, lan=40):
         moi = [v.co + lam * (sum((w.co for w in ws), Vector()) / len(ws) - v.co) for v, ws in zip(chay, ke)]
         for v, c in zip(chay, moi):
             v.co = c
+    vong = {v for v in vung if v.is_boundary}  # viền hốc mắt (ghim)
+    da_qua, gan = set(vong), []
+    for _ in range(4):
+        vong = {e.other_vert(v) for v in vong for e in v.link_edges} - da_qua
+        da_qua |= vong
+        gan += [v for v in vong if v in vung and not v.is_boundary]
+    for _ in range(20):  # mảng gồ quanh hốc mắt: Laplace mạnh 4 vòng ngoài viền
+        moi = [sum((e.other_vert(v).co for e in v.link_edges), Vector()) / len(v.link_edges) for v in gan]
+        for v, c in zip(gan, moi):
+            v.co = v.co.lerp(c, 0.5)
     for _ in range(10):  # gọt đỉnh còn nhô (cục cạnh sống mũi): kéo hẳn về trung bình láng giềng
         for v in vung:
             if not v.is_boundary:
@@ -654,6 +664,10 @@ def da_mat_tron(body, z0=1.18, z1=1.26):
         if o.name.startswith(('Nu_MiTren', 'Nu_MiDuoi')):
             a = o.data.attributes.new('mat_tron', 'FLOAT', 'POINT')
             a.data.foreach_set('value', np.ones(len(o.data.vertices), np.float32))
+            if o.name.startswith('Nu_MiTren'):  # mí dưới lấy normal da thì đen (thử cả chiếu theo normal: tệ hơn)
+                dt = o.modifiers.new('NormalDa', 'DATA_TRANSFER')  # mí lấy normal da thân: hết viền mảng gồ quanh hốc mắt
+                dt.object, dt.use_loop_data, dt.data_types_loops = body, True, {'CUSTOM_NORMAL'}
+                dt.loop_mapping = 'POLYINTERP_NEAREST'
     # màu trơn: trung vị texture trên da trán
     px = anh_diffuse(body)
     uvl = me.uv_layers[0].data
