@@ -221,3 +221,5 @@ Tùng: --cao 1.70 --da 0.92,0.74,0.62 --vai 0.012 --day -0.004 --toc xu --mau-to
 Người Kia: như Nam nhưng `--ruoi phai` (thuận tay trái là diễn xuất, không phải mô hình).
 
 **Hạn chế:** Tùng khác Nam ở mày, mống mắt, da, tóc, dáng, nhưng cấu trúc mặt (mũi, miệng, tai, đầu) vẫn là một lưới; nhìn gần vẫn giống nhau. Tóc `xu` còn thô: viền chân tóc răng cưa, khối tóc như mũ cứng. Chưa mặc đồ, chưa thử rig/đi bộ của Tùng sau khi đổi mày và mắt (chỉ xem mặt tĩnh).
+
+**Nắn mặt kiểu bóp (15/11/2026):** `bien_the_nam002.py --bop tung [--bop-he-so 1]` kéo/phồng/co lưới đầu theo vùng lan mềm, đối xứng hai bên, giảm dần gần mắt và miệng để rig mặt không lệch; kết quả nướng vào lưới và các shape key miệng. Bộ `tung` (tai nhỏ 80 %, hàm bạnh ra, cằm dài hơn, mũi thấp và thon, má hóp nhẹ; đỉnh dịch tối đa ≈ 8 mm). Thêm bộ mới bằng cách thêm khóa vào `BOP` (mốc mặt ghi sẵn ở đầu bảng). Ảnh: [nam-tung-bop.webp](nam-tung-bop.webp) (Nam – Tùng đã bóp, mặt chính và 3/4). Cường độ 2 làm cằm thành mỏ nhọn nên bộ chuẩn dùng vùng lan rộng cho cằm. Chưa kiểm biểu cảm và khẩu hình sau khi bóp (chỉ xem mặt tĩnh).
