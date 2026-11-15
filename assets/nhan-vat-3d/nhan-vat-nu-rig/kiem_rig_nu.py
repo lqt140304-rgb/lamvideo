@@ -630,12 +630,26 @@ def kiem_rang_cong():
         assert dau - giua >= 0.006, f'{ten}: hai đầu chỉ lùi {(dau - giua) * 1000:.1f} mm'
 
 
+def kiem_mim_khong_cheo():
+    """vs_MBP / vs_nghi: hai mép khe vẫn khép (≤ 0.8 mm) nhưng không vượt qua nhau (lộ thành trong thành vạch)."""
+    t, d = nhom_dinh('MIENG_MOI_TREN'), nhom_dinh('MIENG_MOI_DUOI')
+    for sk in ('vs_MBP', 'vs_nghi'):
+        dat_lai()
+        BODY.data.shape_keys.key_blocks[sk].value = 1
+        co = eval_co()
+        for i in t:
+            j = d[np.argmin(np.abs(co[d, 0] - co[i, 0]))]
+            assert co[i, 2] - co[j, 2] >= -0.0002, f'{sk}: môi dưới vượt môi trên {(co[j, 2] - co[i, 2]) * 1000:.2f} mm'
+            assert np.linalg.norm(co[i] - co[j]) < 0.0008, f'{sk}: khe hở {np.linalg.norm(co[i] - co[j]) * 1000:.2f} mm'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_mim_khong_cheo': kiem_mim_khong_cheo,
     'kiem_rang_cong': kiem_rang_cong,
     'kiem_khau_hinh_muot': kiem_khau_hinh_muot,
     'kiem_khau_hinh_khong_gap': kiem_khau_hinh_khong_gap,

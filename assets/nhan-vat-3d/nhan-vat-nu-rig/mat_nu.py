@@ -930,6 +930,9 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
     c = np.clip(np.abs(du) / ak, 0, 1) ** 2 * g             # trọng số khóe
     s = np.sign(du)
     hoa = _ss(0.8, 1.05, np.abs(du) / ak)                   # gần khóe: trên/dưới hòa về 0.5 → khe khép mềm ở khóe
+    bu = 0.0004 * (trong_nhom('MIENG_MOI_TREN').astype(float) - trong_nhom('MIENG_MOI_DUOI'))  # bù Corrective Smooth khi mím
+    o_ = np.argsort(co[khe, 0])
+    dvk = co[:, 2] - np.interp(co[:, 0], co[khe, 0][o_], co[khe, 2][o_])  # khoảng cách tới đường khe (cong theo nét cười)
     T = (tren * (1 - hoa) + 0.5 * hoa * (tren | duoi | (np.abs(dv) < 0.004))) * moi
     D = (duoi * (1 - hoa) + 0.5 * hoa * (tren | duoi | (np.abs(dv) < 0.004))) * moi
     X, Y, Z = (np.eye(3)[i] for i in range(3))
@@ -943,7 +946,7 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         'cuoi': vec(0.005 * s * c, 0.003 * c, 0.012 * c),
         'meu': vec(0.001 * s * c, -0.002 * D, -0.010 * c),
         'chu_moi': vec(-0.5 * du * g, -0.009 * g, 0.0015 * T - 0.0015 * D),  # chu: thu hẹp, đẩy ra trước, hé tròn
-        'mim_moi': vec(z0, 0.002 * moi, -0.0015 * T + 0.0015 * D),
+        'mim_moi': vec(z0, 0.002 * moi, -0.3 * dvk * (T + D) + 1.5 * bu),
         'keo_khoe.L': vec(0.006 * c * L, z0, 0.001 * c * L), 'keo_khoe.R': vec(-0.006 * c * R, z0, 0.001 * c * R),
         'ha_khoe.L': vec(z0, z0, -0.006 * c * L), 'ha_khoe.R': vec(z0, z0, -0.006 * c * R),
         'nhech.L': vec(0.002 * c * L, z0, 0.007 * c * L), 'nhech.R': vec(-0.002 * c * R, z0, 0.007 * c * R),
@@ -952,12 +955,12 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         'vs_I': vec(0.3 * du * g, z0, 0.001 * T - 0.002 * D + 0.002 * c),
         'vs_O': vec(-0.4 * du * g, -0.005 * g, (0.006 * T - 0.009 * D) * (1 - 0.7 * np.clip(du / ak, -1, 1) ** 2)),
         'vs_U': vec(-0.4 * du * g, -0.007 * g, 0.0015 * T - 0.002 * D),
-        'vs_MBP': vec(z0, 0.003 * moi, -0.0025 * T + 0.0025 * D),  # mím chặt, cuộn vào
+        'vs_MBP': vec(z0, 0.003 * moi, -0.4 * dvk * (T + D) + 2 * bu),          # mím: nén về khe, đẩy lùi; mép khe không vượt nhau
         'vs_PHV': vec(z0, 0.004 * D, 0.001 * T + 0.002 * D),
         'vs_NT': vec(0.18 * du * g, z0, 0.0005 * T - 0.0015 * D),      # răng gần khép, môi hé, bè
         'vs_CH': vec(0.1 * du * g, -0.002 * g, 0.003 * T - 0.004 * D),
         'vs_KG': vec(0.12 * du * g, z0, 0.002 * T - 0.003 * D),        # hé, bè ngang (âm cuối lưỡi)
-        'vs_nghi': vec(z0, 0.0005 * moi, -0.0005 * T + 0.0005 * D),
+        'vs_nghi': vec(z0, 0.0008 * moi, -0.05 * dvk * (T + D) + 0.5 * bu),
         # sửa dáng khi mở hàm (driver theo jaw): khóe trễ xuống, kéo vào; môi trên cong nhẹ → miệng mở tròn
         'mo_ham_khoe': vec(-0.004 * s * c, z0, -0.006 * c - 0.002 * c * D + 0.0025 * T * (1 - c)),
     }
@@ -969,12 +972,14 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
     deg = np.bincount(E_.ravel(), minlength=len(co)).astype(float)
     for ten, d in dk.items():
         d = d * dong[:, None]
+        d0 = d.copy()
         for _ in range(3):
             tong = np.zeros_like(d)
             np.add.at(tong, E_[:, 0], d[E_[:, 1]])
             np.add.at(tong, E_[:, 1], d[E_[:, 0]])
             tb = np.where(deg[:, None] > 0, tong / np.maximum(deg, 1)[:, None], d)
             d = np.where(dong[:, None], 0.5 * d + 0.5 * tb, 0)
+        d[khe] = d0[khe]  # mép khe giữ độ dời riêng (làm trơn kéo mép trên/dưới vượt nhau khi mím)
         kb = body.shape_key_add(name=ten, from_mix=False)
         kb.data.foreach_set('co', (co + d).astype(np.float32).ravel())
         kb.slider_min, kb.slider_max = 0.0, 1.0
