@@ -174,3 +174,15 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 **Ngón tay khi đi (đã sửa):** trước đây cả bàn tay nắm cố định 0,25 nên các ngón gập giống hệt nhau và đứng yên. Giờ mỗi ngón gập khác nhau (trỏ 0,14 · giữa 0,24 · áp út 0,34 · út 0,44 · cái 0,12) và cộng thêm ±0,07 theo nhịp đánh tay: tay ra sau thì gập nhiều hơn, ra trước thì duỗi hơn. [Ảnh bàn tay trái ở 4 khung](ngon-khi-di.webp).
 
 **Còn lại:** mặt chỉ nhỏ trong khung nên chưa soi được chi tiết mắt ở đoạn này; chưa có audio để kiểm khẩu hình theo lời; chưa đo trượt chân đứng.
+
+## Ghép tóc thử (15/11/2026)
+
+Bản thử ghép tóc của `nhan-vat-goc` lên đầu nam-002, chủ repo đã xem ảnh và đồng ý bản này. **Chưa rig:** tóc chưa gắn xương `Head`, chưa kiểm chuyển động.
+
+![Tóc thử: trước, bên, xiên, sau](toc/xem-thu.webp)
+
+- `nam-002-co-toc-thu.glb`: nam-002 kèm hai khối riêng. `toc_nam` là tóc tách từ `nhan-vat-goc` (các mặt có màu tóc, vật liệu gốc). `da_dau_toc` là lớp da đầu đen lấy từ chính lưới đầu nam-002, nâng 4 mm.
+- Đầu nam-002 nhỏ hơn nhiều so với đầu bản gốc nên tóc bị co theo từng trục, không đều: x×0,56, y×0,52, z×0,55 (thấp), và kéo thêm ở đỉnh.
+- Tóc phía sau cắt ngang ở z ≈ 1,43 m và thu dần vào sát đầu; phần dưới đến gáy là lớp da đầu, mép cắt thẳng ở z = 1,43 m.
+- `toc/`: mã dựng lại (cần `pip install bpy numpy scipy pillow`). Chạy trong thư mục `toc/`: `python seg.py` rồi `python ghep.py 0.56 0.52 0.55 0.026 1.47 v19 glb`.
+- Tóc chưa chỉnh sát bề mặt đầu, mép tóc có thể xuyên vào đầu khi tạo dáng. Giấy phép mô hình chưa xác minh (như nam-002).
