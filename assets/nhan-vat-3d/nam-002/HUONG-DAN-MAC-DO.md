@@ -56,11 +56,11 @@ m = ao.modifiers.new('arm', 'ARMATURE'); m.object = arm; ao.parent = arm
 | Giơ tay cao | `LeftArm` −85°, `RightArm` +85° quanh Y |
 | Tay ra trước | như tay buông, rồi cả hai tay quay −85° quanh X |
 | Gập khuỷu | như tay ra trước, `ForeArm` gập ~110° |
-| Cúi về trước | `Spine` −30°, `Spine1` −25° quanh X |
-| Ngửa ra sau | `Spine` +15°, `Spine1` +15° quanh X |
+| Cúi về trước | `Spine` **+30°**, `Spine1` **+25°** quanh X (mặt hướng −Y nên quay +X là cúi; −X là ngửa) |
+| Ngửa ra sau | `Spine` −15°, `Spine1` −15° quanh X |
 | Xoay thân | `Spine` +30°, `Spine1` +25° quanh Z |
 | Nghiêng người | `Spine` −20°, `Spine1` −15° quanh Y |
-| Nhấc chân | `LeftUpLeg` −70°, `RightUpLeg` +20° quanh X |
+| Nhấc chân | **IK đang bật nên quay `UpLeg` không làm chân dịch (đã đo: mắt cá dịch 0 m).** Dùng một trong hai: (a) dịch `ik_foot.L` theo trục thế giới (0, −0,30, +0,35) m; (b) đặt influence = 0 cho IK trên `LeftLeg`/`RightLeg` rồi quay `LeftUpLeg` −70° (khi đó mắt cá dịch ~0,88 m) |
 | Đi bộ | chạy `di_bo_nam002.py` (có ảnh 8 khung bên và trước) |
 | Ngồi xổm | `Hips` hạ 0,35 m và dịch +0,10 m về sau, `Spine` quay 20° — xem mục 5 |
 
@@ -90,3 +90,10 @@ Gửi lại để sửa đúng chỗ, không đoán:
 4. Nếu phải sửa thân: nêu chính xác vùng nào cần đổi để Opus/Sonnet sửa trong `rig_nam002.py` (không tự sửa lưới).
 
 Lưu kết quả trong thư mục riêng của tập hoặc của nhân vật mặc đồ, không để lẫn vào `nam-002`.
+
+## 8. Đính chính và số đo tham chiếu (15/11/2026)
+
+- Bản đầu của hướng dẫn này ghi ngược chiều cúi/ngửa và dùng `UpLeg` khi IK bật cho tư thế nhấc chân; đã sửa ở mục 4. Phiên thử quần áo độc lập phát hiện cả hai; mình đã kiểm lại bằng Blender (Head dịch −Y khi Spine quay +X 30°; mắt cá không dịch khi quay `UpLeg` với IK bật).
+- Khi đo "xuyên da", trừ nền dáng nghỉ cho từng đỉnh: ở các chỗ lõm (nách, khe đùi) khoảng cách có dấu đã âm sẵn khi chưa cử động (áo ~460, quần ~700 đỉnh).
+- Số đo trên `nam-002-rig.blend` hiện có (áo phồng 12 mm, quần 10 mm, Data Transfer + giới hạn 4 xương, không sửa tay; đỉnh áo quần nằm trong thân so với dáng nghỉ): tay buông 2–3 đỉnh; giơ tay cao 91 (áo); gập khuỷu ~560 (áo); xoay thân 5; cúi và ngửa 0; nhấc chân qua IK áo ~280–350, quần ~856; ngồi xổm áo ~460, quần ~1670; quay đầu 0. Đa số lỗi nằm ở đáy háng (z ≈ 0,77) và đùi/gối (z ≈ 0,52), là lỗi lấy trọng số cục bộ chứ không phải thân tự chạm; Corrective Smooth trên áo quần gần như không đổi gì. Sửa trọng số áo quần (tách trái/phải, làm mượt háng và nách) là hướng nên làm.
+- `rig_nam002.py` đã thêm làm mượt trọng số ở nếp bẹn trước và gối/khoeo (ngồi xổm: áo 458→152, quần 1669→1371 đỉnh; nhấc chân không cải thiện). File `nam-002-rig.blend` trong repo vẫn là bản trọng số cũ; chưa thay bằng bản dựng lại.
