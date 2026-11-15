@@ -181,3 +181,9 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 - **Lưới hở:** 202 cạnh biên, trong đó 164 là hai hốc mắt (có chủ ý); còn lại là mảnh vụn nhỏ quanh miệng và vài chỗ sau đầu từ lưới gốc Hyper3D, 9 đỉnh rời. Chưa xóa để khỏi đổi chỉ số đỉnh của bản đang dùng.
 - **Thử áo phông** (thân phồng 12 mm, chuyển trọng số từ thân bằng Data Transfer, giới hạn 4 xương): giơ tay cao, gập khuỷu, cúi, xoay thân trông ổn ([ảnh](thu-ao-phong.webp)). Số đo "da lòi ngoài áo" còn lẫn điểm sát mép áo nên chỉ dùng tham khảo; chưa thử áo thật, chưa thử ngồi xổm.
 - **Còn nguy cơ:** ngồi xổm (675 cạnh giãn >2×) nên áo/quần ôm sẽ nhăn hoặc xuyên ở khoeo và háng; miệng chưa có răng/lưỡi.
+
+## Bản đã rig để dùng ngay (15/11/2026)
+
+- [`nam-002-rig.blend`](nam-002-rig.blend) (35 MB, texture nhúng sẵn): đầy đủ rig Mixamo + IK + ngón tay + mắt/mày + biểu cảm + khẩu hình (shape key và driver), dáng chữ T, tối đa 4 xương/đỉnh. Đây là bản nên mở khi mặc đồ. Dựng bằng `rig_nam002.py` (khoảng 6 phút). Lúc mở file hoạt ảnh trống; chu kỳ đi bộ nằm trong `di_bo_nam002.py`.
+- [`nam-002-rig.glb`](nam-002-rig.glb) (31 MB): cùng bộ xương và shape key để dùng ở nơi khác. **GLB không mang driver**, nên biểu cảm/khẩu hình phải đặt trực tiếp qua shape key (`mieng_ha`, `mieng_hep`, `mieng_rong`, `cuoi`, `meu`, `mieng_khep`, `may_*`), không qua thuộc tính xương `Head`.
+- Cảnh thử áo phông và các file trung gian không đưa lên repo.
