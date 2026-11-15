@@ -32,8 +32,11 @@ def _mat_mi(p):
     m = _mat('Mi_da', p['da'], 0.55); nt = m.node_tree; b = nt.nodes['Principled BSDF']
     at = nt.nodes.new('ShaderNodeAttribute'); at.attribute_name = 'vien'
     mix = nt.nodes.new('ShaderNodeMix'); mix.data_type = 'RGBA'
-    mix.inputs['A'].default_value = (*p['da'], 1); mix.inputs['B'].default_value = (0.035, 0.025, 0.022, 1)
+    mix.inputs['A'].default_value = (*p['da'], 1); mix.inputs['B'].default_value = (0.008, 0.006, 0.006, 1)
     nt.links.new(at.outputs['Fac'], mix.inputs['Factor']); nt.links.new(mix.outputs['Result'], b.inputs['Base Color'])
+    b.inputs['Subsurface Weight'].default_value = 0.15; b.inputs['Subsurface Radius'].default_value = (0.9, 0.35, 0.2)
+    rr = nt.nodes.new('ShaderNodeMapRange'); rr.inputs['To Min'].default_value = 0.55; rr.inputs['To Max'].default_value = 0.35
+    nt.links.new(at.outputs['Fac'], rr.inputs['Value']); nt.links.new(rr.outputs['Result'], b.inputs['Roughness'])
     return m
 
 
@@ -84,21 +87,21 @@ def _luoi_mi(C, Rm, U, V, tan_ng, side, tren, mep_fn, p):
     """Trả (co, faces, vien) của vỏ mí. Hàng t=0 là mép; t=1 là rìa ngoài (thụt sâu vào trong)."""
     Umax = U * 1.35; Vmax = V * 1.55
     us = np.linspace(-Umax, Umax, NU)
-    ts = np.concatenate([[0.0, 0.035, 0.08], np.linspace(0.14, 1.0, NT - 3)])
+    ts = np.concatenate([[0.0, 0.02, 0.035, 0.08], np.linspace(0.14, 1.0, NT - 4)])
     rows = []; vien = []
     for t in ts:
         e = mep_fn(us)
         far = (Vmax if tren else -Vmax) + tan_ng * us * side
         sg = 1 if tren else -1; w0 = p['mat_vien'] / Rm
-        v = e + sg * {0.0: 0.0, 0.035: 0.45 * w0, 0.08: 1.6 * w0}[t] if t < 0.1 else e + (far - e) * t   # 3 hàng đầu cách mép theo góc cố định: nét mi không dày lên khi nhắm
+        v = e + sg * {0.0: 0.0, 0.02: 0.45 * w0, 0.035: 0.62 * w0, 0.08: 1.6 * w0}[t] if t < 0.1 else e + (far - e) * t   # 3 hàng đầu cách mép theo góc cố định: nét mi không dày lên khi nhắm
         uu = us * (1 + 0.10 * t)                                   # rìa ngoài loe ra
-        sa = np.sqrt((uu / U) ** 2 + (v / V) ** 2); s = np.clip((sa - 1.08) / 0.40, 0, 1); s = s * s * (3 - 2 * s)   # thụt theo vị trí, ngoài khe mắt
+        sa = np.sqrt((uu / U) ** 2 + (v / V) ** 2); s = np.clip((sa - 1.32) / 0.25, 0, 1); s = s * s * (3 - 2 * s)   # thụt theo vị trí, ngoài khe mắt
         r = Rm - s * 0.014                                         # thụt vào để vùi dưới da
         pass
         rows.append(np.asarray(C) + r[..., None] * _dir(uu, v) if np.ndim(r) else np.asarray(C) + r * _dir(uu, v))
         w = p['mat_vien'] / Rm                                     # bề rộng nét viền theo góc
         if tren:
-            band = 1.0 if t < 0.05 else 0.0
+            band = 1.0 if t < 0.025 else 0.0
             if p['mi_doi'] and abs(t - 0.22) < 0.035: band = max(band, 0.55)   # nếp mí đôi
         else:
             band = 0.12 if t < 0.01 else 0.0
@@ -139,7 +142,7 @@ def _day_da(body, C, Rm, U, V, M, side):
     Mi = np.asarray(M).T
     rel = (Mi @ (co - C).T).T; d = np.linalg.norm(rel, axis=1)
     u = np.arctan2(rel[:, 0], -rel[:, 1]); v = np.arcsin(np.clip(rel[:, 2] / np.maximum(d, 1e-9), -1, 1))
-    s = np.sqrt((u / (U * 1.25)) ** 2 + (v / (V * 1.6)) ** 2)         # 1 = mép vùng đẩy
+    s = np.sqrt((u / (U * 1.12)) ** 2 + (v / (V * 1.30)) ** 2)         # 1 = mép vùng đẩy
     vung = (s < 1.35) & (rel[:, 1] < 0) & (d < Rm + 0.02)
     tgt = Rm - 0.0015 - 0.004 * np.clip((s - 0.0) / 1.0, 0, 1)
     w = np.clip((1.35 - s) / 0.35, 0, 1); w = w * w * (3 - 2 * w)
@@ -245,3 +248,12 @@ def lam_moi_driver():
 def tinh(arm):
     """Ép tính lại driver ở chế độ nền: chỉ view_layer.update() là chưa đủ (đo trên Blender 5.2.3)."""
     arm.update_tag(); sc = bpy.context.scene; sc.frame_set(sc.frame_current)
+
+
+def to_da(body, p):
+    """Da Soft PBR một màu cho Nam_Body và mí (lưới khuôn không có texture). Thay mọi khe vật liệu."""
+    m = _mat('Da_' + p['ten'], p['da'], 0.55)
+    b = m.node_tree.nodes['Principled BSDF']
+    b.inputs['Subsurface Weight'].default_value = 0.15; b.inputs['Subsurface Radius'].default_value = (0.9, 0.35, 0.2)
+    body.data.materials.clear(); body.data.materials.append(m)
+    return m

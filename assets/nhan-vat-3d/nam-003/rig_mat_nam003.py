@@ -119,11 +119,11 @@ def bop(body, p, m):
 def anh_mat(sc, path, goc=(0, 35), z=None, khung=0.30, px=360):
     """Ảnh mặt trực giao (EEVEE). z: tâm khung theo tọa độ world. Ghép ngang các góc bằng ảnh tạm."""
     sc.render.engine = 'BLENDER_EEVEE_NEXT' if 'BLENDER_EEVEE_NEXT' in [e.identifier for e in bpy.types.RenderSettings.bl_rna.properties['engine'].enum_items] else 'BLENDER_EEVEE'
-    sc.render.resolution_x = sc.render.resolution_y = px; sc.render.image_settings.file_format = 'PNG'
+    sc.view_settings.view_transform = 'Standard'; sc.render.resolution_x = sc.render.resolution_y = px; sc.render.image_settings.file_format = 'PNG'
     if not sc.world:
-        sc.world = bpy.data.worlds.new('nen'); sc.world.color = (0.22, 0.23, 0.26)
+        sc.world = bpy.data.worlds.new('nen'); sc.world.color = (0.12, 0.12, 0.14)
     if 'Den_xem' not in bpy.data.objects:
-        L = bpy.data.objects.new('Den_xem', bpy.data.lights.new('Den_xem', 'SUN')); L.data.energy = 3.0; L.rotation_euler = (0.9, 0, 0.5); sc.collection.objects.link(L)
+        L = bpy.data.objects.new('Den_xem', bpy.data.lights.new('Den_xem', 'SUN')); L.data.energy = 1.3; L.rotation_euler = (0.9, 0, 0.5); sc.collection.objects.link(L)
     cam = bpy.data.objects.get('Cam_xem')
     if not cam:
         cam = bpy.data.objects.new('Cam_xem', bpy.data.cameras.new('Cam_xem')); sc.collection.objects.link(cam); cam.data.type = 'ORTHO'
@@ -135,7 +135,7 @@ def anh_mat(sc, path, goc=(0, 35), z=None, khung=0.30, px=360):
     return files
 
 
-def anh_trang_thai(sc, arm, path, z, ds, khung=0.16, goc=(0,)):
+def anh_trang_thai(sc, arm, path, z, ds, khung=0.16, goc=(0,), px=480):
     """Mỗi phần tử ds: {thuộc tính Head: giá trị} hoặc {'nhin': (x,y,z)}; chụp rồi trả về mặc định."""
     pb = arm.pose.bones; files = []
     for i, d in enumerate(ds):
@@ -143,7 +143,7 @@ def anh_trang_thai(sc, arm, path, z, ds, khung=0.16, goc=(0,)):
             if k == 'nhin': pb['nhin'].location = v
             else: pb['Head'][k] = float(v)
         arm.update_tag(); sc.frame_set(sc.frame_current)
-        files += anh_mat(sc, f'{path}_{i:02d}', goc=goc, z=z, khung=khung)
+        files += anh_mat(sc, f'{path}_{i:02d}', goc=goc, z=z, khung=khung, px=px)
         for k in d:
             if k == 'nhin': pb['nhin'].location = (0, 0, 0)
             else: pb['Head'][k] = 0.0
@@ -169,6 +169,7 @@ def main():
     if a.kiem: kiem_moc(m)
     if a.anh: anh_mat(sc, os.path.join(a.anh, 'bop_sau'), z=m['mui'][2] + 0.01)
     import mat3d_nam003 as M3
+    M3.to_da(body, p)
     mat = M3.tao_mat(sc, arm, body, m, p)
     M3.lam_moi_driver()
     if a.kiem: M3.kiem_mat(mat, arm, body)
