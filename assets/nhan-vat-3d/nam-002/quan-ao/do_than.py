@@ -46,6 +46,9 @@ def measure(body, save=True):
         if m.sum() < 8: continue
         Q = P[m]; yc = (Q[:, 1].max() + Q[:, 1].min()) / 2
         sd['torso'].append(dict(z=round(float(z), 4), w=float(np.abs(Q[:, 0]).max()), f=float(yc - Q[:, 1].min()), b=float(Q[:, 1].max() - yc), yc=float(yc)))
+    # cổ: lát z 1,35 (trên dốc vai, dưới hàm) — cỡ lỗ cổ áo
+    m = (np.abs(P[:, 2] - 1.35) < BAND) & (np.abs(P[:, 0]) < 0.10); Q = P[m]; yc = (Q[:, 1].max() + Q[:, 1].min()) / 2
+    sd['co'] = dict(z=1.35, w=float(np.abs(Q[:, 0]).max()), f=float(yc - Q[:, 1].min()), b=float(Q[:, 1].max() - yc), yc=float(yc), x=float((Q[:, 0].max() + Q[:, 0].min()) / 2))
     # tay trái: lát vuông góc trục vai → cổ tay
     a0 = np.array(J['shoulder']); a1 = np.array(J['wrist']); L = np.linalg.norm(a1 - a0); d = (a1 - a0) / L
     for u in np.arange(0.0, L + 1e-6, STEP):
