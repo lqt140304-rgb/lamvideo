@@ -73,3 +73,22 @@ Sinh từ [thoai-cue.json](thoai-cue.json) và [giong-chot.json](giong-chot.json
 | `C3.5_NGUOI_KIA_02` | NGƯỜI KIA 3 | cười nhẹ, bình thản, rợn người | Mày nhìn nhầm rồi... Tao là Nam mà. | Mày nhìn nhầm rồi. Tao là Nam mà. | 3.12 |
 
 Tổng: 51 cue, 347 giây.
+
+---
+
+## Hậu kỳ Audio FX & Mix Không Gian (Áp dụng khi dựng Timeline 22:15+)
+
+> **Nguyên tắc theo [`KINH-NGHIEM.md`](../../../../KINH-NGHIEM.md):** Không sửa `loi` / `loi_doc` và không trộn hiệu ứng vào file TTS gốc (`<Cue>.mp3` giữ thô sạch để bảo toàn cache ElevenLabs). Toàn bộ EQ, lọc tần số, Reverb và SFX tâm lý được áp dụng ở lớp **Post-Production Audio Mix** khớp theo shot:
+
+| Nhóm Cue | Shot áp dụng | Hiệu ứng Audio FX (EQ / Filter / Reverb / Spatial) | Ý đồ tâm lý & Không gian |
+|---|---|---|---|
+| `C1.2_TUNG_01`, `C1.2_TUNG_02` | `S02_06` | **Phone Speaker Band-pass:** High-pass `300Hz` + Low-pass `3.4kHz`, nén nhẹ (`Compression 4:1`), trộn nền còi xe ngã tư `-14dB` | Giọng Tùng phát ra từ loa ngoài điện thoại giữa giờ kẹt xe, đối lập với sự tĩnh lặng rợn người trong phòng |
+| `C1.2_NGUOI_KIA_01`, `C1.3_NGUOI_KIA_01`, `C2.1_NGUOI_KIA_01..02` | `S02_05`, `S03_01`, `S05_03`, `S05_08` | **Dry Cold Presence:** Cắt nhẹ dải ấm `200Hz` (`-2.5dB`), không thêm Reverb (`Dry 100%`), giữ độ cận sát lạnh lẽo | Giọng nói phẳng lì, thiếu hơi ấm cơ thể người sống |
+| `C2.2_NAM_01` | `S06_04` | **Under-Blanket Muffle:** Low-pass `900Hz`, giảm gain `-4dB`, sát mic | Thể hiện Nam thật đang trùm kín chăn ở góc tường, câu nói bị nghẹn ứ |
+| `C2.3_NGUOI_KIA_03` $\to$ `C2.3_NGUOI_KIA_04` | `S07_06` $\to$ `S07_08` | **Snap Cut Contrast:** `03` ấm áp tự nhiên (`+1.5dB @ 250Hz`); sang `04` cắt sạch dải ấm, kéo phẳng lạnh buốt kèm khoảng lặng `5s` | Tạo cú lật giọng rợn tóc gáy ngay khoảnh khắc Người Kia cúp máy mẹ |
+| `C2.4_NAM_02` | `T05` | **15m² Concrete Room Slapback:** Room Reverb ngắn (`0.35s`, `Pre-delay 15ms`, Wet `18%`) | Tiếng Nam tập thuyết trình một mình trước gương lúc 06:30 sáng |
+| `C3.1_GIANG_VIEN_03`, `C3.1_SINH_VIEN_01..02`, `C3.1_TUNG_01` | `S09_04` – `S09_06` | **Tunnel Vision & Tinnitus 4000Hz:** Ở `S09_04` áp **Low-pass `400Hz`** (bóp nghẹt như dưới nước) + **Tinnitus Sine `4000Hz`** (`-18dB`, fade in `0.5s`) rồi mở dần Low-pass lên `1.2kHz` khi Giảng viên gắt lên; Hall Reverb lớn (`1.6s`) | Tái hiện cơn sang chấn tâm lý (Panic Attack) khi viên phấn gãy đôi trước hội trường |
+| `C3.3_NGUOI_KIA_01..02`, `C3.4_NGUOI_KIA_01..03` | `S11_02` – `S11_11` | **Uncanny Sub-Layer & Liquid Mirror:** Lớp phụ nhân bản dịch `-12 semitones` hoặc micro-delay `10ms` cực nhỏ (`-20dB` dưới giọng chính) + Deep Teal Water Reverb (`Wet 22%`) ở các câu thì thầm (`C3.4_NGUOI_KIA_01..03`) | Giữ nguyên giọng Nam nhưng tạo cảm giác thực thể từ mặt gương đang cộng hưởng và thao túng |
+| `C3.4_NAM_02` | `S11_10` $\to$ `S11_11` | **Mirror Submersion Cut:** Nửa đầu khô cận gào thét $\to$ nửa cuối quét nhanh **Low-pass `350Hz` + Underwater Bubble Reverb** rồi cắt phăng (`Hard Gate`) khi mặt kính đóng băng | Cảm giác Nam bị kéo chìm lỉm vào lòng gương và bị cắt đứt hoàn toàn khỏi thế giới thực |
+| `C3.5_NGUOI_KIA_01..02` | `S12_02` – `S12_03` | **Dead Room Contrast:** `01` tự nhiên 100% như Nam; sang `02` hạ toàn bộ bed nền về im phăng phắc (chỉ còn tiếng quạt trần lạch cạch và tiếng rao bánh khúc xa) | Kết thúc Quiet Horror lạnh buốt |
+
