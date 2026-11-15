@@ -192,22 +192,118 @@ def tao_mat(sc, arm, body, moc, p):
         tren_fn = lambda u: _mep(u, U, V, tan_ng, side, True)
         duoi_fn = lambda u: _mep(u, U, V, tan_ng, side, False)
         dong_fn = lambda u: duoi_fn(u) + DONG * (tren_fn(u) - duoi_fn(u))
-        for tren, fn, ten in ((True, tren_fn, 'MiTren'), (False, duoi_fn, 'MiDuoi')):
-            co, fa, vien, ts, sa = _luoi_mi(C, Rm, U, V, tan_ng, side, tren, fn, p)
-            ob = _tao_mesh(f'{ten}.{sfx}', _dan(_xoay(co, C, M), C, sa, bvh), fa, m_mi, sc)
+        tren_ch, duoi_ch = _khoet(body, C, M, U, V, bvh)
+        for tren, fn, ten, ch in ((True, tren_fn, 'MiTren', tren_ch), (False, duoi_fn, 'MiDuoi', duoi_ch)):
+            co, fa, vien = _mi_may(ch, C, M, Rm, U, side, tren, fn, p)
+            ob = _tao_mesh(f'{ten}.{sfx}', co, fa, m_mi, sc)
             at = ob.data.attributes.new('vien', 'FLOAT', 'POINT'); at.data.foreach_set('value', vien)
             ob.shape_key_add(name='Basis')
             for kn, f2 in (('nham', dong_fn), ('mo_to', (lambda u: _mep(u, U, V * 1.35, tan_ng, side, True)) if tren else (lambda u: _mep(u, U, V * 1.12, tan_ng, side, False)))):
-                co2, _, _, _, sa2 = _luoi_mi(C, Rm, U, V, tan_ng, side, tren, f2, p)
-                k = ob.shape_key_add(name=kn); k.data.foreach_set('co', _dan(_xoay(co2, C, M), C, sa2, bvh).ravel())
+                co2, _, _ = _mi_may(ch, C, M, Rm, U, side, tren, f2, p)
+                k = ob.shape_key_add(name=kn); k.data.foreach_set('co', co2.ravel())
             kb = ob.data.shape_keys.key_blocks
             rieng = 'chop_trai' if side == 1 else 'chop_phai'
             noi_driver(kb['nham'], arm, ['chop_mat', rieng], f'min(1, max(chop_mat, {rieng}))')
             noi_driver(kb['mo_to'], arm, ['mo_to', 'chop_mat', rieng], f'mo_to * (1 - min(1, max(chop_mat, {rieng})))')
             _bone_parent(ob, arm); objs.append(ob)
-        n = 0 if os.environ.get('KHONG_DAY') else _day_da(body, C, Rm, U, V, M, side)
-        print(f'  mắt {sfx}: R={R * 1000:.1f} mm, mở {2 * a * 1000:.0f}×{2 * b * 1000:.0f} mm, đẩy {n} đỉnh da')
+        print(f'  mắt {sfx}: R={R * 1000:.1f} mm, mở {2 * a * 1000:.0f}×{2 * b * 1000:.0f} mm, mép lỗ {len(tren_ch) + len(duoi_ch) - 2} đỉnh')
     return objs
+
+
+SC = 1.30        # lỗ khoét: elip góc lớn hơn khe mắt 30 % (đủ chỗ cho mí)
+CHIA = 3         # mỗi đoạn mép lỗ chia 3 cột mí (mép da thẳng giữa hai đỉnh nên vẫn khít)
+
+
+def _uv(P, C, M):
+    """Tọa độ góc (u ngang, v dọc) và bán kính của điểm P (N×3) trong khung mắt."""
+    rel = (np.asarray(M).T @ (np.atleast_2d(P) - C).T).T; d = np.linalg.norm(rel, axis=1)
+    return np.arctan2(rel[:, 0], -rel[:, 1]), np.arcsin(np.clip(rel[:, 2] / d, -1, 1)), d
+
+
+def _khoet(body, C, M, U, V, bvh):
+    """Khoét lỗ elip (góc SC×U, SC×V) trên Nam_Body, kéo đỉnh mép lỗ về đúng elip trên mặt da gốc.
+    Trả hai chuỗi điểm mép (trên, dưới), cùng đi từ khóe u<0 sang khóe u>0, chung hai đầu."""
+    import bmesh
+    bm = bmesh.new(); bm.from_mesh(body.data); bm.verts.ensure_lookup_table()
+    co = np.array([v.co for v in bm.verts]); u, v, d = _uv(co, C, M); R_GAN = 0.06
+    sa = np.sqrt((u / U) ** 2 + (v / V) ** 2); truoc = (np.abs(u) < 1.4) & (d < np.linalg.norm(C - co, axis=1).min() + 0.04)
+    xoa = [f for f in bm.faces if np.mean([sa[x.index] for x in f.verts]) < SC and all(truoc[x.index] for x in f.verts)]
+    bmesh.ops.delete(bm, geom=xoa, context='FACES_ONLY')
+    bmesh.ops.delete(bm, geom=[x for x in bm.verts if not x.link_faces], context='VERTS')
+    bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table()
+    # vòng mép lỗ: cạnh biên có đỉnh gần mắt
+    def gan(x):
+        uu, vv, dd = _uv(np.array(x.co), C, M); return abs(uu[0]) < 1.4 and dd[0] < R_GAN and x.co.x * C[0] > 0 and math.hypot(uu[0] / U, vv[0] / V) < SC * 1.8
+    for lan in range(8):   # khoét lặp: nuốt lỗ phụ/đỉnh chạc ba (lỗ chỉ dính lỗ chính qua một đỉnh) cho tới khi còn một vòng đơn
+        bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table()
+        bien = [e for e in bm.edges if e.is_boundary and all(gan(x) for x in e.verts)]
+        ke = {}
+        for e in bien:
+            a_, b_ = e.verts; ke.setdefault(a_, []).append(b_); ke.setdefault(b_, []).append(a_)
+        vongs = []; con = set(ke)
+        while con:
+            v0 = next(iter(con)); vg = [v0]; tv = None
+            while True:
+                nx = [x for x in ke[vg[-1]] if x is not tv and x in con]
+                if not nx or nx[0] is v0 or nx[0] in vg: break
+                tv = vg[-1]; vg.append(nx[0])
+            con -= set(vg); vongs.append(vg)
+        vongs.sort(key=len, reverse=True); vong = vongs[0]
+        xau = {x for x in ke if len(ke[x]) != 2} | {x for vg in vongs[1:] for x in vg}
+        if not xau and len(vong) == len(ke): break
+        bmesh.ops.delete(bm, geom=list({f for x in xau for f in x.link_faces}), context='FACES_ONLY')
+        bmesh.ops.delete(bm, geom=[x for x in bm.verts if not x.link_faces], context='VERTS')
+    assert not xau and len(vong) == len(ke), f'mép lỗ chưa thành một vòng đơn sau {lan + 1} lần ({[len(x) for x in vongs]})'
+    # kéo về elip góc SC, dán lên mặt da gốc
+    P = np.array([x.co for x in vong]); u, v, _ = _uv(P, C, M)
+    phi = np.arctan2(v / V, u / U); Mi = np.asarray(M)
+    for x, ph in zip(vong, phi):
+        uu, vv = SC * U * math.cos(ph), SC * V * math.sin(ph)
+        dr = Vector(Mi @ np.array([math.sin(uu) * math.cos(vv), -math.cos(uu) * math.cos(vv), math.sin(vv)]))
+        hit = bvh.ray_cast(Vector(C), dr, 0.08)
+        if hit[0] is not None: x.co = hit[0]
+    P = np.array([x.co for x in vong]); n = len(P)
+    bm.to_mesh(body.data); bm.free(); body.data.update()
+    # tách hai chuỗi theo góc phi; chuỗi trên đi từ phi=π (u<0) qua π/2 tới 0
+    i0 = int(np.argmin(np.abs(np.angle(np.exp(1j * phi))))); i1 = int(np.argmin(np.abs(np.angle(np.exp(1j * (phi - np.pi))))))
+    def di(a_, b_, buoc):
+        out = [a_]
+        while out[-1] != b_: out.append((out[-1] + buoc) % n)
+        return out
+    huong = 1 if np.sin(phi[(i1 + 1) % n]) > 0 else -1          # từ i1 đi theo huong là phía trên
+    tren = P[di(i1, i0, huong)]; duoi = P[di(i1, i0, -huong)]
+    return tren, duoi
+
+
+def _mi_may(ch, C, M, Rm, U, side, tren, edge_fn, p):
+    """Vỏ mí may vào mép lỗ: cột k chạy từ mép khe mắt (trên mặt cầu Rm) tới điểm mép lỗ Q_k (hàng cuối = Q_k)."""
+    Q = [ch[0]]
+    for a_, b_ in zip(ch[:-1], ch[1:]):
+        Q += [a_ + (b_ - a_) * (s / CHIA) for s in range(1, CHIA + 1)]
+    Q = np.array(Q); uq, vq, rq = _uv(Q, C, M)
+    ue = -U + 2 * U * (uq - uq[0]) / (uq[-1] - uq[0])          # hai đầu chuỗi = đúng hai khóe khe mắt (e=0)
+    e = edge_fn(ue); sg = 1 if tren else -1; w0 = p['mat_vien'] / Rm * np.sqrt(np.clip(1 - (ue / U) ** 2, 0, 1))   # khoảng chừa nét mi về 0 ở khóe (không hở hình thoi)
+    ts = [0.0, 0.02, 0.035, 0.08] + list(np.linspace(0.16, 1.0, 9))
+    Mi = np.asarray(M); rows = []; vien = []
+    for t in ts:
+        if t < 0.1:
+            off = {0.0: 0.0, 0.02: 0.45 * w0, 0.035: 0.80 * w0, 0.08: 1.6 * w0}[t]
+            uu, vv, rr = ue, e + sg * off, np.full_like(ue, Rm)
+        else:
+            k = (t - 0.08) / 0.92; g = k * k * (3 - 2 * k)
+            uu = ue + (uq - ue) * k; vv = (e + sg * 1.6 * w0) + (vq - e - sg * 1.6 * w0) * k; rr = Rm + (rq - Rm) * g
+        dr = np.stack([np.sin(uu) * np.cos(vv), -np.cos(uu) * np.cos(vv), np.sin(vv)], -1) @ Mi.T
+        pts = C + rr[:, None] * dr
+        if t == 1.0: pts = Q                                  # khít tuyệt đối với mép da
+        rows.append(pts)
+        band = (1.0 if t < 0.03 else 0.0) if tren else (0.12 if t < 0.01 else 0.0)
+        vien.append(band * np.clip((1 - np.abs(ue) / U) / 0.30, 0, 1))
+    nu = len(Q); co = np.concatenate(rows)
+    faces = [(i * nu + j, i * nu + j + 1, (i + 1) * nu + j + 1, (i + 1) * nu + j) for i in range(len(ts) - 1) for j in range(nu - 1)]
+    # hướng mặt ra ngoài (pháp tuyến cùng chiều C→điểm)
+    f0 = faces[len(faces) // 2]; a_, b_, c_ = co[f0[0]], co[f0[1]], co[f0[2]]
+    if np.dot(np.cross(b_ - a_, c_ - a_), a_ - C) < 0: faces = [f[::-1] for f in faces]
+    return co, faces, np.concatenate(vien)
 
 
 # ---------------------------------------------------------------- kiểm
@@ -222,8 +318,8 @@ def kiem_mat(objs, arm, body):
     pb = arm.pose.bones['Head']; vl = bpy.context.view_layer
     pb['chop_mat'] = 1.0; tinh(arm)
     for s in 'LR':
-        t = _eval_co(bpy.data.objects[f'MiTren.{s}'])[:NU]; d = _eval_co(bpy.data.objects[f'MiDuoi.{s}'])[:NU]
-        gap = np.linalg.norm(t - d, axis=1).max(); assert gap < 0.0005, f'nhắm {s}: khe {gap * 1000:.2f} mm'
+        T = _eval_co(bpy.data.objects[f'MiTren.{s}']); D = _eval_co(bpy.data.objects[f'MiDuoi.{s}']); t = T[:len(T) // 13]; d = D[:len(D) // 13]
+        gap = max(_dpl(q, d) for q in t); assert gap < 0.0005, f'nhắm {s}: khe {gap * 1000:.2f} mm'
     pb['chop_mat'] = 0.0; tinh(arm)
     nc = bpy.data.objects['NhanCau.L']; R = nc.dimensions[0] / 2 / max(nc.matrix_world.to_scale())
     truoc = (nc.matrix_world @ Vector((0, -R, 0))).copy()
@@ -279,3 +375,9 @@ def _dan(co, C, sa, bvh, a0=1.0, a1=1.45, noi=0.0003):
         r1 = (hit[0] - Vector(C)).length + noi
         out[i] = C + np.array(d) * (r0 + (r1 - r0) * b[i])
     return out
+
+
+def _dpl(q, L):
+    """Khoảng cách từ điểm q tới đường gấp khúc L (N×3)."""
+    a = L[:-1]; ab = L[1:] - a; t = np.clip(((q - a) * ab).sum(1) / np.maximum((ab * ab).sum(1), 1e-12), 0, 1)
+    return float(np.linalg.norm(a + ab * t[:, None] - q, axis=1).min())
