@@ -279,9 +279,19 @@ def dung_mat(body, rig, coll):
         # lòng trắng cố định: chỉ giữ phần sau hốc (elip rộng hơn hốc sẽ xuyên da ở thái dương)
         bm = bmesh.new()
         bm.from_mesh(me_lt)
+        D_LT, D_LV = 0.94, 1.15  # ngang sát khóe (hở khóe khi nhắm), dọc nới cho mống mắt lớn
+        qm_ = mat_ve - c
+        am_, tp_, bt_ = np.abs(qm_ @ u).max(), (qm_ @ up).max(), abs((qm_ @ up).min())
         bo = [v for v in bm.verts if abs((np.array(v.co) - c) @ u) > ru0 * 1.2
               or abs((np.array(v.co) - c) @ up) > rz0 * 1.4 or (np.array(v.co) - C) @ n < -0.002]
         bmesh.ops.delete(bm, geom=bo, context='VERTS')
+        for v in bm.verts:  # lòng trắng chỉ cần lộ qua khe mí: phần xa cung mắt hạnh nhân dồn về cung (không xoá: lưới thưa sẽ thành ô vuông)
+            q_ = np.array(v.co) - c
+            a_, b_ = q_ @ u, q_ @ up
+            d_ = math.hypot(a_ / (am_ * D_LT), b_ / ((tp_ if b_ > 0 else bt_) * D_LV))
+            if d_ > 1.0:
+                s_ = 1.0 / d_
+                v.co = Vector(c + u * (a_ * s_) + up * (b_ * s_) + n * (q_ @ n - 0.002))
         bm.to_mesh(me_lt)
         bm.free()
         me_lt.materials.append(m_lt)
@@ -297,7 +307,8 @@ def dung_mat(body, rig, coll):
         xs = np.linspace(-ru0 * 1.2, ru0 * 1.2, 21)  # cột mí giữ toạ độ ngang cố định ở mọi hàng
         phm = xs
         t_hang = np.array([0, 0.05, 0.2, 0.4, 0.6, 0.8, 1.0])
-        T_BAM = 0.4  # hàng từ đây trở đi bám da gốc (cả khi mở lẫn khi nhắm): mí nối liền da
+        D_KEP = 1.03  # vòng ngoài cùng của mí, tính theo bán trục viền hốc
+        T_BAM = 0.4  #hàng từ đây trở đi bám da gốc (cả khi mở lẫn khi nhắm): mí nối liền da
         e_gap = math.asin(max(-0.99, 0.2 * bot / R_mi[2]))
         mi = {}
         for ten, z_mep, e_xa in (('Tren', top, math.pi / 2 * 0.95), ('Duoi', bot, -math.pi / 2 * 0.95)):
@@ -316,8 +327,24 @@ def dung_mat(body, rig, coll):
                 hit = bvh_goc.find_nearest(v)
                 return hit[0] - hit[1] * 0.0008 if hit[0] is not None and (hit[0] - v) @ Vector(n) > 0 else v  # lùi sau da: chỗ còn da thì da che
 
-            vi_tri = [[diem(e_mep(p) + t * (e_xa - e_mep(p)), p) for p in phm] for t in t_hang]
-            vi_tri = [[bam(v) if t >= T_BAM else v for v in hang] for t, hang in zip(t_hang, vi_tri)]
+            qv_ = vien - c  # viền hốc thật (đa giác, góc hốc vượt elip bao): bán kính viền theo hướng, đơn vị bán trục
+            ang_ = np.arctan2((qv_ @ up) / rz0, (qv_ @ u) / ru0)
+            od_ = np.argsort(ang_)
+            th_v, r_v = ang_[od_], np.hypot((qv_ @ u) / ru0, (qv_ @ up) / rz0)[od_]
+
+            def kep(v):
+                """Mí nằm gọn trong hốc (học theo bản Nam): phần vượt viền hốc bị kéo về vòng d = 1,03 và lùi sau mặt phẳng hốc,
+                da thân che mép; không còn tấm mí phủ lên da (hết bậc, mảng lệch sáng quanh mắt)."""
+                q = np.array(v[:]) - c
+                a, b, dn = q @ u, q @ up, q @ n
+                d = math.hypot(a / ru0, b / rz0) / np.interp(math.atan2(b / rz0, a / ru0), th_v, r_v, period=2 * math.pi)
+                if d > 1.0:
+                    s = min(1.0, D_KEP / d)
+                    a, b, dn = a * s, b * s, min(dn, -0.0008)
+                return Vector(c + u * a + up * b + n * dn)
+
+            vi_tri = [[kep(diem(e_mep(p) + t * (e_xa - e_mep(p)), p)) for p in phm] for t in t_hang]
+            vi_tri = [[bam(v) if t >= T_BAM else v for v in hang] for t, hang in zip(t_hang, vi_tri)]  # phần trong hốc bám da gốc chưa khoét
             rows = [[bm.verts.new(v) for v in hang] for hang in vi_tri]
             for i in range(len(rows) - 1):
                 for j in range(len(phm) - 1):
@@ -337,7 +364,7 @@ def dung_mat(body, rig, coll):
             sk = ob.shape_key_add(name='dong', from_mix=False)
             for i, t in enumerate(t_hang):
                 for j, p in enumerate(phm):
-                    sk.data[i * len(phm) + j].co = vi_tri[i][j] if t >= T_BAM else diem(e_gap + t / T_BAM * (e_mep(p) + T_BAM * (e_xa - e_mep(p)) - e_gap), p)
+                    sk.data[i * len(phm) + j].co = vi_tri[i][j] if t >= T_BAM else bam(kep(diem(e_gap + t / T_BAM * (e_mep(p) + T_BAM * (e_xa - e_mep(p)) - e_gap), p)))
             mi[ten] = ob
         # xương mắt
         truc = Vector(c) - Vector(n) * 0.04            # điểm xoay lùi sâu: mống mắt dời đủ xa khi liếc
