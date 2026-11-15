@@ -598,12 +598,9 @@ def _to_da_manh_vun(body, px):
     for p in me.polygons:
         c = p.center
         if 1.38 < c.z < 1.58 and abs(c.x) < 0.19 and c.y < -0.08:
-            _, col = mau_mat_luoi(body, px, p, 3)
-            l, s_ = lum_sat(col)
-            if ((l < 0.35) & (s_ > 0.3)).mean() > 0.1:
-                for li in p.loop_indices:
-                    uvl[li].uv = uv_tran[1 if c.x > 0 else -1]
-                n += 1
+            for li in p.loop_indices:  # cả dải mắt–mày một màu da trơn: texture gốc ở đây là các mảng lệch màu, vân mày cũ
+                uvl[li].uv = uv_tran[1]
+            n += 1
     print(f'tô da {n} mảnh mi/mày cũ')
 
 
