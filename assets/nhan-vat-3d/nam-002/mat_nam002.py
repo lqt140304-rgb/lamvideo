@@ -93,7 +93,7 @@ def khoet_hoc(body):
         nv = [g for g in r['geom'] if isinstance(g, bmesh.types.BMVert)]
         for v in nv:                                   # đẩy vào trong và co về tâm ⇒ tường hốc
             d = Vector((v.co.x - cx, 0, v.co.z - EYE_Z)); v.co.x = cx + d.x * 0.90; v.co.z = EYE_Z + d.z * 0.90; v.co.y += SAU_HOC
-        for f in {f for v in nv for f in v.link_faces}: f.material_index = si; f.smooth = True
+        bmesh.ops.delete(bm, geom=nv, context='VERTS')            # bỏ tường hốc cũ: ống lót OngHoc.* đã che thay, tường để lại gai/khe đen
         # không lấp đáy: nhãn cầu bầu dục che kín lòng hốc
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
     bm.to_mesh(me); me.update(); bm.free()
@@ -206,7 +206,7 @@ def _vien_3d(sc, body, cx, k):
     pts = [tuple(p_.co[:3]) for p_ in sp.points]
     # ống lót hốc: nối kín mép hốc với vòng nhỏ phía sau nhãn cầu (che khe tường hốc)
     P0 = np.array(pts); c0 = P0.mean(0); bm_ = bmesh.new(); rings = []
-    for f, dy in ((1.0, 0.0), (0.97, 0.004), (0.88, 0.014), (0.70, 0.030)):
+    for f, dy in ((1.06, -0.0005), (1.0, 0.002), (0.97, 0.006), (0.88, 0.016), (0.70, 0.030)):
         rings.append([bm_.verts.new((c0[0] + (p_[0] - c0[0]) * f, p_[1] + dy, c0[2] + (p_[2] - c0[2]) * f)) for p_ in P0])
     nP = len(P0)
     for r0, r1 in zip(rings, rings[1:]):
@@ -222,7 +222,7 @@ def _vien_3d(sc, body, cx, k):
         p_.radius = min(1.0, i_ / 6, (39 - i_) / 6)          # hai đầu thon về 0 ⇒ không còn chấm cụt
     sp2.use_cyclic_u = False; sp2.use_endpoint_u = True; sp2.order_u = 4
     ob2 = bpy.data.objects.new(f'VanhDa.{k}', cu2); sc.collection.objects.link(ob2)
-    cu2.materials.append(body.data.materials[0]); _VANH[k] = ob2
+    cu2.materials.append(_mat('vanh_da', (0.93, 0.68, 0.50), 0.8)); _VANH[k] = ob2     # vật liệu màu da đơn giản (đường cong không có UV, dùng vật liệu thân sẽ ra đen)
     m = bpy.data.materials.get('vien_mat') or _mat('vien_mat', (0.18, 0.11, 0.08), 0.6); cu.materials.append(m)
     return ob
 
@@ -282,11 +282,11 @@ def tao_mat(sc, body):
         mat = _eye_material(k); mat.node_tree.nodes['Vector Math'].inputs[1].default_value = (1 / Ek[0], 1 / Ek[1], 1 / Ek[2])
         me.materials.append(mat)
         for p in me.polygons: p.use_smooth = True
-        Rm = R_NHAN + 0.0012; El = ((ax_ + 0.0012) / Rm, (dep + 0.0012) / Rm, (az_ + 0.0012) / Rm)
+        Rm = R_NHAN + 0.0012; El = ((ax_ - 0.0004) / Rm, (dep + 0.0012) / Rm, (az_ - 0.0004) / Rm)        # mí nằm gọn trong viền (không nhô mũi nhọn ở khóe)
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=48, v_segments=32, radius=Rm)
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z < -1e-6], context='VERTS')
         edge = [v.co.z < 0.004 for v in bm.verts]; base = [v.co.copy() for v in bm.verts]
-        for v in bm.verts: v.co.x *= El[0]; v.co.y *= El[1]; v.co.z *= El[2]; v.co = _uon(v.co, ax_ + 0.0012, az_ + 0.0012)
+        for v in bm.verts: v.co.x *= El[0]; v.co.y *= El[1]; v.co.z *= El[2]; v.co = _uon(v.co, ax_ - 0.0004, az_ - 0.0004)
         lme = bpy.data.meshes.new(f'Mi.{k}'); bm.to_mesh(lme); bm.free()
         at = lme.attributes.new('mep_mi', 'FLOAT', 'POINT'); at.data.foreach_set('value', np.array(edge, np.float32))
         l = bpy.data.objects.new(f'Mi.{k}', lme); sc.collection.objects.link(l); l.matrix_world = Matrix.Translation(ctr) @ M.to_4x4()
@@ -294,7 +294,7 @@ def tao_mat(sc, body):
         for ang in GOC_MI[1:] + (-32.0,):
             kb = l.shape_key_add(name=f'mi_{int(ang):+d}', from_mix=False); R = Matrix.Rotation(math.radians(ang), 3, 'X')
             for i, p0 in enumerate(base):
-                q = R @ p0; kb.data[i].co = _uon(Vector((q.x * El[0], q.y * El[1], q.z * El[2])), ax_ + 0.0012, az_ + 0.0012)
+                q = R @ p0; kb.data[i].co = _uon(Vector((q.x * El[0], q.y * El[1], q.z * El[2])), ax_ - 0.0004, az_ - 0.0004)
         sol = l.modifiers.new('day', 'SOLIDIFY'); sol.thickness = 0.0012; sol.offset = 1
         lme.materials.append(lm)
         for p in lme.polygons: p.use_smooth = True
@@ -317,7 +317,7 @@ def gan_mat(arm, objs):
     hb = arm.data.bones['Head']
     for k in ('L', 'R'):
         e, l, c, vn = objs[k]
-        for ob in (e, l, vn, _VANH[k], _MAY.get(k), _ONG.get(k)):
+        for ob in (e, l, vn, _VANH.get(k), _MAY.get(k), _ONG.get(k)):
             if ob is None: continue
             w = ob.matrix_world.copy(); ob.parent = arm; ob.parent_type = 'BONE'; ob.parent_bone = 'Head'
             bpy.context.view_layer.update(); ob.matrix_world = w

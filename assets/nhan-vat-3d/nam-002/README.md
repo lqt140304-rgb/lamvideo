@@ -119,3 +119,5 @@ Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn m
 - Còn lại: ở khóe ngoài mắt phải còn một vạch tối rất nhỏ khi nhìn gần.
 
 **Viền mảnh (15/11/2026):** nét viền mắt giảm còn khoảng 1,8 mm (bán kính 0,9 mm), lệch ra ngoài mép lỗ 0,6 mm. Độ sâu của viền theo da được lọc mượt quanh vòng (giữ 6 hài bậc thấp, không lún dưới da), và tăng độ phân giải đường cong, nên nét đều, hết gợn lem. Còn lại: ở hai khóe mắt, mép mí đôi khi lộ một vạch nhỏ ngoài viền.
+
+**Sửa lỗi khóe mắt (15/11/2026):** mí co lại nằm gọn trong viền (hết mũi nhọn nhô ra ngoài ở hai khóe); tường hốc cũ trên lưới bị bỏ, ống lót `OngHoc` che thay; ống lót bắt đầu sát ngoài viền. Vành da `VanhDa` dùng vật liệu màu da riêng (trước dùng vật liệu thân nên ra màu đen). Còn lại: ở khóe trong mắt trái còn một khe đen hẹp giữa viền và nhãn cầu, và một mảnh đen nhỏ ở khóe ngoài mắt phải khi nhìn rất gần.
