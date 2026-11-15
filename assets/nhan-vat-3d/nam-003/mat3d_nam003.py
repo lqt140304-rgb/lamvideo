@@ -195,12 +195,12 @@ def tao_mat(sc, arm, body, moc, p):
         dong_fn = lambda u: duoi_fn(u) + DONG * (tren_fn(u) - duoi_fn(u))
         tren_ch, duoi_ch = _khoet(body, C, M, U, V, bvh)
         for tren, fn, ten, ch in ((True, tren_fn, 'MiTren', tren_ch), (False, duoi_fn, 'MiDuoi', duoi_ch)):
-            co, fa, vien = _mi_may(ch, C, M, Rm, U, side, tren, fn, p)
+            co, fa, vien = _mi_may(ch[0], C, M, Rm, U, side, tren, fn, p)
             ob = _tao_mesh(f'{ten}.{sfx}', co, fa, m_mi, sc)
             at = ob.data.attributes.new('vien', 'FLOAT', 'POINT'); at.data.foreach_set('value', vien)
             ob.shape_key_add(name='Basis')
             for kn, f2 in (('nham', dong_fn), ('mo_to', (lambda u: _mep(u, U, V * 1.35, tan_ng, side, True)) if tren else (lambda u: _mep(u, U, V * 1.12, tan_ng, side, False)))):
-                co2, _, _ = _mi_may(ch, C, M, Rm, U, side, tren, f2, p)
+                co2, _, _ = _mi_may(ch[0], C, M, Rm, U, side, tren, f2, p)
                 k = ob.shape_key_add(name=kn); k.data.foreach_set('co', co2.ravel())
             kb = ob.data.shape_keys.key_blocks
             rieng = 'chop_trai' if side == 1 else 'chop_phai'
@@ -211,6 +211,7 @@ def tao_mat(sc, arm, body, moc, p):
     return objs
 
 
+PHONG = 0.0015    # m: độ nâng vùng mí giữa mép mắt và mép da
 SC = 1.30        # lỗ khoét: elip góc lớn hơn khe mắt 30 % (đủ chỗ cho mí)
 CHIA = 3         # mỗi đoạn mép lỗ chia 3 cột mí (mép da thẳng giữa hai đỉnh nên vẫn khít)
 
@@ -265,7 +266,11 @@ def _khoet(body, C, M, U, V, bvh):
         dr = Vector(Mi @ np.array([math.sin(uu) * math.cos(vv), -math.cos(uu) * math.cos(vv), math.sin(vv)]))
         hit = bvh.ray_cast(Vector(C), dr, 0.08)
         if hit[0] is not None: x.co = hit[0]
-    P = np.array([x.co for x in vong]); n = len(P)
+    P = np.array([x.co for x in vong]); n = len(P); bm.verts.index_update(); IDX = [x.index for x in vong]
+    # làm mượt dải da quanh lỗ (giữ mép lỗ): góc trơn, hết gợn
+    bm.verts.ensure_lookup_table(); bien_v = set(vong)
+    dai = [x for x in bm.verts if x not in bien_v and gan(x) and math.hypot(*(lambda q: (q[0][0] / U, q[1][0] / V))(_uv(np.array(x.co), C, M))) < SC * 1.7]
+    pass   # không làm mượt da sát mép: mí bám da gốc, làm mượt da sẽ lệch bậc
     bm.to_mesh(body.data); bm.free(); body.data.update()
     # tách hai chuỗi theo góc phi; chuỗi trên đi từ phi=π (u<0) qua π/2 tới 0
     i0 = int(np.argmin(np.abs(np.angle(np.exp(1j * phi))))); i1 = int(np.argmin(np.abs(np.angle(np.exp(1j * (phi - np.pi))))))
@@ -274,7 +279,8 @@ def _khoet(body, C, M, U, V, bvh):
         while out[-1] != b_: out.append((out[-1] + buoc) % n)
         return out
     huong = 1 if np.sin(phi[(i1 + 1) % n]) > 0 else -1          # từ i1 đi theo huong là phía trên
-    tren = P[di(i1, i0, huong)]; duoi = P[di(i1, i0, -huong)]
+    ti = di(i1, i0, huong); di_ = di(i1, i0, -huong)
+    tren = (P[ti], [IDX[j] for j in ti]); duoi = (P[di_], [IDX[j] for j in di_])
     return tren, duoi
 
 
@@ -298,7 +304,7 @@ def _mi_may(ch, C, M, Rm, U, side, tren, edge_fn, p):
             g2 = np.clip(k / 0.55, 0, 1); g2 = g2 * g2 * (3 - 2 * g2)
             dr0 = np.stack([np.sin(uu) * np.cos(vv), -np.cos(uu) * np.cos(vv), np.sin(vv)], -1) @ Mi.T
             rs = np.array([_r_da(C, x, Rm) for x in dr0])            # bám mặt da gốc: hết rãnh lún quanh mắt
-            rr = Rm + (np.maximum(rs, Rm) - Rm) * g2
+            rr = Rm + (np.maximum(rs, Rm) - Rm) * g2 + PHONG * np.sin(np.pi * np.minimum(k / 0.75, 1)) ** 2   # nâng vùng giữa cho đầy, hai đầu giữ nguyên (mép mắt, mép da)
         dr = np.stack([np.sin(uu) * np.cos(vv), -np.cos(uu) * np.cos(vv), np.sin(vv)], -1) @ Mi.T
         pts = C + rr[:, None] * dr
         if t == 1.0: pts = Q                                  # khít tuyệt đối với mép da
@@ -397,3 +403,5 @@ def _r_da(C, d, mac_dinh):
     """Bán kính từ tâm nhãn cầu C tới mặt da gốc theo hướng d (raycast); không trúng thì trả mac_dinh."""
     hit = _BVH.ray_cast(Vector(C), Vector(d), 0.08)
     return (hit[0] - Vector(C)).length if hit[0] is not None else mac_dinh
+
+
