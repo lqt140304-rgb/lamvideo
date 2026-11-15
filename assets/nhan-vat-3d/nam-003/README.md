@@ -62,3 +62,6 @@ Mọi tư thế sau B+C ≤ 3,93 mm (ngưỡng 6 mm; `nam-002` ~5,4 mm). Cạnh 
 **Hồi quy 11 tư thế:** 0 cạnh giãn >2× ở mọi tư thế; ngồi xổm max 1,85×.
 
 **Hạn chế:** ảnh cận cho thấy cổ liền mạch, nếp gáy nhẹ hơn rig cũ, không thấy rách/thắt; chưa khẳng định "không tì vết": chủ repo duyệt ảnh. Chỉ đo trên mô hình trơn; chưa thử áo quần cổ cao, tóc, mặt. Xương `NeckBlend` dùng ràng buộc nên **GLB xuất ra không mang xoắn cổ** (cần bake nếu dùng ngoài Blender). Chọn cổ chân dựa trên cạnh giãn/co, chưa xem kỹ bàn chân khi nhón gót bằng ảnh cận. Corrective Smooth 150 vòng nặng hơn khi tính biến dạng (chưa đo tốc độ).
+
+## Mặc đồ (15/11/2026)
+`mac_do_nam003.py` có `chuyen_trong_so(ob, body, arm, loai, che_do='tho')` và bài đo (`<bpy-python> mac_do_nam003.py --rig nam-003-rig.blend`). Đo trên áo phông và quần dài thử qua 8 tư thế: tổng đỉnh xuyên mới so với dáng nghỉ: Data Transfer thô 358, thêm làm mượt chọn lọc 365, cách 1B của phiên thử quần áo độc lập 369: **không cách nào hơn rõ rệt, nên dùng thô**. Còn xuyên: áo ở khuỷu gập (107 đỉnh, sâu 7,5 mm); quần khi nhấc chân (49) và ngồi xổm (193, sâu 7,8 mm). Cùng cách đo, `nam-002` cho quần nhấc chân 856 và ngồi xổm 1669, tức rig v3 của `nam-003` tốt hơn nhiều cho áo quần. Chưa thử áo quần thật; hướng dẫn chung ở [../nam-002/HUONG-DAN-MAC-DO.md](../nam-002/HUONG-DAN-MAC-DO.md) (tên xương và tư thế giống).
