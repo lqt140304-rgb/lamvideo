@@ -13,7 +13,7 @@ import math, os
 import numpy as np, bpy
 from mathutils import Vector, Matrix
 
-KHE = 0.0008          # khe giữa nhãn cầu và vỏ mí
+KHE = 0.0016          # khe giữa nhãn cầu và vỏ mí
 R_HE_SO = 1.45        # bán kính nhãn cầu = R_HE_SO × nửa rộng mắt (cầu dẹt hơn → mép mắt ít lẹm vào da)
 NHO = 0.0035          # mặt trước nhãn cầu nhô trước da đáy hốc
 LUON = 22.0           # độ: nhãn cầu xoay ra ngoài theo mặt cong
@@ -227,6 +227,8 @@ def _gop_mi(body, mi, arm):
     # chỉ hàn trong vùng mắt (đỉnh mí + mép da trùng vị trí)
     vung = [x for x in bm.verts if abs(x.co.z - zc) < 0.06 and x.co.y < 0]
     bmesh.ops.remove_doubles(bm, verts=vung, dist=2e-6)
+    vs = {x for x in bm.verts if abs(x.co.z - zc) < 0.06 and x.co.y < 0}
+    bmesh.ops.recalc_face_normals(bm, faces=[f for f in bm.faces if f.is_valid and all(x in vs for x in f.verts)])   # chấm tối = mặt lật
     bm.to_mesh(body.data); bm.free(); body.data.update()
     for pl in body.data.polygons: pl.use_smooth = True
     print(f'  gộp mí vào da: hàn {n0 - len(body.data.vertices)} đỉnh')
@@ -368,6 +370,7 @@ def kiem_mat(objs, arm, body):
     for s in 'LR':
         co_, mp_ = _eval_mep(body); sg_ = 1 if s == 'L' else -1; t = co_[mp_ == sg_ * 1]; d = co_[mp_ == sg_ * 2]; d = d[np.argsort(d[:, 0])]
         assert len(t) > 5 and len(d) > 5, 'không thấy hàng mép mí trong Nam_Body'
+        t = t[np.argsort(t[:, 0])][3:-3]   # bỏ khóe: đỉnh khóe đã hàn chung, mất nhãn mep
         gap = max(_dpl(q, d) for q in t); assert gap < 0.001, f'nhắm {s}: khe {gap * 1000:.2f} mm'
     pb['chop_mat'] = 0.0; tinh(arm)
     nc = bpy.data.objects['NhanCau.L']; R = nc.dimensions[0] / 2 / max(nc.matrix_world.to_scale())
