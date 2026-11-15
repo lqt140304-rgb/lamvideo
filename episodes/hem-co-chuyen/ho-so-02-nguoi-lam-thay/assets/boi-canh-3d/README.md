@@ -251,3 +251,21 @@ Lưu ý: các cảnh này còn nhẹ nên LOD giảm nhiều lưới nhưng ít 
 - Màn chiếu dùng giao diện IDE tối: thanh tên tệp, cột số dòng, 21 dòng C++ tô màu theo cú pháp. Mỗi màu là một dòng chữ, các ký tự màu khác được thay bằng dấu cách, nhờ phông đơn cách nên các cột thẳng tuyệt đối.
 - Camera duyệt mới `GD_BANG` nhìn chính diện bảng và màn chiếu.
 - **Chưa làm:** DejaVu Mono thiếu một số chữ có dấu kép (ví dụ "ồ"), nên chữ trên màn chiếu tạm để không dấu.
+
+### 15/11 chiều muộn: hành lang trường và bờ kè thêm sống động
+- **Mặt tiền sân trường:**
+  - cửa lớp và cửa sổ thành bộ instance liền tường: khung bao nổi, bậu cửa nhô ra, song sắt, đố cửa, ô thoáng, biển tên phòng (P.101…);
+  - cánh cửa giảng đường xoay quanh bản lề ở mép khung, không còn lơ lửng.
+- **Hành lang** (`chi_tiet_hoi3.hanh_lang`):
+  - trần: đèn tuýp tắt, quạt trần, ống điện;
+  - băng rôn "CHÀO MỪNG NGÀY NHÀ GIÁO VIỆT NAM 20-11";
+  - dọc hành lang: chậu cây, ghế inox, cây nước, bồn rửa tay, poster CLB, biển sàn ướt, camera an ninh;
+  - nhóm sinh viên đứng sát tường (chừa lối chạy Steadicam), người tựa cột, người tựa lan can tầng trên.
+- **Bờ kè** (`chi_tiet_hoi3.bo_ke_nguoi`):
+  - người: ông cụ đội nón câu cá, đôi bạn ngồi xa, người chạy bộ và đi bộ trên đê, 8 xe máy chạy hai chiều (driver vòng lặp);
+  - hàng rong: xe đạp bán bóng bay, gánh hàng;
+  - dưới sông và trên trời: cọc tre, vó lưới, diều;
+  - quanh Nam: lan can inox ở hai lối xuống, lá khô, vỏ hạt, chai trà đá, túi nilon.
+  
+  Người khác đều đứng xa và mải việc riêng, để Nam vẫn cô độc giữa khung.
+- **Đo lại** (960 px, mức `duyet`): ST_HANH_LANG 75 s, BK_EWS 47 s. Vẫn ngang bản trước.

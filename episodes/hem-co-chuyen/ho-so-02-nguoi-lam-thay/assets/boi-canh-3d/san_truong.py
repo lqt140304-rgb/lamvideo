@@ -21,7 +21,7 @@ DUONG = [(1, 0.6, CUA_Y), (20, 1.6, 13.0), (60, 1.6, 22.0), (96, 6.0, 29.0), (14
 CAMS = {
     'ST_HANH_LANG': ((1.3, 32.0, 1.55), (1.7, 8.0, 1.3), 35),
     'ST_TOAN':      ((48.0, 58.0, 13.0), (8.0, 18.0, 1.0), 28),
-    'ST_CUA':       ((2.6, 13.5, 1.4), (0.0, CUA_Y, 1.4), 24),
+    'ST_CUA':       ((3.0, CUA_Y + 0.3, 1.5), (0.0, CUA_Y, 1.35), 24),
 }
 
 
@@ -51,30 +51,76 @@ def vat_lieu():
     m['da'] = M.solid('st_da', '#d6a57e', 0.6)
     m['nha_xa'] = M.mottled('st_nha_xa', '#cfc6b6', rough=0.9)
     m['cua_so_xa'] = M.solid('st_cua_so_xa', '#5d7380', 0.3)
+    m['kinh_toi'] = M.solid('st_kinh_toi', '#2f3c44', 0.15)
+    m['khung_go'] = M.wood('st_khung_go', '#6b4426', scale=8)
     return m
+
+
+ME = {}
+
+
+def chu_phong(ten, y, z, c):
+    """Biển tên phòng (chữ thật) trên cửa lớp."""
+    import noi_dung_bang as ND
+    tay = ND._font('DejaVuSansMono.ttf')
+    K.box(f'st_bien_{ten}', 0.0, 0.025, y - 0.32, y + 0.32, z - 0.03, z + 0.17, _BIEN[0], c)
+    cu = bpy.data.curves.new(f'st_chu_{ten}', 'FONT'); cu.body = ten; cu.font = tay; cu.size = 0.12; cu.align_x = 'CENTER'
+    ob = bpy.data.objects.new(f'st_chu_{ten}', cu); ob.location = (0.027, y, z + 0.02); ob.rotation_euler = (math.radians(90), 0, math.radians(90))
+    cu.materials.append(_BIEN[1]); c.objects.link(ob)
+
+
+_BIEN = []
+
+
+def mau_mat_tien(m):
+    """Lưới mẫu (instance) cho cửa lớp và cửa sổ: có khung bao nổi, bậu, song sắt → liền khối với mặt tường thay vì tấm phẳng dán lên."""
+    _BIEN[:] = [M.solid('st_bien_phong', '#1d3f74', 0.5), M.solid('st_chu_bien', '#f2f2ee', 0.6)]
+    def cua_so(t):
+        p = [K.box('lo', 0.0, 0.012, -0.9, 0.9, 1.0, 2.4, m['kinh_toi'], t)]                         # ô kính tối sát mặt tường
+        p += [K.box('kt', 0.0, 0.06, -0.98, 0.98, 2.4, 2.48, m['chi'], t), K.box('kd', 0.0, 0.11, -1.02, 1.02, 0.92, 1.0, m['chi'], t),  # khung trên, bậu dưới nhô ra
+              K.box('kl', 0.0, 0.06, -0.98, -0.9, 1.0, 2.4, m['chi'], t), K.box('kr', 0.0, 0.06, 0.9, 0.98, 1.0, 2.4, m['chi'], t)]
+        p += [K.box('dg', 0.0, 0.04, -0.025, 0.025, 1.0, 2.4, m['khung'], t), K.box('ng', 0.0, 0.04, -0.9, 0.9, 1.68, 1.72, m['khung'], t)]   # đố cửa
+        p += [K.box(f's{i}', 0.04, 0.055, -0.85 + 0.17 * i, -0.84 + 0.17 * i, 1.0, 2.4, m['sat'], t) for i in range(11)]          # song sắt
+        return p
+    def cua_lop(t):
+        p = [K.box('canh', 0.0, 0.03, -0.55, 0.55, 0.0, 2.25, m['cua'], t), K.box('o_kinh', 0.03, 0.035, -0.3, 0.3, 1.4, 1.95, m['kinh_toi'], t)]
+        p += [K.box('kl', 0.0, 0.07, -0.68, -0.55, 0.0, 2.38, m['khung_go'], t), K.box('kr', 0.0, 0.07, 0.55, 0.68, 0.0, 2.38, m['khung_go'], t),
+              K.box('kt', 0.0, 0.07, -0.68, 0.68, 2.25, 2.38, m['khung_go'], t), K.cyl('tn', 0.06, 0.42, 1.0, 0.02, 0.1, m['sat'], t, seg=8),
+              K.box('o_thoang', 0.0, 0.012, -0.55, 0.55, 2.42, 2.62, m['kinh_toi'], t)]
+        return p
+    import chi_tiet_hoi3 as CT
+    ME['cua_so'] = CT._mau('st_mau_cua_so', cua_so); ME['cua_lop'] = CT._mau('st_mau_cua_lop', cua_lop)
 
 
 def khoi_giang_duong(m, c):
     B = K.box
+    mau_mat_tien(m)
     for f in range(3):
         z0 = f * TANG
         B(f'st_tuong_tang_{f}', -12, 0, Y0, Y1, z0, z0 + TANG, m['tuong'], c)
         B(f'st_san_hl_{f}', 0, HL, Y0, Y1, z0 - 0.15 if f else -0.05, z0 + 0.0 if f else 0.08, m['san_hl'] if f == 0 else m['be_tong'], c)
         B(f'st_chi_tang_{f}', -0.02, HL, Y0, Y1, z0 + TANG - 0.3, z0 + TANG, m['chi'], c)
-        # cửa sổ / cửa phòng trên mặt tiền x = 0 (mỗi 4 m), trừ cửa giảng đường tầng trệt
+        # mặt tiền x = 0: xen kẽ cửa lớp (k chẵn) và cửa sổ (k lẻ), mỗi ô 4 m; trừ cửa giảng đường tầng trệt
         for k in range(16):
             y = Y0 + 2.0 + 4.0 * k
             if f == 0 and abs(y - CUA_Y) < 2.1: continue
-            B(f'st_cua_so_{f}_{k}', -0.05, 0.02, y - 0.9, y + 0.9, z0 + 1.0, z0 + 2.4, m['cua_so_xa'], c)
-            B(f'st_khung_cs_{f}_{k}', -0.06, 0.03, y - 0.95, y + 0.95, z0 + 0.95, z0 + 1.0, m['khung'], c)
+            if k % 2 == 0:
+                K.inst(f'st_cua_lop_{f}_{k}', ME['cua_lop'], (0, y, z0 + (0.08 if f == 0 else 0.0)), c)
+                chu_phong(f'P.{f + 1}{k // 2 + 1:02d}', y, z0 + 2.55, c)
+            else:
+                K.inst(f'st_cua_so_{f}_{k}', ME['cua_so'], (0, y, z0), c)
         if f > 0:  # lan can tầng trên
             B(f'st_lan_can_{f}', HL - 0.12, HL, Y0, Y1, z0, z0 + 1.0, m['chi'], c)
     B('st_mai', -12.6, HL + 0.6, Y0 - 0.6, Y1 + 0.6, 3 * TANG, 3 * TANG + 0.25, m['mai'], c)
     # cửa giảng đường: ô cửa + 2 cánh mở toang (Nam vừa lao ra)
-    B('st_cua_trai', 0.0, 0.66, CUA_Y - 1.2, CUA_Y - 1.15, 0.08, 2.4, m['cua'], c, rot=(0, 0, math.radians(75)))
-    B('st_cua_phai', 0.0, 0.66, CUA_Y + 1.15, CUA_Y + 1.2, 0.08, 2.4, m['cua'], c, rot=(0, 0, math.radians(-75)))
-    B('st_o_cua_toi', -0.3, -0.05, CUA_Y - 1.2, CUA_Y + 1.2, 0.08, 2.4, M.solid('st_trong_toi', '#3a3c3a', 0.9), c)
-    B('st_bien_gd', 0.02, 0.05, CUA_Y - 1.0, CUA_Y + 1.0, 2.6, 3.0, M.solid('st_bien', '#1d3f74', 0.5), c)
+    for ten, yh, huong in (('trai', CUA_Y - 1.19, 1), ('phai', CUA_Y + 1.19, -1)):   # cánh cửa xoay quanh BẢN LỀ ở mép khung, mở ra hành lang
+        me = K.luoi_hop(f'st_canh_{ten}', 0.0, 0.05, 0.0, 1.17 * huong, 0.0, 2.3) if huong > 0 else K.luoi_hop(f'st_canh_{ten}', 0.0, 0.05, -1.17, 0.0, 0.0, 2.3)
+        me.materials.append(m['cua']); ob = K.inst(f'st_cua_{ten}', me, (0.06, yh, 0.09), c, rot=(0, 0, math.radians(-75 * huong)))
+        K.cyl(f'st_tay_nam_{ten}', 0.06 + 1.0 * math.sin(math.radians(75)), yh + huong * 1.0 * math.cos(math.radians(75)), 1.0, 0.018, 0.14, m['sat'], c, seg=8)
+    for ten, a_, b_ in (('trai', CUA_Y - 1.32, CUA_Y - 1.2), ('phai', CUA_Y + 1.2, CUA_Y + 1.32)): B(f'st_khung_gd_{ten}', -0.02, 0.07, a_, b_, 0.08, 2.52, m['khung_go'], c)
+    B('st_khung_gd_tren', -0.02, 0.07, CUA_Y - 1.32, CUA_Y + 1.32, 2.4, 2.52, m['khung_go'], c)
+    B('st_o_cua_toi', 0.0, 0.006, CUA_Y - 1.2, CUA_Y + 1.2, 0.08, 2.4, M.solid('st_trong_toi', '#3a3c3a', 0.9), c)
+    chu_phong('GD-A2', CUA_Y, 2.62, c)
     # cột bê tông (mẫu instance) — đổ bóng vuông lên sàn hành lang dưới nắng trưa
     me_cot = K.luoi_hop('st_mau_cot', -0.2, 0.2, -0.2, 0.2, 0.0, 3 * TANG); me_cot.materials.append(m['be_tong'])
     for k in range(17):
@@ -185,7 +231,7 @@ def build(mode='trua', cam='ST_STEADICAM', muc='duyet', nguoi=True):
     bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene
     c = K.coll('San_truong'); m = vat_lieu()
     khoi_giang_duong(m, c); san(m, c); nam = nam_proxy(m, c) if nguoi else None
-    import chi_tiet_hoi3; print('[chi_tiet]', chi_tiet_hoi3.san_truong(m, c), 'vật')
+    import chi_tiet_hoi3; print('[chi_tiet]', chi_tiet_hoi3.san_truong(m, c) + chi_tiet_hoi3.hanh_lang(m, c, hl=HL, y0=Y0, y1=Y1, tang=TANG, cua_y=CUA_Y), 'vật')
     K.troi('#e4eef4', '#7fb0dc', 1.0)
     if mode == 'trua': K.sun('st_nang', (-0.42, 0.22, -0.88), 7.0, '#fff6e2', 0.6, c)   # gần đỉnh đầu, hơi xiên ra sân → bóng cột vuông trên sàn hành lang
     else: K.sun('st_nang', (-0.7, 0.3, -0.62), 6.0, '#ffe9c4', 0.8, c)
