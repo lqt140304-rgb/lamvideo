@@ -62,6 +62,11 @@ Theo [thiết kế](../../../docs/superpowers/specs/2026-11-15-mieng-hoat-hinh-d
 
 **Chưa có công cụ tự chuyển audio ElevenLabs thành khẩu hình.** Hiện phải đặt key bằng tay theo bảng trên. 18 shape key cảm xúc trong quy chuẩn 3D sẽ làm ở bước sau, ghép từ các điều khiển nền này.
 
+## Học từ bản Nam
+
+- **Đi bộ:** `di_bo_nu.py` (chuyển từ `di_bo_nam002.py`): action `di_bo`, 32 khung ở 24 fps, bước 0,58 m, chân IK, hông nhún và đảo, vai xoay ngược hông, tay đánh ngược chân, ngón thả lỏng. Không sửa file rig, lưu sang file khác: `blender -b nhan-vat-nu-rig.blend --python di_bo_nu.py -- --out di-bo.blend [--anh thư-mục] [--tien] [--chu-ky 3]`. Mới duyệt bằng 16 ảnh; chưa đo trượt chân đứng.
+- **Biểu cảm có tên:** `bieu_cam_nu.py` (chuyển từ `bieu_cam_nam002.py`): `dung_bieu_cam('vui')` với `mac_dinh, ngac_nhien, tuc_gian, buon, vui, nghi_ngo, so_hai, mo_mang`. Ghép từ shape key miệng, xương mày, `blink_*`/`squint_*` và góc hàm; không đụng `look`, tay, chân hay khẩu hình. Chụp 8 ảnh: `blender -b nhan-vat-nu-rig.blend --python bieu_cam_nu.py -- <thư mục>`. Mày chỉ đi khoảng 55% độ dời đặt cho xương nên có hệ số `MAY_K`. Miệng vẫn là nét mảnh nên cười/mếu còn nhẹ.
+
 ## Dựng lại và kiểm tra
 
 Chạy trong thư mục này:
