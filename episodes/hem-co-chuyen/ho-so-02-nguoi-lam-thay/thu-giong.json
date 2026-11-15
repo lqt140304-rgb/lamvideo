@@ -1,0 +1,170 @@
+[
+ {
+  "ten": "nam__nhat-phong",
+  "vai_thu": "nam",
+  "giong_id": "6adFm46eyy74snVn6YrT",
+  "settings": {
+   "stability": 0.4,
+   "similarity_boost": 0.75
+  },
+  "cue_ids": [
+   "C1.1_NAM_03",
+   "C3.4_NAM_02",
+   "C1.2_NAM_04"
+  ]
+ },
+ {
+  "ten": "nam__phong",
+  "vai_thu": "nam",
+  "giong_id": "RxhjHDfpO54FYotYtKpw",
+  "settings": {
+   "stability": 0.4,
+   "similarity_boost": 0.75
+  },
+  "cue_ids": [
+   "C1.1_NAM_03",
+   "C3.4_NAM_02",
+   "C1.2_NAM_04"
+  ]
+ },
+ {
+  "ten": "nam__cuong-nguyen",
+  "vai_thu": "nam",
+  "giong_id": "njal9ZYZB2BSvEp2g2Fe",
+  "settings": {
+   "stability": 0.4,
+   "similarity_boost": 0.75
+  },
+  "cue_ids": [
+   "C1.1_NAM_03",
+   "C3.4_NAM_02",
+   "C1.2_NAM_04"
+  ]
+ },
+ {
+  "ten": "nguoi-kia__nhat-phong",
+  "vai_thu": "nguoi-kia",
+  "giong_id": "6adFm46eyy74snVn6YrT",
+  "settings": {
+   "stability": 0.85,
+   "similarity_boost": 0.9
+  },
+  "cue_ids": [
+   "C1.2_NGUOI_KIA_01",
+   "C2.3_NGUOI_KIA_04",
+   "C3.4_NGUOI_KIA_03"
+  ]
+ },
+ {
+  "ten": "nguoi-kia__phong",
+  "vai_thu": "nguoi-kia",
+  "giong_id": "RxhjHDfpO54FYotYtKpw",
+  "settings": {
+   "stability": 0.85,
+   "similarity_boost": 0.9
+  },
+  "cue_ids": [
+   "C1.2_NGUOI_KIA_01",
+   "C2.3_NGUOI_KIA_04",
+   "C3.4_NGUOI_KIA_03"
+  ]
+ },
+ {
+  "ten": "nguoi-kia__cuong-nguyen",
+  "vai_thu": "nguoi-kia",
+  "giong_id": "njal9ZYZB2BSvEp2g2Fe",
+  "settings": {
+   "stability": 0.85,
+   "similarity_boost": 0.9
+  },
+  "cue_ids": [
+   "C1.2_NGUOI_KIA_01",
+   "C2.3_NGUOI_KIA_04",
+   "C3.4_NGUOI_KIA_03"
+  ]
+ },
+ {
+  "ten": "tung__nhat-phong",
+  "vai_thu": "tung",
+  "giong_id": "6adFm46eyy74snVn6YrT",
+  "settings": {
+   "stability": 0.55,
+   "similarity_boost": 0.8
+  },
+  "cue_ids": [
+   "C1.2_TUNG_01",
+   "C3.5_TUNG_02",
+   "C2.2_TUNG_03"
+  ]
+ },
+ {
+  "ten": "tung__phong",
+  "vai_thu": "tung",
+  "giong_id": "RxhjHDfpO54FYotYtKpw",
+  "settings": {
+   "stability": 0.55,
+   "similarity_boost": 0.8
+  },
+  "cue_ids": [
+   "C1.2_TUNG_01",
+   "C3.5_TUNG_02",
+   "C2.2_TUNG_03"
+  ]
+ },
+ {
+  "ten": "tung__cuong-nguyen",
+  "vai_thu": "tung",
+  "giong_id": "njal9ZYZB2BSvEp2g2Fe",
+  "settings": {
+   "stability": 0.55,
+   "similarity_boost": 0.8
+  },
+  "cue_ids": [
+   "C1.2_TUNG_01",
+   "C3.5_TUNG_02",
+   "C2.2_TUNG_03"
+  ]
+ },
+ {
+  "ten": "giang-vien__viet-dung",
+  "vai_thu": "giang-vien",
+  "giong_id": "BUPPIXeDaJWBz696iXRS",
+  "settings": {
+   "stability": 0.75,
+   "similarity_boost": 0.85
+  },
+  "cue_ids": [
+   "C3.1_GIANG_VIEN_01",
+   "C3.1_GIANG_VIEN_03",
+   "C3.1_GIANG_VIEN_02"
+  ]
+ },
+ {
+  "ten": "giang-vien__ong-thay-hung",
+  "vai_thu": "giang-vien",
+  "giong_id": "DTLhW2kDOWq9IAPipCcu",
+  "settings": {
+   "stability": 0.75,
+   "similarity_boost": 0.85
+  },
+  "cue_ids": [
+   "C3.1_GIANG_VIEN_01",
+   "C3.1_GIANG_VIEN_03",
+   "C3.1_GIANG_VIEN_02"
+  ]
+ },
+ {
+  "ten": "giang-vien__quang-toan",
+  "vai_thu": "giang-vien",
+  "giong_id": "ZsjEJaLQy3sgvwxicmDx",
+  "settings": {
+   "stability": 0.75,
+   "similarity_boost": 0.85
+  },
+  "cue_ids": [
+   "C3.1_GIANG_VIEN_01",
+   "C3.1_GIANG_VIEN_03",
+   "C3.1_GIANG_VIEN_02"
+  ]
+ }
+]
