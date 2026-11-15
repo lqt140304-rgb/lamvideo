@@ -40,7 +40,7 @@ def _mat_mi(p):
 def _mat_nhan(p, R):
     """Tròng trắng → mống → đồng tử theo khoảng cách tới trục −Y của object (đơn vị theo R)."""
     m = bpy.data.materials.new('NhanCau_' + p['ten']); m.use_nodes = True; nt = m.node_tree; N = nt.nodes; L = nt.links
-    b = N['Principled BSDF']; b.inputs['Roughness'].default_value = 0.25
+    b = N['Principled BSDF']; b.inputs['Roughness'].default_value = 0.12
     tc = N.new('ShaderNodeTexCoord'); sp = N.new('ShaderNodeSeparateXYZ'); L.new(tc.outputs['Object'], sp.inputs[0])
     def op(o, a, bb=None):
         n = N.new('ShaderNodeMath'); n.operation = o
@@ -51,11 +51,11 @@ def _mat_nhan(p, R):
     r = op('SQRT', op('ADD', op('MULTIPLY', sp.outputs['X'], sp.outputs['X']), op('MULTIPLY', sp.outputs['Z'], sp.outputs['Z'])))
     r = op('DIVIDE', r, R)
     r = op('ADD', r, op('MULTIPLY', op('GREATER_THAN', sp.outputs['Y'], 0.0), 5.0))   # nửa sau: coi như xa trục
-    cr = N.new('ShaderNodeValToRGB'); L.new(r, cr.inputs[0]); e = cr.color_ramp; e.interpolation = 'EASE'
+    cr = N.new('ShaderNodeValToRGB'); L.new(r, cr.inputs[0]); e = cr.color_ramp; e.interpolation = 'LINEAR'
     mt = p['mong_to']; mc = p['mong_mau']
     e.elements[0].position = 0.0; e.elements[0].color = (0.005, 0.004, 0.004, 1)
-    e.elements[1].position = 1.0; e.elements[1].color = (0.93, 0.91, 0.88, 1)
-    for pos, col in ((mt * 0.42, (0.005, 0.004, 0.004)), (mt * 0.48, mc), (mt * 0.92, tuple(c * 0.75 for c in mc)), (mt * 1.0, (0.02, 0.015, 0.013)), (mt * 1.05, (0.93, 0.91, 0.88))):
+    e.elements[1].position = 1.0; e.elements[1].color = (0.97, 0.96, 0.94, 1)
+    for pos, col in ((mt * 0.40, (0.004, 0.003, 0.003)), (mt * 0.44, mc), (mt * 0.80, tuple(min(1, c * 1.5) for c in mc)), (mt * 0.95, tuple(c * 0.6 for c in mc)), (mt * 1.0, (0.012, 0.009, 0.008)), (mt * 1.03, (0.97, 0.96, 0.94))):
         el = e.elements.new(pos); el.color = (*col, 1)
     L.new(cr.outputs['Color'], b.inputs['Base Color'])
     return m
@@ -93,7 +93,7 @@ def _luoi_mi(C, Rm, U, V, tan_ng, side, tren, mep_fn, p):
         uu = us * (1 + 0.25 * t)                                   # rìa ngoài loe ra
         s = np.clip((t - 0.35) / 0.65, 0, 1); s = s * s * (3 - 2 * s)
         r = Rm - s * 0.009                                         # thụt vào để vùi dưới da
-        r = r + (0.0006 if t > 0 else 0) * np.exp(-((t - 0.08) / 0.05) ** 2)   # gờ mí nhẹ
+        pass
         rows.append(np.asarray(C) + r[..., None] * _dir(uu, v) if np.ndim(r) else np.asarray(C) + r * _dir(uu, v))
         w = p['mat_vien'] / Rm                                     # bề rộng nét viền theo góc
         if tren:

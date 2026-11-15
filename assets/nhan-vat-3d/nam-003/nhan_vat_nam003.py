@@ -21,7 +21,7 @@ MAC_DINH = dict(
 NHAN_VAT = dict(
     tung=dict(
         cao=1.70, da=(0.92, 0.74, 0.62),
-        mi_doi=True, mat_vien=0.0020, mong_mau=(0.03, 0.02, 0.015),
+        mat_rong=1.10, mat_cao=0.82, mi_doi=True, mat_vien=0.0026, mong_mau=(0.10, 0.055, 0.03),
         may_day=1.3,
         mieng_rong=1.15, mieng_cao=0.85, moi_mau=(0.80, 0.42, 0.40),
         bop=dict(tai=0.8, ham=1.0, cam=1.0, mui_thap=1.0, mui_thon=1.0, ma_hop=1.0),
