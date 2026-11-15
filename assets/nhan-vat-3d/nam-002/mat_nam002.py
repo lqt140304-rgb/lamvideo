@@ -44,11 +44,20 @@ def lam_muot_may(body, it=90):
     dg = np.bincount(np.concatenate([a, b]), minlength=n).clip(1)[:, None]
     x, y, z = co.T
     w = np.clip(np.minimum.reduce([(z - 1.548) / 0.008, (1.675 - z) / 0.01, (-0.04 - y) / 0.01, (0.125 - np.abs(x)) / 0.012]), 0, 1)
+    for sx in (1, -1):                         # thêm vùng quanh hốc mắt (tới 1,7 lần bán kính), tắt dần ra ngoài
+        q = np.sqrt(((x - sx * EYE_X) / RX) ** 2 + ((z - EYE_Z) / RZ) ** 2)
+        w = np.maximum(w, np.clip((1.7 - q) / 0.25, 0, 1) * (y < -0.03))
     R = w > 0
     for _ in range(it):
         for lam in (0.5, -0.53):
             acc = np.stack([np.bincount(a, co[b, j], n) + np.bincount(b, co[a, j], n) for j in range(3)], 1) / dg
             co[R] += (lam * w[R])[:, None] * (acc[R] - co[R])
+    # san phẳng khối lông mày cũ (Laplace thường: co bớt chỗ lồi), chỉ trong dải lông mày
+    wb = np.clip(np.minimum.reduce([(z - 1.552) / 0.006, (1.675 - z) / 0.008, (-0.04 - y) / 0.01, (0.118 - np.abs(x)) / 0.010, (np.abs(x) - 0.010) / 0.006]), 0, 1)
+    Rb = wb > 0
+    for _ in range(120):
+        acc = np.stack([np.bincount(a, co[b, j], n) + np.bincount(b, co[a, j], n) for j in range(3)], 1) / dg
+        co[Rb] += (0.5 * wb[Rb])[:, None] * (acc[Rb] - co[Rb])
     me.vertices.foreach_set('co', co.ravel()); me.update()
     print(f'  làm mượt lưới lông mày: {int(R.sum())} đỉnh')
 
@@ -194,7 +203,7 @@ def _vien_3d(sc, body, cx, k):
     return ob
 
 
-MAY_NANG_DUOI = 0.004   # nâng mép dưới lông mày (m) ⇒ mày mảnh hơn, không lem xuống viền mắt
+MAY_NANG_DUOI = 0.0   # nâng mép dưới lông mày (m) ⇒ mày mảnh hơn, không lem xuống viền mắt
 _MAY = {}
 
 
