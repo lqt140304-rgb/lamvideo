@@ -698,15 +698,15 @@ def dat_do_cu_moi(coll):
     D(DC.noi_com_dien, 1.5, 0.75, 0.30, rz=-0.4)           # nồi cơm điện trên thùng nhựa cạnh tủ
     D(DC.thung_mi, 0.42, 1.35, 0.0, rz=0.3)                # thùng mì gói bóc dở cạnh bếp
     D(DC.chau_quan_ao, 0.85, 1.05, 0.0)                    # chậu đồ ngâm 3 hôm
-    D(DC.hoa_don, 0.22, 2.35, 0.0, rz=0.3)                 # hoá đơn điện nước tuột xuống ngay sau cửa
-    D(DC.dep_to_ong, 0.62, 2.75, 0.0, rz=0.6)              # đôi dép gần cửa
+    D(DC.hoa_don, 0.2, 2.75, 0.0, rz=0.3)                 # hoá đơn điện nước tuột xuống ngay sau cửa
+    D(DC.dep_to_ong, 0.6, 2.4, 0.0, rz=1.4)              # đôi dép gần cửa
     D(DC.giao_trinh, 2.38, 0.38, 0.75, rz=0.15)            # giáo trình + ghi chép trên bàn
     D(DC.note_lab402, 2.56, 0.30, 0.75, rz=-0.3)           # note dán cạnh laptop
     D(DC.chia_khoa, 2.22, 0.50, 0.75, rz=0.5)              # chùm chìa khoá
     D(DC.hop_thuoc_khop, 2.62, 0.50, 0.75, rz=0.2)         # hộp thuốc + note của mẹ
     D(DC.tuyp_dau, 1.75, 2.35, 0.24, rz=0.4)               # tuýp dầu trên nệm
     D(DC.hop_xoi, 2.45, 2.3, 0.24, rz=0.3)                 # hộp xôi trên nệm
-    D(DC.dao_got, 1.68, 3.55, 0.24, rz=0.0)                # dao gọt giấu mép nệm
+    D(DC.dao_got, 2.08, 2.3, 0.24, rz=0.6)                # dao gọt trên nệm, chỗ trống giữa tuýp và hộp xôi (cách xa chăn)
     D(DC.ba_lo, 2.45, 1.45, 0.0, rz=0.6)                   # ba lô dựa cạnh ghế
 
 
