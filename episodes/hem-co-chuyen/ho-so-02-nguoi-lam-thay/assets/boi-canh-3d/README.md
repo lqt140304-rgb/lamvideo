@@ -268,4 +268,4 @@ Lưu ý: các cảnh này còn nhẹ nên LOD giảm nhiều lưới nhưng ít 
   - quanh Nam: lan can inox ở hai lối xuống, lá khô, vỏ hạt, chai trà đá, túi nilon.
   
   Người khác đều đứng xa và mải việc riêng, để Nam vẫn cô độc giữa khung.
-- **Đo lại** (960 px, mức `duyet`): ST_HANH_LANG 75 s, BK_EWS 47 s. Vẫn ngang bản trước.
+- **Đo lại** (960 px, mức `duyet`): ST_HANH_LANG 88 s (trước 74–96 s), BK_EWS 50 s (trước 45–47 s). Chậm thêm khoảng 0–10 %.
