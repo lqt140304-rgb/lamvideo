@@ -5,7 +5,7 @@
 Mô hình: người lớn T-pose cao 1,824 m, sải tay 1,774 m, lưới tam giác ~44,6 nghìn đỉnh sau khi hàn đỉnh trùng ở đường nối UV, KHÔNG có texture, mặt chưa có mắt/mày/miệng.
 BÀN TAY 4 NGÓN (3 ngón dài + ngón cái) theo mô hình gốc: dùng tên Mixamo Index, Middle, Ring, Thumb (không có Pinky).
 Không viết lại thuật toán: đọc ../nam-002/rig_nam002.py, bỏ dòng gọi main(), vá hằng số rồi chạy lại các hàm build_armature / bind / stretch.
-Hai chỗ là ƯỚC LƯỢNG, không phải đo chắc: (1) khuỷu, gối, cổ chân (tay chân duỗi thẳng nên không có điểm nổi bật; lệch y 1–2 cm để IK gập đúng chiều);
+Hai chỗ là ƯỚC LƯỢNG, không phải đo chắc: (1) khuỷu, gối, cổ chân (tay chân duỗi thẳng nên không có điểm nổi bật); khuỷu và gối đã được chọn bằng cách thử nhiều vị trí và đo biến dạng (README), cổ chân vẫn ước;
 (2) clean_weights của nam-002 có ngưỡng theo tọa độ riêng, nên ở đây tọa độ được ánh xạ tuyến tính từng đoạn (MAPCO) về khung của nam-002 chỉ để tính trọng số.
 Chưa có: mắt, mày, miệng, biểu cảm; trọng số cổ cần chỉnh (quay đầu 35° nếp dưới hàm, đo thử dài thêm ~13 mm).
 """
@@ -39,11 +39,11 @@ def patched_namespace():
         c2 = np.array(c, float).copy(); c2[:, 2] = np.interp(c[:, 2], zr, zn); c2[:, 0] = np.sign(c[:, 0]) * np.interp(np.abs(c[:, 0]), xr, xn); return c2
     g['MAPCO'] = MAPCO
     exec(compile(src, 'rig_nam002_vá', 'exec'), g)
-    # mốc khớp bên +X (m). Đo chắc: trục tay z≈1,45, cổ tay x≈0,66, đáy háng z≈0,90, đỉnh đầu 1,824. Ước: khuỷu, gối, cổ chân (xem docstring).
+    # mốc khớp bên +X (m). Khuỷu x=0,50 và gối y=0,04 chọn bằng đo biến dạng 15/11 (thử khuỷu 0,41–0,56, gối y 0,02–0,056, hông x 0,09–0,105: xem README). Đo chắc: trục tay z≈1,45, cổ tay x≈0,66, đáy háng z≈0,90, đỉnh đầu 1,824. Ước: khuỷu, gối, cổ chân (xem docstring).
     g['J'].update(dict(
         hips=(0, 0.02, 0.96), spine=(0, 0.025, 1.06), spine1=(0, 0.015, 1.18), spine2=(0, 0.02, 1.31), neck=(0, 0.04, 1.50), head=(0, 0.04, 1.58), head_top=(0, 0.02, 1.824),
-        clav=(0.03, 0.04, 1.46), shoulder=(0.21, 0.045, 1.452), elbow=(0.47, 0.058, 1.447), wrist=(0.66, 0.04, 1.452), hand_end=(0.79, 0.03, 1.455),
-        hip=(0.09, 0.02, 0.88), knee=(0.132, 0.02, 0.46), ankle=(0.148, 0.05, 0.105), ball=(0.155, -0.07, 0.03), toe=(0.16, -0.14, 0.02)))
+        clav=(0.03, 0.04, 1.46), shoulder=(0.21, 0.045, 1.452), elbow=(0.50, 0.058, 1.447), wrist=(0.66, 0.04, 1.452), hand_end=(0.79, 0.03, 1.455),
+        hip=(0.09, 0.02, 0.88), knee=(0.132, 0.04, 0.46), ankle=(0.148, 0.05, 0.105), ball=(0.155, -0.07, 0.03), toe=(0.16, -0.14, 0.02)))
     if os.environ.get('NAM003_J'):   # thử vị trí khớp khác: NAM003_J='{"elbow":[0.44,0.058,1.447]}'
         import json
         g['J'].update({k: tuple(v) for k, v in json.loads(os.environ['NAM003_J']).items()})
