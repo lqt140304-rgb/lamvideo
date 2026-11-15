@@ -41,12 +41,35 @@ def test_ao_chong_quan(cl):
     assert z_gau <= z_cap - 0.06, (z_gau, z_cap)
 
 
+def _eval_co(o):
+    dg = bpy.context.evaluated_depsgraph_get(); ev = o.evaluated_get(dg); me = ev.to_mesh(); a = np.array([v.co[:] for v in me.vertices]); ev.to_mesh_clear(); return a
+
+
+def test_nghi_khong_doi(cl, arm):
+    import gan_rig as GR
+    for o in cl:
+        mods = [m for m in o.modifiers if m.type != 'ARMATURE']
+        for m in mods: m.show_viewport = False
+        GR.reset_pose(arm); P = _eval_co(o); P0 = np.array([v.co[:] for v in o.data.vertices])
+        for m in mods: m.show_viewport = True
+        assert np.abs(P - P0).max() <= 1e-4, f'{o.name}: {np.abs(P - P0).max() * 1000:.3f} mm'
+
+
+def test_ong_quan_khong_lay_chan_kia(cl):
+    q = next(o for o in cl if o.name.startswith('Quan')); gi = {g.index: g.name for g in q.vertex_groups}
+    for v in q.data.vertices:
+        if v.co.x > 0.02:
+            w = sum(g.weight for g in v.groups if gi[g.group].startswith('Right'))
+            assert w == 0, (v.index, tuple(v.co), w)
+
+
 if __name__ == '__main__':
     names = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else list(MQ.QA.OUTFITS)
     bad = 0
     for nm in names:
         sc, arm, body = DT.load_rig(); sd = DT.measure(body, save=False); cl = MQ.build_outfit(sc, body, sd, nm)
-        for t, a in ((test_tung_bo_dung_duoc, (cl,)), (test_khong_xuyen_luc_nghi, (cl, body)), (test_ao_chong_quan, (cl,))):
+        import gan_rig as GR; GR.bind(arm, body, cl)
+        for t, a in ((test_tung_bo_dung_duoc, (cl,)), (test_khong_xuyen_luc_nghi, (cl, body)), (test_ao_chong_quan, (cl,)), (test_nghi_khong_doi, (cl, arm)), (test_ong_quan_khong_lay_chan_kia, (cl,))):
             try: t(*a); print('PASS', nm, t.__name__)
             except AssertionError as e: bad += 1; print('FAIL', nm, t.__name__, str(e)[:200])
     print('KẾT QUẢ:', 'PASS' if not bad else f'FAIL {bad}'); sys.exit(1 if bad else 0)
