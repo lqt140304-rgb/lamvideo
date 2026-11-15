@@ -7,6 +7,7 @@ và số cạnh giãn >1,5× trong vùng cổ z 1,40–1,66 (chỉ cạnh dài >
 """
 import sys, os, argparse
 import numpy as np, bpy
+from mathutils import Vector
 
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import rig_nam003 as R
@@ -229,6 +230,19 @@ def test_shape_key_survives_cs(arm, body):
     return float(np.abs(on - off)[m].max()) * 1000 < 0.2
 
 
+def test_ik_goi_ve_truoc(arm, body):
+    """IK chân gập ĐÚNG HƯỚNG: nhấc mắt cá 0,25 m (ra trước 0,2 m) và 0,35 m, gối phải nằm TRƯỚC đường hông–mắt cá >= 10 cm và lệch ngang <= 3 cm (rig cũ: lệch ngang 13 cm vì mốc gối nằm sau/lệch đường nối)."""
+    g = R.patched_namespace()
+    for k, S, sg in (('L', 'Left', 1), ('R', 'Right', -1)):
+        for up, fw in ((0.25, -0.2), (0.35, 0.0)):
+            g['reset'](arm); t = arm.pose.bones[f'ik_foot.{k}']
+            t.location = t.bone.matrix_local.to_3x3().inverted() @ Vector((0, fw, up)); bpy.context.view_layer.update()
+            h = arm.matrix_world @ arm.pose.bones[f'{S}UpLeg'].head; kn = arm.matrix_world @ arm.pose.bones[f'{S}Leg'].head; an = arm.matrix_world @ arm.pose.bones[f'{S}Foot'].head
+            line = h + (kn.z - h.z) / (an.z - h.z) * (an - h)
+            if not ((kn.y - line.y) * 100 <= -10 and abs(kn.x - line.x) * 100 <= 3): g['reset'](arm); return False
+    g['reset'](arm); return True
+
+
 def test_symmetry(res): return abs(res['quay+35']['max_mm'] - res['quay-35']['max_mm']) <= 1.0
 def test_thresholds(res): return all(v['max_mm'] <= NGUONG_MM and v['n_giang_moi_canh'] == 0 for k, v in res.items() if k != 'nghi')     # đúng chữ của thiết kế: 0 cạnh giãn >1,5× (mọi cạnh)
 
@@ -242,7 +256,7 @@ def main():
     print(f'{"tư thế":12s} {"dài thêm max (mm)":>18s} {"giãn>1,5× & >3 mm":>18s} {"giãn>1,5× (mọi cạnh)":>21s}')
     for k, v in res.items(): print(f'{k:12s} {v["max_mm"]:18.2f} {v["n_giang_nhin_thay"]:18d} {v["n_giang_moi_canh"]:21d}')
     tests = [('test_rest_is_zero', lambda: test_rest_is_zero(res)), ('test_rest_matches_basis', lambda: test_rest_matches_basis(arm, body)), ('test_scale_consistent', lambda: test_scale_consistent(arm, body)), ('test_tests_detect_breakage', lambda: test_tests_detect_breakage(arm, body)), ('test_env_warning', test_env_warning), ('test_shape_key_survives_cs', lambda: test_shape_key_survives_cs(arm, body)), ('test_symmetry', lambda: test_symmetry(res)), ('test_thresholds', lambda: test_thresholds(res)),
-             ('test_helper_bones', lambda: test_helper_bones(arm)), ('test_cs_modifier', lambda: test_cs_modifier(body)), ('test_cs_spares_face', lambda: test_cs_spares_face(body)), ('test_cs_groups_intact', lambda: test_cs_groups_intact(body)), ('test_jaw_untouched', lambda: test_jaw_untouched(body)), ('test_b_alone_no_worse', lambda: test_b_alone_no_worse(arm, body, None)), ('test_head_unchanged', lambda: test_head_unchanged(arm, body)), ('test_four_influence', lambda: test_four_influence(arm, body))]
+             ('test_helper_bones', lambda: test_helper_bones(arm)), ('test_ik_goi_ve_truoc', lambda: test_ik_goi_ve_truoc(arm, body)), ('test_cs_modifier', lambda: test_cs_modifier(body)), ('test_cs_spares_face', lambda: test_cs_spares_face(body)), ('test_cs_groups_intact', lambda: test_cs_groups_intact(body)), ('test_jaw_untouched', lambda: test_jaw_untouched(body)), ('test_b_alone_no_worse', lambda: test_b_alone_no_worse(arm, body, None)), ('test_head_unchanged', lambda: test_head_unchanged(arm, body)), ('test_four_influence', lambda: test_four_influence(arm, body))]
     bad = 0
     for nm, f in tests:
         ok = f(); bad += (not ok); print(('PASS ' if ok else 'FAIL ') + nm)

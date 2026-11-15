@@ -49,7 +49,7 @@ Thiết kế: [spec](../../../docs/superpowers/specs/2026-11-15-nam003-co-va-co-
 **Cách làm (B + C):**
 - Hai xương phụ `NeckBlend1/2` (con của `Neck`, Copy Rotation LOCAL từ `Head`, ảnh hưởng 0,33 và 0,66) chia xoắn dọc cổ. Trọng số `Spine2` → `Neck` → `NeckBlend1` → `NeckBlend2` → `Head` theo gradient z (1,46–1,60, làm mượt 10 vòng), chỉ động tới các nhóm xương (nhóm phụ `cs_*` giữ nguyên). Vùng hàm/cằm (y < −0,05, z ≥ 1,55) cho `Head` đạt 1 sớm hơn 3 cm để cằm gắn chặt vào đầu (từ z 1,565 `Head` ≥ 0,75).
 - Corrective Smooth thứ hai `CorrectiveSmoothCo` (nhóm `cs_co`, 150 vòng, hệ số 1,0), tắt hẳn từ z 1,61 và không phủ vùng hàm/cằm, để không làm mềm shape key miệng/cằm của bên làm mặt.
-- Xương `Head`, trọng số đầu (z ≥ 1,60) và vị trí `Head` không đổi (đã kiểm: 0/4026 đỉnh z ≥ 1,60 đổi trọng số so với v2). Mã: `co_nam003.py`; đo: `kiem_co_nam003.py --rig nam-003-rig.blend [--scale S] [--anh dir]` (16 test).
+- Xương `Head`, trọng số đầu (z ≥ 1,60) và vị trí `Head` không đổi (đã kiểm: 0/4026 đỉnh z ≥ 1,60 đổi trọng số so với v2). Mã: `co_nam003.py`; đo: `kiem_co_nam003.py --rig nam-003-rig.blend [--scale S] [--anh dir]` (17 test).
 
 **Số đo (cạnh dài thêm max, mm; vùng cổ z 1,40–1,66):**
 | Tư thế | Trước (v2) | Rig v3 |
@@ -77,3 +77,23 @@ Mọi tư thế ≤ 3,75 mm (ngưỡng 6 mm; `nam-002` ~5,4 mm) và **0 cạnh g
 
 ## Mặc đồ (15/11/2026)
 `mac_do_nam003.py` có `chuyen_trong_so(ob, body, arm, loai, che_do='tho')` và bài đo (`<bpy-python> mac_do_nam003.py --rig nam-003-rig.blend`). Đo trên áo phông và quần dài thử qua 8 tư thế: tổng đỉnh xuyên mới so với dáng nghỉ: Data Transfer thô 358, thêm làm mượt chọn lọc 365, cách 1B của phiên thử quần áo độc lập 369: **không cách nào hơn rõ rệt, nên dùng thô**. Còn xuyên: áo ở khuỷu gập (107 đỉnh, sâu 7,5 mm); quần khi nhấc chân (49) và ngồi xổm (193, sâu 7,8 mm). Cùng cách đo, `nam-002` cho quần nhấc chân 856 và ngồi xổm 1669, tức rig v3 của `nam-003` tốt hơn nhiều cho áo quần. Chưa thử áo quần thật; hướng dẫn chung ở [../nam-002/HUONG-DAN-MAC-DO.md](../nam-002/HUONG-DAN-MAC-DO.md) (tên xương và tư thế giống).
+
+## Chuyển động thử và sửa gối IK (15/11/2026, tối)
+Chủ repo thấy dáng đi bị méo ("bẹo hình bẹo dạng") và yêu cầu thử đủ tư thế: bò, trườn, ngồi, nằm, lăn, đi bộ, chạy bộ. Mã: `chuyen_dong_nam003.py` (đi_bo, chay_bo, ngoi_ghe, nam_lan, bo, truot; `--luoi` đo biến dạng, `--vitri` chỉ ra bộ phận bị giãn, `--anh` render) và `ghep_video_nam003.py`. Video xem nhanh trong [chuyen-dong/](chuyen-dong/) (400×400 mỗi góc, mẫu thấp nên có nhiễu hạt).
+
+**Lỗi tìm ra (do mình gây ra trước đó):** ở các lần trước mình báo "đi bộ trông tự nhiên", **sai**: khi đo, gối lệch ngang tới **19 cm** và nằm **sau** đường hông–mắt cá (chân vòng kiềng). Nguyên nhân: (1) mốc gối y = 0,04 chọn chỉ bằng số cạnh giãn nằm sau đường nối, và x = 0,132 lệch ngang 1,2 cm; hàm `calibrate_poles` của `rig_nam002.py` giả định gối "lệch về phía pole" nên chọn mặt phẳng gập nghiêng (log đã in cos = −0,322 mà bị bỏ qua); (2) kịch bản đi bộ cũ giữ mắt cá ở x = ±0,148, dạng chân quá rộng. Sửa: hông (0,09, **0,04**, 0,88), gối (**0,1205**, **0,035**, 0,46) nằm trên đường nối theo x và lệch hẳn về phía trước, góc pole 90,00°, cos = 1,000; thêm `test_ik_goi_ve_truoc` (RED→GREEN). Khi đi, gối lệch ngang tối đa **1,7 cm** (trước 19 cm), không còn gối nằm sau đường nối. Bàn chân khi đi đặt gần trục giữa (x ±0,095).
+
+**Kết quả đo (Corrective Smooth bật như lúc render; cạnh dài >3 mm; "co" = cạnh co dưới 0,4×):**
+| Chuyển động | Cạnh giãn >2× nhiều nhất mỗi khung | Giãn max | Ghi chú |
+|---|---|---|---|
+| Đi bộ (2 chu kỳ) | **0** | 1,80× | gối lệch ngang ≤ 1,7 cm; điểm thấp nhất lưới −0,3 cm |
+| Chạy bộ (3 chu kỳ) | 15 | 3,02× | cả 15 cạnh ở ngón tay (nắm); gối lệch ngang ≤ 2,7 cm |
+| Ngồi ghế rồi đứng dậy | 3 | 2,02× | 3 cạnh ở ngón tay |
+| Nằm ngửa → lăn 360° → nằm ngửa | 3 | 2,02× | xuyên sàn 0 |
+| Bò bốn chi (2 chu kỳ) | 7 | 2,11× | |
+| Trườn sấp (2 chu kỳ) | 21 | 2,16× | hông 9, cẳng–bàn chân 9, tay 3 |
+Cạnh co <0,4× (nếp gấp): đi bộ 122, chạy 401, ngồi 596, bò 743, trườn 745, lăn 0; **chưa xem kỹ các nếp này bằng ảnh cận**.
+
+**Cách đo từng lỗi phát hiện:** nếu tắt Corrective Smooth khi đo (cho nhanh), ngay cả tư thế tay buông 78° cũng cho 25 cạnh giãn >2× ở đỉnh vai, trong khi bảng đo của rig (bật) cho 0; vì thế các số đo ban đầu (27, 45, 188, 257 cạnh) phóng đại và đã đo lại ở trên. Bò: bàn chân duỗi thẳng hàng cẳng chân cho 116 cạnh giãn >2×; chúi mũi chân xuống (pitch 120°, mũi chạm sàn) còn 5. Trườn: giảm độ dạng chân và kéo gối từ 165 xuống 21 cạnh.
+
+**Hạn chế (chưa làm / chưa chắc):** đây là chuyển động **để thử rig**, không phải hoạt hình đã trau chuốt (tay đánh, nhịp, trọng tâm còn đơn giản; chạy bộ chưa có pha bay đúng nghĩa); chưa đo trượt chân đứng; chưa xem ảnh cận hông/bẹn/nách ở các tư thế nằm, trườn; ngón tay khi nắm còn cạnh giãn (15 cạnh ở chạy bộ) do mình đặt độ nắm; chưa thử ngồi sàn, quỳ, nằm nghiêng giữ yên, tay IK cầm đồ vật, leo; chiều cao 1,60/1,70 m chưa thử riêng cho các chuyển động (chỉ thử ở 1,824 m gốc).
