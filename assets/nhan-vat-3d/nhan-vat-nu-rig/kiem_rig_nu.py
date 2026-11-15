@@ -244,6 +244,15 @@ def kiem_may_tach():
             assert hit[0].y > may_y + 0.0002, f'Mày {k}: thân còn nổi ngang mày ở x={x:.3f}'
 
 
+def kiem_da_mat_tron():
+    a = BODY.data.attributes
+    assert 'mat_tron' in a and 'ma_hong' in a, 'thiếu thuộc tính da trơn'
+    w = np.array([d.value for d in a['mat_tron'].data]); z = np.array([v.co.z for v in BODY.data.vertices])
+    assert w[z > 1.26].min() > 0.99 and w[z < 1.18].max() < 0.01, 'dải chuyển màu sai'
+    nt = BODY.data.materials[0].node_tree
+    assert any(n.type == 'ATTRIBUTE' and n.attribute_name == 'mat_tron' for n in nt.nodes), 'vật liệu chưa trộn mat_tron'
+
+
 def kiem_may_nang():
     _, _, l0 = hop_may('L')
     _, _, r0 = hop_may('R')
@@ -695,6 +704,7 @@ KIEM = {
     'kiem_ham_mo': kiem_ham_mo,
     'kiem_mieng_khong_xuyen': kiem_mieng_khong_xuyen,
     'kiem_may_tach': kiem_may_tach,
+    'kiem_da_mat_tron': kiem_da_mat_tron,
     'kiem_may_nang': kiem_may_nang,
     'kiem_tran_lien': kiem_tran_lien,
     'kiem_nhin_theo_look': kiem_nhin_theo_look,

@@ -406,6 +406,7 @@ mat_nu.dung_may(body, rig, coll)
 mat_nu.la_phang_quanh_mat(body)
 MIENG = mat_nu.dung_mieng(body, rig, coll)
 mat_nu.dung_shape_key_mieng(body, MIENG['vung_dinh'], MIENG['tam_mieng'], HERE / 'khau-hinh.json')
+mat_nu.da_mat_tron(body)
 # --- độ mượt: Subdivision sau Armature (rig, shape key vẫn trên lưới thưa) ---
 for p_ in body.data.polygons:
     p_.use_smooth = True

@@ -635,6 +635,54 @@ def _to_da_manh_vun(body, px):
     print(f'tô da {n} mảnh mi/mày cũ')
 
 
+
+def da_mat_tron(body, z0=1.18, z1=1.26):
+    """Da mặt một màu trơn kiểu hoạt hình: thuộc tính đỉnh `mat_tron` (1 trên cằm → 0 ở cổ) trộn màu da trơn
+    với texture; `ma_hong` thêm má hồng. Mí dùng chung vật liệu nên gán mat_tron = 1."""
+    me = body.data
+    co = np.array([v.co[:] for v in me.vertices])
+    w = np.clip((co[:, 2] - z0) / (z1 - z0), 0, 1)
+    w = w * w * (3 - 2 * w)
+    d = np.minimum(*(np.linalg.norm(co - np.array([sx * 0.075, -0.17, 1.40]), axis=1) for sx in (1, -1)))
+    h = np.clip(1 - d / 0.035, 0, 1)
+    h = h * h * (3 - 2 * h)
+    for ten, val in (('mat_tron', w), ('ma_hong', h)):
+        if ten in me.attributes:
+            me.attributes.remove(me.attributes[ten])
+        me.attributes.new(ten, 'FLOAT', 'POINT').data.foreach_set('value', val.astype(np.float32))
+    for o in bpy.data.objects:
+        if o.name.startswith(('Nu_MiTren', 'Nu_MiDuoi')):
+            a = o.data.attributes.new('mat_tron', 'FLOAT', 'POINT')
+            a.data.foreach_set('value', np.ones(len(o.data.vertices), np.float32))
+    # màu trơn: trung vị texture trên da trán
+    px = anh_diffuse(body)
+    uvl = me.uv_layers[0].data
+    uv = np.array([uvl[li].uv[:] for p in me.polygons if 1.60 < p.center.z < 1.68 and abs(p.center.x) < 0.08 and p.center.y < 0
+                   for li in p.loop_indices])
+    tron = np.median(mau_tai(px, uv), axis=0)
+    tron = np.where(tron <= 0.04045, tron / 12.92, ((tron + 0.055) / 1.055) ** 2.4)  # điểm ảnh sRGB → màu tuyến tính của node
+    hong = tron * np.array([1.12, 0.78, 0.78])
+    nt = me.materials[0].node_tree
+    b = nt.nodes['Principled BSDF']
+    nguon = b.inputs['Base Color'].links[0].from_socket
+    at, ah = nt.nodes.new('ShaderNodeAttribute'), nt.nodes.new('ShaderNodeAttribute')
+    at.attribute_name, ah.attribute_name = 'mat_tron', 'ma_hong'
+    m1, m2 = nt.nodes.new('ShaderNodeMix'), nt.nodes.new('ShaderNodeMix')
+    for m in (m1, m2):
+        m.data_type = 'RGBA'
+    nt.links.new(at.outputs['Fac'], m1.inputs['Factor'])
+    nt.links.new(nguon, m1.inputs['A'])
+    m1.inputs['B'].default_value = (*tron, 1)
+    mh = nt.nodes.new('ShaderNodeMath')
+    mh.operation, mh.inputs[1].default_value = 'MULTIPLY', 0.35
+    nt.links.new(ah.outputs['Fac'], mh.inputs[0])
+    nt.links.new(mh.outputs[0], m2.inputs['Factor'])
+    nt.links.new(m1.outputs['Result'], m2.inputs['A'])
+    m2.inputs['B'].default_value = (*hong, 1)
+    nt.links.new(m2.outputs['Result'], b.inputs['Base Color'])
+    print('da trơn', np.round(tron, 3))
+
+
 # ---------- miệng ----------
 
 def _ss(a, b, x):
