@@ -38,6 +38,7 @@ File `.blend` và `.glb` đã rig nặng khoảng 26 MB nên không đưa lên G
 - **Đỉnh trùng ở đường nối UV:** khi nhập GLB, đỉnh ở đường nối UV bị nhân đôi (lưới thành 1.176 mảnh). Mỗi bản sao nhận trọng số hơi khác nên đường nối hở thành khe tối khi tạo dáng. Script hàn các đỉnh trùng trước khi rig: số đỉnh giảm từ 139.506 xuống 128.506, còn 38 cạnh hở.
 - **Bone heat trên lưới gốc thất bại**, toàn bộ đỉnh không có trọng số. Script chạy bone heat trên một lưới voxel kín (4 mm, giản lược 30%) rồi chép trọng số sang lưới gốc.
 - **Luật vùng:** trái chỉ theo xương trái, phải chỉ theo xương phải. Chuyển tiếp mềm từ thân sang tay ở |x| 0,17–0,26 và từ thân sang chân ở z 0,88–1,00. Đầu đi cứng theo `Head` từ z = 1,40, cổ pha dần từ `Spine2` qua `Neck` sang `Head`. Ngón tay có trọng số tính theo hình học. Sau cùng làm mượt vai và háng, rồi thêm Corrective Smooth (30 vòng) cho hai vùng này.
+- **Háng:** ở đáy háng, vùng chuyển giữa chân trái và chân phải được nới rộng thành ±4,5 cm và pha thêm 35% trọng số `Hips`. Vùng mông được làm mượt thêm cho dáng ngồi. Nhờ vậy dáng bước giảm từ 379 xuống 4 cạnh giãn. Dáng ngồi xổm còn giãn ở hông và mông, nhưng nhìn ảnh không thấy rách.
 - **Mốc khớp:** gối được đặt nhô trước 1,7 cm và khuỷu lùi sau 1 cm so với đường thẳng nối hai khớp hai đầu, để IK gập đúng chiều. Trước khi sửa, gối bị gập vào trong.
 
 ## Kết quả đo
@@ -52,15 +53,29 @@ Bảng dưới đếm số cạnh lưới bị kéo dài hơn 2 lần so với d
 | nắm tay | 0 | 1,87× |
 | quay đầu | 4 | 2,25× |
 | xoay thân | 0 | 1,80× |
-| bước chân (IK) | 379 | 5,70× |
-| ngồi xổm (IK) | 741 | 3,63× |
+| bước chân (IK) | 4 | 2,26× |
+| ngồi xổm (IK) | 675 | 3,37× |
 
 Dáng nghỉ lệch tối đa 0,02 mm so với lưới gốc. Ảnh kiểm tra: [vai khi hạ tay](vai-ha-tay.webp) và [bàn tay](ban-tay.webp), từ trái sang là xòe, nắm, nửa nắm, chỉ tay.
 
 ## Chưa làm
 
 - Chưa có rig mặt, shape key hay viseme.
-- Ngón cái chỉ khép nhẹ khi nắm.
-- Háng và đùi còn giãn khi bước dài hoặc ngồi xổm.
 - Mặt sau vai còn vài nếp nhỏ khi hạ tay.
-- Chưa chạy `walk.py` hay `chep_dong.py` cho rig này: hai script đó viết cho `Goc_Rig` ở dáng chữ A.
+- `chep_dong.py` (chép động tác Mixamo) chưa chạy thử trên rig này.
+- Đi bộ mới có một nhịp (đi thường). Chưa có đi chậm, đi nhanh hay rẽ, và chưa đo độ trượt của chân đứng.
+
+## Đi bộ
+
+`di_bo_nam002.py` tạo action `di_bo`: một chu kỳ 32 khung ở 24 fps (khoảng 1,33 giây), bước dài 0,62 m. Mặc định nhân vật đi tại chỗ để dễ lặp và ghép cảnh. Thêm `--tien` thì nhân vật tiến về hướng −Y.
+
+```powershell
+D:/blender/blender.exe -b --factory-startup --python di_bo_nam002.py -- --rig nam-002-rig.blend --out nam-002-di-bo.blend --anh xem-di
+```
+
+- **Chân:** dùng IK. Gót chạm đất trước, mũi chân hếch lên. Chân đứng trượt đều ra sau, nhón mũi trước khi nhấc. Chân vung lên cao 7,5 cm.
+- **Thân:** hông nhún thấp nhất khi hai chân cùng chạm đất (biên độ 3,6 cm). Hông đảo sang bên chân đang đứng. Vai xoay ngược với hông.
+- **Tay:** hạ 78° từ dáng chữ T rồi đánh ngược với chân, khuỷu gập nhẹ, bàn tay khép hờ (`nam` = 0,25).
+- **Kiểm bằng số:** khi chân trái ra trước xa nhất (y = −0,29) thì tay trái ra sau (y = +0,10). Hông thấp nhất (z = 0,887) ở khung 1 và khung 17, cao nhất (0,923) ở khung 9.
+
+[Ảnh 8 khung](di-bo.webp): hàng trên nhìn bên, hàng dưới nhìn chéo phía trước.

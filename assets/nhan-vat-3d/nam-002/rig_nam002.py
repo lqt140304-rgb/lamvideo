@@ -30,7 +30,7 @@ J = dict(
 FING = [('Index', 1.300, (1.285, 1.315)), ('Middle', 1.263, (1.248, 1.278)), ('Ring', 1.232, (1.216, 1.245)), ('Pinky', 1.205, (1.185, 1.215))]
 THUMB = [(0.540, 0.030, 1.285), (0.575, 0.033, 1.318), (0.598, 0.036, 1.338)]       # gốc, khớp 1, khớp 2 (đầu ngón đo tự động)
 SPLIT = (0.42, 0.32, 0.26)
-CURL = {'Index': (55, 75, 45), 'Middle': (55, 75, 45), 'Ring': (55, 75, 45), 'Pinky': (55, 75, 45), 'Thumb': (15, 30, 40)}
+CURL = {'Index': (55, 75, 45), 'Middle': (55, 75, 45), 'Ring': (55, 75, 45), 'Pinky': (55, 75, 45), 'Thumb': (35, 45, 50)}
 PROPS = {'Index': 'nam_tro', 'Middle': 'nam_giua', 'Ring': 'nam_ap', 'Pinky': 'nam_ut', 'Thumb': 'nam_cai'}
 HEAD_Z = 1.40
 CH = {}
@@ -269,8 +269,10 @@ def clean_weights(body):
     arm_zone = ax > 0.20                                                    # tay chữ T: ngoài vai
     leg_zone = z < 0.80
 
+    crotch_w = 0.01 + 0.035 * sm(0.92, 0.84, z) * sm(0.66, 0.74, z)      # đáy háng: vùng chuyển trái–phải rộng ±4,5 cm thay vì ±1 cm
+
     def rules(W):
-        fL = sm(-0.01, 0.01, x)
+        fL = sm(-crotch_w, crotch_w, x)
         for n, i in I.items():
             if n.startswith('Left'): W[:, i] *= fL
             elif n.startswith('Right'): W[:, i] *= 1 - fL
@@ -323,6 +325,12 @@ def clean_weights(body):
         Wh[:, I[f'{S}Hand']] += 1 - Wh.sum(1)
         al = sm(0.555, 0.575, P[:, 0])[:, None]
         W[H] = (1 - al) * W[H] + al * Wh
+    crotch = (~head) & (ax < 0.06) & (z > 0.68) & (z < 0.88)               # đáy háng: pha 35 % Hips để da giữa hai chân không bị xé khi bước
+    fc = (0.35 * sm(0.06, 0.02, ax) * sm(0.68, 0.74, z) * sm(0.88, 0.82, z))[:, None]
+    eh = np.zeros(ng, np.float32); eh[I['Hips']] = 1; W = (1 - fc) * W + fc * eh
+    W = lap(W, crotch, 60, 0.5)
+    W = lap(W, (~head) & (z > 0.78) & (z < 1.02) & (ax < 0.18) & (y > 0.0), 120, 0.6)   # mông: chuyển Hips–UpLeg dài hơn cho dáng ngồi
+    W = rules(W)
     W[W < 0.01] = 0; W /= W.sum(1, keepdims=True)
     for g in body.vertex_groups: g.remove(list(range(nv)))
     nz = np.nonzero(W > 1e-4)
