@@ -207,8 +207,8 @@ Nhưng khi Nam mở mắt ra: **Người Kia đã ngồi ngay ngắn ở bàn h�
 Người Kia nhìn cọc tiền ba triệu trên bàn, con ngươi không hề dao động, ngẩng lên nhìn Nam với chất giọng rành rọt, đều đều:
 
 **NGƯỜI KIA [giọng chuẩn ngữ pháp nhưng thiếu hơi ấm con người]:**
-> Đây là ba triệu đồng. Tao không có nhu cầu dùng tiền.  
-> Một giờ chiều nay, mày có ca thực hành trực tiếp tại phòng Lab 402 môn Kỹ thuật Lập trình. Giảng viên yêu cầu code trực tiếp trên máy và vấn đáp tại chỗ. Mày chưa ôn một dòng code nào. Nếu không đi, mày sẽ bị trừ hai điểm chuyên cần và cấm thi cuối kỳ.
+> Đây là ba triệu đồng. Tao không cần tiền.  
+> Một giờ chiều nay mày có ca Lab 402 môn Lập trình. Mày chưa ôn dòng nào. Không đi sẽ bị cấm thi.
 
 **NAM [tự ái]:**
 > Mắc mớ gì mày quản?! Việc học của tao, tao tự lo được!
@@ -428,8 +428,8 @@ Nhưng Người Kia không hề né tránh, nó dùng vũ khí tàn độc nhấ
 > Hồi sáng tao đã cố học! Tao đã trả lời được câu đầu cơ mà!
 
 **NGƯỜI KIA [tiến lên nửa bước, mắt trừng trừng không chớp]:**
-> Nhưng mày có gánh nổi cả cuộc đời này không?! Mày muốn điểm cao, muốn được khen, muốn bố mẹ tự hào... nhưng việc gì khó một tí là mày lại đùn đẩy! Từ bài tập, giặt chậu đồ ngâm, dọn phòng, đến nghe máy của mẹ... **từng thứ một đều là do chính tay mày nhường cho tao mà!**  
-> Vào trong đó đi. Trong đó không có deadline, không có ai chê bai mày nữa. Buông xuôi đi Nam... để tao sống thay cho.
+> Nhưng việc gì khó là mày lại đùn đẩy! Từ bài tập, chậu đồ ngâm, đến nghe máy của mẹ... **từng thứ một đều do chính tay mày nhường cho tao mà!**  
+> Vào trong đó đi, không còn deadline hay ai chê bai nữa. Buông xuôi đi Nam... để tao sống thay cho.
 
 Từng câu nói như những nhát dao băng bóp nghẹt ý chí của Nam. Nỗi tự ti và sự hèn nhát đã khiến Nam mù quáng tin rằng mình chỉ là một kẻ thừa thãi, một gánh nặng của mọi người.  
 Chiếc búa sắt tuột khỏi tay Nam, rơi xuống sàn kêu lên tiếng khô khốc vang dội: **"KENG"**.  
