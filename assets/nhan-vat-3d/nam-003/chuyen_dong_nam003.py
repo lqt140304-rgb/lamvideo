@@ -103,7 +103,6 @@ def ap_dung(c, P, floor=0.0):
     def run(dz):
         c.reset()
         for bn, ax, deg in P.get('fk', []): c.rot(bn, ax, deg)
-        if any(b == 'LeftArm' and a == Y and abs(d - 86) < 1e-6 for b, a, d in P.get('fk', [])): tay_vao(c)   # tay buông chuẩn thì dời bắp tay vào
         for S in ('Left', 'Right'):
             for pr, v in P.get('ngon', {}).items(): c.pb[f'{S}Hand'][pr] = v
         loc, eul = P['root']; c.place('root', (loc[0], loc[1], loc[2] + dz), eul)
@@ -166,8 +165,8 @@ def dong_di(c, f, tong, chay=False):
     c.rot('Neck', Z, yaw * 0.3); c.rot('Head', Z, yaw * 0.3); c.rot('Head', X, (lean * 0.9) if chay else -2)
     swing = (46 if chay else 24) * math.cos(2 * math.pi * phi0)
     for S_, s in (('Left', 1), ('Right', -1)):
-        c.g['rot_world'](c.arm, f'{S_}Shoulder', (0, 1, 0), s * 6); c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 86); c.g['rot_world'](c.arm, f'{S_}ForeArm', (0, 1, 0), -s * 20)
-        c.g['move_world'](c.arm, f'{S_}Arm', (-s * 0.02, 0, 0)); c.g['rot_world'](c.arm, f'{S_}Arm', X, s * swing)
+        c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 86); c.g['rot_world'](c.arm, f'{S_}ForeArm', (0, 1, 0), -s * 20)
+        c.g['rot_world'](c.arm, f'{S_}Arm', X, s * swing)
         elbow = (80 + 25 * max(0.0, -s * math.cos(2 * math.pi * phi0))) if chay else (18 + 12 * max(0.0, -s * math.cos(2 * math.pi * phi0)))
         c.g['rot_world'](c.arm, f'{S_}ForeArm', X, -elbow); c.g['rot_world'](c.arm, f'{S_}Hand', Z, -s * 8)
         hb = c.pb[f'{S_}Hand']; base = 0.55 if chay else 0.24
@@ -175,12 +174,9 @@ def dong_di(c, f, tong, chay=False):
     return root_loc
 
 
-# Tay buông (chọn 15/11 bằng khe tay–thân đo theo độ cao, xem README): vai hạ 6°, bắp tay 86°, cẳng tay hất ra 20°, dời bắp tay vào 2 cm
+# Tay buông (chọn 15/11 bằng khe tay–thân đo theo độ cao, xem README): bắp tay 86°, cẳng tay hất ra 20°, vai hạ 6° (driver)
 # → khe ~2 cm ở nách, ~1 cm ở khuỷu, ~4 cm ở cổ tay (trước: 4 → 10 cm với 78°).
-TAY_DX = 0.02
-ARM_DOWN = [('LeftShoulder', Y, 6), ('RightShoulder', Y, -6), ('LeftArm', Y, 86), ('RightArm', Y, -86), ('LeftForeArm', Y, -20), ('RightForeArm', Y, 20)]
-def tay_vao(c):
-    for S_, s in (('Left', 1), ('Right', -1)): c.g['move_world'](c.arm, f'{S_}Arm', (-s * TAY_DX, 0, 0))
+ARM_DOWN = [('LeftArm', Y, 86), ('RightArm', Y, -86), ('LeftForeArm', Y, -20), ('RightForeArm', Y, 20)]   # vai hạ do driver vai_nam003 lo
 
 
 def dong_ngoi_ghe(c, f, N):
