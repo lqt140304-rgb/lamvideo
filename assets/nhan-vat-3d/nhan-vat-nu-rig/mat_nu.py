@@ -294,7 +294,7 @@ def dung_mat(body, rig, coll):
         # lòng trắng cố định: chỉ giữ phần sau hốc (elip rộng hơn hốc sẽ xuyên da ở thái dương)
         bm = bmesh.new()
         bm.from_mesh(me_lt)
-        D_LT, D_LV = 1.08, 1.0  # ngang sát khóe (hở khóe khi nhắm), dọc nới cho mống mắt lớn
+        D_LT, D_LV = 1.08, 1.08  # ngang sát khóe (hở khóe khi nhắm), dọc nới cho mống mắt lớn
         qm_ = mat_ve - c
         am_, tp_, bt_ = np.abs(qm_ @ u).max(), (qm_ @ up).max(), abs((qm_ @ up).min())
         bo = [v for v in bm.verts if abs((np.array(v.co) - c) @ u) > ru0 * 1.2
