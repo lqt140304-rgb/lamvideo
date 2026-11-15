@@ -28,7 +28,7 @@ Kích thước nhập khoảng 0,648 × 0,586 × 1,723 m. Có UV và texture 204
 
 ## Bản đầu trọc (không tóc)
 
-[`nhan-vat-goc-troc.blend`](nhan-vat-goc-troc.blend) (khoảng 16 MB) là lưới nền **bỏ tóc**, có hộp sọ kín, vẫn giữ texture và nốt ruồi. File tạo bằng [`rig-thu/dau_troc.py`](rig-thu/README.md) từ `nhan-vat-goc.blend` và khuôn `nguon/dau-troc-tham-chieu.fbx`; tay buông, chưa rig. Texture đã đóng gói trong file. Ảnh kiểm: [rig-thu/dau-troc.webp](rig-thu/dau-troc.webp). Giấy phép của khuôn chưa xác minh, như bản gốc.
+`nhan-vat-goc-troc.blend` (khoảng 16 MB, **không đưa lên Git**: dựng lại bằng lệnh ở [rig-thu/README.md](rig-thu/README.md), khoảng 1–2 phút) là lưới nền **bỏ tóc**, có hộp sọ kín, vẫn giữ texture và nốt ruồi. File tạo bằng [`rig-thu/dau_troc.py`](rig-thu/README.md) từ `nhan-vat-goc.blend` và khuôn `nguon/dau-troc-tham-chieu.fbx`; tay buông, chưa rig. Texture được đóng gói trong file khi dựng lại. Ảnh kiểm: [rig-thu/dau-troc.webp](rig-thu/dau-troc.webp). Giấy phép của khuôn chưa xác minh, như bản gốc.
 
 ## Tệp nguồn và truy vết
 
