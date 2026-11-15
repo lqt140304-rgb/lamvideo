@@ -24,18 +24,19 @@ Bảng trưng bày: `xem-thu/DAO-CU-3D.png` (script `dao_cu_3d.py`; mỗi vật 
 | Mã | Đạo cụ | Trạng thái |
 |---|---|---|
 | P01 | Chiếc gương (4 trạng thái) | Gương + khung + cổng gương + kính nước **có**; còn mờ sương/nứt góc phải (trạng thái 2), lớp cảnh cuối |
-| P02 | Búa đinh cán gỗ | **Mới dựng** (cán gỗ, đầu búa, móng nhổ đinh, gỉ) |
+| P02 | Búa sắt **cán bọc cao su đen** (master 1.1) | **Đã thay 15/11**: `dao_cu_ban_moi.bua_cao_su`. Búa cán gỗ cũ trong `dao_cu_3d.hammer` lệch kịch bản, không dùng nữa |
 | P03, P04 | Thẻ CCCD, thẻ sinh viên | **Mới dựng** (khung thẻ, chip, ảnh, nốt ruồi trái/phải, dây đeo) — còn chữ thật + ảnh chân dung (texture) |
 | P05 | Then sắt | **Mới dựng**, 2 trạng thái |
 | P06 | Phong bì 3 triệu | **Mới dựng** (phong bì + 6 tờ xanh) |
 | P07 | Bát sứ + đũa bồn rửa | **Mới dựng** (bát viền xanh, họa tiết hoa, bọt xà phòng, đũa); bồn rửa/giá bát đã có; còn nước chảy, giọt rỏ |
 | P08 | Hộp cơm sườn trứng ốp la | **Mới dựng** |
 | P09 | Bún chả + nem + nước mắm | **Mới dựng** |
-| P10 | Gói xôi gấc lá chuối + giò | **Mới dựng** |
+| P10 | **Hộp xôi trắng hành phi** (master 2.4) | **Đã thay 15/11**: `dao_cu_ban_moi.hop_xoi` có 2 trạng thái, nguyên và hất văng xuống sàn. Gói xôi gấc cũ lệch kịch bản |
 | P11 | Túi hoa quả | **Mới dựng** |
 | P12 | Viên phấn gãy | **Mới dựng** (+ bột phấn) |
-| (13 đạo cụ khác) | PC, thau đồ, bóng, kéo, góc đồ cho/tặng | Chưa dựng |
-| UI-01…07 | Màn hình điện thoại/laptop | Điện thoại + màn hình **có** (khung + phát sáng); **chưa gắn ảnh UI** — dùng PNG sẵn có trong `assets/bo-sung-15p/` làm texture phát sáng; Laptop đã có màn hình |
+| P13–P25 | Hộp thuốc bổ khớp + note vàng của mẹ, note Lab 402, hoá đơn 650k, dép tổ ong, nồi cơm điện, thùng mì + sọt vỏ gia vị, chậu đồ ngâm, dao gọt cán vàng, tuýp dầu, chìa khoá, ba lô, giáo trình + 3 trang ghi chép | **Đã dựng 15/11** (`dao_cu_ban_moi.py`, mỗi món có `grip_*`). Ảnh: `xem-thu/THE-DAO-CU.jpg` (mỗi món một thẻ, `--the`), `xem-thu/DAO-CU-MOI.png` |
+| (bỏ) | Phong bì 3 triệu, hộp cơm sườn, bún chả, túi hoa quả | Không còn trong master; giữ trong `dao_cu_3d.py` để tham khảo |
+| UI | Màn hình điện thoại/laptop | **Đã làm lại 15/11 đúng câu chữ master** (`ui_man_hinh.py` → `ui/*.png`, bảng `ui/BANG-UI.png`): UI-01 báo thức 06:30 + hạn nộp đỏ, UI-03 nhóm lớp khen, UI-08 trắc nghiệm 10 câu, UI-09 game MOBA thua (máy cầm ngang, 1040×624), UI-04 điểm Lab 402: 9.5, UI-05 Mẹ yêu gọi video, UI-06 nhóm Họ Nguyễn (ô video tạm), UI-07 Word tiểu luận + đã nộp 19:30, UI-10 IDE C++. Gắn vào `dao_cu_ban_moi.dien_thoai(ui=…)` / `laptop(ui=…)`. Giao diện tự thiết kế, không logo ứng dụng thật. **Còn:** clip ăn giỗ thật trong UI-06 (cần nhân vật) |
 Chưa làm cho đạo cụ: vật liệu chi tiết (chữ trên thẻ, tem, logo), điểm neo `Child-Of` vào xương tay (cần nhân vật Modular), trọng lượng/vật lý rơi (búa rơi, xôi hất, phấn gãy).
 
 ## 3. Hoạt cảnh và kỹ xảo bối cảnh cần chuẩn bị

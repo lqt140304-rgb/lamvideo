@@ -78,13 +78,18 @@ def main():
             el = 18 + 12 * max(0.0, -sg * math.cos(2 * math.pi * phi))                               # khuỷu gập nhiều hơn khi tay ra trước
             set_world_rot(f'{S_}ForeArm', Rot((1, 0, 0), -el))
             set_world_rot(f'{S_}Hand', Rot((0, 0, 1), -s * 8))
-            hb = pb[f'{S_}Hand']; hb['nam'] = 0.25
+            hb = pb[f'{S_}Hand']; hb['nam'] = 0.0
+            # ngón thả lỏng tự nhiên: gập tăng dần từ trỏ đến út, ngón cái ít; gập nhiều hơn khi tay ra sau, duỗi hơn khi tay ra trước
+            sw = sg * math.cos(2 * math.pi * phi)                        # +1 khi tay ở phía sau
+            for pr, base in (('nam_tro', 0.14), ('nam_giua', 0.24), ('nam_ap', 0.34), ('nam_ut', 0.44), ('nam_cai', 0.12)):
+                hb[pr] = max(0.0, min(1.0, base + 0.07 * sw))
         bpy.context.view_layer.update()
         for b in pb:
             if b.name.startswith(('pole_',)): continue
             b.keyframe_insert('rotation_quaternion', frame=fr)
             if b.name in ('root', 'Hips') or b.name.startswith('ik_foot'): b.keyframe_insert('location', frame=fr)
-        for S_ in ('Left', 'Right'): pb[f'{S_}Hand'].keyframe_insert('["nam"]', frame=fr)
+        for S_ in ('Left', 'Right'):
+            for pr in ('nam_tro', 'nam_giua', 'nam_ap', 'nam_ut', 'nam_cai'): pb[f'{S_}Hand'].keyframe_insert(f'["{pr}"]', frame=fr)
     # kiểm: trượt chân đứng (so với mặt đất, khi đi tại chỗ phải trượt đúng tốc độ thân = S/(0,6N) mỗi khung)
     sl, hmin = [], 9.0
     for f in range(1, N + 1):

@@ -5,3 +5,6 @@ out/
 public/*/voice/
 public/*/sfx/
 public/*/sound/
+
+# Thoai ElevenLabs tung cue (tao lai bang voice_cues.py --that)
+public/*/thoai/

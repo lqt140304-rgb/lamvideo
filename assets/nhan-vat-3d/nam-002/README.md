@@ -171,4 +171,6 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 
 **Lỗi tìm ra nhờ đoạn thử:** khi khoét hốc mắt *trước* bước gán trọng số, bone heat cho trọng số chân sai (đỉnh cổ chân nhận `Spine1`), nên chân bị xé ở gối khi đi. Đi tại chỗ không thấy vì chỉ lộ khi `root` tịnh tiến. Đã sửa: gán trọng số trước, khoét hốc sau. Số đo chân trở lại như bản cũ (bước chân 4 cạnh giãn quá 2×, ngồi xổm 675).
 
-**Còn lại:** ngón tay hơi cứng khi đi (nắm 0,25 cố định); mặt chỉ nhỏ trong khung nên chưa soi được chi tiết mắt ở đoạn này; chưa có audio để kiểm khẩu hình theo lời; chưa đo trượt chân đứng.
+**Ngón tay khi đi (đã sửa):** trước đây cả bàn tay nắm cố định 0,25 nên các ngón gập giống hệt nhau và đứng yên. Giờ mỗi ngón gập khác nhau (trỏ 0,14 · giữa 0,24 · áp út 0,34 · út 0,44 · cái 0,12) và cộng thêm ±0,07 theo nhịp đánh tay: tay ra sau thì gập nhiều hơn, ra trước thì duỗi hơn. [Ảnh bàn tay trái ở 4 khung](ngon-khi-di.webp).
+
+**Còn lại:** mặt chỉ nhỏ trong khung nên chưa soi được chi tiết mắt ở đoạn này; chưa có audio để kiểm khẩu hình theo lời; chưa đo trượt chân đứng.
