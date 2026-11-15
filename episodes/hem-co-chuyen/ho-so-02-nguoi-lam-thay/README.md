@@ -20,6 +20,7 @@ Thời lượng kịch bản mở tự nhiên (~18–22 phút), không gò bó c
 | File | Vai trò |
 |---|---|
 | [ASSET.md](ASSET.md) | Nơi tìm nguồn nhân vật, bối cảnh, đồ dùng và trạng thái thực |
+| [Model 3D nhân vật](assets/nhan-vat-3d/README.md) | Kiến trúc modular, thông số thân cage 1,60 m, bàn tay riêng, rig và lộ trình 5 bộ trang phục |
 | [CHECKLIST-TIEN-KY-ASSET.md](CHECKLIST-TIEN-KY-ASSET.md) | Yêu cầu theo cảnh và các bước kiểm tiền kỳ 3D |
 | [DUNG-CANH.md](DUNG-CANH.md) | Ý đồ bố cục, máy, nét, tiếp xúc, âm và nhịp |
 | [Shot list & Timeline](SHOTLIST-VA-TIMELINE-15P.md) | Bảng shot và mốc timeline mở rộng theo nhịp thở điện ảnh |

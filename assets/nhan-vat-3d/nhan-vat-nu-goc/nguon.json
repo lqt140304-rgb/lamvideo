@@ -1,0 +1,52 @@
+{
+  "asset_id": "NHAN-VAT-NU-GOC-001",
+  "role": "Nguồn base chính thức cho nhân vật nữ theo yêu cầu chủ repo",
+  "supplied_by": "Chủ repo",
+  "supplied_date": "2026-11-14",
+  "archive": {
+    "name": "67b8ee32-d50e-4aca-b0f0-05a6b5664af6.zip",
+    "bytes": 19936748,
+    "sha256": "6926b1b1dedc869781c2fa50c425ffd653bb77f19f236cd3228bea6f1a4557cf"
+  },
+  "license": "Không có giấy phép trong ZIP; chưa xác minh",
+  "retained_files": [
+    {
+      "path": "nguon/lod_basic_pbr.fbx",
+      "bytes": 6545900,
+      "sha256": "bfc6056e79996a8e4b4dc10201f008b96b2b9888f4dbf0e37bd7304ed9300fee"
+    },
+    {
+      "path": "nguon/texture_diffuse.png",
+      "bytes": 2063549,
+      "sha256": "fcf914627f68727ee174beaca2eee0c3feb57caa8f273d021b85dcd36672ca90"
+    },
+    {
+      "path": "nguon/texture_metallic.png",
+      "bytes": 599523,
+      "sha256": "1a1cd5922e85c29ce6966c35b00b3898e104dd84fd64e0353eb8d7ac44cf8cd5"
+    },
+    {
+      "path": "nguon/texture_normal.png",
+      "bytes": 2863050,
+      "sha256": "29c9cbc5ddb3b838eac779c4a0fe1e27bb00996dd4f97eb25213b55f45036a26"
+    },
+    {
+      "path": "nguon/texture_roughness.png",
+      "bytes": 735208,
+      "sha256": "8ba721964b882e7ecc8e1de58d711acd351e170ef9d1f5b3e42c998df783ed10"
+    },
+    {
+      "path": "nguon/texture_pbr.png",
+      "bytes": 1669796,
+      "sha256": "65390cc042ddddad9d41b2f5c6e84e2e3405ce3d7c4bbd45788f8eb72c095aea"
+    }
+  ],
+  "archive_variants_not_copied": [
+    "lod.fbx",
+    "lod_basic_shaded.fbx",
+    "shaded.png"
+  ],
+  "working_base_lod": "LOD0 only",
+  "status": "Base hình khối tĩnh, đầu trọc; chưa rig, chưa shape key, chưa kiểm chuyển động",
+  "known_source_issue": "LOD1: 8 cặp tam giác tự giao ở bàn tay +X; không có trong file base làm việc"
+}
