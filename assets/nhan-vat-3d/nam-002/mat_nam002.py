@@ -12,8 +12,8 @@ import bpy, bmesh
 import numpy as np
 from mathutils import Vector, Matrix
 
-EYE_X, EYE_Z = 0.052, 1.5295
-RX, RZ = 0.0340, 0.0405          # bán trục viền ngoài (ngang, dọc)
+EYE_X, EYE_Z = 0.052, 1.5268      # theo nếp hốc trên lưới (viền vẽ cũ: z 1,5295)
+RX, RZ = 0.0415, 0.0435  # nếp hốc: rộng hơn viền vẽ 22 %, cao hơn 7,5 % (trễ xuống dưới); viền vẽ cũ 0,0340 × 0,0405
 VIEN = 0.0040                    # bề dày nét viền vẽ: lỗ khoét nằm bên trong nét
 SAU_HOC = 0.012                  # độ sâu tường hốc
 HO = 0.0030                      # mặt trước nhãn cầu lùi sau mặt da
