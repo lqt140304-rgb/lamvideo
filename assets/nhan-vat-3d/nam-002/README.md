@@ -207,3 +207,5 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 - Scale giữ ở mức object (Nam_Rig = chiều cao/1,70), chưa áp; bước đi theo tỉ lệ nhưng chưa tính độ dài chân khác nhau.
 - Dáng người nướng cố định, không phải thanh trượt; áo quần làm cho bản gốc phải làm lại theo từng biến thể (Data Transfer từ thân biến thể).
 - Chưa thử áo quần lên biến thể; chưa thử thay đổi khuôn mặt (mũi, hàm, khoảng cách mắt).
+
+**Nốt ruồi (15/11/2026):** `bien_the_nam002.py --ruoi trai|phai` vẽ nốt ruồi bằng shader ngay dưới đuôi mắt (trái nhân vật = +X cho Nam, phải cho Người Kia). Đi theo mặt khi cử động và khi scale. `nam-002` gốc chưa có nốt ruồi nào. Chưa duyệt vị trí/độ lớn với chủ repo.

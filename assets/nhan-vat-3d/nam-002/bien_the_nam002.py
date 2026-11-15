@@ -8,6 +8,7 @@
 --vai   mở rộng vai (m mỗi bên; 0,02 = +4 cm tổng). Xương vai–tay dịch theo để rig không lệch
 --day   phồng thân/bụng theo pháp tuyến (m; 0,012 ≈ người đầy hơn)
 --toc   ngan | dai | khong ; --mau-toc r,g,b
+--ruoi  trai (Nam, +X) | phai (Người Kia, −X) | khong: nốt ruồi dưới đuôi mắt, vẽ bằng shader theo tọa độ rest
 Dáng người được NƯỚNG vào lưới gốc và mọi shape key (miệng) — file biến thể là bản riêng, không phải thanh trượt.
 Tóc: lớp vỏ copy từ da đầu, trọng số 100 % xương Head (modifier Armature, như áo quần).
 """
@@ -62,6 +63,29 @@ def mau_da(rgb):
     mx.label = 'MAU_DA'
 
 
+def nut_ruoi(ben):
+    """Nốt ruồi dưới đuôi mắt: 'trai' (+X, Nam) hoặc 'phai' (−X, Người Kia). Vẽ bằng shader theo tọa độ rest của lưới
+    (Texture Coordinate 'Object'), nên dính mặt khi cử động/scale; không sửa texture. Bán kính ≈ 2 mm."""
+    mt = bpy.data.materials['model']; nt = mt.node_tree; N = nt.nodes
+    cx = 0.082 if ben == 'trai' else -0.082; cz = 1.478
+    tc = N.new('ShaderNodeTexCoord'); sp = N.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sp.inputs[0])
+    dx = N.new('ShaderNodeMath'); dx.operation = 'SUBTRACT'; nt.links.new(sp.outputs['X'], dx.inputs[0]); dx.inputs[1].default_value = cx
+    dz = N.new('ShaderNodeMath'); dz.operation = 'SUBTRACT'; nt.links.new(sp.outputs['Z'], dz.inputs[0]); dz.inputs[1].default_value = cz
+    ax = N.new('ShaderNodeMath'); ax.operation = 'POWER'; nt.links.new(dx.outputs[0], ax.inputs[0]); ax.inputs[1].default_value = 2.0
+    az = N.new('ShaderNodeMath'); az.operation = 'POWER'; nt.links.new(dz.outputs[0], az.inputs[0]); az.inputs[1].default_value = 2.0
+    sm_ = N.new('ShaderNodeMath'); sm_.operation = 'ADD'; nt.links.new(ax.outputs[0], sm_.inputs[0]); nt.links.new(az.outputs[0], sm_.inputs[1])
+    rt = N.new('ShaderNodeMath'); rt.operation = 'SQRT'; nt.links.new(sm_.outputs[0], rt.inputs[0])
+    ramp = N.new('ShaderNodeMapRange'); nt.links.new(rt.outputs[0], ramp.inputs[0])
+    ramp.inputs[1].default_value = 0.0016; ramp.inputs[2].default_value = 0.0026; ramp.inputs[3].default_value = 1.0; ramp.inputs[4].default_value = 0.0; ramp.clamp = True
+    fy = N.new('ShaderNodeMapRange'); nt.links.new(sp.outputs['Y'], fy.inputs[0])
+    fy.inputs[1].default_value = 0.0; fy.inputs[2].default_value = -0.02; fy.inputs[3].default_value = 0.0; fy.inputs[4].default_value = 1.0; fy.clamp = True   # chỉ mặt trước (y < 0)
+    mk = N.new('ShaderNodeMath'); mk.operation = 'MULTIPLY'; nt.links.new(ramp.outputs[0], mk.inputs[0]); nt.links.new(fy.outputs[0], mk.inputs[1])
+    mx = N.new('ShaderNodeMix'); mx.data_type = 'RGBA'; mx.blend_type = 'MIX'; mx.label = 'NOT_RUOI'
+    nt.links.new(mk.outputs[0], mx.inputs[0]); mx.inputs[7].default_value = (0.10, 0.045, 0.03, 1.0)
+    bsdf = N['Principled BSDF']; src = bsdf.inputs['Base Color'].links[0].from_socket
+    nt.links.new(src, mx.inputs[6]); nt.links.new(mx.outputs[2], bsdf.inputs['Base Color'])
+
+
 def toc(arm, body, kieu, rgb, sc):
     if kieu == 'khong': return None
     me = bpy.data.meshes.new('Toc'); bm = bmesh.new(); bm.from_mesh(body.data)
@@ -94,7 +118,7 @@ def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--in', dest='inp', required=True); ap.add_argument('--out', required=True)
     ap.add_argument('--cao', type=float, default=1.70); ap.add_argument('--da', default='1,1,1'); ap.add_argument('--vai', type=float, default=0.0); ap.add_argument('--day', type=float, default=0.0)
-    ap.add_argument('--toc', default='khong'); ap.add_argument('--mau-toc', default='0.03,0.02,0.02'); ap.add_argument('--anh')
+    ap.add_argument('--ruoi', default='khong', help='trai (Nam) | phai (Người Kia) | khong'); ap.add_argument('--toc', default='khong'); ap.add_argument('--mau-toc', default='0.03,0.02,0.02'); ap.add_argument('--anh')
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.inp)); sc = bpy.context.scene
     arm = bpy.data.objects['Nam_Rig']; body = bpy.data.objects['Nam_Body']
@@ -102,6 +126,7 @@ def main():
     bpy.context.view_layer.update()
     dang_nguoi(arm, body, a.vai, a.day)
     mau_da(tuple(float(v) for v in a.da.split(',')))
+    if a.ruoi != 'khong': nut_ruoi(a.ruoi)
     ob = toc(arm, body, a.toc, tuple(float(v) for v in a.mau_toc.split(',')), sc)
     k = a.cao / 1.70; arm.scale = (k, k, k)
     sc['bien_the'] = f'cao {a.cao} m, da {a.da}, vai {a.vai}, day {a.day}, toc {a.toc}'
