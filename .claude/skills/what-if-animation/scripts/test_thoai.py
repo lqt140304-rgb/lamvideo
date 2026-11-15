@@ -42,7 +42,7 @@ class Goi:
         if self.hong_o == self.n:
             raise RuntimeError('API lỗi')
         self.texts.append(body['text'])
-        assert body['model_id'] == 'eleven_v4'
+        assert body['model_id'] == 'eleven_v3_conversational'
         return b'ID3fake-mp3'
 
 

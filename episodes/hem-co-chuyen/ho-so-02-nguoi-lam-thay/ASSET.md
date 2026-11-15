@@ -28,7 +28,7 @@
 ## Thoại ElevenLabs (15/11/2026)
 
 - Nguồn lời: [thoai-cue.json](thoai-cue.json), 51 cue trích từ `KICH-BAN-15P-HOAN-CHINH.md` bằng `trich_thoai.py` và rà tay. `VOICEOVER-CUE-SHEET.md` cũ không còn là nguồn lời.
-- Giọng đã chốt: [giong-chot.json](giong-chot.json), model `eleven_v4`. Nam và Người Kia dùng Nhật Phong (Người Kia chỉnh stability cao hơn), Tùng và Sinh viên dùng Phong, Giảng viên dùng Viet Dung.
-- File: `what-if-studio/public/ho-so-02-nguoi-lam-thay/thoai/<CUE>.mp3`, tổng 339 giây, kèm `manifest.json` ghi độ dài từng file. Audio không commit.
+- Giọng đã chốt: [giong-chot.json](giong-chot.json), model `eleven_v3_conversational` (bản v4 nghe máy hơn nên đã thay). Lời đọc theo văn nói nằm ở trường `loi_doc`, duyệt trong [THOAI-VAN-NOI.md](THOAI-VAN-NOI.md); `loi` giữ đúng kịch bản để làm phụ đề. Nam và Người Kia dùng Nhật Phong; Người Kia chia 3 giai đoạn, từ máy móc đến thuần thục như người thật, Tùng và Sinh viên dùng Phong, Giảng viên dùng Viet Dung.
+- File: `what-if-studio/public/ho-so-02-nguoi-lam-thay/thoai/<CUE>.mp3`, tổng 357 giây, kèm `manifest.json` ghi độ dài từng file. Audio không commit.
 - Tạo lại: chạy `py ../.claude/skills/what-if-animation/scripts/voice_cues.py ho-so-02-nguoi-lam-thay --that` từ thư mục `what-if-studio/`. Chỉ những cue đã đổi mới bị gọi API.
-- Chi phí theo lịch sử ElevenLabs: thử giọng 1.603 credit, đọc toàn bộ 2.839 credit. Lịch sử có thể ghi thiếu, đối chiếu lại với trang usage.
+- Chi phí theo lịch sử ElevenLabs: thử giọng 1.603, bản v4 2.839 (đã thay), thử độ tự nhiên 239, bản v3 văn nói 1.284. Tổng 5.965 credit. Lịch sử có thể ghi thiếu, đối chiếu lại với trang usage.

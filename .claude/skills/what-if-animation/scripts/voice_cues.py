@@ -1,4 +1,4 @@
-"""Thoại nhiều vai: mỗi cue một file mp3, ElevenLabs eleven_v4, mỗi cue gọi API một lần (cache theo lời + giọng).
+"""Thoại nhiều vai: mỗi cue một file mp3, ElevenLabs eleven_v3_conversational, mỗi cue gọi API một lần (cache theo lời + giọng).
 
 Chạy từ thư mục studio:
   py <skill>/scripts/voice_cues.py <slug> --thu    đọc bộ thử giọng   -> out/<slug>/thu-giong/<ten>/<cue>.mp3
@@ -8,15 +8,16 @@ Không cắt khoảng lặng: nhịp nghỉ dựng trên timeline. Chạy lại 
 """
 import hashlib, json, pathlib, sys
 
-MODEL = 'eleven_v4'
+MODEL = 'eleven_v3_conversational'  # chủ repo chọn 15/11/2026 sau thử độ tự nhiên (v4 nghe máy hơn)
 
 
 def sig(cue, g):
-    return hashlib.sha1(json.dumps([cue['loi'], cue.get('cam_xuc', ''), g, MODEL], sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
+    return hashlib.sha1(json.dumps([van_ban(cue), g, MODEL], sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:12]
 
 
 def van_ban(cue):
-    return f"[{cue['cam_xuc']}] {cue['loi']}" if cue.get('cam_xuc') else cue['loi']
+    the, loi = cue.get('the') or cue.get('cam_xuc'), cue.get('loi_doc') or cue['loi']  # loi giữ cho phụ đề
+    return f'[{the}] {loi}' if the else loi
 
 
 def doc(cues, giong, thu_muc, goi, do_dai):
@@ -25,7 +26,7 @@ def doc(cues, giong, thu_muc, goi, do_dai):
     mp = thu_muc / 'manifest.json'
     m = json.loads(mp.read_text(encoding='utf-8')) if mp.exists() else {}
     for c in cues:
-        g = giong[c['vai']]
+        g = giong[c.get('giong_vai', c['vai'])]  # vd. Người Kia đổi giai đoạn giọng theo hồi
         s, f = sig(c, g), thu_muc / f"{c['id']}.mp3"
         if m.get(c['id'], {}).get('sig') == s and f.exists():
             continue
@@ -49,7 +50,7 @@ if __name__ == '__main__':
         viec = []
         for b in load('thu-giong.json'):
             sub = [cues[i] for i in b['cue_ids']]
-            viec.append((sub, {c['vai']: {'id': b['giong_id'], 'settings': b['settings']} for c in sub}, out_dir(slug) / 'thu-giong' / b['ten']))
+            viec.append((sub, {c.get('giong_vai', c['vai']): {'id': b['giong_id'], 'settings': b['settings']} for c in sub}, out_dir(slug) / 'thu-giong' / b['ten']))
     elif mode == '--that':
         viec = [(list(cues.values()), load('giong-chot.json'), pub_dir(slug) / 'thoai')]
     else:
@@ -58,7 +59,7 @@ if __name__ == '__main__':
     for sub, giong, d in viec:
         mp = d / 'manifest.json'
         cu = json.loads(mp.read_text(encoding='utf-8')) if mp.exists() else {}
-        chars += sum(len(van_ban(c)) for c in sub if cu.get(c['id'], {}).get('sig') != sig(c, giong[c['vai']]) or not (d / f"{c['id']}.mp3").exists())
+        chars += sum(len(van_ban(c)) for c in sub if cu.get(c['id'], {}).get('sig') != sig(c, giong[c.get('giong_vai', c['vai'])]) or not (d / f"{c['id']}.mp3").exists())
     print(f'{chars} ký tự cần gửi ElevenLabs ({MODEL})')
     for sub, giong, d in viec:
         m = doc(sub, giong, d, api, do_dai)
