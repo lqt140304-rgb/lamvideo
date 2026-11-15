@@ -97,3 +97,20 @@ Cạnh co <0,4× (nếp gấp): đi bộ 122, chạy 401, ngồi 596, bò 743, t
 **Cách đo từng lỗi phát hiện:** nếu tắt Corrective Smooth khi đo (cho nhanh), ngay cả tư thế tay buông 78° cũng cho 25 cạnh giãn >2× ở đỉnh vai, trong khi bảng đo của rig (bật) cho 0; vì thế các số đo ban đầu (27, 45, 188, 257 cạnh) phóng đại và đã đo lại ở trên. Bò: bàn chân duỗi thẳng hàng cẳng chân cho 116 cạnh giãn >2×; chúi mũi chân xuống (pitch 120°, mũi chạm sàn) còn 5. Trườn: giảm độ dạng chân và kéo gối từ 165 xuống 21 cạnh.
 
 **Hạn chế (chưa làm / chưa chắc):** đây là chuyển động **để thử rig**, không phải hoạt hình đã trau chuốt (tay đánh, nhịp, trọng tâm còn đơn giản; chạy bộ chưa có pha bay đúng nghĩa); chưa đo trượt chân đứng; chưa xem ảnh cận hông/bẹn/nách ở các tư thế nằm, trườn; ngón tay khi nắm còn cạnh giãn (15 cạnh ở chạy bộ) do mình đặt độ nắm; chưa thử ngồi sàn, quỳ, nằm nghiêng giữ yên, tay IK cầm đồ vật, leo; chiều cao 1,60/1,70 m chưa thử riêng cho các chuyển động (chỉ thử ở 1,824 m gốc).
+
+## Biên độ khớp (ROM) — `kiem_rom_nam003.py` (15/11/2026)
+
+Quét từng khớp, đo cạnh lưới giãn >2× / co <0,35× và mặt cắt quanh khớp (Corrective Smooth bật). Chạy: `python kiem_rom_nam003.py --rig nam-003-rig.blend [--khop wrist,finger,ankle,hip,knee,elbow] [--anh thư_mục]`.
+
+| Khớp | Kết quả đo | Kết luận |
+|---|---|---|
+| Háng gập | quá ~−90° (tới −130°) có 22–41 cạnh >2× (tối đa 2,26×) | Biên độ an toàn ≈ 90°; sâu hơn (ngồi xổm sát, lên gối) méo ở bẹn |
+| Cổ chân gập mu/duỗi | duỗi ≥55° có 7 cạnh >2×, mặt cắt còn 78% | An toàn tới ~45°; ngón chân chúi sâu hơn cần sửa |
+| Gối | gập ≥60° có ~60–140 cạnh co mạnh, mặt cắt 71% ở 145° | Co nếp khoeo; cần ảnh cận trước khi chấp nhận gập sâu |
+| Khuỷu | mặt cắt 72% ở −150° | Co nếp, chưa thấy giãn |
+| Cổ tay | gập −80° có 23 cạnh co; số mặt cắt gồm cả bàn tay nên chưa đáng tin | Trong biên độ người thường: ổn; chưa soi ảnh |
+| Ngón tay | gập ≥0,5 bắt đầu giãn >2× quanh khớp gốc ngón (Index 2,2×, Middle 2,5×); nắm hết cỡ 8,5×, 90 cạnh >2× | **Có méo thật**: ảnh cận ở độ gập 0,5 có hố ở lòng bàn tay/kẽ ngón cái; nắm hết cỡ ra hình nắm đấm chấp nhận được |
+
+**Đính chính lỗi bài đo:** thuộc tính tuỳ biến (`nam`, `nam_tro`…) đặt bằng script không tự kích driver; phải gọi `arm.update_tag()` trước `view_layer.update()`. Trước 15/11 `Ctx.upd()` thiếu dòng này nên **ngón tay đứng yên trong các video chuyển động thử và các số đo ngón cũ** (không phải lỗi rig). Đã sửa trong `chuyen_dong_nam003.py`; video cũ chưa dựng lại.
+
+**Chưa sửa:** trọng số háng/bẹn, cổ chân, bàn tay chỉ mới được đo, chưa chỉnh. Chưa soi ảnh cận cho háng, gối, cổ chân.

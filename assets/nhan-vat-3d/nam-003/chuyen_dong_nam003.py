@@ -36,9 +36,11 @@ class Ctx:
                 if pr in h.keys(): h[pr] = 0.0
         for k in 'LR':
             if 'ik' in self.pb[f'ik_hand.{k}'].keys(): self.pb[f'ik_hand.{k}']['ik'] = 0.0
-        bpy.context.view_layer.update()
+        self.arm.update_tag(); bpy.context.view_layer.update()
 
-    def upd(self): bpy.context.view_layer.update()
+    def upd(self):
+        self.arm.update_tag()      # đổi thuộc tính tuỳ biến bằng script không tự đánh dấu driver; thiếu dòng này ngón tay đứng yên
+        bpy.context.view_layer.update()
 
     def place(self, bn, loc=None, euler_deg=(0, 0, 0), world_rot=None):
         """Đặt xương bn: đầu xương ở loc (thế giới), hướng = quay thế giới (euler độ hoặc ma trận 3x3) ∘ hướng nghỉ."""
