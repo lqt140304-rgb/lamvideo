@@ -115,3 +115,5 @@ D:/blender/blender.exe -b nhan-vat-nu-rig.blend --python chup_duyet.py -- <thư 
 - **Độ mượt:** Subdivision làm thân mượt hơn nhưng không thêm chi tiết điêu khắc như base Nam (220 nghìn đỉnh). Muốn chi tiết đó phải dựng lại lưới dày rồi làm lại rig.
 - **Da mặt:** normal map đặt cường độ 0,2 cho da mịn (bản gốc có vân lỗ chân lông làm mặt sần). Mảnh mi/mày cũ đã tô màu da nhưng vẫn lộ nhẹ thành mảng phẳng quanh mày khi quay cận.
 - **Khác:** chưa có quần áo, tóc, 18 cảm xúc; chưa nghiệm thu chuyển động. Mới duyệt bằng ảnh tĩnh.
+
+**Làm trơn lưới mí (15/11/2026):** lưới mí (dáng mở và shape key `dong`) được làm trơn 30 vòng, giữ hàng mép mi và vòng ngoài cùng, nên khóe trên–ngoài hết bậc và mắt nhắm hết nếp gãy. Lòng trắng dọc dưới thu về 1,0. Còn lại: dưới mắt có một vệt tối mảnh; khi chớp nửa chừng còn mũi tối nhỏ ở hai đầu mép mi và góc lòng trắng lộ.
