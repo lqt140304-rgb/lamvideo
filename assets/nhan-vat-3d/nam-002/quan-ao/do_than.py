@@ -22,6 +22,7 @@ RG = _nap('rig_nam002')
 J = RG.J
 OUT = os.path.join(HERE, 'out'); RIG = os.path.join(OUT, 'nam-002-rig.blend')
 BAND = 0.005          # nửa bề dày lát cắt (m)
+X_CHAN_MAX = 0.19      # lát chân: bỏ bàn tay buông cạnh đùi (dáng dựng tay xiên)
 STEP = 0.02           # khoảng cách lát
 
 
@@ -37,8 +38,10 @@ def _co(body):
     a = np.zeros(len(body.data.vertices) * 3); body.data.vertices.foreach_get('co', a); return a.reshape(-1, 3)
 
 
-def measure(body, save=True):
-    P = _co(body); sd = {'joints': {k: list(v) for k, v in J.items()}, 'torso': [], 'arm': [], 'leg': []}
+def measure(body, save=True, P=None, joints=None):
+    """Đo lát cắt. P/joints: toạ độ da và mốc khớp ở dáng dựng (mặc định: lưới nghỉ chữ T và rig_nam002.J)."""
+    J = dict(RG.J, **(joints or {})); P = _co(body) if P is None else P
+    sd = {'joints': {k: list(v) for k, v in J.items()}, 'torso': [], 'arm': [], 'leg': []}
     # thân: từ đáy háng tới vai, chỉ phần |x| < vai − 1 cm (không lấy tay ở dáng chữ T)
     z_day = J['hip'][2] - 0.04; xs = J['shoulder'][0] - 0.01
     for z in np.arange(z_day, J['neck'][2] + 1e-6, STEP):
@@ -59,7 +62,7 @@ def measure(body, save=True):
         sd['arm'].append(dict(u=round(float(u), 4), c=[float(x) for x in c], r=float(np.linalg.norm(Q - c, axis=1).max())))
     # chân trái: lát ngang từ háng tới cổ chân
     for z in np.arange(J['hip'][2] - 0.02, J['ankle'][2] - 1e-6, -STEP):
-        m = (np.abs(P[:, 2] - z) < BAND) & (P[:, 0] > 0.01) & (P[:, 0] < 0.25)
+        m = (np.abs(P[:, 2] - z) < BAND) & (P[:, 0] > 0.01) & (P[:, 0] < X_CHAN_MAX)
         if m.sum() < 6: continue
         Q = P[m]; c = (Q.max(0) + Q.min(0)) / 2
         sd['leg'].append(dict(z=round(float(z), 4), c=[float(x) for x in c], rx=float((Q[:, 0].max() - Q[:, 0].min()) / 2), ry=float((Q[:, 1].max() - Q[:, 1].min()) / 2)))

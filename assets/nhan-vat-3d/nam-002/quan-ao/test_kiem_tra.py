@@ -8,19 +8,19 @@ import do_than as DT, may_quan_ao as MQ, gan_rig as GR, kiem_tra as KT
 
 
 def setup():
-    sc, arm, body = KT.load_walk(); sd = DT.measure(body, save=False); cl = MQ.build_outfit(sc, body, sd, 'xanh'); GR.bind(arm, body, cl)
+    sc, arm, body = KT.load_walk(); sd = DT.measure(body, save=False); cl = MQ.build_outfit(sc, body, sd, 'xanh', arm=arm)
     return sc, arm, body, cl
 
 
 def main():
     bad = 0
-    sc, arm, body, cl = setup(); D = KT.Do(sc, arm, body, cl); r = D.do('nghi_T')
+    sc, arm, body, cl = setup(); D = KT.Do(sc, arm, body, cl); r = D.do('dang_dung')
     ok = r['xuyen'] == 0 and r['lo_da'] == 0 and r['vuong'] == 0 and r['rach_gian'] == 0 and r['rach_lat'] == 0
     print('PASS' if ok else 'FAIL', 'test_nghi_sach', {k: r[k] for k in ('xuyen', 'lo_da', 'vuong', 'rach_gian', 'rach_lat')}); bad += not ok
     ao = next(o for o in cl if o.name == 'Ao'); P0 = np.array([v.co[:] for v in ao.data.vertices])
     sel = np.nonzero((np.abs(P0[:, 0]) < 0.06) & (np.abs(P0[:, 2] - 1.10) < 0.03) & (P0[:, 1] < 0))[0][:50]
     P = P0.copy(); P[sel, 1] += 0.06; ao.data.vertices.foreach_set('co', P.ravel()); ao.data.update()        # kéo 50 đỉnh áo vào trong bụng
-    r = D.do('nghi_T'); ok = r['xuyen'] > 0; print('PASS' if ok else 'FAIL', 'test_bat_xuyen', r['xuyen']); bad += not ok
+    r = D.do('dang_dung'); ok = r['xuyen'] > 0; print('PASS' if ok else 'FAIL', 'test_bat_xuyen', r['xuyen']); bad += not ok
     ao.data.vertices.foreach_set('co', P0.ravel()); ao.data.update()
     bm = bmesh.new(); bm.from_mesh(ao.data); bmesh.ops.delete(bm, geom=[v for v in bm.verts if 0.98 < v.co.z < 1.06], context='VERTS'); bm.to_mesh(ao.data); bm.free()
     sc, arm, body, cl2 = sc, arm, body, cl; D2 = KT.Do.__new__(KT.Do); D2.__dict__.update(D.__dict__); D2.cl = [o for o in D.cl if o.name != 'Ao'] + [ao]

@@ -19,11 +19,12 @@ import do_than as DT
 import dung_quan_ao_nam as QA
 
 J = DT.J
-DU = dict(than=0.022, tay=0.020, ong_quan=0.030, quan_dui=0.035)   # khoảng dư dáng rộng (m)
+DU = dict(than=0.022, tay=0.020, ong_quan=0.020, quan_dui=0.030)   # khoảng dư dáng rộng (m)
 CLEAR_MIN = 0.006            # vải cách da tối thiểu lúc nghỉ
 VOXEL = 0.007                # cỡ voxel hợp khối
 N_RING = 32
 Z_GAU_AO = 0.875             # gấu áo
+KHE_DUI = 0.012              # nửa khe tối thiểu giữa hai ống quần (m)
 Z_CAP = 0.965                # cạp quần (gấu áo thấp hơn ≥ 6 cm → còn chồng khi giơ tay)
 
 
@@ -145,7 +146,7 @@ def _box(levels, z_chest=1.20):
 
 
 def shirt_shell(sd, coll, mat, name, du=DU['than'], du_tay=DU['tay'], sleeve='short', z_gau=Z_GAU_AO, neck=('crew', 0.0)):
-    bm = bmesh.new(); sh_z = J['shoulder'][2]
+    J = sd['joints']; bm = bmesh.new(); sh_z = J['shoulder'][2]
     lv = _box(_torso_levels(sd, z_gau - 0.02, J['neck'][2]))
     rings = []
     for L in lv:
@@ -194,8 +195,9 @@ def pants_shell(sd, coll, mat, name, kind='long', du=DU['ong_quan']):
         for L in G:
             if L['z'] < z_end - 0.03: break
             if kind == 'jogger' and L['z'] < J['knee'][2]: rx = ry = max(L['rx'], L['ry']) + du * (0.4 + 0.6 * (L['z'] - z_end) / (J['knee'][2] - z_end))
-            else: rx = max(L['rx'], r_top * 0.80) + du; ry = max(L['ry'], r_top * 0.80) + du
-            c = np.array(L['c']); c[0] *= s; rs.append(_ring_se(c[2], rx, ry, ry, c[1], n=2.0) + np.array((c[0], 0, 0)))
+            else: rx = max(L['rx'], r_top * 0.70) + du; ry = max(L['ry'], r_top * 0.80) + du
+            c = np.array(L['c']); c[0] = max(c[0], rx + KHE_DUI) * s           # ống rộng: dời tâm ra ngoài, giữ khe giữa hai ống (không liền thành váy)
+            rs.append(_ring_se(c[2], rx, ry, ry, c[1], n=2.0) + np.array((c[0], 0, 0)))
         _loft(bm, rs)
     ob = _obj(name, bm, coll, mat); _remesh(ob)
     _cut(ob, lambda p: z_end <= p[2] <= Z_CAP)
@@ -204,12 +206,29 @@ def pants_shell(sd, coll, mat, name, kind='long', du=DU['ong_quan']):
 
 
 # ------------------------------------------------------------------ bộ đồ
-def build_outfit(sc, body, sd, name):
+DANG_DUNG = 75              # dựng quần áo ở dáng tay xiên xuống 75° (gần dáng đi lại), rồi tính ngược về dáng chữ T khi gắn rig
+
+
+def dang_dung(arm, body):
+    """Đặt rig về dáng dựng; trả (toạ độ da đã biến dạng, mốc khớp vai/khuỷu/cổ tay ở dáng đó)."""
+    for b in arm.pose.bones: b.rotation_quaternion = (1, 0, 0, 0); b.scale = (1, 1, 1)
+    DT.RG.reset(arm); DT.RG.arms(arm, DANG_DUNG); bpy.context.view_layer.update()
+    dg = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(dg); me = ev.to_mesh(); P = np.array([v.co[:] for v in me.vertices]); ev.to_mesh_clear()
+    pb = arm.pose.bones; hw = lambda n: list(arm.matrix_world @ pb[n].head)
+    return P, dict(shoulder=hw('LeftArm'), elbow=hw('LeftForeArm'), wrist=hw('LeftHand'))
+
+
+def build_outfit(sc, body, sd, name, arm=None):
+    """arm=None: dựng ở dáng nghỉ chữ T (không gắn rig). arm: dựng quanh da ở dáng DANG_DUNG, gắn rig, đưa vải về toạ độ nghỉ."""
+    if arm:
+        import gan_rig as GR
+        Pp, jp = dang_dung(arm, body); sd = DT.measure(body, save=False, P=Pp, joints=jp)
+        out = build_outfit(sc, body, sd, name); GR.bind(arm, body, out, posed=True); return out
     cfg = QA.OUTFITS[name]; coll = bpy.data.collections.get(f'Quan_Ao_{name}')
     if coll:
         for o in list(coll.objects): bpy.data.objects.remove(o, do_unlink=True)
     else: coll = bpy.data.collections.new(f'Quan_Ao_{name}'); sc.collection.children.link(coll)
-    dg = bpy.context.evaluated_depsgraph_get(); bvh = BVHTree.FromObject(body, dg)
+    dg = bpy.context.evaluated_depsgraph_get(); bvh = BVHTree.FromObject(body, dg)     # da đã biến dạng nếu rig đang ở dáng dựng
     M = lambda k, c, **kw: QA.mat_cloth(f'{name}_{k}', c, **kw)
     out = []
     jacket = cfg.get('open_jacket'); sleeve = cfg.get('sleeve_len', 'short')
@@ -226,7 +245,7 @@ def build_outfit(sc, body, sd, name):
     push_out(quan, bvh); out.append(quan)
     # chi tiết
     col = M('vien', cfg.get('collar', cfg['shirt']))
-    a0 = np.array(J['shoulder']); d = np.array(J['wrist']) - a0; d /= np.linalg.norm(d)
+    a0 = np.array(sd['joints']['shoulder']); d = np.array(sd['joints']['wrist']) - a0; d /= np.linalg.norm(d)
     uax = lambda p: (np.array((abs(p[0]), p[1], p[2])) - a0) @ d
     if cfg.get('pocket'): out.append(patch(ao, 'Tui', lambda p: 0.035 < p[0] < 0.105 and 1.10 < p[2] < 1.19 and p[1] < -0.02, coll, M('tui', cfg['shirt'])))
     if cfg.get('kangaroo'): out.append(patch(ao, 'Tui', lambda p: abs(p[0]) < 0.10 and 0.92 < p[2] < 1.04 and p[1] < -0.03, coll, M('tui', cfg['shirt'])))

@@ -12,12 +12,15 @@ from mathutils.bvhtree import BVHTree
 import do_than as DT
 
 SMOOTH_IT = 10
+SMOOTH_IT_QUAN = 40           # quần ống rộng: làm mượt nhiều hơn (vải xa da)
+HANG_X, HANG_W = 0.06, 0.45   # dải đáy quần theo Hips
 FAR = 0.03
 LEG = ('UpLeg', 'Leg', 'Foot', 'ToeBase')
 TRUNK = ('Hips', 'Spine', 'Spine1', 'Spine2', 'Neck', 'Head')
 
 
 def reset_pose(arm):
+    for b in arm.pose.bones: b.rotation_quaternion = (1, 0, 0, 0); b.scale = (1, 1, 1)
     DT.RG.reset(arm)
 
 
@@ -33,12 +36,17 @@ def _body_weights(body, names):
     return W
 
 
-def bind(arm, body, clothes):
-    reset_pose(arm)
+def bind(arm, body, clothes, posed=False):
+    """posed=True: vải được dựng quanh da ở dáng hiện tại của rig → chép weights theo da đã biến dạng rồi tính ngược về toạ độ nghỉ."""
+    if not posed: reset_pose(arm)
     names = [b.name for b in arm.data.bones if b.use_deform and b.name in body.vertex_groups]
     W = _body_weights(body, names); me = body.data
     tris = [(p.vertices[0], p.vertices[i], p.vertices[i + 1]) for p in me.polygons for i in range(1, len(p.vertices) - 1)]
-    Pb = np.array([v.co[:] for v in me.vertices]); bvh = BVHTree.FromPolygons([tuple(p) for p in Pb], tris)
+    if posed:
+        dg = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(dg); m2 = ev.to_mesh(); Pb = np.array([v.co[:] for v in m2.vertices]); ev.to_mesh_clear()
+        G = np.array([np.array(arm.pose.bones[n].matrix @ arm.data.bones[n].matrix_local.inverted()) for n in names])
+    else: Pb = np.array([v.co[:] for v in me.vertices])
+    bvh = BVHTree.FromPolygons([tuple(p) for p in Pb], tris)
     side = np.array([1 if n.startswith('Left') else -1 if n.startswith('Right') else 0 for n in names])
     leg = np.array([_is_leg(n) for n in names]); armb = np.array([_is_arm(n) for n in names]); trunk = np.array([n in TRUNK for n in names])
     sh_x = DT.J['shoulder'][0]
@@ -56,16 +64,25 @@ def bind(arm, body, clothes):
         if low: C[:, armb] = 0
         if ob.name.startswith('Mu'): C[:, ~trunk] = 0
         sleeve = np.abs(P[:, 0]) > sh_x - 0.01
+        if low and not ob.name.startswith(('Dep', 'Quai', 'Tat')):                  # gấu quần theo cẳng chân, không xoay theo bàn chân
+            C[:, np.array([n.endswith(('Foot', 'ToeBase')) for n in names])] = 0
+        if low:                                                                     # đáy quần: pha xương hông như rig thân (dải giữa ±HANG_X)
+            hz = (P[:, 2] > DT.J['hip'][2] - 0.10) & (np.abs(P[:, 0]) < HANG_X); hi = names.index('Hips')
+            k = (1 - np.abs(P[hz, 0]) / HANG_X) * HANG_W; C[hz] *= (1 - k)[:, None]; C[hz, hi] += k
+        if top: C[:, np.array([n.endswith(('ForeArm', 'Hand')) or 'Hand' in n for n in names])] *= sleeve[:, None]   # thân áo không theo cẳng tay/bàn tay
         C[far & ~sleeve & top] *= trunk                                             # vạt/mũ xa da: chỉ xương thân
         C[np.ix_(P[:, 0] > 0.02, side < 0)] = 0; C[np.ix_(P[:, 0] < -0.02, side > 0)] = 0
         ed = np.array([e.vertices[:] for e in ob.data.edges]); deg = np.bincount(ed.ravel(), minlength=n).clip(1)[:, None]
-        for _ in range(SMOOTH_IT):
+        for _ in range(SMOOTH_IT_QUAN if low else SMOOTH_IT):
             acc = np.zeros_like(C)
             for j in range(C.shape[1]): acc[:, j] = np.bincount(ed[:, 0], weights=C[ed[:, 1], j], minlength=n) + np.bincount(ed[:, 1], weights=C[ed[:, 0], j], minlength=n)
             C = 0.5 * C + 0.5 * acc / deg
             C[np.ix_(P[:, 0] > 0.02, side < 0)] = 0; C[np.ix_(P[:, 0] < -0.02, side > 0)] = 0
         s = C.sum(1, keepdims=True); empty = s[:, 0] < 1e-6
         C[empty, names.index('Hips') if 'Hips' in names else 0] = 1; C /= C.sum(1, keepdims=True)
+        if posed:                                                                   # p = Σw·G·r  ⇒  r = (Σw·G)⁻¹·p
+            M = np.einsum('nj,jab->nab', C, G); Ph = np.c_[P, np.ones(n)]; R = np.einsum('nab,nb->na', np.linalg.inv(M), Ph)[:, :3]
+            ob.data.vertices.foreach_set('co', R.ravel()); ob.data.update()
         ob.vertex_groups.clear()
         for j, nm in enumerate(names):
             idx = np.nonzero(C[:, j] > 1e-4)[0]
@@ -76,6 +93,7 @@ def bind(arm, body, clothes):
             if m.type == 'ARMATURE': ob.modifiers.remove(m)
         m = ob.modifiers.new('Armature', 'ARMATURE'); m.object = arm
         _move_first(ob, 'Armature')
+    if posed: reset_pose(arm)
 
 
 def _move_first(ob, name):
