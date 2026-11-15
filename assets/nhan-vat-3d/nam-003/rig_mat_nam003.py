@@ -169,7 +169,7 @@ def main():
     if a.kiem: kiem_moc(m)
     if a.anh: anh_mat(sc, os.path.join(a.anh, 'bop_sau'), z=m['mui'][2] + 0.01)
     import mat3d_nam003 as M3
-    M3.to_da(body, p)
+    M3.to_da(body, p); M3.muot_da(body)
     mat = M3.tao_mat(sc, arm, body, m, p)
     M3.lam_moi_driver()
     if a.kiem: M3.kiem_mat(mat, arm, body)

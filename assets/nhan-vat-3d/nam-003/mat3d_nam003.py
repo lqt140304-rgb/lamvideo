@@ -9,7 +9,7 @@ Cấu tạo mỗi bên (đều gắn xương Head bằng bone-parent, nên đi t
 - Da Nam_Body trong vùng mắt được đẩy lùi ra sau vỏ mí (không thêm/bớt đỉnh) để da không che nhãn cầu.
 Thuộc tính trên Head: chop_mat, chop_trai, chop_phai, mo_to (0–1).
 """
-import math
+import math, os
 import numpy as np, bpy
 from mathutils import Vector, Matrix
 
@@ -85,10 +85,10 @@ def _mep(u, U, V, tan_ng, side, tren):
 
 def _luoi_mi(C, Rm, U, V, tan_ng, side, tren, mep_fn, p):
     """Trả (co, faces, vien) của vỏ mí. Hàng t=0 là mép; t=1 là rìa ngoài (thụt sâu vào trong)."""
-    Umax = U * 1.35; Vmax = V * 1.55
+    Umax = U * 1.12; Vmax = V * 1.55
     us = np.linspace(-Umax, Umax, NU)
     ts = np.concatenate([[0.0, 0.02, 0.035, 0.08], np.linspace(0.14, 1.0, NT - 4)])
-    rows = []; vien = []
+    rows = []; vien = []; sas = []
     for t in ts:
         e = mep_fn(us)
         far = (Vmax if tren else -Vmax) + tan_ng * us * side
@@ -96,20 +96,21 @@ def _luoi_mi(C, Rm, U, V, tan_ng, side, tren, mep_fn, p):
         v = e + sg * {0.0: 0.0, 0.02: 0.45 * w0, 0.035: 0.62 * w0, 0.08: 1.6 * w0}[t] if t < 0.1 else e + (far - e) * t   # 3 hàng đầu cách mép theo góc cố định: nét mi không dày lên khi nhắm
         uu = us * (1 + 0.10 * t)                                   # rìa ngoài loe ra
         sa = np.sqrt((uu / U) ** 2 + (v / V) ** 2); s = np.clip((sa - 1.32) / 0.25, 0, 1); s = s * s * (3 - 2 * s)   # thụt theo vị trí, ngoài khe mắt
-        r = Rm - s * 0.014                                         # thụt vào để vùi dưới da
+        r = Rm - s * 0.0                                         # thụt vào để vùi dưới da
         pass
         rows.append(np.asarray(C) + r[..., None] * _dir(uu, v) if np.ndim(r) else np.asarray(C) + r * _dir(uu, v))
+        sas.append(np.maximum(np.broadcast_to(sa, (NU,)), 1.0 + 2.2 * np.clip(np.abs(uu) / U - 0.95, 0, None)))   # khóe mắt: dán da sớm
         w = p['mat_vien'] / Rm                                     # bề rộng nét viền theo góc
         if tren:
             band = 1.0 if t < 0.025 else 0.0
-            if p['mi_doi'] and abs(t - 0.22) < 0.035: band = max(band, 0.55)   # nếp mí đôi
+            # mi_doi: nét tô màu đã bỏ vì vẫn hiện khi nhắm; cần làm bằng hình khối (chưa làm)
         else:
             band = 0.12 if t < 0.01 else 0.0
         vien.append(band * np.clip((1 - np.abs(us) / U) / 0.30, 0, 1))   # nét thon và ngắn dần về hai khóe
     co = np.concatenate(rows); vien = np.concatenate(vien)
     faces = [(i * NU + j, i * NU + j + 1, (i + 1) * NU + j + 1, (i + 1) * NU + j) for i in range(len(ts) - 1) for j in range(NU - 1)]
     if not tren: faces = [f[::-1] for f in faces]
-    return co, faces, vien, ts
+    return co, faces, vien, ts, np.concatenate(sas)
 
 
 def _xoay(co, C, M):
@@ -142,7 +143,7 @@ def _day_da(body, C, Rm, U, V, M, side):
     Mi = np.asarray(M).T
     rel = (Mi @ (co - C).T).T; d = np.linalg.norm(rel, axis=1)
     u = np.arctan2(rel[:, 0], -rel[:, 1]); v = np.arcsin(np.clip(rel[:, 2] / np.maximum(d, 1e-9), -1, 1))
-    s = np.sqrt((u / (U * 1.12)) ** 2 + (v / (V * 1.30)) ** 2)         # 1 = mép vùng đẩy
+    s = np.sqrt((u / (U * 0.92)) ** 2 + (v / (V * 1.20)) ** 2)         # 1 = mép vùng đẩy
     vung = (s < 1.35) & (rel[:, 1] < 0) & (d < Rm + 0.02)
     tgt = Rm - 0.0015 - 0.004 * np.clip((s - 0.0) / 1.0, 0, 1)
     w = np.clip((1.35 - s) / 0.35, 0, 1); w = w * w * (3 - 2 * w)
@@ -174,6 +175,8 @@ def tao_mat(sc, arm, body, moc, p):
     a = moc['r_hoc'] * p['mat_rong']; b = a * p['mat_cao']; R = a * R_HE_SO
     U = math.asin(min(a / R, 0.95)); V = math.asin(min(b / R, 0.95)); tan_ng = math.tan(math.radians(p['mat_nghieng']))
     m_mi = _mat_mi(p); m_nhan = _mat_nhan(p, R)
+    from mathutils.bvhtree import BVHTree
+    bvh = BVHTree.FromObject(body, bpy.context.evaluated_depsgraph_get())   # da gốc, trước khi đẩy
     for side, sfx in ((1, 'L'), (-1, 'R')):
         C = np.array([side * mx, my - NHO + R, mz])
         M = Matrix.Rotation(math.radians(side * LUON), 3, 'Z')
@@ -190,19 +193,19 @@ def tao_mat(sc, arm, body, moc, p):
         duoi_fn = lambda u: _mep(u, U, V, tan_ng, side, False)
         dong_fn = lambda u: duoi_fn(u) + DONG * (tren_fn(u) - duoi_fn(u))
         for tren, fn, ten in ((True, tren_fn, 'MiTren'), (False, duoi_fn, 'MiDuoi')):
-            co, fa, vien, ts = _luoi_mi(C, Rm, U, V, tan_ng, side, tren, fn, p)
-            ob = _tao_mesh(f'{ten}.{sfx}', _xoay(co, C, M), fa, m_mi, sc)
+            co, fa, vien, ts, sa = _luoi_mi(C, Rm, U, V, tan_ng, side, tren, fn, p)
+            ob = _tao_mesh(f'{ten}.{sfx}', _dan(_xoay(co, C, M), C, sa, bvh), fa, m_mi, sc)
             at = ob.data.attributes.new('vien', 'FLOAT', 'POINT'); at.data.foreach_set('value', vien)
             ob.shape_key_add(name='Basis')
             for kn, f2 in (('nham', dong_fn), ('mo_to', (lambda u: _mep(u, U, V * 1.35, tan_ng, side, True)) if tren else (lambda u: _mep(u, U, V * 1.12, tan_ng, side, False)))):
-                co2, *_ = _luoi_mi(C, Rm, U, V, tan_ng, side, tren, f2, p)
-                k = ob.shape_key_add(name=kn); k.data.foreach_set('co', _xoay(co2, C, M).ravel())
+                co2, _, _, _, sa2 = _luoi_mi(C, Rm, U, V, tan_ng, side, tren, f2, p)
+                k = ob.shape_key_add(name=kn); k.data.foreach_set('co', _dan(_xoay(co2, C, M), C, sa2, bvh).ravel())
             kb = ob.data.shape_keys.key_blocks
             rieng = 'chop_trai' if side == 1 else 'chop_phai'
             noi_driver(kb['nham'], arm, ['chop_mat', rieng], f'min(1, max(chop_mat, {rieng}))')
             noi_driver(kb['mo_to'], arm, ['mo_to', 'chop_mat', rieng], f'mo_to * (1 - min(1, max(chop_mat, {rieng})))')
             _bone_parent(ob, arm); objs.append(ob)
-        n = _day_da(body, C, Rm, U, V, M, side)
+        n = 0 if os.environ.get('KHONG_DAY') else _day_da(body, C, Rm, U, V, M, side)
         print(f'  mắt {sfx}: R={R * 1000:.1f} mm, mở {2 * a * 1000:.0f}×{2 * b * 1000:.0f} mm, đẩy {n} đỉnh da')
     return objs
 
@@ -257,3 +260,22 @@ def to_da(body, p):
     b.inputs['Subsurface Weight'].default_value = 0.15; b.inputs['Subsurface Radius'].default_value = (0.9, 0.35, 0.2)
     body.data.materials.clear(); body.data.materials.append(m)
     return m
+
+
+def muot_da(body):
+    """Subdivision 1 cấp sau Armature: lưới khuôn ~3 mm/cạnh làm mép da quanh mắt răng cưa. Không đổi đỉnh gốc."""
+    m = body.modifiers.get('Muot') or body.modifiers.new('Muot', 'SUBSURF'); m.levels = 1; m.render_levels = 1
+    return m
+
+
+def _dan(co, C, sa, bvh, a0=1.0, a1=1.45, noi=0.0003):
+    """Rìa ngoài vỏ mí dán dần vào mặt da gốc (tia từ tâm nhãn cầu ra ngoài), nên chỗ nối mí–da liền, không gờ.
+    Pha từ sa=a0 (mép khe mắt, giữ vỏ cầu) tới sa=a1 (nằm trên da, nhô `noi`)."""
+    out = co.copy(); b = np.clip((sa - a0) / (a1 - a0), 0, 1); b = b * b * (3 - 2 * b)
+    for i in np.nonzero(b > 0)[0]:
+        d = Vector(co[i] - C); r0 = d.length; d.normalize()
+        hit = bvh.ray_cast(Vector(C), d, 0.08)
+        if hit[0] is None: continue
+        r1 = (hit[0] - Vector(C)).length + noi
+        out[i] = C + np.array(d) * (r0 + (r1 - r0) * b[i])
+    return out
