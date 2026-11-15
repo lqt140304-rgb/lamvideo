@@ -176,7 +176,8 @@ def tao_mat(sc, arm, body, moc, p):
     U = math.asin(min(a / R, 0.95)); V = math.asin(min(b / R, 0.95)); tan_ng = math.tan(math.radians(p['mat_nghieng']))
     m_mi = _mat_mi(p); m_nhan = _mat_nhan(p, R)
     from mathutils.bvhtree import BVHTree
-    bvh = BVHTree.FromObject(body, bpy.context.evaluated_depsgraph_get())   # da gốc, trước khi đẩy
+    bvh = BVHTree.FromObject(body, bpy.context.evaluated_depsgraph_get())   # da gốc, trước khi khoét
+    global _BVH; _BVH = bvh
     for side, sfx in ((1, 'L'), (-1, 'R')):
         C = np.array([side * mx, my - NHO + R, mz])
         M = Matrix.Rotation(math.radians(side * LUON), 3, 'Z')
@@ -257,6 +258,8 @@ def _khoet(body, C, M, U, V, bvh):
     # kéo về elip góc SC, dán lên mặt da gốc
     P = np.array([x.co for x in vong]); u, v, _ = _uv(P, C, M)
     phi = np.arctan2(v / V, u / U); Mi = np.asarray(M)
+    dp = np.angle(np.exp(1j * np.diff(np.r_[phi, phi[0]]))); chieu = np.sign(dp.sum())
+    phi = phi[0] + chieu * 2 * np.pi * np.arange(len(phi)) / len(phi)   # cách đều theo thứ tự vòng: mép không gập (vết nứt)
     for x, ph in zip(vong, phi):
         uu, vv = SC * U * math.cos(ph), SC * V * math.sin(ph)
         dr = Vector(Mi @ np.array([math.sin(uu) * math.cos(vv), -math.cos(uu) * math.cos(vv), math.sin(vv)]))
@@ -291,7 +294,11 @@ def _mi_may(ch, C, M, Rm, U, side, tren, edge_fn, p):
             uu, vv, rr = ue, e + sg * off, np.full_like(ue, Rm)
         else:
             k = (t - 0.08) / 0.92; g = k * k * (3 - 2 * k)
-            uu = ue + (uq - ue) * k; vv = (e + sg * 1.6 * w0) + (vq - e - sg * 1.6 * w0) * k; rr = Rm + (rq - Rm) * g
+            uu = ue + (uq - ue) * k; vv = (e + sg * 1.6 * w0) + (vq - e - sg * 1.6 * w0) * k
+            g2 = np.clip(k / 0.55, 0, 1); g2 = g2 * g2 * (3 - 2 * g2)
+            dr0 = np.stack([np.sin(uu) * np.cos(vv), -np.cos(uu) * np.cos(vv), np.sin(vv)], -1) @ Mi.T
+            rs = np.array([_r_da(C, x, Rm) for x in dr0])            # bám mặt da gốc: hết rãnh lún quanh mắt
+            rr = Rm + (np.maximum(rs, Rm) - Rm) * g2
         dr = np.stack([np.sin(uu) * np.cos(vv), -np.cos(uu) * np.cos(vv), np.sin(vv)], -1) @ Mi.T
         pts = C + rr[:, None] * dr
         if t == 1.0: pts = Q                                  # khít tuyệt đối với mép da
@@ -381,3 +388,12 @@ def _dpl(q, L):
     """Khoảng cách từ điểm q tới đường gấp khúc L (N×3)."""
     a = L[:-1]; ab = L[1:] - a; t = np.clip(((q - a) * ab).sum(1) / np.maximum((ab * ab).sum(1), 1e-12), 0, 1)
     return float(np.linalg.norm(a + ab * t[:, None] - q, axis=1).min())
+
+
+_BVH = None
+
+
+def _r_da(C, d, mac_dinh):
+    """Bán kính từ tâm nhãn cầu C tới mặt da gốc theo hướng d (raycast); không trúng thì trả mac_dinh."""
+    hit = _BVH.ray_cast(Vector(C), Vector(d), 0.08)
+    return (hit[0] - Vector(C)).length if hit[0] is not None else mac_dinh
