@@ -414,6 +414,21 @@ def dung_mat(body, rig, coll):
             for i in range(len(t_hang)):
                 for j in range(len(phm)):
                     sk.data[i * len(phm) + j].co = D_[i, j]
+            # dáng nửa nhắm tính riêng (không nội suy thẳng mở→nhắm, vì nội suy để hở mũi tối ở hai khóe khi blink ≈ 0,5)
+            def nua(t, p):
+                e_o = e_mep(p) + t * (e_xa - e_mep(p))
+                e_c = e_gap + t / T_BAM * (e_mep(p) + T_BAM * (e_xa - e_mep(p)) - e_gap)
+                p1 = kep(diem(0.5 * (e_o + e_c), p))
+                p2 = mem(p1)
+                return p1 if (np.array(p1[:]) - c) @ n > (np.array(p2[:]) - c) @ n else p2
+            H_ = np.array([[(vi_tri[i][j] if t >= T_BAM else nua(t, p))[:] for j, p in enumerate(phm)] for i, t in enumerate(t_hang)])
+            for _ in range(30):
+                tb = 0.25 * (H_[:-2, 1:-1] + H_[2:, 1:-1] + H_[1:-1, :-2] + H_[1:-1, 2:])
+                H_[2:-1, 1:-1] = 0.5 * H_[2:-1, 1:-1] + 0.5 * tb[1:, :]
+            skn = ob.shape_key_add(name='nua', from_mix=False)
+            for i in range(len(t_hang)):
+                for j in range(len(phm)):
+                    skn.data[i * len(phm) + j].co = H_[i, j]
             mi[ten] = ob
         # xương mắt
         truc = Vector(c) - Vector(n) * 0.04            # điểm xoay lùi sâu: mống mắt dời đủ xa khi liếc
@@ -454,13 +469,15 @@ def dung_mat(body, rig, coll):
             head[f'{ten}_{k}'] = 0.0
             head.id_properties_ui(f'{ten}_{k}').update(min=0.0, max=1.0, soft_min=0.0, soft_max=1.0)
         bien = {'b': f'pose.bones["head"]["blink_{k}"]', 's': f'pose.bones["head"]["squint_{k}"]'}
-        them_driver(mi['Tren'].data.shape_keys.key_blocks['dong'], 'value', None, rig, bien, 'b')
+        them_driver(mi['Tren'].data.shape_keys.key_blocks['dong'], 'value', None, rig, bien, 'max(0.0, 2*b - 1)')
+        them_driver(mi['Tren'].data.shape_keys.key_blocks['nua'], 'value', None, rig, bien, 'max(0.0, 1 - abs(2*b - 1))')
         lt.shape_key_add(name='Basis')  # mắt nhắm: lòng trắng lùi 9 mm ra sau mí (khỏi thò qua khe hở ở góc mí), chỉ khi gần khép hẳn
         sk_lt = lt.shape_key_add(name='nham', from_mix=False)
         for i_, v_ in enumerate(lt.data.vertices):
             sk_lt.data[i_].co = (v_.co.x, v_.co.y + 0.009, v_.co.z)
         them_driver(sk_lt, 'value', None, rig, bien, 'min(1.0, max(0.0, (b - 0.6) / 0.4))')
-        them_driver(mi['Duoi'].data.shape_keys.key_blocks['dong'], 'value', None, rig, bien, 'max(b, s*0.6)')
+        them_driver(mi['Duoi'].data.shape_keys.key_blocks['dong'], 'value', None, rig, bien, 'max(0.0, 2*max(b, s*0.6) - 1)')
+        them_driver(mi['Duoi'].data.shape_keys.key_blocks['nua'], 'value', None, rig, bien, 'max(0.0, 1 - abs(2*max(b, s*0.6) - 1))')
     bo_suu_tap(rig, 'Mat', ['look', 'look.L', 'look.R', 'eye.L', 'eye.R'])
     return ket
 
