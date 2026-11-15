@@ -733,6 +733,7 @@ def da_mat_tron(body, z0=1.18, z1=1.26):
     tron = np.median(mau_tai(px, uv), axis=0)
     tron = np.where(tron <= 0.04045, tron / 12.92, ((tron + 0.055) / 1.055) ** 2.4)  # điểm ảnh sRGB → màu tuyến tính của node
     hong = tron * np.array([1.12, 0.78, 0.78])
+    bpy.context.scene['mau_da_tron'] = tuple(float(x) for x in tron)  # viền mắt 3D dùng lại đúng màu này
     nt = me.materials[0].node_tree
     b = nt.nodes['Principled BSDF']
     nguon = b.inputs['Base Color'].links[0].from_socket
@@ -1201,3 +1202,67 @@ def dung_shape_key_mieng(body, vung, tam, out_json=None):
         Path_ = __import__('pathlib').Path
         Path_(out_json).write_text(json.dumps({k: {'am': v[0], 'shape_key': v[1], 'jaw_do': v[2]}
                                                for k, v in KHAU_HINH.items()}, ensure_ascii=False, indent=1), encoding='utf-8')
+
+
+def vien_mat_3d(body, rig, coll, r=0.0022, ra=0.0012, so_diem=96):
+    """Viền mắt 3D (học theo bản Nam): ống tròn, màu da trơn, chạy quanh viền hốc của da ĐÃ chia mịn (Subdivision mức 3),
+    lệch ra ngoài `ra` và nhô lên 0,3 mm. Che mép khoét lởm chởm; gắn theo xương `head`."""
+    from mathutils.bvhtree import BVHTree
+    sd = body.modifiers['Subdivision']
+    muc = sd.levels
+    sd.levels = 3
+    bpy.context.view_layer.update()
+    ev = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
+    me = ev.to_mesh()
+    bm = bmesh.new()
+    bm.from_mesh(me)
+    bm.verts.ensure_lookup_table()
+    bvh = BVHTree.FromBMesh(bm)
+    sc = bpy.context.scene
+    m_mi = mat_phang('Nu_VienMat', (*sc['mau_da_tron'], 1), 0.5)  # cùng màu da trơn: viền như gờ da, che mép khoét
+    for k in 'LR':
+        c = Vector(sc[f'tam_hoc_mat_{k}'])
+        bien = [e for e in bm.edges if e.is_boundary and (e.verts[0].co - c).length < 0.075 and (e.verts[1].co - c).length < 0.075]
+        ke = {}
+        for e in bien:
+            a, b = e.verts
+            ke.setdefault(a.index, []).append(b.index)
+            ke.setdefault(b.index, []).append(a.index)
+        assert ke and all(len(v) == 2 for v in ke.values()), f'Viền hốc {k} không phải vòng kín'
+        i0 = next(iter(ke))
+        vong, truoc, i = [i0], None, i0
+        while True:
+            nxt = [j for j in ke[i] if j != truoc][0]
+            if nxt == i0:
+                break
+            vong.append(nxt)
+            truoc, i = i, nxt
+        P = np.array([bm.verts[j].co[:] for j in vong])
+        L = np.r_[0, np.cumsum(np.linalg.norm(np.diff(np.r_[P, P[:1]], axis=0), axis=1))]
+        t = np.linspace(0, L[-1], so_diem, endpoint=False)
+        Q = np.stack([np.interp(t, L, np.r_[P[:, a], P[0, a]]) for a in range(3)], 1)
+        for _ in range(6):  # trơn dọc vòng: hết răng cưa của lưới
+            Q = 0.5 * Q + 0.25 * (np.roll(Q, 1, 0) + np.roll(Q, -1, 0))
+        cen = Q.mean(0)
+        pts = []
+        for p in Q:
+            d = p - cen
+            d[1] = 0
+            p2 = Vector(p + d / max(np.linalg.norm(d), 1e-6) * ra)
+            hit = bvh.find_nearest(p2)
+            pts.append(Vector(hit[0]) + Vector(hit[1]) * 0.0003 if hit[0] is not None else p2)
+        cu = bpy.data.curves.new(f'Nu_VienMat.{k}', 'CURVE')
+        cu.dimensions, cu.bevel_depth, cu.bevel_resolution, cu.resolution_u, cu.use_fill_caps = '3D', r, 3, 4, False
+        sp = cu.splines.new('NURBS')
+        sp.points.add(len(pts) - 1)
+        for pt, v in zip(sp.points, pts):
+            pt.co = (v.x, v.y, v.z, 1.0)
+        sp.use_cyclic_u, sp.order_u, sp.use_endpoint_u = True, 4, False
+        cu.materials.append(m_mi)
+        ob = bpy.data.objects.new(f'Nu_VienMat.{k}', cu)
+        coll.objects.link(ob)
+        gan_vao_xuong(ob, rig, 'head')
+        print(f'viền mắt {k}: {len(vong)} đỉnh viền hốc → ống {len(pts)} điểm')
+    ev.to_mesh_clear()
+    bm.free()
+    sd.levels = muc
