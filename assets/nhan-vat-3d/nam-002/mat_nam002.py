@@ -194,6 +194,7 @@ def _vien_3d(sc, body, cx, k):
     return ob
 
 
+MAY_NANG_DUOI = 0.004   # nâng mép dưới lông mày (m) ⇒ mày mảnh hơn, không lem xuống viền mắt
 _MAY = {}
 
 
@@ -201,10 +202,10 @@ def tao_may(sc, body):
     """Lông mày 3D: tấm cong bám da theo dáng mày vẽ (du-lieu/long-may.json: mép dưới/trên theo x), phồng giữa 1,6 mm, hai đầu bo tròn."""
     import json, os
     D_ = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'du-lieu', 'long-may.json')))
-    m = bpy.data.materials.get('may_mat') or _mat('may_mat', (0.15, 0.11, 0.09), 0.75); out = {}
+    m = bpy.data.materials.get('may_mat') or _mat('may_mat', (0.13, 0.095, 0.08), 0.8); out = {}
     for k in ('L', 'R'):
         x = np.array(D_[k]['x']); zd = np.array(D_[k]['zd']); zt = np.array(D_[k]['zt']); o = np.argsort(x); x, zd, zt = x[o], zd[o], zt[o]
-        pd, pt = np.polyfit(x, zd, 4), np.polyfit(x, zt, 4)
+        pd, pt = np.polyfit(x, zd + MAY_NANG_DUOI, 2), np.polyfit(x, zt, 4)      # mép dưới: nâng lên & bậc 2 cho trơn
         x0, x1 = x.min() - 0.002, x.max() + 0.003; NU, NV = 48, 10
         bm = bmesh.new(); grid = []
         for i in range(NU + 1):
