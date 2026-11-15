@@ -64,6 +64,43 @@ def _tao(c):
     return T()
 
 
+
+def _mem(ob, lv=2):
+    """Làm mềm khối (Subdivision) để ra dáng vải/nhựa đúc tròn trịa thay vì hộp vuông."""
+    md = ob.modifiers.new('mem', 'SUBSURF'); md.levels = lv; md.render_levels = lv
+    for p_ in ob.data.polygons: p_.use_smooth = True
+    return ob
+
+
+def tron_xoay(ten, pts, m, c, seg=36, x=0, y=0, z=0, dong_day=True):
+    """Tròn xoay quanh trục z từ dãy (bán kính, cao); dong_day: bịt đáy. Mép mượt (smooth)."""
+    bm = bmesh.new(); rings = []
+    for (r, h) in pts: rings.append([bm.verts.new((x + r * math.cos(2 * math.pi * i / seg), y + r * math.sin(2 * math.pi * i / seg), z + h)) for i in range(seg)])
+    for a_ in range(len(rings) - 1):
+        for i in range(seg): bm.faces.new((rings[a_][i], rings[a_][(i + 1) % seg], rings[a_ + 1][(i + 1) % seg], rings[a_ + 1][i]))
+    if dong_day: bm.faces.new(list(reversed(rings[0])))
+    me = bpy.data.meshes.new(ten); bm.to_mesh(me); bm.free(); me.materials.append(m)
+    for p_ in me.polygons: p_.use_smooth = True
+    ob = bpy.data.objects.new(ten, me); c.objects.link(ob); return ob
+
+
+def de_dep(ten, dx, m, c, day=0.024):
+    """Đế dép hình bàn chân: mũi tròn rộng, eo thắt, gót tròn (đùn từ đường viền)."""
+    bm = bmesh.new(); pts = []
+    for i in range(40):
+        t_ = 2 * math.pi * i / 40; y = 0.125 * math.sin(t_)
+        w = 0.046 if y > 0.03 else 0.034 if y > -0.06 else 0.04          # mũi rộng, eo, gót
+        pts.append((dx + w * math.cos(t_), y))
+    vb = [bm.verts.new((x_, y_, 0)) for x_, y_ in pts]; vt = [bm.verts.new((x_, y_, day)) for x_, y_ in pts]
+    bm.faces.new(list(reversed(vb))); bm.faces.new(vt)
+    for i in range(40): bm.faces.new((vb[i], vb[(i + 1) % 40], vt[(i + 1) % 40], vt[i]))
+    me = bpy.data.meshes.new(ten); bm.to_mesh(me); bm.free(); me.materials.append(m)
+    ob = bpy.data.objects.new(ten, me); c.objects.link(ob)
+    md = ob.modifiers.new('bevel', 'BEVEL'); md.width = 0.006; md.segments = 3
+    for p_ in ob.data.polygons: p_.use_smooth = True
+    return ob
+
+
 # ------------------------------------------------------------------------------------------------ SỬA ĐỒ LỆCH KỊCH BẢN
 def bua_cao_su(c, at, rz=0.0):
     """Búa sắt cán bọc cao su đen (đồ thợ sửa nhà trọ bỏ quên) — nằm dọc trục y, đầu búa ở y = +0.3."""
@@ -157,35 +194,68 @@ def hoa_don(c, at, rz=0.0, dung=False):
 
 
 def dep_to_ong(c, at, rz=0.0):
-    """Đôi dép tổ ong (nhựa xốp đục lỗ) trắng ố vàng, gót mòn vẹt."""
+    """Đôi dép tổ ong: đế hình bàn chân (mũi rộng, eo, gót), quai liền mũi khum tròn phủ 2/3 trước, lưới lỗ lục giác 4 hàng,
+    nhựa trắng ố vàng, gót mòn vẹt (đế mỏng hẳn + sẫm màu), mép quai bẩn."""
     with _tao(c) as t:
-        nhua = mat('#ece6c8', 0.75); o = mat('#c9bd8a', 0.85); lo = mat('#6b6450', 0.9)
-        for s, dx in (('trai', -0.06), ('phai', 0.06)):
-            K.box(f'dc_dep_de_{s}', dx - 0.045, dx + 0.045, -0.12, 0.13, 0, 0.022, nhua, c, bevel=0.012)
-            K.box(f'dc_dep_got_mon_{s}', dx - 0.04, dx + 0.04, -0.12, -0.07, 0.0, 0.006, o, c)
-            K.box(f'dc_dep_mu_{s}', dx - 0.047, dx + 0.047, 0.0, 0.12, 0.022, 0.06, nhua, c, bevel=0.015)
-            for i in range(4):
-                for j in range(2): K.cyl(f'dc_dep_lo_{s}_{i}_{j}', dx - 0.02 + 0.04 * j, 0.02 + 0.026 * i, 0.058, 0.007, 0.004, lo, c, seg=6)
-            K.box(f'dc_dep_vet_o_{s}', dx - 0.046, dx + 0.046, 0.06, 0.12, 0.059, 0.0605, o, c)
+        nhua = mat('#efe9cc', 0.7); o = mat('#cdbf86', 0.85); lo = mat('#4a4535', 0.95); ban = mat('#9c9070', 0.9)
+        for s_, dx, goc in (('trai', -0.058, 0), ('phai', 0.058, 0)):
+            de = de_dep(f'dc_dep_de_{s_}', dx, nhua, c)
+            g_ = K.cyl(f'dc_dep_got_mon_{s_}', dx, -0.088, 0.0245, 0.026, 0.0012, o, c, seg=20); g_.scale = (1, 1.35, 1)   # vệt gót mòn sẫm màu trên mặt đế
+            # quai liền mũi: nửa ống khum (bán kính 0,045) chạy từ y −0,01 tới mũi, dày 4 mm
+            bm = bmesh.new(); seg = 14; ys = [-0.01 + 0.0125 * k for k in range(11)]
+            for k, y_ in enumerate(ys):
+                sc_ = 1.0 if y_ < 0.08 else max(0.35, 1 - (y_ - 0.08) / 0.06)
+                for side in (0, 1):
+                    r = 0.046 * sc_ - side * 0.004
+                    for i in range(seg + 1):
+                        a_ = math.pi * i / seg; bm.verts.new((dx + r * math.cos(a_), y_, 0.022 + 0.042 * sc_ * math.sin(a_) * (1 - side * 0.08)))
+            bm.verts.ensure_lookup_table(); n_ = seg + 1
+            def V(k, side, i): return bm.verts[(k * 2 + side) * n_ + i]
+            for k in range(len(ys) - 1):
+                for i in range(seg):
+                    bm.faces.new((V(k, 0, i), V(k, 0, i + 1), V(k + 1, 0, i + 1), V(k + 1, 0, i)))
+                    bm.faces.new((V(k, 1, i + 1), V(k, 1, i), V(k + 1, 1, i), V(k + 1, 1, i + 1)))
+            me = bpy.data.meshes.new(f'dc_dep_quai_{s_}'); bm.to_mesh(me); bm.free(); me.materials.append(nhua)
+            for p_ in me.polygons: p_.use_smooth = True
+            q = bpy.data.objects.new(f'dc_dep_quai_{s_}', me); c.objects.link(q)
+            for hang in range(4):          # lỗ lục giác (tổ ong) trên lưng quai
+                for j in range(5 if hang % 2 == 0 else 4):
+                    a_ = math.radians(35 + 27.5 * j + (13.75 if hang % 2 else 0)); y_ = 0.005 + 0.019 * hang
+                    r = 0.0462
+                    h_ = K.cyl(f'dc_dep_lo_{s_}_{hang}_{j}', dx + r * math.cos(a_), y_, 0.022 + 0.042 * math.sin(a_), 0.0062, 0.0015, lo, c, seg=6)
+                    h_.rotation_euler = (0, math.pi / 2 - a_, 0); h_.rotation_mode = 'XYZ'
+                    h_.rotation_euler = (Vector((math.cos(a_), 0, math.sin(a_))).to_track_quat('Z', 'Y')).to_euler()
+            for o_ in (de, q): o_.rotation_euler = (0, 0, math.radians(goc)); o_.location = (dx * (1 - math.cos(math.radians(goc))), 0, 0)
     return _nhom('dep_to_ong', at, rz, t.moi, c)
 
-
 def noi_com_dien(c, at, rz=0.0):
-    """Nồi cơm điện cũ: thân trắng ngà ố, nắp vòm, quai, đèn nấu/hâm, vệt nước cơm khô chảy dọc thân."""
+    """Nồi cơm điện cũ kiểu nắp rời: thân tròn xoay vai thắt (trắng ngà ố), chân nhựa, vành inox, nắp vòm có núm hơi và quai xách,
+    bảng điều khiển trước: cần gạt NẤU + 2 đèn (NẤU đỏ / HÂM cam đang sáng), dây điện, vệt nước cơm khô chảy dọc thân."""
     with _tao(c) as t:
-        than = mat('#ece7da', 0.45); o = mat('#d7c9a2', 0.7); xam = mat('#8f9295', 0.4, 0.6)
-        K.cyl('dc_noi_than', 0, 0, 0, 0.13, 0.2, than, c, seg=32)
-        K.cyl('dc_noi_vien', 0, 0, 0.2, 0.135, 0.015, xam, c, seg=32)
-        K.sphere('dc_noi_nap', 0, 0, 0.212, 0.13, than, c, scale=(1, 1, 0.35), seg=28)
-        K.box('dc_noi_quai', -0.06, 0.06, -0.012, 0.012, 0.255, 0.27, xam, c, bevel=0.005)
-        K.box('dc_noi_bang_dk', -0.04, 0.04, -0.131, -0.125, 0.05, 0.11, mat('#5a5f66', 0.4), c)
-        K.sphere('dc_noi_den_ham', -0.015, -0.132, 0.09, 0.006, M.emission('dc2_den_ham', '#ffb04a', 2.0), c, seg=8)
-        for i, (a, l) in enumerate(((0.3, 0.09), (0.9, 0.06), (2.4, 0.11))):   # vệt nước cơm khô
-            K.box(f'dc_noi_vet_{i}', -0.008, 0.008, -0.002, 0.002, 0.2 - l, 0.2, o, c).location = (0.131 * math.cos(a), 0.131 * math.sin(a), 0)
-        K.cyl('dc_noi_day', -0.13, 0.05, 0.03, 0.006, 0.12, mat('#202020', 0.6), c, seg=6, rot=(0, math.radians(90), 0.4))
-        grip('noi_quai', 0, 0, 0.262, c)
+        than = mat('#efe9da', 0.4); o = mat('#d4c391', 0.7); inox = mat('#b6babe', 0.25, 0.9); den = mat('#2b2d31', 0.5)
+        tron_xoay('dc_noi_than', [(0.118, 0.012), (0.13, 0.03), (0.135, 0.08), (0.133, 0.16), (0.125, 0.19), (0.122, 0.2)], than, c)
+        for i in range(4): K.cyl(f'dc_noi_chan_{i}', 0.09 * math.cos(i * 1.571 + 0.785), 0.09 * math.sin(i * 1.571 + 0.785), 0, 0.016, 0.014, den, c, seg=12)
+        tron_xoay('dc_noi_vanh', [(0.122, 0.198), (0.128, 0.2), (0.128, 0.212), (0.12, 0.214)], inox, c, dong_day=False)
+        tron_xoay('dc_noi_nap', [(0.126, 0.212), (0.12, 0.235), (0.1, 0.258), (0.06, 0.272), (0.0, 0.276)], than, c, dong_day=False)
+        K.cyl('dc_noi_nut_hoi', 0.04, 0.0, 0.266, 0.014, 0.014, inox, c, seg=14)
+        for x_ in (-0.06, 0.06): K.cyl(f'dc_noi_chan_quai_{x_}', x_, 0, 0.262, 0.012, 0.012, den, c, seg=10)
+        bm = bmesh.new()   # quai xách: cung bán nguyệt
+        cu = bpy.data.curves.new('dc_noi_quai', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 0.006; sp = cu.splines.new('POLY'); sp.points.add(10)
+        for i, p_ in enumerate(sp.points): a_ = math.pi * i / 10; p_.co = (-0.06 * math.cos(a_), 0, 0.272 + 0.04 * math.sin(a_), 1)
+        cu.materials.append(den); c.objects.link(bpy.data.objects.new('dc_noi_quai', cu))
+        K.box('dc_noi_bang_dk', -0.05, 0.05, -0.136, -0.12, 0.035, 0.105, den, c, bevel=0.006)
+        K.box('dc_noi_can_gat', -0.012, 0.012, -0.15, -0.13, 0.04, 0.075, mat('#c8342b', 0.4), c, bevel=0.004)
+        K.sphere('dc_noi_den_nau', -0.03, -0.137, 0.09, 0.0055, mat('#5a1a1a', 0.4), c, seg=8)
+        K.sphere('dc_noi_den_ham', 0.03, -0.137, 0.09, 0.0055, M.emission('dc2_den_ham', '#ffb04a', 3.0), c, seg=8)
+        chu('dc_noi_chu_nau', 'NẤU', -0.03, -0.1365, 0.096, 0.007, mat('#e9e6dd', 0.6), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
+        chu('dc_noi_chu_ham', 'HÂM', 0.03, -0.1365, 0.096, 0.007, mat('#e9e6dd', 0.6), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
+        for i, (a_, l) in enumerate(((0.35, 0.09), (0.95, 0.06), (2.4, 0.11), (-1.2, 0.05))):   # vệt nước cơm khô chảy từ vành xuống
+            v = K.box(f'dc_noi_vet_{i}', -0.006, 0.006, -0.0015, 0.0015, 0.2 - l, 0.2, o, c); v.location = (0.1345 * math.cos(a_), 0.1345 * math.sin(a_), 0); v.rotation_euler = (0, 0, a_ + math.pi / 2)
+        cu2 = bpy.data.curves.new('dc_noi_day', 'CURVE'); cu2.dimensions = '3D'; cu2.bevel_depth = 0.004; sp2 = cu2.splines.new('BEZIER'); sp2.bezier_points.add(2)
+        for bp, co in zip(sp2.bezier_points, ((0.0, 0.13, 0.05), (0.12, 0.25, 0.005), (0.3, 0.2, 0.005))): bp.co = co; bp.handle_left_type = bp.handle_right_type = 'AUTO'
+        cu2.materials.append(mat('#1b1b1b', 0.6)); c.objects.link(bpy.data.objects.new('dc_noi_day', cu2))
+        grip('noi_quai', 0, 0, 0.312, c)
     return _nhom('noi_com_dien', at, rz, t.moi, c)
-
 
 def thung_mi(c, at, rz=0.0):
     """Thùng carton mì gói (nhãn tự chế, không hãng thật) bóc dở nắp, vài gói lộ ra; cạnh sọt rác đầy vỏ gói gia vị bạc."""
@@ -193,11 +263,19 @@ def thung_mi(c, at, rz=0.0):
     with _tao(c) as t:
         cart = mat('#c49a62', 0.85); do = mat('#d8352a', 0.6); bac = mat('#c9ccd0', 0.25, 0.9); vang = mat('#f6c945', 0.6)
         K.box('dc_mi_thung', -0.2, 0.2, -0.13, 0.13, 0, 0.26, cart, c)
-        nap = K.box('dc_mi_nap_mo', -0.2, 0.2, 0.13, 0.25, 0.258, 0.262, cart, c); nap.rotation_euler = (math.radians(-35), 0, 0)
+        for ten, (x0, x1, y0, y1), (rx, ry) in (('sau', (-0.2, 0.2, 0.13, 0.25), (-35, 0)), ('truoc', (-0.2, 0.2, -0.25, -0.13), (30, 0)),
+                                                ('trai', (-0.32, -0.2, -0.13, 0.13), (0, -40)), ('phai', (0.2, 0.32, -0.13, 0.13), (0, 25))):   # 4 nắp bung
+            n_ = K.box(f'dc_mi_nap_{ten}', x0, x1, y0, y1, 0.258, 0.262, cart, c)
+            piv = Vector((0 if ten in ('sau', 'truoc') else (-0.2 if ten == 'trai' else 0.2), 0.13 if ten == 'sau' else -0.13 if ten == 'truoc' else 0, 0.26))
+            for v in n_.data.vertices: v.co -= piv
+            n_.location = piv; n_.rotation_euler = (math.radians(rx), math.radians(ry), 0)
+        K.box('dc_mi_bang_keo', -0.2, 0.2, -0.02, 0.02, 0.2595, 0.2615, mat('#d9c48a', 0.3), c)
         K.box('dc_mi_nhan', -0.15, 0.15, -0.131, -0.13, 0.06, 0.2, do, c)
         chu('dc_mi_chu', 'MÌ TÔM\nCHUA CAY', 0, -0.1315, 0.15, 0.04, vang, c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
         chu('dc_mi_chu_2', '30 gói × 75g', 0, -0.1315, 0.075, 0.016, mat('#ffffff', 0.6), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
         for i in range(5): K.box(f'dc_mi_goi_{i}', -0.18 + 0.075 * i, -0.12 + 0.075 * i, -0.1, 0.1, 0.2, 0.235 + 0.01 * (i % 2), do, c, rot=(0, math.radians(rnd.uniform(-8, 8)), 0))
+        goi = K.box('dc_mi_goi_le', -0.08, 0.08, -0.055, 0.055, 0, 0.022, do, c, bevel=0.008); goi.location = (-0.05, -0.27, 0); goi.rotation_euler = (0, 0, 0.3)   # 1 gói rơi ra
+        tx = chu('dc_mi_goi_chu', 'TÔM CHUA CAY', 0, 0, 0, 0.016, vang, c, 'LiberationSans-Bold.ttf', 'CENTER'); tx.location = (-0.05, -0.27, 0.0235); tx.rotation_euler = (0, 0, 0.3)
         K.cyl('dc_mi_sot_rac', 0.33, -0.02, 0, 0.12, 0.28, mat('#4a7a5a', 0.6), c, seg=20, r2=0.14)
         for i in range(22):
             a = rnd.uniform(0, 6.28); r = rnd.uniform(0, 0.11)
@@ -259,31 +337,55 @@ def tuyp_dau(c, at, rz=0.0):
 
 
 def chia_khoa(c, at, rz=0.0):
+    """Chùm 2 chìa khoá (đồng + bạc) xỏ vòng thép, kèm thẻ nhựa xanh ghi số phòng 201. Chìa: tay cầm có lỗ, cổ, thân răng cưa."""
     with _tao(c) as t:
-        dong = mat('#c9a64a', 0.3, 0.9); bac = mat('#b0b4b8', 0.3, 0.9)
-        bm = bmesh.new(); bmesh.ops.create_circle(bm, cap_ends=False, segments=24, radius=0.016)
-        me = bpy.data.meshes.new('dc_khoa_vong'); bm.to_mesh(me); bm.free()
-        K.cyl('dc_khoa_vong_tron', 0, 0, 0, 0.017, 0.002, bac, c, seg=24); K.cyl('dc_khoa_vong_lo', 0, 0, 0.0021, 0.014, 0.0005, mat('#000000', 0.9), c, seg=24)
-        for i, (a, m_) in enumerate(((0.5, dong), (-0.4, bac))):
-            K.cyl(f'dc_khoa_dau_{i}', 0.035 * math.cos(a), 0.035 * math.sin(a), 0, 0.014, 0.003, m_, c, seg=16)
-            K.box(f'dc_khoa_than_{i}', -0.004, 0.004, 0.0, 0.045, 0, 0.0025, m_, c, rot=(0, 0, a - math.pi / 2)).location = (0.045 * math.cos(a), 0.045 * math.sin(a), 0)
-        K.box('dc_khoa_the', -0.012, 0.012, -0.05, -0.016, 0, 0.004, mat('#2a6fd6', 0.5), c)
-        chu('dc_khoa_so', '201', 0, -0.036, 0.0042, 0.012, mat('#ffffff', 0.6), c, 'LiberationSans-Bold.ttf', 'CENTER')
+        dong = mat('#c9a64a', 0.3, 0.9); bac = mat('#b0b4b8', 0.3, 0.9); lo = mat('#7d8896', 0.85)
+        bm = bmesh.new(); bmesh.ops.create_circle(bm, cap_ends=False, segments=24, radius=0.018)
+        cu = bpy.data.curves.new('dc_khoa_vong', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 0.0015; sp = cu.splines.new('POLY'); sp.points.add(23); sp.use_cyclic_u = True
+        for i, p_ in enumerate(sp.points): a_ = 2 * math.pi * i / 24; p_.co = (0.018 * math.cos(a_), 0.018 * math.sin(a_), 0.0015, 1)
+        cu.materials.append(bac); c.objects.link(bpy.data.objects.new('dc_khoa_vong', cu)); bm.free()
+        for i, (goc, m_) in enumerate(((20, dong), (-35, bac))):
+            parts = []
+            parts.append(K.cyl(f'dc_khoa_dau_{i}', 0.0, 0, 0, 0.013, 0.0025, m_, c, seg=20))                  # tay cầm tròn
+            parts.append(K.cyl(f'dc_khoa_lo_{i}', 0.0, 0, 0.0026, 0.0035, 0.0003, mat('#22252a', 0.8), c, seg=12))
+            parts.append(K.box(f'dc_khoa_co_{i}', 0.012, 0.02, -0.004, 0.004, 0, 0.0025, m_, c))
+            parts.append(K.box(f'dc_khoa_than_{i}', 0.02, 0.062, -0.0035, 0.0035, 0, 0.0025, m_, c))
+            for k in range(5): parts.append(K.box(f'dc_khoa_rang_{i}_{k}', 0.026 + 0.0075 * k, 0.031 + 0.0075 * k, -0.0035 - (0.003 if k % 2 else 0.0015), -0.0035, 0, 0.0025, m_, c))
+            g = bpy.data.objects.new(f'dc_khoa_{i}', None); c.objects.link(g)
+            for o_ in parts: o_.parent = g
+            g.location = (0.018 * math.cos(math.radians(goc)) + 0.012 * math.cos(math.radians(goc)), 0.03 * math.sin(math.radians(goc)), 0); g.rotation_euler = (0, 0, math.radians(goc))
+        K.box('dc_khoa_the', -0.014, 0.014, -0.058, -0.016, 0, 0.004, mat('#2a6fd6', 0.5), c, bevel=0.003)
+        K.cyl('dc_khoa_lo_the', 0, -0.021, 0.0041, 0.0025, 0.0003, mat('#22252a', 0.8), c, seg=10)
+        chu('dc_khoa_so', '201', 0, -0.044, 0.0042, 0.013, mat('#ffffff', 0.6), c, 'LiberationSans-Bold.ttf', 'CENTER')
         grip('khoa', 0.04, 0.02, 0.002, c)
     return _nhom('chia_khoa', at, rz, t.moi, c)
 
-
 def ba_lo(c, at, rz=0.0):
+    """Ba lô vải xanh rêu dáng tròn (làm mềm): thân, túi trước có khoá kéo + tay kéo, 2 túi lưới hông (một bên cắm chai nước),
+    quai đeo đệm dày cong ra sau, quai xách trên, miếng logo vải, đường may viền."""
     with _tao(c) as t:
-        vai = mat('#2d3a2a', 0.85); kh = mat('#1a1a1a', 0.6)
-        K.box('dc_balo_than', -0.15, 0.15, -0.09, 0.09, 0, 0.42, vai, c, bevel=0.05)
-        K.box('dc_balo_tui', -0.11, 0.11, -0.13, -0.09, 0.06, 0.22, vai, c, bevel=0.025)
-        for x in (-0.08, 0.08): K.box(f'dc_balo_quai_{x}', x - 0.025, x + 0.025, 0.09, 0.11, 0.05, 0.4, kh, c, bevel=0.008)
-        K.box('dc_balo_khoa_keo', -0.12, 0.12, -0.131, -0.128, 0.215, 0.222, mat('#b0b4b8', 0.3, 0.9), c)
-        K.box('dc_balo_moc', -0.03, 0.03, -0.01, 0.01, 0.42, 0.45, kh, c)
-        grip('balo', 0, 0, 0.44, c)
+        vai = mat('#3d4a35', 0.9); vai_toi = mat('#2a3325', 0.9); kh = mat('#141414', 0.6); keo = mat('#b0b4b8', 0.3, 0.9); luoi = mat('#1f2a1f', 0.95)
+        _mem(K.box('dc_balo_than', -0.15, 0.15, -0.085, 0.085, 0.0, 0.43, vai, c), 2)
+        _mem(K.box('dc_balo_tui_truoc', -0.115, 0.115, -0.125, -0.07, 0.04, 0.24, vai_toi, c), 2)
+        K.box('dc_balo_keo_than', -0.13, 0.13, -0.0905, -0.088, 0.33, 0.336, keo, c)
+        K.box('dc_balo_keo_tui', -0.1, 0.1, -0.1265, -0.124, 0.215, 0.221, keo, c)
+        for i, (x_, z_) in enumerate(((0.12, 0.333), (0.09, 0.218))):
+            K.box(f'dc_balo_tay_keo_{i}', x_ - 0.006, x_ + 0.006, -0.135 if i else -0.1, -0.124 if i else -0.088, z_ - 0.035, z_, kh, c)
+        for sx in (-1, 1):
+            _mem(K.box(f'dc_balo_tui_hong_{sx}', sx * 0.15 - 0.03, sx * 0.15 + 0.03, -0.06, 0.06, 0.03, 0.17, luoi, c), 1)
+        tron_xoay('dc_balo_chai', [(0.03, 0.0), (0.032, 0.02), (0.032, 0.19), (0.016, 0.22), (0.016, 0.24)], mat('#7fb6d6', 0.15), c, seg=16, x=0.165, y=0.0, z=0.06)
+        K.cyl('dc_balo_nap_chai', 0.165, 0.0, 0.3, 0.017, 0.02, mat('#2a6fd6', 0.4), c, seg=12)
+        for sx in (-0.075, 0.075):   # quai đeo đệm dày cong ra sau lưng
+            cu = bpy.data.curves.new(f'dc_balo_quai_{sx}', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 0.022; cu.bevel_resolution = 2; sp = cu.splines.new('BEZIER'); sp.bezier_points.add(2)
+            for bp, co in zip(sp.bezier_points, ((sx, 0.09, 0.4), (sx * 1.2, 0.17, 0.22), (sx * 1.4, 0.1, 0.04))): bp.co = co; bp.handle_left_type = bp.handle_right_type = 'AUTO'
+            cu.materials.append(kh); ob = bpy.data.objects.new(f'dc_balo_quai_{sx}', cu); ob.scale = (1, 0.45, 1); c.objects.link(ob)
+        cu = bpy.data.curves.new('dc_balo_quai_xach', 'CURVE'); cu.dimensions = '3D'; cu.bevel_depth = 0.008; sp = cu.splines.new('POLY'); sp.points.add(6)
+        for i, p_ in enumerate(sp.points): a_ = math.pi * i / 6; p_.co = (-0.04 * math.cos(a_), 0.02, 0.43 + 0.035 * math.sin(a_), 1)
+        cu.materials.append(kh); c.objects.link(bpy.data.objects.new('dc_balo_quai_xach', cu))
+        K.box('dc_balo_logo', -0.03, 0.03, -0.1275, -0.125, 0.15, 0.18, mat('#c9a23a', 0.7), c)
+        chu('dc_balo_chu_logo', 'K66', 0, -0.1278, 0.158, 0.014, kh, c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(math.radians(90), 0, 0))
+        grip('balo', 0, 0.02, 0.47, c)
     return _nhom('ba_lo', at, rz, t.moi, c)
-
 
 def giao_trinh(c, at, rz=0.0):
     """Giáo trình dày + 3 trang giấy ghi chép kín chữ (đêm thức trắng trước buổi giảng đường)."""
@@ -333,9 +435,14 @@ def _mat_phang_uv(ten, x0, x1, y0, y1, z, m, c, rot=None):
 
 def dien_thoai(c, at, rz=0.0, ui='UI-01_bao-thuc-0630.png', sang=2.2):
     """Điện thoại nằm ngửa, màn hình hiện ảnh UI (624×1040 → 0,069 × 0,145 m)."""
-    with _tao(c) as t:
-        K.box('dc_dt_than', -0.037, 0.037, -0.076, 0.076, 0, 0.008, mat('#2b2d31', 0.35, 0.6), c, bevel=0.004)
-        _mat_phang_uv('dc_dt_man', -0.0345, 0.0345, -0.0725, 0.0725, 0.0082, _mat_anh(ui.split('.')[0], ui, sang), c)
+    m_ = _mat_anh(ui.split('.')[0], ui, sang); ngang = m_.node_tree.nodes['Image Texture'].image.size[0] > m_.node_tree.nodes['Image Texture'].image.size[1]
+    with _tao(c) as t:   # ảnh ngang (game) → máy cầm NGANG: thân xoay 90°, màn trải theo trục x
+        if ngang:
+            K.box('dc_dt_than', -0.076, 0.076, -0.037, 0.037, 0, 0.008, mat('#2b2d31', 0.35, 0.6), c, bevel=0.004)
+            _mat_phang_uv('dc_dt_man', -0.0725, 0.0725, -0.0345, 0.0345, 0.0082, m_, c)
+        else:
+            K.box('dc_dt_than', -0.037, 0.037, -0.076, 0.076, 0, 0.008, mat('#2b2d31', 0.35, 0.6), c, bevel=0.004)
+            _mat_phang_uv('dc_dt_man', -0.0345, 0.0345, -0.0725, 0.0725, 0.0082, m_, c)
         grip('dien_thoai', 0, -0.03, 0.004, c)
     return _nhom('dien_thoai_' + ui.split('_')[0], at, rz, t.moi, c)
 
@@ -367,19 +474,56 @@ def bang(c):
     laptop(c, (2.3, 0.55, 0.0), ui='UI-07_laptop-tieu-luan.png')
 
 
+THE = [('Búa cán cao su', bua_cao_su, {}), ('Hộp xôi', hop_xoi, {}), ('Xôi bị hất', hop_xoi, {'do': True}), ('Thuốc + note mẹ', hop_thuoc_khop, {}),
+       ('Note Lab 402', note_lab402, {}), ('Hoá đơn 650k', hoa_don, {}), ('Dép tổ ong', dep_to_ong, {}), ('Nồi cơm điện', noi_com_dien, {}),
+       ('Thùng mì + sọt rác', thung_mi, {}), ('Chậu đồ ngâm', chau_quan_ao, {}), ('Dao gọt', dao_got, {}), ('Tuýp dầu', tuyp_dau, {}),
+       ('Chìa khoá', chia_khoa, {}), ('Ba lô', ba_lo, {}), ('Giáo trình + ghi chép', giao_trinh, {}), ('ĐT: Mẹ gọi', dien_thoai, {'ui': 'UI-05_me-goi-video.png'}),
+       ('ĐT ngang: game', dien_thoai, {'ui': 'UI-09_game-moba-thua-ngang.png'}), ('Laptop: tiểu luận', laptop, {})]
+
+
+def the_dao_cu(out_dir, w=480, mau=24):
+    """Render TỪNG đạo cụ một ảnh riêng (camera tự canh theo hộp bao, góc 3/4 từ trên) rồi ghép bảng có nhãn → dễ nhận ra từng món."""
+    import subprocess
+    sc = bpy.context.scene; c = bpy.data.collections['Dao_cu_moi']; files = []
+    goc = []
+    for i, (nhan, fn, kw) in enumerate(THE):
+        g = fn(c, (i * 3.0, 0, 0), **kw); goc.append(g)
+        K.box(f'dc_nen_{i}', i * 3.0 - 0.6, i * 3.0 + 0.6, -0.6, 0.6, -0.01, 0.0, mat('#7d8896', 0.85), c)
+    bpy.context.view_layer.update()
+    cam = K.camera('cam_the', (0, -1, 1), (0, 0, 0), 50); sc.camera = cam
+    sc.render.resolution_x, sc.render.resolution_y = w, round(w * 0.75)
+    for i, g in enumerate(goc):
+        pts = []
+        for o in g.children_recursive:
+            if o.type in ('MESH', 'CURVE', 'FONT'): pts += [o.matrix_world @ Vector(b) for b in o.bound_box]
+        lo = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts))); hi = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
+        ctr = (lo + hi) / 2; r = max((hi - lo).length / 2, 0.03)
+        d = r / math.tan(math.radians(17)) * 1.15
+        cam.location = ctr + Vector((0.35, -0.75, 0.62)).normalized() * d; cam.rotation_euler = (ctr - cam.location).to_track_quat('-Z', 'Y').to_euler()
+        f = os.path.join(out_dir, f'the_{i:02d}.png'); sc.render.filepath = f; bpy.ops.render.render(write_still=True); files.append((THE[i][0], f))
+    args = ['montage', '-font', os.path.join(FD, 'LiberationSans-Bold.ttf')]
+    for nhan, f in files: args += ['-label', nhan, f]
+    args += ['-font', os.path.join(FD, 'LiberationSans-Bold.ttf'), '-tile', '6x', '-geometry', f'{w // 1}x{round(w * 0.75)}+4+4', '-pointsize', '22', '-background', '#30343c', '-fill', '#ffffff', os.path.join(out_dir, 'THE-DAO-CU.jpg')]
+    subprocess.run(args, check=True)
+
+
 if __name__ == '__main__':
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--bang', action='store_true'); ap.add_argument('--out', default='/tmp/dao_cu_moi.png')
-    ap.add_argument('--width', type=int, default=1600); ap.add_argument('--samples', type=int, default=32); ap.add_argument('--cam', default='toan')
+    ap.add_argument('--width', type=int, default=1600); ap.add_argument('--samples', type=int, default=32); ap.add_argument('--cam', default='toan'); ap.add_argument('--the', default='', help='thư mục: render từng đạo cụ một thẻ')
     a = ap.parse_args(argv)
     bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene; c = K.coll('Dao_cu_moi')
-    bang(c)
+    if not a.the: bang(c)
     K.troi('#cfd8e2', '#9fb4cc', 0.6)
     K.area('dc_den_chinh', (1.2, -1.6, 2.2), 3.0, 260, '#fff4e6', rot=(math.radians(40), 0, 0), c=c)
     K.area('dc_den_phu', (1.2, 1.8, 1.6), 3.0, 80, '#dfe8ff', rot=(math.radians(-50), 0, 0), c=c)
     cams = {'toan': ((1.2, -1.55, 1.75), (1.2, 0.0, 0.0), 30), 'gan_trai': ((0.4, -0.95, 0.55), (0.4, -0.3, 0.05), 45), 'gan_phai': ((1.75, -0.95, 0.55), (1.75, -0.4, 0.02), 45),
             'ui': ((2.25, -0.45, 0.5), (2.25, 0.45, 0.12), 35), 'note': ((1.22, -0.72, 0.42), (1.22, -0.42, 0.1), 50)}
+    import toi_uu; toi_uu.cau_hinh(sc, 'duyet'); sc.cycles.samples = a.samples; sc.view_settings.view_transform = 'AgX'
+    if a.the:
+        bpy.data.objects.remove(bpy.data.objects['dc_den_chinh']); bpy.data.objects.remove(bpy.data.objects['dc_den_phu'])
+        K.sun('dc_nang_the', (0.4, 0.6, -0.7), 3.5, '#fff4e6', 3.0, c); bpy.context.scene.world.node_tree.nodes['Background'].inputs['Strength'].default_value = 1.0
+        os.makedirs(a.the, exist_ok=True); the_dao_cu(a.the); sys.exit(0)
     p, tg, f = cams[a.cam]; sc.camera = K.camera('cam', p, tg, f)
-    import toi_uu; toi_uu.cau_hinh(sc, 'duyet'); sc.cycles.samples = a.samples
     sc.render.resolution_x = a.width; sc.render.resolution_y = round(a.width / 2.39); sc.render.resolution_percentage = 100
     sc.view_settings.view_transform = 'AgX'; sc.render.filepath = a.out; bpy.ops.render.render(write_still=True)

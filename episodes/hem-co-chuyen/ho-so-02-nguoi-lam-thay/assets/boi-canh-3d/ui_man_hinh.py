@@ -122,17 +122,36 @@ def ui08_trac_nghiem():
 
 
 def ui09_game_thua():
-    """Cảnh 2.1: Nam thua liền 3 ván game (game hư cấu, không nhận diện game thật)."""
-    im = Image.new('RGB', (W, H), '#0e0a14'); d = ImageDraw.Draw(im)
-    for r in range(420, 0, -6): d.ellipse((W / 2 - r, 330 - r, W / 2 + r, 330 + r), fill=(int(60 * (1 - r / 420)) + 14, 8, int(20 * (1 - r / 420)) + 14))
-    d.text((W / 2, 300), 'THẤT BẠI', font=F(96, True), fill='#e63946', anchor='mm', stroke_width=4, stroke_fill='#3a0a0f')
-    d.text((W / 2, 390), 'Thua 3 trận liên tiếp', font=F(30), fill='#e9c6c9', anchor='mm')
-    d.rounded_rectangle((60, 470, W - 60, 700), 20, fill='#1c1526', outline='#3a2e4a', width=2)
-    for k, (a, b) in enumerate((('Hạ gục', '2'), ('Bị hạ', '11'), ('Hỗ trợ', '4'), ('Hạng', '↓ Vàng IV'))):
-        d.text((100, 500 + 48 * k), a, font=F(26), fill='#a99bbd'); d.text((W - 100, 500 + 48 * k), b, font=F(26, True), fill='#ffffff', anchor='ra')
-    d.rounded_rectangle((60, 760, 290, 850), 16, fill='#2a2236'); d.text((175, 805), 'Thoát', font=F(28, True), fill='#cfc4dd', anchor='mm')
-    d.rounded_rectangle((334, 760, 564, 850), 16, fill='#e63946'); d.text((449, 805), 'Chơi lại', font=F(28, True), fill='#ffffff', anchor='mm')
-    d.text((34, 18), '09:12', font=F(24, True), fill='#ffffff')
+    """Cảnh 2.1: Nam cầm NGANG điện thoại chơi game MOBA 5v5 (game hư cấu "Đấu Trường Huyền Thoại" tự đặt, không nhận diện game thật),
+    vừa thua trận thứ 3: bản đồ mờ phía sau, HUD (bản đồ nhỏ, cần điều khiển, nút kỹ năng) + bảng THẤT BẠI + tỉ số đội. 1040×624 (ngang)."""
+    GW, GH = 1040, 624
+    im = Image.new('RGB', (GW, GH), '#1f3a2a'); d = ImageDraw.Draw(im)
+    # bản đồ: cỏ, đường đi chéo, sông, trụ, lính — rồi làm mờ + tối như màn kết trận
+    d.polygon([(0, GH), (0, GH - 140), (GW - 140, 0), (GW, 0), (GW, 140), (140, GH)], fill='#8a7a5a')          # đường giữa
+    d.polygon([(0, 260), (0, 360), (GW, 0 + 120), (GW, 20)], fill='#2f6f8f')                               # sông
+    for (x, y, cl) in ((160, 470, '#3f88c5'), (420, 300, '#3f88c5'), (650, 230, '#e63946'), (880, 110, '#e63946')):
+        d.rectangle((x - 16, y - 50, x + 16, y + 10), fill='#cfcfcf'); d.ellipse((x - 22, y - 70, x + 22, y - 30), fill=cl)       # trụ
+    for k in range(14): d.ellipse((300 + 30 * k, 380 - 22 * k, 314 + 30 * k, 394 - 22 * k), fill='#e63946' if k > 7 else '#3f88c5')  # lính
+    for k in range(40): x, y = (k * 97) % GW, (k * 53) % GH; d.ellipse((x, y, x + 46, y + 46), fill='#2c5a35')               # bụi cỏ
+    im = im.filter(ImageFilter.GaussianBlur(5)); im = Image.blend(im, Image.new('RGB', (GW, GH), '#0a0610'), 0.55); d = ImageDraw.Draw(im)
+    # HUD: bản đồ nhỏ, tỉ số, giờ trận, cần điều khiển, nút kỹ năng (mờ vì trận đã kết thúc)
+    d.rounded_rectangle((14, 14, 164, 164), 10, fill='#16261c', outline='#6b8a72', width=2)
+    d.line((24, 154, 154, 24), fill='#a89a7a', width=6); d.line((24, 80, 154, 40), fill='#3f7f9f', width=5)
+    d.ellipse((30, 140, 42, 152), fill='#3f88c5'); d.ellipse((136, 26, 148, 38), fill='#e63946')
+    d.rounded_rectangle((GW / 2 - 120, 10, GW / 2 + 120, 54), 10, fill='#120c1a')
+    d.text((GW / 2 - 60, 32), '9', font=F(28, True), fill='#6fa8ff', anchor='mm'); d.text((GW / 2, 32), '18:42', font=F(20), fill='#d0c8dc', anchor='mm'); d.text((GW / 2 + 60, 32), '27', font=F(28, True), fill='#ff6b78', anchor='mm')
+    d.ellipse((50, GH - 190, 190, GH - 50), outline='#6d6878', width=4); d.ellipse((98, GH - 142, 142, GH - 98), fill='#5d5868')   # cần điều khiển
+    for i, (x, y, r) in enumerate(((GW - 85, GH - 85, 56), (GW - 190, GH - 50, 32), (GW - 180, GH - 150, 32), (GW - 80, GH - 190, 32))):
+        d.ellipse((x - r, y - r, x + r, y + r), fill='#2a2236', outline='#6d6878', width=3); d.text((x, y), ('⚔', '1', '2', '3')[i], font=F(int(r * 0.8), True), fill='#6d6878', anchor='mm')
+    # bảng kết trận
+    d.text((GW / 2, 190), 'THẤT BẠI', font=F(104, True), fill='#e63946', anchor='mm', stroke_width=5, stroke_fill='#3a0a0f')
+    d.text((GW / 2, 262), 'Thua 3 trận liên tiếp · Hạng ↓ Vàng IV', font=F(26), fill='#ead2d5', anchor='mm')
+    d.rounded_rectangle((GW / 2 - 300, 300, GW / 2 + 300, 470), 16, fill='#1c1526ee', outline='#3a2e4a', width=2)
+    for k, (a, b) in enumerate((('Bạn (Đấu sĩ)', '2 / 11 / 4'), ('Đồng đội tốt nhất', '8 / 3 / 6'), ('Thời gian trận', '18:42'))):
+        d.text((GW / 2 - 270, 322 + 46 * k), a, font=F(24), fill='#a99bbd'); d.text((GW / 2 + 270, 322 + 46 * k), b, font=F(24, True), fill='#ffffff', anchor='ra')
+    d.rounded_rectangle((GW / 2 - 260, 500, GW / 2 - 30, 572), 14, fill='#2a2236'); d.text((GW / 2 - 145, 536), 'Thoát', font=F(26, True), fill='#cfc4dd', anchor='mm')
+    d.rounded_rectangle((GW / 2 + 30, 500, GW / 2 + 260, 572), 14, fill='#e63946'); d.text((GW / 2 + 145, 536), 'Đấu tiếp', font=F(26, True), fill='#ffffff', anchor='mm')
+    d.text((GW - 20, 14), 'Đấu Trường Huyền Thoại', font=F(16), fill='#9d93ad', anchor='ra')
     return im
 
 
@@ -170,11 +189,16 @@ def ui06_ho_nguyen():
     y = 180; d.text((W / 2, y), 'Hôm nay 08:12', font=F(19), fill='#7b8794', anchor='mm'); y += 30
     avatar(d, 54, y + 30, 26, '#6d4c41', 'H'); d.text((92, y), 'Bác Hai', font=F(21, True), fill='#2e7d5b'); y += 32
     vx0, vy0, vx1, vy1 = 92, y, W - 30, y + 300
-    d.rounded_rectangle((vx0, vy0, vx1, vy1), 18, fill='#5b3a2a')
-    d.ellipse((vx0 + 40, vy0 + 120, vx1 - 40, vy1 + 60), fill='#b9b4ad'); d.ellipse((vx0 + 70, vy0 + 150, vx1 - 70, vy1 + 30), fill='#d9d4cc')  # mâm
-    for k, (dx, dy, c) in enumerate(((-90, 190, '#f2f2ee'), (0, 175, '#e2a43b'), (90, 195, '#7c9a4e'), (-40, 230, '#c94f3a'), (60, 235, '#f0d27a'))):
-        cx = (vx0 + vx1) / 2 + dx; d.ellipse((cx - 38, vy0 + dy - 22, cx + 38, vy0 + dy + 22), fill=c)
-    d.ellipse(((vx0 + vx1) / 2 - 44, vy0 + 86, (vx0 + vx1) / 2 + 44, vy0 + 174), fill=(0, 0, 0)); d.polygon([((vx0 + vx1) / 2 - 14, vy0 + 106), ((vx0 + vx1) / 2 - 14, vy0 + 154), ((vx0 + vx1) / 2 + 26, vy0 + 130)], fill='#ffffff')
+    vw, vh = vx1 - vx0, vy1 - vy0
+    v = Image.new('RGB', (vw, vh), '#5b3a2a'); vd = ImageDraw.Draw(v)     # khung hình video vẽ riêng rồi dán qua mặt nạ bo góc → không tràn ra ngoài
+    vd.rectangle((0, 0, vw, 120), fill='#7a5238'); vd.rectangle((vw / 2 - 60, 10, vw / 2 + 60, 90), fill='#a0322a'); vd.text((vw / 2, 50), 'Ảnh thờ', font=F(16), fill='#f0d27a', anchor='mm')  # ban thờ phía sau
+    vd.ellipse((40, 130, vw - 40, vh + 70), fill='#b9b4ad'); vd.ellipse((70, 160, vw - 70, vh + 40), fill='#d9d4cc')              # mâm cỗ
+    for k, (dx, dy, cl) in enumerate(((-90, 190, '#f2f2ee'), (0, 175, '#e2a43b'), (90, 195, '#7c9a4e'), (-40, 235, '#c94f3a'), (60, 240, '#f0d27a'))):
+        cx = vw / 2 + dx; vd.ellipse((cx - 38, dy - 22, cx + 38, dy + 22), fill=cl)
+    for k, cx in enumerate((50, vw - 50)): vd.ellipse((cx - 30, 110, cx + 30, 170), fill='#e0b089'); vd.pieslice((cx - 55, 150, cx + 55, 260), 180, 360, fill=('#f2f2ee', '#355c7d')[k])  # người ngồi hai bên
+    vd.ellipse((vw / 2 - 44, 86, vw / 2 + 44, 174), fill=(0, 0, 0)); vd.polygon([(vw / 2 - 14, 106), (vw / 2 - 14, 154), (vw / 2 + 26, 130)], fill='#ffffff')
+    mask = Image.new('L', (vw, vh), 0); ImageDraw.Draw(mask).rounded_rectangle((0, 0, vw - 1, vh - 1), 18, fill=255)
+    im.paste(v, (vx0, vy0), mask)
     d.text((vx1 - 16, vy1 - 16), '01:24', font=F(20, True), fill='#ffffff', anchor='rd')
     y = vy1 + 10; d.text((92, y), 'Giỗ ông nội, thằng Nam về phụ cả buổi', font=F(23), fill='#1c1c1e'); y += 50
     avatar(d, 54, y + 30, 26, '#c06c84', 'C'); y = bong_bong(d, 92, y, 'Cháu Nam ngoan quá, lễ phép chào cả họ', ten='Cô Út', w=440)
@@ -234,7 +258,7 @@ def ui10_code_cpp():
 
 
 MAN = [('UI-01_bao-thuc-0630', ui01_bao_thuc), ('UI-03_nhom-lop-khen', ui03_nhom_lop), ('UI-08_trac-nghiem-10-cau', ui08_trac_nghiem),
-       ('UI-09_game-thua', ui09_game_thua), ('UI-04_diem-lab402', ui04_diem_lab402), ('UI-05_me-goi-video', ui05_me_goi_video),
+       ('UI-09_game-moba-thua-ngang', ui09_game_thua), ('UI-04_diem-lab402', ui04_diem_lab402), ('UI-05_me-goi-video', ui05_me_goi_video),
        ('UI-06_nhom-ho-nguyen', ui06_ho_nguyen), ('UI-07_laptop-tieu-luan', ui07_word_tieu_luan), ('UI-10_laptop-code-cpp', ui10_code_cpp)]
 
 
@@ -244,10 +268,12 @@ def main():
     for ten, fn in MAN:
         im = fn(); p = os.path.join(OUT, ten + '.png'); im.save(p, optimize=True); anh.append((ten, im)); print('UI', p, im.size)
     # bảng ghép: 7 điện thoại một hàng + 2 laptop
-    dt = [im.resize((312, 520)) for t, im in anh if im.size == (W, H)]; lp = [im.resize((960, 540)) for t, im in anh if im.size != (W, H)]
-    bang = Image.new('RGB', (max(len(dt) * 322, 1940) + 10, 520 + 540 + 30), '#30343c')
+    dt = [im.resize((312, 520)) for t, im in anh if im.size == (W, H)]; ngang = [im.resize((520, 312)) for t, im in anh if im.size == (1040, 624)]
+    lp = [im.resize((960, 540)) for t, im in anh if im.size == (1920, 1080)]
+    bang = Image.new('RGB', (max(len(dt) * 322 + (530 if ngang else 0), 1940) + 10, 520 + 540 + 30), '#30343c')
     for i, im in enumerate(dt): bang.paste(im, (10 + i * 322, 10))
     for i, im in enumerate(lp): bang.paste(im, (10 + i * 970, 540))
+    for i, im in enumerate(ngang): bang.paste(im, (10 + len(dt) * 322, 10 + i * 330))
     bang.save(os.path.join(OUT, 'BANG-UI.png'), optimize=True)
 
 
