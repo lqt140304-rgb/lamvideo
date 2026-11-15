@@ -99,3 +99,9 @@ Viền mắt được vẽ lại thành nét tối đều, dày 4 mm, chạy the
 Còn lại: mép lông mày còn viền nhạt, lởm chởm. Quanh hốc còn một gờ mờ do khối mắt cũ trên lưới. Chưa có mí dưới. Lông mày vẫn là hình vẽ trên texture, chưa cử động được.
 
 **Viền mắt 3D (15/11/2026):** bỏ nét viền vẽ trên texture, dải đó được tô lại màu da. Thay vào đó là một ống NURBS khép kín, nét dày khoảng 2,2 mm, chạy qua 64 điểm trên da ngay ngoài mép lỗ, gắn theo xương `Head`. Viền trơn ở mọi góc nhìn và mảnh hơn trước. Mặt trước nhãn cầu nhô 6 mm (trước là 2 mm), sâu 21 mm, nên cong phồng hơn. Còn vài chấm tối li ti ở mép dưới hốc (mép lưới da khoét).
+
+**Lông mày 3D và vành da (15/11/2026):**
+- Lông mày vẽ trên texture được tô lại màu da. Lông mày mới là tấm cong 3D (`LongMay.L/R`) bám theo da, dựng theo dáng mày cũ: mép trên và dưới đo từ ảnh nhìn thẳng, lưu trong `du-lieu/long-may.json`. Tấm phồng giữa khoảng 1,6 mm, hai đầu bo tròn, có làm mượt thêm (subsurf), gắn theo xương `Head`.
+- Gờ nổi sần trên lưới da vùng mày được làm phẳng bằng Taubin (90 vòng).
+- Ngoài nét viền mắt có thêm một vành da mỏng (`VanhDa.L/R`, dùng vật liệu da) để che mép cắt lởm chởm. Tường hốc đổi sang màu da tối.
+- **Còn lại:** đầu ngoài lông mày nhìn nghiêng còn vệt nâu cam, do màu vẽ cũ ở mặt bên đầu nằm ngoài vùng tô từ phía trước.

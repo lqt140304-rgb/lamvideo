@@ -37,10 +37,26 @@ def _surface_y(body, x, z):
     return (body.matrix_world @ loc).y if ok else -0.10
 
 
+def lam_muot_may(body, it=90):
+    """Làm mượt Taubin lưới vùng lông mày (gờ nổi sần ⇒ mép sáng lởm chởm)."""
+    me = body.data; n = len(me.vertices); co = np.zeros(n * 3); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3)
+    e = np.zeros(len(me.edges) * 2, np.int64); me.edges.foreach_get('vertices', e); a, b = e[0::2], e[1::2]
+    dg = np.bincount(np.concatenate([a, b]), minlength=n).clip(1)[:, None]
+    x, y, z = co.T
+    w = np.clip(np.minimum.reduce([(z - 1.565) / 0.01, (1.675 - z) / 0.01, (-0.04 - y) / 0.01, (0.125 - np.abs(x)) / 0.012]), 0, 1)
+    R = w > 0
+    for _ in range(it):
+        for lam in (0.5, -0.53):
+            acc = np.stack([np.bincount(a, co[b, j], n) + np.bincount(b, co[a, j], n) for j in range(3)], 1) / dg
+            co[R] += (lam * w[R])[:, None] * (acc[R] - co[R])
+    me.vertices.foreach_set('co', co.ravel()); me.update()
+    print(f'  làm mượt lưới lông mày: {int(R.sum())} đỉnh')
+
+
 def khoet_hoc(body):
     me = body.data
     bm = bmesh.new(); bm.from_mesh(me)
-    sock = _mat('hoc_mat', (0.10, 0.06, 0.05), 0.9)
+    sock = _mat('hoc_mat', (0.62, 0.42, 0.30), 0.9)          # màu da tối: mép cắt lộ ra không thành gai đen
     if sock.name not in me.materials: me.materials.append(sock)
     si = list(me.materials).index(sock)
     bm.verts.ensure_lookup_table(); bm.faces.ensure_lookup_table()
@@ -151,12 +167,13 @@ def _uon(co, ax_, az_):
     return Vector((x, y - h * w, z))
 
 
-VIEN_R = 0.0011   # bán kính ống viền 3D (nét ≈ 2,2 mm)
+_VANH = {}
+VIEN_R = 0.0013   # bán kính ống viền 3D (nét ≈ 2,6 mm)
 
 
 def _vien_3d(sc, body, cx, k):
     """Đường viền 3D trơn ôm mép hốc: NURBS khép kín qua 64 điểm trên da ngay ngoài mép lỗ, tiết diện tròn."""
-    a_, b_ = RX - VIEN + 0.0006, RZ - VIEN + 0.0006
+    a_, b_ = RX - VIEN, RZ - VIEN                      # đúng mép lỗ ⇒ ống viền che mép cắt
     pts = []
     for th in np.linspace(0, 2 * np.pi, 64, endpoint=False):
         x = cx + a_ * math.cos(th); z = EYE_Z + b_ * math.sin(th); pts.append((x, _surface_y(body, x, z) - 0.0002, z))
@@ -165,8 +182,51 @@ def _vien_3d(sc, body, cx, k):
     for p_, q in zip(sp.points, pts): p_.co = (*q, 1)
     sp.use_cyclic_u = True; sp.order_u = 4
     ob = bpy.data.objects.new(f'Vien.{k}', cu); sc.collection.objects.link(ob)
+    # vành da mỏng ngay ngoài nét viền: che mép cắt lởm chởm của lưới da
+    a2, b2 = a_ + 0.0026, b_ + 0.0026; cu2 = bpy.data.curves.new(f'VanhDa.{k}', 'CURVE'); cu2.dimensions = '3D'; cu2.bevel_depth = 0.0017; cu2.bevel_resolution = 4; cu2.resolution_u = 6
+    sp2 = cu2.splines.new('NURBS'); sp2.points.add(63)
+    for p_, th in zip(sp2.points, np.linspace(0, 2 * np.pi, 64, endpoint=False)):
+        xx = cx + a2 * math.cos(th); zz = EYE_Z + b2 * math.sin(th); p_.co = (xx, _surface_y(body, xx, zz) + 0.0009, zz, 1)
+    sp2.use_cyclic_u = True; sp2.order_u = 4
+    ob2 = bpy.data.objects.new(f'VanhDa.{k}', cu2); sc.collection.objects.link(ob2)
+    cu2.materials.append(body.data.materials[0]); _VANH[k] = ob2
     m = bpy.data.materials.get('vien_mat') or _mat('vien_mat', (0.18, 0.11, 0.08), 0.6); cu.materials.append(m)
     return ob
+
+
+_MAY = {}
+
+
+def tao_may(sc, body):
+    """Lông mày 3D: tấm cong bám da theo dáng mày vẽ (du-lieu/long-may.json: mép dưới/trên theo x), phồng giữa 1,6 mm, hai đầu bo tròn."""
+    import json, os
+    D_ = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'du-lieu', 'long-may.json')))
+    m = bpy.data.materials.get('may_mat') or _mat('may_mat', (0.15, 0.11, 0.09), 0.75); out = {}
+    for k in ('L', 'R'):
+        x = np.array(D_[k]['x']); zd = np.array(D_[k]['zd']); zt = np.array(D_[k]['zt']); o = np.argsort(x); x, zd, zt = x[o], zd[o], zt[o]
+        pd, pt = np.polyfit(x, zd, 4), np.polyfit(x, zt, 4)
+        x0, x1 = x.min() - 0.002, x.max() + 0.003; NU, NV = 48, 10
+        bm = bmesh.new(); grid = []
+        for i in range(NU + 1):
+            t = i / NU; xx = x0 + (x1 - x0) * t
+            zc = (np.polyval(pd, xx) + np.polyval(pt, xx)) / 2; hw = (np.polyval(pt, xx) - np.polyval(pd, xx)) / 2
+            hw *= 1.10 * math.sqrt(max(0.0, 1 - (2 * t - 1) ** 8))                     # bo tròn hai đầu
+            row = []
+            for j in range(NV + 1):
+                u = j / NV * 2 - 1; zz = zc + hw * u
+                y = _surface_y(body, xx, zz) - (0.0013 + 0.0016 * math.sqrt(max(0.0, 1 - u * u)) * (hw > 1e-4))
+                row.append(bm.verts.new((xx, y, zz)))
+            grid.append(row)
+        for i in range(NU):
+            for j in range(NV): bm.faces.new((grid[i][j], grid[i + 1][j], grid[i + 1][j + 1], grid[i][j + 1]))
+        bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-5); bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+        me = bpy.data.meshes.new(f'LongMay.{k}'); bm.to_mesh(me); bm.free()
+        for p in me.polygons: p.use_smooth = True
+        ob = bpy.data.objects.new(f'LongMay.{k}', me); sc.collection.objects.link(ob); me.materials.append(m)
+        sub = ob.modifiers.new('muot', 'SUBSURF'); sub.levels = sub.render_levels = 1
+        out[k] = ob
+    print('  lông mày 3D: 2 tấm'); _MAY.update(out)
+    return out
 
 
 def tao_mat(sc, body):
@@ -223,7 +283,8 @@ def gan_mat(arm, objs):
     hb = arm.data.bones['Head']
     for k in ('L', 'R'):
         e, l, c, vn = objs[k]
-        for ob in (e, l, vn):
+        for ob in (e, l, vn, _VANH[k], _MAY.get(k)):
+            if ob is None: continue
             w = ob.matrix_world.copy(); ob.parent = arm; ob.parent_type = 'BONE'; ob.parent_bone = 'Head'
             bpy.context.view_layer.update(); ob.matrix_world = w
         # liếc: góc = atan(dời / 0,45 m) theo hai trục (dời ngang thế giới X → quay quanh Z; dời dọc Z → quay quanh X)

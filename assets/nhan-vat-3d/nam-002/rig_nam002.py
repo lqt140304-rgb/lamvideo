@@ -429,6 +429,8 @@ def main():
     print(f'  hàn đỉnh trùng: {n0} → {len(bm.verts)} đỉnh, cạnh hở còn {sum(e.is_boundary for e in bm.edges)}'); bm.free()
     import mat_nam002 as MAT
     eyes = MAT.tao_mat(sc, body)                   # đo mặt da trước khi khoét
+    MAT.lam_muot_may(body)
+    MAT.tao_may(sc, body)
     MAT.khoet_hoc(body)
     measure_fingers(mesh_co(body))
     arm = build_armature(sc)
