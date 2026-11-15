@@ -79,8 +79,8 @@ def _eye_material(k):
     m = bpy.data.materials.new(f'nhan_cau.{k}'); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
     out = nt.nodes.new('ShaderNodeOutputMaterial'); b = nt.nodes.new('ShaderNodeBsdfPrincipled'); nt.links.new(b.outputs[0], out.inputs[0])
     b.inputs['Roughness'].default_value = 0.25
-    tc = nt.nodes.new('ShaderNodeTexCoord')
-    sc_ = nt.nodes.new('ShaderNodeVectorMath'); sc_.operation = 'MULTIPLY'; sc_.inputs[1].default_value = (1 / E[0], 1 / E[1], 1 / E[2]); nt.links.new(tc.outputs['Object'], sc_.inputs[0])
+    tc = nt.nodes.new('ShaderNodeAttribute'); tc.attribute_name = 'goc'           # toạ độ trước khi uốn mép ⇒ con ngươi không méo
+    sc_ = nt.nodes.new('ShaderNodeVectorMath'); sc_.operation = 'MULTIPLY'; sc_.inputs[1].default_value = (1 / E[0], 1 / E[1], 1 / E[2]); nt.links.new(tc.outputs['Vector'], sc_.inputs[0])
     mp = nt.nodes.new('ShaderNodeMapping'); mp.name = 'huong_nhin'; mp.vector_type = 'VECTOR'; nt.links.new(sc_.outputs[0], mp.inputs['Vector'])
     nrm = nt.nodes.new('ShaderNodeVectorMath'); nrm.operation = 'NORMALIZE'; nt.links.new(mp.outputs[0], nrm.inputs[0])
     sp = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(nrm.outputs[0], sp.inputs[0])
@@ -116,7 +116,7 @@ def _hemi(R, ang):
 
 LOI = 0.002      # mặt trước nhãn cầu nhô trước mặt phẳng mép hốc
 KHIT = 1.02      # nhãn cầu rộng hơn lỗ 2 % (vừa đủ che khe, không lấn nét viền vẽ)
-NGHIENG_DUOI = 15.0  # độ: ngả nhãn cầu quanh trục ngang để nửa dưới nhô ra (da gò má dưới mắt cao hơn)
+NGHIENG_DUOI = 0.0  # độ: ngả nhãn cầu quanh trục ngang để nửa dưới nhô ra (da gò má dưới mắt cao hơn)
 LUI_MEP = 0.0025 # ở mép lỗ, mặt nhãn cầu nằm sau mặt phẳng mép hốc chừng này
 
 
@@ -131,7 +131,24 @@ def _khung_mep(body, cx):
     za = n.cross(xa).normalized()                                # khung: x ngang, −y = n (ra ngoài), z lên
     M = Matrix((xa, -n, za)).transposed()
     if M.determinant() < 0: xa = -xa; M = Matrix((xa, -n, za)).transposed()
+    q = (P - c) @ np.array(M)                                   # toạ độ cục bộ của điểm mép; +y cục bộ = vào trong
+    th = np.arctan2(q[:, 2] / b_, q[:, 0] / a_); h = -q[:, 1]   # h > 0: da ở góc đó nhô ra trước mặt phẳng
+    o = np.argsort(th); print(f'  mép hốc nhô so với mặt phẳng: {h.min() * 1000:+.1f}…{h.max() * 1000:+.1f} mm')
+    global _MEP; _MEP = (th[o], h[o])
     return Vector(c), n, M, a_, b_
+
+
+_MEP = None
+
+
+def _uon(co, ax_, az_):
+    """Uốn phía trước: dời ra ngoài theo độ nhô của da mép tại cùng góc, tăng dần từ tâm (0) ra mép (1)."""
+    th0, h0 = _MEP
+    x, y, z = co.x, co.y, co.z
+    if y > 0: return co
+    th = math.atan2(z / az_, x / ax_); w = min(1.0, (x / ax_) ** 2 + (z / az_) ** 2)
+    h = float(np.interp(th, th0, h0, period=2 * np.pi))
+    return Vector((x, y - h * w, z))
 
 
 def tao_mat(sc, body):
@@ -146,7 +163,9 @@ def tao_mat(sc, body):
         ctr = c + n * (LOI - dep)
         me = bpy.data.meshes.new(f'NhanCau.{k}'); bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=64, v_segments=40, radius=R_NHAN)
         for v in bm.verts: v.co.x *= Ek[0]; v.co.y *= Ek[1]; v.co.z *= Ek[2]
-        bm.to_mesh(me); bm.free(); e = bpy.data.objects.new(f'NhanCau.{k}', me); sc.collection.objects.link(e)
+        goc = np.array([v.co[:] for v in bm.verts], np.float32)
+        for v in bm.verts: v.co = _uon(v.co, ax_, az_)
+        bm.to_mesh(me); me.attributes.new('goc', 'FLOAT_VECTOR', 'POINT').data.foreach_set('vector', goc.ravel()); bm.free(); e = bpy.data.objects.new(f'NhanCau.{k}', me); sc.collection.objects.link(e)
         e.matrix_world = Matrix.Translation(ctr) @ M.to_4x4()
         mat = _eye_material(k); mat.node_tree.nodes['Vector Math'].inputs[1].default_value = (1 / Ek[0], 1 / Ek[1], 1 / Ek[2])
         me.materials.append(mat)
@@ -155,7 +174,7 @@ def tao_mat(sc, body):
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=48, v_segments=32, radius=Rm)
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z < -1e-6], context='VERTS')
         edge = [v.co.z < 0.004 for v in bm.verts]; base = [v.co.copy() for v in bm.verts]
-        for v in bm.verts: v.co.x *= El[0]; v.co.y *= El[1]; v.co.z *= El[2]
+        for v in bm.verts: v.co.x *= El[0]; v.co.y *= El[1]; v.co.z *= El[2]; v.co = _uon(v.co, ax_ + 0.0012, az_ + 0.0012)
         lme = bpy.data.meshes.new(f'Mi.{k}'); bm.to_mesh(lme); bm.free()
         at = lme.attributes.new('mep_mi', 'FLOAT', 'POINT'); at.data.foreach_set('value', np.array(edge, np.float32))
         l = bpy.data.objects.new(f'Mi.{k}', lme); sc.collection.objects.link(l); l.matrix_world = Matrix.Translation(ctr) @ M.to_4x4()
@@ -163,7 +182,7 @@ def tao_mat(sc, body):
         for ang in GOC_MI[1:] + (-32.0,):
             kb = l.shape_key_add(name=f'mi_{int(ang):+d}', from_mix=False); R = Matrix.Rotation(math.radians(ang), 3, 'X')
             for i, p0 in enumerate(base):
-                q = R @ p0; kb.data[i].co = Vector((q.x * El[0], q.y * El[1], q.z * El[2]))
+                q = R @ p0; kb.data[i].co = _uon(Vector((q.x * El[0], q.y * El[1], q.z * El[2])), ax_ + 0.0012, az_ + 0.0012)
         sol = l.modifiers.new('day', 'SOLIDIFY'); sol.thickness = 0.0012; sol.offset = 1
         lme.materials.append(lm)
         for p in lme.polygons: p.use_smooth = True
