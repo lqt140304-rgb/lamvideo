@@ -13,7 +13,7 @@ import sys, os, math, time, argparse
 import numpy as np, bpy, bmesh
 from mathutils import Vector
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 SRC_GLB = os.path.join(HERE, 'nguon', 'base_2.glb')
 RIG002 = os.path.join(HERE, '..', 'nam-002', 'rig_nam002.py')
 
@@ -75,6 +75,7 @@ def main():
     g = patched_namespace(); sc = bpy.context.scene
     body = nap_mo_hinh(); sc = bpy.context.scene
     t0 = time.time(); arm = g['build_armature'](sc); g['bind'](sc, arm, body)
+    import co_nam003 as CO; CO.add_neck_bones(arm); CO.set_neck_weights(body)   # xương phụ cổ + trọng số gradient (thiết kế 15/11)
     print(f'  rig xong {time.time() - t0:.1f}s; {len(body.vertex_groups)} nhóm trọng số')
     # tối đa 4 xương/đỉnh (giới hạn Unity/Unreal/web)
     bpy.context.view_layer.objects.active = body; bpy.ops.object.vertex_group_limit_total(group_select_mode='ALL', limit=4)
