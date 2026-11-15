@@ -428,9 +428,9 @@ def main():
     bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-5); bm.to_mesh(body.data); body.data.update()
     print(f'  hàn đỉnh trùng: {n0} → {len(bm.verts)} đỉnh, cạnh hở còn {sum(e.is_boundary for e in bm.edges)}'); bm.free()
     import mat_nam002 as MAT
-    eyes = MAT.tao_mat(sc, body)                   # đo mặt da trước khi khoét
-    MAT.lam_muot_may(body)
+    MAT.lam_muot_may(body)                          # san phẳng da trước, rồi mới đo da để dựng mắt/mày
     MAT.tao_may(sc, body)
+    eyes = MAT.tao_mat(sc, body)                   # đo mặt da (đã phẳng) trước khi khoét
     MAT.khoet_hoc(body)
     measure_fingers(mesh_co(body))
     arm = build_armature(sc)

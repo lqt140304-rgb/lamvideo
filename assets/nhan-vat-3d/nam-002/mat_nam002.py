@@ -15,7 +15,7 @@ from mathutils import Vector, Matrix
 EYE_X, EYE_Z = 0.052, 1.5268      # theo nếp hốc trên lưới (viền vẽ cũ: z 1,5295)
 RX, RZ = 0.0415, 0.0435  # nếp hốc: rộng hơn viền vẽ 22 %, cao hơn 7,5 % (trễ xuống dưới); viền vẽ cũ 0,0340 × 0,0405
 VIEN = 0.0040                    # bề dày nét viền vẽ: lỗ khoét nằm bên trong nét
-SAU_HOC = 0.012                  # độ sâu tường hốc
+SAU_HOC = 0.030                  # độ sâu tường hốc
 HO = 0.0030                      # mặt trước nhãn cầu lùi sau mặt da
 MI_MAC_DINH = 0.0                # góc mí mặc định (độ): mép mí nằm ngang qua tâm = lim dim như mẫu
 MI_NHAM = 88.0                   # góc khi nhắm
@@ -92,7 +92,7 @@ def khoet_hoc(body):
         r = bmesh.ops.extrude_edge_only(bm, edges=bnd)
         nv = [g for g in r['geom'] if isinstance(g, bmesh.types.BMVert)]
         for v in nv:                                   # đẩy vào trong và co về tâm ⇒ tường hốc
-            d = Vector((v.co.x - cx, 0, v.co.z - EYE_Z)); v.co.x = cx + d.x * 0.97; v.co.z = EYE_Z + d.z * 0.97; v.co.y += SAU_HOC
+            d = Vector((v.co.x - cx, 0, v.co.z - EYE_Z)); v.co.x = cx + d.x * 0.90; v.co.z = EYE_Z + d.z * 0.90; v.co.y += SAU_HOC
         for f in {f for v in nv for f in v.link_faces}: f.material_index = si; f.smooth = True
         # không lấp đáy: nhãn cầu bầu dục che kín lòng hốc
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
@@ -185,12 +185,13 @@ def _uon(co, ax_, az_):
 
 
 _VANH = {}
-VIEN_R = 0.0013   # bán kính ống viền 3D (nét ≈ 2,6 mm)
+_ONG = {}
+VIEN_R = 0.0014   # bán kính ống viền 3D (nét ≈ 2,6 mm)
 
 
 def _vien_3d(sc, body, cx, k):
     """Đường viền 3D trơn ôm mép hốc: NURBS khép kín qua 64 điểm trên da ngay ngoài mép lỗ, tiết diện tròn."""
-    a_, b_ = RX - VIEN, RZ - VIEN                      # đúng mép lỗ ⇒ ống viền che mép cắt
+    a_, b_ = RX - VIEN + 0.0010, RZ - VIEN + 0.0010     # lệch ra ngoài 1 mm ⇒ ống viền phủ lên gờ mép cắt
     pts = []
     for th in np.linspace(0, 2 * np.pi, 64, endpoint=False):
         x = cx + a_ * math.cos(th); z = EYE_Z + b_ * math.sin(th); pts.append((x, _surface_y(body, x, z) - 0.0002, z))
@@ -199,11 +200,22 @@ def _vien_3d(sc, body, cx, k):
     for p_, q in zip(sp.points, pts): p_.co = (*q, 1)
     sp.use_cyclic_u = True; sp.order_u = 4
     ob = bpy.data.objects.new(f'Vien.{k}', cu); sc.collection.objects.link(ob)
+    # ống lót hốc: nối kín mép hốc với vòng nhỏ phía sau nhãn cầu (che khe tường hốc)
+    P0 = np.array(pts); c0 = P0.mean(0); bm_ = bmesh.new(); rings = []
+    for f, dy in ((1.0, 0.0), (0.97, 0.004), (0.88, 0.014), (0.70, 0.030)):
+        rings.append([bm_.verts.new((c0[0] + (p_[0] - c0[0]) * f, p_[1] + dy, c0[2] + (p_[2] - c0[2]) * f)) for p_ in P0])
+    nP = len(P0)
+    for r0, r1 in zip(rings, rings[1:]):
+        for i in range(nP): bm_.faces.new((r0[i], r0[(i + 1) % nP], r1[(i + 1) % nP], r1[i]))
+    mo = bpy.data.meshes.new(f'OngHoc.{k}'); bm_.to_mesh(mo); bm_.free()
+    for p_ in mo.polygons: p_.use_smooth = True
+    oo = bpy.data.objects.new(f'OngHoc.{k}', mo); sc.collection.objects.link(oo); mo.materials.append(_mat('hoc_mat', (0.62, 0.42, 0.30), 0.9)); _ONG[k] = oo
     # vành da mỏng ngay ngoài nét viền: che mép cắt lởm chởm của lưới da
     a2, b2 = a_ + 0.0026, b_ + 0.0026; cu2 = bpy.data.curves.new(f'VanhDa.{k}', 'CURVE'); cu2.dimensions = '3D'; cu2.bevel_depth = 0.0017; cu2.bevel_resolution = 4; cu2.resolution_u = 6
     sp2 = cu2.splines.new('NURBS'); sp2.points.add(39)                 # chỉ nửa dưới (mép cắt lởm chởm ở dưới); phía trên bỏ để không tạo gờ
-    for p_, th in zip(sp2.points, np.linspace(np.pi * 0.95, np.pi * 2.05, 40)):
+    for i_, (p_, th) in enumerate(zip(sp2.points, np.linspace(np.pi * 0.90, np.pi * 2.10, 40))):
         xx = cx + a2 * math.cos(th); zz = EYE_Z + b2 * math.sin(th); p_.co = (xx, _surface_y(body, xx, zz) + 0.0009, zz, 1)
+        p_.radius = min(1.0, i_ / 6, (39 - i_) / 6)          # hai đầu thon về 0 ⇒ không còn chấm cụt
     sp2.use_cyclic_u = False; sp2.use_endpoint_u = True; sp2.order_u = 4
     ob2 = bpy.data.objects.new(f'VanhDa.{k}', cu2); sc.collection.objects.link(ob2)
     cu2.materials.append(body.data.materials[0]); _VANH[k] = ob2
@@ -301,7 +313,7 @@ def gan_mat(arm, objs):
     hb = arm.data.bones['Head']
     for k in ('L', 'R'):
         e, l, c, vn = objs[k]
-        for ob in (e, l, vn, _VANH[k], _MAY.get(k)):
+        for ob in (e, l, vn, _VANH[k], _MAY.get(k), _ONG.get(k)):
             if ob is None: continue
             w = ob.matrix_world.copy(); ob.parent = arm; ob.parent_type = 'BONE'; ob.parent_bone = 'Head'
             bpy.context.view_layer.update(); ob.matrix_world = w
