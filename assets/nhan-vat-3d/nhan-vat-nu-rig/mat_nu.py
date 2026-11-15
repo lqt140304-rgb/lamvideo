@@ -769,6 +769,12 @@ def dung_mieng(body, rig, coll):
     for f in moi + lap_f:
         for q in f.loops:
             q[uvl].uv = uv_goc(q.vert.co) if q.vert in moi_vien else uv_da_quanh(q.vert.co)
+    for f in moi + lap_f:  # mặt có UV trải qua nhiều đảo → kéo texture thành vệt: cả mặt lấy UV tại tâm
+        u_ = np.array([q[uvl].uv[:] for q in f.loops])
+        if np.ptp(u_, axis=0).max() > 0.03:
+            uc = uv_da_quanh(f.calc_center_median())
+            for q in f.loops:
+                q[uvl].uv = uc
     for f in bm.faces:
         if f.material_index == mi_trong:
             for q in f.loops:

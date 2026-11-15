@@ -643,12 +643,29 @@ def kiem_mim_khong_cheo():
             assert np.linalg.norm(co[i] - co[j]) < 0.0008, f'{sk}: khe hở {np.linalg.norm(co[i] - co[j]) * 1000:.2f} mm'
 
 
+def kiem_uv_khong_xe():
+    """Vùng miệng: UV các đỉnh trong cùng một mặt không trải xa (> 0.03) — trải xa là mặt kéo texture qua
+    nhiều đảo UV, hiện thành vệt nâu mảnh."""
+    me = BODY.data
+    uv = me.uv_layers[0].data
+    g = BODY.vertex_groups['MIENG_MUOT'].index
+    vung = {v.index for v in me.vertices if any(x.group == g for x in v.groups)}
+    xe = 0
+    for f in me.polygons:
+        if all(i in vung for i in f.vertices):
+            u = np.array([uv[l].uv[:] for l in f.loop_indices])
+            if np.ptp(u, axis=0).max() > 0.03:
+                xe += 1
+    assert xe == 0, f'{xe} mặt vùng miệng kéo texture qua nhiều đảo UV'
+
+
 def kiem_file_o_dang_nghi():
     bat = {k: round(v, 2) for k, v in LUC_MO.items() if abs(v) > 1e-6}
     assert not bat, f'File lưu còn bật shape key {list(bat)[:5]}… ({len(bat)})'
 
 
 KIEM = {
+    'kiem_uv_khong_xe': kiem_uv_khong_xe,
     'kiem_mim_khong_cheo': kiem_mim_khong_cheo,
     'kiem_rang_cong': kiem_rang_cong,
     'kiem_khau_hinh_muot': kiem_khau_hinh_muot,
