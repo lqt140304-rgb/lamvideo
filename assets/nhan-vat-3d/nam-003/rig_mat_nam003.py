@@ -172,7 +172,9 @@ def main():
     M3.to_da(body, p)
     mat = M3.tao_mat(sc, arm, body, m, p)
     M3.lam_moi_driver()
-    if a.kiem: M3.kiem_mat(mat, arm, body)
+    if a.kiem:
+        try: M3.kiem_mat(mat, arm, body)
+        except AssertionError as ex: print('FAIL mat:', ex); bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.out), compress=True); raise
     if a.anh: anh_trang_thai(sc, arm, os.path.join(a.anh, 'mat'), m['mat'][2], [
         {}, {'nhin': (0.12, 0, 0)}, {'nhin': (-0.12, 0, 0)}, {'nhin': (0, 0, 0.10)}, {'nhin': (0, 0, -0.10)},
         {'mo_to': 1}, {'chop_mat': 0.5}, {'chop_mat': 1}, {'chop_trai': 1}])

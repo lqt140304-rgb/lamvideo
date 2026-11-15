@@ -178,6 +178,7 @@ def tao_mat(sc, arm, body, moc, p):
     from mathutils.bvhtree import BVHTree
     bvh = BVHTree.FromObject(body, bpy.context.evaluated_depsgraph_get())   # da gốc, trước khi khoét
     global _BVH; _BVH = bvh
+    mi = []
     for side, sfx in ((1, 'L'), (-1, 'R')):
         C = np.array([side * mx, my - NHO + R, mz])
         M = Matrix.Rotation(math.radians(side * LUON), 3, 'Z')
@@ -195,23 +196,48 @@ def tao_mat(sc, arm, body, moc, p):
         dong_fn = lambda u: duoi_fn(u) + DONG * (tren_fn(u) - duoi_fn(u))
         tren_ch, duoi_ch = _khoet(body, C, M, U, V, bvh)
         for tren, fn, ten, ch in ((True, tren_fn, 'MiTren', tren_ch), (False, duoi_fn, 'MiDuoi', duoi_ch)):
-            co, fa, vien = _mi_may(ch[0], C, M, Rm, U, side, tren, fn, p)
+            co, fa, vien = _mi_may(ch, C, M, Rm, U, side, tren, fn, p)
             ob = _tao_mesh(f'{ten}.{sfx}', co, fa, m_mi, sc)
             at = ob.data.attributes.new('vien', 'FLOAT', 'POINT'); at.data.foreach_set('value', vien)
+            mep = np.zeros(len(co), int); mep[:len(ch)] = side * (1 if tren else 2)      # hàng mép khe mắt, để kiểm
+            at = ob.data.attributes.new('mep', 'INT', 'POINT'); at.data.foreach_set('value', mep)
+            g = ob.vertex_groups.new(name='Head'); g.add(range(len(co)), 1.0, 'REPLACE')
             ob.shape_key_add(name='Basis')
             for kn, f2 in (('nham', dong_fn), ('mo_to', (lambda u: _mep(u, U, V * 1.35, tan_ng, side, True)) if tren else (lambda u: _mep(u, U, V * 1.12, tan_ng, side, False)))):
-                co2, _, _ = _mi_may(ch[0], C, M, Rm, U, side, tren, f2, p)
-                k = ob.shape_key_add(name=kn); k.data.foreach_set('co', co2.ravel())
-            kb = ob.data.shape_keys.key_blocks
-            rieng = 'chop_trai' if side == 1 else 'chop_phai'
-            noi_driver(kb['nham'], arm, ['chop_mat', rieng], f'min(1, max(chop_mat, {rieng}))')
-            noi_driver(kb['mo_to'], arm, ['mo_to', 'chop_mat', rieng], f'mo_to * (1 - min(1, max(chop_mat, {rieng})))')
-            _bone_parent(ob, arm); objs.append(ob)
+                co2, _, _ = _mi_may(ch, C, M, Rm, U, side, tren, f2, p)
+                k = ob.shape_key_add(name=f'{kn}.{sfx}'); k.data.foreach_set('co', co2.ravel())
+            mi.append(ob)
         print(f'  mắt {sfx}: R={R * 1000:.1f} mm, mở {2 * a * 1000:.0f}×{2 * b * 1000:.0f} mm, mép lỗ {len(tren_ch) + len(duoi_ch) - 2} đỉnh')
+    _gop_mi(body, mi, arm)
     return objs
 
 
-PHONG = 0.0015    # m: độ nâng vùng mí giữa mép mắt và mép da
+def _gop_mi(body, mi, arm):
+    """Gộp vỏ mí vào Nam_Body và hàn hàng ngoài với mép lỗ da → một mặt liền, đổ bóng liên tục (hết vành 'mặt nạ').
+    Shape key nham.L/R, mo_to.L/R chuyển sang Nam_Body; driver nối lại theo thuộc tính trên Head."""
+    import bmesh
+    zc = float(np.mean([o.location.z + np.mean([v.co.z for v in o.data.vertices]) for o in mi]))
+    if not body.data.shape_keys: body.shape_key_add(name='Basis')
+    bpy.ops.object.select_all(action='DESELECT')
+    for o in mi: o.select_set(True)
+    body.select_set(True); bpy.context.view_layer.objects.active = body
+    bpy.ops.object.join()
+    bm = bmesh.new(); bm.from_mesh(body.data)
+    ia = bm.verts.layers.int.get('mep'); n0 = len(bm.verts)
+    # chỉ hàn trong vùng mắt (đỉnh mí + mép da trùng vị trí)
+    vung = [x for x in bm.verts if abs(x.co.z - zc) < 0.06 and x.co.y < 0]
+    bmesh.ops.remove_doubles(bm, verts=vung, dist=2e-6)
+    bm.to_mesh(body.data); bm.free(); body.data.update()
+    for pl in body.data.polygons: pl.use_smooth = True
+    print(f'  gộp mí vào da: hàn {n0 - len(body.data.vertices)} đỉnh')
+    m = body.modifiers.new('Muot', 'SUBSURF'); m.levels = 1; m.render_levels = 1   # mí + da chung lưới: subsurf làm bóng đều, hết vành nối
+    kb = body.data.shape_keys.key_blocks
+    for sfx, rieng in (('L', 'chop_trai'), ('R', 'chop_phai')):
+        noi_driver(kb[f'nham.{sfx}'], arm, ['chop_mat', rieng], f'min(1, max(chop_mat, {rieng}))')
+        noi_driver(kb[f'mo_to.{sfx}'], arm, ['mo_to', 'chop_mat', rieng], f'mo_to * (1 - min(1, max(chop_mat, {rieng})))')
+
+
+PHONG = 0.0    # m: độ nâng vùng mí giữa mép mắt và mép da
 SC = 1.30        # lỗ khoét: elip góc lớn hơn khe mắt 30 % (đủ chỗ cho mí)
 CHIA = 3         # mỗi đoạn mép lỗ chia 3 cột mí (mép da thẳng giữa hai đỉnh nên vẫn khít)
 
@@ -260,17 +286,30 @@ def _khoet(body, C, M, U, V, bvh):
     P = np.array([x.co for x in vong]); u, v, _ = _uv(P, C, M)
     phi = np.arctan2(v / V, u / U); Mi = np.asarray(M)
     dp = np.angle(np.exp(1j * np.diff(np.r_[phi, phi[0]]))); chieu = np.sign(dp.sum())
-    phi = phi[0] + chieu * 2 * np.pi * np.arange(len(phi)) / len(phi)   # cách đều theo thứ tự vòng: mép không gập (vết nứt)
+    ph = np.unwrap(chieu * phi); ph = np.maximum.accumulate(ph) + 1e-3 * np.arange(len(ph))   # chỉ sửa chỗ gập (đơn điệu), giữ vị trí gốc nơi khác
+    phi = chieu * ph
     for x, ph in zip(vong, phi):
         uu, vv = SC * U * math.cos(ph), SC * V * math.sin(ph)
         dr = Vector(Mi @ np.array([math.sin(uu) * math.cos(vv), -math.cos(uu) * math.cos(vv), math.sin(vv)]))
         hit = bvh.ray_cast(Vector(C), dr, 0.08)
         if hit[0] is not None: x.co = hit[0]
-    P = np.array([x.co for x in vong]); n = len(P); bm.verts.index_update(); IDX = [x.index for x in vong]
-    # làm mượt dải da quanh lỗ (giữ mép lỗ): góc trơn, hết gợn
-    bm.verts.ensure_lookup_table(); bien_v = set(vong)
-    dai = [x for x in bm.verts if x not in bien_v and gan(x) and math.hypot(*(lambda q: (q[0][0] / U, q[1][0] / V))(_uv(np.array(x.co), C, M))) < SC * 1.7]
-    pass   # không làm mượt da sát mép: mí bám da gốc, làm mượt da sẽ lệch bậc
+    # chia mỗi cạnh mép thành CHIA đoạn (đỉnh mới nằm trên mép da) để mí hàn khít từng cột, không có chữ T
+    canh = [e for e in bm.edges if e.is_boundary and all(x in set(vong) for x in e.verts)]
+    bmesh.ops.subdivide_edges(bm, edges=canh, cuts=CHIA - 1)
+    bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table()
+    bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
+    tap = {e for e in bm.edges if e.is_boundary and all(gan(x) for x in e.verts)}
+    ke = {}
+    for e in tap:
+        a_, b_ = e.verts; ke.setdefault(a_, []).append(b_); ke.setdefault(b_, []).append(a_)
+    vong = [next(iter(ke))]; tv = None
+    while True:
+        nx = [x for x in ke[vong[-1]] if x is not tv]
+        if nx[0] is vong[0]: break
+        tv = vong[-1]; vong.append(nx[0])
+    assert len(vong) == len(ke), 'mép lỗ sau khi chia không còn là một vòng'
+    P = np.array([x.co for x in vong]); n = len(P)
+    u, v, _ = _uv(P, C, M); phi = np.arctan2(v / V, u / U)
     bm.to_mesh(body.data); bm.free(); body.data.update()
     # tách hai chuỗi theo góc phi; chuỗi trên đi từ phi=π (u<0) qua π/2 tới 0
     i0 = int(np.argmin(np.abs(np.angle(np.exp(1j * phi))))); i1 = int(np.argmin(np.abs(np.angle(np.exp(1j * (phi - np.pi))))))
@@ -280,16 +319,12 @@ def _khoet(body, C, M, U, V, bvh):
         return out
     huong = 1 if np.sin(phi[(i1 + 1) % n]) > 0 else -1          # từ i1 đi theo huong là phía trên
     ti = di(i1, i0, huong); di_ = di(i1, i0, -huong)
-    tren = (P[ti], [IDX[j] for j in ti]); duoi = (P[di_], [IDX[j] for j in di_])
-    return tren, duoi
+    return P[ti], P[di_]
 
 
 def _mi_may(ch, C, M, Rm, U, side, tren, edge_fn, p):
     """Vỏ mí may vào mép lỗ: cột k chạy từ mép khe mắt (trên mặt cầu Rm) tới điểm mép lỗ Q_k (hàng cuối = Q_k)."""
-    Q = [ch[0]]
-    for a_, b_ in zip(ch[:-1], ch[1:]):
-        Q += [a_ + (b_ - a_) * (s / CHIA) for s in range(1, CHIA + 1)]
-    Q = np.array(Q); uq, vq, rq = _uv(Q, C, M)
+    Q = np.array(ch); uq, vq, rq = _uv(Q, C, M)               # mép đã được chia sẵn trong _khoet
     ue = -U + 2 * U * (uq - uq[0]) / (uq[-1] - uq[0])          # hai đầu chuỗi = đúng hai khóe khe mắt (e=0)
     e = edge_fn(ue); sg = 1 if tren else -1; w0 = p['mat_vien'] / Rm * np.sqrt(np.clip(1 - (ue / U) ** 2, 0, 1))   # khoảng chừa nét mi về 0 ở khóe (không hở hình thoi)
     ts = [0.0, 0.02, 0.035, 0.08] + list(np.linspace(0.16, 1.0, 9))
@@ -331,8 +366,9 @@ def kiem_mat(objs, arm, body):
     pb = arm.pose.bones['Head']; vl = bpy.context.view_layer
     pb['chop_mat'] = 1.0; tinh(arm)
     for s in 'LR':
-        T = _eval_co(bpy.data.objects[f'MiTren.{s}']); D = _eval_co(bpy.data.objects[f'MiDuoi.{s}']); t = T[:len(T) // 13]; d = D[:len(D) // 13]
-        gap = max(_dpl(q, d) for q in t); assert gap < 0.0005, f'nhắm {s}: khe {gap * 1000:.2f} mm'
+        co_, mp_ = _eval_mep(body); sg_ = 1 if s == 'L' else -1; t = co_[mp_ == sg_ * 1]; d = co_[mp_ == sg_ * 2]; d = d[np.argsort(d[:, 0])]
+        assert len(t) > 5 and len(d) > 5, 'không thấy hàng mép mí trong Nam_Body'
+        gap = max(_dpl(q, d) for q in t); assert gap < 0.001, f'nhắm {s}: khe {gap * 1000:.2f} mm'
     pb['chop_mat'] = 0.0; tinh(arm)
     nc = bpy.data.objects['NhanCau.L']; R = nc.dimensions[0] / 2 / max(nc.matrix_world.to_scale())
     truoc = (nc.matrix_world @ Vector((0, -R, 0))).copy()
@@ -403,5 +439,18 @@ def _r_da(C, d, mac_dinh):
     """Bán kính từ tâm nhãn cầu C tới mặt da gốc theo hướng d (raycast); không trúng thì trả mac_dinh."""
     hit = _BVH.ray_cast(Vector(C), Vector(d), 0.08)
     return (hit[0] - Vector(C)).length if hit[0] is not None else mac_dinh
+
+
+
+
+def _eval_mep(body):
+    """Tọa độ đã tính (shape key + armature) và thuộc tính `mep` của Nam_Body."""
+    sm = body.modifiers.get('Muot'); bat = sm.show_viewport if sm else None
+    if sm: sm.show_viewport = False
+    dg = bpy.context.evaluated_depsgraph_get(); e = body.evaluated_get(dg); me = e.to_mesh()
+    co = np.array([e.matrix_world @ v.co for v in me.vertices]); a = np.zeros(len(co), int)
+    me.attributes['mep'].data.foreach_get('value', a); e.to_mesh_clear()
+    if sm: sm.show_viewport = bat
+    return co, a
 
 
