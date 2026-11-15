@@ -135,6 +135,21 @@ def anh_mat(sc, path, goc=(0, 35), z=None, khung=0.30, px=360):
     return files
 
 
+def anh_trang_thai(sc, arm, path, z, ds, khung=0.16, goc=(0,)):
+    """Mỗi phần tử ds: {thuộc tính Head: giá trị} hoặc {'nhin': (x,y,z)}; chụp rồi trả về mặc định."""
+    pb = arm.pose.bones; files = []
+    for i, d in enumerate(ds):
+        for k, v in d.items():
+            if k == 'nhin': pb['nhin'].location = v
+            else: pb['Head'][k] = float(v)
+        arm.update_tag(); sc.frame_set(sc.frame_current)
+        files += anh_mat(sc, f'{path}_{i:02d}', goc=goc, z=z, khung=khung)
+        for k in d:
+            if k == 'nhin': pb['nhin'].location = (0, 0, 0)
+            else: pb['Head'][k] = 0.0
+    return files
+
+
 # ---------------------------------------------------------------- chính
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
@@ -153,6 +168,13 @@ def main():
     print('  mốc:', {k: (tuple(round(v, 4) for v in val) if isinstance(val, tuple) else round(val, 4)) for k, val in m.items()}, f'bóp tối đa {dmax * 1000:.1f} mm')
     if a.kiem: kiem_moc(m)
     if a.anh: anh_mat(sc, os.path.join(a.anh, 'bop_sau'), z=m['mui'][2] + 0.01)
+    import mat3d_nam003 as M3
+    mat = M3.tao_mat(sc, arm, body, m, p)
+    M3.lam_moi_driver()
+    if a.kiem: M3.kiem_mat(mat, arm, body)
+    if a.anh: anh_trang_thai(sc, arm, os.path.join(a.anh, 'mat'), m['mat'][2], [
+        {}, {'nhin': (0.12, 0, 0)}, {'nhin': (-0.12, 0, 0)}, {'nhin': (0, 0, 0.10)}, {'nhin': (0, 0, -0.10)},
+        {'mo_to': 1}, {'chop_mat': 0.5}, {'chop_mat': 1}, {'chop_trai': 1}])
     bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.out), compress=True)
     print('PASS: đã lưu', a.out)
 
