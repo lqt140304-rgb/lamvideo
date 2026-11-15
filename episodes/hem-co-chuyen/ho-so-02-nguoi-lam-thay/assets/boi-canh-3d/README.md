@@ -194,3 +194,31 @@ Dùng [xay_do_dung_chi_tiet.py](xay_do_dung_chi_tiet.py) để dựng bản đ�
 - **Xem thử:** `xem-thu/video/xuyen-guong-cham-kinh-di.mp4` (6,6 s ở tốc độ ×2 ⇒ ≈ 13 s thật; 640×268; 20 mẫu); ảnh ghép khung `xem-thu/the-gioi-guong/xuyen-guong-cham-bang-khung.png`.
 - **Render GPU:** `.\render_xuyen_guong_gpu.ps1 -Test` (đo thời gian) rồi `.\render_xuyen_guong_gpu.ps1 -Out D:\render\xuyen` (mặc định đã là bản chậm 192 khung, chồng 2,2 s; `-Nhanh` để quay về bản 72 khung cũ).
 - Thử và bỏ: bóng Người Kia đứng rìa trái khung (che gương) và Người Kia chỉ hiện trong phản chiếu (từ góc máy này mặt gương chỉ phản chiếu tường trước nên không thấy) — nên Người Kia không có trong cảnh này.
+
+## 15/11: bối cảnh Hồi 3 + tối ưu quay
+Thiết kế: [`docs/superpowers/specs/2026-11-15-boi-canh-hoi-3-design.md`](../../../../../docs/superpowers/specs/2026-11-15-boi-canh-hoi-3-design.md). Bảng ảnh: `xem-thu/hoi-3/BANG-HOI-3.jpg`.
+
+| Entry | Cảnh | Camera |
+|---|---|---|
+| `giang_duong.py` (`--mode sang\|u_am`) | 3.1 giảng đường bậc thang | GD_TOAN, GD_BUC, GD_CRANE, GD_SV, GD_PHAN, GD_CUA, GD_NAM |
+| `san_truong.py` (`--mode trua\|chieu`) | Nam chạy khỏi giảng đường qua hành lang cột và sân | ST_HANH_LANG, ST_CUA, ST_TOAN, ST_STEADICAM (khung 1–144) |
+| `bo_ke.py` (`--mode chieu\|hoang_hon\|do`, `--chuyen`) | bờ kè sông Hồng chiều tà, EWS | BK_EWS, BK_TRUNG, BK_SAU_LUNG, BK_DE |
+
+Tham số chung (`hinh_khoi.py`): `--cam --mode --muc nhap|duyet|cuoi --width --out --frame --anim đầu,cuối,bước --eevee --khong-nguoi --blend --no-render`.
+
+**Tối ưu quay (`toi_uu.py`, gọi cuối mỗi `build`):**
+- **LOD theo khoảng cách** (Level of Detail, mức chi tiết), tính từ camera gần nhất tới mép vật: < 15 m giữ nguyên; < 40 m lưới còn 50 %; < 120 m còn 20 %, bỏ bevel, tắt đổ bóng; xa hơn còn 8 %, không hiện trong phản chiếu (bờ kè giữ phản chiếu cho mặt nước). Máy chạy thì lấy nhiều điểm dọc đường máy.
+- Vật lặp lại (ghế, người, cây, xe, nhịp cầu, cột) là **instance**, tức một lưới dùng chung. Bản giảm của lưới dùng chung là lưới riêng cho mỗi vòng LOD, không gắn modifier, nên vẫn giữ instance.
+- Cycles: adaptive sampling, light tree, persistent data, camera cull/distance cull cho vật xa, giới hạn nảy tia theo mức, denoise. Mức `nhap` render 50 % độ phân giải, 16 mẫu.
+- Vật phát sáng trang trí (dải tuýp, màn chiếu) không lấy mẫu như đèn (`emission_sampling = NONE`). Mỗi hàng đèn giảng đường là 1 đèn area dài thay cho 4 đèn.
+- `quay_chuoi.sh`: render cả shot trong một tiến trình (cảnh dựng 1 lần), có thể chỉ render mỗi N khung rồi nội suy lên 24 fps làm bản nháp. Shot máy tĩnh không có gì động (vd GD_BUC giữ 6 s) thì đặt đầu = cuối để render 1 khung và giữ thành clip. `--eevee` để xem bố cục nhanh.
+- So sánh tắt tối ưu: `TOI_UU_TAT=1`.
+
+**Số đo thật** (CPU 2 lõi, 960×402, mức `duyet` 64 mẫu, một ảnh):
+| Cảnh | Tắt tối ưu | Bật | Mặt lưới |
+|---|---|---|---|
+| bờ kè BK_EWS | 47 s | 45 s | 50.862 → 16.560 |
+| giảng đường GD_TOAN | 143 s | 119 s (gồm gộp đèn) | 59.384 (gần hết là vật gần) |
+Lưu ý: các cảnh này còn nhẹ nên LOD giảm nhiều lưới nhưng ít thời gian. Lợi lớn nhất khi render chuỗi khung là persistent data và render cách khung. Steadicam 24 khung ở 480 px mất 36 s, khoảng 1,4 s/khung (`xem-thu/hoi-3/san-truong-steadicam-nhap.mp4`).
+
+**Chưa có:** nhân vật thật (đang dùng hình nhân tạm); camera crane GD_CRANE chưa chuyển động; Lab 402 và mâm cơm quê (kịch bản không có cảnh quay); render chất lượng cuối.
