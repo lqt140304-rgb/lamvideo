@@ -288,7 +288,7 @@ def dung_mat(body, rig, coll):
         for v in bm.verts:  # lòng trắng chỉ cần lộ qua khe mí: phần xa cung mắt hạnh nhân dồn về cung (không xoá: lưới thưa sẽ thành ô vuông)
             q_ = np.array(v.co) - c
             a_, b_ = q_ @ u, q_ @ up
-            d_ = math.hypot(a_ / (am_ * D_LT), b_ / ((tp_ if b_ > 0 else bt_) * D_LV))
+            d_ = math.hypot(a_ / (am_ * D_LT), b_ / (tp_ * 1.04 if b_ > 0 else bt_ * D_LV))
             if d_ > 1.0:
                 s_ = 1.0 / d_
                 v.co = Vector(c + u * (a_ * s_) + up * (b_ * s_) + n * (q_ @ n - 0.002))
@@ -304,7 +304,7 @@ def dung_mat(body, rig, coll):
         R_mi = (ru * 1.06, rf * 1.06 + 0.001, rz * 1.06)
         qv = mat_ve - c
         w, top, bot = np.abs(qv @ u).max(), (qv @ up).max(), (qv @ up).min()
-        xs = np.linspace(-ru0 * 1.2, ru0 * 1.2, 21)  # cột mí giữ toạ độ ngang cố định ở mọi hàng
+        xs = np.linspace(-ru0 * 1.6, ru0 * 1.6, 21)  # cột mí giữ toạ độ ngang cố định ở mọi hàng
         phm = xs
         t_hang = np.array([0, 0.05, 0.2, 0.4, 0.6, 0.8, 1.0])
         D_KEP = 1.03  # vòng ngoài cùng của mí, tính theo bán trục viền hốc
@@ -343,6 +343,20 @@ def dung_mat(body, rig, coll):
                     a, b, dn = a * s, b * s, min(dn, -0.0008)
                 return Vector(c + u * a + up * b + n * dn)
 
+            dn_v = (qv_ @ n)[od_]
+            dn_tb = float(dn_v.mean())
+
+            def mem(v):
+                """Mí nhắm: mặt cong trơn nối viền hốc (độ sâu viền theo hướng) với một mặt phồng 5,5 mm ở giữa (da gốc phồng 10,8 mm và nhọn; phải cao hơn mũi lòng trắng ~3,5 mm),
+                thay vì bám da gốc (da gốc ở hốc có khối nhãn cầu gồ nhọn → nếp nhô khi nhắm)."""
+                q = np.array(v[:]) - c
+                a, b = q @ u, q @ up
+                th = math.atan2(b / rz0, a / ru0)
+                d = min(1.0, math.hypot(a / ru0, b / rz0) / np.interp(th, th_v, r_v, period=2 * math.pi))
+                w = d ** 3  # mặt phồng giữ cao tới sát viền: lòng trắng (nhô 3 mm) không thò qua mí nhắm
+                dn = w * np.interp(th, th_v, dn_v, period=2 * math.pi) + (1 - w) * (dn_tb + 0.007)
+                return Vector(c + u * a + up * b + n * dn)
+
             vi_tri = [[kep(diem(e_mep(p) + t * (e_xa - e_mep(p)), p)) for p in phm] for t in t_hang]
             vi_tri = [[bam(v) if t >= T_BAM else v for v in hang] for t, hang in zip(t_hang, vi_tri)]  # phần trong hốc bám da gốc chưa khoét
             rows = [[bm.verts.new(v) for v in hang] for hang in vi_tri]
@@ -364,7 +378,7 @@ def dung_mat(body, rig, coll):
             sk = ob.shape_key_add(name='dong', from_mix=False)
             for i, t in enumerate(t_hang):
                 for j, p in enumerate(phm):
-                    sk.data[i * len(phm) + j].co = vi_tri[i][j] if t >= T_BAM else bam(kep(diem(e_gap + t / T_BAM * (e_mep(p) + T_BAM * (e_xa - e_mep(p)) - e_gap), p)))
+                    sk.data[i * len(phm) + j].co = mem(vi_tri[i][j]) if t >= T_BAM else mem(kep(diem(e_gap + t / T_BAM * (e_mep(p) + T_BAM * (e_xa - e_mep(p)) - e_gap), p)))
             mi[ten] = ob
         # xương mắt
         truc = Vector(c) - Vector(n) * 0.04            # điểm xoay lùi sâu: mống mắt dời đủ xa khi liếc
@@ -406,6 +420,11 @@ def dung_mat(body, rig, coll):
             head.id_properties_ui(f'{ten}_{k}').update(min=0.0, max=1.0, soft_min=0.0, soft_max=1.0)
         bien = {'b': f'pose.bones["head"]["blink_{k}"]', 's': f'pose.bones["head"]["squint_{k}"]'}
         them_driver(mi['Tren'].data.shape_keys.key_blocks['dong'], 'value', None, rig, bien, 'b')
+        lt.shape_key_add(name='Basis')  # mắt nhắm: lòng trắng lùi 9 mm ra sau mí (khỏi thò qua khe hở ở góc mí), chỉ khi gần khép hẳn
+        sk_lt = lt.shape_key_add(name='nham', from_mix=False)
+        for i_, v_ in enumerate(lt.data.vertices):
+            sk_lt.data[i_].co = (v_.co.x, v_.co.y + 0.009, v_.co.z)
+        them_driver(sk_lt, 'value', None, rig, bien, 'min(1.0, max(0.0, (b - 0.6) / 0.4))')
         them_driver(mi['Duoi'].data.shape_keys.key_blocks['dong'], 'value', None, rig, bien, 'max(b, s*0.6)')
     bo_suu_tap(rig, 'Mat', ['look', 'look.L', 'look.R', 'eye.L', 'eye.R'])
     return ket
