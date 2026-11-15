@@ -646,6 +646,40 @@ def _to_da_manh_vun(body, px):
 
 
 
+def dan_mi_vao_da(body):
+    """Mí trên/dưới là tấm rời: phần ngoài cách da tới 20 mm (nổi bậc) hoặc chìm sau da (mí dưới). Ép phần ngoài khe mắt
+    về sát mặt da (0,3 mm), giữ nguyên phần sát lông mi."""
+    from mathutils.bvhtree import BVHTree
+    me = body.data
+    bvh = BVHTree.FromPolygons([v.co[:] for v in me.vertices], [p.vertices[:] for p in me.polygons])
+    for k in 'LR':
+        lt = np.array([v.co[:] for v in bpy.data.objects[f'Nu_LongTrang.{k}'].data.vertices])
+        c, r = (lt.max(0) + lt.min(0)) / 2, (lt.max(0) - lt.min(0)) / 2
+        for ten in (f'Nu_MiTren.{k}', f'Nu_MiDuoi.{k}'):
+            ob = bpy.data.objects[ten]
+            md = ob.data
+            n = 0
+            vg = ob.vertex_groups.new(name='NgoaiMi')
+            for v in md.vertices:
+                hit = bvh.ray_cast(Vector((v.co.x, -1.0, v.co.z)), Vector((0, 1, 0)), 2.0)
+                if hit[0] is None:
+                    continue
+                gap = hit[0].y - v.co.y  # >0: mí nổi trước da; <0: mí chìm sau da
+                if not -0.015 < gap < 0.025:  # xa hơn là xuyên qua hốc mắt tới mặt trong đầu
+                    continue
+                d = math.hypot((v.co.x - c[0]) / r[0], (v.co.z - c[2]) / r[2])
+                f = _ss(1.0, 1.4, d)
+                v.co.y += f * (gap - 0.0003)
+                n += f > 0.5
+                if f > 1e-3:
+                    vg.add([v.index], float(f), 'REPLACE')
+            dt = ob.modifiers.new('NormalDa', 'DATA_TRANSFER')  # phần ngoài mí lấy normal da: hết bậc sáng–tối ở viền tấm mí
+            dt.object, dt.use_loop_data, dt.data_types_loops = body, True, {'CUSTOM_NORMAL'}
+            dt.loop_mapping = 'POLYINTERP_NEAREST'
+            dt.vertex_group, dt.mix_mode, dt.mix_factor = 'NgoaiMi', 'REPLACE', 1.0
+            print(f'dán mí {ten}: {n} đỉnh ép về da')
+
+
 def da_mat_tron(body, z0=1.18, z1=1.26):
     """Da mặt một màu trơn kiểu hoạt hình: thuộc tính đỉnh `mat_tron` (1 trên cằm → 0 ở cổ) trộn màu da trơn
     với texture; `ma_hong` thêm má hồng. Mí dùng chung vật liệu nên gán mat_tron = 1."""
@@ -664,10 +698,6 @@ def da_mat_tron(body, z0=1.18, z1=1.26):
         if o.name.startswith(('Nu_MiTren', 'Nu_MiDuoi')):
             a = o.data.attributes.new('mat_tron', 'FLOAT', 'POINT')
             a.data.foreach_set('value', np.ones(len(o.data.vertices), np.float32))
-            if o.name.startswith('Nu_MiTren'):  # mí dưới lấy normal da thì đen (thử cả chiếu theo normal: tệ hơn)
-                dt = o.modifiers.new('NormalDa', 'DATA_TRANSFER')  # mí lấy normal da thân: hết viền mảng gồ quanh hốc mắt
-                dt.object, dt.use_loop_data, dt.data_types_loops = body, True, {'CUSTOM_NORMAL'}
-                dt.loop_mapping = 'POLYINTERP_NEAREST'
     # màu trơn: trung vị texture trên da trán
     px = anh_diffuse(body)
     uvl = me.uv_layers[0].data
