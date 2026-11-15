@@ -16,7 +16,7 @@ DAY = 0.0058        # bề dày mày chuẩn (m) ở đầu trong
 NOI = 0.0005        # mày nổi trên da
 PHONG = 0.0010      # mày phồng giữa theo bề ngang
 NS, NW = 40, 7      # số điểm dọc mày, số điểm ngang
-BIEN = 0.005        # biên độ dịch khi nhướn/hạ (m)
+BIEN = 0.008        # biên độ dịch khi nhướn/hạ (m)
 PROPS = ('may_nhuong', 'may_ha', 'may_cau', 'may_buon', 'may_trai_nhuong', 'may_phai_nhuong')
 
 
@@ -24,9 +24,9 @@ def _duong(moc, p, side, dz_trong=0.0, dz_duoi=0.0, dz=0.0, dx_trong=0.0):
     """Đường giữa mày (NS×2: x, z) và bề dày (NS)."""
     mx, _, mz = moc['mat']; a = moc['r_hoc'] * p['mat_rong']; b = a * p['mat_cao']; r = moc['r_hoc']
     s = np.linspace(0, 1, NS)
-    x = mx - 0.85 * a + dx_trong * (1 - s) + s * (1.85 * a - dx_trong)
+    x = mx - 1.30 * a + dx_trong * (1 - s) + s * (2.70 * a - dx_trong)          # phủ qua vòng hốc mắt (lỗ khoét ~1,3a)
     h = np.interp(s, np.linspace(0, 1, 5), p['may_dang'])
-    z = mz + b + r * h + dz + dz_trong * (1 - s) + dz_duoi * s
+    z = mz + 1.20 * b + r * h + dz + dz_trong * (1 - s) + dz_duoi * s
     w = p['may_day'] * DAY * (1.0 - 0.55 * s) * np.clip(np.minimum(s / 0.06, (1 - s) / 0.10), 0, 1) ** 0.5
     return side * x, z, w
 
@@ -58,9 +58,9 @@ def tao_may(sc, arm, body, moc, p):
         if np.cross(co[q[1]] - co[q[0]], co[q[2]] - co[q[0]])[1] > 0: f = [t[::-1] for t in f]   # pháp tuyến hướng −Y (ra trước)
         ob = M3._tao_mesh(f'LongMay.{sfx}', co, f, mat, sc)
         ob.shape_key_add(name='Basis')
-        khoa = dict(nhuong=dict(dz=BIEN), ha=dict(dz=-0.8 * BIEN),
-                    cau=dict(dz_trong=-0.8 * BIEN, dz_duoi=0.4 * BIEN, dx_trong=-0.002),
-                    buon=dict(dz_trong=0.8 * BIEN, dz_duoi=-0.4 * BIEN))
+        khoa = dict(nhuong=dict(dz=BIEN), ha=dict(dz=-0.7 * BIEN),
+                    cau=dict(dz_trong=-1.0 * BIEN, dz_duoi=0.5 * BIEN, dx_trong=-0.004),
+                    buon=dict(dz_trong=1.0 * BIEN, dz_duoi=-0.6 * BIEN))
         for kn, kw in khoa.items():
             k = ob.shape_key_add(name=kn); k.data.foreach_set('co', _dai(bvh, *_duong(moc, p, side, **kw)).ravel())
         kb = ob.data.shape_keys.key_blocks
