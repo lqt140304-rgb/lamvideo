@@ -241,3 +241,13 @@ Lưu ý: các cảnh này còn nhẹ nên LOD giảm nhiều lưới nhưng ít 
   | BK_EWS | 45 s | 46 s |
 
   Chênh lệch nằm trong dao động đo của máy, tức là **không thấy chậm đi**.
+
+### 15/11 chiều: sắp xếp lại bảng và màn chiếu (`noi_dung_bang.py`)
+- Chữ thật bằng đối tượng FONT của Blender. Phông nằm trong `font/` (Patrick Hand cho chữ phấn, DejaVu Sans Mono cho code; cả hai giấy phép mở).
+- Bảng chia 3 vùng không đè nhau:
+  - bên trái: tiêu đề bài và 4 gạch đầu dòng;
+  - ở giữa: sơ đồ 2 luồng tranh 1 biến, có ổ khoá;
+  - bên phải: góc vẽ bậy kiểu meme do lớp tự vẽ, gồm đồ thị "động lực" đi xuống và "deadline" lao lên, người que đổ mồ hôi "code chạy rồi ĐỪNG AI SỬA!!", con mèo "nộp bài: hôm qua". Không dùng ảnh meme có bản quyền.
+- Màn chiếu dùng giao diện IDE tối: thanh tên tệp, cột số dòng, 21 dòng C++ tô màu theo cú pháp. Mỗi màu là một dòng chữ, các ký tự màu khác được thay bằng dấu cách, nhờ phông đơn cách nên các cột thẳng tuyệt đối.
+- Camera duyệt mới `GD_BANG` nhìn chính diện bảng và màn chiếu.
+- **Chưa làm:** DejaVu Mono thiếu một số chữ có dấu kép (ví dụ "ồ"), nên chữ trên màn chiếu tạm để không dấu.
