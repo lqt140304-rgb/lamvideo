@@ -690,6 +690,26 @@ def den_ban_that(coll):
     add_area('den_ban_hat', (2.5, 0.3, 1.0), 1.4, 6, '#ffa84a', rot=(0, 0, 0), coll=coll)   # ánh hắt mềm lên trần/tường quanh bàn
 
 
+def dat_do_cu_moi(coll):
+    """Đặt đạo cụ mới (dao_cu_ban_moi.py) vào phòng Nam theo kịch bản. Bật bằng --do-cu-moi; toạ độ THIẾT KẾ (như các hàm trên, x được phản chiếu bằng mx), mặt sàn z = 0, mặt bàn 0,75, mặt nệm 0,24."""
+    import dao_cu_ban_moi as DC
+    def D(fn, x, y, z, rz=0.0, **kw): fn(coll, (mx(x), y, z), rz=-rz, **kw)   # đạo cụ dựng theo toạ độ thế giới → phản chiếu x và đảo chiều quay như phòng
+    D(DC.bua_cao_su, 1.0, 1.3, 0.0, rz=1.2)                # búa nằm sàn giữa phòng, gần bếp
+    D(DC.noi_com_dien, 1.5, 0.75, 0.30, rz=-0.4)           # nồi cơm điện trên thùng nhựa cạnh tủ
+    D(DC.thung_mi, 0.42, 1.35, 0.0, rz=0.3)                # thùng mì gói bóc dở cạnh bếp
+    D(DC.chau_quan_ao, 0.85, 1.05, 0.0)                    # chậu đồ ngâm 3 hôm
+    D(DC.hoa_don, 0.22, 2.35, 0.0, rz=0.3)                 # hoá đơn điện nước tuột xuống ngay sau cửa
+    D(DC.dep_to_ong, 0.62, 2.75, 0.0, rz=0.6)              # đôi dép gần cửa
+    D(DC.giao_trinh, 2.38, 0.38, 0.75, rz=0.15)            # giáo trình + ghi chép trên bàn
+    D(DC.note_lab402, 2.56, 0.30, 0.75, rz=-0.3)           # note dán cạnh laptop
+    D(DC.chia_khoa, 2.22, 0.50, 0.75, rz=0.5)              # chùm chìa khoá
+    D(DC.hop_thuoc_khop, 2.62, 0.50, 0.75, rz=0.2)         # hộp thuốc + note của mẹ
+    D(DC.tuyp_dau, 1.75, 2.35, 0.24, rz=0.4)               # tuýp dầu trên nệm
+    D(DC.hop_xoi, 2.45, 2.3, 0.24, rz=0.3)                 # hộp xôi trên nệm
+    D(DC.dao_got, 1.68, 3.55, 0.24, rz=0.0)                # dao gọt giấu mép nệm
+    D(DC.ba_lo, 2.45, 1.45, 0.0, rz=0.6)                   # ba lô dựa cạnh ghế
+
+
 CAMERAS = {  # tên: (vị trí, điểm nhìn, tiêu cự mm)
     'WIDE': ((1.45, 5.0, 1.55), (1.5, 1.2, 1.0), 22),  # đứng ngoài tường trước (tường trước ẩn với camera) để thấy cả phòng 3 × 4 m
     'DESK': ((1.45, 1.9, 1.3), (2.55, 0.35, 0.95), 32),
@@ -830,7 +850,7 @@ def _thiet_bi(sc):
         print('[render] không bật được GPU, dùng CPU:', e)
 
 
-def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None, figure=None, den_ban=None, goc_do=None):
+def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', res=(1280, 536), dep_san=False, guong='real', proxy=False, hide_front=None, cutaway=None, figure=None, den_ban=None, goc_do=None, do_cu_moi=False):
     global MODE_HIEN_TAI, DEN_BAN_ON
     MODE_HIEN_TAI = mode; DEN_BAN_ON = (mode == 'night') if den_ban is None else bool(den_ban)
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -846,6 +866,7 @@ def build(mode='day', door_open=10.0, chair_rot=0.0, fan_angle=0.0, cam='WIDE', 
     if MODE_HIEN_TAI == 'noon': khung_nang_ban(coll)
     mirror(m, coll); clutter(m, coll, dep_san=dep_san); wall_details(m, coll); lights_fixture(m, coll); room_objs = set(coll.objects); hallway(m, coll, mode == 'night'); hallway_details(m, coll, mode == 'night')
     world_and_lights(mode, coll); lighting(mode, coll)
+    if do_cu_moi: dat_do_cu_moi(coll)
     if mode != 'night' and mode != 'rain':
         # Hẻm hẹp bị nhà hàng xóm 4 tầng che hết nắng trực tiếp (đúng thực tế); để có vệt nắng điện ảnh qua cửa sổ, các khối nhà bên hẻm không đổ bóng của MẶT TRỜI
         for o in coll.objects:
@@ -884,9 +905,9 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--mode', default='day'); ap.add_argument('--cam', default='WIDE'); ap.add_argument('--out', default='/tmp/phong_tro.png')
     ap.add_argument('--blend', default=''); ap.add_argument('--door', type=float, default=10.0); ap.add_argument('--chair-rot', type=float, default=0.0)
-    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--guong', default='real'); ap.add_argument('--den-ban', default=None, choices=['on', 'off']); ap.add_argument('--goc-do', action='store_true', default=None); ap.add_argument('--proxy', action='store_true'); ap.add_argument('--figure', default=''); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
+    ap.add_argument('--dep-san', action='store_true'); ap.add_argument('--do-cu-moi', action='store_true'); ap.add_argument('--guong', default='real'); ap.add_argument('--den-ban', default=None, choices=['on', 'off']); ap.add_argument('--goc-do', action='store_true', default=None); ap.add_argument('--proxy', action='store_true'); ap.add_argument('--figure', default=''); ap.add_argument('--samples', type=int, default=96); ap.add_argument('--width', type=int, default=1280); ap.add_argument('--no-render', action='store_true')
     a = ap.parse_args(argv)
-    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san, guong=a.guong, proxy=a.proxy, den_ban=(None if a.den_ban is None else a.den_ban == 'on'), goc_do=a.goc_do, figure=tuple(float(v) for v in a.figure.split(',')) if a.figure else None)
+    sc = build(a.mode, a.door, a.chair_rot, 0.0, a.cam, (a.width, round(a.width / 2.39)), dep_san=a.dep_san, guong=a.guong, proxy=a.proxy, den_ban=(None if a.den_ban is None else a.den_ban == 'on'), goc_do=a.goc_do, do_cu_moi=a.do_cu_moi, figure=tuple(float(v) for v in a.figure.split(',')) if a.figure else None)
     sc.cycles.samples = a.samples
     if a.blend: bpy.ops.wm.save_as_mainfile(filepath=a.blend)
     if not a.no_render:
