@@ -43,7 +43,7 @@ def lam_muot_may(body, it=90):
     e = np.zeros(len(me.edges) * 2, np.int64); me.edges.foreach_get('vertices', e); a, b = e[0::2], e[1::2]
     dg = np.bincount(np.concatenate([a, b]), minlength=n).clip(1)[:, None]
     x, y, z = co.T
-    w = np.clip(np.minimum.reduce([(z - 1.565) / 0.01, (1.675 - z) / 0.01, (-0.04 - y) / 0.01, (0.125 - np.abs(x)) / 0.012]), 0, 1)
+    w = np.clip(np.minimum.reduce([(z - 1.548) / 0.008, (1.675 - z) / 0.01, (-0.04 - y) / 0.01, (0.125 - np.abs(x)) / 0.012]), 0, 1)
     R = w > 0
     for _ in range(it):
         for lam in (0.5, -0.53):
