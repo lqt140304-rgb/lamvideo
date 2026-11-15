@@ -15,6 +15,7 @@ import numpy as np
 from mathutils import Vector, Matrix
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
 SRC = os.path.join(HERE, 'nam-002.glb')
 
 # ---- mốc khớp bên trái (+X), đo bằng lát cắt lưới nam-002.glb ----
@@ -426,9 +427,13 @@ def main():
     bm = bmesh.new(); bm.from_mesh(body.data); n0 = len(bm.verts)
     bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-5); bm.to_mesh(body.data); body.data.update()
     print(f'  hàn đỉnh trùng: {n0} → {len(bm.verts)} đỉnh, cạnh hở còn {sum(e.is_boundary for e in bm.edges)}'); bm.free()
+    import mat_nam002 as MAT
+    eyes = MAT.tao_mat(sc, body)                   # đo mặt da trước khi khoét
+    MAT.khoet_hoc(body)
     measure_fingers(mesh_co(body))
     arm = build_armature(sc)
     bind(sc, arm, body)
+    MAT.gan_mat(arm, eyes)
     stretch(arm, body)
     if a.anh: render_sheet(sc, arm, os.path.abspath(a.anh))
     sc['ma_asset'] = 'NAM-002 / RIG'; sc['trang_thai'] = 'Rig thân/tay/ngón/chân, IK chân, IK/FK tay, tên Mixamo; chưa rig mặt; chưa nghiệm thu'

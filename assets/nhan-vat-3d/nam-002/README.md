@@ -60,7 +60,7 @@ Dáng nghỉ lệch tối đa 0,02 mm so với lưới gốc. Ảnh kiểm tra: 
 
 ## Chưa làm
 
-- Chưa có rig mặt, shape key hay viseme.
+- Chưa có biểu cảm mày/miệng (shape key) hay khẩu hình (viseme). Mắt 3D đã có (xem mục Mắt).
 - Mặt sau vai còn vài nếp nhỏ khi hạ tay.
 - `chep_dong.py` (chép động tác Mixamo) chưa chạy thử trên rig này.
 - Đi bộ mới có một nhịp (đi thường). Chưa có đi chậm, đi nhanh hay rẽ, và chưa đo độ trượt của chân đứng.
@@ -79,3 +79,19 @@ D:/blender/blender.exe -b --factory-startup --python di_bo_nam002.py -- --rig na
 - **Kiểm bằng số:** khi chân trái ra trước xa nhất (y = −0,29) thì tay trái ra sau (y = +0,10). Hông thấp nhất (z = 0,887) ở khung 1 và khung 17, cao nhất (0,923) ở khung 9.
 
 [Ảnh 8 khung](di-bo.webp): hàng trên nhìn bên, hàng dưới nhìn chéo phía trước.
+
+## Mắt 3D
+
+Mắt vẽ trên texture đã được thay bằng mắt 3D, phần này nằm trong `mat_nam002.py` và được gọi từ `rig_nam002.py`.
+
+- **Hốc mắt:** khoét theo viền mắt vẽ. Viền là elip, tâm x = ±0,052 m, z = 1,5295 m, bán trục 34 × 40,5 mm, đo trên ảnh mặt nhìn thẳng. Mép lỗ được kéo về đúng elip cho trơn, rồi thụt vào trong 12 mm làm tường hốc màu tối. Nét viền vẽ được giữ lại làm mép hốc.
+- **Nhãn cầu:** hình bầu dục khớp lỗ hốc (rộng 58 mm, cao 71 mm, sâu 36 mm), mặt trước lùi sau da 3 mm. Nhãn cầu đứng yên. Khi liếc, chỉ con ngươi và tròng nâu trượt trên bề mặt, theo xương `nhin` (đặt trước mặt 45 cm, thuộc bone collection `Mat`). Dời `nhin` sang ngang hoặc lên xuống để đổi hướng nhìn.
+- **Mí trên:** vỏ bầu dục màu da, mép có dải đường mi tối. Mí đóng mở bằng shape key, nên luôn ôm sát nhãn cầu. Ở vị trí mặc định mí che nửa trên, giống mắt lim dim của mẫu.
+- **Điều khiển:** các thuộc tính trên xương `Head`, giá trị 0–1:
+  - `chop_mat`: nhắm cả hai mắt;
+  - `chop_trai` / `chop_phai`: nháy từng bên;
+  - `mo_to`: mở to mắt.
+
+[Ảnh kiểm tra](mat-3d.webp): mặc định, nhìn trái, nhìn phải, nhìn lên, nhìn xuống, mở to, nhắm nửa, nhắm, nháy trái, và nhìn chéo.
+
+Còn lại: góc dưới của hốc lộ một vệt trắng mảnh (mép nhãn cầu). Bên phải hốc mắt phải còn một mẩu viền vẽ nhỏ. Chưa có mí dưới. Lông mày vẫn là hình vẽ trên texture, chưa cử động được.
