@@ -333,6 +333,8 @@ def clean_weights(body):
     W = lap(W, (~head) & (z > 0.78) & (z < 1.02) & (ax < 0.18) & (y > 0.0), 120, 0.6)   # mông: chuyển Hips–UpLeg dài hơn cho dáng ngồi
     W = rules(W)
     W[W < 0.01] = 0; W /= W.sum(1, keepdims=True)
+    # tối đa 4 xương/đỉnh (giới hạn của Unity/Unreal/web khi xuất): giữ 4 trọng số lớn nhất rồi chuẩn hóa lại
+    k4 = np.argsort(-W, axis=1)[:, 4:]; np.put_along_axis(W, k4, 0.0, axis=1); W /= W.sum(1, keepdims=True)
     for g in body.vertex_groups: g.remove(list(range(nv)))
     nz = np.nonzero(W > 1e-4)
     for vi, gj in zip(nz[0].tolist(), nz[1].tolist()): body.vertex_groups[gj].add([vi], float(W[vi, gj]), 'REPLACE')
