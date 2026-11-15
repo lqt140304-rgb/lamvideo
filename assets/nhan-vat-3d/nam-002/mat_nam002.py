@@ -116,6 +116,7 @@ def _hemi(R, ang):
 
 LOI = 0.002      # mặt trước nhãn cầu nhô trước mặt phẳng mép hốc
 KHIT = 1.02      # nhãn cầu rộng hơn lỗ 2 % (vừa đủ che khe, không lấn nét viền vẽ)
+NGHIENG_DUOI = 15.0  # độ: ngả nhãn cầu quanh trục ngang để nửa dưới nhô ra (da gò má dưới mắt cao hơn)
 LUI_MEP = 0.0025 # ở mép lỗ, mặt nhãn cầu nằm sau mặt phẳng mép hốc chừng này
 
 
@@ -141,6 +142,7 @@ def tao_mat(sc, body):
         ax_, az_ = KHIT * a_, KHIT * b_
         dep = (LOI + LUI_MEP) / (1 - math.sqrt(1 - 1 / KHIT ** 2))      # bán trục sâu để mép lỗ lùi LUI_MEP sau mặt phẳng
         Ek = (ax_ / R_NHAN, dep / R_NHAN, az_ / R_NHAN)
+        M = M @ Matrix.Rotation(math.radians(-NGHIENG_DUOI), 3, 'X')
         ctr = c + n * (LOI - dep)
         me = bpy.data.meshes.new(f'NhanCau.{k}'); bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=64, v_segments=40, radius=R_NHAN)
         for v in bm.verts: v.co.x *= Ek[0]; v.co.y *= Ek[1]; v.co.z *= Ek[2]
