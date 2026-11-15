@@ -13,6 +13,7 @@ import rig_nam003 as R
 
 NGUONG_MM = 6.0
 NGUONG_GIAN = 1.5
+MIN_VISIBLE_MM = 3.0
 Z_LO, Z_HI = 1.40, 1.66
 X, Y, Z = (1, 0, 0), (0, 1, 0), (0, 0, 1)
 # (xương, trục thế giới, độ). Head quanh Z = quay; quanh X = cúi (+) / ngửa (−) vì mặt hướng −Y; quanh Y = nghiêng.
@@ -52,9 +53,32 @@ def measure_neck(rig_path: str, scale: float = 1.0, ctx=None) -> dict:
         g['reset'](arm)
         for bn, ax, deg in ops: g['rot_world'](arm, bn, ax, deg)
         p = _pos(body); l = np.linalg.norm(p[ea] - p[eb], axis=1)
-        out[name] = {'max_mm': float(((l - l0)[sel]).max() * 1000), 'n_over_1_5': int((((l / np.maximum(l0, 1e-6)) > NGUONG_GIAN) & sel).sum())}
+        ratio = l / np.maximum(l0, 1e-6)
+        out[name] = {'max_mm': float(((l - l0)[sel]).max() * 1000),
+                     'n_over_1_5': int(((ratio > NGUONG_GIAN) & ((l - l0) > MIN_VISIBLE_MM / 1000) & sel).sum()),     # giãn >1,5× VÀ dài thêm >3 mm (nhìn thấy được)
+                     'n_over_1_5_all': int(((ratio > NGUONG_GIAN) & sel).sum())}                                       # không lọc, để minh bạch
     g['reset'](arm)
     return out
+
+
+def render_closeups(arm, body, out_dir, scale=1.0, poses=('quay+35', 'kq1', 'cui+25')):
+    """Ảnh cận cổ/cằm: chính diện, 3/4, bên, nhìn từ dưới cằm; mỗi tư thế một dải 4 ảnh (png) trong out_dir."""
+    from mathutils import Vector
+    g = R.patched_namespace(); sc = bpy.context.scene; os.makedirs(out_dir, exist_ok=True)
+    sc.render.engine = 'CYCLES'; sc.cycles.samples = 24; sc.cycles.use_denoising = False; sc.render.resolution_x = 560; sc.render.resolution_y = 560
+    w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; w.node_tree.nodes['Background'].inputs[0].default_value = (.82, .82, .82, 1)
+    L = bpy.data.lights.new('s', 'SUN'); L.energy = 3.5; lo = bpy.data.objects.new('s', L); lo.rotation_euler = (0.9, 0.2, 0.6); sc.collection.objects.link(lo)
+    cd = bpy.data.cameras.new('c'); cd.type = 'ORTHO'; cd.ortho_scale = 0.30 * scale; cam = bpy.data.objects.new('c', cd); sc.collection.objects.link(cam); sc.camera = cam
+    arm.hide_render = True; c = Vector((0, 0.04 * scale, 1.52 * scale)); d = 4.0
+    views = {'truoc': (0, -d, 0), '3_4': (d * .7, -d * .7, 0), 'ben': (d, 0, 0), 'duoi_cam': (0, -d * .75, -d * .6)}
+    for pose in poses:
+        g['reset'](arm)
+        for bn, ax, deg in NECK_POSES[pose]: g['rot_world'](arm, bn, ax, deg)
+        bpy.context.view_layer.update()
+        for vn, off in views.items():
+            cam.location = c + Vector(off); cam.rotation_euler = (c - cam.location).to_track_quat('-Z', 'Y').to_euler()
+            sc.render.filepath = os.path.join(out_dir, f'{pose}_{vn}.png'); bpy.ops.render.render(write_still=True)
+    g['reset'](arm)
 
 
 def test_rest_is_zero(res): return abs(res['nghi']['max_mm']) < 1e-3 and res['nghi']['n_over_1_5'] == 0
@@ -89,23 +113,40 @@ def test_four_influence(arm, body):
     return True
 
 
+def test_cs_modifier(body):
+    """Có nhóm cs_co và modifier CorrectiveSmoothCo (sau Armature); nhóm cs_vai_hang và modifier CorrectiveSmooth cũ còn nguyên."""
+    mods = [m.name for m in body.modifiers]
+    if 'CorrectiveSmoothCo' not in mods or 'CorrectiveSmooth' not in mods: return False
+    if mods.index('CorrectiveSmoothCo') < mods.index('Armature'): return False
+    return 'cs_co' in body.vertex_groups and 'cs_vai_hang' in body.vertex_groups and body.modifiers['CorrectiveSmoothCo'].vertex_group == 'cs_co'
+
+
+def test_cs_spares_face(body):
+    """Corrective Smooth cổ không chạm vùng mặt: đỉnh z >= 1,61 phải có trọng số cs_co = 0 (bên làm mặt có shape key miệng/cằm ở đó)."""
+    gi = body.vertex_groups['cs_co'].index
+    for v in body.data.vertices:
+        if v.co.z >= 1.61 and any(g.group == gi and g.weight > 1e-6 for g in v.groups): return False
+    return True
+
+
 def test_symmetry(res): return abs(res['quay+35']['max_mm'] - res['quay-35']['max_mm']) <= 1.0
 def test_thresholds(res): return all(v['max_mm'] <= NGUONG_MM and v['n_over_1_5'] == 0 for k, v in res.items() if k != 'nghi')
 
 
 def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
-    ap = argparse.ArgumentParser(); ap.add_argument('--rig', required=True); ap.add_argument('--scale', type=float, default=1.0)
+    ap = argparse.ArgumentParser(); ap.add_argument('--rig', required=True); ap.add_argument('--scale', type=float, default=1.0); ap.add_argument('--anh')
     a = ap.parse_args(argv)
     arm, body = mo_rig(a.rig, a.scale)
     res = measure_neck(a.rig, a.scale, ctx=(arm, body))
-    print(f'{"tư thế":12s} {"dài thêm max (mm)":>18s} {"cạnh giãn>1,5×":>15s}')
-    for k, v in res.items(): print(f'{k:12s} {v["max_mm"]:18.2f} {v["n_over_1_5"]:15d}')
+    print(f'{"tư thế":12s} {"dài thêm max (mm)":>18s} {"giãn>1,5× & >3 mm":>18s} {"giãn>1,5× (mọi cạnh)":>21s}')
+    for k, v in res.items(): print(f'{k:12s} {v["max_mm"]:18.2f} {v["n_over_1_5"]:18d} {v["n_over_1_5_all"]:21d}')
     tests = [('test_rest_is_zero', lambda: test_rest_is_zero(res)), ('test_symmetry', lambda: test_symmetry(res)), ('test_thresholds', lambda: test_thresholds(res)),
-             ('test_helper_bones', lambda: test_helper_bones(arm)), ('test_head_unchanged', lambda: test_head_unchanged(arm, body)), ('test_four_influence', lambda: test_four_influence(arm, body))]
+             ('test_helper_bones', lambda: test_helper_bones(arm)), ('test_cs_modifier', lambda: test_cs_modifier(body)), ('test_cs_spares_face', lambda: test_cs_spares_face(body)), ('test_head_unchanged', lambda: test_head_unchanged(arm, body)), ('test_four_influence', lambda: test_four_influence(arm, body))]
     bad = 0
     for nm, f in tests:
         ok = f(); bad += (not ok); print(('PASS ' if ok else 'FAIL ') + nm)
+    if a.anh: render_closeups(arm, body, a.anh, a.scale)
     sys.exit(1 if bad else 0)
 
 

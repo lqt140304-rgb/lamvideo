@@ -11,6 +11,7 @@ import bpy
 _P = json.loads(os.environ.get('NAM003_NECK', '{}'))   # chỉ để thử tham số: NAM003_NECK='{"inf":[0.4,0.75],"zlo":1.40,"iter":80}'
 NECK_INFLUENCE = tuple(_P.get('inf', (0.33, 0.66)))
 NODE_T = tuple(_P.get('t', (0.0, 0.2, 0.45, 0.7, 0.95)))                         # vị trí các nút trọng số trong [z_lo, z_hi]
+CS_FADE = tuple(_P.get('cs_fade', (1.58, 1.61)))               # CS cổ giảm dần về 0 trong khoảng này (kết thúc <= 1,61)
 NODE_BONES = ('Spine2', 'Neck', 'NeckBlend1', 'NeckBlend2', 'Head')
 
 
@@ -62,3 +63,16 @@ def set_neck_weights(body, z_lo: float = _P.get('zlo', 1.46), z_hi: float = 1.60
     nz = np.nonzero((W > 0) & ch[:, None])
     for vi, gj in zip(nz[0].tolist(), nz[1].tolist()): body.vertex_groups[gj].add([vi], float(W[vi, gj]), 'REPLACE')
     print(f'  cổ: {int(ch.sum())} đỉnh gán lại trọng số, nút z = {[round(v, 3) for v in nodes]}')
+
+
+def add_neck_cs(body, iterations: int = _P.get('cs_iter', 150), factor: float = _P.get('cs_factor', 1.0)) -> None:
+    """Corrective Smooth thứ hai riêng vùng cổ (nhóm cs_co, z 1,46–1,61, tắt hẳn từ z 1,61 để không chạm mặt), đặt SAU Armature và CorrectiveSmooth của vai/háng."""
+    me = body.data; n = len(me.vertices)
+    co = np.zeros(n * 3); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3); ax = np.abs(co[:, 0]); z = co[:, 2]
+    w = _sm(1.46, 1.50, z) * (1 - _sm(CS_FADE[0], CS_FADE[1], z)) * (1 - _sm(0.09, 0.13, ax))
+    vg = body.vertex_groups.get('cs_co') or body.vertex_groups.new(name='cs_co')
+    vg.remove(list(range(n)))
+    for i in np.nonzero(w > 1e-3)[0].tolist(): vg.add([i], float(w[i]), 'REPLACE')
+    m = body.modifiers.get('CorrectiveSmoothCo') or body.modifiers.new('CorrectiveSmoothCo', 'CORRECTIVE_SMOOTH')
+    m.factor = factor; m.iterations = iterations; m.scale = 1.0; m.smooth_type = 'LENGTH_WEIGHTED'; m.rest_source = 'ORCO'; m.vertex_group = 'cs_co'
+    print(f'  cổ: Corrective Smooth riêng (iterations {iterations}, factor {factor}), nhóm cs_co {int((w > 1e-3).sum())} đỉnh')
