@@ -7,7 +7,8 @@
 --da    màu nhân lên texture da (r,g,b 0–1; 1,1,1 = giữ nguyên). Môi/má vẫn theo texture nên chỉ đổi tông, không đổi chi tiết
 --vai   mở rộng vai (m mỗi bên; 0,02 = +4 cm tổng). Xương vai–tay dịch theo để rig không lệch
 --day   phồng thân/bụng theo pháp tuyến (m; 0,012 ≈ người đầy hơn)
---toc   ngan | dai | khong ; --mau-toc r,g,b
+--toc   ngan | dai | xu | khong ; --mau-toc r,g,b
+--may-day nhân độ dày lông mày (1,3 = dày hơn)   --mat-mau r,g,b màu mống mắt (tuyến tính)
 --ruoi  trai (Nam, +X) | phai (Người Kia, −X) | khong: nốt ruồi dưới đuôi mắt, vẽ bằng shader theo tọa độ rest
 Dáng người được NƯỚNG vào lưới gốc và mọi shape key (miệng) — file biến thể là bản riêng, không phải thanh trượt.
 Tóc: lớp vỏ copy từ da đầu, trọng số 100 % xương Head (modifier Armature, như áo quần).
@@ -86,6 +87,17 @@ def nut_ruoi(ben):
     nt.links.new(src, mx.inputs[6]); nt.links.new(mx.outputs[2], bsdf.inputs['Base Color'])
 
 
+def mat_may(may_day, mat_rgb):
+    """may_day: nhân độ dày lông mày (1 = giữ). mat_rgb: màu mống mắt (r,g,b tuyến tính) hoặc None."""
+    if abs(may_day - 1.0) > 1e-6:
+        for nm in ('LongMay.L', 'LongMay.R'):
+            o = bpy.data.objects[nm]; o.scale[1] *= may_day
+    if mat_rgb:
+        for nm in ('nhan_cau.L', 'nhan_cau.R'):
+            r = bpy.data.materials[nm].node_tree.nodes['Color Ramp'].color_ramp
+            for i in (1, 2): r.elements[i].color = (*mat_rgb, 1.0)
+
+
 def toc(arm, body, kieu, rgb, sc):
     if kieu == 'khong': return None
     me = bpy.data.meshes.new('Toc'); bm = bmesh.new(); bm.from_mesh(body.data)
@@ -93,13 +105,18 @@ def toc(arm, body, kieu, rgb, sc):
 
     def giu(f):
         c = f.calc_center_median()
+        if kieu == 'xu': return (c.z > 1.60 and c.y < 0.0 and abs(c.x) < 0.095) or (c.z > 1.55 and c.y >= 0.0 and abs(c.x) < 0.09) or (c.z > 1.62 and abs(c.x) < 0.10)
         if kieu == 'ngan': return (c.z > 1.585 and c.y < -0.00) or (c.z > 1.545 and c.y >= 0.0 and abs(c.x) < 0.085) or (c.z > 1.60 and abs(c.x) < 0.10)
         return (c.z > 1.58 and c.y < 0.0) or (c.z > 1.42 and c.y >= -0.005 and abs(c.x) < 0.10) or (c.z > 1.52 and abs(c.x) < 0.10 and c.y > -0.03)
     bmesh.ops.delete(bm, geom=[f for f in bm.faces if not giu(f)], context='FACES')
     bm.verts.ensure_lookup_table(); bm.normal_update()
-    off = 0.007 if kieu == 'ngan' else 0.020
+    off = 0.007 if kieu == 'ngan' else (0.004 if kieu == 'xu' else 0.020)
     for v in bm.verts:
         w = 1.0
+        if kieu == 'xu':   # hai bên cắt sát, đỉnh đầu và phía trước dựng lên thành chỏm
+            top = float(sm(1.63, 1.70, np.array([v.co.z]))[0]); front = float(sm(-0.02, -0.075, np.array([v.co.y]))[0])
+            w = 1.0 + 5.0 * top * (0.5 + 0.5 * front) + 2.5 * front * top
+            v.co.y -= 0.012 * top * front
         if kieu == 'dai' and v.co.y > 0 and v.co.z < 1.52: w = 1.0 + (1.52 - v.co.z) * 3.0     # tóc đuôi dày dần ra sau gáy
         v.co += v.normal * off * w
     bm.to_mesh(me); bm.free()
@@ -118,7 +135,7 @@ def main():
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     ap = argparse.ArgumentParser(); ap.add_argument('--in', dest='inp', required=True); ap.add_argument('--out', required=True)
     ap.add_argument('--cao', type=float, default=1.70); ap.add_argument('--da', default='1,1,1'); ap.add_argument('--vai', type=float, default=0.0); ap.add_argument('--day', type=float, default=0.0)
-    ap.add_argument('--ruoi', default='khong', help='trai (Nam) | phai (Người Kia) | khong'); ap.add_argument('--toc', default='khong'); ap.add_argument('--mau-toc', default='0.03,0.02,0.02'); ap.add_argument('--anh')
+    ap.add_argument('--may-day', type=float, default=1.0); ap.add_argument('--mat-mau', default=''); ap.add_argument('--ruoi', default='khong', help='trai (Nam) | phai (Người Kia) | khong'); ap.add_argument('--toc', default='khong'); ap.add_argument('--mau-toc', default='0.03,0.02,0.02'); ap.add_argument('--anh')
     a = ap.parse_args(argv)
     bpy.ops.wm.open_mainfile(filepath=os.path.abspath(a.inp)); sc = bpy.context.scene
     arm = bpy.data.objects['Nam_Rig']; body = bpy.data.objects['Nam_Body']
@@ -127,6 +144,7 @@ def main():
     dang_nguoi(arm, body, a.vai, a.day)
     mau_da(tuple(float(v) for v in a.da.split(',')))
     if a.ruoi != 'khong': nut_ruoi(a.ruoi)
+    mat_may(a.may_day, tuple(float(v) for v in a.mat_mau.split(',')) if a.mat_mau else None)
     ob = toc(arm, body, a.toc, tuple(float(v) for v in a.mau_toc.split(',')), sc)
     k = a.cao / 1.70; arm.scale = (k, k, k)
     sc['bien_the'] = f'cao {a.cao} m, da {a.da}, vai {a.vai}, day {a.day}, toc {a.toc}'

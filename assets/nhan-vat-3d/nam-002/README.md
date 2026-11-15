@@ -209,3 +209,15 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 - Chưa thử áo quần lên biến thể; chưa thử thay đổi khuôn mặt (mũi, hàm, khoảng cách mắt).
 
 **Nốt ruồi (15/11/2026):** `bien_the_nam002.py --ruoi trai|phai` vẽ nốt ruồi bằng shader ngay dưới đuôi mắt (trái nhân vật = +X cho Nam, phải cho Người Kia). Đi theo mặt khi cử động và khi scale. `nam-002` gốc chưa có nốt ruồi nào. Chưa duyệt vị trí/độ lớn với chủ repo.
+
+## Nam 1,60 m và Tùng 1,70 m từ cùng khuôn mẫu (15/11/2026)
+
+Chủ repo chốt: Nam 1,60 m, Tùng 1,70 m, dựng bằng Hyper3D (bỏ hướng modular). Ảnh [nam-tung-so-sanh.webp](nam-tung-so-sanh.webp): hai cột trái là Nam, hai cột phải là Tùng.
+
+```
+Nam:  --cao 1.60 --ruoi trai --toc ngan --mau-toc 0.02,0.015,0.012
+Tùng: --cao 1.70 --da 0.92,0.74,0.62 --vai 0.012 --day -0.004 --toc xu --mau-toc 0.012,0.008,0.006 --may-day 1.3 --mat-mau 0.03,0.02,0.015
+```
+Người Kia: như Nam nhưng `--ruoi phai` (thuận tay trái là diễn xuất, không phải mô hình).
+
+**Hạn chế:** Tùng khác Nam ở mày, mống mắt, da, tóc, dáng, nhưng cấu trúc mặt (mũi, miệng, tai, đầu) vẫn là một lưới; nhìn gần vẫn giống nhau. Tóc `xu` còn thô: viền chân tóc răng cưa, khối tóc như mũ cứng. Chưa mặc đồ, chưa thử rig/đi bộ của Tùng sau khi đổi mày và mắt (chỉ xem mặt tĩnh).
