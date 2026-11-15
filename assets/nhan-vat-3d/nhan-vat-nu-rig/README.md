@@ -14,7 +14,7 @@ Mở `nhan-vat-nu-rig.blend`. Texture da liền màu nằm trong `texture/` (đ�
 | `Nu_Than` | Lưới thân: Armature → CorrectiveSmooth → Subdivision (viewport 2, render 3) |
 | `Nu_LongTrang.L/R`, `Nu_ConNguoi.L/R` | Lòng trắng (cố định theo đầu), đĩa mống mắt (bám lòng trắng, xoay theo `eye`) |
 | `Nu_MiTren/Duoi.L/R` | Mí trên, mí dưới |
-| `Nu_May.L/R` | Lông mày tách riêng |
+| `Nu_May.L/R` | Lông mày dựng lại thành dải cong trơn, thuôn hai đầu |
 | `Nu_KhoangMieng`, `Nu_RangTren`, `Nu_RangDuoi`, `Nu_Luoi` | Bên trong miệng; răng dưới và lưỡi theo hàm |
 
 Nhân vật nhìn về −Y. `.L` là bên trái nhân vật (+X).

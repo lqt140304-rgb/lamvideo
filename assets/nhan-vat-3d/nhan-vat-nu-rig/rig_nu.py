@@ -403,6 +403,7 @@ assert np.linalg.norm(moved[foot], axis=1).mean() > 0.05, 'IK chân không kéo 
 # --- mặt: mắt (sau các kiểm thân vì khoét hốc làm đổi chỉ số đỉnh) ---
 mat_nu.dung_mat(body, rig, coll)
 mat_nu.dung_may(body, rig, coll)
+mat_nu.la_phang_quanh_mat(body)
 MIENG = mat_nu.dung_mieng(body, rig, coll)
 mat_nu.dung_shape_key_mieng(body, MIENG['vung_dinh'], MIENG['tam_mieng'], HERE / 'khau-hinh.json')
 # --- độ mượt: Subdivision sau Armature (rig, shape key vẫn trên lưới thưa) ---

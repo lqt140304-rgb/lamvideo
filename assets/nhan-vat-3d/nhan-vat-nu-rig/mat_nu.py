@@ -461,10 +461,9 @@ def dung_may(body, rig, coll):
         bm.faces.ensure_lookup_table()
         bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.index not in Fs], context='FACES')
         me_may = bpy.data.meshes.new(f'Nu_May.{k}')
-        bm.to_mesh(me_may)
+        goc = np.array([v.co[:] for v in bm.verts])
         bm.free()
-        for m in me.materials:
-            me_may.materials.append(m)
+        _may_tron(me_may, goc, sg)
         may = bpy.data.objects.new(f'Nu_May.{k}', me_may)
         coll.objects.link(may)
         # thân: dồn đỉnh mày (trừ đỉnh chung với da) về mặt cầu khớp vòng da quanh mày; tô UV da trán
@@ -481,7 +480,7 @@ def dung_may(body, rig, coll):
         tam, R = sol[:3], math.sqrt(sol[3] + sol[:3] @ sol[:3])
         for v in vm - bien:
             d = np.array(v.co) - tam
-            v.co = Vector(tam + d / np.linalg.norm(d) * (R - 0.0025))  # lùi dưới mày: mặt cầu khớp vòng có thể nhô ở giữa
+            v.co = Vector(tam + d / np.linalg.norm(d) * (R - 0.001))  # mày mới là dải nổi, chỉ lùi nhẹ
         uvb = bm.loops.layers.uv[0]
         cen = np.array([v.co[:] for v in vm]).mean(0)
         goc_uv, best = None, 9.0
@@ -523,6 +522,59 @@ def dung_may(body, rig, coll):
         md.object = rig
     bo_suu_tap(rig, 'Mat', [n for _, _, t3, _ in cho for n in t3])
     _to_da_manh_vun(body, px)
+
+
+def _may_tron(me_may, P, sg, n=28):
+    """Dựng lại mày thành dải cong trơn, thuôn hai đầu (mày cũ là mặt cắt răng cưa) theo khối mày gốc P."""
+    x0, x1 = (P[:, 0].min(), P[:, 0].max()) if sg > 0 else (P[:, 0].max(), P[:, 0].min())
+    t = (P[:, 0] - x0) / (x1 - x0)
+    tb = np.linspace(0, 1, 9)
+    hi, lo, tr, tc = [], [], [], []
+    for a, b in zip(tb[:-1], tb[1:]):
+        m = (t >= a) & (t <= b)
+        if m.sum():
+            hi.append(P[m, 2].max()); lo.append(P[m, 2].min()); tr.append(P[m, 1].min()); tc.append((a + b) / 2)
+    fz = np.polyfit(tc, (np.array(hi) + np.array(lo)) / 2, 2)
+    fh = np.polyfit(tc, np.array(hi) - np.array(lo), 1)
+    fy = np.polyfit(tc, tr, 2)
+    vong = 8
+    V, F = [], []
+    for i in range(n + 1):
+        u = i / n
+        x = x0 + (x1 - x0) * u
+        nho = math.sin(math.pi * min(1.0, 0.15 + 0.85 * u)) ** 0.35 if u > 0.5 else (0.55 + 0.45 * math.sin(math.pi * u / 1.0)) ** 0.5
+        h = max(np.polyval(fh, u), 0.004) * 0.5 * nho
+        zc, yc = np.polyval(fz, u), np.polyval(fy, u) + 0.001
+        for j in range(vong):
+            g = 2 * math.pi * j / vong
+            V.append((x, yc - 0.0018 * (1 + math.sin(g)) * nho, zc + h * math.cos(g)))
+    for i in range(n):
+        for j in range(vong):
+            a, b = i * vong + j, i * vong + (j + 1) % vong
+            F.append((a, b, b + vong, a + vong))
+    F.append(tuple(range(vong))[::-1]); F.append(tuple(n * vong + j for j in range(vong)))
+    me_may.from_pydata(V, [], F)
+    for p in me_may.polygons:
+        p.use_smooth = True
+    me_may.materials.append(bpy.data.materials.get('Nu_MauMay') or mat_phang('Nu_MauMay', (0.06, 0.035, 0.025, 1), 0.6))
+
+
+def la_phang_quanh_mat(body, lan=40):
+    """Là phẳng da quanh mắt, mày (mảnh mi/mày cũ dựng đứng, nếp nhăn): Taubin trên vùng trán–mắt, ghim viền hốc mắt."""
+    bm = bmesh.new()
+    bm.from_mesh(body.data)
+    vung = {v for v in bm.verts if 1.43 < v.co.z < 1.63 and abs(v.co.x) < 0.2 and v.co.y < -0.03}
+    ghim = {v for v in vung if v.is_boundary or any(w not in vung for e in v.link_edges for w in (e.other_vert(v),))}
+    chay = [v for v in vung if v not in ghim]
+    ke = [[e.other_vert(v) for e in v.link_edges] for v in chay]
+    for k in range(lan * 2):
+        lam = 0.5 if k % 2 == 0 else -0.53
+        moi = [v.co + lam * (sum((w.co for w in ws), Vector()) / len(ws) - v.co) for v, ws in zip(chay, ke)]
+        for v, c in zip(chay, moi):
+            v.co = c
+    bm.to_mesh(body.data)
+    bm.free()
+    print(f'là phẳng {len(chay)} đỉnh quanh mắt/mày')
 
 
 def _to_da_manh_vun(body, px):
