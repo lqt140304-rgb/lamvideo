@@ -116,18 +116,23 @@ def bua_cao_su(c, at, rz=0.0):
         K.box('dc_bua_chuoi', -0.012, 0.012, 0.0, 0.28, 0.008, 0.03, thep, c)                     # chuôi thép
         K.box('dc_bua_boc', -0.017, 0.017, 0.0, 0.17, 0.0, 0.038, cao_su, c, bevel=0.008)         # bọc cao su
         for i in range(6): K.box(f'dc_bua_ran_{i}', -0.018, 0.018, 0.02 + 0.024 * i, 0.03 + 0.024 * i, 0.0, 0.039, mat('#0b0b0b', 0.9), c)  # rãnh chống trượt
-        K.box('dc_bua_dau', -0.016, 0.016, 0.27, 0.31, -0.04, 0.085, thep, c, bevel=0.004)          # đầu búa đứng
-        K.cyl('dc_bua_mat_dap', 0, 0.29, 0.085, 0.017, 0.02, mat('#8a8e93', 0.25, 0.95), c, seg=16)
-        K.box('dc_bua_mong', -0.012, 0.012, 0.275, 0.305, -0.1, -0.04, thep, c, rot=(math.radians(-12), 0, 0))
-        K.box('dc_bua_khe_mong', -0.003, 0.003, 0.27, 0.31, -0.1, -0.06, mat('#0a0a0c', 0.8), c)
-        K.box('dc_bua_gi', -0.017, 0.017, 0.275, 0.29, 0.02, 0.05, gi, c)
-        K.cyl('dc_bua_vat_mat', 0, 0.29, 0.08, 0.019, 0.006, thep, c, seg=8, r2=0.017)                       # vát mép mặt đập
-        K.box('dc_bua_co', -0.012, 0.012, 0.272, 0.308, 0.04, 0.062, thep, c, bevel=0.003)                       # cổ búa thắt
-        for sx in (-1, 1):   # móng nhổ đinh: 2 nhánh cong tách đôi
-            for k in range(4):
-                z0 = -0.04 - 0.017 * k; yy = 0.29 - 0.006 * k * k
-                K.box(f'dc_bua_nhanh_{sx}_{k}', sx * 0.0035, sx * 0.011, yy - 0.012, yy + 0.012, z0 - 0.018, z0, thep, c)
-        K.box('dc_bua_nem', -0.0125, 0.0125, 0.284, 0.296, 0.085, 0.088, mat('#3b3f44', 0.4, 0.8), c)           # nêm chốt đầu cán
+        sang = mat('#8a8e93', 0.25, 0.95)
+        K.box('dc_bua_co', -0.015, 0.015, 0.267, 0.313, -0.03, 0.04, thep, c, bevel=0.005)                  # cổ búa (thân đầu)
+        K.cyl('dc_bua_mat_khoi', 0, 0.29, 0.04, 0.0235, 0.04, thep, c, seg=20)                              # khối mặt đập (đầu tròn to, đối xứng với móng)
+        K.cyl('dc_bua_vat_mat', 0, 0.29, 0.08, 0.0235, 0.008, thep, c, seg=20, r2=0.02)                    # vát mép mặt đập
+        K.cyl('dc_bua_mat_dap', 0, 0.29, 0.088, 0.02, 0.002, sang, c, seg=20)                               # mặt đập bóng
+        K.box('dc_bua_nem', -0.0125, 0.0125, 0.284, 0.296, 0.04, 0.043, mat('#3b3f44', 0.4, 0.8), c)         # nêm chốt đầu cán
+        N = 8; zc0, zc1 = -0.03, -0.125                                                                    # móng nhổ đinh: thon dần, cong về phía cán, chẻ đôi
+        for k in range(N):
+            t0, t1 = k / N, (k + 1) / N; tm = (t0 + t1) / 2
+            za, zb = zc0 + (zc1 - zc0) * t0, zc0 + (zc1 - zc0) * t1 - 0.004
+            ym = 0.29 - 0.03 * tm * tm; day = 0.044 * (1 - tm) + 0.007 * tm; rong = 0.0145 * (1 - 0.55 * tm)
+            goc = math.atan(-0.03 * 2 * tm / abs(zc1 - zc0))
+            if tm < 0.3: K.box(f'dc_bua_nhanh_{k}', -rong, rong, ym - day / 2, ym + day / 2, zb, za, thep, c, rot=(goc, 0, 0))
+            else:
+                khe = 0.0025 + 0.003 * (tm - 0.3)
+                for sx in (-1, 1): K.box(f'dc_bua_nhanh_{sx}_{k}', min(sx * khe, sx * rong), max(sx * khe, sx * rong), ym - day / 2, ym + day / 2, zb, za, thep, c, rot=(goc, 0, 0))
+        K.box('dc_bua_gi', -0.015, 0.015, 0.275, 0.29, 0.0, 0.03, gi, c)                                    # vệt gỉ ở cổ
         K.cyl('dc_bua_duoi_loe', 0, 0.0, 0.019, 0.022, 0.012, cao_su, c, seg=16, rot=(math.radians(-90), 0, 0))  # đuôi cán loe chống tuột
         chu('dc_bua_chu', 'STEEL 500g', 0, 0.1, 0.0392, 0.009, mat('#2a2a2a', 0.7), c, 'LiberationSans-Bold.ttf', 'CENTER', rot=(0, 0, math.radians(90)))
         for i in range(5): K.sphere(f'dc_bua_gi_dom_{i}', random.Random(i).uniform(-0.017, 0.017), 0.276 + 0.006 * i, random.Random(i + 9).uniform(-0.03, 0.07), 0.0035, gi, c, seg=6)
