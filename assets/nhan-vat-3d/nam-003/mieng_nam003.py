@@ -142,7 +142,7 @@ def kiem_mieng(trong, arm, body, moc):
     for ob in trong:
         assert ob.parent == arm and ob.parent_type == 'BONE', ob.name
     # mỗi đỉnh tối đa 4 xương
-    nmax = max(sum(1 for g in v.groups if g.weight > 0) for v in body.data.vertices)
+    nmax = M3.so_xuong_max(body, arm)
     assert nmax <= 4, f'{nmax} xương/đỉnh'
     pb = arm.pose.bones['Head']; sc = bpy.context.scene; mo = Vector(moc['mieng'])
     pb['mieng_ha'] = 1.0; M3.tinh(arm)

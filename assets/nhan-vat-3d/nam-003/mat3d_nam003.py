@@ -468,3 +468,10 @@ def _eval_mep(body):
     return co, a
 
 
+
+
+def so_xuong_max(body, arm):
+    """Số xương deform lớn nhất trên một đỉnh (bỏ nhóm mặt nạ như cs_co, cs_vai_hang)."""
+    db = {b.name for b in arm.data.bones if b.use_deform}
+    gi = {g.index for g in body.vertex_groups if g.name in db}
+    return max(sum(1 for g in v.groups if g.group in gi and g.weight > 0) for v in body.data.vertices)

@@ -81,6 +81,6 @@ def kiem_bieu_cam(arm, body, p):
     z = [(ev.matrix_world @ v.co).z for v in ev.to_mesh().vertices]; ev.to_mesh_clear()
     cao = max(z) - min(z)
     assert abs(cao - p['cao']) < 0.005, f'cao {cao:.4f} ≠ {p["cao"]}'
-    nmax = max(sum(1 for g in v.groups if g.weight > 0) for v in body.data.vertices)
+    nmax = M3.so_xuong_max(body, arm)
     assert nmax <= 4, f'{nmax} xương/đỉnh'
     print(f'PASS bieu_cam cao {cao:.3f} m')

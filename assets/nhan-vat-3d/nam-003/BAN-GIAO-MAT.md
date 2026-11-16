@@ -1,6 +1,6 @@
 # Bản giao việc: làm MẶT cho NAM-003
 
-Dán nguyên mục "Prompt" cho phiên/bên làm mặt. Bản rig thân (`nam-003-rig.blend`) là **v1**: vị trí khuỷu, gối, cổ chân còn đang được chỉnh bên phía rig thân, trọng số cổ chưa sửa; làm mặt phải **không phụ thuộc** vào các chỗ đó (xem ràng buộc).
+Dán nguyên mục "Prompt" cho phiên/bên làm mặt. Bản rig thân (`nam-003-rig.blend`) là **v3** (15/11/2026): khuỷu, gối, cổ chân đã chọn bằng đo; cổ có xương phụ `NeckBlend1/2` và Corrective Smooth `CorrectiveSmoothCo` (nhóm `cs_co`, tắt từ z 1,61 và không phủ vùng hàm/cằm: y < −0,05, z ≥ 1,55; trọng số cằm trước từ z 1,565 có Head ≥ 0,75). **Xương `Head` và trọng số đầu (z ≥ 1,60) không đổi** so với v1 nên script làm mặt chạy lại được trên v3; nên chạy lại script mặt trên file mới và kiểm shape key miệng/cằm không bị `CorrectiveSmoothCo` làm mềm.
 
 ## Prompt
 
