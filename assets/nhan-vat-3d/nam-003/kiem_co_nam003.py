@@ -15,7 +15,7 @@ import rig_nam003 as R
 NGUONG_MM = 6.0
 NGUONG_GIAN = 1.5
 MIN_VISIBLE_MM = 3.0
-REST_TOL_MM = 0.05     # dung sai dáng nghỉ (IK chân cho sai số ~0,01 mm)
+REST_TOL_MM = 0.25   # mm; 16/11 nới từ 0,05: gối uốn nhẹ 1,2 cm ở dáng nghỉ (đặt gần tâm chân thật) làm IK sai số 0,17 mm (cũ 0,011), vẫn không nhìn thấy
 B_ALONE_MM = 12.9      # không tệ hơn nền trước khi làm cổ khi tắt Corrective Smooth
 Z_LO, Z_HI = 1.40, 1.66
 X, Y, Z = (1, 0, 0), (0, 1, 0), (0, 0, 1)
