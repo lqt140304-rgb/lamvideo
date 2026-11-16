@@ -23,6 +23,9 @@ for b in pb:                                            # FK thuần
     for k in b.constraints:
         if k.type == 'IK': k.influence = 0.0
 for k in 'LR': pb[f'ik_hand.{k}']['ik'] = 0.0
+for b in pb:                               # ràng buộc 'cộng thêm' (cột sống, ngón, xương đòn, chậu) tắt: Mixamo đã có các chuyển động đó; giữ xương xoắn cẳng tay
+    for k in b.constraints:
+        if k.name == 'GP': k.influence = 0.0
 for fc in arm.animation_data.drivers:      # driver vai hạ theo tay đọc Euler bắp tay: nhảy giữa hai nghiệm tương đương khi ghép → vai/tay giật; Mixamo đã có chuyển động vai
     if 'Shoulder"].rotation_euler' in fc.data_path: fc.mute = True
 c.reset(); c.upd()

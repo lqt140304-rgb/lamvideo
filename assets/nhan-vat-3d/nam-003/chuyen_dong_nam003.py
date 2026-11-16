@@ -294,7 +294,34 @@ def dong_khop(c, f, n):
 KHOP_NHAN = lambda: [x[0] for x in _khop_doan()]
 
 
-DONG = {'khop': (dong_khop, KHOP_L * 16), 'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
+# ---------------------------------------------------------------- RÀNG BUỘC GIẢI PHẪU (video trình diễn, FK)
+RB_L = 40
+RB_NHAN = ['Giơ tay sang bên → xương đòn nâng', 'Vung tay trước–sau → vai nhô/lùi', 'Xoay bàn tay → cẳng tay xoắn theo',
+           'Gập ngón giữa → áp út, trỏ gập theo', 'Cúi lưng dưới → lưng trên cúi theo', 'Nhấc đùi cao → khung chậu ngả sau']
+
+
+def dong_rang_buoc(c, f, n):
+    for b in c.pb:
+        for k in b.constraints:
+            if k.type == 'IK': k.influence = 0.0
+    k = min(f // RB_L, len(RB_NHAN) - 1); t = (f - k * RB_L) / RB_L; e = 0.5 - 0.5 * math.cos(2 * math.pi * t); v = math.sin(2 * math.pi * t)
+    c.reset()
+    for bn, ax, d in ARM_DOWN: c.rot(bn, ax, d)
+    if k == 0:
+        for S_, s in (('Left', 1), ('Right', -1)): c.rot(f'{S_}Arm', Y, -s * 170 * e)
+    elif k == 1:
+        for S_, s in (('Left', 1), ('Right', -1)): c.rot(f'{S_}Arm', X, -55 * v * s)
+    elif k == 2:
+        for S_ in ('Left', 'Right'): c.rot(f'{S_}ForeArm', X, -90)
+        for S_, s in (('Left', 1), ('Right', -1)): c.rot(f'{S_}Hand', Z, 80 * v * s)
+    elif k == 3:
+        for S_ in ('Left', 'Right'): c.rot(f'{S_}Arm', X, -40); c.rot(f'{S_}ForeArm', X, -80); c.pb[f'{S_}Hand']['nam_giua'] = e
+    elif k == 4: c.rot('Spine', X, 25 * e)
+    elif k == 5: c.rot('LeftUpLeg', X, -115 * e); c.rot('LeftLeg', X, 100 * e)
+    c.upd()
+
+
+DONG = {'rang_buoc': (dong_rang_buoc, RB_L * 6), 'khop': (dong_khop, KHOP_L * 16), 'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
 
 
 # ---------------------------------------------------------------- RENDER
