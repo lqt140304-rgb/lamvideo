@@ -22,6 +22,8 @@ for b in pb:                                            # FK thuần
     for k in b.constraints:
         if k.type == 'IK': k.influence = 0.0
 for k in 'LR': pb[f'ik_hand.{k}']['ik'] = 0.0
+for fc in arm.animation_data.drivers:      # driver vai hạ theo tay đọc Euler bắp tay: nhảy giữa hai nghiệm tương đương khi ghép → vai/tay giật; Mixamo đã có chuyển động vai
+    if 'Shoulder"].rotation_euler' in fc.data_path: fc.mute = True
 c.reset(); c.upd()
 REST_T = {b.name: (arm.matrix_world @ b.matrix).to_3x3().normalized() for b in pb}
 bpy.ops.import_scene.fbx(filepath=os.path.abspath(a.fbx)); src = [o for o in bpy.context.selected_objects if o.type == 'ARMATURE'][0]
