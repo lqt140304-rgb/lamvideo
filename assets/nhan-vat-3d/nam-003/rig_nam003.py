@@ -43,10 +43,13 @@ def patched_namespace():
     g['MAPCO'] = MAPCO
     exec(compile(src, 'rig_nam002_vá', 'exec'), g)
     # 16/11: gối/háng dời gần tâm mặt cắt thật của chân (đo trên lưới: tâm gối x 0,134 y 0,064; mốc cũ lệch vào trong 1,4 cm, ra trước 2,9 cm): hông y 0,065, gối (0,1235; 0,045) — gối vẫn nằm trên đường hông–mắt cá theo x và trước 1,2 cm để IK gập về trước (thử gối y 0,052 cho IK lệch ngang +18 cm). mốc khớp bên +X (m). GỐI nằm TRÊN đường hông–mắt cá theo x (0,1205) và lệch về phía TRƯỚC (y nhỏ hơn đường nối) để IK gập thẳng về trước (xem test_ik_goi_ve_truoc); mốc gối cũ (x 0,132, y 0,04) nằm sau/lệch đường nối làm gối vòng kiềng 13–19 cm khi đi. Khuỷu x=0,50 và gối y=0,04 chọn bằng đo biến dạng 15/11 (thử khuỷu 0,41–0,56, gối y 0,02–0,056, hông x 0,09–0,105: xem README). Cổ chân chọn 15/11 bằng chon_co_chan_nam003.py (z 0,08–0,14 × y 0,04–0,06). Đo chắc: trục tay z≈1,45, cổ tay x≈0,66, đáy háng z≈0,90, đỉnh đầu 1,824. Ước: khuỷu, gối, cổ chân (xem docstring).
+    # 17/11: theo vị trí khớp của rig Hyper3D chủ repo gửi (base.glb): xương đòn, vai, khuỷu, cổ tay, cột sống, gối z 0,58, cổ chân z 0,118, ngón cái chân.
+    # Chỉnh để dùng được: háng z 0,95 (bản kia 1,047 làm háng giãn 264–378 cạnh), gối x trên đường hông–cổ chân và y 0,02 (trước đường 1 cm) để IK gập về trước,
+    # khuỷu y 0,045 (bản kia 0,055 gần thẳng hàng làm IK tay yếu). Cổ/đầu giữ nguyên (phần mặt đang làm dựa vào Head).
     g['J'].update(dict(
-        hips=(0, 0.02, 0.96), spine=(0, 0.025, 1.06), spine1=(0, 0.015, 1.18), spine2=(0, 0.02, 1.31), neck=(0, 0.04, 1.50), head=(0, 0.04, 1.58), head_top=(0, 0.02, 1.824),
-        clav=(0.03, 0.04, 1.46), shoulder=(0.21, 0.045, 1.452), elbow=(0.50, 0.058, 1.447), wrist=(0.66, 0.04, 1.452), hand_end=(0.79, 0.03, 1.455),
-        hip=(0.095, 0.065, 0.88), knee=(0.1235, 0.045, 0.46), ankle=(0.148, 0.05, 0.08), ball=(0.155, -0.07, 0.03), toe=(0.16, -0.14, 0.02)))
+        hips=(0, 0.02, 1.0), spine=(0, 0.028, 1.185), spine1=(0, 0.036, 1.285), spine2=(0, 0.048, 1.396), neck=(0, 0.04, 1.50), head=(0, 0.04, 1.58), head_top=(0, 0.02, 1.824),
+        clav=(0.063, 0.063, 1.505), shoulder=(0.189, 0.062, 1.465), elbow=(0.415, 0.045, 1.445), wrist=(0.667, 0.035, 1.455), hand_end=(0.79, 0.03, 1.455),
+        hip=(0.084, 0.03, 0.95), knee=(0.1111, 0.02, 0.58), ankle=(0.145, 0.05, 0.118), ball=(0.141, -0.089, 0.005), toe=(0.16, -0.14, 0.005)))
     if os.environ.get('NAM003_J'):   # thử vị trí khớp khác: NAM003_J='{"elbow":[0.44,0.058,1.447]}'
         import json
         print(f"CẢNH BÁO: NAM003_J đang đặt ({os.environ['NAM003_J']}) → vị trí khớp KHÁC mặc định. Bỏ biến này (unset NAM003_J) nếu không cố ý thử.", file=sys.stderr)

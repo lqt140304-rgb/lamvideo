@@ -24,7 +24,7 @@ def them_driver_vai(arm):
 
 # ---- thu hẹp vai trong lưới (áp trước khi dựng rig; nguồn GLB giữ nguyên) ----
 import os
-HEP = float(os.environ.get('NAM003_VAI_HEP', '0.04'))   # m, dịch tối đa của tay vào trong (mỗi bên)
+HEP = float(os.environ.get('NAM003_VAI_HEP', '0.0'))   # m, dịch tối đa của tay vào trong (mỗi bên)
 U0, U1 = float(os.environ.get('NAM003_U0', '0.0')), float(os.environ.get('NAM003_U1', '0.30'))   # |x| bắt đầu / dịch đủ (chuyển tiếp càng rộng càng ít nén lưới: nén cực đại ≈ 1 − 1,5·HEP/(U1−U0))
 Z0, Z1 = 1.15, 1.25                                      # chỉ phần trên (vai–tay); thân dưới, chân không đổi
 

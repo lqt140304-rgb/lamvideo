@@ -141,7 +141,7 @@ def dong_di(c, f, tong, chay=False):
     c.reset()
     fwd = -(S * 2) * (f / N)
     ankle0 = {k: c.head[f'ik_foot.{k}'] for k in 'LR'}
-    bob_amp = 0.045 if chay else 0.018
+    bob_amp = 0.05 if chay else 0.028
     bob = (-0.05 if chay else -0.025) - bob_amp * math.cos(4 * math.pi * phi0)
     sway = (0.012 if chay else 0.022) * math.sin(2 * math.pi * phi0)
     root_loc = Vector((0, fwd, 0)); c.place('root', root_loc)
@@ -165,7 +165,7 @@ def dong_di(c, f, tong, chay=False):
     c.rot('Neck', Z, yaw * 0.3); c.rot('Head', Z, yaw * 0.3); c.rot('Head', X, (lean * 0.9) if chay else -2)
     swing = (46 if chay else 24) * math.cos(2 * math.pi * phi0)
     for S_, s in (('Left', 1), ('Right', -1)):
-        c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 80); c.g['rot_world'](c.arm, f'{S_}ForeArm', (0, 1, 0), -s * 12)
+        c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 78); c.g['rot_world'](c.arm, f'{S_}ForeArm', (0, 1, 0), -s * 10)
         c.g['rot_world'](c.arm, f'{S_}Arm', X, s * swing)
         elbow = (80 + 25 * max(0.0, -s * math.cos(2 * math.pi * phi0))) if chay else (18 + 12 * max(0.0, -s * math.cos(2 * math.pi * phi0)))
         c.g['rot_world'](c.arm, f'{S_}ForeArm', X, -elbow); c.g['rot_world'](c.arm, f'{S_}Hand', Z, -s * 8)
@@ -176,7 +176,7 @@ def dong_di(c, f, tong, chay=False):
 
 # Tay buông (chọn 15/11 bằng khe tay–thân đo theo độ cao, xem README): bắp tay 80° ép sát thân, cẳng tay chếch ra 12° (theo ảnh mẫu của chủ repo 16/11: nách khép, cẳng tay/bàn tay hơi mở; hất 20° trở lên nhìn gãy ở khuỷu), vai hạ 6° (driver); vai đã thu hẹp 4 cm mỗi bên trong lưới
 # → khe ~2 cm ở nách, ~1 cm ở khuỷu, ~4 cm ở cổ tay (trước: 4 → 10 cm với 78°).
-ARM_DOWN = [('LeftArm', Y, 80), ('RightArm', Y, -80), ('LeftForeArm', Y, -12), ('RightForeArm', Y, 12)]   # vai hạ do driver vai_nam003 lo
+ARM_DOWN = [('LeftArm', Y, 78), ('RightArm', Y, -78), ('LeftForeArm', Y, -10), ('RightForeArm', Y, 10)]   # vai hạ do driver vai_nam003 lo
 
 
 def dong_ngoi_ghe(c, f, N):
@@ -189,7 +189,7 @@ def dong_ngoi_ghe(c, f, N):
     P = {'fk': [('Spine', X, lean * 0.4), ('Spine1', X, lean * 0.35), ('Spine2', X, lean * 0.25), ('Head', X, -lean * 0.5),
                 *ARM_DOWN, ('LeftArm', X, arm_fwd), ('RightArm', X, arm_fwd), ('LeftForeArm', X, -elbow), ('RightForeArm', X, -elbow)],
          'root': ((0, 0, 0), (0, 0, 0)), 'hips': tuple(hp),
-         'ik_foot': {'L': (0.11, ank_y, 0.08), 'R': (-0.11, ank_y, 0.08)}, 'ngon': {'nam_tro': 0.3, 'nam_giua': 0.35, 'nam_ap': 0.4, 'nam_cai': 0.2}}
+         'ik_foot': {'L': (0.11, ank_y, 0.118), "R": (-0.11, ank_y, 0.118)}, 'ngon': {'nam_tro': 0.3, 'nam_giua': 0.35, 'nam_ap': 0.4, 'nam_cai': 0.2}}
     return ap_dung(c, P)
 
 
@@ -232,9 +232,9 @@ def dong_truot(c, f, N):
     for k, sx, off in (('L', 1, 0.0), ('R', -1, 0.5)):
         e = pha(off); P['ik_hand'][k] = (sx * (0.30 - 0.10 * e), adv - 0.55 - 0.40 * e, 0.07)
         P['poles'][f'pole_elbow.{k}'] = (sx * 0.55, adv - 0.45 - 0.2 * e, 0.12)
-    tp = json.loads(os.environ.get('TR_PAR', '[0.05,0.30,110,0.14,0.20]'))      # [dạng chân, kéo gối, pitch bàn chân, z mắt cá, x cực gối]
+    tp = json.loads(os.environ.get('TR_PAR', '[0.05,0.30,110,0.14,0.20,0.80]'))      # [dạng chân, kéo gối, pitch bàn chân, z mắt cá, x cực gối]
     for k, sx, off in (('L', 1, 0.5), ('R', -1, 0.0)):
-        e = pha(off); P['ik_foot'][k] = (sx * (0.12 + tp[0] * e), adv + 0.80 - tp[1] * e, tp[3], tp[2], 0.0, 0.0)
+        e = pha(off); P['ik_foot'][k] = (sx * (0.12 + tp[0] * e), adv + tp[5] - tp[1] * e, tp[3], tp[2], 0.0, 0.0)
         P['poles'][f'pole_knee.{k}'] = (sx * tp[4], adv + 0.45, 0.15)
     return ap_dung(c, P)
 
@@ -268,15 +268,15 @@ def _khop_doan():
     def cot_x(P, e, v, t): w = v if v > 0 else 0.5 * v; P['fk'] += [('Spine', X, 14 * w), ('Spine1', X, 12 * w), ('Spine2', X, 10 * w)]
     def cot_z(P, e, v, t): P['fk'] += [('Spine', Z, 14 * v), ('Spine1', Z, 14 * v), ('Spine2', Z, 14 * v), ('Head', Z, -10 * v)]
     def cot_y(P, e, v, t): P['fk'] += [('Spine', Y, 8 * v), ('Spine1', Y, 8 * v), ('Spine2', Y, 6 * v)]
-    def hang_nhac(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 - 0.30 * e, 0.08 + 0.45 * e)
-    def hang_dang(P, e, v, t): P['ik_foot']['L'] = (0.11 + 0.38 * e, 0.05, 0.08 + 0.14 * e); P['ik_foot']['R'] = (-0.11, 0.05, 0.08)
-    def goi(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 + 0.28 * e, 0.08 + 0.36 * e, -45 * e)
+    def hang_nhac(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 - 0.30 * e, 0.118 + 0.45 * e)
+    def hang_dang(P, e, v, t): P['ik_foot']['L'] = (0.11 + 0.38 * e, 0.05, 0.118 + 0.14 * e); P["ik_foot"]["R"] = (-0.11, 0.05, 0.118)
+    def goi(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 + 0.28 * e, 0.118 + 0.36 * e, -45 * e)
     def co_chan(P, e, v, t):
         w = v if v > 0 else 0.6 * v; z = 0.005 * w if w > 0 else -0.115 * w   # kiễng gót: mũi chạm sàn; gập mu: nâng cổ chân để gót không lún (đo bằng bisect)
-        for k, sx in (('L', 1), ('R', -1)): P['ik_foot'][k] = (sx * 0.11, 0.05, 0.08 + z, -38 * w)
+        for k, sx in (('L', 1), ('R', -1)): P['ik_foot'][k] = (sx * 0.11, 0.05, 0.118 + z, -38 * w)
     def ngoi_xo(P, e, v, t):
         P['hips'] = (0, 0.02 + 0.10 * e, 0.96 - 0.38 * e); P['fk'] += [('Spine', X, 22 * e), ('Spine1', X, 8 * e)]
-        P['ik_foot']['L'] = (0.14, 0.04 - 0.02 * e, 0.08); P['ik_foot']['R'] = (-0.14, 0.04 - 0.02 * e, 0.08)
+        P['ik_foot']['L'] = (0.14, 0.04 - 0.02 * e, 0.118); P['ik_foot']['R'] = (-0.14, 0.04 - 0.02 * e, 0.118)
     return [('Cổ: quay trái–phải', dau_z), ('Cổ: gật–ngửa', dau_x), ('Cổ: nghiêng đầu', dau_y), ('Vai: giơ tay sang bên', vai_ben), ('Vai: đưa tay ra trước', vai_truoc),
             ('Khuỷu: gập–duỗi', khuyu), ('Cổ tay: gập–duỗi, nghiêng', co_tay), ('Ngón tay: nắm–xòe', ngon), ('Cột sống: cúi–ngửa', cot_x), ('Cột sống: xoay thân', cot_z),
             ('Cột sống: nghiêng người', cot_y), ('Háng: nhấc đùi trước', hang_nhac), ('Háng: dạng chân', hang_dang), ('Gối: gập (gót về mông)', goi), ('Cổ chân: kiễng gót–gập mu', co_chan),
@@ -286,7 +286,7 @@ def _khop_doan():
 def dong_khop(c, f, n):
     seg = _khop_doan(); L = KHOP_L; k = min(f // L, len(seg) - 1); t = (f - k * L) / L; t = min(max(t, 0.0), 1.0)
     e = 0.5 - 0.5 * math.cos(2 * math.pi * t); v = math.sin(2 * math.pi * t)
-    P = {'fk': list(ARM_DOWN) + [('LeftShoulder', Y, 0.0)], 'root': ((0, 0, 0), (0, 0, 0)), 'ik_foot': {'L': (0.11, 0.05, 0.08), 'R': (-0.11, 0.05, 0.08)},
+    P = {'fk': list(ARM_DOWN) + [('LeftShoulder', Y, 0.0)], 'root': ((0, 0, 0), (0, 0, 0)), 'ik_foot': {'L': (0.11, 0.05, 0.118), 'R': (-0.11, 0.05, 0.118)},
          'ngon': {'nam_tro': 0.12, 'nam_giua': 0.15, 'nam_ap': 0.18, 'nam_cai': 0.1}}
     seg[k][1](P, e, v, t); return ap_dung(c, P)
 
