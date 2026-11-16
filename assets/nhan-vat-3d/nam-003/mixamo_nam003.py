@@ -15,6 +15,7 @@ argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
 ap = argparse.ArgumentParser(); ap.add_argument('--rig', required=True); ap.add_argument('--fbx', required=True); ap.add_argument('--ra'); ap.add_argument('--anh')
 ap.add_argument('--luoi', action='store_true'); ap.add_argument('--tai-cho', action='store_true'); ap.add_argument('--res', default='360,480'); ap.add_argument('--buoc', type=int, default=1); ap.add_argument('--xoay-tay', type=float, default=90.0, help='bù xoay quanh trục tay (độ): lòng bàn tay dáng nghỉ của nam-003 dựng đứng, Mixamo úp xuống')
 ap.add_argument('--khung', default=''); ap.add_argument('--xoay-cang', action='store_true'); ap.add_argument('--mo-tay', type=float, default=6.0, help='mở bắp tay ra ngoài (độ) để tay không xuyên hông'); ap.add_argument('--do-ngon', action='store_true')
+ap.add_argument('--vai', type=float, default=1.0, help='hệ số chuyển động phụ của xương đòn theo tay (0 = tắt)'); ap.add_argument('--hong', type=float, default=1.5, help='khuếch đại xoay/nghiêng khung chậu (1 = như Mixamo)')
 a = ap.parse_args(argv)
 
 c = C.Ctx(a.rig); arm = c.arm; pb = c.pb
@@ -50,7 +51,17 @@ for i in range(N):
         if ('Arm' in n or 'Hand' in n) and 'Shoulder' not in n:
             # dáng nghỉ nam-003: lòng bàn tay hướng trước, ngón cái lên; Mixamo: úp xuống, ngón cái ra trước → quay +90° quanh X thế giới (CÙNG dấu hai bên)
             Q = Matrix.Rotation(math.radians(a.xoay_tay), 3, 'X')
-        Rt = Rs @ REST_S[n].inverted() @ Q @ REST_T[n]
+        D = Rs @ REST_S[n].inverted()
+        if n == 'Hips' and a.hong != 1.0:          # khuếch đại xoay/nghiêng khung chậu (thân trên vẫn giữ hướng gốc → xoắn ngược tự nhiên)
+            ax_, an_ = D.to_quaternion().to_axis_angle(); D = Matrix.Rotation(an_ * a.hong, 3, ax_)
+        Rt = D @ Q @ REST_T[n]
+        if n.endswith('Shoulder') and a.vai:        # xương đòn theo tay: vung trước → vai nhô, vung sau → lùi, nhấc tay → nâng vai
+            sg = 1 if n.startswith('Left') else -1
+            ad = (src.matrix_world @ SP[MAP[n.replace('Shoulder', 'Arm')]].matrix).to_3x3().col[1].normalized()   # hướng bắp tay nguồn
+            swing = math.degrees(math.atan2(-ad.y, max(1e-6, -ad.z)))        # + = ra trước
+            raise_ = math.degrees(math.acos(max(-1.0, min(1.0, -ad.z))))      # 0 = buông thẳng
+            pro = max(-12.0, min(12.0, 0.25 * swing)) * a.vai; ele = max(0.0, min(25.0, 0.3 * (raise_ - 25))) * a.vai
+            Rt = (Matrix.Rotation(math.radians(-sg * pro), 3, 'Z') @ Matrix.Rotation(math.radians(-sg * ele), 3, 'Y')) @ Rt
         b = pb[n]; bpy.context.view_layer.update(); head = (arm.matrix_world @ b.matrix).translation
         if n == 'Hips':
             d = ((src.matrix_world @ SP[MAP[n]].matrix).translation - hips_rest_s) * k_h
