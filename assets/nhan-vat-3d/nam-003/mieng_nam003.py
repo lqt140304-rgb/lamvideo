@@ -117,14 +117,14 @@ def tao_mieng(sc, arm, body, moc, p):
     # khoang miệng, răng, lưỡi, jaw
     _jaw(arm, moc)
     sau = mo + np.array([0, 0.004, 0])                              # mặt trước khoang/răng nằm sau môi
-    m_toi = M3._mat('KhoangMieng', (0.10, 0.025, 0.03), 0.7); m_rang = M3._mat('Rang', (0.92, 0.90, 0.85), 0.3); m_luoi = M3._mat('Luoi', (0.62, 0.22, 0.22), 0.6)
+    m_toi = M3._mat('KhoangMieng', (0.10, 0.025, 0.03), 0.7); m_rang = M3._mat('Rang', (0.78, 0.75, 0.70), 0.45); m_luoi = M3._mat('Luoi', (0.62, 0.22, 0.22), 0.6)
     def tui():
         bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1, location=tuple(sau + np.array([0, 0.026, -0.002])))
         o = bpy.context.object; o.scale = (A * 1.10, 0.017, 0.018); bpy.ops.object.transform_apply(scale=True)
         bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.flip_normals(); bpy.ops.object.mode_set(mode='OBJECT'); return o
     def rang(dz, ten):
-        bpy.ops.mesh.primitive_torus_add(major_radius=A * 0.68, minor_radius=0.0028, major_segments=48, minor_segments=8,
-                                         location=tuple(sau + np.array([0, A * 0.68 + 0.003, dz])))
+        bpy.ops.mesh.primitive_torus_add(major_radius=A * 0.56, minor_radius=0.0024, major_segments=48, minor_segments=8,
+                                         location=tuple(sau + np.array([0, A * 0.56 + 0.006, dz])))   # lùi sâu, hẹp: chỉ lộ mép răng khi há
         o = bpy.context.object; o.scale = (1, 1, 1.6); bpy.ops.object.transform_apply(scale=True)
         bm2 = bmesh.new(); bm2.from_mesh(o.data)
         bmesh.ops.delete(bm2, geom=[v for v in bm2.verts if v.co.y > -A * 0.25], context='VERTS'); bm2.to_mesh(o.data); bm2.free()
@@ -132,8 +132,8 @@ def tao_mieng(sc, arm, body, moc, p):
     def luoi():
         bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=12, radius=1, location=tuple(sau + np.array([0, 0.016, -0.009])))
         o = bpy.context.object; o.scale = (A * 0.62, 0.016, 0.0045); bpy.ops.object.transform_apply(scale=True); return o
-    trong = [_vat(sc, arm, 'KhoangMieng', tui, m_toi, 'Head'), _vat(sc, arm, 'RangTren', lambda: rang(0.0042, 't'), m_rang, 'Head'),
-             _vat(sc, arm, 'RangDuoi', lambda: rang(-0.0050, 'd'), m_rang, 'jaw'), _vat(sc, arm, 'Luoi', luoi, m_luoi, 'jaw')]
+    trong = [_vat(sc, arm, 'KhoangMieng', tui, m_toi, 'Head'), _vat(sc, arm, 'RangTren', lambda: rang(0.0068, 't'), m_rang, 'Head'),
+             _vat(sc, arm, 'RangDuoi', lambda: rang(-0.0075, 'd'), m_rang, 'jaw'), _vat(sc, arm, 'Luoi', luoi, m_luoi, 'jaw')]
     print(f'  miệng: rộng {2 * A * 1000:.0f} mm, mép lỗ {len(tren_ch) + len(duoi_ch) - 2} đỉnh, hàn {n0 - len(body.data.vertices)} đỉnh')
     return trong
 
