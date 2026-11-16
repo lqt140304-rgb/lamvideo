@@ -13,7 +13,8 @@ import chuyen_dong_nam003 as C
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
 ap = argparse.ArgumentParser(); ap.add_argument('--rig', required=True); ap.add_argument('--fbx', required=True); ap.add_argument('--ra'); ap.add_argument('--anh')
-ap.add_argument('--luoi', action='store_true'); ap.add_argument('--tai-cho', action='store_true'); ap.add_argument('--res', default='360,480'); ap.add_argument('--buoc', type=int, default=1)
+ap.add_argument('--luoi', action='store_true'); ap.add_argument('--tai-cho', action='store_true'); ap.add_argument('--res', default='360,480'); ap.add_argument('--buoc', type=int, default=1); ap.add_argument('--xoay-tay', type=float, default=90.0, help='bù xoay quanh trục tay (độ): lòng bàn tay dáng nghỉ của nam-003 dựng đứng, Mixamo úp xuống')
+ap.add_argument('--khung', default='')
 a = ap.parse_args(argv)
 
 c = C.Ctx(a.rig); arm = c.arm; pb = c.pb
@@ -43,7 +44,10 @@ for i in range(N):
     c.reset()
     for n in order:
         Rs = (src.matrix_world @ SP[MAP[n]].matrix).to_3x3().normalized()
-        Rt = Rs @ REST_S[n].inverted() @ REST_T[n]
+        Q = Matrix.Identity(3)
+        if any(t in n for t in ('Arm', 'Hand')) and 'Shoulder' not in n:
+            Q = Matrix.Rotation(math.radians(a.xoay_tay if n.startswith('Left') else -a.xoay_tay), 3, 'X')
+        Rt = Rs @ REST_S[n].inverted() @ Q @ REST_T[n]
         b = pb[n]; bpy.context.view_layer.update(); head = (arm.matrix_world @ b.matrix).translation
         if n == 'Hips':
             d = ((src.matrix_world @ SP[MAP[n]].matrix).translation - hips_rest_s) * k_h
@@ -60,5 +64,5 @@ for o in list(bpy.data.objects):
 print('đã ghép', N, 'khung')
 if a.luoi:
     r = C.do_luoi(c, N); print(f'mixamo: cạnh giãn >2× nhiều nhất mỗi khung {r["g2"]}; giãn max {r["gmax"]:.2f}×; điểm thấp nhất lưới {r["zmin"]*100:.1f} cm')
-if a.anh: C.render_dong(c, N, a.anh, views=('truoc', 'ben'), res=tuple(int(x) for x in a.res.split(',')))
+if a.anh: C.render_dong(c, N, a.anh, views=('truoc', 'ben'), res=tuple(int(x) for x in a.res.split(',')), khung=[int(x) for x in a.khung.split(',')] if a.khung else None)
 if a.ra: bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.ra), compress=True)
