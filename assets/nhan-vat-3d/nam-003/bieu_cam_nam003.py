@@ -59,7 +59,7 @@ def not_ruoi(sc, arm, body, moc, p):
     o = Vector((x, -0.3, moc['mieng'][2] + 0.022)); mi = ev.matrix_world.inverted()
     ok, loc, nor, _ = ev.ray_cast(mi @ o, Vector((0, 1, 0)))
     assert ok, 'nốt ruồi: tia không trúng da'
-    bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=6, radius=0.0011, location=tuple(ev.matrix_world @ loc))
+    bpy.ops.mesh.primitive_uv_sphere_add(segments=12, ring_count=6, radius=0.0011, location=tuple(ev.matrix_world @ (loc - nor.normalized() * 0.0003 * (1 if nor.y > 0 else -1))))   # nổi 0,3 mm: chỉ lún ~0,15 mm
     ob = bpy.context.object; ob.name = 'NotRuoi'; ob.scale = (1, 0.4, 1); bpy.ops.object.transform_apply(scale=True)
     ob.data.materials.append(M3._mat('NotRuoi', (0.09, 0.05, 0.035), 0.6))
     M3._bone_parent(ob, arm, 'Head'); return ob

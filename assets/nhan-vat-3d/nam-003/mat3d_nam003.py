@@ -274,14 +274,14 @@ def _khoet(body, C, M, U, V, bvh, r_gan=0.06, goc_gan=1.8, chia_truoc=0):
     def gan(x):
         return x in bv
     for lan in range(8):   # khoét lặp: nuốt lỗ phụ/đỉnh chạc ba (lỗ chỉ dính lỗ chính qua một đỉnh) cho tới khi còn một vòng đơn
-        bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table()
+        bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table(); bm.verts.index_update()
         bien = [e for e in bm.edges if e.is_boundary and all(gan(x) for x in e.verts)]
         ke = {}
         for e in bien:
             a_, b_ = e.verts; ke.setdefault(a_, []).append(b_); ke.setdefault(b_, []).append(a_)
         vongs = []; con = set(ke)
         while con:
-            v0 = next(iter(con)); vg = [v0]; tv = None
+            v0 = min(con, key=lambda x: x.index); vg = [v0]; tv = None   # chọn theo chỉ số: set duyệt theo địa chỉ bộ nhớ, mỗi lần chạy khác
             while True:
                 nx = [x for x in ke[vg[-1]] if x is not tv and x in con]
                 if not nx or nx[0] is v0 or nx[0] in vg: break
