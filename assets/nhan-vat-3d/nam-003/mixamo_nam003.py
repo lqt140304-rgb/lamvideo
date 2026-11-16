@@ -13,8 +13,8 @@ import chuyen_dong_nam003 as C
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
 ap = argparse.ArgumentParser(); ap.add_argument('--rig', required=True); ap.add_argument('--fbx', required=True); ap.add_argument('--ra'); ap.add_argument('--anh')
-ap.add_argument('--luoi', action='store_true'); ap.add_argument('--tai-cho', action='store_true'); ap.add_argument('--res', default='360,480'); ap.add_argument('--buoc', type=int, default=1); ap.add_argument('--xoay-tay', type=float, default=90.0, help='bù xoay quanh trục tay (độ): lòng bàn tay dáng nghỉ của nam-003 dựng đứng, Mixamo úp xuống')
-ap.add_argument('--khung', default='')
+ap.add_argument('--luoi', action='store_true'); ap.add_argument('--tai-cho', action='store_true'); ap.add_argument('--res', default='360,480'); ap.add_argument('--buoc', type=int, default=1); ap.add_argument('--xoay-tay', type=float, default=180.0, help='bù xoay quanh trục tay (độ): lòng bàn tay dáng nghỉ của nam-003 dựng đứng, Mixamo úp xuống')
+ap.add_argument('--khung', default=''); ap.add_argument('--xoay-cang', action='store_true'); ap.add_argument('--mo-tay', type=float, default=6.0, help='mở bắp tay ra ngoài (độ) để tay không xuyên hông'); ap.add_argument('--do-ngon', action='store_true')
 a = ap.parse_args(argv)
 
 c = C.Ctx(a.rig); arm = c.arm; pb = c.pb
@@ -45,7 +45,7 @@ for i in range(N):
     for n in order:
         Rs = (src.matrix_world @ SP[MAP[n]].matrix).to_3x3().normalized()
         Q = Matrix.Identity(3)
-        if any(t in n for t in ('Arm', 'Hand')) and 'Shoulder' not in n:
+        if 'Hand' in n or ('ForeArm' in n and a.xoay_cang):
             Q = Matrix.Rotation(math.radians(a.xoay_tay if n.startswith('Left') else -a.xoay_tay), 3, 'X')
         Rt = Rs @ REST_S[n].inverted() @ Q @ REST_T[n]
         b = pb[n]; bpy.context.view_layer.update(); head = (arm.matrix_world @ b.matrix).translation
@@ -54,8 +54,14 @@ for i in range(N):
             if a.tai_cho: d.y = 0.0; d.x = 0.0
             head = c.head['Hips'] + d
         b.matrix = arm.matrix_world.inverted() @ (Matrix.Translation(head) @ Rt.to_4x4())
+    if a.mo_tay:
+        for S_, s_ in (('Left', 1), ('Right', -1)): c.g['rot_world'](arm, f'{S_}Arm', (0, 1, 0), -s_ * a.mo_tay)
     bpy.context.view_layer.update()
     c.keyframe(i + 1)
+    if a.do_ngon and i + 1 in (20, 35, 50):
+        W = arm.matrix_world; h = W @ pb['LeftHand'].head; t = W @ pb['LeftHandThumb1'].head; m = W @ pb['LeftHandMiddle1'].head
+        nrm = (t - h).cross(m - h).normalized()
+        print(f'khung {i+1}: ngón cái so với cổ tay {tuple(round(x,2) for x in (t-h).normalized())} (trước = −Y); pháp tuyến bàn tay {tuple(round(x,2) for x in nrm)}; cổ tay x {h.x:.3f}')
 sc.frame_start, sc.frame_end = 1, N; sc.render.fps = 30
 for o in list(bpy.data.objects):
     if o.type == 'ARMATURE' and o is not arm: bpy.data.objects.remove(o, do_unlink=True)
