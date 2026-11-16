@@ -71,6 +71,10 @@ def nap_mo_hinh():
     bm.to_mesh(body.data); bm.free()
     for p in body.data.polygons: p.use_smooth = True
     import vai_nam003 as VAI
+    import chan_nam003 as CHAN
+    if CHAN.GOI_K > 0 or CHAN.GOI_KY > 0:   # làm thon gối
+        for v in body.data.vertices: v.co.x, v.co.y, v.co.z = CHAN.thu_goi(v.co.x, v.co.y, v.co.z)
+        print(f'  thon gối: ngang {CHAN.GOI_K * 100:.0f}%, trước–sau {CHAN.GOI_KY * 100:.0f}%')
     if VAI.DELTA_K > 0 or VAI.NACH_HA > 0:   # bắp vai to hơn, hạ nách (trước thu hẹp vai)
         for v in body.data.vertices: v.co.x, v.co.y, v.co.z = VAI.dinh_hinh_vai(v.co.x, v.co.y, v.co.z)
         print(f'  bắp vai +{VAI.DELTA_K * 100:.0f}%, hạ nách {VAI.NACH_HA * 100:.1f} cm')
