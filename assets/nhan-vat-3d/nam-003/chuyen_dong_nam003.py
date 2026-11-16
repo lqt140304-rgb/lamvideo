@@ -321,7 +321,26 @@ def dong_rang_buoc(c, f, n):
     c.upd()
 
 
-DONG = {'rang_buoc': (dong_rang_buoc, RB_L * 6), 'khop': (dong_khop, KHOP_L * 16), 'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
+# ---------------------------------------------------------------- CƠ CHUYỂN ĐỘNG (video trình diễn)
+CO_L = 40
+CO_NHAN = ['Gập khuỷu → bắp tay phồng', 'Giơ tay → cơ delta phồng', 'Nắm tay → cơ cẳng tay phồng', 'Gập gối (IK) → bắp chân phồng']
+
+
+def dong_co(c, f, n):
+    k = min(f // CO_L, 3); t = (f - k * CO_L) / CO_L; e = 0.5 - 0.5 * math.cos(2 * math.pi * t)
+    P = {'fk': list(ARM_DOWN), 'root': ((0, 0, 0), (0, 0, 0)), 'ik_foot': {'L': (0.11, 0.05, 0.118), 'R': (-0.11, 0.05, 0.118)}, 'ngon': {}}
+    if k == 0: P['fk'] += [('LeftArm', X, -20), ('RightArm', X, -20), ('LeftForeArm', X, -130 * e), ('RightForeArm', X, -130 * e)]
+    elif k == 1: P['fk'] = [('LeftArm', Y, 80 - 170 * e), ('RightArm', Y, -(80 - 170 * e))]
+    elif k == 2: P['fk'] += [('LeftArm', X, -40), ('RightArm', X, -40), ('LeftForeArm', X, -80), ('RightForeArm', X, -80)]; P['ngon'] = {'nam_tro': e, 'nam_giua': e, 'nam_ap': e, 'nam_cai': e}
+    else: P['ik_foot']['L'] = (0.11, 0.05 + 0.32 * e, 0.118 + 0.40 * e, -40 * e)
+    r = ap_dung(c, P)
+    if k == 2:
+        for S_ in ('Left', 'Right'): c.pb[f'{S_}Hand']['nam'] = e
+        c.upd()
+    return r
+
+
+DONG = {'co': (dong_co, CO_L * 4), 'rang_buoc': (dong_rang_buoc, RB_L * 6), 'khop': (dong_khop, KHOP_L * 16), 'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
 
 
 # ---------------------------------------------------------------- RENDER

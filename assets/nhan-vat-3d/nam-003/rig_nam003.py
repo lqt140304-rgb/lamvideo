@@ -99,6 +99,7 @@ def main():
     print(f'  rig xong {time.time() - t0:.1f}s; {len(body.vertex_groups)} nhóm trọng số')
     import vai_nam003 as VAI; VAI.them_driver_vai(arm)   # vai hạ theo tay buông (khe nách)
     import rang_buoc_nam003 as RB; RB.them_rang_buoc(arm, body)   # ràng buộc giải phẫu (thay driver vai cũ)
+    import co_bap_nam003 as CB; CB.them_co(arm, body)   # cơ phồng theo khớp (shape key + driver)
     import trong_so_nam003 as TS; TS.lam_muot(body)   # làm mượt trọng số háng/cổ chân/gối/bàn tay (đo bằng kiem_rom_nam003.py)
     # tối đa 4 xương/đỉnh (giới hạn Unity/Unreal/web)
     bpy.context.view_layer.objects.active = body; bpy.ops.object.vertex_group_limit_total(group_select_mode='BONE_DEFORM', limit=4)
