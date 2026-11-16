@@ -186,6 +186,14 @@ def main():
     if a.anh: anh_trang_thai(sc, arm, os.path.join(a.anh, 'mat'), m['mat'][2], [
         {}, {'nhin': (0.12, 0, 0)}, {'nhin': (-0.12, 0, 0)}, {'nhin': (0, 0, 0.10)}, {'nhin': (0, 0, -0.10)},
         {'mo_to': 1}, {'chop_mat': 0.5}, {'chop_mat': 1}, {'chop_trai': 1}])
+    import bieu_cam_nam003 as BC
+    BC.not_ruoi(sc, arm, body, m, p)
+    if a.anh:
+        zg = (m['mat'][2] + m['mieng'][2]) / 2
+        anh_trang_thai(sc, arm, os.path.join(a.anh, 'bieu_cam'), zg, list(BC.BIEU_CAM.values()), khung=0.24, goc=(0, 35), px=360)
+        anh_trang_thai(sc, arm, os.path.join(a.anh, 'khau_hinh'), m['mieng'][2], list(BC.VISEME.values()), khung=0.10, px=360)
+    BC.dat_cao(arm, p)
+    if a.kiem: BC.kiem_bieu_cam(arm, body, p)
     bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.out), compress=True)
     print('PASS: đã lưu', a.out)
 
