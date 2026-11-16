@@ -28,7 +28,7 @@ bpy.ops.import_scene.fbx(filepath=os.path.abspath(a.fbx)); src = [o for o in bpy
 act = src.animation_data.action; f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
 SP = src.pose.bones
 nm = lambda n: n.split(':')[-1]
-MAP = {nm(b.name): b.name for b in SP if nm(b.name) in pb and 'Pinky' not in b.name}
+MAP = {nm(b.name): b.name for b in SP if nm(b.name) in pb and 'HandThumb' not in b.name and 'HandIndex' not in b.name and 'HandMiddle' not in b.name and 'HandRing' not in b.name and 'Pinky' not in b.name}   # ngón tay: không ghép (trục gập khác sau khi bù xoay bàn tay) → dùng driver nắm thả lỏng
 src.data.pose_position = 'REST'; bpy.context.view_layer.update()
 REST_S = {k: (src.matrix_world @ SP[v].matrix).to_3x3().normalized() for k, v in MAP.items()}
 hips_rest_s = (src.matrix_world @ SP[MAP['Hips']].matrix).translation.copy()
@@ -42,6 +42,8 @@ act_t = bpy.data.actions.new('mixamo'); arm.animation_data_create(); arm.animati
 for i in range(N):
     fs = f0 + i * a.buoc; sc.frame_set(fs); bpy.context.view_layer.update()
     c.reset()
+    for S_ in ('Left', 'Right'):
+        for pr, v in (('nam_tro', 0.25), ('nam_giua', 0.3), ('nam_ap', 0.35), ('nam_cai', 0.15)): pb[f'{S_}Hand'][pr] = v
     for n in order:
         Rs = (src.matrix_world @ SP[MAP[n]].matrix).to_3x3().normalized()
         Q = Matrix.Identity(3)
