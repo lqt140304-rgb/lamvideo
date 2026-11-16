@@ -5,7 +5,7 @@ Thử đặt nhân vật nam NAM-003 (rig `assets/nhan-vat-3d/nam-003/nam-003-ri
 | File | Việc |
 |---|---|
 | `dien_thu_nam003.py` | Dựng phòng, append Nam_Body + Nam_Rig, dựng chuyển động, render. `--khung 0,4,8…` `--mau` `--rong` `--cam NAM_THU` `--che-do night` `--blend` `--chi-tu-the` |
-| `dien_thu.mp4` | Video xem thử (chưa có khi commit này; đang render 560 px, 8 mẫu, mỗi bốn khung lấy một) |
+| `dien_thu.mp4` | Video xem thử (560 px, 8 mẫu, 48 khung — mỗi bốn khung lấy một — phát 12 fps nên giật và nhiễu hạt) |
 
 ## Cách ghép
 - Phòng: `build()` của `xay_phong_tro.py`, ghế kéo ra (tâm thiết kế x 2,32, y 1,36), thêm camera `NAM_THU` (đứng góc trước-trái nhìn về bàn).
