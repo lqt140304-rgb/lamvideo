@@ -173,9 +173,13 @@ def main():
     mat = M3.tao_mat(sc, arm, body, m, p)
     import may3d_nam003 as MY
     may = MY.tao_may(sc, arm, body, m, p)
+    import mieng_nam003 as MI
+    trong = MI.tao_mieng(sc, arm, body, m, p)
     M3.lam_moi_driver()
-    if a.kiem: MY.kiem_may(may, arm, body, m, p)
+    if a.kiem: MY.kiem_may(may, arm, body, m, p); MI.kiem_mieng(trong, arm, body, m)
     if a.anh: anh_trang_thai(sc, arm, os.path.join(a.anh, 'may'), m['mat'][2] + 0.02, [{}, {'may_nhuong': 1}, {'may_ha': 1}, {'may_cau': 1}, {'may_buon': 1}, {'may_trai_nhuong': 1}], khung=0.20)
+    if a.anh: anh_trang_thai(sc, arm, os.path.join(a.anh, 'mieng'), m['mieng'][2], [{}, {'mieng_ha': 0.5}, {'mieng_ha': 1}, {'mieng_rong': 1}, {'mieng_hep': 1}, {'cuoi': 1}, {'meu': 1}, {'mieng_khep': 1}], khung=0.10)
+    if a.anh: anh_trang_thai(sc, arm, os.path.join(a.anh, 'mieng34'), m['mieng'][2], [{}, {'mieng_ha': 1}], khung=0.12, goc=(35,))
     if a.kiem:
         try: M3.kiem_mat(mat, arm, body)
         except AssertionError as ex: print('FAIL mat:', ex); bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(a.out), compress=True); raise

@@ -250,20 +250,29 @@ def _uv(P, C, M):
     return np.arctan2(rel[:, 0], -rel[:, 1]), np.arcsin(np.clip(rel[:, 2] / d, -1, 1)), d
 
 
-def _khoet(body, C, M, U, V, bvh):
+def _khoet(body, C, M, U, V, bvh, r_gan=0.06, goc_gan=1.8, chia_truoc=0):
     """Khoét lỗ elip (góc SC×U, SC×V) trên Nam_Body, kéo đỉnh mép lỗ về đúng elip trên mặt da gốc.
     Trả hai chuỗi điểm mép (trên, dưới), cùng đi từ khóe u<0 sang khóe u>0, chung hai đầu."""
     import bmesh
     bm = bmesh.new(); bm.from_mesh(body.data); bm.verts.ensure_lookup_table()
-    co = np.array([v.co for v in bm.verts]); u, v, d = _uv(co, C, M); R_GAN = 0.06
+    co = np.array([v.co for v in bm.verts]); u, v, d = _uv(co, C, M); R_GAN = r_gan
     sa = np.sqrt((u / U) ** 2 + (v / V) ** 2); truoc = (np.abs(u) < 1.4) & (d < np.linalg.norm(C - co, axis=1).min() + 0.04)
+    if chia_truoc:   # lưới thưa (miệng): chia nhỏ vùng quanh lỗ trước khi khoét để mép là một vòng đơn
+        vung_f = [f for f in bm.faces if np.mean([sa[x.index] for x in f.verts]) < SC * 1.8 and all(truoc[x.index] for x in f.verts)]
+        bmesh.ops.subdivide_edges(bm, edges=list({e for f in vung_f for e in f.edges}), cuts=chia_truoc, use_grid_fill=True)
+        bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
+        bm.verts.ensure_lookup_table(); bm.verts.index_update()
+        co = np.array([v.co for v in bm.verts]); u, v, d = _uv(co, C, M)
+        sa = np.sqrt((u / U) ** 2 + (v / V) ** 2); truoc = (np.abs(u) < 1.4) & (d < np.linalg.norm(C - co, axis=1).min() + 0.04)
     xoa = [f for f in bm.faces if np.mean([sa[x.index] for x in f.verts]) < SC and all(truoc[x.index] for x in f.verts)]
+    print(f'  khoét: xóa {len(xoa)} mặt, U={U:.3f} V={V:.3f}, sa<1 có {int((sa < 1).sum())} đỉnh, trước {int(truoc.sum())}')
+    bv = {x for f in xoa for x in f.verts}          # đỉnh quanh mặt bị xóa = ứng viên mép lỗ (không lẫn lỗ khác)
     bmesh.ops.delete(bm, geom=xoa, context='FACES_ONLY')
     bmesh.ops.delete(bm, geom=[x for x in bm.verts if not x.link_faces], context='VERTS')
     bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table()
     # vòng mép lỗ: cạnh biên có đỉnh gần mắt
     def gan(x):
-        uu, vv, dd = _uv(np.array(x.co), C, M); return abs(uu[0]) < 1.4 and dd[0] < R_GAN and x.co.x * C[0] > 0 and math.hypot(uu[0] / U, vv[0] / V) < SC * 1.8
+        return x in bv
     for lan in range(8):   # khoét lặp: nuốt lỗ phụ/đỉnh chạc ba (lỗ chỉ dính lỗ chính qua một đỉnh) cho tới khi còn một vòng đơn
         bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table()
         bien = [e for e in bm.edges if e.is_boundary and all(gan(x) for x in e.verts)]
@@ -281,7 +290,8 @@ def _khoet(body, C, M, U, V, bvh):
         vongs.sort(key=len, reverse=True); vong = vongs[0]
         xau = {x for x in ke if len(ke[x]) != 2} | {x for vg in vongs[1:] for x in vg}
         if not xau and len(vong) == len(ke): break
-        bmesh.ops.delete(bm, geom=list({f for x in xau for f in x.link_faces}), context='FACES_ONLY')
+        ff = list({f for x in xau for f in x.link_faces}); bv |= {x for f in ff for x in f.verts}
+        bmesh.ops.delete(bm, geom=ff, context='FACES_ONLY')
         bmesh.ops.delete(bm, geom=[x for x in bm.verts if not x.link_faces], context='VERTS')
     assert not xau and len(vong) == len(ke), f'mép lỗ chưa thành một vòng đơn sau {lan + 1} lần ({[len(x) for x in vongs]})'
     # kéo về elip góc SC, dán lên mặt da gốc
@@ -296,20 +306,21 @@ def _khoet(body, C, M, U, V, bvh):
         hit = bvh.ray_cast(Vector(C), dr, 0.08)
         if hit[0] is not None: x.co = hit[0]
     # chia mỗi cạnh mép thành CHIA đoạn (đỉnh mới nằm trên mép da) để mí hàn khít từng cột, không có chữ T
+    p_dau = Vector(vong[0].co)   # subdivide_edges (Blender 5.2) làm chết cả đỉnh cũ: nhớ tọa độ để tìm lại
     canh = [e for e in bm.edges if e.is_boundary and all(x in set(vong) for x in e.verts)]
-    bmesh.ops.subdivide_edges(bm, edges=canh, cuts=CHIA - 1)
+    kq = bmesh.ops.subdivide_edges(bm, edges=canh, cuts=CHIA - 1); bv |= {x for x in kq['geom'] if isinstance(x, bmesh.types.BMVert)}
     bm.verts.ensure_lookup_table(); bm.edges.ensure_lookup_table()
     bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
-    tap = {e for e in bm.edges if e.is_boundary and all(gan(x) for x in e.verts)}
+    v_dau = min((x for x in bm.verts if x.is_boundary), key=lambda x: (x.co - p_dau).length); tap = {e for e in bm.edges if e.is_boundary}   # đi dọc biên từ một đỉnh của lỗ: vòng đơn nên không lạc sang lỗ khác
     ke = {}
     for e in tap:
         a_, b_ = e.verts; ke.setdefault(a_, []).append(b_); ke.setdefault(b_, []).append(a_)
-    vong = [next(iter(ke))]; tv = None
+    vong = [v_dau]; tv = None
     while True:
         nx = [x for x in ke[vong[-1]] if x is not tv]
         if nx[0] is vong[0]: break
         tv = vong[-1]; vong.append(nx[0])
-    assert len(vong) == len(ke), 'mép lỗ sau khi chia không còn là một vòng'
+    assert len(vong) > 8 and vong[0] in ke[vong[-1]], 'mép lỗ sau khi chia không khép vòng'
     P = np.array([x.co for x in vong]); n = len(P)
     u, v, _ = _uv(P, C, M); phi = np.arctan2(v / V, u / U)
     bm.to_mesh(body.data); bm.free(); body.data.update()

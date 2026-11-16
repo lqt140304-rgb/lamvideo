@@ -13,6 +13,7 @@ MAC_DINH = dict(
     may_day=1.0, may_dang=(0.35, 0.50, 0.58, 0.52, 0.38), may_mau=(0.03, 0.022, 0.018),
     # miệng: rộng/cao nhân với cỡ chuẩn; màu môi
     mieng_rong=1.0, mieng_cao=1.0, moi_mau=(0.72, 0.40, 0.36),
+    moi=False,   # False: không vẽ môi (miệng là khe trên da, không màu, không độ dày môi)
     # bóp mặt: hệ số dịch (1 = mức chuẩn ~ vài mm, xem BOP_CHUAN trong rig_mat_nam003.py)
     bop=dict(),
     ruoi=None,   # None | 'trai' (+X) | 'phai' (−X)
