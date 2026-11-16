@@ -60,6 +60,25 @@ def _moi(ch, C, U, R, tren, p, ha=0.0, rong=1.0, cuoi=0.0, khep=0.0, phong=1.0):
     return co, faces, np.concatenate(moi)
 
 
+def _co_mat(kb, mo, A):
+    """Cơ quanh miệng đi theo khẩu hình: cằm kéo xuống khi há, má nâng khi cười, má xệ khi mếu, má hóp khi chúm."""
+    n = len(kb['Basis'].data); b = np.empty(n * 3); kb['Basis'].data.foreach_get('co', b); b = b.reshape(-1, 3)
+    d = b - mo; truoc = np.clip((0.03 - d[:, 1]) / 0.02, 0, 1)                   # chỉ mặt trước
+    def g(cx, cz, sx, sz): return np.exp(-((d[:, 0] - cx) / sx) ** 2 - ((d[:, 2] - cz) / sz) ** 2) * truoc
+    duoi = np.clip(-d[:, 2] / 0.010, 0, 1)                                         # dưới khe
+    cam = g(0, -0.028, 0.034, 0.024) * duoi
+    ma = g(A + 0.014, 0.014, 0.016, 0.016) + g(-A - 0.014, 0.014, 0.016, 0.016)
+    sx = np.sign(d[:, 0])
+    them = {
+        'mieng_ha': np.c_[0 * cam, 0.0015 * cam, -0.0075 * cam],
+        'cuoi': np.c_[0.0018 * ma * sx, -0.0018 * ma, 0.0032 * ma],
+        'meu': np.c_[0.0008 * ma * sx, 0 * ma, -0.0022 * ma],
+        'mieng_hep': np.c_[-0.0015 * ma * sx, 0.0012 * ma, 0 * ma],
+    }
+    for k, off in them.items():
+        a = np.empty(n * 3); kb[k].data.foreach_get('co', a); kb[k].data.foreach_set('co', (a.reshape(-1, 3) + off).ravel())
+
+
 def _jaw(arm, moc):
     bpy.context.view_layer.objects.active = arm; bpy.ops.object.mode_set(mode='EDIT')
     eb = arm.data.edit_bones; j = eb.get('jaw') or eb.new('jaw')
@@ -114,6 +133,7 @@ def tao_mieng(sc, arm, body, moc, p):
     sm.show_viewport = True
     kb = body.data.shape_keys.key_blocks
     for n in PROPS: M3.noi_driver(kb[n], arm, [n], n)
+    _co_mat(kb, mo, A)
     # khoang miệng, răng, lưỡi, jaw
     _jaw(arm, moc)
     sau = mo + np.array([0, 0.004, 0])                              # mặt trước khoang/răng nằm sau môi

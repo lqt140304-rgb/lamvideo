@@ -85,8 +85,13 @@ def main():
     for f in range(n):
         row = kq[f] if f < len(kq) else np.zeros(4)
         for p, v in zip(MIENG, row): h[p] = float(v); h.keyframe_insert(f'["{p}"]', frame=f + 1)
-    if a.cuoi:
-        for f, v in ((1, a.cuoi), (n, a.cuoi)): h['cuoi'] = v; h.keyframe_insert('["cuoi"]', frame=f)
+    # cơ mặt phụ theo nhấn giọng: mày nhướn khi to, mắt hơi híp, khóe miệng nhích theo câu
+    cham = np.convolve(env, np.ones(9) / 9, 'same')
+    for f in range(0, len(env), 2):
+        nhan = float(np.clip((cham[f] - 0.35) / 0.5, 0, 1))
+        for p, v in (('may_nhuong', 0.55 * nhan), ('chop_mat', 0.10 * nhan), ('cuoi', a.cuoi + 0.25 * nhan)):
+            if p == 'chop_mat' and any(abs(f + 1 - f0) <= 4 for f0 in (30, 110)): continue   # nhường khung chớp mắt
+            h[p] = v; h.keyframe_insert(f'["{p}"]', frame=f + 1)
     for f0 in (30, 110):                       # chớp mắt + đầu lắc nhẹ cho đỡ cứng
         if f0 + 4 < n:
             for f, v in ((f0 - 2, 0), (f0, 1), (f0 + 2, 1), (f0 + 4, 0)): h['chop_mat'] = v; h.keyframe_insert('["chop_mat"]', frame=f)
