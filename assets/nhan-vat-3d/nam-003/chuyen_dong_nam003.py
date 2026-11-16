@@ -239,7 +239,62 @@ def dong_truot(c, f, N):
     return ap_dung(c, P)
 
 
-DONG = {'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
+# ---------------------------------------------------------------- KHỚP TỪNG BỘ PHẬN (video trình diễn biên độ người thật)
+KHOP_L = 30    # khung mỗi động tác (1,25 s ở 24 fps)
+
+
+def _khop_doan():
+    """[(nhãn, hàm(P, e, v, t))]: e = chuông 0→1→0, v = sin 2πt (qua lại hai phía), t = 0..1. Biên độ trong giới hạn người thật."""
+    def dau_z(P, e, v, t): P['fk'] += [('Neck', Z, 28 * v), ('Head', Z, 28 * v)]
+    def dau_x(P, e, v, t): w = v if v > 0 else 0.7 * v; P['fk'] += [('Neck', X, 14 * w), ('Head', X, 18 * w)]
+    def dau_y(P, e, v, t): P['fk'] += [('Neck', Y, 10 * v), ('Head', Y, 14 * v)]
+    def vai_ben(P, e, v, t):   # giơ tay sang bên tới trên đầu
+        P['fk'] = [(b, a, d) for b, a, d in P['fk'] if b not in ('LeftArm', 'RightArm', 'LeftForeArm', 'RightForeArm')]
+        ang = 80 - 175 * e; P['fk'] += [('LeftArm', Y, ang), ('RightArm', Y, -ang), ('LeftShoulder', Y, -14 * e), ('RightShoulder', Y, 14 * e)]
+    def vai_truoc(P, e, v, t):   # đưa tay ra trước tới ngang vai rồi hơn
+        P['fk'] = [(b, a, d) for b, a, d in P['fk'] if b not in ('LeftForeArm', 'RightForeArm')]
+        P['fk'] += [('LeftArm', X, -120 * e), ('RightArm', X, -120 * e)]
+    def khuyu(P, e, v, t):   # gập khuỷu về trước
+        P['fk'] = [(b, a, d) for b, a, d in P['fk'] if b not in ('LeftForeArm', 'RightForeArm')]
+        P['fk'] += [('LeftArm', X, -30 * e), ('RightArm', X, -30 * e), ('LeftForeArm', X, -135 * e), ('RightForeArm', X, -135 * e)]
+    def co_tay(P, e, v, t):   # tay gập khuỷu 90°, cổ tay gập–duỗi rồi nghiêng
+        P['fk'] += [('LeftArm', X, -45), ('RightArm', X, -45), ('LeftForeArm', X, -90), ('RightForeArm', X, -90)]
+        w = v if t < 0.5 else 0
+        P['fk'] += [('LeftHand', X, 55 * math.sin(4 * math.pi * t) if t < 0.5 else 0), ('RightHand', X, 55 * math.sin(4 * math.pi * t) if t < 0.5 else 0),
+                    ('LeftHand', Z, 0 if t < 0.5 else 25 * math.sin(4 * math.pi * (t - 0.5))), ('RightHand', Z, 0 if t < 0.5 else -25 * math.sin(4 * math.pi * (t - 0.5)))]
+    def ngon(P, e, v, t):   # nắm tay rồi xòe
+        P['fk'] += [('LeftArm', X, -35), ('RightArm', X, -35), ('LeftForeArm', X, -80), ('RightForeArm', X, -80)]
+        P['ngon'] = {'nam': 0.0, 'nam_tro': 0.9 * e, 'nam_giua': 0.95 * e, 'nam_ap': 0.95 * e, 'nam_cai': 0.8 * e}
+    def cot_x(P, e, v, t): w = v if v > 0 else 0.5 * v; P['fk'] += [('Spine', X, 14 * w), ('Spine1', X, 12 * w), ('Spine2', X, 10 * w)]
+    def cot_z(P, e, v, t): P['fk'] += [('Spine', Z, 14 * v), ('Spine1', Z, 14 * v), ('Spine2', Z, 14 * v), ('Head', Z, -10 * v)]
+    def cot_y(P, e, v, t): P['fk'] += [('Spine', Y, 8 * v), ('Spine1', Y, 8 * v), ('Spine2', Y, 6 * v)]
+    def hang_nhac(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 - 0.30 * e, 0.08 + 0.45 * e)
+    def hang_dang(P, e, v, t): P['ik_foot']['L'] = (0.11 + 0.38 * e, 0.05, 0.08 + 0.14 * e); P['ik_foot']['R'] = (-0.11, 0.05, 0.08)
+    def goi(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 + 0.28 * e, 0.08 + 0.36 * e, -45 * e)
+    def co_chan(P, e, v, t):
+        w = v if v > 0 else 0.6 * v; z = 0.005 * w if w > 0 else -0.115 * w   # kiễng gót: mũi chạm sàn; gập mu: nâng cổ chân để gót không lún (đo bằng bisect)
+        for k, sx in (('L', 1), ('R', -1)): P['ik_foot'][k] = (sx * 0.11, 0.05, 0.08 + z, -38 * w)
+    def ngoi_xo(P, e, v, t):
+        P['hips'] = (0, 0.02 + 0.10 * e, 0.96 - 0.38 * e); P['fk'] += [('Spine', X, 22 * e), ('Spine1', X, 8 * e)]
+        P['ik_foot']['L'] = (0.14, 0.04 - 0.02 * e, 0.08); P['ik_foot']['R'] = (-0.14, 0.04 - 0.02 * e, 0.08)
+    return [('Cổ: quay trái–phải', dau_z), ('Cổ: gật–ngửa', dau_x), ('Cổ: nghiêng đầu', dau_y), ('Vai: giơ tay sang bên', vai_ben), ('Vai: đưa tay ra trước', vai_truoc),
+            ('Khuỷu: gập–duỗi', khuyu), ('Cổ tay: gập–duỗi, nghiêng', co_tay), ('Ngón tay: nắm–xòe', ngon), ('Cột sống: cúi–ngửa', cot_x), ('Cột sống: xoay thân', cot_z),
+            ('Cột sống: nghiêng người', cot_y), ('Háng: nhấc đùi trước', hang_nhac), ('Háng: dạng chân', hang_dang), ('Gối: gập (gót về mông)', goi), ('Cổ chân: kiễng gót–gập mu', co_chan),
+            ('Háng + gối + cổ chân: ngồi xổm', ngoi_xo)]
+
+
+def dong_khop(c, f, n):
+    seg = _khop_doan(); L = KHOP_L; k = min(f // L, len(seg) - 1); t = (f - k * L) / L; t = min(max(t, 0.0), 1.0)
+    e = 0.5 - 0.5 * math.cos(2 * math.pi * t); v = math.sin(2 * math.pi * t)
+    P = {'fk': list(ARM_DOWN) + [('LeftShoulder', Y, 0.0)], 'root': ((0, 0, 0), (0, 0, 0)), 'ik_foot': {'L': (0.11, 0.05, 0.08), 'R': (-0.11, 0.05, 0.08)},
+         'ngon': {'nam_tro': 0.12, 'nam_giua': 0.15, 'nam_ap': 0.18, 'nam_cai': 0.1}}
+    seg[k][1](P, e, v, t); return ap_dung(c, P)
+
+
+KHOP_NHAN = lambda: [x[0] for x in _khop_doan()]
+
+
+DONG = {'khop': (dong_khop, KHOP_L * 16), 'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
 
 
 # ---------------------------------------------------------------- RENDER
