@@ -15,8 +15,8 @@ R_AO = 0.05          # tâm ảo sau miệng
 NUA_RONG = 0.022     # nửa rộng miệng chuẩn (m), nhân p['mieng_rong']
 DAY_MOI = (0.0032, 0.0038)   # độ dày môi trên / dưới (m), nhân p['mieng_cao']
 CAO_MOI = 0.011     # nửa cao vùng môi (m) tính từ khe, nhân p['mieng_cao']
-HA_TREN, HA_DUOI = 0.004, 0.013   # há to: môi trên lên, môi dưới xuống (m)
-GOC_JAW = 9.0        # độ xoay xương jaw khi há to
+HA_TREN, HA_DUOI = 0.006, 0.019   # há to: môi trên lên, môi dưới xuống (m)
+GOC_JAW = 13.0       # độ xoay xương jaw khi há to
 KHE0 = 0.00008       # khe nhỏ giữa hai môi khi ngậm (để không bị hàn dính)
 PROPS = ('mieng_ha', 'mieng_hep', 'mieng_rong', 'cuoi', 'meu', 'mieng_khep')
 
@@ -37,7 +37,7 @@ def _moi(ch, C, U, R, tren, p, ha=0.0, rong=1.0, cuoi=0.0, khep=0.0, phong=1.0):
     ue = (-U + 2 * U * (uq - uq[0]) / (uq[-1] - uq[0])) * rong
     q = np.clip(1 - (ue / (U * rong)) ** 2, 0, 1)
     sg = 1 if tren else -1
-    e = (KHE0 if tren else -KHE0) / R + (cuoi * 0.005 / R) * (ue / (U * rong)) ** 2 \
+    e = (KHE0 if tren else -KHE0) / R * q + (cuoi * 0.009 / R) * (ue / (U * rong)) ** 2 \
         + (HA_TREN if tren else -HA_DUOI) / R * ha * np.sqrt(q)
     day = DAY_MOI[0 if tren else 1] * p['mieng_cao'] * phong * (1 - 0.6 * khep) * (1.0 if p['moi'] else 0.25)   # không môi: chỉ phồng nhẹ quanh khe
     ts = [0.0, 0.03, 0.08, 0.15, 0.24, 0.34, 0.45, 0.58, 0.72, 0.86, 1.0]
@@ -47,7 +47,7 @@ def _moi(ch, C, U, R, tren, p, ha=0.0, rong=1.0, cuoi=0.0, khep=0.0, phong=1.0):
         d = np.stack([np.sin(uu) * np.cos(vv), -np.cos(uu) * np.cos(vv), np.sin(vv)], -1)
         rs = np.array([M3._r_da(C, x, R) for x in d])
         cong = np.sin(np.pi * min(t / 0.62, 1.0)) ** 0.8 * np.sqrt(q)          # phồng môi, 0 ở khe và ngoài vùng môi
-        cuon = -0.0012 * (1 - min(t / 0.08, 1.0)) * (1 + 1.5 * khep)          # mép môi cuộn vào khe
+        cuon = -0.0012 * (1 - min(t / 0.08, 1.0)) * (1 + 1.5 * khep) * q ** 0.7   # mép cuộn vào khe, tắt dần ở 2 đầu khe (hết vạch xám)
         rr = rs + day * cong + cuon
         pts = C + rr[:, None] * d
         if t == 1.0: pts = Q
@@ -96,8 +96,8 @@ def tao_mieng(sc, arm, body, moc, p):
         at = ob.data.attributes.new('mep', 'INT', 'POINT'); at.data.foreach_set('value', mep)
         g = ob.vertex_groups.new(name='Head'); g.add(range(len(co)), 1.0, 'REPLACE')
         ob.shape_key_add(name='Basis')
-        for kn, kw in (('mieng_ha', dict(ha=1.0)), ('mieng_rong', dict(rong=1.15)), ('mieng_hep', dict(rong=0.58, phong=2.4, ha=0.18)),
-                       ('cuoi', dict(cuoi=1.0, rong=1.06)), ('meu', dict(cuoi=-0.8)), ('mieng_khep', dict(khep=1.0))):
+        for kn, kw in (('mieng_ha', dict(ha=1.0)), ('mieng_rong', dict(rong=1.28)), ('mieng_hep', dict(rong=0.46, phong=3.0, ha=0.22)),
+                       ('cuoi', dict(cuoi=1.0, rong=1.12)), ('meu', dict(cuoi=-1.0, rong=0.94)), ('mieng_khep', dict(khep=1.0))):
             k = ob.shape_key_add(name=kn); k.data.foreach_set('co', _moi(ch, C, U, R_AO, tren, p, **kw)[0].ravel())
         obs.append(ob)
     # gộp môi vào da, hàn mép
