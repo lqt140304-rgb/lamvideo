@@ -71,6 +71,9 @@ def nap_mo_hinh():
     bm.to_mesh(body.data); bm.free()
     for p in body.data.polygons: p.use_smooth = True
     import vai_nam003 as VAI
+    if VAI.DELTA_K > 0 or VAI.NACH_HA > 0:   # bắp vai to hơn, hạ nách (trước thu hẹp vai)
+        for v in body.data.vertices: v.co.x, v.co.y, v.co.z = VAI.dinh_hinh_vai(v.co.x, v.co.y, v.co.z)
+        print(f'  bắp vai +{VAI.DELTA_K * 100:.0f}%, hạ nách {VAI.NACH_HA * 100:.1f} cm')
     if VAI.HEP > 0:   # thu hẹp vai–tay vào trong (nguồn GLB giữ nguyên); mốc khớp và ánh xạ trọng số dịch cùng
         for v in body.data.vertices: v.co.x = VAI.hep_vai(v.co.x, v.co.z)
         print(f'  thu hẹp vai {VAI.HEP * 100:.1f} cm mỗi bên')

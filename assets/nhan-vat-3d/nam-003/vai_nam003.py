@@ -48,3 +48,22 @@ def khoi_phuc(x, z):
     u2 = abs(x); u = u2
     for _ in range(6): u = u2 + dich(u, z)
     return math.copysign(u, x) if x else 0.0
+
+
+# ---- bắp vai (cơ delta) to hơn và hạ nách (áp trước thu hẹp vai; chủ repo 16/11: "nách cao quá, bắp vai hơi nhỏ") ----
+DELTA_K = float(os.environ.get('NAM003_DELTA_K', '0.12'))       # phình bán kính bắp vai tối đa (tỉ lệ)
+NACH_HA = float(os.environ.get('NAM003_NACH_HA', '0.012'))       # m, hạ phần dưới bắp tay/nách tối đa
+AX_Y, AX_Z = 0.05, 1.45                                         # trục bắp tay (dáng chữ T)
+
+
+def _bump(u):   # 0 ở |x|≤0.05, đỉnh ~0.25–0.30, về 0 ở 0.45 (chuyển tiếp rộng để không có nếp ở chân vai)
+    return _sm((u - 0.05) / 0.20) * (1 - _sm((u - 0.30) / 0.15))
+
+
+def dinh_hinh_vai(x, y, z):
+    """(x, y, z) mới: phình quanh trục bắp tay và hạ phần dưới. Chỉ ảnh hưởng điểm gần trục tay (r<0,12 m)."""
+    b = _bump(abs(x)); dy, dz = y - AX_Y, z - AX_Z; r = math.hypot(dy, dz); w = _sm((0.12 - r) / 0.08) * b
+    if w <= 0: return x, y, z
+    f = 1 + DELTA_K * w; y2 = AX_Y + dy * f; z2 = AX_Z + dz * f
+    if dz < 0: z2 -= NACH_HA * w * _sm(-dz / 0.03)      # nửa dưới (phía nách) hạ thêm
+    return x, y2, z2

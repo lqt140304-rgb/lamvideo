@@ -142,3 +142,7 @@ Chủ repo vẽ đường vai thẳng ngang, hai tay thẳng rủ sát thân; b�
 - Làm mượt trọng số đỉnh vai (vùng `dinh_vai`, 60 lần) sau khi thu hẹp.
 
 Đo (17/17 kiểm cổ đạt): buông 81° còn 3 cạnh 4 mm ở 2,06× (đỉnh trapezius); giơ cao 85°/150° 0 cạnh >2×; ra trước 85° từ chữ T 3 cạnh (2,03×). **Tồn tại:** đưa tay từ buông ra trước 85° còn 56 cạnh ngắn (~4 mm) giãn 2–2,5× ở đỉnh vai (trước khi thu hẹp là 0): lưới vùng chuyển tiếp bị nén nên nhạy hơn; chưa soi ảnh cận. Nếu cần bỏ hẹp vai: `NAM003_VAI_HEP=0`.
+
+### Bắp vai to hơn, hạ nách (16/11/2026, `dinh_hinh_vai` trong `vai_nam003.py`)
+
+Chủ repo: "nách cao quá, bắp vai hơi nhỏ". Áp trước thu hẹp vai, chỉ vùng gần trục bắp tay (r<12 cm, |x| 0,05–0,45): phình bán kính bắp vai 12% (`NAM003_DELTA_K`, 0 = tắt) và hạ phần dưới/nách 1,2 cm (`NAM003_NACH_HA`). Thử 25% + 2 cm: phình quá, nếp gấp ở chân vai → giảm còn 12% + 1,2 cm, chuyển tiếp rộng hơn. Ảnh trước/sau: `anh/vai_nghi_truoc_sau.png` (chữ T, hàng trên = trước), `anh/vai_buong_truoc_sau.png` (tay buông, trái = trước). 17/17 kiểm cổ, 6/6 kiểm vai đạt. **Đánh đổi:** cạnh ngắn ở đỉnh vai nhạy hơn: buông 81° 6 cạnh (2,12×), giơ cao 85° 2 cạnh (2,02×), ra trước 85° từ buông 85 cạnh (tối đa 2,60×). Video trong `chuyen-dong/` chưa dựng lại trên bản này.
