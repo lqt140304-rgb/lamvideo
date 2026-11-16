@@ -37,6 +37,24 @@ def run(rig):
     c.reset(); s0 = hd('Spine'); c.rot('LeftUpLeg', X, -100); c.upd(); ds = (hd('Spine') - s0) * 100
     c.reset(); c.rot('LeftUpLeg', X, -30); c.upd(); ds30 = (hd('Spine') - s0) * 100
     T('test_chau_nga_khi_gap_dui', ds.y > 0.5 and abs(ds30.y) < 0.05, f'gập đùi 100°: Spine lùi {ds.y:.1f} cm; 30°: {ds30.y:.2f} cm')
+    from mathutils import Vector
+    def chenh(S):   # góc (độ) giữa bàn chân khi bật và tắt ràng buộc cổ chân → phần do ràng buộc tạo ra
+        cs = [k for k in pb[f'{S}Foot'].constraints if k.subtarget == f'drv_{S}Foot'][0]
+        c.upd(); q1 = (W @ pb[f'{S}Foot'].matrix).to_quaternion(); cs.influence = 0.0; c.upd(); q0 = (W @ pb[f'{S}Foot'].matrix).to_quaternion(); cs.influence = 1.0; c.upd()
+        return math.degrees(q0.rotation_difference(q1).angle), (q1 @ Vector((0, 1, 0))).z - (q0 @ Vector((0, 1, 0))).z
+    for b in pb:
+        for k in b.constraints:
+            if k.type == 'IK': k.influence = 1.0
+    c.reset(); t = pb['ik_foot.L']; t.location = t.bone.matrix_local.to_3x3().inverted() @ Vector((0, 0.15, 0.30)); a, dz = chenh('Left')
+    T('test_co_chan_tha_long_IK', 13 < a < 17 and dz < 0, f'nhấc chân 30 cm: mũi chân chúc thêm {a:.1f}° (dz trục bàn chân {dz:+.2f})')
+    c.reset(); c.place('Hips', c.head['Hips'] + Vector((0, 0.08, -0.30))); a, _ = chenh('Left')
+    T('test_co_chan_cham_dat_giu_phang', a < 0.5, f'ngồi xổm, chân chạm đất: ràng buộc thêm {a:.2f}°')
+    for b in pb:
+        for k in b.constraints:
+            if k.type == 'IK': k.influence = 0.0
+    c.reset(); c.rot('LeftLeg', X, 90); a, dz = chenh('Left')
+    T('test_co_chan_tha_long_FK', 13 < a < 17, f'gập gối 90° FK: mũi chân chúc thêm {a:.1f}°')
+    c.reset(); a, _ = chenh('Left'); T('test_co_chan_nghi_0', a < 0.1, f'{a:.2f}°')
     prev = None; jump = 0.0
     for ang in range(-170, 171, 5):
         c.reset(); c.rot('LeftArm', Y, ang); c.upd(); v = q('LeftShoulder')

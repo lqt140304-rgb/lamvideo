@@ -270,7 +270,7 @@ def _khop_doan():
     def cot_y(P, e, v, t): P['fk'] += [('Spine', Y, 8 * v), ('Spine1', Y, 8 * v), ('Spine2', Y, 6 * v)]
     def hang_nhac(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 - 0.30 * e, 0.118 + 0.45 * e)
     def hang_dang(P, e, v, t): P['ik_foot']['L'] = (0.11 + 0.38 * e, 0.05, 0.118 + 0.14 * e); P["ik_foot"]["R"] = (-0.11, 0.05, 0.118)
-    def goi(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 + 0.28 * e, 0.118 + 0.36 * e, -45 * e)
+    def goi(P, e, v, t): P['ik_foot']['L'] = (0.11, 0.05 + 0.28 * e, 0.118 + 0.36 * e)
     def co_chan(P, e, v, t):
         w = v if v > 0 else 0.6 * v; z = 0.005 * w if w > 0 else -0.115 * w   # kiễng gót: mũi chạm sàn; gập mu: nâng cổ chân để gót không lún (đo bằng bisect)
         for k, sx in (('L', 1), ('R', -1)): P['ik_foot'][k] = (sx * 0.11, 0.05, 0.118 + z, -38 * w)
@@ -332,7 +332,7 @@ def dong_co(c, f, n):
     if k == 0: P['fk'] += [('LeftArm', X, -20), ('RightArm', X, -20), ('LeftForeArm', X, -130 * e), ('RightForeArm', X, -130 * e)]
     elif k == 1: P['fk'] = [('LeftArm', Y, 80 - 170 * e), ('RightArm', Y, -(80 - 170 * e))]
     elif k == 2: P['fk'] += [('LeftArm', X, -40), ('RightArm', X, -40), ('LeftForeArm', X, -80), ('RightForeArm', X, -80)]; P['ngon'] = {'nam_tro': e, 'nam_giua': e, 'nam_ap': e, 'nam_cai': e}
-    else: P['ik_foot']['L'] = (0.11, 0.05 + 0.32 * e, 0.118 + 0.40 * e, -40 * e)
+    else: P['ik_foot']['L'] = (0.11, 0.05 + 0.32 * e, 0.118 + 0.40 * e)   # không xoay bàn chân: cổ chân tự thả lỏng (ràng buộc)
     r = ap_dung(c, P)
     if k == 2:
         for S_ in ('Left', 'Right'): c.pb[f'{S_}Hand']['nam'] = e

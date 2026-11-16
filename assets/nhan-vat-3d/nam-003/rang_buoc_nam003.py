@@ -17,7 +17,7 @@ import numpy as np
 
 import os
 HS = dict(vai_nang=float(os.environ.get('NAM003_VAI_NANG', '0.10')), vai_nang_max=30.0, vai_ha=6.0, vai_kham=86.0, vai_nho=0.25, vai_nho_max=12.0,
-          xoan=0.5, ngon_ap=0.3, ngon_tro=0.15, cot1=0.5, cot2=0.3, chau=0.2, chau_nguong=45.0)
+          xoan=0.5, ngon_ap=0.3, ngon_tro=0.15, cot1=0.5, cot2=0.3, chau=0.2, chau_nguong=45.0, co_chan=15.0, co_chan_cao=0.05)
 R = math.radians
 
 
@@ -48,9 +48,10 @@ def them_rang_buoc(arm, body):
         _helper(arm, f'drv_{S}Shoulder', f'{S}Shoulder', 'Spine2')
         fa = eb[f'{S}ForeArm']; t = eb.new(f'{S}ForeArmTwist'); mid = fa.head.lerp(fa.tail, 0.5)
         t.head, t.tail, t.roll = mid, fa.tail.copy(), fa.roll; t.parent = fa; t.use_deform = True
+    for S in ('Left', 'Right'): _helper(arm, f'drv_{S}Foot', f'{S}Foot', f'{S}Leg')
     _helper(arm, 'drv_Hips', 'Hips', 'root' if 'root' in eb else None)
     bpy.ops.object.mode_set(mode='POSE')
-    for n in ('drv_LeftShoulder', 'drv_RightShoulder', 'drv_Hips', 'LeftForeArmTwist', 'RightForeArmTwist'): arm.pose.bones[n].rotation_mode = 'XYZ'   # bone mới mặc định quaternion → driver Euler không có tác dụng
+    for n in ('drv_LeftShoulder', 'drv_RightShoulder', 'drv_Hips', 'drv_LeftFoot', 'drv_RightFoot', 'LeftForeArmTwist', 'RightForeArmTwist'): arm.pose.bones[n].rotation_mode = 'XYZ'   # bone mới mặc định quaternion → driver Euler không có tác dụng
     # bỏ driver vai cũ trên xương đòn (vai_nam003) — thay bằng xương phụ
     if arm.animation_data:
         for fc in list(arm.animation_data.drivers):
@@ -74,6 +75,16 @@ def them_rang_buoc(arm, body):
     _drv(arm, 'drv_Hips', 0, f'-{h["chau"]}*(max(0.0, l - {ng:.5f}) + max(0.0, r - {ng:.5f}))',
          [('l', 'pose.bones["LeftUpLeg"].rotation_euler[0]'), ('r', 'pose.bones["RightUpLeg"].rotation_euler[0]')])
     _cong(arm, 'Hips', 'drv_Hips', 1.0)
+    # 6. cổ chân thả lỏng: chân rời đất → mũi chân chúc xuống co_chan độ so với cẳng chân. IK: theo độ cao ik_foot so với nghỉ;
+    #    FK (IK tắt): theo độ gập gối. Chân chạm đất (IK, ik_foot ở sàn) → không đổi.
+    for S, k in (('Left', 'L'), ('Right', 'R')):
+        z0 = (arm.matrix_world @ arm.data.bones[f'ik_foot.{k}'].head_local).z
+        fc = arm.pose.bones[f'drv_{S}Foot'].driver_add('rotation_euler', 0); d = fc.driver; d.type = 'SCRIPTED'
+        v = d.variables.new(); v.name = 'h'; v.type = 'TRANSFORMS'; t = v.targets[0]; t.id = arm; t.bone_target = f'ik_foot.{k}'; t.transform_type = 'LOC_Z'; t.transform_space = 'WORLD_SPACE'
+        v = d.variables.new(); v.name = 'g'; v.type = 'TRANSFORMS'; t = v.targets[0]; t.id = arm; t.bone_target = f'{S}Leg'; t.transform_type = 'ROT_X'; t.rotation_mode = 'SWING_TWIST_Y'; t.transform_space = 'LOCAL_SPACE'
+        v = d.variables.new(); v.name = 'ik'; v.type = 'SINGLE_PROP'; v.targets[0].id = arm; v.targets[0].data_path = f'pose.bones["{S}Leg"].constraints["IK"].influence'
+        d.expression = f'{R(h["co_chan"]):.5f}*(ik*min(1.0, max(0.0, (h - {z0:.4f}) / {h["co_chan_cao"]})) + (1 - ik)*min(1.0, max(0.0, -g / 1.0)))'
+        _cong(arm, f'{S}Foot', f'drv_{S}Foot', 1.0, (True, False, False))
     # trọng số: chuyển dần ForeArm → ForeArmTwist dọc nửa dưới cẳng tay
     co = np.array([v.co[:] for v in body.data.vertices]); nv = len(co)
     for S in ('Left', 'Right'):
