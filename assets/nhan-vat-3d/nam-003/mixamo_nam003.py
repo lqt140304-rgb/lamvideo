@@ -13,7 +13,7 @@ import chuyen_dong_nam003 as C
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
 ap = argparse.ArgumentParser(); ap.add_argument('--rig', required=True); ap.add_argument('--fbx', required=True); ap.add_argument('--ra'); ap.add_argument('--anh')
-ap.add_argument('--luoi', action='store_true'); ap.add_argument('--tai-cho', action='store_true'); ap.add_argument('--res', default='360,480'); ap.add_argument('--buoc', type=int, default=1); ap.add_argument('--xoay-tay', type=float, default=180.0, help='bù xoay quanh trục tay (độ): lòng bàn tay dáng nghỉ của nam-003 dựng đứng, Mixamo úp xuống')
+ap.add_argument('--luoi', action='store_true'); ap.add_argument('--tai-cho', action='store_true'); ap.add_argument('--res', default='360,480'); ap.add_argument('--buoc', type=int, default=1); ap.add_argument('--xoay-tay', type=float, default=90.0, help='bù xoay quanh trục tay (độ): lòng bàn tay dáng nghỉ của nam-003 dựng đứng, Mixamo úp xuống')
 ap.add_argument('--khung', default=''); ap.add_argument('--xoay-cang', action='store_true'); ap.add_argument('--mo-tay', type=float, default=6.0, help='mở bắp tay ra ngoài (độ) để tay không xuyên hông'); ap.add_argument('--do-ngon', action='store_true')
 a = ap.parse_args(argv)
 
@@ -28,7 +28,7 @@ bpy.ops.import_scene.fbx(filepath=os.path.abspath(a.fbx)); src = [o for o in bpy
 act = src.animation_data.action; f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
 SP = src.pose.bones
 nm = lambda n: n.split(':')[-1]
-MAP = {nm(b.name): b.name for b in SP if nm(b.name) in pb and 'HandThumb' not in b.name and 'HandIndex' not in b.name and 'HandMiddle' not in b.name and 'HandRing' not in b.name and 'Pinky' not in b.name}   # ngón tay: không ghép (trục gập khác sau khi bù xoay bàn tay) → dùng driver nắm thả lỏng
+MAP = {nm(b.name): b.name for b in SP if nm(b.name) in pb and 'Pinky' not in b.name}
 src.data.pose_position = 'REST'; bpy.context.view_layer.update()
 REST_S = {k: (src.matrix_world @ SP[v].matrix).to_3x3().normalized() for k, v in MAP.items()}
 hips_rest_s = (src.matrix_world @ SP[MAP['Hips']].matrix).translation.copy()
@@ -42,13 +42,12 @@ act_t = bpy.data.actions.new('mixamo'); arm.animation_data_create(); arm.animati
 for i in range(N):
     fs = f0 + i * a.buoc; sc.frame_set(fs); bpy.context.view_layer.update()
     c.reset()
-    for S_ in ('Left', 'Right'):
-        for pr, v in (('nam_tro', 0.25), ('nam_giua', 0.3), ('nam_ap', 0.35), ('nam_cai', 0.15)): pb[f'{S_}Hand'][pr] = v
     for n in order:
         Rs = (src.matrix_world @ SP[MAP[n]].matrix).to_3x3().normalized()
         Q = Matrix.Identity(3)
-        if 'Hand' in n or ('ForeArm' in n and a.xoay_cang):
-            Q = Matrix.Rotation(math.radians(a.xoay_tay if n.startswith('Left') else -a.xoay_tay), 3, 'X')
+        if ('Arm' in n or 'Hand' in n) and 'Shoulder' not in n:
+            # dáng nghỉ nam-003: lòng bàn tay hướng trước, ngón cái lên; Mixamo: úp xuống, ngón cái ra trước → quay +90° quanh X thế giới (CÙNG dấu hai bên)
+            Q = Matrix.Rotation(math.radians(a.xoay_tay), 3, 'X')
         Rt = Rs @ REST_S[n].inverted() @ Q @ REST_T[n]
         b = pb[n]; bpy.context.view_layer.update(); head = (arm.matrix_world @ b.matrix).translation
         if n == 'Hips':
