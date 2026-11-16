@@ -9,6 +9,7 @@ VUNG = {   # tên: (hàm mặt nạ theo toạ độ thực, lặp, hệ số) �
     'bang': (lambda x, y, z: (np.abs(x) < 0.22) & (z > 0.76) & (z < 1.04), 40, 0.5),
     'co_chan': (lambda x, y, z: (np.abs(x) < 0.25) & (z < 0.26), 40, 0.5),
     'goi': (lambda x, y, z: (np.abs(x) < 0.22) & (z > 0.34) & (z < 0.60), 10, 0.5),
+    'dinh_vai': (lambda x, y, z: (np.abs(x) > 0.13) & (np.abs(x) < 0.26) & (z > 1.38) & (z < 1.56), 60, 0.5),   # sau khi thu hẹp vai: cạnh ngắn 4 mm ở đỉnh vai
     'ban_tay': (lambda x, y, z: (np.abs(x) > 0.62), 25, 0.5),
 }
 

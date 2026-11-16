@@ -28,14 +28,17 @@ def patched_namespace():
     rep("    co = mesh_co(body); x, y, z = co.T; ax = np.abs(x)\n    arm_ob", "    co_real = mesh_co(body); co = MAPCO(co_real); x, y, z = co.T; ax = np.abs(x)\n    arm_ob")
     rep("W = fill_missing(W, co, names, arm_ob)", "W = fill_missing(W, co_real, names, arm_ob)")
     rep("tt = ((co - a_) @ ab) / (ab @ ab); f = 0.7", "tt = ((co_real - a_) @ ab) / (ab @ ab); f = 0.7")
-    rep("H = (sx * x > 0.555)\n        P = co[H] * np.array([sx, 1, 1])", "H = (sx * co_real[:, 0] > 0.70)\n        P = co_real[H] * np.array([sx, 1, 1])")
-    rep("al = sm(0.555, 0.575, P[:, 0])[:, None]", "al = sm(0.70, 0.72, P[:, 0])[:, None]")
+    rep("H = (sx * x > 0.555)\n        P = co[H] * np.array([sx, 1, 1])", "H = (sx * co_real[:, 0] > 0.70 - VAI.HEP)\n        P = co_real[H] * np.array([sx, 1, 1])")
+    rep("al = sm(0.555, 0.575, P[:, 0])[:, None]", "al = sm(0.70 - VAI.HEP, 0.72 - VAI.HEP, P[:, 0])[:, None]")
     rep("    co = mesh_co(body); ax = np.abs(co[:, 0]); z = co[:, 2]\n    reg =", "    co = MAPCO(mesh_co(body)); ax = np.abs(co[:, 0]); z = co[:, 2]\n    reg =")
     g = {'__name__': 'rig_nam002_vá', '__file__': RIG002}
     zr = [0, 0.10, 0.46, 0.88, 1.18, 1.452, 1.50, 1.58, 1.824]; zn = [0, 0.09, 0.48, 0.86, 1.11, 1.258, 1.33, 1.40, 1.70]
     xr = [0, 0.12, 0.20, 0.47, 0.66, 0.887]; xn = [0, 0.11, 0.17, 0.37, 0.505, 0.70]
 
+    import vai_nam003 as VAI; g['VAI'] = VAI
+
     def MAPCO(c):
+        c = np.array(c, float).copy(); c[:, 0] = [VAI.khoi_phuc(x_, z_) for x_, z_ in zip(c[:, 0], c[:, 2])]   # về toạ độ lưới gốc trước khi ánh xạ
         c2 = np.array(c, float).copy(); c2[:, 2] = np.interp(c[:, 2], zr, zn); c2[:, 0] = np.sign(c[:, 0]) * np.interp(np.abs(c[:, 0]), xr, xn); return c2
     g['MAPCO'] = MAPCO
     exec(compile(src, 'rig_nam002_vá', 'exec'), g)
@@ -48,12 +51,14 @@ def patched_namespace():
         import json
         print(f"CẢNH BÁO: NAM003_J đang đặt ({os.environ['NAM003_J']}) → vị trí khớp KHÁC mặc định. Bỏ biến này (unset NAM003_J) nếu không cố ý thử.", file=sys.stderr)
         g['J'].update({k: tuple(v) for k, v in json.loads(os.environ['NAM003_J']).items()})
+    for k_, v_ in list(g['J'].items()): g['J'][k_] = (VAI.hep_vai(v_[0], v_[2]) if v_[2] > 1.2 else v_[0], v_[1], v_[2])   # mốc khớp tay dịch cùng lưới
     V3 = Vector
     CH = g['CH']; CH.clear()
     CH['Index'] = [V3(p) for p in [(0.79, 0.025, 1.497), (0.822, 0.024, 1.499), (0.852, 0.022, 1.500), (0.887, 0.021, 1.501)]]
     CH['Middle'] = [V3(p) for p in [(0.79, 0.025, 1.452), (0.822, 0.024, 1.450), (0.852, 0.022, 1.449), (0.884, 0.021, 1.448)]]
     CH['Ring'] = [V3(p) for p in [(0.78, 0.026, 1.430), (0.805, 0.025, 1.415), (0.828, 0.024, 1.403), (0.845, 0.023, 1.395)]]
     CH['Thumb'] = [V3(p) for p in [(0.72, 0.025, 1.47), (0.745, 0.024, 1.520), (0.76, 0.023, 1.555), (0.768, 0.022, 1.577)]]
+    for k_ in CH: CH[k_] = [V3((VAI.hep_vai(q_.x, q_.z), q_.y, q_.z)) for q_ in CH[k_]]
     g['PROPS'].clear(); g['PROPS'].update({'Index': 'nam_tro', 'Middle': 'nam_giua', 'Ring': 'nam_ap', 'Thumb': 'nam_cai'})
     g['CURL'].clear(); g['CURL'].update({'Index': (55, 75, 45), 'Middle': (55, 75, 45), 'Ring': (55, 75, 45), 'Thumb': (35, 45, 50)})
     return g
@@ -65,6 +70,10 @@ def nap_mo_hinh():
     bm = bmesh.new(); bm.from_mesh(body.data); n0 = len(bm.verts); bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5)   # đường nối UV tách đôi đỉnh
     bm.to_mesh(body.data); bm.free()
     for p in body.data.polygons: p.use_smooth = True
+    import vai_nam003 as VAI
+    if VAI.HEP > 0:   # thu hẹp vai–tay vào trong (nguồn GLB giữ nguyên); mốc khớp và ánh xạ trọng số dịch cùng
+        for v in body.data.vertices: v.co.x = VAI.hep_vai(v.co.x, v.co.z)
+        print(f'  thu hẹp vai {VAI.HEP * 100:.1f} cm mỗi bên')
     print(f'  nạp {os.path.basename(SRC_GLB)}: hàn đỉnh trùng {n0} → {len(body.data.vertices)}')
     return body
 

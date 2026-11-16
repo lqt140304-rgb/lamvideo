@@ -20,3 +20,31 @@ def them_driver_vai(arm):
         fc = arm.pose.bones[f'{S}Shoulder'].driver_add('rotation_euler', 0); d = fc.driver; d.type = 'SCRIPTED'
         v = d.variables.new(); v.name = 'z'; v.type = 'SINGLE_PROP'; v.targets[0].id = arm; v.targets[0].data_path = f'pose.bones["{S}Arm"].rotation_euler[2]'
         d.expression = f'{-math.radians(HA):.6f}*max(0.0, min(1.0, {sg}*z/{math.radians(KHEP_MAX):.6f}))'
+
+
+# ---- thu hẹp vai trong lưới (áp trước khi dựng rig; nguồn GLB giữ nguyên) ----
+import os
+HEP = float(os.environ.get('NAM003_VAI_HEP', '0.04'))   # m, dịch tối đa của tay vào trong (mỗi bên)
+U0, U1 = 0.12, 0.25                                      # |x| bắt đầu / dịch đủ (đỉnh vai chuyển tiếp mượt; ngực ≤0,16 dịch <1 mm)
+Z0, Z1 = 1.15, 1.25                                      # chỉ phần trên (vai–tay); thân dưới, chân không đổi
+
+
+def _sm(t):
+    t = min(1.0, max(0.0, t)); return t * t * (3 - 2 * t)
+
+
+def dich(u, z):
+    """Độ dịch vào (m, ≥0) của điểm có |x|=u, độ cao z."""
+    return HEP * _sm((u - U0) / (U1 - U0)) * _sm((z - Z0) / (Z1 - Z0))
+
+
+def hep_vai(x, z):
+    """x' mới của điểm (x, z): dịch về phía trục."""
+    u = abs(x); return math.copysign(max(0.0, u - dich(u, z)), x) if x else 0.0
+
+
+def khoi_phuc(x, z):
+    """Nghịch đảo hep_vai (tìm x gốc từ x' đã thu hẹp): lặp điểm cố định."""
+    u2 = abs(x); u = u2
+    for _ in range(6): u = u2 + dich(u, z)
+    return math.copysign(u, x) if x else 0.0

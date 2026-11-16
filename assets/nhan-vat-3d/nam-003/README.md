@@ -133,3 +133,12 @@ Chuyển động (đo lại, Corrective Smooth bật): đi bộ 0 cạnh >2× (m
 
 - **Tay buông:** góc cũ 78° để lại khe 4 cm ở nách tới 10 cm ở cổ tay (chữ V, thừa chỗ ở nách). Đo khe tay–thân theo độ cao rồi chọn vai hạ 6°, bắp tay 86°, cẳng tay hất ra 20°, khe ≈ 2 cm nách, 1 cm khuỷu, 4 cm cổ tay (thu hẹp dần về phía nách). **Vai hạ 6° nay là driver trong rig** (`vai_nam003.py`, gọi trong `rig_nam003.py`): xương đòn tự hạ theo mức khép của bắp tay, giơ tay thì không ảnh hưởng. Bài kiểm `kiem_vai_nam003.py` (6 test, có test phát hiện hỏng: bỏ driver thì khe cổ tay 9,8 cm). **Đính chính:** bản trước ghi "dời bắp tay vào 2 cm" là vô tác dụng vì `LeftArm` nối liền xương đòn nên `location` bị bỏ qua; đã gỡ. Driver không đi theo GLB. Chưa chỉnh lưới vai; ở độ buông 86° còn khe ~2 cm dưới vai vì vai mô hình rộng hơn thân.
 - **Chạy/đi:** đích cổ chân vượt tầm với của chân (đi 1,045·L, chạy 1,08·L, L=0,802 m): gối khoá thẳng, IK lệch đích 4–6 cm = chân méo. Nay hạ hông khi cần để tầm ≤ 0,97·L (`REACH`), chạy bước ±0,36 m thay vì ±0,475 m (chân sau không còn duỗi thẳng ngang), nâng đích cổ chân 4 cm để bàn chân không lún sàn (trước −3,6 cm khi đích với được, nay +0,4 cm). Lệch đích còn 0 cm.
+
+### Thu hẹp vai (16/11/2026, `vai_nam003.py`)
+
+Chủ repo vẽ đường vai thẳng ngang, hai tay thẳng rủ sát thân; bản trước vai quá rộng (tay buông ngoài cùng 27 cm, thân 16 cm) và cánh tay "cong" vì bắp tay 86° còn cẳng tay hất 20°. Sửa:
+- **Lưới và mốc khớp:** phần vai–tay dịch vào 4 cm mỗi bên (`NAM003_VAI_HEP`, mặc định 0,04; nguồn `base_2.glb` giữ nguyên, dịch áp lúc dựng; chuyển tiếp mượt |x| 0,12 → 0,25, chỉ vùng z>1,15; ngực ≤0,16 dịch <1 mm). Mốc khớp tay, đường tâm ngón và ánh xạ trọng số dịch cùng.
+- **Tay buông thẳng:** 81° cả cánh, không hất cẳng tay (`ARM_DOWN`). Khe tay–thân ≈ 1,4 cm ở nách, 0,8 cm ở khuỷu, mở dần xuống tay; kiểm bằng `kiem_vai_nam003.py` (6 test).
+- Làm mượt trọng số đỉnh vai (vùng `dinh_vai`, 60 lần) sau khi thu hẹp.
+
+Đo (17/17 kiểm cổ đạt): buông 81° còn 3 cạnh 4 mm ở 2,06× (đỉnh trapezius); giơ cao 85°/150° 0 cạnh >2×; ra trước 85° từ chữ T 3 cạnh (2,03×). **Tồn tại:** đưa tay từ buông ra trước 85° còn 56 cạnh ngắn (~4 mm) giãn 2–2,5× ở đỉnh vai (trước khi thu hẹp là 0): lưới vùng chuyển tiếp bị nén nên nhạy hơn; chưa soi ảnh cận. Nếu cần bỏ hẹp vai: `NAM003_VAI_HEP=0`.
