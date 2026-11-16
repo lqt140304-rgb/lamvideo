@@ -22,10 +22,10 @@ BIEU_CAM = {
 VISEME = {
     'nghi': {},
     'A': {'mieng_ha': 1.0, 'mieng_rong': 0.3},            # a, ă, â
-    'E': {'mieng_ha': 0.45, 'mieng_rong': 0.7},           # e, ê
-    'I': {'mieng_ha': 0.12, 'mieng_rong': 0.9},           # i, y
-    'O': {'mieng_ha': 0.55, 'mieng_hep': 0.55},           # o, ô, ơ
-    'U': {'mieng_ha': 0.1, 'mieng_hep': 0.9},             # u, ư
+    'E': {'mieng_ha': 0.5, 'mieng_rong': 0.85},           # e, ê
+    'I': {'mieng_ha': 0.15, 'mieng_rong': 1.0},           # i, y
+    'O': {'mieng_ha': 0.7, 'mieng_hep': 0.75},           # o, ô, ơ
+    'U': {'mieng_ha': 0.15, 'mieng_hep': 1.0},             # u, ư
     'MBP': {'mieng_khep': 1.0, 'mieng_rong': 0.2},        # m, b, p: môi khép
     'PHV': {'mieng_ha': 0.12, 'mieng_khep': 0.5},         # ph, v: hé, môi dưới thu
     'NT': {'mieng_ha': 0.25, 'mieng_rong': 0.35},         # n, t, đ, l, d

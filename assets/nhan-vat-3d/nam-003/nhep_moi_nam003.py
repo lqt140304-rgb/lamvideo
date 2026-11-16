@@ -28,7 +28,7 @@ def am_tiet(loi):
     out = []
     for w in re.findall(r"\w+", loi.lower()):
         b = ''.join(c for c in unicodedata.normalize('NFD', w) if not unicodedata.combining(c)).replace('đ', 'd')
-        dau = 'MBP' if b[0] in 'mbp' and not b.startswith('ph') else ('PHV' if b.startswith(('ph', 'v')) else None)
+        dau = next((v for k, v in (('ph', 'PHV'), ('v', 'PHV'), ('m', 'MBP'), ('b', 'MBP'), ('p', 'MBP'), ('ch', 'CH'), ('tr', 'CH'), ('gi', 'CH'), ('s', 'CH'), ('x', 'CH'), ('n', 'NT'), ('t', 'NT'), ('d', 'NT'), ('l', 'NT'), ('k', 'KG'), ('c', 'KG'), ('g', 'KG'), ('h', 'KG')) if b.startswith(k)), None)
         nguyen = re.search(r'[aeiouy]+', b); g = nguyen.group() if nguyen else 'a'
         if g in ('ua', 'ia') and not b.startswith('qu'): g = g[0]   # ủa, mía, mưa: nguyên âm chính là âm đầu
         vs = next(v for k, v in (('a', 'A'), ('o', 'O'), ('e', 'E'), ('u', 'U'), ('i', 'I'), ('y', 'I')) if k in g)
@@ -56,9 +56,9 @@ def lich(env, ats, nguong=0.12):
             dau, vs, khep = ats[k]; k += 1; f0, f1 = bien[s], bien[s + 1]
             for f in range(int(f0), int(math.ceil(f1))):
                 ph = (f - f0) / max(f1 - f0, 1e-6)
-                if dau and ph < 0.3: v = BC.VISEME[dau]; amp = 1.0
+                if dau and ph < (0.3 if dau in ('MBP', 'PHV') else 0.2): v = BC.VISEME[dau]; amp = 1.0
                 elif khep and ph > 0.85: v = BC.VISEME['MBP']; amp = 1.0
-                else: v = BC.VISEME[vs]; amp = min(1.0, 0.35 + env[f])
+                else: v = BC.VISEME[vs]; amp = min(1.0, 0.7 + 0.5 * env[f])
                 kq[f] = [v.get(p, 0.0) * (amp if p != 'mieng_khep' else 1.0) for p in MIENG]
     kq = (np.r_[kq[:1], kq[:-1]] + 2 * kq + np.r_[kq[1:], kq[-1:]]) / 4      # làm mượt 1 khung
     return kq, len(doan)
