@@ -178,3 +178,7 @@ Xương này cử động thì xương kia đi theo một phần: (1) xương đ
 ### Cơ chuyển động (17/11/2026, `co_bap_nam003.py`, kiểm `kiem_co_bap_nam003.py`)
 
 8 shape key sửa dáng (mỗi bên 4), driver đọc góc khớp đã tính (TRANSFORMS, swing–twist quanh trục xương, không gian cục bộ) nên chạy cả khi IK điều khiển và cả khi phát Mixamo, không bị lỗi Euler hai nghiệm: bắp tay trước phồng khi gập khuỷu (12 mm, đủ ở 120°), cơ delta phồng khi giơ tay (8 mm, đủ ở 92°), cơ cẳng tay phồng khi nắm tay (5 mm), bắp chân phồng khi gập gối (10 mm, đủ ở 115°). Hình phồng theo pháp tuyến × cửa sổ dọc xương × phía co cơ × trọng số xương. 10/10 kiểm cơ (nghỉ = 0, đúng bên, đúng khớp, bắp tay phồng đo được 7,9 mm sau Corrective Smooth, không thêm cạnh giãn, đổi liên tục ≤0,04/5°); 17/17 kiểm cổ, 6/6 vai, 10/10 ràng buộc. Video `chuyen-dong/co.mp4` (độ phồng vài mm nên ở khung toàn thân khó thấy; chưa có ảnh cận). Chưa có cơ ngực, đùi, mông, bụng; shape key không theo GLB nếu engine không hỗ trợ driver.
+
+### Nhảy và ngồi sàn (17/11/2026, tự dựng, `dong_nhay`, `dong_ngoi_san`)
+
+Chủ repo hỏi "không tự chỉnh các tư thế được hả" → tự dựng thêm: **nhảy** (72 khung: hạ thấp 28 cm, bật, bay cao 34 cm gối co, tiếp đất hấp thụ 22 cm, tay vung sau → lên → xuống, hông/cổ chân theo IK, chân chỉ rời đất khi hông đủ cao) và **ngồi sàn** (96 khung: xổm → ngồi duỗi chân → chống tay đứng dậy). Đo: nhảy 4 cạnh >2× (max 2,04×); ngồi sàn 2 cạnh. Đây là chuyển động viết bằng công thức, không phải mocap: nhịp và trọng tâm còn đơn giản. Chưa làm: nằm xuống/đứng dậy, quỳ, lăn từ ngồi.

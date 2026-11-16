@@ -340,7 +340,48 @@ def dong_co(c, f, n):
     return r
 
 
-DONG = {'co': (dong_co, CO_L * 4), 'rang_buoc': (dong_rang_buoc, RB_L * 6), 'khop': (dong_khop, KHOP_L * 16), 'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
+# ---------------------------------------------------------------- NHẢY, NGỒI SÀN (tự dựng theo cơ sinh học, FK+IK)
+def _bell(t): return 0.5 - 0.5 * math.cos(2 * math.pi * min(1.0, max(0.0, t)))
+
+
+def dong_nhay(c, f, N):
+    """Nhảy lên (đứng → hạ thấp → bật → bay gối co → tiếp đất hấp thụ lực → đứng). 72 khung."""
+    t = f / N
+    crouch = ss((t - 0.12) / 0.16) * (1 - ss((t - 0.30) / 0.06))             # hạ thấp
+    air = max(0.0, min(1.0, (t - 0.34) / 0.30))                                # 0..1 pha bay
+    land = ss((t - 0.64) / 0.06) * (1 - ss((t - 0.78) / 0.14))               # tiếp đất hấp thụ
+    rise = 0.34 * 4 * air * (1 - air)                                          # parabol cao 34 cm
+    hz = 1.0 - 0.28 * crouch - 0.22 * land + rise
+    tuck = _bell(air) if 0 < air < 1 else 0.0
+    L = 0.83 - 0.17 * tuck
+    az = max(0.118, hz - 0.05 - L)
+    fwd = -0.55 * ss((t - 0.30) / 0.36)                                          # tiến 55 cm
+    lean = 24 * crouch + 18 * land - 8 * (1 - crouch) * (air > 0)
+    arm = 50 * crouch - 170 * ss((t - 0.30) / 0.08) * (1 - ss((t - 0.62) / 0.12)) + 30 * land
+    pitch = -32 * ss((t - 0.30) / 0.04) * (1 - ss((t - 0.34) / 0.03))
+    P = {'fk': [('Spine', X, lean * 0.5), ('Spine1', X, lean * 0.3), ('Spine2', X, lean * 0.2), ('Head', X, -lean * 0.4)] + list(ARM_DOWN) + [('LeftArm', X, arm), ('RightArm', X, arm)],
+         'root': ((0, fwd, 0), (0, 0, 0)), 'hips': (0, 0.02 + 0.05 * crouch + fwd, hz),
+         'ik_foot': {'L': (0.11, 0.05 + fwd - 0.05 * tuck, az, pitch + 12 * tuck), 'R': (-0.11, 0.05 + fwd - 0.05 * tuck, az, pitch + 12 * tuck)}, 'ngon': {'nam_tro': 0.3, 'nam_giua': 0.3, 'nam_ap': 0.35, 'nam_cai': 0.2}}
+    return ap_dung(c, P)
+
+
+def dong_ngoi_san(c, f, N):
+    """Đứng → ngồi xổm → ngồi sàn duỗi chân → giữ → chống tay đứng dậy. 96 khung."""
+    t = f / N
+    a = ss((t - 0.08) / 0.34) - ss((t - 0.62) / 0.30); sit = max(0.0, min(1.0, a))
+    sq = min(1.0, sit * 2.0); fl = max(0.0, sit * 2.0 - 1.0)                   # 0→1 xổm, 1→2 hạ xuống sàn
+    hz = lerp(1.0, 0.62, sq) - 0.40 * fl
+    hy = lerp(0.02, 0.14, sq) + 0.28 * fl
+    fy = lerp(0.05, -0.05, sq) - 0.85 * fl
+    lean = 24 * sq - 26 * fl
+    P = {'fk': [('Spine', X, lean * 0.5), ('Spine1', X, lean * 0.3), ('Spine2', X, lean * 0.2)] + list(ARM_DOWN) + [('LeftArm', X, 22 * fl), ('RightArm', X, 22 * fl)],
+         'root': ((0, 0, 0), (0, 0, 0)), 'hips': (0, hy, hz),
+         'ik_foot': {'L': (0.14 - 0.04 * fl, fy, 0.118 - 0.02 * fl, 0.0), 'R': (-(0.14 - 0.04 * fl), fy, 0.118 - 0.02 * fl, 0.0)},
+         'ngon': {'nam_tro': 0.3, 'nam_giua': 0.3, 'nam_ap': 0.35, 'nam_cai': 0.2}}
+    return ap_dung(c, P)
+
+
+DONG = {'nhay': (dong_nhay, 72), 'ngoi_san': (dong_ngoi_san, 96), 'co': (dong_co, CO_L * 4), 'rang_buoc': (dong_rang_buoc, RB_L * 6), 'khop': (dong_khop, KHOP_L * 16), 'ngoi_ghe': (dong_ngoi_ghe, 96), 'nam_lan': (dong_nam_lan, 120), 'bo': (dong_bo, 32), 'truot': (dong_truot, 32),'di_bo': (lambda c, f, n: dong_di(c, f, n, False), 32), 'chay_bo': (lambda c, f, n: dong_di(c, f, n, True), 24)}
 
 
 # ---------------------------------------------------------------- RENDER
