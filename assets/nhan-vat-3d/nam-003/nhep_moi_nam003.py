@@ -60,6 +60,15 @@ def lich(env, ats, nguong=0.12):
                 elif khep and ph > 0.85: v = BC.VISEME['MBP']; amp = 1.0
                 else: v = BC.VISEME[vs]; amp = min(1.0, 0.7 + 0.5 * env[f])
                 kq[f] = [v.get(p, 0.0) * (amp if p != 'mieng_khep' else 1.0) for p in MIENG]
+    kq[:, 0] = np.where(env > 0.75, np.minimum(kq[:, 0] * 1.2, 1.0), kq[:, 0])   # chữ nhấn: há thêm
+    for (a0, b0), (a1, b1) in zip(doan, doan[1:]):     # khoảng nghỉ giữa cụm: không sập miệng
+        g = a1 - b0; cuoi = kq[b0 - 1].copy(); cuoi[3] = 0
+        for f in range(b0, a1):
+            kq[f] = cuoi * (0.4 if g <= 8 else max(0.0, 1 - (f - b0 + 1) / 5))
+            if g > 8 and a1 - f <= 3: kq[f] = [0.22 * (1 - (a1 - f - 1) / 3) + 0.08, 0, 0, 0]   # lấy hơi trước câu
+    if doan:
+        b = doan[-1][1]; cuoi = kq[b - 1].copy(); cuoi[3] = 0
+        for i, f in enumerate(range(b, min(b + 6, len(kq)))): kq[f] = cuoi * (1 - (i + 1) / 6)   # cuối câu nhả dần
     kq = (np.r_[kq[:1], kq[:-1]] + 2 * kq + np.r_[kq[1:], kq[-1:]]) / 4      # làm mượt 1 khung
     return kq, len(doan)
 
