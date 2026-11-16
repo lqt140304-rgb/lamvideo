@@ -1,0 +1,23 @@
+{
+  "purpose": "Small dry-voice samples for lip-sync testing; no sound effects or background music",
+  "voice": "Nhat Phong",
+  "model": "eleven_v3_conversational",
+  "clips": [
+    {
+      "id": "C1.1_NAM_02",
+      "file": "C1.1_NAM_02.mp3",
+      "vai": "NAM",
+      "loi_doc": "Lại rung, điếc cả tai!",
+      "seconds": 2.24,
+      "sha256": "8faf660888f0fb9d51a0b48e16f0442a203c6dfa4c1965c0f0e9f56715408c96"
+    },
+    {
+      "id": "C1.2_NAM_01",
+      "file": "C1.2_NAM_01.mp3",
+      "vai": "NAM",
+      "loi_doc": "Ủa Tùng? Nay đổi ca làm sớm hả mày? Tốt tính thế, còn rửa chén hộ tao nữa...",
+      "seconds": 6.4,
+      "sha256": "94472dd5c27ecbc433c8e70dff17680a417b093eec2f7ab9e218cb6ef0c4d999"
+    }
+  ]
+}
