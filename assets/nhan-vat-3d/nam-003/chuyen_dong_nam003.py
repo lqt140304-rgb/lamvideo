@@ -165,7 +165,7 @@ def dong_di(c, f, tong, chay=False):
     c.rot('Neck', Z, yaw * 0.3); c.rot('Head', Z, yaw * 0.3); c.rot('Head', X, (lean * 0.9) if chay else -2)
     swing = (46 if chay else 24) * math.cos(2 * math.pi * phi0)
     for S_, s in (('Left', 1), ('Right', -1)):
-        c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 81)
+        c.g['rot_world'](c.arm, f'{S_}Arm', (0, 1, 0), s * 80); c.g['rot_world'](c.arm, f'{S_}ForeArm', (0, 1, 0), -s * 12)
         c.g['rot_world'](c.arm, f'{S_}Arm', X, s * swing)
         elbow = (80 + 25 * max(0.0, -s * math.cos(2 * math.pi * phi0))) if chay else (18 + 12 * max(0.0, -s * math.cos(2 * math.pi * phi0)))
         c.g['rot_world'](c.arm, f'{S_}ForeArm', X, -elbow); c.g['rot_world'](c.arm, f'{S_}Hand', Z, -s * 8)
@@ -174,9 +174,9 @@ def dong_di(c, f, tong, chay=False):
     return root_loc
 
 
-# Tay buông (chọn 15/11 bằng khe tay–thân đo theo độ cao, xem README): bắp tay 81° thẳng cả cánh (không hất cẳng tay: gãy ở khuỷu nhìn cong), vai hạ 6° (driver); vai đã thu hẹp 4 cm mỗi bên trong lưới
+# Tay buông (chọn 15/11 bằng khe tay–thân đo theo độ cao, xem README): bắp tay 80° ép sát thân, cẳng tay chếch ra 12° (theo ảnh mẫu của chủ repo 16/11: nách khép, cẳng tay/bàn tay hơi mở; hất 20° trở lên nhìn gãy ở khuỷu), vai hạ 6° (driver); vai đã thu hẹp 4 cm mỗi bên trong lưới
 # → khe ~2 cm ở nách, ~1 cm ở khuỷu, ~4 cm ở cổ tay (trước: 4 → 10 cm với 78°).
-ARM_DOWN = [('LeftArm', Y, 81), ('RightArm', Y, -81)]   # vai hạ do driver vai_nam003 lo
+ARM_DOWN = [('LeftArm', Y, 80), ('RightArm', Y, -80), ('LeftForeArm', Y, -12), ('RightForeArm', Y, 12)]   # vai hạ do driver vai_nam003 lo
 
 
 def dong_ngoi_ghe(c, f, N):

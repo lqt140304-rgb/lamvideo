@@ -1,5 +1,5 @@
 """KIỂM VAI/NÁCH nam-003 (driver vai hạ theo tay buông). <bpy-python> kiem_vai_nam003.py --rig nam-003-rig.blend
- test_rest_khong_doi: dáng chữ T: xoay xương đòn = 0.   test_khe_tay_buong: tay buông 81° (thẳng) → khe nách ≤3 cm, khuỷu ≤3 cm, không âm (xuyên thân).
+ test_rest_khong_doi: dáng chữ T: xoay xương đòn = 0.   test_khe_tay_buong: tay buông 80° + cẳng tay chếch 12° (như ảnh mẫu) → khe nách ≤3 cm, cẳng tay ≤4 cm, không âm (xuyên thân).
  test_gio_tay_khong_anh_huong: giơ tay 85° / ra trước: xương đòn không bị driver.   test_bao_hong: bỏ driver → khe khuỷu lớn hơn ≥1 cm (bài kiểm phát hiện hỏng).
  test_doi_xung: trái/phải khe chênh ≤2 mm.   test_khong_gian_manh: tay buông + Corrective Smooth: 0 cạnh vùng vai >2,5× (đỉnh trapezius còn vài cạnh 4 mm ở 2,0–2,1×)."""
 import sys, os, math, argparse
@@ -27,7 +27,7 @@ def pos(c):
     e = c.body.evaluated_get(bpy.context.evaluated_depsgraph_get()).to_mesh(); p = np.zeros(c.nv * 3); e.vertices.foreach_get('co', p); return p.reshape(-1, 3)
 
 
-def tay_buong(c, ang=81, fore=0, vai=0.0):
+def tay_buong(c, ang=80, fore=12, vai=0.0):
     c.reset()
     for S, s in (('Left', 1), ('Right', -1)):
         if vai: c.g['rot_world'](c.arm, f'{S}Shoulder', (0, 1, 0), s * vai)
@@ -53,7 +53,7 @@ def run(rig):
     def T(name, ok, info=''): print(('PASS ' if ok else 'FAIL ') + name + (f'  ({info})' if info else '')); res.append(ok)
     c = mo(rig); c.reset(); c.upd()
     T('test_rest_khong_doi', all(abs(c.pb[f'{S}Shoulder'].rotation_euler[0]) < 1e-6 for S in ('Left', 'Right')))
-    tay_buong(c); n, h = khe(c, 'L'); T('test_khe_tay_buong', 0 <= n <= 3.0 and 0 <= h <= 3.0, f'nách {n:.1f} cm, khuỷu {h:.1f} cm')
+    tay_buong(c); n, h = khe(c, 'L'); T('test_khe_tay_buong', 0 <= n <= 3.0 and 0 <= h <= 4.0, f'nách {n:.1f} cm, cẳng tay {h:.1f} cm')
     nr, hr = khe(c, 'R'); T('test_doi_xung', abs(n - nr) < 0.2 and abs(h - hr) < 0.2, f'L {n:.2f}/{h:.2f} R {nr:.2f}/{hr:.2f}')
     pb = [c.pb[f'{S}Shoulder'].rotation_euler[0] for S in ('Left', 'Right')]
     c.reset()
