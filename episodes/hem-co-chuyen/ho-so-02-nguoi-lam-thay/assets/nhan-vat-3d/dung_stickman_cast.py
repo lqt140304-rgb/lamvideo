@@ -1246,31 +1246,60 @@ def build_cast_in_blender(characters: List[str] = None, save_path: str = None) -
 
     return results
 
+def create_studio_backdrop(sc: Any):
+    """Tạo mặt sàn studio cong vô cực (Cyclorama) bắt bóng tiếp xúc mềm mại."""
+    if not HAS_BLENDER or sc is None:
+        return
+    bpy.ops.mesh.primitive_grid_add(x_subdivisions=12, y_subdivisions=24, size=10.0, location=(0.0, 0.0, 0.0))
+    grid = bpy.context.active_object
+    grid.name = "Backdrop_Cyclorama"
+
+    mesh = grid.data
+    for v in mesh.vertices:
+        if v.co.y > 0.4:
+            delta = v.co.y - 0.4
+            v.co.z += (delta ** 2) * 0.35
+            v.co.y = 0.4 + delta * 0.55
+
+    mat_back = create_material("Mat_Studio_Cyclorama", "#242327", roughness=0.92, specular=0.05)
+    grid.data.materials.append(mat_back)
+    for p in mesh.polygons:
+        p.use_smooth = True
+
+
 def setup_studio_lighting(sc: Any):
     """Thiết lập 3 nguồn sáng chuẩn Studio Chiaroscuro: Key Light, Fill Light, Rim Light."""
     if not HAS_BLENDER or sc is None:
         return
-    # Key Light
+    # Key Light - Ánh sáng chính ấm dịu (3200K)
     kd = bpy.data.lights.new('Light_Key', 'AREA')
-    kd.energy = 160.0
-    kd.size = 1.5
+    kd.energy = 220.0
+    kd.size = 1.8
+    kd.color = (1.0, 0.96, 0.90)
     ko = bpy.data.objects.new('Light_Key', kd)
-    ko.location = (2.2, -2.5, 2.5)
+    ko.location = (2.2, -3.2, 2.6)
+    ko.rotation_euler = (math.radians(50), math.radians(15), math.radians(35))
     sc.collection.objects.link(ko)
 
-    # Fill Light
+    # Fill Light - Ánh sáng bù lạnh dịu (5400K)
     fd = bpy.data.lights.new('Light_Fill', 'AREA')
-    fd.energy = 60.0
-    fd.size = 2.0
+    fd.energy = 75.0
+    fd.size = 2.4
+    fd.color = (0.88, 0.94, 1.0)
     fo = bpy.data.objects.new('Light_Fill', fd)
-    fo.location = (-2.2, -2.0, 1.8)
+    fo.location = (-2.5, -2.5, 1.9)
+    fo.rotation_euler = (math.radians(45), math.radians(-20), math.radians(-35))
     sc.collection.objects.link(fo)
 
-    # Rim Light
+    # Rim Light - Ánh sáng ven hổ phách tách viền nhân vật khỏi nền tối
     rd = bpy.data.lights.new('Light_Rim', 'SPOT')
-    rd.energy = 220.0
+    rd.energy = 320.0
+    rd.spot_size = math.radians(65)
+    rd.spot_blend = 0.35
+    rd.color = (1.0, 0.92, 0.82)
     ro = bpy.data.objects.new('Light_Rim', rd)
-    ro.location = (0.0, 3.2, 2.6)
+    ro.location = (0.0, 3.2, 2.8)
+    ro.rotation_euler = (math.radians(-45), 0.0, math.radians(180))
     sc.collection.objects.link(ro)
 
 def render_views(sc: Any, out_dir: str, samples: int = 24) -> List[str]:
@@ -1325,7 +1354,6 @@ def main():
 
     args = parser.parse_args(argv)
 
-
     chars = ["nam", "nguoikia", "tung", "giangvien", "truyvet"] if args.character == "all" else [args.character]
 
     if HAS_BLENDER:
@@ -1336,6 +1364,7 @@ def main():
 
         if args.render:
             sc = bpy.context.scene
+            create_studio_backdrop(sc)
             setup_studio_lighting(sc)
             out_render = os.path.abspath(args.render)
             print(f"Đang render 4 góc nhìn vào thư mục: {out_render} ...")
