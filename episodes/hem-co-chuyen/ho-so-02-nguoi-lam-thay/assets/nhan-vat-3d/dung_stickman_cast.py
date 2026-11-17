@@ -422,6 +422,30 @@ def create_material(name: str, hex_color: str, roughness: float = 0.65) -> Any:
         bsdf.inputs["Roughness"].default_value = roughness
     return mat
 
+def smooth_object(obj: Any, subsurf: int = 0, bevel_width: float = 0.0):
+    """Làm mịn mesh:
+    - Nếu là cylinder/box: làm mịn mặt bên quads và thêm Bevel để bo tròn góc mà không làm méo hai đầu.
+    - Nếu là sphere/torus: làm mịn toàn bộ và hỗ trợ Subdivision Surface.
+    """
+    if not HAS_BLENDER or not obj or obj.type != 'MESH':
+        return
+    poly_count = len(obj.data.polygons)
+    for p in obj.data.polygons:
+        if len(p.vertices) == 4 or poly_count > 60:
+            p.use_smooth = True
+        else:
+            p.use_smooth = False
+    if bevel_width > 0:
+        bev = obj.modifiers.new(name="Bevel", type='BEVEL')
+        bev.width = bevel_width
+        bev.segments = 2
+        bev.limit_method = 'ANGLE'
+    if subsurf > 0:
+        mod = obj.modifiers.new(name="Subdivision", type='SUBSURF')
+        mod.levels = subsurf
+        mod.render_levels = subsurf
+
+
 def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Tạo toàn bộ phôi Stickman Base V1 (Đầu tròn trơn, cổ, thân capsule, tay chân ống)."""
     if not HAS_BLENDER:
@@ -443,17 +467,17 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
     # 2. Cổ (Cylinder)
     h_neck = dims["neck_z_max"] - dims["neck_z_min"]
     bpy.ops.mesh.primitive_cylinder_add(
-        vertices=16, radius=dims["neck_radius"], depth=h_neck,
+        vertices=24, radius=dims["neck_radius"], depth=h_neck,
         location=(offset_x, 0.0, (dims["neck_z_max"] + dims["neck_z_min"]) / 2.0)
     )
     neck = bpy.context.active_object
     neck.name = f"{name}_Neck"
     parts.append(neck)
 
-    # 3. Thân Capsule (Cylinder bo tròn hai đầu)
+    # 3. Thân Capsule (Cylinder bo viền hai đầu)
     h_torso = dims["torso_z_max"] - dims["torso_z_min"]
     bpy.ops.mesh.primitive_cylinder_add(
-        vertices=24, radius=dims["torso_r_top"], depth=h_torso,
+        vertices=32, radius=dims["torso_r_top"], depth=h_torso,
         location=(offset_x, 0.0, (dims["torso_z_max"] + dims["torso_z_min"]) / 2.0)
     )
     torso = bpy.context.active_object
@@ -465,7 +489,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         # Cánh tay trên
         arm_z = dims["shoulder_z"] - 0.14
         bpy.ops.mesh.primitive_cylinder_add(
-            vertices=16, radius=dims["arm_radius"], depth=0.28,
+            vertices=24, radius=dims["arm_radius"], depth=0.28,
             location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z)
         )
         uarm = bpy.context.active_object
@@ -475,17 +499,17 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         # Cẳng tay
         farm_z = dims["shoulder_z"] - 0.415
         bpy.ops.mesh.primitive_cylinder_add(
-            vertices=16, radius=dims["arm_radius"] * 0.9, depth=0.27,
+            vertices=24, radius=dims["arm_radius"] * 0.9, depth=0.27,
             location=(offset_x + sign * (dims["shoulder_x"] + 0.04), 0.0, farm_z)
         )
         farm = bpy.context.active_object
         farm.name = f"{name}_Forearm_{side}"
         parts.append(farm)
 
-        # Bàn tay (Oval sphere kèm ngón cái)
+        # Bàn tay (UV Sphere)
         hand_z = dims["shoulder_z"] - 0.55 - 0.05
         bpy.ops.mesh.primitive_uv_sphere_add(
-            segments=16, ring_count=8, radius=0.035,
+            segments=20, ring_count=10, radius=0.035,
             location=(offset_x + sign * (dims["shoulder_x"] + 0.05), 0.0, hand_z)
         )
         hand = bpy.context.active_object
@@ -497,7 +521,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         # Đùi
         thigh_z = (dims["hip_z"] + dims["knee_z"]) / 2.0
         bpy.ops.mesh.primitive_cylinder_add(
-            vertices=16, radius=dims["leg_radius"], depth=(dims["hip_z"] - dims["knee_z"]),
+            vertices=24, radius=dims["leg_radius"], depth=(dims["hip_z"] - dims["knee_z"]),
             location=(offset_x + sign * dims["hip_x"], 0.0, thigh_z)
         )
         thigh = bpy.context.active_object
@@ -507,7 +531,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         # Bắp chân
         shin_z = (dims["knee_z"] + dims["ankle_z"]) / 2.0
         bpy.ops.mesh.primitive_cylinder_add(
-            vertices=16, radius=dims["leg_radius"] * 0.9, depth=(dims["knee_z"] - dims["ankle_z"]),
+            vertices=24, radius=dims["leg_radius"] * 0.9, depth=(dims["knee_z"] - dims["ankle_z"]),
             location=(offset_x + sign * dims["hip_x"], 0.0, shin_z)
         )
         shin = bpy.context.active_object
@@ -525,16 +549,25 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         bpy.ops.object.transform_apply(scale=True)
         parts.append(foot)
 
-    # Gán vật liệu da cho toàn bộ các phần thân
+    # Gán vật liệu da cho toàn bộ các phần thân và làm mịn phù hợp từng loại khối
     mat_skin = create_material(f"Mat_{name}_Skin", color, roughness=0.6)
     for p in parts:
         if p and p.data:
+            if "Head" in p.name or "Hand" in p.name:
+                smooth_object(p, subsurf=1)
+            elif "Foot" in p.name:
+                smooth_object(p, bevel_width=0.012)
+            elif "Torso" in p.name:
+                smooth_object(p, bevel_width=0.025)
+            else:
+                smooth_object(p, bevel_width=0.008)
             p.data.materials.clear()
             p.data.materials.append(mat_skin)
             if collection and p.name not in collection.objects:
                 collection.objects.link(p)
 
     return parts
+
 
 def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Dựng module tóc đặc trưng cho từng nhân vật theo preset."""
@@ -551,105 +584,143 @@ def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x
     mat_hair = create_material(f"Mat_{name}_{hair_type}", hair_color, roughness=0.7)
 
     if hair_type == "Hair_Messy_Anime":
-        # Mũ tóc nền
+        # Mũ tóc nền đặt lệch về sau gáy để không che mặt
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12,
-            radius=0.146,
-            location=(offset_x, 0.01, dims["head_center_z"] + 0.01)
+            radius=0.148,
+            location=(offset_x, 0.025, dims["head_center_z"] + 0.015)
         )
         cap = bpy.context.active_object
         cap.name = f"{name}_HairCap"
+        smooth_object(cap, subsurf=1)
         hair_parts.append(cap)
 
-        # Các lọn tóc khối lòa xòa
+        # Các lọn tóc khối lòa xòa (đối xứng lật trục X nếu là Người Kia)
+        flip_x = -1.0 if char_id == "nguoikia" else 1.0
         clumps = get_hair_presets()["Hair_Messy_Anime"]["clumps"]
         for idx, cl in enumerate(clumps):
-            pos_x = offset_x + cl["pos"][0]
+            pos_x = offset_x + flip_x * cl["pos"][0]
             pos_y = cl["pos"][1]
             pos_z = cl["pos"][2]
-            bpy.ops.mesh.primitive_cube_add(size=1.0, location=(pos_x, pos_y, pos_z))
+            bpy.ops.mesh.primitive_cone_add(
+                vertices=12, radius1=0.035, depth=0.09,
+                location=(pos_x, pos_y, pos_z)
+            )
             tuft = bpy.context.active_object
             tuft.name = f"{name}_HairTuft_{idx}"
-            tuft.scale = cl["scale"]
-            tuft.rotation_euler = cl["rot"]
-            bpy.ops.object.transform_apply(scale=True, rotation=True)
+            tuft.rotation_euler = (cl["rot"][0] + math.radians(160), cl["rot"][1], flip_x * cl["rot"][2])
+            bpy.ops.object.transform_apply(rotation=True)
+            smooth_object(tuft, bevel_width=0.005)
             hair_parts.append(tuft)
 
     elif hair_type == "Hair_Spiky_Sport":
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12,
-            radius=0.145,
-            location=(offset_x, 0.0, dims["head_center_z"])
+            radius=0.147,
+            location=(offset_x, 0.015, dims["head_center_z"] + 0.01)
         )
         cap = bpy.context.active_object
         cap.name = f"{name}_HairCap_Sport"
+        smooth_object(cap, subsurf=1)
         hair_parts.append(cap)
 
-        # Chỏm tóc vuốt nhọn
+        # Chỏm tóc vuốt nhọn thể thao
         clumps = get_hair_presets()["Hair_Spiky_Sport"]["clumps"]
         for idx, cl in enumerate(clumps):
             pos_x = offset_x + cl["pos"][0]
             bpy.ops.mesh.primitive_cone_add(
-                vertices=8, radius1=0.035, depth=0.08,
+                vertices=12, radius1=0.035, depth=0.09,
                 location=(pos_x, cl["pos"][1], cl["pos"][2])
             )
             spike = bpy.context.active_object
             spike.name = f"{name}_HairSpike_{idx}"
             spike.rotation_euler = cl["rot"]
             bpy.ops.object.transform_apply(rotation=True)
+            smooth_object(spike, bevel_width=0.005)
             hair_parts.append(spike)
 
     elif hair_type == "Hair_Parted_Neat":
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12,
-            radius=0.146,
-            location=(offset_x, 0.005, dims["head_center_z"] + 0.005)
+            radius=0.148,
+            location=(offset_x, 0.025, dims["head_center_z"] + 0.015)
         )
         cap = bpy.context.active_object
         cap.name = f"{name}_HairCap_Neat"
+        smooth_object(cap, subsurf=1)
         hair_parts.append(cap)
 
-        # Gọng kính đen
+        # Gọng kính đen: Mắt kính Trái, Phải
+        mat_glass = create_material(f"Mat_{name}_Glasses", "#1a1a1a", roughness=0.3)
         bpy.ops.mesh.primitive_torus_add(
-            major_radius=0.04, minor_radius=0.006,
-            location=(offset_x - 0.045, -0.138, dims["head_center_z"]),
+            major_radius=0.038, minor_radius=0.006,
+            location=(offset_x - 0.045, -0.142, dims["head_center_z"]),
             rotation=(math.radians(90), 0.0, 0.0)
         )
         glass_l = bpy.context.active_object
         glass_l.name = f"{name}_Glasses_L"
+        smooth_object(glass_l, subsurf=1)
+        glass_l.data.materials.append(mat_glass)
         hair_parts.append(glass_l)
 
         bpy.ops.mesh.primitive_torus_add(
-            major_radius=0.04, minor_radius=0.006,
-            location=(offset_x + 0.045, -0.138, dims["head_center_z"]),
+            major_radius=0.038, minor_radius=0.006,
+            location=(offset_x + 0.045, -0.142, dims["head_center_z"]),
             rotation=(math.radians(90), 0.0, 0.0)
         )
         glass_r = bpy.context.active_object
         glass_r.name = f"{name}_Glasses_R"
+        smooth_object(glass_r, subsurf=1)
+        glass_r.data.materials.append(mat_glass)
         hair_parts.append(glass_r)
 
+        # Cầu nối gọng kính ở giữa sống mũi
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices=12, radius=0.004, depth=0.02,
+            location=(offset_x, -0.142, dims["head_center_z"]),
+            rotation=(0.0, math.radians(90), 0.0)
+        )
+        bridge = bpy.context.active_object
+        bridge.name = f"{name}_Glasses_Bridge"
+        smooth_object(bridge, bevel_width=0.002)
+        bridge.data.materials.append(mat_glass)
+        hair_parts.append(bridge)
+
     elif hair_type == "Hair_Hoodie_Dark":
+        # Mũ trùm đầu (Hoodie Cowl) bao quanh sau gáy và đỉnh đầu
         bpy.ops.mesh.primitive_uv_sphere_add(
-            segments=24, ring_count=12,
-            radius=0.165,
-            location=(offset_x, 0.02, dims["head_center_z"] - 0.01)
+            segments=32, ring_count=16,
+            radius=0.170,
+            location=(offset_x, 0.025, dims["head_center_z"] - 0.01)
         )
         cowl = bpy.context.active_object
         cowl.name = f"{name}_HoodieCowl"
+        smooth_object(cowl, subsurf=1)
         hair_parts.append(cowl)
 
-    # Gán vật liệu tóc
+        # Viền mũ trùm mặt (Torus vành mũ)
+        bpy.ops.mesh.primitive_torus_add(
+            major_radius=0.140, minor_radius=0.022,
+            location=(offset_x, -0.050, dims["head_center_z"] - 0.01),
+            rotation=(math.radians(82), 0.0, 0.0)
+        )
+        rim = bpy.context.active_object
+        rim.name = f"{name}_HoodieRim"
+        smooth_object(rim, subsurf=1)
+        hair_parts.append(rim)
+
+    # Gán vật liệu tóc cho các phần chưa có vật liệu riêng
     for hp in hair_parts:
-        if hp and hp.data:
-            hp.data.materials.clear()
+        if hp and hp.data and not hp.data.materials:
             hp.data.materials.append(mat_hair)
-            if collection and hp.name not in collection.objects:
-                collection.objects.link(hp)
+        if collection and hp.name not in collection.objects:
+            collection.objects.link(hp)
 
     return hair_parts
 
+
 def create_outfit_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
-    """Dựng module trang phục (Áo + Quần + Giày) bọc ngoài thân theo preset."""
+    """Dựng module trang phục (Áo + Quần riêng 2 chân + Giày) bọc ngoài thân theo preset."""
     if not HAS_BLENDER:
         return []
 
@@ -657,55 +728,133 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
     char_info = profiles[char_id]
     outfit_type = char_info["outfit_module"]
     outfit_parts = []
+    dims = get_base_dimensions()
 
     mat_shirt = create_material(f"Mat_{name}_Shirt", char_info["shirt_color"], roughness=0.65)
     mat_pants = create_material(f"Mat_{name}_Pants", char_info["pants_color"], roughness=0.70)
     mat_shoe = create_material(f"Mat_{name}_Shoe", char_info["shoe_color"], roughness=0.55)
 
-    # 1. Thân áo bọc ngoài Torso
     shirt_rings = get_outfit_presets()[outfit_type]["shirt_rings"]
     z_min = min(r["z"] for r in shirt_rings)
     z_max = max(r["z"] for r in shirt_rings)
     h_shirt = z_max - z_min
     r_shirt = max(r["radius"] for r in shirt_rings)
 
+    # 1. Thân áo bọc ngoài Torso
     bpy.ops.mesh.primitive_cylinder_add(
-        vertices=24, radius=r_shirt, depth=h_shirt,
+        vertices=32, radius=r_shirt, depth=h_shirt,
         location=(offset_x, 0.0, (z_min + z_max) / 2.0)
     )
     shirt = bpy.context.active_object
     shirt.name = f"{name}_Shirt"
     shirt.data.materials.append(mat_shirt)
+    smooth_object(shirt, bevel_width=0.015)
     outfit_parts.append(shirt)
 
-    # 2. Quần bọc ngoài chậu & đùi
+    # 1b. Ống tay áo (Sleeves)
+    if "Oversized" in outfit_type or "Sport" in outfit_type:
+        # Áo cộc tay: 2 ống bọc quanh bắp tay
+        sleeve_r = dims["arm_radius"] * 1.55
+        sleeve_h = 0.17
+        for side, sign in [("L", 1.0), ("R", -1.0)]:
+            arm_z = dims["shoulder_z"] - 0.11
+            bpy.ops.mesh.primitive_cylinder_add(
+                vertices=24, radius=sleeve_r, depth=sleeve_h,
+                location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z)
+            )
+            slv = bpy.context.active_object
+            slv.name = f"{name}_Sleeve_{side}"
+            slv.data.materials.append(mat_shirt)
+            smooth_object(slv, bevel_width=0.008)
+            outfit_parts.append(slv)
+    elif "Formal" in outfit_type or "Tracker" in outfit_type:
+        # Áo dài tay (Giảng viên & Người Truy Vết)
+        sleeve_r = dims["arm_radius"] * 1.35
+        for side, sign in [("L", 1.0), ("R", -1.0)]:
+            # Cánh tay trên
+            bpy.ops.mesh.primitive_cylinder_add(
+                vertices=24, radius=sleeve_r, depth=0.26,
+                location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, dims["shoulder_z"] - 0.14)
+            )
+            slv_u = bpy.context.active_object
+            slv_u.name = f"{name}_Sleeve_Upper_{side}"
+            slv_u.data.materials.append(mat_shirt)
+            smooth_object(slv_u, bevel_width=0.008)
+            outfit_parts.append(slv_u)
+
+            # Cẳng tay
+            bpy.ops.mesh.primitive_cylinder_add(
+                vertices=24, radius=sleeve_r * 0.95, depth=0.24,
+                location=(offset_x + sign * (dims["shoulder_x"] + 0.04), 0.0, dims["shoulder_z"] - 0.40)
+            )
+            slv_f = bpy.context.active_object
+            slv_f.name = f"{name}_Sleeve_Fore_{side}"
+            slv_f.data.materials.append(mat_shirt)
+            smooth_object(slv_f, bevel_width=0.008)
+            outfit_parts.append(slv_f)
+
+    # 2. Quần:
+    # 2a. Phần hông/cạp quần (Waist / Pelvis)
     pants_rings = get_outfit_presets()[outfit_type]["pants_rings"]
     pz_min = min(r["z"] for r in pants_rings)
     pz_max = max(r["z"] for r in pants_rings)
-    h_pants = pz_max - pz_min
-    r_pants = max(r["radius"] for r in pants_rings)
+    crotch_z = 0.76
+    waist_h = max(0.08, pz_max - crotch_z)
+    waist_r = max(r["radius"] for r in pants_rings)
 
     bpy.ops.mesh.primitive_cylinder_add(
-        vertices=24, radius=r_pants, depth=h_pants,
-        location=(offset_x, 0.0, (pz_min + pz_max) / 2.0)
+        vertices=32, radius=waist_r, depth=waist_h,
+        location=(offset_x, 0.0, crotch_z + waist_h / 2.0)
     )
-    pants = bpy.context.active_object
-    pants.name = f"{name}_Pants"
-    pants.data.materials.append(mat_pants)
-    outfit_parts.append(pants)
+    waist = bpy.context.active_object
+    waist.name = f"{name}_Pants_Waist"
+    waist.data.materials.append(mat_pants)
+    smooth_object(waist, bevel_width=0.015)
+    outfit_parts.append(waist)
+
+    # 2b. Hai ống quần riêng biệt (Left Leg & Right Leg)
+    leg_h = max(0.14, crotch_z - pz_min)
+    leg_r = dims["leg_radius"] * (1.45 if ("Oversized" in outfit_type or "Tracker" in outfit_type) else 1.30)
+    leg_center_z = crotch_z - leg_h / 2.0
+
+    for side, sign in [("L", 1.0), ("R", -1.0)]:
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices=24, radius=leg_r, depth=leg_h,
+            location=(offset_x + sign * dims["hip_x"], 0.0, leg_center_z)
+        )
+        pleg = bpy.context.active_object
+        pleg.name = f"{name}_Pants_Leg_{side}"
+        pleg.data.materials.append(mat_pants)
+        smooth_object(pleg, bevel_width=0.008)
+        outfit_parts.append(pleg)
+
+    # 2c. Túi hộp hai bên cho Người Truy Vết (Cargo Pockets)
+    if "Tracker" in outfit_type:
+        for side, sign in [("L", 1.0), ("R", -1.0)]:
+            bpy.ops.mesh.primitive_cube_add(
+                size=1.0,
+                location=(offset_x + sign * (dims["hip_x"] + leg_r + 0.012), 0.0, crotch_z - 0.20)
+            )
+            pocket = bpy.context.active_object
+            pocket.name = f"{name}_CargoPocket_{side}"
+            pocket.scale = (0.02, 0.06, 0.08)
+            bpy.ops.object.transform_apply(scale=True)
+            pocket.data.materials.append(mat_pants)
+            smooth_object(pocket, bevel_width=0.005)
+            outfit_parts.append(pocket)
 
     # 3. Dép / Giày
-    dims = get_base_dimensions()
     for side, sign in [("L", 1.0), ("R", -1.0)]:
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
-            location=(offset_x + sign * dims["hip_x"], -0.06, 0.02)
+            location=(offset_x + sign * dims["hip_x"], -0.06, 0.022)
         )
         shoe = bpy.context.active_object
         shoe.name = f"{name}_Shoe_{side}"
-        shoe.scale = (dims["foot_width"] * 1.08, dims["foot_length"] * 1.05, 0.04)
+        shoe.scale = (dims["foot_width"] * 1.15, dims["foot_length"] * 1.08, 0.045)
         bpy.ops.object.transform_apply(scale=True)
         shoe.data.materials.append(mat_shoe)
+        smooth_object(shoe, bevel_width=0.012)
         outfit_parts.append(shoe)
 
     for op in outfit_parts:
@@ -713,6 +862,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
             collection.objects.link(op)
 
     return outfit_parts
+
 
 def create_armature_rig(name: str = "Stickman_Rig", handedness: str = "right", collection: Any = None, offset_x: float = 0.0) -> Any:
     """Tạo Armature Rig hoàn chỉnh với IK chân và thuộc tính tay thuận."""
@@ -884,7 +1034,7 @@ def render_views(sc: Any, out_dir: str, samples: int = 24) -> List[str]:
     if hasattr(sc, 'cycles'):
         sc.render.engine = 'CYCLES'
         sc.cycles.samples = samples
-    sc.render.resolution_x, sc.render.resolution_y = 720, 1080
+    sc.render.resolution_x, sc.render.resolution_y = 1920, 1080
 
     views = {
         'truoc': (0.0, -4.5, 0.9),
@@ -896,8 +1046,9 @@ def render_views(sc: Any, out_dir: str, samples: int = 24) -> List[str]:
     for vname, loc in views.items():
         cd = bpy.data.cameras.new(f'cam_{vname}')
         cd.type = 'ORTHO'
-        cd.ortho_scale = 1.95
+        cd.ortho_scale = 3.6
         co = bpy.data.objects.new(f'cam_{vname}', cd)
+
         co.location = loc
         d = Vector((0.0, 0.0, 0.9)) - Vector(loc)
         co.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler()
@@ -918,13 +1069,15 @@ def main():
     parser.add_argument("--render", type=str, default="", help="Thư mục xuất ảnh render turnaround")
     parser.add_argument("--samples", type=int, default=24, help="Số samples khi render")
     
-    # Nếu chạy trong Blender GUI, sys.argv có thể chứa đường dẫn file blend -> chỉ parse sau '--'
-    if HAS_BLENDER:
-        argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
+    if '--' in sys.argv:
+        argv = sys.argv[sys.argv.index('--') + 1:]
+    elif "blender" in os.path.basename(sys.executable).lower():
+        argv = []
     else:
         argv = sys.argv[1:]
 
     args = parser.parse_args(argv)
+
 
     chars = ["nam", "nguoikia", "tung", "giangvien", "truyvet"] if args.character == "all" else [args.character]
 
