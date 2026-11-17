@@ -733,23 +733,95 @@ def build_cast_in_blender(characters: List[str] = None, save_path: str = None) -
 
     return results
 
+def setup_studio_lighting(sc: Any):
+    """Thiết lập 3 nguồn sáng chuẩn Studio Chiaroscuro: Key Light, Fill Light, Rim Light."""
+    if not HAS_BLENDER or sc is None:
+        return
+    # Key Light
+    kd = bpy.data.lights.new('Light_Key', 'AREA')
+    kd.energy = 160.0
+    kd.size = 1.5
+    ko = bpy.data.objects.new('Light_Key', kd)
+    ko.location = (2.2, -2.5, 2.5)
+    sc.collection.objects.link(ko)
+
+    # Fill Light
+    fd = bpy.data.lights.new('Light_Fill', 'AREA')
+    fd.energy = 60.0
+    fd.size = 2.0
+    fo = bpy.data.objects.new('Light_Fill', fd)
+    fo.location = (-2.2, -2.0, 1.8)
+    sc.collection.objects.link(fo)
+
+    # Rim Light
+    rd = bpy.data.lights.new('Light_Rim', 'SPOT')
+    rd.energy = 220.0
+    ro = bpy.data.objects.new('Light_Rim', rd)
+    ro.location = (0.0, 3.2, 2.6)
+    sc.collection.objects.link(ro)
+
+def render_views(sc: Any, out_dir: str, samples: int = 24) -> List[str]:
+    """Render 4 góc nhìn chuẩn (trước, nghiêng, sau, góc 3/4) xuất ảnh PNG."""
+    if not HAS_BLENDER or sc is None:
+        return []
+    os.makedirs(out_dir, exist_ok=True)
+    if hasattr(sc, 'cycles'):
+        sc.render.engine = 'CYCLES'
+        sc.cycles.samples = samples
+    sc.render.resolution_x, sc.render.resolution_y = 720, 1080
+
+    views = {
+        'truoc': (0.0, -4.5, 0.9),
+        'nghieng': (4.5, 0.0, 0.9),
+        'sau': (0.0, 4.5, 0.9),
+        'goc34': (3.2, -3.2, 0.9),
+    }
+    rendered_files = []
+    for vname, loc in views.items():
+        cd = bpy.data.cameras.new(f'cam_{vname}')
+        cd.type = 'ORTHO'
+        cd.ortho_scale = 1.95
+        co = bpy.data.objects.new(f'cam_{vname}', cd)
+        co.location = loc
+        d = Vector((0.0, 0.0, 0.9)) - Vector(loc)
+        co.rotation_euler = d.to_track_quat('-Z', 'Y').to_euler()
+        sc.collection.objects.link(co)
+        sc.camera = co
+        out_file = os.path.join(out_dir, f'{vname}.png')
+        sc.render.filepath = out_file
+        bpy.ops.render.render(write_still=True)
+        rendered_files.append(out_file)
+        bpy.data.objects.remove(co, do_unlink=True)
+        bpy.data.cameras.remove(cd)
+    return rendered_files
+
 def main():
     parser = argparse.ArgumentParser(description="Script dựng dàn nhân vật Stickman 3D Kiểu B")
     parser.add_argument("--character", choices=["nam", "nguoikia", "tung", "giangvien", "truyvet", "all"], default="all")
-    parser.add_argument("--save", type=str, default="stickman_cast.blend", help="Đường dẫn lưu file .blend")
+    parser.add_argument("--save", "--blend", dest="save", type=str, default="stickman_cast.blend", help="Đường dẫn lưu file .blend")
+    parser.add_argument("--render", type=str, default="", help="Thư mục xuất ảnh render turnaround")
+    parser.add_argument("--samples", type=int, default=24, help="Số samples khi render")
     
     argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
     args = parser.parse_args(argv)
 
     chars = ["nam", "nguoikia", "tung", "giangvien", "truyvet"] if args.character == "all" else [args.character]
 
-
     if HAS_BLENDER:
         print("=== BẮT ĐẦU DỰNG DÀN NHÂN VẬT STICKMAN 3D TRONG BLENDER ===")
         results = build_cast_in_blender(characters=chars, save_path=args.save)
         print(f"Đã hoàn thành {len(results)} nhân vật: {[r['id'] for r in results]}")
+
+        if args.render:
+            sc = bpy.context.scene
+            setup_studio_lighting(sc)
+            out_render = os.path.abspath(args.render)
+            print(f"Đang render 4 góc nhìn vào thư mục: {out_render} ...")
+            render_views(sc, out_render, samples=args.samples)
+            print(f"Render hoàn tất!")
     else:
         print(f"[MÔI TRƯỜNG PYTHON STANDALONE] Định nghĩa 5 nhân vật và mô-đun toán học sẵn sàng cho: {chars}")
 
 if __name__ == "__main__":
     main()
+
