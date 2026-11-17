@@ -108,5 +108,12 @@ class TestStickmanCastMath(unittest.TestCase):
         for param in ["sss_weight", "sheen_weight", "transmission", "specular"]:
             self.assertIn(param, sig.parameters, f"Parameter {param} must be supported by create_material")
 
+    def test_hand_geometry_naming(self):
+        import dung_stickman_cast
+        import inspect
+        src = inspect.getsource(dung_stickman_cast.create_stickman_body)
+        self.assertIn("Thumb", src, "create_stickman_body must define Thumb for stylized hand")
+        self.assertIn("Palm", src, "create_stickman_body must define Palm for stylized hand")
+
 if __name__ == "__main__":
     unittest.main()

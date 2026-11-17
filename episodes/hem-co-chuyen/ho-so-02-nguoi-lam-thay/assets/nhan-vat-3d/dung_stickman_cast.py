@@ -544,15 +544,33 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         farm.name = f"{name}_Forearm_{side}"
         parts.append(farm)
 
-        # Bàn tay (UV Sphere)
+        # Bàn tay cách điệu (Stylized Mitten Hand: Lòng bàn tay Palm + Ngón cái Thumb)
         hand_z = dims["shoulder_z"] - 0.55 - 0.05
+        hand_x = offset_x + sign * (dims["shoulder_x"] + 0.05)
+
+        # Lòng bàn tay (Palm)
         bpy.ops.mesh.primitive_uv_sphere_add(
-            segments=20, ring_count=10, radius=0.035,
-            location=(offset_x + sign * (dims["shoulder_x"] + 0.05), 0.0, hand_z)
+            segments=24, ring_count=12, radius=0.032,
+            location=(hand_x, 0.0, hand_z)
         )
-        hand = bpy.context.active_object
-        hand.name = f"{name}_Hand_{side}"
-        parts.append(hand)
+        palm = bpy.context.active_object
+        palm.name = f"{name}_Hand_Palm_{side}"
+        palm.scale = (0.9, 0.8, 1.15)
+        bpy.ops.object.transform_apply(scale=True)
+        parts.append(palm)
+
+        # Ngón cái (Thumb - nghiêng 35 độ hướng ra trước)
+        thumb_x = hand_x - sign * 0.016
+        thumb_y = -0.016
+        thumb_z = hand_z + 0.008
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices=16, radius=0.010, depth=0.026,
+            location=(thumb_x, thumb_y, thumb_z),
+            rotation=(math.radians(35), 0.0, -sign * math.radians(25))
+        )
+        thumb = bpy.context.active_object
+        thumb.name = f"{name}_Hand_Thumb_{side}"
+        parts.append(thumb)
 
     # 5. Chân và Bàn chân (Left & Right)
     for side, sign in [("L", 1.0), ("R", -1.0)]:
@@ -588,10 +606,10 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         parts.append(foot)
 
     # Gán vật liệu da cho toàn bộ các phần thân và làm mịn phù hợp từng loại khối
-    mat_skin = create_material(f"Mat_{name}_Skin", color, roughness=0.6)
+    mat_skin = create_material(f"Mat_{name}_Skin", color, roughness=0.48, sss_weight=0.08)
     for p in parts:
         if p and p.data:
-            if "Head" in p.name or "Hand" in p.name:
+            if "Head" in p.name or "Hand" in p.name or "Palm" in p.name or "Thumb" in p.name:
                 smooth_object(p, subsurf=1)
             elif "Foot" in p.name:
                 smooth_object(p, bevel_width=0.012)
