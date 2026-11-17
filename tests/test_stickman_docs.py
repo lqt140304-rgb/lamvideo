@@ -34,5 +34,23 @@ class TestStickmanDocs(unittest.TestCase):
         self.assertIn("Người Truy Vết", content)
         self.assertIn("thuận tay trái", content)
 
+    def test_asset_status_superseded(self):
+        asset_path = os.path.join(REPO_ROOT, "episodes", "hem-co-chuyen", "ho-so-02-nguoi-lam-thay", "ASSET.md")
+        with open(asset_path, "r", encoding="utf-8") as f:
+            asset_content = f.read()
+        self.assertIn("Stickman", asset_content)
+        self.assertIn("dung_stickman_cast.py", asset_content)
+
+        nhanvat_readme = os.path.join(REPO_ROOT, "episodes", "hem-co-chuyen", "ho-so-02-nguoi-lam-thay", "assets", "nhan-vat-3d", "README.md")
+        with open(nhanvat_readme, "r", encoding="utf-8") as f:
+            nv_content = f.read()
+        self.assertIn("Stickman", nv_content)
+
+        loi_path = os.path.join(REPO_ROOT, "episodes", "hem-co-chuyen", "ho-so-02-nguoi-lam-thay", "LOI-TON-DONG.md")
+        with open(loi_path, "r", encoding="utf-8") as f:
+            loi_content = f.read()
+        self.assertIn("Stickman", loi_content)
+
 if __name__ == "__main__":
+
     unittest.main()
