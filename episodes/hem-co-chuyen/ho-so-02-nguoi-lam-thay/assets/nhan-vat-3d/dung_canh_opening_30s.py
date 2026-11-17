@@ -51,9 +51,9 @@ def get_scene_manifest() -> Dict[str, Any]:
                 "focal_length": 85.0,
                 "frame_start": 0,
                 "frame_end": 120,
-                "loc_start": (0.45, 3.10, 0.85),
-                "loc_end": (0.35, 3.40, 0.90),
-                "rot": (math.radians(82), math.radians(-5), math.radians(-115))
+                "loc_start": (0.85, 2.70, 0.70),
+                "loc_end": (0.80, 2.85, 0.72),
+                "rot": (math.radians(83.5), 0.0, math.radians(50.1))
             },
             {
                 "id": "Cam_Shot1",
@@ -61,9 +61,9 @@ def get_scene_manifest() -> Dict[str, Any]:
                 "focal_length": 28.0,
                 "frame_start": 120,
                 "frame_end": 360,
-                "loc_start": (1.10, 1.35, 0.95),
-                "loc_end": (1.12, 1.40, 0.95),
-                "rot": (math.radians(78), math.radians(2), math.radians(-25))
+                "loc_start": (1.10, 1.60, 1.05),
+                "loc_end": (1.12, 1.65, 1.05),
+                "rot": (math.radians(65.0), 0.0, math.radians(-3.8))
             },
             {
                 "id": "Cam_Shot2",
@@ -71,9 +71,9 @@ def get_scene_manifest() -> Dict[str, Any]:
                 "focal_length": 32.0,
                 "frame_start": 360,
                 "frame_end": 720,
-                "loc_start": (0.95, 1.80, 1.10),
-                "loc_end": (1.30, 2.30, 1.15),
-                "rot": (math.radians(75), math.radians(0), math.radians(-15))
+                "loc_start": (1.10, 0.40, 1.25),
+                "loc_end": (1.15, 0.60, 1.28),
+                "rot": (math.radians(92.0), 0.0, math.radians(-19.8))
             }
         ]
     }
@@ -208,12 +208,12 @@ def create_studio_mirror(coll: Any = None) -> Dict[str, Any]:
     dsc.smooth_object(khung, bevel_width=0.008)
 
     # Mặt gương Cycles phản chiếu hoàn hảo (Roughness=0.01, Metallic=1.0)
-    loc_mirror = (0.175, 3.26, 0.60)
-    bpy.ops.mesh.primitive_plane_add(size=1.0, location=loc_mirror)
+    loc_mirror = (0.185, 3.26, 0.60)
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=loc_mirror)
     mat_guong = bpy.context.active_object
     mat_guong.name = "Scene_Mat_Guong"
-    mat_guong.scale = (1.0, 0.48, 1.18)
-    mat_guong.rotation_euler = (0, math.radians(84), 0) # Mặt kính vuông góc nhìn vào phòng
+    mat_guong.scale = (0.01, 0.48, 1.18)
+    mat_guong.rotation_euler = (0, math.radians(-6), 0)
     bpy.ops.object.transform_apply(scale=True, rotation=False)
     
     mat_mirror_pbr = bpy.data.materials.new("Mat_Mirror_Glass")
@@ -266,6 +266,16 @@ def setup_chiaroscuro_lighting(scene: Any):
     if not HAS_BLENDER or scene is None:
         return
 
+    # Ánh sáng môi trường âm u buổi sớm (World Dawn)
+    if not scene.world:
+        scene.world = bpy.data.worlds.new("World_Dawn")
+    scene.world.use_nodes = True
+    if scene.world.node_tree:
+        bg = scene.world.node_tree.nodes.get("Background")
+        if bg:
+            bg.inputs["Color"].default_value = (0.15, 0.18, 0.25, 1.0)
+            bg.inputs["Strength"].default_value = 0.85
+
     # 1. Ánh sáng bình minh hắt qua cửa sổ (Window Dawn Light)
     ld = bpy.data.lights.new('Light_Dawn_Window', 'AREA')
     ld.energy = 180.0
@@ -276,12 +286,13 @@ def setup_chiaroscuro_lighting(scene: Any):
     lo.rotation_euler = (math.radians(35), math.radians(-15), math.radians(-85))
     scene.collection.objects.link(lo)
 
-    # 2. Ánh sáng môi trường âm u (Moody Ambient)
-    if scene.world and scene.world.node_tree:
-        bg = scene.world.node_tree.nodes.get("Background")
-        if bg:
-            bg.inputs["Color"].default_value = (0.015, 0.018, 0.024, 1.0)
-            bg.inputs["Strength"].default_value = 0.45
+    # 2. Ánh sáng nhẹ chiếu phòng và gương (Room Fill)
+    lf = bpy.data.lights.new('Light_Room_Fill', 'POINT')
+    lf.energy = 60.0
+    lf.color = (0.90, 0.95, 1.0)
+    lof = bpy.data.objects.new('Light_Room_Fill', lf)
+    lof.location = (1.50, 2.50, 2.00)
+    scene.collection.objects.link(lof)
 
 def setup_opening_30s_scene(create_blender_scene: bool = True) -> Dict[str, Any]:
     """Dựng hoàn chỉnh scene 30s mở đầu gồm phòng trọ, gương, nệm, Nam và Người Kia."""
@@ -331,7 +342,7 @@ def setup_opening_30s_scene(create_blender_scene: bool = True) -> Dict[str, Any]
     phone_obj = create_smartphone_prop(location=manifest["phone_pos"], coll=col_scene)
 
     # 5. Dựng nhân vật Nam
-    res_nam = dsc.build_character("nam", collection_name="Char_Nam", offset_x=manifest["nam_pos"][0])
+    res_nam = dsc.build_character("nam", collection_name="Char_Nam", offset_x=0.0)
     rig_nam = bpy.data.objects.get("Rig_nam")
     if rig_nam:
         rig_nam.location = manifest["nam_pos"]
@@ -339,13 +350,14 @@ def setup_opening_30s_scene(create_blender_scene: bool = True) -> Dict[str, Any]
         rig_nam.rotation_euler = (math.radians(-90), 0, math.radians(90))
 
     # 6. Dựng Người Kia (bản sao trong gương) với cờ Ray Visibility
-    res_nguoikia = dsc.build_character("nguoikia", collection_name="Char_NguoiKia", offset_x=manifest["nguoikia_pos"][0])
+    res_nguoikia = dsc.build_character("nguoikia", collection_name="Char_NguoiKia", offset_x=0.0)
     rig_nguoikia = bpy.data.objects.get("Rig_nguoikia")
     if rig_nguoikia:
         rig_nguoikia.location = manifest["nguoikia_pos"]
         rig_nguoikia.rotation_euler = (math.radians(-90), 0, math.radians(-90)) # Nằm đối xứng qua gương
 
-    # Cài đặt Ray Visibility cho Người Kia: chỉ hiện trong tia phản xạ gương (Glossy)
+    # Cài đặt Ray Visibility:
+    # Người Kia: chỉ hiện trong tia phản xạ gương (Glossy)
     col_nk = bpy.data.collections.get("Char_NguoiKia")
     if col_nk:
         for ob in col_nk.objects:
@@ -353,6 +365,12 @@ def setup_opening_30s_scene(create_blender_scene: bool = True) -> Dict[str, Any]
             ob.visible_shadow = False
             ob.visible_diffuse = False
             ob.visible_glossy = True
+
+    # Nam thật: ẩn khỏi phản xạ gương (Glossy=False) để Người Kia hoàn toàn chiếm hình ảnh trong kính
+    col_nam = bpy.data.collections.get("Char_Nam")
+    if col_nam:
+        for ob in col_nam.objects:
+            ob.visible_glossy = False
 
     # 7. Camera và Markers
     cams = setup_cameras_and_markers(sc)
@@ -384,30 +402,28 @@ def animate_opening_30s(scene_info: Dict[str, Any]) -> None:
     chan = bed.get("chan")
 
     # 1. DIỄN HOẠT CAMERA
-    # Camera Shot 0: Trượt dọc khung gương
+    # Camera Shot 0: Trượt nhẹ cận cảnh khung gương
     cam0 = next((c for c in cams if c.name == "Cam_Shot0"), None)
     if cam0:
-        cam0.location = (0.45, 3.10, 0.85)
+        cam0.location = (0.85, 2.70, 0.70)
         cam0.keyframe_insert(data_path="location", frame=0)
-        cam0.location = (0.35, 3.40, 0.90)
+        cam0.location = (0.80, 2.85, 0.72)
         cam0.keyframe_insert(data_path="location", frame=120)
 
     # Camera Shot 1: Bao quát nệm & gương (handheld drift nhẹ)
     cam1 = next((c for c in cams if c.name == "Cam_Shot1"), None)
     if cam1:
-        cam1.location = (1.10, 1.35, 0.95)
+        cam1.location = (1.10, 1.60, 1.05)
         cam1.keyframe_insert(data_path="location", frame=120)
-        cam1.location = (1.13, 1.40, 0.96)
+        cam1.location = (1.12, 1.65, 1.05)
         cam1.keyframe_insert(data_path="location", frame=360)
 
     # Camera Shot 2: Tracking lia theo Nam ngồi dậy và bước đi
     cam2 = next((c for c in cams if c.name == "Cam_Shot2"), None)
     if cam2:
-        cam2.location = (0.95, 1.80, 1.10)
+        cam2.location = (1.10, 0.40, 1.25)
         cam2.keyframe_insert(data_path="location", frame=360)
-        cam2.location = (1.12, 2.05, 1.12)
-        cam2.keyframe_insert(data_path="location", frame=560)
-        cam2.location = (1.30, 2.30, 1.15)
+        cam2.location = (1.15, 0.60, 1.28)
         cam2.keyframe_insert(data_path="location", frame=720)
 
     # 2. DIỄN HOẠT ĐIỆN THOẠI RUNG BÁO THỨC
@@ -438,6 +454,8 @@ def animate_opening_30s(scene_info: Dict[str, Any]) -> None:
     # 4. DIỄN HOẠT NAM (BẢN THỂ THẬT)
     if nam_rig:
         pb_nam = nam_rig.pose.bones
+        for pb in pb_nam:
+            pb.rotation_mode = "XYZ"
         if not nam_rig.animation_data:
             nam_rig.animation_data_create()
         
@@ -526,6 +544,8 @@ def animate_opening_30s(scene_info: Dict[str, Any]) -> None:
     # 5. DIỄN HOẠT NGƯỜI KIA (CÚ TRỄ GƯƠNG 5 FRAMES & KHỰNG LẠI NHÌN TRỘM)
     if nk_rig:
         pb_nk = nk_rig.pose.bones
+        for pb in pb_nk:
+            pb.rotation_mode = "XYZ"
         if not nk_rig.animation_data:
             nk_rig.animation_data_create()
 

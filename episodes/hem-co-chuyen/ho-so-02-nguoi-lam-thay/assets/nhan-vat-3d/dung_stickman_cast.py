@@ -2147,6 +2147,11 @@ def bind_stickman_to_armature(char_id: str, rig_obj: Any, body_parts: List[Any] 
     for obj in all_parts:
         if obj is None or obj.type != "MESH":
             continue
+        # Gán cha con (parent) vào rig để mesh di chuyển đồng bộ cùng armature
+        if obj.parent != rig_obj:
+            obj.parent = rig_obj
+            obj.matrix_parent_inverse = rig_obj.matrix_world.inverted()
+
         # Thêm Armature modifier nếu chưa có
         mod = obj.modifiers.get("Armature")
         if not mod:
