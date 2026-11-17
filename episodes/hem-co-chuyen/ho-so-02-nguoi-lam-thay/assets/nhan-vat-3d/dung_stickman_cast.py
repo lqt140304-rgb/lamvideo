@@ -9,7 +9,8 @@ Chuẩn hóa theo Quyết định 17/11/2026:
       4. Giảng viên: Tóc rẽ ngôi 7/3, kính cận, áo sơ mi kem, quần âu xanh than.
       5. Người Truy Vết: Áo hoodie than viền đỏ, quần túi hộp.
   
-Hoạt động cả ở chế độ Blender headless CLI lẫn kiểm thử toán học độc lập (khi không có bpy).
+TỰ CHỨA ĐẦY ĐỦ (SELF-CONTAINED): Chạy mượt mà trong Blender GUI (Scripting tab),
+Blender headless CLI, hoặc Python độc lập mà không cần bất kỳ file phụ thuộc nào khác.
 """
 
 import argparse
@@ -17,6 +18,11 @@ import math
 import os
 import sys
 from typing import Any, Dict, List, Tuple
+
+# Thêm đường dẫn hiện tại vào sys.path để an toàn
+HERE = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
 
 try:
     import bpy
@@ -28,11 +34,98 @@ except ImportError:
     mathutils = None
     HAS_BLENDER = False
 
-# Import module toán học stickman
+# ==============================================================================
+# 1. HÌNH HỌC THAM SỐ STICKMAN BASE V1 (TÍCH HỢP ĐỘC LẬP)
+# ==============================================================================
+
+def get_base_dimensions() -> Dict[str, float]:
+    """Trả về từ điển chứa toàn bộ kích thước hình học chuẩn của Stickman Base V1 (1,60 m)."""
+    return {
+        "total_height": 1.60,
+        "floor_z": 0.0,
+        # Đầu & Cổ
+        "head_radius": 0.14,
+        "head_center_z": 1.46,
+        "head_top_z": 1.60,
+        "neck_radius": 0.04,
+        "neck_z_min": 1.28,
+        "neck_z_max": 1.36,
+        # Thân Capsule
+        "torso_z_min": 0.78,
+        "torso_z_max": 1.28,
+        "torso_height": 0.50,
+        "torso_r_top": 0.12,
+        "torso_r_bottom": 0.10,
+        # Chi trên (Tay)
+        "shoulder_z": 1.24,
+        "shoulder_x": 0.15,
+        "arm_radius": 0.035,
+        "arm_length": 0.55,
+        "hand_length": 0.12,
+        # Chi dưới (Chân)
+        "hip_z": 0.76,
+        "hip_x": 0.08,
+        "leg_radius": 0.045,
+        "leg_length": 0.70,
+        "knee_z": 0.40,
+        "ankle_z": 0.08,
+        # Bàn chân
+        "foot_length": 0.22,
+        "foot_width": 0.08,
+        "foot_height": 0.08,
+    }
+
+def generate_capsule_levels(num_rings: int = 7) -> List[Dict[str, Any]]:
+    """Sinh danh sách các lát cắt và bán kính dọc theo trục Z cho thân viên nang."""
+    dims = get_base_dimensions()
+    z_min = dims["torso_z_min"]
+    z_max = dims["torso_z_max"]
+    height = z_max - z_min
+    levels = []
+    for i in range(num_rings):
+        t = i / (num_rings - 1)
+        z = z_min + t * height
+        base_r = dims["torso_r_bottom"] + t * (dims["torso_r_top"] - dims["torso_r_bottom"])
+        capsule_factor = math.sin(t * math.pi) ** 0.35
+        r = base_r * (0.75 + 0.25 * capsule_factor)
+        name = f"ring_{i}"
+        if i == 0:
+            name = "day_chau"
+        elif i == num_rings - 1:
+            name = "vai_nguc"
+        elif i == num_rings // 2:
+            name = "eo_bung"
+        levels.append({"name": name, "z": round(z, 4), "radius": round(r, 4), "t": round(t, 4)})
+    return levels
+
+def verify_mesh_constraints() -> Dict[str, Any]:
+    """Kiểm tra tính hợp lệ toán học của Stickman Base."""
+    dims = get_base_dimensions()
+    errors = []
+    calculated_top = dims["head_center_z"] + dims["head_radius"]
+    if abs(calculated_top - dims["total_height"]) > 1e-4:
+        errors.append(f"Top of head {calculated_top} != total_height {dims['total_height']}")
+    if abs(dims["floor_z"] - 0.0) > 1e-4:
+        errors.append(f"Floor Z {dims['floor_z']} != 0.0")
+    return {
+        "valid": len(errors) == 0,
+        "errors": errors,
+        "calculated_top_z": calculated_top,
+        "floor_z": dims["floor_z"],
+    }
+
+# Fallback module import compatibility
 try:
     from . import stickman_math
 except (ImportError, ValueError):
-    import stickman_math
+    try:
+        import stickman_math
+    except ImportError:
+        stickman_math = sys.modules[__name__]
+
+# ==============================================================================
+# 2. CẤU HÌNH NHẬN DIỆN & TRANG PHỤC CỦA 5 NHÂN VẬT
+# ==============================================================================
 
 def hex_to_rgb(hex_str: str) -> Tuple[float, float, float, float]:
     """Chuyển đổi mã màu hex #RRGGBB sang tuple RGBA (0.0 .. 1.0) cho Blender shader."""
@@ -225,7 +318,7 @@ def get_hair_presets() -> Dict[str, Dict[str, Any]]:
 
 def get_bone_definitions() -> List[Dict[str, Any]]:
     """Trả về danh sách định nghĩa khung xương Armature chuẩn cho Stickman Base V1."""
-    dims = stickman_math.get_base_dimensions()
+    dims = get_base_dimensions()
     
     bones = [
         {"name": "root", "parent": None, "head": (0.0, 0.0, 0.0), "tail": (0.0, 0.0, 0.10), "deform": False},
@@ -309,7 +402,7 @@ def get_bone_definitions() -> List[Dict[str, Any]]:
     return bones
 
 # ==============================================================================
-# PHẦN BLENDER ENGINE (Chỉ thực thi khi chạy trong Blender)
+# 3. PHẦN BLENDER ENGINE (DỰNG MESH & RIGGING)
 # ==============================================================================
 
 def create_material(name: str, hex_color: str, roughness: float = 0.65) -> Any:
@@ -329,19 +422,19 @@ def create_material(name: str, hex_color: str, roughness: float = 0.65) -> Any:
         bsdf.inputs["Roughness"].default_value = roughness
     return mat
 
-def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collection: Any = None) -> List[Any]:
+def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Tạo toàn bộ phôi Stickman Base V1 (Đầu tròn trơn, cổ, thân capsule, tay chân ống)."""
     if not HAS_BLENDER:
         return []
 
-    dims = stickman_math.get_base_dimensions()
+    dims = get_base_dimensions()
     parts = []
 
     # 1. Đầu (UV Sphere)
     bpy.ops.mesh.primitive_uv_sphere_add(
         segments=32, ring_count=16,
         radius=dims["head_radius"],
-        location=(0.0, 0.0, dims["head_center_z"])
+        location=(offset_x, 0.0, dims["head_center_z"])
     )
     head = bpy.context.active_object
     head.name = f"{name}_Head"
@@ -351,7 +444,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
     h_neck = dims["neck_z_max"] - dims["neck_z_min"]
     bpy.ops.mesh.primitive_cylinder_add(
         vertices=16, radius=dims["neck_radius"], depth=h_neck,
-        location=(0.0, 0.0, (dims["neck_z_max"] + dims["neck_z_min"]) / 2.0)
+        location=(offset_x, 0.0, (dims["neck_z_max"] + dims["neck_z_min"]) / 2.0)
     )
     neck = bpy.context.active_object
     neck.name = f"{name}_Neck"
@@ -361,7 +454,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
     h_torso = dims["torso_z_max"] - dims["torso_z_min"]
     bpy.ops.mesh.primitive_cylinder_add(
         vertices=24, radius=dims["torso_r_top"], depth=h_torso,
-        location=(0.0, 0.0, (dims["torso_z_max"] + dims["torso_z_min"]) / 2.0)
+        location=(offset_x, 0.0, (dims["torso_z_max"] + dims["torso_z_min"]) / 2.0)
     )
     torso = bpy.context.active_object
     torso.name = f"{name}_Torso"
@@ -373,7 +466,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         arm_z = dims["shoulder_z"] - 0.14
         bpy.ops.mesh.primitive_cylinder_add(
             vertices=16, radius=dims["arm_radius"], depth=0.28,
-            location=(sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z)
+            location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z)
         )
         uarm = bpy.context.active_object
         uarm.name = f"{name}_UpperArm_{side}"
@@ -383,7 +476,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         farm_z = dims["shoulder_z"] - 0.415
         bpy.ops.mesh.primitive_cylinder_add(
             vertices=16, radius=dims["arm_radius"] * 0.9, depth=0.27,
-            location=(sign * (dims["shoulder_x"] + 0.04), 0.0, farm_z)
+            location=(offset_x + sign * (dims["shoulder_x"] + 0.04), 0.0, farm_z)
         )
         farm = bpy.context.active_object
         farm.name = f"{name}_Forearm_{side}"
@@ -393,7 +486,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         hand_z = dims["shoulder_z"] - 0.55 - 0.05
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=16, ring_count=8, radius=0.035,
-            location=(sign * (dims["shoulder_x"] + 0.05), 0.0, hand_z)
+            location=(offset_x + sign * (dims["shoulder_x"] + 0.05), 0.0, hand_z)
         )
         hand = bpy.context.active_object
         hand.name = f"{name}_Hand_{side}"
@@ -405,7 +498,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         thigh_z = (dims["hip_z"] + dims["knee_z"]) / 2.0
         bpy.ops.mesh.primitive_cylinder_add(
             vertices=16, radius=dims["leg_radius"], depth=(dims["hip_z"] - dims["knee_z"]),
-            location=(sign * dims["hip_x"], 0.0, thigh_z)
+            location=(offset_x + sign * dims["hip_x"], 0.0, thigh_z)
         )
         thigh = bpy.context.active_object
         thigh.name = f"{name}_Thigh_{side}"
@@ -415,7 +508,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         shin_z = (dims["knee_z"] + dims["ankle_z"]) / 2.0
         bpy.ops.mesh.primitive_cylinder_add(
             vertices=16, radius=dims["leg_radius"] * 0.9, depth=(dims["knee_z"] - dims["ankle_z"]),
-            location=(sign * dims["hip_x"], 0.0, shin_z)
+            location=(offset_x + sign * dims["hip_x"], 0.0, shin_z)
         )
         shin = bpy.context.active_object
         shin.name = f"{name}_Shin_{side}"
@@ -424,7 +517,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         # Bàn chân (đế phẳng tiếp sàn Z=0)
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
-            location=(sign * dims["hip_x"], -0.06, dims["foot_height"] / 2.0)
+            location=(offset_x + sign * dims["hip_x"], -0.06, dims["foot_height"] / 2.0)
         )
         foot = bpy.context.active_object
         foot.name = f"{name}_Foot_{side}"
@@ -443,7 +536,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
 
     return parts
 
-def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[Any]:
+def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Dựng module tóc đặc trưng cho từng nhân vật theo preset."""
     if not HAS_BLENDER:
         return []
@@ -454,7 +547,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
     hair_color = char_info["hair_color"]
     hair_parts = []
 
-    dims = stickman_math.get_base_dimensions()
+    dims = get_base_dimensions()
     mat_hair = create_material(f"Mat_{name}_{hair_type}", hair_color, roughness=0.7)
 
     if hair_type == "Hair_Messy_Anime":
@@ -462,7 +555,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12,
             radius=0.146,
-            location=(0.0, 0.01, dims["head_center_z"] + 0.01)
+            location=(offset_x, 0.01, dims["head_center_z"] + 0.01)
         )
         cap = bpy.context.active_object
         cap.name = f"{name}_HairCap"
@@ -471,7 +564,10 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
         # Các lọn tóc khối lòa xòa
         clumps = get_hair_presets()["Hair_Messy_Anime"]["clumps"]
         for idx, cl in enumerate(clumps):
-            bpy.ops.mesh.primitive_cube_add(size=1.0, location=cl["pos"])
+            pos_x = offset_x + cl["pos"][0]
+            pos_y = cl["pos"][1]
+            pos_z = cl["pos"][2]
+            bpy.ops.mesh.primitive_cube_add(size=1.0, location=(pos_x, pos_y, pos_z))
             tuft = bpy.context.active_object
             tuft.name = f"{name}_HairTuft_{idx}"
             tuft.scale = cl["scale"]
@@ -483,7 +579,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12,
             radius=0.145,
-            location=(0.0, 0.0, dims["head_center_z"])
+            location=(offset_x, 0.0, dims["head_center_z"])
         )
         cap = bpy.context.active_object
         cap.name = f"{name}_HairCap_Sport"
@@ -492,9 +588,10 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
         # Chỏm tóc vuốt nhọn
         clumps = get_hair_presets()["Hair_Spiky_Sport"]["clumps"]
         for idx, cl in enumerate(clumps):
+            pos_x = offset_x + cl["pos"][0]
             bpy.ops.mesh.primitive_cone_add(
                 vertices=8, radius1=0.035, depth=0.08,
-                location=cl["pos"]
+                location=(pos_x, cl["pos"][1], cl["pos"][2])
             )
             spike = bpy.context.active_object
             spike.name = f"{name}_HairSpike_{idx}"
@@ -506,7 +603,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12,
             radius=0.146,
-            location=(0.0, 0.005, dims["head_center_z"] + 0.005)
+            location=(offset_x, 0.005, dims["head_center_z"] + 0.005)
         )
         cap = bpy.context.active_object
         cap.name = f"{name}_HairCap_Neat"
@@ -515,7 +612,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
         # Gọng kính đen
         bpy.ops.mesh.primitive_torus_add(
             major_radius=0.04, minor_radius=0.006,
-            location=(-0.045, -0.138, dims["head_center_z"]),
+            location=(offset_x - 0.045, -0.138, dims["head_center_z"]),
             rotation=(math.radians(90), 0.0, 0.0)
         )
         glass_l = bpy.context.active_object
@@ -524,7 +621,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
 
         bpy.ops.mesh.primitive_torus_add(
             major_radius=0.04, minor_radius=0.006,
-            location=(0.045, -0.138, dims["head_center_z"]),
+            location=(offset_x + 0.045, -0.138, dims["head_center_z"]),
             rotation=(math.radians(90), 0.0, 0.0)
         )
         glass_r = bpy.context.active_object
@@ -535,7 +632,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12,
             radius=0.165,
-            location=(0.0, 0.02, dims["head_center_z"] - 0.01)
+            location=(offset_x, 0.02, dims["head_center_z"] - 0.01)
         )
         cowl = bpy.context.active_object
         cowl.name = f"{name}_HoodieCowl"
@@ -551,7 +648,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None) -> List[
 
     return hair_parts
 
-def create_outfit_module(name: str, char_id: str, collection: Any = None) -> List[Any]:
+def create_outfit_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Dựng module trang phục (Áo + Quần + Giày) bọc ngoài thân theo preset."""
     if not HAS_BLENDER:
         return []
@@ -574,7 +671,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None) -> Lis
 
     bpy.ops.mesh.primitive_cylinder_add(
         vertices=24, radius=r_shirt, depth=h_shirt,
-        location=(0.0, 0.0, (z_min + z_max) / 2.0)
+        location=(offset_x, 0.0, (z_min + z_max) / 2.0)
     )
     shirt = bpy.context.active_object
     shirt.name = f"{name}_Shirt"
@@ -590,7 +687,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None) -> Lis
 
     bpy.ops.mesh.primitive_cylinder_add(
         vertices=24, radius=r_pants, depth=h_pants,
-        location=(0.0, 0.0, (pz_min + pz_max) / 2.0)
+        location=(offset_x, 0.0, (pz_min + pz_max) / 2.0)
     )
     pants = bpy.context.active_object
     pants.name = f"{name}_Pants"
@@ -598,11 +695,11 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None) -> Lis
     outfit_parts.append(pants)
 
     # 3. Dép / Giày
-    dims = stickman_math.get_base_dimensions()
+    dims = get_base_dimensions()
     for side, sign in [("L", 1.0), ("R", -1.0)]:
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
-            location=(sign * dims["hip_x"], -0.06, 0.02)
+            location=(offset_x + sign * dims["hip_x"], -0.06, 0.02)
         )
         shoe = bpy.context.active_object
         shoe.name = f"{name}_Shoe_{side}"
@@ -617,7 +714,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None) -> Lis
 
     return outfit_parts
 
-def create_armature_rig(name: str = "Stickman_Rig", handedness: str = "right", collection: Any = None) -> Any:
+def create_armature_rig(name: str = "Stickman_Rig", handedness: str = "right", collection: Any = None, offset_x: float = 0.0) -> Any:
     """Tạo Armature Rig hoàn chỉnh với IK chân và thuộc tính tay thuận."""
     if not HAS_BLENDER:
         return None
@@ -639,8 +736,8 @@ def create_armature_rig(name: str = "Stickman_Rig", handedness: str = "right", c
 
     for bd in bone_defs:
         b = eb.new(bd["name"])
-        b.head = bd["head"]
-        b.tail = bd["tail"]
+        b.head = (offset_x + bd["head"][0], bd["head"][1], bd["head"][2])
+        b.tail = (offset_x + bd["tail"][0], bd["tail"][1], bd["tail"][2])
         b.use_deform = bd["deform"]
 
     for bd in bone_defs:
@@ -669,7 +766,7 @@ def create_armature_rig(name: str = "Stickman_Rig", handedness: str = "right", c
     bpy.ops.object.mode_set(mode="OBJECT")
     return arm_obj
 
-def build_character(char_id: str, collection_name: str = None) -> Dict[str, Any]:
+def build_character(char_id: str, collection_name: str = None, offset_x: float = 0.0) -> Dict[str, Any]:
     """Sinh hoàn chỉnh 1 nhân vật Stickman trong Blender kèm tóc, áo quần và rig."""
     profiles = get_character_profiles()
     if char_id not in profiles:
@@ -696,33 +793,52 @@ def build_character(char_id: str, collection_name: str = None) -> Dict[str, Any]
             bpy.context.scene.collection.children.link(col)
 
         # 1. Dựng Rig
-        rig = create_armature_rig(f"Rig_{char_id}", handedness=p["handedness"], collection=col)
+        rig = create_armature_rig(f"Rig_{char_id}", handedness=p["handedness"], collection=col, offset_x=offset_x)
         result["has_rig"] = rig is not None
 
         # 2. Dựng Thân
-        body_parts = create_stickman_body(name=f"Body_{char_id}", color=p["body_color"], collection=col)
+        body_parts = create_stickman_body(name=f"Body_{char_id}", color=p["body_color"], collection=col, offset_x=offset_x)
         result["body_parts_count"] = len(body_parts)
 
         # 3. Dựng Tóc
-        hair_parts = create_hair_module(name=f"Hair_{char_id}", char_id=char_id, collection=col)
+        hair_parts = create_hair_module(name=f"Hair_{char_id}", char_id=char_id, collection=col, offset_x=offset_x)
         result["hair_parts_count"] = len(hair_parts)
 
         # 4. Dựng Trang phục
-        outfit_parts = create_outfit_module(name=f"Cloth_{char_id}", char_id=char_id, collection=col)
+        outfit_parts = create_outfit_module(name=f"Cloth_{char_id}", char_id=char_id, collection=col, offset_x=offset_x)
         result["outfit_parts_count"] = len(outfit_parts)
 
         result["created"] = True
 
     return result
 
+CHAR_LINEUP_OFFSETS = {
+    "nam": -1.2,
+    "nguoikia": -0.6,
+    "tung": 0.0,
+    "giangvien": 0.6,
+    "truyvet": 1.2,
+}
+
 def build_cast_in_blender(characters: List[str] = None, save_path: str = None) -> List[Dict[str, Any]]:
     """Dựng toàn bộ dàn nhân vật hoặc danh sách được chỉ định trong Blender và lưu file .blend."""
     if characters is None:
         characters = ["nam", "nguoikia", "tung", "giangvien", "truyvet"]
     
+    # Xoá Cube mặc định nếu có
+    if HAS_BLENDER and "Cube" in bpy.data.objects and len(bpy.data.objects) <= 3:
+        cube = bpy.data.objects.get("Cube")
+        if cube:
+            bpy.data.objects.remove(cube, do_unlink=True)
+
     results = []
+    # Nếu dựng 1 nhân vật -> đặt ở tâm (offset = 0)
+    # Nếu dựng nhiều nhân vật -> dàn hàng ngang theo CHAR_LINEUP_OFFSETS
+    use_offsets = len(characters) > 1
+
     for c_id in characters:
-        res = build_character(c_id)
+        ox = CHAR_LINEUP_OFFSETS.get(c_id, 0.0) if use_offsets else 0.0
+        res = build_character(c_id, offset_x=ox)
         results.append(res)
 
     if HAS_BLENDER and save_path:
@@ -798,18 +914,24 @@ def render_views(sc: Any, out_dir: str, samples: int = 24) -> List[str]:
 def main():
     parser = argparse.ArgumentParser(description="Script dựng dàn nhân vật Stickman 3D Kiểu B")
     parser.add_argument("--character", choices=["nam", "nguoikia", "tung", "giangvien", "truyvet", "all"], default="all")
-    parser.add_argument("--save", "--blend", dest="save", type=str, default="stickman_cast.blend", help="Đường dẫn lưu file .blend")
+    parser.add_argument("--save", "--blend", dest="save", type=str, default="", help="Đường dẫn lưu file .blend")
     parser.add_argument("--render", type=str, default="", help="Thư mục xuất ảnh render turnaround")
     parser.add_argument("--samples", type=int, default=24, help="Số samples khi render")
     
-    argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
+    # Nếu chạy trong Blender GUI, sys.argv có thể chứa đường dẫn file blend -> chỉ parse sau '--'
+    if HAS_BLENDER:
+        argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
+    else:
+        argv = sys.argv[1:]
+
     args = parser.parse_args(argv)
 
     chars = ["nam", "nguoikia", "tung", "giangvien", "truyvet"] if args.character == "all" else [args.character]
 
     if HAS_BLENDER:
         print("=== BẮT ĐẦU DỰNG DÀN NHÂN VẬT STICKMAN 3D TRONG BLENDER ===")
-        results = build_cast_in_blender(characters=chars, save_path=args.save)
+        save_target = args.save if args.save else None
+        results = build_cast_in_blender(characters=chars, save_path=save_target)
         print(f"Đã hoàn thành {len(results)} nhân vật: {[r['id'] for r in results]}")
 
         if args.render:
@@ -824,4 +946,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
