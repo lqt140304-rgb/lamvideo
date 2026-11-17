@@ -1247,28 +1247,25 @@ def build_cast_in_blender(characters: List[str] = None, save_path: str = None) -
     return results
 
 def create_studio_backdrop(sc: Any):
-    """Tạo mặt sàn studio cong vô cực (Cyclorama) bắt bóng tiếp xúc mềm mại."""
+    """Tạo mặt sàn studio phẳng rộng bắt bóng tiếp xúc cho mọi góc nhìn 360 độ."""
     if not HAS_BLENDER or sc is None:
         return
-    bpy.ops.mesh.primitive_grid_add(x_subdivisions=12, y_subdivisions=24, size=10.0, location=(0.0, 0.0, 0.0))
-    grid = bpy.context.active_object
-    grid.name = "Backdrop_Cyclorama"
+    bpy.ops.mesh.primitive_plane_add(size=30.0, location=(0.0, 0.0, 0.0))
+    floor = bpy.context.active_object
+    floor.name = "Studio_Floor"
+    mat_floor = create_material("Mat_Studio_Floor", "#242327", roughness=0.94, specular=0.04)
+    floor.data.materials.append(mat_floor)
 
-    mesh = grid.data
-    for v in mesh.vertices:
-        if v.co.y > 0.4:
-            delta = v.co.y - 0.4
-            v.co.z += (delta ** 2) * 0.35
-            v.co.y = 0.4 + delta * 0.55
-
-    mat_back = create_material("Mat_Studio_Cyclorama", "#242327", roughness=0.92, specular=0.05)
-    grid.data.materials.append(mat_back)
-    for p in mesh.polygons:
-        p.use_smooth = True
+    # Đặt màu môi trường World đồng bộ với màu sàn studio
+    if sc.world and sc.world.node_tree:
+        bg = sc.world.node_tree.nodes.get("Background")
+        if bg:
+            bg.inputs["Color"].default_value = (0.038, 0.036, 0.042, 1.0)
+            bg.inputs["Strength"].default_value = 0.6
 
 
 def setup_studio_lighting(sc: Any):
-    """Thiết lập 3 nguồn sáng chuẩn Studio Chiaroscuro: Key Light, Fill Light, Rim Light."""
+    """Thiết lập 4 nguồn sáng chuẩn Studio Chiaroscuro 360: Key Light, Fill Light, Rim Light, Back Light."""
     if not HAS_BLENDER or sc is None:
         return
     # Key Light - Ánh sáng chính ấm dịu (3200K)
@@ -1293,14 +1290,24 @@ def setup_studio_lighting(sc: Any):
 
     # Rim Light - Ánh sáng ven hổ phách tách viền nhân vật khỏi nền tối
     rd = bpy.data.lights.new('Light_Rim', 'SPOT')
-    rd.energy = 320.0
-    rd.spot_size = math.radians(65)
+    rd.energy = 280.0
+    rd.spot_size = math.radians(70)
     rd.spot_blend = 0.35
     rd.color = (1.0, 0.92, 0.82)
     ro = bpy.data.objects.new('Light_Rim', rd)
     ro.location = (0.0, 3.2, 2.8)
     ro.rotation_euler = (math.radians(-45), 0.0, math.radians(180))
     sc.collection.objects.link(ro)
+
+    # Back Light - Chiếu sáng lưng khi chụp góc sau
+    bd = bpy.data.lights.new('Light_Back', 'AREA')
+    bd.energy = 160.0
+    bd.size = 2.2
+    bd.color = (1.0, 0.96, 0.90)
+    bo = bpy.data.objects.new('Light_Back', bd)
+    bo.location = (0.0, 3.5, 2.5)
+    bo.rotation_euler = (math.radians(-45), 0.0, math.radians(180))
+    sc.collection.objects.link(bo)
 
 def render_views(sc: Any, out_dir: str, samples: int = 24) -> List[str]:
     """Render 4 góc nhìn chuẩn (trước, nghiêng, sau, góc 3/4) xuất ảnh PNG."""
@@ -1314,9 +1321,9 @@ def render_views(sc: Any, out_dir: str, samples: int = 24) -> List[str]:
 
     views = {
         'truoc': (0.0, -4.5, 0.9),
-        'nghieng': (4.5, 0.0, 0.9),
-        'sau': (0.0, 4.5, 0.9),
         'goc34': (3.2, -3.2, 0.9),
+        'sau': (0.0, 4.5, 0.9),
+        'nghieng': (-3.2, -3.2, 0.9),
     }
     rendered_files = []
     for vname, loc in views.items():
