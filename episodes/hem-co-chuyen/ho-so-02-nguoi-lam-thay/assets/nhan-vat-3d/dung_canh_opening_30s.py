@@ -370,10 +370,271 @@ def setup_opening_30s_scene(create_blender_scene: bool = True) -> Dict[str, Any]
         "cameras": cams
     }
 
+def animate_opening_30s(scene_info: Dict[str, Any]) -> None:
+    """Cài đặt toàn bộ timeline diễn hoạt 720 frames cho 3 shots, Nam, Người Kia và Cameras."""
+    if not HAS_BLENDER or not scene_info:
+        return
+
+    timing = get_animation_timing_manifest()
+    nam_rig = scene_info.get("nam", {}).get("rig")
+    nk_rig = scene_info.get("nguoikia", {}).get("rig")
+    cams = scene_info.get("cameras", [])
+    phone = scene_info.get("phone")
+    bed = scene_info.get("bed", {})
+    chan = bed.get("chan")
+
+    # 1. DIỄN HOẠT CAMERA
+    # Camera Shot 0: Trượt dọc khung gương
+    cam0 = next((c for c in cams if c.name == "Cam_Shot0"), None)
+    if cam0:
+        cam0.location = (0.45, 3.10, 0.85)
+        cam0.keyframe_insert(data_path="location", frame=0)
+        cam0.location = (0.35, 3.40, 0.90)
+        cam0.keyframe_insert(data_path="location", frame=120)
+
+    # Camera Shot 1: Bao quát nệm & gương (handheld drift nhẹ)
+    cam1 = next((c for c in cams if c.name == "Cam_Shot1"), None)
+    if cam1:
+        cam1.location = (1.10, 1.35, 0.95)
+        cam1.keyframe_insert(data_path="location", frame=120)
+        cam1.location = (1.13, 1.40, 0.96)
+        cam1.keyframe_insert(data_path="location", frame=360)
+
+    # Camera Shot 2: Tracking lia theo Nam ngồi dậy và bước đi
+    cam2 = next((c for c in cams if c.name == "Cam_Shot2"), None)
+    if cam2:
+        cam2.location = (0.95, 1.80, 1.10)
+        cam2.keyframe_insert(data_path="location", frame=360)
+        cam2.location = (1.12, 2.05, 1.12)
+        cam2.keyframe_insert(data_path="location", frame=560)
+        cam2.location = (1.30, 2.30, 1.15)
+        cam2.keyframe_insert(data_path="location", frame=720)
+
+    # 2. DIỄN HOẠT ĐIỆN THOẠI RUNG BÁO THỨC
+    if phone:
+        p_loc = phone.location
+        phone.keyframe_insert(data_path="location", frame=0)
+        phone.keyframe_insert(data_path="location", frame=140)
+        for f in range(140, 210, 4):
+            dx = 0.003 * ((f % 8) - 4) / 4.0
+            dy = 0.003 * (((f + 2) % 8) - 4) / 4.0
+            phone.location = (p_loc[0] + dx, p_loc[1] + dy, p_loc[2])
+            phone.keyframe_insert(data_path="location", frame=f)
+        phone.location = p_loc
+        phone.keyframe_insert(data_path="location", frame=210)
+
+    # 3. DIỄN HOẠT CHĂN NỆM
+    if chan:
+        c_loc = chan.location
+        chan.keyframe_insert(data_path="location", frame=0)
+        chan.keyframe_insert(data_path="location", frame=160)
+        chan.location = (c_loc[0] + 0.06, c_loc[1], c_loc[2])
+        chan.keyframe_insert(data_path="location", frame=210)
+        chan.keyframe_insert(data_path="location", frame=360)
+        chan.location = (c_loc[0] + 0.35, c_loc[1] + 0.15, c_loc[2] - 0.04)
+        chan.keyframe_insert(data_path="location", frame=420)
+        chan.keyframe_insert(data_path="location", frame=720)
+
+    # 4. DIỄN HOẠT NAM (BẢN THỂ THẬT)
+    if nam_rig:
+        pb_nam = nam_rig.pose.bones
+        if not nam_rig.animation_data:
+            nam_rig.animation_data_create()
+        
+        # Diễn hoạt thở Shot 0 (F0 - F120)
+        spine_nam = pb_nam.get("spine")
+        if spine_nam:
+            for f in range(0, 121, 20):
+                angle = math.radians(1.5) if (f // 20) % 2 == 1 else 0.0
+                spine_nam.rotation_euler = (angle, 0.0, 0.0)
+                spine_nam.keyframe_insert(data_path="rotation_euler", frame=f)
+
+        # Diễn hoạt vươn tay tắt báo thức Shot 1 (F160 - F260)
+        ik_hand_r = pb_nam.get("ik_hand.R")
+        if ik_hand_r:
+            rest_hand = (0.0, 0.0, 0.0)
+            ik_hand_r.location = rest_hand
+            ik_hand_r.keyframe_insert(data_path="location", frame=0)
+            ik_hand_r.keyframe_insert(data_path="location", frame=timing["nam_reach_start"]) # F160
+            
+            reach_pos = (-0.55, 0.10, -0.22)
+            ik_hand_r.location = reach_pos
+            ik_hand_r.keyframe_insert(data_path="location", frame=190)
+
+            slam_pos = (-0.60, 0.10, -0.25)
+            ik_hand_r.location = slam_pos
+            ik_hand_r.keyframe_insert(data_path="location", frame=timing["alarm_hit_frame"]) # F210
+
+            ik_hand_r.location = (-0.35, 0.05, -0.10)
+            ik_hand_r.keyframe_insert(data_path="location", frame=timing["nam_reach_return"]) # F225
+            ik_hand_r.location = rest_hand
+            ik_hand_r.keyframe_insert(data_path="location", frame=260)
+            ik_hand_r.keyframe_insert(data_path="location", frame=360)
+
+        # Diễn hoạt ngồi dậy và bước đi Shot 2 (F360 - F720)
+        root_nam = pb_nam.get("root")
+        if root_nam:
+            root_nam.location = (0.0, 0.0, 0.0)
+            root_nam.rotation_euler = (0.0, 0.0, 0.0)
+            root_nam.keyframe_insert(data_path="location", frame=360)
+            root_nam.keyframe_insert(data_path="rotation_euler", frame=360)
+
+            root_nam.location = (0.0, 0.0, 0.20)
+            root_nam.rotation_euler = (math.radians(45), 0.0, 0.0)
+            root_nam.keyframe_insert(data_path="location", frame=420)
+            root_nam.keyframe_insert(data_path="rotation_euler", frame=420)
+
+            root_nam.location = (-0.15, -0.10, 0.35)
+            root_nam.rotation_euler = (math.radians(90), 0.0, 0.0)
+            root_nam.keyframe_insert(data_path="location", frame=460)
+            root_nam.keyframe_insert(data_path="rotation_euler", frame=460)
+
+            root_nam.location = (-0.30, -0.20, 0.65)
+            root_nam.rotation_euler = (math.radians(90), 0.0, 0.0)
+            root_nam.keyframe_insert(data_path="location", frame=540)
+            root_nam.keyframe_insert(data_path="rotation_euler", frame=540)
+
+            root_nam.location = (-0.30, -0.45, 0.65)
+            root_nam.keyframe_insert(data_path="location", frame=620)
+            root_nam.location = (-0.30, -0.75, 0.65)
+            root_nam.keyframe_insert(data_path="location", frame=670)
+            root_nam.location = (-0.30, -1.05, 0.65)
+            root_nam.keyframe_insert(data_path="location", frame=720)
+
+        # Chân bước đi
+        ik_foot_r = pb_nam.get("ik_foot.R")
+        ik_foot_l = pb_nam.get("ik_foot.L")
+        if ik_foot_r and ik_foot_l:
+            ik_foot_r.keyframe_insert(data_path="location", frame=540)
+            ik_foot_l.keyframe_insert(data_path="location", frame=540)
+
+            ik_foot_r.location = (0.0, -0.25, 0.08)
+            ik_foot_r.keyframe_insert(data_path="location", frame=590)
+            ik_foot_r.location = (0.0, -0.35, 0.0)
+            ik_foot_r.keyframe_insert(data_path="location", frame=620)
+
+            ik_foot_l.location = (0.0, -0.30, 0.08)
+            ik_foot_l.keyframe_insert(data_path="location", frame=645)
+            ik_foot_l.location = (0.0, -0.65, 0.0)
+            ik_foot_l.keyframe_insert(data_path="location", frame=670)
+
+            ik_foot_r.location = (0.0, -0.65, 0.08)
+            ik_foot_r.keyframe_insert(data_path="location", frame=695)
+            ik_foot_r.location = (0.0, -0.95, 0.0)
+            ik_foot_r.keyframe_insert(data_path="location", frame=720)
+
+    # 5. DIỄN HOẠT NGƯỜI KIA (CÚ TRỄ GƯƠNG 5 FRAMES & KHỰNG LẠI NHÌN TRỘM)
+    if nk_rig:
+        pb_nk = nk_rig.pose.bones
+        if not nk_rig.animation_data:
+            nk_rig.animation_data_create()
+
+        # Vươn tay trong gương: TRỄ ĐÚNG 5 FRAMES (F165 thay vì F160!)
+        ik_hand_nk = pb_nk.get("ik_hand.R")
+        if ik_hand_nk:
+            rest_hand = (0.0, 0.0, 0.0)
+            ik_hand_nk.location = rest_hand
+            ik_hand_nk.keyframe_insert(data_path="location", frame=0)
+            ik_hand_nk.keyframe_insert(data_path="location", frame=timing["nguoikia_reach_start"]) # F165 (trễ 5f)
+
+            reach_pos = (0.55, 0.10, -0.22)
+            ik_hand_nk.location = reach_pos
+            ik_hand_nk.keyframe_insert(data_path="location", frame=195)
+
+            slam_pos = (0.60, 0.10, -0.25)
+            ik_hand_nk.location = slam_pos
+            ik_hand_nk.keyframe_insert(data_path="location", frame=215)
+
+            # CÚ GLITCH: Lơ lửng giữa không trung đến F240
+            hover_pos = (0.45, 0.08, -0.12)
+            ik_hand_nk.location = hover_pos
+            ik_hand_nk.keyframe_insert(data_path="location", frame=225)
+            ik_hand_nk.location = hover_pos
+            ik_hand_nk.keyframe_insert(data_path="location", frame=timing["nguoikia_hover_end"]) # F240
+
+            ik_hand_nk.location = rest_hand
+            ik_hand_nk.keyframe_insert(data_path="location", frame=280)
+            ik_hand_nk.keyframe_insert(data_path="location", frame=360)
+
+        # Diễn hoạt ngồi dậy trong gương
+        root_nk = pb_nk.get("root")
+        if root_nk:
+            root_nk.location = (0.0, 0.0, 0.0)
+            root_nk.rotation_euler = (0.0, 0.0, 0.0)
+            root_nk.keyframe_insert(data_path="location", frame=360)
+            root_nk.keyframe_insert(data_path="rotation_euler", frame=360)
+
+            root_nk.location = (0.0, 0.0, 0.20)
+            root_nk.rotation_euler = (math.radians(45), 0.0, 0.0)
+            root_nk.keyframe_insert(data_path="location", frame=420)
+            root_nk.keyframe_insert(data_path="rotation_euler", frame=420)
+
+            root_nk.location = (0.15, -0.10, 0.35)
+            root_nk.rotation_euler = (math.radians(90), 0.0, 0.0)
+            root_nk.keyframe_insert(data_path="location", frame=460)
+            root_nk.keyframe_insert(data_path="rotation_euler", frame=460)
+
+            root_nk.location = (0.30, -0.20, 0.65)
+            root_nk.rotation_euler = (math.radians(90), 0.0, 0.0)
+            root_nk.keyframe_insert(data_path="location", frame=540)
+            root_nk.keyframe_insert(data_path="rotation_euler", frame=540)
+
+            root_nk.location = (0.30, -0.45, 0.65)
+            root_nk.keyframe_insert(data_path="location", frame=620)
+            # Khựng lại ở vị trí F640, không đi tiếp đến F720
+            root_nk.location = (0.30, -0.55, 0.65)
+            root_nk.keyframe_insert(data_path="location", frame=timing["mirror_pause_look_frame"]) # F640
+            root_nk.location = (0.30, -0.55, 0.65)
+            root_nk.keyframe_insert(data_path="location", frame=720)
+
+        # Đầu Người Kia ngoảnh lại nhìn trộm bóng lưng Nam tại F640 - F720
+        head_nk = pb_nk.get("head")
+        if head_nk:
+            head_nk.rotation_euler = (0.0, 0.0, 0.0)
+            head_nk.keyframe_insert(data_path="rotation_euler", frame=0)
+            head_nk.keyframe_insert(data_path="rotation_euler", frame=620)
+            head_nk.rotation_euler = (math.radians(-10), math.radians(15), math.radians(35))
+            head_nk.keyframe_insert(data_path="rotation_euler", frame=timing["mirror_pause_look_frame"]) # F640
+            head_nk.keyframe_insert(data_path="rotation_euler", frame=720)
+
 def main():
-    print("=== DỰNG BỐI CẢNH OPENING 30S ===")
+    import argparse
+    parser = argparse.ArgumentParser(description="Dựng cảnh và diễn hoạt 30s mở đầu")
+    parser.add_argument("--save", type=str, default="", help="Đường dẫn lưu file .blend")
+    parser.add_argument("--render", type=str, default="", help="Thư mục render ảnh frames")
+    parser.add_argument("--samples", type=int, default=16, help="Số samples render")
+
+    if '--' in sys.argv:
+        argv = sys.argv[sys.argv.index('--') + 1:]
+    elif "blender" in os.path.basename(sys.executable).lower():
+        argv = []
+    else:
+        argv = sys.argv[1:]
+
+    args = parser.parse_args(argv)
+
+    print("=== DỰNG BỐI CẢNH VÀ DIỄN HOẠT OPENING 30S ===")
     scene_info = setup_opening_30s_scene()
-    print(f"Đã thiết lập scene thành công với {len(scene_info['cameras'])} cameras.")
+    animate_opening_30s(scene_info)
+    print("Diễn hoạt 720 frames đã được thiết lập thành công!")
+
+    if HAS_BLENDER and args.save:
+        out_dir = os.path.dirname(os.path.abspath(args.save))
+        os.makedirs(out_dir, exist_ok=True)
+        bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(args.save))
+        print(f"[BLENDER] Đã lưu file blend tại: {args.save}")
+
+    if HAS_BLENDER and args.render:
+        out_render = os.path.abspath(args.render)
+        os.makedirs(out_render, exist_ok=True)
+        sc = bpy.context.scene
+        sc.render.engine = 'CYCLES'
+        if hasattr(sc, 'cycles'):
+            sc.cycles.samples = args.samples
+        sc.render.filepath = os.path.join(out_render, "frame_")
+        print(f"Đang render chuỗi 720 frames vào {out_render} ...")
+        bpy.ops.render.render(animation=True)
+        print("Render animation hoàn tất!")
 
 if __name__ == "__main__":
     main()
