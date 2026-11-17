@@ -781,6 +781,13 @@ def get_bone_definitions() -> List[Dict[str, Any]]:
             },
             # IK Bones
             {
+                "name": f"ik_hand.{side}",
+                "parent": "root",
+                "head": (sign * (dims["shoulder_x"] + 0.05), 0.0, dims["shoulder_z"] - 0.55),
+                "tail": (sign * (dims["shoulder_x"] + 0.05), 0.0, dims["shoulder_z"] - 0.55 - dims["hand_length"]),
+                "deform": False
+            },
+            {
                 "name": f"ik_foot.{side}",
                 "parent": "root",
                 "head": (sign * dims["hip_x"], 0.0, dims["ankle_z"]),
@@ -2102,10 +2109,11 @@ def create_armature_rig(name: str = "Stickman_Rig", handedness: str = "right", c
 
     bpy.ops.object.mode_set(mode="OBJECT")
 
-    # Thiết lập IK chân
+    # Thiết lập IK chân và tay
     bpy.ops.object.mode_set(mode="POSE")
     pb = arm_obj.pose.bones
     for side in ["L", "R"]:
+        # IK chân
         shin_bone = pb.get(f"shin.{side}")
         if shin_bone:
             ik_con = shin_bone.constraints.new("IK")
@@ -2116,11 +2124,70 @@ def create_armature_rig(name: str = "Stickman_Rig", handedness: str = "right", c
             ik_con.pole_subtarget = f"pole_knee.{side}"
             ik_con.pole_angle = math.radians(-90)
 
+        # IK tay
+        forearm_bone = pb.get(f"forearm.{side}")
+        if forearm_bone:
+            ik_arm_con = forearm_bone.constraints.new("IK")
+            ik_arm_con.target = arm_obj
+            ik_arm_con.subtarget = f"ik_hand.{side}"
+            ik_arm_con.chain_count = 2
+
     # Gán custom property tay thuận
     arm_obj["handedness"] = handedness
 
     bpy.ops.object.mode_set(mode="OBJECT")
     return arm_obj
+
+def bind_stickman_to_armature(char_id: str, rig_obj: Any, body_parts: List[Any] = None, outfit_parts: List[Any] = None) -> None:
+    """Gán Armature Modifier và nhóm đỉnh (Vertex Groups) liên kết các phần mesh vào khung xương rig."""
+    if not HAS_BLENDER or rig_obj is None:
+        return
+
+    all_parts = (body_parts or []) + (outfit_parts or [])
+    for obj in all_parts:
+        if obj is None or obj.type != "MESH":
+            continue
+        # Thêm Armature modifier nếu chưa có
+        mod = obj.modifiers.get("Armature")
+        if not mod:
+            mod = obj.modifiers.new("Armature", "ARMATURE")
+            mod.object = rig_obj
+        
+        # Phân loại nhóm đỉnh cơ bản theo tên mesh
+        name_lower = obj.name.lower()
+        target_bone = "root"
+        if any(k in name_lower for k in ["head", "hair", "eye", "brow", "mouth", "spectacles", "glasses", "helmet", "non_la"]):
+            target_bone = "head"
+        elif "neck" in name_lower:
+            target_bone = "neck"
+        elif any(k in name_lower for k in ["torso", "chest", "shirt", "collar", "button", "tie", "zipper", "pocket", "stripe_chest"]):
+            target_bone = "chest"
+        elif any(k in name_lower for k in ["pelvis", "pants", "belt", "waist", "fannypack", "bag", "keyring", "apron"]):
+            target_bone = "pelvis"
+        elif "hand" in name_lower and "_l" in name_lower:
+            target_bone = "hand.L"
+        elif "hand" in name_lower and "_r" in name_lower:
+            target_bone = "hand.R"
+        elif any(k in name_lower for k in ["arm", "sleeve", "shouldercap"]) and "_l" in name_lower:
+            target_bone = "upper_arm.L"
+        elif any(k in name_lower for k in ["arm", "sleeve", "shouldercap"]) and "_r" in name_lower:
+            target_bone = "upper_arm.R"
+        elif any(k in name_lower for k in ["thigh", "leg"]) and "_l" in name_lower:
+            target_bone = "thigh.L"
+        elif any(k in name_lower for k in ["thigh", "leg"]) and "_r" in name_lower:
+            target_bone = "thigh.R"
+        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and "_l" in name_lower:
+            target_bone = "foot.L"
+        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and "_r" in name_lower:
+            target_bone = "foot.R"
+
+        # Tạo vertex group và gán weight = 1.0 cho toàn bộ vertices
+        vg = obj.vertex_groups.get(target_bone)
+        if not vg:
+            vg = obj.vertex_groups.new(name=target_bone)
+        all_v_indices = list(range(len(obj.data.vertices)))
+        if all_v_indices:
+            vg.add(all_v_indices, 1.0, "REPLACE")
 
 def build_character(char_id: str, collection_name: str = None, offset_x: float = 0.0) -> Dict[str, Any]:
     """Sinh hoàn chỉnh 1 nhân vật Stickman trong Blender kèm tóc, áo quần và rig."""
@@ -2168,6 +2235,9 @@ def build_character(char_id: str, collection_name: str = None, offset_x: float =
         # 5. Dựng Trang phục
         outfit_parts = create_outfit_module(name=f"Cloth_{char_id}", char_id=char_id, collection=col, offset_x=offset_x)
         result["outfit_parts_count"] = len(outfit_parts)
+
+        # 6. Ràng buộc xương và gán Armature Modifier
+        bind_stickman_to_armature(char_id, rig, body_parts + hair_parts + face_parts, outfit_parts)
 
         result["created"] = True
 
