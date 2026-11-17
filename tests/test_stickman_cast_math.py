@@ -79,5 +79,28 @@ class TestStickmanCastMath(unittest.TestCase):
                         f"Color {val} in {char_id}.{key} is not valid 6-char hex"
                     )
 
+    def test_bone_hierarchy_structure(self):
+        import dung_stickman_cast
+        bones = dung_stickman_cast.get_bone_definitions()
+        bone_names = [b["name"] for b in bones]
+        expected_bones = [
+            "root", "pelvis", "spine", "chest", "neck", "head",
+            "upper_arm.L", "forearm.L", "hand.L",
+            "upper_arm.R", "forearm.R", "hand.R",
+            "thigh.L", "shin.L", "foot.L",
+            "thigh.R", "shin.R", "foot.R",
+            "ik_foot.L", "ik_foot.R"
+        ]
+        for eb in expected_bones:
+            self.assertIn(eb, bone_names, f"Bone {eb} missing from armature")
+
+    def test_hair_presets_defined(self):
+        import dung_stickman_cast
+        hair_presets = dung_stickman_cast.get_hair_presets()
+        expected = ["Hair_Messy_Anime", "Hair_Spiky_Sport", "Hair_Parted_Neat", "Hair_Hoodie_Dark"]
+        for hp in expected:
+            self.assertIn(hp, hair_presets, f"Hair preset {hp} must be defined")
+
 if __name__ == "__main__":
+
     unittest.main()
