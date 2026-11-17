@@ -144,6 +144,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "name": "Nam (Bản thể thật)",
             "role": "main_protagonist",
             "handedness": "right",
+            "expression": "anxious",
             "hair_module": "Hair_Messy_Anime",
             "hair_color": "#1a1a1e",
             "outfit_module": "Outfit_Oversized_Green",
@@ -158,6 +159,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "name": "Người Kia (Bản sao gương)",
             "role": "doppelganger_antagonist",
             "handedness": "left",
+            "expression": "eerie_calm",
             "hair_module": "Hair_Messy_Anime",
             "hair_color": "#1a1a1e",
             "outfit_module": "Outfit_Oversized_Green",
@@ -172,6 +174,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "name": "Tùng (Bạn phòng trọ)",
             "role": "roommate",
             "handedness": "right",
+            "expression": "confident",
             "hair_module": "Hair_Spiky_Sport",
             "hair_color": "#1a1a1e",
             "outfit_module": "Outfit_Sport_Orange",
@@ -186,6 +189,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "name": "Giảng viên Lab 402",
             "role": "lecturer",
             "handedness": "right",
+            "expression": "serious",
             "hair_module": "Hair_Parted_Neat",
             "hair_color": "#18181c",
             "outfit_module": "Outfit_Formal_Cream",
@@ -200,12 +204,13 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "name": "Người Truy Vết",
             "role": "series_investigator",
             "handedness": "right",
+            "expression": "mysterious",
             "hair_module": "Hair_Hoodie_Dark",
             "hair_color": "#111114",
             "outfit_module": "Outfit_Tracker_Charcoal",
             "shirt_color": "#2b2b2e",
             "pants_color": "#3f423b",
-            "shoe_color": "#1a1a1c",
+            "shoe_color": "#1a1c1c",
             "accessory": "crimson_trim",
             "body_color": "#eae6df",
             "eerie_water_leak": False,
@@ -281,15 +286,22 @@ def get_hair_presets() -> Dict[str, Dict[str, Any]]:
     """Trả về đặc tả hình học cho từng module tóc."""
     return {
         "Hair_Messy_Anime": {
-            "type": "messy_anime_clumps",
+            "type": "messy_anime_locks",
             "base_cap_radius": 0.146,
-            "clumps": [
-                {"pos": (0.00, -0.13, 1.54), "scale": (0.06, 0.04, 0.08), "rot": (0.2, 0.0, 0.0)},
-                {"pos": (0.08, -0.11, 1.52), "scale": (0.05, 0.04, 0.07), "rot": (0.1, 0.3, -0.2)},
-                {"pos": (-0.08, -0.11, 1.52), "scale": (0.05, 0.04, 0.07), "rot": (0.1, -0.3, 0.2)},
-                {"pos": (0.12, 0.02, 1.48), "scale": (0.05, 0.05, 0.09), "rot": (0.0, 0.4, 0.0)},
-                {"pos": (-0.12, 0.02, 1.48), "scale": (0.05, 0.05, 0.09), "rot": (0.0, -0.4, 0.0)},
-                {"pos": (0.00, 0.12, 1.46), "scale": (0.08, 0.05, 0.10), "rot": (-0.2, 0.0, 0.0)},
+            "locks": [
+                # 5 lọn tóc mái rủ trán mềm mại (dừng trên Z=1.50 để không che mắt/lông mày)
+                {"points": [(0.00, -0.04, 1.595), (0.005, -0.105, 1.565), (0.012, -0.136, 1.525), (0.018, -0.138, 1.498)], "radii": [0.028, 0.024, 0.015, 0.004]},
+                {"points": [(-0.03, -0.04, 1.590), (-0.045, -0.100, 1.558), (-0.058, -0.128, 1.522), (-0.065, -0.125, 1.496)], "radii": [0.026, 0.022, 0.014, 0.004]},
+                {"points": [(0.03, -0.04, 1.590), (0.048, -0.100, 1.558), (0.064, -0.125, 1.520), (0.072, -0.120, 1.495)], "radii": [0.026, 0.022, 0.014, 0.004]},
+                {"points": [(-0.06, -0.02, 1.575), (-0.095, -0.072, 1.542), (-0.114, -0.088, 1.508), (-0.118, -0.085, 1.482)], "radii": [0.024, 0.020, 0.013, 0.004]},
+                {"points": [(0.06, -0.02, 1.575), (0.095, -0.072, 1.542), (0.114, -0.088, 1.508), (0.118, -0.085, 1.482)], "radii": [0.024, 0.020, 0.013, 0.004]},
+                # 2 lọn tóc mai ôm thái dương
+                {"points": [(-0.09, 0.01, 1.545), (-0.130, -0.015, 1.495), (-0.138, -0.025, 1.455), (-0.134, -0.028, 1.425)], "radii": [0.024, 0.019, 0.012, 0.004]},
+                {"points": [(0.09, 0.01, 1.545), (0.130, -0.015, 1.495), (0.138, -0.025, 1.455), (0.134, -0.028, 1.425)], "radii": [0.024, 0.019, 0.012, 0.004]},
+                # 3 lọn tóc gáy rủ sau đầu
+                {"points": [(0.00, 0.08, 1.555), (0.00, 0.135, 1.495), (0.00, 0.148, 1.430), (0.00, 0.138, 1.375)], "radii": [0.032, 0.028, 0.018, 0.005]},
+                {"points": [(-0.05, 0.07, 1.545), (-0.075, 0.122, 1.485), (-0.082, 0.130, 1.425), (-0.076, 0.118, 1.380)], "radii": [0.028, 0.024, 0.015, 0.004]},
+                {"points": [(0.05, 0.07, 1.545), (0.075, 0.122, 1.485), (0.082, 0.130, 1.425), (0.076, 0.118, 1.380)], "radii": [0.028, 0.024, 0.015, 0.004]},
             ]
         },
         "Hair_Spiky_Sport": {
@@ -316,6 +328,67 @@ def get_hair_presets() -> Dict[str, Dict[str, Any]]:
             "cowl_z": 1.46,
             "has_drawstrings": True
         }
+    }
+
+
+def get_expression_presets() -> Dict[str, Dict[str, Any]]:
+    """Trả về thông số biểu cảm khuôn mặt 3D tối giản (Mắt, Lông mày, Miệng)."""
+    return {
+        "anxious": {
+            "eye_x": 0.045,
+            "eye_z": 1.460,
+            "eye_scale": (0.013, 0.008, 0.018),
+            "brow_z": 1.490,
+            "brow_tilt_deg": 14.0,     # Đầu trong nhíu lên lo âu
+            "mouth_z": 1.412,
+            "mouth_width": 0.022,
+            "mouth_curve": -0.006,     # Mím nhẹ hơi lo lắng
+            "mouth_asymmetry": 0.0,
+        },
+        "eerie_calm": {
+            "eye_x": 0.045,
+            "eye_z": 1.460,
+            "eye_scale": (0.014, 0.008, 0.014),
+            "brow_z": 1.486,
+            "brow_tilt_deg": -4.0,     # Bình thản lạnh lùng
+            "mouth_z": 1.412,
+            "mouth_width": 0.025,
+            "mouth_curve": 0.007,      # Cười mỉm bí hiểm
+            "mouth_asymmetry": 0.003,
+        },
+        "confident": {
+            "eye_x": 0.045,
+            "eye_z": 1.460,
+            "eye_scale": (0.014, 0.008, 0.018),
+            "brow_z": 1.490,
+            "brow_tilt_deg": -7.0,     # Tự tin năng động
+            "mouth_z": 1.412,
+            "mouth_width": 0.026,
+            "mouth_curve": 0.009,      # Cười tươi thân thiện
+            "mouth_asymmetry": 0.0,
+        },
+        "serious": {
+            "eye_x": 0.045,            # Khớp chính giữa gọng kính Giảng viên
+            "eye_z": 1.460,
+            "eye_scale": (0.012, 0.008, 0.015),
+            "brow_z": 1.488,
+            "brow_tilt_deg": 0.0,      # Nghiêm nghị điềm đạm
+            "mouth_z": 1.410,
+            "mouth_width": 0.022,
+            "mouth_curve": 0.0,        # Miệng thẳng nghiêm túc
+            "mouth_asymmetry": 0.0,
+        },
+        "mysterious": {
+            "eye_x": 0.045,
+            "eye_z": 1.460,
+            "eye_scale": (0.013, 0.008, 0.013),
+            "brow_z": 1.486,
+            "brow_tilt_deg": -6.0,     # Trầm tư bí ẩn dưới mũ hoodie
+            "mouth_z": 1.412,
+            "mouth_width": 0.020,
+            "mouth_curve": 0.0,
+            "mouth_asymmetry": 0.0,
+        },
     }
 
 def get_bone_definitions() -> List[Dict[str, Any]]:
@@ -556,6 +629,85 @@ def create_loft_mesh(
     return obj
 
 
+def create_curved_tube_mesh(
+    name: str,
+    points: List[Tuple[float, float, float]],
+    radii: List[float],
+    segments: int = 16,
+) -> Any:
+    """Dựng ống tròn hữu cơ dọc theo đường cong 3D với bán kính thay đổi (tóc, lông mày, miệng)."""
+    if not HAS_BLENDER or len(points) < 2:
+        return None
+    from mathutils import Vector
+
+    mesh = bpy.data.meshes.new(name)
+    bm = bmesh.new()
+
+    vecs = [Vector(p) for p in points]
+    ring_verts_list = []
+    prev_normal = None
+
+    for idx, p in enumerate(vecs):
+        if idx == 0:
+            t = (vecs[1] - vecs[0]).normalized()
+        elif idx == len(vecs) - 1:
+            t = (vecs[-1] - vecs[-2]).normalized()
+        else:
+            t = (vecs[idx + 1] - vecs[idx - 1]).normalized()
+
+        if t.length < 1e-6:
+            t = Vector((0.0, 0.0, 1.0))
+
+        if prev_normal is None:
+            ref = Vector((0.0, 1.0, 0.0)) if abs(t.y) < 0.85 else Vector((1.0, 0.0, 0.0))
+            n = t.cross(ref).normalized()
+        else:
+            n = prev_normal - prev_normal.dot(t) * t
+            if n.length < 1e-6:
+                ref = Vector((0.0, 1.0, 0.0)) if abs(t.y) < 0.85 else Vector((1.0, 0.0, 0.0))
+                n = t.cross(ref).normalized()
+            else:
+                n.normalize()
+        prev_normal = n
+        b = t.cross(n).normalized()
+
+        r = radii[idx]
+        curr_verts = []
+        for s in range(segments):
+            ang = 2.0 * math.pi * s / segments
+            offset = r * (math.cos(ang) * n + math.sin(ang) * b)
+            curr_verts.append(bm.verts.new(p + offset))
+        ring_verts_list.append(curr_verts)
+
+    for r_idx in range(len(ring_verts_list) - 1):
+        v1 = ring_verts_list[r_idx]
+        v2 = ring_verts_list[r_idx + 1]
+        for s in range(segments):
+            ns = (s + 1) % segments
+            bm.faces.new((v1[s], v1[ns], v2[ns], v2[s]))
+
+    # Cap start and end with center fan
+    c_start = bm.verts.new(vecs[0])
+    v0 = ring_verts_list[0]
+    for s in range(segments):
+        ns = (s + 1) % segments
+        bm.faces.new((c_start, v0[ns], v0[s]))
+
+    c_end = bm.verts.new(vecs[-1])
+    vt = ring_verts_list[-1]
+    for s in range(segments):
+        ns = (s + 1) % segments
+        bm.faces.new((vt[s], vt[ns], c_end))
+
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    bm.to_mesh(mesh)
+    bm.free()
+
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    return obj
+
+
 def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Tạo toàn bộ phôi Stickman Base V1 liền mạch (Đầu, cổ, thân capsule hữu cơ, tay chân liên tục)."""
     if not HAS_BLENDER:
@@ -706,34 +858,26 @@ def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x
     mat_hair = create_material(f"Mat_{name}_{hair_type}", hair_color, roughness=0.7)
 
     if hair_type == "Hair_Messy_Anime":
-        # Mũ tóc nền đặt lệch về sau gáy để không che mặt
+        # Mũ tóc nền ôm sát đỉnh đầu & sau gáy (100% giống nhau giữa Nam và Người Kia)
         bpy.ops.mesh.primitive_uv_sphere_add(
-            segments=24, ring_count=12,
-            radius=0.148,
-            location=(offset_x, 0.025, dims["head_center_z"] + 0.015)
+            segments=28, ring_count=14,
+            radius=0.146,
+            location=(offset_x, 0.018, dims["head_center_z"] + 0.018)
         )
         cap = bpy.context.active_object
         cap.name = f"{name}_HairCap"
+        cap.scale = (1.02, 1.03, 0.98)
+        bpy.ops.object.transform_apply(scale=True)
         smooth_object(cap, subsurf=1)
         hair_parts.append(cap)
 
-        # Các lọn tóc khối lòa xòa (đối xứng lật trục X nếu là Người Kia)
-        flip_x = -1.0 if char_id == "nguoikia" else 1.0
-        clumps = get_hair_presets()["Hair_Messy_Anime"]["clumps"]
-        for idx, cl in enumerate(clumps):
-            pos_x = offset_x + flip_x * cl["pos"][0]
-            pos_y = cl["pos"][1]
-            pos_z = cl["pos"][2]
-            bpy.ops.mesh.primitive_cone_add(
-                vertices=12, radius1=0.035, depth=0.09,
-                location=(pos_x, pos_y, pos_z)
-            )
-            tuft = bpy.context.active_object
-            tuft.name = f"{name}_HairTuft_{idx}"
-            tuft.rotation_euler = (cl["rot"][0] + math.radians(160), cl["rot"][1], flip_x * cl["rot"][2])
-            bpy.ops.object.transform_apply(rotation=True)
-            smooth_object(tuft, bevel_width=0.005)
-            hair_parts.append(tuft)
+        # Các lọn tóc cong hữu cơ ôm sát đầu (tóc mái, tóc mai, tóc gáy)
+        locks = get_hair_presets()["Hair_Messy_Anime"]["locks"]
+        for idx, lk in enumerate(locks):
+            pts = [(offset_x + px, py, pz) for (px, py, pz) in lk["points"]]
+            lock_obj = create_curved_tube_mesh(f"{name}_HairLock_{idx}", pts, lk["radii"], segments=14)
+            smooth_object(lock_obj, subsurf=1)
+            hair_parts.append(lock_obj)
 
     elif hair_type == "Hair_Spiky_Sport":
         bpy.ops.mesh.primitive_uv_sphere_add(
@@ -823,11 +967,11 @@ def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x
             hair_parts.append(lens)
 
     elif hair_type == "Hair_Hoodie_Dark":
-        # Mũ trùm đầu (Hoodie Cowl) bao quanh sau gáy và đỉnh đầu
+        # Mũ trùm đầu (Hoodie Cowl) đặt lùi về sau để lộ phần khuôn mặt bên trong vành mũ
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=32, ring_count=16,
-            radius=0.170,
-            location=(offset_x, 0.025, dims["head_center_z"] - 0.01)
+            radius=0.165,
+            location=(offset_x, 0.042, dims["head_center_z"] - 0.01)
         )
         cowl = bpy.context.active_object
         cowl.name = f"{name}_HoodieCowl"
@@ -837,7 +981,7 @@ def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x
         # Viền mũ trùm mặt (Torus vành mũ)
         bpy.ops.mesh.primitive_torus_add(
             major_radius=0.140, minor_radius=0.022,
-            location=(offset_x, -0.050, dims["head_center_z"] - 0.01),
+            location=(offset_x, -0.042, dims["head_center_z"] - 0.01),
             rotation=(math.radians(82), 0.0, 0.0)
         )
         rim = bpy.context.active_object
@@ -853,6 +997,94 @@ def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x
             collection.objects.link(hp)
 
     return hair_parts
+
+
+def create_face_expression_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
+    """Dựng biểu cảm khuôn mặt 3D tối giản (Mắt, Lông mày, Miệng) bám sát mặt cầu đầu."""
+    if not HAS_BLENDER:
+        return []
+
+    profiles = get_character_profiles()
+    expr_id = profiles[char_id].get("expression", "anxious")
+    expr = get_expression_presets()[expr_id]
+    dims = get_base_dimensions()
+    R = dims["head_radius"]
+    cz = dims["head_center_z"]
+
+    def surf_y(dx: float, dz: float, push: float = 0.0015) -> float:
+        r2 = max(0.0001, R * R - dx * dx - (dz - cz) * (dz - cz))
+        return -math.sqrt(r2) - push
+
+    mat_face = create_material(f"Mat_{name}_Face_{expr_id}", "#18181c", roughness=0.40, specular=0.55)
+    face_parts = []
+
+    # 1. Mắt 3D (Stylized Clay Eyes)
+    ex = expr["eye_x"]
+    ez = expr["eye_z"]
+    esx, esy, esz = expr["eye_scale"]
+    for side, sign in [("L", 1.0), ("R", -1.0)]:
+        dx = sign * ex
+        ey = surf_y(dx, ez, push=0.001)
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            segments=20, ring_count=10, radius=1.0,
+            location=(offset_x + dx, ey, ez)
+        )
+        eye = bpy.context.active_object
+        eye.name = f"{name}_Eye_{side}"
+        eye.scale = (esx, esy, esz)
+        eye.rotation_euler = (0.0, 0.0, math.atan2(dx, -ey))
+        bpy.ops.object.transform_apply(scale=True, rotation=True)
+        smooth_object(eye, subsurf=1)
+        eye.data.materials.append(mat_face)
+        face_parts.append(eye)
+
+    # 2. Lông mày biểu cảm (Curved Eyebrows)
+    bz = expr["brow_z"]
+    tilt_rad = math.radians(expr["brow_tilt_deg"])
+    for side, sign in [("L", 1.0), ("R", -1.0)]:
+        # sign=+1 (Right side of image / Char Left), inner is closer to 0, outer is further
+        dx_in = sign * (ex - 0.017)
+        dx_mid = sign * ex
+        dx_out = sign * (ex + 0.017)
+        dz_offset = 0.016 * math.sin(tilt_rad)
+        z_in = bz + dz_offset
+        z_mid = bz + 0.003
+        z_out = bz - dz_offset
+        pts = [
+            (offset_x + dx_in, surf_y(dx_in, z_in, push=0.002), z_in),
+            (offset_x + dx_mid, surf_y(dx_mid, z_mid, push=0.0025), z_mid),
+            (offset_x + dx_out, surf_y(dx_out, z_out, push=0.002), z_out),
+        ]
+        brow = create_curved_tube_mesh(f"{name}_Brow_{side}", pts, [0.0036, 0.0042, 0.0032], segments=12)
+        smooth_object(brow, subsurf=1)
+        brow.data.materials.append(mat_face)
+        face_parts.append(brow)
+
+    # 3. Miệng tối giản (Curved Mouth)
+    mz = expr["mouth_z"]
+    mw = expr["mouth_width"]
+    mc = expr["mouth_curve"]
+    masym = expr.get("mouth_asymmetry", 0.0)
+    mouth_pts = []
+    mouth_radii = []
+    for i in range(5):
+        t = -1.0 + 0.5 * i  # -1.0, -0.5, 0.0, 0.5, 1.0
+        dx = t * mw
+        # Parabolic curve: center is lower for smile (mc > 0) and corners go up
+        dz = mz + mc * (t * t - 0.5) + masym * max(0.0, t)
+        mouth_pts.append((offset_x + dx, surf_y(dx, dz, push=0.0018), dz))
+        mouth_radii.append(0.0024 if abs(t) > 0.7 else 0.0032)
+
+    mouth = create_curved_tube_mesh(f"{name}_Mouth", mouth_pts, mouth_radii, segments=12)
+    smooth_object(mouth, subsurf=1)
+    mouth.data.materials.append(mat_face)
+    face_parts.append(mouth)
+
+    for fp in face_parts:
+        if collection and fp.name not in collection.objects:
+            collection.objects.link(fp)
+
+    return face_parts
 
 
 def create_outfit_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
@@ -1268,6 +1500,7 @@ def build_character(char_id: str, collection_name: str = None, offset_x: float =
         "created": False,
         "body_parts_count": 0,
         "hair_parts_count": 0,
+        "face_parts_count": 0,
         "outfit_parts_count": 0,
         "has_rig": False
     }
@@ -1291,7 +1524,11 @@ def build_character(char_id: str, collection_name: str = None, offset_x: float =
         hair_parts = create_hair_module(name=f"Hair_{char_id}", char_id=char_id, collection=col, offset_x=offset_x)
         result["hair_parts_count"] = len(hair_parts)
 
-        # 4. Dựng Trang phục
+        # 4. Dựng Biểu cảm khuôn mặt
+        face_parts = create_face_expression_module(name=f"Face_{char_id}", char_id=char_id, collection=col, offset_x=offset_x)
+        result["face_parts_count"] = len(face_parts)
+
+        # 5. Dựng Trang phục
         outfit_parts = create_outfit_module(name=f"Cloth_{char_id}", char_id=char_id, collection=col, offset_x=offset_x)
         result["outfit_parts_count"] = len(outfit_parts)
 

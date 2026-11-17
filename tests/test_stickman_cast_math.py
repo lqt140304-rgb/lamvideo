@@ -125,5 +125,23 @@ class TestStickmanCastMath(unittest.TestCase):
         self.assertIn("Belt", src, "create_outfit_module must define Belt details")
         self.assertIn("Zipper", src, "create_outfit_module must define hoodie Zipper details")
 
+    def test_expression_presets_and_nam_nguoikia_contrast(self):
+        import dung_stickman_cast
+        profiles = dung_stickman_cast.get_character_profiles()
+        exprs = dung_stickman_cast.get_expression_presets()
+        for char_id, p in profiles.items():
+            self.assertIn("expression", p, f"{char_id} must define an expression")
+            self.assertIn(p["expression"], exprs, f"Expression {p['expression']} for {char_id} missing in presets")
+        self.assertEqual(profiles["nam"]["expression"], "anxious")
+        self.assertEqual(profiles["nguoikia"]["expression"], "eerie_calm")
+
+    def test_nam_and_nguoikia_hair_identical_geometry(self):
+        import dung_stickman_cast
+        import inspect
+        src = inspect.getsource(dung_stickman_cast.create_hair_module)
+        self.assertNotIn("flip_x", src, "Hair_Messy_Anime must not flip geometry between Nam and Nguoi Kia")
+        hair_presets = dung_stickman_cast.get_hair_presets()
+        self.assertIn("locks", hair_presets["Hair_Messy_Anime"])
+
 if __name__ == "__main__":
     unittest.main()
