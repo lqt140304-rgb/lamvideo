@@ -164,5 +164,24 @@ class TestStickmanCastMath(unittest.TestCase):
                 if key.endswith("_color"):
                     self.assertTrue(hex_pattern.match(val), f"Invalid hex {val} in {cid}.{key}")
 
+    def test_vietnamese_crowd_profiles_valid(self):
+        import dung_stickman_cast
+        vn_crowd = dung_stickman_cast.get_vietnamese_crowd_profiles()
+        expected = ["vn_xeom_congnghe", "vn_banhang_viahe", "vn_chutro", "vn_bac_mucoi"]
+        hair_presets = dung_stickman_cast.get_hair_presets()
+        outfit_presets = dung_stickman_cast.get_outfit_presets()
+        expr_presets = dung_stickman_cast.get_expression_presets()
+        hex_pattern = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+        for cid in expected:
+            self.assertIn(cid, vn_crowd, f"Character {cid} missing from get_vietnamese_crowd_profiles")
+            p = vn_crowd[cid]
+            self.assertIn(p["hair_module"], hair_presets, f"Hair {p['hair_module']} missing in hair presets")
+            self.assertIn(p["outfit_module"], outfit_presets, f"Outfit {p['outfit_module']} missing in outfit presets")
+            self.assertIn(p["expression"], expr_presets, f"Expression {p['expression']} missing in expr presets")
+            for key, val in p.items():
+                if key.endswith("_color"):
+                    self.assertTrue(hex_pattern.match(val), f"Invalid hex {val} in {cid}.{key}")
+
 if __name__ == "__main__":
     unittest.main()

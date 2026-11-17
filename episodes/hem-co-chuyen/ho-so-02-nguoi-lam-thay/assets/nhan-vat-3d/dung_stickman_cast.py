@@ -284,10 +284,77 @@ def get_crowd_profiles() -> Dict[str, Dict[str, Any]]:
     }
 
 
+def get_vietnamese_crowd_profiles() -> Dict[str, Dict[str, Any]]:
+    """Trả về từ điển định nghĩa 4 nhân vật phụ đặc trưng đời sống đường phố / xóm trọ Việt Nam."""
+    return {
+        "vn_xeom_congnghe": {
+            "name": "Tài xế Công nghệ (Xe ôm)",
+            "role": "vn_moto_driver",
+            "handedness": "right",
+            "expression": "confident",
+            "hair_module": "Hair_Helmet_Moto",
+            "hair_color": "#1b5e20",
+            "outfit_module": "Outfit_Moto_Driver",
+            "shirt_color": "#2e7d32",
+            "pants_color": "#263238",
+            "shoe_color": "#1c1c1e",
+            "accessory": "stripe_reflector",
+            "body_color": "#e8b99b",
+            "eerie_water_leak": False,
+        },
+        "vn_banhang_viahe": {
+            "name": "Cô Bán Quán Vỉa Hè",
+            "role": "vn_street_vendor",
+            "handedness": "right",
+            "expression": "neutral_calm",
+            "hair_module": "Hair_Non_La",
+            "hair_color": "#dfc599",
+            "outfit_module": "Outfit_Street_Vendor",
+            "shirt_color": "#c4883b",
+            "pants_color": "#373330",
+            "shoe_color": "#eaeaea",
+            "accessory": "apron",
+            "body_color": "#d49d7d",
+            "eerie_water_leak": False,
+        },
+        "vn_chutro": {
+            "name": "Cô Chủ Trọ",
+            "role": "vn_landlady",
+            "handedness": "right",
+            "expression": "serious",
+            "hair_module": "Hair_Claw_Clip",
+            "hair_color": "#1f1d20",
+            "outfit_module": "Outfit_Landlady",
+            "shirt_color": "#884d72",
+            "pants_color": "#3a3b45",
+            "shoe_color": "#2d282a",
+            "accessory": "waist_bag_keys",
+            "body_color": "#f0c8b0",
+            "eerie_water_leak": False,
+        },
+        "vn_bac_mucoi": {
+            "name": "Bác Xe Ôm Mũ Cối (Cựu binh)",
+            "role": "vn_veteran_driver",
+            "handedness": "right",
+            "expression": "neutral_calm",
+            "hair_module": "Hair_Pith_Helmet",
+            "hair_color": "#354f33",
+            "outfit_module": "Outfit_Veteran_Kaki",
+            "shirt_color": "#5a6b52",
+            "pants_color": "#434a3e",
+            "shoe_color": "#222222",
+            "accessory": "pith_helmet",
+            "body_color": "#c98967",
+            "eerie_water_leak": False,
+        },
+    }
+
+
 def get_all_character_profiles() -> Dict[str, Dict[str, Any]]:
-    """Trả về toàn bộ dàn nhân vật chính và nhân vật quần chúng."""
+    """Trả về toàn bộ dàn nhân vật chính, quần chúng sinh viên và nhân vật phụ Việt Nam."""
     merged = dict(get_character_profiles())
     merged.update(get_crowd_profiles())
+    merged.update(get_vietnamese_crowd_profiles())
     return merged
 
 def get_outfit_presets() -> Dict[str, Dict[str, Any]]:
@@ -412,6 +479,66 @@ def get_outfit_presets() -> Dict[str, Dict[str, Any]]:
                 {"name": "day_quan", "z": 0.76, "radius": 0.132},
                 {"name": "gau_quan", "z": 0.10, "radius": 0.068},
             ]
+        },
+        "Outfit_Moto_Driver": {
+            "type": "windbreaker_jacket_and_jeans",
+            "shirt_rings": [
+                {"name": "co_ao", "z": 1.30, "radius": 0.065},
+                {"name": "vai_ao", "z": 1.25, "radius": 0.146},
+                {"name": "nguc_ao", "z": 1.15, "radius": 0.142},
+                {"name": "eo_ao", "z": 0.95, "radius": 0.138},
+                {"name": "gau_ao", "z": 0.81, "radius": 0.142},
+            ],
+            "pants_rings": [
+                {"name": "cap_quan", "z": 0.83, "radius": 0.130},
+                {"name": "day_quan", "z": 0.76, "radius": 0.132},
+                {"name": "gau_quan", "z": 0.10, "radius": 0.068},
+            ]
+        },
+        "Outfit_Street_Vendor": {
+            "type": "traditional_blouse_and_apron",
+            "shirt_rings": [
+                {"name": "co_ao", "z": 1.30, "radius": 0.062},
+                {"name": "vai_ao", "z": 1.25, "radius": 0.140},
+                {"name": "nguc_ao", "z": 1.15, "radius": 0.136},
+                {"name": "eo_ao", "z": 0.95, "radius": 0.132},
+                {"name": "gau_ao", "z": 0.82, "radius": 0.136},
+            ],
+            "pants_rings": [
+                {"name": "cap_quan", "z": 0.84, "radius": 0.128},
+                {"name": "day_quan", "z": 0.76, "radius": 0.130},
+                {"name": "gau_quan", "z": 0.10, "radius": 0.072},
+            ]
+        },
+        "Outfit_Landlady": {
+            "type": "mature_blouse_and_trousers",
+            "shirt_rings": [
+                {"name": "co_ao", "z": 1.30, "radius": 0.063},
+                {"name": "vai_ao", "z": 1.25, "radius": 0.142},
+                {"name": "nguc_ao", "z": 1.15, "radius": 0.138},
+                {"name": "eo_ao", "z": 0.95, "radius": 0.134},
+                {"name": "gau_ao", "z": 0.82, "radius": 0.136},
+            ],
+            "pants_rings": [
+                {"name": "cap_quan", "z": 0.84, "radius": 0.128},
+                {"name": "day_quan", "z": 0.76, "radius": 0.130},
+                {"name": "gau_quan", "z": 0.10, "radius": 0.066},
+            ]
+        },
+        "Outfit_Veteran_Kaki": {
+            "type": "kaki_shirt_and_trousers",
+            "shirt_rings": [
+                {"name": "co_ao", "z": 1.30, "radius": 0.062},
+                {"name": "vai_ao", "z": 1.25, "radius": 0.142},
+                {"name": "nguc_ao", "z": 1.15, "radius": 0.138},
+                {"name": "eo_ao", "z": 0.95, "radius": 0.134},
+                {"name": "gau_ao", "z": 0.83, "radius": 0.132},
+            ],
+            "pants_rings": [
+                {"name": "cap_quan", "z": 0.85, "radius": 0.130},
+                {"name": "day_quan", "z": 0.76, "radius": 0.132},
+                {"name": "gau_quan", "z": 0.10, "radius": 0.066},
+            ]
         }
     }
 
@@ -492,6 +619,25 @@ def get_hair_presets() -> Dict[str, Dict[str, Any]]:
             "type": "bun_neat",
             "base_cap_radius": 0.146,
             "bun_radius": 0.052,
+        },
+        "Hair_Helmet_Moto": {
+            "type": "moto_helmet_half",
+            "base_cap_radius": 0.155,
+        },
+        "Hair_Non_La": {
+            "type": "traditional_conical_hat",
+            "base_cap_radius": 0.145,
+            "cone_radius": 0.28,
+            "cone_depth": 0.16,
+        },
+        "Hair_Claw_Clip": {
+            "type": "claw_clip_updo",
+            "base_cap_radius": 0.146,
+        },
+        "Hair_Pith_Helmet": {
+            "type": "pith_helmet_kaki",
+            "base_cap_radius": 0.154,
+            "brim_radius": 0.21,
         }
     }
 
@@ -1236,6 +1382,164 @@ def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x
         smooth_object(bun, subsurf=1)
         hair_parts.append(bun)
 
+    elif hair_type == "Hair_Helmet_Moto":
+        # Mũ bảo hiểm nửa đầu xe ôm công nghệ (xanh lá đậm)
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            segments=28, ring_count=14,
+            radius=0.150,
+            location=(offset_x, 0.008, dims["head_center_z"] + 0.045)
+        )
+        helmet = bpy.context.active_object
+        helmet.name = f"{name}_MotoHelmet"
+        helmet.scale = (1.03, 1.05, 0.78)
+        bpy.ops.object.transform_apply(scale=True)
+        smooth_object(helmet, subsurf=1)
+        hair_parts.append(helmet)
+
+        # Viền cao su đen quanh vành mũ
+        mat_trim = create_material(f"Mat_{name}_HelmetTrim", "#151515", roughness=0.5)
+        bpy.ops.mesh.primitive_torus_add(
+            major_radius=0.142, minor_radius=0.008,
+            location=(offset_x, -0.010, dims["head_center_z"] + 0.038),
+            rotation=(math.radians(10), 0.0, 0.0)
+        )
+        trim = bpy.context.active_object
+        trim.name = f"{name}_HelmetTrim"
+        trim.data.materials.append(mat_trim)
+        smooth_object(trim, subsurf=1)
+        hair_parts.append(trim)
+
+        # Quai cài cằm màu đen
+        pts_strap = [
+            (offset_x - 0.140, 0.0, dims["head_center_z"] + 0.02),
+            (offset_x - 0.08, -0.02, dims["head_center_z"] - 0.10),
+            (offset_x, -0.025, dims["head_center_z"] - 0.11),
+            (offset_x + 0.08, -0.02, dims["head_center_z"] - 0.10),
+            (offset_x + 0.140, 0.0, dims["head_center_z"] + 0.02),
+        ]
+        strap = create_curved_tube_mesh(f"{name}_HelmetStrap", pts_strap, [0.0035] * 5, segments=10)
+        strap.data.materials.append(mat_trim)
+        hair_parts.append(strap)
+
+    elif hair_type == "Hair_Non_La":
+        # Tóc búi gọn sau gáy bên dưới nón
+        mat_hair_inner = create_material(f"Mat_{name}_HairInner", "#221e1a", roughness=0.7)
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            segments=24, ring_count=12,
+            radius=0.144,
+            location=(offset_x, 0.022, dims["head_center_z"] + 0.010)
+        )
+        cap = bpy.context.active_object
+        cap.name = f"{name}_HairInner"
+        cap.data.materials.append(mat_hair_inner)
+        smooth_object(cap, subsurf=1)
+        hair_parts.append(cap)
+
+        # Nón lá hình nón chóp truyền thống Việt Nam
+        mat_nonla = create_material(f"Mat_{name}_NonLa", hair_color, roughness=0.65, sheen_weight=0.3)
+        bpy.ops.mesh.primitive_cone_add(
+            vertices=32, radius1=0.285, depth=0.165,
+            location=(offset_x, -0.015, dims["head_center_z"] + 0.085),
+            rotation=(math.radians(-6), 0.0, 0.0)
+        )
+        hat = bpy.context.active_object
+        hat.name = f"{name}_NonLa"
+        hat.data.materials.append(mat_nonla)
+        smooth_object(hat, bevel_width=0.002)
+        hair_parts.append(hat)
+
+        # Quai nón lụa mềm mại vòng dưới cằm
+        mat_ribbon = create_material(f"Mat_{name}_NonLaRibbon", "#a84343", roughness=0.6)
+        pts_ribbon = [
+            (offset_x - 0.135, -0.01, dims["head_center_z"] + 0.03),
+            (offset_x - 0.07, -0.02, dims["head_center_z"] - 0.09),
+            (offset_x, -0.025, dims["head_center_z"] - 0.105),
+            (offset_x + 0.07, -0.02, dims["head_center_z"] - 0.09),
+            (offset_x + 0.135, -0.01, dims["head_center_z"] + 0.03),
+        ]
+        ribbon = create_curved_tube_mesh(f"{name}_NonLaRibbon", pts_ribbon, [0.0035] * 5, segments=10)
+        ribbon.data.materials.append(mat_ribbon)
+        hair_parts.append(ribbon)
+
+    elif hair_type == "Hair_Claw_Clip":
+        # Tóc bới cao gọn gàng kiểu phụ nữ Việt Nam trung niên
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            segments=28, ring_count=14,
+            radius=0.147,
+            location=(offset_x, 0.018, dims["head_center_z"] + 0.020)
+        )
+        cap = bpy.context.active_object
+        cap.name = f"{name}_HairCap"
+        smooth_object(cap, subsurf=1)
+        hair_parts.append(cap)
+
+        # Búi tóc cuộn lượn lên sau đầu
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            segments=20, ring_count=12,
+            radius=0.046,
+            location=(offset_x, 0.138, dims["head_center_z"] + 0.030)
+        )
+        bun = bpy.context.active_object
+        bun.name = f"{name}_HairTwist"
+        bun.scale = (0.85, 1.10, 1.25)
+        bpy.ops.object.transform_apply(scale=True)
+        smooth_object(bun, subsurf=1)
+        hair_parts.append(bun)
+
+        # Kẹp càng cua (Claw Clip) màu nâu hổ phách bóng
+        mat_clip = create_material(f"Mat_{name}_ClawClip", "#3a1e12", roughness=0.25, specular=0.7)
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x, 0.156, dims["head_center_z"] + 0.030)
+        )
+        clip = bpy.context.active_object
+        clip.name = f"{name}_ClawClip"
+        clip.scale = (0.042, 0.022, 0.028)
+        bpy.ops.object.transform_apply(scale=True)
+        clip.data.materials.append(mat_clip)
+        smooth_object(clip, bevel_width=0.003)
+        hair_parts.append(clip)
+
+    elif hair_type == "Hair_Pith_Helmet":
+        # Chóp mũ cối quân đội xanh lá
+        mat_helmet = create_material(f"Mat_{name}_PithHelmet", hair_color, roughness=0.75)
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            segments=28, ring_count=14,
+            radius=0.150,
+            location=(offset_x, 0.005, dims["head_center_z"] + 0.045)
+        )
+        dome = bpy.context.active_object
+        dome.name = f"{name}_PithDome"
+        dome.scale = (1.02, 1.05, 0.82)
+        bpy.ops.object.transform_apply(scale=True)
+        dome.data.materials.append(mat_helmet)
+        smooth_object(dome, subsurf=1)
+        hair_parts.append(dome)
+
+        # Vành mũ cối tròn rộng hơi dốc xuống
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices=32, radius=0.205, depth=0.010,
+            location=(offset_x, -0.008, dims["head_center_z"] + 0.035),
+            rotation=(math.radians(6), 0.0, 0.0)
+        )
+        brim = bpy.context.active_object
+        brim.name = f"{name}_PithBrim"
+        brim.data.materials.append(mat_helmet)
+        smooth_object(brim, bevel_width=0.003)
+        hair_parts.append(brim)
+
+        # Núm thông gió kim loại trên đỉnh mũ
+        mat_knob = create_material(f"Mat_{name}_PithKnob", "#8b7355", roughness=0.3, metallic=0.7)
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices=16, radius=0.014, depth=0.012,
+            location=(offset_x, 0.005, dims["head_center_z"] + 0.168)
+        )
+        knob = bpy.context.active_object
+        knob.name = f"{name}_PithKnob"
+        knob.data.materials.append(mat_knob)
+        smooth_object(knob, bevel_width=0.001)
+        hair_parts.append(knob)
+
     # Gán vật liệu tóc cho các phần chưa có vật liệu riêng
     for hp in hair_parts:
         if hp and hp.data and not hp.data.materials:
@@ -1377,7 +1681,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
     front_chest_y = -r_shirt * scale_y_body
 
     # 1b. Cổ áo may đo (Collars)
-    if "Oversized" in outfit_type or "Student" in outfit_type or "Neighbor" in outfit_type:
+    if "Oversized" in outfit_type or "Student" in outfit_type or "Neighbor" in outfit_type or "Street_Vendor" in outfit_type or "Landlady" in outfit_type or "Moto_Driver" in outfit_type:
         # Bo viền cổ tròn (Crewneck collar ring)
         bpy.ops.mesh.primitive_torus_add(
             major_radius=0.056, minor_radius=0.008,
@@ -1403,7 +1707,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         collar.data.materials.append(mat_white)
         smooth_object(collar, subsurf=1)
         outfit_parts.append(collar)
-    elif "Formal" in outfit_type or "Guard" in outfit_type:
+    elif "Formal" in outfit_type or "Guard" in outfit_type or "Veteran_Kaki" in outfit_type:
         # 2 vạt cổ bẻ sơ mi (Collar Lapels) ôm khít chân cổ
         for side, sign in [("L", 1.0), ("R", -1.0)]:
             bpy.ops.mesh.primitive_cube_add(
@@ -1444,7 +1748,8 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
             btn.data.materials.append(mat_button)
             smooth_object(btn, bevel_width=0.001)
             outfit_parts.append(btn)
-    elif "Tracker" in outfit_type:
+
+    if "Tracker" in outfit_type:
         # Đường khóa kéo kim loại chạy dọc giữa áo (Zipper)
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
@@ -1470,6 +1775,91 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
             smooth_object(drawstring, bevel_width=0.001)
             outfit_parts.append(drawstring)
 
+    elif "Moto_Driver" in outfit_type:
+        # Khóa kéo áo khoác gió xe ôm
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x, front_chest_y - 0.002, (z_min + z_max) / 2.0)
+        )
+        zipper = bpy.context.active_object
+        zipper.name = f"{name}_MotoZipper"
+        zipper.scale = (0.008, 0.004, (z_max - z_min) * 0.85)
+        bpy.ops.object.transform_apply(scale=True)
+        zipper.data.materials.append(mat_metal)
+        smooth_object(zipper, bevel_width=0.002)
+        outfit_parts.append(zipper)
+
+        # Dải phản quang bạc ngang ngực
+        mat_refl = create_material(f"Mat_{name}_Reflector", "#e0e0e0", roughness=0.30, metallic=0.7)
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x, front_chest_y - 0.003, 1.15)
+        )
+        refl = bpy.context.active_object
+        refl.name = f"{name}_ReflectorStripe"
+        refl.scale = (0.134, 0.004, 0.022)
+        bpy.ops.object.transform_apply(scale=True)
+        refl.data.materials.append(mat_refl)
+        smooth_object(refl, bevel_width=0.001)
+        outfit_parts.append(refl)
+
+    elif "Street_Vendor" in outfit_type:
+        # Tạp dề quấn trước bụng/eo (Apron)
+        mat_apron = create_material(f"Mat_{name}_Apron", "#5a3a2e", roughness=0.82, sheen_weight=0.45)
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x, front_chest_y - 0.004, 0.86)
+        )
+        apron = bpy.context.active_object
+        apron.name = f"{name}_Apron"
+        apron.scale = (0.136, 0.006, 0.120)
+        bpy.ops.object.transform_apply(scale=True)
+        apron.data.materials.append(mat_apron)
+        smooth_object(apron, bevel_width=0.003)
+        outfit_parts.append(apron)
+
+    elif "Landlady" in outfit_type:
+        # Túi bao tử đeo hông
+        mat_bag = create_material(f"Mat_{name}_WaistBag", "#342219", roughness=0.40, specular=0.6)
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x + 0.11, -0.05, 0.82)
+        )
+        bag = bpy.context.active_object
+        bag.name = f"{name}_WaistBag"
+        bag.scale = (0.045, 0.024, 0.038)
+        bag.rotation_euler = (0.0, math.radians(15), math.radians(-10))
+        bpy.ops.object.transform_apply(scale=True, rotation=True)
+        bag.data.materials.append(mat_bag)
+        smooth_object(bag, bevel_width=0.004)
+        outfit_parts.append(bag)
+
+        # Chùm chìa khóa kim loại lủng lẳng bên hông
+        bpy.ops.mesh.primitive_torus_add(
+            major_radius=0.012, minor_radius=0.0025,
+            location=(offset_x + 0.135, -0.05, 0.80)
+        )
+        keyring = bpy.context.active_object
+        keyring.name = f"{name}_KeyRing"
+        keyring.data.materials.append(mat_gold)
+        smooth_object(keyring)
+        outfit_parts.append(keyring)
+
+    elif "Veteran_Kaki" in outfit_type:
+        # 2 túi áo nắp gập trước ngực áo lính
+        for side, sign in [("L", 1.0), ("R", -1.0)]:
+            bpy.ops.mesh.primitive_cube_add(
+                size=1.0,
+                location=(offset_x + sign * 0.065, front_chest_y - 0.003, 1.10)
+            )
+            pocket = bpy.context.active_object
+            pocket.name = f"{name}_ShirtPocket_{side}"
+            pocket.scale = (0.026, 0.005, 0.032)
+            bpy.ops.object.transform_apply(scale=True)
+            pocket.data.materials.append(mat_shirt)
+            smooth_object(pocket, bevel_width=0.002)
+            outfit_parts.append(pocket)
+
     # 1c. Ống tay áo liền vai (Seamless Shoulder & Sleeves)
     for side, sign in [("L", 1.0), ("R", -1.0)]:
         sx = offset_x + sign * dims["shoulder_x"]
@@ -1479,7 +1869,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         wx = offset_x + sign * (dims["shoulder_x"] + 0.045)
         hand_z = dims["shoulder_z"] - 0.55 - 0.05
 
-        if "Oversized" in outfit_type or "Sport" in outfit_type or "Student_Blue" in outfit_type:
+        if "Oversized" in outfit_type or "Sport" in outfit_type or "Student_Blue" in outfit_type or "Street_Vendor" in outfit_type or "Landlady" in outfit_type:
             sleeve_r = dims["arm_radius"] * 1.44
             # Khớp cầu vai áo xuôi mượt nối liền thân áo và tay áo
             bpy.ops.mesh.primitive_uv_sphere_add(
@@ -1793,6 +2183,10 @@ CHAR_LINEUP_OFFSETS = {
     "qc_sinhvien_nu": -0.3,
     "qc_baove": 0.3,
     "qc_hangxom": 0.9,
+    "vn_xeom_congnghe": -0.9,
+    "vn_banhang_viahe": -0.3,
+    "vn_chutro": 0.3,
+    "vn_bac_mucoi": 0.9,
 }
 
 def build_cast_in_blender(characters: List[str] = None, save_path: str = None) -> List[Dict[str, Any]]:
@@ -1927,7 +2321,12 @@ def main():
     parser = argparse.ArgumentParser(description="Script dựng dàn nhân vật Stickman 3D Kiểu B")
     parser.add_argument(
         "--character",
-        choices=["nam", "nguoikia", "tung", "giangvien", "truyvet", "qc_sinhvien_nam", "qc_sinhvien_nu", "qc_baove", "qc_hangxom", "all", "crowd"],
+        choices=[
+            "nam", "nguoikia", "tung", "giangvien", "truyvet",
+            "qc_sinhvien_nam", "qc_sinhvien_nu", "qc_baove", "qc_hangxom",
+            "vn_xeom_congnghe", "vn_banhang_viahe", "vn_chutro", "vn_bac_mucoi",
+            "all", "crowd", "vn_crowd"
+        ],
         default="all",
     )
     parser.add_argument("--save", "--blend", dest="save", type=str, default="", help="Đường dẫn lưu file .blend")
@@ -1947,6 +2346,8 @@ def main():
         chars = ["nam", "nguoikia", "tung", "giangvien", "truyvet"]
     elif args.character == "crowd":
         chars = ["qc_sinhvien_nam", "qc_sinhvien_nu", "qc_baove", "qc_hangxom"]
+    elif args.character == "vn_crowd":
+        chars = ["vn_xeom_congnghe", "vn_banhang_viahe", "vn_chutro", "vn_bac_mucoi"]
     else:
         chars = [args.character]
 
