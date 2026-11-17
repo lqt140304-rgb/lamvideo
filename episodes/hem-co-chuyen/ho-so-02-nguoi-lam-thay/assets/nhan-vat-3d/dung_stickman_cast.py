@@ -742,6 +742,20 @@ def create_hair_module(name: str, char_id: str, collection: Any = None, offset_x
         bridge.data.materials.append(mat_glass)
         hair_parts.append(bridge)
 
+        # Tròng kính trong suốt (Glass Lenses)
+        mat_lens = create_material(f"Mat_{name}_Glass_Lens", "#e8f4f8", roughness=0.05, transmission=0.92, specular=0.8)
+        for side_sign, s_name in [(-1, "L"), (1, "R")]:
+            bpy.ops.mesh.primitive_cylinder_add(
+                vertices=24, radius=0.036, depth=0.002,
+                location=(offset_x + side_sign * 0.045, -0.142, dims["head_center_z"]),
+                rotation=(math.radians(90), 0.0, 0.0)
+            )
+            lens = bpy.context.active_object
+            lens.name = f"{name}_Glass_Lens_{s_name}"
+            lens.data.materials.append(mat_lens)
+            smooth_object(lens, subsurf=1)
+            hair_parts.append(lens)
+
     elif hair_type == "Hair_Hoodie_Dark":
         # Mũ trùm đầu (Hoodie Cowl) bao quanh sau gáy và đỉnh đầu
         bpy.ops.mesh.primitive_uv_sphere_add(
@@ -786,9 +800,21 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
     outfit_parts = []
     dims = get_base_dimensions()
 
-    mat_shirt = create_material(f"Mat_{name}_Shirt", char_info["shirt_color"], roughness=0.65)
-    mat_pants = create_material(f"Mat_{name}_Pants", char_info["pants_color"], roughness=0.70)
-    mat_shoe = create_material(f"Mat_{name}_Shoe", char_info["shoe_color"], roughness=0.55)
+    # Hệ thống vật liệu PBR nâng cao cho trang phục (Khử hoàn toàn cảm giác nhựa)
+    mat_shirt = create_material(f"Mat_{name}_Shirt", char_info["shirt_color"], roughness=0.82, sheen_weight=0.55)
+    mat_pants = create_material(f"Mat_{name}_Pants", char_info["pants_color"], roughness=0.86, sheen_weight=0.45)
+    mat_white = create_material(f"Mat_{name}_Stripe_White", "#ffffff", roughness=0.75, sheen_weight=0.35)
+    mat_metal = create_material(f"Mat_{name}_Metal", "#c0c0c0", roughness=0.25, metallic=0.9)
+    mat_gold = create_material(f"Mat_{name}_Belt_Gold", "#d4af37", roughness=0.3, metallic=0.8)
+    mat_button = create_material(f"Mat_{name}_Shirt_Button", "#f4f1e8", roughness=0.4, sss_weight=0.05)
+    mat_belt = create_material(f"Mat_{name}_Belt_Leather", "#1f1c19", roughness=0.35, specular=0.6)
+
+    if "Formal" in outfit_type:
+        mat_shoe = create_material(f"Mat_{name}_Shoe", char_info["shoe_color"], roughness=0.32, specular=0.65)
+    elif "Sport" in outfit_type:
+        mat_shoe = create_material(f"Mat_{name}_Shoe", char_info["shoe_color"], roughness=0.65, sheen_weight=0.3)
+    else:
+        mat_shoe = create_material(f"Mat_{name}_Shoe", char_info["shoe_color"], roughness=0.60)
 
     shirt_rings = get_outfit_presets()[outfit_type]["shirt_rings"]
     z_min = min(r["z"] for r in shirt_rings)
@@ -807,7 +833,97 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
     smooth_object(shirt, bevel_width=0.015)
     outfit_parts.append(shirt)
 
-    # 1b. Ống tay áo (Sleeves)
+    # 1b. Cổ áo may đo (Collars)
+    if "Oversized" in outfit_type:
+        # Bo viền cổ tròn (Crewneck collar ring)
+        bpy.ops.mesh.primitive_torus_add(
+            major_radius=0.052, minor_radius=0.007,
+            location=(offset_x, 0.0, 1.28)
+        )
+        collar = bpy.context.active_object
+        collar.name = f"{name}_Collar_Crewneck"
+        collar.data.materials.append(mat_shirt)
+        smooth_object(collar, subsurf=1)
+        outfit_parts.append(collar)
+    elif "Sport" in outfit_type:
+        # Bo cổ viền trắng thể thao (Sport collar ring)
+        bpy.ops.mesh.primitive_torus_add(
+            major_radius=0.052, minor_radius=0.007,
+            location=(offset_x, 0.0, 1.28)
+        )
+        collar = bpy.context.active_object
+        collar.name = f"{name}_Collar_Sport"
+        collar.data.materials.append(mat_white)
+        smooth_object(collar, subsurf=1)
+        outfit_parts.append(collar)
+    elif "Formal" in outfit_type:
+        # 2 vạt cổ bẻ sơ mi (Collar Lapels)
+        for side, sign in [("L", 1.0), ("R", -1.0)]:
+            bpy.ops.mesh.primitive_cube_add(
+                size=1.0,
+                location=(offset_x + sign * 0.035, -0.048, 1.28)
+            )
+            lapel = bpy.context.active_object
+            lapel.name = f"{name}_Collar_Lapel_{side}"
+            lapel.scale = (0.024, 0.012, 0.032)
+            lapel.rotation_euler = (math.radians(-25), math.radians(sign * 20), math.radians(sign * 15))
+            bpy.ops.object.transform_apply(scale=True, rotation=True)
+            lapel.data.materials.append(mat_shirt)
+            smooth_object(lapel, bevel_width=0.003)
+            outfit_parts.append(lapel)
+
+        # Nẹp cúc áo giữa ngực (Button Placket)
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x, -r_shirt - 0.002, 1.07)
+        )
+        placket = bpy.context.active_object
+        placket.name = f"{name}_Shirt_Placket"
+        placket.scale = (0.016, 0.004, 0.40)
+        bpy.ops.object.transform_apply(scale=True)
+        placket.data.materials.append(mat_shirt)
+        smooth_object(placket, bevel_width=0.002)
+        outfit_parts.append(placket)
+
+        # 4 cúc áo nhỏ (Buttons)
+        for b_idx, b_z in enumerate([1.22, 1.14, 1.06, 0.98]):
+            bpy.ops.mesh.primitive_cylinder_add(
+                vertices=12, radius=0.005, depth=0.004,
+                location=(offset_x, -r_shirt - 0.006, b_z),
+                rotation=(math.radians(90), 0.0, 0.0)
+            )
+            btn = bpy.context.active_object
+            btn.name = f"{name}_Shirt_Button_{b_idx + 1}"
+            btn.data.materials.append(mat_button)
+            smooth_object(btn, bevel_width=0.001)
+            outfit_parts.append(btn)
+    elif "Tracker" in outfit_type:
+        # Đường khóa kéo kim loại chạy dọc giữa áo (Zipper)
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x, -r_shirt - 0.002, 1.05)
+        )
+        zipper = bpy.context.active_object
+        zipper.name = f"{name}_Zipper"
+        zipper.scale = (0.008, 0.004, 0.48)
+        bpy.ops.object.transform_apply(scale=True)
+        zipper.data.materials.append(mat_metal)
+        smooth_object(zipper, bevel_width=0.002)
+        outfit_parts.append(zipper)
+
+        # 2 dây rút mũ hoodie rủ xuống ngực
+        for side, sign in [("L", 1.0), ("R", -1.0)]:
+            bpy.ops.mesh.primitive_cylinder_add(
+                vertices=12, radius=0.003, depth=0.18,
+                location=(offset_x + sign * 0.035, -r_shirt - 0.006, 1.20)
+            )
+            drawstring = bpy.context.active_object
+            drawstring.name = f"{name}_Drawstring_{side}"
+            drawstring.data.materials.append(mat_metal)
+            smooth_object(drawstring, bevel_width=0.001)
+            outfit_parts.append(drawstring)
+
+    # 1c. Ống tay áo (Sleeves)
     if "Oversized" in outfit_type or "Sport" in outfit_type:
         # Áo cộc tay: 2 ống bọc quanh bắp tay
         sleeve_r = dims["arm_radius"] * 1.55
@@ -823,6 +939,19 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
             slv.data.materials.append(mat_shirt)
             smooth_object(slv, bevel_width=0.008)
             outfit_parts.append(slv)
+
+            # Sọc trắng bắp tay thể thao cho Tùng (Stripe)
+            if "Sport" in outfit_type:
+                bpy.ops.mesh.primitive_torus_add(
+                    major_radius=sleeve_r + 0.002, minor_radius=0.004,
+                    location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z - 0.04)
+                )
+                strp_slv = bpy.context.active_object
+                strp_slv.name = f"{name}_Stripe_Sleeve_{side}"
+                strp_slv.data.materials.append(mat_white)
+                smooth_object(strp_slv, subsurf=1)
+                outfit_parts.append(strp_slv)
+
     elif "Formal" in outfit_type or "Tracker" in outfit_type:
         # Áo dài tay (Giảng viên & Người Truy Vết)
         sleeve_r = dims["arm_radius"] * 1.35
@@ -868,6 +997,30 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
     smooth_object(waist, bevel_width=0.015)
     outfit_parts.append(waist)
 
+    # Thắt lưng da & mặt khóa cho Giảng viên (Belt)
+    if "Formal" in outfit_type:
+        bpy.ops.mesh.primitive_torus_add(
+            major_radius=waist_r + 0.003, minor_radius=0.008,
+            location=(offset_x, 0.0, crotch_z + waist_h - 0.015)
+        )
+        belt = bpy.context.active_object
+        belt.name = f"{name}_Belt"
+        belt.data.materials.append(mat_belt)
+        smooth_object(belt, subsurf=1)
+        outfit_parts.append(belt)
+
+        bpy.ops.mesh.primitive_cube_add(
+            size=1.0,
+            location=(offset_x, -waist_r - 0.012, crotch_z + waist_h - 0.015)
+        )
+        buckle = bpy.context.active_object
+        buckle.name = f"{name}_Belt_Buckle"
+        buckle.scale = (0.025, 0.006, 0.020)
+        bpy.ops.object.transform_apply(scale=True)
+        buckle.data.materials.append(mat_gold)
+        smooth_object(buckle, bevel_width=0.002)
+        outfit_parts.append(buckle)
+
     # 2b. Hai ống quần riêng biệt (Left Leg & Right Leg)
     leg_h = max(0.14, crotch_z - pz_min)
     leg_r = dims["leg_radius"] * (1.45 if ("Oversized" in outfit_type or "Tracker" in outfit_type) else 1.30)
@@ -884,9 +1037,24 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         smooth_object(pleg, bevel_width=0.008)
         outfit_parts.append(pleg)
 
-    # 2c. Túi hộp hai bên cho Người Truy Vết (Cargo Pockets)
+        # Sọc trắng sườn quần thể thao cho Tùng (Stripe)
+        if "Sport" in outfit_type:
+            bpy.ops.mesh.primitive_cube_add(
+                size=1.0,
+                location=(offset_x + sign * (dims["hip_x"] + leg_r + 0.002), 0.0, leg_center_z)
+            )
+            strp_pnt = bpy.context.active_object
+            strp_pnt.name = f"{name}_Stripe_Pants_{side}"
+            strp_pnt.scale = (0.004, 0.012, leg_h * 0.95)
+            bpy.ops.object.transform_apply(scale=True)
+            strp_pnt.data.materials.append(mat_white)
+            smooth_object(strp_pnt, bevel_width=0.002)
+            outfit_parts.append(strp_pnt)
+
+    # 2c. Túi hộp hai bên kèm nắp vát cho Người Truy Vết (Cargo Pockets)
     if "Tracker" in outfit_type:
         for side, sign in [("L", 1.0), ("R", -1.0)]:
+            # Thân túi hộp
             bpy.ops.mesh.primitive_cube_add(
                 size=1.0,
                 location=(offset_x + sign * (dims["hip_x"] + leg_r + 0.012), 0.0, crotch_z - 0.20)
@@ -898,6 +1066,19 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
             pocket.data.materials.append(mat_pants)
             smooth_object(pocket, bevel_width=0.005)
             outfit_parts.append(pocket)
+
+            # Nắp túi hộp
+            bpy.ops.mesh.primitive_cube_add(
+                size=1.0,
+                location=(offset_x + sign * (dims["hip_x"] + leg_r + 0.014), 0.0, crotch_z - 0.155)
+            )
+            flap = bpy.context.active_object
+            flap.name = f"{name}_CargoPocket_Flap_{side}"
+            flap.scale = (0.022, 0.065, 0.018)
+            bpy.ops.object.transform_apply(scale=True)
+            flap.data.materials.append(mat_pants)
+            smooth_object(flap, bevel_width=0.003)
+            outfit_parts.append(flap)
 
     # 3. Dép / Giày
     for side, sign in [("L", 1.0), ("R", -1.0)]:
@@ -913,9 +1094,19 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         smooth_object(shoe, bevel_width=0.012)
         outfit_parts.append(shoe)
 
-    for op in outfit_parts:
-        if collection and op.name not in collection.objects:
-            collection.objects.link(op)
+        # Đế cao su trắng cho giày thể thao của Tùng
+        if "Sport" in outfit_type:
+            bpy.ops.mesh.primitive_cube_add(
+                size=1.0,
+                location=(offset_x + sign * dims["hip_x"], -0.06, 0.010)
+            )
+            sole = bpy.context.active_object
+            sole.name = f"{name}_Shoe_Sole_{side}"
+            sole.scale = (dims["foot_width"] * 1.18, dims["foot_length"] * 1.10, 0.020)
+            bpy.ops.object.transform_apply(scale=True)
+            sole.data.materials.append(mat_white)
+            smooth_object(sole, bevel_width=0.005)
+            outfit_parts.append(sole)
 
     return outfit_parts
 

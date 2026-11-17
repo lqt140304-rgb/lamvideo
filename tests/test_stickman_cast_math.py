@@ -115,5 +115,15 @@ class TestStickmanCastMath(unittest.TestCase):
         self.assertIn("Thumb", src, "create_stickman_body must define Thumb for stylized hand")
         self.assertIn("Palm", src, "create_stickman_body must define Palm for stylized hand")
 
+    def test_outfit_signature_details(self):
+        import dung_stickman_cast
+        import inspect
+        src = inspect.getsource(dung_stickman_cast.create_outfit_module)
+        self.assertIn("Collar", src, "create_outfit_module must define Collar details")
+        self.assertIn("Stripe", src, "create_outfit_module must define athletic Stripe details")
+        self.assertIn("Button", src, "create_outfit_module must define shirt Button details")
+        self.assertIn("Belt", src, "create_outfit_module must define Belt details")
+        self.assertIn("Zipper", src, "create_outfit_module must define hoodie Zipper details")
+
 if __name__ == "__main__":
     unittest.main()
