@@ -101,6 +101,12 @@ class TestStickmanCastMath(unittest.TestCase):
         for hp in expected:
             self.assertIn(hp, hair_presets, f"Hair preset {hp} must be defined")
 
-if __name__ == "__main__":
+    def test_pbr_material_parameters_signature(self):
+        import dung_stickman_cast
+        import inspect
+        sig = inspect.signature(dung_stickman_cast.create_material)
+        for param in ["sss_weight", "sheen_weight", "transmission", "specular"]:
+            self.assertIn(param, sig.parameters, f"Parameter {param} must be supported by create_material")
 
+if __name__ == "__main__":
     unittest.main()

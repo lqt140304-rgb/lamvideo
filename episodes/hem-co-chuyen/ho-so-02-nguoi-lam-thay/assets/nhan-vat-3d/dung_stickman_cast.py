@@ -405,8 +405,17 @@ def get_bone_definitions() -> List[Dict[str, Any]]:
 # 3. PHẦN BLENDER ENGINE (DỰNG MESH & RIGGING)
 # ==============================================================================
 
-def create_material(name: str, hex_color: str, roughness: float = 0.65) -> Any:
-    """Tạo vật liệu Principled BSDF với mã màu hex cho Blender Eevee/Cycles."""
+def create_material(
+    name: str,
+    hex_color: str,
+    roughness: float = 0.65,
+    sss_weight: float = 0.0,
+    sheen_weight: float = 0.0,
+    transmission: float = 0.0,
+    specular: float = 0.5,
+    metallic: float = 0.0
+) -> Any:
+    """Tạo vật liệu Principled BSDF PBR nâng cao (SSS men sứ, Sheen sợi vải, Transmission kính)."""
     if not HAS_BLENDER:
         return None
     
@@ -418,8 +427,37 @@ def create_material(name: str, hex_color: str, roughness: float = 0.65) -> Any:
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
     if bsdf:
         rgba = hex_to_rgb(hex_color)
-        bsdf.inputs["Base Color"].default_value = rgba
-        bsdf.inputs["Roughness"].default_value = roughness
+        if "Base Color" in bsdf.inputs:
+            bsdf.inputs["Base Color"].default_value = rgba
+        if "Roughness" in bsdf.inputs:
+            bsdf.inputs["Roughness"].default_value = roughness
+        if "Metallic" in bsdf.inputs:
+            bsdf.inputs["Metallic"].default_value = metallic
+
+        # Subsurface Scattering cho men sứ / đất sét mỹ thuật
+        sss_key = "Subsurface Weight" if "Subsurface Weight" in bsdf.inputs else ("Subsurface" if "Subsurface" in bsdf.inputs else None)
+        if sss_key and sss_weight > 0.0:
+            bsdf.inputs[sss_key].default_value = sss_weight
+            if "Subsurface Radius" in bsdf.inputs:
+                bsdf.inputs["Subsurface Radius"].default_value = (0.12, 0.06, 0.03)
+
+        # Sheen cho vải vóc
+        sheen_key = "Sheen Weight" if "Sheen Weight" in bsdf.inputs else ("Sheen" if "Sheen" in bsdf.inputs else None)
+        if sheen_key and sheen_weight > 0.0:
+            bsdf.inputs[sheen_key].default_value = sheen_weight
+            if "Sheen Roughness" in bsdf.inputs:
+                bsdf.inputs["Sheen Roughness"].default_value = 0.5
+
+        # Transmission cho tròng kính
+        trans_key = "Transmission Weight" if "Transmission Weight" in bsdf.inputs else ("Transmission" if "Transmission" in bsdf.inputs else None)
+        if trans_key and transmission > 0.0:
+            bsdf.inputs[trans_key].default_value = transmission
+
+        # Specular
+        spec_key = "Specular IOR Level" if "Specular IOR Level" in bsdf.inputs else ("Specular" if "Specular" in bsdf.inputs else None)
+        if spec_key:
+            bsdf.inputs[spec_key].default_value = specular
+
     return mat
 
 def smooth_object(obj: Any, subsurf: int = 0, bevel_width: float = 0.0):
