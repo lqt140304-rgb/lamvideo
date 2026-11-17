@@ -36,7 +36,30 @@ Dùng cùng [quy chuẩn 3D](../../docs/QUY-CHUAN-3D.md) và [mỹ thuật chung
 
 ---
 
-## 2. Nguồn Asset 3D hiện hành
+## 2. Dàn nhân vật quần chúng (Background Crowd Cast)
 
-- Nguồn sinh nhân vật chuẩn là `dung_stickman_cast.py` và thư viện `what-if-studio/library/characters/stickman-base-v1/`.
+Nhân vật nền phục vụ các phân cảnh giảng đường Lab 402, hành lang, khu trọ và hẻm phố:
+
+### F. Sinh viên Nam (Quần chúng) — `qc_sinhvien_nam`
+- **Tạo hình:** Tóc ngắn gọn gàng (`#1e1e22`), da sáng tự nhiên (`#f0cbb2`), biểu cảm thư thái tự nhiên (`neutral_calm`).
+- **Trang phục:** Áo thun xanh biển (`#5a7896`), quần jeans sẫm (`#3b4656`), giày thể thao năng động.
+
+### G. Sinh viên Nữ (Quần chúng) — `qc_sinhvien_nu`
+- **Tạo hình:** Tóc bob nâu ôm cằm thanh lịch (`#261e1c`), da sáng hồng (`#f4d5c0`), biểu cảm tươi tắn tự tin (`confident`).
+- **Trang phục:** Áo dài tay hồng pastel (`#c98a82`), quần âu tối màu (`#333842`), giày đế trắng.
+
+### H. Chú Bảo vệ (Quần chúng) — `qc_baove`
+- **Tạo hình:** Mũ bảo vệ xanh navy có vành lưỡi trai (`#223042`), da ngăm khỏe khoắn (`#d9a484`), biểu cảm nghiêm nghị chuyên nghiệp (`serious`).
+- **Trang phục:** Áo sơ mi đồng phục có cúc ngực (`#3d5a73`), quần âu bảo vệ sẫm màu (`#232830`), giày da đen.
+
+### I. Hàng xóm (Quần chúng) — `qc_hangxom`
+- **Tạo hình:** Tóc búi cao tròn sau gáy (`#222024`), da trung tính ấm (`#e5bca2`), nét mặt đôn hậu (`neutral_calm`).
+- **Trang phục:** Áo cardigan nâu be (`#7c6a58`), quần dài xám (`#56595e`), dép lê sinh hoạt.
+
+---
+
+## 3. Nguồn Asset 3D hiện hành
+
+- Nguồn sinh nhân vật chuẩn là `dung_stickman_cast.py` (hỗ trợ cờ `--character crowd` và `--character all`).
+- File Blender đã xuất: `stickman_cast.blend` (dàn 5 nhân vật chính) và `stickman_crowd.blend` (dàn 4 nhân vật quần chúng).
 - Các file mesh cũ (`nam-002`, `nam-003`, `dung_than_cage_nam.py`, `human-male-base-v1.glb`) được bảo toàn làm tư liệu lịch sử, không dùng làm phôi sản xuất mới.

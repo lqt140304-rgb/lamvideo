@@ -145,5 +145,24 @@ class TestStickmanCastMath(unittest.TestCase):
         hair_presets = dung_stickman_cast.get_hair_presets()
         self.assertIn("locks", hair_presets["Hair_Messy_Anime"])
 
+    def test_crowd_profiles_valid(self):
+        import dung_stickman_cast
+        crowd = dung_stickman_cast.get_crowd_profiles()
+        expected_crowd = ["qc_sinhvien_nam", "qc_sinhvien_nu", "qc_baove", "qc_hangxom"]
+        hair_presets = dung_stickman_cast.get_hair_presets()
+        outfit_presets = dung_stickman_cast.get_outfit_presets()
+        expr_presets = dung_stickman_cast.get_expression_presets()
+        hex_pattern = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+        for cid in expected_crowd:
+            self.assertIn(cid, crowd)
+            p = crowd[cid]
+            self.assertIn(p["hair_module"], hair_presets)
+            self.assertIn(p["outfit_module"], outfit_presets)
+            self.assertIn(p["expression"], expr_presets)
+            for key, val in p.items():
+                if key.endswith("_color"):
+                    self.assertTrue(hex_pattern.match(val), f"Invalid hex {val} in {cid}.{key}")
+
 if __name__ == "__main__":
     unittest.main()
