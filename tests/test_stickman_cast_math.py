@@ -23,12 +23,14 @@ class TestStickmanCastMath(unittest.TestCase):
         nam = profiles["nam"]
         nguoikia = profiles["nguoikia"]
 
-        # Hair and outfit must be identical
+        # Hair, outfit, and skin tone must be identical
         self.assertEqual(nam["hair_module"], nguoikia["hair_module"])
         self.assertEqual(nam["hair_color"], nguoikia["hair_color"])
         self.assertEqual(nam["outfit_module"], nguoikia["outfit_module"])
         self.assertEqual(nam["shirt_color"], nguoikia["shirt_color"])
         self.assertEqual(nam["pants_color"], nguoikia["pants_color"])
+        self.assertEqual(nam["body_color"], nguoikia["body_color"])
+        self.assertNotEqual(nam["body_color"], profiles["tung"]["body_color"])
 
         # Handedness MUST be different
         self.assertEqual(nam["handedness"], "right")

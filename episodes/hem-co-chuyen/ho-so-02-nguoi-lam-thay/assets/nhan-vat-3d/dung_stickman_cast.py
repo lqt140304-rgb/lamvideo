@@ -152,7 +152,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "pants_color": "#707370",
             "shoe_color": "#425850",
             "accessory": "slippers",
-            "body_color": "#eae6df",
+            "body_color": "#f2cfb6",
             "eerie_water_leak": False,
         },
         "nguoikia": {
@@ -167,7 +167,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "pants_color": "#707370",
             "shoe_color": "#425850",
             "accessory": "slippers",
-            "body_color": "#eae6df",
+            "body_color": "#f2cfb6",
             "eerie_water_leak": True,
         },
         "tung": {
@@ -182,7 +182,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "pants_color": "#2c3138",
             "shoe_color": "#ffffff",
             "accessory": "sneakers",
-            "body_color": "#eae6df",
+            "body_color": "#e2b091",
             "eerie_water_leak": False,
         },
         "giangvien": {
@@ -197,7 +197,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "pants_color": "#2f3b53",
             "shoe_color": "#1f1f22",
             "accessory": "spectacles",
-            "body_color": "#eae6df",
+            "body_color": "#ecc8b2",
             "eerie_water_leak": False,
         },
         "truyvet": {
@@ -212,7 +212,7 @@ def get_character_profiles() -> Dict[str, Dict[str, Any]]:
             "pants_color": "#3f423b",
             "shoe_color": "#1a1c1c",
             "accessory": "crimson_trim",
-            "body_color": "#eae6df",
+            "body_color": "#ecc8b2",
             "eerie_water_leak": False,
         },
     }
@@ -828,7 +828,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         parts.append(foot)
 
     # Gán vật liệu da cho toàn bộ các phần thân và làm mịn
-    mat_skin = create_material(f"Mat_{name}_Skin", color, roughness=0.48, sss_weight=0.08)
+    mat_skin = create_material(f"Mat_{name}_Skin", color, roughness=0.52, sss_weight=0.12)
     for p in parts:
         if p and p.data:
             if "Foot" in p.name:
