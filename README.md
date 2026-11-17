@@ -1,5 +1,7 @@
 # lamvideo — What If giữa đời thường
 
+**Quyết định hiện hành — 17/11/2026:** nhân vật **stickman đơn giản**, dùng chung dáng và khuôn mặt; chỉ phân biệt tạo hình bằng **tóc và quần áo**. Đọc [quy chuẩn stickman](docs/QUY-CHUAN-STICKMAN.md). Quyết định này thay yêu cầu phôi người/chibi chi tiết và các dấu nhận dạng hình thể cũ khi xung đột. Giữ pipeline Blender 3D; các asset hiện có chưa được tự chuyển thành stickman. Phôi GLB ngày 16/11 chỉ còn tham khảo, không phải nguồn bắt buộc.
+
 Những chuyện giả định đặt người bình thường vào một lựa chọn khó, để người xem tự hỏi: **nếu là mình thì sao?** Ưu tiên đời sống Việt Nam, mâu thuẫn có chiều sâu, kết thúc có hệ quả và cách sản xuất vừa sức.
 
 **Sản xuất hiện hành: nhân vật và bối cảnh Blender 3D.** Đọc [QUY-CHUAN-3D.md](docs/QUY-CHUAN-3D.md), [mỹ thuật](docs/PHONG-CACH-MY-THUAT.md) và [ASSET Hồ sơ 02](episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/ASSET.md). Đã gỡ các Markdown hướng dẫn 2D/2,5D cũ; ảnh và mã cũ còn lại chỉ là tư liệu, không phải pipeline dựng mới.

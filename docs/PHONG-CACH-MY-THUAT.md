@@ -1,5 +1,7 @@
 # Phong cách mỹ thuật — Stylized 3D mềm mại
 
+**Quyết định hiện hành — 17/11/2026:** nhân vật **stickman đơn giản**, dùng chung dáng và khuôn mặt; chỉ phân biệt tạo hình bằng **tóc và quần áo**. Đọc [quy chuẩn stickman](QUY-CHUAN-STICKMAN.md). Quyết định này thay yêu cầu phôi người/chibi chi tiết và các dấu nhận dạng hình thể cũ khi xung đột. Giữ pipeline Blender 3D; các asset hiện có chưa được tự chuyển thành stickman. Phôi GLB ngày 16/11 chỉ còn tham khảo, không phải nguồn bắt buộc.
+
 Chuẩn hiện hành: nhân vật, đồ dùng và môi trường dựng cùng không gian Blender; đọc [QUY-CHUAN-3D.md](QUY-CHUAN-3D.md). Các ảnh/SVG còn trong kho là tư liệu tạo hình, không phải hướng dẫn sản xuất hoặc rig hiện hành.
 
 ## Hình khối và nhận diện

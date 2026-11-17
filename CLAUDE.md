@@ -1,5 +1,7 @@
 # Làm việc với lamvideo
 
+**Quyết định hiện hành — 17/11/2026:** nhân vật **stickman đơn giản**, dùng chung dáng và khuôn mặt; chỉ phân biệt tạo hình bằng **tóc và quần áo**. Đọc [quy chuẩn stickman](docs/QUY-CHUAN-STICKMAN.md). Quyết định này thay yêu cầu phôi người/chibi chi tiết và các dấu nhận dạng hình thể cũ khi xung đột. Giữ pipeline Blender 3D; các asset hiện có chưa được tự chuyển thành stickman. Phôi GLB ngày 16/11 chỉ còn tham khảo, không phải nguồn bắt buộc.
+
 Repo này dành cho nội dung What If. Đọc [mục tiêu](docs/MUC-TIEU.md), [kinh nghiệm dùng chung](docs/KINH-NGHIEM.md) và [quy trình](docs/WHAT-IF-QUY-TRINH.md) trước khi làm nội dung mới. Hướng hiện tại là chuyện giả định giữa đời sống Việt Nam, để người xem tự hỏi mình sẽ lựa chọn thế nào.
 
 ## Quy tắc lưu và đẩy file

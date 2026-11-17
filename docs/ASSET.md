@@ -1,5 +1,7 @@
 # Danh mục tài nguyên
 
+**Quyết định hiện hành — 17/11/2026:** nhân vật **stickman đơn giản**, dùng chung dáng và khuôn mặt; chỉ phân biệt tạo hình bằng **tóc và quần áo**. Đọc [quy chuẩn stickman](QUY-CHUAN-STICKMAN.md). Quyết định này thay yêu cầu phôi người/chibi chi tiết và các dấu nhận dạng hình thể cũ khi xung đột. Giữ pipeline Blender 3D; các asset hiện có chưa được tự chuyển thành stickman. Phôi GLB ngày 16/11 chỉ còn tham khảo, không phải nguồn bắt buộc.
+
 Sản xuất mới dùng nhân vật và bối cảnh Blender 3D theo [quy chuẩn](QUY-CHUAN-3D.md), [mỹ thuật](PHONG-CACH-MY-THUAT.md). Mã/hình cũ còn trong kho không tự trở thành asset 3D đã hoàn thành.
 
 | Nhóm | Nơi đọc | Lưu ý |

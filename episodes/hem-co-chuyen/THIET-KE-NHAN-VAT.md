@@ -1,5 +1,7 @@
 # The Crack in Reality — nhận diện nhân vật 3D
 
+**Quyết định hiện hành — 17/11/2026:** nhân vật **stickman đơn giản**, dùng chung dáng và khuôn mặt; chỉ phân biệt tạo hình bằng **tóc và quần áo**. Đọc [quy chuẩn stickman](../../docs/QUY-CHUAN-STICKMAN.md). Quyết định này thay yêu cầu phôi người/chibi chi tiết và các dấu nhận dạng hình thể cũ khi xung đột. Giữ pipeline Blender 3D; các asset hiện có chưa được tự chuyển thành stickman. Phôi GLB ngày 16/11 chỉ còn tham khảo, không phải nguồn bắt buộc.
+
 Dùng cùng [quy chuẩn 3D](../../docs/QUY-CHUAN-3D.md) và [mỹ thuật chung](../../docs/PHONG-CACH-MY-THUAT.md). Đây là hướng tạo hình, không phải xác nhận mọi rig đã hoàn thành.
 
 ## Những nét phải giữ
