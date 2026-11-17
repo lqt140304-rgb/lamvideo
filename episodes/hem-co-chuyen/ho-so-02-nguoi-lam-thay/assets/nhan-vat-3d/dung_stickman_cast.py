@@ -26,11 +26,13 @@ if HERE not in sys.path:
 
 try:
     import bpy
+    import bmesh
     import mathutils
     from mathutils import Vector, Euler, Matrix
     HAS_BLENDER = True
 except ImportError:
     bpy = None
+    bmesh = None
     mathutils = None
     HAS_BLENDER = False
 
@@ -484,8 +486,78 @@ def smooth_object(obj: Any, subsurf: int = 0, bevel_width: float = 0.0):
         mod.render_levels = subsurf
 
 
+def create_loft_mesh(
+    name: str,
+    rings: List[Tuple[float, float, float, float]],
+    segments: int = 32,
+    scale_y: float = 1.0,
+    cap_bottom: bool = True,
+    cap_top: bool = True,
+) -> Any:
+    """Dựng mesh liền mạch bằng cách nối các vòng tròn (cx, cy, z, radius) qua bmesh."""
+    if not HAS_BLENDER:
+        return None
+    mesh = bpy.data.meshes.new(name)
+    bm = bmesh.new()
+
+    ring_verts_list = []
+    for cx, cy, z, r in rings:
+        curr_verts = []
+        for i in range(segments):
+            ang = 2.0 * math.pi * i / segments
+            vx = cx + r * math.cos(ang)
+            vy = cy + r * scale_y * math.sin(ang)
+            curr_verts.append(bm.verts.new((vx, vy, z)))
+        ring_verts_list.append(curr_verts)
+
+    for r_idx in range(len(ring_verts_list) - 1):
+        v1 = ring_verts_list[r_idx]
+        v2 = ring_verts_list[r_idx + 1]
+        for i in range(segments):
+            ni = (i + 1) % segments
+            bm.faces.new((v1[i], v1[ni], v2[ni], v2[i]))
+
+    if cap_bottom and ring_verts_list and rings:
+        cx, cy, z, r = rings[0]
+        inner_v = []
+        for i in range(segments):
+            ang = 2.0 * math.pi * i / segments
+            inner_v.append(bm.verts.new((cx + r * 0.82 * math.cos(ang), cy + r * 0.82 * scale_y * math.sin(ang), z + 0.003)))
+        v0 = ring_verts_list[0]
+        for i in range(segments):
+            ni = (i + 1) % segments
+            bm.faces.new((inner_v[i], inner_v[ni], v0[ni], v0[i]))
+        c_bot = bm.verts.new((cx, cy, z + 0.004))
+        for i in range(segments):
+            ni = (i + 1) % segments
+            bm.faces.new((c_bot, inner_v[ni], inner_v[i]))
+
+    if cap_top and ring_verts_list and rings:
+        cx, cy, z, r = rings[-1]
+        inner_v = []
+        for i in range(segments):
+            ang = 2.0 * math.pi * i / segments
+            inner_v.append(bm.verts.new((cx + r * 0.82 * math.cos(ang), cy + r * 0.82 * scale_y * math.sin(ang), z - 0.003)))
+        vt = ring_verts_list[-1]
+        for i in range(segments):
+            ni = (i + 1) % segments
+            bm.faces.new((vt[i], vt[ni], inner_v[ni], inner_v[i]))
+        c_top = bm.verts.new((cx, cy, z - 0.004))
+        for i in range(segments):
+            ni = (i + 1) % segments
+            bm.faces.new((inner_v[i], inner_v[ni], c_top))
+
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    bm.to_mesh(mesh)
+    bm.free()
+
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    return obj
+
+
 def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collection: Any = None, offset_x: float = 0.0) -> List[Any]:
-    """Tạo toàn bộ phôi Stickman Base V1 (Đầu tròn trơn, cổ, thân capsule, tay chân ống)."""
+    """Tạo toàn bộ phôi Stickman Base V1 liền mạch (Đầu, cổ, thân capsule hữu cơ, tay chân liên tục)."""
     if not HAS_BLENDER:
         return []
 
@@ -502,69 +574,76 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
     head.name = f"{name}_Head"
     parts.append(head)
 
-    # 2. Cổ (Cylinder)
-    h_neck = dims["neck_z_max"] - dims["neck_z_min"]
-    bpy.ops.mesh.primitive_cylinder_add(
-        vertices=24, radius=dims["neck_radius"], depth=h_neck,
-        location=(offset_x, 0.0, (dims["neck_z_max"] + dims["neck_z_min"]) / 2.0)
-    )
-    neck = bpy.context.active_object
-    neck.name = f"{name}_Neck"
+    # 2. Cổ liền thân và đầu (cắm sâu vào thân z=1.23 và đầu z=1.37)
+    neck_rings = [
+        (offset_x, 0.0, 1.23, dims["neck_radius"] * 1.35),
+        (offset_x, 0.0, 1.27, dims["neck_radius"] * 1.05),
+        (offset_x, 0.0, 1.32, dims["neck_radius"]),
+        (offset_x, 0.0, 1.37, dims["neck_radius"] * 1.05),
+    ]
+    neck = create_loft_mesh(f"{name}_Neck", neck_rings, segments=24)
     parts.append(neck)
 
-    # 3. Thân Capsule (Cylinder bo viền hai đầu)
-    h_torso = dims["torso_z_max"] - dims["torso_z_min"]
-    bpy.ops.mesh.primitive_cylinder_add(
-        vertices=32, radius=dims["torso_r_top"], depth=h_torso,
-        location=(offset_x, 0.0, (dims["torso_z_max"] + dims["torso_z_min"]) / 2.0)
-    )
-    torso = bpy.context.active_object
-    torso.name = f"{name}_Torso"
+    # 3. Thân Capsule Hữu Cơ liền vai (dẹt nhẹ trước-sau scale_y=0.78)
+    torso_rings = [
+        (offset_x, 0.0, 0.72, 0.045),
+        (offset_x, 0.0, 0.76, 0.115),
+        (offset_x, 0.0, 0.88, 0.110),
+        (offset_x, 0.0, 1.05, 0.122),
+        (offset_x, 0.0, 1.22, 0.124),
+        (offset_x, 0.0, 1.27, 0.095),
+        (offset_x, 0.0, 1.29, 0.055),
+    ]
+    torso = create_loft_mesh(f"{name}_Torso", torso_rings, segments=32, scale_y=0.78)
     parts.append(torso)
 
-    # 4. Tay và Bàn tay (Left & Right)
+    # 4. Tay và Bàn tay liền mạch từ Vai -> Khuỷu -> Cổ tay -> Bàn tay
     for side, sign in [("L", 1.0), ("R", -1.0)]:
-        # Cánh tay trên
-        arm_z = dims["shoulder_z"] - 0.14
-        bpy.ops.mesh.primitive_cylinder_add(
-            vertices=24, radius=dims["arm_radius"], depth=0.28,
-            location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z)
-        )
-        uarm = bpy.context.active_object
-        uarm.name = f"{name}_UpperArm_{side}"
-        parts.append(uarm)
+        sx = offset_x + sign * dims["shoulder_x"]
+        sz = dims["shoulder_z"] - 0.025
+        ex = offset_x + sign * (dims["shoulder_x"] + 0.025)
+        ez = dims["shoulder_z"] - 0.28
+        wx = offset_x + sign * (dims["shoulder_x"] + 0.045)
+        hand_z = dims["shoulder_z"] - 0.55 - 0.05
 
-        # Cẳng tay
-        farm_z = dims["shoulder_z"] - 0.415
-        bpy.ops.mesh.primitive_cylinder_add(
-            vertices=24, radius=dims["arm_radius"] * 0.9, depth=0.27,
-            location=(offset_x + sign * (dims["shoulder_x"] + 0.04), 0.0, farm_z)
+        # Khớp cầu vai nối vào thân (nằm gọn bên trong vai áo)
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            segments=20, ring_count=10, radius=dims["arm_radius"] * 0.95,
+            location=(sx - sign * 0.015, 0.0, sz - 0.005)
         )
-        farm = bpy.context.active_object
-        farm.name = f"{name}_Forearm_{side}"
-        parts.append(farm)
+        sh_joint = bpy.context.active_object
+        sh_joint.name = f"{name}_ShoulderJoint_{side}"
+        parts.append(sh_joint)
+
+        # Ống tay liên tục cắm sâu từ vai xuống lòng bàn tay
+        arm_rings = [
+            (sx - sign * 0.015, 0.0, sz - 0.005, dims["arm_radius"] * 0.92),
+            (sx, 0.0, sz - 0.055, dims["arm_radius"]),
+            (ex, 0.0, ez, dims["arm_radius"] * 0.92),
+            (wx, 0.0, hand_z + 0.04, dims["arm_radius"] * 0.85),
+            (wx, 0.0, hand_z + 0.005, dims["arm_radius"] * 0.78),
+        ]
+        arm = create_loft_mesh(f"{name}_Arm_{side}", arm_rings, segments=24)
+        parts.append(arm)
 
         # Bàn tay cách điệu (Stylized Mitten Hand: Lòng bàn tay Palm + Ngón cái Thumb)
-        hand_z = dims["shoulder_z"] - 0.55 - 0.05
-        hand_x = offset_x + sign * (dims["shoulder_x"] + 0.05)
-
-        # Lòng bàn tay (Palm)
+        hand_x = wx
         bpy.ops.mesh.primitive_uv_sphere_add(
             segments=24, ring_count=12, radius=0.032,
             location=(hand_x, 0.0, hand_z)
         )
         palm = bpy.context.active_object
         palm.name = f"{name}_Hand_Palm_{side}"
-        palm.scale = (0.9, 0.8, 1.15)
+        palm.scale = (0.9, 0.8, 1.18)
         bpy.ops.object.transform_apply(scale=True)
         parts.append(palm)
 
-        # Ngón cái (Thumb - nghiêng 35 độ hướng ra trước)
-        thumb_x = hand_x - sign * 0.016
-        thumb_y = -0.016
+        # Ngón cái (Thumb - nghiêng 35 độ hướng ra trước, cắm liền vào lòng bàn tay)
+        thumb_x = hand_x - sign * 0.015
+        thumb_y = -0.015
         thumb_z = hand_z + 0.008
         bpy.ops.mesh.primitive_cylinder_add(
-            vertices=16, radius=0.010, depth=0.026,
+            vertices=16, radius=0.010, depth=0.028,
             location=(thumb_x, thumb_y, thumb_z),
             rotation=(math.radians(35), 0.0, -sign * math.radians(25))
         )
@@ -572,32 +651,23 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         thumb.name = f"{name}_Hand_Thumb_{side}"
         parts.append(thumb)
 
-    # 5. Chân và Bàn chân (Left & Right)
+    # 5. Chân và Bàn chân liền mạch từ Hông -> Đùi -> Gối -> Cổ chân -> Bàn chân
     for side, sign in [("L", 1.0), ("R", -1.0)]:
-        # Đùi
-        thigh_z = (dims["hip_z"] + dims["knee_z"]) / 2.0
-        bpy.ops.mesh.primitive_cylinder_add(
-            vertices=24, radius=dims["leg_radius"], depth=(dims["hip_z"] - dims["knee_z"]),
-            location=(offset_x + sign * dims["hip_x"], 0.0, thigh_z)
-        )
-        thigh = bpy.context.active_object
-        thigh.name = f"{name}_Thigh_{side}"
-        parts.append(thigh)
-
-        # Bắp chân
-        shin_z = (dims["knee_z"] + dims["ankle_z"]) / 2.0
-        bpy.ops.mesh.primitive_cylinder_add(
-            vertices=24, radius=dims["leg_radius"] * 0.9, depth=(dims["knee_z"] - dims["ankle_z"]),
-            location=(offset_x + sign * dims["hip_x"], 0.0, shin_z)
-        )
-        shin = bpy.context.active_object
-        shin.name = f"{name}_Shin_{side}"
-        parts.append(shin)
+        lx = offset_x + sign * dims["hip_x"]
+        leg_rings = [
+            (lx, 0.0, 0.02, dims["leg_radius"] * 0.85),
+            (lx, 0.0, dims["ankle_z"], dims["leg_radius"] * 0.88),
+            (lx, 0.0, dims["knee_z"], dims["leg_radius"] * 0.96),
+            (lx, 0.0, (dims["hip_z"] + dims["knee_z"]) / 2.0, dims["leg_radius"] * 1.02),
+            (lx, 0.0, dims["hip_z"] + 0.03, dims["leg_radius"] * 1.05),
+        ]
+        leg = create_loft_mesh(f"{name}_Leg_{side}", leg_rings, segments=24)
+        parts.append(leg)
 
         # Bàn chân (đế phẳng tiếp sàn Z=0)
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
-            location=(offset_x + sign * dims["hip_x"], -0.06, dims["foot_height"] / 2.0)
+            location=(lx, -0.06, dims["foot_height"] / 2.0)
         )
         foot = bpy.context.active_object
         foot.name = f"{name}_Foot_{side}"
@@ -605,18 +675,14 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         bpy.ops.object.transform_apply(scale=True)
         parts.append(foot)
 
-    # Gán vật liệu da cho toàn bộ các phần thân và làm mịn phù hợp từng loại khối
+    # Gán vật liệu da cho toàn bộ các phần thân và làm mịn
     mat_skin = create_material(f"Mat_{name}_Skin", color, roughness=0.48, sss_weight=0.08)
     for p in parts:
         if p and p.data:
-            if "Head" in p.name or "Hand" in p.name or "Palm" in p.name or "Thumb" in p.name:
-                smooth_object(p, subsurf=1)
-            elif "Foot" in p.name:
+            if "Foot" in p.name:
                 smooth_object(p, bevel_width=0.012)
-            elif "Torso" in p.name:
-                smooth_object(p, bevel_width=0.025)
             else:
-                smooth_object(p, bevel_width=0.008)
+                smooth_object(p, subsurf=1)
             p.data.materials.clear()
             p.data.materials.append(mat_skin)
             if collection and p.name not in collection.objects:
@@ -819,49 +885,51 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
     shirt_rings = get_outfit_presets()[outfit_type]["shirt_rings"]
     z_min = min(r["z"] for r in shirt_rings)
     z_max = max(r["z"] for r in shirt_rings)
-    h_shirt = z_max - z_min
     r_shirt = max(r["radius"] for r in shirt_rings)
+    scale_y_body = 0.80
 
-    # 1. Thân áo bọc ngoài Torso
-    bpy.ops.mesh.primitive_cylinder_add(
-        vertices=32, radius=r_shirt, depth=h_shirt,
-        location=(offset_x, 0.0, (z_min + z_max) / 2.0)
-    )
-    shirt = bpy.context.active_object
-    shirt.name = f"{name}_Shirt"
+    # 1. Thân áo liền vai hữu cơ (Lofted Shirt từ cổ -> vai xuôi -> ngực -> eo -> gấu áo)
+    loft_shirt_rings = [(offset_x, 0.0, r["z"], r["radius"]) for r in sorted(shirt_rings, key=lambda x: x["z"])]
+    shirt = create_loft_mesh(f"{name}_Shirt", loft_shirt_rings, segments=32, scale_y=scale_y_body)
     shirt.data.materials.append(mat_shirt)
-    smooth_object(shirt, bevel_width=0.015)
+    smooth_object(shirt, subsurf=1)
     outfit_parts.append(shirt)
+
+    front_chest_y = -r_shirt * scale_y_body
 
     # 1b. Cổ áo may đo (Collars)
     if "Oversized" in outfit_type:
         # Bo viền cổ tròn (Crewneck collar ring)
         bpy.ops.mesh.primitive_torus_add(
-            major_radius=0.052, minor_radius=0.007,
-            location=(offset_x, 0.0, 1.28)
+            major_radius=0.056, minor_radius=0.008,
+            location=(offset_x, 0.0, z_max - 0.01)
         )
         collar = bpy.context.active_object
         collar.name = f"{name}_Collar_Crewneck"
+        collar.scale = (1.0, scale_y_body, 1.0)
+        bpy.ops.object.transform_apply(scale=True)
         collar.data.materials.append(mat_shirt)
         smooth_object(collar, subsurf=1)
         outfit_parts.append(collar)
     elif "Sport" in outfit_type:
         # Bo cổ viền trắng thể thao (Sport collar ring)
         bpy.ops.mesh.primitive_torus_add(
-            major_radius=0.052, minor_radius=0.007,
-            location=(offset_x, 0.0, 1.28)
+            major_radius=0.056, minor_radius=0.008,
+            location=(offset_x, 0.0, z_max - 0.01)
         )
         collar = bpy.context.active_object
         collar.name = f"{name}_Collar_Sport"
+        collar.scale = (1.0, scale_y_body, 1.0)
+        bpy.ops.object.transform_apply(scale=True)
         collar.data.materials.append(mat_white)
         smooth_object(collar, subsurf=1)
         outfit_parts.append(collar)
     elif "Formal" in outfit_type:
-        # 2 vạt cổ bẻ sơ mi (Collar Lapels)
+        # 2 vạt cổ bẻ sơ mi (Collar Lapels) ôm khít chân cổ
         for side, sign in [("L", 1.0), ("R", -1.0)]:
             bpy.ops.mesh.primitive_cube_add(
                 size=1.0,
-                location=(offset_x + sign * 0.035, -0.048, 1.28)
+                location=(offset_x + sign * 0.032, -0.042, z_max - 0.02)
             )
             lapel = bpy.context.active_object
             lapel.name = f"{name}_Collar_Lapel_{side}"
@@ -872,14 +940,14 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
             smooth_object(lapel, bevel_width=0.003)
             outfit_parts.append(lapel)
 
-        # Nẹp cúc áo giữa ngực (Button Placket)
+        # Nẹp cúc áo giữa ngực (Button Placket) bám sát bề mặt áo
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
-            location=(offset_x, -r_shirt - 0.002, 1.07)
+            location=(offset_x, front_chest_y - 0.002, (z_min + z_max) / 2.0 - 0.01)
         )
         placket = bpy.context.active_object
         placket.name = f"{name}_Shirt_Placket"
-        placket.scale = (0.016, 0.004, 0.40)
+        placket.scale = (0.016, 0.004, (z_max - z_min) * 0.82)
         bpy.ops.object.transform_apply(scale=True)
         placket.data.materials.append(mat_shirt)
         smooth_object(placket, bevel_width=0.002)
@@ -889,7 +957,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         for b_idx, b_z in enumerate([1.22, 1.14, 1.06, 0.98]):
             bpy.ops.mesh.primitive_cylinder_add(
                 vertices=12, radius=0.005, depth=0.004,
-                location=(offset_x, -r_shirt - 0.006, b_z),
+                location=(offset_x, front_chest_y - 0.005, b_z),
                 rotation=(math.radians(90), 0.0, 0.0)
             )
             btn = bpy.context.active_object
@@ -901,11 +969,11 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         # Đường khóa kéo kim loại chạy dọc giữa áo (Zipper)
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
-            location=(offset_x, -r_shirt - 0.002, 1.05)
+            location=(offset_x, front_chest_y - 0.002, (z_min + z_max) / 2.0 - 0.01)
         )
         zipper = bpy.context.active_object
         zipper.name = f"{name}_Zipper"
-        zipper.scale = (0.008, 0.004, 0.48)
+        zipper.scale = (0.008, 0.004, (z_max - z_min) * 0.85)
         bpy.ops.object.transform_apply(scale=True)
         zipper.data.materials.append(mat_metal)
         smooth_object(zipper, bevel_width=0.002)
@@ -915,7 +983,7 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         for side, sign in [("L", 1.0), ("R", -1.0)]:
             bpy.ops.mesh.primitive_cylinder_add(
                 vertices=12, radius=0.003, depth=0.18,
-                location=(offset_x + sign * 0.035, -r_shirt - 0.006, 1.20)
+                location=(offset_x + sign * 0.035, front_chest_y - 0.005, 1.17)
             )
             drawstring = bpy.context.active_object
             drawstring.name = f"{name}_Drawstring_{side}"
@@ -923,28 +991,46 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
             smooth_object(drawstring, bevel_width=0.001)
             outfit_parts.append(drawstring)
 
-    # 1c. Ống tay áo (Sleeves)
-    if "Oversized" in outfit_type or "Sport" in outfit_type:
-        # Áo cộc tay: 2 ống bọc quanh bắp tay
-        sleeve_r = dims["arm_radius"] * 1.55
-        sleeve_h = 0.17
-        for side, sign in [("L", 1.0), ("R", -1.0)]:
-            arm_z = dims["shoulder_z"] - 0.11
-            bpy.ops.mesh.primitive_cylinder_add(
-                vertices=24, radius=sleeve_r, depth=sleeve_h,
-                location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z)
+    # 1c. Ống tay áo liền vai (Seamless Shoulder & Sleeves)
+    for side, sign in [("L", 1.0), ("R", -1.0)]:
+        sx = offset_x + sign * dims["shoulder_x"]
+        sz = dims["shoulder_z"] - 0.02
+        ex = offset_x + sign * (dims["shoulder_x"] + 0.025)
+        ez = dims["shoulder_z"] - 0.28
+        wx = offset_x + sign * (dims["shoulder_x"] + 0.045)
+        hand_z = dims["shoulder_z"] - 0.55 - 0.05
+
+        if "Oversized" in outfit_type or "Sport" in outfit_type:
+            sleeve_r = dims["arm_radius"] * 1.44
+            # Khớp cầu vai áo xuôi mượt nối liền thân áo và tay áo
+            bpy.ops.mesh.primitive_uv_sphere_add(
+                segments=24, ring_count=12, radius=sleeve_r * 0.92,
+                location=(sx - sign * 0.018, 0.0, sz - 0.005)
             )
-            slv = bpy.context.active_object
-            slv.name = f"{name}_Sleeve_{side}"
+            sh_cap = bpy.context.active_object
+            sh_cap.name = f"{name}_ShoulderCap_{side}"
+            sh_cap.scale = (1.0, 0.88, 0.88)
+            bpy.ops.object.transform_apply(scale=True)
+            sh_cap.data.materials.append(mat_shirt)
+            smooth_object(sh_cap, subsurf=1)
+            outfit_parts.append(sh_cap)
+
+            # Ống tay cộc liền mạch từ vai xuống bắp tay
+            slv_rings = [
+                (sx - sign * 0.018, 0.0, sz - 0.005, sleeve_r * 0.90),
+                (sx - sign * 0.005, 0.0, sz - 0.055, sleeve_r * 0.96),
+                (sx + sign * 0.010, 0.0, sz - 0.16, sleeve_r * 0.95),
+            ]
+            slv = create_loft_mesh(f"{name}_Sleeve_{side}", slv_rings, segments=24)
             slv.data.materials.append(mat_shirt)
-            smooth_object(slv, bevel_width=0.008)
+            smooth_object(slv, subsurf=1)
             outfit_parts.append(slv)
 
-            # Sọc trắng bắp tay thể thao cho Tùng (Stripe)
+            # Sọc trắng bắp tay thể thao cho Tùng (Stripe) ôm sát ống tay
             if "Sport" in outfit_type:
                 bpy.ops.mesh.primitive_torus_add(
-                    major_radius=sleeve_r + 0.002, minor_radius=0.004,
-                    location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, arm_z - 0.04)
+                    major_radius=sleeve_r * 0.96, minor_radius=0.003,
+                    location=(sx + sign * 0.008, 0.0, sz - 0.14)
                 )
                 strp_slv = bpy.context.active_object
                 strp_slv.name = f"{name}_Stripe_Sleeve_{side}"
@@ -952,66 +1038,69 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
                 smooth_object(strp_slv, subsurf=1)
                 outfit_parts.append(strp_slv)
 
-    elif "Formal" in outfit_type or "Tracker" in outfit_type:
-        # Áo dài tay (Giảng viên & Người Truy Vết)
-        sleeve_r = dims["arm_radius"] * 1.35
-        for side, sign in [("L", 1.0), ("R", -1.0)]:
-            # Cánh tay trên
-            bpy.ops.mesh.primitive_cylinder_add(
-                vertices=24, radius=sleeve_r, depth=0.26,
-                location=(offset_x + sign * (dims["shoulder_x"] + 0.015), 0.0, dims["shoulder_z"] - 0.14)
+        elif "Formal" in outfit_type or "Tracker" in outfit_type:
+            sleeve_r = dims["arm_radius"] * 1.30
+            # Khớp cầu vai áo dài tay xuôi mượt
+            bpy.ops.mesh.primitive_uv_sphere_add(
+                segments=24, ring_count=12, radius=sleeve_r * 0.95,
+                location=(sx - sign * 0.018, 0.0, sz - 0.005)
             )
-            slv_u = bpy.context.active_object
-            slv_u.name = f"{name}_Sleeve_Upper_{side}"
-            slv_u.data.materials.append(mat_shirt)
-            smooth_object(slv_u, bevel_width=0.008)
-            outfit_parts.append(slv_u)
+            sh_cap = bpy.context.active_object
+            sh_cap.name = f"{name}_ShoulderCap_{side}"
+            sh_cap.scale = (1.0, 0.88, 0.88)
+            bpy.ops.object.transform_apply(scale=True)
+            sh_cap.data.materials.append(mat_shirt)
+            smooth_object(sh_cap, subsurf=1)
+            outfit_parts.append(sh_cap)
 
-            # Cẳng tay
-            bpy.ops.mesh.primitive_cylinder_add(
-                vertices=24, radius=sleeve_r * 0.95, depth=0.24,
-                location=(offset_x + sign * (dims["shoulder_x"] + 0.04), 0.0, dims["shoulder_z"] - 0.40)
-            )
-            slv_f = bpy.context.active_object
-            slv_f.name = f"{name}_Sleeve_Fore_{side}"
-            slv_f.data.materials.append(mat_shirt)
-            smooth_object(slv_f, bevel_width=0.008)
-            outfit_parts.append(slv_f)
+            # 1 ống tay dài liên tục từ vai -> khuỷu -> cổ tay (không cắt khúc)
+            slv_long_rings = [
+                (sx - sign * 0.018, 0.0, sz - 0.005, sleeve_r * 0.92),
+                (sx - sign * 0.005, 0.0, sz - 0.055, sleeve_r * 0.98),
+                (ex, 0.0, ez, sleeve_r * 0.93),
+                (wx, 0.0, hand_z + 0.055, sleeve_r * 0.87),
+            ]
+            slv_long = create_loft_mesh(f"{name}_Sleeve_Long_{side}", slv_long_rings, segments=24)
+            slv_long.data.materials.append(mat_shirt)
+            smooth_object(slv_long, subsurf=1)
+            outfit_parts.append(slv_long)
 
-    # 2. Quần:
-    # 2a. Phần hông/cạp quần (Waist / Pelvis)
+    # 2. Quần liền mạch hông và 2 ống chân:
     pants_rings = get_outfit_presets()[outfit_type]["pants_rings"]
     pz_min = min(r["z"] for r in pants_rings)
     pz_max = max(r["z"] for r in pants_rings)
     crotch_z = 0.76
-    waist_h = max(0.08, pz_max - crotch_z)
     waist_r = max(r["radius"] for r in pants_rings)
 
-    bpy.ops.mesh.primitive_cylinder_add(
-        vertices=32, radius=waist_r, depth=waist_h,
-        location=(offset_x, 0.0, crotch_z + waist_h / 2.0)
-    )
-    waist = bpy.context.active_object
-    waist.name = f"{name}_Pants_Waist"
+    # 2a. Phần hông/cạp quần bo tròn đáy chậu nối liền vào 2 ống quần
+    waist_loft_rings = [
+        (offset_x, 0.0, crotch_z - 0.04, waist_r * 0.55),
+        (offset_x, 0.0, crotch_z, waist_r * 0.98),
+        (offset_x, 0.0, (crotch_z + pz_max) / 2.0, waist_r),
+        (offset_x, 0.0, pz_max, waist_r * 0.98),
+    ]
+    waist = create_loft_mesh(f"{name}_Pants_Waist", waist_loft_rings, segments=32, scale_y=0.82)
     waist.data.materials.append(mat_pants)
-    smooth_object(waist, bevel_width=0.015)
+    smooth_object(waist, subsurf=1)
     outfit_parts.append(waist)
 
     # Thắt lưng da & mặt khóa cho Giảng viên (Belt)
     if "Formal" in outfit_type:
         bpy.ops.mesh.primitive_torus_add(
-            major_radius=waist_r + 0.003, minor_radius=0.008,
-            location=(offset_x, 0.0, crotch_z + waist_h - 0.015)
+            major_radius=waist_r * 0.98, minor_radius=0.008,
+            location=(offset_x, 0.0, pz_max - 0.015)
         )
         belt = bpy.context.active_object
         belt.name = f"{name}_Belt"
+        belt.scale = (1.0, 0.82, 1.0)
+        bpy.ops.object.transform_apply(scale=True)
         belt.data.materials.append(mat_belt)
         smooth_object(belt, subsurf=1)
         outfit_parts.append(belt)
 
         bpy.ops.mesh.primitive_cube_add(
             size=1.0,
-            location=(offset_x, -waist_r - 0.012, crotch_z + waist_h - 0.015)
+            location=(offset_x, -waist_r * 0.82 - 0.006, pz_max - 0.015)
         )
         buckle = bpy.context.active_object
         buckle.name = f"{name}_Belt_Buckle"
@@ -1021,31 +1110,32 @@ def create_outfit_module(name: str, char_id: str, collection: Any = None, offset
         smooth_object(buckle, bevel_width=0.002)
         outfit_parts.append(buckle)
 
-    # 2b. Hai ống quần riêng biệt (Left Leg & Right Leg)
-    leg_h = max(0.14, crotch_z - pz_min)
+    # 2b. Hai ống quần mọc liền từ trong hông quần xuống (không có khe hở ở đùi/háng)
     leg_r = dims["leg_radius"] * (1.45 if ("Oversized" in outfit_type or "Tracker" in outfit_type) else 1.30)
+    leg_h = max(0.14, crotch_z - pz_min)
     leg_center_z = crotch_z - leg_h / 2.0
 
     for side, sign in [("L", 1.0), ("R", -1.0)]:
-        bpy.ops.mesh.primitive_cylinder_add(
-            vertices=24, radius=leg_r, depth=leg_h,
-            location=(offset_x + sign * dims["hip_x"], 0.0, leg_center_z)
-        )
-        pleg = bpy.context.active_object
-        pleg.name = f"{name}_Pants_Leg_{side}"
+        lx = offset_x + sign * dims["hip_x"]
+        leg_pants_rings = [
+            (lx, 0.0, pz_min, leg_r * 0.94),
+            (lx, 0.0, leg_center_z, leg_r),
+            (lx, 0.0, crotch_z + 0.04, leg_r * 1.15),
+        ]
+        pleg = create_loft_mesh(f"{name}_Pants_Leg_{side}", leg_pants_rings, segments=24)
         pleg.data.materials.append(mat_pants)
-        smooth_object(pleg, bevel_width=0.008)
+        smooth_object(pleg, subsurf=1)
         outfit_parts.append(pleg)
 
         # Sọc trắng sườn quần thể thao cho Tùng (Stripe)
         if "Sport" in outfit_type:
             bpy.ops.mesh.primitive_cube_add(
                 size=1.0,
-                location=(offset_x + sign * (dims["hip_x"] + leg_r + 0.002), 0.0, leg_center_z)
+                location=(lx + sign * (leg_r + 0.001), 0.0, (pz_min + crotch_z) / 2.0)
             )
             strp_pnt = bpy.context.active_object
             strp_pnt.name = f"{name}_Stripe_Pants_{side}"
-            strp_pnt.scale = (0.004, 0.012, leg_h * 0.95)
+            strp_pnt.scale = (0.004, 0.012, leg_h * 0.92)
             bpy.ops.object.transform_apply(scale=True)
             strp_pnt.data.materials.append(mat_white)
             smooth_object(strp_pnt, bevel_width=0.002)
