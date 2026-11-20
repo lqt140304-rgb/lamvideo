@@ -1630,9 +1630,44 @@ def create_face_expression_module(name: str, char_id: str, collection: Any = Non
     for fp in face_parts:
         if collection and fp.name not in collection.objects:
             collection.objects.link(fp)
+    add_face_shape_keys(face_parts)
 
     return face_parts
 
+
+
+def add_face_shape_keys(face_parts: List[Any]) -> None:
+    """Thêm shape key biểu cảm (chạy theo xương đầu vì shape key áp trước Armature): mắt nham/lim/mo_to, mày nang/ha/lo/gian, miệng cuoi/buon/o."""
+    import numpy as np
+    def keys(ob, table):
+        me = ob.data
+        if not me.shape_keys: ob.shape_key_add(name="Basis", from_mix=False)
+        co = np.array([v.co[:] for v in me.vertices])
+        for name, fn in table.items():
+            kb = ob.shape_key_add(name=name, from_mix=False); new = fn(co.copy()); kb.data.foreach_set("co", new.ravel()); kb.slider_min, kb.slider_max = 0.0, 1.0
+    for ob in face_parts:
+        if ob is None or ob.type != "MESH": continue
+        n = ob.name
+        if "_Eye_" in n:
+            def eye(sz, sx=1.0):
+                def f(c): m = c.mean(axis=0); c[:, 2] = m[2] + (c[:, 2] - m[2]) * sz; c[:, 0] = m[0] + (c[:, 0] - m[0]) * sx; return c
+                return f
+            keys(ob, {"nham": eye(0.10, 1.05), "lim": eye(0.50), "mo_to": eye(1.40, 1.12)})
+        elif "_Brow_" in n:
+            def brow(dz_in, dz_out):
+                def f(c):
+                    a = np.abs(c[:, 0]); t = (a - a.min()) / max(1e-9, a.max() - a.min()); c[:, 2] += dz_in * (1 - t) + dz_out * t; return c
+                return f
+            keys(ob, {"nang": brow(0.009, 0.009), "ha": brow(-0.006, -0.006), "lo": brow(0.008, -0.003), "gian": brow(-0.007, 0.003)})
+        elif n.endswith("_Mouth"):
+            def mouth(k, sx=1.0, open_=0.0):
+                def f(c):
+                    m = c.mean(axis=0); hw = max(1e-9, (c[:, 0].max() - c[:, 0].min()) / 2); t = (c[:, 0] - m[0]) / hw
+                    c[:, 2] += k * (t * t - 0.33); c[:, 0] = m[0] + (c[:, 0] - m[0]) * sx
+                    if open_: c[:, 2] += np.where(c[:, 2] >= m[2], 1.0, -1.0) * open_ * (1 - np.clip(t * t, 0, 1))
+                    return c
+                return f
+            keys(ob, {"cuoi": mouth(0.013), "buon": mouth(-0.010), "o": mouth(0.0, 0.5, 0.007)})
 
 def create_outfit_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Dựng module trang phục (Áo + Quần riêng 2 chân + Giày) bọc ngoài thân theo preset."""

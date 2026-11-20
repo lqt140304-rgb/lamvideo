@@ -165,6 +165,44 @@ for sd in 'LR':
     for ch in d1.children:
         ch.hide_render = True; ch.keyframe_insert('hide_render', frame=F_SIT); ch.hide_render = False; ch.keyframe_insert('hide_render', frame=F_DEP + 1)
         for fc in fcs(ch): [setattr(k, 'interpolation', 'CONSTANT') for k in fc.keyframe_points]
+
+# ---------------- biểu cảm khuôn mặt (shape key: mắt nham/lim/mo_to, mày nang/ha/lo/gian, miệng cuoi/buon/o)
+FACE = {}
+for o in bpy.data.objects:
+    if o.name.startswith('Face_nam_') and o.type == 'MESH' and o.data.shape_keys:
+        for k in o.data.shape_keys.key_blocks:
+            if k.name != 'Basis': FACE.setdefault((('Eye' if '_Eye_' in o.name else 'Brow' if '_Brow_' in o.name else 'Mouth'), k.name), []).append(k)
+def bump(f, c, w): return max(0.0, 1.0 - abs(f - c) / w)
+def blink_val(f):                                                          # chớp mắt định kỳ, hơi ngẫu nhiên
+    v = 0.0
+    for c in (F_SIT + 52, F_SIT + 118, F_SIT + 190, F_SIT + 262, F_SIT + 330): v = max(v, bump(f, c, 4.0))
+    return v
+def bieu_cam(f):
+    E = {k: 0.0 for k in FACE}
+    def put(part, key, v):
+        if (part, key) in E: E[(part, key)] = max(E[(part, key)], min(1.0, v))
+    def blend(a, b, t): return a + (b - a) * ss(t)
+    if f <= F_SIT + 14:                                                     # đang ngủ → tỉnh dần
+        t = (f - F_SIT) / 14.0; put('Eye', 'nham', blend(1.0, 0.55, t)); put('Mouth', 'buon', 0.2); put('Brow', 'ha', 0.2)
+    elif f <= F_LONG:                                                       # mơ màng, ngáp
+        yawn = bump(f, F_SIT + 34, 14.0)
+        put('Eye', 'lim', 0.55 * (1 - yawn)); put('Eye', 'nham', 0.85 * yawn); put('Mouth', 'o', 1.0 * yawn); put('Brow', 'nang', 0.5 * yawn); put('Brow', 'ha', 0.25 * (1 - yawn)); put('Mouth', 'buon', 0.2 * (1 - yawn))
+    elif f <= F_SWING:                                                      # ngơ ngác nhìn quanh
+        put('Eye', 'lim', 0.35); put('Brow', 'ha', 0.15); put('Mouth', 'buon', 0.15)
+    elif f <= F_DEP:                                                        # tập trung xỏ dép
+        put('Eye', 'lim', 0.30); put('Brow', 'gian', 0.30); put('Brow', 'ha', 0.10)
+    elif f <= F_WALK0:                                                      # đứng lên, mặt hơi uể oải
+        put('Eye', 'lim', 0.20 * (1 - (f - F_DEP) / (F_WALK0 - F_DEP))); put('Mouth', 'buon', 0.2); put('Brow', 'nang', 0.15)
+    else:                                                                   # tới gần gương: lo dần, mắt mở to
+        t = ss((f - F_WALK0) / (F_END - F_WALK0))
+        put('Brow', 'lo', 0.8 * t); put('Eye', 'mo_to', 0.65 * t); put('Mouth', 'buon', 0.6 * t); put('Brow', 'nang', 0.2 * t)
+        if f > F_WALK1: put('Mouth', 'o', 0.35 * ss((f - F_WALK1) / 30.0))
+    put('Eye', 'nham', blink_val(f) if f > F_SIT + 14 else 0.0)
+    return E
+if a.dong:
+    for f in range(F_SIT, F_END + 1, 2):
+        for key, v in bieu_cam(f).items():
+            for kb in FACE[key]: kb.value = v; kb.keyframe_insert('value', frame=f)
 # ---------------- camera tự nhiên: nhiều góc cắt cảnh, hơi rung tay, bám theo người (không gò bó một góc)
 tgt = bpy.data.objects.new('muc_tieu_nam', None); sc.collection.objects.link(tgt); tgt.parent = rig; tgt.parent_type = 'BONE'; tgt.parent_bone = 'chest'
 def cam_moi(ten, pos, nhin, f_mm, f0, f1, rung=1.0, theo=True):
@@ -184,7 +222,8 @@ sc.timeline_markers.clear()
 cam_moi('CAM_1_chan_giuong', (2.35, 1.2, 0.85), (2.3, 3.1, 0.7), 26, F_SIT, F_SWING, 1.0)                       # từ chân giường, thấp, nhìn Nam ngồi dậy
 cam_moi('CAM_2_dep', (0.2, 2.1, 0.55), (1.6, 2.85, 0.18), 32, F_SWING, F_DEP, 1.2, theo=False)                          # sát sàn: xỏ dép
 cam_moi('CAM_3_cua_so', (0.2, 1.7, 1.4), (1.7, 3.2, 1.0), 24, F_DEP, F_WALK0 + 30, 1.0)                       # từ phía cửa sổ: đứng lên, quay người
-cam_moi('CAM_4_theo', (1.5, 0.35, 1.6), (1.2, 3.1, 1.0), 20, F_WALK0 + 30, F_END, 0.8)                           # rộng: đi tới gương
+cam_moi('CAM_4_theo', (1.5, 0.35, 1.6), (1.2, 3.1, 1.0), 20, F_WALK0 + 30, F_WALK1 + 8, 0.8)
+cam_moi('CAM_5_mat', (1.25, 2.55, 1.45), (0.95, 3.2, 1.3), 50, F_WALK1 + 8, F_END, 0.8)   # cận mặt Nam trước gương: thấy biểu cảm (đặt phía sau-trái người, nhìn qua vai về phía gương)                           # rộng: đi tới gương
 if a.dong:
     for f in range(F_SIT, F_END + 1, 2):
         aplicar(f); rig.keyframe_insert('location', frame=f); rig.keyframe_insert('rotation_euler', frame=f)
@@ -192,6 +231,8 @@ if a.dong:
     sc.frame_start, sc.frame_end = F_SIT, F_END; sc.render.fps = 24
 os.makedirs(a.ra, exist_ok=True)
 if os.environ.get('DT_DEBUG'):
+    for f in (365, 394, 460, 700):
+        sc.frame_set(f); print('DBG mặt', f, {k: round(v[0].value, 2) for k, v in FACE.items() if v[0].value > 0.05})
     for f in (380, 450, 520, 600):
         sc.frame_set(f); bpy.context.view_layer.update(); cm = sc.camera; print('DBG f', f, 'camera', cm.name, tuple(round(x, 2) for x in cm.matrix_world.translation), 'ngực', tuple(round(x, 2) for x in tgt.matrix_world.translation), 'hông rig', tuple(round(x, 2) for x in rig.location))
 if a.dong:
