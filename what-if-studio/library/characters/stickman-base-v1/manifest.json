@@ -1,0 +1,41 @@
+{
+  "id": "STICKMAN-BASE-V1",
+  "version": 1,
+  "selected_on": "2026-11-17",
+  "status": "active-production-standard",
+  "name": "Stickman Base V1 (Kiểu B)",
+  "type": "B",
+  "height": 1.60,
+  "floor_contact_z": 0.0,
+  "scope": "Phôi chuẩn nhân vật stickman dùng chung cho toàn bộ series The Crack in Reality",
+  "generator_script": "episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat-3d/dung_stickman_cast.py",
+  "math_spec": "episodes/hem-co-chuyen/ho-so-02-nguoi-lam-thay/assets/nhan-vat-3d/stickman_math.py",
+  "proportions": {
+    "total_height_m": 1.60,
+    "head_radius_m": 0.14,
+    "head_center_z_m": 1.46,
+    "neck_radius_m": 0.04,
+    "neck_height_m": 0.08,
+    "torso_top_z_m": 1.28,
+    "torso_bottom_z_m": 0.78,
+    "torso_radius_top_m": 0.12,
+    "torso_radius_bottom_m": 0.10,
+    "arm_radius_m": 0.035,
+    "arm_length_m": 0.55,
+    "leg_radius_m": 0.045,
+    "leg_length_m": 0.70,
+    "foot_length_m": 0.22
+  },
+  "modules": [
+    "hair",
+    "outfits",
+    "rig"
+  ],
+  "supported_characters": [
+    "nam",
+    "nguoikia",
+    "tung",
+    "giangvien",
+    "truyvet"
+  ]
+}

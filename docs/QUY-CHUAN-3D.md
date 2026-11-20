@@ -1,5 +1,7 @@
 # Quy Chuẩn Sản Xuất Phim Hoạt Hình 3D (Full 3D Pipeline)
 
+**Quyết định hiện hành — 17/11/2026:** nhân vật **stickman đơn giản**, dùng chung dáng và khuôn mặt; chỉ phân biệt tạo hình bằng **tóc và quần áo**. Đọc [quy chuẩn stickman](QUY-CHUAN-STICKMAN.md). Quyết định này thay yêu cầu phôi người/chibi chi tiết và các dấu nhận dạng hình thể cũ khi xung đột. Giữ pipeline Blender 3D; các asset hiện có chưa được tự chuyển thành stickman. Phôi GLB ngày 16/11 chỉ còn tham khảo, không phải nguồn bắt buộc.
+
 **Cập nhật định hướng ngày 12/11/2026:** Chủ repo chính thức quyết định chuyển đổi phương thức sản xuất từ **2D/2.5D SVG** sang **Nhân vật 3D & Bối cảnh 3D (Full 3D Characters & 3D Environments)** cho series *The Crack in Reality* (bắt đầu triển khai chuẩn hóa từ Hồ sơ 02: *Người trong gương*).
 
 > **Vai trò của bộ Asset 2D hiện có:** Toàn bộ hình ảnh, rig SVG/TSX theo phong cách Style B (`nhan-vat.svg`, `boi-canh.png`, `bo-sung-15p/`, `opening.tsx`) **được giữ nguyên làm bản Concept Art, Turnaround Model Sheet, Color Script và Animatic tham chiếu** để đội ngũ dựng 3D bám sát tạo hình, tỷ lệ và ý đồ đạo diễn.

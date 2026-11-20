@@ -145,11 +145,11 @@
   "id": "C2.1_NGUOI_KIA_01",
   "vai": "NGƯỜI KIA",
   "cam_xuc": "giọng chuẩn ngữ pháp nhưng thiếu hơi ấm con người",
-  "loi": "Đây là ba triệu đồng. Tao không có nhu cầu dùng tiền. Một giờ chiều nay, mày có ca thực hành trực tiếp tại phòng Lab 402 môn Kỹ thuật Lập trình. Giảng viên yêu cầu code trực tiếp trên máy và vấn đáp tại chỗ. Mày chưa ôn một dòng code nào. Nếu không đi, mày sẽ bị trừ hai điểm chuyên cần và cấm thi cuối kỳ.",
+  "loi": "Đây là ba triệu đồng. Tao không cần tiền. Một giờ chiều nay mày có ca Lab 402 môn Lập trình. Mày chưa ôn dòng nào. Không đi sẽ bị cấm thi.",
   "canh": "2.1",
   "ra_soat": false,
   "the": "đều đều, thiếu hơi ấm",
-  "loi_doc": "Đây là ba triệu đồng. Tao không có nhu cầu dùng tiền. Một giờ chiều nay, mày có ca thực hành, phòng Lab bốn lẻ hai, môn Kỹ thuật Lập trình. Giảng viên yêu cầu code trực tiếp trên máy. Vấn đáp tại chỗ. Mày chưa ôn một dòng code nào. Nếu không đi, mày bị trừ hai điểm chuyên cần. Và cấm thi cuối kỳ.",
+  "loi_doc": "Đây là ba triệu đồng. Tao không cần tiền. Một giờ chiều nay, mày có ca Lab bốn lẻ hai, môn Lập trình. Mày chưa ôn dòng nào. Không đi sẽ bị cấm thi.",
   "giong_vai": "NGƯỜI KIA 1"
  },
  {
@@ -423,11 +423,11 @@
   "id": "C3.3_NGUOI_KIA_02",
   "vai": "NGƯỜI KIA",
   "cam_xuc": "tiến lên nửa bước, mắt trừng trừng không chớp",
-  "loi": "Nhưng mày có gánh nổi cả cuộc đời này không?! Mày muốn điểm cao, muốn được khen, muốn bố mẹ tự hào... nhưng việc gì khó một tí là mày lại đùn đẩy! Từ bài tập, giặt chậu đồ ngâm, dọn phòng, đến nghe máy của mẹ... **từng thứ một đều là do chính tay mày nhường cho tao mà!** Vào trong đó đi. Trong đó không có deadline, không có ai chê bai mày nữa. Buông xuôi đi Nam... để tao sống thay cho.",
+  "loi": "Nhưng việc gì khó là mày lại đùn đẩy! Từ bài tập, chậu đồ ngâm, đến nghe máy của mẹ... **từng thứ một đều do chính tay mày nhường cho tao mà!** Vào trong đó đi, không còn deadline hay ai chê bai nữa. Buông xuôi đi Nam... để tao sống thay cho.",
   "canh": "3.3",
   "ra_soat": false,
   "the": "dồn ép, rồi dịu dần dụ dỗ",
-  "loi_doc": "Nhưng mày có gánh nổi cả cuộc đời này không?! Mày muốn điểm cao, muốn được khen, muốn bố mẹ tự hào, nhưng cứ việc gì khó một tí là mày lại đùn đẩy! Bài tập này, chậu đồ ngâm này, dọn phòng này, rồi cả nghe máy của mẹ nữa, từng thứ một, là chính tay mày nhường cho tao mà! Vào trong đó đi. Trong đó không có deadline, không ai chê bai mày nữa đâu. Buông xuôi đi Nam... để tao sống thay cho.",
+  "loi_doc": "Nhưng việc gì khó là mày lại đùn đẩy! Từ bài tập, chậu đồ ngâm, đến nghe máy của mẹ, từng thứ một đều do chính tay mày nhường cho tao mà! Vào trong đó đi, không còn deadline hay ai chê bai nữa đâu. Buông xuôi đi Nam... để tao sống thay cho.",
   "giong_vai": "NGƯỜI KIA 3"
  },
  {

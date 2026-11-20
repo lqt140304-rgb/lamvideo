@@ -15,6 +15,13 @@
 - Dolly/arc là thay đổi vị trí camera thật. Dolly zoom cần đồng thời đổi khoảng cách và tiêu cự; xác nhận bằng khung đầu–giữa–cuối và đoạn chuyển động.
 - Chuyển nét theo thông tin cần xem. Khẩu độ/DoF không được làm mất bàn tay, mặt chữ hoặc dấu nhận diện thiết yếu.
 - Rung có nguồn tác động, biên độ, thời gian vào/ra; không rung để che lỗi khớp. Đường máy nối đoạn phải giữ vận tốc và hướng hợp lý.
+- **Hệ thống Hiệu ứng Quang học Đào sâu Tâm lý (Psychological Visual & Optical Suite):**
+  * **3D-7 Fisheye Lens (12–16mm Ultra-Wide):** Dí sát mặt (<15cm), Barrel Distortion bóp méo trung tâm phồng to, hút 4 góc vào bóng tối; lột tả Paranoia (hoang tưởng), ngột ngạt và biến dạng nhận thức.
+  * **3D-8 Snorricam (Body-Mounted Rig):** Gắn camera trực tiếp lên ngực nhân vật chĩa thẳng mặt; mặt cố định ở tâm khung hình nhưng run rẩy, hậu cảnh xoay cuồng chao đảo dữ dội (Dissociation / Derealization khi hoảng loạn).
+  * **3D-9 Split-Diopter Deep Focus:** Thấu kính lưỡng tiêu cự chia đôi trường nét quang học. Tiền cảnh cực cận và Hậu cảnh xa xăm ĐỀU NÉT ĐANH 100% cùng lúc, loại bỏ DoF mờ nhòe để khắc họa sự đối đầu nghẹt thở không lối thoát trước Kẻ Song Trùng.
+  * **Tunnel Vision & High-pitch Tinnitus (4000Hz):** Dark Vignette cực mạnh + Radial Blur ngoại vi, kết hợp Low-pass filter (400Hz) bóp nghẹt âm thanh môi trường như chìm dưới nước, đè lên tiếng rít ù tai buốt óc khi nhân vật chịu sang chấn tinh thần cực độ.
+  * **Top-Down 90° God's Eye (3D-3):** Đặt camera vuông góc từ trần tháo rời nhìn xuống sàn, biến bối cảnh thành chiếc hộp kính thí nghiệm thu nhỏ giam cầm nhân vật.
+  * **Slow Shutter Ghosting:** Tốc độ màn trập mở 360°, vệt bóng ma trượt nhịp thời gian, thể hiện sự lệch pha giữa thế giới thực và bản sao siêu nhiên.
 
 ## Ánh sáng và tiếp xúc
 

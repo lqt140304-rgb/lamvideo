@@ -20,7 +20,7 @@ Vòng 2: ngập ngừng/lắp bắp chỉ ở chỗ cảm xúc, dùng dấu ph�
 | `C1.3_NGUOI_KIA_01` | NGƯỜI KIA 1 | cộc lốc, vô cảm | Mày bảo đi. Tao đi. |
 | `C1.4_NAM_01` | NAM | lẩm bẩm, cười khẩy | Ảo thật đấy. Ờ mà, ma hay quỷ gì thì quả này nó cũng vừa cứu mình một bàn thua trông thấy. Tự nhiên đỡ phải thức đêm cày cuốc, hà. |
 | `C2.1_NAM_01` | NAM | gắt, giấu sợ | Nè, ba củ tiền ăn mẹ tao mới gửi đấy. Cầm lấy rồi lượn đi. Đừng có lởn vởn quanh phòng tao nữa, tao rén lắm rồi đấy! |
-| `C2.1_NGUOI_KIA_01` | NGƯỜI KIA 1 | đều đều, thiếu hơi ấm | Đây là ba triệu đồng. Tao không có nhu cầu dùng tiền. Một giờ chiều nay, mày có ca thực hành, phòng Lab bốn lẻ hai, môn Kỹ thuật Lập trình. Giảng viên yêu cầu code trực tiếp trên máy. Vấn đáp tại chỗ. Mày chưa ôn một dòng code nào. Nếu không đi, mày bị trừ hai điểm chuyên cần. Và cấm thi cuối kỳ. |
+| `C2.1_NGUOI_KIA_01` | NGƯỜI KIA 1 | đều đều, thiếu hơi ấm | Đây là ba triệu đồng. Tao không cần tiền. Một giờ chiều nay, mày có ca Lab bốn lẻ hai, môn Lập trình. Mày chưa ôn dòng nào. Không đi sẽ bị cấm thi. |
 | `C2.1_NAM_02` | NAM | tự ái | Mắc mớ gì mày quản?! Việc học của tao, tao tự lo được! |
 | `C2.1_NAM_03` | NAM | tặc lưỡi, trịch thượng | Ê, bấm hộ tao mười câu trắc nghiệm kỹ năng trên web trường đi, tao đang dở trận. À mà, trong nhà tắm có chậu đồ ngâm mấy hôm bốc mùi rồi đấy, rảnh thì giặt, vắt, đem phơi ra ban công luôn hộ tao! |
 | `C2.1_NAM_04` | NAM | nói nhanh, ngượng | Cầm lấy. Lên phòng Lab bốn lẻ hai trả lời xong bài thực hành thì về phòng ngay, cấm có lượn lờ lung tung ngoài trường đấy! |
@@ -47,7 +47,7 @@ Vòng 2: ngập ngừng/lắp bắp chỉ ở chỗ cảm xúc, dùng dấu ph�
 | `C3.2_NAM_01` | NAM | gầm lên | Mày là thứ quỷ trong gương! Tao, tao sẽ đập nát cái gương này! |
 | `C3.3_NGUOI_KIA_01` | NGƯỜI KIA 3 | trầm, chậm rãi, xoáy vào | Mày đập đi. Rồi sao? Ngày mai mày sẽ đối diện với cuộc đời ngoài kia thế nào? Mày nói gì với thầy giáo? Mày ăn nói sao với mẹ mày? Hay mày lại vác cái bộ mặt thất bại, trốn tránh này ra, để thằng Tùng thất vọng thêm lần nữa? |
 | `C3.3_NAM_01` | NAM | thét, run | Hồi sáng tao đã cố học! Tao, tao đã trả lời được câu đầu cơ mà! |
-| `C3.3_NGUOI_KIA_02` | NGƯỜI KIA 3 | dồn ép, rồi dịu dần dụ dỗ | Nhưng mày có gánh nổi cả cuộc đời này không?! Mày muốn điểm cao, muốn được khen, muốn bố mẹ tự hào, nhưng cứ việc gì khó một tí là mày lại đùn đẩy! Bài tập này, chậu đồ ngâm này, dọn phòng này, rồi cả nghe máy của mẹ nữa, từng thứ một, là chính tay mày nhường cho tao mà! Vào trong đó đi. Trong đó không có deadline, không ai chê bai mày nữa đâu. Buông xuôi đi Nam... để tao sống thay cho. |
+| `C3.3_NGUOI_KIA_02` | NGƯỜI KIA 3 | dồn ép, rồi dịu dần dụ dỗ | Nhưng việc gì khó là mày lại đùn đẩy! Từ bài tập, chậu đồ ngâm, đến nghe máy của mẹ, từng thứ một đều do chính tay mày nhường cho tao mà! Vào trong đó đi, không còn deadline hay ai chê bai nữa đâu. Buông xuôi đi Nam... để tao sống thay cho. |
 | `C3.4_NGUOI_KIA_01` | NGƯỜI KIA 3 | thì thầm, ân cần | Mày có thực sự muốn tao sống thay cuộc đời này cho mày không? Nói đi. Chỉ cần một câu của mày thôi, là tao gánh hết mọi nhục nhã, thất bại ngoài kia thay cho mày. |
 | `C3.4_NAM_01` | NAM | nghẹn ngào | Ừ... Mày sống thay tao đi. Tao, tao mệt mỏi lắm rồi. Tao không gánh nổi nữa... |
 | `C3.4_NGUOI_KIA_02` | NGƯỜI KIA 3 | thì thầm, dụ dỗ | Áp bàn tay mày vào tay tao đi, trên mặt kính ấy. Trao hơi ấm của mày cho tao. Rồi cuộc đời mày sẽ là của tao. |

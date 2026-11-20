@@ -1,6 +1,11 @@
 # Model Nhân Vật 3D — Hồ sơ 02: Người Trong Gương
 
+> **Quyết định chuyển đổi hiện hành — 17/11/2026:** Dự án đã chuyển đổi toàn bộ dàn nhân vật sang **Stickman 3D tối giản (Kiểu B: Đầu tròn + Thân viên nang + Tay chân ống)** theo [QUY-CHUAN-STICKMAN.md](../../../docs/QUY-CHUAN-STICKMAN.md) và [Design Spec](../../../docs/superpowers/specs/2026-11-17-thiet-ke-nhan-vat-stickman-design.md).
+> Nguồn sinh 3D hiện hành: `dung_stickman_cast.py` và `stickman_math.py`.
+> Toàn bộ phần tài liệu và mã nguồn bên dưới (`dung_than_cage_nam.py`, `dung_dau_nam.py`, `dung_tay_nam.py`, `dung_quan_ao_nam.py`) được **bảo toàn làm tư liệu tham khảo lịch sử** cho thông số chiều cao 1,60 m và màu sắc trang phục.
+
 > **Quy chuẩn mỹ thuật:** Stylized 3D Cinema (Style B mềm mại, PBR Toon), kế thừa nhận diện nhân vật đã chốt từ bản mẫu 2D/2.5D nhưng dựng hoàn toàn trong Blender 3D (đơn vị mét, hệ toạ độ chuẩn Blender Z-up, nhân vật nhìn về $-Y$).
+
 
 ---
 

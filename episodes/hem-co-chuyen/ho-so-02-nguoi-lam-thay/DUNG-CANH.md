@@ -4,9 +4,9 @@
 - **Camera 3D vật lý thực:** Cảm biến 36mm Full-Frame, thay đổi tiêu cự (24mm/35mm/50mm/85mm), Depth of Field Bokeh vật lý, góc trần vuông góc $90^\circ$ (Top-down), góc thấp (Low-Angle) và cú **Hitchcock Vertigo Dolly Zoom** thực thụ (đổi tiêu cự đồng thời đổi khoảng cách dọc hướng nhìn của máy) mà không còn bị giới hạn bởi góc vẽ phẳng 2D hay hở nền khi dịch máy.
 - **Ánh sáng & Phản chiếu thực:** Đèn bàn 3200K, ánh nắng cửa sổ, Screen Glow từ laptop và mặt gương phản chiếu sai lệch dùng đèn/shader 3D vật lý thật.
 
-**Đồng bộ 13/11/2026:** Kịch bản chính thức khóa bản dựng tại [KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md).  
-> 📋 **BẢNG SHOT LIST & TIMELINE THỰC THI 15 PHÚT (KHÓA DỰNG TOÀN TẬP):**  
-> Toàn bộ 96 shot máy 3D chi tiết từng giây (00:00 – 15:00), tiêu cự lens, thời lượng, chuyển cảnh điện ảnh và camera mode đã được hoàn thiện tại **[SHOTLIST-VA-TIMELINE-15P.md](SHOTLIST-VA-TIMELINE-15P.md)**. Bảng này là tài liệu thực thi cho toàn bộ 3 Hồi.
+**Đồng bộ 15/11/2026:** Kịch bản chính thức khóa bản dựng tại [KICH-BAN-15P-HOAN-CHINH.md](KICH-BAN-15P-HOAN-CHINH.md).  
+> 📋 **BẢNG SHOT LIST & TIMELINE THỰC THI NHỊP THỞ MỞ RỘNG (KHÓA DỰNG TOÀN TẬP):**  
+> Toàn bộ 103 shot máy 3D chi tiết từng giây (00:00 – 22:15+ / 1335s: 85 shot phân cảnh chính + 18 shot chuyển cảnh điện ảnh), tiêu cự lens, thời lượng, chuyển cảnh điện ảnh, camera mode 3D-0 đến 3D-9 và bộ hiệu ứng quang học tâm lý (Fisheye 14mm, Snorricam, Split-Diopter, Tunnel Vision, Top-Down 90°, Slow Shutter) đã được hoàn thiện tại **[SHOTLIST-VA-TIMELINE-15P.md](SHOTLIST-VA-TIMELINE-15P.md)**. Bảng này là tài liệu thực thi cho toàn bộ 3 Hồi.
 
 **Phạm vi bảng máy dưới đây:** A–H và các phần tham khảo kỹ thuật, thông số lens, visual direction và phân lớp máy 3D.
 
@@ -14,17 +14,24 @@
 
 - Đi theo hành động/thoại ở bản nguồn; mã máy dùng để tìm bố cục và ý đồ tâm lý, không phải một câu thoại tương ứng một cú cắt.
 - Khung hình chuẩn **2.39:1 Anamorphic Cinema** (hoặc 16:9 với letterbox điện ảnh); bố cục theo chiều sâu trục Z, phân lớp ánh sáng Chiaroscuro (Fincher) và trường sâu ảnh nông (Shallow DoF f/1.4 - f/2.0).
-- Tiêu cự ống kính tương đương **Full-Frame Cine Primes**:
-  * **24mm Cine Anamorphic**: Góc rộng méo viền (Barrel Distortion), tạo cảm giác chật chội, tù túng và ngột ngạt của căn phòng trọ 12m2.
-  * **35mm Cine**: Tiêu cự kể chuyện toàn cảnh tự nhiên, tái hiện không gian và tương quan khoảng cách giữa hai nhân vật.
-  * **50mm f/1.4 Prime**: Tiêu cự đối thoại chân dung, xóa mờ hậu cảnh nhẹ, tách chủ thể sắc nét.
-  * **85mm f/1.2 Telephoto**: Cận cảnh nén không gian (Spatial Compression), dồn toàn bộ sự chú ý vào đôi mắt, nốt ruồi và biểu cảm vi mô.
-- **Chuyển động máy quay sống động (Organic Camera Movements)**:
-  * **Handheld Breathing Jitter (Rung thở hữu cơ)**: Máy quay không đứng im chết cứng như 2D tĩnh, mà có dao động thở cầm tay vác vai của DOP (tần số $0.2\text{Hz}$, biên độ vi mô $0.3 - 0.8\text{px}$). Khi có cú sốc/va chạm, rung giật dứt khoát $2.0 - 3.5\text{px}$ rồi hồi phục.
+- Tiêu cự ống kính tương đương **Full-Frame Cine Primes & Optical Suite**:
+  * **14mm / 16mm Fisheye Ultra-Wide (3D-7)**: Cực cận sát mặt (<15cm), biến dạng cầu lồi (Barrel Distortion) mạnh mẽ, trán và đồng tử phồng to, 4 góc bị kéo giãn hút vào bóng tối, lột tả Paranoia (hoang tưởng), ngột ngạt và méo mó nhận thức.
+  * **24mm Cine Anamorphic**: Góc rộng méo viền nhẹ, thiết lập toàn cảnh giảng đường lớn, bờ kè sông hoàng hôn cô độc và góc nhìn từ trần.
+  * **28mm Wide**: Steadicam dẫn đường hành lang và góc thấp sát sàn.
+  * **35mm Cine**: Tiêu cự kể chuyện toàn cảnh tự nhiên, tái hiện không gian và tương quan khoảng cách giữa hai nhân vật trong phòng trọ 15m².
+  * **40mm / 50mm f/1.4 Prime**: Tiêu cự đối thoại chân dung, xóa mờ hậu cảnh nhẹ, tách chủ thể sắc nét.
+  * **40mm / 50mm / 65mm Split-Diopter (3D-9)**: Kính chia đôi trường nét quang học. Tiền cảnh và Hậu cảnh ĐỀU NÉT ĐANH 100% cùng lúc, không mờ DoF, tạo thế đối đầu lạnh lùng, không lối thoát trước Kẻ Song Trùng.
+  * **65mm / 85mm f/1.2 Telephoto & Macro (3D-5)**: Cận cảnh nén không gian (Spatial Compression), dồn toàn bộ sự chú ý vào đôi mắt, nốt ruồi, vân then sắt và biểu cảm vi mô.
+- **Chuyển động máy quay sống động & Hiệu ứng Tâm lý (Organic & Psychological Camera Movements)**:
+  * **Handheld Breathing Jitter (Rung thở hữu cơ — 3D-0)**: Dao động thở vác vai hữu cơ của DOP (tần số $0.2\text{Hz}$, biên độ vi mô $0.3 - 0.8\text{px}$). Khi có cú sốc/va chạm, rung giật dứt khoát $2.0 - 3.5\text{px}$ rồi hồi phục.
   * **Slow Push-In (Creeping In)**: Máy quay trườn từ từ vào gương mặt ($1 - 2\text{px/s}$) tạo áp lực tâm lý nghẹt thở khi Nam bế tắc hoặc toan tính vụ lợi.
   * **Dutch Angle (Góc nghiêng tâm lý $5^\circ - 15^\circ$)**: Khung hình nghiêng trục chân trời khi thực tại bị bẻ cong (trùng giọng nói, phát hiện căn phòng bị chiếm, đối diện mặt gương).
   * **Rack Focus / Focus Pull**: Chuyển nét mượt mà giữa tiền cảnh và hậu cảnh qua vai (Over-The-Shoulder).
-  * **Hitchcock Vertigo Dolly Zoom**: Phối hợp Zoom In + Dolly Out làm biến dạng phối cảnh hậu cảnh khi bí mật chiếc gương bị bóc trần.
+  * **Hitchcock Vertigo Dolly Zoom (3D-6)**: Phối hợp Zoom In + Dolly Out làm biến dạng phối cảnh hậu cảnh khi bí mật chiếc gương bị bóc trần.
+  * **Snorricam Body-Mounted Rig (3D-8)**: Camera gắn ngực chĩa thẳng mặt Nam, khuôn mặt cố định ở giữa khung hình nhưng run rẩy đẫm lệ, hậu cảnh chao đảo xoay cuồng dữ dội, lột tả sự phân ly thực tại (Dissociation / Derealization) khi Nam tháo chạy khỏi giảng đường.
+  * **Top-Down 90° God's Eye (3D-3)**: Góc máy từ trần thẳng đứng nhìn xuống sàn phòng trọ 15m² như chiếc hộp kính thí nghiệm giam cầm con bọ Nam.
+  * **Tunnel Vision & Tinnitus 4000Hz**: Khung hình sập tối viền ngoại vi (Dark Vignette cực mạnh + Radial Blur), âm thanh môi trường bị lọc cắt tần thấp (Low-pass filter 400Hz) như ngập dưới đáy nước, tiếng ù tai 4000Hz rít buốt óc.
+  * **Slow Shutter Ghosting**: Tốc độ màn trập mở 360°, vệt bóng ma trượt nhịp thời gian, thể hiện sự lệch pha giữa thế giới thực và bản sao từ gương.
 - **Hòa sắc & Lớp phủ điện ảnh (Cinematic Grade Overlay)**: Dùng component `CinematicGradeOverlay` phủ trên đỉnh khung hình với `mix-blend-mode: soft-light` ($8\% - 14\%$) theo từng mood phân cảnh (`fincher_night`, `morning`, `mirror_realm`), tích hợp sẵn hạt phim 35mm và vignette:
   ```tsx
   import { CinematicGradeOverlay } from '../../../../what-if-studio/src/engine';

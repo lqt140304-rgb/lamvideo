@@ -1,0 +1,34 @@
+{
+  "id": "HUMAN-MALE-BASE-01",
+  "version": 1,
+  "selected_on": "2026-11-16",
+  "status": "archived-reference-superseded-by-stickman",
+  "file": "human-male-base-v1.glb",
+  "original_filename": "base (2).glb",
+  "sha256": "f8a9d341fed0baf64a46317bf6d63623b97565a8246e19cef13d4e1c99b4acdc",
+  "bytes": 2064288,
+  "scope": "Base source for future human male characters; not female or creature base",
+  "source": "File supplied by repository owner; external author/license not independently verified",
+  "verified": {
+    "glb_version": 2,
+    "meshes": 1,
+    "nodes": 1,
+    "materials": 1,
+    "vertex_accessor_count": 47736,
+    "skins": 0,
+    "animations": 0,
+    "morph_targets": 0,
+    "embedded_images": 0,
+    "external_resources": 0
+  },
+  "not_verified": [
+    "visual appearance in Blender",
+    "bilateral vertex symmetry",
+    "T-pose alignment",
+    "units and Blender height",
+    "front axis and floor placement",
+    "topology and deformation quality"
+  ],
+  "superseded_on": "2026-11-17",
+  "superseded_by": "docs/QUY-CHUAN-STICKMAN.md (design specification only; mesh not created)"
+}

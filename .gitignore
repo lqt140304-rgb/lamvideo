@@ -40,3 +40,10 @@ what-if-studio/.remotion/
 
 # Rebuild opening mix from credited sources
 what-if-studio/public/ho-so-02-nguoi-lam-thay/opening-audio/mix.wav
+
+# Binary 3D assets & rendered video outputs
+*.blend
+*.blend1
+episodes/**/*.mp4
+
+.superpowers/
