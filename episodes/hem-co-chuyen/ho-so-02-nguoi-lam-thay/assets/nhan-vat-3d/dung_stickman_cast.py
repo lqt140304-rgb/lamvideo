@@ -1107,10 +1107,10 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         arm = create_loft_mesh(f"{name}_Arm_{side}", arm_rings, segments=24)
         parts.append(arm)
 
-        # Bàn tay cách điệu (Stylized Mitten Hand: Lòng bàn tay Palm + Ngón cái Thumb)
+        # Bàn tay cách điệu: một khối nắm (mitten), không có ngón
         hand_x = wx
         bpy.ops.mesh.primitive_uv_sphere_add(
-            segments=24, ring_count=12, radius=0.032,
+            segments=24, ring_count=12, radius=0.036,
             location=(hand_x, 0.0, hand_z)
         )
         palm = bpy.context.active_object
@@ -1119,18 +1119,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         bpy.ops.object.transform_apply(scale=True)
         parts.append(palm)
 
-        # Ngón cái (Thumb - nghiêng 35 độ hướng ra trước, cắm liền vào lòng bàn tay)
-        thumb_x = hand_x - sign * 0.015
-        thumb_y = -0.015
-        thumb_z = hand_z + 0.008
-        bpy.ops.mesh.primitive_cylinder_add(
-            vertices=16, radius=0.010, depth=0.028,
-            location=(thumb_x, thumb_y, thumb_z),
-            rotation=(math.radians(35), 0.0, -sign * math.radians(25))
-        )
-        thumb = bpy.context.active_object
-        thumb.name = f"{name}_Hand_Thumb_{side}"
-        parts.append(thumb)
+        # Không còn ngón: bàn tay là một khối nắm (mitten) — bỏ ngón cái theo quyết định 17/11 (đơn giản hóa, không tạo ngón tay)
 
     # 5. Chân và Bàn chân liền mạch từ Hông -> Đùi -> Gối -> Cổ chân -> Bàn chân
     for side, sign in [("L", 1.0), ("R", -1.0)]:
