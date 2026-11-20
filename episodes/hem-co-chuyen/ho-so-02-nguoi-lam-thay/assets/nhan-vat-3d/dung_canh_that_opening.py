@@ -32,100 +32,100 @@ bpy.context.view_layer.update()
 ph = bpy.data.objects.new('dien_thoai', None)
 bpy.ops.mesh.primitive_cube_add(size=1, location=(W - 2.45, 3.30, 0.265)); p = bpy.context.active_object; p.name = 'dien_thoai'; p.scale = (0.035, 0.07, 0.004)
 
-# ---------------- diễn hoạt 360–720 (FK; trục xoay đã đo: X+ = đùi/tay ra sau, thân/cổ gập ra trước, cẳng chân gập gối)
+# ---------------- diễn hoạt 360–720: tư thế khoá + nội suy, hông luôn ghim trên nệm/sàn (không bay), lớp phụ cộng thêm
+# trục xoay cục bộ đã đo: X = gập/duỗi (đùi/tay +X ra sau; thân/cổ +X gập trước; cẳng chân +X gập gối), Y = xoắn quanh trục xương, Z = nghiêng/dạng sang bên
 R = math.radians
 for b in rig.pose.bones:
     b.rotation_mode = 'XYZ'
     for c_ in b.constraints: c_.influence = 0.0
+from mathutils import Euler, Quaternion
 def ss(t): t = max(0.0, min(1.0, t)); return t * t * (3 - 2 * t)
 def lerp(x, y, t): return x + (y - x) * t
-F_SIT, F_LONG, F_SWING, F_DEP, F_STAND, F_WALK0, F_WALK1, F_END = 360, 400, 432, 492, 540, 566, 646, 720
 def osc(f, period, ph=0.0): return math.sin(2 * math.pi * f / period + ph)
+def bump(f, c, w): return max(0.0, 1.0 - abs(f - c) / w)
+# mốc thời gian (24 fps): ngủ → trở mình → vươn vai/ngáp → nằm nghiêng ra mép → chống tay ngồi dậy → ngồi, dụi mắt → xỏ dép → đứng → đi → nhìn gương
+F_SIT, F_STIR, F_STRETCH, F_ROLL, F_PUSH, F_SEAT, F_SWING, F_DEP, F_STAND, F_WALK0, F_WALK1, F_END = 360, 372, 388, 410, 424, 452, 476, 536, 580, 604, 684, 720
+HIP = 0.76                                                                    # cao độ khớp háng (đầu xương pelvis) so với bàn chân khi đứng
+SLEEP = {'neck': (4, 12, 3), 'head': (6, 30, -4), 'spine': (9, 8, 3), 'chest': (0, 5, 0), 'thigh.L': (-46, 0, -6), 'shin.L': (78, 0, 0), 'foot.L': (12, 0, 0), 'thigh.R': (-12, 0, 0), 'shin.R': (26, 0, 0),
+         'upper_arm.L': (-148, 0, 10), 'forearm.L': (-32, 0, 0), 'upper_arm.R': (-22, 0, -18), 'forearm.R': (-78, 0, 0)}
+STIR = {'neck': (2, 6, 0), 'head': (3, 10, 0), 'spine': (3, 2, 0), 'thigh.L': (-25, 0, -3), 'shin.L': (45, 0, 0), 'thigh.R': (-6, 0, 0), 'shin.R': (12, 0, 0),
+        'upper_arm.L': (-95, 0, 25), 'forearm.L': (-115, 0, 0), 'upper_arm.R': (-10, 0, -10), 'forearm.R': (-20, 0, 0)}
+STRETCH = {'neck': (-6, 0, 0), 'head': (-8, 0, 0), 'spine': (-6, 0, 0), 'chest': (-4, 0, 0), 'foot.L': (28, 0, 0), 'foot.R': (28, 0, 0),
+           'upper_arm.L': (-168, 0, 18), 'forearm.L': (-8, 0, 0), 'upper_arm.R': (-168, 0, -18), 'forearm.R': (-8, 0, 0)}
+RELAX = {'thigh.L': (-8, 0, 0), 'shin.L': (10, 0, 0), 'thigh.R': (-6, 0, 0), 'shin.R': (8, 0, 0), 'upper_arm.L': (5, 0, 8), 'forearm.L': (-12, 0, 0), 'upper_arm.R': (5, 0, -8), 'forearm.R': (-12, 0, 0), 'neck': (3, 0, 0)}
+SIDE = {'thigh.L': (-60, 0, 0), 'shin.L': (75, 0, 0), 'thigh.R': (-55, 0, 0), 'shin.R': (70, 0, 0), 'upper_arm.L': (-40, 0, 0), 'forearm.L': (-60, 0, 0), 'upper_arm.R': (-20, 0, 0), 'forearm.R': (-90, 0, 0), 'spine': (8, 0, 0), 'neck': (6, 0, 0)}
+SEATED = {'thigh.L': (-90, 0, 0), 'thigh.R': (-90, 0, 0), 'shin.L': (85, 0, 0), 'shin.R': (85, 0, 0), 'spine': (12, 0, 0), 'neck': (10, 0, 0), 'head': (8, 0, 0),
+          'upper_arm.L': (14, 0, 0), 'upper_arm.R': (14, 0, 0), 'forearm.L': (-12, 0, 0), 'forearm.R': (-12, 0, 0)}
+STAND0 = {'spine': (2, 0, 0)}
+# (khung, vị trí khớp háng thế giới, góc Euler thân (độ), tư thế xương). Khớp háng được ghim: người xoay quanh háng chứ không quanh bàn chân.
+KEYS = [(F_SIT, (1.03, 2.82, 0.355), (-90, 24, 0), SLEEP), (F_STIR, (1.02, 2.82, 0.355), (-90, 6, 0), STIR), (F_STRETCH, (1.00, 2.82, 0.355), (-90, 0, 0), STRETCH),
+        (F_ROLL, (1.00, 2.82, 0.355), (-90, 0, 0), RELAX), (F_PUSH, (1.03, 2.82, 0.355), (-90, 78, 0), SIDE), (F_SEAT, (1.16, 2.82, 0.36), (0, 0, 90), SEATED),
+        (F_DEP, (1.16, 2.82, 0.36), (0, 0, 90), SEATED), (F_STAND, (1.58, 2.92, HIP), (0, 0, 90), STAND0)]
+def quat(e): return Euler([R(x) for x in e], 'XYZ').to_quaternion()
+def noi_suy(f):
+    """(vị trí hông, quaternion thân, bones) tại khung f từ bảng KEYS (ease giữa hai mốc)."""
+    f = max(KEYS[0][0], min(f, KEYS[-1][0]))
+    for i in range(len(KEYS) - 1):
+        f0, h0, e0, b0 = KEYS[i]; f1, h1, e1, b1 = KEYS[i + 1]
+        if f0 <= f <= f1:
+            t = ss((f - f0) / max(1, f1 - f0)); hw = Vector([lerp(h0[k], h1[k], t) for k in range(3)])
+            bones = {n: tuple(lerp(b0.get(n, (0, 0, 0))[k], b1.get(n, (0, 0, 0))[k], t) for k in range(3)) for n in set(b0) | set(b1)}
+            return hw, quat(e0).slerp(quat(e1), t), bones, t, i
 def pose(f):
-    """Chuyển động chính + lớp phụ. Trục xoay cục bộ (đã đo): X = gập/duỗi (đùi/tay +X ra sau; thân/cổ +X gập trước; cẳng chân +X gập gối),
-    Y = xoắn quanh trục xương (xoay mặt/hông/vai), Z = nghiêng/dạng sang bên."""
-    P = {'loc': [HEAD.x, HEAD.y - H, 0.35], 'eul': [-90.0, 0.0, 0.0], 'b': {}}
-    B = P['b']
+    """Trả về (vị trí hông, quaternion thân, {xương: (x,y,z) độ}). Chuyển động chính + lớp phụ."""
+    B = {}
     def add(n, x=0.0, y=0.0, z=0.0):
         o = B.get(n, (0.0, 0.0, 0.0)); B[n] = (o[0] + x, o[1] + y, o[2] + z)
-    # --- chính ---
-    walking = F_WALK0 <= f <= F_WALK1; env = 0.0; ph = 0.0
-    if f <= F_SIT:                                             # nằm ngửa, ngủ
-        sit = 0.0
-    elif f <= F_LONG:                                          # ngồi dậy: đầu dẫn trước, tay chống
-        t = ss((f - F_SIT) / (F_LONG - F_SIT)); t += 0.035 * math.sin(2 * math.pi * t) * 0   # không overshoot ở đây (vật lý: chống tay)
-        P['eul'][0] = lerp(-90.0, 0.0, t); P['loc'] = [lerp(HEAD.x, 1.0, t), lerp(HEAD.y - H, 2.82, t), lerp(0.35, -0.40, t)]
-        add('thigh.L', -90 * t); add('thigh.R', -90 * t); add('spine', 12 * t); add('neck', -8 * t)
-        lead = ss((f - F_SIT) / 14.0) * (1 - ss((f - F_SIT - 10) / 20.0))                  # đầu ngẩng trước thân
-        add('neck', 10 * lead); add('head', 6 * lead)
-        push = math.sin(math.pi * t)                                                          # hai tay chống ra sau đẩy người lên
-        for sd in 'LR': add(f'upper_arm.{sd}', 38 * push); add(f'forearm.{sd}', -8 * push)
-        sit = t
-    elif f <= F_SWING:                                         # xoay người, thả chân xuống mép giường
-        t = ss((f - F_LONG) / (F_SWING - F_LONG)); P['eul'] = [0.0, 0.0, 90.0 * t]; P['loc'] = [1.0, 2.82, -0.40]
-        add('thigh.L', -90); add('thigh.R', -90); add('shin.L', 85 * t); add('shin.R', 85 * t); add('spine', 12)
-        for sd in 'LR': add(f'upper_arm.{sd}', 14 * (1 - t) + 6); add(f'forearm.{sd}', -12)   # tay đặt xuống mép nệm
-        add('spine', 0, -10 * math.sin(math.pi * t))                                           # thân xoắn theo hướng quay
-        sit = 1.0
-    elif f <= F_DEP:                                           # ngồi mép giường, xỏ dép: chân trái dò tìm dép rồi xỏ, tới chân phải
-        P['eul'] = [0.0, 0.0, 90.0]; P['loc'] = [1.0, 2.82, -0.40]
-        add('thigh.L', -90); add('thigh.R', -90); add('shin.L', 85); add('shin.R', 85); add('spine', 12)
-        for sd in 'LR': add(f'upper_arm.{sd}', 6); add(f'forearm.{sd}', -12)
-        for sd, f0 in (('L', F_SWING + 4), ('R', F_SWING + 32)):
-            u = (f - f0) / 22.0
-            if 0.0 <= u <= 1.0:
-                add(f'shin.{sd}', -10 * math.sin(math.pi * u) + 6 * ss(u * 2 - 1)); add(f'foot.{sd}', 24 * math.sin(math.pi * u) ** 0.7 - 14 * ss(u * 2 - 1.0) * (1 - ss((u - 0.8) * 5)))
-                add('spine', 5 * math.sin(math.pi * u), 0, 2.0 * (1 if sd == 'L' else -1) * math.sin(math.pi * u))   # cúi và nghiêng người xuống tay với
-                add('neck', 8 * math.sin(math.pi * u))
-        sit = 1.0
-    elif f <= F_STAND:                                         # đứng lên: nghiêng trước, đẩy đùi, rồi thẳng người
-        t = ss((f - F_DEP) / (F_STAND - F_DEP)); P['eul'] = [0.0, 0.0, 90.0]; P['loc'] = [lerp(1.0, 1.55, t), lerp(2.82, 2.95, t), lerp(-0.40, 0.0, t)]
-        add('thigh.L', -90 * (1 - t)); add('thigh.R', -90 * (1 - t)); add('shin.L', 85 * (1 - t)); add('shin.R', 85 * (1 - t))
-        add('spine', 12 + 16 * math.sin(math.pi * t) * (1 - 0.3 * t) - 12 * t); add('neck', -6 * math.sin(math.pi * t))
-        for sd in 'LR': add(f'upper_arm.{sd}', -10 * math.sin(math.pi * t)); add(f'forearm.{sd}', -14 * math.sin(math.pi * t))   # tay đưa ra trước giữ thăng bằng
-        sit = 0.0
-    else:                                                      # đứng, đi tới gương, dừng nhìn
-        wt = ss((f - F_WALK0) / (F_WALK1 - F_WALK0)); P['eul'] = [0.0, 0.0, 90.0]; P['loc'] = [lerp(1.55, 2.45, wt), lerp(2.95, 3.25, wt), 0.0]
+    walking = F_WALK0 <= f <= F_WALK1; env = 0.0
+    if f <= F_STAND:
+        hw, q, bones, t, seg = noi_suy(f); B.update(bones)
+        if F_STIR <= f <= F_STRETCH:                                           # trở mình: tay trái dụi mắt
+            add('forearm.L', 9 * osc(f, 7.0) * bump(f, (F_STIR + F_STRETCH) / 2, 8.0)); add('head', 0, 6 * osc(f, 11.0) * bump(f, 380, 8.0))
+        if F_PUSH <= f <= F_SEAT:                                              # chống tay đẩy người lên: tay ra sau, đầu dẫn
+            push = math.sin(math.pi * (f - F_PUSH) / (F_SEAT - F_PUSH))
+            for sd in 'LR': add(f'upper_arm.{sd}', 40 * push); add(f'forearm.{sd}', -6 * push)
+            add('neck', -8 * push); add('spine', 10 * push)
+        if F_SEAT <= f <= F_SWING:                                             # ngồi mép giường, gãi đầu/dụi mặt, nhìn quanh
+            g = bump(f, (F_SEAT + F_SWING) / 2 - 2, 10.0)
+            add('upper_arm.L', -118 * g); add('forearm.L', -98 * g + 7 * g * osc(f, 6.0)); add('head', 8 * g, 14 * g * osc(f, 18.0), 0); add('spine', -3 * g)
+        if F_SWING <= f <= F_DEP:                                              # xỏ dép: chân trái dò tìm rồi xỏ, tới chân phải
+            for sd, f0 in (('L', F_SWING + 4), ('R', F_SWING + 32)):
+                u = (f - f0) / 22.0
+                if 0.0 <= u <= 1.0:
+                    add(f'shin.{sd}', -10 * math.sin(math.pi * u) + 6 * ss(u * 2 - 1)); add(f'foot.{sd}', 24 * math.sin(math.pi * u) ** 0.7 - 14 * ss(u * 2 - 1.0) * (1 - ss((u - 0.8) * 5)))
+                    add('spine', 5 * math.sin(math.pi * u), 0, 2.0 * (1 if sd == 'L' else -1) * math.sin(math.pi * u)); add('neck', 8 * math.sin(math.pi * u))
+        if F_DEP <= f <= F_STAND:                                              # đứng lên: nghiêng trước, đẩy tay lên đùi, rồi thẳng người
+            u = (f - F_DEP) / (F_STAND - F_DEP)
+            add('spine', 16 * math.sin(math.pi * u) * (1 - 0.3 * u)); add('neck', -6 * math.sin(math.pi * u))
+            for sd in 'LR': add(f'upper_arm.{sd}', -10 * math.sin(math.pi * u)); add(f'forearm.{sd}', -14 * math.sin(math.pi * u))
+        sw = 1.0 - ss((f - F_SIT) / 14.0)                                      # nhịp thở sâu khi ngủ
+        add('chest', 2.4 * sw * osc(f, 84.0)); add('pelvis', 0, 0, 1.2 * sw * osc(f, 84.0, 0.4))
+    else:                                                                      # đứng, đi tới gương, dừng nhìn
+        wt = ss((f - F_WALK0) / (F_WALK1 - F_WALK0)); hw = Vector((lerp(1.58, 2.45, wt), lerp(2.92, 3.25, wt), HIP)); q = quat((0, 0, 90)); B.update(STAND0)
         env = min(1.0, (f - F_WALK0) / 10.0, (F_WALK1 - f) / 10.0) if walking else 0.0; ph = 2 * math.pi * (f - F_WALK0) / 40.0
         for side, off, sg in (('L', 0.0, 1.0), ('R', math.pi, -1.0)):
             sp = math.sin(ph + off); cp = math.cos(ph + off)
             add(f'thigh.{side}', 26 * sp * env); add(f'shin.{side}', 5 * env + 44 * max(0.0, -cp) ** 1.3 * env)
-            add(f'foot.{side}', (-12 * max(0.0, math.sin(ph + off + 1.9)) + 20 * max(0.0, math.sin(ph + off - 1.2))) * env)   # gót chạm → lăn → đẩy mũi
-            add(f'upper_arm.{side}', -17 * sp * env + 3); add(f'forearm.{side}', -(12 + 14 * max(0.0, sp)) * env)
-            add(f'upper_arm.{side}', 0, 0, sg * 2.0)                                              # tay hơi dạng khỏi thân
-        add('pelvis', 0, 7 * math.sin(ph) * env, 2.5 * math.sin(ph) * env)                       # hông xoay + nghiêng theo bước
-        add('spine', 0, -5 * math.sin(ph) * env); add('chest', 0, -4 * math.sin(ph) * env)        # thân trên xoắn ngược hông
-        add('neck', 0, 1.5 * math.sin(ph - 0.6) * env); add('head', 0, 1.5 * math.sin(ph - 0.6) * env)   # đầu giữ ổn định, trễ pha
-        add('spine', 2 * env)                                                                     # hơi gập trước khi đi
-        P['loc'][2] = 0.016 * math.cos(2 * ph) * env; P['loc'][1] += 0.014 * math.sin(ph) * env  # nhún lên xuống + đổi trọng tâm sang bên
-        if f > F_WALK1:                                        # dừng trước gương: đầu cúi nhẹ nhìn kính, đổi trọng tâm
+            add(f'foot.{side}', (-12 * max(0.0, math.sin(ph + off + 1.9)) + 20 * max(0.0, math.sin(ph + off - 1.2))) * env)       # gót chạm → lăn → đẩy mũi
+            add(f'upper_arm.{side}', -17 * sp * env + 3); add(f'forearm.{side}', -(12 + 14 * max(0.0, sp)) * env); add(f'upper_arm.{side}', 0, 0, sg * 2.0)
+        add('pelvis', 0, 7 * math.sin(ph) * env, 2.5 * math.sin(ph) * env); add('spine', 0, -5 * math.sin(ph) * env); add('chest', 0, -4 * math.sin(ph) * env)        # hông xoay, thân trên xoắn ngược
+        add('neck', 0, 1.5 * math.sin(ph - 0.6) * env); add('head', 0, 1.5 * math.sin(ph - 0.6) * env); add('spine', 2 * env)                                          # đầu giữ ổn định, trễ pha
+        hw.z += 0.016 * math.cos(2 * ph) * env; hw.y += 0.014 * math.sin(ph) * env                                                                                    # nhún lên xuống, đổi trọng tâm
+        if f > F_WALK1:
             t = ss((f - F_WALK1) / 30.0); add('neck', 6 * t); add('head', -3 * t); add('pelvis', 0, 0, 1.5 * math.sin((f - F_WALK1) / 18.0) * t)
             for sd in 'LR': add(f'upper_arm.{sd}', 3); add(f'forearm.{sd}', -10)
-        sit = 0.0
-    # --- tư thế ngủ tự nhiên (nằm nghiêng nhẹ, đầu quay, một chân co, một tay gác qua đầu, tay kia đặt bụng), mờ dần khi tỉnh ---
     sw = 1.0 - ss((f - F_SIT) / 22.0) if f >= F_SIT else 1.0
-    if sw > 0.0:
-        P['eul'][1] += 24.0 * sw; P['loc'][2] -= 0.012 * sw; P['loc'][0] += 0.03 * sw
-        add('neck', 4 * sw, 12 * sw, 3 * sw); add('head', 6 * sw, 30 * sw, -4 * sw); add('spine', 9 * sw, 8 * sw, 3 * sw); add('chest', 0, 5 * sw, 0)
-        add('thigh.L', -46 * sw, 0, -6 * sw); add('shin.L', 78 * sw); add('foot.L', 12 * sw); add('thigh.R', -12 * sw); add('shin.R', 26 * sw)
-        add('upper_arm.L', -148 * sw, 0, 10 * sw); add('forearm.L', -32 * sw)
-        add('upper_arm.R', -22 * sw, 0, -18 * sw); add('forearm.R', -78 * sw)
-        add('chest', 2.4 * sw * osc(f, 84.0)); add('pelvis', 0, 0, 1.2 * sw * osc(f, 84.0, 0.4))                                 # thở sâu, bụng nhấp nhô
-    # --- lớp phụ liên tục ---
-    breath = osc(f, 90.0); add('chest', 1.2 * breath); add('spine', 0.6 * breath)                  # thở
-    for sd in 'LR':                                            # khuỷu và gối luôn hơi cong (không duỗi thẳng cứng)
-        if not walking: add(f'forearm.{sd}', -6)
-        add(f'shin.{sd}', 2.5 if f > F_SWING and not walking else 0.0)
-    add('head', 0, 2.0 * osc(f, 150.0, 0.7) * (1.0 - env), 0)                                    # đầu xoay vi mô
-    add('neck', 0.8 * osc(f, 110.0) * (1.0 - env))
-    if f <= F_SIT: add('head', 0, 0, 1.5 * osc(f, 130.0)); add('spine', 0, 0, 0.5 * breath)       # ngủ: đầu lắc nhẹ theo nhịp thở
-    return P
+    breath = osc(f, 90.0); add('chest', 1.2 * breath); add('spine', 0.6 * breath)                                                                                      # thở
+    for sd in 'LR':
+        if not walking: add(f'forearm.{sd}', -6 if f > F_ROLL else 0)                                                                                                    # khuỷu luôn hơi cong
+    add('head', 0, 2.0 * osc(f, 150.0, 0.7) * (1.0 - env), 0); add('neck', 0.8 * osc(f, 110.0) * (1.0 - env))
+    if f <= F_STIR: add('head', 0, 0, 1.5 * osc(f, 130.0))
+    return hw, q, B
 def aplicar(f):
-    P = pose(f); rig.location = P['loc']; rig.rotation_euler = [R(x) for x in P['eul']]
+    hw, q, B = pose(f); rig.rotation_mode = 'QUATERNION'; rig.rotation_quaternion = q; rig.location = hw - q @ Vector((0, 0, HIP))      # xoay quanh khớp háng
     for b in rig.pose.bones: b.rotation_euler = (0, 0, 0)
-    for n, (x, y, z) in P['b'].items():
+    for n, (x, y, z) in B.items():
         if n in rig.pose.bones: rig.pose.bones[n].rotation_euler = (R(x), R(y), R(z))
-
 def fcs(ob):
     """fcurves của object (Blender 5.x: action theo slot → layers/strips/channelbags)."""
     act = ob.animation_data.action
@@ -169,7 +169,7 @@ for i in range(NX + 1):
 for p_ in me_c.polygons: p_.use_smooth = True
 chan.modifiers.new('day', 'SOLIDIFY').thickness = 0.018
 if a.dong:
-    for f_, v_ in ((F_SIT, 0.0), (F_SIT + 10, 0.0), (F_SIT + 34, 1.0), (F_END, 1.0)):
+    for f_, v_ in ((F_SIT, 0.0), (F_STRETCH, 0.0), (F_PUSH, 1.0), (F_END, 1.0)):                      # chăn bị đá ra khi vươn vai/lăn ra mép
         kd.value = v_; kd.keyframe_insert('value', frame=f_)
 # ---------------- dép: ngủ không đi dép (bỏ giày của stickman), dép nằm dưới sàn cạnh giường, xỏ vào trước khi đứng
 for n in ('Cloth_nam_Shoe_L', 'Cloth_nam_Shoe_R'):
@@ -227,13 +227,16 @@ def bieu_cam(f):
     def put(part, key, v):
         if (part, key) in E: E[(part, key)] = max(E[(part, key)], min(1.0, v))
     def blend(a, b, t): return a + (b - a) * ss(t)
-    if f <= F_SIT + 14:                                                     # đang ngủ → tỉnh dần
-        t = (f - F_SIT) / 14.0; put('Eye', 'nham', blend(1.0, 0.55, t)); put('Mouth', 'o', 0.18 * (1 - t)); put('Mouth', 'buon', 0.15); put('Brow', 'ha', 0.25)
-    elif f <= F_LONG:                                                       # mơ màng, ngáp
-        yawn = bump(f, F_SIT + 34, 14.0)
-        put('Eye', 'lim', 0.55 * (1 - yawn)); put('Eye', 'nham', 0.85 * yawn); put('Mouth', 'o', 1.0 * yawn); put('Brow', 'nang', 0.5 * yawn); put('Brow', 'ha', 0.25 * (1 - yawn)); put('Mouth', 'buon', 0.2 * (1 - yawn))
-    elif f <= F_SWING:                                                      # ngơ ngác nhìn quanh
-        put('Eye', 'lim', 0.35); put('Brow', 'ha', 0.15); put('Mouth', 'buon', 0.15)
+    if f <= F_STIR:                                                         # đang ngủ, miệng hé, mày xệ
+        put('Eye', 'nham', blend(1.0, 0.8, (f - F_SIT) / (F_STIR - F_SIT))); put('Mouth', 'o', 0.18); put('Mouth', 'buon', 0.15); put('Brow', 'ha', 0.25)
+    elif f <= F_STRETCH:                                                    # trở mình, dụi mắt
+        rub = bump(f, 380, 7.0); put('Eye', 'nham', 0.55 + 0.35 * rub); put('Brow', 'ha', 0.30); put('Mouth', 'buon', 0.2)
+    elif f <= F_ROLL:                                                       # vươn vai + ngáp
+        yawn = bump(f, 398, 9.0); put('Mouth', 'o', yawn); put('Eye', 'nham', 0.85 * yawn); put('Brow', 'nang', 0.55 * yawn); put('Eye', 'lim', 0.5 * (1 - yawn)); put('Brow', 'ha', 0.2 * (1 - yawn))
+    elif f <= F_SEAT:                                                       # lười, mơ màng chuẩn bị ngồi dậy
+        put('Eye', 'lim', 0.45); put('Brow', 'ha', 0.15); put('Mouth', 'buon', 0.15)
+    elif f <= F_SWING:                                                      # ngồi gãi đầu, dụi mặt, hơi ngơ ngác
+        put('Eye', 'lim', 0.35 + 0.4 * bump(f, 464, 8.0)); put('Brow', 'ha', 0.15); put('Mouth', 'buon', 0.2)
     elif f <= F_DEP:                                                        # tập trung xỏ dép
         put('Eye', 'lim', 0.30); put('Brow', 'gian', 0.30); put('Brow', 'ha', 0.10)
     elif f <= F_WALK0:                                                      # đứng lên, mặt hơi uể oải
@@ -268,10 +271,10 @@ cam_moi('CAM_1_chan_giuong', (2.35, 1.2, 0.85), (2.3, 3.1, 0.7), 26, F_SIT, F_SW
 cam_moi('CAM_2_dep', (0.2, 2.1, 0.55), (1.6, 2.85, 0.18), 32, F_SWING, F_DEP, 1.2, theo=False)                          # sát sàn: xỏ dép
 cam_moi('CAM_3_cua_so', (0.2, 1.7, 1.4), (1.7, 3.2, 1.0), 24, F_DEP, F_WALK0 + 30, 1.0)                       # từ phía cửa sổ: đứng lên, quay người
 cam_moi('CAM_4_theo', (1.5, 0.35, 1.6), (1.2, 3.1, 1.0), 20, F_WALK0 + 30, F_WALK1 + 8, 0.8)
-cam_moi('CAM_5_mat', (1.25, 2.55, 1.45), (0.95, 3.2, 1.3), 50, F_WALK1 + 8, F_END, 0.8)   # cận mặt Nam trước gương: thấy biểu cảm (đặt phía sau-trái người, nhìn qua vai về phía gương)                           # rộng: đi tới gương
+cam_moi('CAM_5_mat', (0.38, 2.45, 1.45), (0.55, 3.25, 1.4), 50, F_WALK1 + 8, F_END, 0.8)   # cận mặt Nam trước gương: thấy biểu cảm (đặt phía sau-trái người, nhìn qua vai về phía gương)                           # rộng: đi tới gương
 if a.dong:
     for f in range(F_SIT, F_END + 1, 2):
-        aplicar(f); rig.keyframe_insert('location', frame=f); rig.keyframe_insert('rotation_euler', frame=f)
+        aplicar(f); rig.keyframe_insert('location', frame=f); rig.keyframe_insert('rotation_quaternion', frame=f)
         for b in rig.pose.bones: b.keyframe_insert('rotation_euler', frame=f)
     sc.frame_start, sc.frame_end = F_SIT, F_END; sc.render.fps = 24
 os.makedirs(a.ra, exist_ok=True)
