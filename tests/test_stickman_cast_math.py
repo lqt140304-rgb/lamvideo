@@ -114,7 +114,8 @@ class TestStickmanCastMath(unittest.TestCase):
         import dung_stickman_cast
         import inspect
         src = inspect.getsource(dung_stickman_cast.create_stickman_body)
-        self.assertIn("Thumb", src, "create_stickman_body must define Thumb for stylized hand")
+        self.assertNotIn("Thumb", src, "bàn tay stickman là khối nắm, không có ngón (quyết định 17/11/2026)")
+        self.assertIn("Hand_Palm", src, "bàn tay phải còn khối lòng bàn tay")
         self.assertIn("Palm", src, "create_stickman_body must define Palm for stylized hand")
 
     def test_outfit_signature_details(self):

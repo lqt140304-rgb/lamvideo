@@ -2149,8 +2149,15 @@ def bind_stickman_to_armature(char_id: str, rig_obj: Any, body_parts: List[Any] 
         
         # Phân loại nhóm đỉnh cơ bản theo tên mesh
         name_lower = obj.name.lower()
+        toks = name_lower.split("_")
+        side = toks[-1].upper() if toks[-1] in ("l", "r") else None   # trái/phải theo token cuối (không dùng "_l" in name: "_leg" cũng chứa "_l" → chân phải bị gắn vào đùi trái)
+        limb = None
+        if side and any(t in toks for t in ("arm", "sleeve", "shouldercap")): limb = "arm"
+        elif side and any(t in toks for t in ("leg", "thigh")): limb = "leg"
         target_bone = "root"
-        if any(k in name_lower for k in ["head", "hair", "eye", "brow", "mouth", "spectacles", "glasses", "helmet", "non_la"]):
+        if limb:
+            target_bone = None   # trọng số theo vị trí dọc chi, làm mượt quanh khuỷu/gối (mục dưới)
+        elif any(k in name_lower for k in ["head", "hair", "eye", "brow", "mouth", "spectacles", "glasses", "helmet", "non_la"]):
             target_bone = "head"
         elif "neck" in name_lower:
             target_bone = "neck"
@@ -2158,24 +2165,32 @@ def bind_stickman_to_armature(char_id: str, rig_obj: Any, body_parts: List[Any] 
             target_bone = "chest"
         elif any(k in name_lower for k in ["pelvis", "pants", "belt", "waist", "fannypack", "bag", "keyring", "apron"]):
             target_bone = "pelvis"
-        elif "hand" in name_lower and "_l" in name_lower:
-            target_bone = "hand.L"
-        elif "hand" in name_lower and "_r" in name_lower:
-            target_bone = "hand.R"
-        elif any(k in name_lower for k in ["arm", "sleeve", "shouldercap"]) and "_l" in name_lower:
-            target_bone = "upper_arm.L"
-        elif any(k in name_lower for k in ["arm", "sleeve", "shouldercap"]) and "_r" in name_lower:
-            target_bone = "upper_arm.R"
-        elif any(k in name_lower for k in ["thigh", "leg"]) and "_l" in name_lower:
-            target_bone = "thigh.L"
-        elif any(k in name_lower for k in ["thigh", "leg"]) and "_r" in name_lower:
-            target_bone = "thigh.R"
-        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and "_l" in name_lower:
-            target_bone = "foot.L"
-        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and "_r" in name_lower:
-            target_bone = "foot.R"
+        elif "hand" in toks and side:
+            target_bone = f"hand.{side}"
+        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and side:
+            target_bone = f"foot.{side}"
 
-        # Tạo vertex group và gán weight = 1.0 cho toàn bộ vertices
+        if limb:
+            dims_ = get_base_dimensions()
+            if limb == "arm": chain = [(f"upper_arm.{side}", None), (f"forearm.{side}", dims_["shoulder_z"] - 0.28), (f"hand.{side}", dims_["shoulder_z"] - 0.55)]
+            else: chain = [(f"thigh.{side}", None), (f"shin.{side}", dims_["knee_z"]), (f"foot.{side}", dims_["ankle_z"])]
+            for bn, _ in chain:
+                if not obj.vertex_groups.get(bn): obj.vertex_groups.new(name=bn)
+            inv = rig_obj.matrix_world.inverted(); HW = 0.045   # nửa bề rộng vùng pha trộn quanh khớp
+            def ss_(t): t = max(0.0, min(1.0, t)); return t * t * (3 - 2 * t)
+            for v in obj.data.vertices:
+                z = (inv @ (obj.matrix_world @ v.co)).z
+                wA = 1.0; ws = []
+                # từ trên xuống: w xương i = (phần chưa bị xương dưới lấy) × (1 − chuyển tiếp sang xương i+1)
+                for i, (bn, _) in enumerate(chain):
+                    if i + 1 < len(chain):
+                        zj = chain[i + 1][1]; nxt = 1.0 - ss_((z - (zj - HW)) / (2 * HW))   # 0 trên khớp, 1 dưới khớp
+                    else: nxt = 0.0
+                    ws.append((bn, wA * (1.0 - nxt))); wA *= nxt
+                for bn, w in ws:
+                    if w > 1e-3: obj.vertex_groups[bn].add([v.index], w, "REPLACE")
+            continue
+
         vg = obj.vertex_groups.get(target_bone)
         if not vg:
             vg = obj.vertex_groups.new(name=target_bone)
