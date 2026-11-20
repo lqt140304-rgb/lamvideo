@@ -102,6 +102,15 @@ def pose(f):
             t = ss((f - F_WALK1) / 30.0); add('neck', 6 * t); add('head', -3 * t); add('pelvis', 0, 0, 1.5 * math.sin((f - F_WALK1) / 18.0) * t)
             for sd in 'LR': add(f'upper_arm.{sd}', 3); add(f'forearm.{sd}', -10)
         sit = 0.0
+    # --- tư thế ngủ tự nhiên (nằm nghiêng nhẹ, đầu quay, một chân co, một tay gác qua đầu, tay kia đặt bụng), mờ dần khi tỉnh ---
+    sw = 1.0 - ss((f - F_SIT) / 22.0) if f >= F_SIT else 1.0
+    if sw > 0.0:
+        P['eul'][1] += 24.0 * sw; P['loc'][2] -= 0.012 * sw; P['loc'][0] += 0.03 * sw
+        add('neck', 4 * sw, 12 * sw, 3 * sw); add('head', 6 * sw, 30 * sw, -4 * sw); add('spine', 9 * sw, 8 * sw, 3 * sw); add('chest', 0, 5 * sw, 0)
+        add('thigh.L', -46 * sw, 0, -6 * sw); add('shin.L', 78 * sw); add('foot.L', 12 * sw); add('thigh.R', -12 * sw); add('shin.R', 26 * sw)
+        add('upper_arm.L', -148 * sw, 0, 10 * sw); add('forearm.L', -32 * sw)
+        add('upper_arm.R', -22 * sw, 0, -18 * sw); add('forearm.R', -78 * sw)
+        add('chest', 2.4 * sw * osc(f, 84.0)); add('pelvis', 0, 0, 1.2 * sw * osc(f, 84.0, 0.4))                                 # thở sâu, bụng nhấp nhô
     # --- lớp phụ liên tục ---
     breath = osc(f, 90.0); add('chest', 1.2 * breath); add('spine', 0.6 * breath)                  # thở
     for sd in 'LR':                                            # khuỷu và gối luôn hơi cong (không duỗi thẳng cứng)
@@ -126,6 +135,42 @@ def fcs(ob):
         for strip in layer.strips:
             for cb in strip.channelbags: out += list(cb.fcurves)
     return out
+
+# ---------------- chăn xộc xệch phủ lên chân/hông Nam, hất ra khi tỉnh (shape key)
+import bmesh, random
+_mat_chan = bpy.data.objects['chan_nem'].active_material if 'chan_nem' in bpy.data.objects else None
+bm = bmesh.new(); NX, NY = 52, 40; X0, X1, Y0, Y1 = 0.06, 1.40, 2.08, 3.12
+vs = [[bm.verts.new((lerp(X0, X1, i / NX), lerp(Y0, Y1, j / NY), 0.30)) for j in range(NY + 1)] for i in range(NX + 1)]
+for i in range(NX):
+    for j in range(NY): bm.faces.new((vs[i][j], vs[i + 1][j], vs[i + 1][j + 1], vs[i][j + 1]))
+me_c = bpy.data.meshes.new('chan_xoc_xech'); bm.to_mesh(me_c); bm.free(); chan = bpy.data.objects.new('chan_xoc_xech', me_c); sc.collection.objects.link(chan)
+if _mat_chan: chan.data.materials.append(_mat_chan)
+random.seed(7)
+def z_phu(x, y):
+    xb = 1.0 + 0.04 * (y - 2.5)                                           # trục thân nghiêng nhẹ
+    body = 0.15 * math.exp(-((x - xb) / 0.13) ** 2) * (1.0 if y < 2.85 else math.exp(-((y - 2.85) / 0.13) ** 2) * 0.6 + 0.4 * math.exp(-((y - 2.85) / 0.3) ** 2))
+    # chân co lên (trái): gò cao hơn, lệch về mép giường
+    knee = 0.10 * math.exp(-(((x - 1.14) / 0.10) ** 2 + ((y - 2.55) / 0.2) ** 2))
+    ng = 0.014 * math.sin(21 * x + 6 * y + 1.3) + 0.010 * math.sin(33 * x - 9 * y) + 0.018 * math.sin(7 * y + 3 * x)   # nếp nhăn
+    rua = 0.10 * max(0.0, (y - 2.78) / 0.34) ** 2                          # mép trên chăn hất xuống, nhàu về một phía
+    edge = min(1.0, (x - X0) / 0.12, (X1 - x) / 0.12, (y - Y0) / 0.10)
+    return max(0.266, 0.268 + (body + knee + ng * 1.0) * (0.35 + 0.65 * ss(edge * 1.2)) * (1 - 0.7 * rua / 0.10 * 0.2) - 0.012 * (1 - ss(edge * 2.0)))
+for i in range(NX + 1):
+    for j in range(NY + 1):
+        v = me_c.vertices[i * (NY + 1) + j]; v.co.z = z_phu(v.co.x, v.co.y)
+chan.shape_key_add(name='Basis', from_mix=False)
+kd = chan.shape_key_add(name='da_di', from_mix=False)
+for i in range(NX + 1):
+    for j in range(NY + 1):
+        v = me_c.vertices[i * (NY + 1) + j]; x, y = v.co.x, v.co.y
+        # chăn bị đá về phía chân giường (y nhỏ): dồn cục, ngoại hình thấp trên thân
+        yy = Y0 + (y - Y0) * 0.38; bunch = 0.10 * math.exp(-((y - Y0 - 0.22) / 0.18) ** 2) * (0.6 + 0.4 * math.sin(14 * x))
+        kd.data[i * (NY + 1) + j].co = (x + 0.05 * math.sin(3 * y), yy, max(0.266, 0.268 + bunch + 0.01 * math.sin(19 * x + 4 * y)))
+for p_ in me_c.polygons: p_.use_smooth = True
+chan.modifiers.new('day', 'SOLIDIFY').thickness = 0.018
+if a.dong:
+    for f_, v_ in ((F_SIT, 0.0), (F_SIT + 10, 0.0), (F_SIT + 34, 1.0), (F_END, 1.0)):
+        kd.value = v_; kd.keyframe_insert('value', frame=f_)
 # ---------------- dép: ngủ không đi dép (bỏ giày của stickman), dép nằm dưới sàn cạnh giường, xỏ vào trước khi đứng
 for n in ('Cloth_nam_Shoe_L', 'Cloth_nam_Shoe_R'):
     if n in bpy.data.objects: bpy.data.objects.remove(bpy.data.objects[n], do_unlink=True)
@@ -183,7 +228,7 @@ def bieu_cam(f):
         if (part, key) in E: E[(part, key)] = max(E[(part, key)], min(1.0, v))
     def blend(a, b, t): return a + (b - a) * ss(t)
     if f <= F_SIT + 14:                                                     # đang ngủ → tỉnh dần
-        t = (f - F_SIT) / 14.0; put('Eye', 'nham', blend(1.0, 0.55, t)); put('Mouth', 'buon', 0.2); put('Brow', 'ha', 0.2)
+        t = (f - F_SIT) / 14.0; put('Eye', 'nham', blend(1.0, 0.55, t)); put('Mouth', 'o', 0.18 * (1 - t)); put('Mouth', 'buon', 0.15); put('Brow', 'ha', 0.25)
     elif f <= F_LONG:                                                       # mơ màng, ngáp
         yawn = bump(f, F_SIT + 34, 14.0)
         put('Eye', 'lim', 0.55 * (1 - yawn)); put('Eye', 'nham', 0.85 * yawn); put('Mouth', 'o', 1.0 * yawn); put('Brow', 'nang', 0.5 * yawn); put('Brow', 'ha', 0.25 * (1 - yawn)); put('Mouth', 'buon', 0.2 * (1 - yawn))
