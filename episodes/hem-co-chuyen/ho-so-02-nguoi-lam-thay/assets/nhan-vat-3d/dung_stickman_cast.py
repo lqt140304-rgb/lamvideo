@@ -2200,6 +2200,8 @@ def bind_stickman_to_armature(char_id: str, rig_obj: Any, body_parts: List[Any] 
             target_bone = "chest"
         elif any(k in name_lower for k in ["pelvis", "pants", "belt", "waist", "fannypack", "bag", "keyring", "apron"]):
             target_bone = "pelvis"
+        elif "shoulderjoint" in toks and side:      # khối cầu khớp vai: gắn vào cánh tay trên (trước đây rơi vào "root" nên đứng yên, nhô ra sau lưng khi người xoay)
+            target_bone = f"upper_arm.{side}"
         elif "hand" in toks and side:
             target_bone = f"hand.{side}"
         elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and side:

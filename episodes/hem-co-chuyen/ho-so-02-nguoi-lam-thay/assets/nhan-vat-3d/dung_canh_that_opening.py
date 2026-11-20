@@ -16,8 +16,10 @@ import dung_stickman_cast as dsc
 W = X.W
 X.CAMERAS['MO_DAU'] = ((1.5, 0.2, 1.75), (1.2, 3.1, 0.95), 20)   # từ góc bàn nhìn qua phòng: thấy nệm, lối đi và gương (toạ độ thiết kế)
 X.CAMERAS['MO_DAU_CAO'] = ((2.9, 0.3, 2.3), (1.0, 3.0, 0.4), 24)
-sc = X.build(a.che_do, 10.0, 0.0, 0.0, a.cam, (a.rong, round(a.rong / 2.39)), den_ban=(a.che_do == 'night'))
+sc = X.build(a.che_do, 0.0, 0.0, 0.0, a.cam, (a.rong, round(a.rong / 2.39)), den_ban=(a.che_do == 'night'))
 sc.cycles.samples = a.mau
+sc.render.use_motion_blur = True; sc.render.motion_blur_shutter = 0.5          # nhòe chuyển động: bù khi chỉ render 12 khung/giây rồi nội suy
+sc.render.fps = 24
 # chăn/cuộn chăn thật nằm trên nệm; Nam nằm đè lên nên ẩn chăn trong cảnh này
 for n in ('chan_nem', 'chan_cuon'):
     if n in bpy.data.objects: bpy.data.objects[n].hide_render = True; bpy.data.objects[n].hide_viewport = True
@@ -253,13 +255,15 @@ if a.dong:
             for kb in FACE[key]: kb.value = v; kb.keyframe_insert('value', frame=f)
 # ---------------- camera tự nhiên: nhiều góc cắt cảnh, hơi rung tay, bám theo người (không gò bó một góc)
 tgt = bpy.data.objects.new('muc_tieu_nam', None); sc.collection.objects.link(tgt); tgt.parent = rig; tgt.parent_type = 'BONE'; tgt.parent_bone = 'chest'
-def cam_moi(ten, pos, nhin, f_mm, f0, f1, rung=1.0, theo=True):
+tgt_dau = bpy.data.objects.new('muc_tieu_dau', None); sc.collection.objects.link(tgt_dau); tgt_dau.parent = rig; tgt_dau.parent_type = 'BONE'; tgt_dau.parent_bone = 'head'; tgt_dau.location = (0, -0.13, 0)
+def cam_moi(ten, pos, nhin, f_mm, f0, f1, rung=1.0, theo=True, muc=None):
+    muc = muc or tgt
     pos = (X.mx(pos[0]), pos[1], pos[2]); nhin = (X.mx(nhin[0]), nhin[1], nhin[2])
-    cd = bpy.data.cameras.new(ten); cd.lens = f_mm; cd.sensor_width = 36.0; cd.clip_start = 0.05; cd.dof.use_dof = True; cd.dof.focus_object = tgt; cd.dof.aperture_fstop = 2.8
+    cd = bpy.data.cameras.new(ten); cd.lens = f_mm; cd.sensor_width = 36.0; cd.clip_start = 0.05; cd.dof.use_dof = True; cd.dof.focus_object = muc; cd.dof.aperture_fstop = 2.8
     ob = bpy.data.objects.new(ten, cd); sc.collection.objects.link(ob); ob.location = pos
     d_ = Vector(nhin) - Vector(pos); ob.rotation_euler = d_.to_track_quat('-Z', 'Y').to_euler()
     if theo:
-        tc = ob.constraints.new('TRACK_TO'); tc.target = tgt; tc.track_axis = 'TRACK_NEGATIVE_Z'; tc.up_axis = 'UP_Y'; tc.influence = 0.85    # bám theo người nhưng không dính cứng
+        tc = ob.constraints.new('TRACK_TO'); tc.target = muc; tc.track_axis = 'TRACK_NEGATIVE_Z'; tc.up_axis = 'UP_Y'; tc.influence = 0.85    # bám theo người nhưng không dính cứng
     # trôi chậm + rung tay
     ob.keyframe_insert('location', frame=f0); ob.location = (pos[0] + 0.05 * (1 if f_mm < 30 else -1), pos[1] + 0.04, pos[2] + 0.02); ob.keyframe_insert('location', frame=f1)
     for fc in fcs(ob):
@@ -271,7 +275,7 @@ cam_moi('CAM_1_chan_giuong', (2.35, 1.2, 0.85), (2.3, 3.1, 0.7), 26, F_SIT, F_SW
 cam_moi('CAM_2_dep', (0.2, 2.1, 0.55), (1.6, 2.85, 0.18), 32, F_SWING, F_DEP, 1.2, theo=False)                          # sát sàn: xỏ dép
 cam_moi('CAM_3_cua_so', (0.2, 1.7, 1.4), (1.7, 3.2, 1.0), 24, F_DEP, F_WALK0 + 30, 1.0)                       # từ phía cửa sổ: đứng lên, quay người
 cam_moi('CAM_4_theo', (1.5, 0.35, 1.6), (1.2, 3.1, 1.0), 20, F_WALK0 + 30, F_WALK1 + 8, 0.8)
-cam_moi('CAM_5_mat', (0.38, 2.45, 1.45), (0.55, 3.25, 1.4), 50, F_WALK1 + 8, F_END, 0.8)   # cận mặt Nam trước gương: thấy biểu cảm (đặt phía sau-trái người, nhìn qua vai về phía gương)                           # rộng: đi tới gương
+cam_moi('CAM_5_mat', (0.25, 2.15, 1.62), (0.52, 3.25, 1.6), 40, F_WALK1 + 8, F_END, 0.8, muc=tgt_dau)   # cận mặt Nam trước gương: thấy biểu cảm (đặt phía sau-trái người, nhìn qua vai về phía gương)                           # rộng: đi tới gương
 if a.dong:
     for f in range(F_SIT, F_END + 1, 2):
         aplicar(f); rig.keyframe_insert('location', frame=f); rig.keyframe_insert('rotation_quaternion', frame=f)
@@ -279,6 +283,8 @@ if a.dong:
     sc.frame_start, sc.frame_end = F_SIT, F_END; sc.render.fps = 24
 os.makedirs(a.ra, exist_ok=True)
 if os.environ.get('DT_DEBUG'):
+    for f in (692, 704, 716):
+        sc.frame_set(f); print('DBG cam5', f, 'dau', tuple(round(v, 2) for v in tgt_dau.matrix_world.translation), 'cam', tuple(round(v, 2) for v in sc.camera.matrix_world.translation), sc.camera.name)
     for f in (365, 394, 460, 700):
         sc.frame_set(f); print('DBG mặt', f, {k: round(v[0].value, 2) for k, v in FACE.items() if v[0].value > 0.05})
     for f in (380, 450, 520, 600):
