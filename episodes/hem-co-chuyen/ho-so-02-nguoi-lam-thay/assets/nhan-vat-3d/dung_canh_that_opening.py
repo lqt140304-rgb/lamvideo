@@ -14,7 +14,7 @@ ap.add_argument('--rong', type=int, default=640); ap.add_argument('--dong', acti
 import xay_phong_tro as X
 import dung_stickman_cast as dsc
 W = X.W
-X.CAMERAS['MO_DAU'] = ((1.45, 0.75, 1.55), (1.2, 3.1, 0.65), 22)   # từ góc bàn nhìn qua phòng: thấy nệm, lối đi và gương (toạ độ thiết kế)
+X.CAMERAS['MO_DAU'] = ((1.5, 0.2, 1.75), (1.2, 3.1, 0.95), 20)   # từ góc bàn nhìn qua phòng: thấy nệm, lối đi và gương (toạ độ thiết kế)
 X.CAMERAS['MO_DAU_CAO'] = ((2.9, 0.3, 2.3), (1.0, 3.0, 0.4), 24)
 sc = X.build(a.che_do, 10.0, 0.0, 0.0, a.cam, (a.rong, round(a.rong / 2.39)), den_ban=(a.che_do == 'night'))
 sc.cycles.samples = a.mau
