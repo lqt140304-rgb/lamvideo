@@ -124,3 +124,9 @@ blender -b --factory-startup --python dat_nam_vao_phong.py -- \
 # 4. Kiểm tra hệ thống Rigging và các dáng thử:
 blender -b --factory-startup --python rig_nam.py -- --test
 ```
+
+## Kiểm khớp stickman và cảnh mở đầu trên bối cảnh thật (20/11/2026)
+
+- **Khớp stickman trước khi sửa:** mỗi mesh gắn 100% vào MỘT xương: ống tay (`Body_*_Arm_*`) chỉ vào `upper_arm`, ống chân (`Body_*_Leg_*`) chỉ vào `thigh` → khuỷu và gối không gập (cẳng tay/cẳng chân đi như một ống thẳng cùng cánh tay trên/đùi); ống quần gắn `pelvis` nên không theo chân; và **chân phải bị gắn vào đùi trái** vì điều kiện `"_l" in name` cũng khớp `_leg`. Sửa trong `bind_stickman_to_armature`: nhận bên trái/phải theo token cuối của tên; tay/chân/tay áo/ống quần có trọng số theo độ cao dọc chi, pha mượt ±4,5 cm quanh khuỷu/gối/cổ tay/cổ chân. Đo FK sau sửa: gập khuỷu 100°, gối 100° kéo cẳng đi 49–59 cm, 0 cạnh giãn >2× (max 1,13×); chân phải theo đùi phải. Cổ/đầu vẫn một khối cứng theo xương (đầu tròn, chấp nhận).
+- **Nam nằm lệch khỏi giường:** `dung_canh_opening_30s.py` dùng **sàn phẳng + giường tự tạo** (bối cảnh giả) với toạ độ thiết kế như toạ độ thế giới, trong khi phòng thật phản chiếu trục x (`x_tg = 3 − x_tk`): nệm thật ở x 0,02–1,42 còn Nam đặt ở x 2,05. Cảnh mới `dung_canh_that_opening.py` dùng `xay_phong_tro.build()` (phòng thật, đêm, laptop xanh) và đặt Nam nằm ngửa trên nệm thật, đầu trên gối (chăn thật ẩn); render thử camera `BED` (chưa dựng lại cả 720 khung, chưa có Người Kia/gương thật, chưa chuyển động).
+- Bỏ ngón: bài kiểm `test_hand_geometry_naming` đổi theo (không còn `Thumb`).

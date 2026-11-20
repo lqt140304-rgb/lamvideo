@@ -45,5 +45,15 @@
     "lod_basic_shaded.fbx",
     "shaded.png"
   ],
-  "status": "Nguồn tĩnh có tóc, chưa rig, chưa nghiệm thu chuyển động"
+  "status": "Nguồn tĩnh có tóc, chưa rig, chưa nghiệm thu chuyển động",
+  "khuon_dau_troc": {
+    "path": "nguon/dau-troc-tham-chieu.fbx",
+    "bytes": 287692,
+    "sha256": "b60308e8e98ac2e64d450d00ff8463aa451dcb43be0d2d08d0d78045c1584470",
+    "supplied_by": "Chủ repo",
+    "supplied_date": "2026-11-14",
+    "ten_goc": "lod_3.fbx",
+    "ghi_chu": "Mô hình trọc khác lưới với bản gốc (LOD0 2.102 đỉnh, không texture); chỉ dùng làm khuôn hộp sọ cho rig-thu/dau_troc.py",
+    "license": "Chưa xác minh"
+  }
 }

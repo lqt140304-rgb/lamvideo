@@ -331,6 +331,8 @@ def clean_weights(body):
     eh = np.zeros(ng, np.float32); eh[I['Hips']] = 1; W = (1 - fc) * W + fc * eh
     W = lap(W, crotch, 60, 0.5)
     W = lap(W, (~head) & (z > 0.78) & (z < 1.02) & (ax < 0.18) & (y > 0.0), 120, 0.6)   # mông: chuyển Hips–UpLeg dài hơn cho dáng ngồi
+    W = lap(W, (~head) & (z > 0.76) & (z < 0.98) & (ax < 0.18) & (y < 0.02), 100, 0.5)   # nếp bẹn trước (quần ôm bị xuyên khi gập hông)
+    W = lap(W, (~head) & (z > 0.38) & (z < 0.58) & (ax < 0.18), 60, 0.5)                 # gối/khoeo (quần ôm nhăn khi ngồi xổm)
     W = rules(W)
     W[W < 0.01] = 0; W /= W.sum(1, keepdims=True)
     # tối đa 4 xương/đỉnh (giới hạn của Unity/Unreal/web khi xuất): giữ 4 trọng số lớn nhất rồi chuẩn hóa lại

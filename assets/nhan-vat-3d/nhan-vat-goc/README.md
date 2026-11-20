@@ -26,6 +26,10 @@ Tạo bản sao riêng khi phát triển nhân vật. Giữ mốc nguồn này �
 
 Kích thước nhập khoảng 0,648 × 0,586 × 1,723 m. Có UV và texture 2048 × 2048. LOD0 là một thành phần lưới liên thông: tóc, đầu và thân chưa tách riêng. Chưa có armature, vertex group, animation hoặc shape key.
 
+## Bản đầu trọc (không tóc)
+
+`nhan-vat-goc-troc.blend` (khoảng 16 MB, **không đưa lên Git**: dựng lại bằng lệnh ở [rig-thu/README.md](rig-thu/README.md), khoảng 1–2 phút) là lưới nền **bỏ tóc**, có hộp sọ kín, vẫn giữ texture và nốt ruồi. File tạo bằng [`rig-thu/dau_troc.py`](rig-thu/README.md) từ `nhan-vat-goc.blend` và khuôn `nguon/dau-troc-tham-chieu.fbx`; tay buông, chưa rig. Texture được đóng gói trong file khi dựng lại. Ảnh kiểm: [rig-thu/dau-troc.webp](rig-thu/dau-troc.webp). Giấy phép của khuôn chưa xác minh, như bản gốc.
+
 ## Tệp nguồn và truy vết
 
 - ZIP do chủ repo cung cấp: `10349138-1e95-4c55-b7d6-0080f58fc6f9.zip`.
@@ -47,5 +51,6 @@ Script giữ hình khối/UV/vật liệu nguồn, bố trí collection theo LOD
 
 - Đã nhập bản PBR trong Blender 5.2.3, kiểm texture và render ảnh tĩnh một LOD.
 - Đã chọn làm nguồn phát triển mô hình nền chung. Chưa nghiệm thu biến dạng/chuyển động.
+- 14/11/2026: có [lưới nền đầu trọc và rig thử thân/tay/ngón/chân](rig-thu/README.md), đều tạo bằng script, không sửa file nguồn; chưa có rig mặt hay shape key; chưa nghiệm thu.
 - Việc tiếp theo: trên bản sao, bỏ tóc liền lưới và dựng da đầu kín; kiểm hình khối đầu trọc trước khi làm lại topology và rig.
 - Sau đó mới tách/chuẩn hóa mắt, miệng, tóc, quần áo và các biến thể nhân vật. Các bước này chưa được thực hiện trong mốc nguồn hiện tại.

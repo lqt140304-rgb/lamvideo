@@ -187,3 +187,45 @@ D:/blender/blender.exe -b --factory-startup --python clip_thu_nam002.py -- --in 
 - [`nam-002-rig.blend`](nam-002-rig.blend) (35 MB, texture nhúng sẵn): đầy đủ rig Mixamo + IK + ngón tay + mắt/mày + biểu cảm + khẩu hình (shape key và driver), dáng chữ T, tối đa 4 xương/đỉnh. Đây là bản nên mở khi mặc đồ. Dựng bằng `rig_nam002.py` (khoảng 6 phút). Lúc mở file hoạt ảnh trống; chu kỳ đi bộ nằm trong `di_bo_nam002.py`.
 - [`nam-002-rig.glb`](nam-002-rig.glb) (31 MB): cùng bộ xương và shape key để dùng ở nơi khác. **GLB không mang driver**, nên biểu cảm/khẩu hình phải đặt trực tiếp qua shape key (`mieng_ha`, `mieng_hep`, `mieng_rong`, `cuoi`, `meu`, `mieng_khep`, `may_*`), không qua thuộc tính xương `Head`.
 - Cảnh thử áo phông và các file trung gian không đưa lên repo.
+
+## Thử biến thể từ khuôn mẫu (15/11/2026)
+
+`bien_the_nam002.py` dựng biến thể từ `nam-002-rig.blend`: chiều cao, màu da, mở vai, độ đầy, tóc. Ví dụ đã chạy:
+
+```
+--cao 1.62 --da 0.62,0.42,0.30 --vai -0.012 --day -0.006 --toc ngan --mau-toc 0.02,0.015,0.012   # A: thấp, da sẫm, gầy
+--cao 1.82 --da 0.86,0.66,0.55 --vai 0.025 --day 0.012 --toc dai --mau-toc 0.35,0.20,0.08        # B: cao, da sáng, vai rộng, đầy
+```
+
+Ảnh: [bien-the-thu.webp](bien-the-thu.webp) (A: hai hàng trên, B: hai hàng dưới; chữ T, mặt mặc định/vui/ngạc nhiên/liếc, rồi 8 khung đi bộ).
+
+**Kết quả đo/xem:** chiều cao đúng 1,62 m và 1,82 m, chân chạm sàn (thấp nhất 0,0000 m); chu kỳ đi bộ, biểu cảm, khẩu hình và liếc mắt chạy bình thường trên cả hai, không phải làm lại gì; mắt/mày đi theo đầu khi scale. Dáng người được nướng vào lưới và các shape key miệng, xương vai–tay dịch theo (không lệch khi đi).
+
+**Hạn chế đã thấy:**
+- Tóc thử chỉ là vỏ úp bát copy từ da đầu: kiểu dài hở ở gáy/hai bên và nhìn như mũ. Tóc thật cần làm riêng (thư viện tóc).
+- Màu da chỉ nhân màu lên texture nướng: đổi tông được, nhưng môi, má, vùng đỏ cố định theo texture, nên da quá sẫm hay quá nhạt sẽ lệch chi tiết. Muốn tốt hơn phải tách texture thành lớp da + lớp chi tiết.
+- Scale giữ ở mức object (Nam_Rig = chiều cao/1,70), chưa áp; bước đi theo tỉ lệ nhưng chưa tính độ dài chân khác nhau.
+- Dáng người nướng cố định, không phải thanh trượt; áo quần làm cho bản gốc phải làm lại theo từng biến thể (Data Transfer từ thân biến thể).
+- Chưa thử áo quần lên biến thể; chưa thử thay đổi khuôn mặt (mũi, hàm, khoảng cách mắt).
+
+**Nốt ruồi (15/11/2026):** `bien_the_nam002.py --ruoi trai|phai` vẽ nốt ruồi bằng shader ngay dưới đuôi mắt (trái nhân vật = +X cho Nam, phải cho Người Kia). Đi theo mặt khi cử động và khi scale. `nam-002` gốc chưa có nốt ruồi nào. Chưa duyệt vị trí/độ lớn với chủ repo.
+
+## Nam 1,60 m và Tùng 1,70 m từ cùng khuôn mẫu (15/11/2026)
+
+Chủ repo chốt: Nam 1,60 m, Tùng 1,70 m, dựng bằng Hyper3D (bỏ hướng modular). Ảnh [nam-tung-so-sanh.webp](nam-tung-so-sanh.webp): hai cột trái là Nam, hai cột phải là Tùng.
+
+```
+Nam:  --cao 1.60 --ruoi trai --toc ngan --mau-toc 0.02,0.015,0.012
+Tùng: --cao 1.70 --da 0.92,0.74,0.62 --vai 0.012 --day -0.004 --toc xu --mau-toc 0.012,0.008,0.006 --may-day 1.3 --mat-mau 0.03,0.02,0.015
+```
+Người Kia: như Nam nhưng `--ruoi phai` (thuận tay trái là diễn xuất, không phải mô hình).
+
+**Hạn chế:** Tùng khác Nam ở mày, mống mắt, da, tóc, dáng, nhưng cấu trúc mặt (mũi, miệng, tai, đầu) vẫn là một lưới; nhìn gần vẫn giống nhau. Tóc `xu` còn thô: viền chân tóc răng cưa, khối tóc như mũ cứng. Chưa mặc đồ, chưa thử rig/đi bộ của Tùng sau khi đổi mày và mắt (chỉ xem mặt tĩnh).
+
+**Nắn mặt kiểu bóp (15/11/2026):** `bien_the_nam002.py --bop tung [--bop-he-so 1]` kéo/phồng/co lưới đầu theo vùng lan mềm, đối xứng hai bên, giảm dần gần mắt và miệng để rig mặt không lệch; kết quả nướng vào lưới và các shape key miệng. Bộ `tung` (tai nhỏ 80 %, hàm bạnh ra, cằm dài hơn, mũi thấp và thon, má hóp nhẹ; đỉnh dịch tối đa ≈ 8 mm). Thêm bộ mới bằng cách thêm khóa vào `BOP` (mốc mặt ghi sẵn ở đầu bảng). Ảnh: [nam-tung-bop.webp](nam-tung-bop.webp) (Nam – Tùng đã bóp, mặt chính và 3/4). Cường độ 2 làm cằm thành mỏ nhọn nên bộ chuẩn dùng vùng lan rộng cho cằm. Chưa kiểm biểu cảm và khẩu hình sau khi bóp (chỉ xem mặt tĩnh).
+
+**Viền mắt và miệng mới cho Tùng (15/11/2026):** `bien_the_nam002.py --moi tung`. Gỡ nét viền vẽ sẵn trên texture quanh mắt và quanh miệng bằng cách phủ màu da (shader, theo tọa độ rest của lưới nên dính mặt), ẩn các đường cong 3D `Vien.*`/`VanhDa.*`, đổi màu mí mắt theo da biến thể, rồi vẽ lại: mí trên đậm, nếp mí đôi, miệng bầu dục rộng–thấp với môi hồng. Ảnh: [tung-vien-moi.webp](tung-vien-moi.webp) (Nam cận mặt, Tùng cận mặt, Tùng chính diện, Tùng 3/4).
+
+**Hạn chế:** nét mí trên còn loang ở đuôi mắt; mí mắt còn lộ mảng sáng hơn da một chút; miệng vẽ bằng shader nên khi há (khẩu hình a, o…) hình bị kéo giãn theo lưới chứ chưa có khoang miệng thật; chưa kiểm biểu cảm/khẩu hình/chớp mắt sau khi đổi viền. Phủ da dùng màu trung bình lấy từ texture quanh mắt/miệng nên có thể lệch nhẹ ở da tông đậm.
+
+**Đính chính (15/11/2026):** ở mục "Thử áo phông" phía trên, hai tư thế "cúi" và "ngửa" thực ra bị đảo chiều, và tư thế "nhấc chân" không có hiệu lực vì IK chặn nên chân không dịch; kết luận "nhấc chân gần như không lỗi" không có giá trị. Đã đo lại bằng tư thế đúng chiều, xem [HUONG-DAN-MAC-DO.md](HUONG-DAN-MAC-DO.md) mục 8. Trên rig hiện có, quần ôm vẫn lỗi rõ khi nhấc chân và ngồi xổm.

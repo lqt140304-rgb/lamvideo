@@ -3,7 +3,7 @@
   <bpy-python> chon_co_chan_nam003.py [--song-song 4] [--ra thư-mục]
 
 Dựng rig với ankle ∈ z {0.08,0.10,0.12,0.14} × y {0.04,0.05,0.06} (qua NAM003_J), đo cạnh giãn >1,5× và co <0,6× (cạnh dài >3 mm lúc nghỉ) ở các tư thế
-buoc_chan, ngoi_xom, nhac_chan_IK (ik_foot.L dịch (0,−0,30,+0,35) và Hips −0,02) và mui_chan (ik_foot.L quay ±20° quanh X). Chọn tổ hợp có tổng giãn+co nhỏ nhất, hòa thì giãn lớn nhất nhỏ hơn.
+buoc_chan, ngoi_xom, nhac_chan_IK (ik_foot.L dịch (0,−0,30,+0,35) và Hips −0,02) và mui_chan (ik_foot.L quay ±20° quanh X). Chọn tổ hợp có tổng giãn+co nhỏ nhất TRONG các tổ hợp thỏa ngồi xổm giãn tối đa <= 1,89× (ràng buộc của thiết kế); nếu không tổ hợp nào thỏa thì chọn tổ hợp có ngồi xổm giãn tối đa nhỏ nhất.
 """
 import sys, os, json, argparse, subprocess, itertools
 import numpy as np, bpy
@@ -12,6 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import rig_nam003 as R
 
 ZS = (0.08, 0.10, 0.12, 0.14); YS = (0.04, 0.05, 0.06); X_ANKLE = 0.148
+NGUONG_NGOI_XOM = 1.89      # thiết kế: ngồi xổm giãn tối đa <= 1,89×
 
 
 def build(tag, ankle, out_dir):
@@ -54,7 +55,10 @@ def main():
     for zy, f in done.items():
         m = measure(f, g); s = sum(v[0] + v[1] for v in m.values()); mx = max(v[2] for v in m.values())
         rows.append((s, mx, zy, m)); print(f'ankle z={zy[0]:.2f} y={zy[1]:.2f}: tổng giãn+co {s:5d}, giãn max {mx:.2f}× | ' + ' '.join(f'{k}:{v[0]}/{v[1]}' for k, v in m.items()), flush=True)
-    rows.sort(key=lambda r: (r[0], r[1])); z, y = rows[0][2]
+    ok = [r for r in rows if r[3]['ngoi_xom'][2] <= NGUONG_NGOI_XOM]
+    pool = sorted(ok, key=lambda r: (r[0], r[1])) if ok else sorted(rows, key=lambda r: (r[3]['ngoi_xom'][2], r[0]))
+    print(f'{len(ok)}/{len(rows)} tổ hợp thỏa ngồi xổm <= {NGUONG_NGOI_XOM}×' + ('' if ok else ' (KHÔNG có: chọn theo ngồi xổm nhỏ nhất)'))
+    z, y = pool[0][2]
     print(f'CHON: ankle=({X_ANKLE}, {y}, {z})')
 
 

@@ -1107,10 +1107,10 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         arm = create_loft_mesh(f"{name}_Arm_{side}", arm_rings, segments=24)
         parts.append(arm)
 
-        # Bàn tay cách điệu (Stylized Mitten Hand: Lòng bàn tay Palm + Ngón cái Thumb)
+        # Bàn tay cách điệu: một khối nắm (mitten), không có ngón
         hand_x = wx
         bpy.ops.mesh.primitive_uv_sphere_add(
-            segments=24, ring_count=12, radius=0.032,
+            segments=24, ring_count=12, radius=0.036,
             location=(hand_x, 0.0, hand_z)
         )
         palm = bpy.context.active_object
@@ -1119,18 +1119,7 @@ def create_stickman_body(name: str = "Stickman", color: str = "#eae6df", collect
         bpy.ops.object.transform_apply(scale=True)
         parts.append(palm)
 
-        # Ngón cái (Thumb - nghiêng 35 độ hướng ra trước, cắm liền vào lòng bàn tay)
-        thumb_x = hand_x - sign * 0.015
-        thumb_y = -0.015
-        thumb_z = hand_z + 0.008
-        bpy.ops.mesh.primitive_cylinder_add(
-            vertices=16, radius=0.010, depth=0.028,
-            location=(thumb_x, thumb_y, thumb_z),
-            rotation=(math.radians(35), 0.0, -sign * math.radians(25))
-        )
-        thumb = bpy.context.active_object
-        thumb.name = f"{name}_Hand_Thumb_{side}"
-        parts.append(thumb)
+        # Không còn ngón: bàn tay là một khối nắm (mitten) — bỏ ngón cái theo quyết định 17/11 (đơn giản hóa, không tạo ngón tay)
 
     # 5. Chân và Bàn chân liền mạch từ Hông -> Đùi -> Gối -> Cổ chân -> Bàn chân
     for side, sign in [("L", 1.0), ("R", -1.0)]:
@@ -1641,9 +1630,44 @@ def create_face_expression_module(name: str, char_id: str, collection: Any = Non
     for fp in face_parts:
         if collection and fp.name not in collection.objects:
             collection.objects.link(fp)
+    add_face_shape_keys(face_parts)
 
     return face_parts
 
+
+
+def add_face_shape_keys(face_parts: List[Any]) -> None:
+    """Thêm shape key biểu cảm (chạy theo xương đầu vì shape key áp trước Armature): mắt nham/lim/mo_to, mày nang/ha/lo/gian, miệng cuoi/buon/o."""
+    import numpy as np
+    def keys(ob, table):
+        me = ob.data
+        if not me.shape_keys: ob.shape_key_add(name="Basis", from_mix=False)
+        co = np.array([v.co[:] for v in me.vertices])
+        for name, fn in table.items():
+            kb = ob.shape_key_add(name=name, from_mix=False); new = fn(co.copy()); kb.data.foreach_set("co", new.ravel()); kb.slider_min, kb.slider_max = 0.0, 1.0
+    for ob in face_parts:
+        if ob is None or ob.type != "MESH": continue
+        n = ob.name
+        if "_Eye_" in n:
+            def eye(sz, sx=1.0):
+                def f(c): m = c.mean(axis=0); c[:, 2] = m[2] + (c[:, 2] - m[2]) * sz; c[:, 0] = m[0] + (c[:, 0] - m[0]) * sx; return c
+                return f
+            keys(ob, {"nham": eye(0.10, 1.05), "lim": eye(0.50), "mo_to": eye(1.40, 1.12)})
+        elif "_Brow_" in n:
+            def brow(dz_in, dz_out):
+                def f(c):
+                    a = np.abs(c[:, 0]); t = (a - a.min()) / max(1e-9, a.max() - a.min()); c[:, 2] += dz_in * (1 - t) + dz_out * t; return c
+                return f
+            keys(ob, {"nang": brow(0.009, 0.009), "ha": brow(-0.006, -0.006), "lo": brow(0.008, -0.003), "gian": brow(-0.007, 0.003)})
+        elif n.endswith("_Mouth"):
+            def mouth(k, sx=1.0, open_=0.0):
+                def f(c):
+                    m = c.mean(axis=0); hw = max(1e-9, (c[:, 0].max() - c[:, 0].min()) / 2); t = (c[:, 0] - m[0]) / hw
+                    c[:, 2] += k * (t * t - 0.33); c[:, 0] = m[0] + (c[:, 0] - m[0]) * sx
+                    if open_: c[:, 2] += np.where(c[:, 2] >= m[2], 1.0, -1.0) * open_ * (1 - np.clip(t * t, 0, 1))
+                    return c
+                return f
+            keys(ob, {"cuoi": mouth(0.013), "buon": mouth(-0.010), "o": mouth(0.0, 0.5, 0.007)})
 
 def create_outfit_module(name: str, char_id: str, collection: Any = None, offset_x: float = 0.0) -> List[Any]:
     """Dựng module trang phục (Áo + Quần riêng 2 chân + Giày) bọc ngoài thân theo preset."""
@@ -2160,8 +2184,15 @@ def bind_stickman_to_armature(char_id: str, rig_obj: Any, body_parts: List[Any] 
         
         # Phân loại nhóm đỉnh cơ bản theo tên mesh
         name_lower = obj.name.lower()
+        toks = name_lower.split("_")
+        side = toks[-1].upper() if toks[-1] in ("l", "r") else None   # trái/phải theo token cuối (không dùng "_l" in name: "_leg" cũng chứa "_l" → chân phải bị gắn vào đùi trái)
+        limb = None
+        if side and any(t in toks for t in ("arm", "sleeve", "shouldercap")): limb = "arm"
+        elif side and any(t in toks for t in ("leg", "thigh")): limb = "leg"
         target_bone = "root"
-        if any(k in name_lower for k in ["head", "hair", "eye", "brow", "mouth", "spectacles", "glasses", "helmet", "non_la"]):
+        if limb:
+            target_bone = None   # trọng số theo vị trí dọc chi, làm mượt quanh khuỷu/gối (mục dưới)
+        elif any(k in name_lower for k in ["head", "hair", "eye", "brow", "mouth", "spectacles", "glasses", "helmet", "non_la"]):
             target_bone = "head"
         elif "neck" in name_lower:
             target_bone = "neck"
@@ -2169,24 +2200,34 @@ def bind_stickman_to_armature(char_id: str, rig_obj: Any, body_parts: List[Any] 
             target_bone = "chest"
         elif any(k in name_lower for k in ["pelvis", "pants", "belt", "waist", "fannypack", "bag", "keyring", "apron"]):
             target_bone = "pelvis"
-        elif "hand" in name_lower and "_l" in name_lower:
-            target_bone = "hand.L"
-        elif "hand" in name_lower and "_r" in name_lower:
-            target_bone = "hand.R"
-        elif any(k in name_lower for k in ["arm", "sleeve", "shouldercap"]) and "_l" in name_lower:
-            target_bone = "upper_arm.L"
-        elif any(k in name_lower for k in ["arm", "sleeve", "shouldercap"]) and "_r" in name_lower:
-            target_bone = "upper_arm.R"
-        elif any(k in name_lower for k in ["thigh", "leg"]) and "_l" in name_lower:
-            target_bone = "thigh.L"
-        elif any(k in name_lower for k in ["thigh", "leg"]) and "_r" in name_lower:
-            target_bone = "thigh.R"
-        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and "_l" in name_lower:
-            target_bone = "foot.L"
-        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and "_r" in name_lower:
-            target_bone = "foot.R"
+        elif "shoulderjoint" in toks and side:      # khối cầu khớp vai: gắn vào cánh tay trên (trước đây rơi vào "root" nên đứng yên, nhô ra sau lưng khi người xoay)
+            target_bone = f"upper_arm.{side}"
+        elif "hand" in toks and side:
+            target_bone = f"hand.{side}"
+        elif any(k in name_lower for k in ["foot", "shoe", "sole"]) and side:
+            target_bone = f"foot.{side}"
 
-        # Tạo vertex group và gán weight = 1.0 cho toàn bộ vertices
+        if limb:
+            dims_ = get_base_dimensions()
+            if limb == "arm": chain = [(f"upper_arm.{side}", None), (f"forearm.{side}", dims_["shoulder_z"] - 0.28), (f"hand.{side}", dims_["shoulder_z"] - 0.55)]
+            else: chain = [(f"thigh.{side}", None), (f"shin.{side}", dims_["knee_z"]), (f"foot.{side}", dims_["ankle_z"])]
+            for bn, _ in chain:
+                if not obj.vertex_groups.get(bn): obj.vertex_groups.new(name=bn)
+            inv = rig_obj.matrix_world.inverted(); HW = 0.045   # nửa bề rộng vùng pha trộn quanh khớp
+            def ss_(t): t = max(0.0, min(1.0, t)); return t * t * (3 - 2 * t)
+            for v in obj.data.vertices:
+                z = (inv @ (obj.matrix_world @ v.co)).z
+                wA = 1.0; ws = []
+                # từ trên xuống: w xương i = (phần chưa bị xương dưới lấy) × (1 − chuyển tiếp sang xương i+1)
+                for i, (bn, _) in enumerate(chain):
+                    if i + 1 < len(chain):
+                        zj = chain[i + 1][1]; nxt = 1.0 - ss_((z - (zj - HW)) / (2 * HW))   # 0 trên khớp, 1 dưới khớp
+                    else: nxt = 0.0
+                    ws.append((bn, wA * (1.0 - nxt))); wA *= nxt
+                for bn, w in ws:
+                    if w > 1e-3: obj.vertex_groups[bn].add([v.index], w, "REPLACE")
+            continue
+
         vg = obj.vertex_groups.get(target_bone)
         if not vg:
             vg = obj.vertex_groups.new(name=target_bone)
