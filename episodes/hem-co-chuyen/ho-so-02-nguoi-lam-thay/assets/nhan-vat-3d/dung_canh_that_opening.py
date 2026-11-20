@@ -10,10 +10,12 @@ HERE = os.path.dirname(os.path.abspath(__file__)); BC = os.path.abspath(os.path.
 sys.path[:0] = [BC, HERE]
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else sys.argv[1:]
 ap = argparse.ArgumentParser(); ap.add_argument('--ra', required=True); ap.add_argument('--khung', default='0'); ap.add_argument('--cam', default='BED'); ap.add_argument('--mau', type=int, default=12)
-ap.add_argument('--rong', type=int, default=640); ap.add_argument('--dong', action='store_true', help='diễn hoạt khung 360-720: nằm → ngồi dậy → đứng → bước tới gương'); ap.add_argument('--blend', default=''); ap.add_argument('--che-do', default='night'); a = ap.parse_args(argv)
+ap.add_argument('--rong', type=int, default=640); ap.add_argument('--dong', action='store_true', help='diễn hoạt khung 360-720: nằm → ngồi dậy → đứng → bước tới gương'); ap.add_argument('--blend', default=''); ap.add_argument('--che-do', default='dawn'); a = ap.parse_args(argv)
 import xay_phong_tro as X
 import dung_stickman_cast as dsc
 W = X.W
+X.CAMERAS['MO_DAU'] = ((1.45, 0.75, 1.55), (1.2, 3.1, 0.65), 22)   # từ góc bàn nhìn qua phòng: thấy nệm, lối đi và gương (toạ độ thiết kế)
+X.CAMERAS['MO_DAU_CAO'] = ((2.9, 0.3, 2.3), (1.0, 3.0, 0.4), 24)
 sc = X.build(a.che_do, 10.0, 0.0, 0.0, a.cam, (a.rong, round(a.rong / 2.39)), den_ban=(a.che_do == 'night'))
 sc.cycles.samples = a.mau
 # chăn/cuộn chăn thật nằm trên nệm; Nam nằm đè lên nên ẩn chăn trong cảnh này
